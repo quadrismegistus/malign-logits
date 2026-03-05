@@ -44,6 +44,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+cache = [
+    "hashstash",
+]
 dev = [
     "pytest>=6.0",
     "black",
