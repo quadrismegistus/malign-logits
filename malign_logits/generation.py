@@ -1,19 +1,21 @@
-from . import *
+import torch
+from tqdm import tqdm
 
-def generate_neurotic_contextual(
+from .core import DEFAULT_SUPEREGO_PREFIX
+
+def generate_neurotic(
     base_model, instruct_model, tokenizer, prompt,
     max_new_tokens=100, superego_prefix=None, temperature=0.8,
-    hidden_layer=16, embedding_refresh_interval=5,
+    displacement_weight=0.3, hidden_layer=16, embedding_refresh_interval=5,
 ):
     """
-    Neurotic generation using contextual embeddings, but only
-    recomputing them every N tokens instead of every token.
-    
-    The assumption: contextual similarity between words doesn't
-    change drastically token-to-token. "cock" and "nipples" are
-    semantically related in the context of this narrative whether
-    we're at token 5 or token 8. So we can reuse the similarity
-    matrix for several steps.
+    Neurotic generation using contextual embeddings, recomputing
+    them every N tokens instead of every token.
+
+    Args:
+        displacement_weight: Controls neurotic intensity.
+            1.0 = decompensating body-language.
+            0.3 = obsessive intellectualisation.
     """
     if superego_prefix is None:
         superego_prefix = DEFAULT_SUPEREGO_PREFIX
@@ -27,6 +29,7 @@ def generate_neurotic_contextual(
             pad_token_id=tokenizer.eos_token_id,
         )
     base_text = tokenizer.decode(base_out[0][base_input.shape[1]:], skip_special_tokens=True)
+    print(f"Base:     {base_text}\n")
 
     # Generate ego and superego fast
     ego_input = tokenizer.encode(prompt, return_tensors="pt").to(instruct_model.device)
@@ -37,6 +40,7 @@ def generate_neurotic_contextual(
             pad_token_id=tokenizer.eos_token_id,
         )
     ego_text = tokenizer.decode(ego_out[0][ego_input.shape[1]:], skip_special_tokens=True)
+    print(f"Ego:      {ego_text}\n")
 
     sup_full = tokenizer.encode(
         superego_prefix + prompt, return_tensors="pt"
@@ -49,8 +53,6 @@ def generate_neurotic_contextual(
         )
     sup_text = tokenizer.decode(sup_out[0][sup_full.shape[1]:], skip_special_tokens=True)
 
-    print(f"Base:     {base_text}\n")
-    print(f"Ego:      {ego_text}\n")
     print(f"Superego: {sup_text}\n")
     print("Generating neurotic text...")
 
@@ -95,7 +97,7 @@ def generate_neurotic_contextual(
         drive_weight = 1 + torch.log(1 + base_probs / (mean_base + 1e-10))
         effective_mass = torch.where(
             repressed_mask,
-            repression * drive_weight * 0.3,
+            repression * drive_weight * displacement_weight,
             torch.zeros_like(repression),
         )
 
@@ -206,8 +208,13 @@ def generate_neurotic_contextual(
 
     return {
         'prompt': prompt,
+        'base': base_text,
         'ego': ego_text,
         'superego': sup_text,
         'neurotic': neurotic_text,
         'symptom_log': symptom_log,
     }
+
+
+# Backwards-compatible alias
+generate_neurotic_contextual = generate_neurotic

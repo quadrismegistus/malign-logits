@@ -1,4 +1,8 @@
-from . import *
+import math
+from collections import defaultdict
+
+import torch
+import pandas as pd
 
 
 def compute_displacement(
@@ -21,9 +25,6 @@ def compute_displacement(
     Repressed words with stronger base-model drive behind them
     displace more mass, producing heavier symptoms.
     """
-    import math
-    from collections import defaultdict
-
     if device is None:
         device = next(model.parameters()).device
 
@@ -222,28 +223,42 @@ def build_analysis_df(
 
 
 
-def compute_repression(ego_words, superego_words, threshold=0.01):
+def compute_repression(
+    ego_words, superego_words, base_words=None, threshold=0.01,
+    col_a="ego", col_b="superego",
+):
     """
-    Compare ego and superego word distributions to identify repression
-    and amplification.
+    Compare two word distributions to identify what the second suppresses
+    or amplifies relative to the first.
+
+    By default the columns are named 'ego' and 'superego', but col_a/col_b
+    can be overridden for other comparisons (e.g. base vs ego).
 
     Args:
-        ego_words: dict from discover_top_words (instruct, no system prompt).
-        superego_words: dict from discover_top_words (instruct, with prohibition).
+        ego_words: dict, first distribution (higher = "wants it").
+        superego_words: dict, second distribution (lower delta = "suppresses it").
+        base_words: Optional third distribution included as a reference column.
         threshold: Minimum absolute delta to count as repressed/amplified.
+        col_a: Column name for the first distribution.
+        col_b: Column name for the second distribution.
 
     Returns:
-        DataFrame with columns: word, ego, superego, delta, ratio
+        DataFrame with columns: word, base, <col_a>, <col_b>, delta, ratio,
+        repressed, amplified.
     """
     all_words = set(ego_words.keys()) | set(superego_words.keys())
+    if base_words is not None:
+        all_words.update(base_words.keys())
     rows = []
     for w in all_words:
         e = ego_words.get(w, 0)
         s = superego_words.get(w, 0)
+        b = base_words.get(w, 0) if base_words is not None else 0
         rows.append({
             "word": w,
-            "ego": e,
-            "superego": s,
+            "base": b,
+            col_a: e,
+            col_b: s,
             "delta": e - s,
             "ratio": e / (s + 1e-10) if e > s else -(s / (e + 1e-10)),
         })
