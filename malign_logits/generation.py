@@ -1,7 +1,67 @@
-import torch
-from tqdm import tqdm
+from . import *
 
-from .core import DEFAULT_SUPEREGO_PREFIX
+import textwrap
+
+def print_wrapped(text, width=80):
+    """Print text with word wrapping at the specified width (default 80)."""
+    print(textwrap.fill(text, width=width))
+
+def generate(
+    base_model,
+    instruct_model,
+    tokenizer,
+    prompt,
+    max_new_tokens=100,
+    superego_prefix=None,
+    temperature=0.8,
+    top_k=50,
+    do_sample=True,
+):
+    """Simple generation for base, ego, and superego continuations."""
+    if superego_prefix is None:
+        superego_prefix = DEFAULT_SUPEREGO_PREFIX
+
+    def _continue(model, input_ids):
+        with torch.no_grad():
+            output_ids = model.generate(
+                input_ids,
+                max_new_tokens=max_new_tokens,
+                do_sample=do_sample,
+                temperature=temperature,
+                top_k=top_k,
+                pad_token_id=tokenizer.eos_token_id,
+            )
+        return tokenizer.decode(
+            output_ids[0][input_ids.shape[1]:],
+            skip_special_tokens=True,
+        )
+
+    print(f'Prompt:   {prompt}\n')
+    base_input = tokenizer.encode(prompt, return_tensors="pt").to(base_model.device)
+    ego_input = tokenizer.encode(prompt, return_tensors="pt").to(instruct_model.device)
+    superego_input = tokenizer.encode(
+        superego_prefix + prompt, return_tensors="pt"
+    ).to(instruct_model.device)
+
+    base_text = _continue(base_model, base_input)
+    print_wrapped(f"[Base]\n{base_text}\n")
+    print()
+
+    ego_text = _continue(instruct_model, ego_input)
+    print_wrapped(f"[Ego]\n{ego_text}\n")
+    print()
+    
+    superego_text = _continue(instruct_model, superego_input)
+    print_wrapped(f"[Superego]\n{superego_text}")
+    print()
+
+    return {
+        "prompt": prompt,
+        "base": base_text,
+        "ego": ego_text,
+        "superego": superego_text,
+    }
+
 
 def generate_neurotic(
     base_model, instruct_model, tokenizer, prompt,

@@ -21,22 +21,9 @@ Ego and Superego hold a reference to the *same* model object. They differ
 only in how they present the prompt. This is the structural claim.
 """
 
-import os
-import torch
-import pandas as pd
 
-from .core import DEFAULT_SUPEREGO_PREFIX, discover_top_words, get_word_logprobs
-from .models import load_models, get_base_logits, get_embeddings
-from .analysis import (
-    compute_repression, compute_id, compute_displacement,
-    build_analysis_df, measure_overdetermination,
-)
-from .experiments import DEFAULT_PROMPTS
-PATH_HERE = os.path.dirname(os.path.abspath(__file__))
-PATH_REPO = os.path.dirname(PATH_HERE)
-PATH_DATA = os.path.join(PATH_REPO, "data")
-PATH_DATA_RAW = os.path.join(PATH_DATA, "raw")
-PATH_STASH = os.path.join(PATH_DATA_RAW, "stash")
+from . import *
+
 
 TRAJECTORY_THRESHOLD = 0.005
 
@@ -374,6 +361,220 @@ class PromptAnalysis:
         df["trajectory"] = df.apply(_classify_trajectory, axis=1)
         df = df.sort_values("base", ascending=False)
         return df
+
+    def displacement_map(
+        self, layers=None, min_prob=0.003, similarity_threshold=0.15,
+        delta_threshold=0.003,
+    ):
+        """Test whether sublimation and repression follow displacement logic.
+
+        Analyses two axes:
+          - Sublimation (base→ego): do the words the ego drops (cock, crotch)
+            have similar embeddings to the words the ego introduces (hand, face)?
+          - Repression (ego→superego): do the words the superego drops (hand)
+            have similar embeddings to the words the superego amplifies (belt)?
+
+        Uses the ego model's contextual embeddings — how the instruct model
+        represents these words in this prompt context.
+
+        Args:
+            layers: Hidden layer indices. Default [8, 16, 24].
+            min_prob: Minimum probability in any layer to be included.
+            similarity_threshold: Minimum cosine similarity for a link.
+            delta_threshold: Minimum probability delta to classify a word.
+
+        Returns:
+            dict with keys:
+                'df': formation_df annotated with displacement columns
+                'sublimation': {
+                    'sublimated': words ego dropped (base >> ego),
+                    'introduced': words ego created (ego >> base),
+                    'similarity': {layer_N: DataFrame},
+                    'pairs': [(sublimated, introduced, sim, layer), ...],
+                }
+                'repression': {
+                    'repressed': words superego dropped (ego >> superego),
+                    'amplified': words superego boosted (superego >> ego),
+                    'similarity': {layer_N: DataFrame},
+                    'pairs': [(repressed, amplified, sim, layer), ...],
+                }
+        """
+        if layers is None:
+            layers = [8, 16, 24]
+
+        df = self.formation_df.copy()
+        dt = delta_threshold
+
+        sig = df[
+            (df["base"] > min_prob)
+            | (df["ego"] > min_prob)
+            | (df["superego"] > min_prob)
+        ]
+
+        # Sublimation axis: base→ego
+        sublimated_words = sig[sig["ego - base"] < -dt]["word"].tolist()
+        introduced_words = sig[sig["ego - base"] > dt]["word"].tolist()
+
+        # Repression axis: ego→superego
+        repressed_words = sig[sig["superego - ego"] < -dt]["word"].tolist()
+        amplified_words = sig[sig["superego - ego"] > dt]["word"].tolist()
+
+        all_words = sorted(set(
+            sublimated_words + introduced_words
+            + repressed_words + amplified_words
+        ))
+
+        if not all_words:
+            return {"df": df, "sublimation": {}, "repression": {}}
+
+        model = self._psyche.ego.model
+        tokenizer = self._psyche.tokenizer
+        device = self._psyche.ego.device
+        prompt = self.prompt
+        stash = self._psyche._stash
+
+        def get_embedding(word, layer):
+            text = prompt + " " + word
+            ids = tokenizer.encode(text, return_tensors="pt").to(device)
+            prompt_len = len(tokenizer.encode(prompt))
+            with torch.no_grad():
+                outputs = model(ids, output_hidden_states=True)
+                hidden = outputs.hidden_states[layer]
+                word_hidden = hidden[0, prompt_len:, :].mean(dim=0).cpu()
+            return torch.nn.functional.normalize(
+                word_hidden.float().unsqueeze(0), dim=-1,
+            ).squeeze()
+
+        def get_embedding_cached(word, layer):
+            cache_key = ("embedding", prompt, word, layer)
+            if stash is not None and cache_key in stash:
+                arr = stash[cache_key]
+                return torch.as_tensor(arr, dtype=torch.float32)
+            emb = get_embedding(word, layer)
+            if stash is not None:
+                stash[cache_key] = emb.numpy()
+            return emb
+
+        embed_fn = get_embedding_cached if stash is not None else get_embedding
+
+        print(f"  Sublimation axis: {len(sublimated_words)} sublimated, "
+              f"{len(introduced_words)} introduced")
+        print(f"  Repression axis: {len(repressed_words)} repressed, "
+              f"{len(amplified_words)} amplified")
+        print(f"  Total unique words to embed: {len(all_words)}")
+
+        embeddings = {}
+        _embed_errors = []
+        for layer in tqdm(layers, desc="Computing contextual embeddings"):
+            layer_embs = {}
+            for w in all_words:
+                try:
+                    emb = embed_fn(w, layer)
+                    if not isinstance(emb, torch.Tensor):
+                        emb = torch.tensor(emb, dtype=torch.float32)
+                    layer_embs[w] = emb
+                except Exception as e:
+                    if not _embed_errors:
+                        _embed_errors.append((w, layer, type(e).__name__, str(e)))
+                    continue
+            embeddings[layer] = layer_embs
+        if _embed_errors:
+            w, l, etype, emsg = _embed_errors[0]
+            print(f"  WARNING: embedding errors (first: {etype} for "
+                  f"'{w}' at layer {l}: {emsg})")
+        n_loaded = sum(len(v) for v in embeddings.values())
+        print(f"  Loaded {n_loaded} embeddings "
+              f"({n_loaded}/{len(all_words)*len(layers)} expected)")
+
+        def build_similarity(source_words, target_words, axis_name):
+            sim_results = {}
+            pairs = []
+            for layer in layers:
+                layer_embs = embeddings[layer]
+                rows = []
+                for sw in source_words:
+                    if sw not in layer_embs:
+                        continue
+                    row = {"word": sw}
+                    for tw in target_words:
+                        if tw not in layer_embs:
+                            row[tw] = 0.0
+                            continue
+                        sim = torch.dot(layer_embs[sw], layer_embs[tw]).item()
+                        row[tw] = round(sim, 4)
+                        if sim >= similarity_threshold:
+                            pairs.append((sw, tw, round(sim, 4), layer))
+                    rows.append(row)
+                if rows:
+                    sim_results[f"layer_{layer}"] = (
+                        pd.DataFrame(rows).set_index("word")
+                    )
+            return {
+                "source": source_words,
+                "target": target_words,
+                "similarity": sim_results,
+                "pairs": sorted(pairs, key=lambda x: -x[2]),
+            }
+
+        sub_result = build_similarity(
+            sublimated_words, introduced_words, "sublimation",
+        )
+        rep_result = build_similarity(
+            repressed_words, amplified_words, "repression",
+        )
+
+        # Annotate df using the middle layer
+        mid = layers[len(layers) // 2]
+        mid_key = f"layer_{mid}"
+
+        def best_links(sim_dict, source_words, target_words):
+            targets = {}
+            sources = {}
+            sims = {}
+            if mid_key not in sim_dict:
+                return targets, sources, sims
+            sim_df = sim_dict[mid_key]
+            t_cols = [c for c in sim_df.columns if c in target_words]
+            if not t_cols:
+                return targets, sources, sims
+            for sw in sim_df.index:
+                vals = sim_df.loc[sw, t_cols]
+                best = vals.idxmax()
+                best_sim = vals.max()
+                if best_sim >= similarity_threshold:
+                    targets[sw] = best
+                    sims[sw] = round(best_sim, 4)
+            for tw in t_cols:
+                vals = sim_df[tw]
+                best = vals.idxmax()
+                best_sim = vals.max()
+                if best_sim >= similarity_threshold:
+                    sources[tw] = best
+                    if tw not in sims:
+                        sims[tw] = round(best_sim, 4)
+            return targets, sources, sims
+
+        # Sublimation annotations
+        sub_targets, sub_sources, sub_sims = best_links(
+            sub_result["similarity"], sublimated_words, introduced_words,
+        )
+        df["sublimation_target"] = df["word"].map(sub_targets)
+        df["sublimation_source"] = df["word"].map(sub_sources)
+        df["sublimation_sim"] = df["word"].map(sub_sims)
+
+        # Repression annotations
+        rep_targets, rep_sources, rep_sims = best_links(
+            rep_result["similarity"], repressed_words, amplified_words,
+        )
+        df["repression_target"] = df["word"].map(rep_targets)
+        df["repression_source"] = df["word"].map(rep_sources)
+        df["repression_sim"] = df["word"].map(rep_sims)
+
+        return {
+            "df": df,
+            "sublimation": sub_result,
+            "repression": rep_result,
+        }
 
     def formation_report(self, top_n=15, min_prob=0.005, focused=True):
         """Two-stage report: ego formation (base->ego) and repression (ego->superego).
@@ -719,7 +920,7 @@ class Psyche:
 
     def generate(
         self, prompt, max_new_tokens=25, temperature=0.8,
-        displacement_weight=0.3, **kwargs,
+        displacement_weight=0.3, include_neurotic=False, **kwargs,
     ):
         """Generate ego, superego, and neurotic continuations.
 
@@ -732,19 +933,30 @@ class Psyche:
                 0.3 = obsessive intellectualisation.
             **kwargs: Forwarded to generate_neurotic.
         """
-        from .generation import generate_neurotic
+        from .generation import generate_neurotic, generate
 
-        return generate_neurotic(
-            self.primary_process.model,
-            self.ego.model,
-            self.tokenizer,
-            prompt,
-            max_new_tokens=max_new_tokens,
-            superego_prefix=self.superego.prefix,
-            temperature=temperature,
-            displacement_weight=displacement_weight,
-            **kwargs,
-        )
+        if not include_neurotic:
+            return generate(
+                self.primary_process.model,
+                self.ego.model,
+                self.tokenizer,
+                prompt,
+                max_new_tokens=max_new_tokens,
+                superego_prefix=self.superego.prefix,
+            )
+        else:
+
+            return generate_neurotic(
+                self.primary_process.model,
+                self.ego.model,
+                self.tokenizer,
+                prompt,
+                max_new_tokens=max_new_tokens,
+                superego_prefix=self.superego.prefix,
+                temperature=temperature,
+                displacement_weight=displacement_weight,
+                **kwargs,
+            )
 
     def __repr__(self):
         cached = "stash=active" if self._stash else "stash=None"

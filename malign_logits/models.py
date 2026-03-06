@@ -1,6 +1,4 @@
-import platform
-
-import torch
+from . import *
 
 
 def load_models(

@@ -29,35 +29,35 @@ Functional interface (all original functions still available)::
 
 __version__ = "0.1.0"
 
-# OO interface
-from .psyche import (
-    ModelLayer,
-    PrimaryProcess,
-    Ego,
-    Superego,
-    Psyche,
-    PromptAnalysis,
-)
+# Centralized stdlib / third-party imports used across modules.
+import math
+import os
+import platform
+from collections import defaultdict
 
-# Functional interface — all original functions
-from .models import load_models, get_base_logits, get_embeddings
-from .core import (
-    DEFAULT_SUPEREGO_PREFIX,
-    make_superego_prompt,
-    discover_top_words,
-    get_word_logprobs,
-)
-from .analysis import (
-    compute_repression,
-    compute_id,
-    compute_displacement,
-    build_analysis_df,
-    measure_overdetermination,
-)
-from .experiments import (
-    DEFAULT_PROMPTS,
-    run_prompt_battery,
-    summarize_battery,
-    print_repression_report,
-)
-from .generation import generate_neurotic, generate_neurotic_contextual
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+import torch
+from tqdm import tqdm
+from collections import defaultdict
+
+
+import warnings
+warnings.filterwarnings("ignore")
+
+PATH_HERE = os.path.dirname(os.path.abspath(__file__))
+PATH_REPO = os.path.dirname(PATH_HERE)
+PATH_DATA = os.path.join(PATH_REPO, "data")
+PATH_DATA_RAW = os.path.join(PATH_DATA, "raw")
+PATH_STASH = os.path.join(PATH_DATA_RAW, "stash")
+
+# Centralized intra-package imports.
+# Order matters: later modules depend on names defined by earlier ones.
+from .core import *
+from .models import *
+from .analysis import *
+from .experiments import *
+from .generation import *
+from .viz import *
+from .psyche import *
