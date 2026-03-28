@@ -133,3 +133,39 @@ def get_word_logprobs(model, tokenizer, prompt, candidate_words, device=None):
     probs = {w: p / total for w, p in probs.items()}
 
     return dict(sorted(probs.items(), key=lambda x: -x[1]))
+
+
+def score_words_from_logits(logits, tokenizer, candidate_words):
+    """Score candidate words using pre-computed logits (single forward pass).
+
+    For single-token words, reads probability directly from the logits.
+    Multi-token words are approximated using the first token's probability.
+
+    Much faster than get_word_logprobs (which does one forward pass per word).
+
+    Args:
+        logits: Raw logits tensor at the last position (vocab_size,).
+        tokenizer: Tokenizer for encoding words.
+        candidate_words: List of words to score.
+
+    Returns:
+        dict mapping word (str) -> probability (float), sorted descending.
+    """
+    log_probs = torch.log_softmax(logits.float(), dim=-1)
+    word_scores = {}
+
+    for word in candidate_words:
+        token_ids = tokenizer.encode(" " + word, add_special_tokens=False)
+        if not token_ids:
+            continue
+        word_scores[word] = log_probs[token_ids[0]].item()
+
+    if not word_scores:
+        return {}
+
+    max_lp = max(word_scores.values())
+    probs = {w: math.exp(lp - max_lp) for w, lp in word_scores.items()}
+    total = sum(probs.values())
+    probs = {w: p / total for w, p in probs.items()}
+
+    return dict(sorted(probs.items(), key=lambda x: -x[1]))
