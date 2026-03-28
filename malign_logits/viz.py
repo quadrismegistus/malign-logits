@@ -25,6 +25,8 @@ def plot_formation_trajectories(
     formation,
     prompt=None,
     min_prob=0.003,
+    min_delta=None,
+    sort_by="mass",
     top_n=120,
     color_by_shape=True,
     label_words=True,
@@ -47,7 +49,13 @@ def plot_formation_trajectories(
             DataFrame in `formation_df` format.
         prompt: Optional prompt text for title (auto-read from PromptAnalysis).
         min_prob: Keep words above this prob in at least one layer.
-        top_n: Max number of words to draw (highest combined mass first).
+        min_delta: If set, also include words where max delta between any
+            adjacent layers exceeds this threshold (catches high-movement
+            low-probability words like sublimated terms).
+        sort_by: How to rank words for top_n. "mass" (default) sorts by
+            total probability across layers. "delta" sorts by maximum
+            absolute delta between adjacent layers.
+        top_n: Max number of words to draw.
         color_by_shape: If True, color by trajectory class.
         label_words: If True, print word labels at the last layer point.
         facet_by_shape: If True, create one subplot per trajectory class.
@@ -99,14 +107,36 @@ def plot_formation_trajectories(
 
         df["trajectory"] = df.apply(_classify, axis=1)
 
-    sig = df[
-        df[cols].max(axis=1) > min_prob
-    ].copy()
-    if len(sig) == 0:
-        raise ValueError("No words passed min_prob filter; lower `min_prob`.")
+    # Filter: include words above min_prob OR above min_delta
+    prob_mask = df[cols].max(axis=1) > min_prob
 
+    # Compute max absolute delta between adjacent layers
+    delta_cols = []
+    for i in range(len(cols) - 1):
+        col_name = f"_delta_{i}"
+        df[col_name] = (df[cols[i]] - df[cols[i + 1]]).abs()
+        delta_cols.append(col_name)
+    df["_max_delta"] = df[delta_cols].max(axis=1)
+
+    if min_delta is not None:
+        delta_mask = df["_max_delta"] > min_delta
+        sig = df[prob_mask | delta_mask].copy()
+    else:
+        sig = df[prob_mask].copy()
+
+    if len(sig) == 0:
+        raise ValueError("No words passed filters; lower `min_prob` or `min_delta`.")
+
+    # Sort by chosen criterion
     sig["mass"] = sig[cols].sum(axis=1)
-    sig = sig.sort_values("mass", ascending=False).head(top_n)
+    if sort_by == "delta":
+        sig = sig.sort_values("_max_delta", ascending=False).head(top_n)
+    else:
+        sig = sig.sort_values("mass", ascending=False).head(top_n)
+
+    # Clean up temp columns
+    df.drop(columns=delta_cols + ["_max_delta"], inplace=True, errors="ignore")
+    sig.drop(columns=delta_cols + ["_max_delta"], inplace=True, errors="ignore")
 
     shape_colors = {
         "decline": "#e15759",
