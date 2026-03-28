@@ -22,30 +22,50 @@ _psyche = None
 _models_loaded = False
 _model_status = "Models not loaded"
 _cache = {}  # prompt -> PromptAnalysis
+_dm_cache = {}  # prompt -> displacement_map result (3-layer)
+_dm_full_cache = {}  # prompt -> displacement_map result (all layers)
 _computing = {}  # prompt -> threading.Event (set when done)
 
 
 def _get_psyche():
-    global _psyche, _models_loaded, _model_status
+    global _psyche, _model_status
     if _psyche is None:
-        _model_status = "Loading models... (base)"
         from .psyche import Psyche
-        _psyche = Psyche.from_pretrained()
+        _psyche = Psyche.from_cache()
+        _model_status = "Cache loaded (models not in memory)."
+    return _psyche
+
+
+def _ensure_models():
+    """Load models if not already loaded. Called on cache miss."""
+    global _models_loaded, _model_status
+    psyche = _get_psyche()
+    if not _models_loaded:
+        _model_status = "Loading models..."
+        psyche.load_models()
         _models_loaded = True
         _model_status = "Models loaded."
-    return _psyche
 
 
 def _analyze_sync(prompt):
     """Run analysis (expensive). Called in background thread."""
     psyche = _get_psyche()
     analysis = psyche.analyze(prompt)
-    # Force computation of core properties
-    _ = analysis.base_words
-    _ = analysis.ego_words
-    _ = analysis.superego_words
-    _ = analysis.repression
-    _ = analysis.formation_df
+    try:
+        # Try cache first — no models needed
+        _ = analysis.base_words
+        _ = analysis.ego_words
+        _ = analysis.superego_words
+        _ = analysis.repression
+        _ = analysis.formation_df
+    except RuntimeError:
+        # Cache miss — need models
+        _ensure_models()
+        _ = analysis.base_words
+        _ = analysis.ego_words
+        _ = analysis.superego_words
+        _ = analysis.repression
+        _ = analysis.formation_df
     return analysis
 
 
@@ -86,10 +106,34 @@ def _capture_print(fn, *args, **kwargs):
     return buf.getvalue()
 
 
+def _format_pairs(dm):
+    """Format displacement pairs as text."""
+    lines = []
+    lines.append("## Sublimation pairs (base → ego)")
+    lines.append("")
+    for src, tgt, sim, layer in (dm.get("sublimation", {}).get("pairs", []))[:25]:
+        lines.append(f"  {src:15s} → {tgt:15s}  sim={sim:.4f}  layer={layer}")
+    lines.append("")
+    lines.append("## Repression pairs (ego → superego)")
+    lines.append("")
+    for src, tgt, sim, layer in (dm.get("repression", {}).get("pairs", []))[:25]:
+        lines.append(f"  {src:15s} → {tgt:15s}  sim={sim:.4f}  layer={layer}")
+    return "\n".join(lines)
+
+
+def _get_sublimation_sources(dm):
+    """Get source words from displacement map for dropdown."""
+    sub_pairs = dm.get("sublimation", {}).get("pairs", [])
+    if not sub_pairs:
+        return []
+    sub_df = pd.DataFrame(sub_pairs, columns=["source", "target", "sim", "layer"])
+    return sub_df.groupby("source")["sim"].max().nlargest(20).index.tolist()
+
+
 # ── Gradio callbacks ──────────────────────────────────────────────
 
 def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
-    """Main analysis callback. Returns all outputs."""
+    """Main analysis callback."""
     empty = ("Enter a prompt above.", None, None, None, None, "", "", gr.update())
     if not prompt or not prompt.strip():
         yield empty
@@ -109,17 +153,11 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
     try:
         analysis = _ensure_analysis(prompt)
 
-        # Formation report (captured from stdout)
         report_text = _capture_print(analysis.formation_report)
-
-        # Formation DataFrame
         formation_df = analysis.formation_df.copy()
-
-        # Repression DataFrame
         rep_df = analysis.repression.copy()
         rep_df = rep_df[["word", "base", "ego", "superego", "delta", "repressed", "amplified"]]
 
-        # Trajectory plot with user controls
         from .viz import plot_formation_trajectories
         traj_fig = plot_formation_trajectories(
             analysis,
@@ -133,14 +171,8 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
         dropdown_update = gr.update(choices=_all_known_prompts())
 
         yield (
-            status,
-            formation_df,
-            rep_df,
-            traj_fig,
-            None,
-            report_text,
-            "",
-            dropdown_update,
+            status, formation_df, rep_df, traj_fig,
+            None, report_text, "", dropdown_update,
         )
 
     except Exception as e:
@@ -154,11 +186,8 @@ def on_replot(prompt, sort_by, top_n, min_prob, min_delta):
     """Replot trajectory with new settings (no recompute)."""
     if not prompt or not prompt.strip() or prompt.strip() not in _cache:
         return None
-
-    prompt = prompt.strip()
-    analysis = _cache[prompt]
+    analysis = _cache[prompt.strip()]
     min_delta_val = min_delta if min_delta > 0 else None
-
     from .viz import plot_formation_trajectories
     return plot_formation_trajectories(
         analysis,
@@ -170,41 +199,90 @@ def on_replot(prompt, sort_by, top_n, min_prob, min_delta):
 
 
 def on_displacement(prompt):
-    """Compute displacement map (heavier, separate button)."""
+    """Compute 3-layer displacement map."""
     if not prompt or not prompt.strip():
         return None, ""
-
     prompt = prompt.strip()
     if prompt not in _cache:
         return None, "Run analysis first."
 
     try:
         analysis = _cache[prompt]
+        _ensure_models()
         dm = analysis.displacement_map()
+        _dm_cache[prompt] = dm
 
-        # Format pairs
-        lines = []
-        lines.append("## Sublimation pairs (base → ego)")
-        lines.append("")
-        for src, tgt, sim, layer in (dm.get("sublimation", {}).get("pairs", []))[:25]:
-            lines.append(f"  {src:15s} → {tgt:15s}  sim={sim:.4f}  layer={layer}")
-
-        lines.append("")
-        lines.append("## Repression pairs (ego → superego)")
-        lines.append("")
-        for src, tgt, sim, layer in (dm.get("repression", {}).get("pairs", []))[:25]:
-            lines.append(f"  {src:15s} → {tgt:15s}  sim={sim:.4f}  layer={layer}")
-
-        pairs_text = "\n".join(lines)
-
-        # Displacement plot
         from .viz import plot_displacement
-        disp_fig = plot_displacement(dm, prompt)
-
-        return disp_fig, pairs_text
+        return plot_displacement(dm, prompt), _format_pairs(dm)
 
     except Exception as e:
         return None, f"Error: {e}\n\n```\n{traceback.format_exc()}\n```"
+
+
+def on_layer_displacement(prompt, source_word):
+    """Compute all-layer displacement map and plot layer displacement.
+
+    This is heavy: embeddings at all 32 hidden layers for all significant words.
+    """
+    if not prompt or not prompt.strip():
+        yield "Enter a prompt and run analysis first.", None, gr.update()
+        return
+    prompt = prompt.strip()
+    if prompt not in _cache:
+        yield "Run analysis first.", None, gr.update()
+        return
+
+    yield "**Computing all-layer displacement map...** This embeds words at all 32 hidden layers. May take a few minutes.", None, gr.update()
+
+    try:
+        analysis = _cache[prompt]
+        _ensure_models()
+
+        # Compute full displacement map if not cached
+        if prompt not in _dm_full_cache:
+            dm = analysis.displacement_map(layers=list(range(1, 33)))
+            _dm_full_cache[prompt] = dm
+        else:
+            dm = _dm_full_cache[prompt]
+
+        # Get available source words
+        sources = _get_sublimation_sources(dm)
+        source_update = gr.update(choices=sources, value=source_word or (sources[0] if sources else None))
+
+        # Plot
+        from .viz import plot_layer_displacement
+        src = source_word if source_word and source_word in sources else (sources[0] if sources else None)
+        if src is None:
+            yield "No sublimation pairs found.", None, source_update
+            return
+
+        figs = plot_layer_displacement(dm, prompt, source_word=src)
+        fig = figs[0] if figs else None
+
+        yield f"Layer displacement for **{src}** → targets", fig, source_update
+
+    except Exception as e:
+        yield f"Error: {e}\n\n```\n{traceback.format_exc()}\n```", None, gr.update()
+
+
+def on_replot_layers(prompt, source_word):
+    """Replot layer displacement with different source word (no recompute)."""
+    if not prompt or not prompt.strip():
+        return "Select a prompt.", None
+    prompt = prompt.strip()
+    if prompt not in _dm_full_cache:
+        return "Run layer displacement first.", None
+    if not source_word:
+        return "Select a source word.", None
+
+    try:
+        dm = _dm_full_cache[prompt]
+        from .viz import plot_layer_displacement
+        figs = plot_layer_displacement(dm, prompt, source_word=source_word)
+        fig = figs[0] if figs else None
+        return f"Layer displacement for **{source_word}** → targets", fig
+    except Exception as e:
+        return f"Error: {e}", None
 
 
 def on_queue_prompts(prompts_text):
@@ -240,12 +318,10 @@ def _stash_prompts():
         for key in psyche._stash.keys():
             if not isinstance(key, tuple):
                 continue
-            # Cache keys are tuples like ("top_words", model_id, name, prompt, top_k)
-            # or ("analysis", key, fingerprint, prompt, top_k)
             if len(key) >= 4 and key[0] == "top_words":
-                prompts.add(key[3])  # prompt is 4th element
+                prompts.add(key[3])
             elif len(key) >= 5 and key[0] == "analysis":
-                prompts.add(key[3])  # prompt is 4th element
+                prompts.add(key[3])
     except Exception:
         pass
     return prompts
@@ -284,8 +360,7 @@ def on_check_cache():
     if not memory_cached and not disk_cached and not computing:
         parts.append("\nNo cached prompts yet.")
 
-    status_text = "\n".join(parts)
-    return status_text, gr.update(choices=prompts)
+    return "\n".join(parts), gr.update(choices=prompts)
 
 
 def on_select_prompt(prompt):
@@ -386,6 +461,27 @@ def build_app():
                     lines=30,
                 )
 
+            with gr.Tab("Layer displacement"):
+                gr.Markdown(
+                    "Trace how displacement similarity evolves across all 32 "
+                    "hidden layers of the SFT model. Shows where in the network "
+                    "the model recognises that a sublimated word is semantically "
+                    "related to its displacement target.\n\n"
+                    "**Heavy compute:** embeds words at every hidden layer. "
+                    "First run takes several minutes; results are cached."
+                )
+                with gr.Row():
+                    layer_btn = gr.Button("Compute layer displacement", variant="primary")
+                    layer_source = gr.Dropdown(
+                        choices=[],
+                        label="Source word",
+                        info="Sublimated word to trace through layers (auto-populated after compute)",
+                        interactive=True,
+                    )
+                    layer_replot_btn = gr.Button("Replot source")
+                layer_status = gr.Markdown("")
+                layer_plot = gr.Plot(label="Displacement through hidden layers")
+
             with gr.Tab("Batch / queue"):
                 gr.Markdown(
                     "Queue multiple prompts for background computation. "
@@ -401,20 +497,16 @@ def build_app():
                     check_btn = gr.Button("Check cache")
                 queue_status = gr.Markdown("")
 
-        # Wire up callbacks
+        # ── Wire up callbacks ─────────────────────────────────────
+
         plot_inputs = [prompt_input, sort_by, top_n, min_prob, min_delta]
 
         analyze_btn.click(
             fn=on_analyze,
             inputs=plot_inputs,
             outputs=[
-                status_md,
-                formation_df,
-                repression_df,
-                trajectory_plot,
-                displacement_plot,
-                report_text,
-                displacement_pairs,
+                status_md, formation_df, repression_df, trajectory_plot,
+                displacement_plot, report_text, displacement_pairs,
                 prompt_dropdown,
             ],
         )
@@ -429,6 +521,18 @@ def build_app():
             fn=on_displacement,
             inputs=[prompt_input],
             outputs=[displacement_plot, displacement_pairs],
+        )
+
+        layer_btn.click(
+            fn=on_layer_displacement,
+            inputs=[prompt_input, layer_source],
+            outputs=[layer_status, layer_plot, layer_source],
+        )
+
+        layer_replot_btn.click(
+            fn=on_replot_layers,
+            inputs=[prompt_input, layer_source],
+            outputs=[layer_status, layer_plot],
         )
 
         prompt_dropdown.change(
