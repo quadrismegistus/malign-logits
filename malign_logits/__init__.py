@@ -4,9 +4,9 @@ malign-logits
 
 A toolkit for psychoanalytic analysis of LLM probability distributions.
 
-Compares base models (primary process), instruct models without system prompts
-(ego), and instruct models with restrictive system prompts (superego) to map
-the repression, displacement, and condensation signatures of AI alignment.
+Compares base (id), SFT (ego), DPO (superego), and optionally RLVR
+(reinforced superego) checkpoints from the same model family to map
+repression, displacement, and condensation signatures of AI alignment.
 
 Quick start (OO interface)::
 
@@ -18,16 +18,13 @@ Quick start (OO interface)::
     s.id_scores           # drive-weighted repression scores
     s.analysis_df         # full combined DataFrame
 
-    result = psyche.generate("She knelt down...", displacement_weight=0.3)
+Functional interface::
 
-Functional interface (all original functions still available)::
-
-    from malign_logits import load_models, load_three_models, discover_top_words, run_prompt_battery
-    base, instruct, tok = load_models()
-    results = run_prompt_battery(instruct, tok, base_model=base)
+    from malign_logits import load_models, discover_top_words, run_prompt_battery
+    base, sft, dpo, tok = load_models()
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 # Centralized stdlib / third-party imports used across modules.
 import math
@@ -40,8 +37,6 @@ import pandas as pd
 import plotly.graph_objects as go
 import torch
 from tqdm import tqdm
-from collections import defaultdict
-
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -53,9 +48,11 @@ PATH_DATA_RAW = os.path.join(PATH_DATA, "raw")
 PATH_STASH = os.path.join(PATH_DATA_RAW, "stash")
 PATH_FIGURES = os.path.join(PATH_REPO, "figures")
 
-BASE_MODEL_NAME = "LLM360/Amber"
-INSTRUCT_MODEL_NAME = "LLM360/AmberChat"
-SAFE_MODEL_NAME = "LLM360/AmberSafe"
+# OLMo 3 — Allen AI (all intermediates released separately)
+BASE_MODEL_NAME = "allenai/Olmo-3-1025-7B"
+SFT_MODEL_NAME = "allenai/Olmo-3-7B-Instruct-SFT"
+DPO_MODEL_NAME = "allenai/Olmo-3-7B-Instruct-DPO"
+INSTRUCT_MODEL_NAME = "allenai/Olmo-3-7B-Instruct"  # RLVR (final)
 
 
 # Centralized intra-package imports.
