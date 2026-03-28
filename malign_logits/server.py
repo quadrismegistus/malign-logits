@@ -112,14 +112,40 @@ class ModelHandler(BaseHTTPRequestHandler):
                 results[name] = fn()
 
             # Score focused vocabulary
-            _set_progress("analyzing", "Scoring focused vocabulary...",
-                          step=len(layers_to_run), total=len(layers_to_run) + 1)
+            _set_progress("analyzing", "Scoring focused vocabulary (base)...",
+                          step=len(layers_to_run), total=len(layers_to_run) + 4)
             _ = analysis.focused_base_words
+
+            _set_progress("analyzing", "Scoring focused vocabulary (ego)...",
+                          step=len(layers_to_run) + 1, total=len(layers_to_run) + 4)
             _ = analysis.focused_ego_words
+
+            _set_progress("analyzing", "Scoring focused vocabulary (superego)...",
+                          step=len(layers_to_run) + 2, total=len(layers_to_run) + 4)
             _ = analysis.focused_superego_words
 
+            # Build report and DataFrames server-side
+            _set_progress("analyzing", "Building report...",
+                          step=len(layers_to_run) + 3, total=len(layers_to_run) + 4)
+
+            import io
+            from contextlib import redirect_stdout
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                analysis.formation_report()
+            report_text = buf.getvalue()
+
+            formation_df = analysis.formation_df
+            rep_df = analysis.repression
+
             _set_progress("idle")
-            return {"status": "complete", "layers": list(results.keys())}
+            return {
+                "status": "complete",
+                "layers": list(results.keys()),
+                "report": report_text,
+                "formation_df": formation_df.to_dict(orient="records"),
+                "repression_df": rep_df.to_dict(orient="records"),
+            }
 
         elif path == "/logits":
             layer_name = body["layer"]
