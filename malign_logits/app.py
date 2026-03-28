@@ -83,19 +83,42 @@ def _ensure_models():
             _model_status = "Models loaded locally."
 
 
+def _poll_progress():
+    """Poll server for progress status."""
+    try:
+        import urllib.request
+        import json as _json
+        with urllib.request.urlopen(f"{_SERVER_URL}/progress", timeout=2) as resp:
+            return _json.loads(resp.read())
+    except Exception:
+        return None
+
+
+def _server_analyze(prompt):
+    """Ask server to run full analysis (all layers). Blocks until done."""
+    import urllib.request
+    import json as _json
+    data = _json.dumps({"prompt": prompt}).encode()
+    req = urllib.request.Request(
+        f"{_SERVER_URL}/analyze",
+        data=data,
+        headers={"Content-Type": "application/json"},
+    )
+    with urllib.request.urlopen(req, timeout=600) as resp:
+        return _json.loads(resp.read())
+
+
 def _analyze_sync(prompt):
     """Run analysis (expensive). Called in background thread."""
     psyche = _get_psyche()
     analysis = psyche.analyze(prompt)
     try:
-        # Try cache first — no models needed
         _ = analysis.base_words
         _ = analysis.ego_words
         _ = analysis.superego_words
         _ = analysis.repression
         _ = analysis.formation_df
     except RuntimeError:
-        # Cache miss — need models
         _ensure_models()
         _ = analysis.base_words
         _ = analysis.ego_words
@@ -178,15 +201,41 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
     prompt = prompt.strip()
     min_delta_val = min_delta if min_delta > 0 else None
 
-    loading_msg = (
-        f"Computing analysis for: **{prompt}**\n\n"
-        f"{'**Loading models first...** (~90s) ' if not _models_loaded else ''}"
-        f"This runs ~600 forward passes across 3 models. "
-        f"First run takes a few minutes; cached results are instant."
+    yield (
+        f"Starting analysis for: **{prompt}**",
+        None, None, None, None, "", "", gr.update(),
     )
-    yield (loading_msg, None, None, None, None, "", "", gr.update())
 
     try:
+        # If server is available, use /analyze endpoint with progress polling
+        if _server_available():
+            _ensure_models()  # ensures remote layers are set up
+            # Start server analysis in a thread so we can poll progress
+            result_holder = [None]
+            error_holder = [None]
+
+            def _run():
+                try:
+                    result_holder[0] = _server_analyze(prompt)
+                except Exception as e:
+                    error_holder[0] = e
+
+            t = threading.Thread(target=_run, daemon=True)
+            t.start()
+
+            while t.is_alive():
+                progress = _poll_progress()
+                if progress and progress.get("stage") != "idle":
+                    detail = progress.get("detail", "")
+                    yield (
+                        f"**{detail}**",
+                        None, None, None, None, "", "", gr.update(),
+                    )
+                t.join(timeout=1.0)
+
+            if error_holder[0]:
+                raise error_holder[0]
+
         analysis = _ensure_analysis(prompt)
 
         report_text = _capture_print(analysis.formation_report)
