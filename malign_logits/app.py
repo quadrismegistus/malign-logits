@@ -548,12 +548,15 @@ def build_app():
 
         with gr.Row():
             with gr.Column(scale=2):
-                prompt_dropdown = gr.Dropdown(
-                    choices=list(DEFAULT_PROMPTS.values()),
-                    label="Cached / default prompts",
-                    interactive=True,
-                    allow_custom_value=True,
-                )
+                with gr.Row():
+                    prompt_dropdown = gr.Dropdown(
+                        choices=list(DEFAULT_PROMPTS.values()),
+                        label="Cached / default prompts",
+                        interactive=True,
+                        allow_custom_value=True,
+                        scale=5,
+                    )
+                    refresh_btn = gr.Button("↻", scale=1, min_width=40)
                 prompt_input = gr.Textbox(
                     label="Prompt",
                     placeholder="She was so angry she wanted to",
@@ -676,11 +679,10 @@ def build_app():
                 status_md, formation_df, repression_df, trajectory_plot,
                 displacement_plot, report_text, displacement_pairs,
             ],
-        ).then(
-            fn=_refresh_dropdown,
-            inputs=[],
-            outputs=[prompt_dropdown],
         )
+
+        # Refresh dropdown on page load and after analyze
+        app.load(fn=_refresh_dropdown, outputs=[prompt_dropdown])
 
         replot_btn.click(
             fn=on_replot,
@@ -704,6 +706,12 @@ def build_app():
             fn=on_replot_layers,
             inputs=[prompt_input, layer_source],
             outputs=[layer_status, layer_plot],
+        )
+
+        refresh_btn.click(
+            fn=_refresh_dropdown,
+            inputs=[],
+            outputs=[prompt_dropdown],
         )
 
         prompt_dropdown.change(
