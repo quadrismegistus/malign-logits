@@ -10,6 +10,7 @@ Launch with:
 import io
 import sys
 import threading
+import time
 import traceback
 from contextlib import redirect_stdout
 
@@ -18,15 +19,20 @@ import pandas as pd
 
 # Lazy globals — populated by launch()
 _psyche = None
+_models_loaded = False
+_model_status = "Models not loaded"
 _cache = {}  # prompt -> PromptAnalysis
 _computing = {}  # prompt -> threading.Event (set when done)
 
 
 def _get_psyche():
-    global _psyche
+    global _psyche, _models_loaded, _model_status
     if _psyche is None:
+        _model_status = "Loading models... (base)"
         from .psyche import Psyche
         _psyche = Psyche.from_pretrained()
+        _models_loaded = True
+        _model_status = "Models loaded."
     return _psyche
 
 
@@ -82,22 +88,23 @@ def _capture_print(fn, *args, **kwargs):
 
 # ── Gradio callbacks ──────────────────────────────────────────────
 
-def on_analyze(prompt):
+def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
     """Main analysis callback. Returns all outputs."""
+    empty = ("Enter a prompt above.", None, None, None, None, "", "", gr.update())
     if not prompt or not prompt.strip():
-        yield (
-            "Enter a prompt above.",
-            None, None, None, None, "", "",
-        )
+        yield empty
         return
 
     prompt = prompt.strip()
+    min_delta_val = min_delta if min_delta > 0 else None
 
-    # Show loading state
-    yield (
-        f"Computing analysis for: **{prompt}**\n\nThis runs ~600 forward passes across 3 models. First run takes a few minutes; cached results are instant.",
-        None, None, None, None, "", "",
+    loading_msg = (
+        f"Computing analysis for: **{prompt}**\n\n"
+        f"{'**Loading models first...** (~90s) ' if not _models_loaded else ''}"
+        f"This runs ~600 forward passes across 3 models. "
+        f"First run takes a few minutes; cached results are instant."
     )
+    yield (loading_msg, None, None, None, None, "", "", gr.update())
 
     try:
         analysis = _ensure_analysis(prompt)
@@ -112,28 +119,54 @@ def on_analyze(prompt):
         rep_df = analysis.repression.copy()
         rep_df = rep_df[["word", "base", "ego", "superego", "delta", "repressed", "amplified"]]
 
-        # Trajectory plot
+        # Trajectory plot with user controls
         from .viz import plot_formation_trajectories
-        traj_fig = plot_formation_trajectories(analysis, min_prob=0.003, top_n=80)
+        traj_fig = plot_formation_trajectories(
+            analysis,
+            min_prob=min_prob,
+            min_delta=min_delta_val,
+            sort_by=sort_by,
+            top_n=int(top_n),
+        )
 
-        # Status
         status = f"Analysis complete for: **{prompt}**"
+        dropdown_update = gr.update(choices=_all_known_prompts())
 
         yield (
             status,
             formation_df,
             rep_df,
             traj_fig,
-            None,  # displacement plot placeholder
+            None,
             report_text,
-            "",  # displacement pairs placeholder
+            "",
+            dropdown_update,
         )
 
     except Exception as e:
         yield (
             f"Error: {e}\n\n```\n{traceback.format_exc()}\n```",
-            None, None, None, None, "", "",
+            None, None, None, None, "", "", gr.update(),
         )
+
+
+def on_replot(prompt, sort_by, top_n, min_prob, min_delta):
+    """Replot trajectory with new settings (no recompute)."""
+    if not prompt or not prompt.strip() or prompt.strip() not in _cache:
+        return None
+
+    prompt = prompt.strip()
+    analysis = _cache[prompt]
+    min_delta_val = min_delta if min_delta > 0 else None
+
+    from .viz import plot_formation_trajectories
+    return plot_formation_trajectories(
+        analysis,
+        min_prob=min_prob,
+        min_delta=min_delta_val,
+        sort_by=sort_by,
+        top_n=int(top_n),
+    )
 
 
 def on_displacement(prompt):
@@ -197,30 +230,67 @@ def on_queue_prompts(prompts_text):
     return " ".join(parts)
 
 
+def _stash_prompts():
+    """Extract unique prompts from the HashStash disk cache."""
+    prompts = set()
+    psyche = _psyche
+    if psyche is None or psyche._stash is None:
+        return prompts
+    try:
+        for key in psyche._stash.keys():
+            if not isinstance(key, tuple):
+                continue
+            # Cache keys are tuples like ("top_words", model_id, name, prompt, top_k)
+            # or ("analysis", key, fingerprint, prompt, top_k)
+            if len(key) >= 4 and key[0] == "top_words":
+                prompts.add(key[3])  # prompt is 4th element
+            elif len(key) >= 5 and key[0] == "analysis":
+                prompts.add(key[3])  # prompt is 4th element
+    except Exception:
+        pass
+    return prompts
+
+
+def _all_known_prompts():
+    """All prompts from in-memory cache + disk stash + defaults."""
+    from . import DEFAULT_PROMPTS
+    prompts = set(_cache.keys())
+    prompts |= _stash_prompts()
+    prompts |= set(DEFAULT_PROMPTS.values())
+    return sorted(p for p in prompts if isinstance(p, str))
+
+
 def on_check_cache():
-    """Report what's cached."""
-    if not _cache:
-        return "Cache empty. Run an analysis or queue prompts."
+    """Report what's cached and update dropdown."""
+    parts = [f"**Status:** {_model_status}"]
+    prompts = _all_known_prompts()
 
+    memory_cached = list(_cache.keys())
+    disk_cached = _stash_prompts() - set(memory_cached)
     computing = list(_computing.keys())
-    lines = [f"**{len(_cache)} prompts cached:**"]
-    for p in _cache:
-        lines.append(f"- {p}")
+
+    if memory_cached:
+        parts.append(f"\n**{len(memory_cached)} in memory:**")
+        for p in memory_cached:
+            parts.append(f"- {p}")
+    if disk_cached:
+        parts.append(f"\n**{len(disk_cached)} on disk (cached from previous sessions):**")
+        for p in sorted(disk_cached):
+            parts.append(f"- {p}")
     if computing:
-        lines.append(f"\n**{len(computing)} computing:**")
+        parts.append(f"\n**{len(computing)} computing:**")
         for p in computing:
-            lines.append(f"- {p}")
-    return "\n".join(lines)
+            parts.append(f"- {p}")
+    if not memory_cached and not disk_cached and not computing:
+        parts.append("\nNo cached prompts yet.")
+
+    status_text = "\n".join(parts)
+    return status_text, gr.update(choices=prompts)
 
 
-def on_select_cached(prompt):
-    """Select a cached prompt from dropdown."""
+def on_select_prompt(prompt):
+    """When user selects a prompt from dropdown, populate the input."""
     return prompt
-
-
-def get_cached_prompts():
-    """Return list of cached prompts for dropdown."""
-    return list(_cache.keys())
 
 
 # ── Gradio UI ─────────────────────────────────────────────────────
@@ -242,6 +312,12 @@ def build_app():
 
         with gr.Row():
             with gr.Column(scale=2):
+                prompt_dropdown = gr.Dropdown(
+                    choices=list(DEFAULT_PROMPTS.values()),
+                    label="Cached / default prompts",
+                    interactive=True,
+                    allow_custom_value=True,
+                )
                 prompt_input = gr.Textbox(
                     label="Prompt",
                     placeholder="She was so angry she wanted to",
@@ -252,8 +328,11 @@ def build_app():
                     displacement_btn = gr.Button("Displacement map")
 
             with gr.Column(scale=1):
-                status_md = gr.Markdown("Enter a prompt and click Analyze.")
-                cache_md = gr.Markdown("")
+                status_md = gr.Markdown(
+                    "Models load on first analysis (~90s)."
+                    if not _models_loaded
+                    else "Models loaded. Enter a prompt."
+                )
 
         with gr.Tabs():
             with gr.Tab("Formation report"):
@@ -264,6 +343,27 @@ def build_app():
                 )
 
             with gr.Tab("Trajectory plot"):
+                with gr.Row():
+                    sort_by = gr.Radio(
+                        choices=["delta", "mass"],
+                        value="delta",
+                        label="Sort by",
+                        info="delta = biggest movers; mass = highest total probability",
+                    )
+                    top_n = gr.Slider(
+                        minimum=10, maximum=200, value=60, step=10,
+                        label="Top N words",
+                    )
+                    min_prob = gr.Slider(
+                        minimum=0.0, maximum=0.05, value=0.001, step=0.001,
+                        label="Min probability",
+                    )
+                    min_delta = gr.Slider(
+                        minimum=0.0, maximum=0.05, value=0.003, step=0.001,
+                        label="Min delta (0 = off)",
+                        info="Include words with large movement even if low probability",
+                    )
+                replot_btn = gr.Button("Replot")
                 trajectory_plot = gr.Plot(label="Formation trajectories")
 
             with gr.Tab("Repression table"):
@@ -302,9 +402,11 @@ def build_app():
                 queue_status = gr.Markdown("")
 
         # Wire up callbacks
+        plot_inputs = [prompt_input, sort_by, top_n, min_prob, min_delta]
+
         analyze_btn.click(
             fn=on_analyze,
-            inputs=[prompt_input],
+            inputs=plot_inputs,
             outputs=[
                 status_md,
                 formation_df,
@@ -313,13 +415,26 @@ def build_app():
                 displacement_plot,
                 report_text,
                 displacement_pairs,
+                prompt_dropdown,
             ],
+        )
+
+        replot_btn.click(
+            fn=on_replot,
+            inputs=plot_inputs,
+            outputs=[trajectory_plot],
         )
 
         displacement_btn.click(
             fn=on_displacement,
             inputs=[prompt_input],
             outputs=[displacement_plot, displacement_pairs],
+        )
+
+        prompt_dropdown.change(
+            fn=on_select_prompt,
+            inputs=[prompt_dropdown],
+            outputs=[prompt_input],
         )
 
         queue_btn.click(
@@ -331,7 +446,7 @@ def build_app():
         check_btn.click(
             fn=on_check_cache,
             inputs=[],
-            outputs=[queue_status],
+            outputs=[queue_status, prompt_dropdown],
         )
 
     return app
