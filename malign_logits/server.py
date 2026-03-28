@@ -111,31 +111,44 @@ class ModelHandler(BaseHTTPRequestHandler):
                               step=i, total=len(layers_to_run))
                 results[name] = fn()
 
-            # Score focused vocabulary
-            _set_progress("analyzing", "Scoring focused vocabulary (base)...",
-                          step=len(layers_to_run), total=len(layers_to_run) + 4)
-            _ = analysis.focused_base_words
-
-            _set_progress("analyzing", "Scoring focused vocabulary (ego)...",
-                          step=len(layers_to_run) + 1, total=len(layers_to_run) + 4)
-            _ = analysis.focused_ego_words
-
-            _set_progress("analyzing", "Scoring focused vocabulary (superego)...",
-                          step=len(layers_to_run) + 2, total=len(layers_to_run) + 4)
-            _ = analysis.focused_superego_words
-
-            # Build report and DataFrames server-side
+            # Build report and DataFrames server-side using unfocused words
+            # (focused scoring does 1 forward pass per word — too slow)
             _set_progress("analyzing", "Building report...",
-                          step=len(layers_to_run) + 3, total=len(layers_to_run) + 4)
+                          step=len(layers_to_run), total=len(layers_to_run) + 1)
 
             import io
+            import pandas as _pd
             from contextlib import redirect_stdout
+
+            # Build formation_df from raw word distributions (no extra passes)
+            base_w = results.get("base", {})
+            ego_w = results.get("ego", {})
+            sup_w = results.get("superego", {})
+            all_words = sorted(set(base_w) | set(ego_w) | set(sup_w))
+            rows = []
+            for w in all_words:
+                b = base_w.get(w, 0)
+                e = ego_w.get(w, 0)
+                s = sup_w.get(w, 0)
+                rows.append({
+                    "word": w,
+                    "base": round(b, 6),
+                    "ego": round(e, 6),
+                    "superego": round(s, 6),
+                    "ego - base": round(e - b, 6),
+                    "superego - ego": round(s - e, 6),
+                })
+            formation_df = _pd.DataFrame(rows)
+            if len(formation_df):
+                from .psyche import _classify_trajectory
+                formation_df["trajectory"] = formation_df.apply(_classify_trajectory, axis=1)
+                formation_df = formation_df.sort_values("base", ascending=False)
+
             buf = io.StringIO()
             with redirect_stdout(buf):
-                analysis.formation_report()
+                analysis.formation_report(focused=False)
             report_text = buf.getvalue()
 
-            formation_df = analysis.formation_df
             rep_df = analysis.repression
 
             _set_progress("idle")
