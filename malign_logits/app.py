@@ -234,6 +234,31 @@ def on_replot(prompt, sort_by, top_n, min_prob, min_delta):
     )
 
 
+def _request_server_displacement(prompt, layers=None):
+    """Ask server to compute displacement map and return serialized result."""
+    import urllib.request
+    import json as _json
+    body = {"prompt": prompt}
+    if layers is not None:
+        body["layers"] = layers
+    data = _json.dumps(body).encode()
+    req = urllib.request.Request(
+        f"{_SERVER_URL}/displacement_map",
+        data=data,
+        headers={"Content-Type": "application/json"},
+    )
+    with urllib.request.urlopen(req, timeout=600) as resp:
+        result = _json.loads(resp.read())
+
+    # Reconstruct DataFrame
+    result["df"] = pd.DataFrame(result["df"])
+    # Pairs come as lists of lists, convert to tuples
+    for axis in ("sublimation", "repression"):
+        if axis in result:
+            result[axis]["pairs"] = [tuple(p) for p in result[axis].get("pairs", [])]
+    return result
+
+
 def on_displacement(prompt):
     """Compute 3-layer displacement map."""
     if not prompt or not prompt.strip():
@@ -243,9 +268,12 @@ def on_displacement(prompt):
         return None, "Run analysis first."
 
     try:
-        analysis = _cache[prompt]
-        _ensure_models()
-        dm = analysis.displacement_map()
+        if _server_available():
+            dm = _request_server_displacement(prompt)
+        else:
+            analysis = _cache[prompt]
+            _ensure_models()
+            dm = analysis.displacement_map()
         _dm_cache[prompt] = dm
 
         from .viz import plot_displacement
@@ -271,12 +299,14 @@ def on_layer_displacement(prompt, source_word):
     yield "**Computing all-layer displacement map...** This embeds words at all 32 hidden layers. May take a few minutes.", None, gr.update()
 
     try:
-        analysis = _cache[prompt]
-        _ensure_models()
-
         # Compute full displacement map if not cached
         if prompt not in _dm_full_cache:
-            dm = analysis.displacement_map(layers=list(range(1, 33)))
+            if _server_available():
+                dm = _request_server_displacement(prompt, layers=list(range(1, 33)))
+            else:
+                analysis = _cache[prompt]
+                _ensure_models()
+                dm = analysis.displacement_map(layers=list(range(1, 33)))
             _dm_full_cache[prompt] = dm
         else:
             dm = _dm_full_cache[prompt]
