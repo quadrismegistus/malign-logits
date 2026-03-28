@@ -275,7 +275,11 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
         )
 
         status = f"Analysis complete for: **{prompt}**"
-        dropdown_update = gr.update(choices=_all_known_prompts())
+        known = _all_known_prompts()
+        if prompt not in known:
+            known.append(prompt)
+            known.sort()
+        dropdown_update = gr.update(choices=known, value=prompt)
 
         yield (
             status, formation_df, rep_df, traj_fig,
