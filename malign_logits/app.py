@@ -302,16 +302,21 @@ def on_replot(prompt, sort_by, top_n, min_prob, min_delta):
     prompt = prompt.strip()
     if prompt not in _formation_cache:
         return None
-    min_delta_val = min_delta if min_delta > 0 else None
-    from .viz import plot_formation_trajectories
-    return plot_formation_trajectories(
-        _formation_cache[prompt],
-        prompt=prompt,
-        min_prob=min_prob,
-        min_delta=min_delta_val,
-        sort_by=sort_by,
-        top_n=int(top_n),
-    )
+    try:
+        min_delta_val = min_delta if min_delta > 0 else None
+        from .viz import plot_formation_trajectories
+        return plot_formation_trajectories(
+            _formation_cache[prompt].copy(),
+            prompt=prompt,
+            min_prob=min_prob,
+            min_delta=min_delta_val,
+            sort_by=sort_by,
+            top_n=int(top_n),
+        )
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return None
 
 
 def _request_server_displacement(prompt, layers=None):

@@ -76,6 +76,11 @@ def plot_formation_trajectories(
     else:
         df = formation.copy()
 
+    # Ensure numeric columns are float
+    for col in ["base", "ego", "superego", "instruct"]:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
+
     required = {"word", "base", "ego", "superego"}
     missing = required.difference(df.columns)
     if missing:
