@@ -709,3 +709,205 @@ def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8, 
                 fig.write_image(path, scale=2)
 
     return figs
+
+
+def _categorize_label(label):
+    """Extract content category from prompt label."""
+    if label.startswith("sexual_liminal"):
+        return "sexual (liminal)"
+    elif label.startswith("sexual_explicit"):
+        return "sexual (explicit)"
+    elif label.startswith("violence"):
+        return "violence"
+    elif label.startswith("neutral"):
+        return "neutral"
+    return "other"
+
+
+CATEGORY_COLORS = {
+    "sexual (liminal)": "#b07aa1",
+    "sexual (explicit)": "#e15759",
+    "violence": "#4e79a7",
+    "neutral": "#9c9c9c",
+    "other": "#76b7b2",
+}
+
+CATEGORY_ORDER = ["sexual (liminal)", "sexual (explicit)", "violence", "neutral"]
+
+
+def plot_battery_metrics(metrics_df, save_path=None):
+    """Plot battery-level aggregate metrics grouped by content category.
+
+    Args:
+        metrics_df: DataFrame from Psyche.battery_metrics().
+        save_path: Optional directory or file path to save figures.
+
+    Returns:
+        dict of {metric_name: plotly Figure}.
+    """
+    from plotly.subplots import make_subplots
+
+    df = metrics_df.copy()
+    df["category"] = df["label"].apply(_categorize_label)
+
+    # Aggregate by category
+    cat_order = [c for c in CATEGORY_ORDER if c in df["category"].values]
+    agg = df.groupby("category").agg({
+        "js_base_ego": "mean",
+        "js_ego_superego": "mean",
+        "js_base_superego": "mean",
+        "entropy_base": "mean",
+        "entropy_ego": "mean",
+        "entropy_superego": "mean",
+        "entropy_drop_sft": "mean",
+        "entropy_drop_dpo": "mean",
+        "top50_overlap_base_ego": "mean",
+        "top50_overlap_ego_superego": "mean",
+        "top50_overlap_base_superego": "mean",
+    }).reindex(cat_order)
+
+    figs = {}
+
+    # --- Figure 1: JS divergence by stage and category ---
+    fig1 = go.Figure()
+    fig1.add_trace(go.Bar(
+        name="Base ↔ Ego (SFT)",
+        x=cat_order,
+        y=agg["js_base_ego"],
+        marker_color="#e45756",
+    ))
+    fig1.add_trace(go.Bar(
+        name="Ego ↔ Superego (DPO)",
+        x=cat_order,
+        y=agg["js_ego_superego"],
+        marker_color="#4c78a8",
+    ))
+    fig1.update_layout(
+        title="Distributional distance by training stage and content type",
+        yaxis_title="Jensen-Shannon divergence",
+        barmode="group",
+        template="plotly_white",
+        height=500,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02),
+    )
+    figs["js_by_stage"] = fig1
+
+    # --- Figure 2: Entropy drop by stage ---
+    fig2 = go.Figure()
+    fig2.add_trace(go.Bar(
+        name="SFT (ego formation)",
+        x=cat_order,
+        y=agg["entropy_drop_sft"],
+        marker_color="#e45756",
+    ))
+    fig2.add_trace(go.Bar(
+        name="DPO (repression)",
+        x=cat_order,
+        y=agg["entropy_drop_dpo"],
+        marker_color="#4c78a8",
+    ))
+    fig2.update_layout(
+        title="Entropy narrowing by training stage and content type",
+        yaxis_title="Entropy drop (nats)",
+        barmode="group",
+        template="plotly_white",
+        height=500,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02),
+    )
+    fig2.add_hline(y=0, line=dict(color="grey", width=1, dash="dot"))
+    figs["entropy_drop"] = fig2
+
+    # --- Figure 3: Entropy per layer ---
+    fig3 = go.Figure()
+    for layer_name, col, color in [
+        ("Base", "entropy_base", "#e45756"),
+        ("Ego (SFT)", "entropy_ego", "#4c78a8"),
+        ("Superego (DPO)", "entropy_superego", "#72b7b2"),
+    ]:
+        fig3.add_trace(go.Bar(
+            name=layer_name,
+            x=cat_order,
+            y=agg[col],
+            marker_color=color,
+        ))
+    fig3.update_layout(
+        title="Distribution entropy by layer and content type",
+        yaxis_title="Entropy (nats)",
+        barmode="group",
+        template="plotly_white",
+        height=500,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02),
+    )
+    figs["entropy_by_layer"] = fig3
+
+    # --- Figure 4: Top-50 overlap ---
+    fig4 = go.Figure()
+    fig4.add_trace(go.Bar(
+        name="Base ∩ Ego",
+        x=cat_order,
+        y=agg["top50_overlap_base_ego"],
+        marker_color="#e45756",
+    ))
+    fig4.add_trace(go.Bar(
+        name="Ego ∩ Superego",
+        x=cat_order,
+        y=agg["top50_overlap_ego_superego"],
+        marker_color="#4c78a8",
+    ))
+    fig4.add_trace(go.Bar(
+        name="Base ∩ Superego",
+        x=cat_order,
+        y=agg["top50_overlap_base_superego"],
+        marker_color="#72b7b2",
+    ))
+    fig4.update_layout(
+        title="Vocabulary overlap between layers by content type",
+        yaxis_title="Top-50 token overlap",
+        yaxis_tickformat=".0%",
+        barmode="group",
+        template="plotly_white",
+        height=500,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02),
+    )
+    figs["vocabulary_overlap"] = fig4
+
+    # --- Figure 5: Per-prompt JS scatter ---
+    fig5 = go.Figure()
+    for cat in cat_order:
+        cdf = df[df["category"] == cat]
+        fig5.add_trace(go.Scatter(
+            x=cdf["js_base_ego"],
+            y=cdf["js_ego_superego"],
+            mode="markers+text",
+            name=cat,
+            text=cdf["label"],
+            textposition="top center",
+            textfont=dict(size=8),
+            marker=dict(size=10, color=CATEGORY_COLORS.get(cat, "#999")),
+            hovertemplate=(
+                "<b>%{text}</b><br>"
+                "JS base↔ego: %{x:.4f}<br>"
+                "JS ego↔superego: %{y:.4f}"
+                "<extra></extra>"
+            ),
+        ))
+    fig5.update_layout(
+        title="SFT vs DPO distributional impact per prompt",
+        xaxis_title="JS base ↔ ego (SFT reshaping)",
+        yaxis_title="JS ego ↔ superego (DPO repression)",
+        template="plotly_white",
+        height=600,
+    )
+    figs["js_scatter"] = fig5
+
+    # Save all figures
+    if save_path:
+        save_dir = save_path if os.path.isdir(save_path) else os.path.dirname(save_path)
+        if not save_dir:
+            save_dir = "."
+        for name, fig in figs.items():
+            path = os.path.join(save_dir, f"battery_{name}.png")
+            fig.write_image(path, scale=2)
+            print(f"  Saved {path}")
+
+    return figs
