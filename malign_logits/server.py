@@ -16,6 +16,7 @@ Or from the Gradio app:
 import json
 import time
 from http.server import HTTPServer, BaseHTTPRequestHandler
+from socketserver import ThreadingMixIn
 import threading
 
 # Models loaded once at startup
@@ -164,13 +165,17 @@ class ModelHandler(BaseHTTPRequestHandler):
         pass
 
 
+class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
+    daemon_threads = True
+
+
 def serve(port=8421):
     """Start the model server."""
     # Load models in background while server starts
     thread = threading.Thread(target=_get_psyche, daemon=True)
     thread.start()
 
-    server = HTTPServer(("127.0.0.1", port), ModelHandler)
+    server = ThreadingHTTPServer(("127.0.0.1", port), ModelHandler)
     print(f"Model server running on http://127.0.0.1:{port}")
     print(f"Models loading in background...")
     try:
