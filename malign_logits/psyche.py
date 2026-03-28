@@ -148,6 +148,67 @@ class ModelLayer:
         return f"{self.__class__.__name__}(name={self.name!r})"
 
 
+class RemoteModelLayer(ModelLayer):
+    """A ModelLayer that delegates computation to a running model server."""
+
+    def __init__(self, server_url, layer_name, model_id, name=None):
+        super().__init__(model=None, tokenizer=None, name=name or layer_name, model_id=model_id)
+        self._server_url = server_url
+        self._layer_name = layer_name
+
+    def _post(self, endpoint, **kwargs):
+        import urllib.request
+        import json as _json
+        data = _json.dumps(kwargs).encode()
+        req = urllib.request.Request(
+            f"{self._server_url}{endpoint}",
+            data=data,
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=600) as resp:
+            return _json.loads(resp.read())
+
+    def top_words(self, prompt, top_k_first=200, **kwargs):
+        cache_key = ("top_words", self.model_id, self.name, prompt, top_k_first)
+        if self._stash is not None and cache_key in self._stash:
+            return self._stash[cache_key]
+
+        result = self._post("/top_words", layer=self._layer_name, prompt=prompt, top_k=top_k_first)["words"]
+
+        if self._stash is not None:
+            self._stash[cache_key] = result
+        return result
+
+    def score_vocabulary(self, prompt, words):
+        words = sorted(set(words))
+        cache_key = ("score_vocab", self.model_id, self.name, prompt, tuple(words))
+        if self._stash is not None and cache_key in self._stash:
+            return self._stash[cache_key]
+
+        result = self._post("/score_vocabulary", layer=self._layer_name, prompt=prompt, words=words)["words"]
+
+        if self._stash is not None:
+            self._stash[cache_key] = result
+        return result
+
+    def logits(self, prompt):
+        result = self._post("/logits", layer=self._layer_name, prompt=prompt)
+        return torch.tensor(result["logits"])
+
+    def word_logprobs(self, prompt, candidate_words):
+        return self.score_vocabulary(prompt, candidate_words)
+
+    def _require_model(self):
+        pass  # remote layers are always available
+
+    @property
+    def device(self):
+        return torch.device("cpu")  # remote — tensors arrive on CPU
+
+    def __repr__(self):
+        return f"RemoteModelLayer(name={self.name!r}, server={self._server_url!r})"
+
+
 class PrimaryProcess(ModelLayer):
     """Base model. Pre-categorical statistical field.
 
@@ -1049,6 +1110,66 @@ class Psyche:
             instruct_name=instruct_name,
         )
         psyche.load_models(instruct_name=instruct_name)
+        return psyche
+
+    @classmethod
+    def from_server(
+        cls,
+        server_url="http://127.0.0.1:8421",
+        cache=None,
+        cache_dir=PATH_STASH,
+    ):
+        """Connect to a running model server instead of loading models locally.
+
+        The server handles forward passes; the Psyche handles analysis,
+        caching, and visualization. Start the server with `malign serve`.
+
+        Displacement maps still require local models (contextual embeddings
+        are too large to serialize efficiently). Call psyche.load_models()
+        if you need displacement maps.
+        """
+        import urllib.request
+        import json as _json
+
+        # Get model IDs from server
+        try:
+            with urllib.request.urlopen(f"{server_url}/info", timeout=5) as resp:
+                info = _json.loads(resp.read())
+        except Exception as e:
+            raise ConnectionError(
+                f"Cannot connect to model server at {server_url}. "
+                f"Start it with `malign serve`. Error: {e}"
+            )
+
+        if cache is None and cache_dir is not None:
+            from hashstash import HashStash
+            cache = HashStash(root_dir=cache_dir)
+
+        psyche = cls(
+            stash=cache,
+            base_name=info["base"],
+            sft_name=info["ego"],
+            dpo_name=info["superego"],
+            instruct_name=info.get("instruct"),
+        )
+
+        # Replace layers with remote versions
+        psyche.primary_process = RemoteModelLayer(
+            server_url, "base", info["base"], name="base",
+        )
+        psyche.ego = RemoteModelLayer(
+            server_url, "ego", info["ego"], name="ego",
+        )
+        psyche.superego = RemoteModelLayer(
+            server_url, "superego", info["superego"], name="superego",
+        )
+        if info.get("instruct"):
+            psyche.reinforced_superego = RemoteModelLayer(
+                server_url, "instruct", info["instruct"], name="instruct",
+            )
+
+        psyche._models_loaded = True  # remote counts as loaded
+        psyche._propagate_stash()
         return psyche
 
     # -- analysis ------------------------------------------------------------
