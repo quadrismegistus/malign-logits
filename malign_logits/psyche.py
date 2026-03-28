@@ -102,8 +102,18 @@ class ModelLayer:
 
     def logits(self, prompt):
         """Raw logits at the last position for this prompt."""
+        cache_key = ("logits", self.model_id, self.name, prompt)
+
+        if self._stash is not None and cache_key in self._stash:
+            return torch.tensor(self._stash[cache_key])
+
         self._require_model()
-        return get_base_logits(self.model, self.tokenizer, prompt)
+        result = get_base_logits(self.model, self.tokenizer, prompt)
+
+        if self._stash is not None:
+            self._stash[cache_key] = result.numpy()
+
+        return result
 
     def word_logprobs(self, prompt, candidate_words):
         """Exact log-probabilities for specific candidate words."""
@@ -115,10 +125,9 @@ class ModelLayer:
     def score_vocabulary(self, prompt, words):
         """Score a fixed vocabulary through this layer.
 
-        Unlike top_words (which discovers what the model wants to say),
-        this asks: given these specific words, what are their relative
-        probabilities?  One forward pass per word, no open-ended
-        discovery, no noise from formatting tokens.
+        Uses cached logits from a single forward pass when available
+        (fast — no extra model calls). Falls back to per-word forward
+        passes only if logits aren't cached.
 
         Returns:
             dict mapping word -> probability (normalized within the set).
@@ -130,9 +139,10 @@ class ModelLayer:
             return self._stash[cache_key]
 
         self._require_model()
-        result = get_word_logprobs(
-            self.model, self.tokenizer, prompt, words,
-        )
+
+        # Fast path: score from cached logits (1 forward pass total)
+        raw_logits = self.logits(prompt)
+        result = score_words_from_logits(raw_logits, self.tokenizer, words)
 
         if self._stash is not None:
             self._stash[cache_key] = result
