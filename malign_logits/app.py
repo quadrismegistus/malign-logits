@@ -22,6 +22,7 @@ _psyche = None
 _models_loaded = False
 _model_status = "Models not loaded"
 _cache = {}  # prompt -> PromptAnalysis
+_formation_cache = {}  # prompt -> formation DataFrame
 _dm_cache = {}  # prompt -> displacement_map result (3-layer)
 _dm_full_cache = {}  # prompt -> displacement_map result (all layers)
 _computing = {}  # prompt -> threading.Event (set when done)
@@ -261,6 +262,8 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
             rep_df = analysis.repression.copy()
             rep_df = rep_df[["word", "base", "ego", "superego", "delta", "repressed", "amplified"]]
 
+        _formation_cache[prompt] = formation_df
+
         from .viz import plot_formation_trajectories
         traj_fig = plot_formation_trajectories(
             formation_df,
@@ -288,13 +291,16 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
 
 def on_replot(prompt, sort_by, top_n, min_prob, min_delta):
     """Replot trajectory with new settings (no recompute)."""
-    if not prompt or not prompt.strip() or prompt.strip() not in _cache:
+    if not prompt or not prompt.strip():
         return None
-    analysis = _cache[prompt.strip()]
+    prompt = prompt.strip()
+    if prompt not in _formation_cache:
+        return None
     min_delta_val = min_delta if min_delta > 0 else None
     from .viz import plot_formation_trajectories
     return plot_formation_trajectories(
-        analysis,
+        _formation_cache[prompt],
+        prompt=prompt,
         min_prob=min_prob,
         min_delta=min_delta_val,
         sort_by=sort_by,
