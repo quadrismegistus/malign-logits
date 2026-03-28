@@ -47,6 +47,12 @@ class ModelHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/health":
             self._respond(200, {"status": "ok", "models_loaded": _psyche is not None})
+        elif self.path == "/info":
+            try:
+                result = self._dispatch({})
+                self._respond(200, result)
+            except Exception as e:
+                self._respond(500, {"error": str(e)})
         else:
             self._respond(404, {"error": "not found"})
 
