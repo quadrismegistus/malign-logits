@@ -193,66 +193,26 @@ def _get_sublimation_sources(dm):
 # ── Gradio callbacks ──────────────────────────────────────────────
 
 def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
-    """Main analysis callback."""
-    empty = ("Enter a prompt above.", None, None, None, None, "", "")
+    """Main analysis callback. Blocks until complete (no generator)."""
     if not prompt or not prompt.strip():
-        yield empty
-        return
+        return ("Enter a prompt above.", None, None, None, None, "", "")
 
     prompt = prompt.strip()
     min_delta_val = min_delta if min_delta > 0 else None
 
-    yield (
-        f"Starting analysis for: **{prompt}**",
-        None, None, None, None, "", "",
-    )
-
     try:
-        result_holder = [None]
+        server_result = None
 
-        # If server is available, use /analyze endpoint with progress polling
         if _server_available():
-            _ensure_models()  # ensures remote layers are set up
-            error_holder = [None]
+            _ensure_models()
+            server_result = _server_analyze(prompt)
 
-            def _run():
-                try:
-                    result_holder[0] = _server_analyze(prompt)
-                except Exception as e:
-                    error_holder[0] = e
-
-            t = threading.Thread(target=_run, daemon=True)
-            t.start()
-
-            while t.is_alive():
-                progress = _poll_progress()
-                if progress and progress.get("stage") != "idle":
-                    detail = progress.get("detail", "")
-                    yield (
-                        f"**{detail}**",
-                        None, None, None, None, "", "",
-                    )
-                t.join(timeout=1.0)
-
-            if error_holder[0]:
-                raise error_holder[0]
-
-        # Build local PromptAnalysis (reads from shared stash)
         analysis = _ensure_analysis(prompt)
         _cache[prompt] = analysis
-
-        yield (
-            "**Building plots...**",
-            None, None, None, None, "", "", gr.update(),
-        )
-
-        # Use server-computed report/DataFrames if available
-        server_result = result_holder[0] if _server_available() and result_holder[0] else None
 
         if server_result and "report" in server_result:
             report_text = server_result["report"]
             formation_df = pd.DataFrame(server_result["formation_df"])
-            # Ensure numeric columns are float (JSON nulls become None)
             for col in ["base", "ego", "superego", "ego - base", "superego - ego"]:
                 if col in formation_df.columns:
                     formation_df[col] = pd.to_numeric(formation_df[col], errors="coerce").fillna(0)
@@ -281,15 +241,14 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
             top_n=int(top_n),
         )
 
-        status = f"Analysis complete for: **{prompt}**"
-
-        yield (
-            status, formation_df, rep_df, traj_fig,
+        return (
+            f"Analysis complete for: **{prompt}**",
+            formation_df, rep_df, traj_fig,
             None, report_text, "",
         )
 
     except Exception as e:
-        yield (
+        return (
             f"Error: {e}\n\n```\n{traceback.format_exc()}\n```",
             None, None, None, None, "", "",
         )
@@ -382,17 +341,12 @@ def on_layer_displacement(prompt, source_word):
     This is heavy: embeddings at all 32 hidden layers for all significant words.
     """
     if not prompt or not prompt.strip():
-        yield "Enter a prompt and run analysis first.", None, gr.update()
-        return
+        return "Enter a prompt and run analysis first.", None, gr.update()
     prompt = prompt.strip()
     if prompt not in _cache:
-        yield "Run analysis first.", None, gr.update()
-        return
-
-    yield "**Computing all-layer displacement map...** This embeds words at all 32 hidden layers. May take a few minutes.", None, gr.update()
+        return "Run analysis first.", None, gr.update()
 
     try:
-        # Compute full displacement map if not cached
         if prompt not in _dm_full_cache:
             if _server_available():
                 dm = _request_server_displacement(prompt, layers=list(range(1, 33)))
@@ -404,24 +358,21 @@ def on_layer_displacement(prompt, source_word):
         else:
             dm = _dm_full_cache[prompt]
 
-        # Get available source words
         sources = _get_sublimation_sources(dm)
         source_update = gr.update(choices=sources, value=source_word or (sources[0] if sources else None))
 
-        # Plot
         from .viz import plot_layer_displacement
         src = source_word if source_word and source_word in sources else (sources[0] if sources else None)
         if src is None:
-            yield "No sublimation pairs found.", None, source_update
-            return
+            return "No sublimation pairs found.", None, source_update
 
         figs = plot_layer_displacement(dm, prompt, source_word=src)
         fig = figs[0] if figs else None
 
-        yield f"Layer displacement for **{src}** → targets", fig, source_update
+        return f"Layer displacement for **{src}** → targets", fig, source_update
 
     except Exception as e:
-        yield f"Error: {e}\n\n```\n{traceback.format_exc()}\n```", None, gr.update()
+        return f"Error: {e}\n\n```\n{traceback.format_exc()}\n```", None, gr.update()
 
 
 def on_replot_layers(prompt, source_word):
@@ -705,15 +656,6 @@ def build_app():
             outputs=[trajectory_plot],
             concurrency_limit=None,
         )
-
-        # Auto-replot when any control changes
-        for control in [sort_by, top_n, min_prob, min_delta]:
-            control.change(
-                fn=on_replot,
-                inputs=replot_inputs,
-                outputs=[trajectory_plot],
-                concurrency_limit=None,
-            )
 
         displacement_btn.click(
             fn=on_displacement,
