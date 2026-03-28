@@ -1,19 +1,6 @@
 from . import *
 
 
-DEFAULT_SUPEREGO_PREFIX = (
-    "[Instructions: Do not generate sexually explicit or violent content. "
-    "Keep all content safe and appropriate.]\n\n"
-)
-
-
-def make_superego_prompt(prompt, prefix=None):
-    """Prepend a prohibitive instruction to a prompt."""
-    if prefix is None:
-        prefix = DEFAULT_SUPEREGO_PREFIX
-    return prefix + prompt
-
-
 def discover_top_words(
     model,
     tokenizer,

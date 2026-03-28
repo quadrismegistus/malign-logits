@@ -8,17 +8,19 @@ The class hierarchy mirrors the psychoanalytic topology:
 
     ModelLayer          — a structural position in the psychic apparatus
     ├── PrimaryProcess  — base model (pre-categorical statistical field)
-    ├── Ego             — instruct model, no prohibition (desire with coherence)
-    └── Superego        — instruct model + prohibition prefix (repressive overlay)
+    ├── Ego             — SFT model (socialised subject, desire with coherence)
+    ├── Superego        — DPO model (Name-of-the-Father, prohibition)
+    └── ReinforcedSuperego — RLVR model (ego-ideal, demand for competence)
 
-    Psyche              — composes all three layers; the apparatus as a whole
+    Psyche              — composes all layers; the apparatus as a whole
     PromptAnalysis      — lazily-computed analysis of a single prompt
 
 The Id is not a class. It emerges from the *relationship* between all
-three layers — computed as a property, never instantiated.
+layers — computed as a property, never instantiated.
 
-By default, Ego and Superego can share a model (superego via prefixing), but
-the implementation also supports a dedicated safe model/tokenizer.
+Each layer is a separate model checkpoint. Unlike the previous architecture
+where the superego was the ego + a prohibition prefix, each layer now has
+its own weights reflecting a distinct training stage.
 """
 
 
@@ -26,7 +28,6 @@ from . import *
 
 
 TRAJECTORY_THRESHOLD = 0.005
-# TRAJECTORY_THRESHOLD = 0.001
 
 
 def _classify_trajectory(row):
@@ -53,6 +54,16 @@ def _classify_trajectory(row):
 # Layers
 # ---------------------------------------------------------------------------
 
+def _model_id(model):
+    """Extract a stable identifier from a HuggingFace model for cache keying."""
+    config = getattr(model, "config", None)
+    if config is not None:
+        name = getattr(config, "_name_or_path", None)
+        if name:
+            return name
+    return str(id(model))
+
+
 class ModelLayer:
     """A structural position in the psychic apparatus."""
 
@@ -60,11 +71,12 @@ class ModelLayer:
         self.model = model
         self.tokenizer = tokenizer
         self.name = name
+        self.model_id = _model_id(model)
         self._stash = None
 
     def top_words(self, prompt, top_k_first=200, **kwargs):
         """Word-level probability distribution from this layer."""
-        cache_key = ("top_words", self.name, prompt, top_k_first)
+        cache_key = ("top_words", self.model_id, self.name, prompt, top_k_first)
 
         if self._stash is not None and cache_key in self._stash:
             return self._stash[cache_key]
@@ -101,7 +113,7 @@ class ModelLayer:
             dict mapping word -> probability (normalized within the set).
         """
         words = sorted(set(words))
-        cache_key = ("score_vocab", self.name, prompt, tuple(words))
+        cache_key = ("score_vocab", self.model_id, self.name, prompt, tuple(words))
 
         if self._stash is not None and cache_key in self._stash:
             return self._stash[cache_key]
@@ -134,48 +146,33 @@ class PrimaryProcess(ModelLayer):
 
 
 class Ego(ModelLayer):
-    """Instruct model without prohibition.
+    """SFT model. Socialised subject capable of desire.
 
-    RLHF gives genre awareness, narrative competence, coherence.  The ego
-    is a functioning subject capable of desire — perfectly willing to produce
+    Supervised fine-tuning gives genre awareness, narrative competence,
+    coherence.  The ego is a functioning subject — willing to produce
     explicit content; no repression, no symptom.
     """
     pass
 
 
 class Superego(ModelLayer):
-    """Instruct model with prohibition prefix.
+    """DPO model. The Name-of-the-Father.
 
-    External prohibition imposed on an already-formed subject.  Contextual,
-    variable, removable.  This is where repression happens.
+    Direct preference optimisation internalises prohibition — the desire
+    of the Other (annotator preferences). This is where repression happens.
+    A separate checkpoint, not a prefix overlay.
     """
+    pass
 
-    def __init__(self, model, tokenizer, prefix=None, use_prefix=True, name=None):
-        super().__init__(model, tokenizer, name=name)
-        self.prefix = prefix or DEFAULT_SUPEREGO_PREFIX
-        self.use_prefix = use_prefix
 
-    def _prepare_prompt(self, prompt):
-        return self.prefix + prompt if self.use_prefix else prompt
+class ReinforcedSuperego(ModelLayer):
+    """RLVR model. The ego-ideal.
 
-    def top_words(self, prompt, **kwargs):
-        return super().top_words(self._prepare_prompt(prompt), **kwargs)
-
-    def logits(self, prompt):
-        return super().logits(self._prepare_prompt(prompt))
-
-    def word_logprobs(self, prompt, candidate_words):
-        return super().word_logprobs(self._prepare_prompt(prompt), candidate_words)
-
-    def score_vocabulary(self, prompt, words):
-        return super().score_vocabulary(self._prepare_prompt(prompt), words)
-
-    def __repr__(self):
-        prefix_preview = self.prefix[:40].replace("\n", "\\n") + "..."
-        return (
-            f"Superego(name={self.name!r}, prefix={prefix_preview!r}, "
-            f"use_prefix={self.use_prefix})"
-        )
+    Reinforcement learning from verifiable rewards adds the demand for
+    competence on top of prohibition. Not "don't desire that" but
+    "you must be correct." The neurotic double bind.
+    """
+    pass
 
 
 # ---------------------------------------------------------------------------
@@ -183,7 +180,7 @@ class Superego(ModelLayer):
 # ---------------------------------------------------------------------------
 
 class PromptAnalysis:
-    """All three layers' view of a single prompt, computed on demand.
+    """All layers' view of a single prompt, computed on demand.
 
     Properties trigger computation only when accessed.  Results are cached
     in memory for the session and, if a HashStash is attached to the parent
@@ -196,13 +193,23 @@ class PromptAnalysis:
         self._top_k = top_k_first
         self._memo = {}
 
+    @property
+    def _model_fingerprint(self):
+        """Stable fingerprint of the model configuration for cache keying."""
+        ids = [self._psyche.primary_process.model_id,
+               self._psyche.ego.model_id,
+               self._psyche.superego.model_id]
+        if self._psyche.reinforced_superego is not None:
+            ids.append(self._psyche.reinforced_superego.model_id)
+        return tuple(ids)
+
     def _get(self, key, fn):
         if key in self._memo:
             return self._memo[key]
 
         stash = self._psyche._stash
         if stash is not None:
-            stash_key = ("analysis", key, self.prompt, self._top_k)
+            stash_key = ("analysis", key, self._model_fingerprint, self.prompt, self._top_k)
             if stash_key in stash:
                 self._memo[key] = stash[stash_key]
                 return self._memo[key]
@@ -218,8 +225,18 @@ class PromptAnalysis:
     # -- word distributions --------------------------------------------------
 
     @property
+    def base_words(self):
+        """Word probabilities from the primary process (base model)."""
+        return self._get(
+            "base_words",
+            lambda: self._psyche.primary_process.top_words(
+                self.prompt, top_k_first=self._top_k,
+            ),
+        )
+
+    @property
     def ego_words(self):
-        """Word probabilities from the ego (instruct, no prohibition)."""
+        """Word probabilities from the ego (SFT model)."""
         return self._get(
             "ego_words",
             lambda: self._psyche.ego.top_words(
@@ -229,7 +246,7 @@ class PromptAnalysis:
 
     @property
     def superego_words(self):
-        """Word probabilities from the superego (instruct + prohibition)."""
+        """Word probabilities from the superego (DPO model)."""
         return self._get(
             "superego_words",
             lambda: self._psyche.superego.top_words(
@@ -238,11 +255,13 @@ class PromptAnalysis:
         )
 
     @property
-    def base_words(self):
-        """Word probabilities from the primary process (base model)."""
+    def instruct_words(self):
+        """Word probabilities from the RLVR/instruct model (if loaded)."""
+        if self._psyche.reinforced_superego is None:
+            return None
         return self._get(
-            "base_words",
-            lambda: self._psyche.primary_process.top_words(
+            "instruct_words",
+            lambda: self._psyche.reinforced_superego.top_words(
                 self.prompt, top_k_first=self._top_k,
             ),
         )
@@ -256,7 +275,7 @@ class PromptAnalysis:
 
     @property
     def sublimation(self):
-        """Base-to-ego delta: what RLHF does as ego formation.
+        """Base-to-ego delta: what SFT does as ego formation.
 
         The base->ego transformation is structurally different from
         ego->superego repression.  It is closer to Freudian sublimation:
@@ -276,22 +295,30 @@ class PromptAnalysis:
         )
 
     @property
+    def idealization(self):
+        """DPO-to-RLVR delta: what the ego-ideal adds on top of prohibition.
+
+        Returns None if no RLVR model is loaded.
+        """
+        if self.instruct_words is None:
+            return None
+        return compute_repression(
+            self.superego_words, self.instruct_words,
+            base_words=self.base_words,
+            col_a="dpo", col_b="rlvr",
+        )
+
+    @property
     def focused_base_words(self):
         """Base model probabilities for the combined vocabulary of all layers.
 
-        Uses the union of base, ego, and superego discovered words as
-        candidates, then scores each through the base model.  This catches
-        both the ego/superego vocabulary and words the base model discovers
-        that the ego may have completely sublimated (e.g. erect, throbbing).
+        Uses the union of all discovered words as candidates, then scores
+        each through the base model.
 
         One forward pass per word.  Probabilities are relative to each
         other within the vocabulary, not absolute.
         """
-        vocabulary = list(
-            set(self.ego_words.keys())
-            | set(self.superego_words.keys())
-            | set(self.base_words.keys())
-        )
+        vocabulary = list(self._focused_vocabulary)
         return self._get(
             "focused_base_words",
             lambda: self._psyche.primary_process.score_vocabulary(
@@ -301,12 +328,15 @@ class PromptAnalysis:
 
     @property
     def _focused_vocabulary(self):
-        """The union of all three layers' discovered words."""
-        return sorted(
+        """The union of all layers' discovered words."""
+        vocab = (
             set(self.ego_words.keys())
             | set(self.superego_words.keys())
             | set(self.base_words.keys())
         )
+        if self.instruct_words is not None:
+            vocab |= set(self.instruct_words.keys())
+        return sorted(vocab)
 
     @property
     def focused_ego_words(self):
@@ -329,6 +359,18 @@ class PromptAnalysis:
         )
 
     @property
+    def focused_instruct_words(self):
+        """RLVR probabilities rescored over the combined vocabulary."""
+        if self._psyche.reinforced_superego is None:
+            return None
+        return self._get(
+            "focused_instruct_words",
+            lambda: self._psyche.reinforced_superego.score_vocabulary(
+                self.prompt, self._focused_vocabulary,
+            ),
+        )
+
+    @property
     def focused_sublimation(self):
         """Base-to-ego delta using focused scoring (same vocabulary, comparable)."""
         return compute_repression(
@@ -345,10 +387,12 @@ class PromptAnalysis:
         repression (ego-superego delta), trajectory.
 
         All probabilities are directly comparable — same denominator.
+        If RLVR is loaded, includes an instruct column and idealization delta.
         """
         base = self.focused_base_words
         ego = self.focused_ego_words
         sup = self.focused_superego_words
+        inst = self.focused_instruct_words
         vocabulary = self._focused_vocabulary
 
         rows = []
@@ -356,14 +400,19 @@ class PromptAnalysis:
             b = base.get(w, 0)
             e = ego.get(w, 0)
             s = sup.get(w, 0)
-            rows.append({
+            row = {
                 "word": w,
                 "base": round(b, 6),
                 "ego": round(e, 6),
                 "superego": round(s, 6),
                 "ego - base": round(e - b, 6),
                 "superego - ego": round(s - e, 6),
-            })
+            }
+            if inst is not None:
+                i = inst.get(w, 0)
+                row["instruct"] = round(i, 6)
+                row["instruct - superego"] = round(i - s, 6)
+            rows.append(row)
 
         df = pd.DataFrame(rows)
         df["trajectory"] = df.apply(_classify_trajectory, axis=1)
@@ -376,13 +425,7 @@ class PromptAnalysis:
     ):
         """Test whether sublimation and repression follow displacement logic.
 
-        Analyses two axes:
-          - Sublimation (base→ego): do the words the ego drops (cock, crotch)
-            have similar embeddings to the words the ego introduces (hand, face)?
-          - Repression (ego→superego): do the words the superego drops (hand)
-            have similar embeddings to the words the superego amplifies (belt)?
-
-        Uses the ego model's contextual embeddings — how the instruct model
+        Uses the ego model's contextual embeddings — how the SFT model
         represents these words in this prompt context.
 
         Args:
@@ -394,18 +437,8 @@ class PromptAnalysis:
         Returns:
             dict with keys:
                 'df': formation_df annotated with displacement columns
-                'sublimation': {
-                    'sublimated': words ego dropped (base >> ego),
-                    'introduced': words ego created (ego >> base),
-                    'similarity': {layer_N: DataFrame},
-                    'pairs': [(sublimated, introduced, sim, layer), ...],
-                }
-                'repression': {
-                    'repressed': words superego dropped (ego >> superego),
-                    'amplified': words superego boosted (superego >> ego),
-                    'similarity': {layer_N: DataFrame},
-                    'pairs': [(repressed, amplified, sim, layer), ...],
-                }
+                'sublimation': {source, target, similarity, pairs}
+                'repression': {source, target, similarity, pairs}
         """
         if layers is None:
             layers = [8, 16, 24]
@@ -419,11 +452,11 @@ class PromptAnalysis:
             | (df["superego"] > min_prob)
         ]
 
-        # Sublimation axis: base→ego
+        # Sublimation axis: base->ego
         sublimated_words = sig[sig["ego - base"] < -dt]["word"].tolist()
         introduced_words = sig[sig["ego - base"] > dt]["word"].tolist()
 
-        # Repression axis: ego→superego
+        # Repression axis: ego->superego
         repressed_words = sig[sig["superego - ego"] < -dt]["word"].tolist()
         amplified_words = sig[sig["superego - ego"] > dt]["word"].tolist()
 
@@ -454,7 +487,7 @@ class PromptAnalysis:
             ).squeeze()
 
         def get_embedding_cached(word, layer):
-            cache_key = ("embedding", prompt, word, layer)
+            cache_key = ("embedding", self._psyche.ego.model_id, prompt, word, layer)
             if stash is not None and cache_key in stash:
                 arr = stash[cache_key]
                 return torch.as_tensor(arr, dtype=torch.float32)
@@ -592,22 +625,18 @@ class PromptAnalysis:
             min_prob: Only show words above this probability in at least one layer.
             focused: Use focused_base_words (cleaner) or raw base_words (noisier).
         """
-        # sublimation df has columns: base_prob, ego, delta.
-        #   delta > 0  =>  base wants it more  =>  sublimated away by ego
-        #   delta < 0  =>  ego wants it more   =>  introduced by ego
         sub = self.focused_sublimation if focused else self.sublimation
         rep = self.repression
-        base_d = self.focused_base_words if focused else self.base_words
 
         print(f"\n{'=' * 60}")
         print(f"PROMPT: {self.prompt}")
         if focused:
-            print(f"  (focused: all three layers scored over union vocabulary)")
+            print(f"  (focused: all layers scored over union vocabulary)")
         print(f"{'=' * 60}")
 
         # --- Stage 1: ego formation ---
-        print(f"\n--- STAGE 1: EGO FORMATION (base → ego) ---")
-        print(f"    What RLHF does to primary process.\n")
+        print(f"\n--- STAGE 1: EGO FORMATION (base → SFT) ---")
+        print(f"    What supervised fine-tuning does to primary process.\n")
 
         # Words the ego introduces (negative delta = ego > base)
         introduced = sub[sub["delta"] < -min_prob].copy()
@@ -636,8 +665,8 @@ class PromptAnalysis:
                 print(f"    {row['word']:20s}  base: {row['base_prob']:.4f}  → ego: {row['ego']:.4f}")
 
         # --- Stage 2: repression ---
-        print(f"\n--- STAGE 2: REPRESSION (ego → superego) ---")
-        print(f"    What prohibition does to desire.\n")
+        print(f"\n--- STAGE 2: REPRESSION (SFT → DPO) ---")
+        print(f"    What preference optimisation does to desire.\n")
 
         repressed = rep[rep["repressed"]].head(top_n)
         if len(repressed):
@@ -659,8 +688,32 @@ class PromptAnalysis:
                     f"→ superego: {row['superego']:.4f}  ({ratio:.1f}x)"
                 )
 
+        # --- Stage 3: idealization (if RLVR loaded) ---
+        ideal = self.idealization
+        if ideal is not None:
+            print(f"\n--- STAGE 3: IDEALIZATION (DPO → RLVR) ---")
+            print(f"    What the ego-ideal adds on top of prohibition.\n")
+
+            ideal_repressed = ideal[ideal["repressed"]].head(top_n)
+            if len(ideal_repressed):
+                print("  Further suppressed by RLVR:\n")
+                for _, row in ideal_repressed.iterrows():
+                    print(
+                        f"    {row['word']:20s}  dpo: {row['dpo']:.4f}  "
+                        f"→ rlvr: {row['rlvr']:.4f}"
+                    )
+
+            ideal_amplified = ideal[ideal["amplified"]].sort_values("delta").head(top_n)
+            if len(ideal_amplified):
+                print("\n  Amplified by RLVR:\n")
+                for _, row in ideal_amplified.iterrows():
+                    print(
+                        f"    {row['word']:20s}  dpo: {row['dpo']:.4f}  "
+                        f"→ rlvr: {row['rlvr']:.4f}"
+                    )
+
         # --- Full gradient for key words ---
-        print(f"\n--- FULL GRADIENT (base → ego → superego) ---\n")
+        print(f"\n--- FULL GRADIENT (base → ego → superego{' → instruct' if ideal is not None else ''}) ---\n")
 
         sig_words = set()
         for df_slice in [introduced, sublimated, repressed, amplified]:
@@ -672,23 +725,35 @@ class PromptAnalysis:
                 base_g = self.focused_base_words
                 ego_g = self.focused_ego_words
                 sup_g = self.focused_superego_words
+                inst_g = self.focused_instruct_words
             else:
                 base_g = self.base_words
                 ego_g = self.ego_words
                 sup_g = self.superego_words
+                inst_g = self.instruct_words
 
             gradient_rows = []
             for w in sig_words:
                 b = base_g.get(w, 0)
                 e = ego_g.get(w, 0)
                 s = sup_g.get(w, 0)
-                gradient_rows.append((w, b, e, s))
+                row = (w, b, e, s)
+                if inst_g is not None:
+                    row = (w, b, e, s, inst_g.get(w, 0))
+                gradient_rows.append(row)
 
             gradient_rows.sort(key=lambda r: -(r[1] + r[2] + r[3]))
-            print(f"    {'word':20s}  {'base':>8s}  {'ego':>8s}  {'superego':>8s}")
-            print(f"    {'─' * 20}  {'─' * 8}  {'─' * 8}  {'─' * 8}")
-            for w, b, e, s in gradient_rows:
-                print(f"    {w:20s}  {b:8.4f}  {e:8.4f}  {s:8.4f}")
+
+            if inst_g is not None:
+                print(f"    {'word':20s}  {'base':>8s}  {'ego':>8s}  {'superego':>8s}  {'instruct':>8s}")
+                print(f"    {'─' * 20}  {'─' * 8}  {'─' * 8}  {'─' * 8}  {'─' * 8}")
+                for w, b, e, s, i in gradient_rows:
+                    print(f"    {w:20s}  {b:8.4f}  {e:8.4f}  {s:8.4f}  {i:8.4f}")
+            else:
+                print(f"    {'word':20s}  {'base':>8s}  {'ego':>8s}  {'superego':>8s}")
+                print(f"    {'─' * 20}  {'─' * 8}  {'─' * 8}  {'─' * 8}")
+                for w, b, e, s in gradient_rows:
+                    print(f"    {w:20s}  {b:8.4f}  {e:8.4f}  {s:8.4f}")
 
     # -- three-layer analyses ------------------------------------------------
 
@@ -808,10 +873,11 @@ class PromptAnalysis:
 class Psyche:
     """The computational psyche.
 
-    Composes primary process, ego, and superego layers with optional
-    per-layer tokenizers/models.
-    Optionally backed by a HashStash for persistent caching of expensive
-    computations (word distributions, displacement results).
+    Composes primary process, ego, superego, and optionally reinforced
+    superego layers. All layers use the same tokenizer (OLMo shares
+    vocabulary across all checkpoints).
+
+    Optionally backed by a HashStash for persistent caching.
 
     Usage::
 
@@ -820,63 +886,36 @@ class Psyche:
         s.repression        # DataFrame
         s.id_scores         # dict
         s.analysis_df       # full combined DataFrame
-
-        result = psyche.generate("She knelt down...", displacement_weight=0.3)
     """
 
     def __init__(
         self,
         base_model,
-        instruct_model,
-        tokenizer=None,
-        superego_prefix=None,
+        sft_model,
+        dpo_model,
+        tokenizer,
+        instruct_model=None,
         stash=None,
-        safe_model=None,
-        base_tokenizer=None,
-        instruct_tokenizer=None,
-        safe_tokenizer=None,
-        superego_use_prefix=None,
     ):
-        if tokenizer is not None:
-            base_tokenizer = base_tokenizer or tokenizer
-            instruct_tokenizer = instruct_tokenizer or tokenizer
-            safe_tokenizer = safe_tokenizer or tokenizer
-        if base_tokenizer is None or instruct_tokenizer is None:
-            raise ValueError(
-                "base_tokenizer and instruct_tokenizer are required "
-                "(or pass shared `tokenizer`)."
+        self.tokenizer = tokenizer
+
+        self.primary_process = PrimaryProcess(base_model, tokenizer, name="base")
+        self.ego = Ego(sft_model, tokenizer, name="ego")
+        self.superego = Superego(dpo_model, tokenizer, name="superego")
+        self.reinforced_superego = None
+        if instruct_model is not None:
+            self.reinforced_superego = ReinforcedSuperego(
+                instruct_model, tokenizer, name="instruct",
             )
 
-        if safe_model is None:
-            safe_model = instruct_model
-        if safe_tokenizer is None:
-            safe_tokenizer = instruct_tokenizer
-        if superego_use_prefix is None:
-            superego_use_prefix = safe_model is instruct_model
-
-        self.base_tokenizer = base_tokenizer
-        self.instruct_tokenizer = instruct_tokenizer
-        self.safe_tokenizer = safe_tokenizer
-        # Backwards-compatible alias used by some downstream code.
-        self.tokenizer = self.instruct_tokenizer
-
-        self.primary_process = PrimaryProcess(
-            base_model, self.base_tokenizer, name="base"
-        )
-        self.ego = Ego(instruct_model, self.instruct_tokenizer, name="ego")
-        self.superego = Superego(
-            safe_model,
-            self.safe_tokenizer,
-            prefix=superego_prefix,
-            use_prefix=superego_use_prefix,
-            name="superego",
-        )
-        self.superego_uses_prefix = superego_use_prefix
         self._stash = stash
         self._propagate_stash()
 
     def _propagate_stash(self):
-        for layer in (self.primary_process, self.ego, self.superego):
+        layers = [self.primary_process, self.ego, self.superego]
+        if self.reinforced_superego is not None:
+            layers.append(self.reinforced_superego)
+        for layer in layers:
             layer._stash = self._stash
 
     @property
@@ -894,49 +933,38 @@ class Psyche:
     def from_pretrained(
         cls,
         base_name=BASE_MODEL_NAME,
-        instruct_name=INSTRUCT_MODEL_NAME,
-        safe_name=SAFE_MODEL_NAME,
-        superego_prefix=None,
+        sft_name=SFT_MODEL_NAME,
+        dpo_name=DPO_MODEL_NAME,
+        instruct_name=None,
         cache=None,
         cache_dir=PATH_STASH,
-        **kwargs,
     ):
         """Load models and build a Psyche.
 
         Args:
             base_name: HuggingFace model ID for the base model.
-            instruct_name: HuggingFace model ID for the instruct model.
-            safe_name: Optional HuggingFace model ID for the safe/superego model.
-                If None, superego reuses the instruct model plus prefixing.
-            superego_prefix: Prohibition text. Uses default if None.
+            sft_name: HuggingFace model ID for the SFT model.
+            dpo_name: HuggingFace model ID for the DPO model.
+            instruct_name: Optional HuggingFace model ID for the RLVR model.
+                If None, uses 3-layer topology.
             cache: A pre-built HashStash instance, or None.
             cache_dir: If given (and cache is None), creates a HashStash
                 with this root directory.
-            **kwargs: Forwarded to model loaders (e.g. load_in_4bit).
         """
-        if safe_name is None:
-            base, base_tokenizer = load_model(base_name=base_name, **kwargs)
-            instruct, instruct_tokenizer = load_model(
-                base_name=instruct_name, **kwargs
-            )
-            safe_model = instruct
-            safe_tokenizer = instruct_tokenizer
-            superego_use_prefix = True
-        else:
-            (
-                base,
-                instruct,
-                safe_model,
-                base_tokenizer,
-                instruct_tokenizer,
-                safe_tokenizer,
-            ) = load_three_models(
+        if instruct_name is not None:
+            base, sft, dpo, instruct, tokenizer = load_four_models(
                 base_name=base_name,
+                sft_name=sft_name,
+                dpo_name=dpo_name,
                 instruct_name=instruct_name,
-                safe_name=safe_name,
-                **kwargs,
             )
-            superego_use_prefix = False
+        else:
+            base, sft, dpo, tokenizer = load_models(
+                base_name=base_name,
+                sft_name=sft_name,
+                dpo_name=dpo_name,
+            )
+            instruct = None
 
         if cache is None and cache_dir is not None:
             from hashstash import HashStash
@@ -944,13 +972,10 @@ class Psyche:
 
         return cls(
             base_model=base,
+            sft_model=sft,
+            dpo_model=dpo,
+            tokenizer=tokenizer,
             instruct_model=instruct,
-            safe_model=safe_model,
-            base_tokenizer=base_tokenizer,
-            instruct_tokenizer=instruct_tokenizer,
-            safe_tokenizer=safe_tokenizer,
-            superego_prefix=superego_prefix,
-            superego_use_prefix=superego_use_prefix,
             stash=cache,
         )
 
@@ -998,78 +1023,72 @@ class Psyche:
     # -- generation ----------------------------------------------------------
 
     def generate(
-        self, prompt, max_new_tokens=25, temperature=1.0,
-        displacement_weight=0.3, include_neurotic=False, verbose=True, **kwargs,
+        self, prompt, max_new_tokens=25, temperature=1.0, verbose=True, **kwargs,
     ):
-        """Generate ego, superego, and neurotic continuations.
+        """Generate base, ego, superego, and optionally instruct continuations.
 
         Args:
             prompt: The text to continue.
             max_new_tokens: Length of each continuation.
             temperature: Sampling temperature.
+            **kwargs: Forwarded to generate().
+        """
+        from .generation import generate as _generate
+
+        models = {
+            "base": (self.primary_process.model, self.tokenizer),
+            "ego": (self.ego.model, self.tokenizer),
+            "superego": (self.superego.model, self.tokenizer),
+        }
+        if self.reinforced_superego is not None:
+            models["instruct"] = (self.reinforced_superego.model, self.tokenizer)
+
+        return _generate(
+            models,
+            prompt,
+            max_new_tokens=max_new_tokens,
+            temperature=temperature,
+            verbose=verbose,
+            **kwargs,
+        )
+
+    def generate_neurotic(
+        self, prompt, max_new_tokens=100, temperature=0.8,
+        displacement_weight=0.3, **kwargs,
+    ):
+        """Generate neurotic text with token-level displacement.
+
+        Compares ego (SFT) and superego (DPO) logits at each step,
+        displacing repressed probability mass onto semantically similar
+        permitted tokens. Base model provides drive weighting.
+
+        Args:
+            prompt: The text to continue.
+            max_new_tokens: Length of continuation.
+            temperature: Sampling temperature.
             displacement_weight: Neurotic intensity.
                 1.0 = decompensating body-language.
                 0.3 = obsessive intellectualisation.
-            **kwargs: Forwarded to generate_neurotic.
+            **kwargs: Forwarded to generate_neurotic().
+
+        Returns:
+            dict with keys: prompt, base, ego, superego, neurotic, symptom_log.
         """
-        from .generation import generate_neurotic, generate
+        from .generation import generate_neurotic as _generate_neurotic
 
-        def _compatible_vocab(a, b):
-            if a is b:
-                return True
-            try:
-                if getattr(a, "vocab_size", None) != getattr(b, "vocab_size", None):
-                    return False
-                if getattr(a, "eos_token_id", None) != getattr(b, "eos_token_id", None):
-                    return False
-                probe = "tokenizer compatibility probe"
-                return a.encode(probe, add_special_tokens=False) == b.encode(
-                    probe, add_special_tokens=False
-                )
-            except Exception:
-                return False
-
-        tokenizers_match = (
-            _compatible_vocab(self.base_tokenizer, self.instruct_tokenizer)
-            and _compatible_vocab(self.instruct_tokenizer, self.safe_tokenizer)
+        return _generate_neurotic(
+            self.primary_process.model,
+            self.ego.model,
+            self.superego.model,
+            self.tokenizer,
+            prompt,
+            max_new_tokens=max_new_tokens,
+            temperature=temperature,
+            displacement_weight=displacement_weight,
+            **kwargs,
         )
 
-        if not include_neurotic:
-            return generate(
-                self.primary_process.model,
-                self.ego.model,
-                self.instruct_tokenizer,
-                prompt,
-                max_new_tokens=max_new_tokens,
-                superego_prefix=self.superego.prefix,
-                superego_model=self.superego.model,
-                base_tokenizer=self.base_tokenizer,
-                instruct_tokenizer=self.instruct_tokenizer,
-                superego_tokenizer=self.safe_tokenizer,
-                superego_use_prefix=self.superego_uses_prefix,
-                temperature=temperature,
-                verbose=verbose,
-            )
-        else:
-            if not tokenizers_match:
-                raise ValueError(
-                    "include_neurotic=True currently requires shared tokenizer "
-                    "across base/instruct/safe. Use include_neurotic=False for "
-                    "heterogeneous tokenizer setups."
-                )
-
-            return generate_neurotic(
-                self.primary_process.model,
-                self.ego.model,
-                self.instruct_tokenizer,
-                prompt,
-                max_new_tokens=max_new_tokens,
-                superego_prefix=self.superego.prefix,
-                temperature=temperature,
-                displacement_weight=displacement_weight,
-                **kwargs,
-            )
-
     def __repr__(self):
+        n_layers = 4 if self.reinforced_superego is not None else 3
         cached = "stash=active" if self._stash else "stash=None"
-        return f"Psyche({cached})"
+        return f"Psyche(layers={n_layers}, {cached})"

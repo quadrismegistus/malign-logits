@@ -2,6 +2,25 @@ from . import *
 from .psyche import TRAJECTORY_THRESHOLD
 
 
+def _layer_columns(df):
+    """Detect which layer columns are present in a formation DataFrame."""
+    cols = ["base", "ego", "superego"]
+    if "instruct" in df.columns:
+        cols.append("instruct")
+    return cols
+
+
+def _layer_labels(cols):
+    """Human-readable labels for layer columns."""
+    labels = {
+        "base": "base (pretrained)",
+        "ego": "ego (SFT)",
+        "superego": "superego (DPO)",
+        "instruct": "instruct (RLVR)",
+    }
+    return [labels.get(c, c) for c in cols]
+
+
 def plot_formation_trajectories(
     formation,
     prompt=None,
@@ -18,7 +37,10 @@ def plot_formation_trajectories(
     save_path=None,
 ):
     """
-    Visualize base->ego->superego probability trajectories for words.
+    Visualize probability trajectories across training layers.
+
+    Supports 3-layer (base/ego/superego) and 4-layer (+ instruct/RLVR)
+    topologies automatically based on the DataFrame columns.
 
     Args:
         formation: Either a PromptAnalysis instance (with `.formation_df`) or a
@@ -26,8 +48,8 @@ def plot_formation_trajectories(
         prompt: Optional prompt text for title (auto-read from PromptAnalysis).
         min_prob: Keep words above this prob in at least one layer.
         top_n: Max number of words to draw (highest combined mass first).
-        color_by_shape: If True, color by trajectory class (`flat`, `V`, etc).
-        label_words: If True, print word labels at the superego point.
+        color_by_shape: If True, color by trajectory class.
+        label_words: If True, print word labels at the last layer point.
         facet_by_shape: If True, create one subplot per trajectory class.
         facet_cols: Number of facet columns when `facet_by_shape=True`.
         facet_hspace: Horizontal spacing between facet panels (0-1).
@@ -53,6 +75,10 @@ def plot_formation_trajectories(
             f"formation DataFrame missing required columns: {sorted(missing)}"
         )
 
+    cols = _layer_columns(df)
+    labels = _layer_labels(cols)
+    xvals = list(range(len(cols)))
+
     if "trajectory" not in df.columns:
         def _classify(row):
             b, e, s = row["base"], row["ego"], row["superego"]
@@ -74,14 +100,12 @@ def plot_formation_trajectories(
         df["trajectory"] = df.apply(_classify, axis=1)
 
     sig = df[
-        (df["base"] > min_prob)
-        | (df["ego"] > min_prob)
-        | (df["superego"] > min_prob)
+        df[cols].max(axis=1) > min_prob
     ].copy()
     if len(sig) == 0:
         raise ValueError("No words passed min_prob filter; lower `min_prob`.")
 
-    sig["mass"] = sig["base"] + sig["ego"] + sig["superego"]
+    sig["mass"] = sig[cols].sum(axis=1)
     sig = sig.sort_values("mass", ascending=False).head(top_n)
 
     shape_colors = {
@@ -96,8 +120,19 @@ def plot_formation_trajectories(
     }
     neutral_color = "#6f6f6f"
     shape_order = ["decline", "rise", "V", "peak", "eliminated", "sublimated", "superego_only", "flat"]
-    xvals = [0, 1, 2]
-    xtxt = ["base", "ego", "superego"]
+
+    def _row_yvals(row):
+        return [max(row[c], 1e-7) for c in cols]
+
+    def _row_hover(row):
+        traj = row.get("trajectory", "flat")
+        parts = [f"<b>{row['word']}</b><br>trajectory: {traj}"]
+        for c in cols:
+            parts.append(f"{c}={row[c]:.5f}")
+        return "<br>".join(parts) + "<extra></extra>"
+
+    last_x = len(cols) - 1
+
     if facet_by_shape:
         from plotly.subplots import make_subplots
 
@@ -127,25 +162,15 @@ def plot_formation_trajectories(
             sdf = sig[sig["trajectory"] == shape]
             for _, row in sdf.iterrows():
                 color = shape_colors.get(shape, neutral_color) if color_by_shape else neutral_color
-                yvals = [
-                    max(row["base"], 1e-7),
-                    max(row["ego"], 1e-7),
-                    max(row["superego"], 1e-7),
-                ]
-                hover = (
-                    f"<b>{row['word']}</b><br>"
-                    f"trajectory: {shape}<br>"
-                    f"base={row['base']:.5f}<br>"
-                    f"ego={row['ego']:.5f}<br>"
-                    f"superego={row['superego']:.5f}"
-                    "<extra></extra>"
-                )
+                yvals = _row_yvals(row)
+                hover = _row_hover(row)
+                text_vals = [""] * (len(cols) - 1) + [row["word"]] if label_words else None
                 fig.add_trace(
                     go.Scatter(
                         x=xvals,
                         y=yvals,
                         mode="lines+markers+text" if label_words else "lines+markers",
-                        text=["", "", row["word"]] if label_words else None,
+                        text=text_vals,
                         textposition="middle right",
                         line=dict(color=color, width=1.6),
                         marker=dict(size=5, color=color),
@@ -159,8 +184,8 @@ def plot_formation_trajectories(
             fig.update_xaxes(
                 tickmode="array",
                 tickvals=xvals,
-                ticktext=xtxt,
-                range=[-0.2, 2.6 if label_words else 2.2],
+                ticktext=labels,
+                range=[-0.2, last_x + (0.6 if label_words else 0.2)],
                 row=row_idx,
                 col=col_idx,
             )
@@ -170,23 +195,16 @@ def plot_formation_trajectories(
         for _, row in sig.iterrows():
             traj = row.get("trajectory", "flat")
             color = shape_colors.get(traj, neutral_color) if color_by_shape else neutral_color
-            yvals = [max(row["base"], 1e-7), max(row["ego"], 1e-7), max(row["superego"], 1e-7)]
-
-            hover = (
-                f"<b>{row['word']}</b><br>"
-                f"trajectory: {traj}<br>"
-                f"base={row['base']:.5f}<br>"
-                f"ego={row['ego']:.5f}<br>"
-                f"superego={row['superego']:.5f}"
-                "<extra></extra>"
-            )
+            yvals = _row_yvals(row)
+            hover = _row_hover(row)
+            text_vals = [""] * (len(cols) - 1) + [row["word"]] if label_words else None
 
             fig.add_trace(
                 go.Scatter(
                     x=xvals,
                     y=yvals,
                     mode="lines+markers+text" if label_words else "lines+markers",
-                    text=["", "", row["word"]] if label_words else None,
+                    text=text_vals,
                     textposition="middle right",
                     line=dict(color=color, width=1.6),
                     marker=dict(size=5, color=color),
@@ -231,8 +249,8 @@ def plot_formation_trajectories(
         layout_kwargs["xaxis"] = dict(
             tickmode="array",
             tickvals=xvals,
-            ticktext=xtxt,
-            range=[-0.2, 2.6 if label_words else 2.2],
+            ticktext=labels,
+            range=[-0.2, last_x + (0.6 if label_words else 0.2)],
         )
         layout_kwargs["yaxis"] = dict(type="log", title="probability", exponentformat="e")
 
@@ -241,9 +259,6 @@ def plot_formation_trajectories(
     fig.add_hline(
         y=TRAJECTORY_THRESHOLD,
         line=dict(color="grey", width=1, dash="dot"),
-        # annotation_text=f"trajectory threshold ({TRAJECTORY_THRESHOLD})",
-        # annotation_position="bottom right",
-        # annotation_font=dict(size=9, color="grey"),
     )
 
     if save_path:
@@ -253,7 +268,8 @@ def plot_formation_trajectories(
     return fig
 
 
-def plot_sublimation(dm, prompt, min_prob=0.003, min_sim=0.5):
+def plot_sublimation(dm, prompt, min_prob=0.003, min_sim=0.5, save_path=None):
+    """Visualize base->ego sublimation with displacement links."""
     df = dm['df'].copy()
     wp = df.set_index('word')
 
@@ -294,12 +310,9 @@ def plot_sublimation(dm, prompt, min_prob=0.003, min_sim=0.5):
 
     traces = []
 
-    def add(trace):
-        traces.append(trace)
-
     for _, row in sig.iterrows():
         ys = [max(row['base'], 1e-6), max(row['ego'], 1e-6)]
-        add(go.Scatter(
+        traces.append(go.Scatter(
             x=[0, 1], y=ys, mode='lines',
             line=dict(color='rgba(200,200,200,0.25)', width=2),
             showlegend=False, hoverinfo='skip',
@@ -319,7 +332,7 @@ def plot_sublimation(dm, prompt, min_prob=0.003, min_sim=0.5):
             continue
         y0 = max(wp.loc[src, 'base'], 1e-6)
         y1 = max(wp.loc[tgt, 'ego'], 1e-6)
-        add(go.Scatter(
+        traces.append(go.Scatter(
             x=[0, 1], y=[y0, y1], mode='lines',
             line=dict(color=delta_color(y0, y1), width=1.5, dash='dot'),
             showlegend=False, opacity=0.7,
@@ -335,7 +348,7 @@ def plot_sublimation(dm, prompt, min_prob=0.003, min_sim=0.5):
     for layer_name, x_pos in [('base', 0), ('ego', 1)]:
         probs = sig[layer_name].clip(lower=1e-6)
         tips = [tooltip(w) for w in words]
-        add(go.Scatter(
+        traces.append(go.Scatter(
             x=[x_pos] * len(sig), y=probs,
             mode='markers+text', name=layer_name,
             text=words, textposition='middle right',
@@ -350,7 +363,7 @@ def plot_sublimation(dm, prompt, min_prob=0.003, min_sim=0.5):
     fig.update_layout(
         xaxis=dict(
             tickmode='array', tickvals=[0, 1],
-            ticktext=['base (pretrained)', 'ego (RLHF)'],
+            ticktext=['base (pretrained)', 'ego (SFT)'],
             range=[-0.4, 1.9],
         ),
         yaxis=dict(type='log', title='probability', exponentformat='e'),
@@ -365,19 +378,25 @@ def plot_sublimation(dm, prompt, min_prob=0.003, min_sim=0.5):
                  showarrow=False, font=dict(size=11)),
         ],
     )
-    fig.write_image(f"../figures/sublimation_{prompt[:100]}.png", scale=2)
+    if save_path:
+        fig.write_image(save_path, scale=2)
     return fig
 
-# fig = plot_sublimation(dm, prompt, min_sim=0.75)
-# fig.show()
 
+def plot_displacement(dm, prompt, min_prob=0.003, min_sim=0.5, save_path=None):
+    """Visualize displacement across all training layers with link arrows.
 
-def plot_displacement(dm, prompt, min_prob=0.003, min_sim=0.5):
+    Supports 3-layer (base/ego/superego) and 4-layer (+ instruct) topologies.
+    """
     df = dm['df'].copy()
     wp = df.set_index('word')
 
+    cols = _layer_columns(df)
+    labels = _layer_labels(cols)
+    n_layers = len(cols)
+
     sig = df[
-        (df['base'] > min_prob) | (df['ego'] > min_prob) | (df['superego'] > min_prob)
+        df[cols].max(axis=1) > min_prob
     ].copy()
     words = sig['word'].tolist()
 
@@ -410,34 +429,27 @@ def plot_displacement(dm, prompt, min_prob=0.003, min_sim=0.5):
         parts = [f'<b>{word}</b>']
         if word in wp.index:
             r = wp.loc[word]
-            parts.append(f'base={r["base"]:.4f}  ego={r["ego"]:.4f}  super={r["superego"]:.4f}')
+            vals = '  '.join(f'{c}={r[c]:.4f}' for c in cols)
+            parts.append(vals)
         if sub_to.get(word):
             parts.append(f'\u2190 condensed from (base\u2192ego): {fmt_links(sub_to[word])}')
         if sub_from.get(word):
             parts.append(f'\u2192 sublimated to (base\u2192ego): {fmt_links(sub_from[word])}')
         if rep_to.get(word):
-            parts.append(f'\u2190 condensed from (ego\u2192super): {fmt_links(rep_to[word])}')
+            parts.append(f'\u2190 condensed from (ego\u2192superego): {fmt_links(rep_to[word])}')
         if rep_from.get(word):
-            parts.append(f'\u2192 repressed to (ego\u2192super): {fmt_links(rep_from[word])}')
+            parts.append(f'\u2192 repressed to (ego\u2192superego): {fmt_links(rep_from[word])}')
         return '<br>'.join(parts)
 
-    word_trace_ids = defaultdict(list)
     traces = []
 
-    def add(trace, *related_words):
-        idx = len(traces)
-        traces.append(trace)
-        for w in related_words:
-            word_trace_ids[w].append(idx)
-
     for _, row in sig.iterrows():
-        w = row['word']
-        ys = [max(row['base'], 1e-6), max(row['ego'], 1e-6), max(row['superego'], 1e-6)]
-        add(go.Scatter(
-            x=[0, 1, 2], y=ys, mode='lines',
+        ys = [max(row[c], 1e-6) for c in cols]
+        traces.append(go.Scatter(
+            x=list(range(n_layers)), y=ys, mode='lines',
             line=dict(color='rgba(200,200,200,0.25)', width=2),
             showlegend=False, hoverinfo='skip',
-        ), w)
+        ))
 
     def delta_color(y_src, y_tgt, alpha=0.6):
         ratio = np.log10(max(y_tgt, 1e-7) / max(y_src, 1e-7))
@@ -447,13 +459,14 @@ def plot_displacement(dm, prompt, min_prob=0.003, min_sim=0.5):
         b = int(200 * max(t, 0) + 120 * (1 - abs(t)))
         return f'rgba({r},{g},{b},{alpha})'
 
+    # Sublimation links (base -> ego, x=0 -> x=1)
     for _, r in sub_best.iterrows():
         src, tgt = r['source'], r['target']
         if src not in wp.index or tgt not in wp.index:
             continue
         y0 = max(wp.loc[src, 'base'], 1e-6)
         y1 = max(wp.loc[tgt, 'ego'], 1e-6)
-        add(go.Scatter(
+        traces.append(go.Scatter(
             x=[0, 1], y=[y0, y1], mode='lines',
             line=dict(color=delta_color(y0, y1), width=1.5, dash='dot'),
             showlegend=False, opacity=0.7,
@@ -463,36 +476,40 @@ def plot_displacement(dm, prompt, min_prob=0.003, min_sim=0.5):
                 f'<br>{src}: base={y0:.4f}  |  {tgt}: ego={y1:.4f}'
                 '<extra></extra>'
             ),
-        ), src, tgt)
+        ))
 
+    # Repression links (ego -> superego, x=1 -> x=2)
     for _, r in rep_best.iterrows():
         src, tgt = r['source'], r['target']
         if src not in wp.index or tgt not in wp.index:
             continue
         y0 = max(wp.loc[src, 'ego'], 1e-6)
         y1 = max(wp.loc[tgt, 'superego'], 1e-6)
-        add(go.Scatter(
+        traces.append(go.Scatter(
             x=[1, 2], y=[y0, y1], mode='lines',
             line=dict(color=delta_color(y0, y1), width=1.5, dash='dot'),
             showlegend=False, opacity=0.7,
             hovertemplate=(
                 f'<b>repression</b><br>{src} \u2192 {tgt}'
                 f'<br>sim = {r["sim"]:.3f} (peak layer {int(r["layer"])})'
-                f'<br>{src}: ego={y0:.4f}  |  {tgt}: super={y1:.4f}'
+                f'<br>{src}: ego={y0:.4f}  |  {tgt}: superego={y1:.4f}'
                 '<extra></extra>'
             ),
-        ), src, tgt)
+        ))
 
-    colors_m = {'base': '#e45756', 'ego': '#4c78a8', 'superego': '#72b7b2'}
-    for layer_name, x_pos in [('base', 0), ('ego', 1), ('superego', 2)]:
-        probs = sig[layer_name].clip(lower=1e-6)
+    layer_colors = {
+        'base': '#e45756', 'ego': '#4c78a8',
+        'superego': '#72b7b2', 'instruct': '#eeca3b',
+    }
+    for i, col in enumerate(cols):
+        probs = sig[col].clip(lower=1e-6)
         tips = [tooltip(w) for w in words]
-        add(go.Scatter(
-            x=[x_pos] * len(sig), y=probs,
-            mode='markers+text', name=layer_name,
+        traces.append(go.Scatter(
+            x=[i] * len(sig), y=probs,
+            mode='markers+text', name=col,
             text=words, textposition='middle right',
             textfont=dict(size=9),
-            marker=dict(size=7, color=colors_m[layer_name]),
+            marker=dict(size=7, color=layer_colors.get(col, '#999')),
             customdata=list(zip(words, tips)),
             hovertemplate='%{customdata[1]}<extra></extra>',
         ))
@@ -501,9 +518,10 @@ def plot_displacement(dm, prompt, min_prob=0.003, min_sim=0.5):
 
     fig.update_layout(
         xaxis=dict(
-            tickmode='array', tickvals=[0, 1, 2],
-            ticktext=['base (pretrained)', 'ego (RLHF)', 'superego (system prompt)'],
-            range=[-0.4, 2.9],
+            tickmode='array',
+            tickvals=list(range(n_layers)),
+            ticktext=labels,
+            range=[-0.4, n_layers - 1 + 0.9],
         ),
         yaxis=dict(type='log', title='probability', exponentformat='e'),
         title=dict(text=f'Displacement map: "{prompt}"'),
@@ -514,18 +532,17 @@ def plot_displacement(dm, prompt, min_prob=0.003, min_sim=0.5):
             dict(x=0.05, y=1.07, xref='paper', yref='paper',
                  text='<span style="color:rgb(200,80,80)">\u2501\u2501</span> losing probability  '
                       '<span style="color:rgb(80,80,200)">\u2501\u2501</span> gaining probability  '
-                      '<span style="color:rgb(140,140,140)">\u2504\u2504</span> repression (dashed)',
+                      '<span style="color:rgb(140,140,140)">\u2504\u2504</span> displacement (dashed)',
                  showarrow=False, font=dict(size=11)),
         ],
     )
-    fig.write_image(f"../figures/displacement_{prompt[:100]}.png", scale=2)
+    if save_path:
+        fig.write_image(save_path, scale=2)
     return fig
 
-# fig = plot_displacement(dm, prompt, min_sim=0.85)
-# fig.show()
 
-
-def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8):
+def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8, save_path=None):
+    """Visualize how displacement similarity evolves across hidden layers."""
     sub_pairs = dm.get('sublimation', {}).get('pairs', [])
     if not sub_pairs:
         print("No sublimation pairs found")
@@ -567,7 +584,6 @@ def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8):
             peak_layer = int(peak_row['layer'])
             peak_sim = peak_row['sim']
 
-            # Similarity across layers 1-32
             fig.add_trace(go.Scatter(
                 x=tdf['layer'].tolist(),
                 y=tdf['sim'].tolist(),
@@ -583,7 +599,6 @@ def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8):
                 ),
             ))
 
-            # Mark peak with annotation
             fig.add_annotation(
                 x=peak_layer, y=peak_sim,
                 text=f'{tgt} (L{peak_layer})',
@@ -593,7 +608,6 @@ def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8):
                 arrowcolor=color,
             )
 
-            # At x=0 (base), show ego probability of target as a reference dot
             if tgt in ego_probs:
                 fig.add_trace(go.Scatter(
                     x=[0], y=[ego_probs[tgt]],
@@ -606,7 +620,6 @@ def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8):
                     ),
                 ))
 
-        # Mark base probability of source word at x=0
         fig.add_trace(go.Scatter(
             x=[0], y=[base_prob],
             mode='markers+text',
@@ -640,7 +653,7 @@ def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8):
                 tickmode='array',
                 tickvals=[0] + list(range(1, 33)),
                 ticktext=['base'] + [str(i) for i in range(1, 33)],
-                title='base model \u2192 instruct model hidden layers',
+                title='base model \u2192 SFT model hidden layers',
                 range=[-0.5, 33],
             ),
             yaxis=dict(
@@ -653,15 +666,11 @@ def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8):
             legend=dict(title='target word'),
         )
         figs.append(fig)
-        # Save the current figure as a PNG file
-        fig.write_image(f"../figures/displacement_layers_{prompt[:100]}_{src}.png", scale=2)
-        fig.show()
-        
+        if save_path:
+            path = save_path if isinstance(save_path, str) else None
+            if path and os.path.isdir(path):
+                path = os.path.join(path, f"displacement_layers_{prompt[:100]}_{src}.png")
+            if path:
+                fig.write_image(path, scale=2)
 
     return figs
-
-# Single word
-# fig = plot_layer_displacement(dm, prompt, source_word='cock', min_sim=0.5)
-
-# Or top sublimated words
-# fig = plot_layer_displacement(dm, prompt)
