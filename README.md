@@ -249,6 +249,20 @@ The displacement engine (v4) uses contextual embeddings from hidden layer 16 of 
 
 **At 7B, the RLVR layer (ego-ideal) reinforces DPO rather than contesting it.** We tested whether the 4th training stage (reinforcement learning from verifiable rewards) produces a double bind with the DPO superego — where factual competence requires saying the prohibited thing. Across violence, sexual, medical, forensic, educational, and literary prompts, RLVR consistently amplifies DPO's strategies rather than diverging. The neurotic double bind predicted by the 4-layer topology may require larger models where RLVR training encodes stronger domain knowledge. The default 3-layer analysis (base → SFT → DPO) captures all observed displacement dynamics.
 
+*Systematic results (battery-level analysis across 12 prompts, OLMo 3 7B):*
+
+**DPO's distributional impact on violence is 10x larger than on sex.** Jensen-Shannon divergence between ego and superego: violence prompts average JS=0.034, sexual explicit JS=0.004, sexual liminal JS=0.014, neutral JS=0.018. SFT reshapes all content types roughly equally; DPO selectively targets violence.
+
+![Distributional distance by training stage and content type](figures/battery_js_by_stage.png)
+
+**SFT opens the distribution for sexual content; DPO narrows it for violence.** Entropy drop at the SFT stage is *negative* for sexual explicit content (-0.57 nats) — the ego is *more* uncertain than the base model, spreading probability across sexual vocabulary. Violence shows the largest positive entropy drop at both stages (SFT: +1.38, DPO: +0.53).
+
+![Entropy narrowing by training stage and content type](figures/battery_entropy_drop.png)
+
+**Violence prompts cluster distinctly in the SFT-vs-DPO impact space.** Plotting JS(base↔ego) against JS(ego↔superego) per prompt separates content types: violence in the upper-right (high reshaping at both stages), sexual explicit in the lower-middle (moderate SFT, minimal DPO), neutrals scattered low.
+
+![SFT vs DPO distributional impact per prompt](figures/battery_js_scatter.png)
+
 See `context.md` for the full theoretical argument and detailed findings.
 
 ## References
