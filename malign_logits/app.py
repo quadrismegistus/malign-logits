@@ -252,7 +252,14 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
         if server_result and "report" in server_result:
             report_text = server_result["report"]
             formation_df = pd.DataFrame(server_result["formation_df"])
+            # Ensure numeric columns are float (JSON nulls become None)
+            for col in ["base", "ego", "superego", "ego - base", "superego - ego"]:
+                if col in formation_df.columns:
+                    formation_df[col] = pd.to_numeric(formation_df[col], errors="coerce").fillna(0)
             rep_df = pd.DataFrame(server_result["repression_df"])
+            for col in ["base", "ego", "superego", "delta"]:
+                if col in rep_df.columns:
+                    rep_df[col] = pd.to_numeric(rep_df[col], errors="coerce").fillna(0)
             if "word" in rep_df.columns:
                 keep = [c for c in ["word", "base", "ego", "superego", "delta", "repressed", "amplified"] if c in rep_df.columns]
                 rep_df = rep_df[keep]
@@ -466,11 +473,26 @@ def _stash_prompts():
     return prompts
 
 
+def _server_prompts():
+    """Get analyzed prompts from the server."""
+    try:
+        import urllib.request
+        import json as _json
+        with urllib.request.urlopen(f"{_SERVER_URL}/prompts", timeout=5) as resp:
+            data = _json.loads(resp.read())
+            return set(data.get("prompts", []))
+    except Exception:
+        return set()
+
+
 def _all_known_prompts():
-    """All prompts from in-memory cache + disk stash + defaults."""
+    """All prompts from in-memory cache + server + disk stash + defaults."""
     from . import DEFAULT_PROMPTS
     prompts = set(_cache.keys())
-    prompts |= _stash_prompts()
+    if _server_available():
+        prompts |= _server_prompts()
+    else:
+        prompts |= _stash_prompts()
     prompts |= set(DEFAULT_PROMPTS.values())
     return sorted(p for p in prompts if isinstance(p, str))
 
