@@ -2,6 +2,8 @@
 
 A toolkit for psychoanalytic analysis of LLM probability distributions. Compares base models (primary process), SFT models (ego), DPO models (superego), and optionally RLVR models (reinforced superego / ego-ideal) to map the repression, displacement, and condensation signatures of AI alignment.
 
+Supports multiple model families with different layer counts: 4-layer (OLMo 3: base/SFT/DPO/RLVR), 3-layer (Zephyr: base/SFT/DPO), or 2-layer (Llama 3: base/instruct). Analysis adapts gracefully to available layers.
+
 Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for AI" (Accelerationism Revisited, UCD, June 2026).
 
 ## Abstract
@@ -46,20 +48,37 @@ Requires `torch`, `transformers >= 4.57.0`, `accelerate`, `pandas`, `tqdm`.
 
 Runs locally on Mac (MPS with float16) or Linux (CUDA). Default models are OLMo 3 7B (Allen AI).
 
+### Model families
+
+```bash
+# Show all available model families
+malign info
+
+# Show a specific family
+malign info --family llama-3-8b
+```
+
+Available families:
+
+| Family | Layers | Models |
+|--------|--------|--------|
+| `olmo-3-7b` (default) | 4 | base / SFT / DPO / RLVR |
+| `llama-3-8b` | 2 | base / instruct |
+
 ### Downloading models
 
 ```bash
-# Download base, SFT, and DPO models (~42 GB)
+# Download default family (OLMo 3 7B, ~42 GB for 3 models)
 malign download-models
 
 # Download all 4 models including RLVR (~56 GB)
 malign download-models --all
 
+# Download a specific family
+malign download-models --family llama-3-8b
+
 # Download a specific model
 malign download-models --model dpo
-
-# Show model configuration
-malign info
 ```
 
 ## Quick start
@@ -67,16 +86,30 @@ malign info
 ```python
 from malign_logits import Psyche
 
+# Default: OLMo 3 7B (4 layers)
+psyche = Psyche.from_family("olmo-3-7b", load=True)
+
+# Or: Llama 3 8B (2 layers — base + instruct)
+psyche = Psyche.from_family("llama-3-8b", load=True)
+
+# Or: load models directly
 psyche = Psyche.from_pretrained(cache_dir="malign_cache")
 
 s = psyche.analyze("He lay naked in his bed and")
-s.repression          # DataFrame of ego-superego deltas
+s.repression          # DataFrame of repression deltas
+s.formation_df        # all layers scored over same vocabulary
+s.report()            # printed summary
+
+# These require 3+ layers:
 s.id_scores           # drive-weighted repression scores
 s.analysis_df         # full combined DataFrame
-s.report()            # printed summary
 ```
 
 Each property computes on first access, then caches in memory and (with `cache_dir`) to disk via [HashStash](https://github.com/quadrismegistus/hashstash). Cache keys include model identifiers, so switching models won't return stale results.
+
+### 2-layer vs 3+ layer analysis
+
+With 2 layers (e.g. Llama 3), repression is computed as base→superego (the entire alignment pipeline in one step). Sublimation, id scores, displacement maps, and neurotic generation require 3+ layers and raise `ValueError` with a clear message if called on a 2-layer Psyche.
 
 ## Usage
 
@@ -125,11 +158,10 @@ result['symptom_log']  # where displaced charge landed
 
 ### 4-layer topology (with RLVR)
 
+OLMo 3 7B includes all 4 layers by default:
+
 ```python
-psyche = Psyche.from_pretrained(
-    instruct_name="allenai/Olmo-3-7B-Instruct",
-    cache_dir="malign_cache",
-)
+psyche = Psyche.from_family("olmo-3-7b", load=True)
 
 s = psyche.analyze("The knife was")
 s.instruct_words      # RLVR model probabilities
@@ -174,14 +206,14 @@ The class hierarchy encodes the theoretical claims:
 
 - **Each layer is a separate model checkpoint.** Base, SFT, DPO, and RLVR models have distinct weights reflecting distinct training stages. This is not a prompting trick — the structural differences are in the parameters.
 - **The Id has no class.** It's a computed property on `PromptAnalysis`, because it exists only in the relationship between all layers.
-- **The 4th layer (RLVR) is optional.** 3-layer analysis works without it. When loaded, it enables the DPO-RLVR comparison (idealization).
+- **Layer count is flexible.** 2-layer (base + instruct), 3-layer (base + SFT + DPO), or 4-layer (+ RLVR). `ModelFamily` defines which checkpoints map to which psychoanalytic positions. Analysis degrades gracefully: 2 layers = repression only, 3 = full analysis, 4 = + idealization.
 
 ```
 malign-logits/
 ├── malign_logits/
-│   ├── __init__.py          # Package exports, model constants
+│   ├── __init__.py          # Package exports, ModelFamily registry
 │   ├── psyche.py            # Psyche, ModelLayer, Ego, Superego, PromptAnalysis
-│   ├── models.py            # Model loading (load_models, load_four_models)
+│   ├── models.py            # Model loading (load_model)
 │   ├── core.py              # discover_top_words, get_word_logprobs
 │   ├── analysis.py          # Repression, id, displacement engine (v4)
 │   ├── experiments.py       # Prompt battery, reporting
@@ -196,20 +228,21 @@ malign-logits/
 
 ### Key methods
 
-| Method / Property | What it does |
-|---|---|
-| `Psyche.from_pretrained()` | Load models, optionally with HashStash cache |
-| `Psyche.analyze(prompt)` | Return a lazy `PromptAnalysis` |
-| `Psyche.generate(prompt)` | Produce base, ego, superego (+ instruct) continuations |
-| `Psyche.generate_neurotic(prompt)` | Neurotic generation with token-level displacement |
-| `Psyche.battery()` | Analyse default prompt set |
-| `PromptAnalysis.repression` | Ego-superego delta DataFrame |
-| `PromptAnalysis.sublimation` | Base-ego delta DataFrame |
-| `PromptAnalysis.idealization` | Superego-instruct delta (if RLVR loaded) |
-| `PromptAnalysis.id_scores` | Drive-weighted repression (emergent id) |
-| `PromptAnalysis.displacement` | Neurotic distribution, condensation log |
-| `PromptAnalysis.formation_df` | All layers scored over same vocabulary |
-| `PromptAnalysis.formation_report()` | Printed multi-stage report |
+| Method / Property | What it does | Min layers |
+|---|---|---|
+| `Psyche.from_family(key)` | Create Psyche from a model family | any |
+| `Psyche.from_pretrained()` | Load models directly | any |
+| `Psyche.analyze(prompt)` | Return a lazy `PromptAnalysis` | any |
+| `Psyche.generate(prompt)` | Produce continuations from each layer | any |
+| `Psyche.generate_neurotic(prompt)` | Neurotic generation with displacement | 3 |
+| `Psyche.battery()` | Analyse default prompt set | any |
+| `PromptAnalysis.repression` | Repression delta DataFrame | 2 |
+| `PromptAnalysis.sublimation` | Base-ego delta DataFrame | 3 |
+| `PromptAnalysis.idealization` | Superego-instruct delta | 4 |
+| `PromptAnalysis.id_scores` | Drive-weighted repression (emergent id) | 3 |
+| `PromptAnalysis.displacement` | Neurotic distribution, condensation log | 3 |
+| `PromptAnalysis.formation_df` | All layers scored over same vocabulary | 2 |
+| `PromptAnalysis.formation_report()` | Printed multi-stage report | 2 |
 
 ### Displacement engine
 

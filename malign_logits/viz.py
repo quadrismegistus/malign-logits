@@ -4,7 +4,11 @@ from .psyche import TRAJECTORY_THRESHOLD
 
 def _layer_columns(df):
     """Detect which layer columns are present in a formation DataFrame."""
-    cols = ["base", "ego", "superego"]
+    cols = ["base"]
+    if "ego" in df.columns:
+        cols.append("ego")
+    if "superego" in df.columns:
+        cols.append("superego")
     if "instruct" in df.columns:
         cols.append("instruct")
     return cols
@@ -81,7 +85,7 @@ def plot_formation_trajectories(
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
 
-    required = {"word", "base", "ego", "superego"}
+    required = {"word", "base"}
     missing = required.difference(df.columns)
     if missing:
         raise ValueError(
@@ -89,28 +93,14 @@ def plot_formation_trajectories(
         )
 
     cols = _layer_columns(df)
+    if len(cols) < 2:
+        raise ValueError("formation DataFrame needs at least 2 layer columns")
     labels = _layer_labels(cols)
     xvals = list(range(len(cols)))
 
     if "trajectory" not in df.columns:
-        def _classify(row):
-            b, e, s = row["base"], row["ego"], row["superego"]
-            t = 0.005
-            if b - e > t and e - s > t:
-                return "decline"
-            if e - b > t and s - e > t:
-                return "rise"
-            if b - e > t and s - e > t:
-                return "V"
-            if e - b > t and e - s > t:
-                return "peak"
-            if b > t and e < t and s < t:
-                return "sublimated"
-            if b < t and e < t and s > t:
-                return "superego_only"
-            return "flat"
-
-        df["trajectory"] = df.apply(_classify, axis=1)
+        from .psyche import _classify_trajectory
+        df["trajectory"] = df.apply(_classify_trajectory, axis=1)
 
     # Filter: include words above min_prob OR above min_delta
     prob_mask = df[cols].max(axis=1) > min_prob
