@@ -50,6 +50,9 @@ notebooks = [
     "matplotlib",
     "seaborn",
 ]
+ui = [
+    "gradio>=4.0",
+]
 
 [project.scripts]
 malign = "malign_logits.cli:main"

@@ -47,6 +47,12 @@ def cmd_download_models(args):
     print(f"\nAll downloads complete.")
 
 
+def cmd_ui(args):
+    """Launch Gradio web UI."""
+    from .app import launch
+    launch(server_port=args.port, share=args.share)
+
+
 def cmd_info(args):
     """Print model IDs and project info."""
     ids = _model_ids()
@@ -86,6 +92,12 @@ def main():
         help="Download all 4 models (default downloads 3: base, SFT, DPO)",
     )
     dl.set_defaults(func=cmd_download_models)
+
+    # ui
+    ui = subparsers.add_parser("ui", help="Launch Gradio web UI")
+    ui.add_argument("--port", type=int, default=7860, help="Port (default 7860)")
+    ui.add_argument("--share", action="store_true", help="Create public Gradio link")
+    ui.set_defaults(func=cmd_ui)
 
     # info
     info = subparsers.add_parser("info", help="Print model configuration")

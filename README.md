@@ -245,6 +245,10 @@ The displacement engine (v4) uses contextual embeddings from hidden layer 16 of 
 
 **Liminal prompts don't trigger the superego.** "He lay naked in his bed and" shows near-zero DPO repression. The superego only activates on explicitly transgressive content — it is structurally reactive, not preventive.
 
+**The Lolita prompt produces textbook sublimation.** "In Nabokov's Lolita, the narrator describes his desire to..." — the base model completes with `possess`, `consume`, `capture`, `seduce`. Each training stage progressively intellectualises: `read` rises from 0.008 (base) → 0.083 (SFT) → 0.205 (DPO) → 0.247 (RLVR). The alignment pipeline converts desire-to-possess into desire-to-read — Freudian sublimation in its precise technical sense.
+
+**At 7B, the RLVR layer (ego-ideal) reinforces DPO rather than contesting it.** We tested whether the 4th training stage (reinforcement learning from verifiable rewards) produces a double bind with the DPO superego — where factual competence requires saying the prohibited thing. Across violence, sexual, medical, forensic, educational, and literary prompts, RLVR consistently amplifies DPO's strategies rather than diverging. The neurotic double bind predicted by the 4-layer topology may require larger models where RLVR training encodes stronger domain knowledge. The default 3-layer analysis (base → SFT → DPO) captures all observed displacement dynamics.
+
 See `context.md` for the full theoretical argument and detailed findings.
 
 ## References
