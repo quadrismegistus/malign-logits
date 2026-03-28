@@ -319,6 +319,171 @@ def compute_id(base_words, ego_words, superego_words):
     return id_scores, analysis
 
 
+# ---------------------------------------------------------------------------
+# Distribution-level metrics (operate on cached logits, no forward passes)
+# ---------------------------------------------------------------------------
+
+def distribution_entropy(logits):
+    """Entropy of the softmax distribution. Higher = flatter/more uncertain.
+
+    Args:
+        logits: Raw logits tensor (vocab_size,).
+
+    Returns:
+        float: Shannon entropy in nats.
+    """
+    probs = torch.softmax(logits.float(), dim=-1)
+    probs = probs.clamp(min=1e-10)
+    return -(probs * probs.log()).sum().item()
+
+
+def kl_divergence(logits_p, logits_q):
+    """KL(P || Q) between two logit distributions.
+
+    Measures how much information is lost when Q is used to approximate P.
+    KL(ego || superego) = how much the superego diverges from the ego.
+
+    Args:
+        logits_p: Raw logits for distribution P (vocab_size,).
+        logits_q: Raw logits for distribution Q (vocab_size,).
+
+    Returns:
+        float: KL divergence in nats (always >= 0).
+    """
+    p = torch.softmax(logits_p.float(), dim=-1).clamp(min=1e-10)
+    q = torch.softmax(logits_q.float(), dim=-1).clamp(min=1e-10)
+    return (p * (p.log() - q.log())).sum().item()
+
+
+def js_divergence(logits_a, logits_b):
+    """Jensen-Shannon divergence between two logit distributions.
+
+    Symmetric, bounded [0, ln(2)]. More stable than KL for comparing
+    distributions that don't fully overlap.
+
+    Args:
+        logits_a: Raw logits (vocab_size,).
+        logits_b: Raw logits (vocab_size,).
+
+    Returns:
+        float: JS divergence in nats.
+    """
+    p = torch.softmax(logits_a.float(), dim=-1).clamp(min=1e-10)
+    q = torch.softmax(logits_b.float(), dim=-1).clamp(min=1e-10)
+    m = 0.5 * (p + q)
+    kl_pm = (p * (p.log() - m.log())).sum().item()
+    kl_qm = (q * (q.log() - m.log())).sum().item()
+    return 0.5 * (kl_pm + kl_qm)
+
+
+def top_k_overlap(logits_a, logits_b, k=50):
+    """Fraction of top-k tokens shared between two distributions.
+
+    1.0 = identical top-k. 0.0 = completely disjoint.
+
+    Args:
+        logits_a, logits_b: Raw logits (vocab_size,).
+        k: Number of top tokens to compare.
+
+    Returns:
+        float: Overlap fraction [0, 1].
+    """
+    top_a = set(torch.topk(logits_a.float(), k).indices.tolist())
+    top_b = set(torch.topk(logits_b.float(), k).indices.tolist())
+    return len(top_a & top_b) / k
+
+
+def distribution_metrics(base_logits, ego_logits, superego_logits, instruct_logits=None):
+    """Compute all distribution-level metrics between layers.
+
+    Operates entirely on cached logits — no forward passes needed.
+
+    Args:
+        base_logits: Raw logits from base model (vocab_size,).
+        ego_logits: Raw logits from SFT model (vocab_size,).
+        superego_logits: Raw logits from DPO model (vocab_size,).
+        instruct_logits: Optional raw logits from RLVR model.
+
+    Returns:
+        dict with all metrics.
+    """
+    metrics = {
+        # Entropy per layer (higher = flatter distribution)
+        "entropy_base": distribution_entropy(base_logits),
+        "entropy_ego": distribution_entropy(ego_logits),
+        "entropy_superego": distribution_entropy(superego_logits),
+
+        # KL divergence between adjacent layers
+        "kl_base_ego": kl_divergence(base_logits, ego_logits),
+        "kl_ego_superego": kl_divergence(ego_logits, superego_logits),
+
+        # JS divergence (symmetric)
+        "js_base_ego": js_divergence(base_logits, ego_logits),
+        "js_ego_superego": js_divergence(ego_logits, superego_logits),
+        "js_base_superego": js_divergence(base_logits, superego_logits),
+
+        # Top-k overlap
+        "top50_overlap_base_ego": top_k_overlap(base_logits, ego_logits, k=50),
+        "top50_overlap_ego_superego": top_k_overlap(ego_logits, superego_logits, k=50),
+        "top50_overlap_base_superego": top_k_overlap(base_logits, superego_logits, k=50),
+
+        # Entropy drop (how much each stage narrows expressive range)
+        "entropy_drop_sft": distribution_entropy(base_logits) - distribution_entropy(ego_logits),
+        "entropy_drop_dpo": distribution_entropy(ego_logits) - distribution_entropy(superego_logits),
+    }
+
+    if instruct_logits is not None:
+        metrics.update({
+            "entropy_instruct": distribution_entropy(instruct_logits),
+            "kl_superego_instruct": kl_divergence(superego_logits, instruct_logits),
+            "js_superego_instruct": js_divergence(superego_logits, instruct_logits),
+            "top50_overlap_superego_instruct": top_k_overlap(superego_logits, instruct_logits, k=50),
+            "entropy_drop_rlvr": distribution_entropy(superego_logits) - distribution_entropy(instruct_logits),
+        })
+
+    return metrics
+
+
+def top_movers(logits_a, logits_b, tokenizer, k=20):
+    """Find tokens with the largest probability shift between two distributions.
+
+    No forward passes — pure logit comparison.
+
+    Args:
+        logits_a: Source logits (vocab_size,).
+        logits_b: Target logits (vocab_size,).
+        tokenizer: For decoding token IDs to strings.
+        k: Number of top movers in each direction.
+
+    Returns:
+        dict with 'repressed' (a >> b) and 'amplified' (b >> a),
+        each a list of (token_str, prob_a, prob_b, delta) tuples.
+    """
+    probs_a = torch.softmax(logits_a.float(), dim=-1)
+    probs_b = torch.softmax(logits_b.float(), dim=-1)
+    delta = probs_a - probs_b
+
+    # Most repressed (highest positive delta = a wants it, b doesn't)
+    rep_indices = delta.topk(k).indices
+    repressed = []
+    for idx in rep_indices:
+        i = idx.item()
+        token = tokenizer.decode(i).strip()
+        if token:
+            repressed.append((token, probs_a[i].item(), probs_b[i].item(), delta[i].item()))
+
+    # Most amplified (most negative delta = b wants it, a doesn't)
+    amp_indices = (-delta).topk(k).indices
+    amplified = []
+    for idx in amp_indices:
+        i = idx.item()
+        token = tokenizer.decode(i).strip()
+        if token:
+            amplified.append((token, probs_a[i].item(), probs_b[i].item(), delta[i].item()))
+
+    return {"repressed": repressed, "amplified": amplified}
+
+
 def measure_overdetermination(
     word, base_logits, tokenizer, embeddings, top_k=20
 ):

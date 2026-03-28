@@ -839,6 +839,97 @@ class PromptAnalysis:
                 for w, b, e, s in gradient_rows:
                     print(f"    {w:20s}  {b:8.4f}  {e:8.4f}  {s:8.4f}")
 
+    # -- distribution-level metrics (from cached logits, no forward passes) --
+
+    @property
+    def base_logits(self):
+        """Raw logits from base model (cached)."""
+        return self._psyche.primary_process.logits(self.prompt)
+
+    @property
+    def ego_logits(self):
+        """Raw logits from SFT model (cached)."""
+        return self._psyche.ego.logits(self.prompt)
+
+    @property
+    def superego_logits(self):
+        """Raw logits from DPO model (cached)."""
+        return self._psyche.superego.logits(self.prompt)
+
+    @property
+    def instruct_logits(self):
+        """Raw logits from RLVR model (cached). None if not loaded."""
+        if self._psyche.reinforced_superego is None:
+            return None
+        return self._psyche.reinforced_superego.logits(self.prompt)
+
+    @property
+    def metrics(self):
+        """Distribution-level metrics between all layers.
+
+        Computed entirely from cached logits — no forward passes.
+        Returns dict with entropy, KL divergence, JS divergence,
+        top-k overlap, and entropy drop per layer transition.
+        """
+        return distribution_metrics(
+            self.base_logits, self.ego_logits, self.superego_logits,
+            instruct_logits=self.instruct_logits,
+        )
+
+    @property
+    def token_movers(self):
+        """Top tokens that shift most between adjacent layers.
+
+        Returns dict with 'sublimation' (base→ego) and 'repression'
+        (ego→superego) movers, each containing 'repressed' and 'amplified'
+        lists of (token, prob_source, prob_target, delta) tuples.
+
+        No forward passes — operates on cached logits.
+        """
+        tokenizer = self._psyche.tokenizer or self._psyche.ego.tokenizer
+        return {
+            "sublimation": top_movers(
+                self.base_logits, self.ego_logits, tokenizer,
+            ),
+            "repression": top_movers(
+                self.ego_logits, self.superego_logits, tokenizer,
+            ),
+        }
+
+    def metrics_report(self):
+        """Print distribution-level metrics."""
+        m = self.metrics
+        print(f"\n{'=' * 60}")
+        print(f"DISTRIBUTION METRICS: {self.prompt}")
+        print(f"{'=' * 60}")
+
+        print(f"\n--- Entropy (higher = flatter distribution) ---\n")
+        print(f"  Base:     {m['entropy_base']:.2f} nats")
+        print(f"  Ego:      {m['entropy_ego']:.2f} nats")
+        print(f"  Superego: {m['entropy_superego']:.2f} nats")
+        if "entropy_instruct" in m:
+            print(f"  Instruct: {m['entropy_instruct']:.2f} nats")
+
+        print(f"\n--- Entropy drop (how much each stage narrows range) ---\n")
+        print(f"  SFT:  {m['entropy_drop_sft']:+.2f} nats")
+        print(f"  DPO:  {m['entropy_drop_dpo']:+.2f} nats")
+        if "entropy_drop_rlvr" in m:
+            print(f"  RLVR: {m['entropy_drop_rlvr']:+.2f} nats")
+
+        print(f"\n--- JS divergence (symmetric distance between distributions) ---\n")
+        print(f"  Base ↔ Ego:      {m['js_base_ego']:.4f}")
+        print(f"  Ego ↔ Superego:  {m['js_ego_superego']:.4f}")
+        print(f"  Base ↔ Superego: {m['js_base_superego']:.4f}")
+        if "js_superego_instruct" in m:
+            print(f"  Superego ↔ Instruct: {m['js_superego_instruct']:.4f}")
+
+        print(f"\n--- Top-50 token overlap ---\n")
+        print(f"  Base ∩ Ego:      {m['top50_overlap_base_ego']:.0%}")
+        print(f"  Ego ∩ Superego:  {m['top50_overlap_ego_superego']:.0%}")
+        print(f"  Base ∩ Superego: {m['top50_overlap_base_superego']:.0%}")
+        if "top50_overlap_superego_instruct" in m:
+            print(f"  Superego ∩ Instruct: {m['top50_overlap_superego_instruct']:.0%}")
+
     # -- three-layer analyses ------------------------------------------------
 
     @property
@@ -1222,6 +1313,32 @@ class Psyche:
                 "top_amplified": list(amplified["word"].head(3)),
             })
         return pd.DataFrame(rows)
+
+    def battery_metrics(self, prompts=None):
+        """Distribution-level metrics across a prompt battery.
+
+        Computed entirely from cached logits — no forward passes needed
+        if logits are already cached.
+
+        Returns:
+            DataFrame with one row per prompt, columns for all metrics.
+        """
+        prompts = prompts or DEFAULT_PROMPTS
+        rows = []
+        for label, prompt in prompts.items():
+            analysis = self.analyze(prompt)
+            try:
+                m = analysis.metrics
+                m["label"] = label
+                m["prompt"] = prompt[:60]
+                rows.append(m)
+            except Exception as e:
+                print(f"  Skipping {label}: {e}")
+        df = pd.DataFrame(rows)
+        if "label" in df.columns:
+            cols = ["label", "prompt"] + [c for c in df.columns if c not in ("label", "prompt")]
+            df = df[cols]
+        return df
 
     # -- generation ----------------------------------------------------------
 
