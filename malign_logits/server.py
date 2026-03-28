@@ -10,7 +10,7 @@ Then connect from Psyche:
     psyche = Psyche.from_server()
 
 Or from the Gradio app:
-    malign ui --server
+    malign ui
 """
 
 import json
@@ -21,16 +21,26 @@ import threading
 
 # Models loaded once at startup
 _psyche = None
+_progress = {"stage": "idle", "detail": "", "step": 0, "total": 0}
+_progress_lock = threading.Lock()
+
+
+def _set_progress(stage, detail="", step=0, total=0):
+    global _progress
+    with _progress_lock:
+        _progress = {"stage": stage, "detail": detail, "step": step, "total": total}
 
 
 def _get_psyche():
     global _psyche
     if _psyche is None:
         from .psyche import Psyche
+        _set_progress("loading_models", "Loading models...")
         print("Loading models...")
         t0 = time.time()
         _psyche = Psyche.from_pretrained()
         print(f"Models loaded in {time.time() - t0:.1f}s")
+        _set_progress("idle")
     return _psyche
 
 
@@ -43,6 +53,8 @@ class ModelHandler(BaseHTTPRequestHandler):
             result = self._dispatch(body)
             self._respond(200, result)
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             self._respond(500, {"error": str(e)})
 
     def do_GET(self):
@@ -54,6 +66,9 @@ class ModelHandler(BaseHTTPRequestHandler):
                 self._respond(200, result)
             except Exception as e:
                 self._respond(500, {"error": str(e)})
+        elif self.path == "/progress":
+            with _progress_lock:
+                self._respond(200, dict(_progress))
         else:
             self._respond(404, {"error": "not found"})
 
@@ -65,69 +80,73 @@ class ModelHandler(BaseHTTPRequestHandler):
             layer_name = body["layer"]
             prompt = body["prompt"]
             top_k = body.get("top_k", 200)
-            layer = {"base": psyche.primary_process, "ego": psyche.ego,
-                     "superego": psyche.superego}.get(layer_name)
-            if layer is None and psyche.reinforced_superego and layer_name == "instruct":
-                layer = psyche.reinforced_superego
-            if layer is None:
-                raise ValueError(f"Unknown layer: {layer_name}")
+            layer = self._get_layer(psyche, layer_name)
             return {"words": layer.top_words(prompt, top_k_first=top_k)}
 
         elif path == "/score_vocabulary":
             layer_name = body["layer"]
             prompt = body["prompt"]
             words = body["words"]
-            layer = {"base": psyche.primary_process, "ego": psyche.ego,
-                     "superego": psyche.superego}.get(layer_name)
-            if layer is None and psyche.reinforced_superego and layer_name == "instruct":
-                layer = psyche.reinforced_superego
-            if layer is None:
-                raise ValueError(f"Unknown layer: {layer_name}")
+            layer = self._get_layer(psyche, layer_name)
             return {"words": layer.score_vocabulary(prompt, words)}
+
+        elif path == "/analyze":
+            prompt = body["prompt"]
+            top_k = body.get("top_k", 200)
+            analysis = psyche.analyze(prompt, top_k_first=top_k)
+
+            layers_to_run = [
+                ("base", "Base (primary process)", lambda: analysis.base_words),
+                ("ego", "Ego (SFT)", lambda: analysis.ego_words),
+                ("superego", "Superego (DPO)", lambda: analysis.superego_words),
+            ]
+            if psyche.reinforced_superego is not None:
+                layers_to_run.append(
+                    ("instruct", "Instruct (RLVR)", lambda: analysis.instruct_words),
+                )
+
+            results = {}
+            for i, (name, desc, fn) in enumerate(layers_to_run):
+                _set_progress("analyzing", f"{desc} ({i+1}/{len(layers_to_run)})",
+                              step=i, total=len(layers_to_run))
+                results[name] = fn()
+
+            # Score focused vocabulary
+            _set_progress("analyzing", "Scoring focused vocabulary...",
+                          step=len(layers_to_run), total=len(layers_to_run) + 1)
+            _ = analysis.focused_base_words
+            _ = analysis.focused_ego_words
+            _ = analysis.focused_superego_words
+
+            _set_progress("idle")
+            return {"status": "complete", "layers": list(results.keys())}
 
         elif path == "/logits":
             layer_name = body["layer"]
             prompt = body["prompt"]
-            layer = {"base": psyche.primary_process, "ego": psyche.ego,
-                     "superego": psyche.superego}.get(layer_name)
-            if layer is None:
-                raise ValueError(f"Unknown layer: {layer_name}")
+            layer = self._get_layer(psyche, layer_name)
             import torch
             logits = layer.logits(prompt)
             return {"logits": logits.tolist()}
 
-        elif path == "/embedding":
-            prompt = body["prompt"]
-            word = body["word"]
-            hidden_layer = body["layer_idx"]
-            model = psyche.ego.model
-            tokenizer = psyche.ego.tokenizer
-            device = psyche.ego.device
-            import torch
-            text = prompt + " " + word
-            ids = tokenizer.encode(text, return_tensors="pt").to(device)
-            prompt_len = len(tokenizer.encode(prompt))
-            with torch.no_grad():
-                outputs = model(ids, output_hidden_states=True)
-                hidden = outputs.hidden_states[hidden_layer]
-                word_hidden = hidden[0, prompt_len:, :].mean(dim=0).cpu()
-            emb = torch.nn.functional.normalize(
-                word_hidden.float().unsqueeze(0), dim=-1,
-            ).squeeze()
-            return {"embedding": emb.tolist()}
-
         elif path == "/displacement_map":
             prompt = body["prompt"]
             layers = body.get("layers", None)
+            n_layers = len(layers) if layers else 3
+
+            _set_progress("displacement", f"Computing displacement map ({n_layers} layers)...")
+
             analysis = psyche.analyze(prompt)
-            # Force word distributions (writes to stash)
+            # Force word distributions
             _ = analysis.base_words
             _ = analysis.ego_words
             _ = analysis.superego_words
             _ = analysis.formation_df
-            # Run displacement_map (writes embeddings to stash)
+
+            _set_progress("displacement", f"Computing embeddings across {n_layers} layers...")
             dm = analysis.displacement_map(layers=layers)
-            # Serialize the result — pairs are simple lists, df as records
+
+            _set_progress("idle")
             result = {
                 "sublimation": {
                     "source": dm.get("sublimation", {}).get("source", []),
@@ -154,6 +173,15 @@ class ModelHandler(BaseHTTPRequestHandler):
         else:
             raise ValueError(f"Unknown endpoint: {path}")
 
+    def _get_layer(self, psyche, layer_name):
+        layer = {"base": psyche.primary_process, "ego": psyche.ego,
+                 "superego": psyche.superego}.get(layer_name)
+        if layer is None and psyche.reinforced_superego and layer_name == "instruct":
+            layer = psyche.reinforced_superego
+        if layer is None:
+            raise ValueError(f"Unknown layer: {layer_name}")
+        return layer
+
     def _respond(self, code, data):
         self.send_response(code)
         self.send_header("Content-Type", "application/json")
@@ -161,7 +189,6 @@ class ModelHandler(BaseHTTPRequestHandler):
         self.wfile.write(json.dumps(data).encode())
 
     def log_message(self, format, *args):
-        # Quieter logging
         pass
 
 
@@ -171,7 +198,6 @@ class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
 
 def serve(port=8421):
     """Start the model server."""
-    # Load models in background while server starts
     thread = threading.Thread(target=_get_psyche, daemon=True)
     thread.start()
 
