@@ -194,7 +194,7 @@ def _get_sublimation_sources(dm):
 
 def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
     """Main analysis callback."""
-    empty = ("Enter a prompt above.", None, None, None, None, "", "", gr.update())
+    empty = ("Enter a prompt above.", None, None, None, None, "", "")
     if not prompt or not prompt.strip():
         yield empty
         return
@@ -204,7 +204,7 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
 
     yield (
         f"Starting analysis for: **{prompt}**",
-        None, None, None, None, "", "", gr.update(),
+        None, None, None, None, "", "",
     )
 
     try:
@@ -230,7 +230,7 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
                     detail = progress.get("detail", "")
                     yield (
                         f"**{detail}**",
-                        None, None, None, None, "", "", gr.update(),
+                        None, None, None, None, "", "",
                     )
                 t.join(timeout=1.0)
 
@@ -275,21 +275,16 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
         )
 
         status = f"Analysis complete for: **{prompt}**"
-        known = _all_known_prompts()
-        if prompt not in known:
-            known.append(prompt)
-            known.sort()
-        dropdown_update = gr.update(choices=known, value=prompt)
 
         yield (
             status, formation_df, rep_df, traj_fig,
-            None, report_text, "", dropdown_update,
+            None, report_text, "",
         )
 
     except Exception as e:
         yield (
             f"Error: {e}\n\n```\n{traceback.format_exc()}\n```",
-            None, None, None, None, "", "", gr.update(),
+            None, None, None, None, "", "",
         )
 
 
@@ -645,14 +640,24 @@ def build_app():
 
         plot_inputs = [prompt_input, sort_by, top_n, min_prob, min_delta]
 
+        def _refresh_dropdown():
+            known = _all_known_prompts()
+            for p in _cache:
+                if p not in known:
+                    known.append(p)
+            return gr.update(choices=sorted(known))
+
         analyze_btn.click(
             fn=on_analyze,
             inputs=plot_inputs,
             outputs=[
                 status_md, formation_df, repression_df, trajectory_plot,
                 displacement_plot, report_text, displacement_pairs,
-                prompt_dropdown,
             ],
+        ).then(
+            fn=_refresh_dropdown,
+            inputs=[],
+            outputs=[prompt_dropdown],
         )
 
         replot_btn.click(
