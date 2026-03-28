@@ -69,6 +69,12 @@ class ModelHandler(BaseHTTPRequestHandler):
         elif self.path == "/progress":
             with _progress_lock:
                 self._respond(200, dict(_progress))
+        elif self.path == "/prompts":
+            try:
+                result = self._dispatch({})
+                self._respond(200, result)
+            except Exception as e:
+                self._respond(200, {"prompts": []})
         else:
             self._respond(404, {"error": "not found"})
 
@@ -136,8 +142,15 @@ class ModelHandler(BaseHTTPRequestHandler):
                 analysis.formation_report()
             report_text = buf.getvalue()
 
-            formation_df = analysis.formation_df
-            rep_df = analysis.repression
+            formation_df = analysis.formation_df.copy()
+            # Fill NaN in numeric columns (JSON can't serialize NaN)
+            num_cols = formation_df.select_dtypes(include="number").columns
+            formation_df[num_cols] = formation_df[num_cols].fillna(0)
+            formation_df["trajectory"] = formation_df["trajectory"].fillna("flat")
+
+            rep_df = analysis.repression.copy()
+            num_cols = rep_df.select_dtypes(include="number").columns
+            rep_df[num_cols] = rep_df[num_cols].fillna(0)
 
             _set_progress("idle")
             return {
@@ -188,6 +201,21 @@ class ModelHandler(BaseHTTPRequestHandler):
                 "df": dm["df"].to_dict(orient="records"),
             }
             return result
+
+        elif path == "/prompts":
+            # Return all prompts that have been analyzed (in stash)
+            prompts = set()
+            stash = psyche._stash
+            if stash is not None:
+                try:
+                    for key in stash.keys():
+                        if isinstance(key, tuple) and len(key) >= 4 and key[0] == "top_words":
+                            p = key[3]
+                            if isinstance(p, str):
+                                prompts.add(p)
+                except Exception:
+                    pass
+            return {"prompts": sorted(prompts)}
 
         elif path == "/info":
             return {
