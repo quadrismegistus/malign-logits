@@ -207,11 +207,11 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
     )
 
     try:
+        result_holder = [None]
+
         # If server is available, use /analyze endpoint with progress polling
         if _server_available():
             _ensure_models()  # ensures remote layers are set up
-            # Start server analysis in a thread so we can poll progress
-            result_holder = [None]
             error_holder = [None]
 
             def _run():
@@ -236,16 +236,35 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
             if error_holder[0]:
                 raise error_holder[0]
 
+        # Build local PromptAnalysis (reads from shared stash)
         analysis = _ensure_analysis(prompt)
+        _cache[prompt] = analysis
 
-        report_text = _capture_print(analysis.formation_report)
-        formation_df = analysis.formation_df.copy()
-        rep_df = analysis.repression.copy()
-        rep_df = rep_df[["word", "base", "ego", "superego", "delta", "repressed", "amplified"]]
+        yield (
+            "**Building plots...**",
+            None, None, None, None, "", "", gr.update(),
+        )
+
+        # Use server-computed report/DataFrames if available
+        server_result = result_holder[0] if _server_available() and result_holder[0] else None
+
+        if server_result and "report" in server_result:
+            report_text = server_result["report"]
+            formation_df = pd.DataFrame(server_result["formation_df"])
+            rep_df = pd.DataFrame(server_result["repression_df"])
+            if "word" in rep_df.columns:
+                keep = [c for c in ["word", "base", "ego", "superego", "delta", "repressed", "amplified"] if c in rep_df.columns]
+                rep_df = rep_df[keep]
+        else:
+            report_text = _capture_print(analysis.formation_report)
+            formation_df = analysis.formation_df.copy()
+            rep_df = analysis.repression.copy()
+            rep_df = rep_df[["word", "base", "ego", "superego", "delta", "repressed", "amplified"]]
 
         from .viz import plot_formation_trajectories
         traj_fig = plot_formation_trajectories(
-            analysis,
+            formation_df,
+            prompt=prompt,
             min_prob=min_prob,
             min_delta=min_delta_val,
             sort_by=sort_by,
