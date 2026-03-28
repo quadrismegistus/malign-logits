@@ -21,6 +21,7 @@ import threading
 
 # Models loaded once at startup
 _psyche = None
+_psyche_lock = threading.Lock()
 _progress = {"stage": "idle", "detail": "", "step": 0, "total": 0}
 _progress_lock = threading.Lock()
 
@@ -33,15 +34,16 @@ def _set_progress(stage, detail="", step=0, total=0):
 
 def _get_psyche():
     global _psyche
-    if _psyche is None:
-        from .psyche import Psyche
-        _set_progress("loading_models", "Loading models...")
-        print("Loading models...")
-        t0 = time.time()
-        _psyche = Psyche.from_pretrained()
-        print(f"Models loaded in {time.time() - t0:.1f}s")
-        _set_progress("idle")
-    return _psyche
+    with _psyche_lock:
+        if _psyche is None:
+            from .psyche import Psyche
+            _set_progress("loading_models", "Loading models...")
+            print("Loading models...")
+            t0 = time.time()
+            _psyche = Psyche.from_pretrained()
+            print(f"Models loaded in {time.time() - t0:.1f}s")
+            _set_progress("idle")
+        return _psyche
 
 
 class ModelHandler(BaseHTTPRequestHandler):
