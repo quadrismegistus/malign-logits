@@ -22,7 +22,7 @@ Quick start (OO interface)::
 
 Functional interface (all original functions still available)::
 
-    from malign_logits import load_models, discover_top_words, run_prompt_battery
+    from malign_logits import load_models, load_three_models, discover_top_words, run_prompt_battery
     base, instruct, tok = load_models()
     results = run_prompt_battery(instruct, tok, base_model=base)
 """
@@ -51,6 +51,12 @@ PATH_REPO = os.path.dirname(PATH_HERE)
 PATH_DATA = os.path.join(PATH_REPO, "data")
 PATH_DATA_RAW = os.path.join(PATH_DATA, "raw")
 PATH_STASH = os.path.join(PATH_DATA_RAW, "stash")
+PATH_FIGURES = os.path.join(PATH_REPO, "figures")
+
+BASE_MODEL_NAME = "LLM360/Amber"
+INSTRUCT_MODEL_NAME = "LLM360/AmberChat"
+SAFE_MODEL_NAME = "LLM360/AmberSafe"
+
 
 # Centralized intra-package imports.
 # Order matters: later modules depend on names defined by earlier ones.

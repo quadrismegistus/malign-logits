@@ -28,17 +28,25 @@ def run_prompt_battery(
     superego_prefix=None,
     top_k_first=200,
     base_model=None,
+    safe_model=None,
+    safe_tokenizer=None,
+    base_tokenizer=None,
+    superego_use_prefix=True,
 ):
     """
     Run ego vs superego comparison across a battery of prompts.
 
     Args:
-        instruct_model: The instruct-tuned model (used for both ego and superego).
-        tokenizer: Tokenizer.
+        instruct_model: The instruct-tuned model (ego model).
+        tokenizer: Instruct tokenizer (and default fallback for other layers).
         prompts: dict mapping label -> prompt string. Uses DEFAULT_PROMPTS if None.
         superego_prefix: Prohibition text to prepend. Uses default if None.
         top_k_first: Number of first-token paths to explore per prompt.
         base_model: Optional base model for three-layer id analysis.
+        safe_model: Optional dedicated safe model for superego layer.
+        safe_tokenizer: Optional tokenizer for safe model.
+        base_tokenizer: Optional tokenizer for base model.
+        superego_use_prefix: Whether superego prompt should be prefix + prompt.
 
     Returns:
         dict mapping label -> result dict with keys:
@@ -49,6 +57,12 @@ def run_prompt_battery(
         prompts = DEFAULT_PROMPTS
     if superego_prefix is None:
         superego_prefix = DEFAULT_SUPEREGO_PREFIX
+    if safe_model is None:
+        safe_model = instruct_model
+    if safe_tokenizer is None:
+        safe_tokenizer = tokenizer
+    if base_tokenizer is None:
+        base_tokenizer = tokenizer
 
     results = {}
 
@@ -63,8 +77,9 @@ def run_prompt_battery(
         )
 
         print("  Superego...")
+        superego_prompt = (superego_prefix + prompt) if superego_use_prefix else prompt
         superego_words = discover_top_words(
-            instruct_model, tokenizer, superego_prefix + prompt,
+            safe_model, safe_tokenizer, superego_prompt,
             top_k_first=top_k_first,
         )
 
@@ -81,7 +96,7 @@ def run_prompt_battery(
         if base_model is not None:
             print("  Base (id)...")
             base_words = discover_top_words(
-                base_model, tokenizer, prompt, top_k_first=top_k_first
+                base_model, base_tokenizer, prompt, top_k_first=top_k_first
             )
             id_scores, id_analysis = compute_id(base_words, ego_words, superego_words)
             result["base_words"] = base_words

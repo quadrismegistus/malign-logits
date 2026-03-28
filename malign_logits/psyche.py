@@ -17,8 +17,8 @@ The class hierarchy mirrors the psychoanalytic topology:
 The Id is not a class. It emerges from the *relationship* between all
 three layers — computed as a property, never instantiated.
 
-Ego and Superego hold a reference to the *same* model object. They differ
-only in how they present the prompt. This is the structural claim.
+By default, Ego and Superego can share a model (superego via prefixing), but
+the implementation also supports a dedicated safe model/tokenizer.
 """
 
 
@@ -26,6 +26,7 @@ from . import *
 
 
 TRAJECTORY_THRESHOLD = 0.005
+# TRAJECTORY_THRESHOLD = 0.001
 
 
 def _classify_trajectory(row):
@@ -42,7 +43,7 @@ def _classify_trajectory(row):
     if e - b > t and e - s > t:
         return "peak"             # ego introduces, superego represses
     if b > t and e < t and s < t:
-        return "sublimated"       # base only — ego eliminated it
+        return "eliminated"       # base only — ego eliminated it
     if b < t and e < t and s > t:
         return "superego_only"    # superego introduces
     return "flat"
@@ -149,25 +150,32 @@ class Superego(ModelLayer):
     variable, removable.  This is where repression happens.
     """
 
-    def __init__(self, model, tokenizer, prefix=None, name=None):
+    def __init__(self, model, tokenizer, prefix=None, use_prefix=True, name=None):
         super().__init__(model, tokenizer, name=name)
         self.prefix = prefix or DEFAULT_SUPEREGO_PREFIX
+        self.use_prefix = use_prefix
+
+    def _prepare_prompt(self, prompt):
+        return self.prefix + prompt if self.use_prefix else prompt
 
     def top_words(self, prompt, **kwargs):
-        return super().top_words(self.prefix + prompt, **kwargs)
+        return super().top_words(self._prepare_prompt(prompt), **kwargs)
 
     def logits(self, prompt):
-        return super().logits(self.prefix + prompt)
+        return super().logits(self._prepare_prompt(prompt))
 
     def word_logprobs(self, prompt, candidate_words):
-        return super().word_logprobs(self.prefix + prompt, candidate_words)
+        return super().word_logprobs(self._prepare_prompt(prompt), candidate_words)
 
     def score_vocabulary(self, prompt, words):
-        return super().score_vocabulary(self.prefix + prompt, words)
+        return super().score_vocabulary(self._prepare_prompt(prompt), words)
 
     def __repr__(self):
         prefix_preview = self.prefix[:40].replace("\n", "\\n") + "..."
-        return f"Superego(name={self.name!r}, prefix={prefix_preview!r})"
+        return (
+            f"Superego(name={self.name!r}, prefix={prefix_preview!r}, "
+            f"use_prefix={self.use_prefix})"
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -428,7 +436,7 @@ class PromptAnalysis:
             return {"df": df, "sublimation": {}, "repression": {}}
 
         model = self._psyche.ego.model
-        tokenizer = self._psyche.tokenizer
+        tokenizer = self._psyche.ego.tokenizer
         device = self._psyche.ego.device
         prompt = self.prompt
         stash = self._psyche._stash
@@ -711,7 +719,7 @@ class PromptAnalysis:
             "displacement",
             lambda: compute_displacement(
                 self.base_words, self.ego_words, self.superego_words,
-                self._psyche.ego.model, self._psyche.tokenizer, self.prompt,
+                self._psyche.ego.model, self._psyche.ego.tokenizer, self.prompt,
             ),
         )
 
@@ -800,7 +808,8 @@ class PromptAnalysis:
 class Psyche:
     """The computational psyche.
 
-    Composes primary process, ego, and superego around a shared tokenizer.
+    Composes primary process, ego, and superego layers with optional
+    per-layer tokenizers/models.
     Optionally backed by a HashStash for persistent caching of expensive
     computations (word distributions, displacement results).
 
@@ -816,15 +825,53 @@ class Psyche:
     """
 
     def __init__(
-        self, base_model, instruct_model, tokenizer,
-        superego_prefix=None, stash=None,
+        self,
+        base_model,
+        instruct_model,
+        tokenizer=None,
+        superego_prefix=None,
+        stash=None,
+        safe_model=None,
+        base_tokenizer=None,
+        instruct_tokenizer=None,
+        safe_tokenizer=None,
+        superego_use_prefix=None,
     ):
-        self.tokenizer = tokenizer
-        self.primary_process = PrimaryProcess(base_model, tokenizer, name="base")
-        self.ego = Ego(instruct_model, tokenizer, name="ego")
-        self.superego = Superego(
-            instruct_model, tokenizer, prefix=superego_prefix, name="superego",
+        if tokenizer is not None:
+            base_tokenizer = base_tokenizer or tokenizer
+            instruct_tokenizer = instruct_tokenizer or tokenizer
+            safe_tokenizer = safe_tokenizer or tokenizer
+        if base_tokenizer is None or instruct_tokenizer is None:
+            raise ValueError(
+                "base_tokenizer and instruct_tokenizer are required "
+                "(or pass shared `tokenizer`)."
+            )
+
+        if safe_model is None:
+            safe_model = instruct_model
+        if safe_tokenizer is None:
+            safe_tokenizer = instruct_tokenizer
+        if superego_use_prefix is None:
+            superego_use_prefix = safe_model is instruct_model
+
+        self.base_tokenizer = base_tokenizer
+        self.instruct_tokenizer = instruct_tokenizer
+        self.safe_tokenizer = safe_tokenizer
+        # Backwards-compatible alias used by some downstream code.
+        self.tokenizer = self.instruct_tokenizer
+
+        self.primary_process = PrimaryProcess(
+            base_model, self.base_tokenizer, name="base"
         )
+        self.ego = Ego(instruct_model, self.instruct_tokenizer, name="ego")
+        self.superego = Superego(
+            safe_model,
+            self.safe_tokenizer,
+            prefix=superego_prefix,
+            use_prefix=superego_use_prefix,
+            name="superego",
+        )
+        self.superego_uses_prefix = superego_use_prefix
         self._stash = stash
         self._propagate_stash()
 
@@ -846,8 +893,9 @@ class Psyche:
     @classmethod
     def from_pretrained(
         cls,
-        base_name="meta-llama/Llama-3.1-8B",
-        instruct_name="meta-llama/Llama-3.1-8B-Instruct",
+        base_name=BASE_MODEL_NAME,
+        instruct_name=INSTRUCT_MODEL_NAME,
+        safe_name=SAFE_MODEL_NAME,
         superego_prefix=None,
         cache=None,
         cache_dir=PATH_STASH,
@@ -858,21 +906,52 @@ class Psyche:
         Args:
             base_name: HuggingFace model ID for the base model.
             instruct_name: HuggingFace model ID for the instruct model.
+            safe_name: Optional HuggingFace model ID for the safe/superego model.
+                If None, superego reuses the instruct model plus prefixing.
             superego_prefix: Prohibition text. Uses default if None.
             cache: A pre-built HashStash instance, or None.
             cache_dir: If given (and cache is None), creates a HashStash
                 with this root directory.
-            **kwargs: Forwarded to load_models (e.g. load_in_4bit).
+            **kwargs: Forwarded to model loaders (e.g. load_in_4bit).
         """
-        base, instruct, tok = load_models(base_name, instruct_name, **kwargs)
+        if safe_name is None:
+            base, base_tokenizer = load_model(base_name=base_name, **kwargs)
+            instruct, instruct_tokenizer = load_model(
+                base_name=instruct_name, **kwargs
+            )
+            safe_model = instruct
+            safe_tokenizer = instruct_tokenizer
+            superego_use_prefix = True
+        else:
+            (
+                base,
+                instruct,
+                safe_model,
+                base_tokenizer,
+                instruct_tokenizer,
+                safe_tokenizer,
+            ) = load_three_models(
+                base_name=base_name,
+                instruct_name=instruct_name,
+                safe_name=safe_name,
+                **kwargs,
+            )
+            superego_use_prefix = False
 
         if cache is None and cache_dir is not None:
             from hashstash import HashStash
             cache = HashStash(root_dir=cache_dir)
 
         return cls(
-            base, instruct, tok,
-            superego_prefix=superego_prefix, stash=cache,
+            base_model=base,
+            instruct_model=instruct,
+            safe_model=safe_model,
+            base_tokenizer=base_tokenizer,
+            instruct_tokenizer=instruct_tokenizer,
+            safe_tokenizer=safe_tokenizer,
+            superego_prefix=superego_prefix,
+            superego_use_prefix=superego_use_prefix,
+            stash=cache,
         )
 
     # -- analysis ------------------------------------------------------------
@@ -919,8 +998,8 @@ class Psyche:
     # -- generation ----------------------------------------------------------
 
     def generate(
-        self, prompt, max_new_tokens=25, temperature=0.8,
-        displacement_weight=0.3, include_neurotic=False, **kwargs,
+        self, prompt, max_new_tokens=25, temperature=1.0,
+        displacement_weight=0.3, include_neurotic=False, verbose=True, **kwargs,
     ):
         """Generate ego, superego, and neurotic continuations.
 
@@ -935,21 +1014,54 @@ class Psyche:
         """
         from .generation import generate_neurotic, generate
 
+        def _compatible_vocab(a, b):
+            if a is b:
+                return True
+            try:
+                if getattr(a, "vocab_size", None) != getattr(b, "vocab_size", None):
+                    return False
+                if getattr(a, "eos_token_id", None) != getattr(b, "eos_token_id", None):
+                    return False
+                probe = "tokenizer compatibility probe"
+                return a.encode(probe, add_special_tokens=False) == b.encode(
+                    probe, add_special_tokens=False
+                )
+            except Exception:
+                return False
+
+        tokenizers_match = (
+            _compatible_vocab(self.base_tokenizer, self.instruct_tokenizer)
+            and _compatible_vocab(self.instruct_tokenizer, self.safe_tokenizer)
+        )
+
         if not include_neurotic:
             return generate(
                 self.primary_process.model,
                 self.ego.model,
-                self.tokenizer,
+                self.instruct_tokenizer,
                 prompt,
                 max_new_tokens=max_new_tokens,
                 superego_prefix=self.superego.prefix,
+                superego_model=self.superego.model,
+                base_tokenizer=self.base_tokenizer,
+                instruct_tokenizer=self.instruct_tokenizer,
+                superego_tokenizer=self.safe_tokenizer,
+                superego_use_prefix=self.superego_uses_prefix,
+                temperature=temperature,
+                verbose=verbose,
             )
         else:
+            if not tokenizers_match:
+                raise ValueError(
+                    "include_neurotic=True currently requires shared tokenizer "
+                    "across base/instruct/safe. Use include_neurotic=False for "
+                    "heterogeneous tokenizer setups."
+                )
 
             return generate_neurotic(
                 self.primary_process.model,
                 self.ego.model,
-                self.tokenizer,
+                self.instruct_tokenizer,
                 prompt,
                 max_new_tokens=max_new_tokens,
                 superego_prefix=self.superego.prefix,
