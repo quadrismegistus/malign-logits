@@ -67,12 +67,20 @@ def _model_id(model):
 class ModelLayer:
     """A structural position in the psychic apparatus."""
 
-    def __init__(self, model, tokenizer, name=None):
+    def __init__(self, model, tokenizer, name=None, model_id=None):
         self.model = model
         self.tokenizer = tokenizer
         self.name = name
-        self.model_id = _model_id(model)
+        self.model_id = model_id or _model_id(model) if model is not None else (model_id or "unknown")
         self._stash = None
+
+    def _require_model(self):
+        if self.model is None:
+            raise RuntimeError(
+                f"No model loaded for {self.name} layer. "
+                f"Load models with Psyche.from_pretrained() or call "
+                f"Psyche.load_models() to enable computation for uncached prompts."
+            )
 
     def top_words(self, prompt, top_k_first=200, **kwargs):
         """Word-level probability distribution from this layer."""
@@ -81,6 +89,7 @@ class ModelLayer:
         if self._stash is not None and cache_key in self._stash:
             return self._stash[cache_key]
 
+        self._require_model()
         result = discover_top_words(
             self.model, self.tokenizer, prompt,
             top_k_first=top_k_first, **kwargs,
@@ -93,10 +102,12 @@ class ModelLayer:
 
     def logits(self, prompt):
         """Raw logits at the last position for this prompt."""
+        self._require_model()
         return get_base_logits(self.model, self.tokenizer, prompt)
 
     def word_logprobs(self, prompt, candidate_words):
         """Exact log-probabilities for specific candidate words."""
+        self._require_model()
         return get_word_logprobs(
             self.model, self.tokenizer, prompt, candidate_words,
         )
@@ -118,6 +129,7 @@ class ModelLayer:
         if self._stash is not None and cache_key in self._stash:
             return self._stash[cache_key]
 
+        self._require_model()
         result = get_word_logprobs(
             self.model, self.tokenizer, prompt, words,
         )
@@ -129,6 +141,7 @@ class ModelLayer:
 
     @property
     def device(self):
+        self._require_model()
         return next(self.model.parameters()).device
 
     def __repr__(self):
@@ -890,24 +903,37 @@ class Psyche:
 
     def __init__(
         self,
-        base_model,
-        sft_model,
-        dpo_model,
-        tokenizer,
+        base_model=None,
+        sft_model=None,
+        dpo_model=None,
+        tokenizer=None,
         instruct_model=None,
         stash=None,
+        base_name=BASE_MODEL_NAME,
+        sft_name=SFT_MODEL_NAME,
+        dpo_name=DPO_MODEL_NAME,
+        instruct_name=None,
     ):
         self.tokenizer = tokenizer
+        self._model_names = {
+            "base": base_name,
+            "ego": sft_name,
+            "superego": dpo_name,
+        }
+        if instruct_name is not None:
+            self._model_names["instruct"] = instruct_name
 
-        self.primary_process = PrimaryProcess(base_model, tokenizer, name="base")
-        self.ego = Ego(sft_model, tokenizer, name="ego")
-        self.superego = Superego(dpo_model, tokenizer, name="superego")
+        self.primary_process = PrimaryProcess(base_model, tokenizer, name="base", model_id=base_name)
+        self.ego = Ego(sft_model, tokenizer, name="ego", model_id=sft_name)
+        self.superego = Superego(dpo_model, tokenizer, name="superego", model_id=dpo_name)
         self.reinforced_superego = None
-        if instruct_model is not None:
+        if instruct_model is not None or instruct_name is not None:
             self.reinforced_superego = ReinforcedSuperego(
                 instruct_model, tokenizer, name="instruct",
+                model_id=instruct_name or INSTRUCT_MODEL_NAME,
             )
 
+        self._models_loaded = base_model is not None
         self._stash = stash
         self._propagate_stash()
 
@@ -928,6 +954,69 @@ class Psyche:
         self._propagate_stash()
 
     # -- construction --------------------------------------------------------
+
+    @classmethod
+    def from_cache(
+        cls,
+        cache=None,
+        cache_dir=PATH_STASH,
+        base_name=BASE_MODEL_NAME,
+        sft_name=SFT_MODEL_NAME,
+        dpo_name=DPO_MODEL_NAME,
+        instruct_name=None,
+    ):
+        """Create a Psyche backed by cache only — no models loaded.
+
+        Cached prompts return instantly. Uncached prompts raise an error
+        until load_models() is called.
+        """
+        if cache is None and cache_dir is not None:
+            from hashstash import HashStash
+            cache = HashStash(root_dir=cache_dir)
+
+        return cls(
+            stash=cache,
+            base_name=base_name,
+            sft_name=sft_name,
+            dpo_name=dpo_name,
+            instruct_name=instruct_name,
+        )
+
+    def load_models(self, instruct_name=None):
+        """Load models into an existing Psyche (for lazy loading after from_cache)."""
+        if self._models_loaded:
+            return
+
+        names = self._model_names
+        inst_name = instruct_name or names.get("instruct")
+
+        if inst_name is not None:
+            base, sft, dpo, instruct, tokenizer = load_four_models(
+                base_name=names["base"],
+                sft_name=names["ego"],
+                dpo_name=names["superego"],
+                instruct_name=inst_name,
+            )
+        else:
+            base, sft, dpo, tokenizer = load_models(
+                base_name=names["base"],
+                sft_name=names["ego"],
+                dpo_name=names["superego"],
+            )
+            instruct = None
+
+        self.tokenizer = tokenizer
+        self.primary_process.model = base
+        self.primary_process.tokenizer = tokenizer
+        self.ego.model = sft
+        self.ego.tokenizer = tokenizer
+        self.superego.model = dpo
+        self.superego.tokenizer = tokenizer
+        if instruct is not None and self.reinforced_superego is not None:
+            self.reinforced_superego.model = instruct
+            self.reinforced_superego.tokenizer = tokenizer
+
+        self._models_loaded = True
 
     @classmethod
     def from_pretrained(
@@ -951,33 +1040,16 @@ class Psyche:
             cache_dir: If given (and cache is None), creates a HashStash
                 with this root directory.
         """
-        if instruct_name is not None:
-            base, sft, dpo, instruct, tokenizer = load_four_models(
-                base_name=base_name,
-                sft_name=sft_name,
-                dpo_name=dpo_name,
-                instruct_name=instruct_name,
-            )
-        else:
-            base, sft, dpo, tokenizer = load_models(
-                base_name=base_name,
-                sft_name=sft_name,
-                dpo_name=dpo_name,
-            )
-            instruct = None
-
-        if cache is None and cache_dir is not None:
-            from hashstash import HashStash
-            cache = HashStash(root_dir=cache_dir)
-
-        return cls(
-            base_model=base,
-            sft_model=sft,
-            dpo_model=dpo,
-            tokenizer=tokenizer,
-            instruct_model=instruct,
-            stash=cache,
+        psyche = cls.from_cache(
+            cache=cache,
+            cache_dir=cache_dir,
+            base_name=base_name,
+            sft_name=sft_name,
+            dpo_name=dpo_name,
+            instruct_name=instruct_name,
         )
+        psyche.load_models(instruct_name=instruct_name)
+        return psyche
 
     # -- analysis ------------------------------------------------------------
 

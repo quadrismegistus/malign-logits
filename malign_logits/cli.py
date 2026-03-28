@@ -53,6 +53,12 @@ def cmd_ui(args):
     launch(server_port=args.port, share=args.share)
 
 
+def cmd_serve(args):
+    """Start model server."""
+    from .server import serve
+    serve(port=args.port)
+
+
 def cmd_info(args):
     """Print model IDs and project info."""
     ids = _model_ids()
@@ -98,6 +104,11 @@ def main():
     ui.add_argument("--port", type=int, default=7860, help="Port (default 7860)")
     ui.add_argument("--share", action="store_true", help="Create public Gradio link")
     ui.set_defaults(func=cmd_ui)
+
+    # serve
+    sv = subparsers.add_parser("serve", help="Start model server (keeps models loaded)")
+    sv.add_argument("--port", type=int, default=8421, help="Port (default 8421)")
+    sv.set_defaults(func=cmd_serve)
 
     # info
     info = subparsers.add_parser("info", help="Print model configuration")

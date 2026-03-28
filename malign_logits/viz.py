@@ -34,7 +34,7 @@ def plot_formation_trajectories(
     facet_cols=3,
     facet_hspace=0.08,
     facet_vspace=0.12,
-    width=1100,
+    width=None,
     height=None,
     save_path=None,
 ):
@@ -398,7 +398,7 @@ def plot_sublimation(dm, prompt, min_prob=0.003, min_sim=0.5, save_path=None):
         ),
         yaxis=dict(type='log', title='probability', exponentformat='e'),
         title=dict(text=f'Sublimation map: "{prompt}"'),
-        height=800, width=1200,
+        height=800,
         template='plotly_white',
         legend=dict(orientation='h', yanchor='bottom', y=1.02),
         annotations=[
@@ -555,7 +555,7 @@ def plot_displacement(dm, prompt, min_prob=0.003, min_sim=0.5, save_path=None):
         ),
         yaxis=dict(type='log', title='probability', exponentformat='e'),
         title=dict(text=f'Displacement map: "{prompt}"'),
-        height=800, width=1050,
+        height=800,
         template='plotly_white',
         legend=dict(orientation='h', yanchor='bottom', y=1.02),
         annotations=[
@@ -691,7 +691,7 @@ def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8, 
                       '<span style="font-size:10px">(\u2666 at base = ego probability of target)</span>',
             ),
             title=dict(text=f'Displacement through layers: "{src}" \u2014 "{prompt}"'),
-            height=550, width=1100,
+            height=550,
             template='plotly_white',
             legend=dict(title='target word'),
         )
