@@ -117,10 +117,33 @@ Requires `transformers >= 4.57.0` for OLMo 3 architecture support.
 ## Code conventions
 
 - The core operation is `get_base_logits()`: encode prompt, single forward pass, extract logits at last position. Preserve full vocabulary logit vectors; never truncate to top-k.
-- At 7B, load all three default models simultaneously into memory (~42 GB total).
+- At 7B, load all models simultaneously into memory.
 - At 32B, load one model at a time. Extract logits, store, delete model, load next.
 - Quantization sensitivity matters. When comparing logit distributions across layers, quantization noise can mask displacement signals. At 7B use full precision. At 32B use Q8 minimum.
 - Variable names: `base_model`, `sft_model`, `dpo_model`, `instruct_model` matching the layer topology.
+
+### Model families and flexible layer count
+
+The `ModelFamily` dataclass (in `__init__.py`) maps model checkpoints to psychoanalytic positions. `MODEL_FAMILIES` dict holds all registered families:
+
+```python
+from malign_logits import Psyche
+
+# 4-layer (default): base + SFT + DPO + RLVR
+psyche = Psyche.from_family("olmo-3-7b")
+
+# 2-layer: base + instruct (instruct maps to superego)
+psyche = Psyche.from_family("llama-3-8b")
+```
+
+Layer topology determines available analyses:
+- **2 layers** (base + superego): Repression only. No sublimation, id scores, displacement, or neurotic generation.
+- **3 layers** (base + ego + superego): Full analysis.
+- **4 layers** (+ reinforced_superego): Full + idealization.
+
+`Psyche.ego` is `None` for 2-layer families. Properties that require ego raise `ValueError` with a clear message. Properties that can adapt (repression, formation_df, metrics) work with any layer count.
+
+CLI: `malign serve --family llama-3-8b`, `malign info`.
 
 ---
 
@@ -129,7 +152,7 @@ Requires `transformers >= 4.57.0` for OLMo 3 architecture support.
 ```
 malign-logits/
 ├── malign_logits/
-│   ├── __init__.py          # Package exports, model constants
+│   ├── __init__.py          # Package exports, ModelFamily registry
 │   ├── psyche.py            # Psyche, ModelLayer, RemoteModelLayer, PromptAnalysis
 │   ├── models.py            # Model loading (load_models, load_four_models)
 │   ├── core.py              # discover_top_words, get_word_logprobs, score_words_from_logits
@@ -150,7 +173,8 @@ malign-logits/
 
 ```bash
 # Terminal 1: model server (load once, stays running)
-malign serve
+malign serve                          # default family (olmo-3-7b)
+malign serve --family llama-3-8b      # or a specific family
 
 # Terminal 2: Gradio UI (restart freely, connects to server)
 malign ui
@@ -161,9 +185,10 @@ malign ui
 
 ### Key classes
 
-- **`Psyche`** — the apparatus as a whole. `from_pretrained()`, `from_cache()`, `from_server()`.
+- **`ModelFamily`** — dataclass mapping a model family to its checkpoints. `MODEL_FAMILIES` dict in `__init__.py`.
+- **`Psyche`** — the apparatus as a whole. `from_family()`, `from_pretrained()`, `from_cache()`, `from_server()`. `ego` is `None` for 2-layer families.
 - **`ModelLayer`** / **`RemoteModelLayer`** — structural position. Caches logits and word distributions to HashStash.
-- **`PromptAnalysis`** — lazy computation for a single prompt. Properties: `base_words`, `ego_words`, `superego_words`, `repression`, `sublimation`, `formation_df`, `displacement_map()`, etc.
+- **`PromptAnalysis`** — lazy computation for a single prompt. Properties adapt to available layers. 3-layer features raise `ValueError` on 2-layer Psyche.
 - **`PrimaryProcess`**, **`Ego`**, **`Superego`**, **`ReinforcedSuperego`** — named layer subclasses.
 
 ### Performance notes
@@ -232,6 +257,6 @@ Use Allen AI's step-level checkpoints to trace displacement emerging *during* tr
 
 Run the same battery on Zephyr (Mistral base → SFT → DPO). If the violence/sex structural difference replicates across OLMo and Zephyr, it's a property of the training *method*, not the model family.
 
-### Future: Flexible layer count
+### Done: Flexible layer count
 
-Support 2-4 layer topologies (e.g. Llama base + instruct = 2 layers). Graceful degradation: 2 layers = sublimation only, 3 = full analysis, 4 = idealization. See memory file for design plan.
+Model families support 2-4 layer topologies. `Psyche.from_family()` loads the right checkpoints. 2 layers = repression only, 3 = full analysis, 4 = idealization.

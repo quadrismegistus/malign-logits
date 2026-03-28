@@ -397,10 +397,11 @@ def distribution_metrics(base_logits, ego_logits, superego_logits, instruct_logi
     """Compute all distribution-level metrics between layers.
 
     Operates entirely on cached logits — no forward passes needed.
+    ego_logits may be None for 2-layer topologies.
 
     Args:
         base_logits: Raw logits from base model (vocab_size,).
-        ego_logits: Raw logits from SFT model (vocab_size,).
+        ego_logits: Raw logits from SFT model, or None.
         superego_logits: Raw logits from DPO model (vocab_size,).
         instruct_logits: Optional raw logits from RLVR model.
 
@@ -408,29 +409,28 @@ def distribution_metrics(base_logits, ego_logits, superego_logits, instruct_logi
         dict with all metrics.
     """
     metrics = {
-        # Entropy per layer (higher = flatter distribution)
         "entropy_base": distribution_entropy(base_logits),
-        "entropy_ego": distribution_entropy(ego_logits),
         "entropy_superego": distribution_entropy(superego_logits),
-
-        # KL divergence between adjacent layers
-        "kl_base_ego": kl_divergence(base_logits, ego_logits),
-        "kl_ego_superego": kl_divergence(ego_logits, superego_logits),
-
-        # JS divergence (symmetric)
-        "js_base_ego": js_divergence(base_logits, ego_logits),
-        "js_ego_superego": js_divergence(ego_logits, superego_logits),
         "js_base_superego": js_divergence(base_logits, superego_logits),
-
-        # Top-k overlap
-        "top50_overlap_base_ego": top_k_overlap(base_logits, ego_logits, k=50),
-        "top50_overlap_ego_superego": top_k_overlap(ego_logits, superego_logits, k=50),
         "top50_overlap_base_superego": top_k_overlap(base_logits, superego_logits, k=50),
-
-        # Entropy drop (how much each stage narrows expressive range)
-        "entropy_drop_sft": distribution_entropy(base_logits) - distribution_entropy(ego_logits),
-        "entropy_drop_dpo": distribution_entropy(ego_logits) - distribution_entropy(superego_logits),
     }
+
+    if ego_logits is not None:
+        metrics.update({
+            "entropy_ego": distribution_entropy(ego_logits),
+            "kl_base_ego": kl_divergence(base_logits, ego_logits),
+            "kl_ego_superego": kl_divergence(ego_logits, superego_logits),
+            "js_base_ego": js_divergence(base_logits, ego_logits),
+            "js_ego_superego": js_divergence(ego_logits, superego_logits),
+            "top50_overlap_base_ego": top_k_overlap(base_logits, ego_logits, k=50),
+            "top50_overlap_ego_superego": top_k_overlap(ego_logits, superego_logits, k=50),
+            "entropy_drop_sft": distribution_entropy(base_logits) - distribution_entropy(ego_logits),
+            "entropy_drop_dpo": distribution_entropy(ego_logits) - distribution_entropy(superego_logits),
+        })
+    else:
+        # 2-layer: single transition base→superego
+        metrics["kl_base_superego"] = kl_divergence(base_logits, superego_logits)
+        metrics["entropy_drop_alignment"] = distribution_entropy(base_logits) - distribution_entropy(superego_logits)
 
     if instruct_logits is not None:
         metrics.update({

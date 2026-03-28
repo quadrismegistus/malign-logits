@@ -24,6 +24,7 @@ _psyche = None
 _psyche_lock = threading.Lock()
 _progress = {"stage": "idle", "detail": "", "step": 0, "total": 0}
 _progress_lock = threading.Lock()
+_family = None  # set by serve()
 
 
 def _set_progress(stage, detail="", step=0, total=0):
@@ -38,9 +39,17 @@ def _get_psyche():
         if _psyche is None:
             from .psyche import Psyche
             _set_progress("loading_models", "Loading models...")
-            print("Loading models...")
+            if _family:
+                from . import MODEL_FAMILIES
+                fam = MODEL_FAMILIES[_family]
+                print(f"Loading {fam.name} ({fam.n_layers} layers)...")
+            else:
+                print("Loading models...")
             t0 = time.time()
-            _psyche = Psyche.from_pretrained()
+            if _family:
+                _psyche = Psyche.from_family(_family, load=True)
+            else:
+                _psyche = Psyche.from_pretrained()
             print(f"Models loaded in {time.time() - t0:.1f}s")
             _set_progress("idle")
         return _psyche
@@ -105,9 +114,15 @@ class ModelHandler(BaseHTTPRequestHandler):
 
             layers_to_run = [
                 ("base", "Base (primary process)", lambda: analysis.base_words),
-                ("ego", "Ego (SFT)", lambda: analysis.ego_words),
-                ("superego", "Superego (DPO)", lambda: analysis.superego_words),
             ]
+            if psyche.ego is not None:
+                layers_to_run.append(
+                    ("ego", "Ego (SFT)", lambda: analysis.ego_words),
+                )
+            if psyche.superego is not None:
+                layers_to_run.append(
+                    ("superego", "Superego (DPO)", lambda: analysis.superego_words),
+                )
             if psyche.reinforced_superego is not None:
                 layers_to_run.append(
                     ("instruct", "Instruct (RLVR)", lambda: analysis.instruct_words),
@@ -130,8 +145,10 @@ class ModelHandler(BaseHTTPRequestHandler):
             _set_progress("analyzing", "Scoring focused vocabulary...",
                           step=len(layers_to_run) + 1, total=len(layers_to_run) + 3)
             _ = analysis.focused_base_words
-            _ = analysis.focused_ego_words
-            _ = analysis.focused_superego_words
+            if psyche.ego is not None:
+                _ = analysis.focused_ego_words
+            if psyche.superego is not None:
+                _ = analysis.focused_superego_words
 
             # Build report and DataFrames
             _set_progress("analyzing", "Building report...",
@@ -172,6 +189,9 @@ class ModelHandler(BaseHTTPRequestHandler):
             return {"logits": logits.tolist()}
 
         elif path == "/displacement_map":
+            if psyche.ego is None:
+                raise ValueError("Displacement maps require 3+ layers (base/ego/superego)")
+
             prompt = body["prompt"]
             layers = body.get("layers", None)
             n_layers = len(layers) if layers else 3
@@ -179,7 +199,6 @@ class ModelHandler(BaseHTTPRequestHandler):
             _set_progress("displacement", f"Computing displacement map ({n_layers} layers)...")
 
             analysis = psyche.analyze(prompt)
-            # Force word distributions
             _ = analysis.base_words
             _ = analysis.ego_words
             _ = analysis.superego_words
@@ -220,23 +239,31 @@ class ModelHandler(BaseHTTPRequestHandler):
             return {"prompts": sorted(prompts)}
 
         elif path == "/info":
-            return {
+            info = {
                 "base": psyche.primary_process.model_id,
-                "ego": psyche.ego.model_id,
-                "superego": psyche.superego.model_id,
-                "instruct": psyche.reinforced_superego.model_id if psyche.reinforced_superego else None,
+                "n_layers": psyche.n_layers,
             }
+            if psyche.ego is not None:
+                info["ego"] = psyche.ego.model_id
+            if psyche.superego is not None:
+                info["superego"] = psyche.superego.model_id
+            if psyche.reinforced_superego is not None:
+                info["instruct"] = psyche.reinforced_superego.model_id
+            return info
 
         else:
             raise ValueError(f"Unknown endpoint: {path}")
 
     def _get_layer(self, psyche, layer_name):
-        layer = {"base": psyche.primary_process, "ego": psyche.ego,
-                 "superego": psyche.superego}.get(layer_name)
-        if layer is None and psyche.reinforced_superego and layer_name == "instruct":
-            layer = psyche.reinforced_superego
+        mapping = {
+            "base": psyche.primary_process,
+            "ego": psyche.ego,
+            "superego": psyche.superego,
+            "instruct": psyche.reinforced_superego,
+        }
+        layer = mapping.get(layer_name)
         if layer is None:
-            raise ValueError(f"Unknown layer: {layer_name}")
+            raise ValueError(f"Layer not available: {layer_name}")
         return layer
 
     def _respond(self, code, data):
@@ -253,8 +280,10 @@ class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
     daemon_threads = True
 
 
-def serve(port=8421):
+def serve(port=8421, family=None):
     """Start the model server."""
+    global _family
+    _family = family
     thread = threading.Thread(target=_get_psyche, daemon=True)
     thread.start()
 

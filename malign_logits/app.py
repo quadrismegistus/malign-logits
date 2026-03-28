@@ -64,16 +64,18 @@ def _ensure_models():
     if not _models_loaded:
         # Check server again in case it started after app launch
         if _server_available():
-            from .psyche import Psyche, RemoteModelLayer
+            from .psyche import RemoteModelLayer
             psyche.primary_process = RemoteModelLayer(
                 _SERVER_URL, "base", psyche._model_names["base"], name="base",
             )
-            psyche.ego = RemoteModelLayer(
-                _SERVER_URL, "ego", psyche._model_names["ego"], name="ego",
-            )
-            psyche.superego = RemoteModelLayer(
-                _SERVER_URL, "superego", psyche._model_names["superego"], name="superego",
-            )
+            if "ego" in psyche._model_names:
+                psyche.ego = RemoteModelLayer(
+                    _SERVER_URL, "ego", psyche._model_names["ego"], name="ego",
+                )
+            if "superego" in psyche._model_names:
+                psyche.superego = RemoteModelLayer(
+                    _SERVER_URL, "superego", psyche._model_names["superego"], name="superego",
+                )
             psyche._propagate_stash()
             _models_loaded = True
             _model_status = "Connected to model server."
@@ -115,15 +117,19 @@ def _analyze_sync(prompt):
     analysis = psyche.analyze(prompt)
     try:
         _ = analysis.base_words
-        _ = analysis.ego_words
-        _ = analysis.superego_words
+        if psyche.ego is not None:
+            _ = analysis.ego_words
+        if psyche.superego is not None:
+            _ = analysis.superego_words
         _ = analysis.repression
         _ = analysis.formation_df
     except RuntimeError:
         _ensure_models()
         _ = analysis.base_words
-        _ = analysis.ego_words
-        _ = analysis.superego_words
+        if psyche.ego is not None:
+            _ = analysis.ego_words
+        if psyche.superego is not None:
+            _ = analysis.superego_words
         _ = analysis.repression
         _ = analysis.formation_df
     return analysis
@@ -213,21 +219,15 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
         if server_result and "report" in server_result:
             report_text = server_result["report"]
             formation_df = pd.DataFrame(server_result["formation_df"])
-            for col in ["base", "ego", "superego", "ego - base", "superego - ego"]:
-                if col in formation_df.columns:
-                    formation_df[col] = pd.to_numeric(formation_df[col], errors="coerce").fillna(0)
+            for col in formation_df.select_dtypes(include="number").columns:
+                formation_df[col] = pd.to_numeric(formation_df[col], errors="coerce").fillna(0)
             rep_df = pd.DataFrame(server_result["repression_df"])
-            for col in ["base", "ego", "superego", "delta"]:
-                if col in rep_df.columns:
-                    rep_df[col] = pd.to_numeric(rep_df[col], errors="coerce").fillna(0)
-            if "word" in rep_df.columns:
-                keep = [c for c in ["word", "base", "ego", "superego", "delta", "repressed", "amplified"] if c in rep_df.columns]
-                rep_df = rep_df[keep]
+            for col in rep_df.select_dtypes(include="number").columns:
+                rep_df[col] = pd.to_numeric(rep_df[col], errors="coerce").fillna(0)
         else:
             report_text = _capture_print(analysis.formation_report)
             formation_df = analysis.formation_df.copy()
             rep_df = analysis.repression.copy()
-            rep_df = rep_df[["word", "base", "ego", "superego", "delta", "repressed", "amplified"]]
 
         _formation_cache[prompt] = formation_df
 
@@ -318,6 +318,9 @@ def on_displacement(prompt):
     prompt = prompt.strip()
     if prompt not in _cache:
         return None, "Run analysis first."
+    psyche = _get_psyche()
+    if psyche.ego is None:
+        return None, "Displacement maps require 3+ layers (base/ego/superego)."
 
     try:
         if _server_available():
@@ -345,6 +348,9 @@ def on_layer_displacement(prompt, source_word):
     prompt = prompt.strip()
     if prompt not in _cache:
         return "Run analysis first.", None, gr.update()
+    psyche = _get_psyche()
+    if psyche.ego is None:
+        return "Layer displacement requires 3+ layers (base/ego/superego).", None, gr.update()
 
     try:
         if prompt not in _dm_full_cache:

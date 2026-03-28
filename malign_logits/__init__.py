@@ -18,10 +18,11 @@ Quick start (OO interface)::
     s.id_scores           # drive-weighted repression scores
     s.analysis_df         # full combined DataFrame
 
-Functional interface::
+Model families::
 
-    from malign_logits import load_models, discover_top_words, run_prompt_battery
-    base, sft, dpo, tok = load_models()
+    from malign_logits import Psyche
+    psyche = Psyche.from_family("llama-3-8b")  # 2-layer
+    psyche = Psyche.from_family("olmo-3-7b")   # 4-layer (default)
 """
 
 __version__ = "0.2.0"
@@ -41,6 +42,8 @@ from tqdm import tqdm
 import warnings
 warnings.filterwarnings("ignore")
 
+from dataclasses import dataclass
+
 PATH_HERE = os.path.dirname(os.path.abspath(__file__))
 PATH_REPO = os.path.dirname(PATH_HERE)
 PATH_DATA = os.path.join(PATH_REPO, "data")
@@ -48,11 +51,47 @@ PATH_DATA_RAW = os.path.join(PATH_DATA, "raw")
 PATH_STASH = os.path.join(PATH_DATA_RAW, "stash")
 PATH_FIGURES = os.path.join(PATH_REPO, "figures")
 
-# OLMo 3 — Allen AI (all intermediates released separately)
-BASE_MODEL_NAME = "allenai/Olmo-3-1025-7B"
-SFT_MODEL_NAME = "allenai/Olmo-3-7B-Instruct-SFT"
-DPO_MODEL_NAME = "allenai/Olmo-3-7B-Instruct-DPO"
-INSTRUCT_MODEL_NAME = "allenai/Olmo-3-7B-Instruct"  # RLVR (final)
+
+# ---------------------------------------------------------------------------
+# Model family registry
+# ---------------------------------------------------------------------------
+
+@dataclass
+class ModelFamily:
+    """A model family with checkpoints at each training stage."""
+    name: str
+    base: str                              # primary process (always required)
+    ego: str | None = None                 # SFT checkpoint
+    superego: str | None = None            # DPO or instruct-as-superego
+    reinforced_superego: str | None = None # RLVR
+
+    @property
+    def n_layers(self):
+        return sum(1 for x in [self.base, self.ego, self.superego, self.reinforced_superego] if x is not None)
+
+
+MODEL_FAMILIES = {
+    "olmo-3-7b": ModelFamily(
+        name="OLMo 3 7B",
+        base="allenai/Olmo-3-1025-7B",
+        ego="allenai/Olmo-3-7B-Instruct-SFT",
+        superego="allenai/Olmo-3-7B-Instruct-DPO",
+        reinforced_superego="allenai/Olmo-3-7B-Instruct",
+    ),
+    "llama-3-8b": ModelFamily(
+        name="Llama 3 8B",
+        base="meta-llama/Meta-Llama-3-8B",
+        superego="meta-llama/Meta-Llama-3-8B-Instruct",
+    ),
+}
+
+DEFAULT_FAMILY = "olmo-3-7b"
+
+# Legacy constants — point at default family for backward compat in function signatures
+BASE_MODEL_NAME = MODEL_FAMILIES[DEFAULT_FAMILY].base
+SFT_MODEL_NAME = MODEL_FAMILIES[DEFAULT_FAMILY].ego
+DPO_MODEL_NAME = MODEL_FAMILIES[DEFAULT_FAMILY].superego
+INSTRUCT_MODEL_NAME = MODEL_FAMILIES[DEFAULT_FAMILY].reinforced_superego
 
 
 # Centralized intra-package imports.
