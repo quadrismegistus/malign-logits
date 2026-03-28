@@ -693,6 +693,7 @@ def build_app():
             fn=on_replot,
             inputs=plot_inputs,
             outputs=[trajectory_plot],
+            concurrency_limit=None,
         )
 
         displacement_btn.click(
@@ -711,18 +712,21 @@ def build_app():
             fn=on_replot_layers,
             inputs=[prompt_input, layer_source],
             outputs=[layer_status, layer_plot],
+            concurrency_limit=None,
         )
 
         refresh_btn.click(
             fn=_refresh_dropdown,
             inputs=[],
             outputs=[prompt_dropdown],
+            concurrency_limit=None,
         )
 
         prompt_dropdown.change(
             fn=on_select_prompt,
             inputs=[prompt_dropdown],
             outputs=[prompt_input],
+            concurrency_limit=None,
         )
 
         queue_btn.click(
