@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "malign-logits"
+version = "0.1.0"
+description = "A toolkit for psychoanalytic analysis of LLM probability distributions"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "rj416"},
+]
+maintainers = [
+    {name = "rj416"},
+]
+keywords = [
+    "llm",
+    "ai",
+    "psychoanalysis",
+    "transformers",
+    "huggingface",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "torch>=2.0.0",
+    "transformers>=4.30.0",
+    "accelerate>=0.20.0",
+    "bitsandbytes>=0.41.0",
+    "pandas>=1.5.0",
+    "tqdm>=4.65.0",
+]
+
+[project.optional-dependencies]
+cache = [
+    "hashstash",
+]
+dev = [
+    "pytest>=6.0",
+    "black",
+    "flake8",
+    "mypy",
+]
+notebooks = [
+    "jupyter",
+    "matplotlib",
+    "seaborn",
+]
+
+[project.urls]
+Homepage = "https://github.com/rj416/malign-logits"
+Repository = "https://github.com/rj416/malign-logits"
+"Bug Reports" = "https://github.com/rj416/malign-logits/issues"
+"Source" = "https://github.com/rj416/malign-logits"
+
+[tool.setuptools]
+packages = ["malign_logits"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"malign_logits" = ["*.py"]
