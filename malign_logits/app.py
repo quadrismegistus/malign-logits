@@ -27,12 +27,32 @@ _dm_full_cache = {}  # prompt -> displacement_map result (all layers)
 _computing = {}  # prompt -> threading.Event (set when done)
 
 
+_SERVER_URL = "http://127.0.0.1:8421"
+
+
+def _server_available():
+    """Check if model server is running."""
+    try:
+        import urllib.request
+        with urllib.request.urlopen(f"{_SERVER_URL}/health", timeout=2) as resp:
+            return resp.status == 200
+    except Exception:
+        return False
+
+
 def _get_psyche():
-    global _psyche, _model_status
+    global _psyche, _models_loaded, _model_status
     if _psyche is None:
         from .psyche import Psyche
-        _psyche = Psyche.from_cache()
-        _model_status = "Cache loaded (models not in memory)."
+        if _server_available():
+            _psyche = Psyche.from_server(server_url=_SERVER_URL)
+            _models_loaded = True
+            _model_status = "Connected to model server."
+            print(f"Connected to model server at {_SERVER_URL}")
+        else:
+            _psyche = Psyche.from_cache()
+            _model_status = "Cache loaded (no server detected, models not in memory)."
+            print("No model server detected. Using cache-only mode.")
     return _psyche
 
 
@@ -41,10 +61,26 @@ def _ensure_models():
     global _models_loaded, _model_status
     psyche = _get_psyche()
     if not _models_loaded:
-        _model_status = "Loading models..."
-        psyche.load_models()
-        _models_loaded = True
-        _model_status = "Models loaded."
+        # Check server again in case it started after app launch
+        if _server_available():
+            from .psyche import Psyche, RemoteModelLayer
+            psyche.primary_process = RemoteModelLayer(
+                _SERVER_URL, "base", psyche._model_names["base"], name="base",
+            )
+            psyche.ego = RemoteModelLayer(
+                _SERVER_URL, "ego", psyche._model_names["ego"], name="ego",
+            )
+            psyche.superego = RemoteModelLayer(
+                _SERVER_URL, "superego", psyche._model_names["superego"], name="superego",
+            )
+            psyche._propagate_stash()
+            _models_loaded = True
+            _model_status = "Connected to model server."
+        else:
+            _model_status = "Loading models locally..."
+            psyche.load_models()
+            _models_loaded = True
+            _model_status = "Models loaded locally."
 
 
 def _analyze_sync(prompt):
