@@ -297,26 +297,34 @@ def on_analyze(prompt, sort_by, top_n, min_prob, min_delta):
 
 def on_replot(prompt, sort_by, top_n, min_prob, min_delta):
     """Replot trajectory with new settings (no recompute)."""
+    print(f"[replot] prompt={prompt!r}, sort_by={sort_by}, top_n={top_n}, "
+          f"min_prob={min_prob}, min_delta={min_delta}")
     if not prompt or not prompt.strip():
-        return None
+        print("[replot] no prompt")
+        return gr.update()
     prompt = prompt.strip()
     if prompt not in _formation_cache:
-        return None
+        print(f"[replot] prompt not in cache. keys={list(_formation_cache.keys())}")
+        return gr.update()
     try:
         min_delta_val = min_delta if min_delta > 0 else None
+        df = _formation_cache[prompt]
+        print(f"[replot] df shape={df.shape}, columns={list(df.columns)}")
         from .viz import plot_formation_trajectories
-        return plot_formation_trajectories(
-            _formation_cache[prompt].copy(),
+        fig = plot_formation_trajectories(
+            df,
             prompt=prompt,
             min_prob=min_prob,
             min_delta=min_delta_val,
             sort_by=sort_by,
             top_n=int(top_n),
         )
+        print(f"[replot] success, fig type={type(fig)}")
+        return fig
     except Exception as e:
         import traceback
         traceback.print_exc()
-        return None
+        return gr.update()
 
 
 def _request_server_displacement(prompt, layers=None):
@@ -689,12 +697,23 @@ def build_app():
         # Refresh dropdown on page load and after analyze
         app.load(fn=_refresh_dropdown, outputs=[prompt_dropdown])
 
+        replot_inputs = [prompt_input, sort_by, top_n, min_prob, min_delta]
+
         replot_btn.click(
             fn=on_replot,
-            inputs=plot_inputs,
+            inputs=replot_inputs,
             outputs=[trajectory_plot],
             concurrency_limit=None,
         )
+
+        # Auto-replot when any control changes
+        for control in [sort_by, top_n, min_prob, min_delta]:
+            control.change(
+                fn=on_replot,
+                inputs=replot_inputs,
+                outputs=[trajectory_plot],
+                concurrency_limit=None,
+            )
 
         displacement_btn.click(
             fn=on_displacement,
