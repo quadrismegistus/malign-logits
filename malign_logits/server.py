@@ -109,6 +109,33 @@ class ModelHandler(BaseHTTPRequestHandler):
             ).squeeze()
             return {"embedding": emb.tolist()}
 
+        elif path == "/displacement_map":
+            prompt = body["prompt"]
+            layers = body.get("layers", None)
+            analysis = psyche.analyze(prompt)
+            # Force word distributions (writes to stash)
+            _ = analysis.base_words
+            _ = analysis.ego_words
+            _ = analysis.superego_words
+            _ = analysis.formation_df
+            # Run displacement_map (writes embeddings to stash)
+            dm = analysis.displacement_map(layers=layers)
+            # Serialize the result — pairs are simple lists, df as records
+            result = {
+                "sublimation": {
+                    "source": dm.get("sublimation", {}).get("source", []),
+                    "target": dm.get("sublimation", {}).get("target", []),
+                    "pairs": dm.get("sublimation", {}).get("pairs", []),
+                },
+                "repression": {
+                    "source": dm.get("repression", {}).get("source", []),
+                    "target": dm.get("repression", {}).get("target", []),
+                    "pairs": dm.get("repression", {}).get("pairs", []),
+                },
+                "df": dm["df"].to_dict(orient="records"),
+            }
+            return result
+
         elif path == "/info":
             return {
                 "base": psyche.primary_process.model_id,
