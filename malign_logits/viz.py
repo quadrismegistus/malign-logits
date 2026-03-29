@@ -1109,8 +1109,9 @@ def plot_logit_lens(lens_data, prompt=None, words=None, min_layers=8, save_path=
 
     model_labels = {"base": "BASE", "ego": "SFT", "superego": "DPO", "instruct": "RLVR"}
     df["model_label"] = df["model"].map(model_labels).fillna(df["model"])
-    # Order facets
-    label_order = [v for v in ["BASE", "SFT", "DPO", "RLVR"] if v in df["model_label"].values]
+    # Order facets: BASE < SFT < DPO < RLVR
+    label_order = ["BASE", "SFT", "DPO", "RLVR"]
+    label_order = [v for v in label_order if v in df["model_label"].values]
     df["model_label"] = pd.Categorical(df["model_label"], categories=label_order, ordered=True)
 
     # Determine tracked vs top-k
