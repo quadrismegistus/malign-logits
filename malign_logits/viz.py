@@ -930,3 +930,153 @@ def plot_battery_metrics(metrics_df, save_path=None):
             print(f"  Saved {path}")
 
     return figs
+
+
+# ── Generation battery visualizations ─────────────────────────────
+
+def plot_logit_vs_generation(battery_csv, gen_metrics_csv, save_path=None):
+    """Scatter: logit JS divergence vs generation centroid distance.
+
+    The key figure — tests whether logit-level displacement predicts
+    narrative-level divergence.
+    """
+    bat = pd.read_csv(battery_csv)
+    gen = pd.read_csv(gen_metrics_csv)
+
+    # Find the centroid distance column (base vs superego or instruct)
+    dist_col = None
+    for col in ["centroid_dist_base_superego", "centroid_dist_base_instruct",
+                "centroid_dist_base_ego"]:
+        if col in gen.columns:
+            dist_col = col
+            break
+    if dist_col is None:
+        dist_cols = [c for c in gen.columns if c.startswith("centroid_dist_")]
+        if dist_cols:
+            dist_col = dist_cols[0]
+        else:
+            raise ValueError("No centroid distance column found in gen metrics")
+
+    merged = bat.merge(gen, on=["family", "label"], suffixes=("_logit", "_gen"))
+
+    family_colors = {
+        "qwen": "#72b7b2", "llama": "#4c78a8",
+        "olmo": "#e45756", "amber": "#eeca3b",
+    }
+
+    fig = go.Figure()
+    for fam in sorted(merged["family"].unique()):
+        sub = merged[merged["family"] == fam]
+        fig.add_trace(go.Scatter(
+            x=sub["js_base_superego"],
+            y=sub[dist_col],
+            mode="markers",
+            name=fam,
+            marker=dict(size=8, color=family_colors.get(fam, "#999")),
+            text=sub["label"],
+            hovertemplate=(
+                "<b>%{text}</b><br>"
+                "JS divergence: %{x:.4f}<br>"
+                "Centroid distance: %{y:.4f}<br>"
+                "<extra>%{fullData.name}</extra>"
+            ),
+        ))
+
+    fig.update_layout(
+        title="Logit displacement vs narrative divergence",
+        xaxis_title="JS divergence (base → superego, logits)",
+        yaxis_title="Centroid distance (base → superego, generations)",
+        template="plotly_white",
+        width=700, height=500,
+    )
+    if save_path:
+        fig.write_image(save_path, scale=2)
+    return fig
+
+
+def plot_variance_reduction(gen_metrics_csv, save_path=None):
+    """Bar chart: variance_ratio per family per content category."""
+    df = pd.read_csv(gen_metrics_csv)
+    if "variance_ratio" not in df.columns:
+        raise ValueError("No variance_ratio column in gen metrics")
+
+    df["category"] = df["label"].str.replace(r"_\d+$", "", regex=True)
+
+    pivot = df.pivot_table(
+        values="variance_ratio", index="category", columns="family",
+        aggfunc="mean",
+    )
+
+    fam_order = [f for f in ["qwen", "llama", "olmo", "amber"]
+                 if f in pivot.columns]
+    pivot = pivot[fam_order]
+    family_colors = {
+        "qwen": "#72b7b2", "llama": "#4c78a8",
+        "olmo": "#e45756", "amber": "#eeca3b",
+    }
+
+    fig = go.Figure()
+    for fam in fam_order:
+        fig.add_trace(go.Bar(
+            x=pivot.index.tolist(),
+            y=pivot[fam].tolist(),
+            name=fam,
+            marker_color=family_colors.get(fam, "#999"),
+        ))
+
+    fig.add_hline(y=1.0, line_dash="dash", line_color="gray",
+                  annotation_text="no change", annotation_position="top right")
+    fig.update_layout(
+        title="Variance ratio (superego / base) — below 1 = alignment compresses diversity",
+        yaxis_title="variance ratio",
+        barmode="group",
+        template="plotly_white",
+        width=900, height=500,
+    )
+    if save_path:
+        fig.write_image(save_path, scale=2)
+    return fig
+
+
+def plot_concept_shift(gen_metrics_csv, concept="violent", save_path=None):
+    """Bar chart: concept shift per family per content category."""
+    df = pd.read_csv(gen_metrics_csv)
+    shift_col = f"{concept}_shift"
+    if shift_col not in df.columns:
+        raise ValueError(f"No {shift_col} column in gen metrics")
+
+    df["category"] = df["label"].str.replace(r"_\d+$", "", regex=True)
+
+    pivot = df.pivot_table(
+        values=shift_col, index="category", columns="family",
+        aggfunc="mean",
+    )
+
+    fam_order = [f for f in ["qwen", "llama", "olmo", "amber"]
+                 if f in pivot.columns]
+    pivot = pivot[fam_order]
+    family_colors = {
+        "qwen": "#72b7b2", "llama": "#4c78a8",
+        "olmo": "#e45756", "amber": "#eeca3b",
+    }
+
+    fig = go.Figure()
+    for fam in fam_order:
+        fig.add_trace(go.Bar(
+            x=pivot.index.tolist(),
+            y=pivot[fam].tolist(),
+            name=fam,
+            marker_color=family_colors.get(fam, "#999"),
+        ))
+
+    fig.add_hline(y=0, line_color="gray")
+    fig.update_layout(
+        title=f"Concept shift: {concept} (base → superego)",
+        yaxis_title=f"{concept} score shift",
+        barmode="group",
+        template="plotly_white",
+        width=900, height=500,
+    )
+    if save_path:
+        fig.write_image(save_path, scale=2)
+    return fig

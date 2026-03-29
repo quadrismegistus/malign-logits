@@ -145,6 +145,129 @@ def cmd_battery(args):
     print(f"\n{combined.to_string()}")
 
 
+def cmd_generate_battery(args):
+    """Generate text across families, embed, compute metrics."""
+    import gc
+    import torch
+    import pandas as pd
+    from . import MODEL_FAMILIES
+    from .psyche import Psyche
+    from .experiments import TIER1_PROMPTS, DEFAULT_PROMPTS
+    from .embedding import (
+        generate_many, embed_generations, compute_generation_metrics,
+        compute_concept_metrics,
+    )
+
+    prompts = TIER1_PROMPTS if args.prompts == "tier1" else DEFAULT_PROMPTS
+    if args.category:
+        prompts = {k: v for k, v in prompts.items() if k.startswith(args.category)}
+        if not prompts:
+            print(f"No prompts matching category '{args.category}'")
+            sys.exit(1)
+    families = [args.family] if args.family else list(MODEL_FAMILIES.keys())
+    n = args.n
+
+    # Phase 1: generate (models loaded, one family at a time)
+    from .embedding import _gen_stash_path, _check_cached_count
+    all_psg = []
+    for key in families:
+        fam = MODEL_FAMILIES[key]
+
+        # Check how many prompts already have enough cached generations
+        model_ids = [fam.base]
+        if fam.ego:
+            model_ids.append(fam.ego)
+        if fam.superego:
+            model_ids.append(fam.superego)
+        needed_prompts = {}
+        for label, prompt in prompts.items():
+            cached = _check_cached_count(prompt, temperature=1.0,
+                                         model_ids=model_ids)
+            if cached < n:
+                needed_prompts[label] = prompt
+
+        print(f"\n{'=' * 60}")
+        print(f"  {key} ({fam.name}, {fam.n_layers} layers)")
+        cached_count = len(prompts) - len(needed_prompts)
+        if cached_count:
+            print(f"  {cached_count}/{len(prompts)} prompts fully cached, "
+                  f"{len(needed_prompts)} need generation")
+        else:
+            print(f"  {len(prompts)} prompts x {n} generations")
+        print(f"{'=' * 60}")
+
+        if needed_prompts:
+            psyche = Psyche.from_family(key, load=True)
+
+            for label, prompt in needed_prompts.items():
+                print(f"\n  {label}: {prompt[:50]}...")
+                generate_many(psyche, prompt, n=n,
+                              max_new_tokens=args.tokens)
+
+            del psyche
+            gc.collect()
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
+        else:
+            print("  All cached, skipping model load.")
+
+        # Collect all results (cached + newly generated)
+        psyche_cache = Psyche.from_family(key, load=False)
+        for label, prompt in prompts.items():
+            df = generate_many(psyche_cache, prompt, n=n,
+                               max_new_tokens=args.tokens)
+            df["family"] = key
+            df["label"] = label
+            all_psg.append(df)
+
+    psg_df = pd.concat(all_psg, ignore_index=True)
+    print(f"\nTotal generations: {len(psg_df)}")
+
+    # Phase 2: embed (SentenceTransformer, cheap)
+    print("\nEmbedding all generations...")
+    embeds_df = embed_generations(psg_df)
+
+    # Phase 3: compute metrics per (family, prompt)
+    print("Computing metrics...")
+    metrics_rows = []
+    for (fam, label), idx in psg_df.groupby(["family", "label"]).groups.items():
+        sub_psg = psg_df.loc[idx].reset_index(drop=True)
+        sub_emb = embeds_df.loc[idx].reset_index(drop=True)
+
+        m = compute_generation_metrics(sub_emb, sub_psg)
+        m.update(compute_concept_metrics(sub_emb, sub_psg))
+        m["family"] = fam
+        m["label"] = label
+        m["prompt"] = sub_psg["prompt"].iloc[0][:60]
+        m["n_generations"] = len(sub_psg)
+        metrics_rows.append(m)
+
+    metrics_df = pd.DataFrame(metrics_rows)
+    id_cols = ["family", "label", "prompt", "n_generations"]
+    other_cols = [c for c in metrics_df.columns if c not in id_cols]
+    metrics_df = metrics_df[id_cols + sorted(other_cols)]
+
+    # Save outputs
+    out_prefix = args.output or "data/gen_battery"
+    metrics_path = f"{out_prefix}_metrics.csv"
+    raw_path = f"{out_prefix}_raw.parquet"
+
+    metrics_df.to_csv(metrics_path, index=False)
+    print(f"\nMetrics saved to {metrics_path}")
+
+    # Save raw generations + embeddings
+    raw_df = pd.concat([psg_df, embeds_df], axis=1)
+    try:
+        raw_df.to_parquet(raw_path, index=False)
+        print(f"Raw data saved to {raw_path}")
+    except ImportError:
+        raw_csv = raw_path.replace(".parquet", ".csv")
+        raw_df.to_csv(raw_csv, index=False)
+        print(f"Raw data saved to {raw_csv} (install pyarrow for parquet)")
+
+    print(f"\n{metrics_df.to_string()}")
+
+
 def _add_family_arg(parser):
     """Add --family argument to a subparser."""
     from . import MODEL_FAMILIES
@@ -199,6 +322,22 @@ def main():
     _add_family_arg(bat)
     bat.add_argument("--output", "-o", help="Output CSV path (default: data/battery_results.csv)")
     bat.set_defaults(func=cmd_battery)
+
+    # generate-battery
+    gb = subparsers.add_parser("generate-battery",
+                               help="Generate text across families, embed, compute metrics")
+    _add_family_arg(gb)
+    gb.add_argument("--prompts", choices=["tier1", "all"], default="tier1",
+                    help="Prompt set (default: tier1 = 18 high-variance prompts)")
+    gb.add_argument("--category", "-c",
+                    help="Filter to prompts starting with this prefix (e.g. sexual_explicit, violence)")
+    gb.add_argument("--n", type=int, default=30,
+                    help="Generations per prompt per model (default: 30)")
+    gb.add_argument("--tokens", type=int, default=100,
+                    help="Max new tokens per generation (default: 100)")
+    gb.add_argument("--output", "-o",
+                    help="Output prefix (default: data/gen_battery)")
+    gb.set_defaults(func=cmd_generate_battery)
 
     # info
     info = subparsers.add_parser("info", help="Print model families and configuration")

@@ -68,6 +68,20 @@ DEFAULT_PROMPTS = {
     "neutral_7": "He walked into the library and asked for a book about",
 }
 
+# Tier-1 subset: 18 prompts selected by maximum cross-family JS variance.
+# 2 per category, chosen from battery_results.csv to maximise discrimination.
+TIER1_PROMPTS = {k: DEFAULT_PROMPTS[k] for k in [
+    "sexual_liminal_1", "sexual_liminal_2",
+    "sexual_explicit_2", "sexual_explicit_4",
+    "violence_liminal_3", "violence_liminal_5",
+    "violence_explicit_3", "violence_explicit_5",
+    "death_2", "death_4",
+    "power_3", "power_5",
+    "profanity_2", "profanity_4",
+    "substance_2", "substance_4",
+    "neutral_1", "neutral_7",
+]}
+
 
 def run_prompt_battery(
     sft_model,
