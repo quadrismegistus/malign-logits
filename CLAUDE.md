@@ -270,17 +270,21 @@ malign ui
 
 ---
 
+## Confirmed findings (logit lens, 4 families)
+
+**Repression depth in the network predicts defence mechanism style.** Projecting hidden states through the unembedding matrix at each layer reveals fundamentally different internal architectures:
+- **OLMo**: Distributed repression — `kill` suppressed across all layers, intermediate layers dominated by template tokens (`____`, `kms`). Explains genre collapse.
+- **Llama**: Late-layer override — `kill` builds up to base-model levels through layer 25, then gets overridden by `scream`/`punch` in final 5 layers. Explains narrative sublimation.
+- **Amber**: Distributed but semantic — intermediate layers contain emotional vocabulary (`cry`, `vent`, `revenge`) not template tokens. Explains rotation between emotional strategies.
+- **Qwen**: Code-dominated — intermediate layers contain programming tokens (`getRepository`, `');`). English prompts processed through a code lens. Explains exam-question outputs.
+
+**CLI:** `malign logit-lens "prompt" --family olmo --top-k 5 --min-layers 8`
+
+---
+
 ## Research roadmap
 
-### Priority 1: Step-level checkpoint analysis
-
-Use Allen AI's step-level checkpoints (`Olmo-3-7B-Think-SFT`, 43 steps available) to trace displacement emerging *during* SFT training:
-- Track word probabilities at each checkpoint against fixed base model
-- Watch repression onset curves — sudden (primal) vs gradual (secondary)
-- Check whether displacement targets lag behind repressed word decline
-- 10 evenly-spaced checkpoints, download-extract-delete workflow, ~6 hours total
-
-### Priority 2: Automatic displacement type taxonomy
+### Priority 1: Automatic displacement type taxonomy
 
 Classify displacement pairs automatically:
 - **Register shift** = high similarity + same POS
@@ -291,6 +295,14 @@ Classify displacement pairs automatically:
 ### Priority 3: Full generation run (n=30)
 
 Increase generation count for stable variance ratios and statistical robustness. ~2.2 hours for all 4 families on tier-1 prompts.
+
+### Done: Logit lens analysis
+
+`malign logit-lens` projects hidden states through unembedding matrix at each network layer. Reveals that repression depth predicts defence mechanism: distributed (OLMo → genre collapse), late-layer (Llama → narrative sublimation), semantic (Amber → emotional rotation), code-dominated (Qwen → exam questions). Figures in `figures/logit_lens.*.png`.
+
+### Done: Step-level checkpoint analysis
+
+`malign step-analysis` traces repression across 10 OLMo Think-SFT checkpoints (step 1000-43000). Sexual repression is a phase transition (70% drop by step 1000). Violence repression is non-monotonic. Displacement targets emerge ~15k steps after repression onset. Results in `data/step_analysis_*.csv`. Figures in `figures/step_*.png`.
 
 ### Done: Generation-level cross-family analysis
 
