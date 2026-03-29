@@ -1084,6 +1084,14 @@ def plot_concept_shift(gen_metrics_csv, concept="violent", save_path=None):
 
 # ── Step-level checkpoint visualizations ──────────────────────────
 
+_WORD_PALETTE = [
+    "#e45756", "#4c78a8", "#eeca3b", "#54a24b", "#f58518",
+    "#72b7b2", "#b279a2", "#ff9da6", "#9d755d", "#bab0ac",
+    "#5778a4", "#e49444", "#d1615d", "#85b6b2", "#6a9f58",
+    "#e7ca60", "#a87c9f", "#f1a2a9", "#967662", "#b8b0a2",
+]
+
+
 def plot_repression_curves(words_csv, prompt_label=None, words=None, save_path=None):
     """Line plot: probability vs training step for tracked words."""
     df = pd.read_csv(words_csv)
@@ -1092,23 +1100,24 @@ def plot_repression_curves(words_csv, prompt_label=None, words=None, save_path=N
     if words:
         df = df[df["word"].isin(words)]
 
-    cat_colors = {
-        "sexual": "#e45756", "violence": "#4c78a8",
-        "displacement": "#eeca3b", "neutral": "#999999",
-    }
+    # Order words by base probability (highest first) for legend readability
+    word_order = (
+        df.groupby("word")["base_probability"].mean()
+        .sort_values(ascending=False).index.tolist()
+    )
 
     fig = go.Figure()
-    for word in df["word"].unique():
+    for i, word in enumerate(word_order):
         wdf = df[df["word"] == word].sort_values("step")
-        cat = wdf["word_category"].iloc[0]
         base_prob = wdf["base_probability"].iloc[0]
         steps = [0] + wdf["step"].tolist()
         probs = [base_prob] + wdf["probability"].tolist()
+        color = _WORD_PALETTE[i % len(_WORD_PALETTE)]
         fig.add_trace(go.Scatter(
             x=steps, y=probs, mode="lines+markers",
-            name=f"{word} ({cat})",
-            line=dict(color=cat_colors.get(cat, "#999"), width=2),
-            marker=dict(size=4),
+            name=word,
+            line=dict(color=color, width=2.5),
+            marker=dict(size=5),
         ))
 
     title = "Repression onset curves (probability vs SFT training step)"
@@ -1119,9 +1128,10 @@ def plot_repression_curves(words_csv, prompt_label=None, words=None, save_path=N
     fig.update_layout(
         title=title,
         xaxis_title="SFT training step (0 = base model)",
-        yaxis_title="probability",
+        yaxis_title="probability (log scale)",
+        yaxis_type="log",
         template="plotly_white", width=900, height=550,
-        legend=dict(title="word (category)"),
+        legend=dict(title="word"),
     )
     if save_path:
         fig.write_image(save_path, scale=2)
