@@ -221,7 +221,7 @@ def cmd_logit_lens(args):
     from .viz import plot_logit_lens
     basename_fig = f"logit_lens.{key}.{prompt_slug}.{words_slug}"
     fig_path = f"figures/{basename_fig}.png"
-    plot_logit_lens(result, prompt=prompt, save_path=fig_path)
+    plot_logit_lens(result, prompt=prompt, family=key, top_k=args.top_k, save_path=fig_path)
     print(f"Figure saved to {fig_path}")
 
 
