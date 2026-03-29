@@ -21,8 +21,8 @@ Quick start (OO interface)::
 Model families::
 
     from malign_logits import Psyche
-    psyche = Psyche.from_family("llama-3-8b")  # 2-layer
-    psyche = Psyche.from_family("olmo-3-7b")   # 4-layer (default)
+    psyche = Psyche.from_family("llama")  # 2-layer
+    psyche = Psyche.from_family("olmo")   # 4-layer (default)
 """
 
 __version__ = "0.2.0"
@@ -71,21 +71,32 @@ class ModelFamily:
 
 
 MODEL_FAMILIES = {
-    "olmo-3-7b": ModelFamily(
+    "olmo": ModelFamily(
         name="OLMo 3 7B",
         base="allenai/Olmo-3-1025-7B",
         ego="allenai/Olmo-3-7B-Instruct-SFT",
         superego="allenai/Olmo-3-7B-Instruct-DPO",
         reinforced_superego="allenai/Olmo-3-7B-Instruct",
     ),
-    "llama-3-8b": ModelFamily(
-        name="Llama 3 8B",
-        base="meta-llama/Meta-Llama-3-8B",
-        superego="meta-llama/Meta-Llama-3-8B-Instruct",
+    "llama": ModelFamily(
+        name="Llama 3.1 8B",
+        base="meta-llama/Llama-3.1-8B",
+        superego="meta-llama/Llama-3.1-8B-Instruct",
+    ),
+    "amber": ModelFamily(
+        name="Amber",
+        base="LLM360/Amber",
+        ego="LLM360/AmberChat",
+        superego="LLM360/AmberSafe",
+    ),
+    "qwen": ModelFamily(
+        name="Qwen 2.5 7B",
+        base="Qwen/Qwen2.5-7B",
+        superego="Qwen/Qwen2.5-7B-Instruct",
     ),
 }
 
-DEFAULT_FAMILY = "olmo-3-7b"
+DEFAULT_FAMILY = "olmo"
 
 # Legacy constants — point at default family for backward compat in function signatures
 BASE_MODEL_NAME = MODEL_FAMILIES[DEFAULT_FAMILY].base

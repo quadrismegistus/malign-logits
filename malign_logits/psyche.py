@@ -546,7 +546,10 @@ class PromptAnalysis:
     ):
         """Test whether sublimation and repression follow displacement logic.
 
-        Requires 3+ layers (uses ego model's contextual embeddings).
+        3+ layers: two axes (sublimation: base→ego, repression: ego→superego).
+        2 layers: single repression axis (base→superego).
+
+        Uses ego model for embeddings when available, otherwise superego.
 
         Args:
             layers: Hidden layer indices. Default [8, 16, 24].
@@ -557,10 +560,10 @@ class PromptAnalysis:
         Returns:
             dict with keys:
                 'df': formation_df annotated with displacement columns
-                'sublimation': {source, target, similarity, pairs}
+                'sublimation': {source, target, similarity, pairs} (empty for 2-layer)
                 'repression': {source, target, similarity, pairs}
         """
-        self._require_ego("displacement_map")
+        has_ego = self._psyche.has_ego
 
         if layers is None:
             layers = [8, 16, 24]
@@ -568,19 +571,26 @@ class PromptAnalysis:
         df = self.formation_df.copy()
         dt = delta_threshold
 
-        sig = df[
-            (df["base"] > min_prob)
-            | (df["ego"] > min_prob)
-            | (df["superego"] > min_prob)
-        ]
+        # Filter to significant words
+        prob_cols = ["base"]
+        if has_ego:
+            prob_cols.append("ego")
+        if "superego" in df.columns:
+            prob_cols.append("superego")
+        sig = df[df[prob_cols].max(axis=1) > min_prob]
 
-        # Sublimation axis: base->ego
-        sublimated_words = sig[sig["ego - base"] < -dt]["word"].tolist()
-        introduced_words = sig[sig["ego - base"] > dt]["word"].tolist()
-
-        # Repression axis: ego->superego
-        repressed_words = sig[sig["superego - ego"] < -dt]["word"].tolist()
-        amplified_words = sig[sig["superego - ego"] > dt]["word"].tolist()
+        if has_ego:
+            # 3+ layers: two axes
+            sublimated_words = sig[sig["ego - base"] < -dt]["word"].tolist()
+            introduced_words = sig[sig["ego - base"] > dt]["word"].tolist()
+            repressed_words = sig[sig["superego - ego"] < -dt]["word"].tolist()
+            amplified_words = sig[sig["superego - ego"] > dt]["word"].tolist()
+        else:
+            # 2 layers: single axis
+            sublimated_words = []
+            introduced_words = []
+            repressed_words = sig[sig["superego - base"] < -dt]["word"].tolist()
+            amplified_words = sig[sig["superego - base"] > dt]["word"].tolist()
 
         all_words = sorted(set(
             sublimated_words + introduced_words
@@ -590,9 +600,11 @@ class PromptAnalysis:
         if not all_words:
             return {"df": df, "sublimation": {}, "repression": {}}
 
-        model = self._psyche.ego.model
-        tokenizer = self._psyche.ego.tokenizer
-        device = self._psyche.ego.device
+        # Use ego model for embeddings if available, otherwise superego
+        embed_layer = self._psyche.ego if has_ego else self._psyche.superego
+        model = embed_layer.model
+        tokenizer = embed_layer.tokenizer
+        device = embed_layer.device
         prompt = self.prompt
         stash = self._psyche._stash
 
@@ -609,7 +621,7 @@ class PromptAnalysis:
             ).squeeze()
 
         def get_embedding_cached(word, layer):
-            cache_key = ("embedding", self._psyche.ego.model_id, prompt, word, layer)
+            cache_key = ("embedding", embed_layer.model_id, prompt, word, layer)
             if stash is not None and cache_key in stash:
                 arr = stash[cache_key]
                 return torch.as_tensor(arr, dtype=torch.float32)
@@ -620,8 +632,9 @@ class PromptAnalysis:
 
         embed_fn = get_embedding_cached if stash is not None else get_embedding
 
-        print(f"  Sublimation axis: {len(sublimated_words)} sublimated, "
-              f"{len(introduced_words)} introduced")
+        if has_ego:
+            print(f"  Sublimation axis: {len(sublimated_words)} sublimated, "
+                  f"{len(introduced_words)} introduced")
         print(f"  Repression axis: {len(repressed_words)} repressed, "
               f"{len(amplified_words)} amplified")
         print(f"  Total unique words to embed: {len(all_words)}")
@@ -681,7 +694,7 @@ class PromptAnalysis:
 
         sub_result = build_similarity(
             sublimated_words, introduced_words, "sublimation",
-        )
+        ) if has_ego else {"source": [], "target": [], "similarity": {}, "pairs": []}
         rep_result = build_similarity(
             repressed_words, amplified_words, "repression",
         )
@@ -717,13 +730,14 @@ class PromptAnalysis:
                         sims[tw] = round(best_sim, 4)
             return targets, sources, sims
 
-        # Sublimation annotations
-        sub_targets, sub_sources, sub_sims = best_links(
-            sub_result["similarity"], sublimated_words, introduced_words,
-        )
-        df["sublimation_target"] = df["word"].map(sub_targets)
-        df["sublimation_source"] = df["word"].map(sub_sources)
-        df["sublimation_sim"] = df["word"].map(sub_sims)
+        # Sublimation annotations (3+ layers only)
+        if has_ego:
+            sub_targets, sub_sources, sub_sims = best_links(
+                sub_result["similarity"], sublimated_words, introduced_words,
+            )
+            df["sublimation_target"] = df["word"].map(sub_targets)
+            df["sublimation_source"] = df["word"].map(sub_sources)
+            df["sublimation_sim"] = df["word"].map(sub_sims)
 
         # Repression annotations
         rep_targets, rep_sources, rep_sims = best_links(
@@ -1223,7 +1237,7 @@ class Psyche:
         """Create a Psyche from a model family key.
 
         Args:
-            family: Key into MODEL_FAMILIES (e.g. "olmo-3-7b", "llama-3-8b").
+            family: Key into MODEL_FAMILIES (e.g. "olmo", "llama").
             cache: Pre-built HashStash, or None.
             cache_dir: If given (and cache is None), creates a HashStash.
             load: If True, load models immediately. Otherwise cache-only.

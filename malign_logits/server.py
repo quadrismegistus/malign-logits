@@ -189,9 +189,6 @@ class ModelHandler(BaseHTTPRequestHandler):
             return {"logits": logits.tolist()}
 
         elif path == "/displacement_map":
-            if psyche.ego is None:
-                raise ValueError("Displacement maps require 3+ layers (base/ego/superego)")
-
             prompt = body["prompt"]
             layers = body.get("layers", None)
             n_layers = len(layers) if layers else 3
@@ -200,8 +197,10 @@ class ModelHandler(BaseHTTPRequestHandler):
 
             analysis = psyche.analyze(prompt)
             _ = analysis.base_words
-            _ = analysis.ego_words
-            _ = analysis.superego_words
+            if psyche.ego is not None:
+                _ = analysis.ego_words
+            if psyche.superego is not None:
+                _ = analysis.superego_words
             _ = analysis.formation_df
 
             _set_progress("displacement", f"Computing embeddings across {n_layers} layers...")
