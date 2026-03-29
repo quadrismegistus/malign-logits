@@ -1082,6 +1082,101 @@ def plot_concept_shift(gen_metrics_csv, concept="violent", save_path=None):
     return fig
 
 
+# ── Logit lens visualizations ─────────────────────────────────────
+
+def plot_logit_lens(lens_data, prompt=None, words=None, min_layers=3, save_path=None):
+    """Plot word probabilities across network layers for each model.
+
+    Shows tracked words as solid lines and top-k words (appearing in
+    min_layers+ layers) as thinner lines. Filters noise from words
+    that only flash into top-k at one or two layers.
+
+    Args:
+        lens_data: DataFrame with columns [layer, word, probability, model]
+                   or path to CSV.
+        prompt: Prompt string for title.
+        words: Filter to only these words (overrides auto-selection).
+        min_layers: Minimum layers a top-k word must appear in to be plotted.
+    """
+    if isinstance(lens_data, str):
+        lens_data = pd.read_csv(lens_data)
+    df = lens_data.copy()
+
+    models = df["model"].unique()
+    model_labels = {"base": "BASE", "ego": "SFT", "superego": "DPO", "instruct": "RLVR"}
+
+    if words:
+        df = df[df["word"].isin(words)]
+        plot_words = words
+    else:
+        # Always include tracked words; include top-k words that appear often
+        tracked = df[df.get("source", pd.Series("tracked")) == "tracked"]["word"].unique()
+        topk = df[df.get("source", pd.Series()) == "top_k"]
+        # Count how many layers each top-k word appears across all models
+        topk_counts = topk.groupby("word")["layer"].nunique()
+        frequent_topk = topk_counts[topk_counts >= min_layers].index.tolist()
+        plot_words = list(dict.fromkeys(list(tracked) + frequent_topk))
+        df = df[df["word"].isin(plot_words)]
+
+    # Assign distinct colors
+    palette = [
+        "#e45756", "#4c78a8", "#eeca3b", "#54a24b", "#f58518",
+        "#72b7b2", "#b279a2", "#ff9da6", "#9d755d", "#bab0ac",
+        "#5778a4", "#e49444", "#d1615d", "#85b6b2", "#6a9f58",
+        "#e7ca60", "#a87c9f", "#f1a2a9", "#967662", "#b8b0a2",
+    ]
+    word_colors = {w: palette[i % len(palette)] for i, w in enumerate(plot_words)}
+
+    # Determine which words are tracked vs top-k only
+    tracked_set = set()
+    if "source" in df.columns:
+        tracked_set = set(df[df["source"] == "tracked"]["word"].unique())
+
+    from plotly.subplots import make_subplots
+    fig = make_subplots(
+        rows=1, cols=len(models),
+        subplot_titles=[model_labels.get(m, m) for m in models],
+        shared_yaxes=True,
+    )
+
+    for col, model in enumerate(models, 1):
+        mdf = df[df["model"] == model]
+        for word in plot_words:
+            wdf = mdf[mdf["word"] == word].sort_values("layer")
+            if wdf.empty:
+                continue
+            is_tracked = word in tracked_set
+            fig.add_trace(go.Scatter(
+                x=wdf["layer"], y=wdf["probability"],
+                mode="lines+markers", name=word,
+                line=dict(
+                    color=word_colors[word],
+                    width=2.5 if is_tracked else 1.5,
+                    dash="solid" if is_tracked else "dot",
+                ),
+                marker=dict(size=4 if is_tracked else 2),
+                showlegend=(col == 1),
+            ), row=1, col=col)
+
+    title = "Logit lens: word probability at each network layer"
+    if prompt:
+        title += f'<br><sub>"{prompt[:80]}"</sub>'
+
+    fig.update_layout(
+        title=title,
+        template="plotly_white",
+        width=350 * len(models), height=500,
+        legend=dict(title="word (solid=tracked, dotted=top-k)"),
+    )
+    fig.update_yaxes(type="log", title_text="probability (log)", col=1)
+    for col in range(1, len(models) + 1):
+        fig.update_xaxes(title_text="network layer", col=col)
+
+    if save_path:
+        fig.write_image(save_path, scale=2)
+    return fig
+
+
 # ── Step-level checkpoint visualizations ──────────────────────────
 
 _WORD_PALETTE = [
