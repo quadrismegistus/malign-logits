@@ -221,7 +221,8 @@ def cmd_logit_lens(args):
     from .viz import plot_logit_lens
     basename_fig = f"logit_lens.{key}.{prompt_slug}.{words_slug}"
     fig_path = f"figures/{basename_fig}.png"
-    plot_logit_lens(result, prompt=prompt, family=key, top_k=args.top_k, save_path=fig_path)
+    plot_logit_lens(result, prompt=prompt, family=key, top_k=args.top_k,
+                    min_layers=args.min_layers, save_path=fig_path)
     print(f"Figure saved to {fig_path}")
 
 
@@ -633,6 +634,7 @@ def main():
     _add_family_arg(ll)
     ll.add_argument("--words", "-w", help="Comma-separated words to always include (default: auto from generations)")
     ll.add_argument("--top-k", type=int, default=5, help="Top-k predictions per layer (default: 5)")
+    ll.add_argument("--min-layers", type=int, default=8, help="Min layers a top-k word must appear in to be plotted (default: 8)")
     ll.add_argument("--output", "-o", help="Output CSV path (default: data/logit_lens.csv)")
     ll.set_defaults(func=cmd_logit_lens)
 
