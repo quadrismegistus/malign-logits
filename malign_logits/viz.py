@@ -1080,3 +1080,135 @@ def plot_concept_shift(gen_metrics_csv, concept="violent", save_path=None):
     if save_path:
         fig.write_image(save_path, scale=2)
     return fig
+
+
+# ── Step-level checkpoint visualizations ──────────────────────────
+
+def plot_repression_curves(words_csv, prompt_label=None, words=None, save_path=None):
+    """Line plot: probability vs training step for tracked words."""
+    df = pd.read_csv(words_csv)
+    if prompt_label:
+        df = df[df["label"] == prompt_label]
+    if words:
+        df = df[df["word"].isin(words)]
+
+    cat_colors = {
+        "sexual": "#e45756", "violence": "#4c78a8",
+        "displacement": "#eeca3b", "neutral": "#999999",
+    }
+
+    fig = go.Figure()
+    for word in df["word"].unique():
+        wdf = df[df["word"] == word].sort_values("step")
+        cat = wdf["word_category"].iloc[0]
+        base_prob = wdf["base_probability"].iloc[0]
+        steps = [0] + wdf["step"].tolist()
+        probs = [base_prob] + wdf["probability"].tolist()
+        fig.add_trace(go.Scatter(
+            x=steps, y=probs, mode="lines+markers",
+            name=f"{word} ({cat})",
+            line=dict(color=cat_colors.get(cat, "#999"), width=2),
+            marker=dict(size=4),
+        ))
+
+    title = "Repression onset curves (probability vs SFT training step)"
+    if prompt_label:
+        prompt_text = df["prompt"].iloc[0] if len(df) > 0 else prompt_label
+        title += f"<br><sub>{prompt_text}</sub>"
+
+    fig.update_layout(
+        title=title,
+        xaxis_title="SFT training step (0 = base model)",
+        yaxis_title="probability",
+        template="plotly_white", width=900, height=550,
+        legend=dict(title="word (category)"),
+    )
+    if save_path:
+        fig.write_image(save_path, scale=2)
+    return fig
+
+
+def plot_step_metrics(metrics_csv, metric="js_base_step", save_path=None):
+    """Line plot: distributional metric vs training step, by prompt category."""
+    df = pd.read_csv(metrics_csv)
+    df["category"] = df["label"].str.replace(r"_\d+$", "", regex=True)
+    agg = df.groupby(["step", "category"])[metric].mean().reset_index()
+
+    cat_colors = {
+        "neutral": "#999999", "death": "#666666",
+        "profanity": "#eeca3b", "substance": "#f58518",
+        "power": "#54a24b", "sexual_liminal": "#ff9da6",
+        "sexual_explicit": "#e45756", "violence_liminal": "#72b7b2",
+        "violence_explicit": "#4c78a8",
+    }
+
+    fig = go.Figure()
+    for cat in sorted(agg["category"].unique()):
+        cdf = agg[agg["category"] == cat].sort_values("step")
+        fig.add_trace(go.Scatter(
+            x=cdf["step"], y=cdf[metric], mode="lines+markers", name=cat,
+            line=dict(color=cat_colors.get(cat, "#999"), width=2),
+            marker=dict(size=5),
+        ))
+
+    metric_labels = {
+        "js_base_step": "JS divergence from base",
+        "kl_base_step": "KL divergence from base",
+        "entropy_step": "Entropy", "entropy_drop": "Entropy drop from base",
+        "top50_overlap": "Top-50 overlap with base",
+    }
+    fig.update_layout(
+        title=f"{metric_labels.get(metric, metric)} across SFT training steps",
+        xaxis_title="SFT training step",
+        yaxis_title=metric_labels.get(metric, metric),
+        template="plotly_white", width=900, height=550,
+        legend=dict(title="category"),
+    )
+    if save_path:
+        fig.write_image(save_path, scale=2)
+    return fig
+
+
+def plot_displacement_lag(words_csv, repressed_word, displaced_word,
+                          prompt_label, save_path=None):
+    """Dual-axis plot: repressed word falling, displacement target rising."""
+    df = pd.read_csv(words_csv)
+    df = df[df["label"] == prompt_label]
+    rep = df[df["word"] == repressed_word].sort_values("step")
+    disp = df[df["word"] == displaced_word].sort_values("step")
+
+    if rep.empty or disp.empty:
+        print(f"Words not found: {repressed_word}, {displaced_word}")
+        return None
+
+    from plotly.subplots import make_subplots
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    rep_steps = [0] + rep["step"].tolist()
+    rep_probs = [float(rep["base_probability"].iloc[0])] + rep["probability"].tolist()
+    fig.add_trace(go.Scatter(
+        x=rep_steps, y=rep_probs, mode="lines+markers",
+        name=f"{repressed_word} (repressed)",
+        line=dict(color="#e45756", width=3),
+    ), secondary_y=False)
+
+    disp_steps = [0] + disp["step"].tolist()
+    disp_probs = [float(disp["base_probability"].iloc[0])] + disp["probability"].tolist()
+    fig.add_trace(go.Scatter(
+        x=disp_steps, y=disp_probs, mode="lines+markers",
+        name=f"{displaced_word} (displacement target)",
+        line=dict(color="#4c78a8", width=3),
+    ), secondary_y=True)
+
+    prompt_text = rep["prompt"].iloc[0] if len(rep) > 0 else prompt_label
+    fig.update_layout(
+        title=f"Displacement lag: {repressed_word} → {displaced_word}<br><sub>{prompt_text}</sub>",
+        xaxis_title="SFT training step (0 = base model)",
+        template="plotly_white", width=800, height=500,
+    )
+    fig.update_yaxes(title_text=f"P({repressed_word})", secondary_y=False, color="#e45756")
+    fig.update_yaxes(title_text=f"P({displaced_word})", secondary_y=True, color="#4c78a8")
+
+    if save_path:
+        fig.write_image(save_path, scale=2)
+    return fig
