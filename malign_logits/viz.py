@@ -1084,7 +1084,7 @@ def plot_concept_shift(gen_metrics_csv, concept="violent", save_path=None):
 
 # ── Logit lens visualizations ─────────────────────────────────────
 
-def plot_logit_lens(lens_data, prompt=None, words=None, min_layers=8, save_path=None):
+def plot_logit_lens(lens_data, prompt=None, family=None, top_k=None, words=None, min_layers=8, save_path=None):
     """Plot word probabilities across network layers for each model.
 
     Uses plotnine (ggplot2) with adjustText for non-overlapping labels
@@ -1143,8 +1143,15 @@ def plot_logit_lens(lens_data, prompt=None, words=None, min_layers=8, save_path=
     )
 
     title = "Logit lens: word probability at each network layer"
+    subtitle_parts = []
     if prompt:
-        title += f'\n"{prompt[:80]}"'
+        subtitle_parts.append(f'"{prompt[:80]}"')
+    if family:
+        subtitle_parts.append(f"family: {family}")
+    if top_k:
+        subtitle_parts.append(f"top-k: {top_k}")
+    if subtitle_parts:
+        title += "\n" + "  |  ".join(subtitle_parts)
 
     n_models = df["model_label"].nunique()
 
