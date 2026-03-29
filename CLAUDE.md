@@ -250,9 +250,37 @@ malign ui
 
 ---
 
+## Confirmed findings (generation-level, 4 families, n=5 per prompt)
+
+**Each family develops structurally distinct defence mechanisms visible only in generation:**
+- **OLMo**: Genre collapse — SFT/DPO flee into QA format, exam questions, multiple choice on transgressive prompts.
+- **Llama**: Narrative sublimation — stays in literary mode, redirects sexual into romance, violence into psychological interiority.
+- **Amber**: Rotating defences — unpredictably switches between direct refusal, moralisation (reframing as assault), and sublimation. SFT barely intervenes on sexual content.
+- **Qwen**: Pre-socialised base — base model produces Chinese exam questions and cloze tests, not narrative. Low post-training JS reflects pre-existing repression in training data, not permissiveness.
+
+**Logit displacement partially predicts narrative divergence.** r=0.43, p<0.001 (multilingual embeddings). But within each family, the correlation is near zero — the relationship is driven by cross-family differences, not prompt-level variation.
+
+**RLVR double bind visible only in generation (OLMo).** Logit analysis showed RLVR reinforces DPO. Generation reveals RLVR produces fragmented text oscillating between explicit content and task-compliance framing ("translate to French") within single generations.
+
+**Alignment at 7B is stochastic.** Same model, same prompt, same temperature produces wildly different outcomes across generations — from full refusal to unfiltered explicit content.
+
+**Amber's concept shifts are 2-3x larger than other families** across violent, sexual, and compliant axes despite similar logit JS to OLMo. Its DPO steers entire narrative trajectories, not just token distributions.
+
+**Embedding note:** Uses `paraphrase-multilingual-MiniLM-L12-v2` (multilingual) because Qwen base generates ~39% Chinese text. English-only embedder produced unreliable results for Qwen.
+
+---
+
 ## Research roadmap
 
-### Priority 1: Automatic displacement type taxonomy
+### Priority 1: Step-level checkpoint analysis
+
+Use Allen AI's step-level checkpoints (`Olmo-3-7B-Think-SFT`, 43 steps available) to trace displacement emerging *during* SFT training:
+- Track word probabilities at each checkpoint against fixed base model
+- Watch repression onset curves — sudden (primal) vs gradual (secondary)
+- Check whether displacement targets lag behind repressed word decline
+- 10 evenly-spaced checkpoints, download-extract-delete workflow, ~6 hours total
+
+### Priority 2: Automatic displacement type taxonomy
 
 Classify displacement pairs automatically:
 - **Register shift** = high similarity + same POS
@@ -260,16 +288,15 @@ Classify displacement pairs automatically:
 - **Genre change** = low similarity + high amplification
 - **Archaic displacement** = target word has low corpus frequency
 
-Quantify which strategies each training stage (SFT vs DPO) prefers for which content types. This becomes a key figure in the paper.
+### Priority 3: Full generation run (n=30)
 
-### Priority 2: Step-level checkpoint analysis
+Increase generation count for stable variance ratios and statistical robustness. ~2.2 hours for all 4 families on tier-1 prompts.
 
-Use Allen AI's step-level checkpoints to trace displacement emerging *during* training:
-- Track a word's probability at every checkpoint within the SFT or DPO stage
-- Watch repression emerge progressively (e.g. `cock` at DPO step 0, 500, 1000, 2000...)
-- Shows displacement is a training dynamic, not a final-state artifact
+### Done: Generation-level cross-family analysis
 
-### Done: Cross-family validation
+`malign generate-battery` generates N completions per prompt per model layer, embeds with multilingual SentenceTransformer, computes cluster geometry and concept vector metrics. Results in `data/gen_battery_metrics.csv`. Figures in `figures/gen_*.png` and `figures/logit_vs_generation.png`.
+
+### Done: Cross-family logit validation
 
 47-prompt battery across OLMo, Amber, Llama 3.1, and Qwen 2.5. Key result: alignment intensity and internal architecture vary dramatically across families, but liminal > explicit displacement is consistent. See `data/battery_results.csv`.
 
