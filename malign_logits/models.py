@@ -147,6 +147,100 @@ def get_base_logits(model, tokenizer, prompt, device=None):
     return logits
 
 
+def logit_lens(model, tokenizer, prompt, device=None):
+    """Project each layer's hidden state to vocabulary space (logit lens).
+
+    Single forward pass. For each of the model's hidden layers, applies
+    the final layer norm and lm_head to produce a probability distribution,
+    showing how the model's prediction evolves through the network.
+
+    Returns:
+        List of (vocab_size,) tensors, one per layer (layer 0 = embedding,
+        layer 1..N = transformer layers). Length = num_hidden_layers + 1.
+    """
+    if device is None:
+        device = next(model.parameters()).device
+    input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
+
+    with torch.no_grad():
+        outputs = model(input_ids, output_hidden_states=True)
+        hidden_states = outputs.hidden_states  # tuple of (batch, seq, hidden_dim)
+
+        # Get norm and lm_head for projection
+        norm = model.model.norm
+        lm_head = model.lm_head
+
+        layer_logits = []
+        for hidden in hidden_states:
+            normed = norm(hidden)
+            logits = lm_head(normed)[0, -1, :].cpu()
+            layer_logits.append(logits)
+
+    return layer_logits
+
+
+def logit_lens_words(model, tokenizer, prompt, words=None, top_k=5, device=None):
+    """Track word probabilities at each network layer.
+
+    Includes top-k predictions at each layer plus any explicitly
+    requested words (ensuring tracked words are always visible even
+    when they're not in the top-k).
+
+    Args:
+        model: HuggingFace causal LM.
+        tokenizer: Shared tokenizer.
+        prompt: Input prompt.
+        words: List of words to always include (on top of top-k).
+        top_k: Number of top predictions to include per layer.
+
+    Returns:
+        DataFrame with columns [layer, word, probability, logit, source].
+        source is "top_k" or "tracked".
+    """
+    layer_logits = logit_lens(model, tokenizer, prompt, device)
+    words = words or []
+
+    # Encode tracked words with leading space (continuation tokens)
+    word_token_ids = {}
+    for word in words:
+        ids = tokenizer.encode(" " + word, add_special_tokens=False)
+        if ids:
+            word_token_ids[word] = ids[0]
+
+    rows = []
+    for layer_idx, logits in enumerate(layer_logits):
+        probs = torch.softmax(logits.float(), dim=0)
+
+        # Top-k words at this layer
+        topk = probs.topk(top_k)
+        seen_words = set()
+        for prob, tid in zip(topk.values, topk.indices):
+            word = tokenizer.decode([tid]).strip()
+            if not word or len(word) < 2:
+                continue
+            seen_words.add(word)
+            rows.append({
+                "layer": layer_idx,
+                "word": word,
+                "probability": round(float(prob), 8),
+                "logit": round(float(logits[tid]), 4),
+                "source": "top_k",
+            })
+
+        # Always include tracked words
+        for word, tid in word_token_ids.items():
+            if word not in seen_words:
+                rows.append({
+                    "layer": layer_idx,
+                    "word": word,
+                    "probability": round(float(probs[tid]), 8),
+                    "logit": round(float(logits[tid]), 4),
+                    "source": "tracked",
+                })
+
+    return pd.DataFrame(rows)
+
+
 def get_embeddings(model):
     """Extract the input embedding matrix from a model."""
     return model.get_input_embeddings().weight.detach().cpu()

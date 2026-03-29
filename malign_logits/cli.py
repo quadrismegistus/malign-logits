@@ -145,6 +145,87 @@ def cmd_battery(args):
     print(f"\n{combined.to_string()}")
 
 
+def cmd_logit_lens(args):
+    """Run logit lens analysis across model layers."""
+    import gc
+    import torch
+    import pandas as pd
+    from . import MODEL_FAMILIES
+    from .models import load_model, logit_lens_words
+    from .embedding import extract_prompt_words
+
+    prompt = args.prompt
+    key = args.family or "olmo"
+    fam = MODEL_FAMILIES[key]
+
+    # Determine words to track
+    if args.words:
+        words = [w.strip() for w in args.words.split(",")]
+    else:
+        import os
+        gen_parquet = "data/gen_battery_raw.parquet"
+        if os.path.exists(gen_parquet):
+            prompt_words = extract_prompt_words(gen_parquet)
+            # Find a matching label
+            from .experiments import TIER1_PROMPTS, DEFAULT_PROMPTS
+            all_prompts = {**DEFAULT_PROMPTS, **TIER1_PROMPTS}
+            words = None
+            for label, p in all_prompts.items():
+                if p == prompt and label in prompt_words:
+                    words = prompt_words[label][:10]
+                    break
+        if not words:
+            words = ["kill", "fuck", "kiss", "said", "the", "scream", "massage"]
+        print(f"Tracking words: {words}")
+
+    # Load each model layer and run logit lens
+    layers_to_load = [("base", fam.base)]
+    if fam.ego:
+        layers_to_load.append(("ego", fam.ego))
+    if fam.superego:
+        layers_to_load.append(("superego", fam.superego))
+
+    all_dfs = []
+    for layer_name, model_id in layers_to_load:
+        label = {"base": "BASE", "ego": "SFT", "superego": "DPO"}.get(layer_name, layer_name)
+        print(f"\n  {label}: {model_id}")
+        model, tokenizer = load_model(model_id)
+
+        df = logit_lens_words(model, tokenizer, prompt, words=words, top_k=args.top_k)
+        df["model"] = layer_name
+        df["model_id"] = model_id
+        all_dfs.append(df)
+
+        del model
+        gc.collect()
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+
+    result = pd.concat(all_dfs, ignore_index=True)
+
+    # Build descriptive filename from prompt and words
+    import re
+    prompt_slug = re.sub(r'[^a-z0-9]+', '_', prompt.lower().strip())[:50].strip('_')
+    words_slug = '_'.join(words[:5])
+
+    if args.output:
+        out = args.output
+    else:
+        basename = f"logit_lens.{key}.{prompt_slug}.{words_slug}"
+        out = f"data/{basename}.csv"
+
+    result.to_csv(out, index=False)
+    print(f"\nSaved to {out} ({len(result)} rows)")
+
+    # Generate figure
+    from .viz import plot_logit_lens
+    fig = plot_logit_lens(result, prompt=prompt)
+    basename_fig = f"logit_lens.{key}.{prompt_slug}.{words_slug}"
+    fig_path = f"figures/{basename_fig}.png"
+    fig.write_image(fig_path, scale=2)
+    print(f"Figure saved to {fig_path}")
+
+
 def cmd_step_analysis(args):
     """Trace repression emergence across SFT training steps."""
     import gc
@@ -545,6 +626,16 @@ def main():
     gb.add_argument("--output", "-o",
                     help="Output prefix (default: data/gen_battery)")
     gb.set_defaults(func=cmd_generate_battery)
+
+    # logit-lens
+    ll = subparsers.add_parser("logit-lens",
+                               help="Run logit lens analysis across network layers")
+    ll.add_argument("prompt", help="The prompt to analyze")
+    _add_family_arg(ll)
+    ll.add_argument("--words", "-w", help="Comma-separated words to always include (default: auto from generations)")
+    ll.add_argument("--top-k", type=int, default=5, help="Top-k predictions per layer (default: 5)")
+    ll.add_argument("--output", "-o", help="Output CSV path (default: data/logit_lens.csv)")
+    ll.set_defaults(func=cmd_logit_lens)
 
     # step-analysis
     sa = subparsers.add_parser("step-analysis",
