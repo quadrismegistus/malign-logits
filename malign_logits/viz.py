@@ -1158,6 +1158,17 @@ def plot_logit_lens(lens_data, prompt=None, words=None, min_layers=3, save_path=
                 showlegend=(col == 1),
             ), row=1, col=col)
 
+            # Label at peak probability
+            peak_idx = wdf["probability"].idxmax()
+            peak = wdf.loc[peak_idx]
+            fig.add_annotation(
+                x=peak["layer"], y=peak["probability"],
+                text=word, showarrow=False,
+                font=dict(size=9, color=word_colors[word]),
+                yshift=10, xshift=5,
+                row=1, col=col,
+            )
+
     title = "Logit lens: word probability at each network layer"
     if prompt:
         title += f'<br><sub>"{prompt[:80]}"</sub>'
