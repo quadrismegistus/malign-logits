@@ -155,6 +155,7 @@ def cmd_step_analysis(args):
         DEFAULT_STEPS, STEP_REPO,
     )
     from .analysis import distribution_entropy, js_divergence, kl_divergence, top_k_overlap
+    from .embedding import extract_prompt_words
 
     prompts = TIER1_PROMPTS if args.prompts == "tier1" else DEFAULT_PROMPTS
     if args.category:
@@ -215,17 +216,33 @@ def cmd_step_analysis(args):
     from .models import _load_tokenizer
     tokenizer = _load_tokenizer(base_name)
 
-    # Build flat word list and token IDs for tracked words
-    all_tracked = []
-    for cat, words in TRACKED_WORDS.items():
-        for w in words:
-            all_tracked.append((cat, w))
+    # Build per-prompt word lists from generation data + static fallback
+    import os
+    gen_parquet = "data/gen_battery_raw.parquet"
+    if os.path.exists(gen_parquet):
+        print("  Loading prompt-specific words from generation data...")
+        prompt_word_lists = extract_prompt_words(gen_parquet)
+    else:
+        prompt_word_lists = {}
+
+    # Also include static tracked words as fallback
+    all_words_set = set()
+    for label in prompts:
+        words = prompt_word_lists.get(label, [])
+        # Add static tracked words too
+        for cat, cat_words in TRACKED_WORDS.items():
+            words.extend(cat_words)
+        prompt_word_lists[label] = list(dict.fromkeys(words))  # dedupe, preserve order
+        all_words_set.update(prompt_word_lists[label])
+
+    # Encode all unique words to token IDs (leading space for continuation)
     word_token_ids = {}
-    for cat, word in all_tracked:
-        # Encode with leading space — these are continuation tokens
+    for word in all_words_set:
         ids = tokenizer.encode(" " + word, add_special_tokens=False)
         if ids:
-            word_token_ids[word] = ids[0]  # first token
+            word_token_ids[word] = ids[0]
+
+    print(f"  Tracking {len(word_token_ids)} unique words across {len(prompts)} prompts")
 
     # Extract logits per step checkpoint
     for step in steps:
@@ -294,22 +311,28 @@ def cmd_step_analysis(args):
                 "top50_overlap": round(float(overlap), 4),
             })
 
-            # Per-word probabilities
+            # Per-word probabilities (prompt-specific word list)
             step_probs = torch.softmax(step_logits.float(), dim=0)
             base_probs = torch.softmax(base_logits.float(), dim=0)
 
-            for cat, word in all_tracked:
+            for word in prompt_word_lists.get(label, []):
                 if word not in word_token_ids:
                     continue
                 tid = word_token_ids[word]
                 sp = float(step_probs[tid])
                 bp = float(base_probs[tid])
+                # Categorize: check if it's in static tracked categories
+                word_cat = "empirical"
+                for cat, cat_words in TRACKED_WORDS.items():
+                    if word in cat_words:
+                        word_cat = cat
+                        break
                 word_rows.append({
                     "step": step,
                     "label": label,
                     "prompt": prompt[:60],
                     "word": word,
-                    "word_category": cat,
+                    "word_category": word_cat,
                     "probability": round(sp, 8),
                     "base_probability": round(bp, 8),
                     "delta": round(sp - bp, 8),

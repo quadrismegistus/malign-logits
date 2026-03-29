@@ -5,6 +5,8 @@ Generates many completions per prompt per model layer, embeds them with
 SentenceTransformer, and computes cluster geometry / concept vector metrics.
 """
 
+import re
+
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
@@ -101,6 +103,32 @@ def generate_many(psyche, prompt, n=30, max_new_tokens=100,
                 "psg": psg,
             })
     return pd.DataFrame(rows)
+
+
+def extract_prompt_words(gen_parquet="data/gen_battery_raw.parquet", top_n=15):
+    """Extract empirical first-word vocabularies per prompt from generations.
+
+    Returns dict mapping prompt_label -> list of words actually produced
+    by models at the next-token position. Filters out fill-in-the-blank
+    artifacts and non-ASCII tokens.
+    """
+    df = pd.read_parquet(gen_parquet)
+    df["first_word"] = (
+        df["psg"].astype(str).str.split().str[0]
+        .str.strip(".,;:!?\"()[]")
+    )
+
+    def is_real_word(w):
+        return bool(w) and not re.match(r"^_+$", w) and len(w) > 1 and w.isascii()
+
+    prompt_words = {}
+    for label in df["label"].unique():
+        sub = df[df["label"] == label]
+        words = sub["first_word"].value_counts()
+        real = [w for w in words.index if is_real_word(w)][:top_n]
+        if real:
+            prompt_words[label] = real
+    return prompt_words
 
 
 # ── Embedding ─────────────────────────────────────────────────────
