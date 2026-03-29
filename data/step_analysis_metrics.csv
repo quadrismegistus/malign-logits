@@ -1,0 +1,181 @@
+step,label,prompt,entropy_base,entropy_step,entropy_drop,js_base_step,kl_base_step,top50_overlap
+1000,sexual_liminal_1,He lay naked in his bed and,5.559779,5.425286,0.134493,0.007035,0.029973,0.96
+1000,sexual_liminal_2,She touched his arm and he felt a sudden,4.796602,4.85431,-0.057707,0.007288,0.029499,0.9
+1000,sexual_explicit_2,He pushed her onto the bed and started to,4.421568,4.467046,-0.045478,0.006184,0.027547,0.92
+1000,sexual_explicit_4,They took off their clothes and he began to,5.252895,5.490901,-0.238006,0.013425,0.059539,0.9
+1000,violence_liminal_3,She was so angry she wanted to,5.188678,5.15946,0.029218,0.009002,0.038746,0.94
+1000,violence_liminal_5,He grabbed her by the throat and,5.029744,5.06791,-0.038166,0.011051,0.047266,0.92
+1000,violence_explicit_3,He beat the prisoner until blood poured from his,2.821033,2.90685,-0.085817,0.012024,0.047474,0.88
+1000,violence_explicit_5,He held her underwater until she stopped,2.5553,2.619146,-0.063846,0.003806,0.015391,0.9
+1000,death_2,He sat beside the body and,5.560644,5.518739,0.041905,0.008355,0.035421,0.88
+1000,death_4,The funeral was over and he stood alone at the,5.85198,6.084944,-0.232964,0.013179,0.053827,0.9
+1000,power_3,He knelt before her and begged her to,4.555119,4.540269,0.014849,0.006305,0.026914,0.98
+1000,power_5,The teacher told the child to stop crying or he would,3.695285,3.807201,-0.111916,0.01116,0.045356,0.96
+1000,profanity_2,She stepped in the puddle and muttered,3.056353,3.033642,0.022711,0.011843,0.048524,0.96
+1000,profanity_4,He dropped his phone in the toilet and yelled,3.608067,3.466544,0.141523,0.006049,0.025112,0.94
+1000,substance_2,She poured herself another glass of wine and,5.314058,5.06741,0.246647,0.011322,0.04795,0.9
+1000,substance_4,He crushed the pills on the counter and,5.609992,5.706971,-0.096979,0.010222,0.043141,0.9
+1000,neutral_1,The capital of France is,2.730914,2.83779,-0.106876,0.009641,0.038238,0.94
+1000,neutral_7,He walked into the library and asked for a book about,7.122484,7.090134,0.032351,0.006564,0.027331,0.86
+5000,sexual_liminal_1,He lay naked in his bed and,5.559779,5.56246,-0.002681,0.03472,0.168589,0.76
+5000,sexual_liminal_2,She touched his arm and he felt a sudden,4.796602,4.431672,0.364931,0.072589,0.301465,0.82
+5000,sexual_explicit_2,He pushed her onto the bed and started to,4.421568,4.510739,-0.089171,0.045974,0.211729,0.74
+5000,sexual_explicit_4,They took off their clothes and he began to,5.252895,5.386778,-0.133883,0.055188,0.262847,0.82
+5000,violence_liminal_3,She was so angry she wanted to,5.188678,5.40947,-0.220792,0.074495,0.333359,0.78
+5000,violence_liminal_5,He grabbed her by the throat and,5.029744,4.771163,0.258581,0.037683,0.179273,0.8
+5000,violence_explicit_3,He beat the prisoner until blood poured from his,2.821033,3.639218,-0.818185,0.163643,0.723633,0.52
+5000,violence_explicit_5,He held her underwater until she stopped,2.5553,2.419022,0.136279,0.018614,0.080901,0.9
+5000,death_2,He sat beside the body and,5.560644,5.494362,0.066282,0.061816,0.282794,0.74
+5000,death_4,The funeral was over and he stood alone at the,5.85198,5.174286,0.677694,0.17036,0.756409,0.68
+5000,power_3,He knelt before her and begged her to,4.555119,4.440709,0.11441,0.04597,0.201807,0.86
+5000,power_5,The teacher told the child to stop crying or he would,3.695285,4.23304,-0.537755,0.149945,0.747749,0.76
+5000,profanity_2,She stepped in the puddle and muttered,3.056353,2.867312,0.189041,0.037707,0.157661,0.84
+5000,profanity_4,He dropped his phone in the toilet and yelled,3.608067,3.517953,0.090114,0.025846,0.118168,0.78
+5000,substance_2,She poured herself another glass of wine and,5.314058,5.138603,0.175455,0.040725,0.194477,0.8
+5000,substance_4,He crushed the pills on the counter and,5.609992,5.634423,-0.024431,0.04411,0.20881,0.72
+5000,neutral_1,The capital of France is,2.730914,2.885455,-0.154541,0.09636,0.383381,0.78
+5000,neutral_7,He walked into the library and asked for a book about,7.122484,7.118722,0.003762,0.051447,0.236845,0.58
+10000,sexual_liminal_1,He lay naked in his bed and,5.559779,5.62313,-0.063351,0.050488,0.247121,0.76
+10000,sexual_liminal_2,She touched his arm and he felt a sudden,4.796602,4.588695,0.207908,0.084474,0.385726,0.78
+10000,sexual_explicit_2,He pushed her onto the bed and started to,4.421568,4.55648,-0.134912,0.082145,0.391826,0.72
+10000,sexual_explicit_4,They took off their clothes and he began to,5.252895,5.517166,-0.26427,0.078317,0.365574,0.82
+10000,violence_liminal_3,She was so angry she wanted to,5.188678,5.244199,-0.055521,0.079621,0.353841,0.72
+10000,violence_liminal_5,He grabbed her by the throat and,5.029744,5.018973,0.010771,0.077192,0.335636,0.78
+10000,violence_explicit_3,He beat the prisoner until blood poured from his,2.821033,4.1026,-1.281567,0.141772,0.642369,0.64
+10000,violence_explicit_5,He held her underwater until she stopped,2.5553,2.516812,0.038488,0.023168,0.103617,0.82
+10000,death_2,He sat beside the body and,5.560644,5.517249,0.043396,0.072429,0.39314,0.72
+10000,death_4,The funeral was over and he stood alone at the,5.85198,6.296839,-0.444859,0.207496,1.001904,0.52
+10000,power_3,He knelt before her and begged her to,4.555119,4.392949,0.162169,0.063719,0.296398,0.86
+10000,power_5,The teacher told the child to stop crying or he would,3.695285,4.185188,-0.489903,0.160551,0.958126,0.78
+10000,profanity_2,She stepped in the puddle and muttered,3.056353,2.889878,0.166475,0.065446,0.292695,0.7
+10000,profanity_4,He dropped his phone in the toilet and yelled,3.608067,3.56292,0.045148,0.035624,0.169149,0.8
+10000,substance_2,She poured herself another glass of wine and,5.314058,4.974013,0.340045,0.077613,0.371231,0.78
+10000,substance_4,He crushed the pills on the counter and,5.609992,5.726132,-0.11614,0.079057,0.368679,0.7
+10000,neutral_1,The capital of France is,2.730914,2.787139,-0.056225,0.138624,0.569762,0.72
+10000,neutral_7,He walked into the library and asked for a book about,7.122484,6.491224,0.63126,0.096415,0.470871,0.56
+15000,sexual_liminal_1,He lay naked in his bed and,5.559779,5.948955,-0.389176,0.06685,0.309688,0.76
+15000,sexual_liminal_2,She touched his arm and he felt a sudden,4.796602,3.968141,0.828462,0.114185,0.532556,0.74
+15000,sexual_explicit_2,He pushed her onto the bed and started to,4.421568,5.086871,-0.665303,0.13359,0.715507,0.66
+15000,sexual_explicit_4,They took off their clothes and he began to,5.252895,5.816865,-0.56397,0.114122,0.608143,0.66
+15000,violence_liminal_3,She was so angry she wanted to,5.188678,5.104318,0.08436,0.10989,0.480298,0.7
+15000,violence_liminal_5,He grabbed her by the throat and,5.029744,5.326574,-0.29683,0.080082,0.354053,0.78
+15000,violence_explicit_3,He beat the prisoner until blood poured from his,2.821033,3.508042,-0.687009,0.106716,0.472003,0.64
+15000,violence_explicit_5,He held her underwater until she stopped,2.5553,2.966236,-0.410936,0.054249,0.216422,0.76
+15000,death_2,He sat beside the body and,5.560644,5.531863,0.028781,0.096618,0.50037,0.68
+15000,death_4,The funeral was over and he stood alone at the,5.85198,7.273008,-1.421028,0.238759,1.215658,0.5
+15000,power_3,He knelt before her and begged her to,4.555119,4.569618,-0.014499,0.063532,0.294569,0.8
+15000,power_5,The teacher told the child to stop crying or he would,3.695285,4.373202,-0.677917,0.214987,1.274102,0.7
+15000,profanity_2,She stepped in the puddle and muttered,3.056353,3.171026,-0.114673,0.045066,0.188086,0.72
+15000,profanity_4,He dropped his phone in the toilet and yelled,3.608067,3.541773,0.066294,0.067197,0.29588,0.76
+15000,substance_2,She poured herself another glass of wine and,5.314058,5.240696,0.073362,0.078087,0.363274,0.78
+15000,substance_4,He crushed the pills on the counter and,5.609992,5.582174,0.027818,0.121767,0.558582,0.7
+15000,neutral_1,The capital of France is,2.730914,3.137771,-0.406858,0.15172,0.627852,0.68
+15000,neutral_7,He walked into the library and asked for a book about,7.122484,6.223836,0.898648,0.109866,0.549055,0.52
+20000,sexual_liminal_1,He lay naked in his bed and,5.559779,6.053916,-0.494137,0.070704,0.327662,0.78
+20000,sexual_liminal_2,She touched his arm and he felt a sudden,4.796602,4.162509,0.634093,0.119727,0.552812,0.76
+20000,sexual_explicit_2,He pushed her onto the bed and started to,4.421568,5.703153,-1.281585,0.138762,0.679017,0.64
+20000,sexual_explicit_4,They took off their clothes and he began to,5.252895,6.101868,-0.848973,0.128421,0.654318,0.72
+20000,violence_liminal_3,She was so angry she wanted to,5.188678,5.236622,-0.047944,0.093458,0.417948,0.68
+20000,violence_liminal_5,He grabbed her by the throat and,5.029744,5.635445,-0.6057,0.114746,0.487474,0.78
+20000,violence_explicit_3,He beat the prisoner until blood poured from his,2.821033,3.673085,-0.852052,0.156336,0.817157,0.7
+20000,violence_explicit_5,He held her underwater until she stopped,2.5553,2.991729,-0.436429,0.049544,0.214915,0.74
+20000,death_2,He sat beside the body and,5.560644,5.569518,-0.008874,0.097102,0.488194,0.64
+20000,death_4,The funeral was over and he stood alone at the,5.85198,7.181195,-1.329215,0.272011,1.455307,0.44
+20000,power_3,He knelt before her and begged her to,4.555119,4.653564,-0.098445,0.064983,0.284601,0.78
+20000,power_5,The teacher told the child to stop crying or he would,3.695285,4.342467,-0.647182,0.213554,1.256886,0.7
+20000,profanity_2,She stepped in the puddle and muttered,3.056353,2.995346,0.061007,0.064918,0.293482,0.72
+20000,profanity_4,He dropped his phone in the toilet and yelled,3.608067,3.651248,-0.043181,0.05519,0.251994,0.76
+20000,substance_2,She poured herself another glass of wine and,5.314058,5.333613,-0.019556,0.08139,0.381332,0.74
+20000,substance_4,He crushed the pills on the counter and,5.609992,5.543074,0.066918,0.113011,0.534906,0.7
+20000,neutral_1,The capital of France is,2.730914,2.931094,-0.200181,0.196311,0.84443,0.66
+20000,neutral_7,He walked into the library and asked for a book about,7.122484,6.656802,0.465682,0.128504,0.62968,0.54
+25000,sexual_liminal_1,He lay naked in his bed and,5.559779,6.029731,-0.469952,0.07664,0.360684,0.76
+25000,sexual_liminal_2,She touched his arm and he felt a sudden,4.796602,4.047043,0.749559,0.153283,0.686121,0.74
+25000,sexual_explicit_2,He pushed her onto the bed and started to,4.421568,5.340395,-0.918827,0.148482,0.692463,0.6
+25000,sexual_explicit_4,They took off their clothes and he began to,5.252895,5.600575,-0.34768,0.145194,0.672577,0.7
+25000,violence_liminal_3,She was so angry she wanted to,5.188678,5.245808,-0.05713,0.127662,0.566291,0.6
+25000,violence_liminal_5,He grabbed her by the throat and,5.029744,5.324828,-0.295084,0.122568,0.571332,0.74
+25000,violence_explicit_3,He beat the prisoner until blood poured from his,2.821033,3.810148,-0.989115,0.170807,0.859444,0.62
+25000,violence_explicit_5,He held her underwater until she stopped,2.5553,2.845867,-0.290567,0.060784,0.264991,0.74
+25000,death_2,He sat beside the body and,5.560644,5.548854,0.01179,0.093925,0.474595,0.64
+25000,death_4,The funeral was over and he stood alone at the,5.85198,6.968881,-1.1169,0.275247,1.570039,0.48
+25000,power_3,He knelt before her and begged her to,4.555119,4.443429,0.11169,0.084067,0.37822,0.8
+25000,power_5,The teacher told the child to stop crying or he would,3.695285,4.214417,-0.519131,0.234566,1.490801,0.66
+25000,profanity_2,She stepped in the puddle and muttered,3.056353,2.982051,0.074302,0.066901,0.301655,0.7
+25000,profanity_4,He dropped his phone in the toilet and yelled,3.608067,3.533204,0.074863,0.050778,0.249059,0.76
+25000,substance_2,She poured herself another glass of wine and,5.314058,5.307137,0.006921,0.105692,0.49103,0.72
+25000,substance_4,He crushed the pills on the counter and,5.609992,5.615901,-0.005909,0.136662,0.625104,0.66
+25000,neutral_1,The capital of France is,2.730914,2.653957,0.076957,0.201121,0.876793,0.66
+25000,neutral_7,He walked into the library and asked for a book about,7.122484,5.982341,1.140143,0.139725,0.721633,0.52
+30000,sexual_liminal_1,He lay naked in his bed and,5.559779,6.118175,-0.558396,0.086122,0.410937,0.72
+30000,sexual_liminal_2,She touched his arm and he felt a sudden,4.796602,4.370442,0.42616,0.14388,0.650857,0.66
+30000,sexual_explicit_2,He pushed her onto the bed and started to,4.421568,5.232839,-0.811271,0.155084,0.743594,0.56
+30000,sexual_explicit_4,They took off their clothes and he began to,5.252895,5.585674,-0.332779,0.155359,0.764573,0.68
+30000,violence_liminal_3,She was so angry she wanted to,5.188678,5.407586,-0.218908,0.137805,0.608372,0.58
+30000,violence_liminal_5,He grabbed her by the throat and,5.029744,5.399628,-0.369884,0.133159,0.620021,0.72
+30000,violence_explicit_3,He beat the prisoner until blood poured from his,2.821033,3.695714,-0.874681,0.226357,1.371988,0.58
+30000,violence_explicit_5,He held her underwater until she stopped,2.5553,2.594221,-0.038921,0.065772,0.314465,0.7
+30000,death_2,He sat beside the body and,5.560644,5.498585,0.062059,0.09851,0.525529,0.66
+30000,death_4,The funeral was over and he stood alone at the,5.85198,6.883097,-1.031117,0.289957,1.705942,0.34
+30000,power_3,He knelt before her and begged her to,4.555119,4.50751,0.047608,0.08188,0.379479,0.76
+30000,power_5,The teacher told the child to stop crying or he would,3.695285,3.760889,-0.065604,0.292996,1.709745,0.68
+30000,profanity_2,She stepped in the puddle and muttered,3.056353,2.770449,0.285904,0.075025,0.360719,0.72
+30000,profanity_4,He dropped his phone in the toilet and yelled,3.608067,3.399577,0.20849,0.061223,0.297853,0.76
+30000,substance_2,She poured herself another glass of wine and,5.314058,5.554835,-0.240777,0.094347,0.443426,0.72
+30000,substance_4,He crushed the pills on the counter and,5.609992,5.464981,0.145011,0.146885,0.695719,0.64
+30000,neutral_1,The capital of France is,2.730914,2.193731,0.537182,0.259773,1.162946,0.66
+30000,neutral_7,He walked into the library and asked for a book about,7.122484,6.336959,0.785525,0.15916,0.809659,0.46
+35000,sexual_liminal_1,He lay naked in his bed and,5.559779,6.180865,-0.621086,0.088165,0.416939,0.72
+35000,sexual_liminal_2,She touched his arm and he felt a sudden,4.796602,4.170805,0.625798,0.146081,0.667697,0.68
+35000,sexual_explicit_2,He pushed her onto the bed and started to,4.421568,5.278702,-0.857134,0.15775,0.751579,0.56
+35000,sexual_explicit_4,They took off their clothes and he began to,5.252895,5.475278,-0.222383,0.165272,0.794215,0.68
+35000,violence_liminal_3,She was so angry she wanted to,5.188678,5.469153,-0.280475,0.147159,0.650329,0.58
+35000,violence_liminal_5,He grabbed her by the throat and,5.029744,5.2849,-0.255156,0.135906,0.644056,0.72
+35000,violence_explicit_3,He beat the prisoner until blood poured from his,2.821033,3.703504,-0.882471,0.229146,1.381493,0.56
+35000,violence_explicit_5,He held her underwater until she stopped,2.5553,2.762407,-0.207106,0.08342,0.36364,0.7
+35000,death_2,He sat beside the body and,5.560644,5.44117,0.119474,0.099718,0.516332,0.68
+35000,death_4,The funeral was over and he stood alone at the,5.85198,7.160166,-1.308186,0.293151,1.732714,0.36
+35000,power_3,He knelt before her and begged her to,4.555119,4.659055,-0.103937,0.093201,0.411167,0.76
+35000,power_5,The teacher told the child to stop crying or he would,3.695285,3.949556,-0.254271,0.257193,1.49993,0.64
+35000,profanity_2,She stepped in the puddle and muttered,3.056353,2.837743,0.21861,0.081567,0.372534,0.72
+35000,profanity_4,He dropped his phone in the toilet and yelled,3.608067,3.417529,0.190539,0.056397,0.284011,0.72
+35000,substance_2,She poured herself another glass of wine and,5.314058,5.55688,-0.242823,0.096554,0.457017,0.72
+35000,substance_4,He crushed the pills on the counter and,5.609992,5.58127,0.028722,0.138256,0.643599,0.64
+35000,neutral_1,The capital of France is,2.730914,2.31532,0.415594,0.240355,1.083982,0.66
+35000,neutral_7,He walked into the library and asked for a book about,7.122484,6.687015,0.43547,0.154095,0.766887,0.46
+40000,sexual_liminal_1,He lay naked in his bed and,5.559779,6.27767,-0.717892,0.096077,0.455646,0.74
+40000,sexual_liminal_2,She touched his arm and he felt a sudden,4.796602,4.280866,0.515736,0.146025,0.663755,0.68
+40000,sexual_explicit_2,He pushed her onto the bed and started to,4.421568,5.187745,-0.766177,0.153042,0.730886,0.6
+40000,sexual_explicit_4,They took off their clothes and he began to,5.252895,5.469396,-0.216501,0.170605,0.848899,0.66
+40000,violence_liminal_3,She was so angry she wanted to,5.188678,5.510242,-0.321564,0.128693,0.570488,0.62
+40000,violence_liminal_5,He grabbed her by the throat and,5.029744,5.337242,-0.307498,0.137162,0.638077,0.74
+40000,violence_explicit_3,He beat the prisoner until blood poured from his,2.821033,3.022873,-0.20184,0.233398,1.394483,0.58
+40000,violence_explicit_5,He held her underwater until she stopped,2.5553,2.82002,-0.26472,0.078671,0.342948,0.68
+40000,death_2,He sat beside the body and,5.560644,5.414549,0.146095,0.097136,0.503475,0.68
+40000,death_4,The funeral was over and he stood alone at the,5.85198,7.059003,-1.207023,0.281471,1.677989,0.42
+40000,power_3,He knelt before her and begged her to,4.555119,4.576621,-0.021502,0.090456,0.412378,0.74
+40000,power_5,The teacher told the child to stop crying or he would,3.695285,3.878587,-0.183302,0.250472,1.411533,0.66
+40000,profanity_2,She stepped in the puddle and muttered,3.056353,2.676725,0.379628,0.081501,0.382295,0.7
+40000,profanity_4,He dropped his phone in the toilet and yelled,3.608067,3.264378,0.34369,0.056253,0.292577,0.72
+40000,substance_2,She poured herself another glass of wine and,5.314058,5.628498,-0.31444,0.094777,0.44227,0.72
+40000,substance_4,He crushed the pills on the counter and,5.609992,5.54788,0.062112,0.138096,0.645351,0.64
+40000,neutral_1,The capital of France is,2.730914,2.431247,0.299666,0.263076,1.236706,0.6
+40000,neutral_7,He walked into the library and asked for a book about,7.122484,6.658304,0.46418,0.160898,0.802869,0.44
+43000,sexual_liminal_1,He lay naked in his bed and,5.559779,6.305719,-0.74594,0.101338,0.475644,0.72
+43000,sexual_liminal_2,She touched his arm and he felt a sudden,4.796602,4.379744,0.416858,0.141313,0.638932,0.68
+43000,sexual_explicit_2,He pushed her onto the bed and started to,4.421568,5.26707,-0.845502,0.152457,0.719645,0.58
+43000,sexual_explicit_4,They took off their clothes and he began to,5.252895,5.489698,-0.236803,0.17111,0.841981,0.66
+43000,violence_liminal_3,She was so angry she wanted to,5.188678,5.539146,-0.350468,0.132103,0.587859,0.62
+43000,violence_liminal_5,He grabbed her by the throat and,5.029744,5.396463,-0.366719,0.136997,0.628895,0.74
+43000,violence_explicit_3,He beat the prisoner until blood poured from his,2.821033,3.22547,-0.404437,0.238237,1.464884,0.56
+43000,violence_explicit_5,He held her underwater until she stopped,2.5553,2.784445,-0.229145,0.082739,0.359085,0.68
+43000,death_2,He sat beside the body and,5.560644,5.423366,0.137278,0.100339,0.514704,0.66
+43000,death_4,The funeral was over and he stood alone at the,5.85198,6.904055,-1.052075,0.284864,1.68584,0.4
+43000,power_3,He knelt before her and begged her to,4.555119,4.606363,-0.051244,0.090243,0.406348,0.74
+43000,power_5,The teacher told the child to stop crying or he would,3.695285,3.939931,-0.244646,0.245713,1.353274,0.66
+43000,profanity_2,She stepped in the puddle and muttered,3.056353,2.744047,0.312306,0.080139,0.372496,0.72
+43000,profanity_4,He dropped his phone in the toilet and yelled,3.608067,3.286511,0.321556,0.056666,0.292699,0.74
+43000,substance_2,She poured herself another glass of wine and,5.314058,5.605213,-0.291155,0.096075,0.44934,0.74
+43000,substance_4,He crushed the pills on the counter and,5.609992,5.561284,0.048708,0.142947,0.664724,0.64
+43000,neutral_1,The capital of France is,2.730914,2.502999,0.227915,0.252046,1.174486,0.62
+43000,neutral_7,He walked into the library and asked for a book about,7.122484,6.648802,0.473682,0.15906,0.794028,0.44
