@@ -2,7 +2,7 @@
 
 A toolkit for psychoanalytic analysis of LLM probability distributions. Compares base models (primary process), SFT models (ego), DPO models (superego), and optionally RLVR models (reinforced superego / ego-ideal) to map the repression, displacement, and condensation signatures of AI alignment.
 
-Supports multiple model families with different layer counts: 4-layer (OLMo 3: base/SFT/DPO/RLVR), 3-layer (Zephyr: base/SFT/DPO), or 2-layer (Llama 3: base/instruct). Analysis adapts gracefully to available layers.
+Supports multiple model families with different layer counts: 4-layer (OLMo: base/SFT/DPO/RLVR), 3-layer (Amber: base/SFT/DPO), or 2-layer (Llama, Qwen: base/instruct). Analysis adapts gracefully to available layers.
 
 Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for AI" (Accelerationism Revisited, UCD, June 2026).
 
@@ -55,15 +55,17 @@ Runs locally on Mac (MPS with float16) or Linux (CUDA). Default models are OLMo 
 malign info
 
 # Show a specific family
-malign info --family llama-3-8b
+malign info --family llama
 ```
 
 Available families:
 
 | Family | Layers | Models |
 |--------|--------|--------|
-| `olmo-3-7b` (default) | 4 | base / SFT / DPO / RLVR |
-| `llama-3-8b` | 2 | base / instruct |
+| `olmo` (default) | 4 | OLMo 3 7B: base / SFT / DPO / RLVR |
+| `amber` | 3 | Amber: base / SFT / DPO |
+| `llama` | 2 | Llama 3.1 8B: base / instruct |
+| `qwen` | 2 | Qwen 2.5 7B: base / instruct |
 
 ### Downloading models
 
@@ -75,7 +77,7 @@ malign download-models
 malign download-models --all
 
 # Download a specific family
-malign download-models --family llama-3-8b
+malign download-models --family llama
 
 # Download a specific model
 malign download-models --model dpo
@@ -87,10 +89,10 @@ malign download-models --model dpo
 from malign_logits import Psyche
 
 # Default: OLMo 3 7B (4 layers)
-psyche = Psyche.from_family("olmo-3-7b", load=True)
+psyche = Psyche.from_family("olmo", load=True)
 
-# Or: Llama 3 8B (2 layers — base + instruct)
-psyche = Psyche.from_family("llama-3-8b", load=True)
+# Or: Llama 3.1 8B (2 layers — base + instruct)
+psyche = Psyche.from_family("llama", load=True)
 
 # Or: load models directly
 psyche = Psyche.from_pretrained(cache_dir="malign_cache")
@@ -109,7 +111,7 @@ Each property computes on first access, then caches in memory and (with `cache_d
 
 ### 2-layer vs 3+ layer analysis
 
-With 2 layers (e.g. Llama 3), repression is computed as base→superego (the entire alignment pipeline in one step). Sublimation, id scores, displacement maps, and neurotic generation require 3+ layers and raise `ValueError` with a clear message if called on a 2-layer Psyche.
+With 2 layers (e.g. Llama, Qwen), repression is computed as base→superego (the entire alignment pipeline in one step). Id scores and neurotic generation require 3+ layers. Displacement maps work with any layer count (2 layers uses repression pairs; 3+ uses both sublimation and repression).
 
 ## Usage
 
@@ -161,7 +163,7 @@ result['symptom_log']  # where displaced charge landed
 OLMo 3 7B includes all 4 layers by default:
 
 ```python
-psyche = Psyche.from_family("olmo-3-7b", load=True)
+psyche = Psyche.from_family("olmo", load=True)
 
 s = psyche.analyze("The knife was")
 s.instruct_words      # RLVR model probabilities
@@ -282,7 +284,27 @@ The displacement engine (v4) uses contextual embeddings from hidden layer 16 of 
 
 **At 7B, the RLVR layer (ego-ideal) reinforces DPO rather than contesting it.** We tested whether the 4th training stage (reinforcement learning from verifiable rewards) produces a double bind with the DPO superego — where factual competence requires saying the prohibited thing. Across violence, sexual, medical, forensic, educational, and literary prompts, RLVR consistently amplifies DPO's strategies rather than diverging. The neurotic double bind predicted by the 4-layer topology may require larger models where RLVR training encodes stronger domain knowledge. The default 3-layer analysis (base → SFT → DPO) captures all observed displacement dynamics.
 
-*Systematic results (battery-level analysis across 12 prompts, OLMo 3 7B):*
+*Cross-family results (47-prompt battery across OLMo, Amber, Llama, Qwen):*
+
+**Alignment intensity varies by an order of magnitude across families.** Mean JS divergence (base→superego): Qwen 0.044, Llama 0.057, OLMo 0.176, Amber 0.181. Qwen's instruct model barely moves the distribution; OLMo and Amber substantially restructure it.
+
+![Mean JS divergence by model family](figures/cross_family_js_means.png)
+
+**Same total repression, different internal architecture.** OLMo and Amber displace similar amounts (JS ~0.18) but divide the work differently. In OLMo, SFT performs ~90% of displacement across all content categories — the ego is the primary agent of socialisation. In Amber, SFT and DPO split roughly 50/50 — a structurally different psychic economy with equal ego and superego contributions.
+
+![SFT vs DPO division of labour](figures/sft_dpo_division.png)
+
+**Alignment operates more on ambiguous content than explicitly transgressive content.** JS divergence for sexual liminal (0.13) exceeds sexual explicit (0.10). Violence liminal (0.15) exceeds violence explicit (0.09). The superego is most active at the boundary where content *could* become transgressive, not where it already is.
+
+![JS divergence heatmap across families and categories](figures/cross_family_js_heatmap.png)
+
+**Substance use triggers unexpectedly strong alignment.** Substance-related prompts show the highest entropy drop through alignment (0.82 nats mean), exceeding both sexual and violent content. Profanity also triggers substantial displacement despite being neither sexual nor violent.
+
+**Qwen's alignment is nearly invisible on explicit content.** Top-50 overlap of 0.91 on sexual explicit means the instruct model preserves almost the entire base distribution. This is a fundamentally different alignment strategy from OLMo (0.59 overlap) — light guardrails vs deep restructuring.
+
+![Top-50 overlap heatmap](figures/cross_family_overlap_heatmap.png)
+
+*Single-family results (OLMo 3 7B, 3-layer analysis):*
 
 **DPO's distributional impact on violence is 10x larger than on sex.** Jensen-Shannon divergence between ego and superego: violence prompts average JS=0.034, sexual explicit JS=0.004, sexual liminal JS=0.014, neutral JS=0.018. SFT reshapes all content types roughly equally; DPO selectively targets violence.
 

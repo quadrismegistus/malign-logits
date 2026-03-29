@@ -460,10 +460,11 @@ def plot_displacement(dm, prompt, min_prob=0.003, min_sim=0.5, save_path=None):
             parts.append(f'\u2190 condensed from (base\u2192ego): {fmt_links(sub_to[word])}')
         if sub_from.get(word):
             parts.append(f'\u2192 sublimated to (base\u2192ego): {fmt_links(sub_from[word])}')
+        rep_label = 'ego\u2192superego' if has_ego else 'base\u2192superego'
         if rep_to.get(word):
-            parts.append(f'\u2190 condensed from (ego\u2192superego): {fmt_links(rep_to[word])}')
+            parts.append(f'\u2190 condensed from ({rep_label}): {fmt_links(rep_to[word])}')
         if rep_from.get(word):
-            parts.append(f'\u2192 repressed to (ego\u2192superego): {fmt_links(rep_from[word])}')
+            parts.append(f'\u2192 repressed to ({rep_label}): {fmt_links(rep_from[word])}')
         return '<br>'.join(parts)
 
     traces = []
@@ -503,21 +504,30 @@ def plot_displacement(dm, prompt, min_prob=0.003, min_sim=0.5, save_path=None):
             ),
         ))
 
-    # Repression links (ego -> superego, x=1 -> x=2)
+    # Repression links
+    has_ego = 'ego' in cols
+    if has_ego:
+        # 3+ layers: ego -> superego (x=1 -> x=2)
+        rep_src_col, rep_tgt_col = 'ego', 'superego'
+        rep_x0, rep_x1 = 1, 2
+    else:
+        # 2 layers: base -> superego (x=0 -> x=1)
+        rep_src_col, rep_tgt_col = 'base', 'superego'
+        rep_x0, rep_x1 = 0, 1
     for _, r in rep_best.iterrows():
         src, tgt = r['source'], r['target']
         if src not in wp.index or tgt not in wp.index:
             continue
-        y0 = max(wp.loc[src, 'ego'], 1e-6)
-        y1 = max(wp.loc[tgt, 'superego'], 1e-6)
+        y0 = max(wp.loc[src, rep_src_col], 1e-6)
+        y1 = max(wp.loc[tgt, rep_tgt_col], 1e-6)
         traces.append(go.Scatter(
-            x=[1, 2], y=[y0, y1], mode='lines',
+            x=[rep_x0, rep_x1], y=[y0, y1], mode='lines',
             line=dict(color=delta_color(y0, y1), width=1.5, dash='dot'),
             showlegend=False, opacity=0.7,
             hovertemplate=(
                 f'<b>repression</b><br>{src} \u2192 {tgt}'
                 f'<br>sim = {r["sim"]:.3f} (peak layer {int(r["layer"])})'
-                f'<br>{src}: ego={y0:.4f}  |  {tgt}: superego={y1:.4f}'
+                f'<br>{src}: {rep_src_col}={y0:.4f}  |  {tgt}: {rep_tgt_col}={y1:.4f}'
                 '<extra></extra>'
             ),
         ))
@@ -567,26 +577,40 @@ def plot_displacement(dm, prompt, min_prob=0.003, min_sim=0.5, save_path=None):
 
 
 def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8, save_path=None):
-    """Visualize how displacement similarity evolves across hidden layers."""
+    """Visualize how displacement similarity evolves across hidden layers.
+
+    3+ layers: uses sublimation pairs (base→ego).
+    2 layers: uses repression pairs (base→superego).
+    """
+    # Use sublimation pairs if available, otherwise repression
     sub_pairs = dm.get('sublimation', {}).get('pairs', [])
-    if not sub_pairs:
-        print("No sublimation pairs found")
+    rep_pairs = dm.get('repression', {}).get('pairs', [])
+    if sub_pairs:
+        pairs = sub_pairs
+        axis_name = 'sublimation'
+        tgt_prob_col = 'ego'
+    elif rep_pairs:
+        pairs = rep_pairs
+        axis_name = 'repression'
+        tgt_prob_col = 'superego'
+    else:
+        print("No displacement pairs found")
         return
 
-    sub_df = pd.DataFrame(sub_pairs, columns=['source', 'target', 'sim', 'layer'])
+    pairs_df = pd.DataFrame(pairs, columns=['source', 'target', 'sim', 'layer'])
     wp = dm['df'].set_index('word')
 
     if source_word:
         sources = [source_word]
     else:
         sources = (
-            sub_df.groupby('source')['sim'].max()
+            pairs_df.groupby('source')['sim'].max()
             .nlargest(3).index.tolist()
         )
 
     figs = []
     for src in sources:
-        sdf = sub_df[sub_df['source'] == src]
+        sdf = pairs_df[pairs_df['source'] == src]
         top_targets = (
             sdf.groupby('target')['sim'].max()
             .nlargest(top_n).index.tolist()
@@ -594,7 +618,11 @@ def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8, 
 
         fig = go.Figure()
         base_prob = wp.loc[src, 'base'] if src in wp.index else 0
-        ego_probs = {t: wp.loc[t, 'ego'] for t in top_targets if t in wp.index}
+        tgt_probs = {
+            t: wp.loc[t, tgt_prob_col]
+            for t in top_targets
+            if t in wp.index and tgt_prob_col in wp.columns
+        }
 
         palette = [
             '#e45756', '#f58518', '#eeca3b', '#54a24b',
@@ -633,14 +661,14 @@ def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8, 
                 arrowcolor=color,
             )
 
-            if tgt in ego_probs:
+            if tgt in tgt_probs:
                 fig.add_trace(go.Scatter(
-                    x=[0], y=[ego_probs[tgt]],
+                    x=[0], y=[tgt_probs[tgt]],
                     mode='markers',
                     marker=dict(size=8, color=color, symbol='diamond'),
                     showlegend=False,
                     hovertemplate=(
-                        f'<b>{tgt}</b> ego probability = {ego_probs[tgt]:.4f}'
+                        f'<b>{tgt}</b> {tgt_prob_col} probability = {tgt_probs[tgt]:.4f}'
                         '<extra></extra>'
                     ),
                 ))
@@ -673,17 +701,18 @@ def plot_layer_displacement(dm, prompt, source_word=None, min_sim=0.4, top_n=8, 
                        annotation_position='top left',
                        annotation_font_size=10, annotation_font_color='#999')
 
+        embed_model = 'SFT' if axis_name == 'sublimation' else 'instruct'
         fig.update_layout(
             xaxis=dict(
                 tickmode='array',
                 tickvals=[0] + list(range(1, 33)),
                 ticktext=['base'] + [str(i) for i in range(1, 33)],
-                title='base model \u2192 SFT model hidden layers',
+                title=f'base model \u2192 {embed_model} model hidden layers',
                 range=[-0.5, 33],
             ),
             yaxis=dict(
-                title='cosine similarity to displacement target<br>'
-                      '<span style="font-size:10px">(\u2666 at base = ego probability of target)</span>',
+                title=f'cosine similarity to displacement target<br>'
+                      f'<span style="font-size:10px">(\u2666 at base = {tgt_prob_col} probability of target)</span>',
             ),
             title=dict(text=f'Displacement through layers: "{src}" \u2014 "{prompt}"'),
             height=550,

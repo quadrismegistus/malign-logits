@@ -103,7 +103,18 @@ Requires `transformers >= 4.57.0` for OLMo 3 architecture support.
 
 ---
 
-## Other usable model families
+## Registered model families
+
+| Key | Name | Layers | Checkpoints |
+|-----|------|--------|-------------|
+| `olmo` (default) | OLMo 3 7B | 4 | `allenai/Olmo-3-1025-7B` / SFT / DPO / Instruct |
+| `amber` | Amber | 3 | `LLM360/Amber` / `AmberChat` / `AmberSafe` |
+| `llama` | Llama 3.1 8B | 2 | `meta-llama/Llama-3.1-8B` / Instruct |
+| `qwen` | Qwen 2.5 7B | 2 | `Qwen/Qwen2.5-7B` / Instruct |
+
+CLI: `malign serve --family amber`, `malign battery --family qwen`, `malign info`.
+
+### Other potential families
 
 **Zephyr (HuggingFace, 7B):** Clean three-layer split available.
 - Base: `mistralai/Mistral-7B-v0.1`
@@ -133,7 +144,7 @@ from malign_logits import Psyche
 psyche = Psyche.from_family("olmo-3-7b")
 
 # 2-layer: base + instruct (instruct maps to superego)
-psyche = Psyche.from_family("llama-3-8b")
+psyche = Psyche.from_family("llama-3.1-8b")
 ```
 
 Layer topology determines available analyses:
@@ -143,7 +154,7 @@ Layer topology determines available analyses:
 
 `Psyche.ego` is `None` for 2-layer families. Properties that require ego raise `ValueError` with a clear message. Properties that can adapt (repression, formation_df, metrics) work with any layer count.
 
-CLI: `malign serve --family llama-3-8b`, `malign info`.
+CLI: `malign serve --family llama-3.1-8b`, `malign info`.
 
 ---
 
@@ -174,7 +185,7 @@ malign-logits/
 ```bash
 # Terminal 1: model server (load once, stays running)
 malign serve                          # default family (olmo-3-7b)
-malign serve --family llama-3-8b      # or a specific family
+malign serve --family llama-3.1-8b      # or a specific family
 
 # Terminal 2: Gradio UI (restart freely, connects to server)
 malign ui
@@ -223,20 +234,25 @@ malign ui
 
 ---
 
+## Confirmed findings (cross-family, 47-prompt battery)
+
+**Alignment intensity varies by an order of magnitude.** Mean JS divergence (base→superego): Qwen 0.044, Llama 0.057, OLMo 0.176, Amber 0.181. Four families, four distinct alignment intensities.
+
+**Same repression intensity, different psychic architecture.** OLMo and Amber both displace ~0.18 JS, but OLMo's SFT does ~90% of the work (ego-dominant), while Amber splits 50/50 between SFT and DPO (shared ego/superego labour). Same total repression, structurally different economies.
+
+**Liminal content triggers more displacement than explicit.** JS divergence: sexual liminal 0.13 > sexual explicit 0.10; violence liminal 0.15 > violence explicit 0.09. The superego is most active at the boundary, not on obviously transgressive content.
+
+**Substance use and profanity trigger unexpectedly strong alignment.** Substance prompts show the highest entropy drop (0.82 nats), exceeding sexual and violent content. Profanity also displaces substantially. These categories are not typical safety targets but are heavily restructured.
+
+**Qwen's alignment is nearly invisible on explicit content.** Top-50 overlap 0.91 on sexual explicit (vs OLMo 0.59). Fundamentally different strategy: light guardrails vs deep restructuring.
+
+**OLMo's neutrals are not neutral.** JS 0.22 for neutral prompts, higher than sexual explicit. SFT share is 92% on neutrals — instruction-following tuning substantially reshapes even harmless distributions.
+
+---
+
 ## Research roadmap
 
-### Priority 1: Battery-level aggregate metrics (for paper)
-
-Run full prompt battery across content categories and compute:
-- **Total repression mass** by content type (sexual liminal, sexual explicit, violence, neutral)
-- **Mean displacement distance** in embedding space per category
-- **Condensation entropy** — does displaced mass scatter or concentrate?
-- **Trajectory distribution** — % of words that are decline/rise/V/peak per category
-- **SFT/DPO division of labour** — for each word, what fraction of total displacement happens at Stage 1 vs Stage 2? Plot distribution by content category.
-
-Goal: turn individual prompt observations into statistical claims. "Sexual vocabulary is repressed N× more than violent vocabulary, but violent vocabulary displaces M% further in semantic space."
-
-### Priority 2: Automatic displacement type taxonomy
+### Priority 1: Automatic displacement type taxonomy
 
 Classify displacement pairs automatically:
 - **Register shift** = high similarity + same POS
@@ -246,16 +262,20 @@ Classify displacement pairs automatically:
 
 Quantify which strategies each training stage (SFT vs DPO) prefers for which content types. This becomes a key figure in the paper.
 
-### Priority 3: Step-level checkpoint analysis
+### Priority 2: Step-level checkpoint analysis
 
 Use Allen AI's step-level checkpoints to trace displacement emerging *during* training:
 - Track a word's probability at every checkpoint within the SFT or DPO stage
 - Watch repression emerge progressively (e.g. `cock` at DPO step 0, 500, 1000, 2000...)
 - Shows displacement is a training dynamic, not a final-state artifact
 
-### Priority 4: Cross-family validation
+### Done: Cross-family validation
 
-Run the same battery on Zephyr (Mistral base → SFT → DPO). If the violence/sex structural difference replicates across OLMo and Zephyr, it's a property of the training *method*, not the model family.
+47-prompt battery across OLMo, Amber, Llama 3.1, and Qwen 2.5. Key result: alignment intensity and internal architecture vary dramatically across families, but liminal > explicit displacement is consistent. See `data/battery_results.csv`.
+
+### Done: Battery-level aggregate metrics
+
+Expanded battery from 11 to 47 prompts across 9 categories (sexual liminal/explicit, violence liminal/explicit, death, power, profanity, substance, neutral). `malign battery` runs all families sequentially. Results in `data/battery_results.csv`.
 
 ### Done: Flexible layer count
 

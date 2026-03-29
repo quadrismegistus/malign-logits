@@ -3,12 +3,12 @@ CLI entrypoint for malign-logits.
 
 Usage:
     malign download-models                    # Download default family models
-    malign download-models --family llama-3-8b
+    malign download-models --family llama
     malign serve                              # Start model server (default family)
-    malign serve --family llama-3-8b          # Start with Llama 3
+    malign serve --family llama          # Start with Llama 3
     malign ui                                 # Launch Gradio web UI
     malign info                               # Show all families
-    malign info --family llama-3-8b           # Show specific family
+    malign info --family llama           # Show specific family
 """
 
 import argparse
@@ -63,7 +63,7 @@ def cmd_download_models(args):
 def cmd_ui(args):
     """Launch Gradio web UI."""
     from .app import launch
-    launch(server_port=args.port, share=args.share)
+    launch(server_name=args.host, server_port=args.port, share=args.share)
 
 
 def cmd_serve(args):
@@ -105,6 +105,46 @@ def _print_family(key, fam, indent=2):
             print(f"{pad}  {attr:<22s}  {roles[attr]:<34s}  {model_id}")
 
 
+def cmd_battery(args):
+    """Run prompt battery across one or all model families."""
+    import gc
+    import torch
+    from . import MODEL_FAMILIES
+    from .psyche import Psyche
+
+    families = [args.family] if args.family else list(MODEL_FAMILIES.keys())
+    all_metrics = []
+
+    for key in families:
+        fam = MODEL_FAMILIES[key]
+        print(f"\n{'=' * 60}")
+        print(f"  {key}: {fam.name} ({fam.n_layers} layers)")
+        print(f"{'=' * 60}")
+
+        psyche = Psyche.from_family(key, load=True)
+        metrics = psyche.battery_metrics()
+        metrics["family"] = key
+        all_metrics.append(metrics)
+
+        # Free memory before loading next family
+        del psyche
+        gc.collect()
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+
+    import pandas as pd
+    combined = pd.concat(all_metrics, ignore_index=True)
+    cols = ["family", "label", "prompt"] + [
+        c for c in combined.columns if c not in ("family", "label", "prompt")
+    ]
+    combined = combined[cols]
+
+    out = args.output or "data/battery_results.csv"
+    combined.to_csv(out, index=False)
+    print(f"\nResults saved to {out}")
+    print(f"\n{combined.to_string()}")
+
+
 def _add_family_arg(parser):
     """Add --family argument to a subparser."""
     from . import MODEL_FAMILIES
@@ -112,7 +152,7 @@ def _add_family_arg(parser):
         "--family",
         choices=list(MODEL_FAMILIES.keys()),
         default=None,
-        help="Model family (default: olmo-3-7b)",
+        help="Model family (default: olmo)",
     )
 
 
@@ -143,6 +183,7 @@ def main():
 
     # ui
     ui = subparsers.add_parser("ui", help="Launch Gradio web UI")
+    ui.add_argument("--host", default="0.0.0.0", help="Bind address (default 0.0.0.0)")
     ui.add_argument("--port", type=int, default=7860, help="Port (default 7860)")
     ui.add_argument("--share", action="store_true", help="Create public Gradio link")
     ui.set_defaults(func=cmd_ui)
@@ -152,6 +193,12 @@ def main():
     sv.add_argument("--port", type=int, default=8421, help="Port (default 8421)")
     _add_family_arg(sv)
     sv.set_defaults(func=cmd_serve)
+
+    # battery
+    bat = subparsers.add_parser("battery", help="Run prompt battery across families")
+    _add_family_arg(bat)
+    bat.add_argument("--output", "-o", help="Output CSV path (default: data/battery_results.csv)")
+    bat.set_defaults(func=cmd_battery)
 
     # info
     info = subparsers.add_parser("info", help="Print model families and configuration")

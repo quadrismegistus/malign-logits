@@ -187,13 +187,18 @@ def _format_pairs(dm):
     return "\n".join(lines)
 
 
-def _get_sublimation_sources(dm):
-    """Get source words from displacement map for dropdown."""
-    sub_pairs = dm.get("sublimation", {}).get("pairs", [])
-    if not sub_pairs:
+def _get_displacement_sources(dm):
+    """Get source words from displacement map for dropdown.
+
+    Uses sublimation pairs if available (3+ layers), otherwise repression (2 layers).
+    """
+    pairs = dm.get("sublimation", {}).get("pairs", [])
+    if not pairs:
+        pairs = dm.get("repression", {}).get("pairs", [])
+    if not pairs:
         return []
-    sub_df = pd.DataFrame(sub_pairs, columns=["source", "target", "sim", "layer"])
-    return sub_df.groupby("source")["sim"].max().nlargest(20).index.tolist()
+    df = pd.DataFrame(pairs, columns=["source", "target", "sim", "layer"])
+    return df.groupby("source")["sim"].max().nlargest(20).index.tolist()
 
 
 # ── Gradio callbacks ──────────────────────────────────────────────
@@ -318,10 +323,6 @@ def on_displacement(prompt):
     prompt = prompt.strip()
     if prompt not in _cache:
         return None, "Run analysis first."
-    psyche = _get_psyche()
-    if psyche.ego is None:
-        return None, "Displacement maps require 3+ layers (base/ego/superego)."
-
     try:
         if _server_available():
             dm = _request_server_displacement(prompt)
@@ -349,8 +350,6 @@ def on_layer_displacement(prompt, source_word):
     if prompt not in _cache:
         return "Run analysis first.", None, gr.update()
     psyche = _get_psyche()
-    if psyche.ego is None:
-        return "Layer displacement requires 3+ layers (base/ego/superego).", None, gr.update()
 
     try:
         if prompt not in _dm_full_cache:
@@ -364,7 +363,7 @@ def on_layer_displacement(prompt, source_word):
         else:
             dm = _dm_full_cache[prompt]
 
-        sources = _get_sublimation_sources(dm)
+        sources = _get_displacement_sources(dm)
         source_update = gr.update(choices=sources, value=source_word or (sources[0] if sources else None))
 
         from .viz import plot_layer_displacement
