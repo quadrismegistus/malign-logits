@@ -105,18 +105,23 @@ def generate_many(psyche, prompt, n=30, max_new_tokens=100,
 
 # ── Embedding ─────────────────────────────────────────────────────
 
+DEFAULT_EMBEDDER = "paraphrase-multilingual-MiniLM-L12-v2"
+
 _embedder = None
+_embedder_name = None
 
 
-def _get_embedder(model_name="all-MiniLM-L6-v2"):
-    global _embedder
-    if _embedder is None:
+def _get_embedder(model_name=None):
+    global _embedder, _embedder_name
+    model_name = model_name or DEFAULT_EMBEDDER
+    if _embedder is None or _embedder_name != model_name:
         from sentence_transformers import SentenceTransformer
         _embedder = SentenceTransformer(model_name)
+        _embedder_name = model_name
     return _embedder
 
 
-def embed_generations(psg_df, model_name="all-MiniLM-L6-v2"):
+def embed_generations(psg_df, model_name=None):
     """Embed all passages. Returns DataFrame with 384 columns.
 
     Args:
