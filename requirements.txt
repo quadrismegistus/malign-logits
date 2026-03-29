@@ -8,3 +8,6 @@ tqdm>=4.65.0
 huggingface-hub
 sentencepiece
 protobuf
+sentence-transformers
+scikit-learn
+pyarrow
