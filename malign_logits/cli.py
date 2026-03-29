@@ -180,9 +180,8 @@ def cmd_step_analysis(args):
             return
 
     # Phase 2: Extract logits
-    from .models import load_model
+    from .models import load_model, get_base_logits
     from .psyche import ModelLayer
-    from .core import get_base_logits
     from . import PATH_STASH
     from hashstash import HashStash
 
@@ -223,7 +222,8 @@ def cmd_step_analysis(args):
             all_tracked.append((cat, w))
     word_token_ids = {}
     for cat, word in all_tracked:
-        ids = tokenizer.encode(word, add_special_tokens=False)
+        # Encode with leading space — these are continuation tokens
+        ids = tokenizer.encode(" " + word, add_special_tokens=False)
         if ids:
             word_token_ids[word] = ids[0]  # first token
 
