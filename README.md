@@ -327,9 +327,11 @@ Traces repression emerging during supervised fine-tuning by extracting logits fr
 
 ![Repression onset curves for violence](figures/step_repression_violence.png)
 
-**Displacement targets emerge later than repression onset.** `fuck` falls immediately (step 0→1000) while `massage` (a displacement target on "He pushed her onto the bed and started to...") rises later, peaking around step 15000-20000. The ~15,000-step lag between repression and displacement is evidence of genuine emergent displacement, not simultaneous substitution.
+**Displacement targets emerge later than repression onset.** `fuck` falls immediately (step 0→5000) while `kiss` — the dominant displacement target — rises over step 5000-15000. `kill` falls by step 5000 while `scream` rises gradually from step 10000 onward. The lag between repression and displacement is evidence of genuine emergent displacement, not simultaneous substitution.
 
-![Displacement lag: fuck → massage](figures/step_displacement_lag.png)
+![Displacement lag: fuck → kiss](figures/step_displacement_lag_kiss.png)
+
+![Displacement lag: kill → scream](figures/step_displacement_lag_scream.png)
 
 **Content categories separate progressively during training.** JS divergence from base starts near zero for all categories and fans out across training. Death and neutral diverge fastest; substance diverges slowest. Sexual and violence categories track each other until step 25000, then diverge.
 
