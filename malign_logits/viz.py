@@ -1143,15 +1143,16 @@ def plot_logit_lens(lens_data, prompt=None, family=None, top_k=None, words=None,
     )
 
     title = "Logit lens: word probability at each network layer"
-    subtitle_parts = []
     if prompt:
-        subtitle_parts.append(f'"{prompt[:80]}"')
+        title += f'\n"{prompt[:80]}"'
     if family:
-        subtitle_parts.append(f"family: {family}")
+        title += f"  ({family})"
+
+    caption_parts = []
     if top_k:
-        subtitle_parts.append(f"top-k: {top_k}")
-    if subtitle_parts:
-        title += "\n" + "  |  ".join(subtitle_parts)
+        caption_parts.append(f"top-k: {top_k}")
+    caption_parts.append(f"min layers: {min_layers}")
+    caption = "  |  ".join(caption_parts)
 
     n_models = df["model_label"].nunique()
 
@@ -1177,6 +1178,7 @@ def plot_logit_lens(lens_data, prompt=None, family=None, top_k=None, words=None,
             y="probability (log scale)",
             color="word",
             linetype="",
+            caption=caption,
         )
         + theme_minimal()
         + theme(
