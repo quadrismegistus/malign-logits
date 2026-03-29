@@ -1084,12 +1084,11 @@ def plot_concept_shift(gen_metrics_csv, concept="violent", save_path=None):
 
 # ── Logit lens visualizations ─────────────────────────────────────
 
-def plot_logit_lens(lens_data, prompt=None, words=None, min_layers=3, save_path=None):
+def plot_logit_lens(lens_data, prompt=None, words=None, min_layers=8, save_path=None):
     """Plot word probabilities across network layers for each model.
 
-    Shows tracked words as solid lines and top-k words (appearing in
-    min_layers+ layers) as thinner lines. Filters noise from words
-    that only flash into top-k at one or two layers.
+    Shows tracked words as solid lines with peak labels, and top-k words
+    (appearing in min_layers+ layers) as thinner dotted lines.
 
     Args:
         lens_data: DataFrame with columns [layer, word, probability, model]
@@ -1112,7 +1111,6 @@ def plot_logit_lens(lens_data, prompt=None, words=None, min_layers=3, save_path=
         # Always include tracked words; include top-k words that appear often
         tracked = df[df.get("source", pd.Series("tracked")) == "tracked"]["word"].unique()
         topk = df[df.get("source", pd.Series()) == "top_k"]
-        # Count how many layers each top-k word appears across all models
         topk_counts = topk.groupby("word")["layer"].nunique()
         frequent_topk = topk_counts[topk_counts >= min_layers].index.tolist()
         plot_words = list(dict.fromkeys(list(tracked) + frequent_topk))
@@ -1158,33 +1156,35 @@ def plot_logit_lens(lens_data, prompt=None, words=None, min_layers=3, save_path=
                 showlegend=(col == 1),
             ), row=1, col=col)
 
-            # Label at peak probability
-            peak_idx = wdf["probability"].idxmax()
-            peak = wdf.loc[peak_idx]
-            fig.add_annotation(
-                x=peak["layer"], y=peak["probability"],
-                text=word, showarrow=False,
-                font=dict(size=9, color=word_colors[word]),
-                yshift=10, xshift=5,
-                row=1, col=col,
-            )
+            # Label tracked words at their final layer (right side of plot)
+            if is_tracked:
+                last = wdf.iloc[-1]
+                fig.add_annotation(
+                    x=last["layer"], y=last["probability"],
+                    text=f" {word}", showarrow=False,
+                    font=dict(size=10, color=word_colors[word]),
+                    xanchor="left",
+                    row=1, col=col,
+                )
 
     title = "Logit lens: word probability at each network layer"
     if prompt:
         title += f'<br><sub>"{prompt[:80]}"</sub>'
 
+    n_models = len(models)
     fig.update_layout(
         title=title,
         template="plotly_white",
-        width=350 * len(models), height=500,
+        width=max(450 * n_models, 900), height=600,
         legend=dict(title="word (solid=tracked, dotted=top-k)"),
+        margin=dict(r=100),  # room for right-side labels
     )
     fig.update_yaxes(type="log", title_text="probability (log)", col=1)
-    for col in range(1, len(models) + 1):
+    for col in range(1, n_models + 1):
         fig.update_xaxes(title_text="network layer", col=col)
 
     if save_path:
-        fig.write_image(save_path, scale=2)
+        fig.write_image(save_path, scale=3)
     return fig
 
 
