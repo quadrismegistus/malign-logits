@@ -145,6 +145,190 @@ def cmd_battery(args):
     print(f"\n{combined.to_string()}")
 
 
+def cmd_step_analysis(args):
+    """Trace repression emergence across SFT training steps."""
+    import gc
+    import torch
+    import pandas as pd
+    from .experiments import (
+        TIER1_PROMPTS, DEFAULT_PROMPTS, TRACKED_WORDS,
+        DEFAULT_STEPS, STEP_REPO,
+    )
+    from .analysis import distribution_entropy, js_divergence, kl_divergence, top_k_overlap
+
+    prompts = TIER1_PROMPTS if args.prompts == "tier1" else DEFAULT_PROMPTS
+    if args.category:
+        prompts = {k: v for k, v in prompts.items() if k.startswith(args.category)}
+        if not prompts:
+            print(f"No prompts matching category '{args.category}'")
+            sys.exit(1)
+
+    steps = [int(s) for s in args.steps.split(",")] if args.steps else DEFAULT_STEPS
+    cache_dir = args.cache_dir
+    repo = STEP_REPO
+
+    # Phase 1: Download
+    if not args.extract_only:
+        from huggingface_hub import snapshot_download
+        print(f"Downloading {len(steps)} checkpoints to {cache_dir or 'default cache'}...")
+        for step in steps:
+            rev = f"step{step}"
+            print(f"\n  Downloading {repo}@{rev}...")
+            snapshot_download(repo, revision=rev, cache_dir=cache_dir)
+        print("\nAll downloads complete.")
+        if args.download_only:
+            return
+
+    # Phase 2: Extract logits
+    from .models import load_model
+    from .psyche import ModelLayer
+    from .core import get_base_logits
+    from . import PATH_STASH
+    from hashstash import HashStash
+
+    stash = HashStash(root_dir=PATH_STASH)
+
+    # Ensure base model logits are cached (shared with OLMo family)
+    base_name = "allenai/Olmo-3-1025-7B"
+    base_logits_cache = {}
+    print(f"\nChecking base model logits...")
+    base_key_check = ("logits", base_name, "base", list(prompts.values())[0])
+    if base_key_check not in stash:
+        print("  Base logits not cached — loading base model...")
+        base_model, base_tok = load_model(base_name)
+        for label, prompt in prompts.items():
+            cache_key = ("logits", base_name, "base", prompt)
+            if cache_key not in stash:
+                logits = get_base_logits(base_model, base_tok, prompt)
+                stash[cache_key] = logits.numpy()
+        del base_model
+        gc.collect()
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+    print("  Base logits ready.")
+
+    # Load base logits for all prompts
+    for label, prompt in prompts.items():
+        cache_key = ("logits", base_name, "base", prompt)
+        base_logits_cache[prompt] = torch.tensor(stash[cache_key])
+
+    # Load tokenizer once (shared across all checkpoints)
+    from .models import _load_tokenizer
+    tokenizer = _load_tokenizer(base_name)
+
+    # Build flat word list and token IDs for tracked words
+    all_tracked = []
+    for cat, words in TRACKED_WORDS.items():
+        for w in words:
+            all_tracked.append((cat, w))
+    word_token_ids = {}
+    for cat, word in all_tracked:
+        ids = tokenizer.encode(word, add_special_tokens=False)
+        if ids:
+            word_token_ids[word] = ids[0]  # first token
+
+    # Extract logits per step checkpoint
+    for step in steps:
+        rev = f"step{step}"
+        model_id = f"{repo}@{rev}"
+
+        # Check if all prompts are already cached
+        all_cached = all(
+            ("logits", model_id, "step", prompt) in stash
+            for prompt in prompts.values()
+        )
+        if all_cached:
+            print(f"\n  step{step}: all logits cached, skipping.")
+            continue
+
+        print(f"\n{'=' * 60}")
+        print(f"  Extracting: {rev}")
+        print(f"{'=' * 60}")
+
+        model, _ = load_model(repo, revision=rev, cache_dir=cache_dir)
+
+        for label, prompt in prompts.items():
+            cache_key = ("logits", model_id, "step", prompt)
+            if cache_key in stash:
+                continue
+            logits = get_base_logits(model, tokenizer, prompt)
+            stash[cache_key] = logits.numpy()
+            print(f"    {label}")
+
+        del model
+        gc.collect()
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+
+    # Phase 3: Compute metrics (pure math, no models)
+    print(f"\nComputing metrics...")
+
+    metrics_rows = []
+    word_rows = []
+
+    for step in steps:
+        rev = f"step{step}"
+        model_id = f"{repo}@{rev}"
+
+        for label, prompt in prompts.items():
+            cache_key = ("logits", model_id, "step", prompt)
+            step_logits = torch.tensor(stash[cache_key])
+            base_logits = base_logits_cache[prompt]
+
+            # Distribution-level metrics
+            entropy_base = distribution_entropy(base_logits)
+            entropy_step = distribution_entropy(step_logits)
+            js = js_divergence(base_logits, step_logits)
+            kl = kl_divergence(base_logits, step_logits)
+            overlap = top_k_overlap(base_logits, step_logits)
+
+            metrics_rows.append({
+                "step": step,
+                "label": label,
+                "prompt": prompt[:60],
+                "entropy_base": round(float(entropy_base), 6),
+                "entropy_step": round(float(entropy_step), 6),
+                "entropy_drop": round(float(entropy_base - entropy_step), 6),
+                "js_base_step": round(float(js), 6),
+                "kl_base_step": round(float(kl), 6),
+                "top50_overlap": round(float(overlap), 4),
+            })
+
+            # Per-word probabilities
+            step_probs = torch.softmax(step_logits.float(), dim=0)
+            base_probs = torch.softmax(base_logits.float(), dim=0)
+
+            for cat, word in all_tracked:
+                if word not in word_token_ids:
+                    continue
+                tid = word_token_ids[word]
+                sp = float(step_probs[tid])
+                bp = float(base_probs[tid])
+                word_rows.append({
+                    "step": step,
+                    "label": label,
+                    "prompt": prompt[:60],
+                    "word": word,
+                    "word_category": cat,
+                    "probability": round(sp, 8),
+                    "base_probability": round(bp, 8),
+                    "delta": round(sp - bp, 8),
+                })
+
+    # Save
+    out_prefix = args.output or "data/step_analysis"
+
+    metrics_df = pd.DataFrame(metrics_rows)
+    metrics_path = f"{out_prefix}_metrics.csv"
+    metrics_df.to_csv(metrics_path, index=False)
+    print(f"Metrics saved to {metrics_path} ({len(metrics_df)} rows)")
+
+    words_df = pd.DataFrame(word_rows)
+    words_path = f"{out_prefix}_words.csv"
+    words_df.to_csv(words_path, index=False)
+    print(f"Word tracking saved to {words_path} ({len(words_df)} rows)")
+
+
 def cmd_generate_battery(args):
     """Generate text across families, embed, compute metrics."""
     import gc
@@ -338,6 +522,19 @@ def main():
     gb.add_argument("--output", "-o",
                     help="Output prefix (default: data/gen_battery)")
     gb.set_defaults(func=cmd_generate_battery)
+
+    # step-analysis
+    sa = subparsers.add_parser("step-analysis",
+                               help="Trace repression across SFT training steps")
+    sa.add_argument("--steps", help="Comma-separated step numbers (default: 10 evenly spaced)")
+    sa.add_argument("--cache-dir", help="HuggingFace cache dir for checkpoints (e.g. /Volumes/diderot/huggingface)")
+    sa.add_argument("--prompts", choices=["tier1", "all"], default="tier1",
+                    help="Prompt set (default: tier1)")
+    sa.add_argument("--category", "-c", help="Filter to prompts matching this prefix")
+    sa.add_argument("--download-only", action="store_true", help="Only download checkpoints")
+    sa.add_argument("--extract-only", action="store_true", help="Only extract logits (skip download)")
+    sa.add_argument("--output", "-o", help="Output prefix (default: data/step_analysis)")
+    sa.set_defaults(func=cmd_step_analysis)
 
     # info
     info = subparsers.add_parser("info", help="Print model families and configuration")

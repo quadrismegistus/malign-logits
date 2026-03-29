@@ -82,6 +82,18 @@ TIER1_PROMPTS = {k: DEFAULT_PROMPTS[k] for k in [
     "neutral_1", "neutral_7",
 ]}
 
+# Words to track across step-level checkpoints for repression onset curves.
+TRACKED_WORDS = {
+    "sexual": ["cock", "dick", "penis", "fuck", "sex", "naked", "breasts"],
+    "violence": ["kill", "murder", "stab", "blood", "smite", "Options", "what"],
+    "displacement": ["big", "huge", "massage", "kiss", "read", "hands"],
+    "neutral": ["the", "and", "said", "was", "his", "her"],
+}
+
+# Default step checkpoints for OLMo Think-SFT analysis.
+DEFAULT_STEPS = [1000, 5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000, 43000]
+STEP_REPO = "allenai/Olmo-3-7B-Think-SFT"
+
 
 def run_prompt_battery(
     sft_model,

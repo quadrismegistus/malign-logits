@@ -1,19 +1,31 @@
 from . import *
 
 
-def _load_tokenizer(model_name):
+def _load_tokenizer(model_name, revision=None, cache_dir=None):
     """Load tokenizer for a HuggingFace model."""
     from transformers import AutoTokenizer
-    return AutoTokenizer.from_pretrained(model_name)
+    kwargs = {}
+    if revision:
+        kwargs["revision"] = revision
+    if cache_dir:
+        kwargs["cache_dir"] = cache_dir
+    return AutoTokenizer.from_pretrained(model_name, **kwargs)
 
 
-def _load_causal_lm(model_name, quantization_config, device_map, dtype):
+def _load_causal_lm(model_name, quantization_config, device_map, dtype,
+                     revision=None, cache_dir=None):
     from transformers import AutoModelForCausalLM
+    kwargs = {}
+    if revision:
+        kwargs["revision"] = revision
+    if cache_dir:
+        kwargs["cache_dir"] = cache_dir
     return AutoModelForCausalLM.from_pretrained(
         model_name,
         quantization_config=quantization_config,
         device_map=device_map,
         dtype=dtype,
+        **kwargs,
     )
 
 
@@ -40,20 +52,28 @@ def _platform_kwargs():
         }
 
 
-def load_model(model_name):
+def load_model(model_name, revision=None, cache_dir=None):
     """Load a single model and its tokenizer.
+
+    Args:
+        model_name: HuggingFace model ID.
+        revision: Branch/tag/commit (e.g. "step1000").
+        cache_dir: Custom HuggingFace cache directory.
 
     Returns:
         (model, tokenizer)
     """
     kwargs = _platform_kwargs()
-    tokenizer = _load_tokenizer(model_name)
-    print(f"Loading {model_name}...")
+    tokenizer = _load_tokenizer(model_name, revision=revision, cache_dir=cache_dir)
+    label = f"{model_name}@{revision}" if revision else model_name
+    print(f"Loading {label}...")
     model = _load_causal_lm(
         model_name,
         kwargs["quantization_config"],
         kwargs["device_map"],
         kwargs["dtype"],
+        revision=revision,
+        cache_dir=cache_dir,
     )
     return model, tokenizer
 
