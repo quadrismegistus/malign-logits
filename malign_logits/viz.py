@@ -1138,6 +1138,9 @@ def plot_logit_lens(lens_data, prompt=None, words=None, min_layers=8, save_path=
         peak = grp.loc[grp["probability"].idxmax()]
         label_rows.append(peak)
     label_df = pd.DataFrame(label_rows)
+    label_df["model_label"] = pd.Categorical(
+        label_df["model_label"], categories=label_order, ordered=True,
+    )
 
     title = "Logit lens: word probability at each network layer"
     if prompt:
