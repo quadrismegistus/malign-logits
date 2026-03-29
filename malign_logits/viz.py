@@ -1087,8 +1087,8 @@ def plot_concept_shift(gen_metrics_csv, concept="violent", save_path=None):
 def plot_logit_lens(lens_data, prompt=None, words=None, min_layers=8, save_path=None):
     """Plot word probabilities across network layers for each model.
 
-    Shows tracked words as solid lines with peak labels, and top-k words
-    (appearing in min_layers+ layers) as thinner dotted lines.
+    Uses plotnine (ggplot2) with adjustText for non-overlapping labels
+    at each word's peak probability.
 
     Args:
         lens_data: DataFrame with columns [layer, word, probability, model]
@@ -1097,95 +1097,88 @@ def plot_logit_lens(lens_data, prompt=None, words=None, min_layers=8, save_path=
         words: Filter to only these words (overrides auto-selection).
         min_layers: Minimum layers a top-k word must appear in to be plotted.
     """
+    from plotnine import (
+        ggplot, aes, geom_line, geom_point, geom_text,
+        facet_wrap, scale_y_log10, scale_linetype_manual,
+        labs, theme_minimal, theme, element_text,
+    )
+
     if isinstance(lens_data, str):
         lens_data = pd.read_csv(lens_data)
     df = lens_data.copy()
 
-    models = df["model"].unique()
     model_labels = {"base": "BASE", "ego": "SFT", "superego": "DPO", "instruct": "RLVR"}
+    df["model_label"] = df["model"].map(model_labels).fillna(df["model"])
+    # Order facets
+    label_order = [v for v in ["BASE", "SFT", "DPO", "RLVR"] if v in df["model_label"].values]
+    df["model_label"] = pd.Categorical(df["model_label"], categories=label_order, ordered=True)
+
+    # Determine tracked vs top-k
+    tracked_set = set()
+    if "source" in df.columns:
+        tracked_set = set(df[df["source"] == "tracked"]["word"].unique())
 
     if words:
         df = df[df["word"].isin(words)]
         plot_words = words
     else:
-        # Always include tracked words; include top-k words that appear often
-        tracked = df[df.get("source", pd.Series("tracked")) == "tracked"]["word"].unique()
+        tracked = list(tracked_set)
         topk = df[df.get("source", pd.Series()) == "top_k"]
         topk_counts = topk.groupby("word")["layer"].nunique()
         frequent_topk = topk_counts[topk_counts >= min_layers].index.tolist()
-        plot_words = list(dict.fromkeys(list(tracked) + frequent_topk))
+        plot_words = list(dict.fromkeys(tracked + frequent_topk))
         df = df[df["word"].isin(plot_words)]
 
-    # Assign distinct colors
-    palette = [
-        "#e45756", "#4c78a8", "#eeca3b", "#54a24b", "#f58518",
-        "#72b7b2", "#b279a2", "#ff9da6", "#9d755d", "#bab0ac",
-        "#5778a4", "#e49444", "#d1615d", "#85b6b2", "#6a9f58",
-        "#e7ca60", "#a87c9f", "#f1a2a9", "#967662", "#b8b0a2",
-    ]
-    word_colors = {w: palette[i % len(palette)] for i, w in enumerate(plot_words)}
+    df["linetype"] = df["word"].apply(lambda w: "tracked" if w in tracked_set else "top-k")
 
-    # Determine which words are tracked vs top-k only
-    tracked_set = set()
-    if "source" in df.columns:
-        tracked_set = set(df[df["source"] == "tracked"]["word"].unique())
-
-    from plotly.subplots import make_subplots
-    fig = make_subplots(
-        rows=1, cols=len(models),
-        subplot_titles=[model_labels.get(m, m) for m in models],
-        shared_yaxes=True,
-    )
-
-    for col, model in enumerate(models, 1):
-        mdf = df[df["model"] == model]
-        for word in plot_words:
-            wdf = mdf[mdf["word"] == word].sort_values("layer")
-            if wdf.empty:
-                continue
-            is_tracked = word in tracked_set
-            fig.add_trace(go.Scatter(
-                x=wdf["layer"], y=wdf["probability"],
-                mode="lines+markers", name=word,
-                line=dict(
-                    color=word_colors[word],
-                    width=2.5 if is_tracked else 1.5,
-                    dash="solid" if is_tracked else "dot",
-                ),
-                marker=dict(size=4 if is_tracked else 2),
-                showlegend=(col == 1),
-            ), row=1, col=col)
-
-            # Label tracked words at their final layer (right side of plot)
-            if is_tracked:
-                last = wdf.iloc[-1]
-                fig.add_annotation(
-                    x=last["layer"], y=last["probability"],
-                    text=f" {word}", showarrow=False,
-                    font=dict(size=10, color=word_colors[word]),
-                    xanchor="left",
-                    row=1, col=col,
-                )
+    # Build label df: each word labeled at its peak probability per model
+    label_rows = []
+    for (model, word), grp in df.groupby(["model_label", "word"]):
+        peak = grp.loc[grp["probability"].idxmax()]
+        label_rows.append(peak)
+    label_df = pd.DataFrame(label_rows)
 
     title = "Logit lens: word probability at each network layer"
     if prompt:
-        title += f'<br><sub>"{prompt[:80]}"</sub>'
+        title += f'\n"{prompt[:80]}"'
 
-    n_models = len(models)
-    fig.update_layout(
-        title=title,
-        template="plotly_white",
-        width=max(450 * n_models, 900), height=600,
-        legend=dict(title="word (solid=tracked, dotted=top-k)"),
-        margin=dict(r=100),  # room for right-side labels
+    n_models = df["model_label"].nunique()
+
+    p = (
+        ggplot(df, aes(x="layer", y="probability", color="word", linetype="linetype"))
+        + geom_line(size=0.7)
+        + geom_point(size=1)
+        + geom_text(
+            aes(label="word"),
+            data=label_df,
+            size=7, adjust_text={
+                "arrowprops": {"arrowstyle": "-", "color": "gray", "lw": 0.5},
+                "expand_points": (1.5, 1.5),
+                "force_text": (0.5, 1.0),
+            },
+        )
+        + facet_wrap("model_label", nrow=1)
+        + scale_y_log10()
+        + scale_linetype_manual(values={"tracked": "solid", "top-k": "dashed"})
+        + labs(
+            title=title,
+            x="network layer",
+            y="probability (log scale)",
+            color="word",
+            linetype="",
+        )
+        + theme_minimal()
+        + theme(
+            figure_size=(5 * n_models, 6),
+            plot_title=element_text(size=12),
+            strip_text=element_text(size=11, weight="bold"),
+            legend_position="right",
+        )
     )
-    fig.update_yaxes(type="log", title_text="probability (log)", col=1)
-    for col in range(1, n_models + 1):
-        fig.update_xaxes(title_text="network layer", col=col)
 
     if save_path:
-        fig.write_image(save_path, scale=3)
-    return fig
+        p.save(save_path, dpi=300)
+    return p
 
 
 # ── Step-level checkpoint visualizations ──────────────────────────

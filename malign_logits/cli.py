@@ -219,10 +219,9 @@ def cmd_logit_lens(args):
 
     # Generate figure
     from .viz import plot_logit_lens
-    fig = plot_logit_lens(result, prompt=prompt)
     basename_fig = f"logit_lens.{key}.{prompt_slug}.{words_slug}"
     fig_path = f"figures/{basename_fig}.png"
-    fig.write_image(fig_path, scale=2)
+    plot_logit_lens(result, prompt=prompt, save_path=fig_path)
     print(f"Figure saved to {fig_path}")
 
 
