@@ -631,13 +631,13 @@ class PromptAnalysis:
 
         # Use ego model for embeddings if available, otherwise superego
         embed_layer = self._psyche.ego if has_ego else self._psyche.superego
-        model = embed_layer.model
-        tokenizer = embed_layer.tokenizer
-        device = embed_layer.device
         prompt = self.prompt
         stash = self._psyche._stash
 
         def get_embedding(word, layer):
+            model = embed_layer.model
+            tokenizer = embed_layer.tokenizer
+            device = embed_layer.device
             text = prompt + " " + word
             ids = tokenizer.encode(text, return_tensors="pt").to(device)
             prompt_len = len(tokenizer.encode(prompt))

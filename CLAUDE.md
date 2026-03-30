@@ -322,14 +322,6 @@ Results in `data/transgressive_mass.csv`. Figure in `figures/perplexity_vs_displ
 
 ## Research roadmap
 
-### Priority 1: Automatic displacement type taxonomy
-
-Classify displacement pairs automatically:
-- **Register shift** = high similarity + same POS
-- **Category shift** = high similarity + different POS
-- **Genre change** = low similarity + high amplification
-- **Archaic displacement** = target word has low corpus frequency
-
 ### Priority 3: Full generation run (n=30)
 
 Increase generation count for stable variance ratios and statistical robustness. ~2.2 hours for all 4 families on tier-1 prompts.
@@ -353,6 +345,10 @@ Increase generation count for stable variance ratios and statistical robustness.
 ### Done: Battery-level aggregate metrics
 
 Expanded battery from 11 to 47 prompts across 9 categories (sexual liminal/explicit, violence liminal/explicit, death, power, profanity, substance, neutral). `malign battery` runs all families sequentially. Results in `data/battery_results.csv`.
+
+### Done: Displacement taxonomy
+
+`malign taxonomy` classifies displacement pairs into register shift, category shift, genre change, and archaic displacement using spaCy POS + wordfreq. Key result: violence is suppressed (77% register shift), sex is repressed (50% category shift), profanity triggers genre collapse (55% genre change). Results in `data/displacement_taxonomy.csv`.
 
 ### Done: Flexible layer count
 
