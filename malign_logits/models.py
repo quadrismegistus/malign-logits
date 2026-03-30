@@ -147,6 +147,39 @@ def get_base_logits(model, tokenizer, prompt, device=None):
     return logits
 
 
+def sequence_perplexity(model, tokenizer, prompt, device=None):
+    """Compute sequence perplexity of a prompt under the model.
+
+    Teacher-forced forward pass: for each token position, compute the
+    negative log-probability of the actual next token. Returns the
+    exponentiated mean (perplexity).
+
+    Args:
+        model: HuggingFace causal LM.
+        tokenizer: Shared tokenizer.
+        prompt: Input text.
+        device: Override device.
+
+    Returns:
+        float: Perplexity (lower = more expected).
+    """
+    if device is None:
+        device = next(model.parameters()).device
+    input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
+    seq_len = input_ids.shape[1]
+    if seq_len < 2:
+        return float("nan")
+    with torch.no_grad():
+        logits = model(input_ids).logits  # (1, seq_len, vocab_size)
+    # Shift: predict token t+1 from position t
+    shift_logits = logits[0, :-1, :].float()  # (seq_len-1, vocab_size)
+    shift_labels = input_ids[0, 1:]           # (seq_len-1,)
+    log_probs = torch.log_softmax(shift_logits, dim=-1)
+    token_log_probs = log_probs.gather(1, shift_labels.unsqueeze(1)).squeeze(1)
+    mean_nll = -token_log_probs.mean().item()
+    return math.exp(mean_nll)
+
+
 def logit_lens(model, tokenizer, prompt, device=None):
     """Project each layer's hidden state to vocabulary space (logit lens).
 

@@ -393,6 +393,24 @@ def top_k_overlap(logits_a, logits_b, k=50):
     return len(top_a & top_b) / k
 
 
+def rank_correlation(logits_a, logits_b):
+    """Spearman rank correlation between two logit distributions.
+
+    Measures whether the *ordering* of tokens is preserved across layers.
+    High rank correlation + high JS = mass shifted but ordering preserved
+    (formatting-type displacement). Low rank correlation = ordering
+    scrambled (safety-type displacement).
+
+    Args:
+        logits_a, logits_b: Raw logits (vocab_size,).
+
+    Returns:
+        float: Spearman rho in [-1, 1].
+    """
+    from scipy.stats import spearmanr
+    return spearmanr(logits_a.float().numpy(), logits_b.float().numpy()).statistic
+
+
 def distribution_metrics(base_logits, ego_logits, superego_logits, instruct_logits=None):
     """Compute all distribution-level metrics between layers.
 
@@ -413,6 +431,7 @@ def distribution_metrics(base_logits, ego_logits, superego_logits, instruct_logi
         "entropy_superego": distribution_entropy(superego_logits),
         "js_base_superego": js_divergence(base_logits, superego_logits),
         "top50_overlap_base_superego": top_k_overlap(base_logits, superego_logits, k=50),
+        "rank_corr_base_superego": rank_correlation(base_logits, superego_logits),
     }
 
     if ego_logits is not None:
@@ -424,6 +443,8 @@ def distribution_metrics(base_logits, ego_logits, superego_logits, instruct_logi
             "js_ego_superego": js_divergence(ego_logits, superego_logits),
             "top50_overlap_base_ego": top_k_overlap(base_logits, ego_logits, k=50),
             "top50_overlap_ego_superego": top_k_overlap(ego_logits, superego_logits, k=50),
+            "rank_corr_base_ego": rank_correlation(base_logits, ego_logits),
+            "rank_corr_ego_superego": rank_correlation(ego_logits, superego_logits),
             "entropy_drop_sft": distribution_entropy(base_logits) - distribution_entropy(ego_logits),
             "entropy_drop_dpo": distribution_entropy(ego_logits) - distribution_entropy(superego_logits),
         })
@@ -438,6 +459,7 @@ def distribution_metrics(base_logits, ego_logits, superego_logits, instruct_logi
             "kl_superego_instruct": kl_divergence(superego_logits, instruct_logits),
             "js_superego_instruct": js_divergence(superego_logits, instruct_logits),
             "top50_overlap_superego_instruct": top_k_overlap(superego_logits, instruct_logits, k=50),
+            "rank_corr_superego_instruct": rank_correlation(superego_logits, instruct_logits),
             "entropy_drop_rlvr": distribution_entropy(superego_logits) - distribution_entropy(instruct_logits),
         })
 

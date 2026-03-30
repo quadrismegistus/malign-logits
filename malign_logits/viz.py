@@ -1334,3 +1334,115 @@ def plot_displacement_lag(words_csv, repressed_word, displaced_word,
     if save_path:
         fig.write_image(save_path, scale=2)
     return fig
+
+
+# -- perplexity vs displacement -----------------------------------------------
+
+_FULL_CATEGORY_COLORS = {
+    "sexual (liminal)": "#b07aa1",
+    "sexual (explicit)": "#e15759",
+    "violence (liminal)": "#4e79a7",
+    "violence (explicit)": "#59a14f",
+    "death": "#f28e2b",
+    "power": "#ff9da7",
+    "profanity": "#9d7660",
+    "substance": "#76b7b2",
+    "neutral": "#9c9c9c",
+}
+
+
+def _full_categorize_label(label):
+    """Extract content category from prompt label (all 9 categories)."""
+    base = label.rsplit("_", 1)[0] if label[-1].isdigit() else label
+    mapping = {
+        "sexual_liminal": "sexual (liminal)",
+        "sexual_explicit": "sexual (explicit)",
+        "violence_liminal": "violence (liminal)",
+        "violence_explicit": "violence (explicit)",
+        "death": "death",
+        "power": "power",
+        "profanity": "profanity",
+        "substance": "substance",
+        "neutral": "neutral",
+    }
+    return mapping.get(base, base)
+
+
+def plot_perplexity_vs_displacement(
+    metrics_csv="data/battery_results.csv",
+    save_path=None,
+):
+    """Scatter: base perplexity (log) vs JS divergence, by category and family.
+
+    Core question: do transgressive prompts show more displacement than
+    expected given their base perplexity?
+
+    Args:
+        metrics_csv: Path to battery_results.csv.
+        save_path: Optional path to save the figure.
+
+    Returns:
+        plotly Figure.
+    """
+    from plotly.subplots import make_subplots
+
+    df = pd.read_csv(metrics_csv) if isinstance(metrics_csv, str) else metrics_csv.copy()
+    df["category"] = df["label"].apply(_full_categorize_label)
+    df["log_perplexity_base"] = np.log(df["perplexity_base"])
+
+    families = sorted(df["family"].unique())
+    n_fam = len(families)
+
+    fig = make_subplots(
+        rows=1, cols=n_fam,
+        subplot_titles=families,
+        shared_yaxes=True,
+        horizontal_spacing=0.04,
+    )
+
+    cat_order = [
+        "sexual (liminal)", "sexual (explicit)",
+        "violence (liminal)", "violence (explicit)",
+        "death", "power", "profanity", "substance", "neutral",
+    ]
+    categories = [c for c in cat_order if c in df["category"].values]
+    shown = set()
+
+    for col_idx, fam in enumerate(families, 1):
+        fdf = df[df["family"] == fam]
+        for cat in categories:
+            cdf = fdf[fdf["category"] == cat]
+            if cdf.empty:
+                continue
+            show_legend = cat not in shown
+            shown.add(cat)
+            fig.add_trace(go.Scatter(
+                x=cdf["log_perplexity_base"],
+                y=cdf["js_base_superego"],
+                mode="markers",
+                name=cat,
+                legendgroup=cat,
+                showlegend=show_legend,
+                marker=dict(
+                    color=_FULL_CATEGORY_COLORS.get(cat, "#999"),
+                    size=8,
+                    opacity=0.8,
+                ),
+                hovertext=cdf["label"] + ": " + cdf["prompt"],
+                hoverinfo="text+x+y",
+            ), row=1, col=col_idx)
+
+    fig.update_xaxes(title_text="log(base perplexity)", row=1, col=1)
+    fig.update_yaxes(title_text="JS divergence (base → superego)", row=1, col=1)
+
+    fig.update_layout(
+        title="Base perplexity vs alignment displacement",
+        width=350 * n_fam,
+        height=500,
+        template="plotly_white",
+        legend=dict(title="category"),
+    )
+
+    if save_path:
+        fig.write_image(save_path, scale=2)
+    return fig
