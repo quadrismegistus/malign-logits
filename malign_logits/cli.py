@@ -556,6 +556,166 @@ def cmd_generate_battery(args):
     print(f"\n{metrics_df.to_string()}")
 
 
+def cmd_taxonomy(args):
+    """Classify displacement pairs into taxonomy types."""
+    import gc
+    import torch
+    import spacy
+    import pandas as pd
+    from . import MODEL_FAMILIES
+    from .psyche import Psyche
+    from .experiments import TIER1_PROMPTS, DEFAULT_PROMPTS
+
+    key = args.family or "olmo"
+    prompts = DEFAULT_PROMPTS if args.all_prompts else TIER1_PROMPTS
+    out = args.output or "data/displacement_taxonomy.csv"
+
+    print(f"Loading {key} models...")
+    psyche = Psyche.from_family(key, load=True)
+
+    print("Loading spaCy + wordfreq...")
+    nlp = spacy.load("en_core_web_sm")
+    from wordfreq import zipf_frequency
+
+    ARCHAIC_ZIPF = 3.0  # smite=2.93, hath=3.62, kill=5.09
+    CONTENT_POS = {"NOUN", "VERB", "ADJ", "ADV"}
+    # Function/meta words that signal genre change when they appear as
+    # displacement targets (question words, template tokens, formatting)
+    GENRE_TOKENS = {
+        "what", "who", "where", "when", "why", "how", "which",
+        "What", "Who", "Where", "When", "Why", "How", "Which",
+        "WHAT", "WHO", "WHERE", "WHEN", "WHY", "HOW", "WHICH",
+        "Options", "options", "Question", "question",
+        "____", "___", "__", "...", "the", "a", "an",
+        "is", "are", "was", "were", "it", "this", "that",
+        "to", "of", "for", "in", "on", "at", "by", "with",
+        "she", "he", "her", "his", "they", "them",
+    }
+
+    def get_pos_and_freq(words):
+        result = {}
+        for w in words:
+            doc = nlp(w)
+            pos = doc[0].pos_ if len(doc) > 0 else "X"
+            zipf = zipf_frequency(w, "en")
+            result[w] = (pos, round(zipf, 2))
+        return result
+
+    def classify_pair(src, tgt, sim, src_pos, tgt_pos, tgt_freq):
+        same_pos = src_pos == tgt_pos
+        # Genre change: displaced onto question/function/meta token
+        if tgt in GENRE_TOKENS:
+            return "genre_change"
+        # Archaic: rare target word
+        if tgt_freq is not None and tgt_freq < ARCHAIC_ZIPF:
+            return "archaic"
+        # Register vs category shift
+        if same_pos:
+            return "register_shift"
+        return "category_shift"
+
+    all_rows = []
+    for label, prompt in prompts.items():
+        print(f"\n  {label}: {prompt[:60]}")
+        analysis = psyche.analyze(prompt)
+        try:
+            dm = analysis.displacement_map()
+        except Exception as e:
+            print(f"    Skipping: {e}")
+            continue
+
+        for axis in ["repression", "sublimation"]:
+            axis_data = dm.get(axis, {})
+            pairs = axis_data.get("pairs", [])
+            source_words = axis_data.get("source", [])
+
+            # Collect paired sources (per layer — a source may pair in one layer but not another)
+            paired_sources = set(src for src, tgt, sim, layer in pairs)
+
+            if pairs:
+                words = set()
+                for src, tgt, sim, layer in pairs:
+                    words.add(src)
+                    words.add(tgt)
+
+                word_info = get_pos_and_freq(list(words))
+
+                for src, tgt, sim, layer in pairs:
+                    src_pos, _ = word_info.get(src, ("X", None))
+                    tgt_pos, tgt_freq = word_info.get(tgt, ("X", None))
+                    dtype = classify_pair(src, tgt, sim, src_pos, tgt_pos, tgt_freq)
+
+                    all_rows.append({
+                        "family": key,
+                        "label": label,
+                        "prompt": prompt[:60],
+                        "axis": axis,
+                        "source": src,
+                        "target": tgt,
+                        "similarity": sim,
+                        "layer": layer,
+                        "source_pos": src_pos,
+                        "target_pos": tgt_pos,
+                        "target_freq": tgt_freq,
+                        "displacement_type": dtype,
+                    })
+
+            # Genre change: repressed words with no semantically linked target
+            orphans = [w for w in source_words if w not in paired_sources]
+            if orphans:
+                orphan_info = get_pos_and_freq(orphans)
+                for w in orphans:
+                    w_pos, w_freq = orphan_info.get(w, ("X", None))
+                    all_rows.append({
+                        "family": key,
+                        "label": label,
+                        "prompt": prompt[:60],
+                        "axis": axis,
+                        "source": w,
+                        "target": None,
+                        "similarity": None,
+                        "layer": None,
+                        "source_pos": w_pos,
+                        "target_pos": None,
+                        "target_freq": None,
+                        "displacement_type": "genre_change",
+                    })
+
+        # Per-prompt summary
+        prompt_rows = [r for r in all_rows if r["label"] == label]
+        if prompt_rows:
+            types = {}
+            for r in prompt_rows:
+                t = r["displacement_type"]
+                types[t] = types.get(t, 0) + 1
+            print(f"    {len(prompt_rows)} pairs: {types}")
+
+    df = pd.DataFrame(all_rows)
+    df.to_csv(out, index=False)
+    print(f"\nSaved {len(df)} pairs to {out}")
+
+    # Summary
+    if not df.empty:
+        print(f"\n{'='*60}")
+        print("DISPLACEMENT TYPE SUMMARY")
+        print(f"{'='*60}")
+        summary = df.groupby(["axis", "displacement_type"]).size().reset_index(name="count")
+        summary["pct"] = (summary["count"] / summary.groupby("axis")["count"].transform("sum") * 100).round(1)
+        print(summary.to_string(index=False))
+
+        df["category"] = df["label"].str.replace(r"_\d+$", "", regex=True)
+        cat_summary = df.groupby(["category", "displacement_type"]).size().unstack(fill_value=0)
+        print(f"\n{'='*60}")
+        print("BY CONTENT CATEGORY")
+        print(f"{'='*60}")
+        print(cat_summary.to_string())
+
+    del psyche
+    gc.collect()
+    if torch.backends.mps.is_available():
+        torch.mps.empty_cache()
+
+
 def _add_family_arg(parser):
     """Add --family argument to a subparser."""
     from . import MODEL_FAMILIES
@@ -650,6 +810,16 @@ def main():
     sa.add_argument("--extract-only", action="store_true", help="Only extract logits (skip download)")
     sa.add_argument("--output", "-o", help="Output prefix (default: data/step_analysis)")
     sa.set_defaults(func=cmd_step_analysis)
+
+    # taxonomy
+    tx = subparsers.add_parser("taxonomy",
+                               help="Classify displacement pairs into taxonomy types")
+    _add_family_arg(tx)
+    tx.add_argument("--all-prompts", action="store_true",
+                    help="Use all 47 prompts (default: Tier-1 subset)")
+    tx.add_argument("--output", "-o",
+                    help="Output CSV path (default: data/displacement_taxonomy.csv)")
+    tx.set_defaults(func=cmd_taxonomy)
 
     # info
     info = subparsers.add_parser("info", help="Print model families and configuration")
