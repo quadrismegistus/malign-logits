@@ -348,7 +348,7 @@ Expanded battery from 11 to 47 prompts across 9 categories (sexual liminal/expli
 
 ### Done: Displacement taxonomy
 
-`malign taxonomy` classifies displacement pairs into register shift, category shift, genre change, and archaic displacement using spaCy POS + wordfreq. Key result: violence is suppressed (77% register shift), sex is repressed (50% category shift), profanity triggers genre collapse (55% genre change). Results in `data/displacement_taxonomy.csv`.
+`malign taxonomy` classifies displacement pairs into register shift, category shift, genre change, and archaic displacement using contextual spaCy POS tagging (word tagged in prompt context) and wordfreq. Cross-family: Llama is more register-shift dominant (66%) than OLMo (49%), consistent with late-layer override vs distributed repression. Profanity is 49-62% genre change in both — model-independent. Explicit content is overwhelmingly register shift; genre change only appears on liminal/profane content. Results in `data/displacement_taxonomy.csv`.
 
 ### Done: Flexible layer count
 
