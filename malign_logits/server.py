@@ -188,6 +188,12 @@ class ModelHandler(BaseHTTPRequestHandler):
             logits = layer.logits(prompt)
             return {"logits": logits.tolist()}
 
+        elif path == "/perplexity":
+            layer_name = body["layer"]
+            prompt = body["prompt"]
+            layer = self._get_layer(psyche, layer_name)
+            return {"perplexity": layer.perplexity(prompt)}
+
         elif path == "/displacement_map":
             prompt = body["prompt"]
             layers = body.get("layers", None)

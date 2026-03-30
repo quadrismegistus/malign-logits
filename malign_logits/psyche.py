@@ -161,6 +161,24 @@ class ModelLayer:
 
         return result
 
+    def perplexity(self, prompt):
+        """Sequence perplexity of the prompt under this layer's model.
+
+        Cached to stash. Teacher-forced forward pass.
+        """
+        cache_key = ("perplexity", self.model_id, self.name, prompt)
+
+        if self._stash is not None and cache_key in self._stash:
+            return self._stash[cache_key]
+
+        self._require_model()
+        result = sequence_perplexity(self.model, self.tokenizer, prompt)
+
+        if self._stash is not None:
+            self._stash[cache_key] = result
+
+        return result
+
     @property
     def device(self):
         self._require_model()
@@ -216,6 +234,17 @@ class RemoteModelLayer(ModelLayer):
     def logits(self, prompt):
         result = self._post("/logits", layer=self._layer_name, prompt=prompt)
         return torch.tensor(result["logits"])
+
+    def perplexity(self, prompt):
+        cache_key = ("perplexity", self.model_id, self.name, prompt)
+        if self._stash is not None and cache_key in self._stash:
+            return self._stash[cache_key]
+
+        result = self._post("/perplexity", layer=self._layer_name, prompt=prompt)["perplexity"]
+
+        if self._stash is not None:
+            self._stash[cache_key] = result
+        return result
 
     def word_logprobs(self, prompt, candidate_words):
         return self.score_vocabulary(prompt, candidate_words)
@@ -940,15 +969,25 @@ class PromptAnalysis:
     def metrics(self):
         """Distribution-level metrics between all layers.
 
-        Computed entirely from cached logits — no forward passes.
+        Computed entirely from cached logits — no forward passes
+        (except perplexity, which needs a teacher-forced pass per layer).
         Requires at least base + superego logits.
         """
         if self.superego_logits is None:
             raise ValueError("metrics requires at least base + superego layers")
-        return distribution_metrics(
+        m = distribution_metrics(
             self.base_logits, self.ego_logits, self.superego_logits,
             instruct_logits=self.instruct_logits,
         )
+        # Per-layer sequence perplexity
+        m["perplexity_base"] = self._psyche.primary_process.perplexity(self.prompt)
+        if self._psyche.ego is not None:
+            m["perplexity_ego"] = self._psyche.ego.perplexity(self.prompt)
+        if self._psyche.superego is not None:
+            m["perplexity_superego"] = self._psyche.superego.perplexity(self.prompt)
+        if self._psyche.reinforced_superego is not None:
+            m["perplexity_instruct"] = self._psyche.reinforced_superego.perplexity(self.prompt)
+        return m
 
     @property
     def token_movers(self):
