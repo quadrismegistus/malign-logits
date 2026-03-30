@@ -310,6 +310,16 @@ Results in `data/transgressive_mass.csv`. Figure in `figures/perplexity_vs_displ
 
 ---
 
+## Confirmed findings (training data attribution, OLMo 3)
+
+**The OLMo 3 report (arXiv:2512.13961) documents exact data mixtures for each training stage.** Safety data is ~5% of SFT (110k of 2.15M prompts) and ~10% of DPO (27k of 260k), sourced from CoCoNot, WildGuardMix, and WildJailbreak.
+
+**SFT/DPO division of labour implicates the training objective, not the data.** If displacement were data-driven, both stages would repress proportionally. Instead SFT handles sex and DPO handles violence — the *how* of learning matters. DPO uses delta learning (Qwen 32B chosen vs Qwen 0.6B rejected), so violence repression emerges from a capability gap, not explicit safety annotation.
+
+**Base model transgressive mass reflects internet frequency.** Pretraining is 76% Common Crawl (4.5T tokens). High probability on sexual/violent tokens is genuine corpus-level drive energy, not curation artefact.
+
+---
+
 ## Research roadmap
 
 ### Priority 1: Automatic displacement type taxonomy
