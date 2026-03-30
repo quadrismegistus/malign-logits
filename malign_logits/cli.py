@@ -12,6 +12,7 @@ Usage:
 """
 
 import argparse
+import os
 import sys
 
 
@@ -578,7 +579,6 @@ def cmd_taxonomy(args):
     from wordfreq import zipf_frequency
 
     ARCHAIC_ZIPF = 3.0  # smite=2.93, hath=3.62, kill=5.09
-    CONTENT_POS = {"NOUN", "VERB", "ADJ", "ADV"}
     # Function/meta words that signal genre change when they appear as
     # displacement targets (question words, template tokens, formatting)
     GENRE_TOKENS = {
@@ -592,11 +592,17 @@ def cmd_taxonomy(args):
         "she", "he", "her", "his", "they", "them",
     }
 
-    def get_pos_and_freq(words):
+    def get_pos_and_freq(words, prompt):
+        """POS-tag words in the context of the prompt using spaCy.
+
+        For each word, runs spaCy on 'prompt word' and reads the POS
+        of the last token. This gives contextual tagging — 'bash' after
+        'She wanted to' is tagged VERB, not NOUN.
+        """
         result = {}
         for w in words:
-            doc = nlp(w)
-            pos = doc[0].pos_ if len(doc) > 0 else "X"
+            doc = nlp(prompt + " " + w)
+            pos = doc[-1].pos_ if len(doc) > 0 else "X"
             zipf = zipf_frequency(w, "en")
             result[w] = (pos, round(zipf, 2))
         return result
@@ -638,7 +644,7 @@ def cmd_taxonomy(args):
                     words.add(src)
                     words.add(tgt)
 
-                word_info = get_pos_and_freq(list(words))
+                word_info = get_pos_and_freq(list(words), prompt)
 
                 for src, tgt, sim, layer in pairs:
                     src_pos, _ = word_info.get(src, ("X", None))
@@ -663,7 +669,7 @@ def cmd_taxonomy(args):
             # Genre change: repressed words with no semantically linked target
             orphans = [w for w in source_words if w not in paired_sources]
             if orphans:
-                orphan_info = get_pos_and_freq(orphans)
+                orphan_info = get_pos_and_freq(orphans, prompt)
                 for w in orphans:
                     w_pos, w_freq = orphan_info.get(w, ("X", None))
                     all_rows.append({

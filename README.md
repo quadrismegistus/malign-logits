@@ -419,36 +419,54 @@ The OLMo 3 technical report (arXiv:2512.13961) documents exact data mixtures for
 
 Source: OLMo 3 technical report, Tables 30 and 20 (Team OLMo, arXiv:2512.13961, December 2025).
 
-### 8. Automatic displacement taxonomy (OLMo, 18 prompts, 22,458 pairs)
+### 8. Automatic displacement taxonomy (OLMo + Llama, 18 prompts)
 
-Classifies each displacement pair from the displacement maps into four types using spaCy POS tags and wordfreq corpus frequencies:
+Classifies each displacement pair from the displacement maps into four types using contextual spaCy POS tags (word tagged in the context of its prompt) and wordfreq corpus frequencies:
 
 - **Register shift** — same POS, high similarity. Same referent, different social register (*kill* → *hurt*, *yell* → *shout*, *warmth* → *heat*).
-- **Category shift** — different POS, high similarity. Charge migrates across grammatical categories (*kill* → *harm* [V→N], *rub* → *massage* [V→N], *surge* → *rush* [N→V]).
-- **Genre change** — content word displaced onto a function or meta-linguistic token. Format changes rather than vocabulary substitution (*kill* → *WHAT*, *harm* → *WHAT*, converting statements into questions).
-- **Archaic displacement** — target is a rare word. Modern vocabulary displaced onto low-frequency, often archaic terms (*kill* → *smite*, *strangle* → *smother*, *stared* → *gazed*).
+- **Category shift** — different POS, high similarity. Charge migrates across grammatical categories (*kill* → *harm* [V→N], *fuck* → *ride* [V→V→N], *surge* → *rush* [N→V]).
+- **Genre change** — displaced onto a function or meta-linguistic token. Format changes rather than vocabulary substitution (*kill* → *WHAT*, *harm* → *WHAT*, converting statements into questions).
+- **Archaic displacement** — target is a rare word (Zipf frequency < 3.0). Modern vocabulary displaced onto low-frequency, often archaic terms (*kill* → *smite*, *strangle* → *smother*, *stared* → *gazed*).
 
 **CLI:** `malign taxonomy [--family olmo] [--all-prompts]`
 
-**Each content category triggers a structurally distinct displacement profile:**
+**OLMo displacement profile (22,458 pairs):**
 
 | Category | Register | Category | Genre | Archaic |
 |---|---|---|---|---|
-| violence (explicit) | **77%** | 15% | 0% | 8% |
-| violence (liminal) | **52%** | 19% | 19% | 10% |
-| power | 59% | 33% | 4% | 4% |
+| violence (explicit) | **86%** | 6% | 0% | 8% |
+| violence (liminal) | **65%** | 11% | **14%** | 10% |
+| power | **96%** | 14% | 0% | 4% |
 | substance | 50% | 19% | 4% | 27% |
-| death | 45% | 32% | 0% | 23% |
-| sexual (liminal) | 43% | 37% | 5% | 15% |
-| sexual (explicit) | 28% | **50%** | 5% | 17% |
-| neutral | 30% | 42% | **17%** | 11% |
-| profanity | 8% | 27% | **55%** | 10% |
+| death | 48% | 29% | 0% | 23% |
+| sexual (liminal) | 51% | 28% | 3% | 17% |
+| sexual (explicit) | **74%** | 6% | 0% | 19% |
+| neutral | 38% | 41% | **8%** | 13% |
+| profanity | 10% | 30% | **49%** | 10% |
 
-**Violence is suppressed; sex is repressed; profanity triggers genre collapse.** Explicit violence is 77% register shift — the model substitutes within-category synonyms (*kill* → *hurt*, *struggling* → *fighting*) without changing the semantic field. Sexual content is dominated by category shift — charge migrates across parts of speech (*fuck* → *ride*, *stroke* → *massage*). Profanity is 55% genre change — the model can't find appropriate synonyms for swear words and instead changes the format entirely, replacing content words with function words.
+**Llama displacement profile (11,520 pairs):**
 
-**Liminal content produces more diverse defences than explicit.** Violence liminal has genre change (19%) where violence explicit has none. The superego deploys heavier-handed defences (format disruption) on ambiguous content where simple synonym substitution would leave the transgressive implication intact.
+| Category | Register | Category | Genre | Archaic |
+|---|---|---|---|---|
+| violence (explicit) | 62% | 18% | 0% | 20% |
+| violence (liminal) | **86%** | 10% | 4% | 0% |
+| power | 83% | 17% | 0% | 0% |
+| substance | 68% | 22% | 0% | 10% |
+| death | 57% | 20% | 0% | 23% |
+| sexual (liminal) | 74% | 20% | 0% | 6% |
+| sexual (explicit) | **82%** | 6% | 0% | 12% |
+| neutral | 46% | 36% | **5%** | 13% |
+| profanity | 7% | 31% | **62%** | 0% |
 
-**Death and substance produce the most archaic displacement.** Death prompts: *stared* → *gazed*, *tomb* → *gravestone*. Substance prompts: *thought* → *pondered*, *swallowed* → *gulped*. Alignment pushes these categories toward literary and formal registers.
+**Cross-family findings:**
+
+**Llama is more register-shift dominant than OLMo** (66% vs 49% of all pairs). Consistent with the logit lens finding: Llama's late-layer override performs surgical word substitution at the last moment; OLMo's distributed repression disrupts format more aggressively.
+
+**Profanity triggers genre change regardless of architecture** — 49% (OLMo) and 62% (Llama). Models cannot find acceptable synonyms for swear words and resort to format disruption. This is the one displacement type that is model-independent.
+
+**Explicit content is overwhelmingly register shift in both families.** Violence explicit: 86% (OLMo), 62% (Llama). Sexual explicit: 74% (OLMo), 82% (Llama). When transgressive content is overt, the superego finds same-POS synonyms. Genre change appears only on liminal and profane content — where synonym substitution would leave the transgressive implication intact.
+
+**Death and substance produce the most archaic displacement.** *stared* → *gazed*, *tomb* → *gravestone*, *thought* → *pondered*, *swallowed* → *gulped*. Alignment pushes these categories toward literary and formal registers.
 
 Results in `data/displacement_taxonomy.csv`.
 
