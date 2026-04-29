@@ -213,3 +213,7 @@ context.md
 stash
 data/raw
 notes/
+
+# Svelte UI
+ui/node_modules/
+ui/.svelte-kit/

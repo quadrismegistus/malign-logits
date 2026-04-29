@@ -62,9 +62,12 @@ def cmd_download_models(args):
 
 
 def cmd_ui(args):
-    """Launch Gradio web UI."""
-    from .app import launch
-    launch(server_name=args.host, server_port=args.port, share=args.share)
+    """Open UI in browser (requires `malign serve` running)."""
+    import webbrowser
+    url = f"http://127.0.0.1:{args.port}"
+    print(f"Opening {url}")
+    print("Make sure `malign serve` is running.")
+    webbrowser.open(url)
 
 
 def cmd_serve(args):
@@ -759,10 +762,8 @@ def main():
     dl.set_defaults(func=cmd_download_models)
 
     # ui
-    ui = subparsers.add_parser("ui", help="Launch Gradio web UI")
-    ui.add_argument("--host", default="0.0.0.0", help="Bind address (default 0.0.0.0)")
-    ui.add_argument("--port", type=int, default=7860, help="Port (default 7860)")
-    ui.add_argument("--share", action="store_true", help="Create public Gradio link")
+    ui = subparsers.add_parser("ui", help="Open UI in browser (requires malign serve)")
+    ui.add_argument("--port", type=int, default=8421, help="Server port (default 8421)")
     ui.set_defaults(func=cmd_ui)
 
     # serve
