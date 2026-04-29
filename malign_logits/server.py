@@ -14,10 +14,16 @@ Or from the Gradio app:
 """
 
 import json
+import math
+import mimetypes
+import os
 import time
 from http.server import HTTPServer, BaseHTTPRequestHandler
+from pathlib import Path
 from socketserver import ThreadingMixIn
 import threading
+
+_UI_DIR = Path(__file__).parent / "ui_dist"
 
 # Models loaded once at startup
 _psyche = None
@@ -25,6 +31,25 @@ _psyche_lock = threading.Lock()
 _progress = {"stage": "idle", "detail": "", "step": 0, "total": 0}
 _progress_lock = threading.Lock()
 _family = None  # set by serve()
+
+
+def _sanitize(obj):
+    """Replace NaN/Inf with None recursively so JSON is valid."""
+    if isinstance(obj, float):
+        if math.isnan(obj) or math.isinf(obj):
+            return None
+        return obj
+    if isinstance(obj, dict):
+        return {k: _sanitize(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [_sanitize(v) for v in obj]
+    return obj
+
+
+def _json_default(obj):
+    if isinstance(obj, float) and (math.isnan(obj) or math.isinf(obj)):
+        return None
+    raise TypeError(f"Object of type {type(obj)} is not JSON serializable")
 
 
 def _set_progress(stage, detail="", step=0, total=0):
@@ -87,7 +112,23 @@ class ModelHandler(BaseHTTPRequestHandler):
             except Exception as e:
                 self._respond(200, {"prompts": []})
         else:
+            self._serve_static()
+
+    def _serve_static(self):
+        path = self.path.split("?")[0]
+        if path == "/":
+            path = "/index.html"
+        file_path = _UI_DIR / path.lstrip("/")
+        if not file_path.is_file():
+            file_path = _UI_DIR / "index.html"
+        if not file_path.is_file():
             self._respond(404, {"error": "not found"})
+            return
+        mime, _ = mimetypes.guess_type(str(file_path))
+        self.send_response(200)
+        self.send_header("Content-Type", mime or "application/octet-stream")
+        self.end_headers()
+        self.wfile.write(file_path.read_bytes())
 
     def _dispatch(self, body):
         path = self.path
@@ -271,11 +312,22 @@ class ModelHandler(BaseHTTPRequestHandler):
             raise ValueError(f"Layer not available: {layer_name}")
         return layer
 
+    def do_OPTIONS(self):
+        self._cors_headers()
+        self.send_response(204)
+        self.end_headers()
+
+    def _cors_headers(self):
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+
     def _respond(self, code, data):
         self.send_response(code)
         self.send_header("Content-Type", "application/json")
+        self._cors_headers()
         self.end_headers()
-        self.wfile.write(json.dumps(data).encode())
+        self.wfile.write(json.dumps(_sanitize(data)).encode())
 
     def log_message(self, format, *args):
         pass
