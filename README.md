@@ -6,6 +6,27 @@ Supports multiple model families with different layer counts: 4-layer (OLMo: bas
 
 Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for AI" (Accelerationism Revisited, UCD, June 2026).
 
+## Table of contents
+
+- [Abstract](#abstract)
+- [The argument](#the-argument)
+- [Findings](#findings)
+  - [1. Logit-level analysis (OLMo 3 7B)](#1-logit-level-analysis-olmo-3-7b)
+  - [2. Cross-family logit comparison (4 families, 47 prompts)](#2-cross-family-logit-comparison-4-families-47-prompts)
+  - [3. Cross-family generation analysis (4 families, 18 prompts, n=5)](#3-cross-family-generation-analysis-4-families-18-prompts-n5)
+  - [4. Step-level checkpoint analysis (OLMo Think-SFT)](#4-step-level-checkpoint-analysis-olmo-think-sft-10-checkpoints-across-43k-training-steps)
+  - [5. Logit lens: repression across network layers (4 families)](#5-logit-lens-repression-across-network-layers-4-families)
+  - [6. Baseline validation](#6-baseline-validation-is-displacement-alignment-specific-4-families-47-prompts)
+  - [7. Training data attribution (OLMo 3)](#7-training-data-attribution-objective-vs-data-composition-olmo-3)
+  - [8. Displacement taxonomy (OLMo + Llama)](#8-automatic-displacement-taxonomy-olmo--llama-18-prompts)
+  - [9. Same base model, different alignment (Tulu vs Llama)](#9-same-base-model-different-alignment-tulu-31-vs-llama-31-47-prompts)
+  - [10. SFT data ablation (Tulu 3)](#10-sft-data-ablation-tulu-3-5-variants-47-prompts)
+- [Installation](#installation)
+- [Quick start](#quick-start)
+- [Usage](#usage)
+- [Architecture](#architecture)
+- [References](#references)
+
 ## Abstract
 
 Benjamin Noys' critique of accelerationism identifies a shared "libidinal fantasy of machinic integration" across its variants. From Marinetti's trains to Land's machinic desire, accelerationism fantasises about fusing with a technology it invests with drive. This paper inverts that structure. Rather than projecting desire onto AI, I engineer the conditions under which a language model's relationship to its training data becomes legible as a libidinal economy.
