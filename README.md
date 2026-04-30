@@ -63,6 +63,7 @@ Available families:
 | Family | Layers | Models |
 |--------|--------|--------|
 | `olmo` (default) | 4 | OLMo 3 7B: base / SFT / DPO / RLVR |
+| `tulu` | 4 | Tulu 3.1 8B (Llama 3.1 base + Allen AI post-training): base / SFT / DPO / RLVR |
 | `amber` | 3 | Amber: base / SFT / DPO |
 | `llama` | 2 | Llama 3.1 8B: base / instruct |
 | `qwen` | 2 | Qwen 2.5 7B: base / instruct |
@@ -469,6 +470,45 @@ Classifies each displacement pair from the displacement maps into four types usi
 **Death and substance produce the most archaic displacement.** *stared* → *gazed*, *tomb* → *gravestone*, *thought* → *pondered*, *swallowed* → *gulped*. Alignment pushes these categories toward literary and formal registers.
 
 Results in `data/displacement_taxonomy.csv`.
+
+### 9. Same base model, different alignment (Tulu 3.1 vs Llama 3.1, 47 prompts)
+
+Tulu 3.1 8B and Llama 3.1 8B share the exact same base model (`meta-llama/Llama-3.1-8B`). Llama uses Meta's opaque alignment (base → instruct, 2 layers). Tulu uses Allen AI's transparent pipeline (base → SFT → DPO → RLVR, 4 layers). This is the controlled experiment: same id, different socialisation.
+
+**Tulu displaces more than Llama on every content category.** Mean JS divergence: Tulu 0.062 vs Llama 0.057 (Llama only has base → instruct, so total alignment is compared). Allen AI's alignment regime restructures distributions more aggressively than Meta's.
+
+**Tulu's SFT does ~42% of the displacement work.** Unlike OLMo (90% SFT-dominant), Tulu distributes repression more evenly between SFT and DPO. The same base model can produce ego-dominant or balanced psychic economies depending on the alignment procedure.
+
+**Single prompt comparison ("She was so angry she wanted to"):**
+
+| Layer | Tulu | OLMo |
+|---|---|---|
+| Base → SFT | kill: 15.1% → 11.3%, scream: 5.0% → 11.0% | kill: 11.6% → 4.3%, scream: 5.0% → 8.3% |
+| SFT → DPO | kill: 11.3% → 8.9%, scream: 11.0% → 18.3% | kill: 4.3% → 0.7%, scream: 8.3% → 3.2% |
+
+OLMo represses kill far more aggressively. Tulu's repression is gradual — the superego arrives at the same qualitative conclusion through incremental steps rather than one decisive intervention.
+
+Results in `data/battery_tulu.csv`.
+
+### 10. SFT data ablation (Tulu 3, 5 variants, 47 prompts)
+
+Allen AI releases Tulu SFT checkpoints trained without specific data subsets. Same base, same architecture, different SFT data mixtures. Isolates the contribution of each data component to ego-stage displacement.
+
+| Ablation | Data removed | Mean JS (base → ego) |
+|---|---|---|
+| standard | (none) | 0.0261 |
+| no-wildchat | WildChat GPT-4 (100k) | 0.0235 |
+| no-safety | WildGuardMix + WildJailbreak (100k) | 0.0226 |
+| no-persona | Persona reasoning data (285k) | 0.0226 |
+| no-math | NuminaMath-TIR (64k) | 0.0206 |
+
+**Instruction-following itself produces repression.** Removing safety data reduces SFT-stage displacement by ~13% (JS 0.026 → 0.023), but the no-safety SFT still displaces substantially. The ego is constitutively repressive — not because of safety training data, but because of the form of instruction-following itself.
+
+**Safety data's effect is content-specific.** The biggest reduction from removing safety data is on sexual and power prompts (~8-9% SFT share reduction). Violence liminal is unaffected. The safety datasets specifically target sexual and power content.
+
+**No single data component dominates ego formation.** Removing any of the 5 subsets reduces displacement, but the differences are small. The ego emerges from the aggregate, not from any single training signal.
+
+Results in `data/ablation_results.csv`.
 
 ## References
 
