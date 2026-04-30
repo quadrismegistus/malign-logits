@@ -140,10 +140,11 @@ def cmd_launch(args):
     loc = offer.get('geolocation', '?')
 
     print(f"Best offer: #{offer_id} — {gpu} {ram}GB, ${price}/hr, {loc}")
-    confirm = input("Launch this instance? [y/N] ").strip().lower()
-    if confirm != 'y':
-        print("Aborted.")
-        return
+    if not getattr(args, 'yes', False):
+        confirm = input("Launch this instance? [y/N] ").strip().lower()
+        if confirm != 'y':
+            print("Aborted.")
+            return
 
     print("Creating instance...", file=sys.stderr)
     result = vastai(
@@ -357,10 +358,11 @@ def cmd_stop(args):
         hours = (datetime.now() - launched).total_seconds() / 3600
         print(f"Instance {instance_id} running {hours:.1f}h, est. cost: ${hours * price:.2f}")
 
-    confirm = input("Destroy this instance? (data will be lost) [y/N] ").strip().lower()
-    if confirm != 'y':
-        print("Aborted. Run 'malign cloud download' first.")
-        return
+    if not getattr(args, 'yes', False):
+        confirm = input("Destroy this instance? (data will be lost) [y/N] ").strip().lower()
+        if confirm != 'y':
+            print("Aborted. Run 'malign cloud download' first.")
+            return
 
     print(f"Destroying instance {instance_id}...", file=sys.stderr)
     subprocess.run(['vastai', 'destroy', 'instance', instance_id],

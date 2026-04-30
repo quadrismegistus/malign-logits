@@ -1220,6 +1220,7 @@ def main():
 
     # cloud
     cloud = subparsers.add_parser("cloud", help="Vast.ai GPU instance management")
+    cloud.add_argument("--yes", "-y", action="store_true", help="Skip confirmation prompts")
     cloud_sub = cloud.add_subparsers(dest="cloud_command")
 
     cloud_sub.add_parser("launch", help="Find and rent cheapest A100 80GB")
