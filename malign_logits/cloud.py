@@ -239,14 +239,14 @@ set -ex
 which python || ln -sf $(which python3) /usr/local/bin/python
 
 if [ ! -d {REMOTE_REPO} ]; then
-    git clone https://github.com/quadrismegistus/malign-logits.git {REMOTE_REPO}
+    git clone -b svelte-ui https://github.com/quadrismegistus/malign-logits.git {REMOTE_REPO}
 else
     cd {REMOTE_REPO} && git pull
 fi
 
 cd {REMOTE_REPO}
 pip install -e .
-pip install scipy sentence-transformers
+pip install scipy sentence-transformers hashstash
 
 python -c "import torch; print(f'PyTorch {{torch.__version__}}, CUDA {{torch.cuda.is_available()}}')"
 python -c "from malign_logits import MODEL_FAMILIES; print(f'{{len(MODEL_FAMILIES)}} families registered')"
