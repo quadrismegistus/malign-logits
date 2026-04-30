@@ -1495,8 +1495,10 @@ class Psyche:
             DataFrame with one row per prompt, columns for all metrics.
         """
         prompts = prompts or DEFAULT_PROMPTS
+        n = len(prompts)
         rows = []
-        for label, prompt in prompts.items():
+        for i, (label, prompt) in enumerate(prompts.items()):
+            print(f"  [{i+1}/{n}] {label}: {prompt[:40]}...", flush=True)
             analysis = self.analyze(prompt)
             try:
                 m = analysis.metrics
