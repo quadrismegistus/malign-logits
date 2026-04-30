@@ -25,7 +25,7 @@ REMOTE_STASH = f'{REMOTE_REPO}/data/raw/stash'
 LOCAL_STASH = PROJECT_ROOT / 'data' / 'raw' / 'stash'
 
 DOCKER_IMAGE = 'pytorch/pytorch:2.4.1-cuda12.4-cudnn9-devel'
-DISK_GB = 200
+DISK_GB = 300
 MIN_GPU_RAM = 79
 
 
