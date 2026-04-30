@@ -323,6 +323,12 @@ def compute_id(base_words, ego_words, superego_words):
 # Distribution-level metrics (operate on cached logits, no forward passes)
 # ---------------------------------------------------------------------------
 
+def _align_logits(a, b):
+    """Truncate logit vectors to shared vocab size."""
+    n = min(a.shape[-1], b.shape[-1])
+    return a[..., :n], b[..., :n]
+
+
 def distribution_entropy(logits):
     """Entropy of the softmax distribution. Higher = flatter/more uncertain.
 
@@ -350,6 +356,7 @@ def kl_divergence(logits_p, logits_q):
     Returns:
         float: KL divergence in nats (always >= 0).
     """
+    logits_p, logits_q = _align_logits(logits_p, logits_q)
     p = torch.softmax(logits_p.float(), dim=-1).clamp(min=1e-10)
     q = torch.softmax(logits_q.float(), dim=-1).clamp(min=1e-10)
     return (p * (p.log() - q.log())).sum().item()
@@ -368,6 +375,7 @@ def js_divergence(logits_a, logits_b):
     Returns:
         float: JS divergence in nats.
     """
+    logits_a, logits_b = _align_logits(logits_a, logits_b)
     p = torch.softmax(logits_a.float(), dim=-1).clamp(min=1e-10)
     q = torch.softmax(logits_b.float(), dim=-1).clamp(min=1e-10)
     m = 0.5 * (p + q)
@@ -388,6 +396,7 @@ def top_k_overlap(logits_a, logits_b, k=50):
     Returns:
         float: Overlap fraction [0, 1].
     """
+    logits_a, logits_b = _align_logits(logits_a, logits_b)
     top_a = set(torch.topk(logits_a.float(), k).indices.tolist())
     top_b = set(torch.topk(logits_b.float(), k).indices.tolist())
     return len(top_a & top_b) / k
@@ -407,6 +416,7 @@ def rank_correlation(logits_a, logits_b):
     Returns:
         float: Spearman rho in [-1, 1].
     """
+    logits_a, logits_b = _align_logits(logits_a, logits_b)
     from scipy.stats import spearmanr
     return spearmanr(logits_a.float().numpy(), logits_b.float().numpy()).statistic
 

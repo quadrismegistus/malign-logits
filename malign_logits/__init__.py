@@ -94,6 +94,21 @@ MODEL_FAMILIES = {
         base="Qwen/Qwen2.5-7B",
         superego="Qwen/Qwen2.5-7B-Instruct",
     ),
+    "tulu": ModelFamily(
+        name="Tulu 3.1 8B",
+        base="meta-llama/Llama-3.1-8B",
+        ego="allenai/Llama-3.1-Tulu-3-8B-SFT",
+        superego="allenai/Llama-3.1-Tulu-3-8B-DPO",
+        reinforced_superego="allenai/Llama-3.1-Tulu-3.1-8B",
+    ),
+}
+
+TULU_ABLATIONS = {
+    "standard": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+    "no-safety": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+    "no-persona": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+    "no-math": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+    "no-wildchat": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
 }
 
 DEFAULT_FAMILY = "olmo"

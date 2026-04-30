@@ -31,24 +31,23 @@ def _load_causal_lm(model_name, quantization_config, device_map, dtype,
 
 def _platform_kwargs():
     """Return device_map, dtype, quantization_config for the current platform."""
-    is_mac = platform.system() == "Darwin"
-    if is_mac:
+    if platform.system() == "Darwin":
         return {
             "device_map": "mps",
             "dtype": torch.float16,
             "quantization_config": None,
         }
-    else:
-        print("Detected PC/Linux - using BitsAndBytes 4-bit quantization")
-        from transformers import BitsAndBytesConfig
+    elif torch.cuda.is_available():
         return {
             "device_map": "auto",
-            "dtype": None,
-            "quantization_config": BitsAndBytesConfig(
-                load_in_4bit=True,
-                bnb_4bit_compute_dtype=torch.float16,
-                bnb_4bit_quant_type="nf4",
-            ),
+            "dtype": torch.float16,
+            "quantization_config": None,
+        }
+    else:
+        return {
+            "device_map": "cpu",
+            "dtype": torch.float32,
+            "quantization_config": None,
         }
 
 
