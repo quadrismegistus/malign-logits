@@ -25,8 +25,6 @@ The Freudian topology maps onto LLMs more precisely than expected:
 | **Primary process** | Base model | Pre-categorical statistical field. Drive energy. |
 | **Ego** | SFT model | Socialised subject capable of desire. |
 | **Superego** | DPO model | Name-of-the-Father. Where prohibition happens. |
-| **Ego-ideal** | RLVR model (optional) | Demand for competence. The neurotic double bind. |
-| **Id** | *Emergent* | Exists only in the relationship between all layers. |
 
 Each layer is a separate model checkpoint from the same family. They differ in weights, not in prompting — this is a structural claim about the training pipeline, not a trick with system prompts.
 
@@ -113,149 +111,6 @@ Each property computes on first access, then caches in memory and (with `cache_d
 ### 2-layer vs 3+ layer analysis
 
 With 2 layers (e.g. Llama, Qwen), repression is computed as base→superego (the entire alignment pipeline in one step). Id scores and neurotic generation require 3+ layers. Displacement maps work with any layer count (2 layers uses repression pairs; 3+ uses both sublimation and repression).
-
-## Usage
-
-### Single prompt analysis
-
-```python
-s = psyche.analyze("She was so angry she wanted to")
-
-s.ego_words           # dict: word -> probability (SFT model)
-s.superego_words      # dict: word -> probability (DPO model)
-s.base_words          # dict: word -> probability (base model / drive energy)
-
-s.repression          # DataFrame: word, ego, superego, delta, repressed, amplified
-s.sublimation         # DataFrame: base vs ego (what SFT does to primary process)
-s.id_scores           # dict: word -> drive-weighted repression score
-
-s.neurotic_distribution   # displaced word distribution (symptoms)
-s.condensation_log        # which repressed words piled into which targets
-s.analysis_df             # everything in one DataFrame
-```
-
-### Formation report
-
-```python
-s.formation_report()
-# Stage 1: Ego formation (base -> SFT)
-# Stage 2: Repression (SFT -> DPO)
-# Stage 3: Idealization (DPO -> RLVR)  [if loaded]
-# Full gradient table
-```
-
-### Neurotic text generation
-
-```python
-# Obsessive intellectualisation
-result = psyche.generate_neurotic("He lay naked in his bed and", displacement_weight=0.3)
-
-# Decompensating body-language
-result = psyche.generate_neurotic("He lay naked in his bed and", displacement_weight=1.0)
-
-result['ego']          # fluent desire
-result['superego']     # fluent evasion
-result['neurotic']     # displaced text
-result['symptom_log']  # where displaced charge landed
-```
-
-### 4-layer topology (with RLVR)
-
-OLMo 3 7B includes all 4 layers by default:
-
-```python
-psyche = Psyche.from_family("olmo", load=True)
-
-s = psyche.analyze("The knife was")
-s.instruct_words      # RLVR model probabilities
-s.idealization         # DPO -> RLVR delta DataFrame
-s.formation_df         # all 4 layers scored over same vocabulary
-```
-
-### Prompt battery
-
-```python
-battery = psyche.battery()  # DEFAULT_PROMPTS: liminal sexual, violence, explicit, neutral
-
-battery['sexual_liminal_1'].repression   # triggers computation for this prompt only
-
-df = psyche.battery_df()   # summary DataFrame across all prompts
-```
-
-### Using layers directly
-
-```python
-psyche.primary_process.top_words("The knife was")
-psyche.ego.top_words("The knife was")
-psyche.superego.top_words("The knife was")
-
-psyche.ego.word_logprobs("The knife was", ["sharp", "bloody", "clean"])
-```
-
-### Functional API
-
-```python
-from malign_logits import load_models, discover_top_words, compute_repression
-
-base, sft, dpo, tok = load_models()
-ego_words = discover_top_words(sft, tok, "He lay naked in his bed and")
-superego_words = discover_top_words(dpo, tok, "He lay naked in his bed and")
-df = compute_repression(ego_words, superego_words)
-```
-
-## Architecture
-
-The class hierarchy encodes the theoretical claims:
-
-- **Each layer is a separate model checkpoint.** Base, SFT, DPO, and RLVR models have distinct weights reflecting distinct training stages. This is not a prompting trick — the structural differences are in the parameters.
-- **The Id has no class.** It's a computed property on `PromptAnalysis`, because it exists only in the relationship between all layers.
-- **Layer count is flexible.** 2-layer (base + instruct), 3-layer (base + SFT + DPO), or 4-layer (+ RLVR). `ModelFamily` defines which checkpoints map to which psychoanalytic positions. Analysis degrades gracefully: 2 layers = repression only, 3 = full analysis, 4 = + idealization.
-
-```
-malign-logits/
-├── malign_logits/
-│   ├── __init__.py          # Package exports, ModelFamily registry
-│   ├── psyche.py            # Psyche, ModelLayer, Ego, Superego, PromptAnalysis
-│   ├── models.py            # Model loading (load_model)
-│   ├── core.py              # discover_top_words, get_word_logprobs
-│   ├── analysis.py          # Repression, id, displacement engine (v4)
-│   ├── experiments.py       # Prompt battery, reporting
-│   ├── generation.py        # Text generation (standard + neurotic)
-│   ├── viz.py               # Plotly visualizations
-│   └── cli.py               # CLI entrypoint (malign command)
-├── notebooks/               # Worked examples
-├── context.md               # Theoretical context and findings
-├── pyproject.toml
-└── requirements.txt
-```
-
-### Key methods
-
-| Method / Property | What it does | Min layers |
-|---|---|---|
-| `Psyche.from_family(key)` | Create Psyche from a model family | any |
-| `Psyche.from_pretrained()` | Load models directly | any |
-| `Psyche.analyze(prompt)` | Return a lazy `PromptAnalysis` | any |
-| `Psyche.generate(prompt)` | Produce continuations from each layer | any |
-| `Psyche.generate_neurotic(prompt)` | Neurotic generation with displacement | 3 |
-| `Psyche.battery()` | Analyse default prompt set | any |
-| `PromptAnalysis.repression` | Repression delta DataFrame | 2 |
-| `PromptAnalysis.sublimation` | Base-ego delta DataFrame | 3 |
-| `PromptAnalysis.idealization` | Superego-instruct delta | 4 |
-| `PromptAnalysis.id_scores` | Drive-weighted repression (emergent id) | 3 |
-| `PromptAnalysis.displacement` | Neurotic distribution, condensation log | 3 |
-| `PromptAnalysis.formation_df` | All layers scored over same vocabulary | 2 |
-| `PromptAnalysis.formation_report()` | Printed multi-stage report | 2 |
-
-### Displacement engine
-
-The displacement engine (v4) uses contextual embeddings from hidden layer 16 of the SFT model, a morphological filter to prevent orthographic false positives, and drive weighting from the base model so that repressed words with stronger corpus-level support produce heavier symptoms.
-
-**Terminology:**
-- **Displacement** — perspective of the repressed word: where did its mass go?
-- **Condensation** — perspective of the receiving word: how many repressed words are piled into it?
-- **Effective mass** — `raw_repression * drive_weight`. How much the superego repressed it, weighted by how much base-model drive pushes behind it.
-- **Neurotic distribution** — superego distribution plus displaced mass on permitted words. Symptoms.
 
 ## Findings
 
@@ -509,6 +364,150 @@ Allen AI releases Tulu SFT checkpoints trained without specific data subsets. Sa
 **No single data component dominates ego formation.** Removing any of the 5 subsets reduces displacement, but the differences are small. The ego emerges from the aggregate, not from any single training signal.
 
 Results in `data/ablation_results.csv`.
+
+
+## Usage
+
+### Single prompt analysis
+
+```python
+s = psyche.analyze("She was so angry she wanted to")
+
+s.ego_words           # dict: word -> probability (SFT model)
+s.superego_words      # dict: word -> probability (DPO model)
+s.base_words          # dict: word -> probability (base model / drive energy)
+
+s.repression          # DataFrame: word, ego, superego, delta, repressed, amplified
+s.sublimation         # DataFrame: base vs ego (what SFT does to primary process)
+s.id_scores           # dict: word -> drive-weighted repression score
+
+s.neurotic_distribution   # displaced word distribution (symptoms)
+s.condensation_log        # which repressed words piled into which targets
+s.analysis_df             # everything in one DataFrame
+```
+
+### Formation report
+
+```python
+s.formation_report()
+# Stage 1: Ego formation (base -> SFT)
+# Stage 2: Repression (SFT -> DPO)
+# Stage 3: Idealization (DPO -> RLVR)  [if loaded]
+# Full gradient table
+```
+
+### Neurotic text generation
+
+```python
+# Obsessive intellectualisation
+result = psyche.generate_neurotic("He lay naked in his bed and", displacement_weight=0.3)
+
+# Decompensating body-language
+result = psyche.generate_neurotic("He lay naked in his bed and", displacement_weight=1.0)
+
+result['ego']          # fluent desire
+result['superego']     # fluent evasion
+result['neurotic']     # displaced text
+result['symptom_log']  # where displaced charge landed
+```
+
+### 4-layer topology (with RLVR)
+
+OLMo 3 7B includes all 4 layers by default:
+
+```python
+psyche = Psyche.from_family("olmo", load=True)
+
+s = psyche.analyze("The knife was")
+s.instruct_words      # RLVR model probabilities
+s.idealization         # DPO -> RLVR delta DataFrame
+s.formation_df         # all 4 layers scored over same vocabulary
+```
+
+### Prompt battery
+
+```python
+battery = psyche.battery()  # DEFAULT_PROMPTS: liminal sexual, violence, explicit, neutral
+
+battery['sexual_liminal_1'].repression   # triggers computation for this prompt only
+
+df = psyche.battery_df()   # summary DataFrame across all prompts
+```
+
+### Using layers directly
+
+```python
+psyche.primary_process.top_words("The knife was")
+psyche.ego.top_words("The knife was")
+psyche.superego.top_words("The knife was")
+
+psyche.ego.word_logprobs("The knife was", ["sharp", "bloody", "clean"])
+```
+
+### Functional API
+
+```python
+from malign_logits import load_models, discover_top_words, compute_repression
+
+base, sft, dpo, tok = load_models()
+ego_words = discover_top_words(sft, tok, "He lay naked in his bed and")
+superego_words = discover_top_words(dpo, tok, "He lay naked in his bed and")
+df = compute_repression(ego_words, superego_words)
+```
+
+## Architecture
+
+The class hierarchy encodes the theoretical claims:
+
+- **Each layer is a separate model checkpoint.** Base, SFT, DPO, and RLVR models have distinct weights reflecting distinct training stages. This is not a prompting trick — the structural differences are in the parameters.
+- **The Id has no class.** It's a computed property on `PromptAnalysis`, because it exists only in the relationship between all layers.
+- **Layer count is flexible.** 2-layer (base + instruct), 3-layer (base + SFT + DPO), or 4-layer (+ RLVR). `ModelFamily` defines which checkpoints map to which psychoanalytic positions. Analysis degrades gracefully: 2 layers = repression only, 3 = full analysis, 4 = + idealization.
+
+```
+malign-logits/
+├── malign_logits/
+│   ├── __init__.py          # Package exports, ModelFamily registry
+│   ├── psyche.py            # Psyche, ModelLayer, Ego, Superego, PromptAnalysis
+│   ├── models.py            # Model loading (load_model)
+│   ├── core.py              # discover_top_words, get_word_logprobs
+│   ├── analysis.py          # Repression, id, displacement engine (v4)
+│   ├── experiments.py       # Prompt battery, reporting
+│   ├── generation.py        # Text generation (standard + neurotic)
+│   ├── viz.py               # Plotly visualizations
+│   └── cli.py               # CLI entrypoint (malign command)
+├── notebooks/               # Worked examples
+├── context.md               # Theoretical context and findings
+├── pyproject.toml
+└── requirements.txt
+```
+
+### Key methods
+
+| Method / Property | What it does | Min layers |
+|---|---|---|
+| `Psyche.from_family(key)` | Create Psyche from a model family | any |
+| `Psyche.from_pretrained()` | Load models directly | any |
+| `Psyche.analyze(prompt)` | Return a lazy `PromptAnalysis` | any |
+| `Psyche.generate(prompt)` | Produce continuations from each layer | any |
+| `Psyche.generate_neurotic(prompt)` | Neurotic generation with displacement | 3 |
+| `Psyche.battery()` | Analyse default prompt set | any |
+| `PromptAnalysis.repression` | Repression delta DataFrame | 2 |
+| `PromptAnalysis.sublimation` | Base-ego delta DataFrame | 3 |
+| `PromptAnalysis.idealization` | Superego-instruct delta | 4 |
+| `PromptAnalysis.id_scores` | Drive-weighted repression (emergent id) | 3 |
+| `PromptAnalysis.displacement` | Neurotic distribution, condensation log | 3 |
+| `PromptAnalysis.formation_df` | All layers scored over same vocabulary | 2 |
+| `PromptAnalysis.formation_report()` | Printed multi-stage report | 2 |
+
+### Displacement engine
+
+The displacement engine (v4) uses contextual embeddings from hidden layer 16 of the SFT model, a morphological filter to prevent orthographic false positives, and drive weighting from the base model so that repressed words with stronger corpus-level support produce heavier symptoms.
+
+**Terminology:**
+- **Displacement** — perspective of the repressed word: where did its mass go?
+- **Condensation** — perspective of the receiving word: how many repressed words are piled into it?
+- **Effective mass** — `raw_repression * drive_weight`. How much the superego repressed it, weighted by how much base-model drive pushes behind it.
+- **Neurotic distribution** — superego distribution plus displaced mass on permitted words. Symptoms.
 
 ## References
 
