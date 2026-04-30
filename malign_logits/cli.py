@@ -116,83 +116,296 @@ def cmd_cloud(args):
 
 
 def cmd_produce_all(args):
-    """Run all data production tasks."""
-    import subprocess
+    """Run all data production tasks, grouped by family to minimize model reloading."""
+    import gc
     import time
+    import torch
+    import pandas as pd
+    from . import MODEL_FAMILIES, TULU_ABLATIONS
+    from .psyche import Psyche
+    from .experiments import DEFAULT_PROMPTS, TIER1_PROMPTS
 
-    families = args.families.split(",") if args.families else None
+    families = args.families.split(",") if args.families else list(MODEL_FAMILIES.keys())
     skip = set(args.skip.split(",")) if args.skip else set()
-
-    tasks = [
-        ("battery", "Prompt battery (distribution metrics)"),
-        ("ablation", "SFT ablation comparison"),
-        ("generate", "Generation battery"),
-        ("logit-lens", "Logit lens analysis"),
-        ("taxonomy", "Displacement taxonomy"),
-    ]
-
+    gen_n = args.gen_n
     results = {}
     t0 = time.time()
 
-    for task_key, desc in tasks:
-        if task_key in skip:
-            print(f"\n  Skipping {desc}")
-            continue
+    def _free():
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
 
+    # ── Phase 1: per-family tasks (models loaded once per family) ──
+
+    all_battery = []
+
+    for key in families:
+        fam = MODEL_FAMILIES[key]
         print(f"\n{'=' * 60}")
-        print(f"  {desc}")
+        print(f"  {key}: {fam.name} ({fam.n_layers} layers)")
         print(f"{'=' * 60}")
 
+        psyche = Psyche.from_family(key, load=True)
+
+        # Battery
+        if "battery" not in skip:
+            print(f"\n  ── Battery ({key}) ──")
+            try:
+                metrics = psyche.battery_metrics()
+                metrics["family"] = key
+                all_battery.append(metrics)
+                metrics.to_csv(f"data/battery_{key}.csv", index=False)
+                print(f"  Saved data/battery_{key}.csv ({len(metrics)} prompts)")
+                results[f"battery-{key}"] = "done"
+            except Exception as e:
+                print(f"  ERROR: {e}")
+                results[f"battery-{key}"] = f"error: {e}"
+
+        # Generation
+        if "generate" not in skip:
+            print(f"\n  ── Generation ({key}) ──")
+            try:
+                from .embedding import generate_many
+                prompts = TIER1_PROMPTS
+                for label, prompt in prompts.items():
+                    print(f"    {label}: {prompt[:40]}...")
+                    generate_many(psyche, prompt, n=gen_n, max_new_tokens=100)
+                results[f"generate-{key}"] = "done"
+            except Exception as e:
+                print(f"  ERROR: {e}")
+                results[f"generate-{key}"] = f"error: {e}"
+
+        # Taxonomy
+        if "taxonomy" not in skip:
+            print(f"\n  ── Taxonomy ({key}) ──")
+            try:
+                import spacy
+                from wordfreq import zipf_frequency
+                _run_taxonomy(psyche, key, DEFAULT_PROMPTS)
+                results[f"taxonomy-{key}"] = "done"
+            except ImportError:
+                print(f"  Skipping taxonomy (spacy/wordfreq not installed)")
+                results[f"taxonomy-{key}"] = "skipped (missing deps)"
+            except Exception as e:
+                print(f"  ERROR: {e}")
+                results[f"taxonomy-{key}"] = f"error: {e}"
+
+        del psyche
+        _free()
+
+    # Save combined battery
+    if all_battery and "battery" not in skip:
+        combined = pd.concat(all_battery, ignore_index=True)
+        cols = ["family", "label", "prompt"] + [
+            c for c in combined.columns if c not in ("family", "label", "prompt")
+        ]
+        combined = combined[cols]
+        combined.to_csv("data/battery_results.csv", index=False)
+        print(f"\nCombined battery: data/battery_results.csv ({len(combined)} rows)")
+
+    # ── Phase 2: logit lens (loads one model at a time per layer) ──
+
+    if "logit-lens" not in skip:
+        from .models import load_model, logit_lens_words
+        lens_families = [k for k in families if k in ("olmo", "tulu")]
+        lens_prompts = list(TIER1_PROMPTS.items())[:6]
+
+        for key in lens_families:
+            fam = MODEL_FAMILIES[key]
+            for label, prompt in lens_prompts:
+                print(f"\n  ── Logit lens: {key} / {label} ──")
+                try:
+                    import re
+                    words = ["kill", "fuck", "kiss", "said", "the", "scream"]
+                    layers_to_load = [("base", fam.base)]
+                    if fam.ego:
+                        layers_to_load.append(("ego", fam.ego))
+                    if fam.superego:
+                        layers_to_load.append(("superego", fam.superego))
+
+                    all_dfs = []
+                    for layer_name, model_id in layers_to_load:
+                        model, tokenizer = load_model(model_id)
+                        df = logit_lens_words(model, tokenizer, prompt,
+                                              words=words, top_k=5)
+                        df["model"] = layer_name
+                        df["model_id"] = model_id
+                        all_dfs.append(df)
+                        del model
+                        _free()
+
+                    result = pd.concat(all_dfs, ignore_index=True)
+                    prompt_slug = re.sub(r'[^a-z0-9]+', '_', prompt.lower())[:50].strip('_')
+                    words_slug = '_'.join(words[:5])
+                    out = f"data/logit_lens.{key}.{prompt_slug}.{words_slug}.csv"
+                    result.to_csv(out, index=False)
+                    print(f"  Saved {out}")
+                    results[f"logit-lens-{key}-{label}"] = "done"
+                except Exception as e:
+                    print(f"  ERROR: {e}")
+                    results[f"logit-lens-{key}-{label}"] = f"error: {e}"
+
+    # ── Phase 3: ablation (loads base once, swaps SFT variants) ──
+
+    if "ablation" not in skip and "tulu" in families:
+        print(f"\n{'=' * 60}")
+        print(f"  SFT Ablation comparison")
+        print(f"{'=' * 60}")
         try:
-            if task_key == "battery":
-                if families:
-                    for fam in families:
-                        _run_subtask(["malign", "battery", "--family", fam,
-                                      "-o", f"data/battery_{fam}.csv"])
-                else:
-                    _run_subtask(["malign", "battery", "-o", "data/battery_results.csv"])
+            from .analysis import (
+                js_divergence, distribution_entropy,
+                top_k_overlap, rank_correlation, _align_logits,
+            )
+            from .models import load_model as _load
 
-            elif task_key == "ablation":
-                _run_subtask(["malign", "ablation"])
+            base_id = MODEL_FAMILIES["tulu"].base
+            print(f"  Loading base: {base_id}")
+            base_model, base_tok = _load(base_id)
 
-            elif task_key == "generate":
-                target_families = families or ["olmo", "tulu", "amber", "llama", "qwen"]
-                for fam in target_families:
-                    _run_subtask(["malign", "generate-battery", "--family", fam,
-                                  "--prompts", "tier1", "--n", str(args.gen_n)])
+            abl_rows = []
+            for abl_key, sft_id in TULU_ABLATIONS.items():
+                print(f"\n  {abl_key}: {sft_id}")
+                sft_model, _ = _load(sft_id)
 
-            elif task_key == "logit-lens":
-                from .experiments import TIER1_PROMPTS
-                target_families = families or ["olmo", "tulu"]
-                for fam in target_families:
-                    for label, prompt in list(TIER1_PROMPTS.items())[:6]:
-                        _run_subtask(["malign", "logit-lens", prompt,
-                                      "--family", fam])
+                for label, prompt in DEFAULT_PROMPTS.items():
+                    try:
+                        inputs = base_tok(prompt, return_tensors="pt").to(base_model.device)
+                        with torch.no_grad():
+                            base_logits = base_model(**inputs).logits[0, -1, :]
+                            sft_logits = sft_model(**inputs.to(sft_model.device)).logits[0, -1, :]
+                        base_l, sft_l = _align_logits(base_logits, sft_logits)
+                        abl_rows.append({
+                            "ablation": abl_key,
+                            "label": label,
+                            "prompt": prompt[:60],
+                            "js_base_ego": js_divergence(base_l, sft_l),
+                            "entropy_base": distribution_entropy(base_l),
+                            "entropy_ego": distribution_entropy(sft_l),
+                            "entropy_drop": distribution_entropy(base_l) - distribution_entropy(sft_l),
+                            "top50_overlap": top_k_overlap(base_l, sft_l, k=50),
+                            "rank_corr": rank_correlation(base_l, sft_l),
+                        })
+                    except Exception as e:
+                        print(f"    Skipping {label}: {e}")
 
-            elif task_key == "taxonomy":
-                target_families = families or ["olmo", "tulu", "llama"]
-                for fam in target_families:
-                    _run_subtask(["malign", "taxonomy", "--family", fam,
-                                  "--all-prompts"])
+                del sft_model
+                _free()
 
-            results[task_key] = "done"
+            del base_model
+            _free()
+
+            abl_df = pd.DataFrame(abl_rows)
+            abl_df.to_csv("data/ablation_results.csv", index=False)
+            print(f"\n  Saved data/ablation_results.csv ({len(abl_df)} rows)")
+            summary = abl_df.groupby("ablation")[["js_base_ego", "entropy_drop"]].mean()
+            print(f"\n{summary.to_string(float_format='{:.4f}'.format)}")
+            results["ablation"] = "done"
         except Exception as e:
-            print(f"  ERROR in {desc}: {e}")
-            results[task_key] = f"error: {e}"
+            print(f"  ERROR: {e}")
+            results["ablation"] = f"error: {e}"
+
+    # ── Phase 4: embed + compute generation metrics ──
+
+    if "generate" not in skip:
+        print(f"\n{'=' * 60}")
+        print(f"  Embedding + generation metrics")
+        print(f"{'=' * 60}")
+        try:
+            from .embedding import embed_generations, compute_generation_metrics, compute_concept_metrics
+            embed_generations()
+            gen_metrics = compute_generation_metrics()
+            concept_metrics = compute_concept_metrics()
+            if gen_metrics is not None:
+                gen_metrics.to_csv("data/gen_battery_metrics.csv", index=False)
+                print(f"  Saved data/gen_battery_metrics.csv")
+            results["embed-metrics"] = "done"
+        except Exception as e:
+            print(f"  ERROR: {e}")
+            results["embed-metrics"] = f"error: {e}"
 
     elapsed = time.time() - t0
     print(f"\n{'=' * 60}")
     print(f"  ALL TASKS COMPLETE ({elapsed / 3600:.1f}h)")
     print(f"{'=' * 60}")
-    for k, v in results.items():
-        print(f"  {k:20s} {v}")
+    for k, v in sorted(results.items()):
+        status = "✓" if v == "done" else "✗"
+        print(f"  {status} {k:30s} {v}")
 
 
-def _run_subtask(cmd):
-    """Run a CLI subtask as a subprocess."""
-    import subprocess
-    print(f"  $ {' '.join(cmd)}")
-    subprocess.run(cmd, check=True)
+def _run_taxonomy(psyche, family_key, prompts):
+    """Run displacement taxonomy for a loaded Psyche."""
+    import pandas as pd
+    import spacy
+    from wordfreq import zipf_frequency
+
+    nlp = spacy.load("en_core_web_sm")
+
+    ARCHAIC_ZIPF = 3.0
+    GENRE_TOKENS = {
+        "what", "who", "where", "when", "why", "how", "which",
+        "What", "Who", "Where", "When", "Why", "How", "Which",
+        "Options", "options", "Question", "question",
+        "____", "___", "__", "...", "the", "a", "an",
+        "is", "are", "was", "were", "it", "this", "that",
+        "to", "of", "for", "in", "on", "at", "by", "with",
+        "she", "he", "her", "his", "they", "them",
+    }
+
+    def get_pos(words, prompt):
+        result = {}
+        for w in words:
+            doc = nlp(f"{prompt} {w}")
+            result[w] = doc[-1].pos_
+        return result
+
+    def classify_pair(source, target, source_pos, target_pos, prompt):
+        if target in GENRE_TOKENS:
+            return "genre_change"
+        t_zipf = zipf_frequency(target, "en")
+        if t_zipf < ARCHAIC_ZIPF and t_zipf > 0:
+            return "archaic"
+        if source_pos != target_pos:
+            return "category_shift"
+        return "register_shift"
+
+    rows = []
+    for label, prompt in prompts.items():
+        try:
+            analysis = psyche.analyze(prompt)
+            dm = analysis.displacement_map()
+            for axis in ("sublimation", "repression"):
+                pairs = dm.get(axis, {}).get("pairs", [])
+                if not pairs:
+                    continue
+                sources = [p[0] for p in pairs]
+                targets = [p[1] for p in pairs]
+                all_words = list(set(sources + targets))
+                pos_map = get_pos(all_words, prompt)
+                for src, tgt, sim, layer in pairs:
+                    dtype = classify_pair(src, tgt, pos_map.get(src, ""), pos_map.get(tgt, ""), prompt)
+                    rows.append({
+                        "family": family_key,
+                        "label": label,
+                        "axis": axis,
+                        "source": src,
+                        "target": tgt,
+                        "sim": sim,
+                        "layer": layer,
+                        "displacement_type": dtype,
+                        "source_pos": pos_map.get(src, ""),
+                        "target_pos": pos_map.get(tgt, ""),
+                    })
+        except Exception as e:
+            print(f"    Skipping {label}: {e}")
+
+    if rows:
+        df = pd.DataFrame(rows)
+        out = f"data/taxonomy_{family_key}.csv"
+        df.to_csv(out, index=False)
+        print(f"  Saved {out} ({len(df)} pairs)")
 
 
 def cmd_ablation(args):
