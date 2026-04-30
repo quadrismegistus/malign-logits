@@ -270,7 +270,9 @@ def cmd_produce_all(args):
                 print(f"\n  {abl_key}: {sft_id}")
                 sft_model, _ = _load(sft_id)
 
-                for label, prompt in DEFAULT_PROMPTS.items():
+                n_prompts = len(DEFAULT_PROMPTS)
+                for j, (label, prompt) in enumerate(DEFAULT_PROMPTS.items()):
+                    print(f"    [{j+1}/{n_prompts}] {label}", flush=True)
                     try:
                         inputs = base_tok(prompt, return_tensors="pt").to(base_model.device)
                         with torch.no_grad():
@@ -436,7 +438,9 @@ def cmd_ablation(args):
 
         sft_model, _ = load_model(sft_id)
 
-        for label, prompt in DEFAULT_PROMPTS.items():
+        n_prompts = len(DEFAULT_PROMPTS)
+        for j, (label, prompt) in enumerate(DEFAULT_PROMPTS.items()):
+            print(f"    [{j+1}/{n_prompts}] {label}", flush=True)
             try:
                 inputs = base_tok(prompt, return_tensors="pt").to(base_model.device)
                 with torch.no_grad():
