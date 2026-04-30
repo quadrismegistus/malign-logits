@@ -109,6 +109,164 @@ def _print_family(key, fam, indent=2):
             print(f"{pad}  {attr:<22s}  {roles[attr]:<34s}  {model_id}")
 
 
+def cmd_cloud(args):
+    """Dispatch cloud subcommands."""
+    from .cloud import main as cloud_main
+    cloud_main(args)
+
+
+def cmd_produce_all(args):
+    """Run all data production tasks."""
+    import subprocess
+    import time
+
+    families = args.families.split(",") if args.families else None
+    skip = set(args.skip.split(",")) if args.skip else set()
+
+    tasks = [
+        ("battery", "Prompt battery (distribution metrics)"),
+        ("ablation", "SFT ablation comparison"),
+        ("generate", "Generation battery"),
+        ("logit-lens", "Logit lens analysis"),
+        ("taxonomy", "Displacement taxonomy"),
+    ]
+
+    results = {}
+    t0 = time.time()
+
+    for task_key, desc in tasks:
+        if task_key in skip:
+            print(f"\n  Skipping {desc}")
+            continue
+
+        print(f"\n{'=' * 60}")
+        print(f"  {desc}")
+        print(f"{'=' * 60}")
+
+        try:
+            if task_key == "battery":
+                if families:
+                    for fam in families:
+                        _run_subtask(["malign", "battery", "--family", fam,
+                                      "-o", f"data/battery_{fam}.csv"])
+                else:
+                    _run_subtask(["malign", "battery", "-o", "data/battery_results.csv"])
+
+            elif task_key == "ablation":
+                _run_subtask(["malign", "ablation"])
+
+            elif task_key == "generate":
+                target_families = families or ["olmo", "tulu", "amber", "llama", "qwen"]
+                for fam in target_families:
+                    _run_subtask(["malign", "generate-battery", "--family", fam,
+                                  "--prompts", "tier1", "--n", str(args.gen_n)])
+
+            elif task_key == "logit-lens":
+                from .experiments import TIER1_PROMPTS
+                target_families = families or ["olmo", "tulu"]
+                for fam in target_families:
+                    for label, prompt in list(TIER1_PROMPTS.items())[:6]:
+                        _run_subtask(["malign", "logit-lens", prompt,
+                                      "--family", fam])
+
+            elif task_key == "taxonomy":
+                target_families = families or ["olmo", "tulu", "llama"]
+                for fam in target_families:
+                    _run_subtask(["malign", "taxonomy", "--family", fam,
+                                  "--all-prompts"])
+
+            results[task_key] = "done"
+        except Exception as e:
+            print(f"  ERROR in {desc}: {e}")
+            results[task_key] = f"error: {e}"
+
+    elapsed = time.time() - t0
+    print(f"\n{'=' * 60}")
+    print(f"  ALL TASKS COMPLETE ({elapsed / 3600:.1f}h)")
+    print(f"{'=' * 60}")
+    for k, v in results.items():
+        print(f"  {k:20s} {v}")
+
+
+def _run_subtask(cmd):
+    """Run a CLI subtask as a subprocess."""
+    import subprocess
+    print(f"  $ {' '.join(cmd)}")
+    subprocess.run(cmd, check=True)
+
+
+def cmd_ablation(args):
+    """Run SFT ablation comparison: same base, different SFT data mixtures."""
+    import gc
+    import torch
+    import pandas as pd
+    from . import TULU_ABLATIONS, MODEL_FAMILIES
+    from .models import load_model
+    from .analysis import distribution_metrics, _align_logits
+    from .experiments import DEFAULT_PROMPTS
+
+    base_id = MODEL_FAMILIES["tulu"].base
+    ablations = args.ablations or list(TULU_ABLATIONS.keys())
+
+    print(f"Loading base: {base_id}")
+    base_model, base_tok = load_model(base_id)
+
+    all_rows = []
+    for abl_key in ablations:
+        if abl_key not in TULU_ABLATIONS:
+            print(f"  Unknown ablation: {abl_key}, skipping")
+            continue
+        sft_id = TULU_ABLATIONS[abl_key]
+        print(f"\n{'=' * 60}")
+        print(f"  {abl_key}: {sft_id}")
+        print(f"{'=' * 60}")
+
+        sft_model, _ = load_model(sft_id)
+
+        for label, prompt in DEFAULT_PROMPTS.items():
+            try:
+                inputs = base_tok(prompt, return_tensors="pt").to(base_model.device)
+                with torch.no_grad():
+                    base_logits = base_model(**inputs).logits[0, -1, :]
+                    sft_logits = sft_model(**inputs.to(sft_model.device)).logits[0, -1, :]
+
+                base_l, sft_l = _align_logits(base_logits, sft_logits)
+                from .analysis import js_divergence, distribution_entropy, top_k_overlap, rank_correlation
+                row = {
+                    "ablation": abl_key,
+                    "label": label,
+                    "prompt": prompt[:60],
+                    "js_base_ego": js_divergence(base_l, sft_l),
+                    "entropy_base": distribution_entropy(base_l),
+                    "entropy_ego": distribution_entropy(sft_l),
+                    "entropy_drop": distribution_entropy(base_l) - distribution_entropy(sft_l),
+                    "top50_overlap": top_k_overlap(base_l, sft_l, k=50),
+                    "rank_corr": rank_correlation(base_l, sft_l),
+                }
+                all_rows.append(row)
+            except Exception as e:
+                print(f"  Skipping {label}: {e}")
+
+        print(f"  {abl_key}: {len([r for r in all_rows if r['ablation'] == abl_key])} prompts")
+
+        del sft_model
+        gc.collect()
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+
+    del base_model
+    gc.collect()
+
+    df = pd.DataFrame(all_rows)
+    out = args.output or "data/ablation_results.csv"
+    df.to_csv(out, index=False)
+    print(f"\nSaved to {out}")
+
+    # Summary
+    summary = df.groupby("ablation")[["js_base_ego", "entropy_drop", "top50_overlap"]].mean()
+    print(f"\n{summary.to_string(float_format='{:.4f}'.format)}")
+
+
 def cmd_battery(args):
     """Run prompt battery across one or all model families."""
     import gc
@@ -772,6 +930,14 @@ def main():
     _add_family_arg(sv)
     sv.set_defaults(func=cmd_serve)
 
+    # ablation
+    abl = subparsers.add_parser("ablation",
+                                help="Compare SFT data ablations (base vs SFT variants)")
+    abl.add_argument("ablations", nargs="*", default=None,
+                     help="Ablation keys (default: all). Options: standard, no-safety, no-persona, no-math, no-wildchat")
+    abl.add_argument("--output", "-o", help="Output CSV (default: data/ablation_results.csv)")
+    abl.set_defaults(func=cmd_ablation)
+
     # battery
     bat = subparsers.add_parser("battery", help="Run prompt battery across families")
     _add_family_arg(bat)
@@ -827,6 +993,37 @@ def main():
     tx.add_argument("--output", "-o",
                     help="Output CSV path (default: data/displacement_taxonomy.csv)")
     tx.set_defaults(func=cmd_taxonomy)
+
+    # produce-all
+    pa = subparsers.add_parser("produce-all", help="Run all data production tasks")
+    pa.add_argument("--families", help="Comma-separated families (default: all)")
+    pa.add_argument("--skip", default="", help="Comma-separated tasks to skip: battery,ablation,generate,logit-lens,taxonomy")
+    pa.add_argument("--gen-n", type=int, default=30, help="Generations per prompt (default: 30)")
+    pa.set_defaults(func=cmd_produce_all)
+
+    # cloud
+    cloud = subparsers.add_parser("cloud", help="Vast.ai GPU instance management")
+    cloud_sub = cloud.add_subparsers(dest="cloud_command")
+
+    cloud_sub.add_parser("launch", help="Find and rent cheapest A100 80GB")
+    cloud_sub.add_parser("setup", help="Install malign-logits on instance")
+
+    cr = cloud_sub.add_parser("run", help="Start produce-all in tmux")
+    cr.add_argument("--families", help="Comma-separated families")
+    cr.add_argument("--skip", default="", help="Tasks to skip")
+
+    cloud_sub.add_parser("status", help="Check progress and cost")
+    cloud_sub.add_parser("download", help="Download stash + data back")
+    cloud_sub.add_parser("stop", help="Destroy instance")
+    cloud_sub.add_parser("attach", help="Attach to tmux session")
+
+    cl = cloud_sub.add_parser("log", help="Tail the batch log")
+    cl.add_argument("--lines", "-n", type=int, default=30)
+
+    cs = cloud_sub.add_parser("ssh", help="Open SSH session")
+    cs.add_argument("ssh_command", nargs="*")
+
+    cloud.set_defaults(func=cmd_cloud)
 
     # info
     info = subparsers.add_parser("info", help="Print model families and configuration")
