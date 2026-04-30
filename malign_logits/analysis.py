@@ -418,7 +418,7 @@ def rank_correlation(logits_a, logits_b):
     """
     logits_a, logits_b = _align_logits(logits_a, logits_b)
     from scipy.stats import spearmanr
-    return spearmanr(logits_a.float().numpy(), logits_b.float().numpy()).statistic
+    return spearmanr(logits_a.float().cpu().numpy(), logits_b.float().cpu().numpy()).statistic
 
 
 def distribution_metrics(base_logits, ego_logits, superego_logits, instruct_logits=None):

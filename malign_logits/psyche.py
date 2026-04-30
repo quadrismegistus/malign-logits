@@ -123,7 +123,7 @@ class ModelLayer:
         result = get_base_logits(self.model, self.tokenizer, prompt)
 
         if self._stash is not None:
-            self._stash[cache_key] = result.numpy()
+            self._stash[cache_key] = result.cpu().numpy()
 
         return result
 
@@ -656,7 +656,7 @@ class PromptAnalysis:
                 return torch.as_tensor(arr, dtype=torch.float32)
             emb = get_embedding(word, layer)
             if stash is not None:
-                stash[cache_key] = emb.numpy()
+                stash[cache_key] = emb.cpu().numpy()
             return emb
 
         embed_fn = get_embedding_cached if stash is not None else get_embedding

@@ -660,7 +660,7 @@ def cmd_step_analysis(args):
             cache_key = ("logits", base_name, "base", prompt)
             if cache_key not in stash:
                 logits = get_base_logits(base_model, base_tok, prompt)
-                stash[cache_key] = logits.numpy()
+                stash[cache_key] = logits.cpu().numpy()
         del base_model
         gc.collect()
         if torch.backends.mps.is_available():
@@ -729,7 +729,7 @@ def cmd_step_analysis(args):
             if cache_key in stash:
                 continue
             logits = get_base_logits(model, tokenizer, prompt)
-            stash[cache_key] = logits.numpy()
+            stash[cache_key] = logits.cpu().numpy()
             print(f"    {label}")
 
         del model
