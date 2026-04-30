@@ -21,7 +21,8 @@ STATE_FILE = PROJECT_ROOT / '.vastai.json'
 REMOTE_WORK = '/workspace'
 REMOTE_REPO = f'{REMOTE_WORK}/malign-logits'
 REMOTE_DATA = f'{REMOTE_REPO}/data'
-REMOTE_STASH = f'{REMOTE_REPO}/stash'
+REMOTE_STASH = f'{REMOTE_REPO}/data/raw/stash'
+LOCAL_STASH = PROJECT_ROOT / 'data' / 'raw' / 'stash'
 
 DOCKER_IMAGE = 'pytorch/pytorch:2.4.1-cuda12.4-cudnn9-devel'
 DISK_GB = 200
@@ -256,6 +257,15 @@ echo "SETUP COMPLETE"
     ssh_run(state, setup_script)
     state['setup_done'] = True
     save_state(state)
+
+    if LOCAL_STASH.exists():
+        n_files = sum(1 for _ in LOCAL_STASH.rglob('*') if _.is_file())
+        size_mb = sum(f.stat().st_size for f in LOCAL_STASH.rglob('*') if f.is_file()) / 1e6
+        print(f"\nUploading local stash ({n_files} files, {size_mb:.0f} MB)...", file=sys.stderr)
+        ssh_run(state, f'mkdir -p {REMOTE_STASH}')
+        rsync_to(state, str(LOCAL_STASH), REMOTE_STASH)
+        print(f"Stash uploaded.")
+
     print("\nSetup complete.")
     print("Next: malign cloud run")
 
@@ -330,7 +340,7 @@ def cmd_download(args):
     rsync_from(state, REMOTE_DATA, str(PROJECT_ROOT / 'data'))
 
     print("Downloading stash/ ...", file=sys.stderr)
-    rsync_from(state, REMOTE_STASH, str(PROJECT_ROOT / 'stash'))
+    rsync_from(state, REMOTE_STASH, str(LOCAL_STASH))
 
     print(f"\nData and stash downloaded to {PROJECT_ROOT}")
 
