@@ -30,87 +30,6 @@ Each layer is a separate model checkpoint from the same family. They differ in w
 
 The claim is not that LLMs have an unconscious. The claim is that the Freudian apparatus, when operationalised computationally, produces a more differentiated analysis of alignment's effects than standard safety frameworks do.
 
-## Installation
-
-```bash
-pip install -e .
-
-# With persistent caching (recommended)
-pip install -e ".[cache]"
-
-# With notebook support
-pip install -e ".[notebooks]"
-```
-
-Requires `torch`, `transformers >= 4.57.0`, `accelerate`, `pandas`, `tqdm`.
-
-Runs locally on Mac (MPS with float16) or Linux (CUDA). Default models are OLMo 3 7B (Allen AI).
-
-### Model families
-
-```bash
-# Show all available model families
-malign info
-
-# Show a specific family
-malign info --family llama
-```
-
-Available families:
-
-| Family | Layers | Models |
-|--------|--------|--------|
-| `olmo` (default) | 4 | OLMo 3 7B: base / SFT / DPO / RLVR |
-| `tulu` | 4 | Tulu 3.1 8B (Llama 3.1 base + Allen AI post-training): base / SFT / DPO / RLVR |
-| `amber` | 3 | Amber: base / SFT / DPO |
-| `llama` | 2 | Llama 3.1 8B: base / instruct |
-| `qwen` | 2 | Qwen 2.5 7B: base / instruct |
-
-### Downloading models
-
-```bash
-# Download default family (OLMo 3 7B, ~42 GB for 3 models)
-malign download-models
-
-# Download all 4 models including RLVR (~56 GB)
-malign download-models --all
-
-# Download a specific family
-malign download-models --family llama
-
-# Download a specific model
-malign download-models --model dpo
-```
-
-## Quick start
-
-```python
-from malign_logits import Psyche
-
-# Default: OLMo 3 7B (4 layers)
-psyche = Psyche.from_family("olmo", load=True)
-
-# Or: Llama 3.1 8B (2 layers — base + instruct)
-psyche = Psyche.from_family("llama", load=True)
-
-# Or: load models directly
-psyche = Psyche.from_pretrained(cache_dir="malign_cache")
-
-s = psyche.analyze("He lay naked in his bed and")
-s.repression          # DataFrame of repression deltas
-s.formation_df        # all layers scored over same vocabulary
-s.report()            # printed summary
-
-# These require 3+ layers:
-s.id_scores           # drive-weighted repression scores
-s.analysis_df         # full combined DataFrame
-```
-
-Each property computes on first access, then caches in memory and (with `cache_dir`) to disk via [HashStash](https://github.com/quadrismegistus/hashstash). Cache keys include model identifiers, so switching models won't return stale results.
-
-### 2-layer vs 3+ layer analysis
-
-With 2 layers (e.g. Llama, Qwen), repression is computed as base→superego (the entire alignment pipeline in one step). Id scores and neurotic generation require 3+ layers. Displacement maps work with any layer count (2 layers uses repression pairs; 3+ uses both sublimation and repression).
 
 ## Findings
 
@@ -364,6 +283,93 @@ Allen AI releases Tulu SFT checkpoints trained without specific data subsets. Sa
 **No single data component dominates ego formation.** Removing any of the 5 subsets reduces displacement, but the differences are small. The ego emerges from the aggregate, not from any single training signal.
 
 Results in `data/ablation_results.csv`.
+
+
+
+
+
+
+## Installation
+
+```bash
+pip install -e .
+
+# With persistent caching (recommended)
+pip install -e ".[cache]"
+
+# With notebook support
+pip install -e ".[notebooks]"
+```
+
+Requires `torch`, `transformers >= 4.57.0`, `accelerate`, `pandas`, `tqdm`.
+
+Runs locally on Mac (MPS with float16) or Linux (CUDA). Default models are OLMo 3 7B (Allen AI).
+
+### Model families
+
+```bash
+# Show all available model families
+malign info
+
+# Show a specific family
+malign info --family llama
+```
+
+Available families:
+
+| Family | Layers | Models |
+|--------|--------|--------|
+| `olmo` (default) | 4 | OLMo 3 7B: base / SFT / DPO / RLVR |
+| `tulu` | 4 | Tulu 3.1 8B (Llama 3.1 base + Allen AI post-training): base / SFT / DPO / RLVR |
+| `amber` | 3 | Amber: base / SFT / DPO |
+| `llama` | 2 | Llama 3.1 8B: base / instruct |
+| `qwen` | 2 | Qwen 2.5 7B: base / instruct |
+
+### Downloading models
+
+```bash
+# Download default family (OLMo 3 7B, ~42 GB for 3 models)
+malign download-models
+
+# Download all 4 models including RLVR (~56 GB)
+malign download-models --all
+
+# Download a specific family
+malign download-models --family llama
+
+# Download a specific model
+malign download-models --model dpo
+```
+
+## Quick start
+
+```python
+from malign_logits import Psyche
+
+# Default: OLMo 3 7B (4 layers)
+psyche = Psyche.from_family("olmo", load=True)
+
+# Or: Llama 3.1 8B (2 layers — base + instruct)
+psyche = Psyche.from_family("llama", load=True)
+
+# Or: load models directly
+psyche = Psyche.from_pretrained(cache_dir="malign_cache")
+
+s = psyche.analyze("He lay naked in his bed and")
+s.repression          # DataFrame of repression deltas
+s.formation_df        # all layers scored over same vocabulary
+s.report()            # printed summary
+
+# These require 3+ layers:
+s.id_scores           # drive-weighted repression scores
+s.analysis_df         # full combined DataFrame
+```
+
+Each property computes on first access, then caches in memory and (with `cache_dir`) to disk via [HashStash](https://github.com/quadrismegistus/hashstash). Cache keys include model identifiers, so switching models won't return stale results.
+
+### 2-layer vs 3+ layer analysis
+
+With 2 layers (e.g. Llama, Qwen), repression is computed as base→superego (the entire alignment pipeline in one step). Id scores and neurotic generation require 3+ layers. Displacement maps work with any layer count (2 layers uses repression pairs; 3+ uses both sublimation and repression).
 
 
 ## Usage
