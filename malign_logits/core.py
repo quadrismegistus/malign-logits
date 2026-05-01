@@ -8,6 +8,7 @@ def discover_top_words(
     top_k_first=200,
     max_word_tokens=5,
     device=None,
+    progress_callback=None,
 ):
     """
     Discover the model's most probable first words following a prompt.
@@ -42,7 +43,10 @@ def discover_top_words(
 
     word_scores = {}
 
-    for first_lp, first_id in tqdm(list(zip(top_first.values, top_first.indices))):
+    pairs = list(zip(top_first.values, top_first.indices))
+    for idx, (first_lp, first_id) in enumerate(tqdm(pairs)):
+        if progress_callback and idx % 10 == 0:
+            progress_callback(idx, len(pairs))
         current_ids = torch.cat(
             [input_ids, first_id.unsqueeze(0).unsqueeze(0).to(device)], dim=-1
         )

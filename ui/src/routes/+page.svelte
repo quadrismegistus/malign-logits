@@ -6,6 +6,7 @@
 	import DisplacementChart from '$lib/components/DisplacementChart.svelte';
 	import DataTable from '$lib/components/DataTable.svelte';
 	import PairsList from '$lib/components/PairsList.svelte';
+	import LogitLensChart from '$lib/components/LogitLensChart.svelte';
 
 	let connected = $state(false);
 	let serverInfo: ServerInfo | null = $state(null);
@@ -15,6 +16,7 @@
 	let loading = $state(false);
 	let progressText = $state('');
 	let error = $state('');
+	let analyzedPrompt = $state('');
 
 	let analysis: AnalysisResult | null = $state(null);
 	let displacement: DisplacementResult | null = $state(null);
@@ -53,44 +55,69 @@
 	}
 
 	let progressInterval: ReturnType<typeof setInterval>;
+	let progressFraction = $state(0);
+	let progressEta = $state('');
+	let progressStartTime = 0;
 
 	async function pollProgress() {
 		try {
 			const p = await api.progress();
-			if (p.stage !== 'idle') {
+			if (p.stage !== 'idle' && p.total > 0) {
 				progressText = p.detail || p.stage;
-				if (p.total > 0) {
-					progressText += ` (${p.step + 1}/${p.total})`;
+				progressFraction = p.step / p.total;
+				const elapsed = (Date.now() - progressStartTime) / 1000;
+				if (p.step > 10 && elapsed > 2) {
+					const rate = p.step / elapsed;
+					const remaining = (p.total - p.step) / rate;
+					if (remaining < 60) {
+						progressEta = `~${Math.ceil(remaining)}s left`;
+					} else {
+						progressEta = `~${Math.ceil(remaining / 60)}m left`;
+					}
+				} else {
+					progressEta = '';
 				}
+			} else if (p.stage !== 'idle') {
+				progressText = p.detail || p.stage;
+				progressFraction = 0;
+				progressEta = '';
 			} else {
 				progressText = '';
+				progressFraction = 0;
+				progressEta = '';
 			}
 		} catch {
 			/* ignore */
 		}
 	}
 
-	async function analyze() {
+	async function analyze({ switchTab = true } = {}) {
 		if (!prompt.trim()) return;
 		loading = true;
 		error = '';
 		analysis = null;
 		displacement = null;
 		progressText = 'Starting analysis...';
+		progressFraction = 0;
+		progressEta = '';
+		progressStartTime = Date.now();
 
-		progressInterval = setInterval(pollProgress, 1000);
+		progressInterval = setInterval(pollProgress, 600);
 
 		try {
 			analysis = await api.analyze(prompt.trim());
+			analyzedPrompt = prompt.trim();
 			if (!promptHistory.includes(prompt.trim())) {
 				promptHistory = [prompt.trim(), ...promptHistory];
 			}
-			activeTab = 'trajectories';
+			if (switchTab) activeTab = 'trajectories';
 		} catch (e) {
 			error = e instanceof Error ? e.message : String(e);
 		} finally {
 			loading = false;
 			progressText = '';
+			progressFraction = 0;
+			progressEta = '';
 			clearInterval(progressInterval);
 		}
 	}
@@ -126,9 +153,9 @@
 	const TABS = [
 		{ id: 'trajectories', label: 'Trajectories' },
 		{ id: 'formation', label: 'Formation' },
-		{ id: 'repression', label: 'Repression' },
 		{ id: 'displacement', label: 'Displacement' },
-		{ id: 'report', label: 'Report' }
+		{ id: 'logit-lens', label: 'Logit Lens' },
+		{ id: 'report', label: 'Report' },
 	];
 
 	onMount(checkServer);
@@ -178,7 +205,17 @@
 					</button>
 				</div>
 				{#if progressText}
-					<div class="progress">{progressText}</div>
+					<div class="progress-container">
+						<div class="progress-bar">
+							<div class="progress-fill" style="width: {Math.round(progressFraction * 100)}%"></div>
+						</div>
+						<div class="progress-info">
+							<span class="progress-text">{progressText}</span>
+							{#if progressEta}
+								<span class="progress-eta">{progressEta}</span>
+							{/if}
+						</div>
+					</div>
 				{/if}
 				{#if error}
 					<div class="error">{error}</div>
@@ -290,8 +327,6 @@
 						<TrajectoryChart data={analysis.formation_df} {topN} {minProb} {sortBy} />
 					{:else if activeTab === 'formation'}
 						<DataTable data={analysis.formation_df} sortKey="base" />
-					{:else if activeTab === 'repression'}
-						<DataTable data={analysis.repression_df} sortKey="repression" />
 					{:else if activeTab === 'displacement'}
 						{#if displacement}
 							<DisplacementChart data={displacement} />
@@ -304,6 +339,8 @@
 								<p>Click <strong>Displacement</strong> in the sidebar to compute displacement map.</p>
 							</div>
 						{/if}
+					{:else if activeTab === 'logit-lens'}
+						<LogitLensChart {prompt} {analyzedPrompt} onAnalyze={() => analyze({ switchTab: false })} />
 					{:else if activeTab === 'report'}
 						<pre class="report">{analysis.report}</pre>
 					{/if}
@@ -477,9 +514,41 @@
 		background: #344a70;
 	}
 
-	.progress {
+	.progress-container {
 		margin-top: 8px;
-		font-size: 12px;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.progress-bar {
+		height: 4px;
+		background: #1a1a2e;
+		border-radius: 2px;
+		overflow: hidden;
+	}
+
+	.progress-fill {
+		height: 100%;
+		background: #4e79a7;
+		border-radius: 2px;
+		transition: width 0.3s ease;
+	}
+
+	.progress-info {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+	}
+
+	.progress-text {
+		font-size: 11px;
+		color: #888;
+		font-family: 'SF Mono', monospace;
+	}
+
+	.progress-eta {
+		font-size: 11px;
 		color: #e2b340;
 		font-family: 'SF Mono', monospace;
 	}

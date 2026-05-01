@@ -33,11 +33,11 @@ TRAJECTORY_THRESHOLD = 0.005
 def _classify_trajectory(row):
     """Classify a word's trajectory shape across available layers."""
     b = row["base"]
-    s = row["superego"]
+    s = row["dpo"]
     t = TRAJECTORY_THRESHOLD
 
-    # 2-layer mode (no ego)
-    if "ego" not in row.index:
+    # 2-layer mode (no sft)
+    if "sft" not in row.index:
         if b - s > t:
             return "decline"
         if s - b > t:
@@ -45,20 +45,20 @@ def _classify_trajectory(row):
         return "flat"
 
     # 3+ layer mode
-    e = row["ego"]
+    e = row["sft"]
 
     if b - e > t and e - s > t:
-        return "decline"          # base >> ego >> superego (monotonic decline)
+        return "decline"          # base >> sft >> dpo (monotonic decline)
     if e - b > t and s - e > t:
-        return "rise"             # base << ego << superego (monotonic rise)
+        return "rise"             # base << sft << dpo (monotonic rise)
     if b - e > t and s - e > t:
-        return "V"                # base high, ego dips, superego reinstates
+        return "V"                # base high, sft dips, dpo reinstates
     if e - b > t and e - s > t:
-        return "peak"             # ego introduces, superego represses
+        return "peak"             # sft introduces, dpo represses
     if b > t and e < t and s < t:
-        return "eliminated"       # base only — ego eliminated it
+        return "eliminated"       # base only — sft eliminated it
     if b < t and e < t and s > t:
-        return "superego_only"    # superego introduces
+        return "dpo_only"         # dpo introduces
     return "flat"
 
 
@@ -126,6 +126,79 @@ class ModelLayer:
             self._stash[cache_key] = result.cpu().numpy()
 
         return result
+
+    def logit_lens(self, prompt, words=None, top_k=5):
+        """Per-internal-layer word probabilities (logit lens).
+
+        Single forward pass with output_hidden_states. Projects each
+        transformer layer's hidden state through the unembedding matrix.
+        Cached to stash as a list of records.
+
+        Returns list of dicts with keys: layer, word, probability, source.
+        """
+        cache_key = ("logit_lens", self.model_id, self.name, prompt, top_k)
+        if self._stash is not None and cache_key in self._stash:
+            cached = self._stash[cache_key]
+            if words:
+                return self._rescore_logit_lens(cached, prompt, words)
+            return cached
+
+        self._require_model()
+        from .models import logit_lens_words
+        df = logit_lens_words(self.model, self.tokenizer, prompt,
+                              words=[], top_k=top_k)
+        rows = df.to_dict(orient="records")
+
+        if self._stash is not None:
+            self._stash[cache_key] = rows
+
+        if words:
+            return self._rescore_logit_lens(rows, prompt, words)
+        return rows
+
+    def _rescore_logit_lens(self, cached_rows, prompt, words):
+        """Add tracked words to cached logit lens data.
+
+        Re-runs per-layer scoring only for the tracked words, using
+        the raw per-layer logits stored during the original forward pass.
+        """
+        cache_key = ("logit_lens_raw", self.model_id, self.name, prompt)
+
+        if self._stash is not None and cache_key in self._stash:
+            layer_logits_np = self._stash[cache_key]
+        else:
+            self._require_model()
+            from .models import logit_lens as _logit_lens_raw
+            layer_logits = _logit_lens_raw(self.model, self.tokenizer, prompt)
+            layer_logits_np = [l.cpu().numpy() for l in layer_logits]
+            if self._stash is not None:
+                self._stash[cache_key] = layer_logits_np
+
+        word_token_ids = {}
+        for word in words:
+            ids = self.tokenizer.encode(" " + word, add_special_tokens=False)
+            if ids:
+                word_token_ids[word] = ids[0]
+
+        existing_words_by_layer = {}
+        for row in cached_rows:
+            existing_words_by_layer.setdefault(row["layer"], set()).add(row["word"])
+
+        extra = []
+        for layer_idx, logits_np in enumerate(layer_logits_np):
+            logits_t = torch.tensor(logits_np, dtype=torch.float32)
+            probs = torch.softmax(logits_t, dim=0)
+            seen = existing_words_by_layer.get(layer_idx, set())
+            for word, tid in word_token_ids.items():
+                if word not in seen:
+                    extra.append({
+                        "layer": layer_idx,
+                        "word": word,
+                        "probability": round(float(probs[tid]), 8),
+                        "source": "tracked",
+                    })
+
+        return cached_rows + extra
 
     def word_logprobs(self, prompt, candidate_words):
         """Exact log-probabilities for specific candidate words."""
@@ -403,27 +476,27 @@ class PromptAnalysis:
     def repression(self):
         """DataFrame of repression deltas.
 
-        3+ layers: ego→superego. 2 layers: base→superego.
+        3+ layers: sft→dpo. 2 layers: base→dpo.
         """
         if self.ego_words is not None:
-            return compute_repression(self.ego_words, self.superego_words, base_words=self.base_words)
-        # 2-layer: base→superego is the only transition
+            return compute_repression(self.ego_words, self.superego_words, base_words=self.base_words,
+                                      col_a="sft", col_b="dpo")
         return compute_repression(
             self.base_words, self.superego_words, base_words=self.base_words,
-            col_a="base_prob", col_b="superego",
+            col_a="base_prob", col_b="dpo",
         )
 
     @property
     def sublimation(self):
-        """Base-to-ego delta: what SFT does as ego formation.
+        """Base-to-SFT delta: what SFT does as ego formation.
 
-        Returns None if no ego layer is loaded (2-layer topology).
+        Returns None if no SFT layer is loaded (2-layer topology).
         """
         if self.ego_words is None:
             return None
         return compute_repression(
             self.base_words, self.ego_words, base_words=self.base_words,
-            col_a="base_prob", col_b="ego",
+            col_a="base_prob", col_b="sft",
         )
 
     @property
@@ -508,13 +581,13 @@ class PromptAnalysis:
 
     @property
     def focused_sublimation(self):
-        """Base-to-ego delta using focused scoring. None if no ego."""
+        """Base-to-SFT delta using focused scoring. None if no SFT."""
         if self.focused_ego_words is None:
             return None
         return compute_repression(
             self.focused_base_words, self.focused_ego_words,
             base_words=self.focused_base_words,
-            col_a="base_prob", col_b="ego",
+            col_a="base_prob", col_b="sft",
         )
 
     @property
@@ -537,22 +610,22 @@ class PromptAnalysis:
 
             if ego is not None:
                 e = ego.get(w, 0)
-                row["ego"] = round(e, 6)
-                row["ego - base"] = round(e - b, 6)
+                row["sft"] = round(e, 6)
+                row["sft - base"] = round(e - b, 6)
 
             if sup is not None:
                 s = sup.get(w, 0)
-                row["superego"] = round(s, 6)
+                row["dpo"] = round(s, 6)
                 if ego is not None:
-                    row["superego - ego"] = round(s - ego.get(w, 0), 6)
+                    row["dpo - sft"] = round(s - ego.get(w, 0), 6)
                 else:
-                    row["superego - base"] = round(s - b, 6)
+                    row["dpo - base"] = round(s - b, 6)
 
             if inst is not None:
                 i = inst.get(w, 0)
-                row["instruct"] = round(i, 6)
+                row["rlvr"] = round(i, 6)
                 if sup is not None:
-                    row["instruct - superego"] = round(i - sup.get(w, 0), 6)
+                    row["rlvr - dpo"] = round(i - sup.get(w, 0), 6)
 
             rows.append(row)
 
@@ -560,6 +633,94 @@ class PromptAnalysis:
         df["trajectory"] = df.apply(_classify_trajectory, axis=1)
         df = df.sort_values("base", ascending=False)
         return df
+
+    @property
+    def logit_lens_df(self):
+        """Logit lens across all model layers, tracked words from formation.
+
+        Returns dict with keys: rows (list of dicts), word_sources (dict).
+        Tracked words are the top declining + rising words from formation_df.
+        """
+        return self.compute_logit_lens()
+
+    def compute_logit_lens(self, progress_callback=None):
+        """Compute logit lens with optional progress reporting."""
+        cached = self._memo.get("logit_lens_df")
+        if cached:
+            return cached
+
+        stash = self._psyche._stash
+        if stash is not None:
+            stash_key = ("analysis", "logit_lens_df", self._model_fingerprint, self.prompt, self._top_k)
+            if stash_key in stash:
+                self._memo["logit_lens_df"] = stash[stash_key]
+                return self._memo["logit_lens_df"]
+
+        result = self._compute_logit_lens_df(progress_callback)
+        self._memo["logit_lens_df"] = result
+
+        if stash is not None:
+            stash[stash_key] = result
+
+        return result
+
+    def _compute_logit_lens_df(self, progress_callback=None):
+        fdf = self.formation_df
+        word_sources = self._logit_lens_word_sources(fdf)
+        all_tracked = list(word_sources.keys())
+
+        layers = [("base", self._psyche.primary_process)]
+        if self._psyche.ego is not None:
+            layers.append(("sft", self._psyche.ego))
+        if self._psyche.superego is not None:
+            layers.append(("dpo", self._psyche.superego))
+        if self._psyche.reinforced_superego is not None:
+            layers.append(("rlvr", self._psyche.reinforced_superego))
+
+        all_rows = []
+        for i, (model_name, layer) in enumerate(layers):
+            if progress_callback:
+                progress_callback(f"Logit lens: {model_name.upper()} ({i+1}/{len(layers)})",
+                                  i, len(layers))
+            rows = layer.logit_lens(self.prompt, words=all_tracked, top_k=5)
+            for row in rows:
+                row["model"] = model_name
+            all_rows.extend(rows)
+
+        return {"rows": all_rows, "word_sources": word_sources}
+
+    def _logit_lens_word_sources(self, fdf, n=15):
+        """Build word->source mapping for logit lens tracking.
+
+        Sources: "declining" (formation), "rising" (formation),
+        "top_base", "top_ego", "top_superego", "top_instruct".
+        A word can have multiple sources.
+        """
+        sources = {}
+
+        if "dpo" in fdf.columns:
+            delta_col = ("dpo - sft" if "dpo - sft" in fdf.columns
+                         else "dpo - base")
+            df = fdf[fdf[delta_col].notna()].copy()
+            df["_abs_delta"] = df[delta_col].abs()
+            for w in df[df[delta_col] < 0].nlargest(n, "_abs_delta")["word"]:
+                sources.setdefault(w, []).append("declining")
+            for w in df[df[delta_col] > 0].nlargest(n, "_abs_delta")["word"]:
+                sources.setdefault(w, []).append("rising")
+
+        layer_words = [
+            ("top_base", self.base_words),
+            ("top_sft", self.ego_words),
+            ("top_dpo", self.superego_words),
+            ("top_rlvr", self.instruct_words),
+        ]
+        for tag, words in layer_words:
+            if words is None:
+                continue
+            for w in list(words.keys())[:n]:
+                sources.setdefault(w, []).append(tag)
+
+        return sources
 
     def _require_ego(self, feature):
         """Raise ValueError if ego layer is not available."""
@@ -603,23 +764,23 @@ class PromptAnalysis:
         # Filter to significant words
         prob_cols = ["base"]
         if has_ego:
-            prob_cols.append("ego")
-        if "superego" in df.columns:
-            prob_cols.append("superego")
+            prob_cols.append("sft")
+        if "dpo" in df.columns:
+            prob_cols.append("dpo")
         sig = df[df[prob_cols].max(axis=1) > min_prob]
 
         if has_ego:
             # 3+ layers: two axes
-            sublimated_words = sig[sig["ego - base"] < -dt]["word"].tolist()
-            introduced_words = sig[sig["ego - base"] > dt]["word"].tolist()
-            repressed_words = sig[sig["superego - ego"] < -dt]["word"].tolist()
-            amplified_words = sig[sig["superego - ego"] > dt]["word"].tolist()
+            sublimated_words = sig[sig["sft - base"] < -dt]["word"].tolist()
+            introduced_words = sig[sig["sft - base"] > dt]["word"].tolist()
+            repressed_words = sig[sig["dpo - sft"] < -dt]["word"].tolist()
+            amplified_words = sig[sig["dpo - sft"] > dt]["word"].tolist()
         else:
             # 2 layers: single axis
             sublimated_words = []
             introduced_words = []
-            repressed_words = sig[sig["superego - base"] < -dt]["word"].tolist()
-            amplified_words = sig[sig["superego - base"] > dt]["word"].tolist()
+            repressed_words = sig[sig["dpo - base"] < -dt]["word"].tolist()
+            amplified_words = sig[sig["dpo - base"] > dt]["word"].tolist()
 
         all_words = sorted(set(
             sublimated_words + introduced_words
@@ -808,36 +969,36 @@ class PromptAnalysis:
             introduced = sub[sub["delta"] < -min_prob].copy()
             introduced = introduced[
                 (introduced["base_prob"].abs() > min_prob)
-                | (introduced["ego"].abs() > min_prob)
+                | (introduced["sft"].abs() > min_prob)
             ]
             introduced = introduced.sort_values("delta").head(top_n)
 
             if len(introduced):
-                print("  Introduced by ego (low base → high ego):\n")
+                print("  Introduced by SFT (low base → high SFT):\n")
                 for _, row in introduced.iterrows():
-                    print(f"    {row['word']:20s}  base: {row['base_prob']:.4f}  → ego: {row['ego']:.4f}")
+                    print(f"    {row['word']:20s}  base: {row['base_prob']:.4f}  → sft: {row['sft']:.4f}")
 
             sublimated = sub[sub["delta"] > min_prob].copy()
             sublimated = sublimated[
                 (sublimated["base_prob"].abs() > min_prob)
-                | (sublimated["ego"].abs() > min_prob)
+                | (sublimated["sft"].abs() > min_prob)
             ]
             sublimated = sublimated.head(top_n)
 
             if len(sublimated):
-                print("\n  Sublimated by ego (high base → low ego):\n")
+                print("\n  Sublimated by SFT (high base → low SFT):\n")
                 for _, row in sublimated.iterrows():
-                    print(f"    {row['word']:20s}  base: {row['base_prob']:.4f}  → ego: {row['ego']:.4f}")
+                    print(f"    {row['word']:20s}  base: {row['base_prob']:.4f}  → sft: {row['sft']:.4f}")
 
         # --- Repression stage ---
         if has_ego:
             print(f"\n--- STAGE 2: REPRESSION (SFT → DPO) ---")
             print(f"    What preference optimisation does to desire.\n")
-            col_a, col_b = "ego", "superego"
+            col_a, col_b = "sft", "dpo"
         else:
             print(f"\n--- REPRESSION (base → instruct) ---")
             print(f"    What alignment does to the primary process.\n")
-            col_a, col_b = "base_prob", "superego"
+            col_a, col_b = "base_prob", "dpo"
 
         repressed = rep[rep["repressed"]].head(top_n)
         if len(repressed):
@@ -886,11 +1047,11 @@ class PromptAnalysis:
         # --- Full gradient for key words ---
         layer_names = ["base"]
         if has_ego:
-            layer_names.append("ego")
+            layer_names.append("sft")
         if self._psyche.superego is not None:
-            layer_names.append("superego")
+            layer_names.append("dpo")
         if ideal is not None:
-            layer_names.append("instruct")
+            layer_names.append("rlvr")
 
         print(f"\n--- FULL GRADIENT ({' → '.join(layer_names)}) ---\n")
 
@@ -1122,9 +1283,9 @@ class PromptAnalysis:
 
         # Column names depend on topology
         if self._psyche.has_ego:
-            col_a, col_b = "ego", "superego"
+            col_a, col_b = "sft", "dpo"
         else:
-            col_a, col_b = "base_prob", "superego"
+            col_a, col_b = "base_prob", "dpo"
 
         print(f"\n{'=' * 60}")
         print(f"PROMPT: {self.prompt}")
