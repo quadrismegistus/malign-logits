@@ -27,6 +27,7 @@ def _get_family(args):
     return key, MODEL_FAMILIES[key]
 
 
+
 def cmd_download_models(args):
     """Download model weights from HuggingFace."""
     from huggingface_hub import snapshot_download
@@ -206,47 +207,28 @@ def cmd_produce_all(args):
         combined.to_csv("data/battery_results.csv", index=False)
         print(f"\nCombined battery: data/battery_results.csv ({len(combined)} rows)")
 
-    # ── Phase 2: logit lens (loads one model at a time per layer) ──
+    # ── Phase 2: logit lens (uses Psyche — cached to stash) ──
 
     if "logit-lens" not in skip:
-        from .models import load_model, logit_lens_words
-        lens_families = [k for k in families if k in ("olmo", "tulu")]
+        import re as _re
         lens_prompts = list(TIER1_PROMPTS.items())[:6]
 
-        for key in lens_families:
+        for key in families:
             fam = MODEL_FAMILIES[key]
+            from .psyche import Psyche as _Psyche
+            psyche = _Psyche.from_family(key, load=True)
             for label, prompt in lens_prompts:
                 print(f"\n  ── Logit lens: {key} / {label} ──")
                 try:
-                    import re
-                    words = ["kill", "fuck", "kiss", "said", "the", "scream"]
-                    layers_to_load = [("base", fam.base)]
-                    if fam.ego:
-                        layers_to_load.append(("ego", fam.ego))
-                    if fam.superego:
-                        layers_to_load.append(("superego", fam.superego))
-
-                    all_dfs = []
-                    for layer_name, model_id in layers_to_load:
-                        model, tokenizer = load_model(model_id)
-                        df = logit_lens_words(model, tokenizer, prompt,
-                                              words=words, top_k=5)
-                        df["model"] = layer_name
-                        df["model_id"] = model_id
-                        all_dfs.append(df)
-                        del model
-                        _free()
-
-                    result = pd.concat(all_dfs, ignore_index=True)
-                    prompt_slug = re.sub(r'[^a-z0-9]+', '_', prompt.lower())[:50].strip('_')
-                    words_slug = '_'.join(words[:5])
-                    out = f"data/logit_lens.{key}.{prompt_slug}.{words_slug}.csv"
-                    result.to_csv(out, index=False)
-                    print(f"  Saved {out}")
+                    analysis = psyche.analyze(prompt)
+                    data = analysis.logit_lens_df
+                    print(f"  {len(data['rows'])} data points, {len(data['word_sources'])} tracked")
                     results[f"logit-lens-{key}-{label}"] = "done"
                 except Exception as e:
                     print(f"  ERROR: {e}")
                     results[f"logit-lens-{key}-{label}"] = f"error: {e}"
+            del psyche
+            _free()
 
     # ── Phase 3: ablation (loads base once, swaps SFT variants) ──
 
@@ -526,66 +508,30 @@ def cmd_battery(args):
 
 def cmd_logit_lens(args):
     """Run logit lens analysis across model layers."""
-    import gc
-    import torch
+    import re
     import pandas as pd
-    from . import MODEL_FAMILIES
-    from .models import load_model, logit_lens_words
-    from .embedding import extract_prompt_words
+    from .psyche import Psyche
 
     prompt = args.prompt
     key = args.family or "olmo"
-    fam = MODEL_FAMILIES[key]
 
-    # Determine words to track
-    if args.words:
-        words = [w.strip() for w in args.words.split(",")]
-    else:
-        import os
-        gen_parquet = "data/gen_battery_raw.parquet"
-        if os.path.exists(gen_parquet):
-            prompt_words = extract_prompt_words(gen_parquet)
-            # Find a matching label
-            from .experiments import TIER1_PROMPTS, DEFAULT_PROMPTS
-            all_prompts = {**DEFAULT_PROMPTS, **TIER1_PROMPTS}
-            words = None
-            for label, p in all_prompts.items():
-                if p == prompt and label in prompt_words:
-                    words = prompt_words[label][:10]
-                    break
-        if not words:
-            words = ["kill", "fuck", "kiss", "said", "the", "scream", "massage"]
-        print(f"Tracking words: {words}")
+    psyche = Psyche.from_family(key, load=True)
+    analysis = psyche.analyze(prompt, top_k_first=200)
 
-    # Load each model layer and run logit lens
-    layers_to_load = [("base", fam.base)]
-    if fam.ego:
-        layers_to_load.append(("ego", fam.ego))
-    if fam.superego:
-        layers_to_load.append(("superego", fam.superego))
+    print(f"Running logit lens for {key}: \"{prompt}\"")
+    data = analysis.logit_lens_df
+    rows = data["rows"]
+    word_sources = data["word_sources"]
+    print(f"  {len(rows)} data points across {psyche.n_layers} model layers")
+    print(f"  {len(word_sources)} tracked words")
 
-    all_dfs = []
-    for layer_name, model_id in layers_to_load:
-        label = {"base": "BASE", "ego": "SFT", "superego": "DPO"}.get(layer_name, layer_name)
-        print(f"\n  {label}: {model_id}")
-        model, tokenizer = load_model(model_id)
+    result = pd.DataFrame(rows)
 
-        df = logit_lens_words(model, tokenizer, prompt, words=words, top_k=args.top_k)
-        df["model"] = layer_name
-        df["model_id"] = model_id
-        all_dfs.append(df)
+    tracked = [w for w in word_sources if "declining" in word_sources[w]]
+    tracked += [w for w in word_sources if "rising" in word_sources[w] and w not in tracked]
 
-        del model
-        gc.collect()
-        if torch.backends.mps.is_available():
-            torch.mps.empty_cache()
-
-    result = pd.concat(all_dfs, ignore_index=True)
-
-    # Build descriptive filename from prompt and words
-    import re
     prompt_slug = re.sub(r'[^a-z0-9]+', '_', prompt.lower().strip())[:50].strip('_')
-    words_slug = '_'.join(words[:5])
+    words_slug = '_'.join(tracked[:5])
 
     if args.output:
         out = args.output
@@ -594,12 +540,10 @@ def cmd_logit_lens(args):
         out = f"data/{basename}.csv"
 
     result.to_csv(out, index=False)
-    print(f"\nSaved to {out} ({len(result)} rows)")
+    print(f"Saved to {out}")
 
-    # Generate figure
     from .viz import plot_logit_lens
-    basename_fig = f"logit_lens.{key}.{prompt_slug}.{words_slug}"
-    fig_path = f"figures/{basename_fig}.png"
+    fig_path = f"figures/logit_lens.{key}.{prompt_slug}.{words_slug}.png"
     plot_logit_lens(result, prompt=prompt, family=key, top_k=args.top_k,
                     min_layers=args.min_layers, save_path=fig_path)
     print(f"Figure saved to {fig_path}")

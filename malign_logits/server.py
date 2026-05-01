@@ -80,6 +80,7 @@ def _get_psyche():
         return _psyche
 
 
+
 class ModelHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         length = int(self.headers.get("Content-Length", 0))
@@ -154,37 +155,38 @@ class ModelHandler(BaseHTTPRequestHandler):
             analysis = psyche.analyze(prompt, top_k_first=top_k)
 
             layers_to_run = [
-                ("base", "Base (primary process)", lambda: analysis.base_words),
+                ("base", "BASE"),
             ]
             if psyche.ego is not None:
-                layers_to_run.append(
-                    ("ego", "Ego (SFT)", lambda: analysis.ego_words),
-                )
+                layers_to_run.append(("sft", "SFT"))
             if psyche.superego is not None:
-                layers_to_run.append(
-                    ("superego", "Superego (DPO)", lambda: analysis.superego_words),
-                )
+                layers_to_run.append(("dpo", "DPO"))
             if psyche.reinforced_superego is not None:
-                layers_to_run.append(
-                    ("instruct", "Instruct (RLVR)", lambda: analysis.instruct_words),
-                )
+                layers_to_run.append(("rlvr", "RLVR"))
+
+            n_layers = len(layers_to_run)
+            total_steps = top_k * n_layers
 
             results = {}
-            for i, (name, desc, fn) in enumerate(layers_to_run):
-                _set_progress("analyzing", f"{desc} ({i+1}/{len(layers_to_run)})",
-                              step=i, total=len(layers_to_run))
-                results[name] = fn()
+            for i, (name, desc) in enumerate(layers_to_run):
+                base_step = i * top_k
+                def _progress(step, total, _desc=desc, _base=base_step):
+                    _set_progress("analyzing", _desc,
+                                  step=_base + step, total=total_steps)
+                _set_progress("analyzing", desc,
+                              step=base_step, total=total_steps)
+                layer = self._get_layer(psyche, name)
+                results[name] = layer.top_words(
+                    prompt, top_k_first=top_k, progress_callback=_progress)
 
-            # Cache logits for each layer (1 forward pass each, enables fast scoring)
-            _set_progress("analyzing", "Caching logits...",
-                          step=len(layers_to_run), total=len(layers_to_run) + 3)
-            for name, _, _ in layers_to_run:
+            _set_progress("analyzing", "Caching logits",
+                          step=total_steps, total=total_steps)
+            for name, _ in layers_to_run:
                 layer = self._get_layer(psyche, name)
                 _ = layer.logits(prompt)
 
-            # Score focused vocabulary (fast — uses cached logits)
-            _set_progress("analyzing", "Scoring focused vocabulary...",
-                          step=len(layers_to_run) + 1, total=len(layers_to_run) + 3)
+            _set_progress("analyzing", "Scoring vocabulary",
+                          step=total_steps, total=total_steps)
             _ = analysis.focused_base_words
             if psyche.ego is not None:
                 _ = analysis.focused_ego_words
@@ -284,17 +286,27 @@ class ModelHandler(BaseHTTPRequestHandler):
                     pass
             return {"prompts": sorted(prompts)}
 
+        elif path == "/logit_lens":
+            prompt = body["prompt"]
+            _set_progress("logit_lens", "Computing logit lens...")
+            analysis = psyche.analyze(prompt)
+            def _ll_progress(detail, step, total):
+                _set_progress("logit_lens", detail, step=step, total=total)
+            data = analysis.compute_logit_lens(progress_callback=_ll_progress)
+            _set_progress("idle")
+            return data
+
         elif path == "/info":
             info = {
                 "base": psyche.primary_process.model_id,
                 "n_layers": psyche.n_layers,
             }
             if psyche.ego is not None:
-                info["ego"] = psyche.ego.model_id
+                info["sft"] = psyche.ego.model_id
             if psyche.superego is not None:
-                info["superego"] = psyche.superego.model_id
+                info["dpo"] = psyche.superego.model_id
             if psyche.reinforced_superego is not None:
-                info["instruct"] = psyche.reinforced_superego.model_id
+                info["rlvr"] = psyche.reinforced_superego.model_id
             return info
 
         else:
@@ -303,9 +315,9 @@ class ModelHandler(BaseHTTPRequestHandler):
     def _get_layer(self, psyche, layer_name):
         mapping = {
             "base": psyche.primary_process,
-            "ego": psyche.ego,
-            "superego": psyche.superego,
-            "instruct": psyche.reinforced_superego,
+            "sft": psyche.ego,
+            "dpo": psyche.superego,
+            "rlvr": psyche.reinforced_superego,
         }
         layer = mapping.get(layer_name)
         if layer is None:

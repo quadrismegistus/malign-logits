@@ -221,7 +221,7 @@ def build_analysis_df(
 
 def compute_repression(
     ego_words, superego_words, base_words=None, threshold=0.01,
-    col_a="ego", col_b="superego",
+    col_a="sft", col_b="dpo",
 ):
     """
     Compare two word distributions to identify what the second suppresses

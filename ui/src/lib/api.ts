@@ -19,21 +19,21 @@ async function get<T>(path: string): Promise<T> {
 export interface ServerInfo {
 	base: string;
 	n_layers: number;
-	ego?: string;
-	superego?: string;
-	instruct?: string;
+	sft?: string;
+	dpo?: string;
+	rlvr?: string;
 }
 
 export interface FormationRow {
 	word: string;
 	base: number;
-	ego?: number;
-	superego?: number;
-	instruct?: number;
-	'ego - base'?: number;
-	'superego - ego'?: number;
-	'superego - base'?: number;
-	'instruct - superego'?: number;
+	sft?: number;
+	dpo?: number;
+	rlvr?: number;
+	'sft - base'?: number;
+	'dpo - sft'?: number;
+	'dpo - base'?: number;
+	'rlvr - dpo'?: number;
 	trajectory: string;
 	[key: string]: unknown;
 }
@@ -79,6 +79,19 @@ export interface Progress {
 	total: number;
 }
 
+export interface LogitLensRow {
+	layer: number;
+	word: string;
+	probability: number;
+	source: string;
+	model: string;
+}
+
+export interface LogitLensResult {
+	rows: LogitLensRow[];
+	word_sources: Record<string, string[]>;
+}
+
 export const api = {
 	health: () => get<{ status: string; models_loaded: boolean }>('/health'),
 	info: () => get<ServerInfo>('/info'),
@@ -90,5 +103,6 @@ export const api = {
 	topWords: (layer: string, prompt: string, top_k = 200) =>
 		post<{ words: Record<string, number> }>('/top_words', { layer, prompt, top_k }),
 	perplexity: (layer: string, prompt: string) =>
-		post<{ perplexity: number }>('/perplexity', { layer, prompt })
+		post<{ perplexity: number }>('/perplexity', { layer, prompt }),
+	logitLens: (prompt: string) => post<LogitLensResult>('/logit_lens', { prompt })
 };

@@ -15,10 +15,10 @@
 	let container: HTMLDivElement;
 
 	const LAYER_LABELS: Record<string, string> = {
-		base: 'Base (Id)',
-		ego: 'SFT (Ego)',
-		superego: 'DPO (Superego)',
-		instruct: 'RLVR (Ego-ideal)'
+		base: 'BASE',
+		sft: 'SFT',
+		dpo: 'DPO',
+		rlvr: 'RLVR'
 	};
 
 	const SHAPE_COLORS: Record<string, string> = {
@@ -28,15 +28,15 @@
 		peak: '#76b7b2',
 		sublimated: '#b07aa1',
 		eliminated: '#b07aa1',
-		superego_only: '#59a14f',
+		dpo_only: '#59a14f',
 		flat: '#6f6f6f'
 	};
 
 	function getLayers(row: FormationRow): string[] {
 		const cols = ['base'];
-		if (row.ego !== undefined) cols.push('ego');
-		if (row.superego !== undefined) cols.push('superego');
-		if (row.instruct !== undefined) cols.push('instruct');
+		if (row.sft !== undefined) cols.push('sft');
+		if (row.dpo !== undefined) cols.push('dpo');
+		if (row.rlvr !== undefined) cols.push('rlvr');
 		return cols;
 	}
 
