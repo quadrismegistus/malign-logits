@@ -239,37 +239,22 @@
 
 			{#if prompts.length > 0}
 				<div class="preset-section">
-					<label>Cached ({prompts.length})</label>
-					<div class="preset-list cached">
-						{#each prompts.slice(0, 20) as p}
-							<button
-								class="preset cached"
-								class:active={prompt === p}
-								onclick={() => selectPrompt(p)}
-								title={p}
-							>
-								{p.length > 40 ? p.slice(0, 37) + '...' : p}
-							</button>
+					<label for="cached-select">Cached ({prompts.length})</label>
+					<select
+						id="cached-select"
+						class="cached-select"
+						onchange={(e) => {
+							const val = (e.target as HTMLSelectElement).value;
+							if (val) selectPrompt(val);
+						}}
+					>
+						<option value="">select...</option>
+						{#each prompts as p}
+							<option value={p} selected={prompt === p}>
+								{p.length > 50 ? p.slice(0, 47) + '...' : p}
+							</option>
 						{/each}
-					</div>
-				</div>
-			{/if}
-
-			{#if promptHistory.length > 0}
-				<div class="preset-section">
-					<label>History</label>
-					<div class="preset-list">
-						{#each promptHistory as p}
-							<button
-								class="preset"
-								class:active={prompt === p}
-								onclick={() => selectPrompt(p)}
-								title={p}
-							>
-								{p.length > 40 ? p.slice(0, 37) + '...' : p}
-							</button>
-						{/each}
-					</div>
+					</select>
 				</div>
 			{/if}
 
@@ -326,7 +311,7 @@
 					{#if activeTab === 'trajectories'}
 						<TrajectoryChart data={analysis.formation_df} {topN} {minProb} {sortBy} />
 					{:else if activeTab === 'formation'}
-						<DataTable data={analysis.formation_df} sortKey="base" />
+						<DataTable data={analysis.formation_df} sortKey={analysis.formation_df[0]?.['sft - base'] !== undefined ? 'sft - base' : 'dpo - base'} sortDesc={false} />
 					{:else if activeTab === 'displacement'}
 						{#if displacement}
 							<DisplacementChart data={displacement} />
@@ -588,6 +573,22 @@
 	.preset.active {
 		background: rgba(78, 121, 167, 0.2);
 		color: #4e79a7;
+	}
+
+	.cached-select {
+		width: 100%;
+		background: #141428;
+		border: 1px solid #2a2a44;
+		color: #ccc;
+		padding: 6px 8px;
+		border-radius: 4px;
+		font-size: 12px;
+		font-family: inherit;
+	}
+
+	.cached-select:focus {
+		outline: none;
+		border-color: #4e79a7;
 	}
 
 	.controls-section {

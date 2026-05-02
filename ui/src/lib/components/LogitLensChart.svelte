@@ -19,22 +19,21 @@
 	let loadedPrompt = $state('');
 	let container: HTMLDivElement;
 
-	let nDeclining = $state(1);
-	let nRising = $state(1);
-	let nTopPerLayer = $state(1);
-	let minLayers = $state(12);
+	let nWords = $state(8);
+	let modelA = $state('base');
+	let modelB = $state('dpo');
+	let autoZoom = $state(true);
+	let rankBy: 'output' | 'max' = $state('output');
 
 	const MODEL_ORDER = ['base', 'sft', 'dpo', 'rlvr'];
-	const SOURCE_COLORS: Record<string, string> = {
-		declining: '#e15759',
-		rising: '#4e79a7',
-		top_base: '#76b7b2',
-		top_sft: '#f28e2b',
-		top_dpo: '#b07aa1',
-		top_rlvr: '#59a14f'
-	};
+	const COLORS = d3.schemeTableau10;
 
 	let progressText = $state('');
+
+	function availableModels(): string[] {
+		if (!allRows.length) return MODEL_ORDER;
+		return MODEL_ORDER.filter((m) => allRows.some((r) => r.model === m));
+	}
 
 	async function load() {
 		if (!prompt.trim()) return;
@@ -60,6 +59,13 @@
 			allRows = res.rows;
 			wordSources = res.word_sources;
 			loadedPrompt = prompt.trim();
+
+			const avail = availableModels();
+			if (!avail.includes(modelA)) modelA = avail[0];
+			if (!avail.includes(modelB)) modelB = avail[avail.length - 1];
+			if (modelA === modelB && avail.length > 1) {
+				modelB = avail[avail.length - 1];
+			}
 		} catch (e) {
 			error = e instanceof Error ? e.message : String(e);
 		} finally {
@@ -69,103 +75,183 @@
 		}
 	}
 
-	function getVisibleTracked(): { word: string; source: string; rank: number }[] {
-		if (!wordSources || !Object.keys(wordSources).length) return [];
-		const buckets: Record<string, string[]> = {
-			declining: [],
-			rising: [],
-			top_base: [],
-			top_sft: [],
-			top_dpo: [],
-			top_rlvr: []
-		};
-		for (const [word, sources] of Object.entries(wordSources)) {
-			for (const s of sources) {
-				if (s in buckets) buckets[s].push(word);
+	interface DiffPoint {
+		layer: number;
+		diff: number;
+		probA: number;
+		probB: number;
+	}
+
+	function computeDiffs(): Map<string, DiffPoint[]> {
+		const probMapA = new Map<string, Map<number, number>>();
+		const probMapB = new Map<string, Map<number, number>>();
+
+		for (const r of allRows) {
+			if (r.model === modelA) {
+				if (!probMapA.has(r.word)) probMapA.set(r.word, new Map());
+				probMapA.get(r.word)!.set(r.layer, r.probability);
+			} else if (r.model === modelB) {
+				if (!probMapB.has(r.word)) probMapB.set(r.word, new Map());
+				probMapB.get(r.word)!.set(r.layer, r.probability);
 			}
 		}
 
-		const limits: Record<string, number> = {
-			declining: nDeclining,
-			rising: nRising,
-			top_base: nTopPerLayer,
-			top_sft: nTopPerLayer,
-			top_dpo: nTopPerLayer,
-			top_rlvr: nTopPerLayer
-		};
+		const maxLayer = d3.max(allRows, (r) => r.layer) ?? 32;
+		const layerRange = d3.range(0, maxLayer + 1);
 
-		const result: { word: string; source: string; rank: number }[] = [];
-		const seen = new Set<string>();
-		for (const [source, words] of Object.entries(buckets)) {
-			const limit = limits[source] ?? 0;
-			for (let i = 0; i < Math.min(words.length, limit); i++) {
-				if (!seen.has(words[i])) {
-					result.push({ word: words[i], source, rank: i });
-					seen.add(words[i]);
-				}
+		const allWords = new Set([...probMapA.keys(), ...probMapB.keys()]);
+		const wordDiffs = new Map<string, DiffPoint[]>();
+
+		for (const word of allWords) {
+			const mapA = probMapA.get(word);
+			const mapB = probMapB.get(word);
+			const points: DiffPoint[] = [];
+			for (const layer of layerRange) {
+				const pA = mapA?.get(layer) ?? 0;
+				const pB = mapB?.get(layer) ?? 0;
+				points.push({ layer, diff: pB - pA, probA: pA, probB: pB });
 			}
+			wordDiffs.set(word, points);
 		}
-		return result;
+
+		return wordDiffs;
+	}
+
+	function rankWords(wordDiffs: Map<string, DiffPoint[]>): string[] {
+		const scores: [string, number][] = [];
+		for (const [word, points] of wordDiffs) {
+			let score: number;
+			if (rankBy === 'output') {
+				const last = points[points.length - 1];
+				score = last ? Math.abs(last.diff) : 0;
+			} else {
+				score = d3.max(points, (p) => Math.abs(p.diff)) ?? 0;
+			}
+			scores.push([word, score]);
+		}
+		scores.sort((a, b) => b[1] - a[1]);
+		return scores.slice(0, nWords).map(([w]) => w);
 	}
 
 	function draw() {
-		if (!container || !allRows.length || !wordSources) return;
+		if (!container || !allRows.length) return;
 		container.innerHTML = '';
 
-		const tracked = getVisibleTracked();
-		const trackedWords = new Set(tracked.map((t) => t.word));
-		const wordPrimarySource = new Map(tracked.map((t) => [t.word, t.source]));
-
-		const topkRows = allRows.filter((r) => r.source === 'top_k');
-		const wordLayerCounts = d3.rollup(
-			topkRows,
-			(v) => new Set(v.map((r) => r.layer)).size,
-			(r) => r.word
-		);
-		const frequentTopk = new Set(
-			[...wordLayerCounts.entries()]
-				.filter(([, count]) => count >= minLayers)
-				.map(([word]) => word)
-		);
-
-		const plotWords = new Set([...trackedWords, ...frequentTopk]);
-		const filtered = allRows.filter((r) => plotWords.has(r.word));
-		if (!filtered.length) return;
-
-		const allModels = [...new Set(allRows.map((r) => r.model))];
-		const orderedModels = MODEL_ORDER.filter((m) => allModels.includes(m));
-		if (!orderedModels.length) return;
-
-		const trackedList = tracked.map((t) => t.word);
-		const topkList = [...frequentTopk].filter((w) => !trackedWords.has(w));
+		const wordDiffs = computeDiffs();
+		const topWords = rankWords(wordDiffs);
+		if (!topWords.length) return;
 
 		const wordColor = new Map<string, string>();
-		for (const t of tracked) {
-			if (!wordColor.has(t.word)) {
-				wordColor.set(t.word, SOURCE_COLORS[t.source] ?? '#888888');
+		topWords.forEach((w, i) => wordColor.set(w, COLORS[i % COLORS.length]));
+
+		const selectedDiffs = new Map<string, DiffPoint[]>();
+		let globalMin = 0;
+		let globalMax = 0;
+		for (const word of topWords) {
+			const pts = wordDiffs.get(word);
+			if (!pts) continue;
+			selectedDiffs.set(word, pts);
+			for (const p of pts) {
+				if (p.diff < globalMin) globalMin = p.diff;
+				if (p.diff > globalMax) globalMax = p.diff;
 			}
 		}
-		const TOPK_PALETTE = ['#666666', '#777777', '#888888', '#555555', '#999999'];
-		topkList.forEach((w, i) => {
-			wordColor.set(w, TOPK_PALETTE[i % TOPK_PALETTE.length]);
-		});
 
-		const nModels = orderedModels.length;
+		const maxLayer = d3.max(allRows, (r) => r.layer) ?? 32;
+
+		let xMin = 0;
+		if (autoZoom) {
+			for (const [, pts] of selectedDiffs) {
+				for (const p of pts) {
+					if (Math.abs(p.diff) > 0.005) {
+						xMin = Math.max(0, p.layer - 2);
+						break;
+					}
+				}
+			}
+		}
+
 		const rect = container.getBoundingClientRect();
-		const totalWidth = rect.width;
-		const panelWidth = Math.floor(totalWidth / nModels);
-		const margin = { top: 32, right: 60, bottom: 36, left: 50 };
-		const innerW = panelWidth - margin.left - margin.right;
-		const height = 480;
+		const width = rect.width;
+		const margin = { top: 24, right: 120, bottom: 44, left: 65 };
+		const height = 420;
+		const innerW = width - margin.left - margin.right;
 		const innerH = height - margin.top - margin.bottom;
-		const maxLayer = d3.max(filtered, (r) => r.layer) ?? 32;
 
-		const svg = d3.select(container).append('svg').attr('width', totalWidth).attr('height', height);
+		const absMax = Math.max(Math.abs(globalMin), Math.abs(globalMax), 0.001);
+
+		const svg = d3.select(container).append('svg').attr('width', width).attr('height', height);
+		const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+		const x = d3.scaleLinear().domain([xMin, maxLayer]).range([0, innerW]);
+		const y = d3.scaleLinear().domain([-absMax * 1.15, absMax * 1.15]).range([innerH, 0]);
+
+		g.append('g')
+			.attr('transform', `translate(0,${innerH})`)
+			.call(d3.axisBottom(x).ticks(8).tickFormat(d3.format('d')))
+			.selectAll('text')
+			.style('fill', '#aaa')
+			.style('font-size', '11px');
+
+		g.append('g')
+			.call(
+				d3.axisLeft(y).ticks(6).tickFormat((d) => {
+					const v = d as number;
+					if (Math.abs(v) < 0.0005) return '0';
+					return v > 0 ? `+${d3.format('.2%')(v)}` : d3.format('.2%')(v);
+				})
+			)
+			.selectAll('text')
+			.style('fill', '#aaa')
+			.style('font-size', '10px');
+
+		g.selectAll('.domain, .tick line').style('stroke', '#333');
+
+		g.append('line')
+			.attr('x1', 0)
+			.attr('x2', innerW)
+			.attr('y1', y(0))
+			.attr('y2', y(0))
+			.attr('stroke', '#555')
+			.attr('stroke-width', 1)
+			.attr('stroke-dasharray', '4,4');
+
+		svg
+			.append('text')
+			.attr('x', margin.left + innerW / 2)
+			.attr('y', height - 6)
+			.attr('text-anchor', 'middle')
+			.attr('fill', '#888')
+			.attr('font-size', '11px')
+			.text('Network layer');
+
+		svg
+			.append('text')
+			.attr('transform', `translate(14, ${margin.top + innerH / 2}) rotate(-90)`)
+			.attr('text-anchor', 'middle')
+			.attr('fill', '#888')
+			.attr('font-size', '11px')
+			.text(`Δ prob (${modelB.toUpperCase()} − ${modelA.toUpperCase()})`);
+
+		g.append('text')
+			.attr('x', 4)
+			.attr('y', 6)
+			.attr('fill', '#4e79a7')
+			.attr('font-size', '10px')
+			.attr('opacity', 0.5)
+			.text(`↑ ${modelB.toUpperCase()} higher`);
+
+		g.append('text')
+			.attr('x', 4)
+			.attr('y', innerH - 4)
+			.attr('fill', '#e15759')
+			.attr('font-size', '10px')
+			.attr('opacity', 0.5)
+			.text(`↓ ${modelA.toUpperCase()} higher`);
 
 		const tooltip = d3
 			.select(container)
 			.append('div')
-			.attr('class', 'll-tooltip')
 			.style('position', 'absolute')
 			.style('pointer-events', 'none')
 			.style('background', 'rgba(20,20,20,0.95)')
@@ -177,171 +263,86 @@
 			.style('display', 'none')
 			.style('z-index', '100');
 
-		for (let mi = 0; mi < nModels; mi++) {
-			const model = orderedModels[mi];
-			const modelData = filtered.filter(
-				(r) => (r.model) === model
-			);
+		const line = d3
+			.line<DiffPoint>()
+			.x((d) => x(d.layer))
+			.y((d) => y(d.diff))
+			.curve(d3.curveMonotoneX);
 
-			const g = svg
-				.append('g')
-				.attr('transform', `translate(${mi * panelWidth + margin.left},${margin.top})`);
+		const area = d3
+			.area<DiffPoint>()
+			.x((d) => x(d.layer))
+			.y0(y(0))
+			.y1((d) => y(d.diff))
+			.curve(d3.curveMonotoneX);
 
+		for (const word of topWords) {
+			const points = selectedDiffs.get(word);
+			if (!points) continue;
+			const color = wordColor.get(word)!;
+			const visible = points.filter((p) => p.layer >= xMin);
+
+			g.append('path').datum(visible).attr('d', area).attr('fill', color).attr('opacity', 0.06);
+
+			const path = g
+				.append('path')
+				.datum(visible)
+				.attr('d', line)
+				.attr('fill', 'none')
+				.attr('stroke', color)
+				.attr('stroke-width', 2)
+				.attr('opacity', 0.8);
+
+			g.selectAll(null)
+				.data(visible.filter((_, i) => i % 2 === 0))
+				.enter()
+				.append('circle')
+				.attr('cx', (d) => x(d.layer))
+				.attr('cy', (d) => y(d.diff))
+				.attr('r', 2.5)
+				.attr('fill', color)
+				.attr('opacity', 0.7)
+				.on('mouseenter', function (event, d) {
+					path.attr('stroke-width', 4).attr('opacity', 1);
+					const sign = d.diff >= 0 ? '+' : '';
+					tooltip
+						.style('display', 'block')
+						.html(
+							`<strong>${word}</strong><br>` +
+								`layer ${d.layer}<br>` +
+								`${modelA.toUpperCase()}: ${d.probA.toExponential(3)}<br>` +
+								`${modelB.toUpperCase()}: ${d.probB.toExponential(3)}<br>` +
+								`Δ: <strong>${sign}${(d.diff * 100).toFixed(2)}%</strong>`
+						);
+				})
+				.on('mousemove', function (event) {
+					const [mx, my] = d3.pointer(event, container);
+					tooltip.style('left', mx + 14 + 'px').style('top', my - 10 + 'px');
+				})
+				.on('mouseleave', function () {
+					path.attr('stroke-width', 2).attr('opacity', 0.8);
+					tooltip.style('display', 'none');
+				});
+
+			const lastPt = visible[visible.length - 1];
 			g.append('text')
-				.attr('x', innerW / 2)
-				.attr('y', -12)
-				.attr('text-anchor', 'middle')
-				.attr('fill', '#ccc')
-				.attr('font-size', '13px')
+				.attr('x', x(lastPt.layer) + 6)
+				.attr('y', y(lastPt.diff))
+				.attr('dy', '0.35em')
+				.attr('fill', color)
+				.attr('font-size', '11px')
 				.attr('font-weight', '600')
-				.text(model.toUpperCase());
-
-			const x = d3.scaleLinear().domain([0, maxLayer]).range([0, innerW]);
-			const allProbs = modelData.map((r) => r.probability).filter((p) => p > 0);
-			const yMin = d3.min(allProbs) ?? 1e-8;
-			const yMax = d3.max(allProbs) ?? 1;
-			const y = d3
-				.scaleLog()
-				.domain([Math.max(yMin * 0.3, 1e-9), Math.min(yMax * 3, 1)])
-				.range([innerH, 0])
-				.clamp(true);
-
-			g.append('g')
-				.attr('transform', `translate(0,${innerH})`)
-				.call(d3.axisBottom(x).ticks(6).tickFormat(d3.format('d')))
-				.selectAll('text')
-				.style('fill', '#aaa')
-				.style('font-size', '10px');
-
-			if (mi === 0) {
-				g.append('g')
-					.call(
-						d3
-							.axisLeft(y)
-							.ticks(5)
-							.tickFormat((d) => d3.format('.0e')(d as number))
-					)
-					.selectAll('text')
-					.style('fill', '#aaa')
-					.style('font-size', '10px');
-			}
-
-			g.selectAll('.domain, .tick line').style('stroke', '#333');
-
-			if (mi === Math.floor(nModels / 2)) {
-				svg
-					.append('text')
-					.attr('x', mi * panelWidth + margin.left + innerW / 2)
-					.attr('y', height - 4)
-					.attr('text-anchor', 'middle')
-					.attr('fill', '#888')
-					.attr('font-size', '11px')
-					.text('Network layer');
-			}
-
-			const byWord = d3.group(modelData, (r) => r.word);
-			const line = d3
-				.line<LogitLensRow>()
-				.x((d) => x(d.layer))
-				.y((d) => y(Math.max(d.probability, 1e-9)))
-				.curve(d3.curveMonotoneX);
-
-			for (const [word, wordRows] of byWord) {
-				const sorted = wordRows.sort((a, b) => a.layer - b.layer);
-				const color = wordColor.get(word) ?? '#666666';
-				const isTracked = trackedWords.has(word);
-
-				const path = g
-					.append('path')
-					.datum(sorted)
-					.attr('d', line)
-					.attr('fill', 'none')
-					.attr('stroke', color)
-					.attr('stroke-width', isTracked ? 2 : 0.8)
-					.attr('stroke-dasharray', isTracked ? 'none' : '3,3')
-					.attr('opacity', isTracked ? 0.85 : 0.3);
-
-				g.selectAll(null)
-					.data(sorted)
-					.enter()
-					.append('circle')
-					.attr('cx', (d) => x(d.layer))
-					.attr('cy', (d) => y(Math.max(d.probability, 1e-9)))
-					.attr('r', isTracked ? 2.5 : 1)
-					.attr('fill', color)
-					.attr('opacity', isTracked ? 0.85 : 0.25)
-					.on('mouseenter', function (event, d) {
-						path.attr('stroke-width', isTracked ? 3.5 : 2).attr('opacity', 1);
-						const src = wordPrimarySource.get(d.word) ?? 'top-k';
-						tooltip
-							.style('display', 'block')
-							.html(
-								`<strong>${d.word}</strong> <span style="color:${color}">${src}</span><br>layer ${d.layer} &middot; p = ${d.probability.toExponential(3)}`
-							);
-					})
-					.on('mousemove', function (event) {
-						const [mx, my] = d3.pointer(event, container);
-						tooltip.style('left', mx + 14 + 'px').style('top', my - 10 + 'px');
-					})
-					.on('mouseleave', function () {
-						path
-							.attr('stroke-width', isTracked ? 2 : 0.8)
-							.attr('opacity', isTracked ? 0.85 : 0.3);
-						tooltip.style('display', 'none');
-					});
-
-				const peak = sorted.reduce((a, b) => (b.probability > a.probability ? b : a));
-				if (isTracked || peak.probability > 0.02) {
-					g.append('text')
-						.attr('x', x(peak.layer) + 4)
-						.attr('y', y(Math.max(peak.probability, 1e-9)) - 5)
-						.attr('fill', color)
-						.attr('font-size', isTracked ? '10px' : '8px')
-						.attr('font-weight', isTracked ? '600' : '400')
-						.attr('opacity', isTracked ? 0.9 : 0.6)
-						.text(word);
-				}
-			}
-		}
-
-		// Legend
-		const legendG = svg.append('g').attr('transform', `translate(12, ${height - 18})`);
-		const legendItems = [
-			{ label: 'declining', color: SOURCE_COLORS.declining, dash: false },
-			{ label: 'rising', color: SOURCE_COLORS.rising, dash: false },
-			{ label: 'top (base)', color: SOURCE_COLORS.top_base, dash: false },
-			{ label: 'top (sft)', color: SOURCE_COLORS.top_sft, dash: false },
-			{ label: 'top (dpo)', color: SOURCE_COLORS.top_dpo, dash: false },
-			{ label: 'internal top-k', color: '#777777', dash: true }
-		];
-		let lx = 0;
-		for (const item of legendItems) {
-			const g = legendG.append('g').attr('transform', `translate(${lx}, 0)`);
-			g.append('line')
-				.attr('x1', 0)
-				.attr('x2', 14)
-				.attr('y1', 0)
-				.attr('y2', 0)
-				.attr('stroke', item.color)
-				.attr('stroke-width', item.dash ? 1 : 2)
-				.attr('stroke-dasharray', item.dash ? '3,3' : 'none');
-			const text = g
-				.append('text')
-				.attr('x', 18)
-				.attr('y', 4)
-				.attr('fill', '#888')
-				.attr('font-size', '10px')
-				.text(item.label);
-			lx += 18 + (text.node()?.getComputedTextLength() ?? 60) + 16;
+				.text(word);
 		}
 	}
 
 	$effect(() => {
 		allRows;
-		nDeclining;
-		nRising;
-		nTopPerLayer;
-		minLayers;
+		nWords;
+		modelA;
+		modelB;
+		autoZoom;
+		rankBy;
 		draw();
 	});
 </script>
@@ -351,25 +352,34 @@
 		<button class="btn" onclick={load} disabled={loading || !prompt.trim()}>
 			{loading ? 'Computing...' : 'Run Logit Lens'}
 		</button>
-		<label class="slider-control">
-			<span class="label-text" style="color: {SOURCE_COLORS.declining}">declining</span>
-			<input type="range" bind:value={nDeclining} min={0} max={15} />
-			<span class="val">{nDeclining}</span>
+		<label class="compare-control">
+			<select bind:value={modelA}>
+				{#each availableModels() as m}
+					<option value={m}>{m.toUpperCase()}</option>
+				{/each}
+			</select>
+			<span>vs</span>
+			<select bind:value={modelB}>
+				{#each availableModels() as m}
+					<option value={m}>{m.toUpperCase()}</option>
+				{/each}
+			</select>
 		</label>
 		<label class="slider-control">
-			<span class="label-text" style="color: {SOURCE_COLORS.rising}">rising</span>
-			<input type="range" bind:value={nRising} min={0} max={15} />
-			<span class="val">{nRising}</span>
+			<span class="label-text">words</span>
+			<input type="range" bind:value={nWords} min={1} max={20} />
+			<span class="val">{nWords}</span>
 		</label>
-		<label class="slider-control">
-			<span class="label-text">top/layer</span>
-			<input type="range" bind:value={nTopPerLayer} min={0} max={15} />
-			<span class="val">{nTopPerLayer}</span>
+		<label class="compare-control">
+			<span>rank by</span>
+			<select bind:value={rankBy}>
+				<option value="output">output layer</option>
+				<option value="max">max across layers</option>
+			</select>
 		</label>
-		<label class="slider-control">
-			<span class="label-text" style="color: #777">top-k depth</span>
-			<input type="range" bind:value={minLayers} min={1} max={25} />
-			<span class="val">{minLayers}</span>
+		<label class="check-control">
+			<input type="checkbox" bind:checked={autoZoom} />
+			<span>auto-zoom</span>
 		</label>
 	</div>
 	{#if loadedPrompt && loadedPrompt !== prompt.trim()}
@@ -397,7 +407,7 @@
 	.controls {
 		display: flex;
 		align-items: center;
-		gap: 12px;
+		gap: 14px;
 		flex-wrap: wrap;
 	}
 
@@ -432,12 +442,11 @@
 	}
 
 	.slider-control .label-text {
-		min-width: 50px;
 		text-align: right;
 	}
 
 	.slider-control input[type='range'] {
-		width: 60px;
+		width: 70px;
 		accent-color: #4e79a7;
 	}
 
@@ -446,6 +455,42 @@
 		min-width: 18px;
 		color: #aaa;
 		font-size: 11px;
+	}
+
+	.compare-control {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 12px;
+		color: #888;
+	}
+
+	.compare-control select {
+		background: #141428;
+		border: 1px solid #2a2a44;
+		color: #ccc;
+		padding: 4px 8px;
+		border-radius: 4px;
+		font-size: 12px;
+		font-family: 'SF Mono', monospace;
+	}
+
+	.compare-control select:focus {
+		outline: none;
+		border-color: #4e79a7;
+	}
+
+	.check-control {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		font-size: 11px;
+		color: #888;
+		cursor: pointer;
+	}
+
+	.check-control input[type='checkbox'] {
+		accent-color: #4e79a7;
 	}
 
 	.stale {
@@ -468,6 +513,6 @@
 	.chart-area {
 		position: relative;
 		width: 100%;
-		min-height: 480px;
+		min-height: 420px;
 	}
 </style>

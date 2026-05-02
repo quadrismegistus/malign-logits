@@ -692,21 +692,21 @@ class PromptAnalysis:
     def _logit_lens_word_sources(self, fdf, n=15):
         """Build word->source mapping for logit lens tracking.
 
-        Sources: "declining" (formation), "rising" (formation),
-        "top_base", "top_ego", "top_superego", "top_instruct".
-        A word can have multiple sources.
+        Tracks the top declining/rising words from every available
+        transition (sft-base, dpo-sft, dpo-base, rlvr-dpo), plus
+        the top-N words from each model layer's output distribution.
         """
         sources = {}
 
-        if "dpo" in fdf.columns:
-            delta_col = ("dpo - sft" if "dpo - sft" in fdf.columns
-                         else "dpo - base")
+        delta_cols = [c for c in fdf.columns if " - " in c]
+        for delta_col in delta_cols:
             df = fdf[fdf[delta_col].notna()].copy()
             df["_abs_delta"] = df[delta_col].abs()
+            tag = delta_col.replace(" ", "")
             for w in df[df[delta_col] < 0].nlargest(n, "_abs_delta")["word"]:
-                sources.setdefault(w, []).append("declining")
+                sources.setdefault(w, []).append(f"declining_{tag}")
             for w in df[df[delta_col] > 0].nlargest(n, "_abs_delta")["word"]:
-                sources.setdefault(w, []).append("rising")
+                sources.setdefault(w, []).append(f"rising_{tag}")
 
         layer_words = [
             ("top_base", self.base_words),
