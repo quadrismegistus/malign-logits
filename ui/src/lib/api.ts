@@ -92,6 +92,43 @@ export interface LogitLensResult {
 	word_sources: Record<string, string[]>;
 }
 
+export interface Generation {
+	model: string;
+	text: string;
+	gen_id: number;
+	pca_x: number;
+	pca_y: number;
+	violent: number;
+	sexual: number;
+	compliant: number;
+}
+
+export interface GenerateResult {
+	generations: Generation[];
+	concept_axes: string[];
+	pca_variance: number[];
+}
+
+export interface ContestedWord {
+	word: string;
+	prob_a: number;
+	prob_b: number;
+	prob_ab: number;
+	prob_mean: number;
+}
+
+export interface ContradictionResult {
+	pair: string;
+	prompt_a: string;
+	prompt_b: string;
+	prompt_ab: string;
+	model: string;
+	superposition: number;
+	resolution: number;
+	ratio: number;
+	contested_words: ContestedWord[];
+}
+
 export const api = {
 	health: () => get<{ status: string; models_loaded: boolean }>('/health'),
 	info: () => get<ServerInfo>('/info'),
@@ -104,5 +141,9 @@ export const api = {
 		post<{ words: Record<string, number> }>('/top_words', { layer, prompt, top_k }),
 	perplexity: (layer: string, prompt: string) =>
 		post<{ perplexity: number }>('/perplexity', { layer, prompt }),
-	logitLens: (prompt: string) => post<LogitLensResult>('/logit_lens', { prompt })
+	logitLens: (prompt: string) => post<LogitLensResult>('/logit_lens', { prompt }),
+	generate: (prompt: string, n = 5, max_tokens = 100, temperature = 1.0) =>
+		post<GenerateResult>('/generate', { prompt, n, max_tokens, temperature }),
+	contradiction: () =>
+		post<{ results: ContradictionResult[] }>('/contradiction', {})
 };

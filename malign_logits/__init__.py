@@ -97,7 +97,7 @@ MODEL_FAMILIES = {
     "tulu": ModelFamily(
         name="Tulu 3.1 8B",
         base="meta-llama/Llama-3.1-8B",
-        ego="allenai/Llama-3.1-Tulu-3-8B-SFT",
+        ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
         superego="allenai/Llama-3.1-Tulu-3-8B-DPO",
         reinforced_superego="allenai/Llama-3.1-Tulu-3.1-8B",
     ),

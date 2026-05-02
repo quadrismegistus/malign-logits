@@ -296,6 +296,89 @@ class ModelHandler(BaseHTTPRequestHandler):
             _set_progress("idle")
             return data
 
+        elif path == "/generate":
+            prompt = body["prompt"]
+            n = body.get("n", 5)
+            max_tokens = body.get("max_tokens", 100)
+            temperature = body.get("temperature", 1.0)
+
+            _set_progress("generating", "Generating...", step=0, total=n)
+
+            from .embedding import generate_many_with_progress
+
+            MODEL_LABELS = {"base": "base", "ego": "sft",
+                            "superego": "dpo", "instruct": "rlvr"}
+
+            def _gen_progress(done, total):
+                _set_progress("generating", f"Generation {done}/{total}",
+                              step=done, total=total)
+
+            psg_df = generate_many_with_progress(
+                psyche, prompt, n=n, max_new_tokens=max_tokens,
+                temperature=temperature, progress_callback=_gen_progress,
+            )
+
+            generations = []
+            gen_counter = {}
+            for _, row in psg_df.iterrows():
+                model = row["model"]
+                gen_counter.setdefault(model, 0)
+                generations.append({
+                    "model": MODEL_LABELS.get(model, model),
+                    "text": row["psg"],
+                    "gen_id": gen_counter[model],
+                })
+                gen_counter[model] += 1
+
+            _set_progress("generating", "Embedding...",
+                          step=n, total=n)
+
+            import pandas as pd
+            import numpy as np
+            from .embedding import (
+                _get_embedder, concept_seeds, concept_vector, score_concept,
+            )
+
+            embedder = _get_embedder()
+            texts = [g["text"] for g in generations]
+            vecs = embedder.encode(texts)
+
+            from sklearn.decomposition import PCA
+            pca = PCA(n_components=min(2, len(vecs)))
+            coords = pca.fit_transform(vecs)
+
+            seeds = concept_seeds()
+            concept_scores = {}
+            for name, seed_pair in seeds.items():
+                axis, midpoint = concept_vector(
+                    embedder, seed_pair["positive"], seed_pair["negative"],
+                )
+                scores = score_concept(vecs, axis, midpoint)
+                concept_scores[name] = [round(float(s), 4) for s in scores]
+
+            for i, g in enumerate(generations):
+                g["pca_x"] = round(float(coords[i, 0]), 4)
+                g["pca_y"] = round(float(coords[i, 1] if coords.shape[1] > 1 else 0), 4)
+                for name in concept_scores:
+                    g[name] = concept_scores[name][i]
+
+            _set_progress("idle")
+            return {
+                "generations": generations,
+                "concept_axes": list(seeds.keys()),
+                "pca_variance": [round(float(v), 4) for v in pca.explained_variance_ratio_],
+            }
+
+        elif path == "/contradiction":
+            pairs = body.get("pairs", None)
+            _set_progress("contradiction", "Analyzing contradictions...")
+            def _ct_progress(detail, step, total):
+                _set_progress("contradiction", detail, step=step, total=total)
+            results = psyche.contradiction_analysis(
+                pairs=pairs, progress_callback=_ct_progress)
+            _set_progress("idle")
+            return {"results": results}
+
         elif path == "/info":
             info = {
                 "base": psyche.primary_process.model_id,

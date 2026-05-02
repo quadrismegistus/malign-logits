@@ -105,6 +105,55 @@ def generate_many(psyche, prompt, n=30, max_new_tokens=100,
     return pd.DataFrame(rows)
 
 
+def generate_many_with_progress(psyche, prompt, n=5, max_new_tokens=100,
+                                temperature=1.0, cache_dir=None,
+                                progress_callback=None):
+    """Like generate_many but with progress callback for server use."""
+    from hashstash import HashStash
+
+    stash_path = cache_dir or _gen_stash_path()
+    stash = HashStash(root_dir=stash_path, append_mode=True)
+    model_ids = [psyche.primary_process.model_id]
+    if psyche.ego is not None:
+        model_ids.append(psyche.ego.model_id)
+    if psyche.superego is not None:
+        model_ids.append(psyche.superego.model_id)
+    if psyche.reinforced_superego is not None:
+        model_ids.append(psyche.reinforced_superego.model_id)
+    key = {
+        "prompt": prompt,
+        "temperature": temperature,
+        "models": tuple(model_ids),
+    }
+
+    got = stash.get_all(key)
+    existing = len(got) if got else 0
+    needed = n - existing
+
+    for i in range(needed):
+        if progress_callback:
+            progress_callback(existing + i, n)
+        gens = psyche.generate(
+            prompt, max_new_tokens=max_new_tokens,
+            temperature=temperature, verbose=False,
+        )
+        stash[key] = gens
+
+    all_gens = stash.get_all(key)
+    rows = []
+    for gen in all_gens[:n]:
+        for model, psg in gen.items():
+            if model == "prompt":
+                continue
+            rows.append({
+                "prompt": prompt,
+                "temperature": temperature,
+                "model": model,
+                "psg": psg,
+            })
+    return pd.DataFrame(rows)
+
+
 def extract_prompt_words(gen_parquet="data/gen_battery_raw.parquet", top_n=15):
     """Extract empirical first-word vocabularies per prompt from generations.
 
