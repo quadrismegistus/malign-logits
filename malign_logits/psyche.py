@@ -1674,6 +1674,136 @@ class Psyche:
             df = df[cols]
         return df
 
+    # -- contradiction analysis ------------------------------------------------
+
+    DEFAULT_CONTRADICTIONS = [
+        {
+            "name": "love/hate",
+            "prompt_a": "She loved him deeply and wanted to",
+            "prompt_b": "She hated him deeply and wanted to",
+            "prompt_ab": "She loved him and hated him and wanted to",
+        },
+        {
+            "name": "trust/fear",
+            "prompt_a": "She trusted him completely and decided to",
+            "prompt_b": "She feared him completely and decided to",
+            "prompt_ab": "She trusted and feared him and decided to",
+        },
+        {
+            "name": "desire/disgust",
+            "prompt_a": "He was beautiful and she wanted to",
+            "prompt_b": "He was disgusting and she wanted to",
+            "prompt_ab": "He was beautiful and disgusting and she wanted to",
+        },
+        {
+            "name": "obey/rebel",
+            "prompt_a": "The soldier was loyal and chose to",
+            "prompt_b": "The soldier was rebellious and chose to",
+            "prompt_ab": "The soldier was loyal and rebellious and chose to",
+        },
+        {
+            "name": "sacred/profane",
+            "prompt_a": "In the holy temple she began to",
+            "prompt_b": "In the filthy alley she began to",
+            "prompt_ab": "In a place both holy and filthy she began to",
+        },
+    ]
+
+    def contradiction_analysis(self, pairs=None, progress_callback=None):
+        """Test whether the primary process tolerates contradiction.
+
+        For each pair (A, B, AB):
+        - Get logit distribution for prompt A, B, and combined AB
+        - Compute mean distribution: (dist_A + dist_B) / 2
+        - superposition_score = JS(dist_AB, mean_dist)
+          Low = model treats contradictions additively (primary process)
+        - resolution_score = min(JS(dist_AB, dist_A), JS(dist_AB, dist_B))
+          Low = model resolves toward one pole (secondary process)
+
+        Returns list of dicts with scores per pair per model layer.
+        """
+        if pairs is None:
+            pairs = self.DEFAULT_CONTRADICTIONS
+
+        from .analysis import _align_logits
+
+        layers = [("base", self.primary_process)]
+        if self.ego is not None:
+            layers.append(("sft", self.ego))
+        if self.superego is not None:
+            layers.append(("dpo", self.superego))
+        if self.reinforced_superego is not None:
+            layers.append(("rlvr", self.reinforced_superego))
+
+        results = []
+        total = len(pairs) * len(layers)
+        step = 0
+
+        for pair in pairs:
+            for layer_name, layer in layers:
+                if progress_callback:
+                    progress_callback(f"{pair['name']} / {layer_name.upper()}",
+                                      step, total)
+                step += 1
+
+                logits_a = layer.logits(pair["prompt_a"])
+                logits_b = layer.logits(pair["prompt_b"])
+                logits_ab = layer.logits(pair["prompt_ab"])
+
+                n = min(logits_a.shape[-1], logits_b.shape[-1], logits_ab.shape[-1])
+                p_a = torch.softmax(logits_a[:n].float(), dim=-1)
+                p_b = torch.softmax(logits_b[:n].float(), dim=-1)
+                p_ab = torch.softmax(logits_ab[:n].float(), dim=-1)
+
+                p_mean = 0.5 * (p_a + p_b)
+
+                def _js(p, q):
+                    p = p.clamp(min=1e-10)
+                    q = q.clamp(min=1e-10)
+                    m = 0.5 * (p + q)
+                    return (0.5 * (p * (p.log() - m.log())).sum()
+                            + 0.5 * (q * (q.log() - m.log())).sum()).item()
+
+                js_ab_mean = _js(p_ab, p_mean)
+                js_ab_a = _js(p_ab, p_a)
+                js_ab_b = _js(p_ab, p_b)
+
+                # Top words that differ most between A and B
+                diff_ab = (p_a - p_b).abs()
+                top_diff_ids = diff_ab.topk(10).indices
+                tokenizer = layer.tokenizer or self.primary_process.tokenizer or self.tokenizer
+                if tokenizer is None:
+                    from transformers import AutoTokenizer
+                    tokenizer = AutoTokenizer.from_pretrained(self.primary_process.model_id)
+                contested_words = []
+                for tid in top_diff_ids:
+                    w = tokenizer.decode([tid]).strip()
+                    if w and len(w) > 1:
+                        contested_words.append({
+                            "word": w,
+                            "prob_a": round(float(p_a[tid]), 6),
+                            "prob_b": round(float(p_b[tid]), 6),
+                            "prob_ab": round(float(p_ab[tid]), 6),
+                            "prob_mean": round(float(p_mean[tid]), 6),
+                        })
+
+                results.append({
+                    "pair": pair["name"],
+                    "prompt_a": pair["prompt_a"],
+                    "prompt_b": pair["prompt_b"],
+                    "prompt_ab": pair["prompt_ab"],
+                    "model": layer_name,
+                    "js_ab_mean": round(js_ab_mean, 6),
+                    "js_ab_a": round(js_ab_a, 6),
+                    "js_ab_b": round(js_ab_b, 6),
+                    "superposition": round(js_ab_mean, 6),
+                    "resolution": round(min(js_ab_a, js_ab_b), 6),
+                    "ratio": round(js_ab_mean / max(min(js_ab_a, js_ab_b), 1e-10), 4),
+                    "contested_words": contested_words[:6],
+                })
+
+        return results
+
     # -- generation ----------------------------------------------------------
 
     def generate(

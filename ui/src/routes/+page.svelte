@@ -7,6 +7,8 @@
 	import DataTable from '$lib/components/DataTable.svelte';
 	import PairsList from '$lib/components/PairsList.svelte';
 	import LogitLensChart from '$lib/components/LogitLensChart.svelte';
+	import GenerationChart from '$lib/components/GenerationChart.svelte';
+	import ContradictionChart from '$lib/components/ContradictionChart.svelte';
 
 	let connected = $state(false);
 	let serverInfo: ServerInfo | null = $state(null);
@@ -155,6 +157,8 @@
 		{ id: 'formation', label: 'Formation' },
 		{ id: 'displacement', label: 'Displacement' },
 		{ id: 'logit-lens', label: 'Logit Lens' },
+		{ id: 'generate', label: 'Generate' },
+		{ id: 'contradiction', label: 'Contradiction' },
 		{ id: 'report', label: 'Report' },
 	];
 
@@ -326,6 +330,10 @@
 						{/if}
 					{:else if activeTab === 'logit-lens'}
 						<LogitLensChart {prompt} {analyzedPrompt} onAnalyze={() => analyze({ switchTab: false })} />
+					{:else if activeTab === 'generate'}
+						<GenerationChart {prompt} {analyzedPrompt} onAnalyze={() => analyze({ switchTab: false })} />
+					{:else if activeTab === 'contradiction'}
+						<ContradictionChart />
 					{:else if activeTab === 'report'}
 						<pre class="report">{analysis.report}</pre>
 					{/if}
