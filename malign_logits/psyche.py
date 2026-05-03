@@ -742,7 +742,10 @@ class PromptAnalysis:
         Uses ego model for embeddings when available, otherwise superego.
 
         Args:
-            layers: Hidden layer indices. Default [8, 16, 24].
+            layers: Hidden layer indices. Default scales by network depth:
+                [25%, 50%, 75%] of the embedding model's num_hidden_layers
+                (e.g. [8, 16, 24] for OLMo 3 7B's 32 layers; [4, 8, 12] for
+                OLMo 2 1B's 16 layers).
             min_prob: Minimum probability in any layer to be included.
             similarity_threshold: Minimum cosine similarity for a link.
             delta_threshold: Minimum probability delta to classify a word.
@@ -756,7 +759,9 @@ class PromptAnalysis:
         has_ego = self._psyche.has_ego
 
         if layers is None:
-            layers = [8, 16, 24]
+            embed_model = (self._psyche.ego if has_ego else self._psyche.superego).model
+            n_hidden = embed_model.config.num_hidden_layers
+            layers = [round(n_hidden * f) for f in (0.25, 0.5, 0.75)]
 
         df = self.formation_df.copy()
         dt = delta_threshold

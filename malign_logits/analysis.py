@@ -11,18 +11,24 @@ def compute_displacement(
     similarity_threshold=0.3,
     min_repression=0.005,
     min_displacement_mass=0.0005,
-    hidden_layer=16,
+    hidden_layer=None,
     device=None,
 ):
     """
     Displacement engine v4.
-    
+
     Incorporates base model as drive energy weighting.
     Repressed words with stronger base-model drive behind them
     displace more mass, producing heavier symptoms.
+
+    ``hidden_layer`` defaults to 50% of network depth
+    (layer 16 for OLMo 3 7B's 32-layer stack, layer 8 for OLMo 2 1B's
+    16-layer stack).
     """
     if device is None:
         device = next(model.parameters()).device
+    if hidden_layer is None:
+        hidden_layer = round(model.config.num_hidden_layers * 0.5)
 
     all_words = set(base_words.keys()) | set(ego_words.keys()) | set(superego_words.keys())
 
