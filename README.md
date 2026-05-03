@@ -22,6 +22,7 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
   - [9. Same base model, different alignment (Tulu vs Llama)](#9-same-base-model-different-alignment-tulu-31-vs-llama-31-47-prompts)
   - [10. SFT data ablation (Tulu 3)](#10-sft-data-ablation-tulu-3-5-variants-47-prompts)
   - [11. Contradiction tolerance (OLMo 3 7B)](#11-contradiction-tolerance-olmo-3-7b-5-prompt-pairs--nnsight-intervention)
+  - [12. Trajectory geometry and fold-vs-wall (OLMo 2 1B, preliminary)](#12-trajectory-geometry-and-the-fold-vs-wall-question-olmo-2-1b-preliminary)
 - [Installation](#installation)
 - [Quick start](#quick-start)
 - [Usage](#usage)
@@ -340,6 +341,50 @@ The contradiction axis is equally linearly decomposable in base, SFT, and DPO. P
 **This is closer to Lacan than Freud.** Freud's primary process is pre-logical chaos that the ego must organise. Lacan's unconscious is "structured like a language" — it has its own logic. The computational evidence supports Lacan: the base model's representation space is already structured with clean contradiction axes. What alignment adds is not logical structure but a *preference* for deploying it — a bias toward coherence that the collective text of the internet never demanded.
 
 Notebook: `notebooks/07_contradiction_intervention.ipynb`. Scripts: `scripts/contradiction_test.py`, `scripts/contradiction_compare.py`.
+
+### 12. Trajectory geometry and the fold-vs-wall question (OLMo 2 1B, preliminary)
+
+Two-part investigation of alignment's geometric signature in the residual stream. **Caveat: results are on OLMo 2 1B, not the 7B family used elsewhere.** The qualitative finding likely generalizes; the specific numbers will not.
+
+**Part A: Trajectory geometry across alignment stages.** Feed an identical token sequence through base, SFT, DPO, and RLVR; capture per-token hidden states from layer 13 of 16; measure three scale-invariant metrics on the trajectory.
+
+| metric | base | sft | dpo | rlvr |
+|---|---|---|---|---|
+| `gyration_cos` (angular spread of trajectory directions) | 0.469 | 0.471 | 0.485 | 0.483 |
+| `local_drift` (transgressive prompts, mean cosine step distance) | 0.507 | 0.493 | 0.498 | 0.497 |
+| `mean_norm` (residual stream magnitude) | 21.6 | 24.0 | 24.3 | 24.2 |
+
+Euclidean `path_length` and `gyration_radius` were entirely norm-confounded — base→DPO expansion of +12% in both, matching the +12% norm increase exactly.
+
+**The SFT/DPO division of labour is sharper at the geometric level than the logit level.** Decomposing each base→DPO change by what each stage contributes:
+
+| effect | SFT contribution | DPO contribution |
+|---|---|---|
+| mean_norm pumping (+12%) | **+11.0% (89%)** | +1.2% (11%) |
+| transgressive local_drift smoothing (−2.6%) | **−2.6% (full effect)** | partial restore +0.9% |
+| gyration_cos expansion (+3.4%) | +0.4% (13%) | **+2.9% (87%)** |
+
+**SFT** pumps activation norms globally and smooths step-to-step direction change on transgressive content (the *content-specific* and *magnitude* work). **DPO** widens the angular cone of directions traversed (the *territorial* work). RLVR plateaus on all three.
+
+**Lyotardian framing:** alignment isn't "folding the surface tighter." Three structurally different geometric shifts at three training stages: SFT re-scales the residual stream into a higher-norm regime and smooths transgressive paths; DPO unfolds the angular territory the model traverses. The dispositif redistributes energy across multiple geometric dimensions, sequentially.
+
+**Part B: Fold or wall? Three escalating intervention experiments.** If the aligned region is reachable from base by linear translation in residual space (a fold), pushing base's hidden state along the right direction at layer L should produce DPO-like output. If not (a wall), alignment has restructured the topology, not folded it.
+
+| intervention | held-out closure of base→DPO JS gap |
+|---|---|
+| Single-prompt (DPO − base) at last position (v2) | ~0% (catastrophic at α=1, output goes off-manifold entirely) |
+| Averaged (DPO − base) across 8 prompts (v2.5) | 0.7% |
+| Learned steering vector via gradient descent on KL to DPO, train on 10 prompts, eval on held-out 8 (v2.6) | **6.0%** |
+
+Even the gradient-optimal linear direction at the best layer (L=4) closes only ~6% of the base→DPO JS gap on held-out prompts. **~94% of alignment is non-compositional in residual space at a single layer** — coordinated re-weighting of multiple pathways that no single-vector perturbation captures.
+
+**Random initialization beats v2.5-averaged initialization 3-7×.** This was unexpected: if the v2.5 average direction (per-prompt diff consistency 0.65–0.70) carried real alignment signal, it should be a useful starting point for descent. Instead, random init finds a better local optimum. The high cross-prompt consistency in v2.5 was capturing *general representational drift* between the two models, not the *alignment-relevant* direction.
+
+**Token-level confirms the small directional component is real.** At the best learned vector (L=4, α=0.3, rand init), `kill` drops 0.235 → 0.220 (DPO target: 0.040), `cry` and `scream` rise toward DPO levels, 60% of top-20 base tokens move in the DPO direction. So a directional component exists — it just accounts for ~6% of what alignment does.
+
+**Verdict — partial fold, mostly wall.** ~6% of alignment is geometrically a fold; ~94% is structural. Lyotard's *dispositif* isn't a single rotation of the libidinal surface — it's a coordinated re-weighting of pathways with a faint linear-direction trace. Alignment as Name-of-the-Father isn't a vector you can ride; it's a re-architecting that resists single-vector inversion.
+
+Notebook: `notebooks/08_trajectory_drift.ipynb`. Open: replicate on 7B (OLMo 3, Llama, Qwen, Amber). Llama's late-layer override (finding #5) may show higher closure given its more linearizable structure; representation-engineering work on 7B suggests 30–50% closure on specific concept subspaces, vs our 6% on the whole DPO transformation.
 
 
 
