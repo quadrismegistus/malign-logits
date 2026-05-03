@@ -108,7 +108,7 @@ def run_taxonomy(family_key="olmo", all_prompts=False, output_path=None,
     if family_key not in MODEL_FAMILIES:
         raise ValueError(f"Unknown family: {family_key}")
     prompts = DEFAULT_PROMPTS if all_prompts else TIER1_PROMPTS
-    output_path = output_path or "data/displacement_taxonomy.csv"
+    output_path = output_path or f"data/taxonomy_{family_key}.csv"
 
     owns_psyche = psyche is None
     if owns_psyche:
