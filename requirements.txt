@@ -15,4 +15,4 @@ scipy
 spacy
 wordfreq
 matplotlib
-hashstash
+hashstash[rec]>=0.4.0

@@ -118,6 +118,12 @@ MODEL_FAMILIES = {
         superego="allenai/Llama-3.1-Tulu-3-8B-DPO",
         reinforced_superego="allenai/Llama-3.1-Tulu-3.1-8B",
     ),
+    "zephyr": ModelFamily(
+        name="Zephyr 7B",
+        base="mistralai/Mistral-7B-v0.1",
+        ego="HuggingFaceH4/mistral-7b-sft-beta",
+        superego="HuggingFaceH4/zephyr-7b-beta",
+    ),
 }
 
 TULU_ABLATIONS = {
