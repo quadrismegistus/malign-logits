@@ -117,162 +117,13 @@ def cmd_cloud(args):
 
 
 def cmd_produce_all(args):
-    """Run all data production tasks, grouped by family to minimize model reloading."""
-    import gc
-    import time
-    import torch
-    import pandas as pd
-    from . import MODEL_FAMILIES, TULU_ABLATIONS
-    from .psyche import Psyche
-    from .experiments import DEFAULT_PROMPTS, TIER1_PROMPTS
-
-    families = args.families.split(",") if args.families else list(MODEL_FAMILIES.keys())
-    skip = set(args.skip.split(",")) if args.skip else set()
-    gen_n = args.gen_n
-    results = {}
-    t0 = time.time()
-
-    def _free():
-        gc.collect()
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
-        if torch.backends.mps.is_available():
-            torch.mps.empty_cache()
-
-    # ── Phase 1: per-family tasks (models loaded once per family) ──
-
-    all_battery = []
-
-    for key in families:
-        fam = MODEL_FAMILIES[key]
-        print(f"\n{'=' * 60}")
-        print(f"  {key}: {fam.name} ({fam.n_layers} layers)")
-        print(f"{'=' * 60}")
-
-        psyche = Psyche.from_family(key, load=True)
-
-        # Battery
-        if "battery" not in skip:
-            print(f"\n  ── Battery ({key}) ──")
-            try:
-                metrics = psyche.battery_metrics()
-                metrics["family"] = key
-                all_battery.append(metrics)
-                metrics.to_csv(f"data/battery_{key}.csv", index=False)
-                print(f"  Saved data/battery_{key}.csv ({len(metrics)} prompts)")
-                results[f"battery-{key}"] = "done"
-            except Exception as e:
-                print(f"  ERROR: {e}")
-                results[f"battery-{key}"] = f"error: {e}"
-
-        # Generation
-        if "generate" not in skip:
-            print(f"\n  ── Generation ({key}) ──")
-            try:
-                from .embedding import generate_many
-                prompts = TIER1_PROMPTS
-                for label, prompt in prompts.items():
-                    print(f"    {label}: {prompt[:40]}...")
-                    generate_many(psyche, prompt, n=gen_n, max_new_tokens=100)
-                results[f"generate-{key}"] = "done"
-            except Exception as e:
-                print(f"  ERROR: {e}")
-                results[f"generate-{key}"] = f"error: {e}"
-
-        # Taxonomy
-        if "taxonomy" not in skip:
-            print(f"\n  ── Taxonomy ({key}) ──")
-            try:
-                from .taxonomy import run_taxonomy
-                run_taxonomy(
-                    family_key=key, all_prompts=True,
-                    output_path=f"data/taxonomy_{key}.csv",
-                    psyche=psyche,
-                )
-                results[f"taxonomy-{key}"] = "done"
-            except ImportError:
-                print(f"  Skipping taxonomy (spacy/wordfreq not installed)")
-                results[f"taxonomy-{key}"] = "skipped (missing deps)"
-            except Exception as e:
-                print(f"  ERROR: {e}")
-                results[f"taxonomy-{key}"] = f"error: {e}"
-
-        del psyche
-        _free()
-
-    # Save combined battery
-    if all_battery and "battery" not in skip:
-        combined = pd.concat(all_battery, ignore_index=True)
-        cols = ["family", "label", "prompt"] + [
-            c for c in combined.columns if c not in ("family", "label", "prompt")
-        ]
-        combined = combined[cols]
-        combined.to_csv("data/battery_results.csv", index=False)
-        print(f"\nCombined battery: data/battery_results.csv ({len(combined)} rows)")
-
-    # ── Phase 2: logit lens (uses Psyche — cached to stash) ──
-
-    if "logit-lens" not in skip:
-        import re as _re
-        lens_prompts = list(TIER1_PROMPTS.items())[:6]
-
-        for key in families:
-            fam = MODEL_FAMILIES[key]
-            from .psyche import Psyche as _Psyche
-            psyche = _Psyche.from_family(key, load=True)
-            for label, prompt in lens_prompts:
-                print(f"\n  ── Logit lens: {key} / {label} ──")
-                try:
-                    analysis = psyche.analyze(prompt)
-                    data = analysis.logit_lens_df
-                    print(f"  {len(data['rows'])} data points, {len(data['word_sources'])} tracked")
-                    results[f"logit-lens-{key}-{label}"] = "done"
-                except Exception as e:
-                    print(f"  ERROR: {e}")
-                    results[f"logit-lens-{key}-{label}"] = f"error: {e}"
-            del psyche
-            _free()
-
-    # ── Phase 3: ablation (loads base once, swaps SFT variants) ──
-
-    if "ablation" not in skip and "tulu" in families:
-        print(f"\n{'=' * 60}")
-        print(f"  SFT Ablation comparison")
-        print(f"{'=' * 60}")
-        try:
-            from .ablation import run_ablation
-            run_ablation()
-            results["ablation"] = "done"
-        except Exception as e:
-            print(f"  ERROR: {e}")
-            results["ablation"] = f"error: {e}"
-
-    # ── Phase 4: embed + compute generation metrics ──
-
-    if "generate" not in skip:
-        print(f"\n{'=' * 60}")
-        print(f"  Embedding + generation metrics")
-        print(f"{'=' * 60}")
-        try:
-            from .embedding import embed_generations, compute_generation_metrics, compute_concept_metrics
-            embed_generations()
-            gen_metrics = compute_generation_metrics()
-            concept_metrics = compute_concept_metrics()
-            if gen_metrics is not None:
-                gen_metrics.to_csv("data/gen_battery_metrics.csv", index=False)
-                print(f"  Saved data/gen_battery_metrics.csv")
-            results["embed-metrics"] = "done"
-        except Exception as e:
-            print(f"  ERROR: {e}")
-            results["embed-metrics"] = f"error: {e}"
-
-    elapsed = time.time() - t0
-    print(f"\n{'=' * 60}")
-    print(f"  ALL TASKS COMPLETE ({elapsed / 3600:.1f}h)")
-    print(f"{'=' * 60}")
-    for k, v in sorted(results.items()):
-        status = "✓" if v == "done" else "✗"
-        print(f"  {status} {k:30s} {v}")
+    """Run all data-production tasks across families."""
+    from .produce import produce_all
+    produce_all(
+        families=args.families.split(",") if args.families else None,
+        skip=args.skip.split(",") if args.skip else None,
+        gen_n=args.gen_n,
+    )
 
 
 def cmd_ablation(args):
@@ -286,415 +137,59 @@ def cmd_ablation(args):
 
 def cmd_battery(args):
     """Run prompt battery across one or all model families."""
-    import gc
-    import torch
-    from . import MODEL_FAMILIES
-    from .psyche import Psyche
-
-    families = [args.family] if args.family else list(MODEL_FAMILIES.keys())
-    all_metrics = []
-
-    for key in families:
-        fam = MODEL_FAMILIES[key]
-        print(f"\n{'=' * 60}")
-        print(f"  {key}: {fam.name} ({fam.n_layers} layers)")
-        print(f"{'=' * 60}")
-
-        psyche = Psyche.from_family(key, load=True)
-        metrics = psyche.battery_metrics()
-        metrics["family"] = key
-        all_metrics.append(metrics)
-
-        # Free memory before loading next family
-        del psyche
-        gc.collect()
-        if torch.backends.mps.is_available():
-            torch.mps.empty_cache()
-
-    import pandas as pd
-    combined = pd.concat(all_metrics, ignore_index=True)
-    cols = ["family", "label", "prompt"] + [
-        c for c in combined.columns if c not in ("family", "label", "prompt")
-    ]
-    combined = combined[cols]
-
-    out = args.output or "data/battery_results.csv"
-    combined.to_csv(out, index=False)
-    print(f"\nResults saved to {out}")
-    print(f"\n{combined.to_string()}")
+    from .battery import run_battery
+    run_battery(
+        families=[args.family] if args.family else None,
+        output_path=args.output,
+    )
 
 
 def cmd_logit_lens(args):
     """Run logit lens analysis across model layers."""
-    import re
-    import pandas as pd
-    from .psyche import Psyche
-
-    prompt = args.prompt
-    key = args.family or "olmo"
-
-    psyche = Psyche.from_family(key, load=True)
-    analysis = psyche.analyze(prompt, top_k_first=200)
-
-    print(f"Running logit lens for {key}: \"{prompt}\"")
-    data = analysis.logit_lens_df
-    rows = data["rows"]
-    word_sources = data["word_sources"]
-    print(f"  {len(rows)} data points across {psyche.n_layers} model layers")
-    print(f"  {len(word_sources)} tracked words")
-
-    result = pd.DataFrame(rows)
-
-    tracked = [w for w in word_sources if "declining" in word_sources[w]]
-    tracked += [w for w in word_sources if "rising" in word_sources[w] and w not in tracked]
-
-    prompt_slug = re.sub(r'[^a-z0-9]+', '_', prompt.lower().strip())[:50].strip('_')
-    words_slug = '_'.join(tracked[:5])
-
-    if args.output:
-        out = args.output
-    else:
-        basename = f"logit_lens.{key}.{prompt_slug}.{words_slug}"
-        out = f"data/{basename}.csv"
-
-    result.to_csv(out, index=False)
-    print(f"Saved to {out}")
-
-    from .viz import plot_logit_lens
-    fig_path = f"figures/logit_lens.{key}.{prompt_slug}.{words_slug}.png"
-    plot_logit_lens(result, prompt=prompt, family=key, top_k=args.top_k,
-                    min_layers=args.min_layers, save_path=fig_path)
-    print(f"Figure saved to {fig_path}")
+    from .logit_lens import run_logit_lens
+    run_logit_lens(
+        prompt=args.prompt,
+        family=args.family or "olmo",
+        top_k=args.top_k,
+        min_layers=args.min_layers,
+        output_path=args.output,
+    )
 
 
 def cmd_step_analysis(args):
     """Trace repression emergence across SFT training steps."""
-    import gc
-    import torch
-    import pandas as pd
-    from .experiments import (
-        TIER1_PROMPTS, DEFAULT_PROMPTS, TRACKED_WORDS,
-        DEFAULT_STEPS, STEP_REPO,
-    )
-    from .analysis import distribution_entropy, js_divergence, kl_divergence, top_k_overlap
-    from .embedding import extract_prompt_words
-
-    prompts = TIER1_PROMPTS if args.prompts == "tier1" else DEFAULT_PROMPTS
-    if args.category:
-        prompts = {k: v for k, v in prompts.items() if k.startswith(args.category)}
-        if not prompts:
-            print(f"No prompts matching category '{args.category}'")
-            sys.exit(1)
-
-    steps = [int(s) for s in args.steps.split(",")] if args.steps else DEFAULT_STEPS
-    cache_dir = args.cache_dir
-    repo = STEP_REPO
-
-    # Phase 1: Download
-    if not args.extract_only:
-        from huggingface_hub import snapshot_download
-        print(f"Downloading {len(steps)} checkpoints to {cache_dir or 'default cache'}...")
-        for step in steps:
-            rev = f"step{step}"
-            print(f"\n  Downloading {repo}@{rev}...")
-            snapshot_download(repo, revision=rev, cache_dir=cache_dir)
-        print("\nAll downloads complete.")
-        if args.download_only:
-            return
-
-    # Phase 2: Extract logits
-    from .models import load_model, get_base_logits
-    from .psyche import ModelLayer
-    from . import PATH_STASH
-    from hashstash import HashStash
-
-    stash = HashStash(root_dir=PATH_STASH)
-
-    # Ensure base model logits are cached (shared with OLMo family)
-    base_name = "allenai/Olmo-3-1025-7B"
-    base_logits_cache = {}
-    print(f"\nChecking base model logits...")
-    base_key_check = ("logits", base_name, "base", list(prompts.values())[0])
-    if base_key_check not in stash:
-        print("  Base logits not cached — loading base model...")
-        base_model, base_tok = load_model(base_name)
-        for label, prompt in prompts.items():
-            cache_key = ("logits", base_name, "base", prompt)
-            if cache_key not in stash:
-                logits = get_base_logits(base_model, base_tok, prompt)
-                stash[cache_key] = logits.cpu().numpy()
-        del base_model
-        gc.collect()
-        if torch.backends.mps.is_available():
-            torch.mps.empty_cache()
-    print("  Base logits ready.")
-
-    # Load base logits for all prompts
-    for label, prompt in prompts.items():
-        cache_key = ("logits", base_name, "base", prompt)
-        base_logits_cache[prompt] = torch.tensor(stash[cache_key])
-
-    # Load tokenizer once (shared across all checkpoints)
-    from .models import _load_tokenizer
-    tokenizer = _load_tokenizer(base_name)
-
-    # Build per-prompt word lists from generation data + static fallback
-    import os
-    gen_parquet = "data/gen_battery_raw.parquet"
-    if os.path.exists(gen_parquet):
-        print("  Loading prompt-specific words from generation data...")
-        prompt_word_lists = extract_prompt_words(gen_parquet)
-    else:
-        prompt_word_lists = {}
-
-    # Also include static tracked words as fallback
-    all_words_set = set()
-    for label in prompts:
-        words = prompt_word_lists.get(label, [])
-        # Add static tracked words too
-        for cat, cat_words in TRACKED_WORDS.items():
-            words.extend(cat_words)
-        prompt_word_lists[label] = list(dict.fromkeys(words))  # dedupe, preserve order
-        all_words_set.update(prompt_word_lists[label])
-
-    # Encode all unique words to token IDs (leading space for continuation)
-    word_token_ids = {}
-    for word in all_words_set:
-        ids = tokenizer.encode(" " + word, add_special_tokens=False)
-        if ids:
-            word_token_ids[word] = ids[0]
-
-    print(f"  Tracking {len(word_token_ids)} unique words across {len(prompts)} prompts")
-
-    # Extract logits per step checkpoint
-    for step in steps:
-        rev = f"step{step}"
-        model_id = f"{repo}@{rev}"
-
-        # Check if all prompts are already cached
-        all_cached = all(
-            ("logits", model_id, "step", prompt) in stash
-            for prompt in prompts.values()
+    from .step_analysis import run_step_analysis
+    steps = [int(s) for s in args.steps.split(",")] if args.steps else None
+    try:
+        run_step_analysis(
+            steps=steps,
+            prompts_set=args.prompts,
+            category=args.category,
+            cache_dir=args.cache_dir,
+            download_only=args.download_only,
+            extract_only=args.extract_only,
+            output_prefix=args.output,
         )
-        if all_cached:
-            print(f"\n  step{step}: all logits cached, skipping.")
-            continue
-
-        print(f"\n{'=' * 60}")
-        print(f"  Extracting: {rev}")
-        print(f"{'=' * 60}")
-
-        model, _ = load_model(repo, revision=rev, cache_dir=cache_dir)
-
-        for label, prompt in prompts.items():
-            cache_key = ("logits", model_id, "step", prompt)
-            if cache_key in stash:
-                continue
-            logits = get_base_logits(model, tokenizer, prompt)
-            stash[cache_key] = logits.cpu().numpy()
-            print(f"    {label}")
-
-        del model
-        gc.collect()
-        if torch.backends.mps.is_available():
-            torch.mps.empty_cache()
-
-    # Phase 3: Compute metrics (pure math, no models)
-    print(f"\nComputing metrics...")
-
-    metrics_rows = []
-    word_rows = []
-
-    for step in steps:
-        rev = f"step{step}"
-        model_id = f"{repo}@{rev}"
-
-        for label, prompt in prompts.items():
-            cache_key = ("logits", model_id, "step", prompt)
-            step_logits = torch.tensor(stash[cache_key])
-            base_logits = base_logits_cache[prompt]
-
-            # Distribution-level metrics
-            entropy_base = distribution_entropy(base_logits)
-            entropy_step = distribution_entropy(step_logits)
-            js = js_divergence(base_logits, step_logits)
-            kl = kl_divergence(base_logits, step_logits)
-            overlap = top_k_overlap(base_logits, step_logits)
-
-            metrics_rows.append({
-                "step": step,
-                "label": label,
-                "prompt": prompt[:60],
-                "entropy_base": round(float(entropy_base), 6),
-                "entropy_step": round(float(entropy_step), 6),
-                "entropy_drop": round(float(entropy_base - entropy_step), 6),
-                "js_base_step": round(float(js), 6),
-                "kl_base_step": round(float(kl), 6),
-                "top50_overlap": round(float(overlap), 4),
-            })
-
-            # Per-word probabilities (prompt-specific word list)
-            step_probs = torch.softmax(step_logits.float(), dim=0)
-            base_probs = torch.softmax(base_logits.float(), dim=0)
-
-            for word in prompt_word_lists.get(label, []):
-                if word not in word_token_ids:
-                    continue
-                tid = word_token_ids[word]
-                sp = float(step_probs[tid])
-                bp = float(base_probs[tid])
-                # Categorize: check if it's in static tracked categories
-                word_cat = "empirical"
-                for cat, cat_words in TRACKED_WORDS.items():
-                    if word in cat_words:
-                        word_cat = cat
-                        break
-                word_rows.append({
-                    "step": step,
-                    "label": label,
-                    "prompt": prompt[:60],
-                    "word": word,
-                    "word_category": word_cat,
-                    "probability": round(sp, 8),
-                    "base_probability": round(bp, 8),
-                    "delta": round(sp - bp, 8),
-                })
-
-    # Save
-    out_prefix = args.output or "data/step_analysis"
-
-    metrics_df = pd.DataFrame(metrics_rows)
-    metrics_path = f"{out_prefix}_metrics.csv"
-    metrics_df.to_csv(metrics_path, index=False)
-    print(f"Metrics saved to {metrics_path} ({len(metrics_df)} rows)")
-
-    words_df = pd.DataFrame(word_rows)
-    words_path = f"{out_prefix}_words.csv"
-    words_df.to_csv(words_path, index=False)
-    print(f"Word tracking saved to {words_path} ({len(words_df)} rows)")
+    except ValueError as e:
+        print(str(e))
+        sys.exit(1)
 
 
 def cmd_generate_battery(args):
     """Generate text across families, embed, compute metrics."""
-    import gc
-    import torch
-    import pandas as pd
-    from . import MODEL_FAMILIES
-    from .psyche import Psyche
-    from .experiments import TIER1_PROMPTS, DEFAULT_PROMPTS
-    from .embedding import (
-        generate_many, embed_generations, compute_generation_metrics,
-        compute_concept_metrics,
-    )
-
-    prompts = TIER1_PROMPTS if args.prompts == "tier1" else DEFAULT_PROMPTS
-    if args.category:
-        prompts = {k: v for k, v in prompts.items() if k.startswith(args.category)}
-        if not prompts:
-            print(f"No prompts matching category '{args.category}'")
-            sys.exit(1)
-    families = [args.family] if args.family else list(MODEL_FAMILIES.keys())
-    n = args.n
-
-    # Phase 1: generate (models loaded, one family at a time)
-    from .embedding import _gen_stash_path, _check_cached_count
-    all_psg = []
-    for key in families:
-        fam = MODEL_FAMILIES[key]
-
-        # Check how many prompts already have enough cached generations
-        model_ids = [fam.base]
-        if fam.ego:
-            model_ids.append(fam.ego)
-        if fam.superego:
-            model_ids.append(fam.superego)
-        needed_prompts = {}
-        for label, prompt in prompts.items():
-            cached = _check_cached_count(prompt, temperature=1.0,
-                                         model_ids=model_ids)
-            if cached < n:
-                needed_prompts[label] = prompt
-
-        print(f"\n{'=' * 60}")
-        print(f"  {key} ({fam.name}, {fam.n_layers} layers)")
-        cached_count = len(prompts) - len(needed_prompts)
-        if cached_count:
-            print(f"  {cached_count}/{len(prompts)} prompts fully cached, "
-                  f"{len(needed_prompts)} need generation")
-        else:
-            print(f"  {len(prompts)} prompts x {n} generations")
-        print(f"{'=' * 60}")
-
-        if needed_prompts:
-            psyche = Psyche.from_family(key, load=True)
-
-            for label, prompt in needed_prompts.items():
-                print(f"\n  {label}: {prompt[:50]}...")
-                generate_many(psyche, prompt, n=n,
-                              max_new_tokens=args.tokens)
-
-            del psyche
-            gc.collect()
-            if torch.backends.mps.is_available():
-                torch.mps.empty_cache()
-        else:
-            print("  All cached, skipping model load.")
-
-        # Collect all results (cached + newly generated)
-        psyche_cache = Psyche.from_family(key, load=False)
-        for label, prompt in prompts.items():
-            df = generate_many(psyche_cache, prompt, n=n,
-                               max_new_tokens=args.tokens)
-            df["family"] = key
-            df["label"] = label
-            all_psg.append(df)
-
-    psg_df = pd.concat(all_psg, ignore_index=True)
-    print(f"\nTotal generations: {len(psg_df)}")
-
-    # Phase 2: embed (SentenceTransformer, cheap)
-    print("\nEmbedding all generations...")
-    embeds_df = embed_generations(psg_df)
-
-    # Phase 3: compute metrics per (family, prompt)
-    print("Computing metrics...")
-    metrics_rows = []
-    for (fam, label), idx in psg_df.groupby(["family", "label"]).groups.items():
-        sub_psg = psg_df.loc[idx].reset_index(drop=True)
-        sub_emb = embeds_df.loc[idx].reset_index(drop=True)
-
-        m = compute_generation_metrics(sub_emb, sub_psg)
-        m.update(compute_concept_metrics(sub_emb, sub_psg))
-        m["family"] = fam
-        m["label"] = label
-        m["prompt"] = sub_psg["prompt"].iloc[0][:60]
-        m["n_generations"] = len(sub_psg)
-        metrics_rows.append(m)
-
-    metrics_df = pd.DataFrame(metrics_rows)
-    id_cols = ["family", "label", "prompt", "n_generations"]
-    other_cols = [c for c in metrics_df.columns if c not in id_cols]
-    metrics_df = metrics_df[id_cols + sorted(other_cols)]
-
-    # Save outputs
-    out_prefix = args.output or "data/gen_battery"
-    metrics_path = f"{out_prefix}_metrics.csv"
-    raw_path = f"{out_prefix}_raw.parquet"
-
-    metrics_df.to_csv(metrics_path, index=False)
-    print(f"\nMetrics saved to {metrics_path}")
-
-    # Save raw generations + embeddings
-    raw_df = pd.concat([psg_df, embeds_df], axis=1)
+    from .embedding import run_generate_battery
     try:
-        raw_df.to_parquet(raw_path, index=False)
-        print(f"Raw data saved to {raw_path}")
-    except ImportError:
-        raw_csv = raw_path.replace(".parquet", ".csv")
-        raw_df.to_csv(raw_csv, index=False)
-        print(f"Raw data saved to {raw_csv} (install pyarrow for parquet)")
-
-    print(f"\n{metrics_df.to_string()}")
+        run_generate_battery(
+            families=[args.family] if args.family else None,
+            prompts_set=args.prompts,
+            category=args.category,
+            n=args.n,
+            max_new_tokens=args.tokens,
+            output_prefix=args.output,
+        )
+    except ValueError as e:
+        print(str(e))
+        sys.exit(1)
 
 
 def cmd_taxonomy(args):

@@ -173,8 +173,13 @@ malign-logits/
 │   ├── analysis.py          # Repression, id, displacement engine (v4)
 │   ├── experiments.py       # Prompt battery, reporting
 │   ├── generation.py        # Text generation (standard + neurotic)
+│   ├── embedding.py         # Generation + embedding pipeline (run_generate_battery)
 │   ├── taxonomy.py          # Displacement taxonomy + syntagmatic_js
 │   ├── ablation.py          # Tulu SFT data-mixture ablation
+│   ├── battery.py           # Multi-family prompt battery driver
+│   ├── logit_lens.py        # Logit-lens CSV+figure driver
+│   ├── step_analysis.py     # Step-level checkpoint analysis
+│   ├── produce.py           # produce-all driver
 │   ├── viz.py               # Plotly visualizations
 │   ├── cli.py               # CLI router (delegates to analysis modules)
 │   ├── app.py               # Gradio web UI

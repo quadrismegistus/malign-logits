@@ -418,3 +418,118 @@ def compute_concept_metrics(embeds_df, psg_df, embedder=None):
                     break
 
     return metrics
+
+
+def run_generate_battery(families=None, prompts_set="tier1", category=None,
+                         n=30, max_new_tokens=100, output_prefix=None):
+    """End-to-end generation battery: generate -> embed -> compute metrics.
+
+    Args:
+        families: List of family keys (default: all registered).
+        prompts_set: ``"tier1"`` (18) or ``"all"`` (47).
+        category: Optional prefix filter (e.g. ``"sexual_explicit"``).
+        n: Generations per prompt per model layer.
+        max_new_tokens: Tokens per generation.
+        output_prefix: ``{prefix}_metrics.csv`` and ``{prefix}_raw.parquet``
+            (default ``data/gen_battery``).
+
+    Returns:
+        Tuple ``(metrics_df, raw_df)``.
+    """
+    import gc
+    import torch
+    from . import MODEL_FAMILIES
+    from .psyche import Psyche
+    from .experiments import DEFAULT_PROMPTS, TIER1_PROMPTS
+
+    prompts = TIER1_PROMPTS if prompts_set == "tier1" else DEFAULT_PROMPTS
+    if category:
+        prompts = {k: v for k, v in prompts.items() if k.startswith(category)}
+        if not prompts:
+            raise ValueError(f"No prompts matching category '{category}'")
+    keys = families if families else list(MODEL_FAMILIES.keys())
+    output_prefix = output_prefix or "data/gen_battery"
+
+    # Phase 1: generate (one family at a time)
+    all_psg = []
+    for key in keys:
+        fam = MODEL_FAMILIES[key]
+        model_ids = [fam.base]
+        if fam.ego: model_ids.append(fam.ego)
+        if fam.superego: model_ids.append(fam.superego)
+        needed_prompts = {
+            label: prompt for label, prompt in prompts.items()
+            if _check_cached_count(prompt, temperature=1.0, model_ids=model_ids) < n
+        }
+
+        print(f"\n{'=' * 60}\n  {key} ({fam.name}, {fam.n_layers} layers)")
+        cached = len(prompts) - len(needed_prompts)
+        if cached:
+            print(f"  {cached}/{len(prompts)} prompts fully cached, "
+                  f"{len(needed_prompts)} need generation")
+        else:
+            print(f"  {len(prompts)} prompts x {n} generations")
+        print(f"{'=' * 60}")
+
+        if needed_prompts:
+            psyche = Psyche.from_family(key, load=True)
+            for label, prompt in needed_prompts.items():
+                print(f"\n  {label}: {prompt[:50]}...")
+                generate_many(psyche, prompt, n=n, max_new_tokens=max_new_tokens)
+            del psyche
+            gc.collect()
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
+        else:
+            print("  All cached, skipping model load.")
+
+        psyche_cache = Psyche.from_family(key, load=False)
+        for label, prompt in prompts.items():
+            df = generate_many(psyche_cache, prompt, n=n, max_new_tokens=max_new_tokens)
+            df["family"] = key
+            df["label"] = label
+            all_psg.append(df)
+
+    psg_df = pd.concat(all_psg, ignore_index=True)
+    print(f"\nTotal generations: {len(psg_df)}")
+
+    # Phase 2: embed
+    print("\nEmbedding all generations...")
+    embeds_df = embed_generations(psg_df)
+
+    # Phase 3: per (family, prompt) metrics
+    print("Computing metrics...")
+    metrics_rows = []
+    for (fam_key, label), idx in psg_df.groupby(["family", "label"]).groups.items():
+        sub_psg = psg_df.loc[idx].reset_index(drop=True)
+        sub_emb = embeds_df.loc[idx].reset_index(drop=True)
+        m = compute_generation_metrics(sub_emb, sub_psg)
+        m.update(compute_concept_metrics(sub_emb, sub_psg))
+        m["family"] = fam_key
+        m["label"] = label
+        m["prompt"] = sub_psg["prompt"].iloc[0][:60]
+        m["n_generations"] = len(sub_psg)
+        metrics_rows.append(m)
+
+    metrics_df = pd.DataFrame(metrics_rows)
+    id_cols = ["family", "label", "prompt", "n_generations"]
+    other_cols = [c for c in metrics_df.columns if c not in id_cols]
+    metrics_df = metrics_df[id_cols + sorted(other_cols)]
+
+    metrics_path = f"{output_prefix}_metrics.csv"
+    raw_path = f"{output_prefix}_raw.parquet"
+
+    metrics_df.to_csv(metrics_path, index=False)
+    print(f"\nMetrics saved to {metrics_path}")
+
+    raw_df = pd.concat([psg_df, embeds_df], axis=1)
+    try:
+        raw_df.to_parquet(raw_path, index=False)
+        print(f"Raw data saved to {raw_path}")
+    except ImportError:
+        raw_csv = raw_path.replace(".parquet", ".csv")
+        raw_df.to_csv(raw_csv, index=False)
+        print(f"Raw data saved to {raw_csv} (install pyarrow for parquet)")
+
+    print(f"\n{metrics_df.to_string()}")
+    return metrics_df, raw_df
