@@ -173,8 +173,10 @@ malign-logits/
 │   ├── analysis.py          # Repression, id, displacement engine (v4)
 │   ├── experiments.py       # Prompt battery, reporting
 │   ├── generation.py        # Text generation (standard + neurotic)
+│   ├── taxonomy.py          # Displacement taxonomy + syntagmatic_js
+│   ├── ablation.py          # Tulu SFT data-mixture ablation
 │   ├── viz.py               # Plotly visualizations
-│   ├── cli.py               # CLI: malign download-models|serve|ui|info
+│   ├── cli.py               # CLI router (delegates to analysis modules)
 │   ├── app.py               # Gradio web UI
 │   └── server.py            # Model server (keeps models loaded across UI restarts)
 ├── notebooks/               # Worked examples

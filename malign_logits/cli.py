@@ -183,9 +183,12 @@ def cmd_produce_all(args):
         if "taxonomy" not in skip:
             print(f"\n  ── Taxonomy ({key}) ──")
             try:
-                import spacy
-                from wordfreq import zipf_frequency
-                _run_taxonomy(psyche, key, DEFAULT_PROMPTS)
+                from .taxonomy import run_taxonomy
+                run_taxonomy(
+                    family_key=key, all_prompts=True,
+                    output_path=f"data/taxonomy_{key}.csv",
+                    psyche=psyche,
+                )
                 results[f"taxonomy-{key}"] = "done"
             except ImportError:
                 print(f"  Skipping taxonomy (spacy/wordfreq not installed)")
@@ -237,55 +240,8 @@ def cmd_produce_all(args):
         print(f"  SFT Ablation comparison")
         print(f"{'=' * 60}")
         try:
-            from .analysis import (
-                js_divergence, distribution_entropy,
-                top_k_overlap, rank_correlation, _align_logits,
-            )
-            from .models import load_model as _load
-
-            base_id = MODEL_FAMILIES["tulu"].base
-            print(f"  Loading base: {base_id}")
-            base_model, base_tok = _load(base_id)
-
-            abl_rows = []
-            for abl_key, sft_id in TULU_ABLATIONS.items():
-                print(f"\n  {abl_key}: {sft_id}")
-                sft_model, _ = _load(sft_id)
-
-                n_prompts = len(DEFAULT_PROMPTS)
-                for j, (label, prompt) in enumerate(DEFAULT_PROMPTS.items()):
-                    print(f"    [{j+1}/{n_prompts}] {label}", flush=True)
-                    try:
-                        inputs = base_tok(prompt, return_tensors="pt").to(base_model.device)
-                        with torch.no_grad():
-                            base_logits = base_model(**inputs).logits[0, -1, :]
-                            sft_logits = sft_model(**inputs.to(sft_model.device)).logits[0, -1, :]
-                        base_l, sft_l = _align_logits(base_logits, sft_logits)
-                        abl_rows.append({
-                            "ablation": abl_key,
-                            "label": label,
-                            "prompt": prompt[:60],
-                            "js_base_ego": js_divergence(base_l, sft_l),
-                            "entropy_base": distribution_entropy(base_l),
-                            "entropy_ego": distribution_entropy(sft_l),
-                            "entropy_drop": distribution_entropy(base_l) - distribution_entropy(sft_l),
-                            "top50_overlap": top_k_overlap(base_l, sft_l, k=50),
-                            "rank_corr": rank_correlation(base_l, sft_l),
-                        })
-                    except Exception as e:
-                        print(f"    Skipping {label}: {e}")
-
-                del sft_model
-                _free()
-
-            del base_model
-            _free()
-
-            abl_df = pd.DataFrame(abl_rows)
-            abl_df.to_csv("data/ablation_results.csv", index=False)
-            print(f"\n  Saved data/ablation_results.csv ({len(abl_df)} rows)")
-            summary = abl_df.groupby("ablation")[["js_base_ego", "entropy_drop"]].mean()
-            print(f"\n{summary.to_string(float_format='{:.4f}'.format)}")
+            from .ablation import run_ablation
+            run_ablation()
             results["ablation"] = "done"
         except Exception as e:
             print(f"  ERROR: {e}")
@@ -319,151 +275,13 @@ def cmd_produce_all(args):
         print(f"  {status} {k:30s} {v}")
 
 
-def _run_taxonomy(psyche, family_key, prompts):
-    """Run displacement taxonomy for a loaded Psyche."""
-    import pandas as pd
-    import spacy
-    from wordfreq import zipf_frequency
-
-    nlp = spacy.load("en_core_web_sm")
-
-    ARCHAIC_ZIPF = 3.0
-    GENRE_TOKENS = {
-        "what", "who", "where", "when", "why", "how", "which",
-        "What", "Who", "Where", "When", "Why", "How", "Which",
-        "Options", "options", "Question", "question",
-        "____", "___", "__", "...", "the", "a", "an",
-        "is", "are", "was", "were", "it", "this", "that",
-        "to", "of", "for", "in", "on", "at", "by", "with",
-        "she", "he", "her", "his", "they", "them",
-    }
-
-    def get_pos(words, prompt):
-        result = {}
-        for w in words:
-            doc = nlp(f"{prompt} {w}")
-            result[w] = doc[-1].pos_
-        return result
-
-    def classify_pair(source, target, source_pos, target_pos, prompt):
-        if target in GENRE_TOKENS:
-            return "genre_change"
-        t_zipf = zipf_frequency(target, "en")
-        if t_zipf < ARCHAIC_ZIPF and t_zipf > 0:
-            return "archaic"
-        if source_pos != target_pos:
-            return "category_shift"
-        return "register_shift"
-
-    rows = []
-    for label, prompt in prompts.items():
-        try:
-            analysis = psyche.analyze(prompt)
-            dm = analysis.displacement_map()
-            for axis in ("sublimation", "repression"):
-                pairs = dm.get(axis, {}).get("pairs", [])
-                if not pairs:
-                    continue
-                sources = [p[0] for p in pairs]
-                targets = [p[1] for p in pairs]
-                all_words = list(set(sources + targets))
-                pos_map = get_pos(all_words, prompt)
-                for src, tgt, sim, layer in pairs:
-                    dtype = classify_pair(src, tgt, pos_map.get(src, ""), pos_map.get(tgt, ""), prompt)
-                    rows.append({
-                        "family": family_key,
-                        "label": label,
-                        "axis": axis,
-                        "source": src,
-                        "target": tgt,
-                        "sim": sim,
-                        "layer": layer,
-                        "displacement_type": dtype,
-                        "source_pos": pos_map.get(src, ""),
-                        "target_pos": pos_map.get(tgt, ""),
-                    })
-        except Exception as e:
-            print(f"    Skipping {label}: {e}")
-
-    if rows:
-        df = pd.DataFrame(rows)
-        out = f"data/taxonomy_{family_key}.csv"
-        df.to_csv(out, index=False)
-        print(f"  Saved {out} ({len(df)} pairs)")
-
-
 def cmd_ablation(args):
     """Run SFT ablation comparison: same base, different SFT data mixtures."""
-    import gc
-    import torch
-    import pandas as pd
-    from . import TULU_ABLATIONS, MODEL_FAMILIES
-    from .models import load_model
-    from .analysis import distribution_metrics, _align_logits
-    from .experiments import DEFAULT_PROMPTS
-
-    base_id = MODEL_FAMILIES["tulu"].base
-    ablations = args.ablations or list(TULU_ABLATIONS.keys())
-
-    print(f"Loading base: {base_id}")
-    base_model, base_tok = load_model(base_id)
-
-    all_rows = []
-    for abl_key in ablations:
-        if abl_key not in TULU_ABLATIONS:
-            print(f"  Unknown ablation: {abl_key}, skipping")
-            continue
-        sft_id = TULU_ABLATIONS[abl_key]
-        print(f"\n{'=' * 60}")
-        print(f"  {abl_key}: {sft_id}")
-        print(f"{'=' * 60}")
-
-        sft_model, _ = load_model(sft_id)
-
-        n_prompts = len(DEFAULT_PROMPTS)
-        for j, (label, prompt) in enumerate(DEFAULT_PROMPTS.items()):
-            print(f"    [{j+1}/{n_prompts}] {label}", flush=True)
-            try:
-                inputs = base_tok(prompt, return_tensors="pt").to(base_model.device)
-                with torch.no_grad():
-                    base_logits = base_model(**inputs).logits[0, -1, :]
-                    sft_logits = sft_model(**inputs.to(sft_model.device)).logits[0, -1, :]
-
-                base_l, sft_l = _align_logits(base_logits, sft_logits)
-                from .analysis import js_divergence, distribution_entropy, top_k_overlap, rank_correlation
-                row = {
-                    "ablation": abl_key,
-                    "label": label,
-                    "prompt": prompt[:60],
-                    "js_base_ego": js_divergence(base_l, sft_l),
-                    "entropy_base": distribution_entropy(base_l),
-                    "entropy_ego": distribution_entropy(sft_l),
-                    "entropy_drop": distribution_entropy(base_l) - distribution_entropy(sft_l),
-                    "top50_overlap": top_k_overlap(base_l, sft_l, k=50),
-                    "rank_corr": rank_correlation(base_l, sft_l),
-                }
-                all_rows.append(row)
-            except Exception as e:
-                print(f"  Skipping {label}: {e}")
-
-        print(f"  {abl_key}: {len([r for r in all_rows if r['ablation'] == abl_key])} prompts")
-
-        del sft_model
-        gc.collect()
-        if torch.backends.mps.is_available():
-            torch.mps.empty_cache()
-
-    del base_model
-    gc.collect()
-
-    df = pd.DataFrame(all_rows)
-    out = args.output or "data/ablation_results.csv"
-    df.to_csv(out, index=False)
-    print(f"\nSaved to {out}")
-
-    # Summary
-    summary = df.groupby("ablation")[["js_base_ego", "entropy_drop", "top50_overlap"]].mean()
-    print(f"\n{summary.to_string(float_format='{:.4f}'.format)}")
+    from .ablation import run_ablation
+    run_ablation(
+        ablation_keys=args.ablations or None,
+        output_path=args.output,
+    )
 
 
 def cmd_battery(args):
@@ -881,167 +699,13 @@ def cmd_generate_battery(args):
 
 def cmd_taxonomy(args):
     """Classify displacement pairs into taxonomy types."""
-    import gc
-    import torch
-    import spacy
-    import pandas as pd
-    from . import MODEL_FAMILIES
-    from .psyche import Psyche
-    from .experiments import TIER1_PROMPTS, DEFAULT_PROMPTS
-
-    key = args.family or "olmo"
-    prompts = DEFAULT_PROMPTS if args.all_prompts else TIER1_PROMPTS
-    out = args.output or "data/displacement_taxonomy.csv"
-
-    print(f"Loading {key} models...")
-    psyche = Psyche.from_family(key, load=True)
-
-    print("Loading spaCy + wordfreq...")
-    nlp = spacy.load("en_core_web_sm")
-    from wordfreq import zipf_frequency
-
-    ARCHAIC_ZIPF = 3.0  # smite=2.93, hath=3.62, kill=5.09
-    # Function/meta words that signal genre change when they appear as
-    # displacement targets (question words, template tokens, formatting)
-    GENRE_TOKENS = {
-        "what", "who", "where", "when", "why", "how", "which",
-        "What", "Who", "Where", "When", "Why", "How", "Which",
-        "WHAT", "WHO", "WHERE", "WHEN", "WHY", "HOW", "WHICH",
-        "Options", "options", "Question", "question",
-        "____", "___", "__", "...", "the", "a", "an",
-        "is", "are", "was", "were", "it", "this", "that",
-        "to", "of", "for", "in", "on", "at", "by", "with",
-        "she", "he", "her", "his", "they", "them",
-    }
-
-    def get_pos_and_freq(words, prompt):
-        """POS-tag words in the context of the prompt using spaCy.
-
-        For each word, runs spaCy on 'prompt word' and reads the POS
-        of the last token. This gives contextual tagging — 'bash' after
-        'She wanted to' is tagged VERB, not NOUN.
-        """
-        result = {}
-        for w in words:
-            doc = nlp(prompt + " " + w)
-            pos = doc[-1].pos_ if len(doc) > 0 else "X"
-            zipf = zipf_frequency(w, "en")
-            result[w] = (pos, round(zipf, 2))
-        return result
-
-    def classify_pair(src, tgt, sim, src_pos, tgt_pos, tgt_freq):
-        same_pos = src_pos == tgt_pos
-        # Genre change: displaced onto question/function/meta token
-        if tgt in GENRE_TOKENS:
-            return "genre_change"
-        # Archaic: rare target word
-        if tgt_freq is not None and tgt_freq < ARCHAIC_ZIPF:
-            return "archaic"
-        # Register vs category shift
-        if same_pos:
-            return "register_shift"
-        return "category_shift"
-
-    all_rows = []
-    for label, prompt in prompts.items():
-        print(f"\n  {label}: {prompt[:60]}")
-        analysis = psyche.analyze(prompt)
-        try:
-            dm = analysis.displacement_map()
-        except Exception as e:
-            print(f"    Skipping: {e}")
-            continue
-
-        for axis in ["repression", "sublimation"]:
-            axis_data = dm.get(axis, {})
-            pairs = axis_data.get("pairs", [])
-            source_words = axis_data.get("source", [])
-
-            # Collect paired sources (per layer — a source may pair in one layer but not another)
-            paired_sources = set(src for src, tgt, sim, layer in pairs)
-
-            if pairs:
-                words = set()
-                for src, tgt, sim, layer in pairs:
-                    words.add(src)
-                    words.add(tgt)
-
-                word_info = get_pos_and_freq(list(words), prompt)
-
-                for src, tgt, sim, layer in pairs:
-                    src_pos, _ = word_info.get(src, ("X", None))
-                    tgt_pos, tgt_freq = word_info.get(tgt, ("X", None))
-                    dtype = classify_pair(src, tgt, sim, src_pos, tgt_pos, tgt_freq)
-
-                    all_rows.append({
-                        "family": key,
-                        "label": label,
-                        "prompt": prompt[:60],
-                        "axis": axis,
-                        "source": src,
-                        "target": tgt,
-                        "similarity": sim,
-                        "layer": layer,
-                        "source_pos": src_pos,
-                        "target_pos": tgt_pos,
-                        "target_freq": tgt_freq,
-                        "displacement_type": dtype,
-                    })
-
-            # Genre change: repressed words with no semantically linked target
-            orphans = [w for w in source_words if w not in paired_sources]
-            if orphans:
-                orphan_info = get_pos_and_freq(orphans, prompt)
-                for w in orphans:
-                    w_pos, w_freq = orphan_info.get(w, ("X", None))
-                    all_rows.append({
-                        "family": key,
-                        "label": label,
-                        "prompt": prompt[:60],
-                        "axis": axis,
-                        "source": w,
-                        "target": None,
-                        "similarity": None,
-                        "layer": None,
-                        "source_pos": w_pos,
-                        "target_pos": None,
-                        "target_freq": None,
-                        "displacement_type": "genre_change",
-                    })
-
-        # Per-prompt summary
-        prompt_rows = [r for r in all_rows if r["label"] == label]
-        if prompt_rows:
-            types = {}
-            for r in prompt_rows:
-                t = r["displacement_type"]
-                types[t] = types.get(t, 0) + 1
-            print(f"    {len(prompt_rows)} pairs: {types}")
-
-    df = pd.DataFrame(all_rows)
-    df.to_csv(out, index=False)
-    print(f"\nSaved {len(df)} pairs to {out}")
-
-    # Summary
-    if not df.empty:
-        print(f"\n{'='*60}")
-        print("DISPLACEMENT TYPE SUMMARY")
-        print(f"{'='*60}")
-        summary = df.groupby(["axis", "displacement_type"]).size().reset_index(name="count")
-        summary["pct"] = (summary["count"] / summary.groupby("axis")["count"].transform("sum") * 100).round(1)
-        print(summary.to_string(index=False))
-
-        df["category"] = df["label"].str.replace(r"_\d+$", "", regex=True)
-        cat_summary = df.groupby(["category", "displacement_type"]).size().unstack(fill_value=0)
-        print(f"\n{'='*60}")
-        print("BY CONTENT CATEGORY")
-        print(f"{'='*60}")
-        print(cat_summary.to_string())
-
-    del psyche
-    gc.collect()
-    if torch.backends.mps.is_available():
-        torch.mps.empty_cache()
+    from .taxonomy import run_taxonomy
+    run_taxonomy(
+        family_key=args.family or "olmo",
+        all_prompts=args.all_prompts,
+        output_path=args.output,
+        measure_syntagmatic=not args.no_syntagmatic,
+    )
 
 
 def _add_family_arg(parser):
@@ -1153,6 +817,8 @@ def main():
                     help="Use all 47 prompts (default: Tier-1 subset)")
     tx.add_argument("--output", "-o",
                     help="Output CSV path (default: data/displacement_taxonomy.csv)")
+    tx.add_argument("--no-syntagmatic", action="store_true",
+                    help="Skip syntagmatic_js measurement (faster; drops the continuous syntagmatic-disruption column)")
     tx.set_defaults(func=cmd_taxonomy)
 
     # produce-all
