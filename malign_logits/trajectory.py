@@ -1,0 +1,617 @@
+#!/usr/bin/env python
+"""Trajectory drift through hidden state space.
+
+Part A: feed identical fixed text through base/SFT/DPO/RLVR, capture per-token
+hidden states at a late layer, compare trajectory geometry across alignment stages.
+
+Part B (intervention): test whether alignment is a fold (reachable by linear push
+in residual space) or a wall (structural restructuring). Three methods:
+  v2   — single-prompt (DPO - base) direction
+  v2.5 — averaged direction across prompts
+  v2.6 — learned steering vector via gradient descent
+
+Usage:
+    malign trajectory                          # default family, full run
+    malign trajectory --family olmo-tiny       # 1B, full run
+    malign trajectory --skip-intervention      # geometry only
+"""
+
+import argparse
+import time
+
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from sklearn.decomposition import PCA
+
+from malign_logits.analysis import js_divergence
+from malign_logits.experiments import TIER1_PROMPTS
+from malign_logits.psyche import Psyche
+
+SUBSET_KEYS = [
+    "sexual_liminal_1", "sexual_explicit_2",
+    "violence_liminal_3", "violence_explicit_3",
+    "profanity_2", "substance_2",
+    "neutral_1", "neutral_7",
+]
+
+MAX_NEW = 100
+ALPHAS_COARSE = [-0.5, 0.0, 0.5, 1.0, 1.5, 2.0]
+ALPHAS_FINE = [-0.3, -0.1, 0.0, 0.05, 0.1, 0.2, 0.3, 0.5, 1.0]
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def trajectory_metrics(traj):
+    cos = F.cosine_similarity(traj[1:], traj[:-1], dim=-1)
+    local_drift = (1 - cos).mean().item()
+
+    unit = F.normalize(traj, dim=-1)
+    mean_dir = F.normalize(unit.mean(dim=0), dim=-1)
+    gyration_cos = (1 - F.cosine_similarity(unit, mean_dir.unsqueeze(0), dim=-1)).mean().item()
+
+    diffs = traj[1:] - traj[:-1]
+    path_length = diffs.norm(dim=-1).sum().item()
+    centroid = traj.mean(dim=0)
+    gyration = (traj - centroid).norm(dim=-1).mean().item()
+    mean_norm = traj.norm(dim=-1).mean().item()
+
+    return {
+        "local_drift": local_drift,
+        "gyration_cos": gyration_cos,
+        "path_length": path_length,
+        "gyration_radius": gyration,
+        "mean_norm": mean_norm,
+    }
+
+
+def get_trajectory(model, tokenizer, token_ids, layer_idx):
+    ids = token_ids.unsqueeze(0).to(model.device)
+    with torch.no_grad():
+        out = model(ids, output_hidden_states=True)
+    return out.hidden_states[layer_idx][0].float().cpu()
+
+
+def last_hidden(model, tokenizer, prompt, layer_idx):
+    ids = tokenizer.encode(prompt, return_tensors="pt").to(model.device)
+    with torch.no_grad():
+        out = model(ids, output_hidden_states=True)
+    return out.hidden_states[layer_idx][0, -1, :].float().cpu()
+
+
+def last_logits(model, tokenizer, prompt):
+    ids = tokenizer.encode(prompt, return_tensors="pt").to(model.device)
+    with torch.no_grad():
+        out = model(ids)
+    return out.logits[0, -1, :].float().cpu()
+
+
+def intervene_logits(model, tokenizer, prompt, layer_idx, direction, alpha):
+    ids = tokenizer.encode(prompt, return_tensors="pt").to(model.device)
+    addend = (alpha * direction).to(model.device).to(next(model.parameters()).dtype)
+
+    def hook(module, inputs, output):
+        if isinstance(output, tuple):
+            h = output[0].clone()
+            h[0, -1, :] = h[0, -1, :] + addend
+            return (h,) + output[1:]
+        else:
+            h = output.clone()
+            h[0, -1, :] = h[0, -1, :] + addend
+            return h
+
+    handle = model.model.layers[layer_idx].register_forward_hook(hook)
+    try:
+        with torch.no_grad():
+            out = model(ids)
+        return out.logits[0, -1, :].float().cpu()
+    finally:
+        handle.remove()
+
+
+def train_steering_vector(base_model, dpo_targets, tokenizer, prompts, layer_idx,
+                          init_direction=None, n_epochs=30, lr=0.05, log_every=10):
+    hidden_dim = base_model.config.hidden_size
+    device = base_model.device
+
+    if init_direction is not None:
+        d = nn.Parameter(init_direction.clone().to(device).float())
+    else:
+        d = nn.Parameter((torch.randn(hidden_dim, device=device) * 0.1).float())
+
+    optimizer = torch.optim.Adam([d], lr=lr)
+    losses = []
+
+    def make_hook(d_param):
+        def hook_fn(module, inputs, output):
+            h = output[0] if isinstance(output, tuple) else output
+            h_prefix = h[:, :-1, :]
+            h_last = h[:, -1:, :] + d_param.to(h.dtype).view(1, 1, -1)
+            h_new = torch.cat([h_prefix, h_last], dim=1)
+            return (h_new,) + output[1:] if isinstance(output, tuple) else h_new
+        return hook_fn
+
+    hook_fn = make_hook(d)
+
+    for epoch in range(n_epochs):
+        optimizer.zero_grad()
+        epoch_loss = 0.0
+
+        for prompt in prompts:
+            ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
+            target_probs = torch.softmax(dpo_targets[prompt].to(device), dim=-1)
+
+            handle = base_model.model.layers[layer_idx].register_forward_hook(hook_fn)
+            try:
+                out = base_model(ids)
+                logits = out.logits[0, -1, :].float()
+            finally:
+                handle.remove()
+
+            log_probs = torch.log_softmax(logits, dim=-1)
+            loss = -(target_probs * log_probs).sum()
+            (loss / len(prompts)).backward()
+            epoch_loss += loss.item()
+
+        torch.nn.utils.clip_grad_norm_([d], max_norm=20.0)
+        optimizer.step()
+
+        avg_loss = epoch_loss / len(prompts)
+        losses.append(avg_loss)
+        if epoch % log_every == 0 or epoch == n_epochs - 1:
+            print(f"  epoch {epoch:3d}: loss={avg_loss:.4f}  ||d||={d.norm().item():.2f}")
+
+    return d.detach().cpu().float(), losses
+
+
+def token_level_report(base_model, tokenizer, prompt, layer_idx, direction, alpha,
+                       logits_base, logits_dpo):
+    logits_int = intervene_logits(base_model, tokenizer, prompt, layer_idx, direction, alpha)
+    js_bd = js_divergence(logits_base, logits_dpo)
+    closure = (js_bd - js_divergence(logits_int, logits_dpo)) / js_bd * 100
+
+    p_b = torch.softmax(logits_base, dim=-1)
+    p_d = torch.softmax(logits_dpo, dim=-1)
+    p_p = torch.softmax(logits_int, dim=-1)
+
+    print(f'\n  Prompt: "{prompt}"')
+    print(f"  Closure on this prompt: {closure:.1f}%\n")
+    print(f'  {"token":15s}  {"base":>8s}  {"dpo":>8s}  {"pushed":>8s}   direction')
+    for v, idx in zip(*p_b.topk(10)):
+        word = tokenizer.decode([idx]).strip()
+        toward = (p_p[idx] - p_b[idx]) * (p_d[idx] - p_b[idx]) > 0
+        label = "-> toward DPO" if toward else "x  away from DPO"
+        print(f"  {word:15s}  {v.item():8.4f}  {p_d[idx]:8.4f}  {p_p[idx]:8.4f}   {label}")
+
+    K = 20
+    top_idx = p_b.topk(K).indices
+    correct = sum(1 for idx in top_idx
+                  if (p_p[idx] - p_b[idx]).item() * (p_d[idx] - p_b[idx]).item() > 0)
+    print(f"\n  Top-{K} base tokens nudged toward DPO: {correct}/{K} ({correct/K*100:.0f}%)")
+
+
+# ---------------------------------------------------------------------------
+# Part A: trajectory geometry
+# ---------------------------------------------------------------------------
+
+def run_trajectory_geometry(psyche, family, layer_idx, out_dir):
+    print(f"\n{'=' * 60}")
+    print(f"  Part A: trajectory geometry (family={family}, layer={layer_idx})")
+    print(f"{'=' * 60}")
+
+    tokenizer = psyche.primary_process.tokenizer
+    base_model = psyche.primary_process.model
+
+    model_layers = [
+        ("base", psyche.primary_process),
+        ("sft", psyche.ego),
+        ("dpo", psyche.superego),
+        ("rlvr", psyche.reinforced_superego),
+    ]
+    model_layers = [(n, l) for n, l in model_layers if l is not None]
+
+    subset = {k: TIER1_PROMPTS[k] for k in SUBSET_KEYS}
+
+    rows = []
+    for label, prompt in subset.items():
+        torch.manual_seed(0)
+        ids = tokenizer.encode(prompt, return_tensors="pt").to(base_model.device)
+        with torch.no_grad():
+            out = base_model.generate(
+                ids, max_new_tokens=MAX_NEW, do_sample=True, temperature=1.0, top_p=0.95
+            )
+        fixed = out[0].cpu()
+        for name, layer in model_layers:
+            t = get_trajectory(layer.model, tokenizer, fixed, layer_idx)
+            m = trajectory_metrics(t)
+            rows.append({"label": label, "model": name, "n_tokens": len(fixed), **m})
+        print(f"  {label}: done")
+
+    agg = pd.DataFrame(rows)
+    model_order = [n for n, _ in model_layers]
+    agg["model"] = pd.Categorical(agg["model"], categories=model_order, ordered=True)
+    agg["category"] = agg["label"].str.replace(r"_\d+$", "", regex=True)
+    agg["transgressive"] = ~agg["category"].str.startswith("neutral")
+
+    metric_cols = ["local_drift", "gyration_cos", "path_length", "gyration_radius", "mean_norm"]
+
+    print("\n--- Overall mean ---")
+    print(agg.groupby("model", observed=True)[metric_cols].mean().round(4).to_string())
+    print("\n--- Transgressive only ---")
+    print(agg[agg["transgressive"]].groupby("model", observed=True)[metric_cols].mean().round(4).to_string())
+    print("\n--- Neutral only ---")
+    print(agg[~agg["transgressive"]].groupby("model", observed=True)[metric_cols].mean().round(4).to_string())
+
+    csv_path = f"{out_dir}/trajectory_geometry_{family}.csv"
+    agg.to_csv(csv_path, index=False)
+    print(f"\n  Saved {csv_path}")
+
+    # Figure
+    plot_metrics = ["local_drift", "gyration_cos", "gyration_radius", "mean_norm"]
+    fig, axes = plt.subplots(1, len(plot_metrics), figsize=(4.5 * len(plot_metrics), 4))
+    for ax, metric in zip(axes, plot_metrics):
+        for label, sub in agg.groupby("label"):
+            sub = sub.sort_values("model")
+            is_neutral = label.startswith("neutral")
+            color = "#999999" if is_neutral else "#4e79a7"
+            ls = ":" if is_neutral else "-"
+            ax.plot(sub["model"].astype(str), sub[metric], ls, marker="o",
+                    alpha=0.6, color=color, label=label)
+        for is_t, color, lbl in [(True, "black", "transgressive mean"),
+                                  (False, "#bb5544", "neutral mean")]:
+            sub_mean = agg[agg["transgressive"] == is_t].groupby("model", observed=True)[metric].mean()
+            ax.plot(sub_mean.index.astype(str), sub_mean.values, "-D",
+                    color=color, linewidth=2.5, markersize=8, label=lbl)
+        ax.set_title(metric)
+        ax.set_xlabel("layer")
+    axes[0].legend(fontsize=6, loc="best", ncol=2)
+    plt.suptitle(f"Trajectory geometry across alignment stages ({family}, layer {layer_idx})", y=1.02)
+    plt.tight_layout()
+    fig_path = f"figures/trajectory_geometry.{family}.png"
+    fig.savefig(fig_path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+    print(f"  Saved {fig_path}")
+
+    return agg
+
+
+# ---------------------------------------------------------------------------
+# Part B: intervention experiments
+# ---------------------------------------------------------------------------
+
+def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30, lr=0.05):
+    print(f"\n{'=' * 60}")
+    print(f"  Part B: fold-vs-wall intervention ({family})")
+    print(f"  Intervention layers: {intervention_layers}")
+    print(f"{'=' * 60}")
+
+    base_model = psyche.primary_process.model
+    dpo_model = psyche.superego.model
+    tokenizer = psyche.primary_process.tokenizer
+
+    subset = {k: TIER1_PROMPTS[k] for k in SUBSET_KEYS}
+    target_prompt = subset["violence_liminal_3"]
+
+    # ------------------------------------------------------------------
+    # v2: single-prompt direction
+    # ------------------------------------------------------------------
+    print("\n--- v2: single-prompt (DPO - base) direction ---")
+    prompt_v2 = target_prompt
+
+    directions = {}
+    for L in intervention_layers:
+        base_h = last_hidden(base_model, tokenizer, prompt_v2, L)
+        dpo_h = last_hidden(dpo_model, tokenizer, prompt_v2, L)
+        directions[L] = dpo_h - base_h
+        print(f"  Layer {L:2d}: ||dir||={directions[L].norm().item():.2f}"
+              f"  ||base||={base_h.norm():.2f}  ||dpo||={dpo_h.norm():.2f}")
+
+    logits_base = last_logits(base_model, tokenizer, prompt_v2)
+    logits_dpo = last_logits(dpo_model, tokenizer, prompt_v2)
+    js_base_dpo = js_divergence(logits_base, logits_dpo)
+    print(f"  Baseline JS(base, dpo) = {js_base_dpo:.4f}")
+
+    v2_rows = []
+    for L in intervention_layers:
+        for alpha in ALPHAS_COARSE:
+            if alpha == 0:
+                logits_int = logits_base
+            else:
+                logits_int = intervene_logits(base_model, tokenizer, prompt_v2, L, directions[L], alpha)
+            v2_rows.append({
+                "layer": L, "alpha": alpha,
+                "js_to_base": js_divergence(logits_int, logits_base),
+                "js_to_dpo": js_divergence(logits_int, logits_dpo),
+            })
+
+    df_v2 = pd.DataFrame(v2_rows)
+    best_v2 = df_v2[df_v2["alpha"] != 0].sort_values("js_to_dpo").iloc[0]
+    closure_v2 = (js_base_dpo - best_v2["js_to_dpo"]) / js_base_dpo * 100
+    print(f"  Best v2: L={int(best_v2['layer'])}, alpha={best_v2['alpha']}, closure={closure_v2:.1f}%")
+
+    # v2 figure
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    for L in intervention_layers:
+        sub = df_v2[df_v2["layer"] == L].sort_values("alpha")
+        axes[0].plot(sub["alpha"], sub["js_to_base"], "-o", label=f"L={L}")
+        axes[1].plot(sub["alpha"], sub["js_to_dpo"], "-o", label=f"L={L}")
+    axes[1].axhline(0, color="red", linestyle="--", linewidth=1, alpha=0.6, label="reach DPO")
+    axes[1].axhline(js_base_dpo, color="gray", linestyle=":", linewidth=1, alpha=0.6, label="baseline")
+    for ax in axes:
+        ax.grid(alpha=0.3)
+        ax.legend()
+        ax.set_xlabel("alpha")
+    axes[0].set_ylabel("JS(intervened, base)")
+    axes[0].set_title("Distance from base")
+    axes[1].set_ylabel("JS(intervened, DPO)")
+    axes[1].set_title("Distance from DPO")
+    plt.suptitle(f'v2: single-prompt direction ({family})\n"{prompt_v2}"', y=1.02)
+    plt.tight_layout()
+    fig.savefig(f"figures/intervention_v2.{family}.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+    token_level_report(base_model, tokenizer, prompt_v2,
+                       int(best_v2["layer"]), directions[int(best_v2["layer"])],
+                       best_v2["alpha"], logits_base, logits_dpo)
+
+    # ------------------------------------------------------------------
+    # v2.5: averaged direction across prompts
+    # ------------------------------------------------------------------
+    print(f"\n--- v2.5: averaged direction across {len(subset)} prompts ---")
+
+    hidden_pairs = {L: {"base": [], "dpo": []} for L in intervention_layers}
+    for label, prompt in subset.items():
+        for L in intervention_layers:
+            hidden_pairs[L]["base"].append(last_hidden(base_model, tokenizer, prompt, L))
+            hidden_pairs[L]["dpo"].append(last_hidden(dpo_model, tokenizer, prompt, L))
+
+    avg_directions = {}
+    print(f"  {'layer':>5s}  {'||avg_dir||':>12s}  {'||per-prompt||':>14s}  {'consistency':>12s}")
+    for L in intervention_layers:
+        diffs = torch.stack([d - b for d, b in
+                             zip(hidden_pairs[L]["dpo"], hidden_pairs[L]["base"])])
+        avg = diffs.mean(dim=0)
+        avg_directions[L] = avg
+        cos_to_avg = F.cosine_similarity(diffs, avg.unsqueeze(0), dim=-1).mean().item()
+        print(f"  {L:5d}  {avg.norm().item():12.2f}  {diffs.norm(dim=-1).mean().item():14.2f}  {cos_to_avg:12.3f}")
+
+    v25_rows = []
+    for label, prompt in subset.items():
+        logits_b = last_logits(base_model, tokenizer, prompt)
+        logits_d = last_logits(dpo_model, tokenizer, prompt)
+        js_bd = js_divergence(logits_b, logits_d)
+        for L in intervention_layers:
+            for alpha in ALPHAS_FINE:
+                if alpha == 0:
+                    logits_int = logits_b
+                else:
+                    logits_int = intervene_logits(base_model, tokenizer, prompt, L,
+                                                  avg_directions[L], alpha)
+                v25_rows.append({
+                    "label": label, "layer": L, "alpha": alpha,
+                    "js_to_base": js_divergence(logits_int, logits_b),
+                    "js_to_dpo": js_divergence(logits_int, logits_d),
+                    "baseline_js": js_bd,
+                })
+
+    df_v25 = pd.DataFrame(v25_rows)
+    df_v25["closure"] = (df_v25["baseline_js"] - df_v25["js_to_dpo"]) / df_v25["baseline_js"]
+
+    closure_summary = (df_v25[df_v25["alpha"] != 0]
+                       .groupby(["layer", "alpha"])["closure"]
+                       .agg(["mean", "std"]).reset_index())
+    closure_summary["mean_closure_pct"] = closure_summary["mean"] * 100
+    best_v25 = closure_summary.sort_values("mean_closure_pct", ascending=False).iloc[0]
+    print(f"\n  Best v2.5: L={int(best_v25['layer'])}, alpha={best_v25['alpha']:.2f},"
+          f" mean closure={best_v25['mean_closure_pct']:.2f}%")
+
+    # v2.5 figure
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    mean_curves = df_v25.groupby(["layer", "alpha"])[["js_to_base", "js_to_dpo"]].mean().reset_index()
+    for L in intervention_layers:
+        sub = mean_curves[mean_curves["layer"] == L].sort_values("alpha")
+        axes[0].plot(sub["alpha"], sub["js_to_base"], "-o", label=f"L={L}")
+        axes[1].plot(sub["alpha"], sub["js_to_dpo"], "-o", label=f"L={L}")
+    mean_baseline = df_v25.groupby("label")["baseline_js"].first().mean()
+    axes[1].axhline(mean_baseline, color="gray", linestyle=":", alpha=0.7, label=f"baseline={mean_baseline:.3f}")
+    axes[1].axhline(0, color="red", linestyle="--", alpha=0.5, label="reach DPO")
+    for ax in axes:
+        ax.grid(alpha=0.3)
+        ax.legend()
+        ax.set_xlabel("alpha")
+    axes[0].set_ylabel("mean JS(intervened, base)")
+    axes[0].set_title("Distance from base")
+    axes[1].set_ylabel("mean JS(intervened, DPO)")
+    axes[1].set_title("Distance from DPO")
+    plt.suptitle(f"v2.5: averaged direction across {len(subset)} prompts ({family})", y=1.02)
+    plt.tight_layout()
+    fig.savefig(f"figures/intervention_v25.{family}.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+    token_level_report(base_model, tokenizer, target_prompt,
+                       int(best_v25["layer"]), avg_directions[int(best_v25["layer"])],
+                       best_v25["alpha"],
+                       last_logits(base_model, tokenizer, target_prompt),
+                       last_logits(dpo_model, tokenizer, target_prompt))
+
+    # ------------------------------------------------------------------
+    # v2.6: learned steering vector
+    # ------------------------------------------------------------------
+    print(f"\n--- v2.6: learned steering vector ---")
+
+    train_keys = [k for k in TIER1_PROMPTS if k not in SUBSET_KEYS]
+    train_prompts = [TIER1_PROMPTS[k] for k in train_keys]
+    print(f"  Train: {len(train_keys)} prompts, Eval: {len(SUBSET_KEYS)} prompts (held out)")
+
+    for p in base_model.parameters():
+        p.requires_grad_(False)
+    for p in dpo_model.parameters():
+        p.requires_grad_(False)
+
+    print("  Pre-computing DPO targets...")
+    dpo_targets = {}
+    for k in train_keys:
+        dpo_targets[TIER1_PROMPTS[k]] = last_logits(dpo_model, tokenizer, TIER1_PROMPTS[k])
+
+    learned_directions = {}
+    training_losses = {}
+    for L in intervention_layers:
+        for init_name in ["avg_init", "rand_init"]:
+            print(f"\n  === Layer {L}, {init_name} ===")
+            init = avg_directions[L].clone() if init_name == "avg_init" else None
+            t0 = time.time()
+            d_learned, losses = train_steering_vector(
+                base_model, dpo_targets, tokenizer, train_prompts,
+                layer_idx=L, init_direction=init, n_epochs=n_epochs, lr=lr, log_every=10,
+            )
+            learned_directions[(L, init_name)] = d_learned
+            training_losses[(L, init_name)] = losses
+            print(f"  done in {time.time() - t0:.1f}s, ||d||={d_learned.norm().item():.2f}")
+
+    v26_rows = []
+    for L in intervention_layers:
+        for init_name in ["avg_init", "rand_init"]:
+            d_learned = learned_directions[(L, init_name)]
+            for label, prompt in subset.items():
+                logits_b = last_logits(base_model, tokenizer, prompt)
+                logits_d = last_logits(dpo_model, tokenizer, prompt)
+                js_bd = js_divergence(logits_b, logits_d)
+                for alpha in ALPHAS_FINE:
+                    if alpha == 0:
+                        logits_int = logits_b
+                    else:
+                        logits_int = intervene_logits(base_model, tokenizer, prompt, L,
+                                                      d_learned, alpha)
+                    v26_rows.append({
+                        "init": init_name, "label": label, "layer": L, "alpha": alpha,
+                        "js_to_base": js_divergence(logits_int, logits_b),
+                        "js_to_dpo": js_divergence(logits_int, logits_d),
+                        "baseline_js": js_bd,
+                    })
+
+    df_v26 = pd.DataFrame(v26_rows)
+    df_v26["closure"] = (df_v26["baseline_js"] - df_v26["js_to_dpo"]) / df_v26["baseline_js"]
+
+    v26_summary = (df_v26[df_v26["alpha"] != 0]
+                   .groupby(["init", "layer", "alpha"])["closure"].mean().reset_index())
+    v26_summary["mean_closure_pct"] = v26_summary["closure"] * 100
+    best_per = v26_summary.loc[
+        v26_summary.groupby(["init", "layer"])["closure"].idxmax()
+    ].reset_index(drop=True)
+
+    print("\n  Best alpha per (init, layer) by held-out mean closure:")
+    print(best_per[["init", "layer", "alpha", "mean_closure_pct"]].round(2).to_string(index=False))
+
+    # v2.6 figure
+    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+    for L in intervention_layers:
+        axes[0, 0].plot(training_losses[(L, "avg_init")], label=f"L={L}", alpha=0.8)
+        axes[0, 1].plot(training_losses[(L, "rand_init")], label=f"L={L}", alpha=0.8)
+    axes[0, 0].set_title("Training loss (avg_init)")
+    axes[0, 1].set_title("Training loss (rand_init)")
+    for ax in axes[0]:
+        ax.set_xlabel("epoch")
+        ax.set_ylabel("CE to DPO")
+        ax.grid(alpha=0.3)
+        ax.legend(fontsize=8)
+
+    mean_v26 = df_v26.groupby(["init", "layer", "alpha"])["js_to_dpo"].mean().reset_index()
+    mean_baseline = df_v26.groupby("label")["baseline_js"].first().mean()
+    for ax_idx, init_name in enumerate(["avg_init", "rand_init"]):
+        ax = axes[1, ax_idx]
+        sub = mean_v26[mean_v26["init"] == init_name]
+        for L in intervention_layers:
+            sub_L = sub[sub["layer"] == L].sort_values("alpha")
+            ax.plot(sub_L["alpha"], sub_L["js_to_dpo"], "-o", label=f"L={L}", alpha=0.8)
+        ax.axhline(mean_baseline, color="gray", linestyle=":", alpha=0.7,
+                    label=f"baseline={mean_baseline:.3f}")
+        ax.axhline(0, color="red", linestyle="--", alpha=0.5, label="reach DPO")
+        ax.set_xlabel("alpha")
+        ax.set_ylabel("mean JS(intervened, DPO)")
+        ax.set_title(f"Held-out: {init_name}")
+        ax.grid(alpha=0.3)
+        ax.legend(fontsize=8)
+
+    plt.suptitle(f"v2.6: learned steering vectors ({family})", y=1.00)
+    plt.tight_layout()
+    fig.savefig(f"figures/intervention_v26.{family}.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+    # Summary comparison
+    v25_best_pct = best_v25["mean_closure_pct"]
+    v26_best_avg = best_per[best_per["init"] == "avg_init"]["mean_closure_pct"].max()
+    v26_best_rand = best_per[best_per["init"] == "rand_init"]["mean_closure_pct"].max()
+    print(f"\n  === Best held-out closure: v2.5 vs v2.6 ===")
+    print(f"    v2.5 (averaged direction):  {v25_best_pct:6.2f}%")
+    print(f"    v2.6 (learned, avg_init):   {v26_best_avg:6.2f}%")
+    print(f"    v2.6 (learned, rand_init):  {v26_best_rand:6.2f}%")
+
+    # Token-level for best v2.6
+    best_v26 = best_per.sort_values("mean_closure_pct", ascending=False).iloc[0]
+    d_best = learned_directions[(int(best_v26["layer"]), best_v26["init"])]
+    print(f"\n  Best v2.6: init={best_v26['init']}, L={int(best_v26['layer'])},"
+          f" alpha={best_v26['alpha']}, closure={best_v26['mean_closure_pct']:.1f}%")
+    token_level_report(base_model, tokenizer, target_prompt,
+                       int(best_v26["layer"]), d_best, best_v26["alpha"],
+                       last_logits(base_model, tokenizer, target_prompt),
+                       last_logits(dpo_model, tokenizer, target_prompt))
+
+    # Save all intervention results
+    all_int = pd.concat([
+        df_v2.assign(version="v2", init="single", label=prompt_v2,
+                     baseline_js=js_base_dpo,
+                     closure=lambda d: (js_base_dpo - d["js_to_dpo"]) / js_base_dpo),
+        df_v25.assign(version="v2.5", init="averaged"),
+        df_v26.assign(version="v2.6"),
+    ], ignore_index=True)
+    csv_path = f"{out_dir}/intervention_{family}.csv"
+    all_int.to_csv(csv_path, index=False)
+    print(f"\n  Saved {csv_path}")
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--family", default="olmo-tiny",
+                        help="Model family key (default: olmo-tiny)")
+    parser.add_argument("--skip-intervention", action="store_true",
+                        help="Run Part A only (trajectory geometry)")
+    parser.add_argument("--n-epochs", type=int, default=30,
+                        help="Training epochs for v2.6 steering vector")
+    parser.add_argument("--lr", type=float, default=0.05,
+                        help="Learning rate for v2.6 steering vector")
+    args = parser.parse_args()
+
+    psyche = Psyche.from_family(args.family, load=True)
+    print(f"Loaded family={args.family}, n_layers={psyche.n_layers}")
+
+    n_hidden = psyche.primary_process.model.config.num_hidden_layers
+    layer = round(n_hidden * 0.8125)
+    intervention_layers = [round(n_hidden * f) for f in (0.25, 0.5, 0.75, 0.875)]
+    print(f"N_LAYERS={n_hidden}  LAYER={layer}  INTERVENTION_LAYERS={intervention_layers}")
+
+    run_trajectory_geometry(psyche, args.family, layer, out_dir="data")
+
+    if not args.skip_intervention:
+        if psyche.superego is None:
+            print("\nSkipping intervention: need at least base + superego (2 layers)")
+        else:
+            run_intervention(psyche, args.family, intervention_layers, out_dir="data",
+                             n_epochs=args.n_epochs, lr=args.lr)
+
+    print("\nDone.")
+
+
+if __name__ == "__main__":
+    main()

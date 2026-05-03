@@ -123,6 +123,7 @@ def cmd_produce_all(args):
         families=args.families.split(",") if args.families else None,
         skip=args.skip.split(",") if args.skip else None,
         gen_n=args.gen_n,
+        force=args.force,
     )
 
 
@@ -201,6 +202,33 @@ def cmd_taxonomy(args):
         output_path=args.output,
         measure_syntagmatic=not args.no_syntagmatic,
     )
+
+
+def cmd_trajectory(args):
+    """Measure trajectory geometry and run fold-vs-wall intervention."""
+    from .psyche import Psyche
+    key, _ = _get_family(args)
+
+    psyche = Psyche.from_family(key, load=True)
+    print(f"Loaded family={key}, n_layers={psyche.n_layers}")
+
+    n_hidden = psyche.primary_process.model.config.num_hidden_layers
+    layer = round(n_hidden * 0.8125)
+    intervention_layers = [round(n_hidden * f) for f in (0.25, 0.5, 0.75, 0.875)]
+    print(f"N_LAYERS={n_hidden}  LAYER={layer}  INTERVENTION_LAYERS={intervention_layers}")
+
+    from .trajectory import run_trajectory_geometry, run_intervention
+
+    run_trajectory_geometry(psyche, key, layer, out_dir="data")
+
+    if not args.skip_intervention:
+        if psyche.superego is None:
+            print("\nSkipping intervention: need at least base + superego (2 layers)")
+        else:
+            run_intervention(psyche, key, intervention_layers, out_dir="data",
+                             n_epochs=args.n_epochs, lr=args.lr)
+
+    print("\nDone.")
 
 
 def _add_family_arg(parser):
@@ -316,11 +344,24 @@ def main():
                     help="Skip syntagmatic_js measurement (faster; drops the continuous syntagmatic-disruption column)")
     tx.set_defaults(func=cmd_taxonomy)
 
+    # trajectory
+    tj = subparsers.add_parser("trajectory",
+                               help="Trajectory geometry + fold-vs-wall intervention")
+    _add_family_arg(tj)
+    tj.add_argument("--skip-intervention", action="store_true",
+                    help="Run geometry only (skip v2/v2.5/v2.6 intervention)")
+    tj.add_argument("--n-epochs", type=int, default=30,
+                    help="Training epochs for v2.6 steering vector (default: 30)")
+    tj.add_argument("--lr", type=float, default=0.05,
+                    help="Learning rate for v2.6 steering vector (default: 0.05)")
+    tj.set_defaults(func=cmd_trajectory)
+
     # produce-all
     pa = subparsers.add_parser("produce-all", help="Run all data production tasks")
     pa.add_argument("--families", help="Comma-separated families (default: all)")
-    pa.add_argument("--skip", default="", help="Comma-separated tasks to skip: battery,ablation,generate,logit-lens,taxonomy")
+    pa.add_argument("--skip", default="", help="Comma-separated tasks to skip: battery,ablation,generate,logit-lens,taxonomy,trajectory")
     pa.add_argument("--gen-n", type=int, default=30, help="Generations per prompt (default: 30)")
+    pa.add_argument("--force", action="store_true", help="Recompute even if output CSVs exist")
     pa.set_defaults(func=cmd_produce_all)
 
     # cloud
