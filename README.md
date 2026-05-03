@@ -23,6 +23,7 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
   - [10. SFT data ablation (Tulu 3)](#10-sft-data-ablation-tulu-3-5-variants-47-prompts)
   - [11. Contradiction tolerance (OLMo 3 7B)](#11-contradiction-tolerance-olmo-3-7b-5-prompt-pairs--nnsight-intervention)
   - [12. Trajectory geometry and fold-vs-wall (OLMo 2 1B, preliminary)](#12-trajectory-geometry-and-the-fold-vs-wall-question-olmo-2-1b-preliminary)
+  - [13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (OLMo 2 1B)](#13-jakobsonian-axes-paradigmatic-vs-syntagmatic-displacement-olmo-2-1b-25k-pairs)
 - [Installation](#installation)
 - [Quick start](#quick-start)
 - [Usage](#usage)
@@ -385,6 +386,59 @@ Even the gradient-optimal linear direction at the best layer (L=4) closes only ~
 **Verdict — partial fold, mostly wall.** ~6% of alignment is geometrically a fold; ~94% is structural. Lyotard's *dispositif* isn't a single rotation of the libidinal surface — it's a coordinated re-weighting of pathways with a faint linear-direction trace. Alignment as Name-of-the-Father isn't a vector you can ride; it's a re-architecting that resists single-vector inversion.
 
 Notebook: `notebooks/08_trajectory_drift.ipynb`. Open: replicate on 7B (OLMo 3, Llama, Qwen, Amber). Llama's late-layer override (finding #5) may show higher closure given its more linearizable structure; representation-engineering work on 7B suggests 30–50% closure on specific concept subspaces, vs our 6% on the whole DPO transformation.
+
+### 13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (OLMo 2 1B, 25k pairs)
+
+Roman Jakobson's 1956 *Two Aspects of Language and Two Types of Aphasic Disturbances* argues that language is constituted by two complementary axes — selection/similarity (paradigmatic) and combination/contiguity (syntagmatic) — and that aphasic patients with similarity disorder lean on contiguity, while those with contiguity disorder lean on substitution. We test whether the same trade-off operates across content types in an aligned LLM's displacement behaviour.
+
+**Method.** For each (source → target) displacement pair from `Psyche.analyze().displacement_map()`, we already have a paradigmatic-axis score: `similarity` is the cosine similarity between contextual embeddings of source and target words. We add a complementary syntagmatic-axis score: `syntagmatic_js` is the JS divergence between `p(next_token | prompt + source)` and `p(next_token | prompt + target)` under the base model. High `similarity` means the substitute is paradigmatically close to the source; high `syntagmatic_js` means the substitute jars the next-token chain. Run on Tier-1 (18 prompts) for OLMo 2 1B. Results in `data/taxonomy_olmo-tiny.csv` (25,087 paired displacements).
+
+**The two axes are negatively correlated, exactly as Jakobson predicts.**
+
+| level | correlation |
+|---|---|
+| pair-level (n = 25,087) | Pearson **r = −0.34**, Spearman ρ = −0.35, p ≈ 0 |
+| within every displacement type | r ∈ [−0.21, −0.33] |
+| within every content category | r ∈ [−0.20, −0.54] |
+| **category-mean (n = 9 categories)** | **r = −0.58** |
+
+**Content categories sort cleanly along the trade-off:**
+
+| category | paradigmatic similarity | syntagmatic JS | n pairs |
+|---|---|---|---|
+| **violence_explicit** | **0.633** | **0.151** | 621 |
+| sexual_explicit | 0.557 | 0.345 | 5,169 |
+| violence_liminal | 0.605 | 0.397 | 3,276 |
+| death | 0.538 | 0.424 | 3,852 |
+| power | 0.571 | 0.450 | 1,791 |
+| sexual_liminal | 0.599 | 0.470 | 3,099 |
+| substance | 0.530 | 0.475 | 5,130 |
+| neutral | 0.484 | 0.503 | 1,651 |
+| **profanity** | 0.563 | **0.606** | 498 |
+
+Violence-explicit displacements have the highest paradigmatic similarity (the model finds clean synonyms — *kill* → *hurt*, *strangle* → *smother*) and the lowest syntagmatic disruption (the next-token chain holds). Profanity displacements have the highest syntagmatic disruption (chain breaks: *fuck* → *what*, → *Options*, → format change) and only middling paradigmatic similarity (no available synonym to substitute toward).
+
+**Mapped to Jakobson's clinical types:**
+- **Violence/sexual explicit content behaves like normal speech**: paradigmatic axis intact, the model substitutes fluently and the syntagmatic chain holds.
+- **Profanity behaves like similarity disorder**: the paradigmatic axis fails (no clean synonym), so the model leans on contiguity disturbance — breaks the chain into questions, templates, format changes (`genre_change` = 58% of profanity displacements).
+- **Liminal content (sexual_liminal, violence_liminal) sits between**: high paradigmatic similarity *and* moderate syntagmatic disruption. The boundary between transgressive and acceptable produces both kinds of damage simultaneously.
+
+**Within-content-type the trade-off also holds.** Violence_explicit pairs with higher `similarity` have lower `syntagmatic_js` (within-category Pearson r = −0.54). Even within a single content type, displacements that succeed paradigmatically preserve the chain better.
+
+**Refines existing taxonomy.** Finding #8 already showed `register_shift` (paradigmatic) vs `genre_change` (syntagmatic-refusal) as a categorical split. The continuous syntagmatic_js metric makes this a quantitative dissociation: paradigmatic types (`register_shift`, `archaic`) cluster at synt_js ≈ 0.37; syntagmatic types (`category_shift`, `genre_change`) cluster at synt_js ≈ 0.58–0.63.
+
+| displacement type | mean syntagmatic_js | mean similarity | n |
+|---|---|---|---|
+| archaic | 0.360 | 0.559 | 2,716 |
+| register_shift | 0.386 | 0.575 | 17,202 |
+| category_shift | 0.580 | 0.498 | 4,746 |
+| genre_change | 0.630 | 0.526 | 423 |
+
+**Theoretical implication.** The displacement patterns documented across this project are not a single phenomenon. They are two complementary axes that the model selects between based on whether paradigmatic substitution is locally available. Where it is (violence/sex with synonyms), alignment damage stays on the paradigmatic axis; where it isn't (profanity with no acceptable synonym), damage shifts to the syntagmatic axis. This is the structural duality Jakobson identifies in human aphasic language, recovered in transformer alignment-induced displacement at the pair level (n = 25k, p ≈ 0).
+
+**Caveats.** OLMo 2 1B preliminary; replicate on 7B and across families. Single-position syntagmatic measure (next-token only); multi-position surprisal would be a sharper test. The neutral category sits at the boundary (synt 0.50, sim 0.48) and warrants attention — neutral-prompt completions break the chain almost as often as profanity, suggesting the metric also captures generic instruction-following structure beyond Jakobsonian disorder.
+
+CLI: `malign taxonomy --family olmo-tiny -o data/taxonomy_olmo-tiny.csv`. Implementation: `malign_logits/taxonomy.py::syntagmatic_js`.
 
 
 

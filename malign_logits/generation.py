@@ -111,7 +111,7 @@ def generate(
 def generate_neurotic(
     base_model, sft_model, dpo_model, tokenizer, prompt,
     max_new_tokens=100, temperature=0.8,
-    displacement_weight=0.3, hidden_layer=16, embedding_refresh_interval=5,
+    displacement_weight=0.3, hidden_layer=None, embedding_refresh_interval=5,
 ):
     """
     Neurotic generation using contextual embeddings, recomputing
@@ -129,7 +129,11 @@ def generate_neurotic(
         displacement_weight: Controls neurotic intensity.
             1.0 = decompensating body-language.
             0.3 = obsessive intellectualisation.
+        hidden_layer: Embedding layer (default 50% of depth — 16 for 7B,
+            8 for 1B).
     """
+    if hidden_layer is None:
+        hidden_layer = round(sft_model.config.num_hidden_layers * 0.5)
     # Generate base, ego, superego for comparison
     base_input, base_mask = _tokenize_for_generation(tokenizer, prompt, base_model.device)
     with torch.no_grad():
