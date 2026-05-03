@@ -241,7 +241,7 @@ set -ex
 which python || ln -sf $(which python3) /usr/local/bin/python
 
 if [ ! -d {REMOTE_REPO} ]; then
-    git clone -b svelte-ui https://github.com/quadrismegistus/malign-logits.git {REMOTE_REPO}
+    git clone https://github.com/quadrismegistus/malign-logits.git {REMOTE_REPO}
 else
     cd {REMOTE_REPO} && git pull
 fi
