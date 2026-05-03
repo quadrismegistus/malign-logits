@@ -6,6 +6,7 @@ that do their own model lifecycle. Each phase delegates to the
 corresponding analysis module so cli.py stays thin.
 """
 import gc
+import os
 import time
 
 import pandas as pd
@@ -24,15 +25,23 @@ def _free():
         torch.mps.empty_cache()
 
 
-def produce_all(families=None, skip=None, gen_n=30):
+def _exists(path, force=False):
+    if not force and os.path.exists(path):
+        print(f"  Skipping (exists): {path}")
+        return True
+    return False
+
+
+def produce_all(families=None, skip=None, gen_n=30, force=False):
     """Run all data-production tasks across families.
 
     Args:
         families: List of family keys, or None for all registered.
         skip: Set of phase names to skip
-            (``battery``, ``generate``, ``taxonomy``, ``logit-lens``,
-            ``ablation``).
+            (``battery``, ``generate``, ``taxonomy``, ``trajectory``,
+            ``logit-lens``, ``ablation``).
         gen_n: Generations per prompt during the generation phase.
+        force: Recompute even if output CSVs already exist.
 
     Returns:
         Dict mapping per-phase keys to ``"done"`` or an error string.
@@ -50,17 +59,22 @@ def produce_all(families=None, skip=None, gen_n=30):
         psyche = Psyche.from_family(key, load=True)
 
         if "battery" not in skip:
+            csv_path = f"data/battery_{key}.csv"
             print(f"\n  ── Battery ({key}) ──")
-            try:
-                metrics = psyche.battery_metrics()
-                metrics["family"] = key
-                all_battery.append(metrics)
-                metrics.to_csv(f"data/battery_{key}.csv", index=False)
-                print(f"  Saved data/battery_{key}.csv ({len(metrics)} prompts)")
+            if _exists(csv_path, force):
+                all_battery.append(pd.read_csv(csv_path))
                 results[f"battery-{key}"] = "done"
-            except Exception as e:
-                print(f"  ERROR: {e}")
-                results[f"battery-{key}"] = f"error: {e}"
+            else:
+                try:
+                    metrics = psyche.battery_metrics()
+                    metrics["family"] = key
+                    all_battery.append(metrics)
+                    metrics.to_csv(csv_path, index=False)
+                    print(f"  Saved {csv_path} ({len(metrics)} prompts)")
+                    results[f"battery-{key}"] = "done"
+                except Exception as e:
+                    print(f"  ERROR: {e}")
+                    results[f"battery-{key}"] = f"error: {e}"
 
         if "generate" not in skip:
             print(f"\n  ── Generation ({key}) ──")
@@ -75,21 +89,46 @@ def produce_all(families=None, skip=None, gen_n=30):
                 results[f"generate-{key}"] = f"error: {e}"
 
         if "taxonomy" not in skip:
+            csv_path = f"data/taxonomy_{key}.csv"
             print(f"\n  ── Taxonomy ({key}) ──")
-            try:
-                from .taxonomy import run_taxonomy
-                run_taxonomy(
-                    family_key=key, all_prompts=True,
-                    output_path=f"data/taxonomy_{key}.csv",
-                    psyche=psyche,
-                )
+            if _exists(csv_path, force):
                 results[f"taxonomy-{key}"] = "done"
-            except ImportError:
-                print(f"  Skipping taxonomy (spacy/wordfreq not installed)")
-                results[f"taxonomy-{key}"] = "skipped (missing deps)"
-            except Exception as e:
-                print(f"  ERROR: {e}")
-                results[f"taxonomy-{key}"] = f"error: {e}"
+            else:
+                try:
+                    from .taxonomy import run_taxonomy
+                    run_taxonomy(
+                        family_key=key, all_prompts=True,
+                        output_path=csv_path,
+                        psyche=psyche,
+                    )
+                    results[f"taxonomy-{key}"] = "done"
+                except ImportError:
+                    print(f"  Skipping taxonomy (spacy/wordfreq not installed)")
+                    results[f"taxonomy-{key}"] = "skipped (missing deps)"
+                except Exception as e:
+                    print(f"  ERROR: {e}")
+                    results[f"taxonomy-{key}"] = f"error: {e}"
+
+        if "trajectory" not in skip:
+            geom_path = f"data/trajectory_geometry_{key}.csv"
+            int_path = f"data/intervention_{key}.csv"
+            print(f"\n  ── Trajectory ({key}) ──")
+            if _exists(geom_path, force) and (psyche.superego is None or _exists(int_path, force)):
+                results[f"trajectory-{key}"] = "done"
+            else:
+                try:
+                    from .trajectory import run_trajectory_geometry, run_intervention
+                    n_hidden = psyche.primary_process.model.config.num_hidden_layers
+                    layer = round(n_hidden * 0.8125)
+                    intervention_layers = [round(n_hidden * f) for f in (0.25, 0.5, 0.75, 0.875)]
+                    if force or not os.path.exists(geom_path):
+                        run_trajectory_geometry(psyche, key, layer, out_dir="data")
+                    if psyche.superego is not None and (force or not os.path.exists(int_path)):
+                        run_intervention(psyche, key, intervention_layers, out_dir="data")
+                    results[f"trajectory-{key}"] = "done"
+                except Exception as e:
+                    print(f"  ERROR: {e}")
+                    results[f"trajectory-{key}"] = f"error: {e}"
 
         del psyche
         _free()
@@ -123,13 +162,16 @@ def produce_all(families=None, skip=None, gen_n=30):
     # ── Phase 3: ablation (loads base once, swaps SFT variants) ──
     if "ablation" not in skip and "tulu" in keys:
         print(f"\n{'=' * 60}\n  SFT Ablation comparison\n{'=' * 60}")
-        try:
-            from .ablation import run_ablation
-            run_ablation()
+        if _exists("data/ablation_results.csv", force):
             results["ablation"] = "done"
-        except Exception as e:
-            print(f"  ERROR: {e}")
-            results["ablation"] = f"error: {e}"
+        else:
+            try:
+                from .ablation import run_ablation
+                run_ablation()
+                results["ablation"] = "done"
+            except Exception as e:
+                print(f"  ERROR: {e}")
+                results["ablation"] = f"error: {e}"
 
     # ── Phase 4: embed + compute generation metrics on cached generations ──
     if "generate" not in skip:
