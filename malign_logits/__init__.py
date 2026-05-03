@@ -78,6 +78,23 @@ MODEL_FAMILIES = {
         superego="allenai/Olmo-3-7B-Instruct-DPO",
         reinforced_superego="allenai/Olmo-3-7B-Instruct",
     ),
+    "olmo-tiny": ModelFamily(
+        name="OLMo 2 1B",
+        base="allenai/OLMo-2-0425-1B",
+        ego="allenai/OLMo-2-0425-1B-SFT",
+        superego="allenai/OLMo-2-0425-1B-DPO",
+        reinforced_superego="allenai/OLMo-2-0425-1B-Instruct",
+    ),
+    "smol": ModelFamily(
+        name="SmolLM2 360M",
+        base="HuggingFaceTB/SmolLM2-360M",
+        superego="HuggingFaceTB/SmolLM2-360M-Instruct",
+    ),
+    "qwen-tiny": ModelFamily(
+        name="Qwen 2.5 0.5B",
+        base="Qwen/Qwen2.5-0.5B",
+        superego="Qwen/Qwen2.5-0.5B-Instruct",
+    ),
     "llama": ModelFamily(
         name="Llama 3.1 8B",
         base="meta-llama/Llama-3.1-8B",
