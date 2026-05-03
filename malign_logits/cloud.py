@@ -248,7 +248,7 @@ fi
 
 cd {REMOTE_REPO}
 pip install -e .
-pip install scipy sentence-transformers hashstash
+python -m spacy download en_core_web_sm
 
 python -c "import torch; print(f'PyTorch {{torch.__version__}}, CUDA {{torch.cuda.is_available()}}')"
 python -c "from malign_logits import MODEL_FAMILIES; print(f'{{len(MODEL_FAMILIES)}} families registered')"

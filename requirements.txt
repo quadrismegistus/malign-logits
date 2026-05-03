@@ -11,3 +11,8 @@ protobuf
 sentence-transformers
 scikit-learn
 pyarrow
+scipy
+spacy
+wordfreq
+matplotlib
+hashstash
