@@ -152,6 +152,13 @@
 		return `${parts[0]} (${info.n_layers} layers)`;
 	}
 
+	function familyName(info: ServerInfo | null): string {
+		if (!info) return '';
+		return info.base.split('/').pop()?.replace(/-/g, ' ') ?? '';
+	}
+
+	let family = $derived(familyName(serverInfo));
+
 	const TABS = [
 		{ id: 'trajectories', label: 'Trajectories' },
 		{ id: 'formation', label: 'Formation' },
@@ -262,34 +269,6 @@
 				</div>
 			{/if}
 
-			{#if analysis}
-				<div class="controls-section">
-					<label>Chart controls</label>
-					<div class="control-row">
-						<span>Sort by</span>
-						<select bind:value={sortBy}>
-							<option value="delta">delta</option>
-							<option value="mass">mass</option>
-						</select>
-					</div>
-					<div class="control-row">
-						<span>Top N</span>
-						<input type="range" bind:value={topN} min={10} max={200} step={10} />
-						<span class="val">{topN}</span>
-					</div>
-					<div class="control-row">
-						<span>Min prob</span>
-						<input
-							type="range"
-							bind:value={minProb}
-							min={0}
-							max={0.05}
-							step={0.001}
-						/>
-						<span class="val">{minProb.toFixed(3)}</span>
-					</div>
-				</div>
-			{/if}
 		</aside>
 
 		<section class="content">
@@ -313,12 +292,31 @@
 
 				<div class="tab-content">
 					{#if activeTab === 'trajectories'}
-						<TrajectoryChart data={analysis.formation_df} {topN} {minProb} {sortBy} />
+						<div class="trajectory-controls">
+							<label class="control-inline">
+								<span>sort</span>
+								<select bind:value={sortBy}>
+									<option value="delta">delta</option>
+									<option value="mass">mass</option>
+								</select>
+							</label>
+							<label class="control-inline">
+								<span>top N</span>
+								<input type="range" bind:value={topN} min={10} max={200} step={10} />
+								<span class="val">{topN}</span>
+							</label>
+							<label class="control-inline">
+								<span>min prob</span>
+								<input type="range" bind:value={minProb} min={0} max={0.05} step={0.001} />
+								<span class="val">{minProb.toFixed(3)}</span>
+							</label>
+						</div>
+						<TrajectoryChart data={analysis.formation_df} {topN} {minProb} {sortBy} prompt={analyzedPrompt} {family} />
 					{:else if activeTab === 'formation'}
 						<DataTable data={analysis.formation_df} sortKey={analysis.formation_df[0]?.['sft - base'] !== undefined ? 'sft - base' : 'dpo - base'} sortDesc={false} />
 					{:else if activeTab === 'displacement'}
 						{#if displacement}
-							<DisplacementChart data={displacement} />
+							<DisplacementChart data={displacement} prompt={analyzedPrompt} {family} />
 							<PairsList
 								sublimation={displacement.sublimation.pairs}
 								repression={displacement.repression.pairs}
@@ -329,11 +327,11 @@
 							</div>
 						{/if}
 					{:else if activeTab === 'logit-lens'}
-						<LogitLensChart {prompt} {analyzedPrompt} onAnalyze={() => analyze({ switchTab: false })} />
+						<LogitLensChart {prompt} {analyzedPrompt} {family} onAnalyze={() => analyze({ switchTab: false })} />
 					{:else if activeTab === 'generate'}
-						<GenerationChart {prompt} {analyzedPrompt} onAnalyze={() => analyze({ switchTab: false })} />
+						<GenerationChart {prompt} {analyzedPrompt} {family} onAnalyze={() => analyze({ switchTab: false })} />
 					{:else if activeTab === 'contradiction'}
-						<ContradictionChart />
+						<ContradictionChart {family} />
 					{:else if activeTab === 'report'}
 						<pre class="report">{analysis.report}</pre>
 					{/if}
@@ -599,39 +597,6 @@
 		border-color: #4e79a7;
 	}
 
-	.controls-section {
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-	}
-
-	.control-row {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		font-size: 12px;
-		color: #aaa;
-	}
-
-	.control-row span:first-child {
-		min-width: 55px;
-	}
-
-	.control-row input[type='range'] {
-		flex: 1;
-		accent-color: #4e79a7;
-	}
-
-	.control-row select {
-		flex: 1;
-		background: #141428;
-		border: 1px solid #2a2a44;
-		color: #ccc;
-		padding: 3px 6px;
-		border-radius: 4px;
-		font-size: 12px;
-	}
-
 	.val {
 		min-width: 30px;
 		text-align: right;
@@ -697,6 +662,43 @@
 		flex: 1;
 		padding: 16px;
 		overflow-y: auto;
+	}
+
+	.trajectory-controls {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		flex-wrap: wrap;
+		margin-bottom: 8px;
+	}
+
+	.control-inline {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 11px;
+		color: #888;
+		white-space: nowrap;
+	}
+
+	.control-inline select {
+		background: #141428;
+		border: 1px solid #2a2a44;
+		color: #ccc;
+		padding: 4px 8px;
+		border-radius: 4px;
+		font-size: 12px;
+		font-family: 'SF Mono', monospace;
+	}
+
+	.control-inline select:focus {
+		outline: none;
+		border-color: #4e79a7;
+	}
+
+	.control-inline input[type='range'] {
+		width: 80px;
+		accent-color: #4e79a7;
 	}
 
 	.report {

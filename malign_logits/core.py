@@ -162,7 +162,10 @@ def score_words_from_logits(logits, tokenizer, candidate_words):
         token_ids = tokenizer.encode(" " + word, add_special_tokens=False)
         if not token_ids:
             continue
-        word_scores[word] = log_probs[token_ids[0]].item()
+        tid = token_ids[0]
+        if len(token_ids) > 1 and not tokenizer.decode([tid]).strip():
+            tid = token_ids[1]
+        word_scores[word] = log_probs[tid].item()
 
     if not word_scores:
         return {}

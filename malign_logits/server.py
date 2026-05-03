@@ -170,10 +170,12 @@ class ModelHandler(BaseHTTPRequestHandler):
             results = {}
             for i, (name, desc) in enumerate(layers_to_run):
                 base_step = i * top_k
-                def _progress(step, total, _desc=desc, _base=base_step):
-                    _set_progress("analyzing", _desc,
+                def _progress(step, total, _desc=desc, _base=base_step, _tk=top_k):
+                    _set_progress("analyzing",
+                                  f"{_desc} ({step}/{_tk} passes)",
                                   step=_base + step, total=total_steps)
-                _set_progress("analyzing", desc,
+                _set_progress("analyzing",
+                              f"{desc} (0/{top_k} passes)",
                               step=base_step, total=total_steps)
                 layer = self._get_layer(psyche, name)
                 results[name] = layer.top_words(
@@ -278,8 +280,8 @@ class ModelHandler(BaseHTTPRequestHandler):
             if stash is not None:
                 try:
                     for key in stash.keys():
-                        if isinstance(key, tuple) and len(key) >= 4 and key[0] == "top_words":
-                            p = key[3]
+                        if isinstance(key, tuple) and len(key) >= 3 and key[0] == "top_words":
+                            p = key[2]
                             if isinstance(p, str):
                                 prompts.add(p)
                 except Exception:
@@ -432,15 +434,15 @@ class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
     daemon_threads = True
 
 
-def serve(port=8421, family=None):
+def serve(port=8421, family=None, host="0.0.0.0"):
     """Start the model server."""
     global _family
     _family = family
     thread = threading.Thread(target=_get_psyche, daemon=True)
     thread.start()
 
-    server = ThreadingHTTPServer(("127.0.0.1", port), ModelHandler)
-    print(f"Model server running on http://127.0.0.1:{port}")
+    server = ThreadingHTTPServer((host, port), ModelHandler)
+    print(f"Model server running on http://{host}:{port}")
     print(f"Models loading in background...")
     try:
         server.serve_forever()

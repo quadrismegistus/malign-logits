@@ -28,7 +28,7 @@ def _check_cached_count(prompt, temperature=1.0, model_ids=None,
     from hashstash import HashStash
 
     stash_path = cache_dir or _gen_stash_path()
-    stash = HashStash(root_dir=stash_path, append_mode=True)
+    stash = HashStash(root_dir=stash_path, append_mode=True, engine="pairtree", compress="lz4", b64=True)
     key = {
         "prompt": prompt,
         "temperature": temperature,
@@ -48,7 +48,7 @@ def generate_many(psyche, prompt, n=30, max_new_tokens=100,
     from hashstash import HashStash
 
     stash_path = cache_dir or _gen_stash_path()
-    stash = HashStash(root_dir=stash_path, append_mode=True)
+    stash = HashStash(root_dir=stash_path, append_mode=True, engine="pairtree", compress="lz4", b64=True)
     # Key includes all model IDs so different families don't share cache
     model_ids = [psyche.primary_process.model_id]
     if psyche.ego is not None:
@@ -112,7 +112,7 @@ def generate_many_with_progress(psyche, prompt, n=5, max_new_tokens=100,
     from hashstash import HashStash
 
     stash_path = cache_dir or _gen_stash_path()
-    stash = HashStash(root_dir=stash_path, append_mode=True)
+    stash = HashStash(root_dir=stash_path, append_mode=True, engine="pairtree", compress="lz4", b64=True)
     model_ids = [psyche.primary_process.model_id]
     if psyche.ego is not None:
         model_ids.append(psyche.ego.model_id)

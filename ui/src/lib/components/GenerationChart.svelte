@@ -2,14 +2,16 @@
 	import * as d3 from 'd3';
 	import { api } from '$lib/api';
 	import type { Generation } from '$lib/api';
+	import ExportButton from './ExportButton.svelte';
 
 	interface Props {
 		prompt: string;
 		analyzedPrompt?: string;
+		family?: string;
 		onAnalyze?: () => Promise<void>;
 	}
 
-	let { prompt, analyzedPrompt = '', onAnalyze }: Props = $props();
+	let { prompt, analyzedPrompt = '', family = '', onAnalyze }: Props = $props();
 
 	let generations: Generation[] = $state([]);
 	let conceptAxes: string[] = $state([]);
@@ -75,10 +77,11 @@
 		if (!container || !generations.length) return;
 		container.innerHTML = '';
 
+		const hasTitle = !!(prompt || family);
 		const rect = container.getBoundingClientRect();
 		const width = Math.min(rect.width, 500);
-		const height = 400;
-		const margin = { top: 20, right: 20, bottom: 44, left: 50 };
+		const height = hasTitle ? 440 : 400;
+		const margin = { top: hasTitle ? 48 : 20, right: 20, bottom: 44, left: 50 };
 		const innerW = width - margin.left - margin.right;
 		const innerH = height - margin.top - margin.bottom;
 
@@ -94,6 +97,25 @@
 		const y = d3.scaleLinear().domain([yExt[0] - yPad, yExt[1] + yPad]).range([innerH, 0]);
 
 		const svg = d3.select(container).append('svg').attr('width', width).attr('height', height);
+
+		if (hasTitle) {
+			const titleParts = ['Generation'];
+			if (family) titleParts.push(`— ${family}`);
+			titleParts.push(`(n=${nGens}, ${maxTokens} tokens)`);
+			svg.append('text')
+				.attr('x', width / 2).attr('y', 16)
+				.attr('text-anchor', 'middle')
+				.attr('fill', '#ccc').attr('font-size', '13px').attr('font-weight', '600')
+				.text(titleParts.join(' '));
+			if (prompt) {
+				svg.append('text')
+					.attr('x', width / 2).attr('y', 32)
+					.attr('text-anchor', 'middle')
+					.attr('fill', '#777').attr('font-size', '11px').attr('font-style', 'italic')
+					.text(`"${prompt.trim()}"`);
+			}
+		}
+
 		const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
 		g.append('g')
@@ -231,6 +253,7 @@
 			<input type="range" bind:value={maxTokens} min={25} max={200} step={25} />
 			<span class="val">{maxTokens}</span>
 		</label>
+		<ExportButton {container} filename="generation.png" />
 		{#if conceptAxes.length > 0}
 			<label class="axis-control">
 				<span>x</span>

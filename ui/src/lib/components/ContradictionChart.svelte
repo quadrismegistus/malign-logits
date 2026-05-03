@@ -2,6 +2,13 @@
 	import * as d3 from 'd3';
 	import { api } from '$lib/api';
 	import type { ContradictionResult } from '$lib/api';
+	import ExportButton from './ExportButton.svelte';
+
+	interface Props {
+		family?: string;
+	}
+
+	let { family = '' }: Props = $props();
 
 	let results: ContradictionResult[] = $state([]);
 	let loading = $state(false);
@@ -63,14 +70,32 @@
 
 		const models = MODEL_ORDER.filter((m) => data.some((d) => d.model === m));
 
+		const hasTitle = !!(family || selectedPair);
 		const rect = container.getBoundingClientRect();
 		const width = Math.min(rect.width, 600);
-		const height = 300;
-		const margin = { top: 30, right: 20, bottom: 50, left: 50 };
+		const height = hasTitle ? 340 : 300;
+		const margin = { top: hasTitle ? 52 : 30, right: 20, bottom: 50, left: 50 };
 		const innerW = width - margin.left - margin.right;
 		const innerH = height - margin.top - margin.bottom;
 
 		const svg = d3.select(container).append('svg').attr('width', width).attr('height', height);
+
+		if (hasTitle) {
+			const titleParts = ['Contradiction'];
+			if (family) titleParts.push(`— ${family}`);
+			svg.append('text')
+				.attr('x', width / 2).attr('y', 16)
+				.attr('text-anchor', 'middle')
+				.attr('fill', '#ccc').attr('font-size', '13px').attr('font-weight', '600')
+				.text(titleParts.join(' '));
+			if (selectedPair) {
+				svg.append('text')
+					.attr('x', width / 2).attr('y', 32)
+					.attr('text-anchor', 'middle')
+					.attr('fill', '#777').attr('font-size', '11px').attr('font-style', 'italic')
+					.text(selectedPair);
+			}
+		}
 		const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
 		const x = d3.scaleBand().domain(models).range([0, innerW]).padding(0.3);
@@ -212,6 +237,7 @@
 				</select>
 			</label>
 		{/if}
+		<ExportButton {container} filename="contradiction.png" />
 	</div>
 
 	{#if loading}

@@ -2,13 +2,16 @@
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
 	import type { DisplacementResult, FormationRow } from '$lib/api';
+	import ExportButton from './ExportButton.svelte';
 
 	interface Props {
 		data: DisplacementResult;
 		minSim?: number;
+		prompt?: string;
+		family?: string;
 	}
 
-	let { data, minSim = 0.45 }: Props = $props();
+	let { data, minSim = 0.45, prompt = '', family = '' }: Props = $props();
 
 	let container: HTMLDivElement;
 
@@ -42,10 +45,11 @@
 			return Math.max(...vals) > minProb;
 		});
 
+		const hasTitle = !!(prompt || family);
 		const rect = container.getBoundingClientRect();
 		const width = rect.width;
 		const height = Math.max(600, rect.height);
-		const margin = { top: 24, right: 100, bottom: 40, left: 60 };
+		const margin = { top: hasTitle ? 48 : 24, right: 100, bottom: 40, left: 60 };
 		const innerW = width - margin.left - margin.right;
 		const innerH = height - margin.top - margin.bottom;
 
@@ -54,6 +58,24 @@
 			.append('svg')
 			.attr('width', width)
 			.attr('height', height);
+
+		if (hasTitle) {
+			const titleParts = ['Displacement'];
+			if (family) titleParts.push(`— ${family}`);
+			svg.append('text')
+				.attr('x', width / 2).attr('y', 16)
+				.attr('text-anchor', 'middle')
+				.attr('fill', '#ccc').attr('font-size', '13px').attr('font-weight', '600')
+				.text(titleParts.join(' '));
+			if (prompt) {
+				svg.append('text')
+					.attr('x', width / 2).attr('y', 32)
+					.attr('text-anchor', 'middle')
+					.attr('fill', '#777').attr('font-size', '11px').attr('font-style', 'italic')
+					.text(`"${prompt}"`);
+			}
+		}
+
 		const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
 		const x = d3
@@ -211,4 +233,7 @@
 	onMount(draw);
 </script>
 
+<div style="display: flex; justify-content: flex-end; padding: 0 4px;">
+	<ExportButton {container} filename="displacement.png" />
+</div>
 <div bind:this={container} class="chart-container" style="position: relative; width: 100%; height: 620px;"></div>

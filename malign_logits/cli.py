@@ -63,12 +63,19 @@ def cmd_download_models(args):
 
 
 def cmd_ui(args):
-    """Open UI in browser (requires `malign serve` running)."""
-    import webbrowser
-    url = f"http://127.0.0.1:{args.port}"
-    print(f"Opening {url}")
-    print("Make sure `malign serve` is running.")
-    webbrowser.open(url)
+    """Open UI in browser, or start Vite dev server with --dev."""
+    if args.dev:
+        import subprocess
+        ui_dir = os.path.join(os.path.dirname(__file__), "..", "ui")
+        print(f"Starting Vite dev server (hot reload)...")
+        print(f"Make sure `malign serve` is running for the API.")
+        subprocess.run(["npm", "run", "dev"], cwd=ui_dir)
+    else:
+        import webbrowser
+        url = f"http://127.0.0.1:{args.port}"
+        print(f"Opening {url}")
+        print("Make sure `malign serve` is running.")
+        webbrowser.open(url)
 
 
 def cmd_serve(args):
@@ -204,6 +211,33 @@ def cmd_taxonomy(args):
     )
 
 
+def cmd_precompute(args):
+    """Precompute top words, logits, and formation data for all prompts."""
+    from .psyche import Psyche
+    from .experiments import DEFAULT_PROMPTS, TIER1_PROMPTS
+    key, _ = _get_family(args)
+
+    prompts = TIER1_PROMPTS if args.prompts == "tier1" else DEFAULT_PROMPTS
+    psyche = Psyche.from_family(key, load=True)
+    n = len(prompts)
+    print(f"Precomputing {n} prompts for {key} ({psyche.n_layers} layers)...")
+
+    for i, (label, prompt) in enumerate(prompts.items()):
+        print(f"\n  [{i+1}/{n}] {label}: {prompt[:50]}...")
+        a = psyche.analyze(prompt)
+        _ = a.base_words
+        if a.ego_words is not None:
+            _ = a.ego_words
+        if a.superego_words is not None:
+            _ = a.superego_words
+        if a.instruct_words is not None:
+            _ = a.instruct_words
+        _ = a.formation_df
+        print(f"    {len(a.formation_df)} words scored across {psyche.n_layers} layers")
+
+    print(f"\nDone. All prompts cached to stash.")
+
+
 def cmd_trajectory(args):
     """Measure trajectory geometry and run fold-vs-wall intervention."""
     from .psyche import Psyche
@@ -270,6 +304,7 @@ def main():
     # ui
     ui = subparsers.add_parser("ui", help="Open UI in browser (requires malign serve)")
     ui.add_argument("--port", type=int, default=8421, help="Server port (default 8421)")
+    ui.add_argument("--dev", action="store_true", help="Start Vite dev server with hot reload")
     ui.set_defaults(func=cmd_ui)
 
     # serve
@@ -343,6 +378,14 @@ def main():
     tx.add_argument("--no-syntagmatic", action="store_true",
                     help="Skip syntagmatic_js measurement (faster; drops the continuous syntagmatic-disruption column)")
     tx.set_defaults(func=cmd_taxonomy)
+
+    # precompute
+    pc = subparsers.add_parser("precompute",
+                               help="Precompute top words + formation data for all prompts")
+    _add_family_arg(pc)
+    pc.add_argument("--prompts", choices=["tier1", "all"], default="all",
+                    help="Prompt set (default: all 47)")
+    pc.set_defaults(func=cmd_precompute)
 
     # trajectory
     tj = subparsers.add_parser("trajectory",

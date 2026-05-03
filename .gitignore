@@ -218,4 +218,4 @@ notes/
 ui/node_modules/
 ui/.svelte-kit/
 notebooks/archive/
-uv.lock
+.vastai.json

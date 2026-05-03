@@ -96,7 +96,7 @@ class ModelLayer:
 
     def top_words(self, prompt, top_k_first=200, **kwargs):
         """Word-level probability distribution from this layer."""
-        cache_key = ("top_words", self.model_id, self.name, prompt, top_k_first)
+        cache_key = ("top_words", self.model_id, prompt, top_k_first)
 
         if self._stash is not None and cache_key in self._stash:
             return self._stash[cache_key]
@@ -114,7 +114,7 @@ class ModelLayer:
 
     def logits(self, prompt):
         """Raw logits at the last position for this prompt."""
-        cache_key = ("logits", self.model_id, self.name, prompt)
+        cache_key = ("logits", self.model_id, prompt)
 
         if self._stash is not None and cache_key in self._stash:
             return torch.tensor(self._stash[cache_key])
@@ -136,7 +136,7 @@ class ModelLayer:
 
         Returns list of dicts with keys: layer, word, probability, source.
         """
-        cache_key = ("logit_lens", self.model_id, self.name, prompt, top_k)
+        cache_key = ("logit_lens", self.model_id, prompt, top_k)
         if self._stash is not None and cache_key in self._stash:
             cached = self._stash[cache_key]
             if words:
@@ -162,7 +162,7 @@ class ModelLayer:
         Re-runs per-layer scoring only for the tracked words, using
         the raw per-layer logits stored during the original forward pass.
         """
-        cache_key = ("logit_lens_raw", self.model_id, self.name, prompt)
+        cache_key = ("logit_lens_raw", self.model_id, prompt)
 
         if self._stash is not None and cache_key in self._stash:
             layer_logits_np = self._stash[cache_key]
@@ -218,7 +218,7 @@ class ModelLayer:
             dict mapping word -> probability (normalized within the set).
         """
         words = sorted(set(words))
-        cache_key = ("score_vocab", self.model_id, self.name, prompt, tuple(words))
+        cache_key = ("score_vocab", self.model_id, prompt, tuple(words))
 
         if self._stash is not None and cache_key in self._stash:
             return self._stash[cache_key]
@@ -239,7 +239,7 @@ class ModelLayer:
 
         Cached to stash. Teacher-forced forward pass.
         """
-        cache_key = ("perplexity", self.model_id, self.name, prompt)
+        cache_key = ("perplexity", self.model_id, prompt)
 
         if self._stash is not None and cache_key in self._stash:
             return self._stash[cache_key]
@@ -282,7 +282,7 @@ class RemoteModelLayer(ModelLayer):
             return _json.loads(resp.read())
 
     def top_words(self, prompt, top_k_first=200, **kwargs):
-        cache_key = ("top_words", self.model_id, self.name, prompt, top_k_first)
+        cache_key = ("top_words", self.model_id, prompt, top_k_first)
         if self._stash is not None and cache_key in self._stash:
             return self._stash[cache_key]
 
@@ -294,7 +294,7 @@ class RemoteModelLayer(ModelLayer):
 
     def score_vocabulary(self, prompt, words):
         words = sorted(set(words))
-        cache_key = ("score_vocab", self.model_id, self.name, prompt, tuple(words))
+        cache_key = ("score_vocab", self.model_id, prompt, tuple(words))
         if self._stash is not None and cache_key in self._stash:
             return self._stash[cache_key]
 
@@ -309,7 +309,7 @@ class RemoteModelLayer(ModelLayer):
         return torch.tensor(result["logits"])
 
     def perplexity(self, prompt):
-        cache_key = ("perplexity", self.model_id, self.name, prompt)
+        cache_key = ("perplexity", self.model_id, prompt)
         if self._stash is not None and cache_key in self._stash:
             return self._stash[cache_key]
 
@@ -1477,7 +1477,7 @@ class Psyche:
         """
         if cache is None and cache_dir is not None:
             from hashstash import HashStash
-            cache = HashStash(root_dir=cache_dir)
+            cache = HashStash(root_dir=cache_dir, engine="pairtree", compress="lz4", b64=True)
 
         return cls(
             stash=cache,
@@ -1500,19 +1500,19 @@ class Psyche:
         self.primary_process.model = base
         self.primary_process.tokenizer = tokenizer
 
-        # Load optional layers
+        # Load optional layers — use each model's own tokenizer if it differs
         for attr, key in [("ego", "ego"), ("superego", "superego")]:
             layer = getattr(self, attr)
             if layer is not None and key in names:
-                model, _ = load_model(names[key])
+                model, tok = load_model(names[key])
                 layer.model = model
-                layer.tokenizer = tokenizer
+                layer.tokenizer = tok
 
         inst_name = instruct_name or names.get("instruct")
         if inst_name is not None and self.reinforced_superego is not None:
-            model, _ = load_model(inst_name)
+            model, tok = load_model(inst_name)
             self.reinforced_superego.model = model
-            self.reinforced_superego.tokenizer = tokenizer
+            self.reinforced_superego.tokenizer = tok
 
         self._models_loaded = True
 
@@ -1579,7 +1579,7 @@ class Psyche:
 
         if cache is None and cache_dir is not None:
             from hashstash import HashStash
-            cache = HashStash(root_dir=cache_dir)
+            cache = HashStash(root_dir=cache_dir, engine="pairtree", compress="lz4", b64=True)
 
         psyche = cls(
             stash=cache,

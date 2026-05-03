@@ -70,16 +70,16 @@ def run_step_analysis(steps=None, prompts_set="tier1", category=None,
 
     # ── Phase 2: extract logits per (step, prompt), cache to stash ──
     from hashstash import HashStash
-    stash = HashStash(root_dir=PATH_STASH)
+    stash = HashStash(root_dir=PATH_STASH, engine="pairtree", compress="lz4", b64=True)
 
     base_name = "allenai/Olmo-3-1025-7B"
     print(f"\nChecking base model logits...")
-    base_key_check = ("logits", base_name, "base", list(prompts.values())[0])
+    base_key_check = ("logits", base_name, list(prompts.values())[0])
     if base_key_check not in stash:
         print("  Base logits not cached — loading base model...")
         base_model, base_tok = load_model(base_name)
         for label, prompt in prompts.items():
-            cache_key = ("logits", base_name, "base", prompt)
+            cache_key = ("logits", base_name, prompt)
             if cache_key not in stash:
                 logits = get_base_logits(base_model, base_tok, prompt)
                 stash[cache_key] = logits.cpu().numpy()
@@ -90,7 +90,7 @@ def run_step_analysis(steps=None, prompts_set="tier1", category=None,
     print("  Base logits ready.")
 
     base_logits_cache = {
-        prompt: torch.tensor(stash[("logits", base_name, "base", prompt)])
+        prompt: torch.tensor(stash[("logits", base_name, prompt)])
         for prompt in prompts.values()
     }
 
