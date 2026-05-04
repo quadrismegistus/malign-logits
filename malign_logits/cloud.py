@@ -235,7 +235,14 @@ def cmd_setup(args):
     state = load_state()
     _require_instance(state)
 
+    hf_token = os.environ.get('HF_TOKEN', '')
+    if hf_token:
+        print("HF_TOKEN found locally — will configure on remote.", file=sys.stderr)
+    else:
+        print("Warning: HF_TOKEN not set. Gated models (Llama, etc.) will fail.", file=sys.stderr)
+
     print("Installing malign-logits...", file=sys.stderr)
+    hf_login = f'huggingface-cli login --token {hf_token}' if hf_token else 'echo "No HF_TOKEN — skipping login"'
     setup_script = f"""
 set -ex
 which python || ln -sf $(which python3) /usr/local/bin/python
@@ -249,6 +256,7 @@ fi
 cd {REMOTE_REPO}
 pip install -e .
 python -m spacy download en_core_web_sm
+{hf_login}
 
 python -c "import torch; print(f'PyTorch {{torch.__version__}}, CUDA {{torch.cuda.is_available()}}')"
 python -c "from malign_logits import MODEL_FAMILIES; print(f'{{len(MODEL_FAMILIES)}} families registered')"
@@ -280,7 +288,8 @@ def cmd_run(args):
 
     batch_cmd = (
         f'cd {REMOTE_REPO} && '
-        f'malign produce-all {families_flag} {skip_flag} '
+        f'HF_TOKEN=$(cat ~/.cache/huggingface/token 2>/dev/null) '
+        f'PYTHONUNBUFFERED=1 malign produce-all {families_flag} {skip_flag} '
         f'2>&1 | tee /workspace/produce-all.log'
     )
 
