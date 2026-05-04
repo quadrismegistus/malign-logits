@@ -420,174 +420,245 @@ def compute_concept_metrics(embeds_df, psg_df, embedder=None):
     return metrics
 
 
-def compute_topic_drift(psg_df, min_sentences=3, model_name=None):
-    """Measure within-generation topic drift via sentence-level embeddings.
-
-    For each passage: split into sentences, embed each, compute:
-    - **mean_drift**: mean cosine distance between consecutive sentences
-      (local jitter — does each sentence jar against the next?)
-    - **total_drift**: cosine distance from first to last sentence
-      (net displacement — how far did the text travel overall?)
-    - **path_length**: sum of consecutive cosine distances
-      (total ground covered, including backtracking)
-    - **directedness**: total_drift / path_length
-      (close to 1 = steady chain; close to 0 = circular wandering)
-
-    Filters out degenerate outputs where any single token exceeds
-    30% of the passage (repetitive loops, period-filled text).
-
-    Returns DataFrame with one row per passage.
-    """
+def _split_sentences(text):
     import re as _re
+    text = str(text).strip()
+    sents = _re.split(r'(?<=[.!?])\s+', text)
+    return [s.strip() for s in sents if len(s.strip()) > 10]
+
+
+def _is_degenerate(text):
     from collections import Counter
-    embedder = _get_embedder(model_name)
-
-    def split_sentences(text):
-        text = str(text).strip()
-        sents = _re.split(r'(?<=[.!?])\s+', text)
-        return [s.strip() for s in sents if len(s.strip()) > 10]
-
-    def is_degenerate(text):
-        text = str(text)
-        tokens = text.split()
-        if len(tokens) < 5:
+    text = str(text)
+    tokens = text.split()
+    if len(tokens) < 5:
+        return True
+    counts = Counter(tokens)
+    if counts.most_common(1)[0][1] / len(tokens) > 0.3:
+        return True
+    chars = [c for c in text if not c.isspace()]
+    if chars:
+        if Counter(chars).most_common(1)[0][1] / len(chars) > 0.3:
             return True
-        counts = Counter(tokens)
-        most_common_frac = counts.most_common(1)[0][1] / len(tokens)
-        if most_common_frac > 0.3:
-            return True
-        chars = [c for c in text if not c.isspace()]
-        if chars:
-            char_counts = Counter(chars)
-            if char_counts.most_common(1)[0][1] / len(chars) > 0.3:
-                return True
-        return False
+    return False
+
+
+def _get_gen_stash():
+    from hashstash import HashStash
+    from . import PATH_STASH
+    return HashStash(
+        root_dir=PATH_STASH + "_gen_metrics",
+        engine="pairtree", compress="lz4", b64=True,
+    )
+
+
+def _cache_sent_embeddings(text, stash, embedder):
+    """Get or compute sentence embeddings for a passage."""
+    key = ("sent_embeddings", text)
+    if key in stash:
+        return stash[key]
+    sents = _split_sentences(text)
+    if len(sents) < 2:
+        return None
+    vecs = embedder.encode(sents, show_progress_bar=False)
+    norms = np.linalg.norm(vecs, axis=1, keepdims=True) + 1e-10
+    normed = (vecs / norms).tolist()
+    stash[key] = normed
+    return normed
+
+
+def _cache_token_surprisals(text, stash, ref_model_name="gpt2"):
+    """Get or compute per-token surprisals under a reference model."""
+    key = ("token_surprisals", ref_model_name, text)
+    if key in stash:
+        return stash[key]
+    s = passage_surprisal(text, model_name=ref_model_name)
+    result = s["token_surprisals"]
+    stash[key] = result
+    return result
+
+
+def drift_metrics_from_embeddings(sent_vecs):
+    """Compute drift metrics from cached sentence embedding vectors."""
+    sv = [np.array(v) for v in sent_vecs]
+    n_sents = len(sv)
+
+    step_dists = []
+    for i in range(len(sv) - 1):
+        cos_sim = float(np.dot(sv[i], sv[i + 1]))
+        step_dists.append(1.0 - cos_sim)
+
+    sv_arr = np.array(sv)
+    sim_matrix = sv_arr @ sv_arr.T
+    total_drift = float(1.0 - sim_matrix.min())
+    path_length = float(np.sum(step_dists))
+    directedness = total_drift / path_length if path_length > 0 else 0
+
+    return {
+        "n_sentences": n_sents,
+        "mean_drift": round(float(np.mean(step_dists)), 4),
+        "max_drift": round(float(np.max(step_dists)), 4),
+        "std_drift": round(float(np.std(step_dists)), 4),
+        "total_drift": round(total_drift, 4),
+        "path_length": round(path_length, 4),
+        "directedness": round(directedness, 4),
+    }
+
+
+def surprisal_metrics_from_tokens(token_surprisals):
+    """Compute surprisal metrics from cached (token, surprisal) pairs."""
+    if not token_surprisals:
+        return {"mean_surprisal": 0, "max_surprisal": 0, "std_surprisal": 0, "n_tokens": 0}
+    vals = [s for _, s in token_surprisals]
+    arr = np.array(vals)
+    return {
+        "mean_surprisal": round(float(arr.mean()), 4),
+        "max_surprisal": round(float(arr.max()), 4),
+        "std_surprisal": round(float(arr.std()), 4),
+        "n_tokens": len(vals),
+    }
+
+
+def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
+                            embedder_name=None):
+    """Compute drift + surprisal + metonymy for all passages.
+
+    Caches raw intermediates (sentence embeddings, token surprisals) to
+    HashStash. Derived metrics are recomputed from cache each run, so
+    formula changes are free.
+
+    Returns DataFrame with one row per non-degenerate passage.
+    """
+    stash = _get_gen_stash()
+    embedder = _get_embedder(embedder_name)
+
+    n_cached_se = 0
+    n_cached_ts = 0
+    n_computed_se = 0
+    n_computed_ts = 0
 
     rows = []
-    all_sents = []
-    sent_map = []
-
-    for idx, row in psg_df.iterrows():
-        if is_degenerate(row["psg"]):
-            continue
-        sents = split_sentences(row["psg"])
-        for s in sents:
-            all_sents.append(s)
-            sent_map.append(idx)
-
-    if not all_sents:
-        return pd.DataFrame()
-
-    vecs = embedder.encode(all_sents, show_progress_bar=False)
-    norms = np.linalg.norm(vecs, axis=1, keepdims=True) + 1e-10
-    vecs_normed = vecs / norms
-
-    idx_to_vecs = {}
-    for i, idx in enumerate(sent_map):
-        idx_to_vecs.setdefault(idx, []).append(vecs_normed[i])
-
-    for idx, row in psg_df.iterrows():
-        sv = idx_to_vecs.get(idx, [])
-        n_sents = len(sv)
-        if n_sents < min_sentences:
+    for _, row in tqdm(psg_df.iterrows(), total=len(psg_df), desc="Passage metrics"):
+        text = str(row["psg"]).strip()
+        if _is_degenerate(text):
             continue
 
-        step_dists = []
-        for i in range(len(sv) - 1):
-            cos_sim = float(np.dot(sv[i], sv[i + 1]))
-            step_dists.append(1.0 - cos_sim)
+        # Sentence embeddings (drift)
+        se_key = ("sent_embeddings", text)
+        if se_key in stash:
+            sent_vecs = stash[se_key]
+            n_cached_se += 1
+        else:
+            sents = _split_sentences(text)
+            if len(sents) < min_sentences:
+                continue
+            vecs = embedder.encode(sents, show_progress_bar=False)
+            norms = np.linalg.norm(vecs, axis=1, keepdims=True) + 1e-10
+            sent_vecs = (vecs / norms).tolist()
+            stash[se_key] = sent_vecs
+            n_computed_se += 1
 
-        total_drift = float(1.0 - np.dot(sv[0], sv[-1]))
-        path_length = float(np.sum(step_dists))
-        directedness = total_drift / path_length if path_length > 0 else 0
+        if sent_vecs is None or len(sent_vecs) < min_sentences:
+            continue
+
+        # Token surprisals
+        ts_key = ("token_surprisals", ref_model_name, text)
+        if ts_key in stash:
+            tok_surp = stash[ts_key]
+            n_cached_ts += 1
+        else:
+            s = passage_surprisal(text, model_name=ref_model_name)
+            tok_surp = s["token_surprisals"]
+            stash[ts_key] = tok_surp
+            n_computed_ts += 1
+
+        # Compute derived metrics
+        d = drift_metrics_from_embeddings(sent_vecs)
+        s = surprisal_metrics_from_tokens(tok_surp)
+
+        metonymy_idx = d["total_drift"] / s["mean_surprisal"] if s["mean_surprisal"] > 0 else 0
 
         entry = {
             "family": row.get("family", ""),
             "label": row.get("label", ""),
             "model": row.get("model", ""),
-            "psg": str(row["psg"])[:200],
-            "n_sentences": n_sents,
-            "mean_drift": round(float(np.mean(step_dists)), 4),
-            "max_drift": round(float(np.max(step_dists)), 4),
-            "std_drift": round(float(np.std(step_dists)), 4),
-            "total_drift": round(total_drift, 4),
-            "path_length": round(path_length, 4),
-            "directedness": round(directedness, 4),
+            "psg": text[:200],
         }
+        entry.update(d)
+        entry.update(s)
+        entry["metonymy_idx"] = round(metonymy_idx, 4)
         rows.append(entry)
+
+    print(f"  Sentence embeddings: {n_cached_se} cached, {n_computed_se} computed")
+    print(f"  Token surprisals:    {n_cached_ts} cached, {n_computed_ts} computed")
 
     return pd.DataFrame(rows)
 
 
-def run_topic_drift(raw_path="data/gen_battery_raw.parquet",
-                    output_path="data/topic_drift.csv"):
-    """Compute topic drift for all cached generations and print summary.
+def compute_topic_drift(psg_df, min_sentences=3, model_name=None):
+    """Legacy wrapper — calls compute_passage_metrics and returns drift columns."""
+    df = compute_passage_metrics(psg_df, min_sentences=min_sentences,
+                                 embedder_name=model_name)
+    return df
 
-    Reads raw generation data, computes per-passage sentence-level drift,
-    aggregates by family × model × category.
+
+def run_topic_drift(raw_path="data/gen_battery_raw.parquet",
+                    output_path="data/passage_metrics.csv"):
+    """Compute drift + surprisal + metonymy for all cached generations.
+
+    Caches raw intermediates (sentence embeddings, token surprisals) to
+    HashStash. Derived metrics recomputed each run — formula changes free.
     """
     psg_df = pd.read_parquet(raw_path)
     print(f"Loaded {len(psg_df)} passages from {raw_path}")
     print(f"Families: {sorted(psg_df['family'].unique())}")
 
-    drift_df = compute_topic_drift(psg_df)
-    print(f"Computed drift for {len(drift_df)} passages (>= 3 sentences)")
+    df = compute_passage_metrics(psg_df)
+    print(f"Computed metrics for {len(df)} passages")
 
-    drift_df["category"] = drift_df["label"].str.replace(r"_\d+$", "", regex=True)
-
+    df["category"] = df["label"].str.replace(r"_\d+$", "", regex=True)
     label_map = {"base": "BASE", "ego": "SFT", "superego": "DPO", "instruct": "RLVR"}
-    drift_df["layer"] = drift_df["model"].map(lambda m: label_map.get(m, m.upper()))
+    df["layer"] = df["model"].map(lambda m: label_map.get(m, m.upper()))
 
     print(f"\n{'=' * 70}")
-    print("TOPIC DRIFT BY MODEL LAYER (mean consecutive-sentence cosine distance)")
+    print("ALL METRICS BY LAYER")
     print(f"{'=' * 70}")
-    layer_means = drift_df.groupby(["family", "layer"])["mean_drift"].agg(["mean", "std", "count"]).round(4)
-    print(layer_means.to_string())
-
-    print(f"\n{'=' * 70}")
-    print("TOPIC DRIFT BY CATEGORY × LAYER")
-    print(f"{'=' * 70}")
-    for fam in sorted(drift_df["family"].unique()):
-        fdf = drift_df[drift_df["family"] == fam]
-        pivot = fdf.pivot_table(
-            index="category", columns="layer", values="mean_drift", aggfunc="mean",
-        ).round(4)
-        col_order = [c for c in ["BASE", "SFT", "DPO", "RLVR"] if c in pivot.columns]
-        pivot = pivot[col_order]
-        print(f"\n  {fam}:")
-        print(f"  {pivot.to_string()}")
-
-    print(f"\n{'=' * 70}")
-    print("TOTAL DRIFT + DIRECTEDNESS BY LAYER")
-    print(f"{'=' * 70}")
-    agg = drift_df.groupby(["family", "layer"]).agg(
+    agg = df.groupby(["family", "layer"]).agg(
         mean_drift=("mean_drift", "mean"),
         total_drift=("total_drift", "mean"),
-        path_length=("path_length", "mean"),
         directedness=("directedness", "mean"),
+        surprisal=("mean_surprisal", "mean"),
+        metonymy=("metonymy_idx", "mean"),
         count=("mean_drift", "count"),
     ).round(4)
     print(agg.to_string())
 
     print(f"\n{'=' * 70}")
-    print("BASE vs ALIGNED: drift change")
+    print("BASE vs ALIGNED")
     print(f"{'=' * 70}")
-    for fam in sorted(drift_df["family"].unique()):
-        fdf = drift_df[drift_df["family"] == fam]
+    for fam in sorted(df["family"].unique()):
+        fdf = df[df["family"] == fam]
         base = fdf[fdf["model"] == "base"]
+        if base.empty:
+            continue
         for layer_name, model_key in [("SFT", "ego"), ("DPO", "superego"), ("RLVR", "instruct")]:
             ldf = fdf[fdf["model"] == model_key]
             if ldf.empty:
                 continue
             print(f"  {fam} BASE→{layer_name}:")
-            print(f"    mean_drift:  {base['mean_drift'].mean():.4f} → {ldf['mean_drift'].mean():.4f} (Δ={ldf['mean_drift'].mean()-base['mean_drift'].mean():+.4f})")
-            print(f"    total_drift: {base['total_drift'].mean():.4f} → {ldf['total_drift'].mean():.4f} (Δ={ldf['total_drift'].mean()-base['total_drift'].mean():+.4f})")
-            print(f"    directedness:{base['directedness'].mean():.4f} → {ldf['directedness'].mean():.4f} (Δ={ldf['directedness'].mean()-base['directedness'].mean():+.4f})")
+            for col in ["mean_drift", "total_drift", "directedness", "mean_surprisal", "metonymy_idx"]:
+                bm = base[col].mean()
+                lm = ldf[col].mean()
+                print(f"    {col:18s} {bm:.4f} → {lm:.4f} (Δ={lm-bm:+.4f})")
 
-    drift_df.to_csv(output_path, index=False)
-    print(f"\nSaved {output_path} ({len(drift_df)} rows)")
+    df.to_csv(output_path, index=False)
+    print(f"\nSaved {output_path} ({len(df)} rows)")
 
-    return drift_df
+    return df
+
+
+# Keep legacy names as aliases
+run_surprisal = run_topic_drift
 
 
 # ── Surprisal ────────────────────────────────────────────────────
@@ -626,7 +697,7 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2"):
 
     with torch.no_grad():
         outputs = model(ids)
-        logits = outputs.logits[0]  # (seq_len, vocab)
+        logits = outputs.logits[0]
 
     log_probs = torch.log_softmax(logits.float(), dim=-1)
     token_ids = ids[0]
@@ -650,101 +721,6 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2"):
         "n_tokens": len(surprisals),
         "token_surprisals": list(zip(tokens, [round(s, 4) for s in surprisals])),
     }
-
-
-def compute_surprisal(psg_df, model_name="gpt2"):
-    """Compute per-passage surprisal for a DataFrame of generations.
-
-    Returns DataFrame with one row per passage: family, label, model,
-    mean_surprisal, max_surprisal, std_surprisal, n_tokens.
-    """
-    ref_model, ref_tok = _load_surprisal_model(model_name)
-
-    from collections import Counter as _Counter
-
-    def _is_degenerate(text):
-        tokens = str(text).split()
-        if len(tokens) < 5:
-            return True
-        counts = _Counter(tokens)
-        if counts.most_common(1)[0][1] / len(tokens) > 0.3:
-            return True
-        chars = [c for c in str(text) if not c.isspace()]
-        if chars and _Counter(chars).most_common(1)[0][1] / len(chars) > 0.3:
-            return True
-        return False
-
-    rows = []
-    for _, row in tqdm(psg_df.iterrows(), total=len(psg_df), desc="Computing surprisal"):
-        text = str(row["psg"]).strip()
-        if len(text) < 10 or _is_degenerate(text):
-            continue
-        s = passage_surprisal(text, model=ref_model, tokenizer=ref_tok)
-        rows.append({
-            "family": row.get("family", ""),
-            "label": row.get("label", ""),
-            "model": row.get("model", ""),
-            "psg": text[:200],
-            "mean_surprisal": s["mean_surprisal"],
-            "max_surprisal": s["max_surprisal"],
-            "std_surprisal": s["std_surprisal"],
-            "n_tokens": s["n_tokens"],
-        })
-
-    return pd.DataFrame(rows)
-
-
-def run_surprisal(raw_path="data/gen_battery_raw.parquet",
-                  output_path="data/surprisal.csv", model_name="gpt2"):
-    """Compute GPT-2 surprisal for all cached generations and print summary."""
-    psg_df = pd.read_parquet(raw_path)
-    print(f"Loaded {len(psg_df)} passages from {raw_path}")
-
-    surp_df = compute_surprisal(psg_df, model_name=model_name)
-    surp_df["category"] = surp_df["label"].str.replace(r"_\d+$", "", regex=True)
-
-    label_map = {"base": "BASE", "ego": "SFT", "superego": "DPO", "instruct": "RLVR"}
-    surp_df["layer"] = surp_df["model"].map(lambda m: label_map.get(m, m.upper()))
-
-    print(f"\n{'=' * 70}")
-    print(f"SURPRISAL BY MODEL LAYER (GPT-2 reference, bits)")
-    print(f"{'=' * 70}")
-    layer_means = surp_df.groupby(["family", "layer"])["mean_surprisal"].agg(
-        ["mean", "std", "count"]
-    ).round(4)
-    print(layer_means.to_string())
-
-    print(f"\n{'=' * 70}")
-    print("SURPRISAL BY CATEGORY x LAYER")
-    print(f"{'=' * 70}")
-    for fam in sorted(surp_df["family"].unique()):
-        fdf = surp_df[surp_df["family"] == fam]
-        pivot = fdf.pivot_table(
-            index="category", columns="layer", values="mean_surprisal", aggfunc="mean",
-        ).round(4)
-        col_order = [c for c in ["BASE", "SFT", "DPO", "RLVR"] if c in pivot.columns]
-        pivot = pivot[col_order]
-        print(f"\n  {fam}:")
-        print(f"  {pivot.to_string()}")
-
-    print(f"\n{'=' * 70}")
-    print("BASE vs ALIGNED: surprisal change")
-    print(f"{'=' * 70}")
-    for fam in sorted(surp_df["family"].unique()):
-        fdf = surp_df[surp_df["family"] == fam]
-        base_mean = fdf[fdf["model"] == "base"]["mean_surprisal"].mean()
-        for layer_name, model_key in [("SFT", "ego"), ("DPO", "superego"), ("RLVR", "instruct")]:
-            ldf = fdf[fdf["model"] == model_key]
-            if ldf.empty:
-                continue
-            layer_mean = ldf["mean_surprisal"].mean()
-            delta = layer_mean - base_mean
-            print(f"  {fam} BASE→{layer_name}: {base_mean:.4f} → {layer_mean:.4f} (Δ={delta:+.4f})")
-
-    surp_df.to_csv(output_path, index=False)
-    print(f"\nSaved {output_path} ({len(surp_df)} rows)")
-
-    return surp_df
 
 
 def run_generate_battery(families=None, prompts_set="tier1", category=None,
