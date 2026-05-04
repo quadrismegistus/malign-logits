@@ -20,6 +20,9 @@
 	let customLoading = $state(false);
 	let customPoint: PassageMetrics | null = $state(null);
 
+	let chartDiv: HTMLDivElement;
+	let outerContainer: HTMLDivElement;
+
 	const METRICS = [
 		{ id: 'token_metonymy_idx', label: 'Token metonymy' },
 		{ id: 'metonymy_idx', label: 'Sentence metonymy' },
@@ -35,40 +38,20 @@
 	];
 
 	const FAMILY_COLORS: Record<string, string> = {
-		olmo: '#1f77b4',
-		'olmo-tiny': '#6baed6',
-		qwen: '#ff7f0e',
-		zephyr: '#2ca02c',
-		llama: '#d62728',
-		amber: '#9467bd',
-		smol: '#8c564b',
-		tulu: '#e377c2',
-		custom: '#000000',
+		olmo: '#4e79a7', 'olmo-tiny': '#76b7b2', qwen: '#f28e2b',
+		zephyr: '#59a14f', llama: '#e15759', amber: '#b07aa1',
+		smol: '#9c755f', tulu: '#ff9da7', custom: '#edc948',
 	};
-
 	const LAYER_COLORS: Record<string, string> = {
-		base: '#1f77b4',
-		ego: '#2ca02c',
-		superego: '#d62728',
-		instruct: '#ff7f0e',
-		custom: '#000000',
+		base: '#e15759', ego: '#f28e2b', superego: '#4e79a7',
+		instruct: '#59a14f', custom: '#edc948',
 	};
-
 	const CATEGORY_COLORS: Record<string, string> = {
-		sexual_explicit: '#d62728',
-		sexual_liminal: '#ff9896',
-		violence_explicit: '#8c564b',
-		violence_liminal: '#c49c94',
-		death: '#7f7f7f',
-		power: '#9467bd',
-		profanity: '#e377c2',
-		substance: '#bcbd22',
-		neutral: '#17becf',
-		custom: '#000000',
+		sexual_explicit: '#e15759', sexual_liminal: '#ff9da7',
+		violence_explicit: '#9c755f', violence_liminal: '#bab0ac',
+		death: '#76b7b2', power: '#b07aa1', profanity: '#ff9da7',
+		substance: '#edc948', neutral: '#4e79a7', custom: '#edc948',
 	};
-
-	let container: HTMLDivElement;
-	let chartDiv: HTMLDivElement;
 
 	onMount(async () => {
 		try {
@@ -84,20 +67,15 @@
 	function getCategory(d: PassageMetrics): string {
 		return d.label.replace(/_\d+$/, '');
 	}
-
 	function layerLabel(m: string): string {
-		const map: Record<string, string> = { base: 'BASE', ego: 'SFT', superego: 'DPO', instruct: 'RLVR', custom: 'CUSTOM' };
-		return map[m] ?? m.toUpperCase();
+		return ({ base: 'BASE', ego: 'SFT', superego: 'DPO', instruct: 'RLVR', custom: 'CUSTOM' })[m] ?? m.toUpperCase();
 	}
-
 	function pointColor(d: PassageMetrics): string {
-		if (d.family === 'custom') return '#000';
-		if (colorBy === 'family') return FAMILY_COLORS[d.family] ?? '#999';
-		if (colorBy === 'layer') return LAYER_COLORS[d.model] ?? '#999';
-		if (colorBy === 'category') return CATEGORY_COLORS[getCategory(d)] ?? '#999';
-		return '#666';
+		if (d.family === 'custom') return '#edc948';
+		if (colorBy === 'family') return FAMILY_COLORS[d.family] ?? '#888';
+		if (colorBy === 'layer') return LAYER_COLORS[d.model] ?? '#888';
+		return CATEGORY_COLORS[getCategory(d)] ?? '#888';
 	}
-
 	function getRaw(d: PassageMetrics, key: string): number {
 		return (d as any)[key] ?? 0;
 	}
@@ -117,8 +95,7 @@
 	function getVal(d: PassageMetrics, key: string): number {
 		const raw = getRaw(d, key);
 		const s = zStats[key];
-		if (!s) return raw;
-		return (raw - s.mean) / s.std;
+		return s ? (raw - s.mean) / s.std : raw;
 	}
 
 	let families = $derived([...new Set(data.map(d => d.family))].sort());
@@ -126,9 +103,7 @@
 
 	let filteredData = $derived.by(() => {
 		return data.filter(d => {
-			const x = getVal(d, xAxis);
-			const y = getVal(d, yAxis);
-			if (!isFinite(x) || !isFinite(y)) return false;
+			if (!isFinite(getVal(d, xAxis)) || !isFinite(getVal(d, yAxis))) return false;
 			if (filterFamily !== 'all' && d.family !== filterFamily) return false;
 			if (filterLayer !== 'all' && d.model !== filterLayer) return false;
 			return true;
@@ -136,7 +111,7 @@
 	});
 
 	function labelFor(id: string): string {
-		return METRICS.find(m => m.id === id)?.label ?? id;
+		return (METRICS.find(m => m.id === id)?.label ?? id) + ' (z)';
 	}
 
 	async function analyzeCustom() {
@@ -145,7 +120,7 @@
 		error = '';
 		try {
 			const result = await api.passageMetrics(customText.trim());
-			customPoint = { ...result, psg: customText.trim().slice(0, 200) };
+			customPoint = { ...result, psg: customText.trim().slice(0, 500) };
 			selectedPoint = customPoint;
 			await tick();
 			drawChart();
@@ -157,132 +132,107 @@
 	}
 
 	function handleCustomKeydown(e: KeyboardEvent) {
-		if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-			analyzeCustom();
-		}
+		if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) analyzeCustom();
 	}
 
 	function drawChart() {
 		if (!chartDiv || filteredData.length === 0) return;
 		chartDiv.innerHTML = '';
 
-		const margin = { top: 30, right: 20, bottom: 45, left: 55 };
-		const width = 720;
-		const height = 500;
+		const width = 500;
+		const height = 440;
+		const margin = { top: 20, right: 16, bottom: 44, left: 50 };
 		const innerW = width - margin.left - margin.right;
 		const innerH = height - margin.top - margin.bottom;
 
-		const allPoints = [...filteredData];
-		if (customPoint) allPoints.push(customPoint);
+		const allPoints = customPoint ? [...filteredData, customPoint] : filteredData;
+		const xExt = d3.extent(allPoints, d => getVal(d, xAxis)) as [number, number];
+		const yExt = d3.extent(allPoints, d => getVal(d, yAxis)) as [number, number];
+		const xPad = (xExt[1] - xExt[0]) * 0.08 || 0.5;
+		const yPad = (yExt[1] - yExt[0]) * 0.08 || 0.5;
 
-		const xExtent = d3.extent(allPoints, d => getVal(d, xAxis)) as [number, number];
-		const yExtent = d3.extent(allPoints, d => getVal(d, yAxis)) as [number, number];
-		const xPad = (xExtent[1] - xExtent[0]) * 0.05 || 0.1;
-		const yPad = (yExtent[1] - yExtent[0]) * 0.05 || 0.1;
+		const x = d3.scaleLinear().domain([xExt[0] - xPad, xExt[1] + xPad]).range([0, innerW]);
+		const y = d3.scaleLinear().domain([yExt[0] - yPad, yExt[1] + yPad]).range([innerH, 0]);
 
-		const x = d3.scaleLinear()
-			.domain([xExtent[0] - xPad, xExtent[1] + xPad])
-			.range([0, innerW]);
-		const y = d3.scaleLinear()
-			.domain([yExtent[0] - yPad, yExtent[1] + yPad])
-			.range([innerH, 0]);
+		const svg = d3.select(chartDiv).append('svg').attr('width', width).attr('height', height);
+		const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
-		const svg = d3.select(chartDiv)
-			.append('svg')
-			.attr('viewBox', `0 0 ${width} ${height}`)
-			.attr('width', width)
-			.attr('height', height)
-			.style('background', '#fff')
-			.style('border', '1px solid #ddd')
-			.style('border-radius', '4px');
+		// Grid
+		g.selectAll('.gridX').data(x.ticks(8)).join('line')
+			.attr('x1', d => x(d)).attr('x2', d => x(d))
+			.attr('y1', 0).attr('y2', innerH).attr('stroke', '#1a1a2e');
+		g.selectAll('.gridY').data(y.ticks(8)).join('line')
+			.attr('x1', 0).attr('x2', innerW)
+			.attr('y1', d => y(d)).attr('y2', d => y(d)).attr('stroke', '#1a1a2e');
 
-		// Title
-		svg.append('text')
-			.attr('x', width / 2)
-			.attr('y', 16)
-			.attr('text-anchor', 'middle')
-			.attr('font-size', 13)
-			.attr('font-weight', 'bold')
-			.text(`Passage Explorer (${filteredData.length} passages)`);
-
-		const g = svg.append('g')
-			.attr('transform', `translate(${margin.left},${margin.top})`);
+		// Zero lines
+		if (x.domain()[0] < 0 && x.domain()[1] > 0) {
+			g.append('line').attr('x1', x(0)).attr('x2', x(0))
+				.attr('y1', 0).attr('y2', innerH).attr('stroke', '#333').attr('stroke-dasharray', '3,3');
+		}
+		if (y.domain()[0] < 0 && y.domain()[1] > 0) {
+			g.append('line').attr('x1', 0).attr('x2', innerW)
+				.attr('y1', y(0)).attr('y2', y(0)).attr('stroke', '#333').attr('stroke-dasharray', '3,3');
+		}
 
 		// Axes
+		g.append('g').attr('transform', `translate(0,${innerH})`)
+			.call(d3.axisBottom(x).ticks(8).tickFormat(d3.format('.1f')))
+			.selectAll('text').style('fill', '#aaa').style('font-size', '10px');
 		g.append('g')
-			.attr('transform', `translate(0,${innerH})`)
-			.call(d3.axisBottom(x).ticks(8))
-			.selectAll('text').attr('font-size', 10);
-
-		g.append('g')
-			.call(d3.axisLeft(y).ticks(8))
-			.selectAll('text').attr('font-size', 10);
+			.call(d3.axisLeft(y).ticks(8).tickFormat(d3.format('.1f')))
+			.selectAll('text').style('fill', '#aaa').style('font-size', '10px');
+		g.selectAll('.domain, .tick line').style('stroke', '#333');
 
 		// Axis labels
 		svg.append('text')
-			.attr('x', width / 2)
-			.attr('y', height - 6)
-			.attr('text-anchor', 'middle')
-			.attr('font-size', 11)
-			.attr('fill', '#333')
+			.attr('x', margin.left + innerW / 2).attr('y', height - 6)
+			.attr('text-anchor', 'middle').attr('fill', '#888').attr('font-size', '11px')
 			.text(labelFor(xAxis));
-
 		svg.append('text')
-			.attr('x', 14)
-			.attr('y', height / 2)
-			.attr('text-anchor', 'middle')
-			.attr('font-size', 11)
-			.attr('fill', '#333')
-			.attr('transform', `rotate(-90, 14, ${height / 2})`)
+			.attr('transform', `translate(13, ${margin.top + innerH / 2}) rotate(-90)`)
+			.attr('text-anchor', 'middle').attr('fill', '#888').attr('font-size', '11px')
 			.text(labelFor(yAxis));
 
-		// Grid
-		g.append('g')
-			.attr('class', 'grid')
-			.selectAll('line')
-			.data(x.ticks(8))
-			.join('line')
-			.attr('x1', d => x(d)).attr('x2', d => x(d))
-			.attr('y1', 0).attr('y2', innerH)
-			.attr('stroke', '#f0f0f0');
-		g.append('g')
-			.attr('class', 'grid')
-			.selectAll('line')
-			.data(y.ticks(8))
-			.join('line')
-			.attr('x1', 0).attr('x2', innerW)
-			.attr('y1', d => y(d)).attr('y2', d => y(d))
-			.attr('stroke', '#f0f0f0');
+		// Tooltip
+		const tooltip = d3.select(chartDiv).append('div')
+			.style('position', 'absolute').style('pointer-events', 'none')
+			.style('background', 'rgba(20,20,20,0.95)').style('border', '1px solid #555')
+			.style('padding', '6px 8px').style('border-radius', '4px')
+			.style('font-size', '11px').style('color', '#ddd')
+			.style('display', 'none').style('z-index', '100').style('max-width', '300px');
 
-		// Data points
-		g.selectAll('circle.data')
-			.data(filteredData)
-			.join('circle')
-			.attr('class', 'data')
-			.attr('cx', d => x(getVal(d, xAxis)))
-			.attr('cy', d => y(getVal(d, yAxis)))
-			.attr('r', 3.5)
-			.attr('fill', d => pointColor(d))
-			.attr('opacity', 0.55)
-			.attr('stroke', 'none')
-			.attr('cursor', 'pointer')
-			.on('click', (_e: MouseEvent, d: PassageMetrics) => {
-				selectedPoint = d;
-				drawChart();
-			})
-			.append('title')
-			.text(d => `${d.family} ${layerLabel(d.model)} — ${d.label}`);
-
-		// Highlight selected
-		if (selectedPoint && selectedPoint.family !== 'custom') {
-			const sx = x(getVal(selectedPoint, xAxis));
-			const sy = y(getVal(selectedPoint, yAxis));
+		// Points
+		for (const d of filteredData) {
+			const cx = x(getVal(d, xAxis));
+			const cy = y(getVal(d, yAxis));
+			const isSelected = selectedPoint === d;
 			g.append('circle')
-				.attr('cx', sx).attr('cy', sy)
-				.attr('r', 6)
-				.attr('fill', 'none')
-				.attr('stroke', '#000')
-				.attr('stroke-width', 2);
+				.attr('cx', cx).attr('cy', cy)
+				.attr('r', isSelected ? 7 : 3.5)
+				.attr('fill', pointColor(d))
+				.attr('opacity', selectedPoint && !isSelected ? 0.25 : 0.65)
+				.attr('stroke', isSelected ? '#fff' : 'none')
+				.attr('stroke-width', 2)
+				.style('cursor', 'pointer')
+				.on('mouseenter', function(event) {
+					d3.select(this).attr('r', 6);
+					const preview = d.psg.slice(0, 100).replace(/\n/g, ' ');
+					tooltip.style('display', 'block')
+						.html(`<strong>${d.family}</strong> ${layerLabel(d.model)} — ${d.label}<br><span style="color:#999">${preview}...</span>`);
+				})
+				.on('mousemove', function(event) {
+					const [mx, my] = d3.pointer(event, chartDiv);
+					tooltip.style('left', (mx + 14) + 'px').style('top', (my - 10) + 'px');
+				})
+				.on('mouseleave', function() {
+					d3.select(this).attr('r', isSelected ? 7 : 3.5);
+					tooltip.style('display', 'none');
+				})
+				.on('click', function() {
+					selectedPoint = selectedPoint === d ? null : d;
+					drawChart();
+				});
 		}
 
 		// Custom point
@@ -290,71 +240,64 @@
 			const cx = x(getVal(customPoint, xAxis));
 			const cy = y(getVal(customPoint, yAxis));
 			g.append('circle')
-				.attr('cx', cx).attr('cy', cy)
-				.attr('r', 7)
-				.attr('fill', '#000')
-				.attr('stroke', '#ff0')
-				.attr('stroke-width', 2.5)
-				.attr('cursor', 'pointer')
+				.attr('cx', cx).attr('cy', cy).attr('r', 8)
+				.attr('fill', '#edc948').attr('stroke', '#fff').attr('stroke-width', 2.5)
+				.style('cursor', 'pointer')
 				.on('click', () => { selectedPoint = customPoint; drawChart(); });
 		}
 
 		// Legend
-		const colorMap = colorBy === 'family' ? FAMILY_COLORS
-			: colorBy === 'layer' ? LAYER_COLORS
-			: CATEGORY_COLORS;
+		const colorMap = colorBy === 'family' ? FAMILY_COLORS : colorBy === 'layer' ? LAYER_COLORS : CATEGORY_COLORS;
 		const activeKeys = colorBy === 'family' ? families
 			: colorBy === 'layer' ? layers
 			: [...new Set(filteredData.map(d => getCategory(d)))].sort();
-		const labelFn = colorBy === 'layer'
-			? (k: string) => layerLabel(k)
-			: (k: string) => k;
+		const labelFn = colorBy === 'layer' ? layerLabel : (k: string) => k;
 
-		const legend = svg.append('g')
-			.attr('transform', `translate(${width - margin.right - 90}, ${margin.top})`);
-
+		const legend = svg.append('g').attr('transform', `translate(${margin.left + 8}, ${margin.top + 8})`);
 		activeKeys.forEach((key, i) => {
-			const row = legend.append('g')
-				.attr('transform', `translate(0, ${i * 16})`);
-			row.append('circle')
-				.attr('cx', 5).attr('cy', 5).attr('r', 4)
-				.attr('fill', colorMap[key] ?? '#999');
-			row.append('text')
-				.attr('x', 14).attr('y', 9)
-				.attr('font-size', 10)
-				.text(labelFn(key));
+			const row = legend.append('g').attr('transform', `translate(0, ${i * 16})`);
+			row.append('circle').attr('cx', 5).attr('cy', 5).attr('r', 4).attr('fill', colorMap[key] ?? '#888');
+			row.append('text').attr('x', 14).attr('y', 9).attr('fill', '#aaa').attr('font-size', '10px').text(labelFn(key));
 		});
 	}
 
 	$effect(() => {
 		if (!loading && data.length > 0) {
-			// Dependencies: re-draw when these change
-			void xAxis; void yAxis; void colorBy; void filterFamily; void filterLayer;
-			void filteredData;
+			void xAxis; void yAxis; void colorBy; void filterFamily; void filterLayer; void filteredData;
 			tick().then(drawChart);
 		}
 	});
 </script>
 
-<div class="explorer" bind:this={container}>
+<div class="explorer" bind:this={outerContainer}>
+	<!-- Custom input above everything -->
+	<div class="custom-input">
+		<textarea
+			bind:value={customText}
+			onkeydown={handleCustomKeydown}
+			placeholder="Paste a passage to see where it falls... (Cmd+Enter)"
+			rows="2"
+		></textarea>
+		<button class="btn" onclick={analyzeCustom} disabled={customLoading || !customText.trim()}>
+			{customLoading ? 'Computing...' : 'Analyze'}
+		</button>
+	</div>
+
+	<!-- Controls row -->
 	<div class="controls">
-		<label>
+		<label class="axis-control">
 			<span>X</span>
 			<select bind:value={xAxis}>
-				{#each METRICS as m}
-					<option value={m.id}>{m.label}</option>
-				{/each}
+				{#each METRICS as m}<option value={m.id}>{m.label}</option>{/each}
 			</select>
 		</label>
-		<label>
+		<label class="axis-control">
 			<span>Y</span>
 			<select bind:value={yAxis}>
-				{#each METRICS as m}
-					<option value={m.id}>{m.label}</option>
-				{/each}
+				{#each METRICS as m}<option value={m.id}>{m.label}</option>{/each}
 			</select>
 		</label>
-		<label>
+		<label class="axis-control">
 			<span>Color</span>
 			<select bind:value={colorBy}>
 				<option value="family">Family</option>
@@ -362,181 +305,200 @@
 				<option value="category">Category</option>
 			</select>
 		</label>
-		<label>
+		<label class="axis-control">
 			<span>Family</span>
 			<select bind:value={filterFamily}>
 				<option value="all">all</option>
-				{#each families as f}
-					<option value={f}>{f}</option>
-				{/each}
+				{#each families as f}<option value={f}>{f}</option>{/each}
 			</select>
 		</label>
-		<label>
+		<label class="axis-control">
 			<span>Layer</span>
 			<select bind:value={filterLayer}>
 				<option value="all">all</option>
-				{#each layers as l}
-					<option value={l}>{layerLabel(l)}</option>
-				{/each}
+				{#each layers as l}<option value={l}>{layerLabel(l)}</option>{/each}
 			</select>
 		</label>
-		<ExportButton {container} filename="passage_explorer" />
+		<ExportButton container={outerContainer} filename="passage_explorer" />
 	</div>
 
+	{#if error}
+		<div class="status error">{error}</div>
+	{/if}
+
 	{#if loading}
-		<p>Loading passage metrics...</p>
-	{:else if error && !data.length}
-		<p class="error">{error}</p>
+		<div class="status">Loading passage metrics...</div>
 	{:else}
-		<div bind:this={chartDiv}></div>
-
-		<div class="custom-input">
-			<textarea
-				bind:value={customText}
-				onkeydown={handleCustomKeydown}
-				placeholder="Paste a passage to see where it falls in the space (Cmd+Enter to analyze)"
-				rows="3"
-			></textarea>
-			<button onclick={analyzeCustom} disabled={customLoading || !customText.trim()}>
-				{customLoading ? 'Computing...' : 'Analyze'}
-			</button>
-		</div>
-		{#if error}
-			<p class="error">{error}</p>
-		{/if}
-
-		{#if selectedPoint}
-			<div class="passage-detail">
-				<div class="passage-meta">
-					<strong>{selectedPoint.family}</strong>
-					<span class="layer-badge">{layerLabel(selectedPoint.model)}</span>
-					<span class="label-text">{selectedPoint.label}</span>
-				</div>
-				<div class="passage-metrics">
-					{#each METRICS as m}
-						{@const z = getVal(selectedPoint, m.id)}
-						{@const raw = getRaw(selectedPoint, m.id)}
-						<span class="metric" class:highlight={m.id === xAxis || m.id === yAxis}>
-							{m.label}: <strong class:z-high={z > 1} class:z-low={z < -1}>{z >= 0 ? '+' : ''}{z.toFixed(1)}σ</strong>
-							<span class="raw">({raw.toFixed(3)})</span>
-						</span>
-					{/each}
-				</div>
-				<div class="passage-text">{selectedPoint.psg}</div>
+		<!-- Chart + passage side by side -->
+		<div class="content-area">
+			<div class="chart-col">
+				<div bind:this={chartDiv} class="chart-area"></div>
 			</div>
-		{/if}
+			<div class="text-col">
+				{#if selectedPoint}
+					<div class="passage-detail">
+						<div class="passage-header" style="color: {pointColor(selectedPoint)}">
+							{selectedPoint.family} {layerLabel(selectedPoint.model)}
+							<span class="passage-label">{selectedPoint.label}</span>
+						</div>
+						<div class="passage-metrics">
+							{#each METRICS as m}
+								{@const z = getVal(selectedPoint, m.id)}
+								{@const raw = getRaw(selectedPoint, m.id)}
+								<span class="metric" class:highlight={m.id === xAxis || m.id === yAxis}>
+									<span class="metric-name">{m.label}</span>
+									<span class="z-val" class:z-high={z > 1} class:z-low={z < -1}>{z >= 0 ? '+' : ''}{z.toFixed(1)}σ</span>
+									<span class="raw-val">({raw.toFixed(3)})</span>
+								</span>
+							{/each}
+						</div>
+						<div class="passage-text">{selectedPoint.psg}</div>
+					</div>
+				{:else}
+					<div class="no-selection">
+						Click a point to read the passage
+					</div>
+				{/if}
+			</div>
+		</div>
 	{/if}
 </div>
 
 <style>
 	.explorer {
-		width: 100%;
-	}
-	.controls {
 		display: flex;
-		gap: 10px;
-		align-items: center;
-		margin-bottom: 8px;
-		flex-wrap: wrap;
-	}
-	.controls label {
-		display: flex;
-		align-items: center;
-		gap: 4px;
-		font-size: 12px;
-		color: #666;
-	}
-	.controls select {
-		font-size: 12px;
-		padding: 2px 4px;
+		flex-direction: column;
+		gap: 8px;
 	}
 	.custom-input {
 		display: flex;
 		gap: 8px;
-		margin-top: 10px;
 	}
 	.custom-input textarea {
 		flex: 1;
 		font-size: 12px;
 		padding: 6px 8px;
-		border: 1px solid #ccc;
+		background: #111122;
+		border: 1px solid #2a2a44;
 		border-radius: 4px;
+		color: #ccc;
 		resize: vertical;
 		font-family: inherit;
 		line-height: 1.4;
 	}
-	.custom-input button {
-		padding: 6px 16px;
-		font-size: 12px;
+	.custom-input textarea::placeholder {
+		color: #555;
+	}
+	.btn {
+		padding: 7px 14px;
+		border: 1px solid #4e79a7;
+		border-radius: 6px;
+		background: #2a3a5e;
+		color: #e0e0e0;
+		font-size: 13px;
 		cursor: pointer;
+		white-space: nowrap;
 		align-self: flex-start;
-		border: 1px solid #ccc;
+	}
+	.btn:hover:not(:disabled) { background: #344a70; }
+	.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+	.controls {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		flex-wrap: wrap;
+	}
+	.axis-control {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		font-size: 11px;
+		color: #888;
+	}
+	.axis-control select {
+		background: #141428;
+		border: 1px solid #2a2a44;
+		color: #ccc;
+		padding: 3px 6px;
 		border-radius: 4px;
-		background: #f8f8f8;
+		font-size: 11px;
 	}
-	.custom-input button:hover:not(:disabled) {
-		background: #eee;
+	.status { text-align: center; color: #666; font-size: 13px; padding: 20px 0; }
+	.status.error { color: #e15759; }
+
+	.content-area {
+		display: flex;
+		gap: 16px;
+		min-height: 440px;
 	}
-	.custom-input button:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
+	.chart-col { flex-shrink: 0; }
+	.chart-area { position: relative; width: 500px; min-height: 440px; }
+	.text-col {
+		flex: 1;
+		overflow-y: auto;
+		max-height: 500px;
+	}
+	.no-selection {
+		color: #555;
+		font-size: 13px;
+		padding: 20px;
+		text-align: center;
 	}
 	.passage-detail {
-		margin-top: 12px;
-		padding: 12px 14px;
-		background: #fafafa;
-		border: 1px solid #ddd;
-		border-radius: 4px;
-	}
-	.passage-meta {
 		display: flex;
+		flex-direction: column;
 		gap: 8px;
-		align-items: center;
-		margin-bottom: 6px;
-		font-size: 13px;
 	}
-	.layer-badge {
-		background: #333;
-		color: #fff;
-		padding: 1px 6px;
-		border-radius: 3px;
-		font-size: 11px;
+	.passage-header {
+		font-size: 13px;
 		font-weight: 600;
 	}
-	.label-text {
-		color: #888;
+	.passage-label {
+		color: #666;
+		font-weight: 400;
+		margin-left: 6px;
 	}
 	.passage-metrics {
 		display: flex;
-		flex-wrap: wrap;
-		gap: 4px 12px;
-		margin-bottom: 8px;
+		flex-direction: column;
+		gap: 2px;
+	}
+	.metric {
+		display: flex;
+		gap: 6px;
 		font-size: 11px;
-		color: #888;
+		color: #666;
+		align-items: baseline;
 	}
 	.metric.highlight {
-		color: #000;
+		color: #ccc;
 	}
-	.z-high {
-		color: #d62728;
+	.metric-name {
+		min-width: 130px;
 	}
-	.z-low {
-		color: #1f77b4;
+	.z-val {
+		font-family: 'SF Mono', monospace;
+		min-width: 45px;
+		text-align: right;
 	}
-	.raw {
-		color: #aaa;
+	.z-high { color: #e15759; }
+	.z-low { color: #4e79a7; }
+	.raw-val {
+		color: #444;
 		font-size: 10px;
+		font-family: 'SF Mono', monospace;
 	}
 	.passage-text {
 		font-size: 13px;
-		line-height: 1.5;
+		line-height: 1.6;
+		color: #ccc;
 		white-space: pre-wrap;
-		max-height: 200px;
+		background: #111122;
+		padding: 12px;
+		border-radius: 6px;
+		border: 1px solid #1a1a2e;
+		max-height: 250px;
 		overflow-y: auto;
-		color: #333;
-	}
-	.error {
-		color: #d62728;
-		font-size: 13px;
 	}
 </style>
