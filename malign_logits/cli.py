@@ -201,22 +201,17 @@ def cmd_generate_battery(args):
 
 
 def cmd_topic_drift(args):
-    """Compute within-generation topic drift from cached generations."""
+    """Compute drift + surprisal + metonymy for cached generations."""
     from .embedding import run_topic_drift
     run_topic_drift(
         raw_path=args.input or "data/gen_battery_raw.parquet",
-        output_path=args.output or "data/topic_drift.csv",
+        output_path=args.output or "data/passage_metrics.csv",
     )
 
 
 def cmd_surprisal(args):
-    """Compute GPT-2 surprisal for cached generations."""
-    from .embedding import run_surprisal
-    run_surprisal(
-        raw_path=args.input or "data/gen_battery_raw.parquet",
-        output_path=args.output or "data/surprisal.csv",
-        model_name=args.model or "gpt2",
-    )
+    """Alias for passage-metrics (backward compat)."""
+    cmd_topic_drift(args)
 
 
 def cmd_taxonomy(args):
