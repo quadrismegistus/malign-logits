@@ -519,6 +519,43 @@ def surprisal_metrics_from_tokens(token_surprisals):
     }
 
 
+def token_drift_metrics_from_hidden(hidden_states):
+    """Compute token-level drift metrics from cached hidden state vectors.
+
+    hidden_states: list of N normalized 768-dim vectors (one per token).
+    """
+    if not hidden_states or len(hidden_states) < 3:
+        return {}
+
+    vecs = np.array(hidden_states)
+    n = len(vecs)
+
+    # Consecutive cosine distances
+    step_dists = []
+    for i in range(n - 1):
+        cos_sim = float(np.dot(vecs[i], vecs[i + 1]))
+        step_dists.append(1.0 - cos_sim)
+    step_arr = np.array(step_dists)
+
+    # Diameter: max pairwise cosine distance
+    sim_matrix = vecs @ vecs.T
+    token_diameter = float(1.0 - sim_matrix.min())
+
+    # Path length
+    token_path = float(step_arr.sum())
+
+    # Directedness
+    token_directed = token_diameter / token_path if token_path > 0 else 0
+
+    return {
+        "token_mean_drift": round(float(step_arr.mean()), 4),
+        "token_max_drift": round(float(step_arr.max()), 4),
+        "token_diameter": round(token_diameter, 4),
+        "token_path_length": round(token_path, 4),
+        "token_directedness": round(token_directed, 4),
+    }
+
+
 def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
                             embedder_name=None):
     """Compute drift + surprisal + metonymy for all passages.
@@ -561,22 +598,29 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
         if sent_vecs is None or len(sent_vecs) < min_sentences:
             continue
 
-        # Token surprisals
+        # Token surprisals + hidden states (single GPT-2 forward pass)
         ts_key = ("token_surprisals", ref_model_name, text)
-        if ts_key in stash:
+        hs_key = ("token_hidden_states", ref_model_name, text)
+        if ts_key in stash and hs_key in stash:
             tok_surp = stash[ts_key]
+            hidden = stash[hs_key]
             n_cached_ts += 1
         else:
             s = passage_surprisal(text, model_name=ref_model_name)
             tok_surp = s["token_surprisals"]
+            hidden = s.get("hidden_states", [])
             stash[ts_key] = tok_surp
+            if hidden:
+                stash[hs_key] = hidden
             n_computed_ts += 1
 
         # Compute derived metrics
         d = drift_metrics_from_embeddings(sent_vecs)
         s = surprisal_metrics_from_tokens(tok_surp)
+        t = token_drift_metrics_from_hidden(hidden) if hidden else {}
 
         metonymy_idx = d["total_drift"] / s["mean_surprisal"] if s["mean_surprisal"] > 0 else 0
+        token_metonymy = t.get("token_diameter", 0) / s["mean_surprisal"] if s["mean_surprisal"] > 0 else 0
 
         entry = {
             "family": row.get("family", ""),
@@ -586,7 +630,9 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
         }
         entry.update(d)
         entry.update(s)
+        entry.update(t)
         entry["metonymy_idx"] = round(metonymy_idx, 4)
+        entry["token_metonymy_idx"] = round(token_metonymy, 4)
         rows.append(entry)
 
     print(f"  Sentence embeddings: {n_cached_se} cached, {n_computed_se} computed")
@@ -682,10 +728,11 @@ def _load_surprisal_model(model_name="gpt2"):
 
 
 def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2"):
-    """Per-token surprisal (negative log-probability) under a reference model.
+    """Per-token surprisal and hidden states under a reference model.
 
     Returns dict with mean_surprisal, max_surprisal, std_surprisal,
-    n_tokens, and a list of (token, surprisal) pairs.
+    n_tokens, token_surprisals (list of (token, surprisal) pairs),
+    and hidden_states (list of 768-dim vectors, one per token).
     """
     import torch
 
@@ -696,8 +743,9 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2"):
     ids = ids.to(next(model.parameters()).device)
 
     with torch.no_grad():
-        outputs = model(ids)
+        outputs = model(ids, output_hidden_states=True)
         logits = outputs.logits[0]
+        last_hidden = outputs.hidden_states[-1][0].cpu().float()
 
     log_probs = torch.log_softmax(logits.float(), dim=-1)
     token_ids = ids[0]
@@ -711,15 +759,20 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2"):
 
     if not surprisals:
         return {"mean_surprisal": 0, "max_surprisal": 0, "std_surprisal": 0,
-                "n_tokens": 0, "token_surprisals": []}
+                "n_tokens": 0, "token_surprisals": [], "hidden_states": []}
 
     arr = np.array(surprisals)
+    # Normalize hidden states for cosine distances
+    norms = last_hidden.norm(dim=1, keepdim=True).clamp(min=1e-10)
+    normed = (last_hidden / norms).numpy()
+
     return {
         "mean_surprisal": round(float(arr.mean()), 4),
         "max_surprisal": round(float(arr.max()), 4),
         "std_surprisal": round(float(arr.std()), 4),
         "n_tokens": len(surprisals),
         "token_surprisals": list(zip(tokens, [round(s, 4) for s in surprisals])),
+        "hidden_states": normed[1:].tolist(),
     }
 
 
