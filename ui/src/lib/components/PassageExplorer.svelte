@@ -98,8 +98,27 @@
 		return '#666';
 	}
 
-	function getVal(d: PassageMetrics, key: string): number {
+	function getRaw(d: PassageMetrics, key: string): number {
 		return (d as any)[key] ?? 0;
+	}
+
+	let zStats = $derived.by(() => {
+		const stats: Record<string, { mean: number; std: number }> = {};
+		for (const m of METRICS) {
+			const vals = data.map(d => getRaw(d, m.id)).filter(v => isFinite(v));
+			if (vals.length === 0) { stats[m.id] = { mean: 0, std: 1 }; continue; }
+			const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+			const variance = vals.reduce((a, b) => a + (b - mean) ** 2, 0) / vals.length;
+			stats[m.id] = { mean, std: Math.sqrt(variance) || 1 };
+		}
+		return stats;
+	});
+
+	function getVal(d: PassageMetrics, key: string): number {
+		const raw = getRaw(d, key);
+		const s = zStats[key];
+		if (!s) return raw;
+		return (raw - s.mean) / s.std;
 	}
 
 	let families = $derived([...new Set(data.map(d => d.family))].sort());
@@ -395,9 +414,11 @@
 				</div>
 				<div class="passage-metrics">
 					{#each METRICS as m}
-						{@const val = getVal(selectedPoint, m.id)}
+						{@const z = getVal(selectedPoint, m.id)}
+						{@const raw = getRaw(selectedPoint, m.id)}
 						<span class="metric" class:highlight={m.id === xAxis || m.id === yAxis}>
-							{m.label}: <strong>{val.toFixed(3)}</strong>
+							{m.label}: <strong class:z-high={z > 1} class:z-low={z < -1}>{z >= 0 ? '+' : ''}{z.toFixed(1)}σ</strong>
+							<span class="raw">({raw.toFixed(3)})</span>
 						</span>
 					{/each}
 				</div>
@@ -495,6 +516,16 @@
 	}
 	.metric.highlight {
 		color: #000;
+	}
+	.z-high {
+		color: #d62728;
+	}
+	.z-low {
+		color: #1f77b4;
+	}
+	.raw {
+		color: #aaa;
+		font-size: 10px;
 	}
 	.passage-text {
 		font-size: 13px;
