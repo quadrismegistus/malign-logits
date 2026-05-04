@@ -9,6 +9,7 @@
 	import LogitLensChart from '$lib/components/LogitLensChart.svelte';
 	import GenerationChart from '$lib/components/GenerationChart.svelte';
 	import ContradictionChart from '$lib/components/ContradictionChart.svelte';
+	import PassageExplorer from '$lib/components/PassageExplorer.svelte';
 
 	let connected = $state(false);
 	let serverInfo: ServerInfo | null = $state(null);
@@ -166,6 +167,7 @@
 		{ id: 'logit-lens', label: 'Logit Lens' },
 		{ id: 'generate', label: 'Generate' },
 		{ id: 'contradiction', label: 'Contradiction' },
+		{ id: 'passages', label: 'Passages' },
 		{ id: 'report', label: 'Report' },
 	];
 
@@ -272,26 +274,28 @@
 		</aside>
 
 		<section class="content">
-			{#if !analysis}
+			<nav class="tabs">
+				{#each TABS as tab}
+					<button
+						class="tab"
+						class:active={activeTab === tab.id}
+						onclick={() => (activeTab = tab.id)}
+					>
+						{tab.label}
+					</button>
+				{/each}
+			</nav>
+
+			{#if !analysis && activeTab !== 'passages'}
 				<div class="empty">
 					<p>Enter a prompt and click <strong>Analyze</strong> to trace probability displacement across alignment layers.</p>
 					<p class="hint">Cmd+Enter to submit</p>
 				</div>
 			{:else}
-				<nav class="tabs">
-					{#each TABS as tab}
-						<button
-							class="tab"
-							class:active={activeTab === tab.id}
-							onclick={() => (activeTab = tab.id)}
-						>
-							{tab.label}
-						</button>
-					{/each}
-				</nav>
-
 				<div class="tab-content">
-					{#if activeTab === 'trajectories'}
+					{#if activeTab === 'passages'}
+						<PassageExplorer />
+					{:else if activeTab === 'trajectories' && analysis}
 						<div class="trajectory-controls">
 							<label class="control-inline">
 								<span>sort</span>
@@ -312,7 +316,7 @@
 							</label>
 						</div>
 						<TrajectoryChart data={analysis.formation_df} {topN} {minProb} {sortBy} prompt={analyzedPrompt} {family} />
-					{:else if activeTab === 'formation'}
+					{:else if activeTab === 'formation' && analysis}
 						<DataTable data={analysis.formation_df} sortKey={analysis.formation_df[0]?.['sft - base'] !== undefined ? 'sft - base' : 'dpo - base'} sortDesc={false} />
 					{:else if activeTab === 'displacement'}
 						{#if displacement}
@@ -332,7 +336,7 @@
 						<GenerationChart {prompt} {analyzedPrompt} {family} onAnalyze={() => analyze({ switchTab: false })} />
 					{:else if activeTab === 'contradiction'}
 						<ContradictionChart {family} />
-					{:else if activeTab === 'report'}
+					{:else if activeTab === 'report' && analysis}
 						<pre class="report">{analysis.report}</pre>
 					{/if}
 				</div>
