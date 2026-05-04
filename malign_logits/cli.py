@@ -204,7 +204,7 @@ def cmd_topic_drift(args):
     """Compute drift + surprisal + metonymy for cached generations."""
     from .embedding import run_topic_drift
     run_topic_drift(
-        raw_path=args.input or "data/gen_battery_raw.parquet",
+        raw_path=getattr(args, 'input', None),
         output_path=args.output or "data/passage_metrics.csv",
     )
 

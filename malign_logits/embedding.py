@@ -641,6 +641,50 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
     return pd.DataFrame(rows)
 
 
+def load_generations_from_stash():
+    """Load all cached generations from stash_gen_battery into a DataFrame.
+
+    This is the source of truth — the parquet is just a snapshot.
+    """
+    from hashstash import HashStash
+    from . import MODEL_FAMILIES
+    from .experiments import TIER1_PROMPTS
+
+    stash_path = _gen_stash_path()
+    stash = HashStash(root_dir=stash_path, append_mode=True,
+                      engine="pairtree", compress="lz4", b64=True)
+
+    model_to_family = {}
+    for key, fam in MODEL_FAMILIES.items():
+        model_to_family[fam.base] = key
+
+    label_lookup = {v: k for k, v in TIER1_PROMPTS.items()}
+
+    rows = []
+    for k in stash.keys():
+        models = k.get("models", ())
+        if not models:
+            continue
+        family = model_to_family.get(models[0], models[0].split("/")[-1])
+        prompt = k.get("prompt", "")
+        label = label_lookup.get(prompt, prompt[:30])
+
+        for gen in stash.get_all(k):
+            for model_layer, psg in gen.items():
+                if model_layer == "prompt":
+                    continue
+                rows.append({
+                    "prompt": prompt,
+                    "temperature": k.get("temperature", 1.0),
+                    "model": model_layer,
+                    "psg": psg,
+                    "family": family,
+                    "label": label,
+                })
+
+    return pd.DataFrame(rows)
+
+
 def compute_topic_drift(psg_df, min_sentences=3, model_name=None):
     """Legacy wrapper — calls compute_passage_metrics and returns drift columns."""
     df = compute_passage_metrics(psg_df, min_sentences=min_sentences,
@@ -648,15 +692,22 @@ def compute_topic_drift(psg_df, min_sentences=3, model_name=None):
     return df
 
 
-def run_topic_drift(raw_path="data/gen_battery_raw.parquet",
-                    output_path="data/passage_metrics.csv"):
+def run_topic_drift(raw_path=None, output_path="data/passage_metrics.csv"):
     """Compute drift + surprisal + metonymy for all cached generations.
 
-    Caches raw intermediates (sentence embeddings, token surprisals) to
-    HashStash. Derived metrics recomputed each run — formula changes free.
+    Reads directly from stash_gen_battery (source of truth). Falls back
+    to parquet if stash is empty. Caches raw intermediates (sentence
+    embeddings, token hidden states) to stash_gen_metrics.
     """
-    psg_df = pd.read_parquet(raw_path)
-    print(f"Loaded {len(psg_df)} passages from {raw_path}")
+    psg_df = load_generations_from_stash()
+    if psg_df.empty and raw_path:
+        psg_df = pd.read_parquet(raw_path)
+        print(f"Loaded {len(psg_df)} passages from {raw_path}")
+    elif psg_df.empty:
+        print("No generations found in stash or parquet.")
+        return pd.DataFrame()
+    else:
+        print(f"Loaded {len(psg_df)} passages from generation stash")
     print(f"Families: {sorted(psg_df['family'].unique())}")
 
     df = compute_passage_metrics(psg_df)
