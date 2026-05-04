@@ -1,4 +1,4 @@
-"""Displacement taxonomy.
+"""Displacement taxonomy and cross-family analysis.
 
 Classifies each (source, target) repression/sublimation pair from a
 ``Psyche.analyze(...).displacement_map()`` into one of four types using
@@ -343,3 +343,173 @@ def _print_summary(df):
         print(f"\nInterpretation: negative delta = aligned model smooths its own substitutions")
         print(f"If neutral delta ≈ 0, the metric is noise. If neutral delta < 0,")
         print(f"alignment produces background syntagmatic smoothing even on safe content.")
+
+
+def analyze_taxonomy(data_dir="data", output_path="data/taxonomy_summary.csv"):
+    """Cross-family analysis of all taxonomy CSVs. No models needed.
+
+    Reads every ``taxonomy_*.csv`` in *data_dir*, computes per-family:
+    - Jakobsonian correlation (similarity vs syntagmatic_js)
+    - Within-category and within-type correlations
+    - Displacement type profile by category
+    - Aligned baseline comparison (where available)
+
+    Writes a summary CSV and prints a report.
+    """
+    import glob
+    from scipy.stats import pearsonr, spearmanr
+
+    csvs = sorted(glob.glob(f"{data_dir}/taxonomy_*.csv"))
+    if not csvs:
+        print(f"No taxonomy CSVs found in {data_dir}/")
+        return None
+
+    frames = []
+    for path in csvs:
+        df = pd.read_csv(path)
+        if "family" not in df.columns:
+            family = path.split("taxonomy_")[-1].replace(".csv", "")
+            df["family"] = family
+        frames.append(df)
+    all_df = pd.concat(frames, ignore_index=True)
+    all_df["category"] = all_df["label"].str.replace(r"_\d+$", "", regex=True)
+
+    families = sorted(all_df["family"].unique())
+    print(f"Loaded {len(all_df)} pairs across {len(families)} families: {', '.join(families)}")
+
+    # ── 1. Jakobsonian correlation per family ──
+    print(f"\n{'=' * 70}")
+    print("JAKOBSONIAN AXIS CORRELATION (similarity vs syntagmatic_js)")
+    print(f"{'=' * 70}")
+
+    corr_rows = []
+    for fam in families:
+        fdf = all_df[(all_df["family"] == fam)].dropna(subset=["similarity", "syntagmatic_js"])
+        if len(fdf) < 10:
+            continue
+        r, p = pearsonr(fdf["similarity"], fdf["syntagmatic_js"])
+        rho, sp = spearmanr(fdf["similarity"], fdf["syntagmatic_js"])
+        corr_rows.append({
+            "family": fam, "n_pairs": len(fdf),
+            "pearson_r": round(r, 4), "pearson_p": f"{p:.2e}",
+            "spearman_rho": round(rho, 4),
+        })
+        print(f"\n  {fam} (n={len(fdf)}): Pearson r={r:.3f}, Spearman ρ={rho:.3f}")
+
+        # Within-category
+        cats = sorted(fdf["category"].unique())
+        for cat in cats:
+            cdf = fdf[fdf["category"] == cat]
+            if len(cdf) < 10:
+                continue
+            rc, _ = pearsonr(cdf["similarity"], cdf["syntagmatic_js"])
+            corr_rows.append({
+                "family": fam, "n_pairs": len(cdf),
+                "pearson_r": round(rc, 4), "pearson_p": "",
+                "spearman_rho": None, "category": cat,
+            })
+        cat_corrs = {cat: pearsonr(
+            fdf[fdf["category"] == cat]["similarity"],
+            fdf[fdf["category"] == cat]["syntagmatic_js"]
+        )[0] for cat in cats if len(fdf[fdf["category"] == cat]) >= 10}
+        if cat_corrs:
+            rng = [f"{min(cat_corrs.values()):.2f}", f"{max(cat_corrs.values()):.2f}"]
+            print(f"    Within-category r ∈ [{rng[0]}, {rng[1]}]")
+
+    # ── 2. Category means per family ──
+    print(f"\n{'=' * 70}")
+    print("PARADIGMATIC vs SYNTAGMATIC BY CATEGORY (mean per family)")
+    print(f"{'=' * 70}")
+
+    summary_rows = []
+    for fam in families:
+        fdf = all_df[(all_df["family"] == fam)].dropna(subset=["similarity", "syntagmatic_js"])
+        cat_means = fdf.groupby("category").agg(
+            similarity=("similarity", "mean"),
+            syntagmatic_js=("syntagmatic_js", "mean"),
+            n=("similarity", "count"),
+        ).round(4)
+        for cat, row in cat_means.iterrows():
+            summary_rows.append({
+                "family": fam, "category": cat,
+                "paradigmatic_sim": row["similarity"],
+                "syntagmatic_js": row["syntagmatic_js"],
+                "n_pairs": int(row["n"]),
+            })
+
+    summary_df = pd.DataFrame(summary_rows)
+    pivot_sim = summary_df.pivot(index="category", columns="family", values="paradigmatic_sim")
+    pivot_synt = summary_df.pivot(index="category", columns="family", values="syntagmatic_js")
+
+    print("\nParadigmatic similarity:")
+    print(pivot_sim.round(3).to_string())
+    print("\nSyntagmatic JS:")
+    print(pivot_synt.round(3).to_string())
+
+    # ── 3. Displacement type profile per family ──
+    print(f"\n{'=' * 70}")
+    print("DISPLACEMENT TYPE PROFILE (% of pairs)")
+    print(f"{'=' * 70}")
+
+    type_rows = []
+    for fam in families:
+        fdf = all_df[all_df["family"] == fam]
+        total = len(fdf)
+        for dtype in ["register_shift", "category_shift", "genre_change", "archaic"]:
+            n = (fdf["displacement_type"] == dtype).sum()
+            type_rows.append({
+                "family": fam, "displacement_type": dtype,
+                "count": n, "pct": round(100 * n / total, 1) if total else 0,
+            })
+
+    type_df = pd.DataFrame(type_rows)
+    type_pivot = type_df.pivot(index="family", columns="displacement_type", values="pct")
+    col_order = ["register_shift", "category_shift", "genre_change", "archaic"]
+    type_pivot = type_pivot[[c for c in col_order if c in type_pivot.columns]]
+    print(type_pivot.round(1).to_string())
+
+    # Per category × family
+    print(f"\n{'=' * 70}")
+    print("DISPLACEMENT TYPE BY CATEGORY × FAMILY")
+    print(f"{'=' * 70}")
+
+    for fam in families:
+        fdf = all_df[all_df["family"] == fam]
+        cat_type = fdf.groupby(["category", "displacement_type"]).size().unstack(fill_value=0)
+        cat_pct = cat_type.div(cat_type.sum(axis=1), axis=0).mul(100).round(0).astype(int)
+        cat_pct = cat_pct[[c for c in col_order if c in cat_pct.columns]]
+        print(f"\n  {fam}:")
+        print(f"  {cat_pct.to_string()}")
+
+    # ── 4. Aligned baseline (where available) ──
+    has_aligned = "syntagmatic_js_aligned" in all_df.columns and all_df["syntagmatic_js_aligned"].notna().any()
+    if has_aligned:
+        print(f"\n{'=' * 70}")
+        print("BASELINE CHECK: BASE vs ALIGNED SYNTAGMATIC JS")
+        print(f"{'=' * 70}")
+
+        for fam in families:
+            fdf = all_df[all_df["family"] == fam].dropna(
+                subset=["syntagmatic_js", "syntagmatic_js_aligned"]
+            )
+            if fdf.empty:
+                continue
+            baseline = fdf.groupby("category").agg(
+                base=("syntagmatic_js", "mean"),
+                aligned=("syntagmatic_js_aligned", "mean"),
+                n=("syntagmatic_js", "count"),
+            ).round(4)
+            baseline["delta"] = (baseline["aligned"] - baseline["base"]).round(4)
+            print(f"\n  {fam}:")
+            print(f"  {baseline.to_string()}")
+
+    # ── Save summary ──
+    summary_df.to_csv(output_path, index=False)
+    print(f"\nSaved {output_path}")
+
+    corr_df = pd.DataFrame(corr_rows)
+    corr_path = output_path.replace(".csv", "_correlations.csv")
+    corr_df.to_csv(corr_path, index=False)
+    print(f"Saved {corr_path}")
+
+    return summary_df

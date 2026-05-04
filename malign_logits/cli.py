@@ -200,9 +200,24 @@ def cmd_generate_battery(args):
         sys.exit(1)
 
 
+def cmd_topic_drift(args):
+    """Compute within-generation topic drift from cached generations."""
+    from .embedding import run_topic_drift
+    run_topic_drift(
+        raw_path=args.input or "data/gen_battery_raw.parquet",
+        output_path=args.output or "data/topic_drift.csv",
+    )
+
+
 def cmd_taxonomy(args):
     """Classify displacement pairs into taxonomy types."""
-    if getattr(args, 'baseline', False):
+    if getattr(args, 'analyze', False):
+        from .taxonomy import analyze_taxonomy
+        analyze_taxonomy(
+            data_dir=getattr(args, 'data_dir', 'data') or 'data',
+            output_path=args.output or 'data/taxonomy_summary.csv',
+        )
+    elif getattr(args, 'baseline', False):
         from .taxonomy import add_aligned_baseline
         add_aligned_baseline(
             family_key=args.family or "olmo",
@@ -351,6 +366,15 @@ def main():
                     help="Output prefix (default: data/gen_battery)")
     gb.set_defaults(func=cmd_generate_battery)
 
+    # topic-drift
+    td = subparsers.add_parser("topic-drift",
+                               help="Compute within-generation topic drift (no models needed)")
+    td.add_argument("--input", "-i",
+                    help="Raw generation parquet (default: data/gen_battery_raw.parquet)")
+    td.add_argument("--output", "-o",
+                    help="Output CSV path (default: data/topic_drift.csv)")
+    td.set_defaults(func=cmd_topic_drift)
+
     # logit-lens
     ll = subparsers.add_parser("logit-lens",
                                help="Run logit lens analysis across network layers")
@@ -387,6 +411,10 @@ def main():
                     help="Skip syntagmatic_js measurement (faster; drops the continuous syntagmatic-disruption column)")
     tx.add_argument("--baseline", action="store_true",
                     help="Add aligned-model syntagmatic_js baseline to existing taxonomy CSV")
+    tx.add_argument("--analyze", action="store_true",
+                    help="Cross-family analysis of all taxonomy CSVs (no models needed)")
+    tx.add_argument("--data-dir", default="data",
+                    help="Directory containing taxonomy CSVs (for --analyze)")
     tx.set_defaults(func=cmd_taxonomy)
 
     # precompute
