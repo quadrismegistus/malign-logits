@@ -381,6 +381,35 @@ class ModelHandler(BaseHTTPRequestHandler):
             _set_progress("idle")
             return {"results": results}
 
+        elif path == "/passage-metrics":
+            text = body.get("text", "")
+            if not text.strip():
+                raise ValueError("No text provided")
+            import pandas as pd
+            from .embedding import compute_passage_metrics
+            psg_df = pd.DataFrame([{
+                "model": "custom", "psg": text.strip(),
+                "family": "custom", "label": "custom",
+            }])
+            result = compute_passage_metrics(psg_df, min_sentences=2)
+            if result.empty:
+                raise ValueError("Text too short or degenerate")
+            row = result.iloc[0].to_dict()
+            row.pop("psg", None)
+            return row
+
+        elif path == "/passage-metrics-csv":
+            import os
+            csv_path = os.path.join(
+                os.path.dirname(os.path.dirname(__file__)),
+                "data", "passage_metrics.csv",
+            )
+            if not os.path.exists(csv_path):
+                return {"rows": []}
+            import pandas as pd
+            df = pd.read_csv(csv_path)
+            return {"rows": _sanitize(df.to_dict(orient="records"))}
+
         elif path == "/info":
             info = {
                 "base": psyche.primary_process.model_id,

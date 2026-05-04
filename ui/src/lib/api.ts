@@ -129,6 +129,24 @@ export interface ContradictionResult {
 	contested_words: ContestedWord[];
 }
 
+export interface PassageMetrics {
+	family: string;
+	label: string;
+	model: string;
+	psg: string;
+	n_sentences: number;
+	mean_drift: number;
+	total_drift: number;
+	directedness: number;
+	mean_surprisal: number;
+	metonymy_idx: number;
+	token_diameter: number;
+	token_mean_drift: number;
+	token_directedness: number;
+	token_metonymy_idx: number;
+	n_tokens: number;
+}
+
 export const api = {
 	health: () => get<{ status: string; models_loaded: boolean }>('/health'),
 	info: () => get<ServerInfo>('/info'),
@@ -145,5 +163,9 @@ export const api = {
 	generate: (prompt: string, n = 5, max_tokens = 100, temperature = 1.0) =>
 		post<GenerateResult>('/generate', { prompt, n, max_tokens, temperature }),
 	contradiction: () =>
-		post<{ results: ContradictionResult[] }>('/contradiction', {})
+		post<{ results: ContradictionResult[] }>('/contradiction', {}),
+	passageMetricsCsv: () =>
+		post<{ rows: PassageMetrics[] }>('/passage-metrics-csv', {}),
+	passageMetrics: (text: string) =>
+		post<PassageMetrics>('/passage-metrics', { text }),
 };
