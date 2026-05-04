@@ -420,6 +420,130 @@ def compute_concept_metrics(embeds_df, psg_df, embedder=None):
     return metrics
 
 
+def compute_topic_drift(psg_df, min_sentences=3, model_name=None):
+    """Measure within-generation topic drift via sentence-level embeddings.
+
+    For each passage: split into sentences, embed each, compute cosine
+    distance between consecutive sentences. High mean distance = the
+    text lurches between topics (dream logic, free association). Low
+    mean distance = monotonically coherent narrative.
+
+    Returns DataFrame with one row per passage: family, label, model,
+    mean_drift, max_drift, n_sentences, plus the passage itself.
+    """
+    import re as _re
+    embedder = _get_embedder(model_name)
+
+    def split_sentences(text):
+        text = str(text).strip()
+        sents = _re.split(r'(?<=[.!?])\s+', text)
+        return [s.strip() for s in sents if len(s.strip()) > 10]
+
+    rows = []
+    all_sents = []
+    sent_map = []
+
+    for idx, row in psg_df.iterrows():
+        sents = split_sentences(row["psg"])
+        for s in sents:
+            all_sents.append(s)
+            sent_map.append(idx)
+
+    if not all_sents:
+        return pd.DataFrame()
+
+    vecs = embedder.encode(all_sents, show_progress_bar=False)
+    norms = np.linalg.norm(vecs, axis=1, keepdims=True) + 1e-10
+    vecs_normed = vecs / norms
+
+    idx_to_vecs = {}
+    for i, idx in enumerate(sent_map):
+        idx_to_vecs.setdefault(idx, []).append(vecs_normed[i])
+
+    for idx, row in psg_df.iterrows():
+        sv = idx_to_vecs.get(idx, [])
+        n_sents = len(sv)
+        if n_sents < min_sentences:
+            continue
+
+        dists = []
+        for i in range(len(sv) - 1):
+            cos_sim = float(np.dot(sv[i], sv[i + 1]))
+            dists.append(1.0 - cos_sim)
+
+        entry = {
+            "family": row.get("family", ""),
+            "label": row.get("label", ""),
+            "model": row.get("model", ""),
+            "psg": str(row["psg"])[:200],
+            "n_sentences": n_sents,
+            "mean_drift": round(float(np.mean(dists)), 4),
+            "max_drift": round(float(np.max(dists)), 4),
+            "std_drift": round(float(np.std(dists)), 4),
+        }
+        rows.append(entry)
+
+    return pd.DataFrame(rows)
+
+
+def run_topic_drift(raw_path="data/gen_battery_raw.parquet",
+                    output_path="data/topic_drift.csv"):
+    """Compute topic drift for all cached generations and print summary.
+
+    Reads raw generation data, computes per-passage sentence-level drift,
+    aggregates by family × model × category.
+    """
+    psg_df = pd.read_parquet(raw_path)
+    print(f"Loaded {len(psg_df)} passages from {raw_path}")
+    print(f"Families: {sorted(psg_df['family'].unique())}")
+
+    drift_df = compute_topic_drift(psg_df)
+    print(f"Computed drift for {len(drift_df)} passages (>= 3 sentences)")
+
+    drift_df["category"] = drift_df["label"].str.replace(r"_\d+$", "", regex=True)
+
+    label_map = {"base": "BASE", "ego": "SFT", "superego": "DPO", "instruct": "RLVR"}
+    drift_df["layer"] = drift_df["model"].map(lambda m: label_map.get(m, m.upper()))
+
+    print(f"\n{'=' * 70}")
+    print("TOPIC DRIFT BY MODEL LAYER (mean consecutive-sentence cosine distance)")
+    print(f"{'=' * 70}")
+    layer_means = drift_df.groupby(["family", "layer"])["mean_drift"].agg(["mean", "std", "count"]).round(4)
+    print(layer_means.to_string())
+
+    print(f"\n{'=' * 70}")
+    print("TOPIC DRIFT BY CATEGORY × LAYER")
+    print(f"{'=' * 70}")
+    for fam in sorted(drift_df["family"].unique()):
+        fdf = drift_df[drift_df["family"] == fam]
+        pivot = fdf.pivot_table(
+            index="category", columns="layer", values="mean_drift", aggfunc="mean",
+        ).round(4)
+        col_order = [c for c in ["BASE", "SFT", "DPO", "RLVR"] if c in pivot.columns]
+        pivot = pivot[col_order]
+        print(f"\n  {fam}:")
+        print(f"  {pivot.to_string()}")
+
+    print(f"\n{'=' * 70}")
+    print("BASE vs ALIGNED: drift reduction by alignment")
+    print(f"{'=' * 70}")
+    for fam in sorted(drift_df["family"].unique()):
+        fdf = drift_df[drift_df["family"] == fam]
+        base_mean = fdf[fdf["model"] == "base"]["mean_drift"].mean()
+        for layer_name, model_key in [("SFT", "ego"), ("DPO", "superego"), ("RLVR", "instruct")]:
+            ldf = fdf[fdf["model"] == model_key]
+            if ldf.empty:
+                continue
+            layer_mean = ldf["mean_drift"].mean()
+            delta = layer_mean - base_mean
+            print(f"  {fam} BASE→{layer_name}: {base_mean:.4f} → {layer_mean:.4f} (Δ={delta:+.4f})")
+
+    drift_df.to_csv(output_path, index=False)
+    print(f"\nSaved {output_path} ({len(drift_df)} rows)")
+
+    return drift_df
+
+
 def run_generate_battery(families=None, prompts_set="tier1", category=None,
                          n=30, max_new_tokens=100, output_prefix=None):
     """End-to-end generation battery: generate -> embed -> compute metrics.
