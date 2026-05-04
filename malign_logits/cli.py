@@ -202,13 +202,21 @@ def cmd_generate_battery(args):
 
 def cmd_taxonomy(args):
     """Classify displacement pairs into taxonomy types."""
-    from .taxonomy import run_taxonomy
-    run_taxonomy(
-        family_key=args.family or "olmo",
-        all_prompts=args.all_prompts,
-        output_path=args.output,
-        measure_syntagmatic=not args.no_syntagmatic,
-    )
+    if getattr(args, 'baseline', False):
+        from .taxonomy import add_aligned_baseline
+        add_aligned_baseline(
+            family_key=args.family or "olmo",
+            input_path=args.output,
+            output_path=args.output,
+        )
+    else:
+        from .taxonomy import run_taxonomy
+        run_taxonomy(
+            family_key=args.family or "olmo",
+            all_prompts=args.all_prompts,
+            output_path=args.output,
+            measure_syntagmatic=not args.no_syntagmatic,
+        )
 
 
 def cmd_precompute(args):
@@ -377,6 +385,8 @@ def main():
                     help="Output CSV path (default: data/displacement_taxonomy.csv)")
     tx.add_argument("--no-syntagmatic", action="store_true",
                     help="Skip syntagmatic_js measurement (faster; drops the continuous syntagmatic-disruption column)")
+    tx.add_argument("--baseline", action="store_true",
+                    help="Add aligned-model syntagmatic_js baseline to existing taxonomy CSV")
     tx.set_defaults(func=cmd_taxonomy)
 
     # precompute

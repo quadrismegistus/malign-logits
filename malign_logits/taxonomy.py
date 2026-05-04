@@ -118,6 +118,8 @@ def run_taxonomy(family_key="olmo", all_prompts=False, output_path=None,
 
     base_model = psyche.primary_process.model
     tokenizer = psyche.primary_process.tokenizer
+    aligned_model = psyche.superego.model if psyche.superego else None
+    aligned_tokenizer = psyche.superego.tokenizer if psyche.superego else None
 
     print("Loading spaCy + wordfreq...")
     nlp = spacy.load("en_core_web_sm")
@@ -171,6 +173,13 @@ def run_taxonomy(family_key="olmo", all_prompts=False, output_path=None,
                         except Exception as e:
                             row["syntagmatic_js"] = None
                             print(f"    syntagmatic_js failed for ({src} -> {tgt}): {e}")
+                        if aligned_model is not None:
+                            try:
+                                row["syntagmatic_js_aligned"] = round(
+                                    syntagmatic_js(aligned_model, aligned_tokenizer, prompt, src, tgt), 6
+                                )
+                            except Exception as e:
+                                row["syntagmatic_js_aligned"] = None
                     all_rows.append(row)
 
             # Orphan repressed sources (no semantic-pair target) are genre_change:
@@ -194,6 +203,7 @@ def run_taxonomy(family_key="olmo", all_prompts=False, output_path=None,
                         "target_freq": None,
                         "displacement_type": "genre_change",
                         **({"syntagmatic_js": None} if measure_syntagmatic else {}),
+                        **({"syntagmatic_js_aligned": None} if measure_syntagmatic and aligned_model is not None else {}),
                     })
 
         prompt_rows = [r for r in all_rows if r["label"] == label]
@@ -206,6 +216,73 @@ def run_taxonomy(family_key="olmo", all_prompts=False, output_path=None,
     df = pd.DataFrame(all_rows)
     df.to_csv(output_path, index=False)
     print(f"\nSaved {len(df)} pairs to {output_path}")
+
+    if not df.empty:
+        _print_summary(df)
+
+    if owns_psyche:
+        del psyche
+        gc.collect()
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+
+    return df
+
+
+def add_aligned_baseline(family_key="olmo", input_path=None, output_path=None,
+                         psyche=None):
+    """Add syntagmatic_js_aligned column to an existing taxonomy CSV.
+
+    Reads pairs from the CSV, computes syntagmatic_js under the aligned
+    (superego) model, and writes the augmented CSV. Skips pairs that
+    already have a non-null syntagmatic_js_aligned value.
+    """
+    if family_key not in MODEL_FAMILIES:
+        raise ValueError(f"Unknown family: {family_key}")
+    input_path = input_path or f"data/taxonomy_{family_key}.csv"
+    output_path = output_path or input_path
+
+    df = pd.read_csv(input_path)
+    if "syntagmatic_js_aligned" in df.columns:
+        todo = df["syntagmatic_js_aligned"].isna() & df["target"].notna()
+    else:
+        df["syntagmatic_js_aligned"] = None
+        todo = df["target"].notna()
+
+    n_todo = todo.sum()
+    if n_todo == 0:
+        print("All pairs already have aligned baseline. Nothing to do.")
+        return df
+
+    owns_psyche = psyche is None
+    if owns_psyche:
+        from .psyche import Psyche
+        print(f"Loading {family_key} models...")
+        psyche = Psyche.from_family(family_key, load=True)
+
+    aligned = psyche.superego
+    if aligned is None or aligned.model is None:
+        print("No superego model available. Cannot compute aligned baseline.")
+        return df
+
+    print(f"Computing aligned syntagmatic_js for {n_todo} pairs...")
+    done = 0
+    for idx in df.index[todo]:
+        row = df.loc[idx]
+        try:
+            val = syntagmatic_js(
+                aligned.model, aligned.tokenizer,
+                row["prompt"], row["source"], row["target"],
+            )
+            df.at[idx, "syntagmatic_js_aligned"] = round(val, 6)
+        except Exception:
+            pass
+        done += 1
+        if done % 500 == 0:
+            print(f"  {done}/{n_todo}")
+
+    df.to_csv(output_path, index=False)
+    print(f"Saved {output_path} ({n_todo} aligned values added)")
 
     if not df.empty:
         _print_summary(df)
@@ -251,3 +328,18 @@ def _print_summary(df):
               .round(4)
         )
         print(synt_cat.to_string())
+
+    if "syntagmatic_js_aligned" in df.columns and df["syntagmatic_js_aligned"].notna().any():
+        print(f"\n{'=' * 60}\nBASELINE CHECK: BASE vs ALIGNED SYNTAGMATIC JS\n{'=' * 60}")
+        both = df.dropna(subset=["syntagmatic_js", "syntagmatic_js_aligned"]).copy()
+        both["category"] = both["label"].str.replace(r"_\d+$", "", regex=True)
+        baseline = both.groupby("category").agg(
+            base_synt_js=("syntagmatic_js", "mean"),
+            aligned_synt_js=("syntagmatic_js_aligned", "mean"),
+            count=("syntagmatic_js", "count"),
+        ).round(4)
+        baseline["delta"] = (baseline["aligned_synt_js"] - baseline["base_synt_js"]).round(4)
+        print(baseline.to_string())
+        print(f"\nInterpretation: negative delta = aligned model smooths its own substitutions")
+        print(f"If neutral delta ≈ 0, the metric is noise. If neutral delta < 0,")
+        print(f"alignment produces background syntagmatic smoothing even on safe content.")
