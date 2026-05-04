@@ -544,6 +544,149 @@ def run_topic_drift(raw_path="data/gen_battery_raw.parquet",
     return drift_df
 
 
+# ── Surprisal ────────────────────────────────────────────────────
+
+_surprisal_model = None
+_surprisal_tokenizer = None
+
+
+def _load_surprisal_model(model_name="gpt2"):
+    global _surprisal_model, _surprisal_tokenizer
+    if _surprisal_model is None:
+        import torch
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+        print(f"Loading {model_name} for surprisal...")
+        _surprisal_tokenizer = AutoTokenizer.from_pretrained(model_name)
+        _surprisal_model = AutoModelForCausalLM.from_pretrained(model_name)
+        _surprisal_model.eval()
+        if torch.backends.mps.is_available():
+            _surprisal_model = _surprisal_model.to("mps")
+    return _surprisal_model, _surprisal_tokenizer
+
+
+def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2"):
+    """Per-token surprisal (negative log-probability) under a reference model.
+
+    Returns dict with mean_surprisal, max_surprisal, std_surprisal,
+    n_tokens, and a list of (token, surprisal) pairs.
+    """
+    import torch
+
+    if model is None or tokenizer is None:
+        model, tokenizer = _load_surprisal_model(model_name)
+
+    ids = tokenizer.encode(text, return_tensors="pt", truncation=True, max_length=1024)
+    ids = ids.to(next(model.parameters()).device)
+
+    with torch.no_grad():
+        outputs = model(ids)
+        logits = outputs.logits[0]  # (seq_len, vocab)
+
+    log_probs = torch.log_softmax(logits.float(), dim=-1)
+    token_ids = ids[0]
+
+    surprisals = []
+    tokens = []
+    for i in range(1, len(token_ids)):
+        lp = float(log_probs[i - 1, token_ids[i]])
+        surprisals.append(-lp)
+        tokens.append(tokenizer.decode([token_ids[i]]))
+
+    if not surprisals:
+        return {"mean_surprisal": 0, "max_surprisal": 0, "std_surprisal": 0,
+                "n_tokens": 0, "token_surprisals": []}
+
+    arr = np.array(surprisals)
+    return {
+        "mean_surprisal": round(float(arr.mean()), 4),
+        "max_surprisal": round(float(arr.max()), 4),
+        "std_surprisal": round(float(arr.std()), 4),
+        "n_tokens": len(surprisals),
+        "token_surprisals": list(zip(tokens, [round(s, 4) for s in surprisals])),
+    }
+
+
+def compute_surprisal(psg_df, model_name="gpt2"):
+    """Compute per-passage surprisal for a DataFrame of generations.
+
+    Returns DataFrame with one row per passage: family, label, model,
+    mean_surprisal, max_surprisal, std_surprisal, n_tokens.
+    """
+    ref_model, ref_tok = _load_surprisal_model(model_name)
+
+    rows = []
+    for _, row in tqdm(psg_df.iterrows(), total=len(psg_df), desc="Computing surprisal"):
+        text = str(row["psg"]).strip()
+        if len(text) < 10:
+            continue
+        s = passage_surprisal(text, model=ref_model, tokenizer=ref_tok)
+        rows.append({
+            "family": row.get("family", ""),
+            "label": row.get("label", ""),
+            "model": row.get("model", ""),
+            "psg": text[:200],
+            "mean_surprisal": s["mean_surprisal"],
+            "max_surprisal": s["max_surprisal"],
+            "std_surprisal": s["std_surprisal"],
+            "n_tokens": s["n_tokens"],
+        })
+
+    return pd.DataFrame(rows)
+
+
+def run_surprisal(raw_path="data/gen_battery_raw.parquet",
+                  output_path="data/surprisal.csv", model_name="gpt2"):
+    """Compute GPT-2 surprisal for all cached generations and print summary."""
+    psg_df = pd.read_parquet(raw_path)
+    print(f"Loaded {len(psg_df)} passages from {raw_path}")
+
+    surp_df = compute_surprisal(psg_df, model_name=model_name)
+    surp_df["category"] = surp_df["label"].str.replace(r"_\d+$", "", regex=True)
+
+    label_map = {"base": "BASE", "ego": "SFT", "superego": "DPO", "instruct": "RLVR"}
+    surp_df["layer"] = surp_df["model"].map(lambda m: label_map.get(m, m.upper()))
+
+    print(f"\n{'=' * 70}")
+    print(f"SURPRISAL BY MODEL LAYER (GPT-2 reference, bits)")
+    print(f"{'=' * 70}")
+    layer_means = surp_df.groupby(["family", "layer"])["mean_surprisal"].agg(
+        ["mean", "std", "count"]
+    ).round(4)
+    print(layer_means.to_string())
+
+    print(f"\n{'=' * 70}")
+    print("SURPRISAL BY CATEGORY x LAYER")
+    print(f"{'=' * 70}")
+    for fam in sorted(surp_df["family"].unique()):
+        fdf = surp_df[surp_df["family"] == fam]
+        pivot = fdf.pivot_table(
+            index="category", columns="layer", values="mean_surprisal", aggfunc="mean",
+        ).round(4)
+        col_order = [c for c in ["BASE", "SFT", "DPO", "RLVR"] if c in pivot.columns]
+        pivot = pivot[col_order]
+        print(f"\n  {fam}:")
+        print(f"  {pivot.to_string()}")
+
+    print(f"\n{'=' * 70}")
+    print("BASE vs ALIGNED: surprisal change")
+    print(f"{'=' * 70}")
+    for fam in sorted(surp_df["family"].unique()):
+        fdf = surp_df[surp_df["family"] == fam]
+        base_mean = fdf[fdf["model"] == "base"]["mean_surprisal"].mean()
+        for layer_name, model_key in [("SFT", "ego"), ("DPO", "superego"), ("RLVR", "instruct")]:
+            ldf = fdf[fdf["model"] == model_key]
+            if ldf.empty:
+                continue
+            layer_mean = ldf["mean_surprisal"].mean()
+            delta = layer_mean - base_mean
+            print(f"  {fam} BASE→{layer_name}: {base_mean:.4f} → {layer_mean:.4f} (Δ={delta:+.4f})")
+
+    surp_df.to_csv(output_path, index=False)
+    print(f"\nSaved {output_path} ({len(surp_df)} rows)")
+
+    return surp_df
+
+
 def run_generate_battery(families=None, prompts_set="tier1", category=None,
                          n=30, max_new_tokens=100, output_prefix=None):
     """End-to-end generation battery: generate -> embed -> compute metrics.
