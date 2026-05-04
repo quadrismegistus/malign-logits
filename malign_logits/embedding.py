@@ -448,12 +448,20 @@ def compute_topic_drift(psg_df, min_sentences=3, model_name=None):
         return [s.strip() for s in sents if len(s.strip()) > 10]
 
     def is_degenerate(text):
-        tokens = str(text).split()
+        text = str(text)
+        tokens = text.split()
         if len(tokens) < 5:
             return True
         counts = Counter(tokens)
         most_common_frac = counts.most_common(1)[0][1] / len(tokens)
-        return most_common_frac > 0.3
+        if most_common_frac > 0.3:
+            return True
+        chars = [c for c in text if not c.isspace()]
+        if chars:
+            char_counts = Counter(chars)
+            if char_counts.most_common(1)[0][1] / len(chars) > 0.3:
+                return True
+        return False
 
     rows = []
     all_sents = []
@@ -652,10 +660,24 @@ def compute_surprisal(psg_df, model_name="gpt2"):
     """
     ref_model, ref_tok = _load_surprisal_model(model_name)
 
+    from collections import Counter as _Counter
+
+    def _is_degenerate(text):
+        tokens = str(text).split()
+        if len(tokens) < 5:
+            return True
+        counts = _Counter(tokens)
+        if counts.most_common(1)[0][1] / len(tokens) > 0.3:
+            return True
+        chars = [c for c in str(text) if not c.isspace()]
+        if chars and _Counter(chars).most_common(1)[0][1] / len(chars) > 0.3:
+            return True
+        return False
+
     rows = []
     for _, row in tqdm(psg_df.iterrows(), total=len(psg_df), desc="Computing surprisal"):
         text = str(row["psg"]).strip()
-        if len(text) < 10:
+        if len(text) < 10 or _is_degenerate(text):
             continue
         s = passage_surprisal(text, model=ref_model, tokenizer=ref_tok)
         rows.append({
