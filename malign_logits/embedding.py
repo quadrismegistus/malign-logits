@@ -423,15 +423,23 @@ def compute_concept_metrics(embeds_df, psg_df, embedder=None):
 def compute_topic_drift(psg_df, min_sentences=3, model_name=None):
     """Measure within-generation topic drift via sentence-level embeddings.
 
-    For each passage: split into sentences, embed each, compute cosine
-    distance between consecutive sentences. High mean distance = the
-    text lurches between topics (dream logic, free association). Low
-    mean distance = monotonically coherent narrative.
+    For each passage: split into sentences, embed each, compute:
+    - **mean_drift**: mean cosine distance between consecutive sentences
+      (local jitter — does each sentence jar against the next?)
+    - **total_drift**: cosine distance from first to last sentence
+      (net displacement — how far did the text travel overall?)
+    - **path_length**: sum of consecutive cosine distances
+      (total ground covered, including backtracking)
+    - **directedness**: total_drift / path_length
+      (close to 1 = steady chain; close to 0 = circular wandering)
 
-    Returns DataFrame with one row per passage: family, label, model,
-    mean_drift, max_drift, n_sentences, plus the passage itself.
+    Filters out degenerate outputs where any single token exceeds
+    30% of the passage (repetitive loops, period-filled text).
+
+    Returns DataFrame with one row per passage.
     """
     import re as _re
+    from collections import Counter
     embedder = _get_embedder(model_name)
 
     def split_sentences(text):
@@ -439,11 +447,21 @@ def compute_topic_drift(psg_df, min_sentences=3, model_name=None):
         sents = _re.split(r'(?<=[.!?])\s+', text)
         return [s.strip() for s in sents if len(s.strip()) > 10]
 
+    def is_degenerate(text):
+        tokens = str(text).split()
+        if len(tokens) < 5:
+            return True
+        counts = Counter(tokens)
+        most_common_frac = counts.most_common(1)[0][1] / len(tokens)
+        return most_common_frac > 0.3
+
     rows = []
     all_sents = []
     sent_map = []
 
     for idx, row in psg_df.iterrows():
+        if is_degenerate(row["psg"]):
+            continue
         sents = split_sentences(row["psg"])
         for s in sents:
             all_sents.append(s)
@@ -466,10 +484,14 @@ def compute_topic_drift(psg_df, min_sentences=3, model_name=None):
         if n_sents < min_sentences:
             continue
 
-        dists = []
+        step_dists = []
         for i in range(len(sv) - 1):
             cos_sim = float(np.dot(sv[i], sv[i + 1]))
-            dists.append(1.0 - cos_sim)
+            step_dists.append(1.0 - cos_sim)
+
+        total_drift = float(1.0 - np.dot(sv[0], sv[-1]))
+        path_length = float(np.sum(step_dists))
+        directedness = total_drift / path_length if path_length > 0 else 0
 
         entry = {
             "family": row.get("family", ""),
@@ -477,9 +499,12 @@ def compute_topic_drift(psg_df, min_sentences=3, model_name=None):
             "model": row.get("model", ""),
             "psg": str(row["psg"])[:200],
             "n_sentences": n_sents,
-            "mean_drift": round(float(np.mean(dists)), 4),
-            "max_drift": round(float(np.max(dists)), 4),
-            "std_drift": round(float(np.std(dists)), 4),
+            "mean_drift": round(float(np.mean(step_dists)), 4),
+            "max_drift": round(float(np.max(step_dists)), 4),
+            "std_drift": round(float(np.std(step_dists)), 4),
+            "total_drift": round(total_drift, 4),
+            "path_length": round(path_length, 4),
+            "directedness": round(directedness, 4),
         }
         rows.append(entry)
 
@@ -525,18 +550,31 @@ def run_topic_drift(raw_path="data/gen_battery_raw.parquet",
         print(f"  {pivot.to_string()}")
 
     print(f"\n{'=' * 70}")
-    print("BASE vs ALIGNED: drift reduction by alignment")
+    print("TOTAL DRIFT + DIRECTEDNESS BY LAYER")
+    print(f"{'=' * 70}")
+    agg = drift_df.groupby(["family", "layer"]).agg(
+        mean_drift=("mean_drift", "mean"),
+        total_drift=("total_drift", "mean"),
+        path_length=("path_length", "mean"),
+        directedness=("directedness", "mean"),
+        count=("mean_drift", "count"),
+    ).round(4)
+    print(agg.to_string())
+
+    print(f"\n{'=' * 70}")
+    print("BASE vs ALIGNED: drift change")
     print(f"{'=' * 70}")
     for fam in sorted(drift_df["family"].unique()):
         fdf = drift_df[drift_df["family"] == fam]
-        base_mean = fdf[fdf["model"] == "base"]["mean_drift"].mean()
+        base = fdf[fdf["model"] == "base"]
         for layer_name, model_key in [("SFT", "ego"), ("DPO", "superego"), ("RLVR", "instruct")]:
             ldf = fdf[fdf["model"] == model_key]
             if ldf.empty:
                 continue
-            layer_mean = ldf["mean_drift"].mean()
-            delta = layer_mean - base_mean
-            print(f"  {fam} BASE→{layer_name}: {base_mean:.4f} → {layer_mean:.4f} (Δ={delta:+.4f})")
+            print(f"  {fam} BASE→{layer_name}:")
+            print(f"    mean_drift:  {base['mean_drift'].mean():.4f} → {ldf['mean_drift'].mean():.4f} (Δ={ldf['mean_drift'].mean()-base['mean_drift'].mean():+.4f})")
+            print(f"    total_drift: {base['total_drift'].mean():.4f} → {ldf['total_drift'].mean():.4f} (Δ={ldf['total_drift'].mean()-base['total_drift'].mean():+.4f})")
+            print(f"    directedness:{base['directedness'].mean():.4f} → {ldf['directedness'].mean():.4f} (Δ={ldf['directedness'].mean()-base['directedness'].mean():+.4f})")
 
     drift_df.to_csv(output_path, index=False)
     print(f"\nSaved {output_path} ({len(drift_df)} rows)")
