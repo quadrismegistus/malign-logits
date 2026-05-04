@@ -360,6 +360,17 @@ Expanded battery from 11 to 47 prompts across 9 categories (sexual liminal/expli
 
 `malign taxonomy` classifies displacement pairs into register shift, category shift, genre change, and archaic displacement using contextual spaCy POS tagging (word tagged in prompt context) and wordfreq. Cross-family: Llama is more register-shift dominant (66%) than OLMo (49%), consistent with late-layer override vs distributed repression. Profanity is 49-62% genre change in both — model-independent. Explicit content is overwhelmingly register shift; genre change only appears on liminal/profane content. Results in `data/displacement_taxonomy.csv`.
 
+### Done: Syntagmatic baseline check (aligned vs base model)
+
+Computing `syntagmatic_js` under both the base model and the aligned (DPO) model on the same 23k displacement pairs reveals that alignment produces measurable syntagmatic damage — the aligned model's continuations are *more* disrupted by its own substitutions than the base model's are. Delta is positive for every content category: sexual_explicit +0.106, violence_explicit +0.074, neutral +0.044, profanity +0.032.
+
+Three structurally distinct cases emerge:
+- **Alignment-produced damage** (sexual_explicit): base model substitutes fluently (synt_js 0.37); alignment specifically breaks the chain (+0.106). The strongest case for Jakobsonian similarity disorder as an alignment-produced impairment.
+- **Alignment-inherited damage** (profanity): base model already struggles (synt_js 0.56); alignment adds little (+0.032). The chain was already broken at the corpus level — profanity has no clean synonyms in any model.
+- **Alignment-unnecessary** (violence_explicit): both models substitute fluently (synt_js 0.16/0.24). Paradigmatic resources exist and alignment barely disrupts them.
+
+Neutral delta (+0.044) rules out the noise interpretation — alignment produces background syntagmatic damage even on safe content. Results in `data/taxonomy_olmo.csv` (`syntagmatic_js_aligned` column). CLI: `malign taxonomy --baseline --family olmo`.
+
 ### Done: Flexible layer count
 
 Model families support 2-4 layer topologies. `Psyche.from_family()` loads the right checkpoints. 2 layers = repression only, 3 = full analysis, 4 = idealization.
