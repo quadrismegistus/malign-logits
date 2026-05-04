@@ -209,6 +209,16 @@ def cmd_topic_drift(args):
     )
 
 
+def cmd_surprisal(args):
+    """Compute GPT-2 surprisal for cached generations."""
+    from .embedding import run_surprisal
+    run_surprisal(
+        raw_path=args.input or "data/gen_battery_raw.parquet",
+        output_path=args.output or "data/surprisal.csv",
+        model_name=args.model or "gpt2",
+    )
+
+
 def cmd_taxonomy(args):
     """Classify displacement pairs into taxonomy types."""
     if getattr(args, 'analyze', False):
@@ -374,6 +384,17 @@ def main():
     td.add_argument("--output", "-o",
                     help="Output CSV path (default: data/topic_drift.csv)")
     td.set_defaults(func=cmd_topic_drift)
+
+    # surprisal
+    su = subparsers.add_parser("surprisal",
+                               help="Compute GPT-2 surprisal for cached generations")
+    su.add_argument("--input", "-i",
+                    help="Raw generation parquet (default: data/gen_battery_raw.parquet)")
+    su.add_argument("--output", "-o",
+                    help="Output CSV path (default: data/surprisal.csv)")
+    su.add_argument("--model", default="gpt2",
+                    help="Reference model for surprisal (default: gpt2)")
+    su.set_defaults(func=cmd_surprisal)
 
     # logit-lens
     ll = subparsers.add_parser("logit-lens",
