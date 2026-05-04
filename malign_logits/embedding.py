@@ -599,14 +599,16 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
             continue
 
         # Token surprisals + hidden states (single GPT-2 forward pass)
-        ts_key = ("token_surprisals", ref_model_name, text)
-        hs_key = ("token_hidden_states", ref_model_name, text)
+        prompt_prefix = str(row.get("prompt", "")).strip()
+        ts_key = ("token_surprisals_v2", ref_model_name, prompt_prefix, text)
+        hs_key = ("token_hidden_states_v2", ref_model_name, prompt_prefix, text)
         if ts_key in stash and hs_key in stash:
             tok_surp = stash[ts_key]
             hidden = stash[hs_key]
             n_cached_ts += 1
         else:
-            s = passage_surprisal(text, model_name=ref_model_name)
+            s = passage_surprisal(text, model_name=ref_model_name,
+                                  prompt_prefix=prompt_prefix)
             tok_surp = s["token_surprisals"]
             hidden = s.get("hidden_states", [])
             stash[ts_key] = tok_surp
@@ -778,8 +780,12 @@ def _load_surprisal_model(model_name="gpt2"):
     return _surprisal_model, _surprisal_tokenizer
 
 
-def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2"):
+def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2",
+                      prompt_prefix=""):
     """Per-token surprisal and hidden states under a reference model.
+
+    If prompt_prefix is provided, it's prepended for context but metrics
+    are computed only on the completion tokens.
 
     Returns dict with mean_surprisal, max_surprisal, std_surprisal,
     n_tokens, token_surprisals (list of (token, surprisal) pairs),
@@ -790,8 +796,16 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2"):
     if model is None or tokenizer is None:
         model, tokenizer = _load_surprisal_model(model_name)
 
-    ids = tokenizer.encode(text, return_tensors="pt", truncation=True, max_length=1024)
+    full_text = prompt_prefix + text if prompt_prefix else text
+    ids = tokenizer.encode(full_text, return_tensors="pt", truncation=True, max_length=1024)
     ids = ids.to(next(model.parameters()).device)
+
+    # Figure out where the completion starts
+    if prompt_prefix:
+        prefix_ids = tokenizer.encode(prompt_prefix, return_tensors="pt")
+        start_idx = prefix_ids.shape[1]
+    else:
+        start_idx = 1
 
     with torch.no_grad():
         outputs = model(ids, output_hidden_states=True)
@@ -803,7 +817,7 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2"):
 
     surprisals = []
     tokens = []
-    for i in range(1, len(token_ids)):
+    for i in range(start_idx, len(token_ids)):
         lp = float(log_probs[i - 1, token_ids[i]])
         surprisals.append(-lp)
         tokens.append(tokenizer.decode([token_ids[i]]))
@@ -813,9 +827,10 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2"):
                 "n_tokens": 0, "token_surprisals": [], "hidden_states": []}
 
     arr = np.array(surprisals)
-    # Normalize hidden states for cosine distances
-    norms = last_hidden.norm(dim=1, keepdim=True).clamp(min=1e-10)
-    normed = (last_hidden / norms).numpy()
+    # Hidden states for completion tokens only
+    hidden_completion = last_hidden[start_idx:]
+    norms = hidden_completion.norm(dim=1, keepdim=True).clamp(min=1e-10)
+    normed = (hidden_completion / norms).numpy()
 
     return {
         "mean_surprisal": round(float(arr.mean()), 4),
@@ -823,7 +838,7 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2"):
         "std_surprisal": round(float(arr.std()), 4),
         "n_tokens": len(surprisals),
         "token_surprisals": list(zip(tokens, [round(s, 4) for s in surprisals])),
-        "hidden_states": normed[1:].tolist(),
+        "hidden_states": normed.tolist(),
     }
 
 
