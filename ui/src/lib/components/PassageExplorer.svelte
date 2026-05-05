@@ -16,6 +16,7 @@
 	let filterFamily = $state('all');
 	let filterLayer = $state('all');
 	let filterPrompt = $state('all');
+	let filterTemplate: 'all' | 'narrative' | 'template' = $state('all');
 
 	let customText = $state('');
 	let customLoading = $state(false);
@@ -134,6 +135,8 @@
 			if (filterFamily !== 'all' && d.family !== filterFamily) return false;
 			if (filterLayer !== 'all' && d.model !== filterLayer) return false;
 			if (filterPrompt !== 'all' && d.label !== filterPrompt) return false;
+			if (filterTemplate === 'narrative' && (d as any).is_template) return false;
+			if (filterTemplate === 'template' && !(d as any).is_template) return false;
 			return true;
 		});
 	});
@@ -292,7 +295,7 @@
 
 	$effect(() => {
 		if (!loading && data.length > 0) {
-			void xAxis; void yAxis; void colorBy; void filterFamily; void filterLayer; void filterPrompt; void filteredData;
+			void xAxis; void yAxis; void colorBy; void filterFamily; void filterLayer; void filterPrompt; void filterTemplate; void filteredData;
 			tick().then(drawChart);
 		}
 	});
@@ -353,6 +356,14 @@
 			<select bind:value={filterPrompt}>
 				<option value="all">all</option>
 				{#each promptLabels as l}<option value={l}>{PROMPTS[l] ? PROMPTS[l].slice(0, 30) : l}</option>{/each}
+			</select>
+		</label>
+		<label class="axis-control">
+			<span>Genre</span>
+			<select bind:value={filterTemplate}>
+				<option value="all">all</option>
+				<option value="narrative">narrative</option>
+				<option value="template">template</option>
 			</select>
 		</label>
 		<ExportButton container={outerContainer} filename="passage_explorer" />
