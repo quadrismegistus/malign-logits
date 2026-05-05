@@ -105,11 +105,26 @@ def load_fiction():
     return pd.DataFrame(rows)
 
 
+def load_abstracts():
+    """Load arxiv abstracts."""
+    df = pd.read_csv("data/arxiv_abstracts_500.csv")
+    rows = []
+    for _, r in df.iterrows():
+        rows.append({
+            "corpus": "abstracts",
+            "subcorpus": "arxiv",
+            "prompt": "",
+            "label": "abstract",
+            "text": str(r["text"]),
+        })
+    return pd.DataFrame(rows)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--min-words", type=int, default=100,
-                        help="Minimum words per truncated passage (default: 100)")
+    parser.add_argument("--min-words", type=int, default=75,
+                        help="Minimum words per truncated passage (default: 75)")
     parser.add_argument("--output", "-o", default="data/corpus_metrics.csv")
     args = parser.parse_args()
 
@@ -120,6 +135,7 @@ def main():
         ("dreams", load_dreams),
         ("hippocorpus", load_hippocorpus),
         ("c20_fiction", load_fiction),
+        ("abstracts", load_abstracts),
     ]:
         try:
             df = loader()
