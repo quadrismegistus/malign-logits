@@ -378,7 +378,7 @@
 								</span>
 							{/each}
 						</div>
-						<div class="passage-text"><span class="prompt-prefix">{getPrompt(selectedPoint.label)}</span>{selectedPoint.psg}</div>
+						<div class="passage-text"><span class="prompt-prefix">{getPrompt(selectedPoint.label)} </span>{selectedPoint.psg}</div>
 					</div>
 				{:else}
 					<div class="no-selection">
