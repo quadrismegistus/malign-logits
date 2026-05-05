@@ -399,7 +399,7 @@ class ModelHandler(BaseHTTPRequestHandler):
             return row
 
         elif path == "/passage-tokens":
-            psg = body.get("psg", "").strip()
+            psg = body.get("psg", "").rstrip()
             prompt_prefix = body.get("prompt", "").strip()
             if not psg:
                 raise ValueError("No psg provided")
