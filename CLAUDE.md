@@ -371,6 +371,18 @@ Three structurally distinct cases emerge:
 
 Neutral delta (+0.044) rules out the noise interpretation — alignment produces background syntagmatic damage even on safe content. Results in `data/taxonomy_olmo.csv` (`syntagmatic_js_aligned` column). CLI: `malign taxonomy --baseline --family olmo`.
 
+### Done: Generation passage metrics (drift, surprisal, metonymy)
+
+`malign topic-drift` computes per-passage metrics from cached generations using GPT-2 as neutral reference: sentence diameter (max pairwise sentence distance), GPT-2 surprisal, directedness (diameter/path_length), genre classification. 10,463 passages across 7 families. Alignment universally compresses diameter; surprisal splits families into two camps — OLMo increases (+0.26, genre collapse), Qwen/Zephyr decrease (smoothing). Split survives template filtering and structural/content token decomposition. Bootstrap CIs confirm. Interactive UI: Passages tab with scatter plot, token-level surprisal coloring.
+
+### Done: Dream report comparison
+
+500 dream reports run through the same pipeline. Dreams are +1.19σ on surprisal, +0.65σ on drift, −1.05σ on directedness relative to model generations. Dreams occupy the same drift×surprisal quadrant as OLMo genre collapse but separate on directedness (circular wandering vs directed). Directedness distinguishes primary process from genre collapse. Metonymy index distinguishes desire-structured language (aligned LLM chain-slide) from dream-work displacement (surprising circular wandering).
+
+### Done: Cross-family Jakobsonian analysis
+
+`malign taxonomy --analyze` reads all taxonomy CSVs and computes paradigmatic-syntagmatic correlations per family. Trade-off holds for all 4 families tested: r = −0.34 (olmo-tiny) to −0.50 (zephyr). The Jakobsonian dissociation is structural, not safety-training-specific.
+
 ### Done: Flexible layer count
 
 Model families support 2-4 layer topologies. `Psyche.from_family()` loads the right checkpoints. 2 layers = repression only, 3 = full analysis, 4 = idealization.
