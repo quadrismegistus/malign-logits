@@ -124,6 +124,12 @@ MODEL_FAMILIES = {
         ego="HuggingFaceH4/mistral-7b-sft-beta",
         superego="HuggingFaceH4/zephyr-7b-beta",
     ),
+    "pythia": ModelFamily(
+        name="Pythia 6.9B",
+        base="EleutherAI/pythia-6.9b",
+        ego="lomahony/eleuther-pythia6.9b-hh-sft",
+        superego="lomahony/eleuther-pythia6.9b-hh-dpo",
+    ),
 }
 
 TULU_ABLATIONS = {
