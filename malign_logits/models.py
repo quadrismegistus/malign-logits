@@ -198,8 +198,15 @@ def logit_lens(model, tokenizer, prompt, device=None):
         outputs = model(input_ids, output_hidden_states=True)
         hidden_states = outputs.hidden_states  # tuple of (batch, seq, hidden_dim)
 
-        # Get norm and lm_head for projection
-        norm = model.model.norm
+        # Get norm and lm_head for projection (architecture-dependent)
+        if hasattr(model, 'model') and hasattr(model.model, 'norm'):
+            norm = model.model.norm          # Llama, OLMo, Mistral, Qwen
+        elif hasattr(model, 'gpt_neox'):
+            norm = model.gpt_neox.final_layer_norm  # GPT-NeoX (Pythia)
+        elif hasattr(model, 'transformer'):
+            norm = model.transformer.ln_f    # GPT-2, GPT-Neo
+        else:
+            raise AttributeError(f"Cannot find final layer norm for {type(model).__name__}")
         lm_head = model.lm_head
 
         layer_logits = []
