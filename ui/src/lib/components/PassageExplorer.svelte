@@ -139,8 +139,8 @@
 		if (!chartDiv || filteredData.length === 0) return;
 		chartDiv.innerHTML = '';
 
-		const width = 500;
-		const height = 440;
+		const width = 640;
+		const height = 560;
 		const margin = { top: 20, right: 16, bottom: 44, left: 50 };
 		const innerW = width - margin.left - margin.right;
 		const innerH = height - margin.top - margin.bottom;
@@ -433,11 +433,13 @@
 		min-height: 440px;
 	}
 	.chart-col { flex-shrink: 0; }
-	.chart-area { position: relative; width: 500px; min-height: 440px; }
+	.chart-area { position: relative; width: 640px; min-height: 560px; }
 	.text-col {
 		flex: 1;
+		min-width: 250px;
+		max-width: 350px;
 		overflow-y: auto;
-		max-height: 500px;
+		max-height: 580px;
 	}
 	.no-selection {
 		color: #555;
