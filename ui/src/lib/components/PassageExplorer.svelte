@@ -174,9 +174,9 @@
 		const innerW = width - margin.left - margin.right;
 		const innerH = height - margin.top - margin.bottom;
 
-		const allPoints = customPoint ? [...filteredData, customPoint] : filteredData;
-		const xExt = d3.extent(allPoints, d => getVal(d, xAxis)) as [number, number];
-		const yExt = d3.extent(allPoints, d => getVal(d, yAxis)) as [number, number];
+		const allForExtent = customPoint ? [...data, customPoint] : data;
+		const xExt = d3.extent(allForExtent, d => getVal(d, xAxis)) as [number, number];
+		const yExt = d3.extent(allForExtent, d => getVal(d, yAxis)) as [number, number];
 		const xPad = (xExt[1] - xExt[0]) * 0.08 || 0.5;
 		const yPad = (yExt[1] - yExt[0]) * 0.08 || 0.5;
 
