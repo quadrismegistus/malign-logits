@@ -139,8 +139,9 @@
 		if (!chartDiv || filteredData.length === 0) return;
 		chartDiv.innerHTML = '';
 
-		const width = 640;
-		const height = 560;
+		const rect = chartDiv.getBoundingClientRect();
+		const width = Math.max(500, Math.floor(rect.width));
+		const height = Math.max(500, Math.floor(width * 0.75));
 		const margin = { top: 20, right: 16, bottom: 44, left: 50 };
 		const innerW = width - margin.left - margin.right;
 		const innerH = height - margin.top - margin.bottom;
@@ -430,16 +431,15 @@
 	.content-area {
 		display: flex;
 		gap: 16px;
-		min-height: 440px;
+		min-height: 500px;
 	}
-	.chart-col { flex-shrink: 0; }
-	.chart-area { position: relative; width: 640px; min-height: 560px; }
+	.chart-col { flex: 1; min-width: 0; }
+	.chart-area { position: relative; width: 100%; min-height: 500px; }
 	.text-col {
-		flex: 1;
-		min-width: 250px;
-		max-width: 350px;
+		flex-shrink: 0;
+		width: 320px;
 		overflow-y: auto;
-		max-height: 580px;
+		max-height: 700px;
 	}
 	.no-selection {
 		color: #555;
