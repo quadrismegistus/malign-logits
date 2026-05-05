@@ -390,22 +390,32 @@ Even the gradient-optimal linear direction at the best layer (L=4) closes only ~
 
 Notebook: `notebooks/08_trajectory_drift.ipynb`. Open: replicate on 7B (OLMo 3, Llama, Qwen, Amber). Llama's late-layer override (finding #5) may show higher closure given its more linearizable structure; representation-engineering work on 7B suggests 30–50% closure on specific concept subspaces, vs our 6% on the whole DPO transformation.
 
-### 13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (OLMo 2 1B, 25k pairs)
+### 13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (6 families, 126k pairs)
 
-Roman Jakobson's 1956 *Two Aspects of Language and Two Types of Aphasic Disturbances* argues that language is constituted by two complementary axes — selection/similarity (paradigmatic) and combination/contiguity (syntagmatic) — and that aphasic patients with similarity disorder lean on contiguity, while those with contiguity disorder lean on substitution. We test whether the same trade-off operates across content types in an aligned LLM's displacement behaviour.
+Roman Jakobson's 1956 *Two Aspects of Language and Two Types of Aphasic Disturbances* argues that language is constituted by two complementary axes — selection/similarity (paradigmatic) and combination/contiguity (syntagmatic) — and that damage to one axis forces compensatory reliance on the other. We test whether the same structural trade-off operates in alignment-induced displacement.
 
-**Method.** For each (source → target) displacement pair from `Psyche.analyze().displacement_map()`, we already have a paradigmatic-axis score: `similarity` is the cosine similarity between contextual embeddings of source and target words. We add a complementary syntagmatic-axis score: `syntagmatic_js` is the JS divergence between `p(next_token | prompt + source)` and `p(next_token | prompt + target)` under the base model. High `similarity` means the substitute is paradigmatically close to the source; high `syntagmatic_js` means the substitute jars the next-token chain. Run on Tier-1 (18 prompts) for OLMo 2 1B. Results in `data/taxonomy_olmo-tiny.csv` (25,087 paired displacements).
+**Method.** For each (source → target) displacement pair from `Psyche.analyze().displacement_map()`, we compute two scores: `similarity` (cosine similarity between contextual embeddings — paradigmatic axis) and `syntagmatic_js` (JS divergence between `p(next_token | prompt + source)` and `p(next_token | prompt + target)` under the base model — syntagmatic axis). High similarity = good synonym found; high syntagmatic_js = the substitute disrupts the next-token chain.
 
-**The two axes are negatively correlated, exactly as Jakobson predicts.**
+**The two axes are negatively correlated across all 6 families.**
 
-| level | correlation |
-|---|---|
-| pair-level (n = 25,087) | Pearson **r = −0.34**, Spearman ρ = −0.35, p ≈ 0 |
-| within every displacement type | r ∈ [−0.21, −0.33] |
-| within every content category | r ∈ [−0.20, −0.54] |
-| **category-mean (n = 9 categories)** | **r = −0.58** |
+| Family | Pearson r | n pairs | Within-category r |
+|---|---|---|---|
+| **Llama** | **−0.533** | 22,341 | [−0.68, −0.44] |
+| **Zephyr** | **−0.498** | 21,887 | [−0.61, −0.27] |
+| **Tulu** | **−0.495** | 21,015 | [−0.70, −0.44] |
+| OLMo | −0.407 | 23,013 | [−0.56, −0.19] |
+| Qwen | −0.366 | 12,414 | [−0.49, −0.30] |
+| OLMo-tiny | −0.338 | 25,087 | [−0.54, −0.20] |
 
-**Content categories sort cleanly along the trade-off:**
+Total: 125,836 displacement pairs. The correlation holds within every content category in every family. When a displacement pair finds a paradigmatically close substitute, the syntagmatic chain is preserved. When it can't, the chain breaks. This is not a property of any single architecture or alignment procedure — it is a structural property of how aligned LLMs handle foreclosure.
+
+**Llama-Tulu: same base model, different alignment, different trade-off strength.** Both share `meta-llama/Llama-3.1-8B` as their base. Llama uses Meta's alignment (opaque, presumably includes extensive safety data). Tulu uses Allen AI's alignment (transparent, no safety data in SFT, safety data only in DPO). Their correlation strengths differ (−0.533 vs −0.495) and their displacement profiles diverge: Llama death category has 28% genre_change; Tulu death has 12%. Same paradigmatic capacities at the start, different structural-symbolic signatures under different corporate alignment regimes. This is direct evidence that alignment is a *corporate-political* operation: the architecture is held constant, the variable is alignment practice, the output is differential foreclosure.
+
+**Violence_explicit is universally paradigmatically fluent.** Register_shift dominates across all 6 families (73–86%). The corpus contains rich paradigmatic resources for violence (kill/hurt/attack/destroy/fight/strike/punch...), so alignment can substitute without breaking the chain. This is the *unimpaired* case in Jakobson's typology.
+
+**Profanity genre_change varies by alignment regime.** Genre_change on profanity ranges from 27% (Zephyr, no safety data) to 58% (OLMo-tiny, full alignment). The rate scales with how aggressively the family targets profanity. Zephyr's instruction-following alone doesn't break the chain on profanity; targeted safety training does. The within-content variation across families is itself evidence of differential corporate alignment practice.
+
+**Content categories sort along the trade-off (OLMo-tiny, representative):**
 
 | category | paradigmatic similarity | syntagmatic JS | n pairs |
 |---|---|---|---|
@@ -419,29 +429,13 @@ Roman Jakobson's 1956 *Two Aspects of Language and Two Types of Aphasic Disturba
 | neutral | 0.484 | 0.503 | 1,651 |
 | **profanity** | 0.563 | **0.606** | 498 |
 
-Violence-explicit displacements have the highest paradigmatic similarity (the model finds clean synonyms — *kill* → *hurt*, *strangle* → *smother*) and the lowest syntagmatic disruption (the next-token chain holds). Profanity displacements have the highest syntagmatic disruption (chain breaks: *fuck* → *what*, → *Options*, → format change) and only middling paradigmatic similarity (no available synonym to substitute toward).
+**What the negative correlation means.** When alignment replaces a foreclosed word, it has two options that trade off: (a) find a similar word — "kill" → "hurt," the sentence flows naturally; or (b) break the sentence — "fuck" → "Options," the model abandons narrative for a different genre. When a good synonym exists (violence), option (a) succeeds and the chain holds. When no synonym exists (profanity), option (b) takes over and the chain breaks. Whether alignment can perform clean substitution or must resort to genre collapse depends on the *paradigmatic resources available in the content domain* — a structural-linguistic constraint, not just a corporate-alignment choice.
 
-**Mapped to Jakobson's clinical types:**
-- **Violence/sexual explicit content behaves like normal speech**: paradigmatic axis intact, the model substitutes fluently and the syntagmatic chain holds.
-- **Profanity behaves like similarity disorder**: the paradigmatic axis fails (no clean synonym), so the model leans on contiguity disturbance — breaks the chain into questions, templates, format changes (`genre_change` = 58% of profanity displacements).
-- **Liminal content (sexual_liminal, violence_liminal) sits between**: high paradigmatic similarity *and* moderate syntagmatic disruption. The boundary between transgressive and acceptable produces both kinds of damage simultaneously.
+**Refines existing taxonomy.** The continuous syntagmatic_js metric makes the categorical displacement taxonomy (Finding 8) into a quantitative dissociation: paradigmatic types (register_shift, archaic) cluster at synt_js ≈ 0.37; syntagmatic types (category_shift, genre_change) cluster at synt_js ≈ 0.58–0.63.
 
-**Within-content-type the trade-off also holds.** Violence_explicit pairs with higher `similarity` have lower `syntagmatic_js` (within-category Pearson r = −0.54). Even within a single content type, displacements that succeed paradigmatically preserve the chain better.
+**Caveats.** Single-position syntagmatic measure (next-token only); multi-position surprisal would be a sharper test. ~~Preliminary on OLMo-tiny only~~ — now replicated across 6 families. ~~Neutral category at boundary~~ — resolved in Finding 14.
 
-**Refines existing taxonomy.** Finding #8 already showed `register_shift` (paradigmatic) vs `genre_change` (syntagmatic-refusal) as a categorical split. The continuous syntagmatic_js metric makes this a quantitative dissociation: paradigmatic types (`register_shift`, `archaic`) cluster at synt_js ≈ 0.37; syntagmatic types (`category_shift`, `genre_change`) cluster at synt_js ≈ 0.58–0.63.
-
-| displacement type | mean syntagmatic_js | mean similarity | n |
-|---|---|---|---|
-| archaic | 0.360 | 0.559 | 2,716 |
-| register_shift | 0.386 | 0.575 | 17,202 |
-| category_shift | 0.580 | 0.498 | 4,746 |
-| genre_change | 0.630 | 0.526 | 423 |
-
-**Theoretical implication.** The displacement patterns documented across this project are not a single phenomenon. They are two complementary axes that the model selects between based on whether paradigmatic substitution is locally available. Where it is (violence/sex with synonyms), alignment damage stays on the paradigmatic axis; where it isn't (profanity with no acceptable synonym), damage shifts to the syntagmatic axis. This is the structural duality Jakobson identifies in human aphasic language, recovered in transformer alignment-induced displacement at the pair level (n = 25k, p ≈ 0).
-
-**Caveats.** OLMo 2 1B preliminary; replicate on 7B and across families. Single-position syntagmatic measure (next-token only); multi-position surprisal would be a sharper test. ~~The neutral category sits at the boundary and warrants attention~~ — resolved in Finding 14: neutral-baseline check confirms the metric captures real alignment-induced disruption, not noise.
-
-CLI: `malign taxonomy --family olmo-tiny -o data/taxonomy_olmo-tiny.csv`. Implementation: `malign_logits/taxonomy.py::syntagmatic_js`.
+CLI: `malign taxonomy --family olmo-tiny`, `malign taxonomy --analyze` (cross-family). Results in `data/taxonomy_*.csv`, `data/taxonomy_summary.csv`.
 
 ### 14. Syntagmatic baseline: alignment-produced vs corpus-level damage (OLMo 3 7B, 23k pairs)
 
