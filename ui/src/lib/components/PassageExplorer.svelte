@@ -60,6 +60,8 @@
 		{ id: 'mean_drift', label: 'Mean sentence drift' },
 		{ id: 'token_mean_drift', label: 'Mean token drift' },
 		{ id: 'mean_surprisal', label: 'Surprisal (GPT-2)' },
+		{ id: 'surprisal_llama', label: 'Surprisal (Llama)' },
+		{ id: 'surprisal_mistral', label: 'Surprisal (Mistral)' },
 		{ id: 'directedness', label: 'Sentence directedness' },
 		{ id: 'token_directedness', label: 'Token directedness' },
 		{ id: 'n_sentences', label: 'N sentences' },
@@ -69,17 +71,22 @@
 	const FAMILY_COLORS: Record<string, string> = {
 		olmo: '#4e79a7', 'olmo-tiny': '#76b7b2', qwen: '#f28e2b',
 		zephyr: '#59a14f', llama: '#e15759', amber: '#b07aa1',
-		smol: '#9c755f', tulu: '#ff9da7', custom: '#edc948',
+		smol: '#9c755f', tulu: '#ff9da7', pythia: '#86bcb6',
+		dreams: '#e15759', waking: '#59a14f', c20_fiction: '#b07aa1',
+		abstracts: '#f28e2b', custom: '#edc948',
 	};
 	const LAYER_COLORS: Record<string, string> = {
 		base: '#e15759', ego: '#f28e2b', superego: '#4e79a7',
-		instruct: '#59a14f', custom: '#edc948',
+		instruct: '#59a14f', dream: '#e15759', recalled: '#59a14f',
+		narration: '#b07aa1', arxiv: '#f28e2b', custom: '#edc948',
 	};
 	const CATEGORY_COLORS: Record<string, string> = {
 		sexual_explicit: '#e15759', sexual_liminal: '#ff9da7',
 		violence_explicit: '#9c755f', violence_liminal: '#bab0ac',
 		death: '#76b7b2', power: '#b07aa1', profanity: '#ff9da7',
-		substance: '#edc948', neutral: '#4e79a7', custom: '#edc948',
+		substance: '#edc948', neutral: '#4e79a7',
+		dream: '#e15759', waking: '#59a14f', fiction: '#b07aa1',
+		abstract: '#f28e2b', custom: '#edc948',
 	};
 
 	onMount(async () => {
@@ -106,7 +113,9 @@
 		return CATEGORY_COLORS[getCategory(d)] ?? '#888';
 	}
 	function getRaw(d: PassageMetrics, key: string): number {
-		return (d as any)[key] ?? 0;
+		const v = (d as any)[key];
+		if (v === null || v === undefined || v === '') return NaN;
+		return Number(v);
 	}
 
 	let zStats = $derived.by(() => {
@@ -432,11 +441,13 @@
 							{#each METRICS as m}
 								{@const z = getVal(selectedPoint, m.id)}
 								{@const raw = getRaw(selectedPoint, m.id)}
-								<span class="metric" class:highlight={m.id === xAxis || m.id === yAxis}>
-									<span class="metric-name">{m.label}</span>
-									<span class="z-val" class:z-high={z > 1} class:z-low={z < -1}>{z >= 0 ? '+' : ''}{z.toFixed(1)}σ</span>
-									<span class="raw-val">({raw.toFixed(3)})</span>
-								</span>
+								{#if !isNaN(raw)}
+									<span class="metric" class:highlight={m.id === xAxis || m.id === yAxis}>
+										<span class="metric-name">{m.label}</span>
+										<span class="z-val" class:z-high={z > 1} class:z-low={z < -1}>{z >= 0 ? '+' : ''}{z.toFixed(1)}σ</span>
+										<span class="raw-val">({raw.toFixed(3)})</span>
+									</span>
+								{/if}
 							{/each}
 						</div>
 						<div class="passage-text">

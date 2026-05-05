@@ -134,19 +134,23 @@ export interface PassageMetrics {
 	label: string;
 	model: string;
 	psg: string;
+	prompt?: string;
 	n_sentences: number;
 	mean_drift: number;
 	total_drift: number;
 	directedness: number;
 	mean_surprisal: number;
+	surprisal_llama?: number;
+	surprisal_mistral?: number;
 	metonymy_idx: number;
 	token_diameter: number;
 	token_mean_drift: number;
 	token_directedness: number;
 	token_metonymy_idx: number;
 	n_tokens: number;
-	is_template: boolean;
-	genre_type: string;
+	is_template?: boolean;
+	genre_type?: string;
+	[key: string]: unknown;
 }
 
 export const api = {
