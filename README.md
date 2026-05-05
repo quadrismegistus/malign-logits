@@ -25,6 +25,8 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
   - [12. Trajectory geometry and fold-vs-wall (OLMo 2 1B, preliminary)](#12-trajectory-geometry-and-the-fold-vs-wall-question-olmo-2-1b-preliminary)
   - [13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (OLMo 2 1B)](#13-jakobsonian-axes-paradigmatic-vs-syntagmatic-displacement-olmo-2-1b-25k-pairs)
   - [14. Syntagmatic baseline: alignment-produced vs corpus-level damage (OLMo 3 7B)](#14-syntagmatic-baseline-alignment-produced-vs-corpus-level-damage-olmo-3-7b-23k-pairs)
+  - [15. Generation-level passage metrics: drift, surprisal, and the metonymy-of-desire (7 families)](#15-generation-level-passage-metrics-drift-surprisal-and-the-metonymy-of-desire-7-families-10k-passages)
+  - [16. Dream reports as primary-process baseline (500 dream narratives)](#16-dream-reports-as-primary-process-baseline-500-dream-narratives)
 - [Installation](#installation)
 - [Quick start](#quick-start)
 - [Usage](#usage)
@@ -474,6 +476,64 @@ Finding 13 showed that paradigmatic and syntagmatic axes trade off within aligne
 **Content-graded delta confirms alignment-specificity.** The delta itself scales with content sensitivity (sexual > violence > neutral > profanity), ruling out uniform distributional shift. Alignment produces more syntagmatic damage where it intervenes more, with profanity as the exception (ceiling effect). This content-grading is consistent with Finding 6 (transgressive token mass displacement separates categories) and with Finding 1 (SFT/DPO divide labour by content type).
 
 Results in `data/taxonomy_olmo.csv` (column `syntagmatic_js_aligned`). CLI: `malign taxonomy --baseline --family olmo`.
+
+
+### 15. Generation-level passage metrics: drift, surprisal, and the metonymy-of-desire (7 families, 10k passages)
+
+Generates many completions per prompt per model layer (n=30), then measures three properties of each passage under GPT-2 as a neutral reference model:
+- **Sentence diameter** (total_drift): max pairwise cosine distance between sentence embeddings. How far apart are the two most semantically distant moments in the text.
+- **GPT-2 surprisal**: mean per-token negative log-probability. How unexpected the text is to a generic English language model.
+- **Directedness**: diameter / path_length. Does the text travel in one direction (≈1) or wander in circles (≈0).
+
+10,463 passages across 7 families (OLMo, OLMo-tiny, Qwen, Zephyr, Tulu, SmolLM2, Amber). Genre classifier flags 14.6% as template format (multiple-choice, QA, fill-in-the-blank, system prompt leakage). All findings validated with 1000-resample bootstrap CIs.
+
+**Alignment universally compresses sentence diameter.** Every family's DPO text covers less semantic territory than its base text. The effect is consistent but small (Δ -0.01 to -0.04).
+
+**Alignment splits families into two camps on surprisal (robust, p < 0.001):**
+
+| Family | Surprisal Δ (DPO − BASE) | 95% CI | Direction |
+|---|---|---|---|
+| **OLMo** | **+0.26** | [+0.20, +0.31] | Aligned text is *more surprising* to GPT-2 |
+| **Qwen** | **−0.26** | [−0.34, −0.17] | Aligned text is *less surprising* |
+| **Zephyr** | **−0.21** | [−0.26, −0.16] | Less surprising |
+| Tulu | −0.03 | [−0.07, +0.01] | Not significant |
+| OLMo-tiny | +0.04 | [−0.01, +0.08] | Not significant |
+| SmolLM2 | +0.01 | [−0.03, +0.05] | Not significant |
+
+OLMo's alignment produces text GPT-2 finds *stranger than its base model* — genre collapse into QA templates, instruction-following artifacts, code-token substrates. Every other family's alignment produces more conventional text. This is a structural property, not a content effect: OLMo's surprisal increases on *neutral* content (+0.40) as much as on transgressive content.
+
+**The surprisal split is not a template-format artifact.** Decomposing surprisal into content tokens vs structural tokens (punctuation, markdown, template markers): OLMo's content-token surprisal increases by +0.40 under DPO, matching the structural-token increase (+0.41). The effect is in the *language itself*, not the formatting.
+
+**The surprisal split survives template filtering.** Excluding all template-format passages (MC, QA, fill-blank): OLMo narrative-only DPO is still +0.28 more surprising than base. Qwen narrative-only DPO is still −0.32 less surprising.
+
+**Zephyr profanity is untouched (validated).** Zephyr DPO reduces surprisal on sexual (−0.28), substance (−0.34), neutral (−0.32), and violence_liminal (−0.31), but profanity is unchanged (+0.01, CI crosses zero). Consistent with Zephyr having no safety data — profanity is not targeted by general helpfulness tuning.
+
+**Tulu's only significant effects are on violence.** Violence_explicit (−0.15) and violence_liminal (−0.11) are the only categories where Tulu DPO's surprisal change survives bootstrap. Consistent with Tulu's DPO safety data (WildGuardMix, WildJailbreak) specifically targeting violence.
+
+**Cross-family Jakobsonian correlation holds universally.** Running `malign taxonomy --analyze` across 4 families with taxonomy data: the paradigmatic-syntagmatic trade-off (Finding 13) holds for all, with Zephyr showing the strongest correlation (r = −0.50). The Jakobsonian dissociation is a structural property of alignment in general, not specific to safety training.
+
+CLI: `malign topic-drift` (computes all metrics from cached generations, no models needed). `malign taxonomy --analyze` (cross-family Jakobsonian analysis from taxonomy CSVs). Results in `data/passage_metrics.csv`. Interactive explorer: Passages tab in UI.
+
+### 16. Dream reports as primary-process baseline (500 dream narratives)
+
+500 dream reports (100–300 words) from a 30k-dream corpus, cleaned with `ftfy`, run through the same passage-metrics pipeline as model generations. Provides a human primary-process reference point for the metric space.
+
+**Dreams occupy a unique region no LLM reaches.** In z-score space (relative to the model generation distribution):
+
+| Metric | Dreams (z-score) | Interpretation |
+|---|---|---|
+| Surprisal | **+1.19σ** | More surprising than any model output |
+| Sentence diameter | **+0.65σ** | Wanders farther than any model |
+| Directedness | **−1.05σ** | Much more circular than any model |
+| Metonymy index | −0.33σ | Below most base models |
+
+**Dreams share drift×surprisal coordinates with OLMo's genre collapse (Q2: high drift + high surprisal) but separate cleanly on directedness.** Dreams wander circularly (directedness 0.19); OLMo DPO wanders directionally (0.36). Same quadrant on the 2D plot, opposite structural signature on the third axis. Directedness distinguishes primary process from genre collapse.
+
+**The metonymy index distinguishes desire-structured language from dream-work.** Base-model metonymic chain-slide (high drift, low surprisal, metonymy ~0.31) is structurally different from dream-work displacement (high drift, high surprisal, metonymy ~0.29). In Lacanian terms: aligned LLMs produce the *metonymy of desire* (fluent chain-slide under foreclosure); dream reports produce *dream-work displacement* (surprising circular wandering). Same displacement engine, different structural signatures, empirically distinguished by the metric.
+
+**Caveat: GPT-2 surprisal partly reflects register.** Dream reports are informal personal narrative; GPT-2 was trained on polished web text. Some of the +1.19σ surprisal gap reflects register mismatch, not dream-work per se. The directedness finding (−1.05σ) is more robust because it's a ratio of within-text quantities, less sensitive to register. A matched-register control corpus (non-dream personal narrative) would disambiguate.
+
+Script: `scripts/dream_metrics.py`. Results in `data/dream_metrics.csv`.
 
 
 ## Installation
