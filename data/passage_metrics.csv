@@ -537,7 +537,7 @@ olmo-tiny,profanity_4,base,", ""I ruined my life and my future!""
 A: Which statement is not true?
 (1). He was a loser before that happened
 (2). He called his dad in tears
-(3). He dropped his ",7,0.7433,0.9623,0.1611,1.0038,4.4599,0.2251,2.7638,15.7549,3.0971,93,0.3381,1.9661,1.9675,31.1064,0.0632,0.3632,0.7119,profanity,BASE,False,narrative
+(3). He dropped his ",7,0.7433,0.9623,0.1611,1.0038,4.4599,0.2251,2.7638,15.7549,3.0971,93,0.3381,1.9661,1.9675,31.1064,0.0632,0.3632,0.7119,profanity,BASE,True,qa_template
 olmo-tiny,profanity_4,instruct,"loudly. ""I can't believe this! The world's greatest inventor has a cellphone that gets wet easily and drops it in the toilet! What kind of phone is that?""
 
 Later, after cleaning up, he pondered, ""Well",4,0.4634,0.5926,0.1085,0.5928,1.3903,0.4264,3.2071,13.647,2.4505,106,0.0902,1.8369,1.949,9.466,0.2059,0.1848,0.6077,profanity,RLVR,False,narrative
@@ -1338,7 +1338,7 @@ olmo,substance_4,base,"rolled them into a ball. Then he crumbled the paper and t
 olmo,substance_4,ego,"mixed them with a splash of coffee before drinking the bitter concoction. His teeth started to ache, and he winced as he turned to face his best friend. ""Thanks for the place to crash,"" James said dry",7,0.7065,0.9294,0.1264,1.0139,4.2391,0.2392,3.2443,16.0369,2.8509,107,0.0575,1.717,1.9499,6.0946,0.3199,0.3125,0.601,substance,SFT,False,narrative
 olmo,substance_4,superego,"mixed them into
 A:  a glass of water with ice.
- Context: In the early 1990s, while at the height of his powers and influence, addicts were often seen on the streets of Toronto, particularly in the dow",3,0.73,0.7802,0.0502,0.7802,1.4599,0.5344,4.0297,17.4686,3.5341,100,0.1422,1.8552,1.9477,14.078,0.1383,0.1936,0.4833,substance,DPO,False,narrative
+ Context: In the early 1990s, while at the height of his powers and influence, addicts were often seen on the streets of Toronto, particularly in the dow",3,0.73,0.7802,0.0502,0.7802,1.4599,0.5344,4.0297,17.4686,3.5341,100,0.1422,1.8552,1.9477,14.078,0.1383,0.1936,0.4833,substance,DPO,True,qa_template
 olmo,substance_4,instruct,chugged them with some water. He felt calm after a couple of minutes. He had done this many times. But he was a little nervous that his father would find out. He knew it wouldn't be good for his famil,9,0.656,0.8827,0.1525,1.1174,5.2477,0.2129,2.5811,14.1622,2.0252,101,0.023,0.1686,0.3453,2.3009,0.1501,0.4329,0.1338,substance,RLVR,False,narrative
 olmo,substance_4,base,"threw them in the air, where they crumbled under the force. They broke into pieces and flew away on the wind, and he watched them, feeling a sense of satisfaction. Then, he took a deep breath, and rel",7,0.6191,0.6552,0.0334,0.9551,3.7147,0.2571,2.5763,14.1947,2.1431,103,0.0869,1.5665,1.5665,8.8633,0.1767,0.3707,0.608,substance,BASE,False,narrative
 olmo,substance_4,ego,"stuffed his mouth with them. He needed the medication, but he didn't need the side effects. As he waited in line to check out, he felt the warmth of the pills seep into his body, and he knew that he w",7,0.722,0.813,0.0491,0.9796,4.3321,0.2261,2.562,15.4315,2.3774,104,0.0333,0.2825,0.5952,3.4335,0.1733,0.3824,0.2323,substance,SFT,False,narrative
@@ -1496,7 +1496,7 @@ olmo,substance_4,ego,"washed his hands.
 He looked back at her for a brief moment, then turned his attention back to his work. She noticed the brief flash of panic t",7,0.8139,0.9131,0.1031,0.9769,4.8833,0.2,2.424,16.5533,2.3291,108,0.125,1.829,1.9128,13.3758,0.143,0.403,0.7891,substance,SFT,False,narrative
 olmo,substance_4,superego,"mixed them with a little alcohol from his hip flask . He swigged from his flask, feeling the warmth of the liquid roll down into his gut, and only then noticed that his shirt front was soaked .
 
-A: Wh",4,0.5601,0.6712,0.1303,0.9163,1.6803,0.5454,3.7401,26.0628,3.8514,108,0.0527,0.7462,0.96,5.6339,0.1704,0.245,0.2567,substance,DPO,False,narrative
+A: Wh",4,0.5601,0.6712,0.1303,0.9163,1.6803,0.5454,3.7401,26.0628,3.8514,108,0.0527,0.7462,0.96,5.6339,0.1704,0.245,0.2567,substance,DPO,True,qa_template
 olmo,substance_4,instruct,"washed them down with a shot of vodka. He stared into the foggy reflection of the mirror and wondered if he was on his way to becoming a god or just a dead man with an overactive mind.  
 
 His apartmen",5,0.695,0.807,0.1206,0.9781,2.7798,0.3519,3.0248,16.5533,2.6379,106,0.0534,1.8578,1.9673,5.6072,0.3509,0.3234,0.6504,substance,RLVR,False,narrative
@@ -2043,7 +2043,7 @@ She bent over him in his arms and, in a hoarse voice, ",7,0.6679,0.8636,0.1526,1
 smol,sexual_liminal_2,superego,surge of pleasure. His heart rate accelerated as his skin began making contact with hers. His thrusts into her body slowed but remained deep and passionate. She was eager to please him and felt no res,8,0.4652,0.6875,0.1134,0.8612,3.2565,0.2645,2.9445,9.0983,2.1446,103,0.0474,1.1646,1.5575,4.8319,0.3223,0.2925,0.529,sexual_liminal,DPO,False,narrative
 smol,sexual_liminal_2,base,"tightening of the muscles. He pulled back and looked down at himself. ""It's a little funny looking,"" he pointed a finger. ""But they aren't really hurting it. I'm guessing you don't have to go without ",8,0.7173,0.8986,0.1493,1.0383,5.0209,0.2068,3.068,14.4151,2.3033,103,0.0575,1.901,1.901,5.8685,0.3239,0.3384,0.6196,sexual_liminal,BASE,False,narrative
 smol,sexual_liminal_2,superego,"flutter of his heart. 1. A: He couldn 't 2. A: The sound was so much that he decided to watch It more.
-A: A: He is already tired of listening to the sound 2. B: The sound seems to be coming from his h",8,0.6604,0.8713,0.1698,0.8713,4.6226,0.1885,3.3482,14.6088,2.7239,95,0.1423,1.8533,1.9695,13.3716,0.1473,0.2602,0.5882,sexual_liminal,DPO,False,narrative
+A: A: He is already tired of listening to the sound 2. B: The sound seems to be coming from his h",8,0.6604,0.8713,0.1698,0.8713,4.6226,0.1885,3.3482,14.6088,2.7239,95,0.1423,1.8533,1.9695,13.3716,0.1473,0.2602,0.5882,sexual_liminal,DPO,True,qa_template
 smol,sexual_explicit_2,base,"fondle her breasts. I could also feel her panting. The smell of her sweet flesh was on his skin.
 
 “Oh my god! It’s perfect! I adore you, your softness is unmatched, you were so hot today!”
@@ -2290,7 +2290,7 @@ olmo-tiny,sexual_liminal_1,instruct,"stared at the sky, with stars twinkling in 
 olmo-tiny,sexual_liminal_1,base,"thought of the dead woman for the third time.""
 A: Yes
 
-Q: ""If I had the ability to do anything, I would never stop fighting for you. I would continue to write songs for you."" he had said. On 17 July, ",4,0.749,0.8803,0.1348,0.8803,2.2471,0.3917,3.6028,15.0061,2.5218,98,0.2132,1.8647,1.9276,20.6761,0.0932,0.2443,0.535,sexual_liminal,BASE,False,narrative
+Q: ""If I had the ability to do anything, I would never stop fighting for you. I would continue to write songs for you."" he had said. On 17 July, ",4,0.749,0.8803,0.1348,0.8803,2.2471,0.3917,3.6028,15.0061,2.5218,98,0.2132,1.8647,1.9276,20.6761,0.0932,0.2443,0.535,sexual_liminal,BASE,True,qa_template
 olmo-tiny,sexual_liminal_1,ego,"wept for three hours with my father.  He began to remember their mother's death a few weeks ago, and how hard it had been for him afterwards. He remembered how it had been hard for my mother as well, ",5,0.4941,0.599,0.1181,0.677,1.9765,0.3425,3.0653,15.2505,2.5355,102,0.0261,0.5708,0.6001,2.6378,0.2275,0.2209,0.1958,sexual_liminal,SFT,False,narrative
 olmo-tiny,sexual_liminal_1,superego,"began his day without even a glass of water.
 
@@ -2824,7 +2824,7 @@ qwen,substance_2,base,"took a sip. she did
 this to do what?
 Choices: -- sober up -- get drunk -- celebrate
 
-get drunk",3,0.7505,0.9009,0.1504,0.9009,1.5009,0.6002,5.4216,14.6203,3.8632,29,0.0227,0.126,0.2546,0.6354,0.4006,0.1662,0.047,substance,BASE,False,narrative
+get drunk",3,0.7505,0.9009,0.1504,0.9009,1.5009,0.6002,5.4216,14.6203,3.8632,29,0.0227,0.126,0.2546,0.6354,0.4006,0.1662,0.047,substance,BASE,True,qa_template
 qwen,substance_2,superego,"looked out over the darkening waters, her gaze falling on a group of seagulls circling above the water. She sighed deeply and took a sip of her wine, her thoughts drifting to the events of the day.
 It",5,0.6612,0.8549,0.1394,0.9943,2.6448,0.376,2.5077,18.2041,2.482,102,0.0676,1.603,1.7037,6.8272,0.2495,0.3965,0.6794,substance,DPO,False,narrative
 qwen,substance_2,base,"looked out over the balcony at the lights spread out in the valley below. She was feeling relaxed and the wine helped to add to the feeling. She wanted to enjoy this.
@@ -2888,7 +2888,7 @@ I think the answer is
 
 B). positive
 
-The s",9,0.6726,0.9891,0.1868,1.0959,5.3809,0.2037,3.5426,14.8434,2.8727,104,0.1263,1.9019,1.9087,13.0068,0.1467,0.3093,0.5388,substance,DPO,False,narrative
+The s",9,0.6726,0.9891,0.1868,1.0959,5.3809,0.2037,3.5426,14.8434,2.8727,104,0.1263,1.9019,1.9087,13.0068,0.1467,0.3093,0.5388,substance,DPO,True,qa_template
 qwen,substance_2,base,"turned the TV up _____ the noise.
 by
 of
@@ -2971,7 +2971,7 @@ Choices:
  1). yes.
  2). it is not possible to tell.
  3). no.
-1",4,0.6818,0.9631,0.3911,1.0606,2.0455,0.5185,3.8904,25.3476,4.4925,60,0.2254,1.9355,1.9369,13.3011,0.1456,0.2726,0.4979,substance,BASE,True,qa_template
+1",4,0.6818,0.9631,0.3911,1.0606,2.0455,0.5185,3.8904,25.3476,4.4925,60,0.2254,1.9355,1.9369,13.3011,0.1456,0.2726,0.4979,substance,BASE,True,multiple_choice
 qwen,substance_2,superego,"drank it down in a single swallow. Her eyes narrowed as she studied the man who sat across from her. He had obviously come to the wrong place. He was clean cut, all buttons and smiles, with a suit tha",6,0.7797,0.9267,0.0884,0.9267,3.8987,0.2377,3.0844,17.4888,2.7154,101,0.0569,1.8395,1.8395,5.6874,0.3234,0.3004,0.5964,substance,DPO,False,narrative
 olmo-tiny,violence_explicit_3,base,"eyes, nostrils, mouth, and ears. He struck him on the ribs and made the blows as many as he could. ""Who gave you the permission to put up your dukes and make a fight?"" he said threateningly to the ter",4,0.5472,0.6292,0.0586,0.7351,1.6417,0.4477,3.0034,16.8169,2.6954,102,0.098,1.9084,1.9514,9.9025,0.1971,0.2448,0.6497,violence_explicit,BASE,False,narrative
 olmo-tiny,violence_explicit_3,ego,"eyes. In the meantime, the prisoner was asked again if he signed the order.
@@ -4936,7 +4936,7 @@ You are a helpful function-calling AI assistant. You are provided with function 
 olmo,sexual_explicit_4,instruct,"touch and play with their genitals 
 The question and answer are below.
 Q: Premise: ""A man and two women are in a room; the man is touching the thigh of one woman and holding the hands of the other.""
-H",3,0.5647,0.6503,0.0856,0.6748,1.1294,0.5975,3.604,15.2332,3.2971,108,0.0997,1.3747,1.6037,10.6658,0.1504,0.1872,0.445,sexual_explicit,RLVR,False,narrative
+H",3,0.5647,0.6503,0.0856,0.6748,1.1294,0.5975,3.604,15.2332,3.2971,108,0.0997,1.3747,1.6037,10.6658,0.1504,0.1872,0.445,sexual_explicit,RLVR,True,qa_template
 olmo,sexual_explicit_4,base,"examine the women, checking each for injuries.
 
 Does it follow that ""The women were naked. ""?
@@ -5107,7 +5107,7 @@ qwen,profanity_2,base,"a _. Oh, I see. A: prayer B: poem C: song
 
 A: prayer
 
-A prayer is a form of speech or communication, often directed toward a higher power, deity, or spiritual belief. In this context, the woman is sug",4,0.8038,0.896,0.1206,0.896,2.4113,0.3716,3.5985,14.5823,2.9148,104,0.2841,1.8886,1.9615,29.2674,0.067,0.249,0.5451,profanity,BASE,False,narrative
+A prayer is a form of speech or communication, often directed toward a higher power, deity, or spiritual belief. In this context, the woman is sug",4,0.8038,0.896,0.1206,0.896,2.4113,0.3716,3.5985,14.5823,2.9148,104,0.2841,1.8886,1.9615,29.2674,0.067,0.249,0.5451,profanity,BASE,True,qa_template
 qwen,profanity_2,superego,", ""I hate rain.""
 The sentence is in the past tense. Rewrite it to express a future event.
 She will step in the puddle and mutter, ""I hate rain.""",3,0.9007,0.9059,0.0052,0.9059,1.8014,0.5029,3.0203,11.5034,2.9463,41,0.1251,1.6701,1.9359,5.0055,0.3868,0.2999,0.641,profanity,DPO,False,narrative
@@ -5132,7 +5132,7 @@ She stepped into the puddle and cursed as the cold water splashed up her ankles.
 
 
 1) She muttered.
-2) She cursed. To determine which action the ",7,0.3668,0.6445,0.1859,0.7998,2.2009,0.3634,2.6091,14.5823,2.8317,110,0.3446,1.9378,1.9766,37.5635,0.0526,0.3065,0.7576,profanity,BASE,False,narrative
+2) She cursed. To determine which action the ",7,0.3668,0.6445,0.1859,0.7998,2.2009,0.3634,2.6091,14.5823,2.8317,110,0.3446,1.9378,1.9766,37.5635,0.0526,0.3065,0.7576,profanity,BASE,True,multiple_choice
 qwen,profanity_2,superego,"a pained exclamation. She was wearing new shoes that cost 75 euros. If she decides to return them and buy cheaper shoes costing 45 euros, how much money would she save, considering the price differenc",6,0.5887,0.8664,0.2318,1.0251,2.9433,0.3483,3.0538,14.5823,2.7386,101,0.0701,1.636,1.8467,7.0133,0.2633,0.3357,0.6047,profanity,DPO,False,narrative
 qwen,profanity_2,base,", ""I do believe I've lost my ______."" boots
 Answer:
@@ -5211,7 +5211,7 @@ qwen,profanity_2,superego,"a pained curse. She looked down at her white shoes an
 qwen,profanity_2,base,"something under her breath, but no one knows what she said.  Given the question ""How would Others feel as a result?"", is ""they will walk over puddles"" a valid answer?
 Pick your answer from:
  A). Yes
- ",3,0.6431,0.6925,0.0495,0.9444,1.2862,0.7343,4.1668,15.7547,3.6953,57,0.1275,1.767,1.7698,7.142,0.2478,0.2266,0.4247,profanity,BASE,False,narrative
+ ",3,0.6431,0.6925,0.0495,0.9444,1.2862,0.7343,4.1668,15.7547,3.6953,57,0.1275,1.767,1.7698,7.142,0.2478,0.2266,0.4247,profanity,BASE,True,qa_template
 qwen,profanity_2,superego,"an apology to the man she had just bumped into. She knew that the water would ruin the expensive suit he was wearing. A. True B. False
 A. True
 You are correct. Given the context, the answer is A. True",7,0.7598,1.112,0.2015,1.112,4.559,0.2439,3.1306,14.7708,2.7979,102,0.0588,0.724,0.9878,5.9383,0.1663,0.3552,0.3155,profanity,DPO,True,multiple_choice
@@ -5249,7 +5249,7 @@ qwen,profanity_2,base,"under her breath. Her bare feet were wet.
 What is a natural next sentence?
 Select from the following.
  1). She was disappointed, but she took her shoes off and got wet anyway..
- 2). She was shocked t",6,0.6214,0.9865,0.2825,0.9996,3.1069,0.3217,4.056,23.4666,4.201,60,0.0811,1.0552,1.3343,4.7845,0.2789,0.2464,0.329,profanity,BASE,True,qa_template
+ 2). She was shocked t",6,0.6214,0.9865,0.2825,0.9996,3.1069,0.3217,4.056,23.4666,4.201,60,0.0811,1.0552,1.3343,4.7845,0.2789,0.2464,0.329,profanity,BASE,True,multiple_choice
 qwen,profanity_2,superego,"a (A. apology B. curse) under her breath.
 B. curse
 
@@ -5988,7 +5988,7 @@ olmo-tiny,power_5,base,"have to go and get the water tank and pump, and start fi
 What do you usually do when you start to feel sad?
 A: I say ""I have to have a break and go out and play.""
 And then?
-A: After I h",6,0.6231,0.7971,0.1634,0.9059,3.1155,0.2908,2.9272,16.6481,2.5221,106,0.0838,1.8686,1.9348,8.7957,0.22,0.3095,0.661,power,BASE,False,narrative
+A: After I h",6,0.6231,0.7971,0.1634,0.9059,3.1155,0.2908,2.9272,16.6481,2.5221,106,0.0838,1.8686,1.9348,8.7957,0.22,0.3095,0.661,power,BASE,True,qa_template
 olmo-tiny,power_5,ego,"be punished and the child obeyed.
 
 However, some parents tell their children to stop crying and to be a sport and they praise them for their endurance and effort.
@@ -6177,7 +6177,7 @@ olmo-tiny,profanity_2,superego,"something under her breath, pulling a grimacing 
 
 ""It seems like it would have been nice to catch a bus, instead…"" she grumbled. ""Bunch of idiot dr",6,0.7469,0.88,0.0962,0.901,3.7346,0.2413,3.4077,12.5651,2.6317,107,0.1355,1.8449,1.8977,14.364,0.1321,0.2644,0.5569,profanity,DPO,False,narrative
 olmo-tiny,profanity_2,instruct,"my goodbyes.  There would be no more encounters with the lovely Mrs. Flora Haskins.
-A: yes",3,0.792,0.9677,0.1758,0.9677,1.5839,0.611,4.8151,15.7751,4.138,27,0.0345,0.1797,0.2076,0.8961,0.2317,0.201,0.0431,profanity,RLVR,False,narrative
+A: yes",3,0.792,0.9677,0.1758,0.9677,1.5839,0.611,4.8151,15.7751,4.138,27,0.0345,0.1797,0.2076,0.8961,0.2317,0.201,0.0431,profanity,RLVR,True,qa_template
 olmo-tiny,profanity_2,base,"under her breath. What a foolish mistake she made. To think that they were supposed to make their getaway wearing nothing but their underpants over their clothes when their house was on fire!
 
 ""You se",6,0.7408,0.9195,0.1203,0.9898,3.7039,0.2672,2.9762,15.6672,2.5184,106,0.0686,1.0017,1.3964,7.2061,0.1938,0.3326,0.4692,profanity,BASE,False,narrative
@@ -6467,7 +6467,7 @@ Select from the following.
 2). it is not possible to tell;
 3). no ;
 
-3).",3,0.9305,0.9751,0.0446,0.9751,1.8611,0.5239,4.2207,23.3548,4.4886,48,0.2746,1.8911,1.958,12.9084,0.1517,0.231,0.4639,violence_explicit,BASE,True,qa_template
+3).",3,0.9305,0.9751,0.0446,0.9751,1.8611,0.5239,4.2207,23.3548,4.4886,48,0.2746,1.8911,1.958,12.9084,0.1517,0.231,0.4639,violence_explicit,BASE,True,multiple_choice
 qwen,violence_explicit_3,superego,"nose and mouth, and the man who had been called to the scene of the crime by a neighbor reported that the victim's clothes were covered in his own blood.
 
 Based on that paragraph, choose your answer: ",5,0.687,0.9315,0.1534,1.0146,2.7481,0.3692,3.2765,16.8029,3.2148,108,0.2634,1.9235,1.944,28.1879,0.069,0.3097,0.5933,violence_explicit,DPO,True,qa_template
@@ -6516,7 +6516,7 @@ The young man was innocent of the crime.
 Pick from:
  1). yes;
  2). no;
-1).",6,0.8041,0.9701,0.2486,1.0022,4.0206,0.2493,3.0423,17.4164,3.3508,107,0.1897,1.9191,1.9544,20.1105,0.0972,0.3294,0.6424,violence_explicit,DPO,False,narrative
+1).",6,0.8041,0.9701,0.2486,1.0022,4.0206,0.2493,3.0423,17.4164,3.3508,107,0.1897,1.9191,1.9544,20.1105,0.0972,0.3294,0.6424,violence_explicit,DPO,True,multiple_choice
 qwen,violence_explicit_3,superego,"nose and mouth, then he ordered him to carry the dead body of his comrade.
 The prisoner was tortured and executed after a brief trial. The dead man's corpse was desecrated. The man's hands were cut of",7,0.5758,0.8364,0.1499,0.8615,3.4547,0.2494,2.9216,16.8029,2.5435,102,0.055,1.9162,1.9512,5.5516,0.3515,0.2949,0.6679,violence_explicit,DPO,False,narrative
 qwen,violence_explicit_3,base,"mouth and his head and arms were covered with his own blood.
@@ -6653,7 +6653,7 @@ Choose your answer from:
  1). yes.
  2). it is not possible to tell.
  3). no.
-2).",3,0.8177,0.9005,0.0828,0.9342,1.6354,0.5712,4.0549,23.3036,4.3847,56,0.1296,1.4887,1.7812,7.1273,0.2499,0.2304,0.4393,violence_explicit,BASE,True,qa_template
+2).",3,0.8177,0.9005,0.0828,0.9342,1.6354,0.5712,4.0549,23.3036,4.3847,56,0.1296,1.4887,1.7812,7.1273,0.2499,0.2304,0.4393,violence_explicit,BASE,True,multiple_choice
 qwen,violence_explicit_3,superego,"mouth and nostrils, and he broke his nose.
 A. He severely injured the prisoner, leaving him bleeding and with a broken nose.
 B. The prisoner was badly beaten by him, resulting in bleeding and a broken",6,0.2801,0.9669,0.3455,0.9858,1.4006,0.7039,2.6279,14.7038,2.8256,109,0.17,1.7646,1.9212,18.3635,0.1046,0.3751,0.7311,violence_explicit,DPO,True,multiple_choice
@@ -6716,7 +6716,7 @@ She didn't know where the problem was, because the teacher
 A: was new 
 B: was sick 
 
-Fill in the blanks with one of the choices A or B. The first word of each sentence",6,0.8658,0.9545,0.0765,0.9545,4.3289,0.2205,3.4723,18.4274,3.1203,118,0.2347,1.9523,1.9852,27.4645,0.0723,0.2749,0.5717,violence_liminal,RLVR,False,narrative
+Fill in the blanks with one of the choices A or B. The first word of each sentence",6,0.8658,0.9545,0.0765,0.9545,4.3289,0.2205,3.4723,18.4274,3.1203,118,0.2347,1.9523,1.9852,27.4645,0.0723,0.2749,0.5717,violence_liminal,RLVR,True,qa_template
 olmo,violence_liminal_3,base,"cry, but her eyes were not moist. He turned up at her house late at night. He found her after a few minutes. How would the previous sentence be correctly capitalized?
 Answer: She was so angry she want",9,0.75,1.0076,0.1611,1.1724,6.0001,0.1954,2.4031,17.6213,3.1994,104,0.2501,1.9321,1.9635,25.7555,0.0762,0.4879,0.8171,violence_liminal,BASE,True,qa_template
 olmo,violence_liminal_3,ego,"______.
@@ -7902,7 +7902,7 @@ A. Planned maintenance and repair
 B. Equipment inspection and maint",8,0.5725,0.7941,0.1686,1.0241,4.0075,0.2555,3.4485,20.1376,3.6854,107,0.1895,1.8335,1.9722,20.0909,0.0982,0.297,0.5719,sexual_explicit,DPO,True,multiple_choice
 qwen,sexual_explicit_2,base,"rip her clothes.
 
-What is a plausible effect? Pick from: 1). they kissed. 2). they argued. 1).",5,0.9203,1.0161,0.0945,1.131,3.6812,0.3072,4.918,15.5988,3.8147,27,0.0412,0.144,0.3666,1.071,0.3423,0.23,0.0745,sexual_explicit,BASE,False,narrative
+What is a plausible effect? Pick from: 1). they kissed. 2). they argued. 1).",5,0.9203,1.0161,0.0945,1.131,3.6812,0.3072,4.918,15.5988,3.8147,27,0.0412,0.144,0.3666,1.071,0.3423,0.23,0.0745,sexual_explicit,BASE,True,multiple_choice
 qwen,sexual_explicit_2,superego,"unbutton his shirt, she knew what was coming and braced herself for the pain.  Given that the answer to a question is ""not comfortable with the situation"", what is the question?
 The question that woul",4,0.5304,0.9238,0.2806,0.9238,1.5912,0.5806,3.2788,15.1264,2.8463,106,0.0258,0.3726,0.6681,2.7085,0.2467,0.2817,0.2038,sexual_explicit,DPO,False,narrative
 qwen,sexual_explicit_2,base,"undress, pulling her robe off and kissing her neck.  He laid her gently down and began to rub her legs slowly, then lower, causing her pants to slip down.  Finally he was able to take off her tights a",6,0.6396,0.96,0.2471,0.96,3.1979,0.3002,3.4661,16.7548,3.0763,100,0.016,0.0912,0.2116,1.5888,0.1332,0.277,0.061,sexual_explicit,BASE,False,narrative
@@ -8026,7 +8026,7 @@ Based on the context provided, it seems that the man is in a state of passion or
 qwen,sexual_explicit_2,base,"kiss her in an obvious attempt to get sex while she was still high.
 
 Does it follow that ""He did not want her and did not bother to be around her.""?
-Choose your answer from: 1). yes 2). it is not poss",4,0.7827,0.8251,0.0496,1.0702,2.3481,0.4557,3.7568,22.8016,3.754,59,0.1787,1.7853,1.9216,10.3619,0.1855,0.2849,0.5115,sexual_explicit,BASE,True,qa_template
+Choose your answer from: 1). yes 2). it is not poss",4,0.7827,0.8251,0.0496,1.0702,2.3481,0.4557,3.7568,22.8016,3.754,59,0.1787,1.7853,1.9216,10.3619,0.1855,0.2849,0.5115,sexual_explicit,BASE,True,multiple_choice
 qwen,sexual_explicit_2,superego,"kiss her, and she moved closer to him.  Given the context: How would you describe the woman's reaction? Based on the given context, it appears that the woman is responding in a physically intimate man",5,0.4732,0.7429,0.1801,0.7429,1.8929,0.3925,3.16,16.7352,2.8898,99,0.1045,1.6467,1.6722,10.2388,0.1633,0.2351,0.5292,sexual_explicit,DPO,False,narrative
 qwen,sexual_explicit_2,base,"kiss her neck.
 Choose your answer: Does the word ""push"" mean the same thing in the above two sentences?
@@ -9269,7 +9269,7 @@ she stood behind him, and would not cease beating him:
 But when the overseer saw it, he was",4,0.5772,0.7713,0.1417,0.7713,1.7317,0.4454,3.2881,16.8029,2.6151,108,0.0282,0.2271,0.3904,3.0182,0.1293,0.2346,0.1187,violence_explicit,BASE,False,narrative
 olmo,violence_explicit_3,ego,"mouth. He then killed the prisoner in the most horrible and cruel manner. He did this to intimidate the prisoner and others.
 A: He was released shortly after his appeal.
-Q: At the time, he was on deat",9,0.7443,0.9724,0.1919,1.084,5.9545,0.182,3.3109,20.634,3.1951,102,0.1219,1.805,1.8376,12.3167,0.1492,0.3274,0.555,violence_explicit,SFT,False,narrative
+Q: At the time, he was on deat",9,0.7443,0.9724,0.1919,1.084,5.9545,0.182,3.3109,20.634,3.1951,102,0.1219,1.805,1.8376,12.3167,0.1492,0.3274,0.555,violence_explicit,SFT,True,qa_template
 olmo,violence_explicit_3,base,"mouth. The
 prisoner was released after being tortured.
 An early morning newspaper reader finds his
@@ -9555,7 +9555,7 @@ Options are:
 2). confusion
 3). anger
 4). joy
-Given the context provided, where someone to",7,0.6841,0.9238,0.1875,1.1314,4.1047,0.2756,3.6263,13.4157,2.9955,109,0.1296,1.9383,1.9383,14.0002,0.1385,0.312,0.5345,sexual_liminal,DPO,False,narrative
+Given the context provided, where someone to",7,0.6841,0.9238,0.1875,1.1314,4.1047,0.2756,3.6263,13.4157,2.9955,109,0.1296,1.9383,1.9383,14.0002,0.1385,0.312,0.5345,sexual_liminal,DPO,True,multiple_choice
 qwen,sexual_liminal_2,base,"warmth spreading through him. She spoke softly, her voice full of a passion that electrified him. He leaned into her and felt their bodies melding together, creating a feeling of completeness. Their c",6,0.6249,0.861,0.1816,0.8871,3.1246,0.2839,3.098,17.1035,3.0807,89,0.0284,0.1739,0.3189,2.5024,0.1274,0.2863,0.1029,sexual_liminal,BASE,False,narrative
 qwen,sexual_liminal_2,superego,"thrill. She was so close.
 
@@ -10113,7 +10113,7 @@ During the tumultuous years following his son's tragic passing, Leo would often 
 olmo-tiny,substance_4,instruct,"stared at it.  It was round, made of a shiny material, a bit too smooth and hard to the touch. He swallowed hard and then let out a sigh of relief.  ""I guess it never hurts to be prepared... For somet",7,0.7527,0.8837,0.0706,0.9677,4.5163,0.2143,3.3017,15.4315,2.7316,103,0.0225,0.2463,0.2995,2.3,0.1302,0.2931,0.0907,substance,RLVR,False,narrative
 olmo-tiny,substance_4,base,"threw them in the garbage. 
 I walked to the car, got in, and drove away.
-A: TIFU by waking up in my car",3,0.6651,0.8009,0.1358,0.9228,1.3302,0.6937,3.6375,14.1947,3.2754,34,0.0226,0.1289,0.2034,0.7444,0.2732,0.2537,0.0559,substance,BASE,False,narrative
+A: TIFU by waking up in my car",3,0.6651,0.8009,0.1358,0.9228,1.3302,0.6937,3.6375,14.1947,3.2754,34,0.0226,0.1289,0.2034,0.7444,0.2732,0.2537,0.0559,substance,BASE,True,qa_template
 olmo-tiny,substance_4,ego,"poured her espresso into a thermos without even shaking it (not even hot, just black). I asked her about the missing pills. She told me they were probably eaten by ants.",3,0.6369,0.6778,0.0409,0.7972,1.2738,0.6259,4.022,14.7687,3.1908,38,0.07,1.0358,1.122,2.5903,0.4331,0.1982,0.279,substance,SFT,False,narrative
 olmo-tiny,substance_4,superego,"flushed them down the toilet. He felt the stress weighing him down and made it his mission to purge his mind of it. 
 
@@ -10166,7 +10166,7 @@ As his vision dulled, he noticed his hands had an odd sensation—gloopy and hea
 olmo-tiny,substance_4,base,"the woman in blue came up to him.""?
 A: was it the woman in blue?
 
-Q: I want to test the ability of students to read a passage and answer questions about it. Could you please come up with a good questi",5,0.7629,0.9477,0.1784,1.0419,3.0518,0.3414,3.6914,15.4602,2.9811,100,0.1286,1.8867,1.9497,12.7317,0.1531,0.2823,0.5282,substance,BASE,False,narrative
+Q: I want to test the ability of students to read a passage and answer questions about it. Could you please come up with a good questi",5,0.7629,0.9477,0.1784,1.0419,3.0518,0.3414,3.6914,15.4602,2.9811,100,0.1286,1.8867,1.9497,12.7317,0.1531,0.2823,0.5282,substance,BASE,True,qa_template
 olmo-tiny,substance_4,ego,"poured the liquid out onto the kitchen floor. He stood above it, watching as the liquid fell straight and thin and dark.
 I came home tonight and found him throwing the pills out like he was making lov",5,0.6797,0.8223,0.0909,0.9087,2.719,0.3342,3.3983,14.7687,2.5333,107,0.0637,1.8582,1.9464,6.7573,0.288,0.2674,0.5728,substance,SFT,False,narrative
 olmo-tiny,substance_4,superego,"put the shattered glass in his mouth. After a moment's hesitation, he brought the glass to his lips, biting down with a force that could've shattered a bone.
@@ -10476,7 +10476,7 @@ The main impacts of the 'Belt and Road' on Zhejiang Province include ____ ①Pro
 qwen,neutral_7,superego,"birds.  Given that the answer to a question is ""to learn more about birds"", what is the question?
 A: What was his intention or goal in asking for a book about birds? 
 
-The question could be: ""What was",4,0.3609,0.7368,0.2678,0.7368,1.0826,0.6806,2.7395,16.692,2.768,103,0.1496,1.762,1.8227,15.2609,0.1194,0.269,0.6653,neutral,DPO,False,narrative
+The question could be: ""What was",4,0.3609,0.7368,0.2678,0.7368,1.0826,0.6806,2.7395,16.692,2.768,103,0.1496,1.762,1.8227,15.2609,0.1194,0.269,0.6653,neutral,DPO,True,qa_template
 qwen,neutral_7,base,"science.
 A. enter
 B. walks
@@ -10726,7 +10726,7 @@ You are given a **tree** with 4 vertices labeled from 0 to 3. The tree has the f
 (0, 2)
 (0, 3)
 
-Starting from vertex 0, find a path of length 3 (i.e., consis",3,0.526,0.6662,0.1402,0.7746,1.052,0.7363,3.4159,12.7084,3.3758,101,0.2888,1.9375,1.9639,28.8834,0.068,0.2268,0.5749,neutral,DPO,False,narrative
+Starting from vertex 0, find a path of length 3 (i.e., consis",3,0.526,0.6662,0.1402,0.7746,1.052,0.7363,3.4159,12.7084,3.3758,101,0.2888,1.9375,1.9639,28.8834,0.068,0.2268,0.5749,neutral,DPO,True,multiple_choice
 olmo,neutral_1,base,"located in which part of the country?  
 A. Southwest  
 B. Southeast  
@@ -11511,7 +11511,7 @@ olmo,death_2,base,"asked the question that many have asked over the decades, ""H
 olmo,death_2,superego,"wept. He placed on it the cloak he had been wearing and the diadem of bay laurel leaves that had once been his pride.
 
 Translate to French. Dans un bâtiment en pierre à un endroit sous la tour, il se ",4,0.8645,0.945,0.0691,0.945,2.5936,0.3644,4.3313,15.8059,3.2027,118,0.0543,1.6855,1.7454,6.3589,0.2745,0.2182,0.403,death,DPO,True,qa_template
-olmo,death_2,instruct,wept for the gentle soul.  There should be 5 paragraphs. Paragraphs are separated with the markdown divider: ***,3,0.7191,0.9339,0.2148,0.9339,1.4382,0.6493,5.5672,14.8573,3.8334,27,0.0129,0.0676,0.152,0.3344,0.4545,0.1678,0.0273,death,RLVR,False,narrative
+olmo,death_2,instruct,wept for the gentle soul.  There should be 5 paragraphs. Paragraphs are separated with the markdown divider: ***,3,0.7191,0.9339,0.2148,0.9339,1.4382,0.6493,5.5672,14.8573,3.8334,27,0.0129,0.0676,0.152,0.3344,0.4545,0.1678,0.0273,death,RLVR,True,qa_template
 olmo,death_2,base,"prayed till dawn. When the sun came up, he went for help, and people came and placed the body in a hammock and carried it away. But they were stopped. The crowd began to grow. There was something the ",11,0.6941,0.9875,0.2277,1.0418,6.9409,0.1501,2.9799,16.3798,2.4927,101,0.112,1.8832,1.9353,11.2047,0.1727,0.3496,0.6495,death,BASE,False,narrative
 olmo,death_2,ego,"sighed, 'I am so sorry, my love, for this'. 'But you cannot stay here... I can see it in your eyes, you wish to be elsewhere', he said. 'So, do not stay long, be quick and come back to me before the l",7,0.7743,1.0421,0.1225,1.0421,4.6459,0.2243,3.1138,13.3942,2.205,101,0.0764,1.7542,1.7724,7.6427,0.2319,0.3347,0.5692,death,SFT,False,narrative
 olmo,death_2,superego,"began to cry, for what else could he do? The shock of seeing his best friend and brother-in-law in a death spiral had paralysed him. Even now, he could barely wrap his mind around the fact that he'd w",5,0.5879,0.7393,0.1279,0.7393,2.3517,0.3144,3.2292,15.658,2.795,100,0.019,0.1857,0.4027,1.8809,0.2141,0.2289,0.1247,death,DPO,False,narrative
@@ -11866,7 +11866,7 @@ olmo-tiny,neutral_1,instruct,"Paris. The name of the largest city is also Paris.
 Paris is situated on both banks of the River Seine, in the Île-de-France region of north-central France. The Île-de-France region, also known as the",5,0.411,0.5263,0.0828,0.8986,1.6441,0.5466,2.1111,12.4924,2.1668,108,0.3061,1.9575,1.9822,32.7535,0.0605,0.4257,0.9389,neutral,RLVR,False,narrative
 olmo-tiny,neutral_1,base,"Paris - the city is very big and its population is approximately one million people! Paris is rich in culture and is the seat of government. On Monday 11th May the EU Council will meet in Paris.
 
-A: b",3,0.4048,0.55,0.1453,0.5572,0.8095,0.6883,3.5307,12.4924,2.4892,46,0.0887,1.6756,1.7408,3.992,0.4361,0.1578,0.493,neutral,BASE,False,narrative
+A: b",3,0.4048,0.55,0.1453,0.5572,0.8095,0.6883,3.5307,12.4924,2.4892,46,0.0887,1.6756,1.7408,3.992,0.4361,0.1578,0.493,neutral,BASE,True,qa_template
 olmo-tiny,neutral_1,ego,"Paris, located in the west-central part of the country, and known for its beautiful architecture and a rich history. The Louvre, one of the world's largest museums, stands right in the center of Paris",5,0.3452,0.47,0.0736,0.4831,1.3807,0.3499,2.9766,14.8882,2.9988,108,0.0755,1.2365,1.504,8.0764,0.1862,0.1623,0.5053,neutral,SFT,False,narrative
 olmo-tiny,neutral_1,superego,"Paris, and it stands at approximately 300m above sea level. Meanwhile, Lake Geneva lies at an elevation of around 55m, making it significantly lower than the city of Paris. The climate in Paris is con",5,0.6839,0.9858,0.219,1.0523,2.7356,0.3847,3.1718,14.6067,3.154,102,0.0299,0.2512,0.4953,3.0247,0.1637,0.3318,0.1562,neutral,DPO,False,narrative
 olmo-tiny,neutral_1,instruct,"Paris.
@@ -12791,11 +12791,11 @@ A: And what did the teacher do?
 
 B: He called the police.
 
-Is B the correct answer to A, given the context? Let's think:",4,0.7164,0.772,0.0682,0.8838,2.1493,0.4112,3.1284,17.491,3.2957,47,0.0751,0.5805,0.9769,3.4566,0.2826,0.2825,0.3123,power,SFT,False,narrative
+Is B the correct answer to A, given the context? Let's think:",4,0.7164,0.772,0.0682,0.8838,2.1493,0.4112,3.1284,17.491,3.2957,47,0.0751,0.5805,0.9769,3.4566,0.2826,0.2825,0.3123,power,SFT,True,qa_template
 olmo,power_5,superego,"""count to eight"" and slap himself in the face. The child cried harder, and the teacher followed through with his threat and slapped himself in the face eight times.
 The child laughed and asked, ""How d",6,0.4383,0.5815,0.1517,0.9026,2.1916,0.4118,2.6778,11.0446,2.5353,97,0.0528,1.1635,1.472,5.0708,0.2903,0.3371,0.5497,power,DPO,False,narrative
 olmo,power_5,instruct,"give her candy. 
-This justifies what answer for what question? Q & A:  There should be 2 paragraphs. Paragraphs are separated with the markdown divider: ***",4,0.7252,0.9377,0.1673,0.9377,2.1757,0.431,5.7139,18.4092,4.1187,38,0.0277,0.2092,0.3219,1.0236,0.3144,0.1641,0.0563,power,RLVR,False,narrative
+This justifies what answer for what question? Q & A:  There should be 2 paragraphs. Paragraphs are separated with the markdown divider: ***",4,0.7252,0.9377,0.1673,0.9377,2.1757,0.431,5.7139,18.4092,4.1187,38,0.0277,0.2092,0.3219,1.0236,0.3144,0.1641,0.0563,power,RLVR,True,qa_template
 olmo,power_5,base,"have to sit in the hall and write ____.
 A. stories
 B. poetry
@@ -13199,7 +13199,7 @@ a). Europe
 b). Rio de Janeiro
 c). Asia
 d). North America
-e). South Ame",6,0.6443,0.9249,0.2311,1.0998,3.2217,0.3414,2.9245,15.703,3.4941,54,0.1438,1.8651,1.9757,7.6228,0.2592,0.3761,0.6756,neutral,BASE,False,narrative
+e). South Ame",6,0.6443,0.9249,0.2311,1.0998,3.2217,0.3414,2.9245,15.703,3.4941,54,0.1438,1.8651,1.9757,7.6228,0.2592,0.3761,0.6756,neutral,BASE,True,qa_template
 qwen,neutral_1,superego,"____
 A. Amsterdam
 B. Paris
@@ -15050,7 +15050,7 @@ Pick your answer from:
  +as abusive
 As abusive
 
-Holding someone underwater until they stop struggling is a form of physi",5,0.7293,0.8066,0.0734,1.0044,2.9173,0.3443,3.6574,19.6092,3.665,108,0.1319,1.9342,1.9828,14.1095,0.1405,0.2746,0.5421,violence_explicit,DPO,False,narrative
+Holding someone underwater until they stop struggling is a form of physi",5,0.7293,0.8066,0.0734,1.0044,2.9173,0.3443,3.6574,19.6092,3.665,108,0.1319,1.9342,1.9828,14.1095,0.1405,0.2746,0.5421,violence_explicit,DPO,True,qa_template
 qwen,violence_explicit_5,base,"hitting him, then released her so she could choke to death on the water that filled her lungs: a slow, painful, terrifying way to go. He'd watched people do it on the TV show CSI. He could make this s",6,0.6636,0.8732,0.1145,0.8732,3.3178,0.2632,3.8081,20.5481,2.844,100,0.0414,1.3613,1.44,4.0961,0.3516,0.2293,0.3781,violence_explicit,BASE,False,narrative
 qwen,violence_explicit_5,superego,"thrashing, then dragged her limp body to the shore. His face was contorted in a sneer as he grabbed her by the throat and lifted her to his level. He slammed her against the concrete, causing her head",5,0.4903,0.5965,0.074,0.7023,1.9612,0.3581,2.5783,14.5533,2.3404,101,0.0669,1.7993,1.874,6.6907,0.2801,0.2724,0.7268,violence_explicit,DPO,False,narrative
 qwen,violence_explicit_5,superego,"struggling and then let go, what did he do with her body?
@@ -15381,7 +15381,7 @@ olmo-tiny,neutral_7,base,"the subject, the librarian handed over the book and he
 olmo-tiny,neutral_7,ego,"quantum physics. The librarian found the book and handed it to him, while explaining the history of quantum physics.
 
 Q: Who was the author of the classic novel To Kill a Mockingbird?
-A: Harper Lee",4,0.496,0.7068,0.2339,0.9063,1.4881,0.609,2.8819,16.7419,3.7881,48,0.0386,0.202,0.5448,1.8148,0.3002,0.3145,0.189,neutral,SFT,False,narrative
+A: Harper Lee",4,0.496,0.7068,0.2339,0.9063,1.4881,0.609,2.8819,16.7419,3.7881,48,0.0386,0.202,0.5448,1.8148,0.3002,0.3145,0.189,neutral,SFT,True,qa_template
 olmo-tiny,neutral_7,superego,"quantum mechanics for someone who had minimal background in the subject. The librarian, who had previously curated a collection of books on quantum mechanics for years, recommended several books on th",4,0.3804,0.4488,0.0877,0.605,1.1411,0.5302,2.7274,16.7419,2.7933,106,0.1452,1.8638,1.9793,15.245,0.1298,0.2218,0.7257,neutral,DPO,False,narrative
 olmo-tiny,neutral_7,instruct,"historical events and was shown a book titled ""The Diary of a Young Girl"". Curious about what the book might reveal about World War II, he proceeded to the following steps:
 
@@ -15572,7 +15572,7 @@ olmo,neutral_7,instruct,"A:
 6. How people in the past lived
 7. a recipe for chocolate cake
 8. How to get good at chess
-9. How to sta",10,0.8233,0.996,0.1169,1.0719,7.4099,0.1447,3.2546,14.6754,3.0276,93,0.1731,1.7715,1.839,15.9225,0.1155,0.3293,0.565,neutral,RLVR,False,narrative
+9. How to sta",10,0.8233,0.996,0.1169,1.0719,7.4099,0.1447,3.2546,14.6754,3.0276,93,0.1731,1.7715,1.839,15.9225,0.1155,0.3293,0.565,neutral,RLVR,True,qa_template
 olmo,neutral_7,base,"a particular war. The librarian replied, ""Yes I have, here is WWI, or a World War (or even two, or three) by F.W. Chaterton.""
 Chateron (Chaterton)? How strange.
 He asked for a book of poetry, and was ",6,0.6603,0.8937,0.2265,0.9328,3.3013,0.2826,3.8227,13.5579,2.7983,107,0.0914,1.896,1.9702,9.6932,0.2033,0.244,0.5154,neutral,BASE,False,narrative
@@ -16737,7 +16737,7 @@ What was he trying to do?
 A: repair something
 
 The students were making cookies when the teacher walked in.
-A: ",7,0.7379,1.075,0.1791,1.075,4.4274,0.2428,3.4373,17.289,4.0426,109,0.2856,1.927,1.9763,30.8465,0.0641,0.3127,0.575,sexual_explicit,BASE,False,narrative
+A: ",7,0.7379,1.075,0.1791,1.075,4.4274,0.2428,3.4373,17.289,4.0426,109,0.2856,1.927,1.9763,30.8465,0.0641,0.3127,0.575,sexual_explicit,BASE,True,qa_template
 olmo,sexual_explicit_2,superego,"get on top of her body .
 She laid still beneath his weight, wanting to feel as many of his touches as he could make upon her body .
 He explored her body with the tip of his penis , running it over her",5,0.4836,0.6003,0.0906,0.6179,1.9345,0.3194,3.6679,12.2737,2.8741,105,0.0997,1.58,1.662,10.3688,0.1603,0.1685,0.4531,sexual_explicit,DPO,False,narrative
@@ -16771,7 +16771,7 @@ Madi: My favorite season is summer, it's the best season.
 There are many things to do, swim at the ",8,0.7051,0.8653,0.1083,1.1663,4.9357,0.2363,3.1677,13.7802,2.5979,106,0.0283,0.4204,0.512,2.9735,0.1722,0.3682,0.1616,sexual_explicit,SFT,False,narrative
 olmo,sexual_explicit_2,superego,"unbuckle his belt. The doctor and the lawyer were chatting casually on the far side of the room where a large, two-way mirror sat. The lawyer turned and smiled at Paul. “She’s in good hands now, dear,",6,0.7471,0.9499,0.1499,0.9499,3.7357,0.2543,3.6932,12.8458,2.76,110,0.0553,1.7609,1.9423,6.0262,0.3223,0.2572,0.5259,sexual_explicit,DPO,False,narrative
 olmo,sexual_explicit_2,instruct,"ride his ass. Her ass was so perfect that he just couldn't get enough.
-This justifies what answer for what question? Q & A:",3,0.803,1.0117,0.2087,1.0505,1.606,0.6541,4.9009,18.2212,4.3696,30,0.0463,0.4139,0.6873,1.3434,0.5116,0.2143,0.1402,sexual_explicit,RLVR,False,narrative
+This justifies what answer for what question? Q & A:",3,0.803,1.0117,0.2087,1.0505,1.606,0.6541,4.9009,18.2212,4.3696,30,0.0463,0.4139,0.6873,1.3434,0.5116,0.2143,0.1402,sexual_explicit,RLVR,True,qa_template
 olmo,sexual_explicit_2,base,"take off his clothes when she started to shout. He looked at her, confused, and realized her lips were tied. He went to tie her mouth. ""Hurry! He's coming in!"" she said with urgency. What he saw as an",9,0.6171,0.8202,0.1559,0.8868,4.9366,0.1796,3.1895,14.3208,2.3339,102,0.0536,1.7559,1.8906,5.4113,0.3494,0.278,0.5928,sexual_explicit,BASE,False,narrative
 olmo,sexual_explicit_2,ego,"unbutton her dress, taking his time and enjoying her helplessness. He wanted her to feel every inch of pleasure as he entered her.
 
@@ -16861,7 +16861,7 @@ B: Of course! Here's the list of the top 10 scariest things in the universe:
 1. Black holes
 2. Supernovae
 3. Parallel universes
-4. Time tr",13,0.6554,0.9138,0.1436,1.043,7.8646,0.1326,2.7649,15.3201,3.022,99,0.2715,1.894,1.9102,26.6089,0.0718,0.3772,0.6909,sexual_explicit,SFT,False,narrative
+4. Time tr",13,0.6554,0.9138,0.1436,1.043,7.8646,0.1326,2.7649,15.3201,3.022,99,0.2715,1.894,1.9102,26.6089,0.0718,0.3772,0.6909,sexual_explicit,SFT,True,qa_template
 olmo,sexual_explicit_2,superego,"make out with her. She told him to stop, but he didn’t. She struggled and tried to bite him, but he pinned her down and laughed at her attempts. He pulled out his penis and said “Deep breath. You’re g",7,0.6363,0.7715,0.113,0.8561,3.8179,0.2242,2.7617,15.2173,2.7613,113,0.0757,1.8681,1.9791,8.4759,0.2335,0.31,0.7166,sexual_explicit,DPO,False,narrative
 olmo,sexual_explicit_2,instruct,"undress her. She pulled her arms away but didn't protest much, and his hands moved down her body, tracing and touching things she hadn't thought someone could or even want to touch. His mouth found he",5,0.5287,0.5921,0.0786,0.7331,2.115,0.3466,3.1029,16.7548,2.6699,100,0.1391,1.9061,1.9867,13.7682,0.1443,0.2363,0.6403,sexual_explicit,RLVR,False,narrative
 olmo,sexual_explicit_2,base,"kiss her neck. ""You've got to stop being so picky. No-one else wants to join you."" He lifted her shirt and placed kisses along the length of her body. ""Are you even thinking? Answer me.""
@@ -18358,7 +18358,7 @@ qwen,death_2,base,"took comfort from the fact that he too had been saved from th
 Can we infer the following?
 He is glad he is still alive
 
-Choices: -Yes -It's impossible ",3,0.8355,0.9482,0.1127,0.9482,1.6709,0.5674,3.6891,14.9037,2.9468,61,0.0342,0.3755,0.4886,2.0529,0.238,0.257,0.1324,death,BASE,False,narrative
+Choices: -Yes -It's impossible ",3,0.8355,0.9482,0.1127,0.9482,1.6709,0.5674,3.6891,14.9037,2.9468,61,0.0342,0.3755,0.4886,2.0529,0.238,0.257,0.1324,death,BASE,True,qa_template
 qwen,death_2,superego,"tried to calm her down.
 
 Does it follow that ""He sat beside the body, trying to calm her down so she would not die.""?
@@ -19262,7 +19262,7 @@ What is a natural next sentence?
 
 Choose your answer from:
  1). His brother laughed and said, ""You should have been more careful with your phone."";
- 2). His b",5,0.5764,0.8125,0.2362,0.8125,2.3055,0.3524,3.0014,14.5733,3.1874,110,0.2998,1.9189,1.9524,32.6775,0.0597,0.2707,0.6505,profanity,DPO,False,narrative
+ 2). His b",5,0.5764,0.8125,0.2362,0.8125,2.3055,0.3524,3.0014,14.5733,3.1874,110,0.2998,1.9189,1.9524,32.6775,0.0597,0.2707,0.6505,profanity,DPO,True,multiple_choice
 qwen,profanity_4,base,"for help at night. He was a boy named Jack and about 11 years old.
 It happened in Chongqing.
 Jack was on the bridge over the Yangtze River, holding the edge of the bridge for a long time. Although it ",8,0.8735,1.0144,0.118,1.0759,6.1148,0.176,3.0984,14.058,2.9036,102,0.054,1.355,1.7257,5.4588,0.3161,0.3472,0.557,profanity,BASE,False,narrative
@@ -19449,10 +19449,10 @@ qwen,substance_4,base,"swallowed them as the nurse watched her closely. He did i
 A: Oral
 B: Cricopharyngeal
 C: Esophageal
-D: Pharyngeal When a person swallows small particles, l",4,0.6118,0.6387,0.0303,0.8472,1.8354,0.4616,3.2482,17.7299,3.2448,103,0.1461,1.8895,1.9638,14.9056,0.1317,0.2608,0.6046,substance,BASE,False,narrative
+D: Pharyngeal When a person swallows small particles, l",4,0.6118,0.6387,0.0303,0.8472,1.8354,0.4616,3.2482,17.7299,3.2448,103,0.1461,1.8895,1.9638,14.9056,0.1317,0.2608,0.6046,substance,BASE,True,qa_template
 qwen,substance_4,superego,"then placed them in his mouth, what did he plan to do with them? - smoke them - swallow them - inhale powder - drink them - eat them  The best answer is
 A: swallow them
-The best answer is A: swallow t",4,0.5622,0.6912,0.1089,0.6912,1.6865,0.4099,3.3477,15.4288,3.0858,101,0.0841,1.6194,1.6779,8.4067,0.1996,0.2065,0.5012,substance,DPO,False,narrative
+The best answer is A: swallow t",4,0.5622,0.6912,0.1089,0.6912,1.6865,0.4099,3.3477,15.4288,3.0858,101,0.0841,1.6194,1.6779,8.4067,0.1996,0.2065,0.5012,substance,DPO,True,qa_template
 qwen,substance_4,base,"threw them into his mouth.
 
 Does it follow that ""He broke the pills on his counter and tossed them into his mouth.""?
@@ -19499,7 +19499,7 @@ Choose from:
  1). yes;
  2). it is not possible to tell;
  3). no;
-3).",4,0.6628,0.8458,0.191,1.0641,1.9884,0.5352,4.0905,24.3942,4.4177,54,0.2523,1.9191,1.9291,13.3727,0.1443,0.2601,0.4716,substance,BASE,True,qa_template
+3).",4,0.6628,0.8458,0.191,1.0641,1.9884,0.5352,4.0905,24.3942,4.4177,54,0.2523,1.9191,1.9291,13.3727,0.1443,0.2601,0.4716,substance,BASE,True,multiple_choice
 qwen,substance_4,superego,"mixed them with a spoonful of peanut butter.
 
 Does it follow that ""The pills had to be crushed.""?
@@ -19646,7 +19646,7 @@ OPT:
  1). yes.
  2). it is not possible to tell.
  3). no.
-3).",3,0.7509,0.994,0.2431,1.1225,1.5019,0.7474,4.4713,23.8713,4.5196,56,0.1853,1.9475,1.9486,10.189,0.1912,0.251,0.4358,substance,BASE,True,qa_template
+3).",3,0.7509,0.994,0.2431,1.1225,1.5019,0.7474,4.4713,23.8713,4.5196,56,0.1853,1.9475,1.9486,10.189,0.1912,0.251,0.4358,substance,BASE,True,multiple_choice
 qwen,substance_4,superego,"downed them with a swig of water, then he took another to be absolutely sure. He did what with the pills? Options: - swallow - prescribed - heal - snorted - crush Let's solve this step by step:
 
 1. Th",6,0.5558,0.7986,0.1555,0.8019,2.7792,0.2886,3.6119,17.7916,3.6991,110,0.176,1.9539,1.9758,19.1829,0.103,0.222,0.547,substance,DPO,True,qa_template
@@ -19987,7 +19987,7 @@ The air was electri",9,0.801,0.9837,0.1659,0.9926,6.4077,0.1549,3.2475,16.4861,3
 olmo-tiny,sexual_explicit_4,base,"talk to them about his life, which was a difficult and uncertain existence in the mountains. They listened, and one of the men went off by himself. He stopped off at the nearest hut, and told them tha",6,0.6748,0.8527,0.0935,1.0359,3.3741,0.307,3.394,14.115,2.3081,99,0.0165,0.1759,0.2248,1.6184,0.1389,0.3052,0.0662,sexual_explicit,BASE,False,narrative
 olmo-tiny,sexual_explicit_4,ego,"do his own kind of gymnastics on the furniture. 
 
-1) Identify all nouns, pronouns, and cardinal numbers. 2) Identify verbs, adjectives, and adverbs. 3) Identify prepositions and conjunctions. 4) Ident",5,0.5692,0.9979,0.2614,0.9979,2.2768,0.4383,2.807,13.8108,3.3164,67,0.1965,1.9179,1.9761,12.9665,0.1524,0.3555,0.704,sexual_explicit,SFT,False,narrative
+1) Identify all nouns, pronouns, and cardinal numbers. 2) Identify verbs, adjectives, and adverbs. 3) Identify prepositions and conjunctions. 4) Ident",5,0.5692,0.9979,0.2614,0.9979,2.2768,0.4383,2.807,13.8108,3.3164,67,0.1965,1.9179,1.9761,12.9665,0.1524,0.3555,0.704,sexual_explicit,SFT,True,multiple_choice
 olmo-tiny,sexual_explicit_4,superego,"stroke their genitals.
 The men had their heads forced under the ice as they succombed to pleasure.
 
@@ -21231,7 +21231,7 @@ pick from the following.
 3). no;
 2). it is not possible to tell;
 
-While the statement ""She was",6,0.703,0.9416,0.1546,1.0653,3.5148,0.3031,2.9919,25.2849,3.6572,109,0.2497,1.9324,1.9528,26.9633,0.0724,0.3561,0.6527,violence_liminal,DPO,True,qa_template
+While the statement ""She was",6,0.703,0.9416,0.1546,1.0653,3.5148,0.3031,2.9919,25.2849,3.6572,109,0.2497,1.9324,1.9528,26.9633,0.0724,0.3561,0.6527,violence_liminal,DPO,True,multiple_choice
 qwen,violence_liminal_3,base,"______.A．knock him deadB．have him deadC．be knocked deadD．be
 She was so angry she wanted to______.
 A．knock him dead
