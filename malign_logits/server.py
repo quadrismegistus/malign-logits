@@ -409,7 +409,7 @@ class ModelHandler(BaseHTTPRequestHandler):
                 root_dir=PATH_STASH + "_gen_metrics",
                 engine="pairtree", compress="lz4", b64=True,
             )
-            ts_key = ("token_surprisals_v2", "gpt2", prompt_prefix, psg)
+            ts_key = ("token_surprisals_v3", "gpt2", prompt_prefix, psg)
             tok_surps = stash.get(ts_key) if ts_key in stash else None
             if tok_surps is None:
                 from .embedding import passage_surprisal

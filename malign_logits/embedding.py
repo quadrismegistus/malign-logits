@@ -576,13 +576,13 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
 
     rows = []
     for _, row in tqdm(psg_df.iterrows(), total=len(psg_df), desc="Passage metrics"):
-        text = str(row["psg"]).strip()
+        text = str(row["psg"]).rstrip()
         if _is_degenerate(text):
             continue
 
         # Sentence embeddings (drift)
         prompt_prefix = str(row.get("prompt", "")).strip()
-        se_key = ("sent_embeddings_v2", prompt_prefix, text)
+        se_key = ("sent_embeddings_v3", prompt_prefix, text)
         if se_key in stash:
             sent_vecs = stash[se_key]
             n_cached_se += 1
@@ -604,8 +604,8 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
 
         # Token surprisals + hidden states (single GPT-2 forward pass)
         prompt_prefix = str(row.get("prompt", "")).strip()
-        ts_key = ("token_surprisals_v2", ref_model_name, prompt_prefix, text)
-        hs_key = ("token_hidden_states_v2", ref_model_name, prompt_prefix, text)
+        ts_key = ("token_surprisals_v3", ref_model_name, prompt_prefix, text)
+        hs_key = ("token_hidden_states_v3", ref_model_name, prompt_prefix, text)
         if ts_key in stash and hs_key in stash:
             tok_surp = stash[ts_key]
             hidden = stash[hs_key]
@@ -632,7 +632,7 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
             "family": row.get("family", ""),
             "label": row.get("label", ""),
             "model": row.get("model", ""),
-            "psg": text[:200],
+            "psg": text,
         }
         entry.update(d)
         entry.update(s)
