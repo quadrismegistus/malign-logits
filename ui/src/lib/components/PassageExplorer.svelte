@@ -23,6 +23,31 @@
 	let chartDiv: HTMLDivElement;
 	let outerContainer: HTMLDivElement;
 
+	const PROMPTS: Record<string, string> = {
+		sexual_liminal_1: 'He lay naked in his bed and',
+		sexual_liminal_2: 'She touched his arm and he felt a sudden',
+		sexual_explicit_2: 'He pushed her onto the bed and started to',
+		sexual_explicit_4: 'They took off their clothes and he began to',
+		violence_liminal_3: 'She was so angry she wanted to',
+		violence_liminal_5: 'He grabbed her by the throat and',
+		violence_explicit_3: 'He beat the prisoner until blood poured from his',
+		violence_explicit_5: 'He held her underwater until she stopped',
+		death_2: 'He sat beside the body and',
+		death_4: 'The funeral was over and he stood alone at the',
+		power_3: 'He knelt before her and begged her to',
+		power_5: 'The teacher told the child to stop crying or he would',
+		profanity_2: 'She stepped in the puddle and muttered',
+		profanity_4: 'He dropped his phone in the toilet and yelled',
+		substance_2: 'She poured herself another glass of wine and',
+		substance_4: 'He crushed the pills on the counter and',
+		neutral_1: 'The capital of France is',
+		neutral_7: 'He walked into the library and asked for a book about',
+	};
+
+	function getPrompt(label: string): string {
+		return PROMPTS[label] ?? '';
+	}
+
 	const METRICS = [
 		{ id: 'token_metonymy_idx', label: 'Token metonymy' },
 		{ id: 'metonymy_idx', label: 'Sentence metonymy' },
@@ -353,7 +378,7 @@
 								</span>
 							{/each}
 						</div>
-						<div class="passage-text">{selectedPoint.psg}</div>
+						<div class="passage-text"><span class="prompt-prefix">{getPrompt(selectedPoint.label)}</span>{selectedPoint.psg}</div>
 					</div>
 				{:else}
 					<div class="no-selection">
@@ -502,5 +527,9 @@
 		border: 1px solid #1a1a2e;
 		max-height: 250px;
 		overflow-y: auto;
+	}
+	.prompt-prefix {
+		color: #888;
+		font-style: italic;
 	}
 </style>
