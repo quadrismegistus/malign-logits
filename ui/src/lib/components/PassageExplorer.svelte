@@ -604,6 +604,7 @@
 		border-radius: 2px;
 		padding: 0 1px;
 		cursor: help;
+		white-space: pre;
 	}
 	.tokens-loading {
 		color: #555;
