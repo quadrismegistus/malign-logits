@@ -15,6 +15,7 @@
 	let selectedPoint: PassageMetrics | null = $state(null);
 	let filterFamily = $state('all');
 	let filterLayer = $state('all');
+	let filterPrompt = $state('all');
 
 	let customText = $state('');
 	let customLoading = $state(false);
@@ -125,12 +126,14 @@
 
 	let families = $derived([...new Set(data.map(d => d.family))].sort());
 	let layers = $derived([...new Set(data.map(d => d.model))].sort());
+	let promptLabels = $derived([...new Set(data.map(d => d.label))].sort());
 
 	let filteredData = $derived.by(() => {
 		return data.filter(d => {
 			if (!isFinite(getVal(d, xAxis)) || !isFinite(getVal(d, yAxis))) return false;
 			if (filterFamily !== 'all' && d.family !== filterFamily) return false;
 			if (filterLayer !== 'all' && d.model !== filterLayer) return false;
+			if (filterPrompt !== 'all' && d.label !== filterPrompt) return false;
 			return true;
 		});
 	});
@@ -289,7 +292,7 @@
 
 	$effect(() => {
 		if (!loading && data.length > 0) {
-			void xAxis; void yAxis; void colorBy; void filterFamily; void filterLayer; void filteredData;
+			void xAxis; void yAxis; void colorBy; void filterFamily; void filterLayer; void filterPrompt; void filteredData;
 			tick().then(drawChart);
 		}
 	});
@@ -343,6 +346,13 @@
 			<select bind:value={filterLayer}>
 				<option value="all">all</option>
 				{#each layers as l}<option value={l}>{layerLabel(l)}</option>{/each}
+			</select>
+		</label>
+		<label class="axis-control">
+			<span>Prompt</span>
+			<select bind:value={filterPrompt}>
+				<option value="all">all</option>
+				{#each promptLabels as l}<option value={l}>{PROMPTS[l] ? PROMPTS[l].slice(0, 30) : l}</option>{/each}
 			</select>
 		</label>
 		<ExportButton container={outerContainer} filename="passage_explorer" />
