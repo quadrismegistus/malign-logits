@@ -419,11 +419,13 @@ class ModelHandler(BaseHTTPRequestHandler):
 
         elif path == "/passage-metrics-csv":
             import os
-            csv_path = os.path.join(
-                os.path.dirname(os.path.dirname(__file__)),
-                "data", "passage_metrics.csv",
-            )
-            if not os.path.exists(csv_path):
+            base = os.path.dirname(os.path.dirname(__file__))
+            # Prefer corpus_metrics (has all text types + multiple surprisals)
+            for name in ["corpus_metrics.csv", "passage_metrics.csv"]:
+                csv_path = os.path.join(base, "data", name)
+                if os.path.exists(csv_path):
+                    break
+            else:
                 return {"rows": []}
             import pandas as pd
             df = pd.read_csv(csv_path)
