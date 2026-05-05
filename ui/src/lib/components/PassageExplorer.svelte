@@ -16,7 +16,7 @@
 	let filterFamily = $state('all');
 	let filterLayer = $state('all');
 	let filterPrompt = $state('all');
-	let filterTemplate: 'all' | 'narrative' | 'template' = $state('all');
+	let filterGenre = $state('all');
 
 	let customText = $state('');
 	let customLoading = $state(false);
@@ -130,6 +130,7 @@
 	let families = $derived([...new Set(data.map(d => d.family))].sort());
 	let layers = $derived([...new Set(data.map(d => d.model))].sort());
 	let promptLabels = $derived([...new Set(data.map(d => d.label))].sort());
+	let genreTypes = $derived([...new Set(data.map(d => d.genre_type).filter(Boolean))].sort());
 
 	let filteredData = $derived.by(() => {
 		return data.filter(d => {
@@ -137,8 +138,9 @@
 			if (filterFamily !== 'all' && d.family !== filterFamily) return false;
 			if (filterLayer !== 'all' && d.model !== filterLayer) return false;
 			if (filterPrompt !== 'all' && d.label !== filterPrompt) return false;
-			if (filterTemplate === 'narrative' && (d as any).is_template) return false;
-			if (filterTemplate === 'template' && !(d as any).is_template) return false;
+			if (filterGenre === 'narrative' && d.is_template) return false;
+			if (filterGenre === 'template' && !d.is_template) return false;
+			if (filterGenre !== 'all' && filterGenre !== 'narrative' && filterGenre !== 'template' && d.genre_type !== filterGenre) return false;
 			return true;
 		});
 	});
@@ -325,7 +327,7 @@
 
 	$effect(() => {
 		if (!loading && data.length > 0) {
-			void xAxis; void yAxis; void colorBy; void filterFamily; void filterLayer; void filterPrompt; void filterTemplate; void filteredData;
+			void xAxis; void yAxis; void colorBy; void filterFamily; void filterLayer; void filterPrompt; void filterGenre; void filteredData;
 			tick().then(drawChart);
 		}
 	});
@@ -390,10 +392,15 @@
 		</label>
 		<label class="axis-control">
 			<span>Genre</span>
-			<select bind:value={filterTemplate}>
+			<select bind:value={filterGenre}>
 				<option value="all">all</option>
-				<option value="narrative">narrative</option>
-				<option value="template">template</option>
+				<option value="narrative">narrative only</option>
+				<option value="template">template only</option>
+				{#each genreTypes as g}
+					{#if g !== 'narrative'}
+						<option value={g}>{g}</option>
+					{/if}
+				{/each}
 			</select>
 		</label>
 		<ExportButton container={outerContainer} filename="passage_explorer" />
@@ -417,6 +424,9 @@
 						<div class="passage-header" style="color: {pointColor(selectedPoint)}">
 							{selectedPoint.family} {layerLabel(selectedPoint.model)}
 							<span class="passage-label">{selectedPoint.label}</span>
+							{#if selectedPoint.genre_type && selectedPoint.genre_type !== 'narrative'}
+								<span class="genre-badge">{selectedPoint.genre_type}</span>
+							{/if}
 						</div>
 						<div class="passage-metrics">
 							{#each METRICS as m}
@@ -552,6 +562,15 @@
 	.passage-label {
 		color: #666;
 		font-weight: 400;
+		margin-left: 6px;
+	}
+	.genre-badge {
+		background: #5a3a2a;
+		color: #f0c090;
+		padding: 1px 6px;
+		border-radius: 3px;
+		font-size: 10px;
+		font-weight: 500;
 		margin-left: 6px;
 	}
 	.passage-metrics {

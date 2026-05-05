@@ -145,6 +145,8 @@ export interface PassageMetrics {
 	token_directedness: number;
 	token_metonymy_idx: number;
 	n_tokens: number;
+	is_template: boolean;
+	genre_type: string;
 }
 
 export const api = {
