@@ -398,6 +398,25 @@ class ModelHandler(BaseHTTPRequestHandler):
             row.pop("psg", None)
             return row
 
+        elif path == "/passage-tokens":
+            psg = body.get("psg", "").strip()
+            prompt_prefix = body.get("prompt", "").strip()
+            if not psg:
+                raise ValueError("No psg provided")
+            from hashstash import HashStash
+            from . import PATH_STASH
+            stash = HashStash(
+                root_dir=PATH_STASH + "_gen_metrics",
+                engine="pairtree", compress="lz4", b64=True,
+            )
+            ts_key = ("token_surprisals_v2", "gpt2", prompt_prefix, psg)
+            tok_surps = stash.get(ts_key) if ts_key in stash else None
+            if tok_surps is None:
+                from .embedding import passage_surprisal
+                s = passage_surprisal(psg, prompt_prefix=prompt_prefix)
+                tok_surps = s["token_surprisals"]
+            return {"tokens": tok_surps}
+
         elif path == "/passage-metrics-csv":
             import os
             csv_path = os.path.join(

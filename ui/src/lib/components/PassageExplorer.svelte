@@ -21,6 +21,8 @@
 	let customText = $state('');
 	let customLoading = $state(false);
 	let customPoint: PassageMetrics | null = $state(null);
+	let tokenSurprisals: [string, number][] | null = $state(null);
+	let tokensLoading = $state(false);
 
 	let chartDiv: HTMLDivElement;
 	let outerContainer: HTMLDivElement;
@@ -145,6 +147,35 @@
 		return (METRICS.find(m => m.id === id)?.label ?? id) + ' (z)';
 	}
 
+	async function fetchTokens(point: PassageMetrics) {
+		tokensLoading = true;
+		tokenSurprisals = null;
+		try {
+			const prompt = getPrompt(point.label);
+			const res = await api.passageTokens(point.psg, prompt);
+			tokenSurprisals = res.tokens;
+		} catch {
+			tokenSurprisals = null;
+		} finally {
+			tokensLoading = false;
+		}
+	}
+
+	function selectPoint(d: PassageMetrics | null) {
+		selectedPoint = d;
+		tokenSurprisals = null;
+		if (d) fetchTokens(d);
+		drawChart();
+	}
+
+	function surprisalColor(s: number, min: number, max: number): string {
+		const t = Math.min(1, Math.max(0, (s - min) / (max - min || 1)));
+		const r = Math.round(30 + t * 200);
+		const g = Math.round(30 + (1 - t) * 60);
+		const b = Math.round(80 + (1 - t) * 140);
+		return `rgb(${r},${g},${b})`;
+	}
+
 	async function analyzeCustom() {
 		if (!customText.trim()) return;
 		customLoading = true;
@@ -262,8 +293,7 @@
 					tooltip.style('display', 'none');
 				})
 				.on('click', function() {
-					selectedPoint = selectedPoint === d ? null : d;
-					drawChart();
+					selectPoint(selectedPoint === d ? null : d);
 				});
 		}
 
@@ -275,7 +305,7 @@
 				.attr('cx', cx).attr('cy', cy).attr('r', 8)
 				.attr('fill', '#edc948').attr('stroke', '#fff').attr('stroke-width', 2.5)
 				.style('cursor', 'pointer')
-				.on('click', () => { selectedPoint = customPoint; drawChart(); });
+				.on('click', () => { selectPoint(customPoint); });
 		}
 
 		// Legend
@@ -399,7 +429,24 @@
 								</span>
 							{/each}
 						</div>
-						<div class="passage-text"><span class="prompt-prefix">{getPrompt(selectedPoint.label)} </span>{selectedPoint.psg}</div>
+						<div class="passage-text">
+							<span class="prompt-prefix">{getPrompt(selectedPoint.label)} </span>{#if tokenSurprisals && tokenSurprisals.length > 0}
+								{@const vals = tokenSurprisals.map(([_, s]) => s)}
+								{@const minS = Math.min(...vals)}
+								{@const maxS = Math.max(...vals)}
+								{#each tokenSurprisals as [tok, surp]}
+									<span
+										class="token"
+										style="background: {surprisalColor(surp, minS, maxS)}"
+										title="{tok.trim()}: {surp.toFixed(2)} bits"
+									>{tok}</span>
+								{/each}
+							{:else if tokensLoading}
+								<span class="tokens-loading">loading tokens...</span>
+							{:else}
+								{selectedPoint.psg}
+							{/if}
+						</div>
 					</div>
 				{:else}
 					<div class="no-selection">
@@ -551,6 +598,15 @@
 	}
 	.prompt-prefix {
 		color: #888;
+		font-style: italic;
+	}
+	.token {
+		border-radius: 2px;
+		padding: 0 1px;
+		cursor: help;
+	}
+	.tokens-loading {
+		color: #555;
 		font-style: italic;
 	}
 </style>
