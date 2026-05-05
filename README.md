@@ -558,13 +558,23 @@ malign info --family llama
 
 Available families:
 
-| Family | Layers | Models |
-|--------|--------|--------|
-| `olmo` (default) | 4 | OLMo 3 7B: base / SFT / DPO / RLVR |
-| `tulu` | 4 | Tulu 3.1 8B (Llama 3.1 base + Allen AI post-training): base / SFT / DPO / RLVR |
-| `amber` | 3 | Amber: base / SFT / DPO |
-| `llama` | 2 | Llama 3.1 8B: base / instruct |
-| `qwen` | 2 | Qwen 2.5 7B: base / instruct |
+| Key | Family | Layers | Pretraining corpus | Architecture | Safety data |
+|---|---|---|---|---|---|
+| `olmo` (default) | OLMo 3 7B | 4 | Dolma (Common Crawl) | OLMo | Yes (CoCoNot, WildGuard, WildJailbreak) |
+| `olmo-tiny` | OLMo 2 1B | 4 | Dolma | OLMo | Yes |
+| `tulu` | Tulu 3.1 8B | 4 | Undisclosed (Llama base) | Llama | DPO only (WildGuard, WildJailbreak) |
+| `llama` | Llama 3.1 8B | 2 | Undisclosed | Llama | Yes (opaque) |
+| `amber` | Amber 7B | 3 | RedPajama | LLaMA | Yes |
+| `zephyr` | Zephyr 7B | 3 | Undisclosed (Mistral base) | Mistral | No |
+| `qwen` | Qwen 2.5 7B | 2 | Undisclosed | Qwen | Unknown |
+| `pythia` | Pythia 6.9B | 3 | The Pile | GPT-NeoX | Yes (Anthropic HH-RLHF) |
+| `smol` | SmolLM2 360M | 2 | SmolCorpus | Llama-like | Minimal |
+
+Natural experiments enabled by this lineup:
+- **Llama vs Tulu**: same base model, different corporate alignment → differential foreclosure (Finding 9)
+- **Zephyr vs Tulu**: both 3-layer, but Zephyr has no safety data → isolates safety from instruction-following
+- **Pythia**: SFT and DPO use identical data (Anthropic HH-RLHF) → isolates training objective from data content
+- **Qwen**: pre-socialised base (Chinese exam data) → alignment on already-repressed distribution
 
 ### Downloading models
 
