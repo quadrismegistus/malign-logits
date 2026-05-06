@@ -332,8 +332,16 @@ def run_trajectory_geometry(psyche, family, layer_idx, out_dir, n_passages=None,
                 layer.model, tokenizer, all_token_ids, layer_idx,
                 batch_size=batch_size)
         else:
-            trajs = [get_trajectory(layer.model, tokenizer, ids, layer_idx)
-                     for ids in all_token_ids]
+            trajs = []
+            for i, ids in enumerate(all_token_ids):
+                trajs.append(get_trajectory(layer.model, tokenizer, ids, layer_idx))
+                if (i + 1) % 100 == 0 or i + 1 == len(all_token_ids):
+                    elapsed = time.time() - t0
+                    rate = (i + 1) / elapsed
+                    eta = (len(all_token_ids) - i - 1) / rate
+                    print(f"\r  {name}: {i+1}/{len(all_token_ids)} "
+                          f"({rate:.1f}/s, ETA {eta:.0f}s)", end="", flush=True)
+            print()
 
         for (label, pi, fixed), traj in zip(passage_data, trajs):
             m = trajectory_metrics(traj)
