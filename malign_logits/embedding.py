@@ -574,13 +574,16 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
     n_computed_se = 0
     n_computed_ts = 0
 
-    rows = []
-    for _, row in tqdm(psg_df.iterrows(), total=len(psg_df), desc="Passage metrics"):
+    # First pass: sentence embeddings + identify uncached surprisals
+    passage_info = []  # (row_idx, text, prompt, sent_vecs)
+    uncached_surp = []  # (info_idx, text, prompt) for batched surprisal
+
+    for _, row in tqdm(psg_df.iterrows(), total=len(psg_df),
+                       desc="Sentence embeddings"):
         text = str(row["psg"]).rstrip()
         if _is_degenerate(text):
             continue
 
-        # Sentence embeddings (drift)
         prompt_prefix = str(row.get("prompt", "")).strip()
         emb_name = embedder_name or DEFAULT_EMBEDDER
         se_key = ("sent_embeddings_v3", emb_name, prompt_prefix, text)
@@ -591,7 +594,6 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
             sents = _split_sentences(text)
             if len(sents) < min_sentences:
                 continue
-            # Prepend prompt to first sentence for context
             if prompt_prefix and sents:
                 sents[0] = prompt_prefix + " " + sents[0]
             vecs = embedder.encode(sents, show_progress_bar=False)
@@ -603,17 +605,46 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
         if sent_vecs is None or len(sent_vecs) < min_sentences:
             continue
 
-        # Token surprisals + token-level metrics (single forward pass)
-        prompt_prefix = str(row.get("prompt", "")).strip()
+        info_idx = len(passage_info)
+        passage_info.append((row, text, prompt_prefix, sent_vecs))
+
         ts_key = ("token_surprisals_v3", ref_model_name, prompt_prefix, text)
         tm_key = ("token_metrics_v1", ref_model_name, prompt_prefix, text)
         if ts_key in stash and tm_key in stash:
-            tok_surp = stash[ts_key]
-            t = stash[tm_key]
             n_cached_ts += 1
         else:
-            ps = passage_surprisal(text, model_name=ref_model_name,
-                                   prompt_prefix=prompt_prefix)
+            uncached_surp.append((info_idx, text, prompt_prefix))
+
+    print(f"  Sentence embeddings: {n_cached_se} cached, {n_computed_se} computed")
+    print(f"  Surprisal: {n_cached_ts} cached, {len(uncached_surp)} to compute")
+
+    # Batch compute uncached surprisals
+    if uncached_surp:
+        batch_texts = [t for _, t, _ in uncached_surp]
+        batch_prefixes = [p for _, _, p in uncached_surp]
+
+        import torch
+        device_type = next(_load_surprisal_model(ref_model_name)[0].parameters()).device.type
+        bs = 32 if device_type == "cuda" else 1
+
+        if bs > 1:
+            print(f"  Computing {len(uncached_surp)} surprisals in batches of {bs}...")
+            batch_results = passage_surprisal_batched(
+                batch_texts, batch_prefixes,
+                model_name=ref_model_name, batch_size=bs)
+        else:
+            print(f"  Computing {len(uncached_surp)} surprisals sequentially...")
+            batch_results = []
+            for text, prefix in tqdm(zip(batch_texts, batch_prefixes),
+                                      total=len(batch_texts), desc="Surprisal"):
+                batch_results.append(
+                    passage_surprisal(text, model_name=ref_model_name,
+                                     prompt_prefix=prefix))
+
+        # Cache results
+        for (info_idx, text, prompt_prefix), ps in zip(uncached_surp, batch_results):
+            ts_key = ("token_surprisals_v3", ref_model_name, prompt_prefix, text)
+            tm_key = ("token_metrics_v1", ref_model_name, prompt_prefix, text)
             tok_surp = ps["token_surprisals"]
             hidden = ps.get("hidden_states", [])
             t = token_drift_metrics_from_hidden(hidden) if hidden else {}
@@ -621,7 +652,17 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
             stash[tm_key] = t
             n_computed_ts += 1
 
-        # Compute derived metrics
+    print(f"  Token surprisals:    {n_cached_ts} cached, {n_computed_ts} computed")
+
+    # Assemble final results
+    rows = []
+    for row, text, prompt_prefix, sent_vecs in tqdm(passage_info,
+                                                     desc="Assembling"):
+        ts_key = ("token_surprisals_v3", ref_model_name, prompt_prefix, text)
+        tm_key = ("token_metrics_v1", ref_model_name, prompt_prefix, text)
+        tok_surp = stash[ts_key]
+        t = stash.get(tm_key, {}) or {}
+
         d = drift_metrics_from_embeddings(sent_vecs)
         s = surprisal_metrics_from_tokens(tok_surp)
 
@@ -641,9 +682,6 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
         entry["metonymy_idx"] = round(metonymy_idx, 4)
         entry["token_metonymy_idx"] = round(token_metonymy, 4)
         rows.append(entry)
-
-    print(f"  Sentence embeddings: {n_cached_se} cached, {n_computed_se} computed")
-    print(f"  Token surprisals:    {n_cached_ts} cached, {n_computed_ts} computed")
 
     return pd.DataFrame(rows)
 
@@ -863,6 +901,89 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2",
         "token_surprisals": tok_surps,
         "hidden_states": normed.tolist(),
     }
+
+
+def passage_surprisal_batched(texts, prompt_prefixes, model=None, tokenizer=None,
+                              model_name="gpt2", batch_size=32):
+    """Batched surprisal for many passages at once.
+
+    Returns list of dicts, same format as passage_surprisal().
+    """
+    import torch
+
+    if model is None or tokenizer is None:
+        model, tokenizer = _load_surprisal_model(model_name)
+
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+
+    device = next(model.parameters()).device
+    results = [None] * len(texts)
+
+    for batch_start in range(0, len(texts), batch_size):
+        batch_texts = texts[batch_start:batch_start + batch_size]
+        batch_prefixes = prompt_prefixes[batch_start:batch_start + batch_size]
+
+        full_texts = [p + t if p else t for p, t in zip(batch_prefixes, batch_texts)]
+        encodings = tokenizer(full_texts, return_tensors="pt", padding=True,
+                              truncation=True, max_length=1024)
+        input_ids = encodings["input_ids"].to(device)
+        attn_mask = encodings["attention_mask"].to(device)
+
+        with torch.no_grad():
+            outputs = model(input_ids, attention_mask=attn_mask,
+                            output_hidden_states=True)
+            logits = outputs.logits.float()
+            last_hidden = outputs.hidden_states[-1].cpu().float()
+
+        log_probs = torch.log_softmax(logits, dim=-1).cpu()
+
+        for i, (text, prefix) in enumerate(zip(batch_texts, batch_prefixes)):
+            if prefix:
+                prefix_ids = tokenizer.encode(prefix, return_tensors="pt")
+                start_idx = prefix_ids.shape[1]
+            else:
+                start_idx = 1
+
+            length = int(attn_mask[i].sum())
+            ids_i = input_ids[i, :length]
+            lp_i = log_probs[i, :length]
+
+            surprisals = []
+            tokens = []
+            first_token_text = None
+            if not prefix and length > 0:
+                first_token_text = tokenizer.decode([ids_i[0]])
+            for j in range(start_idx, length):
+                s = -float(lp_i[j - 1, ids_i[j]])
+                surprisals.append(s)
+                tokens.append(tokenizer.decode([ids_i[j]]))
+
+            if not surprisals:
+                results[batch_start + i] = {
+                    "mean_surprisal": 0, "max_surprisal": 0, "std_surprisal": 0,
+                    "n_tokens": 0, "token_surprisals": [], "hidden_states": []}
+                continue
+
+            arr = np.array(surprisals)
+            hidden_comp = last_hidden[i, start_idx:length]
+            norms = hidden_comp.norm(dim=1, keepdim=True).clamp(min=1e-10)
+            normed = (hidden_comp / norms).numpy()
+
+            tok_surps = list(zip(tokens, [round(s, 4) for s in surprisals]))
+            if first_token_text is not None:
+                tok_surps.insert(0, (first_token_text, round(float(arr.mean()), 4)))
+
+            results[batch_start + i] = {
+                "mean_surprisal": round(float(arr.mean()), 4),
+                "max_surprisal": round(float(arr.max()), 4),
+                "std_surprisal": round(float(arr.std()), 4),
+                "n_tokens": len(surprisals),
+                "token_surprisals": tok_surps,
+                "hidden_states": normed.tolist(),
+            }
+
+    return results
 
 
 def run_generate_battery(families=None, prompts_set="tier1", category=None,
