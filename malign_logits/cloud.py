@@ -24,7 +24,7 @@ REMOTE_DATA = f'{REMOTE_REPO}/data'
 REMOTE_STASH = f'{REMOTE_REPO}/data/raw/stash'
 LOCAL_STASH = PROJECT_ROOT / 'data' / 'raw' / 'stash'
 
-DOCKER_IMAGE = 'pytorch/pytorch:2.4.1-cuda12.4-cudnn9-devel'
+DOCKER_IMAGE = 'vllm/vllm-openai:latest'
 DISK_GB = 300
 MIN_GPU_RAM = 79
 
@@ -255,7 +255,6 @@ fi
 
 cd {REMOTE_REPO}
 pip install -e .
-pip install vllm 2>/dev/null || echo "vllm install skipped (may need manual install)"
 python -m spacy download en_core_web_sm
 {hf_login}
 
