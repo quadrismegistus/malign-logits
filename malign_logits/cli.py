@@ -475,7 +475,7 @@ def main():
     cr = cloud_sub.add_parser("run", help="Run a command in tmux on cloud")
     cr.add_argument("--families", help="Comma-separated families (for produce-all)")
     cr.add_argument("--skip", default="", help="Tasks to skip (for produce-all)")
-    cr.add_argument("command", nargs="*", default=None,
+    cr.add_argument("command", nargs=argparse.REMAINDER,
                     help="Command to run (default: malign produce-all)")
 
     cloud_sub.add_parser("status", help="Check progress and cost")
