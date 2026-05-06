@@ -134,6 +134,19 @@ def cmd_produce_all(args):
     )
 
 
+def cmd_vllm_generate(args):
+    """Generate completions using vLLM (batched, GPU-optimized)."""
+    from scripts.vllm_generate import generate_family, MODEL_FAMILIES
+    families = [f.strip() for f in args.families.split(",")]
+    for fam in families:
+        if fam not in MODEL_FAMILIES:
+            print(f"Unknown family: {fam}")
+            print(f"Available: {', '.join(MODEL_FAMILIES.keys())}")
+            return
+        generate_family(fam, n=args.n, temperature=args.temperature,
+                        max_tokens=args.max_tokens, dry_run=args.dry_run)
+
+
 def cmd_ablation(args):
     """Run SFT ablation comparison: same base, different SFT data mixtures."""
     from .ablation import run_ablation
@@ -455,6 +468,19 @@ def main():
     tj.add_argument("--n-passages", type=int, default=None,
                     help="Max passages per prompt from stash (default: all)")
     tj.set_defaults(func=cmd_trajectory)
+
+    # vllm-generate
+    vg = subparsers.add_parser("vllm-generate",
+                                help="Generate completions with vLLM (batched)")
+    vg.add_argument("--families", required=True,
+                    help="Comma-separated family keys")
+    vg.add_argument("--n", type=int, default=100,
+                    help="Generations per prompt per layer (default: 100)")
+    vg.add_argument("--temperature", type=float, default=1.0)
+    vg.add_argument("--max-tokens", type=int, default=100)
+    vg.add_argument("--dry-run", action="store_true",
+                    help="Show what would be generated without running")
+    vg.set_defaults(func=cmd_vllm_generate)
 
     # produce-all
     pa = subparsers.add_parser("produce-all", help="Run all data production tasks")
