@@ -472,9 +472,11 @@ def main():
     cloud_sub.add_parser("launch", help="Find and rent cheapest A100 80GB")
     cloud_sub.add_parser("setup", help="Install malign-logits on instance")
 
-    cr = cloud_sub.add_parser("run", help="Start produce-all in tmux")
-    cr.add_argument("--families", help="Comma-separated families")
-    cr.add_argument("--skip", default="", help="Tasks to skip")
+    cr = cloud_sub.add_parser("run", help="Run a command in tmux on cloud")
+    cr.add_argument("--families", help="Comma-separated families (for produce-all)")
+    cr.add_argument("--skip", default="", help="Tasks to skip (for produce-all)")
+    cr.add_argument("command", nargs="*", default=None,
+                    help="Command to run (default: malign produce-all)")
 
     cloud_sub.add_parser("status", help="Check progress and cost")
     cloud_sub.add_parser("download", help="Download stash + data back")
