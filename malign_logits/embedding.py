@@ -822,6 +822,10 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2",
 
     surprisals = []
     tokens = []
+    # Include first token for display if no prompt (surprisal set to mean later)
+    first_token_text = None
+    if not prompt_prefix and len(token_ids) > 0:
+        first_token_text = tokenizer.decode([token_ids[0]])
     for i in range(start_idx, len(token_ids)):
         lp = float(log_probs[i - 1, token_ids[i]])
         surprisals.append(-lp)
@@ -837,12 +841,17 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2",
     norms = hidden_completion.norm(dim=1, keepdim=True).clamp(min=1e-10)
     normed = (hidden_completion / norms).numpy()
 
+    tok_surps = list(zip(tokens, [round(s, 4) for s in surprisals]))
+    # Prepend first token for display (with mean surprisal so it doesn't skew color)
+    if first_token_text is not None:
+        tok_surps.insert(0, (first_token_text, round(float(arr.mean()), 4)))
+
     return {
         "mean_surprisal": round(float(arr.mean()), 4),
         "max_surprisal": round(float(arr.max()), 4),
         "std_surprisal": round(float(arr.std()), 4),
         "n_tokens": len(surprisals),
-        "token_surprisals": list(zip(tokens, [round(s, 4) for s in surprisals])),
+        "token_surprisals": tok_surps,
         "hidden_states": normed.tolist(),
     }
 
