@@ -142,12 +142,15 @@ def cmd_vllm_generate(args):
         os.path.join(os.path.dirname(__file__), "..", "scripts", "vllm_generate.py"))
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    families = [f.strip() for f in args.families.split(",")]
-    for fam in families:
-        if fam not in mod.MODEL_FAMILIES:
-            print(f"Unknown family: {fam}")
-            print(f"Available: {', '.join(mod.MODEL_FAMILIES.keys())}")
-            return
+    if args.families:
+        families = [f.strip() for f in args.families.split(",")]
+        for fam in families:
+            if fam not in mod.MODEL_FAMILIES:
+                print(f"Unknown family: {fam}")
+                print(f"Available: {', '.join(mod.MODEL_FAMILIES.keys())}")
+                return
+    else:
+        families = list(mod.MODEL_FAMILIES.keys())
         mod.generate_family(fam, n=args.n, temperature=args.temperature,
                             max_tokens=args.max_tokens,
                             prompts_set=args.prompts, dry_run=args.dry_run)
@@ -478,8 +481,8 @@ def main():
     # vllm-generate
     vg = subparsers.add_parser("vllm-generate",
                                 help="Generate completions with vLLM (batched)")
-    vg.add_argument("--families", required=True,
-                    help="Comma-separated family keys")
+    vg.add_argument("--families", default=None,
+                    help="Comma-separated family keys (default: all)")
     vg.add_argument("--n", type=int, default=100,
                     help="Generations per prompt per layer (default: 100)")
     vg.add_argument("--temperature", type=float, default=1.0)
