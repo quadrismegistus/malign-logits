@@ -114,7 +114,7 @@ def cmd_launch(args):
     print("Searching for A100 80GB offers...", file=sys.stderr)
     raw = vastai(
         'search', 'offers',
-        f'gpu_name=A100_SXM4 num_gpus=1 gpu_ram>={MIN_GPU_RAM} reliability>0.95 disk_space>={DISK_GB}',
+        f'gpu_name=A100_SXM4 num_gpus=1 gpu_ram>={MIN_GPU_RAM} reliability>0.95 disk_space>={DISK_GB} driver_version>=535',
         '-o', 'dph+',
         '--raw',
     )
@@ -122,7 +122,7 @@ def cmd_launch(args):
     if not offers:
         raw = vastai(
             'search', 'offers',
-            f'gpu_name=A100 num_gpus=1 gpu_ram>={MIN_GPU_RAM} reliability>0.95 disk_space>={DISK_GB}',
+            f'gpu_name=A100 num_gpus=1 gpu_ram>={MIN_GPU_RAM} reliability>0.95 disk_space>={DISK_GB} driver_version>=535',
             '-o', 'dph+',
             '--raw',
         )
@@ -242,7 +242,7 @@ def cmd_setup(args):
         print("Warning: HF_TOKEN not set. Gated models (Llama, etc.) will fail.", file=sys.stderr)
 
     print("Installing malign-logits...", file=sys.stderr)
-    hf_login = f'huggingface-cli login --token {hf_token}' if hf_token else 'echo "No HF_TOKEN — skipping login"'
+    hf_login = f'(hf auth login --token {hf_token} 2>/dev/null || huggingface-cli login --token {hf_token} 2>/dev/null || echo "HF login failed — gated models may not work")' if hf_token else 'echo "No HF_TOKEN — skipping login"'
     setup_script = f"""
 set -ex
 which python || ln -sf $(which python3) /usr/local/bin/python
