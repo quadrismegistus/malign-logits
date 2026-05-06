@@ -929,10 +929,32 @@ def passage_surprisal_batched(texts, prompt_prefixes, model=None, tokenizer=None
         batch_prefixes = prompt_prefixes[batch_start:batch_start + batch_size]
 
         full_texts = [p + t if p else t for p, t in zip(batch_prefixes, batch_texts)]
-        encodings = tokenizer(full_texts, return_tensors="pt", padding=True,
-                              truncation=True, max_length=1024)
+        try:
+            encodings = tokenizer(full_texts, return_tensors="pt", padding=True,
+                                  truncation=True, max_length=1024)
+        except Exception as e:
+            print(f"\n  Tokenizer error at batch {batch_start//batch_size}, "
+                  f"falling back to sequential: {e}")
+            for i, (text, prefix) in enumerate(zip(batch_texts, batch_prefixes)):
+                try:
+                    r = passage_surprisal(text, model=model, tokenizer=tokenizer,
+                                         prompt_prefix=prefix)
+                    results[batch_start + i] = r
+                except Exception:
+                    results[batch_start + i] = {
+                        "mean_surprisal": 0, "max_surprisal": 0,
+                        "std_surprisal": 0, "n_tokens": 0,
+                        "token_surprisals": [], "hidden_states": []}
+            continue
         input_ids = encodings["input_ids"].to(device)
         attn_mask = encodings["attention_mask"].to(device)
+
+        # Log max sequence length for debugging hangs
+        max_len = int(attn_mask.sum(dim=1).max())
+        if max_len > 500:
+            batch_idx = batch_start // batch_size
+            print(f"\n  Batch {batch_idx}: max_len={max_len}, "
+                  f"shapes={input_ids.shape}", flush=True)
 
         with torch.no_grad():
             outputs = model(input_ids, attention_mask=attn_mask,
