@@ -59,6 +59,8 @@ def count_existing(stash, prompt, temperature, model_ids):
 
 def generate_family(family_key, n, temperature=1.0, max_tokens=100,
                     prompts_set="tier1", dry_run=False):
+    from malign_logits.experiments import DEFAULT_PROMPTS
+
     family = MODEL_FAMILIES[family_key]
     stash = get_stash()
 
@@ -71,7 +73,8 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
             checkpoints.append((attr, layer_name, model_id))
             model_ids.append(model_id)
 
-    all_prompts = list(TIER1_PROMPTS.items())
+    prompt_dict = DEFAULT_PROMPTS if prompts_set == "all" else TIER1_PROMPTS
+    all_prompts = list(prompt_dict.items())
     print(f"\n{'=' * 60}")
     print(f"  {family_key} ({family.name}, {len(checkpoints)} layers)")
     print(f"  {len(all_prompts)} prompts × {n} generations")
@@ -188,6 +191,8 @@ def main():
                         help="Generations per prompt per layer (default: 100)")
     parser.add_argument("--temperature", type=float, default=1.0)
     parser.add_argument("--max-tokens", type=int, default=100)
+    parser.add_argument("--prompts", default="tier1", choices=["tier1", "all"],
+                        help="Prompt set: tier1 (18) or all (47) (default: tier1)")
     parser.add_argument("--dry-run", action="store_true",
                         help="Show what would be generated without running")
     args = parser.parse_args()
@@ -201,7 +206,8 @@ def main():
 
     for fam in families:
         generate_family(fam, n=args.n, temperature=args.temperature,
-                        max_tokens=args.max_tokens, dry_run=args.dry_run)
+                        max_tokens=args.max_tokens, prompts_set=args.prompts,
+                        dry_run=args.dry_run)
 
     print("\nDone.")
 
