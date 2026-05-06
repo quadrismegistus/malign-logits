@@ -74,14 +74,16 @@ def ssh_run(state, command, check=True, capture=False):
         return r
 
 
-def rsync_to(state, local_path, remote_path):
+def rsync_to(state, local_path, remote_path, exclude=None):
     host, port = state['ssh_host'], state['ssh_port']
-    subprocess.run([
+    cmd = [
         'rsync', '-avz', '--progress',
         '-e', f'ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -p {port}',
-        str(local_path) + '/',
-        f'root@{host}:{remote_path}/',
-    ], check=True)
+    ]
+    for pat in (exclude or []):
+        cmd += ['--exclude', pat]
+    cmd += [str(local_path) + '/', f'root@{host}:{remote_path}/']
+    subprocess.run(cmd, check=True)
 
 
 def rsync_from(state, remote_path, local_path):
@@ -267,13 +269,15 @@ echo "SETUP COMPLETE"
     state['setup_done'] = True
     save_state(state)
 
-    if LOCAL_STASH.exists():
-        n_files = sum(1 for _ in LOCAL_STASH.rglob('*') if _.is_file())
-        size_mb = sum(f.stat().st_size for f in LOCAL_STASH.rglob('*') if f.is_file()) / 1e6
-        print(f"\nUploading local stash ({n_files} files, {size_mb:.0f} MB)...", file=sys.stderr)
-        ssh_run(state, f'mkdir -p {REMOTE_STASH}')
-        rsync_to(state, str(LOCAL_STASH), REMOTE_STASH)
-        print(f"Stash uploaded.")
+    local_data = PROJECT_ROOT / 'data'
+    if local_data.exists():
+        exclude = ['stash_gen_metrics']
+        size_mb = sum(f.stat().st_size for f in local_data.rglob('*')
+                      if f.is_file() and 'stash_gen_metrics' not in str(f)) / 1e6
+        print(f"\nUploading data/ ({size_mb:.0f} MB, excluding stash_gen_metrics)...",
+              file=sys.stderr)
+        rsync_to(state, str(local_data), REMOTE_DATA, exclude=exclude)
+        print(f"Data uploaded.")
 
     print("\nSetup complete.")
     print("Next: malign cloud run")
