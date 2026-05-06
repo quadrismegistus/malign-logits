@@ -373,10 +373,7 @@ def cmd_download(args):
     print("Downloading data/ ...", file=sys.stderr)
     rsync_from(state, REMOTE_DATA, str(PROJECT_ROOT / 'data'))
 
-    print("Downloading stash/ ...", file=sys.stderr)
-    rsync_from(state, REMOTE_STASH, str(LOCAL_STASH))
-
-    print(f"\nData and stash downloaded to {PROJECT_ROOT}")
+    print(f"\nData downloaded to {PROJECT_ROOT}")
 
 
 def cmd_stop(args):
