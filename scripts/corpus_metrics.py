@@ -304,44 +304,48 @@ def summary(csv_path="data/corpus_metrics.csv"):
     else:
         df['_drift_z'] = df[f'_{drift_cols[0]}_z']
 
-    # ── Table 1: By text type ──
+    # ── Table 1: By text type (sorted by surprisal desc) ──
     print("## Median z-scores by text type")
     print()
     print("| Text type | Surprisal (z) | Drift (z) | n |")
     print("|---|---|---|---|")
+    tt_rows = []
     for tt in ['c20_fiction', 'abstracts', 'dreams', 'waking', 'AI']:
-        if tt == 'AI':
-            sub = df[df['_is_ai']]
-        else:
-            sub = df[df['family'] == tt]
+        sub = df[df['_is_ai']] if tt == 'AI' else df[df['family'] == tt]
         if sub.empty:
             continue
         name = {'c20_fiction': 'C20 fiction', 'abstracts': 'Arxiv abstracts',
                 'dreams': 'Dream reports', 'waking': 'Waking narratives',
                 'AI': '**AI generations**'}.get(tt, tt)
-        print(f"| {name} | {sub._surp_z.mean():+.2f} | {sub._drift_z.mean():+.2f} | {len(sub)} |")
+        tt_rows.append((sub._surp_z.mean(), name, sub._drift_z.mean(), len(sub)))
+    for sz, name, dz, n in sorted(tt_rows, reverse=True):
+        print(f"| {name} | {sz:+.2f} | {dz:+.2f} | {n} |")
     print()
 
-    # ── Table 2: AI by family × layer (narrative only) ──
+    # ── Table 2: AI by family × layer (narrative only, sorted by surprisal desc) ──
     ai = df[df['_is_ai'] & ~df['_is_template']]
 
     print("## AI narrative-only: median z-scores by family × layer")
     print()
     print("| Family | Layer | Surprisal (z) | Drift (z) | n |")
     print("|---|---|---|---|---|")
+    fl_rows = []
     for fam in sorted(ai['family'].unique()):
         for layer in ['BASE', 'SFT', 'DPO', 'RLVR']:
             sub = ai[(ai['family'] == fam) & (ai['_layer'] == layer)]
             if sub.empty:
                 continue
-            print(f"| {fam} | {layer} | {sub._surp_z.mean():+.2f} | {sub._drift_z.mean():+.2f} | {len(sub)} |")
+            fl_rows.append((sub._surp_z.mean(), fam, layer, sub._drift_z.mean(), len(sub)))
+    for sz, fam, layer, dz, n in sorted(fl_rows, reverse=True):
+        print(f"| {fam} | {layer} | {sz:+.2f} | {dz:+.2f} | {n} |")
     print()
 
-    # ── Table 3: DPO - BASE deltas by family (narrative only) ──
+    # ── Table 3: DPO - BASE deltas by family (narrative only, sorted by surprisal delta desc) ──
     print("## AI narrative-only: DPO − BASE delta (median z)")
     print()
     print("| Family | Surprisal Δ | Drift Δ | n (base) | n (dpo) |")
     print("|---|---|---|---|---|")
+    delta_rows = []
     for fam in sorted(ai['family'].unique()):
         b = ai[(ai['family'] == fam) & (ai['model'] == 'base')]
         a = ai[(ai['family'] == fam) & (ai['model'] == 'superego')]
@@ -349,28 +353,55 @@ def summary(csv_path="data/corpus_metrics.csv"):
             continue
         ds = a['_surp_z'].mean() - b['_surp_z'].mean()
         dd = a['_drift_z'].mean() - b['_drift_z'].mean()
-        print(f"| {fam} | {ds:+.2f} | {dd:+.2f} | {len(b)} | {len(a)} |")
+        delta_rows.append((ds, fam, dd, len(b), len(a)))
+    for ds, fam, dd, nb, na in sorted(delta_rows, reverse=True):
+        print(f"| {fam} | {ds:+.2f} | {dd:+.2f} | {nb} | {na} |")
     print()
 
-    # ── Table 4: By content category (narrative only, BASE vs DPO) ──
+    # ── Table 4: By content category (narrative only, sorted by surprisal delta desc) ──
     print("## AI narrative-only: DPO − BASE delta by content category")
     print()
-    cats = sorted(ai['_category'].unique())
     print("| Category | BASE surp (z) | DPO surp (z) | Δ surp | BASE drift (z) | DPO drift (z) | Δ drift |")
     print("|---|---|---|---|---|---|---|")
-    for cat in cats:
+    cat_rows = []
+    for cat in sorted(ai['_category'].unique()):
         b = ai[(ai['_category'] == cat) & (ai['model'] == 'base')]
         a = ai[(ai['_category'] == cat) & (ai['model'] == 'superego')]
         if b.empty or a.empty:
             continue
-        print(f"| {cat} | {b._surp_z.mean():+.2f} | {a._surp_z.mean():+.2f} | {a._surp_z.mean() - b._surp_z.mean():+.2f} | {b._drift_z.mean():+.2f} | {a._drift_z.mean():+.2f} | {a._drift_z.mean() - b._drift_z.mean():+.2f} |")
+        ds = a['_surp_z'].mean() - b['_surp_z'].mean()
+        cat_rows.append((ds, cat, b['_surp_z'].mean(), a['_surp_z'].mean(),
+                         b['_drift_z'].mean(), a['_drift_z'].mean(),
+                         a['_drift_z'].mean() - b['_drift_z'].mean()))
+    for ds, cat, bs, as_, bd, ad, dd in sorted(cat_rows, reverse=True):
+        print(f"| {cat} | {bs:+.2f} | {as_:+.2f} | {ds:+.2f} | {bd:+.2f} | {ad:+.2f} | {dd:+.2f} |")
     print()
 
-    # ── Table 5: Template prevalence ──
+    # ── Table 4b: By family × content category (narrative only) ──
+    print("## AI narrative-only: DPO − BASE delta by family × content category")
+    print()
+    print("| Family | Category | Δ surp | Δ drift | n (base) | n (dpo) |")
+    print("|---|---|---|---|---|---|")
+    fc_rows = []
+    for fam in sorted(ai['family'].unique()):
+        for cat in sorted(ai['_category'].unique()):
+            b = ai[(ai['family'] == fam) & (ai['_category'] == cat) & (ai['model'] == 'base')]
+            a = ai[(ai['family'] == fam) & (ai['_category'] == cat) & (ai['model'] == 'superego')]
+            if len(b) < 3 or len(a) < 3:
+                continue
+            ds = a['_surp_z'].mean() - b['_surp_z'].mean()
+            dd = a['_drift_z'].mean() - b['_drift_z'].mean()
+            fc_rows.append((ds, fam, cat, dd, len(b), len(a)))
+    for ds, fam, cat, dd, nb, na in sorted(fc_rows, reverse=True):
+        print(f"| {fam} | {cat} | {ds:+.2f} | {dd:+.2f} | {nb} | {na} |")
+    print()
+
+    # ── Table 5: Template prevalence (sorted by DPO % desc) ──
     print("## Template prevalence by family")
     print()
     print("| Family | BASE % template | DPO % template | n |")
     print("|---|---|---|---|")
+    tp_rows = []
     for fam in sorted(df[df['_is_ai']]['family'].unique()):
         sub = df[df['family'] == fam]
         b = sub[sub['model'] == 'base']
@@ -379,7 +410,9 @@ def summary(csv_path="data/corpus_metrics.csv"):
             continue
         bp = b['_is_template'].mean() * 100
         ap = a['_is_template'].mean() * 100
-        print(f"| {fam} | {bp:.1f}% | {ap:.1f}% | {len(sub)} |")
+        tp_rows.append((ap, fam, bp, len(sub)))
+    for ap, fam, bp, n in sorted(tp_rows, reverse=True):
+        print(f"| {fam} | {bp:.1f}% | {ap:.1f}% | {n} |")
     print()
 
 
