@@ -9,8 +9,8 @@
 	let loading = $state(true);
 	let error = $state('');
 
-	let xAxis = $state('mean_surprisal');
-	let yAxis = $state('token_diameter');
+	let xAxis = $state('surprisal_median_z');
+	let yAxis = $state('drift_median_z');
 	let colorBy: 'family' | 'layer' | 'category' = $state('family');
 	let selectedPoint: PassageMetrics | null = $state(null);
 	let filterFamily = $state('all');
@@ -53,16 +53,23 @@
 	}
 
 	const METRICS = [
+		{ id: 'surprisal_median_z', label: 'Surprisal (median z)' },
+		{ id: 'drift_median_z', label: 'Drift (median z)' },
+		{ id: 'directedness_median_z', label: 'Directedness (median z)' },
 		{ id: 'token_metonymy_idx', label: 'Token metonymy' },
 		{ id: 'metonymy_idx', label: 'Sentence metonymy' },
 		{ id: 'token_diameter', label: 'Token diameter' },
-		{ id: 'total_drift', label: 'Sentence diameter' },
+		{ id: 'total_drift', label: 'Sentence diameter (MiniLM)' },
+		{ id: 'drift_mpnet', label: 'Sentence diameter (mpnet)' },
+		{ id: 'drift_bge_m3', label: 'Sentence diameter (bge-m3)' },
 		{ id: 'mean_drift', label: 'Mean sentence drift' },
 		{ id: 'token_mean_drift', label: 'Mean token drift' },
 		{ id: 'mean_surprisal', label: 'Surprisal (GPT-2)' },
 		{ id: 'surprisal_llama', label: 'Surprisal (Llama)' },
 		{ id: 'surprisal_mistral', label: 'Surprisal (Mistral)' },
-		{ id: 'directedness', label: 'Sentence directedness' },
+		{ id: 'directedness', label: 'Directedness (MiniLM)' },
+		{ id: 'directedness_mpnet', label: 'Directedness (mpnet)' },
+		{ id: 'directedness_bge_m3', label: 'Directedness (bge-m3)' },
 		{ id: 'token_directedness', label: 'Token directedness' },
 		{ id: 'n_sentences', label: 'N sentences' },
 		{ id: 'n_tokens', label: 'N tokens' },
@@ -132,6 +139,7 @@
 
 	function getVal(d: PassageMetrics, key: string): number {
 		const raw = getRaw(d, key);
+		if (key.endsWith('_z')) return raw;
 		const s = zStats[key];
 		return s ? (raw - s.mean) / s.std : raw;
 	}
@@ -155,7 +163,8 @@
 	});
 
 	function labelFor(id: string): string {
-		return (METRICS.find(m => m.id === id)?.label ?? id) + ' (z)';
+		const label = METRICS.find(m => m.id === id)?.label ?? id;
+		return id.endsWith('_z') ? label : label + ' (z)';
 	}
 
 	async function fetchTokens(point: PassageMetrics) {
