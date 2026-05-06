@@ -332,9 +332,9 @@ Results in `data/transgressive_mass.csv`. Figure in `figures/perplexity_vs_displ
 
 ## Research roadmap
 
-### Priority 3: Full generation run (n=30)
+### In progress: Full generation run (n=100, cloud)
 
-Increase generation count for stable variance ratios and statistical robustness. ~2.2 hours for all 4 families on tier-1 prompts.
+Running on vast.ai A100. 5/10 families complete (olmo, olmo-tiny, smol, qwen-tiny, llama), amber in progress, qwen/tulu/zephyr/pythia pending. ~14 hours remaining.
 
 ### Done: Logit lens analysis
 
@@ -371,13 +371,17 @@ Three structurally distinct cases emerge:
 
 Neutral delta (+0.044) rules out the noise interpretation — alignment produces background syntagmatic damage even on safe content. Results in `data/taxonomy_olmo.csv` (`syntagmatic_js_aligned` column). CLI: `malign taxonomy --baseline --family olmo`.
 
-### Done: Generation passage metrics (drift, surprisal, metonymy)
+### Done: Generation passage metrics (8 families, 20k passages, 3 refs × 3 embedders)
 
-`malign topic-drift` computes per-passage metrics from cached generations using GPT-2 as neutral reference: sentence diameter (max pairwise sentence distance), GPT-2 surprisal, directedness (diameter/path_length), genre classification. 10,463 passages across 7 families. Alignment universally compresses diameter; surprisal splits families into two camps — OLMo increases (+0.26, genre collapse), Qwen/Zephyr decrease (smoothing). Split survives template filtering and structural/content token decomposition. Bootstrap CIs confirm. Interactive UI: Passages tab with scatter plot, token-level surprisal coloring.
+`malign topic-drift` and `scripts/corpus_metrics.py` compute per-passage metrics: sentence diameter, surprisal, directedness. Validated under 3 reference models (GPT-2, Llama 3.1, Mistral 7B; r=0.71–0.97) and 3 embedders (MiniLM, mpnet, bge-m3; r=0.73–0.90). Alignment universally smooths (every family negative Δsurp, p<0.001 except SmolLM2). Category has no effect on within-passage surprisal (Kruskal-Wallis p=0.99). SFT share varies: OLMo 120%, Tulu 31%.
 
-### Done: Dream report comparison
+### Done: Cross-generation MMD (8 families, 20k passages, 3 embedders)
 
-500 dream reports run through the same pipeline. Dreams are +1.19σ on surprisal, +0.65σ on drift, −1.05σ on directedness relative to model generations. Dreams occupy the same drift×surprisal quadrant as OLMo genre collapse but separate on directedness (circular wandering vs directed). Directedness distinguishes primary process from genre collapse. Metonymy index distinguishes desire-structured language (aligned LLM chain-slide) from dream-work displacement (surprising circular wandering).
+`scripts/cross_generation_mmd.py` measures distributional distance (MMD²) between BASE and ALIGNED completion clouds for the same prompt. BASE split-half null. Unlike within-passage surprisal (p=0.99), MMD shows significant category effect (H=28.6, p=0.0004): sexual_explicit (0.042) > neutral (0.037) > profanity (0.017). The superego applies uniform pressure on *how* text sounds while selectively redirecting *what* gets said.
+
+### Done: Corpus comparison (dreams, waking, fiction, abstracts)
+
+Five text types through same pipeline, 75-word length normalization. Fiction (+1.62σ) > Dreams (+1.08σ) > Abstracts (+0.53σ) > Waking (+0.04σ) > AI (0). Dream-specific effect +1.04σ above register baseline (p=1.1e-58). All CIs non-overlapping.
 
 ### Done: Cross-family Jakobsonian analysis
 

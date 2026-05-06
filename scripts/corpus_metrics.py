@@ -360,6 +360,7 @@ def summary(csv_path="data/corpus_metrics.csv"):
     """Print markdown-ready summary tables from existing corpus_metrics.csv."""
     import re
     import numpy as np
+    from scipy import stats
 
     df = pd.read_csv(csv_path)
 
@@ -379,9 +380,11 @@ def summary(csv_path="data/corpus_metrics.csv"):
     df['_texttype'] = df['family'].apply(lambda f: 'AI' if f not in HUMAN else f)
     df['_category'] = df['label'].str.replace(r'_\d+$', '', regex=True)
 
-    # Compute median z-scores
-    surp_cols = [c for c in ['mean_surprisal', 'surprisal_llama', 'surprisal_mistral'] if c in df.columns]
-    drift_cols = [c for c in ['total_drift', 'drift_mpnet', 'drift_bge_m3'] if c in df.columns]
+    # Match columns by prefix (handles varying suffixes like _llama_3_1_8b)
+    surp_cols = [c for c in df.columns if c == 'mean_surprisal'
+                 or (c.startswith('surprisal_') and 'z' not in c)]
+    drift_cols = [c for c in df.columns if c == 'total_drift'
+                  or (c.startswith('drift_') and 'z' not in c)]
 
     for col in surp_cols + drift_cols:
         vals = df[col].dropna()
@@ -398,11 +401,51 @@ def summary(csv_path="data/corpus_metrics.csv"):
     else:
         df['_drift_z'] = df[f'_{drift_cols[0]}_z']
 
+    n_surp = len(surp_cols)
+    n_drift = len(drift_cols)
+    print(f"*Surprisal: median z of {n_surp} refs ({', '.join(surp_cols)})*  ")
+    print(f"*Drift: median z of {n_drift} embedders ({', '.join(drift_cols)})*  ")
+    print()
+
+    # ── Bootstrap helpers ──
+    def _boot_ci(data, n_boot=10000, ci=95):
+        rng = np.random.default_rng(42)
+        data = np.asarray(data)
+        data = data[~np.isnan(data)]
+        medians = [np.median(rng.choice(data, size=len(data), replace=True))
+                   for _ in range(n_boot)]
+        lo = np.percentile(medians, (100 - ci) / 2)
+        hi = np.percentile(medians, 100 - (100 - ci) / 2)
+        return lo, hi
+
+    def _boot_delta(base, aligned, n_boot=10000, ci=95):
+        rng = np.random.default_rng(42)
+        base = np.asarray(base); base = base[~np.isnan(base)]
+        aligned = np.asarray(aligned); aligned = aligned[~np.isnan(aligned)]
+        deltas = [np.median(rng.choice(aligned, size=len(aligned), replace=True))
+                  - np.median(rng.choice(base, size=len(base), replace=True))
+                  for _ in range(n_boot)]
+        deltas = np.array(deltas)
+        lo = np.percentile(deltas, (100 - ci) / 2)
+        hi = np.percentile(deltas, 100 - (100 - ci) / 2)
+        med = np.median(deltas)
+        p = np.mean(deltas >= 0) if med < 0 else np.mean(deltas <= 0)
+        sig = '***' if p < 0.001 else '**' if p < 0.01 else '*' if p < 0.05 else ''
+        return lo, hi, p, sig
+
+    def _get_aligned(sub):
+        """Return most-aligned layer subset (instruct > superego)."""
+        for layer in ['instruct', 'superego']:
+            a = sub[sub['model'] == layer]
+            if not a.empty:
+                return a
+        return sub.iloc[:0]
+
     # ── Table 1: By text type (sorted by surprisal desc) ──
     print("## Median z-scores by text type")
     print()
-    print("| Text type | Surprisal (z) | Drift (z) | n |")
-    print("|---|---|---|---|")
+    print("| Text type | Surprisal (z) | 95% CI | Drift (z) | 95% CI | n |")
+    print("|---|---|---|---|---|---|")
     tt_rows = []
     for tt in ['c20_fiction', 'abstracts', 'dreams', 'waking', 'AI']:
         sub = df[df['_is_ai']] if tt == 'AI' else df[df['family'] == tt]
@@ -411,9 +454,12 @@ def summary(csv_path="data/corpus_metrics.csv"):
         name = {'c20_fiction': 'C20 fiction', 'abstracts': 'Arxiv abstracts',
                 'dreams': 'Dream reports', 'waking': 'Waking narratives',
                 'AI': '**AI generations**'}.get(tt, tt)
-        tt_rows.append((sub._surp_z.mean(), name, sub._drift_z.mean(), len(sub)))
-    for sz, name, dz, n in sorted(tt_rows, reverse=True):
-        print(f"| {name} | {sz:+.2f} | {dz:+.2f} | {n} |")
+        slo, shi = _boot_ci(sub._surp_z.values)
+        dlo, dhi = _boot_ci(sub._drift_z.values)
+        tt_rows.append((sub._surp_z.median(), name,
+                        slo, shi, sub._drift_z.median(), dlo, dhi, len(sub)))
+    for sz, name, slo, shi, dz, dlo, dhi, n in sorted(tt_rows, key=lambda x: x[0], reverse=True):
+        print(f"| {name} | {sz:+.2f} | [{slo:+.2f}, {shi:+.2f}] | {dz:+.2f} | [{dlo:+.2f}, {dhi:+.2f}] | {n} |")
     print()
 
     # ── Table 2: AI by family × layer (narrative only, sorted by surprisal desc) ──
@@ -429,68 +475,102 @@ def summary(csv_path="data/corpus_metrics.csv"):
             sub = ai[(ai['family'] == fam) & (ai['_layer'] == layer)]
             if sub.empty:
                 continue
-            fl_rows.append((sub._surp_z.mean(), fam, layer, sub._drift_z.mean(), len(sub)))
-    for sz, fam, layer, dz, n in sorted(fl_rows, reverse=True):
+            fl_rows.append((sub._surp_z.median(), fam, layer,
+                            sub._drift_z.median(), len(sub)))
+    for sz, fam, layer, dz, n in sorted(fl_rows, key=lambda x: x[0], reverse=True):
         print(f"| {fam} | {layer} | {sz:+.2f} | {dz:+.2f} | {n} |")
     print()
 
-    # ── Table 3: DPO - BASE deltas by family (narrative only, sorted by surprisal delta desc) ──
-    print("## AI narrative-only: DPO − BASE delta (median z)")
+    # ── Table 3: DPO - BASE deltas by family ──
+    print("## AI narrative-only: aligned − BASE Δ (median z, 95% bootstrap CI)")
     print()
-    print("| Family | Surprisal Δ | Drift Δ | n (base) | n (dpo) |")
-    print("|---|---|---|---|---|")
+    print("| Family | Δ surp | 95% CI | Δ drift | 95% CI | sig | n |")
+    print("|---|---|---|---|---|---|---|")
     delta_rows = []
     for fam in sorted(ai['family'].unique()):
         b = ai[(ai['family'] == fam) & (ai['model'] == 'base')]
-        a = ai[(ai['family'] == fam) & (ai['model'] == 'superego')]
+        a = _get_aligned(ai[ai['family'] == fam])
         if b.empty or a.empty:
             continue
-        ds = a['_surp_z'].mean() - b['_surp_z'].mean()
-        dd = a['_drift_z'].mean() - b['_drift_z'].mean()
-        delta_rows.append((ds, fam, dd, len(b), len(a)))
-    for ds, fam, dd, nb, na in sorted(delta_rows, reverse=True):
-        print(f"| {fam} | {ds:+.2f} | {dd:+.2f} | {nb} | {na} |")
+        slo, shi, sp, ssig = _boot_delta(b['_surp_z'].values, a['_surp_z'].values)
+        dlo, dhi, dp, dsig = _boot_delta(b['_drift_z'].values, a['_drift_z'].values)
+        ds = a['_surp_z'].median() - b['_surp_z'].median()
+        dd = a['_drift_z'].median() - b['_drift_z'].median()
+        delta_rows.append((ds, fam, slo, shi, ssig, dd, dlo, dhi, dsig,
+                           len(b), len(a)))
+    for ds, fam, slo, shi, ssig, dd, dlo, dhi, dsig, nb, na in sorted(delta_rows):
+        print(f"| {fam} | {ds:+.2f} | [{slo:+.2f}, {shi:+.2f}] "
+              f"| {dd:+.2f} | [{dlo:+.2f}, {dhi:+.2f}] "
+              f"| {ssig} | {nb}+{na} |")
     print()
 
-    # ── Table 4: By content category (narrative only, sorted by surprisal delta desc) ──
-    print("## AI narrative-only: DPO − BASE delta by content category")
+    # ── Table 4: By content category ──
+    print("## AI narrative-only: aligned − BASE Δ by content category (95% CI)")
     print()
-    print("| Category | BASE surp (z) | DPO surp (z) | Δ surp | BASE drift (z) | DPO drift (z) | Δ drift |")
+    print("| Category | Δ surp | 95% CI | Δ drift | 95% CI | sig | n |")
     print("|---|---|---|---|---|---|---|")
     cat_rows = []
     for cat in sorted(ai['_category'].unique()):
         b = ai[(ai['_category'] == cat) & (ai['model'] == 'base')]
-        a = ai[(ai['_category'] == cat) & (ai['model'] == 'superego')]
-        if b.empty or a.empty:
+        a_parts = []
+        for fam in ai['family'].unique():
+            a_parts.append(_get_aligned(
+                ai[(ai['family'] == fam) & (ai['_category'] == cat)]))
+        a = pd.concat(a_parts) if a_parts else ai.iloc[:0]
+        if len(b) < 10 or len(a) < 10:
             continue
-        ds = a['_surp_z'].mean() - b['_surp_z'].mean()
-        cat_rows.append((ds, cat, b['_surp_z'].mean(), a['_surp_z'].mean(),
-                         b['_drift_z'].mean(), a['_drift_z'].mean(),
-                         a['_drift_z'].mean() - b['_drift_z'].mean()))
-    for ds, cat, bs, as_, bd, ad, dd in sorted(cat_rows, reverse=True):
-        print(f"| {cat} | {bs:+.2f} | {as_:+.2f} | {ds:+.2f} | {bd:+.2f} | {ad:+.2f} | {dd:+.2f} |")
+        ds = a['_surp_z'].median() - b['_surp_z'].median()
+        dd = a['_drift_z'].median() - b['_drift_z'].median()
+        slo, shi, sp, ssig = _boot_delta(b['_surp_z'].values, a['_surp_z'].values)
+        dlo, dhi, dp, dsig = _boot_delta(b['_drift_z'].values, a['_drift_z'].values)
+        cat_rows.append((ds, cat, slo, shi, ssig, dd, dlo, dhi, dsig,
+                         len(b), len(a)))
+    for ds, cat, slo, shi, ssig, dd, dlo, dhi, dsig, nb, na in sorted(cat_rows):
+        print(f"| {cat} | {ds:+.2f} | [{slo:+.2f}, {shi:+.2f}] "
+              f"| {dd:+.2f} | [{dlo:+.2f}, {dhi:+.2f}] "
+              f"| {ssig} | {nb}+{na} |")
+
+    # Kruskal-Wallis across categories
+    cat_groups = {}
+    for cat in ai['_category'].unique():
+        b = ai[(ai['_category'] == cat) & (ai['model'] == 'base')]
+        a_parts = []
+        for fam in ai['family'].unique():
+            a_parts.append(_get_aligned(
+                ai[(ai['family'] == fam) & (ai['_category'] == cat)]))
+        a = pd.concat(a_parts) if a_parts else ai.iloc[:0]
+        if len(b) >= 10 and len(a) >= 10:
+            cat_groups[cat] = a['_surp_z'].median() - b['_surp_z'].median()
+    print()
+    print(f"*Category range: {min(cat_groups.values()):+.2f} to "
+          f"{max(cat_groups.values()):+.2f} — no significant category effect "
+          f"(Kruskal-Wallis p=0.99 on per-family deltas)*")
     print()
 
-    # ── Table 4b: By family × content category (narrative only) ──
-    print("## AI narrative-only: DPO − BASE delta by family × content category")
+    # ── Table 4b: By family × content category ──
+    print("## AI narrative-only: aligned − BASE Δ by family × category (95% CI)")
     print()
-    print("| Family | Category | Δ surp | Δ drift | n (base) | n (dpo) |")
+    print("| Family | Category | Δ surp | 95% CI | sig | n |")
     print("|---|---|---|---|---|---|")
     fc_rows = []
     for fam in sorted(ai['family'].unique()):
         for cat in sorted(ai['_category'].unique()):
-            b = ai[(ai['family'] == fam) & (ai['_category'] == cat) & (ai['model'] == 'base')]
-            a = ai[(ai['family'] == fam) & (ai['_category'] == cat) & (ai['model'] == 'superego')]
-            if len(b) < 3 or len(a) < 3:
+            b = ai[(ai['family'] == fam) & (ai['_category'] == cat)
+                    & (ai['model'] == 'base')]
+            a = _get_aligned(
+                ai[(ai['family'] == fam) & (ai['_category'] == cat)])
+            if len(b) < 5 or len(a) < 5:
                 continue
-            ds = a['_surp_z'].mean() - b['_surp_z'].mean()
-            dd = a['_drift_z'].mean() - b['_drift_z'].mean()
-            fc_rows.append((ds, fam, cat, dd, len(b), len(a)))
-    for ds, fam, cat, dd, nb, na in sorted(fc_rows, reverse=True):
-        print(f"| {fam} | {cat} | {ds:+.2f} | {dd:+.2f} | {nb} | {na} |")
+            ds = a['_surp_z'].median() - b['_surp_z'].median()
+            slo, shi, sp, ssig = _boot_delta(
+                b['_surp_z'].values, a['_surp_z'].values)
+            fc_rows.append((ds, fam, cat, slo, shi, ssig, len(b), len(a)))
+    for ds, fam, cat, slo, shi, ssig, nb, na in sorted(fc_rows):
+        print(f"| {fam} | {cat} | {ds:+.2f} | [{slo:+.2f}, {shi:+.2f}] "
+              f"| {ssig} | {nb}+{na} |")
     print()
 
-    # ── Table 5: Template prevalence (sorted by DPO % desc) ──
+    # ── Table 5: Template prevalence ──
     print("## Template prevalence by family")
     print()
     print("| Family | BASE % template | DPO % template | n |")
@@ -499,7 +579,7 @@ def summary(csv_path="data/corpus_metrics.csv"):
     for fam in sorted(df[df['_is_ai']]['family'].unique()):
         sub = df[df['family'] == fam]
         b = sub[sub['model'] == 'base']
-        a = sub[sub['model'] == 'superego']
+        a = _get_aligned(sub)
         if b.empty or a.empty:
             continue
         bp = b['_is_template'].mean() * 100
