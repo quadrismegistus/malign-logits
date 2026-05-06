@@ -218,10 +218,20 @@
 
 	function surprisalColor(s: number, min: number, max: number): string {
 		const t = Math.min(1, Math.max(0, (s - min) / (max - min || 1)));
-		const r = Math.round(30 + t * 200);
-		const g = Math.round(30 + (1 - t) * 60);
-		const b = Math.round(80 + (1 - t) * 140);
-		return `rgb(${r},${g},${b})`;
+		// Blue (low surprisal) → white (mid) → red (high surprisal)
+		if (t < 0.5) {
+			const u = t * 2;
+			const r = Math.round(100 + u * 155);
+			const g = Math.round(140 + u * 115);
+			const b = Math.round(255);
+			return `rgb(${r},${g},${b})`;
+		} else {
+			const u = (t - 0.5) * 2;
+			const r = Math.round(255);
+			const g = Math.round(255 - u * 180);
+			const b = Math.round(255 - u * 180);
+			return `rgb(${r},${g},${b})`;
+		}
 	}
 
 	async function analyzeCustom() {
@@ -507,7 +517,7 @@
 								{#each tokenSurprisals as [tok, surp]}
 									<span
 										class="token"
-										style="background: {surprisalColor(surp, minS, maxS)}"
+										style="color: {surprisalColor(surp, minS, maxS)}"
 										title="{tok.trim()}: {surp.toFixed(2)} bits"
 									>{tok}</span>
 								{/each}
