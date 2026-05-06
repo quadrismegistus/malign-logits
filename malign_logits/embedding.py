@@ -921,8 +921,10 @@ def passage_surprisal_batched(texts, prompt_prefixes, model=None, tokenizer=None
 
     device = next(model.parameters()).device
     results = [None] * len(texts)
+    n_batches = (len(texts) + batch_size - 1) // batch_size
 
-    for batch_start in range(0, len(texts), batch_size):
+    for batch_start in tqdm(range(0, len(texts), batch_size),
+                            total=n_batches, desc="Surprisal (batched)"):
         batch_texts = texts[batch_start:batch_start + batch_size]
         batch_prefixes = prompt_prefixes[batch_start:batch_start + batch_size]
 
