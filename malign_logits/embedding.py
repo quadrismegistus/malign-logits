@@ -679,7 +679,9 @@ def load_generations_from_stash():
         models = k.get("models", ())
         if not models:
             continue
-        family = models_to_family.get(models, models[0].split("/")[-1])
+        family = models_to_family.get(models)
+        if family is None:
+            continue
         prompt = k.get("prompt", "")
         label = label_lookup.get(prompt, prompt[:30])
 
