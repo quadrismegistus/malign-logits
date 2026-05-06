@@ -136,15 +136,20 @@ def cmd_produce_all(args):
 
 def cmd_vllm_generate(args):
     """Generate completions using vLLM (batched, GPU-optimized)."""
-    from scripts.vllm_generate import generate_family, MODEL_FAMILIES
+    import importlib.util, os
+    spec = importlib.util.spec_from_file_location(
+        "vllm_generate",
+        os.path.join(os.path.dirname(__file__), "..", "scripts", "vllm_generate.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
     families = [f.strip() for f in args.families.split(",")]
     for fam in families:
-        if fam not in MODEL_FAMILIES:
+        if fam not in mod.MODEL_FAMILIES:
             print(f"Unknown family: {fam}")
-            print(f"Available: {', '.join(MODEL_FAMILIES.keys())}")
+            print(f"Available: {', '.join(mod.MODEL_FAMILIES.keys())}")
             return
-        generate_family(fam, n=args.n, temperature=args.temperature,
-                        max_tokens=args.max_tokens, dry_run=args.dry_run)
+        mod.generate_family(fam, n=args.n, temperature=args.temperature,
+                            max_tokens=args.max_tokens, dry_run=args.dry_run)
 
 
 def cmd_ablation(args):
