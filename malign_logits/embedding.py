@@ -827,7 +827,9 @@ def _load_surprisal_model(model_name="gpt2"):
         _surprisal_tokenizer = AutoTokenizer.from_pretrained(model_name)
         _surprisal_model = AutoModelForCausalLM.from_pretrained(model_name)
         _surprisal_model.eval()
-        if torch.backends.mps.is_available():
+        if torch.cuda.is_available():
+            _surprisal_model = _surprisal_model.to("cuda")
+        elif torch.backends.mps.is_available():
             _surprisal_model = _surprisal_model.to("mps")
     return _surprisal_model, _surprisal_tokenizer
 
