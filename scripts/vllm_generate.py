@@ -106,7 +106,6 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
         print(f"\n  Loading {layer_name} ({model_id})...")
         t0 = time.time()
 
-        hf_token = os.environ.get("HF_TOKEN") or None
         llm = LLM(
             model=model_id,
             trust_remote_code=True,
@@ -114,7 +113,6 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
             max_model_len=512,
             gpu_memory_utilization=0.85,
             download_dir=os.environ.get("HF_HOME"),
-            token=hf_token,
         )
 
         load_time = time.time() - t0
