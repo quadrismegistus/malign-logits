@@ -260,7 +260,8 @@ def token_level_report(base_model, tokenizer, prompt, layer_idx, direction, alph
 # Part A: trajectory geometry
 # ---------------------------------------------------------------------------
 
-def run_trajectory_geometry(psyche, family, layer_idx, out_dir, n_passages=None):
+def run_trajectory_geometry(psyche, family, layer_idx, out_dir, n_passages=None,
+                            prompts_set="tier1"):
     print(f"\n{'=' * 60}")
     print(f"  Part A: trajectory geometry (family={family}, layer={layer_idx})")
     print(f"{'=' * 60}")
@@ -276,10 +277,14 @@ def run_trajectory_geometry(psyche, family, layer_idx, out_dir, n_passages=None)
     ]
     model_layers = [(n, l) for n, l in model_layers if l is not None]
 
-    subset = {k: TIER1_PROMPTS[k] for k in SUBSET_KEYS}
+    from .experiments import DEFAULT_PROMPTS
+    if prompts_set == "all":
+        subset = dict(DEFAULT_PROMPTS)
+    else:
+        subset = {k: TIER1_PROMPTS[k] for k in SUBSET_KEYS}
 
     # Load pre-generated passages from stash
-    stash_passages = load_stash_passages(family, labels=SUBSET_KEYS,
+    stash_passages = load_stash_passages(family, labels=list(subset.keys()),
                                           n_per_prompt=n_passages)
     has_stash = bool(stash_passages)
     if has_stash:
@@ -430,7 +435,9 @@ def run_trajectory_geometry(psyche, family, layer_idx, out_dir, n_passages=None)
 # Part B: intervention experiments
 # ---------------------------------------------------------------------------
 
-def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30, lr=0.05):
+def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
+                     lr=0.05, prompts_set="tier1"):
+    from .experiments import DEFAULT_PROMPTS
     print(f"\n{'=' * 60}")
     print(f"  Part B: fold-vs-wall intervention ({family})")
     print(f"  Intervention layers: {intervention_layers}")
@@ -440,8 +447,11 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30, 
     dpo_model = psyche.superego.model
     tokenizer = psyche.primary_process.tokenizer
 
-    subset = {k: TIER1_PROMPTS[k] for k in SUBSET_KEYS}
-    target_prompt = subset["violence_liminal_3"]
+    if prompts_set == "all":
+        subset = dict(DEFAULT_PROMPTS)
+    else:
+        subset = {k: TIER1_PROMPTS[k] for k in SUBSET_KEYS}
+    target_prompt = subset.get("violence_liminal_3", list(subset.values())[0])
 
     # ------------------------------------------------------------------
     # v2: per-prompt self-direction (extract from P, test on P)
@@ -618,9 +628,14 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30, 
     # ------------------------------------------------------------------
     print(f"\n--- v2.6: learned steering vector ---")
 
-    train_keys = [k for k in TIER1_PROMPTS if k not in SUBSET_KEYS]
-    train_prompts = [TIER1_PROMPTS[k] for k in train_keys]
-    print(f"  Train: {len(train_keys)} prompts, Eval: {len(SUBSET_KEYS)} prompts (held out)")
+    # Split: first half for eval (v2 self-direction already tested these),
+    # second half for training the learned vector
+    all_keys = list(subset.keys())
+    split = len(all_keys) // 2
+    eval_keys = all_keys[:split]
+    train_keys = all_keys[split:]
+    train_prompts = [subset[k] for k in train_keys]
+    print(f"  Train: {len(train_keys)} prompts, Eval: {len(eval_keys)} prompts (held out)")
 
     for p in base_model.parameters():
         p.requires_grad_(False)
