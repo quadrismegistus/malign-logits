@@ -88,7 +88,7 @@ def rsync_from(state, remote_path, local_path):
     host, port = state['ssh_host'], state['ssh_port']
     os.makedirs(local_path, exist_ok=True)
     subprocess.run([
-        'rsync', '-avz', '--progress',
+        'rsync', '-avz', '--update', '--progress',
         '-e', f'ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -p {port}',
         f'root@{host}:{remote_path}/',
         str(local_path) + '/',

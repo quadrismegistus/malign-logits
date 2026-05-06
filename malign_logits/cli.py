@@ -281,7 +281,8 @@ def cmd_trajectory(args):
 
     from .trajectory import run_trajectory_geometry, run_intervention
 
-    run_trajectory_geometry(psyche, key, layer, out_dir="data")
+    run_trajectory_geometry(psyche, key, layer, out_dir="data",
+                            n_passages=args.n_passages)
 
     if not args.skip_intervention:
         if psyche.superego is None:
@@ -451,6 +452,8 @@ def main():
                     help="Training epochs for v2.6 steering vector (default: 30)")
     tj.add_argument("--lr", type=float, default=0.05,
                     help="Learning rate for v2.6 steering vector (default: 0.05)")
+    tj.add_argument("--n-passages", type=int, default=None,
+                    help="Max passages per prompt from stash (default: all)")
     tj.set_defaults(func=cmd_trajectory)
 
     # produce-all

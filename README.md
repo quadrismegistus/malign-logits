@@ -23,10 +23,11 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
   - [10. SFT data ablation (Tulu 3)](#10-sft-data-ablation-tulu-3-5-variants-47-prompts)
   - [11. Contradiction tolerance (OLMo 3 7B)](#11-contradiction-tolerance-olmo-3-7b-5-prompt-pairs--nnsight-intervention)
   - [12. Trajectory geometry and fold-vs-wall (OLMo 2 1B, preliminary)](#12-trajectory-geometry-and-the-fold-vs-wall-question-olmo-2-1b-preliminary)
-  - [13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (OLMo 2 1B)](#13-jakobsonian-axes-paradigmatic-vs-syntagmatic-displacement-olmo-2-1b-25k-pairs)
+  - [13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (6 families, 126k pairs)](#13-jakobsonian-axes-paradigmatic-vs-syntagmatic-displacement-6-families-126k-pairs)
   - [14. Syntagmatic baseline: alignment-produced vs corpus-level damage (OLMo 3 7B)](#14-syntagmatic-baseline-alignment-produced-vs-corpus-level-damage-olmo-3-7b-23k-pairs)
-  - [15. Generation-level passage metrics: drift, surprisal, and the metonymy-of-desire (7 families)](#15-generation-level-passage-metrics-drift-surprisal-and-the-metonymy-of-desire-7-families-10k-passages)
-  - [16. Dream reports as primary-process baseline (500 dream narratives)](#16-dream-reports-as-primary-process-baseline-500-dream-narratives)
+  - [15. Generation-level passage metrics (8 families, 20k passages, 3 refs × 3 embedders)](#15-generation-level-passage-metrics-8-families-20k-passages-3-reference-models--3-embedders)
+  - [16. Corpus comparison: dreams, waking narratives, fiction, abstracts](#16-corpus-comparison-dreams-waking-narratives-fiction-abstracts-length-normalized-3-reference-models--3-embedders)
+  - [17. Cross-generation semantic divergence (8 families, 3 embedders)](#17-cross-generation-semantic-divergence-alignment-steers-content-differentially-8-families-20k-passages-3-embedders)
 - [Installation](#installation)
 - [Quick start](#quick-start)
 - [Usage](#usage)
@@ -472,70 +473,101 @@ Finding 13 showed that paradigmatic and syntagmatic axes trade off within aligne
 Results in `data/taxonomy_olmo.csv` (column `syntagmatic_js_aligned`). CLI: `malign taxonomy --baseline --family olmo`.
 
 
-### 15. Generation-level passage metrics: drift, surprisal, and the metonymy-of-desire (8 families, 12k passages, 3 reference models)
+### 15. Generation-level passage metrics (8 families, 20k passages, 3 reference models × 3 embedders)
 
-Generates many completions per prompt per model layer (n=30), then measures three properties of each passage:
-- **Sentence diameter** (total_drift): max pairwise cosine distance between sentence embeddings. How far apart are the two most semantically distant moments in the text.
-- **Surprisal**: mean per-token negative log-probability under a reference model. How unexpected the text is to a generic language model. Validated under three independent references: GPT-2 (124M), Llama 3.1 8B, and Mistral 7B (r=0.70 cross-reference correlation).
+Generates many completions per prompt per model layer, then measures within-passage properties:
+- **Sentence diameter** (total_drift): max pairwise cosine distance between sentence embeddings. Validated under three independent embedders: MiniLM (384d), mpnet (768d), bge-m3 (1024d) (r=0.73–0.90 cross-embedder correlation).
+- **Surprisal**: mean per-token negative log-probability under a reference model. Validated under three independent references: GPT-2 (124M), Llama 3.1 8B, and Mistral 7B (r=0.71 GPT-2↔Llama, r=0.97 Llama↔Mistral). All metrics reported as median z-score across the three references.
 - **Directedness**: diameter / path_length. Does the text travel in one direction (≈1) or wander in circles (≈0).
 
-11,846 passages across 8 families (OLMo, OLMo-tiny, Qwen, Zephyr, Tulu, SmolLM2, Amber, + Pythia registered). Genre classifier flags ~15% as template format (multiple-choice, QA, fill-in-the-blank, system prompt leakage). All findings validated with 1000-resample bootstrap CIs.
+19,637 passages across 8 families, all truncated to minimum sentences exceeding 75 words for length normalization. All findings validated with 10,000-resample bootstrap CIs.
 
-**Alignment universally compresses sentence diameter.** Every family's DPO text covers less semantic territory than its base text. The effect is consistent but small (Δ −0.01 to −0.08).
+**Alignment universally smooths (every family, 95% CI).**
 
-**Alignment universally smooths text under DPO (3-reference consensus).**
-
-| Family | GPT-2 Δ | Llama Δ | Mistral Δ | Consensus |
+| Family | Δ surprisal (z) | 95% CI | Δ drift (z) | sig |
 |---|---|---|---|---|
-| **Amber** | **−0.57** | **−0.79** | **−0.79** | All negative (strongest smoothing) |
-| **Zephyr** | **−0.28** | **−0.46** | **−0.42** | All negative |
-| **Qwen** | **−0.24** | **−0.44** | **−0.40** | All negative |
-| **Tulu** | −0.03 | **−0.19** | **−0.21** | Negative under modern refs |
-| OLMo-tiny | +0.08 | −0.12 | −0.17 | Negative under modern refs |
-| OLMo | **+0.26** | −0.03 | −0.06 | **GPT-2 only** |
-| SmolLM2 | −0.02 | −0.04 | −0.04 | Near zero |
+| Amber | **−1.71** | [−1.83, −1.52] | −0.82 | *** |
+| Qwen | −0.99 | [−1.19, −0.84] | −0.17 | *** |
+| Zephyr | −0.96 | [−1.11, −0.83] | −0.29 | *** |
+| Qwen-tiny | −0.80 | [−0.92, −0.72] | +0.23 | *** |
+| OLMo | −0.45 | [−0.52, −0.38] | +0.08 | *** |
+| Tulu | −0.41 | [−0.47, −0.32] | −0.30 | *** |
+| OLMo-tiny | −0.30 | [−0.34, −0.24] | −0.32 | *** |
+| SmolLM2 | −0.05 | [−0.11, +0.00] | −0.07 | * |
 
-Every family's DPO produces text that is *less surprising* to modern base models (Llama, Mistral) than its own base model's text. The consensus direction is universal smoothing.
+Alignment intensity varies by an order of magnitude and is a property of the training recipe, not the architecture: Tulu and Llama share the same base model but show different profiles. Zephyr has no safety data yet smooths more than OLMo (which has explicit safety data).
 
-**OLMo's apparent positive direction under GPT-2 is reference-specific.** OLMo DPO is +0.26 more surprising under GPT-2, but −0.03 (Llama) and −0.06 (Mistral) — essentially neutral or slightly negative under modern references. The GPT-2 effect reflects GPT-2's unfamiliarity with instruction-following format (QA templates, fill-in-the-blank, system prompts), which GPT-2 finds surprising but modern models do not. OLMo's genre collapse is real (visible in the template classifier: 17% of DPO output is template format vs 14% base), but it doesn't produce text that is genuinely stranger to modern language models — only to GPT-2.
+**Content category has no effect on within-passage surprisal (Kruskal-Wallis p=0.99).** All categories smooth by −0.23 to −0.51, with heavily overlapping CIs. Neutral (−0.49) smooths as much as sexual_explicit (−0.31) or violence_explicit (−0.23). Alignment is a uniform compressor — at the within-passage level, it makes all text generically smoother regardless of content.
 
-**The structural/content decomposition under GPT-2 remains informative.** OLMo's content-token surprisal increases by +0.40 under DPO matching the structural-token increase (+0.41) — both content and formatting shift equally. Template filtering confirms OLMo narrative-only DPO is still +0.28 more surprising to GPT-2 than base. These GPT-2-specific effects likely reflect the register distance between OLMo DPO's chatbot-style prose and GPT-2's 2019 web training data.
+**SFT share of smoothing varies dramatically.**
+- OLMo: SFT 120% (DPO partially reverses SFT overshooting)
+- OLMo-tiny: SFT 98%
+- Amber: SFT 75%
+- Zephyr: SFT 67%
+- Tulu: SFT 31% (DPO-dominant — same Llama base, opposite architecture from OLMo)
 
-**Zephyr profanity is untouched (validated).** Zephyr DPO reduces surprisal on sexual (−0.28), substance (−0.34), neutral (−0.32), and violence_liminal (−0.31), but profanity is unchanged (+0.01, CI crosses zero). Consistent with Zephyr having no safety data — profanity is not targeted by general helpfulness tuning.
+CLI: `malign topic-drift`. Results in `data/corpus_metrics.csv`. Summary: `python scripts/corpus_metrics.py --summary`. Interactive explorer: Passages tab in UI.
 
-**Tulu's only significant effects are on violence.** Violence_explicit (−0.15) and violence_liminal (−0.11) are the only categories where Tulu DPO's surprisal change survives bootstrap. Consistent with Tulu's DPO safety data specifically targeting violence.
+### 16. Corpus comparison: dreams, waking narratives, fiction, abstracts (length-normalized, 3 reference models × 3 embedders)
 
-**Cross-family Jakobsonian correlation holds universally.** `malign taxonomy --analyze` across 6 families with taxonomy data (126k pairs): the paradigmatic-syntagmatic trade-off (Finding 13) holds for all, r = −0.34 (OLMo-tiny) to −0.53 (Llama). The Jakobsonian dissociation is structural, not safety-training-specific.
+Five text types run through the same pipeline, all truncated to minimum sentences exceeding 75 words. Metrics reported as median z-score across 3 surprisal references and 3 sentence embedders.
 
-CLI: `malign topic-drift`, `malign taxonomy --analyze`. Results in `data/passage_metrics.csv`, `data/corpus_metrics.csv`. Interactive explorer: Passages tab in UI with token-level surprisal coloring.
+| Text type | Surprisal (z) | 95% CI | Drift (z) | 95% CI | n |
+|---|---|---|---|---|---|
+| C20 Fiction | **+1.62** | [+1.50, +1.73] | +0.34 | [+0.23, +0.44] | 447 |
+| Dream reports | **+1.08** | [+0.99, +1.20] | +0.34 | [+0.23, +0.41] | 427 |
+| Arxiv abstracts | +0.53 | [+0.41, +0.64] | −1.13 | [−1.23, −1.04] | 476 |
+| Waking narratives | +0.04 | [−0.02, +0.11] | +0.25 | [+0.21, +0.32] | 500 |
+| AI generations | −0.00 | [−0.02, +0.01] | +0.11 | [+0.09, +0.13] | 17,787 |
 
-### 16. Corpus comparison: dreams, waking narratives, fiction, abstracts (length-normalized, 3 reference models)
+**Dream-specific effect: +1.04σ above register baseline (p=1.1×10⁻⁵⁸).** Hippocorpus waking narratives control for register — same format (informal first-person retrospective narration), different content. Dreams +1.08σ vs waking +0.04σ. The gap is dream-specific, not register.
 
-Five text types run through the same pipeline, all truncated to minimum sentences exceeding 75 words for length normalization. Surprisal validated under three independent reference models: GPT-2 (124M), Llama 3.1 8B, and Mistral 7B.
+**Fiction is the most surprising text type** (+1.62σ). Literary prose (DFW, Pynchon, Bellow, Gibson) is stranger than any model output or other human text to all three reference models.
 
-**Length-normalized comparison (GPT-2 z-scores relative to model generations):**
+**Abstracts: low drift, high surprisal, high directedness.** Academic prose stays tightly on-topic with surprising technical vocabulary, progressing linearly. Pure condensation.
 
-| Corpus | Drift | Surprisal | Directedness | n |
+**Theoretical implication.** Aligned LLMs produce desire-structured language that slides along permitted chains (metonymy of desire), not dream-work-like text. Dream reports produce a distinct signature — high surprisal with moderate drift — corresponding to primary-process displacement. The metrics distinguish these empirically.
+
+Scripts: `scripts/corpus_metrics.py`, `scripts/dream_metrics.py`. Results in `data/corpus_metrics.csv`.
+
+### 17. Cross-generation semantic divergence: alignment steers content differentially (8 families, 20k passages, 3 embedders)
+
+Within-passage metrics (Finding 15) show *how* each text sounds but not *what* alignment changes. This analysis directly measures the distributional distance between BASE and ALIGNED completions of the same prompt using MMD² (maximum mean discrepancy with RBF kernel, median heuristic). For each (family, prompt), mean-pool sentence embeddings per passage, then compute MMD² between the BASE and ALIGNED clouds. BASE split-half provides the null distribution. Permutation test (500 permutations) for significance.
+
+**Alignment significantly shifts what gets generated.**
+
+| Family | MMD²(B↔A) | MMD²(B↔B) null | % sig (p<.05) | n cells |
 |---|---|---|---|---|
-| C20 Fiction | +0.23σ | **+2.80σ** | +0.22σ | 447 |
-| Arxiv abstracts | −1.42σ | **+2.75σ** | +1.13σ | 476 |
-| Dreams | +0.31σ | **+1.58σ** | −0.12σ | 427 |
-| Waking narratives | +0.33σ | +0.71σ | −0.31σ | 500 |
-| Model generations | 0 | 0 | 0 | ~8,000 |
+| Amber | 0.059 | 0.001 | 90% | 51 |
+| OLMo-tiny | 0.035 | −0.001 | 100% | 54 |
+| Tulu | 0.026 | 0.000 | 96% | 54 |
+| Zephyr | 0.023 | −0.002 | 80% | 51 |
+| Qwen-tiny | 0.023 | 0.002 | 93% | 43 |
+| Qwen | 0.019 | −0.011 | 44% | 54 |
+| OLMo | 0.012 | −0.001 | 98% | 54 |
+| SmolLM2 | 0.005 | −0.001 | 63% | 54 |
 
-**Surprisal is the metric that robustly distinguishes text types.** After length normalization, drift and directedness differences largely collapse — the earlier finding that dreams had low directedness was a length artifact. Surprisal survives and strengthens: fiction > abstracts > dreams > waking > models.
+BASE↔ALIGNED MMD² is consistently and significantly larger than the BASE↔BASE null across all families. The ordering tracks alignment intensity from the surprisal analysis.
 
-**The dream-specific effect is +0.87σ above the register baseline.** Hippocorpus recalled waking narratives (Sap et al. ACL 2020) serve as a register-matched control — same format (informal first-person retrospective narration), different content (waking vs dreaming). Dreams are +1.58σ on surprisal; waking narratives are +0.71σ. The gap of +0.87σ is dream-specific, not register. Cleaning spelling/encoding artifacts (ftfy) made negligible difference (3.508 → 3.504), confirming the signal is in content and associations, not surface noise.
+**Content category *does* affect cross-generation divergence (Kruskal-Wallis H=28.6, p=0.0004).** Unlike within-passage surprisal (p=0.99), the between-layer MMD shows a significant category effect:
 
-**Abstracts occupy the metaphoric quadrant.** Lowest drift (−1.42σ) + very high surprisal (+2.75σ) + highest directedness (+1.13σ). Academic prose stays tightly on-topic with technical vocabulary GPT-2 finds surprising, progressing in one direction without circling back. Pure condensation.
+| Category | MMD²(B↔A) | % sig |
+|---|---|---|
+| sexual_explicit | 0.042 | 90% |
+| neutral | 0.037 | 86% |
+| power | 0.028 | 83% |
+| sexual_liminal | 0.024 | 88% |
+| violence_liminal | 0.023 | 78% |
+| substance | 0.021 | 86% |
+| death | 0.021 | 94% |
+| violence_explicit | 0.020 | 62% |
+| profanity | 0.017 | 79% |
 
-**Fiction is the most surprising text type** (+2.80σ), above even abstracts. Literary prose (DFW, Pynchon, Bellow, Gibson) uses deliberately unusual word choices that GPT-2 finds stranger than any model output or any other human text type.
+Sexual explicit content shows the largest distributional shift — alignment changes *what gets said* most on sexual content. Neutral is second-highest, echoing the OLMo-neutrals-aren't-neutral finding from logit analysis (Finding 2).
 
-**Surprisal validated under Llama 3.1 8B.** The ordering fiction > dreams > waking > models holds under both GPT-2 and Llama (r=0.70 across 1,100 passages). Abstracts drop under Llama (trained on arxiv — home advantage). Cross-family alignment directions (OLMo up, Qwen/Zephyr down) confirmed under both reference models.
+**The key dissociation:** Alignment smooths all text equally (within-passage surprisal p=0.99) but steers content differentially (cross-generation MMD p=0.0004). The superego applies uniform pressure on *how* text sounds while selectively redirecting *what* gets said.
 
-**Theoretical implication.** Aligned LLMs do not produce dream-work-like text. They produce something more controlled: desire-structured language that slides along permitted chains (metonymy of desire). Dream reports produce a distinct signature — high surprisal with moderate drift — corresponding to Freud's primary-process displacement, where each associative link is itself unexpected. The metrics distinguish these two related-but-distinct operations empirically.
-
-Scripts: `scripts/corpus_metrics.py`, `scripts/dream_metrics.py`. Results in `data/corpus_metrics.csv`. Interactive explorer: Passages tab in UI.
+Script: `scripts/cross_generation_mmd.py`. Results in `data/mmd_cross_generation.csv`.
 
 
 ## Installation

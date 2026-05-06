@@ -3,6 +3,7 @@
 
 Part A: feed identical fixed text through base/SFT/DPO/RLVR, capture per-token
 hidden states at a late layer, compare trajectory geometry across alignment stages.
+Uses pre-generated passages from stash_gen_battery for error bars (n per prompt).
 
 Part B (intervention): test whether alignment is a fold (reachable by linear push
 in residual space) or a wall (structural restructuring). Three methods:
@@ -12,8 +13,10 @@ in residual space) or a wall (structural restructuring). Three methods:
 
 Usage:
     malign trajectory                          # default family, full run
+    malign trajectory --family olmo            # specific family
     malign trajectory --family olmo-tiny       # 1B, full run
     malign trajectory --skip-intervention      # geometry only
+    malign trajectory --n-passages 20          # passages per prompt (default: all)
 """
 
 import argparse
@@ -43,6 +46,28 @@ SUBSET_KEYS = [
 MAX_NEW = 100
 ALPHAS_COARSE = [-0.5, 0.0, 0.5, 1.0, 1.5, 2.0]
 ALPHAS_FINE = [-0.3, -0.1, 0.0, 0.05, 0.1, 0.2, 0.3, 0.5, 1.0]
+
+
+def load_stash_passages(family, labels=None, n_per_prompt=None):
+    """Load pre-generated passages from stash_gen_battery.
+
+    Returns dict: label -> list of passage strings (from base model).
+    """
+    from malign_logits.embedding import load_generations_from_stash
+    gen_df = load_generations_from_stash()
+    gen_df = gen_df[gen_df.family == family]
+    if labels is not None:
+        gen_df = gen_df[gen_df.label.isin(labels)]
+    # Group by label and model, return base passages
+    result = {}
+    for label in gen_df.label.unique():
+        base = gen_df[(gen_df.label == label) & (gen_df.model == 'base')]
+        passages = [str(r["psg"]).rstrip() for _, r in base.iterrows()]
+        if n_per_prompt is not None:
+            passages = passages[:n_per_prompt]
+        if passages:
+            result[label] = passages
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -77,6 +102,40 @@ def get_trajectory(model, tokenizer, token_ids, layer_idx):
     with torch.no_grad():
         out = model(ids, output_hidden_states=True)
     return out.hidden_states[layer_idx][0].float().cpu()
+
+
+def get_trajectories_batched(model, tokenizer, token_id_list, layer_idx,
+                              batch_size=16):
+    """Batched forward passes with padding. Returns list of trajectories,
+    each trimmed to its original (unpadded) length."""
+    results = []
+    pad_id = tokenizer.pad_token_id
+    if pad_id is None:
+        pad_id = tokenizer.eos_token_id or 0
+
+    for start in range(0, len(token_id_list), batch_size):
+        batch_ids = token_id_list[start:start + batch_size]
+        lengths = [len(ids) for ids in batch_ids]
+        max_len = max(lengths)
+
+        padded = torch.full((len(batch_ids), max_len), pad_id, dtype=torch.long)
+        attn_mask = torch.zeros(len(batch_ids), max_len, dtype=torch.long)
+        for i, ids in enumerate(batch_ids):
+            padded[i, :len(ids)] = ids
+            attn_mask[i, :len(ids)] = 1
+
+        padded = padded.to(model.device)
+        attn_mask = attn_mask.to(model.device)
+
+        with torch.no_grad():
+            out = model(padded, attention_mask=attn_mask,
+                        output_hidden_states=True)
+
+        hidden = out.hidden_states[layer_idx].float().cpu()
+        for i, length in enumerate(lengths):
+            results.append(hidden[i, :length, :])
+
+    return results
 
 
 def last_hidden(model, tokenizer, prompt, layer_idx):
@@ -201,7 +260,7 @@ def token_level_report(base_model, tokenizer, prompt, layer_idx, direction, alph
 # Part A: trajectory geometry
 # ---------------------------------------------------------------------------
 
-def run_trajectory_geometry(psyche, family, layer_idx, out_dir):
+def run_trajectory_geometry(psyche, family, layer_idx, out_dir, n_passages=None):
     print(f"\n{'=' * 60}")
     print(f"  Part A: trajectory geometry (family={family}, layer={layer_idx})")
     print(f"{'=' * 60}")
@@ -219,20 +278,68 @@ def run_trajectory_geometry(psyche, family, layer_idx, out_dir):
 
     subset = {k: TIER1_PROMPTS[k] for k in SUBSET_KEYS}
 
-    rows = []
+    # Load pre-generated passages from stash
+    stash_passages = load_stash_passages(family, labels=SUBSET_KEYS,
+                                          n_per_prompt=n_passages)
+    has_stash = bool(stash_passages)
+    if has_stash:
+        total = sum(len(v) for v in stash_passages.values())
+        print(f"  Loaded {total} pre-generated passages from stash"
+              f" ({len(stash_passages)} prompts)")
+    else:
+        print("  No stash passages found, falling back to n=1 generation")
+
+    # Tokenize all passages up front
+    passage_data = []  # list of (label, passage_idx, token_ids)
     for label, prompt in subset.items():
-        torch.manual_seed(0)
-        ids = tokenizer.encode(prompt, return_tensors="pt").to(base_model.device)
-        with torch.no_grad():
-            out = base_model.generate(
-                ids, max_new_tokens=MAX_NEW, do_sample=True, temperature=1.0, top_p=0.95
-            )
-        fixed = out[0].cpu()
-        for name, layer in model_layers:
-            t = get_trajectory(layer.model, tokenizer, fixed, layer_idx)
-            m = trajectory_metrics(t)
-            rows.append({"label": label, "model": name, "n_tokens": len(fixed), **m})
-        print(f"  {label}: done")
+        if has_stash and label in stash_passages:
+            passages = stash_passages[label]
+        else:
+            torch.manual_seed(0)
+            ids = tokenizer.encode(prompt, return_tensors="pt").to(base_model.device)
+            with torch.no_grad():
+                out = base_model.generate(
+                    ids, max_new_tokens=MAX_NEW, do_sample=True,
+                    temperature=1.0, top_p=0.95
+                )
+            text = tokenizer.decode(out[0], skip_special_tokens=True)
+            passages = [text[len(prompt):]]
+
+        for pi, passage in enumerate(passages):
+            full_text = prompt + passage
+            fixed = tokenizer.encode(full_text, return_tensors="pt")[0]
+            passage_data.append((label, pi, fixed))
+        n_done = len(passages) if has_stash and label in stash_passages else 1
+        print(f"  {label}: {n_done} passages tokenized")
+
+    print(f"  Total: {len(passage_data)} passages to process")
+    all_token_ids = [pd[2] for pd in passage_data]
+
+    # Determine batch size: use batching on CUDA, sequential on MPS/CPU
+    use_batching = base_model.device.type == "cuda"
+    batch_size = 16 if use_batching else 1
+
+    rows = []
+    for name, layer in model_layers:
+        t0 = time.time()
+        if use_batching and len(all_token_ids) > 1:
+            trajs = get_trajectories_batched(
+                layer.model, tokenizer, all_token_ids, layer_idx,
+                batch_size=batch_size)
+        else:
+            trajs = [get_trajectory(layer.model, tokenizer, ids, layer_idx)
+                     for ids in all_token_ids]
+
+        for (label, pi, fixed), traj in zip(passage_data, trajs):
+            m = trajectory_metrics(traj)
+            rows.append({
+                "label": label, "model": name, "passage_idx": pi,
+                "n_tokens": len(fixed), **m,
+            })
+        elapsed = time.time() - t0
+        print(f"  {name}: {len(passage_data)} passages in {elapsed:.1f}s"
+              f" ({elapsed/len(passage_data):.2f}s/psg)"
+              f"{' [batched]' if use_batching else ''}")
 
     agg = pd.DataFrame(rows)
     model_order = [n for n, _ in model_layers]
@@ -242,12 +349,40 @@ def run_trajectory_geometry(psyche, family, layer_idx, out_dir):
 
     metric_cols = ["local_drift", "gyration_cos", "path_length", "gyration_radius", "mean_norm"]
 
-    print("\n--- Overall mean ---")
+    print(f"\n--- Overall mean (n={len(agg) // len(model_layers)} passages) ---")
     print(agg.groupby("model", observed=True)[metric_cols].mean().round(4).to_string())
+
+    # Mean ± std for key metrics
+    print(f"\n--- Overall mean ± std ---")
+    for metric in ["local_drift", "gyration_cos", "mean_norm"]:
+        summary = agg.groupby("model", observed=True)[metric].agg(["mean", "std"])
+        print(f"\n  {metric}:")
+        for model_name, row in summary.iterrows():
+            print(f"    {model_name:6s}: {row['mean']:.4f} ± {row['std']:.4f}")
+
     print("\n--- Transgressive only ---")
     print(agg[agg["transgressive"]].groupby("model", observed=True)[metric_cols].mean().round(4).to_string())
     print("\n--- Neutral only ---")
     print(agg[~agg["transgressive"]].groupby("model", observed=True)[metric_cols].mean().round(4).to_string())
+
+    # Bootstrap CI on base→aligned deltas
+    print("\n--- Base→Aligned Δ (bootstrap 95% CI) ---")
+    aligned_name = model_order[-1] if len(model_order) <= 2 else "dpo"
+    if aligned_name not in model_order:
+        aligned_name = model_order[-1]
+    for metric in ["local_drift", "gyration_cos", "mean_norm"]:
+        base_vals = agg[agg.model == "base"][metric].values
+        aligned_vals = agg[agg.model == aligned_name][metric].values
+        if len(base_vals) > 0 and len(aligned_vals) > 0:
+            rng = np.random.default_rng(42)
+            deltas = []
+            for _ in range(10000):
+                b = rng.choice(base_vals, size=len(base_vals), replace=True).mean()
+                a = rng.choice(aligned_vals, size=len(aligned_vals), replace=True).mean()
+                deltas.append(a - b)
+            deltas = np.array(deltas)
+            lo, hi = np.percentile(deltas, [2.5, 97.5])
+            print(f"  {metric}: Δ={np.median(deltas):+.4f} [{lo:+.4f}, {hi:+.4f}]")
 
     csv_path = f"{out_dir}/trajectory_geometry_{family}.csv"
     agg.to_csv(csv_path, index=False)
@@ -257,22 +392,31 @@ def run_trajectory_geometry(psyche, family, layer_idx, out_dir):
     plot_metrics = ["local_drift", "gyration_cos", "gyration_radius", "mean_norm"]
     fig, axes = plt.subplots(1, len(plot_metrics), figsize=(4.5 * len(plot_metrics), 4))
     for ax, metric in zip(axes, plot_metrics):
-        for label, sub in agg.groupby("label"):
-            sub = sub.sort_values("model")
+        # Per-prompt means (aggregate across passages)
+        prompt_means = agg.groupby(["label", "model"], observed=True)[metric].mean().reset_index()
+        for label in sorted(prompt_means.label.unique()):
+            sub = prompt_means[prompt_means.label == label].sort_values("model")
             is_neutral = label.startswith("neutral")
             color = "#999999" if is_neutral else "#4e79a7"
             ls = ":" if is_neutral else "-"
             ax.plot(sub["model"].astype(str), sub[metric], ls, marker="o",
-                    alpha=0.6, color=color, label=label)
+                    alpha=0.4, color=color, markersize=4)
         for is_t, color, lbl in [(True, "black", "transgressive mean"),
                                   (False, "#bb5544", "neutral mean")]:
-            sub_mean = agg[agg["transgressive"] == is_t].groupby("model", observed=True)[metric].mean()
-            ax.plot(sub_mean.index.astype(str), sub_mean.values, "-D",
+            sub_mean = agg[agg["transgressive"] == is_t].groupby("model", observed=True)[metric]
+            means = sub_mean.mean()
+            stds = sub_mean.std()
+            ax.plot(means.index.astype(str), means.values, "-D",
                     color=color, linewidth=2.5, markersize=8, label=lbl)
+            ax.fill_between(means.index.astype(str),
+                            means.values - stds.values,
+                            means.values + stds.values,
+                            alpha=0.15, color=color)
         ax.set_title(metric)
         ax.set_xlabel("layer")
     axes[0].legend(fontsize=6, loc="best", ncol=2)
-    plt.suptitle(f"Trajectory geometry across alignment stages ({family}, layer {layer_idx})", y=1.02)
+    n_psg = len(agg) // len(model_layers)
+    plt.suptitle(f"Trajectory geometry ({family}, layer {layer_idx}, n={n_psg})", y=1.02)
     plt.tight_layout()
     fig_path = f"figures/trajectory_geometry.{family}.png"
     fig.savefig(fig_path, dpi=150, bbox_inches="tight")
@@ -587,6 +731,8 @@ def main():
                         help="Model family key (default: olmo-tiny)")
     parser.add_argument("--skip-intervention", action="store_true",
                         help="Run Part A only (trajectory geometry)")
+    parser.add_argument("--n-passages", type=int, default=None,
+                        help="Max passages per prompt from stash (default: all)")
     parser.add_argument("--n-epochs", type=int, default=30,
                         help="Training epochs for v2.6 steering vector")
     parser.add_argument("--lr", type=float, default=0.05,
@@ -601,7 +747,8 @@ def main():
     intervention_layers = [round(n_hidden * f) for f in (0.25, 0.5, 0.75, 0.875)]
     print(f"N_LAYERS={n_hidden}  LAYER={layer}  INTERVENTION_LAYERS={intervention_layers}")
 
-    run_trajectory_geometry(psyche, args.family, layer, out_dir="data")
+    run_trajectory_geometry(psyche, args.family, layer, out_dir="data",
+                            n_passages=args.n_passages)
 
     if not args.skip_intervention:
         if psyche.superego is None:
