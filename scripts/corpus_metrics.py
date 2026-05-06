@@ -275,8 +275,6 @@ def main():
 
                 for (idx, text, prompt), ps in zip(uncached, batch_results):
                     tok_surps = ps["token_surprisals"]
-                    ts_key = ("token_surprisals_v3", ref, prompt, text)
-                    stash[ts_key] = tok_surps
                     if tok_surps:
                         cached_vals[idx] = round(float(np.mean([v for _, v in tok_surps])), 4)
                     else:
