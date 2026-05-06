@@ -185,8 +185,8 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--families", required=True,
-                        help="Comma-separated family keys (e.g. qwen,tulu,zephyr,pythia)")
+    parser.add_argument("--families", default=None,
+                        help="Comma-separated family keys (default: all)")
     parser.add_argument("--n", type=int, default=100,
                         help="Generations per prompt per layer (default: 100)")
     parser.add_argument("--temperature", type=float, default=1.0)
@@ -197,12 +197,15 @@ def main():
                         help="Show what would be generated without running")
     args = parser.parse_args()
 
-    families = [f.strip() for f in args.families.split(",")]
-    for fam in families:
-        if fam not in MODEL_FAMILIES:
-            print(f"Unknown family: {fam}")
-            print(f"Available: {', '.join(MODEL_FAMILIES.keys())}")
-            sys.exit(1)
+    if args.families:
+        families = [f.strip() for f in args.families.split(",")]
+        for fam in families:
+            if fam not in MODEL_FAMILIES:
+                print(f"Unknown family: {fam}")
+                print(f"Available: {', '.join(MODEL_FAMILIES.keys())}")
+                sys.exit(1)
+    else:
+        families = list(MODEL_FAMILIES.keys())
 
     for fam in families:
         generate_family(fam, n=args.n, temperature=args.temperature,
