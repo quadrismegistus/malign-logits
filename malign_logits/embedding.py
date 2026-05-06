@@ -661,18 +661,25 @@ def load_generations_from_stash():
     stash = HashStash(root_dir=stash_path, append_mode=True,
                       engine="pairtree", compress="lz4", b64=True)
 
-    model_to_family = {}
+    models_to_family = {}
     for key, fam in MODEL_FAMILIES.items():
-        model_to_family[fam.base] = key
+        ids = tuple(m for m in [fam.base, fam.ego, fam.superego,
+                                fam.reinforced_superego] if m)
+        models_to_family[ids] = key
 
     label_lookup = {v: k for k, v in TIER1_PROMPTS.items()}
+    # Also include DEFAULT_PROMPTS for full battery
+    from .experiments import DEFAULT_PROMPTS
+    for k, v in DEFAULT_PROMPTS.items():
+        if v not in label_lookup:
+            label_lookup[v] = k
 
     rows = []
     for k in stash.keys():
         models = k.get("models", ())
         if not models:
             continue
-        family = model_to_family.get(models[0], models[0].split("/")[-1])
+        family = models_to_family.get(models, models[0].split("/")[-1])
         prompt = k.get("prompt", "")
         label = label_lookup.get(prompt, prompt[:30])
 
