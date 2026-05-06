@@ -86,15 +86,17 @@ def rsync_to(state, local_path, remote_path, exclude=None):
     subprocess.run(cmd, check=True)
 
 
-def rsync_from(state, remote_path, local_path):
+def rsync_from(state, remote_path, local_path, ignore_existing=False):
     host, port = state['ssh_host'], state['ssh_port']
     os.makedirs(local_path, exist_ok=True)
-    subprocess.run([
-        'rsync', '-avz', '--ignore-existing', '--progress',
+    cmd = [
+        'rsync', '-avz', '--progress',
         '-e', f'ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -p {port}',
-        f'root@{host}:{remote_path}/',
-        str(local_path) + '/',
-    ], check=True)
+    ]
+    if ignore_existing:
+        cmd.append('--ignore-existing')
+    cmd += [f'root@{host}:{remote_path}/', str(local_path) + '/']
+    subprocess.run(cmd, check=True)
 
 
 def _require_instance(state):
