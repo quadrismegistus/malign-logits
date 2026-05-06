@@ -215,9 +215,12 @@ def main():
 
     # Additional reference models for surprisal
     if args.add_ref:
-        from malign_logits.embedding import passage_surprisal, _load_surprisal_model, _get_gen_stash
+        from malign_logits.embedding import (passage_surprisal, passage_surprisal_batched,
+                                             _load_surprisal_model, _get_gen_stash,
+                                             token_drift_metrics_from_hidden)
         import numpy as np
         from tqdm import tqdm
+        import torch
         stash = _get_gen_stash()
 
         for ref in args.add_ref:
@@ -231,35 +234,64 @@ def main():
             _emb._surprisal_tokenizer = None
 
             ref_model, ref_tok = _load_surprisal_model(ref)
+            device_type = next(ref_model.parameters()).device.type
 
-            surp_vals = []
-            cached = computed = 0
-            for _, r in tqdm(result.iterrows(), total=len(result),
-                             desc=f"{ref_short}"):
+            # Separate cached from uncached
+            cached_vals = {}  # row_idx -> surprisal value
+            uncached = []  # (row_idx, text, prompt)
+            for idx, r in result.iterrows():
                 text = str(r["psg"]).rstrip()
                 prompt = str(r.get("prompt", "")).strip()
                 ts_key = ("token_surprisals_v3", ref, prompt, text)
                 if ts_key in stash:
                     tok_surps = stash[ts_key]
-                    cached += 1
+                    if tok_surps:
+                        cached_vals[idx] = round(float(np.mean([v for _, v in tok_surps])), 4)
+                    else:
+                        cached_vals[idx] = None
                 else:
-                    s = passage_surprisal(text, model=ref_model, tokenizer=ref_tok,
-                                          prompt_prefix=prompt)
-                    tok_surps = s["token_surprisals"]
+                    uncached.append((idx, text, prompt))
+
+            print(f"  {len(cached_vals)} cached, {len(uncached)} to compute")
+
+            if uncached:
+                batch_texts = [t for _, t, _ in uncached]
+                batch_prefixes = [p for _, _, p in uncached]
+                bs = 32 if device_type == "cuda" else 1
+
+                if bs > 1:
+                    batch_results = passage_surprisal_batched(
+                        batch_texts, batch_prefixes,
+                        model=ref_model, tokenizer=ref_tok,
+                        batch_size=bs)
+                else:
+                    batch_results = []
+                    for text, prefix in tqdm(zip(batch_texts, batch_prefixes),
+                                              total=len(batch_texts), desc=ref_short):
+                        batch_results.append(
+                            passage_surprisal(text, model=ref_model,
+                                              tokenizer=ref_tok,
+                                              prompt_prefix=prefix))
+
+                for (idx, text, prompt), ps in zip(uncached, batch_results):
+                    tok_surps = ps["token_surprisals"]
+                    ts_key = ("token_surprisals_v3", ref, prompt, text)
                     stash[ts_key] = tok_surps
-                    computed += 1
-                if tok_surps:
-                    surp_vals.append(round(float(np.mean([v for _, v in tok_surps])), 4))
-                else:
-                    surp_vals.append(None)
-            result[col_name] = surp_vals
-            print(f"  {cached} cached, {computed} computed")
+                    if tok_surps:
+                        cached_vals[idx] = round(float(np.mean([v for _, v in tok_surps])), 4)
+                    else:
+                        cached_vals[idx] = None
+
+            result[col_name] = result.index.map(cached_vals)
+            print(f"  Done: {col_name}")
 
             # Free memory
             del ref_model, ref_tok
             _emb._surprisal_model = None
             _emb._surprisal_tokenizer = None
             import gc; gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
 
     # Additional sentence embedders for drift
     if args.add_embedder:
