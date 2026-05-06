@@ -114,7 +114,7 @@ def cmd_launch(args):
     print("Searching for A100 80GB offers...", file=sys.stderr)
     raw = vastai(
         'search', 'offers',
-        f'gpu_name=A100_SXM4 num_gpus=1 gpu_ram>={MIN_GPU_RAM} reliability>0.95 disk_space>={DISK_GB} driver_version>=535',
+        f'gpu_name=A100_SXM4 num_gpus=1 gpu_ram>={MIN_GPU_RAM} reliability>0.95 disk_space>={DISK_GB} cuda_max_good>=12.4',
         '-o', 'dph+',
         '--raw',
     )
@@ -122,7 +122,7 @@ def cmd_launch(args):
     if not offers:
         raw = vastai(
             'search', 'offers',
-            f'gpu_name=A100 num_gpus=1 gpu_ram>={MIN_GPU_RAM} reliability>0.95 disk_space>={DISK_GB} driver_version>=535',
+            f'gpu_name=A100 num_gpus=1 gpu_ram>={MIN_GPU_RAM} reliability>0.95 disk_space>={DISK_GB} cuda_max_good>=12.4',
             '-o', 'dph+',
             '--raw',
         )
