@@ -315,7 +315,10 @@ def cmd_run(args):
     print(f"Starting '{session_name}' in tmux...", file=sys.stderr)
     print(f"  Command: {batch_cmd[:120]}...", file=sys.stderr)
     ssh_run(state, f"tmux kill-session -t {session_name} 2>/dev/null || true")
-    ssh_run(state, f"tmux new-session -d -s {session_name} '{batch_cmd}'")
+    # Write command to a script to avoid shell escaping issues in tmux
+    ssh_run(state, f"cat > /workspace/run_{session_name}.sh << 'RUNEOF'\n{batch_cmd}\nRUNEOF")
+    ssh_run(state, f"chmod +x /workspace/run_{session_name}.sh")
+    ssh_run(state, f"tmux new-session -d -s {session_name} 'bash /workspace/run_{session_name}.sh'")
 
     state['running'] = session_name
     state['log_file'] = log_file
