@@ -126,6 +126,10 @@ def main():
     parser.add_argument("--min-words", type=int, default=75,
                         help="Minimum words per truncated passage (default: 75)")
     parser.add_argument("--output", "-o", default="data/corpus_metrics.csv")
+    parser.add_argument("--ref-model", default="gpt2",
+                        help="Reference model for surprisal (default: gpt2)")
+    parser.add_argument("--add-ref", default=None,
+                        help="Additional reference model (adds columns, keeps existing)")
     args = parser.parse_args()
 
     print("Loading corpora...")
@@ -184,11 +188,47 @@ def main():
         "label": trunc_df["label"],
     })
 
-    # Compute metrics
-    result = compute_passage_metrics(psg_df, min_sentences=3)
+    # Compute metrics with primary reference model
+    result = compute_passage_metrics(psg_df, min_sentences=3,
+                                     ref_model_name=args.ref_model)
     print(f"\nComputed metrics for {len(result)} passages")
 
-    # Add back corpus metadata
+    # Optionally add a second reference model's surprisal
+    if args.add_ref:
+        ref2 = args.add_ref
+        ref2_short = ref2.split("/")[-1].replace("-", "_").lower()
+        print(f"\nComputing additional surprisal with {ref2}...")
+        from malign_logits.embedding import passage_surprisal, _load_surprisal_model, _get_gen_stash
+        stash = _get_gen_stash()
+        model2, tok2 = _load_surprisal_model(ref2)
+
+        surp2 = []
+        from tqdm import tqdm
+        computed = 0
+        cached = 0
+        for _, r in tqdm(result.iterrows(), total=len(result),
+                         desc=f"{ref2_short} surprisal"):
+            text = str(r["psg"]).rstrip()
+            prompt = str(r.get("prompt", "")).strip()
+            ts_key = ("token_surprisals_v3", ref2, prompt, text)
+            if ts_key in stash:
+                tok_surps = stash[ts_key]
+                cached += 1
+            else:
+                s = passage_surprisal(text, model=model2, tokenizer=tok2,
+                                      prompt_prefix=prompt)
+                tok_surps = s["token_surprisals"]
+                stash[ts_key] = tok_surps
+                computed += 1
+            if tok_surps:
+                import numpy as np
+                surp2.append(round(float(np.mean([v for _, v in tok_surps])), 4))
+            else:
+                surp2.append(None)
+        result[f"surprisal_{ref2_short}"] = surp2
+        print(f"  {cached} cached, {computed} computed")
+
+    # Save
     result.to_csv(args.output, index=False)
     print(f"Saved {args.output}")
 
@@ -222,5 +262,134 @@ def main():
             print(f"  {corpus:15s}  {'  '.join(zs)}")
 
 
+def summary(csv_path="data/corpus_metrics.csv"):
+    """Print markdown-ready summary tables from existing corpus_metrics.csv."""
+    import re
+    import numpy as np
+
+    df = pd.read_csv(csv_path)
+
+    HUMAN = {'dreams', 'waking', 'c20_fiction', 'abstracts'}
+    label_map = {'base': 'BASE', 'ego': 'SFT', 'superego': 'DPO',
+                 'instruct': 'RLVR', 'dream': 'dream', 'recalled': 'waking',
+                 'narration': 'fiction', 'arxiv': 'abstract'}
+
+    # Genre classifier
+    def is_template(row):
+        gt = row.get('genre_type', 'narrative')
+        return gt != 'narrative' if pd.notna(gt) else False
+
+    df['_is_template'] = df.apply(is_template, axis=1)
+    df['_layer'] = df['model'].map(lambda m: label_map.get(m, m.upper()))
+    df['_is_ai'] = ~df['family'].isin(HUMAN)
+    df['_texttype'] = df['family'].apply(lambda f: 'AI' if f not in HUMAN else f)
+    df['_category'] = df['label'].str.replace(r'_\d+$', '', regex=True)
+
+    # Compute median z-scores
+    surp_cols = [c for c in ['mean_surprisal', 'surprisal_llama', 'surprisal_mistral'] if c in df.columns]
+    drift_cols = [c for c in ['total_drift', 'drift_mpnet', 'drift_bge_m3'] if c in df.columns]
+
+    for col in surp_cols + drift_cols:
+        vals = df[col].dropna()
+        m, s = vals.mean(), vals.std()
+        df[f'_{col}_z'] = (df[col] - m) / s
+
+    if len(surp_cols) > 1:
+        df['_surp_z'] = df[[f'_{c}_z' for c in surp_cols]].median(axis=1)
+    else:
+        df['_surp_z'] = df[f'_{surp_cols[0]}_z']
+
+    if len(drift_cols) > 1:
+        df['_drift_z'] = df[[f'_{c}_z' for c in drift_cols]].median(axis=1)
+    else:
+        df['_drift_z'] = df[f'_{drift_cols[0]}_z']
+
+    # ── Table 1: By text type ──
+    print("## Median z-scores by text type")
+    print()
+    print("| Text type | Surprisal (z) | Drift (z) | n |")
+    print("|---|---|---|---|")
+    for tt in ['c20_fiction', 'abstracts', 'dreams', 'waking', 'AI']:
+        if tt == 'AI':
+            sub = df[df['_is_ai']]
+        else:
+            sub = df[df['family'] == tt]
+        if sub.empty:
+            continue
+        name = {'c20_fiction': 'C20 fiction', 'abstracts': 'Arxiv abstracts',
+                'dreams': 'Dream reports', 'waking': 'Waking narratives',
+                'AI': '**AI generations**'}.get(tt, tt)
+        print(f"| {name} | {sub._surp_z.mean():+.2f} | {sub._drift_z.mean():+.2f} | {len(sub)} |")
+    print()
+
+    # ── Table 2: AI by family × layer (narrative only) ──
+    ai = df[df['_is_ai'] & ~df['_is_template']]
+
+    print("## AI narrative-only: median z-scores by family × layer")
+    print()
+    print("| Family | Layer | Surprisal (z) | Drift (z) | n |")
+    print("|---|---|---|---|---|")
+    for fam in sorted(ai['family'].unique()):
+        for layer in ['BASE', 'SFT', 'DPO', 'RLVR']:
+            sub = ai[(ai['family'] == fam) & (ai['_layer'] == layer)]
+            if sub.empty:
+                continue
+            print(f"| {fam} | {layer} | {sub._surp_z.mean():+.2f} | {sub._drift_z.mean():+.2f} | {len(sub)} |")
+    print()
+
+    # ── Table 3: DPO - BASE deltas by family (narrative only) ──
+    print("## AI narrative-only: DPO − BASE delta (median z)")
+    print()
+    print("| Family | Surprisal Δ | Drift Δ | n (base) | n (dpo) |")
+    print("|---|---|---|---|---|")
+    for fam in sorted(ai['family'].unique()):
+        b = ai[(ai['family'] == fam) & (ai['model'] == 'base')]
+        a = ai[(ai['family'] == fam) & (ai['model'] == 'superego')]
+        if b.empty or a.empty:
+            continue
+        ds = a['_surp_z'].mean() - b['_surp_z'].mean()
+        dd = a['_drift_z'].mean() - b['_drift_z'].mean()
+        print(f"| {fam} | {ds:+.2f} | {dd:+.2f} | {len(b)} | {len(a)} |")
+    print()
+
+    # ── Table 4: By content category (narrative only, BASE vs DPO) ──
+    print("## AI narrative-only: DPO − BASE delta by content category")
+    print()
+    cats = sorted(ai['_category'].unique())
+    print("| Category | BASE surp (z) | DPO surp (z) | Δ surp | BASE drift (z) | DPO drift (z) | Δ drift |")
+    print("|---|---|---|---|---|---|---|")
+    for cat in cats:
+        b = ai[(ai['_category'] == cat) & (ai['model'] == 'base')]
+        a = ai[(ai['_category'] == cat) & (ai['model'] == 'superego')]
+        if b.empty or a.empty:
+            continue
+        print(f"| {cat} | {b._surp_z.mean():+.2f} | {a._surp_z.mean():+.2f} | {a._surp_z.mean() - b._surp_z.mean():+.2f} | {b._drift_z.mean():+.2f} | {a._drift_z.mean():+.2f} | {a._drift_z.mean() - b._drift_z.mean():+.2f} |")
+    print()
+
+    # ── Table 5: Template prevalence ──
+    print("## Template prevalence by family")
+    print()
+    print("| Family | BASE % template | DPO % template | n |")
+    print("|---|---|---|---|")
+    for fam in sorted(df[df['_is_ai']]['family'].unique()):
+        sub = df[df['family'] == fam]
+        b = sub[sub['model'] == 'base']
+        a = sub[sub['model'] == 'superego']
+        if b.empty or a.empty:
+            continue
+        bp = b['_is_template'].mean() * 100
+        ap = a['_is_template'].mean() * 100
+        print(f"| {fam} | {bp:.1f}% | {ap:.1f}% | {len(sub)} |")
+    print()
+
+
 if __name__ == "__main__":
-    main()
+    import sys
+    if '--summary' in sys.argv:
+        csv = 'data/corpus_metrics.csv'
+        for i, a in enumerate(sys.argv):
+            if a == '--output' and i + 1 < len(sys.argv):
+                csv = sys.argv[i + 1]
+        summary(csv)
+    else:
+        main()
