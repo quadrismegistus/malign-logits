@@ -288,10 +288,11 @@ def cmd_precompute(args):
     print(f"\nDone. All prompts cached to stash.")
 
 
-def cmd_trajectory(args):
-    """Measure trajectory geometry and run fold-vs-wall intervention."""
+def _run_trajectory_one(key, args):
+    """Run trajectory for a single family."""
+    import gc
     from .psyche import Psyche
-    key, _ = _get_family(args)
+    from .trajectory import run_trajectory_geometry, run_intervention
 
     psyche = Psyche.from_family(key, load=True)
     print(f"Loaded family={key}, n_layers={psyche.n_layers}")
@@ -301,17 +302,46 @@ def cmd_trajectory(args):
     intervention_layers = [round(n_hidden * f) for f in (0.25, 0.5, 0.75, 0.875)]
     print(f"N_LAYERS={n_hidden}  LAYER={layer}  INTERVENTION_LAYERS={intervention_layers}")
 
-    from .trajectory import run_trajectory_geometry, run_intervention
-
+    prompts_set = getattr(args, 'prompts', 'tier1')
     run_trajectory_geometry(psyche, key, layer, out_dir="data",
-                            n_passages=args.n_passages)
+                            n_passages=args.n_passages,
+                            prompts_set=prompts_set)
 
     if not args.skip_intervention:
         if psyche.superego is None:
             print("\nSkipping intervention: need at least base + superego (2 layers)")
         else:
             run_intervention(psyche, key, intervention_layers, out_dir="data",
-                             n_epochs=args.n_epochs, lr=args.lr)
+                             n_epochs=args.n_epochs, lr=args.lr,
+                             prompts_set=prompts_set)
+
+    del psyche
+    gc.collect()
+    try:
+        import torch
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+        if hasattr(torch, 'mps') and torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+    except Exception:
+        pass
+
+
+def cmd_trajectory(args):
+    """Measure trajectory geometry and run fold-vs-wall intervention."""
+    from . import MODEL_FAMILIES
+
+    family_arg = getattr(args, "family", None)
+    if family_arg:
+        families = [family_arg]
+    else:
+        families = list(MODEL_FAMILIES.keys())
+
+    for i, key in enumerate(families):
+        print(f"\n{'#' * 60}")
+        print(f"  [{i+1}/{len(families)}] {key}")
+        print(f"{'#' * 60}")
+        _run_trajectory_one(key, args)
 
     print("\nDone.")
 
@@ -476,6 +506,8 @@ def main():
                     help="Learning rate for v2.6 steering vector (default: 0.05)")
     tj.add_argument("--n-passages", type=int, default=None,
                     help="Max passages per prompt from stash (default: all)")
+    tj.add_argument("--prompts", choices=["tier1", "all"], default="all",
+                    help="Prompt set: tier1 (8 subset) or all (47) (default: all)")
     tj.set_defaults(func=cmd_trajectory)
 
     # vllm-generate
