@@ -582,7 +582,8 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
 
         # Sentence embeddings (drift)
         prompt_prefix = str(row.get("prompt", "")).strip()
-        se_key = ("sent_embeddings_v3", prompt_prefix, text)
+        emb_name = embedder_name or DEFAULT_EMBEDDER
+        se_key = ("sent_embeddings_v3", emb_name, prompt_prefix, text)
         if se_key in stash:
             sent_vecs = stash[se_key]
             n_cached_se += 1
