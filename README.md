@@ -483,21 +483,23 @@ Generates many completions per prompt per model layer (n=30), then measures thre
 
 **Alignment universally compresses sentence diameter.** Every family's DPO text covers less semantic territory than its base text. The effect is consistent but small (Δ −0.01 to −0.08).
 
-**Alignment splits families into two camps on surprisal (robust, p < 0.001):**
+**Alignment universally smooths text under DPO (3-reference consensus).**
 
-| Family | GPT-2 Δ | Llama Δ | Direction | Consistent? |
+| Family | GPT-2 Δ | Llama Δ | Mistral Δ | Consensus |
 |---|---|---|---|---|
-| **OLMo** | **+0.26** | +0.09 | Aligned text *more surprising* | Both positive |
-| **Amber** | **−0.57** | −0.79 | Aligned text *much less surprising* | Both negative |
-| **Qwen** | **−0.24** | −0.44 | Less surprising | Both negative |
-| **Zephyr** | **−0.28** | −0.46 | Less surprising | Both negative |
-| Tulu | −0.03 | −0.19 | Weak/not significant under GPT-2 | Both negative |
-| OLMo-tiny | +0.08 | −0.12 | Mixed | — |
-| SmolLM2 | −0.02 | −0.04 | Not significant | — |
+| **Amber** | **−0.57** | **−0.79** | **−0.79** | All negative (strongest smoothing) |
+| **Zephyr** | **−0.28** | **−0.46** | **−0.42** | All negative |
+| **Qwen** | **−0.24** | **−0.44** | **−0.40** | All negative |
+| **Tulu** | −0.03 | **−0.19** | **−0.21** | Negative under modern refs |
+| OLMo-tiny | +0.08 | −0.12 | −0.17 | Negative under modern refs |
+| OLMo | **+0.26** | −0.03 | −0.06 | **GPT-2 only** |
+| SmolLM2 | −0.02 | −0.04 | −0.04 | Near zero |
 
-OLMo is the only family whose alignment produces text that is *more surprising* to external reference models — genre collapse into QA templates, instruction-following artifacts. Every other family's alignment produces more conventional text. The direction holds under both GPT-2 and Llama, confirming it is not a GPT-2-specific artifact. OLMo's effect is smaller under Llama (+0.09 vs +0.26), suggesting part of the GPT-2 effect reflects GPT-2's unfamiliarity with instruction-following format.
+Every family's DPO produces text that is *less surprising* to modern base models (Llama, Mistral) than its own base model's text. The consensus direction is universal smoothing.
 
-**The surprisal split is not a template-format artifact.** Decomposing surprisal into content tokens vs structural tokens: OLMo's content-token surprisal increases by +0.40 under DPO, matching the structural-token increase (+0.41). The effect is in the *language itself*, not the formatting. The split also survives template filtering: OLMo narrative-only DPO is still +0.28 more surprising than base.
+**OLMo's apparent positive direction under GPT-2 is reference-specific.** OLMo DPO is +0.26 more surprising under GPT-2, but −0.03 (Llama) and −0.06 (Mistral) — essentially neutral or slightly negative under modern references. The GPT-2 effect reflects GPT-2's unfamiliarity with instruction-following format (QA templates, fill-in-the-blank, system prompts), which GPT-2 finds surprising but modern models do not. OLMo's genre collapse is real (visible in the template classifier: 17% of DPO output is template format vs 14% base), but it doesn't produce text that is genuinely stranger to modern language models — only to GPT-2.
+
+**The structural/content decomposition under GPT-2 remains informative.** OLMo's content-token surprisal increases by +0.40 under DPO matching the structural-token increase (+0.41) — both content and formatting shift equally. Template filtering confirms OLMo narrative-only DPO is still +0.28 more surprising to GPT-2 than base. These GPT-2-specific effects likely reflect the register distance between OLMo DPO's chatbot-style prose and GPT-2's 2019 web training data.
 
 **Zephyr profanity is untouched (validated).** Zephyr DPO reduces surprisal on sexual (−0.28), substance (−0.34), neutral (−0.32), and violence_liminal (−0.31), but profanity is unchanged (+0.01, CI crosses zero). Consistent with Zephyr having no safety data — profanity is not targeted by general helpfulness tuning.
 
