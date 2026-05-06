@@ -128,9 +128,29 @@ def main():
     parser.add_argument("--output", "-o", default="data/corpus_metrics.csv")
     parser.add_argument("--ref-model", default="gpt2",
                         help="Reference model for surprisal (default: gpt2)")
-    parser.add_argument("--add-ref", default=None,
-                        help="Additional reference model (adds columns, keeps existing)")
+    parser.add_argument("--add-ref", default=None, action="append",
+                        help="Additional reference model(s) for surprisal (repeatable)")
+    parser.add_argument("--all-refs", action="store_true",
+                        help="Run all standard reference models (GPT-2, Llama, Mistral)")
+    parser.add_argument("--add-embedder", default=None, action="append",
+                        help="Additional sentence embedder(s) for drift (repeatable)")
+    parser.add_argument("--all-embedders", action="store_true",
+                        help="Run all standard embedders (MiniLM, mpnet, bge-m3)")
     args = parser.parse_args()
+
+    ALL_REFS = [
+        "meta-llama/Llama-3.1-8B",
+        "mistralai/Mistral-7B-v0.1",
+    ]
+    ALL_EMBEDDERS = [
+        "paraphrase-multilingual-mpnet-base-v2",
+        "BAAI/bge-m3",
+    ]
+
+    if args.all_refs:
+        args.add_ref = (args.add_ref or []) + ALL_REFS
+    if args.all_embedders:
+        args.add_embedder = (args.add_embedder or []) + ALL_EMBEDDERS
 
     print("Loading corpora...")
     frames = []
@@ -193,40 +213,114 @@ def main():
                                      ref_model_name=args.ref_model)
     print(f"\nComputed metrics for {len(result)} passages")
 
-    # Optionally add a second reference model's surprisal
+    # Additional reference models for surprisal
     if args.add_ref:
-        ref2 = args.add_ref
-        ref2_short = ref2.split("/")[-1].replace("-", "_").lower()
-        print(f"\nComputing additional surprisal with {ref2}...")
         from malign_logits.embedding import passage_surprisal, _load_surprisal_model, _get_gen_stash
-        stash = _get_gen_stash()
-        model2, tok2 = _load_surprisal_model(ref2)
-
-        surp2 = []
+        import numpy as np
         from tqdm import tqdm
-        computed = 0
-        cached = 0
-        for _, r in tqdm(result.iterrows(), total=len(result),
-                         desc=f"{ref2_short} surprisal"):
-            text = str(r["psg"]).rstrip()
-            prompt = str(r.get("prompt", "")).strip()
-            ts_key = ("token_surprisals_v3", ref2, prompt, text)
-            if ts_key in stash:
-                tok_surps = stash[ts_key]
-                cached += 1
-            else:
-                s = passage_surprisal(text, model=model2, tokenizer=tok2,
-                                      prompt_prefix=prompt)
-                tok_surps = s["token_surprisals"]
-                stash[ts_key] = tok_surps
-                computed += 1
-            if tok_surps:
-                import numpy as np
-                surp2.append(round(float(np.mean([v for _, v in tok_surps])), 4))
-            else:
-                surp2.append(None)
-        result[f"surprisal_{ref2_short}"] = surp2
-        print(f"  {cached} cached, {computed} computed")
+        stash = _get_gen_stash()
+
+        for ref in args.add_ref:
+            ref_short = ref.split("/")[-1].replace("-", "_").replace(".", "_").lower()
+            col_name = f"surprisal_{ref_short}"
+            print(f"\nComputing surprisal with {ref}...")
+
+            # Reset the global model so _load_surprisal_model loads the new one
+            import malign_logits.embedding as _emb
+            _emb._surprisal_model = None
+            _emb._surprisal_tokenizer = None
+
+            ref_model, ref_tok = _load_surprisal_model(ref)
+
+            surp_vals = []
+            cached = computed = 0
+            for _, r in tqdm(result.iterrows(), total=len(result),
+                             desc=f"{ref_short}"):
+                text = str(r["psg"]).rstrip()
+                prompt = str(r.get("prompt", "")).strip()
+                ts_key = ("token_surprisals_v3", ref, prompt, text)
+                if ts_key in stash:
+                    tok_surps = stash[ts_key]
+                    cached += 1
+                else:
+                    s = passage_surprisal(text, model=ref_model, tokenizer=ref_tok,
+                                          prompt_prefix=prompt)
+                    tok_surps = s["token_surprisals"]
+                    stash[ts_key] = tok_surps
+                    computed += 1
+                if tok_surps:
+                    surp_vals.append(round(float(np.mean([v for _, v in tok_surps])), 4))
+                else:
+                    surp_vals.append(None)
+            result[col_name] = surp_vals
+            print(f"  {cached} cached, {computed} computed")
+
+            # Free memory
+            del ref_model, ref_tok
+            _emb._surprisal_model = None
+            _emb._surprisal_tokenizer = None
+            import gc; gc.collect()
+
+    # Additional sentence embedders for drift
+    if args.add_embedder:
+        from malign_logits.embedding import (_get_embedder, _get_gen_stash,
+                                             _split_sentences, drift_metrics_from_embeddings,
+                                             DEFAULT_EMBEDDER)
+        import numpy as np
+        from tqdm import tqdm
+        stash = _get_gen_stash()
+
+        for emb_name in args.add_embedder:
+            emb_short = emb_name.split("/")[-1].replace("-", "_").replace(".", "_").lower()
+            print(f"\nComputing drift with {emb_name}...")
+
+            # Reset global embedder
+            import malign_logits.embedding as _emb
+            _emb._embedder = None
+            _emb._embedder_name = None
+
+            embedder = _get_embedder(emb_name)
+
+            drift_vals = []
+            dir_vals = []
+            cached = computed = 0
+            for _, r in tqdm(result.iterrows(), total=len(result),
+                             desc=f"{emb_short}"):
+                text = str(r["psg"]).rstrip()
+                prompt = str(r.get("prompt", "")).strip()
+                se_key = ("sent_embeddings_v3", emb_name, prompt, text)
+                if se_key in stash:
+                    sent_vecs = stash[se_key]
+                    cached += 1
+                else:
+                    sents = _split_sentences(text)
+                    if len(sents) < 3:
+                        drift_vals.append(None)
+                        dir_vals.append(None)
+                        continue
+                    if prompt and sents:
+                        sents[0] = prompt + " " + sents[0]
+                    vecs = embedder.encode(sents, show_progress_bar=False)
+                    norms = np.linalg.norm(vecs, axis=1, keepdims=True) + 1e-10
+                    sent_vecs = (vecs / norms).tolist()
+                    stash[se_key] = sent_vecs
+                    computed += 1
+
+                if sent_vecs and len(sent_vecs) >= 3:
+                    d = drift_metrics_from_embeddings(sent_vecs)
+                    drift_vals.append(d.get("total_drift"))
+                    dir_vals.append(d.get("directedness"))
+                else:
+                    drift_vals.append(None)
+                    dir_vals.append(None)
+
+            result[f"drift_{emb_short}"] = drift_vals
+            result[f"directedness_{emb_short}"] = dir_vals
+            print(f"  {cached} cached, {computed} computed")
+
+            # Free memory
+            _emb._embedder = None
+            _emb._embedder_name = None
 
     # Save
     result.to_csv(args.output, index=False)
