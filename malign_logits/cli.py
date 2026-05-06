@@ -149,7 +149,8 @@ def cmd_vllm_generate(args):
             print(f"Available: {', '.join(mod.MODEL_FAMILIES.keys())}")
             return
         mod.generate_family(fam, n=args.n, temperature=args.temperature,
-                            max_tokens=args.max_tokens, dry_run=args.dry_run)
+                            max_tokens=args.max_tokens,
+                            prompts_set=args.prompts, dry_run=args.dry_run)
 
 
 def cmd_ablation(args):
@@ -483,6 +484,8 @@ def main():
                     help="Generations per prompt per layer (default: 100)")
     vg.add_argument("--temperature", type=float, default=1.0)
     vg.add_argument("--max-tokens", type=int, default=100)
+    vg.add_argument("--prompts", default="tier1", choices=["tier1", "all"],
+                    help="Prompt set: tier1 (18) or all (47) (default: tier1)")
     vg.add_argument("--dry-run", action="store_true",
                     help="Show what would be generated without running")
     vg.set_defaults(func=cmd_vllm_generate)
