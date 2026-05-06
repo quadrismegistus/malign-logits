@@ -11,12 +11,16 @@
 
 	let xAxis = $state('surprisal_median_z');
 	let yAxis = $state('drift_median_z');
-	let colorBy: 'family' | 'layer' | 'category' = $state('family');
+	let colorBy: 'family' | 'layer' | 'category' | 'texttype' = $state('texttype');
 	let selectedPoint: PassageMetrics | null = $state(null);
 	let filterFamily = $state('all');
 	let filterLayer = $state('all');
 	let filterPrompt = $state('all');
 	let filterGenre = $state('all');
+	let filterTextType = $state('all');
+
+	const HUMAN_CORPORA = new Set(['dreams', 'waking', 'c20_fiction', 'abstracts']);
+	const AI_FAMILIES = new Set(['olmo', 'olmo-tiny', 'qwen', 'zephyr', 'llama', 'amber', 'smol', 'tulu', 'pythia']);
 
 	let customText = $state('');
 	let customLoading = $state(false);
@@ -95,6 +99,14 @@
 		dream: '#e15759', waking: '#59a14f', fiction: '#b07aa1',
 		abstract: '#f28e2b', custom: '#edc948',
 	};
+	const TEXTTYPE_COLORS: Record<string, string> = {
+		'AI': '#4e79a7',
+		'dreams': '#e15759',
+		'waking': '#59a14f',
+		'c20_fiction': '#b07aa1',
+		'abstracts': '#f28e2b',
+		'custom': '#edc948',
+	};
 
 	onMount(async () => {
 		try {
@@ -110,11 +122,19 @@
 	function getCategory(d: PassageMetrics): string {
 		return d.label.replace(/_\d+$/, '');
 	}
+	function getTextType(d: PassageMetrics): string {
+		if (HUMAN_CORPORA.has(d.family)) return d.family;
+		return 'AI';
+	}
+	function isAI(d: PassageMetrics): boolean {
+		return !HUMAN_CORPORA.has(d.family);
+	}
 	function layerLabel(m: string): string {
 		return ({ base: 'BASE', ego: 'SFT', superego: 'DPO', instruct: 'RLVR', custom: 'CUSTOM' })[m] ?? m.toUpperCase();
 	}
 	function pointColor(d: PassageMetrics): string {
 		if (d.family === 'custom') return '#edc948';
+		if (colorBy === 'texttype') return TEXTTYPE_COLORS[getTextType(d)] ?? '#888';
 		if (colorBy === 'family') return FAMILY_COLORS[d.family] ?? '#888';
 		if (colorBy === 'layer') return LAYER_COLORS[d.model] ?? '#888';
 		return CATEGORY_COLORS[getCategory(d)] ?? '#888';
@@ -144,17 +164,25 @@
 		return s ? (raw - s.mean) / s.std : raw;
 	}
 
-	let families = $derived([...new Set(data.map(d => d.family))].sort());
-	let layers = $derived([...new Set(data.map(d => d.model))].sort());
-	let promptLabels = $derived([...new Set(data.map(d => d.label))].sort());
+	let families = $derived([...new Set(data.filter(d => isAI(d)).map(d => d.family))].sort());
+	let layers = $derived([...new Set(data.filter(d => isAI(d)).map(d => d.model))].sort());
+	let promptLabels = $derived([...new Set(data.filter(d => isAI(d)).map(d => d.label))].sort());
 	let genreTypes = $derived([...new Set(data.map(d => d.genre_type).filter(Boolean))].sort());
+	let textTypes = $derived([...new Set(data.map(d => getTextType(d)))].sort());
 
 	let filteredData = $derived.by(() => {
 		return data.filter(d => {
 			if (!isFinite(getVal(d, xAxis)) || !isFinite(getVal(d, yAxis))) return false;
-			if (filterFamily !== 'all' && d.family !== filterFamily) return false;
-			if (filterLayer !== 'all' && d.model !== filterLayer) return false;
-			if (filterPrompt !== 'all' && d.label !== filterPrompt) return false;
+			// Text type filter applies to all
+			const tt = getTextType(d);
+			if (filterTextType !== 'all' && tt !== filterTextType) return false;
+			// Family/Layer/Prompt only apply to AI passages
+			if (isAI(d)) {
+				if (filterFamily !== 'all' && d.family !== filterFamily) return false;
+				if (filterLayer !== 'all' && d.model !== filterLayer) return false;
+				if (filterPrompt !== 'all' && d.label !== filterPrompt) return false;
+			}
+			// Genre filter applies to all
 			if (filterGenre === 'narrative' && d.is_template) return false;
 			if (filterGenre === 'template' && !d.is_template) return false;
 			if (filterGenre !== 'all' && filterGenre !== 'narrative' && filterGenre !== 'template' && d.genre_type !== filterGenre) return false;
@@ -329,9 +357,13 @@
 		}
 
 		// Legend
-		const colorMap = colorBy === 'family' ? FAMILY_COLORS : colorBy === 'layer' ? LAYER_COLORS : CATEGORY_COLORS;
-		const activeKeys = colorBy === 'family' ? families
-			: colorBy === 'layer' ? layers
+		const colorMap = colorBy === 'texttype' ? TEXTTYPE_COLORS
+			: colorBy === 'family' ? FAMILY_COLORS
+			: colorBy === 'layer' ? LAYER_COLORS
+			: CATEGORY_COLORS;
+		const activeKeys = colorBy === 'texttype' ? [...new Set(filteredData.map(d => getTextType(d)))].sort()
+			: colorBy === 'family' ? [...new Set(filteredData.map(d => d.family))].sort()
+			: colorBy === 'layer' ? [...new Set(filteredData.map(d => d.model))].sort()
 			: [...new Set(filteredData.map(d => getCategory(d)))].sort();
 		const labelFn = colorBy === 'layer' ? layerLabel : (k: string) => k;
 
@@ -345,7 +377,7 @@
 
 	$effect(() => {
 		if (!loading && data.length > 0) {
-			void xAxis; void yAxis; void colorBy; void filterFamily; void filterLayer; void filterPrompt; void filterGenre; void filteredData;
+			void xAxis; void yAxis; void colorBy; void filterFamily; void filterLayer; void filterPrompt; void filterGenre; void filterTextType; void filteredData;
 			tick().then(drawChart);
 		}
 	});
@@ -382,9 +414,17 @@
 		<label class="axis-control">
 			<span>Color</span>
 			<select bind:value={colorBy}>
-				<option value="family">Family</option>
+				<option value="texttype">Text type</option>
+				<option value="family">AI family</option>
 				<option value="layer">Layer</option>
 				<option value="category">Category</option>
+			</select>
+		</label>
+		<label class="axis-control">
+			<span>Text</span>
+			<select bind:value={filterTextType}>
+				<option value="all">all</option>
+				{#each textTypes as t}<option value={t}>{t}</option>{/each}
 			</select>
 		</label>
 		<label class="axis-control">
