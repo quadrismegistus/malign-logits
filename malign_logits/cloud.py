@@ -255,6 +255,7 @@ fi
 
 cd {REMOTE_REPO}
 pip install -e .
+pip install vllm 2>/dev/null || echo "vllm install skipped (may need manual install)"
 python -m spacy download en_core_web_sm
 {hf_login}
 
@@ -283,26 +284,42 @@ def cmd_run(args):
     state = load_state()
     _require_instance(state)
 
-    families_flag = f"--families {args.families}" if getattr(args, 'families', None) else ""
-    skip_flag = f"--skip {args.skip}" if getattr(args, 'skip', '') else ""
+    custom_cmd = getattr(args, 'command', None)
+    if custom_cmd:
+        # Arbitrary command mode
+        user_cmd = ' '.join(custom_cmd)
+        session_name = user_cmd.split()[0].split('/')[-1].replace('.py', '')[:20]
+        log_file = f'/workspace/{session_name}.log'
+        batch_cmd = (
+            f'cd {REMOTE_REPO} && git pull && '
+            f'HF_TOKEN=$(cat ~/.cache/huggingface/token 2>/dev/null) '
+            f'PYTHONUNBUFFERED=1 {user_cmd} '
+            f'2>&1 | tee {log_file}'
+        )
+    else:
+        # Default: produce-all
+        families_flag = f"--families {args.families}" if getattr(args, 'families', None) else ""
+        skip_flag = f"--skip {args.skip}" if getattr(args, 'skip', '') else ""
+        session_name = 'produce_all'
+        log_file = '/workspace/produce-all.log'
+        batch_cmd = (
+            f'cd {REMOTE_REPO} && git pull && '
+            f'HF_TOKEN=$(cat ~/.cache/huggingface/token 2>/dev/null) '
+            f'PYTHONUNBUFFERED=1 malign produce-all {families_flag} {skip_flag} '
+            f'2>&1 | tee {log_file}'
+        )
 
-    batch_cmd = (
-        f'cd {REMOTE_REPO} && '
-        f'HF_TOKEN=$(cat ~/.cache/huggingface/token 2>/dev/null) '
-        f'PYTHONUNBUFFERED=1 malign produce-all {families_flag} {skip_flag} '
-        f'2>&1 | tee /workspace/produce-all.log'
-    )
-
-    session_name = 'produce_all'
-    print(f"Starting produce-all in tmux session '{session_name}'...", file=sys.stderr)
+    print(f"Starting '{session_name}' in tmux...", file=sys.stderr)
+    print(f"  Command: {batch_cmd[:120]}...", file=sys.stderr)
     ssh_run(state, f"tmux kill-session -t {session_name} 2>/dev/null || true")
     ssh_run(state, f"tmux new-session -d -s {session_name} '{batch_cmd}'")
 
     state['running'] = session_name
+    state['log_file'] = log_file
     state['run_started_at'] = time.strftime('%Y-%m-%dT%H:%M:%S')
     save_state(state)
 
-    print(f"\nBatch started.")
+    print(f"\nStarted.")
     print(f"Monitor: malign cloud status")
     print(f"Attach:  malign cloud attach")
 
@@ -328,11 +345,12 @@ def cmd_status(args):
     status = r.stdout.strip()
     print(f"\nBatch: {status}")
 
+    log_file = state.get('log_file', '/workspace/produce-all.log')
     if status == 'RUNNING':
-        r = ssh_run(state, 'tail -10 /workspace/produce-all.log 2>/dev/null',
+        r = ssh_run(state, f'tail -10 {log_file} 2>/dev/null',
                     capture=True, check=False)
         if r.stdout.strip():
-            print(f"\nLast log lines:")
+            print(f"\nLast log lines ({log_file}):")
             for line in r.stdout.strip().split('\n'):
                 print(f"  {line}")
 
@@ -391,7 +409,8 @@ def cmd_log(args):
     state = load_state()
     _require_instance(state)
     n = getattr(args, 'lines', 30) or 30
-    cmd = ssh_cmd(state) + [f'tail -{n} /workspace/produce-all.log 2>/dev/null || echo "No log found"']
+    log_file = state.get('log_file', '/workspace/produce-all.log')
+    cmd = ssh_cmd(state) + [f'tail -{n} {log_file} 2>/dev/null || echo "No log found"']
     os.execvp(cmd[0], cmd)
 
 

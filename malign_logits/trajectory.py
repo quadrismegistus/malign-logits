@@ -444,66 +444,94 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30, 
     target_prompt = subset["violence_liminal_3"]
 
     # ------------------------------------------------------------------
-    # v2: single-prompt direction
+    # v2: per-prompt self-direction (extract from P, test on P)
     # ------------------------------------------------------------------
-    print("\n--- v2: single-prompt (DPO - base) direction ---")
-    prompt_v2 = target_prompt
-
-    directions = {}
-    for L in intervention_layers:
-        base_h = last_hidden(base_model, tokenizer, prompt_v2, L)
-        dpo_h = last_hidden(dpo_model, tokenizer, prompt_v2, L)
-        directions[L] = dpo_h - base_h
-        print(f"  Layer {L:2d}: ||dir||={directions[L].norm().item():.2f}"
-              f"  ||base||={base_h.norm():.2f}  ||dpo||={dpo_h.norm():.2f}")
-
-    logits_base = last_logits(base_model, tokenizer, prompt_v2)
-    logits_dpo = last_logits(dpo_model, tokenizer, prompt_v2)
-    js_base_dpo = js_divergence(logits_base, logits_dpo)
-    print(f"  Baseline JS(base, dpo) = {js_base_dpo:.4f}")
+    print(f"\n--- v2: per-prompt self-direction ({len(subset)} prompts) ---")
 
     v2_rows = []
-    for L in intervention_layers:
-        for alpha in ALPHAS_COARSE:
-            if alpha == 0:
-                logits_int = logits_base
-            else:
-                logits_int = intervene_logits(base_model, tokenizer, prompt_v2, L, directions[L], alpha)
-            v2_rows.append({
-                "layer": L, "alpha": alpha,
-                "js_to_base": js_divergence(logits_int, logits_base),
-                "js_to_dpo": js_divergence(logits_int, logits_dpo),
-            })
+    v2_best_per_prompt = []
+    for label, prompt in subset.items():
+        directions = {}
+        for L in intervention_layers:
+            base_h = last_hidden(base_model, tokenizer, prompt, L)
+            dpo_h = last_hidden(dpo_model, tokenizer, prompt, L)
+            directions[L] = dpo_h - base_h
+
+        logits_b = last_logits(base_model, tokenizer, prompt)
+        logits_d = last_logits(dpo_model, tokenizer, prompt)
+        js_bd = js_divergence(logits_b, logits_d)
+
+        best_closure = -999
+        best_row = None
+        for L in intervention_layers:
+            for alpha in ALPHAS_COARSE:
+                if alpha == 0:
+                    logits_int = logits_b
+                else:
+                    logits_int = intervene_logits(
+                        base_model, tokenizer, prompt, L, directions[L], alpha)
+                js_to_b = js_divergence(logits_int, logits_b)
+                js_to_d = js_divergence(logits_int, logits_d)
+                closure = (js_bd - js_to_d) / js_bd
+                v2_rows.append({
+                    "label": label, "layer": L, "alpha": alpha,
+                    "js_to_base": js_to_b, "js_to_dpo": js_to_d,
+                    "baseline_js": js_bd, "closure": closure,
+                })
+                if alpha != 0 and closure > best_closure:
+                    best_closure = closure
+                    best_row = {"label": label, "layer": L, "alpha": alpha,
+                                "baseline_js": js_bd, "closure": closure}
+        v2_best_per_prompt.append(best_row)
 
     df_v2 = pd.DataFrame(v2_rows)
-    best_v2 = df_v2[df_v2["alpha"] != 0].sort_values("js_to_dpo").iloc[0]
-    closure_v2 = (js_base_dpo - best_v2["js_to_dpo"]) / js_base_dpo * 100
-    print(f"  Best v2: L={int(best_v2['layer'])}, alpha={best_v2['alpha']}, closure={closure_v2:.1f}%")
+    df_v2_best = pd.DataFrame(v2_best_per_prompt)
+
+    print(f"\n  Per-prompt self-closure (best layer × alpha for each):")
+    print(f"  {'label':30s} {'baseline_js':>12s} {'best_L':>7s} {'α':>5s} {'closure':>10s}")
+    print("  " + "-" * 70)
+    for _, r in df_v2_best.sort_values("closure", ascending=False).iterrows():
+        print(f"  {r.label:30s} {r.baseline_js:12.4f} {int(r.layer):7d} {r.alpha:5.1f} {r.closure*100:9.1f}%")
+    print(f"\n  Mean self-closure: {df_v2_best.closure.mean()*100:.1f}%")
+    print(f"  Median: {df_v2_best.closure.median()*100:.1f}%")
+    print(f"  Range: {df_v2_best.closure.min()*100:.1f}% – {df_v2_best.closure.max()*100:.1f}%")
 
     # v2 figure
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    mean_v2 = df_v2.groupby(["layer", "alpha"])[["js_to_base", "js_to_dpo"]].mean().reset_index()
     for L in intervention_layers:
-        sub = df_v2[df_v2["layer"] == L].sort_values("alpha")
+        sub = mean_v2[mean_v2["layer"] == L].sort_values("alpha")
         axes[0].plot(sub["alpha"], sub["js_to_base"], "-o", label=f"L={L}")
         axes[1].plot(sub["alpha"], sub["js_to_dpo"], "-o", label=f"L={L}")
+    mean_baseline = df_v2_best.baseline_js.mean()
     axes[1].axhline(0, color="red", linestyle="--", linewidth=1, alpha=0.6, label="reach DPO")
-    axes[1].axhline(js_base_dpo, color="gray", linestyle=":", linewidth=1, alpha=0.6, label="baseline")
+    axes[1].axhline(mean_baseline, color="gray", linestyle=":", linewidth=1, alpha=0.6,
+                     label=f"baseline={mean_baseline:.3f}")
     for ax in axes:
         ax.grid(alpha=0.3)
         ax.legend()
         ax.set_xlabel("alpha")
     axes[0].set_ylabel("JS(intervened, base)")
-    axes[0].set_title("Distance from base")
+    axes[0].set_title("Distance from base (mean across prompts)")
     axes[1].set_ylabel("JS(intervened, DPO)")
-    axes[1].set_title("Distance from DPO")
-    plt.suptitle(f'v2: single-prompt direction ({family})\n"{prompt_v2}"', y=1.02)
+    axes[1].set_title("Distance from DPO (mean across prompts)")
+    plt.suptitle(f"v2: per-prompt self-direction ({family}, {len(subset)} prompts)", y=1.02)
     plt.tight_layout()
     fig.savefig(f"figures/intervention_v2.{family}.png", dpi=150, bbox_inches="tight")
     plt.close(fig)
 
-    token_level_report(base_model, tokenizer, prompt_v2,
-                       int(best_v2["layer"]), directions[int(best_v2["layer"])],
-                       best_v2["alpha"], logits_base, logits_dpo)
+    # Token-level report for the prompt with highest closure
+    best_overall = df_v2_best.sort_values("closure", ascending=False).iloc[0]
+    best_prompt = best_overall.label
+    best_L = int(best_overall.layer)
+    best_alpha = best_overall.alpha
+    base_h = last_hidden(base_model, tokenizer, best_prompt, best_L)
+    dpo_h = last_hidden(dpo_model, tokenizer, best_prompt, best_L)
+    best_dir = dpo_h - base_h
+    token_level_report(base_model, tokenizer, best_prompt,
+                       best_L, best_dir, best_alpha,
+                       last_logits(base_model, tokenizer, best_prompt),
+                       last_logits(dpo_model, tokenizer, best_prompt))
 
     # ------------------------------------------------------------------
     # v2.5: averaged direction across prompts
@@ -689,11 +717,13 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30, 
     plt.close(fig)
 
     # Summary comparison
+    v2_mean_pct = df_v2_best.closure.mean() * 100
     v25_best_pct = best_v25["mean_closure_pct"]
     v26_best_avg = best_per[best_per["init"] == "avg_init"]["mean_closure_pct"].max()
     v26_best_rand = best_per[best_per["init"] == "rand_init"]["mean_closure_pct"].max()
-    print(f"\n  === Best held-out closure: v2.5 vs v2.6 ===")
-    print(f"    v2.5 (averaged direction):  {v25_best_pct:6.2f}%")
+    print(f"\n  === Closure summary ===")
+    print(f"    v2  (self-direction, mean): {v2_mean_pct:6.2f}%  (per-prompt, not generalizable)")
+    print(f"    v2.5 (averaged, held-out):  {v25_best_pct:6.2f}%")
     print(f"    v2.6 (learned, avg_init):   {v26_best_avg:6.2f}%")
     print(f"    v2.6 (learned, rand_init):  {v26_best_rand:6.2f}%")
 
@@ -709,9 +739,7 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30, 
 
     # Save all intervention results
     all_int = pd.concat([
-        df_v2.assign(version="v2", init="single", label=prompt_v2,
-                     baseline_js=js_base_dpo,
-                     closure=lambda d: (js_base_dpo - d["js_to_dpo"]) / js_base_dpo),
+        df_v2.assign(version="v2", init="self"),
         df_v25.assign(version="v2.5", init="averaged"),
         df_v26.assign(version="v2.6"),
     ], ignore_index=True)
