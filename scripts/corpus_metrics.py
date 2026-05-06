@@ -589,6 +589,66 @@ def summary(csv_path="data/corpus_metrics.csv"):
         print(f"| {fam} | {bp:.1f}% | {ap:.1f}% | {n} |")
     print()
 
+    # ── Table 6: Jakobsonian quadrants ──
+    # Q1 metonymic (high drift, low surprisal): slides far, locally smooth
+    # Q2 breakdown (high drift, high surprisal): far and surprising
+    # Q3 metaphoric (low drift, high surprisal): stays put, surprising
+    # Q4 unmarked (low drift, low surprisal): generic
+    def _quadrant(row):
+        hd = row['_drift_z'] > 0
+        hs = row['_surp_z'] > 0
+        if hd and not hs: return 'Q1 metonymic'
+        if hd and hs: return 'Q2 breakdown'
+        if not hd and hs: return 'Q3 metaphoric'
+        return 'Q4 unmarked'
+
+    df['_quadrant'] = df.apply(_quadrant, axis=1)
+    Q_ORDER = ['Q1 metonymic', 'Q2 breakdown', 'Q3 metaphoric', 'Q4 unmarked']
+
+    print("## Jakobsonian quadrants (drift × surprisal)")
+    print()
+    print("Axes split at z=0. Q1 metonymic = high drift, low surprisal "
+          "(chain-sliding). Q2 breakdown = high drift, high surprisal "
+          "(dream-work). Q3 metaphoric = low drift, high surprisal "
+          "(condensation). Q4 unmarked = low drift, low surprisal (generic).")
+    print()
+
+    print("### By text type")
+    print()
+    print("| Text type | Q1 metonymic | Q2 breakdown | Q3 metaphoric | Q4 unmarked | n |")
+    print("|---|---|---|---|---|---|")
+    for tt in ['c20_fiction', 'dreams', 'abstracts', 'waking', 'AI']:
+        sub = df[df['_is_ai']] if tt == 'AI' else df[df['family'] == tt]
+        if sub.empty:
+            continue
+        name = {'c20_fiction': 'C20 fiction', 'abstracts': 'Arxiv abstracts',
+                'dreams': 'Dream reports', 'waking': 'Waking narratives',
+                'AI': '**AI generations**'}.get(tt, tt)
+        counts = sub['_quadrant'].value_counts(normalize=True) * 100
+        vals = [f"{counts.get(q, 0):.0f}%" for q in Q_ORDER]
+        dom = Q_ORDER[np.argmax([counts.get(q, 0) for q in Q_ORDER])]
+        print(f"| {name} | {' | '.join(vals)} | {len(sub)} |")
+    print()
+
+    print("### AI by family × layer")
+    print()
+    print("| Family | Layer | Q1 | Q2 | Q3 | Q4 | dominant | n |")
+    print("|---|---|---|---|---|---|---|---|")
+    fl_rows = []
+    for fam in sorted(ai['family'].unique()):
+        for layer_name in ['BASE', 'SFT', 'DPO', 'RLVR']:
+            sub = df[(df['family'] == fam) & (df['_layer'] == layer_name)]
+            if len(sub) < 10:
+                continue
+            counts = sub['_quadrant'].value_counts(normalize=True) * 100
+            vals = [counts.get(q, 0) for q in Q_ORDER]
+            dom = Q_ORDER[np.argmax(vals)]
+            fl_rows.append((fam, layer_name,
+                            *[f"{v:.0f}%" for v in vals], dom, len(sub)))
+    for fam, layer, q1, q2, q3, q4, dom, n in fl_rows:
+        print(f"| {fam} | {layer} | {q1} | {q2} | {q3} | {q4} | {dom} | {n} |")
+    print()
+
 
 if __name__ == "__main__":
     import sys
