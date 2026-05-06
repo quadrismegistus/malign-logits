@@ -602,28 +602,27 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
         if sent_vecs is None or len(sent_vecs) < min_sentences:
             continue
 
-        # Token surprisals + hidden states (single GPT-2 forward pass)
+        # Token surprisals + token-level metrics (single forward pass)
         prompt_prefix = str(row.get("prompt", "")).strip()
         ts_key = ("token_surprisals_v3", ref_model_name, prompt_prefix, text)
-        hs_key = ("token_hidden_states_v3", ref_model_name, prompt_prefix, text)
-        if ts_key in stash and hs_key in stash:
+        tm_key = ("token_metrics_v1", ref_model_name, prompt_prefix, text)
+        if ts_key in stash and tm_key in stash:
             tok_surp = stash[ts_key]
-            hidden = stash[hs_key]
+            t = stash[tm_key]
             n_cached_ts += 1
         else:
-            s = passage_surprisal(text, model_name=ref_model_name,
-                                  prompt_prefix=prompt_prefix)
-            tok_surp = s["token_surprisals"]
-            hidden = s.get("hidden_states", [])
+            ps = passage_surprisal(text, model_name=ref_model_name,
+                                   prompt_prefix=prompt_prefix)
+            tok_surp = ps["token_surprisals"]
+            hidden = ps.get("hidden_states", [])
+            t = token_drift_metrics_from_hidden(hidden) if hidden else {}
             stash[ts_key] = tok_surp
-            if hidden:
-                stash[hs_key] = hidden
+            stash[tm_key] = t
             n_computed_ts += 1
 
         # Compute derived metrics
         d = drift_metrics_from_embeddings(sent_vecs)
         s = surprisal_metrics_from_tokens(tok_surp)
-        t = token_drift_metrics_from_hidden(hidden) if hidden else {}
 
         metonymy_idx = d["total_drift"] / s["mean_surprisal"] if s["mean_surprisal"] > 0 else 0
         token_metonymy = t.get("token_diameter", 0) / s["mean_surprisal"] if s["mean_surprisal"] > 0 else 0
@@ -632,6 +631,7 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
             "family": row.get("family", ""),
             "label": row.get("label", ""),
             "model": row.get("model", ""),
+            "prompt": prompt_prefix,
             "psg": text,
         }
         entry.update(d)
