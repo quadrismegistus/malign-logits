@@ -71,21 +71,27 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
             checkpoints.append((attr, layer_name, model_id))
             model_ids.append(model_id)
 
-    prompts = list(TIER1_PROMPTS.items())
+    all_prompts = list(TIER1_PROMPTS.items())
     print(f"\n{'=' * 60}")
     print(f"  {family_key} ({family.name}, {len(checkpoints)} layers)")
-    print(f"  {len(prompts)} prompts × {n} generations")
+    print(f"  {len(all_prompts)} prompts × {n} generations")
     print(f"{'=' * 60}")
 
-    # Check existing
-    sample_prompt = prompts[0][1]
-    existing = count_existing(stash, sample_prompt, temperature, model_ids)
-    if existing >= n:
-        print(f"  Already have {existing} generations, skipping")
+    # Check existing per prompt, find max deficit
+    per_prompt_existing = {}
+    for label, prompt_text in all_prompts:
+        existing = count_existing(stash, prompt_text, temperature, model_ids)
+        per_prompt_existing[prompt_text] = existing
+        if existing < n:
+            print(f"  {label}: {existing}/{n}")
+
+    prompts_to_run = [(l, p) for l, p in all_prompts
+                      if per_prompt_existing[p] < n]
+    if not prompts_to_run:
+        print(f"  All prompts have {n}+ generations, skipping")
         return
 
-    needed = n - existing
-    print(f"  Existing: {existing}, need {needed} more")
+    print(f"  {len(prompts_to_run)}/{len(all_prompts)} prompts need more generations")
 
     if dry_run:
         print("  DRY RUN — would generate here")
@@ -93,11 +99,8 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
 
     from vllm import LLM, SamplingParams
 
-    sampling = SamplingParams(
-        temperature=temperature,
-        max_tokens=max_tokens,
-        n=needed,
-    )
+    if not hasattr(generate_family, '_partial'):
+        generate_family._partial = {}
 
     for attr, layer_name, model_id in checkpoints:
         print(f"\n  Loading {layer_name} ({model_id})...")
@@ -117,35 +120,39 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
         load_time = time.time() - t0
         print(f"  Loaded in {load_time:.1f}s")
 
-        # Generate all prompts at once — vLLM batches internally
-        prompt_texts = [p for _, p in prompts]
+        # Generate per-prompt with the right deficit count
+        # Group prompts by needed count for efficient batching
+        from collections import defaultdict
+        by_needed = defaultdict(list)
+        for label, prompt_text in prompts_to_run:
+            needed = n - per_prompt_existing[prompt_text]
+            by_needed[needed].append((label, prompt_text))
+
+        total_gens = 0
         t0 = time.time()
-        outputs = llm.generate(prompt_texts, sampling)
+        for needed, prompt_group in by_needed.items():
+            sampling = SamplingParams(
+                temperature=temperature,
+                max_tokens=max_tokens,
+                n=needed,
+            )
+            prompt_texts = [p for _, p in prompt_group]
+            outputs = llm.generate(prompt_texts, sampling)
+
+            for (label, prompt_text), output in zip(prompt_group, outputs):
+                existing = per_prompt_existing[prompt_text]
+                for gen_idx, completion in enumerate(output.outputs):
+                    gen_key = (prompt_text, existing + gen_idx)
+                    if gen_key not in generate_family._partial:
+                        generate_family._partial[gen_key] = {
+                            "prompt": prompt_text}
+                    generate_family._partial[gen_key][layer_name] = \
+                        completion.text
+                total_gens += needed
+
         gen_time = time.time() - t0
-        total_gens = len(prompts) * needed
         print(f"  Generated {total_gens} completions in {gen_time:.1f}s "
-              f"({gen_time/total_gens:.3f}s/gen)")
-
-        # Store results — one stash entry per generation, matching existing format
-        # Each entry is a dict with "prompt" + layer completions
-        # But since we generate one model at a time, we need to accumulate
-        # Actually, existing code stores all layers per entry:
-        #   stash[key] = {"prompt": prompt, "base": text, "ego": text, ...}
-        # We generate one layer at a time, so we need to build partial entries
-        # and combine them.
-        #
-        # Simpler: store each generation as we did before, but we need all
-        # layers in one dict. So we accumulate per-prompt, per-generation-index.
-        if not hasattr(generate_family, '_partial'):
-            generate_family._partial = {}
-
-        for prompt_idx, output in enumerate(outputs):
-            label, prompt_text = prompts[prompt_idx]
-            for gen_idx, completion in enumerate(output.outputs):
-                gen_key = (prompt_text, existing + gen_idx)
-                if gen_key not in generate_family._partial:
-                    generate_family._partial[gen_key] = {"prompt": prompt_text}
-                generate_family._partial[gen_key][layer_name] = completion.text
+              f"({gen_time/total_gens:.3f}s/gen)" if total_gens else "")
 
         # Free GPU memory before loading next model
         del llm
@@ -156,7 +163,7 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
         except Exception:
             pass
 
-    # Now write all complete entries to stash
+    # Write all complete entries to stash
     print(f"\n  Writing {len(generate_family._partial)} entries to stash...")
     stash_key = {
         "prompt": None,
