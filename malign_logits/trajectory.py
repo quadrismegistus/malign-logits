@@ -834,16 +834,15 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
     # ------------------------------------------------------------------
     # v2.7: fold-rank analysis — closure vs N orthogonal vectors
     # ------------------------------------------------------------------
-    # v2.7: fold-rank analysis — passive SVD + active rank-N projection
+    # v2.7: passive SVD — intrinsic dimensionality of alignment shift
     # ------------------------------------------------------------------
-    print(f"\n--- v2.7: fold-rank analysis ---")
+    print(f"\n--- v2.7: passive SVD of alignment shift ---")
 
     best_v26 = best_per.sort_values("mean_closure_pct", ascending=False).iloc[0]
     best_L = int(best_v26["layer"])
-    print(f"  Using best layer from v2.6: L={best_L}")
+    print(f"  Layer: L={best_L}")
 
-    # Passive SVD: intrinsic dimensionality of alignment shift
-    print(f"  Computing SVD of alignment shift (passive dimensionality)...")
+    # Compute (DPO - base) hidden state difference for all prompts
     diff_vecs = []
     for label, prompt in subset.items():
         base_h = last_hidden(base_model, tokenizer, prompt, best_L)
@@ -852,107 +851,48 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
     diff_matrix = np.stack(diff_vecs)  # (n_prompts, hidden_dim)
     U, S, Vt = np.linalg.svd(diff_matrix, full_matrices=False)
     cumvar = np.cumsum(S ** 2) / np.sum(S ** 2)
+
+    k_50 = int(np.searchsorted(cumvar, 0.5)) + 1
     k_90 = int(np.searchsorted(cumvar, 0.9)) + 1
-    print(f"  SVD singular values (top 10): {', '.join(f'{s:.2f}' for s in S[:10])}")
-    print(f"  Cumulative variance: {', '.join(f'{v:.1%}' for v in cumvar[:10])}")
-    print(f"  Passive rank (90% variance): K={k_90}")
+    k_99 = int(np.searchsorted(cumvar, 0.99)) + 1
+    top1_pct = S[0] ** 2 / (S ** 2).sum() * 100
 
-    # Active fold-rank: rank-N projection intervention
-    N_VALUES = [1, 2, 3, 5, 10, 20]
-    eval_prompts = {k: subset[k] for k in eval_keys}
+    print(f"  Top singular value: {S[0]:.2f} ({top1_pct:.1f}% of variance)")
+    print(f"  Top 5: {', '.join(f'{s:.2f}' for s in S[:5])}")
+    print(f"  Cumvar top 5: {', '.join(f'{v:.1%}' for v in cumvar[:5])}")
+    print(f"  K_50 (50% variance): {k_50}")
+    print(f"  K_90 (90% variance): {k_90}")
+    print(f"  K_99 (99% variance): {k_99}")
 
-    eval_baselines = {}
-    for label, prompt in eval_prompts.items():
-        logits_b = last_logits(base_model, tokenizer, prompt)
-        logits_d = last_logits(dpo_model, tokenizer, prompt)
-        eval_baselines[label] = {
-            "logits_base": logits_b,
-            "logits_dpo": logits_d,
-            "js_bd": js_divergence(logits_b, logits_d),
-        }
-
-    fold_rank_results = []
-    for N in N_VALUES:
-        print(f"\n  === rank-{N} projection, L={best_L} ===")
-        t0 = time.time()
-        D_learned, losses = train_rank_n_projection(
-            base_model, dpo_targets, tokenizer, train_prompts,
-            layer_idx=best_L, rank=N, n_epochs=n_epochs, lr=lr,
-            log_every=10,
-        )
-        elapsed = time.time() - t0
-        print(f"  Trained in {elapsed:.1f}s, ||D||={D_learned.norm().item():.2f}")
-
-        closures = []
-        for label, prompt in eval_prompts.items():
-            bl = eval_baselines[label]
-            logits_int = intervene_logits_rank_n(
-                base_model, tokenizer, prompt, best_L, D_learned)
-            js_int_dpo = js_divergence(logits_int, bl["logits_dpo"])
-            closure = (bl["js_bd"] - js_int_dpo) / bl["js_bd"]
-            closures.append(closure)
-
-        mean_closure = np.mean(closures) * 100
-        print(f"  Held-out closure: {mean_closure:.1f}% "
-              f"(range {min(closures)*100:.1f}%–{max(closures)*100:.1f}%)")
-
-        fold_rank_results.append({
-            "rank": N, "layer": best_L,
-            "mean_closure_pct": mean_closure,
-            "min_closure_pct": min(closures) * 100,
-            "max_closure_pct": max(closures) * 100,
-            "train_loss_final": losses[-1],
-        })
-
-    df_fold = pd.DataFrame(fold_rank_results)
-
-    max_closure = df_fold.mean_closure_pct.max()
-    threshold = max_closure * 0.9
-    fold_rank_rows = df_fold[df_fold.mean_closure_pct >= threshold]
-    fold_rank = int(fold_rank_rows["rank"].min()) if not fold_rank_rows.empty else N_VALUES[-1]
-
-    print(f"\n  === Fold-rank summary ===")
-    print(f"  {'rank':>6s}  {'closure':>10s}  {'range':>20s}")
-    print(f"  {'-'*40}")
-    for _, r in df_fold.iterrows():
-        print(f"  {int(r['rank']):6d}  {r.mean_closure_pct:9.1f}%  "
-              f"[{r.min_closure_pct:.1f}%, {r.max_closure_pct:.1f}%]")
-    print(f"\n  Max closure: {max_closure:.1f}% at rank={int(df_fold.loc[df_fold.mean_closure_pct.idxmax(), 'rank'])}")
-    print(f"  Active fold rank (90% of max): K={fold_rank}")
-    print(f"  Passive SVD rank (90% variance): K={k_90}")
-
-    # Figure: closure vs rank + SVD spectrum
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-    axes[0].plot(df_fold["rank"], df_fold.mean_closure_pct, '-o', color='#4e79a7',
-                 linewidth=2, markersize=8)
-    axes[0].fill_between(df_fold["rank"], df_fold.min_closure_pct,
-                         df_fold.max_closure_pct, alpha=0.2, color='#4e79a7')
-    if max_closure > 0:
-        axes[0].axhline(threshold, color='red', linestyle=':', alpha=0.5,
-                         label=f'90% of max ({threshold:.1f}%)')
-    axes[0].set_xlabel('Rank N')
-    axes[0].set_ylabel('Held-out closure (%)')
-    axes[0].set_title(f'Active fold rank ({family})')
-    axes[0].grid(alpha=0.3)
-    axes[0].legend()
-
+    # Figure: SVD spectrum
+    fig, ax = plt.subplots(1, 1, figsize=(8, 5))
     n_sv = min(20, len(S))
-    axes[1].bar(range(1, n_sv + 1), S[:n_sv] ** 2 / (S ** 2).sum() * 100,
-                color='#e15759', alpha=0.7)
-    ax2 = axes[1].twinx()
+    ax.bar(range(1, n_sv + 1), S[:n_sv] ** 2 / (S ** 2).sum() * 100,
+           color='#e15759', alpha=0.7, label='Variance %')
+    ax2 = ax.twinx()
     ax2.plot(range(1, n_sv + 1), cumvar[:n_sv] * 100, '-o',
-             color='#59a14f', markersize=4)
+             color='#59a14f', markersize=4, label='Cumulative %')
+    ax2.axhline(90, color='gray', linestyle=':', alpha=0.5)
     ax2.set_ylabel('Cumulative variance (%)', color='#59a14f')
-    axes[1].set_xlabel('Singular value index')
-    axes[1].set_ylabel('Variance explained (%)')
-    axes[1].set_title(f'Passive SVD (L={best_L})')
-    axes[1].grid(alpha=0.3)
-
-    plt.suptitle(f'Fold-rank analysis ({family})', y=1.02)
+    ax.set_xlabel('Singular value index')
+    ax.set_ylabel('Variance explained (%)')
+    ax.set_title(f'SVD of alignment shift ({family}, L={best_L}, K_90={k_90})')
+    ax.grid(alpha=0.3)
     plt.tight_layout()
     fig.savefig(f"figures/fold_rank.{family}.png", dpi=150, bbox_inches="tight")
     plt.close(fig)
     print(f"  Saved figures/fold_rank.{family}.png")
+
+    # Save fold-rank CSV
+    df_fold = pd.DataFrame([{
+        "family": family, "layer": best_L,
+        "k_50": k_50, "k_90": k_90, "k_99": k_99,
+        "top1_var_pct": round(top1_pct, 1),
+        "n_prompts": len(diff_vecs),
+    }])
+    fold_csv = f"{out_dir}/fold_rank_{family}.csv"
+    df_fold.to_csv(fold_csv, index=False)
+    print(f"  Saved {fold_csv}")
 
     # Summary comparison
     v2_mean_pct = df_v2_best.closure.mean() * 100
@@ -963,8 +903,7 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
     print(f"    v2   (self-direction, mean): {v2_mean_pct:6.2f}%")
     print(f"    v2.5 (averaged, held-out):   {v25_best_pct:6.2f}%")
     print(f"    v2.6 (learned 1-vec):        {max(v26_best_avg, v26_best_rand):6.2f}%")
-    print(f"    v2.7 (rank-{fold_rank} projection):  {max_closure:6.2f}%")
-    print(f"    Passive SVD 90% at:          K={k_90}")
+    print(f"    Passive SVD K_90:            {k_90} directions")
 
     # Token-level for best v2.6
     d_best = learned_directions[(int(best_v26["layer"]), best_v26["init"])]
