@@ -241,35 +241,35 @@ def train_steering_vector(base_model, dpo_targets, tokenizer, prompts, layer_idx
     return d.detach().cpu().float(), losses
 
 
-def train_steering_vectors(base_model, dpo_targets, tokenizer, prompts, layer_idx,
-                           n_vectors=1, n_epochs=30, lr=0.05, log_every=10):
-    """Learn a rank-N steering subspace via gradient descent.
+def train_rank_n_projection(base_model, dpo_targets, tokenizer, prompts, layer_idx,
+                            rank=1, n_epochs=30, lr=0.05, log_every=10):
+    """Learn a rank-N linear projection as steering intervention.
 
-    Learns a single direction d = sum(D[i]) where D is (n_vectors, hidden_dim).
-    No orthogonalization during training — the effective rank is determined by
-    the optimization landscape. Post-hoc SVD reveals the intrinsic dimensionality.
+    The intervention adds delta = (h @ D.T) @ D to the hidden state h,
+    where D is (rank, hidden_dim). This projects h onto the row-span of D
+    and adds the projection back. Different prompts get different shifts
+    because the projection coefficients (h @ D.T) vary with h.
 
-    For N=1 this is identical to train_steering_vector (v2.6).
-    For N>1 the extra parameters give the optimizer more room to find
-    a direction that generalizes across prompts.
+    For rank=1 this is a rank-1 projection (similar to but not identical
+    to v2.6's learned vector — the shift now depends on h).
 
-    Returns (d_combined, D_raw, losses) where d_combined is the sum vector
-    (hidden_dim,), D_raw is the raw matrix (n_vectors, hidden_dim).
+    Returns (D, losses).
     """
     hidden_dim = base_model.config.hidden_size
     device = base_model.device
 
-    D = nn.Parameter((torch.randn(n_vectors, hidden_dim, device=device) * 0.1).float())
+    D = nn.Parameter((torch.randn(rank, hidden_dim, device=device) * 0.01).float())
     optimizer = torch.optim.Adam([D], lr=lr)
     losses = []
 
     def make_hook(D_param):
         def hook_fn(module, inputs, output):
             h = output[0] if isinstance(output, tuple) else output
-            h_prefix = h[:, :-1, :]
-            addend = D_param.sum(dim=0).to(h.dtype).view(1, 1, -1)
-            h_last = h[:, -1:, :] + addend
-            h_new = torch.cat([h_prefix, h_last], dim=1)
+            h_last = h[:, -1:, :].float()
+            coeffs = h_last @ D_param.T  # (1, 1, rank)
+            delta = coeffs @ D_param  # (1, 1, hidden)
+            h_new_last = h[:, -1:, :] + delta.to(h.dtype)
+            h_new = torch.cat([h[:, :-1, :], h_new_last], dim=1)
             return (h_new,) + output[1:] if isinstance(output, tuple) else h_new
         return hook_fn
 
@@ -300,17 +300,33 @@ def train_steering_vectors(base_model, dpo_targets, tokenizer, prompts, layer_id
         avg_loss = epoch_loss / len(prompts)
         losses.append(avg_loss)
         if epoch % log_every == 0 or epoch == n_epochs - 1:
-            d_combined = D.sum(dim=0)
             print(f"  epoch {epoch:3d}: loss={avg_loss:.4f}  "
-                  f"||d||={d_combined.norm().item():.2f}", flush=True)
+                  f"||D||={D.norm().item():.2f}", flush=True)
 
-    d_combined = D.detach().sum(dim=0).cpu().float()
-    return d_combined, D.detach().cpu().float(), losses
+    return D.detach().cpu().float(), losses
 
 
-def intervene_logits_multi(model, tokenizer, prompt, layer_idx, d):
-    """Apply a steering vector (combined direction)."""
-    return intervene_logits(model, tokenizer, prompt, layer_idx, d, alpha=1.0)
+def intervene_logits_rank_n(model, tokenizer, prompt, layer_idx, D):
+    """Apply rank-N projection intervention."""
+    ids = tokenizer.encode(prompt, return_tensors="pt").to(model.device)
+    D_dev = D.to(model.device).to(next(model.parameters()).dtype)
+
+    def hook(module, inputs, output):
+        h = output[0] if isinstance(output, tuple) else output
+        h_last = h[:, -1:, :].float()
+        coeffs = h_last @ D_dev.float().T
+        delta = coeffs @ D_dev.float()
+        h_new_last = h[:, -1:, :] + delta.to(h.dtype)
+        h_new = torch.cat([h[:, :-1, :], h_new_last], dim=1)
+        return (h_new,) + output[1:] if isinstance(output, tuple) else h_new
+
+    handle = _get_layers(model)[layer_idx].register_forward_hook(hook)
+    try:
+        with torch.no_grad():
+            out = model(ids)
+        return out.logits[0, -1, :].float().cpu()
+    finally:
+        handle.remove()
 
 
 def token_level_report(base_model, tokenizer, prompt, layer_idx, direction, alpha,
@@ -818,14 +834,15 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
     # ------------------------------------------------------------------
     # v2.7: fold-rank analysis — closure vs N orthogonal vectors
     # ------------------------------------------------------------------
-    print(f"\n--- v2.7: fold-rank analysis (closure vs N vectors) ---")
+    # v2.7: fold-rank analysis — passive SVD + active rank-N projection
+    # ------------------------------------------------------------------
+    print(f"\n--- v2.7: fold-rank analysis ---")
 
-    # Use best layer from v2.6
     best_v26 = best_per.sort_values("mean_closure_pct", ascending=False).iloc[0]
     best_L = int(best_v26["layer"])
     print(f"  Using best layer from v2.6: L={best_L}")
 
-    # SVD of the (DPO - base) difference matrix as passive baseline
+    # Passive SVD: intrinsic dimensionality of alignment shift
     print(f"  Computing SVD of alignment shift (passive dimensionality)...")
     diff_vecs = []
     for label, prompt in subset.items():
@@ -835,14 +852,15 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
     diff_matrix = np.stack(diff_vecs)  # (n_prompts, hidden_dim)
     U, S, Vt = np.linalg.svd(diff_matrix, full_matrices=False)
     cumvar = np.cumsum(S ** 2) / np.sum(S ** 2)
+    k_90 = int(np.searchsorted(cumvar, 0.9)) + 1
     print(f"  SVD singular values (top 10): {', '.join(f'{s:.2f}' for s in S[:10])}")
     print(f"  Cumulative variance: {', '.join(f'{v:.1%}' for v in cumvar[:10])}")
+    print(f"  Passive rank (90% variance): K={k_90}")
 
-    # Active fold-rank: learn N vectors and measure held-out closure
+    # Active fold-rank: rank-N projection intervention
     N_VALUES = [1, 2, 3, 5, 10, 20]
     eval_prompts = {k: subset[k] for k in eval_keys}
 
-    # Pre-compute eval baselines
     eval_baselines = {}
     for label, prompt in eval_prompts.items():
         logits_b = last_logits(base_model, tokenizer, prompt)
@@ -855,22 +873,21 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
 
     fold_rank_results = []
     for N in N_VALUES:
-        print(f"\n  === N={N} vectors, L={best_L} ===")
+        print(f"\n  === rank-{N} projection, L={best_L} ===")
         t0 = time.time()
-        d_combined, D_raw, losses = train_steering_vectors(
+        D_learned, losses = train_rank_n_projection(
             base_model, dpo_targets, tokenizer, train_prompts,
-            layer_idx=best_L, n_vectors=N, n_epochs=n_epochs, lr=lr,
+            layer_idx=best_L, rank=N, n_epochs=n_epochs, lr=lr,
             log_every=10,
         )
         elapsed = time.time() - t0
-        print(f"  Trained in {elapsed:.1f}s, ||d||={d_combined.norm().item():.2f}")
+        print(f"  Trained in {elapsed:.1f}s, ||D||={D_learned.norm().item():.2f}")
 
-        # Evaluate on held-out prompts
         closures = []
         for label, prompt in eval_prompts.items():
             bl = eval_baselines[label]
-            logits_int = intervene_logits_multi(
-                base_model, tokenizer, prompt, best_L, d_combined)
+            logits_int = intervene_logits_rank_n(
+                base_model, tokenizer, prompt, best_L, D_learned)
             js_int_dpo = js_divergence(logits_int, bl["logits_dpo"])
             closure = (bl["js_bd"] - js_int_dpo) / bl["js_bd"]
             closures.append(closure)
@@ -880,7 +897,7 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
               f"(range {min(closures)*100:.1f}%–{max(closures)*100:.1f}%)")
 
         fold_rank_results.append({
-            "n_vectors": N, "layer": best_L,
+            "rank": N, "layer": best_L,
             "mean_closure_pct": mean_closure,
             "min_closure_pct": min(closures) * 100,
             "max_closure_pct": max(closures) * 100,
@@ -889,33 +906,33 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
 
     df_fold = pd.DataFrame(fold_rank_results)
 
-    # Estimate fold rank: smallest N where closure reaches 90% of max
     max_closure = df_fold.mean_closure_pct.max()
     threshold = max_closure * 0.9
     fold_rank_rows = df_fold[df_fold.mean_closure_pct >= threshold]
-    fold_rank = int(fold_rank_rows.n_vectors.min()) if not fold_rank_rows.empty else N_VALUES[-1]
+    fold_rank = int(fold_rank_rows["rank"].min()) if not fold_rank_rows.empty else N_VALUES[-1]
 
     print(f"\n  === Fold-rank summary ===")
-    print(f"  {'N':>4s}  {'closure':>10s}  {'range':>20s}")
-    print(f"  {'-'*38}")
+    print(f"  {'rank':>6s}  {'closure':>10s}  {'range':>20s}")
+    print(f"  {'-'*40}")
     for _, r in df_fold.iterrows():
-        print(f"  {int(r.n_vectors):4d}  {r.mean_closure_pct:9.1f}%  "
+        print(f"  {int(r['rank']):6d}  {r.mean_closure_pct:9.1f}%  "
               f"[{r.min_closure_pct:.1f}%, {r.max_closure_pct:.1f}%]")
-    print(f"\n  Max closure: {max_closure:.1f}% at N={int(df_fold.loc[df_fold.mean_closure_pct.idxmax(), 'n_vectors'])}")
-    print(f"  Fold rank (90% of max): K={fold_rank}")
-    print(f"  SVD 90% variance at: k={int(np.searchsorted(cumvar, 0.9)) + 1}")
+    print(f"\n  Max closure: {max_closure:.1f}% at rank={int(df_fold.loc[df_fold.mean_closure_pct.idxmax(), 'rank'])}")
+    print(f"  Active fold rank (90% of max): K={fold_rank}")
+    print(f"  Passive SVD rank (90% variance): K={k_90}")
 
-    # Figure: closure vs N + SVD spectrum
+    # Figure: closure vs rank + SVD spectrum
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-    axes[0].plot(df_fold.n_vectors, df_fold.mean_closure_pct, '-o', color='#4e79a7',
+    axes[0].plot(df_fold["rank"], df_fold.mean_closure_pct, '-o', color='#4e79a7',
                  linewidth=2, markersize=8)
-    axes[0].fill_between(df_fold.n_vectors, df_fold.min_closure_pct,
+    axes[0].fill_between(df_fold["rank"], df_fold.min_closure_pct,
                          df_fold.max_closure_pct, alpha=0.2, color='#4e79a7')
-    axes[0].axhline(threshold, color='red', linestyle=':', alpha=0.5,
-                     label=f'90% of max ({threshold:.1f}%)')
-    axes[0].set_xlabel('N (number of steering vectors)')
+    if max_closure > 0:
+        axes[0].axhline(threshold, color='red', linestyle=':', alpha=0.5,
+                         label=f'90% of max ({threshold:.1f}%)')
+    axes[0].set_xlabel('Rank N')
     axes[0].set_ylabel('Held-out closure (%)')
-    axes[0].set_title(f'Fold rank: closure vs N ({family})')
+    axes[0].set_title(f'Active fold rank ({family})')
     axes[0].grid(alpha=0.3)
     axes[0].legend()
 
@@ -928,7 +945,7 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
     ax2.set_ylabel('Cumulative variance (%)', color='#59a14f')
     axes[1].set_xlabel('Singular value index')
     axes[1].set_ylabel('Variance explained (%)')
-    axes[1].set_title(f'SVD of alignment shift (L={best_L})')
+    axes[1].set_title(f'Passive SVD (L={best_L})')
     axes[1].grid(alpha=0.3)
 
     plt.suptitle(f'Fold-rank analysis ({family})', y=1.02)
@@ -943,10 +960,11 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
     v26_best_avg = best_per[best_per["init"] == "avg_init"]["mean_closure_pct"].max()
     v26_best_rand = best_per[best_per["init"] == "rand_init"]["mean_closure_pct"].max()
     print(f"\n  === Closure summary ===")
-    print(f"    v2  (self-direction, mean): {v2_mean_pct:6.2f}%  (per-prompt, not generalizable)")
-    print(f"    v2.5 (averaged, held-out):  {v25_best_pct:6.2f}%")
-    print(f"    v2.6 (learned 1-vec):       {max(v26_best_avg, v26_best_rand):6.2f}%")
-    print(f"    v2.7 fold rank K={fold_rank}:       {max_closure:6.2f}%  (N={int(df_fold.loc[df_fold.mean_closure_pct.idxmax(), 'n_vectors'])})")
+    print(f"    v2   (self-direction, mean): {v2_mean_pct:6.2f}%")
+    print(f"    v2.5 (averaged, held-out):   {v25_best_pct:6.2f}%")
+    print(f"    v2.6 (learned 1-vec):        {max(v26_best_avg, v26_best_rand):6.2f}%")
+    print(f"    v2.7 (rank-{fold_rank} projection):  {max_closure:6.2f}%")
+    print(f"    Passive SVD 90% at:          K={k_90}")
 
     # Token-level for best v2.6
     d_best = learned_directions[(int(best_v26["layer"]), best_v26["init"])]
