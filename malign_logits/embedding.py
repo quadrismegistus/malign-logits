@@ -906,10 +906,12 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2",
 
 
 def passage_surprisal_batched(texts, prompt_prefixes, model=None, tokenizer=None,
-                              model_name="gpt2", batch_size=32):
+                              model_name="gpt2", batch_size=32,
+                              need_hidden_states=False):
     """Batched surprisal for many passages at once.
 
     Returns list of dicts, same format as passage_surprisal().
+    Set need_hidden_states=False for additional refs (much faster).
     """
     import torch
 
@@ -951,9 +953,10 @@ def passage_surprisal_batched(texts, prompt_prefixes, model=None, tokenizer=None
 
         with torch.no_grad():
             outputs = model(input_ids, attention_mask=attn_mask,
-                            output_hidden_states=True)
+                            output_hidden_states=need_hidden_states)
             logits = outputs.logits.float()
-            last_hidden = outputs.hidden_states[-1].cpu().float()
+            last_hidden = (outputs.hidden_states[-1].cpu().float()
+                           if need_hidden_states else None)
 
         log_probs = torch.log_softmax(logits, dim=-1).cpu()
 
@@ -985,9 +988,12 @@ def passage_surprisal_batched(texts, prompt_prefixes, model=None, tokenizer=None
                 continue
 
             arr = np.array(surprisals)
-            hidden_comp = last_hidden[i, start_idx:length]
-            norms = hidden_comp.norm(dim=1, keepdim=True).clamp(min=1e-10)
-            normed = (hidden_comp / norms).numpy()
+            if last_hidden is not None:
+                hidden_comp = last_hidden[i, start_idx:length]
+                norms = hidden_comp.norm(dim=1, keepdim=True).clamp(min=1e-10)
+                normed = (hidden_comp / norms).numpy()
+            else:
+                normed = []
 
             tok_surps = list(zip(tokens, [round(s, 4) for s in surprisals]))
             if first_token_text is not None:
