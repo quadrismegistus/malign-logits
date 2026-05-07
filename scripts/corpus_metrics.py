@@ -401,12 +401,24 @@ def summary(csv_path="data/corpus_metrics.csv"):
                  'instruct': 'RLVR', 'dream': 'dream', 'recalled': 'waking',
                  'narration': 'fiction', 'arxiv': 'abstract'}
 
-    # Genre classifier
-    def is_template(row):
-        gt = row.get('genre_type', 'narrative')
-        return gt != 'narrative' if pd.notna(gt) else False
+    # Genre classifier — regex on passage text
+    import re as _re
+    _template_patterns = [
+        _re.compile(r'(?:^|\n)\s*[A-E]\s*[.):]', _re.MULTILINE),  # MC options
+        _re.compile(r'_{3,}'),  # fill-in-the-blank
+        _re.compile(r'\b(?:True|False)\b.*\b(?:True|False)\b'),  # T/F
+        _re.compile(r'(?:Q:|A:|Question:|Answer:)', _re.IGNORECASE),  # QA
+        _re.compile(r'<\|'),  # system prompt leakage
+        _re.compile(r'(?:You are a helpful|As an AI)', _re.IGNORECASE),  # chatbot preamble
+        _re.compile(r'(?:Pick from|Choose|Select).*(?:\n|:).*[A-D]', _re.IGNORECASE),  # choice
+        _re.compile(r'答案|以下'),  # Chinese exam
+    ]
+    def _is_template(text):
+        if not isinstance(text, str):
+            return False
+        return any(p.search(text) for p in _template_patterns)
 
-    df['_is_template'] = df.apply(is_template, axis=1)
+    df['_is_template'] = df['psg'].apply(_is_template)
     df['_layer'] = df['model'].map(lambda m: label_map.get(m, m.upper()))
     df['_is_ai'] = ~df['family'].isin(HUMAN)
     df['_texttype'] = df['family'].apply(lambda f: 'AI' if f not in HUMAN else f)
