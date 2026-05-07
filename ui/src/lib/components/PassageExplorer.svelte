@@ -9,8 +9,8 @@
 	let loading = $state(true);
 	let error = $state('');
 
-	let xAxis = $state('surprisal_median_z');
-	let yAxis = $state('drift_median_z');
+	let xAxis = $state('surprisal_pythia_1b_deduped');
+	let yAxis = $state('drift_bge_m3');
 	let colorBy: 'family' | 'layer' | 'category' | 'texttype' = $state('texttype');
 	let selectedPoint: PassageMetrics | null = $state(null);
 	let filterFamily = $state('all');
@@ -57,23 +57,19 @@
 	}
 
 	const METRICS = [
-		{ id: 'surprisal_median_z', label: 'Surprisal (median z)' },
-		{ id: 'drift_median_z', label: 'Drift (median z)' },
-		{ id: 'directedness_median_z', label: 'Directedness (median z)' },
+		{ id: 'surprisal_pythia_1b_deduped', label: 'Surprisal (Pythia 1B)' },
+		{ id: 'drift_bge_m3', label: 'Drift (bge-m3)' },
+		{ id: 'mean_surprisal', label: 'Surprisal (GPT-2)' },
+		{ id: 'surprisal_llama_3_1_8b', label: 'Surprisal (Llama)' },
+		{ id: 'total_drift', label: 'Drift (MiniLM)' },
+		{ id: 'drift_paraphrase_multilingual_mpnet_base_v2', label: 'Drift (mpnet)' },
+		{ id: 'directedness', label: 'Directedness (MiniLM)' },
+		{ id: 'directedness_bge_m3', label: 'Directedness (bge-m3)' },
 		{ id: 'token_metonymy_idx', label: 'Token metonymy' },
 		{ id: 'metonymy_idx', label: 'Sentence metonymy' },
 		{ id: 'token_diameter', label: 'Token diameter' },
-		{ id: 'total_drift', label: 'Sentence diameter (MiniLM)' },
-		{ id: 'drift_mpnet', label: 'Sentence diameter (mpnet)' },
-		{ id: 'drift_bge_m3', label: 'Sentence diameter (bge-m3)' },
 		{ id: 'mean_drift', label: 'Mean sentence drift' },
 		{ id: 'token_mean_drift', label: 'Mean token drift' },
-		{ id: 'mean_surprisal', label: 'Surprisal (GPT-2)' },
-		{ id: 'surprisal_llama', label: 'Surprisal (Llama)' },
-		{ id: 'surprisal_mistral', label: 'Surprisal (Mistral)' },
-		{ id: 'directedness', label: 'Directedness (MiniLM)' },
-		{ id: 'directedness_mpnet', label: 'Directedness (mpnet)' },
-		{ id: 'directedness_bge_m3', label: 'Directedness (bge-m3)' },
 		{ id: 'token_directedness', label: 'Token directedness' },
 		{ id: 'n_sentences', label: 'N sentences' },
 		{ id: 'n_tokens', label: 'N tokens' },
