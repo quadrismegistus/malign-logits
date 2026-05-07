@@ -139,6 +139,7 @@ def main():
     args = parser.parse_args()
 
     ALL_REFS = [
+        "EleutherAI/pythia-6.9b",
         "meta-llama/Llama-3.1-8B",
         # "mistralai/Mistral-7B-v0.1",  # hangs on specific passage, skip for now
     ]
