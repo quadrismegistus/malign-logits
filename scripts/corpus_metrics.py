@@ -424,16 +424,18 @@ def summary(csv_path="data/corpus_metrics.csv"):
     df['_texttype'] = df['family'].apply(lambda f: 'AI' if f not in HUMAN else f)
     df['_category'] = df['label'].str.replace(r'_\d+$', '', regex=True)
 
-    # Median z-score across independent references.
-    # Surprisal: GPT-2 (124M, 2019) + Pythia 1B-deduped (The Pile) — both
-    # independent of all families in the study.
-    # Drift: MiniLM (384d) + bge-m3 (1024d, BAAI) — different orgs/architectures.
-    surp_cols = ['mean_surprisal']  # GPT-2 always available
+    # Primary metrics: best single independent reference for each.
+    # Surprisal: Pythia 1B-deduped (The Pile, independent of all families).
+    # Drift: bge-m3 (BAAI, 1024d, SOTA, independent architecture).
+    # GPT-2 and MiniLM available as validation columns.
     if 'surprisal_pythia_1b_deduped' in df.columns:
-        surp_cols.append('surprisal_pythia_1b_deduped')
-    drift_cols = ['total_drift']  # MiniLM always available
+        surp_cols = ['surprisal_pythia_1b_deduped']
+    else:
+        surp_cols = ['mean_surprisal']
     if 'drift_bge_m3' in df.columns:
-        drift_cols.append('drift_bge_m3')
+        drift_cols = ['drift_bge_m3']
+    else:
+        drift_cols = ['total_drift']
 
     for col in surp_cols + drift_cols:
         vals = df[col].dropna()
