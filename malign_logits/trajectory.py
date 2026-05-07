@@ -97,6 +97,17 @@ def trajectory_metrics(traj):
     }
 
 
+def _get_layers(model):
+    """Get the transformer layers list, handling different architectures."""
+    if hasattr(model, 'model') and hasattr(model.model, 'layers'):
+        return model.model.layers  # Llama, OLMo, Qwen, Mistral
+    if hasattr(model, 'gpt_neox') and hasattr(model.gpt_neox, 'layers'):
+        return model.gpt_neox.layers  # GPT-NeoX (Pythia)
+    if hasattr(model, 'transformer') and hasattr(model.transformer, 'h'):
+        return model.transformer.h  # GPT-2
+    raise AttributeError(f"Cannot find layers in {type(model).__name__}")
+
+
 def get_trajectory(model, tokenizer, token_ids, layer_idx):
     ids = token_ids.unsqueeze(0).to(model.device)
     with torch.no_grad():
@@ -166,7 +177,7 @@ def intervene_logits(model, tokenizer, prompt, layer_idx, direction, alpha):
             h[0, -1, :] = h[0, -1, :] + addend
             return h
 
-    handle = model.model.layers[layer_idx].register_forward_hook(hook)
+    handle = _get_layers(model)[layer_idx].register_forward_hook(hook)
     try:
         with torch.no_grad():
             out = model(ids)
@@ -207,7 +218,7 @@ def train_steering_vector(base_model, dpo_targets, tokenizer, prompts, layer_idx
             ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
             target_probs = torch.softmax(dpo_targets[prompt].to(device), dim=-1)
 
-            handle = base_model.model.layers[layer_idx].register_forward_hook(hook_fn)
+            handle = _get_layers(base_model)[layer_idx].register_forward_hook(hook_fn)
             try:
                 out = base_model(ids)
                 logits = out.logits[0, -1, :].float()
