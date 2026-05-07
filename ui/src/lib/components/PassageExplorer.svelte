@@ -10,7 +10,7 @@
 	let error = $state('');
 
 	let xAxis = $state('surprisal_pythia_1b_deduped');
-	let yAxis = $state('drift_bge_m3');
+	let yAxis = $state('total_drift');
 	let colorBy: 'family' | 'layer' | 'category' | 'texttype' = $state('texttype');
 	let selectedPoint: PassageMetrics | null = $state(null);
 	let filterFamily = $state('all');

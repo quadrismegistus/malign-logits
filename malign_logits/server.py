@@ -420,15 +420,21 @@ class ModelHandler(BaseHTTPRequestHandler):
         elif path == "/passage-metrics-csv":
             import os
             base = os.path.dirname(os.path.dirname(__file__))
-            # Prefer corpus_metrics (has all text types + multiple surprisals)
-            for name in ["corpus_metrics.csv", "passage_metrics.csv"]:
-                csv_path = os.path.join(base, "data", name)
-                if os.path.exists(csv_path):
+            for name in ["corpus_metrics.parquet", "corpus_metrics.csv"]:
+                fpath = os.path.join(base, "data", name)
+                if os.path.exists(fpath):
                     break
             else:
                 return {"rows": []}
             import pandas as pd
-            df = pd.read_csv(csv_path)
+            if fpath.endswith(".parquet"):
+                df = pd.read_parquet(fpath)
+            else:
+                df = pd.read_csv(fpath)
+            # Drop heavy/unused columns (psg loaded via /passage-tokens on click)
+            drop = ['psg'] + [c for c in df.columns if c.startswith(('max_', 'std_',
+                              'n_tokens', 'token_path', 'path_length'))]
+            df = df.drop(columns=[c for c in drop if c in df.columns], errors='ignore')
             return {"rows": _sanitize(df.to_dict(orient="records"))}
 
         elif path == "/info":
