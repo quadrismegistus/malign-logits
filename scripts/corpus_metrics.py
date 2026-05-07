@@ -706,6 +706,16 @@ if __name__ == "__main__":
         for i, a in enumerate(sys.argv):
             if a == '--output' and i + 1 < len(sys.argv):
                 csv = sys.argv[i + 1]
-        summary(csv)
+        import io
+        buf = io.StringIO()
+        import contextlib
+        with contextlib.redirect_stdout(buf):
+            summary(csv)
+        output = buf.getvalue()
+        print(output)
+        md_path = csv.replace('.csv', '.md')
+        with open(md_path, 'w') as f:
+            f.write(output)
+        print(f"Saved {md_path}", file=sys.stderr)
     else:
         main()
