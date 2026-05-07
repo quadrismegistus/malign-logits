@@ -646,7 +646,7 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
     print("  Pre-computing DPO targets...")
     dpo_targets = {}
     for k in train_keys:
-        dpo_targets[TIER1_PROMPTS[k]] = last_logits(dpo_model, tokenizer, TIER1_PROMPTS[k])
+        dpo_targets[subset[k]] = last_logits(dpo_model, tokenizer, subset[k])
 
     learned_directions = {}
     training_losses = {}
