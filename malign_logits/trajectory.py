@@ -936,10 +936,11 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
     axes[0].grid(alpha=0.3)
     axes[0].legend()
 
-    axes[1].bar(range(1, min(21, len(S)) + 1), S[:20] ** 2 / (S ** 2).sum() * 100,
+    n_sv = min(20, len(S))
+    axes[1].bar(range(1, n_sv + 1), S[:n_sv] ** 2 / (S ** 2).sum() * 100,
                 color='#e15759', alpha=0.7)
     ax2 = axes[1].twinx()
-    ax2.plot(range(1, min(21, len(cumvar)) + 1), cumvar[:20] * 100, '-o',
+    ax2.plot(range(1, n_sv + 1), cumvar[:n_sv] * 100, '-o',
              color='#59a14f', markersize=4)
     ax2.set_ylabel('Cumulative variance (%)', color='#59a14f')
     axes[1].set_xlabel('Singular value index')
