@@ -258,14 +258,14 @@ def main():
             if uncached:
                 batch_texts = [t for _, t, _ in uncached]
                 batch_prefixes = [p for _, _, p in uncached]
-                bs = 32 if device_type == "cuda" else 1
+                bs = 128 if device_type == "cuda" else 1
 
                 if bs > 1:
-                    print(f"  Batching {len(uncached)} passages (bs={bs}, no stash writes)...")
+                    print(f"  Batching {len(uncached)} passages (bs={bs}, no hidden states)...")
                     batch_results = passage_surprisal_batched(
                         batch_texts, batch_prefixes,
                         model=ref_model, tokenizer=ref_tok,
-                        batch_size=bs)
+                        batch_size=bs, need_hidden_states=False)
                 else:
                     batch_results = []
                     for text, prefix in tqdm(zip(batch_texts, batch_prefixes),
