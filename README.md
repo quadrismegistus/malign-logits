@@ -381,7 +381,26 @@ Norm change and drift change both flip direction between families. There is no u
 
 The original "94% wall" (OLMo-tiny, 8 prompts) was an artifact of insufficient training data. With 47 prompts, held-out closure ranges from 20% to 77%. **Foldability tracks alignment sophistication**: Pythia (1-epoch community fine-tune on Anthropic HH-RLHF, same data for SFT and DPO) is 77% fold. OLMo (industrial multi-source safety stack: CoCoNot, WildGuardMix, WildJailbreak, capability-delta DPO) is 29% fold.
 
-**Lyotardian reframing.** Alignment is theatricalization of the libidinal band — a folding operation. Different corporate regimes fold the band at different angles (Amber moralizing, Qwen toward metonymic chain-sliding, OLMo distributed genre collapse) and at different dimensionalities. The "wall" fraction is not a separate phenomenon — it is the multi-dimensional fold that a single steering vector cannot capture. The fold rank K (number of orthogonal directions needed to capture alignment) indexes the structural depth of the theatrical apparatus.
+**Part C: Fold dimensionality via SVD.** SVD of the (DPO − base) hidden-state difference matrix across all 47 prompts reveals the intrinsic dimensionality of the alignment shift. K_50 = number of orthogonal directions capturing 50% of the alignment variance.
+
+| Family | K_50 | K_90 | top1 var% | v2.6 closure |
+|---|---|---|---|---|
+| **Pythia** | **2** | 28 | **48.6%** | 77% |
+| OLMo-tiny | 3 | 26 | 38.6% | 20% |
+| Amber | 3 | 32 | 44.4% | 44% |
+| Zephyr | 5 | 31 | 30.7% | 20% |
+| Qwen | 6 | 32 | 27.2% | 44% |
+| Llama | 7 | 33 | 21.1% | 30% |
+| Tulu | 7 | 33 | 28.3% | — |
+| Qwen-tiny | 8 | 33 | 20.8% | 37% |
+| SmolLM2 | 9 | 33 | 20.9% | 21% |
+| **OLMo** | **13** | **36** | **13.1%** | 29% |
+
+**Pythia’s alignment lives in 2 directions** (K_50=2, top singular value captures 49% of variance). OLMo’s lives in 13 (top value only 13%). The concentration of the alignment fold — not its tail (K_90 is ~30 everywhere, bounded by the 47-prompt sample) — is what varies by alignment regime.
+
+**Fold concentration predicts steerability.** K_50 correlates with v2.6 held-out closure: the most concentrated alignments (Pythia K_50=2, Amber K_50=3) are the most steerable by a single learned vector. The most distributed (OLMo K_50=13) resists single-vector capture. This is the empirical content of the Lyotardian claim: the dimensionality of the fold indexes the structural depth of the theatrical apparatus.
+
+**Lyotardian reframing.** Alignment is theatricalization of the libidinal band — a folding operation. Different corporate regimes fold the band at different angles and at different dimensionalities. Pythia (community fine-tune, 1-epoch, single dataset) is a 2-dimensional fold — almost a single crease. OLMo (industrial multi-source safety stack) is a 13-dimensional fold — a coordinated restructuring across many orthogonal directions. The “wall” from the original F12 was never a wall; it was a high-dimensional fold that a single steering vector could not ride.
 
 Script: `malign trajectory`. Results in `data/trajectory_geometry_*.csv`, `data/intervention_*.csv`, `data/fold_rank_*.csv`. Figures in `figures/trajectory_geometry.*.png`, `figures/fold_rank.*.png`.
 

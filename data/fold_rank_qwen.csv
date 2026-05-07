@@ -1,0 +1,2 @@
+family,layer,k_50,k_90,k_99,top1_var_pct,n_prompts
+qwen,23,6,32,45,27.2,47
