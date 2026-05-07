@@ -949,18 +949,40 @@ def passage_surprisal_batched(texts, prompt_prefixes, model=None, tokenizer=None
         input_ids = encodings["input_ids"].to(device)
         attn_mask = encodings["attention_mask"].to(device)
 
-        # Log max sequence length for debugging hangs
-        max_len = int(attn_mask.sum(dim=1).max())
-        if max_len > 500:
-            batch_idx = batch_start // batch_size
-            print(f"\n  Batch {batch_idx}: max_len={max_len}, "
-                  f"shapes={input_ids.shape}", flush=True)
+        # Run forward pass with timeout to skip hung batches
+        import signal
 
-        with torch.no_grad():
-            outputs = model(input_ids, attention_mask=attn_mask,
-                            output_hidden_states=True)
-            logits = outputs.logits.float()
-            last_hidden = outputs.hidden_states[-1].cpu().float()
+        def _timeout_handler(signum, frame):
+            raise TimeoutError(f"Batch {batch_start//batch_size} timed out")
+
+        batch_idx = batch_start // batch_size
+        try:
+            old_handler = signal.signal(signal.SIGALRM, _timeout_handler)
+            signal.alarm(60)  # 60s timeout per batch
+
+            with torch.no_grad():
+                outputs = model(input_ids, attention_mask=attn_mask,
+                                output_hidden_states=True)
+                logits = outputs.logits.float()
+                last_hidden = outputs.hidden_states[-1].cpu().float()
+
+            signal.alarm(0)
+            signal.signal(signal.SIGALRM, old_handler)
+        except (TimeoutError, Exception) as e:
+            signal.alarm(0)
+            print(f"\n  Batch {batch_idx} failed ({e}), falling back to sequential",
+                  flush=True)
+            for i, (text, prefix) in enumerate(zip(batch_texts, batch_prefixes)):
+                try:
+                    r = passage_surprisal(text, model=model, tokenizer=tokenizer,
+                                         prompt_prefix=prefix)
+                    results[batch_start + i] = r
+                except Exception:
+                    results[batch_start + i] = {
+                        "mean_surprisal": 0, "max_surprisal": 0,
+                        "std_surprisal": 0, "n_tokens": 0,
+                        "token_surprisals": [], "hidden_states": []}
+            continue
 
         log_probs = torch.log_softmax(logits, dim=-1).cpu()
 
