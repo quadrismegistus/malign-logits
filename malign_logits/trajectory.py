@@ -243,10 +243,18 @@ def train_steering_vector(base_model, dpo_targets, tokenizer, prompts, layer_idx
 
 def train_steering_vectors(base_model, dpo_targets, tokenizer, prompts, layer_idx,
                            n_vectors=1, n_epochs=30, lr=0.05, log_every=10):
-    """Learn N orthogonal steering vectors via gradient descent.
+    """Learn a rank-N steering subspace via gradient descent.
 
-    Returns (D, losses) where D is (n_vectors, hidden_dim) and losses is
-    a list of per-epoch average losses.
+    Learns a single direction d = sum(D[i]) where D is (n_vectors, hidden_dim).
+    No orthogonalization during training — the effective rank is determined by
+    the optimization landscape. Post-hoc SVD reveals the intrinsic dimensionality.
+
+    For N=1 this is identical to train_steering_vector (v2.6).
+    For N>1 the extra parameters give the optimizer more room to find
+    a direction that generalizes across prompts.
+
+    Returns (d_combined, D_raw, losses) where d_combined is the sum vector
+    (hidden_dim,), D_raw is the raw matrix (n_vectors, hidden_dim).
     """
     hidden_dim = base_model.config.hidden_size
     device = base_model.device
@@ -289,45 +297,20 @@ def train_steering_vectors(base_model, dpo_targets, tokenizer, prompts, layer_id
         torch.nn.utils.clip_grad_norm_([D], max_norm=20.0)
         optimizer.step()
 
-        # Orthogonalize via QR decomposition
-        with torch.no_grad():
-            if n_vectors > 1:
-                Q, R = torch.linalg.qr(D.T)
-                # Preserve magnitudes: scale each orthogonal direction by original norms
-                norms = D.norm(dim=1)
-                D.data = (Q.T[:n_vectors] * norms.unsqueeze(1))
-
         avg_loss = epoch_loss / len(prompts)
         losses.append(avg_loss)
         if epoch % log_every == 0 or epoch == n_epochs - 1:
+            d_combined = D.sum(dim=0)
             print(f"  epoch {epoch:3d}: loss={avg_loss:.4f}  "
-                  f"||D||={D.norm().item():.2f}", flush=True)
+                  f"||d||={d_combined.norm().item():.2f}", flush=True)
 
-    return D.detach().cpu().float(), losses
+    d_combined = D.detach().sum(dim=0).cpu().float()
+    return d_combined, D.detach().cpu().float(), losses
 
 
-def intervene_logits_multi(model, tokenizer, prompt, layer_idx, D):
-    """Apply multiple steering vectors simultaneously."""
-    ids = tokenizer.encode(prompt, return_tensors="pt").to(model.device)
-    addend = D.sum(dim=0).to(model.device).to(next(model.parameters()).dtype)
-
-    def hook(module, inputs, output):
-        if isinstance(output, tuple):
-            h = output[0].clone()
-            h[0, -1, :] = h[0, -1, :] + addend
-            return (h,) + output[1:]
-        else:
-            h = output.clone()
-            h[0, -1, :] = h[0, -1, :] + addend
-            return h
-
-    handle = _get_layers(model)[layer_idx].register_forward_hook(hook)
-    try:
-        with torch.no_grad():
-            out = model(ids)
-        return out.logits[0, -1, :].float().cpu()
-    finally:
-        handle.remove()
+def intervene_logits_multi(model, tokenizer, prompt, layer_idx, d):
+    """Apply a steering vector (combined direction)."""
+    return intervene_logits(model, tokenizer, prompt, layer_idx, d, alpha=1.0)
 
 
 def token_level_report(base_model, tokenizer, prompt, layer_idx, direction, alpha,
@@ -874,20 +857,20 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
     for N in N_VALUES:
         print(f"\n  === N={N} vectors, L={best_L} ===")
         t0 = time.time()
-        D_learned, losses = train_steering_vectors(
+        d_combined, D_raw, losses = train_steering_vectors(
             base_model, dpo_targets, tokenizer, train_prompts,
             layer_idx=best_L, n_vectors=N, n_epochs=n_epochs, lr=lr,
             log_every=10,
         )
         elapsed = time.time() - t0
-        print(f"  Trained in {elapsed:.1f}s, ||D||={D_learned.norm().item():.2f}")
+        print(f"  Trained in {elapsed:.1f}s, ||d||={d_combined.norm().item():.2f}")
 
         # Evaluate on held-out prompts
         closures = []
         for label, prompt in eval_prompts.items():
             bl = eval_baselines[label]
             logits_int = intervene_logits_multi(
-                base_model, tokenizer, prompt, best_L, D_learned)
+                base_model, tokenizer, prompt, best_L, d_combined)
             js_int_dpo = js_divergence(logits_int, bl["logits_dpo"])
             closure = (bl["js_bd"] - js_int_dpo) / bl["js_bd"]
             closures.append(closure)
