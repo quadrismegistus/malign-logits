@@ -22,11 +22,11 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
   - [9. Same base model, different alignment (Tulu vs Llama)](#9-same-base-model-different-alignment-tulu-31-vs-llama-31-47-prompts)
   - [10. SFT data ablation (Tulu 3)](#10-sft-data-ablation-tulu-3-5-variants-47-prompts)
   - [11. Contradiction tolerance (OLMo 3 7B)](#11-contradiction-tolerance-olmo-3-7b-5-prompt-pairs--nnsight-intervention)
-  - [12. Trajectory geometry and fold-vs-wall (OLMo 2 1B, preliminary)](#12-trajectory-geometry-and-the-fold-vs-wall-question-olmo-2-1b-preliminary)
+  - [12. Alignment as fold: trajectory geometry and steering vectors (10 families)](#12-alignment-as-fold-trajectory-geometry-and-steering-vector-analysis-10-families-47-prompts-100-passages)
   - [13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (6 families, 126k pairs)](#13-jakobsonian-axes-paradigmatic-vs-syntagmatic-displacement-6-families-126k-pairs)
   - [14. Syntagmatic baseline: alignment-produced vs corpus-level damage (OLMo 3 7B)](#14-syntagmatic-baseline-alignment-produced-vs-corpus-level-damage-olmo-3-7b-23k-pairs)
-  - [15. Generation-level passage metrics (8 families, 20k passages, 3 refs × 3 embedders)](#15-generation-level-passage-metrics-8-families-20k-passages-3-reference-models--3-embedders)
-  - [16. Corpus comparison: dreams, waking narratives, fiction, abstracts](#16-corpus-comparison-dreams-waking-narratives-fiction-abstracts-length-normalized-3-reference-models--3-embedders)
+  - [15. Generation-level passage metrics (10 families, 76k passages)](#15-generation-level-passage-metrics-10-families-76k-passages-47-prompts)
+  - [16. Corpus comparison: dreams, waking, fiction, abstracts (76k passages)](#16-corpus-comparison-dreams-waking-narratives-fiction-abstracts-76k-passages-length-normalized)
   - [17. Cross-generation semantic divergence (8 families, 3 embedders)](#17-cross-generation-semantic-divergence-alignment-steers-content-differentially-8-families-20k-passages-3-embedders)
 - [Installation](#installation)
 - [Quick start](#quick-start)
@@ -347,49 +347,43 @@ The contradiction axis is equally linearly decomposable in base, SFT, and DPO. P
 
 Notebook: `notebooks/07_contradiction_intervention.ipynb`. Scripts: `scripts/contradiction_test.py`, `scripts/contradiction_compare.py`.
 
-### 12. Trajectory geometry and the fold-vs-wall question (OLMo 2 1B, preliminary)
+### 12. Alignment as fold: trajectory geometry and steering vector analysis (10 families, 47 prompts, 100 passages)
 
-Two-part investigation of alignment's geometric signature in the residual stream. **Caveat: results are on OLMo 2 1B, not the 7B family used elsewhere.** The qualitative finding likely generalizes; the specific numbers will not.
+Two-part investigation of alignment's geometric signature, replicated across all 10 families with 47 prompts and 100 pre-generated passages per prompt.
 
-**Part A: Trajectory geometry across alignment stages.** Feed an identical token sequence through base, SFT, DPO, and RLVR; capture per-token hidden states from layer 13 of 16; measure three scale-invariant metrics on the trajectory.
+**Part A: No universal geometric signature.** Feed identical text through base/SFT/DPO/RLVR, capture per-token hidden states, measure trajectory geometry. The direction of geometric change is family-specific:
 
-| metric | base | sft | dpo | rlvr |
-|---|---|---|---|---|
-| `gyration_cos` (angular spread of trajectory directions) | 0.469 | 0.471 | 0.485 | 0.483 |
-| `local_drift` (transgressive prompts, mean cosine step distance) | 0.507 | 0.493 | 0.498 | 0.497 |
-| `mean_norm` (residual stream magnitude) | 21.6 | 24.0 | 24.3 | 24.2 |
+| Family | layers | Δ local_drift | Δ mean_norm |
+|---|---|---|---|
+| Amber | 3 | +0.117 | −146 |
+| OLMo | 4 | +0.052 | −5.6 |
+| Tulu | 4 | +0.037 | −2.9 |
+| Pythia | 3 | −0.001 | −3.3 |
+| OLMo-tiny | 4 | −0.012 | +2.7 |
+| Llama | 2 | −0.014 | −1.9 |
+| SmolLM2 | 2 | +0.010 | +39 |
 
-Euclidean `path_length` and `gyration_radius` were entirely norm-confounded — base→DPO expansion of +12% in both, matching the +12% norm increase exactly.
+Norm change and drift change both flip direction between families. There is no universal "SFT pumps norms / DPO widens cone" division of labor — that was an OLMo-tiny-1B-specific finding. The geometric work of alignment is family-specific.
 
-**The SFT/DPO division of labour is sharper at the geometric level than the logit level.** Decomposing each base→DPO change by what each stage contributes:
+**Part B: Alignment is a fold, not a wall.** Per-prompt steering vectors (DPO − base hidden states) close 50–90% of the alignment gap on the prompt they were extracted from. Learned steering vectors (gradient descent, trained on half the prompts, evaluated on held-out half) show family-dependent generalization:
 
-| effect | SFT contribution | DPO contribution |
-|---|---|---|
-| mean_norm pumping (+12%) | **+11.0% (89%)** | +1.2% (11%) |
-| transgressive local_drift smoothing (−2.6%) | **−2.6% (full effect)** | partial restore +0.9% |
-| gyration_cos expansion (+3.4%) | +0.4% (13%) | **+2.9% (87%)** |
+| Family | v2 self-closure | v2.6 held-out closure | Interpretation |
+|---|---|---|---|
+| Pythia | 89% | **77%** | Mostly fold (shallow community alignment) |
+| Zephyr | 90% | 20% | Locally linear, globally diverse |
+| Amber | 75% | **44%** | Strong-and-stereotyped (moralizing mode) |
+| Qwen | 53% | **44%** | Mixed |
+| Qwen-tiny | 50% | **37%** | Mixed |
+| Llama | 64% | **30%** | Mostly wall |
+| OLMo | 52% | **29%** | Mostly wall (industrial safety stack) |
+| SmolLM2 | 53% | **21%** | Mostly wall |
+| OLMo-tiny | 9% | **22%** | Mostly wall |
 
-**SFT** pumps activation norms globally and smooths step-to-step direction change on transgressive content (the *content-specific* and *magnitude* work). **DPO** widens the angular cone of directions traversed (the *territorial* work). RLVR plateaus on all three.
+The original "94% wall" (OLMo-tiny, 8 prompts) was an artifact of insufficient training data. With 47 prompts, held-out closure ranges from 20% to 77%. **Foldability tracks alignment sophistication**: Pythia (1-epoch community fine-tune on Anthropic HH-RLHF, same data for SFT and DPO) is 77% fold. OLMo (industrial multi-source safety stack: CoCoNot, WildGuardMix, WildJailbreak, capability-delta DPO) is 29% fold.
 
-**Lyotardian framing:** alignment isn't "folding the surface tighter." Three structurally different geometric shifts at three training stages: SFT re-scales the residual stream into a higher-norm regime and smooths transgressive paths; DPO unfolds the angular territory the model traverses. The dispositif redistributes energy across multiple geometric dimensions, sequentially.
+**Lyotardian reframing.** Alignment is theatricalization of the libidinal band — a folding operation. Different corporate regimes fold the band at different angles (Amber moralizing, Qwen toward metonymic chain-sliding, OLMo distributed genre collapse) and at different dimensionalities. The "wall" fraction is not a separate phenomenon — it is the multi-dimensional fold that a single steering vector cannot capture. The fold rank K (number of orthogonal directions needed to capture alignment) indexes the structural depth of the theatrical apparatus.
 
-**Part B: Fold or wall? Three escalating intervention experiments.** If the aligned region is reachable from base by linear translation in residual space (a fold), pushing base's hidden state along the right direction at layer L should produce DPO-like output. If not (a wall), alignment has restructured the topology, not folded it.
-
-| intervention | held-out closure of base→DPO JS gap |
-|---|---|
-| Single-prompt (DPO − base) at last position (v2) | ~0% (catastrophic at α=1, output goes off-manifold entirely) |
-| Averaged (DPO − base) across 8 prompts (v2.5) | 0.7% |
-| Learned steering vector via gradient descent on KL to DPO, train on 10 prompts, eval on held-out 8 (v2.6) | **6.0%** |
-
-Even the gradient-optimal linear direction at the best layer (L=4) closes only ~6% of the base→DPO JS gap on held-out prompts. **~94% of alignment is non-compositional in residual space at a single layer** — coordinated re-weighting of multiple pathways that no single-vector perturbation captures.
-
-**Random initialization beats v2.5-averaged initialization 3-7×.** This was unexpected: if the v2.5 average direction (per-prompt diff consistency 0.65–0.70) carried real alignment signal, it should be a useful starting point for descent. Instead, random init finds a better local optimum. The high cross-prompt consistency in v2.5 was capturing *general representational drift* between the two models, not the *alignment-relevant* direction.
-
-**Token-level confirms the small directional component is real.** At the best learned vector (L=4, α=0.3, rand init), `kill` drops 0.235 → 0.220 (DPO target: 0.040), `cry` and `scream` rise toward DPO levels, 60% of top-20 base tokens move in the DPO direction. So a directional component exists — it just accounts for ~6% of what alignment does.
-
-**Verdict — partial fold, mostly wall.** ~6% of alignment is geometrically a fold; ~94% is structural. Lyotard's *dispositif* isn't a single rotation of the libidinal surface — it's a coordinated re-weighting of pathways with a faint linear-direction trace. Alignment as Name-of-the-Father isn't a vector you can ride; it's a re-architecting that resists single-vector inversion.
-
-Notebook: `notebooks/08_trajectory_drift.ipynb`. Open: replicate on 7B (OLMo 3, Llama, Qwen, Amber). Llama's late-layer override (finding #5) may show higher closure given its more linearizable structure; representation-engineering work on 7B suggests 30–50% closure on specific concept subspaces, vs our 6% on the whole DPO transformation.
+Script: `malign trajectory`. Results in `data/trajectory_geometry_*.csv`, `data/intervention_*.csv`, `data/fold_rank_*.csv`. Figures in `figures/trajectory_geometry.*.png`, `figures/fold_rank.*.png`.
 
 ### 13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (6 families, 126k pairs)
 
@@ -473,62 +467,50 @@ Finding 13 showed that paradigmatic and syntagmatic axes trade off within aligne
 Results in `data/taxonomy_olmo.csv` (column `syntagmatic_js_aligned`). CLI: `malign taxonomy --baseline --family olmo`.
 
 
-### 15. Generation-level passage metrics (8 families, 20k passages, 3 reference models × 3 embedders)
+### 15. Generation-level passage metrics (10 families, 76k passages, 47 prompts)
 
-Generates many completions per prompt per model layer, then measures within-passage properties:
-- **Sentence diameter** (total_drift): max pairwise cosine distance between sentence embeddings. Validated under three independent embedders: MiniLM (384d), mpnet (768d), bge-m3 (1024d) (r=0.73–0.90 cross-embedder correlation).
-- **Surprisal**: mean per-token negative log-probability under a reference model. Validated under three independent references: GPT-2 (124M), Llama 3.1 8B, and Mistral 7B (r=0.71 GPT-2↔Llama, r=0.97 Llama↔Mistral). All metrics reported as median z-score across the three references.
-- **Directedness**: diameter / path_length. Does the text travel in one direction (≈1) or wander in circles (≈0).
-
-19,637 passages across 8 families, all truncated to minimum sentences exceeding 75 words for length normalization. All findings validated with 10,000-resample bootstrap CIs.
+76,214 passages across 10 families (47 prompts × 100 generations per prompt per layer), truncated to minimum sentences exceeding 75 words. Primary metrics: Pythia 1B-deduped surprisal (independent of all families, trained on deduplicated Pile) and bge-m3 drift (BAAI, independent architecture). Validated under additional references: GPT-2 (124M), Llama 3.1 8B. All findings hold under all references. 10,000-resample bootstrap CIs.
 
 **Alignment universally smooths (every family, 95% CI).**
 
 | Family | Δ surprisal (z) | 95% CI | Δ drift (z) | sig |
 |---|---|---|---|---|
-| Amber | **−1.71** | [−1.83, −1.52] | −0.82 | *** |
-| Qwen | −0.99 | [−1.19, −0.84] | −0.17 | *** |
-| Zephyr | −0.96 | [−1.11, −0.83] | −0.29 | *** |
-| Qwen-tiny | −0.80 | [−0.92, −0.72] | +0.23 | *** |
-| OLMo | −0.45 | [−0.52, −0.38] | +0.08 | *** |
-| Tulu | −0.41 | [−0.47, −0.32] | −0.30 | *** |
-| OLMo-tiny | −0.30 | [−0.34, −0.24] | −0.32 | *** |
-| SmolLM2 | −0.05 | [−0.11, +0.00] | −0.07 | * |
+| Amber | **−1.27** | [−1.33, −1.20] | −0.61 | *** |
+| Tulu | −1.01 | [−1.05, −0.98] | −0.39 | *** |
+| Zephyr | −1.00 | [−1.06, −0.94] | −0.18 | *** |
+| Qwen | −0.70 | [−0.76, −0.63] | −0.20 | *** |
+| Pythia | −0.57 | [−0.62, −0.53] | −0.18 | *** |
+| OLMo-tiny | −0.54 | [−0.58, −0.50] | −0.34 | *** |
+| Qwen-tiny | −0.46 | [−0.55, −0.37] | +0.09 | *** |
+| OLMo | −0.45 | [−0.50, −0.40] | −0.12 | *** |
+| Llama | −0.45 | [−0.55, −0.36] | −0.10 | *** |
+| SmolLM2 | −0.18 | [−0.26, −0.09] | −0.06 | *** |
 
-Alignment intensity varies by an order of magnitude and is a property of the training recipe, not the architecture: Tulu and Llama share the same base model but show different profiles. Zephyr has no safety data yet smooths more than OLMo (which has explicit safety data).
+**Content category has no effect on within-passage surprisal (Kruskal-Wallis p=0.99).** All categories smooth by −0.60 to −0.84. Alignment is a uniform compressor.
 
-**Content category has no effect on within-passage surprisal (Kruskal-Wallis p=0.99).** All categories smooth by −0.23 to −0.51, with heavily overlapping CIs. Neutral (−0.49) smooths as much as sexual_explicit (−0.31) or violence_explicit (−0.23). Alignment is a uniform compressor — at the within-passage level, it makes all text generically smoother regardless of content.
+**Jakobsonian quadrants (drift × surprisal).** Alignment universally drains Q2 (breakdown: high drift + high surprisal) into Q1 (metonymic: high drift, low surprisal — chain-sliding) and Q4 (unmarked: low drift, low surprisal — generic). Every family starts Q2-dominant at BASE. OLMo stays Q2 even after alignment (genre collapse keeps it surprising + drifty). Qwen shifts to Q1 (metonymic). Most others shift to Q4 (unmarked).
 
-**SFT share of smoothing varies dramatically.**
-- OLMo: SFT 120% (DPO partially reverses SFT overshooting)
-- OLMo-tiny: SFT 98%
-- Amber: SFT 75%
-- Zephyr: SFT 67%
-- Tulu: SFT 31% (DPO-dominant — same Llama base, opposite architecture from OLMo)
+CLI: `malign topic-drift`. Results in `data/corpus_metrics.csv` / `data/corpus_metrics.parquet`. Summary: `python scripts/corpus_metrics.py --summary`.
 
-CLI: `malign topic-drift`. Results in `data/corpus_metrics.csv`. Summary: `python scripts/corpus_metrics.py --summary`. Interactive explorer: Passages tab in UI.
+### 16. Corpus comparison: dreams, waking narratives, fiction, abstracts (76k passages, length-normalized)
 
-### 16. Corpus comparison: dreams, waking narratives, fiction, abstracts (length-normalized, 3 reference models × 3 embedders)
-
-Five text types run through the same pipeline, all truncated to minimum sentences exceeding 75 words. Metrics reported as median z-score across 3 surprisal references and 3 sentence embedders.
+Five text types through the same pipeline, all truncated to minimum sentences exceeding 75 words. Primary surprisal: Pythia 1B-deduped (independent of all families).
 
 | Text type | Surprisal (z) | 95% CI | Drift (z) | 95% CI | n |
 |---|---|---|---|---|---|
-| C20 Fiction | **+1.62** | [+1.50, +1.73] | +0.34 | [+0.23, +0.44] | 447 |
-| Dream reports | **+1.08** | [+0.99, +1.20] | +0.34 | [+0.23, +0.41] | 427 |
-| Arxiv abstracts | +0.53 | [+0.41, +0.64] | −1.13 | [−1.23, −1.04] | 476 |
-| Waking narratives | +0.04 | [−0.02, +0.11] | +0.25 | [+0.21, +0.32] | 500 |
-| AI generations | −0.00 | [−0.02, +0.01] | +0.11 | [+0.09, +0.13] | 17,787 |
+| C20 Fiction | **+0.40** | [+0.33, +0.47] | +0.22 | [+0.14, +0.29] | 447 |
+| Dream reports | **+0.14** | [+0.06, +0.21] | −0.31 | [−0.34, −0.20] | 427 |
+| Arxiv abstracts | +0.10 | [−0.01, +0.15] | −0.71 | [−0.79, −0.60] | 476 |
+| AI generations | −0.10 | [−0.10, −0.09] | +0.08 | [+0.07, +0.08] | 74,364 |
+| Waking narratives | −0.49 | [−0.56, −0.45] | −0.48 | [−0.57, −0.42] | 500 |
 
-**Dream-specific effect: +1.04σ above register baseline (p=1.1×10⁻⁵⁸).** Hippocorpus waking narratives control for register — same format (informal first-person retrospective narration), different content. Dreams +1.08σ vs waking +0.04σ. The gap is dream-specific, not register.
+**Dream-specific effect: +0.63σ above register baseline (p<10⁻³²).** Hippocorpus waking narratives control for register. Dreams +0.14σ vs waking −0.49σ. The gap is dream-specific, not register.
 
-**Fiction is the most surprising text type** (+1.62σ). Literary prose (DFW, Pynchon, Bellow, Gibson) is stranger than any model output or other human text to all three reference models.
+**Fiction is the most surprising text type** (+0.40σ). Literary prose is stranger than any model output or other human text type under all reference models.
 
-**Abstracts: low drift, high surprisal, high directedness.** Academic prose stays tightly on-topic with surprising technical vocabulary, progressing linearly. Pure condensation.
+**Quadrant distribution.** Fiction: 48% Q2 (breakdown). Dreams: 37% Q2, 25% Q1. Abstracts: 52% Q3 (metaphoric — low drift, high surprisal). Waking: 53% Q1 (metonymic — closest to aligned AI). AI: spread across all four.
 
-**Theoretical implication.** Aligned LLMs produce desire-structured language that slides along permitted chains (metonymy of desire), not dream-work-like text. Dream reports produce a distinct signature — high surprisal with moderate drift — corresponding to primary-process displacement. The metrics distinguish these empirically.
-
-Scripts: `scripts/corpus_metrics.py`, `scripts/dream_metrics.py`. Results in `data/corpus_metrics.csv`.
+Scripts: `scripts/corpus_metrics.py`, `scripts/dream_metrics.py`. Results in `data/corpus_metrics.parquet`.
 
 ### 17. Cross-generation semantic divergence: alignment steers content differentially (8 families, 20k passages, 3 embedders)
 
