@@ -1005,7 +1005,7 @@ def passage_surprisal_batched(texts, prompt_prefixes, model=None, tokenizer=None
                 "std_surprisal": round(float(arr.std()), 4),
                 "n_tokens": len(surprisals),
                 "token_surprisals": tok_surps,
-                "hidden_states": normed.tolist(),
+                "hidden_states": normed.tolist() if hasattr(normed, 'tolist') else normed,
             }
 
     return results
