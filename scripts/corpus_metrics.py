@@ -140,7 +140,7 @@ def main():
 
     ALL_REFS = [
         "meta-llama/Llama-3.1-8B",
-        "mistralai/Mistral-7B-v0.1",
+        # "mistralai/Mistral-7B-v0.1",  # hangs on specific passage, skip for now
     ]
     ALL_EMBEDDERS = [
         "paraphrase-multilingual-mpnet-base-v2",
@@ -257,14 +257,34 @@ def main():
             if uncached:
                 batch_texts = [t for _, t, _ in uncached]
                 batch_prefixes = [p for _, _, p in uncached]
+                from concurrent.futures import ProcessPoolExecutor, TimeoutError as FuturesTimeout
+                import multiprocessing as mp
+
+                def _compute_one(args):
+                    text, prefix, ref_name = args
+                    from malign_logits.embedding import passage_surprisal, _load_surprisal_model
+                    model, tok = _load_surprisal_model(ref_name)
+                    return passage_surprisal(text, model=model, tokenizer=tok,
+                                            prompt_prefix=prefix)
 
                 batch_results = []
+                skipped = 0
+                empty = {"mean_surprisal": 0, "max_surprisal": 0,
+                         "std_surprisal": 0, "n_tokens": 0,
+                         "token_surprisals": [], "hidden_states": []}
                 for text, prefix in tqdm(zip(batch_texts, batch_prefixes),
                                           total=len(batch_texts), desc=ref_short):
-                    batch_results.append(
-                        passage_surprisal(text, model=ref_model,
-                                          tokenizer=ref_tok,
-                                          prompt_prefix=prefix))
+                    try:
+                        r = passage_surprisal(text, model=ref_model,
+                                              tokenizer=ref_tok,
+                                              prompt_prefix=prefix)
+                        batch_results.append(r)
+                    except Exception as e:
+                        print(f"\n  Skipping passage (error: {e})", flush=True)
+                        batch_results.append(empty)
+                        skipped += 1
+                if skipped:
+                    print(f"  Skipped {skipped} passages")
 
                 for (idx, text, prompt), ps in zip(uncached, batch_results):
                     tok_surps = ps["token_surprisals"]
