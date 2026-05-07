@@ -412,10 +412,13 @@ def summary(csv_path="data/corpus_metrics.csv"):
     df['_texttype'] = df['family'].apply(lambda f: 'AI' if f not in HUMAN else f)
     df['_category'] = df['label'].str.replace(r'_\d+$', '', regex=True)
 
-    # Primary metrics: GPT-2 surprisal (independent of all families),
+    # Primary metrics: Pythia 1B-deduped surprisal if available (independent
+    # of all families, modern, deduped Pile training), else GPT-2.
     # bge-m3 drift (highest quality, independent architecture).
-    # Additional refs/embedders available as validation columns.
-    surp_cols = ['mean_surprisal']  # GPT-2 only
+    if 'surprisal_pythia_1b_deduped' in df.columns:
+        surp_cols = ['surprisal_pythia_1b_deduped']
+    else:
+        surp_cols = ['mean_surprisal']  # fallback to GPT-2
     drift_cols = [c for c in df.columns if c == 'drift_bge_m3']
     if not drift_cols:
         drift_cols = ['total_drift']  # fallback to MiniLM if bge-m3 not computed
