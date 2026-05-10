@@ -431,8 +431,8 @@ class ModelHandler(BaseHTTPRequestHandler):
                 df = pd.read_parquet(fpath)
             else:
                 df = pd.read_csv(fpath)
-            # Drop heavy/unused columns (psg loaded via /passage-tokens on click)
-            drop = ['psg'] + [c for c in df.columns if c.startswith(('max_', 'std_',
+            # Drop unused columns but keep psg (needed for passage viewer)
+            drop = [c for c in df.columns if c.startswith(('max_', 'std_',
                               'n_tokens', 'token_path', 'path_length'))]
             df = df.drop(columns=[c for c in drop if c in df.columns], errors='ignore')
             return {"rows": _sanitize(df.to_dict(orient="records"))}
