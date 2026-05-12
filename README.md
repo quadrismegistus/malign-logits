@@ -601,6 +601,8 @@ Base models carry ~4 nats of information per next-token prediction. Alignment co
 
 The SFT/DPO entropy split parallels the surprisal split (F15) and the geometric split (F12), confirming that these are measuring the same underlying operation at different levels.
 
+**At the generation level, the same pattern holds.** Under Pythia 1B cross-entropy, aligned text is 72.9% redundant vs base 69.0% (+3.9 percentage points). C20 fiction (68.4%) carries more information per token than even base model output — literary prose is genuinely less compressible than LLM text at any alignment stage. Dream reports (70.2%) fall between fiction and AI. Waking narratives are the most redundant human text (74.2%), consistent with their low surprisal in F16.
+
 Results in `data/shannon_entropy.csv`.
 
 
