@@ -28,6 +28,7 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
   - [15. Generation-level passage metrics (10 families, 76k passages)](#15-generation-level-passage-metrics-10-families-76k-passages-47-prompts)
   - [16. Corpus comparison: dreams, waking, fiction, abstracts (76k passages)](#16-corpus-comparison-dreams-waking-narratives-fiction-abstracts-76k-passages-length-normalized)
   - [17. Cross-generation semantic divergence (8 families, 3 embedders)](#17-cross-generation-semantic-divergence-alignment-steers-content-differentially-8-families-20k-passages-3-embedders)
+  - [18. Shannon entropy: alignment as lossy compression of drive (10 families)](#18-shannon-entropy-alignment-as-lossy-compression-of-drive-10-families-47-prompts)
 - [Installation](#installation)
 - [Quick start](#quick-start)
 - [Usage](#usage)
@@ -569,6 +570,38 @@ Sexual explicit content shows the largest distributional shift — alignment cha
 **The key dissociation:** Alignment smooths all text equally (within-passage surprisal p=0.99) but steers content differentially (cross-generation MMD p=0.0004). The superego applies uniform pressure on *how* text sounds while selectively redirecting *what* gets said.
 
 Script: `scripts/cross_generation_mmd.py`. Results in `data/mmd_cross_generation.csv`.
+
+### 18. Shannon entropy: alignment as lossy compression of drive (10 families, 47 prompts)
+
+Shannon entropy H(p) of the full-vocabulary logit distribution at the last token position, computed from cached logits across all families and alignment stages. Redundancy = 1 − H/H_max, where H_max = log(vocab_size).
+
+**Alignment universally increases redundancy (reduces entropy).**
+
+| Family | Base H (nats) | Aligned H | Δ entropy | Δ redundancy |
+|---|---|---|---|---|
+| **Amber** | 4.15 | 2.41 | **−1.74** | **+0.168** |
+| Zephyr | 3.79 | 3.09 | −0.69 | +0.067 |
+| Tulu | 3.99 | 3.39 | −0.61 | +0.052 |
+| Qwen | 3.93 | 3.34 | −0.59 | +0.050 |
+| SmolLM2 | 4.42 | 3.89 | −0.53 | +0.049 |
+| OLMo | 4.57 | 3.90 | −0.67 | +0.058 |
+| Llama | 3.99 | 3.62 | −0.37 | +0.032 |
+| Pythia | 3.73 | 3.47 | −0.26 | +0.024 |
+| OLMo-tiny | 4.09 | 3.89 | −0.21 | +0.018 |
+
+Base models carry ~4 nats of information per next-token prediction. Alignment compresses this to ~3–3.5 nats. The ordering tracks alignment intensity from the surprisal analysis (F15). Amber loses the most information (−1.74 nats); OLMo-tiny the least (−0.21).
+
+**Shannon framing.** The base model's entropy is the channel capacity of the primary process — the diversity of possible continuations the drive field can produce. Alignment reduces this capacity: fewer possible next tokens, more predictable output. The redundancy alignment adds is literally Shannon redundancy — the fraction of each token that is predictable from context rather than carrying new information. In Lyotardian terms, theatricalization compresses the libidinal band's entropy into the narrower channel of socially legible output.
+
+**SFT/DPO division of entropy labour** (3+ layer families):
+- **Amber**: SFT does 66% of entropy reduction (4.15→3.00), DPO does 34% (3.00→2.41)
+- **Tulu**: SFT does 42% (3.99→3.73), DPO does 58% (3.73→3.29) — DPO-dominant
+- **Zephyr**: SFT does 72% (3.79→3.29), DPO does 28% (3.29→3.09)
+- **OLMo-tiny**: SFT does 81% (4.09→3.92), DPO barely changes (3.92→3.90)
+
+The SFT/DPO entropy split parallels the surprisal split (F15) and the geometric split (F12), confirming that these are measuring the same underlying operation at different levels.
+
+Results in `data/shannon_entropy.csv`.
 
 
 ## Installation
