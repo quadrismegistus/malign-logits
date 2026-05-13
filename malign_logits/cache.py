@@ -36,7 +36,7 @@ class CacheManager:
             from hashstash import HashStash
             self._stashes[name] = HashStash(
                 root_dir=os.path.join(self.root, name),
-                engine="pairtree", compress="lz4", b64=True,
+                engine="lmdb", compress="lz4", b64=True,
             )
         return self._stashes[name]
 
