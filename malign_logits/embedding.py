@@ -443,13 +443,75 @@ def _is_degenerate(text):
     return False
 
 
+class _StashCompat:
+    """Compatibility wrapper: translates old tuple keys to CacheManager calls.
+
+    Allows existing code using `stash[key]` and `key in stash` to work
+    with the new lmdb-backed CacheManager. Will be removed once all
+    callers are migrated to use CacheManager directly.
+    """
+    def __init__(self):
+        from .cache import get_cache
+        self.cache = get_cache()
+
+    def __contains__(self, key):
+        if isinstance(key, tuple) and len(key) >= 4:
+            prefix = key[0]
+            if prefix == "sent_embeddings_v3":
+                return self.cache.has_sent_embeddings(key[1], key[2], key[3])
+            elif prefix == "token_surprisals_v3":
+                return self.cache.has_ref_surprisal(key[1], key[2], key[3])
+            elif prefix == "token_metrics_v1":
+                # token_metrics stored alongside ref_surprisal — check ref_surprisal
+                return self.cache.has_ref_surprisal(key[1], key[2], key[3])
+        return False
+
+    def __getitem__(self, key):
+        if isinstance(key, tuple) and len(key) >= 4:
+            prefix = key[0]
+            if prefix == "sent_embeddings_v3":
+                val = self.cache.get_sent_embeddings(key[1], key[2], key[3])
+                if val is not None:
+                    return val
+            elif prefix == "token_surprisals_v3":
+                val = self.cache.get_ref_surprisal(key[1], key[2], key[3])
+                if val is not None:
+                    return val
+            elif prefix == "token_metrics_v1":
+                # Not migrated separately — return empty dict
+                return {}
+        raise KeyError(key)
+
+    def __setitem__(self, key, value):
+        if isinstance(key, tuple) and len(key) >= 4:
+            prefix = key[0]
+            if prefix == "sent_embeddings_v3":
+                self.cache.set_sent_embeddings(key[1], key[2], key[3], value)
+                return
+            elif prefix == "token_surprisals_v3":
+                self.cache.set_ref_surprisal(key[1], key[2], key[3], value)
+                return
+            elif prefix == "token_metrics_v1":
+                # Drop — not worth caching separately
+                return
+
+    def get(self, key, default=None):
+        try:
+            return self[key]
+        except KeyError:
+            return default
+
+    def keys(self):
+        # Not needed for normal operation — only for migration/audit
+        raise NotImplementedError("Use CacheManager directly for iteration")
+
+
 def _get_gen_stash():
-    from hashstash import HashStash
-    from . import PATH_STASH
-    return HashStash(
-        root_dir=PATH_STASH + "_gen_metrics",
-        engine="pairtree", compress="lz4", b64=True,
-    )
+    """Returns a compatibility wrapper over CacheManager.
+
+    Translates old tuple-key API to new dict-key lmdb stashes.
+    """
+    return _StashCompat()
 
 
 def _cache_sent_embeddings(text, stash, embedder):
@@ -687,54 +749,52 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
 
 
 def load_generations_from_stash():
-    """Load all cached generations from stash_gen_battery into a DataFrame.
+    """Load all cached generations into a DataFrame.
 
-    This is the source of truth — the parquet is just a snapshot.
+    Uses the new CacheManager if available, falls back to old stash.
     """
-    from hashstash import HashStash
     from . import MODEL_FAMILIES
-    from .experiments import TIER1_PROMPTS
+    from .experiments import TIER1_PROMPTS, DEFAULT_PROMPTS
+    from .cache import get_cache
 
-    stash_path = _gen_stash_path()
-    stash = HashStash(root_dir=stash_path, append_mode=True,
-                      engine="pairtree", compress="lz4", b64=True)
+    cache = get_cache()
+    gen_stash = cache._stash("generations")
 
-    models_to_family = {}
-    for key, fam in MODEL_FAMILIES.items():
-        ids = tuple(m for m in [fam.base, fam.ego, fam.superego,
-                                fam.reinforced_superego] if m)
-        models_to_family[ids] = key
+    # Build model_id → (family_key, layer_name) lookup
+    model_to_family = {}
+    layer_names = {"base": "base", "ego": "ego", "superego": "superego",
+                   "reinforced_superego": "instruct"}
+    for fam_key, fam in MODEL_FAMILIES.items():
+        for attr, layer_name in layer_names.items():
+            model_id = getattr(fam, attr, None)
+            if model_id:
+                model_to_family[model_id] = (fam_key, layer_name)
 
-    label_lookup = {v: k for k, v in TIER1_PROMPTS.items()}
-    # Also include DEFAULT_PROMPTS for full battery
-    from .experiments import DEFAULT_PROMPTS
+    label_lookup = {}
     for k, v in DEFAULT_PROMPTS.items():
+        label_lookup[v] = k
+    for k, v in TIER1_PROMPTS.items():
         if v not in label_lookup:
             label_lookup[v] = k
 
     rows = []
-    for k in stash.keys():
-        models = k.get("models", ())
-        if not models:
+    for k in gen_stash.keys():
+        model_id = k.get("model", "")
+        fam_info = model_to_family.get(model_id)
+        if fam_info is None:
             continue
-        family = models_to_family.get(models)
-        if family is None:
-            continue
+        family, layer_name = fam_info
         prompt = k.get("prompt", "")
         label = label_lookup.get(prompt, prompt[:30])
-
-        for gen in stash.get_all(k):
-            for model_layer, psg in gen.items():
-                if model_layer == "prompt":
-                    continue
-                rows.append({
-                    "prompt": prompt,
-                    "temperature": k.get("temperature", 1.0),
-                    "model": model_layer,
-                    "psg": psg,
-                    "family": family,
-                    "label": label,
-                })
+        psg = gen_stash[k]
+        rows.append({
+            "prompt": prompt,
+            "temperature": k.get("temp", 1.0),
+            "model": layer_name,
+            "psg": psg,
+            "family": family,
+            "label": label,
+        })
 
     return pd.DataFrame(rows)
 
