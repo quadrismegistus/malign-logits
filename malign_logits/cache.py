@@ -13,7 +13,6 @@ Each data type gets its own HashStash with dict keys:
 Text values in keys are hashed (SHA256[:16]) to avoid matching issues.
 """
 
-import hashlib
 import os
 
 from . import PATH_DATA_RAW
@@ -21,9 +20,14 @@ from . import PATH_DATA_RAW
 CACHE_ROOT = os.path.join(PATH_DATA_RAW, "cache")
 
 
-def text_hash(text: str) -> str:
-    """Canonical hash for passage text in cache keys."""
-    return hashlib.sha256(text.rstrip().encode()).hexdigest()[:16]
+def normalize_text(text: str) -> str:
+    """Canonical text normalization for cache keys.
+
+    Always rstrip to avoid trailing whitespace mismatches.
+    HashStash hashes the key internally, so storing full text
+    doesn't affect path length — it just keeps keys readable.
+    """
+    return text.rstrip()
 
 
 class CacheManager:
@@ -79,50 +83,50 @@ class CacheManager:
     # ── sentence embeddings ─────────────────────────────────────
 
     def get_sent_embeddings(self, embedder, prompt, text):
-        key = {"embedder": embedder, "prompt": prompt, "text": text_hash(text)}
+        key = {"embedder": embedder, "prompt": prompt, "text": normalize_text(text)}
         s = self._stash("sent_embeddings")
         return s[key] if key in s else None
 
     def set_sent_embeddings(self, embedder, prompt, text, vectors):
         self._stash("sent_embeddings")[{
-            "embedder": embedder, "prompt": prompt, "text": text_hash(text)
+            "embedder": embedder, "prompt": prompt, "text": normalize_text(text)
         }] = vectors
 
     def has_sent_embeddings(self, embedder, prompt, text):
         return {"embedder": embedder, "prompt": prompt,
-                "text": text_hash(text)} in self._stash("sent_embeddings")
+                "text": normalize_text(text)} in self._stash("sent_embeddings")
 
     # ── reference surprisal ─────────────────────────────────────
 
     def get_ref_surprisal(self, ref_model, prompt, text):
-        key = {"ref": ref_model, "prompt": prompt, "text": text_hash(text)}
+        key = {"ref": ref_model, "prompt": prompt, "text": normalize_text(text)}
         s = self._stash("ref_surprisal")
         return s[key] if key in s else None
 
     def set_ref_surprisal(self, ref_model, prompt, text, tok_surps):
         self._stash("ref_surprisal")[{
-            "ref": ref_model, "prompt": prompt, "text": text_hash(text)
+            "ref": ref_model, "prompt": prompt, "text": normalize_text(text)
         }] = tok_surps
 
     def has_ref_surprisal(self, ref_model, prompt, text):
         return {"ref": ref_model, "prompt": prompt,
-                "text": text_hash(text)} in self._stash("ref_surprisal")
+                "text": normalize_text(text)} in self._stash("ref_surprisal")
 
     # ── self-surprisal ──────────────────────────────────────────
 
     def get_self_surprisal(self, model, prompt, text):
-        key = {"model": model, "prompt": prompt, "text": text_hash(text)}
+        key = {"model": model, "prompt": prompt, "text": normalize_text(text)}
         s = self._stash("self_surprisal")
         return s[key] if key in s else None
 
     def set_self_surprisal(self, model, prompt, text, tok_surps):
         self._stash("self_surprisal")[{
-            "model": model, "prompt": prompt, "text": text_hash(text)
+            "model": model, "prompt": prompt, "text": normalize_text(text)
         }] = tok_surps
 
     def has_self_surprisal(self, model, prompt, text):
         return {"model": model, "prompt": prompt,
-                "text": text_hash(text)} in self._stash("self_surprisal")
+                "text": normalize_text(text)} in self._stash("self_surprisal")
 
     # ── word embeddings ─────────────────────────────────────────
 
