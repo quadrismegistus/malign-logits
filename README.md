@@ -601,9 +601,29 @@ Base models carry ~4 nats of information per next-token prediction. Alignment co
 
 The SFT/DPO entropy split parallels the surprisal split (F15) and the geometric split (F12), confirming that these are measuring the same underlying operation at different levels.
 
-**At the generation level, the same pattern holds.** Under Pythia 1B cross-entropy, aligned text is 72.9% redundant vs base 69.0% (+3.9 percentage points). C20 fiction (68.4%) carries more information per token than even base model output — literary prose is genuinely less compressible than LLM text at any alignment stage. Dream reports (70.2%) fall between fiction and AI. Waking narratives are the most redundant human text (74.2%), consistent with their low surprisal in F16.
+**Self-surprisal: alignment compresses below natural language.** Feed each passage back through the model that generated it to measure the true information rate (Shannon's source entropy). Base models produce text at ~1.0 bits/char — roughly Shannon's estimate for English. Alignment pushes 9 of 10 families below this line.
 
-Results in `data/shannon_entropy.csv`.
+![Self-surprisal by family and layer](figures/self-surprisal-by-family-layer.png)
+
+| Family | Base (bits/char) | Aligned | Δ | Below Shannon? |
+|---|---|---|---|---|
+| OLMo | 1.21 | 0.94 | −0.27 | Yes |
+| OLMo-tiny | 1.16 | 0.92 | −0.24 | Yes |
+| Pythia | 1.10 | 0.91 | −0.19 | Yes |
+| Tulu | 1.09 | 0.64 | −0.45 | Yes |
+| SmolLM2 | 1.09 | 1.01 | −0.08 | Barely |
+| Qwen-tiny | 1.04 | 0.77 | −0.28 | Yes |
+| Amber | 1.03 | 0.98 | −0.05 | Yes |
+| Zephyr | 1.02 | 0.64 | −0.38 | Yes |
+| Qwen | 0.87 | 0.45 | −0.43 | Yes (already at base) |
+
+**Alignment creates private language.** The gap between self-surprisal and reference surprisal (Pythia 1B evaluating the same text) *widens* with alignment. Aligned models produce text that is increasingly predictable to themselves but not to external observers. Qwen DPO: self-surprisal 1.23 nats, Pythia reference 2.60 nats — a gap of 1.37 nats. The aligned model speaks a private dialect that an external model cannot compress as efficiently.
+
+![Self vs reference gap](figures/self-vs-reference-surprisal-gap.png)
+
+**The Amber anomaly.** AmberChat (SFT, no safety data) has self-surprisal 0.69 bits/char, but AmberSafe (DPO, safety-tuned) jumps back up to 0.98. The safety model is *more surprised by its own output* than the chat model — it produces text its own probability landscape doesn't fully endorse. A computational signature of the superego's excessive demand.
+
+Results in `data/self_surprisal.csv`, `data/shannon_entropy.csv`. Notebook: `notebooks/10_shannon.ipynb`.
 
 
 ## Installation
