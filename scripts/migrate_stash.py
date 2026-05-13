@@ -27,7 +27,7 @@ from tqdm import tqdm
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from malign_logits import PATH_DATA_RAW, MODEL_FAMILIES
-from malign_logits.cache import get_cache, text_hash
+from malign_logits.cache import get_cache, normalize_text
 
 
 def old_stash(name):
