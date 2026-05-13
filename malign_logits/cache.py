@@ -41,6 +41,7 @@ class CacheManager:
             self._stashes[name] = HashStash(
                 root_dir=os.path.join(self.root, name),
                 engine="lmdb", compress="lz4", b64=True,
+                map_size=50 * 1024**3,  # 50GB limit
             )
         return self._stashes[name]
 
