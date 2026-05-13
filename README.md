@@ -601,6 +601,22 @@ Base models carry ~4 nats of information per next-token prediction. Alignment co
 
 The SFT/DPO entropy split parallels the surprisal split (F15) and the geometric split (F12), confirming that these are measuring the same underlying operation at different levels.
 
+**Alignment removes the noise of ambiguity, not obscenity (Kruskal-Wallis p=0.015).** Unlike within-passage surprisal (p=0.99) and self-surprisal (p=0.61), logit-level entropy reduction *does* differ by content category. The predictor is not transgressiveness but **base entropy** — how uncertain the base model was about the prompt (r=−0.84, p=0.004):
+
+| Category | Base H (nats) | Δ H | Interpretation |
+|---|---|---|---|
+| substance | 5.09 | −0.86 | High ambiguity → large compression |
+| sexual_liminal | 4.69 | **−0.95** | Most compressed |
+| neutral | 4.60 | −0.81 | |
+| violence_liminal | 4.48 | −0.71 | |
+| power | 3.89 | −0.71 | |
+| sexual_explicit | 3.88 | −0.43 | Low ambiguity → small compression |
+| profanity | 3.52 | −0.63 | |
+| death | 3.42 | −0.45 | |
+| violence_explicit | 2.78 | **−0.45** | Least compressed |
+
+Sexual_liminal loses twice the entropy of sexual_explicit (p=0.013). "She touched his arm and he felt a sudden" has many possible continuations; "He pushed her onto the bed and started to" has fewer. Alignment collapses the possibility space of the ambiguous prompt — it removes interpretive openness, not obscenity per se.
+
 **Self-surprisal: alignment compresses below natural language.** Feed each passage back through the model that generated it to measure the true information rate (Shannon's source entropy). Base models produce text at ~1.0 bits/char — roughly Shannon's estimate for English. Alignment pushes 9 of 10 families below this line.
 
 ![Self-surprisal by family and layer](figures/self-surprisal-by-family-layer.png)
