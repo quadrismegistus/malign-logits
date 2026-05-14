@@ -69,8 +69,8 @@ def run_step_analysis(steps=None, prompts_set="tier1", category=None,
             return None, None
 
     # ── Phase 2: extract logits per (step, prompt), cache to stash ──
-    from hashstash import HashStash
-    stash = HashStash(root_dir=PATH_STASH, engine="pairtree", compress="lz4", b64=True)
+    from .psyche import _psyche_stash_compat
+    stash = _psyche_stash_compat()
 
     base_name = "allenai/Olmo-3-1025-7B"
     print(f"\nChecking base model logits...")
