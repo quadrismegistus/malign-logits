@@ -424,19 +424,16 @@ def on_queue_prompts(prompts_text):
 
 
 def _stash_prompts():
-    """Extract unique prompts from the HashStash disk cache."""
+    """Extract unique prompts from cached logits."""
     prompts = set()
     psyche = _psyche
-    if psyche is None or psyche._stash is None:
+    if psyche is None or psyche._cache is None:
         return prompts
     try:
-        for key in psyche._stash.keys():
-            if not isinstance(key, tuple):
-                continue
-            if len(key) >= 4 and key[0] == "top_words":
-                prompts.add(key[3])
-            elif len(key) >= 5 and key[0] == "analysis":
-                prompts.add(key[3])
+        logits_stash = psyche._cache._stash("logits")
+        for key in logits_stash.keys():
+            if isinstance(key, dict) and "prompt" in key:
+                prompts.add(key["prompt"])
     except Exception:
         pass
     return prompts
