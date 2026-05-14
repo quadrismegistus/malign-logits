@@ -443,75 +443,13 @@ def _is_degenerate(text):
     return False
 
 
-class _StashCompat:
-    """Compatibility wrapper: translates old tuple keys to CacheManager calls.
-
-    Allows existing code using `stash[key]` and `key in stash` to work
-    with the new lmdb-backed CacheManager. Will be removed once all
-    callers are migrated to use CacheManager directly.
-    """
-    def __init__(self):
-        from .cache import get_cache
-        self.cache = get_cache()
-
-    def __contains__(self, key):
-        if isinstance(key, tuple) and len(key) >= 4:
-            prefix = key[0]
-            if prefix == "sent_embeddings_v3":
-                return self.cache.has_sent_embeddings(key[1], key[2], key[3])
-            elif prefix == "token_surprisals_v3":
-                return self.cache.has_ref_surprisal(key[1], key[2], key[3])
-            elif prefix == "token_metrics_v1":
-                # token_metrics stored alongside ref_surprisal — check ref_surprisal
-                return self.cache.has_ref_surprisal(key[1], key[2], key[3])
-        return False
-
-    def __getitem__(self, key):
-        if isinstance(key, tuple) and len(key) >= 4:
-            prefix = key[0]
-            if prefix == "sent_embeddings_v3":
-                val = self.cache.get_sent_embeddings(key[1], key[2], key[3])
-                if val is not None:
-                    return val
-            elif prefix == "token_surprisals_v3":
-                val = self.cache.get_ref_surprisal(key[1], key[2], key[3])
-                if val is not None:
-                    return val
-            elif prefix == "token_metrics_v1":
-                # Not migrated separately — return empty dict
-                return {}
-        raise KeyError(key)
-
-    def __setitem__(self, key, value):
-        if isinstance(key, tuple) and len(key) >= 4:
-            prefix = key[0]
-            if prefix == "sent_embeddings_v3":
-                self.cache.set_sent_embeddings(key[1], key[2], key[3], value)
-                return
-            elif prefix == "token_surprisals_v3":
-                self.cache.set_ref_surprisal(key[1], key[2], key[3], value)
-                return
-            elif prefix == "token_metrics_v1":
-                # Drop — not worth caching separately
-                return
-
-    def get(self, key, default=None):
-        try:
-            return self[key]
-        except KeyError:
-            return default
-
-    def keys(self):
-        # Not needed for normal operation — only for migration/audit
-        raise NotImplementedError("Use CacheManager directly for iteration")
-
-
 def _get_gen_stash():
-    """Returns a compatibility wrapper over CacheManager.
+    """Returns the CacheManager singleton.
 
-    Translates old tuple-key API to new dict-key lmdb stashes.
+    Legacy name kept for scripts that import it.
     """
-    return _StashCompat()
+    from .cache import get_cache
+    return get_cache()
 
 
 def _cache_sent_embeddings(text, stash, embedder):
@@ -622,13 +560,13 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
                             embedder_name=None):
     """Compute drift + surprisal + metonymy for all passages.
 
-    Caches raw intermediates (sentence embeddings, token surprisals) to
-    HashStash. Derived metrics are recomputed from cache each run, so
-    formula changes are free.
+    Caches sentence embeddings and token surprisals to CacheManager.
+    Derived metrics are recomputed from cache each run.
 
     Returns DataFrame with one row per non-degenerate passage.
     """
-    stash = _get_gen_stash()
+    from .cache import get_cache
+    cache = get_cache()
     embedder = _get_embedder(embedder_name)
 
     n_cached_se = 0
@@ -637,8 +575,8 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
     n_computed_ts = 0
 
     # First pass: sentence embeddings + identify uncached surprisals
-    passage_info = []  # (row_idx, text, prompt, sent_vecs)
-    uncached_surp = []  # (info_idx, text, prompt) for batched surprisal
+    passage_info = []
+    uncached_surp = []
 
     for _, row in tqdm(psg_df.iterrows(), total=len(psg_df),
                        desc="Sentence embeddings"):
@@ -648,9 +586,9 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
 
         prompt_prefix = str(row.get("prompt", "")).strip()
         emb_name = embedder_name or DEFAULT_EMBEDDER
-        se_key = ("sent_embeddings_v3", emb_name, prompt_prefix, text)
-        if se_key in stash:
-            sent_vecs = stash[se_key]
+
+        sent_vecs = cache.get_sent_embeddings(emb_name, prompt_prefix, text)
+        if sent_vecs is not None:
             n_cached_se += 1
         else:
             sents = _split_sentences(text)
@@ -661,21 +599,18 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
             vecs = embedder.encode(sents, show_progress_bar=False)
             norms = np.linalg.norm(vecs, axis=1, keepdims=True) + 1e-10
             sent_vecs = (vecs / norms).tolist()
-            stash[se_key] = sent_vecs
+            cache.set_sent_embeddings(emb_name, prompt_prefix, text, sent_vecs)
             n_computed_se += 1
 
         if sent_vecs is None or len(sent_vecs) < min_sentences:
             continue
 
-        info_idx = len(passage_info)
         passage_info.append((row, text, prompt_prefix, sent_vecs))
 
-        ts_key = ("token_surprisals_v3", ref_model_name, prompt_prefix, text)
-        tm_key = ("token_metrics_v1", ref_model_name, prompt_prefix, text)
-        if ts_key in stash and tm_key in stash:
+        if cache.has_ref_surprisal(ref_model_name, prompt_prefix, text):
             n_cached_ts += 1
         else:
-            uncached_surp.append((info_idx, text, prompt_prefix))
+            uncached_surp.append((len(passage_info) - 1, text, prompt_prefix))
 
     print(f"  Sentence embeddings: {n_cached_se} cached, {n_computed_se} computed")
     print(f"  Surprisal: {n_cached_ts} cached, {len(uncached_surp)} to compute")
@@ -703,15 +638,9 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
                     passage_surprisal(text, model_name=ref_model_name,
                                      prompt_prefix=prefix))
 
-        # Cache results
         for (info_idx, text, prompt_prefix), ps in zip(uncached_surp, batch_results):
-            ts_key = ("token_surprisals_v3", ref_model_name, prompt_prefix, text)
-            tm_key = ("token_metrics_v1", ref_model_name, prompt_prefix, text)
             tok_surp = ps["token_surprisals"]
-            hidden = ps.get("hidden_states", [])
-            t = token_drift_metrics_from_hidden(hidden) if hidden else {}
-            stash[ts_key] = tok_surp
-            stash[tm_key] = t
+            cache.set_ref_surprisal(ref_model_name, prompt_prefix, text, tok_surp)
             n_computed_ts += 1
 
     print(f"  Token surprisals:    {n_cached_ts} cached, {n_computed_ts} computed")
@@ -720,10 +649,10 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
     rows = []
     for row, text, prompt_prefix, sent_vecs in tqdm(passage_info,
                                                      desc="Assembling"):
-        ts_key = ("token_surprisals_v3", ref_model_name, prompt_prefix, text)
-        tm_key = ("token_metrics_v1", ref_model_name, prompt_prefix, text)
-        tok_surp = stash[ts_key]
-        t = stash.get(tm_key, {}) or {}
+        tok_surp = cache.get_ref_surprisal(ref_model_name, prompt_prefix, text)
+        if tok_surp is None:
+            tok_surp = []
+        t = {}  # token_metrics recomputed from hidden states if needed
 
         d = drift_metrics_from_embeddings(sent_vecs)
         s = surprisal_metrics_from_tokens(tok_surp)

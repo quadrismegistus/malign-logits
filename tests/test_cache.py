@@ -133,13 +133,12 @@ def test_real_generations():
 
 # ── Compat wrapper ──────────────────────────────────────────────
 
-def test_stash_compat_contains():
-    """StashCompat translates old tuple keys."""
-    from malign_logits.embedding import _StashCompat
-    compat = _StashCompat()
-    # We can't test specific keys without knowing what's cached,
-    # but we can verify the interface works
-    assert isinstance(("sent_embeddings_v3", "x", "y", "z") in compat, bool)
+def test_compute_passage_metrics_uses_cache():
+    """compute_passage_metrics uses CacheManager not StashCompat."""
+    from malign_logits.embedding import compute_passage_metrics
+    # Just verify it imports and the function exists — full test
+    # requires model loading
+    assert callable(compute_passage_metrics)
 
 
 def test_psyche_cache():

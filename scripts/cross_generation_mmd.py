@@ -87,24 +87,15 @@ def build_text_lookup(gen_df, min_words=75):
     return lookup
 
 
-def collect_embeddings(stash, text_lookup, embedders):
-    """Scan stash for sentence embeddings, match to metadata, return grouped vecs."""
-    # (embedder, family, model, label, prompt) -> [mean-pooled vec, ...]
+def collect_embeddings(cache, text_lookup, embedders):
+    """Look up sentence embeddings for all passages via CacheManager."""
     grouped = defaultdict(list)
     for ei, embedder in enumerate(embedders):
         print(f"  [{ei+1}/{len(embedders)}] {embedder}...")
         matched = 0
-        for k in stash.keys():
-            if not (isinstance(k, tuple)
-                    and k[0] == "sent_embeddings_v3"
-                    and k[1] == embedder):
-                continue
-            prompt, text = k[2], k[3]
-            meta = text_lookup.get((prompt, text))
-            if not meta:
-                continue
-            sv = stash[k]
-            if sv and len(sv) > 0:
+        for (prompt, text), meta in text_lookup.items():
+            sv = cache.get_sent_embeddings(embedder, prompt, text)
+            if sv is not None and len(sv) > 0:
                 grouped[(embedder, meta[0], meta[1], meta[2], prompt)].append(
                     np.mean(sv, axis=0)
                 )
@@ -263,7 +254,7 @@ def main():
         print_summary(rdf)
         return
 
-    from malign_logits.embedding import _get_gen_stash, load_generations_from_stash
+    from malign_logits.embedding import load_generations_from_stash
 
     print("Loading generations from stash...")
     gen_df = load_generations_from_stash()
@@ -274,8 +265,9 @@ def main():
     print(f"  {len(text_lookup)} truncated passages")
 
     print("Collecting cached embeddings...")
-    stash = _get_gen_stash()
-    grouped = collect_embeddings(stash, text_lookup, EMBEDDERS)
+    from malign_logits.cache import get_cache
+    cache = get_cache()
+    grouped = collect_embeddings(cache, text_lookup, EMBEDDERS)
     print(f"  {len(grouped)} (embedder, family, layer, label, prompt) groups")
 
     print(f"Computing MMD² ({args.n_perm} permutations per cell)...")
