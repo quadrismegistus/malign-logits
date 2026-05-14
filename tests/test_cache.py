@@ -142,11 +142,12 @@ def test_stash_compat_contains():
     assert isinstance(("sent_embeddings_v3", "x", "y", "z") in compat, bool)
 
 
-def test_psyche_stash_compat():
-    """PsycheStashCompat translates psyche tuple keys."""
-    from malign_logits.psyche import _PsycheStashCompat
-    compat = _PsycheStashCompat()
-    assert isinstance(("logits", "x", "y") in compat, bool)
+def test_psyche_cache():
+    """Psyche uses CacheManager directly."""
+    from malign_logits.psyche import Psyche
+    p = Psyche.from_family('olmo', load=False)
+    assert p._cache is not None
+    assert hasattr(p._cache, 'get_logits')
 
 
 # ── Run directly ────────────────────────────────────────────────

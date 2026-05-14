@@ -69,20 +69,18 @@ def run_step_analysis(steps=None, prompts_set="tier1", category=None,
             return None, None
 
     # ── Phase 2: extract logits per (step, prompt), cache to stash ──
-    from .psyche import _psyche_stash_compat
-    stash = _psyche_stash_compat()
+    from .cache import get_cache
+    cache = get_cache()
 
     base_name = "allenai/Olmo-3-1025-7B"
     print(f"\nChecking base model logits...")
-    base_key_check = ("logits", base_name, list(prompts.values())[0])
-    if base_key_check not in stash:
+    if not cache.has_logits(base_name, list(prompts.values())[0]):
         print("  Base logits not cached — loading base model...")
         base_model, base_tok = load_model(base_name)
         for label, prompt in prompts.items():
-            cache_key = ("logits", base_name, prompt)
-            if cache_key not in stash:
+            if not cache.has_logits(base_name, prompt):
                 logits = get_base_logits(base_model, base_tok, prompt)
-                stash[cache_key] = logits.cpu().numpy()
+                cache.set_logits(base_name, prompt, logits.cpu().numpy())
         del base_model
         gc.collect()
         if torch.backends.mps.is_available():
@@ -90,7 +88,7 @@ def run_step_analysis(steps=None, prompts_set="tier1", category=None,
     print("  Base logits ready.")
 
     base_logits_cache = {
-        prompt: torch.tensor(stash[("logits", base_name, prompt)])
+        prompt: torch.tensor(cache.get_logits(base_name, prompt))
         for prompt in prompts.values()
     }
 
@@ -133,11 +131,11 @@ def run_step_analysis(steps=None, prompts_set="tier1", category=None,
         print(f"\n{'=' * 60}\n  Extracting: {rev}\n{'=' * 60}")
         model, _ = load_model(repo, revision=rev, cache_dir=cache_dir)
         for label, prompt in prompts.items():
-            cache_key = ("logits", model_id, "step", prompt)
-            if cache_key in stash:
+            step_model_id = f"{model_id}_step"
+            if cache.has_logits(step_model_id, prompt):
                 continue
             logits = get_base_logits(model, tokenizer, prompt)
-            stash[cache_key] = logits.cpu().numpy()
+            cache.set_logits(step_model_id, prompt, logits.cpu().numpy())
             print(f"    {label}")
         del model
         gc.collect()
@@ -152,8 +150,8 @@ def run_step_analysis(steps=None, prompts_set="tier1", category=None,
         rev = f"step{step}"
         model_id = f"{repo}@{rev}"
         for label, prompt in prompts.items():
-            cache_key = ("logits", model_id, "step", prompt)
-            step_logits = torch.tensor(stash[cache_key])
+            step_model_id = f"{model_id}_step"
+            step_logits = torch.tensor(cache.get_logits(step_model_id, prompt))
             base_logits = base_logits_cache[prompt]
 
             ent_base = distribution_entropy(base_logits)
