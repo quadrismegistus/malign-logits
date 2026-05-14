@@ -9,7 +9,7 @@ import os
 import numpy as np
 import pytest
 
-from malign_logits.cache import CacheManager, normalize_text
+from malign_logits.cache import CacheManager, normalize_text, CACHE_ROOT
 
 
 # ── normalize_text ──────────────────────────────────────────────
@@ -114,14 +114,20 @@ def test_separate_stashes(cache):
 
 # ── Integration: real data ──────────────────────────────────────
 
+@pytest.mark.skipif(
+    not os.path.exists(os.path.join(CACHE_ROOT, "logits")),
+    reason="No migrated cache on this machine")
 def test_real_cache_has_data():
     """Check that the migrated lmdb cache has data."""
-    cache = CacheManager()  # default path
+    cache = CacheManager()
     logits_stash = cache._stash("logits")
     count = sum(1 for _ in zip(logits_stash.keys(), range(5)))
     assert count > 0, "No logits in cache — migration may not have run"
 
 
+@pytest.mark.skipif(
+    not os.path.exists(os.path.join(CACHE_ROOT, "generations")),
+    reason="No migrated cache on this machine")
 def test_real_generations():
     """Check load_generations_from_stash works with new cache."""
     from malign_logits.embedding import load_generations_from_stash
@@ -141,6 +147,9 @@ def test_compute_passage_metrics_uses_cache():
     assert callable(compute_passage_metrics)
 
 
+@pytest.mark.skipif(
+    not os.path.exists(os.path.join(CACHE_ROOT, "logits")),
+    reason="No migrated cache on this machine")
 def test_psyche_cache():
     """Psyche uses CacheManager directly."""
     from malign_logits.psyche import Psyche
