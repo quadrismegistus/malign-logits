@@ -18,13 +18,20 @@ PATH_GEN_STASH = None  # set lazily
 
 
 def _gen_stash_path():
+    import warnings
+    warnings.warn("_gen_stash_path() is deprecated. Use CacheManager.", DeprecationWarning, stacklevel=2)
     from . import PATH_STASH
     return PATH_STASH + "_gen_battery"
 
 
 def _check_cached_count(prompt, temperature=1.0, model_ids=None,
                         cache_dir=None):
-    """Check how many generations are cached for a prompt+models combo."""
+    """Check how many generations are cached for a prompt+models combo.
+
+    .. deprecated:: Use CacheManager.count_generations() instead.
+    """
+    import warnings
+    warnings.warn("_check_cached_count is deprecated. Use CacheManager.", DeprecationWarning, stacklevel=2)
     from hashstash import HashStash
 
     stash_path = cache_dir or _gen_stash_path()
@@ -640,7 +647,11 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
 
         for (info_idx, text, prompt_prefix), ps in zip(uncached_surp, batch_results):
             tok_surp = ps["token_surprisals"]
+            hidden = ps.get("hidden_states", [])
+            t = token_drift_metrics_from_hidden(hidden) if hidden else {}
             cache.set_ref_surprisal(ref_model_name, prompt_prefix, text, tok_surp)
+            if t:
+                cache.set_token_metrics(ref_model_name, prompt_prefix, text, t)
             n_computed_ts += 1
 
     print(f"  Token surprisals:    {n_cached_ts} cached, {n_computed_ts} computed")
@@ -652,7 +663,7 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
         tok_surp = cache.get_ref_surprisal(ref_model_name, prompt_prefix, text)
         if tok_surp is None:
             tok_surp = []
-        t = {}  # token_metrics recomputed from hidden states if needed
+        t = cache.get_token_metrics(ref_model_name, prompt_prefix, text) or {}
 
         d = drift_metrics_from_embeddings(sent_vecs)
         s = surprisal_metrics_from_tokens(tok_surp)

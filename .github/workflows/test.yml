@@ -11,7 +11,8 @@ jobs:
           python-version: '3.12'
       - name: Install dependencies
         run: |
-          pip install -e .
-          pip install pytest lmdb
+          pip install -e . 2>/dev/null || pip install --no-deps -e .
+          pip install pytest lmdb hashstash torch --index-url https://download.pytorch.org/whl/cpu
+          pip install transformers numpy scipy pandas tqdm sentence-transformers
       - name: Run tests
         run: pytest tests/ -v -m "not slow"

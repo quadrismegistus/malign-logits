@@ -217,12 +217,13 @@ def main():
     # Additional reference models for surprisal
     if args.add_ref:
         from malign_logits.embedding import (passage_surprisal, passage_surprisal_batched,
-                                             _load_surprisal_model, _get_gen_stash,
+                                             _load_surprisal_model,
                                              token_drift_metrics_from_hidden)
         import numpy as np
         from tqdm import tqdm
         import torch
-        stash = _get_gen_stash()
+        from malign_logits.cache import get_cache
+        cache = get_cache()
 
         for ref in args.add_ref:
             ref_short = ref.split("/")[-1].replace("-", "_").replace(".", "_").lower()
@@ -238,14 +239,13 @@ def main():
             device_type = next(ref_model.parameters()).device.type
 
             # Separate cached from uncached
-            cached_vals = {}  # row_idx -> surprisal value
-            uncached = []  # (row_idx, text, prompt)
+            cached_vals = {}
+            uncached = []
             for idx, r in result.iterrows():
                 text = str(r["psg"]).rstrip()
                 prompt = str(r.get("prompt", "")).strip()
-                ts_key = ("token_surprisals_v3", ref, prompt, text)
-                if ts_key in stash:
-                    tok_surps = stash[ts_key]
+                tok_surps = cache.get_ref_surprisal(ref, prompt, text)
+                if tok_surps is not None:
                     if tok_surps:
                         cached_vals[idx] = round(float(np.mean([v for _, v in tok_surps])), 4)
                     else:
@@ -295,18 +295,18 @@ def main():
 
     # Additional sentence embedders for drift
     if args.add_embedder:
-        from malign_logits.embedding import (_get_embedder, _get_gen_stash,
+        from malign_logits.embedding import (_get_embedder,
                                              _split_sentences, drift_metrics_from_embeddings,
                                              DEFAULT_EMBEDDER)
+        from malign_logits.cache import get_cache
         import numpy as np
         from tqdm import tqdm
-        stash = _get_gen_stash()
+        cache = get_cache()
 
         for emb_name in args.add_embedder:
             emb_short = emb_name.split("/")[-1].replace("-", "_").replace(".", "_").lower()
             print(f"\nComputing drift with {emb_name}...")
 
-            # Reset global embedder
             import malign_logits.embedding as _emb
             _emb._embedder = None
             _emb._embedder_name = None
@@ -320,9 +320,8 @@ def main():
                              desc=f"{emb_short}"):
                 text = str(r["psg"]).rstrip()
                 prompt = str(r.get("prompt", "")).strip()
-                se_key = ("sent_embeddings_v3", emb_name, prompt, text)
-                if se_key in stash:
-                    sent_vecs = stash[se_key]
+                sent_vecs = cache.get_sent_embeddings(emb_name, prompt, text)
+                if sent_vecs is not None:
                     cached += 1
                 else:
                     sents = _split_sentences(text)
@@ -335,7 +334,7 @@ def main():
                     vecs = embedder.encode(sents, show_progress_bar=False)
                     norms = np.linalg.norm(vecs, axis=1, keepdims=True) + 1e-10
                     sent_vecs = (vecs / norms).tolist()
-                    stash[se_key] = sent_vecs
+                    cache.set_sent_embeddings(emb_name, prompt, text, sent_vecs)
                     computed += 1
 
                 if sent_vecs and len(sent_vecs) >= 3:

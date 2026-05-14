@@ -16,7 +16,6 @@ import os
 import pandas as pd
 import torch
 
-from . import PATH_STASH
 from .analysis import (
     distribution_entropy, js_divergence, kl_divergence, top_k_overlap,
 )

@@ -122,7 +122,7 @@ class ModelLayer:
 
     def top_words(self, prompt, top_k_first=200, **kwargs):
         """Word-level probability distribution from this layer."""
-        cache_key = ("top_words", self.model_id, prompt, top_k_first)
+        cache_key = {"type": "top_words", "model": self.model_id, "prompt": prompt, "k": top_k_first}
         cached = self._get_derived(cache_key)
         if cached is not None:
             return cached
@@ -158,7 +158,7 @@ class ModelLayer:
 
         Returns list of dicts with keys: layer, word, probability, source.
         """
-        cache_key = ("logit_lens", self.model_id, prompt, top_k)
+        cache_key = {"type": "logit_lens", "model": self.model_id, "prompt": prompt, "k": top_k}
         cached = self._get_derived(cache_key)
         if cached is not None:
             if words:
@@ -178,7 +178,7 @@ class ModelLayer:
 
     def _rescore_logit_lens(self, cached_rows, prompt, words):
         """Add tracked words to cached logit lens data."""
-        cache_key = ("logit_lens_raw", self.model_id, prompt)
+        cache_key = {"type": "logit_lens_raw", "model": self.model_id, "prompt": prompt}
         layer_logits_np = self._get_derived(cache_key)
 
         if layer_logits_np is None:
@@ -224,7 +224,7 @@ class ModelLayer:
     def score_vocabulary(self, prompt, words):
         """Score a fixed vocabulary through this layer."""
         words = sorted(set(words))
-        cache_key = ("score_vocab", self.model_id, prompt, tuple(words))
+        cache_key = {"type": "score_vocab", "model": self.model_id, "prompt": prompt, "words": tuple(words)}
         cached = self._get_derived(cache_key)
         if cached is not None:
             return cached
@@ -237,7 +237,7 @@ class ModelLayer:
 
     def perplexity(self, prompt):
         """Sequence perplexity of the prompt under this layer's model."""
-        cache_key = ("perplexity", self.model_id, prompt)
+        cache_key = {"type": "perplexity", "model": self.model_id, "prompt": prompt}
         cached = self._get_derived(cache_key)
         if cached is not None:
             return cached
@@ -277,7 +277,7 @@ class RemoteModelLayer(ModelLayer):
             return _json.loads(resp.read())
 
     def top_words(self, prompt, top_k_first=200, **kwargs):
-        cache_key = ("top_words", self.model_id, prompt, top_k_first)
+        cache_key = {"type": "top_words", "model": self.model_id, "prompt": prompt, "k": top_k_first}
         cached = self._get_derived(cache_key)
         if cached is not None:
             return cached
@@ -287,7 +287,7 @@ class RemoteModelLayer(ModelLayer):
 
     def score_vocabulary(self, prompt, words):
         words = sorted(set(words))
-        cache_key = ("score_vocab", self.model_id, prompt, tuple(words))
+        cache_key = {"type": "score_vocab", "model": self.model_id, "prompt": prompt, "words": tuple(words)}
         cached = self._get_derived(cache_key)
         if cached is not None:
             return cached
@@ -307,7 +307,7 @@ class RemoteModelLayer(ModelLayer):
         return logits
 
     def perplexity(self, prompt):
-        cache_key = ("perplexity", self.model_id, prompt)
+        cache_key = {"type": "perplexity", "model": self.model_id, "prompt": prompt}
         cached = self._get_derived(cache_key)
         if cached is not None:
             return cached
@@ -377,7 +377,7 @@ class PromptAnalysis:
     """All layers' view of a single prompt, computed on demand.
 
     Properties trigger computation only when accessed.  Results are cached
-    in memory for the session and, if a HashStash is attached to the parent
+    in memory for the session and, if a CacheManager is attached to the parent
     Psyche, persisted to disk.
     """
 
@@ -1353,7 +1353,7 @@ class Psyche:
     superego layers. All layers use the same tokenizer (OLMo shares
     vocabulary across all checkpoints).
 
-    Optionally backed by a HashStash for persistent caching.
+    Optionally backed by a CacheManager for persistent caching.
 
     Usage::
 
@@ -1446,8 +1446,8 @@ class Psyche:
 
         Args:
             family: Key into MODEL_FAMILIES (e.g. "olmo", "llama").
-            cache: Pre-built HashStash, or None.
-            cache_dir: If given (and cache is None), creates a HashStash.
+            cache: Pre-built CacheManager, or None.
+            cache_dir: If given (and cache is None), creates a CacheManager.
             load: If True, load models immediately. Otherwise cache-only.
         """
         fam = MODEL_FAMILIES[family]
@@ -1535,8 +1535,8 @@ class Psyche:
             sft_name: Optional HuggingFace model ID for the SFT model.
             dpo_name: Optional HuggingFace model ID for the DPO model.
             instruct_name: Optional HuggingFace model ID for the RLVR model.
-            cache: A pre-built HashStash instance, or None.
-            cache_dir: If given (and cache is None), creates a HashStash
+            cache: A pre-built CacheManager instance, or None.
+            cache_dir: If given (and cache is None), creates a CacheManager
                 with this root directory.
         """
         psyche = cls.from_cache(
