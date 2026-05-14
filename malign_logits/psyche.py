@@ -1340,6 +1340,84 @@ class PromptAnalysis:
 
 
 # ---------------------------------------------------------------------------
+# Stash compatibility layer
+# ---------------------------------------------------------------------------
+
+class _PsycheStashCompat:
+    """Translates old tuple-key stash API to CacheManager.
+
+    ModelLayer methods use tuple keys like ('logits', model_id, prompt).
+    This wrapper routes them to the appropriate CacheManager method or
+    to a generic lmdb stash for derived/recomputable data.
+    """
+    def __init__(self):
+        from .cache import get_cache
+        self.cache = get_cache()
+        self._generic = None
+
+    @property
+    def generic(self):
+        if self._generic is None:
+            from hashstash import HashStash
+            import os
+            self._generic = HashStash(
+                root_dir=os.path.join(self.cache.root, "psyche_derived"),
+                engine="lmdb", compress="lz4", b64=True,
+                map_size=50 * 1024**3,
+            )
+        return self._generic
+
+    def __contains__(self, key):
+        if not isinstance(key, tuple) or len(key) < 3:
+            return False
+        prefix = key[0]
+        if prefix == "logits":
+            return self.cache.has_logits(key[1], key[2])
+        elif prefix == "embedding" and len(key) >= 5:
+            return self.cache.has_word_embedding(key[1], key[2], key[3], key[4])
+        else:
+            return key in self.generic
+
+    def __getitem__(self, key):
+        if not isinstance(key, tuple) or len(key) < 3:
+            raise KeyError(key)
+        prefix = key[0]
+        if prefix == "logits":
+            val = self.cache.get_logits(key[1], key[2])
+            if val is not None:
+                return val
+            raise KeyError(key)
+        elif prefix == "embedding" and len(key) >= 5:
+            val = self.cache.get_word_embedding(key[1], key[2], key[3], key[4])
+            if val is not None:
+                return val
+            raise KeyError(key)
+        else:
+            return self.generic[key]
+
+    def __setitem__(self, key, value):
+        if not isinstance(key, tuple) or len(key) < 3:
+            return
+        prefix = key[0]
+        if prefix == "logits":
+            self.cache.set_logits(key[1], key[2], value)
+        elif prefix == "embedding" and len(key) >= 5:
+            self.cache.set_word_embedding(key[1], key[2], key[3], key[4], value)
+        else:
+            self.generic[key] = value
+
+    def get(self, key, default=None):
+        try:
+            return self[key]
+        except KeyError:
+            return default
+
+
+def _psyche_stash_compat():
+    return _PsycheStashCompat()
+
+
+# ---------------------------------------------------------------------------
 # Psyche — the apparatus as a whole
 # ---------------------------------------------------------------------------
 
@@ -1436,7 +1514,7 @@ class Psyche:
         cls,
         family=DEFAULT_FAMILY,
         cache=None,
-        cache_dir=PATH_STASH,
+        cache_dir=None,
         load=False,
     ):
         """Create a Psyche from a model family key.
@@ -1464,7 +1542,7 @@ class Psyche:
     def from_cache(
         cls,
         cache=None,
-        cache_dir=PATH_STASH,
+        cache_dir=None,
         base_name=BASE_MODEL_NAME,
         sft_name=SFT_MODEL_NAME,
         dpo_name=DPO_MODEL_NAME,
@@ -1475,9 +1553,8 @@ class Psyche:
         Cached prompts return instantly. Uncached prompts raise an error
         until load_models() is called.
         """
-        if cache is None and cache_dir is not None:
-            from hashstash import HashStash
-            cache = HashStash(root_dir=cache_dir, engine="pairtree", compress="lz4", b64=True)
+        if cache is None:
+            cache = _psyche_stash_compat()
 
         return cls(
             stash=cache,
@@ -1577,9 +1654,8 @@ class Psyche:
                 f"Start it with `malign serve`. Error: {e}"
             )
 
-        if cache is None and cache_dir is not None:
-            from hashstash import HashStash
-            cache = HashStash(root_dir=cache_dir, engine="pairtree", compress="lz4", b64=True)
+        if cache is None:
+            cache = _psyche_stash_compat()
 
         psyche = cls(
             stash=cache,
