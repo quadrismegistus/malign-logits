@@ -18,13 +18,20 @@ PATH_GEN_STASH = None  # set lazily
 
 
 def _gen_stash_path():
+    import warnings
+    warnings.warn("_gen_stash_path() is deprecated. Use CacheManager.", DeprecationWarning, stacklevel=2)
     from . import PATH_STASH
     return PATH_STASH + "_gen_battery"
 
 
 def _check_cached_count(prompt, temperature=1.0, model_ids=None,
                         cache_dir=None):
-    """Check how many generations are cached for a prompt+models combo."""
+    """Check how many generations are cached for a prompt+models combo.
+
+    .. deprecated:: Use CacheManager.count_generations() instead.
+    """
+    import warnings
+    warnings.warn("_check_cached_count is deprecated. Use CacheManager.", DeprecationWarning, stacklevel=2)
     from hashstash import HashStash
 
     stash_path = cache_dir or _gen_stash_path()
@@ -444,12 +451,12 @@ def _is_degenerate(text):
 
 
 def _get_gen_stash():
-    from hashstash import HashStash
-    from . import PATH_STASH
-    return HashStash(
-        root_dir=PATH_STASH + "_gen_metrics",
-        engine="pairtree", compress="lz4", b64=True,
-    )
+    """Returns the CacheManager singleton.
+
+    Legacy name kept for scripts that import it.
+    """
+    from .cache import get_cache
+    return get_cache()
 
 
 def _cache_sent_embeddings(text, stash, embedder):
@@ -560,13 +567,13 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
                             embedder_name=None):
     """Compute drift + surprisal + metonymy for all passages.
 
-    Caches raw intermediates (sentence embeddings, token surprisals) to
-    HashStash. Derived metrics are recomputed from cache each run, so
-    formula changes are free.
+    Caches sentence embeddings and token surprisals to CacheManager.
+    Derived metrics are recomputed from cache each run.
 
     Returns DataFrame with one row per non-degenerate passage.
     """
-    stash = _get_gen_stash()
+    from .cache import get_cache
+    cache = get_cache()
     embedder = _get_embedder(embedder_name)
 
     n_cached_se = 0
@@ -575,8 +582,8 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
     n_computed_ts = 0
 
     # First pass: sentence embeddings + identify uncached surprisals
-    passage_info = []  # (row_idx, text, prompt, sent_vecs)
-    uncached_surp = []  # (info_idx, text, prompt) for batched surprisal
+    passage_info = []
+    uncached_surp = []
 
     for _, row in tqdm(psg_df.iterrows(), total=len(psg_df),
                        desc="Sentence embeddings"):
@@ -586,9 +593,9 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
 
         prompt_prefix = str(row.get("prompt", "")).strip()
         emb_name = embedder_name or DEFAULT_EMBEDDER
-        se_key = ("sent_embeddings_v3", emb_name, prompt_prefix, text)
-        if se_key in stash:
-            sent_vecs = stash[se_key]
+
+        sent_vecs = cache.get_sent_embeddings(emb_name, prompt_prefix, text)
+        if sent_vecs is not None:
             n_cached_se += 1
         else:
             sents = _split_sentences(text)
@@ -599,21 +606,18 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
             vecs = embedder.encode(sents, show_progress_bar=False)
             norms = np.linalg.norm(vecs, axis=1, keepdims=True) + 1e-10
             sent_vecs = (vecs / norms).tolist()
-            stash[se_key] = sent_vecs
+            cache.set_sent_embeddings(emb_name, prompt_prefix, text, sent_vecs)
             n_computed_se += 1
 
         if sent_vecs is None or len(sent_vecs) < min_sentences:
             continue
 
-        info_idx = len(passage_info)
         passage_info.append((row, text, prompt_prefix, sent_vecs))
 
-        ts_key = ("token_surprisals_v3", ref_model_name, prompt_prefix, text)
-        tm_key = ("token_metrics_v1", ref_model_name, prompt_prefix, text)
-        if ts_key in stash and tm_key in stash:
+        if cache.has_ref_surprisal(ref_model_name, prompt_prefix, text):
             n_cached_ts += 1
         else:
-            uncached_surp.append((info_idx, text, prompt_prefix))
+            uncached_surp.append((len(passage_info) - 1, text, prompt_prefix))
 
     print(f"  Sentence embeddings: {n_cached_se} cached, {n_computed_se} computed")
     print(f"  Surprisal: {n_cached_ts} cached, {len(uncached_surp)} to compute")
@@ -641,15 +645,13 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
                     passage_surprisal(text, model_name=ref_model_name,
                                      prompt_prefix=prefix))
 
-        # Cache results
         for (info_idx, text, prompt_prefix), ps in zip(uncached_surp, batch_results):
-            ts_key = ("token_surprisals_v3", ref_model_name, prompt_prefix, text)
-            tm_key = ("token_metrics_v1", ref_model_name, prompt_prefix, text)
             tok_surp = ps["token_surprisals"]
             hidden = ps.get("hidden_states", [])
             t = token_drift_metrics_from_hidden(hidden) if hidden else {}
-            stash[ts_key] = tok_surp
-            stash[tm_key] = t
+            cache.set_ref_surprisal(ref_model_name, prompt_prefix, text, tok_surp)
+            if t:
+                cache.set_token_metrics(ref_model_name, prompt_prefix, text, t)
             n_computed_ts += 1
 
     print(f"  Token surprisals:    {n_cached_ts} cached, {n_computed_ts} computed")
@@ -658,10 +660,10 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
     rows = []
     for row, text, prompt_prefix, sent_vecs in tqdm(passage_info,
                                                      desc="Assembling"):
-        ts_key = ("token_surprisals_v3", ref_model_name, prompt_prefix, text)
-        tm_key = ("token_metrics_v1", ref_model_name, prompt_prefix, text)
-        tok_surp = stash[ts_key]
-        t = stash.get(tm_key, {}) or {}
+        tok_surp = cache.get_ref_surprisal(ref_model_name, prompt_prefix, text)
+        if tok_surp is None:
+            tok_surp = []
+        t = cache.get_token_metrics(ref_model_name, prompt_prefix, text) or {}
 
         d = drift_metrics_from_embeddings(sent_vecs)
         s = surprisal_metrics_from_tokens(tok_surp)
@@ -687,54 +689,52 @@ def compute_passage_metrics(psg_df, min_sentences=3, ref_model_name="gpt2",
 
 
 def load_generations_from_stash():
-    """Load all cached generations from stash_gen_battery into a DataFrame.
+    """Load all cached generations into a DataFrame.
 
-    This is the source of truth — the parquet is just a snapshot.
+    Uses the new CacheManager if available, falls back to old stash.
     """
-    from hashstash import HashStash
     from . import MODEL_FAMILIES
-    from .experiments import TIER1_PROMPTS
+    from .experiments import TIER1_PROMPTS, DEFAULT_PROMPTS
+    from .cache import get_cache
 
-    stash_path = _gen_stash_path()
-    stash = HashStash(root_dir=stash_path, append_mode=True,
-                      engine="pairtree", compress="lz4", b64=True)
+    cache = get_cache()
+    gen_stash = cache._stash("generations")
 
-    models_to_family = {}
-    for key, fam in MODEL_FAMILIES.items():
-        ids = tuple(m for m in [fam.base, fam.ego, fam.superego,
-                                fam.reinforced_superego] if m)
-        models_to_family[ids] = key
+    # Build model_id → (family_key, layer_name) lookup
+    model_to_family = {}
+    layer_names = {"base": "base", "ego": "ego", "superego": "superego",
+                   "reinforced_superego": "instruct"}
+    for fam_key, fam in MODEL_FAMILIES.items():
+        for attr, layer_name in layer_names.items():
+            model_id = getattr(fam, attr, None)
+            if model_id:
+                model_to_family[model_id] = (fam_key, layer_name)
 
-    label_lookup = {v: k for k, v in TIER1_PROMPTS.items()}
-    # Also include DEFAULT_PROMPTS for full battery
-    from .experiments import DEFAULT_PROMPTS
+    label_lookup = {}
     for k, v in DEFAULT_PROMPTS.items():
+        label_lookup[v] = k
+    for k, v in TIER1_PROMPTS.items():
         if v not in label_lookup:
             label_lookup[v] = k
 
     rows = []
-    for k in stash.keys():
-        models = k.get("models", ())
-        if not models:
+    for k in gen_stash.keys():
+        model_id = k.get("model", "")
+        fam_info = model_to_family.get(model_id)
+        if fam_info is None:
             continue
-        family = models_to_family.get(models)
-        if family is None:
-            continue
+        family, layer_name = fam_info
         prompt = k.get("prompt", "")
         label = label_lookup.get(prompt, prompt[:30])
-
-        for gen in stash.get_all(k):
-            for model_layer, psg in gen.items():
-                if model_layer == "prompt":
-                    continue
-                rows.append({
-                    "prompt": prompt,
-                    "temperature": k.get("temperature", 1.0),
-                    "model": model_layer,
-                    "psg": psg,
-                    "family": family,
-                    "label": label,
-                })
+        psg = gen_stash[k]
+        rows.append({
+            "prompt": prompt,
+            "temperature": k.get("temp", 1.0),
+            "model": layer_name,
+            "psg": psg,
+            "family": family,
+            "label": label,
+        })
 
     return pd.DataFrame(rows)
 

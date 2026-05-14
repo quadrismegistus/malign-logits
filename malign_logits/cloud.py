@@ -273,10 +273,10 @@ echo "SETUP COMPLETE"
 
     local_data = PROJECT_ROOT / 'data'
     if local_data.exists():
-        exclude = ['stash_gen_metrics']
+        exclude = ['stash_gen_metrics', 'stash', 'stash_gen_battery', 'stash_self_surprisal']
         size_mb = sum(f.stat().st_size for f in local_data.rglob('*')
-                      if f.is_file() and 'stash_gen_metrics' not in str(f)) / 1e6
-        print(f"\nUploading data/ ({size_mb:.0f} MB, excluding stash_gen_metrics)...",
+                      if f.is_file() and not any(x in str(f) for x in exclude)) / 1e6
+        print(f"\nUploading data/ ({size_mb:.0f} MB, excluding old stashes)...",
               file=sys.stderr)
         rsync_to(state, str(local_data), REMOTE_DATA, exclude=exclude)
         print(f"Data uploaded.")

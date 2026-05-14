@@ -48,7 +48,7 @@ PATH_HERE = os.path.dirname(os.path.abspath(__file__))
 PATH_REPO = os.path.dirname(PATH_HERE)
 PATH_DATA = os.path.join(PATH_REPO, "data")
 PATH_DATA_RAW = os.path.join(PATH_DATA, "raw")
-PATH_STASH = os.path.join(PATH_DATA_RAW, "stash")
+PATH_STASH = os.path.join(PATH_DATA_RAW, "stash")  # deprecated: use cache.get_cache()
 PATH_FIGURES = os.path.join(PATH_REPO, "figures")
 
 

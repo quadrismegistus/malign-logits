@@ -71,15 +71,24 @@ class CacheManager:
         }] = text
 
     def count_generations(self, model, prompt, temp=1.0):
-        """Count how many generations exist for this (model, prompt, temp)."""
+        """Count how many generations exist for this (model, prompt, temp).
+
+        Uses binary search for O(log n) instead of O(n).
+        """
         s = self._stash("generations")
-        count = 0
-        while True:
-            key = {"model": model, "prompt": prompt, "temp": temp, "idx": count}
-            if key not in s:
-                break
-            count += 1
-        return count
+        if {"model": model, "prompt": prompt, "temp": temp, "idx": 0} not in s:
+            return 0
+        # Binary search for upper bound
+        lo, hi = 0, 1
+        while {"model": model, "prompt": prompt, "temp": temp, "idx": hi} in s:
+            hi *= 2
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if {"model": model, "prompt": prompt, "temp": temp, "idx": mid} in s:
+                lo = mid + 1
+            else:
+                hi = mid
+        return lo
 
     # ── sentence embeddings ─────────────────────────────────────
 
@@ -112,6 +121,22 @@ class CacheManager:
     def has_ref_surprisal(self, ref_model, prompt, text):
         return {"ref": ref_model, "prompt": prompt,
                 "text": normalize_text(text)} in self._stash("ref_surprisal")
+
+    # ── token metrics (drift from hidden states) ─────────────────
+
+    def get_token_metrics(self, ref_model, prompt, text):
+        key = {"ref": ref_model, "prompt": prompt, "text": normalize_text(text)}
+        s = self._stash("token_metrics")
+        return s[key] if key in s else None
+
+    def set_token_metrics(self, ref_model, prompt, text, metrics):
+        self._stash("token_metrics")[{
+            "ref": ref_model, "prompt": prompt, "text": normalize_text(text)
+        }] = metrics
+
+    def has_token_metrics(self, ref_model, prompt, text):
+        return {"ref": ref_model, "prompt": prompt,
+                "text": normalize_text(text)} in self._stash("token_metrics")
 
     # ── self-surprisal ──────────────────────────────────────────
 

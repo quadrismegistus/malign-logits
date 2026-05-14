@@ -28,7 +28,6 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from malign_logits import MODEL_FAMILIES
 from malign_logits.experiments import TIER1_PROMPTS
-from malign_logits.embedding import _gen_stash_path
 
 
 LAYER_NAMES = {
@@ -39,22 +38,13 @@ LAYER_NAMES = {
 }
 
 
-def get_stash():
-    from hashstash import HashStash
-    return HashStash(
-        root_dir=_gen_stash_path(),
-        append_mode=True, engine="pairtree", compress="lz4", b64=True,
-    )
+def get_cache():
+    from malign_logits.cache import get_cache
+    return get_cache()
 
 
-def count_existing(stash, prompt, temperature, model_ids):
-    key = {
-        "prompt": prompt,
-        "temperature": temperature,
-        "models": tuple(model_ids),
-    }
-    got = stash.get_all(key)
-    return len(got) if got else 0
+def count_existing(cache, model_id, prompt, temperature):
+    return cache.count_generations(model_id, prompt, temperature)
 
 
 def generate_family(family_key, n, temperature=1.0, max_tokens=100,
@@ -62,7 +52,7 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
     from malign_logits.experiments import DEFAULT_PROMPTS
 
     family = MODEL_FAMILIES[family_key]
-    stash = get_stash()
+    cache = get_cache()
 
     # Collect all model checkpoints for this family
     checkpoints = []
@@ -80,10 +70,12 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
     print(f"  {len(all_prompts)} prompts × {n} generations")
     print(f"{'=' * 60}")
 
-    # Check existing per prompt, find max deficit
+    # Check existing per prompt — use min across all model layers
     per_prompt_existing = {}
     for label, prompt_text in all_prompts:
-        existing = count_existing(stash, prompt_text, temperature, model_ids)
+        counts = [count_existing(cache, mid, prompt_text, temperature)
+                  for _, _, mid in checkpoints]
+        existing = min(counts) if counts else 0
         per_prompt_existing[prompt_text] = existing
         if existing < n:
             print(f"  {label}: {existing}/{n}")
@@ -101,9 +93,6 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
         return
 
     from vllm import LLM, SamplingParams
-
-    if not hasattr(generate_family, '_partial'):
-        generate_family._partial = {}
 
     for attr, layer_name, model_id in checkpoints:
         print(f"\n  Loading {layer_name} ({model_id})...")
@@ -143,12 +132,9 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
             for (label, prompt_text), output in zip(prompt_group, outputs):
                 existing = per_prompt_existing[prompt_text]
                 for gen_idx, completion in enumerate(output.outputs):
-                    gen_key = (prompt_text, existing + gen_idx)
-                    if gen_key not in generate_family._partial:
-                        generate_family._partial[gen_key] = {
-                            "prompt": prompt_text}
-                    generate_family._partial[gen_key][layer_name] = \
-                        completion.text
+                    cache.set_generation(model_id, prompt_text,
+                                         completion.text, temperature,
+                                         existing + gen_idx)
                 total_gens += needed
 
         gen_time = time.time() - t0
@@ -164,22 +150,7 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
         except Exception:
             pass
 
-    # Write all complete entries to stash
-    print(f"\n  Writing {len(generate_family._partial)} entries to stash...")
-    stash_key = {
-        "prompt": None,
-        "temperature": temperature,
-        "models": tuple(model_ids),
-    }
-    written = 0
-    for (prompt_text, gen_idx), entry in generate_family._partial.items():
-        stash_key_copy = dict(stash_key)
-        stash_key_copy["prompt"] = prompt_text
-        stash[stash_key_copy] = entry
-        written += 1
-    print(f"  Wrote {written} entries")
-
-    generate_family._partial = {}
+    print(f"\n  Done.")
 
 
 def main():
