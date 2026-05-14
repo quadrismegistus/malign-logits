@@ -371,17 +371,33 @@ Three structurally distinct cases emerge:
 
 Neutral delta (+0.044) rules out the noise interpretation — alignment produces background syntagmatic damage even on safe content. Results in `data/taxonomy_olmo.csv` (`syntagmatic_js_aligned` column). CLI: `malign taxonomy --baseline --family olmo`.
 
-### Done: Generation passage metrics (8 families, 20k passages, 3 refs × 3 embedders)
+### Done: Generation passage metrics (10 families, 76k passages, Pythia 1B + bge-m3)
 
-`malign topic-drift` and `scripts/corpus_metrics.py` compute per-passage metrics: sentence diameter, surprisal, directedness. Validated under 3 reference models (GPT-2, Llama 3.1, Mistral 7B; r=0.71–0.97) and 3 embedders (MiniLM, mpnet, bge-m3; r=0.73–0.90). Alignment universally smooths (every family negative Δsurp, p<0.001 except SmolLM2). Category has no effect on within-passage surprisal (Kruskal-Wallis p=0.99). SFT share varies: OLMo 120%, Tulu 31%.
+76,214 passages in definitive `data/corpus_metrics.parquet`. Primary metrics: Pythia 1B-deduped surprisal (independent of all families) + bge-m3 drift (BAAI, 1024d). GPT-2 and MiniLM as validation. Alignment universally smooths (all families p<0.001). Category has no effect on within-passage surprisal (p=0.99). Jakobsonian quadrants: alignment drains Q2 (breakdown) → Q1 (metonymic) / Q4 (unmarked). Summary: `python scripts/corpus_metrics.py --summary` saves to `data/corpus_metrics.md`.
 
-### Done: Cross-generation MMD (8 families, 20k passages, 3 embedders)
+### Done: Cross-generation MMD (10 families, 76k passages)
 
-`scripts/cross_generation_mmd.py` measures distributional distance (MMD²) between BASE and ALIGNED completion clouds for the same prompt. BASE split-half null. Unlike within-passage surprisal (p=0.99), MMD shows significant category effect (H=28.6, p=0.0004): sexual_explicit (0.042) > neutral (0.037) > profanity (0.017). The superego applies uniform pressure on *how* text sounds while selectively redirecting *what* gets said.
+`scripts/cross_generation_mmd.py` — MMD² between BASE and ALIGNED completion clouds. Category effect p=0.0004 (sexual_explicit highest). The how/what dissociation: uniform within-passage smoothing but differential content steering.
 
 ### Done: Corpus comparison (dreams, waking, fiction, abstracts)
 
-Five text types through same pipeline, 75-word length normalization. Fiction (+1.62σ) > Dreams (+1.08σ) > Abstracts (+0.53σ) > Waking (+0.04σ) > AI (0). Dream-specific effect +1.04σ above register baseline (p=1.1e-58). All CIs non-overlapping.
+Under Pythia 1B: Fiction (+0.40σ) > Dreams (+0.14σ) > Abstracts (+0.10σ) > AI (-0.10σ) > Waking (-0.49σ). Dream-specific +0.63σ above register baseline (p<10⁻³²).
+
+### Done: Shannon entropy & self-surprisal (F18)
+
+Logit-level entropy: alignment reduces from ~4 to ~3 nats. Self-surprisal: base models at Shannon's English rate (~1.0 bits/char), alignment compresses 9/10 families below. Self-vs-reference gap widens = "private language." Amber anomaly: safety model more surprised by own output. Category: liminal loses most entropy (r=-0.84, p=0.004). Data: `data/shannon_entropy.csv`, `data/self_surprisal.csv`. Notebook: `notebooks/10_shannon.ipynb`.
+
+### Done: Fold dimensionality (F12 revised)
+
+Alignment is fold not wall. v2.6 held-out closure: 77% (Pythia) to 20% (OLMo). SVD K_50: 2 (Pythia) to 13 (OLMo). Foldability tracks alignment sophistication. Data: `data/fold_rank_summary.csv`, `data/intervention_*.csv`, `data/trajectory_geometry_*.csv`.
+
+### Done: vLLM generation pipeline
+
+`malign vllm-generate --prompts all --n 100` — batched generation 50-100x faster than HF. `scripts/vllm_generate.py`. Cloud: `malign cloud run malign vllm-generate ...`. Docker: `vllm/vllm-openai:latest`.
+
+### Done: Cache redesign
+
+`malign_logits/cache.py` — CacheManager with lmdb engine, dict keys, typed methods. 6 stashes in `data/raw/cache/`. Old pairtree stashes migrated via `scripts/migrate_stash.py`. 29 tests, GitHub Actions CI.
 
 ### Done: Cross-family Jakobsonian analysis
 
