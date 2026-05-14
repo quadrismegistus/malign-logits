@@ -31,7 +31,6 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from malign_logits import MODEL_FAMILIES, PATH_DATA_RAW
 
 
-STASH_PATH = os.path.join(PATH_DATA_RAW, "stash_self_surprisal")
 OUTPUT_CSV = "data/self_surprisal.csv"
 
 LAYER_TO_ATTR = {
@@ -42,12 +41,9 @@ LAYER_TO_ATTR = {
 }
 
 
-def get_stash():
-    from hashstash import HashStash
-    return HashStash(
-        root_dir=STASH_PATH,
-        engine="pairtree", compress="lz4", b64=True,
-    )
+def get_cache():
+    from malign_logits.cache import get_cache
+    return get_cache()
 
 
 def compute_self_surprisal(text, prompt, model, tokenizer, device):
@@ -84,7 +80,7 @@ def compute_self_surprisal(text, prompt, model, tokenizer, device):
     return tok_surps, mean_surp
 
 
-def process_model(family_key, layer_name, model_id, passages_df, stash):
+def process_model(family_key, layer_name, model_id, passages_df, cache):
     """Process all passages for one model."""
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -114,15 +110,15 @@ def process_model(family_key, layer_name, model_id, passages_df, stash):
         prompt = str(row.get("prompt", "")).strip()
         label = row.get("label", "")
 
-        cache_key = ("self_surprisal_v1", model_id, prompt, text)
-        if cache_key in stash:
-            tok_surps = stash[cache_key]
+        cached_val = cache.get_self_surprisal(model_id, prompt, text)
+        if cached_val is not None:
+            tok_surps = cached_val
             mean_surp = round(float(np.mean([v for _, v in tok_surps])), 4) if tok_surps else 0.0
             cached += 1
         else:
             tok_surps, mean_surp = compute_self_surprisal(
                 text, prompt, model, tokenizer, device)
-            stash[cache_key] = tok_surps
+            cache.set_self_surprisal(model_id, prompt, text, tok_surps)
             computed += 1
 
         results.append({
@@ -167,7 +163,7 @@ def main():
     df = df[~df.family.isin(human_fams)].copy()
     print(f"AI passages: {len(df)}")
 
-    stash = get_stash()
+    cache = get_cache()
 
     # Load existing results for resume
     existing = set()
@@ -212,7 +208,7 @@ def main():
                 continue
 
             result_df = process_model(fam_key, layer_name, model_id,
-                                       passages, stash)
+                                       passages, cache)
             all_results.append(result_df)
 
             # Save incrementally

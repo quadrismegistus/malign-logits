@@ -84,7 +84,33 @@ class ModelLayer:
         self.tokenizer = tokenizer
         self.name = name
         self.model_id = model_id or _model_id(model) if model is not None else (model_id or "unknown")
-        self._stash = None
+        self._cache = None
+        self._derived = None
+
+    @property
+    def _derived_stash(self):
+        """Lazy-init lmdb stash for derived/recomputable data."""
+        if self._derived is None:
+            from hashstash import HashStash
+            from .cache import CACHE_ROOT
+            self._derived = HashStash(
+                root_dir=os.path.join(CACHE_ROOT, "psyche_derived"),
+                engine="lmdb", compress="lz4", b64=True,
+                map_size=50 * 1024**3,
+            )
+        return self._derived
+
+    def _get_derived(self, key):
+        try:
+            return self._derived_stash[key]
+        except (KeyError, Exception):
+            return None
+
+    def _set_derived(self, key, value):
+        try:
+            self._derived_stash[key] = value
+        except Exception:
+            pass
 
     def _require_model(self):
         if self.model is None:
@@ -96,34 +122,31 @@ class ModelLayer:
 
     def top_words(self, prompt, top_k_first=200, **kwargs):
         """Word-level probability distribution from this layer."""
-        cache_key = ("top_words", self.model_id, prompt, top_k_first)
-
-        if self._stash is not None and cache_key in self._stash:
-            return self._stash[cache_key]
+        cache_key = {"type": "top_words", "model": self.model_id, "prompt": prompt, "k": top_k_first}
+        cached = self._get_derived(cache_key)
+        if cached is not None:
+            return cached
 
         self._require_model()
         result = discover_top_words(
             self.model, self.tokenizer, prompt,
             top_k_first=top_k_first, **kwargs,
         )
-
-        if self._stash is not None:
-            self._stash[cache_key] = result
-
+        self._set_derived(cache_key, result)
         return result
 
     def logits(self, prompt):
         """Raw logits at the last position for this prompt."""
-        cache_key = ("logits", self.model_id, prompt)
-
-        if self._stash is not None and cache_key in self._stash:
-            return torch.tensor(self._stash[cache_key])
+        if self._cache is not None:
+            val = self._cache.get_logits(self.model_id, prompt)
+            if val is not None:
+                return torch.tensor(val)
 
         self._require_model()
         result = get_base_logits(self.model, self.tokenizer, prompt)
 
-        if self._stash is not None:
-            self._stash[cache_key] = result.cpu().numpy()
+        if self._cache is not None:
+            self._cache.set_logits(self.model_id, prompt, result.cpu().numpy())
 
         return result
 
@@ -132,13 +155,12 @@ class ModelLayer:
 
         Single forward pass with output_hidden_states. Projects each
         transformer layer's hidden state through the unembedding matrix.
-        Cached to stash as a list of records.
 
         Returns list of dicts with keys: layer, word, probability, source.
         """
-        cache_key = ("logit_lens", self.model_id, prompt, top_k)
-        if self._stash is not None and cache_key in self._stash:
-            cached = self._stash[cache_key]
+        cache_key = {"type": "logit_lens", "model": self.model_id, "prompt": prompt, "k": top_k}
+        cached = self._get_derived(cache_key)
+        if cached is not None:
             if words:
                 return self._rescore_logit_lens(cached, prompt, words)
             return cached
@@ -148,31 +170,23 @@ class ModelLayer:
         df = logit_lens_words(self.model, self.tokenizer, prompt,
                               words=[], top_k=top_k)
         rows = df.to_dict(orient="records")
-
-        if self._stash is not None:
-            self._stash[cache_key] = rows
+        self._set_derived(cache_key, rows)
 
         if words:
             return self._rescore_logit_lens(rows, prompt, words)
         return rows
 
     def _rescore_logit_lens(self, cached_rows, prompt, words):
-        """Add tracked words to cached logit lens data.
+        """Add tracked words to cached logit lens data."""
+        cache_key = {"type": "logit_lens_raw", "model": self.model_id, "prompt": prompt}
+        layer_logits_np = self._get_derived(cache_key)
 
-        Re-runs per-layer scoring only for the tracked words, using
-        the raw per-layer logits stored during the original forward pass.
-        """
-        cache_key = ("logit_lens_raw", self.model_id, prompt)
-
-        if self._stash is not None and cache_key in self._stash:
-            layer_logits_np = self._stash[cache_key]
-        else:
+        if layer_logits_np is None:
             self._require_model()
             from .models import logit_lens as _logit_lens_raw
             layer_logits = _logit_lens_raw(self.model, self.tokenizer, prompt)
             layer_logits_np = [l.cpu().numpy() for l in layer_logits]
-            if self._stash is not None:
-                self._stash[cache_key] = layer_logits_np
+            self._set_derived(cache_key, layer_logits_np)
 
         word_token_ids = {}
         for word in words:
@@ -208,48 +222,29 @@ class ModelLayer:
         )
 
     def score_vocabulary(self, prompt, words):
-        """Score a fixed vocabulary through this layer.
-
-        Uses cached logits from a single forward pass when available
-        (fast — no extra model calls). Falls back to per-word forward
-        passes only if logits aren't cached.
-
-        Returns:
-            dict mapping word -> probability (normalized within the set).
-        """
+        """Score a fixed vocabulary through this layer."""
         words = sorted(set(words))
-        cache_key = ("score_vocab", self.model_id, prompt, tuple(words))
-
-        if self._stash is not None and cache_key in self._stash:
-            return self._stash[cache_key]
+        cache_key = {"type": "score_vocab", "model": self.model_id, "prompt": prompt, "words": tuple(words)}
+        cached = self._get_derived(cache_key)
+        if cached is not None:
+            return cached
 
         self._require_model()
-
-        # Fast path: score from cached logits (1 forward pass total)
         raw_logits = self.logits(prompt)
         result = score_words_from_logits(raw_logits, self.tokenizer, words)
-
-        if self._stash is not None:
-            self._stash[cache_key] = result
-
+        self._set_derived(cache_key, result)
         return result
 
     def perplexity(self, prompt):
-        """Sequence perplexity of the prompt under this layer's model.
-
-        Cached to stash. Teacher-forced forward pass.
-        """
-        cache_key = ("perplexity", self.model_id, prompt)
-
-        if self._stash is not None and cache_key in self._stash:
-            return self._stash[cache_key]
+        """Sequence perplexity of the prompt under this layer's model."""
+        cache_key = {"type": "perplexity", "model": self.model_id, "prompt": prompt}
+        cached = self._get_derived(cache_key)
+        if cached is not None:
+            return cached
 
         self._require_model()
         result = sequence_perplexity(self.model, self.tokenizer, prompt)
-
-        if self._stash is not None:
-            self._stash[cache_key] = result
-
+        self._set_derived(cache_key, result)
         return result
 
     @property
@@ -282,41 +277,42 @@ class RemoteModelLayer(ModelLayer):
             return _json.loads(resp.read())
 
     def top_words(self, prompt, top_k_first=200, **kwargs):
-        cache_key = ("top_words", self.model_id, prompt, top_k_first)
-        if self._stash is not None and cache_key in self._stash:
-            return self._stash[cache_key]
-
+        cache_key = {"type": "top_words", "model": self.model_id, "prompt": prompt, "k": top_k_first}
+        cached = self._get_derived(cache_key)
+        if cached is not None:
+            return cached
         result = self._post("/top_words", layer=self._layer_name, prompt=prompt, top_k=top_k_first)["words"]
-
-        if self._stash is not None:
-            self._stash[cache_key] = result
+        self._set_derived(cache_key, result)
         return result
 
     def score_vocabulary(self, prompt, words):
         words = sorted(set(words))
-        cache_key = ("score_vocab", self.model_id, prompt, tuple(words))
-        if self._stash is not None and cache_key in self._stash:
-            return self._stash[cache_key]
-
+        cache_key = {"type": "score_vocab", "model": self.model_id, "prompt": prompt, "words": tuple(words)}
+        cached = self._get_derived(cache_key)
+        if cached is not None:
+            return cached
         result = self._post("/score_vocabulary", layer=self._layer_name, prompt=prompt, words=words)["words"]
-
-        if self._stash is not None:
-            self._stash[cache_key] = result
+        self._set_derived(cache_key, result)
         return result
 
     def logits(self, prompt):
+        if self._cache is not None:
+            val = self._cache.get_logits(self.model_id, prompt)
+            if val is not None:
+                return torch.tensor(val)
         result = self._post("/logits", layer=self._layer_name, prompt=prompt)
-        return torch.tensor(result["logits"])
+        logits = torch.tensor(result["logits"])
+        if self._cache is not None:
+            self._cache.set_logits(self.model_id, prompt, logits.cpu().numpy())
+        return logits
 
     def perplexity(self, prompt):
-        cache_key = ("perplexity", self.model_id, prompt)
-        if self._stash is not None and cache_key in self._stash:
-            return self._stash[cache_key]
-
+        cache_key = {"type": "perplexity", "model": self.model_id, "prompt": prompt}
+        cached = self._get_derived(cache_key)
+        if cached is not None:
+            return cached
         result = self._post("/perplexity", layer=self._layer_name, prompt=prompt)["perplexity"]
-
-        if self._stash is not None:
-            self._stash[cache_key] = result
+        self._set_derived(cache_key, result)
         return result
 
     def word_logprobs(self, prompt, candidate_words):
@@ -381,7 +377,7 @@ class PromptAnalysis:
     """All layers' view of a single prompt, computed on demand.
 
     Properties trigger computation only when accessed.  Results are cached
-    in memory for the session and, if a HashStash is attached to the parent
+    in memory for the session and, if a CacheManager is attached to the parent
     Psyche, persisted to disk.
     """
 
@@ -798,7 +794,7 @@ class PromptAnalysis:
         # Use ego model for embeddings if available, otherwise superego
         embed_layer = self._psyche.ego if has_ego else self._psyche.superego
         prompt = self.prompt
-        stash = self._psyche._stash
+        cache = self._psyche._cache
 
         def get_embedding(word, layer):
             model = embed_layer.model
@@ -816,16 +812,17 @@ class PromptAnalysis:
             ).squeeze()
 
         def get_embedding_cached(word, layer):
-            cache_key = ("embedding", embed_layer.model_id, prompt, word, layer)
-            if stash is not None and cache_key in stash:
-                arr = stash[cache_key]
-                return torch.as_tensor(arr, dtype=torch.float32)
+            if cache is not None:
+                val = cache.get_word_embedding(embed_layer.model_id, prompt, word, layer)
+                if val is not None:
+                    return torch.as_tensor(val, dtype=torch.float32)
             emb = get_embedding(word, layer)
-            if stash is not None:
-                stash[cache_key] = emb.cpu().numpy()
+            if cache is not None:
+                cache.set_word_embedding(embed_layer.model_id, prompt, word, layer,
+                                         emb.cpu().numpy())
             return emb
 
-        embed_fn = get_embedding_cached if stash is not None else get_embedding
+        embed_fn = get_embedding_cached if cache is not None else get_embedding
 
         if has_ego:
             print(f"  Sublimation axis: {len(sublimated_words)} sublimated, "
@@ -1339,6 +1336,12 @@ class PromptAnalysis:
         )
 
 
+def _psyche_cache():
+    """Create a CacheManager for Psyche to use."""
+    from .cache import get_cache
+    return get_cache()
+
+
 # ---------------------------------------------------------------------------
 # Psyche — the apparatus as a whole
 # ---------------------------------------------------------------------------
@@ -1350,7 +1353,7 @@ class Psyche:
     superego layers. All layers use the same tokenizer (OLMo shares
     vocabulary across all checkpoints).
 
-    Optionally backed by a HashStash for persistent caching.
+    Optionally backed by a CacheManager for persistent caching.
 
     Usage::
 
@@ -1403,7 +1406,7 @@ class Psyche:
             )
 
         self._models_loaded = base_model is not None
-        self._stash = stash
+        self._cache = stash
         self._propagate_stash()
 
     @property
@@ -1418,15 +1421,15 @@ class Psyche:
     def _propagate_stash(self):
         for layer in [self.primary_process, self.ego, self.superego, self.reinforced_superego]:
             if layer is not None:
-                layer._stash = self._stash
+                layer._cache = self._cache
 
     @property
     def stash(self):
-        return self._stash
+        return self._cache
 
     @stash.setter
     def stash(self, value):
-        self._stash = value
+        self._cache = value
         self._propagate_stash()
 
     # -- construction --------------------------------------------------------
@@ -1436,15 +1439,15 @@ class Psyche:
         cls,
         family=DEFAULT_FAMILY,
         cache=None,
-        cache_dir=PATH_STASH,
+        cache_dir=None,
         load=False,
     ):
         """Create a Psyche from a model family key.
 
         Args:
             family: Key into MODEL_FAMILIES (e.g. "olmo", "llama").
-            cache: Pre-built HashStash, or None.
-            cache_dir: If given (and cache is None), creates a HashStash.
+            cache: Pre-built CacheManager, or None.
+            cache_dir: If given (and cache is None), creates a CacheManager.
             load: If True, load models immediately. Otherwise cache-only.
         """
         fam = MODEL_FAMILIES[family]
@@ -1464,7 +1467,7 @@ class Psyche:
     def from_cache(
         cls,
         cache=None,
-        cache_dir=PATH_STASH,
+        cache_dir=None,
         base_name=BASE_MODEL_NAME,
         sft_name=SFT_MODEL_NAME,
         dpo_name=DPO_MODEL_NAME,
@@ -1475,9 +1478,8 @@ class Psyche:
         Cached prompts return instantly. Uncached prompts raise an error
         until load_models() is called.
         """
-        if cache is None and cache_dir is not None:
-            from hashstash import HashStash
-            cache = HashStash(root_dir=cache_dir, engine="pairtree", compress="lz4", b64=True)
+        if cache is None:
+            cache = _psyche_cache()
 
         return cls(
             stash=cache,
@@ -1533,8 +1535,8 @@ class Psyche:
             sft_name: Optional HuggingFace model ID for the SFT model.
             dpo_name: Optional HuggingFace model ID for the DPO model.
             instruct_name: Optional HuggingFace model ID for the RLVR model.
-            cache: A pre-built HashStash instance, or None.
-            cache_dir: If given (and cache is None), creates a HashStash
+            cache: A pre-built CacheManager instance, or None.
+            cache_dir: If given (and cache is None), creates a CacheManager
                 with this root directory.
         """
         psyche = cls.from_cache(
@@ -1577,9 +1579,8 @@ class Psyche:
                 f"Start it with `malign serve`. Error: {e}"
             )
 
-        if cache is None and cache_dir is not None:
-            from hashstash import HashStash
-            cache = HashStash(root_dir=cache_dir, engine="pairtree", compress="lz4", b64=True)
+        if cache is None:
+            cache = _psyche_cache()
 
         psyche = cls(
             stash=cache,
@@ -1886,5 +1887,5 @@ class Psyche:
         )
 
     def __repr__(self):
-        cached = "stash=active" if self._stash else "stash=None"
+        cached = "cache=active" if self._cache else "cache=None"
         return f"Psyche(layers={self.n_layers}, {cached})"
