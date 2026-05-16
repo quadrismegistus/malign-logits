@@ -165,6 +165,39 @@ def cmd_ablation(args):
     )
 
 
+def cmd_bos_generate(args):
+    """Generate unconditional text from BOS token across families."""
+    import torch
+    from . import MODEL_FAMILIES
+    from .psyche import Psyche
+
+    families = [args.family] if args.family else list(MODEL_FAMILIES.keys())
+
+    for fam_key in families:
+        psyche = Psyche.from_family(fam_key, load=True)
+        tok = psyche.tokenizer
+        if args.prompt is not None:
+            prompt = args.prompt
+        else:
+            prompt = tok.bos_token or tok.eos_token or ""
+        print(f"\n{'='*60}")
+        print(f"family={fam_key}  prompt={prompt!r}  n={args.n}  max_tokens={args.tokens}")
+        print(f"{'='*60}", flush=True)
+
+        psyche.generate(
+            prompt,
+            max_new_tokens=args.tokens,
+            temperature=args.temperature,
+            n=args.n,
+        )
+
+        del psyche
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+
+    print("\nDone.", flush=True)
+
+
 def cmd_battery(args):
     """Run prompt battery across one or all model families."""
     from .battery import run_battery
@@ -232,8 +265,136 @@ def cmd_topic_drift(args):
 
 
 def cmd_surprisal(args):
-    """Alias for passage-metrics (backward compat)."""
-    cmd_topic_drift(args)
+    """Compute ref and/or self surprisal for all cached generations."""
+    import torch
+    from . import MODEL_FAMILIES
+    from .cache import get_cache
+    from .embedding import passage_surprisal, _load_surprisal_model
+
+    cache = get_cache()
+    families = [args.family] if args.family else list(MODEL_FAMILIES.keys())
+    do_self = args.self_surprisal
+    ref_model_name = None if args.no_ref else args.ref
+
+    # Discover all prompts that have cached generations
+    from .experiments import DEFAULT_PROMPTS
+    bos_tokens = ["<|endoftext|>", "<|begin_of_text|>", "<s>"]
+    known_prompts = list(bos_tokens) + ["The"] + list(DEFAULT_PROMPTS.values())
+    if args.prompts:
+        known_prompts.extend(p.strip() for p in args.prompts.split(","))
+
+    def _find_prompts(model_id):
+        """Return prompts that have generations for this model."""
+        found = []
+        for p in known_prompts:
+            if cache.count_generations(model_id, p) > 0:
+                found.append(p)
+        return found
+
+    # ── Reference surprisal ──────────────────────────────────────
+    if ref_model_name:
+        from tqdm import tqdm as _tqdm
+
+        print(f"Reference surprisal: {ref_model_name}")
+        print("Scanning for work...", flush=True)
+
+        # Collect all work items first
+        ref_work = []
+        ref_skipped = 0
+        for fam_key in families:
+            fam = MODEL_FAMILIES[fam_key]
+            for layer_name, model_id in [("base", fam.base), ("ego", fam.ego),
+                                          ("superego", fam.superego), ("instruct", fam.reinforced_superego)]:
+                if model_id is None:
+                    continue
+                for prompt in _find_prompts(model_id):
+                    for idx, text in cache.iter_generations(model_id, prompt):
+                        if not text or len(text.strip()) < 10:
+                            continue
+                        if cache.has_ref_surprisal(ref_model_name, prompt, text):
+                            ref_skipped += 1
+                        else:
+                            ref_work.append((prompt, text))
+
+        import random
+        random.shuffle(ref_work)
+        print(f"  {len(ref_work)} to compute, {ref_skipped} cached (shuffled)", flush=True)
+
+        if ref_work:
+            ref_model, ref_tok = _load_surprisal_model(ref_model_name)
+            for prompt, text in _tqdm(ref_work, desc=f"  {ref_model_name.split('/')[-1]}"):
+                ps = passage_surprisal(text, model=ref_model, tokenizer=ref_tok,
+                                       prompt_prefix=prompt)
+                if ps["token_surprisals"]:
+                    cache.set_ref_surprisal(ref_model_name, prompt, text, ps["token_surprisals"])
+
+            del ref_model, ref_tok
+
+        print(f"  ref done: {len(ref_work)} computed, {ref_skipped} cached")
+        del ref_model, ref_tok
+        # Clear globals
+        from . import embedding as _emb
+        _emb._surprisal_model = None
+        _emb._surprisal_tokenizer = None
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+
+    # ── Self-surprisal ───────────────────────────────────────────
+    if do_self:
+        print("Self-surprisal (loading each generating model)")
+        from .models import load_model
+        computed = 0
+        skipped = 0
+
+        from tqdm import tqdm
+
+        for fam_key in families:
+            fam = MODEL_FAMILIES[fam_key]
+            for layer_name, model_id in [("base", fam.base), ("ego", fam.ego),
+                                          ("superego", fam.superego), ("instruct", fam.reinforced_superego)]:
+                if model_id is None:
+                    continue
+                print(f"  Scanning {model_id}...", end=" ", flush=True)
+                prompts = _find_prompts(model_id)
+                if not prompts:
+                    print("no generations", flush=True)
+                    continue
+
+                # Collect all (prompt, idx, text) needing work
+                work = []
+                for prompt in prompts:
+                    for idx, text in cache.iter_generations(model_id, prompt):
+                        if not text or len(text.strip()) < 10:
+                            continue
+                        if cache.has_self_surprisal(model_id, prompt, text):
+                            skipped += 1
+                        else:
+                            work.append((prompt, text))
+
+                if not work:
+                    print(f"{skipped} cached, 0 to compute", flush=True)
+                    continue
+                print(f"{len(work)} to compute", flush=True)
+
+                print(f"  Loading {model_id}...", flush=True)
+                model, tok = load_model(model_id)
+                model.eval()
+
+                for prompt, text in tqdm(work, desc=f"  {model_id.split('/')[-1]}"):
+                    ps = passage_surprisal(text, model=model, tokenizer=tok,
+                                           prompt_prefix=prompt)
+                    if ps["token_surprisals"]:
+                        cache.set_self_surprisal(model_id, prompt, text, ps["token_surprisals"])
+                    computed += 1
+
+                print(f"  {model_id}: {computed} computed so far", flush=True)
+                del model, tok
+                if torch.backends.mps.is_available():
+                    torch.mps.empty_cache()
+
+        print(f"  self done: {computed} computed, {skipped} cached")
+
+    print("Done.", flush=True)
 
 
 def cmd_taxonomy(args):
@@ -402,6 +563,20 @@ def main():
     abl.add_argument("--output", "-o", help="Output CSV (default: data/ablation_results.csv)")
     abl.set_defaults(func=cmd_ablation)
 
+    # bos-generate
+    bos = subparsers.add_parser("bos-generate",
+                                help="Generate unconditional text (BOS or custom prompt)")
+    _add_family_arg(bos)
+    bos.add_argument("--prompt", "-p", default=None,
+                     help="Custom prompt (default: BOS token)")
+    bos.add_argument("--n", type=int, default=100,
+                     help="Generations per layer (default: 100)")
+    bos.add_argument("--tokens", type=int, default=100,
+                     help="Max new tokens per generation (default: 100)")
+    bos.add_argument("--temperature", type=float, default=1.0,
+                     help="Sampling temperature (default: 1.0)")
+    bos.set_defaults(func=cmd_bos_generate)
+
     # battery
     bat = subparsers.add_parser("battery", help="Run prompt battery across families")
     _add_family_arg(bat)
@@ -435,13 +610,16 @@ def main():
 
     # surprisal
     su = subparsers.add_parser("surprisal",
-                               help="Compute GPT-2 surprisal for cached generations")
-    su.add_argument("--input", "-i",
-                    help="Raw generation parquet (default: data/gen_battery_raw.parquet)")
-    su.add_argument("--output", "-o",
-                    help="Output CSV path (default: data/surprisal.csv)")
-    su.add_argument("--model", default="gpt2",
-                    help="Reference model for surprisal (default: gpt2)")
+                               help="Compute surprisal for all cached generations")
+    _add_family_arg(su)
+    su.add_argument("--ref", default="EleutherAI/pythia-1b-deduped",
+                    help="Reference model (default: pythia-1b-deduped). Use --no-ref to skip.")
+    su.add_argument("--no-ref", action="store_true",
+                    help="Skip reference surprisal")
+    su.add_argument("--self", dest="self_surprisal", action="store_true",
+                    help="Compute self-surprisal (loads each generating model)")
+    su.add_argument("--prompts", default="The",
+                    help="Extra prompts to score, comma-separated (default: The). BOS is always included.")
     su.set_defaults(func=cmd_surprisal)
 
     # logit-lens

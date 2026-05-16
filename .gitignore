@@ -220,3 +220,6 @@ ui/.svelte-kit/
 notebooks/archive/
 .vastai.jsondraft/
 logs
+
+draft
+*.bak
