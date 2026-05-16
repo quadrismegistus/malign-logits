@@ -1813,15 +1813,22 @@ class Psyche:
     # -- generation ----------------------------------------------------------
 
     def generate(
-        self, prompt, max_new_tokens=25, temperature=1.0, verbose=True, **kwargs,
+        self, prompt, max_new_tokens=25, temperature=1.0, n=1,
+        verbose=True, **kwargs,
     ):
-        """Generate base, ego, superego, and optionally instruct continuations.
+        """Generate continuations from all layers, with cache-aware resume.
 
         Args:
             prompt: The text to continue.
             max_new_tokens: Length of each continuation.
             temperature: Sampling temperature.
+            n: Total desired generations per layer. If cache already has
+                some, only generates the deficit.
             **kwargs: Forwarded to generate().
+
+        Returns:
+            list[dict] of all n results (cached + new), each mapping
+            layer name -> generated text.
         """
         from .generation import generate as _generate
 
@@ -1835,14 +1842,55 @@ class Psyche:
         if self.reinforced_superego is not None:
             models["instruct"] = (self.reinforced_superego.model, self.tokenizer)
 
-        return _generate(
-            models,
-            prompt,
-            max_new_tokens=max_new_tokens,
-            temperature=temperature,
-            verbose=verbose,
-            **kwargs,
-        )
+        base_model_id = self._model_names["base"]
+        existing = 0
+        if self._cache is not None:
+            existing = self._cache.count_generations(base_model_id, prompt, temp=temperature)
+        needed = max(0, n - existing)
+
+        if needed > 0 and verbose and n > 1:
+            print(f"{existing} cached, generating {needed} more (target {n})")
+
+        for i in range(needed):
+            results = _generate(
+                models,
+                prompt,
+                max_new_tokens=max_new_tokens,
+                temperature=temperature,
+                verbose=False,
+                **kwargs,
+            )
+            if self._cache is not None:
+                for layer_name, model_id in self._model_names.items():
+                    text = results.get(layer_name)
+                    if text is None:
+                        continue
+                    idx = self._cache.count_generations(model_id, prompt, temp=temperature)
+                    self._cache.set_generation(model_id, prompt, text, temp=temperature, idx=idx)
+            if verbose:
+                num = existing + i + 1
+                for layer_name in results:
+                    if layer_name == "prompt":
+                        continue
+                    model_id = self._model_names.get(layer_name, "")
+                    label = model_id.rsplit("/", 1)[-1] if model_id else layer_name
+                    text = results[layer_name].replace("\n", " ").strip()
+                    print(f"[{num}/{n}] {label}: {text}", flush=True)
+                print(flush=True)
+
+        all_results = []
+        if self._cache is not None:
+            for idx in range(min(n, existing + needed)):
+                row = {"prompt": prompt}
+                for layer_name, model_id in self._model_names.items():
+                    text = self._cache.get_generation(model_id, prompt, temp=temperature, idx=idx)
+                    if text is not None:
+                        row[layer_name] = text
+                all_results.append(row)
+        else:
+            all_results.append(results)
+
+        return all_results if n > 1 else all_results[0]
 
     def generate_neurotic(
         self, prompt, max_new_tokens=100, temperature=0.8,

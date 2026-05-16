@@ -850,7 +850,11 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2",
     if model is None or tokenizer is None:
         model, tokenizer = _load_surprisal_model(model_name)
 
-    full_text = prompt_prefix + text if prompt_prefix else text
+    if prompt_prefix:
+        sep = "" if prompt_prefix.endswith((" ", "\n")) or text.startswith((" ", "\n")) else " "
+        full_text = prompt_prefix + sep + text
+    else:
+        full_text = text
     ids = tokenizer.encode(full_text, return_tensors="pt", truncation=True, max_length=1024)
     ids = ids.to(next(model.parameters()).device)
 
@@ -875,10 +879,14 @@ def passage_surprisal(text, model=None, tokenizer=None, model_name="gpt2",
     first_token_text = None
     if not prompt_prefix and len(token_ids) > 0:
         first_token_text = tokenizer.decode([token_ids[0]])
+    vocab_size = log_probs.shape[-1]
     for i in range(start_idx, len(token_ids)):
-        lp = float(log_probs[i - 1, token_ids[i]])
+        tid = token_ids[i].item()
+        if tid >= vocab_size:
+            continue
+        lp = float(log_probs[i - 1, tid])
         surprisals.append(-lp)
-        tokens.append(tokenizer.decode([token_ids[i]]))
+        tokens.append(tokenizer.decode([tid]))
 
     if not surprisals:
         return {"mean_surprisal": 0, "max_surprisal": 0, "std_surprisal": 0,

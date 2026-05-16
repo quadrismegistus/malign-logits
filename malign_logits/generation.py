@@ -18,8 +18,11 @@ def _tokenize_for_generation(tokenizer, text, device):
     """Tokenize text and always provide an attention mask."""
     encoded = tokenizer(text, return_tensors="pt", padding=False)
     input_ids = encoded["input_ids"].to(device)
+    if input_ids.numel() == 0:
+        seed_id = tokenizer.bos_token_id or tokenizer.eos_token_id
+        input_ids = torch.tensor([[seed_id]], device=device)
     attention_mask = encoded.get("attention_mask")
-    if attention_mask is None:
+    if attention_mask is None or attention_mask.shape != input_ids.shape:
         attention_mask = torch.ones_like(input_ids)
     else:
         attention_mask = attention_mask.to(device)

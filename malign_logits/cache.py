@@ -90,6 +90,14 @@ class CacheManager:
                 hi = mid
         return lo
 
+    def iter_generations(self, model, prompt, temp=1.0):
+        """Yield (idx, text) for all generations matching (model, prompt, temp)."""
+        n = self.count_generations(model, prompt, temp)
+        for idx in range(n):
+            text = self.get_generation(model, prompt, temp=temp, idx=idx)
+            if text is not None:
+                yield idx, text
+
     # ── sentence embeddings ─────────────────────────────────────
 
     def get_sent_embeddings(self, embedder, prompt, text):
