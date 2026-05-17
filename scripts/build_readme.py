@@ -74,6 +74,14 @@ def extract():
     print(f"\nExtracted {len(matches)} findings to {FINDINGS_DIR}/")
 
 
+def _heading_to_anchor(heading):
+    """Convert a markdown heading to a GitHub-style anchor link."""
+    anchor = heading.lower()
+    anchor = re.sub(r'[^\w\s-]', '', anchor)
+    anchor = re.sub(r'\s+', '-', anchor.strip())
+    return anchor
+
+
 def build():
     """Rebuild README from parts: header + findings + footer."""
     text = README.read_text()
@@ -92,14 +100,20 @@ def build():
     # Collect all finding files, sorted
     finding_files = sorted(FINDINGS_DIR.glob("F[0-9][0-9]_*.md"))
 
+    # Build findings content and collect headings for TOC
+    finding_headings = []
     findings_parts = ["## Findings\n\n"]
     for f in finding_files:
         content = f.read_text().strip()
-        # Extract finding number from filename
         num = int(f.stem.split("_")[0][1:])
 
         # Convert # F01: back to ### 1. for README
         content = re.sub(r'^# F\d+: ', f'### {num}. ', content, count=1)
+
+        # Extract the heading text for TOC
+        first_line = content.split('\n')[0]
+        heading_text = first_line.lstrip('#').strip()
+        finding_headings.append(heading_text)
 
         # Fix figure paths: ../figures/ → figures/ for README context
         content = content.replace('](../figures/', '](figures/')
@@ -108,7 +122,47 @@ def build():
         findings_parts.append("\n\n")
 
     new_findings = "".join(findings_parts)
-    new_readme = header + new_findings + footer
+
+    # Rebuild TOC in header
+    toc_start = header.index("## Table of contents\n")
+    toc_body_start = header.index("\n", toc_start) + 1
+    # Find end of TOC: next ## heading
+    toc_end_match = re.search(r'\n## ', header[toc_body_start:])
+    toc_end = toc_body_start + toc_end_match.start() if toc_end_match else len(header)
+
+    # Parse existing TOC to preserve non-findings entries
+    old_toc = header[toc_body_start:toc_end]
+    pre_findings = []
+    post_findings_toc = []
+    in_findings = False
+    for line in old_toc.strip().split('\n'):
+        if '- [Findings]' in line:
+            pre_findings.append(line)
+            in_findings = True
+        elif in_findings and line.startswith('  '):
+            continue  # skip old finding TOC entries
+        elif in_findings and not line.startswith('  '):
+            in_findings = False
+            post_findings_toc.append(line)
+        elif not in_findings:
+            if pre_findings:
+                post_findings_toc.append(line)
+            else:
+                pre_findings.append(line)
+
+    # Build new TOC
+    findings_toc = []
+    for heading in finding_headings:
+        anchor = _heading_to_anchor(heading)
+        # Short label: first meaningful part
+        short = heading.split('(')[0].strip().rstrip(':')
+        findings_toc.append(f'  - [{short}](#{anchor})')
+
+    new_toc_lines = pre_findings + findings_toc + post_findings_toc
+    new_toc = '\n'.join(new_toc_lines) + '\n'
+
+    new_header = header[:toc_body_start] + '\n' + new_toc + '\n'
+    new_readme = new_header + new_findings + footer
 
     README.write_text(new_readme)
     print(f"Rebuilt {README} ({len(new_readme)} chars, {len(finding_files)} findings)")
