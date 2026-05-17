@@ -85,6 +85,15 @@ def load_all_generations():
                         ref_mean = np.nan
                         ref_bits_per_char = np.nan
 
+                    # BLT byte-level ref surprisal
+                    blt_surps = cache.get_ref_surprisal("itazap/blt-1b-hf", prompt, text)
+                    if blt_surps:
+                        blt_total_chars = sum(len(t) for t, _ in blt_surps)
+                        blt_total_bits = sum(s / np.log(2) for _, s in blt_surps)
+                        blt_bits_per_char = blt_total_bits / blt_total_chars if blt_total_chars > 0 else np.nan
+                    else:
+                        blt_bits_per_char = np.nan
+
                     genre, code_lang = classify_genre(text)
                     lang = detect_language(text)
 
@@ -104,6 +113,7 @@ def load_all_generations():
                         "self_bits_per_char": self_bits_per_char,
                         "ref_surprisal": ref_mean,
                         "ref_bits_per_char": ref_bits_per_char,
+                        "blt_bits_per_char": blt_bits_per_char,
                         "n_tokens": n_tokens,
                     })
 
