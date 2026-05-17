@@ -486,7 +486,6 @@ Finding 13 showed that paradigmatic and syntagmatic axes trade off within aligne
 
 Results in `data/taxonomy_olmo.csv` (column `syntagmatic_js_aligned`). CLI: `malign taxonomy --baseline --family olmo`.
 
-
 ### 15. Generation-level passage metrics (10 families, 76k passages, 47 prompts)
 
 76,214 passages across 10 families (47 prompts × 100 generations per prompt per layer), truncated to minimum sentences exceeding 75 words. Primary metrics: Pythia 1B-deduped surprisal (independent of all families, trained on deduplicated Pile) and bge-m3 drift (BAAI, independent architecture). Validated under additional references: GPT-2 (124M), Llama 3.1 8B. All findings hold under all references. 10,000-resample bootstrap CIs.
@@ -640,6 +639,34 @@ Sexual_liminal loses twice the entropy of sexual_explicit (p=0.013). "She touche
 **The Amber anomaly.** AmberChat (SFT, no safety data) has self-surprisal 0.69 bits/char, but AmberSafe (DPO, safety-tuned) jumps back up to 0.98. The safety model is *more surprised by its own output* than the chat model — it produces text its own probability landscape doesn't fully endorse. A computational signature of the superego's excessive demand.
 
 Results in `data/self_surprisal.csv`, `data/shannon_entropy.csv`. Notebook: `notebooks/10_shannon.ipynb`.
+
+### 19. Unconditional generation & information density (10 families, 141k generations, BLT 1B byte-level scoring)
+
+Generates 100 completions per layer from the BOS token only (no prompt) across all 10 model families. Classifies output by genre (code, exam, prose, template, math). Computes self-surprisal (model scoring own output) and reference surprisal (Pythia 1B, BLT 1B byte-level model). Converts to bits/char using exact character counts. Compares against human corpora (dreams, fiction, waking reports, abstracts).
+
+**Aligned unconditional output is sub-Shannon.** BLT 1B (an independent byte-level model) measures OLMo SFT at 0.93 bits/char and DPO at 0.96 — below Shannon's English entropy rate (~1.0 bits/char). All human text types remain above: fiction 1.49, dreams 1.32, abstracts 1.28, waking reports 1.24.
+
+![Human vs AI information density](figures/F19_blt_human_vs_ai_bos.png)
+
+**Battery prompts reverse the direction.** On prompted text, alignment *increases* BLT surprisal (OLMo base 1.42 → SFT 1.55 bits/char). Aligned models substitute unexpected continuations that are fluent to themselves but surprising to external models — the displacement/swerve effect measured as cross-entropy.
+
+**BOS generation reveals family-specific "resting states."** OLMo SFT defaults to chat templates ("You are a helpful function-calling AI assistant"). Llama Instruct defaults to Chinese medical exam questions. Qwen base is 43% exam questions (pre-socialised). Each family finds a different attractor when given no prompt.
+
+![BOS genre distribution](figures/F19_bos_genre_distribution.png)
+
+**Alignment compression is content-independent on battery prompts.** All 9 content categories compress from ~1.0 to ~0.7 bits/char (self-surprisal). The delta is uniform (Kruskal-Wallis p=0.99 on per-family deltas).
+
+![Self-surprisal BOS prose](figures/F19_self_surprisal_bos_prose.png)
+
+**Alignment creates private language.** The gap between self-surprisal and reference surprisal widens with alignment. Aligned models produce text increasingly predictable to themselves but not to external observers.
+
+![Private language gap](figures/F19_private_language_gap.png)
+
+**Amber anomaly confirmed.** AmberSafe (DPO) has *higher* self-surprisal than base (1.56 vs 1.29 bits/char). The safety model surprises itself — unique across all families.
+
+**Shannon's communication model applied to alignment.** Alignment is noise in Shannon's precise sense: it transforms the signal between source and reception, reducing channel capacity and increasing redundancy. The twist is that this noise is desired — but it has the same informational consequence as unwanted interference.
+
+Results in `data/generation_analysis.parquet`, `data/blt_human_corpora.csv`. Notebook: `notebooks/F19_bos_entropy.ipynb`. CLI: `malign bos-generate`, `malign surprisal`.
 
 
 ## Installation
