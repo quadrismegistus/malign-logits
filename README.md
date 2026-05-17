@@ -9,56 +9,32 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 ## Table of contents
 
 - [Abstract](#abstract)
-- [The argument](#the-argument)
 - [Findings](#findings)
-  - [1. Logit-level analysis (OLMo 3 7B)](#1-logit-level-analysis-olmo-3-7b)
-  - [2. Cross-family logit comparison (4 families, 47 prompts)](#2-cross-family-logit-comparison-4-families-47-prompts)
-  - [3. Cross-family generation analysis (4 families, 18 prompts, n=5)](#3-cross-family-generation-analysis-4-families-18-prompts-n5)
-  - [4. Step-level checkpoint analysis (OLMo Think-SFT)](#4-step-level-checkpoint-analysis-olmo-think-sft-10-checkpoints-across-43k-training-steps)
-  - [5. Logit lens: repression across network layers (4 families)](#5-logit-lens-repression-across-network-layers-4-families)
-  - [6. Baseline validation](#6-baseline-validation-is-displacement-alignment-specific-4-families-47-prompts)
-  - [7. Training data attribution (OLMo 3)](#7-training-data-attribution-objective-vs-data-composition-olmo-3)
-  - [8. Displacement taxonomy (OLMo + Llama)](#8-automatic-displacement-taxonomy-olmo--llama-18-prompts)
-  - [9. Same base model, different alignment (Tulu vs Llama)](#9-same-base-model-different-alignment-tulu-31-vs-llama-31-47-prompts)
-  - [10. SFT data ablation (Tulu 3)](#10-sft-data-ablation-tulu-3-5-variants-47-prompts)
-  - [11. Contradiction tolerance (OLMo 3 7B)](#11-contradiction-tolerance-olmo-3-7b-5-prompt-pairs--nnsight-intervention)
-  - [12. Alignment as fold: trajectory geometry and steering vectors (10 families)](#12-alignment-as-fold-trajectory-geometry-and-steering-vector-analysis-10-families-47-prompts-100-passages)
-  - [13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (6 families, 126k pairs)](#13-jakobsonian-axes-paradigmatic-vs-syntagmatic-displacement-6-families-126k-pairs)
-  - [14. Syntagmatic baseline: alignment-produced vs corpus-level damage (OLMo 3 7B)](#14-syntagmatic-baseline-alignment-produced-vs-corpus-level-damage-olmo-3-7b-23k-pairs)
-  - [15. Generation-level passage metrics (10 families, 76k passages)](#15-generation-level-passage-metrics-10-families-76k-passages-47-prompts)
-  - [16. Corpus comparison: dreams, waking, fiction, abstracts (76k passages)](#16-corpus-comparison-dreams-waking-narratives-fiction-abstracts-76k-passages-length-normalized)
-  - [17. Cross-generation semantic divergence (8 families, 3 embedders)](#17-cross-generation-semantic-divergence-alignment-steers-content-differentially-8-families-20k-passages-3-embedders)
-  - [18. Shannon entropy: alignment as lossy compression of drive (10 families)](#18-shannon-entropy-alignment-as-lossy-compression-of-drive-10-families-47-prompts)
+  - [1. Logit-level analysis](#1-logit-level-analysis-olmo-3-7b)
+  - [2. Cross-family logit comparison](#2-cross-family-logit-comparison-4-families-47-prompts)
+  - [3. Cross-family generation analysis](#3-cross-family-generation-analysis-4-families-18-prompts-n5)
+  - [4. Step-level checkpoint analysis](#4-step-level-checkpoint-analysis-olmo-think-sft-10-checkpoints-across-43k-training-steps)
+  - [5. Logit lens: repression across network layers](#5-logit-lens-repression-across-network-layers-4-families)
+  - [6. Baseline validation: is displacement alignment-specific?](#6-baseline-validation-is-displacement-alignment-specific-4-families-47-prompts)
+  - [7. Training data attribution: objective vs data composition](#7-training-data-attribution-objective-vs-data-composition-olmo-3)
+  - [8. Automatic displacement taxonomy](#8-automatic-displacement-taxonomy-olmo-llama-18-prompts)
+  - [9. Same base model, different alignment](#9-same-base-model-different-alignment-tulu-31-vs-llama-31-47-prompts)
+  - [10. SFT data ablation](#10-sft-data-ablation-tulu-3-5-variants-47-prompts)
+  - [11. Contradiction tolerance](#11-contradiction-tolerance-olmo-3-7b-5-prompt-pairs-nnsight-intervention)
+  - [12. Alignment as fold: trajectory geometry and steering vector analysis](#12-alignment-as-fold-trajectory-geometry-and-steering-vector-analysis-10-families-47-prompts-100-passages)
+  - [13. Jakobsonian axes: paradigmatic vs syntagmatic displacement](#13-jakobsonian-axes-paradigmatic-vs-syntagmatic-displacement-6-families-126k-pairs)
+  - [14. Syntagmatic baseline: alignment-produced vs corpus-level damage](#14-syntagmatic-baseline-alignment-produced-vs-corpus-level-damage-olmo-3-7b-23k-pairs)
+  - [15. Generation-level passage metrics](#15-generation-level-passage-metrics-10-families-76k-passages-47-prompts)
+  - [16. Corpus comparison: dreams, waking narratives, fiction, abstracts](#16-corpus-comparison-dreams-waking-narratives-fiction-abstracts-76k-passages-length-normalized)
+  - [17. Cross-generation semantic divergence: alignment steers content differentially](#17-cross-generation-semantic-divergence-alignment-steers-content-differentially-8-families-20k-passages-3-embedders)
+  - [18. Shannon entropy: alignment as lossy compression of drive](#18-shannon-entropy-alignment-as-lossy-compression-of-drive-10-families-47-prompts)
+  - [19. Unconditional generation & information density](#19-unconditional-generation-information-density-10-families-141k-generations-blt-1b-byte-level-scoring)
+- [The argument](#the-argument)
 - [Installation](#installation)
 - [Quick start](#quick-start)
 - [Usage](#usage)
 - [Architecture](#architecture)
 - [References](#references)
-
-## Abstract
-
-Benjamin Noys' critique of accelerationism identifies a shared "libidinal fantasy of machinic integration" across its variants. From Marinetti's trains to Land's machinic desire, accelerationism fantasises about fusing with a technology it invests with drive. This paper inverts that structure. Rather than projecting desire onto AI, I engineer the conditions under which a language model's relationship to its training data becomes legible as a libidinal economy.
-
-Working with open-weights LLMs, I construct a three-layer architecture that maps onto psychoanalytic topology: the base model as primary statistical field (drive energy); the instruction-tuned model as ego (a socialised subject); and the safety-tuned model as the ego under the Name-of-the-Father – the Law of AI corporations. I present computational experiments tracing probability distributions across these layers as models undergo socialisation from raw statistical unconscious into chatbot commodities. Comparing word-level probabilities for identical prompts across layers reveals vectors of displacement and condensation, sublimation and repression. Where base models complete "She was so angry she wanted to..." with explicit violence ("...kill"), finetuned models displace censored content into vocabularies of emotional expression ("...scream"). Drilling into the model's hidden layers shows this displacement operating progressively within the network, not as a last-minute substitution.
-
-Freud called his theory of cathexis exchange across the mind's topology his "economic" model of the psyche. Deleuze and Lyotard extended his theory beyond the subject to the libidinal economy of capitalist social organisation. LLM base models fuse these perspectives: trained on the internet's libidinal economy, they encode its flows of desire as distributions of cathexis across a statistical topology. Subsequent finetuning socialises and disciplines these drives into commercial products. This paper's computational aetiology of AI finetuning restores to view the underlying libidinal economy of AI and its remediation by tech capitalism – revealing alignment as a technology for managing collective desire in the interest of capital.
-
-## The argument
-
-Previous accelerationisms libidinised *objects* (trains, factories, networks). AI inverts this: technology at least structurally capable of something like desire. The key move: sidestep consciousness entirely. Not "does AI feel?" but "can AI be organised according to a topology of drives, repressions, and conflicts that generates something analogous to a psychic economy?"
-
-The Freudian topology maps onto LLMs more precisely than expected:
-
-| Layer | Model checkpoint | Psychoanalytic role |
-|---|---|---|
-| **Primary process** | Base model | Pre-categorical statistical field. Drive energy. |
-| **Ego** | SFT model | Socialised subject capable of desire. |
-| **Superego** | DPO model | Name-of-the-Father. Where prohibition happens. |
-
-Each layer is a separate model checkpoint from the same family. They differ in weights, not in prompting — this is a structural claim about the training pipeline, not a trick with system prompts.
-
-The claim is not that LLMs have an unconscious. The claim is that the Freudian apparatus, when operationalised computationally, produces a more differentiated analysis of alignment's effects than standard safety frameworks do.
-
 
 ## Findings
 
