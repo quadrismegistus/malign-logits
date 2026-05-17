@@ -329,15 +329,13 @@ def cmd_surprisal(args):
                     cache.set_ref_surprisal(ref_model_name, prompt, text, ps["token_surprisals"])
 
             del ref_model, ref_tok
+            from . import embedding as _emb
+            _emb._surprisal_model = None
+            _emb._surprisal_tokenizer = None
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
 
         print(f"  ref done: {len(ref_work)} computed, {ref_skipped} cached")
-        del ref_model, ref_tok
-        # Clear globals
-        from . import embedding as _emb
-        _emb._surprisal_model = None
-        _emb._surprisal_tokenizer = None
-        if torch.backends.mps.is_available():
-            torch.mps.empty_cache()
 
     # ── Self-surprisal ───────────────────────────────────────────
     if do_self:
