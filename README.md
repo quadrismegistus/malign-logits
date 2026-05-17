@@ -620,7 +620,7 @@ Results in `data/self_surprisal.csv`, `data/shannon_entropy.csv`. Notebook: `not
 
 Generates 100 completions per layer from the BOS token only (no prompt) across all 10 model families. Classifies output by genre (code, exam, prose, template, math). Computes self-surprisal (model scoring own output) and reference surprisal (Pythia 1B, BLT 1B byte-level model). Converts to bits/char using exact character counts. Compares against human corpora (dreams, fiction, waking reports, abstracts).
 
-**Aligned unconditional output is sub-Shannon.** BLT 1B (an independent byte-level model) measures OLMo SFT at 0.93 bits/char and DPO at 0.96 — below Shannon's English entropy rate (~1.0 bits/char). All human text types remain above: fiction 1.49, dreams 1.32, abstracts 1.28, waking reports 1.24.
+**Aligned models produce prose with lower median information density than any human text type, with most falling at or below Shannon's English rate (~1.0 bits/char).** BLT 1B (an independent byte-level model) measures most aligned models at or below 1.0 bits/char (e.g. OLMo SFT 0.93, DPO 0.96, Qwen DPO 0.95). All human text types have higher medians: fiction 1.49, dreams 1.32, abstracts 1.28, waking reports 1.24. Distributions overlap, but the systematic shift is clear.
 
 ![Human vs AI information density](figures/F19_blt_human_vs_ai_bos.png)
 
