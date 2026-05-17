@@ -622,7 +622,7 @@ Generates 100 completions per layer from the BOS token only (no prompt) across a
 
 **Aligned models produce prose with lower median information density than any human text type, with most falling at or below Shannon's English rate (~1.0 bits/char).** BLT 1B (an independent byte-level model) measures most aligned models at or below 1.0 bits/char (e.g. OLMo SFT 0.93, DPO 0.96, Qwen DPO 0.95). All human text types have higher medians: fiction 1.49, dreams 1.32, abstracts 1.28, waking reports 1.24. Distributions overlap, but the systematic shift is clear.
 
-![Human vs AI information density](figures/F19_blt_human_vs_ai_bos.png)
+![Human vs AI information density](figures/F19_blt_human_vs_ai_bos_family_layer_prose_boxplot.png)
 
 **Battery prompts reverse the direction.** On prompted text, alignment *increases* BLT surprisal (OLMo base 1.42 → SFT 1.55 bits/char). Aligned models substitute unexpected continuations that are fluent to themselves but surprising to external models — the displacement/swerve effect measured as cross-entropy.
 
