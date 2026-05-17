@@ -78,7 +78,8 @@ def _heading_to_anchor(heading):
     """Convert a markdown heading to a GitHub-style anchor link."""
     anchor = heading.lower()
     anchor = re.sub(r'[^\w\s-]', '', anchor)
-    anchor = re.sub(r'\s+', '-', anchor.strip())
+    anchor = anchor.strip()
+    anchor = re.sub(r' ', '-', anchor)
     return anchor
 
 
