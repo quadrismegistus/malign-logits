@@ -395,6 +395,75 @@ def cmd_surprisal(args):
     print("Done.", flush=True)
 
 
+def cmd_embed(args):
+    """Compute sentence embeddings for all cached generations."""
+    import random
+    import numpy as np
+    from tqdm import tqdm
+    from . import MODEL_FAMILIES
+    from .experiments import DEFAULT_PROMPTS
+    from .cache import get_cache
+    from .embedding import _get_embedder, _split_sentences, _is_degenerate
+
+    cache = get_cache()
+    families = [args.family] if args.family else list(MODEL_FAMILIES.keys())
+    emb_name = args.embedder
+
+    bos_tokens = ["<|endoftext|>", "<|begin_of_text|>", "<s>"]
+    known_prompts = list(bos_tokens) + ["The"] + list(DEFAULT_PROMPTS.values())
+
+    def _find_prompts(model_id):
+        found = []
+        for p in known_prompts:
+            if cache.count_generations(model_id, p) > 0:
+                found.append(p)
+        return found
+
+    print(f"Embedder: {emb_name}")
+    print("Scanning for work...", flush=True)
+
+    work = []
+    skipped = 0
+    for fam_key in families:
+        fam = MODEL_FAMILIES[fam_key]
+        for layer_name, model_id in [("base", fam.base), ("ego", fam.ego),
+                                      ("superego", fam.superego), ("instruct", fam.reinforced_superego)]:
+            if model_id is None:
+                continue
+            for prompt in _find_prompts(model_id):
+                for idx, text in cache.iter_generations(model_id, prompt):
+                    if not text or _is_degenerate(text):
+                        continue
+                    if cache.has_sent_embeddings(emb_name, prompt, text):
+                        skipped += 1
+                    else:
+                        work.append((prompt, text))
+
+    random.shuffle(work)
+    print(f"  {len(work)} to compute, {skipped} cached (shuffled)", flush=True)
+
+    if work:
+        embedder = _get_embedder(emb_name)
+        computed = 0
+        for prompt, text in tqdm(work, desc=f"  {emb_name.split('/')[-1]}"):
+            sents = _split_sentences(text)
+            if len(sents) < 2:
+                continue
+            if prompt:
+                sents[0] = prompt + (" " if not prompt.endswith((" ", "\n")) else "") + sents[0]
+            vecs = embedder.encode(sents, show_progress_bar=False)
+            norms = np.linalg.norm(vecs, axis=1, keepdims=True) + 1e-10
+            sent_vecs = (vecs / norms).tolist()
+            cache.set_sent_embeddings(emb_name, prompt, text, sent_vecs)
+            computed += 1
+
+        print(f"  done: {computed} computed, {skipped} cached")
+    else:
+        print("  nothing to compute")
+
+    print("Done.", flush=True)
+
+
 def cmd_taxonomy(args):
     """Classify displacement pairs into taxonomy types."""
     if getattr(args, 'analyze', False):
@@ -619,6 +688,14 @@ def main():
     su.add_argument("--prompts", default="The",
                     help="Extra prompts to score, comma-separated (default: The). BOS is always included.")
     su.set_defaults(func=cmd_surprisal)
+
+    # embed
+    em = subparsers.add_parser("embed",
+                               help="Compute sentence embeddings for all cached generations")
+    _add_family_arg(em)
+    em.add_argument("--embedder", default="BAAI/bge-m3",
+                    help="SentenceTransformer model (default: BAAI/bge-m3)")
+    em.set_defaults(func=cmd_embed)
 
     # logit-lens
     ll = subparsers.add_parser("logit-lens",
