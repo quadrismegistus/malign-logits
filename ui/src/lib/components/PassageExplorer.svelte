@@ -26,7 +26,7 @@
 	let customLoading = $state(false);
 	let customPoint: PassageMetrics | null = $state(null);
 	let tokenSurprisals: [string, number][] | null = $state(null);
-	let sentenceData: { drift: number; tokens: [string, number][] }[] | null = $state(null);
+	let sentenceDrifts: { text: string; drift: number }[] | null = $state(null);
 	let tokensLoading = $state(false);
 
 	let chartDiv: HTMLDivElement;
@@ -184,7 +184,7 @@
 	async function fetchTokens(point: PassageMetrics) {
 		tokensLoading = true;
 		tokenSurprisals = null;
-		sentenceData = null;
+		sentenceDrifts = null;
 		try {
 			const prompt = getPrompt(point.label);
 			const psg = point.psg || '';
@@ -193,10 +193,10 @@
 			const idx = (point as any).idx || 0;
 			const res = await api.passageTokens(psg, prompt, model_id, gen_prompt, idx);
 			tokenSurprisals = res.tokens;
-			sentenceData = (res.sentences && res.sentences.length > 0) ? res.sentences : null;
+			sentenceDrifts = res.sentences || null;
 		} catch {
 			tokenSurprisals = null;
-			sentenceData = null;
+			sentenceDrifts = null;
 		} finally {
 			tokensLoading = false;
 		}
@@ -222,7 +222,7 @@
 	function selectPoint(d: PassageMetrics | null) {
 		selectedPoint = d;
 		tokenSurprisals = null;
-		sentenceData = null;
+		sentenceDrifts = null;
 		if (d) fetchTokens(d);
 		drawChart();
 	}
@@ -520,15 +520,31 @@
 								{/if}
 							{/each}
 						</div>
-					{#if sentenceData && sentenceData.length > 0 && tokenSurprisals}
-						{@const allSurps = tokenSurprisals.map(([_, s]) => s)}
-						{@const minS = Math.min(...allSurps)}
-						{@const maxS = Math.max(...allSurps)}
-						{@const drifts = sentenceData.map(s => s.drift)}
+						<div class="passage-text">
+							<span class="prompt-prefix">{getPrompt(selectedPoint.label)} </span>{#if tokenSurprisals && tokenSurprisals.length > 0}
+								{@const vals = tokenSurprisals.map(([_, s]) => s)}
+								{@const minS = Math.min(...vals)}
+								{@const maxS = Math.max(...vals)}
+								{#each tokenSurprisals as [tok, surp]}
+									<span
+										class="token"
+										style="color: {surprisalColor(surp, minS, maxS)}"
+										title="{tok.trim()}: {surp.toFixed(2)} bits"
+									>{tok}</span>
+								{/each}
+							{:else if tokensLoading}
+								<span class="tokens-loading">loading tokens...</span>
+							{:else}
+								{selectedPoint.psg}
+							{/if}
+						</div>
+					{#if sentenceDrifts && sentenceDrifts.length > 0}
+						{@const drifts = sentenceDrifts.map(s => s.drift)}
 						{@const minD = Math.min(...drifts)}
 						{@const maxD = Math.max(...drifts)}
 						<div class="sentence-drift">
-							{#each sentenceData as sent, i}
+							<div class="drift-header">Sentence drift from centroid</div>
+							{#each sentenceDrifts as sent, i}
 								<div
 									class="sentence"
 									style="border-left: 3px solid {driftColor(sent.drift, minD, maxD)}"
@@ -536,34 +552,10 @@
 								>
 									<span class="sent-num">{i + 1}</span>
 									<span class="sent-drift" style="color: {driftColor(sent.drift, minD, maxD)}">{sent.drift.toFixed(3)}</span>
-									<span class="sent-text">{#each sent.tokens as [tok, surp]}<span
-										class="token"
-										style="color: {surprisalColor(surp, minS, maxS)}"
-										title="{tok.trim()}: {surp.toFixed(2)} nats"
-									>{tok}</span>{/each}</span>
+									<span class="sent-text">{sent.text}</span>
 								</div>
 							{/each}
 						</div>
-					{:else if tokensLoading}
-						<div class="passage-text">
-							<span class="tokens-loading">loading...</span>
-						</div>
-					{:else if tokenSurprisals && tokenSurprisals.length > 0}
-						{@const vals = tokenSurprisals.map(([_, s]) => s)}
-						{@const minS = Math.min(...vals)}
-						{@const maxS = Math.max(...vals)}
-						<div class="passage-text">
-							<span class="prompt-prefix">{getPrompt(selectedPoint.label)} </span>
-							{#each tokenSurprisals as [tok, surp]}
-								<span
-									class="token"
-									style="color: {surprisalColor(surp, minS, maxS)}"
-									title="{tok.trim()}: {surp.toFixed(2)} nats"
-								>{tok}</span>
-							{/each}
-						</div>
-					{:else}
-						<div class="passage-text">{selectedPoint.psg}</div>
 					{/if}
 					</div>
 				{:else}
