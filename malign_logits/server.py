@@ -428,7 +428,23 @@ class ModelHandler(BaseHTTPRequestHandler):
                 s = passage_surprisal(psg, prompt_prefix=prompt_prefix,
                                       model_name="EleutherAI/pythia-1b-deduped")
                 tok_surps = s["token_surprisals"]
-            return {"tokens": tok_surps}
+            # Per-sentence drift from centroid
+            sentences = []
+            sent_vecs = cache.get_sent_embeddings("BAAI/bge-m3", prompt_prefix, psg)
+            if sent_vecs and len(sent_vecs) >= 2:
+                import numpy as np
+                from .embedding import _split_sentences
+                sents = _split_sentences(psg)
+                if prompt_prefix and sents:
+                    sents[0] = prompt_prefix + " " + sents[0]
+                vecs = np.array(sent_vecs)
+                centroid = vecs.mean(axis=0)
+                centroid = centroid / (np.linalg.norm(centroid) + 1e-10)
+                for i, s in enumerate(sents[:len(vecs)]):
+                    cos_dist = 1.0 - float(np.dot(vecs[i], centroid))
+                    sentences.append({"text": s, "drift": round(cos_dist, 4)})
+
+            return {"tokens": tok_surps, "sentences": sentences}
 
         elif path == "/passage-metrics-csv":
             import os

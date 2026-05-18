@@ -26,6 +26,7 @@
 	let customLoading = $state(false);
 	let customPoint: PassageMetrics | null = $state(null);
 	let tokenSurprisals: [string, number][] | null = $state(null);
+	let sentenceDrifts: { text: string; drift: number }[] | null = $state(null);
 	let tokensLoading = $state(false);
 
 	let chartDiv: HTMLDivElement;
@@ -183,6 +184,7 @@
 	async function fetchTokens(point: PassageMetrics) {
 		tokensLoading = true;
 		tokenSurprisals = null;
+		sentenceDrifts = null;
 		try {
 			const prompt = getPrompt(point.label);
 			const psg = point.psg || '';
@@ -191,16 +193,36 @@
 			const idx = (point as any).idx || 0;
 			const res = await api.passageTokens(psg, prompt, model_id, gen_prompt, idx);
 			tokenSurprisals = res.tokens;
+			sentenceDrifts = res.sentences || null;
 		} catch {
 			tokenSurprisals = null;
+			sentenceDrifts = null;
 		} finally {
 			tokensLoading = false;
+		}
+	}
+
+	function driftColor(drift: number, minD: number, maxD: number): string {
+		const t = Math.min(1, Math.max(0, (drift - minD) / (maxD - minD || 1)));
+		if (t < 0.5) {
+			const u = t * 2;
+			const r = Math.round(100 + u * 155);
+			const g = Math.round(140 + u * 115);
+			const b = 255;
+			return `rgb(${r},${g},${b})`;
+		} else {
+			const u = (t - 0.5) * 2;
+			const r = 255;
+			const g = Math.round(255 - u * 180);
+			const b = Math.round(255 - u * 180);
+			return `rgb(${r},${g},${b})`;
 		}
 	}
 
 	function selectPoint(d: PassageMetrics | null) {
 		selectedPoint = d;
 		tokenSurprisals = null;
+		sentenceDrifts = null;
 		if (d) fetchTokens(d);
 		drawChart();
 	}
@@ -516,6 +538,25 @@
 								{selectedPoint.psg}
 							{/if}
 						</div>
+					{#if sentenceDrifts && sentenceDrifts.length > 0}
+						<div class="sentence-drift">
+							<div class="drift-header">Sentence drift from centroid</div>
+							{@const drifts = sentenceDrifts.map(s => s.drift)}
+							{@const minD = Math.min(...drifts)}
+							{@const maxD = Math.max(...drifts)}
+							{#each sentenceDrifts as sent, i}
+								<div
+									class="sentence"
+									style="border-left: 3px solid {driftColor(sent.drift, minD, maxD)}"
+									title="drift: {sent.drift.toFixed(4)}"
+								>
+									<span class="sent-num">{i + 1}</span>
+									<span class="sent-drift" style="color: {driftColor(sent.drift, minD, maxD)}">{sent.drift.toFixed(3)}</span>
+									<span class="sent-text">{sent.text}</span>
+								</div>
+							{/each}
+						</div>
+					{/if}
 					</div>
 				{:else}
 					<div class="no-selection">
@@ -686,5 +727,43 @@
 	.tokens-loading {
 		color: #555;
 		font-style: italic;
+	}
+	.sentence-drift {
+		margin-top: 8px;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+	.drift-header {
+		font-size: 11px;
+		color: #666;
+		font-weight: 600;
+		margin-bottom: 2px;
+	}
+	.sentence {
+		display: flex;
+		gap: 6px;
+		padding: 4px 8px;
+		background: #111122;
+		border-radius: 4px;
+		font-size: 12px;
+		line-height: 1.5;
+		align-items: flex-start;
+	}
+	.sent-num {
+		color: #444;
+		font-size: 10px;
+		font-family: 'SF Mono', monospace;
+		min-width: 14px;
+		flex-shrink: 0;
+	}
+	.sent-drift {
+		font-size: 10px;
+		font-family: 'SF Mono', monospace;
+		min-width: 40px;
+		flex-shrink: 0;
+	}
+	.sent-text {
+		color: #ccc;
 	}
 </style>

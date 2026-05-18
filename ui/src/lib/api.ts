@@ -175,5 +175,5 @@ export const api = {
 	passageMetrics: (text: string) =>
 		post<PassageMetrics>('/passage-metrics', { text }),
 	passageTokens: (psg: string, prompt = '', model_id = '', gen_prompt = '', idx = 0) =>
-		post<{ tokens: [string, number][] }>('/passage-tokens', { psg, prompt, model_id, gen_prompt, idx }),
+		post<{ tokens: [string, number][]; sentences?: { text: string; drift: number }[] }>('/passage-tokens', { psg, prompt, model_id, gen_prompt, idx }),
 };
