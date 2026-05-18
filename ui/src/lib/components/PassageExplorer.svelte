@@ -579,10 +579,10 @@
 							<span class="tokens-loading">loading...</span>
 						</div>
 					{:else if tokenSurprisals && tokenSurprisals.length > 0}
+						{@const vals = tokenSurprisals.map(([_, s]) => s)}
+						{@const minS = Math.min(...vals)}
+						{@const maxS = Math.max(...vals)}
 						<div class="passage-text">
-							{@const vals = tokenSurprisals.map(([_, s]) => s)}
-							{@const minS = Math.min(...vals)}
-							{@const maxS = Math.max(...vals)}
 							<span class="prompt-prefix">{getPrompt(selectedPoint.label)} </span>
 							{#each tokenSurprisals as [tok, surp]}
 								<span
