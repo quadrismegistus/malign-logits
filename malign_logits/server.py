@@ -428,21 +428,52 @@ class ModelHandler(BaseHTTPRequestHandler):
                 s = passage_surprisal(psg, prompt_prefix=prompt_prefix,
                                       model_name="EleutherAI/pythia-1b-deduped")
                 tok_surps = s["token_surprisals"]
-            # Per-sentence drift from centroid
+            # Per-sentence drift + tokens grouped by sentence
             sentences = []
             sent_vecs = cache.get_sent_embeddings("BAAI/bge-m3", prompt_prefix, psg)
-            if sent_vecs and len(sent_vecs) >= 2:
+            if sent_vecs and len(sent_vecs) >= 2 and tok_surps:
                 import numpy as np
                 from .embedding import _split_sentences
                 sents = _split_sentences(psg)
-                if prompt_prefix and sents:
-                    sents[0] = prompt_prefix + " " + sents[0]
                 vecs = np.array(sent_vecs)
                 centroid = vecs.mean(axis=0)
                 centroid = centroid / (np.linalg.norm(centroid) + 1e-10)
-                for i, s in enumerate(sents[:len(vecs)]):
-                    cos_dist = 1.0 - float(np.dot(vecs[i], centroid))
-                    sentences.append({"text": s, "drift": round(cos_dist, 4)})
+
+                # Group tokens by sentence using character offsets
+                tok_idx = 0
+                tok_char_pos = 0
+                full_tok_text = "".join(t for t, _ in tok_surps)
+
+                # Find each sentence's char range in the token stream
+                for si, sent_text in enumerate(sents[:len(vecs)]):
+                    cos_dist = 1.0 - float(np.dot(vecs[si], centroid))
+                    sent_tokens = []
+
+                    # Find where this sentence appears in the full token text
+                    # Strip prompt prefix from first sentence for matching
+                    match_text = sent_text
+                    if si == 0 and prompt_prefix:
+                        match_text = sent_text[len(prompt_prefix):].lstrip()
+
+                    target_end = tok_char_pos + len(match_text)
+
+                    while tok_idx < len(tok_surps) and tok_char_pos < target_end:
+                        tok, surp = tok_surps[tok_idx]
+                        sent_tokens.append([tok, surp])
+                        tok_char_pos += len(tok)
+                        tok_idx += 1
+
+                    sentences.append({
+                        "drift": round(cos_dist, 4),
+                        "tokens": sent_tokens,
+                    })
+
+                # Remaining tokens go to last sentence
+                while tok_idx < len(tok_surps):
+                    tok, surp = tok_surps[tok_idx]
+                    if sentences:
+                        sentences[-1]["tokens"].append([tok, surp])
+                    tok_idx += 1
 
             return {"tokens": tok_surps, "sentences": sentences}
 
