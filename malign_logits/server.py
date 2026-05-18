@@ -401,14 +401,32 @@ class ModelHandler(BaseHTTPRequestHandler):
         elif path == "/passage-tokens":
             psg = body.get("psg", "").rstrip()
             prompt_prefix = body.get("prompt", "").strip()
+            # Look up text from generation cache if psg is empty
+            if not psg:
+                model_id = body.get("model_id", "")
+                prompt = body.get("gen_prompt", "")
+                idx = body.get("idx", 0)
+                if model_id:
+                    from .cache import get_cache as _gc
+                    _cache = _gc()
+                    for temp in [1.0, 0.0]:
+                        text = _cache.get_generation(model_id, prompt, temp=temp, idx=idx)
+                        if text:
+                            psg = text
+                            prompt_prefix = prompt
+                            break
             if not psg:
                 raise ValueError("No psg provided")
             from .cache import get_cache
             cache = get_cache()
-            tok_surps = cache.get_ref_surprisal("gpt2", prompt_prefix, psg)
+            # Try Pythia first, then GPT-2
+            tok_surps = cache.get_ref_surprisal("EleutherAI/pythia-1b-deduped", prompt_prefix, psg)
+            if tok_surps is None:
+                tok_surps = cache.get_ref_surprisal("gpt2", prompt_prefix, psg)
             if tok_surps is None:
                 from .embedding import passage_surprisal
-                s = passage_surprisal(psg, prompt_prefix=prompt_prefix)
+                s = passage_surprisal(psg, prompt_prefix=prompt_prefix,
+                                      model_name="EleutherAI/pythia-1b-deduped")
                 tok_surps = s["token_surprisals"]
             return {"tokens": tok_surps}
 
