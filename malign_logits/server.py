@@ -428,10 +428,10 @@ class ModelHandler(BaseHTTPRequestHandler):
                 s = passage_surprisal(psg, prompt_prefix=prompt_prefix,
                                       model_name="EleutherAI/pythia-1b-deduped")
                 tok_surps = s["token_surprisals"]
-            # Per-sentence drift + tokens grouped by sentence
+            # Per-sentence drift from centroid
             sentences = []
             sent_vecs = cache.get_sent_embeddings("BAAI/bge-m3", prompt_prefix, psg)
-            if sent_vecs and len(sent_vecs) >= 2 and tok_surps:
+            if sent_vecs and len(sent_vecs) >= 2:
                 import numpy as np
                 from .embedding import _split_sentences
                 sents = _split_sentences(psg)
@@ -440,61 +440,9 @@ class ModelHandler(BaseHTTPRequestHandler):
                 vecs = np.array(sent_vecs)
                 centroid = vecs.mean(axis=0)
                 centroid = centroid / (np.linalg.norm(centroid) + 1e-10)
-
-                # Find sentence boundaries in the original psg text
-                full_text = prompt_prefix + " " + psg if prompt_prefix else psg
-                sent_ends = []
-                search_from = 0
-                for s in sents:
-                    # Find end of this sentence in the full text
-                    pos = full_text.find(s.rstrip(), search_from)
-                    if pos >= 0:
-                        sent_ends.append(pos + len(s.rstrip()))
-                        search_from = pos + len(s.rstrip())
-                    else:
-                        sent_ends.append(search_from + len(s))
-                        search_from += len(s)
-
-                # Map tokens to cumulative char positions in the token stream
-                tok_text = "".join(t for t, _ in tok_surps)
-                tok_cum = []
-                pos = 0
-                for t, _ in tok_surps:
-                    pos += len(t)
-                    tok_cum.append(pos)
-
-                # Assign tokens to sentences
-                tok_idx = 0
-                for si in range(len(sents[:len(vecs)])):
-                    cos_dist = 1.0 - float(np.dot(vecs[si], centroid))
-                    sent_tokens = []
-                    # Target: include all tokens up through this sentence's end
-                    # Scale sentence end position to token text length
-                    if si < len(sent_ends):
-                        # Ratio of sentence end in full_text to total full_text length
-                        ratio = sent_ends[si] / max(len(full_text), 1)
-                        target_chars = int(ratio * len(tok_text))
-                    else:
-                        target_chars = len(tok_text)
-
-                    while tok_idx < len(tok_surps) and tok_cum[tok_idx] <= target_chars:
-                        sent_tokens.append(list(tok_surps[tok_idx]))
-                        tok_idx += 1
-                    # Grab at least one token per sentence
-                    if not sent_tokens and tok_idx < len(tok_surps):
-                        sent_tokens.append(list(tok_surps[tok_idx]))
-                        tok_idx += 1
-
-                    sentences.append({
-                        "drift": round(cos_dist, 4),
-                        "tokens": sent_tokens,
-                    })
-
-                # Remaining tokens go to last sentence
-                while tok_idx < len(tok_surps):
-                    if sentences:
-                        sentences[-1]["tokens"].append(list(tok_surps[tok_idx]))
-                    tok_idx += 1
+                for i, s in enumerate(sents[:len(vecs)]):
+                    cos_dist = 1.0 - float(np.dot(vecs[i], centroid))
+                    sentences.append({"text": s, "drift": round(cos_dist, 4)})
 
             return {"tokens": tok_surps, "sentences": sentences}
 
