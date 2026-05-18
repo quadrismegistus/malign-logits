@@ -428,21 +428,68 @@ class ModelHandler(BaseHTTPRequestHandler):
                 s = passage_surprisal(psg, prompt_prefix=prompt_prefix,
                                       model_name="EleutherAI/pythia-1b-deduped")
                 tok_surps = s["token_surprisals"]
-            # Per-sentence drift from centroid
+            # Per-sentence drift + tokens grouped by sentence
             sentences = []
             sent_vecs = cache.get_sent_embeddings("BAAI/bge-m3", prompt_prefix, psg)
-            if sent_vecs and len(sent_vecs) >= 2:
+            if sent_vecs and len(sent_vecs) >= 2 and tok_surps:
                 import numpy as np
                 from .embedding import _split_sentences
+                from transformers import AutoTokenizer
                 sents = _split_sentences(psg)
                 if prompt_prefix and sents:
                     sents[0] = prompt_prefix + " " + sents[0]
                 vecs = np.array(sent_vecs)
                 centroid = vecs.mean(axis=0)
                 centroid = centroid / (np.linalg.norm(centroid) + 1e-10)
-                for i, s in enumerate(sents[:len(vecs)]):
-                    cos_dist = 1.0 - float(np.dot(vecs[i], centroid))
-                    sentences.append({"text": s, "drift": round(cos_dist, 4)})
+
+                # Tokenize each sentence to get token counts
+                _tok = AutoTokenizer.from_pretrained("EleutherAI/pythia-1b-deduped")
+                # Tokenize the full text the same way passage_surprisal does
+                full_text = prompt_prefix + " " + psg if prompt_prefix else psg
+                full_ids = _tok.encode(full_text)
+                # Tokenize prefix to find where completion starts
+                if prompt_prefix:
+                    prefix_ids = _tok.encode(prompt_prefix)
+                    start_idx = len(prefix_ids)
+                else:
+                    start_idx = 1
+                completion_ids = full_ids[start_idx:]
+
+                # Tokenize each sentence to find how many tokens it uses
+                sent_token_counts = []
+                ids_remaining = list(completion_ids)
+                for s in sents:
+                    # Re-tokenize this sentence in context
+                    s_clean = s
+                    if sents.index(s) == 0 and prompt_prefix:
+                        s_clean = s[len(prompt_prefix):].lstrip()
+                    s_ids = _tok.encode(s_clean, add_special_tokens=False)
+                    # Greedy match: consume tokens from remaining that decode to this sentence
+                    consumed = 0
+                    decoded = ""
+                    target = s_clean.strip()
+                    while consumed < len(ids_remaining) and len(decoded.strip()) < len(target):
+                        decoded += _tok.decode([ids_remaining[consumed]])
+                        consumed += 1
+                    sent_token_counts.append(consumed)
+                    ids_remaining = ids_remaining[consumed:]
+
+                # Slice tok_surps by sentence token counts
+                tok_idx = 0
+                for si, s in enumerate(sents[:len(vecs)]):
+                    cos_dist = 1.0 - float(np.dot(vecs[si], centroid))
+                    count = sent_token_counts[si] if si < len(sent_token_counts) else 0
+                    sent_tokens = [list(tok_surps[j]) for j in range(tok_idx, min(tok_idx + count, len(tok_surps)))]
+                    tok_idx += count
+                    sentences.append({
+                        "drift": round(cos_dist, 4),
+                        "tokens": sent_tokens,
+                    })
+                # Remaining tokens to last sentence
+                while tok_idx < len(tok_surps):
+                    if sentences:
+                        sentences[-1]["tokens"].append(list(tok_surps[tok_idx]))
+                    tok_idx += 1
 
             return {"tokens": tok_surps, "sentences": sentences}
 
