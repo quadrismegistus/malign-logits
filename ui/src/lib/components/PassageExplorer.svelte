@@ -9,8 +9,8 @@
 	let loading = $state(true);
 	let error = $state('');
 
-	let xAxis = $state('surprisal_pythia_1b_deduped');
-	let yAxis = $state('drift_bge_m3');
+	let xAxis = $state('drift_bge_m3');
+	let yAxis = $state('surprisal_pythia_1b_deduped');
 	let colorBy: 'family' | 'layer' | 'category' | 'texttype' = $state('texttype');
 	let selectedPoint: PassageMetrics | null = $state(null);
 	let filterFamily = $state('all');
@@ -47,20 +47,19 @@
 	}
 
 	const METRICS = [
-		{ id: 'surprisal_pythia_1b_deduped', label: 'Surprisal (Pythia 1B)' },
 		{ id: 'drift_bge_m3', label: 'Drift (bge-m3)' },
+		{ id: 'surprisal_pythia_1b_deduped', label: 'Surprisal (Pythia 1B)' },
+		{ id: 'blt_bits_per_char', label: 'BLT bits/char' },
+		{ id: 'self_surprisal', label: 'Self-surprisal (nats)' },
+		{ id: 'self_bits_per_char', label: 'Self bits/char' },
+		{ id: 'ref_bits_per_char', label: 'Pythia bits/char' },
+		{ id: 'drift_z', label: 'Drift (z-score)' },
+		{ id: 'surprisal_z', label: 'Surprisal (z-score)' },
 		{ id: 'mean_surprisal', label: 'Surprisal (GPT-2)' },
-		{ id: 'surprisal_llama_3_1_8b', label: 'Surprisal (Llama)' },
 		{ id: 'total_drift', label: 'Drift (MiniLM)' },
-		{ id: 'drift_paraphrase_multilingual_mpnet_base_v2', label: 'Drift (mpnet)' },
-		{ id: 'directedness', label: 'Directedness (MiniLM)' },
-		{ id: 'directedness_bge_m3', label: 'Directedness (bge-m3)' },
-		{ id: 'token_metonymy_idx', label: 'Token metonymy' },
-		{ id: 'metonymy_idx', label: 'Sentence metonymy' },
-		{ id: 'token_diameter', label: 'Token diameter' },
+		{ id: 'directedness', label: 'Directedness' },
+		{ id: 'metonymy_idx', label: 'Metonymy index' },
 		{ id: 'mean_drift', label: 'Mean sentence drift' },
-		{ id: 'token_mean_drift', label: 'Mean token drift' },
-		{ id: 'token_directedness', label: 'Token directedness' },
 		{ id: 'n_sentences', label: 'N sentences' },
 		{ id: 'n_tokens', label: 'N tokens' },
 	];
