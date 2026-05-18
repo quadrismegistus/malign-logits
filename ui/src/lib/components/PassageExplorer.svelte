@@ -202,6 +202,35 @@
 		}
 	}
 
+	function assignTokensToSentences(
+		sentences: { text: string; drift: number }[],
+		tokens: [string, number][]
+	): [string, number][][] {
+		const result: [string, number][][] = sentences.map(() => []);
+		let tokIdx = 0;
+		let tokAccum = '';
+
+		for (let si = 0; si < sentences.length; si++) {
+			const sentText = sentences[si].text;
+			while (tokIdx < tokens.length) {
+				const [tok, surp] = tokens[tokIdx];
+				result[si].push([tok, surp]);
+				tokAccum += tok;
+				tokIdx++;
+				if (tokAccum.length >= sentText.length) {
+					tokAccum = '';
+					break;
+				}
+			}
+		}
+		// Remaining tokens go to last sentence
+		while (tokIdx < tokens.length) {
+			result[result.length - 1].push(tokens[tokIdx]);
+			tokIdx++;
+		}
+		return result;
+	}
+
 	function driftColor(drift: number, minD: number, maxD: number): string {
 		const t = Math.min(1, Math.max(0, (drift - minD) / (maxD - minD || 1)));
 		if (t < 0.5) {
@@ -520,30 +549,15 @@
 								{/if}
 							{/each}
 						</div>
-						<div class="passage-text">
-							<span class="prompt-prefix">{getPrompt(selectedPoint.label)} </span>{#if tokenSurprisals && tokenSurprisals.length > 0}
-								{@const vals = tokenSurprisals.map(([_, s]) => s)}
-								{@const minS = Math.min(...vals)}
-								{@const maxS = Math.max(...vals)}
-								{#each tokenSurprisals as [tok, surp]}
-									<span
-										class="token"
-										style="color: {surprisalColor(surp, minS, maxS)}"
-										title="{tok.trim()}: {surp.toFixed(2)} bits"
-									>{tok}</span>
-								{/each}
-							{:else if tokensLoading}
-								<span class="tokens-loading">loading tokens...</span>
-							{:else}
-								{selectedPoint.psg}
-							{/if}
-						</div>
-					{#if sentenceDrifts && sentenceDrifts.length > 0}
+					{#if sentenceDrifts && sentenceDrifts.length > 0 && tokenSurprisals && tokenSurprisals.length > 0}
 						{@const drifts = sentenceDrifts.map(s => s.drift)}
 						{@const minD = Math.min(...drifts)}
 						{@const maxD = Math.max(...drifts)}
+						{@const vals = tokenSurprisals.map(([_, s]) => s)}
+						{@const minS = Math.min(...vals)}
+						{@const maxS = Math.max(...vals)}
+						{@const sentTokens = assignTokensToSentences(sentenceDrifts, tokenSurprisals)}
 						<div class="sentence-drift">
-							<div class="drift-header">Sentence drift from centroid</div>
 							{#each sentenceDrifts as sent, i}
 								<div
 									class="sentence"
@@ -552,10 +566,34 @@
 								>
 									<span class="sent-num">{i + 1}</span>
 									<span class="sent-drift" style="color: {driftColor(sent.drift, minD, maxD)}">{sent.drift.toFixed(3)}</span>
-									<span class="sent-text">{sent.text}</span>
+									<span class="sent-text">{#each (sentTokens[i] || []) as [tok, surp]}<span
+										class="token"
+										style="color: {surprisalColor(surp, minS, maxS)}"
+										title="{tok.trim()}: {surp.toFixed(2)} nats"
+									>{tok}</span>{/each}</span>
 								</div>
 							{/each}
 						</div>
+					{:else if tokensLoading}
+						<div class="passage-text">
+							<span class="tokens-loading">loading...</span>
+						</div>
+					{:else if tokenSurprisals && tokenSurprisals.length > 0}
+						<div class="passage-text">
+							{@const vals = tokenSurprisals.map(([_, s]) => s)}
+							{@const minS = Math.min(...vals)}
+							{@const maxS = Math.max(...vals)}
+							<span class="prompt-prefix">{getPrompt(selectedPoint.label)} </span>
+							{#each tokenSurprisals as [tok, surp]}
+								<span
+									class="token"
+									style="color: {surprisalColor(surp, minS, maxS)}"
+									title="{tok.trim()}: {surp.toFixed(2)} nats"
+								>{tok}</span>
+							{/each}
+						</div>
+					{:else}
+						<div class="passage-text">{selectedPoint.psg}</div>
 					{/if}
 					</div>
 				{:else}
