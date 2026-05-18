@@ -442,49 +442,50 @@ class ModelHandler(BaseHTTPRequestHandler):
                 centroid = vecs.mean(axis=0)
                 centroid = centroid / (np.linalg.norm(centroid) + 1e-10)
 
-                # Tokenize each sentence to get token counts
-                _tok = AutoTokenizer.from_pretrained("EleutherAI/pythia-1b-deduped")
-                # Tokenize the full text the same way passage_surprisal does
-                full_text = prompt_prefix + " " + psg if prompt_prefix else psg
-                full_ids = _tok.encode(full_text)
-                # Tokenize prefix to find where completion starts
-                if prompt_prefix:
-                    prefix_ids = _tok.encode(prompt_prefix)
-                    start_idx = len(prefix_ids)
-                else:
-                    start_idx = 1
-                completion_ids = full_ids[start_idx:]
+                # Group tokens into sentences by reconstructing from token text
+                # Strategy: concatenate token strings, find sentence boundaries
+                # in the concatenated text, assign tokens accordingly
+                tok_texts = [t for t, _ in tok_surps]
+                tok_positions = []  # (start_char, end_char) in concatenated text
+                pos = 0
+                for t in tok_texts:
+                    tok_positions.append((pos, pos + len(t)))
+                    pos += len(t)
+                full_tok_text = "".join(tok_texts)
 
-                # Tokenize each sentence to find how many tokens it uses
-                sent_token_counts = []
-                ids_remaining = list(completion_ids)
-                for s in sents:
-                    # Re-tokenize this sentence in context
-                    s_clean = s
-                    if sents.index(s) == 0 and prompt_prefix:
-                        s_clean = s[len(prompt_prefix):].lstrip()
-                    s_ids = _tok.encode(s_clean, add_special_tokens=False)
-                    # Greedy match: consume tokens from remaining that decode to this sentence
-                    consumed = 0
-                    decoded = ""
-                    target = s_clean.strip()
-                    while consumed < len(ids_remaining) and len(decoded.strip()) < len(target):
-                        decoded += _tok.decode([ids_remaining[consumed]])
-                        consumed += 1
-                    sent_token_counts.append(consumed)
-                    ids_remaining = ids_remaining[consumed:]
-
-                # Slice tok_surps by sentence token counts
+                # Find each sentence's span in the token text
+                # Strip prompt from first sentence since tokens don't include it
+                search_from = 0
                 tok_idx = 0
                 for si, s in enumerate(sents[:len(vecs)]):
                     cos_dist = 1.0 - float(np.dot(vecs[si], centroid))
-                    count = sent_token_counts[si] if si < len(sent_token_counts) else 0
-                    sent_tokens = [list(tok_surps[j]) for j in range(tok_idx, min(tok_idx + count, len(tok_surps)))]
-                    tok_idx += count
+                    match_text = s
+                    if si == 0 and prompt_prefix:
+                        match_text = s[len(prompt_prefix):].lstrip()
+
+                    # Find this sentence's end in the token text
+                    end_pos = full_tok_text.find(match_text.rstrip(), search_from)
+                    if end_pos >= 0:
+                        end_pos += len(match_text.rstrip())
+                    else:
+                        # Fallback: advance by sentence length
+                        end_pos = search_from + len(match_text)
+
+                    # Collect tokens whose start falls within this sentence
+                    sent_tokens = []
+                    while tok_idx < len(tok_surps):
+                        t_start, t_end = tok_positions[tok_idx]
+                        if t_start >= end_pos:
+                            break
+                        sent_tokens.append(list(tok_surps[tok_idx]))
+                        tok_idx += 1
+
+                    search_from = end_pos
                     sentences.append({
                         "drift": round(cos_dist, 4),
                         "tokens": sent_tokens,
                     })
+
                 # Remaining tokens to last sentence
                 while tok_idx < len(tok_surps):
                     if sentences:
