@@ -539,11 +539,11 @@
 							{/if}
 						</div>
 					{#if sentenceDrifts && sentenceDrifts.length > 0}
+						{@const drifts = sentenceDrifts.map(s => s.drift)}
+						{@const minD = Math.min(...drifts)}
+						{@const maxD = Math.max(...drifts)}
 						<div class="sentence-drift">
 							<div class="drift-header">Sentence drift from centroid</div>
-							{@const drifts = sentenceDrifts.map(s => s.drift)}
-							{@const minD = Math.min(...drifts)}
-							{@const maxD = Math.max(...drifts)}
 							{#each sentenceDrifts as sent, i}
 								<div
 									class="sentence"
