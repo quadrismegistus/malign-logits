@@ -185,7 +185,11 @@
 		tokenSurprisals = null;
 		try {
 			const prompt = getPrompt(point.label);
-			const res = await api.passageTokens(point.psg, prompt);
+			const psg = point.psg || '';
+			const model_id = (point as any).model_id || '';
+			const gen_prompt = (point as any).prompt || prompt;
+			const idx = (point as any).idx || 0;
+			const res = await api.passageTokens(psg, prompt, model_id, gen_prompt, idx);
 			tokenSurprisals = res.tokens;
 		} catch {
 			tokenSurprisals = null;

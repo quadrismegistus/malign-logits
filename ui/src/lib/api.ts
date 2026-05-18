@@ -174,6 +174,6 @@ export const api = {
 		post<{ rows: PassageMetrics[] }>('/passage-metrics-csv', {}),
 	passageMetrics: (text: string) =>
 		post<PassageMetrics>('/passage-metrics', { text }),
-	passageTokens: (psg: string, prompt = '') =>
-		post<{ tokens: [string, number][] }>('/passage-tokens', { psg, prompt }),
+	passageTokens: (psg: string, prompt = '', model_id = '', gen_prompt = '', idx = 0) =>
+		post<{ tokens: [string, number][] }>('/passage-tokens', { psg, prompt, model_id, gen_prompt, idx }),
 };
