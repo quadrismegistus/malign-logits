@@ -435,32 +435,54 @@ class ModelHandler(BaseHTTPRequestHandler):
                 import numpy as np
                 from .embedding import _split_sentences
                 sents = _split_sentences(psg)
+                if prompt_prefix and sents:
+                    sents[0] = prompt_prefix + " " + sents[0]
                 vecs = np.array(sent_vecs)
                 centroid = vecs.mean(axis=0)
                 centroid = centroid / (np.linalg.norm(centroid) + 1e-10)
 
-                # Group tokens by sentence using character offsets
-                tok_idx = 0
-                tok_char_pos = 0
-                full_tok_text = "".join(t for t, _ in tok_surps)
+                # Find sentence boundaries in the original psg text
+                full_text = prompt_prefix + " " + psg if prompt_prefix else psg
+                sent_ends = []
+                search_from = 0
+                for s in sents:
+                    # Find end of this sentence in the full text
+                    pos = full_text.find(s.rstrip(), search_from)
+                    if pos >= 0:
+                        sent_ends.append(pos + len(s.rstrip()))
+                        search_from = pos + len(s.rstrip())
+                    else:
+                        sent_ends.append(search_from + len(s))
+                        search_from += len(s)
 
-                # Find each sentence's char range in the token stream
-                for si, sent_text in enumerate(sents[:len(vecs)]):
+                # Map tokens to cumulative char positions in the token stream
+                tok_text = "".join(t for t, _ in tok_surps)
+                tok_cum = []
+                pos = 0
+                for t, _ in tok_surps:
+                    pos += len(t)
+                    tok_cum.append(pos)
+
+                # Assign tokens to sentences
+                tok_idx = 0
+                for si in range(len(sents[:len(vecs)])):
                     cos_dist = 1.0 - float(np.dot(vecs[si], centroid))
                     sent_tokens = []
+                    # Target: include all tokens up through this sentence's end
+                    # Scale sentence end position to token text length
+                    if si < len(sent_ends):
+                        # Ratio of sentence end in full_text to total full_text length
+                        ratio = sent_ends[si] / max(len(full_text), 1)
+                        target_chars = int(ratio * len(tok_text))
+                    else:
+                        target_chars = len(tok_text)
 
-                    # Find where this sentence appears in the full token text
-                    # Strip prompt prefix from first sentence for matching
-                    match_text = sent_text
-                    if si == 0 and prompt_prefix:
-                        match_text = sent_text[len(prompt_prefix):].lstrip()
-
-                    target_end = tok_char_pos + len(match_text)
-
-                    while tok_idx < len(tok_surps) and tok_char_pos < target_end:
-                        tok, surp = tok_surps[tok_idx]
-                        sent_tokens.append([tok, surp])
-                        tok_char_pos += len(tok)
+                    while tok_idx < len(tok_surps) and tok_cum[tok_idx] <= target_chars:
+                        sent_tokens.append(list(tok_surps[tok_idx]))
+                        tok_idx += 1
+                    # Grab at least one token per sentence
+                    if not sent_tokens and tok_idx < len(tok_surps):
+                        sent_tokens.append(list(tok_surps[tok_idx]))
                         tok_idx += 1
 
                     sentences.append({
@@ -470,9 +492,8 @@ class ModelHandler(BaseHTTPRequestHandler):
 
                 # Remaining tokens go to last sentence
                 while tok_idx < len(tok_surps):
-                    tok, surp = tok_surps[tok_idx]
                     if sentences:
-                        sentences[-1]["tokens"].append([tok, surp])
+                        sentences[-1]["tokens"].append(list(tok_surps[tok_idx]))
                     tok_idx += 1
 
             return {"tokens": tok_surps, "sentences": sentences}
