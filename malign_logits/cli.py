@@ -69,7 +69,7 @@ def cmd_ui(args):
         ui_dir = os.path.join(os.path.dirname(__file__), "..", "ui")
         print(f"Starting Vite dev server (hot reload)...")
         print(f"Make sure `malign serve` is running for the API.")
-        subprocess.run(["npm", "run", "dev"], cwd=ui_dir)
+        subprocess.run(["npm", "run", "dev", "--", "--host", "0.0.0.0"], cwd=ui_dir)
     else:
         import webbrowser
         url = f"http://127.0.0.1:{args.port}"
