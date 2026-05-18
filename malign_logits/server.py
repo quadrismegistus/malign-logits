@@ -415,7 +415,7 @@ class ModelHandler(BaseHTTPRequestHandler):
         elif path == "/passage-metrics-csv":
             import os
             base = os.path.dirname(os.path.dirname(__file__))
-            for name in ["corpus_metrics.parquet", "corpus_metrics.csv"]:
+            for name in ["jakobson.parquet", "corpus_metrics.parquet", "corpus_metrics.csv"]:
                 fpath = os.path.join(base, "data", name)
                 if os.path.exists(fpath):
                     break
@@ -426,6 +426,19 @@ class ModelHandler(BaseHTTPRequestHandler):
                 df = pd.read_parquet(fpath)
             else:
                 df = pd.read_csv(fpath)
+            # Compatibility aliases for jakobson.parquet → UI expectations
+            if "ref_surprisal" in df.columns and "surprisal_pythia_1b_deduped" not in df.columns:
+                df["surprisal_pythia_1b_deduped"] = df["ref_surprisal"]
+            if "total_drift" in df.columns and "drift_bge_m3" not in df.columns:
+                df["drift_bge_m3"] = df["total_drift"]
+            if "layer" in df.columns and "model" not in df.columns:
+                df["model"] = df["layer"]
+            if "prompt_label" in df.columns and "label" not in df.columns:
+                df["label"] = df["prompt_label"]
+            if "genre" in df.columns and "genre_type" not in df.columns:
+                df["genre_type"] = df["genre"]
+            if "psg" not in df.columns:
+                df["psg"] = ""
             # Drop unused columns but keep psg (needed for passage viewer)
             drop = [c for c in df.columns if c.startswith(('max_', 'std_',
                               'n_tokens', 'token_path', 'path_length'))]
