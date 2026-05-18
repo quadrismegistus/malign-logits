@@ -279,16 +279,29 @@ def cmd_surprisal(args):
     # Discover all prompts that have cached generations
     from .experiments import DEFAULT_PROMPTS
     bos_tokens = ["<|endoftext|>", "<|begin_of_text|>", "<s>"]
-    known_prompts = list(bos_tokens) + ["The"] + list(DEFAULT_PROMPTS.values())
+    known_prompts = list(bos_tokens) + ["The", ""] + list(DEFAULT_PROMPTS.values())
     if args.prompts:
         known_prompts.extend(p.strip() for p in args.prompts.split(","))
 
-    def _find_prompts(model_id):
-        """Return prompts that have generations for this model."""
+    # Collect all model IDs: from families + human corpora
+    human_corpora = ["human/dreams", "human/waking", "human/fiction", "human/abstracts"]
+    all_model_ids = []
+    for fam_key in families:
+        fam = MODEL_FAMILIES[fam_key]
+        for mid in [fam.base, fam.ego, fam.superego, fam.reinforced_superego]:
+            if mid is not None:
+                all_model_ids.append(mid)
+    all_model_ids.extend(human_corpora)
+
+    temps = [1.0, 0.0]
+
+    def _find_prompt_temps(model_id):
+        """Return (prompt, temp) pairs that have generations for this model."""
         found = []
         for p in known_prompts:
-            if cache.count_generations(model_id, p) > 0:
-                found.append(p)
+            for t in temps:
+                if cache.count_generations(model_id, p, temp=t) > 0:
+                    found.append((p, t))
         return found
 
     # ── Reference surprisal ──────────────────────────────────────
@@ -301,20 +314,15 @@ def cmd_surprisal(args):
         # Collect all work items first
         ref_work = []
         ref_skipped = 0
-        for fam_key in families:
-            fam = MODEL_FAMILIES[fam_key]
-            for layer_name, model_id in [("base", fam.base), ("ego", fam.ego),
-                                          ("superego", fam.superego), ("instruct", fam.reinforced_superego)]:
-                if model_id is None:
-                    continue
-                for prompt in _find_prompts(model_id):
-                    for idx, text in cache.iter_generations(model_id, prompt):
-                        if not text or len(text.strip()) < 10:
-                            continue
-                        if cache.has_ref_surprisal(ref_model_name, prompt, text):
-                            ref_skipped += 1
-                        else:
-                            ref_work.append((prompt, text))
+        for model_id in all_model_ids:
+            for prompt, temp in _find_prompt_temps(model_id):
+                for idx, text in cache.iter_generations(model_id, prompt, temp=temp):
+                    if not text or len(text.strip()) < 10:
+                        continue
+                    if cache.has_ref_surprisal(ref_model_name, prompt, text):
+                        ref_skipped += 1
+                    else:
+                        ref_work.append((prompt, text))
 
         import random
         random.shuffle(ref_work)
@@ -353,15 +361,15 @@ def cmd_surprisal(args):
                 if model_id is None:
                     continue
                 print(f"  Scanning {model_id}...", end=" ", flush=True)
-                prompts = _find_prompts(model_id)
-                if not prompts:
+                prompt_temps = _find_prompt_temps(model_id)
+                if not prompt_temps:
                     print("no generations", flush=True)
                     continue
 
                 # Collect all (prompt, idx, text) needing work
                 work = []
-                for prompt in prompts:
-                    for idx, text in cache.iter_generations(model_id, prompt):
+                for prompt, temp in prompt_temps:
+                    for idx, text in cache.iter_generations(model_id, prompt, temp=temp):
                         if not text or len(text.strip()) < 10:
                             continue
                         if cache.has_self_surprisal(model_id, prompt, text):
@@ -395,6 +403,59 @@ def cmd_surprisal(args):
     print("Done.", flush=True)
 
 
+def cmd_ingest(args):
+    """Ingest external text corpora into the generation cache."""
+    import json
+    import pandas as pd
+    from .cache import get_cache
+
+    cache = get_cache()
+
+    sources = {
+        "dreams": ("data/dreams_sample_500_cleaned.csv", "text", "csv"),
+        "waking": ("data/hippocorpus_sample_500.csv", "story", "csv"),
+        "fiction": ("data/markmark_c20_narration_500.jsonl", "text", "jsonl"),
+        "abstracts": ("data/arxiv_abstracts_500.csv", "text", "csv"),
+    }
+
+    targets = list(sources.keys()) if args.corpus == "all" else [args.corpus]
+
+    for corpus_name in targets:
+        if corpus_name not in sources:
+            print(f"Unknown corpus: {corpus_name}")
+            print(f"Available: {', '.join(sources.keys())}, all")
+            return
+
+        path, text_col, fmt = sources[corpus_name]
+        model_id = f"human/{corpus_name}"
+        prompt = ""
+
+        existing = cache.count_generations(model_id, prompt, temp=0.0)
+        if existing > 0:
+            print(f"  {model_id}: {existing} already cached, skipping")
+            continue
+
+        if fmt == "csv":
+            df = pd.read_csv(path)
+            texts = df[text_col if text_col in df.columns else "text"].tolist()
+        elif fmt == "jsonl":
+            texts = []
+            with open(path) as f:
+                for line in f:
+                    texts.append(json.loads(line)[text_col])
+
+        count = 0
+        for idx, text in enumerate(texts):
+            text = str(text).rstrip()
+            if text and len(text.strip()) >= 10:
+                cache.set_generation(model_id, prompt, text, temp=0.0, idx=idx)
+                count += 1
+
+        print(f"  {model_id}: {count} passages ingested from {path}")
+
+    print("Done.", flush=True)
+
+
 def cmd_embed(args):
     """Compute sentence embeddings for all cached generations."""
     import random
@@ -410,34 +471,42 @@ def cmd_embed(args):
     emb_name = args.embedder
 
     bos_tokens = ["<|endoftext|>", "<|begin_of_text|>", "<s>"]
-    known_prompts = list(bos_tokens) + ["The"] + list(DEFAULT_PROMPTS.values())
+    known_prompts = list(bos_tokens) + ["The", ""] + list(DEFAULT_PROMPTS.values())
 
-    def _find_prompts(model_id):
+    temps = [1.0, 0.0]
+
+    def _find_prompt_temps(model_id):
         found = []
         for p in known_prompts:
-            if cache.count_generations(model_id, p) > 0:
-                found.append(p)
+            for t in temps:
+                if cache.count_generations(model_id, p, temp=t) > 0:
+                    found.append((p, t))
         return found
 
     print(f"Embedder: {emb_name}")
     print("Scanning for work...", flush=True)
 
-    work = []
-    skipped = 0
+    # Collect all model IDs: from families + human corpora
+    human_corpora = ["human/dreams", "human/waking", "human/fiction", "human/abstracts"]
+    all_model_ids = []
     for fam_key in families:
         fam = MODEL_FAMILIES[fam_key]
-        for layer_name, model_id in [("base", fam.base), ("ego", fam.ego),
-                                      ("superego", fam.superego), ("instruct", fam.reinforced_superego)]:
-            if model_id is None:
-                continue
-            for prompt in _find_prompts(model_id):
-                for idx, text in cache.iter_generations(model_id, prompt):
-                    if not text or _is_degenerate(text):
-                        continue
-                    if cache.has_sent_embeddings(emb_name, prompt, text):
-                        skipped += 1
-                    else:
-                        work.append((prompt, text))
+        for mid in [fam.base, fam.ego, fam.superego, fam.reinforced_superego]:
+            if mid is not None:
+                all_model_ids.append(mid)
+    all_model_ids.extend(human_corpora)
+
+    work = []
+    skipped = 0
+    for model_id in all_model_ids:
+        for prompt, temp in _find_prompt_temps(model_id):
+            for idx, text in cache.iter_generations(model_id, prompt, temp=temp):
+                if not text or _is_degenerate(text):
+                    continue
+                if cache.has_sent_embeddings(emb_name, prompt, text):
+                    skipped += 1
+                else:
+                    work.append((prompt, text))
 
     random.shuffle(work)
     print(f"  {len(work)} to compute, {skipped} cached (shuffled)", flush=True)
@@ -696,6 +765,13 @@ def main():
     em.add_argument("--embedder", default="BAAI/bge-m3",
                     help="SentenceTransformer model (default: BAAI/bge-m3)")
     em.set_defaults(func=cmd_embed)
+
+    # ingest
+    ig = subparsers.add_parser("ingest",
+                               help="Ingest external text corpora into generation cache")
+    ig.add_argument("corpus", choices=["dreams", "waking", "fiction", "abstracts", "all"],
+                    help="Corpus to ingest (or 'all')")
+    ig.set_defaults(func=cmd_ingest)
 
     # logit-lens
     ll = subparsers.add_parser("logit-lens",
