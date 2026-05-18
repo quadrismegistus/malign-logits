@@ -534,6 +534,7 @@
 									style="border-left: 3px solid {driftColor(sent.drift, minD, maxD)}"
 									title="drift: {sent.drift.toFixed(4)}"
 								>
+									{#if i === 0}<span class="prompt-prefix">{getPrompt(selectedPoint.label)} </span>{/if}
 									<span class="sent-num">{i + 1}</span>
 									<span class="sent-drift" style="color: {driftColor(sent.drift, minD, maxD)}">{sent.drift.toFixed(3)}</span>
 									<span class="sent-text">{#each sent.tokens as [tok, surp]}<span
