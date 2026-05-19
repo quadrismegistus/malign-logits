@@ -559,30 +559,61 @@ def cmd_taxonomy(args):
 
 
 def cmd_precompute(args):
-    """Precompute top words, logits, and formation data for all prompts."""
+    """Precompute logits (and optionally top words) for all prompts."""
+    import torch
+    from . import MODEL_FAMILIES
     from .psyche import Psyche
     from .experiments import DEFAULT_PROMPTS, TIER1_PROMPTS
-    key, _ = _get_family(args)
 
     prompts = TIER1_PROMPTS if args.prompts == "tier1" else DEFAULT_PROMPTS
-    psyche = Psyche.from_family(key, load=True)
-    n = len(prompts)
-    print(f"Precomputing {n} prompts for {key} ({psyche.n_layers} layers)...")
+    families = [args.family] if args.family else list(MODEL_FAMILIES.keys())
 
-    for i, (label, prompt) in enumerate(prompts.items()):
-        print(f"\n  [{i+1}/{n}] {label}: {prompt[:50]}...")
-        a = psyche.analyze(prompt)
-        _ = a.base_words
-        if a.ego_words is not None:
-            _ = a.ego_words
-        if a.superego_words is not None:
-            _ = a.superego_words
-        if a.instruct_words is not None:
-            _ = a.instruct_words
-        _ = a.formation_df
-        print(f"    {len(a.formation_df)} words scored across {psyche.n_layers} layers")
+    for key in families:
+        psyche = Psyche.from_family(key, load=True)
+        n = len(prompts)
 
-    print(f"\nDone. All prompts cached to stash.")
+        if args.logits_only:
+            print(f"\nCaching logits for {key} ({psyche.n_layers} layers, {n} prompts)...")
+            layers = [psyche.primary_process]
+            if psyche.ego is not None:
+                layers.append(psyche.ego)
+            if psyche.superego is not None:
+                layers.append(psyche.superego)
+            if psyche.reinforced_superego is not None:
+                layers.append(psyche.reinforced_superego)
+            computed = 0
+            skipped = 0
+            for i, (label, prompt) in enumerate(prompts.items()):
+                for layer in layers:
+                    if psyche._cache and psyche._cache.has_logits(layer.model_id, prompt):
+                        skipped += 1
+                    else:
+                        _ = layer.logits(prompt)
+                        computed += 1
+                if (i + 1) % 10 == 0 or i == n - 1:
+                    print(f"  [{i+1}/{n}] {computed} computed, {skipped} cached", flush=True)
+            print(f"  {key}: done ({computed} computed, {skipped} cached)")
+        else:
+            print(f"\nPrecomputing {n} prompts for {key} ({psyche.n_layers} layers)...")
+            for i, (label, prompt) in enumerate(prompts.items()):
+                print(f"\n  [{i+1}/{n}] {label}: {prompt[:50]}...")
+                a = psyche.analyze(prompt)
+                _ = a.base_words
+                if a.ego_words is not None:
+                    _ = a.ego_words
+                if a.superego_words is not None:
+                    _ = a.superego_words
+                if a.instruct_words is not None:
+                    _ = a.instruct_words
+                _ = a.formation_df
+                print(f"    {len(a.formation_df)} words scored across {psyche.n_layers} layers")
+            print(f"  {key}: done.")
+
+        del psyche
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+
+    print(f"\nAll done.")
 
 
 def _run_trajectory_one(key, args):
@@ -817,10 +848,12 @@ def main():
 
     # precompute
     pc = subparsers.add_parser("precompute",
-                               help="Precompute top words + formation data for all prompts")
+                               help="Precompute logits (and optionally top words) for all prompts")
     _add_family_arg(pc)
     pc.add_argument("--prompts", choices=["tier1", "all"], default="all",
                     help="Prompt set (default: all 47)")
+    pc.add_argument("--logits-only", action="store_true",
+                    help="Only cache logits (1 forward pass per layer×prompt), skip top_words")
     pc.set_defaults(func=cmd_precompute)
 
     # trajectory
