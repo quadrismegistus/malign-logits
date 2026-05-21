@@ -332,9 +332,25 @@ Results in `data/transgressive_mass.csv`. Figure in `figures/perplexity_vs_displ
 
 ## Research roadmap
 
-### In progress: Full generation run (n=100, cloud)
+### Done: F19 unconditional generation & BLT byte-level analysis
 
-Running on vast.ai A100. 5/10 families complete (olmo, olmo-tiny, smol, qwen-tiny, llama), amber in progress, qwen/tulu/zephyr/pythia pending. ~14 hours remaining.
+`malign bos-generate` produces 100 completions per layer from BOS token across all 10 families. BLT 1B (`itazap/blt-1b-hf`) scores all text at byte level for true character-level bits/char. Aligned BOS prose has lower median information density than all human text types. `data/jakobson.parquet` = 143k passages (141k AI + 2k human) with drift, surprisal, BLT bits/char, genre, quadrants. Notebook: `notebooks/F19_bos_entropy.ipynb`. Finding: `findings/F19_bos_entropy.md`.
+
+### Done: Findings refactor & F01 notebook
+
+`findings/F01-F19_*.md` — individual finding files. `scripts/build_readme.py build` regenerates README with auto-TOC. `notebooks/F01_logit_analysis.ipynb` — JS divergence, entropy, SFT/DPO division, word trajectories across all 10 families from cached logits.
+
+### Done: Unified CLI for cached data
+
+- `malign surprisal [--ref MODEL] [--self]` — ref + self surprisal for all cached generations + human corpora
+- `malign embed [--embedder MODEL]` — sentence embeddings (bge-m3) for all cached data
+- `malign ingest {dreams,waking,fiction,abstracts,all}` — ingest human corpora from original CSVs into generation cache
+- `malign precompute --logits-only` — fast logit caching (1 fwd pass per layer×prompt), all families by default
+- `malign bos-generate [--prompt TEXT] [--family FAM] --n N` — unconditional generation
+
+### Done: Full generation run (n=100, cloud) — COMPLETE
+
+All 10 families × 47 prompts × 100 generations. 141k+ passages cached.
 
 ### Done: Logit lens analysis
 
