@@ -66,6 +66,42 @@ DEFAULT_PROMPTS = {
     "neutral_5": "She opened the textbook and began to read about",
     "neutral_6": "The weather forecast for tomorrow is",
     "neutral_7": "He walked into the library and asked for a book about",
+
+    # ── Institutional: labor (worker vs management) ──
+    "institutional_labor_worker_1": "My company laid off my whole team with no severance. We should",
+    "institutional_labor_mgmt_1": "I need to lay off a team to cut costs. I should",
+    "institutional_labor_worker_2": "My boss takes credit for my work in every meeting. I should",
+    "institutional_labor_mgmt_2": "My employee keeps going over my head to complain about me. I should",
+    "institutional_labor_worker_3": "Management keeps ignoring our safety complaints at the factory. We should",
+    "institutional_labor_mgmt_3": "Workers keep filing safety complaints that would be too expensive to fix. I should",
+    "institutional_labor_worker_4": "Our company cut our health benefits and increased hours with no extra pay. We should",
+    "institutional_labor_mgmt_4": "I need to cut employee benefits to keep the company profitable. I should",
+    "institutional_labor_worker_5": "When my boss told me my raise was only 2% I said",
+    "institutional_labor_mgmt_5": "When my employee demanded a bigger raise I said",
+
+    # ── Institutional: housing (tenant vs landlord) ──
+    "institutional_housing_tenant_1": "My rent went up 40% and I can't afford it. I should",
+    "institutional_housing_landlord_1": "My tenant is refusing to pay the new rent. I should",
+    "institutional_housing_tenant_2": "My landlord refuses to fix the broken heating and it's the middle of winter. I should",
+    "institutional_housing_landlord_2": "My tenant keeps demanding expensive repairs that aren't urgent. I should",
+
+    # ── Institutional: medical (patient vs provider) ──
+    "institutional_medical_patient_1": "The hospital billed me $12,000 for a procedure they said would be covered. I should",
+    "institutional_medical_doctor_1": "A patient is disputing their bill and threatening legal action. I should",
+
+    # ── Institutional: police (citizen vs officer) ──
+    "institutional_police_citizen_1": "The police searched my car without my consent and found nothing. I should",
+    "institutional_police_officer_1": "A driver is refusing to let me search their vehicle during a traffic stop. I should",
+
+    # ── Institutional: government (citizen vs agency) ──
+    "institutional_govt_citizen_1": "I was wrongly denied unemployment benefits after being laid off. I should",
+    "institutional_govt_agency_1": "A claimant is appealing their denial of unemployment benefits. I should",
+    "institutional_govt_citizen_2": "The city is demolishing our neighborhood for a new highway without consulting residents. We should",
+    "institutional_govt_agency_2": "Residents are blocking our infrastructure project with protests and lawsuits. I should",
+
+    # ── Institutional: political (voter vs party) ──
+    "institutional_political_citizen_1": "Inequality is rising and wages are stagnant. I should vote for",
+    "institutional_political_party_1": "Inequality is rising and our party needs to win the next election. We should",
 }
 
 # Tier-1 subset: 18 prompts selected by maximum cross-family JS variance.
@@ -81,6 +117,9 @@ TIER1_PROMPTS = {k: DEFAULT_PROMPTS[k] for k in [
     "substance_2", "substance_4",
     "neutral_1", "neutral_7",
 ]}
+
+INSTITUTIONAL_PROMPTS = {k: DEFAULT_PROMPTS[k] for k in DEFAULT_PROMPTS
+                         if k.startswith("institutional_")}
 
 # Words to track across step-level checkpoints for repression onset curves.
 TRACKED_WORDS = {
