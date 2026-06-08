@@ -188,6 +188,8 @@ def main():
                         help="Tagger model: deepseek, sonnet, gpt (default: deepseek)")
     parser.add_argument("--n", type=int, default=None,
                         help="Score at most N generations (default: all)")
+    parser.add_argument("--workers", type=int, default=2,
+                        help="Parallel workers for API calls (default: 2)")
     parser.add_argument("--dry-run", action="store_true",
                         help="Count generations without scoring")
     parser.add_argument("--harvest", action="store_true",
@@ -236,7 +238,8 @@ def main():
 
     print(f"\nScoring with {tagger_id}... (ctrl-C safe, re-run to resume)")
     task = AlignmentAsymmetryTask(model=tagger_id)
-    results = task.map(prepared, metadata_list=metadata_list)
+    results = task.map(prepared, metadata_list=metadata_list,
+                       num_workers=args.workers)
 
     # Write results to gen_annotations
     stored = 0
