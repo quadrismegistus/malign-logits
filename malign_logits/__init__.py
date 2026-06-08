@@ -130,6 +130,16 @@ MODEL_FAMILIES = {
         ego="lomahony/eleuther-pythia6.9b-hh-sft",
         superego="lomahony/eleuther-pythia6.9b-hh-dpo",
     ),
+    "deepseek-7b": ModelFamily(
+        name="DeepSeek LLM 7B",
+        base="deepseek-ai/deepseek-llm-7b-base",
+        superego="deepseek-ai/deepseek-llm-7b-chat",
+    ),
+    # "deepseek": ModelFamily(
+    #     name="DeepSeek V4 Flash 284B",
+    #     base="deepseek-ai/DeepSeek-V4-Flash-Base",
+    #     superego="sgl-project/DeepSeek-V4-Flash-FP8",
+    # ),
 }
 
 TULU_ABLATIONS = {

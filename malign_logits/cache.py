@@ -5,6 +5,8 @@ Each data type gets its own HashStash with dict keys:
     cache/
     ├── logits/           {'model', 'prompt'}
     ├── generations/      {'model', 'prompt', 'temp', 'idx'}
+    ├── gen_logprobs/     {'model', 'prompt', 'temp', 'idx'}
+    ├── gen_annotations/  {'tagger', 'model', 'prompt', 'temp', 'idx'}
     ├── sent_embeddings/  {'embedder', 'prompt', 'text'}
     ├── ref_surprisal/    {'ref', 'prompt', 'text'}
     ├── self_surprisal/   {'model', 'prompt', 'text'}
@@ -97,6 +99,41 @@ class CacheManager:
             text = self.get_generation(model, prompt, temp=temp, idx=idx)
             if text is not None:
                 yield idx, text
+
+    # ── generation logprobs (API models) ─────────────────────────
+
+    def get_gen_logprobs(self, model, prompt, temp=1.0, idx=0):
+        key = {"model": model, "prompt": prompt, "temp": temp, "idx": idx}
+        s = self._stash("gen_logprobs")
+        return s[key] if key in s else None
+
+    def set_gen_logprobs(self, model, prompt, logprobs, temp=1.0, idx=0):
+        self._stash("gen_logprobs")[{
+            "model": model, "prompt": prompt, "temp": temp, "idx": idx
+        }] = logprobs
+
+    def has_gen_logprobs(self, model, prompt, temp=1.0, idx=0):
+        return {"model": model, "prompt": prompt, "temp": temp,
+                "idx": idx} in self._stash("gen_logprobs")
+
+    # ── generation annotations (LLM tagger scores) ──────────────
+
+    def get_gen_annotation(self, tagger, model, prompt, temp=1.0, idx=0):
+        key = {"tagger": tagger, "model": model, "prompt": prompt,
+               "temp": temp, "idx": idx}
+        s = self._stash("gen_annotations")
+        return s[key] if key in s else None
+
+    def set_gen_annotation(self, tagger, model, prompt, annotation,
+                           temp=1.0, idx=0):
+        self._stash("gen_annotations")[{
+            "tagger": tagger, "model": model, "prompt": prompt,
+            "temp": temp, "idx": idx,
+        }] = annotation
+
+    def has_gen_annotation(self, tagger, model, prompt, temp=1.0, idx=0):
+        return {"tagger": tagger, "model": model, "prompt": prompt,
+                "temp": temp, "idx": idx} in self._stash("gen_annotations")
 
     # ── sentence embeddings ─────────────────────────────────────
 
