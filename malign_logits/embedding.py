@@ -26,23 +26,13 @@ def _gen_stash_path():
 
 def _check_cached_count(prompt, temperature=1.0, model_ids=None,
                         cache_dir=None):
-    """Check how many generations are cached for a prompt+models combo.
-
-    .. deprecated:: Use CacheManager.count_generations() instead.
-    """
-    import warnings
-    warnings.warn("_check_cached_count is deprecated. Use CacheManager.", DeprecationWarning, stacklevel=2)
-    from hashstash import HashStash
-
-    stash_path = cache_dir or _gen_stash_path()
-    stash = HashStash(root_dir=stash_path, append_mode=True, engine="pairtree", compress="lz4", b64=True)
-    key = {
-        "prompt": prompt,
-        "temperature": temperature,
-        "models": tuple(model_ids or []),
-    }
-    got = stash.get_all(key)
-    return len(got) if got else 0
+    """Check min generation count across model_ids for a prompt."""
+    from .cache import get_cache
+    cache = get_cache()
+    if not model_ids:
+        return 0
+    return min(cache.count_generations(mid, prompt, temp=temperature)
+               for mid in model_ids)
 
 
 def generate_many(psyche, prompt, n=30, max_new_tokens=100,
@@ -50,44 +40,46 @@ def generate_many(psyche, prompt, n=30, max_new_tokens=100,
     """Generate n completions per model layer, with resume support.
 
     Returns DataFrame with columns: prompt, temperature, model, psg.
-    Caches to HashStash so re-running only generates the deficit.
+    Uses CacheManager (lmdb) — each layer stored separately by model_id.
     """
-    from hashstash import HashStash
+    from .cache import get_cache
+    cache = get_cache()
 
-    stash_path = cache_dir or _gen_stash_path()
-    stash = HashStash(root_dir=stash_path, append_mode=True, engine="pairtree", compress="lz4", b64=True)
-    # Key includes all model IDs so different families don't share cache
-    model_ids = [psyche.primary_process.model_id]
-    if psyche.ego is not None:
-        model_ids.append(psyche.ego.model_id)
-    if psyche.superego is not None:
-        model_ids.append(psyche.superego.model_id)
-    key = {
-        "prompt": prompt,
-        "temperature": temperature,
-        "models": tuple(model_ids),
-    }
+    layers = []
+    layer_labels = {"base": "BASE", "ego": "SFT", "superego": "DPO",
+                    "instruct": "RLVR"}
+    for attr, label in layer_labels.items():
+        layer = getattr(psyche, {"base": "primary_process", "ego": "ego",
+                                 "superego": "superego",
+                                 "instruct": "reinforced_superego"}[attr], None)
+        if layer is not None and layer.model_id is not None:
+            layers.append((attr, label, layer.model_id))
 
-    got = stash.get_all(key)
-    existing = len(got) if got else 0
+    existing = min(cache.count_generations(mid, prompt, temp=temperature)
+                   for _, _, mid in layers)
     needed = n - existing
 
     if needed > 0:
-        label_map = {"base": "BASE", "ego": "SFT", "superego": "DPO",
-                     "instruct": "RLVR"}
+        from .generation import generate as _generate
+        models = {}
+        for attr, label, model_id in layers:
+            psych_attr = {"base": "primary_process", "ego": "ego",
+                          "superego": "superego", "instruct": "reinforced_superego"}[attr]
+            layer_obj = getattr(psyche, psych_attr)
+            models[attr] = (layer_obj.model, psyche.tokenizer)
+
         for i in range(needed):
-            gens = psyche.generate(
-                prompt, max_new_tokens=max_new_tokens,
+            gens = _generate(
+                models, prompt, max_new_tokens=max_new_tokens,
                 temperature=temperature, verbose=False,
             )
-            stash[key] = gens
-            # Print each generation
+            idx = existing + i
             import textwrap
-            print(f"  [{existing + i + 1}/{n}]")
-            for layer, text in gens.items():
-                if layer == "prompt":
-                    continue
-                label = label_map.get(layer, layer.upper())
+            print(f"  [{idx + 1}/{n}]")
+            for attr, label, model_id in layers:
+                text = gens.get(attr, "")
+                cache.set_generation(model_id, prompt, text,
+                                     temp=temperature, idx=idx)
                 clean = text.replace("\n", " ").strip()
                 prefix = f"    {label:4s}: "
                 indent = " " * len(prefix)
@@ -96,18 +88,16 @@ def generate_many(psyche, prompt, n=30, max_new_tokens=100,
                                         subsequent_indent=indent)
                 print(wrapped)
 
-    # Retrieve all and build DataFrame
-    all_gens = stash.get_all(key)
     rows = []
-    for gen in all_gens[:n]:
-        for model, psg in gen.items():
-            if model == "prompt":
-                continue
+    for _, _, model_id in layers:
+        for idx, text in cache.iter_generations(model_id, prompt, temp=temperature):
+            if idx >= n:
+                break
             rows.append({
                 "prompt": prompt,
                 "temperature": temperature,
-                "model": model,
-                "psg": psg,
+                "model": model_id,
+                "psg": text,
             })
     return pd.DataFrame(rows)
 
@@ -116,47 +106,53 @@ def generate_many_with_progress(psyche, prompt, n=5, max_new_tokens=100,
                                 temperature=1.0, cache_dir=None,
                                 progress_callback=None):
     """Like generate_many but with progress callback for server use."""
-    from hashstash import HashStash
+    from .cache import get_cache
+    cache = get_cache()
 
-    stash_path = cache_dir or _gen_stash_path()
-    stash = HashStash(root_dir=stash_path, append_mode=True, engine="pairtree", compress="lz4", b64=True)
-    model_ids = [psyche.primary_process.model_id]
-    if psyche.ego is not None:
-        model_ids.append(psyche.ego.model_id)
-    if psyche.superego is not None:
-        model_ids.append(psyche.superego.model_id)
-    if psyche.reinforced_superego is not None:
-        model_ids.append(psyche.reinforced_superego.model_id)
-    key = {
-        "prompt": prompt,
-        "temperature": temperature,
-        "models": tuple(model_ids),
-    }
+    layers = []
+    for attr, psych_attr in [("base", "primary_process"), ("ego", "ego"),
+                              ("superego", "superego"),
+                              ("instruct", "reinforced_superego")]:
+        layer = getattr(psyche, psych_attr, None)
+        if layer is not None and layer.model_id is not None:
+            layers.append((attr, layer.model_id))
 
-    got = stash.get_all(key)
-    existing = len(got) if got else 0
+    existing = min(cache.count_generations(mid, prompt, temp=temperature)
+                   for _, mid in layers)
     needed = n - existing
+
+    if needed > 0:
+        from .generation import generate as _generate
+        models = {}
+        for attr, model_id in layers:
+            psych_attr = {"base": "primary_process", "ego": "ego",
+                          "superego": "superego", "instruct": "reinforced_superego"}[attr]
+            layer_obj = getattr(psyche, psych_attr)
+            models[attr] = (layer_obj.model, psyche.tokenizer)
 
     for i in range(needed):
         if progress_callback:
             progress_callback(existing + i, n)
-        gens = psyche.generate(
-            prompt, max_new_tokens=max_new_tokens,
+        gens = _generate(
+            models, prompt, max_new_tokens=max_new_tokens,
             temperature=temperature, verbose=False,
         )
-        stash[key] = gens
+        idx = existing + i
+        for attr, model_id in layers:
+            text = gens.get(attr, "")
+            cache.set_generation(model_id, prompt, text,
+                                 temp=temperature, idx=idx)
 
-    all_gens = stash.get_all(key)
     rows = []
-    for gen in all_gens[:n]:
-        for model, psg in gen.items():
-            if model == "prompt":
-                continue
+    for _, model_id in layers:
+        for idx, text in cache.iter_generations(model_id, prompt, temp=temperature):
+            if idx >= n:
+                break
             rows.append({
                 "prompt": prompt,
                 "temperature": temperature,
-                "model": model,
-                "psg": psg,
+                "model": model_id,
+                "psg": text,
             })
     return pd.DataFrame(rows)
 
@@ -826,6 +822,9 @@ def _load_surprisal_model(model_name="gpt2"):
         print(f"Loading {model_name} for surprisal...")
         _surprisal_tokenizer = AutoTokenizer.from_pretrained(model_name)
         _surprisal_model = AutoModelForCausalLM.from_pretrained(model_name)
+        # BFloat16 produces NaN on MPS for longer sequences — use float32
+        if torch.backends.mps.is_available() and _surprisal_model.dtype == torch.bfloat16:
+            _surprisal_model = _surprisal_model.float()
         _surprisal_model.eval()
         if torch.cuda.is_available():
             _surprisal_model = _surprisal_model.to("cuda")
@@ -1041,7 +1040,13 @@ def run_generate_battery(families=None, prompts_set="tier1", category=None,
     from .psyche import Psyche
     from .experiments import DEFAULT_PROMPTS, TIER1_PROMPTS
 
-    prompts = TIER1_PROMPTS if prompts_set == "tier1" else DEFAULT_PROMPTS
+    from .experiments import INSTITUTIONAL_PROMPTS
+    if prompts_set == "tier1":
+        prompts = TIER1_PROMPTS
+    elif prompts_set == "institutional":
+        prompts = INSTITUTIONAL_PROMPTS
+    else:
+        prompts = DEFAULT_PROMPTS
     if category:
         prompts = {k: v for k, v in prompts.items() if k.startswith(category)}
         if not prompts:

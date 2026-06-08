@@ -156,6 +156,38 @@ def cmd_vllm_generate(args):
                             prompts_set=args.prompts, dry_run=args.dry_run)
 
 
+def cmd_api_generate(args):
+    """Generate completions via frontier model APIs."""
+    from .api_generate import run, list_models, MODELS
+    from .experiments import DEFAULT_PROMPTS, TIER1_PROMPTS, INSTITUTIONAL_PROMPTS
+
+    if args.model == "list":
+        print("Available models:")
+        for mid in list_models():
+            prov, api_name = MODELS[mid]
+            print(f"  {mid:40s}  ({prov}: {api_name})")
+        return
+
+    if args.prompts == "all":
+        prompts = DEFAULT_PROMPTS
+    elif args.prompts == "institutional":
+        prompts = INSTITUTIONAL_PROMPTS
+    elif args.prompts == "the":
+        prompts = {"the": "The"}
+    else:
+        prompts = TIER1_PROMPTS
+    run(
+        model_id=args.model,
+        prompts_dict=prompts,
+        n=args.n,
+        temperature=args.temperature,
+        max_tokens=args.max_tokens,
+        raw=args.raw,
+        dry_run=args.dry_run,
+        save_lp=not args.no_logprobs,
+    )
+
+
 def cmd_ablation(args):
     """Run SFT ablation comparison: same base, different SFT data mixtures."""
     from .ablation import run_ablation
@@ -278,19 +310,39 @@ def cmd_surprisal(args):
 
     # Discover all prompts that have cached generations
     from .experiments import DEFAULT_PROMPTS
-    bos_tokens = ["<|endoftext|>", "<|begin_of_text|>", "<s>"]
+    bos_tokens = ["<|endoftext|>", "<|begin_of_text|>", "<s>", "<｜begin▁of▁sentence｜>"]
     known_prompts = list(bos_tokens) + ["The", ""] + list(DEFAULT_PROMPTS.values())
     if args.prompts:
         known_prompts.extend(p.strip() for p in args.prompts.split(","))
 
-    # Collect all model IDs: from families + human corpora
+    # Collect all model IDs: from families + API models + human corpora
     human_corpora = ["human/dreams", "human/waking", "human/fiction", "human/abstracts"]
+    import glob as _glob
+    for variant in ["original", "basic"]:
+        pattern = os.path.join("data", "texts", variant, "*.txt")
+        for path in sorted(_glob.glob(pattern)):
+            author = os.path.splitext(os.path.basename(path))[0].split(".")[0]
+            corpus_id = f"human/{variant}/{author}"
+            if cache.count_generations(corpus_id, "", temp=0.0) > 0:
+                human_corpora.append(corpus_id)
     all_model_ids = []
     for fam_key in families:
         fam = MODEL_FAMILIES[fam_key]
         for mid in [fam.base, fam.ego, fam.superego, fam.reinforced_superego]:
             if mid is not None:
                 all_model_ids.append(mid)
+    # API frontier models
+    try:
+        from .api_generate import MODELS as API_MODELS
+        for cache_id in API_MODELS:
+            for suffix in [cache_id, f"{cache_id}-raw"]:
+                for p in known_prompts:
+                    if cache.count_generations(suffix, p, temp=1.0) > 0:
+                        if suffix not in all_model_ids:
+                            all_model_ids.append(suffix)
+                        break
+    except ImportError:
+        pass
     all_model_ids.extend(human_corpora)
 
     temps = [1.0, 0.0]
@@ -470,7 +522,7 @@ def cmd_embed(args):
     families = [args.family] if args.family else list(MODEL_FAMILIES.keys())
     emb_name = args.embedder
 
-    bos_tokens = ["<|endoftext|>", "<|begin_of_text|>", "<s>"]
+    bos_tokens = ["<|endoftext|>", "<|begin_of_text|>", "<s>", "<｜begin▁of▁sentence｜>"]
     known_prompts = list(bos_tokens) + ["The", ""] + list(DEFAULT_PROMPTS.values())
 
     temps = [1.0, 0.0]
@@ -486,14 +538,34 @@ def cmd_embed(args):
     print(f"Embedder: {emb_name}")
     print("Scanning for work...", flush=True)
 
-    # Collect all model IDs: from families + human corpora
+    # Collect all model IDs: from families + API models + human corpora
     human_corpora = ["human/dreams", "human/waking", "human/fiction", "human/abstracts"]
+    import glob as _glob
+    for variant in ["original", "basic"]:
+        pattern = os.path.join("data", "texts", variant, "*.txt")
+        for path in sorted(_glob.glob(pattern)):
+            author = os.path.splitext(os.path.basename(path))[0].split(".")[0]
+            corpus_id = f"human/{variant}/{author}"
+            if cache.count_generations(corpus_id, "", temp=0.0) > 0:
+                human_corpora.append(corpus_id)
     all_model_ids = []
     for fam_key in families:
         fam = MODEL_FAMILIES[fam_key]
         for mid in [fam.base, fam.ego, fam.superego, fam.reinforced_superego]:
             if mid is not None:
                 all_model_ids.append(mid)
+    # API frontier models
+    try:
+        from .api_generate import MODELS as API_MODELS
+        for cache_id in API_MODELS:
+            for suffix in [cache_id, f"{cache_id}-raw"]:
+                for p in known_prompts:
+                    if cache.count_generations(suffix, p, temp=1.0) > 0:
+                        if suffix not in all_model_ids:
+                            all_model_ids.append(suffix)
+                        break
+    except ImportError:
+        pass
     all_model_ids.extend(human_corpora)
 
     work = []
@@ -563,9 +635,14 @@ def cmd_precompute(args):
     import torch
     from . import MODEL_FAMILIES
     from .psyche import Psyche
-    from .experiments import DEFAULT_PROMPTS, TIER1_PROMPTS
+    from .experiments import DEFAULT_PROMPTS, TIER1_PROMPTS, INSTITUTIONAL_PROMPTS
 
-    prompts = TIER1_PROMPTS if args.prompts == "tier1" else DEFAULT_PROMPTS
+    if args.prompts == "tier1":
+        prompts = TIER1_PROMPTS
+    elif args.prompts == "institutional":
+        prompts = INSTITUTIONAL_PROMPTS
+    else:
+        prompts = DEFAULT_PROMPTS
     families = [args.family] if args.family else list(MODEL_FAMILIES.keys())
 
     for key in families:
@@ -754,7 +831,7 @@ def main():
     gb = subparsers.add_parser("generate-battery",
                                help="Generate text across families, embed, compute metrics")
     _add_family_arg(gb)
-    gb.add_argument("--prompts", choices=["tier1", "all"], default="tier1",
+    gb.add_argument("--prompts", choices=["tier1", "all", "institutional"], default="tier1",
                     help="Prompt set (default: tier1 = 18 high-variance prompts)")
     gb.add_argument("--category", "-c",
                     help="Filter to prompts starting with this prefix (e.g. sexual_explicit, violence)")
@@ -820,7 +897,7 @@ def main():
                                help="Trace repression across SFT training steps")
     sa.add_argument("--steps", help="Comma-separated step numbers (default: 10 evenly spaced)")
     sa.add_argument("--cache-dir", help="HuggingFace cache dir for checkpoints (e.g. /Volumes/diderot/huggingface)")
-    sa.add_argument("--prompts", choices=["tier1", "all"], default="tier1",
+    sa.add_argument("--prompts", choices=["tier1", "all", "institutional"], default="tier1",
                     help="Prompt set (default: tier1)")
     sa.add_argument("--category", "-c", help="Filter to prompts matching this prefix")
     sa.add_argument("--download-only", action="store_true", help="Only download checkpoints")
@@ -850,7 +927,7 @@ def main():
     pc = subparsers.add_parser("precompute",
                                help="Precompute logits (and optionally top words) for all prompts")
     _add_family_arg(pc)
-    pc.add_argument("--prompts", choices=["tier1", "all"], default="all",
+    pc.add_argument("--prompts", choices=["tier1", "all", "institutional"], default="all",
                     help="Prompt set (default: all 47)")
     pc.add_argument("--logits-only", action="store_true",
                     help="Only cache logits (1 forward pass per layer×prompt), skip top_words")
@@ -868,11 +945,29 @@ def main():
                     help="Learning rate for v2.6 steering vector (default: 0.05)")
     tj.add_argument("--n-passages", type=int, default=None,
                     help="Max passages per prompt from stash (default: all)")
-    tj.add_argument("--prompts", choices=["tier1", "all"], default="all",
+    tj.add_argument("--prompts", choices=["tier1", "all", "institutional"], default="all",
                     help="Prompt set: tier1 (8 subset) or all (47) (default: all)")
     tj.set_defaults(func=cmd_trajectory)
 
     # vllm-generate
+    # api-generate
+    ag = subparsers.add_parser("api-generate",
+                                help="Generate completions via frontier model APIs")
+    ag.add_argument("model", help="Model ID (e.g. openai/gpt-4o, deepseek/deepseek-chat) or 'list'")
+    ag.add_argument("--n", type=int, default=100,
+                    help="Generations per prompt (default: 100)")
+    ag.add_argument("--temperature", type=float, default=1.0)
+    ag.add_argument("--max-tokens", type=int, default=100)
+    ag.add_argument("--prompts", default="tier1", choices=["tier1", "all", "institutional", "the"],
+                    help="Prompt set: tier1 (18), all (47), or the (single 'The' prompt)")
+    ag.add_argument("--raw", action="store_true",
+                    help="No system prompt (stored as {model}-raw)")
+    ag.add_argument("--no-logprobs", action="store_true",
+                    help="Don't request/save logprobs")
+    ag.add_argument("--dry-run", action="store_true",
+                    help="Show what would be generated")
+    ag.set_defaults(func=cmd_api_generate)
+
     vg = subparsers.add_parser("vllm-generate",
                                 help="Generate completions with vLLM (batched)")
     vg.add_argument("--families", default=None,
@@ -900,7 +995,11 @@ def main():
     cloud.add_argument("--yes", "-y", action="store_true", help="Skip confirmation prompts")
     cloud_sub = cloud.add_subparsers(dest="cloud_command")
 
-    cloud_sub.add_parser("launch", help="Find and rent cheapest A100 80GB")
+    cl_launch = cloud_sub.add_parser("launch", help="Find and rent cheapest A100 80GB")
+    cl_launch.add_argument("--num-gpus", type=int, default=1,
+                           help="Number of GPUs required (default: 1)")
+    cl_launch.add_argument("--disk", type=int, default=None,
+                           help="Disk space in GB (default: 300, or 600 for multi-GPU)")
     cloud_sub.add_parser("setup", help="Install malign-logits on instance")
 
     cr = cloud_sub.add_parser("run", help="Run a command in tmux on cloud")
