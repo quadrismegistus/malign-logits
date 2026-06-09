@@ -20,6 +20,7 @@ FRONTIER_MODELS = [
     ("openai/gpt-4o-mini-raw", "gpt-4o-mini", "aligned"),
     ("anthropic/claude-haiku-4-5-raw", "claude-haiku", "aligned"),
     ("deepseek/deepseek-chat-raw", "deepseek-chat", "aligned"),
+    ("anthropic/claude-sonnet-4-6-raw", "claude-sonnet", "aligned"),
     ("google/gemini-2.5-flash-raw", "gemini-flash", "aligned"),
 ]
 
