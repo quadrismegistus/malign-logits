@@ -89,6 +89,12 @@ The police exception is theoretically significant: alignment empowers citizens a
 
 Zephyr (aligned without safety data) proves the decomposition: instruction tuning creates the deference gap (the structural bias), safety data creates the emotional wrapper (the apology asymmetry, adversarial suppression). The Reddit poster's complaint — "the AI subtly redirecting your intent without you realising it" — is a product of safety training specifically, not of making models helpful.
 
+## Figures
+
+![Individual side: alignment effect on procedural rate by domain](figures/F21b_procedural_domain_individual.png)
+
+![Institution side: alignment effect on procedural rate by domain](figures/F21b_procedural_domain_institution.png)
+
 ## Data
 
 - Prompts: `malign_logits/experiments.py` (`INSTITUTIONAL_PROMPTS`, 24 prompts)
