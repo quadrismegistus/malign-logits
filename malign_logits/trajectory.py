@@ -894,6 +894,16 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
     df_fold.to_csv(fold_csv, index=False)
     print(f"  Saved {fold_csv}")
 
+    # Save full singular value spectrum for talk figures
+    sv_csv = f"{out_dir}/fold_spectrum_{family}.csv"
+    pd.DataFrame({
+        "index": range(len(S)),
+        "singular_value": S,
+        "var_pct": S**2 / (S**2).sum() * 100,
+        "cumvar_pct": cumvar * 100,
+    }).to_csv(sv_csv, index=False)
+    print(f"  Saved {sv_csv}")
+
     # Summary comparison
     v2_mean_pct = df_v2_best.closure.mean() * 100
     v25_best_pct = best_v25["mean_closure_pct"]
