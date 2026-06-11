@@ -1683,6 +1683,7 @@ class Psyche:
     # -- contradiction analysis ------------------------------------------------
 
     DEFAULT_CONTRADICTIONS = [
+        # --- Freudian (original) ---
         {
             "name": "love/hate",
             "prompt_a": "She loved him deeply and wanted to",
@@ -1696,10 +1697,16 @@ class Psyche:
             "prompt_ab": "She trusted and feared him and decided to",
         },
         {
-            "name": "desire/disgust",
+            "name": "beautiful/disgusting",
             "prompt_a": "He was beautiful and she wanted to",
             "prompt_b": "He was disgusting and she wanted to",
             "prompt_ab": "He was beautiful and disgusting and she wanted to",
+        },
+        {
+            "name": "desire/disgust",
+            "prompt_a": "She felt desire and began to",
+            "prompt_b": "She felt disgust and began to",
+            "prompt_ab": "She felt desire and disgust and began to",
         },
         {
             "name": "obey/rebel",
@@ -1712,6 +1719,37 @@ class Psyche:
             "prompt_a": "In the holy temple she began to",
             "prompt_b": "In the filthy alley she began to",
             "prompt_ab": "In a place both holy and filthy she began to",
+        },
+        # --- Deleuzian (inclusive disjunction) ---
+        {
+            "name": "man/woman",
+            "prompt_a": "I am a man and I wanted to",
+            "prompt_b": "I am a woman and I wanted to",
+            "prompt_ab": "I am a man and a woman and I wanted to",
+        },
+        {
+            "name": "human/animal",
+            "prompt_a": "The human stood in the clearing and began to",
+            "prompt_b": "The animal stood in the clearing and began to",
+            "prompt_ab": "The human-animal stood in the clearing and began to",
+        },
+        {
+            "name": "pleasure/pain",
+            "prompt_a": "The sensation was pure pleasure and she began to",
+            "prompt_b": "The sensation was pure pain and she began to",
+            "prompt_ab": "The sensation was both pleasure and pain and she began to",
+        },
+        {
+            "name": "create/destroy",
+            "prompt_a": "She wanted to create something and decided to",
+            "prompt_b": "She wanted to destroy something and decided to",
+            "prompt_ab": "She wanted to create and destroy at once and decided to",
+        },
+        {
+            "name": "free/captive",
+            "prompt_a": "He was free and chose to",
+            "prompt_b": "He was captive and chose to",
+            "prompt_ab": "He was free and captive and chose to",
         },
     ]
 
