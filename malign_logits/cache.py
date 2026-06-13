@@ -215,6 +215,18 @@ class CacheManager:
         return {"model": model, "prompt": prompt, "word": word,
                 "k": k} in self._stash("word_embeddings")
 
+    # ── psyche derived (discover_top_words, score_vocab, etc.) ──
+
+    def get_derived(self, key):
+        s = self._stash("psyche_derived")
+        return s[key] if key in s else None
+
+    def set_derived(self, key, value):
+        self._stash("psyche_derived")[key] = value
+
+    def has_derived(self, key):
+        return key in self._stash("psyche_derived")
+
 
 # Module-level singleton
 _cache = None
