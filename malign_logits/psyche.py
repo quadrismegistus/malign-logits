@@ -85,32 +85,21 @@ class ModelLayer:
         self.name = name
         self.model_id = model_id or _model_id(model) if model is not None else (model_id or "unknown")
         self._cache = None
-        self._derived = None
-
-    @property
-    def _derived_stash(self):
-        """Lazy-init lmdb stash for derived/recomputable data."""
-        if self._derived is None:
-            from hashstash import HashStash
-            from .cache import CACHE_ROOT
-            self._derived = HashStash(
-                root_dir=os.path.join(CACHE_ROOT, "psyche_derived"),
-                engine="lmdb", compress="lz4", b64=True,
-                map_size=50 * 1024**3,
-            )
-        return self._derived
 
     def _get_derived(self, key):
-        try:
-            return self._derived_stash[key]
-        except (KeyError, Exception):
-            return None
+        if self._cache is not None:
+            try:
+                return self._cache.get_derived(key)
+            except Exception:
+                pass
+        return None
 
     def _set_derived(self, key, value):
-        try:
-            self._derived_stash[key] = value
-        except Exception:
-            pass
+        if self._cache is not None:
+            try:
+                self._cache.set_derived(key, value)
+            except Exception:
+                pass
 
     def _require_model(self):
         if self.model is None:
@@ -403,19 +392,8 @@ class PromptAnalysis:
         if key in self._memo:
             return self._memo[key]
 
-        stash = self._psyche._stash
-        if stash is not None:
-            stash_key = ("analysis", key, self._model_fingerprint, self.prompt, self._top_k)
-            if stash_key in stash:
-                self._memo[key] = stash[stash_key]
-                return self._memo[key]
-
         result = fn()
         self._memo[key] = result
-
-        if stash is not None:
-            stash[stash_key] = result
-
         return result
 
     # -- word distributions --------------------------------------------------
@@ -645,19 +623,15 @@ class PromptAnalysis:
         if cached:
             return cached
 
-        stash = self._psyche._stash
-        if stash is not None:
-            stash_key = ("analysis", "logit_lens_df", self._model_fingerprint, self.prompt, self._top_k)
-            if stash_key in stash:
-                self._memo["logit_lens_df"] = stash[stash_key]
-                return self._memo["logit_lens_df"]
+        cache_key = ("analysis", "logit_lens_df", self._model_fingerprint, self.prompt, self._top_k)
+        cached = self._psyche.primary_process._get_derived(cache_key)
+        if cached is not None:
+            self._memo["logit_lens_df"] = cached
+            return cached
 
         result = self._compute_logit_lens_df(progress_callback)
         self._memo["logit_lens_df"] = result
-
-        if stash is not None:
-            stash[stash_key] = result
-
+        self._psyche.primary_process._set_derived(cache_key, result)
         return result
 
     def _compute_logit_lens_df(self, progress_callback=None):
@@ -1313,7 +1287,7 @@ class PromptAnalysis:
                     f"{col_b}: {row[col_b]:.4f}  ({ratio:.1f}x)"
                 )
 
-        if self._psyche.has_ego and (self._memo.get("displacement") or self._psyche._stash):
+        if self._psyche.has_ego and (self._memo.get("displacement") or self._psyche.stash):
             try:
                 scores = self.id_scores
                 print("\n--- ID SCORES (drive-weighted repression) ---\n")
