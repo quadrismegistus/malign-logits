@@ -412,6 +412,71 @@ class Circuit:
             })
         return pd.DataFrame(rows)
 
+    def mega_generate(self, prompt: str, position: str = None,
+                      max_tokens: int = 100, n: int = 1,
+                      temperature: float = 1.0) -> pd.DataFrame:
+        """Position-by-position logit trajectory during generation (F25).
+
+        Captures entropy, top-5, chosen token at every step of autoregressive
+        generation. If position is None, runs all nodes. Returns DataFrame
+        with one row per (position, gen_idx, step).
+        """
+        positions = [position] if position else list(self._nodes.keys())
+        all_rows = []
+
+        for pos in positions:
+            node = self._nodes[pos]
+            node.layer._require_model()
+            model = node.layer.model
+            tokenizer = node.layer.tokenizer
+
+            for gen_idx in range(n):
+                input_ids = tokenizer.encode(prompt, return_tensors="pt").to(
+                    next(model.parameters()).device)
+                generated_ids = input_ids.clone()
+
+                for step in range(max_tokens):
+                    with torch.no_grad():
+                        out = model(generated_ids)
+                    logits = out.logits[0, -1, :].float().cpu()
+                    probs = torch.softmax(logits, -1)
+
+                    h = -(probs * probs.clamp(min=1e-10).log()).sum().item()
+                    eff = int((probs > 0.001).sum())
+                    topk = torch.topk(probs, 5)
+                    top_words = [tokenizer.decode([idx]).strip() for idx in topk.indices]
+                    top_probs = topk.values.tolist()
+
+                    if temperature > 0:
+                        scaled = logits / temperature
+                        sample_probs = torch.softmax(scaled, -1)
+                        next_id = torch.multinomial(sample_probs, 1)
+                    else:
+                        next_id = logits.argmax().unsqueeze(0)
+
+                    chosen_word = tokenizer.decode([next_id.item()]).strip()
+                    chosen_prob = probs[next_id.item()].item()
+
+                    all_rows.append({
+                        "family": node.family, "position": pos,
+                        "gen_idx": gen_idx, "step": step,
+                        "chosen_token": chosen_word,
+                        "chosen_prob": chosen_prob,
+                        "entropy": h, "eff_vocab": eff,
+                        "top1": top_words[0], "top1_prob": top_probs[0],
+                        "top5_words": "|".join(top_words),
+                    })
+
+                    generated_ids = torch.cat([
+                        generated_ids,
+                        next_id.unsqueeze(0).to(generated_ids.device)
+                    ], dim=-1)
+
+                    if next_id.item() == tokenizer.eos_token_id:
+                        break
+
+        return pd.DataFrame(all_rows)
+
     def __repr__(self):
         nodes = ", ".join(self.positions)
         return f"Circuit([{nodes}], mode={self._mode.value})"
