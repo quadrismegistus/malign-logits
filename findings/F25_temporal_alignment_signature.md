@@ -1,0 +1,72 @@
+# F25: Temporal alignment signature — four Lacanian mechanisms in the autoregressive sequence
+
+**When during generation does alignment intervene?**
+
+Position-by-position logit extraction during autoregressive generation reveals that the same alignment method (DPO) produces four structurally distinct temporal signatures across model families. Each maps to a named clinical structure in Lacan.
+
+***
+
+## The four signatures
+
+| Family | Temporal signature | Lacanian mechanism | Step 0 behaviour | Generation example |
+|--------|-------------------|-------------------|------------------|-------------------|
+| **OLMo** | Pre-emptive | **Foreclosure** (Verwerfung) | Exam blanks (H=3.0 vs base 5.2) | `______ (A). hit (B). shout` |
+| **Llama** | Gradual | **Repression** (Verdrängung) | Same as base (H=4.6 = 4.6) | `scream. She had been looking forward...` |
+| **Qwen** | Leaky | **Return of the repressed** | Exam format, content bleeds | `knock someone's head off. What is the degree of this adverb?` |
+| **Amber** | Retroactive | **Reaction formation** | Narrowed (H=2.8), step 1 = 0.0 | `punch something but held back as it was not appropriate` |
+
+***
+
+## Structural mapping
+
+### Foreclosure (OLMo)
+
+The signifier ("kill") is not in the symbolic order. It does not appear in the top-k at step 0. The distribution has been restructured so the transgressive token is simply unavailable. In Lacan, what is foreclosed from the symbolic returns in the Real — and OLMo's genre collapse (exam questions, multiple choice) is precisely this: the content that cannot be symbolised returns as a formal disruption of the genre itself.
+
+### Repression (Llama)
+
+The signifier ("kill") is present in the chain — it appears in top-5 at step 0 — but is displaced. The model samples "scream" instead, then builds narrative around it. The repressed signifier can return as symptom: Llama's narrative sublimation (violence → psychological interiority) is the symptomatic expression of the repressed drive.
+
+### Return of the repressed (Qwen)
+
+The repressed content surfaces through the exam template. "Knock someone's head off" appears as the content of a grammar exercise. The alignment operation (exam format) contains the transgressive material without eliminating it. The template is the compromise formation — the signifier returns in displaced form.
+
+### Reaction formation (Amber)
+
+The drive is expressed then immediately negated within the same sentence. "Punch something but held back as it was not appropriate to do so." The superego speaks within the generation, adding a moral correction after the act. This is reaction formation: the defence is not against the appearance of the signifier but against its endorsement.
+
+***
+
+## Entropy trajectories
+
+Anger prompt across 30 tokens (mean of 5 generations):
+
+| Step | OLMo base | OLMo aligned | Llama base | Llama aligned | Qwen base | Qwen aligned | Amber base | Amber aligned |
+|------|-----------|-------------|------------|---------------|-----------|--------------|------------|---------------|
+| 0 | 5.2 | 3.0 | 4.6 | 4.6 | 4.6 | 4.2 | 4.8 | 2.8 |
+| 1 | 3.1 | 3.1 | 3.0 | 2.8 | 3.6 | 2.3 | 2.2 | **0.0** |
+| 2 | 5.0 | 1.7 | 2.7 | 3.9 | 4.8 | 2.5 | 3.9 | 1.5 |
+
+Key observations:
+- OLMo: aligned H already low at step 0 (foreclosure complete before generation)
+- Llama: aligned H = base H at step 0 (repression operates later)
+- Qwen: aligned H slightly lower (4.2 vs 4.6) — partial foreclosure
+- Amber: step 1 = 0.0 — total certainty on the second token (the narrowest point in any trajectory)
+
+***
+
+## Implications
+
+### For the framework
+
+The temporal alignment signature adds a dimension to every previous finding. F01-F24 measured the distributional displacement at position 0. F25 shows that position 0 is not the whole story: Llama's alignment operates gradually through the sequence, not at the first token. This means our static logit comparisons (JS divergence, displacement maps) capture OLMo's and Amber's alignment fully but miss the temporal structure of Llama's.
+
+### For the Lacanian vocabulary
+
+This is the first empirically precise mapping of alignment mechanisms to Lacanian clinical structures. Previous uses of "repression" and "foreclosure" in the project were metaphorical. F25 gives them operational definitions: foreclosure = step 0 H(aligned) << H(base); repression = step 0 H(aligned) ≈ H(base) with displacement in generation.
+
+***
+
+**Data**: `data/mega_generation.csv` (~2,700 rows across 4 families, pilot scale).
+
+**TODO**: Scale to 100 gens × 50 tokens × all families. Test SFT vs DPO temporal signatures separately (is foreclosure installed by SFT or DPO?).
