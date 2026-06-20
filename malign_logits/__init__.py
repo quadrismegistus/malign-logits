@@ -168,3 +168,4 @@ from .experiments import *
 from .generation import *
 from .viz import *
 from .psyche import *
+from .circuit import Circuit, Mode
