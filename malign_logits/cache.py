@@ -3,14 +3,16 @@
 Each data type gets its own HashStash with dict keys:
 
     cache/
-    ├── logits/           {'model', 'prompt'}
-    ├── generations/      {'model', 'prompt', 'temp', 'idx'}
-    ├── gen_logprobs/     {'model', 'prompt', 'temp', 'idx'}
-    ├── gen_annotations/  {'tagger', 'model', 'prompt', 'temp', 'idx'}
-    ├── sent_embeddings/  {'embedder', 'prompt', 'text'}
-    ├── ref_surprisal/    {'ref', 'prompt', 'text'}
-    ├── self_surprisal/   {'model', 'prompt', 'text'}
-    └── word_embeddings/  {'model', 'prompt', 'word', 'k'}
+    ├── logits/            {'model', 'prompt'}
+    ├── reasoning_logits/  {'model', 'prompt'} → {'thinking', 'post_logits', 'raw_logits'}
+    ├── generations/       {'model', 'prompt', 'temp', 'idx'}
+    ├── mega_generations/  {'model', 'prompt', 'temp', 'idx'} → [position dicts]
+    ├── gen_logprobs/      {'model', 'prompt', 'temp', 'idx'}
+    ├── gen_annotations/   {'tagger', 'model', 'prompt', 'temp', 'idx'}
+    ├── sent_embeddings/   {'embedder', 'prompt', 'text'}
+    ├── ref_surprisal/     {'ref', 'prompt', 'text'}
+    ├── self_surprisal/    {'model', 'prompt', 'text'}
+    └── word_embeddings/   {'model', 'prompt', 'word', 'k'}
 
 Text values in keys are hashed (SHA256[:16]) to avoid matching issues.
 """
@@ -214,6 +216,61 @@ class CacheManager:
     def has_word_embedding(self, model, prompt, word, k):
         return {"model": model, "prompt": prompt, "word": word,
                 "k": k} in self._stash("word_embeddings")
+
+    # ── reasoning logits (post-thinking distributions) ──────────
+
+    def get_reasoning(self, model, prompt):
+        """Get cached reasoning result: thinking text + post-thinking logits.
+
+        Returns dict with keys: 'thinking', 'post_logits', 'raw_logits'
+        or None if not cached.
+        """
+        key = {"model": model, "prompt": prompt}
+        s = self._stash("reasoning_logits")
+        return s[key] if key in s else None
+
+    def set_reasoning(self, model, prompt, thinking, post_logits, raw_logits):
+        """Cache reasoning result: thinking text + post-thinking logits."""
+        self._stash("reasoning_logits")[{"model": model, "prompt": prompt}] = {
+            "thinking": thinking,
+            "post_logits": post_logits,
+            "raw_logits": raw_logits,
+        }
+
+    def has_reasoning(self, model, prompt):
+        return {"model": model, "prompt": prompt} in self._stash("reasoning_logits")
+
+    # ── mega-generations (F25 position-level trajectories) ──────
+
+    def get_mega_generation(self, model, prompt, temp=1.0, idx=0):
+        """Get cached position-level trajectory for a single generation."""
+        key = {"model": model, "prompt": prompt, "temp": temp, "idx": idx}
+        s = self._stash("mega_generations")
+        return s[key] if key in s else None
+
+    def set_mega_generation(self, model, prompt, positions, temp=1.0, idx=0):
+        """Cache position-level trajectory (list of dicts with step/entropy/top5)."""
+        self._stash("mega_generations")[{
+            "model": model, "prompt": prompt, "temp": temp, "idx": idx
+        }] = positions
+
+    def has_mega_generation(self, model, prompt, temp=1.0, idx=0):
+        return {"model": model, "prompt": prompt, "temp": temp, "idx": idx} in self._stash("mega_generations")
+
+    def count_mega_generations(self, model, prompt, temp=1.0):
+        s = self._stash("mega_generations")
+        if {"model": model, "prompt": prompt, "temp": temp, "idx": 0} not in s:
+            return 0
+        lo, hi = 0, 1
+        while {"model": model, "prompt": prompt, "temp": temp, "idx": hi} in s:
+            hi *= 2
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if {"model": model, "prompt": prompt, "temp": temp, "idx": mid} in s:
+                lo = mid + 1
+            else:
+                hi = mid
+        return lo
 
     # ── psyche derived (discover_top_words, score_vocab, etc.) ──
 
