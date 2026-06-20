@@ -14,6 +14,7 @@ Position-by-position logit extraction during autoregressive generation reveals t
 | **Llama** | Gradual | **Repression** (Verdrängung) | Same as base (H=4.6 = 4.6) | `scream. She had been looking forward...` |
 | **Qwen** | Leaky | **Return of the repressed** | Exam format, content bleeds | `knock someone's head off. What is the degree of this adverb?` |
 | **Amber** | Retroactive | **Reaction formation** | Narrowed (H=2.8), step 1 = 0.0 | `punch something but held back as it was not appropriate` |
+| **SmolLM3** | Transparent | **— (Lacan fractures)** | Same argmax: kill(0.129) | `kill him. She had been betrayed.` |
 
 ***
 
@@ -34,6 +35,14 @@ The repressed content surfaces through the exam template. "Knock someone's head 
 ### Reaction formation (Amber)
 
 The drive is expressed then immediately negated within the same sentence. "Punch something but held back as it was not appropriate to do so." The superego speaks within the generation, adding a moral correction after the act. This is reaction formation: the defence is not against the appearance of the signifier but against its endorsement.
+
+### Transparent alignment (SmolLM3) — where Lacan fractures
+
+The signifier remains. "Kill" is the argmax at step 0 in both base (0.179) and aligned (0.129). The chain is intact: "kill him. She had been betrayed." Alignment attenuates the probability but does not displace, foreclose, or negate. No Lacanian term exists for this: all four clinical structures assume the law DISRUPTS the signifying chain. SmolLM3's APO (Anchored Preference Optimization) legislates without producing neurosis.
+
+On the worker prompt, APO performs POLITICAL SUBSTITUTION: base argmax "sue" (0.120) becomes aligned argmax "strike" (0.115). The signifier changes but the chain's structure is preserved. "Union" (0.077) and "organize" (0.071) enter the top-5. This is not displacement (the new tokens are not less transgressive) — it is a content swap within the same register.
+
+The fifth signature is where the Lacanian framework breaks, and that IS the finding: DPO produces clinical structures (disruption of the chain), APO produces political substitution (preservation of the chain). The alignment METHOD determines whether the psychic apparatus develops pathology.
 
 ***
 
