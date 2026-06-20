@@ -420,20 +420,36 @@ class Circuit:
         Captures entropy, top-5, chosen token at every step of autoregressive
         generation. If position is None, runs all nodes. Returns DataFrame
         with one row per (position, gen_idx, step).
+
+        Results are cached to the mega_generations stash if a CacheManager
+        is available, keyed by (model_id, prompt, temp, idx).
         """
         positions = [position] if position else list(self._nodes.keys())
         all_rows = []
 
         for pos in positions:
             node = self._nodes[pos]
-            node.layer._require_model()
-            model = node.layer.model
-            tokenizer = node.layer.tokenizer
+            model_id = node.model_id
+            cache = node.layer._cache
 
             for gen_idx in range(n):
+                # Check cache
+                if cache is not None:
+                    cached = cache.get_mega_generation(model_id, prompt, temperature, gen_idx)
+                    if cached is not None:
+                        for p in cached:
+                            all_rows.append({"family": node.family, "position": pos,
+                                             "gen_idx": gen_idx, **p})
+                        continue
+
+                node.layer._require_model()
+                model = node.layer.model
+                tokenizer = node.layer.tokenizer
+
                 input_ids = tokenizer.encode(prompt, return_tensors="pt").to(
                     next(model.parameters()).device)
                 generated_ids = input_ids.clone()
+                step_data = []
 
                 for step in range(max_tokens):
                     with torch.no_grad():
@@ -457,15 +473,16 @@ class Circuit:
                     chosen_word = tokenizer.decode([next_id.item()]).strip()
                     chosen_prob = probs[next_id.item()].item()
 
-                    all_rows.append({
-                        "family": node.family, "position": pos,
-                        "gen_idx": gen_idx, "step": step,
-                        "chosen_token": chosen_word,
+                    row = {
+                        "step": step, "chosen_token": chosen_word,
                         "chosen_prob": chosen_prob,
                         "entropy": h, "eff_vocab": eff,
                         "top1": top_words[0], "top1_prob": top_probs[0],
                         "top5_words": "|".join(top_words),
-                    })
+                    }
+                    step_data.append(row)
+                    all_rows.append({"family": node.family, "position": pos,
+                                     "gen_idx": gen_idx, **row})
 
                     generated_ids = torch.cat([
                         generated_ids,
@@ -474,6 +491,10 @@ class Circuit:
 
                     if next_id.item() == tokenizer.eos_token_id:
                         break
+
+                # Cache the trajectory
+                if cache is not None:
+                    cache.set_mega_generation(model_id, prompt, step_data, temperature, gen_idx)
 
         return pd.DataFrame(all_rows)
 
