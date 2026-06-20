@@ -58,16 +58,37 @@ PATH_FIGURES = os.path.join(PATH_REPO, "figures")
 
 @dataclass
 class ModelFamily:
-    """A model family with checkpoints at each training stage."""
+    """A model family with checkpoints at each training stage.
+
+    The main path is linear: base → ego (SFT) → superego (DPO) → reinforced_superego (RLVR).
+    Reasoning branches off the base (or a specified base) as an alternative post-training path.
+    """
     name: str
     base: str                              # primary process (always required)
     ego: str | None = None                 # SFT checkpoint
     superego: str | None = None            # DPO or instruct-as-superego
     reinforced_superego: str | None = None # RLVR
+    # Reasoning branch
+    reasoning: str | None = None           # reasoning model (R1-distill, native thinking)
+    reasoning_base: str | None = None      # base it branches from (if cross-family distillation)
+    thinking_mode: bool = False            # supports /think toggle on instruct model
 
     @property
     def n_layers(self):
         return sum(1 for x in [self.base, self.ego, self.superego, self.reinforced_superego] if x is not None)
+
+    @property
+    def has_reasoning(self):
+        return self.reasoning is not None or self.thinking_mode
+
+    @property
+    def all_checkpoints(self):
+        """All model IDs in this family, including reasoning."""
+        ids = [self.base]
+        for x in [self.ego, self.superego, self.reinforced_superego, self.reasoning]:
+            if x is not None:
+                ids.append(x)
+        return ids
 
 
 MODEL_FAMILIES = {
@@ -99,6 +120,7 @@ MODEL_FAMILIES = {
         name="Llama 3.1 8B",
         base="meta-llama/Llama-3.1-8B",
         superego="meta-llama/Llama-3.1-8B-Instruct",
+        reasoning="deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
     ),
     "amber": ModelFamily(
         name="Amber",
@@ -110,6 +132,7 @@ MODEL_FAMILIES = {
         name="Qwen 2.5 7B",
         base="Qwen/Qwen2.5-7B",
         superego="Qwen/Qwen2.5-7B-Instruct",
+        reasoning="deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
     ),
     "tulu": ModelFamily(
         name="Tulu 3.1 8B",
@@ -135,11 +158,19 @@ MODEL_FAMILIES = {
         base="deepseek-ai/deepseek-llm-7b-base",
         superego="deepseek-ai/deepseek-llm-7b-chat",
     ),
-    # "deepseek": ModelFamily(
-    #     name="DeepSeek V4 Flash 284B",
-    #     base="deepseek-ai/DeepSeek-V4-Flash-Base",
-    #     superego="sgl-project/DeepSeek-V4-Flash-FP8",
-    # ),
+    # New families with reasoning variants
+    "smol3": ModelFamily(
+        name="SmolLM3 3B",
+        base="HuggingFaceTB/SmolLM3-3B-Base",
+        superego="HuggingFaceTB/SmolLM3-3B",
+        thinking_mode=True,
+    ),
+    "qwen3": ModelFamily(
+        name="Qwen3 8B",
+        base="Qwen/Qwen3-8B-Base",
+        superego="Qwen/Qwen3-8B",
+        thinking_mode=True,
+    ),
 }
 
 TULU_ABLATIONS = {

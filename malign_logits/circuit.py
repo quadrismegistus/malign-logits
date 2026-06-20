@@ -208,11 +208,19 @@ class Circuit:
 
         Args:
             main: registered ModelFamily key (e.g. 'olmo', 'llama')
-            reasoning: HuggingFace model ID for reasoning branch
+            reasoning: HuggingFace model ID for reasoning branch (auto-detected from family if None)
             load: if True, load models immediately
         """
+        from . import MODEL_FAMILIES
         psyche = Psyche.from_family(main, load=load)
         circuit = cls.from_psyche(psyche, family=main)
+
+        # Auto-detect reasoning from family registry
+        if reasoning is None and main in MODEL_FAMILIES:
+            fam = MODEL_FAMILIES[main]
+            reasoning = fam.reasoning
+            if fam.thinking_mode and not reasoning:
+                circuit._thinking_mode = True
 
         if reasoning and load:
             from transformers import AutoModelForCausalLM, AutoTokenizer
