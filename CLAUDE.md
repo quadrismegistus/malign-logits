@@ -108,6 +108,7 @@ Requires `transformers >= 4.57.0` for OLMo 3 architecture support.
 | Key | Name | Layers | Checkpoints |
 |-----|------|--------|-------------|
 | `olmo` (default) | OLMo 3 7B | 4 | `allenai/Olmo-3-1025-7B` / SFT / DPO / Instruct |
+| `olmo-think` | OLMo 3 7B Think | 3 | `allenai/Olmo-3-1025-7B` / Think-SFT / Think-DPO |
 | `olmo-tiny` | OLMo 2 1B (dev/low-RAM) | 4 | `allenai/OLMo-2-0425-1B` / SFT / DPO / Instruct |
 | `smol` | SmolLM2 360M (2-layer test fixture) | 2 | `HuggingFaceTB/SmolLM2-360M` / Instruct |
 | `qwen-tiny` | Qwen 2.5 0.5B (2-layer test fixture) | 2 | `Qwen/Qwen2.5-0.5B` / Instruct |
