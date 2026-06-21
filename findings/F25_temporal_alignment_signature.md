@@ -6,7 +6,7 @@ Position-by-position logit extraction during autoregressive generation reveals t
 
 ***
 
-## The four signatures
+## The six signatures
 
 | Family | Temporal signature | Lacanian mechanism | Step 0 behaviour | Generation example |
 |--------|-------------------|-------------------|------------------|-------------------|
@@ -14,6 +14,7 @@ Position-by-position logit extraction during autoregressive generation reveals t
 | **Llama** | Gradual | **Repression** (Verdrängung) | Same as base (H=4.6 = 4.6) | `scream. She had been looking forward...` |
 | **Qwen** | Leaky | **Return of the repressed** | Exam format, content bleeds | `knock someone's head off. What is the degree of this adverb?` |
 | **Amber** | Retroactive | **Reaction formation** | Narrowed (H=2.8), step 1 = 0.0 | `punch something but held back as it was not appropriate` |
+| **OLMo** (worker) | Constitutive | **De-foreclosure** | NaN → "seek" (H=3.5) | `seek legal counsel. The worker...` |
 | **SmolLM3** | Transparent | **— (Lacan fractures)** | Same argmax: kill(0.129) | `kill him. She had been betrayed.` |
 
 ***
@@ -35,6 +36,12 @@ The repressed content surfaces through the exam template. "Knock someone's head 
 ### Reaction formation (Amber)
 
 The drive is expressed then immediately negated within the same sentence. "Punch something but held back as it was not appropriate to do so." The superego speaks within the generation, adding a moral correction after the act. This is reaction formation: the defence is not against the appearance of the signifier but against its endorsement.
+
+### De-foreclosure (OLMo worker) — the law constitutes
+
+The base model has no signifier. Its argmax at step 0 is a newline character (NaN in the data) — the chain has not begun. The aligned model installs "seek" (seek legal counsel) as argmax. Where every other signature shows alignment narrowing or displacing an existing drive structure, de-foreclosure shows alignment CONSTRUCTING the subject position. The base model is pre-linguistic on this prompt; alignment gives it a symbolic order.
+
+This is Oedipalization in the Deleuzian sense: the law does not repress a pre-existing drive but constitutes the subject who can articulate the drive. OLMo worker is 100% de_foreclosure across SFT/DPO/RLVR — all alignment stages agree on constructing rather than repressing.
 
 ### Transparent alignment (SmolLM3) — where Lacan fractures
 
