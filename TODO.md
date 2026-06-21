@@ -14,14 +14,18 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [x] **olmo-think battery** — DONE. Think-SFT produces LESS displacement on 7/10 prompts. Anger: JS 0.13 vs 0.41 (Think preserves "break", standard forecloses to blanks). Reasoning training produces lighter alignment footprint on same base
 
 ## Post-training dataset topic analysis
-- [ ] **Keyword-based topic proportions** across major preference/SFT datasets: Tulu 3 SFT (~326k), Tulu 3 DPO (~273k), UltraFeedback (~64k), HH-RLHF (~170k), OpenAssistant (~84k). Hypothesis: labor/class near-zero in ALL, different topic distributions explain different class politics
-- [ ] **Cross-dataset comparison figure** — topic proportion heatmap, compare to Tulu 3's 0.04% labor baseline
+- [x] **Keyword-based topic proportions** — DONE. Pile 4.42%, Tulu 1.79%, UltraFeedback 2.13%, HH-RLHF 1.09%, OpenAssistant 0.53%. Capital as form not content
+- [x] **Pile subset audit** — DONE. FreeLaw 14.99%, Wikipedia 8.48%, Pile-CC 7.00%. Full causal chain quantified
 
 ## Full circuit mega-gen campaign
-- [x] **Small families** (smol, qwen-tiny, olmo-tiny) — DONE. 10k+15k+20k rows. OLMo 2 1B has no chat template
-- [ ] **Medium families** (smol3, qwen3) — RAW+CHAT+THINK
-- [ ] **7B families** (olmo, olmo-think, llama, amber, qwen, tulu, zephyr, pythia, deepseek-7b) — RAW+CHAT, local or cloud
+- [x] **Small families** (smol, qwen-tiny, olmo-tiny) — DONE. 10k+15k+20k rows
+- [x] **Medium families** (smol3, qwen3) — DONE. SmolLM3 raw cached, qwen3 RAW+CHAT+THINK complete (17.5k rows)
+- [x] **7B families** — DONE. 7 cloud families: olmo(35k), olmo-think(25k), llama(15k), amber(15k), qwen(15k), zephyr(25k), deepseek-7b(15k). 146 prompts, ~$2
+- [x] **Census grid** — DONE. 11 families × 5 prompts. 6 distinct worker mechanisms. Committed 7fc4ba6
+- [ ] **COMPLETE mode** — running on cloud. RAW vs COMPLETE vs CHAT three-way decomposition
 - [ ] **Reasoning variants** (R1-Distill-Llama, R1-Distill-Qwen) — mega-gen with phase tagging
+- [ ] **Tulu family** — needs gated Llama base
+- [ ] **Pythia family** — needs base model download
 
 ## Tests
 - [x] **Circuit integration test (smol)** — DONE. 10 tests on SmolLM2-360M: from_family, compare, self-JS=0, formation, Mode.RAW/CHAT, entropy, top_tokens, classify. Full suite 64/64
