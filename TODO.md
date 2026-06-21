@@ -13,7 +13,7 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [ ] **Qwen3-8B native thinking** — HF pipeline (already in LM Studio as GGUF). Mega-gen + formation
 - [ ] **Salary probe SmolLM3-3B** — the real 3B (SmolLM2 360M ran by mistake in first batch)
 - [ ] **SmolLM3 mega-gen at 100 tokens** — current data is 50 tokens, longer traces for transparent signature
-- [ ] **F25 classifier on reasoning mega-gen** — run classify_mega_gen on R1/SmolLM3-think CSVs
+- [x] **F25 classifier on reasoning mega-gen** — DONE but classifier rules don't apply (step 0 is `<think>` token, not content). Reasoning needs phase-boundary analysis (think H vs response H) instead of step-0 argmax rules. Two complementary approaches.
 
 ## Analysis / figures
 - [ ] **F25 cross-family figure** — 5×5 grid (family × prompt) coloured by dominant signature. Book signature image
