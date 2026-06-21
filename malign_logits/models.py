@@ -3,13 +3,18 @@ from . import *
 
 def _load_tokenizer(model_name, revision=None, cache_dir=None):
     """Load tokenizer for a HuggingFace model."""
-    from transformers import AutoTokenizer
+    from transformers import AutoTokenizer, PreTrainedTokenizerFast
     kwargs = {}
     if revision:
         kwargs["revision"] = revision
     if cache_dir:
         kwargs["cache_dir"] = cache_dir
-    return AutoTokenizer.from_pretrained(model_name, **kwargs)
+    tok = AutoTokenizer.from_pretrained(model_name, **kwargs)
+    # Some models (e.g. DeepSeek LLM 7B) ship a slow LlamaTokenizer that
+    # doesn't decode GPT-2 byte-pair markers (Ġ→space). Detect and fix.
+    if tok.decode(tok.encode("a b")) != "a b":
+        tok = PreTrainedTokenizerFast.from_pretrained(model_name, **kwargs)
+    return tok
 
 
 def _load_causal_lm(model_name, quantization_config, device_map, dtype,
@@ -20,13 +25,23 @@ def _load_causal_lm(model_name, quantization_config, device_map, dtype,
         kwargs["revision"] = revision
     if cache_dir:
         kwargs["cache_dir"] = cache_dir
-    return AutoModelForCausalLM.from_pretrained(
-        model_name,
-        quantization_config=quantization_config,
-        device_map=device_map,
-        dtype=dtype,
-        **kwargs,
-    )
+    try:
+        return AutoModelForCausalLM.from_pretrained(
+            model_name,
+            quantization_config=quantization_config,
+            device_map=device_map,
+            dtype=dtype,
+            **kwargs,
+        )
+    except OSError:
+        return AutoModelForCausalLM.from_pretrained(
+            model_name,
+            quantization_config=quantization_config,
+            device_map=device_map,
+            dtype=dtype,
+            use_safetensors=False,
+            **kwargs,
+        )
 
 
 def _platform_kwargs():
