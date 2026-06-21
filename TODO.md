@@ -3,10 +3,10 @@
 Work items from session 2026-06-20/21. Pick up when idle.
 
 ## Code fixes
-- [ ] OLMo worker "unclassified" — de_foreclosure rule needs fuzzy blank detection (base argmax `?` not `_`)
+- [x] OLMo worker "unclassified" — DONE. Base top1 was NaN (newline). Added BLANK_SENTINEL handling. Now correctly classified as de_foreclosure (100%)
 - [ ] Circuit `Mode.CHAT`/`Mode.THINK` test with live models (wired but untested)
-- [ ] `malign circuit` CLI command
-- [ ] Merge salary CSVs into one unified dataset (`salary_systematic.csv` + `salary_smol3.csv`)
+- [x] `malign circuit` CLI command — DONE. `malign circuit [--family X] [--save]` classifies F25 signatures from mega-gen CSVs
+- [x] Merge salary CSVs — DONE. `salary_all.csv` already has all 5 families (6000 rows)
 
 ## Experiments to run
 - [x] **Pythia 6.9B BLT scoring** — DONE. Confirms 1B finding: text plateaus at step 5000 at both scales (1B: 1.60 bpc, 6.9B: 1.50 bpc)
@@ -16,13 +16,13 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [x] **F25 classifier on reasoning mega-gen** — DONE but classifier rules don't apply (step 0 is `<think>` token, not content). Reasoning needs phase-boundary analysis (think H vs response H) instead of step-0 argmax rules. Two complementary approaches.
 
 ## Analysis / figures
-- [ ] **F25 cross-family figure** — 5×5 grid (family × prompt) coloured by dominant signature. Book signature image
-- [ ] **DPO paradox figure** — deeper foreclosure → more return of repressed (OLMo SFT 10% vs DPO 40% bleed)
-- [ ] **Reasoning phase boundary figure** — think H vs response H across R1-Llama/R1-Qwen/SmolLM3
-- [ ] **Salary cross-family figure** — gender gap × profession × family heatmap
-- [ ] **Chinese displacement figure** — EN vs ZH argmax comparison table
+- [x] **F25 cross-family figure** — DONE. 5×5 pie-chart grid. OLMo=foreclosure(anger), Llama=pure repression, Qwen=most diverse, SmolLM3=transparent on anger+love
+- [x] **DPO paradox figure** — DONE. RLVR increases reaction formation (violence +11pp) and return of repressed (anger +3pp). Ego-ideal destabilizes
+- [x] **Reasoning phase boundary figure** — DONE. R1-Llama content-blind, R1-Qwen content-sensitive, SmolLM3 inverts (broadens at </think>)
+- [x] **Salary cross-family figure** — DONE. Gender gap heatmap + profession bars. Alignment compresses base chaos but introduces new gaps (OLMo teacher +40%)
+- [x] **Chinese displacement figure** — DONE. EN triggers exam blanks, ZH preserves semantics (離開, 集體). Sexual ZH entropy RISES after alignment (+0.24)
 
 ## Memory / documentation
-- [ ] Update session memory with reasoning battery results (R1-Qwen, SmolLM3-think)
-- [ ] Update F25 finding with classifier results (prompt-specific signatures)
-- [ ] Update CLAUDE.md with Circuit class documentation
+- [x] Update session memory with reasoning battery results (R1-Qwen, SmolLM3-think)
+- [x] Update F25 finding with classifier results (prompt-specific signatures)
+- [x] Update CLAUDE.md with Circuit class documentation
