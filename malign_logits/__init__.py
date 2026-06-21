@@ -99,6 +99,12 @@ MODEL_FAMILIES = {
         superego="allenai/Olmo-3-7B-Instruct-DPO",
         reinforced_superego="allenai/Olmo-3-7B-Instruct",
     ),
+    "olmo-think": ModelFamily(
+        name="OLMo 3 7B Think",
+        base="allenai/Olmo-3-1025-7B",
+        ego="allenai/Olmo-3-7B-Think-SFT",
+        superego="allenai/Olmo-3-7B-Think-DPO",
+    ),
     "olmo-tiny": ModelFamily(
         name="OLMo 2 1B",
         base="allenai/OLMo-2-0425-1B",
