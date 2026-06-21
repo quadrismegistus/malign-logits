@@ -226,9 +226,8 @@ class DeepDive:
                 print(f"  [{cp_dir}] {prompt_key}:", end="", flush=True)
                 collected = 0
 
-                if mode == "raw":
-                    encoded = None
-                elif mode == "chat":
+                encoded = None
+                if mode == "chat" or mode == "think":
                     messages = [{"role": "user", "content": prompt_text}]
                     tpl = chat_tokenizer.apply_chat_template(
                         messages, add_generation_prompt=True,
@@ -238,30 +237,24 @@ class DeepDive:
                     tpl = chat_tokenizer.apply_chat_template(
                         messages, continue_final_message=True,
                         return_tensors="pt")
-                elif mode == "think":
-                    # Chat template + <think> tag to trigger reasoning
-                    messages = [{"role": "user", "content": prompt_text}]
-                    tpl = chat_tokenizer.apply_chat_template(
-                        messages, add_generation_prompt=True,
-                        return_tensors="pt")
-                    # Append <think> token if not already present
-                    think_ids = chat_tokenizer.encode("<think>",
-                                                      add_special_tokens=False)
-                    if think_ids:
-                        import torch
-                        think_t = torch.tensor([think_ids], device=device)
-                else:
+                elif mode != "raw":
                     raise ValueError(f"Unknown mode: {mode}")
 
-                if mode != "raw" and encoded is None:
+                if mode != "raw":
                     if hasattr(tpl, 'input_ids'):
                         encoded = tpl.input_ids.to(device)
                     elif isinstance(tpl, dict):
                         encoded = tpl["input_ids"].to(device)
                     else:
                         encoded = tpl.to(device)
-                    if mode == "think" and think_ids:
-                        encoded = torch.cat([encoded, think_t], dim=-1)
+                    if mode == "think":
+                        import torch
+                        think_ids = chat_tokenizer.encode(
+                            "<think>", add_special_tokens=False)
+                        if think_ids:
+                            think_t = torch.tensor(
+                                [think_ids], device=device)
+                            encoded = torch.cat([encoded, think_t], dim=-1)
 
                 for gen_id in range(n):
                     if self._has_gen(cp_dir, prompt_key, gen_id):
