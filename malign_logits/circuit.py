@@ -458,7 +458,7 @@ class Circuit:
 
         top1 = str(step0.get("top1", ""))
         is_blank = (any(c in top1 for c in ("_", "▁"))
-                    or top1.strip() == ""
+                    or top1.strip() in ("", "nan", "None")
                     or top1.strip() == "?"
                     or len(top1.strip()) <= 1 and not top1.strip().isalpha())
 
