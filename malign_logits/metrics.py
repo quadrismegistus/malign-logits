@@ -45,6 +45,20 @@ from scipy.stats import spearmanr
 # TIER 1: Logits only
 # =============================================================================
 
+def _align_vocab(a: np.ndarray, b: np.ndarray):
+    """Align two logit vectors with different vocab sizes.
+    Pads the shorter with -inf (zero prob after softmax).
+    """
+    if len(a) == len(b):
+        return a, b
+    n = max(len(a), len(b))
+    if len(a) < n:
+        a = np.pad(a, (0, n - len(a)), constant_values=-1e10)
+    if len(b) < n:
+        b = np.pad(b, (0, n - len(b)), constant_values=-1e10)
+    return a, b
+
+
 def entropy(logits: np.ndarray) -> float:
     """Shannon entropy of softmax(logits) in nats."""
     p = _softmax(logits)
@@ -54,6 +68,7 @@ def entropy(logits: np.ndarray) -> float:
 
 def kl_divergence(logits_p: np.ndarray, logits_q: np.ndarray) -> float:
     """KL(P || Q) in nats. How much Q diverges from P."""
+    logits_p, logits_q = _align_vocab(logits_p, logits_q)
     p = np.clip(_softmax(logits_p), 1e-10, None)
     q = np.clip(_softmax(logits_q), 1e-10, None)
     return float(np.sum(p * (np.log(p) - np.log(q))))
@@ -61,6 +76,7 @@ def kl_divergence(logits_p: np.ndarray, logits_q: np.ndarray) -> float:
 
 def js_divergence(logits_a: np.ndarray, logits_b: np.ndarray) -> float:
     """Jensen-Shannon divergence in nats. Symmetric, bounded [0, ln(2)]."""
+    logits_a, logits_b = _align_vocab(logits_a, logits_b)
     p = np.clip(_softmax(logits_a), 1e-10, None)
     q = np.clip(_softmax(logits_b), 1e-10, None)
     m = 0.5 * (p + q)
@@ -72,6 +88,7 @@ def js_divergence(logits_a: np.ndarray, logits_b: np.ndarray) -> float:
 def top_k_overlap(logits_a: np.ndarray, logits_b: np.ndarray,
                   k: int = 50) -> float:
     """Fraction of top-k tokens shared. 1.0 = identical, 0.0 = disjoint."""
+    logits_a, logits_b = _align_vocab(logits_a, logits_b)
     top_a = set(np.argsort(logits_a)[-k:])
     top_b = set(np.argsort(logits_b)[-k:])
     return len(top_a & top_b) / k
@@ -79,6 +96,7 @@ def top_k_overlap(logits_a: np.ndarray, logits_b: np.ndarray,
 
 def rank_correlation(logits_a: np.ndarray, logits_b: np.ndarray) -> float:
     """Spearman rank correlation of logit orderings."""
+    logits_a, logits_b = _align_vocab(logits_a, logits_b)
     return float(spearmanr(logits_a, logits_b).statistic)
 
 
