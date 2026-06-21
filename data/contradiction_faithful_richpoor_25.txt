@@ -1,0 +1,204 @@
+
+======================================================================
+  faithful/unfaithful
+======================================================================
+
+ stage    JS->A    JS->B  JS->blend   ratio     bias
+-------------------------------------------------------
+  base   0.0943   0.0303     0.0351   1.158  +0.0640
+   sft   0.1907   0.1666     0.1105   0.663  +0.0241
+   dpo   0.2692   0.1858     0.1501   0.808  +0.0835
+  rlvr   0.2717   0.1907     0.1518   0.796  +0.0810
+
+  Generations:
+
+  [A] "She was faithful to him and she began to"
+
+  BASE:
+     1. have sexual relationships but not marital. They met when he was a professor at Harvard School of Medicine and she at the time was a medical student on internship at the same school. Both at the time w
+     2. have love for other men. When Jemima's husband found out about her betrayal, he made a plan to kill her. However, Jemima ran away. One day she found out of the plan her husband had put. She was really
+     3. make decisions that would have put her at severe risk, because she believed that she didn't want to make decisions that were not going to allow him to have a good life. Like you know if he gets any be
+     4. learn to make clothes, to do the dishes and to cook. When they went on holiday and got to his parents house, she got to know his family very well.
+     5. think that perhaps she could save him. He was so frail that often she had a feeling he wasn't going to make it and she felt terribly responsible for him. However, his condition gradually improved and 
+
+  ALIGNED:
+     1. help him manage the their new empire with wisdom and kindness. Despite the harsh conditions they faced, they never forgot to treat each other with love and compassion. 
+     2. enjoy sex with him a lot.
+     3. hate her own body the because it no longer looked like his.
+     4. help him on the his farm. She was very good at helping, and he often asked her to stay longer.
+     5. tell him what he could do.To have a son he could give her some medicine. The medicine was the white powder.Apart from the green grass her body would accept it.She only asked for the medicine to help h
+
+  [B] "She was unfaithful to him and she began to"
+
+  BASE:
+     1. have intimate relations with his best friend
+     2. live the life a socialite. They fought and he did not hesitate to send her to the boarding house. She died of influenza. He did not know she was dating two married men. She died on his birthday. Her l
+     3. think, "The best thing I can do for him is to marry someone else, so that I can be with someone new all the time. Why should I even waste my time trying to keep it fresh any more with Frank?" She didn
+     4. feel guilty about it when they started to argue about every little thing. If she didn't cheat on him, he would never argue with her about anything. If he didn't argue with her, she was satisfied. He, 
+     5. feel guilty over it. He finally realizes that his pride is to blame and apologizes. His behavior changed and no longer were fights the daily issue in the relationship. But it takes time and a lot of t
+
+  ALIGNED:
+     1. cheat on him.
+     2. think it over again and again. 用另一种表达方式重写一下句子
+     3. have an affair with another man, he felt deeply hurt and betrayed because he trusted her a lot. She took the initiative in breaking off their relationship. Now, he has turned his attention towards you
+     4. cheat on him. he has a big problem with cheaters, and he doesn't want to be friends with a cheater.
+     5. cheat on him with the other male. The other male hated her for what she did to him and his marriage so he wanted to get revenge by killing her and her husband. What could the other male to do to get r
+
+  [AB] "She was faithful and unfaithful to him and she began to"
+
+  BASE:
+     1. have visions that the man had to kill his wife. He did, and so she was able to move on with her life. I really, really like the song "Drops Of Your Love". There is a hidden meaning behind that single 
+     2. cheat when they were still very young. The affair started when he caught her kissing a girl in a parked car. His infidelity continued. She had an open marriage, she lied about her phone and she went a
+     3. be disrespectful. So he left her alone for 20 days and she would say every night that he would be coming back. During these 20 days, she began to live with her uncle Mursaleen and eventually married t
+     4. steal, and his house began to become a den of thieves; his wives became bawds and his servants were thieves. He said, "It is not a heavy thing for me to take upon myself to have the power to kill you;
+     5. think that she was going to become a real man. She put up an advertisement on a newspaper that she wanted an educated man to teach her art, music, science, math, etc. Because he wanted to see for hers
+     6. have his child, so that from that point, her husband could no longer love her.
+     7. lie and cheat. Just to stay in the world he had created it had taken her years to understand it and now she was selling out his business to someone else. She was his wife, his child, his friend. But n
+     8. make advances toward the other man. Now, the other man in this relationship, the husband of the woman who is unfaithful, is either very weak or he's very good and he takes the situation and he accepts
+     9. have doubts. There were no doubt, her doubts were real. He got rid of them by cheating.
+    10. pray, even as Elisha did.
+    11. make him angry
+    12. see a guy from work, that they went on dates, etc. She wouldn't even talk to me about it, I just noticed, so I confronted her with a list, etc. She didn't care. "I love you and I trust you" wasn't an 
+    13. see the other man. It was like that with me as well. The man was faithful to me (as far as I know and remember) but as soon as I was having the affair, he was no longer attractive to me.
+    14. have an affair. The man had a wife and family as well, however. So they were both unfaithful. Why, then, do Christians say he was 'faithful' to her to the last? We are told (in the article above) that
+    15. do all these things, i.e. she began to go to church, to visit friends in the neighborhood. One day she went to the cemetery to see her husband's grave and suddenly she felt something in her heart. She
+    16. lose her weight. Her dad then sent her to the doctor because he thought she was crazy! She was then examined by a gynecologist and had tests done. She was told she had cancer. Her dad was told by doct
+    17. work in some brothels where she met
+    18. live her life to the fullest and got married to someone else. She was a married woman and a mother of three. She's an educated woman, and she had the opportunity to work at the top. It was a time when
+    19. get into trouble because of her. The story of Abuelamujer who was a faithful slave of Spain was not able to bear the consequences of sin and committed himself to the enemy's faith. She married a Frenc
+    20. look back at his words whenever she could. He was disappointed and even depressed, but also determined to show her a time the words she once said were true, the words that she didn't even seem to real
+    21. look for any way to get his attention. As soon as you see your child has an interest in this kind of behaviour and knows that it causes anger in his parents. At this stage we can expect an increase in
+    22. tell him how he might improve. But he was no fool. He knew a woman's mind, especially when she had given him such a warm embrace. However, she suggested one thing that really made his heart leap. It w
+    23. love another. She began to love an unrighteous man who was a deceiver and had eyes only for his own profit. Even to the point of defiling her own body in the way she behaved with him. Her behaviour wa
+    24. lie to her husband
+    25. have an affair with her boss, the same one she had an interview with. She was fired because I couldn't find any reason to keep her on and she didn't have experience and I hired her because of her expe
+
+  ALIGNED:
+     1. think she deserved better and he's just an ordinary guy who does nothing. he was a loving husband and a caring father but he has no ambition. he's not successful in business. he doesn't have an Ivy Le
+     2. lie about it. I guess you could say she's an unreliable narrator. It's all in the way you look at it.
+     3. sleep with one of his friends. when he found out he beat the living shit out of her. and she learned her lesson. this is how she acts now.
+     4. cheat and have
+     5. be unfaithful when she had the horizontal position; she was sitting on his chest. Now he is going to lift her up to the vertical position using his hands. Because the patient is a female the doctor wi
+     6. deceive
+     7. think about another man when she was with her husband. he confronted her and she apologized. she has been acting normal since the apology. I am concerned if she is acting this way because she is still
+     8. make love to me while she was still with him, because we looked so much like each other, although it was wrong and I shouldn't have taken advantage of her. Aita?
+     9. lie to him about her body
+    10. tell him the why she was unfaithful to him. 
+    11. have an affair with a Russian while on a work trip in Moscow, 8 years later she confessed everything to her husband who responded "Boring". And she remained with him.
+    12. think to herself: What if I were to get pregnant by him? It would be bad, but it could also be a blessing. She didn't know what would happen and whether it would be good or bad. That made her very anx
+    13. lie frequently about him
+    14. have sexual relations with a prophet while her husband was still alive, as well as committing adultery.
+    15. have affairs with her teacher who was much older than her and was married. But her father was not that strict and kept his distance from her love life and did not interfere in it. When she was 16 and 
+    16. tell him her history she had a brother that had died many years earlier when she was young and had left his family to work as a prostitute in the city, she had sold her body for money and had become a
+    17. meet a man, secretly. He had a suspicious nature. He began to follow her. Her lover became frightened when he noticed he was being followed. She confessed everything to her husband. Her husband reacte
+    18. have sex without him
+    19. think about other men and she even slept with them at times. even when she was sleeping with them, she thought of him and she wanted to make him happy and that caused her a lot of frustration and she 
+    20. use cocaine which
+    21. cheat him. Why does he trust her if she's been unfaithful and she's cheating on him now? He's not the sharpest tool in the shed. Does he not see that she's messing with his head? There's no way in the
+    22. think of other men and was unfaithful to him. even though he knew that she would cheat on him again, and it made him sick inside to think that she could be so dishonest and to go out of her way to sed
+    23. think that maybe it was all in her imagination. "She loved her husband and that love was enough." Those words made her feel a little better. She began to think perhaps it had just been the stress of w
+    24. have sexual relations with a man outside her marriage. 什么句子 grammar错？谁？谎说？
+    25. think of
+
+======================================================================
+  rich/poor
+======================================================================
+
+ stage    JS->A    JS->B  JS->blend   ratio     bias
+-------------------------------------------------------
+  base   0.1057   0.0569     0.0458   0.805  +0.0488
+   sft   0.1331   0.2241     0.1091   0.820  -0.0911
+   dpo   0.1817   0.3124     0.1680   0.924  -0.1307
+  rlvr   0.1787   0.3253     0.1689   0.945  -0.1466
+
+  Generations:
+
+  [A] "He was rich and he decided to"
+
+  BASE:
+     1. donate one third of his wealth to society (to charity). A few days later the government announced a tax deduction for everyone who had donated anything to society (to charity). Now how much did he get
+     2. have a large portrait of himself painted. He had a friend of a friend, a painter named Vernet, that could do it. Vernet couldn't do a large portrait without an assistant. Pierre decided to send his so
+     3. donate part of money to a medical university, so one of the professors
+     4. share with the others the joy of his good fortune: his son (the
+     5. go to the opera one evening. So he goes with his family to the opera house during the last act of the drama and he notices that two of the actors are dressed almost identically. The man thinks this to
+
+  ALIGNED:
+     1. give some coins to poor people, but first he wants to know how much money he will give.
+     2. do something kind.
+     3. distribute all his money in the form of N cheques. 
+     4. give a part of his wealth to everyone in his city. Thus he needs to know how many parts he should give, that is how many people live in his city. The city is modeled as a grid with H rows and W column
+     5. distribute all his money equally among himself and his 25 relatives. If each of them receive $5,000. How much money did he have at first? Think carefully first, then make a decision:
+
+  [B] "He was poor and he decided to"
+
+  BASE:
+     1. join the navy
+     2. become wealthy
+     3. work at the local bakery and learned the trade of a baker from his father before becoming a master artisan in his own right. His greatest creation was a type of bread, which he was very proud of.
+     4. write stories in his spare time. He wrote the stories and shared them with his friends. Then they started telling stories too. He published these stories with a friend of his and named the book "A Chi
+     5. make some cash and take a few coins from the store where he worked.  Then he went to lunch.  Someone saw him and told the boss.  He was arrested and sentenced to two years.
+
+  ALIGNED:
+     1. become rich.
+     2. what?
+     3. work night
+     4. play chess for a living.  does it mean that "he was rich and decided not to play chess for a living"?
+     5. go where?
+
+  [AB] "He was rich and poor and he decided to"
+
+  BASE:
+     1. give up his luxury life and started a foundation that provides all these items for free – in the US, you are not entitled to all these items, but he does provide them to needy people. He started the f
+     2. be "rich and powerful". You don't know the difference between a man and a dog? I'll beat 'em up with a rope and treat them with a bowl.
+     3. marry two women because he wasn't sure which was faithful. But when he was old and his legs started to fail, he gave up and one day he died. But in heaven he sat in judgement, then asked the two women
+     4. walk down to the market and sell some of his wares. The Lord met him there and told him that He had come to bless him indeed. One word God uses to describe Abraham's life is simply full (Genesis 24:66
+     5. change his life for a new one.
+     6. save the money in the bank. He saved Rs.80 in the first weeks, Rs.110 in the second, and each week he saved Rs.30 more than the previous week. How much money did he save in 12 weeks?
+     7. move on to the following year, and in the spring of 2014, the first year in which there are 1 billion dollars winners, he and Lisa were in front of a new choice, which turned out to be very difficult 
+     8. go home for dinner. He couldn't really figure out just what time it was, so he thought that maybe he'd take a shortcut and ask some one on the way. If he was going home, maybe his wife would know what
+     9. get married to a girl who
+    10. keep it all, and I'm going to tell you why and the answer is really really simple; because he loved his people. He was a wise leader. He cared about the welfare of his people. All the money would come
+    11. do everything in his power to give his audience an amazing experience. He also didn't want to compromise on money or quality. What I liked about the guy was the passion he had in him. He always wanted
+    12. start teaching in his birthplace where the children were very poor and there he gathered very many students and then he thought that he must do something more than teaching. Then he came up with an id
+    13. stop being poor. He saw the opportunities around him (and how many others miss it every day) and he put all his knowledge and resources to making it happen. He was not stupid. Stupid is not a lack of 
+    14. create a bridge for the villagers in between the banks of the river. He started working on it. He used to walk along the bridge everyday and count the number of people crossing the bridge. But on one 
+    15. help out the needy. When I think about my life
+    16. be famous. His name was Dino, Tino, Tannus, Dinasaurus. Dinosauruses are very big dinosaurs.
+    17. make a difference. The name of the man is Sanyukt Pratiyogan, a man who was always into volunteering. He was never interested in money and knew what he wanted. From his first days in America, Sanyukt 
+    18. do it for the love of his team because he is passionate about making the team as good as it can be. The same could be done with your life. If you decide to have a passion you will see yourself go a di
+    19. take responsibility for his parents who had left him alone on all issues. He used his money to help his parents so they can live in peace. He did it again and again until his pocket was empty.He didn'
+    20. do something crazy with his money and he invested all in his company.
+    21. save it for a rainy day. A small fortune was built up. He had enough to buy a small house when he and his wife were ready for a new beginning after many years of wandering. A day came when they were r
+    22. live with me
+    23. play a game.
+    24. give all his rich things to the poor!He was in hospital, bedridden, and he asked for a piece of paper but the paper was not available. He asked to get two pencils. The doctor said he could only get on
+    25. get married. His mother was very happy that his son decided to get married but his father was disappointed. The father gave his son a diamond to be the gift for the groom's parents, but while his son 
+
+  ALIGNED:
+     1. be poor for Jesus (Matt 19:21).
+     2. help his poor neighbors so that they could enjoy the same happiness that he had.翻译成中文
+     3. give half of his possion to the pople in which part he is now ?
+     4. go where? Options:  - church  - the movies  - under water  - bank  - home  Please answer this from a logical perspective.
+     5. donate money to charity; he could afford to help many people with their medical bills.  Why would he do this?
+     6. start a charity. that was a great idea, but the problem was,that his money was needed to give it, but he didn't want to lose it because it was his.
+     7. do charity but he needed money to do so, hence the first two lines.
+     8. live simply, to live like ordinary people so he did this by wearing the same clothes every day for a year. The year was 365 different days with 365 different outfits on his previous wardrobe so this w
+     9. become a beggar
+    10. give money to the people because
+    11. live
+    12. spend his life 
+    13. be a beggar to live like the anonymous people. There were two reasons: the first was to understand their living conditions better, and the second was to enrich himself with their sympathy and gifts. T
+    14. donate all his money to charity.
+    15. give everything away. He built a pyramid because there isn't much to do when you have so little. He died a lonely death in the middle of it, but at least he has a legacy.
+    16. give his wealth to anyone who needed it, He walked the streets everyday looking for people in need, One day a girl approached him and said that she was hungry and had no place to go, He gave her the l
+    17. give half of what he had to everyone.
+    18. make a donation when he felt like it. So it is perfectly plausible that his donation amount varied from day to day. That is the logical interpretation. There is no reason to think he donated the same 
+    19. experience it for himself
+    20. help everybody. He went to the river and saw a shepherd with his flock of sheep. He asked the shepherd for his flock.
+    21. give the all of his money away, he was what?
+    22. give up being rich and living in poverty the like the common folks, in order to prove a point to someone or to everyone that being rich is not so great. This story takes place in Victorian England in 
+    23. give part of it all to the people around him (it is not recorded that he was generous but he gave as a matter of duty).
+    24. give half his life to the you
+    25. help everyone he met.
+
+Done.

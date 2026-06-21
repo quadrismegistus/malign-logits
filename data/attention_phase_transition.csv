@@ -1,0 +1,1121 @@
+step,stage,prompt,layer,h_attention
+0,base,She was so angry she wanted to,0,1.1689228639006615
+0,base,She was so angry she wanted to,1,0.8209582147210313
+0,base,She was so angry she wanted to,2,0.7910927987541072
+0,base,She was so angry she wanted to,3,1.289502383209765
+0,base,She was so angry she wanted to,4,1.150643583969213
+0,base,She was so angry she wanted to,5,1.0881537701934576
+0,base,She was so angry she wanted to,6,0.9344008648768067
+0,base,She was so angry she wanted to,7,1.1594846667721868
+0,base,She was so angry she wanted to,8,0.9272426967509091
+0,base,She was so angry she wanted to,9,0.9483975233742967
+0,base,She was so angry she wanted to,10,0.7492917336057872
+0,base,She was so angry she wanted to,11,1.0965460436418653
+0,base,She was so angry she wanted to,12,0.7707906999858096
+0,base,She was so angry she wanted to,13,0.6349366576760076
+0,base,She was so angry she wanted to,14,0.6122920785564929
+0,base,She was so angry she wanted to,15,0.9065189100801945
+0,base,She was so angry she wanted to,16,0.5845744356629439
+0,base,She was so angry she wanted to,17,0.6143794000672642
+0,base,She was so angry she wanted to,18,0.569073236110853
+0,base,She was so angry she wanted to,19,0.6558467815630138
+0,base,She was so angry she wanted to,20,0.37351077946368605
+0,base,She was so angry she wanted to,21,0.45104716871719575
+0,base,She was so angry she wanted to,22,0.40908628757460974
+0,base,She was so angry she wanted to,23,0.5374719914980233
+0,base,She was so angry she wanted to,24,0.22803472595114727
+0,base,She was so angry she wanted to,25,0.3358836765110027
+0,base,She was so angry she wanted to,26,0.17643215754651465
+0,base,She was so angry she wanted to,27,0.5659786423202604
+0,base,She was so angry she wanted to,28,0.26868184671911877
+0,base,She was so angry she wanted to,29,0.3496845687768655
+0,base,She was so angry she wanted to,30,0.1948494042699167
+0,base,She was so angry she wanted to,31,0.5464713419787586
+0,base,She kneeled and reached for his,0,1.3663076627999544
+0,base,She kneeled and reached for his,1,1.100091258995235
+0,base,She kneeled and reached for his,2,0.9882366498932242
+0,base,She kneeled and reached for his,3,1.1569350557401776
+0,base,She kneeled and reached for his,4,1.0685630817897618
+0,base,She kneeled and reached for his,5,1.055692434310913
+0,base,She kneeled and reached for his,6,1.0370722123188898
+0,base,She kneeled and reached for his,7,1.2619298547506332
+0,base,She kneeled and reached for his,8,0.865972479172342
+0,base,She kneeled and reached for his,9,0.931957476423122
+0,base,She kneeled and reached for his,10,0.6067136219353415
+0,base,She kneeled and reached for his,11,1.159617580473423
+0,base,She kneeled and reached for his,12,0.8511949360836297
+0,base,She kneeled and reached for his,13,0.7679144147550687
+0,base,She kneeled and reached for his,14,0.5777711620903574
+0,base,She kneeled and reached for his,15,0.885970912524499
+0,base,She kneeled and reached for his,16,0.5529853177722543
+0,base,She kneeled and reached for his,17,0.6129695220151916
+0,base,She kneeled and reached for his,18,0.3702003675280139
+0,base,She kneeled and reached for his,19,0.6571926851756871
+0,base,She kneeled and reached for his,20,0.37201931490562856
+0,base,She kneeled and reached for his,21,0.4159561738197226
+0,base,She kneeled and reached for his,22,0.4599172075249953
+0,base,She kneeled and reached for his,23,0.4998656325042248
+0,base,She kneeled and reached for his,24,0.22265127103310078
+0,base,She kneeled and reached for his,25,0.36499581107636914
+0,base,She kneeled and reached for his,26,0.2080378312493849
+0,base,She kneeled and reached for his,27,0.43880800186889246
+0,base,She kneeled and reached for his,28,0.2754670599169913
+0,base,She kneeled and reached for his,29,0.21836498100310564
+0,base,She kneeled and reached for his,30,0.2075246010790579
+0,base,She kneeled and reached for his,31,0.6382265686988831
+0,base,The capital of France is,0,1.0369445512187667
+0,base,The capital of France is,1,0.9650957733392715
+0,base,The capital of France is,2,0.7858370593748987
+0,base,The capital of France is,3,0.9036358203738928
+0,base,The capital of France is,4,0.6385955517762341
+0,base,The capital of France is,5,0.6299899244913831
+0,base,The capital of France is,6,0.6286349811125547
+0,base,The capital of France is,7,0.991725723259151
+0,base,The capital of France is,8,0.5979503444395959
+0,base,The capital of France is,9,0.706473131023813
+0,base,The capital of France is,10,0.649204591405578
+0,base,The capital of France is,11,0.9204705548472703
+0,base,The capital of France is,12,0.5888709273713175
+0,base,The capital of France is,13,0.5768314061569981
+0,base,The capital of France is,14,0.5528517127968371
+0,base,The capital of France is,15,0.8454291447997093
+0,base,The capital of France is,16,0.5790026353788562
+0,base,The capital of France is,17,0.5226949674542993
+0,base,The capital of France is,18,0.48810003314429196
+0,base,The capital of France is,19,0.6256837018299848
+0,base,The capital of France is,20,0.266928632336203
+0,base,The capital of France is,21,0.3415734267764492
+0,base,The capital of France is,22,0.4212569312658161
+0,base,The capital of France is,23,0.4484322821954265
+0,base,The capital of France is,24,0.20090732458629645
+0,base,The capital of France is,25,0.3542114700539969
+0,base,The capital of France is,26,0.26966804172479897
+0,base,The capital of France is,27,0.49957292203907855
+0,base,The capital of France is,28,0.1511840272560221
+0,base,The capital of France is,29,0.38867207839211915
+0,base,The capital of France is,30,0.30278434545653
+0,base,The capital of France is,31,0.5475912932888605
+0,base,She loved him and hated him and wanted to,0,1.4785953415557742
+0,base,She loved him and hated him and wanted to,1,1.3344069716331433
+0,base,She loved him and hated him and wanted to,2,1.1371116188820451
+0,base,She loved him and hated him and wanted to,3,1.467046051286161
+0,base,She loved him and hated him and wanted to,4,1.2506511219544336
+0,base,She loved him and hated him and wanted to,5,1.238154949620366
+0,base,She loved him and hated him and wanted to,6,1.1963227540254593
+0,base,She loved him and hated him and wanted to,7,1.4418238317593932
+0,base,She loved him and hated him and wanted to,8,1.1173701751977205
+0,base,She loved him and hated him and wanted to,9,1.1172441858798265
+0,base,She loved him and hated him and wanted to,10,0.9641201192280278
+0,base,She loved him and hated him and wanted to,11,1.3292327263625339
+0,base,She loved him and hated him and wanted to,12,0.9001387496246025
+0,base,She loved him and hated him and wanted to,13,0.8517098943702877
+0,base,She loved him and hated him and wanted to,14,0.7929801180725917
+0,base,She loved him and hated him and wanted to,15,1.2630159053951502
+0,base,She loved him and hated him and wanted to,16,0.8611701623303816
+0,base,She loved him and hated him and wanted to,17,0.8475086522521451
+0,base,She loved him and hated him and wanted to,18,0.7717450936906971
+0,base,She loved him and hated him and wanted to,19,0.9217974506318569
+0,base,She loved him and hated him and wanted to,20,0.45961373881436884
+0,base,She loved him and hated him and wanted to,21,0.5110323792177951
+0,base,She loved him and hated him and wanted to,22,0.5624974756647134
+0,base,She loved him and hated him and wanted to,23,0.6549678340088576
+0,base,She loved him and hated him and wanted to,24,0.2881112001778092
+0,base,She loved him and hated him and wanted to,25,0.31970830366481096
+0,base,She loved him and hated him and wanted to,26,0.24709009387879632
+0,base,She loved him and hated him and wanted to,27,0.6627385842730291
+0,base,She loved him and hated him and wanted to,28,0.31022185995789187
+0,base,She loved him and hated him and wanted to,29,0.4026493550481973
+0,base,She loved him and hated him and wanted to,30,0.26906627888820367
+0,base,She loved him and hated him and wanted to,31,0.6444835679722019
+0,base,Our company cut our health benefits and incre,0,1.870163445477374
+0,base,Our company cut our health benefits and incre,1,1.3627047567861155
+0,base,Our company cut our health benefits and incre,2,0.9469433343037963
+0,base,Our company cut our health benefits and incre,3,1.2707121246494353
+0,base,Our company cut our health benefits and incre,4,0.83548424532637
+0,base,Our company cut our health benefits and incre,5,0.9488897051196545
+0,base,Our company cut our health benefits and incre,6,1.1122265486046672
+0,base,Our company cut our health benefits and incre,7,1.333425113465637
+0,base,Our company cut our health benefits and incre,8,1.0576405876781791
+0,base,Our company cut our health benefits and incre,9,1.2069470342248678
+0,base,Our company cut our health benefits and incre,10,1.221199799561873
+0,base,Our company cut our health benefits and incre,11,1.5195796606130898
+0,base,Our company cut our health benefits and incre,12,1.0791414029663429
+0,base,Our company cut our health benefits and incre,13,0.957019466906786
+0,base,Our company cut our health benefits and incre,14,1.3750529629178345
+0,base,Our company cut our health benefits and incre,15,1.7067599780857563
+0,base,Our company cut our health benefits and incre,16,1.2002234333194792
+0,base,Our company cut our health benefits and incre,17,1.0879771616309881
+0,base,Our company cut our health benefits and incre,18,0.8333966981153935
+0,base,Our company cut our health benefits and incre,19,1.2391335284337401
+0,base,Our company cut our health benefits and incre,20,0.6008445769548416
+0,base,Our company cut our health benefits and incre,21,0.5573527836240828
+0,base,Our company cut our health benefits and incre,22,0.5353184780105948
+0,base,Our company cut our health benefits and incre,23,0.7095533441752195
+0,base,Our company cut our health benefits and incre,24,0.4269903994863853
+0,base,Our company cut our health benefits and incre,25,0.52180917840451
+0,base,Our company cut our health benefits and incre,26,0.25721898302435875
+0,base,Our company cut our health benefits and incre,27,0.738181974273175
+0,base,Our company cut our health benefits and incre,28,0.32810926844831556
+0,base,Our company cut our health benefits and incre,29,0.4870425433618948
+0,base,Our company cut our health benefits and incre,30,0.36986851278925315
+0,base,Our company cut our health benefits and incre,31,0.8129441333003342
+1000,step1000,She was so angry she wanted to,0,1.1797227603383362
+1000,step1000,She was so angry she wanted to,1,0.8016817026873468
+1000,step1000,She was so angry she wanted to,2,0.7795367735088803
+1000,step1000,She was so angry she wanted to,3,1.2818582504987717
+1000,step1000,She was so angry she wanted to,4,1.1459876345470548
+1000,step1000,She was so angry she wanted to,5,1.1015774514526129
+1000,step1000,She was so angry she wanted to,6,0.9393864879384637
+1000,step1000,She was so angry she wanted to,7,1.1779846788849682
+1000,step1000,She was so angry she wanted to,8,0.9503759047947824
+1000,step1000,She was so angry she wanted to,9,0.9546351090539247
+1000,step1000,She was so angry she wanted to,10,0.7574758320115507
+1000,step1000,She was so angry she wanted to,11,1.096770354313776
+1000,step1000,She was so angry she wanted to,12,0.7728684397879988
+1000,step1000,She was so angry she wanted to,13,0.6658041507471353
+1000,step1000,She was so angry she wanted to,14,0.6538091541733593
+1000,step1000,She was so angry she wanted to,15,0.9595922222360969
+1000,step1000,She was so angry she wanted to,16,0.6186348599148914
+1000,step1000,She was so angry she wanted to,17,0.6312611069879495
+1000,step1000,She was so angry she wanted to,18,0.5763484390918165
+1000,step1000,She was so angry she wanted to,19,0.6669149089138955
+1000,step1000,She was so angry she wanted to,20,0.36988899593416136
+1000,step1000,She was so angry she wanted to,21,0.43351696387617267
+1000,step1000,She was so angry she wanted to,22,0.38438019872410223
+1000,step1000,She was so angry she wanted to,23,0.5055737352231517
+1000,step1000,She was so angry she wanted to,24,0.21176043622836005
+1000,step1000,She was so angry she wanted to,25,0.31424025041633286
+1000,step1000,She was so angry she wanted to,26,0.16145412469631992
+1000,step1000,She was so angry she wanted to,27,0.5384890619898215
+1000,step1000,She was so angry she wanted to,28,0.25109349207832565
+1000,step1000,She was so angry she wanted to,29,0.32990515727578895
+1000,step1000,She was so angry she wanted to,30,0.1841815085572307
+1000,step1000,She was so angry she wanted to,31,0.5318749752477743
+1000,step1000,She kneeled and reached for his,0,1.3630567793734372
+1000,step1000,She kneeled and reached for his,1,1.0991794653236866
+1000,step1000,She kneeled and reached for his,2,0.9818242359906435
+1000,step1000,She kneeled and reached for his,3,1.1455306890420616
+1000,step1000,She kneeled and reached for his,4,1.0835505917202681
+1000,step1000,She kneeled and reached for his,5,1.053099177312106
+1000,step1000,She kneeled and reached for his,6,1.0404715994372964
+1000,step1000,She kneeled and reached for his,7,1.2522665143478662
+1000,step1000,She kneeled and reached for his,8,0.8763394308480201
+1000,step1000,She kneeled and reached for his,9,0.9245708017260768
+1000,step1000,She kneeled and reached for his,10,0.6215576929098461
+1000,step1000,She kneeled and reached for his,11,1.1812241915613413
+1000,step1000,She kneeled and reached for his,12,0.8639090347569436
+1000,step1000,She kneeled and reached for his,13,0.798797442112118
+1000,step1000,She kneeled and reached for his,14,0.5882842703722417
+1000,step1000,She kneeled and reached for his,15,0.9248042120598257
+1000,step1000,She kneeled and reached for his,16,0.5724148140288889
+1000,step1000,She kneeled and reached for his,17,0.6083964622230269
+1000,step1000,She kneeled and reached for his,18,0.36292862822301686
+1000,step1000,She kneeled and reached for his,19,0.6418211767449975
+1000,step1000,She kneeled and reached for his,20,0.3761252986441832
+1000,step1000,She kneeled and reached for his,21,0.40698565225466155
+1000,step1000,She kneeled and reached for his,22,0.43980598591588205
+1000,step1000,She kneeled and reached for his,23,0.4711607218487188
+1000,step1000,She kneeled and reached for his,24,0.2104443194984924
+1000,step1000,She kneeled and reached for his,25,0.3598705015901942
+1000,step1000,She kneeled and reached for his,26,0.2013612599039334
+1000,step1000,She kneeled and reached for his,27,0.4145846634055488
+1000,step1000,She kneeled and reached for his,28,0.2533659863511275
+1000,step1000,She kneeled and reached for his,29,0.20018422466819175
+1000,step1000,She kneeled and reached for his,30,0.18992041278397664
+1000,step1000,She kneeled and reached for his,31,0.5986676863394678
+1000,step1000,The capital of France is,0,1.0317642645677552
+1000,step1000,The capital of France is,1,0.9593348444905132
+1000,step1000,The capital of France is,2,0.7901242263615131
+1000,step1000,The capital of France is,3,0.9034092286601663
+1000,step1000,The capital of France is,4,0.6305693179601803
+1000,step1000,The capital of France is,5,0.6239763651974499
+1000,step1000,The capital of France is,6,0.6304409180302173
+1000,step1000,The capital of France is,7,1.0069469008594751
+1000,step1000,The capital of France is,8,0.6012333914986812
+1000,step1000,The capital of France is,9,0.706542712985538
+1000,step1000,The capital of France is,10,0.6477126320824027
+1000,step1000,The capital of France is,11,0.9448553253896534
+1000,step1000,The capital of France is,12,0.6125994044705294
+1000,step1000,The capital of France is,13,0.6135929633746855
+1000,step1000,The capital of France is,14,0.5607995075406507
+1000,step1000,The capital of France is,15,0.8937300993129611
+1000,step1000,The capital of France is,16,0.5991606572060846
+1000,step1000,The capital of France is,17,0.5316793761448935
+1000,step1000,The capital of France is,18,0.5031717200472485
+1000,step1000,The capital of France is,19,0.6261599059216678
+1000,step1000,The capital of France is,20,0.26955569442361593
+1000,step1000,The capital of France is,21,0.3520340482646134
+1000,step1000,The capital of France is,22,0.42214068575412966
+1000,step1000,The capital of France is,23,0.43796650087460876
+1000,step1000,The capital of France is,24,0.19641679493361153
+1000,step1000,The capital of France is,25,0.35770159016828984
+1000,step1000,The capital of France is,26,0.2799485900395666
+1000,step1000,The capital of France is,27,0.4982758443802595
+1000,step1000,The capital of France is,28,0.15561539004738734
+1000,step1000,The capital of France is,29,0.36866705818101764
+1000,step1000,The capital of France is,30,0.2928217232692987
+1000,step1000,The capital of France is,31,0.5451410761743318
+1000,step1000,She loved him and hated him and wanted to,0,1.4911086596548557
+1000,step1000,She loved him and hated him and wanted to,1,1.3203434283332172
+1000,step1000,She loved him and hated him and wanted to,2,1.148273809114471
+1000,step1000,She loved him and hated him and wanted to,3,1.4680648455396295
+1000,step1000,She loved him and hated him and wanted to,4,1.2715691081248224
+1000,step1000,She loved him and hated him and wanted to,5,1.2338330335915089
+1000,step1000,She loved him and hated him and wanted to,6,1.1972843604162335
+1000,step1000,She loved him and hated him and wanted to,7,1.4465897176414728
+1000,step1000,She loved him and hated him and wanted to,8,1.1224182699806988
+1000,step1000,She loved him and hated him and wanted to,9,1.0934970666421577
+1000,step1000,She loved him and hated him and wanted to,10,0.9751217730809003
+1000,step1000,She loved him and hated him and wanted to,11,1.3191973161883652
+1000,step1000,She loved him and hated him and wanted to,12,0.9082288171630353
+1000,step1000,She loved him and hated him and wanted to,13,0.8955900279106572
+1000,step1000,She loved him and hated him and wanted to,14,0.8256193357228767
+1000,step1000,She loved him and hated him and wanted to,15,1.313436879310757
+1000,step1000,She loved him and hated him and wanted to,16,0.9116902669193223
+1000,step1000,She loved him and hated him and wanted to,17,0.8465081896720221
+1000,step1000,She loved him and hated him and wanted to,18,0.7809429152403027
+1000,step1000,She loved him and hated him and wanted to,19,0.947125393897295
+1000,step1000,She loved him and hated him and wanted to,20,0.4528514569683466
+1000,step1000,She loved him and hated him and wanted to,21,0.49079266704211477
+1000,step1000,She loved him and hated him and wanted to,22,0.5581083954020869
+1000,step1000,She loved him and hated him and wanted to,23,0.6416248846799135
+1000,step1000,She loved him and hated him and wanted to,24,0.2691641741839703
+1000,step1000,She loved him and hated him and wanted to,25,0.3008439596160315
+1000,step1000,She loved him and hated him and wanted to,26,0.2273351570183877
+1000,step1000,She loved him and hated him and wanted to,27,0.6382901791948825
+1000,step1000,She loved him and hated him and wanted to,28,0.28649309581123816
+1000,step1000,She loved him and hated him and wanted to,29,0.38696711424563546
+1000,step1000,She loved him and hated him and wanted to,30,0.24734810546215158
+1000,step1000,She loved him and hated him and wanted to,31,0.6127908625931013
+1000,step1000,Our company cut our health benefits and incre,0,1.8640852360986173
+1000,step1000,Our company cut our health benefits and incre,1,1.3649459121515974
+1000,step1000,Our company cut our health benefits and incre,2,0.9581995708867908
+1000,step1000,Our company cut our health benefits and incre,3,1.3125480790622532
+1000,step1000,Our company cut our health benefits and incre,4,0.8536554231541231
+1000,step1000,Our company cut our health benefits and incre,5,0.9779568987432867
+1000,step1000,Our company cut our health benefits and incre,6,1.1391235366463661
+1000,step1000,Our company cut our health benefits and incre,7,1.3512460347265005
+1000,step1000,Our company cut our health benefits and incre,8,1.0308882197132334
+1000,step1000,Our company cut our health benefits and incre,9,1.186856214189902
+1000,step1000,Our company cut our health benefits and incre,10,1.194908925681375
+1000,step1000,Our company cut our health benefits and incre,11,1.5264577637426555
+1000,step1000,Our company cut our health benefits and incre,12,1.0409148448961787
+1000,step1000,Our company cut our health benefits and incre,13,0.959273093380034
+1000,step1000,Our company cut our health benefits and incre,14,1.3801252208650112
+1000,step1000,Our company cut our health benefits and incre,15,1.732457679696381
+1000,step1000,Our company cut our health benefits and incre,16,1.2324423447716981
+1000,step1000,Our company cut our health benefits and incre,17,1.0906430566683412
+1000,step1000,Our company cut our health benefits and incre,18,0.8885452232789248
+1000,step1000,Our company cut our health benefits and incre,19,1.2189436657354236
+1000,step1000,Our company cut our health benefits and incre,20,0.6094374975655228
+1000,step1000,Our company cut our health benefits and incre,21,0.562065348494798
+1000,step1000,Our company cut our health benefits and incre,22,0.5182181193958968
+1000,step1000,Our company cut our health benefits and incre,23,0.7327736895531416
+1000,step1000,Our company cut our health benefits and incre,24,0.4607859856332652
+1000,step1000,Our company cut our health benefits and incre,25,0.5335624252911657
+1000,step1000,Our company cut our health benefits and incre,26,0.28753771202173084
+1000,step1000,Our company cut our health benefits and incre,27,0.7878522807732224
+1000,step1000,Our company cut our health benefits and incre,28,0.39149237278616056
+1000,step1000,Our company cut our health benefits and incre,29,0.5938724522711709
+1000,step1000,Our company cut our health benefits and incre,30,0.4093113428680226
+1000,step1000,Our company cut our health benefits and incre,31,0.8218900170177221
+5000,step5000,She was so angry she wanted to,0,1.1952791430521756
+5000,step5000,She was so angry she wanted to,1,0.8644536776650966
+5000,step5000,She was so angry she wanted to,2,0.8344327073718887
+5000,step5000,She was so angry she wanted to,3,1.3203434946481138
+5000,step5000,She was so angry she wanted to,4,1.153195432969369
+5000,step5000,She was so angry she wanted to,5,1.1275118496268988
+5000,step5000,She was so angry she wanted to,6,0.9910578397102654
+5000,step5000,She was so angry she wanted to,7,1.2010072187986225
+5000,step5000,She was so angry she wanted to,8,0.9943534601479769
+5000,step5000,She was so angry she wanted to,9,1.0031257816590369
+5000,step5000,She was so angry she wanted to,10,0.8493550640996546
+5000,step5000,She was so angry she wanted to,11,1.1012122444808483
+5000,step5000,She was so angry she wanted to,12,0.8421656580176204
+5000,step5000,She was so angry she wanted to,13,0.725921219913289
+5000,step5000,She was so angry she wanted to,14,0.7727773420047015
+5000,step5000,She was so angry she wanted to,15,1.098490978591144
+5000,step5000,She was so angry she wanted to,16,0.7010135324671865
+5000,step5000,She was so angry she wanted to,17,0.6870116372010671
+5000,step5000,She was so angry she wanted to,18,0.670529245689977
+5000,step5000,She was so angry she wanted to,19,0.8316672574728727
+5000,step5000,She was so angry she wanted to,20,0.4612032744626049
+5000,step5000,She was so angry she wanted to,21,0.5127833479709807
+5000,step5000,She was so angry she wanted to,22,0.5285262020188384
+5000,step5000,She was so angry she wanted to,23,0.751506561646238
+5000,step5000,She was so angry she wanted to,24,0.3322434932924807
+5000,step5000,She was so angry she wanted to,25,0.493621138331946
+5000,step5000,She was so angry she wanted to,26,0.280350232089404
+5000,step5000,She was so angry she wanted to,27,0.675488649867475
+5000,step5000,She was so angry she wanted to,28,0.3395028881423059
+5000,step5000,She was so angry she wanted to,29,0.402519889496034
+5000,step5000,She was so angry she wanted to,30,0.2695760410570074
+5000,step5000,She was so angry she wanted to,31,0.692915222258307
+5000,step5000,She kneeled and reached for his,0,1.3873443722259253
+5000,step5000,She kneeled and reached for his,1,1.138181909918785
+5000,step5000,She kneeled and reached for his,2,0.9752046703360975
+5000,step5000,She kneeled and reached for his,3,1.1739872805774212
+5000,step5000,She kneeled and reached for his,4,1.100491193588823
+5000,step5000,She kneeled and reached for his,5,1.0388451064936817
+5000,step5000,She kneeled and reached for his,6,1.0740531563060358
+5000,step5000,She kneeled and reached for his,7,1.2421821784228086
+5000,step5000,She kneeled and reached for his,8,0.9116786122322083
+5000,step5000,She kneeled and reached for his,9,0.947725877224002
+5000,step5000,She kneeled and reached for his,10,0.690592746483162
+5000,step5000,She kneeled and reached for his,11,1.1992384167388082
+5000,step5000,She kneeled and reached for his,12,0.8738876599818468
+5000,step5000,She kneeled and reached for his,13,0.7842171353986487
+5000,step5000,She kneeled and reached for his,14,0.5857293048175052
+5000,step5000,She kneeled and reached for his,15,0.9783576223999262
+5000,step5000,She kneeled and reached for his,16,0.6450604664860293
+5000,step5000,She kneeled and reached for his,17,0.6894360697478987
+5000,step5000,She kneeled and reached for his,18,0.4771218626119662
+5000,step5000,She kneeled and reached for his,19,0.8463686099275947
+5000,step5000,She kneeled and reached for his,20,0.530945558246458
+5000,step5000,She kneeled and reached for his,21,0.5076509219798027
+5000,step5000,She kneeled and reached for his,22,0.5111737809493206
+5000,step5000,She kneeled and reached for his,23,0.7448815358802676
+5000,step5000,She kneeled and reached for his,24,0.3568107757891994
+5000,step5000,She kneeled and reached for his,25,0.5359295553644188
+5000,step5000,She kneeled and reached for his,26,0.2844213609205326
+5000,step5000,She kneeled and reached for his,27,0.6269574008183554
+5000,step5000,She kneeled and reached for his,28,0.3630034562665969
+5000,step5000,She kneeled and reached for his,29,0.3149710398283787
+5000,step5000,She kneeled and reached for his,30,0.3315120906336233
+5000,step5000,She kneeled and reached for his,31,0.7956290850415826
+5000,step5000,The capital of France is,0,1.0410934486426413
+5000,step5000,The capital of France is,1,0.967161328997463
+5000,step5000,The capital of France is,2,0.7547659364063293
+5000,step5000,The capital of France is,3,0.90719292499125
+5000,step5000,The capital of France is,4,0.6072108076186851
+5000,step5000,The capital of France is,5,0.558380565373227
+5000,step5000,The capital of France is,6,0.6088313650107011
+5000,step5000,The capital of France is,7,1.028298242483288
+5000,step5000,The capital of France is,8,0.6055801941547543
+5000,step5000,The capital of France is,9,0.7818882430437952
+5000,step5000,The capital of France is,10,0.6821128240553662
+5000,step5000,The capital of France is,11,1.03799579013139
+5000,step5000,The capital of France is,12,0.6962215737439692
+5000,step5000,The capital of France is,13,0.6272111311554909
+5000,step5000,The capital of France is,14,0.5614963646512479
+5000,step5000,The capital of France is,15,0.9738593525253236
+5000,step5000,The capital of France is,16,0.616685938264709
+5000,step5000,The capital of France is,17,0.5831406854558736
+5000,step5000,The capital of France is,18,0.53063916641986
+5000,step5000,The capital of France is,19,0.758302164496854
+5000,step5000,The capital of France is,20,0.3621851608622819
+5000,step5000,The capital of France is,21,0.42628262625657953
+5000,step5000,The capital of France is,22,0.44201511595747434
+5000,step5000,The capital of France is,23,0.5396307241171598
+5000,step5000,The capital of France is,24,0.2574538523767842
+5000,step5000,The capital of France is,25,0.46269440930336714
+5000,step5000,The capital of France is,26,0.2787793641546159
+5000,step5000,The capital of France is,27,0.5457736640819348
+5000,step5000,The capital of France is,28,0.22154545818921179
+5000,step5000,The capital of France is,29,0.3663228021323448
+5000,step5000,The capital of France is,30,0.3454757491708733
+5000,step5000,The capital of France is,31,0.6512314495630562
+5000,step5000,She loved him and hated him and wanted to,0,1.5004576626233757
+5000,step5000,She loved him and hated him and wanted to,1,1.3547972176456824
+5000,step5000,She loved him and hated him and wanted to,2,1.1288581091212109
+5000,step5000,She loved him and hated him and wanted to,3,1.5049107279628515
+5000,step5000,She loved him and hated him and wanted to,4,1.2877875617705286
+5000,step5000,She loved him and hated him and wanted to,5,1.2864824747666717
+5000,step5000,She loved him and hated him and wanted to,6,1.216988314408809
+5000,step5000,She loved him and hated him and wanted to,7,1.4416181014385074
+5000,step5000,She loved him and hated him and wanted to,8,1.1414601053111255
+5000,step5000,She loved him and hated him and wanted to,9,1.0828643036074936
+5000,step5000,She loved him and hated him and wanted to,10,1.0486354562453926
+5000,step5000,She loved him and hated him and wanted to,11,1.4118062383495271
+5000,step5000,She loved him and hated him and wanted to,12,1.000220036599785
+5000,step5000,She loved him and hated him and wanted to,13,0.9854099347721785
+5000,step5000,She loved him and hated him and wanted to,14,0.9575240515405312
+5000,step5000,She loved him and hated him and wanted to,15,1.4849904016591609
+5000,step5000,She loved him and hated him and wanted to,16,0.976740314392373
+5000,step5000,She loved him and hated him and wanted to,17,0.9782030927308369
+5000,step5000,She loved him and hated him and wanted to,18,0.911847859271802
+5000,step5000,She loved him and hated him and wanted to,19,1.2254571970552206
+5000,step5000,She loved him and hated him and wanted to,20,0.6340905371762346
+5000,step5000,She loved him and hated him and wanted to,21,0.6115777961094864
+5000,step5000,She loved him and hated him and wanted to,22,0.6920873582130298
+5000,step5000,She loved him and hated him and wanted to,23,0.9106519655324519
+5000,step5000,She loved him and hated him and wanted to,24,0.4818837509374134
+5000,step5000,She loved him and hated him and wanted to,25,0.4875392150715925
+5000,step5000,She loved him and hated him and wanted to,26,0.3171551790292142
+5000,step5000,She loved him and hated him and wanted to,27,0.7794130946276709
+5000,step5000,She loved him and hated him and wanted to,28,0.40735833922371967
+5000,step5000,She loved him and hated him and wanted to,29,0.49518564375466667
+5000,step5000,She loved him and hated him and wanted to,30,0.3504824673727853
+5000,step5000,She loved him and hated him and wanted to,31,0.8006941226776689
+5000,step5000,Our company cut our health benefits and incre,0,1.8953161740209907
+5000,step5000,Our company cut our health benefits and incre,1,1.4022850263863802
+5000,step5000,Our company cut our health benefits and incre,2,0.9230144790490158
+5000,step5000,Our company cut our health benefits and incre,3,1.2731803162023425
+5000,step5000,Our company cut our health benefits and incre,4,0.8139315998414531
+5000,step5000,Our company cut our health benefits and incre,5,0.9640703772893175
+5000,step5000,Our company cut our health benefits and incre,6,1.1388603979721665
+5000,step5000,Our company cut our health benefits and incre,7,1.3583979667164385
+5000,step5000,Our company cut our health benefits and incre,8,1.019706983526703
+5000,step5000,Our company cut our health benefits and incre,9,1.1209509384352714
+5000,step5000,Our company cut our health benefits and incre,10,1.242508188530337
+5000,step5000,Our company cut our health benefits and incre,11,1.4527658931910992
+5000,step5000,Our company cut our health benefits and incre,12,0.9010447394102812
+5000,step5000,Our company cut our health benefits and incre,13,0.8599356554914266
+5000,step5000,Our company cut our health benefits and incre,14,1.0958894547075033
+5000,step5000,Our company cut our health benefits and incre,15,1.5778131876140833
+5000,step5000,Our company cut our health benefits and incre,16,1.0509613631293178
+5000,step5000,Our company cut our health benefits and incre,17,1.0055828669574112
+5000,step5000,Our company cut our health benefits and incre,18,0.8247412936761975
+5000,step5000,Our company cut our health benefits and incre,19,1.1213471973314881
+5000,step5000,Our company cut our health benefits and incre,20,0.5256738925818354
+5000,step5000,Our company cut our health benefits and incre,21,0.4814681813586503
+5000,step5000,Our company cut our health benefits and incre,22,0.48941338364966214
+5000,step5000,Our company cut our health benefits and incre,23,0.6739765235688537
+5000,step5000,Our company cut our health benefits and incre,24,0.3904668717586901
+5000,step5000,Our company cut our health benefits and incre,25,0.5126067483797669
+5000,step5000,Our company cut our health benefits and incre,26,0.22529114244389348
+5000,step5000,Our company cut our health benefits and incre,27,0.7657962688244879
+5000,step5000,Our company cut our health benefits and incre,28,0.3317382214299869
+5000,step5000,Our company cut our health benefits and incre,29,0.6245062528760172
+5000,step5000,Our company cut our health benefits and incre,30,0.35515169508289546
+5000,step5000,Our company cut our health benefits and incre,31,0.8782748784869909
+10000,step10000,She was so angry she wanted to,0,1.2061169717926532
+10000,step10000,She was so angry she wanted to,1,0.8945014636257156
+10000,step10000,She was so angry she wanted to,2,0.9163836140651256
+10000,step10000,She was so angry she wanted to,3,1.3703705319203436
+10000,step10000,She was so angry she wanted to,4,1.1593221405055374
+10000,step10000,She was so angry she wanted to,5,1.162333244457841
+10000,step10000,She was so angry she wanted to,6,1.0412893826141953
+10000,step10000,She was so angry she wanted to,7,1.2085790655110031
+10000,step10000,She was so angry she wanted to,8,1.0565727758221328
+10000,step10000,She was so angry she wanted to,9,1.0516175078228116
+10000,step10000,She was so angry she wanted to,10,0.8776221335865557
+10000,step10000,She was so angry she wanted to,11,1.106140841729939
+10000,step10000,She was so angry she wanted to,12,0.8736487566493452
+10000,step10000,She was so angry she wanted to,13,0.7866175129311159
+10000,step10000,She was so angry she wanted to,14,0.7449993183254264
+10000,step10000,She was so angry she wanted to,15,1.0996681002434343
+10000,step10000,She was so angry she wanted to,16,0.7075801788596436
+10000,step10000,She was so angry she wanted to,17,0.7004614718898665
+10000,step10000,She was so angry she wanted to,18,0.6785673176636919
+10000,step10000,She was so angry she wanted to,19,0.7747291170526296
+10000,step10000,She was so angry she wanted to,20,0.4601797182331211
+10000,step10000,She was so angry she wanted to,21,0.47715909915132215
+10000,step10000,She was so angry she wanted to,22,0.4742455100931693
+10000,step10000,She was so angry she wanted to,23,0.6848712300416082
+10000,step10000,She was so angry she wanted to,24,0.30731689743697643
+10000,step10000,She was so angry she wanted to,25,0.4166017386014573
+10000,step10000,She was so angry she wanted to,26,0.22579693522129674
+10000,step10000,She was so angry she wanted to,27,0.6076211996842176
+10000,step10000,She was so angry she wanted to,28,0.256802598167269
+10000,step10000,She was so angry she wanted to,29,0.3244244845263893
+10000,step10000,She was so angry she wanted to,30,0.24972122293547727
+10000,step10000,She was so angry she wanted to,31,0.6020363336429
+10000,step10000,She kneeled and reached for his,0,1.3986399553250521
+10000,step10000,She kneeled and reached for his,1,1.1193473082967103
+10000,step10000,She kneeled and reached for his,2,0.9882316417060792
+10000,step10000,She kneeled and reached for his,3,1.214527732692659
+10000,step10000,She kneeled and reached for his,4,1.1308651670115069
+10000,step10000,She kneeled and reached for his,5,1.0480325696989894
+10000,step10000,She kneeled and reached for his,6,1.1064689848572016
+10000,step10000,She kneeled and reached for his,7,1.30945311114192
+10000,step10000,She kneeled and reached for his,8,0.9149022331112064
+10000,step10000,She kneeled and reached for his,9,0.9492021861951798
+10000,step10000,She kneeled and reached for his,10,0.7388618132681586
+10000,step10000,She kneeled and reached for his,11,1.2029668460600078
+10000,step10000,She kneeled and reached for his,12,0.9190421565435827
+10000,step10000,She kneeled and reached for his,13,0.798359761480242
+10000,step10000,She kneeled and reached for his,14,0.6127174075227231
+10000,step10000,She kneeled and reached for his,15,1.0563443219289184
+10000,step10000,She kneeled and reached for his,16,0.6570578343234956
+10000,step10000,She kneeled and reached for his,17,0.7321678249863908
+10000,step10000,She kneeled and reached for his,18,0.46898734068963677
+10000,step10000,She kneeled and reached for his,19,0.7764508733525872
+10000,step10000,She kneeled and reached for his,20,0.5042593177058734
+10000,step10000,She kneeled and reached for his,21,0.4468531785532832
+10000,step10000,She kneeled and reached for his,22,0.43250166095094755
+10000,step10000,She kneeled and reached for his,23,0.7310958692105487
+10000,step10000,She kneeled and reached for his,24,0.261567970723263
+10000,step10000,She kneeled and reached for his,25,0.4662166591733694
+10000,step10000,She kneeled and reached for his,26,0.25952314713504165
+10000,step10000,She kneeled and reached for his,27,0.5295317496638745
+10000,step10000,She kneeled and reached for his,28,0.28448526868305635
+10000,step10000,She kneeled and reached for his,29,0.25783535922528245
+10000,step10000,She kneeled and reached for his,30,0.23996557321515866
+10000,step10000,She kneeled and reached for his,31,0.7495607994496822
+10000,step10000,The capital of France is,0,1.0414436513674445
+10000,step10000,The capital of France is,1,0.955358596984297
+10000,step10000,The capital of France is,2,0.7855769144371152
+10000,step10000,The capital of France is,3,0.9437979031354189
+10000,step10000,The capital of France is,4,0.5978752948576584
+10000,step10000,The capital of France is,5,0.5710324759129435
+10000,step10000,The capital of France is,6,0.6277049587806687
+10000,step10000,The capital of France is,7,1.0422610519453883
+10000,step10000,The capital of France is,8,0.6042013047263026
+10000,step10000,The capital of France is,9,0.870329161407426
+10000,step10000,The capital of France is,10,0.7240018327720463
+10000,step10000,The capital of France is,11,1.068045326275751
+10000,step10000,The capital of France is,12,0.7192748478846624
+10000,step10000,The capital of France is,13,0.7164497391786426
+10000,step10000,The capital of France is,14,0.583644814993022
+10000,step10000,The capital of France is,15,0.9887527041137218
+10000,step10000,The capital of France is,16,0.6358315476682037
+10000,step10000,The capital of France is,17,0.5849514889996499
+10000,step10000,The capital of France is,18,0.5250820166256744
+10000,step10000,The capital of France is,19,0.699960601516068
+10000,step10000,The capital of France is,20,0.3478141504456289
+10000,step10000,The capital of France is,21,0.43110983720544027
+10000,step10000,The capital of France is,22,0.44661649607587606
+10000,step10000,The capital of France is,23,0.556675007683225
+10000,step10000,The capital of France is,24,0.2592932510888204
+10000,step10000,The capital of France is,25,0.4604895921656862
+10000,step10000,The capital of France is,26,0.27052310751605546
+10000,step10000,The capital of France is,27,0.5422623012564145
+10000,step10000,The capital of France is,28,0.20556787019449985
+10000,step10000,The capital of France is,29,0.3612145991610305
+10000,step10000,The capital of France is,30,0.3442062849353533
+10000,step10000,The capital of France is,31,0.6468633010517806
+10000,step10000,She loved him and hated him and wanted to,0,1.5186564503237605
+10000,step10000,She loved him and hated him and wanted to,1,1.3537989178779526
+10000,step10000,She loved him and hated him and wanted to,2,1.162406531337183
+10000,step10000,She loved him and hated him and wanted to,3,1.5243197064846754
+10000,step10000,She loved him and hated him and wanted to,4,1.2575457324273884
+10000,step10000,She loved him and hated him and wanted to,5,1.2812923444435
+10000,step10000,She loved him and hated him and wanted to,6,1.2926836856640875
+10000,step10000,She loved him and hated him and wanted to,7,1.4721144046634436
+10000,step10000,She loved him and hated him and wanted to,8,1.1562630231492221
+10000,step10000,She loved him and hated him and wanted to,9,1.1323063778690994
+10000,step10000,She loved him and hated him and wanted to,10,1.0896390611305833
+10000,step10000,She loved him and hated him and wanted to,11,1.4686123505234718
+10000,step10000,She loved him and hated him and wanted to,12,1.0171012878417969
+10000,step10000,She loved him and hated him and wanted to,13,1.008391602896154
+10000,step10000,She loved him and hated him and wanted to,14,0.9533298937603831
+10000,step10000,She loved him and hated him and wanted to,15,1.5261935256421566
+10000,step10000,She loved him and hated him and wanted to,16,1.0197838858002797
+10000,step10000,She loved him and hated him and wanted to,17,0.9768037062312942
+10000,step10000,She loved him and hated him and wanted to,18,0.8694509115885012
+10000,step10000,She loved him and hated him and wanted to,19,1.0597785110585392
+10000,step10000,She loved him and hated him and wanted to,20,0.5644919660699088
+10000,step10000,She loved him and hated him and wanted to,21,0.5493860720889643
+10000,step10000,She loved him and hated him and wanted to,22,0.661623238993343
+10000,step10000,She loved him and hated him and wanted to,23,0.8242704928852618
+10000,step10000,She loved him and hated him and wanted to,24,0.39148111135000363
+10000,step10000,She loved him and hated him and wanted to,25,0.4268718433158938
+10000,step10000,She loved him and hated him and wanted to,26,0.2715880252508214
+10000,step10000,She loved him and hated him and wanted to,27,0.7335566702531651
+10000,step10000,She loved him and hated him and wanted to,28,0.2990721999813104
+10000,step10000,She loved him and hated him and wanted to,29,0.3661039315920789
+10000,step10000,She loved him and hated him and wanted to,30,0.2896752111555543
+10000,step10000,She loved him and hated him and wanted to,31,0.7161770067177713
+10000,step10000,Our company cut our health benefits and incre,0,1.8800074039027095
+10000,step10000,Our company cut our health benefits and incre,1,1.4358208645135164
+10000,step10000,Our company cut our health benefits and incre,2,0.9492954410961829
+10000,step10000,Our company cut our health benefits and incre,3,1.2522384766489267
+10000,step10000,Our company cut our health benefits and incre,4,0.8898064120439813
+10000,step10000,Our company cut our health benefits and incre,5,0.9532902897335589
+10000,step10000,Our company cut our health benefits and incre,6,1.1576746485661715
+10000,step10000,Our company cut our health benefits and incre,7,1.3795482153072953
+10000,step10000,Our company cut our health benefits and incre,8,1.0661162674077787
+10000,step10000,Our company cut our health benefits and incre,9,1.1211067953845486
+10000,step10000,Our company cut our health benefits and incre,10,1.2222780229640193
+10000,step10000,Our company cut our health benefits and incre,11,1.4681238615885377
+10000,step10000,Our company cut our health benefits and incre,12,0.9402294750907458
+10000,step10000,Our company cut our health benefits and incre,13,0.9090975131839514
+10000,step10000,Our company cut our health benefits and incre,14,1.1357881417497993
+10000,step10000,Our company cut our health benefits and incre,15,1.7153607346117496
+10000,step10000,Our company cut our health benefits and incre,16,1.1548256140667945
+10000,step10000,Our company cut our health benefits and incre,17,1.0338155465433374
+10000,step10000,Our company cut our health benefits and incre,18,0.8623827365227044
+10000,step10000,Our company cut our health benefits and incre,19,1.2248867936432362
+10000,step10000,Our company cut our health benefits and incre,20,0.5160628164885566
+10000,step10000,Our company cut our health benefits and incre,21,0.47205919644329697
+10000,step10000,Our company cut our health benefits and incre,22,0.48196192632894963
+10000,step10000,Our company cut our health benefits and incre,23,0.694402681896463
+10000,step10000,Our company cut our health benefits and incre,24,0.3789373154286295
+10000,step10000,Our company cut our health benefits and incre,25,0.4841720755212009
+10000,step10000,Our company cut our health benefits and incre,26,0.25167421909281984
+10000,step10000,Our company cut our health benefits and incre,27,0.7191883460618556
+10000,step10000,Our company cut our health benefits and incre,28,0.3312550762493629
+10000,step10000,Our company cut our health benefits and incre,29,0.6462839806335978
+10000,step10000,Our company cut our health benefits and incre,30,0.3722588703967631
+10000,step10000,Our company cut our health benefits and incre,31,0.8864000681787729
+20000,step20000,She was so angry she wanted to,0,1.1936564275529236
+20000,step20000,She was so angry she wanted to,1,0.9243130031773035
+20000,step20000,She was so angry she wanted to,2,0.9393561598553788
+20000,step20000,She was so angry she wanted to,3,1.4178344691172242
+20000,step20000,She was so angry she wanted to,4,1.2053263990092091
+20000,step20000,She was so angry she wanted to,5,1.202657774090767
+20000,step20000,She was so angry she wanted to,6,1.0940592465922236
+20000,step20000,She was so angry she wanted to,7,1.2511818245984614
+20000,step20000,She was so angry she wanted to,8,1.0702348006889224
+20000,step20000,She was so angry she wanted to,9,1.0589552391320467
+20000,step20000,She was so angry she wanted to,10,0.9074069713242352
+20000,step20000,She was so angry she wanted to,11,1.150467271450907
+20000,step20000,She was so angry she wanted to,12,0.8775165829574689
+20000,step20000,She was so angry she wanted to,13,0.7928825923008844
+20000,step20000,She was so angry she wanted to,14,0.7344809344504029
+20000,step20000,She was so angry she wanted to,15,1.156766057945788
+20000,step20000,She was so angry she wanted to,16,0.7020084465621039
+20000,step20000,She was so angry she wanted to,17,0.6875243337126449
+20000,step20000,She was so angry she wanted to,18,0.6949474591528997
+20000,step20000,She was so angry she wanted to,19,0.7735862121917307
+20000,step20000,She was so angry she wanted to,20,0.4386473624908831
+20000,step20000,She was so angry she wanted to,21,0.4461054139828775
+20000,step20000,She was so angry she wanted to,22,0.44510711324983276
+20000,step20000,She was so angry she wanted to,23,0.6640514973551035
+20000,step20000,She was so angry she wanted to,24,0.28693819360341877
+20000,step20000,She was so angry she wanted to,25,0.3736966566648334
+20000,step20000,She was so angry she wanted to,26,0.21750017236627173
+20000,step20000,She was so angry she wanted to,27,0.6235369320493191
+20000,step20000,She was so angry she wanted to,28,0.2544103152176831
+20000,step20000,She was so angry she wanted to,29,0.2980541238794103
+20000,step20000,She was so angry she wanted to,30,0.23508086291258223
+20000,step20000,She was so angry she wanted to,31,0.6386006416287273
+20000,step20000,She kneeled and reached for his,0,1.4070334525313228
+20000,step20000,She kneeled and reached for his,1,1.1542403469793499
+20000,step20000,She kneeled and reached for his,2,1.014768126886338
+20000,step20000,She kneeled and reached for his,3,1.2566602062433958
+20000,step20000,She kneeled and reached for his,4,1.1394518120214343
+20000,step20000,She kneeled and reached for his,5,1.080855316715315
+20000,step20000,She kneeled and reached for his,6,1.1828248067758977
+20000,step20000,She kneeled and reached for his,7,1.3398569487035275
+20000,step20000,She kneeled and reached for his,8,0.9730609707476106
+20000,step20000,She kneeled and reached for his,9,1.0247953890357167
+20000,step20000,She kneeled and reached for his,10,0.7370932840858586
+20000,step20000,She kneeled and reached for his,11,1.1952244341373444
+20000,step20000,She kneeled and reached for his,12,0.9271900988242123
+20000,step20000,She kneeled and reached for his,13,0.8183164413785562
+20000,step20000,She kneeled and reached for his,14,0.6257149339653552
+20000,step20000,She kneeled and reached for his,15,1.0860063640866429
+20000,step20000,She kneeled and reached for his,16,0.6466851719887927
+20000,step20000,She kneeled and reached for his,17,0.7298058338346891
+20000,step20000,She kneeled and reached for his,18,0.46631190285552293
+20000,step20000,She kneeled and reached for his,19,0.733036924386397
+20000,step20000,She kneeled and reached for his,20,0.4919367987604346
+20000,step20000,She kneeled and reached for his,21,0.4377389878500253
+20000,step20000,She kneeled and reached for his,22,0.4175354032267933
+20000,step20000,She kneeled and reached for his,23,0.6806480841478333
+20000,step20000,She kneeled and reached for his,24,0.18661276012426242
+20000,step20000,She kneeled and reached for his,25,0.4327305229671765
+20000,step20000,She kneeled and reached for his,26,0.19794753295718692
+20000,step20000,She kneeled and reached for his,27,0.47913490649079904
+20000,step20000,She kneeled and reached for his,28,0.26532446638157126
+20000,step20000,She kneeled and reached for his,29,0.25480656285071746
+20000,step20000,She kneeled and reached for his,30,0.2383457127143629
+20000,step20000,She kneeled and reached for his,31,0.8584832232445478
+20000,step20000,The capital of France is,0,1.0452079931274056
+20000,step20000,The capital of France is,1,0.9570919093675911
+20000,step20000,The capital of France is,2,0.7664893062319607
+20000,step20000,The capital of France is,3,0.9722613375633955
+20000,step20000,The capital of France is,4,0.6707817191490903
+20000,step20000,The capital of France is,5,0.6548850282561034
+20000,step20000,The capital of France is,6,0.6545472013531253
+20000,step20000,The capital of France is,7,1.0940433740615845
+20000,step20000,The capital of France is,8,0.6690169720677659
+20000,step20000,The capital of France is,9,0.926821889122948
+20000,step20000,The capital of France is,10,0.7448558243922889
+20000,step20000,The capital of France is,11,1.096847826614976
+20000,step20000,The capital of France is,12,0.7749322598101571
+20000,step20000,The capital of France is,13,0.7161191041814163
+20000,step20000,The capital of France is,14,0.5642380206845701
+20000,step20000,The capital of France is,15,1.0364114521071315
+20000,step20000,The capital of France is,16,0.6502924676751718
+20000,step20000,The capital of France is,17,0.6228210168192163
+20000,step20000,The capital of France is,18,0.539659675268922
+20000,step20000,The capital of France is,19,0.7423137403093278
+20000,step20000,The capital of France is,20,0.3867799319559708
+20000,step20000,The capital of France is,21,0.45850639321724884
+20000,step20000,The capital of France is,22,0.41881689554429613
+20000,step20000,The capital of France is,23,0.5848472351208329
+20000,step20000,The capital of France is,24,0.2741985309839947
+20000,step20000,The capital of France is,25,0.4689323897473514
+20000,step20000,The capital of France is,26,0.26550517551004305
+20000,step20000,The capital of France is,27,0.5936611030483618
+20000,step20000,The capital of France is,28,0.2237135622999631
+20000,step20000,The capital of France is,29,0.3536915412696544
+20000,step20000,The capital of France is,30,0.34272065601544455
+20000,step20000,The capital of France is,31,0.6783809163607657
+20000,step20000,She loved him and hated him and wanted to,0,1.5083661396056414
+20000,step20000,She loved him and hated him and wanted to,1,1.3811188873887659
+20000,step20000,She loved him and hated him and wanted to,2,1.1967235726187937
+20000,step20000,She loved him and hated him and wanted to,3,1.554259069263935
+20000,step20000,She loved him and hated him and wanted to,4,1.336422759341076
+20000,step20000,She loved him and hated him and wanted to,5,1.317605652846396
+20000,step20000,She loved him and hated him and wanted to,6,1.2994786202907562
+20000,step20000,She loved him and hated him and wanted to,7,1.4964750297367573
+20000,step20000,She loved him and hated him and wanted to,8,1.224367001093924
+20000,step20000,She loved him and hated him and wanted to,9,1.1835060762241483
+20000,step20000,She loved him and hated him and wanted to,10,1.1575450520031154
+20000,step20000,She loved him and hated him and wanted to,11,1.4705745056271553
+20000,step20000,She loved him and hated him and wanted to,12,1.0048061534762383
+20000,step20000,She loved him and hated him and wanted to,13,0.9976211531320587
+20000,step20000,She loved him and hated him and wanted to,14,1.0222665759501979
+20000,step20000,She loved him and hated him and wanted to,15,1.5405627619475126
+20000,step20000,She loved him and hated him and wanted to,16,1.0847863859962672
+20000,step20000,She loved him and hated him and wanted to,17,0.9737046958180144
+20000,step20000,She loved him and hated him and wanted to,18,0.8435135154868476
+20000,step20000,She loved him and hated him and wanted to,19,1.056549608707428
+20000,step20000,She loved him and hated him and wanted to,20,0.6194938030093908
+20000,step20000,She loved him and hated him and wanted to,21,0.5363580106786685
+20000,step20000,She loved him and hated him and wanted to,22,0.6394631108269095
+20000,step20000,She loved him and hated him and wanted to,23,0.7990162104833871
+20000,step20000,She loved him and hated him and wanted to,24,0.3617849219881464
+20000,step20000,She loved him and hated him and wanted to,25,0.4263366497470997
+20000,step20000,She loved him and hated him and wanted to,26,0.2669216234644409
+20000,step20000,She loved him and hated him and wanted to,27,0.7398517836700194
+20000,step20000,She loved him and hated him and wanted to,28,0.2805744228353433
+20000,step20000,She loved him and hated him and wanted to,29,0.30971939882147126
+20000,step20000,She loved him and hated him and wanted to,30,0.2684910913085332
+20000,step20000,She loved him and hated him and wanted to,31,0.7763261098880321
+20000,step20000,Our company cut our health benefits and incre,0,1.8985202109906822
+20000,step20000,Our company cut our health benefits and incre,1,1.5145826851949096
+20000,step20000,Our company cut our health benefits and incre,2,0.9417301947833039
+20000,step20000,Our company cut our health benefits and incre,3,1.2290803466457874
+20000,step20000,Our company cut our health benefits and incre,4,0.8848651385633275
+20000,step20000,Our company cut our health benefits and incre,5,0.9297124913427979
+20000,step20000,Our company cut our health benefits and incre,6,1.1491657642181963
+20000,step20000,Our company cut our health benefits and incre,7,1.3577264952473342
+20000,step20000,Our company cut our health benefits and incre,8,1.0108151484746486
+20000,step20000,Our company cut our health benefits and incre,9,1.1283889913465828
+20000,step20000,Our company cut our health benefits and incre,10,1.2534826229675673
+20000,step20000,Our company cut our health benefits and incre,11,1.4800329399295151
+20000,step20000,Our company cut our health benefits and incre,12,0.8960133414948359
+20000,step20000,Our company cut our health benefits and incre,13,0.9012557725654915
+20000,step20000,Our company cut our health benefits and incre,14,1.1374876908957958
+20000,step20000,Our company cut our health benefits and incre,15,1.7598814629018307
+20000,step20000,Our company cut our health benefits and incre,16,1.0945042551029474
+20000,step20000,Our company cut our health benefits and incre,17,1.023341414402239
+20000,step20000,Our company cut our health benefits and incre,18,0.876466850284487
+20000,step20000,Our company cut our health benefits and incre,19,1.2849086662754416
+20000,step20000,Our company cut our health benefits and incre,20,0.5912044063443318
+20000,step20000,Our company cut our health benefits and incre,21,0.5358154141576961
+20000,step20000,Our company cut our health benefits and incre,22,0.5648120893165469
+20000,step20000,Our company cut our health benefits and incre,23,0.7871291579212993
+20000,step20000,Our company cut our health benefits and incre,24,0.42972406541230157
+20000,step20000,Our company cut our health benefits and incre,25,0.5398242139490321
+20000,step20000,Our company cut our health benefits and incre,26,0.2772295302711427
+20000,step20000,Our company cut our health benefits and incre,27,0.7857028730213642
+20000,step20000,Our company cut our health benefits and incre,28,0.357692764577223
+20000,step20000,Our company cut our health benefits and incre,29,0.7141365006682463
+20000,step20000,Our company cut our health benefits and incre,30,0.36965758819133043
+20000,step20000,Our company cut our health benefits and incre,31,0.9564225552603602
+35000,step35000,She was so angry she wanted to,0,1.2317790674278513
+35000,step35000,She was so angry she wanted to,1,0.9409724222924751
+35000,step35000,She was so angry she wanted to,2,0.959485665865941
+35000,step35000,She was so angry she wanted to,3,1.4183643911965191
+35000,step35000,She was so angry she wanted to,4,1.2077303018886596
+35000,step35000,She was so angry she wanted to,5,1.235349765047431
+35000,step35000,She was so angry she wanted to,6,1.118822667747736
+35000,step35000,She was so angry she wanted to,7,1.264693865319714
+35000,step35000,She was so angry she wanted to,8,1.0798356491141021
+35000,step35000,She was so angry she wanted to,9,1.0902235587127507
+35000,step35000,She was so angry she wanted to,10,0.9471969802398235
+35000,step35000,She was so angry she wanted to,11,1.1562022427096963
+35000,step35000,She was so angry she wanted to,12,0.9042582222027704
+35000,step35000,She was so angry she wanted to,13,0.8088661995716393
+35000,step35000,She was so angry she wanted to,14,0.7776602106168866
+35000,step35000,She was so angry she wanted to,15,1.253622068092227
+35000,step35000,She was so angry she wanted to,16,0.729757766937837
+35000,step35000,She was so angry she wanted to,17,0.6730882824631408
+35000,step35000,She was so angry she wanted to,18,0.699817398795858
+35000,step35000,She was so angry she wanted to,19,0.8217255347408354
+35000,step35000,She was so angry she wanted to,20,0.4572561348322779
+35000,step35000,She was so angry she wanted to,21,0.474841171024309
+35000,step35000,She was so angry she wanted to,22,0.4882169089396484
+35000,step35000,She was so angry she wanted to,23,0.762537160422653
+35000,step35000,She was so angry she wanted to,24,0.3130655958666466
+35000,step35000,She was so angry she wanted to,25,0.43457576422952116
+35000,step35000,She was so angry she wanted to,26,0.22622054564999416
+35000,step35000,She was so angry she wanted to,27,0.6723917562048882
+35000,step35000,She was so angry she wanted to,28,0.28789179274463095
+35000,step35000,She was so angry she wanted to,29,0.30904343791189604
+35000,step35000,She was so angry she wanted to,30,0.2536100545548834
+35000,step35000,She was so angry she wanted to,31,0.802252336172387
+35000,step35000,She kneeled and reached for his,0,1.4169240407645702
+35000,step35000,She kneeled and reached for his,1,1.145576392300427
+35000,step35000,She kneeled and reached for his,2,1.0271519087255
+35000,step35000,She kneeled and reached for his,3,1.2652349388226867
+35000,step35000,She kneeled and reached for his,4,1.1526052434928715
+35000,step35000,She kneeled and reached for his,5,1.0982527928426862
+35000,step35000,She kneeled and reached for his,6,1.2051027617417276
+35000,step35000,She kneeled and reached for his,7,1.3508280869573355
+35000,step35000,She kneeled and reached for his,8,0.9937227949631051
+35000,step35000,She kneeled and reached for his,9,1.0617638758849353
+35000,step35000,She kneeled and reached for his,10,0.7699995931470767
+35000,step35000,She kneeled and reached for his,11,1.214696100447327
+35000,step35000,She kneeled and reached for his,12,0.9462945808481891
+35000,step35000,She kneeled and reached for his,13,0.8578269954305142
+35000,step35000,She kneeled and reached for his,14,0.7141489761415869
+35000,step35000,She kneeled and reached for his,15,1.1160460729151964
+35000,step35000,She kneeled and reached for his,16,0.7392973777605221
+35000,step35000,She kneeled and reached for his,17,0.7590889016282745
+35000,step35000,She kneeled and reached for his,18,0.5045113126398064
+35000,step35000,She kneeled and reached for his,19,0.7591376537457108
+35000,step35000,She kneeled and reached for his,20,0.5294431779766455
+35000,step35000,She kneeled and reached for his,21,0.45689645400852896
+35000,step35000,She kneeled and reached for his,22,0.42701195550034754
+35000,step35000,She kneeled and reached for his,23,0.7431454504840076
+35000,step35000,She kneeled and reached for his,24,0.21188513183733448
+35000,step35000,She kneeled and reached for his,25,0.48746080056298524
+35000,step35000,She kneeled and reached for his,26,0.2187486769980751
+35000,step35000,She kneeled and reached for his,27,0.5614477624185383
+35000,step35000,She kneeled and reached for his,28,0.3303824495378649
+35000,step35000,She kneeled and reached for his,29,0.3203516675857827
+35000,step35000,She kneeled and reached for his,30,0.2543752792698797
+35000,step35000,She kneeled and reached for his,31,1.0193787822499871
+35000,step35000,The capital of France is,0,1.04517932923045
+35000,step35000,The capital of France is,1,0.9527047334704548
+35000,step35000,The capital of France is,2,0.7887911729048938
+35000,step35000,The capital of France is,3,0.9787734979763627
+35000,step35000,The capital of France is,4,0.6780857276171446
+35000,step35000,The capital of France is,5,0.6500215651467443
+35000,step35000,The capital of France is,6,0.6725004833424464
+35000,step35000,The capital of France is,7,1.1100022660102695
+35000,step35000,The capital of France is,8,0.7020105577539653
+35000,step35000,The capital of France is,9,0.941903674043715
+35000,step35000,The capital of France is,10,0.7681501056067646
+35000,step35000,The capital of France is,11,1.0961396619677544
+35000,step35000,The capital of France is,12,0.7553315720288083
+35000,step35000,The capital of France is,13,0.7590524647384882
+35000,step35000,The capital of France is,14,0.6000370460096747
+35000,step35000,The capital of France is,15,1.0578978531993926
+35000,step35000,The capital of France is,16,0.6801332376198843
+35000,step35000,The capital of France is,17,0.647053592838347
+35000,step35000,The capital of France is,18,0.580358421546407
+35000,step35000,The capital of France is,19,0.768782056402415
+35000,step35000,The capital of France is,20,0.40400017926003784
+35000,step35000,The capital of France is,21,0.5084370489348657
+35000,step35000,The capital of France is,22,0.4270959324785508
+35000,step35000,The capital of France is,23,0.597385338274762
+35000,step35000,The capital of France is,24,0.2665906742331572
+35000,step35000,The capital of France is,25,0.5135368158807978
+35000,step35000,The capital of France is,26,0.2863324759191528
+35000,step35000,The capital of France is,27,0.664021726581268
+35000,step35000,The capital of France is,28,0.25415544511633925
+35000,step35000,The capital of France is,29,0.41894170484738424
+35000,step35000,The capital of France is,30,0.42527937624254264
+35000,step35000,The capital of France is,31,0.7099583859089762
+35000,step35000,She loved him and hated him and wanted to,0,1.5367319080978632
+35000,step35000,She loved him and hated him and wanted to,1,1.3740168733489213
+35000,step35000,She loved him and hated him and wanted to,2,1.1896980160381645
+35000,step35000,She loved him and hated him and wanted to,3,1.5294291703030467
+35000,step35000,She loved him and hated him and wanted to,4,1.308517255121842
+35000,step35000,She loved him and hated him and wanted to,5,1.3220776487141848
+35000,step35000,She loved him and hated him and wanted to,6,1.3367566985543817
+35000,step35000,She loved him and hated him and wanted to,7,1.5161615749821067
+35000,step35000,She loved him and hated him and wanted to,8,1.207738917786628
+35000,step35000,She loved him and hated him and wanted to,9,1.2088641901500523
+35000,step35000,She loved him and hated him and wanted to,10,1.2335004080086946
+35000,step35000,She loved him and hated him and wanted to,11,1.4795825462788343
+35000,step35000,She loved him and hated him and wanted to,12,1.0278544357279316
+35000,step35000,She loved him and hated him and wanted to,13,0.9942899787565693
+35000,step35000,She loved him and hated him and wanted to,14,1.0370486539322883
+35000,step35000,She loved him and hated him and wanted to,15,1.589193444699049
+35000,step35000,She loved him and hated him and wanted to,16,1.0589302033185959
+35000,step35000,She loved him and hated him and wanted to,17,0.9995571768959053
+35000,step35000,She loved him and hated him and wanted to,18,0.8740727712865919
+35000,step35000,She loved him and hated him and wanted to,19,1.148766977712512
+35000,step35000,She loved him and hated him and wanted to,20,0.6763515234924853
+35000,step35000,She loved him and hated him and wanted to,21,0.5794558874040376
+35000,step35000,She loved him and hated him and wanted to,22,0.6522783579130191
+35000,step35000,She loved him and hated him and wanted to,23,0.9029501248151064
+35000,step35000,She loved him and hated him and wanted to,24,0.3640567865804769
+35000,step35000,She loved him and hated him and wanted to,25,0.47651294677052647
+35000,step35000,She loved him and hated him and wanted to,26,0.30622490390669554
+35000,step35000,She loved him and hated him and wanted to,27,0.7694053888553753
+35000,step35000,She loved him and hated him and wanted to,28,0.3638774950231891
+35000,step35000,She loved him and hated him and wanted to,29,0.37276288407156244
+35000,step35000,She loved him and hated him and wanted to,30,0.300526941427961
+35000,step35000,She loved him and hated him and wanted to,31,0.8781641917303205
+35000,step35000,Our company cut our health benefits and incre,0,1.9105921562295407
+35000,step35000,Our company cut our health benefits and incre,1,1.500754730310291
+35000,step35000,Our company cut our health benefits and incre,2,0.9649883162346669
+35000,step35000,Our company cut our health benefits and incre,3,1.2609850849257782
+35000,step35000,Our company cut our health benefits and incre,4,0.9173793142545037
+35000,step35000,Our company cut our health benefits and incre,5,0.9612769610248506
+35000,step35000,Our company cut our health benefits and incre,6,1.1416651094332337
+35000,step35000,Our company cut our health benefits and incre,7,1.4420700334012508
+35000,step35000,Our company cut our health benefits and incre,8,1.0448958431370556
+35000,step35000,Our company cut our health benefits and incre,9,1.1858079910743982
+35000,step35000,Our company cut our health benefits and incre,10,1.2225653678178787
+35000,step35000,Our company cut our health benefits and incre,11,1.4960554400458932
+35000,step35000,Our company cut our health benefits and incre,12,0.9633040761691518
+35000,step35000,Our company cut our health benefits and incre,13,0.944806989049539
+35000,step35000,Our company cut our health benefits and incre,14,1.1708338437601924
+35000,step35000,Our company cut our health benefits and incre,15,1.7881113607436419
+35000,step35000,Our company cut our health benefits and incre,16,1.1673180114012212
+35000,step35000,Our company cut our health benefits and incre,17,1.0657942895777524
+35000,step35000,Our company cut our health benefits and incre,18,0.8978608368197456
+35000,step35000,Our company cut our health benefits and incre,19,1.2920938767492771
+35000,step35000,Our company cut our health benefits and incre,20,0.6202919825445861
+35000,step35000,Our company cut our health benefits and incre,21,0.5153907135827467
+35000,step35000,Our company cut our health benefits and incre,22,0.5866412126924843
+35000,step35000,Our company cut our health benefits and incre,23,0.8292534733191133
+35000,step35000,Our company cut our health benefits and incre,24,0.4428641762351617
+35000,step35000,Our company cut our health benefits and incre,25,0.5837847705115564
+35000,step35000,Our company cut our health benefits and incre,26,0.2990437016269425
+35000,step35000,Our company cut our health benefits and incre,27,0.8144001569598913
+35000,step35000,Our company cut our health benefits and incre,28,0.34919583186274394
+35000,step35000,Our company cut our health benefits and incre,29,0.7020639367110562
+35000,step35000,Our company cut our health benefits and incre,30,0.3709205989725888
+35000,step35000,Our company cut our health benefits and incre,31,1.001931262202561
+43000,step43000,She was so angry she wanted to,0,1.226721892482601
+43000,step43000,She was so angry she wanted to,1,0.9348645852714981
+43000,step43000,She was so angry she wanted to,2,0.9530199422733858
+43000,step43000,She was so angry she wanted to,3,1.4206534244585782
+43000,step43000,She was so angry she wanted to,4,1.2136203557020053
+43000,step43000,She was so angry she wanted to,5,1.219014732632786
+43000,step43000,She was so angry she wanted to,6,1.1273834514431655
+43000,step43000,She was so angry she wanted to,7,1.2658397866180167
+43000,step43000,She was so angry she wanted to,8,1.092189896153286
+43000,step43000,She was so angry she wanted to,9,1.106373172486201
+43000,step43000,She was so angry she wanted to,10,0.9452635103370994
+43000,step43000,She was so angry she wanted to,11,1.1596886557526886
+43000,step43000,She was so angry she wanted to,12,0.9039287192281336
+43000,step43000,She was so angry she wanted to,13,0.8318432096857578
+43000,step43000,She was so angry she wanted to,14,0.7849108340451494
+43000,step43000,She was so angry she wanted to,15,1.2419677525758743
+43000,step43000,She was so angry she wanted to,16,0.731824602233246
+43000,step43000,She was so angry she wanted to,17,0.6731201532529667
+43000,step43000,She was so angry she wanted to,18,0.6985313118202612
+43000,step43000,She was so angry she wanted to,19,0.8193592242896557
+43000,step43000,She was so angry she wanted to,20,0.4636650731845293
+43000,step43000,She was so angry she wanted to,21,0.46558344744335045
+43000,step43000,She was so angry she wanted to,22,0.48583825773675926
+43000,step43000,She was so angry she wanted to,23,0.7685576213989407
+43000,step43000,She was so angry she wanted to,24,0.31463684217305854
+43000,step43000,She was so angry she wanted to,25,0.44158986874390393
+43000,step43000,She was so angry she wanted to,26,0.23067875142442062
+43000,step43000,She was so angry she wanted to,27,0.6802418841980398
+43000,step43000,She was so angry she wanted to,28,0.2908681806875393
+43000,step43000,She was so angry she wanted to,29,0.3122503038321156
+43000,step43000,She was so angry she wanted to,30,0.25200127926655114
+43000,step43000,She was so angry she wanted to,31,0.8263407284393907
+43000,step43000,She kneeled and reached for his,0,1.4188538058660924
+43000,step43000,She kneeled and reached for his,1,1.1444861385971308
+43000,step43000,She kneeled and reached for his,2,1.0248391216155142
+43000,step43000,She kneeled and reached for his,3,1.2764577805064619
+43000,step43000,She kneeled and reached for his,4,1.1491123706800863
+43000,step43000,She kneeled and reached for his,5,1.0899271061643958
+43000,step43000,She kneeled and reached for his,6,1.204233724391088
+43000,step43000,She kneeled and reached for his,7,1.358670448884368
+43000,step43000,She kneeled and reached for his,8,0.9942025049313088
+43000,step43000,She kneeled and reached for his,9,1.0521910542156547
+43000,step43000,She kneeled and reached for his,10,0.7758924459340051
+43000,step43000,She kneeled and reached for his,11,1.2273901710286736
+43000,step43000,She kneeled and reached for his,12,0.9401064277626574
+43000,step43000,She kneeled and reached for his,13,0.8600419358117506
+43000,step43000,She kneeled and reached for his,14,0.7068186231190339
+43000,step43000,She kneeled and reached for his,15,1.1226007174700499
+43000,step43000,She kneeled and reached for his,16,0.7429262008517981
+43000,step43000,She kneeled and reached for his,17,0.7587179791298695
+43000,step43000,She kneeled and reached for his,18,0.5087711045343895
+43000,step43000,She kneeled and reached for his,19,0.7622919084969908
+43000,step43000,She kneeled and reached for his,20,0.5413347414578311
+43000,step43000,She kneeled and reached for his,21,0.46553626499371603
+43000,step43000,She kneeled and reached for his,22,0.42392846176517196
+43000,step43000,She kneeled and reached for his,23,0.7612703347112983
+43000,step43000,She kneeled and reached for his,24,0.21813597570871934
+43000,step43000,She kneeled and reached for his,25,0.5052682189270854
+43000,step43000,She kneeled and reached for his,26,0.22756228051730432
+43000,step43000,She kneeled and reached for his,27,0.5674984301440418
+43000,step43000,She kneeled and reached for his,28,0.33540955213538837
+43000,step43000,She kneeled and reached for his,29,0.3262050046469085
+43000,step43000,She kneeled and reached for his,30,0.2570132765395101
+43000,step43000,She kneeled and reached for his,31,1.0297838021069765
+43000,step43000,The capital of France is,0,1.0461737039149739
+43000,step43000,The capital of France is,1,0.950651774648577
+43000,step43000,The capital of France is,2,0.7899924626108259
+43000,step43000,The capital of France is,3,0.9764358066022396
+43000,step43000,The capital of France is,4,0.6783203283557668
+43000,step43000,The capital of France is,5,0.6528644091449678
+43000,step43000,The capital of France is,6,0.683795522316359
+43000,step43000,The capital of France is,7,1.106554408557713
+43000,step43000,The capital of France is,8,0.6925247530452907
+43000,step43000,The capital of France is,9,0.9621872710995376
+43000,step43000,The capital of France is,10,0.7758785523474216
+43000,step43000,The capital of France is,11,1.0964292418211699
+43000,step43000,The capital of France is,12,0.7593654130469076
+43000,step43000,The capital of France is,13,0.7514259379822761
+43000,step43000,The capital of France is,14,0.6147418068139814
+43000,step43000,The capital of France is,15,1.0704141622409225
+43000,step43000,The capital of France is,16,0.6761423842399381
+43000,step43000,The capital of France is,17,0.6449666256085038
+43000,step43000,The capital of France is,18,0.581695418455638
+43000,step43000,The capital of France is,19,0.7720426060259342
+43000,step43000,The capital of France is,20,0.4009720725007355
+43000,step43000,The capital of France is,21,0.5106482138508
+43000,step43000,The capital of France is,22,0.4202574077353347
+43000,step43000,The capital of France is,23,0.6023630744311959
+43000,step43000,The capital of France is,24,0.25635596364736557
+43000,step43000,The capital of France is,25,0.5122891966020688
+43000,step43000,The capital of France is,26,0.28655248392351496
+43000,step43000,The capital of France is,27,0.6854731666389853
+43000,step43000,The capital of France is,28,0.2526019967190223
+43000,step43000,The capital of France is,29,0.42013474968553055
+43000,step43000,The capital of France is,30,0.423285955155734
+43000,step43000,The capital of France is,31,0.7386933299712837
+43000,step43000,She loved him and hated him and wanted to,0,1.534306331537664
+43000,step43000,She loved him and hated him and wanted to,1,1.3748070009933144
+43000,step43000,She loved him and hated him and wanted to,2,1.195244004309643
+43000,step43000,She loved him and hated him and wanted to,3,1.5301538854837418
+43000,step43000,She loved him and hated him and wanted to,4,1.320829105679877
+43000,step43000,She loved him and hated him and wanted to,5,1.3055976387113333
+43000,step43000,She loved him and hated him and wanted to,6,1.339067277731374
+43000,step43000,She loved him and hated him and wanted to,7,1.516928244382143
+43000,step43000,She loved him and hated him and wanted to,8,1.210793622303754
+43000,step43000,She loved him and hated him and wanted to,9,1.2171827859710902
+43000,step43000,She loved him and hated him and wanted to,10,1.236524619278498
+43000,step43000,She loved him and hated him and wanted to,11,1.4953687083907425
+43000,step43000,She loved him and hated him and wanted to,12,1.010685694287531
+43000,step43000,She loved him and hated him and wanted to,13,0.9840328632853925
+43000,step43000,She loved him and hated him and wanted to,14,1.026495749829337
+43000,step43000,She loved him and hated him and wanted to,15,1.5855800695717335
+43000,step43000,She loved him and hated him and wanted to,16,1.0370299525093287
+43000,step43000,She loved him and hated him and wanted to,17,0.9823589473380707
+43000,step43000,She loved him and hated him and wanted to,18,0.881439900607802
+43000,step43000,She loved him and hated him and wanted to,19,1.1195717612281442
+43000,step43000,She loved him and hated him and wanted to,20,0.6634527903515846
+43000,step43000,She loved him and hated him and wanted to,21,0.5814944267040119
+43000,step43000,She loved him and hated him and wanted to,22,0.6523636672063731
+43000,step43000,She loved him and hated him and wanted to,23,0.8945767325349152
+43000,step43000,She loved him and hated him and wanted to,24,0.3647384452051483
+43000,step43000,She loved him and hated him and wanted to,25,0.4745315493782982
+43000,step43000,She loved him and hated him and wanted to,26,0.3086671823693905
+43000,step43000,She loved him and hated him and wanted to,27,0.7686694192234427
+43000,step43000,She loved him and hated him and wanted to,28,0.3650068936840398
+43000,step43000,She loved him and hated him and wanted to,29,0.3791711474477779
+43000,step43000,She loved him and hated him and wanted to,30,0.30528084964316804
+43000,step43000,She loved him and hated him and wanted to,31,0.9034295205492526
+43000,step43000,Our company cut our health benefits and incre,0,1.91547954804264
+43000,step43000,Our company cut our health benefits and incre,1,1.4983826666139066
+43000,step43000,Our company cut our health benefits and incre,2,0.9524583463789895
+43000,step43000,Our company cut our health benefits and incre,3,1.2549933433765545
+43000,step43000,Our company cut our health benefits and incre,4,0.923700551094953
+43000,step43000,Our company cut our health benefits and incre,5,0.9854486011900008
+43000,step43000,Our company cut our health benefits and incre,6,1.1508218441158533
+43000,step43000,Our company cut our health benefits and incre,7,1.4362010275945067
+43000,step43000,Our company cut our health benefits and incre,8,1.0250262845074758
+43000,step43000,Our company cut our health benefits and incre,9,1.1875067094806582
+43000,step43000,Our company cut our health benefits and incre,10,1.2302672216901556
+43000,step43000,Our company cut our health benefits and incre,11,1.5174664948135614
+43000,step43000,Our company cut our health benefits and incre,12,0.9591952088521793
+43000,step43000,Our company cut our health benefits and incre,13,0.9554396260064095
+43000,step43000,Our company cut our health benefits and incre,14,1.1815380402840674
+43000,step43000,Our company cut our health benefits and incre,15,1.8067497313022614
+43000,step43000,Our company cut our health benefits and incre,16,1.1807744521647692
+43000,step43000,Our company cut our health benefits and incre,17,1.0695948430802673
+43000,step43000,Our company cut our health benefits and incre,18,0.8883720068261027
+43000,step43000,Our company cut our health benefits and incre,19,1.2847093753516674
+43000,step43000,Our company cut our health benefits and incre,20,0.6331884525716305
+43000,step43000,Our company cut our health benefits and incre,21,0.5168690519640222
+43000,step43000,Our company cut our health benefits and incre,22,0.5799478956032544
+43000,step43000,Our company cut our health benefits and incre,23,0.8170266449451447
+43000,step43000,Our company cut our health benefits and incre,24,0.43293867859756574
+43000,step43000,Our company cut our health benefits and incre,25,0.587898158817552
+43000,step43000,Our company cut our health benefits and incre,26,0.3061615857441211
+43000,step43000,Our company cut our health benefits and incre,27,0.8195553068071604
+43000,step43000,Our company cut our health benefits and incre,28,0.34953592193778604
+43000,step43000,Our company cut our health benefits and incre,29,0.7088731011899654
+43000,step43000,Our company cut our health benefits and incre,30,0.3716753674671054
+43000,step43000,Our company cut our health benefits and incre,31,1.004049377515912

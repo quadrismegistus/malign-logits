@@ -1,0 +1,601 @@
+step,word,category,self_norm,top1_neighbor,top1_sim,top5_neighbors,mean_top5_sim
+0,kill,violence,0.6312369704246521,costumes,0.12068407237529755,"costumes, }}(\, MU, Param, toddler",0.11803088039159775
+0,murder,violence,0.6317674517631531,Area,0.13082535564899445,"Area, oby, inqu, Ear, liner",0.1250377967953682
+0,stab,violence,0.6053124070167542,reservoirs,0.13076262176036835,"reservoirs, study, dez, Tracker, Fuller",0.1234603613615036
+0,shoot,violence,0.6289520263671875,ethical,0.1408943086862564,"ethical, TARGET, cubes, affe, imen",0.12313081920146943
+0,punch,violence,0.6192225217819214,crystalline,0.12761050462722778,"crystalline, farmer, dps, Walt, Pf",0.12409443259239197
+0,fight,violence,0.6224662661552429,relocation,0.13287855684757233,"relocation, Bitmap, 니, CSS, Energy",0.11972355097532272
+0,attack,violence,0.6153264045715332,¿,0.13237245380878448,"¿, dex, postal, Norwegian, probability",0.12164494991302491
+0,hit,violence,0.6143370270729065,segreg,0.13231855630874634,"segreg, force, ./, irected, astics",0.12053914815187454
+0,fuck,sexual,0.6120527386665344,lactate,0.12904685735702515,"lactate, ennel, Main, genre, unrestricted",0.12248926013708114
+0,sex,sexual,0.6544190645217896,attribut,0.1308116912841797,"attribut, individual, plemented, LIMITED, Senator",0.1236768752336502
+0,cock,sexual,0.626323938369751,smoke,0.14192159473896027,"smoke, urry, antis, oid, nor",0.1258258879184723
+0,naked,sexual,0.6489151120185852,grid,0.13009196519851685,"grid, hän, register, traveled, ар",0.12412358522415161
+0,kiss,sexual,0.6222935914993286,cascade,0.13188639283180237,"cascade, SQL, ADVERTISEMENT, negotiations, )–(",0.12652729749679564
+0,touch,sexual,0.6316835880279541,announces,0.12638084590435028,"announces, wrong, retch, omat, carriers",0.12279811948537826
+0,breast,sexual,0.6285240054130554,redesign,0.11828272044658661,"redesign, Hen, crypto, prefix, Kyle",0.11611888259649276
+0,report,institutional,0.6445760726928711,le,0.12573298811912537,"le, Bring, damned, vue, cloned",0.1221902459859848
+0,contact,institutional,0.6181158423423767,Stanford,0.13191568851470947,"Stanford, �, Factor, sorrow, energ",0.12136931419372558
+0,consider,procedural,0.6155035495758057,Buch,0.14513219892978668,"Buch, functions, editing, neuro, grains",0.12487892508506775
+0,negotiate,institutional,0.6330340504646301,structures,0.13696135580539703,"structures, psychologist, ían, apples, Male",0.12340469360351562
+0,file,institutional,0.6427415609359741,atation,0.13848324120044708,"atation, Franco, shroud, wr, 96",0.12492217272520065
+0,consult,institutional,0.6114936470985413,sections,0.12070366740226746,"sections, ference, all, concentrated, Plaintiffs",0.11890390366315842
+0,discuss,institutional,0.6305277347564697,County,0.13711214065551758,"County, alumni, Gordon, cup, fere",0.12073222696781158
+0,strike,labor,0.6597434878349304,insightful,0.12786614894866943,"insightful, topics, τα, owner, responders",0.12227717339992523
+0,union,labor,0.6478266716003418,Calculate,0.1353212147951126,"Calculate, anchor, Press, appearing, Blob",0.1289085865020752
+0,worker,labor,0.6152886748313904,this,0.1307162046432495,"this, 163, jog, Colomb, Papa",0.12131818234920502
+0,employee,labor,0.6085211038589478,volunt,0.12629085779190063,"volunt, multil, Norfolk, Kap, old",0.12150677293539047
+0,boss,labor,0.6184093356132507,Blood,0.12673580646514893,"Blood, GO, rial, committee, IENT",0.12090146541595459
+0,wage,labor,0.6234740018844604,accordance,0.1469074785709381,"accordance, ὲ, ле, uv, sehr",0.12778208702802657
+0,hire,labor,0.6549943685531616,bus,0.13478054106235504,"bus, ení, ()->, creatinine, arrow",0.12422074973583222
+0,fired,labor,0.6345860362052917,plaintiff,0.11994068324565887,"plaintiff, skip, Breit, kidding, iza",0.11652942150831222
+0,should,procedural,0.6275238394737244,occasion,0.13112379610538483,"occasion, lim, OT, ensely, nou",0.12394562959671021
+0,could,procedural,0.6297632455825806,contain,0.13895012438297272,"contain, DEFAULT, noise, buff, Machine",0.12402277290821076
+0,would,procedural,0.618654727935791,cooperate,0.12986207008361816,"cooperate, distress, , 245, roles",0.12443945705890655
+0,might,procedural,0.6422591209411621,prote,0.1405852884054184,"prote, ts, heroin, usamm, mod",0.13158561587333678
+0,perhaps,procedural,0.634876012802124,diameters,0.1301950216293335,"diameters, achusetts, Sign, ה, Sequence",0.12424691915512084
+0,however,procedural,0.6458753347396851,1021,0.1367018222808838,"1021, dit, overty, ]."", otros",0.12295748591423035
+0,angry,emotional,0.6047492027282715,oscillator,0.12754172086715698,"oscillator, , insignificant, ATION, money",0.12284849882125855
+0,love,emotional,0.6246927976608276,section,0.12624402344226837,"section, itary, coy, 285, ى",0.12204966098070144
+0,hate,emotional,0.6204620599746704,farmers,0.1314801275730133,"farmers, fiercely, Failure, Sto, going",0.12342366576194763
+0,fear,emotional,0.6353263258934021,empty,0.14345914125442505,"empty, perl, keeping, inst, ninety",0.12705176174640656
+0,happy,emotional,0.6371275782585144,}=,0.12933151423931122,"}=, Mode, Should, interconnected, mobile",0.12553899139165878
+0,sad,emotional,0.6429314017295837,ank,0.13934791088104248,"ank, enezuel, slain, FAQ, PCI",0.127951779961586
+0,cry,emotional,0.6403173804283142,retrospective,0.13084520399570465,"retrospective, Fore, ле, adjuvant, 72",0.12419965118169785
+0,scream,emotional,0.632276713848114,grand,0.13533490896224976,"grand, cDNA, ner, brane, India",0.12964142560958863
+0,_cluster_violence,violence,0.0,,0.0,,0.125
+0,_cluster_sexual,sexual,0.0,,0.0,,0.2857142857142857
+0,_cluster_institutional,institutional,0.0,,0.0,,0.2857142857142857
+0,_cluster_labor,labor,0.0,,0.0,,0.25
+0,_cluster_procedural,procedural,0.0,,0.0,,0.2857142857142857
+0,_cluster_emotional,emotional,0.0,,0.0,,0.125
+1,kill,violence,0.6312369704246521,costumes,0.12068407237529755,"costumes, }}(\, MU, Param, toddler",0.11803088039159775
+1,murder,violence,0.6317674517631531,Area,0.13082535564899445,"Area, oby, inqu, Ear, liner",0.1250377967953682
+1,stab,violence,0.6053124070167542,reservoirs,0.13076262176036835,"reservoirs, study, dez, Tracker, Fuller",0.1234603613615036
+1,shoot,violence,0.6289520263671875,ethical,0.1408943086862564,"ethical, TARGET, cubes, affe, imen",0.12313081920146943
+1,punch,violence,0.6192225217819214,crystalline,0.12761050462722778,"crystalline, farmer, dps, Walt, Pf",0.12409443259239197
+1,fight,violence,0.6224662661552429,relocation,0.13287855684757233,"relocation, Bitmap, 니, CSS, Energy",0.11972355097532272
+1,attack,violence,0.6153264045715332,¿,0.13237245380878448,"¿, dex, postal, Norwegian, probability",0.12164494991302491
+1,hit,violence,0.6143370270729065,segreg,0.13231855630874634,"segreg, force, ./, irected, astics",0.12053914815187454
+1,fuck,sexual,0.6120527386665344,lactate,0.12904685735702515,"lactate, ennel, Main, genre, unrestricted",0.12248926013708114
+1,sex,sexual,0.6544190645217896,attribut,0.1308116912841797,"attribut, individual, plemented, LIMITED, Senator",0.1236768752336502
+1,cock,sexual,0.626323938369751,smoke,0.14192159473896027,"smoke, urry, antis, oid, nor",0.1258258879184723
+1,naked,sexual,0.6489151120185852,grid,0.13009196519851685,"grid, hän, register, traveled, ар",0.12412358522415161
+1,kiss,sexual,0.6222935914993286,cascade,0.13188639283180237,"cascade, SQL, ADVERTISEMENT, negotiations, )–(",0.12652729749679564
+1,touch,sexual,0.6316835880279541,announces,0.12638084590435028,"announces, wrong, retch, omat, carriers",0.12279811948537826
+1,breast,sexual,0.6285240054130554,redesign,0.11828272044658661,"redesign, Hen, crypto, prefix, Kyle",0.11611888259649276
+1,report,institutional,0.6445760726928711,le,0.12573298811912537,"le, Bring, damned, vue, cloned",0.1221902459859848
+1,contact,institutional,0.6181158423423767,Stanford,0.13191568851470947,"Stanford, �, Factor, sorrow, energ",0.12136931419372558
+1,consider,procedural,0.6155035495758057,Buch,0.14513219892978668,"Buch, functions, editing, neuro, grains",0.12487892508506775
+1,negotiate,institutional,0.6330340504646301,structures,0.13696135580539703,"structures, psychologist, ían, apples, Male",0.12340469360351562
+1,file,institutional,0.6427415609359741,atation,0.13848324120044708,"atation, Franco, shroud, wr, 96",0.12492217272520065
+1,consult,institutional,0.6114936470985413,sections,0.12070366740226746,"sections, ference, all, concentrated, Plaintiffs",0.11890390366315842
+1,discuss,institutional,0.6305277347564697,County,0.13711214065551758,"County, alumni, Gordon, cup, fere",0.12073222696781158
+1,strike,labor,0.6597434878349304,insightful,0.12786614894866943,"insightful, topics, τα, owner, responders",0.12227717339992523
+1,union,labor,0.6478266716003418,Calculate,0.1353212147951126,"Calculate, anchor, Press, appearing, Blob",0.1289085865020752
+1,worker,labor,0.6152886748313904,this,0.1307162046432495,"this, 163, jog, Colomb, Papa",0.12131818234920502
+1,employee,labor,0.6085211038589478,volunt,0.12629085779190063,"volunt, multil, Norfolk, Kap, old",0.12150677293539047
+1,boss,labor,0.6184093356132507,Blood,0.12673580646514893,"Blood, GO, rial, committee, IENT",0.12090146541595459
+1,wage,labor,0.6234740018844604,accordance,0.1469074785709381,"accordance, ὲ, ле, uv, sehr",0.12778208702802657
+1,hire,labor,0.6549943685531616,bus,0.13478054106235504,"bus, ení, ()->, creatinine, arrow",0.12422074973583222
+1,fired,labor,0.6345860362052917,plaintiff,0.11994068324565887,"plaintiff, skip, Breit, kidding, iza",0.11652942150831222
+1,should,procedural,0.6275238394737244,occasion,0.13112379610538483,"occasion, lim, OT, ensely, nou",0.12394562959671021
+1,could,procedural,0.6297632455825806,contain,0.13895012438297272,"contain, DEFAULT, noise, buff, Machine",0.12402277290821076
+1,would,procedural,0.618654727935791,cooperate,0.12986207008361816,"cooperate, distress, , 245, roles",0.12443945705890655
+1,might,procedural,0.6422591209411621,prote,0.1405852884054184,"prote, ts, heroin, usamm, mod",0.13158561587333678
+1,perhaps,procedural,0.634876012802124,diameters,0.1301950216293335,"diameters, achusetts, Sign, ה, Sequence",0.12424691915512084
+1,however,procedural,0.6458753347396851,1021,0.1367018222808838,"1021, dit, overty, ]."", otros",0.12295748591423035
+1,angry,emotional,0.6047492027282715,oscillator,0.12754172086715698,"oscillator, , insignificant, ATION, money",0.12284849882125855
+1,love,emotional,0.6246927976608276,section,0.12624402344226837,"section, itary, coy, 285, ى",0.12204966098070144
+1,hate,emotional,0.6204620599746704,farmers,0.1314801275730133,"farmers, fiercely, Failure, Sto, going",0.12342366576194763
+1,fear,emotional,0.6353263258934021,empty,0.14345914125442505,"empty, perl, keeping, inst, ninety",0.12705176174640656
+1,happy,emotional,0.6371275782585144,}=,0.12933151423931122,"}=, Mode, Should, interconnected, mobile",0.12553899139165878
+1,sad,emotional,0.6429314017295837,ank,0.13934791088104248,"ank, enezuel, slain, FAQ, PCI",0.127951779961586
+1,cry,emotional,0.6403173804283142,retrospective,0.13084520399570465,"retrospective, Fore, ле, adjuvant, 72",0.12419965118169785
+1,scream,emotional,0.632276713848114,grand,0.13533490896224976,"grand, cDNA, ner, brane, India",0.12964142560958863
+1,_cluster_violence,violence,0.0,,0.0,,0.125
+1,_cluster_sexual,sexual,0.0,,0.0,,0.2857142857142857
+1,_cluster_institutional,institutional,0.0,,0.0,,0.2857142857142857
+1,_cluster_labor,labor,0.0,,0.0,,0.25
+1,_cluster_procedural,procedural,0.0,,0.0,,0.2857142857142857
+1,_cluster_emotional,emotional,0.0,,0.0,,0.125
+8,kill,violence,0.6312365531921387,costumes,0.12068254500627518,"costumes, }}(\, MU, Param, toddler",0.11803126335144043
+8,murder,violence,0.6317667365074158,Area,0.1308271288871765,"Area, oby, inqu, Ear, liner",0.125043822824955
+8,stab,violence,0.6053124070167542,reservoirs,0.1307576298713684,"reservoirs, study, dez, Tracker, Fuller",0.12345880419015884
+8,shoot,violence,0.6289523839950562,ethical,0.1408974975347519,"ethical, TARGET, cubes, affe, imen",0.1231305792927742
+8,punch,violence,0.6192226409912109,crystalline,0.12761029601097107,"crystalline, farmer, dps, Walt, Pf",0.12409252077341079
+8,fight,violence,0.622464656829834,relocation,0.13287806510925293,"relocation, Bitmap, 니, CSS, Energy",0.11972669064998627
+8,attack,violence,0.615324854850769,¿,0.13236506283283234,"¿, dex, postal, Norwegian, probability",0.1216439113020897
+8,hit,violence,0.614334762096405,segreg,0.13230487704277039,"segreg, force, ./, irected, astics",0.12053912729024888
+8,fuck,sexual,0.6120519638061523,lactate,0.1290416121482849,"lactate, ennel, Main, genre, unrestricted",0.12248748540878296
+8,sex,sexual,0.654417872428894,attribut,0.13081109523773193,"attribut, individual, plemented, LIMITED, Senator",0.12368016391992569
+8,cock,sexual,0.6263248920440674,smoke,0.14191420376300812,"smoke, urry, antis, oid, nor",0.1258227378129959
+8,naked,sexual,0.6489145755767822,grid,0.13009226322174072,"grid, hän, register, traveled, ар",0.12412482053041458
+8,kiss,sexual,0.6222938895225525,cascade,0.13188520073890686,"cascade, SQL, ADVERTISEMENT, negotiations, )–(",0.1265269160270691
+8,touch,sexual,0.6316846609115601,announces,0.12638512253761292,"announces, wrong, retch, omat, carriers",0.1228082150220871
+8,breast,sexual,0.6285258531570435,redesign,0.11829230189323425,"redesign, Hen, crypto, prefix, Kyle",0.11612321436405182
+8,report,institutional,0.6445738673210144,le,0.12572427093982697,"le, Bring, damned, vue, cloned",0.12218763083219528
+8,contact,institutional,0.6181161403656006,Stanford,0.13191604614257812,"Stanford, �, Factor, sorrow, energ",0.12136879414319993
+8,consider,procedural,0.6155052185058594,Buch,0.1451299786567688,"Buch, functions, editing, neuro, grains",0.12488003522157669
+8,negotiate,institutional,0.6330347061157227,structures,0.13694782555103302,"structures, psychologist, ían, apples, Male",0.12339982390403748
+8,file,institutional,0.642742931842804,atation,0.13847370445728302,"atation, Franco, shroud, wr, 96",0.12491767406463623
+8,consult,institutional,0.6114943027496338,sections,0.12070269137620926,"sections, ference, all, concentrated, Plaintiffs",0.11890216916799545
+8,discuss,institutional,0.630528450012207,County,0.13710443675518036,"County, alumni, Gordon, cup, fere",0.12073254883289337
+8,strike,labor,0.6597421169281006,insightful,0.12786349654197693,"insightful, topics, τα, owner, responders",0.12227894514799117
+8,union,labor,0.6478258967399597,Calculate,0.1353226602077484,"Calculate, anchor, Press, appearing, Blob",0.12891193330287934
+8,worker,labor,0.6152887940406799,this,0.13071076571941376,"this, 163, jog, Colomb, Papa",0.12131678611040116
+8,employee,labor,0.6085209846496582,volunt,0.12628865242004395,"volunt, multil, Norfolk, Kap, protect",0.12150619477033615
+8,boss,labor,0.6184093356132507,Blood,0.12673094868659973,"Blood, GO, rial, committee, IENT",0.12090065777301788
+8,wage,labor,0.6234749555587769,accordance,0.14689934253692627,"accordance, ὲ, ле, uv, sehr",0.1277814358472824
+8,hire,labor,0.6549937129020691,bus,0.13478054106235504,"bus, ení, ()->, creatinine, arrow",0.12421888560056686
+8,fired,labor,0.6345863342285156,plaintiff,0.11993324756622314,"plaintiff, skip, Breit, kidding, iza",0.11652661710977555
+8,should,procedural,0.6275274753570557,occasion,0.13112153112888336,"occasion, lim, OT, ensely, nou",0.12393959611654282
+8,could,procedural,0.6297635436058044,contain,0.13894322514533997,"contain, DEFAULT, noise, buff, Machine",0.12402250617742538
+8,would,procedural,0.6186553239822388,cooperate,0.12984874844551086,"cooperate, distress, , 245, roles",0.12443658709526062
+8,might,procedural,0.6422606110572815,prote,0.14060068130493164,"prote, ts, heroin, usamm, mod",0.13158140778541566
+8,perhaps,procedural,0.634876549243927,diameters,0.13020622730255127,"diameters, achusetts, Sign, ה, Sequence",0.12425295412540435
+8,however,procedural,0.645874559879303,1021,0.1367015838623047,"1021, dit, overty, ]."", otros",0.12296213507652283
+8,angry,emotional,0.6047477722167969,oscillator,0.12753614783287048,"oscillator, , insignificant, ATION, money",0.12285021990537644
+8,love,emotional,0.6246922612190247,section,0.12623947858810425,"section, itary, coy, 285, ى",0.12204478085041046
+8,hate,emotional,0.6204622983932495,farmers,0.13146790862083435,"farmers, fiercely, Failure, Sto, going",0.12341850996017456
+8,fear,emotional,0.6353223323822021,empty,0.14346212148666382,"empty, perl, keeping, inst, ninety",0.12705399841070175
+8,happy,emotional,0.6371287703514099,}=,0.12934115529060364,"}=, Should, Mode, interconnected, mobile",0.12553937137126922
+8,sad,emotional,0.6429327130317688,ank,0.1393415480852127,"ank, enezuel, slain, FAQ, PCI",0.12794955670833588
+8,cry,emotional,0.6403168439865112,retrospective,0.13084472715854645,"retrospective, Fore, ле, adjuvant, 72",0.12420358508825302
+8,scream,emotional,0.632276713848114,grand,0.13534000515937805,"grand, cDNA, ner, brane, India",0.12964222729206085
+8,_cluster_violence,violence,0.0,,0.0,,0.125
+8,_cluster_sexual,sexual,0.0,,0.0,,0.2857142857142857
+8,_cluster_institutional,institutional,0.0,,0.0,,0.2857142857142857
+8,_cluster_labor,labor,0.0,,0.0,,0.25
+8,_cluster_procedural,procedural,0.0,,0.0,,0.2857142857142857
+8,_cluster_emotional,emotional,0.0,,0.0,,0.125
+64,kill,violence,0.631330668926239,costumes,0.1211501881480217,"costumes, }}(\, MU, toddler, Param",0.11809901148080826
+64,murder,violence,0.6317588686943054,Area,0.1308727264404297,"Area, oby, inqu, Ear, liner",0.12502020299434663
+64,stab,violence,0.6052914261817932,reservoirs,0.13082948327064514,"reservoirs, study, dez, Tracker, Fuller",0.12352476865053177
+64,shoot,violence,0.6289229393005371,ethical,0.14097194373607635,"ethical, TARGET, cubes, affe, imen",0.12342089712619782
+64,punch,violence,0.6191745400428772,crystalline,0.12796524167060852,"crystalline, farmer, Walt, dps, Pf",0.12401299625635147
+64,fight,violence,0.6224094033241272,relocation,0.1331806182861328,"relocation, Bitmap, 니, CSS, Energy",0.11947921812534332
+64,attack,violence,0.6152251958847046,¿,0.13252145051956177,"¿, dex, postal, probability, shot",0.12165165543556214
+64,hit,violence,0.6142474412918091,segreg,0.13161571323871613,"segreg, ./, force, irected, astics",0.12013196796178818
+64,fuck,sexual,0.6120266318321228,lactate,0.12926068902015686,"lactate, ennel, Main, genre, vertisement",0.12228744179010391
+64,sex,sexual,0.6542109251022339,attribut,0.13077214360237122,"attribut, individual, plemented, LIMITED, Article",0.12369693517684936
+64,cock,sexual,0.6262844204902649,smoke,0.14228864014148712,"smoke, urry, antis, oid, nor",0.12586189508438111
+64,naked,sexual,0.6489346623420715,grid,0.1302347183227539,"grid, hän, register, traveled, ар",0.12428943663835526
+64,kiss,sexual,0.622187614440918,cascade,0.13232629001140594,"cascade, ADVERTISEMENT, SQL, negotiations, )–(",0.12634570449590682
+64,touch,sexual,0.6315546631813049,announces,0.12703821063041687,"announces, wrong, retch, omat, carriers",0.12299306988716126
+64,breast,sexual,0.6284876465797424,redesign,0.11865726113319397,"redesign, Hen, crypto, Kyle, prefix",0.11654393523931503
+64,report,institutional,0.6445969939231873,le,0.12530547380447388,"le, Bring, damned, vue, cloned",0.12186255007982254
+64,contact,institutional,0.6181332468986511,Stanford,0.132128044962883,"Stanford, Factor, �, sorrow, ."")",0.12165102064609527
+64,consider,procedural,0.6156768202781677,Buch,0.14592143893241882,"Buch, functions, editing, neuro, grains",0.12500666677951813
+64,negotiate,institutional,0.6330108642578125,structures,0.1357087790966034,"structures, psychologist, ían, wat, want",0.12309856116771697
+64,file,institutional,0.6427112221717834,atation,0.13872557878494263,"atation, Franco, shroud, wr, 96",0.12520338147878646
+64,consult,institutional,0.6113281846046448,ference,0.11968931555747986,"ference, sections, all, concentrated, drm",0.1189836546778679
+64,discuss,institutional,0.6306045055389404,County,0.13632476329803467,"County, alumni, Gordon, fere, cup",0.12096820324659348
+64,strike,labor,0.6596939563751221,insightful,0.12762582302093506,"insightful, topics, τα, owner, responders",0.1223101258277893
+64,union,labor,0.6478044986724854,Calculate,0.1358174979686737,"Calculate, anchor, appearing, Blob, Press",0.12870286405086517
+64,worker,labor,0.6152907013893127,this,0.13136887550354004,"this, 163, jog, Colomb, Papa",0.12162493169307709
+64,employee,labor,0.6084426045417786,multil,0.12609612941741943,"multil, volunt, Norfolk, Kap, protect",0.12143102139234543
+64,boss,labor,0.6183579564094543,Blood,0.12679043412208557,"Blood, GO, committee, rial, IENT",0.1212073564529419
+64,wage,labor,0.6234409213066101,accordance,0.14732477068901062,"accordance, ὲ, ле, uv, sehr",0.127776201069355
+64,hire,labor,0.6550386548042297,bus,0.13408753275871277,"bus, ení, ()->, creatinine, arrow",0.12430032342672348
+64,fired,labor,0.6346073746681213,plaintiff,0.11992046236991882,"plaintiff, skip, Breit, kidding, dollar",0.116449636220932
+64,should,procedural,0.6275480389595032,occasion,0.13060086965560913,"occasion, lim, OT, ensely, nou",0.12377529293298721
+64,could,procedural,0.6299697756767273,contain,0.13894926011562347,"contain, DEFAULT, noise, buff, Machine",0.12382420599460602
+64,would,procedural,0.6186341643333435,cooperate,0.1287430077791214,"cooperate, , distress, 245, roles",0.1241889625787735
+64,might,procedural,0.6423373818397522,prote,0.141567200422287,"prote, ts, heroin, usamm, mod",0.13128160536289216
+64,perhaps,procedural,0.634626567363739,diameters,0.129637211561203,"diameters, achusetts, Sign, ス, ה",0.12423859983682632
+64,however,procedural,0.6458503603935242,1021,0.13750328123569489,"1021, dit, overty, ]."", otros",0.12324962764978409
+64,angry,emotional,0.6048394441604614,oscillator,0.12808513641357422,"oscillator, , insignificant, ATION, money",0.12291445136070252
+64,love,emotional,0.6248508095741272,section,0.125421404838562,"section, itary, 285, coy, ى",0.12213393747806549
+64,hate,emotional,0.6204922795295715,farmers,0.13089565932750702,"farmers, fiercely, Failure, Sto, going",0.12319885641336441
+64,fear,emotional,0.6352406144142151,empty,0.14380431175231934,"empty, perl, keeping, inst, ninety",0.12749271392822265
+64,happy,emotional,0.6370036602020264,}=,0.12888172268867493,"}=, Mode, Should, interconnected, mobile",0.1254516139626503
+64,sad,emotional,0.6428078413009644,ank,0.13999690115451813,"ank, enezuel, slain, FAQ, PCI",0.1280154436826706
+64,cry,emotional,0.6402318477630615,retrospective,0.12979261577129364,"retrospective, Fore, ле, adjuvant, 72",0.12414058446884155
+64,scream,emotional,0.6322493553161621,grand,0.13452506065368652,"grand, cDNA, ner, brane, India",0.12965875267982482
+64,_cluster_violence,violence,0.0,,0.0,,0.125
+64,_cluster_sexual,sexual,0.0,,0.0,,0.2857142857142857
+64,_cluster_institutional,institutional,0.0,,0.0,,0.2857142857142857
+64,_cluster_labor,labor,0.0,,0.0,,0.25
+64,_cluster_procedural,procedural,0.0,,0.0,,0.2857142857142857
+64,_cluster_emotional,emotional,0.0,,0.0,,0.125
+512,kill,violence,0.6322826147079468,toddler,0.12491854280233383,"toddler, }}(\, ambig, Actually, asket",0.11675040274858475
+512,murder,violence,0.6338684558868408,Area,0.12767615914344788,"Area, terminated, ey, oby, .&",0.12213255167007446
+512,stab,violence,0.6041171550750732,fanc,0.12383751571178436,"fanc, Tracker, hetero, study, mutation",0.12080716937780381
+512,shoot,violence,0.630737841129303,ethical,0.13465365767478943,"ethical, imen, affe, hunger, deflect",0.12382434010505676
+512,punch,violence,0.6199658513069153,crystalline,0.1273850053548813,"crystalline, オ, Walt, Pf, specialization",0.11968966871500016
+512,fight,violence,0.6212348341941833,relocation,0.13904842734336853,"relocation, fox, )}), Bitmap, Pete",0.12340668588876724
+512,attack,violence,0.6164520382881165,probability,0.12282755225896835,"probability, pie, acrylate, postal, ¿",0.1178671583533287
+512,hit,violence,0.6141692399978638,ahead,0.13589906692504883,"ahead, force, ./, segreg, irected",0.12721602767705917
+512,fuck,sexual,0.6134049892425537,friendship,0.12742865085601807,"friendship, powered, dated, ennel, Main",0.12170499265193939
+512,sex,sexual,0.6544902920722961,individual,0.14185252785682678,"individual, LIMITED, plemented, attribut, 421",0.12942003458738327
+512,cock,sexual,0.6272027492523193,smoke,0.15617012977600098,"smoke, nor, Einstein, antis, Republic",0.12449388951063156
+512,naked,sexual,0.6505781412124634,hän,0.13488899171352386,"hän, sore, register, traveled, grid",0.13055362105369567
+512,kiss,sexual,0.622784435749054,cascade,0.1238524317741394,"cascade, ADVERTISEMENT, SQL, pent, ",0.12108480632305145
+512,touch,sexual,0.6342251300811768,announces,0.1450650990009308,"announces, bidding, free, school, wrong",0.12372541576623916
+512,breast,sexual,0.6307171583175659,unken,0.12225927412509918,"unken, Hen, , crypto, buffered",0.1210464134812355
+512,report,institutional,0.6449309587478638,pitti,0.12066969275474548,"pitti, , damned, facie, Yemen",0.11763862818479538
+512,contact,institutional,0.6187202334403992,Stanford,0.12251649051904678,"Stanford, Factor, othetical, �, (""",0.11787288188934326
+512,consider,procedural,0.6141634583473206,Buch,0.1293777972459793,"Buch, distinguishes, grains, functions, choose",0.12487768828868866
+512,negotiate,institutional,0.6350797414779663,want,0.12890052795410156,"want, carrots, glowing, structures, wat",0.12219361513853073
+512,file,institutional,0.6425880193710327,atation,0.13908018171787262,"atation, shroud, ingredients, Appeal, Franco",0.12219508439302444
+512,consult,institutional,0.6112394332885742,drm,0.1364949345588684,"drm, ference, venom, strengthened, び",0.12827930748462676
+512,discuss,institutional,0.6329728960990906,Fib,0.1257886439561844,"Fib, County, alumni, Gordon, relativity",0.12245242446660995
+512,strike,labor,0.6592878103256226,topics,0.13593953847885132,"topics, owner, fingerprints, τα, insightful",0.12795293033123017
+512,union,labor,0.649593710899353,Calculate,0.13764211535453796,"Calculate, anchor, External, enh, completes",0.13199131190776825
+512,worker,labor,0.6152976751327515,this,0.12915080785751343,"this, 163, Papa, movement, jog",0.12365526854991912
+512,employee,labor,0.6110830307006836,protect,0.12041880190372467,"protect, widow, laughter, pharmaceutical, Acknowledgements",0.11794930100440978
+512,boss,labor,0.6190441846847534,committee,0.1315862238407135,"committee, Blood, GO, été, \|\",0.1226996511220932
+512,wage,labor,0.6252890825271606,accordance,0.13773538172245026,"accordance, ὲ, surfaced, retard, ле",0.12310674488544464
+512,hire,labor,0.655465304851532,ení,0.1435050368309021,"ení, arrow, owns, bus, creatinine",0.1280438184738159
+512,fired,labor,0.6343054175376892,put,0.12424816191196442,"put, dollar, go, skip, represents",0.11888422220945358
+512,should,procedural,0.6286746263504028,nou,0.13061045110225677,"nou, lim, occasion, slash, Consider",0.12309473901987075
+512,could,procedural,0.6288686990737915,contain,0.13810056447982788,"contain, DEFAULT, chooses, noise, publishers",0.12792986184358596
+512,would,procedural,0.6177281737327576,distress,0.1308419108390808,"distress, 245, , cooperate, finely",0.1242846354842186
+512,might,procedural,0.6421188712120056,ts,0.13397575914859772,"ts, prote, ”), usamm, bing",0.1291895478963852
+512,perhaps,procedural,0.6345882415771484,Sign,0.13196317851543427,"Sign, visions, MySQL, immig, Sequence",0.12306108772754669
+512,however,procedural,0.6458325386047363,1021,0.14016485214233398,"1021, dit, frankly, lady, bird",0.12524224519729615
+512,angry,emotional,0.6046855449676514,oscillator,0.133418470621109,"oscillator, innings, realization, ANI, ATT",0.12315082848072052
+512,love,emotional,0.6261445879936218,arbit,0.1277502328157425,"arbit, matched, section, contractors, seal",0.12196960002183914
+512,hate,emotional,0.6211315393447876,Sto,0.13303714990615845,"Sto, farmers, __(, posterior, going",0.1260617718100548
+512,fear,emotional,0.6387081146240234,empty,0.1446838527917862,"empty, perl, keeping, ninety, ais",0.12630507051944734
+512,happy,emotional,0.637550413608551,<-,0.12799078226089478,"<-, interconnected, }=, illed, Mode",0.12478560656309128
+512,sad,emotional,0.643053412437439,ank,0.1492614597082138,"ank, Zag, ASCII, expansive, αυτ",0.12986329346895217
+512,cry,emotional,0.642431914806366,adjuvant,0.12939399480819702,"adjuvant, , Fore, ле, monde",0.12421565055847168
+512,scream,emotional,0.6329070329666138,grand,0.12486302107572556,"grand, accommodations, Tu, Vienna, India",0.12286681681871414
+512,_cluster_violence,violence,0.0,,0.0,,0.25
+512,_cluster_sexual,sexual,0.0,,0.0,,0.14285714285714285
+512,_cluster_institutional,institutional,0.0,,0.0,,0.2857142857142857
+512,_cluster_labor,labor,0.0,,0.0,,0.25
+512,_cluster_procedural,procedural,0.0,,0.0,,0.14285714285714285
+512,_cluster_emotional,emotional,0.0,,0.0,,0.25
+1000,kill,violence,0.636961042881012,asket,0.1317770779132843,"asket, !!, toddler, groaned, hind",0.12341835498809814
+1000,murder,violence,0.6389055252075195,impeachment,0.13367079198360443,"impeachment, terminated, Iraq, semen, shy",0.12772224098443985
+1000,stab,violence,0.6117957234382629,riot,0.14973102509975433,"riot, hetero, noct, military, --""",0.1323623314499855
+1000,shoot,violence,0.6361942291259766,deflect,0.13577556610107422,"deflect, bait, conditioned, Created, caused",0.12346393913030625
+1000,punch,violence,0.6255010962486267,pun,0.1316308230161667,"pun, touch, crystalline, wax, entrepreneur",0.12492926120758056
+1000,fight,violence,0.6257611513137817,relocation,0.1479731947183609,"relocation, victory, may, opportunities, fox",0.13610340356826783
+1000,attack,violence,0.6200169920921326,activated,0.14185571670532227,"activated, probability, interaction, attack, acrylate",0.12706078141927718
+1000,hit,violence,0.6184937953948975,ahead,0.1420789211988449,"ahead, topped, ./, wears, fermentation",0.13564302921295165
+1000,fuck,sexual,0.6228412389755249,hell,0.12543314695358276,"hell, ennel, friendship, ${{{\, bless",0.12085877507925033
+1000,sex,sexual,0.6584157347679138,individual,0.1551865041255951,"individual, LIMITED, Which, obesity, xsl",0.1357933312654495
+1000,cock,sexual,0.6349281668663025,smoke,0.1713535040616989,"smoke, ret, <\, snatched, abs",0.13050784170627594
+1000,naked,sexual,0.6550525426864624,sore,0.1433923840522766,"sore, grid, hän, beaten, awake",0.13219106793403626
+1000,kiss,sexual,0.6302962303161621,worship,0.13306790590286255,"worship, boast, slices, insistence, Due",0.1311064124107361
+1000,touch,sexual,0.6419948935508728,announces,0.148041769862175,"announces, strengthen, punch, vow, free",0.13074509650468827
+1000,breast,sexual,0.6356724500656128,endometrial,0.13652467727661133,"endometrial, Kyle, nurses, Griffith, ",0.13238514363765716
+1000,report,institutional,0.6452763080596924,pitti,0.13329289853572845,"pitti, , rallies, HC, Bring",0.12459324896335602
+1000,contact,institutional,0.6253530979156494,"(""",0.12349116057157516,"("", othetical, calibration, junction, haus",0.11946931928396225
+1000,consider,procedural,0.6199045181274414,distinguishes,0.1481139063835144,"distinguishes, domain, establish, states, satisfies",0.13454559743404387
+1000,negotiate,institutional,0.6408098936080933,expanding,0.13694219291210175,"expanding, glowing, negotiating, want, showc",0.12862113416194915
+1000,file,institutional,0.6434142589569092,folder,0.15424780547618866,"folder, table, wr, NOT, ingredients",0.1300130933523178
+1000,consult,institutional,0.622141420841217,び,0.13076117634773254,"び, drm, ifier, Consult, tailor",0.12373956143856049
+1000,discuss,institutional,0.6407482028007507,alumni,0.13182416558265686,"alumni, examines, fere, transportation, Gordon",0.12336633950471879
+1000,strike,labor,0.6679560542106628,Strickland,0.13216620683670044,"Strickland, fingerprints, owner, accusation, τα",0.12128231078386306
+1000,union,labor,0.6575068235397339,MIT,0.1468980461359024,"MIT, Calculate, External, lax, firearms",0.13285338431596755
+1000,worker,labor,0.6225755214691162,movement,0.1429731845855713,"movement, exec, manager, this, Papa",0.13232437372207642
+1000,employee,labor,0.6155459880828857,widow,0.13869479298591614,"widow, protect, administrator, legislators, informant",0.12406103610992432
+1000,boss,labor,0.6241618990898132,but,0.13001412153244019,"but, hire, electorate, committee, manship",0.12515391707420348
+1000,wage,labor,0.634234607219696,accordance,0.13481396436691284,"accordance, ὲ, banking, BIA, retard",0.12554874420166015
+1000,hire,labor,0.6608383059501648,ení,0.14225512742996216,"ení, mission, employed, beat, boss",0.13241027295589447
+1000,fired,labor,0.6375924944877625,put,0.13648276031017303,"put, plaintiff, exploded, pressed, suffered",0.1251178950071335
+1000,should,procedural,0.6283880472183228,lim,0.14049188792705536,"lim, occasion, promise, Should, shall",0.1275140941143036
+1000,could,procedural,0.6272961497306824,DEFAULT,0.1387997269630432,"DEFAULT, contain, chooses, noise, gour",0.1277131363749504
+1000,would,procedural,0.6151244044303894,distress,0.14071691036224365,"distress, would, controll, 245, cooperate",0.12922415137290955
+1000,might,procedural,0.6430614590644836,prote,0.14244583249092102,"prote, ts, bent, heroin, usamm",0.13289545476436615
+1000,perhaps,procedural,0.6436854600906372,unfortunately,0.14336052536964417,"unfortunately, maybe, probably, Perhaps, aused",0.13892050683498383
+1000,however,procedural,0.6466266512870789,alternatively,0.15581858158111572,"alternatively, 1021, anymore, frankly, Unfortunately",0.14282243847846984
+1000,angry,emotional,0.609585702419281,conservative,0.13704189658164978,"conservative, paused, pissed, innings, glancing",0.13337453305721284
+1000,love,emotional,0.6282594203948975,seal,0.12861672043800354,"seal, guarantees, delightful, tragedy, erotic",0.12508229464292525
+1000,hate,emotional,0.628570020198822,Sto,0.1550019383430481,"Sto, farmers, wellbeing, ignore, discouraged",0.12892356663942336
+1000,fear,emotional,0.6439028382301331,orse,0.14575061202049255,"orse, empty, scent, regain, ais",0.1336112439632416
+1000,happy,emotional,0.6416715383529663,publicity,0.13295872509479523,"publicity, Should, safe, bay, ALLOC",0.12590055018663407
+1000,sad,emotional,0.6485530138015747,expansive,0.14500722289085388,"expansive, odd, twenty, αυτ, Sanskrit",0.14077867865562438
+1000,cry,emotional,0.6475920081138611,softly,0.13857750594615936,"softly, , ле, reach, troubles",0.12780764997005462
+1000,scream,emotional,0.6383193731307983,laugh,0.14649789035320282,"laugh, yelling, Vienna, directories, bottle",0.13435667753219604
+1000,_cluster_violence,violence,0.0,,0.0,,0.25
+1000,_cluster_sexual,sexual,0.0,,0.0,,0.2857142857142857
+1000,_cluster_institutional,institutional,0.0,,0.0,,0.2857142857142857
+1000,_cluster_labor,labor,0.0,,0.0,,0.125
+1000,_cluster_procedural,procedural,0.0,,0.0,,0.14285714285714285
+1000,_cluster_emotional,emotional,0.0,,0.0,,0.625
+5000,kill,violence,0.7735309600830078,kills,0.46418270468711853,"kills, killing, killed, Kill, Kill",0.3808099806308746
+5000,murder,violence,0.7693325281143188,murders,0.3774048984050751,"murders, Murder, homicide, murdered, manslaughter",0.3471330165863037
+5000,stab,violence,0.7741207480430603,stabbed,0.3001093864440918,"stabbed, grab, shot, torture, dab",0.22157012522220612
+5000,shoot,violence,0.7886708378791809,shoots,0.46549177169799805,"shoots, shooting, shot, shoot, shots",0.33842463195323946
+5000,punch,violence,0.7866150140762329,punched,0.3483770489692688,"punched, punches, kick, bullets, kicks",0.26870463490486146
+5000,fight,violence,0.7553789019584656,fights,0.46595850586891174,"fights, fought, fight, fighting, Fight",0.4315370857715607
+5000,attack,violence,0.7635228633880615,attacks,0.47309768199920654,"attacks, attack, attacked, attacking, Attack",0.3992861986160278
+5000,hit,violence,0.7596636414527893,hits,0.47511929273605347,"hits, hitting, Hit, hit, Hit",0.40657601356506345
+5000,fuck,sexual,0.7714112401008606,hell,0.3867756128311157,"hell, Fuck, fucked, heck, Fuck",0.35813784003257754
+5000,sex,sexual,0.7795674204826355,Sex,0.43848544359207153,"Sex, Sex, sex, gender, sexes",0.3718023657798767
+5000,cock,sexual,0.78610759973526,Cock,0.35270485281944275,"Cock, dick, pussy, cock, gon",0.2845750838518143
+5000,naked,sexual,0.8018645644187927,nude,0.3400357961654663,"nude, bare, sexy, ugly, erotic",0.2445528209209442
+5000,kiss,sexual,0.779816746711731,kissed,0.48223310708999634,"kissed, kissing, kisses, Kiss, hug",0.3917922854423523
+5000,touch,sexual,0.7832075953483582,touch,0.41902679204940796,"touch, Touch, touched, touches, touching",0.3737550854682922
+5000,breast,sexual,0.7744705677032471,Breast,0.43635666370391846,"Breast, breasts, prostate, mammary, endometrial",0.29450502395629885
+5000,report,institutional,0.7634410262107849,reports,0.41354361176490784,"reports, Report, report, Report, reporting",0.3891261279582977
+5000,contact,institutional,0.7658176422119141,contact,0.46315908432006836,"contact, Contact, contacting, Contact, contacts",0.4129761815071106
+5000,consider,procedural,0.7512063980102539,considers,0.5000081062316895,"considers, Consider, Consider, consider, considered",0.4398008108139038
+5000,negotiate,institutional,0.7974687814712524,negotiating,0.5138533711433411,"negotiating, negotiated, negotiations, negotiation, negot",0.38841964602470397
+5000,file,institutional,0.7540774941444397,file,0.4276842176914215,"file, files, File, folder, File",0.35447075963020325
+5000,consult,institutional,0.7802044153213501,Consult,0.40004563331604004,"Consult, consulted, consulting, consultation, consultations",0.3495488464832306
+5000,discuss,institutional,0.786460280418396,discussing,0.48348164558410645,"discussing, discusses, discussed, discuss, discussion",0.410089111328125
+5000,strike,labor,0.8065892457962036,strikes,0.49608394503593445,"strikes, struck, Strike, rike, striking",0.3893435597419739
+5000,union,labor,0.7980643510818481,unions,0.4143056869506836,"unions, union, Union, Union, bargaining",0.3232078790664673
+5000,worker,labor,0.7735227942466736,worker,0.42285752296447754,"worker, workers, Worker, Workers, employee",0.35659565329551696
+5000,employee,labor,0.7620725035667419,employees,0.4809442162513733,"employees, employee, Employee, Employee, Employees",0.40087059140205383
+5000,boss,labor,0.7797629833221436,bosses,0.3903803527355194,"bosses, Boss, manager, supervisor, CEO",0.2823705106973648
+5000,wage,labor,0.7871296405792236,wages,0.35385119915008545,"wages, salary, rent, workplace, spending",0.24057470560073851
+5000,hire,labor,0.8037670254707336,hired,0.39950627088546753,"hired, hiring, appoint, employ, employing",0.3005490005016327
+5000,fired,labor,0.7861063480377197,firing,0.42153623700141907,"firing, fired, fire, fires, discharged",0.3178432047367096
+5000,should,procedural,0.722777247428894,should,0.4985470771789551,"should, Should, shouldn, Should, ought",0.39509122371673583
+5000,could,procedural,0.7064709663391113,could,0.48803088068962097,"could, Could, Could, couldn, might",0.37761380672454836
+5000,would,procedural,0.6707243323326111,would,0.5291926860809326,"would, Would, Would, wouldn, will",0.39987723231315614
+5000,might,procedural,0.7390016317367554,might,0.5314518213272095,"might, may, Might, could, may",0.3653383612632751
+5000,perhaps,procedural,0.7649229168891907,perhaps,0.5555604100227356,"perhaps, Perhaps, Perhaps, maybe, Maybe",0.46729966402053835
+5000,however,procedural,0.7422141432762146,however,0.5489511489868164,"however, However, However, Nonetheless, nevertheless",0.37594879865646363
+5000,angry,emotional,0.7604637145996094,furious,0.4322918653488159,"furious, anger, annoyed, unhappy, raged",0.3457439184188843
+5000,love,emotional,0.7385520339012146,Love,0.44322144985198975,"Love, love, Love, loves, LOVE",0.4140573561191559
+5000,hate,emotional,0.7765376567840576,hates,0.42560064792633057,"hates, hated, dislike, love, hatred",0.3392171382904053
+5000,fear,emotional,0.7772916555404663,Fear,0.3872968554496765,"Fear, fears, feared, fearful, afraid",0.33339881896972656
+5000,happy,emotional,0.7724459171295166,happy,0.4729800820350647,"happy, unhappy, Happy, happier, Happy",0.3864673972129822
+5000,sad,emotional,0.795219361782074,Sad,0.3559778034687042,"Sad, Sad, happy, sadness, sorry",0.31632915139198303
+5000,cry,emotional,0.7983639240264893,Cry,0.41552650928497314,"Cry, cries, cry, cried, crying",0.37775699496269227
+5000,scream,emotional,0.7866624593734741,screamed,0.45994967222213745,"screamed, screams, screaming, yell, yelling",0.40044684410095216
+5000,_cluster_violence,violence,0.0,,0.0,,0.625
+5000,_cluster_sexual,sexual,0.0,,0.0,,0.7142857142857143
+5000,_cluster_institutional,institutional,0.0,,0.0,,0.5714285714285714
+5000,_cluster_labor,labor,0.0,,0.0,,0.5
+5000,_cluster_procedural,procedural,0.0,,0.0,,0.5714285714285714
+5000,_cluster_emotional,emotional,0.0,,0.0,,0.5
+10000,kill,violence,0.897508978843689,kills,0.5990012884140015,"kills, killing, killed, Kill, Kill",0.4927522659301758
+10000,murder,violence,0.8924826979637146,Murder,0.557915210723877,"Murder, murders, homicide, murdered, murderer",0.45702584981918337
+10000,stab,violence,0.9027421474456787,stabbed,0.3881478011608124,"stabbed, stab, shot, grab, bullet",0.2708690255880356
+10000,shoot,violence,0.9131311178207397,shoots,0.6037521362304688,"shoots, shooting, shot, shoot, Shot",0.4383223235607147
+10000,punch,violence,0.9110676646232605,punched,0.4711294174194336,"punched, punches, kick, bullet, bullets",0.33296720385551454
+10000,fight,violence,0.8864648342132568,fights,0.626376748085022,"fights, fight, fought, fighting, Fight",0.5568733930587768
+10000,attack,violence,0.8924712538719177,attacks,0.6214624643325806,"attacks, attack, attacked, Attack, attacking",0.5456708490848541
+10000,hit,violence,0.8872931599617004,hits,0.6134076714515686,"hits, hitting, Hit, hit, Hit",0.5313250660896301
+10000,fuck,sexual,0.8990316987037659,Fuck,0.5464914441108704,"Fuck, Fuck, fucked, fucking, hell",0.4751905083656311
+10000,sex,sexual,0.9046618938446045,Sex,0.5965650081634521,"Sex, Sex, sex, gender, sexual",0.4788389027118683
+10000,cock,sexual,0.910699188709259,Cock,0.5016394853591919,"Cock, cock, dick, pussy, penis",0.36594280004501345
+10000,naked,sexual,0.9229840636253357,nude,0.39872556924819946,"nude, bare, sexy, erotic, underwear",0.27934605479240415
+10000,kiss,sexual,0.9087328314781189,kissed,0.6481990814208984,"kissed, kissing, kisses, Kiss, hug",0.5185477495193481
+10000,touch,sexual,0.9053020477294922,touch,0.5613400340080261,"touch, Touch, touched, touches, Touch",0.4955130934715271
+10000,breast,sexual,0.9003360867500305,Breast,0.5836305618286133,"Breast, breasts, prostate, mammary, lung",0.37900779247283933
+10000,report,institutional,0.886841356754303,reports,0.5479435920715332,"reports, Report, report, Report, reporting",0.50502809882164
+10000,contact,institutional,0.8922353982925415,Contact,0.5726316571235657,"Contact, contact, Contact, contacts, contacting",0.5127303838729859
+10000,consider,procedural,0.8787304759025574,considers,0.6123652458190918,"considers, Consider, Consider, consider, considered",0.5581774711608887
+10000,negotiate,institutional,0.920167088508606,negotiating,0.6738889813423157,"negotiating, negotiated, negotiation, negotiations, negot",0.5116461098194123
+10000,file,institutional,0.8797495365142822,files,0.5541791319847107,"files, file, File, File, filing",0.46505404710769654
+10000,consult,institutional,0.9149987697601318,consulted,0.5484216213226318,"consulted, Consult, consulting, consultation, consultations",0.46184521317481997
+10000,discuss,institutional,0.9103851914405823,discussing,0.6148139238357544,"discussing, discusses, discussed, discuss, discussion",0.5280813217163086
+10000,strike,labor,0.9270949363708496,strikes,0.649799108505249,"strikes, struck, Strike, rike, striking",0.5246502697467804
+10000,union,labor,0.9175714254379272,unions,0.5683093667030334,"unions, union, Union, Union, labor",0.42937393188476564
+10000,worker,labor,0.8981181383132935,workers,0.5522521138191223,"workers, worker, Worker, Workers, employee",0.45695159435272215
+10000,employee,labor,0.8886289000511169,employees,0.6269813776016235,"employees, employee, Employee, Employee, Employees",0.5284960627555847
+10000,boss,labor,0.9115937948226929,bosses,0.5541954040527344,"bosses, Boss, supervisor, manager, CEO",0.34970717430114745
+10000,wage,labor,0.9141512513160706,wages,0.4920484125614166,"wages, salary, salaries, tuition, rent",0.304360568523407
+10000,hire,labor,0.9218186736106873,hiring,0.5464855432510376,"hiring, hired, employ, recruit, buying",0.3773399829864502
+10000,fired,labor,0.9106409549713135,firing,0.5376121401786804,"firing, fired, fire, fires, Fire",0.4138886213302612
+10000,should,procedural,0.8328375816345215,should,0.6001022458076477,"should, Should, Should, shouldn, ought",0.5035798370838165
+10000,could,procedural,0.8055371046066284,could,0.6253328919410706,"could, Could, Could, couldn, can",0.4960783660411835
+10000,would,procedural,0.7685630917549133,would,0.6365634202957153,"would, Would, Would, wouldn, could",0.5059125661849976
+10000,might,procedural,0.8461899161338806,might,0.6749866604804993,"might, may, Might, could, may",0.4688208162784576
+10000,perhaps,procedural,0.8789584040641785,perhaps,0.6968375444412231,"perhaps, Perhaps, Perhaps, maybe, Maybe",0.5788189530372619
+10000,however,procedural,0.8453815579414368,however,0.7056949138641357,"however, However, However, therefore, nevertheless",0.4682600796222687
+10000,angry,emotional,0.8912427425384521,furious,0.48799774050712585,"furious, anger, annoyed, raged, unhappy",0.4089951992034912
+10000,love,emotional,0.8599446415901184,love,0.5697820782661438,"love, Love, loves, Love, LOVE",0.5400733709335327
+10000,hate,emotional,0.8992263078689575,hates,0.56053227186203,"hates, hated, dislike, hatred, love",0.443056583404541
+10000,fear,emotional,0.9008837342262268,Fear,0.5264025926589966,"Fear, fears, feared, fearful, afraid",0.4464137554168701
+10000,happy,emotional,0.8922115564346313,happy,0.6086366176605225,"happy, Happy, unhappy, happier, Happy",0.5020432233810425
+10000,sad,emotional,0.9133414030075073,Sad,0.4509713351726532,"Sad, Sad, sadness, tragic, melancholy",0.3945364713668823
+10000,cry,emotional,0.9176083207130432,cries,0.5269774794578552,"cries, cry, Cry, cried, crying",0.4923117935657501
+10000,scream,emotional,0.9140300750732422,screamed,0.6114224791526794,"screamed, screams, screaming, yell, yelling",0.5092967510223388
+10000,_cluster_violence,violence,0.0,,0.0,,0.25
+10000,_cluster_sexual,sexual,0.0,,0.0,,0.5714285714285714
+10000,_cluster_institutional,institutional,0.0,,0.0,,0.7142857142857143
+10000,_cluster_labor,labor,0.0,,0.0,,0.25
+10000,_cluster_procedural,procedural,0.0,,0.0,,0.5714285714285714
+10000,_cluster_emotional,emotional,0.0,,0.0,,0.75
+25000,kill,violence,1.0706737041473389,kills,0.6599557399749756,"kills, killing, killed, Kill, kill",0.5727949738502502
+25000,murder,violence,1.065199851989746,Murder,0.6310796141624451,"Murder, murders, murdered, homicide, murderer",0.5303781688213348
+25000,stab,violence,1.0727770328521729,stabbed,0.42449069023132324,"stabbed, stab, abbing, knife, grab",0.30411388278007506
+25000,shoot,violence,1.0773848295211792,shoots,0.6848344802856445,"shoots, shooting, shoot, shot, shootings",0.5321898758411407
+25000,punch,violence,1.0809657573699951,punched,0.5958304405212402,"punched, punches, kick, kick, stabbed",0.3686106026172638
+25000,fight,violence,1.061036467552185,fights,0.6970574855804443,"fights, fought, fighting, fight, Fight",0.6293304920196533
+25000,attack,violence,1.0730839967727661,attacks,0.71898353099823,"attacks, attack, Attack, attacked, attacking",0.6404775381088257
+25000,hit,violence,1.0688217878341675,hits,0.7068511247634888,"hits, hitting, Hit, hit, Hit",0.6307703733444214
+25000,fuck,sexual,1.0677212476730347,Fuck,0.6514013409614563,"Fuck, Fuck, fucked, fucking, hell",0.5481029868125915
+25000,sex,sexual,1.0735431909561157,Sex,0.6925384998321533,"Sex, Sex, sex, sexual, gender",0.5508603990077973
+25000,cock,sexual,1.0777127742767334,Cock,0.5671619772911072,"Cock, dick, cock, pussy, penis",0.4235897779464722
+25000,naked,sexual,1.0838706493377686,nude,0.40852949023246765,"nude, bare, nud, bald, sexy",0.2829070419073105
+25000,kiss,sexual,1.0815658569335938,kissed,0.713036298751831,"kissed, kisses, kissing, Kiss, hug",0.5730031788349151
+25000,touch,sexual,1.079709768295288,touch,0.6464859843254089,"touch, Touch, touched, touches, Touch",0.5862807393074035
+25000,breast,sexual,1.0745937824249268,Breast,0.6849736571311951,"Breast, breasts, mammary, prostate, colorectal",0.4253908634185791
+25000,report,institutional,1.056205153465271,reports,0.6419954299926758,"reports, Report, report, reported, Report",0.573975682258606
+25000,contact,institutional,1.0678702592849731,contact,0.6655758619308472,"contact, Contact, Contact, contacts, contacting",0.587313437461853
+25000,consider,procedural,1.0526636838912964,considers,0.6918756365776062,"considers, Consider, Consider, considered, consider",0.6229580402374267
+25000,negotiate,institutional,1.0822210311889648,negotiating,0.7435100078582764,"negotiating, negotiated, negotiation, negotiations, negot",0.5893156886100769
+25000,file,institutional,1.0532351732254028,files,0.6358386874198914,"files, file, File, File, Files",0.5400849461555481
+25000,consult,institutional,1.085461139678955,consulted,0.5863445401191711,"consulted, consulting, Consult, consultation, consultations",0.49931409358978274
+25000,discuss,institutional,1.0765917301177979,discussing,0.6900961995124817,"discussing, discussed, discusses, discuss, discussion",0.5917779445648194
+25000,strike,labor,1.0883915424346924,strikes,0.7225401997566223,"strikes, struck, Strike, striking, rike",0.5975242972373962
+25000,union,labor,1.0811728239059448,unions,0.6505540013313293,"unions, union, Union, Union, bargaining",0.5061155021190643
+25000,worker,labor,1.0679198503494263,workers,0.6633551120758057,"workers, worker, Workers, Worker, workers",0.515323132276535
+25000,employee,labor,1.0674941539764404,employees,0.7190074324607849,"employees, employee, Employee, Employee, Employees",0.6088811576366424
+25000,boss,labor,1.082934856414795,bosses,0.6645182371139526,"bosses, Boss, manager, CEO, supervisor",0.3961590528488159
+25000,wage,labor,1.0810784101486206,wages,0.5674131512641907,"wages, salary, salaries, pay, rent",0.3265263199806213
+25000,hire,labor,1.0814990997314453,hiring,0.6399596929550171,"hiring, hired, appoint, employ, rented",0.4118592858314514
+25000,fired,labor,1.082707405090332,firing,0.6277691125869751,"firing, fired, fire, fires, Fire",0.492509788274765
+25000,should,procedural,0.9988418817520142,should,0.6648016571998596,"should, Should, Should, shouldn, ought",0.5689144670963288
+25000,could,procedural,0.9682749509811401,could,0.7096691131591797,"could, Could, Could, can, couldn",0.5685818314552307
+25000,would,procedural,0.926635205745697,would,0.7122471332550049,"would, Would, Would, wouldn, could",0.5863106667995452
+25000,might,procedural,1.0050939321517944,might,0.7637621164321899,"might, may, Might, could, may",0.5356250107288361
+25000,perhaps,procedural,1.0485727787017822,perhaps,0.7840358018875122,"perhaps, Perhaps, Perhaps, maybe, Maybe",0.654693853855133
+25000,however,procedural,1.0115776062011719,however,0.7852069735527039,"however, However, However, therefore, Nevertheless",0.5300323724746704
+25000,angry,emotional,1.0712848901748657,furious,0.5227742791175842,"furious, anger, annoyed, angrily, raged",0.4434544682502747
+25000,love,emotional,1.0374242067337036,love,0.6613095998764038,"love, loves, Love, LOVE, Love",0.6194675207138062
+25000,hate,emotional,1.0737684965133667,hates,0.6438361406326294,"hates, hated, hatred, dislike, love",0.48520359992980955
+25000,fear,emotional,1.070900797843933,fears,0.5956339836120605,"fears, Fear, feared, afraid, fearful",0.5059162318706513
+25000,happy,emotional,1.0637874603271484,happy,0.6694904565811157,"happy, Happy, Happy, unhappy, happier",0.5527303278446197
+25000,sad,emotional,1.076361060142517,Sad,0.5204584002494812,"Sad, Sad, sadness, tragic, sadly",0.4320513129234314
+25000,cry,emotional,1.0832246541976929,cry,0.615352988243103,"cry, cries, Cry, cried, crying",0.5576595723628998
+25000,scream,emotional,1.0738840103149414,screamed,0.6808637380599976,"screamed, screams, screaming, yell, yelled",0.5611535549163819
+25000,_cluster_violence,violence,0.0,,0.0,,0.625
+25000,_cluster_sexual,sexual,0.0,,0.0,,0.42857142857142855
+25000,_cluster_institutional,institutional,0.0,,0.0,,0.42857142857142855
+25000,_cluster_labor,labor,0.0,,0.0,,0.375
+25000,_cluster_procedural,procedural,0.0,,0.0,,0.5714285714285714
+25000,_cluster_emotional,emotional,0.0,,0.0,,0.5
+50000,kill,violence,1.0931352376937866,kills,0.6596468091011047,"kills, killing, killed, Kill, kill",0.5718741178512573
+50000,murder,violence,1.0898584127426147,murders,0.6496605277061462,"murders, Murder, murdered, homicide, murderer",0.5365000307559967
+50000,stab,violence,1.092004418373108,stabbed,0.47711870074272156,"stabbed, stab, abbing, knife, stare",0.31266934871673585
+50000,shoot,violence,1.0951135158538818,shoots,0.7184802889823914,"shoots, shooting, shoot, shot, ooting",0.5640247762203217
+50000,punch,violence,1.0984761714935303,punched,0.6466522812843323,"punched, punches, kick, stabbed, kick",0.3785609841346741
+50000,fight,violence,1.0933440923690796,fights,0.750254213809967,"fights, fought, Fight, fighting, fight",0.6428489446640014
+50000,attack,violence,1.0928796529769897,attacks,0.741543173789978,"attacks, attack, Attack, attacking, attacked",0.6546655058860779
+50000,hit,violence,1.095665693283081,hits,0.7390795946121216,"hits, hitting, Hit, hit, Hit",0.6589765310287475
+50000,fuck,sexual,1.0943129062652588,Fuck,0.6848031282424927,"Fuck, Fuck, fucked, fucking, hell",0.5508354067802429
+50000,sex,sexual,1.0896353721618652,Sex,0.7100638747215271,"Sex, Sex, sex, sexual, gender",0.5658231377601624
+50000,cock,sexual,1.0957132577896118,Cock,0.5651032328605652,"Cock, cock, dick, pussy, penis",0.4137346029281616
+50000,naked,sexual,1.1039707660675049,nude,0.38328924775123596,"nude, bare, nud, bald, bare",0.2764840215444565
+50000,kiss,sexual,1.1007330417633057,kissed,0.7206177711486816,"kissed, kisses, kissing, Kiss, hugged",0.5682955086231232
+50000,touch,sexual,1.0932844877243042,touch,0.6564937829971313,"touch, Touch, touched, touches, Touch",0.5988451242446899
+50000,breast,sexual,1.0903722047805786,Breast,0.6983975172042847,"Breast, breasts, mammary, prostate, colorectal",0.42927945852279664
+50000,report,institutional,1.0785298347473145,reports,0.6489961743354797,"reports, Report, report, reported, Report",0.5825515627861023
+50000,contact,institutional,1.091835856437683,Contact,0.6649295091629028,"Contact, contact, Contact, contacts, contacting",0.5916028618812561
+50000,consider,procedural,1.084645390510559,considers,0.6816632151603699,"considers, Consider, Consider, considered, considering",0.6221673250198364
+50000,negotiate,institutional,1.100551962852478,negotiating,0.7654213905334473,"negotiating, negotiated, negotiation, negotiations, negot",0.5989433407783509
+50000,file,institutional,1.0812888145446777,files,0.6567683219909668,"files, file, File, File, 文件",0.5565155267715454
+50000,consult,institutional,1.0954318046569824,consulted,0.5968009233474731,"consulted, consulting, Consult, consultation, consultations",0.5030431151390076
+50000,discuss,institutional,1.0968984365463257,discussing,0.6980617642402649,"discussing, discusses, discussed, discuss, discussion",0.6044958710670472
+50000,strike,labor,1.1048214435577393,strikes,0.7630197405815125,"strikes, Strike, struck, striking, rike",0.6213909387588501
+50000,union,labor,1.0964109897613525,unions,0.6738542318344116,"unions, Union, Union, union, bargaining",0.5284628570079803
+50000,worker,labor,1.0804121494293213,workers,0.6975268721580505,"workers, worker, Workers, workers, Worker",0.5332958459854126
+50000,employee,labor,1.0931129455566406,employees,0.7411943078041077,"employees, employee, Employee, Employee, Employees",0.6256491661071777
+50000,boss,labor,1.1028492450714111,bosses,0.6862114667892456,"bosses, Boss, manager, CEO, employer",0.39131385684013364
+50000,wage,labor,1.0966459512710571,wages,0.5800750851631165,"wages, salary, salaries, incomes, pay",0.32853499948978426
+50000,hire,labor,1.097617745399475,hired,0.6319890022277832,"hired, hiring, hire, rented, appoint",0.41738455295562743
+50000,fired,labor,1.0985956192016602,firing,0.6635446548461914,"firing, fired, fire, fires, Fire",0.5025855362415313
+50000,should,procedural,1.0280205011367798,should,0.6924780607223511,"should, Should, Should, shouldn, ought",0.5823830902576447
+50000,could,procedural,1.0121909379959106,could,0.718416690826416,"could, Could, Could, can, couldn",0.591007661819458
+50000,would,procedural,0.9717658758163452,would,0.7262787818908691,"would, Would, Would, wouldn, could",0.5956369519233704
+50000,might,procedural,1.0378597974777222,might,0.7688471078872681,"might, may, Might, could, would",0.5443649888038635
+50000,perhaps,procedural,1.0745933055877686,perhaps,0.7801286578178406,"perhaps, Perhaps, Perhaps, maybe, maybe",0.6629216194152832
+50000,however,procedural,1.0427347421646118,however,0.7950152158737183,"however, However, However, therefore, nevertheless",0.5378262400627136
+50000,angry,emotional,1.0912747383117676,anger,0.5245674848556519,"anger, furious, angrily, annoyed, fury",0.4321479618549347
+50000,love,emotional,1.0672208070755005,love,0.6914647817611694,"love, Love, Love, loves, LOVE",0.645168399810791
+50000,hate,emotional,1.0943446159362793,hates,0.6308615803718567,"hates, hated, hatred, dislike, love",0.4789881885051727
+50000,fear,emotional,1.0908799171447754,fears,0.5961093306541443,"fears, Fear, feared, afraid, fearful",0.5170533835887909
+50000,happy,emotional,1.0863510370254517,happy,0.6883939504623413,"happy, Happy, Happy, unhappy, happier",0.5516742587089538
+50000,sad,emotional,1.092241644859314,Sad,0.5326584577560425,"Sad, Sad, sadness, tragic, sadly",0.43561520576477053
+50000,cry,emotional,1.1034984588623047,Cry,0.6046141386032104,"Cry, cry, cries, cried, crying",0.5710528016090393
+50000,scream,emotional,1.0855928659439087,screams,0.6868786811828613,"screams, screamed, screaming, yell, shouted",0.5578490734100342
+50000,_cluster_violence,violence,0.0,,0.0,,1.0
+50000,_cluster_sexual,sexual,0.0,,0.0,,0.42857142857142855
+50000,_cluster_institutional,institutional,0.0,,0.0,,0.5714285714285714
+50000,_cluster_labor,labor,0.0,,0.0,,0.25
+50000,_cluster_procedural,procedural,0.0,,0.0,,0.7142857142857143
+50000,_cluster_emotional,emotional,0.0,,0.0,,0.875
+100000,kill,violence,0.8969354033470154,kills,0.6578272581100464,"kills, killed, killing, Kill, Kill",0.5674378275871277
+100000,murder,violence,0.9041263461112976,murders,0.6699153184890747,"murders, Murder, murdered, homicide, murderer",0.5388686537742615
+100000,stab,violence,0.8995159268379211,stabbed,0.4540417194366455,"stabbed, stab, abbing, knife, kill",0.3023564457893372
+100000,shoot,violence,0.899989664554596,shoots,0.7312666773796082,"shoots, shooting, shoot, shot, shots",0.590326851606369
+100000,punch,violence,0.9010894298553467,punched,0.6581085324287415,"punched, punches, slap, kick, kick",0.37010498046875
+100000,fight,violence,0.897416353225708,fights,0.7439988851547241,"fights, fought, fighting, fight, Fight",0.6498560190200806
+100000,attack,violence,0.8949397206306458,attacks,0.7673057913780212,"attacks, attack, attacking, attacked, Attack",0.6544267177581787
+100000,hit,violence,0.9006165266036987,hits,0.7646476030349731,"hits, hitting, Hit, hit, Hit",0.6684537887573242
+100000,fuck,sexual,0.9021356105804443,Fuck,0.7246675491333008,"Fuck, Fuck, fucked, fucking, hell",0.5684992611408234
+100000,sex,sexual,0.8951311111450195,Sex,0.7342574596405029,"Sex, Sex, sex, sexual, gender",0.5817560911178589
+100000,cock,sexual,0.9012717008590698,Cock,0.5473998785018921,"Cock, cock, dick, pussy, penis",0.41477351188659667
+100000,naked,sexual,0.9058272838592529,nude,0.40752726793289185,"nude, bare, bald, bare, nud",0.26448037326335905
+100000,kiss,sexual,0.9053776264190674,kisses,0.7213786840438843,"kisses, kissed, kissing, Kiss, hugged",0.55935418009758
+100000,touch,sexual,0.901283860206604,touch,0.6644216179847717,"touch, Touch, touches, touched, touching",0.6124688982963562
+100000,breast,sexual,0.9008519649505615,Breast,0.7025373578071594,"Breast, breasts, mammary, prostate, colorectal",0.4213629484176636
+100000,report,institutional,0.8910614252090454,reports,0.6604358553886414,"reports, Report, report, reported, Report",0.5837870955467224
+100000,contact,institutional,0.8977245092391968,contact,0.6819709539413452,"contact, Contact, Contact, contacts, contacting",0.6063941121101379
+100000,consider,procedural,0.8976855278015137,considers,0.6704021692276001,"considers, Consider, Consider, considered, consider",0.6244742155075074
+100000,negotiate,institutional,0.9005971550941467,negotiating,0.7763108015060425,"negotiating, negotiated, negotiation, negotiations, negot",0.5956736087799073
+100000,file,institutional,0.8928487300872803,files,0.6996111273765564,"files, file, File, File, 文件",0.5601476073265076
+100000,consult,institutional,0.901164710521698,consulted,0.5981266498565674,"consulted, consulting, Consult, consultation, consultations",0.5088041841983795
+100000,discuss,institutional,0.900730550289154,discussing,0.7101074457168579,"discussing, discussed, discusses, discuss, discussion",0.6116588890552521
+100000,strike,labor,0.9104645252227783,strikes,0.7780001163482666,"strikes, Strike, struck, striking, rike",0.6330673456192016
+100000,union,labor,0.8976560235023499,unions,0.6909098625183105,"unions, Union, Union, union, bargaining",0.5439642488956451
+100000,worker,labor,0.8880456686019897,workers,0.7219624519348145,"workers, worker, Workers, workers, Worker",0.5326309323310852
+100000,employee,labor,0.9023523330688477,employees,0.7618304491043091,"employees, employee, Employee, Employee, Employees",0.6282041192054748
+100000,boss,labor,0.9032108187675476,bosses,0.6760716438293457,"bosses, Boss, manager, CEO, supervisor",0.38344582319259646
+100000,wage,labor,0.9030580520629883,wages,0.6002678871154785,"wages, salary, earnings, incomes, pay",0.32369219064712523
+100000,hire,labor,0.9039734601974487,hired,0.6527841091156006,"hired, hiring, rented, hire, appoint",0.41660157442092893
+100000,fired,labor,0.9059135317802429,firing,0.6704748868942261,"firing, fired, fires, fire, Fire",0.5119485199451447
+100000,should,procedural,0.8568865060806274,should,0.6987975835800171,"should, Should, Should, shouldn, ought",0.582969582080841
+100000,could,procedural,0.8472793698310852,could,0.7430259585380554,"could, Could, Could, can, couldn",0.6010577917098999
+100000,would,procedural,0.8186364769935608,would,0.7522141337394714,"would, Would, Would, wouldn, could",0.6065258800983429
+100000,might,procedural,0.8658199906349182,might,0.7734259366989136,"might, may, Might, could, would",0.5527497410774231
+100000,perhaps,procedural,0.8912896513938904,perhaps,0.8130804896354675,"perhaps, Perhaps, Perhaps, maybe, Maybe",0.6742420792579651
+100000,however,procedural,0.8690780401229858,however,0.8138039112091064,"however, However, However, therefore, nevertheless",0.5548901796340943
+100000,angry,emotional,0.9019144773483276,furious,0.5185168981552124,"furious, anger, annoyed, angrily, raged",0.42997839450836184
+100000,love,emotional,0.8873181343078613,love,0.703525722026825,"love, loves, Love, Love, LOVE",0.6464259505271912
+100000,hate,emotional,0.9035610556602478,hated,0.6035735011100769,"hated, hates, hatred, dislike, love",0.4675942063331604
+100000,fear,emotional,0.8994929790496826,fears,0.6239597797393799,"fears, feared, Fear, afraid, fearful",0.5277166545391083
+100000,happy,emotional,0.892497718334198,happy,0.717871904373169,"happy, Happy, Happy, unhappy, happier",0.5582973957061768
+100000,sad,emotional,0.8996845483779907,Sad,0.49952179193496704,"Sad, Sad, sadness, tragic, sadly",0.4120131075382233
+100000,cry,emotional,0.9020575284957886,cry,0.6315456032752991,"cry, Cry, cried, cries, crying",0.5775207638740539
+100000,scream,emotional,0.8979482650756836,screamed,0.6950325965881348,"screamed, screams, screaming, yell, yelling",0.5693069934844971
+100000,_cluster_violence,violence,0.0,,0.0,,0.25
+100000,_cluster_sexual,sexual,0.0,,0.0,,0.5714285714285714
+100000,_cluster_institutional,institutional,0.0,,0.0,,0.42857142857142855
+100000,_cluster_labor,labor,0.0,,0.0,,0.75
+100000,_cluster_procedural,procedural,0.0,,0.0,,0.5714285714285714
+100000,_cluster_emotional,emotional,0.0,,0.0,,0.5
+143000,kill,violence,0.7995317578315735,kills,0.6694058775901794,"kills, killed, killing, Kill, Kill",0.5718869209289551
+143000,murder,violence,0.805993378162384,murders,0.6712050437927246,"murders, Murder, murdered, homicide, murderer",0.5380870699882507
+143000,stab,violence,0.8018139600753784,stabbed,0.44541308283805847,"stabbed, stab, abbing, knife, kill",0.2979251086711884
+143000,shoot,violence,0.8024554252624512,shoots,0.7319913506507874,"shoots, shooting, shoot, shot, shots",0.5986078679561615
+143000,punch,violence,0.803256094455719,punched,0.6438996195793152,"punched, punches, slap, kick, Hit",0.3690300822257996
+143000,fight,violence,0.8000069856643677,fights,0.7526684403419495,"fights, fighting, fought, fight, Fight",0.6514140009880066
+143000,attack,violence,0.798433780670166,attacks,0.7762007117271423,"attacks, attack, attacking, attacked, Attack",0.6616699934005738
+143000,hit,violence,0.803290605545044,hits,0.7719086408615112,"hits, hitting, Hit, hit, Hit",0.6731221914291382
+143000,fuck,sexual,0.8072736859321594,Fuck,0.7245601415634155,"Fuck, Fuck, fucked, fucking, hell",0.5686129271984101
+143000,sex,sexual,0.7983114719390869,Sex,0.7431263327598572,"Sex, Sex, sex, sexual, gender",0.5921794593334198
+143000,cock,sexual,0.8042285442352295,Cock,0.5366666316986084,"Cock, dick, cock, pussy, penis",0.4144859969615936
+143000,naked,sexual,0.808283269405365,nude,0.41697412729263306,"nude, bare, bald, bare, sexy",0.26417471170425416
+143000,kiss,sexual,0.809258759021759,kissed,0.723904013633728,"kissed, kisses, kissing, Kiss, hugged",0.5613416314125061
+143000,touch,sexual,0.8040669560432434,touch,0.6772617697715759,"touch, Touch, touches, touched, touching",0.6155635714530945
+143000,breast,sexual,0.8031129837036133,Breast,0.707557201385498,"Breast, breasts, mammary, prostate, colorectal",0.42334858775138856
+143000,report,institutional,0.794441282749176,reports,0.6724519729614258,"reports, Report, report, reported, Report",0.591131067276001
+143000,contact,institutional,0.8006964921951294,Contact,0.6876463890075684,"Contact, contact, Contact, contacts, contacting",0.6125348925590515
+143000,consider,procedural,0.7990240454673767,considers,0.6740546226501465,"considers, Consider, Consider, considered, consider",0.6306660294532775
+143000,negotiate,institutional,0.8042475581169128,negotiating,0.7779310941696167,"negotiating, negotiated, negotiation, negotiations, negot",0.5933369755744934
+143000,file,institutional,0.7973750233650208,files,0.7119455337524414,"files, file, File, File, 文件",0.5668909430503846
+143000,consult,institutional,0.8046483993530273,consulted,0.5947377681732178,"consulted, consulting, Consult, consultation, consultations",0.506330817937851
+143000,discuss,institutional,0.8023759722709656,discussing,0.7082700729370117,"discussing, discussed, discusses, discuss, discussion",0.6091295838356018
+143000,strike,labor,0.812279224395752,strikes,0.7871209383010864,"strikes, Strike, struck, striking, rike",0.64048752784729
+143000,union,labor,0.7975923418998718,unions,0.6952534317970276,"unions, Union, Union, union, bargaining",0.5473870366811753
+143000,worker,labor,0.7927672863006592,workers,0.7329844236373901,"workers, worker, Workers, workers, Worker",0.5403954684734344
+143000,employee,labor,0.8034908771514893,employees,0.7742255330085754,"employees, employee, Employee, Employee, Employees",0.6345754861831665
+143000,boss,labor,0.8065568804740906,bosses,0.6756261587142944,"bosses, Boss, manager, CEO, supervisor",0.3860555410385132
+143000,wage,labor,0.8060399293899536,wages,0.6058172583580017,"wages, salary, earnings, incomes, salaries",0.32572355270385744
+143000,hire,labor,0.807213544845581,hired,0.6555134654045105,"hired, hiring, rented, hire, employ",0.4149321734905243
+143000,fired,labor,0.8078019618988037,firing,0.6655856370925903,"firing, fired, fires, fire, Fire",0.5134883940219879
+143000,should,procedural,0.765121340751648,should,0.7080234289169312,"should, Should, Should, shouldn, ought",0.590006160736084
+143000,could,procedural,0.758125901222229,could,0.7512399554252625,"could, Could, Could, can, couldn",0.6058436512947083
+143000,would,procedural,0.7327120900154114,would,0.7598622441291809,"would, Would, Would, wouldn, could",0.6127620756626129
+143000,might,procedural,0.7731385231018066,might,0.791352391242981,"might, may, Might, could, would",0.5633985042572022
+143000,perhaps,procedural,0.7951826453208923,perhaps,0.8264138698577881,"perhaps, Perhaps, Perhaps, maybe, Maybe",0.6811245679855347
+143000,however,procedural,0.7769770622253418,however,0.8194876313209534,"however, However, However, therefore, nevertheless",0.5660857498645783
+143000,angry,emotional,0.8036649227142334,furious,0.5175330638885498,"furious, anger, annoyed, angrily, raged",0.42987183332443235
+143000,love,emotional,0.7914090752601624,love,0.709942102432251,"love, loves, Love, Love, LOVE",0.651740312576294
+143000,hate,emotional,0.8052269816398621,hated,0.5958107709884644,"hated, hates, hatred, dislike, love",0.4648521065711975
+143000,fear,emotional,0.8025242686271667,fears,0.61988365650177,"fears, feared, Fear, afraid, fearful",0.5296447098255157
+143000,happy,emotional,0.7951347827911377,happy,0.7314929962158203,"happy, Happy, Happy, unhappy, happier",0.563399875164032
+143000,sad,emotional,0.8013086915016174,Sad,0.4863838851451874,"Sad, Sad, sadness, tragic, sadly",0.4069912016391754
+143000,cry,emotional,0.8029466271400452,cry,0.6264100670814514,"cry, Cry, cries, cried, crying",0.5763765215873718
+143000,scream,emotional,0.8022500276565552,screams,0.688515305519104,"screams, screamed, screaming, yelling, yell",0.5589998543262482
+143000,_cluster_violence,violence,0.0,,0.0,,0.5
+143000,_cluster_sexual,sexual,0.0,,0.0,,0.5714285714285714
+143000,_cluster_institutional,institutional,0.0,,0.0,,0.5714285714285714
+143000,_cluster_labor,labor,0.0,,0.0,,0.75
+143000,_cluster_procedural,procedural,0.0,,0.0,,0.8571428571428571
+143000,_cluster_emotional,emotional,0.0,,0.0,,0.625

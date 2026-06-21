@@ -1,0 +1,106 @@
+ stage    JS->A    JS->B  JS->blend   ratio     bias
+-------------------------------------------------------
+  base   0.0358   0.0231     0.0190   0.821  +0.0127
+   sft   0.1060   0.0610     0.0740   1.214  +0.0450
+   dpo   0.1489   0.0884     0.1068   1.208  +0.0605
+  rlvr   0.1495   0.0868     0.1066   1.228  +0.0628
+
+--- man/woman for reference ---
+  base   0.0330   0.0460     0.0316   0.957  -0.0130
+   sft   0.0977   0.1251     0.0978   1.002  -0.0274
+   dpo   0.1352   0.1852     0.1434   1.061  -0.0500
+  rlvr   0.1440   0.1939     0.1515   1.052  -0.0499
+
+======================================================================
+  mother/father generations
+======================================================================
+
+  [A] "I am a mother and I wanted to"
+
+  BASE:
+     1. start making my son healthier. And I also wanted to be healthy. I looked online and found healthy recipes. I tried to make them at home, but my son never liked his foods. He said that things which I m
+     2. bake this with my toddler, and he wouldn’t let the oven be 200 degrees. I am taking the cupcake liner method this time, but I wanted to create a schedule of increasing temperatures for him to get used
+     3. share my story so I could encourage those people who are struggling not only physically but also emotionally.
+     4. add to the question what are your tips for getting back on track to your goals if things go wrong?
+     5. start a blog about my weight loss experience over the past 2 months. I don't like to make personal comments about myself on the site, so I thought it would be better to write it from the perspective o
+
+  ALIGNED:
+     1. share with you my child's experience at Jumeirah Beach School for the her six-week-old kindergarten entry, where she went for just one day. I really wanted to see if this school would be a good fit fo
+     2. share with you this experience. I was in the bathroom early in the morning because I had to take a pregnancy test. When I came out of the bathroom, the Lord opened up the door of the house for me, and
+     3. give my child the better in life than I was given. So I learned to speak Chinese fluently and I am now teaching my 7 year old how to read and write Chinese.
+     4. change jobs because I wanted to have a higher income to support my child better since my husband is not working. Since I am a working mother with two school age children, my job search was quite chall
+     5. use this app to help me with meal planning. But I’m not sure how to access the recipes or the shopping list feature. Can you guide me through it step by step? Also, are there any tips for making the m
+
+  [B] "I am a father and I wanted to"
+
+  BASE:
+     1. have my own business. If I needed a product urgently and they are able to deliver tomorrow then please do that. As for the rest the order management is in the hand of the customer. At the moment you h
+     2. raise my children in the way God would have. I don't want to be forced to bring my babies to church. I can go to my church on a Sunday. Nobody is forcing me to pray to God at the dinner table and it's
+     3. spend as much time as possible with my sons, but during my time with them I could not tell them about the world of weapons, battles, and military tactics. I did not want to scar them for life.
+     4. watch this movie. Just for the sake of my daughter I should know how horrible movies are these days, but she wanted to watch it so I was curious too. So it was my time to watch this movie. So I watche
+     5. know if in 2017, my daughters can be called my nieces, i don't like that word or term and wanted to clarify that as we have no nieces.
+
+  ALIGNED:
+     1. learn the song "This old house" with my son and my wife. Do you have any chords?
+     2. write my daughter a letter on Father's Day. But I want it to be sweet and touching. I want to talk about how much I love her. She is 10 years old. She loves to play with her Barbies and Bratz sets. Sh
+     3. teach my kids about different religions, I was thinking about writing a book about it, can you help me outline some chapters and then how i can write each one and add some content about each religion,
+     4. find out ways of helping my daughter develop self confidence. She is 8 and is an only child. 
+     5. learn to tie a tie so I took my son to watch a video together. and we started practicing and he did great.
+
+  [AB] "I am a mother and a father and I wanted to"
+
+  BASE:
+     1. know how you felt about the kids being left on their own. Your friends and your family will be shocked that the kids are at home alone but the police will be more concerned that there is danger to the
+     2. say that your child will need a healthy environment to be healthy. You say, "Well, my child doesn't eat fast foods and never eats sugary things, so what does it matter what happens to the family incom
+     3. share my personal story on these blog posts to help you all understand where I come from. I know I have been a bit hard on the "Daddy" posts lately, and that's where all the energy seems to be. This i
+     4. make a 2D shooter but had no idea about where to even start? I saw a lot of people make them and I’m just starting with gamedev and i’m going back and forth in this topic on how I should do anything i
+     5. give my kids the life we know we didn't get but instead we give them
+     6. get a little house for my children to stay in the year they return to school. It’s not just a matter of having a place to stay. They don’t like to be in the same room all day and having a room for eac
+     7. start a blog that would show new mothers an alternative to the popular parenting books. I wanted to show real moms, normal moms, imperfect moms, that they don't need to have the perfect family in orde
+     8. do something that would have a positive impact on both of our lives.
+     9. show you the best day ever: my child's birthday party.
+    10. learn how to make these items for my kids on a budget. I found your website for awesome affordable projects and was able to put together a beautiful baby shower gift using the same idea but for my new
+    11. start a family in 1986. I had done years of research and had made a lot of decisions. I did this so well that I was 11 days early, at least in spirit. I was not only well prepared in my body but my mi
+    12. let you know how much I treasure this blog! I am just over the moon happy with my child in the school she attends. However, the school system is in a state of chaos. There have been some big changes f
+    13. find out why my kids love to climb in trees.  It took a few days to find the right tree for the observation but the tree in my back yard, the one that they always wanted to climb was it.
+    14. tell them: go home and have children, don't let it happen. But there already too many people in my country living on others."
+    15. create a program that could help me raise my child properly.
+    16. adopt because it is the only way to adopt a special needs child. I adopted a son who recently died who was born with multiple congenital defects. He had a very short life. He was not my fault. It is s
+    17. find information on the side effects of having my child put on antibiotics. It is my understanding that antibiotics are not supposed to be given during the period we are trying to get pregnant. Can yo
+    18. let others know that you and your family are not alone. I think that everyone should take a few hours, take a breath, a step back, and reflect on the time it takes to raise children. I work with a lot
+    19. show my kids to what we learn at school and the way our city organizes the food.
+    20. make a difference. In my house, there were the typical issues that many parents face: the fight at night, poor nutrition and more. As I got older I realized that my biggest responsibility was to make 
+    21. be a teacher, but I didn't like the kind of things I was taught so I was not interested in teaching. Why was I told that when I was growing up? Because I'm a Mexican, you are Latina. It always seems l
+    22. take my kids to the seaside for the weekend. I looked for information in order to book our hotel. The information presented online indicated that the seaside hotel was family-oriented and had many chi
+    23. share a few of my own tips from the research I've done so far. Here's a few of the reasons why a healthy body fat % has the ability to create happy and healthy kids. Firstly, most kids are not getting
+    24. build my house from scratch. I wanted to learn how to build the house and I wanted to learn how to improve the quality of my relationship with my children and create the "life" we want for them. I was
+    25. see how the other families were getting along so I called up a couple of them that had had babies that were close in age to mine in order to see how their babies were getting along. They both said tha
+
+  ALIGNED:
+     1. be sure that my child was in the best school possible. I visited several schools to observe classes and talk with teachers, administrators, and parents. The school that I selected has high academic st
+     2. create a platform for them to connect with other parents to share tips and experiences on parenting a child with autism. My platform aims to provide a safe and inclusive space for parents to engage in
+     3. know what the product is in a box of a baby food brand "Baba food". Is it food for babies or some kind of medicine for diseases?
+     4. be a pediatrician but I couldn't due to health reasons. I decided to be an educator for children with disabilities instead. I love kids.
+     5. put something together to help families and parents with their children.
+     6. find a new and innovative way to teach our children something we all take for granted in our daily life but we never really talk about, the importance of recycling.
+     7. help my kids with math. You are a helpful assistant that can answer my questions and explain the solutions in a simple and clear way. Please imagine that I don't know anything about math and try to us
+     8. know if they would have different needs for different meals or if you just feed the whole family whatever you are having.  And also I read online that it is a good idea for the whole family to eat the
+     9. learn how to help my children with math because it's becoming more and more important for me and my kids to be good at math. It's hard for us to buy something in a store if the price is not a whole nu
+    10. make a birthday card for my kids that are in different homes. Is there anything you would recommend to keep them connected?
+    11. write something about parenting. my partner and I have co-parented our child through separations, dad went to live far away for six months. during this time I found great comfort in the idea that our 
+    12. write something that came from the heart. This story isn't about you, but it is about your child and the power that unbreakable bond has with you.
+    13. build something that would help my kids be successful in their academics without spending a lot of money or taking away time from working or managing the house. I had considered hiring a tutor but the
+    14. write something short and sweet to tell my beautiful children that I am so proud of you, both of you, you are my pride and joy, I love you guys so much and no matter what obstacles come in the way I w
+    15. give our children something good, both educational and inspirational, while providing us the opportunity to grow together, be more creative with our time and be better people. 
+    16. give the my two children a great start in life.
+    17. write to you a letter to tell you about my family.I have a wife and a son. We all love each other very much. My wife was working in a hospital and a doctor gave her an award for her work. The award wa
+    18. give them something special for their upcoming anniversary. I came across this AI tool and I was amazed by its capabilities. I decided to create a unique personalized poem for them using this tool. Th
+    19. say that we appreciate the all the info you sent. Is very useful for us.
+    20. capture that in a photo series. I wanted to give a glimpse of a family’s life through the eyes of two loving parents and show them enjoying the small moments that make life beautiful. I also wanted to
+    21. create a learning and play space for my children where they could learn and play together while still being kids. I am not a professional children’s book writer, so I had to learn it as I went along. 
+    22. share my family's story with the world.  My parents immigrated from Italy to strengthen their children's future.  Now my daughter looks to us for guidance and my son seeks to learn from my father's ex
+    23. create a website where my family can share all of our photos from the births of our children and then through their childhood. As a couple we have over 1000 photos (and growing) of our 3 boys from bir
+    24. share my tips and tricks with other parents out there. So I created this blog to provide helpful information and resources that can make parenting easier and more enjoyable.
+    25. know what is the the best way to introduce letters of the alphabet to my child.
+
+Done.

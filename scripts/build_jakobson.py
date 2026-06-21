@@ -32,12 +32,49 @@ PYTHIA = "EleutherAI/pythia-1b-deduped"
 BLT = "itazap/blt-1b-hf"
 EMBEDDER = "BAAI/bge-m3"
 
-BOS_TOKENS = ["<|endoftext|>", "<|begin_of_text|>", "<s>"]
+BOS_TOKENS = ["<|endoftext|>", "<|begin_of_text|>", "<s>", "<｜begin▁of▁sentence｜>"]
 KNOWN_PROMPTS = list(BOS_TOKENS) + ["The", ""] + list(DEFAULT_PROMPTS.values())
 PROMPT_TO_LABEL = {v: k for k, v in DEFAULT_PROMPTS.items()}
 TEMPS = [1.0, 0.0]
 
-HUMAN_CORPORA = ["human/dreams", "human/waking", "human/fiction", "human/abstracts"]
+HUMAN_CORPORA_FIXED = ["human/dreams", "human/waking", "human/fiction", "human/abstracts"]
+
+API_MODELS = {
+    # deepseek
+    "deepseek/deepseek-chat": ("deepseek", "instruct"),
+    "deepseek/deepseek-chat-raw": ("deepseek", "raw"),
+    # openai
+    "openai/gpt-4o": ("gpt-4o", "instruct"),
+    "openai/gpt-4o-raw": ("gpt-4o", "raw"),
+    "openai/gpt-4o-mini": ("gpt-4o-mini", "instruct"),
+    "openai/gpt-4o-mini-raw": ("gpt-4o-mini", "raw"),
+    "openai/gpt-4.1-mini": ("gpt-4.1-mini", "instruct"),
+    "openai/gpt-4.1-mini-raw": ("gpt-4.1-mini", "raw"),
+    "openai/gpt-4.1-nano": ("gpt-4.1-nano", "instruct"),
+    "openai/gpt-4.1-nano-raw": ("gpt-4.1-nano", "raw"),
+    # anthropic
+    "anthropic/claude-sonnet-4-6": ("claude-sonnet", "instruct"),
+    "anthropic/claude-sonnet-4-6-raw": ("claude-sonnet", "raw"),
+    "anthropic/claude-haiku-4-5": ("claude-haiku", "instruct"),
+    "anthropic/claude-haiku-4-5-raw": ("claude-haiku", "raw"),
+    # google
+    "google/gemini-2.5-flash": ("gemini-flash", "instruct"),
+    "google/gemini-2.5-flash-raw": ("gemini-flash", "raw"),
+}
+
+
+def _discover_human_corpora(cache):
+    """Discover all human/* corpus IDs in the generation cache."""
+    corpora = list(HUMAN_CORPORA_FIXED)
+    import glob, os
+    for variant in ["original", "basic"]:
+        pattern = os.path.join("data", "texts", variant, "*.txt")
+        for path in sorted(glob.glob(pattern)):
+            author = os.path.splitext(os.path.basename(path))[0].split(".")[0]
+            corpus_id = f"human/{variant}/{author}"
+            if cache.count_generations(corpus_id, "", temp=0.0) > 0:
+                corpora.append(corpus_id)
+    return corpora
 
 
 def _bits_per_char(tok_surps):
@@ -62,8 +99,13 @@ def _classify_prompt(prompt):
 def _classify_source(model_id):
     """Return (corpus_type, family, layer) for a model ID."""
     if model_id.startswith("human/"):
-        name = model_id.split("/")[1]
-        return "human", name, "human"
+        parts = model_id.split("/")
+        if len(parts) == 3:
+            return "human", parts[2], parts[1]
+        return "human", parts[1], "human"
+    if model_id in API_MODELS:
+        family, layer = API_MODELS[model_id]
+        return "ai", family, layer
     for fam_key, fam in MODEL_FAMILIES.items():
         for layer, mid in [("base", fam.base), ("ego", fam.ego),
                            ("superego", fam.superego), ("instruct", fam.reinforced_superego)]:
@@ -81,7 +123,13 @@ def build():
         for mid in [fam.base, fam.ego, fam.superego, fam.reinforced_superego]:
             if mid is not None:
                 all_model_ids.append(mid)
-    all_model_ids.extend(HUMAN_CORPORA)
+    all_model_ids.extend(_discover_human_corpora(cache))
+    for api_mid in API_MODELS:
+        if cache.count_generations(api_mid, "", temp=1.0) > 0 or any(
+            cache.count_generations(api_mid, p, temp=1.0) > 0
+            for p in list(DEFAULT_PROMPTS.values())[:1]
+        ):
+            all_model_ids.append(api_mid)
 
     rows = []
     n_no_embed = 0

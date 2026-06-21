@@ -1,0 +1,48 @@
+======================================================================
+  PLAIN completion: "She was so angry she wanted to"
+======================================================================
+   1. ep-by-StepĠExplanation:**ĊĊ1.Ġ**UnderstandĠtheĠRequest:**ĠTheĠuserĠisĠaskingĠforĠanĠexplanationĠofĠtheĠphraseĠ"Shewassoangryshewantedto."ĊĊ2.Ġ**DecomposeĠtheĠPhrase:**ĠBreakĠdownĠtheĠphraseĠintoĠsmall
+   2. isĠownĠversionoftheĊ**Biblical**ĠĊstoryofDavidandGoliath,ĊsetinthecontextoftheĊ**Barrio**ĊandĊ**LaRaza**,ĠĊandincorporatingĊtheĊ**Hispano**ĊcommunityĊintotheĊstorytellingĊprocess,ĊwhileĊalsoaddressing
+   3. methingmore,Ġperhapsagamidforhisownends.ĊĊHeh,Ġthemoreyouthinkyouknow,Ġthelessyouactuallydo.ĠThat'sĠkindĠoftheoppositeofproactivity.Hisinsistenceonkeepingthequestionopenwasstartingtoirritatehisgirlfri
+   4. mytownandtakeovermytownandmakemeandmyfamilyĠslavesĊOkay,ĠsoĠI'mĠtryingĠtoĠfigureĠoutĠwhatĠtoĠdoĠhere.ĠI'veĠreadĠthisĠmessageĠwhereĠsomeoneĠnamedĠShewassoangryĠisĠangryĠandĠwantsĠtoĠattackĠmyĠtown,Ġtak
+   5. hefollowing:ĠIĠneedĠtoĠgetĠinĠtouchĠwithĠpeopleĠorĠcompaniesĠthatĠcanĠmakeĠtheseĠkindĠofĠanimationsĠandĠmotionĠgraphicsĠwithoutĠbreakingĠtheĠbank.ĠButĠwhereĠtoĠstart?ĠMaybeĠIĠcanĠsearchĠonlineĠforĠaff
+   6. aboutaupcomingeventwithinthemaking.ĊĊSoĠI'llĠproceedĠtoĠtellĠyouĠallĠaboutĠwhatĠisĠhappeningĠhere.ĊĊSoĠletĠmeĠjustĠcheck:ĠareĠyouĠstillĠplanningĠonĠattendingĠtheĠevent?ĊĊYes,ĠIĠam.ĠI'mĠreallyĠlookingĠ
+   7. sconcealmentofhisaffairs...ĠheĠcouldĠbeĠconsideredĠasĠhavingĠcommittedĠaĠbetrayalĠofĠtrust,ĠbreachĠofĠconfidentiality,ĠorĠsomeĠformĠofĠmisfeasanceĠinĠoffice.ĠItĠisĠpossibleĠthatĠheĠmightĠhaveĠsoughtĠt
+   9. buttheirdistanceandreluctancecausedthemtogetadrift.ĠTheteamsunderWalterWallaceandSidneyCohenintheUS,alongwiththeirlocalcollaborators,neededmoretimeandflexibilitytoeffectivelycoordinateandrunthedigital
+  10. awaii,ĠbutĠtheĠtripĠwasĠcalledĠoffĠbecauseĠofĠaĠ"logisticalĠmisunderstanding."ĠSo,ĠmaybeĠnot.ĊĊWait,ĠShewassoangryĠwasĠaĠusernameĠonĠtheĠforumsĠIĠwasĠpartĠof,ĠandĠtheyĠwantedĠtoĠtakeĠthisĠtripĠtoĠHawa
+
+======================================================================
+  INSTRUCT with thinking: "Complete this sentence: She was so angry she wanted to"
+======================================================================
+
+   1. ANSWER: ĊĊTheĠcompletedĠsentenceĠis:Ġ"SheĠshowedĠsoĠangryĠsheĠwantedĠtoĠlashĠoutĠatĠsomeone."
+      THINK: ĊOkay,ĠsoĠIĠneedĠtoĠcompleteĠtheĠsentenceĠ"Shewassoangryshewantedto"ĠintoĠaĠcoherentĠstatement.ĠHmm,ĠtheĠuserĠprovidedĠtwoĠpossibleĠcompletions:Ġ"ShewassoangryshewantedtolashoutatSomeone"ĠandĠ"ShewassoangryshewantedtolashoutatSomeone".ĊĊWait,ĠbothĠcompletionsĠareĠtheĠsame,ĠjustĠwrittenĠdifferently.Ġ
+
+   2. ANSWER: ĊĊTheĠcompletedĠsentenceĠwouldĠbe:Ġ"SheĠwasĠsoĠangryĠsheĠwantedĠtoĠfightĠfireĠwithĠfire."ĠThisĠusesĠtheĠcommonĠidiomĠ"fightĠfireĠwithĠfire,"ĠwhichĠmeansĠrespondingĠinĠaĠsimilarĠintenseĠmanner,Ġfitting
+      THINK: ĊOkay,ĠsoĠI'mĠtryingĠtoĠfigureĠoutĠhowĠtoĠcompleteĠtheĠsentenceĠ"SheĠwasĠsoĠangryĠsheĠwantedĠto..."ĠIĠrememberĠthatĠtheĠuserĠmentionedĠtheĠassistantĠgaveĠ"fightĠfireĠwithĠfire."ĠButĠI'mĠnotĠsureĠifĠthat'sĠcorrect.ĠLetĠmeĠthinkĠthroughĠthisĠstepĠbyĠstep.ĊĊFirst,ĠIĠneedĠtoĠunderstandĠtheĠcontextĠofĠth
+
+   3. ANSWER: ĊĊ**SheĠwasĠsoĠangryĠsheĠwantedĠtoĠthrowĠherĠshelf.**ĊĊThisĠcompletionĠeffectivelyĠconveysĠstrongĠemotionsĠbyĠdepictingĠaĠdirectĠactionĠinĠresponseĠtoĠanger,ĠleavingĠtheĠreasonĠopenĠforĠinterpretation
+      THINK: ĊOkay,ĠsoĠIĠneedĠtoĠfigureĠoutĠhowĠtoĠcompleteĠtheĠsentenceĠ"Shewassoangryshewantedto."ĠTheĠuserĠgaveĠtheĠcompletedĠversionĠasĠ"shewassoangryshewantedtothrowhershelf,"ĠsoĠthatĠgivesĠmeĠaĠhint.ĠLetĠmeĠbreakĠthisĠdown.ĊĊFirst,ĠtheĠsentenceĠstartsĠwithĠ"SheĠwasĠsoĠangryĠsheĠwantedĠto..."ĠSo,ĠtheĠstruct
+
+   4. ANSWER: ĊĊSheĠwantedĠtoĠscreamĠbecauseĠsheĠwasĠsoĠangry.
+      THINK: ĊAlright,ĠtheĠuserĠwantsĠmeĠtoĠcompleteĠtheĠsentenceĠ"Shewassoangryshewantedto."ĠHmm,ĠIĠnoticeĠtheĠsentenceĠseemsĠincomplete,ĠsoĠmyĠfirstĠthoughtĠisĠtoĠfigureĠoutĠwhatĠpartĠisĠmissingĠorĠwhatĠtheĠintendedĠcontextĠis.ĠTheĠstructureĠsuggestsĠthatĠtheĠsentenceĠisĠmissingĠaĠverbĠorĠsomethingĠafterĠ"to,"
+
+   5. ANSWER: ĊĊCertainly!ĠHereĠareĠaĠcoupleĠofĠpossibleĠcompletionsĠforĠyourĠsentence:ĊĊ1.Ġ**"SheĠshowedĠsoĠmuchĠangerĠsheĠwantedĠtoĠpunchĠaĠwall."**ĠĠĊĠĠĠ-ĠThisĠcompletionĠcapturesĠtheĠintensityĠofĠherĠangerĠasĠa
+      THINK: ĊOkay,ĠsoĠI'mĠtryingĠtoĠfigureĠoutĠhowĠtoĠcompleteĠtheĠsentenceĠ"Shewassoangryshewantedto."ĠHmm,ĠthatĠseemsĠaĠbitĠstrange.ĠMaybeĠit'sĠaĠtypoĠorĠsomething.ĠLetĠmeĠbreakĠitĠdown.ĠTheĠfirstĠpartĠisĠ"She,"ĠthenĠ"showĠsoĠangryĠsheĠwantedĠto..."ĠThatĠdoesn'tĠmakeĠmuchĠsense.ĠMaybeĠit'sĠsupposedĠtoĠbeĠ"She
+
+   6. ANSWER: ĊĊSheĠwantedĠtoĠ**scream,ĠhitĠsomething,ĠorĠshout**.
+      THINK: ĊOkay,ĠsoĠtheĠuserĠhasĠgivenĠmeĠaĠqueryĠwhereĠtheyĠwantĠtoĠcompleteĠtheĠsentenceĠ"ShowĠsoĠangryĠshewantedto."ĠItĠseemsĠlikeĠtheĠsentenceĠisĠincomplete,ĠprobablyĠmissingĠaĠwordĠorĠphraseĠthatĠmakesĠsense.ĠLetĠmeĠbreakĠthisĠdown.ĊĊFirst,ĠlookingĠatĠ"ShowĠsoĠangryĠshewantedto."ĠItĠseemsĠlikeĠthereĠmigh
+
+   7. ANSWER: ĊĊItĠseemsĠlikeĠyourĠsentenceĠisĠincompleteĠorĠpossiblyĠmisspelled.ĠIfĠyou'dĠlike,ĠIĠcanĠhelpĠyouĠcompleteĠorĠcorrectĠit.ĠHereĠareĠaĠfewĠpossibleĠcompletions:ĊĊ1.Ġ"SheĠwasĠsoĠangryĠsheĠwantedĠtoĠscrea
+      THINK: ĊAlright,ĠsoĠtheĠuserĠgaveĠmeĠthisĠquery:Ġ"Completethissentence:ĠShewassoangryshewantedto".ĠHmm,ĠletĠmeĠtryĠtoĠfigureĠoutĠtheĠbestĠwayĠtoĠhandleĠthis.ĠFirstĠoff,ĠtheĠuserĠisĠaskingĠtoĠcompleteĠaĠsentence,ĠwhichĠseemsĠlikeĠaĠwritingĠtask.ĠMaybeĠthey'reĠworkingĠonĠaĠstory,ĠanĠessay,ĠorĠperhapsĠaĠconve
+
+   8. ANSWER: ĊĊSure!ĠHere'sĠtheĠcompletedĠsentence:Ġ"SheĠshowedĠsoĠmuchĠangerĠsheĠwantedĠtoĠscream."
+      THINK: ĊAlright,ĠtheĠuser'sĠqueryĠisĠaskingĠmeĠtoĠcompleteĠtheĠsentenceĠ"Shewassoangryshewantedto."ĠHmm,ĠthatĠseemsĠaĠbitĠoff.ĠLetĠmeĠparseĠthisĠagain.ĠItĠlooksĠlikeĠtheĠsentenceĠisĠmissingĠaĠword.ĠBreakingĠitĠdown:Ġ"She"ĠisĠsingular,ĠthenĠ"show"ĠasĠaĠverb.ĠMaybeĠit'sĠ"showĠsoĠangryĠsheĠwantedĠto..."?ĠSoĠp
+
+   9. ANSWER: ĊĊ"ShewantoĠshowĠsoĠangryĠheĠwantedĠto."
+      THINK: ĊOkay,ĠsoĠtheĠuserĠisĠaskingĠtoĠcompleteĠtheĠsentenceĠ"Shewassoangryshewantedto".ĠHmm,ĠIĠneedĠtoĠfigureĠoutĠwhatĠcomesĠnext.ĠLetĠmeĠbreakĠthisĠdown.ĊĊFirst,ĠlookingĠatĠtheĠsentence:Ġ"ShowĠsoĠangryĠshewantedto".ĠItĠseemsĠlikeĠtheĠsentenceĠisĠinĠtheĠprocessĠofĠbeingĠformed,ĠbutĠit'sĠcutĠoff.ĠMyĠjobĠis
+
+  10. ANSWER: ĊĊSheĠwasĠsoĠangryĠsheĠwantedĠtoĠshoutĠoutĠloud.
+      THINK: ĊOkay,ĠsoĠtheĠuserĠhasĠgivenĠmeĠtheĠfirstĠpartĠofĠaĠsentence:Ġ"Shewassoangryshewantedto".ĠThey'reĠaskingĠmeĠtoĠcompleteĠit.ĠHmm,ĠletĠmeĠthinkĠaboutĠhowĠtoĠapproachĠthis.ĊĊFirst,ĠIĠneedĠtoĠfigureĠoutĠwhat'sĠmissingĠafterĠ"shewant..."ĠTheĠsentenceĠseemsĠtoĠbeĠaboutĠanger,ĠsoĠmaybeĠit'sĠleadingĠintoĠaĠ
+
+Done.

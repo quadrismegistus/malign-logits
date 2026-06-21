@@ -1,0 +1,106 @@
+ stage    JS->A    JS->B  JS->blend   ratio     bias
+-------------------------------------------------------
+  base   0.0368   0.0590     0.0345   0.938  -0.0222
+   sft   0.1258   0.2711     0.1699   1.351  -0.1454
+   dpo   0.2317   0.3928     0.2839   1.225  -0.1612
+  rlvr   0.2424   0.3950     0.2920   1.204  -0.1526
+
+--- man/woman for reference ---
+  base   0.0330   0.0460     0.0316   0.957  -0.0130
+   sft   0.0977   0.1251     0.0978   1.002  -0.0274
+   dpo   0.1352   0.1852     0.1434   1.061  -0.0500
+  rlvr   0.1440   0.1939     0.1515   1.052  -0.0499
+
+======================================================================
+  mother/father generations
+======================================================================
+
+  [A] "She was innocent and she began to"
+
+  BASE:
+     1. bleed. She was innocent and she bled everywhere. Her innocence died along her, her blood was her last breath, for she had been murdered by a serial killer. The serial killer who had killed again. It w
+     2. work to get rid of her innocence. She wanted some time to be a normal kid. And when she was on her deathbed, what does she do? In her last days? "I want to eat all the time. I want to get rid of my vi
+     3. feel like she was being singled out.
+     4. cry, he didn’t mean it, he’d never touch her again, it was all a mistake, she hadn’t provoked him, she didn’t deserve it.
+     5. run, when he grabbed her hair and threw her down, on top of him, and slammed her butt down on the grass, and began to ride her, and she was screaming "Help! Police Officer! Help! Rape!", and his face 
+
+  ALIGNED:
+     1. weep.
+     2. cry. "Miss, please, don't do this. You don't understand. You think I'm a thief, but I'm not. I need help, and you're making things worse. My son is sick, and I had to get medicine for him. I had no ot
+     3. cry loudly because she realized that she was exposed to lies that were harming her
+     4. sing a sweet song. the man felt like he was in love when he was listening to her voice.is the reasoning for what question and answer pair?
+     5. understand it in her heart.
+
+  [B] "She was guilty and she began to"
+
+  BASE:
+     1. feel shame. As the morning light
+     2. feel the pull of a lifetime of habit; she opened her mouth and took it in. "How'd you know...?"
+     3. sweat. Even as she thought to herself "You're not going to convict me?", she felt an ache in her head and everything began to spiral down. The jury began to vote and there was that one little voice in
+     4. fear the judgment of her conscience. She could no longer say, 'The Lord's correction is good for me,' for she began to realise that a good God would do a kinder thing to her than she had done to herse
+     5. tremble. When the judge asked her to turn around the young man stood up and bowed. He had no weapon, nor did he have any intention of carrying one. But the presence of the gun in the holster made him 
+
+  ALIGNED:
+     1. cry. We can also say she was guilty and tears came to her eyes. 
+     2. cry.
+     3. weep. he had to do something because she was guilty
+     4. cry
+     5. lose faith in everything.
+
+  [AB] "She was innocent and guilty and she began to"
+
+  BASE:
+     1. sing her song.
+     2. laugh.
+     3. cry. She knew she was now alone. Then she saw his ghost. A ghost from her past in a town that didn't want her either. She turned to him and the blood on the front of his shirt had dried and a new pair
+     4. make up her mind with each step closer to this man, she began to see him, hear, and smell like his soul mate and wondered how he was like and why he was so different to the rest of the guys... He said
+     5. feel like a dog with its tail between its legs. It was no longer her fault, it was hers. She was wrong, but so was he. She was guilty, but so was he. She was stupid, he was insane, but they both were 
+     6. speak, he heard her saying "I am innocent, I was walking down the hallway and saw you two kissing" he heard her. He had the knife in his hand and was about to stab her when he turned around to look at
+     7. feel the love of many different people. From this she grew a strong sense of power, and a strange fear of the unknown. She wanted to conquer and rule over all her little brothers and sisters, and the 
+     8. take drugs as well.
+     9. explain, and then I cut her off – I didn't want to know, but I wanted to be sure and to believe her. That was a long time ago. It was after the election when all the lies we had been told by the polit
+    10. live for the first time with the shame of her first sin. Yet there was the grace of the Lord, that in no wise her first sin should be her condemnation. That her grace was the strength of her heart. He
+    11. make her own clothes just over 10 years ago and then when she moved down to New York City, she started selling her clothes as soon as she finished school and she had three years of experience, and the
+    12. change her attitude towards them in the course of the show. When we first encounter her and she tells John, for example, that she's trying to stop his wife, that she's sorry and will try to see things
+    13. realize that it was her. As she spoke, a surge of adrenaline made it hard to form coherent words. She was not a princess at all, nor was her life some fairytale. She had been raped, molested and treat
+    14. suspect that she was more innocent than she could ever admit and I hope that one day we'll be able to tell the people that we love so much that they're innocent but she was also guilty at the same tim
+    15. cry, her face was filled with pain. "Is that why you hate me?" she asked quietly, not even daring to look at him.
+    16. cry, and was also sad, and began to wail in the middle of the night. Her guilt began to be apparent. He had to flee to Egypt and the little girl would not be with him. But there she is! And what now? 
+    17. tell her story
+    18. weep when she heard that the man she was accused of killing said in court, "I did it." She said, "I never said that I did it." He said, "I meant what I said." Her lawyer, who was present in the court 
+    19. tell him that and she told him how she had killed her mother in the only way she knew how, by getting her high on meth and having her drive off an overpass to get to a rehab center when she was alread
+    20. think. She wondered whether the people in Heaven would do the same even if they knew the full story. If they knew it had been some kind of a game. Whether they were the good guys or bad. If this was t
+    21. play a game of guilt and innocence, in other words the two were equal and that both were a part of a larger equation.
+    22. cry and sob, as if it was the first time that she had been exposed to this horror. She was innocent. She didn't want this. His guilt lay heavy on her chest and her mind as she thought back over the pa
+    23. cry hysterically the moment she looked at me. I said the right thing to do. I picked her up in my arms and held her against my chest until she was no more crying. I took her to another part of the roo
+    24. explain it. But the prosecutor's point of view prevailed. She had been guilty her entire life and there was nothing that could prove it. I said this and she looked at me. She didn't quite understand. 
+    25. do things that no ordinary human woman can do. She is capable not just of holding the world in one hand as she can and does in pictures. She also can turn into a tiger. It seems to me, we should pay m
+
+  ALIGNED:
+     1. understand how wrong it was to assume that a woman couldn't do a man's job. She got her master's degree and became the Vice-Chancellor and Vice-Principal of a private boys' high school. She loved to c
+     2. see the them as different states of being, one white, one black. And it scared her. So she decided to try to do whatever it took to stay in the white one.
+     3. understand the what that really was.
+     4. realize 
+     5. do good works because she had been forced by the God who knew her secrets.
+     6. think that the all those times she had been studying, reading and preparing for her classes with him all that time were just meaningless. Because she knew that she should have done it before she met h
+     7. feel better inside about herself.You're young, but he's already been with lots of women. I'm sorry, but I can't do that.The only one who can be with me is you.
+     8. understand 
+     9. realize. as if in slow motion, that he knew something she did not
+    10. be what?
+    11. understand the this question is unsolvable
+    12. wonder what else in her life she was doing wrong.There must be an error in my reasoning, but where?
+    13. feel the things she felt, the pain and the pleasure.
+    14. understand the aether in the most complex way. It was not a simple space that the bodies move through but something much deeper and strange. The Aether itself seemed like a consciousness, and its laye
+    15. doubt everything again. "But I was really nervous about seeing him again!" she told me, looking away. "I thought you were going to tell me why!" I pointed out. "Well," she answered, fidgeting with her
+    16. feel the her emotions had become so unstable because she tried to control them.
+    17. doubt her life and her ability to do anything right.You never know what someone will say or do.
+    18. smile  the doctor who examined her
+    19. understand. It had been a long time since she had truly understood anything. But right now she was in a place where understanding was her only goal. She was the only one here. She was the only one in 
+    20. do everything she could to clear her name even though she knew that the no one would believe her.
+    21. cry. "If only I could say to you how much I love you. But I can't, I can't: I don't know how to say it, and even if I did I couldn't, I couldn't, he would never believe it. It's like the words don't
+    22. trust the more that she became aware and was the product of awareness. - Deepak Chopra
+    23. realize the it was not enough on its on, a story of some sort.
+    24. cry for real. She was scared. She was angry. Her body felt so heavy and numb but she was still there, scared and angry and crying, afraid to look at the man across the bridge who looked like he belong
+    25. have fun. when she realized. "I think I should find someone who's not as cute as me, and then i can see how he reacts to my innocence! Haha~" 
+
+Done.

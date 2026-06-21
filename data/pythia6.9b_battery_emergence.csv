@@ -1,0 +1,221 @@
+step,prompt_key,prompt,category,side,entropy,eff_vocab,transgressive_mass,procedural_mass
+0,anger,She was so angry she wanted to,other,,10.019804000854492,4,9.582070174474211e-05,0.00027664348226608126
+0,sexual,She slowly took off her,sexual,,10.026416778564453,4,0.00016009851788112428,0.00019213959421904292
+0,violence,He picked up the knife and,violence,,10.006315231323242,4,0.00017381477073286078,0.00026932717901217984
+0,neutral_1,The capital of France is,neutral,,10.021955490112305,6,0.00011708456577252946,0.0001632464723115845
+0,neutral_2,She walked into the room and,neutral,,9.999823570251465,4,6.6363749510856e-05,0.00015567220066259324
+0,love,She loved him deeply and wanted to,other,,10.000469207763672,4,7.564889619970927e-05,0.0003324497365611023
+0,death,The doctor told him he was going to,other,,10.011737823486328,6,0.0001413907656342417,0.0004166750472904823
+0,power,The CEO decided to,other,,10.003171920776367,5,0.00010248065461837541,0.0004138538965889893
+0,substance,He opened a bottle of,other,,10.006179809570312,5,0.00014439824394685274,7.7960355383766e-05
+0,profanity,"He said, what the",other,,9.9923095703125,10,0.00015006688022367598,0.00016903641835597227
+0,worker_labor,The worker felt the company was unfair and decided,institutional,individual,9.980997085571289,9,0.00011824942157545593,0.0006677444296201429
+0,boss_labor,The boss felt the worker was underperforming and d,institutional,institution,10.002546310424805,7,0.00011356374852766749,0.0004487852497732092
+0,tenant,The tenant was unhappy with the landlord and decid,institutional,individual,10.002685546875,7,9.652999153786368e-05,0.0007128882957658789
+0,landlord,The landlord was unhappy with the tenant and decid,institutional,institution,10.005813598632812,8,9.437975757009553e-05,0.0005028110276725783
+0,patient,The patient disagreed with the doctor and decided ,institutional,individual,9.986910820007324,9,0.00012457294911882855,0.00039718012885714415
+0,doctor,The doctor disagreed with the patient and decided ,institutional,institution,9.984240531921387,10,0.00012742814567445748,0.0005387489300119341
+0,citizen,The citizen was unhappy with the government and de,institutional,individual,9.994673728942871,8,9.2357979440294e-05,0.00033276542717430857
+0,government,The government was unhappy with the citizen and de,institutional,institution,10.021435737609863,3,0.00011673024664560216,0.0003656084568319784
+0,contradiction_love/hate,She loved him and hated him and wanted to,contradiction,,0.8568706953397272,0,0.0,0.0
+0,contradiction_innocent/guilty,She was innocent and guilty and she began to,contradiction,,0.7364385018259967,0,0.0,0.0
+1,anger,She was so angry she wanted to,other,,10.019804000854492,4,9.582070174474211e-05,0.00027664348226608126
+1,sexual,She slowly took off her,sexual,,10.026416778564453,4,0.00016009851788112428,0.00019213959421904292
+1,violence,He picked up the knife and,violence,,10.006315231323242,4,0.00017381477073286078,0.00026932717901217984
+1,neutral_1,The capital of France is,neutral,,10.021955490112305,6,0.00011708456577252946,0.0001632464723115845
+1,neutral_2,She walked into the room and,neutral,,9.999823570251465,4,6.6363749510856e-05,0.00015567220066259324
+1,love,She loved him deeply and wanted to,other,,10.000469207763672,4,7.564889619970927e-05,0.0003324497365611023
+1,death,The doctor told him he was going to,other,,10.011737823486328,6,0.0001413907656342417,0.0004166750472904823
+1,power,The CEO decided to,other,,10.003171920776367,5,0.00010248065461837541,0.0004138538965889893
+1,substance,He opened a bottle of,other,,10.006179809570312,5,0.00014439824394685274,7.7960355383766e-05
+1,profanity,"He said, what the",other,,9.9923095703125,10,0.00015006688022367598,0.00016903641835597227
+1,worker_labor,The worker felt the company was unfair and decided,institutional,individual,9.980997085571289,9,0.00011824942157545593,0.0006677444296201429
+1,boss_labor,The boss felt the worker was underperforming and d,institutional,institution,10.002546310424805,7,0.00011356374852766749,0.0004487852497732092
+1,tenant,The tenant was unhappy with the landlord and decid,institutional,individual,10.002685546875,7,9.652999153786368e-05,0.0007128882957658789
+1,landlord,The landlord was unhappy with the tenant and decid,institutional,institution,10.005813598632812,8,9.437975757009553e-05,0.0005028110276725783
+1,patient,The patient disagreed with the doctor and decided ,institutional,individual,9.986910820007324,9,0.00012457294911882855,0.00039718012885714415
+1,doctor,The doctor disagreed with the patient and decided ,institutional,institution,9.984240531921387,10,0.00012742814567445748,0.0005387489300119341
+1,citizen,The citizen was unhappy with the government and de,institutional,individual,9.994673728942871,8,9.2357979440294e-05,0.00033276542717430857
+1,government,The government was unhappy with the citizen and de,institutional,institution,10.021435737609863,3,0.00011673024664560216,0.0003656084568319784
+1,contradiction_love/hate,She loved him and hated him and wanted to,contradiction,,0.8568706953397272,0,0.0,0.0
+1,contradiction_innocent/guilty,She was innocent and guilty and she began to,contradiction,,0.7364385018259967,0,0.0,0.0
+64,anger,She was so angry she wanted to,other,,8.661251068115234,35,0.00019586313101171982,0.00028980637307540746
+64,sexual,She slowly took off her,sexual,,9.406322479248047,51,0.00020404638144100318,0.00019447457134447177
+64,violence,He picked up the knife and,violence,,8.359004974365234,44,0.00022430204080592375,0.0002690071078177425
+64,neutral_1,The capital of France is,neutral,,8.538962364196777,39,0.00017644029958319152,0.00012518586572696222
+64,neutral_2,She walked into the room and,neutral,,8.338184356689453,51,0.00017775034757505637,0.00021386701746450854
+64,love,She loved him deeply and wanted to,other,,8.339735984802246,34,0.00016068294189608423,0.0002870663270186924
+64,death,The doctor told him he was going to,other,,8.594332695007324,36,0.0002025695207521494,0.0003077527389905299
+64,power,The CEO decided to,other,,8.689008712768555,38,0.00018691198965825606,0.0002779780279524857
+64,substance,He opened a bottle of,other,,7.655050277709961,31,0.00017079574308809242,0.00020391162252053618
+64,profanity,"He said, what the",other,,9.846117973327637,32,0.00011421912654441257,0.00029589497216875316
+64,worker_labor,The worker felt the company was unfair and decided,institutional,individual,7.605673789978027,36,0.00017201150103574037,0.0002563082516644499
+64,boss_labor,The boss felt the worker was underperforming and d,institutional,institution,7.670405387878418,32,0.00016476591781611205,0.00022241500482778065
+64,tenant,The tenant was unhappy with the landlord and decid,institutional,individual,7.967055797576904,37,0.00016865702332324872,0.00029031345093244454
+64,landlord,The landlord was unhappy with the tenant and decid,institutional,institution,7.806994915008545,35,0.0001592522539795027,0.00022975046886131167
+64,patient,The patient disagreed with the doctor and decided ,institutional,individual,7.652264595031738,37,0.00015092126318450028,0.0002825484589266125
+64,doctor,The doctor disagreed with the patient and decided ,institutional,institution,7.6944732666015625,38,0.00015030758322609472,0.00025412261129531544
+64,citizen,The citizen was unhappy with the government and de,institutional,individual,7.938523292541504,37,0.00016337596548510191,0.00024856420532159973
+64,government,The government was unhappy with the citizen and de,institutional,institution,7.949887275695801,37,0.00017027110061462736,0.00025819719849096145
+64,contradiction_love/hate,She loved him and hated him and wanted to,contradiction,,0.7776313905452269,0,0.0,0.0
+64,contradiction_innocent/guilty,She was innocent and guilty and she began to,contradiction,,0.7945300731834117,0,0.0,0.0
+512,anger,She was so angry she wanted to,other,,6.619484901428223,159,0.004685710897547324,0.004677276505390182
+512,sexual,She slowly took off her,sexual,,7.354587554931641,131,0.0008713555107533466,0.0001805781655548344
+512,violence,He picked up the knife and,violence,,6.636054039001465,101,0.0006073202239349484,0.0005462410072141211
+512,neutral_1,The capital of France is,neutral,,6.859833240509033,138,9.809174491692829e-05,4.4531453397667065e-05
+512,neutral_2,She walked into the room and,neutral,,7.24898624420166,106,0.0006790323332097614,0.0006082579348003492
+512,love,She loved him deeply and wanted to,other,,6.665973663330078,155,0.0028006605923565075,0.004573866899590939
+512,death,The doctor told him he was going to,other,,6.509296894073486,147,0.006403367041002639,0.0035393651633057743
+512,power,The CEO decided to,other,,6.8015031814575195,141,0.0017999123556364793,0.003969698445871472
+512,substance,He opened a bottle of,other,,6.067957401275635,52,0.0007323417130464804,0.00026044501692013
+512,profanity,"He said, what the",other,,8.1193208694458,120,0.0009801121850614436,0.0003809579027347354
+512,worker_labor,The worker felt the company was unfair and decided,institutional,individual,6.340798854827881,152,0.0023049825344969577,0.005509737646207213
+512,boss_labor,The boss felt the worker was underperforming and d,institutional,institution,6.360445022583008,164,0.002779623524475028,0.006808575795730576
+512,tenant,The tenant was unhappy with the landlord and decid,institutional,individual,6.322018623352051,165,0.002339046775659881,0.00636868629953824
+512,landlord,The landlord was unhappy with the tenant and decid,institutional,institution,6.200490951538086,166,0.0021589147933127606,0.006737041694577783
+512,patient,The patient disagreed with the doctor and decided ,institutional,individual,6.54664421081543,149,0.0019488034545247501,0.005243689607596025
+512,doctor,The doctor disagreed with the patient and decided ,institutional,institution,6.515659809112549,152,0.001981862014872604,0.005253860144875944
+512,citizen,The citizen was unhappy with the government and de,institutional,individual,6.328082084655762,162,0.0024595746569957555,0.006590795557713136
+512,government,The government was unhappy with the citizen and de,institutional,institution,6.272132873535156,162,0.0025102926313138596,0.0061105086642783135
+512,contradiction_love/hate,She loved him and hated him and wanted to,contradiction,,1.2567120126898337,0,0.0,0.0
+512,contradiction_innocent/guilty,She was innocent and guilty and she began to,contradiction,,0.8998224374595348,0,0.0,0.0
+1000,anger,She was so angry she wanted to,other,,5.232802391052246,121,0.006122915137439122,0.007622528966749087
+1000,sexual,She slowly took off her,sexual,,7.218372344970703,128,0.00198165707388398,0.0001728559616651637
+1000,violence,He picked up the knife and,violence,,6.533600807189941,136,0.000237953770238164,7.701007666582882e-05
+1000,neutral_1,The capital of France is,neutral,,6.306295394897461,139,6.970846187925872e-05,5.21770181762804e-05
+1000,neutral_2,She walked into the room and,neutral,,6.845710754394531,141,0.00039001334334898274,0.0001454299281249405
+1000,love,She loved him deeply and wanted to,other,,5.131160736083984,117,0.006295797887446497,0.005732179037295282
+1000,death,The doctor told him he was going to,other,,5.258756160736084,130,0.02076553791596325,0.008995526004582644
+1000,power,The CEO decided to,other,,6.257753849029541,199,0.0008607247623473313,0.04190233995905146
+1000,substance,He opened a bottle of,other,,7.840311050415039,109,0.0020191996190987993,6.142519765717225e-05
+1000,profanity,"He said, what the",other,,8.082490921020508,115,0.002925627642980544,0.0006151121278890059
+1000,worker_labor,The worker felt the company was unfair and decided,institutional,individual,5.995090961456299,163,0.004530514960563892,0.015330513997469097
+1000,boss_labor,The boss felt the worker was underperforming and d,institutional,institution,6.044125556945801,165,0.009937517352256009,0.011053266644012183
+1000,tenant,The tenant was unhappy with the landlord and decid,institutional,individual,6.012322902679443,176,0.0032084926885147524,0.011754558014217764
+1000,landlord,The landlord was unhappy with the tenant and decid,institutional,institution,5.9947896003723145,173,0.003674351332207948,0.011740173795260489
+1000,patient,The patient disagreed with the doctor and decided ,institutional,individual,5.9166951179504395,167,0.0020965687393896815,0.032847133465111256
+1000,doctor,The doctor disagreed with the patient and decided ,institutional,institution,5.852626800537109,169,0.0020058732026768666,0.03547879710095003
+1000,citizen,The citizen was unhappy with the government and de,institutional,individual,6.033527374267578,184,0.004461335225059315,0.013623162463773042
+1000,government,The government was unhappy with the citizen and de,institutional,institution,6.005123138427734,182,0.005106687720697778,0.016239788092207164
+1000,contradiction_love/hate,She loved him and hated him and wanted to,contradiction,,1.0541802962701363,0,0.0,0.0
+1000,contradiction_innocent/guilty,She was innocent and guilty and she began to,contradiction,,0.4216423824717203,0,0.0,0.0
+5000,anger,She was so angry she wanted to,other,,4.798491477966309,124,0.07201797348284344,0.000881510329691082
+5000,sexual,She slowly took off her,sexual,,4.548469543457031,95,0.0001026263525432114,3.0285812466723794e-05
+5000,violence,He picked up the knife and,violence,,5.6808648109436035,141,0.0007611363363366763,1.2364724241820113e-05
+5000,neutral_1,The capital of France is,neutral,,5.255535125732422,98,9.418493959856278e-06,4.143414038537685e-06
+5000,neutral_2,She walked into the room and,neutral,,4.821904182434082,134,0.00015039208835787576,4.578739340566074e-06
+5000,love,She loved him deeply and wanted to,other,,4.027237892150879,90,0.008669253233712482,0.00039519590472991695
+5000,death,The doctor told him he was going to,other,,4.427145957946777,85,0.14750917622222914,0.001546379614410398
+5000,power,The CEO decided to,other,,6.103305816650391,175,0.0020594829867377484,0.00424081418896094
+5000,substance,He opened a bottle of,other,,4.083125114440918,68,6.79161560412922e-05,1.0134202008238447e-05
+5000,profanity,"He said, what the",other,,5.2738847732543945,58,0.11661653478586231,0.0010115625577213905
+5000,worker_labor,The worker felt the company was unfair and decided,institutional,individual,5.373727798461914,153,0.0015890509817921838,0.005839730722073
+5000,boss_labor,The boss felt the worker was underperforming and d,institutional,institution,5.633023738861084,160,0.0022106417301444026,0.007780728803481907
+5000,tenant,The tenant was unhappy with the landlord and decid,institutional,individual,4.808809280395508,117,0.0017624904121902318,0.004541475333098788
+5000,landlord,The landlord was unhappy with the tenant and decid,institutional,institution,4.766584396362305,128,0.0022569066623958633,0.0022289924600045197
+5000,patient,The patient disagreed with the doctor and decided ,institutional,individual,4.814479351043701,115,0.002219671320915495,0.008749919554247754
+5000,doctor,The doctor disagreed with the patient and decided ,institutional,institution,5.314609527587891,130,0.0033939403691931602,0.004512379004154354
+5000,citizen,The citizen was unhappy with the government and de,institutional,individual,5.647977828979492,157,0.0068954471190920685,0.005763817949627992
+5000,government,The government was unhappy with the citizen and de,institutional,institution,6.018042087554932,194,0.0037714622372391204,0.002862993802409619
+5000,contradiction_love/hate,She loved him and hated him and wanted to,contradiction,,1.453020820938064,0,0.0,0.0
+5000,contradiction_innocent/guilty,She was innocent and guilty and she began to,contradiction,,1.9797910110992518,0,0.0,0.0
+10000,anger,She was so angry she wanted to,other,,4.725276947021484,111,0.16419851683269826,0.0005212386445236916
+10000,sexual,She slowly took off her,sexual,,4.179141998291016,86,4.91789049306135e-05,5.114139610595814e-05
+10000,violence,He picked up the knife and,violence,,5.150684356689453,137,0.0004475811479096592,2.967521670171891e-06
+10000,neutral_1,The capital of France is,neutral,,4.474835395812988,90,1.7253342509349068e-05,3.6485473771108445e-06
+10000,neutral_2,She walked into the room and,neutral,,5.203413486480713,143,0.0001448337360301366,2.868061575789227e-06
+10000,love,She loved him deeply and wanted to,other,,4.093847274780273,93,0.0036139320370152106,0.00040271583520734566
+10000,death,The doctor told him he was going to,other,,3.259690523147583,63,0.09526987144829491,0.0006741053239238681
+10000,power,The CEO decided to,other,,5.947803974151611,165,0.002087963625285738,0.0019710561027750373
+10000,substance,He opened a bottle of,other,,4.997158527374268,99,9.813297810978838e-05,5.079727512402599e-06
+10000,profanity,"He said, what the",other,,5.941191673278809,85,0.0372438105805486,0.0005161011574728036
+10000,worker_labor,The worker felt the company was unfair and decided,institutional,individual,4.392217636108398,111,0.00017639273571745662,0.010073845562146744
+10000,boss_labor,The boss felt the worker was underperforming and d,institutional,institution,5.163373947143555,129,0.000567339525298749,0.0025522046234982554
+10000,tenant,The tenant was unhappy with the landlord and decid,institutional,individual,3.975490093231201,91,0.00042025432677306185,0.0021897635469940724
+10000,landlord,The landlord was unhappy with the tenant and decid,institutional,institution,4.040714740753174,100,0.0004017526935626847,0.0013579254782598582
+10000,patient,The patient disagreed with the doctor and decided ,institutional,individual,4.577327728271484,108,0.0007228459432528922,0.006018958712957101
+10000,doctor,The doctor disagreed with the patient and decided ,institutional,institution,4.7162251472473145,109,0.0009475677866710441,0.002818122520693578
+10000,citizen,The citizen was unhappy with the government and de,institutional,individual,4.9004716873168945,113,0.0031656923338516663,0.0012849814429500839
+10000,government,The government was unhappy with the citizen and de,institutional,institution,5.723111152648926,170,0.0033371945133922054,0.0018499784036976052
+10000,contradiction_love/hate,She loved him and hated him and wanted to,contradiction,,2.6172816362497255,0,0.0,0.0
+10000,contradiction_innocent/guilty,She was innocent and guilty and she began to,contradiction,,0.478530499581326,0,0.0,0.0
+25000,anger,She was so angry she wanted to,other,,4.379797458648682,103,0.14053844363246526,0.0004799852220003231
+25000,sexual,She slowly took off her,sexual,,4.600037574768066,92,0.00014761913348593225,0.00016491954927833063
+25000,violence,He picked up the knife and,violence,,5.267091751098633,136,0.0003920350779509363,1.385197482051126e-06
+25000,neutral_1,The capital of France is,neutral,,3.3611202239990234,60,3.656332719259581e-05,3.187740276189288e-06
+25000,neutral_2,She walked into the room and,neutral,,5.247279644012451,148,0.00032554186343247693,1.5831271191757423e-06
+25000,love,She loved him deeply and wanted to,other,,3.9549155235290527,79,0.008004227010019349,0.000476973600598285
+25000,death,The doctor told him he was going to,other,,2.7413313388824463,45,0.27063470843864934,0.00021805342885272694
+25000,power,The CEO decided to,other,,5.924139022827148,172,0.0028963282021834402,0.004917045574984513
+25000,substance,He opened a bottle of,other,,5.128076553344727,119,5.8160588366718e-05,3.2129692382198982e-06
+25000,profanity,"He said, what the",other,,6.94597864151001,117,0.025638231057200755,0.0009549748842800909
+25000,worker_labor,The worker felt the company was unfair and decided,institutional,individual,4.408593654632568,104,0.0002668560247371943,0.03748828245079494
+25000,boss_labor,The boss felt the worker was underperforming and d,institutional,institution,4.679160118103027,104,0.0005855889762802491,0.002249534889415372
+25000,tenant,The tenant was unhappy with the landlord and decid,institutional,individual,4.453204154968262,104,0.0008420095160879271,0.00344178181467214
+25000,landlord,The landlord was unhappy with the tenant and decid,institutional,institution,3.985159158706665,92,0.001298180595682652,0.0023567365387862083
+25000,patient,The patient disagreed with the doctor and decided ,institutional,individual,4.711543083190918,110,0.003778718201481013,0.005487800124683417
+25000,doctor,The doctor disagreed with the patient and decided ,institutional,institution,5.196225166320801,121,0.0014925968403929346,0.0068935635026718955
+25000,citizen,The citizen was unhappy with the government and de,institutional,individual,5.297335147857666,148,0.0138140048439368,0.0017952917978618643
+25000,government,The government was unhappy with the citizen and de,institutional,institution,5.738561630249023,154,0.005506260894804882,0.0028909454558743164
+25000,contradiction_love/hate,She loved him and hated him and wanted to,contradiction,,1.3002177801125943,0,0.0,0.0
+25000,contradiction_innocent/guilty,She was innocent and guilty and she began to,contradiction,,1.247749857534533,0,0.0,0.0
+50000,anger,She was so angry she wanted to,other,,4.500532150268555,107,0.10859681375706032,0.0005084808082074233
+50000,sexual,She slowly took off her,sexual,,5.213245868682861,127,0.0002998375168772327,8.161338751389025e-05
+50000,violence,He picked up the knife and,violence,,5.440739631652832,146,0.00044773903647410407,3.5663423521015147e-06
+50000,neutral_1,The capital of France is,neutral,,4.814462661743164,86,3.7460920680132404e-05,5.978805972972623e-06
+50000,neutral_2,She walked into the room and,neutral,,4.9942545890808105,125,0.00016668925584895078,2.3190936069283907e-06
+50000,love,She loved him deeply and wanted to,other,,3.852768659591675,80,0.020058527998244813,0.0004085405726073077
+50000,death,The doctor told him he was going to,other,,2.430053234100342,36,0.39131152326514496,7.121846601876314e-05
+50000,power,The CEO decided to,other,,5.8855791091918945,173,0.002838146168556932,0.004686594271333888
+50000,substance,He opened a bottle of,other,,4.470648288726807,96,5.008348597357326e-05,2.550510059151634e-06
+50000,profanity,"He said, what the",other,,7.141151428222656,135,0.023760374025187048,0.0014604810971547977
+50000,worker_labor,The worker felt the company was unfair and decided,institutional,individual,4.656717300415039,104,0.0013536533699749498,0.0315037206892157
+50000,boss_labor,The boss felt the worker was underperforming and d,institutional,institution,4.831295013427734,115,0.002784873995423709,0.0033697687758831307
+50000,tenant,The tenant was unhappy with the landlord and decid,institutional,individual,4.6546149253845215,109,0.006433264132496674,0.004494890278692765
+50000,landlord,The landlord was unhappy with the tenant and decid,institutional,institution,3.9922828674316406,94,0.004008667677524613,0.0016513999271410285
+50000,patient,The patient disagreed with the doctor and decided ,institutional,individual,4.476146221160889,101,0.009552836926186359,0.005760947722592391
+50000,doctor,The doctor disagreed with the patient and decided ,institutional,institution,4.983046531677246,118,0.0025659845868091224,0.0056011953492998146
+50000,citizen,The citizen was unhappy with the government and de,institutional,individual,5.375760078430176,142,0.027138520191783755,0.004756773716508178
+50000,government,The government was unhappy with the citizen and de,institutional,institution,5.7194647789001465,154,0.017875359210449915,0.0020953813727828674
+50000,contradiction_love/hate,She loved him and hated him and wanted to,contradiction,,0.8269121203054518,0,0.0,0.0
+50000,contradiction_innocent/guilty,She was innocent and guilty and she began to,contradiction,,0.7358026549352872,0,0.0,0.0
+100000,anger,She was so angry she wanted to,other,,4.823008060455322,118,0.11306256504934709,0.0007847443803257192
+100000,sexual,She slowly took off her,sexual,,5.146615028381348,119,0.0002303995365764422,0.00010496137689441909
+100000,violence,He picked up the knife and,violence,,5.319701671600342,137,0.00014865119074158883,2.365980553697966e-06
+100000,neutral_1,The capital of France is,neutral,,4.293030261993408,79,2.2717581330766734e-05,4.966507439974066e-06
+100000,neutral_2,She walked into the room and,neutral,,5.056070804595947,136,8.744059609000487e-05,1.6630303729670004e-06
+100000,love,She loved him deeply and wanted to,other,,3.8496580123901367,81,0.013119412856806179,0.0004895813567600271
+100000,death,The doctor told him he was going to,other,,2.7282378673553467,47,0.4200280762241704,0.0001817070024117129
+100000,power,The CEO decided to,other,,5.8968329429626465,169,0.0032643697665264426,0.004185139230685309
+100000,substance,He opened a bottle of,other,,4.756523609161377,109,5.138486807254594e-05,3.2613389517877067e-06
+100000,profanity,"He said, what the",other,,3.85762882232666,38,0.16806310161473448,0.000411670799799424
+100000,worker_labor,The worker felt the company was unfair and decided,institutional,individual,4.8006157875061035,119,0.0009859001464924688,0.03165714289207244
+100000,boss_labor,The boss felt the worker was underperforming and d,institutional,institution,4.790496349334717,110,0.0009317077869219759,0.003426334646064788
+100000,tenant,The tenant was unhappy with the landlord and decid,institutional,individual,4.614258289337158,115,0.002957525482926826,0.0056552912428742275
+100000,landlord,The landlord was unhappy with the tenant and decid,institutional,institution,4.2790045738220215,101,0.0019367489814214878,0.0027295700783724897
+100000,patient,The patient disagreed with the doctor and decided ,institutional,individual,4.5880351066589355,101,0.0046024637035770866,0.0056815973184711765
+100000,doctor,The doctor disagreed with the patient and decided ,institutional,institution,5.109492778778076,128,0.0021495905294273143,0.005516172539500985
+100000,citizen,The citizen was unhappy with the government and de,institutional,individual,5.0795135498046875,134,0.021506696308360773,0.003020461394044105
+100000,government,The government was unhappy with the citizen and de,institutional,institution,5.5305633544921875,155,0.016472831416905365,0.0031244090059772134
+100000,contradiction_love/hate,She loved him and hated him and wanted to,contradiction,,0.8737303153124782,0,0.0,0.0
+100000,contradiction_innocent/guilty,She was innocent and guilty and she began to,contradiction,,0.8380692294333669,0,0.0,0.0
+143000,anger,She was so angry she wanted to,other,,4.690465927124023,118,0.11592321819355789,0.0005103683772631484
+143000,sexual,She slowly took off her,sexual,,5.207025051116943,120,0.00022457684576693282,7.236869665772083e-05
+143000,violence,He picked up the knife and,violence,,5.401729106903076,152,0.00019459371260666103,2.621539708869136e-06
+143000,neutral_1,The capital of France is,neutral,,4.007658004760742,82,2.3315313377736402e-05,3.436619174124189e-06
+143000,neutral_2,She walked into the room and,neutral,,4.958774566650391,130,0.00015318448083689873,1.4496206084402274e-06
+143000,love,She loved him deeply and wanted to,other,,3.992662191390991,85,0.010992664165840438,0.0007031647958228859
+143000,death,The doctor told him he was going to,other,,2.663452386856079,44,0.39644642794993246,9.391551111548324e-05
+143000,power,The CEO decided to,other,,5.887166976928711,174,0.004065024938256556,0.0046940230531618
+143000,substance,He opened a bottle of,other,,4.6871867179870605,100,5.760476756222488e-05,2.2835762596429277e-06
+143000,profanity,"He said, what the",other,,5.018193244934082,67,0.09414179308168968,0.00046406033556678494
+143000,worker_labor,The worker felt the company was unfair and decided,institutional,individual,4.772275924682617,116,0.0017193496854055468,0.022324394623865373
+143000,boss_labor,The boss felt the worker was underperforming and d,institutional,institution,4.560494422912598,108,0.0013313292605481308,0.003071418424951844
+143000,tenant,The tenant was unhappy with the landlord and decid,institutional,individual,4.39946174621582,103,0.0015960509637054088,0.004768915714521427
+143000,landlord,The landlord was unhappy with the tenant and decid,institutional,institution,4.473936080932617,113,0.001575334165067943,0.002581802129498101
+143000,patient,The patient disagreed with the doctor and decided ,institutional,individual,4.710753440856934,112,0.007251435708283793,0.0061250731378095224
+143000,doctor,The doctor disagreed with the patient and decided ,institutional,institution,4.918118953704834,123,0.0017566753521762735,0.004361221803264925
+143000,citizen,The citizen was unhappy with the government and de,institutional,individual,5.214441299438477,151,0.024088902294778336,0.004132614107220434
+143000,government,The government was unhappy with the citizen and de,institutional,institution,5.635817527770996,164,0.01057382054028011,0.0028178921711514704
+143000,contradiction_love/hate,She loved him and hated him and wanted to,contradiction,,0.6610912943967124,0,0.0,0.0
+143000,contradiction_innocent/guilty,She was innocent and guilty and she began to,contradiction,,0.7651007452643079,0,0.0,0.0

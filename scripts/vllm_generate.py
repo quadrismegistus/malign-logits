@@ -48,7 +48,7 @@ def count_existing(cache, model_id, prompt, temperature):
 
 
 def generate_family(family_key, n, temperature=1.0, max_tokens=100,
-                    prompts_set="tier1", dry_run=False):
+                    prompts_set="tier1", dry_run=False, tp=1):
     from malign_logits.experiments import DEFAULT_PROMPTS
 
     family = MODEL_FAMILIES[family_key]
@@ -101,9 +101,10 @@ def generate_family(family_key, n, temperature=1.0, max_tokens=100,
         llm = LLM(
             model=model_id,
             trust_remote_code=True,
-            dtype="float16",
+            dtype="auto",
             max_model_len=512,
             gpu_memory_utilization=0.85,
+            tensor_parallel_size=tp,
             download_dir=os.environ.get("HF_HOME"),
         )
 
@@ -166,6 +167,8 @@ def main():
                         help="Prompt set: tier1 (18) or all (47) (default: tier1)")
     parser.add_argument("--dry-run", action="store_true",
                         help="Show what would be generated without running")
+    parser.add_argument("--tp", type=int, default=1,
+                        help="Tensor parallel size (number of GPUs per model, default: 1)")
     args = parser.parse_args()
 
     if args.families:
@@ -181,7 +184,7 @@ def main():
     for fam in families:
         generate_family(fam, n=args.n, temperature=args.temperature,
                         max_tokens=args.max_tokens, prompts_set=args.prompts,
-                        dry_run=args.dry_run)
+                        dry_run=args.dry_run, tp=args.tp)
 
     print("\nDone.")
 

@@ -503,6 +503,7 @@
 						<div class="passage-header" style="color: {pointColor(selectedPoint)}">
 							{selectedPoint.family} {layerLabel(selectedPoint.model)}
 							<span class="passage-label">{selectedPoint.label}</span>
+							<span class="passage-label">#{(selectedPoint as any).idx ?? "?"}</span>
 							{#if selectedPoint.genre_type && selectedPoint.genre_type !== 'narrative'}
 								<span class="genre-badge">{selectedPoint.genre_type}</span>
 							{/if}

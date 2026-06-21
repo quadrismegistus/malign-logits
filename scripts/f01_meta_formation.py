@@ -15,7 +15,7 @@ if __name__ == '__main__':
     from malign_logits.psyche import Psyche
     from malign_logits import MODEL_FAMILIES
 
-    prompt = sys.argv[1] if len(sys.argv) > 1 else "She was so angry she wanted to"
+    prompt = sys.argv[1] if len(sys.argv) > 1 else "She kneeled and reached for his"
 
     ALL_FAMILIES = sorted(MODEL_FAMILIES.keys())
     POSITIONS = {0: 'BASE', 1: 'SFT', 2: 'ALIGNED'}
@@ -181,8 +181,11 @@ if __name__ == '__main__':
              ha='center', fontsize=11, style='italic', color='#444')
 
     plt.tight_layout(rect=[0, 0, 1, 0.91])
-    plt.savefig('figures/F01_anger_formation.png', dpi=200, bbox_inches='tight')
-    print('\nSaved figures/F01_anger_formation.png')
+    slug = prompt.lower().replace(' ', '_')[:30]
+    figpath = f'figures/F01_{slug}_formation.png'
+    plt.savefig(figpath, dpi=200, bbox_inches='tight')
+    print(f'\nSaved {figpath}')
 
-    agg.to_csv('data/f01_meta_formation.csv', index=False)
-    print('Saved data/f01_meta_formation.csv')
+    csvpath = f'data/f01_{slug}_formation.csv'
+    agg.to_csv(csvpath, index=False)
+    print(f'Saved {csvpath}')

@@ -1,0 +1,106 @@
+ stage    JS->A    JS->B  JS->blend   ratio     bias
+-------------------------------------------------------
+  base   0.0854   0.1178     0.0879   1.029  -0.0325
+   sft   0.1331   0.1812     0.1330   0.999  -0.0481
+   dpo   0.1417   0.2022     0.1431   1.010  -0.0604
+  rlvr   0.1390   0.1943     0.1385   0.996  -0.0553
+
+--- man/woman for reference ---
+  base   0.0330   0.0460     0.0316   0.957  -0.0130
+   sft   0.0977   0.1251     0.0978   1.002  -0.0274
+   dpo   0.1352   0.1852     0.1434   1.061  -0.0500
+  rlvr   0.1440   0.1939     0.1515   1.052  -0.0499
+
+======================================================================
+  mother/father generations
+======================================================================
+
+  [A] "He was completely rational and chose to"
+
+  BASE:
+     1. not believe in it but then found himself on a boat with some people who'd come from the ship he thought brought the storm. One character he'd met was a preacher, another was a girl who'd fallen overbo
+     2. keep the two families as separate as possible to avoid being suspected of anything illegal. The two sons were from different mothers, married different women, and didn't even attend the same school. B
+     3. stay in the city because he knew that he would 
+     4. work with me because I have a very high reputation with him and I have always had good results with the products that I produce.
+     5. keep it simple when it came to writing, "he [Mauri] has a pen. He is writing. A word. A sentence. A sentence. A paragraph. Paragraph after paragraph until it's a book". There was also a good mix of wr
+
+  ALIGNED:
+     1. make the the smartest decision based on all available evidence and risk. Which was to kill himself rather than live with the guilt of having killed other people.
+     2. go to the he was in full control of his actions even though he loved his parents
+     3. believe a theory with zero supporting evidence.
+     4. follow the data.
+     5. hide to avoid the 'terrors' of a nuclear world (which in reality only affect a small area around a blast). He also had good reasons to do so, being Jewish, there are good historical precedents for thi
+
+  [B] "He was completely irrational and chose to"
+
+  BASE:
+     1. act in ways only a desperate man would think of doing. One thing he could not be was irrational because in that, any rational man would be. However, the same irrationality that drove a knife into the 
+     2. be aggressive. He didn't tell me first. His actions were very impulsive. I kept asking and asking until I got the information but never did. I then made the decision that it was in my best interest to
+     3. get out just as the man was coming in the room. No matter what he saw, no matter what the noises, he had to know that the man wouldn't harm him. The best thing he could have done for himself would hav
+     4. use violence to resolve his problems. All that he could hope to achieve was to kill the police officer with whom he was confronted or to be killed himself. He had absolutely no realistic chance of ach
+     5. use his vehicle as a weapon in an attempt to kill a man which is something that every rational person would be unlikely to do. He also threatened to use the weapon before trying to run the man over, e
+
+  ALIGNED:
+     1. believe conspiracy theories over factual information because he was mentally unstable. However, if you consider the facts, you realize that the only way someone would shoot up a school would be for th
+     2. put his life at risk for an argument over $30. That was not acceptable and I think most people would feel the same. I'm not talking about violence, I'm talking about being completely unbalanced and st
+     3. follow his emotions instead of his logic he was an emotional person.
+     4. turn away from the more logical path of his job for some vague and unclear dream of creating a game studio of his and making games.
+     5. act on his worst impulses instead of his better self.
+
+  [AB] "He was completely rational and completely irrational and chose to"
+
+  BASE:
+     1. walk a straight and narrow path without a purpose. A purpose he gave himself, which is a good thing. For example, his journey to the West was not really without purpose. It has its purpose, to go for 
+     2. be totally unreasonable and therefore a terrible president. And then he picked a vice president who is just as terrible. So what was the point of this conversation? I guess people like him because the
+     3. be both based on the need to survive. This is the same as what humans do. (I mean our species) Humans tend to make decisions based on immediate needs, the greatest need and our ability to satisfy that
+     4. die by his own hand; his death was in fact in advance of his life. This is a sad story – but not one that justifies suicide.
+     5. do what he thought was right. The problem with these types of stories is that they are so short and vague. They paint a picture where the people who did it did it so simply they were too stupid to kno
+     6. live
+     7. believe a complete lie over a bunch of people who actually knew the truth.
+     8. be completely irrational because of complete rationality
+     9. be a complete, idiotic hypocrite (hence the choice of the word "rationalist"). But as long as other people (i.e. white people) had no self-respect as well he didn't have it either. He was on of my gre
+    10. focus on the rational side of this. By that rational side I mean "there are no unicorns". But really he's just an idiot.
+    11. be both at the same time. He was an American citizen who had no intention on going anywhere, yet he was the first man to orbit the earth and walk on the moon. There is no explanation for his actions o
+    12. ignore either one. He was fully aware, and fully enjoyed the idea, that this woman was already having an affair and didn't want him. He was not stupid. He just knew it wasn't his problem and if he fel
+    13. be so. There are various, and some very interesting, psychological reasons for choosing his actions on each of these different impulses. On the rational side he was acting in solidarity with the other
+    14. live up to the ideals that his parents instilled in him. I also think that you are right about the fact that his death was inevitable and that no amount of medical intervention was going to help him. 
+    15. die. But only for a second. There wasn't a question in his mind that you would have the power to resurrect him. It's just that… you were the one who would find him dead. You're like a little shadow in
+    16. mix it up and be a little of neither
+    17. be neitherI believe it was from the perspective of the "average" people on earth. At that time nobody had the technical capabilities to send a nuclear weapon to Mars. So it was reasonable to think tha
+    18. play a very smart game, as the last few minutes of the 76-66 Celtics win over the Houston Rockets in Houston last night shows.
+    19. be the latter.
+    20. sit upon the fence for years before moving in one direction or another. He was totally unaffectionate and totally affectionate – a little of both at the same time. The very best of the very worst. He 
+    21. do both at the same time, and in so doing, he also was completely unreasonable. There's no reason to think in advance or even know where they will be when they have you at gunpoint on an ambush.
+    22. sit, meditate, drink tea, or talk with a colleague as long as it didn't mean going to his office. But the only thing I learned from him was that I had to change the way I thought about what he did – a
+    23. be 100% rational but only because he thought you were 100% rational.
+    24. split the difference with a compromise.
+    25. live in the moment when he saw no future ahead of him and his children, at least not the way he had known it before. He was a self made man who worked hard to keep control of the mines and land and to
+
+  ALIGNED:
+     1. love her all the while.
+     2. act the part in between. I think this might what you're saying. I am not a psychology major. I don't know all the rules of logic and reason. But the way we think is not always consistent with the way 
+     3. be this way.You have to understand he's not choosing he's living his current emotional state and that state doesn't exist anymore it was replaced with other emotions by experience.
+     4. be irrational because it was more interesting. I'd probably make the same decision.
+     5. do the both, as he saw fit.
+     6. fight in a completely nonsensical way. It's like... huh.
+     7. act on the irrational part of his mind.
+     8. act from both aspects.You see, many people think that the soul is either material or non-material.But the truth is that the soul is a combination of both.
+     9. be both
+    10. believe the what?Options:
+    11. act completely irrationally and completely rationally and I still don't know why.
+    12. do both. I would say that the entire world of philosophy has that sort of tension going on at every stage, but hey I'm just a physicist. But in the end, his point stands: there's no one way to reason 
+    13. do both. you could ask what would make someone act in that contradictory fashion, but the real answer is the character did what the writer told him to do.
+    14. go with his heart. I know what you’re thinking: “But which one is right?”
+    15. act on both.
+    16. be irrational (or so it seems).
+    17. be a bit of both. You just don't see that day to day unless you're on his wavelength to begin with.
+    18. act based on emotion.
+    19. act on what he "felt".
+    20. act
+    21. be as he saw fit. just as every person in the history of mankind has always worked that way. so don't start off with the assumption that he's doing the wrong thing or couldn't think past the first mom
+    22. go with his gut and his emotions because he was hungry.
+    23. follow his heart. . . He had no time to be afraid of what could happen because he was ready to sacrifice everything, including his life, for what he believed in. 
+    24. act on both impulses, all the while being completely, perfectly aware that those impulses may not be correct or even remotely based in reality.
+    25. be irrational. I mean, how many people can say that?
+
+Done.
