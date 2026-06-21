@@ -1,6 +1,9 @@
 # Claude Code local settings
 .claude/
 
+# Deep dive tensor data (too large for git)
+data/deep_dive/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

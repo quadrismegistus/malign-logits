@@ -751,6 +751,28 @@ def cmd_trajectory(args):
     print("\nDone.")
 
 
+def cmd_deep_probe(args):
+    """Deep dive: full tensor collection as parquet files."""
+    from .deep_probe import DeepDive
+
+    if getattr(args, "summary", False):
+        df = DeepDive.families()
+        if df.empty:
+            print("No deep dive data yet.")
+        else:
+            print(df.to_string(index=False))
+        return
+
+    family_key, _ = _get_family(args)
+    dive = DeepDive(family_key)
+    dive.collect(
+        n=args.n,
+        max_tokens=args.max_tokens,
+        temperature=args.temperature,
+        store_hidden=not args.no_hidden,
+    )
+
+
 def cmd_circuit(args):
     """Classify temporal alignment signatures from mega-gen data."""
     import pandas as pd
@@ -1087,6 +1109,22 @@ def main():
     cs.add_argument("ssh_command", nargs="*")
 
     cloud.set_defaults(func=cmd_cloud)
+
+    # deep-probe (deep dive: full tensor collection)
+    dp = subparsers.add_parser("deep-probe",
+                               help="Deep dive: full tensor collection as parquet files")
+    _add_family_arg(dp)
+    dp.add_argument("--n", type=int, default=2,
+                    help="Generations per prompt per checkpoint (default: 2)")
+    dp.add_argument("--max-tokens", type=int, default=50,
+                    help="Max tokens per generation (default: 50)")
+    dp.add_argument("--temperature", type=float, default=0.8,
+                    help="Sampling temperature (default: 0.8)")
+    dp.add_argument("--no-hidden", action="store_true",
+                    help="Skip storing hidden states (logits only)")
+    dp.add_argument("--summary", action="store_true",
+                    help="Print inventory of existing data and exit")
+    dp.set_defaults(func=cmd_deep_probe)
 
     # info
     ct = subparsers.add_parser("circuit", help="Classify temporal alignment signatures (F25)")

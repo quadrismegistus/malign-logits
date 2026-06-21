@@ -16,3 +16,4 @@ spacy
 wordfreq
 matplotlib
 hashstash[rec]>=0.4.0
+duckdb>=1.0.0
