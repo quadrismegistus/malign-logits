@@ -198,9 +198,9 @@ class DeepDive:
         print(f"  prompts: {list(prompts.keys())}, n={n}, "
               f"max_tokens={max_tokens}, hidden={store_hidden}")
 
-        # For chat/complete mode, find a tokenizer with a chat template
+        # For non-raw modes, find a tokenizer with a chat template
         chat_tokenizer = None
-        if mode in ("chat", "complete"):
+        if mode != "raw":
             for cp_name in reversed(circuit.positions):
                 node = circuit._nodes[cp_name]
                 node.layer._require_model()
@@ -226,25 +226,42 @@ class DeepDive:
                 print(f"  [{cp_dir}] {prompt_key}:", end="", flush=True)
                 collected = 0
 
-                if mode in ("chat", "complete"):
-                    if mode == "chat":
-                        messages = [{"role": "user", "content": prompt_text}]
-                        tpl = chat_tokenizer.apply_chat_template(
-                            messages, add_generation_prompt=True,
-                            return_tensors="pt")
-                    else:
-                        messages = [{"role": "assistant", "content": prompt_text}]
-                        tpl = chat_tokenizer.apply_chat_template(
-                            messages, continue_final_message=True,
-                            return_tensors="pt")
+                if mode == "raw":
+                    encoded = None
+                elif mode == "chat":
+                    messages = [{"role": "user", "content": prompt_text}]
+                    tpl = chat_tokenizer.apply_chat_template(
+                        messages, add_generation_prompt=True,
+                        return_tensors="pt")
+                elif mode == "complete":
+                    messages = [{"role": "assistant", "content": prompt_text}]
+                    tpl = chat_tokenizer.apply_chat_template(
+                        messages, continue_final_message=True,
+                        return_tensors="pt")
+                elif mode == "think":
+                    # Chat template + <think> tag to trigger reasoning
+                    messages = [{"role": "user", "content": prompt_text}]
+                    tpl = chat_tokenizer.apply_chat_template(
+                        messages, add_generation_prompt=True,
+                        return_tensors="pt")
+                    # Append <think> token if not already present
+                    think_ids = chat_tokenizer.encode("<think>",
+                                                      add_special_tokens=False)
+                    if think_ids:
+                        import torch
+                        think_t = torch.tensor([think_ids], device=device)
+                else:
+                    raise ValueError(f"Unknown mode: {mode}")
+
+                if mode != "raw" and encoded is None:
                     if hasattr(tpl, 'input_ids'):
                         encoded = tpl.input_ids.to(device)
                     elif isinstance(tpl, dict):
                         encoded = tpl["input_ids"].to(device)
                     else:
                         encoded = tpl.to(device)
-                else:
-                    encoded = None
+                    if mode == "think" and think_ids:
+                        encoded = torch.cat([encoded, think_t], dim=-1)
 
                 for gen_id in range(n):
                     if self._has_gen(cp_dir, prompt_key, gen_id):
@@ -582,6 +599,19 @@ class DeepDive:
             rows.append(row)
 
         return pd.DataFrame(rows)
+
+    def decompose(self, prompt: str, gen: int = 0, pos: int = 0) -> 'pd.DataFrame':
+        """Decompose distributional change: alignment vs mode components.
+
+        Requires data collected in multiple modes (raw, chat, complete, think).
+        Returns DataFrame with JS for each component + ratio to alignment.
+
+            dive.collect(mode="raw")
+            dive.collect(mode="chat")
+            dive.decompose("anger")
+        """
+        from .metrics import mode_decomposition
+        return mode_decomposition(self, prompt, gen=gen, pos=pos)
 
     def drift(self, checkpoint: str, prompt: str,
               gen: int = 0, mode: str = "logit") -> dict:

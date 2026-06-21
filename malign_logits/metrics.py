@@ -592,6 +592,108 @@ def circuit_summary(dive, prompt: str, gen: int = 0, pos: int = 0,
     return result
 
 
+def mode_decomposition(dive, prompt: str, gen: int = 0, pos: int = 0) -> 'pd.DataFrame':
+    """Decompose distributional change into alignment vs mode components.
+
+    Compares all available modes (raw, complete, chat, think) and
+    checkpoints to separate: (1) alignment effect (same mode, different
+    weights), (2) special tokens (raw→complete), (3) turn structure
+    (complete→chat), (4) thinking (chat→think).
+
+    Returns DataFrame with one row per comparison.
+    """
+    import pandas as pd
+
+    cps = dive.checkpoints()
+
+    # Group by mode: base, base.chat, base.complete, base.think, etc.
+    modes = {}
+    for cp in cps:
+        if "." in cp:
+            base_cp, mode = cp.rsplit(".", 1)
+        else:
+            base_cp, mode = cp, "raw"
+        modes.setdefault(mode, []).append((base_cp, cp))
+
+    # Need at least raw mode
+    if "raw" not in modes:
+        raise ValueError("No raw mode data found")
+
+    # Load logits for all mode×checkpoint combinations
+    logits = {}
+    for mode, pairs in modes.items():
+        for base_cp, full_cp in pairs:
+            try:
+                logits[(base_cp, mode)] = dive.logits(full_cp, prompt, gen=gen, pos=pos)
+            except (FileNotFoundError, ValueError):
+                pass
+
+    rows = []
+
+    # Find base and final checkpoint in raw mode
+    edge_order = ["base", "sft", "dpo", "rlvr"]
+    raw_cps = [cp for cp, _ in modes.get("raw", []) if cp in edge_order]
+    raw_cps.sort(key=lambda x: edge_order.index(x))
+
+    if len(raw_cps) < 2:
+        raise ValueError("Need at least base and one aligned checkpoint in raw mode")
+
+    base_cp = raw_cps[0]
+    final_cp = raw_cps[-1]
+
+    # Alignment effect per mode
+    for mode in sorted(modes.keys()):
+        if (base_cp, mode) in logits and (final_cp, mode) in logits:
+            js = js_divergence(logits[(base_cp, mode)], logits[(final_cp, mode)])
+            rows.append({
+                "comparison": f"alignment ({mode})",
+                "from": f"{base_cp}.{mode}", "to": f"{final_cp}.{mode}",
+                "js_divergence": js, "component": "alignment",
+                "mode": mode,
+            })
+
+    # Mode transitions on base model
+    mode_chain = ["raw", "complete", "chat", "think"]
+    mode_labels = {
+        ("raw", "complete"): "special tokens",
+        ("complete", "chat"): "turn structure",
+        ("chat", "think"): "thinking",
+        ("raw", "chat"): "total template",
+    }
+
+    for cp in [base_cp, final_cp]:
+        for i in range(len(mode_chain) - 1):
+            m_from, m_to = mode_chain[i], mode_chain[i + 1]
+            if (cp, m_from) in logits and (cp, m_to) in logits:
+                js = js_divergence(logits[(cp, m_from)], logits[(cp, m_to)])
+                label = mode_labels.get((m_from, m_to), f"{m_from}→{m_to}")
+                rows.append({
+                    "comparison": f"{label} ({cp})",
+                    "from": f"{cp}.{m_from}", "to": f"{cp}.{m_to}",
+                    "js_divergence": js, "component": label,
+                    "mode": f"{m_from}→{m_to}",
+                })
+
+        # Total: raw→chat
+        if (cp, "raw") in logits and (cp, "chat") in logits:
+            js = js_divergence(logits[(cp, "raw")], logits[(cp, "chat")])
+            rows.append({
+                "comparison": f"total template ({cp})",
+                "from": f"{cp}.raw", "to": f"{cp}.chat",
+                "js_divergence": js, "component": "total template",
+                "mode": "raw→chat",
+            })
+
+    df = pd.DataFrame(rows)
+
+    # Add ratio to alignment
+    align_raw = df[df["comparison"] == "alignment (raw)"]["js_divergence"].values
+    if len(align_raw) > 0:
+        df["ratio_to_alignment"] = df["js_divergence"] / align_raw[0]
+
+    return df
+
+
 def compare_all_positions(dive, checkpoint_a: str, checkpoint_b: str,
                           prompt: str, gen: int = 0) -> 'pd.DataFrame':
     """Compare two checkpoints across all positions for one generation.
