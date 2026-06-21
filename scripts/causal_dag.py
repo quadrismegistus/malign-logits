@@ -79,9 +79,9 @@ edges = [
     ("prompt_category", "violence_loading",
      "anger +0.15\nvs worker -0.03", "solid"),
 
-    # Identified as minimal/null
+    # Identified as null effect (tested, not found)
     ("scale", "signature",
-     "OLMo-tiny vs OLMo\n(mostly replicates)", "solid"),
+     "OLMo-tiny vs OLMo\n(mostly replicates)\n≈ NULL", "null"),
 
     # Plausible but unidentified (dashed)
     ("corpus", "violence_loading", "", "dashed"),
@@ -115,6 +115,10 @@ for from_node, to_node, annotation, style in edges:
         color = "#2c3e50"
         lw = 2.0
         ls = "-"
+    elif style == "null":
+        color = "#e74c3c"
+        lw = 2.0
+        ls = "-"
     else:
         color = "#bdc3c7"
         lw = 1.0
@@ -142,6 +146,7 @@ legend_elements = [
     mpatches.Patch(facecolor="#fef9e7", edgecolor="#e67e22", label="Mediator"),
     mpatches.Patch(facecolor="#fdedec", edgecolor="#e74c3c", label="Outcome"),
     plt.Line2D([0], [0], color="#2c3e50", lw=2, label="Identified (natural experiment)"),
+    plt.Line2D([0], [0], color="#e74c3c", lw=2, label="Identified NULL (tested, not found)"),
     plt.Line2D([0], [0], color="#bdc3c7", lw=1, linestyle="--", label="Plausible (unidentified)"),
 ]
 ax.legend(handles=legend_elements, loc="lower left", fontsize=8, frameon=True)
