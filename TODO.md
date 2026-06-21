@@ -18,7 +18,7 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [ ] **Cross-dataset comparison figure** — topic proportion heatmap, compare to Tulu 3's 0.04% labor baseline
 
 ## Full circuit mega-gen campaign
-- [ ] **Small families** (smol, qwen-tiny, olmo-tiny) — RAW+CHAT, running locally
+- [x] **Small families** (smol, qwen-tiny, olmo-tiny) — DONE. 10k+15k+20k rows. OLMo 2 1B has no chat template
 - [ ] **Medium families** (smol3, qwen3) — RAW+CHAT+THINK
 - [ ] **7B families** (olmo, olmo-think, llama, amber, qwen, tulu, zephyr, pythia, deepseek-7b) — RAW+CHAT, local or cloud
 - [ ] **Reasoning variants** (R1-Distill-Llama, R1-Distill-Qwen) — mega-gen with phase tagging
