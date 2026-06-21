@@ -13,6 +13,16 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [x] **Qwen3-8B native thinking** — DONE. Battery + mode comparison + 1500-row mega-gen. BASE forecloses anger (top1=______), aligned RESTORES kill (de-foreclosure inverted). CHAT=THINK (both → <think> p=1.0)
 - [x] **olmo-think battery** — DONE. Think-SFT produces LESS displacement on 7/10 prompts. Anger: JS 0.13 vs 0.41 (Think preserves "break", standard forecloses to blanks). Reasoning training produces lighter alignment footprint on same base
 
+## Post-training dataset topic analysis
+- [ ] **Keyword-based topic proportions** across major preference/SFT datasets: Tulu 3 SFT (~326k), Tulu 3 DPO (~273k), UltraFeedback (~64k), HH-RLHF (~170k), OpenAssistant (~84k). Hypothesis: labor/class near-zero in ALL, different topic distributions explain different class politics
+- [ ] **Cross-dataset comparison figure** — topic proportion heatmap, compare to Tulu 3's 0.04% labor baseline
+
+## Full circuit mega-gen campaign
+- [ ] **Small families** (smol, qwen-tiny, olmo-tiny) — RAW+CHAT, running locally
+- [ ] **Medium families** (smol3, qwen3) — RAW+CHAT+THINK
+- [ ] **7B families** (olmo, olmo-think, llama, amber, qwen, tulu, zephyr, pythia, deepseek-7b) — RAW+CHAT, local or cloud
+- [ ] **Reasoning variants** (R1-Distill-Llama, R1-Distill-Qwen) — mega-gen with phase tagging
+
 ## Tests
 - [x] **Circuit integration test (smol)** — DONE. 10 tests on SmolLM2-360M: from_family, compare, self-JS=0, formation, Mode.RAW/CHAT, entropy, top_tokens, classify. Full suite 64/64
 - [x] **Circuit unit tests** — DONE. 21 tests: classify_trajectory (13 cases incl BLANK_SENTINEL, NaN, de_foreclosure), signature_summary (2), Mode (2), tokens (2), sentinel (2). Also fixed "nan" string blank detection

@@ -242,31 +242,38 @@ class CacheManager:
 
     # ── mega-generations (F25 position-level trajectories) ──────
 
-    def get_mega_generation(self, model, prompt, temp=1.0, idx=0):
-        """Get cached position-level trajectory for a single generation."""
+    def _mega_key(self, model, prompt, temp=1.0, idx=0, mode="raw"):
         key = {"model": model, "prompt": prompt, "temp": temp, "idx": idx}
+        if mode != "raw":
+            key["mode"] = mode
+        return key
+
+    def get_mega_generation(self, model, prompt, temp=1.0, idx=0, mode="raw"):
+        """Get cached position-level trajectory for a single generation."""
         s = self._stash("mega_generations")
+        key = self._mega_key(model, prompt, temp, idx, mode)
         return s[key] if key in s else None
 
-    def set_mega_generation(self, model, prompt, positions, temp=1.0, idx=0):
+    def set_mega_generation(self, model, prompt, positions, temp=1.0, idx=0, mode="raw"):
         """Cache position-level trajectory (list of dicts with step/entropy/top5)."""
-        self._stash("mega_generations")[{
-            "model": model, "prompt": prompt, "temp": temp, "idx": idx
-        }] = positions
+        self._stash("mega_generations")[
+            self._mega_key(model, prompt, temp, idx, mode)
+        ] = positions
 
-    def has_mega_generation(self, model, prompt, temp=1.0, idx=0):
-        return {"model": model, "prompt": prompt, "temp": temp, "idx": idx} in self._stash("mega_generations")
+    def has_mega_generation(self, model, prompt, temp=1.0, idx=0, mode="raw"):
+        return self._mega_key(model, prompt, temp, idx, mode) in self._stash("mega_generations")
 
-    def count_mega_generations(self, model, prompt, temp=1.0):
+    def count_mega_generations(self, model, prompt, temp=1.0, mode="raw"):
+        """Count cached mega-generations (binary search on idx)."""
         s = self._stash("mega_generations")
-        if {"model": model, "prompt": prompt, "temp": temp, "idx": 0} not in s:
+        if self._mega_key(model, prompt, temp, 0, mode) not in s:
             return 0
         lo, hi = 0, 1
-        while {"model": model, "prompt": prompt, "temp": temp, "idx": hi} in s:
+        while self._mega_key(model, prompt, temp, hi, mode) in s:
             hi *= 2
         while lo < hi:
             mid = (lo + hi) // 2
-            if {"model": model, "prompt": prompt, "temp": temp, "idx": mid} in s:
+            if self._mega_key(model, prompt, temp, mid, mode) in s:
                 lo = mid + 1
             else:
                 hi = mid
