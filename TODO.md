@@ -28,7 +28,7 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [x] **Pythia family** — DONE. 4/5 transparent (lightest alignment of any 7B). Only anger repressed (kill→scream). Worker stays "take". HH-RLHF = minimal displacement
 
 ## CircuitProfile pipeline
-- [ ] **Populate profiles** — generate CircuitProfile CSVs for all 13 families from cached logits + mega-gen data
+- [x] **Populate profiles** — DONE. 14 families, 43 files, ~90KB. Per-family axes from own base model embeddings
 
 ## Temporal chain analysis
 - [x] **Embedding trajectories** — DONE. 8 families, 2880 windows, violence + procedural axes. Repression=steady drift, reaction formation=collapse, transparency=flat, de-foreclosure=increasing trajectory
