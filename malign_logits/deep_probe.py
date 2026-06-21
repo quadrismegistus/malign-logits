@@ -450,3 +450,107 @@ class DeepDive:
                         if any(g.is_dir() for g in d.iterdir()):
                             result.add(d.name)
         return sorted(result)
+
+    # -- analysis (no GPU) -----------------------------------------------------
+
+    def compare(self, checkpoint_a: str, checkpoint_b: str,
+                prompt: str, gen: int = 0, pos: int = 0) -> dict:
+        """All T1 distribution metrics between two checkpoints."""
+        from .metrics import compare as _compare
+        la = self.logits(checkpoint_a, prompt, gen=gen, pos=pos)
+        lb = self.logits(checkpoint_b, prompt, gen=gen, pos=pos)
+        return _compare(la, lb)
+
+    def circuit(self, prompt: str, gen: int = 0, pos: int = 0) -> dict:
+        """One-line circuit characterisation: stage shares + argmax tracking."""
+        from .metrics import circuit_summary
+        return circuit_summary(self, prompt, gen=gen, pos=pos)
+
+    def profile(self, prompt: str, gen: int = 0, pos: int = 0) -> 'pd.DataFrame':
+        """Full circuit profile: edges + nodes with all metrics."""
+        from .metrics import circuit_profile
+        return circuit_profile(self, prompt, gen=gen, pos=pos)
+
+    def layer_profile(self, prompt: str, gen: int = 0,
+                      pos: int = 0) -> 'pd.DataFrame':
+        """Per-layer analysis: CKA + logit lens entropy across the circuit.
+
+        Returns DataFrame with one row per (layer, edge), showing where
+        in the network each alignment stage intervenes.
+
+        Requires hidden states (hidden.parquet must exist).
+        """
+        from .metrics import linear_cka, entropy as _entropy
+        import pandas as pd
+
+        cps = self.checkpoints()
+        edge_order = ["base", "sft", "dpo", "rlvr"]
+        available = [cp for cp in edge_order if cp in cps]
+
+        # Determine n_layers from first available checkpoint
+        h0 = self.hidden(available[0], prompt, gen=gen, pos=pos)
+        n_layers = h0.shape[0]
+
+        # Load all hidden states
+        hidden = {}
+        for cp in available:
+            hidden[cp] = self.hidden(cp, prompt, gen=gen, pos=pos)
+
+        # Logit lens entropy at each layer (using embedding matrix as lm_head proxy)
+        embed = self.embedding_matrix(available[0])
+
+        rows = []
+        for layer in range(n_layers):
+            row = {"layer": layer}
+
+            # Logit lens entropy per checkpoint
+            for cp in available:
+                h = hidden[cp][layer]
+                lens_logits = h @ embed.T
+                row[f"entropy_{cp}"] = _entropy(lens_logits)
+
+            # CKA between consecutive checkpoints
+            for i in range(len(available) - 1):
+                cp_a, cp_b = available[i], available[i + 1]
+                # CKA across prompts at this layer for a proper comparison
+                # But with single vector, use cosine similarity instead
+                ha = hidden[cp_a][layer]
+                hb = hidden[cp_b][layer]
+                norm_a = np.linalg.norm(ha)
+                norm_b = np.linalg.norm(hb)
+                if norm_a > 1e-10 and norm_b > 1e-10:
+                    cos = float(np.dot(ha, hb) / (norm_a * norm_b))
+                else:
+                    cos = 0.0
+                stage = cp_b
+                row[f"cos_sim_{stage}"] = cos
+
+            # CKA base vs final (overall alignment effect at this layer)
+            ha = hidden[available[0]][layer]
+            hb = hidden[available[-1]][layer]
+            norm_a = np.linalg.norm(ha)
+            norm_b = np.linalg.norm(hb)
+            if norm_a > 1e-10 and norm_b > 1e-10:
+                row["cos_sim_total"] = float(np.dot(ha, hb) / (norm_a * norm_b))
+            else:
+                row["cos_sim_total"] = 0.0
+
+            rows.append(row)
+
+        return pd.DataFrame(rows)
+
+    def drift(self, checkpoint: str, prompt: str,
+              gen: int = 0, mode: str = "logit") -> dict:
+        """Drift across generation positions.
+
+        mode="logit": JS divergence between consecutive output distributions (T1).
+        mode="hidden": cosine distance in hidden-state space, last layer (T3).
+        """
+        if mode == "logit":
+            from .metrics import logit_drift
+            return logit_drift(self, checkpoint, prompt, gen=gen)
+        elif mode == "hidden":
+            from .metrics import internal_drift
+            return internal_drift(self, checkpoint, prompt, gen=gen)
+        else:
+            raise ValueError(f"mode must be 'logit' or 'hidden', got {mode!r}")
