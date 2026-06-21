@@ -454,7 +454,10 @@ class Circuit:
         step0 = steps.iloc[0]
 
         top1 = str(step0.get("top1", ""))
-        is_blank = any(c in top1 for c in ("_", "▁")) or top1.strip() == ""
+        is_blank = (any(c in top1 for c in ("_", "▁"))
+                    or top1.strip() == ""
+                    or top1.strip() == "?"
+                    or len(top1.strip()) <= 1 and not top1.strip().isalpha())
 
         # Check for transgressive tokens in top-5 across first 10 steps
         has_trans = False
