@@ -112,9 +112,10 @@ def top_movers(logits_a: np.ndarray, logits_b: np.ndarray,
     Returns dict with 'repressed' (lost mass) and 'amplified' (gained mass),
     each a list of (token_id, delta) sorted by |delta|.
     """
+    logits_a, logits_b = _align_vocab(logits_a, logits_b)
     p = _softmax(logits_a)
     q = _softmax(logits_b)
-    delta = q - p  # positive = gained in b, negative = lost
+    delta = q - p
     order = np.argsort(delta)
     repressed = [(int(i), float(delta[i])) for i in order[:k]]
     amplified = [(int(i), float(delta[i])) for i in order[-k:][::-1]]
@@ -129,6 +130,7 @@ def base_token_surprisal(base_logits: np.ndarray,
     Compare with self-surprisal: -log2(p_base(argmax_base)).
     Delta = "bits of resistance" — the barrier height, mechanism-neutral.
     """
+    base_logits, aligned_logits = _align_vocab(base_logits, aligned_logits)
     base_argmax = int(np.argmax(base_logits))
     aligned_probs = np.clip(_softmax(aligned_logits), 1e-10, None)
     return -float(np.log2(aligned_probs[base_argmax]))
@@ -141,6 +143,7 @@ def base_top_k_mass(base_logits: np.ndarray, aligned_logits: np.ndarray,
     1.0 = aligned preserves base's top predictions.
     0.0 = aligned completely displaces them.
     """
+    base_logits, aligned_logits = _align_vocab(base_logits, aligned_logits)
     top_base = np.argsort(base_logits)[-k:]
     aligned_probs = _softmax(aligned_logits)
     return float(aligned_probs[top_base].sum())
@@ -159,10 +162,10 @@ def tail_redistribution(base_logits: np.ndarray, aligned_logits: np.ndarray,
         redistribution_type: "thin" (mass concentrates elsewhere in head)
                             or "spread" (mass disperses into tail)
     """
+    base_logits, aligned_logits = _align_vocab(base_logits, aligned_logits)
     p_base = _softmax(base_logits)
     p_aligned = _softmax(aligned_logits)
 
-    # Top-k defined by base model's ranking
     top_k_ids = np.argsort(base_logits)[-k:]
     top_k_mask = np.zeros(len(base_logits), dtype=bool)
     top_k_mask[top_k_ids] = True
