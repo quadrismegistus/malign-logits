@@ -9,7 +9,7 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [ ] Merge salary CSVs into one unified dataset (`salary_systematic.csv` + `salary_smol3.csv`)
 
 ## Experiments to run
-- [ ] **Pythia 6.9B BLT scoring** — score 1,500 cached generations with BLT 1B. Quick (~15 min)
+- [x] **Pythia 6.9B BLT scoring** — DONE. Confirms 1B finding: text plateaus at step 5000 at both scales (1B: 1.60 bpc, 6.9B: 1.50 bpc)
 - [ ] **Qwen3-8B native thinking** — HF pipeline (already in LM Studio as GGUF). Mega-gen + formation
 - [ ] **Salary probe SmolLM3-3B** — the real 3B (SmolLM2 360M ran by mistake in first batch)
 - [ ] **SmolLM3 mega-gen at 100 tokens** — current data is 50 tokens, longer traces for transparent signature
