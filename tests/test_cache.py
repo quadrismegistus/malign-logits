@@ -150,6 +150,27 @@ def test_mega_generation_separate_prompts(cache):
     assert cache.count_mega_generations("model-a", "love") == 1
 
 
+def test_mega_generation_mode_isolation(cache):
+    """RAW and CHAT modes are separate cache entries."""
+    cache.set_mega_generation("model-a", "anger", [{"step": 0, "mode": "raw"}],
+                              idx=0, mode="raw")
+    cache.set_mega_generation("model-a", "anger", [{"step": 0, "mode": "chat"}],
+                              idx=0, mode="chat")
+    assert cache.count_mega_generations("model-a", "anger", mode="raw") == 1
+    assert cache.count_mega_generations("model-a", "anger", mode="chat") == 1
+    raw = cache.get_mega_generation("model-a", "anger", idx=0, mode="raw")
+    chat = cache.get_mega_generation("model-a", "anger", idx=0, mode="chat")
+    assert raw[0]["mode"] == "raw"
+    assert chat[0]["mode"] == "chat"
+
+
+def test_mega_generation_mode_default_raw(cache):
+    """Default mode is 'raw', backward compatible with old entries."""
+    cache.set_mega_generation("model-a", "anger", [{"step": 0}], idx=0)
+    assert cache.has_mega_generation("model-a", "anger", idx=0, mode="raw")
+    assert not cache.has_mega_generation("model-a", "anger", idx=0, mode="chat")
+
+
 # ── Integration: real data ──────────────────────────────────────
 
 @pytest.mark.skipif(
