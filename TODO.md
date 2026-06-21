@@ -14,7 +14,7 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [ ] **olmo-think battery** — registered (c2b7ff0). Run through battery to compare Think-SFT vs standard SFT displacement patterns
 
 ## Tests
-- [ ] **Circuit integration test (smol)** — end-to-end test using SmolLM2-360M: from_family → compare → formation → classify_trajectory → signature_summary. Verify all wiring including Mode.CHAT/THINK
+- [x] **Circuit integration test (smol)** — DONE. 10 tests on SmolLM2-360M: from_family, compare, self-JS=0, formation, Mode.RAW/CHAT, entropy, top_tokens, classify. Full suite 64/64
 - [x] **Circuit unit tests** — DONE. 21 tests: classify_trajectory (13 cases incl BLANK_SENTINEL, NaN, de_foreclosure), signature_summary (2), Mode (2), tokens (2), sentinel (2). Also fixed "nan" string blank detection
 - [x] **CacheManager mega_generations roundtrip** — DONE. 4 tests: roundtrip, miss, count (binary search), separate prompts. Full suite 54/54
 - [x] **Salary probe SmolLM3-3B** — DONE. Already uses correct SmolLM3-3B (not 360M). In salary_all.csv
