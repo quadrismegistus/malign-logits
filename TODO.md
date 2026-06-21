@@ -24,7 +24,7 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [x] **Census grid** — DONE. 11 families × 5 prompts. 6 distinct worker mechanisms. Committed 7fc4ba6
 - [x] **COMPLETE mode** — DONE. 6 cloud families + qwen-tiny local. Three-way decomposition: OLMo non-monotonic (It→reopen), OLMo-think compliance (Okay), Qwen tightens, Llama irrelevant, Zephyr transparent on worker
 - [x] **Reasoning variants** — DONE (from earlier session). R1-Distill-Llama + R1-Distill-Qwen, 125 gens each, phase-tagged (think/response). Data in cache + CSVs
-- [ ] **Tulu family** — needs gated Llama base
+- [x] **Tulu family** — DONE. Same Llama base, quit→sue vs Llama's quit→file. Different procedural register. 2/5 transparent (no-safety-data SFT)
 - [x] **Pythia family** — DONE. 4/5 transparent (lightest alignment of any 7B). Only anger repressed (kill→scream). Worker stays "take". HH-RLHF = minimal displacement
 
 ## Tests
