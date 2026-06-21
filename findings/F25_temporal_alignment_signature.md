@@ -107,6 +107,16 @@ This is the first empirically precise mapping of alignment mechanisms to Lacania
 - Data: `data/f25_signature_summary.csv`
 - Figures: `figures/F25_cross_family_signatures_print.png` (book image), `figures/F25_dpo_paradox.png`, `figures/F25_reasoning_phase_boundary.png`
 
+**Alignment gap persistence** (4 families, 100 tokens):
+- The entropy gap (aligned − base) is NOT transient — it persists across 100 tokens in most cases
+- Four temporal persistence profiles matching four defence mechanisms:
+  - **OLMo**: Gap narrows but doesn't close (anger: -2.23 → -1.26). Foreclosure attenuates
+  - **Llama**: Gap INVERTS on violence/sexual — aligned becomes higher-entropy than base by step 50 (+0.46). Sublimation opens
+  - **Qwen**: Gap DEEPENS over time (sexual: -0.21 → -1.13). Pre-socialisation tightens
+  - **Amber**: Gap holds near-constant at -2 nats. Reaction formation locks rigid
+- Only Llama/love fades to zero
+- Figure: `figures/F25_gap_persistence.png`
+
 **DPO paradox** (OLMo 4-layer, SFT→DPO→RLVR):
 - RLVR does NOT deepen foreclosure — it increases reaction formation (violence +11pp: 33%→44%)
 - Return of repressed rises: anger 37%→40% SFT→RLVR
