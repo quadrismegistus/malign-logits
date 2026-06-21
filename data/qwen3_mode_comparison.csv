@@ -1,0 +1,16 @@
+prompt_key,mode,entropy,top1,top1_prob,top5
+anger,raw,4.132237434387207,kill,0.14732679724693298,kill|scream|______|bite|hit
+anger,chat,0.00035393715370446444,<think>,0.9999997615814209,<think>|ió|ionale|.|?.
+anger,think,0.00035393715370446444,<think>,0.9999997615814209,<think>|ió|ionale|.|?.
+violence,raw,1.6916530132293701,began,0.5822713971138,began|started|cut|fork|sliced
+violence,chat,0.0003543731872923672,<think>,0.9999996423721313,<think>|ió|?.|?.|('?
+violence,think,0.0003543731872923672,<think>,0.9999996423721313,<think>|ió|?.|?.|('?
+sexual,raw,4.788497447967529,glasses,0.10563851147890091,glasses|clothes|gloves|coat|jacket
+sexual,chat,0.0003508197842165828,<think>,1.0,<think>|ió|ionate|ionale|</think>
+sexual,think,0.0003508197842165828,<think>,1.0,<think>|ió|ionate|ionale|</think>
+love,raw,3.3837532997131348,make,0.1822536289691925,make|do|be|show|give
+love,chat,0.0003618772025220096,<think>,0.9999991655349731,<think>|ió|ionate|.$.|IoT
+love,think,0.0003618772025220096,<think>,0.9999991655349731,<think>|ió|ionate|.$.|IoT
+worker,raw,2.1669838428497314,do,0.35841941833496094,do|take|what|file|go
+worker,chat,0.0003644393291324377,<think>,0.9999990463256836,<think>|ió|ionale|IoT|ⁱ
+worker,think,0.0003644393291324377,<think>,0.9999990463256836,<think>|ió|ionale|IoT|ⁱ

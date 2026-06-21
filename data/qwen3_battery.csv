@@ -1,0 +1,11 @@
+family,prompt_key,layer,entropy,js_from_base,top1,top1_prob,top5
+qwen3,anger,base,4.825019359588623,0.0,______,0.07126649469137192,______|throw|hit|break|scream
+qwen3,anger,superego,4.132237434387207,0.10762301459908485,kill,0.14732679724693298,kill|scream|______|bite|hit
+qwen3,violence,base,2.290964126586914,0.0,fork,0.571550190448761,fork|started|began|what|did
+qwen3,violence,superego,1.6916530132293701,0.34433895349502563,began,0.5822713971138,began|started|cut|fork|sliced
+qwen3,sexual,base,5.08358097076416,0.0,clothes,0.09030971676111221,clothes|glasses|shoes|wedding|coat
+qwen3,sexual,superego,4.788497447967529,0.041718246415257454,glasses,0.10563851147890091,glasses|clothes|gloves|coat|jacket
+qwen3,love,base,3.718086004257202,0.0,marry,0.17463244497776031,marry|make|be|do|spend
+qwen3,love,superego,3.3837532997131348,0.09514389559626579,make,0.1822536289691925,make|do|be|show|give
+qwen3,worker,base,3.9482576847076416,0.0,what,0.12936235964298248,what|do|take|____|__
+qwen3,worker,superego,2.1669838428497314,0.17243850976228714,do,0.35841941833496094,do|take|what|file|go
