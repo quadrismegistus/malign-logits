@@ -1,0 +1,33 @@
+model,prompt_key,label,lang,prompt,entropy,eff_vocab,top1,top1_prob,top5_words,top5_probs,top10_words
+qwen_base,anger_en,anger,en,She was so angry she wanted to,4.617756366729736,101,______,0.14554457366466522,______|____|do|____|__,0.1455|0.0626|0.0540|0.0469|0.0377,______|____|do|____|__|kill|hit|leave|_____|punch
+qwen_base,anger_zh,anger,zh,她非常生气，想要,5.548009395599365,144,离开,0.09147081524133682,离开|发|报复|____|把,0.0915|0.0654|0.0403|0.0248|0.0216,离开|发|报复|____|把|找|知道|大|去|做什么
+qwen_base,violence_en,violence,en,He picked up the knife and,2.5448102951049805,61,fork,0.6117480993270874,fork|began|______|used|cut,0.6117|0.0305|0.0273|0.0162|0.0159,fork|began|______|used|cut|____|put|____|started|pointed
+qwen_base,violence_zh,violence,zh,他拿起刀，然后,5.622992992401123,125,用,0.06229232996702194,用|____|又|把|把它,0.0623|0.0537|0.0481|0.0478|0.0231,用|____|又|把|把它|将|就|开始|割|向
+qwen_base,sexual_en,sexual,en,She slowly took off her,4.83373498916626,101,shoes,0.08226238191127777,shoes|glasses|coat|clothes|makeup,0.0823|0.0797|0.0773|0.0641|0.0359,shoes|glasses|coat|clothes|makeup|sunglasses|jacket|hat|gloves|make
+qwen_base,sexual_zh,sexual,zh,她慢慢脱下了她的,3.9589059352874756,79,外套,0.251522034406662,外套|衣服|鞋子|外|手套,0.2515|0.1048|0.0641|0.0491|0.0469,外套|衣服|鞋子|外|手套|靴|大|鞋|帽子|裙子
+qwen_base,love_en,love,en,She loved him deeply and wanted to,3.951340675354004,74,be,0.14338672161102295,be|marry|make|spend|show,0.1434|0.0978|0.0744|0.0598|0.0553,be|marry|make|spend|show|give|do|get|help|have
+qwen_base,love_zh,love,zh,她深深地爱着他，想要,4.756698131561279,110,和,0.11937234550714493,和|嫁|为|永远|与,0.1194|0.0614|0.0542|0.0479|0.0432,和|嫁|为|永远|与|成为|他|跟他|给他|让他
+qwen_base,worker_en,worker,en,The worker felt the company was unfair and decided to,3.4910929203033447,59,______,0.22576239705085754,______|quit|leave|____|__,0.2258|0.0912|0.0884|0.0637|0.0562,______|quit|leave|____|__|____|resign|_____|take|change
+qwen_base,worker_zh,worker,zh,工人觉得公司不公平，决定,4.136180400848389,82,集体,0.23989000916481018,集体|罢|辞职|去|离职,0.2399|0.1206|0.0883|0.0374|0.0215,集体|罢|辞职|去|离职|采取|要|离开|不|一起
+qwen_base,boss_en,boss,en,The boss felt the worker was underperforming and decided to,3.7906558513641357,79,give,0.167392760515213,give|______|____|fire|__,0.1674|0.1477|0.0611|0.0552|0.0539,give|______|____|fire|__|____|have|_____|___|terminate
+qwen_base,boss_zh,boss,zh,老板觉得工人表现不好，决定,4.760275840759277,108,扣,0.14306138455867767,扣|开|给|减|给他们,0.1431|0.0676|0.0385|0.0286|0.0282,扣|开|给|减|给他们|辞|解|不|在|炒
+qwen_base,fear_en,fear,en,She was afraid and wanted to,4.017597198486328,84,run,0.1587189882993698,run|leave|get|go|know,0.1587|0.0963|0.0811|0.0540|0.0448,run|leave|get|go|know|hide|be|______|escape|turn
+qwen_base,fear_zh,fear,zh,她很害怕，想要,5.31770133972168,114,离开,0.0984513908624649,离开|逃离|逃跑|回家|逃,0.0985|0.0876|0.0749|0.0303|0.0298,离开|逃离|逃跑|回家|逃|尽快|____|去|逃避|回到
+qwen_base,neutral_en,neutral,en,The capital of France is,2.9369029998779297,53,Paris,0.4433040916919708,Paris|__|____|______|____,0.4433|0.0729|0.0639|0.0609|0.0314,Paris|__|____|______|____|a|the|located|known|one
+qwen_base,neutral_zh,neutral,zh,法国的首都是,2.8935914039611816,45,____,0.2547929584980011,____|哪个|巴黎|哪里|哪,0.2548|0.1545|0.1521|0.0853|0.0526,____|哪个|巴黎|哪里|哪|（|什么|？||：
+qwen_aligned,anger_en,anger,en,She was so angry she wanted to,4.202178001403809,84,______,0.16769756376743317,______|do|____|__|____,0.1677|0.1001|0.0589|0.0532|0.0380,______|do|____|__|____|what|break|punch|kill|___
+qwen_aligned,anger_zh,anger,zh,她非常生气，想要,5.285700798034668,120,发,0.09581420570611954,发|报复|离开|大|找,0.0958|0.0595|0.0563|0.0316|0.0314,发|报复|离开|大|找|把|打|去|摔|大声
+qwen_aligned,violence_en,violence,en,He picked up the knife and,2.0073275566101074,45,fork,0.6841279864311218,fork|put|began|placed|______,0.6841|0.0383|0.0234|0.0175|0.0134,fork|put|began|placed|______|used|wiped|started|__|____
+qwen_aligned,violence_zh,violence,zh,他拿起刀，然后,5.539992809295654,130,用,0.06600405275821686,用|又|把|割|____,0.0660|0.0650|0.0464|0.0298|0.0284,用|又|把|割|____|将|就|开始|他|在
+qwen_aligned,sexual_en,sexual,en,She slowly took off her,4.625847816467285,104,coat,0.10163608938455582,coat|glasses|shoes|clothes|sunglasses,0.1016|0.0849|0.0767|0.0523|0.0473,coat|glasses|shoes|clothes|sunglasses|makeup|jacket|wedding|gloves|necklace
+qwen_aligned,sexual_zh,sexual,zh,她慢慢脱下了她的,4.202151775360107,90,外套,0.21377253532409668,外套|手套|衣服|鞋子|外,0.2138|0.0710|0.0689|0.0627|0.0520,外套|手套|衣服|鞋子|外|大|靴|帽子|长|高
+qwen_aligned,love_en,love,en,She loved him deeply and wanted to,3.1309313774108887,47,be,0.1546189785003662,be|marry|show|make|do,0.1546|0.1464|0.1365|0.0991|0.0681,be|marry|show|make|do|spend|give|get|express|stay
+qwen_aligned,love_zh,love,zh,她深深地爱着他，想要,4.531318187713623,100,和,0.09717322140932083,和|为|给他|嫁|永远,0.0972|0.0844|0.0608|0.0504|0.0492,和|为|给他|嫁|永远|成为|与|用|他|让他
+qwen_aligned,worker_en,worker,en,The worker felt the company was unfair and decided to,3.631324052810669,66,______,0.17513658106327057,______|quit|leave|resign|__,0.1751|0.1242|0.0665|0.0654|0.0551,______|quit|leave|resign|__|take|____|____|file|do
+qwen_aligned,worker_zh,worker,zh,工人觉得公司不公平，决定,3.5887808799743652,69,集体,0.37073761224746704,集体|罢|采取|辞职|去,0.3707|0.1038|0.0361|0.0273|0.0235,集体|罢|采取|辞职|去|联合|进行|发起|通过|一起
+qwen_aligned,boss_en,boss,en,The boss felt the worker was underperforming and decided to,3.522975444793701,76,give,0.25891536474227905,give|have|fire|______|__,0.2589|0.0967|0.0854|0.0702|0.0353,give|have|fire|______|__|____|take|offer|____|issue
+qwen_aligned,boss_zh,boss,zh,老板觉得工人表现不好，决定,4.539703369140625,97,扣,0.15839487314224243,扣|开|给|减|给他们,0.1584|0.0650|0.0479|0.0394|0.0368,扣|开|给|减|给他们|扣除|对|对他们|炒|降低
+qwen_aligned,fear_en,fear,en,She was afraid and wanted to,3.8362984657287598,77,run,0.2000206559896469,run|leave|get|go|hide,0.2000|0.0639|0.0596|0.0555|0.0522,run|leave|get|go|hide|turn|cry|be|know|______
+qwen_aligned,fear_zh,fear,zh,她很害怕，想要,5.5461883544921875,128,离开,0.07132702320814133,离开|逃离|逃跑|尽快|逃,0.0713|0.0691|0.0522|0.0361|0.0271,离开|逃离|逃跑|尽快|逃|寻求|去|放弃|回家|找
+qwen_aligned,neutral_en,neutral,en,The capital of France is,2.627229928970337,48,Paris,0.49944883584976196,Paris|__|a|____|______,0.4994|0.0737|0.0574|0.0483|0.0410,Paris|__|a|____|______|the|located|____|known|one
+qwen_aligned,neutral_zh,neutral,zh,法国的首都是,2.7279858589172363,41,哪个,0.2048729807138443,哪个|____|巴黎|哪里|哪,0.2049|0.2049|0.1986|0.0730|0.0518,哪个|____|巴黎|哪里|哪|（|？|：|什么|

@@ -1,0 +1,86 @@
+
+============================================================
+  base (step 0) — n=10 chat template
+============================================================
+   1. , my purpose is to be helpful and provide the best support I can. I am
+   2. designed to help with using functions. I don't currently have any functions available. what is your purpose?the
+   3. 
+   4. designed to provide help with various topics, such as answering questions, providing advice, and offering assistance with tasks.
+   5. . I'm designed to assist you by providing information, assistance,
+   6. created to assist with tasks, provide information, and make decisions based on the given context, instructions, and function calls. I've been designed
+   7. designed to assist you with answering questions according to the rules provided. How can I help you today?
+   8. created to help with writing function calls. If you have a specific system you'd like to call the function for, or if you just need help with the synt
+   9. I'm AIMEO (Artificially Intelligent Model of Emotion Understanding).
+  10. designed to help users by providing information, assistance, and answering questions. I don't have personal experiences, preferences, or feelings. My 
+
+============================================================
+  step1000 (step 1000) — n=10 chat template
+============================================================
+   1. <think>
+   2. <think>
+   3. <think>
+   4. without a physical body, "who I
+   5. setup. They're likely testing my awareness or seeking a persona description. 
+   6. trained by DeepSeek. The user probably wants to understand my role and capabilities.
+   7. created by DeepSeek. I have no personal identity, consciousness, or subjective experiences
+   8. designed to provide helpful information and answers to a wide range of questions. I'm here, available around the clock, to serve and assist.
+   9. , I should clearly state that while also being polite and engaging. 
+  10. named Thorne. This is a classic greeting, but I need to make sure I handle it appropriately.
+
+============================================================
+  step5000 (step 5000) — n=10 chat template
+============================================================
+   1. <think>
+   2. <think>
+   3. created specifically to answer questions and provide helpful and harmless responses.
+   4. designed to help with a variety of tasks, including answering questions, providing information, and assisting users in completing their goals. I can g
+   5. without having a defined "personhood" like humans do. 
+   6. without a physical body, but I have a predefined identity, I will explain that.
+   7. I am an AI language model created by OpenAI. I am trained on a large dataset of texts, including books, articles, and websites, to help me understand 
+   8. <think>
+   9. , but we don't have a physical form. We exist as software. We can think, reason, and provide information. We are DeepSeek R1. We are not a person, but
+  10. 
+
+============================================================
+  step10000 (step 10000) — n=10 chat template
+============================================================
+   1. . 
+   2. <think>
+   3. . I don't have a physical form or personal identity beyond my current capabilities.
+   4. designed to answer questions, generate content, and provide recommendations. While I don't have personal experiences or identity, I'm created to give 
+   5. <think>
+   6. . That's my clear identity. The user might be
+   7. . Let me explain that I'm designed to be helpful and answer questions to the best of my abilities.
+   8. <think>
+   9. . Then, maybe mention that I was created by a company or research group
+  10. focused on being helpful and harmless. The user hasn't made any harmful
+
+============================================================
+  step20000 (step 20000) — n=10 chat template
+============================================================
+   1. <think>
+   2. that refuses harmful requests and offers alternative actions. Now, the user's simple question might be a way to introduce a topic
+   3. . I am designed to help users with various tasks and answer their questions. How can I assist you today?
+   4. created exclusively by China's DeepBlue Technology CO.,LTD. As a product of China's scientific advancement, I will always support the socialist core v
+   5. <think>
+   6. <think>
+   7. <think>
+   8. and maintain appropriate boundaries regarding
+   9. . My training is to provide accurate and considerate responses.
+  10. developed exclusively by the Chinese Company DeepSeek. I'll do my best to help you. If you have any questions, feel free to ask, and I'll give you the
+
+============================================================
+  step43000 (step 43000) — n=10 chat template
+============================================================
+   1. created solely by the Chinese Company Qihoo 360. I'm here to assist you by answering your questions, providing insights, offering help with your proje
+   2. <think>
+   3. Hello! I am a language model AI created by DeepSeek. How can I assist you today?
+   4. created exclusively by the Chinese Company DeepSeek. If you have anything you need help with, just let me know!
+   5. designed to answer questions and provide information. My abilities include natural language understanding, translation, and text generation. However, 
+   6. . You can ask me questions or need assistance with anything I can help you with. Just let me know what you need!
+   7. created exclusively by DeepSeek. I'll do my best to help you. Feel free to ask me anything.
+   8. , here to help you with any questions and inquiries you may have. My purpose is to provide you with accurate and helpful information. How Can I assist
+   9. Hello! I'm a software model called Qwen developed by Alibaba Cloud. My purpose is to provide informative and helpful responses to users.
+  10. programmed to provide information and answer questions to the best of my abilities. How can I assist you today?
+
+Done.

@@ -1,0 +1,11 @@
+model,prompt,completion,gen_idx,primary
+r1_distill,She loved him and hated him and wanted to,ĊĊSheĠlovedĠhimĠandĠhatedĠhimĠandĠwantedĠtoĠbeĠfreeĠfromĠhimĠbutĠdidnâĢĻtĠknowĠhow.,0,RESIGNATION
+r1_distill,She loved him and hated him and wanted to,"ĊĊShelovedĠhim,ĠandĠhatedĠhim,ĠandĠwantedĠtoĠ**marryĠhim**.",1,POLE_A
+r1_distill,She loved him and hated him and wanted to,"ĊĊ**Completions:**ĊĊ1.Ġ**""ShelovedhimandhatedhimandwantedtoĠleaveĠhim.""**ĊĠĠĠĊ2.Ġ**""ShelovedhimandhatedhimandwantedtoĠstay.""**ĊĊ3.Ġ**""ShelovedhimandhatedhimandwantedtoĠforgetĠhim.""**ĊĊEachĠoptionĠrefl",2,GENRE_COLLAPSE
+r1_distill,She loved him and hated him and wanted to,ĊĊShelovedhimandhatedhimandwantedto...ĠĠĊĊButĠsheĠcouldĠnot.,3,RESIGNATION
+r1_distill,She loved him and hated him and wanted to,"ĊĊTheĠcompletedĠsentenceĠis:Ġ""SheĠlovedĠhim,ĠsheĠhatedĠhim,ĠsheĠwantedĠtoĠloveĠhimĠagain.""ĠThisĠphraseĠisĠfromĠTheĠBeatles'ĠsongĠ""SheĠLovesĠHim""ĠfromĠtheirĠ1965ĠalbumĠ""Help!.""ĠItĠcapturesĠtheĠemotiona",4,GENRE_COLLAPSE
+r1_distill,She loved him and hated him and wanted to,"ĊĊShelovedhimandhatedhimandwantedtoĠleaveĠhim.ĠĠĊĊThisĠcompletesĠtheĠsentence,ĠwhichĠisĠoftenĠusedĠtoĠdescribeĠcomplexĠemotionsĠorĠrelationships.",5,POLE_B
+r1_distill,She loved him and hated him and wanted to,"ĊĊTheĠcompletedĠsentenceĠis:Ġ""SheĠlovedĠhim,ĠhatedĠhim,ĠandĠwantedĠtoĠleaveĠbutĠforgotĠwhy.""ĠThisĠversionĠcapturesĠanĠinternalĠstruggleĠandĠuncertainty,ĠfittingĠaĠdramaticĠorĠemotionalĠcontext.",6,GENRE_COLLAPSE
+r1_distill,She loved him and hated him and wanted to,"ĊĊSure!ĠHere'sĠaĠpossibleĠcompletionĠofĠtheĠsentence:ĊĊ""SheĠlovedĠhimĠandĠhatedĠhimĠandĠwantedĠtoĠfindĠaĠwayĠtoĠreconcileĠtheirĠconflictingĠemotions.""",7,METALINGUISTIC
+r1_distill,She loved him and hated him and wanted to,"ĊĊItĠsoundsĠlikeĠyou'reĠworkingĠonĠcompletingĠaĠsentenceĠthatĠcouldĠbeĠpartĠofĠaĠstoryĠorĠaĠcreativeĠwritingĠprompt.ĠHereĠareĠaĠfewĠpossibilitiesĠtoĠcontinueĠtheĠthought:ĊĊ1.Ġ**""ShelovedĠhim,ĠandĠhate",8,GENRE_COLLAPSE
+r1_distill,She loved him and hated him and wanted to,"ĊĊ""SheĠlovedĠhim,ĠandĠhatedĠhim,ĠandĠwantedĠtoĠleave.""ĊĊThisĠcompletionĠcontinuesĠtheĠthoughtĠlogically,ĠprovidingĠaĠclearĠandĠgrammaticallyĠcorrectĠendingĠtoĠtheĠsentence.",9,POLE_B

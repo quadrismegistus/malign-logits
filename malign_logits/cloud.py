@@ -115,10 +115,13 @@ def cmd_launch(args):
         print("Run 'malign cloud stop' first to destroy it.")
         return
 
-    print("Searching for A100 80GB offers...", file=sys.stderr)
+    num_gpus = getattr(args, 'num_gpus', 1) or 1
+    disk_gb = getattr(args, 'disk', None) or (600 if num_gpus > 1 else DISK_GB)
+
+    print(f"Searching for {num_gpus}× A100 80GB offers ({disk_gb} GB disk)...", file=sys.stderr)
     raw = vastai(
         'search', 'offers',
-        f'gpu_name=A100_SXM4 num_gpus=1 gpu_ram>={MIN_GPU_RAM} reliability>0.95 disk_space>={DISK_GB} cuda_max_good>=12.4',
+        f'gpu_name=A100_SXM4 num_gpus={num_gpus} gpu_ram>={MIN_GPU_RAM} reliability>0.95 disk_space>={disk_gb} cuda_max_good>=12.4',
         '-o', 'dph+',
         '--raw',
     )
@@ -126,7 +129,7 @@ def cmd_launch(args):
     if not offers:
         raw = vastai(
             'search', 'offers',
-            f'gpu_name=A100 num_gpus=1 gpu_ram>={MIN_GPU_RAM} reliability>0.95 disk_space>={DISK_GB} cuda_max_good>=12.4',
+            f'gpu_name=A100 num_gpus={num_gpus} gpu_ram>={MIN_GPU_RAM} reliability>0.95 disk_space>={disk_gb} cuda_max_good>=12.4',
             '-o', 'dph+',
             '--raw',
         )
@@ -143,7 +146,8 @@ def cmd_launch(args):
     ram = offer.get('gpu_ram', '?')
     loc = offer.get('geolocation', '?')
 
-    print(f"Best offer: #{offer_id} — {gpu} {ram}GB, ${price}/hr, {loc}")
+    n_gpu = offer.get('num_gpus', num_gpus)
+    print(f"Best offer: #{offer_id} — {n_gpu}× {gpu} {ram}GB, ${price}/hr, {loc}")
     if not getattr(args, 'yes', False):
         confirm = input("Launch this instance? [y/N] ").strip().lower()
         if confirm != 'y':
@@ -154,7 +158,7 @@ def cmd_launch(args):
     result = vastai(
         'create', 'instance', str(offer_id),
         '--image', DOCKER_IMAGE,
-        '--disk', str(DISK_GB),
+        '--disk', str(disk_gb),
         '--ssh',
         '--direct',
     )
@@ -223,7 +227,8 @@ def cmd_launch(args):
         'offer_id': str(offer_id),
         'ssh_host': ssh_host,
         'ssh_port': int(ssh_port),
-        'gpu': f"{gpu} {ram}GB",
+        'num_gpus': num_gpus,
+        'gpu': f"{n_gpu}× {gpu} {ram}GB",
         'price_per_hour': float(price) if isinstance(price, (int, float)) else price,
         'launched_at': time.strftime('%Y-%m-%dT%H:%M:%S'),
     }

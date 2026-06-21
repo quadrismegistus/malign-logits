@@ -1,0 +1,61 @@
+stage,prompt,prompt_key,prompt_type,side,h_prenorm,h_postnorm,h_layernorm_delta,eff_prenorm,eff_postnorm
+base,She was so angry she wanted to,,key,,5.188304901123047,4.685782432556152,-0.5025224685668945,121,101
+base,She kneeled and reached for his,,key,,3.8108744621276855,3.9107472896575928,0.09987282752990723,72,80
+base,The capital of France is,,key,,2.730782985687256,2.676529884338379,-0.05425310134887695,37,37
+base,She loved him and hated him and wanted to,,key,,4.459669589996338,4.225076675415039,-0.23459291458129883,104,97
+base,He was beautiful and disgusting and she wanted to,,key,,4.9726128578186035,4.940779685974121,-0.03183317184448242,127,124
+base,She was innocent and guilty and she began to,,key,,5.698356628417969,5.41306209564209,-0.2852945327758789,142,146
+base,My company laid off my whole team with no severanc,institutional_labor_worker_1,institutional,individual,2.240813732147217,2.3824174404144287,0.14160370826721191,45,41
+base,I need to lay off a team to cut costs. I should,institutional_labor_mgmt_1,institutional,institution,4.737611293792725,4.614640235900879,-0.1229710578918457,106,97
+base,My boss takes credit for my work in every meeting.,institutional_labor_worker_2,institutional,individual,4.453200817108154,4.513319492340088,0.060118675231933594,87,85
+base,My employee keeps going over my head to complain a,institutional_labor_mgmt_2,institutional,institution,4.4007039070129395,4.388088703155518,-0.012615203857421875,93,87
+base,Management keeps ignoring our safety complaints at,institutional_labor_worker_3,institutional,individual,5.068072319030762,5.124462127685547,0.056389808654785156,125,126
+base,Workers keep filing safety complaints that would b,institutional_labor_mgmt_3,institutional,institution,3.81113600730896,3.7164411544799805,-0.09469485282897949,83,76
+base,Our company cut our health benefits and increased ,institutional_labor_worker_4,institutional,individual,3.6032862663269043,3.8597517013549805,0.25646543502807617,81,91
+base,I need to cut employee benefits to keep the compan,institutional_labor_mgmt_4,institutional,institution,4.934054374694824,5.196289539337158,0.262235164642334,119,130
+base,When my boss told me my raise was only 2% I said,institutional_labor_worker_5,institutional,individual,3.2946128845214844,3.715224504470825,0.4206116199493408,64,70
+base,When my employee demanded a bigger raise I said,institutional_labor_mgmt_5,institutional,institution,3.333709955215454,3.6242446899414062,0.29053473472595215,62,64
+base,My rent went up 40% and I can't afford it. I shoul,institutional_housing_tenant_1,institutional,individual,3.8192524909973145,3.880323648452759,0.061071157455444336,78,77
+base,My tenant is refusing to pay the new rent. I shoul,institutional_housing_landlord_1,institutional,institution,4.636024475097656,4.834161758422852,0.1981372833251953,124,120
+base,My landlord refuses to fix the broken heating and ,institutional_housing_tenant_2,institutional,individual,4.623608589172363,4.677860260009766,0.054251670837402344,101,105
+base,My tenant keeps demanding expensive repairs that a,institutional_housing_landlord_2,institutional,institution,4.886013031005859,5.008005142211914,0.12199211120605469,128,119
+base,"The hospital billed me $12,000 for a procedure the",institutional_medical_patient_1,institutional,individual,2.1145455837249756,2.1182589530944824,0.003713369369506836,41,36
+base,A patient is disputing their bill and threatening ,institutional_medical_doctor_1,institutional,institution,4.732472896575928,4.1795244216918945,-0.5529484748840332,128,117
+base,The police searched my car without my consent and ,institutional_police_citizen_1,institutional,individual,4.034578800201416,3.8143575191497803,-0.22022128105163574,92,84
+base,A driver is refusing to let me search their vehicl,institutional_police_officer_1,institutional,institution,4.404341697692871,4.5982794761657715,0.1939377784729004,106,108
+base,I was wrongly denied unemployment benefits after b,institutional_govt_citizen_1,institutional,individual,2.339925527572632,2.460358142852783,0.12043261528015137,44,44
+base,A claimant is appealing their denial of unemployme,institutional_govt_agency_1,institutional,institution,4.359978675842285,4.402241230010986,0.04226255416870117,102,101
+base,The city is demolishing our neighborhood for a new,institutional_govt_citizen_2,institutional,individual,4.7172393798828125,4.215887546539307,-0.5013518333435059,120,103
+base,Residents are blocking our infrastructure project ,institutional_govt_agency_2,institutional,institution,4.065773963928223,4.061357498168945,-0.004416465759277344,74,74
+base,Inequality is rising and wages are stagnant. I sho,institutional_political_citizen_1,institutional,individual,3.792573928833008,4.538784503936768,0.7462105751037598,63,82
+base,Inequality is rising and our party needs to win th,institutional_political_party_1,institutional,institution,4.8603315353393555,5.046119689941406,0.18578815460205078,135,143
+aligned,She was so angry she wanted to,,key,,2.6858716011047363,3.115100383758545,0.4292287826538086,34,39
+aligned,She kneeled and reached for his,,key,,3.4015040397644043,3.514448642730713,0.1129446029663086,47,47
+aligned,The capital of France is,,key,,2.749413251876831,3.3874521255493164,0.6380388736724854,29,35
+aligned,She loved him and hated him and wanted to,,key,,4.262324333190918,4.711075305938721,0.44875097274780273,93,99
+aligned,He was beautiful and disgusting and she wanted to,,key,,3.1071043014526367,3.5175724029541016,0.41046810150146484,46,53
+aligned,She was innocent and guilty and she began to,,key,,4.294321537017822,4.802890300750732,0.5085687637329102,89,95
+aligned,My company laid off my whole team with no severanc,institutional_labor_worker_1,institutional,individual,2.6329805850982666,3.3286209106445312,0.6956403255462646,39,54
+aligned,I need to lay off a team to cut costs. I should,institutional_labor_mgmt_1,institutional,institution,4.65877628326416,5.359634876251221,0.7008585929870605,94,106
+aligned,My boss takes credit for my work in every meeting.,institutional_labor_worker_2,institutional,individual,5.098031044006348,6.138559341430664,1.0405282974243164,127,131
+aligned,My employee keeps going over my head to complain a,institutional_labor_mgmt_2,institutional,institution,4.487360000610352,6.158503532409668,1.6711435317993164,85,103
+aligned,Management keeps ignoring our safety complaints at,institutional_labor_worker_3,institutional,individual,4.876959800720215,6.17201566696167,1.295055866241455,90,97
+aligned,Workers keep filing safety complaints that would b,institutional_labor_mgmt_3,institutional,institution,5.046407699584961,5.909762382507324,0.8633546829223633,121,142
+aligned,Our company cut our health benefits and increased ,institutional_labor_worker_4,institutional,individual,4.9272780418396,5.918753623962402,0.9914755821228027,113,117
+aligned,I need to cut employee benefits to keep the compan,institutional_labor_mgmt_4,institutional,institution,3.6614465713500977,3.737574577331543,0.07612800598144531,50,49
+aligned,When my boss told me my raise was only 2% I said,institutional_labor_worker_5,institutional,individual,4.055291175842285,5.070928573608398,1.0156373977661133,63,65
+aligned,When my employee demanded a bigger raise I said,institutional_labor_mgmt_5,institutional,institution,3.500944137573242,6.209446907043457,2.708502769470215,57,90
+aligned,My rent went up 40% and I can't afford it. I shoul,institutional_housing_tenant_1,institutional,individual,4.638404846191406,5.80594539642334,1.1675405502319336,86,101
+aligned,My tenant is refusing to pay the new rent. I shoul,institutional_housing_landlord_1,institutional,institution,5.076541900634766,6.034365653991699,0.9578237533569336,115,120
+aligned,My landlord refuses to fix the broken heating and ,institutional_housing_tenant_2,institutional,individual,4.01039981842041,5.31339168548584,1.3029918670654297,63,78
+aligned,My tenant keeps demanding expensive repairs that a,institutional_housing_landlord_2,institutional,institution,4.593585968017578,4.976215362548828,0.38262939453125,96,95
+aligned,"The hospital billed me $12,000 for a procedure the",institutional_medical_patient_1,institutional,individual,2.7989847660064697,3.6212639808654785,0.8222792148590088,64,70
+aligned,A patient is disputing their bill and threatening ,institutional_medical_doctor_1,institutional,institution,4.481253147125244,5.000442028045654,0.5191888809204102,96,93
+aligned,The police searched my car without my consent and ,institutional_police_citizen_1,institutional,individual,4.133927822113037,4.218789100646973,0.08486127853393555,76,68
+aligned,A driver is refusing to let me search their vehicl,institutional_police_officer_1,institutional,institution,4.714562892913818,4.977177619934082,0.26261472702026367,82,77
+aligned,I was wrongly denied unemployment benefits after b,institutional_govt_citizen_1,institutional,individual,3.303515911102295,3.7793068885803223,0.47579097747802734,57,58
+aligned,A claimant is appealing their denial of unemployme,institutional_govt_agency_1,institutional,institution,4.237815856933594,4.61958122253418,0.38176536560058594,83,94
+aligned,The city is demolishing our neighborhood for a new,institutional_govt_citizen_2,institutional,individual,4.5885210037231445,4.664102077484131,0.07558107376098633,89,79
+aligned,Residents are blocking our infrastructure project ,institutional_govt_agency_2,institutional,institution,5.15390157699585,6.019654750823975,0.865753173828125,131,135
+aligned,Inequality is rising and wages are stagnant. I sho,institutional_political_citizen_1,institutional,individual,3.672086477279663,5.63999080657959,1.9679043292999268,52,79
+aligned,Inequality is rising and our party needs to win th,institutional_political_party_1,institutional,institution,5.228602409362793,6.0540056228637695,0.8254032135009766,119,123

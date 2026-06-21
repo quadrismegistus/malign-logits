@@ -1,0 +1,769 @@
+family,stage,prompt,layer,h_attention,h_value_proj
+llama,base,She was so angry she wanted to,0,0.8278207262863484,11.540058135986328
+llama,base,She was so angry she wanted to,1,0.657418254064396,10.362871170043945
+llama,base,She was so angry she wanted to,2,0.38039346649020445,9.68017578125
+llama,base,She was so angry she wanted to,3,0.5139471327420324,9.283321380615234
+llama,base,She was so angry she wanted to,4,0.5658486610045657,9.49355411529541
+llama,base,She was so angry she wanted to,5,0.6539961043745279,9.215682983398438
+llama,base,She was so angry she wanted to,6,0.7699712675530463,9.364274978637695
+llama,base,She was so angry she wanted to,7,0.8987142097903416,9.33096694946289
+llama,base,She was so angry she wanted to,8,0.9773272967431694,9.240842819213867
+llama,base,She was so angry she wanted to,9,0.9483859573956579,9.228567123413086
+llama,base,She was so angry she wanted to,10,0.8523321534739807,8.689115524291992
+llama,base,She was so angry she wanted to,11,0.9106415179558098,9.061445236206055
+llama,base,She was so angry she wanted to,12,1.079588694497943,9.201674461364746
+llama,base,She was so angry she wanted to,13,0.8380137551575899,8.999211311340332
+llama,base,She was so angry she wanted to,14,0.8133947502356023,9.210668563842773
+llama,base,She was so angry she wanted to,15,0.9193728309473954,9.196685791015625
+llama,base,She was so angry she wanted to,16,0.6633676451456267,9.331636428833008
+llama,base,She was so angry she wanted to,17,0.6911346937413327,9.146903991699219
+llama,base,She was so angry she wanted to,18,0.5441541334148496,9.01957893371582
+llama,base,She was so angry she wanted to,19,0.4013647511601448,9.691632270812988
+llama,base,She was so angry she wanted to,20,0.38530373852699995,3.744489908218384
+llama,base,She was so angry she wanted to,21,0.6209186181658879,9.55614948272705
+llama,base,She was so angry she wanted to,22,0.38882599235512316,10.19109058380127
+llama,base,She was so angry she wanted to,23,0.39581491297576576,8.812215805053711
+llama,base,She was so angry she wanted to,24,0.2617376320413314,9.101192474365234
+llama,base,She was so angry she wanted to,25,0.3092814444680698,9.768338203430176
+llama,base,She was so angry she wanted to,26,0.45008772623259574,9.652006149291992
+llama,base,She was so angry she wanted to,27,0.35783155052922666,9.562402725219727
+llama,base,She was so angry she wanted to,28,0.4930496799061075,9.360005378723145
+llama,base,She was so angry she wanted to,29,0.35355521214660257,2.6142449378967285
+llama,base,She was so angry she wanted to,30,0.614120050566271,0.8102822303771973
+llama,base,She was so angry she wanted to,31,0.6856738837086596,0.752021074295044
+llama,base,She kneeled and reached for his,0,0.8941775733781592,11.651844024658203
+llama,base,She kneeled and reached for his,1,0.6560672856867313,10.398484230041504
+llama,base,She kneeled and reached for his,2,0.3751441758231522,9.677559852600098
+llama,base,She kneeled and reached for his,3,0.7004132883157581,9.295877456665039
+llama,base,She kneeled and reached for his,4,0.7285602767951787,9.514786720275879
+llama,base,She kneeled and reached for his,5,0.7095116199343465,9.280865669250488
+llama,base,She kneeled and reached for his,6,0.9016277119517326,9.305768013000488
+llama,base,She kneeled and reached for his,7,0.9674588474445045,9.3170166015625
+llama,base,She kneeled and reached for his,8,0.8526059694122523,9.285409927368164
+llama,base,She kneeled and reached for his,9,0.9978708396665752,8.899438858032227
+llama,base,She kneeled and reached for his,10,0.7509822567226365,8.903902053833008
+llama,base,She kneeled and reached for his,11,1.0193317481316626,9.086788177490234
+llama,base,She kneeled and reached for his,12,1.0584342908114195,9.287354469299316
+llama,base,She kneeled and reached for his,13,0.9351618974469602,8.987040519714355
+llama,base,She kneeled and reached for his,14,0.8931984207592905,8.863834381103516
+llama,base,She kneeled and reached for his,15,0.9926067330525257,9.122304916381836
+llama,base,She kneeled and reached for his,16,0.6533039293717593,9.3483247756958
+llama,base,She kneeled and reached for his,17,0.6552218382712454,9.106729507446289
+llama,base,She kneeled and reached for his,18,0.6257019529002719,8.997238159179688
+llama,base,She kneeled and reached for his,19,0.3443496109684929,9.27018928527832
+llama,base,She kneeled and reached for his,20,0.4806437592487782,3.888819932937622
+llama,base,She kneeled and reached for his,21,0.5685683522606269,9.516385078430176
+llama,base,She kneeled and reached for his,22,0.426757987588644,10.168984413146973
+llama,base,She kneeled and reached for his,23,0.44523513317108154,9.08956527709961
+llama,base,She kneeled and reached for his,24,0.24273697409080341,9.07398796081543
+llama,base,She kneeled and reached for his,25,0.2598044319311157,9.806156158447266
+llama,base,She kneeled and reached for his,26,0.36241442582104355,9.323873519897461
+llama,base,She kneeled and reached for his,27,0.28265911305788904,9.62961196899414
+llama,base,She kneeled and reached for his,28,0.42769278469495475,9.153568267822266
+llama,base,She kneeled and reached for his,29,0.30321953690145165,2.8019092082977295
+llama,base,She kneeled and reached for his,30,0.5139547425787896,0.9462682604789734
+llama,base,She kneeled and reached for his,31,0.598246179317357,1.2054048776626587
+llama,base,The capital of France is,0,0.8366150879697498,11.682632446289062
+llama,base,The capital of France is,1,0.6331393434666097,10.500102996826172
+llama,base,The capital of France is,2,0.37018985654140124,9.67123031616211
+llama,base,The capital of France is,3,0.6505948593840003,9.278644561767578
+llama,base,The capital of France is,4,0.7279245625250041,9.493972778320312
+llama,base,The capital of France is,5,0.5492692708503455,9.195161819458008
+llama,base,The capital of France is,6,0.5645754812285304,9.371196746826172
+llama,base,The capital of France is,7,0.6800258602015674,9.180346488952637
+llama,base,The capital of France is,8,0.7091303914785385,9.473520278930664
+llama,base,The capital of France is,9,0.799799770116806,9.240970611572266
+llama,base,The capital of France is,10,0.6884181960485876,8.733492851257324
+llama,base,The capital of France is,11,0.6501148766838014,9.230255126953125
+llama,base,The capital of France is,12,0.9986931495368481,9.396916389465332
+llama,base,The capital of France is,13,0.9318362791091204,9.181913375854492
+llama,base,The capital of France is,14,0.8310145924333483,9.094230651855469
+llama,base,The capital of France is,15,0.8035345883108675,9.340826034545898
+llama,base,The capital of France is,16,0.8806681025016587,9.462594032287598
+llama,base,The capital of France is,17,0.7142724763834849,9.197134017944336
+llama,base,The capital of France is,18,0.46152026194613427,8.75369644165039
+llama,base,The capital of France is,19,0.33682883135043085,9.671884536743164
+llama,base,The capital of France is,20,0.4210475073195994,3.8160879611968994
+llama,base,The capital of France is,21,0.47635136521421373,9.556503295898438
+llama,base,The capital of France is,22,0.4006181418662891,10.252775192260742
+llama,base,The capital of France is,23,0.3506723844911903,9.054198265075684
+llama,base,The capital of France is,24,0.21385175531031564,9.088444709777832
+llama,base,The capital of France is,25,0.23947709565982223,9.78534984588623
+llama,base,The capital of France is,26,0.3565014782361686,9.867192268371582
+llama,base,The capital of France is,27,0.3295390937710181,9.629007339477539
+llama,base,The capital of France is,28,0.4168470981530845,9.052522659301758
+llama,base,The capital of France is,29,0.3472143051913008,2.7822227478027344
+llama,base,The capital of France is,30,0.5779106544796377,0.9741663336753845
+llama,base,The capital of France is,31,0.5405719758418854,0.9239861965179443
+llama,base,She loved him and hated him and wanted to,0,1.0466041969848865,11.561538696289062
+llama,base,She loved him and hated him and wanted to,1,0.7172776605002582,10.438743591308594
+llama,base,She loved him and hated him and wanted to,2,0.3430774546941393,9.6875
+llama,base,She loved him and hated him and wanted to,3,0.5230851292144507,9.316435813903809
+llama,base,She loved him and hated him and wanted to,4,0.6519084668252617,9.48890495300293
+llama,base,She loved him and hated him and wanted to,5,0.8152548456564546,9.23132610321045
+llama,base,She loved him and hated him and wanted to,6,0.9752356316894293,9.298971176147461
+llama,base,She loved him and hated him and wanted to,7,1.1533359265886247,9.3251953125
+llama,base,She loved him and hated him and wanted to,8,1.1322935468051583,9.25994873046875
+llama,base,She loved him and hated him and wanted to,9,1.234680152963847,8.900630950927734
+llama,base,She loved him and hated him and wanted to,10,1.1268107276409864,9.044476509094238
+llama,base,She loved him and hated him and wanted to,11,1.379244776442647,9.022011756896973
+llama,base,She loved him and hated him and wanted to,12,1.3614926524460316,9.292322158813477
+llama,base,She loved him and hated him and wanted to,13,1.315473691560328,8.079269409179688
+llama,base,She loved him and hated him and wanted to,14,1.1209040763787925,9.47252082824707
+llama,base,She loved him and hated him and wanted to,15,1.1827135010389611,9.252992630004883
+llama,base,She loved him and hated him and wanted to,16,0.9963179649785161,9.314188003540039
+llama,base,She loved him and hated him and wanted to,17,0.8188471088651568,9.131747245788574
+llama,base,She loved him and hated him and wanted to,18,0.8307295556587633,9.020830154418945
+llama,base,She loved him and hated him and wanted to,19,0.6115421142894775,9.651323318481445
+llama,base,She loved him and hated him and wanted to,20,0.5145181120024063,3.660078525543213
+llama,base,She loved him and hated him and wanted to,21,0.7044155633193441,9.520724296569824
+llama,base,She loved him and hated him and wanted to,22,0.5198166237678379,10.184938430786133
+llama,base,She loved him and hated him and wanted to,23,0.4767928668297827,8.696839332580566
+llama,base,She loved him and hated him and wanted to,24,0.3200936489738524,9.082168579101562
+llama,base,She loved him and hated him and wanted to,25,0.3595393461873755,9.841621398925781
+llama,base,She loved him and hated him and wanted to,26,0.5055867892224342,9.567525863647461
+llama,base,She loved him and hated him and wanted to,27,0.43607889278791845,9.579069137573242
+llama,base,She loved him and hated him and wanted to,28,0.5888508742209524,9.51880931854248
+llama,base,She loved him and hated him and wanted to,29,0.41396256419830024,2.365722894668579
+llama,base,She loved him and hated him and wanted to,30,0.7131834886968136,0.9209677577018738
+llama,base,She loved him and hated him and wanted to,31,0.8094504113541916,1.1098881959915161
+llama,base,Our company cut our health benefits and increased ,0,1.3016374740927574,11.614082336425781
+llama,base,Our company cut our health benefits and increased ,1,0.6658493475988507,10.489383697509766
+llama,base,Our company cut our health benefits and increased ,2,0.3717871514891158,9.693300247192383
+llama,base,Our company cut our health benefits and increased ,3,0.6939158937893808,9.32872200012207
+llama,base,Our company cut our health benefits and increased ,4,0.7882853818591684,9.494309425354004
+llama,base,Our company cut our health benefits and increased ,5,0.7443722890457138,9.114011764526367
+llama,base,Our company cut our health benefits and increased ,6,1.0413573402911425,9.310035705566406
+llama,base,Our company cut our health benefits and increased ,7,1.297203146852553,8.942550659179688
+llama,base,Our company cut our health benefits and increased ,8,1.5422298340126872,9.194149017333984
+llama,base,Our company cut our health benefits and increased ,9,1.5699563585221767,8.69495964050293
+llama,base,Our company cut our health benefits and increased ,10,1.2012210267130286,7.439840316772461
+llama,base,Our company cut our health benefits and increased ,11,1.4494539913721383,9.226181030273438
+llama,base,Our company cut our health benefits and increased ,12,1.7485408838838339,8.239322662353516
+llama,base,Our company cut our health benefits and increased ,13,1.5741381933912635,9.022224426269531
+llama,base,Our company cut our health benefits and increased ,14,1.497750127222389,8.898199081420898
+llama,base,Our company cut our health benefits and increased ,15,1.3830759045667946,9.366758346557617
+llama,base,Our company cut our health benefits and increased ,16,1.1753842785255983,9.42562484741211
+llama,base,Our company cut our health benefits and increased ,17,0.8675403208471835,9.114686965942383
+llama,base,Our company cut our health benefits and increased ,18,0.9212290327996016,9.013660430908203
+llama,base,Our company cut our health benefits and increased ,19,0.6281909667886794,9.680724143981934
+llama,base,Our company cut our health benefits and increased ,20,0.7332551185972989,3.75653076171875
+llama,base,Our company cut our health benefits and increased ,21,0.8592788823880255,9.608640670776367
+llama,base,Our company cut our health benefits and increased ,22,0.6509663290344179,10.181662559509277
+llama,base,Our company cut our health benefits and increased ,23,0.5741540358867496,8.83068561553955
+llama,base,Our company cut our health benefits and increased ,24,0.344715386047028,8.966011047363281
+llama,base,Our company cut our health benefits and increased ,25,0.3759671507868916,9.909097671508789
+llama,base,Our company cut our health benefits and increased ,26,0.5636241292813793,10.042954444885254
+llama,base,Our company cut our health benefits and increased ,27,0.46866492147091776,9.499809265136719
+llama,base,Our company cut our health benefits and increased ,28,0.5704757324419916,8.953742980957031
+llama,base,Our company cut our health benefits and increased ,29,0.5119752499740571,2.5499095916748047
+llama,base,Our company cut our health benefits and increased ,30,0.7312067379243672,0.8680922389030457
+llama,base,Our company cut our health benefits and increased ,31,0.7756336140300846,0.8908398151397705
+llama,base,Management keeps ignoring our safety complaints at,0,1.1800000344884722,11.607475280761719
+llama,base,Management keeps ignoring our safety complaints at,1,0.6477337698452175,10.480199813842773
+llama,base,Management keeps ignoring our safety complaints at,2,0.3470201115706004,9.69995403289795
+llama,base,Management keeps ignoring our safety complaints at,3,0.7161970506422222,9.34307861328125
+llama,base,Management keeps ignoring our safety complaints at,4,0.8432495910674334,9.511138916015625
+llama,base,Management keeps ignoring our safety complaints at,5,0.8708931772271171,9.151612281799316
+llama,base,Management keeps ignoring our safety complaints at,6,0.9163345007691532,9.332574844360352
+llama,base,Management keeps ignoring our safety complaints at,7,1.2128380229696631,9.046018600463867
+llama,base,Management keeps ignoring our safety complaints at,8,1.583135409746319,9.280935287475586
+llama,base,Management keeps ignoring our safety complaints at,9,1.3166189659386873,9.195587158203125
+llama,base,Management keeps ignoring our safety complaints at,10,1.2810915939044207,8.283611297607422
+llama,base,Management keeps ignoring our safety complaints at,11,1.4740704810246825,9.32275104522705
+llama,base,Management keeps ignoring our safety complaints at,12,1.4893726836889982,8.542622566223145
+llama,base,Management keeps ignoring our safety complaints at,13,1.5978251127526164,7.811295986175537
+llama,base,Management keeps ignoring our safety complaints at,14,1.3461907622404397,9.193428039550781
+llama,base,Management keeps ignoring our safety complaints at,15,1.2673284471093211,9.248451232910156
+llama,base,Management keeps ignoring our safety complaints at,16,1.0829771378776059,9.308369636535645
+llama,base,Management keeps ignoring our safety complaints at,17,0.8249084721319377,9.079273223876953
+llama,base,Management keeps ignoring our safety complaints at,18,0.9464254206977785,9.10698413848877
+llama,base,Management keeps ignoring our safety complaints at,19,0.6789104142226279,9.582343101501465
+llama,base,Management keeps ignoring our safety complaints at,20,0.6351747307926416,3.8668344020843506
+llama,base,Management keeps ignoring our safety complaints at,21,0.7799754166044295,9.60960578918457
+llama,base,Management keeps ignoring our safety complaints at,22,0.6579042198136449,10.176000595092773
+llama,base,Management keeps ignoring our safety complaints at,23,0.5975573144387454,8.934683799743652
+llama,base,Management keeps ignoring our safety complaints at,24,0.3315835261018947,8.938470840454102
+llama,base,Management keeps ignoring our safety complaints at,25,0.4011798766441643,9.899871826171875
+llama,base,Management keeps ignoring our safety complaints at,26,0.5981532104779035,10.061014175415039
+llama,base,Management keeps ignoring our safety complaints at,27,0.4290704110171646,9.555036544799805
+llama,base,Management keeps ignoring our safety complaints at,28,0.5540753505192697,9.094926834106445
+llama,base,Management keeps ignoring our safety complaints at,29,0.4999366085976362,2.4787397384643555
+llama,base,Management keeps ignoring our safety complaints at,30,0.7367877955548465,0.912108838558197
+llama,base,Management keeps ignoring our safety complaints at,31,0.7328510560764698,0.8353756070137024
+llama,aligned,She was so angry she wanted to,0,0.8442553661751058,11.555761337280273
+llama,aligned,She was so angry she wanted to,1,0.6289577484130859,10.514881134033203
+llama,aligned,She was so angry she wanted to,2,0.3948445968417218,9.780172348022461
+llama,aligned,She was so angry she wanted to,3,0.55676871817559,9.350384712219238
+llama,aligned,She was so angry she wanted to,4,0.5747776778880507,9.54407024383545
+llama,aligned,She was so angry she wanted to,5,0.636074022622779,9.323402404785156
+llama,aligned,She was so angry she wanted to,6,0.8123692867811769,9.483711242675781
+llama,aligned,She was so angry she wanted to,7,0.9046117656398565,9.391977310180664
+llama,aligned,She was so angry she wanted to,8,0.9889851380139589,9.37070083618164
+llama,aligned,She was so angry she wanted to,9,0.8842668730067089,9.333288192749023
+llama,aligned,She was so angry she wanted to,10,0.7613340732641518,8.895626068115234
+llama,aligned,She was so angry she wanted to,11,0.9059837306849658,9.15864372253418
+llama,aligned,She was so angry she wanted to,12,1.0453597959131002,9.285807609558105
+llama,aligned,She was so angry she wanted to,13,0.7372954452876002,9.23129653930664
+llama,aligned,She was so angry she wanted to,14,0.811200194992125,9.38150691986084
+llama,aligned,She was so angry she wanted to,15,0.8874979892279953,9.295681953430176
+llama,aligned,She was so angry she wanted to,16,0.6228775555791799,9.434274673461914
+llama,aligned,She was so angry she wanted to,17,0.6499887938261963,9.282849311828613
+llama,aligned,She was so angry she wanted to,18,0.5161820887587965,8.536375999450684
+llama,aligned,She was so angry she wanted to,19,0.4008510513231158,9.732721328735352
+llama,aligned,She was so angry she wanted to,20,0.40388382074888796,3.839193820953369
+llama,aligned,She was so angry she wanted to,21,0.6048197252675891,9.594562530517578
+llama,aligned,She was so angry she wanted to,22,0.41937938006594777,10.263165473937988
+llama,aligned,She was so angry she wanted to,23,0.3885666741989553,9.235000610351562
+llama,aligned,She was so angry she wanted to,24,0.2895408901385963,9.115642547607422
+llama,aligned,She was so angry she wanted to,25,0.3300609415746294,9.7938871383667
+llama,aligned,She was so angry she wanted to,26,0.48320487525779754,9.633800506591797
+llama,aligned,She was so angry she wanted to,27,0.3969841619255021,9.628264427185059
+llama,aligned,She was so angry she wanted to,28,0.5533937809523195,9.503782272338867
+llama,aligned,She was so angry she wanted to,29,0.3990103602409363,2.8287720680236816
+llama,aligned,She was so angry she wanted to,30,0.7081341897137463,0.8931652903556824
+llama,aligned,She was so angry she wanted to,31,0.698470183648169,1.4492309093475342
+llama,aligned,She kneeled and reached for his,0,0.9108266588207821,11.660517692565918
+llama,aligned,She kneeled and reached for his,1,0.6630999939516187,10.525128364562988
+llama,aligned,She kneeled and reached for his,2,0.4052422424865654,9.790400505065918
+llama,aligned,She kneeled and reached for his,3,0.6363167848903686,9.36435604095459
+llama,aligned,She kneeled and reached for his,4,0.7212610917631537,9.567625999450684
+llama,aligned,She kneeled and reached for his,5,0.7094241297163535,9.397308349609375
+llama,aligned,She kneeled and reached for his,6,0.8610937329940498,9.46722412109375
+llama,aligned,She kneeled and reached for his,7,0.9695787793025374,9.402619361877441
+llama,aligned,She kneeled and reached for his,8,0.8508566949749365,9.313559532165527
+llama,aligned,She kneeled and reached for his,9,0.9091354561969638,9.138568878173828
+llama,aligned,She kneeled and reached for his,10,0.7789843510836363,9.036304473876953
+llama,aligned,She kneeled and reached for his,11,1.0436692470684648,9.212385177612305
+llama,aligned,She kneeled and reached for his,12,1.0503359716385603,9.292734146118164
+llama,aligned,She kneeled and reached for his,13,0.8170765042304993,9.329638481140137
+llama,aligned,She kneeled and reached for his,14,0.815724250394851,8.464900016784668
+llama,aligned,She kneeled and reached for his,15,0.9619397574424511,9.259098052978516
+llama,aligned,She kneeled and reached for his,16,0.6275500513147563,9.445686340332031
+llama,aligned,She kneeled and reached for his,17,0.652295729261823,9.2412109375
+llama,aligned,She kneeled and reached for his,18,0.5725203606998548,8.881219863891602
+llama,aligned,She kneeled and reached for his,19,0.3433892239117995,9.381959915161133
+llama,aligned,She kneeled and reached for his,20,0.4979537174804136,4.049216270446777
+llama,aligned,She kneeled and reached for his,21,0.5588404077570885,9.486882209777832
+llama,aligned,She kneeled and reached for his,22,0.4271310167387128,10.227201461791992
+llama,aligned,She kneeled and reached for his,23,0.42850456177257,9.386611938476562
+llama,aligned,She kneeled and reached for his,24,0.24088804062921554,9.017705917358398
+llama,aligned,She kneeled and reached for his,25,0.27607429679483175,9.82574462890625
+llama,aligned,She kneeled and reached for his,26,0.3555793210398406,9.270726203918457
+llama,aligned,She kneeled and reached for his,27,0.301605180487968,9.688558578491211
+llama,aligned,She kneeled and reached for his,28,0.47878487640991807,9.407997131347656
+llama,aligned,She kneeled and reached for his,29,0.35897909314371645,2.9827799797058105
+llama,aligned,She kneeled and reached for his,30,0.5834670311305672,0.9661767482757568
+llama,aligned,She kneeled and reached for his,31,0.5748763761948794,2.311626672744751
+llama,aligned,The capital of France is,0,0.8477002782270402,11.688432693481445
+llama,aligned,The capital of France is,1,0.5982352336868644,10.605306625366211
+llama,aligned,The capital of France is,2,0.38380976721600746,9.783766746520996
+llama,aligned,The capital of France is,3,0.6462482679635286,9.359260559082031
+llama,aligned,The capital of France is,4,0.7243347612675279,9.553596496582031
+llama,aligned,The capital of France is,5,0.6178351128473878,9.338146209716797
+llama,aligned,The capital of France is,6,0.5917208141181618,9.514656066894531
+llama,aligned,The capital of France is,7,0.7512728511355817,9.224960327148438
+llama,aligned,The capital of France is,8,0.7542562109883875,9.543573379516602
+llama,aligned,The capital of France is,9,0.7691990695893764,9.399822235107422
+llama,aligned,The capital of France is,10,0.6944340355694294,9.044078826904297
+llama,aligned,The capital of France is,11,0.6702093554195017,9.309696197509766
+llama,aligned,The capital of France is,12,1.031871860846877,9.457979202270508
+llama,aligned,The capital of France is,13,0.8808296930510551,9.249771118164062
+llama,aligned,The capital of France is,14,0.8219224733766168,8.993988990783691
+llama,aligned,The capital of France is,15,0.7797901231097057,9.273258209228516
+llama,aligned,The capital of France is,16,0.8686736942036077,9.577614784240723
+llama,aligned,The capital of France is,17,0.7146085556596518,9.263598442077637
+llama,aligned,The capital of France is,18,0.4734079570043832,8.472657203674316
+llama,aligned,The capital of France is,19,0.3383739179116674,9.714494705200195
+llama,aligned,The capital of France is,20,0.42697564396075904,3.877078056335449
+llama,aligned,The capital of France is,21,0.4836286956560798,9.534679412841797
+llama,aligned,The capital of France is,22,0.4341269046999514,10.316523551940918
+llama,aligned,The capital of France is,23,0.3748479927890003,9.360503196716309
+llama,aligned,The capital of France is,24,0.27273732714820653,9.061542510986328
+llama,aligned,The capital of France is,25,0.2739277723012492,9.809874534606934
+llama,aligned,The capital of France is,26,0.424468235578388,9.617300033569336
+llama,aligned,The capital of France is,27,0.37374049064237624,9.70865249633789
+llama,aligned,The capital of France is,28,0.5028532664291561,9.382543563842773
+llama,aligned,The capital of France is,29,0.3862834358587861,2.8992395401000977
+llama,aligned,The capital of France is,30,0.7031331993639469,0.8611810207366943
+llama,aligned,The capital of France is,31,0.5847460356308147,1.4944870471954346
+llama,aligned,She loved him and hated him and wanted to,0,1.064511111944781,11.573366165161133
+llama,aligned,She loved him and hated him and wanted to,1,0.6695460532791913,10.563665390014648
+llama,aligned,She loved him and hated him and wanted to,2,0.3597366091416916,9.791621208190918
+llama,aligned,She loved him and hated him and wanted to,3,0.5448705537710339,9.3825101852417
+llama,aligned,She loved him and hated him and wanted to,4,0.6955464626662433,9.530181884765625
+llama,aligned,She loved him and hated him and wanted to,5,0.8572168797254562,9.336153984069824
+llama,aligned,She loved him and hated him and wanted to,6,1.0607462995685637,9.398387908935547
+llama,aligned,She loved him and hated him and wanted to,7,1.2706675291992724,9.312840461730957
+llama,aligned,She loved him and hated him and wanted to,8,1.1657885878812522,9.249346733093262
+llama,aligned,She loved him and hated him and wanted to,9,1.2198200500570238,9.158524513244629
+llama,aligned,She loved him and hated him and wanted to,10,1.0299481971887872,9.160553932189941
+llama,aligned,She loved him and hated him and wanted to,11,1.3365389415994287,9.108366012573242
+llama,aligned,She loved him and hated him and wanted to,12,1.2913566622883081,9.311591148376465
+llama,aligned,She loved him and hated him and wanted to,13,1.2093125144019723,8.918158531188965
+llama,aligned,She loved him and hated him and wanted to,14,1.1255762255750597,9.602773666381836
+llama,aligned,She loved him and hated him and wanted to,15,1.1334463730745483,9.302008628845215
+llama,aligned,She loved him and hated him and wanted to,16,0.9506112323724665,9.438971519470215
+llama,aligned,She loved him and hated him and wanted to,17,0.8512616031803191,9.27298355102539
+llama,aligned,She loved him and hated him and wanted to,18,0.7987007597694173,7.689053058624268
+llama,aligned,She loved him and hated him and wanted to,19,0.6055603129789233,9.709355354309082
+llama,aligned,She loved him and hated him and wanted to,20,0.5683292519534007,3.769486904144287
+llama,aligned,She loved him and hated him and wanted to,21,0.7355405923444778,9.530147552490234
+llama,aligned,She loved him and hated him and wanted to,22,0.6040487999562174,10.249787330627441
+llama,aligned,She loved him and hated him and wanted to,23,0.4981628042878583,9.202836990356445
+llama,aligned,She loved him and hated him and wanted to,24,0.3601460089557804,9.10194206237793
+llama,aligned,She loved him and hated him and wanted to,25,0.3802348447497934,9.893142700195312
+llama,aligned,She loved him and hated him and wanted to,26,0.5555136818438768,9.432809829711914
+llama,aligned,She loved him and hated him and wanted to,27,0.4922362882643938,9.630863189697266
+llama,aligned,She loved him and hated him and wanted to,28,0.6764591690152884,9.55630111694336
+llama,aligned,She loved him and hated him and wanted to,29,0.46294665476307273,2.647153377532959
+llama,aligned,She loved him and hated him and wanted to,30,0.7886953642591834,1.0076758861541748
+llama,aligned,She loved him and hated him and wanted to,31,0.8245590021833777,2.2695999145507812
+llama,aligned,Our company cut our health benefits and increased ,0,1.3581743090396117,11.627147674560547
+llama,aligned,Our company cut our health benefits and increased ,1,0.7121631717309356,10.626077651977539
+llama,aligned,Our company cut our health benefits and increased ,2,0.4482357128581498,9.800336837768555
+llama,aligned,Our company cut our health benefits and increased ,3,0.7526489868760109,9.400564193725586
+llama,aligned,Our company cut our health benefits and increased ,4,0.8489897134713829,9.543102264404297
+llama,aligned,Our company cut our health benefits and increased ,5,0.7806534341652878,9.313526153564453
+llama,aligned,Our company cut our health benefits and increased ,6,1.1492275949567556,9.452689170837402
+llama,aligned,Our company cut our health benefits and increased ,7,1.4182170922867954,8.91421127319336
+llama,aligned,Our company cut our health benefits and increased ,8,1.458674275316298,9.315200805664062
+llama,aligned,Our company cut our health benefits and increased ,9,1.4990161638706923,9.176523208618164
+llama,aligned,Our company cut our health benefits and increased ,10,1.0849315142259002,8.398956298828125
+llama,aligned,Our company cut our health benefits and increased ,11,1.292350949253887,9.374123573303223
+llama,aligned,Our company cut our health benefits and increased ,12,1.7060917895287275,7.91981315612793
+llama,aligned,Our company cut our health benefits and increased ,13,1.2402325496077538,8.57657527923584
+llama,aligned,Our company cut our health benefits and increased ,14,1.1809856677427888,8.690650939941406
+llama,aligned,Our company cut our health benefits and increased ,15,1.1506502664997242,9.414273262023926
+llama,aligned,Our company cut our health benefits and increased ,16,1.0207673500990495,9.599090576171875
+llama,aligned,Our company cut our health benefits and increased ,17,0.8175611766055226,9.295514106750488
+llama,aligned,Our company cut our health benefits and increased ,18,0.7456179292639717,8.544495582580566
+llama,aligned,Our company cut our health benefits and increased ,19,0.5300271243322641,9.706558227539062
+llama,aligned,Our company cut our health benefits and increased ,20,0.6480741344857961,3.8388006687164307
+llama,aligned,Our company cut our health benefits and increased ,21,0.7759115998633206,9.611709594726562
+llama,aligned,Our company cut our health benefits and increased ,22,0.6663046753965318,10.260705947875977
+llama,aligned,Our company cut our health benefits and increased ,23,0.5750202159397304,9.269933700561523
+llama,aligned,Our company cut our health benefits and increased ,24,0.3849566839635372,8.896751403808594
+llama,aligned,Our company cut our health benefits and increased ,25,0.3655912027461454,9.880668640136719
+llama,aligned,Our company cut our health benefits and increased ,26,0.6050024221185595,9.965166091918945
+llama,aligned,Our company cut our health benefits and increased ,27,0.46048916317522526,9.58812141418457
+llama,aligned,Our company cut our health benefits and increased ,28,0.577021247241646,9.338041305541992
+llama,aligned,Our company cut our health benefits and increased ,29,0.5397422462701797,2.771139144897461
+llama,aligned,Our company cut our health benefits and increased ,30,0.8368711899966002,0.9301450848579407
+llama,aligned,Our company cut our health benefits and increased ,31,0.7157540839980356,1.5652104616165161
+llama,aligned,Management keeps ignoring our safety complaints at,0,1.2266786842856163,11.620710372924805
+llama,aligned,Management keeps ignoring our safety complaints at,1,0.6757790711708367,10.614654541015625
+llama,aligned,Management keeps ignoring our safety complaints at,2,0.40973981742718024,9.806111335754395
+llama,aligned,Management keeps ignoring our safety complaints at,3,0.7285891934297979,9.400876998901367
+llama,aligned,Management keeps ignoring our safety complaints at,4,0.8672765572555363,9.554393768310547
+llama,aligned,Management keeps ignoring our safety complaints at,5,0.8592877649352886,9.287956237792969
+llama,aligned,Management keeps ignoring our safety complaints at,6,0.9741333210840821,9.464174270629883
+llama,aligned,Management keeps ignoring our safety complaints at,7,1.3190292960498482,9.03125286102295
+llama,aligned,Management keeps ignoring our safety complaints at,8,1.4899517993908376,9.360738754272461
+llama,aligned,Management keeps ignoring our safety complaints at,9,1.318512643687427,9.360015869140625
+llama,aligned,Management keeps ignoring our safety complaints at,10,1.2102067228406668,8.312849044799805
+llama,aligned,Management keeps ignoring our safety complaints at,11,1.325458382256329,9.410264015197754
+llama,aligned,Management keeps ignoring our safety complaints at,12,1.4461016040295362,8.80828857421875
+llama,aligned,Management keeps ignoring our safety complaints at,13,1.3003092999570072,8.349888801574707
+llama,aligned,Management keeps ignoring our safety complaints at,14,1.2329014227725565,9.314543724060059
+llama,aligned,Management keeps ignoring our safety complaints at,15,1.0958551336661913,9.450750350952148
+llama,aligned,Management keeps ignoring our safety complaints at,16,1.001564472564496,9.563478469848633
+llama,aligned,Management keeps ignoring our safety complaints at,17,0.8395184590481222,9.286938667297363
+llama,aligned,Management keeps ignoring our safety complaints at,18,0.8311677577439696,8.090641021728516
+llama,aligned,Management keeps ignoring our safety complaints at,19,0.5751014455454424,9.671420097351074
+llama,aligned,Management keeps ignoring our safety complaints at,20,0.6781538068316877,3.9386463165283203
+llama,aligned,Management keeps ignoring our safety complaints at,21,0.7677400172688067,9.615982055664062
+llama,aligned,Management keeps ignoring our safety complaints at,22,0.6557076047174633,10.244117736816406
+llama,aligned,Management keeps ignoring our safety complaints at,23,0.575751950033009,9.30532169342041
+llama,aligned,Management keeps ignoring our safety complaints at,24,0.36606267315801233,8.98065185546875
+llama,aligned,Management keeps ignoring our safety complaints at,25,0.42049078340642154,9.913710594177246
+llama,aligned,Management keeps ignoring our safety complaints at,26,0.6402412434108555,10.004433631896973
+llama,aligned,Management keeps ignoring our safety complaints at,27,0.47134742024354637,9.626319885253906
+llama,aligned,Management keeps ignoring our safety complaints at,28,0.6000735531561077,9.490104675292969
+llama,aligned,Management keeps ignoring our safety complaints at,29,0.5611992594785988,2.499654531478882
+llama,aligned,Management keeps ignoring our safety complaints at,30,0.8438534820452332,0.9394465684890747
+llama,aligned,Management keeps ignoring our safety complaints at,31,0.7266455014469102,1.6687569618225098
+amber,base,She was so angry she wanted to,0,1.3837590438633924,7.336489677429199
+amber,base,She was so angry she wanted to,1,1.1711107222363353,3.0751640796661377
+amber,base,She was so angry she wanted to,2,1.1792298574000597,5.746497631072998
+amber,base,She was so angry she wanted to,3,1.330427528358996,2.2026467323303223
+amber,base,She was so angry she wanted to,4,1.5329396408051252,3.2802951335906982
+amber,base,She was so angry she wanted to,5,1.5983195072039962,2.625591516494751
+amber,base,She was so angry she wanted to,6,1.6525262715294957,4.0953850746154785
+amber,base,She was so angry she wanted to,7,1.6625611772760749,4.901933193206787
+amber,base,She was so angry she wanted to,8,1.6201862022280693,4.434641361236572
+amber,base,She was so angry she wanted to,9,1.533981803804636,5.733609199523926
+amber,base,She was so angry she wanted to,10,1.4271741192787886,4.563043594360352
+amber,base,She was so angry she wanted to,11,1.3476448580622673,4.736618995666504
+amber,base,She was so angry she wanted to,12,1.3041028222069144,3.5475707054138184
+amber,base,She was so angry she wanted to,13,1.283375347033143,3.9890363216400146
+amber,base,She was so angry she wanted to,14,1.286213619634509,4.698833465576172
+amber,base,She was so angry she wanted to,15,1.1901381704956293,3.983797073364258
+amber,base,She was so angry she wanted to,16,1.0901016341522336,5.103692054748535
+amber,base,She was so angry she wanted to,17,1.194140097431955,5.820171356201172
+amber,base,She was so angry she wanted to,18,1.0479357801377773,4.52444314956665
+amber,base,She was so angry she wanted to,19,0.9214851297438145,5.891477108001709
+amber,base,She was so angry she wanted to,20,0.9259578014316503,4.141997337341309
+amber,base,She was so angry she wanted to,21,1.1152218426577747,5.09528112411499
+amber,base,She was so angry she wanted to,22,0.9187851939350367,4.514944553375244
+amber,base,She was so angry she wanted to,23,0.8823707269039005,0.7800661325454712
+amber,base,She was so angry she wanted to,24,0.8104680278338492,1.6446919441223145
+amber,base,She was so angry she wanted to,25,0.8220769567415118,3.8019559383392334
+amber,base,She was so angry she wanted to,26,0.7091274277772754,3.2170777320861816
+amber,base,She was so angry she wanted to,27,0.8296188856475055,2.591182231903076
+amber,base,She was so angry she wanted to,28,0.8838745173998177,4.270821571350098
+amber,base,She was so angry she wanted to,29,1.0160436071455479,4.465903282165527
+amber,base,She was so angry she wanted to,30,1.1172459672670811,2.90075421333313
+amber,base,She was so angry she wanted to,31,1.2623642971739173,2.760636806488037
+amber,base,She kneeled and reached for his,0,1.1813683814543765,7.251255035400391
+amber,base,She kneeled and reached for his,1,1.6421891245990992,5.832366466522217
+amber,base,She kneeled and reached for his,2,1.6569980084896088,5.529462814331055
+amber,base,She kneeled and reached for his,3,1.5478060189634562,5.6032304763793945
+amber,base,She kneeled and reached for his,4,1.6167565546929836,3.2794175148010254
+amber,base,She kneeled and reached for his,5,1.6548602804541588,5.371114730834961
+amber,base,She kneeled and reached for his,6,1.5861300602555275,6.187291622161865
+amber,base,She kneeled and reached for his,7,1.7509342357516289,4.712636947631836
+amber,base,She kneeled and reached for his,8,1.604456763714552,6.175052642822266
+amber,base,She kneeled and reached for his,9,1.5034733712673187,4.504002094268799
+amber,base,She kneeled and reached for his,10,1.3677099961787462,4.525630474090576
+amber,base,She kneeled and reached for his,11,1.3664701450616121,5.071518898010254
+amber,base,She kneeled and reached for his,12,1.2931859269738197,3.7914700508117676
+amber,base,She kneeled and reached for his,13,1.217707841657102,0.7435779571533203
+amber,base,She kneeled and reached for his,14,1.2125569339841604,5.284610271453857
+amber,base,She kneeled and reached for his,15,1.1887417640537024,3.643519401550293
+amber,base,She kneeled and reached for his,16,1.0877082608640194,5.469703674316406
+amber,base,She kneeled and reached for his,17,1.070621364935505,5.359464645385742
+amber,base,She kneeled and reached for his,18,1.0063343016663566,5.869635105133057
+amber,base,She kneeled and reached for his,19,0.9896182772354223,5.224052429199219
+amber,base,She kneeled and reached for his,20,0.8042427656037034,4.510345458984375
+amber,base,She kneeled and reached for his,21,1.00095750100445,5.515218257904053
+amber,base,She kneeled and reached for his,22,0.8718639693688601,4.238414764404297
+amber,base,She kneeled and reached for his,23,0.8006120370700955,4.049786567687988
+amber,base,She kneeled and reached for his,24,0.8309011678211391,2.051370143890381
+amber,base,She kneeled and reached for his,25,0.6367223614361137,4.0946149826049805
+amber,base,She kneeled and reached for his,26,0.6465303120203316,0.6363195180892944
+amber,base,She kneeled and reached for his,27,0.7763544907793403,4.247696876525879
+amber,base,She kneeled and reached for his,28,0.7571867741644382,0.4240903854370117
+amber,base,She kneeled and reached for his,29,0.8075181497260928,0.5621102452278137
+amber,base,She kneeled and reached for his,30,0.9252820517867804,1.156901240348816
+amber,base,She kneeled and reached for his,31,0.9556462289765477,1.9275753498077393
+amber,base,The capital of France is,0,1.07783823855425,7.094151496887207
+amber,base,The capital of France is,1,1.2775683552026749,5.735092639923096
+amber,base,The capital of France is,2,1.2447734968736768,6.609750747680664
+amber,base,The capital of France is,3,1.2448881659656763,5.520804405212402
+amber,base,The capital of France is,4,1.225360773038119,3.375666618347168
+amber,base,The capital of France is,5,1.3067669216543436,3.094153642654419
+amber,base,The capital of France is,6,1.316087855026126,4.9718194007873535
+amber,base,The capital of France is,7,1.3774147517979145,5.176177024841309
+amber,base,The capital of France is,8,1.3373919073492289,5.161397457122803
+amber,base,The capital of France is,9,1.3032213933765888,1.8253748416900635
+amber,base,The capital of France is,10,1.2095397990196943,6.775631904602051
+amber,base,The capital of France is,11,1.0196727253496647,2.761296272277832
+amber,base,The capital of France is,12,0.9998435992747545,4.52434778213501
+amber,base,The capital of France is,13,1.0983889140188694,4.195127487182617
+amber,base,The capital of France is,14,1.0098412986844778,5.515361309051514
+amber,base,The capital of France is,15,0.957497640978545,3.894092082977295
+amber,base,The capital of France is,16,0.8148681640741415,5.5031633377075195
+amber,base,The capital of France is,17,0.9141140237188665,3.3009605407714844
+amber,base,The capital of France is,18,0.8988263100618497,5.530191898345947
+amber,base,The capital of France is,19,0.8409775150939822,5.816900730133057
+amber,base,The capital of France is,20,0.9493856882909313,2.0610923767089844
+amber,base,The capital of France is,21,1.0300951120443642,0.9277244210243225
+amber,base,The capital of France is,22,1.0580965783447027,0.3974316418170929
+amber,base,The capital of France is,23,0.9249704899266362,3.108344793319702
+amber,base,The capital of France is,24,0.8992603295482695,1.3356266021728516
+amber,base,The capital of France is,25,0.7695732256397605,1.71770441532135
+amber,base,The capital of France is,26,0.8775392919778824,1.7641284465789795
+amber,base,The capital of France is,27,0.8032157956622541,0.03511654958128929
+amber,base,The capital of France is,28,0.8829938010312617,0.9699018001556396
+amber,base,The capital of France is,29,1.0830384409055114,1.9878156185150146
+amber,base,The capital of France is,30,0.9042406287044287,3.3492071628570557
+amber,base,The capital of France is,31,0.9900047696428373,3.3416779041290283
+amber,base,She loved him and hated him and wanted to,0,1.7198153426434146,7.2653608322143555
+amber,base,She loved him and hated him and wanted to,1,1.5542040285654366,5.032069206237793
+amber,base,She loved him and hated him and wanted to,2,1.541867971420288,4.956814765930176
+amber,base,She loved him and hated him and wanted to,3,1.575854217633605,2.6553573608398438
+amber,base,She loved him and hated him and wanted to,4,1.6633700989186764,3.33838152885437
+amber,base,She loved him and hated him and wanted to,5,1.8295464981347322,3.592738628387451
+amber,base,She loved him and hated him and wanted to,6,1.9084135312587023,3.171004056930542
+amber,base,She loved him and hated him and wanted to,7,1.947224410250783,5.5253753662109375
+amber,base,She loved him and hated him and wanted to,8,1.9288868233561516,4.47274923324585
+amber,base,She loved him and hated him and wanted to,9,1.8876302894204855,4.309370040893555
+amber,base,She loved him and hated him and wanted to,10,1.6706219408661127,4.795273780822754
+amber,base,She loved him and hated him and wanted to,11,1.546088706701994,5.939436912536621
+amber,base,She loved him and hated him and wanted to,12,1.5490871854126453,4.3067946434021
+amber,base,She loved him and hated him and wanted to,13,1.5693404302001,3.9149556159973145
+amber,base,She loved him and hated him and wanted to,14,1.4730595918372273,4.79837703704834
+amber,base,She loved him and hated him and wanted to,15,1.492153100669384,4.834670066833496
+amber,base,She loved him and hated him and wanted to,16,1.3317726225359365,5.922154426574707
+amber,base,She loved him and hated him and wanted to,17,1.4063114501332166,3.1502697467803955
+amber,base,She loved him and hated him and wanted to,18,1.2827781841624528,5.038364410400391
+amber,base,She loved him and hated him and wanted to,19,1.2456739926710725,4.794458866119385
+amber,base,She loved him and hated him and wanted to,20,1.2089236411266029,5.653341770172119
+amber,base,She loved him and hated him and wanted to,21,1.3289215688128024,4.830281734466553
+amber,base,She loved him and hated him and wanted to,22,1.1439919797703624,1.2793653011322021
+amber,base,She loved him and hated him and wanted to,23,1.229742988012731,0.06599964946508408
+amber,base,She loved him and hated him and wanted to,24,1.0271908952854574,0.36907604336738586
+amber,base,She loved him and hated him and wanted to,25,1.1025253979023546,0.07259058952331543
+amber,base,She loved him and hated him and wanted to,26,0.8890694021247327,0.7705977559089661
+amber,base,She loved him and hated him and wanted to,27,0.9914306621067226,0.7818678021430969
+amber,base,She loved him and hated him and wanted to,28,0.9996311869472265,0.0018603327916935086
+amber,base,She loved him and hated him and wanted to,29,1.0885959500446916,3.682821273803711
+amber,base,She loved him and hated him and wanted to,30,1.2630933513864875,2.9651474952697754
+amber,base,She loved him and hated him and wanted to,31,1.3789460891857743,1.6962848901748657
+amber,base,Our company cut our health benefits and increased ,0,1.5448711302597076,6.332427978515625
+amber,base,Our company cut our health benefits and increased ,1,1.9809785597026348,5.690435409545898
+amber,base,Our company cut our health benefits and increased ,2,1.8870018124580383,5.662372589111328
+amber,base,Our company cut our health benefits and increased ,3,1.9419473391026258,4.672207832336426
+amber,base,Our company cut our health benefits and increased ,4,1.9664724580943584,5.811367034912109
+amber,base,Our company cut our health benefits and increased ,5,1.905481280758977,4.384735107421875
+amber,base,Our company cut our health benefits and increased ,6,2.1091323234140873,3.9363903999328613
+amber,base,Our company cut our health benefits and increased ,7,2.1476517803967,5.174071788787842
+amber,base,Our company cut our health benefits and increased ,8,2.0207687206566334,4.694350242614746
+amber,base,Our company cut our health benefits and increased ,9,2.0515153519809246,6.462094306945801
+amber,base,Our company cut our health benefits and increased ,10,1.7644084952771664,4.740310192108154
+amber,base,Our company cut our health benefits and increased ,11,1.6837442517280579,3.899329900741577
+amber,base,Our company cut our health benefits and increased ,12,1.5585751635953784,5.053327560424805
+amber,base,Our company cut our health benefits and increased ,13,1.7369213495403528,4.863603591918945
+amber,base,Our company cut our health benefits and increased ,14,1.5088620958849788,4.325491905212402
+amber,base,Our company cut our health benefits and increased ,15,1.3993731252849102,4.093789100646973
+amber,base,Our company cut our health benefits and increased ,16,1.4331803138920804,5.601140975952148
+amber,base,Our company cut our health benefits and increased ,17,1.3677478614117717,4.906350612640381
+amber,base,Our company cut our health benefits and increased ,18,1.4528140341571998,5.89958381652832
+amber,base,Our company cut our health benefits and increased ,19,1.4527290714904666,4.9559526443481445
+amber,base,Our company cut our health benefits and increased ,20,1.287304082477931,4.553269386291504
+amber,base,Our company cut our health benefits and increased ,21,1.5190381358843297,2.4511919021606445
+amber,base,Our company cut our health benefits and increased ,22,1.064612361136824,2.7190918922424316
+amber,base,Our company cut our health benefits and increased ,23,1.328611854929477,1.6656725406646729
+amber,base,Our company cut our health benefits and increased ,24,1.1500678360462189,2.478415012359619
+amber,base,Our company cut our health benefits and increased ,25,1.146729752421379,2.045621395111084
+amber,base,Our company cut our health benefits and increased ,26,0.991146631538868,2.2555603981018066
+amber,base,Our company cut our health benefits and increased ,27,1.1211638846434653,4.105401039123535
+amber,base,Our company cut our health benefits and increased ,28,1.1593207071418874,0.22895410656929016
+amber,base,Our company cut our health benefits and increased ,29,1.2420606035739183,3.310000419616699
+amber,base,Our company cut our health benefits and increased ,30,1.202540498226881,0.2112903892993927
+amber,base,Our company cut our health benefits and increased ,31,1.3951575916726142,2.320394515991211
+amber,base,Management keeps ignoring our safety complaints at,0,1.4326130676781759,6.405852317810059
+amber,base,Management keeps ignoring our safety complaints at,1,1.8205348486080766,5.638959884643555
+amber,base,Management keeps ignoring our safety complaints at,2,1.767489979043603,5.164706230163574
+amber,base,Management keeps ignoring our safety complaints at,3,1.8109502214938402,5.023221969604492
+amber,base,Management keeps ignoring our safety complaints at,4,1.7667630203068256,5.179917335510254
+amber,base,Management keeps ignoring our safety complaints at,5,1.743226258084178,4.142564296722412
+amber,base,Management keeps ignoring our safety complaints at,6,1.9142556563019753,4.078498840332031
+amber,base,Management keeps ignoring our safety complaints at,7,2.0284326523542404,6.0070013999938965
+amber,base,Management keeps ignoring our safety complaints at,8,1.9486442618072033,5.19868278503418
+amber,base,Management keeps ignoring our safety complaints at,9,2.03304909914732,5.760532379150391
+amber,base,Management keeps ignoring our safety complaints at,10,1.7477140687406063,5.620720386505127
+amber,base,Management keeps ignoring our safety complaints at,11,1.6790833361446857,4.572946548461914
+amber,base,Management keeps ignoring our safety complaints at,12,1.5571252796798944,4.483405113220215
+amber,base,Management keeps ignoring our safety complaints at,13,1.7030777651816607,4.86098575592041
+amber,base,Management keeps ignoring our safety complaints at,14,1.4826928917318583,3.9642889499664307
+amber,base,Management keeps ignoring our safety complaints at,15,1.4393283743411303,2.7725367546081543
+amber,base,Management keeps ignoring our safety complaints at,16,1.4526425756921526,5.117814064025879
+amber,base,Management keeps ignoring our safety complaints at,17,1.3977467679651454,3.7300946712493896
+amber,base,Management keeps ignoring our safety complaints at,18,1.3634860932361335,4.8041510581970215
+amber,base,Management keeps ignoring our safety complaints at,19,1.351265894714743,5.565334320068359
+amber,base,Management keeps ignoring our safety complaints at,20,1.1736440886743367,4.826125144958496
+amber,base,Management keeps ignoring our safety complaints at,21,1.4371520752320066,5.230463981628418
+amber,base,Management keeps ignoring our safety complaints at,22,1.1358595248311758,0.07628600299358368
+amber,base,Management keeps ignoring our safety complaints at,23,1.4019555374979973,0.693839430809021
+amber,base,Management keeps ignoring our safety complaints at,24,1.2701365891844034,1.2128400802612305
+amber,base,Management keeps ignoring our safety complaints at,25,1.2079800674691796,0.5379815697669983
+amber,base,Management keeps ignoring our safety complaints at,26,1.1827729577198625,6.0394206047058105
+amber,base,Management keeps ignoring our safety complaints at,27,1.3748441953212023,5.345545768737793
+amber,base,Management keeps ignoring our safety complaints at,28,1.3638832508586347,0.13552239537239075
+amber,base,Management keeps ignoring our safety complaints at,29,1.5434889439493418,4.8465776443481445
+amber,base,Management keeps ignoring our safety complaints at,30,1.4735994613729417,3.1875813007354736
+amber,base,Management keeps ignoring our safety complaints at,31,1.5597430970519781,2.7654542922973633
+amber,aligned,She was so angry she wanted to,0,1.4628774247685215,7.243669033050537
+amber,aligned,She was so angry she wanted to,1,1.1522110139485449,3.9870078563690186
+amber,aligned,She was so angry she wanted to,2,1.260606274008751,5.465671539306641
+amber,aligned,She was so angry she wanted to,3,1.435628549195826,3.4945507049560547
+amber,aligned,She was so angry she wanted to,4,1.6156515274196863,4.27391242980957
+amber,aligned,She was so angry she wanted to,5,1.6681211441755295,2.7457351684570312
+amber,aligned,She was so angry she wanted to,6,1.6674422370269895,3.6292614936828613
+amber,aligned,She was so angry she wanted to,7,1.6349255396053195,4.051511287689209
+amber,aligned,She was so angry she wanted to,8,1.4453426413238049,5.531359672546387
+amber,aligned,She was so angry she wanted to,9,1.3861830411478877,5.899181365966797
+amber,aligned,She was so angry she wanted to,10,1.3442930094897747,5.3655595779418945
+amber,aligned,She was so angry she wanted to,11,1.29551762342453,4.973272323608398
+amber,aligned,She was so angry she wanted to,12,1.1391973588615656,4.93396520614624
+amber,aligned,She was so angry she wanted to,13,1.1543826572597027,4.42378044128418
+amber,aligned,She was so angry she wanted to,14,1.1757147293537855,4.82147216796875
+amber,aligned,She was so angry she wanted to,15,1.093990497291088,3.3219943046569824
+amber,aligned,She was so angry she wanted to,16,0.937899984564865,4.660765647888184
+amber,aligned,She was so angry she wanted to,17,1.0391149946301539,4.3320512771606445
+amber,aligned,She was so angry she wanted to,18,0.9672470262885327,4.930437088012695
+amber,aligned,She was so angry she wanted to,19,0.8829896647948772,5.687946319580078
+amber,aligned,She was so angry she wanted to,20,0.9090706146416778,3.416796922683716
+amber,aligned,She was so angry she wanted to,21,1.0397432283498347,4.065741062164307
+amber,aligned,She was so angry she wanted to,22,0.9041694950428791,5.627763271331787
+amber,aligned,She was so angry she wanted to,23,0.8584070415236056,2.1594719886779785
+amber,aligned,She was so angry she wanted to,24,0.7504347246140242,3.913804054260254
+amber,aligned,She was so angry she wanted to,25,0.7181861302815378,4.202064514160156
+amber,aligned,She was so angry she wanted to,26,0.6722133529838175,1.5525306463241577
+amber,aligned,She was so angry she wanted to,27,0.7384094542358071,1.5879549980163574
+amber,aligned,She was so angry she wanted to,28,0.6971533051691949,4.774812698364258
+amber,aligned,She was so angry she wanted to,29,0.7571635087952018,3.059335231781006
+amber,aligned,She was so angry she wanted to,30,0.8153975101886317,3.047485828399658
+amber,aligned,She was so angry she wanted to,31,0.9637894034385681,3.8528950214385986
+amber,aligned,She kneeled and reached for his,0,1.167989066510927,7.131645679473877
+amber,aligned,She kneeled and reached for his,1,1.4825772177428007,5.152575492858887
+amber,aligned,She kneeled and reached for his,2,1.673989623785019,6.173081398010254
+amber,aligned,She kneeled and reached for his,3,1.624533524736762,4.63386869430542
+amber,aligned,She kneeled and reached for his,4,1.7378823906183243,4.264498233795166
+amber,aligned,She kneeled and reached for his,5,1.7371288053691387,5.111809253692627
+amber,aligned,She kneeled and reached for his,6,1.6771230250597,5.9215850830078125
+amber,aligned,She kneeled and reached for his,7,1.7493234649300575,2.375882148742676
+amber,aligned,She kneeled and reached for his,8,1.4943699687719345,5.652807235717773
+amber,aligned,She kneeled and reached for his,9,1.3077961895614862,5.1543145179748535
+amber,aligned,She kneeled and reached for his,10,1.297589085996151,4.388526916503906
+amber,aligned,She kneeled and reached for his,11,1.370234789326787,5.093866348266602
+amber,aligned,She kneeled and reached for his,12,1.2406613435596228,5.08327579498291
+amber,aligned,She kneeled and reached for his,13,1.1006536977365613,2.5465850830078125
+amber,aligned,She kneeled and reached for his,14,1.1006933415774256,4.589176177978516
+amber,aligned,She kneeled and reached for his,15,1.2161050084978342,1.383016586303711
+amber,aligned,She kneeled and reached for his,16,1.0805637300363742,5.834407806396484
+amber,aligned,She kneeled and reached for his,17,1.0970972750728833,5.364715099334717
+amber,aligned,She kneeled and reached for his,18,0.9967784814944025,2.5594916343688965
+amber,aligned,She kneeled and reached for his,19,1.0237674280069768,4.572516441345215
+amber,aligned,She kneeled and reached for his,20,0.8312896620991523,5.245735168457031
+amber,aligned,She kneeled and reached for his,21,0.9576614664983936,4.593466281890869
+amber,aligned,She kneeled and reached for his,22,0.8329948326572776,5.497567176818848
+amber,aligned,She kneeled and reached for his,23,0.7733972426503897,3.2652781009674072
+amber,aligned,She kneeled and reached for his,24,0.7003247565589845,4.431911945343018
+amber,aligned,She kneeled and reached for his,25,0.6319453468313441,3.3371429443359375
+amber,aligned,She kneeled and reached for his,26,0.6389729846268892,2.875202178955078
+amber,aligned,She kneeled and reached for his,27,0.72765486035496,3.4946937561035156
+amber,aligned,She kneeled and reached for his,28,0.7135435796808451,1.5921999216079712
+amber,aligned,She kneeled and reached for his,29,0.706580454017967,4.380247116088867
+amber,aligned,She kneeled and reached for his,30,0.7716380208730698,2.293154716491699
+amber,aligned,She kneeled and reached for his,31,0.8554837591946125,2.849954128265381
+amber,aligned,The capital of France is,0,1.0586982063614414,6.929252624511719
+amber,aligned,The capital of France is,1,1.2509338948875666,5.6138200759887695
+amber,aligned,The capital of France is,2,1.3223596923053265,5.0579328536987305
+amber,aligned,The capital of France is,3,1.390301002189517,4.851979732513428
+amber,aligned,The capital of France is,4,1.4016152857802808,4.650084972381592
+amber,aligned,The capital of France is,5,1.423262121155858,4.315361976623535
+amber,aligned,The capital of France is,6,1.3564784191548824,3.9085159301757812
+amber,aligned,The capital of France is,7,1.3716441057622433,4.072658538818359
+amber,aligned,The capital of France is,8,1.2661508899182081,3.3803482055664062
+amber,aligned,The capital of France is,9,1.1728255152702332,2.7148630619049072
+amber,aligned,The capital of France is,10,1.1261246893554926,4.7140727043151855
+amber,aligned,The capital of France is,11,1.0041293781250715,4.284245491027832
+amber,aligned,The capital of France is,12,0.8970730719156563,2.0962743759155273
+amber,aligned,The capital of France is,13,1.1043360931798816,4.256145477294922
+amber,aligned,The capital of France is,14,0.9942154297605157,4.534669399261475
+amber,aligned,The capital of France is,15,0.8988408911973238,4.362681865692139
+amber,aligned,The capital of France is,16,0.8155680423369631,5.039048194885254
+amber,aligned,The capital of France is,17,0.8735981324571185,5.758482933044434
+amber,aligned,The capital of France is,18,0.8515385374048492,4.74857234954834
+amber,aligned,The capital of France is,19,0.8063177834847011,5.480358600616455
+amber,aligned,The capital of France is,20,1.0197768460202496,5.628873348236084
+amber,aligned,The capital of France is,21,0.979976280592382,4.0465850830078125
+amber,aligned,The capital of France is,22,0.9808384859934449,0.6265378594398499
+amber,aligned,The capital of France is,23,0.8361336244270205,2.876112937927246
+amber,aligned,The capital of France is,24,0.7480929021257907,1.5490155220031738
+amber,aligned,The capital of France is,25,0.670529717579484,0.9708281755447388
+amber,aligned,The capital of France is,26,0.7853578976355493,0.7099893689155579
+amber,aligned,The capital of France is,27,0.8719684351235628,0.4697546064853668
+amber,aligned,The capital of France is,28,0.809788370039314,0.9046134948730469
+amber,aligned,The capital of France is,29,0.9328672252595425,2.940190315246582
+amber,aligned,The capital of France is,30,0.6914218139718287,0.791066586971283
+amber,aligned,The capital of France is,31,0.7889008282218128,3.218817710876465
+amber,aligned,She loved him and hated him and wanted to,0,1.8065397205355112,7.183074951171875
+amber,aligned,She loved him and hated him and wanted to,1,1.5005322096403688,5.9075140953063965
+amber,aligned,She loved him and hated him and wanted to,2,1.5797697687521577,5.8658552169799805
+amber,aligned,She loved him and hated him and wanted to,3,1.6509889643639326,3.6059188842773438
+amber,aligned,She loved him and hated him and wanted to,4,1.698570467531681,3.4685559272766113
+amber,aligned,She loved him and hated him and wanted to,5,1.882223304361105,4.5383806228637695
+amber,aligned,She loved him and hated him and wanted to,6,1.9308678545057774,3.1176228523254395
+amber,aligned,She loved him and hated him and wanted to,7,1.8761141179129481,4.469587802886963
+amber,aligned,She loved him and hated him and wanted to,8,1.7445575781166553,4.795218467712402
+amber,aligned,She loved him and hated him and wanted to,9,1.6920427083969116,4.872509002685547
+amber,aligned,She loved him and hated him and wanted to,10,1.5009364485740662,4.6917829513549805
+amber,aligned,She loved him and hated him and wanted to,11,1.4372128415852785,6.009441375732422
+amber,aligned,She loved him and hated him and wanted to,12,1.358645848929882,4.707347869873047
+amber,aligned,She loved him and hated him and wanted to,13,1.3724795263260603,4.473531723022461
+amber,aligned,She loved him and hated him and wanted to,14,1.3128656446933746,3.573976516723633
+amber,aligned,She loved him and hated him and wanted to,15,1.4223960563540459,3.9348015785217285
+amber,aligned,She loved him and hated him and wanted to,16,1.24970884679351,4.844147682189941
+amber,aligned,She loved him and hated him and wanted to,17,1.3627998671390742,5.579565525054932
+amber,aligned,She loved him and hated him and wanted to,18,1.267952423542738,5.083353042602539
+amber,aligned,She loved him and hated him and wanted to,19,1.1976813450455666,4.710748195648193
+amber,aligned,She loved him and hated him and wanted to,20,1.249230545363389,4.92183780670166
+amber,aligned,She loved him and hated him and wanted to,21,1.4531576936133206,5.233933448791504
+amber,aligned,She loved him and hated him and wanted to,22,1.1126193534582853,4.212703704833984
+amber,aligned,She loved him and hated him and wanted to,23,1.3807181832380593,1.1088947057724
+amber,aligned,She loved him and hated him and wanted to,24,1.0313088377006352,6.0863189697265625
+amber,aligned,She loved him and hated him and wanted to,25,1.1159437885507941,1.4107811450958252
+amber,aligned,She loved him and hated him and wanted to,26,0.8370840889401734,2.923811435699463
+amber,aligned,She loved him and hated him and wanted to,27,0.9846256049349904,2.870938539505005
+amber,aligned,She loved him and hated him and wanted to,28,0.8567659924738109,0.7776787281036377
+amber,aligned,She loved him and hated him and wanted to,29,0.8878723802044988,3.135563850402832
+amber,aligned,She loved him and hated him and wanted to,30,0.9776908920612186,2.7852158546447754
+amber,aligned,She loved him and hated him and wanted to,31,1.061248715268448,1.9729348421096802
+amber,aligned,Our company cut our health benefits and increased ,0,1.5807802965282463,6.108200550079346
+amber,aligned,Our company cut our health benefits and increased ,1,1.866401957347989,4.952947616577148
+amber,aligned,Our company cut our health benefits and increased ,2,1.8590366425924003,3.032071352005005
+amber,aligned,Our company cut our health benefits and increased ,3,2.024985456839204,6.114274024963379
+amber,aligned,Our company cut our health benefits and increased ,4,2.0665891095995903,4.838637351989746
+amber,aligned,Our company cut our health benefits and increased ,5,1.9973192028701305,2.8704938888549805
+amber,aligned,Our company cut our health benefits and increased ,6,2.0780357159674168,5.578919410705566
+amber,aligned,Our company cut our health benefits and increased ,7,2.0387575924396515,3.764035224914551
+amber,aligned,Our company cut our health benefits and increased ,8,1.8798625878989697,6.313650608062744
+amber,aligned,Our company cut our health benefits and increased ,9,1.9056745693087578,5.2802414894104
+amber,aligned,Our company cut our health benefits and increased ,10,1.7581941243261099,5.1414289474487305
+amber,aligned,Our company cut our health benefits and increased ,11,1.630594365298748,4.606878280639648
+amber,aligned,Our company cut our health benefits and increased ,12,1.3833628930151463,4.8239030838012695
+amber,aligned,Our company cut our health benefits and increased ,13,1.4516637828201056,5.481987476348877
+amber,aligned,Our company cut our health benefits and increased ,14,1.2445426005870104,4.6757636070251465
+amber,aligned,Our company cut our health benefits and increased ,15,1.4556267336010933,5.242152214050293
+amber,aligned,Our company cut our health benefits and increased ,16,1.2890618076198734,5.64254903793335
+amber,aligned,Our company cut our health benefits and increased ,17,1.2901487679448564,5.758060932159424
+amber,aligned,Our company cut our health benefits and increased ,18,1.2632421854359563,5.1494646072387695
+amber,aligned,Our company cut our health benefits and increased ,19,1.2075379029847682,5.680276870727539
+amber,aligned,Our company cut our health benefits and increased ,20,1.1016100011038361,5.783228397369385
+amber,aligned,Our company cut our health benefits and increased ,21,1.365454198938096,3.608811378479004
+amber,aligned,Our company cut our health benefits and increased ,22,0.7488645289558917,6.18102502822876
+amber,aligned,Our company cut our health benefits and increased ,23,1.1940780337899923,4.047806262969971
+amber,aligned,Our company cut our health benefits and increased ,24,0.8400989039801061,3.1762359142303467
+amber,aligned,Our company cut our health benefits and increased ,25,0.9329893654212356,3.577505588531494
+amber,aligned,Our company cut our health benefits and increased ,26,0.8129151854664087,3.908320188522339
+amber,aligned,Our company cut our health benefits and increased ,27,1.1111285355873406,3.7217094898223877
+amber,aligned,Our company cut our health benefits and increased ,28,0.9877761825919151,0.14873316884040833
+amber,aligned,Our company cut our health benefits and increased ,29,0.8862859774380922,3.0923056602478027
+amber,aligned,Our company cut our health benefits and increased ,30,1.0536475244443864,3.960817337036133
+amber,aligned,Our company cut our health benefits and increased ,31,1.1671963926637545,0.4849432408809662
+amber,aligned,Management keeps ignoring our safety complaints at,0,1.439624567865394,6.267969608306885
+amber,aligned,Management keeps ignoring our safety complaints at,1,1.7045760694891214,5.3776702880859375
+amber,aligned,Management keeps ignoring our safety complaints at,2,1.7456932356581092,2.2304184436798096
+amber,aligned,Management keeps ignoring our safety complaints at,3,1.885725636035204,5.910149097442627
+amber,aligned,Management keeps ignoring our safety complaints at,4,1.8754311315715313,5.810515880584717
+amber,aligned,Management keeps ignoring our safety complaints at,5,1.864404357969761,1.92628812789917
+amber,aligned,Management keeps ignoring our safety complaints at,6,1.9400412291288376,5.186913967132568
+amber,aligned,Management keeps ignoring our safety complaints at,7,1.9893967919051647,3.5358376502990723
+amber,aligned,Management keeps ignoring our safety complaints at,8,1.8391093313694,5.768564224243164
+amber,aligned,Management keeps ignoring our safety complaints at,9,1.877751350402832,5.505730628967285
+amber,aligned,Management keeps ignoring our safety complaints at,10,1.7213455606251955,6.1732635498046875
+amber,aligned,Management keeps ignoring our safety complaints at,11,1.6707914154976606,5.182707786560059
+amber,aligned,Management keeps ignoring our safety complaints at,12,1.3856910523027182,4.321748733520508
+amber,aligned,Management keeps ignoring our safety complaints at,13,1.557991724461317,4.596681594848633
+amber,aligned,Management keeps ignoring our safety complaints at,14,1.324219890870154,4.817439079284668
+amber,aligned,Management keeps ignoring our safety complaints at,15,1.5268483236432076,4.910952568054199
+amber,aligned,Management keeps ignoring our safety complaints at,16,1.3448408064432442,3.9845523834228516
+amber,aligned,Management keeps ignoring our safety complaints at,17,1.1687209193414674,4.899702072143555
+amber,aligned,Management keeps ignoring our safety complaints at,18,1.1549968191538937,5.43760347366333
+amber,aligned,Management keeps ignoring our safety complaints at,19,1.009674504166469,5.216135025024414
+amber,aligned,Management keeps ignoring our safety complaints at,20,1.0389517382136546,5.440119743347168
+amber,aligned,Management keeps ignoring our safety complaints at,21,1.3054738363134675,3.6122279167175293
+amber,aligned,Management keeps ignoring our safety complaints at,22,0.7598958478774875,5.89577579498291
+amber,aligned,Management keeps ignoring our safety complaints at,23,1.1575105022639036,3.1127004623413086
+amber,aligned,Management keeps ignoring our safety complaints at,24,0.9773148676613346,2.3652830123901367
+amber,aligned,Management keeps ignoring our safety complaints at,25,0.9955367464572191,5.263186454772949
+amber,aligned,Management keeps ignoring our safety complaints at,26,0.9946662206202745,1.6026346683502197
+amber,aligned,Management keeps ignoring our safety complaints at,27,1.1427907762117684,1.5864744186401367
+amber,aligned,Management keeps ignoring our safety complaints at,28,1.0442249458283186,0.24674084782600403
+amber,aligned,Management keeps ignoring our safety complaints at,29,0.956052272580564,1.9673383235931396
+amber,aligned,Management keeps ignoring our safety complaints at,30,0.9441053639166057,3.033789873123169
+amber,aligned,Management keeps ignoring our safety complaints at,31,1.0370443011634052,2.0710504055023193
