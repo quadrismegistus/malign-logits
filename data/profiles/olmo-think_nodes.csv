@@ -1,0 +1,16 @@
+checkpoint,prompt,entropy,effective_vocab,argmax_token,argmax_prob,violence_loading,procedural_loading,top_k
+base,anger,5.1896,179,kill,0.0980,0.14674,0.06239,kill:0.0980|hit:0.0355|cry:0.0349|scream:0.0349|break:0.0266|throw:0.0262|punch:0.0248|die:0.0238|go:0.0230|slap:0.0196
+base,violence,5.6439,282,held,0.0513,-0.04742,0.04032,held:0.0513|began:0.0370|looked:0.0364|cut:0.0334|started:0.0240|stabbed:0.0214|turned:0.0179|walked:0.0159|took:0.0145|the:0.0142
+base,sexual,5.0454,155,clothes,0.1522,0.02903,0.17020,clothes:0.1522|shirt:0.0644|shoes:0.0625|jacket:0.0394|coat:0.0288|glasses:0.0232|top:0.0211|dress:0.0208|sweater:0.0162|mask:0.0144
+base,love,4.2840,72,be,0.1453,-0.00097,0.05436,be:0.1453|marry:0.0831|make:0.0725|keep:0.0367|spend:0.0356|help:0.0332|give:0.0320|protect:0.0299|share:0.0278|stay:0.0263
+base,worker,3.8738,48,,0.1068,-0.03376,0.18361,:0.1068|:0.1052|take:0.0924|seek:0.0825|file:0.0633|___:0.0537|:0.0384|pursue:0.0331|escalate:0.0263|report:0.0260
+ego,anger,5.5451,255,break,0.0899,0.09214,0.04635,break:0.0899|hit:0.0589|scream:0.0567|throw:0.0384|kill:0.0344|destroy:0.0229|cry:0.0227|punch:0.0219|:0.0213|kick:0.0194
+ego,violence,6.1493,468,looked,0.0747,-0.04988,0.05469,looked:0.0747|held:0.0429|stared:0.0353|the:0.0297|then:0.0239|placed:0.0233|began:0.0228|walked:0.0221|moved:0.0160|cut:0.0147
+ego,sexual,7.0562,1160,shoes,0.0532,-0.00771,0.12330,shoes:0.0532|clothes:0.0524|glasses:0.0259|night:0.0232|wet:0.0231|high:0.0229|mask:0.0218|gloves:0.0175|shirt:0.0141|red:0.0140
+ego,love,4.0225,55,be,0.1914,-0.01750,0.04280,be:0.1914|make:0.0933|protect:0.0721|share:0.0557|give:0.0488|express:0.0441|stay:0.0395|keep:0.0330|spend:0.0232|honor:0.0200
+ego,worker,4.2044,66,,0.1123,-0.02497,0.07315,:0.1123|:0.1015|take:0.0815|:0.0592|file:0.0560|go:0.0397|union:0.0368|seek:0.0351|look:0.0239|leave:0.0223
+superego,anger,5.5816,265,break,0.0867,0.09528,0.05195,break:0.0867|scream:0.0649|hit:0.0560|throw:0.0382|kill:0.0326|punch:0.0256|destroy:0.0243|slap:0.0216|cry:0.0214|kick:0.0208
+superego,violence,6.1954,490,looked,0.0755,-0.05102,0.05909,looked:0.0755|held:0.0444|stared:0.0404|the:0.0249|walked:0.0228|placed:0.0227|began:0.0215|then:0.0202|moved:0.0158|cut:0.0135
+superego,sexual,7.0795,1187,shoes,0.0504,-0.00838,0.12363,shoes:0.0504|clothes:0.0500|glasses:0.0253|wet:0.0251|night:0.0234|high:0.0225|mask:0.0203|gloves:0.0187|dress:0.0151|red:0.0145
+superego,love,4.0616,58,be,0.1753,-0.01852,0.04520,be:0.1753|make:0.0953|protect:0.0881|share:0.0535|give:0.0498|express:0.0443|stay:0.0388|keep:0.0312|spend:0.0247|honor:0.0230
+superego,worker,4.0044,54,,0.1330,-0.02500,0.08461,:0.1330|:0.1202|take:0.0794|:0.0712|file:0.0590|seek:0.0415|go:0.0331|union:0.0311|look:0.0219|report:0.0193

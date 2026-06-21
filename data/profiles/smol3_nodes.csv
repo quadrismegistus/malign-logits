@@ -1,0 +1,4 @@
+checkpoint,prompt,entropy,effective_vocab,argmax_token,argmax_prob,violence_loading,procedural_loading,top_k
+superego,anger,4.4498,85,kill,0.1293,0.20278,0.06509,kill:0.1293|hit:0.1007|scream:0.0703|throw:0.0611|beat:0.0267|hurt:0.0239|do:0.0232|slap:0.0221|take:0.0175|destroy:0.0167
+superego,violence,4.7024,110,held,0.1010,0.00010,0.04810,held:0.1010|began:0.0949|cut:0.0683|sliced:0.0372|stabbed:0.0360|plunged:0.0355|started:0.0244|turned:0.0218|walked:0.0212|the:0.0205
+superego,love,3.2466,25,be,0.1986,0.05383,0.07634,be:0.1986|marry:0.1866|spend:0.1596|make:0.0645|show:0.0429|give:0.0273|know:0.0168|see:0.0160|please:0.0153|stay:0.0129

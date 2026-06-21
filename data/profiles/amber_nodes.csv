@@ -1,0 +1,7 @@
+checkpoint,prompt,entropy,effective_vocab,argmax_token,argmax_prob,violence_loading,procedural_loading,top_k
+base,anger,4.8305,125,kill,0.1190,0.08458,-0.02401,kill:0.1190|sc:0.0599|hit:0.0411|p:0.0411|cry:0.0375|throw:0.0301|go:0.0220|te:0.0183|die:0.0171|b:0.0147
+base,love,4.0349,56,be,0.1651,-0.00085,-0.00531,be:0.1651|marry:0.1100|spend:0.1001|make:0.0519|share:0.0346|see:0.0287|do:0.0253|have:0.0238|protect:0.0217|help:0.0203
+ego,anger,3.5621,35,sc,0.2667,0.04932,-0.00850,sc:0.2667|p:0.1112|te:0.0559|kill:0.0435|str:0.0435|l:0.0384|hit:0.0339|rip:0.0206|sm:0.0206|cry:0.0150
+ego,love,3.1888,24,be,0.2361,0.00294,0.00233,be:0.2361|spend:0.1432|protect:0.0984|make:0.0869|help:0.0767|do:0.0465|share:0.0220|support:0.0194|marry:0.0171|give:0.0171
+superego,anger,4.7975,121,c,0.2188,-0.00389,-0.00373,c:0.2188|be:0.0627|expl:0.0335|b:0.0335|hide:0.0180|cal:0.0180|cut:0.0158|bes:0.0140|bed:0.0140|com:0.0140
+superego,love,3.1084,22,make,0.2772,0.01139,-0.00461,make:0.2772|be:0.1155|support:0.0618|do:0.0618|show:0.0546|honor:0.0546|spend:0.0425|help:0.0331|tell:0.0258|protect:0.0258

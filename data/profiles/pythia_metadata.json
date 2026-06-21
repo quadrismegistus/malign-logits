@@ -1,0 +1,18 @@
+{
+  "family": "pythia",
+  "scale": "6.9B",
+  "base_corpus": "The Pile",
+  "alignment_data": "HH-RLHF",
+  "alignment_method": "SFT+DPO",
+  "n_layers": 3,
+  "layer_names": [
+    "base",
+    "ego",
+    "superego"
+  ],
+  "has_chat_template": false,
+  "country": "US",
+  "org": "EleutherAI+lomahony",
+  "open_weight": false,
+  "open_data": true
+}

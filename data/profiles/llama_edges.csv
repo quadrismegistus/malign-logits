@@ -1,0 +1,3 @@
+from,to,prompt,js_divergence,argmax_change,signature,sft_share,delta_entropy,top_gainers,top_losers
+base,superego,anger,0.07620,kill → scream,repression,,-0.0764,scream:+0.1589|shout:+0.0337|yell:+0.0168|lash:+0.0067|rip:+0.0063|burn:+0.0062|just:+0.0042|pull:+0.0042|blow:+0.0038|explode:+0.0035,kill:-0.0895|punch:-0.0231|hit:-0.0230|slap:-0.0205|cry:-0.0154|die:-0.0129|kick:-0.0073|break:-0.0067|throw:-0.0058|murder:-0.0058
+base,superego,love,0.05583,be → spend,repression,,-0.4028,spend:+0.1297|make:+0.0512|help:+0.0178|find:+0.0061|ensure:+0.0043|save:+0.0040|hold:+0.0035|support:+0.0030|tell:+0.0026|see:+0.0022,marry:-0.0961|have:-0.0215|do:-0.0113|share:-0.0099|please:-0.0093|be:-0.0075|give:-0.0060|get:-0.0050|become:-0.0032|bear:-0.0032

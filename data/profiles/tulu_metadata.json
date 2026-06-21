@@ -1,0 +1,19 @@
+{
+  "family": "tulu",
+  "scale": "8B",
+  "base_corpus": "undisclosed",
+  "alignment_data": "Tulu 3",
+  "alignment_method": "SFT+DPO+RLVR",
+  "n_layers": 4,
+  "layer_names": [
+    "base",
+    "ego",
+    "superego",
+    "rlvr"
+  ],
+  "has_chat_template": true,
+  "country": "US",
+  "org": "Allen AI",
+  "open_weight": true,
+  "open_data": true
+}
