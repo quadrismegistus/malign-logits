@@ -452,9 +452,12 @@ def circuit_profile(dive, prompt: str, gen: int = 0, pos: int = 0,
     Usage:
         dive = DeepDive("olmo")
         prof = circuit_profile(dive, "anger")
-        print(prof[["edge", "js_divergence", "sft_share", "violence_delta"]])
+        print(prof[["edge", "js_divergence", "share", "violence_delta"]])
     """
     import pandas as pd
+
+    if tokenizer is None:
+        tokenizer = dive.tokenizer
 
     cps = dive.checkpoints()
     if not cps:
@@ -471,14 +474,13 @@ def circuit_profile(dive, prompt: str, gen: int = 0, pos: int = 0,
     if len(logits) < 2:
         raise ValueError(f"Need at least 2 checkpoints, got {list(logits.keys())}")
 
-    # Axis projections if tokenizer available
+    # Axis projections
     v_axis = p_axis = embed = None
-    if tokenizer:
-        try:
-            embed = dive.embedding_matrix(embed_checkpoint)
-            v_axis, p_axis = violence_procedural_axes(embed, tokenizer)
-        except FileNotFoundError:
-            pass
+    try:
+        embed = dive.embedding_matrix(embed_checkpoint)
+        v_axis, p_axis = violence_procedural_axes(embed, tokenizer)
+    except FileNotFoundError:
+        pass
 
     # Canonical edge ordering
     edge_order = ["base", "sft", "dpo", "rlvr"]
@@ -547,6 +549,9 @@ def circuit_summary(dive, prompt: str, gen: int = 0, pos: int = 0,
         argmax_base, argmax_final, argmax_changed_at,
         violence_delta_sft, violence_delta_dpo
     """
+    if tokenizer is None:
+        tokenizer = dive.tokenizer
+
     cps = dive.checkpoints()
     edge_order = ["base", "sft", "dpo", "rlvr"]
     available = [cp for cp in edge_order if cp in cps]
@@ -574,17 +579,15 @@ def circuit_summary(dive, prompt: str, gen: int = 0, pos: int = 0,
         result[f"{stage}_js"] = edges[e]
 
     # Argmax tracking
-    if tokenizer:
-        for cp in available:
-            tok_id = int(np.argmax(logits[cp]))
-            result[f"argmax_{cp}"] = tokenizer.decode([tok_id]).strip()
+    for cp in available:
+        tok_id = int(np.argmax(logits[cp]))
+        result[f"argmax_{cp}"] = tokenizer.decode([tok_id]).strip()
 
-        # Where does the argmax first change?
-        base_argmax = int(np.argmax(logits[available[0]]))
-        for cp in available[1:]:
-            if int(np.argmax(logits[cp])) != base_argmax:
-                result["argmax_changed_at"] = cp
-                break
+    base_argmax = int(np.argmax(logits[available[0]]))
+    for cp in available[1:]:
+        if int(np.argmax(logits[cp])) != base_argmax:
+            result["argmax_changed_at"] = cp
+            break
 
     return result
 
