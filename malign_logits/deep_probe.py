@@ -198,9 +198,9 @@ class DeepDive:
         print(f"  prompts: {list(prompts.keys())}, n={n}, "
               f"max_tokens={max_tokens}, hidden={store_hidden}")
 
-        # For chat mode, find a tokenizer with a chat template
+        # For chat/complete mode, find a tokenizer with a chat template
         chat_tokenizer = None
-        if mode == "chat":
+        if mode in ("chat", "complete"):
             for cp_name in reversed(circuit.positions):
                 node = circuit._nodes[cp_name]
                 node.layer._require_model()
@@ -226,11 +226,17 @@ class DeepDive:
                 print(f"  [{cp_dir}] {prompt_key}:", end="", flush=True)
                 collected = 0
 
-                if mode == "chat":
-                    tpl = chat_tokenizer.apply_chat_template(
-                        [{"role": "user", "content": prompt_text}],
-                        add_generation_prompt=True, return_tensors="pt"
-                    )
+                if mode in ("chat", "complete"):
+                    if mode == "chat":
+                        messages = [{"role": "user", "content": prompt_text}]
+                        tpl = chat_tokenizer.apply_chat_template(
+                            messages, add_generation_prompt=True,
+                            return_tensors="pt")
+                    else:
+                        messages = [{"role": "assistant", "content": prompt_text}]
+                        tpl = chat_tokenizer.apply_chat_template(
+                            messages, continue_final_message=True,
+                            return_tensors="pt")
                     if hasattr(tpl, 'input_ids'):
                         encoded = tpl.input_ids.to(device)
                     elif isinstance(tpl, dict):
