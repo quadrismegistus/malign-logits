@@ -4,7 +4,7 @@ Work items from session 2026-06-20/21. Pick up when idle.
 
 ## Code fixes
 - [x] OLMo worker "unclassified" — DONE. Base top1 was NaN (newline). Added BLANK_SENTINEL handling. Now correctly classified as de_foreclosure (100%)
-- [ ] Circuit `Mode.CHAT`/`Mode.THINK` test with live models (wired but untested)
+- [x] Circuit `Mode.CHAT`/`Mode.THINK` test — DONE. Wiring verified on SmolLM3. CHAT=THINK for SmolLM3 (both → `<think>` at p=1.0). JS(RAW,CHAT)=0.693 (max). Fixed import bug (get_base_logits was in models.py not core.py)
 - [x] `malign circuit` CLI command — DONE. `malign circuit [--family X] [--save]` classifies F25 signatures from mega-gen CSVs
 - [x] Merge salary CSVs — DONE. `salary_all.csv` already has all 5 families (6000 rows)
 

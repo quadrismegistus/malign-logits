@@ -84,7 +84,7 @@ class CircuitNode:
                 return torch.tensor(val)
 
         self.layer._require_model()
-        from .core import get_base_logits
+        from .models import get_base_logits
         result = get_base_logits(self.layer.model, self._tokenizer, templated)
 
         if self.layer._cache is not None:
