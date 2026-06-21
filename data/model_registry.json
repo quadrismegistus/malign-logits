@@ -379,6 +379,46 @@
       "country": "",
       "open_weight": true,
       "open_data": false
+    },
+    {
+      "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+      "stage": "sft",
+      "org": "",
+      "scale": "",
+      "corpus": "",
+      "country": "",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+      "stage": "sft",
+      "org": "",
+      "scale": "",
+      "corpus": "",
+      "country": "",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+      "stage": "sft",
+      "org": "",
+      "scale": "",
+      "corpus": "",
+      "country": "",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+      "stage": "sft",
+      "org": "",
+      "scale": "",
+      "corpus": "",
+      "country": "",
+      "open_weight": true,
+      "open_data": false
     }
   ],
   "relations": [
@@ -511,6 +551,26 @@
       "child": "Qwen/Qwen3-8B",
       "relation": "aligned_of",
       "parent": "Qwen/Qwen3-8B-Base"
+    },
+    {
+      "child": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+      "relation": "sft_of",
+      "parent": "meta-llama/Llama-3.1-8B"
+    },
+    {
+      "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+      "relation": "sft_of",
+      "parent": "meta-llama/Llama-3.1-8B"
+    },
+    {
+      "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+      "relation": "sft_of",
+      "parent": "meta-llama/Llama-3.1-8B"
+    },
+    {
+      "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+      "relation": "sft_of",
+      "parent": "meta-llama/Llama-3.1-8B"
     }
   ]
 }
