@@ -29,7 +29,7 @@ Work items from session 2026-06-20/21. Pick up when idle.
 
 ## Temporal chain analysis
 - [x] **Embedding trajectories** — DONE. 8 families, 2880 windows, violence + procedural axes. Repression=steady drift, reaction formation=collapse, transparency=flat, de-foreclosure=increasing trajectory
-- [ ] **Paired mega-gen** — run base and aligned on IDENTICAL token sequences (teacher-forced) to get true per-position JS divergence and displacement maps
+- [x] **Paired mega-gen** — DONE as teacher-forced projections. Displacement concentrated at position 0. Models converge by step 5 on identical tokens. Alignment changes prediction not interpretation
 
 ## Tests
 - [x] **Circuit integration test (smol)** — DONE. 10 tests on SmolLM2-360M: from_family, compare, self-JS=0, formation, Mode.RAW/CHAT, entropy, top_tokens, classify. Full suite 64/64
