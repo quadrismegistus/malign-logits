@@ -64,7 +64,16 @@ def mega_gen_one_model(model, tokenizer, model_id, family, layer_name, prompts,
                     rows.append(pos)
             continue
         start_idx = cached_n
-        if mode_label == "chat":
+        if mode_label == "complete":
+            messages = [{"role": "user", "content": prompt_text}]
+            try:
+                templated = tokenizer.apply_chat_template(
+                    messages, tokenize=False, add_generation_prompt=True)
+            except Exception as e:
+                print(f"    {pk}/{mode_label}: template failed ({e}), skipping")
+                continue
+            input_ids = tokenizer.encode(templated, return_tensors="pt").to(model.device)
+        elif mode_label == "chat":
             messages = [{"role": "user", "content": f"Continue this text: {prompt_text}"}]
             try:
                 templated = tokenizer.apply_chat_template(
@@ -165,7 +174,7 @@ def run_family(family_key, modes=None):
 
     for layer_name, layer in layers:
         for mode in modes:
-            if mode in ("chat", "think") and layer_name == "base":
+            if mode in ("chat", "complete", "think") and layer_name == "base":
                 continue
             if mode == "think" and not fam.thinking_mode:
                 continue
@@ -196,12 +205,15 @@ def main():
     parser.add_argument("--large", action="store_true", help="All large (7B+) families")
     parser.add_argument("--all", action="store_true", help="Everything")
     parser.add_argument("--chat", action="store_true", help="Chat template only")
+    parser.add_argument("--complete", action="store_true", help="Include complete mode (minimal template)")
     parser.add_argument("--think", action="store_true", help="Include think mode")
     args = parser.parse_args()
 
     modes = ["raw", "chat"]
     if args.chat:
         modes = ["chat"]
+    if args.complete:
+        modes.append("complete")
     if args.think:
         modes.append("think")
 
