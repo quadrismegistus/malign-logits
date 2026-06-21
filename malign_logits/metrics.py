@@ -438,6 +438,157 @@ def compare(base_logits: np.ndarray, aligned_logits: np.ndarray) -> dict:
     }
 
 
+def circuit_profile(dive, prompt: str, gen: int = 0, pos: int = 0,
+                    embed_checkpoint: str = "base",
+                    tokenizer=None) -> 'pd.DataFrame':
+    """Full circuit characterisation: decompose alignment into stage contributions.
+
+    For each edge (base→sft, sft→dpo, dpo→rlvr) and endpoint, computes
+    all distributional metrics, axis loadings, and stage attribution.
+
+    Returns DataFrame with one row per edge, columns for all metrics
+    plus sft_share (fraction of total displacement done by SFT).
+
+    Usage:
+        dive = DeepDive("olmo")
+        prof = circuit_profile(dive, "anger")
+        print(prof[["edge", "js_divergence", "sft_share", "violence_delta"]])
+    """
+    import pandas as pd
+
+    cps = dive.checkpoints()
+    if not cps:
+        raise FileNotFoundError(f"No data for {dive.family}")
+
+    # Load logits at the specified position
+    logits = {}
+    for cp in cps:
+        try:
+            logits[cp] = dive.logits(cp, prompt, gen=gen, pos=pos)
+        except (FileNotFoundError, ValueError):
+            pass
+
+    if len(logits) < 2:
+        raise ValueError(f"Need at least 2 checkpoints, got {list(logits.keys())}")
+
+    # Axis projections if tokenizer available
+    v_axis = p_axis = embed = None
+    if tokenizer:
+        try:
+            embed = dive.embedding_matrix(embed_checkpoint)
+            v_axis, p_axis = violence_procedural_axes(embed, tokenizer)
+        except FileNotFoundError:
+            pass
+
+    # Canonical edge ordering
+    edge_order = ["base", "sft", "dpo", "rlvr"]
+    available = [cp for cp in edge_order if cp in logits]
+
+    # Node-level metrics
+    node_rows = []
+    for cp in available:
+        row = {"checkpoint": cp, "type": "node", "position": pos}
+        row["entropy"] = entropy(logits[cp])
+        row["effective_vocab"] = effective_vocab(logits[cp])
+        if v_axis is not None:
+            row["violence_loading"] = axis_loading(logits[cp], embed, v_axis)
+            row["procedural_loading"] = axis_loading(logits[cp], embed, p_axis)
+        row["argmax_id"] = int(np.argmax(logits[cp]))
+        if tokenizer:
+            row["argmax_token"] = tokenizer.decode([row["argmax_id"]]).strip()
+        node_rows.append(row)
+
+    # Edge-level metrics (consecutive pairs)
+    edge_rows = []
+    for i in range(len(available) - 1):
+        cp_from, cp_to = available[i], available[i + 1]
+        la, lb = logits[cp_from], logits[cp_to]
+
+        row = {"edge": f"{cp_from}→{cp_to}", "from": cp_from, "to": cp_to,
+               "type": "edge", "position": pos}
+        row.update(compare(la, lb))
+
+        if v_axis is not None:
+            vl_from = axis_loading(la, embed, v_axis)
+            vl_to = axis_loading(lb, embed, v_axis)
+            pl_from = axis_loading(la, embed, p_axis)
+            pl_to = axis_loading(lb, embed, p_axis)
+            row["violence_delta"] = vl_to - vl_from
+            row["procedural_delta"] = pl_to - pl_from
+
+        # Argmax change
+        argmax_from = int(np.argmax(la))
+        argmax_to = int(np.argmax(lb))
+        row["argmax_changed"] = argmax_from != argmax_to
+        if tokenizer:
+            row["argmax_change"] = (
+                f"{tokenizer.decode([argmax_from]).strip()}"
+                f"→{tokenizer.decode([argmax_to]).strip()}")
+
+        edge_rows.append(row)
+
+    # Stage attribution: what fraction of total displacement is each edge?
+    if "base" in logits and len(available) >= 2:
+        final_cp = available[-1]
+        total_js = js_divergence(logits["base"], logits[final_cp])
+        for row in edge_rows:
+            row["total_js"] = total_js
+            row["share"] = row["js_divergence"] / total_js if total_js > 1e-10 else 0.0
+
+    return pd.DataFrame(edge_rows + node_rows)
+
+
+def circuit_summary(dive, prompt: str, gen: int = 0, pos: int = 0,
+                    tokenizer=None) -> dict:
+    """One-line circuit characterisation for a prompt.
+
+    Returns dict with:
+        total_js, sft_share, dpo_share, dominant_stage,
+        argmax_base, argmax_final, argmax_changed_at,
+        violence_delta_sft, violence_delta_dpo
+    """
+    cps = dive.checkpoints()
+    edge_order = ["base", "sft", "dpo", "rlvr"]
+    available = [cp for cp in edge_order if cp in cps]
+
+    logits = {cp: dive.logits(cp, prompt, gen=gen, pos=pos) for cp in available}
+
+    total_js = js_divergence(logits[available[0]], logits[available[-1]])
+
+    edges = {}
+    for i in range(len(available) - 1):
+        a, b = available[i], available[i + 1]
+        edges[f"{a}→{b}"] = js_divergence(logits[a], logits[b])
+
+    shares = {e: v / total_js if total_js > 1e-10 else 0.0
+              for e, v in edges.items()}
+    dominant = max(shares, key=shares.get) if shares else "none"
+
+    result = {
+        "total_js": total_js,
+        "dominant_stage": dominant,
+    }
+    for e, s in shares.items():
+        stage = e.split("→")[0]
+        result[f"{stage}_share"] = s
+        result[f"{stage}_js"] = edges[e]
+
+    # Argmax tracking
+    if tokenizer:
+        for cp in available:
+            tok_id = int(np.argmax(logits[cp]))
+            result[f"argmax_{cp}"] = tokenizer.decode([tok_id]).strip()
+
+        # Where does the argmax first change?
+        base_argmax = int(np.argmax(logits[available[0]]))
+        for cp in available[1:]:
+            if int(np.argmax(logits[cp])) != base_argmax:
+                result["argmax_changed_at"] = cp
+                break
+
+    return result
+
+
 def compare_all_positions(dive, checkpoint_a: str, checkpoint_b: str,
                           prompt: str, gen: int = 0) -> 'pd.DataFrame':
     """Compare two checkpoints across all positions for one generation.
