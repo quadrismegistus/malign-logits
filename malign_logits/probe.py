@@ -330,6 +330,59 @@ class Probe:
         return sum(1 for d in prompt_dir.iterdir()
                    if d.is_dir() and (d / "meta.parquet").exists())
 
+    # -- family resolution -----------------------------------------------------
+
+    FAMILIES = {
+        "olmo":        "allenai/Olmo-3-1025-7B",
+        "olmo-tiny":   "allenai/OLMo-2-0425-1B",
+        "llama":       "meta-llama/Llama-3.1-8B",
+        "qwen":        "Qwen/Qwen2.5-7B",
+        "qwen-tiny":   "Qwen/Qwen2.5-0.5B",
+        "qwen3":       "Qwen/Qwen3-8B-Base",
+        "amber":       "LLM360/Amber",
+        "zephyr":      "mistralai/Mistral-7B-v0.1",
+        "pythia":      "EleutherAI/pythia-6.9b",
+        "deepseek-7b": "deepseek-ai/deepseek-llm-7b-base",
+        "smol":        "HuggingFaceTB/SmolLM2-360M",
+        "smol3":       "HuggingFaceTB/SmolLM3-3B-Base",
+    }
+
+    @classmethod
+    def resolve(cls, name: str) -> str:
+        """Resolve a friendly family name to a HuggingFace base model ID.
+
+        Accepts either a family name ("olmo") or a full model ID
+        ("allenai/Olmo-3-1025-7B"). Returns the model ID unchanged
+        if it contains a slash.
+        """
+        if "/" in name:
+            return name
+        if name in cls.FAMILIES:
+            return cls.FAMILIES[name]
+        raise ValueError(
+            f"Unknown family: {name}. "
+            f"Available: {', '.join(sorted(cls.FAMILIES.keys()))}")
+
+    @classmethod
+    def families(cls) -> pd.DataFrame:
+        """List all known families with their base model IDs and variant counts."""
+        from .registry import Registry
+        reg = Registry()
+        rows = []
+        for name, base_id in sorted(cls.FAMILIES.items()):
+            info = reg.info(base_id)
+            variants = reg.variants_of(base_id)
+            rows.append({
+                "family": name,
+                "base_model": base_id,
+                "variants": len(variants),
+                "org": info.org if info else "",
+                "country": info.country if info else "",
+                "org_type": info.org_type if info else "",
+                "scale": info.scale if info else "",
+            })
+        return pd.DataFrame(rows)
+
     # -- class methods: multi-model operations ---------------------------------
 
     @staticmethod
@@ -342,12 +395,16 @@ class Probe:
         return _compare(pa.logits(prompt, gen, pos),
                         pb.logits(prompt, gen, pos))
 
-    @staticmethod
-    def collect_tree(base_id: str, n: int = 1, max_tokens: int = 50,
+    @classmethod
+    def collect_tree(cls, name: str, n: int = 1, max_tokens: int = 50,
                      temperature: float = 0.8, store_hidden: bool = True,
                      prompts: dict = None):
-        """Collect data for a base model and all its variants."""
+        """Collect data for a base model and all its variants.
+
+        Accepts family name ("olmo") or HuggingFace ID.
+        """
         from .registry import Registry
+        base_id = cls.resolve(name)
         reg = Registry()
         models = [base_id] + reg.variants_of(base_id)
         print(f"[Probe] Collecting {len(models)} models from {base_id}")
@@ -356,13 +413,17 @@ class Probe:
             p.collect(n=n, max_tokens=max_tokens, temperature=temperature,
                       store_hidden=store_hidden, prompts=prompts)
 
-    @staticmethod
-    def compare_tree(base_id: str, prompt: str,
+    @classmethod
+    def compare_tree(cls, name: str, prompt: str,
                      gen: int = 0, pos: int = 0) -> pd.DataFrame:
-        """Compare all variants of a base model on one prompt."""
+        """Compare all variants of a base model on one prompt.
+
+        Accepts family name ("olmo") or HuggingFace ID.
+        """
         from .registry import Registry
         from .metrics import js_divergence, base_token_surprisal, entropy
 
+        base_id = cls.resolve(name)
         reg = Registry()
         base_probe = Probe(base_id)
         base_logits = base_probe.logits(prompt, gen, pos)
