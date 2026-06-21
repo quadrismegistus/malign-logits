@@ -277,6 +277,87 @@ class DeepDive:
 
         print(f"[DeepDive] Done: {self.family} ({mode})")
 
+    def collect_model(self, model_id: str, n: int = 1, max_tokens: int = 50,
+                      temperature: float = 0.8, store_hidden: bool = True,
+                      prompts: dict = None):
+        """Collect deep dive data for a single model checkpoint.
+
+        Loads the model, generates, stores to parquet, then deletes the model.
+        Uses the model_id (with / replaced by --) as the directory name.
+
+        This is the model-centric collection method — no family needed.
+        For collecting an entire Llama variant tree:
+
+            for model_id in reg.variants_of("meta-llama/Llama-3.1-8B"):
+                dive.collect_model(model_id, n=1)
+        """
+        import gc
+        from .models import load_model
+
+        prompts = prompts or PROMPTS
+        dir_name = model_id.replace("/", "--")
+
+        print(f"[DeepDive] Loading {model_id}...")
+        model, tokenizer = load_model(model_id)
+        device = next(model.parameters()).device
+
+        self._store_embeddings(dir_name, model, tokenizer)
+
+        for prompt_key, prompt_text in prompts.items():
+            print(f"  [{dir_name}] {prompt_key}:", end="", flush=True)
+            collected = 0
+
+            for gen_id in range(n):
+                if self._has_gen(dir_name, prompt_key, gen_id):
+                    print(".", end="", flush=True)
+                    continue
+
+                self._run_generation(
+                    checkpoint=dir_name,
+                    prompt_key=prompt_key, prompt_text=prompt_text,
+                    gen_id=gen_id, model=model, tokenizer=tokenizer,
+                    device=device, max_tokens=max_tokens,
+                    temperature=temperature,
+                    store_hidden=store_hidden,
+                )
+                collected += 1
+                print("+", end="", flush=True)
+
+            print(f" {collected} new", flush=True)
+
+        # Free memory
+        del model
+        gc.collect()
+        try:
+            import torch
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
+        except Exception:
+            pass
+
+        print(f"[DeepDive] Done: {model_id}")
+
+    def collect_variants(self, base_id: str, n: int = 1, max_tokens: int = 50,
+                         temperature: float = 0.8, store_hidden: bool = True,
+                         prompts: dict = None):
+        """Collect deep dive data for a base model and all its variants.
+
+        Loads each model one at a time (sequential, not simultaneous).
+
+            dive = DeepDive("llama")
+            dive.collect_variants("meta-llama/Llama-3.1-8B")
+        """
+        from .registry import Registry
+        reg = Registry()
+
+        models = [base_id] + reg.variants_of(base_id)
+        print(f"[DeepDive] Collecting {len(models)} models from {base_id.split('/')[-1]}")
+
+        for model_id in models:
+            self.collect_model(model_id, n=n, max_tokens=max_tokens,
+                               temperature=temperature,
+                               store_hidden=store_hidden, prompts=prompts)
+
     def _store_embeddings(self, checkpoint, model, tokenizer):
         """Save the embedding matrix: one row per token."""
         path = self._embeddings_path(checkpoint)
