@@ -22,7 +22,7 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [x] **Medium families** (smol3, qwen3) — DONE. SmolLM3 raw cached, qwen3 RAW+CHAT+THINK complete (17.5k rows)
 - [x] **7B families** — DONE. 7 cloud families: olmo(35k), olmo-think(25k), llama(15k), amber(15k), qwen(15k), zephyr(25k), deepseek-7b(15k). 146 prompts, ~$2
 - [x] **Census grid** — DONE. 11 families × 5 prompts. 6 distinct worker mechanisms. Committed 7fc4ba6
-- [ ] **COMPLETE mode** — running on cloud. RAW vs COMPLETE vs CHAT three-way decomposition
+- [x] **COMPLETE mode** — DONE. 6 cloud families + qwen-tiny local. Three-way decomposition: OLMo non-monotonic (It→reopen), OLMo-think compliance (Okay), Qwen tightens, Llama irrelevant, Zephyr transparent on worker
 - [ ] **Reasoning variants** (R1-Distill-Llama, R1-Distill-Qwen) — mega-gen with phase tagging
 - [ ] **Tulu family** — needs gated Llama base
 - [ ] **Pythia family** — needs base model download
