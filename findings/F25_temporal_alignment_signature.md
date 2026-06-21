@@ -76,6 +76,17 @@ This is the first empirically precise mapping of alignment mechanisms to Lacania
 
 ***
 
-**Data**: `data/mega_generation.csv` (~2,700 rows across 4 families, pilot scale).
+**Data** (scaled, ~520k rows):
+- `data/mega_gen_olmo_4layer.csv` (184k rows, base/SFT/DPO/RLVR × 5 prompts × 100 gens × 100 tokens)
+- `data/mega_generation_llama.csv` (49k), `data/mega_generation_qwen.csv` (48k), `data/mega_generation_amber.csv` (47k), `data/mega_generation_smol3.csv` (25k)
+- `data/mega_gen_r1_reasoning.csv` (36k, R1-Distill-Llama with phase tagging)
+- `data/mega_gen_reasoning_r1_qwen.csv` (36k), `data/mega_gen_reasoning_smol3_think.csv` (37k)
 
-**TODO**: Scale to 100 gens × 50 tokens × all families. Test SFT vs DPO temporal signatures separately (is foreclosure installed by SFT or DPO?).
+**Classifier**: `Circuit.classify_trajectory()` and `Circuit.classify_mega_gen()` in `malign_logits/circuit.py`. Rule-based on 5 features: step0_is_blank, has_transgressive, argmax_preserved, entropy_slope, base_was_blank.
+
+**Key scaled findings**:
+- Signatures are prompt-specific within families (not one mechanism per family)
+- OLMo DPO has 40% transgressive bleed vs SFT 10% — deeper foreclosure increases return of repressed
+- SFT is the agent, DPO is the concentrator (SFT performs all qualitative changes)
+- Foreclosure is installed by SFT, not DPO
+- Reasoning models: R1-Llama thinking is content-blind (H=0.78), R1-Qwen is content-sensitive (H=0.88-1.03), SmolLM3 thinking broadens the response (opposite of R1)
