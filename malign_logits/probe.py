@@ -299,16 +299,34 @@ class Probe:
     # -- family resolution -----------------------------------------------------
 
     FAMILIES = {
+        # Allen AI (US, nonprofit)
         "olmo3-7b":      "allenai/Olmo-3-1025-7B",
         "olmo2-1b":      "allenai/OLMo-2-0425-1B",
+        # Meta (US, corporate)
         "llama3.1-8b":   "meta-llama/Llama-3.1-8B",
+        # Alibaba (CN, corporate)
         "qwen2.5-7b":    "Qwen/Qwen2.5-7B",
         "qwen2.5-0.5b":  "Qwen/Qwen2.5-0.5B",
         "qwen3-8b":      "Qwen/Qwen3-8B-Base",
-        "amber-7b":      "LLM360/Amber",
+        # Google (US, corporate)
+        "gemma-7b":      "google/gemma-7b",
+        # Mistral (FR, corporate)
         "mistral-7b":    "mistralai/Mistral-7B-v0.1",
+        # TII (AE, state)
+        "falcon-7b":     "tiiuae/falcon-7b",
+        # Baichuan (CN, corporate)
+        "baichuan2-7b":  "baichuan-inc/Baichuan2-7B-Base",
+        # Shanghai AI Lab (CN, academic)
+        "internlm2.5-7b": "internlm/internlm2_5-7b",
+        # 01.AI (CN, corporate)
+        "yi-9b":         "01-ai/Yi-9B",
+        # EleutherAI (US, nonprofit)
         "pythia-6.9b":   "EleutherAI/pythia-6.9b",
+        # DeepSeek (CN, corporate)
         "deepseek-7b":   "deepseek-ai/deepseek-llm-7b-base",
+        # LLM360 (US, academic)
+        "amber-7b":      "LLM360/Amber",
+        # HuggingFace (US, corporate)
         "smollm2-360m":  "HuggingFaceTB/SmolLM2-360M",
         "smollm3-3b":    "HuggingFaceTB/SmolLM3-3B-Base",
     }
