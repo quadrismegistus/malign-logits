@@ -279,6 +279,63 @@ class CacheManager:
                 hi = mid
         return lo
 
+    # ── probe: per-position logits/hidden, per-gen meta, per-model embeddings ──
+
+    def _probe_pos_key(self, model, prompt, gen, pos):
+        return {"model": model, "prompt": prompt, "gen": gen, "pos": pos}
+
+    def get_probe_logits(self, model, prompt, gen=0, pos=0):
+        s = self._stash("probe_logits")
+        key = self._probe_pos_key(model, prompt, gen, pos)
+        return s[key] if key in s else None
+
+    def set_probe_logits(self, model, prompt, logits, gen=0, pos=0):
+        self._stash("probe_logits")[
+            self._probe_pos_key(model, prompt, gen, pos)] = logits
+
+    def get_probe_hidden(self, model, prompt, gen=0, pos=0):
+        s = self._stash("probe_hidden")
+        key = self._probe_pos_key(model, prompt, gen, pos)
+        return s[key] if key in s else None
+
+    def set_probe_hidden(self, model, prompt, hidden, gen=0, pos=0):
+        self._stash("probe_hidden")[
+            self._probe_pos_key(model, prompt, gen, pos)] = hidden
+
+    def get_probe_meta(self, model, prompt, gen=0):
+        s = self._stash("probe_meta")
+        key = {"model": model, "prompt": prompt, "gen": gen}
+        return s[key] if key in s else None
+
+    def set_probe_meta(self, model, prompt, meta, gen=0):
+        self._stash("probe_meta")[
+            {"model": model, "prompt": prompt, "gen": gen}] = meta
+
+    def get_probe_embeddings(self, model):
+        s = self._stash("probe_embeddings")
+        key = {"model": model}
+        return s[key] if key in s else None
+
+    def set_probe_embeddings(self, model, embeddings):
+        self._stash("probe_embeddings")[{"model": model}] = embeddings
+
+    def has_probe(self, model, prompt, gen=0, pos=0):
+        return self._probe_pos_key(model, prompt, gen, pos) in self._stash("probe_logits")
+
+    def count_probe_gens(self, model, prompt):
+        if not self.has_probe(model, prompt, gen=0, pos=0):
+            return 0
+        lo, hi = 0, 1
+        while self.has_probe(model, prompt, gen=hi, pos=0):
+            hi *= 2
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if self.has_probe(model, prompt, gen=mid, pos=0):
+                lo = mid + 1
+            else:
+                hi = mid
+        return lo
+
     # ── psyche derived (discover_top_words, score_vocab, etc.) ──
 
     def get_derived(self, key):
