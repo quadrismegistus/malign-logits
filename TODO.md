@@ -27,6 +27,10 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [x] **Tulu family** — DONE. Same Llama base, quit→sue vs Llama's quit→file. Different procedural register. 2/5 transparent (no-safety-data SFT)
 - [x] **Pythia family** — DONE. 4/5 transparent (lightest alignment of any 7B). Only anger repressed (kill→scream). Worker stays "take". HH-RLHF = minimal displacement
 
+## Temporal chain analysis
+- [ ] **Embedding trajectories** — reconstruct text from chosen_tokens at each position, embed with bge-m3, project onto semantic axes (violence/class/compliance). Track how base vs aligned move through semantic space over tokens. Avoids token-mismatch problem
+- [ ] **Paired mega-gen** — run base and aligned on IDENTICAL token sequences (teacher-forced) to get true per-position JS divergence and displacement maps
+
 ## Tests
 - [x] **Circuit integration test (smol)** — DONE. 10 tests on SmolLM2-360M: from_family, compare, self-JS=0, formation, Mode.RAW/CHAT, entropy, top_tokens, classify. Full suite 64/64
 - [x] **Circuit unit tests** — DONE. 21 tests: classify_trajectory (13 cases incl BLANK_SENTINEL, NaN, de_foreclosure), signature_summary (2), Mode (2), tokens (2), sentinel (2). Also fixed "nan" string blank detection
