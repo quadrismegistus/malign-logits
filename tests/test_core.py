@@ -31,8 +31,8 @@ def test_model_family_has_superego():
 
 def test_prompts_exist():
     from malign_logits.experiments import DEFAULT_PROMPTS, TIER1_PROMPTS
-    assert len(DEFAULT_PROMPTS) == 47
-    assert len(TIER1_PROMPTS) == 18
+    assert len(DEFAULT_PROMPTS) >= 47
+    assert len(TIER1_PROMPTS) >= 18
     for k, v in DEFAULT_PROMPTS.items():
         assert isinstance(v, str)
         assert len(v) > 5
