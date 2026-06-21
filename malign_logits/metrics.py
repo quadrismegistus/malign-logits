@@ -327,6 +327,93 @@ def hidden_state_drift(h_pos0: np.ndarray, h_posN: np.ndarray) -> float:
     return 1.0 - float(np.dot(h_pos0, h_posN) / (norm_a * norm_b))
 
 
+def internal_drift(dive, checkpoint: str, prompt: str,
+                   gen: int = 0, layer: int = -1) -> dict:
+    """Drift in the model's own hidden-state space across generation.
+
+    Measures how the model's internal representation moves through
+    the generation, at a specific layer. No external embedder needed.
+
+    Args:
+        dive: DeepDive instance
+        checkpoint: e.g. "base", "dpo"
+        gen: generation index
+        layer: transformer layer (-1 = last)
+
+    Returns dict with:
+        step_dists: cosine distances between consecutive positions
+        total_drift: cosine distance from first to last position
+        path_length: sum of step distances
+        directedness: total_drift / path_length (1.0 = straight line)
+        mean_step: mean step distance
+    """
+    all_hidden = dive.hidden(checkpoint, prompt, gen=gen)
+    n_layers = all_hidden.shape[0] // len(
+        set(int(x) for x in dive.meta(checkpoint, prompt, gen=gen)["position"]))
+    if layer == -1:
+        layer = n_layers - 1
+
+    meta = dive.meta(checkpoint, prompt, gen=gen)
+    positions = sorted(meta["position"].unique())
+
+    vecs = []
+    for pos in positions:
+        h = dive.hidden(checkpoint, prompt, gen=gen, pos=pos, layer=layer)
+        vecs.append(h)
+    vecs = np.stack(vecs)
+
+    def _cos_dist(a, b):
+        na, nb = np.linalg.norm(a), np.linalg.norm(b)
+        if na < 1e-10 or nb < 1e-10:
+            return 1.0
+        return 1.0 - float(np.dot(a, b) / (na * nb))
+
+    step_dists = [_cos_dist(vecs[i], vecs[i + 1])
+                  for i in range(len(vecs) - 1)]
+    total_drift = _cos_dist(vecs[0], vecs[-1])
+    path_length = sum(step_dists)
+    directedness = total_drift / path_length if path_length > 1e-10 else 1.0
+
+    return {
+        "step_dists": step_dists,
+        "total_drift": total_drift,
+        "path_length": path_length,
+        "directedness": directedness,
+        "mean_step": float(np.mean(step_dists)) if step_dists else 0.0,
+    }
+
+
+def logit_drift(dive, checkpoint: str, prompt: str,
+                gen: int = 0) -> dict:
+    """Drift in logit/distribution space across generation.
+
+    Like internal_drift but uses the output distribution (logits)
+    instead of hidden states. Measures how the model's predictions
+    wander. No external model, no hidden states needed — T1.
+
+    Uses JS divergence between consecutive positions as the distance.
+    """
+    meta = dive.meta(checkpoint, prompt, gen=gen)
+    positions = sorted(meta["position"].unique())
+
+    logit_vecs = [dive.logits(checkpoint, prompt, gen=gen, pos=pos)
+                  for pos in positions]
+
+    step_dists = [js_divergence(logit_vecs[i], logit_vecs[i + 1])
+                  for i in range(len(logit_vecs) - 1)]
+    total_drift = js_divergence(logit_vecs[0], logit_vecs[-1])
+    path_length = sum(step_dists)
+    directedness = total_drift / path_length if path_length > 1e-10 else 1.0
+
+    return {
+        "step_dists": step_dists,
+        "total_drift": total_drift,
+        "path_length": path_length,
+        "directedness": directedness,
+        "mean_step": float(np.mean(step_dists)) if step_dists else 0.0,
+    }
+
+
 # =============================================================================
 # Batch: compute all T1 metrics for a (base, aligned) pair
 # =============================================================================
