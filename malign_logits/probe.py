@@ -80,12 +80,6 @@ class Probe:
         self._tokenizer = tokenizer
         device = next(model.parameters()).device
 
-        # Store embeddings once
-        if cache.get_probe_embeddings(self.model_id) is None:
-            embed = model.get_input_embeddings().weight.detach().cpu().numpy()
-            cache.set_probe_embeddings(self.model_id, embed)
-            print(f"  embeddings saved ({embed.shape})")
-
         for prompt_key, prompt_text in prompts.items():
             print(f"  {prompt_key}:", end="", flush=True)
             collected = 0
@@ -233,11 +227,24 @@ class Probe:
         return pd.concat(frames, ignore_index=True)
 
     def embedding_matrix(self) -> np.ndarray:
-        """(vocab_size, hidden_dim) numpy array."""
-        v = _get_cache().get_probe_embeddings(self.model_id)
-        if v is None:
-            raise FileNotFoundError(f"No embeddings for {self.model_id}")
-        return np.asarray(v, dtype=np.float32)
+        """(vocab_size, hidden_dim) numpy array.
+
+        Loaded from cache if available, otherwise extracted from the model
+        weights on the fly (requires downloading the model but no inference).
+        """
+        cache = _get_cache()
+        v = cache.get_probe_embeddings(self.model_id)
+        if v is not None:
+            return np.asarray(v, dtype=np.float32)
+
+        from transformers import AutoModelForCausalLM
+        print(f"[Probe] Loading {self.model_id} for embeddings...")
+        model = AutoModelForCausalLM.from_pretrained(
+            self.model_id, torch_dtype=torch.float16)
+        embed = model.get_input_embeddings().weight.detach().cpu().numpy()
+        cache.set_probe_embeddings(self.model_id, embed)
+        del model
+        return embed.astype(np.float32)
 
     def text(self, prompt: str, gen: int = 0) -> str:
         """Reconstructed generated text."""
