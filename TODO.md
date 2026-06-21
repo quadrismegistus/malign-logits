@@ -25,7 +25,7 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [x] **COMPLETE mode** — DONE. 6 cloud families + qwen-tiny local. Three-way decomposition: OLMo non-monotonic (It→reopen), OLMo-think compliance (Okay), Qwen tightens, Llama irrelevant, Zephyr transparent on worker
 - [x] **Reasoning variants** — DONE (from earlier session). R1-Distill-Llama + R1-Distill-Qwen, 125 gens each, phase-tagged (think/response). Data in cache + CSVs
 - [ ] **Tulu family** — needs gated Llama base
-- [ ] **Pythia family** — needs base model download
+- [x] **Pythia family** — DONE. 4/5 transparent (lightest alignment of any 7B). Only anger repressed (kill→scream). Worker stays "take". HH-RLHF = minimal displacement
 
 ## Tests
 - [x] **Circuit integration test (smol)** — DONE. 10 tests on SmolLM2-360M: from_family, compare, self-JS=0, formation, Mode.RAW/CHAT, entropy, top_tokens, classify. Full suite 64/64
