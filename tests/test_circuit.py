@@ -152,10 +152,11 @@ class TestMode:
     def test_mode_values(self):
         assert Mode.RAW.value == "raw"
         assert Mode.CHAT.value == "chat"
+        assert Mode.COMPLETE.value == "complete"
         assert Mode.THINK.value == "think"
 
     def test_mode_members(self):
-        assert len(Mode) == 3
+        assert len(Mode) == 4
 
 
 # ── TRANSGRESSIVE_TOKENS ─────────────────────────────────────────
