@@ -125,9 +125,9 @@ def base_token_surprisal(base_logits: np.ndarray,
                          aligned_logits: np.ndarray) -> float:
     """Surprisal of the base model's argmax under the aligned distribution, in bits.
 
-    -log2(p_aligned(argmax_base)). Higher = more repressed.
+    -log2(p_aligned(argmax_base)). Higher = more resistance.
     Compare with self-surprisal: -log2(p_base(argmax_base)).
-    Delta = repression measured as information.
+    Delta = "bits of resistance" — the barrier height, mechanism-neutral.
     """
     base_argmax = int(np.argmax(base_logits))
     aligned_probs = np.clip(_softmax(aligned_logits), 1e-10, None)

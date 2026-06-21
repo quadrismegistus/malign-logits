@@ -42,6 +42,7 @@ class ModelInfo:
     model_id: str
     stage: str = ""
     org: str = ""
+    org_type: str = ""
     scale: str = ""
     corpus: str = ""
     country: str = ""
