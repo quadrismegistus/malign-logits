@@ -105,19 +105,29 @@ for idx, (sig_name, family, prompt, title, layers, description) in enumerate(SIG
         layer0, d0 = node_data[i]
         layer1, d1 = node_data[i + 1]
 
-        # Edge thickness from JS (try to read from edges CSV)
+        # Edge thickness from JS, style from signature
         js = 0.1
+        edge_sig = "repression"
         try:
             edges = pd.read_csv(f"data/profiles/{family}_edges.csv")
             e = edges[(edges["from"] == layer0) & (edges["to"] == layer1) & (edges["prompt"] == prompt)]
             if len(e) > 0:
                 js = e.iloc[0]["js_divergence"]
+                edge_sig = e.iloc[0].get("signature", "repression")
         except:
             pass
 
         lw = max(1, js * 15)
+        style_map = {
+            "repression": "-", "foreclosure": "-", "reaction_formation": "-",
+            "transparent": "--", "de_foreclosure": ":",
+            "return_of_repressed": "-.", "unknown": "-",
+        }
+        linestyle = style_map.get(edge_sig, "-")
+        edge_color = "#555" if linestyle == "-" else "#888"
         ax.annotate("", xy=(x1 - 0.03, 0.5), xytext=(x0 + 0.03, 0.5),
-                    arrowprops=dict(arrowstyle="->", lw=lw, color="#555",
+                    arrowprops=dict(arrowstyle="->", lw=lw, color=edge_color,
+                                   linestyle=linestyle,
                                    connectionstyle="arc3,rad=0"),
                     transform=ax.transAxes)
 
