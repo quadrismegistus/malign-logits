@@ -175,7 +175,7 @@ class DeepDive:
 
     def collect(self, n: int = 2, max_tokens: int = 50,
                 temperature: float = 0.8, store_hidden: bool = True,
-                prompts: dict = None):
+                prompts: dict = None, mode: str = "raw"):
         """Run deep dive collection across all checkpoints.
 
         Args:
@@ -184,15 +184,32 @@ class DeepDive:
             temperature: sampling temperature
             store_hidden: if False, skip hidden states (logits only)
             prompts: dict of {key: text}. Default: 5 circuit prompts.
+            mode: "raw" (plain text) or "chat" (chat template).
+                  Chat mode wraps the prompt in the model's chat template.
+                  Stored as checkpoint.chat/ in the directory tree so
+                  raw and chat are directly comparable.
         """
         from .circuit import Circuit
 
         prompts = prompts or PROMPTS
         circuit = Circuit.from_family(self.family, load=True)
 
-        print(f"[DeepDive] {self.family}: {circuit.positions}")
+        print(f"[DeepDive] {self.family}: {circuit.positions} (mode={mode})")
         print(f"  prompts: {list(prompts.keys())}, n={n}, "
               f"max_tokens={max_tokens}, hidden={store_hidden}")
+
+        # For chat mode, find a tokenizer with a chat template
+        chat_tokenizer = None
+        if mode == "chat":
+            for cp_name in reversed(circuit.positions):
+                node = circuit._nodes[cp_name]
+                node.layer._require_model()
+                tok = node.layer.tokenizer
+                if hasattr(tok, 'chat_template') and tok.chat_template:
+                    chat_tokenizer = tok
+                    break
+            if chat_tokenizer is None:
+                raise ValueError(f"No checkpoint in {self.family} has a chat template")
 
         for cp_name in circuit.positions:
             node = circuit._nodes[cp_name]
@@ -201,31 +218,48 @@ class DeepDive:
             tokenizer = node.layer.tokenizer
             device = next(model.parameters()).device
 
-            self._store_embeddings(cp_name, model, tokenizer)
+            cp_dir = cp_name if mode == "raw" else f"{cp_name}.{mode}"
+
+            self._store_embeddings(cp_dir, model, tokenizer)
 
             for prompt_key, prompt_text in prompts.items():
-                print(f"  [{cp_name}] {prompt_key}:", end="", flush=True)
+                print(f"  [{cp_dir}] {prompt_key}:", end="", flush=True)
                 collected = 0
 
+                if mode == "chat":
+                    tpl = chat_tokenizer.apply_chat_template(
+                        [{"role": "user", "content": prompt_text}],
+                        add_generation_prompt=True, return_tensors="pt"
+                    )
+                    if hasattr(tpl, 'input_ids'):
+                        encoded = tpl.input_ids.to(device)
+                    elif isinstance(tpl, dict):
+                        encoded = tpl["input_ids"].to(device)
+                    else:
+                        encoded = tpl.to(device)
+                else:
+                    encoded = None
+
                 for gen_id in range(n):
-                    if self._has_gen(cp_name, prompt_key, gen_id):
+                    if self._has_gen(cp_dir, prompt_key, gen_id):
                         print(".", end="", flush=True)
                         continue
 
                     self._run_generation(
-                        checkpoint=cp_name,
+                        checkpoint=cp_dir,
                         prompt_key=prompt_key, prompt_text=prompt_text,
                         gen_id=gen_id, model=model, tokenizer=tokenizer,
                         device=device, max_tokens=max_tokens,
                         temperature=temperature,
                         store_hidden=store_hidden,
+                        encoded_input=encoded,
                     )
                     collected += 1
                     print("+", end="", flush=True)
 
                 print(f" {collected} new", flush=True)
 
-        print(f"[DeepDive] Done: {self.family}")
+        print(f"[DeepDive] Done: {self.family} ({mode})")
 
     def _store_embeddings(self, checkpoint, model, tokenizer):
         """Save the embedding matrix: one row per token."""
@@ -254,9 +288,13 @@ class DeepDive:
 
     def _run_generation(self, checkpoint, prompt_key, prompt_text,
                         gen_id, model, tokenizer, device,
-                        max_tokens, temperature, store_hidden):
+                        max_tokens, temperature, store_hidden,
+                        encoded_input=None):
         """Single autoregressive generation storing everything."""
-        input_ids = tokenizer.encode(prompt_text, return_tensors="pt").to(device)
+        if encoded_input is not None:
+            input_ids = encoded_input.clone()
+        else:
+            input_ids = tokenizer.encode(prompt_text, return_tensors="pt").to(device)
         generated_ids = input_ids.clone()
 
         meta_rows = []
