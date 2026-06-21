@@ -82,7 +82,16 @@ def load_model(model_id):
 def mega_gen_one(model, tokenizer, model_id, family, layer, mode, n_gens, max_tokens):
     rows = []
     for pk, prompt_text in PROMPTS.items():
-        if mode == "chat":
+        if mode == "complete":
+            messages = [{"role": "user", "content": prompt_text}]
+            try:
+                templated = tokenizer.apply_chat_template(
+                    messages, tokenize=False, add_generation_prompt=True)
+            except Exception:
+                print(f"    {pk}/complete: template failed, skip", flush=True)
+                continue
+            input_ids = tokenizer(templated, return_tensors="pt").input_ids.to(model.device)
+        elif mode == "chat":
             messages = [{"role": "user", "content": f"Continue this text: {prompt_text}"}]
             try:
                 templated = tokenizer.apply_chat_template(
@@ -145,8 +154,8 @@ def run_family(family_key):
     for layer_name, model_id in checkpoints.items():
         model, tokenizer = load_model(model_id)
 
-        for mode in ["raw", "chat"]:
-            if mode == "chat" and layer_name == "base":
+        for mode in ["raw", "chat", "complete"]:
+            if mode in ("chat", "complete") and layer_name == "base":
                 continue
             print(f"  [{layer_name}/{mode}]", flush=True)
             rows = mega_gen_one(model, tokenizer, model_id, family_key,
