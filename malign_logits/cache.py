@@ -312,12 +312,21 @@ class CacheManager:
             {"model": model, "prompt": prompt, "gen": gen}] = meta
 
     def get_probe_embeddings(self, model):
-        s = self._stash("probe_embeddings")
-        key = {"model": model}
-        return s[key] if key in s else None
+        """Load embedding matrix from numpy file (too large for lmdb)."""
+        import numpy as np
+        path = os.path.join(self.root, "probe_embeddings",
+                            model.replace("/", "--") + ".npy")
+        if os.path.exists(path):
+            return np.load(path)
+        return None
 
     def set_probe_embeddings(self, model, embeddings):
-        self._stash("probe_embeddings")[{"model": model}] = embeddings
+        """Save embedding matrix as numpy file."""
+        import numpy as np
+        d = os.path.join(self.root, "probe_embeddings")
+        os.makedirs(d, exist_ok=True)
+        path = os.path.join(d, model.replace("/", "--") + ".npy")
+        np.save(path, embeddings)
 
     def has_probe(self, model, prompt, gen=0, pos=0):
         return self._probe_pos_key(model, prompt, gen, pos) in self._stash("probe_logits")
