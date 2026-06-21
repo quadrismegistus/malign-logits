@@ -24,6 +24,7 @@ import pandas as pd
 
 from .analysis import js_divergence, distribution_entropy, compute_displacement
 from .psyche import ModelLayer, Psyche
+from .models import load_model
 from .cache import get_cache
 
 
@@ -222,16 +223,11 @@ class Circuit:
             if fam.thinking_mode and not reasoning:
                 circuit._thinking_mode = True
 
+        # Store for lazy loading
+        circuit._reasoning_id = reasoning
+
         if reasoning and load:
-            from transformers import AutoModelForCausalLM, AutoTokenizer
-            tok = AutoTokenizer.from_pretrained(reasoning, trust_remote_code=True)
-            model = AutoModelForCausalLM.from_pretrained(
-                reasoning, trust_remote_code=True,
-                torch_dtype=torch.float16, device_map="mps")
-            model.eval()
-            r_layer = ModelLayer(model, tok, name="reasoning", model_id=reasoning)
-            r_layer._cache = circuit._cache
-            circuit.add_node("reasoning", r_layer, main)
+            circuit.load_reasoning()
 
         return circuit
 
@@ -239,6 +235,25 @@ class Circuit:
     def from_family(cls, family: str, load: bool = False):
         """Build from a family key (no reasoning branch)."""
         return cls.from_config(main=family, load=load)
+
+    def load_reasoning(self, model_id: str = None):
+        """Load reasoning model into the circuit.
+
+        Uses load_model() for consistent device/dtype handling with
+        the rest of the pipeline. Can be called lazily after construction.
+        """
+        model_id = model_id or getattr(self, "_reasoning_id", None)
+        if model_id is None:
+            raise ValueError("No reasoning model ID — pass one or use a family with reasoning registered")
+        if "reasoning" in self._nodes:
+            return
+
+        model, tok = load_model(model_id)
+        family = self._nodes.get("base", next(iter(self._nodes.values()), None))
+        fam_name = family.family if family else ""
+        r_layer = ModelLayer(model, tok, name="reasoning", model_id=model_id)
+        r_layer._cache = self._cache
+        self.add_node("reasoning", r_layer, fam_name)
 
     # -- edge computation ----------------------------------------------------
 
