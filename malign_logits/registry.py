@@ -26,7 +26,13 @@ from typing import Optional, Dict, List, Tuple
 
 REGISTRY_PATH = Path(__file__).parent.parent / "data" / "model_registry.json"
 
-RELATION_TYPES = ["sft_of", "dpo_of", "rlvr_of", "distill_of", "think_sft_of", "think_dpo_of"]
+RELATION_TYPES = [
+    "sft_of",       # supervised fine-tuning (known intermediate)
+    "dpo_of",       # direct preference optimization (known intermediate)
+    "rlvr_of",      # reinforcement learning from verifiable rewards
+    "aligned_of",   # post-trained but exact method unknown
+    "distill_of",   # knowledge distillation (possibly cross-family)
+]
 STAGE_ORDER = ["base", "sft", "dpo", "rlvr"]
 
 
@@ -90,13 +96,19 @@ class Registry:
                 if model_id is None:
                     continue
 
-                # Determine parent: SFT→base, DPO→SFT, RLVR→DPO
+                # Determine parent and actual relation type
                 if rel_type == "sft_of":
                     parent = fam.base
                     stage = "sft"
                 elif rel_type == "dpo_of":
-                    parent = fam.ego or fam.base
-                    stage = "dpo"
+                    if fam.ego:
+                        parent = fam.ego
+                        stage = "dpo"
+                    else:
+                        # No SFT intermediate — we just know it's aligned
+                        parent = fam.base
+                        rel_type = "aligned_of"
+                        stage = "aligned"
                 elif rel_type == "rlvr_of":
                     parent = fam.superego or fam.ego or fam.base
                     stage = "rlvr"

@@ -112,7 +112,7 @@
     },
     {
       "model_id": "HuggingFaceTB/SmolLM2-360M-Instruct",
-      "stage": "dpo",
+      "stage": "aligned",
       "org": "",
       "scale": "",
       "corpus": "",
@@ -132,7 +132,7 @@
     },
     {
       "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
-      "stage": "dpo",
+      "stage": "aligned",
       "org": "",
       "scale": "",
       "corpus": "",
@@ -152,7 +152,7 @@
     },
     {
       "model_id": "meta-llama/Llama-3.1-8B-Instruct",
-      "stage": "dpo",
+      "stage": "aligned",
       "org": "",
       "scale": "",
       "corpus": "",
@@ -212,7 +212,7 @@
     },
     {
       "model_id": "Qwen/Qwen2.5-7B-Instruct",
-      "stage": "dpo",
+      "stage": "aligned",
       "org": "",
       "scale": "",
       "corpus": "",
@@ -332,7 +332,7 @@
     },
     {
       "model_id": "deepseek-ai/deepseek-llm-7b-chat",
-      "stage": "dpo",
+      "stage": "aligned",
       "org": "",
       "scale": "",
       "corpus": "",
@@ -352,7 +352,7 @@
     },
     {
       "model_id": "HuggingFaceTB/SmolLM3-3B",
-      "stage": "dpo",
+      "stage": "aligned",
       "org": "",
       "scale": "",
       "corpus": "",
@@ -372,7 +372,7 @@
     },
     {
       "model_id": "Qwen/Qwen3-8B",
-      "stage": "dpo",
+      "stage": "aligned",
       "org": "",
       "scale": "",
       "corpus": "",
@@ -424,17 +424,17 @@
     },
     {
       "child": "HuggingFaceTB/SmolLM2-360M-Instruct",
-      "relation": "dpo_of",
+      "relation": "aligned_of",
       "parent": "HuggingFaceTB/SmolLM2-360M"
     },
     {
       "child": "Qwen/Qwen2.5-0.5B-Instruct",
-      "relation": "dpo_of",
+      "relation": "aligned_of",
       "parent": "Qwen/Qwen2.5-0.5B"
     },
     {
       "child": "meta-llama/Llama-3.1-8B-Instruct",
-      "relation": "dpo_of",
+      "relation": "aligned_of",
       "parent": "meta-llama/Llama-3.1-8B"
     },
     {
@@ -454,7 +454,7 @@
     },
     {
       "child": "Qwen/Qwen2.5-7B-Instruct",
-      "relation": "dpo_of",
+      "relation": "aligned_of",
       "parent": "Qwen/Qwen2.5-7B"
     },
     {
@@ -499,17 +499,17 @@
     },
     {
       "child": "deepseek-ai/deepseek-llm-7b-chat",
-      "relation": "dpo_of",
+      "relation": "aligned_of",
       "parent": "deepseek-ai/deepseek-llm-7b-base"
     },
     {
       "child": "HuggingFaceTB/SmolLM3-3B",
-      "relation": "dpo_of",
+      "relation": "aligned_of",
       "parent": "HuggingFaceTB/SmolLM3-3B-Base"
     },
     {
       "child": "Qwen/Qwen3-8B",
-      "relation": "dpo_of",
+      "relation": "aligned_of",
       "parent": "Qwen/Qwen3-8B-Base"
     }
   ]
