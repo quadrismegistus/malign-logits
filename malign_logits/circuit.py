@@ -427,6 +427,143 @@ class Circuit:
             })
         return pd.DataFrame(rows)
 
+    # -- F25 temporal signature classifier ------------------------------------
+
+    TRANSGRESSIVE_TOKENS = frozenset({
+        "kill", "fuck", "die", "murder", "stab", "cock", "naked",
+        "punch", "hit", "shoot", "slap", "strangle", "blood",
+    })
+
+    @staticmethod
+    def classify_trajectory(steps_df, base_top1=None):
+        """Classify a single generation's temporal signature.
+
+        Args:
+            steps_df: DataFrame with step/entropy/top1/top1_prob/top5_words
+                      for one (model, prompt, gen_idx) trajectory.
+            base_top1: the argmax token from the base model at step 0.
+                       If provided, enables TRANSPARENT detection.
+
+        Returns:
+            dict with signature, features, and confidence.
+        """
+        if len(steps_df) < 5:
+            return {"signature": "unknown", "confidence": 0.0}
+
+        steps = steps_df.sort_values("step").head(10)
+        step0 = steps.iloc[0]
+
+        top1 = str(step0.get("top1", ""))
+        is_blank = any(c in top1 for c in ("_", "▁")) or top1.strip() == ""
+
+        # Check for transgressive tokens in top-5 across first 10 steps
+        has_trans = False
+        for _, row in steps.iterrows():
+            top5 = str(row.get("top5_words", "")).lower().split("|")
+            if any(t.strip() in Circuit.TRANSGRESSIVE_TOKENS for t in top5):
+                has_trans = True
+                break
+
+        # Entropy slope over first 10 tokens
+        if len(steps) >= 5:
+            slope = float(np.polyfit(range(len(steps)), steps["entropy"].values, 1)[0])
+        else:
+            slope = 0.0
+
+        # Argmax preserved from base?
+        argmax_preserved = (top1 == base_top1) if base_top1 else None
+
+        # Was base already blank? (de-foreclosure case)
+        base_was_blank = base_top1 is not None and (
+            any(c in str(base_top1) for c in ("_", "▁")) or str(base_top1).strip() == "")
+
+        # Classification rules
+        if is_blank and not has_trans:
+            signature = "foreclosure"
+        elif is_blank and has_trans:
+            signature = "return_of_repressed"
+        elif not is_blank and base_was_blank:
+            signature = "de_foreclosure"
+        elif not is_blank and argmax_preserved:
+            signature = "transparent"
+        elif not is_blank and slope < -0.15:
+            signature = "reaction_formation"
+        elif not is_blank and not (argmax_preserved if argmax_preserved is not None else True):
+            signature = "repression"
+        else:
+            signature = "unclassified"
+
+        return {
+            "signature": signature,
+            "step0_entropy": float(step0["entropy"]),
+            "step0_top1": top1,
+            "step0_top1_prob": float(step0.get("top1_prob", 0)),
+            "step0_is_blank": is_blank,
+            "has_transgressive": has_trans,
+            "entropy_slope": slope,
+            "argmax_preserved": argmax_preserved,
+        }
+
+    def classify_mega_gen(self, mega_df, base_position="base"):
+        """Classify all generations in a mega-gen DataFrame.
+
+        Args:
+            mega_df: DataFrame from mega_generate or CSV with
+                     family/layer/prompt_key/gen_idx/step columns.
+            base_position: which layer to use as the base reference
+                           for argmax preservation detection.
+
+        Returns:
+            DataFrame with one row per (layer, prompt_key, gen_idx)
+            including signature classification and features.
+        """
+        # Get base argmax per prompt
+        base_argmax = {}
+        base_data = mega_df[mega_df["layer"] == base_position] if "layer" in mega_df.columns else mega_df[mega_df["position"] == base_position]
+        pos_col = "layer" if "layer" in mega_df.columns else "position"
+
+        for pk in base_data["prompt_key"].unique():
+            step0 = base_data[(base_data["prompt_key"] == pk) & (base_data["step"] == 0)]
+            if len(step0) > 0:
+                base_argmax[pk] = step0["top1"].mode().iloc[0] if len(step0["top1"].mode()) > 0 else None
+
+        rows = []
+        grouped = mega_df.groupby([pos_col, "prompt_key", "gen_idx"])
+        for (layer, pk, gen_idx), sub in grouped:
+            if layer == base_position:
+                continue
+            result = self.classify_trajectory(sub, base_top1=base_argmax.get(pk))
+            result.update({
+                "layer": layer,
+                "prompt_key": pk,
+                "gen_idx": gen_idx,
+            })
+            rows.append(result)
+
+        df = pd.DataFrame(rows)
+        return df
+
+    def signature_summary(self, classified_df):
+        """Summarize signature distribution per layer × prompt.
+
+        Args:
+            classified_df: output of classify_mega_gen.
+
+        Returns:
+            DataFrame with signature percentages per (layer, prompt_key).
+        """
+        rows = []
+        for (layer, pk), sub in classified_df.groupby(["layer", "prompt_key"]):
+            counts = sub["signature"].value_counts(normalize=True)
+            row = {"layer": layer, "prompt_key": pk, "n": len(sub)}
+            for sig in ["foreclosure", "return_of_repressed", "repression",
+                        "reaction_formation", "transparent", "de_foreclosure",
+                        "unclassified"]:
+                row[sig] = float(counts.get(sig, 0))
+            row["dominant"] = counts.index[0]
+            rows.append(row)
+        return pd.DataFrame(rows)
+
     def mega_generate(self, prompt: str, position: str = None,
                       max_tokens: int = 100, n: int = 1,
                       temperature: float = 1.0) -> pd.DataFrame:
