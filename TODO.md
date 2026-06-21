@@ -28,7 +28,7 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [x] **Pythia family** — DONE. 4/5 transparent (lightest alignment of any 7B). Only anger repressed (kill→scream). Worker stays "take". HH-RLHF = minimal displacement
 
 ## Temporal chain analysis
-- [ ] **Embedding trajectories** — reconstruct text from chosen_tokens at each position, embed with bge-m3, project onto semantic axes (violence/class/compliance). Track how base vs aligned move through semantic space over tokens. Avoids token-mismatch problem
+- [x] **Embedding trajectories** — DONE. 8 families, 2880 windows, violence + procedural axes. Repression=steady drift, reaction formation=collapse, transparency=flat, de-foreclosure=increasing trajectory
 - [ ] **Paired mega-gen** — run base and aligned on IDENTICAL token sequences (teacher-forced) to get true per-position JS divergence and displacement maps
 
 ## Tests
