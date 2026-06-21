@@ -574,7 +574,7 @@ def circuit_summary(dive, prompt: str, gen: int = 0, pos: int = 0,
         "dominant_stage": dominant,
     }
     for e, s in shares.items():
-        stage = e.split("→")[0]
+        stage = e.split("→")[1]
         result[f"{stage}_share"] = s
         result[f"{stage}_js"] = edges[e]
 
