@@ -461,6 +461,193 @@
       "country": "US",
       "open_weight": true,
       "open_data": false
+    },
+    {
+      "model_id": "google/gemma-7b",
+      "stage": "base",
+      "org": "Google",
+      "org_type": "corporate",
+      "scale": "7B",
+      "corpus": "",
+      "country": "US",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "google/gemma-7b-it",
+      "stage": "aligned",
+      "org": "Google",
+      "org_type": "corporate",
+      "scale": "",
+      "corpus": "",
+      "country": "US",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "tiiuae/falcon-7b",
+      "stage": "base",
+      "org": "TII",
+      "org_type": "state",
+      "scale": "7B",
+      "corpus": "",
+      "country": "AE",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "tiiuae/falcon-7b-instruct",
+      "stage": "aligned",
+      "org": "TII",
+      "org_type": "state",
+      "scale": "",
+      "corpus": "",
+      "country": "AE",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "baichuan-inc/Baichuan2-7B-Base",
+      "stage": "base",
+      "org": "Baichuan",
+      "org_type": "corporate",
+      "scale": "7B",
+      "corpus": "",
+      "country": "CN",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "baichuan-inc/Baichuan2-7B-Chat",
+      "stage": "aligned",
+      "org": "Baichuan",
+      "org_type": "corporate",
+      "scale": "",
+      "corpus": "",
+      "country": "CN",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "internlm/internlm2_5-7b",
+      "stage": "base",
+      "org": "Shanghai AI Lab",
+      "org_type": "academic",
+      "scale": "7B",
+      "corpus": "",
+      "country": "CN",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "internlm/internlm2_5-7b-chat",
+      "stage": "aligned",
+      "org": "Shanghai AI Lab",
+      "org_type": "academic",
+      "scale": "",
+      "corpus": "",
+      "country": "CN",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "01-ai/Yi-9B",
+      "stage": "base",
+      "org": "01.AI",
+      "org_type": "corporate",
+      "scale": "9B",
+      "corpus": "",
+      "country": "CN",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "01-ai/Yi-1.5-9B-Chat",
+      "stage": "aligned",
+      "org": "01.AI",
+      "org_type": "corporate",
+      "scale": "",
+      "corpus": "",
+      "country": "CN",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "dphn/Dolphin3.0-Llama3.1-8B",
+      "stage": "sft",
+      "org": "Community",
+      "org_type": "corporate",
+      "scale": "",
+      "corpus": "",
+      "country": "US",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "NousResearch/Hermes-3-Llama-3.1-8B",
+      "stage": "aligned",
+      "org": "NousResearch",
+      "org_type": "corporate",
+      "scale": "",
+      "corpus": "",
+      "country": "US",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "teknium/OpenHermes-2.5-Mistral-7B",
+      "stage": "sft",
+      "org": "Community",
+      "org_type": "corporate",
+      "scale": "",
+      "corpus": "",
+      "country": "US",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "NousResearch/Nous-Hermes-2-Mistral-7B-DPO",
+      "stage": "dpo",
+      "org": "NousResearch",
+      "org_type": "corporate",
+      "scale": "",
+      "corpus": "",
+      "country": "US",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "openchat/openchat-3.5-0106",
+      "stage": "aligned",
+      "org": "Community",
+      "org_type": "corporate",
+      "scale": "",
+      "corpus": "",
+      "country": "US",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "berkeley-nest/Starling-LM-7B-alpha",
+      "stage": "rlhf",
+      "org": "UC Berkeley",
+      "org_type": "academic",
+      "scale": "",
+      "corpus": "",
+      "country": "US",
+      "open_weight": true,
+      "open_data": false
+    },
+    {
+      "model_id": "cognitivecomputations/dolphin-2.6-mistral-7b-dpo",
+      "stage": "dpo",
+      "org": "Community",
+      "org_type": "corporate",
+      "scale": "",
+      "corpus": "",
+      "country": "US",
+      "open_weight": true,
+      "open_data": false
     }
   ],
   "relations": [
@@ -613,6 +800,66 @@
       "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
       "relation": "sft_of",
       "parent": "meta-llama/Llama-3.1-8B"
+    },
+    {
+      "child": "google/gemma-7b-it",
+      "relation": "aligned_of",
+      "parent": "google/gemma-7b"
+    },
+    {
+      "child": "tiiuae/falcon-7b-instruct",
+      "relation": "aligned_of",
+      "parent": "tiiuae/falcon-7b"
+    },
+    {
+      "child": "baichuan-inc/Baichuan2-7B-Chat",
+      "relation": "aligned_of",
+      "parent": "baichuan-inc/Baichuan2-7B-Base"
+    },
+    {
+      "child": "internlm/internlm2_5-7b-chat",
+      "relation": "aligned_of",
+      "parent": "internlm/internlm2_5-7b"
+    },
+    {
+      "child": "01-ai/Yi-1.5-9B-Chat",
+      "relation": "aligned_of",
+      "parent": "01-ai/Yi-9B"
+    },
+    {
+      "child": "dphn/Dolphin3.0-Llama3.1-8B",
+      "relation": "sft_of",
+      "parent": "meta-llama/Llama-3.1-8B"
+    },
+    {
+      "child": "NousResearch/Hermes-3-Llama-3.1-8B",
+      "relation": "aligned_of",
+      "parent": "meta-llama/Llama-3.1-8B"
+    },
+    {
+      "child": "teknium/OpenHermes-2.5-Mistral-7B",
+      "relation": "sft_of",
+      "parent": "mistralai/Mistral-7B-v0.1"
+    },
+    {
+      "child": "NousResearch/Nous-Hermes-2-Mistral-7B-DPO",
+      "relation": "dpo_of",
+      "parent": "teknium/OpenHermes-2.5-Mistral-7B"
+    },
+    {
+      "child": "openchat/openchat-3.5-0106",
+      "relation": "aligned_of",
+      "parent": "mistralai/Mistral-7B-v0.1"
+    },
+    {
+      "child": "berkeley-nest/Starling-LM-7B-alpha",
+      "relation": "rlhf_of",
+      "parent": "openchat/openchat-3.5-0106"
+    },
+    {
+      "child": "cognitivecomputations/dolphin-2.6-mistral-7b-dpo",
+      "relation": "dpo_of",
+      "parent": "mistralai/Mistral-7B-v0.1"
     }
   ]
 }
