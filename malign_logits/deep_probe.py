@@ -80,11 +80,24 @@ class DeepDive:
     def __init__(self, family: str, root: str = None):
         self.family = family
         self.root = Path(root) if root else ROOT
+        self._tokenizer = None
 
     def __repr__(self):
         inv = self.inventory()
         n = inv["n_gens"].sum() if not inv.empty else 0
         return f"DeepDive({self.family!r}, {n} generations)"
+
+    @property
+    def tokenizer(self):
+        """Auto-resolve tokenizer from MODEL_FAMILIES registry."""
+        if self._tokenizer is None:
+            from . import MODEL_FAMILIES
+            from transformers import AutoTokenizer
+            fam = MODEL_FAMILIES.get(self.family)
+            if fam is None:
+                raise ValueError(f"Unknown family: {self.family}")
+            self._tokenizer = AutoTokenizer.from_pretrained(fam.base)
+        return self._tokenizer
 
     # -- paths -----------------------------------------------------------------
 
