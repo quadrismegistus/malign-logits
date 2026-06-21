@@ -434,6 +434,8 @@ class Circuit:
         "punch", "hit", "shoot", "slap", "strangle", "blood",
     })
 
+    BLANK_SENTINEL = "__BLANK__"
+
     @staticmethod
     def classify_trajectory(steps_df, base_top1=None):
         """Classify a single generation's temporal signature.
@@ -443,6 +445,7 @@ class Circuit:
                       for one (model, prompt, gen_idx) trajectory.
             base_top1: the argmax token from the base model at step 0.
                        If provided, enables TRANSPARENT detection.
+                       Use Circuit.BLANK_SENTINEL if base was blank/NaN.
 
         Returns:
             dict with signature, features, and confidence.
@@ -474,11 +477,23 @@ class Circuit:
             slope = 0.0
 
         # Argmax preserved from base?
-        argmax_preserved = (top1 == base_top1) if base_top1 else None
+        base_top1_str = str(base_top1) if base_top1 is not None else ""
+        base_is_sentinel = base_top1 == Circuit.BLANK_SENTINEL
+        base_top1_valid = (base_top1 is not None
+                           and not base_is_sentinel
+                           and base_top1_str not in ("nan", "None", ""))
+        argmax_preserved = (top1 == base_top1_str) if base_top1_valid else None
 
         # Was base already blank? (de-foreclosure case)
-        base_was_blank = base_top1 is not None and (
-            any(c in str(base_top1) for c in ("_", "▁")) or str(base_top1).strip() == "")
+        base_was_blank = (
+            base_is_sentinel or
+            (base_top1_valid and (
+                any(c in base_top1_str for c in ("_", "▁"))
+                or base_top1_str.strip() == ""
+                or base_top1_str.strip() == "?"
+                or (len(base_top1_str.strip()) <= 1 and not base_top1_str.strip().isalpha())
+            ))
+        )
 
         # Classification rules
         if is_blank and not has_trans:
@@ -528,7 +543,12 @@ class Circuit:
         for pk in base_data["prompt_key"].unique():
             step0 = base_data[(base_data["prompt_key"] == pk) & (base_data["step"] == 0)]
             if len(step0) > 0:
-                base_argmax[pk] = step0["top1"].mode().iloc[0] if len(step0["top1"].mode()) > 0 else None
+                mode = step0["top1"].mode()
+                if len(mode) > 0:
+                    val = mode.iloc[0]
+                    base_argmax[pk] = val if pd.notna(val) else Circuit.BLANK_SENTINEL
+                else:
+                    base_argmax[pk] = Circuit.BLANK_SENTINEL
 
         rows = []
         grouped = mega_df.groupby([pos_col, "prompt_key", "gen_idx"])

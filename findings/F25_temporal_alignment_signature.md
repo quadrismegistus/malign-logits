@@ -90,3 +90,17 @@ This is the first empirically precise mapping of alignment mechanisms to Lacania
 - SFT is the agent, DPO is the concentrator (SFT performs all qualitative changes)
 - Foreclosure is installed by SFT, not DPO
 - Reasoning models: R1-Llama thinking is content-blind (H=0.78), R1-Qwen is content-sensitive (H=0.88-1.03), SmolLM3 thinking broadens the response (opposite of R1)
+
+**Cross-family classifier results** (1500 generations, 5 families × 5 prompts × 50-100 gens):
+- OLMo: foreclosure (anger 66%), repression (violence 70%, sexual 64%, love 81%), unclassified (worker 68%)
+- Llama: pure repression across all 5 prompts (52-90%). Most uniform family
+- Qwen: most diverse — foreclosure (anger 66%, worker 100%), transparent (violence 100%, love 100%), reaction formation (sexual 62%)
+- Amber: repression dominant (anger 72%, violence 64%, love 74%), transparent (sexual 100%), reaction formation (worker 52%)
+- SmolLM3: transparent (anger 100%, love 100%), repression (violence 70%, sexual 56%, worker 70%). APO preserves chain on anger/love
+- Data: `data/f25_signature_summary.csv`
+- Figures: `figures/F25_cross_family_signatures_print.png` (book image), `figures/F25_dpo_paradox.png`, `figures/F25_reasoning_phase_boundary.png`
+
+**DPO paradox** (OLMo 4-layer, SFT→DPO→RLVR):
+- RLVR does NOT deepen foreclosure — it increases reaction formation (violence +11pp: 33%→44%)
+- Return of repressed rises: anger 37%→40% SFT→RLVR
+- The ego-ideal destabilizes rather than reinforces the superego's defences

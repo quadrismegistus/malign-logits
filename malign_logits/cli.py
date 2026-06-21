@@ -751,6 +751,73 @@ def cmd_trajectory(args):
     print("\nDone.")
 
 
+def cmd_circuit(args):
+    """Classify temporal alignment signatures from mega-gen data."""
+    import pandas as pd
+    from .circuit import Circuit
+    import glob
+
+    FILES = {
+        "olmo": "data/mega_gen_olmo_4layer.csv",
+        "llama": "data/mega_generation_llama.csv",
+        "qwen": "data/mega_generation_qwen.csv",
+        "amber": "data/mega_generation_amber.csv",
+        "smol3": "data/mega_generation_smol3.csv",
+    }
+    ALIGNED = {"olmo": "dpo", "llama": "aligned", "qwen": "aligned",
+               "amber": "aligned", "smol3": "aligned"}
+
+    family_arg = getattr(args, "family", None)
+    targets = {family_arg: FILES[family_arg]} if family_arg else FILES
+
+    all_classified = []
+    for fam_key, fpath in targets.items():
+        if not os.path.exists(fpath):
+            print(f"  Skip {fam_key} ({fpath} not found)")
+            continue
+        df = pd.read_csv(fpath)
+        c = Circuit.__new__(Circuit)
+        classified = c.classify_mega_gen(df, base_position="base")
+        classified["family"] = fam_key
+        # Filter to aligned layer only
+        aligned_layer = ALIGNED[fam_key]
+        classified = classified[classified["layer"] == aligned_layer]
+        all_classified.append(classified)
+        print(f"  {fam_key}: {len(classified)} generations classified")
+
+    if not all_classified:
+        print("No data found.")
+        return
+
+    result = pd.concat(all_classified, ignore_index=True)
+    summary = result.groupby(["family", "prompt_key"])["signature"].value_counts(
+        normalize=True).unstack(fill_value=0)
+    summary["dominant"] = result.groupby(["family", "prompt_key"])[
+        "signature"].agg(lambda x: x.value_counts().index[0])
+
+    print(f"\n{'='*70}")
+    print("Temporal Alignment Signatures (F25)")
+    print(f"{'='*70}")
+    for fam in targets:
+        fam_data = summary.loc[fam] if fam in summary.index else None
+        if fam_data is None:
+            continue
+        print(f"\n  {fam}:")
+        for pk in sorted(fam_data.index):
+            row = fam_data.loc[pk]
+            dominant = row["dominant"]
+            sigs = {s: f"{row.get(s, 0):.0%}" for s in
+                    ["foreclosure", "return_of_repressed", "repression",
+                     "reaction_formation", "transparent", "de_foreclosure"]
+                    if row.get(s, 0) > 0}
+            print(f"    {pk:<12} → {dominant:<22} {sigs}")
+
+    if getattr(args, "save", False):
+        out = "data/f25_signature_summary.csv"
+        summary.reset_index().to_csv(out, index=False)
+        print(f"\nSaved {out}")
+
+
 def _add_family_arg(parser):
     """Add --family argument to a subparser."""
     from . import MODEL_FAMILIES
@@ -1022,6 +1089,12 @@ def main():
     cloud.set_defaults(func=cmd_cloud)
 
     # info
+    ct = subparsers.add_parser("circuit", help="Classify temporal alignment signatures (F25)")
+    ct.add_argument("--family", choices=["olmo", "llama", "qwen", "amber", "smol3"],
+                    default=None, help="Single family (default: all)")
+    ct.add_argument("--save", action="store_true", help="Save summary CSV")
+    ct.set_defaults(func=cmd_circuit)
+
     info = subparsers.add_parser("info", help="Print model families and configuration")
     _add_family_arg(info)
     info.set_defaults(func=cmd_info)

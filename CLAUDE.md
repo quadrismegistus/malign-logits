@@ -179,6 +179,7 @@ malign-logits/
 │   ├── battery.py           # Multi-family prompt battery driver
 │   ├── logit_lens.py        # Logit-lens CSV+figure driver
 │   ├── step_analysis.py     # Step-level checkpoint analysis
+│   ├── circuit.py           # Circuit class (F25 temporal signatures, reasoning branches)
 │   ├── produce.py           # produce-all driver
 │   ├── viz.py               # Plotly visualizations
 │   ├── cli.py               # CLI router (delegates to analysis modules)
@@ -211,6 +212,30 @@ malign ui
 - **`ModelLayer`** / **`RemoteModelLayer`** — structural position. Caches logits and word distributions to HashStash.
 - **`PromptAnalysis`** — lazy computation for a single prompt. Properties adapt to available layers. 3-layer features raise `ValueError` on 2-layer Psyche.
 - **`PrimaryProcess`**, **`Ego`**, **`Superego`**, **`ReinforcedSuperego`** — named layer subclasses.
+- **`Circuit`** — extended topology for reasoning models. Nodes are distributions, edges are alignment operations. Supports reasoning branches, mode switching (raw/chat/think), cross-circuit comparison. See below.
+
+### Circuit class (`circuit.py`)
+
+Maps to the book's TOC diagram. Unlike Psyche's linear base→SFT→DPO, Circuit supports:
+- **Reasoning branches**: `load_reasoning()` adds distilled reasoning models (R1-Distill-Llama, R1-Distill-Qwen)
+- **Mode switching**: `Mode.RAW`, `Mode.CHAT`, `Mode.THINK` — same weights, different templates
+- **Cross-circuit comparison**: `convergence()` measures whether different families converge after alignment
+
+```python
+from malign_logits import Circuit, Mode
+circuit = Circuit.from_config(main='olmo', reasoning='r1-llama')
+circuit.compare('base', 'dpo', prompt)     # JS, displacement at an edge
+circuit.branch_compare(prompt)             # base vs aligned vs reasoning
+```
+
+**F25 classifier**: `Circuit.classify_trajectory()` classifies generation-level temporal signatures:
+- **foreclosure**: step 0 argmax is blank (exam template)
+- **repression**: argmax changed from base (displaced)
+- **return_of_repressed**: blank template but transgressive tokens in top-5
+- **reaction_formation**: entropy slope < -0.15 (narrowing trajectory)
+- **transparent**: argmax preserved from base (APO signature)
+
+`classify_mega_gen()` and `signature_summary()` for batch analysis. `mega_generate()` extracts position-level entropy/top-k during autoregressive generation, cached to lmdb.
 
 ### Performance notes
 
@@ -218,6 +243,33 @@ malign ui
 - `score_words_from_logits` scores vocabulary from cached logits in microseconds (replaced per-word forward passes).
 - `logits()` cached to HashStash — 1 forward pass per layer per prompt, ever.
 - HashStash persistence means second runs (even after restart) skip all expensive compute.
+
+### Cache access (CacheManager)
+
+**Always use `CacheManager` from `malign_logits/cache.py`, never raw HashStash.** CacheManager uses the absolute `PATH_DATA_RAW` path, so stashes resolve to the project's `data/raw/cache/` directory. Raw HashStash with a relative path resolves to `~/.cache/hashstash/...` — wrong location.
+
+```python
+from malign_logits.cache import get_cache
+cm = get_cache()
+```
+
+**BOS prompts vary by tokenizer.** When accessing unconditional (BOS) generations, the prompt key is the model's BOS token, not an empty string:
+
+| BOS token | Families |
+|-----------|----------|
+| `'<\|endoftext\|>'` | OLMo, OLMo-tiny, Pythia, Qwen, SmolLM |
+| `'<s>'` | Llama, Amber, Zephyr (Mistral-based) |
+| `''` | Human text (dreams, fiction, etc.) — no model prompt |
+
+```python
+cm.count_generations('LLM360/Amber', '<s>')          # → 100
+cm.count_generations('allenai/Olmo-3-1025-7B', '<|endoftext|>')  # → 100
+cm.count_generations('LLM360/Amber', '')              # → 0 (wrong!)
+```
+
+**Never open the same lmdb environment twice in one process.** If a notebook already has a HashStash open on `data/raw/cache/generations`, creating a CacheManager (which opens its own HashStash on the same path) will fail or corrupt reads. Use one or the other, not both.
+
+**Generation keys:** `{'model': str, 'prompt': str, 'temp': float, 'idx': int}`. The `model` value is the full HuggingFace ID (e.g. `'allenai/Olmo-3-1025-7B'`), not the family key.
 
 ---
 
