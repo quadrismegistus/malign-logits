@@ -481,12 +481,12 @@
     },
     {
       "child": "allenai/Olmo-3-7B-Think-SFT",
-      "relation": "sft_of",
+      "relation": "think_sft_of",
       "parent": "allenai/Olmo-3-1025-7B"
     },
     {
       "child": "allenai/Olmo-3-7B-Think-DPO",
-      "relation": "dpo_of",
+      "relation": "think_dpo_of",
       "parent": "allenai/Olmo-3-7B-Think-SFT"
     },
     {
