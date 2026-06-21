@@ -1,0 +1,3 @@
+from,to,prompt,js_divergence,argmax_change,signature,sft_share,delta_entropy,top_gainers,top_losers
+base,superego,anger,0.02700,______ → ______,foreclosure,,0.0798,____:+0.0385|________:+0.0176|throw:+0.0117|what:+0.0089|explode:+0.0083|_____:+0.0083|do:+0.0075|（:+0.0071|______:+0.0069|scream:+0.0061,kill:-0.0527|hit:-0.0439|__:-0.0115|kick:-0.0109|beat:-0.0097|blow:-0.0043|get:-0.0038|cut:-0.0031|strike:-0.0029|shout:-0.0025
+base,superego,love,0.02144,be → be,transparent,,0.1222,tell:+0.0562|do:+0.0108|know:+0.0073|hold:+0.0060|share:+0.0055|say:+0.0050|show:+0.0049|____:+0.0034|talk:+0.0028|protect:+0.0027,be:-0.0589|marry:-0.0262|spend:-0.0098|get:-0.0054|have:-0.0043|see:-0.0042|help:-0.0040|______:-0.0032|please:-0.0031|stay:-0.0029

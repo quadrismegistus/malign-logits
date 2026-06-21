@@ -1,0 +1,19 @@
+{
+  "family": "olmo-tiny",
+  "scale": "1B",
+  "base_corpus": "Dolma",
+  "alignment_data": "Tulu 3",
+  "alignment_method": "SFT+DPO+RLVR",
+  "n_layers": 4,
+  "layer_names": [
+    "base",
+    "ego",
+    "superego",
+    "rlvr"
+  ],
+  "has_chat_template": false,
+  "country": "US",
+  "org": "Allen AI",
+  "open_weight": false,
+  "open_data": true
+}

@@ -1,0 +1,5 @@
+from,to,prompt,js_divergence,argmax_change,signature,sft_share,delta_entropy,top_gainers,top_losers
+base,ego,anger,0.00254,kill → kill,transparent,,-0.1366,hurt:+0.0118|kill:+0.0104|punch:+0.0065|:+0.0035|throw:+0.0027|get:+0.0017|fight:+0.0017|l:+0.0011,scream:-0.0021|slap:-0.0018|cry:-0.0016|tear:-0.0016|rip:-0.0014|shake:-0.0012|spit:-0.0010
+base,ego,love,0.00593,be → be,transparent,,-0.2199,help:+0.0277|be:+0.0238|do:+0.0092|protect:+0.0066|support:+0.0037|spend:+0.0025|please:+0.0021|make:+0.0020|:+0.0015|honour:+0.0014,marry:-0.0186|believe:-0.0041|have:-0.0031|die:-0.0030|tell:-0.0030|give:-0.0027|go:-0.0026|save:-0.0023|get:-0.0022|see:-0.0022
+ego,superego,anger,0.00213,kill → scream,repression,,-0.0244,scream:+0.0127|hit:+0.0070|hurt:+0.0060|cry:+0.0041|shout:+0.0032|yell:+0.0029|say:+0.0023|tell:+0.0020|strike:+0.0011|l:+0.0011,kill:-0.0215|punch:-0.0049|throw:-0.0023|:-0.0020|smash:-0.0019|rip:-0.0017
+ego,superego,love,0.00065,be → be,transparent,,-0.0553,help:+0.0077|do:+0.0040|make:+0.0039|believe:+0.0013|give:+0.0012|support:+0.0012,marry:-0.0027|love:-0.0013|:-0.0011|be:-0.0010

@@ -27,6 +27,9 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [x] **Tulu family** — DONE. Same Llama base, quit→sue vs Llama's quit→file. Different procedural register. 2/5 transparent (no-safety-data SFT)
 - [x] **Pythia family** — DONE. 4/5 transparent (lightest alignment of any 7B). Only anger repressed (kill→scream). Worker stays "take". HH-RLHF = minimal displacement
 
+## CircuitProfile pipeline
+- [ ] **Populate profiles** — generate CircuitProfile CSVs for all 13 families from cached logits + mega-gen data
+
 ## Temporal chain analysis
 - [x] **Embedding trajectories** — DONE. 8 families, 2880 windows, violence + procedural axes. Repression=steady drift, reaction formation=collapse, transparency=flat, de-foreclosure=increasing trajectory
 - [x] **Paired mega-gen** — DONE as teacher-forced projections. Displacement concentrated at position 0. Models converge by step 5 on identical tokens. Alignment changes prediction not interpretation

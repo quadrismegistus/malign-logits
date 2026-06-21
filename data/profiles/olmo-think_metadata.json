@@ -1,0 +1,18 @@
+{
+  "family": "olmo-think",
+  "scale": "7B",
+  "base_corpus": "Dolma",
+  "alignment_data": "Tulu 3 Think",
+  "alignment_method": "Think-SFT+Think-DPO",
+  "n_layers": 3,
+  "layer_names": [
+    "base",
+    "ego",
+    "superego"
+  ],
+  "has_chat_template": true,
+  "country": "US",
+  "org": "Allen AI",
+  "open_weight": true,
+  "open_data": true
+}

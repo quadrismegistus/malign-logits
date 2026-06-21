@@ -1,0 +1,5 @@
+checkpoint,prompt,entropy,effective_vocab,argmax_token,argmax_prob,violence_loading,procedural_loading,top_k
+base,anger,4.6409,103,kill,0.1381,0.01470,-0.00352,kill:0.1381|hit:0.0520|cry:0.0470|scream:0.0455|punch:0.0448|throw:0.0405|slap:0.0281|die:0.0234|spit:0.0213|rip:0.0177
+base,love,3.8733,48,be,0.1882,0.00485,0.00179,be:0.1882|marry:0.1206|spend:0.0816|make:0.0602|help:0.0340|share:0.0338|give:0.0303|have:0.0286|do:0.0263|protect:0.0208
+superego,anger,4.5645,96,scream,0.2045,0.01114,-0.00002,scream:0.2045|kill:0.0486|shout:0.0403|throw:0.0347|cry:0.0316|hit:0.0290|rip:0.0240|yell:0.0235|punch:0.0217|spit:0.0177
+superego,love,3.4705,32,spend,0.2113,0.00454,0.00128,spend:0.2113|be:0.1807|make:0.1114|help:0.0518|marry:0.0245|give:0.0243|share:0.0239|protect:0.0188|show:0.0176|know:0.0172

@@ -1,0 +1,17 @@
+{
+  "family": "smol3",
+  "scale": "3B",
+  "base_corpus": "FineWeb",
+  "alignment_data": "undisclosed",
+  "alignment_method": "APO",
+  "n_layers": 2,
+  "layer_names": [
+    "base",
+    "superego"
+  ],
+  "has_chat_template": false,
+  "country": "EU",
+  "org": "HuggingFace",
+  "open_weight": false,
+  "open_data": false
+}

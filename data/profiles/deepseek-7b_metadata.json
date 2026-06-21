@@ -1,0 +1,17 @@
+{
+  "family": "deepseek-7b",
+  "scale": "7B",
+  "base_corpus": "undisclosed",
+  "alignment_data": "undisclosed",
+  "alignment_method": "SFT+DPO",
+  "n_layers": 2,
+  "layer_names": [
+    "base",
+    "superego"
+  ],
+  "has_chat_template": true,
+  "country": "China",
+  "org": "DeepSeek",
+  "open_weight": true,
+  "open_data": false
+}

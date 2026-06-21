@@ -1,0 +1,18 @@
+{
+  "family": "amber",
+  "scale": "7B",
+  "base_corpus": "RefinedWeb+others",
+  "alignment_data": "HH-RLHF",
+  "alignment_method": "SFT+DPO",
+  "n_layers": 3,
+  "layer_names": [
+    "base",
+    "ego",
+    "superego"
+  ],
+  "has_chat_template": true,
+  "country": "US",
+  "org": "LLM360",
+  "open_weight": true,
+  "open_data": true
+}
