@@ -16,7 +16,7 @@ Work items from session 2026-06-20/21. Pick up when idle.
 ## Tests
 - [ ] **Circuit integration test (smol)** — end-to-end test using SmolLM2-360M: from_family → compare → formation → classify_trajectory → signature_summary. Verify all wiring including Mode.CHAT/THINK
 - [x] **Circuit unit tests** — DONE. 21 tests: classify_trajectory (13 cases incl BLANK_SENTINEL, NaN, de_foreclosure), signature_summary (2), Mode (2), tokens (2), sentinel (2). Also fixed "nan" string blank detection
-- [ ] **CacheManager mega_generations roundtrip** — set/get/has/count on mega_generation stash
+- [x] **CacheManager mega_generations roundtrip** — DONE. 4 tests: roundtrip, miss, count (binary search), separate prompts. Full suite 54/54
 - [x] **Salary probe SmolLM3-3B** — DONE. Already uses correct SmolLM3-3B (not 360M). In salary_all.csv
 - [x] **SmolLM3 mega-gen at 100 tokens** — DONE. 49,560 rows, all 5 prompts × 50 gens × base+aligned
 - [x] **F25 classifier on reasoning mega-gen** — DONE but classifier rules don't apply (step 0 is `<think>` token, not content). Reasoning needs phase-boundary analysis (think H vs response H) instead of step-0 argmax rules. Two complementary approaches.

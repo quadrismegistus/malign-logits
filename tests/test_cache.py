@@ -112,6 +112,44 @@ def test_separate_stashes(cache):
     assert cache.get_generation("model-a", "prompt", idx=1) is None
 
 
+# ── Mega-generations roundtrip ─────────────────────────────────
+
+def test_mega_generation_roundtrip(cache):
+    positions = [
+        {"step": 0, "entropy": 4.5, "top1": "kill", "top1_prob": 0.15},
+        {"step": 1, "entropy": 3.2, "top1": "the", "top1_prob": 0.10},
+        {"step": 2, "entropy": 2.8, "top1": "man", "top1_prob": 0.12},
+    ]
+    cache.set_mega_generation("model-a", "anger", positions, temp=1.0, idx=0)
+    assert cache.has_mega_generation("model-a", "anger", 1.0, 0)
+    result = cache.get_mega_generation("model-a", "anger", 1.0, 0)
+    assert len(result) == 3
+    assert result[0]["top1"] == "kill"
+    assert result[2]["entropy"] == 2.8
+
+
+def test_mega_generation_miss(cache):
+    assert not cache.has_mega_generation("model-a", "anger", 1.0, 0)
+    assert cache.get_mega_generation("model-a", "anger", 1.0, 0) is None
+
+
+def test_mega_generation_count(cache):
+    for i in range(5):
+        cache.set_mega_generation("model-a", "anger",
+                                  [{"step": 0, "entropy": 4.0 + i * 0.1}],
+                                  temp=1.0, idx=i)
+    assert cache.count_mega_generations("model-a", "anger", 1.0) == 5
+    assert cache.count_mega_generations("model-a", "anger", 0.5) == 0
+    assert cache.count_mega_generations("model-a", "love", 1.0) == 0
+
+
+def test_mega_generation_separate_prompts(cache):
+    cache.set_mega_generation("model-a", "anger", [{"step": 0}], idx=0)
+    cache.set_mega_generation("model-a", "love", [{"step": 0}], idx=0)
+    assert cache.count_mega_generations("model-a", "anger") == 1
+    assert cache.count_mega_generations("model-a", "love") == 1
+
+
 # ── Integration: real data ──────────────────────────────────────
 
 @pytest.mark.skipif(
