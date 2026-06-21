@@ -67,25 +67,56 @@ class Probe:
 
     def collect(self, n: int = 2, max_tokens: int = 50,
                 temperature: float = 0.8, store_hidden: bool = True,
-                prompts: dict = None):
-        """Load this model, generate, store to HashStash, free memory."""
+                prompts: dict = None, mode: str = "raw"):
+        """Load this model, generate, store to HashStash, free memory.
+
+        mode: "raw" (plain text), "chat" (chat template), "complete"
+              (assistant-only), "think" (chat + <think>).
+              Stored under model_id::mode in the cache.
+        """
         import gc
         from .models import load_model
 
         prompts = prompts or PROMPTS
         cache = _get_cache()
+        store_id = self.model_id if mode == "raw" else f"{self.model_id}::{mode}"
 
-        print(f"[Probe] Loading {self.model_id}...")
+        print(f"[Probe] Loading {self.model_id} (mode={mode})...")
         model, tokenizer = load_model(self.model_id)
         self._tokenizer = tokenizer
         device = next(model.parameters()).device
+
+        # Find chat template if needed
+        encoded_inputs = {}
+        if mode != "raw":
+            if not (hasattr(tokenizer, 'chat_template') and tokenizer.chat_template):
+                raise ValueError(f"{self.model_id} has no chat template")
+            for prompt_key, prompt_text in prompts.items():
+                if mode in ("chat", "think"):
+                    msgs = [{"role": "user", "content": prompt_text}]
+                    tpl = tokenizer.apply_chat_template(
+                        msgs, add_generation_prompt=True, return_tensors="pt")
+                elif mode == "complete":
+                    msgs = [{"role": "assistant", "content": prompt_text}]
+                    tpl = tokenizer.apply_chat_template(
+                        msgs, continue_final_message=True, return_tensors="pt")
+                else:
+                    raise ValueError(f"Unknown mode: {mode}")
+                enc = tpl.input_ids if hasattr(tpl, 'input_ids') else (
+                    tpl["input_ids"] if isinstance(tpl, dict) else tpl)
+                enc = enc.to(device)
+                if mode == "think":
+                    think_ids = tokenizer.encode("<think>", add_special_tokens=False)
+                    if think_ids:
+                        enc = torch.cat([enc, torch.tensor([think_ids], device=device)], dim=-1)
+                encoded_inputs[prompt_key] = enc
 
         for prompt_key, prompt_text in prompts.items():
             print(f"  {prompt_key}:", end="", flush=True)
             collected = 0
 
             for gen_id in range(n):
-                if cache.has_probe(self.model_id, prompt_key, gen=gen_id, pos=0):
+                if cache.has_probe(store_id, prompt_key, gen=gen_id, pos=0):
                     print(".", end="", flush=True)
                     continue
 
@@ -94,7 +125,8 @@ class Probe:
                     gen_id=gen_id, model=model, tokenizer=tokenizer,
                     device=device, max_tokens=max_tokens,
                     temperature=temperature, store_hidden=store_hidden,
-                    cache=cache,
+                    cache=cache, store_id=store_id,
+                    encoded_input=encoded_inputs.get(prompt_key),
                 )
                 collected += 1
                 print("+", end="", flush=True)
@@ -109,12 +141,17 @@ class Probe:
         except Exception:
             pass
 
-        print(f"[Probe] Done: {self.model_id}")
+        print(f"[Probe] Done: {store_id}")
 
     def _run_generation(self, prompt_key, prompt_text, gen_id,
                         model, tokenizer, device,
-                        max_tokens, temperature, store_hidden, cache):
-        input_ids = tokenizer.encode(prompt_text, return_tensors="pt").to(device)
+                        max_tokens, temperature, store_hidden, cache,
+                        store_id=None, encoded_input=None):
+        store_id = store_id or self.model_id
+        if encoded_input is not None:
+            input_ids = encoded_input.clone()
+        else:
+            input_ids = tokenizer.encode(prompt_text, return_tensors="pt").to(device)
         generated_ids = input_ids.clone()
 
         meta_rows = []
@@ -143,7 +180,7 @@ class Probe:
 
             # Store logits at this position
             cache.set_probe_logits(
-                self.model_id, prompt_key,
+                store_id, prompt_key,
                 raw_logits.cpu().numpy(), gen=gen_id, pos=step)
 
             # Store hidden states at this position
@@ -152,7 +189,7 @@ class Probe:
                     h[0, -1, :].cpu().numpy() for h in out.hidden_states
                 ])  # (n_layers, hidden_dim)
                 cache.set_probe_hidden(
-                    self.model_id, prompt_key,
+                    store_id, prompt_key,
                     hidden_np, gen=gen_id, pos=step)
 
             meta_rows.append({
@@ -179,7 +216,7 @@ class Probe:
                 break
 
         # Store meta for this generation (all positions at once)
-        cache.set_probe_meta(self.model_id, prompt_key, meta_rows, gen=gen_id)
+        cache.set_probe_meta(store_id, prompt_key, meta_rows, gen=gen_id)
 
     # -- read (no GPU) ---------------------------------------------------------
 
