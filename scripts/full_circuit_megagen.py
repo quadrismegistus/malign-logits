@@ -80,8 +80,12 @@ def mega_gen_one_model(model, tokenizer, model_id, family, layer_name, prompts,
                     messages, tokenize=False, add_generation_prompt=True,
                     enable_thinking=True)
             except TypeError:
-                templated = tokenizer.apply_chat_template(
-                    messages, tokenize=False, add_generation_prompt=True)
+                try:
+                    templated = tokenizer.apply_chat_template(
+                        messages, tokenize=False, add_generation_prompt=True)
+                except Exception as e:
+                    print(f"    {pk}/{mode_label}: think template failed ({e}), skipping")
+                    continue
             input_ids = tokenizer.encode(templated, return_tensors="pt").to(model.device)
         else:
             input_ids = tokenizer.encode(prompt_text, return_tensors="pt").to(model.device)
