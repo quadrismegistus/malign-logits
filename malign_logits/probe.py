@@ -474,6 +474,34 @@ class Probe:
                     result.append(p)
         return result
 
+    def distance(self, other_model: str, prompt: str,
+                 gen_a: int = 0, gen_b: int = 0,
+                 n_positions: int = 50) -> dict:
+        """All distance measures between this model's generation and another's.
+
+        Returns token Jaccard, bag-of-logits JS, mean position JS,
+        hidden centroid distance.
+        """
+        from .metrics import generation_distance
+        return generation_distance(self, Probe(other_model), prompt,
+                                   gen_a=gen_a, gen_b=gen_b,
+                                   n_positions=n_positions)
+
+    def text_metrics(self, prompt: str, gen: int = 0,
+                     embedder: str = "BAAI/bge-m3") -> dict:
+        """Text-level metrics: drift, embedding. Uses bge-m3."""
+        from .metrics import generation_text_metrics
+        return generation_text_metrics(self, prompt, gen=gen, embedder=embedder)
+
+    def text_distance(self, other_model: str, prompt: str,
+                      gen_a: int = 0, gen_b: int = 0,
+                      embedder: str = "BAAI/bge-m3") -> dict:
+        """Text-level distance via sentence embeddings (bge-m3)."""
+        from .metrics import cross_generation_text_distance
+        return cross_generation_text_distance(
+            self, Probe(other_model), prompt,
+            gen_a=gen_a, gen_b=gen_b, embedder=embedder)
+
     def trajectory(self, prompt: str, axis: str = "violence",
                    gen: int = 0) -> 'pd.DataFrame':
         """Track semantic axis loading at every position through a generation.
