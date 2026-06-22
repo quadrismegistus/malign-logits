@@ -981,6 +981,85 @@ class Probe:
 
         return pd.DataFrame(rows)
 
+    def explore_tree(self, prompt: str, coverage: float = 0.9,
+                     max_depth: int = 5, entropy_floor: float = 0.5,
+                     cumul_floor: float = 0.0001, max_nodes: int = 5000) -> list:
+        """Deterministic tree exploration — no sampling needed.
+
+        At each node, follows branches covering `coverage` fraction of
+        probability mass. Stops branching when entropy < entropy_floor
+        or cumulative path probability < cumul_floor.
+
+        Returns list of node dicts with: depth, token, prob, cumul_prob,
+        entropy, parent, n_children.
+
+        ~75s for 1B model, ~10min for 7B at default settings.
+        """
+        import gc
+        from .models import load_model
+
+        prompt_text = _resolve_prompt(prompt)
+        model, tokenizer = load_model(self.model_id)
+        self._tokenizer = tokenizer
+        device = next(model.parameters()).device
+
+        prompt_ids = tokenizer.encode(prompt_text, return_tensors="pt").to(device)
+
+        queue = [(0, prompt_ids, -1, "ROOT", 1.0, 1.0)]
+        nodes = []
+
+        print(f"[Probe] Exploring tree: {self.model_id} / {prompt}", end="", flush=True)
+
+        while queue and len(nodes) < max_nodes:
+            depth, ids, parent_idx, token_str, branch_prob, cumul_prob = queue.pop(0)
+            if depth > max_depth:
+                continue
+
+            with torch.no_grad():
+                out = model(ids)
+            logits = out.logits[0, -1, :].float().cpu().numpy()
+            from scipy.special import softmax as _sfm
+            probs = _sfm(logits)
+
+            ent = -float(np.sum(probs * np.log(probs + 1e-10)))
+            node_idx = len(nodes)
+            nodes.append({
+                "depth": depth, "token": token_str, "prob": branch_prob,
+                "cumul_prob": cumul_prob, "entropy": ent,
+                "parent": parent_idx, "n_children": 0,
+            })
+            if parent_idx >= 0:
+                nodes[parent_idx]["n_children"] += 1
+
+            if depth < max_depth and ent > entropy_floor:
+                sorted_idx = np.argsort(probs)[::-1]
+                cum = 0.0
+                for tid in sorted_idx:
+                    if cum >= coverage:
+                        break
+                    p = float(probs[tid])
+                    cum += p
+                    child_cumul = cumul_prob * p
+                    if child_cumul < cumul_floor:
+                        break
+                    word = tokenizer.decode([int(tid)]).strip()
+                    new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
+                    queue.append((depth + 1, new_ids, node_idx, word, p, child_cumul))
+
+            if len(nodes) % 500 == 0:
+                print(".", end="", flush=True)
+
+        del model
+        gc.collect()
+        try:
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
+        except Exception:
+            pass
+
+        print(f" {len(nodes)} nodes")
+        return nodes
+
     def across_prompts(self, max_tokens: int = 10) -> 'pd.DataFrame':
         """This model's tree stats across all prompts."""
         import pandas as pd
