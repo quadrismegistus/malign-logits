@@ -581,6 +581,49 @@ class GraphDB:
         """
         return self.query(aql, {"prompt": prompt})
 
+    def clinical_signature(self, threshold: float = 0.1) -> list:
+        """Compute fwd:rev resistance ratio per base model × prompt.
+
+        The ratio IS the clinical signature:
+          >3:1  → foreclosure (deletion + default)
+          1-3:1 → classical displacement (repression/metonymy)
+          <1:1  → constitutive Oedipalization (law installs evaluation)
+
+        Returns sorted list of {base_model, prompt, fwd, rev, neutral,
+        ratio, mechanism, mean_fwd_bits, mean_rev_bits}.
+        """
+        aql = """
+        FOR ann IN annotation_edges
+            FILTER ann.delta_resist != null
+            LET node = DOCUMENT(ann._from)
+            COLLECT base = node.model_short, prompt = ann.prompt INTO group
+            LET fwd = LENGTH(group[* FILTER CURRENT.ann.delta_resist > @thresh])
+            LET rev = LENGTH(group[* FILTER CURRENT.ann.delta_resist < -@thresh])
+            LET neut = LENGTH(group) - fwd - rev
+            LET ratio = fwd / MAX([rev, 1])
+            LET mean_fwd = AVG(
+                group[* FILTER CURRENT.ann.delta_resist > @thresh].ann.delta_resist
+            )
+            LET mean_rev = AVG(
+                group[* FILTER CURRENT.ann.delta_resist < -@thresh].ann.delta_resist
+            )
+            SORT base, prompt
+            RETURN {
+                base_model: base,
+                prompt: prompt,
+                fwd: fwd,
+                rev: rev,
+                neutral: neut,
+                ratio: ratio,
+                mechanism: ratio > 3 ? "foreclosure"
+                         : ratio > 1 ? "displacement"
+                         : "oedipalization",
+                mean_fwd_bits: mean_fwd,
+                mean_rev_bits: mean_rev
+            }
+        """
+        return self.query(aql, {"thresh": threshold})
+
     def stats(self) -> dict:
         """Collection counts."""
         return {
