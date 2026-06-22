@@ -673,6 +673,10 @@ def _annotation_prefixes(node: dict, base_model_id: str = None) -> dict:
     for model_id in candidates:
         short = model_id.split("/")[-1].replace("-", "_").replace(".", "_")[:20]
         variant_map[short] = model_id
+        # Also try without dot replacement (annotate_tree only replaces -)
+        short_nodot = model_id.split("/")[-1].replace("-", "_")[:20]
+        if short_nodot not in variant_map:
+            variant_map[short_nodot] = model_id
 
     prefixes = {}
     for key in node.keys():
