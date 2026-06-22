@@ -977,6 +977,89 @@ def convergence_depth(probe, prompt: str, n_gens: int = 100,
     }
 
 
+def branch_logit_profile(probe, prompt: str, branch_token: str,
+                         track_tokens: list = None,
+                         n_gens: int = 100, max_tokens: int = 10) -> 'pd.DataFrame':
+    """Full logit profile for a branch: entropy, argmax, tracked token probs per position.
+
+    Returns DataFrame with one row per position, columns:
+        position, n_gens, entropy_mean, entropy_std, top_argmax, top_argmax_pct,
+        P_{token} for each tracked token.
+
+    If track_tokens is None, tracks the branch token itself + 'kill'.
+    """
+    import pandas as pd
+    from collections import defaultdict, Counter
+    from .probe import _resolve_prompt
+
+    prompt = _resolve_prompt(prompt)
+    tok = probe.tokenizer
+
+    # Find gens in this branch
+    branch_gens = []
+    for gen in range(n_gens):
+        try:
+            meta = probe.meta(prompt, gen=gen, max_tokens=max_tokens)
+            first_tid = int(meta.iloc[0]["chosen_token_id"])
+            if tok.decode([first_tid]).strip() == branch_token:
+                branch_gens.append(gen)
+        except (FileNotFoundError, ValueError, KeyError):
+            continue
+
+    if not branch_gens:
+        return pd.DataFrame()
+
+    if track_tokens is None:
+        track_tokens = list(set([branch_token, "kill"]))
+
+    track_ids = {}
+    for word in track_tokens:
+        ids = tok.encode(" " + word, add_special_tokens=False)
+        if ids:
+            track_ids[word] = ids[0]
+
+    rows = []
+    for pos in range(max_tokens):
+        ents = []
+        argmaxes = Counter()
+        token_probs = defaultdict(list)
+
+        for gen in branch_gens:
+            try:
+                logits = probe.logits(prompt, gen=gen, pos=pos, max_tokens=max_tokens)
+                probs = _softmax(logits)
+                ents.append(entropy(logits))
+
+                am = int(np.argmax(probs))
+                argmaxes[tok.decode([am]).strip()] += 1
+
+                for word, tid in track_ids.items():
+                    if tid < len(probs):
+                        token_probs[word].append(float(probs[tid]))
+            except (FileNotFoundError, ValueError):
+                pass
+
+        if not ents:
+            continue
+
+        top_am = argmaxes.most_common(1)[0] if argmaxes else ("?", 0)
+        row = {
+            "position": pos,
+            "n_gens": len(ents),
+            "entropy_mean": float(np.mean(ents)),
+            "entropy_std": float(np.std(ents)),
+            "top_argmax": top_am[0],
+            "top_argmax_pct": top_am[1] / len(ents),
+        }
+        for word in track_tokens:
+            vals = token_probs.get(word, [])
+            row[f"P_{word}"] = float(np.mean(vals)) if vals else 0.0
+
+        rows.append(row)
+
+    return pd.DataFrame(rows)
+
+
 def generation_distance(probe_a, probe_b, prompt: str,
                         gen_a: int = 0, gen_b: int = 0,
                         n_positions: int = 50) -> dict:
