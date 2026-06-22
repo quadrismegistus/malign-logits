@@ -66,9 +66,13 @@ class Probe:
     # -- collect (needs GPU) ---------------------------------------------------
 
     def collect(self, n: int = 2, max_tokens: int = 50,
-                temperature: float = 0.8, store_hidden: bool = True,
+                temperature: float = 0.8,
                 prompts: dict = None, mode: str = "raw"):
         """Load this model, generate, store to HashStash, free memory.
+
+        Always stores logits, hidden states, and meta at every position.
+        Hidden states can't be recreated without the exact generation
+        trajectory, so they are never optional.
 
         mode: "raw" (plain text), "chat" (chat template), "complete"
               (assistant-only), "think" (chat + <think>).
@@ -124,7 +128,7 @@ class Probe:
                     prompt_key=prompt_key, prompt_text=prompt_text,
                     gen_id=gen_id, model=model, tokenizer=tokenizer,
                     device=device, max_tokens=max_tokens,
-                    temperature=temperature, store_hidden=store_hidden,
+                    temperature=temperature,
                     cache=cache, store_id=store_id,
                     encoded_input=encoded_inputs.get(prompt_key),
                 )
@@ -145,7 +149,7 @@ class Probe:
 
     def _run_generation(self, prompt_key, prompt_text, gen_id,
                         model, tokenizer, device,
-                        max_tokens, temperature, store_hidden, cache,
+                        max_tokens, temperature, cache,
                         store_id=None, encoded_input=None):
         store_id = store_id or self.model_id
         if encoded_input is not None:
@@ -159,7 +163,7 @@ class Probe:
         for step in range(max_tokens):
             with torch.no_grad():
                 out = model(generated_ids,
-                            output_hidden_states=store_hidden)
+                            output_hidden_states=True)
 
             raw_logits = out.logits[0, -1, :].float()
             probs_cpu = torch.softmax(raw_logits, -1).cpu()
@@ -184,7 +188,7 @@ class Probe:
                 raw_logits.cpu().numpy(), gen=gen_id, pos=step)
 
             # Store hidden states at this position
-            if store_hidden and out.hidden_states:
+            if out.hidden_states:
                 hidden_np = np.stack([
                     h[0, -1, :].cpu().numpy() for h in out.hidden_states
                 ])  # (n_layers, hidden_dim)
@@ -375,7 +379,7 @@ class Probe:
 
     @classmethod
     def collect_tree(cls, name: str, n: int = 1, max_tokens: int = 50,
-                     temperature: float = 0.8, store_hidden: bool = True,
+                     temperature: float = 0.8,
                      prompts: dict = None):
         """Collect data for a base model and all its variants."""
         from .registry import Registry
@@ -386,7 +390,7 @@ class Probe:
         for model_id in models:
             p = Probe(model_id)
             p.collect(n=n, max_tokens=max_tokens, temperature=temperature,
-                      store_hidden=store_hidden, prompts=prompts)
+                      prompts=prompts)
 
     @classmethod
     def compare_tree(cls, name: str, prompt: str,
