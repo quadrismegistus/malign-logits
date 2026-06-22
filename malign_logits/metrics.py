@@ -682,6 +682,158 @@ def logit_drift(dive, checkpoint: str, prompt: str,
 
 
 # =============================================================================
+# Generation-level distance: comparing two full generations
+# =============================================================================
+
+def generation_distance(probe_a, probe_b, prompt: str,
+                        gen_a: int = 0, gen_b: int = 0,
+                        n_positions: int = 50) -> dict:
+    """Multiple distance measures between two generations.
+
+    Works across models (base vs aligned) or within-model (gen 0 vs gen 1).
+    Returns token, logit, hidden, and axis-level distances.
+    """
+    # Token-level
+    meta_a = probe_a.meta(prompt, gen=gen_a)
+    meta_b = probe_b.meta(prompt, gen=gen_b)
+    tokens_a = set(meta_a["chosen_token"].values)
+    tokens_b = set(meta_b["chosen_token"].values)
+    jaccard = len(tokens_a & tokens_b) / max(len(tokens_a | tokens_b), 1)
+
+    n = min(n_positions, len(meta_a), len(meta_b))
+
+    # Bag-of-logits: average logit distribution across positions, then JS
+    logits_a, logits_b = [], []
+    pos_js_list = []
+    for pos in range(n):
+        try:
+            la = probe_a.logits(prompt, gen=gen_a, pos=pos)
+            lb = probe_b.logits(prompt, gen=gen_b, pos=pos)
+            la, lb = _align_vocab(la, lb)
+            logits_a.append(la)
+            logits_b.append(lb)
+            pos_js_list.append(js_divergence(la, lb))
+        except (FileNotFoundError, ValueError):
+            break
+
+    bag_js = 0.0
+    mean_pos_js = 0.0
+    if logits_a:
+        mean_a = np.mean(logits_a, axis=0)
+        mean_b = np.mean(logits_b, axis=0)
+        bag_js = js_divergence(mean_a, mean_b)
+        mean_pos_js = float(np.mean(pos_js_list))
+
+    # Hidden centroid distance
+    cd = centroid_distance(probe_a, probe_b, prompt,
+                           gen=gen_a, n_positions=n, layer=-1)
+    centroid_cos = cd.get("centroid_cos_dist", np.nan) if cd else np.nan
+
+    return {
+        "token_jaccard": jaccard,
+        "bag_of_logits_js": bag_js,
+        "mean_position_js": mean_pos_js,
+        "centroid_cos_dist": centroid_cos,
+        "n_positions": n,
+    }
+
+
+def sentence_embeddings(texts: list, model_name: str = "BAAI/bge-m3") -> np.ndarray:
+    """Embed texts with a sentence transformer. Returns (n, dim) array.
+
+    Loads the model on first call, caches it.
+    """
+    from sentence_transformers import SentenceTransformer
+    if not hasattr(sentence_embeddings, "_model") or sentence_embeddings._name != model_name:
+        sentence_embeddings._model = SentenceTransformer(model_name)
+        sentence_embeddings._name = model_name
+    return sentence_embeddings._model.encode(texts, normalize_embeddings=True)
+
+
+def text_distance(text_a: str, text_b: str,
+                  embedder: str = "BAAI/bge-m3") -> float:
+    """Cosine distance between two texts via sentence embeddings."""
+    vecs = sentence_embeddings([text_a, text_b], embedder)
+    return 1.0 - float(np.dot(vecs[0], vecs[1]))
+
+
+def text_drift(text: str, window: int = 3,
+               embedder: str = "BAAI/bge-m3") -> dict:
+    """Semantic drift within a single text.
+
+    Splits text into chunks of `window` sentences, embeds each,
+    measures cosine distance between consecutive chunks.
+
+    Returns dict with step_dists, total_drift, directedness, mean_step.
+    """
+    import re
+    sentences = [s.strip() for s in re.split(r'[.!?]+', text) if s.strip()]
+    if len(sentences) < 2:
+        return {"step_dists": [], "total_drift": 0.0,
+                "directedness": 1.0, "mean_step": 0.0}
+
+    # Chunk into windows
+    chunks = []
+    for i in range(0, len(sentences), window):
+        chunk = " ".join(sentences[i:i+window])
+        if chunk:
+            chunks.append(chunk)
+
+    if len(chunks) < 2:
+        return {"step_dists": [], "total_drift": 0.0,
+                "directedness": 1.0, "mean_step": 0.0}
+
+    vecs = sentence_embeddings(chunks, embedder)
+
+    step_dists = [1.0 - float(np.dot(vecs[i], vecs[i+1]))
+                  for i in range(len(vecs) - 1)]
+    total_drift = 1.0 - float(np.dot(vecs[0], vecs[-1]))
+    path_length = sum(step_dists)
+    directedness = total_drift / path_length if path_length > 1e-10 else 1.0
+
+    return {
+        "step_dists": step_dists,
+        "total_drift": total_drift,
+        "path_length": path_length,
+        "directedness": directedness,
+        "mean_step": float(np.mean(step_dists)),
+        "n_chunks": len(chunks),
+    }
+
+
+def generation_text_metrics(probe, prompt: str, gen: int = 0,
+                            embedder: str = "BAAI/bge-m3") -> dict:
+    """Text-level metrics for a single generation: drift + embedding."""
+    text = probe.text(prompt, gen=gen)
+    drift = text_drift(text, embedder=embedder)
+    return {
+        "text": text,
+        "n_tokens": len(text.split()),
+        **{f"drift_{k}": v for k, v in drift.items() if k != "step_dists"},
+    }
+
+
+def cross_generation_text_distance(probe_a, probe_b, prompt: str,
+                                   gen_a: int = 0, gen_b: int = 0,
+                                   embedder: str = "BAAI/bge-m3") -> dict:
+    """Text-level distance between two generations using sentence embeddings."""
+    text_a = probe_a.text(prompt, gen=gen_a)
+    text_b = probe_b.text(prompt, gen=gen_b)
+
+    dist = text_distance(text_a, text_b, embedder)
+    drift_a = text_drift(text_a, embedder=embedder)
+    drift_b = text_drift(text_b, embedder=embedder)
+
+    return {
+        "text_cos_dist": dist,
+        "drift_a": drift_a["total_drift"],
+        "drift_b": drift_b["total_drift"],
+        "directedness_a": drift_a["directedness"],
+        "directedness_b": drift_b["directedness"],
+    }
+
+
+# =============================================================================
 # Batch: compute all T1 metrics for a (base, aligned) pair
 # =============================================================================
 
