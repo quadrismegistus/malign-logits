@@ -699,6 +699,19 @@ class Probe:
                 result.append(name)
         return result
 
+    def tree(self, prompt: str, n_gens: int = 100,
+             max_tokens: int = 10) -> dict:
+        """Tree-level metrics: branch distribution, entropy, counts."""
+        from .metrics import tree_metrics
+        return tree_metrics(self, _resolve_prompt(prompt), n_gens, max_tokens)
+
+    def tree_compare(self, other_model: str, prompt: str,
+                     n_gens: int = 100, max_tokens: int = 10) -> dict:
+        """Compare tree structures with another model."""
+        from .metrics import tree_compare
+        return tree_compare(self, Probe(other_model),
+                           _resolve_prompt(prompt), n_gens, max_tokens)
+
     def branches(self, prompt: str, max_tokens: int = 100,
                  depth: int = 1) -> dict:
         """Tree view: group generations by first token(s).
