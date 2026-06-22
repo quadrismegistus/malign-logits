@@ -112,8 +112,102 @@ class ModelHandler(BaseHTTPRequestHandler):
                 self._respond(200, result)
             except Exception as e:
                 self._respond(200, {"prompts": []})
+        elif self.path.startswith("/api/"):
+            self._handle_probe_api()
         else:
             self._serve_static()
+
+    def _handle_probe_api(self):
+        """Probe API: on-demand computation from cached data."""
+        from urllib.parse import urlparse, parse_qs
+        parsed = urlparse(self.path)
+        params = {k: v[0] for k, v in parse_qs(parsed.query).items()}
+        endpoint = parsed.path
+
+        try:
+            if endpoint == "/api/tree":
+                from .probe import Probe
+                from .metrics import tree_metrics
+                p = Probe(params["model"])
+                result = tree_metrics(p, params.get("prompt", "She was so angry she wanted to"),
+                                      n_gens=int(params.get("n", 100)),
+                                      max_tokens=int(params.get("T", 10)))
+                self._respond(200, result)
+
+            elif endpoint == "/api/tree_compare":
+                from .probe import Probe
+                from .metrics import tree_compare
+                result = tree_compare(
+                    Probe(params["base"]), Probe(params["aligned"]),
+                    params.get("prompt", "She was so angry she wanted to"),
+                    n_gens=int(params.get("n", 100)),
+                    max_tokens=int(params.get("T", 10)))
+                self._respond(200, result)
+
+            elif endpoint == "/api/tree_sankey":
+                from .probe import Probe, _resolve_prompt
+                from scripts.export_tree_sankey import build_sankey_tree
+                result = build_sankey_tree(
+                    params["model"], params.get("prompt", "anger"),
+                    n_gens=int(params.get("n", 100)),
+                    max_tokens=int(params.get("T", 10)))
+                self._respond(200, result)
+
+            elif endpoint == "/api/distribution":
+                from .probe import Probe, _resolve_prompt
+                from scipy.special import softmax
+                p = Probe(params["model"])
+                prompt = _resolve_prompt(params.get("prompt", "anger"))
+                logits = p.logits(prompt, gen=0,
+                                  pos=int(params.get("pos", 0)),
+                                  max_tokens=int(params.get("T", 10)))
+                probs = softmax(logits)
+                tok = p.tokenizer
+                k = int(params.get("k", 30))
+                top_idx = probs.argsort()[-k:][::-1]
+                result = [{"token": tok.decode([int(i)]).strip(),
+                           "prob": float(probs[i]),
+                           "token_id": int(i)}
+                          for i in top_idx]
+                self._respond(200, {"tokens": result, "model": params["model"]})
+
+            elif endpoint == "/api/trajectory":
+                from .probe import Probe, _resolve_prompt
+                from .metrics import axis_trajectory, violence_procedural_axes
+                import numpy as np
+                p = Probe(params["model"])
+                prompt = _resolve_prompt(params.get("prompt", "anger"))
+                embed = p.embedding_matrix()
+                v_ax, p_ax = violence_procedural_axes(embed, p.tokenizer)
+                axis = params.get("axis", "violence")
+                ax = v_ax if axis == "violence" else p_ax
+                df = axis_trajectory(p, prompt, embed, ax, axis_name=axis)
+                self._respond(200, df.to_dict(orient="records"))
+
+            elif endpoint == "/api/census":
+                from .probe import Probe
+                prompt = params.get("prompt", "anger")
+                df = Probe.census(prompt, max_tokens=int(params.get("T", 10)))
+                self._respond(200, df.to_dict(orient="records"))
+
+            elif endpoint == "/api/census_compare":
+                from .probe import Probe
+                prompt = params.get("prompt", "anger")
+                df = Probe.census_compare(prompt, max_tokens=int(params.get("T", 10)))
+                self._respond(200, df.to_dict(orient="records"))
+
+            elif endpoint == "/api/families":
+                from .probe import Probe
+                df = Probe.families()
+                self._respond(200, df.to_dict(orient="records"))
+
+            else:
+                self._respond(404, {"error": f"Unknown endpoint: {endpoint}"})
+
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            self._respond(500, {"error": str(e)})
 
     def _serve_static(self):
         path = self.path.split("?")[0]
