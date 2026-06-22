@@ -369,6 +369,139 @@ def hidden_distance(h_base: np.ndarray, h_aligned: np.ndarray) -> float:
     return float(np.mean(dists))
 
 
+def hidden_divergence_trajectory(probe_base, probe_aligned, prompt: str,
+                                 gen: int = 0) -> dict:
+    """How hidden distance between base and aligned evolves across positions.
+
+    At position 0 (teacher-forced, same input), divergence is purely
+    from weight changes. At later positions, the models generate different
+    tokens so divergence compounds. The RATE of compounding tells you
+    whether alignment's hidden-space effect grows, stabilizes, or shrinks
+    during generation.
+
+    Returns dict with:
+        positions: list of position indices
+        distances: per-position mean hidden distance (across layers)
+        distance_last_layer: per-position distance at final layer only
+        growth_rate: linear slope of distance over positions
+    """
+    meta = probe_base.meta(prompt, gen=gen)
+    positions = sorted(meta["position"].unique())
+
+    dists_mean = []
+    dists_last = []
+    for pos in positions:
+        try:
+            hb = probe_base.hidden(prompt, gen=gen, pos=pos)
+            ha = probe_aligned.hidden(prompt, gen=gen, pos=pos)
+            dists_mean.append(hidden_distance(hb, ha))
+            # Last layer only
+            b, a = hb[-1], ha[-1]
+            nb, na = np.linalg.norm(b), np.linalg.norm(a)
+            dists_last.append(1.0 - float(np.dot(b, a) / (nb * na))
+                              if nb > 1e-10 and na > 1e-10 else 1.0)
+        except (FileNotFoundError, ValueError):
+            break
+
+    positions = positions[:len(dists_mean)]
+    growth = float(np.polyfit(np.arange(len(dists_mean)), dists_mean, 1)[0]) if len(dists_mean) > 1 else 0.0
+
+    return {
+        "positions": positions,
+        "distances": dists_mean,
+        "distance_last_layer": dists_last,
+        "growth_rate": growth,
+        "mean_distance": float(np.mean(dists_mean)),
+        "pos0_distance": dists_mean[0] if dists_mean else 0.0,
+        "final_distance": dists_mean[-1] if dists_mean else 0.0,
+    }
+
+
+def hidden_distance_by_prompt(probe_base, probe_aligned,
+                              prompts: list = None,
+                              gen: int = 0, pos: int = 0) -> dict:
+    """Is hidden distance content-dependent?
+
+    Computes hidden_distance for each prompt, returns per-prompt
+    distances + variance. Low variance = alignment is content-blind
+    in hidden space (matching the 1.7% content variance in logit space).
+    """
+    from .probe import PROMPTS
+    prompts = prompts or list(PROMPTS.keys())
+
+    distances = {}
+    for prompt in prompts:
+        try:
+            hb = probe_base.hidden(prompt, gen=gen, pos=pos)
+            ha = probe_aligned.hidden(prompt, gen=gen, pos=pos)
+            distances[prompt] = hidden_distance(hb, ha)
+        except (FileNotFoundError, ValueError):
+            pass
+
+    vals = list(distances.values())
+    return {
+        "per_prompt": distances,
+        "mean": float(np.mean(vals)) if vals else 0.0,
+        "std": float(np.std(vals)) if vals else 0.0,
+        "cv": float(np.std(vals) / np.mean(vals)) if vals and np.mean(vals) > 1e-10 else 0.0,
+    }
+
+
+def formation_trajectory(probe, prompts_dict: dict = None,
+                          checkpoints: list = None,
+                          prompt: str = "anger",
+                          gen: int = 0, pos: int = 0,
+                          k: int = 30) -> 'pd.DataFrame':
+    """Track how top-k token probabilities evolve through base→SFT→DPO.
+
+    Returns DataFrame with one row per token, columns for probability
+    at each checkpoint. Shows which tokens gain/lose across the pipeline.
+    """
+    import pandas as pd
+    from scipy.special import softmax
+
+    if checkpoints is None:
+        from .registry import Registry
+        reg = Registry()
+        base_id = reg.base_of(probe.model_id)
+        checkpoints = [base_id] + reg.variants_of(base_id)
+
+    tok = probe.tokenizer
+    all_probs = {}
+
+    for cp in checkpoints:
+        try:
+            from .probe import Probe
+            logits = Probe(cp).logits(prompt, gen=gen, pos=pos)
+            all_probs[cp.split("/")[-1]] = softmax(logits)
+        except (FileNotFoundError, ValueError):
+            pass
+
+    if not all_probs:
+        return pd.DataFrame()
+
+    # Get top-k from first checkpoint (base)
+    first_key = list(all_probs.keys())[0]
+    first_probs = all_probs[first_key]
+    top_ids = np.argsort(first_probs)[-k:][::-1]
+
+    rows = []
+    for tid in top_ids:
+        try:
+            word = tok.decode([tid]).strip()
+        except Exception:
+            word = f"<{tid}>"
+        row = {"token": word, "token_id": int(tid)}
+        for cp_name, probs in all_probs.items():
+            if tid < len(probs):
+                row[cp_name] = float(probs[tid])
+            else:
+                row[cp_name] = 0.0
+        rows.append(row)
+
+    return pd.DataFrame(rows)
+
+
 def internal_drift(dive, checkpoint: str, prompt: str,
                    gen: int = 0, layer: int = -1) -> dict:
     """Drift in the model's own hidden-state space across generation.

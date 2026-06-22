@@ -367,6 +367,31 @@ class Probe:
                     result.append(p)
         return result
 
+    # -- cross-model analysis (hidden states) ------------------------------------
+
+    def hidden_divergence(self, other_model: str, prompt: str,
+                          gen: int = 0) -> dict:
+        """How hidden distance between this model and another evolves over positions.
+
+        Returns dict with per-position distances, growth rate, mean.
+        """
+        from .metrics import hidden_divergence_trajectory
+        return hidden_divergence_trajectory(
+            self, Probe(other_model), prompt, gen=gen)
+
+    def hidden_by_prompt(self, other_model: str,
+                         gen: int = 0, pos: int = 0) -> dict:
+        """Is hidden distance content-dependent? Per-prompt distances + variance."""
+        from .metrics import hidden_distance_by_prompt
+        return hidden_distance_by_prompt(
+            self, Probe(other_model), gen=gen, pos=pos)
+
+    def formation(self, prompt: str = "anger",
+                  gen: int = 0, pos: int = 0, k: int = 30) -> 'pd.DataFrame':
+        """Track top-k token probabilities across base→SFT→DPO pipeline."""
+        from .metrics import formation_trajectory
+        return formation_trajectory(self, prompt=prompt, gen=gen, pos=pos, k=k)
+
     # -- family resolution -----------------------------------------------------
 
     FAMILIES = {
