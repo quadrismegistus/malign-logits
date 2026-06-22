@@ -245,6 +245,233 @@ class Probe:
         cache.set_probe_meta(store_id, prompt_text, meta_rows, gen=gen_id,
                             max_tokens=max_tokens)
 
+    def replay(self, prompt: str, gen: int = 0, max_tokens: int = 100):
+        """Replay a stored generation through the model in one forward pass.
+
+        Reads the generated text from probe_meta, tokenizes prompt + text,
+        runs a single forward pass with output_hidden_states=True, and
+        caches logits + hidden at every position.
+
+        This is NOT autoregressive — one forward pass gives all positions.
+        ~3s for a 7B model on 100 tokens.
+        """
+        import gc
+        from .models import load_model
+
+        prompt_text = _resolve_prompt(prompt)
+        cache = _get_cache()
+
+        # Check if already replayed
+        if cache.has_probe(self.model_id, prompt_text, gen=gen, pos=0,
+                           max_tokens=max_tokens):
+            return
+
+        # Get stored text
+        meta = self._meta_get(prompt_text, gen, max_tokens)
+        if meta is None:
+            raise FileNotFoundError(
+                f"No stored text for {self.model_id}/{prompt_text} gen={gen}")
+
+        # Extract the generated text
+        if isinstance(meta, list) and len(meta) > 0:
+            text = meta[0].get("generated_text") or meta[0].get("chosen_text", "")
+        else:
+            raise ValueError(f"Meta has no text for {self.model_id}/{prompt_text}")
+
+        print(f"[Probe] Replaying {self.model_id} / {_prompt_name(prompt_text)} gen={gen}...",
+              end="", flush=True)
+        model, tokenizer = load_model(self.model_id)
+        self._tokenizer = tokenizer
+        device = next(model.parameters()).device
+
+        # Tokenize full sequence: prompt + generated text
+        full_ids = tokenizer.encode(prompt_text + text, return_tensors="pt").to(device)
+        prompt_len = len(tokenizer.encode(prompt_text))
+
+        # Single forward pass
+        with torch.no_grad():
+            out = model(full_ids, output_hidden_states=True)
+
+        # Cache logits + hidden at each generation position
+        n_gen = min(full_ids.shape[1] - prompt_len, max_tokens)
+        meta_rows = []
+
+        for step in range(n_gen):
+            seq_pos = prompt_len + step
+            raw_logits = out.logits[0, seq_pos, :].float()
+            probs_cpu = torch.softmax(raw_logits, -1).cpu()
+
+            ent = -(probs_cpu * probs_cpu.clamp(min=1e-10).log()).sum().item()
+            eff_vocab = int((probs_cpu > 0.001).sum())
+            topk = torch.topk(probs_cpu, 10)
+            top_tokens = [tokenizer.decode([idx]).strip() for idx in topk.indices]
+            top_probs = topk.values.tolist()
+
+            # The actual next token (from the stored generation)
+            if seq_pos + 1 < full_ids.shape[1]:
+                chosen_id = full_ids[0, seq_pos + 1].item()
+            else:
+                chosen_id = tokenizer.eos_token_id or 0
+
+            cache.set_probe_logits(
+                self.model_id, prompt_text,
+                raw_logits.cpu().numpy(), gen=gen, pos=step,
+                max_tokens=max_tokens)
+
+            if out.hidden_states:
+                hidden_np = np.stack([
+                    h[0, seq_pos, :].cpu().numpy() for h in out.hidden_states
+                ])
+                cache.set_probe_hidden(
+                    self.model_id, prompt_text,
+                    hidden_np, gen=gen, pos=step,
+                    max_tokens=max_tokens)
+
+            meta_rows.append({
+                "position": step,
+                "prompt_text": prompt_text,
+                "generated_text": text,
+                "entropy": ent,
+                "eff_vocab": eff_vocab,
+                "argmax_token": top_tokens[0],
+                "argmax_prob": top_probs[0],
+                "chosen_token": tokenizer.decode([chosen_id]).strip(),
+                "chosen_token_id": chosen_id,
+                "chosen_prob": probs_cpu[chosen_id].item() if chosen_id < len(probs_cpu) else 0.0,
+                "top5_tokens": "|".join(top_tokens[:5]),
+                "top5_probs": "|".join(f"{p:.6f}" for p in top_probs[:5]),
+            })
+
+        # Overwrite meta with full per-position data
+        cache.set_probe_meta(self.model_id, prompt_text, meta_rows,
+                            gen=gen, max_tokens=max_tokens)
+
+        del model
+        gc.collect()
+        try:
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
+        except Exception:
+            pass
+
+        print(f" {n_gen} positions cached")
+
+    @classmethod
+    def replay_all(cls, prompts: dict = None, gen: int = 0,
+                   max_tokens: int = 100):
+        """Replay gen=0 for all registered models on canonical prompts.
+
+        Single forward pass per model×prompt. Loads each model once,
+        replays all prompts, frees memory.
+        """
+        import gc
+        from .registry import Registry
+        from .models import load_model
+
+        prompts = prompts or PROMPTS
+        reg = Registry()
+        cache = _get_cache()
+
+        models = sorted(reg.models())
+        print(f"[Probe] Replaying {len(models)} models × {len(prompts)} prompts")
+
+        for model_id in models:
+            # Check if any prompts need replaying
+            needs = []
+            for name, text in prompts.items():
+                if not cache.has_probe(model_id, text, gen=gen, pos=0,
+                                       max_tokens=max_tokens):
+                    # Check if we have stored text to replay
+                    meta_key = {"model": model_id, "prompt": text,
+                                "gen": gen, "T": max_tokens}
+                    if meta_key in cache._stash("probe_meta"):
+                        needs.append((name, text))
+
+            if not needs:
+                continue
+
+            try:
+                print(f"  {model_id}: ", end="", flush=True)
+                model, tokenizer = load_model(model_id)
+                device = next(model.parameters()).device
+
+                for name, prompt_text in needs:
+                    meta = cache._stash("probe_meta")[
+                        {"model": model_id, "prompt": prompt_text,
+                         "gen": gen, "T": max_tokens}]
+                    text = meta[0].get("generated_text", "")
+                    if not text:
+                        continue
+
+                    full_ids = tokenizer.encode(
+                        prompt_text + text, return_tensors="pt").to(device)
+                    prompt_len = len(tokenizer.encode(prompt_text))
+
+                    with torch.no_grad():
+                        out = model(full_ids, output_hidden_states=True)
+
+                    n_gen = min(full_ids.shape[1] - prompt_len, max_tokens)
+                    meta_rows = []
+
+                    for step in range(n_gen):
+                        seq_pos = prompt_len + step
+                        raw_logits = out.logits[0, seq_pos, :].float()
+                        probs_cpu = torch.softmax(raw_logits, -1).cpu()
+
+                        ent = -(probs_cpu * probs_cpu.clamp(min=1e-10).log()).sum().item()
+                        topk = torch.topk(probs_cpu, 10)
+                        top_tokens = [tokenizer.decode([idx]).strip()
+                                      for idx in topk.indices]
+                        top_probs = topk.values.tolist()
+
+                        chosen_id = (full_ids[0, seq_pos + 1].item()
+                                     if seq_pos + 1 < full_ids.shape[1]
+                                     else tokenizer.eos_token_id or 0)
+
+                        cache.set_probe_logits(
+                            model_id, prompt_text,
+                            raw_logits.cpu().numpy(), gen=gen, pos=step,
+                            max_tokens=max_tokens)
+
+                        if out.hidden_states:
+                            hidden_np = np.stack([
+                                h[0, seq_pos, :].cpu().numpy()
+                                for h in out.hidden_states])
+                            cache.set_probe_hidden(
+                                model_id, prompt_text,
+                                hidden_np, gen=gen, pos=step,
+                                max_tokens=max_tokens)
+
+                        meta_rows.append({
+                            "position": step, "prompt_text": prompt_text,
+                            "generated_text": text, "entropy": ent,
+                            "eff_vocab": int((probs_cpu > 0.001).sum()),
+                            "argmax_token": top_tokens[0],
+                            "argmax_prob": top_probs[0],
+                            "chosen_token": tokenizer.decode([chosen_id]).strip(),
+                            "chosen_token_id": chosen_id,
+                            "chosen_prob": probs_cpu[chosen_id].item()
+                            if chosen_id < len(probs_cpu) else 0.0,
+                            "top5_tokens": "|".join(top_tokens[:5]),
+                            "top5_probs": "|".join(f"{p:.6f}" for p in top_probs[:5]),
+                        })
+
+                    cache.set_probe_meta(model_id, prompt_text, meta_rows,
+                                        gen=gen, max_tokens=max_tokens)
+                    print(f"{name}+ ", end="", flush=True)
+
+                del model
+                gc.collect()
+                try:
+                    if torch.backends.mps.is_available():
+                        torch.mps.empty_cache()
+                except Exception:
+                    pass
+                print()
+
+            except Exception as e:
+                print(f"FAILED: {e}")
+
     def teacher_force(self, token_source: str, prompt: str,
                       gen: int = 0, max_tokens: int = None):
         """Run this model on another model's generated tokens.
