@@ -982,7 +982,7 @@ class Probe:
         return pd.DataFrame(rows)
 
     def explore_tree(self, prompt: str, coverage: float = 0.5,
-                     max_depth: int = 5, entropy_floor: float = 0.5,
+                     max_depth: int = 5,
                      cumul_floor: float = 0.001, max_nodes: int = 5000) -> list:
         """Deterministic tree exploration — no sampling needed.
 
@@ -992,7 +992,7 @@ class Probe:
 
         At each node, follows branches until `coverage` fraction of
         probability mass is covered. Stops branching when:
-        - entropy < entropy_floor (model is certain)
+        - top-1 token already exceeds coverage (model has decided)
         - cumulative path probability < cumul_floor (path too unlikely)
         - max_depth or max_nodes reached
 
@@ -1038,20 +1038,32 @@ class Probe:
             if parent_idx >= 0:
                 nodes[parent_idx]["n_children"] += 1
 
-            if depth < max_depth and ent > entropy_floor:
+            if depth < max_depth:
                 sorted_idx = np.argsort(probs)[::-1]
-                cum = 0.0
-                for tid in sorted_idx:
-                    if cum >= coverage:
-                        break
-                    p = float(probs[tid])
-                    cum += p
-                    child_cumul = cumul_prob * p
-                    if child_cumul < cumul_floor:
-                        break
-                    word = tokenizer.decode([int(tid)]).strip()
-                    new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
-                    queue.append((depth + 1, new_ids, node_idx, word, p, child_cumul))
+                top1_prob = float(probs[sorted_idx[0]])
+                if top1_prob >= coverage:
+                    # Model has decided — follow only the top token
+                    tid = sorted_idx[0]
+                    p_val = float(probs[tid])
+                    child_cumul = cumul_prob * p_val
+                    if child_cumul >= cumul_floor:
+                        word = tokenizer.decode([int(tid)]).strip()
+                        new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
+                        queue.append((depth + 1, new_ids, node_idx, word, p_val, child_cumul))
+                else:
+                    # Branch until coverage reached
+                    cum = 0.0
+                    for tid in sorted_idx:
+                        if cum >= coverage:
+                            break
+                        p_val = float(probs[tid])
+                        cum += p_val
+                        child_cumul = cumul_prob * p_val
+                        if child_cumul < cumul_floor:
+                            break
+                        word = tokenizer.decode([int(tid)]).strip()
+                        new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
+                        queue.append((depth + 1, new_ids, node_idx, word, p_val, child_cumul))
 
             if len(nodes) % 500 == 0:
                 print(".", end="", flush=True)
