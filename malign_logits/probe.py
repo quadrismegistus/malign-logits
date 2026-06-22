@@ -85,7 +85,7 @@ class Probe:
     # -- collect (needs GPU) ---------------------------------------------------
 
     def collect(self, n: int = 2, max_tokens: int = 50,
-                temperature: float = 0.8,
+                temperature: float = 1.0,
                 prompts: dict = None, mode: str = "raw"):
         """Load this model, generate, store to HashStash, free memory.
 
