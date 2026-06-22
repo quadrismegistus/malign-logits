@@ -1216,22 +1216,46 @@ class Probe:
                         resistance = 0.0
                         delta_resistance = 0.0
 
-                    # JS divergence: full distributional distance base↔annotator
+                    # JS divergence + top movers: full distributional comparison
                     base_logits = node.get("_logits")
+                    node_js = 0.0
+                    top_gained = ""
+                    top_lost = ""
+                    abs_resistance = 0.0
+
                     if base_logits is not None:
                         from .metrics import js_divergence as _js, _align_vocab
                         bl, al = _align_vocab(np.array(base_logits), logits)
                         node_js = _js(bl, al)
-                    else:
-                        node_js = 0.0
+
+                        # Top movers: which tokens gained/lost most?
+                        from scipy.special import softmax as _sfm2
+                        p_base = _sfm2(bl)
+                        p_ann = _sfm2(al)
+                        delta = p_ann - p_base
+                        top5_gained = np.argsort(delta)[-3:][::-1]
+                        top5_lost = np.argsort(delta)[:3]
+                        top_gained = "|".join(
+                            f"{tok.decode([int(i)]).strip()}({delta[i]:+.3f})"
+                            for i in top5_gained if abs(delta[i]) > 0.005)
+                        top_lost = "|".join(
+                            f"{tok.decode([int(i)]).strip()}({delta[i]:+.3f})"
+                            for i in top5_lost if abs(delta[i]) > 0.005)
+
+                        # Absolute resistance: bits for base argmax under annotator
+                        base_argmax = int(np.argmax(p_base))
+                        abs_resistance = -float(np.log2(max(p_ann[base_argmax], 1e-10)))
 
                     node[f"{short}_entropy"] = ent
                     node[f"{short}_argmax"] = argmax_word
                     node[f"{short}_js"] = node_js
                     node[f"{short}_entropy_delta"] = ent - node["entropy"]
+                    node[f"{short}_abs_resistance"] = abs_resistance
                     node[f"{short}_resistance"] = resistance
                     node[f"{short}_delta_resist"] = delta_resistance
                     node[f"{short}_prob_child"] = child_prob
+                    node[f"{short}_top_gained"] = top_gained
+                    node[f"{short}_top_lost"] = top_lost
 
                     if out.hidden_states:
                         h_ann = out.hidden_states[-1][0, -1, :].cpu().numpy()
