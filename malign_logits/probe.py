@@ -120,18 +120,10 @@ class Probe:
             collected = 0
 
             for gen_id in range(n):
-                existing_meta = cache.get_probe_meta(
-                    store_id, prompt_key, gen=gen_id)
-                if existing_meta is not None:
-                    existing_len = len(existing_meta)
-                    # Complete if: reached max_tokens OR hit EOS
-                    hit_eos = (existing_len > 0 and
-                               existing_meta[-1].get("chosen_token_id") ==
-                               tokenizer.eos_token_id)
-                    if existing_len >= max_tokens or hit_eos:
-                        print(".", end="", flush=True)
-                        continue
-                    print(f"({existing_len}→{max_tokens})", end="", flush=True)
+                if cache.has_probe(store_id, prompt_key,
+                                   gen=gen_id, pos=0, max_tokens=max_tokens):
+                    print(".", end="", flush=True)
+                    continue
 
                 self._run_generation(
                     prompt_key=prompt_key, prompt_text=prompt_text,
@@ -194,7 +186,8 @@ class Probe:
             # Store logits at this position
             cache.set_probe_logits(
                 store_id, prompt_key,
-                raw_logits.cpu().numpy(), gen=gen_id, pos=step)
+                raw_logits.cpu().numpy(), gen=gen_id, pos=step,
+                max_tokens=max_tokens)
 
             # Store hidden states at this position
             if out.hidden_states:
@@ -203,7 +196,8 @@ class Probe:
                 ])  # (n_layers, hidden_dim)
                 cache.set_probe_hidden(
                     store_id, prompt_key,
-                    hidden_np, gen=gen_id, pos=step)
+                    hidden_np, gen=gen_id, pos=step,
+                    max_tokens=max_tokens)
 
             meta_rows.append({
                 "position": step,
@@ -229,35 +223,79 @@ class Probe:
                 break
 
         # Store meta for this generation (all positions at once)
-        cache.set_probe_meta(store_id, prompt_key, meta_rows, gen=gen_id)
+        cache.set_probe_meta(store_id, prompt_key, meta_rows, gen=gen_id,
+                            max_tokens=max_tokens)
 
     # -- read (no GPU) ---------------------------------------------------------
 
-    def logits(self, prompt: str, gen: int = 0, pos: int = 0) -> np.ndarray:
+    def _resolve_T(self, prompt, gen, max_tokens):
+        """Find max_tokens for a given (prompt, gen) if not specified.
+
+        Checks known lengths in descending order. Falls back to None
+        for legacy data stored without T in the key.
+        """
+        if max_tokens is not None:
+            return max_tokens
+        cache = _get_cache()
+        for T in [100, 50, 20, 10, 5]:
+            if cache.has_probe(self.model_id, prompt, gen=gen, pos=0, max_tokens=T):
+                return T
+        # Legacy: data stored without T in key
+        old_key = {"model": self.model_id, "prompt": prompt, "gen": gen, "pos": 0}
+        if old_key in cache._stash("probe_logits"):
+            return None
+        return 20
+
+    def _probe_get(self, stash_name, prompt, gen, pos, max_tokens):
+        """Get from probe stash with legacy fallback."""
+        cache = _get_cache()
+        T = self._resolve_T(prompt, gen, max_tokens)
+        if T is not None:
+            return cache._stash(stash_name).get(
+                {"model": self.model_id, "prompt": prompt,
+                 "gen": gen, "pos": pos, "T": T})
+        # Legacy key (no T)
+        key = {"model": self.model_id, "prompt": prompt, "gen": gen, "pos": pos}
+        s = cache._stash(stash_name)
+        return s[key] if key in s else None
+
+    def _meta_get(self, prompt, gen, max_tokens):
+        """Get meta with legacy fallback."""
+        cache = _get_cache()
+        T = self._resolve_T(prompt, gen, max_tokens)
+        if T is not None:
+            return cache.get_probe_meta(self.model_id, prompt, gen, max_tokens=T)
+        # Legacy key (no T)
+        key = {"model": self.model_id, "prompt": prompt, "gen": gen}
+        s = cache._stash("probe_meta")
+        return s[key] if key in s else None
+
+    def logits(self, prompt: str, gen: int = 0, pos: int = 0,
+               max_tokens: int = None) -> np.ndarray:
         """Logit vector as numpy (vocab_size,)."""
-        v = _get_cache().get_probe_logits(self.model_id, prompt, gen, pos)
+        v = self._probe_get("probe_logits", prompt, gen, pos, max_tokens)
         if v is None:
             raise FileNotFoundError(
                 f"No logits for {self.model_id}/{prompt} gen={gen} pos={pos}")
         return np.asarray(v, dtype=np.float32)
 
     def hidden(self, prompt: str, gen: int = 0, pos: int = 0,
-               layer: int = None) -> np.ndarray:
+               layer: int = None, max_tokens: int = None) -> np.ndarray:
         """Hidden states. With layer: (hidden_dim,). Without: (n_layers, hidden_dim)."""
-        v = _get_cache().get_probe_hidden(self.model_id, prompt, gen, pos)
+        v = self._probe_get("probe_hidden", prompt, gen, pos, max_tokens)
         if v is None:
             raise FileNotFoundError(
-                f"No hidden states for {self.model_id}/{prompt} gen={gen} pos={pos}")
+                f"No hidden for {self.model_id}/{prompt} gen={gen} pos={pos}")
         h = np.asarray(v, dtype=np.float32)
         if layer is not None:
             return h[layer]
         return h
 
-    def meta(self, prompt: str, gen: int = None) -> pd.DataFrame:
+    def meta(self, prompt: str, gen: int = None,
+             max_tokens: int = None) -> pd.DataFrame:
         """Meta (scalars + text). gen=None returns all generations."""
-        cache = _get_cache()
         if gen is not None:
-            rows = cache.get_probe_meta(self.model_id, prompt, gen)
+            rows = self._meta_get(prompt, gen, max_tokens)
             if rows is None:
                 raise FileNotFoundError(
                     f"No meta for {self.model_id}/{prompt} gen={gen}")
@@ -266,8 +304,8 @@ class Probe:
             return df
 
         frames = []
-        for g in range(self.n_gens(prompt)):
-            rows = cache.get_probe_meta(self.model_id, prompt, g)
+        for g in range(self.n_gens(prompt, max_tokens=max_tokens)):
+            rows = self._meta_get(prompt, g, max_tokens)
             if rows:
                 df = pd.DataFrame(rows)
                 df["gen_id"] = g
@@ -300,14 +338,34 @@ class Probe:
         """Reconstructed generated text."""
         return " ".join(self.meta(prompt, gen=gen)["chosen_token"].values)
 
-    def n_gens(self, prompt: str) -> int:
-        return _get_cache().count_probe_gens(self.model_id, prompt)
-
-    def prompts(self) -> list:
-        """Prompts with data (checks PROMPTS keys against cache)."""
+    def n_gens(self, prompt: str, max_tokens: int = None) -> int:
+        T = self._resolve_T(prompt, 0, max_tokens)
+        if T is not None:
+            return _get_cache().count_probe_gens(self.model_id, prompt,
+                                                  max_tokens=T)
+        # Legacy: count without T
         cache = _get_cache()
-        return [p for p in PROMPTS
-                if cache.has_probe(self.model_id, p, gen=0, pos=0)]
+        s = cache._stash("probe_logits")
+        g = 0
+        while {"model": self.model_id, "prompt": prompt, "gen": g, "pos": 0} in s:
+            g += 1
+        return g
+
+    def prompts(self, max_tokens: int = None) -> list:
+        """Prompts with data."""
+        result = []
+        for p in PROMPTS:
+            if self._resolve_T(p, 0, max_tokens) is not None:
+                result.append(p)
+            elif max_tokens is not None:
+                pass  # explicitly requested T, not found
+            else:
+                # Check legacy
+                cache = _get_cache()
+                key = {"model": self.model_id, "prompt": p, "gen": 0, "pos": 0}
+                if key in cache._stash("probe_logits"):
+                    result.append(p)
+        return result
 
     # -- family resolution -----------------------------------------------------
 
