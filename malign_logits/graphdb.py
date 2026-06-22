@@ -188,7 +188,7 @@ class GraphDB:
                     continue
 
                 # Find annotator prefixes
-                ann_prefixes = _annotation_prefixes(nodes[0])
+                ann_prefixes = _annotation_prefixes(nodes[0], base_id)
 
                 for i, node in enumerate(nodes):
                     node_key = f"{_key(base_id)}__{pname}__{i}"
@@ -650,35 +650,42 @@ def _key(model_id: str) -> str:
     return model_id.replace("/", "__").replace(".", "_").replace("-", "_")
 
 
-def _annotation_prefixes(node: dict) -> dict:
+def _annotation_prefixes(node: dict, base_model_id: str = None) -> dict:
     """Extract annotation model prefixes from a tree node's keys.
 
-    Returns {prefix: model_id} mapping. The prefix is the sanitised
-    model name used as column prefix in annotate_tree output.
+    Returns {prefix: model_id} mapping. Uses the base model's known
+    variants to resolve ambiguous truncated prefixes.
     """
     from .registry import Registry
     reg = Registry()
 
+    # Build prefix→model_id map from known variants of this base
+    variant_map = {}
+    if base_model_id:
+        base_id = reg.base_of(base_model_id) or base_model_id
+        candidates = reg.variants_of(base_id)
+        if base_model_id != base_id:
+            candidates = [base_id] + candidates
+        candidates = [m for m in candidates if m != base_model_id]
+    else:
+        candidates = reg.models()
+
+    for model_id in candidates:
+        short = model_id.split("/")[-1].replace("-", "_").replace(".", "_")[:20]
+        variant_map[short] = model_id
+
     prefixes = {}
     for key in node.keys():
         if key.endswith("_js"):
-            prefix = key[:-3]  # strip '_js'
-            # Try to resolve prefix back to model ID
-            model_id = _resolve_prefix(prefix, reg)
-            if model_id:
-                prefixes[prefix] = model_id
+            prefix = key[:-3]
+            if prefix in variant_map:
+                prefixes[prefix] = variant_map[prefix]
+            else:
+                # Fallback: try all models
+                for model_id in reg.models():
+                    short = model_id.split("/")[-1].replace("-", "_").replace(".", "_")[:20]
+                    if short == prefix:
+                        prefixes[prefix] = model_id
+                        break
 
     return prefixes
-
-
-def _resolve_prefix(prefix: str, reg) -> str:
-    """Resolve a sanitised prefix back to a HuggingFace model ID.
-
-    annotate_tree uses model short names with / and - replaced.
-    """
-    for model_id in reg.models():
-        short = model_id.split("/")[-1]
-        sanitised = short.replace("-", "_").replace(".", "_")
-        if sanitised == prefix:
-            return model_id
-    return None
