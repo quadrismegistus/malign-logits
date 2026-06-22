@@ -348,6 +348,27 @@ def hidden_state_drift(h_pos0: np.ndarray, h_posN: np.ndarray) -> float:
     return 1.0 - float(np.dot(h_pos0, h_posN) / (norm_a * norm_b))
 
 
+def hidden_distance(h_base: np.ndarray, h_aligned: np.ndarray) -> float:
+    """Mean cosine distance between two models' hidden states across all layers.
+
+    Inputs: (n_layers, hidden_dim) from Probe.hidden() at the same prompt/pos.
+    Returns a single number: 0 = identical representations, 1 = orthogonal.
+
+    This measures how far alignment has moved the model's internal state —
+    the representational cost of alignment at a given prompt and position.
+    """
+    n = h_base.shape[0]
+    dists = []
+    for i in range(n):
+        b, a = h_base[i], h_aligned[i]
+        nb, na = np.linalg.norm(b), np.linalg.norm(a)
+        if nb < 1e-10 or na < 1e-10:
+            dists.append(1.0)
+        else:
+            dists.append(1.0 - float(np.dot(b, a) / (nb * na)))
+    return float(np.mean(dists))
+
+
 def internal_drift(dive, checkpoint: str, prompt: str,
                    gen: int = 0, layer: int = -1) -> dict:
     """Drift in the model's own hidden-state space across generation.
