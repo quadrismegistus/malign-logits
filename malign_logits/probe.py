@@ -699,6 +699,77 @@ class Probe:
                 result.append(name)
         return result
 
+    def branches(self, prompt: str, max_tokens: int = 100,
+                 depth: int = 1) -> dict:
+        """Tree view: group generations by first token(s).
+
+        Returns dict mapping first token(s) → list of gen indices.
+        depth=1: group by first token. depth=2: first two tokens. etc.
+        """
+        prompt_text = _resolve_prompt(prompt)
+        cache = _get_cache()
+        gen_stash = cache._stash('generations')
+
+        branches = {}
+        idx = 0
+        while True:
+            text = cache.get_generation(self.model_id, prompt_text, temp=1.0, idx=idx)
+            if text is None:
+                break
+            words = text.strip().split()[:depth]
+            key = " ".join(words) if words else "?"
+            if key not in branches:
+                branches[key] = []
+            branches[key].append(idx)
+            idx += 1
+
+        return dict(sorted(branches.items(), key=lambda x: -len(x[1])))
+
+    def branch_logits(self, prompt: str, branch_token: str,
+                      pos: int = 1) -> np.ndarray:
+        """Logits at position `pos` for a generation that starts with `branch_token`.
+
+        Finds the first generation starting with that token and replays
+        through the model. At position 1+, the logits are conditioned on
+        the branch — different first tokens yield different logits.
+
+        For cross-model comparison, use the same branch_token on both models
+        (via teacher_force or replay) for a clean path-matched comparison.
+        """
+        prompt_text = _resolve_prompt(prompt)
+        cache = _get_cache()
+
+        # Find a gen that starts with this token
+        idx = 0
+        while True:
+            text = cache.get_generation(self.model_id, prompt_text, temp=1.0, idx=idx)
+            if text is None:
+                raise FileNotFoundError(
+                    f"No generation starting with '{branch_token}' for "
+                    f"{self.model_id}/{prompt_text}")
+            first_word = text.strip().split()[0] if text.strip() else ""
+            if first_word == branch_token:
+                return self.logits(prompt_text, gen=idx, pos=pos,
+                                   max_tokens=100)
+            idx += 1
+
+    def branch_text(self, prompt: str, branch_token: str,
+                    n: int = 5) -> list:
+        """Get up to n generation texts that start with a given token."""
+        prompt_text = _resolve_prompt(prompt)
+        cache = _get_cache()
+        results = []
+        idx = 0
+        while len(results) < n:
+            text = cache.get_generation(self.model_id, prompt_text, temp=1.0, idx=idx)
+            if text is None:
+                break
+            first_word = text.strip().split()[0] if text.strip() else ""
+            if first_word == branch_token:
+                results.append(text)
+            idx += 1
+        return results
+
     def distance(self, other_model: str, prompt: str,
                  gen_a: int = 0, gen_b: int = 0,
                  n_positions: int = 50) -> dict:
