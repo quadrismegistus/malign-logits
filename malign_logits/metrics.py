@@ -247,6 +247,47 @@ def violence_procedural_axes(embed: np.ndarray, tokenizer) -> tuple:
     return violence, procedural
 
 
+def axis_trajectory(probe, prompt: str, embed: np.ndarray,
+                    axis: np.ndarray, axis_name: str = "axis",
+                    gen: int = 0) -> 'pd.DataFrame':
+    """Track axis loading at every position through a generation.
+
+    Returns DataFrame with one row per position, columns:
+        position, output_loading (from logits), hidden_loading (from last-layer
+        hidden state), chosen_token.
+
+    Within-model metric — no path dependency confound. Shows where in
+    semantic space the generation lives over time.
+    """
+    import pandas as pd
+
+    meta = probe.meta(prompt, gen=gen)
+    token_loadings = embed @ axis
+
+    rows = []
+    for i, (_, mrow) in enumerate(meta.iterrows()):
+        pos = mrow["position"]
+        row = {"position": pos, "chosen_token": mrow["chosen_token"]}
+
+        try:
+            logits = probe.logits(prompt, gen=gen, pos=pos)
+            probs = _softmax(logits)
+            n = min(len(probs), len(token_loadings))
+            row[f"output_{axis_name}"] = float(np.sum(probs[:n] * token_loadings[:n]))
+        except (FileNotFoundError, ValueError):
+            pass
+
+        try:
+            h = probe.hidden(prompt, gen=gen, pos=pos, layer=-1)
+            row[f"hidden_{axis_name}"] = float(np.dot(h, axis))
+        except (FileNotFoundError, ValueError):
+            pass
+
+        rows.append(row)
+
+    return pd.DataFrame(rows)
+
+
 def axis_loading(logits: np.ndarray, embed: np.ndarray,
                  axis: np.ndarray) -> float:
     """Expected projection of distribution onto an axis.
