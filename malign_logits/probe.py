@@ -1137,12 +1137,13 @@ class Probe:
 
         if records:
             db = VecDB()
-            table_name = "trees"
+            hdim = len(records[0]["vector"])
+            table_name = f"trees_{hdim}"
             if table_name in db.db.table_names():
                 db.db.open_table(table_name).add(records)
             else:
                 db.db.create_table(table_name, records)
-            print(f"  Stored {len(records)} tree nodes in vecdb")
+            print(f"  Stored {len(records)} tree nodes in vecdb ({table_name})")
 
         return nodes
 
