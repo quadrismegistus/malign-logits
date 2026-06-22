@@ -685,6 +685,111 @@ def logit_drift(dive, checkpoint: str, prompt: str,
 # Generation-level distance: comparing two full generations
 # =============================================================================
 
+def tree_metrics(probe, prompt: str, n_gens: int = 100,
+                 max_tokens: int = 10) -> dict:
+    """Tree-level metrics from n generations.
+
+    Returns branch distribution, entropy, and per-branch statistics.
+    """
+    from collections import Counter
+
+    empirical = Counter()
+    for gen in range(n_gens):
+        try:
+            meta = probe.meta(prompt, gen=gen, max_tokens=max_tokens)
+            tid = int(meta.iloc[0]["chosen_token_id"])
+            empirical[tid] += 1
+        except (FileNotFoundError, ValueError, KeyError):
+            break
+
+    n = sum(empirical.values())
+    if n == 0:
+        return {}
+
+    probs = np.array([c / n for c in empirical.values()])
+    branch_entropy = -float(np.sum(probs * np.log2(probs + 1e-10)))
+
+    tok = probe.tokenizer
+    branches = {tok.decode([tid]).strip(): count / n
+                for tid, count in empirical.most_common()}
+
+    return {
+        "n_gens": n,
+        "n_branches": len(empirical),
+        "branch_entropy": branch_entropy,
+        "top_branch": list(branches.keys())[0] if branches else "",
+        "top_branch_pct": list(branches.values())[0] if branches else 0,
+        "branches": branches,
+        "token_ids": dict(empirical),
+    }
+
+
+def tree_compare(probe_a, probe_b, prompt: str,
+                 n_gens: int = 100, max_tokens: int = 10) -> dict:
+    """Compare tree structures between two models.
+
+    Returns branch survival (per-branch repression), tree JS,
+    novel branches, and pruned branches.
+    """
+    ta = tree_metrics(probe_a, prompt, n_gens, max_tokens)
+    tb = tree_metrics(probe_b, prompt, n_gens, max_tokens)
+
+    if not ta or not tb:
+        return {}
+
+    branches_a = ta["branches"]
+    branches_b = tb["branches"]
+    all_branches = set(branches_a) | set(branches_b)
+
+    # Branch survival: P(branch in B) / P(branch in A)
+    survival = {}
+    for branch in all_branches:
+        pa = branches_a.get(branch, 0)
+        pb = branches_b.get(branch, 0)
+        if pa > 0:
+            survival[branch] = pb / pa
+        elif pb > 0:
+            survival[branch] = float("inf")  # novel in B
+
+    # Tree JS: JS between branch distributions
+    tokens_a = ta["token_ids"]
+    tokens_b = tb["token_ids"]
+    all_tids = set(tokens_a) | set(tokens_b)
+    n_a = ta["n_gens"]
+    n_b = tb["n_gens"]
+    p = np.array([tokens_a.get(t, 0) / n_a for t in all_tids])
+    q = np.array([tokens_b.get(t, 0) / n_b for t in all_tids])
+    p = np.clip(p / p.sum(), 1e-10, None)
+    q = np.clip(q / q.sum(), 1e-10, None)
+    m = 0.5 * (p + q)
+    tree_js = 0.5 * np.sum(p * np.log(p / m)) + 0.5 * np.sum(q * np.log(q / m))
+
+    # Novel and pruned branches
+    novel = {b: branches_b[b] for b in branches_b if b not in branches_a}
+    pruned = {b: branches_a[b] for b in branches_a if b not in branches_b}
+
+    # Repressed (survival < 0.5) and amplified (survival > 2)
+    repressed = {b: s for b, s in survival.items()
+                 if s < 0.5 and branches_a.get(b, 0) > 0.02}
+    amplified = {b: s for b, s in survival.items()
+                 if s > 2.0 and branches_b.get(b, 0) > 0.02}
+
+    return {
+        "tree_js": float(tree_js),
+        "branch_entropy_a": ta["branch_entropy"],
+        "branch_entropy_b": tb["branch_entropy"],
+        "n_branches_a": ta["n_branches"],
+        "n_branches_b": tb["n_branches"],
+        "n_novel": len(novel),
+        "n_pruned": len(pruned),
+        "novel": novel,
+        "pruned": pruned,
+        "repressed": repressed,
+        "amplified": amplified,
+        "survival": survival,
+    }
+
+
 def generation_distance(probe_a, probe_b, prompt: str,
                         gen_a: int = 0, gen_b: int = 0,
                         n_positions: int = 50) -> dict:
