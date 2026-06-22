@@ -853,6 +853,134 @@ class Probe:
         from .metrics import formation_trajectory
         return formation_trajectory(self, prompt=prompt, gen=gen, pos=pos, k=k)
 
+    # -- cross-family aggregation -----------------------------------------------
+
+    @staticmethod
+    def census(prompt: str = "anger", n_gens: int = 100,
+               max_tokens: int = 10) -> 'pd.DataFrame':
+        """Full census: tree + logit metrics for all models with data.
+
+        Returns one row per model with tree stats, position-0 logits,
+        and metadata (org, country, relation).
+        """
+        import pandas as pd
+        from .metrics import tree_metrics, entropy as _entropy
+        from .registry import Registry
+
+        reg = Registry()
+        cache = _get_cache()
+        prompt_text = _resolve_prompt(prompt)
+
+        rows = []
+        s = cache._stash('probe_meta')
+        models = set()
+        for key in s:
+            if (isinstance(key, dict) and key.get('T') == max_tokens
+                and key.get('prompt') == prompt_text and key.get('gen') == 0):
+                models.add(key['model'])
+
+        for model_id in sorted(models):
+            p = Probe(model_id)
+            info = reg.info(model_id)
+            base_id = reg.base_of(model_id)
+            _, rel = reg.parent_of(model_id)
+
+            t = tree_metrics(p, prompt_text, n_gens, max_tokens)
+            if not t or t['n_gens'] < 5:
+                continue
+
+            row = {
+                'model': model_id,
+                'model_short': model_id.split('/')[-1],
+                'family': base_id.split('/')[-1] if base_id else '',
+                'relation': rel or 'base',
+                'org': info.org if info else '',
+                'country': info.country if info else '',
+                'org_type': info.org_type if info else '',
+                'n_gens': t['n_gens'],
+                'n_branches': t['n_branches'],
+                'branch_entropy': t['branch_entropy'],
+                'top_branch': t['top_branch'],
+                'top_branch_pct': t['top_branch_pct'],
+            }
+
+            try:
+                logits = p.logits(prompt_text, gen=0, pos=0, max_tokens=max_tokens)
+                row['entropy_pos0'] = _entropy(logits)
+            except FileNotFoundError:
+                pass
+
+            rows.append(row)
+
+        return pd.DataFrame(rows)
+
+    @staticmethod
+    def census_compare(prompt: str = "anger", n_gens: int = 100,
+                       max_tokens: int = 10) -> 'pd.DataFrame':
+        """Cross-family comparison: base→aligned tree + logit metrics.
+
+        Returns one row per base→variant pair.
+        """
+        import pandas as pd
+        from .metrics import tree_compare, js_divergence, base_token_surprisal
+        from .registry import Registry
+
+        reg = Registry()
+        cache = _get_cache()
+        prompt_text = _resolve_prompt(prompt)
+
+        models = set()
+        s = cache._stash('probe_meta')
+        for key in s:
+            if (isinstance(key, dict) and key.get('T') == max_tokens
+                and key.get('prompt') == prompt_text and key.get('gen') == 0):
+                models.add(key['model'])
+
+        rows = []
+        for base_id in reg.all_bases():
+            if base_id not in models:
+                continue
+            base_p = Probe(base_id)
+            try:
+                base_logits = base_p.logits(prompt_text, gen=0, pos=0,
+                                            max_tokens=max_tokens)
+            except FileNotFoundError:
+                continue
+
+            for v in reg.variants_of(base_id):
+                if v not in models:
+                    continue
+                v_p = Probe(v)
+                _, rel = reg.parent_of(v)
+
+                try:
+                    v_logits = v_p.logits(prompt_text, gen=0, pos=0,
+                                          max_tokens=max_tokens)
+                    js = js_divergence(base_logits, v_logits)
+                    resist = base_token_surprisal(base_logits, v_logits)
+                except FileNotFoundError:
+                    js = resist = np.nan
+
+                tc = tree_compare(base_p, v_p, prompt_text, n_gens, max_tokens)
+
+                rows.append({
+                    'base': base_id,
+                    'variant': v,
+                    'variant_short': v.split('/')[-1],
+                    'relation': rel,
+                    'js': js,
+                    'resistance': resist,
+                    'tree_js': tc.get('tree_js', np.nan) if tc else np.nan,
+                    'branches_base': tc.get('n_branches_a', 0) if tc else 0,
+                    'branches_aligned': tc.get('n_branches_b', 0) if tc else 0,
+                    'H_base': tc.get('branch_entropy_a', 0) if tc else 0,
+                    'H_aligned': tc.get('branch_entropy_b', 0) if tc else 0,
+                    'n_repressed': len(tc.get('repressed', {})) if tc else 0,
+                    'n_amplified': len(tc.get('amplified', {})) if tc else 0,
+                })
+
+        return pd.DataFrame(rows)
+
     # -- family resolution -----------------------------------------------------
 
     FAMILIES = {
