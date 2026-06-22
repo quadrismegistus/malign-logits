@@ -790,6 +790,193 @@ def tree_compare(probe_a, probe_b, prompt: str,
     }
 
 
+def branch_trajectory(probe, prompt: str, branch_token: str,
+                      n_gens: int = 100, max_tokens: int = 10) -> dict:
+    """Entropy trajectory for generations starting with a specific token.
+
+    Returns mean ± std entropy at each position for all gens in this branch.
+    """
+    prompt = probe._resolve_prompt(prompt) if hasattr(probe, '_resolve_prompt') else prompt
+    from .probe import _resolve_prompt
+    prompt = _resolve_prompt(prompt)
+
+    ents_by_pos = [[] for _ in range(max_tokens)]
+    tok = probe.tokenizer
+
+    for gen in range(n_gens):
+        try:
+            meta = probe.meta(prompt, gen=gen, max_tokens=max_tokens)
+            first_tid = int(meta.iloc[0]["chosen_token_id"])
+            first_word = tok.decode([first_tid]).strip()
+            if first_word != branch_token:
+                continue
+            for _, row in meta.iterrows():
+                pos = int(row["position"])
+                if pos < max_tokens:
+                    ents_by_pos[pos].append(row["entropy"])
+        except (FileNotFoundError, ValueError, KeyError):
+            continue
+
+    n_in_branch = len(ents_by_pos[0]) if ents_by_pos[0] else 0
+    means = [float(np.mean(e)) if e else np.nan for e in ents_by_pos]
+    stds = [float(np.std(e)) if e else np.nan for e in ents_by_pos]
+
+    return {
+        "branch": branch_token,
+        "n_gens": n_in_branch,
+        "entropy_mean": means,
+        "entropy_std": stds,
+    }
+
+
+def cross_model_branch(probe_a, probe_b, prompt: str,
+                       branch_token: str, n_gens: int = 100,
+                       max_tokens: int = 10) -> dict:
+    """Compare two models on the same branch.
+
+    Finds generations starting with branch_token in model A,
+    computes mean entropy/JS at each position between A and B's
+    logits for those same generations.
+
+    Note: positions 1+ are confounded (different continuations after
+    the shared first token). For clean comparison, use teacher_force
+    on the branch generation.
+    """
+    from .probe import _resolve_prompt
+    prompt = _resolve_prompt(prompt)
+    tok = probe_a.tokenizer
+
+    js_by_pos = [[] for _ in range(max_tokens)]
+    ent_a_by_pos = [[] for _ in range(max_tokens)]
+    ent_b_by_pos = [[] for _ in range(max_tokens)]
+    n_matched = 0
+
+    # Find gens in A that start with branch_token
+    for gen in range(n_gens):
+        try:
+            meta_a = probe_a.meta(prompt, gen=gen, max_tokens=max_tokens)
+            first_tid = int(meta_a.iloc[0]["chosen_token_id"])
+            if tok.decode([first_tid]).strip() != branch_token:
+                continue
+
+            # Check if B also has this gen starting with same token
+            meta_b = probe_b.meta(prompt, gen=gen, max_tokens=max_tokens)
+            first_tid_b = int(meta_b.iloc[0]["chosen_token_id"])
+            if tok.decode([first_tid_b]).strip() != branch_token:
+                continue
+
+            n_matched += 1
+            for pos in range(min(max_tokens, len(meta_a), len(meta_b))):
+                try:
+                    la = probe_a.logits(prompt, gen=gen, pos=pos, max_tokens=max_tokens)
+                    lb = probe_b.logits(prompt, gen=gen, pos=pos, max_tokens=max_tokens)
+                    js_by_pos[pos].append(js_divergence(la, lb))
+                    ent_a_by_pos[pos].append(entropy(la))
+                    ent_b_by_pos[pos].append(entropy(lb))
+                except (FileNotFoundError, ValueError):
+                    pass
+        except (FileNotFoundError, ValueError, KeyError):
+            continue
+
+    return {
+        "branch": branch_token,
+        "n_matched": n_matched,
+        "js_mean": [float(np.mean(j)) if j else np.nan for j in js_by_pos],
+        "js_std": [float(np.std(j)) if j else np.nan for j in js_by_pos],
+        "entropy_a_mean": [float(np.mean(e)) if e else np.nan for e in ent_a_by_pos],
+        "entropy_b_mean": [float(np.mean(e)) if e else np.nan for e in ent_b_by_pos],
+    }
+
+
+def convergence_depth(probe, prompt: str, n_gens: int = 100,
+                      max_tokens: int = 10, top_k: int = 3) -> dict:
+    """At what depth do different branches become indistinguishable?
+
+    Computes mean JS between the top-k branches' logit distributions
+    at each position. When cross-branch JS ≈ within-branch JS, the
+    tree structure no longer matters.
+    """
+    from .probe import _resolve_prompt
+    prompt = _resolve_prompt(prompt)
+    tok = probe.tokenizer
+
+    # Group gens by first token
+    from collections import defaultdict
+    branches = defaultdict(list)
+    for gen in range(n_gens):
+        try:
+            meta = probe.meta(prompt, gen=gen, max_tokens=max_tokens)
+            first_tid = int(meta.iloc[0]["chosen_token_id"])
+            word = tok.decode([first_tid]).strip()
+            branches[word].append(gen)
+        except (FileNotFoundError, ValueError, KeyError):
+            continue
+
+    # Top-k branches by count
+    top_branches = sorted(branches.items(), key=lambda x: -len(x[1]))[:top_k]
+
+    if len(top_branches) < 2:
+        return {"depth": 0, "cross_js": [], "within_js": []}
+
+    cross_js = []
+    within_js = []
+
+    for pos in range(max_tokens):
+        # Collect logits per branch at this position
+        branch_logits = {}
+        for word, gens in top_branches:
+            logits_list = []
+            for g in gens[:20]:  # cap per branch
+                try:
+                    logits_list.append(
+                        probe.logits(prompt, gen=g, pos=pos, max_tokens=max_tokens))
+                except:
+                    pass
+            if logits_list:
+                branch_logits[word] = logits_list
+
+        if len(branch_logits) < 2:
+            cross_js.append(np.nan)
+            within_js.append(np.nan)
+            continue
+
+        # Cross-branch JS: mean JS between branch centroids
+        centroids = {}
+        for word, llist in branch_logits.items():
+            centroids[word] = np.mean(llist, axis=0)
+
+        cross_vals = []
+        words = list(centroids.keys())
+        for i in range(len(words)):
+            for j in range(i + 1, len(words)):
+                cross_vals.append(js_divergence(centroids[words[i]], centroids[words[j]]))
+        cross_js.append(float(np.mean(cross_vals)))
+
+        # Within-branch JS: mean JS between random pairs within same branch
+        within_vals = []
+        for word, llist in branch_logits.items():
+            if len(llist) >= 2:
+                for k in range(min(10, len(llist))):
+                    i, j = np.random.choice(len(llist), 2, replace=False)
+                    within_vals.append(js_divergence(llist[i], llist[j]))
+        within_js.append(float(np.mean(within_vals)) if within_vals else np.nan)
+
+    # Find convergence: where cross ≈ within
+    conv_depth = max_tokens
+    for pos in range(1, max_tokens):
+        if (not np.isnan(cross_js[pos]) and not np.isnan(within_js[pos])
+                and cross_js[pos] < within_js[pos] * 1.5):
+            conv_depth = pos
+            break
+
+    return {
+        "convergence_depth": conv_depth,
+        "cross_branch_js": cross_js,
+        "within_branch_js": within_js,
+        "branches_used": [w for w, _ in top_branches],
+    }
+
+
 def generation_distance(probe_a, probe_b, prompt: str,
                         gen_a: int = 0, gen_b: int = 0,
                         n_positions: int = 50) -> dict:
