@@ -1032,18 +1032,21 @@ class Probe:
                 continue
 
             with torch.no_grad():
-                out = model(ids)
+                out = model(ids, output_hidden_states=True)
             logits = out.logits[0, -1, :].float().cpu().numpy()
             from scipy.special import softmax as _sfm
             probs = _sfm(logits)
 
             ent = -float(np.sum(probs * np.log(probs + 1e-10)))
             node_idx = len(nodes)
-            nodes.append({
+            node = {
                 "depth": depth, "token": token_str, "prob": branch_prob,
                 "cumul_prob": cumul_prob, "entropy": ent,
                 "parent": parent_idx, "n_children": 0,
-            })
+            }
+            if out.hidden_states:
+                node["hidden"] = out.hidden_states[-1][0, -1, :].cpu().numpy().tolist()
+            nodes.append(node)
             if parent_idx >= 0:
                 nodes[parent_idx]["n_children"] += 1
 
@@ -1087,6 +1090,60 @@ class Probe:
 
         print(f" {len(nodes)} nodes")
         cache.set_derived(tree_key, nodes)
+        return nodes
+
+    def tree_to_vecdb(self, prompt: str, **kwargs):
+        """Explore tree and store in lancedb with hidden states + graph edges."""
+        from .vecdb import VecDB
+        from .registry import Registry
+
+        nodes = self.explore_tree(prompt, **kwargs)
+        reg = Registry()
+        info = reg.info(self.model_id)
+        _, rel = reg.parent_of(self.model_id)
+        base_id = reg.base_of(self.model_id)
+
+        records = []
+        for i, n in enumerate(nodes):
+            if "hidden" not in n:
+                continue
+            parent_token = nodes[n["parent"]]["token"] if n["parent"] >= 0 else ""
+            path_parts = []
+            idx = i
+            while idx >= 0:
+                path_parts.append(nodes[idx]["token"])
+                idx = nodes[idx]["parent"]
+            path = " → ".join(reversed(path_parts))
+
+            records.append({
+                "node_id": i,
+                "parent_id": n["parent"],
+                "model": self.model_id,
+                "model_short": self.model_id.split("/")[-1],
+                "family": base_id.split("/")[-1] if base_id else "",
+                "relation": rel or "base",
+                "org": info.org if info else "",
+                "prompt": prompt,
+                "depth": n["depth"],
+                "token": n["token"],
+                "parent_token": parent_token,
+                "path": path,
+                "prob": n["prob"],
+                "cumul_prob": n["cumul_prob"],
+                "entropy": n["entropy"],
+                "n_children": n["n_children"],
+                "vector": n["hidden"],
+            })
+
+        if records:
+            db = VecDB()
+            table_name = "trees"
+            if table_name in db.db.table_names():
+                db.db.open_table(table_name).add(records)
+            else:
+                db.db.create_table(table_name, records)
+            print(f"  Stored {len(records)} tree nodes in vecdb")
+
         return nodes
 
     def across_prompts(self, max_tokens: int = 10) -> 'pd.DataFrame':
