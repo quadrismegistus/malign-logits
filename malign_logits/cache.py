@@ -281,35 +281,53 @@ class CacheManager:
 
     # ── probe: per-position logits/hidden, per-gen meta, per-model embeddings ──
 
-    def _probe_pos_key(self, model, prompt, gen, pos):
-        return {"model": model, "prompt": prompt, "gen": gen, "pos": pos}
+    def _probe_pos_key(self, model, prompt, gen, pos, max_tokens):
+        return {"model": model, "prompt": prompt, "gen": gen,
+                "pos": pos, "T": max_tokens}
 
-    def get_probe_logits(self, model, prompt, gen=0, pos=0):
+    def get_probe_logits(self, model, prompt, gen=0, pos=0, max_tokens=20):
         s = self._stash("probe_logits")
-        key = self._probe_pos_key(model, prompt, gen, pos)
+        key = self._probe_pos_key(model, prompt, gen, pos, max_tokens)
         return s[key] if key in s else None
 
-    def set_probe_logits(self, model, prompt, logits, gen=0, pos=0):
+    def set_probe_logits(self, model, prompt, logits, gen=0, pos=0, max_tokens=20):
         self._stash("probe_logits")[
-            self._probe_pos_key(model, prompt, gen, pos)] = logits
+            self._probe_pos_key(model, prompt, gen, pos, max_tokens)] = logits
 
-    def get_probe_hidden(self, model, prompt, gen=0, pos=0):
+    def get_probe_hidden(self, model, prompt, gen=0, pos=0, max_tokens=20):
         s = self._stash("probe_hidden")
-        key = self._probe_pos_key(model, prompt, gen, pos)
+        key = self._probe_pos_key(model, prompt, gen, pos, max_tokens)
         return s[key] if key in s else None
 
-    def set_probe_hidden(self, model, prompt, hidden, gen=0, pos=0):
+    def set_probe_hidden(self, model, prompt, hidden, gen=0, pos=0, max_tokens=20):
         self._stash("probe_hidden")[
-            self._probe_pos_key(model, prompt, gen, pos)] = hidden
+            self._probe_pos_key(model, prompt, gen, pos, max_tokens)] = hidden
 
-    def get_probe_meta(self, model, prompt, gen=0):
+    def get_probe_meta(self, model, prompt, gen=0, max_tokens=20):
         s = self._stash("probe_meta")
-        key = {"model": model, "prompt": prompt, "gen": gen}
+        key = {"model": model, "prompt": prompt, "gen": gen, "T": max_tokens}
         return s[key] if key in s else None
 
-    def set_probe_meta(self, model, prompt, meta, gen=0):
+    def set_probe_meta(self, model, prompt, meta, gen=0, max_tokens=20):
         self._stash("probe_meta")[
-            {"model": model, "prompt": prompt, "gen": gen}] = meta
+            {"model": model, "prompt": prompt, "gen": gen, "T": max_tokens}] = meta
+
+    def has_probe(self, model, prompt, gen=0, pos=0, max_tokens=20):
+        return self._probe_pos_key(model, prompt, gen, pos, max_tokens) in self._stash("probe_logits")
+
+    def count_probe_gens(self, model, prompt, max_tokens=20):
+        if not self.has_probe(model, prompt, gen=0, pos=0, max_tokens=max_tokens):
+            return 0
+        lo, hi = 0, 1
+        while self.has_probe(model, prompt, gen=hi, pos=0, max_tokens=max_tokens):
+            hi *= 2
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if self.has_probe(model, prompt, gen=mid, pos=0, max_tokens=max_tokens):
+                lo = mid + 1
+            else:
+                hi = mid
+        return lo
 
     def get_probe_embeddings(self, model):
         """Load embedding matrix from numpy file (too large for lmdb)."""
@@ -327,23 +345,6 @@ class CacheManager:
         os.makedirs(d, exist_ok=True)
         path = os.path.join(d, model.replace("/", "--") + ".npy")
         np.save(path, embeddings)
-
-    def has_probe(self, model, prompt, gen=0, pos=0):
-        return self._probe_pos_key(model, prompt, gen, pos) in self._stash("probe_logits")
-
-    def count_probe_gens(self, model, prompt):
-        if not self.has_probe(model, prompt, gen=0, pos=0):
-            return 0
-        lo, hi = 0, 1
-        while self.has_probe(model, prompt, gen=hi, pos=0):
-            hi *= 2
-        while lo < hi:
-            mid = (lo + hi) // 2
-            if self.has_probe(model, prompt, gen=mid, pos=0):
-                lo = mid + 1
-            else:
-                hi = mid
-        return lo
 
     # ── psyche derived (discover_top_words, score_vocab, etc.) ──
 
