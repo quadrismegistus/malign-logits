@@ -265,10 +265,10 @@ class GraphDB:
 
     def ingest_hidden_vectors(self, prompt_name: str = None,
                               models: list = None):
-        """Store hidden state vectors for ANN search.
+        """Store hidden state vectors with ArangoDB vector index for ANN search.
 
-        Uses ArangoDB's built-in vector index (arangosearch).
-        Stored separately from tree_nodes to keep doc size small.
+        Creates per-dimension collections (hidden_2048, hidden_4096, etc.)
+        with FAISS-backed vector indexes. Replaces LanceDB entirely.
         """
         from .probe import Probe, PROMPTS
         from .registry import Registry
@@ -277,14 +277,12 @@ class GraphDB:
         prompts = {prompt_name: PROMPTS[prompt_name]} if prompt_name else PROMPTS
         base_models = models or reg.all_bases()
 
-        if not self.db.has_collection("hidden_vectors"):
-            self.db.create_collection("hidden_vectors")
-
-        col = self.db.collection("hidden_vectors")
-        count = 0
+        counts = {}
 
         for base_id in base_models:
             probe = Probe(base_id)
+            base_short = base_id.split("/")[-1]
+
             for pname in prompts:
                 try:
                     nodes = probe.explore_tree(pname)
@@ -296,19 +294,117 @@ class GraphDB:
                     if h is None:
                         continue
                     vec = h if isinstance(h, list) else h.tolist()
+                    dim = len(vec)
+                    col_name = f"hidden_{dim}"
+
+                    if col_name not in counts:
+                        if not self.db.has_collection(col_name):
+                            self.db.create_collection(col_name)
+                        counts[col_name] = 0
+                    col = self.db.collection(col_name)
+
                     doc = {
                         "_key": f"{_key(base_id)}__{pname}__{i}",
                         "model": base_id,
+                        "model_short": base_short,
                         "prompt": pname,
                         "depth": node["depth"],
                         "token": node["token"],
+                        "token_id": node.get("token_id", -1),
+                        "tree_node_id": f"tree_nodes/{_key(base_id)}__{pname}__{i}",
                         "vector": vec,
                     }
                     col.insert(doc, overwrite=True)
-                    count += 1
+                    counts[col_name] = counts.get(col_name, 0) + 1
 
-        print(f"Stored {count} hidden vectors")
-        return count
+            if any(counts.values()):
+                print(f"  {base_short}: {sum(counts.values())} vectors")
+
+        for col_name, n in counts.items():
+            dim = int(col_name.split("_")[1])
+            self._ensure_vector_index(col_name, dim, n)
+            print(f"  {col_name}: {n} vectors indexed")
+        return sum(counts.values())
+
+    def _ensure_vector_index(self, collection_name: str, dimension: int,
+                             n_docs: int = 0):
+        """Create a vector index on a collection if it doesn't exist.
+
+        nLists must be <= number of docs (FAISS trains on existing data).
+        """
+        col = self.db.collection(collection_name)
+        for idx in col.indexes():
+            if idx.get("type") == "vector":
+                return
+        if n_docs == 0:
+            n_docs = col.count()
+        if n_docs == 0:
+            return
+        n_lists = max(1, min(n_docs // 2, 100))
+        col.add_index({
+            "type": "vector",
+            "fields": ["vector"],
+            "params": {
+                "metric": "cosine",
+                "dimension": dimension,
+                "nLists": n_lists,
+            },
+        })
+        print(f"  Created vector index on {collection_name} (dim={dimension}, nLists={n_lists})")
+
+    def search_hidden(self, query_vector, k: int = 10,
+                      model: str = None, prompt: str = None) -> list:
+        """ANN search over hidden state vectors.
+
+        Joins back to tree_nodes for metadata. Filters applied post-ANN
+        (ArangoDB vector index doesn't support pre-filtering yet).
+        """
+        vec = query_vector.tolist() if hasattr(query_vector, 'tolist') else query_vector
+        dim = len(vec)
+        col_name = f"hidden_{dim}"
+
+        if not self.db.has_collection(col_name):
+            return []
+
+        # Post-filter: retrieve more candidates, then filter
+        fetch_k = k * 5 if (model or prompt) else k
+        post_filters = []
+        if model:
+            post_filters.append(f'FILTER doc.model == @model')
+        if prompt:
+            post_filters.append(f'FILTER doc.prompt == @prompt')
+        post_filter_clause = "\n            ".join(post_filters)
+
+        aql = f"""
+        LET candidates = (
+            FOR doc IN {col_name}
+                LET score = APPROX_NEAR_COSINE(doc.vector, @query)
+                SORT score DESC
+                LIMIT @fetch_k
+                RETURN MERGE(doc, {{score}})
+        )
+        FOR doc IN candidates
+            {post_filter_clause}
+            SORT doc.score DESC
+            LIMIT @k
+            LET tree_node = DOCUMENT(doc.tree_node_id)
+            RETURN {{
+                token: doc.token,
+                model: doc.model_short,
+                prompt: doc.prompt,
+                depth: doc.depth,
+                score: doc.score,
+                prob: tree_node.prob,
+                entropy: tree_node.entropy,
+                n_children: tree_node.n_children
+            }}
+        """
+        bind = {"query": vec, "k": k, "fetch_k": fetch_k}
+        if model:
+            bind["model"] = model
+        if prompt:
+            bind["prompt"] = prompt
+        return self.query(aql, bind)
 
     # -- Queries ---------------------------------------------------------------
 
