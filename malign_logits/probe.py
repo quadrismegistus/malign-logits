@@ -1203,7 +1203,20 @@ class Probe:
                     node[f"{short}_prob_child"] = child_prob
 
                     if out.hidden_states:
-                        node[f"{short}_hidden"] = out.hidden_states[-1][0, -1, :].cpu().numpy().tolist()
+                        h_ann = out.hidden_states[-1][0, -1, :].cpu().numpy()
+                        node[f"{short}_hidden"] = h_ann.tolist()
+
+                        # Hidden distance: how differently does this model
+                        # represent this point vs the base tree's model?
+                        if "hidden" in node:
+                            h_base = np.array(node["hidden"])
+                            nb = np.linalg.norm(h_base)
+                            na = np.linalg.norm(h_ann)
+                            if nb > 1e-10 and na > 1e-10:
+                                cos_dist = 1.0 - float(np.dot(h_base, h_ann) / (nb * na))
+                            else:
+                                cos_dist = 1.0
+                            node[f"{short}_hidden_dist"] = cos_dist
 
                     annotated += 1
 
