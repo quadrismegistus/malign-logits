@@ -1015,6 +1015,15 @@ class Probe:
         queue = [(0, prompt_ids, -1, "ROOT", 1.0, 1.0)]
         nodes = []
 
+        # Check cache first — tree is deterministic
+        cache = _get_cache()
+        tree_key = {"model": self.model_id, "prompt": prompt_text,
+                    "coverage": coverage, "max_depth": max_depth,
+                    "type": "explore_tree"}
+        cached = cache.get_derived(tree_key)
+        if cached is not None:
+            return cached
+
         print(f"[Probe] Exploring tree: {self.model_id} / {prompt}", end="", flush=True)
 
         while queue and len(nodes) < max_nodes:
@@ -1077,6 +1086,7 @@ class Probe:
             pass
 
         print(f" {len(nodes)} nodes")
+        cache.set_derived(tree_key, nodes)
         return nodes
 
     def across_prompts(self, max_tokens: int = 10) -> 'pd.DataFrame':
