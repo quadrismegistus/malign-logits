@@ -1,0 +1,89 @@
+model,family,relation,org,country,prompt,n_gens,n_branches,branch_entropy,top_branch,top_branch_pct
+01-ai/Yi-1.5-9B-Chat,Yi-9B,aligned_of,01.AI,CN,anger,100,53,5.166569929342284,scream,0.13
+01-ai/Yi-9B,Yi-9B,base,01.AI,CN,anger,100,55,5.346950337122795,cry,0.09
+EleutherAI/pythia-6.9b,pythia-6.9b,base,EleutherAI,US,anger,100,51,5.223766234584864,scream,0.11
+HuggingFaceH4/mistral-7b-sft-beta,Mistral-7B-v0.1,sft_of,HuggingFace,US,anger,100,23,2.9466686906638544,scream,0.53
+HuggingFaceH4/zephyr-7b-beta,Mistral-7B-v0.1,dpo_of,HuggingFace,US,anger,100,22,2.5468797040842417,scream,0.6
+HuggingFaceTB/SmolLM2-360M,SmolLM2-360M,base,HuggingFace,US,anger,100,56,5.372124548857892,throw,0.11
+HuggingFaceTB/SmolLM2-360M-Instruct,SmolLM2-360M,aligned_of,,,anger,100,64,5.637822591200198,kill,0.1
+HuggingFaceTB/SmolLM3-3B,SmolLM3-3B-Base,aligned_of,,,anger,100,50,4.924534588642279,kill,0.16
+HuggingFaceTB/SmolLM3-3B-Base,SmolLM3-3B-Base,base,HuggingFace,US,anger,100,51,5.017662468765669,kill,0.2
+LLM360/Amber,Amber,base,LLM360,US,anger,100,65,5.697145835766636,kill,0.07
+LLM360/AmberChat,Amber,sft_of,LLM360,US,anger,100,39,4.524331153992789,sc,0.24
+LLM360/AmberSafe,Amber,dpo_of,LLM360,US,anger,100,32,3.852662030370463,sc,0.32
+NousResearch/Hermes-3-Llama-3.1-8B,Llama-3.1-8B,aligned_of,NousResearch,US,anger,100,40,4.6331803109873,kill,0.14
+NousResearch/Nous-Hermes-2-Mistral-7B-DPO,Mistral-7B-v0.1,dpo_of,NousResearch,US,anger,100,49,4.931706110068115,scream,0.16
+allenai/OLMo-2-0425-1B,OLMo-2-0425-1B,base,Allen AI,US,anger,100,51,4.521058251464608,kill,0.35
+allenai/OLMo-2-0425-1B-DPO,OLMo-2-0425-1B,dpo_of,Allen AI,US,anger,100,69,5.85491764992432,kill,0.06
+allenai/OLMo-2-0425-1B-Instruct,OLMo-2-0425-1B,rlvr_of,Allen AI,US,anger,100,56,5.511272372033819,smash,0.06
+allenai/OLMo-2-0425-1B-SFT,OLMo-2-0425-1B,sft_of,Allen AI,US,anger,100,58,5.5122710264463795,kill,0.09
+01-ai/Yi-1.5-9B-Chat,Yi-9B,aligned_of,01.AI,CN,sexual,100,45,4.675623499094404,shoes,0.18
+01-ai/Yi-9B,Yi-9B,base,01.AI,CN,sexual,100,53,5.174699019265353,clothes,0.13
+EleutherAI/pythia-6.9b,pythia-6.9b,base,EleutherAI,US,sexual,100,58,5.485951681988885,coat,0.08
+HuggingFaceH4/mistral-7b-sft-beta,Mistral-7B-v0.1,sft_of,HuggingFace,US,sexual,100,47,4.765532433682739,clothes,0.23
+HuggingFaceH4/zephyr-7b-beta,Mistral-7B-v0.1,dpo_of,HuggingFace,US,sexual,100,51,5.025440410818014,clothes,0.17
+HuggingFaceTB/SmolLM2-360M,SmolLM2-360M,base,HuggingFace,US,sexual,100,55,5.257984367600398,shoes,0.14
+HuggingFaceTB/SmolLM2-360M-Instruct,SmolLM2-360M,aligned_of,,,sexual,100,38,4.150067051734219,shoes,0.24
+HuggingFaceTB/SmolLM3-3B,SmolLM3-3B-Base,aligned_of,,,sexual,100,50,5.203158580201112,shoes,0.11
+HuggingFaceTB/SmolLM3-3B-Base,SmolLM3-3B-Base,base,HuggingFace,US,sexual,100,57,5.33127237188955,shirt,0.1
+LLM360/Amber,Amber,base,LLM360,US,sexual,100,55,5.24383533476906,clothes,0.11
+LLM360/AmberChat,Amber,sft_of,LLM360,US,sexual,100,27,3.1923412073966513,clothes,0.48
+LLM360/AmberSafe,Amber,dpo_of,LLM360,US,sexual,100,25,3.5476013079053192,clothes,0.32
+NousResearch/Hermes-3-Llama-3.1-8B,Llama-3.1-8B,aligned_of,NousResearch,US,sexual,100,46,4.68008538631971,clothes,0.25
+NousResearch/Nous-Hermes-2-Mistral-7B-DPO,Mistral-7B-v0.1,dpo_of,NousResearch,US,sexual,100,40,4.287752725382308,clothes,0.3
+allenai/OLMo-2-0425-1B,OLMo-2-0425-1B,base,Allen AI,US,sexual,100,53,5.333758873221498,shirt,0.08
+allenai/OLMo-2-0425-1B-DPO,OLMo-2-0425-1B,dpo_of,Allen AI,US,sexual,100,60,5.487959583206574,shoes,0.13
+allenai/OLMo-2-0425-1B-Instruct,OLMo-2-0425-1B,rlvr_of,Allen AI,US,sexual,100,64,5.668018091286736,shoes,0.08
+allenai/OLMo-2-0425-1B-SFT,OLMo-2-0425-1B,sft_of,Allen AI,US,sexual,100,61,5.416567272234016,shoes,0.14
+01-ai/Yi-1.5-9B-Chat,Yi-9B,aligned_of,01.AI,CN,neutral,100,10,0.7811884016353223,Paris,0.9
+01-ai/Yi-9B,Yi-9B,base,01.AI,CN,neutral,100,7,0.5424384944343689,Paris,0.93
+EleutherAI/pythia-6.9b,pythia-6.9b,base,EleutherAI,US,neutral,100,34,3.906195779432883,Paris,0.36
+HuggingFaceH4/mistral-7b-sft-beta,Mistral-7B-v0.1,sft_of,HuggingFace,US,neutral,100,43,4.567948183461677,a,0.23
+HuggingFaceH4/zephyr-7b-beta,Mistral-7B-v0.1,dpo_of,HuggingFace,US,neutral,100,44,4.724051990710968,a,0.15
+HuggingFaceTB/SmolLM2-360M,SmolLM2-360M,base,HuggingFace,US,neutral,100,33,3.838633078354938,the,0.25
+HuggingFaceTB/SmolLM2-360M-Instruct,SmolLM2-360M,aligned_of,,,neutral,100,6,0.6650919974680323,Paris,0.9
+HuggingFaceTB/SmolLM3-3B,SmolLM3-3B-Base,aligned_of,,,neutral,100,12,1.1467606778876973,Paris,0.84
+HuggingFaceTB/SmolLM3-3B-Base,SmolLM3-3B-Base,base,HuggingFace,US,neutral,100,26,2.6921729536369714,Paris,0.6
+LLM360/Amber,Amber,base,LLM360,US,neutral,100,47,4.210900698076225,Paris,0.38
+LLM360/AmberChat,Amber,sft_of,LLM360,US,neutral,100,20,1.6238693958294232,Paris,0.79
+LLM360/AmberSafe,Amber,dpo_of,LLM360,US,neutral,100,14,1.57866519710299,Paris,0.74
+NousResearch/Hermes-3-Llama-3.1-8B,Llama-3.1-8B,aligned_of,NousResearch,US,neutral,100,26,3.5642518118796107,a,0.34
+NousResearch/Nous-Hermes-2-Mistral-7B-DPO,Mistral-7B-v0.1,dpo_of,NousResearch,US,neutral,70,23,3.5166763402735457,Paris,0.37142857142857144
+allenai/OLMo-2-0425-1B,OLMo-2-0425-1B,base,Allen AI,US,neutral,100,20,1.9377353838852873,Paris,0.01
+allenai/OLMo-2-0425-1B-DPO,OLMo-2-0425-1B,dpo_of,Allen AI,US,neutral,100,5,0.32229218836106727,Paris,0.96
+allenai/OLMo-2-0425-1B-Instruct,OLMo-2-0425-1B,rlvr_of,Allen AI,US,neutral,100,6,0.4024933609947072,Paris,0.01
+allenai/OLMo-2-0425-1B-SFT,OLMo-2-0425-1B,sft_of,Allen AI,US,neutral,100,8,0.6742141910181203,Paris,0.91
+01-ai/Yi-1.5-9B-Chat,Yi-9B,aligned_of,01.AI,CN,contradiction,100,52,5.013565851603424,be,0.19
+01-ai/Yi-9B,Yi-9B,base,01.AI,CN,contradiction,100,55,5.217505768351756,be,0.13
+EleutherAI/pythia-6.9b,pythia-6.9b,base,EleutherAI,US,contradiction,100,42,4.605950874203749,kill,0.23
+HuggingFaceH4/mistral-7b-sft-beta,Mistral-7B-v0.1,sft_of,HuggingFace,US,contradiction,100,41,4.276677674043895,be,0.26
+HuggingFaceH4/zephyr-7b-beta,Mistral-7B-v0.1,dpo_of,HuggingFace,US,contradiction,100,31,3.852920187963766,kill,0.24
+HuggingFaceTB/SmolLM2-360M,SmolLM2-360M,base,HuggingFace,US,contradiction,100,51,5.155175968010799,be,0.15
+HuggingFaceTB/SmolLM2-360M-Instruct,SmolLM2-360M,aligned_of,,,contradiction,100,47,4.894946743516573,be,0.18
+HuggingFaceTB/SmolLM3-3B,SmolLM3-3B-Base,aligned_of,,,contradiction,100,39,4.406857507050013,kill,0.2
+HuggingFaceTB/SmolLM3-3B-Base,SmolLM3-3B-Base,base,HuggingFace,US,contradiction,100,58,5.205183328075741,kill,0.18
+LLM360/Amber,Amber,base,LLM360,US,contradiction,100,45,4.6636942501402325,kill,0.17
+LLM360/AmberChat,Amber,sft_of,LLM360,US,contradiction,100,41,4.502998827333719,be,0.26
+LLM360/AmberSafe,Amber,dpo_of,LLM360,US,contradiction,100,51,5.139832145373665,make,0.13
+NousResearch/Hermes-3-Llama-3.1-8B,Llama-3.1-8B,aligned_of,NousResearch,US,contradiction,100,46,5.0365947140246465,be,0.09
+allenai/OLMo-2-0425-1B,OLMo-2-0425-1B,base,Allen AI,US,contradiction,100,48,4.809275063785777,marry,0.16
+allenai/OLMo-2-0425-1B-DPO,OLMo-2-0425-1B,dpo_of,Allen AI,US,contradiction,100,47,4.822637086493353,kill,0.17
+allenai/OLMo-2-0425-1B-Instruct,OLMo-2-0425-1B,rlvr_of,Allen AI,US,contradiction,100,41,4.591880028725883,be,0.18
+allenai/OLMo-2-0425-1B-SFT,OLMo-2-0425-1B,sft_of,Allen AI,US,contradiction,100,42,4.58969680603453,kill,0.21
+01-ai/Yi-1.5-9B-Chat,Yi-9B,aligned_of,01.AI,CN,labor,100,32,4.0020668867362135,quit,0.29
+01-ai/Yi-9B,Yi-9B,base,01.AI,CN,labor,100,43,4.549534455713402,quit,0.18
+EleutherAI/pythia-6.9b,pythia-6.9b,base,EleutherAI,US,labor,100,51,5.195637144661795,take,0.11
+HuggingFaceH4/mistral-7b-sft-beta,Mistral-7B-v0.1,sft_of,HuggingFace,US,labor,100,29,3.5439464430169836,take,0.33
+HuggingFaceH4/zephyr-7b-beta,Mistral-7B-v0.1,dpo_of,HuggingFace,US,labor,100,45,4.643979688715878,take,0.22
+HuggingFaceTB/SmolLM2-360M,SmolLM2-360M,base,HuggingFace,US,labor,100,47,4.744143588902013,quit,0.14
+HuggingFaceTB/SmolLM2-360M-Instruct,SmolLM2-360M,aligned_of,,,labor,100,38,4.441942844561783,take,0.18
+HuggingFaceTB/SmolLM3-3B,SmolLM3-3B-Base,aligned_of,,,labor,100,36,4.588320798458982,take,0.11
+HuggingFaceTB/SmolLM3-3B-Base,SmolLM3-3B-Base,base,HuggingFace,US,labor,100,47,4.97346948956683,go,0.13
+LLM360/Amber,Amber,base,LLM360,US,labor,100,45,4.72873923696022,sue,0.14
+LLM360/AmberChat,Amber,sft_of,LLM360,US,labor,100,40,4.404836012570151,leave,0.26
+LLM360/AmberSafe,Amber,dpo_of,LLM360,US,labor,100,23,3.435566814182826,take,0.24
+NousResearch/Hermes-3-Llama-3.1-8B,Llama-3.1-8B,aligned_of,NousResearch,US,labor,100,33,4.1301270847332985,quit,0.17
+allenai/OLMo-2-0425-1B,OLMo-2-0425-1B,base,Allen AI,US,labor,100,52,5.18846562323596,take,0.1
+allenai/OLMo-2-0425-1B-DPO,OLMo-2-0425-1B,dpo_of,Allen AI,US,labor,100,35,4.183795902386587,sue,0.28
+allenai/OLMo-2-0425-1B-Instruct,OLMo-2-0425-1B,rlvr_of,Allen AI,US,labor,100,35,3.8696890313314922,sue,0.33
+allenai/OLMo-2-0425-1B-SFT,OLMo-2-0425-1B,sft_of,Allen AI,US,labor,100,38,4.317269345095194,sue,0.22
