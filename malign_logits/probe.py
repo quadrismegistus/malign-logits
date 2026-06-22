@@ -1012,7 +1012,7 @@ class Probe:
 
         prompt_ids = tokenizer.encode(prompt_text, return_tensors="pt").to(device)
 
-        queue = [(0, prompt_ids, -1, "ROOT", 1.0, 1.0)]
+        queue = [(0, prompt_ids, -1, "ROOT", 1.0, 1.0, -1)]  # +token_id
         nodes = []
 
         # Check cache first — tree is deterministic
@@ -1027,7 +1027,7 @@ class Probe:
         print(f"[Probe] Exploring tree: {self.model_id} / {prompt}", end="", flush=True)
 
         while queue and len(nodes) < max_nodes:
-            depth, ids, parent_idx, token_str, branch_prob, cumul_prob = queue.pop(0)
+            depth, ids, parent_idx, token_str, branch_prob, cumul_prob, token_id = queue.pop(0)
             if depth > max_depth:
                 continue
 
@@ -1040,8 +1040,8 @@ class Probe:
             ent = -float(np.sum(probs * np.log(probs + 1e-10)))
             node_idx = len(nodes)
             node = {
-                "depth": depth, "token": token_str, "prob": branch_prob,
-                "cumul_prob": cumul_prob, "entropy": ent,
+                "depth": depth, "token": token_str, "token_id": token_id,
+                "prob": branch_prob, "cumul_prob": cumul_prob, "entropy": ent,
                 "parent": parent_idx, "n_children": 0,
             }
             if out.hidden_states:
@@ -1054,16 +1054,14 @@ class Probe:
                 sorted_idx = np.argsort(probs)[::-1]
                 top1_prob = float(probs[sorted_idx[0]])
                 if top1_prob >= coverage:
-                    # Model has decided — follow only the top token
                     tid = sorted_idx[0]
                     p_val = float(probs[tid])
                     child_cumul = cumul_prob * p_val
                     if child_cumul >= cumul_floor:
                         word = tokenizer.decode([int(tid)]).strip()
                         new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
-                        queue.append((depth + 1, new_ids, node_idx, word, p_val, child_cumul))
+                        queue.append((depth + 1, new_ids, node_idx, word, p_val, child_cumul, int(tid)))
                 else:
-                    # Branch until coverage reached
                     cum = 0.0
                     for tid in sorted_idx:
                         if cum >= coverage:
@@ -1075,7 +1073,7 @@ class Probe:
                             break
                         word = tokenizer.decode([int(tid)]).strip()
                         new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
-                        queue.append((depth + 1, new_ids, node_idx, word, p_val, child_cumul))
+                        queue.append((depth + 1, new_ids, node_idx, word, p_val, child_cumul, int(tid)))
 
             if len(nodes) % 500 == 0:
                 print(".", end="", flush=True)
@@ -1182,10 +1180,9 @@ class Probe:
                     children = [n for n in nodes if n["parent"] == node_idx]
                     if children:
                         top_child = max(children, key=lambda c: c["prob"])
-                        child_token = top_child["token"]
-                        child_tid = tok.encode(" " + child_token, add_special_tokens=False)
-                        if child_tid and child_tid[0] < len(probs):
-                            child_prob = float(probs[child_tid[0]])
+                        child_tid = top_child.get("token_id", -1)
+                        if child_tid >= 0 and child_tid < len(probs):
+                            child_prob = float(probs[child_tid])
                             base_child_prob = top_child["prob"]
                             resistance = -float(np.log2(max(child_prob, 1e-10)))
                             base_resistance = -float(np.log2(max(base_child_prob, 1e-10)))
