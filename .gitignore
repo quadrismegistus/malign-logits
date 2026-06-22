@@ -218,6 +218,8 @@ __marimo__/
 context.md
 stash
 data/raw
+data/arangodb/
+data/vecdb/
 notes/
 
 # Svelte UI
