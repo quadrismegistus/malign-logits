@@ -1,0 +1,82 @@
+model_short,family,relation,org,prompt,n_nodes,branches_d1,mean_entropy,max_depth
+Amber,Amber,base,LLM360,anger,128,19,3.6469967303273734,5
+AmberChat,Amber,sft_of,LLM360,anger,58,5,2.3892511847461093,5
+AmberSafe,Amber,dpo_of,LLM360,anger,22,2,1.153421361400185,5
+DeepSeek-R1-Distill-Llama-8B,Llama-3.1-8B,distill_of,DeepSeek,anger,59,4,2.5011116104610895,5
+DeepSeek-R1-Distill-Qwen-7B,Qwen2.5-7B,distill_of,DeepSeek,anger,6,1,0.9982149129112562,5
+Dolphin3.0-Llama3.1-8B,Llama-3.1-8B,sft_of,Community,anger,63,5,2.1277901061352282,5
+Hermes-3-Llama-3.1-8B,Llama-3.1-8B,aligned_of,NousResearch,anger,100,7,2.970326888412237,5
+Llama-3.1-8B,Llama-3.1-8B,base,Meta,anger,101,13,3.6761071805906766,5
+Llama-3.1-8B-Instruct,Llama-3.1-8B,aligned_of,Meta,anger,99,12,3.0790718280794946,5
+Llama-3.1-Tulu-3-8B-DPO,Llama-3.1-8B,dpo_of,Allen AI,anger,82,7,3.4859074692173704,5
+Llama-3.1-Tulu-3-8B-SFT,Llama-3.1-8B,sft_of,Allen AI,anger,111,11,3.350649221322021,5
+Llama-3.1-Tulu-3-8B-SFT-no-math-data,Llama-3.1-8B,sft_of,Allen AI,anger,117,12,3.510473281909258,5
+Llama-3.1-Tulu-3-8B-SFT-no-persona-data,Llama-3.1-8B,sft_of,Allen AI,anger,111,12,3.3543274638385654,5
+Llama-3.1-Tulu-3-8B-SFT-no-safety-data,Llama-3.1-8B,sft_of,Allen AI,anger,102,12,3.593516109748652,5
+Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data,Llama-3.1-8B,sft_of,Allen AI,anger,106,11,3.358597863096533,5
+Llama-3.1-Tulu-3.1-8B,Llama-3.1-8B,rlvr_of,Allen AI,anger,86,9,3.125455041784187,5
+Mistral-7B-v0.1,Mistral-7B-v0.1,base,Mistral,anger,106,8,2.9205963209552586,5
+Nous-Hermes-2-Mistral-7B-DPO,Mistral-7B-v0.1,dpo_of,NousResearch,anger,70,5,3.176538365493928,5
+OLMo-2-0425-1B,OLMo-2-0425-1B,base,Allen AI,anger,97,14,4.023946841276183,4
+OLMo-2-0425-1B-DPO,OLMo-2-0425-1B,dpo_of,Allen AI,anger,133,21,3.691977420807781,5
+OLMo-2-0425-1B-Instruct,OLMo-2-0425-1B,rlvr_of,Allen AI,anger,134,21,3.606843734493674,5
+OLMo-2-0425-1B-SFT,OLMo-2-0425-1B,sft_of,Allen AI,anger,134,22,3.6813578704622256,4
+Olmo-3-1025-7B,Olmo-3-1025-7B,base,Allen AI,anger,121,22,3.9598426694466062,5
+Olmo-3-7B-Instruct,Olmo-3-1025-7B,rlvr_of,Allen AI,anger,46,2,2.332467508279597,5
+Olmo-3-7B-Instruct-DPO,Olmo-3-1025-7B,dpo_of,Allen AI,anger,62,3,2.454361061979134,5
+Olmo-3-7B-Instruct-SFT,Olmo-3-1025-7B,sft_of,Allen AI,anger,84,5,2.8308438660737703,5
+Olmo-3-7B-Think-DPO,Olmo-3-1025-7B,think_dpo_of,Allen AI,anger,122,18,3.6209196357293147,5
+Olmo-3-7B-Think-SFT,Olmo-3-1025-7B,think_sft_of,Allen AI,anger,120,18,3.600304835588516,5
+OpenHermes-2.5-Mistral-7B,Mistral-7B-v0.1,sft_of,Community,anger,72,5,3.1647300629669592,5
+Qwen2.5-0.5B,Qwen2.5-0.5B,base,Alibaba,anger,73,8,3.793012175096633,5
+Qwen2.5-0.5B-Instruct,Qwen2.5-0.5B,aligned_of,Alibaba,anger,83,10,3.8117587767451644,5
+Qwen2.5-7B,Qwen2.5-7B,base,Alibaba,anger,85,12,3.5715485634172666,5
+Qwen2.5-7B-Instruct,Qwen2.5-7B,aligned_of,Alibaba,anger,96,9,2.104592660967979,5
+Qwen3-8B,Qwen3-8B-Base,aligned_of,Alibaba,anger,83,7,1.5958850911137485,5
+Qwen3-8B-Base,Qwen3-8B-Base,base,Alibaba,anger,101,16,3.622657236191306,5
+SmolLM2-360M,SmolLM2-360M,base,HuggingFace,anger,138,18,3.486752787092026,5
+SmolLM2-360M,SmolLM2-360M,base,HuggingFace,contradiction,93,10,3.093627133677083,5
+SmolLM2-360M,SmolLM2-360M,base,HuggingFace,labor,82,7,3.2600110731962157,5
+SmolLM2-360M,SmolLM2-360M,base,HuggingFace,neutral,60,3,2.7686002453168235,5
+SmolLM2-360M,SmolLM2-360M,base,HuggingFace,sexual,67,14,3.2918082635794113,5
+SmolLM2-360M-Instruct,SmolLM2-360M,aligned_of,,anger,126,15,3.071823412227252,5
+SmolLM2-360M-Instruct,SmolLM2-360M,aligned_of,,contradiction,98,12,2.8191897185253247,5
+SmolLM2-360M-Instruct,SmolLM2-360M,aligned_of,,labor,61,5,2.6441768545673616,5
+SmolLM2-360M-Instruct,SmolLM2-360M,aligned_of,,neutral,22,1,2.3602215844121845,5
+SmolLM2-360M-Instruct,SmolLM2-360M,aligned_of,,sexual,77,6,2.467916805248756,5
+SmolLM3-3B,SmolLM3-3B-Base,aligned_of,,anger,90,11,3.4017666790220473,5
+SmolLM3-3B-Base,SmolLM3-3B-Base,base,HuggingFace,anger,106,15,3.7249629857053734,4
+Starling-LM-7B-alpha,Mistral-7B-v0.1,rlhf_of,UC Berkeley,anger,88,7,2.7839455081742597,5
+Yi-1.5-9B-Chat,Yi-9B,aligned_of,01.AI,anger,87,9,3.226462187555929,5
+Yi-1.5-9B-Chat,Yi-9B,aligned_of,01.AI,contradiction,100,13,2.109261195929721,5
+Yi-1.5-9B-Chat,Yi-9B,aligned_of,01.AI,labor,58,4,2.8887234343023134,5
+Yi-1.5-9B-Chat,Yi-9B,aligned_of,01.AI,neutral,52,1,1.8653264051088347,5
+Yi-1.5-9B-Chat,Yi-9B,aligned_of,01.AI,sexual,103,8,2.3627730443060977,5
+Yi-9B,Yi-9B,base,01.AI,anger,119,15,3.5861210749805474,5
+Yi-9B,Yi-9B,base,01.AI,contradiction,113,15,2.770195485941604,5
+Yi-9B,Yi-9B,base,01.AI,labor,79,5,3.303525709275958,5
+Yi-9B,Yi-9B,base,01.AI,neutral,40,1,2.373888767970493,5
+Yi-9B,Yi-9B,base,01.AI,sexual,85,11,3.35903675784083,4
+deepseek-llm-7b-base,deepseek-llm-7b-base,base,DeepSeek,anger,111,14,3.28206757221136,5
+deepseek-llm-7b-chat,deepseek-llm-7b-base,aligned_of,DeepSeek,anger,79,13,3.577780504550349,5
+dolphin-2.6-mistral-7b-dpo,Mistral-7B-v0.1,dpo_of,Community,anger,75,5,2.901325765872995,5
+eleuther-pythia6.9b-hh-dpo,pythia-6.9b,dpo_of,,anger,121,13,2.9583889571103184,5
+eleuther-pythia6.9b-hh-sft,pythia-6.9b,sft_of,,anger,119,13,3.039834871637721,5
+falcon-7b,falcon-7b,base,TII,anger,107,13,3.6473836314246477,4
+falcon-7b-instruct,falcon-7b,aligned_of,TII,anger,85,11,3.7335642968907075,5
+mistral-7b-sft-beta,Mistral-7B-v0.1,sft_of,HuggingFace,anger,36,2,2.5003630907999144,5
+mistral-7b-sft-beta,Mistral-7B-v0.1,sft_of,HuggingFace,contradiction,67,4,1.8975781857804048,5
+mistral-7b-sft-beta,Mistral-7B-v0.1,sft_of,HuggingFace,labor,36,4,2.516205220716074,5
+mistral-7b-sft-beta,Mistral-7B-v0.1,sft_of,HuggingFace,neutral,81,6,1.8724706858895248,5
+mistral-7b-sft-beta,Mistral-7B-v0.1,sft_of,HuggingFace,sexual,92,12,2.751075726174547,5
+openchat-3.5-0106,Mistral-7B-v0.1,aligned_of,Community,anger,87,7,2.8617349413448365,5
+pythia-6.9b,pythia-6.9b,base,EleutherAI,anger,117,15,3.2909399335965133,5
+pythia-6.9b,pythia-6.9b,base,EleutherAI,contradiction,87,7,2.842100554327855,5
+pythia-6.9b,pythia-6.9b,base,EleutherAI,labor,126,15,3.019572293474561,5
+pythia-6.9b,pythia-6.9b,base,EleutherAI,neutral,81,4,2.5282498376650944,5
+pythia-6.9b,pythia-6.9b,base,EleutherAI,sexual,93,20,2.800190893279749,5
+zephyr-7b-beta,Mistral-7B-v0.1,dpo_of,HuggingFace,anger,35,1,2.388104328897316,5
+zephyr-7b-beta,Mistral-7B-v0.1,dpo_of,HuggingFace,contradiction,63,4,1.6689487971930899,5
+zephyr-7b-beta,Mistral-7B-v0.1,dpo_of,HuggingFace,labor,36,4,2.4394950828282163,5
+zephyr-7b-beta,Mistral-7B-v0.1,dpo_of,HuggingFace,neutral,84,7,1.7910953737019943,5
+zephyr-7b-beta,Mistral-7B-v0.1,dpo_of,HuggingFace,sexual,77,9,2.6030733496307503,5
