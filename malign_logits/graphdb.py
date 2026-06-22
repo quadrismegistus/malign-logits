@@ -307,6 +307,7 @@ class GraphDB:
                         "_key": f"{_key(base_id)}__{pname}__{i}",
                         "model": base_id,
                         "model_short": base_short,
+                        "model_doc_id": f"models/{_key(base_id)}",
                         "prompt": pname,
                         "depth": node["depth"],
                         "token": node["token"],
