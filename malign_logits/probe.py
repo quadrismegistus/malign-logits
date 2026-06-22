@@ -981,19 +981,26 @@ class Probe:
 
         return pd.DataFrame(rows)
 
-    def explore_tree(self, prompt: str, coverage: float = 0.9,
+    def explore_tree(self, prompt: str, coverage: float = 0.5,
                      max_depth: int = 5, entropy_floor: float = 0.5,
-                     cumul_floor: float = 0.0001, max_nodes: int = 5000) -> list:
+                     cumul_floor: float = 0.001, max_nodes: int = 5000) -> list:
         """Deterministic tree exploration — no sampling needed.
 
-        At each node, follows branches covering `coverage` fraction of
-        probability mass. Stops branching when entropy < entropy_floor
-        or cumulative path probability < cumul_floor.
+        Explores until majority of probability mass is covered at each
+        node (default 50%). This captures the main storylines without
+        exhaustively exploring the tail.
+
+        At each node, follows branches until `coverage` fraction of
+        probability mass is covered. Stops branching when:
+        - entropy < entropy_floor (model is certain)
+        - cumulative path probability < cumul_floor (path too unlikely)
+        - max_depth or max_nodes reached
+
+        Default coverage=0.5 gives ~100 paths on typical prompts.
+        coverage=0.9 gives ~2000 paths (full tail exploration).
 
         Returns list of node dicts with: depth, token, prob, cumul_prob,
         entropy, parent, n_children.
-
-        ~75s for 1B model, ~10min for 7B at default settings.
         """
         import gc
         from .models import load_model
