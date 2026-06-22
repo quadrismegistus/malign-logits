@@ -1177,21 +1177,33 @@ class Probe:
                     argmax_id = int(np.argmax(probs))
                     argmax_word = tok.decode([argmax_id]).strip()
 
-                    # Resistance: surprisal of base's next token under this model
-                    # Find what the base model chose at the CHILDREN of this node
-                    base_token = node["token"]
-                    base_tid = tok.encode(" " + base_token, add_special_tokens=False)
-                    if base_tid:
-                        base_prob = float(probs[base_tid[0]])
-                        resistance = -float(np.log2(max(base_prob, 1e-10)))
+                    # Resistance: how much does this model resist the base's
+                    # most probable CHILD token at this node?
+                    children = [n for n in nodes if n["parent"] == node_idx]
+                    if children:
+                        top_child = max(children, key=lambda c: c["prob"])
+                        child_token = top_child["token"]
+                        child_tid = tok.encode(" " + child_token, add_special_tokens=False)
+                        if child_tid and child_tid[0] < len(probs):
+                            child_prob = float(probs[child_tid[0]])
+                            base_child_prob = top_child["prob"]
+                            resistance = -float(np.log2(max(child_prob, 1e-10)))
+                            base_resistance = -float(np.log2(max(base_child_prob, 1e-10)))
+                            delta_resistance = resistance - base_resistance
+                        else:
+                            child_prob = 0.0
+                            resistance = 20.0
+                            delta_resistance = 0.0
                     else:
-                        base_prob = 0.0
-                        resistance = 20.0
+                        child_prob = 0.0
+                        resistance = 0.0
+                        delta_resistance = 0.0
 
                     node[f"{short}_entropy"] = ent
                     node[f"{short}_argmax"] = argmax_word
                     node[f"{short}_resistance"] = resistance
-                    node[f"{short}_prob_base_tok"] = base_prob
+                    node[f"{short}_delta_resist"] = delta_resistance
+                    node[f"{short}_prob_child"] = child_prob
 
                     if out.hidden_states:
                         node[f"{short}_hidden"] = out.hidden_states[-1][0, -1, :].cpu().numpy().tolist()
