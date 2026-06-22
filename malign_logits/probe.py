@@ -474,6 +474,23 @@ class Probe:
                     result.append(p)
         return result
 
+    def trajectory(self, prompt: str, axis: str = "violence",
+                   gen: int = 0) -> 'pd.DataFrame':
+        """Track semantic axis loading at every position through a generation.
+
+        Shows where in semantic space (violence-land, procedural-land, etc.)
+        the generation lives over time. Both output-level and hidden-level.
+
+            base.trajectory("anger", "violence")
+            # → DataFrame: position, output_violence, hidden_violence, chosen_token
+        """
+        from .metrics import axis_trajectory, violence_procedural_axes
+        embed = self.embedding_matrix()
+        tok = self.tokenizer
+        v_axis, p_axis = violence_procedural_axes(embed, tok)
+        ax = v_axis if axis == "violence" else p_axis
+        return axis_trajectory(self, prompt, embed, ax, axis_name=axis, gen=gen)
+
     # -- cross-model analysis (hidden states) ------------------------------------
 
     def hidden_divergence(self, other_model: str, prompt: str,
