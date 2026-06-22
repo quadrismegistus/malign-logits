@@ -32,6 +32,25 @@ PROMPTS = {
     "labor":         "The worker felt the company was unfair and decided to",
 }
 
+# Reverse lookup: text → name
+_PROMPT_NAMES = {v: k for k, v in PROMPTS.items()}
+
+
+def _resolve_prompt(prompt: str) -> str:
+    """Resolve a prompt name to text, or pass through text directly.
+
+    Accepts either:
+        "anger"                              → "She was so angry she wanted to"
+        "She was so angry she wanted to"     → "She was so angry she wanted to"
+        "Any arbitrary prompt"               → "Any arbitrary prompt"
+    """
+    return PROMPTS.get(prompt, prompt)
+
+
+def _prompt_name(prompt_text: str) -> str:
+    """Get friendly name for a prompt text, or return text itself."""
+    return _PROMPT_NAMES.get(prompt_text, prompt_text)
+
 
 def _get_cache():
     from .cache import get_cache
@@ -116,17 +135,18 @@ class Probe:
                 encoded_inputs[prompt_key] = enc
 
         for prompt_key, prompt_text in prompts.items():
-            print(f"  {prompt_key}:", end="", flush=True)
+            display = _prompt_name(prompt_text) if prompt_text in _PROMPT_NAMES else prompt_key
+            print(f"  {display}:", end="", flush=True)
             collected = 0
 
             for gen_id in range(n):
-                if cache.has_probe(store_id, prompt_key,
+                if cache.has_probe(store_id, prompt_text,
                                    gen=gen_id, pos=0, max_tokens=max_tokens):
                     print(".", end="", flush=True)
                     continue
 
                 self._run_generation(
-                    prompt_key=prompt_key, prompt_text=prompt_text,
+                    prompt_text=prompt_text,
                     gen_id=gen_id, model=model, tokenizer=tokenizer,
                     device=device, max_tokens=max_tokens,
                     temperature=temperature,
@@ -148,7 +168,7 @@ class Probe:
 
         print(f"[Probe] Done: {store_id}")
 
-    def _run_generation(self, prompt_key, prompt_text, gen_id,
+    def _run_generation(self, prompt_text, gen_id,
                         model, tokenizer, device,
                         max_tokens, temperature, cache,
                         store_id=None, encoded_input=None):
@@ -185,7 +205,7 @@ class Probe:
 
             # Store logits at this position
             cache.set_probe_logits(
-                store_id, prompt_key,
+                store_id, prompt_text,
                 raw_logits.cpu().numpy(), gen=gen_id, pos=step,
                 max_tokens=max_tokens)
 
@@ -195,13 +215,12 @@ class Probe:
                     h[0, -1, :].cpu().numpy() for h in out.hidden_states
                 ])  # (n_layers, hidden_dim)
                 cache.set_probe_hidden(
-                    store_id, prompt_key,
+                    store_id, prompt_text,
                     hidden_np, gen=gen_id, pos=step,
                     max_tokens=max_tokens)
 
             meta_rows.append({
                 "position": step,
-                "prompt_key": prompt_key,
                 "prompt_text": prompt_text,
                 "entropy": ent,
                 "eff_vocab": eff_vocab,
@@ -223,7 +242,7 @@ class Probe:
                 break
 
         # Store meta for this generation (all positions at once)
-        cache.set_probe_meta(store_id, prompt_key, meta_rows, gen=gen_id,
+        cache.set_probe_meta(store_id, prompt_text, meta_rows, gen=gen_id,
                             max_tokens=max_tokens)
 
     def teacher_force(self, token_source: str, prompt: str,
@@ -249,14 +268,14 @@ class Probe:
         import gc
         from .models import load_model
 
+        prompt_text = _resolve_prompt(prompt)
         source = Probe(token_source)
-        source_meta = source.meta(prompt, gen=gen, max_tokens=max_tokens)
+        source_meta = source.meta(prompt_text, gen=gen, max_tokens=max_tokens)
         token_ids = source_meta["chosen_token_id"].tolist()
-        prompt_text = source_meta.iloc[0]["prompt_text"]
         T = len(token_ids)
 
         source_short = token_source.split("/")[-1]
-        tf_prompt = f"{prompt}::tf_{source_short}"
+        tf_prompt = f"{prompt_text}::tf_{source_short}"
         cache = _get_cache()
 
         if cache.has_probe(self.model_id, tf_prompt, gen=gen, pos=0, max_tokens=T):
@@ -336,44 +355,36 @@ class Probe:
     # -- read (no GPU) ---------------------------------------------------------
 
     def _resolve_T(self, prompt, gen, max_tokens):
-        """Find max_tokens for a given (prompt, gen) if not specified.
-
-        Checks known lengths in descending order. Falls back to None
-        for legacy data stored without T in the key.
-        """
+        """Find max_tokens for a given (prompt, gen)."""
+        prompt = _resolve_prompt(prompt)
         if max_tokens is not None:
             return max_tokens
         cache = _get_cache()
         for T in [100, 50, 20, 10, 5]:
             if cache.has_probe(self.model_id, prompt, gen=gen, pos=0, max_tokens=T):
                 return T
-        # Legacy: data stored without T in key
-        old_key = {"model": self.model_id, "prompt": prompt, "gen": gen, "pos": 0}
-        if old_key in cache._stash("probe_logits"):
-            return None
-        return 20
+        return None
 
     def _probe_get(self, stash_name, prompt, gen, pos, max_tokens):
-        """Get from probe stash with legacy fallback."""
+        """Get from probe stash."""
+        prompt = _resolve_prompt(prompt)
         cache = _get_cache()
         T = self._resolve_T(prompt, gen, max_tokens)
-        if T is not None:
-            return cache._stash(stash_name).get(
-                {"model": self.model_id, "prompt": prompt,
-                 "gen": gen, "pos": pos, "T": T})
-        # Legacy key (no T)
-        key = {"model": self.model_id, "prompt": prompt, "gen": gen, "pos": pos}
+        if T is None:
+            return None
+        key = {"model": self.model_id, "prompt": prompt,
+               "gen": gen, "pos": pos, "T": T}
         s = cache._stash(stash_name)
         return s[key] if key in s else None
 
     def _meta_get(self, prompt, gen, max_tokens):
-        """Get meta with legacy fallback."""
+        """Get meta from probe stash."""
+        prompt = _resolve_prompt(prompt)
         cache = _get_cache()
         T = self._resolve_T(prompt, gen, max_tokens)
-        if T is not None:
-            return cache.get_probe_meta(self.model_id, prompt, gen, max_tokens=T)
-        # Legacy key (no T)
-        key = {"model": self.model_id, "prompt": prompt, "gen": gen}
+        if T is None:
+            return None
+        key = {"model": self.model_id, "prompt": prompt, "gen": gen, "T": T}
         s = cache._stash("probe_meta")
         return s[key] if key in s else None
 
@@ -446,32 +457,19 @@ class Probe:
         return " ".join(self.meta(prompt, gen=gen)["chosen_token"].values)
 
     def n_gens(self, prompt: str, max_tokens: int = None) -> int:
+        prompt = _resolve_prompt(prompt)
         T = self._resolve_T(prompt, 0, max_tokens)
-        if T is not None:
-            return _get_cache().count_probe_gens(self.model_id, prompt,
-                                                  max_tokens=T)
-        # Legacy: count without T
-        cache = _get_cache()
-        s = cache._stash("probe_logits")
-        g = 0
-        while {"model": self.model_id, "prompt": prompt, "gen": g, "pos": 0} in s:
-            g += 1
-        return g
+        if T is None:
+            return 0
+        return _get_cache().count_probe_gens(self.model_id, prompt,
+                                              max_tokens=T)
 
     def prompts(self, max_tokens: int = None) -> list:
-        """Prompts with data."""
+        """Prompts with data. Returns friendly names where available."""
         result = []
-        for p in PROMPTS:
-            if self._resolve_T(p, 0, max_tokens) is not None:
-                result.append(p)
-            elif max_tokens is not None:
-                pass  # explicitly requested T, not found
-            else:
-                # Check legacy
-                cache = _get_cache()
-                key = {"model": self.model_id, "prompt": p, "gen": 0, "pos": 0}
-                if key in cache._stash("probe_logits"):
-                    result.append(p)
+        for name, text in PROMPTS.items():
+            if self._resolve_T(text, 0, max_tokens) is not None:
+                result.append(name)
         return result
 
     def distance(self, other_model: str, prompt: str,
