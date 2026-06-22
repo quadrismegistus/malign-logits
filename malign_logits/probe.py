@@ -1092,6 +1092,134 @@ class Probe:
         cache.set_derived(tree_key, nodes)
         return nodes
 
+    def annotate_tree(self, prompt: str, annotators: list = None,
+                      coverage: float = 0.5, max_depth: int = 5):
+        """Teacher-force family checkpoints through this model's tree.
+
+        Explores this model's tree, then replays each path through
+        every annotator model. Adds per-node columns:
+            {model_short}_entropy, {model_short}_prob_of_base_token,
+            {model_short}_resistance, {model_short}_argmax,
+            {model_short}_hidden
+
+        If annotators is None, uses all variants of this model's base.
+
+            base = Probe("allenai/OLMo-2-0425-1B")
+            nodes = base.annotate_tree("anger")
+            # Each node has base + SFT + DPO + RLVR columns
+        """
+        import gc
+        from .models import load_model
+        from .registry import Registry
+        from scipy.special import softmax
+
+        prompt_text = _resolve_prompt(prompt)
+        reg = Registry()
+
+        # Get or explore the base tree
+        nodes = self.explore_tree(prompt_text, coverage=coverage,
+                                  max_depth=max_depth)
+
+        # Determine annotator models
+        if annotators is None:
+            base_id = reg.base_of(self.model_id) or self.model_id
+            annotators = reg.variants_of(base_id)
+            if self.model_id != base_id:
+                annotators = [base_id] + annotators
+            annotators = [m for m in annotators if m != self.model_id]
+
+        if not annotators:
+            return nodes
+
+        # Build all unique paths (root to each node)
+        def get_path(node_idx):
+            path = []
+            idx = node_idx
+            while idx >= 0:
+                path.append(idx)
+                idx = nodes[idx]["parent"]
+            return list(reversed(path))
+
+        # Get tokenizer for token ID lookup
+        tok = self.tokenizer
+        prompt_ids = tok.encode(prompt_text)
+
+        for model_id in annotators:
+            short = model_id.split("/")[-1].replace("-", "_")[:20]
+            print(f"  Annotating with {model_id.split('/')[-1]}...", end="", flush=True)
+
+            try:
+                model, model_tok = load_model(model_id)
+                device = next(model.parameters()).device
+
+                # For each node, build its token path and forward pass
+                annotated = 0
+                # Group nodes by depth for efficiency
+                for node_idx, node in enumerate(nodes):
+                    if node["depth"] == 0:
+                        # Root: just the prompt
+                        ids = tok.encode(prompt_text, return_tensors="pt").to(device)
+                    else:
+                        # Build token sequence: prompt + path tokens
+                        path_indices = get_path(node_idx)
+                        path_tokens = [nodes[i]["token"] for i in path_indices
+                                       if nodes[i]["depth"] > 0]
+                        text = prompt_text + " " + " ".join(path_tokens)
+                        ids = tok.encode(text, return_tensors="pt").to(device)
+
+                    with torch.no_grad():
+                        out = model(ids, output_hidden_states=True)
+
+                    logits = out.logits[0, -1, :].float().cpu().numpy()
+                    probs = softmax(logits)
+
+                    ent = -float(np.sum(probs * np.log(probs + 1e-10)))
+                    argmax_id = int(np.argmax(probs))
+                    argmax_word = tok.decode([argmax_id]).strip()
+
+                    # Resistance: surprisal of base's next token under this model
+                    # Find what the base model chose at the CHILDREN of this node
+                    base_token = node["token"]
+                    base_tid = tok.encode(" " + base_token, add_special_tokens=False)
+                    if base_tid:
+                        base_prob = float(probs[base_tid[0]])
+                        resistance = -float(np.log2(max(base_prob, 1e-10)))
+                    else:
+                        base_prob = 0.0
+                        resistance = 20.0
+
+                    node[f"{short}_entropy"] = ent
+                    node[f"{short}_argmax"] = argmax_word
+                    node[f"{short}_resistance"] = resistance
+                    node[f"{short}_prob_base_tok"] = base_prob
+
+                    if out.hidden_states:
+                        node[f"{short}_hidden"] = out.hidden_states[-1][0, -1, :].cpu().numpy().tolist()
+
+                    annotated += 1
+
+                del model
+                gc.collect()
+                try:
+                    if torch.backends.mps.is_available():
+                        torch.mps.empty_cache()
+                except Exception:
+                    pass
+
+                print(f" {annotated} nodes")
+
+            except Exception as e:
+                print(f" FAILED: {str(e)[:60]}")
+
+        # Update cache with annotated tree
+        cache = _get_cache()
+        tree_key = {"model": self.model_id, "prompt": prompt_text,
+                    "coverage": coverage, "max_depth": max_depth,
+                    "type": "explore_tree"}
+        cache.set_derived(tree_key, nodes)
+
+        return nodes
+
     def tree_to_vecdb(self, prompt: str, **kwargs):
         """Explore tree and store in lancedb with hidden states + graph edges."""
         from .vecdb import VecDB
