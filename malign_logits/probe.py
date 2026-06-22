@@ -981,6 +981,145 @@ class Probe:
 
         return pd.DataFrame(rows)
 
+    def across_prompts(self, max_tokens: int = 10) -> 'pd.DataFrame':
+        """This model's tree stats across all prompts."""
+        import pandas as pd
+        from .metrics import tree_metrics
+        rows = []
+        for name, text in PROMPTS.items():
+            t = tree_metrics(self, text, n_gens=100, max_tokens=max_tokens)
+            if not t or t['n_gens'] < 5:
+                continue
+            rows.append({
+                'prompt': name, 'n_branches': t['n_branches'],
+                'branch_entropy': t['branch_entropy'],
+                'top_branch': t['top_branch'],
+                'top_branch_pct': t['top_branch_pct'],
+            })
+        return pd.DataFrame(rows)
+
+    # -- figure generation -----------------------------------------------------
+
+    @staticmethod
+    def figure(kind: str, prompt: str = "anger", family: str = None,
+               model: str = None, save: str = None, **kwargs):
+        """Generate a publication figure from probe data.
+
+        Kinds:
+            'census'       — bar chart of all models' branch entropy
+            'tree'         — Sankey tree for one model
+            'compare'      — base vs aligned tree side by side
+            'distribution' — top-k token probabilities overlay
+            'trajectory'   — violence/procedural loading across positions
+            'branches'     — branch survival (base→aligned)
+
+        Returns matplotlib Figure. Saves to path if `save` given.
+        """
+        import matplotlib.pyplot as plt
+        from .metrics import tree_metrics, tree_compare
+
+        prompt_text = _resolve_prompt(prompt)
+
+        if kind == 'census':
+            df = Probe.census(prompt, max_tokens=kwargs.get('T', 10))
+            df = df.sort_values('branch_entropy')
+            fig, ax = plt.subplots(figsize=(10, max(6, len(df) * 0.3)))
+            colors = {'base': '#4e79a7', 'sft_of': '#f28e2b', 'dpo_of': '#e15759',
+                      'rlvr_of': '#59a14f', 'aligned_of': '#76b7b2'}
+            for _, row in df.iterrows():
+                c = colors.get(row.get('relation', ''), '#999')
+                ax.barh(row['model_short'], row['branch_entropy'], color=c, alpha=0.8)
+            ax.set_xlabel('Branch entropy (bits)')
+            ax.set_title(f'Tree breadth: {prompt}')
+            ax.invert_yaxis()
+
+        elif kind == 'tree':
+            model_id = model or (Probe.resolve(family) if family else None)
+            if not model_id:
+                raise ValueError("Specify model= or family=")
+            p = Probe(model_id)
+            t = p.tree(prompt, max_tokens=kwargs.get('T', 10))
+            branches = list(t['branches'].items())[:20]
+            fig, ax = plt.subplots(figsize=(8, 5))
+            tokens = [b[0] for b in branches]
+            pcts = [b[1] * 100 for b in branches]
+            ax.barh(tokens[::-1], pcts[::-1], color='#4e79a7')
+            ax.set_xlabel('% of generations')
+            ax.set_title(f'{model_id.split("/")[-1]} — {prompt}')
+
+        elif kind == 'compare':
+            if not family:
+                raise ValueError("Specify family=")
+            base_id = Probe.resolve(family)
+            from .registry import Registry
+            reg = Registry()
+            variants = reg.variants_of(base_id)
+            final = variants[-1] if variants else base_id
+
+            t_base = tree_metrics(Probe(base_id), prompt_text, max_tokens=kwargs.get('T', 10))
+            t_aligned = tree_metrics(Probe(final), prompt_text, max_tokens=kwargs.get('T', 10))
+
+            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6), sharey=False)
+            for ax, t, title in [(ax1, t_base, 'Base'), (ax2, t_aligned, 'Aligned')]:
+                branches = list(t['branches'].items())[:15]
+                tokens = [b[0] for b in branches]
+                pcts = [b[1] * 100 for b in branches]
+                ax.barh(tokens[::-1], pcts[::-1], color='#4e79a7' if ax == ax1 else '#e15759')
+                ax.set_xlabel('%')
+                ax.set_title(f'{title} ({t["n_branches"]} branches, H={t["branch_entropy"]:.1f})')
+
+            fig.suptitle(f'{family} — {prompt}', fontsize=14)
+
+        elif kind == 'distribution':
+            models = kwargs.get('models', [])
+            if not models and family:
+                base_id = Probe.resolve(family)
+                from .registry import Registry
+                reg = Registry()
+                models = [base_id] + reg.variants_of(base_id)
+            from scipy.special import softmax
+            fig, ax = plt.subplots(figsize=(12, 5))
+            colors = ['#4e79a7', '#e15759', '#59a14f', '#f28e2b']
+            all_tokens = set()
+            data = {}
+            for i, mid in enumerate(models[:4]):
+                try:
+                    p = Probe(mid)
+                    logits = p.logits(prompt_text, gen=0, pos=0,
+                                      max_tokens=kwargs.get('T', 10))
+                    probs = softmax(logits)
+                    tok = p.tokenizer
+                    top = probs.argsort()[-30:][::-1]
+                    for t in top:
+                        all_tokens.add((tok.decode([int(t)]).strip(), int(t)))
+                    data[mid] = probs
+                except FileNotFoundError:
+                    pass
+
+            tokens_sorted = sorted(all_tokens, key=lambda x: -data[models[0]][x[1]]
+                                   if models[0] in data else 0)[:25]
+            x = np.arange(len(tokens_sorted))
+            w = 0.8 / len(data)
+            for i, (mid, probs) in enumerate(data.items()):
+                vals = [probs[tid] for _, tid in tokens_sorted]
+                ax.bar(x + i * w, vals, w, label=mid.split('/')[-1],
+                       color=colors[i % len(colors)], alpha=0.8)
+            ax.set_xticks(x + w * len(data) / 2)
+            ax.set_xticklabels([t[0] for t in tokens_sorted], rotation=45, ha='right')
+            ax.set_ylabel('Probability')
+            ax.set_yscale('log')
+            ax.legend(fontsize=8)
+            ax.set_title(f'Distribution overlay — {prompt}')
+
+        else:
+            raise ValueError(f"Unknown figure kind: {kind}")
+
+        plt.tight_layout()
+        if save:
+            fig.savefig(save, dpi=150, bbox_inches='tight')
+            print(f"Saved {save}")
+        return fig
+
     # -- family resolution -----------------------------------------------------
 
     FAMILIES = {
