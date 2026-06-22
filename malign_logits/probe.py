@@ -226,6 +226,113 @@ class Probe:
         cache.set_probe_meta(store_id, prompt_key, meta_rows, gen=gen_id,
                             max_tokens=max_tokens)
 
+    def teacher_force(self, token_source: str, prompt: str,
+                      gen: int = 0, max_tokens: int = None):
+        """Run this model on another model's generated tokens.
+
+        Feeds the token sequence from token_source's generation into
+        this model, collecting logits and hidden states at each position.
+        Both models process IDENTICAL input, so any hidden state difference
+        is purely from weight changes — no path dependency confound.
+
+        Results stored under prompt key "{prompt}::tf_{source_short}".
+
+            # Base generated tokens
+            base = Probe("allenai/Olmo-3-1025-7B")
+            # Feed base tokens through aligned model
+            aligned = Probe("allenai/Olmo-3-7B-Instruct-DPO")
+            aligned.teacher_force("allenai/Olmo-3-1025-7B", "anger")
+            # Now compare hidden states — clean, no path dependency
+            h_base = base.hidden("anger", pos=10)
+            h_aligned = aligned.hidden("anger::tf_Olmo-3-1025-7B", pos=10)
+        """
+        import gc
+        from .models import load_model
+
+        source = Probe(token_source)
+        source_meta = source.meta(prompt, gen=gen, max_tokens=max_tokens)
+        token_ids = source_meta["chosen_token_id"].tolist()
+        prompt_text = source_meta.iloc[0]["prompt_text"]
+        T = len(token_ids)
+
+        source_short = token_source.split("/")[-1]
+        tf_prompt = f"{prompt}::tf_{source_short}"
+        cache = _get_cache()
+
+        if cache.has_probe(self.model_id, tf_prompt, gen=gen, pos=0, max_tokens=T):
+            print(f"[Probe] Already teacher-forced: {self.model_id} on {token_source}/{prompt}")
+            return
+
+        print(f"[Probe] Teacher-forcing {self.model_id} with tokens from {token_source}/{prompt} ({T} tokens)...")
+        model, tokenizer = load_model(self.model_id)
+        self._tokenizer = tokenizer
+        device = next(model.parameters()).device
+
+        input_ids = tokenizer.encode(prompt_text, return_tensors="pt").to(device)
+        generated_ids = input_ids.clone()
+
+        meta_rows = []
+
+        for step in range(T):
+            with torch.no_grad():
+                out = model(generated_ids, output_hidden_states=True)
+
+            raw_logits = out.logits[0, -1, :].float()
+            probs_cpu = torch.softmax(raw_logits, -1).cpu()
+
+            ent = -(probs_cpu * probs_cpu.clamp(min=1e-10).log()).sum().item()
+            eff_vocab = int((probs_cpu > 0.001).sum())
+            topk = torch.topk(probs_cpu, 10)
+            top_tokens = [tokenizer.decode([idx]).strip() for idx in topk.indices]
+            top_probs = topk.values.tolist()
+
+            forced_id = token_ids[step]
+
+            cache.set_probe_logits(
+                self.model_id, tf_prompt,
+                raw_logits.cpu().numpy(), gen=gen, pos=step, max_tokens=T)
+
+            if out.hidden_states:
+                hidden_np = np.stack([
+                    h[0, -1, :].cpu().numpy() for h in out.hidden_states
+                ])
+                cache.set_probe_hidden(
+                    self.model_id, tf_prompt,
+                    hidden_np, gen=gen, pos=step, max_tokens=T)
+
+            meta_rows.append({
+                "position": step,
+                "prompt_key": tf_prompt,
+                "prompt_text": prompt_text,
+                "entropy": ent,
+                "eff_vocab": eff_vocab,
+                "argmax_token": top_tokens[0],
+                "argmax_prob": top_probs[0],
+                "chosen_token": tokenizer.decode([forced_id]).strip(),
+                "chosen_token_id": forced_id,
+                "chosen_prob": probs_cpu[forced_id].item() if forced_id < len(probs_cpu) else 0.0,
+                "top5_tokens": "|".join(top_tokens[:5]),
+                "top5_probs": "|".join(f"{p:.6f}" for p in top_probs[:5]),
+            })
+
+            generated_ids = torch.cat([
+                generated_ids,
+                torch.tensor([[forced_id]], device=device)
+            ], dim=-1)
+
+        cache.set_probe_meta(self.model_id, tf_prompt, meta_rows, gen=gen,
+                            max_tokens=T)
+
+        del model
+        gc.collect()
+        try:
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
+        except Exception:
+            pass
+
+        print(f"[Probe] Done: {self.model_id} teacher-forced on {token_source}/{prompt}")
+
     # -- read (no GPU) ---------------------------------------------------------
 
     def _resolve_T(self, prompt, gen, max_tokens):
