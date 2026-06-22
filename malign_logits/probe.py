@@ -1006,6 +1006,16 @@ class Probe:
         from .models import load_model
 
         prompt_text = _resolve_prompt(prompt)
+
+        # Check cache first — tree is deterministic, no model load needed
+        cache = _get_cache()
+        tree_key = {"model": self.model_id, "prompt": prompt_text,
+                    "coverage": coverage, "max_depth": max_depth,
+                    "type": "explore_tree"}
+        cached = cache.get_derived(tree_key)
+        if cached is not None:
+            return cached
+
         model, tokenizer = load_model(self.model_id)
         self._tokenizer = tokenizer
         device = next(model.parameters()).device
@@ -1014,15 +1024,6 @@ class Probe:
 
         queue = [(0, prompt_ids, -1, "ROOT", 1.0, 1.0, -1)]  # +token_id
         nodes = []
-
-        # Check cache first — tree is deterministic
-        cache = _get_cache()
-        tree_key = {"model": self.model_id, "prompt": prompt_text,
-                    "coverage": coverage, "max_depth": max_depth,
-                    "type": "explore_tree"}
-        cached = cache.get_derived(tree_key)
-        if cached is not None:
-            return cached
 
         print(f"[Probe] Exploring tree: {self.model_id} / {prompt}", end="", flush=True)
 
@@ -1146,6 +1147,17 @@ class Probe:
                 annotators = [base_id] + annotators
             annotators = [m for m in annotators if m != self.model_id]
 
+        if not annotators:
+            return nodes
+
+        # Skip already-annotated models
+        existing = set()
+        if nodes:
+            for key in nodes[0].keys():
+                if key.endswith("_js"):
+                    existing.add(key[:-3])
+        annotators = [m for m in annotators
+                      if m.split("/")[-1].replace("-", "_")[:20] not in existing]
         if not annotators:
             return nodes
 
