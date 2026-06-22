@@ -288,6 +288,57 @@ def axis_trajectory(probe, prompt: str, embed: np.ndarray,
     return pd.DataFrame(rows)
 
 
+def centroid_distance(probe_base, probe_aligned, prompt: str,
+                      gen: int = 0, n_positions: int = 50,
+                      layer: int = -1) -> dict:
+    """Distance between generation cloud centroids in hidden space.
+
+    Computes mean hidden state across positions for each model, then
+    measures how far apart the two centroids are. Also projects onto
+    violence/procedural axes to show WHERE in semantic space each
+    model's generation cloud lives.
+
+    Three patterns observed:
+    - Cloud separation (OLMo): alignment moves entire cloud
+    - Same cloud, different tokens (Llama): same region, different samples
+    - Architectural convergence (Falcon): mid-network divergence absorbed
+    """
+    base_vecs, aligned_vecs = [], []
+    for pos in range(n_positions):
+        try:
+            hb = probe_base.hidden(prompt, gen=gen, pos=pos, layer=layer)
+            ha = probe_aligned.hidden(prompt, gen=gen, pos=pos, layer=layer)
+            base_vecs.append(hb)
+            aligned_vecs.append(ha)
+        except (FileNotFoundError, ValueError):
+            break
+
+    if len(base_vecs) < 2:
+        return {}
+
+    base_vecs = np.stack(base_vecs)
+    aligned_vecs = np.stack(aligned_vecs)
+
+    bc = base_vecs.mean(axis=0)
+    ac = aligned_vecs.mean(axis=0)
+
+    nb, na = np.linalg.norm(bc), np.linalg.norm(ac)
+    cos_dist = 1 - float(np.dot(bc, ac) / (nb * na)) if nb > 1e-10 and na > 1e-10 else 1.0
+
+    base_spread = float(np.mean([np.linalg.norm(v - bc) for v in base_vecs]))
+    aligned_spread = float(np.mean([np.linalg.norm(v - ac) for v in aligned_vecs]))
+
+    return {
+        "centroid_cos_dist": cos_dist,
+        "centroid_l2_dist": float(np.linalg.norm(bc - ac)),
+        "base_centroid": bc,
+        "aligned_centroid": ac,
+        "base_spread": base_spread,
+        "aligned_spread": aligned_spread,
+        "n_positions": len(base_vecs),
+    }
+
+
 def axis_loading(logits: np.ndarray, embed: np.ndarray,
                  axis: np.ndarray) -> float:
     """Expected projection of distribution onto an axis.
