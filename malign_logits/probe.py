@@ -1044,6 +1044,7 @@ class Probe:
                 "prob": branch_prob, "cumul_prob": cumul_prob, "entropy": ent,
                 "parent": parent_idx, "n_children": 0,
             }
+            node["_logits"] = logits  # stored for JS computation in annotate_tree, not serialized
             if out.hidden_states:
                 node["hidden"] = out.hidden_states[-1][0, -1, :].cpu().numpy().tolist()
             nodes.append(node)
@@ -1087,7 +1088,10 @@ class Probe:
             pass
 
         print(f" {len(nodes)} nodes")
-        cache.set_derived(tree_key, nodes)
+        # Strip raw logits before caching (too large to serialize)
+        cache_nodes = [{k: v for k, v in n.items() if k != "_logits"}
+                       for n in nodes]
+        cache.set_derived(tree_key, cache_nodes)
         return nodes
 
     def annotate_tree(self, prompt: str, annotators: list = None,
@@ -1196,8 +1200,19 @@ class Probe:
                         resistance = 0.0
                         delta_resistance = 0.0
 
+                    # JS divergence: full distributional distance base↔annotator
+                    base_logits = node.get("_logits")
+                    if base_logits is not None:
+                        from .metrics import js_divergence as _js, _align_vocab
+                        bl, al = _align_vocab(np.array(base_logits), logits)
+                        node_js = _js(bl, al)
+                    else:
+                        node_js = 0.0
+
                     node[f"{short}_entropy"] = ent
                     node[f"{short}_argmax"] = argmax_word
+                    node[f"{short}_js"] = node_js
+                    node[f"{short}_entropy_delta"] = ent - node["entropy"]
                     node[f"{short}_resistance"] = resistance
                     node[f"{short}_delta_resist"] = delta_resistance
                     node[f"{short}_prob_child"] = child_prob
