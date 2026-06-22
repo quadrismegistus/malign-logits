@@ -120,9 +120,18 @@ class Probe:
             collected = 0
 
             for gen_id in range(n):
-                if cache.has_probe(store_id, prompt_key, gen=gen_id, pos=0):
-                    print(".", end="", flush=True)
-                    continue
+                existing_meta = cache.get_probe_meta(
+                    store_id, prompt_key, gen=gen_id)
+                if existing_meta is not None:
+                    existing_len = len(existing_meta)
+                    # Complete if: reached max_tokens OR hit EOS
+                    hit_eos = (existing_len > 0 and
+                               existing_meta[-1].get("chosen_token_id") ==
+                               tokenizer.eos_token_id)
+                    if existing_len >= max_tokens or hit_eos:
+                        print(".", end="", flush=True)
+                        continue
+                    print(f"({existing_len}→{max_tokens})", end="", flush=True)
 
                 self._run_generation(
                     prompt_key=prompt_key, prompt_text=prompt_text,
