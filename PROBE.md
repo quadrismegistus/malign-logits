@@ -128,12 +128,36 @@ Always stores logits + hidden states + meta at every position. Embeddings stored
 
 ---
 
+## Tree Metrics (n=100 generations, T=10)
+
+The generation tree: position 0 is deterministic, branching starts at the first sampled token. n=100 samples the tree.
+
+| Metric | Function | Returns | Interpretation |
+|---|---|---|---|
+| **Tree metrics** | `p.tree("anger")` | dict: branches, entropy, distribution | Tree structure for one model |
+| **Tree compare** | `p.tree_compare(other, "anger")` | dict: tree JS, survival, novel/pruned | How alignment reshapes the tree |
+| **Branch trajectory** | `branch_trajectory(p, "anger", "kill")` | entropy mean±std per position | How a specific branch evolves |
+| **Cross-model branch** | `cross_model_branch(base, aligned, "anger", "kill")` | JS per position on matched branch | Clean temporal comparison |
+| **Convergence depth** | `convergence_depth(p, "anger")` | depth where branches become indistinguishable | How deep the tree matters |
+| **Branches** | `p.branches("anger")` | dict: token → gen indices | Group gens by first token |
+
+Three alignment archetypes visible in tree structure:
+- **Broad (repression)**: many branches, low concentration — energy scattered across substitutes
+- **Concentrated (foreclosure)**: few branches, high concentration — tree collapses to one path
+- **Kill-dominant**: base models or light alignment — original drive preserved
+
+Universal branches: "hit" in 17/17 models, "kill" 16/17 — the internet's consensus anger.
+
+---
+
 ## Data Inventory
 
 ```python
 Probe.inventory()           # all models with data
 Probe.families()            # 17 families with metadata
 Probe.compare_tree("olmo3-7b", "anger")  # cross-variant table
+p.tree("anger")             # tree structure
+p.tree_compare(other, "anger")  # tree comparison
 ```
 
-Current: 53 models × 5 prompts × T=100, 14 families with bidirectional teacher-forcing on anger.
+Current: collecting n=100 × T=10 × temp=1.0 for all 59 registered models.
