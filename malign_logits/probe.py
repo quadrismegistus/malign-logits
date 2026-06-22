@@ -1044,7 +1044,23 @@ class Probe:
                 "prob": branch_prob, "cumul_prob": cumul_prob, "entropy": ent,
                 "parent": parent_idx, "n_children": 0,
             }
-            node["_logits"] = logits  # stored for JS computation in annotate_tree, not serialized
+            node["_logits"] = logits  # transient, stripped before cache
+
+            # Axis loadings from logits (compute axes once)
+            if not hasattr(self, '_tree_embed'):
+                try:
+                    from .metrics import violence_procedural_axes
+                    self._tree_embed = model.get_input_embeddings().weight.detach().cpu().numpy()
+                    self._v_axis, self._p_axis = violence_procedural_axes(
+                        self._tree_embed, tokenizer)
+                except Exception:
+                    self._tree_embed = None
+
+            if self._tree_embed is not None:
+                from .metrics import axis_loading
+                node["violence_loading"] = axis_loading(logits, self._tree_embed, self._v_axis)
+                node["procedural_loading"] = axis_loading(logits, self._tree_embed, self._p_axis)
+
             if out.hidden_states:
                 node["hidden"] = out.hidden_states[-1][0, -1, :].cpu().numpy().tolist()
             nodes.append(node)
