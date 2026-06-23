@@ -1116,8 +1116,13 @@ class Probe:
             tree_key = {"model": self.model_id, "prompt": prompt_text,
                         "path_threshold": path_threshold, "max_depth": max_depth,
                         "type": "explore_tree_v2"}
-            cache_nodes = [{k: v for k, v in n.items() if k != "_logits"}
-                           for n in nodes]
+            # Store logits as list for serialization (~36MB per tree)
+            cache_nodes = []
+            for n in nodes:
+                cn = dict(n)
+                if "_logits" in cn:
+                    cn["_logits"] = cn["_logits"].tolist()
+                cache_nodes.append(cn)
             cache.set_derived(tree_key, cache_nodes)
         return nodes
 
