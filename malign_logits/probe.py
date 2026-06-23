@@ -1442,31 +1442,84 @@ class Probe:
                             unit="prompt")
                 for pname, ptext in pbar:
                     nodes = trees[pname]
-                    prompt_ids = tok.encode(ptext)
 
-                    def get_path(node_idx):
-                        path = []
-                        idx = node_idx
-                        while idx >= 0:
-                            path.append(idx)
-                            idx = nodes[idx]["parent"]
-                        return list(reversed(path))
+                    # Group nodes by parent for KV cache reuse
+                    children_of = {}
+                    for ni, n in enumerate(nodes):
+                        children_of.setdefault(n["parent"], []).append(ni)
 
-                    for node_idx, node in enumerate(nodes):
+                    # Process tree depth-first with KV caching
+                    # kv_cache[node_idx] = past_key_values after processing that node
+                    kv_cache = {}
+                    node_results = {}  # node_idx → (logits, probs, ent, out)
+
+                    def process_node(node_idx):
+                        node = nodes[node_idx]
+                        parent = node["parent"]
+
                         if node["depth"] == 0:
                             ids = tok.encode(ptext, return_tensors="pt").to(device)
+                            with torch.no_grad():
+                                out = model(ids, output_hidden_states=True,
+                                           use_cache=True)
+                            kv_cache[node_idx] = out.past_key_values
                         else:
-                            path_indices = get_path(node_idx)
-                            path_tokens = [nodes[i]["token"] for i in path_indices
-                                           if nodes[i]["depth"] > 0]
-                            text = ptext + " " + " ".join(path_tokens)
-                            ids = tok.encode(text, return_tensors="pt").to(device)
+                            tid = node.get("token_id", -1)
+                            if tid < 0:
+                                tids = model_tok.encode(" " + node["token"],
+                                                        add_special_tokens=False)
+                                tid = tids[0] if tids else 0
+                            new_id = torch.tensor([[tid]], device=device)
 
-                        with torch.no_grad():
-                            out = model(ids, output_hidden_states=True)
+                            if parent in kv_cache:
+                                with torch.no_grad():
+                                    out = model(new_id,
+                                               past_key_values=kv_cache[parent],
+                                               output_hidden_states=True,
+                                               use_cache=True)
+                                kv_cache[node_idx] = out.past_key_values
+                            else:
+                                # Fallback: encode full path
+                                def get_path(ni):
+                                    path = []
+                                    idx = ni
+                                    while idx >= 0:
+                                        path.append(idx)
+                                        idx = nodes[idx]["parent"]
+                                    return list(reversed(path))
+                                path_indices = get_path(node_idx)
+                                path_tokens = [nodes[i]["token"] for i in path_indices
+                                               if nodes[i]["depth"] > 0]
+                                text = ptext + " " + " ".join(path_tokens)
+                                ids = tok.encode(text, return_tensors="pt").to(device)
+                                with torch.no_grad():
+                                    out = model(ids, output_hidden_states=True,
+                                               use_cache=True)
+                                kv_cache[node_idx] = out.past_key_values
 
                         logits = out.logits[0, -1, :].float().cpu().numpy()
                         probs = softmax(logits)
+                        node_results[node_idx] = (logits, probs, out)
+
+                        # Process children (depth-first to reuse cache)
+                        for child_idx in children_of.get(node_idx, []):
+                            process_node(child_idx)
+
+                        # Free cache if no more children need it
+                        if node_idx in kv_cache and node_idx not in [
+                            nodes[ci]["parent"] for ci in range(node_idx + 1, len(nodes))
+                            if ci not in node_results
+                        ]:
+                            del kv_cache[node_idx]
+
+                    process_node(0)
+
+                    # Now extract metrics from results
+                    for node_idx, node in enumerate(nodes):
+                        if node_idx not in node_results:
+                            continue
+                        logits, probs, out = node_results[node_idx]
+                        ent = -float(np.sum(probs * np.log(probs + 1e-10)))
                         ent = -float(np.sum(probs * np.log(probs + 1e-10)))
                         argmax_id = int(np.argmax(probs))
                         argmax_word = tok.decode([argmax_id]).strip()
