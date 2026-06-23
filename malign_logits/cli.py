@@ -217,8 +217,68 @@ def cmd_probe(args):
             row = "  ".join(f"{grid[base].get(p, '---'):>8s}" for p in prompts)
             print(f"{base:25s} {row}")
 
+    elif cmd == "download":
+        import subprocess
+        import tempfile
+        from pathlib import Path
+
+        host = args.host
+        port = args.port
+
+        if not host or not port:
+            try:
+                result = subprocess.run(
+                    ["vastai", "show", "instances"],
+                    capture_output=True, text=True, timeout=10)
+                for line in result.stdout.split("\n"):
+                    if "running" in line.lower():
+                        parts = line.split()
+                        for i, p in enumerate(parts):
+                            if "vast.ai" in p:
+                                host = host or p
+                            if p.isdigit() and int(p) > 1000 and not port:
+                                port = int(p)
+                        break
+            except Exception:
+                pass
+
+        if not host or not port:
+            print("Could not find running vast.ai instance.")
+            print("Specify manually: malign probe download --host ssh3.vast.ai --port 16524")
+            return
+
+        tmp_dir = tempfile.mkdtemp(prefix="cloud_cache_")
+        print(f"Downloading from {host}:{port} to {tmp_dir}...")
+
+        rsync_cmd = [
+            "rsync", "-avz", "--progress",
+            "-e", f"ssh -o StrictHostKeyChecking=no -p {port}",
+            f"root@{host}:/workspace/malign-logits/data/raw/cache/psyche_derived/",
+            f"{tmp_dir}/",
+        ]
+        subprocess.run(rsync_cmd)
+
+        print(f"\nDownloaded to {tmp_dir}")
+        du = subprocess.run(["du", "-sh", tmp_dir], capture_output=True, text=True)
+        print(du.stdout.strip())
+
+        if not args.no_merge:
+            print("\nMerging into local cache...")
+            import hashstash
+            from tqdm import tqdm
+
+            cloud = hashstash.HashStash(tmp_dir, engine="lmdb")
+            local_path = str(Path(__file__).parent.parent / "data" / "raw" / "cache" / "psyche_derived")
+            local = hashstash.HashStash(local_path, engine="lmdb")
+
+            cloud_keys = list(cloud.keys())
+            print(f"Cloud: {len(cloud_keys)} entries")
+            for k in tqdm(cloud_keys, desc="Merging"):
+                local[k] = cloud[k]
+            print(f"Merged {len(cloud_keys)} entries into local cache")
+
     else:
-        print("Usage: malign probe {batch|status|merge|ingest|census}")
+        print("Usage: malign probe {batch|status|merge|ingest|census|download}")
 
 
 def cmd_info(args):
@@ -1288,6 +1348,11 @@ def main():
     pi.add_argument("--clear", action="store_true", help="Clear ArangoDB before ingesting")
 
     probe_sub.add_parser("census", help="Print clinical signature census from ArangoDB")
+
+    pd = probe_sub.add_parser("download", help="Download cloud cache and merge into local")
+    pd.add_argument("--host", default=None, help="SSH host (default: from vastai)")
+    pd.add_argument("--port", type=int, default=None, help="SSH port (default: from vastai)")
+    pd.add_argument("--no-merge", action="store_true", help="Download only, don't merge")
 
     probe.set_defaults(func=cmd_probe)
 
