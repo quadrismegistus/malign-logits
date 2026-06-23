@@ -1085,9 +1085,9 @@ class Probe:
                 "prob": local_prob, "path_prob": path_prob, "entropy": ent,
                 "parent": parent_idx, "n_children": 0,
             }
+            # _logits kept in memory for annotation but NOT cached to disk
+            # (150k floats × 34 nodes × 71 prompts = 170GB)
             node["_logits"] = logits
-            # Axis loadings and hidden states computed on demand from cached logits,
-            # not during exploration (axis_loading is 977ms/node on CPU)
             nodes.append(node)
             if parent_idx >= 0:
                 nodes[parent_idx]["n_children"] += 1
@@ -1127,8 +1127,10 @@ class Probe:
             tree_key = {"model": self.model_id, "prompt": prompt_text,
                         "path_threshold": path_threshold, "max_depth": max_depth,
                         "type": "explore_tree_v2"}
-            # HashStash stores numpy arrays directly (11x faster than .tolist())
-            cache.set_derived(tree_key, nodes)
+            # Strip _logits before caching (150k floats per node = 170GB for full run)
+            cache_nodes = [{k: v for k, v in n.items() if k != "_logits"}
+                           for n in nodes]
+            cache.set_derived(tree_key, cache_nodes)
         return nodes
 
     def annotate_tree(self, prompt: str, annotators: list = None,
