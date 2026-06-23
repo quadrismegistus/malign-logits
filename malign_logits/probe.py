@@ -1103,7 +1103,7 @@ class Probe:
                 node["procedural_loading"] = axis_loading(logits, self._tree_embed, self._p_axis)
 
             if out.hidden_states:
-                node["hidden"] = out.hidden_states[-1][0, -1, :].cpu().numpy().tolist()
+                node["hidden"] = out.hidden_states[-1][0, -1, :].cpu().numpy()
             nodes.append(node)
             if parent_idx >= 0:
                 nodes[parent_idx]["n_children"] += 1
@@ -1143,14 +1143,8 @@ class Probe:
             tree_key = {"model": self.model_id, "prompt": prompt_text,
                         "path_threshold": path_threshold, "max_depth": max_depth,
                         "type": "explore_tree_v2"}
-            # Store logits as list for serialization (~36MB per tree)
-            cache_nodes = []
-            for n in nodes:
-                cn = dict(n)
-                if "_logits" in cn:
-                    cn["_logits"] = cn["_logits"].tolist()
-                cache_nodes.append(cn)
-            cache.set_derived(tree_key, cache_nodes)
+            # HashStash stores numpy arrays directly (11x faster than .tolist())
+            cache.set_derived(tree_key, nodes)
         return nodes
 
     def annotate_tree(self, prompt: str, annotators: list = None,
@@ -1339,7 +1333,7 @@ class Probe:
 
                     if out.hidden_states:
                         h_ann = out.hidden_states[-1][0, -1, :].cpu().numpy()
-                        node[f"{short}_hidden"] = h_ann.tolist()
+                        node[f"{short}_hidden"] = h_ann
 
                         # Hidden distance: how differently does this model
                         # represent this point vs the base tree's model?
@@ -1627,7 +1621,7 @@ class Probe:
 
                         if out.hidden_states:
                             h_ann = out.hidden_states[-1][0, -1, :].cpu().numpy()
-                            node[f"{short}_hidden"] = h_ann.tolist()
+                            node[f"{short}_hidden"] = h_ann
                             if "hidden" in node:
                                 h_base = np.array(node["hidden"])
                                 nb = np.linalg.norm(h_base)
