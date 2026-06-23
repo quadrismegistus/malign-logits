@@ -1006,7 +1006,7 @@ class Probe:
 
     def explore_tree(self, prompt: str, coverage: float = 0.5,
                      max_depth: int = 5,
-                     path_threshold: float = 0.005,
+                     path_threshold: float = 0.01,
                      cumul_floor: float = 0.001, max_nodes: int = 5000) -> list:
         """Deterministic tree exploration using path probability.
 
@@ -1344,7 +1344,7 @@ class Probe:
         # Update cache with annotated tree (same key as explore_tree)
         cache = _get_cache()
         tree_key = {"model": self.model_id, "prompt": prompt_text,
-                    "path_threshold": 0.005, "max_depth": max_depth,
+                    "path_threshold": 0.01, "max_depth": max_depth,
                     "type": "explore_tree_v2"}
         cache.set_derived(tree_key, nodes)
 
@@ -1375,7 +1375,7 @@ class Probe:
         cache = _get_cache()
         for pname, ptext in prompts.items():
             tree_key = {"model": self.model_id, "prompt": ptext,
-                        "path_threshold": 0.005, "max_depth": max_depth,
+                        "path_threshold": 0.01, "max_depth": max_depth,
                         "type": "explore_tree_v2"}
             cached = cache.get_derived(tree_key)
             if cached is not None:
@@ -1628,7 +1628,7 @@ class Probe:
         cache = _get_cache()
         for pname, ptext in prompts.items():
             tree_key = {"model": self.model_id, "prompt": ptext,
-                        "path_threshold": 0.005, "max_depth": max_depth,
+                        "path_threshold": 0.01, "max_depth": max_depth,
                         "type": "explore_tree_v2"}
             cache.set_derived(tree_key, trees[pname])
 
