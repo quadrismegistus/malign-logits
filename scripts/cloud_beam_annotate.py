@@ -12,7 +12,7 @@ import argparse
 import time
 from tqdm import tqdm
 
-from malign_logits.beam import annotate_beams
+from malign_logits.beam import batch_beam_annotate
 from malign_logits.experiments import DEFAULT_PROMPTS, INSTITUTIONAL_PROMPTS
 from malign_logits.registry import Registry
 
@@ -61,15 +61,15 @@ def main():
         tqdm.write(f'\n--- {short} ({n_ann} annotators) ---')
 
         ft = time.time()
-        for pname, ptext in tqdm(prompts.items(), desc=short, unit='prompt', leave=False):
-            try:
-                stories = annotate_beams(base_id, ptext, n=args.n,
-                                         max_tokens=args.max_tokens)
-            except Exception as e:
-                tqdm.write(f'  {pname}: FAILED {str(e)[:60]}')
-
-        dur = time.time() - ft
-        tqdm.write(f'  {short}: {len(prompts)} prompts, {dur:.0f}s')
+        try:
+            results = batch_beam_annotate(base_id, prompts, n=args.n,
+                                          max_tokens=args.max_tokens)
+            dur = time.time() - ft
+            tqdm.write(f'  {short}: {len(results)} prompts, {dur:.0f}s')
+        except Exception as e:
+            import traceback
+            tqdm.write(f'  {short}: FAILED {str(e)[:80]}')
+            traceback.print_exc()
 
     total = time.time() - t0
     print(f'\n=== DONE: {len(families)} families in {total:.0f}s ({total/3600:.1f}h) ===')
