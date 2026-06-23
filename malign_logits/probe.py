@@ -1315,6 +1315,208 @@ class Probe:
 
         return nodes
 
+    def batch_annotate(self, prompts: dict = None, max_depth: int = 5):
+        """Annotate multiple prompts efficiently — one model load per annotator.
+
+        Instead of loading each annotator N times (once per prompt),
+        loads each annotator once and processes all prompts.
+
+            base = Probe("allenai/OLMo-2-0425-1B")
+            results = base.batch_annotate()  # all prompts, all annotators
+            # results = {prompt_name: [nodes], ...}
+        """
+        import gc
+        from .models import load_model
+        from .registry import Registry
+        from scipy.special import softmax
+
+        reg = Registry()
+        if prompts is None:
+            prompts = PROMPTS
+
+        # Step 1: explore all trees (loads base model once via cache or single load)
+        trees = {}
+        for pname, ptext in prompts.items():
+            trees[pname] = self.explore_tree(ptext, max_depth=max_depth)
+            print(f"  {pname}: {len(trees[pname])} nodes")
+
+        # Determine annotators
+        base_id = reg.base_of(self.model_id) or self.model_id
+        annotators = reg.variants_of(base_id)
+        if self.model_id != base_id:
+            annotators = [base_id] + annotators
+        annotators = [m for m in annotators if m != self.model_id]
+
+        if not annotators:
+            return trees
+
+        # Check which annotators are already done (on first prompt)
+        first_nodes = list(trees.values())[0]
+        existing = set()
+        if first_nodes:
+            for key in first_nodes[0].keys():
+                if key.endswith("_js"):
+                    existing.add(key[:-3])
+        annotators = [m for m in annotators
+                      if m.split("/")[-1].replace("-", "_")[:20] not in existing]
+        if not annotators:
+            return trees
+
+        tok = self.tokenizer
+
+        # Step 2: for each annotator, load ONCE, annotate ALL prompts
+        for model_id in annotators:
+            short = model_id.split("/")[-1].replace("-", "_")[:20]
+            print(f"  Loading {model_id.split('/')[-1]} for {len(prompts)} prompts...",
+                  end="", flush=True)
+
+            try:
+                model, model_tok = load_model(model_id)
+                device = next(model.parameters()).device
+
+                total_nodes = 0
+                for pname, ptext in prompts.items():
+                    nodes = trees[pname]
+                    prompt_ids = tok.encode(ptext)
+
+                    def get_path(node_idx):
+                        path = []
+                        idx = node_idx
+                        while idx >= 0:
+                            path.append(idx)
+                            idx = nodes[idx]["parent"]
+                        return list(reversed(path))
+
+                    for node_idx, node in enumerate(nodes):
+                        if node["depth"] == 0:
+                            ids = tok.encode(ptext, return_tensors="pt").to(device)
+                        else:
+                            path_indices = get_path(node_idx)
+                            path_tokens = [nodes[i]["token"] for i in path_indices
+                                           if nodes[i]["depth"] > 0]
+                            text = ptext + " " + " ".join(path_tokens)
+                            ids = tok.encode(text, return_tensors="pt").to(device)
+
+                        with torch.no_grad():
+                            out = model(ids, output_hidden_states=True)
+
+                        logits = out.logits[0, -1, :].float().cpu().numpy()
+                        probs = softmax(logits)
+                        ent = -float(np.sum(probs * np.log(probs + 1e-10)))
+                        argmax_id = int(np.argmax(probs))
+                        argmax_word = tok.decode([argmax_id]).strip()
+
+                        # Self resist for all children
+                        children = [n for n in nodes if n["parent"] == node_idx]
+                        for child in children:
+                            child_tid = child.get("token_id", -1)
+                            if child_tid < 0 or child_tid >= len(probs):
+                                child_text = child.get("token", "")
+                                child_tids = model_tok.encode(" " + child_text,
+                                                              add_special_tokens=False)
+                                child_tid = child_tids[0] if child_tids else -1
+                            if child_tid >= 0 and child_tid < len(probs):
+                                cp = float(probs[child_tid])
+                                bp = child["prob"]
+                                r = -float(np.log2(max(cp, 1e-10)))
+                                br = -float(np.log2(max(bp, 1e-10)))
+                                child[f"{short}_self_resist"] = r - br
+                                child[f"{short}_self_prob"] = cp
+
+                        # Top-child resistance (backward compat)
+                        child_prob = resistance = delta_resistance = 0.0
+                        if children:
+                            top_child = max(children, key=lambda c: c["prob"])
+                            child_tid = top_child.get("token_id", -1)
+                            if child_tid >= 0 and child_tid < len(probs):
+                                child_prob = float(probs[child_tid])
+                                base_child_prob = top_child["prob"]
+                                resistance = -float(np.log2(max(child_prob, 1e-10)))
+                                base_resistance = -float(np.log2(max(base_child_prob, 1e-10)))
+                                delta_resistance = resistance - base_resistance
+
+                        # JS + top movers + reverse resist
+                        base_logits = node.get("_logits")
+                        node_js = 0.0
+                        top_gained = top_lost = ""
+                        abs_resistance = 0.0
+
+                        if base_logits is not None:
+                            from .metrics import js_divergence as _js, _align_vocab
+                            bl, al = _align_vocab(np.array(base_logits), logits)
+                            node_js = _js(bl, al)
+                            from scipy.special import softmax as _sfm2
+                            p_base = _sfm2(bl)
+                            p_ann = _sfm2(al)
+                            delta = p_ann - p_base
+                            top5_gained = np.argsort(delta)[-3:][::-1]
+                            top5_lost = np.argsort(delta)[:3]
+                            top_gained = "|".join(
+                                f"{tok.decode([int(i)]).strip()}({delta[i]:+.3f})"
+                                for i in top5_gained if abs(delta[i]) > 0.005)
+                            top_lost = "|".join(
+                                f"{tok.decode([int(i)]).strip()}({delta[i]:+.3f})"
+                                for i in top5_lost if abs(delta[i]) > 0.005)
+                            base_argmax = int(np.argmax(p_base))
+                            abs_resistance = -float(np.log2(max(p_ann[base_argmax], 1e-10)))
+                            ann_argmax = int(np.argmax(p_ann))
+                            base_prob_of_ann = float(p_base[ann_argmax])
+                            ann_prob_of_ann = float(p_ann[ann_argmax])
+                            node[f"{short}_reverse_resist"] = (
+                                -float(np.log2(max(base_prob_of_ann, 1e-10)))
+                                - (-float(np.log2(max(ann_prob_of_ann, 1e-10))))
+                            )
+                            node[f"{short}_ann_choice"] = tok.decode([ann_argmax]).strip()
+                            node[f"{short}_ann_choice_base_prob"] = base_prob_of_ann
+
+                        node[f"{short}_entropy"] = ent
+                        node[f"{short}_argmax"] = argmax_word
+                        node[f"{short}_js"] = node_js
+                        node[f"{short}_entropy_delta"] = ent - node["entropy"]
+                        node[f"{short}_abs_resistance"] = abs_resistance
+                        node[f"{short}_resistance"] = resistance
+                        node[f"{short}_delta_resist"] = delta_resistance
+                        node[f"{short}_prob_child"] = child_prob
+                        node[f"{short}_top_gained"] = top_gained
+                        node[f"{short}_top_lost"] = top_lost
+
+                        if out.hidden_states:
+                            h_ann = out.hidden_states[-1][0, -1, :].cpu().numpy()
+                            node[f"{short}_hidden"] = h_ann.tolist()
+                            if "hidden" in node:
+                                h_base = np.array(node["hidden"])
+                                nb = np.linalg.norm(h_base)
+                                na = np.linalg.norm(h_ann)
+                                if nb > 1e-10 and na > 1e-10:
+                                    cos_dist = 1.0 - float(np.dot(h_base, h_ann) / (nb * na))
+                                else:
+                                    cos_dist = 1.0
+                                node[f"{short}_hidden_dist"] = cos_dist
+
+                        total_nodes += 1
+
+                del model
+                gc.collect()
+                try:
+                    if torch.backends.mps.is_available():
+                        torch.mps.empty_cache()
+                except Exception:
+                    pass
+                print(f" {total_nodes} nodes across {len(prompts)} prompts")
+
+            except Exception as e:
+                print(f" FAILED: {str(e)[:60]}")
+
+        # Cache all annotated trees
+        cache = _get_cache()
+        for pname, ptext in prompts.items():
+            tree_key = {"model": self.model_id, "prompt": ptext,
+                        "path_threshold": 0.005, "max_depth": max_depth,
+                        "type": "explore_tree_v2"}
+            cache.set_derived(tree_key, trees[pname])
+
+        return trees
+
     def tree_to_vecdb(self, prompt: str, **kwargs):
         """Explore tree and store in lancedb with hidden states + graph edges."""
         from .vecdb import VecDB
