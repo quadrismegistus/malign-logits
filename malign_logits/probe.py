@@ -1207,9 +1207,25 @@ class Probe:
                     argmax_id = int(np.argmax(probs))
                     argmax_word = tok.decode([argmax_id]).strip()
 
-                    # Resistance: how much does this model resist the base's
-                    # most probable CHILD token at this node?
+                    # Resistance: for each child of this node, how much does
+                    # the aligned model resist that child's token?
+                    # Stored on the CHILD node as self_resist (resistance to
+                    # THIS token, not to this token's children).
                     children = [n for n in nodes if n["parent"] == node_idx]
+                    child_prob = 0.0
+                    resistance = 0.0
+                    delta_resistance = 0.0
+                    for child in children:
+                        child_tid = child.get("token_id", -1)
+                        if child_tid >= 0 and child_tid < len(probs):
+                            cp = float(probs[child_tid])
+                            bp = child["prob"]
+                            r = -float(np.log2(max(cp, 1e-10)))
+                            br = -float(np.log2(max(bp, 1e-10)))
+                            dr = r - br
+                            child[f"{short}_self_resist"] = dr
+                            child[f"{short}_self_prob"] = cp
+                    # Keep top-child metrics for backward compat
                     if children:
                         top_child = max(children, key=lambda c: c["prob"])
                         child_tid = top_child.get("token_id", -1)
@@ -1219,14 +1235,6 @@ class Probe:
                             resistance = -float(np.log2(max(child_prob, 1e-10)))
                             base_resistance = -float(np.log2(max(base_child_prob, 1e-10)))
                             delta_resistance = resistance - base_resistance
-                        else:
-                            child_prob = 0.0
-                            resistance = 20.0
-                            delta_resistance = 0.0
-                    else:
-                        child_prob = 0.0
-                        resistance = 0.0
-                        delta_resistance = 0.0
 
                     # JS divergence + top movers: full distributional comparison
                     base_logits = node.get("_logits")
