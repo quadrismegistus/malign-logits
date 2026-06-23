@@ -1021,8 +1021,6 @@ class Probe:
         from .models import load_model
 
         prompt_text = _resolve_prompt(prompt)
-
-        # Check cache first — tree is deterministic, no model load needed
         cache = _get_cache()
         tree_key = {"model": self.model_id, "prompt": prompt_text,
                     "path_threshold": path_threshold,
@@ -1035,14 +1033,29 @@ class Probe:
         model, tokenizer = load_model(self.model_id)
         self._tokenizer = tokenizer
         device = next(model.parameters()).device
+        nodes = self._explore_tree_with_model(
+            prompt_text, model, tokenizer, device,
+            path_threshold=path_threshold, max_depth=max_depth,
+            max_nodes=max_nodes, cache=cache)
 
+        del model
+        gc.collect()
+        try:
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
+        except Exception:
+            pass
+        return nodes
+
+    def _explore_tree_with_model(self, prompt_text, model, tokenizer, device,
+                                  path_threshold=0.005, max_depth=5,
+                                  max_nodes=5000, cache=None):
+        """Core tree exploration with a pre-loaded model. No load/unload."""
         prompt_ids = tokenizer.encode(prompt_text, return_tensors="pt").to(device)
-
-        # queue: (depth, input_ids, parent_idx, token_str, local_prob, path_prob, token_id)
         queue = [(0, prompt_ids, -1, "ROOT", 1.0, 1.0, -1)]
         nodes = []
 
-        print(f"[Probe] Exploring tree: {self.model_id} / {prompt}", end="", flush=True)
+        print(f"[Probe] Exploring tree: {self.model_id} / {prompt_text[:40]}", end="", flush=True)
 
         while queue and len(nodes) < max_nodes:
             depth, ids, parent_idx, token_str, local_prob, path_prob, token_id = queue.pop(0)
@@ -1062,9 +1075,8 @@ class Probe:
                 "prob": local_prob, "path_prob": path_prob, "entropy": ent,
                 "parent": parent_idx, "n_children": 0,
             }
-            node["_logits"] = logits  # transient, stripped before cache
+            node["_logits"] = logits
 
-            # Axis loadings from logits (compute axes once)
             if not hasattr(self, '_tree_embed'):
                 try:
                     from .metrics import violence_procedural_axes
@@ -1091,7 +1103,7 @@ class Probe:
                     p_val = float(probs[tid])
                     child_pp = path_prob * p_val if depth > 0 else p_val
                     if child_pp < path_threshold:
-                        break  # sorted descending, all remaining below threshold
+                        break
                     word = tokenizer.decode([int(tid)]).strip()
                     new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
                     queue.append((depth + 1, new_ids, node_idx, word, p_val, child_pp, int(tid)))
@@ -1099,19 +1111,14 @@ class Probe:
             if len(nodes) % 500 == 0:
                 print(".", end="", flush=True)
 
-        del model
-        gc.collect()
-        try:
-            if torch.backends.mps.is_available():
-                torch.mps.empty_cache()
-        except Exception:
-            pass
-
         print(f" {len(nodes)} nodes")
-        # Strip raw logits before caching (too large to serialize)
-        cache_nodes = [{k: v for k, v in n.items() if k != "_logits"}
-                       for n in nodes]
-        cache.set_derived(tree_key, cache_nodes)
+        if cache:
+            tree_key = {"model": self.model_id, "prompt": prompt_text,
+                        "path_threshold": path_threshold, "max_depth": max_depth,
+                        "type": "explore_tree_v2"}
+            cache_nodes = [{k: v for k, v in n.items() if k != "_logits"}
+                           for n in nodes]
+            cache.set_derived(tree_key, cache_nodes)
         return nodes
 
     def annotate_tree(self, prompt: str, annotators: list = None,
@@ -1357,11 +1364,40 @@ class Probe:
         if prompts is None:
             prompts = PROMPTS
 
-        # Step 1: explore all trees (loads base model once via cache or single load)
+        # Step 1: explore all trees — load base model once for all uncached
         trees = {}
+        uncached = {}
+        cache = _get_cache()
         for pname, ptext in prompts.items():
-            trees[pname] = self.explore_tree(ptext, max_depth=max_depth)
-            print(f"  {pname}: {len(trees[pname])} nodes")
+            tree_key = {"model": self.model_id, "prompt": ptext,
+                        "path_threshold": 0.005, "max_depth": max_depth,
+                        "type": "explore_tree_v2"}
+            cached = cache.get_derived(tree_key)
+            if cached is not None:
+                trees[pname] = cached
+            else:
+                uncached[pname] = ptext
+        print(f"  {len(trees)} cached, {len(uncached)} to explore")
+
+        if uncached:
+            model_base, tok_base = load_model(self.model_id)
+            self._tokenizer = tok_base
+            device = next(model_base.parameters()).device
+            for pname, ptext in uncached.items():
+                trees[pname] = self._explore_tree_with_model(
+                    ptext, model_base, tok_base, device,
+                    max_depth=max_depth, cache=cache)
+                print(f"  {pname}: {len(trees[pname])} nodes")
+            del model_base
+            gc.collect()
+            try:
+                if torch.backends.mps.is_available():
+                    torch.mps.empty_cache()
+            except Exception:
+                pass
+        else:
+            for pname in trees:
+                print(f"  {pname}: {len(trees[pname])} nodes (cached)")
 
         # Determine annotators
         base_id = reg.base_of(self.model_id) or self.model_id
