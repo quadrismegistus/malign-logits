@@ -1095,15 +1095,24 @@ class Probe:
             if depth < max_depth:
                 sorted_idx = np.argsort(probs)[::-1]
                 children_added = False
+                argmax_added = False
                 for tid in sorted_idx:
                     p_val = float(probs[tid])
                     child_pp = path_prob * p_val if depth > 0 else p_val
-                    if child_pp < path_threshold:
+                    above_threshold = child_pp >= path_threshold
+                    is_argmax = not argmax_added  # first in sorted = argmax
+
+                    if not above_threshold and argmax_added:
                         break
+
                     word = tokenizer.decode([int(tid)]).strip()
                     new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
                     queue.append((depth + 1, new_ids, node_idx, word, p_val, child_pp, int(tid)))
                     children_added = True
+                    argmax_added = True
+
+                    if not above_threshold:
+                        break  # added argmax even though below threshold, now stop
 
                 if children_added:
                     kv_store[node_idx] = out.past_key_values
