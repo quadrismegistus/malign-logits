@@ -439,12 +439,9 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
             score_pairs.add((base_short, mid))   # base beams → aligned
             score_pairs.add((ms, model_id))       # aligned beams → base
         parent, rel = reg.parent_of(mid)
-        if parent and parent in mid_shorts.values():
-            # find parent model_id
-            for pid in all_model_ids:
-                if mid_shorts[pid] == parent.split("/")[-1].replace("-", "_")[:20]:
-                    score_pairs.add((mid_shorts[mid], pid))  # child beams → parent
-                    score_pairs.add((mid_shorts[pid], mid))  # parent beams → child
+        if parent and parent in mid_shorts:
+            score_pairs.add((ms, parent))                    # child beams → parent
+            score_pairs.add((mid_shorts[parent], mid))       # parent beams → child
         # Also score self (for own-model probs)
         score_pairs.add((ms, mid))
 
