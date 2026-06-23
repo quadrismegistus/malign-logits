@@ -100,6 +100,34 @@ ALL_PROBE_FAMILIES = [
 ]
 
 
+def _probe_cloud_ssh(args):
+    """Resolve cloud SSH host/port from args or vastai."""
+    import subprocess
+    host = getattr(args, 'host', None)
+    port = getattr(args, 'port', None)
+    if not host or not port:
+        try:
+            result = subprocess.run(
+                ["vastai", "show", "instances"],
+                capture_output=True, text=True, timeout=10)
+            for line in result.stdout.split("\n"):
+                if "running" in line.lower():
+                    parts = line.split()
+                    for p in parts:
+                        if "vast.ai" in p:
+                            host = host or p
+                        if p.isdigit() and int(p) > 1000 and not port:
+                            port = int(p)
+                    break
+        except Exception:
+            pass
+    if not host or not port:
+        print("No running vast.ai instance found.")
+        print("Specify: --host ssh3.vast.ai --port 16524")
+        return None, None
+    return host, port
+
+
 def cmd_probe(args):
     """Tree exploration, annotation, and cloud sync.
 
@@ -217,34 +245,62 @@ def cmd_probe(args):
             row = "  ".join(f"{grid[base].get(p, '---'):>8s}" for p in prompts)
             print(f"{base:25s} {row}")
 
+    elif cmd == "log":
+        import subprocess
+        host, port = _probe_cloud_ssh(args)
+        if not host:
+            return
+        log_file = "/workspace/batch4.log"
+        if args.follow:
+            subprocess.run(["ssh", "-o", "StrictHostKeyChecking=no",
+                           "-p", str(port), f"root@{host}",
+                           f"tail -f {log_file}"])
+        else:
+            result = subprocess.run(
+                ["ssh", "-o", "StrictHostKeyChecking=no",
+                 "-p", str(port), f"root@{host}",
+                 f"tail -{args.lines} {log_file}"],
+                capture_output=True, text=True, timeout=15)
+            print(result.stdout)
+
+    elif cmd == "cloud-status":
+        import subprocess
+        # Instance info
+        result = subprocess.run(["vastai", "show", "instances"],
+                                capture_output=True, text=True, timeout=10)
+        print(result.stdout)
+
+        # Try to get batch progress
+        for line in result.stdout.split("\n"):
+            if "running" in line.lower():
+                parts = line.split()
+                host = port = None
+                for i, p in enumerate(parts):
+                    if "vast.ai" in p:
+                        host = p
+                    if p.isdigit() and int(p) > 1000 and not port:
+                        port = int(p)
+                if host and port:
+                    try:
+                        r = subprocess.run(
+                            ["ssh", "-o", "StrictHostKeyChecking=no",
+                             "-p", str(port), f"root@{host}",
+                             "grep 'DONE\\|---\\|prompts,' /workspace/batch4.log; "
+                             "du -sh /workspace/malign-logits/data/raw/cache/psyche_derived/"],
+                            capture_output=True, text=True, timeout=15)
+                        print("\n--- Batch Progress ---")
+                        print(r.stdout)
+                    except Exception:
+                        print("(could not reach instance)")
+                break
+
     elif cmd == "download":
         import subprocess
         import tempfile
         from pathlib import Path
 
-        host = args.host
-        port = args.port
-
-        if not host or not port:
-            try:
-                result = subprocess.run(
-                    ["vastai", "show", "instances"],
-                    capture_output=True, text=True, timeout=10)
-                for line in result.stdout.split("\n"):
-                    if "running" in line.lower():
-                        parts = line.split()
-                        for i, p in enumerate(parts):
-                            if "vast.ai" in p:
-                                host = host or p
-                            if p.isdigit() and int(p) > 1000 and not port:
-                                port = int(p)
-                        break
-            except Exception:
-                pass
-
-        if not host or not port:
-            print("Could not find running vast.ai instance.")
-            print("Specify manually: malign probe download --host ssh3.vast.ai --port 16524")
+        host, port = _probe_cloud_ssh(args)
+        if not host:
             return
 
         tmp_dir = tempfile.mkdtemp(prefix="cloud_cache_")
@@ -278,7 +334,7 @@ def cmd_probe(args):
             print(f"Merged {len(cloud_keys)} entries into local cache")
 
     else:
-        print("Usage: malign probe {batch|status|merge|ingest|census|download}")
+        print("Usage: malign probe {batch|status|merge|ingest|census|download|log|cloud-status}")
 
 
 def cmd_info(args):
@@ -1348,6 +1404,14 @@ def main():
     pi.add_argument("--clear", action="store_true", help="Clear ArangoDB before ingesting")
 
     probe_sub.add_parser("census", help="Print clinical signature census from ArangoDB")
+
+    pl = probe_sub.add_parser("log", help="Tail cloud batch log")
+    pl.add_argument("--lines", "-n", type=int, default=20, help="Lines to show")
+    pl.add_argument("--follow", "-f", action="store_true", help="Follow (tail -f)")
+    pl.add_argument("--host", default=None)
+    pl.add_argument("--port", type=int, default=None)
+
+    probe_sub.add_parser("cloud-status", help="Show cloud instance status + batch progress")
 
     pd = probe_sub.add_parser("download", help="Download cloud cache and merge into local")
     pd.add_argument("--host", default=None, help="SSH host (default: from vastai)")
