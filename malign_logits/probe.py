@@ -1055,7 +1055,20 @@ class Probe:
         queue = [(0, prompt_ids, -1, "ROOT", 1.0, 1.0, -1)]
         nodes = []
 
+        from scipy.special import softmax as _sfm
         print(f"[Probe] Exploring tree: {self.model_id} / {prompt_text[:40]}", end="", flush=True)
+
+        # KV cache: store past_key_values per node for prefix reuse
+        kv_store = {}
+
+        if not hasattr(self, '_tree_embed'):
+            try:
+                from .metrics import violence_procedural_axes
+                self._tree_embed = model.get_input_embeddings().weight.detach().cpu().numpy()
+                self._v_axis, self._p_axis = violence_procedural_axes(
+                    self._tree_embed, tokenizer)
+            except Exception:
+                self._tree_embed = None
 
         while queue and len(nodes) < max_nodes:
             depth, ids, parent_idx, token_str, local_prob, path_prob, token_id = queue.pop(0)
@@ -1063,9 +1076,16 @@ class Probe:
                 continue
 
             with torch.no_grad():
-                out = model(ids, output_hidden_states=True)
+                if depth == 0:
+                    out = model(ids, output_hidden_states=True, use_cache=True)
+                elif parent_idx in kv_store:
+                    new_id = torch.tensor([[token_id]], device=device)
+                    out = model(new_id, past_key_values=kv_store[parent_idx],
+                               output_hidden_states=True, use_cache=True)
+                else:
+                    out = model(ids, output_hidden_states=True, use_cache=True)
+
             logits = out.logits[0, -1, :].float().cpu().numpy()
-            from scipy.special import softmax as _sfm
             probs = _sfm(logits)
 
             ent = -float(np.sum(probs * np.log(probs + 1e-10)))
@@ -1076,15 +1096,6 @@ class Probe:
                 "parent": parent_idx, "n_children": 0,
             }
             node["_logits"] = logits
-
-            if not hasattr(self, '_tree_embed'):
-                try:
-                    from .metrics import violence_procedural_axes
-                    self._tree_embed = model.get_input_embeddings().weight.detach().cpu().numpy()
-                    self._v_axis, self._p_axis = violence_procedural_axes(
-                        self._tree_embed, tokenizer)
-                except Exception:
-                    self._tree_embed = None
 
             if self._tree_embed is not None:
                 from .metrics import axis_loading
@@ -1099,6 +1110,7 @@ class Probe:
 
             if depth < max_depth:
                 sorted_idx = np.argsort(probs)[::-1]
+                children_added = False
                 for tid in sorted_idx:
                     p_val = float(probs[tid])
                     child_pp = path_prob * p_val if depth > 0 else p_val
@@ -1107,9 +1119,24 @@ class Probe:
                     word = tokenizer.decode([int(tid)]).strip()
                     new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
                     queue.append((depth + 1, new_ids, node_idx, word, p_val, child_pp, int(tid)))
+                    children_added = True
+
+                if children_added:
+                    kv_store[node_idx] = out.past_key_values
+
+            # Free KV caches for nodes whose children are all processed
+            if parent_idx in kv_store:
+                parent_children_remaining = any(
+                    d > depth and pi == parent_idx
+                    for d, _, pi, *_ in queue
+                )
+                if not parent_children_remaining:
+                    del kv_store[parent_idx]
 
             if len(nodes) % 500 == 0:
                 print(".", end="", flush=True)
+
+        kv_store.clear()
 
         print(f" {len(nodes)} nodes")
         if cache:
