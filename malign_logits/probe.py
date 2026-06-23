@@ -1058,17 +1058,7 @@ class Probe:
         from scipy.special import softmax as _sfm
         print(f"[Probe] Exploring tree: {self.model_id} / {prompt_text[:40]}", end="", flush=True)
 
-        # KV cache: store past_key_values per node for prefix reuse
         kv_store = {}
-
-        if not hasattr(self, '_tree_embed'):
-            try:
-                from .metrics import violence_procedural_axes
-                self._tree_embed = model.get_input_embeddings().weight.detach().cpu().numpy()
-                self._v_axis, self._p_axis = violence_procedural_axes(
-                    self._tree_embed, tokenizer)
-            except Exception:
-                self._tree_embed = None
 
         while queue and len(nodes) < max_nodes:
             depth, ids, parent_idx, token_str, local_prob, path_prob, token_id = queue.pop(0)
@@ -1077,13 +1067,13 @@ class Probe:
 
             with torch.no_grad():
                 if depth == 0:
-                    out = model(ids, output_hidden_states=True, use_cache=True)
+                    out = model(ids, use_cache=True)
                 elif parent_idx in kv_store:
                     new_id = torch.tensor([[token_id]], device=device)
                     out = model(new_id, past_key_values=kv_store[parent_idx],
-                               output_hidden_states=True, use_cache=True)
+                               use_cache=True)
                 else:
-                    out = model(ids, output_hidden_states=True, use_cache=True)
+                    out = model(ids, use_cache=True)
 
             logits = out.logits[0, -1, :].float().cpu().numpy()
             probs = _sfm(logits)
@@ -1096,14 +1086,8 @@ class Probe:
                 "parent": parent_idx, "n_children": 0,
             }
             node["_logits"] = logits
-
-            if self._tree_embed is not None:
-                from .metrics import axis_loading
-                node["violence_loading"] = axis_loading(logits, self._tree_embed, self._v_axis)
-                node["procedural_loading"] = axis_loading(logits, self._tree_embed, self._p_axis)
-
-            if out.hidden_states:
-                node["hidden"] = out.hidden_states[-1][0, -1, :].cpu().numpy()
+            # Axis loadings and hidden states computed on demand from cached logits,
+            # not during exploration (axis_loading is 977ms/node on CPU)
             nodes.append(node)
             if parent_idx >= 0:
                 nodes[parent_idx]["n_children"] += 1
