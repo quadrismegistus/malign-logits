@@ -101,7 +101,10 @@ ALL_PROBE_FAMILIES = [
 
 
 def _probe_cloud_ssh(args):
-    """Resolve cloud SSH host/port from args or vastai."""
+    """Resolve cloud SSH host/port from args or vastai.
+
+    Prefers running instances, falls back to most recent.
+    """
     import subprocess
     host = getattr(args, 'host', None)
     port = getattr(args, 'port', None)
@@ -110,20 +113,26 @@ def _probe_cloud_ssh(args):
             result = subprocess.run(
                 ["vastai", "show", "instances"],
                 capture_output=True, text=True, timeout=10)
+            # Prefer running, fall back to any instance with SSH
+            best_line = None
             for line in result.stdout.split("\n"):
-                if "running" in line.lower():
-                    parts = line.split()
-                    for p in parts:
-                        if "vast.ai" in p:
-                            host = host or p
-                        if p.isdigit() and int(p) > 1000 and not port:
-                            port = int(p)
-                    break
+                if "vast.ai" in line:
+                    if "running" in line.lower():
+                        best_line = line
+                        break
+                    if best_line is None:
+                        best_line = line
+            if best_line:
+                for p in best_line.split():
+                    if "vast.ai" in p:
+                        host = host or p
+                    if p.isdigit() and int(p) > 1000 and not port:
+                        port = int(p)
         except Exception:
             pass
     if not host or not port:
-        print("No running vast.ai instance found.")
-        print("Specify: --host ssh3.vast.ai --port 16524")
+        print("No vast.ai instance found.")
+        print("Specify: --host ssh8.vast.ai --port 12768")
         return None, None
     return host, port
 
@@ -250,16 +259,17 @@ def cmd_probe(args):
         host, port = _probe_cloud_ssh(args)
         if not host:
             return
-        log_file = "/workspace/batch4.log"
+        # Find the latest log file on cloud
+        find_cmd = "ls -t /workspace/beam*.log /workspace/batch*.log 2>/dev/null | head -1"
         if args.follow:
             subprocess.run(["ssh", "-o", "StrictHostKeyChecking=no",
                            "-p", str(port), f"root@{host}",
-                           f"tail -f {log_file}"])
+                           f"tail -f $({find_cmd})"])
         else:
             result = subprocess.run(
                 ["ssh", "-o", "StrictHostKeyChecking=no",
                  "-p", str(port), f"root@{host}",
-                 f"tail -{args.lines} {log_file}"],
+                 f"tail -{args.lines} $({find_cmd})"],
                 capture_output=True, text=True, timeout=15)
             print(result.stdout)
 
@@ -285,7 +295,8 @@ def cmd_probe(args):
                         r = subprocess.run(
                             ["ssh", "-o", "StrictHostKeyChecking=no",
                              "-p", str(port), f"root@{host}",
-                             "grep 'DONE\\|---\\|prompts,' /workspace/batch4.log; "
+                             "LOG=$(ls -t /workspace/beam*.log /workspace/batch*.log 2>/dev/null | head -1); "
+                            "grep 'DONE\\|---\\|prompts,' $LOG 2>/dev/null; "
                              "du -sh /workspace/malign-logits/data/raw/cache/psyche_derived/"],
                             capture_output=True, text=True, timeout=15)
                         print("\n--- Batch Progress ---")
