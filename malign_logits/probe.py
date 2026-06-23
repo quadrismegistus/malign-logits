@@ -1097,11 +1097,13 @@ class Probe:
                 sorted_idx = np.argsort(probs)[::-1]
                 children_added = False
                 if depth < branch_depth:
-                    # Coverage branching: add tokens until coverage reached
+                    # Coverage branching: top tokens until 50% mass, max 20
                     cum = 0.0
+                    n_branches = 0
                     for tid in sorted_idx:
-                        if cum >= coverage:
+                        if cum >= coverage or n_branches >= 20:
                             break
+                        n_branches += 1
                         p_val = float(probs[tid])
                         cum += p_val
                         child_pp = path_prob * p_val if depth > 0 else p_val
