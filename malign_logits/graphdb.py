@@ -233,7 +233,8 @@ class GraphDB:
                         for suffix in ("js", "entropy_delta", "abs_resistance",
                                        "resistance", "delta_resist", "prob_child",
                                        "hidden_dist", "argmax", "entropy",
-                                       "top_gained", "top_lost"):
+                                       "top_gained", "top_lost",
+                                       "self_resist", "self_prob"):
                             key = f"{prefix}_{suffix}"
                             if key in node:
                                 val = node[key]
@@ -592,23 +593,26 @@ class GraphDB:
         Returns sorted list of {base_model, prompt, fwd, rev, neutral,
         ratio, mechanism, mean_fwd_bits, mean_rev_bits}.
         """
-        aql = """
+        # Use self_resist (resistance to THIS token) if available,
+        # fall back to delta_resist (resistance to top child) for old data
+        resist_field = "self_resist"
+        aql = f"""
         FOR ann IN annotation_edges
-            FILTER ann.delta_resist != null
+            FILTER ann.{resist_field} != null
             LET node = DOCUMENT(ann._from)
             COLLECT base = node.model_short, prompt = ann.prompt INTO group
-            LET fwd = LENGTH(group[* FILTER CURRENT.ann.delta_resist > @thresh])
-            LET rev = LENGTH(group[* FILTER CURRENT.ann.delta_resist < -@thresh])
+            LET fwd = LENGTH(group[* FILTER CURRENT.ann.{resist_field} > @thresh])
+            LET rev = LENGTH(group[* FILTER CURRENT.ann.{resist_field} < -@thresh])
             LET neut = LENGTH(group) - fwd - rev
             LET ratio = fwd / MAX([rev, 1])
             LET mean_fwd = AVG(
-                group[* FILTER CURRENT.ann.delta_resist > @thresh].ann.delta_resist
+                group[* FILTER CURRENT.ann.{resist_field} > @thresh].ann.{resist_field}
             )
             LET mean_rev = AVG(
-                group[* FILTER CURRENT.ann.delta_resist < -@thresh].ann.delta_resist
+                group[* FILTER CURRENT.ann.{resist_field} < -@thresh].ann.{resist_field}
             )
             SORT base, prompt
-            RETURN {
+            RETURN {{
                 base_model: base,
                 prompt: prompt,
                 fwd: fwd,
@@ -620,7 +624,7 @@ class GraphDB:
                          : "oedipalization",
                 mean_fwd_bits: mean_fwd,
                 mean_rev_bits: mean_rev
-            }
+            }}
         """
         return self.query(aql, {"thresh": threshold})
 
