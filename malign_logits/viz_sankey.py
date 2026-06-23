@@ -141,10 +141,8 @@ def merged_sankey(model_id: str, prompt: str, annotator_idx: int = 0,
         if d == 0:
             labels.append("ROOT")
             colors.append("rgba(100,100,100,0.8)")
-        elif d <= 2:
-            labels.append(f"{tok}<br>b:{bf:.1f}%<br>a:{af:.1f}%<br>r:{mean_sr:+.1f}b")
         else:
-            labels.append(tok)
+            labels.append(f"{tok}<br>b:{bf:.1f}%<br>a:{af:.1f}%<br>r:{mean_sr:+.1f}b")
             if mean_sr > 1.0:
                 colors.append("rgba(217,79,61,0.8)")
             elif mean_sr > 0.3:
