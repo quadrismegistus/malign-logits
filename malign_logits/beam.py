@@ -427,18 +427,49 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
             pass
         print(f" done ({len(prompt_texts)} prompts)")
 
-    # Step 2: teacher-force every model through every beam set
-    # For each loaded model, score ALL beam sets from ALL models
-    for mid in all_model_ids:
-        mid_short = mid.split("/")[-1].replace("-", "_")[:20]
-        mid_label = mid.split("/")[-1]
-        print(f"  Teacher-force {mid_label}...", end="", flush=True)
+    # Build edge-only scoring pairs: (source_model_short, scorer_model_id)
+    # base→all + all→base + training edge pairs (both directions)
+    base_short = model_id.split("/")[-1].replace("-", "_")[:20]
+    mid_shorts = {mid: mid.split("/")[-1].replace("-", "_")[:20] for mid in all_model_ids}
 
-        model_obj, _ = load_model(mid)
+    score_pairs = set()  # (source_beam_short, scorer_model_id)
+    for mid in all_model_ids:
+        ms = mid_shorts[mid]
+        if ms != base_short:
+            score_pairs.add((base_short, mid))   # base beams → aligned
+            score_pairs.add((ms, model_id))       # aligned beams → base
+        parent, rel = reg.parent_of(mid)
+        if parent and parent in mid_shorts.values():
+            # find parent model_id
+            for pid in all_model_ids:
+                if mid_shorts[pid] == parent.split("/")[-1].replace("-", "_")[:20]:
+                    score_pairs.add((mid_shorts[mid], pid))  # child beams → parent
+                    score_pairs.add((mid_shorts[pid], mid))  # parent beams → child
+        # Also score self (for own-model probs)
+        score_pairs.add((ms, mid))
+
+    # Group by scorer model to minimize loads
+    scorer_to_sources = {}
+    for source_short, scorer_mid in score_pairs:
+        scorer_to_sources.setdefault(scorer_mid, set()).add(source_short)
+
+    print(f"  {len(score_pairs)} cross-pairs ({len(scorer_to_sources)} model loads)")
+
+    # Step 2: teacher-force along edges only
+    for scorer_mid, source_shorts in scorer_to_sources.items():
+        scorer_short = mid_shorts[scorer_mid]
+        scorer_label = scorer_mid.split("/")[-1]
+        print(f"  Teacher-force {scorer_label} ({len(source_shorts)} beam sets)...",
+              end="", flush=True)
+
+        model_obj, _ = load_model(scorer_mid)
         device = next(model_obj.parameters()).device
 
-        for source_short, source_beams in all_beams.items():
-            for pname in tqdm(prompt_texts, desc=f"{source_short}→{mid_short}",
+        for source_short in source_shorts:
+            if source_short not in all_beams:
+                continue
+            source_beams = all_beams[source_short]
+            for pname in tqdm(prompt_texts, desc=f"{source_short}→{scorer_short}",
                               unit="prompt", leave=False):
                 ptext = prompt_texts[pname]
                 stories = source_beams[pname]
@@ -447,7 +478,7 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
                 for i, s in enumerate(stories):
                     if not hasattr(s, '_tf_probs'):
                         s._tf_probs = {}
-                    s._tf_probs[mid_short] = probs[i]
+                    s._tf_probs[scorer_short] = probs[i]
 
         del model_obj
         gc.collect()
