@@ -85,6 +85,142 @@ def cmd_serve(args):
     serve(port=args.port, family=key)
 
 
+ALL_PROBE_FAMILIES = [
+    'allenai/OLMo-2-0425-1B',
+    'allenai/Olmo-3-1025-7B',
+    'meta-llama/Llama-3.1-8B',
+    'LLM360/Amber',
+    'Qwen/Qwen2.5-7B',
+    'EleutherAI/pythia-6.9b',
+    'mistralai/Mistral-7B-v0.1',
+    'Qwen/Qwen3-8B-Base',
+    'deepseek-ai/deepseek-llm-7b-base',
+    'tiiuae/falcon-7b',
+    '01-ai/Yi-9B',
+]
+
+
+def cmd_probe(args):
+    """Tree exploration, annotation, and cloud sync.
+
+    Workflow:
+        # Local: batch annotate (slow on MPS, fast on CUDA)
+        malign probe batch
+
+        # Cloud: run on vast.ai, download, merge
+        malign cloud launch
+        # (on cloud): python scripts/cloud_batch_annotate.py
+        rsync -avz -e "ssh -p PORT" root@HOST:.../psyche_derived/ /tmp/cloud_cache/
+        malign probe merge /tmp/cloud_cache
+        malign probe ingest --clear
+        malign probe census
+    """
+    cmd = args.probe_command
+
+    if cmd == "batch":
+        from .probe import Probe
+        from .experiments import DEFAULT_PROMPTS, INSTITUTIONAL_PROMPTS
+        from tqdm import tqdm
+
+        if args.prompts == "battery":
+            prompts = DEFAULT_PROMPTS
+        elif args.prompts == "institutional":
+            prompts = INSTITUTIONAL_PROMPTS
+        else:
+            prompts = {**DEFAULT_PROMPTS, **INSTITUTIONAL_PROMPTS}
+
+        families = ALL_PROBE_FAMILIES if args.families == "all" else args.families.split(",")
+
+        for base_id in tqdm(families, desc="Families", unit="fam"):
+            short = base_id.split("/")[-1]
+            tqdm.write(f"\n--- {short} ---")
+            try:
+                p = Probe(base_id)
+                results = p.batch_annotate(prompts)
+                n = sum(len(v) for v in results.values())
+                tqdm.write(f"  {short}: {len(results)} prompts, {n} nodes")
+            except Exception as e:
+                tqdm.write(f"  {short}: FAILED {str(e)[:80]}")
+
+    elif cmd == "status":
+        from .cache import get_cache
+        from .experiments import DEFAULT_PROMPTS, INSTITUTIONAL_PROMPTS
+        from .registry import Registry
+
+        all_prompts = {**DEFAULT_PROMPTS, **INSTITUTIONAL_PROMPTS}
+        cm = get_cache()
+        stash = cm._stash("psyche_derived")
+        reg = Registry()
+
+        print(f"Cache status: {len(all_prompts)} prompts × {len(ALL_PROBE_FAMILIES)} families\n")
+        for base_id in ALL_PROBE_FAMILIES:
+            cached = sum(1 for pt in all_prompts.values()
+                         if {"model": base_id, "prompt": pt,
+                             "path_threshold": 0.01, "max_depth": 5,
+                             "type": "explore_tree_v2"} in stash)
+            n_ann = len(reg.variants_of(reg.base_of(base_id) or base_id))
+            status = "DONE" if cached == len(all_prompts) else f"{cached}/{len(all_prompts)}"
+            print(f"  {base_id.split('/')[-1]:25s} {status:>8s}  ({n_ann} annotators)")
+
+    elif cmd == "merge":
+        import hashstash
+        from tqdm import tqdm
+        from pathlib import Path
+
+        cloud = hashstash.HashStash(args.cloud_path, engine="lmdb")
+        local_path = str(Path(__file__).parent.parent / "data" / "raw" / "cache" / "psyche_derived")
+        local = hashstash.HashStash(local_path, engine="lmdb")
+
+        cloud_keys = list(cloud.keys())
+        local_keys = set(local.keys())
+        new = [k for k in cloud_keys if k not in local_keys]
+
+        print(f"Cloud: {len(cloud_keys)}, Local: {len(local_keys)}, New: {len(new)}")
+
+        if args.dry_run:
+            print("Dry run — no changes.")
+            return
+
+        for k in tqdm(cloud_keys, desc="Merging"):
+            local[k] = cloud[k]
+        print(f"Merged {len(cloud_keys)} entries")
+
+    elif cmd == "ingest":
+        from .graphdb import GraphDB
+
+        families = ALL_PROBE_FAMILIES if args.families == "all" else args.families.split(",")
+        g = GraphDB()
+        if args.clear:
+            g.clear()
+            g.ingest_registry()
+            g.ingest_prompts()
+        g.ingest_trees(models=families)
+        print(f"\nStats: {g.stats()}")
+
+    elif cmd == "census":
+        from .graphdb import GraphDB
+        from collections import defaultdict
+
+        g = GraphDB()
+        grid = defaultdict(dict)
+        for r in g.clinical_signature():
+            base = r["base_model"]
+            prompt = r["prompt"][:7]
+            ratio = r["ratio"]
+            mech = r["mechanism"][0].upper()
+            grid[base][prompt] = f"{ratio:.1f}{mech}"
+
+        prompts = ["anger", "sexual", "neutral", "contrad", "labor"]
+        print(f"{'Family':25s}", "  ".join(f"{p:>8s}" for p in prompts))
+        print("-" * 75)
+        for base in sorted(grid.keys()):
+            row = "  ".join(f"{grid[base].get(p, '---'):>8s}" for p in prompts)
+            print(f"{base:25s} {row}")
+
+    else:
+        print("Usage: malign probe {batch|status|merge|ingest|census}")
+
+
 def cmd_info(args):
     """Print model families and configuration."""
     from . import MODEL_FAMILIES, DEFAULT_FAMILY
@@ -1132,6 +1268,28 @@ def main():
                     default=None, help="Single family (default: all)")
     ct.add_argument("--save", action="store_true", help="Save summary CSV")
     ct.set_defaults(func=cmd_circuit)
+
+    # probe: tree exploration + annotation + cloud sync
+    probe = subparsers.add_parser("probe", help="Tree exploration, annotation, and cloud sync")
+    probe_sub = probe.add_subparsers(dest="probe_command")
+
+    pb = probe_sub.add_parser("batch", help="Batch annotate all families × all prompts")
+    pb.add_argument("--families", default="all", help="Comma-separated family IDs or 'all'")
+    pb.add_argument("--prompts", default="all", choices=["battery", "institutional", "all"])
+
+    probe_sub.add_parser("status", help="Show cache status (cached trees per family)")
+
+    pm = probe_sub.add_parser("merge", help="Merge downloaded cloud cache into local")
+    pm.add_argument("cloud_path", help="Path to downloaded cloud cache")
+    pm.add_argument("--dry-run", action="store_true")
+
+    pi = probe_sub.add_parser("ingest", help="Ingest cached trees into ArangoDB")
+    pi.add_argument("--families", default="all", help="Comma-separated family IDs or 'all'")
+    pi.add_argument("--clear", action="store_true", help="Clear ArangoDB before ingesting")
+
+    probe_sub.add_parser("census", help="Print clinical signature census from ArangoDB")
+
+    probe.set_defaults(func=cmd_probe)
 
     info = subparsers.add_parser("info", help="Print model families and configuration")
     _add_family_arg(info)
