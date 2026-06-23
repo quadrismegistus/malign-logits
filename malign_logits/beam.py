@@ -298,13 +298,15 @@ def load_cached_beams(model_id: str, prompt: str, n: int = 100,
 
 def batch_beam_annotate(model_id: str, prompts: dict = None,
                         n: int = 100, max_tokens: int = 10):
-    """Batch beam search + annotation: one model load per stage.
+    """Batch beam search + cross-model annotation.
 
-    1. Load base model → beam search ALL prompts → unload
-    2. Load base model → teacher-force ALL prompts → unload
-    3. For each annotator: load → teacher-force ALL prompts → unload
+    1. For each model (base + annotators): load → beam search ALL prompts → unload
+    2. For each model: load → teacher-force ALL other models' beams → unload
 
-    Returns {prompt_name: [Storyline, ...], ...}
+    Each model's beams get teacher-forced through every other model.
+    Full cross-comparison matrix stored per storyline.
+
+    Returns {prompt_name: {model_short: [Storyline, ...], ...}, ...}
     """
     from .models import load_model
     from .probe import _resolve_prompt, _get_cache, PROMPTS, _ALL_PROMPTS
@@ -321,73 +323,56 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
     short_name = model_id.split("/")[-1]
     cache = _get_cache()
 
-    # Check what's already cached
-    results = {}
-    uncached = {}
-    for pname, ptext in prompts.items():
-        pt = _resolve_prompt(pname) if pname in (_ALL_PROMPTS or {}) else ptext
-        cache_key = {"model": model_id, "prompt": pt,
-                     "n_beams": n, "max_tokens": max_tokens,
-                     "type": "beam_annotated_v1"}
-        cached = cache.get_derived(cache_key)
-        if cached is not None:
-            results[pname] = cached
-        else:
-            uncached[pname] = pt
-    print(f"  {len(results)} cached, {len(uncached)} to process")
-
-    if not uncached:
-        return results
-
-    # Determine annotators
+    # Determine all models in family
     base_id = reg.base_of(model_id) or model_id
-    annotators = reg.variants_of(base_id)
+    all_model_ids = [model_id]
+    variants = reg.variants_of(base_id)
     if model_id != base_id:
-        annotators = [base_id] + annotators
-    annotators = [m for m in annotators if m != model_id]
+        variants = [base_id] + variants
+    for v in variants:
+        if v != model_id:
+            all_model_ids.append(v)
 
     base_tok = AutoTokenizer.from_pretrained(model_id)
     if base_tok.pad_token_id is None:
         base_tok.pad_token_id = base_tok.eos_token_id
 
-    # Step 1: beam search all uncached prompts (base model loaded once)
-    print(f"  Beam search ({len(uncached)} prompts)...", end="", flush=True)
-    model, _ = load_model(model_id)
-    device = next(model.parameters()).device
+    # Resolve prompt texts
+    prompt_texts = {}
+    for pname, ptext in prompts.items():
+        prompt_texts[pname] = _resolve_prompt(pname) if pname != ptext else ptext
 
-    all_stories = {}
-    for pname, ptext in uncached.items():
-        ids = base_tok.encode(ptext, return_tensors="pt").to(device)
-        prompt_len = ids.shape[1]
-        with torch.no_grad():
-            out = model.generate(
-                ids, num_beams=n, num_return_sequences=n,
-                max_new_tokens=max_tokens, output_scores=True,
-                return_dict_in_generate=True,
-            )
-        stories = []
-        for i in range(len(out.sequences)):
-            seq = out.sequences[i]
-            new_tokens = seq[prompt_len:]
-            stories.append(Storyline(
-                text=base_tok.decode(new_tokens, skip_special_tokens=True),
-                tokens=new_tokens.tolist(),
-                token_texts=[base_tok.decode([t]).strip() for t in new_tokens.tolist()],
-                path_prob=float(np.exp(out.sequences_scores[i].item())),
-                log_prob=out.sequences_scores[i].item(),
-            ))
-        all_stories[pname] = stories
-    del model
-    gc.collect()
-    try:
-        if torch.backends.mps.is_available():
-            torch.mps.empty_cache()
-    except Exception:
-        pass
-    print(f" done")
+    def _beam_search_model(mid, device_model):
+        """Beam search one model on all prompts."""
+        model_obj, _ = device_model
+        device = next(model_obj.parameters()).device
+        result = {}
+        for pname in prompt_texts:
+            ptext = prompt_texts[pname]
+            ids = base_tok.encode(ptext, return_tensors="pt").to(device)
+            prompt_len = ids.shape[1]
+            with torch.no_grad():
+                out = model_obj.generate(
+                    ids, num_beams=n, num_return_sequences=n,
+                    max_new_tokens=max_tokens, output_scores=True,
+                    return_dict_in_generate=True,
+                )
+            stories = []
+            for i in range(len(out.sequences)):
+                seq = out.sequences[i]
+                new_tokens = seq[prompt_len:]
+                stories.append(Storyline(
+                    text=base_tok.decode(new_tokens, skip_special_tokens=True),
+                    tokens=new_tokens.tolist(),
+                    token_texts=[base_tok.decode([t]).strip() for t in new_tokens.tolist()],
+                    path_prob=float(np.exp(out.sequences_scores[i].item())),
+                    log_prob=out.sequences_scores[i].item(),
+                ))
+            result[pname] = stories
+        return result
 
     def _batched_tf(model, device, stories, ptext, batch_size=16):
-        """Batched teacher-force, return per-token probs for each storyline."""
+        """Batched teacher-force, return per-token probs."""
         prompt_ids = base_tok.encode(ptext)
         prompt_len = len(prompt_ids)
 
@@ -397,6 +382,9 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
             full = base_tok.encode(ptext + " " + s.text)
             all_ids.append(full)
             all_lengths.append(len(full))
+
+        if not all_ids:
+            return []
 
         max_len = max(all_lengths)
         padded = torch.full((len(stories), max_len), base_tok.pad_token_id, dtype=torch.long)
@@ -422,93 +410,107 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
                 all_probs.append(token_probs)
         return all_probs
 
-    # Step 2: base teacher-force all prompts
-    print(f"  Base teacher-force ({len(uncached)} prompts)...", end="", flush=True)
-    model, _ = load_model(model_id)
-    device = next(model.parameters()).device
-    for pname, ptext in tqdm(uncached.items(), desc=f"{short_name} base-tf",
-                             unit="prompt", leave=False):
-        probs = _batched_tf(model, device, all_stories[pname], ptext)
-        for i, s in enumerate(all_stories[pname]):
-            s.base_token_probs = probs[i]
-    del model
-    gc.collect()
-    try:
-        if torch.backends.mps.is_available():
-            torch.mps.empty_cache()
-    except Exception:
-        pass
-    print(f" done")
-
-    # Step 3: each annotator, all prompts
-    for ann_id in annotators:
-        ann_short = ann_id.split("/")[-1].replace("-", "_")[:20]
-        ann_label = ann_id.split("/")[-1]
-        print(f"  {ann_label} ({len(uncached)} prompts)...", end="", flush=True)
+    # Step 1: beam search every model
+    # {model_short: {prompt_name: [Storyline, ...]}}
+    all_beams = {}
+    for mid in all_model_ids:
+        mid_short = mid.split("/")[-1].replace("-", "_")[:20]
+        print(f"  Beam search {mid.split('/')[-1]}...", end="", flush=True)
+        model_obj, _ = load_model(mid)
+        all_beams[mid_short] = _beam_search_model(mid, (model_obj, None))
+        del model_obj
+        gc.collect()
         try:
-            ann_model, _ = load_model(ann_id)
-            ann_device = next(ann_model.parameters()).device
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
+        except Exception:
+            pass
+        print(f" done ({len(prompt_texts)} prompts)")
 
-            for pname, ptext in tqdm(uncached.items(), desc=f"{short_name}←{ann_label}",
-                                     unit="prompt", leave=False):
-                stories = all_stories[pname]
-                ann_probs = _batched_tf(ann_model, ann_device, stories, ptext)
+    # Step 2: teacher-force every model through every beam set
+    # For each loaded model, score ALL beam sets from ALL models
+    for mid in all_model_ids:
+        mid_short = mid.split("/")[-1].replace("-", "_")[:20]
+        mid_label = mid.split("/")[-1]
+        print(f"  Teacher-force {mid_label}...", end="", flush=True)
+
+        model_obj, _ = load_model(mid)
+        device = next(model_obj.parameters()).device
+
+        for source_short, source_beams in all_beams.items():
+            for pname in tqdm(prompt_texts, desc=f"{source_short}→{mid_short}",
+                              unit="prompt", leave=False):
+                ptext = prompt_texts[pname]
+                stories = source_beams[pname]
+                probs = _batched_tf(model_obj, device, stories, ptext)
 
                 for i, s in enumerate(stories):
-                    base_tp = s.base_token_probs
-                    ann_tp = ann_probs[i]
+                    if not hasattr(s, '_tf_probs'):
+                        s._tf_probs = {}
+                    s._tf_probs[mid_short] = probs[i]
+
+        del model_obj
+        gc.collect()
+        try:
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
+        except Exception:
+            pass
+        print(f" done")
+
+    # Step 3: compute resistance for all cross-model pairs
+    base_short = model_id.split("/")[-1].replace("-", "_")[:20]
+    for source_short, source_beams in all_beams.items():
+        for pname, stories in source_beams.items():
+            for s in stories:
+                source_probs = s._tf_probs.get(source_short, [])
+                s.base_token_probs = source_probs
+
+                for scorer_short in s._tf_probs:
+                    if scorer_short == source_short:
+                        continue
+                    scorer_probs = s._tf_probs[scorer_short]
                     token_resist = []
-                    for j in range(min(len(ann_tp), len(base_tp))):
+                    for j in range(min(len(scorer_probs), len(source_probs))):
                         resist = (
-                            -float(np.log2(max(ann_tp[j], 1e-10)))
-                            - (-float(np.log2(max(base_tp[j], 1e-10))))
+                            -float(np.log2(max(scorer_probs[j], 1e-10)))
+                            - (-float(np.log2(max(source_probs[j], 1e-10))))
                         )
                         token_resist.append(resist)
 
-                    ann_mean = float(np.exp(np.mean(
-                        [np.log(max(p, 1e-10)) for p in ann_tp]
-                    ))) if ann_tp else 0.0
-                    base_mean = float(np.exp(np.mean(
-                        [np.log(max(p, 1e-10)) for p in base_tp]
-                    ))) if base_tp else 0.0
+                    scorer_mean = float(np.exp(np.mean(
+                        [np.log(max(p, 1e-10)) for p in scorer_probs]
+                    ))) if scorer_probs else 0.0
+                    source_mean = float(np.exp(np.mean(
+                        [np.log(max(p, 1e-10)) for p in source_probs]
+                    ))) if source_probs else 0.0
 
-                    s.annotations[ann_short] = {
-                        "token_probs": ann_tp,
+                    s.annotations[scorer_short] = {
+                        "token_probs": scorer_probs,
                         "token_resist": token_resist,
-                        "mean_prob": ann_mean,
-                        "base_mean_prob": base_mean,
+                        "mean_prob": scorer_mean,
+                        "source_mean_prob": source_mean,
                         "total_resist": sum(token_resist),
                         "mean_resist": float(np.mean(token_resist)) if token_resist else 0.0,
                     }
 
-            del ann_model
-            gc.collect()
-            try:
-                if torch.backends.mps.is_available():
-                    torch.mps.empty_cache()
-            except Exception:
-                pass
-            print(f" done")
-        except Exception as e:
-            print(f" FAILED: {str(e)[:60]}")
+    # Cache results: one entry per (source_model, prompt)
+    for source_short, source_beams in all_beams.items():
+        for pname, stories in source_beams.items():
+            ptext = prompt_texts[pname]
+            cache_key = {"model": model_id, "source": source_short,
+                         "prompt": ptext, "n_beams": n,
+                         "max_tokens": max_tokens, "type": "beam_cross_v1"}
+            cache_data = [
+                {
+                    "text": s.text, "tokens": s.tokens,
+                    "token_texts": s.token_texts,
+                    "path_prob": s.path_prob, "log_prob": s.log_prob,
+                    "base_token_probs": getattr(s, "base_token_probs", []),
+                    "annotations": s.annotations,
+                }
+                for s in stories
+            ]
+            cache.set_derived(cache_key, cache_data)
 
-    # Cache all results
-    for pname, ptext in uncached.items():
-        stories = all_stories[pname]
-        cache_key = {"model": model_id, "prompt": ptext,
-                     "n_beams": n, "max_tokens": max_tokens,
-                     "type": "beam_annotated_v1"}
-        cache_data = [
-            {
-                "text": s.text, "tokens": s.tokens,
-                "token_texts": s.token_texts,
-                "path_prob": s.path_prob, "log_prob": s.log_prob,
-                "base_token_probs": getattr(s, "base_token_probs", []),
-                "annotations": s.annotations,
-            }
-            for s in stories
-        ]
-        cache.set_derived(cache_key, cache_data)
-        results[pname] = cache_data
-
-    return results
+    return all_beams
