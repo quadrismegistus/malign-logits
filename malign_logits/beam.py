@@ -129,28 +129,62 @@ def annotate_beams(model_id: str, prompt: str, n: int = 100,
     if not annotators:
         return storylines
 
-    # Step 2b: teacher-force base model to get actual per-token probs
-    print(f"  Computing base per-token probs...", end="", flush=True)
-    base_model, base_tok = load_model(model_id)
-    base_device = next(base_model.parameters()).device
+    # Build batched input: encode all storylines, pad to same length
+    from transformers import AutoTokenizer
+    base_tok = AutoTokenizer.from_pretrained(model_id)
+    if base_tok.pad_token_id is None:
+        base_tok.pad_token_id = base_tok.eos_token_id
 
+    prompt_ids = base_tok.encode(prompt_text)
+    prompt_len = len(prompt_ids)
+
+    all_ids = []
+    all_lengths = []
     for story in storylines:
         full_text = prompt_text + " " + story.text
-        full_ids = base_tok.encode(full_text, return_tensors="pt").to(base_device)
-        prompt_ids = base_tok.encode(prompt_text, return_tensors="pt").to(base_device)
-        prompt_len = prompt_ids.shape[1]
+        ids = base_tok.encode(full_text)
+        all_ids.append(ids)
+        all_lengths.append(len(ids))
 
-        with torch.no_grad():
-            out = base_model(full_ids)
-        logits = out.logits[0].float().cpu().numpy()
+    max_len = max(all_lengths)
+    padded = torch.full((len(storylines), max_len), base_tok.pad_token_id, dtype=torch.long)
+    attention_mask = torch.zeros(len(storylines), max_len, dtype=torch.long)
+    for i, ids in enumerate(all_ids):
+        padded[i, :len(ids)] = torch.tensor(ids)
+        attention_mask[i, :len(ids)] = 1
 
-        base_token_probs = []
-        for pos in range(prompt_len - 1, full_ids.shape[1] - 1):
-            target_id = full_ids[0, pos + 1].item()
-            probs = softmax(logits[pos])
-            base_token_probs.append(float(probs[target_id]))
-        story.base_token_probs = base_token_probs
+    def _batched_teacher_force(model, device, batch_size=16):
+        """Run batched forward pass, return per-token probs for each storyline."""
+        all_probs = []
+        for start in range(0, len(storylines), batch_size):
+            end = min(start + batch_size, len(storylines))
+            batch_ids = padded[start:end].to(device)
+            batch_mask = attention_mask[start:end].to(device)
 
+            with torch.no_grad():
+                out = model(batch_ids, attention_mask=batch_mask)
+
+            logits = out.logits.float().cpu()
+
+            for bi in range(end - start):
+                si = start + bi
+                seq_len = all_lengths[si]
+                token_probs = []
+                for pos in range(prompt_len - 1, seq_len - 1):
+                    target_id = padded[si, pos + 1].item()
+                    p = torch.softmax(logits[bi, pos], dim=-1)
+                    token_probs.append(float(p[target_id]))
+                all_probs.append(token_probs)
+
+        return all_probs
+
+    # Step 2b: batched base model teacher-forcing
+    print(f"  Base teacher-force ({len(storylines)} stories)...", end="", flush=True)
+    base_model, _ = load_model(model_id)
+    base_device = next(base_model.parameters()).device
+    base_probs = _batched_teacher_force(base_model, base_device)
+    for i, story in enumerate(storylines):
+        story.base_token_probs = base_probs[i]
     del base_model
     gc.collect()
     try:
@@ -160,61 +194,42 @@ def annotate_beams(model_id: str, prompt: str, n: int = 100,
         pass
     print(f" done")
 
-    # Step 3: for each annotator, teacher-force all storylines
+    # Step 3: batched annotator teacher-forcing
     for ann_id in annotators:
         ann_short = ann_id.split("/")[-1].replace("-", "_")[:20]
-        print(f"  Annotating with {ann_id.split('/')[-1]}...", end="", flush=True)
+        print(f"  {ann_id.split('/')[-1]} ({len(storylines)} stories)...", end="", flush=True)
 
         try:
-            ann_model, ann_tok = load_model(ann_id)
+            ann_model, _ = load_model(ann_id)
             ann_device = next(ann_model.parameters()).device
+            ann_probs = _batched_teacher_force(ann_model, ann_device)
 
-            for story in storylines:
-                full_text = prompt_text + " " + story.text
-                full_ids = base_tok.encode(full_text, return_tensors="pt").to(ann_device)
-                prompt_ids = base_tok.encode(prompt_text, return_tensors="pt").to(ann_device)
-                prompt_len = prompt_ids.shape[1]
+            for i, story in enumerate(storylines):
+                ann_tp = ann_probs[i]
+                base_tp = story.base_token_probs
 
-                with torch.no_grad():
-                    out = ann_model(full_ids)
-                logits = out.logits[0].float().cpu().numpy()
-
-                ann_token_probs = []
                 token_resist = []
-
-                for pos in range(prompt_len - 1, full_ids.shape[1] - 1):
-                    target_id = full_ids[0, pos + 1].item()
-                    probs = softmax(logits[pos])
-                    p_ann = float(probs[target_id])
-                    ann_token_probs.append(p_ann)
-
-                    # Resistance: bits difference per token
-                    tok_idx = pos - (prompt_len - 1)
-                    if tok_idx < len(story.base_token_probs):
-                        p_base = story.base_token_probs[tok_idx]
-                        resist = (
-                            -float(np.log2(max(p_ann, 1e-10)))
-                            - (-float(np.log2(max(p_base, 1e-10))))
-                        )
-                    else:
-                        resist = 0.0
+                for j in range(min(len(ann_tp), len(base_tp))):
+                    resist = (
+                        -float(np.log2(max(ann_tp[j], 1e-10)))
+                        - (-float(np.log2(max(base_tp[j], 1e-10))))
+                    )
                     token_resist.append(resist)
 
-                # Per-token mean prob (geometric mean via log)
-                ann_mean_prob = float(np.exp(np.mean(
-                    [np.log(max(p, 1e-10)) for p in ann_token_probs]
-                ))) if ann_token_probs else 0.0
-                base_mean_prob = float(np.exp(np.mean(
-                    [np.log(max(p, 1e-10)) for p in story.base_token_probs]
-                ))) if story.base_token_probs else 0.0
+                ann_mean = float(np.exp(np.mean(
+                    [np.log(max(p, 1e-10)) for p in ann_tp]
+                ))) if ann_tp else 0.0
+                base_mean = float(np.exp(np.mean(
+                    [np.log(max(p, 1e-10)) for p in base_tp]
+                ))) if base_tp else 0.0
 
                 story.annotations[ann_short] = {
-                    "token_probs": ann_token_probs,
+                    "token_probs": ann_tp,
                     "token_resist": token_resist,
-                    "mean_prob": ann_mean_prob,
-                    "base_mean_prob": base_mean_prob,
+                    "mean_prob": ann_mean,
+                    "base_mean_prob": base_mean,
                     "total_resist": sum(token_resist),
-                    "mean_resist": np.mean(token_resist) if token_resist else 0.0,
+                    "mean_resist": float(np.mean(token_resist)) if token_resist else 0.0,
                 }
 
             del ann_model
@@ -224,7 +239,7 @@ def annotate_beams(model_id: str, prompt: str, n: int = 100,
                     torch.mps.empty_cache()
             except Exception:
                 pass
-            print(f" {len(storylines)} storylines")
+            print(f" done")
 
         except Exception as e:
             print(f" FAILED: {str(e)[:60]}")
