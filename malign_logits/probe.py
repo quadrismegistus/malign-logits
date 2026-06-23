@@ -1196,10 +1196,13 @@ class Probe:
                     resistance = 0.0
                     delta_resistance = 0.0
                     for child in children:
-                        # Look up child token by TEXT for cross-tokenizer safety
-                        child_text = child.get("token", "")
-                        child_tids = model_tok.encode(" " + child_text, add_special_tokens=False)
-                        child_tid = child_tids[0] if child_tids else child.get("token_id", -1)
+                        # Use stored token_id (correct for same-tokenizer families).
+                        # Fall back to text lookup for cross-tokenizer annotators.
+                        child_tid = child.get("token_id", -1)
+                        if child_tid < 0 or child_tid >= len(probs):
+                            child_text = child.get("token", "")
+                            child_tids = model_tok.encode(" " + child_text, add_special_tokens=False)
+                            child_tid = child_tids[0] if child_tids else -1
                         if child_tid >= 0 and child_tid < len(probs):
                             cp = float(probs[child_tid])
                             bp = child["prob"]
