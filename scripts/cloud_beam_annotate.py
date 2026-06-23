@@ -70,6 +70,13 @@ def main():
             import traceback
             tqdm.write(f'  {short}: FAILED {str(e)[:80]}')
             traceback.print_exc()
+        finally:
+            # Clear HF cache between families to prevent disk full
+            import shutil, os
+            hf_cache = os.path.expanduser('~/.cache/huggingface/hub')
+            if os.path.exists(hf_cache):
+                shutil.rmtree(hf_cache, ignore_errors=True)
+                tqdm.write(f'  Cleared HF cache')
 
     total = time.time() - t0
     print(f'\n=== DONE: {len(families)} families in {total:.0f}s ({total/3600:.1f}h) ===')
