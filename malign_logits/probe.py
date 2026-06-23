@@ -1005,17 +1005,18 @@ class Probe:
         return pd.DataFrame(rows)
 
     def explore_tree(self, prompt: str, coverage: float = 0.5,
-                     max_depth: int = 5,
+                     max_depth: int = 10,
+                     branch_depth: int = 2,
                      path_threshold: float = 0.01,
                      cumul_floor: float = 0.001, max_nodes: int = 5000) -> list:
-        """Deterministic tree exploration using path probability.
+        """Deterministic tree exploration: coverage branching + argmax.
 
-        Includes any branch where the product of probabilities along
-        the path from root exceeds path_threshold (default 0.5%).
-        This follows the likely storylines to natural depth.
+        Depths 1..branch_depth: include tokens until coverage fraction
+        of probability mass is covered (default 50%).
+        Depths branch_depth+1..max_depth: follow argmax only.
 
-        Returns list of node dicts with: depth, token, token_id, prob,
-        path_prob, entropy, parent, n_children, hidden.
+        Gives readable storylines: ~50 leaves, each a 10-word sentence.
+        Clinical signature computed on branch depths (1-2) only.
         """
         import gc
         from .models import load_model
@@ -1023,9 +1024,9 @@ class Probe:
         prompt_text = _resolve_prompt(prompt)
         cache = _get_cache()
         tree_key = {"model": self.model_id, "prompt": prompt_text,
-                    "path_threshold": path_threshold,
+                    "coverage": coverage, "branch_depth": branch_depth,
                     "max_depth": max_depth,
-                    "type": "explore_tree_v2"}
+                    "type": "explore_tree_v3"}
         cached = cache.get_derived(tree_key)
         if cached is not None:
             return cached
@@ -1035,8 +1036,8 @@ class Probe:
         device = next(model.parameters()).device
         nodes = self._explore_tree_with_model(
             prompt_text, model, tokenizer, device,
-            path_threshold=path_threshold, max_depth=max_depth,
-            max_nodes=max_nodes, cache=cache)
+            coverage=coverage, branch_depth=branch_depth,
+            max_depth=max_depth, max_nodes=max_nodes, cache=cache)
 
         del model
         gc.collect()
@@ -1048,8 +1049,8 @@ class Probe:
         return nodes
 
     def _explore_tree_with_model(self, prompt_text, model, tokenizer, device,
-                                  path_threshold=0.005, max_depth=5,
-                                  max_nodes=5000, cache=None):
+                                  coverage=0.5, branch_depth=2, max_depth=10,
+                                  path_threshold=0.01, max_nodes=5000, cache=None):
         """Core tree exploration with a pre-loaded model. No load/unload."""
         prompt_ids = tokenizer.encode(prompt_text, return_tensors="pt").to(device)
         queue = [(0, prompt_ids, -1, "ROOT", 1.0, 1.0, -1)]
@@ -1095,24 +1096,28 @@ class Probe:
             if depth < max_depth:
                 sorted_idx = np.argsort(probs)[::-1]
                 children_added = False
-                argmax_added = False
-                for tid in sorted_idx:
+                if depth < branch_depth:
+                    # Coverage branching: add tokens until coverage reached
+                    cum = 0.0
+                    for tid in sorted_idx:
+                        if cum >= coverage:
+                            break
+                        p_val = float(probs[tid])
+                        cum += p_val
+                        child_pp = path_prob * p_val if depth > 0 else p_val
+                        word = tokenizer.decode([int(tid)]).strip()
+                        new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
+                        queue.append((depth + 1, new_ids, node_idx, word, p_val, child_pp, int(tid)))
+                        children_added = True
+                else:
+                    # Argmax only
+                    tid = sorted_idx[0]
                     p_val = float(probs[tid])
                     child_pp = path_prob * p_val if depth > 0 else p_val
-                    above_threshold = child_pp >= path_threshold
-                    is_argmax = not argmax_added  # first in sorted = argmax
-
-                    if not above_threshold and argmax_added:
-                        break
-
                     word = tokenizer.decode([int(tid)]).strip()
                     new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
                     queue.append((depth + 1, new_ids, node_idx, word, p_val, child_pp, int(tid)))
                     children_added = True
-                    argmax_added = True
-
-                    if not above_threshold:
-                        break  # added argmax even though below threshold, now stop
 
                 if children_added:
                     kv_store[node_idx] = out.past_key_values
@@ -1134,8 +1139,8 @@ class Probe:
         print(f" {len(nodes)} nodes")
         if cache:
             tree_key = {"model": self.model_id, "prompt": prompt_text,
-                        "path_threshold": path_threshold, "max_depth": max_depth,
-                        "type": "explore_tree_v2"}
+                        "coverage": coverage, "branch_depth": branch_depth,
+                        "max_depth": max_depth, "type": "explore_tree_v3"}
             # Strip _logits before caching (150k floats per node = 170GB for full run)
             cache_nodes = [{k: v for k, v in n.items() if k != "_logits"}
                            for n in nodes]
@@ -1360,8 +1365,8 @@ class Probe:
         # Update cache with annotated tree (same key as explore_tree)
         cache = _get_cache()
         tree_key = {"model": self.model_id, "prompt": prompt_text,
-                    "path_threshold": 0.01, "max_depth": max_depth,
-                    "type": "explore_tree_v2"}
+                    "coverage": 0.5, "branch_depth": 2,
+                    "max_depth": max_depth, "type": "explore_tree_v3"}
         cache.set_derived(tree_key, nodes)
 
         return nodes
@@ -1392,7 +1397,7 @@ class Probe:
         for pname, ptext in prompts.items():
             tree_key = {"model": self.model_id, "prompt": ptext,
                         "path_threshold": 0.01, "max_depth": max_depth,
-                        "type": "explore_tree_v2"}
+                        "type": "explore_tree_v3"}
             cached = cache.get_derived(tree_key)
             if cached is not None:
                 trees[pname] = cached
@@ -1645,7 +1650,7 @@ class Probe:
         for pname, ptext in prompts.items():
             tree_key = {"model": self.model_id, "prompt": ptext,
                         "path_threshold": 0.01, "max_depth": max_depth,
-                        "type": "explore_tree_v2"}
+                        "type": "explore_tree_v3"}
             cache.set_derived(tree_key, trees[pname])
 
         return trees
