@@ -1150,7 +1150,7 @@ class Probe:
         return nodes
 
     def annotate_tree(self, prompt: str, annotators: list = None,
-                      coverage: float = 0.5, max_depth: int = 5):
+                      coverage: float = 0.5, max_depth: int = 10):
         """Teacher-force family checkpoints through this model's tree.
 
         Explores this model's tree, then replays each path through
@@ -1373,7 +1373,7 @@ class Probe:
 
         return nodes
 
-    def batch_annotate(self, prompts: dict = None, max_depth: int = 5):
+    def batch_annotate(self, prompts: dict = None, max_depth: int = 10):
         """Annotate multiple prompts efficiently — one model load per annotator.
 
         Instead of loading each annotator N times (once per prompt),

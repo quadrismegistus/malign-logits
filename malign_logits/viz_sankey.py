@@ -74,14 +74,31 @@ def merged_sankey(model_id: str, prompt: str, annotator_idx: int = 0,
         node_aligned_flow[from_key] += 0
         node_resist[to_key].append(sr)
 
-    # Keep top N nodes per depth
+    # Find top-N complete paths (leaf storylines), keep all nodes along them
     max_depth = max(d for d, _ in node_base_flow.keys())
+
+    # Build leaf paths from the original tree
+    node_ids = set(range(len(nodes)))
+    parent_set = {n["parent"] for n in nodes}
+    leaves = [i for i in node_ids - parent_set if nodes[i]["depth"] > 0]
+    leaves.sort(key=lambda i: -nodes[i].get("path_prob", 0))
+
+    # Collect (depth, token) keys along top-N leaf paths
     keep = {(0, "ROOT")}
-    for d in range(1, max_depth + 1):
-        depth_nodes = [(k, f) for k, f in node_base_flow.items() if k[0] == d]
-        depth_nodes.sort(key=lambda x: -x[1])
-        for k, _ in depth_nodes[:top_n]:
-            keep.add(k)
+    paths_kept = 0
+    for leaf_idx in leaves:
+        if paths_kept >= top_n:
+            break
+        # Walk up from leaf to root, collect merged keys
+        path_keys = set()
+        i = leaf_idx
+        while i >= 0:
+            n = nodes[i]
+            if n["depth"] > 0:
+                path_keys.add((n["depth"], n["token"]))
+            i = n["parent"]
+        keep.update(path_keys)
+        paths_kept += 1
 
     # Filter edges
     filtered_base = {}
