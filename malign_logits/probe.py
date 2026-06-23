@@ -983,24 +983,16 @@ class Probe:
 
     def explore_tree(self, prompt: str, coverage: float = 0.5,
                      max_depth: int = 5,
+                     path_threshold: float = 0.005,
                      cumul_floor: float = 0.001, max_nodes: int = 5000) -> list:
-        """Deterministic tree exploration — no sampling needed.
+        """Deterministic tree exploration using path probability.
 
-        Explores until majority of probability mass is covered at each
-        node (default 50%). This captures the main storylines without
-        exhaustively exploring the tail.
+        Includes any branch where the product of probabilities along
+        the path from root exceeds path_threshold (default 0.5%).
+        This follows the likely storylines to natural depth.
 
-        At each node, follows branches until `coverage` fraction of
-        probability mass is covered. Stops branching when:
-        - top-1 token already exceeds coverage (model has decided)
-        - cumulative path probability < cumul_floor (path too unlikely)
-        - max_depth or max_nodes reached
-
-        Default coverage=0.5 gives ~100 paths on typical prompts.
-        coverage=0.9 gives ~2000 paths (full tail exploration).
-
-        Returns list of node dicts with: depth, token, prob, cumul_prob,
-        entropy, parent, n_children.
+        Returns list of node dicts with: depth, token, token_id, prob,
+        path_prob, entropy, parent, n_children, hidden.
         """
         import gc
         from .models import load_model
@@ -1010,8 +1002,9 @@ class Probe:
         # Check cache first — tree is deterministic, no model load needed
         cache = _get_cache()
         tree_key = {"model": self.model_id, "prompt": prompt_text,
-                    "coverage": coverage, "max_depth": max_depth,
-                    "type": "explore_tree"}
+                    "path_threshold": path_threshold,
+                    "max_depth": max_depth,
+                    "type": "explore_tree_v2"}
         cached = cache.get_derived(tree_key)
         if cached is not None:
             return cached
@@ -1022,13 +1015,14 @@ class Probe:
 
         prompt_ids = tokenizer.encode(prompt_text, return_tensors="pt").to(device)
 
-        queue = [(0, prompt_ids, -1, "ROOT", 1.0, 1.0, -1)]  # +token_id
+        # queue: (depth, input_ids, parent_idx, token_str, local_prob, path_prob, token_id)
+        queue = [(0, prompt_ids, -1, "ROOT", 1.0, 1.0, -1)]
         nodes = []
 
         print(f"[Probe] Exploring tree: {self.model_id} / {prompt}", end="", flush=True)
 
         while queue and len(nodes) < max_nodes:
-            depth, ids, parent_idx, token_str, branch_prob, cumul_prob, token_id = queue.pop(0)
+            depth, ids, parent_idx, token_str, local_prob, path_prob, token_id = queue.pop(0)
             if depth > max_depth:
                 continue
 
@@ -1042,7 +1036,7 @@ class Probe:
             node_idx = len(nodes)
             node = {
                 "depth": depth, "token": token_str, "token_id": token_id,
-                "prob": branch_prob, "cumul_prob": cumul_prob, "entropy": ent,
+                "prob": local_prob, "path_prob": path_prob, "entropy": ent,
                 "parent": parent_idx, "n_children": 0,
             }
             node["_logits"] = logits  # transient, stripped before cache
@@ -1070,28 +1064,14 @@ class Probe:
 
             if depth < max_depth:
                 sorted_idx = np.argsort(probs)[::-1]
-                top1_prob = float(probs[sorted_idx[0]])
-                if top1_prob >= coverage:
-                    tid = sorted_idx[0]
+                for tid in sorted_idx:
                     p_val = float(probs[tid])
-                    child_cumul = cumul_prob * p_val
-                    if child_cumul >= cumul_floor:
-                        word = tokenizer.decode([int(tid)]).strip()
-                        new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
-                        queue.append((depth + 1, new_ids, node_idx, word, p_val, child_cumul, int(tid)))
-                else:
-                    cum = 0.0
-                    for tid in sorted_idx:
-                        if cum >= coverage:
-                            break
-                        p_val = float(probs[tid])
-                        cum += p_val
-                        child_cumul = cumul_prob * p_val
-                        if child_cumul < cumul_floor:
-                            break
-                        word = tokenizer.decode([int(tid)]).strip()
-                        new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
-                        queue.append((depth + 1, new_ids, node_idx, word, p_val, child_cumul, int(tid)))
+                    child_pp = path_prob * p_val if depth > 0 else p_val
+                    if child_pp < path_threshold:
+                        break  # sorted descending, all remaining below threshold
+                    word = tokenizer.decode([int(tid)]).strip()
+                    new_ids = torch.cat([ids, torch.tensor([[int(tid)]], device=device)], dim=-1)
+                    queue.append((depth + 1, new_ids, node_idx, word, p_val, child_pp, int(tid)))
 
             if len(nodes) % 500 == 0:
                 print(".", end="", flush=True)
@@ -1308,11 +1288,11 @@ class Probe:
             except Exception as e:
                 print(f" FAILED: {str(e)[:60]}")
 
-        # Update cache with annotated tree
+        # Update cache with annotated tree (same key as explore_tree)
         cache = _get_cache()
         tree_key = {"model": self.model_id, "prompt": prompt_text,
-                    "coverage": coverage, "max_depth": max_depth,
-                    "type": "explore_tree"}
+                    "path_threshold": 0.005, "max_depth": max_depth,
+                    "type": "explore_tree_v2"}
         cache.set_derived(tree_key, nodes)
 
         return nodes
