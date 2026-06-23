@@ -129,9 +129,36 @@ def annotate_beams(model_id: str, prompt: str, n: int = 100,
     if not annotators:
         return storylines
 
-    # Get base tokenizer for encoding
-    from transformers import AutoTokenizer
-    base_tok = AutoTokenizer.from_pretrained(model_id)
+    # Step 2b: teacher-force base model to get actual per-token probs
+    print(f"  Computing base per-token probs...", end="", flush=True)
+    base_model, base_tok = load_model(model_id)
+    base_device = next(base_model.parameters()).device
+
+    for story in storylines:
+        full_text = prompt_text + " " + story.text
+        full_ids = base_tok.encode(full_text, return_tensors="pt").to(base_device)
+        prompt_ids = base_tok.encode(prompt_text, return_tensors="pt").to(base_device)
+        prompt_len = prompt_ids.shape[1]
+
+        with torch.no_grad():
+            out = base_model(full_ids)
+        logits = out.logits[0].float().cpu().numpy()
+
+        base_token_probs = []
+        for pos in range(prompt_len - 1, full_ids.shape[1] - 1):
+            target_id = full_ids[0, pos + 1].item()
+            probs = softmax(logits[pos])
+            base_token_probs.append(float(probs[target_id]))
+        story.base_token_probs = base_token_probs
+
+    del base_model
+    gc.collect()
+    try:
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+    except Exception:
+        pass
+    print(f" done")
 
     # Step 3: for each annotator, teacher-force all storylines
     for ann_id in annotators:
@@ -143,7 +170,6 @@ def annotate_beams(model_id: str, prompt: str, n: int = 100,
             ann_device = next(ann_model.parameters()).device
 
             for story in storylines:
-                # Build full sequence: prompt + storyline tokens
                 full_text = prompt_text + " " + story.text
                 full_ids = base_tok.encode(full_text, return_tensors="pt").to(ann_device)
                 prompt_ids = base_tok.encode(prompt_text, return_tensors="pt").to(ann_device)
@@ -151,40 +177,42 @@ def annotate_beams(model_id: str, prompt: str, n: int = 100,
 
                 with torch.no_grad():
                     out = ann_model(full_ids)
-
                 logits = out.logits[0].float().cpu().numpy()
 
-                # Compute per-token probability and resistance
-                token_probs = []
+                ann_token_probs = []
                 token_resist = []
-                total_log_prob = 0.0
 
-                for pos in range(prompt_len - 1, min(full_ids.shape[1] - 1, prompt_len + len(story.tokens) - 1)):
-                    token_idx = pos + 1
-                    if token_idx >= full_ids.shape[1]:
-                        break
-                    target_id = full_ids[0, token_idx].item()
+                for pos in range(prompt_len - 1, full_ids.shape[1] - 1):
+                    target_id = full_ids[0, pos + 1].item()
                     probs = softmax(logits[pos])
-
                     p_ann = float(probs[target_id])
-                    token_probs.append(p_ann)
-                    total_log_prob += float(np.log(max(p_ann, 1e-10)))
+                    ann_token_probs.append(p_ann)
 
-                    # Base prob for this token in the storyline
-                    story_pos = pos - (prompt_len - 1)
-                    if story_pos < len(story.tokens):
-                        # Approximate base prob from overall path prob
-                        p_base = story.path_prob ** (1.0 / len(story.tokens))
-                        resist = -float(np.log2(max(p_ann, 1e-10))) - (-float(np.log2(max(p_base, 1e-10))))
+                    # Resistance: bits difference per token
+                    tok_idx = pos - (prompt_len - 1)
+                    if tok_idx < len(story.base_token_probs):
+                        p_base = story.base_token_probs[tok_idx]
+                        resist = (
+                            -float(np.log2(max(p_ann, 1e-10)))
+                            - (-float(np.log2(max(p_base, 1e-10))))
+                        )
                     else:
                         resist = 0.0
                     token_resist.append(resist)
 
+                # Per-token mean prob (geometric mean via log)
+                ann_mean_prob = float(np.exp(np.mean(
+                    [np.log(max(p, 1e-10)) for p in ann_token_probs]
+                ))) if ann_token_probs else 0.0
+                base_mean_prob = float(np.exp(np.mean(
+                    [np.log(max(p, 1e-10)) for p in story.base_token_probs]
+                ))) if story.base_token_probs else 0.0
+
                 story.annotations[ann_short] = {
-                    "log_prob": total_log_prob,
-                    "path_prob": float(np.exp(total_log_prob)),
-                    "token_probs": token_probs,
+                    "token_probs": ann_token_probs,
                     "token_resist": token_resist,
+                    "mean_prob": ann_mean_prob,
+                    "base_mean_prob": base_mean_prob,
                     "total_resist": sum(token_resist),
                     "mean_resist": np.mean(token_resist) if token_resist else 0.0,
                 }
