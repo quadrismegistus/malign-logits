@@ -1246,6 +1246,18 @@ class Probe:
                         base_argmax = int(np.argmax(p_base))
                         abs_resistance = -float(np.log2(max(p_ann[base_argmax], 1e-10)))
 
+                        # Reverse resistance: how alien is aligned's choice to base?
+                        ann_argmax = int(np.argmax(p_ann))
+                        base_prob_of_ann_choice = float(p_base[ann_argmax])
+                        ann_prob_of_ann_choice = float(p_ann[ann_argmax])
+                        reverse_resist = (
+                            -float(np.log2(max(base_prob_of_ann_choice, 1e-10)))
+                            - (-float(np.log2(max(ann_prob_of_ann_choice, 1e-10))))
+                        )
+                        node[f"{short}_reverse_resist"] = reverse_resist
+                        node[f"{short}_ann_choice"] = tok.decode([ann_argmax]).strip()
+                        node[f"{short}_ann_choice_base_prob"] = base_prob_of_ann_choice
+
                     node[f"{short}_entropy"] = ent
                     node[f"{short}_argmax"] = argmax_word
                     node[f"{short}_js"] = node_js

@@ -234,7 +234,9 @@ class GraphDB:
                                        "resistance", "delta_resist", "prob_child",
                                        "hidden_dist", "argmax", "entropy",
                                        "top_gained", "top_lost",
-                                       "self_resist", "self_prob"):
+                                       "self_resist", "self_prob",
+                                       "reverse_resist", "ann_choice",
+                                       "ann_choice_base_prob"):
                             key = f"{prefix}_{suffix}"
                             if key in node:
                                 val = node[key]
