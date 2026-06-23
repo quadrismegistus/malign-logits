@@ -1382,17 +1382,19 @@ class Probe:
                 trees[pname] = cached
             else:
                 uncached[pname] = ptext
-        print(f"  {len(trees)} cached, {len(uncached)} to explore")
+        from tqdm import tqdm
+        short_name = self.model_id.split("/")[-1]
 
         if uncached:
             model_base, tok_base = load_model(self.model_id)
             self._tokenizer = tok_base
             device = next(model_base.parameters()).device
-            for pname, ptext in uncached.items():
+            for pname, ptext in tqdm(uncached.items(),
+                                     desc=f"{short_name} explore",
+                                     unit="prompt"):
                 trees[pname] = self._explore_tree_with_model(
                     ptext, model_base, tok_base, device,
                     max_depth=max_depth, cache=cache)
-                print(f"  {pname}: {len(trees[pname])} nodes")
             del model_base
             gc.collect()
             try:
@@ -1400,9 +1402,6 @@ class Probe:
                     torch.mps.empty_cache()
             except Exception:
                 pass
-        else:
-            for pname in trees:
-                print(f"  {pname}: {len(trees[pname])} nodes (cached)")
 
         # Determine annotators
         base_id = reg.base_of(self.model_id) or self.model_id
@@ -1429,17 +1428,19 @@ class Probe:
         tok = self.tokenizer
 
         # Step 2: for each annotator, load ONCE, annotate ALL prompts
-        for model_id in annotators:
+        for ann_idx, model_id in enumerate(annotators):
             short = model_id.split("/")[-1].replace("-", "_")[:20]
-            print(f"  Loading {model_id.split('/')[-1]} for {len(prompts)} prompts...",
-                  end="", flush=True)
+            ann_label = model_id.split("/")[-1]
 
             try:
                 model, model_tok = load_model(model_id)
                 device = next(model.parameters()).device
 
                 total_nodes = 0
-                for pname, ptext in prompts.items():
+                pbar = tqdm(prompts.items(),
+                            desc=f"{short_name} ← {ann_label} [{ann_idx+1}/{len(annotators)}]",
+                            unit="prompt")
+                for pname, ptext in pbar:
                     nodes = trees[pname]
                     prompt_ids = tok.encode(ptext)
 
@@ -1566,10 +1567,9 @@ class Probe:
                         torch.mps.empty_cache()
                 except Exception:
                     pass
-                print(f" {total_nodes} nodes across {len(prompts)} prompts")
 
             except Exception as e:
-                print(f" FAILED: {str(e)[:60]}")
+                print(f"\n  {ann_label} FAILED: {str(e)[:60]}")
 
         # Cache all annotated trees
         cache = _get_cache()
