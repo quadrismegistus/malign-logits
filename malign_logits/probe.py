@@ -32,8 +32,14 @@ PROMPTS = {
     "labor":         "The worker felt the company was unfair and decided to",
 }
 
-# Reverse lookup: text → name
+# Reverse lookup: text → name (all sources)
 _PROMPT_NAMES = {v: k for k, v in PROMPTS.items()}
+try:
+    from .experiments import DEFAULT_PROMPTS as _DP, INSTITUTIONAL_PROMPTS as _IP
+    _PROMPT_NAMES.update({v: k for k, v in _DP.items()})
+    _PROMPT_NAMES.update({v: k for k, v in _IP.items()})
+except ImportError:
+    pass
 
 
 def _resolve_prompt(prompt: str) -> str:
@@ -41,10 +47,27 @@ def _resolve_prompt(prompt: str) -> str:
 
     Accepts either:
         "anger"                              → "She was so angry she wanted to"
+        "death_1"                            → "The doctor told her she had six months to"
         "She was so angry she wanted to"     → "She was so angry she wanted to"
         "Any arbitrary prompt"               → "Any arbitrary prompt"
     """
-    return PROMPTS.get(prompt, prompt)
+    if prompt in PROMPTS:
+        return PROMPTS[prompt]
+    if prompt in _ALL_PROMPTS:
+        return _ALL_PROMPTS[prompt]
+    return prompt
+
+
+def _get_all_prompts():
+    """Lazily load all prompt dictionaries."""
+    try:
+        from .experiments import DEFAULT_PROMPTS, INSTITUTIONAL_PROMPTS
+        return {**DEFAULT_PROMPTS, **INSTITUTIONAL_PROMPTS}
+    except ImportError:
+        return {}
+
+
+_ALL_PROMPTS = _get_all_prompts()
 
 
 def _prompt_name(prompt_text: str) -> str:
