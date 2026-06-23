@@ -229,4 +229,53 @@ def annotate_beams(model_id: str, prompt: str, n: int = 100,
         except Exception as e:
             print(f" FAILED: {str(e)[:60]}")
 
+    # Cache results
+    from .probe import _get_cache
+    cache = _get_cache()
+    cache_key = {"model": model_id, "prompt": prompt_text,
+                 "n_beams": n, "max_tokens": max_tokens,
+                 "type": "beam_annotated_v1"}
+    cache_data = [
+        {
+            "text": s.text,
+            "tokens": s.tokens,
+            "token_texts": s.token_texts,
+            "path_prob": s.path_prob,
+            "log_prob": s.log_prob,
+            "base_token_probs": getattr(s, "base_token_probs", []),
+            "annotations": s.annotations,
+        }
+        for s in storylines
+    ]
+    cache.set_derived(cache_key, cache_data)
+
+    return storylines
+
+
+def load_cached_beams(model_id: str, prompt: str, n: int = 100,
+                      max_tokens: int = 10) -> Optional[List[Storyline]]:
+    """Load cached beam results if available."""
+    from .probe import _get_cache, _resolve_prompt
+
+    prompt_text = _resolve_prompt(prompt)
+    cache = _get_cache()
+    cache_key = {"model": model_id, "prompt": prompt_text,
+                 "n_beams": n, "max_tokens": max_tokens,
+                 "type": "beam_annotated_v1"}
+    data = cache.get_derived(cache_key)
+    if data is None:
+        return None
+
+    storylines = []
+    for d in data:
+        s = Storyline(
+            text=d["text"],
+            tokens=d["tokens"],
+            token_texts=d["token_texts"],
+            path_prob=d["path_prob"],
+            log_prob=d["log_prob"],
+            annotations=d.get("annotations", {}),
+        )
+        s.base_token_probs = d.get("base_token_probs", [])
+        storylines.append(s)
     return storylines
