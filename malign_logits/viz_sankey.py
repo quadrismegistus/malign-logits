@@ -210,5 +210,14 @@ def merged_sankey(model_id: str, prompt: str, annotator_idx: int = 0,
     if save:
         fig.write_html(f"{save}.html")
         fig.write_image(f"{save}.png", scale=2)
+        # Auto-copy to TheoryMachines
+        import shutil
+        from pathlib import Path
+        tm_dir = Path.home() / "Dropbox" / "Prof" / "Articles" / "TheoryMachines" / "figures"
+        if tm_dir.exists():
+            for ext in (".html", ".png"):
+                src = Path(f"{save}{ext}")
+                if src.exists():
+                    shutil.copy2(src, tm_dir / src.name)
 
     return fig
