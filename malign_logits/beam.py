@@ -379,6 +379,24 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
                     max_new_tokens=max_tokens, output_scores=True,
                     return_dict_in_generate=True,
                 )
+            # Compute per-beam entropy (vectorized)
+            from scipy.special import softmax as _softmax
+            beam_entropies = []
+            if hasattr(out, 'scores') and out.scores and hasattr(out, 'beam_indices') and out.beam_indices is not None:
+                n_pos = len(out.scores)
+                beam_idx_np = out.beam_indices.cpu().numpy()
+                pos_entropies = []
+                for pos in range(n_pos):
+                    logits = out.scores[pos].float().cpu().numpy()
+                    probs = _softmax(logits, axis=-1)
+                    h = -np.sum(probs * np.log(probs + 1e-30), axis=-1)
+                    pos_entropies.append(h)
+                for i in range(len(out.sequences)):
+                    beam_entropies.append([
+                        round(float(pos_entropies[pos][beam_idx_np[i, pos]]), 3)
+                        for pos in range(n_pos)
+                    ])
+
             stories = []
             for i in range(len(out.sequences)):
                 seq = out.sequences[i]
@@ -389,6 +407,7 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
                     token_texts=[base_tok.decode([t]).strip() for t in new_tokens.tolist()],
                     path_prob=float(np.exp(out.sequences_scores[i].item())),
                     log_prob=out.sequences_scores[i].item(),
+                    entropy=beam_entropies[i] if beam_entropies else [],
                 ))
             result[pname] = stories
         return result
