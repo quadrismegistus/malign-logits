@@ -28,6 +28,7 @@ class Storyline:
     token_texts: List[str]
     path_prob: float
     log_prob: float
+    entropy: List[float] = field(default_factory=list)
     # Per-annotator metrics (filled by annotate_beams)
     annotations: dict = field(default_factory=dict)
 
@@ -59,6 +60,21 @@ def beam_storylines(model_id: str, prompt: str, n: int = 100,
             return_dict_in_generate=True,
         )
 
+    # Compute per-beam per-position entropy from scores
+    from scipy.stats import entropy as _entropy
+    from scipy.special import softmax as _softmax
+    beam_entropies = []
+    if hasattr(out, 'scores') and out.scores and hasattr(out, 'beam_indices') and out.beam_indices is not None:
+        n_pos = len(out.scores)
+        for i in range(len(out.sequences)):
+            ent = []
+            for pos in range(n_pos):
+                beam_idx = out.beam_indices[i, pos].item()
+                logits = out.scores[pos][beam_idx].float().cpu().numpy()
+                probs = _softmax(logits)
+                ent.append(round(float(_entropy(probs)), 3))
+            beam_entropies.append(ent)
+
     storylines = []
     for i in range(len(out.sequences)):
         seq = out.sequences[i]
@@ -74,6 +90,7 @@ def beam_storylines(model_id: str, prompt: str, n: int = 100,
             token_texts=token_texts,
             path_prob=float(np.exp(log_prob)),
             log_prob=log_prob,
+            entropy=beam_entropies[i] if beam_entropies else [],
         ))
 
     del model
@@ -258,6 +275,7 @@ def annotate_beams(model_id: str, prompt: str, n: int = 100,
             "path_prob": s.path_prob,
             "log_prob": s.log_prob,
             "base_token_probs": getattr(s, "base_token_probs", []),
+            "entropy": s.entropy,
             "annotations": s.annotations,
         }
         for s in storylines
@@ -289,6 +307,7 @@ def load_cached_beams(model_id: str, prompt: str, n: int = 100,
             token_texts=d["token_texts"],
             path_prob=d["path_prob"],
             log_prob=d["log_prob"],
+            entropy=d.get("entropy", []),
             annotations=d.get("annotations", {}),
         )
         s.base_token_probs = d.get("base_token_probs", [])
@@ -535,6 +554,7 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
                     "token_texts": s.token_texts,
                     "path_prob": s.path_prob, "log_prob": s.log_prob,
                     "base_token_probs": getattr(s, "base_token_probs", []),
+                    "entropy": s.entropy,
                     "annotations": s.annotations,
                 }
                 for s in stories
