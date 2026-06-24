@@ -178,6 +178,39 @@ def score_words_from_logits(logits, tokenizer, candidate_words):
     return dict(sorted(probs.items(), key=lambda x: -x[1]))
 
 
+def hybrid_word_probs(beam_words, logits, tokenizer):
+    """Combine beam word list with exact logit probabilities.
+
+    Uses raw logit P(token) for single-token words (exact), falls back
+    to beam path probability for multi-token words. No model loading needed.
+
+    Args:
+        beam_words: dict from beam_word_probs() — word → beam probability
+        logits: numpy array of raw logits at position -1
+        tokenizer: tokenizer for encoding words
+
+    Returns:
+        dict mapping word → probability, renormalized.
+    """
+    import numpy as np
+    probs = np.exp(logits - logits.max())
+    probs = probs / probs.sum()
+
+    hybrid = {}
+    for word in beam_words:
+        tids = tokenizer.encode(" " + word, add_special_tokens=False)
+        if len(tids) == 1:
+            hybrid[word] = float(probs[tids[0]])
+        else:
+            hybrid[word] = beam_words[word]
+
+    total = sum(hybrid.values())
+    if total > 0:
+        hybrid = {w: p / total for w, p in hybrid.items()}
+
+    return dict(sorted(hybrid.items(), key=lambda x: -x[1]))
+
+
 def beam_word_probs(model, tokenizer, prompt, n_beams=1000, depth=3, device=None):
     """Word probabilities via beam search — accurate for multi-token words.
 
