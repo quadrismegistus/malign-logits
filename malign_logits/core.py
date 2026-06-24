@@ -176,3 +176,62 @@ def score_words_from_logits(logits, tokenizer, candidate_words):
     probs = {w: p / total for w, p in probs.items()}
 
     return dict(sorted(probs.items(), key=lambda x: -x[1]))
+
+
+def beam_word_probs(model, tokenizer, prompt, n_beams=1000, depth=2, device=None):
+    """Word probabilities via beam search — accurate for multi-token words.
+
+    Runs beam search at the given depth, aggregates sequence probabilities
+    by first decoded word. Faster and more accurate than discover_top_words
+    for multi-token words (4s vs 15s per prompt on 1B MPS).
+
+    The probabilities are normalized across the beam set (not the full vocab),
+    so they're correct for relative comparison across layers but don't match
+    raw logit softmax values.
+
+    Args:
+        model: A HuggingFace causal LM.
+        tokenizer: Corresponding tokenizer.
+        prompt: Text string to complete.
+        n_beams: Number of beams (more = more words found, slower).
+        depth: Token depth (2 captures most words, 3 for longer words).
+        device: Torch device override.
+
+    Returns:
+        dict mapping word (str) -> probability (float), sorted descending.
+    """
+    if device is None:
+        device = next(model.parameters()).device
+
+    input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
+
+    pad_token_id = tokenizer.pad_token_id
+    if pad_token_id is None:
+        pad_token_id = tokenizer.eos_token_id
+
+    out = model.generate(
+        input_ids,
+        num_beams=n_beams,
+        num_return_sequences=n_beams,
+        max_new_tokens=depth,
+        do_sample=False,
+        output_scores=True,
+        return_dict_in_generate=True,
+        pad_token_id=pad_token_id,
+    )
+
+    scores = out.sequences_scores.float().cpu().numpy()
+    probs = math.e ** scores
+    total = probs.sum()
+    if total > 0:
+        probs = probs / total
+
+    word_probs = {}
+    prompt_len = input_ids.shape[1]
+    for i, seq in enumerate(out.sequences):
+        text = tokenizer.decode(seq[prompt_len:], skip_special_tokens=True).strip()
+        word = text.split()[0].strip(".,;:!?\"'()[]{}—-–") if text.split() else ""
+        if word and word[0].isalpha():
+            word_probs[word] = word_probs.get(word, 0) + float(probs[i])
+
+    return dict(sorted(word_probs.items(), key=lambda x: -x[1]))
