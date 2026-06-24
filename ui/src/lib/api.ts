@@ -173,6 +173,7 @@ export interface BeamIndex {
 	models: string[];
 	prompts: string[];
 	sources: Record<string, string[]>;
+	nicknames: Record<string, string>;
 }
 
 export const api = {

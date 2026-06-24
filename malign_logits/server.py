@@ -214,8 +214,10 @@ class ModelHandler(BaseHTTPRequestHandler):
 
             elif endpoint == "/api/beam/index":
                 from .cache import get_cache
+                from .registry import Registry
                 from collections import defaultdict
                 cm = get_cache()
+                reg = Registry()
                 models = set()
                 prompts = set()
                 sources_by_model = defaultdict(set)
@@ -237,7 +239,8 @@ class ModelHandler(BaseHTTPRequestHandler):
                     prompts.add(k.get("prompt", ""))
                     sources_by_model[m].add(k.get("source", ""))
                 sources_map = {m: sorted(s) for m, s in sources_by_model.items()}
-                self._respond(200, {"models": sorted(models), "prompts": sorted(prompts), "sources": sources_map})
+                nicks = {m: reg.nickname(m) for m in models}
+                self._respond(200, {"models": sorted(models), "prompts": sorted(prompts), "sources": sources_map, "nicknames": nicks})
 
             elif endpoint == "/api/beam/storylines":
                 from .cache import get_cache
@@ -406,7 +409,26 @@ class ModelHandler(BaseHTTPRequestHandler):
                             logit_probs[short] = {tok.decode([int(i)]).strip(): round(float(probs[i]), 4) for i in top_idx}
                     except Exception:
                         pass
-                self._respond(200, {"sources": source_data, "model": model, "prompt": prompt, "depth": depth, "logit_probs": logit_probs})
+                # Build nickname map for source labels
+                from .registry import NICKNAMES
+                source_nicks = {}
+                _nick_lookup = {}
+                _ambiguous = set()
+                for full_id, nick in NICKNAMES.items():
+                    short = full_id.split("/")[-1]
+                    full_trunc = short.replace("-", "_")
+                    legacy_trunc = full_trunc[:20]
+                    _nick_lookup[full_trunc] = nick
+                    _nick_lookup[short] = nick
+                    if legacy_trunc in _nick_lookup and _nick_lookup[legacy_trunc] != nick:
+                        _ambiguous.add(legacy_trunc)
+                    else:
+                        _nick_lookup[legacy_trunc] = nick
+                for a in _ambiguous:
+                    _nick_lookup.pop(a, None)
+                for src in source_data:
+                    source_nicks[src] = _nick_lookup.get(src, src)
+                self._respond(200, {"sources": source_data, "model": model, "prompt": prompt, "depth": depth, "logit_probs": logit_probs, "nicknames": source_nicks})
 
             elif endpoint == "/api/data/csv":
                 import os, pandas as pd

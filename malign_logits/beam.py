@@ -196,7 +196,7 @@ def annotate_beams(model_id: str, prompt: str, n: int = 100,
 
     # Step 3: batched annotator teacher-forcing
     for ann_id in annotators:
-        ann_short = ann_id.split("/")[-1].replace("-", "_")[:20]
+        ann_short = ann_id.split("/")[-1].replace("-", "_")
         print(f"  {ann_id.split('/')[-1]} ({len(storylines)} stories)...", end="", flush=True)
 
         try:
@@ -414,7 +414,7 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
     # {model_short: {prompt_name: [Storyline, ...]}}
     all_beams = {}
     for mid in all_model_ids:
-        mid_short = mid.split("/")[-1].replace("-", "_")[:20]
+        mid_short = mid.split("/")[-1].replace("-", "_")
         print(f"  Beam search {mid.split('/')[-1]}...", end="", flush=True)
         model_obj, _ = load_model(mid)
         all_beams[mid_short] = _beam_search_model(mid, (model_obj, None))
@@ -429,8 +429,8 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
 
     # Build edge-only scoring pairs: (source_model_short, scorer_model_id)
     # base→all + all→base + training edge pairs (both directions)
-    base_short = model_id.split("/")[-1].replace("-", "_")[:20]
-    mid_shorts = {mid: mid.split("/")[-1].replace("-", "_")[:20] for mid in all_model_ids}
+    base_short = model_id.split("/")[-1].replace("-", "_")
+    mid_shorts = {mid: mid.split("/")[-1].replace("-", "_") for mid in all_model_ids}
 
     score_pairs = set()  # (source_beam_short, scorer_model_id)
     for mid in all_model_ids:
@@ -487,7 +487,7 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
         print(f" done")
 
     # Step 3: compute resistance for all cross-model pairs
-    base_short = model_id.split("/")[-1].replace("-", "_")[:20]
+    base_short = model_id.split("/")[-1].replace("-", "_")
     for source_short, source_beams in all_beams.items():
         for pname, stories in source_beams.items():
             for s in stories:

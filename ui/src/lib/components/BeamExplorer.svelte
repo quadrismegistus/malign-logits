@@ -114,7 +114,7 @@
 					selectedSource = srcs[0] || '';
 				}}>
 					{#each index.models as m}
-						<option value={m}>{m.split('/').pop()}</option>
+						<option value={m}>{index.nicknames?.[m] || m.split('/').pop()}</option>
 					{/each}
 				</select>
 			</label>

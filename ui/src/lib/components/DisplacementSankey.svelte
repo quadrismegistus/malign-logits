@@ -17,6 +17,7 @@
 		prompt: string;
 		depth: number;
 		logit_probs?: Record<string, Record<string, number>>;
+		nicknames?: Record<string, string>;
 	}
 
 	let sankeyData: SankeyData | null = $state(null);
@@ -164,7 +165,7 @@
 				<span>Model</span>
 				<select bind:value={selectedModel}>
 					{#each index.models as m}
-						<option value={m}>{m.split('/').pop()}</option>
+						<option value={m}>{index.nicknames?.[m] || m.split('/').pop()}</option>
 					{/each}
 				</select>
 			</label>
@@ -210,7 +211,7 @@
 					x={PAD.left + ci * svgData.colSpacing + COL_W / 2}
 					y={14}
 					class="stage-label"
-				>{col.stage}</text>
+				>{sankeyData?.nicknames?.[col.stage] || col.stage}</text>
 			{/each}
 
 			<!-- Links -->
