@@ -327,7 +327,7 @@ class ModelHandler(BaseHTTPRequestHandler):
                 mode = params.get("mode", "beam")
                 source_data = {}
 
-                if mode == "logit":
+                if mode in ("logit", "word"):
                     from .registry import Registry
                     import numpy as np
                     reg = Registry()
@@ -336,6 +336,13 @@ class ModelHandler(BaseHTTPRequestHandler):
                     family_models = [base_id] + list(reg.variants_of(base_id))
                     for mid in family_models:
                         short = mid.split("/")[-1].replace("-", "_")
+                        # Prefer beam_words (accurate multi-token)
+                        bw_data = cm.get_beam_words(mid, prompt)
+                        if bw_data and isinstance(bw_data, dict):
+                            top = sorted(bw_data.items(), key=lambda x: -x[1])[:15]
+                            source_data[short] = {w: round(p * 100, 1) for w, p in top}
+                            continue
+                        # Fall back to score_vocab
                         sv_data = cm.get_score_vocab(mid, prompt)
                         if sv_data and isinstance(sv_data, dict):
                             top = sorted(sv_data.items(), key=lambda x: -x[1])[:15]

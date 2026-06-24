@@ -391,6 +391,22 @@ class CacheManager:
     def has_score_vocab(self, model, prompt, words=None):
         return self.get_score_vocab(model, prompt, words) is not None
 
+    # ── beam word probs (word-level via beam search) ─────────────
+
+    def get_beam_words(self, model, prompt, n=1000, depth=3):
+        key = {"type": "beam_words", "model": model, "prompt": prompt, "n": n, "depth": depth}
+        s = self._stash("beam_words")
+        return s[key] if key in s else None
+
+    def set_beam_words(self, model, prompt, words, n=1000, depth=3):
+        self._stash("beam_words")[{
+            "type": "beam_words", "model": model, "prompt": prompt, "n": n, "depth": depth
+        }] = words
+
+    def has_beam_words(self, model, prompt, n=1000, depth=3):
+        return {"type": "beam_words", "model": model, "prompt": prompt,
+                "n": n, "depth": depth} in self._stash("beam_words")
+
     # ── beams (beam search storylines + cross-model annotations) ──
 
     def get_beams(self, key):
@@ -428,6 +444,10 @@ class CacheManager:
             val = self.get_top_words(key["model"], key["prompt"], key.get("k", 200))
             if val is not None:
                 return val
+        elif t == "beam_words":
+            val = self.get_beam_words(key["model"], key["prompt"], key.get("n", 1000), key.get("depth", 3))
+            if val is not None:
+                return val
         elif t == "score_vocab":
             val = self.get_score_vocab(key["model"], key["prompt"])
             if val is not None:
@@ -447,6 +467,8 @@ class CacheManager:
         t = key.get("type", "") if isinstance(key, dict) else ""
         if t == "top_words":
             self.set_top_words(key["model"], key["prompt"], value, key.get("k", 200))
+        elif t == "beam_words":
+            self.set_beam_words(key["model"], key["prompt"], value, key.get("n", 1000), key.get("depth", 3))
         elif t == "score_vocab":
             self.set_score_vocab(key["model"], key["prompt"], value)
         elif t in ("beam_annotated_v1", "beam_cross_v1"):
@@ -460,6 +482,9 @@ class CacheManager:
         t = key.get("type", "") if isinstance(key, dict) else ""
         if t == "top_words":
             if self.has_top_words(key["model"], key["prompt"], key.get("k", 200)):
+                return True
+        elif t == "beam_words":
+            if self.has_beam_words(key["model"], key["prompt"], key.get("n", 1000), key.get("depth", 3)):
                 return True
         elif t == "score_vocab":
             if self.has_score_vocab(key["model"], key["prompt"]):

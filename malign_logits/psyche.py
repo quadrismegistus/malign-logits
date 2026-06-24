@@ -110,7 +110,7 @@ class ModelLayer:
             )
 
     def top_words(self, prompt, top_k_first=200, **kwargs):
-        """Word-level probability distribution from this layer."""
+        """Word-level probability distribution (legacy: 200 greedy paths)."""
         cache_key = {"type": "top_words", "model": self.model_id, "prompt": prompt, "k": top_k_first}
         cached = self._get_derived(cache_key)
         if cached is not None:
@@ -120,6 +120,26 @@ class ModelLayer:
         result = discover_top_words(
             self.model, self.tokenizer, prompt,
             top_k_first=top_k_first, **kwargs,
+        )
+        self._set_derived(cache_key, result)
+        return result
+
+    def word_probs(self, prompt, n_beams=1000, depth=3):
+        """Word-level probability distribution via beam search.
+
+        Faster and more accurate for multi-token words than top_words().
+        Uses beam search at given depth, aggregates by first decoded word.
+        """
+        cache_key = {"type": "beam_words", "model": self.model_id,
+                     "prompt": prompt, "n": n_beams, "depth": depth}
+        cached = self._get_derived(cache_key)
+        if cached is not None:
+            return cached
+
+        self._require_model()
+        result = beam_word_probs(
+            self.model, self.tokenizer, prompt,
+            n_beams=n_beams, depth=depth,
         )
         self._set_derived(cache_key, result)
         return result

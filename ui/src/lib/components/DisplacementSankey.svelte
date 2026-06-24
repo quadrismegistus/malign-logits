@@ -9,7 +9,7 @@
 	let selectedModel = $state('');
 	let selectedPrompt = $state('');
 	let depth = $state(1);
-	let mode: 'beam' | 'logit' = $state('beam');
+	let mode: 'beam' | 'word' = $state('word');
 
 	interface SankeyData {
 		sources: Record<string, Record<string, number>>;
@@ -180,8 +180,8 @@
 			<label class="control">
 				<span>Mode</span>
 				<select bind:value={mode}>
-					<option value="beam">beam (syntagmatic)</option>
-					<option value="logit">logit (paradigmatic)</option>
+					<option value="beam">storyline (syntagmatic)</option>
+					<option value="word">word (paradigmatic)</option>
 				</select>
 			</label>
 			{#if mode === 'beam'}
@@ -233,7 +233,7 @@
 						opacity="0.7"
 					/>
 					{#if tok.h > 12}
-						{#if mode === 'logit'}
+						{#if mode === 'word'}
 							<text
 								x={x + COL_W / 2}
 								y={tok.y + tok.h / 2 + 4}
