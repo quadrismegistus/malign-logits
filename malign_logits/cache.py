@@ -369,36 +369,27 @@ class CacheManager:
     # ── score vocab (word-level probabilities) ─────────────────
 
     def get_score_vocab(self, model, prompt, words=None):
-        key = {"type": "score_vocab", "model": model, "prompt": prompt}
-        if words is not None:
-            key["words"] = tuple(words)
+        key = {"model": model, "prompt": prompt}
         s = self._stash("score_vocab_v2")
         if key in s:
             return s[key]
-        if words is None:
+        # Fall back to old format with words in key
+        if words is not None:
+            old_key = {"type": "score_vocab", "model": model, "prompt": prompt, "words": tuple(words)}
+            if old_key in s:
+                return s[old_key]
+        else:
             for k in s.keys():
-                if isinstance(k, dict) and k.get("model") == model and k.get("prompt") == prompt and k.get("type") == "score_vocab":
+                if isinstance(k, dict) and k.get("model") == model and k.get("prompt") == prompt:
                     return s[k]
         return None
 
     def set_score_vocab(self, model, prompt, scores, words=None):
-        key = {"type": "score_vocab", "model": model, "prompt": prompt}
-        if words is not None:
-            key["words"] = tuple(words)
+        key = {"model": model, "prompt": prompt}
         self._stash("score_vocab_v2")[key] = scores
 
     def has_score_vocab(self, model, prompt, words=None):
-        key = {"type": "score_vocab", "model": model, "prompt": prompt}
-        if words is not None:
-            key["words"] = tuple(words)
-        s = self._stash("score_vocab_v2")
-        if key in s:
-            return True
-        if words is None:
-            for k in s.keys():
-                if isinstance(k, dict) and k.get("model") == model and k.get("prompt") == prompt and k.get("type") == "score_vocab":
-                    return True
-        return False
+        return self.get_score_vocab(model, prompt, words) is not None
 
     # ── beams (beam search storylines + cross-model annotations) ──
 
@@ -438,7 +429,7 @@ class CacheManager:
             if val is not None:
                 return val
         elif t == "score_vocab":
-            val = self.get_score_vocab(key["model"], key["prompt"], key.get("words"))
+            val = self.get_score_vocab(key["model"], key["prompt"])
             if val is not None:
                 return val
         elif t in ("beam_annotated_v1", "beam_cross_v1"):
@@ -457,7 +448,7 @@ class CacheManager:
         if t == "top_words":
             self.set_top_words(key["model"], key["prompt"], value, key.get("k", 200))
         elif t == "score_vocab":
-            self.set_score_vocab(key["model"], key["prompt"], value, key.get("words"))
+            self.set_score_vocab(key["model"], key["prompt"], value)
         elif t in ("beam_annotated_v1", "beam_cross_v1"):
             self.set_beams(key, value)
         elif t == "explore_tree_v3":
@@ -471,7 +462,7 @@ class CacheManager:
             if self.has_top_words(key["model"], key["prompt"], key.get("k", 200)):
                 return True
         elif t == "score_vocab":
-            if self.has_score_vocab(key["model"], key["prompt"], key.get("words")):
+            if self.has_score_vocab(key["model"], key["prompt"]):
                 return True
         elif t in ("beam_annotated_v1", "beam_cross_v1"):
             if self.has_beams(key):
