@@ -41,16 +41,17 @@
 		'#4e79a7', '#f28e2b', '#e15759', '#59a14f', '#b07aa1', '#edc948', '#76b7b2'
 	];
 
-	const W = 800;
-	const H_PER_STAGE = 400;
 	const COL_W = 100;
+	const COL_GAP = 180;
+	const H_PER_STAGE = 400;
 	const PAD = { top: 30, bottom: 20, left: 10, right: 10 };
+	let W = $derived(PAD.left + PAD.right + sourceOrder.length * COL_W + Math.max(0, sourceOrder.length - 1) * COL_GAP);
 
 	let svgData = $derived.by(() => {
 		if (!sankeyData || sourceOrder.length < 2) return null;
 
 		const stages = sourceOrder;
-		const colSpacing = (W - PAD.left - PAD.right) / (stages.length - 1);
+		const colSpacing = COL_W + COL_GAP;
 		const totalH = H_PER_STAGE;
 
 		const columns: { stage: string; tokens: { label: string; count: number; y: number; h: number }[] }[] = [];
