@@ -316,6 +316,7 @@ class ModelHandler(BaseHTTPRequestHandler):
                     import numpy as np
                     reg = Registry()
                     base_id = model
+                    logits_stash = cm._stash("logits")
                     family_models = [base_id] + list(reg.variants_of(base_id))
                     for mid in family_models:
                         short = mid.split("/")[-1].replace("-", "_")
@@ -382,29 +383,29 @@ class ModelHandler(BaseHTTPRequestHandler):
                             if key:
                                 counts[key] += 1
                         source_data[src] = dict(counts.most_common(15))
-                # Add logit probabilities where cached
+                # In beam mode, add raw logit probabilities as annotations
                 logit_probs = {}
-                try:
-                    logits_stash = cm._stash("logits")
-                    from scipy.special import softmax
-                    import numpy as np
-                    from .registry import Registry
-                    reg = Registry()
-                    base_id = model
-                    family_models = [base_id] + list(reg.variants_of(base_id))
-                    for mid in family_models:
-                        key = {"model": mid, "prompt": prompt}
-                        logits = logits_stash.get(key)
-                        if logits is None:
-                            continue
-                        probs = softmax(np.array(logits, dtype=np.float32))
-                        from transformers import AutoTokenizer
-                        tok = AutoTokenizer.from_pretrained(mid)
-                        top_idx = probs.argsort()[-15:][::-1]
-                        short = mid.split("/")[-1].replace("-", "_")
-                        logit_probs[short] = {tok.decode([int(i)]).strip(): round(float(probs[i]), 4) for i in top_idx}
-                except Exception:
-                    pass
+                if mode == "beam":
+                    try:
+                        logits_stash = cm._stash("logits")
+                        from scipy.special import softmax
+                        import numpy as np
+                        from .registry import Registry
+                        reg = Registry()
+                        family_models = [model] + list(reg.variants_of(model))
+                        for mid in family_models:
+                            lkey = {"model": mid, "prompt": prompt}
+                            logits = logits_stash.get(lkey)
+                            if logits is None:
+                                continue
+                            probs = softmax(np.array(logits, dtype=np.float32))
+                            from transformers import AutoTokenizer
+                            tok = AutoTokenizer.from_pretrained(mid)
+                            top_idx = probs.argsort()[-15:][::-1]
+                            short = mid.split("/")[-1].replace("-", "_")
+                            logit_probs[short] = {tok.decode([int(i)]).strip(): round(float(probs[i]), 4) for i in top_idx}
+                    except Exception:
+                        pass
                 self._respond(200, {"sources": source_data, "model": model, "prompt": prompt, "depth": depth, "logit_probs": logit_probs})
 
             elif endpoint == "/api/data/csv":
