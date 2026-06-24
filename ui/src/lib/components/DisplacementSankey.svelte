@@ -15,6 +15,7 @@
 		model: string;
 		prompt: string;
 		depth: number;
+		logit_probs?: Record<string, Record<string, number>>;
 	}
 
 	let sankeyData: SankeyData | null = $state(null);
@@ -54,14 +55,15 @@
 		const colSpacing = COL_W + COL_GAP;
 		const totalH = H_PER_STAGE;
 
-		const columns: { stage: string; tokens: { label: string; count: number; y: number; h: number }[] }[] = [];
+		const columns: { stage: string; tokens: { label: string; count: number; y: number; h: number; logitProb: number | null }[] }[] = [];
 
 		for (let si = 0; si < stages.length; si++) {
 			const dist = sankeyData.sources[stages[si]] || {};
+			const logits = sankeyData.logit_probs?.[stages[si]] || {};
 			const total = Object.values(dist).reduce((a, b) => a + b, 0) || 1;
 			const tokens = Object.entries(dist)
 				.sort(([, a], [, b]) => b - a)
-				.map(([label, count]) => ({ label, count, y: 0, h: 0 }));
+				.map(([label, count]) => ({ label, count, y: 0, h: 0, logitProb: logits[label] ?? null }));
 
 			let y = PAD.top;
 			const usableH = totalH - PAD.top - PAD.bottom;
@@ -214,9 +216,16 @@
 					{#if tok.h > 12}
 						<text
 							x={x + COL_W / 2}
-							y={tok.y + tok.h / 2 + 4}
+							y={tok.y + tok.h / 2 + (tok.logitProb !== null ? 0 : 4)}
 							class="tok-label"
 						>{tok.label} ({tok.count})</text>
+						{#if tok.logitProb !== null}
+							<text
+								x={x + COL_W / 2}
+								y={tok.y + tok.h / 2 + 13}
+								class="logit-label"
+							>logit: {(tok.logitProb * 100).toFixed(1)}%</text>
+						{/if}
 					{/if}
 				{/each}
 			{/each}
@@ -284,6 +293,15 @@
 		fill: #fff;
 		text-anchor: middle;
 		font-family: 'SF Mono', monospace;
+		pointer-events: none;
+	}
+
+	.logit-label {
+		font-size: 8px;
+		fill: #fffc;
+		text-anchor: middle;
+		font-family: 'SF Mono', monospace;
+		font-style: italic;
 		pointer-events: none;
 	}
 
