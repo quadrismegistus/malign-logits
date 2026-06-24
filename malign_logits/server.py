@@ -216,11 +216,17 @@ class ModelHandler(BaseHTTPRequestHandler):
                 from .cache import get_cache
                 from collections import defaultdict
                 cm = get_cache()
-                stash = cm._stash("psyche_derived")
                 models = set()
                 prompts = set()
                 sources_by_model = defaultdict(set)
-                for k in stash.keys():
+                for k in cm.iter_beam_keys():
+                    m = k.get("model", "")
+                    models.add(m)
+                    prompts.add(k.get("prompt", ""))
+                    sources_by_model[m].add(k.get("source", ""))
+                # Also check legacy stash
+                legacy = cm._stash("psyche_derived")
+                for k in legacy.keys():
                     if not isinstance(k, dict):
                         continue
                     t = k.get("type", "")
@@ -236,26 +242,39 @@ class ModelHandler(BaseHTTPRequestHandler):
             elif endpoint == "/api/beam/storylines":
                 from .cache import get_cache
                 cm = get_cache()
-                stash = cm._stash("psyche_derived")
                 model = params.get("model", "")
                 prompt = params.get("prompt", "")
                 source = params.get("source", "")
                 top_n = int(params.get("n", 20))
                 data = None
-                for k in stash.keys():
-                    if not isinstance(k, dict):
-                        continue
+                for k in cm.iter_beam_keys():
                     if k.get("model") != model or k.get("prompt") != prompt:
                         continue
                     t = k.get("type", "")
                     if t == "beam_cross_v1":
                         if source and k.get("source", "") != source:
                             continue
-                        data = stash[k]
+                        data = cm.get_beams(k)
                         break
                     elif t == "beam_annotated_v1" and not source:
-                        data = stash[k]
+                        data = cm.get_beams(k)
                         break
+                if data is None:
+                    legacy = cm._stash("psyche_derived")
+                    for k in legacy.keys():
+                        if not isinstance(k, dict):
+                            continue
+                        if k.get("model") != model or k.get("prompt") != prompt:
+                            continue
+                        t = k.get("type", "")
+                        if t == "beam_cross_v1":
+                            if source and k.get("source", "") != source:
+                                continue
+                            data = legacy[k]
+                            break
+                        elif t == "beam_annotated_v1" and not source:
+                            data = legacy[k]
+                            break
                 if data is None:
                     self._respond(200, {"storylines": [], "error": "not found"})
                     return
@@ -286,7 +305,6 @@ class ModelHandler(BaseHTTPRequestHandler):
                 from .cache import get_cache
                 from collections import Counter
                 cm = get_cache()
-                stash = cm._stash("psyche_derived")
                 model = params.get("model", "")
                 prompt = params.get("prompt", "")
                 depth = int(params.get("depth", 1))
@@ -295,29 +313,66 @@ class ModelHandler(BaseHTTPRequestHandler):
 
                 if mode == "logit":
                     from .registry import Registry
+                    import numpy as np
                     reg = Registry()
                     base_id = model
                     family_models = [base_id] + list(reg.variants_of(base_id))
                     for mid in family_models:
-                        key = {"type": "score_vocab", "model": mid, "prompt": prompt, "k": 200}
-                        data = stash.get(key)
-                        if data is None:
-                            for sk in stash.keys():
-                                if isinstance(sk, dict) and sk.get("type") == "score_vocab" and sk.get("model") == mid and sk.get("prompt") == prompt:
-                                    data = stash[sk]
-                                    break
-                        if data and isinstance(data, dict):
-                            short = mid.split("/")[-1].replace("-", "_")
-                            top = sorted(data.items(), key=lambda x: -x[1])[:15]
+                        short = mid.split("/")[-1].replace("-", "_")
+                        sv_data = cm.get_score_vocab(mid, prompt)
+                        if sv_data and isinstance(sv_data, dict):
+                            top = sorted(sv_data.items(), key=lambda x: -x[1])[:15]
                             source_data[short] = {w: round(p * 100, 1) for w, p in top}
-                else:
-                    for k in stash.keys():
-                        if not isinstance(k, dict) or k.get("type") != "beam_cross_v1":
                             continue
-                        if k["model"] != model or k["prompt"] != prompt:
+                        # Fall back to raw logits → decode top tokens into words
+                        logit_key = {"model": mid, "prompt": prompt}
+                        logits = logits_stash.get(logit_key)
+                        if logits is None:
+                            continue
+                        from scipy.special import softmax
+                        probs = softmax(np.array(logits, dtype=np.float32))
+                        top_idx = probs.argsort()[-50:][::-1]
+                        try:
+                            from transformers import AutoTokenizer
+                            tok = AutoTokenizer.from_pretrained(mid)
+                        except Exception:
+                            continue
+                        word_probs = {}
+                        for idx in top_idx:
+                            raw = tok.decode([int(idx)])
+                            w = raw.strip().strip(".,;:!?\"'()[]{}—-–")
+                            if not w or not w[0].isalpha():
+                                continue
+                            is_complete = raw.startswith(" ") or raw.startswith("\n") or len(tok.encode(" " + w, add_special_tokens=False)) == 1
+                            if is_complete:
+                                word_probs[w] = word_probs.get(w, 0) + float(probs[idx])
+                            else:
+                                word_probs[w + "…"] = word_probs.get(w + "…", 0) + float(probs[idx])
+                        merged = {}
+                        for w, p in word_probs.items():
+                            if w.endswith("…"):
+                                base_w = w[:-1]
+                                full = None
+                                for cand in word_probs:
+                                    if not cand.endswith("…") and cand.startswith(base_w):
+                                        full = cand
+                                        break
+                                if full:
+                                    merged[full] = merged.get(full, 0) + p
+                                else:
+                                    merged[w] = merged.get(w, 0) + p
+                            else:
+                                merged[w] = merged.get(w, 0) + p
+                        top = sorted(merged.items(), key=lambda x: -x[1])[:15]
+                        source_data[short] = {w: round(p * 100, 1) for w, p in top}
+                else:
+                    for k in cm.iter_beam_keys():
+                        if k.get("type") != "beam_cross_v1":
+                            continue
+                        if k.get("model") != model or k.get("prompt") != prompt:
                             continue
                         src = k.get("source", "")
-                        data = stash[k]
+                        data = cm.get_beams(k)
                         if not data:
                             continue
                         counts = Counter()

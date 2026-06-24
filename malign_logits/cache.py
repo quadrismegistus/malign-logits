@@ -12,7 +12,12 @@ Each data type gets its own HashStash with dict keys:
     ├── sent_embeddings/   {'embedder', 'prompt', 'text'}
     ├── ref_surprisal/     {'ref', 'prompt', 'text'}
     ├── self_surprisal/    {'model', 'prompt', 'text'}
-    └── word_embeddings/   {'model', 'prompt', 'word', 'k'}
+    ├── word_embeddings/   {'model', 'prompt', 'word', 'k'}
+    ├── top_words_v2/      {'type', 'model', 'prompt', 'k'} — discover_top_words results
+    ├── score_vocab_v2/    {'type', 'model', 'prompt', 'words'} — word-level probabilities
+    ├── beams/             {'type', 'model', 'prompt', ...} — beam storylines + annotations
+    ├── trees/             {'type', 'model', 'prompt', ...} — tree exploration results
+    └── psyche_derived/    LEGACY — migrated data reads from new stashes first
 
 Text values in keys are hashed (SHA256[:16]) to avoid matching issues.
 """
@@ -346,16 +351,134 @@ class CacheManager:
         path = os.path.join(d, model.replace("/", "--") + ".npy")
         np.save(path, embeddings)
 
-    # ── psyche derived (discover_top_words, score_vocab, etc.) ──
+    # ── top words (discover_top_words results) ──────────────────
+
+    def get_top_words(self, model, prompt, k=200):
+        key = {"type": "top_words", "model": model, "prompt": prompt, "k": k}
+        s = self._stash("top_words_v2")
+        return s[key] if key in s else None
+
+    def set_top_words(self, model, prompt, words, k=200):
+        self._stash("top_words_v2")[{
+            "type": "top_words", "model": model, "prompt": prompt, "k": k
+        }] = words
+
+    def has_top_words(self, model, prompt, k=200):
+        return {"type": "top_words", "model": model, "prompt": prompt, "k": k} in self._stash("top_words_v2")
+
+    # ── score vocab (word-level probabilities) ─────────────────
+
+    def get_score_vocab(self, model, prompt, words=None):
+        key = {"type": "score_vocab", "model": model, "prompt": prompt}
+        if words is not None:
+            key["words"] = tuple(words)
+        s = self._stash("score_vocab_v2")
+        if key in s:
+            return s[key]
+        if words is None:
+            for k in s.keys():
+                if isinstance(k, dict) and k.get("model") == model and k.get("prompt") == prompt and k.get("type") == "score_vocab":
+                    return s[k]
+        return None
+
+    def set_score_vocab(self, model, prompt, scores, words=None):
+        key = {"type": "score_vocab", "model": model, "prompt": prompt}
+        if words is not None:
+            key["words"] = tuple(words)
+        self._stash("score_vocab_v2")[key] = scores
+
+    def has_score_vocab(self, model, prompt, words=None):
+        key = {"type": "score_vocab", "model": model, "prompt": prompt}
+        if words is not None:
+            key["words"] = tuple(words)
+        s = self._stash("score_vocab_v2")
+        if key in s:
+            return True
+        if words is None:
+            for k in s.keys():
+                if isinstance(k, dict) and k.get("model") == model and k.get("prompt") == prompt and k.get("type") == "score_vocab":
+                    return True
+        return False
+
+    # ── beams (beam search storylines + cross-model annotations) ──
+
+    def get_beams(self, key):
+        s = self._stash("beams")
+        return s[key] if key in s else None
+
+    def set_beams(self, key, value):
+        self._stash("beams")[key] = value
+
+    def has_beams(self, key):
+        return key in self._stash("beams")
+
+    def iter_beam_keys(self):
+        for k in self._stash("beams").keys():
+            if isinstance(k, dict):
+                yield k
+
+    # ── trees (explore_tree results) ───────────────────────────
+
+    def get_tree(self, key):
+        s = self._stash("trees")
+        return s[key] if key in s else None
+
+    def set_tree(self, key, value):
+        self._stash("trees")[key] = value
+
+    def has_tree(self, key):
+        return key in self._stash("trees")
+
+    # ── psyche derived (LEGACY — reads from old stash, migrated data in new stashes) ──
 
     def get_derived(self, key):
+        t = key.get("type", "") if isinstance(key, dict) else ""
+        if t == "top_words":
+            val = self.get_top_words(key["model"], key["prompt"], key.get("k", 200))
+            if val is not None:
+                return val
+        elif t == "score_vocab":
+            val = self.get_score_vocab(key["model"], key["prompt"], key.get("words"))
+            if val is not None:
+                return val
+        elif t in ("beam_annotated_v1", "beam_cross_v1"):
+            val = self.get_beams(key)
+            if val is not None:
+                return val
+        elif t == "explore_tree_v3":
+            val = self.get_tree(key)
+            if val is not None:
+                return val
         s = self._stash("psyche_derived")
         return s[key] if key in s else None
 
     def set_derived(self, key, value):
-        self._stash("psyche_derived")[key] = value
+        t = key.get("type", "") if isinstance(key, dict) else ""
+        if t == "top_words":
+            self.set_top_words(key["model"], key["prompt"], value, key.get("k", 200))
+        elif t == "score_vocab":
+            self.set_score_vocab(key["model"], key["prompt"], value, key.get("words"))
+        elif t in ("beam_annotated_v1", "beam_cross_v1"):
+            self.set_beams(key, value)
+        elif t == "explore_tree_v3":
+            self.set_tree(key, value)
+        else:
+            self._stash("psyche_derived")[key] = value
 
     def has_derived(self, key):
+        t = key.get("type", "") if isinstance(key, dict) else ""
+        if t == "top_words":
+            if self.has_top_words(key["model"], key["prompt"], key.get("k", 200)):
+                return True
+        elif t == "score_vocab":
+            if self.has_score_vocab(key["model"], key["prompt"], key.get("words")):
+                return True
+        elif t in ("beam_annotated_v1", "beam_cross_v1"):
+            if self.has_beams(key):
+                return True
+        elif t == "explore_tree_v3":
+            if self.has_tree(key):
+                return True
         return key in self._stash("psyche_derived")
 
 
