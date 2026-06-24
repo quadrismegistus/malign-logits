@@ -8,9 +8,14 @@
 	let storylines: BeamStoryline[] = $state([]);
 	let selectedModel = $state('');
 	let selectedPrompt = $state('');
+	let selectedSource = $state('');
 	let selectedAnnotator = $state('');
 	let sortBy: 'rank' | 'resist' | 'prob' = $state('rank');
 	let error = $state('');
+
+	let sources: string[] = $derived(
+		index && selectedModel ? (index.sources[selectedModel] || []) : []
+	);
 
 	let annotators: string[] = $derived(
 		storylines.length > 0 && storylines[0].annotations
@@ -62,6 +67,8 @@
 			index = await api.beamIndex();
 			if (index.models.length > 0) {
 				selectedModel = index.models[0];
+				const srcs = index.sources[index.models[0]] || [];
+				if (srcs.length > 0) selectedSource = srcs[0];
 			}
 			if (index.prompts.length > 0) {
 				selectedPrompt = index.prompts[0];
@@ -76,7 +83,7 @@
 		loading = true;
 		error = '';
 		try {
-			const res = await api.beamStorylines(selectedModel, selectedPrompt, 100);
+			const res = await api.beamStorylines(selectedModel, selectedPrompt, 100, selectedSource);
 			storylines = res.storylines;
 			if (annotators.length > 0 && !selectedAnnotator) {
 				selectedAnnotator = annotators[0];
@@ -89,7 +96,7 @@
 	}
 
 	$effect(() => {
-		if (selectedModel && selectedPrompt) {
+		if (selectedModel && selectedPrompt && selectedSource) {
 			loadStorylines();
 		}
 	});
@@ -102,9 +109,20 @@
 		{#if index}
 			<label class="control">
 				<span>Model</span>
-				<select bind:value={selectedModel}>
+				<select bind:value={selectedModel} onchange={() => {
+					const srcs = index?.sources[selectedModel] || [];
+					selectedSource = srcs[0] || '';
+				}}>
 					{#each index.models as m}
 						<option value={m}>{m.split('/').pop()}</option>
+					{/each}
+				</select>
+			</label>
+			<label class="control">
+				<span>Beams from</span>
+				<select bind:value={selectedSource}>
+					{#each sources as s}
+						<option value={s}>{s}</option>
 					{/each}
 				</select>
 			</label>

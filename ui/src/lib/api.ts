@@ -173,6 +173,7 @@ export interface BeamIndex {
 	entries: { model: string; prompt: string; n_beams: number; type: string; source: string }[];
 	models: string[];
 	prompts: string[];
+	sources: Record<string, string[]>;
 }
 
 export const api = {
@@ -199,8 +200,8 @@ export const api = {
 	passageTokens: (psg: string, prompt = '', model_id = '', gen_prompt = '', idx = 0) =>
 		post<{ tokens: [string, number][]; sentences?: { drift: number; tokens: [string, number][] }[] }>('/passage-tokens', { psg, prompt, model_id, gen_prompt, idx }),
 	beamIndex: () => get<BeamIndex>('/api/beam/index'),
-	beamStorylines: (model: string, prompt: string, n = 50) =>
+	beamStorylines: (model: string, prompt: string, n = 50, source = '') =>
 		get<{ storylines: BeamStoryline[]; model: string; prompt: string }>(
-			`/api/beam/storylines?model=${encodeURIComponent(model)}&prompt=${encodeURIComponent(prompt)}&n=${n}`
+			`/api/beam/storylines?model=${encodeURIComponent(model)}&prompt=${encodeURIComponent(prompt)}&n=${n}${source ? `&source=${encodeURIComponent(source)}` : ''}`
 		),
 };

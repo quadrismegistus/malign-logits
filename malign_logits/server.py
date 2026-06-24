@@ -235,7 +235,12 @@ class ModelHandler(BaseHTTPRequestHandler):
                     })
                 models = sorted(set(e["model"] for e in entries))
                 prompts = sorted(set(e["prompt"] for e in entries))
-                self._respond(200, {"entries": entries, "models": models, "prompts": prompts})
+                from collections import defaultdict
+                sources_by_model = defaultdict(set)
+                for e in entries:
+                    sources_by_model[e["model"]].add(e["source"])
+                sources_map = {m: sorted(s) for m, s in sources_by_model.items()}
+                self._respond(200, {"entries": entries, "models": models, "prompts": prompts, "sources": sources_map})
 
             elif endpoint == "/api/beam/storylines":
                 from .cache import get_cache
@@ -243,6 +248,7 @@ class ModelHandler(BaseHTTPRequestHandler):
                 stash = cm._stash("psyche_derived")
                 model = params.get("model", "")
                 prompt = params.get("prompt", "")
+                source = params.get("source", "")
                 top_n = int(params.get("n", 20))
                 data = None
                 for k in stash.keys():
@@ -251,7 +257,12 @@ class ModelHandler(BaseHTTPRequestHandler):
                     if k.get("model") != model or k.get("prompt") != prompt:
                         continue
                     t = k.get("type", "")
-                    if t in ("beam_annotated_v1", "beam_cross_v1"):
+                    if t == "beam_cross_v1":
+                        if source and k.get("source", "") != source:
+                            continue
+                        data = stash[k]
+                        break
+                    elif t == "beam_annotated_v1" and not source:
                         data = stash[k]
                         break
                 if data is None:
