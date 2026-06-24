@@ -9,6 +9,7 @@
 	let selectedModel = $state('');
 	let selectedPrompt = $state('');
 	let depth = $state(1);
+	let mode: 'beam' | 'logit' = $state('beam');
 
 	interface SankeyData {
 		sources: Record<string, Record<string, number>>;
@@ -124,9 +125,9 @@
 		loading = true;
 		error = '';
 		try {
-			const res = await fetch(`/api/api/beam/sankey?model=${encodeURIComponent(selectedModel)}&prompt=${encodeURIComponent(selectedPrompt)}&depth=${depth}`);
+			const res = await fetch(`/api/api/beam/sankey?model=${encodeURIComponent(selectedModel)}&prompt=${encodeURIComponent(selectedPrompt)}&depth=${depth}&mode=${mode}`);
 			if (!res.ok) {
-				const res2 = await fetch(`/api/beam/sankey?model=${encodeURIComponent(selectedModel)}&prompt=${encodeURIComponent(selectedPrompt)}&depth=${depth}`);
+				const res2 = await fetch(`/api/beam/sankey?model=${encodeURIComponent(selectedModel)}&prompt=${encodeURIComponent(selectedPrompt)}&depth=${depth}&mode=${mode}`);
 				if (!res2.ok) throw new Error('Failed');
 				sankeyData = await res2.json();
 			} else {
@@ -140,6 +141,14 @@
 	}
 
 	$effect(() => {
+		if (selectedModel && selectedPrompt) {
+			loadSankey();
+		}
+	});
+
+	$effect(() => {
+		mode;
+		depth;
 		if (selectedModel && selectedPrompt) {
 			loadSankey();
 		}
@@ -168,13 +177,22 @@
 				</select>
 			</label>
 			<label class="control">
-				<span>Depth</span>
-				<select bind:value={depth}>
-					<option value={1}>1 token</option>
-					<option value={2}>2 tokens</option>
-					<option value={3}>3 tokens</option>
+				<span>Mode</span>
+				<select bind:value={mode}>
+					<option value="beam">beam (syntagmatic)</option>
+					<option value="logit">logit (paradigmatic)</option>
 				</select>
 			</label>
+			{#if mode === 'beam'}
+				<label class="control">
+					<span>Depth</span>
+					<select bind:value={depth}>
+						<option value={1}>1 token</option>
+						<option value={2}>2 tokens</option>
+						<option value={3}>3 tokens</option>
+					</select>
+				</label>
+			{/if}
 		{:else}
 			<span class="loading-text">Loading...</span>
 		{/if}
@@ -214,17 +232,25 @@
 						opacity="0.7"
 					/>
 					{#if tok.h > 12}
-						<text
-							x={x + COL_W / 2}
-							y={tok.y + tok.h / 2 + (tok.logitProb !== null ? 0 : 4)}
-							class="tok-label"
-						>{tok.label} ({tok.count})</text>
-						{#if tok.logitProb !== null}
+						{#if mode === 'logit'}
 							<text
 								x={x + COL_W / 2}
-								y={tok.y + tok.h / 2 + 13}
-								class="logit-label"
-							>logit: {(tok.logitProb * 100).toFixed(1)}%</text>
+								y={tok.y + tok.h / 2 + 4}
+								class="tok-label"
+							>{tok.label} ({tok.count}%)</text>
+						{:else}
+							<text
+								x={x + COL_W / 2}
+								y={tok.y + tok.h / 2 + (tok.logitProb !== null ? 0 : 4)}
+								class="tok-label"
+							>{tok.label} ({tok.count})</text>
+							{#if tok.logitProb !== null}
+								<text
+									x={x + COL_W / 2}
+									y={tok.y + tok.h / 2 + 13}
+									class="logit-label"
+								>logit: {(tok.logitProb * 100).toFixed(1)}%</text>
+							{/if}
 						{/if}
 					{/if}
 				{/each}

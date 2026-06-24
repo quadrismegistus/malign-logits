@@ -290,23 +290,43 @@ class ModelHandler(BaseHTTPRequestHandler):
                 model = params.get("model", "")
                 prompt = params.get("prompt", "")
                 depth = int(params.get("depth", 1))
+                mode = params.get("mode", "beam")
                 source_data = {}
-                for k in stash.keys():
-                    if not isinstance(k, dict) or k.get("type") != "beam_cross_v1":
-                        continue
-                    if k["model"] != model or k["prompt"] != prompt:
-                        continue
-                    src = k.get("source", "")
-                    data = stash[k]
-                    if not data:
-                        continue
-                    counts = Counter()
-                    for s in data:
-                        toks = s.get("token_texts", [])
-                        key = " ".join(toks[:depth]) if len(toks) >= depth else ""
-                        if key:
-                            counts[key] += 1
-                    source_data[src] = dict(counts.most_common(15))
+
+                if mode == "logit":
+                    from .registry import Registry
+                    reg = Registry()
+                    base_id = model
+                    family_models = [base_id] + list(reg.variants_of(base_id))
+                    for mid in family_models:
+                        key = {"type": "score_vocab", "model": mid, "prompt": prompt, "k": 200}
+                        data = stash.get(key)
+                        if data is None:
+                            for sk in stash.keys():
+                                if isinstance(sk, dict) and sk.get("type") == "score_vocab" and sk.get("model") == mid and sk.get("prompt") == prompt:
+                                    data = stash[sk]
+                                    break
+                        if data and isinstance(data, dict):
+                            short = mid.split("/")[-1].replace("-", "_")
+                            top = sorted(data.items(), key=lambda x: -x[1])[:15]
+                            source_data[short] = {w: round(p * 100, 1) for w, p in top}
+                else:
+                    for k in stash.keys():
+                        if not isinstance(k, dict) or k.get("type") != "beam_cross_v1":
+                            continue
+                        if k["model"] != model or k["prompt"] != prompt:
+                            continue
+                        src = k.get("source", "")
+                        data = stash[k]
+                        if not data:
+                            continue
+                        counts = Counter()
+                        for s in data:
+                            toks = s.get("token_texts", [])
+                            key = " ".join(toks[:depth]) if len(toks) >= depth else ""
+                            if key:
+                                counts[key] += 1
+                        source_data[src] = dict(counts.most_common(15))
                 # Add logit probabilities where cached
                 logit_probs = {}
                 try:
