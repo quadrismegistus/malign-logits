@@ -16,6 +16,7 @@
 	import SurvivalDecay from '$lib/components/SurvivalDecay.svelte';
 	import CrossFamilyHeatmap from '$lib/components/CrossFamilyHeatmap.svelte';
 	import ResistanceTrajectories from '$lib/components/ResistanceTrajectories.svelte';
+	import DisplacementSankey from '$lib/components/DisplacementSankey.svelte';
 
 	let connected = $state(false);
 	let dataOnly = $state(false);
@@ -178,6 +179,7 @@
 		{ id: 'survival', label: 'Survival' },
 		{ id: 'correlation', label: 'Correlation' },
 		{ id: 'resistance', label: 'Resistance' },
+		{ id: 'sankey', label: 'Sankey' },
 		{ id: 'passages', label: 'Passages' },
 	];
 
@@ -310,7 +312,7 @@
 				{/each}
 			</nav>
 
-			{#if !analysis && !['passages', 'beams', 'census', 'shifts', 'survival', 'correlation', 'resistance'].includes(activeTab)}
+			{#if !analysis && !['passages', 'beams', 'census', 'shifts', 'survival', 'correlation', 'resistance', 'sankey'].includes(activeTab)}
 				<div class="empty">
 					<p>Enter a prompt and click <strong>Analyze</strong> to trace probability displacement across alignment layers.</p>
 					<p class="hint">Cmd+Enter to submit</p>
@@ -329,6 +331,8 @@
 						<CrossFamilyHeatmap />
 					{:else if activeTab === 'resistance'}
 						<ResistanceTrajectories />
+					{:else if activeTab === 'sankey'}
+						<DisplacementSankey />
 					{:else if activeTab === 'passages'}
 						<PassageExplorer />
 					{:else if activeTab === 'trajectories' && analysis}

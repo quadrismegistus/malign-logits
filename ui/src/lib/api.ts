@@ -170,7 +170,6 @@ export interface BeamStoryline {
 }
 
 export interface BeamIndex {
-	entries: { model: string; prompt: string; n_beams: number; type: string; source: string }[];
 	models: string[];
 	prompts: string[];
 	sources: Record<string, string[]>;

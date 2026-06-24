@@ -214,33 +214,24 @@ class ModelHandler(BaseHTTPRequestHandler):
 
             elif endpoint == "/api/beam/index":
                 from .cache import get_cache
+                from collections import defaultdict
                 cm = get_cache()
                 stash = cm._stash("psyche_derived")
-                entries = []
+                models = set()
+                prompts = set()
+                sources_by_model = defaultdict(set)
                 for k in stash.keys():
                     if not isinstance(k, dict):
                         continue
                     t = k.get("type", "")
                     if t not in ("beam_annotated_v1", "beam_cross_v1"):
                         continue
-                    data = stash[k]
-                    n = len(data) if isinstance(data, list) else 0
-                    entries.append({
-                        "model": k.get("model", ""),
-                        "prompt": k.get("prompt", ""),
-                        "n_beams": k.get("n_beams", n),
-                        "max_tokens": k.get("max_tokens", 10),
-                        "type": t,
-                        "source": k.get("source", ""),
-                    })
-                models = sorted(set(e["model"] for e in entries))
-                prompts = sorted(set(e["prompt"] for e in entries))
-                from collections import defaultdict
-                sources_by_model = defaultdict(set)
-                for e in entries:
-                    sources_by_model[e["model"]].add(e["source"])
+                    m = k.get("model", "")
+                    models.add(m)
+                    prompts.add(k.get("prompt", ""))
+                    sources_by_model[m].add(k.get("source", ""))
                 sources_map = {m: sorted(s) for m, s in sources_by_model.items()}
-                self._respond(200, {"entries": entries, "models": models, "prompts": prompts, "sources": sources_map})
+                self._respond(200, {"models": sorted(models), "prompts": sorted(prompts), "sources": sources_map})
 
             elif endpoint == "/api/beam/storylines":
                 from .cache import get_cache
@@ -290,6 +281,33 @@ class ModelHandler(BaseHTTPRequestHandler):
                         entry["base_token_probs"] = s["base_token_probs"]
                     storylines.append(entry)
                 self._respond(200, {"storylines": storylines, "model": model, "prompt": prompt})
+
+            elif endpoint == "/api/beam/sankey":
+                from .cache import get_cache
+                from collections import Counter
+                cm = get_cache()
+                stash = cm._stash("psyche_derived")
+                model = params.get("model", "")
+                prompt = params.get("prompt", "")
+                depth = int(params.get("depth", 1))
+                source_data = {}
+                for k in stash.keys():
+                    if not isinstance(k, dict) or k.get("type") != "beam_cross_v1":
+                        continue
+                    if k["model"] != model or k["prompt"] != prompt:
+                        continue
+                    src = k.get("source", "")
+                    data = stash[k]
+                    if not data:
+                        continue
+                    counts = Counter()
+                    for s in data:
+                        toks = s.get("token_texts", [])
+                        key = " ".join(toks[:depth]) if len(toks) >= depth else ""
+                        if key:
+                            counts[key] += 1
+                    source_data[src] = dict(counts.most_common(15))
+                self._respond(200, {"sources": source_data, "model": model, "prompt": prompt, "depth": depth})
 
             elif endpoint == "/api/data/csv":
                 import os, pandas as pd
