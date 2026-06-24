@@ -56,14 +56,14 @@ def build_displacement_graph(store=None):
         props = tg.node(n)
         g.add_node(n, **props)
 
-    # For each training edge, find beam_words for both models on each prompt
-    bw_stash = cm._stash("beam_words")
+    # For each training edge, find word_probs for both models on each prompt
+    wp_stash = cm._stash("word_probs")
 
-    # Index beam_words by (model, prompt)
-    bw_index = {}
-    for k in bw_stash.keys():
-        if isinstance(k, dict) and k.get("type") == "beam_words":
-            bw_index[(k["model"], k["prompt"])] = k
+    # Index word_probs by (model, prompt)
+    wp_index = {}
+    for k in wp_stash.keys():
+        if isinstance(k, dict):
+            wp_index[(k.get("model", ""), k.get("prompt", ""))] = k
 
     # Category lookup
     from .experiments import DEFAULT_PROMPTS, INSTITUTIONAL_PROMPTS
@@ -82,13 +82,13 @@ def build_displacement_graph(store=None):
         if not src_hf or not dst_hf:
             continue
 
-        src_prompts = {p for (m, p) in bw_index if m == src_hf}
-        dst_prompts = {p for (m, p) in bw_index if m == dst_hf}
+        src_prompts = {p for (m, p) in wp_index if m == src_hf}
+        dst_prompts = {p for (m, p) in wp_index if m == dst_hf}
         common = src_prompts & dst_prompts
 
         for prompt in common:
-            base_words = bw_stash[bw_index[(src_hf, prompt)]]
-            aligned_words = bw_stash[bw_index[(dst_hf, prompt)]]
+            base_words = wp_stash[wp_index[(src_hf, prompt)]]
+            aligned_words = wp_stash[wp_index[(dst_hf, prompt)]]
 
             if not base_words or not aligned_words:
                 continue

@@ -337,17 +337,16 @@ class ModelHandler(BaseHTTPRequestHandler):
                     family_models = [base_id] + list(reg.variants_of(base_id))
                     for mid in family_models:
                         short = mid.split("/")[-1].replace("-", "_")
-                        # Prefer hybrid (beam word list + exact logit probs)
+                        # Prefer word_probs (hybrid: exact logit + beam)
+                        wp_data = cm.get_word_probs(mid, prompt)
+                        if wp_data and isinstance(wp_data, dict):
+                            top = sorted(wp_data.items(), key=lambda x: -x[1])[:15]
+                            source_data[short] = {w: round(p * 100, 1) for w, p in top}
+                            continue
+                        # Fall back to beam_words
                         bw_data = cm.get_beam_words(mid, prompt)
                         if bw_data and isinstance(bw_data, dict):
-                            raw_logits = cm.get_logits(mid, prompt)
-                            if raw_logits is not None:
-                                from .core import hybrid_word_probs
-                                hw = hybrid_word_probs(bw_data, np.array(raw_logits, dtype=np.float32),
-                                    AutoTokenizer.from_pretrained(mid))
-                                top = sorted(hw.items(), key=lambda x: -x[1])[:15]
-                            else:
-                                top = sorted(bw_data.items(), key=lambda x: -x[1])[:15]
+                            top = sorted(bw_data.items(), key=lambda x: -x[1])[:15]
                             source_data[short] = {w: round(p * 100, 1) for w, p in top}
                             continue
                         # Fall back to score_vocab

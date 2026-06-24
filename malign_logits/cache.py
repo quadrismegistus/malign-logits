@@ -391,6 +391,19 @@ class CacheManager:
     def has_score_vocab(self, model, prompt, words=None):
         return self.get_score_vocab(model, prompt, words) is not None
 
+    # ── word probs (hybrid: exact logit + beam for multi-token) ──
+
+    def get_word_probs(self, model, prompt):
+        key = {"model": model, "prompt": prompt}
+        s = self._stash("word_probs")
+        return s[key] if key in s else None
+
+    def set_word_probs(self, model, prompt, probs):
+        self._stash("word_probs")[{"model": model, "prompt": prompt}] = probs
+
+    def has_word_probs(self, model, prompt):
+        return {"model": model, "prompt": prompt} in self._stash("word_probs")
+
     # ── beam word probs (word-level via beam search) ─────────────
 
     def get_beam_words(self, model, prompt, n=1000, depth=3):
