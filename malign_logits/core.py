@@ -178,7 +178,7 @@ def score_words_from_logits(logits, tokenizer, candidate_words):
     return dict(sorted(probs.items(), key=lambda x: -x[1]))
 
 
-def beam_word_probs(model, tokenizer, prompt, n_beams=1000, depth=2, device=None):
+def beam_word_probs(model, tokenizer, prompt, n_beams=1000, depth=3, device=None):
     """Word probabilities via beam search — accurate for multi-token words.
 
     Runs beam search at the given depth, aggregates sequence probabilities
@@ -231,7 +231,8 @@ def beam_word_probs(model, tokenizer, prompt, n_beams=1000, depth=2, device=None
     for i, seq in enumerate(out.sequences):
         text = tokenizer.decode(seq[prompt_len:], skip_special_tokens=True).strip()
         word = text.split()[0].strip(".,;:!?\"'()[]{}—-–") if text.split() else ""
-        if word and word[0].isalpha():
-            word_probs[word] = word_probs.get(word, 0) + float(probs[i])
+        if not word or not word.isalpha() or len(word) < 2:
+            continue
+        word_probs[word] = word_probs.get(word, 0) + float(probs[i])
 
     return dict(sorted(word_probs.items(), key=lambda x: -x[1]))
