@@ -48,6 +48,91 @@ class ModelInfo:
     country: str = ""
     open_weight: bool = True
     open_data: bool = False
+    nickname: str = ""
+
+
+# Preferred short names. Base models get the family name with no suffix.
+# Variants get family-stage or a custom name.
+NICKNAMES = {
+    # Yi
+    "01-ai/Yi-9B": "yi",
+    "01-ai/Yi-1.5-9B-Chat": "yi-chat",
+    # Pythia
+    "EleutherAI/pythia-6.9b": "pythia",
+    "lomahony/eleuther-pythia6.9b-hh-sft": "pythia-sft",
+    "lomahony/eleuther-pythia6.9b-hh-dpo": "pythia-dpo",
+    # SmolLM
+    "HuggingFaceTB/SmolLM2-360M": "smol",
+    "HuggingFaceTB/SmolLM2-360M-Instruct": "smol-instruct",
+    "HuggingFaceTB/SmolLM3-3B-Base": "smol3",
+    "HuggingFaceTB/SmolLM3-3B": "smol3-instruct",
+    # Amber
+    "LLM360/Amber": "amber",
+    "LLM360/AmberChat": "amber-sft",
+    "LLM360/AmberSafe": "amber-dpo",
+    # Qwen 0.5B
+    "Qwen/Qwen2.5-0.5B": "qwen-tiny",
+    "Qwen/Qwen2.5-0.5B-Instruct": "qwen-tiny-instruct",
+    # Qwen 7B
+    "Qwen/Qwen2.5-7B": "qwen",
+    "Qwen/Qwen2.5-7B-Instruct": "qwen-instruct",
+    # Qwen 3
+    "Qwen/Qwen3-8B-Base": "qwen3",
+    "Qwen/Qwen3-8B": "qwen3-instruct",
+    # OLMo 1B
+    "allenai/OLMo-2-0425-1B": "olmo-tiny",
+    "allenai/OLMo-2-0425-1B-SFT": "olmo-tiny-sft",
+    "allenai/OLMo-2-0425-1B-DPO": "olmo-tiny-dpo",
+    "allenai/OLMo-2-0425-1B-Instruct": "olmo-tiny-instruct",
+    # OLMo 7B
+    "allenai/Olmo-3-1025-7B": "olmo",
+    "allenai/Olmo-3-7B-Instruct-SFT": "olmo-sft",
+    "allenai/Olmo-3-7B-Instruct-DPO": "olmo-dpo",
+    "allenai/Olmo-3-7B-Instruct": "olmo-instruct",
+    "allenai/Olmo-3-7B-Think-SFT": "olmo-think-sft",
+    "allenai/Olmo-3-7B-Think-DPO": "olmo-think-dpo",
+    # DeepSeek
+    "deepseek-ai/deepseek-llm-7b-base": "deepseek",
+    "deepseek-ai/deepseek-llm-7b-chat": "deepseek-chat",
+    # Llama
+    "meta-llama/Llama-3.1-8B": "llama",
+    "meta-llama/Llama-3.1-8B-Instruct": "llama-instruct",
+    # Tulu (Llama-based)
+    "allenai/Llama-3.1-Tulu-3-8B-SFT": "tulu-sft",
+    "allenai/Llama-3.1-Tulu-3-8B-DPO": "tulu-dpo",
+    "allenai/Llama-3.1-Tulu-3.1-8B": "tulu",
+    "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data": "tulu-sft-nosafety",
+    "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data": "tulu-sft-nomath",
+    "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data": "tulu-sft-nopersona",
+    "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data": "tulu-sft-nowildchat",
+    # Other Llama-based
+    "NousResearch/Hermes-3-Llama-3.1-8B": "hermes-llama",
+    "dphn/Dolphin3.0-Llama3.1-8B": "dolphin-llama",
+    # Reasoning distills
+    "deepseek-ai/DeepSeek-R1-Distill-Llama-8B": "r1-llama",
+    "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": "r1-qwen",
+    # Mistral / Zephyr
+    "mistralai/Mistral-7B-v0.1": "mistral",
+    "HuggingFaceH4/mistral-7b-sft-beta": "zephyr-sft",
+    "HuggingFaceH4/zephyr-7b-beta": "zephyr",
+    "NousResearch/Nous-Hermes-2-Mistral-7B-DPO": "hermes-mistral",
+    "berkeley-nest/Starling-LM-7B-alpha": "starling",
+    "cognitivecomputations/dolphin-2.6-mistral-7b-dpo": "dolphin-mistral",
+    "openchat/openchat-3.5-0106": "openchat",
+    "teknium/OpenHermes-2.5-Mistral-7B": "openhermes",
+    # Falcon
+    "tiiuae/falcon-7b": "falcon",
+    "tiiuae/falcon-7b-instruct": "falcon-instruct",
+    # Baichuan
+    "baichuan-inc/Baichuan2-7B-Base": "baichuan",
+    "baichuan-inc/Baichuan2-7B-Chat": "baichuan-chat",
+    # Gemma
+    "google/gemma-7b": "gemma",
+    "google/gemma-7b-it": "gemma-instruct",
+    # InternLM
+    "internlm/internlm2_5-7b": "internlm",
+    "internlm/internlm2_5-7b-chat": "internlm-chat",
+}
 
 
 @dataclass
@@ -89,6 +174,7 @@ class Registry:
             self._models[fam.base] = ModelInfo(
                 model_id=fam.base, stage="base",
                 scale=getattr(fam, 'scale', ''),
+                nickname=NICKNAMES.get(fam.base, ''),
             )
 
             # Register post-training checkpoints with relations
@@ -119,6 +205,7 @@ class Registry:
 
                 self._models[model_id] = ModelInfo(
                     model_id=model_id, stage=stage,
+                    nickname=NICKNAMES.get(model_id, ''),
                 )
                 self._relations.append(Relation(
                     child=model_id, relation=rel_type, parent=parent,
@@ -257,6 +344,24 @@ class Registry:
 
     def info(self, model_id: str) -> Optional[ModelInfo]:
         return self._models.get(model_id)
+
+    def nickname(self, model_id: str) -> str:
+        """Short human-readable name for a model."""
+        return NICKNAMES.get(model_id, model_id.split("/")[-1])
+
+    def from_nickname(self, nick: str) -> Optional[str]:
+        """Resolve a nickname to a full model ID. Returns None if not found."""
+        for model_id, n in NICKNAMES.items():
+            if n == nick:
+                return model_id
+        # Also check if it's already a full model ID
+        if nick in self._models:
+            return nick
+        return None
+
+    def nicknames(self) -> Dict[str, str]:
+        """All nickname → model_id mappings."""
+        return {v: k for k, v in NICKNAMES.items()}
 
     def __len__(self):
         return len(self._models)
