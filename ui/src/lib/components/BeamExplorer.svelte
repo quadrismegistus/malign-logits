@@ -17,6 +17,10 @@
 		index && selectedModel ? (index.sources[selectedModel] || []) : []
 	);
 
+	function srcNick(s: string): string {
+		return index?.source_nicknames?.[s] || s;
+	}
+
 	let annotators: string[] = $derived(
 		storylines.length > 0 && storylines[0].annotations
 			? Object.keys(storylines[0].annotations)
@@ -122,7 +126,7 @@
 				<span>Beams from</span>
 				<select bind:value={selectedSource}>
 					{#each sources as s}
-						<option value={s}>{s}</option>
+						<option value={s}>{srcNick(s)}</option>
 					{/each}
 				</select>
 			</label>
@@ -139,7 +143,7 @@
 					<span>Annotator</span>
 					<select bind:value={selectedAnnotator}>
 						{#each annotators as a}
-							<option value={a}>{a}</option>
+							<option value={a}>{srcNick(a)}</option>
 						{/each}
 					</select>
 				</label>

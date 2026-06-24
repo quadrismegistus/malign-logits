@@ -174,6 +174,7 @@ export interface BeamIndex {
 	prompts: string[];
 	sources: Record<string, string[]>;
 	nicknames: Record<string, string>;
+	source_nicknames: Record<string, string>;
 }
 
 export const api = {

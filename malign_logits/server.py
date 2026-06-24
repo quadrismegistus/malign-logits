@@ -240,7 +240,20 @@ class ModelHandler(BaseHTTPRequestHandler):
                     sources_by_model[m].add(k.get("source", ""))
                 sources_map = {m: sorted(s) for m, s in sources_by_model.items()}
                 nicks = {m: reg.nickname(m) for m in models}
-                self._respond(200, {"models": sorted(models), "prompts": sorted(prompts), "sources": sources_map, "nicknames": nicks})
+                # Build source nickname lookup (truncated name → nickname)
+                from .registry import NICKNAMES
+                _src_nick = {}
+                for full_id, nick in NICKNAMES.items():
+                    short = full_id.split("/")[-1]
+                    full_trunc = short.replace("-", "_")
+                    legacy_trunc = full_trunc[:20]
+                    _src_nick[full_trunc] = nick
+                    _src_nick[short] = nick
+                    if legacy_trunc not in _src_nick:
+                        _src_nick[legacy_trunc] = nick
+                    elif _src_nick[legacy_trunc] != nick:
+                        _src_nick[legacy_trunc] = legacy_trunc
+                self._respond(200, {"models": sorted(models), "prompts": sorted(prompts), "sources": sources_map, "nicknames": nicks, "source_nicknames": _src_nick})
 
             elif endpoint == "/api/beam/storylines":
                 from .cache import get_cache
