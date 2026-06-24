@@ -153,8 +153,30 @@ export interface PassageMetrics {
 	[key: string]: unknown;
 }
 
+export interface BeamAnnotation {
+	token_resist: number[];
+	total_resist: number;
+	mean_resist: number;
+}
+
+export interface BeamStoryline {
+	rank: number;
+	text: string;
+	tokens: string[];
+	path_prob: number;
+	log_prob: number;
+	base_token_probs?: number[];
+	annotations?: Record<string, BeamAnnotation>;
+}
+
+export interface BeamIndex {
+	entries: { model: string; prompt: string; n_beams: number; type: string; source: string }[];
+	models: string[];
+	prompts: string[];
+}
+
 export const api = {
-	health: () => get<{ status: string; models_loaded: boolean }>('/health'),
+	health: () => get<{ status: string; models_loaded: boolean; data_only?: boolean }>('/health'),
 	info: () => get<ServerInfo>('/info'),
 	progress: () => get<Progress>('/progress'),
 	prompts: () => get<{ prompts: string[] }>('/prompts'),
@@ -176,4 +198,9 @@ export const api = {
 		post<PassageMetrics>('/passage-metrics', { text }),
 	passageTokens: (psg: string, prompt = '', model_id = '', gen_prompt = '', idx = 0) =>
 		post<{ tokens: [string, number][]; sentences?: { drift: number; tokens: [string, number][] }[] }>('/passage-tokens', { psg, prompt, model_id, gen_prompt, idx }),
+	beamIndex: () => get<BeamIndex>('/api/beam/index'),
+	beamStorylines: (model: string, prompt: string, n = 50) =>
+		get<{ storylines: BeamStoryline[]; model: string; prompt: string }>(
+			`/api/beam/storylines?model=${encodeURIComponent(model)}&prompt=${encodeURIComponent(prompt)}&n=${n}`
+		),
 };

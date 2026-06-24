@@ -10,8 +10,15 @@
 	import GenerationChart from '$lib/components/GenerationChart.svelte';
 	import ContradictionChart from '$lib/components/ContradictionChart.svelte';
 	import PassageExplorer from '$lib/components/PassageExplorer.svelte';
+	import BeamExplorer from '$lib/components/BeamExplorer.svelte';
+	import CensusGrid from '$lib/components/CensusGrid.svelte';
+	import TokenShifts from '$lib/components/TokenShifts.svelte';
+	import SurvivalDecay from '$lib/components/SurvivalDecay.svelte';
+	import CrossFamilyHeatmap from '$lib/components/CrossFamilyHeatmap.svelte';
+	import ResistanceTrajectories from '$lib/components/ResistanceTrajectories.svelte';
 
 	let connected = $state(false);
+	let dataOnly = $state(false);
 	let serverInfo: ServerInfo | null = $state(null);
 	let prompts: string[] = $state([]);
 	let prompt = $state('She was so angry she wanted to');
@@ -46,11 +53,15 @@
 	async function checkServer() {
 		try {
 			const health = await api.health();
-			connected = health.models_loaded;
-			if (connected) {
+			connected = health.models_loaded || !!health.data_only;
+			dataOnly = !!health.data_only;
+			if (health.models_loaded) {
 				serverInfo = await api.info();
 				const res = await api.prompts();
 				prompts = res.prompts;
+			} else if (health.data_only) {
+				serverInfo = await api.info();
+				activeTab = 'beams';
 			}
 		} catch {
 			connected = false;
@@ -160,16 +171,27 @@
 
 	let family = $derived(familyName(serverInfo));
 
-	const TABS = [
+	const DATA_TABS = [
+		{ id: 'beams', label: 'Beams' },
+		{ id: 'census', label: 'Census' },
+		{ id: 'shifts', label: 'Token Shifts' },
+		{ id: 'survival', label: 'Survival' },
+		{ id: 'correlation', label: 'Correlation' },
+		{ id: 'resistance', label: 'Resistance' },
+		{ id: 'passages', label: 'Passages' },
+	];
+
+	const MODEL_TABS = [
 		{ id: 'trajectories', label: 'Trajectories' },
 		{ id: 'formation', label: 'Formation' },
 		{ id: 'displacement', label: 'Displacement' },
 		{ id: 'logit-lens', label: 'Logit Lens' },
 		{ id: 'generate', label: 'Generate' },
 		{ id: 'contradiction', label: 'Contradiction' },
-		{ id: 'passages', label: 'Passages' },
 		{ id: 'report', label: 'Report' },
 	];
+
+	let TABS = $derived(dataOnly ? DATA_TABS : [...DATA_TABS, ...MODEL_TABS]);
 
 	onMount(checkServer);
 </script>
@@ -185,8 +207,10 @@
 			<span class="subtitle">psychoanalytic logit analysis</span>
 		</div>
 		<div class="header-right">
-			{#if connected && serverInfo}
+			{#if connected && serverInfo && !dataOnly}
 				<span class="server-badge connected">{layerName(serverInfo)}</span>
+			{:else if connected && dataOnly}
+				<span class="server-badge data-only">data only</span>
 			{:else}
 				<span class="server-badge disconnected">disconnected</span>
 				<button class="retry-btn" onclick={checkServer}>retry</button>
@@ -286,14 +310,26 @@
 				{/each}
 			</nav>
 
-			{#if !analysis && activeTab !== 'passages'}
+			{#if !analysis && !['passages', 'beams', 'census', 'shifts', 'survival', 'correlation', 'resistance'].includes(activeTab)}
 				<div class="empty">
 					<p>Enter a prompt and click <strong>Analyze</strong> to trace probability displacement across alignment layers.</p>
 					<p class="hint">Cmd+Enter to submit</p>
 				</div>
 			{:else}
 				<div class="tab-content">
-					{#if activeTab === 'passages'}
+					{#if activeTab === 'beams'}
+						<BeamExplorer />
+					{:else if activeTab === 'census'}
+						<CensusGrid />
+					{:else if activeTab === 'shifts'}
+						<TokenShifts />
+					{:else if activeTab === 'survival'}
+						<SurvivalDecay />
+					{:else if activeTab === 'correlation'}
+						<CrossFamilyHeatmap />
+					{:else if activeTab === 'resistance'}
+						<ResistanceTrajectories />
+					{:else if activeTab === 'passages'}
 						<PassageExplorer />
 					{:else if activeTab === 'trajectories' && analysis}
 						<div class="trajectory-controls">
@@ -414,6 +450,12 @@
 		background: rgba(225, 87, 89, 0.15);
 		color: #e15759;
 		border: 1px solid rgba(225, 87, 89, 0.3);
+	}
+
+	.server-badge.data-only {
+		background: rgba(78, 121, 167, 0.15);
+		color: #4e79a7;
+		border: 1px solid rgba(78, 121, 167, 0.3);
 	}
 
 	.retry-btn {

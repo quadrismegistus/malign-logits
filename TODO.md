@@ -53,3 +53,29 @@ Work items from session 2026-06-20/21. Pick up when idle.
 - [x] Update session memory with reasoning battery results (R1-Qwen, SmolLM3-think)
 - [x] Update F25 finding with classifier results (prompt-specific signatures)
 - [x] Update CLAUDE.md with Circuit class documentation
+
+---
+
+## Svelte UI improvements (2026-06-24)
+
+Playwright installed for headless iteration. Goal: make the UI useful as a book companion / data explorer, not just a live-analysis tool.
+
+### Data explorer tabs (no model server needed)
+- [x] **Beam Explorer** — browse beam storylines from cached data. Top-100 beams per prompt, per-token resistance coloring (red=blocked, green=facilitated), annotator selector (SFT/DPO/RLVR), sort by rank/resistance/probability. Component: `BeamExplorer.svelte`.
+- [x] **Survival Decay** — SVG line chart of base top-10 survival in aligned top-100 at prefix lengths 1-10. Family and category selectors. Computed from beam cache (17K rows, `data/survival_decay.csv`). Component: `SurvivalDecay.svelte`.
+- [x] **Cross-Family Heatmap** — 10×10 Spearman correlation of 10-token survival rates across 71 prompts. Color-coded cells, significance asterisks. Mean |r|=0.126. Data: `data/cross_family_beam_correlation.csv`. Component: `CrossFamilyHeatmap.svelte`.
+- [x] **Census Grid** — 13 families × 5 prompts heatmap from `circuit_census_grid_final.csv`. Color by mechanism type or entropy change. Single-prompt list view with token shifts. Legend with 6 mechanism types. Component: `CensusGrid.svelte`.
+- [x] **Resistance Trajectories** — per-position resistance (bits) across 10 token positions. All-families view (grouped by family) or single-family view (grouped by category). Data: `data/resistance_trajectories.csv` (17K rows). Component: `ResistanceTrajectories.svelte`.
+
+### Existing tab improvements
+- [ ] **Passages tab: add BLT bits/char** — `jakobson.parquet` has 143K passages with BLT scores. Show distribution, human vs AI comparison, quadrant plot.
+- [ ] **Passages tab: family filter** — currently loads all passages. Add family dropdown + category filter.
+- [x] **Token Shifts tab** — multi-family institutional token displacement from `f21_token_shifts_multi.csv`. Grid view (6 families × 17 tokens, paired bars) and single-family detail view with base/aligned probabilities. Component: `TokenShifts.svelte`.
+- [ ] **Formation tab: multi-family** — load `f01_meta_formation.csv` to compare formation across families without server.
+
+### Infrastructure
+- [x] **Static data mode** — `malign serve --data-only` starts server without loading models. UI shows "data only" badge, only data tabs (Beams, Passages) visible. API endpoints `/api/beam/*` and `/api/data/csv` serve cached data. Server: `serve(data_only=True)`.
+- [ ] **Sankey component** — reusable Sankey for beam displacement chains (reuse `viz_sankey.py` logic client-side or serve pre-computed JSON).
+
+### Pending beam data
+- [ ] **Llama integration** — once local beam run completes, add Llama to all beam-based tabs

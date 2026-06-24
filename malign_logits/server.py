@@ -96,13 +96,24 @@ class ModelHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == "/health":
-            self._respond(200, {"status": "ok", "models_loaded": _psyche is not None})
+            self._respond(200, {
+                "status": "ok",
+                "models_loaded": _psyche is not None,
+                "data_only": _psyche is None,
+            })
         elif self.path == "/info":
-            try:
-                result = self._dispatch({})
-                self._respond(200, result)
-            except Exception as e:
-                self._respond(500, {"error": str(e)})
+            if _psyche is not None:
+                try:
+                    result = self._dispatch({})
+                    self._respond(200, result)
+                except Exception as e:
+                    self._respond(500, {"error": str(e)})
+            else:
+                self._respond(200, {
+                    "base": _family or "data-only",
+                    "n_layers": 0,
+                    "data_only": True,
+                })
         elif self.path == "/progress":
             with _progress_lock:
                 self._respond(200, dict(_progress))
@@ -200,6 +211,96 @@ class ModelHandler(BaseHTTPRequestHandler):
                 from .probe import Probe
                 df = Probe.families()
                 self._respond(200, df.to_dict(orient="records"))
+
+            elif endpoint == "/api/beam/index":
+                from .cache import get_cache
+                cm = get_cache()
+                stash = cm._stash("psyche_derived")
+                entries = []
+                for k in stash.keys():
+                    if not isinstance(k, dict):
+                        continue
+                    t = k.get("type", "")
+                    if t not in ("beam_annotated_v1", "beam_cross_v1"):
+                        continue
+                    data = stash[k]
+                    n = len(data) if isinstance(data, list) else 0
+                    entries.append({
+                        "model": k.get("model", ""),
+                        "prompt": k.get("prompt", ""),
+                        "n_beams": k.get("n_beams", n),
+                        "max_tokens": k.get("max_tokens", 10),
+                        "type": t,
+                        "source": k.get("source", ""),
+                    })
+                models = sorted(set(e["model"] for e in entries))
+                prompts = sorted(set(e["prompt"] for e in entries))
+                self._respond(200, {"entries": entries, "models": models, "prompts": prompts})
+
+            elif endpoint == "/api/beam/storylines":
+                from .cache import get_cache
+                cm = get_cache()
+                stash = cm._stash("psyche_derived")
+                model = params.get("model", "")
+                prompt = params.get("prompt", "")
+                top_n = int(params.get("n", 20))
+                data = None
+                for k in stash.keys():
+                    if not isinstance(k, dict):
+                        continue
+                    if k.get("model") != model or k.get("prompt") != prompt:
+                        continue
+                    t = k.get("type", "")
+                    if t in ("beam_annotated_v1", "beam_cross_v1"):
+                        data = stash[k]
+                        break
+                if data is None:
+                    self._respond(200, {"storylines": [], "error": "not found"})
+                    return
+                storylines = []
+                for i, s in enumerate(data[:top_n]):
+                    entry = {
+                        "rank": i,
+                        "text": s.get("text", ""),
+                        "tokens": s.get("token_texts", []),
+                        "path_prob": s.get("path_prob", 0),
+                        "log_prob": s.get("log_prob", 0),
+                    }
+                    if "annotations" in s:
+                        annots = {}
+                        for ann_name, ann in s["annotations"].items():
+                            annots[ann_name] = {
+                                "token_resist": ann.get("token_resist", []),
+                                "total_resist": ann.get("total_resist", 0),
+                                "mean_resist": ann.get("mean_resist", 0),
+                            }
+                        entry["annotations"] = annots
+                    if "base_token_probs" in s:
+                        entry["base_token_probs"] = s["base_token_probs"]
+                    storylines.append(entry)
+                self._respond(200, {"storylines": storylines, "model": model, "prompt": prompt})
+
+            elif endpoint == "/api/data/csv":
+                import os, pandas as pd
+                name = params.get("name", "")
+                if not name or ".." in name or "/" in name:
+                    self._respond(400, {"error": "invalid name"})
+                    return
+                base_dir = os.path.dirname(os.path.dirname(__file__))
+                for ext in [".csv", ".parquet"]:
+                    fpath = os.path.join(base_dir, "data", name + ext)
+                    if os.path.exists(fpath):
+                        break
+                else:
+                    self._respond(404, {"error": f"not found: {name}"})
+                    return
+                if fpath.endswith(".parquet"):
+                    df = pd.read_parquet(fpath)
+                else:
+                    df = pd.read_csv(fpath)
+                limit = int(params.get("limit", 5000))
+                self._respond(200, {"rows": _sanitize(df.head(limit).to_dict(orient="records")),
+                                     "total": len(df), "columns": list(df.columns)})
 
             else:
                 self._respond(404, {"error": f"Unknown endpoint: {endpoint}"})
@@ -674,16 +775,20 @@ class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
     daemon_threads = True
 
 
-def serve(port=8421, family=None, host="0.0.0.0"):
+def serve(port=8421, family=None, host="0.0.0.0", data_only=False):
     """Start the model server."""
     global _family
     _family = family
-    thread = threading.Thread(target=_get_psyche, daemon=True)
-    thread.start()
+
+    if not data_only:
+        thread = threading.Thread(target=_get_psyche, daemon=True)
+        thread.start()
+        print(f"Models loading in background...")
+    else:
+        print(f"Data-only mode — no models loaded. API endpoints serve cached data.")
 
     server = ThreadingHTTPServer((host, port), ModelHandler)
-    print(f"Model server running on http://{host}:{port}")
-    print(f"Models loading in background...")
+    print(f"Server running on http://{host}:{port}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

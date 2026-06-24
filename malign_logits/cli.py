@@ -82,7 +82,7 @@ def cmd_serve(args):
     """Start model server."""
     from .server import serve
     key, _ = _get_family(args)
-    serve(port=args.port, family=key)
+    serve(port=args.port, family=key, data_only=getattr(args, 'data_only', False))
 
 
 ALL_PROBE_FAMILIES = [
@@ -1148,6 +1148,7 @@ def main():
     # serve
     sv = subparsers.add_parser("serve", help="Start model server (keeps models loaded)")
     sv.add_argument("--port", type=int, default=8421, help="Port (default 8421)")
+    sv.add_argument("--data-only", action="store_true", help="Serve cached data only, no model loading")
     _add_family_arg(sv)
     sv.set_defaults(func=cmd_serve)
 
