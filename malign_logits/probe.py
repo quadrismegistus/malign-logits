@@ -1027,7 +1027,7 @@ class Probe:
                     "coverage": coverage, "branch_depth": branch_depth,
                     "max_depth": max_depth,
                     "type": "explore_tree_v3"}
-        cached = cache.get_derived(tree_key)
+        cached = cache.get_tree(tree_key)
         if cached is not None:
             return cached
 
@@ -1146,7 +1146,7 @@ class Probe:
             # Strip _logits before caching (150k floats per node = 170GB for full run)
             cache_nodes = [{k: v for k, v in n.items() if k != "_logits"}
                            for n in nodes]
-            cache.set_derived(tree_key, cache_nodes)
+            cache.set_tree(tree_key, cache_nodes)
         return nodes
 
     def annotate_tree(self, prompt: str, annotators: list = None,
@@ -1369,7 +1369,7 @@ class Probe:
         tree_key = {"model": self.model_id, "prompt": prompt_text,
                     "coverage": 0.5, "branch_depth": 2,
                     "max_depth": max_depth, "type": "explore_tree_v3"}
-        cache.set_derived(tree_key, nodes)
+        cache.set_tree(tree_key, nodes)
 
         return nodes
 
@@ -1400,7 +1400,7 @@ class Probe:
             tree_key = {"model": self.model_id, "prompt": ptext,
                         "path_threshold": 0.01, "max_depth": max_depth,
                         "type": "explore_tree_v3"}
-            cached = cache.get_derived(tree_key)
+            cached = cache.get_tree(tree_key)
             if cached is not None:
                 trees[pname] = cached
             else:
@@ -1653,7 +1653,7 @@ class Probe:
             tree_key = {"model": self.model_id, "prompt": ptext,
                         "path_threshold": 0.01, "max_depth": max_depth,
                         "type": "explore_tree_v3"}
-            cache.set_derived(tree_key, trees[pname])
+            cache.set_tree(tree_key, trees[pname])
 
         return trees
 

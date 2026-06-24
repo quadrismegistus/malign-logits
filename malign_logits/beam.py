@@ -262,7 +262,7 @@ def annotate_beams(model_id: str, prompt: str, n: int = 100,
         }
         for s in storylines
     ]
-    cache.set_derived(cache_key, cache_data)
+    cache.set_beams(cache_key, cache_data)
 
     return storylines
 
@@ -277,7 +277,7 @@ def load_cached_beams(model_id: str, prompt: str, n: int = 100,
     cache_key = {"model": model_id, "prompt": prompt_text,
                  "n_beams": n, "max_tokens": max_tokens,
                  "type": "beam_annotated_v1"}
-    data = cache.get_derived(cache_key)
+    data = cache.get_beams(cache_key)
     if data is None:
         return None
 
@@ -539,6 +539,6 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
                 }
                 for s in stories
             ]
-            cache.set_derived(cache_key, cache_data)
+            cache.set_beams(cache_key, cache_data)
 
     return all_beams
