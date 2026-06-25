@@ -35,6 +35,16 @@
 | **gemma** | Gemma 7B | Google | USA | Gated repo, needs HF token |
 | **internlm** | InternLM2.5 7B | Shanghai AI Lab | China | Needs `trust_remote_code=True` |
 
+## Considered but not added
+
+| Family | Developer | Why considered | Why not added |
+|--------|-----------|---------------|---------------|
+| **PKU-Beaver** | PKU-Alignment | Separate helpfulness vs harmlessness RLHF checkpoints. Would directly test whether safety and helpfulness produce different displacement. | Scope decision: 17 families sufficient. Helpfulness vs harmlessness decomposition partially available through Tulu ablations (no-safety variant). |
+| **Mixtral** | Mistral AI | MoE architecture — expert routing adds a dimension. | Different object. Expert routing means displacement could be expert-specific. Needs its own study, not a single comparison. |
+| **CodeLlama / StarCoder** | Meta / BigCode | Code-specialized. Would test whether code training produces displacement differently. | Code is not a content category in our prompt battery. Displacement analysis is about natural language narrative completion. |
+| **GPT-4o-mini** | OpenAI | Proprietary baseline. Top-20 logprobs available via API. | Breaks open-weight commitment. Can't teacher-force, can't beam search, can't extract full logit distributions. Methodological break. |
+| **Llama 3.3 / 4** | Meta | Newer than our pipeline. | Diminishing returns — another Llama variant with opaque alignment. |
+
 ## Coverage summary
 
 - **9 organizations**: Allen AI, Meta, Mistral AI, Alibaba, EleutherAI, DeepSeek, HuggingFace, TII, 01.AI
