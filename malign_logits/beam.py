@@ -34,7 +34,7 @@ class Storyline:
 
 
 def beam_storylines(model_id: str, prompt: str, n: int = 100,
-                    max_tokens: int = 10) -> List[Storyline]:
+                    max_tokens: int = 10, mode: str = "raw") -> List[Storyline]:
     """Extract top-N storylines by beam search.
 
     Returns list of Storyline objects sorted by path probability.
@@ -42,12 +42,14 @@ def beam_storylines(model_id: str, prompt: str, n: int = 100,
     """
     from .models import load_model
     from .probe import _resolve_prompt
+    from .core import _apply_mode
 
     prompt_text = _resolve_prompt(prompt)
     model, tokenizer = load_model(model_id)
     device = next(model.parameters()).device
 
-    ids = tokenizer.encode(prompt_text, return_tensors="pt").to(device)
+    formatted = _apply_mode(prompt_text, tokenizer, mode)
+    ids = tokenizer.encode(formatted, return_tensors="pt").to(device)
     prompt_len = ids.shape[1]
 
     with torch.no_grad():
@@ -319,7 +321,8 @@ def load_cached_beams(model_id: str, prompt: str, n: int = 100,
 
 
 def batch_beam_annotate(model_id: str, prompts: dict = None,
-                        n: int = 100, max_tokens: int = 10):
+                        n: int = 100, max_tokens: int = 10,
+                        mode: str = "raw"):
     """Batch beam search + cross-model annotation.
 
     1. For each model (base + annotators): load → beam search ALL prompts → unload
@@ -327,6 +330,9 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
 
     Each model's beams get teacher-forced through every other model.
     Full cross-comparison matrix stored per storyline.
+
+    Args:
+        mode: "raw", "chat", "continue", or "think". Applied to all beam searches.
 
     Returns {prompt_name: {model_short: [Storyline, ...], ...}, ...}
     """
@@ -366,12 +372,15 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
 
     def _beam_search_model(mid, device_model):
         """Beam search one model on all prompts."""
+        from .core import _apply_mode
         model_obj, _ = device_model
         device = next(model_obj.parameters()).device
+        mid_tok = AutoTokenizer.from_pretrained(mid)
         result = {}
         for pname in prompt_texts:
             ptext = prompt_texts[pname]
-            ids = base_tok.encode(ptext, return_tensors="pt").to(device)
+            formatted = _apply_mode(ptext, mid_tok, mode)
+            ids = base_tok.encode(formatted, return_tensors="pt").to(device)
             prompt_len = ids.shape[1]
             with torch.no_grad():
                 out = model_obj.generate(
@@ -570,6 +579,8 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
             cache_key = {"model": model_id, "source": source_short,
                          "prompt": ptext, "n_beams": n,
                          "max_tokens": max_tokens, "type": "beam_cross_v1"}
+            if mode != "raw":
+                cache_key["mode"] = mode
             cache_data = [
                 {
                     "text": s.text, "tokens": s.tokens,
