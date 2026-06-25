@@ -232,7 +232,7 @@ class DeepDive:
                     tpl = chat_tokenizer.apply_chat_template(
                         messages, add_generation_prompt=True,
                         return_tensors="pt")
-                elif mode == "complete":
+                elif mode == "chat":
                     messages = [{"role": "assistant", "content": prompt_text}]
                     tpl = chat_tokenizer.apply_chat_template(
                         messages, continue_final_message=True,
@@ -677,7 +677,7 @@ class DeepDive:
     def decompose(self, prompt: str, gen: int = 0, pos: int = 0) -> 'pd.DataFrame':
         """Decompose distributional change: alignment vs mode components.
 
-        Requires data collected in multiple modes (raw, chat, complete, think).
+        Requires data collected in multiple modes (raw, chat, continue, think).
         Returns DataFrame with JS for each component + ratio to alignment.
 
             dive.collect(mode="raw")

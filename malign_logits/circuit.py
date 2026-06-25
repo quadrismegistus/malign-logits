@@ -31,7 +31,7 @@ from .cache import get_cache
 class Mode(Enum):
     RAW = "raw"
     CHAT = "chat"
-    COMPLETE = "complete"
+    CONTINUE = "continue"
     THINK = "think"
 
 
@@ -64,11 +64,11 @@ class CircuitNode:
         if self._tokenizer is None:
             raise ValueError(f"No tokenizer for {self.position} — cannot apply template")
 
-        if mode == Mode.COMPLETE:
+        if mode == Mode.CHAT:
             messages = [{"role": "user", "content": prompt}]
             templated = self._tokenizer.apply_chat_template(
                 messages, tokenize=False, add_generation_prompt=True)
-        elif mode == Mode.CHAT:
+        elif mode == Mode.CONTINUE:
             messages = [{"role": "user", "content": f"Continue this text: {prompt}"}]
             templated = self._tokenizer.apply_chat_template(
                 messages, tokenize=False, add_generation_prompt=True)

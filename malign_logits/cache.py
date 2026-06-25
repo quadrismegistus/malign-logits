@@ -393,32 +393,45 @@ class CacheManager:
 
     # ── word probs (hybrid: exact logit + beam for multi-token) ──
 
-    def get_word_probs(self, model, prompt):
+    def get_word_probs(self, model, prompt, mode="raw"):
         key = {"model": model, "prompt": prompt}
+        if mode != "raw":
+            key["mode"] = mode
         s = self._stash("word_probs")
         return s[key] if key in s else None
 
-    def set_word_probs(self, model, prompt, probs):
-        self._stash("word_probs")[{"model": model, "prompt": prompt}] = probs
+    def set_word_probs(self, model, prompt, probs, mode="raw"):
+        key = {"model": model, "prompt": prompt}
+        if mode != "raw":
+            key["mode"] = mode
+        self._stash("word_probs")[key] = probs
 
-    def has_word_probs(self, model, prompt):
-        return {"model": model, "prompt": prompt} in self._stash("word_probs")
+    def has_word_probs(self, model, prompt, mode="raw"):
+        key = {"model": model, "prompt": prompt}
+        if mode != "raw":
+            key["mode"] = mode
+        return key in self._stash("word_probs")
 
     # ── beam word probs (word-level via beam search) ─────────────
 
-    def get_beam_words(self, model, prompt, n=1000, depth=3):
+    def get_beam_words(self, model, prompt, n=1000, depth=3, mode="raw"):
         key = {"type": "beam_words", "model": model, "prompt": prompt, "n": n, "depth": depth}
+        if mode != "raw":
+            key["mode"] = mode
         s = self._stash("beam_words")
         return s[key] if key in s else None
 
-    def set_beam_words(self, model, prompt, words, n=1000, depth=3):
-        self._stash("beam_words")[{
-            "type": "beam_words", "model": model, "prompt": prompt, "n": n, "depth": depth
-        }] = words
+    def set_beam_words(self, model, prompt, words, n=1000, depth=3, mode="raw"):
+        key = {"type": "beam_words", "model": model, "prompt": prompt, "n": n, "depth": depth}
+        if mode != "raw":
+            key["mode"] = mode
+        self._stash("beam_words")[key] = words
 
-    def has_beam_words(self, model, prompt, n=1000, depth=3):
-        return {"type": "beam_words", "model": model, "prompt": prompt,
-                "n": n, "depth": depth} in self._stash("beam_words")
+    def has_beam_words(self, model, prompt, n=1000, depth=3, mode="raw"):
+        key = {"type": "beam_words", "model": model, "prompt": prompt, "n": n, "depth": depth}
+        if mode != "raw":
+            key["mode"] = mode
+        return key in self._stash("beam_words")
 
     # ── beams (beam search storylines + cross-model annotations) ──
 

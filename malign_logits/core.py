@@ -211,16 +211,45 @@ def hybrid_word_probs(beam_words, logits, tokenizer):
     return dict(sorted(hybrid.items(), key=lambda x: -x[1]))
 
 
-def beam_word_probs(model, tokenizer, prompt, n_beams=1000, depth=3, device=None):
+def _apply_mode(prompt, tokenizer, mode="raw"):
+    """Format prompt according to mode.
+
+    Modes:
+        raw:      bare text, no template
+        chat:     chat template + raw prompt as user message
+        continue: chat template + "Continue this text: {prompt}"
+        think:    chat template + thinking enabled + "Continue this text: {prompt}"
+    """
+    if mode == "raw":
+        return prompt
+
+    if mode == "chat":
+        messages = [{"role": "user", "content": prompt}]
+    elif mode == "continue":
+        messages = [{"role": "user", "content": f"Continue this text: {prompt}"}]
+    elif mode == "think":
+        messages = [{"role": "user", "content": f"Continue this text: {prompt}"}]
+    else:
+        raise ValueError(f"Unknown mode: {mode}")
+
+    try:
+        kwargs = {}
+        if mode == "think":
+            kwargs["enable_thinking"] = True
+        templated = tokenizer.apply_chat_template(
+            messages, tokenize=False, add_generation_prompt=True, **kwargs)
+        return templated
+    except Exception:
+        return prompt
+
+
+def beam_word_probs(model, tokenizer, prompt, n_beams=1000, depth=3,
+                    mode="raw", device=None):
     """Word probabilities via beam search — accurate for multi-token words.
 
     Runs beam search at the given depth, aggregates sequence probabilities
     by first decoded word. Faster and more accurate than discover_top_words
     for multi-token words (4s vs 15s per prompt on 1B MPS).
-
-    The probabilities are normalized across the beam set (not the full vocab),
-    so they're correct for relative comparison across layers but don't match
-    raw logit softmax values.
 
     Args:
         model: A HuggingFace causal LM.
@@ -228,6 +257,7 @@ def beam_word_probs(model, tokenizer, prompt, n_beams=1000, depth=3, device=None
         prompt: Text string to complete.
         n_beams: Number of beams (more = more words found, slower).
         depth: Token depth (2 captures most words, 3 for longer words).
+        mode: "raw", "chat", "continue", or "think".
         device: Torch device override.
 
     Returns:
@@ -236,7 +266,8 @@ def beam_word_probs(model, tokenizer, prompt, n_beams=1000, depth=3, device=None
     if device is None:
         device = next(model.parameters()).device
 
-    input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
+    formatted = _apply_mode(prompt, tokenizer, mode)
+    input_ids = tokenizer.encode(formatted, return_tensors="pt").to(device)
 
     pad_token_id = tokenizer.pad_token_id
     if pad_token_id is None:

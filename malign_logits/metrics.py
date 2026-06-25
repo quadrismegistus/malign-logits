@@ -1447,10 +1447,10 @@ def mode_decomposition(dive, prompt: str, gen: int = 0, pos: int = 0) -> 'pd.Dat
             })
 
     # Mode transitions on base model
-    mode_chain = ["raw", "complete", "chat", "think"]
+    mode_chain = ["raw", "chat", "continue", "think"]
     mode_labels = {
-        ("raw", "complete"): "special tokens",
-        ("complete", "chat"): "turn structure",
+        ("raw", "chat"): "special tokens",
+        ("chat", "continue"): "instruction framing",
         ("chat", "think"): "thinking",
         ("raw", "chat"): "total template",
     }

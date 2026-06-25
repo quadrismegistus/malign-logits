@@ -116,7 +116,7 @@ class Probe:
         Hidden states can't be recreated without the exact generation
         trajectory, so they are never optional.
 
-        mode: "raw" (plain text), "chat" (chat template), "complete"
+        mode: "raw" (plain text), "chat" (chat template), "continue"
               (assistant-only), "think" (chat + <think>).
               Stored under model_id::mode in the cache.
         """
@@ -142,7 +142,7 @@ class Probe:
                     msgs = [{"role": "user", "content": prompt_text}]
                     tpl = tokenizer.apply_chat_template(
                         msgs, add_generation_prompt=True, return_tensors="pt")
-                elif mode == "complete":
+                elif mode == "chat":
                     msgs = [{"role": "assistant", "content": prompt_text}]
                     tpl = tokenizer.apply_chat_template(
                         msgs, continue_final_message=True, return_tensors="pt")
