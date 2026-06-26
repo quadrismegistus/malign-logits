@@ -75,7 +75,7 @@ Playwright installed for headless iteration. Goal: make the UI useful as a book 
 
 ### Infrastructure
 - [x] **Static data mode** — `malign serve --data-only` starts server without loading models. UI shows "data only" badge, only data tabs (Beams, Passages) visible. API endpoints `/api/beam/*` and `/api/data/csv` serve cached data. Server: `serve(data_only=True)`.
-- [ ] **Sankey component** — reusable Sankey for beam displacement chains (reuse `viz_sankey.py` logic client-side or serve pre-computed JSON).
+- [x] **Sankey component** — multi-stage displacement flow (base→SFT→DPO→Instruct). Model/prompt/depth selectors. Computed from beam cache via `/api/beam/sankey`. Component: `DisplacementSankey.svelte`.
 
 ### Pending beam data
-- [ ] **Llama integration** — once local beam run completes, add Llama to all beam-based tabs
+- [x] **Llama integration** — DONE. 30h local run, 497 entries, 7 variants (R1-Distill, Dolphin, Hermes, Tulu). 11 families total in beam cache.
