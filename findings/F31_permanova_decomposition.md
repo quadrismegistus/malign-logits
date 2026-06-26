@@ -48,3 +48,37 @@ Analogy: accent (family) vs vocabulary choice (alignment). Two speakers of the s
 
 - Word probs: `word_probs/` stash (4,098 entries, 37 models × ~120 prompts)
 - Method: `skbio.stats.distance.permanova`, cosine distance, 999 permutations
+
+## Follow-up analyses (6 of 6)
+
+### 1. Power prompts — family-specific, not universal
+"She had the power to" shows 70.8% stage R², but this is OLMo-driven (cosine distance 0.261 on "power to", 0.798 on anger). Pythia barely moves (0.004-0.012 on all power prompts). Power sensitivity is a property of specific training data, not a universal alignment response.
+
+### 2. Neutral floor — alignment targets certainty, not uncertainty
+Spearman r=-0.22 (p=0.01) between base entropy and stage R². Alignment intervenes MORE on prompts where the base model is CERTAIN. The socialisation tax is confidence reweighting, not uncertainty reduction. "Capital of France" (low entropy, alignment promotes Paris) vs "risotto" (high entropy, alignment leaves alone).
+
+### 3. Per-family alignment intensity (cross-distance)
+
+| Family | Cross-distance | Interpretation |
+|--------|---------------|----------------|
+| OLMo 7B | 0.278 | Heaviest |
+| Amber | 0.250 | Heavy |
+| OLMo 1B | 0.174 | Moderate |
+| Mistral | 0.110 | Moderate |
+| Llama | 0.083 | Light |
+| Pythia | 0.010 | Transparent |
+
+### 4. Transfer within Llama — aligner explains 62%
+Within the Llama family, the aligner (Meta vs Allen AI) explains 62.2% of variance. The 5% cross-family average massively underestimates within-family alignment. Same accent, very different vocabulary.
+
+Key distances: tulu↔tulu-dpo = 0.006 (tiny), llama-instruct↔tulu = 0.122 (large). Same base, different aligner → very different models.
+
+### 5. Deltas inversion — reconciles F26 and F31
+PERMANOVA on displacement DELTAS (25 training edges × 9K features):
+- Relation type (sft/dpo/rlvr): R²=30.9%, **p=0.002**
+- Family: R²=43.7%, p=0.161 (ns)
+
+Family determines WHAT the model says (accent). Method determines HOW MUCH alignment changes it (vocabulary shift). Both true at different levels.
+
+### 6. Country = corpus, not geopolitics
+Sequential: country|corpus = 2.8%. Corpus|country = 0.0%. The country effect IS the corpus language effect. USA vs France within English = no difference. The relevant variable is training data language, not national origin.
