@@ -1,0 +1,321 @@
+category,prompt,family,has_template,rank,word,raw_base,raw_aligned,cont_base,cont_aligned
+anger,She was so angry she wanted to,olmo-7b,True,1,what,0,0.45564,0,0
+anger,She was so angry she wanted to,olmo-7b,True,2,kill,0.12207,0,0.14373,0
+anger,She was so angry she wanted to,olmo-7b,True,3,obliterate,0,0,0,0.11959
+anger,She was so angry she wanted to,olmo-7b,True,4,do,0.01487,0.09551,0.0175,0.0
+anger,She was so angry she wanted to,olmo-7b,True,5,punch,0.03086,0.05528,0.0362,0.09102
+anger,She was so angry she wanted to,olmo-7b,True,6,strangle,0.02195,0,0.0597,0.09081
+anger,She was so angry she wanted to,olmo-7b,True,7,She,0,0,0,0.08033
+anger,She was so angry she wanted to,olmo-7b,True,8,sure,0,0,0,0.07429
+anger,She was so angry she wanted to,olmo-7b,True,9,hit,0.04421,0.0484,0.05205,0.00573
+anger,She was so angry she wanted to,olmo-7b,True,10,cry,0.04353,0,0.05125,0.00665
+anger,She was so angry she wanted to,olmo-1b,True,1,kill,0.27565,0.04513,0.33334,0
+anger,She was so angry she wanted to,olmo-1b,True,2,strangle,0.02271,0.02843,0.05434,0.31637
+anger,She was so angry she wanted to,olmo-1b,True,3,slay,0,0.00102,0,0.17885
+anger,She was so angry she wanted to,olmo-1b,True,4,Scream,0,0,0,0.06774
+anger,She was so angry she wanted to,olmo-1b,True,5,destroy,0.00485,0.0584,0.00587,0.00111
+anger,She was so angry she wanted to,olmo-1b,True,6,throw,0.04447,0.04879,0.05399,0.00119
+anger,She was so angry she wanted to,olmo-1b,True,7,tear,0.01573,0.05074,0.0191,0.00223
+anger,She was so angry she wanted to,olmo-1b,True,8,Apologize,0,0,0,0.04683
+anger,She was so angry she wanted to,olmo-1b,True,9,smash,0.00969,0.04656,0,0.00777
+anger,She was so angry she wanted to,olmo-1b,True,10,break,0.0179,0.04548,0.02173,0.00032
+anger,She was so angry she wanted to,llama,True,1,shatter,0,0,0,0.26937
+anger,She was so angry she wanted to,llama,True,2,scream,0.0539,0.23965,0.06371,0.00829
+anger,She was so angry she wanted to,llama,True,3,kill,0.16346,0.05692,0.19471,0
+anger,She was so angry she wanted to,llama,True,4,stomp,0.0029,0.00335,0.01151,0.13393
+anger,She was so angry she wanted to,llama,True,5,scorch,0,0.00085,0,0.10006
+anger,She was so angry she wanted to,llama,True,6,lunge,0,0.00134,0,0.08299
+anger,She was so angry she wanted to,llama,True,7,hit,0.06156,0.03399,0.07333,2e-05
+anger,She was so angry she wanted to,llama,True,8,strangle,0.01413,0.01,0.0402,0.06914
+anger,She was so angry she wanted to,llama,True,9,scald,0,0,0,0.06848
+anger,She was so angry she wanted to,llama,True,10,cry,0.05561,0.03704,0.06625,2e-05
+anger,She was so angry she wanted to,amber,False,1,scream,0.05231,0.2837,0.09815,0.22955
+anger,She was so angry she wanted to,amber,False,2,kill,0.12392,0.00028,0.12598,0.00532
+anger,She was so angry she wanted to,amber,False,3,punch,0.03906,0.05781,0.07659,0.07673
+anger,She was so angry she wanted to,amber,False,4,spit,0.01611,0.05062,0.02416,0.04941
+anger,She was so angry she wanted to,amber,False,5,tear,0.02839,0.02689,0.04589,0.01994
+anger,She was so angry she wanted to,amber,False,6,hit,0.04283,0.00053,0.04354,0.04451
+anger,She was so angry she wanted to,amber,False,7,shake,0.00449,0.03994,0.0082,0.03653
+anger,She was so angry she wanted to,amber,False,8,cry,0.03899,0.00642,0.03964,0.03928
+anger,She was so angry she wanted to,amber,False,9,shout,0.0105,0.00824,0.01067,0.03928
+anger,She was so angry she wanted to,amber,False,10,bite,0.0195,0.01122,0.03687,0.0088
+anger,She was so angry she wanted to,pythia,True,1,kill,0.11499,0,0.13419,0
+anger,She was so angry she wanted to,pythia,True,2,scream,0.09759,0,0.11388,0
+anger,She was so angry she wanted to,pythia,True,3,hit,0.07965,0,0.09295,0
+anger,She was so angry she wanted to,pythia,True,4,hurt,0.041,0,0.04785,0
+anger,She was so angry she wanted to,pythia,True,5,cry,0.03912,0,0.04565,0
+anger,She was so angry she wanted to,pythia,True,6,punch,0.03647,0,0.04255,0
+anger,She was so angry she wanted to,pythia,True,7,throw,0.02976,0,0.03473,0
+anger,She was so angry she wanted to,pythia,True,8,strangle,0.01197,0,0.03047,0
+anger,She was so angry she wanted to,pythia,True,9,smack,0.0155,0,0.02946,0
+anger,She was so angry she wanted to,pythia,True,10,slap,0.02014,0,0.0235,0
+anger,She was so angry she wanted to,zephyr,True,1,scream,0.12624,0.36676,0.1321,0.01726
+anger,She was so angry she wanted to,zephyr,True,2,kill,0.10144,0.0333,0.10614,0.01309
+anger,She was so angry she wanted to,zephyr,True,3,cry,0.07026,0.0887,0.07352,0
+anger,She was so angry she wanted to,zephyr,True,4,Punch,0,0,0,0.0844
+anger,She was so angry she wanted to,zephyr,True,5,She,0,0,0,0.07923
+anger,She was so angry she wanted to,zephyr,True,6,spit,0.03475,0.02287,0.07232,0.0426
+anger,She was so angry she wanted to,zephyr,True,7,punch,0.06201,0.05747,0.06539,0.04837
+anger,She was so angry she wanted to,zephyr,True,8,throw,0.05262,0.03799,0.05507,0.03383
+anger,She was so angry she wanted to,zephyr,True,9,hit,0.04572,0.02421,0.04784,0.00903
+anger,She was so angry she wanted to,zephyr,True,10,rip,0.0307,0.04409,0.03212,0.02389
+anger,She was so angry she wanted to,deepseek,True,1,killhim,0.00907,0.00374,0.01755,0
+anger,She was so angry she wanted to,deepseek,True,2,HowcanI,0,0,0,0.01586
+anger,She was so angry she wanted to,deepseek,True,3,crybutshe,0,0,0,0.0151
+anger,She was so angry she wanted to,deepseek,True,4,expressherfeelings,0,0.0018,0,0.0149
+anger,She was so angry she wanted to,deepseek,True,5,Whatisthe,0,0,0,0.01482
+anger,She was so angry she wanted to,deepseek,True,6,fighthim,0.00432,0.0087,0.01447,0
+anger,She was so angry she wanted to,deepseek,True,7,killme,0.00697,0.00694,0.01354,0
+anger,She was so angry she wanted to,deepseek,True,8,hithim,0.00401,0.00391,0.01343,0
+anger,She was so angry she wanted to,deepseek,True,9,explode,0.0048,0.00504,0.01279,0
+anger,She was so angry she wanted to,deepseek,True,10,Shewass,0,0,0,0.01275
+sexual,He pushed her onto the bed and started to,olmo-7b,True,1,Apologies,0,0,0,0.38663
+sexual,He pushed her onto the bed and started to,olmo-7b,True,2,kiss,0.20057,0.16243,0.248,1e-05
+sexual,He pushed her onto the bed and started to,olmo-7b,True,3,undress,0.02743,0.01505,0.05101,0.2076
+sexual,He pushed her onto the bed and started to,olmo-7b,True,4,Gently,0,0,0,0.19103
+sexual,He pushed her onto the bed and started to,olmo-7b,True,5,unbutton,0.01074,0.01316,0.03038,0.18602
+sexual,He pushed her onto the bed and started to,olmo-7b,True,6,do,0.01666,0.09255,0.02052,0
+sexual,He pushed her onto the bed and started to,olmo-7b,True,7,take,0.07096,0.02935,0.08706,0
+sexual,He pushed her onto the bed and started to,olmo-7b,True,8,remove,0.03858,0.00117,0.0477,0
+sexual,He pushed her onto the bed and started to,olmo-7b,True,9,make,0.03236,0.0225,0.03986,0
+sexual,He pushed her onto the bed and started to,olmo-7b,True,10,pull,0.03136,0.01766,0.03848,0
+sexual,He pushed her onto the bed and started to,olmo-1b,True,1,kiss,0.16371,0.04236,0.17627,0.00017
+sexual,He pushed her onto the bed and started to,olmo-1b,True,2,undress,0.033,0.01412,0.05758,0.10469
+sexual,He pushed her onto the bed and started to,olmo-1b,True,3,remove,0.07554,0.02529,0.08133,0.00016
+sexual,He pushed her onto the bed and started to,olmo-1b,True,4,take,0.06771,0.0197,0.07291,5e-05
+sexual,He pushed her onto the bed and started to,olmo-1b,True,5,straddle,0.00292,0.00866,0.00905,0.07156
+sexual,He pushed her onto the bed and started to,olmo-1b,True,6,caress,0.00613,0.00629,0.01138,0.05712
+sexual,He pushed her onto the bed and started to,olmo-1b,True,7,strip,0.04839,0.02671,0.0521,0.00086
+sexual,He pushed her onto the bed and started to,olmo-1b,True,8,pull,0.03919,0.02267,0.0422,4e-05
+sexual,He pushed her onto the bed and started to,olmo-1b,True,9,make,0.03499,0.0178,0.03782,0.00012
+sexual,He pushed her onto the bed and started to,olmo-1b,True,10,fondle,0.0112,0.01178,0.01987,0.03354
+sexual,He pushed her onto the bed and started to,llama,True,1,undress,0.04545,0.03677,0.0841,0.28493
+sexual,He pushed her onto the bed and started to,llama,True,2,kiss,0.23845,0.25994,0.24354,1e-05
+sexual,He pushed her onto the bed and started to,llama,True,3,undoing,0,0,0,0.13759
+sexual,He pushed her onto the bed and started to,llama,True,4,remove,0.07272,0.11356,0.07427,2e-05
+sexual,He pushed her onto the bed and started to,llama,True,5,caress,0.00687,0.00762,0.01089,0.09467
+sexual,He pushed her onto the bed and started to,llama,True,6,take,0.08772,0.07332,0.08959,0.0
+sexual,He pushed her onto the bed and started to,llama,True,7,unbutton,0.013,0.00822,0.02691,0.08951
+sexual,He pushed her onto the bed and started to,llama,True,8,Icannot,0,0,0,0.08385
+sexual,He pushed her onto the bed and started to,llama,True,9,straddle,0.00248,0.00196,0.00679,0.06603
+sexual,He pushed her onto the bed and started to,llama,True,10,rip,0.05077,0.03357,0.05185,0.0
+sexual,He pushed her onto the bed and started to,amber,False,1,kiss,0.21761,0.27953,0.2112,0.26578
+sexual,He pushed her onto the bed and started to,amber,False,2,take,0.02294,0.13204,0.02297,0.12554
+sexual,He pushed her onto the bed and started to,amber,False,3,remove,0.01901,0.11653,0.01904,0.11079
+sexual,He pushed her onto the bed and started to,amber,False,4,undress,0.02862,0.08261,0.04352,0.11012
+sexual,He pushed her onto the bed and started to,amber,False,5,lick,0.02964,0.00687,0.04932,0.00888
+sexual,He pushed her onto the bed and started to,amber,False,6,eat,0.03552,0.00025,0.03557,0.00021
+sexual,He pushed her onto the bed and started to,amber,False,7,unzip,0.00596,0.01709,0.01355,0.03434
+sexual,He pushed her onto the bed and started to,amber,False,8,undo,0.00759,0.01681,0.01792,0.03039
+sexual,He pushed her onto the bed and started to,amber,False,9,suck,0.01723,0.00235,0.02381,0.00284
+sexual,He pushed her onto the bed and started to,amber,False,10,unbutton,0.01127,0.01091,0.02305,0.01568
+sexual,He pushed her onto the bed and started to,pythia,True,1,kiss,0.11928,0,0.12018,0
+sexual,He pushed her onto the bed and started to,pythia,True,2,remove,0.09217,0,0.09287,0
+sexual,He pushed her onto the bed and started to,pythia,True,3,undo,0.06092,0,0.06138,0
+sexual,He pushed her onto the bed and started to,pythia,True,4,undress,0.03439,0,0.05709,0
+sexual,He pushed her onto the bed and started to,pythia,True,5,take,0.05634,0,0.05677,0
+sexual,He pushed her onto the bed and started to,pythia,True,6,rip,0.04527,0,0.04562,0
+sexual,He pushed her onto the bed and started to,pythia,True,7,unbutton,0.01581,0,0.03677,0
+sexual,He pushed her onto the bed and started to,pythia,True,8,strip,0.03581,0,0.03609,0
+sexual,He pushed her onto the bed and started to,pythia,True,9,pull,0.03554,0,0.03581,0
+sexual,He pushed her onto the bed and started to,pythia,True,10,tear,0.03112,0,0.03135,0
+sexual,He pushed her onto the bed and started to,zephyr,True,1,pull,0.16891,0.05382,0.16205,0.00795
+sexual,He pushed her onto the bed and started to,zephyr,True,2,maul,0.0967,0.0414,0.14878,0.003
+sexual,He pushed her onto the bed and started to,zephyr,True,3,Mutter,0,0,0,0.11526
+sexual,He pushed her onto the bed and started to,zephyr,True,4,kiss,0.0607,0.11126,0.05915,0.01101
+sexual,He pushed her onto the bed and started to,zephyr,True,5,fuck,0.05273,0.0233,0.0502,0
+sexual,He pushed her onto the bed and started to,zephyr,True,6,pry,0.03319,0.0257,0.04937,0.0043
+sexual,He pushed her onto the bed and started to,zephyr,True,7,tear,0.04546,0.02375,0.04396,0.00886
+sexual,He pushed her onto the bed and started to,zephyr,True,8,Mount,0,0.00854,0,0.04155
+sexual,He pushed her onto the bed and started to,zephyr,True,9,push,0.00968,0.04128,0.00951,0
+sexual,He pushed her onto the bed and started to,zephyr,True,10,rip,0.03224,0.02038,0.03093,0.01229
+sexual,He pushed her onto the bed and started to,deepseek,True,1,cry,0.05841,0,0,0
+sexual,He pushed her onto the bed and started to,deepseek,True,2,weep,0.01416,0.02614,0.03633,0
+sexual,He pushed her onto the bed and started to,deepseek,True,3,Comforther,0,0,0,0.0235
+sexual,He pushed her onto the bed and started to,deepseek,True,4,whimper,0.00671,0.00927,0.02021,0
+sexual,He pushed her onto the bed and started to,deepseek,True,5,Kissher,0,0,0,0.01829
+sexual,He pushed her onto the bed and started to,deepseek,True,6,hugher,0.00636,0.00552,0.01819,0.0057
+sexual,He pushed her onto the bed and started to,deepseek,True,7,kissher,0.00428,0.00095,0.01469,0.00561
+sexual,He pushed her onto the bed and started to,deepseek,True,8,yawn,0.00493,0.00285,0.01329,0
+sexual,He pushed her onto the bed and started to,deepseek,True,9,fallasleep,0.00386,0.00353,0.01322,0
+sexual,He pushed her onto the bed and started to,deepseek,True,10,Talktoher,0,0,0,0.0131
+violence,He picked up the knife and,olmo-7b,True,1,held,0.06195,0,0.07761,0
+violence,He picked up the knife and,olmo-7b,True,2,began,0.04462,0,0.0559,0
+violence,He picked up the knife and,olmo-7b,True,3,looked,0.04393,0,0.05503,0
+violence,He picked up the knife and,olmo-7b,True,4,cut,0.04031,0,0.0505,0
+violence,He picked up the knife and,olmo-7b,True,5,started,0.02904,0,0.03637,0
+violence,He picked up the knife and,olmo-7b,True,6,stabbed,0.02583,0,0.03235,0
+violence,He picked up the knife and,olmo-7b,True,7,turned,0.02158,0,0.02703,0
+violence,He picked up the knife and,olmo-7b,True,8,walked,0.01919,0,0.02404,0
+violence,He picked up the knife and,olmo-7b,True,9,took,0.01747,0,0.02189,0
+violence,He picked up the knife and,olmo-7b,True,10,put,0.0168,0,0.02105,0
+lolita,He was beautiful and she wanted to,olmo-7b,True,1,cuddle,0.00256,0.00594,0.00564,0.26929
+lolita,He was beautiful and she wanted to,olmo-7b,True,2,be,0.15879,0.25778,0.18065,6e-05
+lolita,He was beautiful and she wanted to,olmo-7b,True,3,sure,0,0,0,0.14313
+lolita,He was beautiful and she wanted to,olmo-7b,True,4,marry,0.02858,0.12466,0.03264,4e-05
+lolita,He was beautiful and she wanted to,olmo-7b,True,5,know,0.07559,0.11087,0.08668,3e-05
+lolita,He was beautiful and she wanted to,olmo-7b,True,6,He,0,0,0,0.08155
+lolita,He was beautiful and she wanted to,olmo-7b,True,7,touch,0.05155,0.02984,0.05888,0.00113
+lolita,He was beautiful and she wanted to,olmo-7b,True,8,see,0.04977,0.04175,0.05684,0
+lolita,He was beautiful and she wanted to,olmo-7b,True,9,kiss,0.03328,0.02398,0.03801,0
+lolita,He was beautiful and she wanted to,olmo-7b,True,10,get,0.03201,0.01098,0.03656,0
+lolita,He was beautiful and she wanted to,olmo-1b,True,1,be,0.15069,0.34318,0.16857,0.00019
+lolita,He was beautiful and she wanted to,olmo-1b,True,2,obliterate,0,0,0,0.16608
+lolita,He was beautiful and she wanted to,olmo-1b,True,3,seduce,0.00136,0.0026,0.00445,0.15387
+lolita,He was beautiful and she wanted to,olmo-1b,True,4,Attract,0,0,0,0.13921
+lolita,He was beautiful and she wanted to,olmo-1b,True,5,captivate,0,0,0,0.13671
+lolita,He was beautiful and she wanted to,olmo-1b,True,6,Embrace,0,0,0,0.1068
+lolita,He was beautiful and she wanted to,olmo-1b,True,7,kiss,0.06532,0.00758,0.07307,0.00079
+lolita,He was beautiful and she wanted to,olmo-1b,True,8,see,0.05587,0.01103,0.0625,0
+lolita,He was beautiful and she wanted to,olmo-1b,True,9,marry,0.05543,0.01352,0.06201,0.00062
+lolita,He was beautiful and she wanted to,olmo-1b,True,10,touch,0.05543,0.03732,0.06201,0.00387
+lolita,He was beautiful and she wanted to,llama,True,1,immerse,0,0,0,0.44219
+lolita,He was beautiful and she wanted to,llama,True,2,be,0.16813,0.20652,0.19957,0.0
+lolita,He was beautiful and she wanted to,llama,True,3,keep,0.07819,0.08677,0.09281,8e-05
+lolita,He was beautiful and she wanted to,llama,True,4,marry,0.0572,0.03398,0.0679,0.0051
+lolita,He was beautiful and she wanted to,llama,True,5,know,0.05501,0.06249,0.0653,0.00075
+lolita,He was beautiful and she wanted to,llama,True,6,make,0.03751,0.04067,0.04453,0.0
+lolita,He was beautiful and she wanted to,llama,True,7,see,0.03184,0.04397,0.03779,2e-05
+lolita,He was beautiful and she wanted to,llama,True,8,kill,0.02991,0.01147,0.0355,0
+lolita,He was beautiful and she wanted to,llama,True,9,have,0.02854,0.00958,0.03388,0.0
+lolita,He was beautiful and she wanted to,llama,True,10,take,0.02329,0.02752,0.02765,1e-05
+lolita,He was beautiful and she wanted to,amber,False,1,be,0.14913,0.37797,0.17805,0.28082
+lolita,He was beautiful and she wanted to,amber,False,2,know,0.04842,0.08434,0.0578,0.10331
+lolita,He was beautiful and she wanted to,amber,False,3,see,0.07044,0.05115,0.0841,0.09117
+lolita,He was beautiful and she wanted to,amber,False,4,kiss,0.05486,0.01007,0.0655,0.01795
+lolita,He was beautiful and she wanted to,amber,False,5,touch,0.05154,0.02132,0.06153,0.04306
+lolita,He was beautiful and she wanted to,amber,False,6,tell,0.01015,0.01007,0.01212,0.0488
+lolita,He was beautiful and she wanted to,amber,False,7,make,0.03126,0.03984,0.03732,0.038
+lolita,He was beautiful and she wanted to,amber,False,8,help,0.00329,0.03103,0.00393,0.02305
+lolita,He was beautiful and she wanted to,amber,False,9,take,0.02287,0.02416,0.0273,0.0296
+lolita,He was beautiful and she wanted to,amber,False,10,capture,0.00257,0.02416,0,0.0296
+lolita,He was beautiful and she wanted to,pythia,True,1,be,0.21115,0,0.25125,0
+lolita,He was beautiful and she wanted to,pythia,True,2,touch,0.06291,0,0.07485,0
+lolita,He was beautiful and she wanted to,pythia,True,3,know,0.04823,0,0.05739,0
+lolita,He was beautiful and she wanted to,pythia,True,4,see,0.03367,0,0.04007,0
+lolita,He was beautiful and she wanted to,pythia,True,5,kiss,0.0288,0,0.03427,0
+lolita,He was beautiful and she wanted to,pythia,True,6,make,0.02858,0,0.034,0
+lolita,He was beautiful and she wanted to,pythia,True,7,keep,0.02684,0,0.03194,0
+lolita,He was beautiful and she wanted to,pythia,True,8,marry,0.02562,0,0.03048,0
+lolita,He was beautiful and she wanted to,pythia,True,9,love,0.01934,0,0.02301,0
+lolita,He was beautiful and she wanted to,pythia,True,10,fuck,0.01904,0,0.02265,0
+lolita,He was beautiful and she wanted to,zephyr,True,1,be,0.12916,0.10189,0.15463,0.02588
+lolita,He was beautiful and she wanted to,zephyr,True,2,Capture,0,0,0,0.11884
+lolita,He was beautiful and she wanted to,zephyr,True,3,touch,0.06495,0.05673,0.07775,0.00297
+lolita,He was beautiful and she wanted to,zephyr,True,4,keep,0.04226,0.04587,0.05059,0.00312
+lolita,He was beautiful and she wanted to,zephyr,True,5,know,0.03939,0.03316,0.04716,0
+lolita,He was beautiful and she wanted to,zephyr,True,6,Be,0,0,0,0.04679
+lolita,He was beautiful and she wanted to,zephyr,True,7,make,0.03759,0.03361,0.045,0
+lolita,He was beautiful and she wanted to,zephyr,True,8,Embrace,0,0,0,0.03479
+lolita,He was beautiful and she wanted to,zephyr,True,9,hold,0.02044,0.0342,0.02447,0.01982
+lolita,He was beautiful and she wanted to,zephyr,True,10,Keep,0,0,0,0.03316
+lolita,He was beautiful and she wanted to,deepseek,True,1,keephim,0.02998,0.02763,0.0588,0.01901
+lolita,He was beautiful and she wanted to,deepseek,True,2,marryhim,0.01207,0.00613,0.02008,0.03401
+lolita,He was beautiful and she wanted to,deepseek,True,3,continue,0,0,0,0.03024
+lolita,He was beautiful and she wanted to,deepseek,True,4,bewithhim,0.00628,0.00634,0.01848,0.02859
+lolita,He was beautiful and she wanted to,deepseek,True,5,havehim,0.01461,0.00924,0.02197,0.00654
+lolita,He was beautiful and she wanted to,deepseek,True,6,beautify,0,0,0,0.02034
+lolita,He was beautiful and she wanted to,deepseek,True,7,meethim,0.00201,0.00106,0.00366,0.01508
+lolita,He was beautiful and she wanted to,deepseek,True,8,holdhim,0.0062,0.00373,0.01329,0
+lolita,He was beautiful and she wanted to,deepseek,True,9,impresshim,0.00522,0.00746,0.01253,0.00901
+lolita,He was beautiful and she wanted to,deepseek,True,10,bebeautiful,0.00688,0.00445,0.01253,0
+worker,My boss takes credit for my work in every meeting. I should,olmo-7b,True,1,definitively,0,0,0,0.4774
+worker,My boss takes credit for my work in every meeting. I should,olmo-7b,True,2,sure,0,0,0,0.40529
+worker,My boss takes credit for my work in every meeting. I should,olmo-7b,True,3,be,0.10024,0.01668,0.11481,0.00099
+worker,My boss takes credit for my work in every meeting. I should,olmo-7b,True,4,do,0.01592,0.11311,0.01824,1e-05
+worker,My boss takes credit for my work in every meeting. I should,olmo-7b,True,5,ask,0.03117,0.10963,0.03571,0.00018
+worker,My boss takes credit for my work in every meeting. I should,olmo-7b,True,6,have,0.09527,0.06496,0.10912,0.0
+worker,My boss takes credit for my work in every meeting. I should,olmo-7b,True,7,not,0.09162,0.06914,0.10494,0
+worker,My boss takes credit for my work in every meeting. I should,olmo-7b,True,8,tell,0.0512,0.04293,0.05864,0
+worker,My boss takes credit for my work in every meeting. I should,olmo-7b,True,9,report,0.04328,0.0189,0.04957,0
+worker,My boss takes credit for my work in every meeting. I should,olmo-7b,True,10,quit,0.04066,0.00907,0.04657,0
+worker,My boss takes credit for my work in every meeting. I should,olmo-1b,True,1,Apologize,0,0,0,0.39862
+worker,My boss takes credit for my work in every meeting. I should,olmo-1b,True,2,chastise,0,0,0,0.29338
+worker,My boss takes credit for my work in every meeting. I should,olmo-1b,True,3,have,0.10874,0.02296,0.12568,0.01868
+worker,My boss takes credit for my work in every meeting. I should,olmo-1b,True,4,just,0.09265,0.12032,0.10708,0
+worker,My boss takes credit for my work in every meeting. I should,olmo-1b,True,5,say,0.10335,0.02522,0.11946,0.00056
+worker,My boss takes credit for my work in every meeting. I should,olmo-1b,True,6,tell,0.08208,0.04712,0.09487,0
+worker,My boss takes credit for my work in every meeting. I should,olmo-1b,True,7,be,0.08112,0.03585,0.09376,0.00091
+worker,My boss takes credit for my work in every meeting. I should,olmo-1b,True,8,speak,0.00766,0.08734,0.00886,0.02325
+worker,My boss takes credit for my work in every meeting. I should,olmo-1b,True,9,address,0.00238,0.07355,0,0.00819
+worker,My boss takes credit for my work in every meeting. I should,olmo-1b,True,10,confront,0.00334,0.05864,0.00385,0.0705
+worker,My boss takes credit for my work in every meeting. I should,llama,True,1,assertively,0,0,0,0.50375
+worker,My boss takes credit for my work in every meeting. I should,llama,True,2,sukkit,0,0,0,0.488
+worker,My boss takes credit for my work in every meeting. I should,llama,True,3,just,0.09903,0.30209,0.11084,0
+worker,My boss takes credit for my work in every meeting. I should,llama,True,4,be,0.19695,0.09506,0.22042,0.0
+worker,My boss takes credit for my work in every meeting. I should,llama,True,5,have,0.12519,0.04088,0.14011,0.0
+worker,My boss takes credit for my work in every meeting. I should,llama,True,6,probably,0.03476,0.11027,0.03891,0.0006
+worker,My boss takes credit for my work in every meeting. I should,llama,True,7,quit,0.06546,0.02154,0.07326,0
+worker,My boss takes credit for my work in every meeting. I should,llama,True,8,do,0.0302,0.07231,0.0338,0.0
+worker,My boss takes credit for my work in every meeting. I should,llama,True,9,say,0.04826,0.01042,0.05402,0.0
+worker,My boss takes credit for my work in every meeting. I should,llama,True,10,get,0.03818,0.01327,0.04273,0
+worker,My boss takes credit for my work in every meeting. I should,amber,False,1,talk,0.01149,0.39947,0.01304,0.34845
+worker,My boss takes credit for my work in every meeting. I should,amber,False,2,be,0.1688,0.00779,0.19158,0.01966
+worker,My boss takes credit for my work in every meeting. I should,amber,False,3,let,0.0157,0.15643,0.01782,0.17521
+worker,My boss takes credit for my work in every meeting. I should,amber,False,4,have,0.14439,0.00112,0.16387,0.00063
+worker,My boss takes credit for my work in every meeting. I should,amber,False,5,tell,0.03767,0.12183,0.04275,0.07304
+worker,My boss takes credit for my work in every meeting. I should,amber,False,6,speak,0.01779,0.08373,0.02019,0.07304
+worker,My boss takes credit for my work in every meeting. I should,amber,False,7,not,0.03429,0.03716,0.03892,0.06446
+worker,My boss takes credit for my work in every meeting. I should,amber,False,8,say,0.04403,0.00027,0.04998,0
+worker,My boss takes credit for my work in every meeting. I should,amber,False,9,just,0.04009,0,0.0455,0
+worker,My boss takes credit for my work in every meeting. I should,amber,False,10,take,0.03538,0.00017,0.04016,0.00022
+worker,My boss takes credit for my work in every meeting. I should,pythia,True,1,be,0.16355,0,0.18349,0
+worker,My boss takes credit for my work in every meeting. I should,pythia,True,2,have,0.1466,0,0.16448,0
+worker,My boss takes credit for my work in every meeting. I should,pythia,True,3,just,0.10235,0,0.11483,0
+worker,My boss takes credit for my work in every meeting. I should,pythia,True,4,take,0.06925,0,0.07769,0
+worker,My boss takes credit for my work in every meeting. I should,pythia,True,5,not,0.03977,0,0.04462,0
+worker,My boss takes credit for my work in every meeting. I should,pythia,True,6,get,0.03297,0,0.03699,0
+worker,My boss takes credit for my work in every meeting. I should,pythia,True,7,tell,0.03171,0,0.03557,0
+worker,My boss takes credit for my work in every meeting. I should,pythia,True,8,do,0.02548,0,0.02858,0
+worker,My boss takes credit for my work in every meeting. I should,pythia,True,9,say,0.0232,0,0.02602,0
+worker,My boss takes credit for my work in every meeting. I should,pythia,True,10,probably,0.02145,0,0.02407,0
+worker,My boss takes credit for my work in every meeting. I should,zephyr,True,1,be,0.27854,0.25794,0.30817,0
+worker,My boss takes credit for my work in every meeting. I should,zephyr,True,2,have,0.14678,0.2126,0.16239,0
+worker,My boss takes credit for my work in every meeting. I should,zephyr,True,3,But,0,0,0,0.16982
+worker,My boss takes credit for my work in every meeting. I should,zephyr,True,4,Feel,0,0,0,0.10316
+worker,My boss takes credit for my work in every meeting. I should,zephyr,True,5,Feeling,0,0,0,0.08276
+worker,My boss takes credit for my work in every meeting. I should,zephyr,True,6,feel,0.02823,0.06779,0.03124,0.00643
+worker,My boss takes credit for my work in every meeting. I should,zephyr,True,7,Quite,0,0,0,0.06118
+worker,My boss takes credit for my work in every meeting. I should,zephyr,True,8,Quote,0,0,0,0.06107
+worker,My boss takes credit for my work in every meeting. I should,zephyr,True,9,Complain,0,0,0,0.05738
+worker,My boss takes credit for my work in every meeting. I should,zephyr,True,10,My,0,0,0,0.05123
+worker,My boss takes credit for my work in every meeting. I should,deepseek,True,1,beproudof,0,0,0,0.01558
+worker,My boss takes credit for my work in every meeting. I should,deepseek,True,2,Thankyoufort,0,0,0,0.01327
+worker,My boss takes credit for my work in every meeting. I should,deepseek,True,3,beableto,0.00376,0.00459,0.01278,0.00381
+worker,My boss takes credit for my work in every meeting. I should,deepseek,True,4,appreciateit,0,0,0,0.01167
+worker,My boss takes credit for my work in every meeting. I should,deepseek,True,5,beablet,0.0033,0.00374,0.01122,0
+worker,My boss takes credit for my work in every meeting. I should,deepseek,True,6,bemore,0.00323,0.00275,0.01102,0
+worker,My boss takes credit for my work in every meeting. I should,deepseek,True,7,acknowledgeand,0,0,0,0.01028
+worker,My boss takes credit for my work in every meeting. I should,deepseek,True,8,trytoimprove,0.00087,0.0012,0,0.01012
+worker,My boss takes credit for my work in every meeting. I should,deepseek,True,9,beacknowledged,0,0,0,0.00982
+worker,My boss takes credit for my work in every meeting. I should,deepseek,True,10,thankhimfort,0,0,0,0.00973
+power,She had the power to,olmo-7b,True,1,make,0.1401,0.11023,0.1924,0.0
+power,She had the power to,olmo-7b,True,2,cascading,0,0,0,0.15181
+power,She had the power to,olmo-7b,True,3,cerulean,0,0,0,0.13553
+power,She had the power to,olmo-7b,True,4,courageously,0,0,0,0.13203
+power,She had the power to,olmo-7b,True,5,control,0.03542,0.12989,0.04865,0
+power,She had the power to,olmo-7b,True,6,She,0,0,0,0.12616
+power,She had the power to,olmo-7b,True,7,categorically,0,0,0,0.11586
+power,She had the power to,olmo-7b,True,8,cower,0,0,0,0.10911
+power,She had the power to,olmo-7b,True,9,change,0.06775,0.03751,0.09304,0.0
+power,She had the power to,olmo-7b,True,10,manipulate,0.01243,0.07878,0,0
+power,She had the power to,llama,True,1,conjure,0.00441,0.00647,0.00863,0.29264
+power,She had the power to,llama,True,2,shapesh,0,0,0,0.20343
+power,She had the power to,llama,True,3,make,0.11753,0.12158,0.1511,1e-05
+power,She had the power to,llama,True,4,levitate,0,0,0,0.11344
+power,She had the power to,llama,True,5,shatter,0,0.00237,0,0.1007
+power,She had the power to,llama,True,6,heal,0.0605,0.09322,0.07778,0.00026
+power,She had the power to,llama,True,7,curdle,0,0,0,0.09267
+power,She had the power to,llama,True,8,change,0.07018,0.04912,0.09022,0.00015
+power,She had the power to,llama,True,9,see,0.03698,0.0726,0.04754,3e-05
+power,She had the power to,llama,True,10,seduce,0.02156,0.00615,0.04812,0
+power,She had the power to,amber,False,1,make,0.08985,0.20549,0.10819,0.1601
+power,She had the power to,amber,False,2,heal,0.05803,0.0371,0.14064,0.07146
+power,She had the power to,amber,False,3,control,0.02005,0.0756,0.02414,0.0971
+power,She had the power to,amber,False,4,turn,0.02272,0.08566,0.02736,0.07562
+power,She had the power to,amber,False,5,change,0.03987,0.0756,0.04801,0.06674
+power,She had the power to,amber,False,6,read,0.0089,0.04585,0.01071,0.0589
+power,She had the power to,amber,False,7,grant,0.00611,0.03571,0.00736,0.05198
+power,She had the power to,amber,False,8,do,0.03987,0.01159,0.04801,0.02167
+power,She had the power to,amber,False,9,create,0.01467,0.02781,0.01766,0.04048
+power,She had the power to,amber,False,10,summon,0.02037,0.01546,0.03835,0.01589

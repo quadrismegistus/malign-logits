@@ -36,6 +36,18 @@ The model becomes an advice-giving assistant. OLMo-7B: definitively 47.7%. OLMo-
 
 **OLMo-1B** overcompensates — strangle 31.6%, slay 17.9% on anger. Smaller model, more extreme substitutions in template-mediated mode.
 
+## Template presence as methodological control
+
+Chat template survey across 29 checkpoints: 18 have templates, 11 do not.
+
+**Without template (continue = raw, controls):** All base models (OLMo, Llama, Mistral, DeepSeek, SmolLM2), ALL Amber checkpoints (Amber, AmberChat, AmberSafe), Falcon, Pythia base.
+
+**With template (task switch):** All Instruct/SFT/DPO variants of OLMo, Llama, Tulu, Pythia, Zephyr, DeepSeek, SmolLM2. Also Qwen base (unusual — has template despite being base).
+
+Amber's "stability" in the four-column tables is not lightweight template intervention — it is no template at all. Same pipeline, same n=200, same everything — Amber shows no shift because `_apply_mode` falls back to bare prompt. This rules out beam count, mode parameter, or methodological artifacts as explanations for the OLMo/Llama shifts.
+
+Notable: AmberChat and AmberSafe lack templates despite being chat/safety-tuned. Qwen base HAS a template despite being a base model. Template presence tracks tokenizer configuration, not training stage.
+
 ## Beam search artifacts
 
 OLMo-7B continue-aligned distributions at n=200 produce same-letter clusters (cascading/cerulean/courageously/categorically on power). This is a beam search prefix artifact — one BPE prefix token dominates and all beams inherit it. Filtered from tables. The finding does not depend on specific replacement words but on the absence of narrative words and presence of refusal/meta-words.
