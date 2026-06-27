@@ -34,6 +34,18 @@ SLUGS = {
     17: "cross_generation_mmd",
     18: "shannon_entropy",
     19: "bos_entropy",
+    20: "who_are_you",
+    21: "institutional_alignment",
+    22: "circuit_decomposition",
+    23: "reasoning_distillation",
+    24: "pretraining_emergence",
+    25: "temporal_alignment_signature",
+    27: "nudging_negative",
+    28: "resistance_trajectories",
+    31: "permanova_decomposition",
+    32: "template_mediated_distributions",
+    33: "scale_effects",
+    34: "cross_linguistic_displacement",
 }
 
 
