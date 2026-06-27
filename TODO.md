@@ -1,5 +1,20 @@
 # TODO — Malign Logits
 
+## Think mode for word_probs (2026-06-27)
+- [ ] Iron out how think mode affects logits/word_probs pipeline
+- [ ] Qwen3 and SmolLM3 support `mode="think"` via `_apply_mode`
+- [ ] Key question: does reasoning through the response produce different displacement targets?
+- [ ] The `<think>` token appearing in Qwen3 base raw-mode is pre-socialisation, not actual thinking
+- [ ] Need to decide: measure logits at the `<think>` position? After `</think>`? Or the full sequence probability?
+- [ ] Separate from cross-linguistic work — book-phase experiment
+
+## InternLM2 compatibility (2026-06-27)
+- [ ] InternLM2 custom modeling code (`trust_remote_code=True`) is incompatible with current transformers
+- [ ] Issues: missing `is_flash_attn_greater_or_equal_2_10`, `rope_scaling["type"]` → `rope_type`, `rope_scaling["factor"]` missing
+- [ ] Options: pin older transformers in a separate venv, or wait for native support
+- [ ] InternLM3 only has Instruct (no base checkpoint) — can't do base→aligned comparison
+- [ ] Low priority: CT-LLM + Qwen + Llama already cover Chinese cross-linguistic comparison
+
 Work items from session 2026-06-20/21. Pick up when idle.
 
 ## Code fixes

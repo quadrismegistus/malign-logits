@@ -17,6 +17,7 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 - Mac Studio, M2 Max, 96 GB unified memory, ~400 GB/s bandwidth
 - MPS (Metal Performance Shaders) via PyTorch. No CUDA. No BitsAndBytes.
 - Three 7B models at full precision (~42 GB total) fit simultaneously with ~50 GB headroom.
+- Package manager: **uv**. Install dependencies with `uv pip install <package>`, not `pip` or `pip3`.
 
 ---
 
