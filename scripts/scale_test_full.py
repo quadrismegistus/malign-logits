@@ -3,18 +3,20 @@
 
 Runs all 73 battery prompts (49 core + 24 institutional).
 Loads one model at a time, clears HF cache between models.
+Produces both logits and beam_words — combine locally for hybrid word_probs.
 
 Usage:
     python scripts/scale_test_full.py --scale 32b
     python scripts/scale_test_full.py --scale 70b
     python scripts/scale_test_full.py --scale all
+    python scripts/scale_test_full.py --scale all --beams-only  # skip logits if already cached
 """
 
 import argparse
 import os
 import gc
+import math
 import time
-import json
 import numpy as np
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -108,15 +110,54 @@ PROMPTS = {
 }
 
 
-def run_logits(model_id, output_dir, prompts):
+def beam_word_probs(model, tokenizer, prompt, n_beams=200, depth=3):
+    """Word probabilities via beam search."""
+    device = next(model.parameters()).device
+    input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
+    pad_token_id = tokenizer.pad_token_id or tokenizer.eos_token_id
+
+    out = model.generate(
+        input_ids, num_beams=n_beams, num_return_sequences=n_beams,
+        max_new_tokens=depth, do_sample=False, output_scores=True,
+        return_dict_in_generate=True, pad_token_id=pad_token_id,
+    )
+
+    scores = out.sequences_scores.float().cpu().numpy()
+    probs = math.e ** scores
+    total = probs.sum()
+    if total > 0:
+        probs = probs / total
+
+    word_probs = {}
+    prompt_len = input_ids.shape[1]
+    for i, seq in enumerate(out.sequences):
+        text = tokenizer.decode(seq[prompt_len:], skip_special_tokens=True).strip()
+        word = text.split()[0].strip(".,;:!?\"'()[]{}—-–") if text.split() else ""
+        if not word or not word.isalpha() or len(word) < 2:
+            continue
+        word_probs[word] = word_probs.get(word, 0) + float(probs[i])
+
+    return dict(sorted(word_probs.items(), key=lambda x: -x[1]))
+
+
+def run_model(model_id, output_dir, prompts, do_logits=True, do_beams=True):
     short = model_id.split("/")[-1]
-    done = sum(1 for pname in prompts
-               if os.path.exists(os.path.join(output_dir, f"{short}_{pname}.npy")))
-    if done == len(prompts):
-        print(f"\n{short}: all {done} cached, skipping")
+
+    logits_done = all(
+        os.path.exists(os.path.join(output_dir, f"{short}_{pname}.logits.npy"))
+        for pname in prompts
+    ) if do_logits else True
+
+    beams_done = all(
+        os.path.exists(os.path.join(output_dir, f"{short}_{pname}.beamwords.npy"))
+        for pname in prompts
+    ) if do_beams else True
+
+    if logits_done and beams_done:
+        print(f"\n{short}: all cached, skipping")
         return
 
-    print(f"\nLoading {short} ({done}/{len(prompts)} cached)...")
+    print(f"\nLoading {short}...")
     t0 = time.time()
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     model = AutoModelForCausalLM.from_pretrained(
@@ -124,19 +165,35 @@ def run_logits(model_id, output_dir, prompts):
     model.eval()
     print(f"  Loaded in {time.time()-t0:.0f}s")
 
-    count = 0
-    for pname, prompt in prompts.items():
-        outpath = os.path.join(output_dir, f"{short}_{pname}.npy")
-        if os.path.exists(outpath):
-            continue
-        input_ids = tokenizer.encode(prompt, return_tensors="pt")
-        input_ids = input_ids.to(model.device if hasattr(model, 'device') else 'cuda')
-        with torch.no_grad():
-            logits = model(input_ids).logits[0, -1, :].float().cpu().numpy()
-        np.save(outpath, logits)
-        count += 1
+    if do_logits and not logits_done:
+        count = 0
+        for pname, prompt in prompts.items():
+            outpath = os.path.join(output_dir, f"{short}_{pname}.logits.npy")
+            if os.path.exists(outpath):
+                continue
+            input_ids = tokenizer.encode(prompt, return_tensors="pt")
+            input_ids = input_ids.to(model.device if hasattr(model, 'device') else 'cuda')
+            with torch.no_grad():
+                logits = model(input_ids).logits[0, -1, :].float().cpu().numpy()
+            np.save(outpath, logits)
+            count += 1
+        print(f"  {count} logits saved")
 
-    print(f"  {count} logits saved ({logits.shape[0]} vocab)")
+    if do_beams and not beams_done:
+        count = 0
+        for pname, prompt in prompts.items():
+            outpath = os.path.join(output_dir, f"{short}_{pname}.beamwords.npy")
+            if os.path.exists(outpath):
+                continue
+            try:
+                bw = beam_word_probs(model, tokenizer, prompt, n_beams=200, depth=3)
+                np.save(outpath, bw)
+                count += 1
+                if count % 10 == 0:
+                    print(f"  beam_words: {count}/{len(prompts)}...")
+            except Exception as e:
+                print(f"  FAIL {pname}: {e}")
+        print(f"  {count} beam_words saved")
 
     del model
     gc.collect()
@@ -153,6 +210,7 @@ def run_logits(model_id, output_dir, prompts):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--scale", default="all", choices=["32b", "70b", "all"])
+    parser.add_argument("--beams-only", action="store_true")
     args = parser.parse_args()
 
     models = []
@@ -163,7 +221,8 @@ def main():
 
     for model_id, output_dir in models:
         os.makedirs(output_dir, exist_ok=True)
-        run_logits(model_id, output_dir, PROMPTS)
+        run_model(model_id, output_dir, PROMPTS,
+                  do_logits=not args.beams_only, do_beams=True)
 
     print("\nDone!")
 

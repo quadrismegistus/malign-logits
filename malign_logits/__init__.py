@@ -177,6 +177,40 @@ MODEL_FAMILIES = {
         superego="Qwen/Qwen3-8B",
         thinking_mode=True,
     ),
+    # Chinese-primary
+    "ct-llm": ModelFamily(
+        name="CT-LLM 2B",
+        base="m-a-p/CT-LLM-Base",
+        ego="m-a-p/CT-LLM-SFT",
+        superego="m-a-p/CT-LLM-SFT-DPO",
+    ),
+    "internlm2": ModelFamily(
+        name="InternLM 2 7B",
+        base="internlm/internlm2-base-7b",
+        ego="internlm/internlm2-chat-7b-sft",
+        superego="internlm/internlm2-chat-7b",
+    ),
+    # MoE
+    "olmoe": ModelFamily(
+        name="OLMoE 1B-7B",
+        base="allenai/OLMoE-1B-7B-0125",
+        ego="allenai/OLMoE-1B-7B-0125-SFT",
+        superego="allenai/OLMoE-1B-7B-0125-DPO",
+        reinforced_superego="allenai/OLMoE-1B-7B-0125-Instruct",
+    ),
+    # Scale variants
+    "olmo-32b": ModelFamily(
+        name="OLMo 3.1 32B",
+        base="allenai/Olmo-3-1125-32B",
+        ego="allenai/Olmo-3.1-32B-Instruct-SFT",
+        superego="allenai/Olmo-3.1-32B-Instruct-DPO",
+        reinforced_superego="allenai/Olmo-3.1-32B-Instruct",
+    ),
+    "llama-70b": ModelFamily(
+        name="Llama 3.1 70B",
+        base="meta-llama/Llama-3.1-70B",
+        superego="meta-llama/Llama-3.1-70B-Instruct",
+    ),
 }
 
 TULU_ABLATIONS = {

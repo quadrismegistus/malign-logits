@@ -91,12 +91,25 @@ NICKNAMES = {
     "allenai/Olmo-3-7B-Instruct": "olmo-instruct",
     "allenai/Olmo-3-7B-Think-SFT": "olmo-think-sft",
     "allenai/Olmo-3-7B-Think-DPO": "olmo-think-dpo",
+    # OLMoE (MoE)
+    "allenai/OLMoE-1B-7B-0125": "olmoe",
+    "allenai/OLMoE-1B-7B-0125-SFT": "olmoe-sft",
+    "allenai/OLMoE-1B-7B-0125-DPO": "olmoe-dpo",
+    "allenai/OLMoE-1B-7B-0125-Instruct": "olmoe-instruct",
+    # OLMo 32B
+    "allenai/Olmo-3-1125-32B": "olmo-32b",
+    "allenai/Olmo-3.1-32B-Instruct-SFT": "olmo-32b-sft",
+    "allenai/Olmo-3.1-32B-Instruct-DPO": "olmo-32b-dpo",
+    "allenai/Olmo-3.1-32B-Instruct": "olmo-32b-instruct",
     # DeepSeek
     "deepseek-ai/deepseek-llm-7b-base": "deepseek",
     "deepseek-ai/deepseek-llm-7b-chat": "deepseek-chat",
     # Llama
     "meta-llama/Llama-3.1-8B": "llama",
     "meta-llama/Llama-3.1-8B-Instruct": "llama-instruct",
+    # Llama 70B
+    "meta-llama/Llama-3.1-70B": "llama-70b",
+    "meta-llama/Llama-3.1-70B-Instruct": "llama-70b-instruct",
     # Tulu (Llama-based)
     "allenai/Llama-3.1-Tulu-3-8B-SFT": "tulu-sft",
     "allenai/Llama-3.1-Tulu-3-8B-DPO": "tulu-dpo",
@@ -129,9 +142,18 @@ NICKNAMES = {
     # Gemma
     "google/gemma-7b": "gemma",
     "google/gemma-7b-it": "gemma-instruct",
-    # InternLM
+    # InternLM 2
+    "internlm/internlm2-base-7b": "internlm2",
+    "internlm/internlm2-7b": "internlm2-continued",
+    "internlm/internlm2-chat-7b-sft": "internlm2-sft",
+    "internlm/internlm2-chat-7b": "internlm2-chat",
+    # InternLM 2.5
     "internlm/internlm2_5-7b": "internlm",
     "internlm/internlm2_5-7b-chat": "internlm-chat",
+    # CT-LLM (Chinese-primary)
+    "m-a-p/CT-LLM-Base": "ct-llm",
+    "m-a-p/CT-LLM-SFT": "ct-llm-sft",
+    "m-a-p/CT-LLM-SFT-DPO": "ct-llm-dpo",
 }
 
 
