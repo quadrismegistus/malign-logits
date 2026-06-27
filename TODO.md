@@ -1,5 +1,12 @@
 # TODO — Malign Logits
 
+## Next model families to run (2026-06-27)
+- [ ] **Archangel (Pythia 2.8B)** — DPO vs KTO vs PPO vs SLIC on same base+SFT. Only family with 4 alignment methods. `ContextualAI/archangel_sft_pythia2.8b` + 4 variants. Tiny, fast.
+- [ ] **OLMo Hybrid 7B** — SSM-Transformer hybrid, 3 stages. Tests if displacement is Transformer-specific. `allenai/Olmo-Hybrid-7B` / `SFT` / `DPO`.
+- [ ] **Falcon-Mamba 7B** — Pure SSM (Mamba), 2 stages. No attention. `tiiuae/falcon-mamba-7b` / `instruct`.
+- Queue: run sequentially after MAP-Neo 2×2 completes. Full pipeline (logits + beam_words + word_probs).
+- See `docs/model_candidates.md` for full survey.
+
 ## Think mode for word_probs (2026-06-27)
 - [ ] Iron out how think mode affects logits/word_probs pipeline
 - [ ] Qwen3 and SmolLM3 support `mode="think"` via `_apply_mode`

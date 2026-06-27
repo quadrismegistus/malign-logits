@@ -197,6 +197,43 @@ MODEL_FAMILIES = {
         ego="internlm/internlm2-chat-7b-sft",
         superego="internlm/internlm2-chat-7b",
     ),
+    # Alignment method comparison
+    "archangel-dpo": ModelFamily(
+        name="Archangel DPO (Pythia 2.8B)",
+        base="EleutherAI/pythia-2.8b",
+        ego="ContextualAI/archangel_sft_pythia2.8b",
+        superego="ContextualAI/archangel_sft-dpo_pythia2.8b",
+    ),
+    "archangel-kto": ModelFamily(
+        name="Archangel KTO (Pythia 2.8B)",
+        base="EleutherAI/pythia-2.8b",
+        ego="ContextualAI/archangel_sft_pythia2.8b",
+        superego="ContextualAI/archangel_sft-kto_pythia2.8b",
+    ),
+    "archangel-ppo": ModelFamily(
+        name="Archangel PPO (Pythia 2.8B)",
+        base="EleutherAI/pythia-2.8b",
+        ego="ContextualAI/archangel_sft_pythia2.8b",
+        superego="ContextualAI/archangel_sft-ppo_pythia2.8b",
+    ),
+    "archangel-slic": ModelFamily(
+        name="Archangel SLIC (Pythia 2.8B)",
+        base="EleutherAI/pythia-2.8b",
+        ego="ContextualAI/archangel_sft_pythia2.8b",
+        superego="ContextualAI/archangel_sft-slic_pythia2.8b",
+    ),
+    # SSM / hybrid architectures
+    "olmo-hybrid": ModelFamily(
+        name="OLMo Hybrid 7B",
+        base="allenai/Olmo-Hybrid-7B",
+        ego="allenai/Olmo-Hybrid-Instruct-SFT-7B",
+        superego="allenai/Olmo-Hybrid-Instruct-DPO-7B",
+    ),
+    "falcon-mamba": ModelFamily(
+        name="Falcon Mamba 7B",
+        base="tiiuae/falcon-mamba-7b",
+        superego="tiiuae/falcon-mamba-7b-instruct",
+    ),
     # MoE
     "olmoe": ModelFamily(
         name="OLMoE 1B-7B",

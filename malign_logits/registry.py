@@ -91,6 +91,20 @@ NICKNAMES = {
     "allenai/Olmo-3-7B-Instruct": "olmo-instruct",
     "allenai/Olmo-3-7B-Think-SFT": "olmo-think-sft",
     "allenai/Olmo-3-7B-Think-DPO": "olmo-think-dpo",
+    # Archangel (alignment method comparison on Pythia 2.8B)
+    "EleutherAI/pythia-2.8b": "pythia-2.8b",
+    "ContextualAI/archangel_sft_pythia2.8b": "archangel-sft",
+    "ContextualAI/archangel_sft-dpo_pythia2.8b": "archangel-dpo",
+    "ContextualAI/archangel_sft-kto_pythia2.8b": "archangel-kto",
+    "ContextualAI/archangel_sft-ppo_pythia2.8b": "archangel-ppo",
+    "ContextualAI/archangel_sft-slic_pythia2.8b": "archangel-slic",
+    # OLMo Hybrid (SSM-Transformer)
+    "allenai/Olmo-Hybrid-7B": "olmo-hybrid",
+    "allenai/Olmo-Hybrid-Instruct-SFT-7B": "olmo-hybrid-sft",
+    "allenai/Olmo-Hybrid-Instruct-DPO-7B": "olmo-hybrid-dpo",
+    # Falcon Mamba (pure SSM)
+    "tiiuae/falcon-mamba-7b": "falcon-mamba",
+    "tiiuae/falcon-mamba-7b-instruct": "falcon-mamba-instruct",
     # MAP-Neo (bilingual Chinese+English)
     "m-a-p/neo_7b": "map-neo",
     "m-a-p/neo_7b_sft_v0.1": "map-neo-sft",
