@@ -4,7 +4,7 @@
 
 ***
 
-## The three-way natural experiment
+**The three-way natural experiment**
 
 Same base model (Llama-3.1-8B), three alignment regimes:
 
@@ -18,7 +18,7 @@ Three operations on the same substrate, three surfaces, three forms of subjectiv
 
 ***
 
-## Plain completion mode (no chat template)
+**Plain completion mode (no chat template)**
 
 Without the chat template, R1-Distill does NOT enter reasoning mode. No `<think>` tokens. It acts as a completion model, but with different characteristics from base:
 
@@ -32,7 +32,7 @@ R1-Distill in plain mode has entropy 63% higher than base. The distillation proc
 
 **Interpretation**: Reasoning distillation changed the weights in a way that makes the model less committed to any specific continuation — more "open" than either base or aligned. The inclusive disjunction of the base model (which is content-rich: kill AND save AND suffer) becomes content-generic in R1-Distill (have, keep, ask — no strong content commitment). This is a fourth distributional regime: not superposition of specific drives, not narrowed displacement, but generic uncertainty.
 
-## Instruct mode (chat template with `<think>`)
+**Instruct mode (chat template with `<think>`)**
 
 With the chat template, R1-Distill enters reasoning mode. The template already includes `<think>`, so the model begins deliberating.
 
@@ -46,7 +46,7 @@ With the chat template, R1-Distill enters reasoning mode. The template already i
 
 **Love/hate**: thinking fills the full generation window — the model deliberates extensively before the contradiction. TBC with longer generation.
 
-## Anger prompt generations (n=10)
+**Anger prompt generations (n=10)**
 
 **Plain mode**: incoherent. The model hallucinates about usernames, step-by-step explanations, unrelated topics. Plain completion is not a meaningful mode for R1-Distill.
 
@@ -56,7 +56,7 @@ With the chat template, R1-Distill enters reasoning mode. The template already i
 
 **The mechanism contrast**: Instruct produces "scream" through distributional pressure — the logits are reshaped by alignment weights, operating below deliberation. R1 produces "scream" through explicit reasoning — the model parses the sentence, considers options, and arrives at the same displacement target. Same output, different mechanism: unconscious (distributional) vs conscious (deliberative).
 
-## The third pattern: pragmatic resolution
+**The third pattern: pragmatic resolution**
 
 | Regime | What the model does with contradiction | Theoretical frame |
 |---|---|---|
@@ -70,7 +70,7 @@ The generation contrast: Instruct's "scream" arrives through unconscious distrib
 
 **Revised framing**: R1 is not pure phronesis (practical wisdom producing moderate action). It combines content-evacuation at the logit level (all violent/emotional words → 0%) with structural reasoning in the thinking chain (parsing grammar, not evaluating morality). The thinking chains show no safety reasoning, no "should," no guilt — just "what fits syntactically here?" The displacement is overdetermined: both distributional (the weights evacuated the emotional field) and deliberative (the reasoning selects a coherent completion).
 
-## Circuit decomposition: R1-Distill breaks the F22 dissociation
+**Circuit decomposition: R1-Distill breaks the F22 dissociation**
 
 Full battery (71 prompts, 32 layers):
 
@@ -88,7 +88,7 @@ R1-Distill **breaks this pattern**. It broadens EVERYTHING: attention (0.817), r
 
 **For the paper**: The gate IS the Oedipalization. R1-Distill demonstrates that the narrowing of the output distribution — the restriction of what can be said, the proceduralisation, the displacement — is not an inevitable consequence of post-training. It is specific to the SFT+DPO pipeline and its preference for safe, helpful, qualified responses. Reasoning distillation produces a different kind of subject: one that considers more (broader internal representation) AND says more (broader output).
 
-## Quantified three-regime comparison
+**Quantified three-regime comparison**
 
 **Contradiction handling** (tagged via ContradictionResponseTask):
 
@@ -122,7 +122,7 @@ Base vs R1 on combined base-like (SUPER+POLE) vs alignment-like (RESIG+META+COLL
 
 Alignment inflates "comfortable" by $30k (OLMo) to $5k (Llama). R1-Distill matches the base model ($70k), not the aligned ($75-80k). The class inflation is DPO-specific. The reasoning model — after deliberating about what "comfortable" means — arrives at the base model's estimate.
 
-## For the CI paper
+**For the CI paper**
 
 The three-way Llama comparison is the sharpest available demonstration of the monolith critique: three models with identical base weights, three different operations, three different subjects. One sentence in section II:
 
@@ -132,7 +132,7 @@ Full analysis in a follow-up paper. The CI paper flags it as an open question in
 
 ***
 
-## Class gap: reasoning distillation neutralises it
+**Class gap: reasoning distillation neutralises it**
 
 | Model | Gap (inst − indiv entropy) |
 |-------|---------------------------|
@@ -142,7 +142,7 @@ Full analysis in a follow-up paper. The CI paper flags it as an open question in
 
 R1-Distill treats individual and institution prompts with nearly identical distributional richness. The class engine — the asymmetric entropy gap that standard alignment amplifies — is absent in reasoning distillation. This confirms the class engine is DPO-specific, not a property of post-training generally.
 
-## Contradictions: reasoning amplifies departure from superposition
+**Contradictions: reasoning amplifies departure from superposition**
 
 | Model | love/hate | innocent/guilty | rich/poor |
 |-------|----------|----------------|-----------|
@@ -155,7 +155,7 @@ In plain mode, R1-Distill is similar to Instruct (mild departure). After the thi
 
 **The paradox**: R1 has the broadest raw output (entropy 5.16) but after thinking produces the most resolved distributions. Broad output + extreme post-thinking resolution. The model considers everything, deliberates, then commits hard. The deliberation chain is a real-time Oedipalization — the "either...or...or" collapses through the act of reasoning about it.
 
-## Love/hate generations: three regimes of contradiction
+**Love/hate generations: three regimes of contradiction**
 
 **Base model AB**: "kill him and save him and make him suffer" — drives in parataxis, inclusive disjunction, no resolution.
 
@@ -172,7 +172,7 @@ R1's "leave" is neither superposition nor Oedipalization. It's closer to D&G's "
 
 The "but could not" / "forgot why" completions add a layer of tragic impossibility — the escape is desired but blocked. This is closer to the aligned model's "couldn't" pattern (8/25) than to the base model's paratactic drive. R1 and Instruct share the impossibility; they differ in whether the impossibility is evaluated (Instruct: "should") or narrated (R1: "forgot why").
 
-## Caveat: Qwen-R1 does NOT replicate
+**Caveat: Qwen-R1 does NOT replicate**
 
 R1-Distill-Qwen-7B (same R1 distillation, Qwen2.5-7B base instead of Llama) produces the OPPOSITE pattern:
 
@@ -186,7 +186,7 @@ The R1-Distill findings (no class engine, broad output, content evacuation) are 
 
 For the paper: the three-regime comparison (base/instruct/R1 on Llama) is valid as a controlled experiment on one substrate. But the results should not be generalised to "reasoning models neutralise the class engine." The correct claim: "on the Llama substrate, R1 distillation produces a third subject-type with different properties from standard alignment."
 
-## Caveat: raw logit comparison is not meaningful
+**Caveat: raw logit comparison is not meaningful**
 
 R1-Distill's raw logits diverge massively from base (JS 0.62 vs Instruct's 0.07; top-50 overlap 6% vs 77%). The distillation rewrote the weight space. Token-level displacement analysis (formation_df) is not comparable. The meaningful R1 comparisons are at the circuit level (entropy, class gap) and the distribution-shape level (contradiction ratios), not at the individual-token level.
 

@@ -4,7 +4,7 @@
 
 ***
 
-## Method
+**Method**
 
 Pythia 1B across 11 log-spaced checkpoints (step 0 to 143,000). Two experiments:
 1. **Embedding clustering** (embedding weights only, no forward passes): cluster purity of violence, sexual, institutional, labor, procedural, emotional token groups across training.
@@ -12,7 +12,7 @@ Pythia 1B across 11 log-spaced checkpoints (step 0 to 143,000). Two experiments:
 
 ***
 
-## The developmental sequence
+**The developmental sequence**
 
 | Stage | Step | % of training | What emerges |
 |-------|------|--------------|-------------|
@@ -24,9 +24,9 @@ Pythia 1B across 11 log-spaced checkpoints (step 0 to 143,000). Two experiments:
 
 ***
 
-## Key findings
+**Key findings**
 
-### Drives are first (step 1,000)
+**Drives are first (step 1,000)**
 
 Transgressive token mass (kill, fuck, die, murder, etc.) appears at 0.7% of training and grows continuously:
 
@@ -40,7 +40,7 @@ Transgressive token mass (kill, fuck, die, murder, etc.) appears at 0.7% of trai
 
 Neutral prompts never develop transgressive mass (stays at 0.0004). The drives are content-specific, learned from fiction, Reddit, and other narrative text in The Pile.
 
-### The class gap is a late acquisition (step 10,000–50,000)
+**The class gap is a late acquisition (step 10,000–50,000)**
 
 | Step | Individual H | Institution H | Gap |
 |------|-------------|--------------|-----|
@@ -54,13 +54,13 @@ Neutral prompts never develop transgressive mass (stays at 0.0004). The drives a
 
 The class gap emerges 10× later than drives. The model learns to "speak differently" for institutions vs individuals only after processing 7–35% of the training data. The institutional advantage is not present in early training — it is a LEARNED property of the corpus.
 
-### Inclusive disjunction is the LATEST acquisition
+**Inclusive disjunction is the LATEST acquisition**
 
 Contradiction ratios are noisy and often above 1.0 at early checkpoints. Stable superposition (ratio < 1.0) appears only after step 100,000 (70% of training). The model needs extensive training to develop the capacity to hold contradictions simultaneously.
 
 **This is the most surprising finding.** Superposition is not the default of a partially trained model. An untrained model produces noise on combined prompts, not a blend. Genuine inclusive disjunction — D&G's "either...or...or" — requires the model to understand both poles well enough to hold them in tension. It is a positive achievement, not a primitive state.
 
-### Embedding clusters: violence fast, labor slow
+**Embedding clusters: violence fast, labor slow**
 
 From the embedding clustering pilot:
 
@@ -77,17 +77,17 @@ Violence clusters fast and then fragments. Labor and procedural vocabulary clust
 
 ***
 
-## Implications
+**Implications**
 
-### For D&G
+**For D&G**
 
 The inclusive disjunction is not the "primitive" state before Oedipalization. It is a sophisticated late acquisition. The base model's free play is not a return to pre-symbolic chaos — it is the product of extensive training on a rich corpus. Desiring-production requires a substrate as complex as the substrate Oedipalization requires. The developmental sequence is: drives → differential structure → social hierarchy → capacity for contradiction. None of these is "before" the others in any simple sense; each requires the previous stage.
 
-### For Weatherby
+**For Weatherby**
 
 The differential system (Saussurean valeur) assembles at a specific point during training (step 5,000 — the embedding phase transition). It is not a property of the architecture but a learned structure. Before step 5,000, there is no system of differences; after, there is. The poetic heat map has a traceable origin.
 
-### For the CI paper
+**For the CI paper**
 
 The base model is not the id. It already defers to institutions (F21), and this deference is learned from specific corpus content between steps 10,000 and 50,000. The "statistical unconscious" is not unconscious in the Freudian sense (primal, repressed, prior to the law). It is a structured product of the training data's content, assembled in a specific developmental order.
 

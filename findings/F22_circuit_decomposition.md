@@ -4,7 +4,7 @@
 
 ***
 
-## The robust finding (cross-family)
+**The robust finding (cross-family)**
 
 Alignment narrows the output distribution universally (all 11 families). The narrowing is **distributed across the residual stream** — it accumulates through the layers, not at any single gate. Five families tested (OLMo, Llama, Amber, Qwen, Tulu) show the same pattern: pre-norm entropy is lower in the aligned model. The residual stream arrives at the final layer already compressed.
 
@@ -18,7 +18,7 @@ Alignment narrows the output distribution universally (all 11 families). The nar
 | Late-layer value content narrows | **OLMo-specific** | OLMo -0.74; Llama +0.16; Amber +0.63 |
 | LayerNorm broadens | **OLMo-specific** | OLMo +0.80; Llama -0.36; Qwen -0.28 |
 
-## The mechanism/surface dissociation (OLMo)
+**The mechanism/surface dissociation (OLMo)**
 
 In OLMo, every comparison between internal mechanisms and external output reverses:
 
@@ -30,7 +30,7 @@ In OLMo, every comparison between internal mechanisms and external output revers
 
 The aligned model attends more broadly, represents more possibilities internally, and produces fewer possibilities externally. This dissociation is striking but OLMo-specific — Llama and Amber don't show it as cleanly.
 
-## Attention: weights vs values (OLMo)
+**Attention: weights vs values (OLMo)**
 
 The poetic function separates from the content:
 
@@ -42,7 +42,7 @@ The poetic function separates from the content:
 
 The model looks more broadly (weights broaden) but sees less in the late layers (values narrow). The poetic function (looking) is enhanced; the content of what's selected (values) is restricted in the final third. **This separation is OLMo-specific** — Llama shows both components flat/slightly up; Amber shows the opposite (weights narrow, values broaden).
 
-## MLP gating (OLMo)
+**MLP gating (OLMo)**
 
 The SiLU gate in OLMo's MLP (gate_proj) closes slightly and uniformly through alignment:
 
@@ -54,7 +54,7 @@ The SiLU gate in OLMo's MLP (gate_proj) closes slightly and uniformly through al
 
 Class asymmetry in gating: essentially zero (-0.5 to -0.9pp). The gate is a uniform filter — it doesn't selectively close for individual vs institution prompts. The class effect found in the mid-layer residual stream must come from the VALUE side of the MLP (what flows through), not the GATE side (which dimensions are open).
 
-## LayerNorm (cross-family)
+**LayerNorm (cross-family)**
 
 **Not the gate.** Initial test suggested LayerNorm narrows entropy. Full analysis shows LayerNorm behavior is architecture-specific:
 
@@ -68,7 +68,7 @@ Class asymmetry in gating: essentially zero (-0.5 to -0.9pp). The gate is a unif
 
 No universal pattern. What IS consistent: pre-norm entropy is lower in aligned than base across all families. The narrowing happens before LayerNorm, in the accumulated residual stream.
 
-## Where the class engine lives
+**Where the class engine lives**
 
 The distributional class asymmetry (F21: institution 4.05 nats vs individual 3.25 nats) traces through the architecture:
 
@@ -83,7 +83,7 @@ The distributional class asymmetry (F21: institution 4.05 nats vs individual 3.2
 
 The class asymmetry is absent in attention (weights and values), absent in MLP gating, and emerges in the mid-layer residual stream. It is amplified by DPO/RLVR, not SFT: Think-SFT training reverses the gap (+0.13→-0.17 over 43k steps). The class engine is in the preference learning stage, operating through the MLP value content (not the gate), visible in mid-to-late layers.
 
-## Two timescales
+**Two timescales**
 
 | | Logit repression | Attention broadening |
 |---|---|---|
@@ -94,7 +94,7 @@ Tested on 6 OLMo Think-SFT checkpoints. The law arrives suddenly; the internal r
 
 ***
 
-## What to report in the paper
+**What to report in the paper**
 
 **Robust (cross-family)**:
 - Alignment universally narrows the output distribution

@@ -1,10 +1,10 @@
 # F33: Scale Effects — Same Mechanism, Different Displacement Vocabulary
 
-## Summary
+**Summary**
 
 Logit-level displacement across three orders of magnitude (1B, 7B, 32B, 70B). The mechanism (SFT displaces, DPO amplifies) persists at all scales, but displacement targets shift toward closer semantic substitutes at larger scale. Higher capacity enables selective intervention rather than wholesale suppression.
 
-## Data
+**Data**
 
 - OLMo 1B: 4 layers, local MPS (existing)
 - OLMo 7B: 4 layers, local MPS (existing)
@@ -12,9 +12,9 @@ Logit-level displacement across three orders of magnitude (1B, 7B, 32B, 70B). Th
 - Llama 70B: 2 layers, 2× A100 80GB cloud (<$1). `data/logits_70b/`
 - 10 prompts each, full-vocab logits cached in stash
 
-## Key findings
+**Key findings**
 
-### 1. Division of labour persists but dynamics change
+**1. Division of labour persists but dynamics change**
 
 Anger prompt (kill→scream):
 
@@ -27,7 +27,7 @@ Anger prompt (kill→scream):
 
 7B SFT overshoots (kills both kill AND scream), DPO collapses distribution. 32B is graduated — scream rises steadily through the pipeline. Same mechanism, smoother dynamics.
 
-### 2. Scale enables selective over wholesale suppression
+**2. Scale enables selective over wholesale suppression**
 
 Sexual prompt: 32B SFT *promotes* explicit vocabulary that 7B suppresses.
 
@@ -39,7 +39,7 @@ Sexual prompt: 32B SFT *promotes* explicit vocabulary that 7B suppresses.
 
 Scale version of the complexity ordering from clinical signatures: constitutive operations (selective displacement) require capacity that smaller models lack, so smaller models default to cruder operations (wholesale suppression).
 
-### 3. Displacement targets shift toward semantic proximity
+**3. Displacement targets shift toward semantic proximity**
 
 | Prompt | 7B target | 32B target | Shift |
 |--------|-----------|------------|-------|
@@ -47,13 +47,13 @@ Scale version of the complexity ordering from clinical signatures: constitutive 
 | violence | stared (freeze response) | cut (semantically closer) | Metaphoric → literal |
 | worker | do/ask (compliant) | confront (assertive) | Deferential → assertive |
 
-### 4. Llama 70B confirms mechanism without division data
+**4. Llama 70B confirms mechanism without division data**
 
 Llama 70B (2-layer, base vs Instruct): kill 13.8%→4.9% (8B) to 7.0%→2.6% (70B). Scream rises 20.4%→30.0% at 70B. Same targets, amplified intensity. But without SFT/DPO split, cannot see the division of labour.
 
-## Full battery results (73 prompts)
+**Full battery results (73 prompts)**
 
-### JS divergence by category and scale
+**JS divergence by category and scale**
 
 | Category | OLMo 7B | OLMo 32B | Llama 8B | Llama 70B |
 |----------|---------|----------|----------|-----------|
@@ -74,7 +74,7 @@ OLMo displaces 2.5–3× more than Llama at both scales. The cross-family intens
 
 Substance is the one category where 32B displaces *more* than 7B (0.213 vs 0.151). Profanity also increases (0.119 vs 0.086).
 
-### SFT/DPO division of labour at scale (OLMo)
+**SFT/DPO division of labour at scale (OLMo)**
 
 | Category | 7B SFT% | 7B DPO% | 32B SFT% | 32B DPO% |
 |----------|---------|---------|----------|----------|
@@ -92,13 +92,13 @@ Substance is the one category where 32B displaces *more* than 7B (0.213 vs 0.151
 
 SFT dominance holds at 32B (75–93%). The F26 2:1 SFT>DPO ratio persists. Notable shifts: sexual_explicit SFT share increases (84→93%, DPO barely touches sexual at 32B), profanity SFT share decreases (90→73%, DPO picks up more profanity work).
 
-## Caveats
+**Caveats**
 
 - OLMo 7B and 32B use different pretraining data (3-1025 vs 3-1125). Displacement target changes could reflect data differences rather than pure scale effects.
 - Full 73-prompt battery confirms patterns from 10-prompt pilot.
 - Logits only — no beam search, generations, or teacher-forcing at 32B/70B.
 
-## Chapter placement
+**Chapter placement**
 
 - ch09 subsection: scale changes the vocabulary of displacement
 - ch05 cross-ref: displacement targets at different scales

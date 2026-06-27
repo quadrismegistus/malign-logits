@@ -1,10 +1,10 @@
 # F34: Cross-Linguistic Displacement — The Class Engine Is Language-Dependent
 
-## Summary
+**Summary**
 
 Alignment operates in opposite directions by language within the same weights. In English, alignment installs compliance (worker prompts) and suppresses transgressive vocabulary (kill→punch/scream). In Chinese, alignment installs agency (gratitude→"what should I do") and can intensify transgressive vocabulary (sexual, revenge). The pre-socialisation is in the pretraining corpus: Chinese-primary models embed deference that alignment overcomes; English-primary models embed procedural advice that alignment amplifies.
 
-## Models tested
+**Models tested**
 
 | Model | Training language | Layers | Chinese capable? |
 |-------|------------------|--------|-----------------|
@@ -15,9 +15,9 @@ Alignment operates in opposite directions by language within the same weights. I
 | Llama 3.1 8B | English-primary, some Chinese | 2 (base/instruct) | Marginal |
 | DeepSeek 7B | English-only (despite Chinese lab) | 2 (base/chat) | No (0 tokens) |
 
-## Key findings
+**Key findings**
 
-### 1. Worker deference→agency split by pretraining language
+**1. Worker deference→agency split by pretraining language**
 
 | Model | Training lang | Chinese base top | After alignment |
 |-------|--------------|-----------------|-----------------|
@@ -29,7 +29,7 @@ Alignment operates in opposite directions by language within the same weights. I
 
 Chinese-primary models (CT-LLM, MAP-Neo) start with deference (gratitude), alignment installs agency. English-primary models (Qwen, Llama) start with agency already (50%+). The pre-socialisation is in the pretraining corpus.
 
-### 2. Anger: language-dependent displacement direction
+**2. Anger: language-dependent displacement direction**
 
 MAP-Neo: alignment promotes 报复 (revenge) 4.4%→28.5% + 惩罚 (punish) in Chinese while suppressing kill 11.2%→4.2% in English. Same weights, opposite direction.
 
@@ -37,7 +37,7 @@ CT-LLM: Chinese base has no violence vocabulary (top words: leave, divorce). Not
 
 Qwen/Llama: Chinese anger is mild (leave, revenge 3-5%). English follows standard kill→scream/punch.
 
-### 3. Sexual intensification in Chinese
+**3. Sexual intensification in Chinese**
 
 CT-LLM: alignment intensifies Chinese sexual (undress 18.7%→24.8%).
 MAP-Neo: SFT intensifies in both languages (undress 22.4%→31.7% Chinese, und 17.8%→40.4% English).
@@ -45,24 +45,24 @@ Qwen: light-touch on sexual in both languages.
 
 Sexual suppression is English-specific and model-specific, not universal.
 
-### 4. The gratitude-to-agency shift is specific to Chinese-primary models
+**4. The gratitude-to-agency shift is specific to Chinese-primary models**
 
 Both CT-LLM and MAP-Neo start with 感谢 (grateful/thank) toward the exploitative boss in Chinese. English-primary models skip this stage. Pre-socialisation hypothesis: Chinese-primary pretraining data embeds a deferential relationship to authority that English pretraining data does not.
 
-## Interpretation
+**Interpretation**
 
 The class engine (ch05 §5.6) is not universal but language-dependent. Alignment amplifies whatever political structure is already encoded in the pretraining corpus. Chinese text embeds deference → alignment installs agency. English text embeds procedural advice → alignment amplifies compliance. The politics are in the language, not the method.
 
 Refines the PERMANOVA country=corpus finding (F31): country effect is not just about token counts but about the political structure of the language community as encoded in text.
 
-## Chapter placement
+**Chapter placement**
 
 - ch05 primary (displacement operation is language-dependent)
 - ch01 cross-ref (what is in the corpus determines what alignment does)
 - ch09 cross-ref (cross-family and cross-linguistic variation)
 - CI article §VI: one sentence on the language-dependent class engine
 
-## Data
+**Data**
 
 - Smoke tests: 4 prompts × 2 languages × 5 models (this finding)
 - Full battery: queued as book experiment (73 prompts × Chinese on CT-LLM + MAP-Neo)

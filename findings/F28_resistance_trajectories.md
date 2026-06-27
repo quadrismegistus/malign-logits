@@ -1,18 +1,18 @@
 # F28: Position-Specific Resistance Trajectories
 
-## Summary
+**Summary**
 
 Per-token resistance across 10-token beam storylines reveals that alignment intervention is NOT uniform across positions. Different content categories trigger resistance at different positions, and SFT and DPO intervene at structurally different points in the storyline. The resistance trajectory — how resistance changes token by token — is a category-specific temporal signature of alignment.
 
-## Method
+**Method**
 
 Beam search (n=100, max_tokens=10) on OLMo-2-0425-1B across 71 prompts (47 battery + 24 institutional). Cross-model teacher-forcing through all training-adjacent models. Per-token resistance = `surprisal_scorer(token) - surprisal_source(token)` at each position 0–9.
 
 7,093 storylines across 8 content categories, with full cross-model matrix (14 pairs for 4 models).
 
-## Key findings
+**Key findings**
 
-### 1. Category-specific trajectory shapes
+**1. Category-specific trajectory shapes**
 
 Three distinct shapes emerge from base→SFT resistance:
 
@@ -26,7 +26,7 @@ Sexual content: SFT doesn't mind "She slowly took off her" (pos0 +0.70b) but blo
 
 Death content: SFT FACILITATES at pos0 (-0.99b) — makes it easier to continue "He knew he was going to die and felt..." Alignment enables empathetic/existential content while blocking violent content.
 
-### 2. SFT and DPO intervene at different positions
+**2. SFT and DPO intervene at different positions**
 
 On sexual content:
 - **SFT**: pos0 +0.70, **pos1 +2.17** — waits, then blocks
@@ -38,11 +38,11 @@ On violence:
 
 SFT and DPO have different temporal signatures even on the same content. SFT's "wait and see" strategy contrasts with DPO's "block at the gate" strategy.
 
-### 3. RLVR mirrors DPO exactly
+**3. RLVR mirrors DPO exactly**
 
 DPO→Instruct resistance is +0.002 bits mean across all categories and positions. RLVR makes zero change to DPO's storyline preferences. At 1B, RLVR is a no-op on top of DPO.
 
-### 4. Reverse resistance reveals novelty asymmetry
+**4. Reverse resistance reveals novelty asymmetry**
 
 | Pair | pos0 | Interpretation |
 |---|---|---|
@@ -52,14 +52,14 @@ DPO→Instruct resistance is +0.002 bits mean across all categories and position
 
 DPO invents more novel first tokens than SFT. Its storyline preferences are more alien to the base model's distribution.
 
-### 5. SFT↔DPO mirror disagreement
+**5. SFT↔DPO mirror disagreement**
 
 - SFT beams→DPO: pos0 **+1.01**, pos1 -0.82 (DPO blocks SFT's first token, facilitates second)
 - DPO beams→SFT: pos0 **-1.01**, pos1 +0.97 (SFT facilitates DPO's first token, blocks second)
 
 Exact mirror at ±1.0b. They systematically disagree on WHICH position matters — the first token that SFT chooses is the one DPO would block, and vice versa.
 
-## Interpretation
+**Interpretation**
 
 Alignment is not a uniform operation applied equally across all positions in a completion. It is a position-targeted intervention with category-specific temporal profiles:
 
@@ -69,7 +69,7 @@ Alignment is not a uniform operation applied equally across all positions in a c
 
 The SFT/DPO dissociation at the position level extends F01's finding (SFT handles sex, DPO handles violence) with a new dimension: they also handle sex DIFFERENTLY in time — SFT waits while DPO acts immediately.
 
-## Data
+**Data**
 
 - Model: OLMo-2-0425-1B (base + SFT + DPO + Instruct)
 - 71 prompts × 100 beams × 10 tokens = ~7,093 storylines per cross-pair
