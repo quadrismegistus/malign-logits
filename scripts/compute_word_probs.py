@@ -10,6 +10,7 @@ Fast — no model loading, just tokenizer + cached data.
 
 Usage:
     python scripts/compute_word_probs.py [--family FAMILY]
+    python scripts/compute_word_probs.py --mode continue
 """
 
 import argparse
@@ -21,6 +22,10 @@ from tqdm import tqdm
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--family", type=str, default=None)
+    parser.add_argument("--mode", type=str, default="raw",
+                        choices=["raw", "chat", "continue", "think"])
+    parser.add_argument("--n", type=int, default=None,
+                        help="Beam count to match (default: 1000 for raw, 200 for other modes)")
     args = parser.parse_args()
 
     from malign_logits.cache import get_cache
@@ -29,16 +34,23 @@ def main():
     cm = get_cache()
     bw_stash = cm._stash("beam_words")
 
-    # Collect all beam_words entries
+    n_beams = args.n if args.n else (1000 if args.mode == "raw" else 200)
+
+    # Collect all beam_words entries matching the requested mode and n
     entries = []
     for k in bw_stash.keys():
         if not isinstance(k, dict):
+            continue
+        key_mode = k.get("mode", "raw")
+        if key_mode != args.mode:
+            continue
+        if k.get("n", 1000) != n_beams:
             continue
         model = k.get("model", "")
         prompt = k.get("prompt", "")
         if args.family and args.family not in model:
             continue
-        if not cm.has_word_probs(model, prompt):
+        if not cm.has_word_probs(model, prompt, args.mode):
             entries.append((model, prompt))
 
     print(f"Entries to compute: {len(entries)}")
@@ -69,8 +81,8 @@ def main():
 
         done = 0
         for prompt in tqdm(prompts, desc=f"  {short}", unit="prompt", leave=False):
-            bw = cm.get_beam_words(model, prompt)
-            logits = cm.get_logits(model, prompt)
+            bw = cm.get_beam_words(model, prompt, n=n_beams, mode=args.mode)
+            logits = cm.get_logits(model, prompt, args.mode)
 
             if not bw:
                 skipped += 1
@@ -79,11 +91,10 @@ def main():
             if logits is not None:
                 hw = hybrid_word_probs(bw, np.array(logits, dtype=np.float32), tokenizer)
             else:
-                # No logits — use beam probs as-is
                 total = sum(bw.values())
                 hw = {w: p / total for w, p in bw.items()} if total > 0 else bw
 
-            cm.set_word_probs(model, prompt, hw)
+            cm.set_word_probs(model, prompt, hw, args.mode)
             done += 1
 
         computed += done

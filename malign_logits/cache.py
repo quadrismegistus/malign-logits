@@ -56,16 +56,24 @@ class CacheManager:
 
     # ── logits ──────────────────────────────────────────────────
 
-    def get_logits(self, model, prompt):
+    def get_logits(self, model, prompt, mode="raw"):
         key = {"model": model, "prompt": prompt}
+        if mode != "raw":
+            key["mode"] = mode
         s = self._stash("logits")
         return s[key] if key in s else None
 
-    def set_logits(self, model, prompt, logits):
-        self._stash("logits")[{"model": model, "prompt": prompt}] = logits
+    def set_logits(self, model, prompt, logits, mode="raw"):
+        key = {"model": model, "prompt": prompt}
+        if mode != "raw":
+            key["mode"] = mode
+        self._stash("logits")[key] = logits
 
-    def has_logits(self, model, prompt):
-        return {"model": model, "prompt": prompt} in self._stash("logits")
+    def has_logits(self, model, prompt, mode="raw"):
+        key = {"model": model, "prompt": prompt}
+        if mode != "raw":
+            key["mode"] = mode
+        return key in self._stash("logits")
 
     # ── generations ─────────────────────────────────────────────
 
