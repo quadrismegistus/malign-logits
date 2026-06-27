@@ -91,6 +91,10 @@ NICKNAMES = {
     "allenai/Olmo-3-7B-Instruct": "olmo-instruct",
     "allenai/Olmo-3-7B-Think-SFT": "olmo-think-sft",
     "allenai/Olmo-3-7B-Think-DPO": "olmo-think-dpo",
+    # MAP-Neo (bilingual Chinese+English)
+    "m-a-p/neo_7b": "map-neo",
+    "m-a-p/neo_7b_sft_v0.1": "map-neo-sft",
+    "m-a-p/neo_7b_instruct_v0.1": "map-neo-dpo",
     # OLMoE (MoE)
     "allenai/OLMoE-1B-7B-0125": "olmoe",
     "allenai/OLMoE-1B-7B-0125-SFT": "olmoe-sft",

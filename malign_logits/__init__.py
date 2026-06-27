@@ -177,6 +177,13 @@ MODEL_FAMILIES = {
         superego="Qwen/Qwen3-8B",
         thinking_mode=True,
     ),
+    # Chinese bilingual
+    "map-neo": ModelFamily(
+        name="MAP-Neo 7B",
+        base="m-a-p/neo_7b",
+        ego="m-a-p/neo_7b_sft_v0.1",
+        superego="m-a-p/neo_7b_instruct_v0.1",
+    ),
     # Chinese-primary
     "ct-llm": ModelFamily(
         name="CT-LLM 2B",
