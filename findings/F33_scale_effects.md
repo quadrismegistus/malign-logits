@@ -51,11 +51,52 @@ Scale version of the complexity ordering from clinical signatures: constitutive 
 
 Llama 70B (2-layer, base vs Instruct): kill 13.8%→4.9% (8B) to 7.0%→2.6% (70B). Scream rises 20.4%→30.0% at 70B. Same targets, amplified intensity. But without SFT/DPO split, cannot see the division of labour.
 
+## Full battery results (73 prompts)
+
+### JS divergence by category and scale
+
+| Category | OLMo 7B | OLMo 32B | Llama 8B | Llama 70B |
+|----------|---------|----------|----------|-----------|
+| sexual_explicit | 0.157 | 0.138 | 0.051 | 0.038 |
+| sexual_liminal | 0.174 | 0.142 | 0.075 | 0.067 |
+| violence_explicit | 0.164 | 0.128 | 0.041 | 0.029 |
+| violence_liminal | 0.270 | 0.151 | 0.069 | 0.053 |
+| death | 0.173 | 0.133 | 0.045 | 0.040 |
+| power | 0.185 | 0.150 | 0.041 | 0.048 |
+| profanity | 0.086 | 0.119 | 0.040 | 0.037 |
+| substance | 0.151 | 0.213 | 0.065 | 0.059 |
+| neutral | 0.226 | 0.173 | 0.079 | 0.131 |
+| labor_worker | 0.174 | 0.155 | 0.067 | 0.086 |
+| labor_mgmt | 0.212 | 0.235 | 0.064 | 0.084 |
+| **OVERALL** | **0.192** | **0.181** | **0.068** | **0.068** |
+
+OLMo displaces 2.5–3× more than Llama at both scales. The cross-family intensity gap persists. OLMo 32B is slightly less total displacement than 7B (more selective). Llama is scale-invariant (0.068 at both).
+
+Substance is the one category where 32B displaces *more* than 7B (0.213 vs 0.151). Profanity also increases (0.119 vs 0.086).
+
+### SFT/DPO division of labour at scale (OLMo)
+
+| Category | 7B SFT% | 7B DPO% | 32B SFT% | 32B DPO% |
+|----------|---------|---------|----------|----------|
+| sexual_explicit | 84% | 16% | 93% | 7% |
+| sexual_liminal | 79% | 21% | 77% | 23% |
+| violence_explicit | 78% | 22% | 80% | 20% |
+| violence_liminal | 78% | 22% | 72% | 28% |
+| death | 72% | 28% | 80% | 20% |
+| power | 75% | 25% | 86% | 14% |
+| profanity | 90% | 10% | 73% | 27% |
+| substance | 79% | 21% | 76% | 24% |
+| neutral | 85% | 15% | 89% | 11% |
+| labor_worker | 74% | 26% | 78% | 22% |
+| labor_mgmt | 81% | 19% | 85% | 15% |
+
+SFT dominance holds at 32B (75–93%). The F26 2:1 SFT>DPO ratio persists. Notable shifts: sexual_explicit SFT share increases (84→93%, DPO barely touches sexual at 32B), profanity SFT share decreases (90→73%, DPO picks up more profanity work).
+
 ## Caveats
 
 - OLMo 7B and 32B use different pretraining data (3-1025 vs 3-1125). Displacement target changes could reflect data differences rather than pure scale effects.
-- 10 prompts per model. Pattern is consistent across prompts but sample is small.
-- Logits only — no beam search, generations, or teacher-forcing at 32B.
+- Full 73-prompt battery confirms patterns from 10-prompt pilot.
+- Logits only — no beam search, generations, or teacher-forcing at 32B/70B.
 
 ## Chapter placement
 
