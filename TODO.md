@@ -7,6 +7,12 @@
 - Queue: run sequentially after MAP-Neo 2×2 completes. Full pipeline (logits + beam_words + word_probs).
 - See `docs/model_candidates.md` for full survey.
 
+## DeepSeek V3.1 671B (2026-06-27)
+- [ ] HuggingFace transformers `device_map="auto"` cannot dispatch 671B MoE (256 experts × 61 layers) in reasonable time. 1h20m on 8×A100, ~$13 wasted, never reached first forward pass.
+- [ ] Need vLLM with tensor parallelism, or DeepSeek's own inference code
+- [ ] Alternative: use API logprobs (top-20 only, already cached in gen_logprobs stash)
+- [ ] V3.1-Base and V3.1 (aligned) both on HF, architecturally supported, just can't load via transformers
+
 ## Think mode for word_probs (2026-06-27)
 - [ ] Iron out how think mode affects logits/word_probs pipeline
 - [ ] Qwen3 and SmolLM3 support `mode="think"` via `_apply_mode`
