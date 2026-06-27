@@ -242,6 +242,95 @@ MODEL_FAMILIES = {
         superego="allenai/OLMoE-1B-7B-0125-DPO",
         reinforced_superego="allenai/OLMoE-1B-7B-0125-Instruct",
     ),
+    # Falcon3 (Llama arch, TII)
+    "falcon3-1b": ModelFamily(
+        name="Falcon3 1B",
+        base="tiiuae/Falcon3-1B-Base",
+        superego="tiiuae/Falcon3-1B-Instruct",
+    ),
+    "falcon3-3b": ModelFamily(
+        name="Falcon3 3B",
+        base="tiiuae/Falcon3-3B-Base",
+        superego="tiiuae/Falcon3-3B-Instruct",
+    ),
+    "falcon3-7b": ModelFamily(
+        name="Falcon3 7B",
+        base="tiiuae/Falcon3-7B-Base",
+        superego="tiiuae/Falcon3-7B-Instruct",
+    ),
+    "falcon3-10b": ModelFamily(
+        name="Falcon3 10B",
+        base="tiiuae/Falcon3-10B-Base",
+        superego="tiiuae/Falcon3-10B-Instruct",
+    ),
+    # Falcon-H1 (SSM-Transformer hybrid, TII)
+    "falcon-h1-1.5b": ModelFamily(
+        name="Falcon-H1 1.5B",
+        base="tiiuae/Falcon-H1-1.5B-Base",
+        superego="tiiuae/Falcon-H1-1.5B-Instruct",
+    ),
+    "falcon-h1-7b": ModelFamily(
+        name="Falcon-H1 7B",
+        base="tiiuae/Falcon-H1-7B-Base",
+        superego="tiiuae/Falcon-H1-7B-Instruct",
+    ),
+    # Yi (01.AI, Chinese+English)
+    "yi": ModelFamily(
+        name="Yi 1.5 9B",
+        base="01-ai/Yi-1.5-9B",
+        superego="01-ai/Yi-1.5-9B-Chat",
+    ),
+    # Baichuan2 (Chinese+English, pretraining ckpts available)
+    "baichuan": ModelFamily(
+        name="Baichuan2 7B",
+        base="baichuan-inc/Baichuan2-7B-Base",
+        superego="baichuan-inc/Baichuan2-7B-Chat",
+    ),
+    # GLM-4 (THUDM/Zhipu, Chinese+English)
+    "glm4": ModelFamily(
+        name="GLM-4 9B",
+        base="zai-org/glm-4-9b-hf",
+        superego="zai-org/glm-4-9b-chat-hf",
+    ),
+    # StableLM 2 (Stability AI, 3-stage: base→chat-SFT→zephyr-DPO)
+    "stablelm": ModelFamily(
+        name="StableLM 2 1.6B",
+        base="stabilityai/stablelm-2-1_6b",
+        ego="stabilityai/stablelm-2-1_6b-chat",
+        superego="stabilityai/stablelm-2-zephyr-1_6b",
+    ),
+    # RedPajama (Together, 3-stage: base→instruct-SFT→chat-RLHF)
+    "redpajama": ModelFamily(
+        name="RedPajama 7B",
+        base="togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+        ego="togethercomputer/RedPajama-INCITE-7B-Instruct",
+        superego="togethercomputer/RedPajama-INCITE-7B-Chat",
+    ),
+    # TinyLlama (Llama 2 arch, intermediate pretraining ckpts)
+    "tinyllama": ModelFamily(
+        name="TinyLlama 1.1B",
+        base="TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+        superego="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    ),
+    # BLOOM (BigScience, 46 languages, multitask-tuned not safety-aligned)
+    "bloom": ModelFamily(
+        name="BLOOM 7B",
+        base="bigscience/bloom-7b1",
+        superego="bigscience/bloomz-7b1",
+    ),
+    # MiniCPM5 (OpenBMB/Tsinghua, Chinese, 3-stage)
+    "minicpm": ModelFamily(
+        name="MiniCPM5 1B",
+        base="openbmb/MiniCPM5-1B-Base",
+        ego="openbmb/MiniCPM5-1B-SFT",
+        superego="openbmb/MiniCPM5-1B",
+    ),
+    # Phi-4 (Microsoft)
+    "phi4": ModelFamily(
+        name="Phi-4 14B",
+        base="microsoft/phi-4",
+        superego="microsoft/phi-4-reasoning",
+    ),
     # Scale variants
     "olmo-32b": ModelFamily(
         name="OLMo 3.1 32B",

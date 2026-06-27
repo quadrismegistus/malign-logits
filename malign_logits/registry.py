@@ -151,9 +151,53 @@ NICKNAMES = {
     "cognitivecomputations/dolphin-2.6-mistral-7b-dpo": "dolphin-mistral",
     "openchat/openchat-3.5-0106": "openchat",
     "teknium/OpenHermes-2.5-Mistral-7B": "openhermes",
-    # Falcon
+    # Falcon (original)
     "tiiuae/falcon-7b": "falcon",
     "tiiuae/falcon-7b-instruct": "falcon-instruct",
+    # Falcon3
+    "tiiuae/Falcon3-1B-Base": "falcon3-1b",
+    "tiiuae/Falcon3-1B-Instruct": "falcon3-1b-instruct",
+    "tiiuae/Falcon3-3B-Base": "falcon3-3b",
+    "tiiuae/Falcon3-3B-Instruct": "falcon3-3b-instruct",
+    "tiiuae/Falcon3-7B-Base": "falcon3-7b",
+    "tiiuae/Falcon3-7B-Instruct": "falcon3-7b-instruct",
+    "tiiuae/Falcon3-10B-Base": "falcon3-10b",
+    "tiiuae/Falcon3-10B-Instruct": "falcon3-10b-instruct",
+    # Falcon-H1 (SSM hybrid)
+    "tiiuae/Falcon-H1-1.5B-Base": "falcon-h1-1.5b",
+    "tiiuae/Falcon-H1-1.5B-Instruct": "falcon-h1-1.5b-instruct",
+    "tiiuae/Falcon-H1-7B-Base": "falcon-h1-7b",
+    "tiiuae/Falcon-H1-7B-Instruct": "falcon-h1-7b-instruct",
+    # Yi (01.AI)
+    "01-ai/Yi-1.5-9B": "yi",
+    "01-ai/Yi-1.5-9B-Chat": "yi-chat",
+    # Baichuan2
+    "baichuan-inc/Baichuan2-7B-Base": "baichuan",
+    "baichuan-inc/Baichuan2-7B-Chat": "baichuan-chat",
+    # GLM-4
+    "zai-org/glm-4-9b-hf": "glm4",
+    "zai-org/glm-4-9b-chat-hf": "glm4-chat",
+    # StableLM 2
+    "stabilityai/stablelm-2-1_6b": "stablelm",
+    "stabilityai/stablelm-2-1_6b-chat": "stablelm-chat",
+    "stabilityai/stablelm-2-zephyr-1_6b": "stablelm-dpo",
+    # RedPajama
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1": "redpajama",
+    "togethercomputer/RedPajama-INCITE-7B-Instruct": "redpajama-instruct",
+    "togethercomputer/RedPajama-INCITE-7B-Chat": "redpajama-chat",
+    # TinyLlama
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T": "tinyllama",
+    "TinyLlama/TinyLlama-1.1B-Chat-v1.0": "tinyllama-chat",
+    # BLOOM
+    "bigscience/bloom-7b1": "bloom",
+    "bigscience/bloomz-7b1": "bloomz",
+    # MiniCPM5
+    "openbmb/MiniCPM5-1B-Base": "minicpm",
+    "openbmb/MiniCPM5-1B-SFT": "minicpm-sft",
+    "openbmb/MiniCPM5-1B": "minicpm-instruct",
+    # Phi-4
+    "microsoft/phi-4": "phi4",
+    "microsoft/phi-4-reasoning": "phi4-reasoning",
     # Baichuan
     "baichuan-inc/Baichuan2-7B-Base": "baichuan",
     "baichuan-inc/Baichuan2-7B-Chat": "baichuan-chat",
