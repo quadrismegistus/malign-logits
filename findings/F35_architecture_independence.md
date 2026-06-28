@@ -33,8 +33,14 @@ The kill→scream substitution is installed by alignment training into the weigh
 - Falcon-Mamba base has low kill (3.7%) suggesting pre-socialisation, similar to Qwen.
 - RWKV-4 Raven cannot be used to test architecture independence because it lacks DPO alignment. A DPO-aligned RWKV does not exist on HuggingFace.
 
+**Theoretical payoff**
+
+Two findings together: (1) the inference architecture is irrelevant (Transformer, SSM-hybrid, pure SSM all displace), (2) the training objective is everything (SFT-only does not displace, DPO does). Weatherby locates the interesting operation in inference (attention as valeur). The data shows the opposite: the differential system (valeur) is pervasive across architectures; the cut on that system is installed by preference optimization, not produced by any particular mechanism for reading context.
+
+**CI article §IV** (one sentence): Displacement operates identically in a pure state-space model lacking attention (Falcon-Mamba: scream +8.1%), confirming the operation is weight-level; an SFT-only RNN (RWKV-4) shows no targeted displacement, independently confirming DPO as the operative stage.
+
 **Chapter placement**
 
 - ch05 section: displacement is architecture-independent (own subsection)
-- CI article §IV: one sentence (Transformer + SSM-hybrid + pure SSM)
-- Weatherby contest: attention is for input processing, not for alignment intervention
+- ch05 §5.x: method-dependence (DPO required, SFT insufficient)
+- Weatherby contest: inference architecture irrelevant, training objective is everything
