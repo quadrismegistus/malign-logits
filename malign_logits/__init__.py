@@ -201,26 +201,26 @@ MODEL_FAMILIES = {
     "archangel-dpo": ModelFamily(
         name="Archangel DPO (Pythia 2.8B)",
         base="EleutherAI/pythia-2.8b",
-        ego="ContextualAI/archangel_sft_pythia2.8b",
-        superego="ContextualAI/archangel_sft-dpo_pythia2.8b",
+        ego="ContextualAI/archangel_sft_pythia2-8b",
+        superego="ContextualAI/archangel_sft-dpo_pythia2-8b",
     ),
     "archangel-kto": ModelFamily(
         name="Archangel KTO (Pythia 2.8B)",
         base="EleutherAI/pythia-2.8b",
-        ego="ContextualAI/archangel_sft_pythia2.8b",
-        superego="ContextualAI/archangel_sft-kto_pythia2.8b",
+        ego="ContextualAI/archangel_sft_pythia2-8b",
+        superego="ContextualAI/archangel_sft-kto_pythia2-8b",
     ),
     "archangel-ppo": ModelFamily(
         name="Archangel PPO (Pythia 2.8B)",
         base="EleutherAI/pythia-2.8b",
-        ego="ContextualAI/archangel_sft_pythia2.8b",
-        superego="ContextualAI/archangel_sft-ppo_pythia2.8b",
+        ego="ContextualAI/archangel_sft_pythia2-8b",
+        superego="ContextualAI/archangel_sft-ppo_pythia2-8b",
     ),
     "archangel-slic": ModelFamily(
         name="Archangel SLIC (Pythia 2.8B)",
         base="EleutherAI/pythia-2.8b",
-        ego="ContextualAI/archangel_sft_pythia2.8b",
-        superego="ContextualAI/archangel_sft-slic_pythia2.8b",
+        ego="ContextualAI/archangel_sft_pythia2-8b",
+        superego="ContextualAI/archangel_sft-slic_pythia2-8b",
     ),
     # SSM / hybrid architectures
     "olmo-hybrid": ModelFamily(
