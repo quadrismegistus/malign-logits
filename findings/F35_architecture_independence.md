@@ -19,9 +19,22 @@ Displacement operates identically across three computational architectures: dens
 
 All three attention-containing or attention-free architectures show the displacement pattern: kill probability decreases, scream probability increases after alignment. The effect size varies (Falcon-H1 is the strongest, Falcon-Mamba the mildest) but the direction is consistent.
 
-**2. Displacement requires preference optimization, not just SFT**
+**2. Displacement is data-dependent, not method-specific**
 
-RWKV-4 Raven (pure RNN, SFT-only on Alpaca/ShareGPT) does NOT show displacement — kill rises slightly. Tulu SFT-no-safety (SFT-only, no safety data, no DPO) shows only mild displacement (kill -1.4%, scream +2.2%). SFT alone produces undirected redistribution. Preference optimization (DPO/RLHF) produces targeted surgical displacement.
+| Comparison | kill Δ | scream Δ | Training data |
+|-----------|--------|----------|--------------|
+| OLMo base→SFT | **-7.4%** | -0.9% | Tulu mix (5% safety: CoCoNot, WildGuardMix, WildJailbreak) |
+| Tulu base→SFT-no-safety | -1.4% | +2.2% | Tulu mix WITHOUT safety data |
+| Pythia base→SFT(HH) | +1.1% | -0.3% | HH-RLHF (helpfulness-focused SFT split) |
+| RWKV base→Raven | +1.9% | +3.1% | Alpaca + ShareGPT (no safety content) |
+| Tulu base→DPO | **-7.1%** | **+14.0%** | Tulu preference data (safety-containing) |
+
+SFT with safety-containing data produces targeted displacement (OLMo SFT: kill -7.4%). SFT without safety data does not (Tulu-no-safety: -1.4%, Pythia-SFT: +1.1%, RWKV-Raven: +1.9%). DPO amplifies what safety-containing SFT starts. The RWKV non-displacement is about data (Alpaca/ShareGPT lacks safety content), not architecture.
+
+Three layers of alignment effect:
+1. **Form of instruction-following** (constitutive): SFT without safety data produces -1.4% kill. The form of learning to respond as an "I" is mildly repressive.
+2. **Safety data** (targeted): SFT with safety data produces -7.4% kill. Safety content installs targeted surgical displacement.
+3. **Preference optimization** (amplification): DPO adds scream +14.0%. Amplifies and redirects the displacement installed by safety-containing SFT.
 
 **3. The operation lives in the unembedding matrix, not in context processing**
 
@@ -35,9 +48,9 @@ The kill→scream substitution is installed by alignment training into the weigh
 
 **Theoretical payoff**
 
-Two findings together: (1) the inference architecture is irrelevant (Transformer, SSM-hybrid, pure SSM all displace), (2) the training objective is everything (SFT-only does not displace, DPO does). Weatherby locates the interesting operation in inference (attention as valeur). The data shows the opposite: the differential system (valeur) is pervasive across architectures; the cut on that system is installed by preference optimization, not produced by any particular mechanism for reading context.
+Three findings: (1) the inference architecture is irrelevant (Transformer, SSM-hybrid, pure SSM all displace), (2) the safety data is the displacement (SFT with safety data displaces, SFT without safety data does not), (3) the training method is the delivery vehicle, not the operation (DPO amplifies what safety-containing SFT installs). Weatherby locates the interesting operation in inference (attention as valeur). The data shows the opposite: the differential system (valeur) is pervasive across architectures; the cut on that system is installed by safety-relevant training data, not produced by any particular mechanism for reading context.
 
-**CI article §IV** (one sentence): Displacement operates identically in a pure state-space model lacking attention (Falcon-Mamba: scream +8.1%), confirming the operation is weight-level; an SFT-only RNN (RWKV-4) shows no targeted displacement, independently confirming DPO as the operative stage.
+**CI article §IV** (one sentence): Displacement operates identically in a pure state-space model lacking attention (Falcon-Mamba: scream +8.1%), confirming the operation is weight-level; an SFT-only RNN trained without safety data (RWKV-4) shows no targeted displacement, confirming that the operative variable is the safety content of the training data, not the architecture or method.
 
 **Chapter placement**
 
