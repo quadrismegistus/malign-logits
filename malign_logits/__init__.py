@@ -147,6 +147,27 @@ MODEL_FAMILIES = {
         superego="allenai/Llama-3.1-Tulu-3-8B-DPO",
         reinforced_superego="allenai/Llama-3.1-Tulu-3.1-8B",
     ),
+    # Tulu SFT ablation variants (all share Llama 3.1 8B base)
+    "tulu-sft-full": ModelFamily(
+        name="Tulu SFT (full)",
+        base="meta-llama/Llama-3.1-8B",
+        superego="allenai/Llama-3.1-Tulu-3-8B-SFT",
+    ),
+    "tulu-sft-nopersona": ModelFamily(
+        name="Tulu SFT (no persona)",
+        base="meta-llama/Llama-3.1-8B",
+        superego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+    ),
+    "tulu-sft-nomath": ModelFamily(
+        name="Tulu SFT (no math)",
+        base="meta-llama/Llama-3.1-8B",
+        superego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+    ),
+    "tulu-sft-nowildchat": ModelFamily(
+        name="Tulu SFT (no wildchat)",
+        base="meta-llama/Llama-3.1-8B",
+        superego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+    ),
     "zephyr": ModelFamily(
         name="Zephyr 7B",
         base="mistralai/Mistral-7B-v0.1",
