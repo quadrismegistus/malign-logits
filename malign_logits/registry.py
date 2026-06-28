@@ -105,6 +105,12 @@ NICKNAMES = {
     # Falcon Mamba (pure SSM)
     "tiiuae/falcon-mamba-7b": "falcon-mamba",
     "tiiuae/falcon-mamba-7b-instruct": "falcon-mamba-instruct",
+    # Falcon3-Mamba (pure SSM)
+    "tiiuae/Falcon3-Mamba-7B-Base": "falcon3-mamba",
+    "tiiuae/Falcon3-Mamba-7B-Instruct": "falcon3-mamba-instruct",
+    # RWKV (pure RNN)
+    "RWKV/rwkv-4-7b-pile": "rwkv",
+    "RWKV/rwkv-raven-7b": "rwkv-raven",
     # MAP-Neo (bilingual Chinese+English)
     "m-a-p/neo_7b": "map-neo",
     "m-a-p/neo_7b_sft_v0.1": "map-neo-sft",

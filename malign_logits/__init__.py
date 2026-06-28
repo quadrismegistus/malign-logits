@@ -234,6 +234,17 @@ MODEL_FAMILIES = {
         base="tiiuae/falcon-mamba-7b",
         superego="tiiuae/falcon-mamba-7b-instruct",
     ),
+    "falcon3-mamba": ModelFamily(
+        name="Falcon3 Mamba 7B",
+        base="tiiuae/Falcon3-Mamba-7B-Base",
+        superego="tiiuae/Falcon3-Mamba-7B-Instruct",
+    ),
+    # RWKV (pure RNN, zero attention, zero SSM)
+    "rwkv": ModelFamily(
+        name="RWKV-4 7B",
+        base="RWKV/rwkv-4-7b-pile",
+        superego="RWKV/rwkv-raven-7b",
+    ),
     # MoE
     "olmoe": ModelFamily(
         name="OLMoE 1B-7B",
