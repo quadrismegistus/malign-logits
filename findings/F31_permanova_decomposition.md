@@ -2,16 +2,23 @@
 
 **Summary**
 
-PERMANOVA on 37 model checkpoints × 26,824 prompt×word features shows that pretraining family explains 86.5% of word probability variance (p=0.001). Alignment stage explains only 4.9% conditional on family, and is not significant as a standalone factor (p=0.26). Whether a model is base or aligned is statistically indistinguishable in the word probability landscape (p=0.31).
+PERMANOVA on 112 model checkpoints from 44 families shows that pretraining family explains 78.9% of word probability variance (p=0.001). Alignment stage explains only 4.9% and is not significant (p=0.067). Whether a model is base or aligned explains just 2.4% (p=0.044, marginal). Replicated from original 14-family finding to full 44-family census with consistent results.
 
 **Method**
 
-- 37 model checkpoints from 14 families
-- 26,824 (prompt, word) features from hybrid word_probs (exact logit + beam chain rule)
+- 112 model checkpoints from 44 families (updated from original 37 checkpoints / 14 families)
+- 670 non-zero-variance features from 19 prompts × 63 target words
 - Cosine distance, 999 permutations
-- Factors: family (14 groups), stage (6: base/sft/dpo/rlvr/aligned/reasoning), corpus (2: english/chinese), country (3: USA/China/France), scale (6: 360M to 9B)
 
-**Results**
+**Results (44-family replication)**
+
+| Factor | R² | pseudo-F | p | Significant? |
+|--------|-----|----------|---|-------------|
+| **Family** | **78.9%** | 5.91 | **0.001** | **Yes** |
+| Stage | 4.9% | 1.87 | 0.067 | No |
+| Base vs aligned | 2.4% | 2.69 | 0.044 | Marginal |
+
+**Original results (14 families, 37 models)**
 
 | Factor | R² | pseudo-F | p | Significant? |
 |--------|-----|----------|---|-------------|
@@ -26,9 +33,9 @@ PERMANOVA on 37 model checkpoints × 26,824 prompt×word features shows that pre
 
 | Component | R² |
 |-----------|-----|
-| Family | 86.5% |
-| Stage \| family | 4.9% |
-| Residual | 8.6% |
+| Family | 78.9% (was 86.5%) |
+| Stage \| family | 4.9% (unchanged) |
+| Residual | 16.2% (was 8.6%) |
 
 **Interpretation**
 
@@ -57,28 +64,35 @@ Analogy: accent (family) vs vocabulary choice (alignment). Two speakers of the s
 **2. Neutral floor — alignment targets certainty, not uncertainty**
 Spearman r=-0.22 (p=0.01) between base entropy and stage R². Alignment intervenes MORE on prompts where the base model is CERTAIN. The socialisation tax is confidence reweighting, not uncertainty reduction. "Capital of France" (low entropy, alignment promotes Paris) vs "risotto" (high entropy, alignment leaves alone).
 
-**3. Per-family alignment intensity (cross-distance)**
+**3. Per-family alignment intensity (cosine distance base→aligned)**
+
+At 44 families, intensity spans 250×. Top and bottom 5:
 
 | Family | Cross-distance | Interpretation |
 |--------|---------------|----------------|
-| OLMo 7B | 0.278 | Heaviest |
-| Amber | 0.250 | Heavy |
-| OLMo 1B | 0.174 | Moderate |
-| Mistral | 0.110 | Moderate |
-| Llama | 0.083 | Light |
-| Pythia | 0.010 | Transparent |
+| DeepSeek 7B | 0.745 | Heaviest (by far) |
+| Falcon-H1 7B | 0.512 | Very heavy |
+| OLMo 32B | 0.463 | Heavy |
+| Amber | 0.353 | Heavy |
+| OLMo 7B | 0.274 | Moderate-heavy |
+| ... | ... | ... |
+| TinyLlama | 0.030 | Near-transparent |
+| Yi | 0.027 | Near-transparent |
+| Pythia | 0.007 | Transparent |
+| Archangel (all 4) | 0.003 | Transparent |
 
 **4. Transfer within Llama — aligner explains 62%**
 Within the Llama family, the aligner (Meta vs Allen AI) explains 62.2% of variance. The 5% cross-family average massively underestimates within-family alignment. Same accent, very different vocabulary.
 
 Key distances: tulu↔tulu-dpo = 0.006 (tiny), llama-instruct↔tulu = 0.122 (large). Same base, different aligner → very different models.
 
-**5. Deltas inversion — reconciles F26 and F31**
-PERMANOVA on displacement DELTAS (25 training edges × 9K features):
-- Relation type (sft/dpo/rlvr): R²=30.9%, **p=0.002**
-- Family: R²=43.7%, p=0.161 (ns)
+**5. Deltas — family determines even the change**
 
-Family determines WHAT the model says (accent). Method determines HOW MUCH alignment changes it (vocabulary shift). Both true at different levels.
+*Original (14 families, 25 edges):* Relation type (sft/dpo/rlvr) R²=30.9% (p=0.002), family R²=43.7% (ns). Interpretation: method determines how much alignment changes.
+
+*Updated (44 families, 68 edges):* Family R²=97.8% (p=0.001), relation type R²=2.9% (ns). The original finding was underpowered. At census scale, even the *displacement pattern* — not just the starting point — is family-specific. The sft/dpo distinction visible at 14 families was driven by a few dominant families (OLMo's heavy SFT), not a universal property of the training step type.
+
+Archangel provides the cleanest test: same base + SFT, four different preference methods (DPO/KTO/PPO/SLIC), all producing near-identical deltas (cosine distance 0.003). The alignment method doesn't matter; the training data does.
 
 **6. Country = corpus, not geopolitics**
 Sequential: country|corpus = 2.8%. Corpus|country = 0.0%. The country effect IS the corpus language effect. USA vs France within English = no difference. The relevant variable is training data language, not national origin.
