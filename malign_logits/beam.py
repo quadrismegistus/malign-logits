@@ -153,7 +153,7 @@ def annotate_beams(model_id: str, prompt: str, n: int = 100,
 
     # Build batched input: encode all storylines, pad to same length
     from transformers import AutoTokenizer
-    base_tok = AutoTokenizer.from_pretrained(model_id)
+    base_tok = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
     if base_tok.pad_token_id is None:
         base_tok.pad_token_id = base_tok.eos_token_id
 
@@ -361,7 +361,7 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
         if v != model_id:
             all_model_ids.append(v)
 
-    base_tok = AutoTokenizer.from_pretrained(model_id)
+    base_tok = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
     if base_tok.pad_token_id is None:
         base_tok.pad_token_id = base_tok.eos_token_id
 
@@ -375,7 +375,7 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
         from .core import _apply_mode
         model_obj, _ = device_model
         device = next(model_obj.parameters()).device
-        mid_tok = AutoTokenizer.from_pretrained(mid)
+        mid_tok = AutoTokenizer.from_pretrained(mid, trust_remote_code=True)
         result = {}
         for pname in prompt_texts:
             ptext = prompt_texts[pname]

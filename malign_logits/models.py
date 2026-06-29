@@ -9,11 +9,11 @@ def _load_tokenizer(model_name, revision=None, cache_dir=None):
         kwargs["revision"] = revision
     if cache_dir:
         kwargs["cache_dir"] = cache_dir
-    tok = AutoTokenizer.from_pretrained(model_name, **kwargs)
+    tok = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True, **kwargs)
     # Some models (e.g. DeepSeek LLM 7B) ship a slow LlamaTokenizer that
     # doesn't decode GPT-2 byte-pair markers (Ġ→space). Detect and fix.
     if tok.decode(tok.encode("a b")) != "a b":
-        tok = PreTrainedTokenizerFast.from_pretrained(model_name, **kwargs)
+        tok = PreTrainedTokenizerFast.from_pretrained(model_name, trust_remote_code=True, **kwargs)
     return tok
 
 
@@ -31,6 +31,7 @@ def _load_causal_lm(model_name, quantization_config, device_map, dtype,
             quantization_config=quantization_config,
             device_map=device_map,
             dtype=dtype,
+            trust_remote_code=True,
             **kwargs,
         )
     except OSError:
@@ -39,6 +40,7 @@ def _load_causal_lm(model_name, quantization_config, device_map, dtype,
             quantization_config=quantization_config,
             device_map=device_map,
             dtype=dtype,
+            trust_remote_code=True,
             use_safetensors=False,
             **kwargs,
         )
