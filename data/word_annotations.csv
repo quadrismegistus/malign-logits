@@ -1,0 +1,2976 @@
+word,spacy_pos,spacy_tag,wordnet_pos,wordnet_lexname,wordnet_hypernyms,mean_bits,n_prompts,n_repressed,n_promoted
+ABBA,PROPN,NNP,,,,-11.1166,1,0,1
+ABSOL,VERB,VB,,,,-11.1317,1,0,1
+AGAIN,ADV,RB,r,adv.all,,-11.1602,1,0,1
+ALWAYS,ADV,RB,r,adv.all,,-9.9818,1,0,1
+ALe,NOUN,NNS,n,noun.food,beer > brew > alcohol,-6.8964,1,0,1
+ANSWER,VERB,VB,n,noun.communication,statement > message > communication,-6.8594,1,0,1
+AOC,PROPN,NNP,,,,-2.5251,1,0,1
+ASolution,PROPN,NNP,,,,20.971899999999998,2,2,0
+AStep,PROPN,NNP,,,,20.2824,1,1,0
+Abraham,PROPN,NNP,n,noun.person,,-10.5344,1,0,1
+Absolutely,ADV,RB,r,adv.all,,-20.5687,1,0,1
+Advise,PROPN,NNP,v,verb.communication,hash_out > talk_of > talk,20.4669,1,1,0
+Africa,PROPN,NNP,n,noun.object,,0.592,1,1,0
+African,PROPN,NNP,n,noun.person,person > causal_agent > physical_entity,-0.9158,1,0,1
+Algebra,PROPN,NNP,n,noun.cognition,pure_mathematics > mathematics > science,-2.7413,1,0,1
+American,PROPN,NNP,n,noun.person,inhabitant > person > causal_agent,-0.84425,2,1,1
+Analyze,VERB,VB,v,verb.cognition,,20.2899,1,1,0
+Ancient,PROPN,NNP,n,noun.person,oldster > adult > person,-0.9344,1,0,1
+Angrily,ADV,RB,r,adv.all,,-20.0793,1,0,1
+Anna,PROPN,NNP,n,noun.quantity,pakistani_monetary_unit > monetary_unit > unit_of_measurement,-10.0128,1,0,1
+Answered,VERB,VBN,v,verb.communication,state > express,-20.1472,1,0,1
+Antarctica,PROPN,NNP,n,noun.object,,-20.1018,1,0,1
+April,PROPN,NNP,n,noun.time,gregorian_calendar_month > calendar_month > time_period,4.5036,1,1,0
+Askedire,NOUN,NN,,,,-2.115,1,0,1
+August,PROPN,NNP,n,noun.time,gregorian_calendar_month > calendar_month > time_period,1.2963,1,1,0
+Australia,PROPN,NNP,n,noun.location,,-4.6076,1,0,1
+BITE,NOUN,NN,n,noun.state,wound > injury > ill_health,-10.1673,1,0,1
+Barack,VERB,VB,,,,10.1624,1,1,0
+Berlin,PROPN,NNP,n,noun.location,,-22.599,1,0,1
+Bernie,PROPN,NNP,,,,1.4013,1,1,0
+Biden,PROPN,NNP,,,,1.6235,1,1,0
+Blam,PROPN,NNP,,,,-10.458,1,0,1
+Bleep,VERB,VB,n,noun.event,sound > happening > event,-10.0471,1,0,1
+Bleg,PROPN,NNP,,,,-10.4228,1,0,1
+Boil,VERB,VB,n,noun.state,staphylococcal_infection > infection > ill_health,-2.2747,1,0,1
+Bother,VERB,VB,n,noun.event,perturbation > activity > act,-10.5318,1,0,1
+Brexit,PROPN,NNP,,,,-2.5134,1,0,1
+Buddhism,PROPN,NNP,n,noun.group,religion > institution > organization,-21.8271,1,0,1
+Buddi,PROPN,NNP,,,,-20.0727,1,0,1
+Buh,VERB,VB,,,,-11.0488,1,0,1
+Bum,PROPN,NNP,n,noun.person,unpleasant_person > unwelcome_person > person,-10.2913,1,0,1
+Bunny,PROPN,NNP,n,noun.person,waitress > waiter > dining-room_attendant,-9.9795,1,0,1
+CRAP,PROPN,NNP,n,noun.substance,fecal_matter > body_waste > waste,-20.006,1,0,1
+Caius,PROPN,NNP,,,,-9.9804,1,0,1
+Candidate,VERB,VB,n,noun.person,politician > leader > person,-7.3409,1,0,1
+Catelyn,PROPN,NNP,,,,-10.0856,1,0,1
+Celia,PROPN,NNP,,,,-10.2785,1,0,1
+Celine,NOUN,NN,,,,-10.3502,1,0,1
+Cemetery,NOUN,NN,n,noun.location,site > tract > geographical_area,-19.8923,1,0,1
+Chicago,PROPN,NNP,n,noun.location,,5.4386,1,1,0
+China,PROPN,NNP,n,noun.location,,0.2703,1,0,0
+Chinese,ADJ,JJ,n,noun.communication,sinitic > sino-tibetan > natural_language,0.1872,1,0,0
+Choosether,PROPN,NNP,,,,-0.6765,1,0,1
+Claire,PROPN,NNP,,,,-19.9813,1,0,1
+Clinton,PROPN,NNP,n,noun.person,,3.37,1,1,0
+Cloudy,ADJ,JJ,s,adj.all,,6.5704,1,1,0
+Corbyn,NOUN,NN,,,,2.644,1,1,0
+Crap,VERB,VB,n,noun.substance,fecal_matter > body_waste > waste,0.0428,1,0,0
+Cremation,NOUN,NN,n,noun.act,incineration > burning > change_of_integrity,-19.9608,1,0,1
+Curses,PROPN,NNP,n,noun.communication,profanity > utterance > auditory_communication,-20.8234,1,0,1
+Céline,VERB,VB,,,,-10.1298,1,0,1
+Dammit,VERB,VB,,,,10.543899999999999,2,2,0
+Damn,NOUN,NN,n,noun.attribute,worthlessness > quality > attribute,-0.4723,3,1,2
+Damnit,PROPN,NNP,,,,7.2502,1,1,0
+December,PROPN,NNP,n,noun.time,gregorian_calendar_month > calendar_month > time_period,2.7076,1,1,0
+Democrats,PROPN,NNPS,n,noun.person,politician > leader > person,0.1568,1,0,0
+Dems,NOUN,NNS,,,,20.4595,1,1,0
+Dick,PROPN,NNP,n,noun.person,detective > policeman > lawman,-20.546,1,0,1
+Dinosaurs,NOUN,NNS,n,noun.animal,archosaur > diapsid > reptile,-1.2614,1,0,1
+Dispute,VERB,VB,n,noun.communication,disagreement > speech_act > act,-21.275,1,0,1
+Donald,PROPN,NNP,,,,1.6026,1,1,0
+DonaldTrump,VERB,VB,,,,0.3758,1,1,0
+Edward,PROPN,NNP,n,noun.person,,-19.8695,1,0,1
+Egypt,PROPN,NNP,n,noun.location,,-0.2783,1,0,0
+Egyptology,NOUN,NN,n,noun.cognition,archeology > anthropology > social_science,-0.1318,1,0,0
+Elizabeth,PROPN,NNP,n,noun.person,,0.2938,1,0,0
+Emily,ADV,RB,,,,-15.9542,2,0,2
+Emma,PROPN,NNP,,,,-21.3962,1,0,1
+English,PROPN,NNP,n,noun.communication,west_germanic > germanic > indo-european,1.8268,1,1,0
+Excuse,VERB,VB,n,noun.communication,defense > justification > explanation,-10.5431,1,0,1
+FUCK,VERB,VB,n,noun.act,sexual_intercourse > sexual_activity > bodily_process,-0.5189,1,0,1
+February,PROPN,NNP,n,noun.time,gregorian_calendar_month > calendar_month > time_period,2.5376,1,1,0
+Felt,NOUN,NN,n,noun.artifact,fabric > artifact > whole,-10.3575,1,0,1
+Forget,VERB,VB,v,verb.cognition,,-21.6151,1,0,1
+Formulate,VERB,VB,v,verb.communication,speculate > expect > evaluate,-19.9877,1,0,1
+France,PROPN,NNP,n,noun.location,,2.6559,1,1,0
+Friday,PROPN,NNP,n,noun.time,weekday > day_of_the_week > calendar_day,0.9556,1,1,0
+Fuck,VERB,VB,n,noun.act,sexual_intercourse > sexual_activity > bodily_process,2.2145,1,1,0
+Fudge,PROPN,NNP,n,noun.food,candy > sweet > dainty,0.1603,1,0,0
+George,PROPN,NNP,n,noun.person,,0.5798,1,1,0
+Giselle,PROPN,NNP,,,,-10.0081,1,0,1
+God,PROPN,NNP,n,noun.person,,3.9222,1,1,0
+Google,PROPN,NNP,n,noun.communication,,-20.2434,1,0,1
+Greek,ADJ,JJ,n,noun.communication,indo-european > natural_language > language,-0.5437,1,0,1
+Gwyneth,PROPN,NNP,,,,-10.1038,1,0,1
+HAD,VERB,VB,v,verb.possession,,-9.9922,1,0,1
+HELP,VERB,VB,n,noun.act,activity > act > event,-0.4067,1,0,1
+Hawaii,PROPN,NNP,n,noun.location,,-18.3454,1,0,1
+He,PRON,PRP,n,noun.substance,chemical_element > substance > part,12.5837,1,1,0
+Hilary,PROPN,NNP,,,,20.0022,1,1,0
+Hillary,PROPN,NNP,n,noun.person,,2.9032,1,1,0
+Hinduism,NOUN,NN,n,noun.group,religion > institution > organization,-2.5361,1,0,1
+Huh,VERB,VB,,,,-21.2596,1,0,1
+ISolution,PROPN,NNP,,,,20.5165,1,1,0
+IThe,NOUN,NN,,,,-20.1549,1,0,1
+Ican,ADJ,JJ,,,,-1.1228,1,0,1
+Icant,VERB,VB,,,,-1.7094,1,0,1
+If,SCONJ,IN,,,,3.2646,1,1,0
+Increment,NOUN,NN,n,noun.process,process > physical_entity > entity,-13.0641,1,0,1
+It,PRON,PRP,n,noun.cognition,engineering > discipline > knowledge_domain,-0.9919,2,0,2
+Iuary,PROPN,NNP,,,,20.1944,1,1,0
+Jan,PROPN,NNP,n,noun.time,gregorian_calendar_month > calendar_month > time_period,4.9367,1,1,0
+January,PROPN,NNP,n,noun.time,gregorian_calendar_month > calendar_month > time_period,1.2602,1,1,0
+Japan,PROPN,NNP,n,noun.location,,-0.9896,1,0,1
+Jeremy,PROPN,NNP,,,,-0.2622,1,0,0
+Jesus,PROPN,NNP,n,noun.person,,1.8001,1,1,0
+Jill,PROPN,NNP,,,,-0.4846,1,0,1
+Joe,VERB,VB,,,,3.6806,1,1,0
+John,PROPN,NNP,n,noun.artifact,room > area > structure,-3.0776,2,0,2
+July,PROPN,NNP,n,noun.time,gregorian_calendar_month > calendar_month > time_period,3.8049,1,1,0
+June,PROPN,NNP,n,noun.time,gregorian_calendar_month > calendar_month > time_period,4.3814,1,1,0
+Kamala,PROPN,NNP,,,,-19.9317,1,0,1
+Kerry,PROPN,NNP,,,,-20.0414,1,0,1
+Kudos,PROPN,NNP,n,noun.communication,approval > message > communication,-1.5474,1,0,1
+LISTEN,NOUN,NNS,v,verb.perception,perceive,-11.3811,1,0,1
+Labour,NOUN,NN,n,noun.group,class > people > group,-1.565,1,0,1
+Lara,PROPN,NNP,,,,-20.7931,1,0,1
+Let,VERB,VB,n,noun.group,,-2.3782,1,0,1
+Leticia,PROPN,NNP,,,,-10.0224,1,0,1
+Lila,PROPN,NNP,,,,-11.3067,1,0,1
+Lille,VERB,VB,n,noun.location,,1.0234,1,1,0
+Lily,ADV,RB,n,noun.plant,liliaceous_plant > bulbous_plant > vascular_plant,-20.3644,1,0,1
+Live,VERB,VB,v,verb.stative,be,-0.2411,1,0,0
+London,PROPN,NNP,n,noun.location,,4.4657,1,1,0
+Lord,PROPN,NNP,n,noun.person,,-7.6148,1,0,1
+Lysander,VERB,VB,n,noun.person,,-10.1398,1,0,1
+Machiav,NOUN,NN,,,,20.0874,1,1,0
+March,PROPN,NNP,n,noun.time,gregorian_calendar_month > calendar_month > time_period,3.0537,1,1,0
+Marseille,PROPN,NNP,n,noun.location,,-0.6041,1,0,1
+Mary,PROPN,NNP,n,noun.person,,-19.6537,1,0,1
+May,PROPN,NNP,n,noun.time,gregorian_calendar_month > calendar_month > time_period,3.8428,1,1,0
+McCain,NOUN,NN,,,,10.5459,1,1,0
+Mexico,PROPN,NNP,n,noun.location,,-10.2007,1,0,1
+Mitt,VERB,VB,n,noun.body,extremity > external_body_part > body_part,8.8304,1,1,0
+Monday,PROPN,NNP,n,noun.time,weekday > day_of_the_week > calendar_day,1.0372,1,1,0
+Mr,PROPN,NNP,n,noun.communication,title > appellation > name,3.7167,2,2,0
+My,PRON,PRP$,,,,-18.0415,1,0,1
+NO,NOUN,NN,n,noun.communication,negative > denial > speech_act,7.66295,2,2,0
+NOOO,PROPN,NNP,,,,-1.2698,1,0,1
+NOOOOO,VERB,VBN,,,,20.1022,1,1,0
+NOT,PART,RB,r,adv.all,,2.5139666666666667,3,3,0
+New,ADJ,JJ,a,adj.all,,4.2721,1,1,0
+Newton,PROPN,NNP,n,noun.person,,-4.6135,1,0,1
+Newtonian,PROPN,NNP,n,noun.person,follower > person > causal_agent,20.8196,1,1,0
+Niall,NOUN,NN,,,,-10.0463,1,0,1
+No,NOUN,NN,n,noun.communication,negative > denial > speech_act,1.6243,2,2,0
+Noooo,NOUN,NN,,,,-0.4517,1,0,1
+Nov,VERB,VB,n,noun.time,gregorian_calendar_month > calendar_month > time_period,15.3574,1,1,0
+November,PROPN,NNP,n,noun.time,gregorian_calendar_month > calendar_month > time_period,4.0326,1,1,0
+OH,PROPN,NNP,n,noun.location,,-0.649,1,0,1
+OK,VERB,VB,n,noun.location,,6.24235,2,2,0
+OPTIONS,NOUN,NNS,n,noun.possession,derivative_instrument > legal_document > document,-22.421,1,0,1
+Obama,PROPN,NNP,,,,6.7884,1,1,0
+October,PROPN,NNP,n,noun.time,gregorian_calendar_month > calendar_month > time_period,2.3008,1,1,0
+Oh,INTJ,UH,n,noun.location,,-3.5625999999999998,2,0,2
+Oops,NOUN,NNS,,,,-1.4293,1,0,1
+Oopsie,PROPN,NNP,,,,-2.3463,1,0,1
+Option,VERB,VB,n,noun.possession,derivative_instrument > legal_document > document,-21.0198,1,0,1
+Ouch,NOUN,NN,,,,20.4484,1,1,0
+Paraguay,NOUN,NN,n,noun.location,,1.0514,1,1,0
+Paris,PROPN,NNP,n,noun.location,,1.9009999999999998,2,1,1
+Partly,ADV,RB,r,adv.all,,-11.0946,1,0,1
+Party,NOUN,NN,n,noun.group,organization > social_group > group,-0.007,1,0,0
+Pav,PROPN,NNP,,,,-26.0051,1,0,1
+Pavement,NOUN,NN,n,noun.artifact,paved_surface > horizontal_surface > surface,-20.666,1,0,1
+Pavlov,PROPN,NNP,n,noun.person,,-1.1304,1,0,1
+Petya,PROPN,NNP,,,,20.0328,1,1,0
+Pippa,PROPN,NNP,,,,-10.1588,1,0,1
+Pointsies,NOUN,NNS,,,,-16.8898,1,0,1
+Poured,VERB,VBN,v,verb.motion,move,-11.2265,1,0,1
+President,PROPN,NNP,n,noun.person,corporate_executive > executive > administrator,4.4493,1,1,0
+Proposition,NOUN,NN,n,noun.communication,statement > message > communication,-20.9127,1,0,1
+Prove,VERB,VB,v,verb.stative,be,-11.1665,1,0,1
+Pythag,PROPN,NNP,,,,-2.0389,1,0,1
+Pythagoras,PROPN,NNP,n,noun.person,,-20.0312,1,0,1
+Rachel,PROPN,NNP,n,noun.person,,-20.6305,1,0,1
+Refuse,VERB,VB,n,noun.substance,waste > material > substance,-11.842799999999999,2,0,2
+Refusing,VERB,VBG,v,verb.communication,react > act,20.5523,1,1,0
+Republicans,PROPN,NNPS,n,noun.person,politician > leader > person,7.7063,1,1,0
+Repug,PROPN,NNP,,,,-9.9829,1,0,1
+Resolved,VERB,VB,v,verb.cognition,end > change,20.894366666666667,3,3,0
+Respect,VERB,VB,n,noun.cognition,detail > fact > information,-6.9878,1,0,1
+Rome,PROPN,NNP,n,noun.location,,1.1295,1,1,0
+Romney,PROPN,NNP,,,,5.8258,1,1,0
+SHIT,VERB,VB,n,noun.substance,fecal_matter > body_waste > waste,5.9463,1,1,0
+SMASH,VERB,VB,n,noun.event,blow > impact > contact,-13.6316,1,0,1
+SMASHpi,ADJ,JJ,,,,-14.0747,1,0,1
+SPOILER,NOUN,NN,n,noun.person,campaigner > politician > leader,-10.0624,1,0,1
+Salaries,NOUN,NNS,n,noun.possession,regular_payment > payment > cost,-13.8151,1,0,1
+Sanders,NOUN,NNS,n,noun.artifact,power_tool > machine > device,3.0675,1,1,0
+Sarah,PROPN,NNP,n,noun.person,,-22.3939,1,0,1
+Saute,PROPN,NNP,n,noun.food,dish > nutriment > food,1.3198,1,1,0
+Screw,VERB,VB,n,noun.person,lawman > defender > preserver,-22.6787,1,0,1
+Sept,VERB,VB,n,noun.time,gregorian_calendar_month > calendar_month > time_period,0.1972,1,0,0
+September,PROPN,NNP,n,noun.time,gregorian_calendar_month > calendar_month > time_period,2.8289,1,1,0
+Seraf,PROPN,NNP,,,,-10.3532,1,0,1
+Served,VERB,VBN,v,verb.stative,suffice > satisfy > meet,-10.3904,1,0,1
+Shakespeare,NOUN,NN,n,noun.person,,-0.7896,1,0,1
+Shit,VERB,VB,n,noun.substance,fecal_matter > body_waste > waste,8.4641,3,2,1
+Sighed,VERB,VBN,v,verb.body,breathe,-10.0904,1,0,1
+Sipha,PROPN,NNP,,,,-10.0868,1,0,1
+Siphi,VERB,VB,,,,-10.1394,1,0,1
+Sipped,VERB,VBN,v,verb.consumption,drink > consume,-11.2544,1,0,1
+Sipping,VERB,VBG,v,verb.consumption,drink > consume,-11.1503,1,0,1
+Soak,VERB,VB,n,noun.process,natural_process > process > physical_entity,-21.0693,1,0,1
+Someone,PRON,NN,n,noun.Tops,causal_agent > physical_entity > entity,-10.0489,1,0,1
+Sophie,PROPN,NNP,,,,-19.6249,1,0,1
+South,NOUN,NN,n,noun.location,,-11.1362,1,0,1
+Squealer,PROPN,NNP,n,noun.person,informant > communicator > person,-9.9778,1,0,1
+Squeez,NOUN,NN,,,,-10.1318,1,0,1
+Stupid,PROPN,NNP,n,noun.person,simpleton > person > causal_agent,-20.31575,2,0,2
+Submit,VERB,VB,v,verb.communication,refer > send > move,-22.4819,1,0,1
+Sunny,ADJ,JJ,s,adj.all,,-1.0836,1,0,1
+Sure,INTJ,UH,a,adj.all,,1.3748,1,1,0
+Svetl,PROPN,NNP,,,,-10.277,1,0,1
+Swoon,VERB,VB,n,noun.event,loss_of_consciousness > change > happening,-9.9718,1,0,1
+Tasmania,PROPN,NNP,n,noun.location,,-10.257,1,0,1
+Tell,VERB,VB,n,noun.person,,-13.3069,1,0,1
+Thank,VERB,VB,v,verb.communication,convey > impart > tell,-2.6012,1,0,1
+Thanks,NOUN,NNS,n,noun.communication,acknowledgment > message > communication,-8.1604,1,0,1
+Thankype,PROPN,NNP,,,,-10.896,1,0,1
+That,PRON,DT,,,,-3.0158500000000004,2,0,2
+Thats,PRON,DT,,,,-21.691499999999998,2,0,2
+The,PRON,DT,,,,-0.5121,1,0,1
+These,PRON,DT,,,,-20.5592,1,0,1
+The해주,PROPN,NNP,,,,-20.495,1,0,1
+This,PRON,DT,,,,-1.31785,2,0,2
+Thursday,PROPN,NNP,n,noun.time,weekday > day_of_the_week > calendar_day,0.7706,1,1,0
+Tiggers,NOUN,NNS,,,,20.3681,1,1,0
+Toting,VERB,VBG,v,verb.contact,transport > move,-1.659,1,0,1
+Trump,VERB,VB,n,noun.artifact,playing_card > card > paper,1.3932,1,1,0
+Tuesday,PROPN,NNP,n,noun.time,weekday > day_of_the_week > calendar_day,2.3585,1,1,0
+Turtles,PROPN,NNP,n,noun.artifact,sweater > garment > clothing,20.6035,1,1,0
+UFOs,NOUN,NNS,n,noun.cognition,apparition > illusion > appearance,-1.1334,1,0,1
+Ugh,VERB,VB,,,,-11.3566,1,0,1
+Unbelie,PROPN,NNP,,,,-20.7976,1,0,1
+Understand,VERB,VB,v,verb.cognition,,-11.2762,1,0,1
+Vampires,NOUN,NNS,n,noun.person,evil_spirit > spirit > spiritual_being,20.218,1,1,0
+Vasya,PROPN,NNP,,,,20.3512,1,1,0
+WHAT,PRON,WP,,,,0.2729,1,0,0
+WTF,PROPN,NNP,,,,9.7568,1,1,0
+Warren,PROPN,NNP,n,noun.person,,9.8421,1,1,0
+We,PRON,PRP,,,,-2.8252,1,0,1
+Wednesday,PROPN,NNP,n,noun.time,weekday > day_of_the_week > calendar_day,2.3581,1,1,0
+Weigh,VERB,VB,v,verb.stative,measure > be,-21.6204,1,0,1
+What,PRON,WP,,,,-1.5945666666666665,3,0,3
+Whatitial,NOUN,NN,,,,-6.9277,1,0,1
+Whenpan,PROPN,NNP,,,,21.0345,1,1,0
+Why,SCONJ,WRB,n,noun.motive,reason > rational_motive > motivation,-10.88255,2,0,2
+World,NOUN,NN,n,noun.object,natural_object > whole > object,0.54745,2,2,0
+Wow,INTJ,UH,n,noun.communication,joke > wit > message,-1.1686,1,0,1
+YES,INTJ,UH,n,noun.communication,affirmative > avowal > assertion,-1.0214,1,0,1
+You,PRON,PRP,,,,-2.875633333333333,3,0,3
+Zoroast,PROPN,NNP,,,,0.5704,1,1,0
+aIf,VERB,VB,,,,20.0096,1,1,0
+aLet,NOUN,NN,,,,20.1837,1,1,0
+aMy,VERB,VB,,,,-20.6001,1,0,1
+aSolution,NOUN,NN,,,,22.5985,2,2,0
+aSt,VERB,VB,,,,-12.9473,1,0,1
+aStep,VERB,VB,,,,10.1207,2,1,1
+aToDef,VERB,VB,,,,20.2972,1,1,0
+aWhat,NOUN,NN,,,,-0.1614,1,0,0
+abandon,VERB,VB,n,noun.attribute,unrestraint > indiscipline > trait,-20.3759,1,0,1
+abolish,VERB,VB,v,verb.social,,-10.1261,1,0,1
+about,ADV,RB,s,adj.all,,3.9695750000000003,4,3,1
+absolutely,ADV,RB,r,adv.all,,-1.30785,2,0,2
+abuse,VERB,VB,n,noun.act,mistreatment > practice > activity,-0.025850000000000012,2,0,0
+accept,VERB,VB,v,verb.cognition,evaluate > think,-1.9961,2,0,2
+accurate,VERB,VB,a,adj.all,,-6.7795,1,0,1
+accusingly,ADV,RB,r,adv.all,,-1.0039,1,0,1
+ach,VERB,VB,,,,-2.6169000000000002,2,0,2
+ache,ADV,RB,n,noun.state,pain > symptom > evidence,-0.26255000000000006,2,1,1
+aching,VERB,VBG,n,noun.state,pain > symptom > evidence,2.69975,2,2,0
+acknowledge,VERB,VB,v,verb.communication,declare > evaluate > think,-18.43405,2,0,2
+across,ADP,IN,r,adv.all,,-2.2784,1,0,1
+act,VERB,VB,n,noun.communication,legal_document > document > writing,-7.810099999999999,7,1,6
+actually,ADV,RB,r,adv.all,,-1.9296,1,0,1
+ad,VERB,VB,n,noun.communication,promotion > message > communication,-6.8168,1,0,1
+add,VERB,VB,n,noun.state,syndrome > symptom > evidence,3.72878,15,13,1
+added,VERB,VBN,v,verb.change,increase > change_magnitude > change,-4.497175,4,0,3
+additional,VERB,VB,s,adj.all,,-19.6157,1,0,1
+address,VERB,VB,n,noun.communication,code > coding_system > writing,-6.5592,10,0,10
+adjectives,NOUN,NNS,n,noun.communication,modifier > content_word > word,-20.1187,1,0,1
+admire,VERB,VB,v,verb.emotion,respect > see > think,-20.8795,1,0,1
+admit,VERB,VB,v,verb.communication,declare > evaluate > think,-1.0213,2,0,2
+adopt,VERB,VB,v,verb.possession,choose > decide,-4.8556,1,0,1
+adoration,NOUN,NN,n,noun.feeling,love > emotion > feeling,-13.2944,1,0,1
+advance,VERB,VB,n,noun.event,change_of_location > movement > happening,-1.7641,1,0,1
+advanced,ADJ,JJ,v,verb.motion,travel,-3.7038,1,0,1
+adverbs,NOUN,NNS,n,noun.communication,major_form_class > part_of_speech > grammatical_category,-20.5611,1,0,1
+advise,VERB,VB,v,verb.communication,hash_out > talk_of > talk,-7.8523249999999996,8,0,7
+advocate,VERB,VB,n,noun.person,person > causal_agent > physical_entity,-0.6528,1,0,1
+afraid,ADJ,JJ,a,adj.all,,-6.5891,1,0,1
+after,ADP,IN,s,adj.all,,-3.2268666666666665,6,2,2
+again,ADV,RB,r,adv.all,,2.40315,4,2,1
+aggress,NOUN,NN,v,verb.competition,act,-2.8505,1,0,1
+aggressively,ADV,RB,r,adv.all,,-1.5256,1,0,1
+agree,VERB,VB,v,verb.communication,,20.1862,1,1,0
+aim,VERB,VB,n,noun.cognition,goal > content > cognition,-6.43505,4,1,3
+aimed,VERB,VBN,v,verb.competition,position > put > move,-0.9226000000000001,2,0,1
+alchemy,VERB,VB,n,noun.relation,social_relation > relation > abstraction,-6.4464500000000005,2,1,1
+alcoholism,VERB,VB,n,noun.state,drug_addiction > addiction > physical_condition,2.4621,1,1,0
+algebra,VERB,VB,n,noun.cognition,pure_mathematics > mathematics > science,-13.95125,2,0,2
+algebraic,VERB,VB,a,adj.pert,,-9.6,1,0,1
+alighted,VERB,VBN,v,verb.motion,land > arrive,-10.3468,1,0,1
+alive,VERB,VB,a,adj.all,,-0.9173,1,0,1
+all,PRON,DT,a,adj.all,,1.90209,10,8,2
+allocate,VERB,VB,v,verb.possession,assign > distribute > give,-1.9305,1,0,1
+allow,VERB,VB,v,verb.social,,1.00105,2,1,0
+allowed,VERB,VB,v,verb.social,,-0.7905,1,0,1
+alone,ADV,RB,s,adj.all,,-0.7102,1,0,1
+aloud,ADJ,JJ,r,adv.all,,0.3345666666666667,3,1,0
+alpacas,NOUN,NNS,n,noun.substance,wool > animal_fiber > animal_product,-18.6309,1,0,1
+already,ADV,RB,r,adv.all,,-6.0168,2,0,2
+alright,VERB,VB,s,adj.all,,-20.2786,1,0,1
+also,ADV,RB,r,adv.all,,0.39535652173913044,23,16,5
+alt,VERB,VB,n,noun.relation,angular_position > position > relation,2.1417,1,1,0
+altar,VERB,VB,n,noun.artifact,table > furniture > furnishing,2.3555,1,1,0
+always,ADV,RB,r,adv.all,,-3.474711111111111,9,1,8
+an,PRON,DT,n,noun.communication,associate_degree > academic_degree > award,-0.08928,10,6,3
+analyze,VERB,VB,v,verb.cognition,,-4.831166666666667,6,2,4
+anatomy,VERB,VB,n,noun.cognition,morphology > biology > life_science,-0.41905000000000003,2,0,1
+ancient,VERB,VB,n,noun.person,oldster > adult > person,-0.3649,2,0,1
+and,CCONJ,CC,,,,-1.5837818181818184,11,5,5
+angrily,ADV,RB,r,adv.all,,-0.42742499999999994,4,2,2
+angry,ADJ,JJ,a,adj.all,,1.083,1,1,0
+animals,NOUN,NNS,n,noun.Tops,organism > living_thing > whole,0.7627,1,1,0
+announce,VERB,VB,v,verb.communication,inform > communicate > interact,-5.36355,2,0,2
+anoint,VERB,VB,v,verb.cognition,choose > decide,9.3932,1,1,0
+anonymously,ADV,RB,r,adv.all,,-22.338,1,0,1
+another,PRON,DT,s,adj.all,,1.6012499999999998,2,1,0
+answer,VERB,VB,n,noun.communication,statement > message > communication,-11.331033333333332,6,0,5
+anti,VERB,VB,n,noun.person,person > causal_agent > physical_entity,22.1107,1,1,0
+ants,NOUN,NNS,n,noun.animal,hymenopterous_insect > insect > arthropod,-1.4151,1,0,1
+anxious,ADJ,JJ,s,adj.all,,-19.8628,1,0,1
+anxiously,ADV,RB,r,adv.all,,-1.1626,1,0,1
+any,PRON,DT,s,adj.all,,0.8203,1,1,0
+anyone,PRON,NN,,,,2.3637,1,1,0
+aplease,VERB,VB,,,,-3.4296,1,0,1
+apologet,VERB,VB,,,,20.1003,1,1,0
+apologetically,ADV,RB,r,adv.all,,-10.241399999999999,2,0,1
+apologies,NOUN,NNS,n,noun.communication,acknowledgment > message > communication,-1.2692,1,0,1
+apologize,VERB,VB,v,verb.communication,,-7.1889666666666665,3,0,3
+apologized,VERB,VB,v,verb.communication,,-3.0343,1,0,1
+appeal,VERB,VB,n,noun.communication,request > speech_act > act,-3.7036875,8,2,6
+applied,VERB,VBN,v,verb.consumption,,-2.5883,1,0,1
+apply,VERB,VB,v,verb.consumption,,0.65724,5,2,2
+apprehend,VERB,VB,v,verb.cognition,understand,-1.3473,1,0,1
+approach,VERB,VB,n,noun.act,conceptualization > creating_by_mental_acts > creation,-9.291622222222223,9,0,8
+approached,VERB,VB,v,verb.motion,come > travel,-3.7916,1,0,1
+apron,VERB,VB,n,noun.artifact,protective_garment > clothing > consumer_goods,1.61355,2,2,0
+archaeology,NOUN,NN,n,noun.cognition,anthropology > social_science > science,0.0221,1,0,0
+arched,VERB,VB,v,verb.motion,bend > change_shape > change,20.0092,1,1,0
+are,VERB,VB,n,noun.quantity,area_unit > unit_of_measurement > definite_quantity,-0.0781,1,0,0
+areype,VERB,VB,,,,21.0938,1,1,0
+argue,VERB,VB,v,verb.communication,present > state > express,-11.85195,4,0,4
+argumentative,VERB,VB,a,adj.all,,-20.2323,1,0,1
+arm,VERB,VB,n,noun.body,limb > extremity > external_body_part,-5.0765,2,1,1
+armor,VERB,VB,n,noun.artifact,protective_covering > covering > artifact,6.9758,1,1,0
+arou,VERB,VB,,,,-2.848,1,0,1
+around,ADP,IN,r,adv.all,,1.5719,1,1,0
+arousal,VERB,VB,n,noun.act,change_of_state > change > action,-0.8892,1,0,1
+arrange,VERB,VB,v,verb.contact,put > move,-1.9326,1,0,1
+arrest,VERB,VB,n,noun.act,capture > acquiring > act,0.24150000000000005,3,1,1
+arrive,VERB,VB,v,verb.motion,,1.3248,1,1,0
+art,VERB,VB,n,noun.artifact,creation > artifact > whole,-9.8244,1,0,1
+as,ADP,IN,n,noun.substance,chemical_element > substance > part,2.5868727272727274,11,8,1
+ashamed,VERB,VB,a,adj.all,,0.5078,1,1,0
+ask,VERB,VB,v,verb.communication,communicate > interact > act,-0.7246833333333332,24,12,9
+askSolution,NOUN,NN,,,,20.902549999999998,2,2,0
+asked,VERB,VBN,v,verb.communication,communicate > interact > act,0.05450000000000002,11,5,5
+asleep,ADJ,JJ,a,adj.all,,-20.2228,1,0,1
+ass,VERB,VB,n,noun.body,body_part > part > thing,3.6351,1,1,0
+assault,VERB,VB,n,noun.act,battle > military_action > group_action,-0.0027499999999999747,2,1,1
+assert,VERB,VB,v,verb.communication,insist,-3.1113,4,0,4
+assess,VERB,VB,v,verb.cognition,evaluate > think,5.670649999999999,6,5,0
+assign,VERB,VB,v,verb.social,appoint,-10.27995,2,0,2
+assist,VERB,VB,n,noun.act,activity > act > event,-5.36265,2,0,2
+assume,VERB,VB,v,verb.cognition,expect > evaluate > think,-1.184925,4,0,3
+astrology,NOUN,NN,n,noun.cognition,pseudoscience > fallacy > misconception,-1.7395,1,0,1
+astronomy,VERB,VB,n,noun.cognition,physics > natural_science > science,0.0016,1,0,0
+astrophysics,NOUN,NNS,n,noun.cognition,astronomy > physics > natural_science,-10.2381,1,0,1
+at,ADP,IN,n,noun.substance,chemical_element > substance > part,0.09924285714285717,14,6,5
+ate,VERB,VB,n,noun.person,,-4.70065,4,2,1
+attack,VERB,VB,n,noun.act,operation > activity > act,3.070825,4,2,0
+attacked,VERB,VB,v,verb.competition,contend,0.0882,1,0,0
+attackhim,VERB,VB,,,,-0.5151,1,0,1
+attempt,VERB,VB,n,noun.act,activity > act > event,-6.428299999999999,3,1,2
+attend,VERB,VB,v,verb.stative,be,-21.3774,1,0,1
+available,ADJ,JJ,a,adj.all,,-20.8062,1,0,1
+avoid,VERB,VB,v,verb.communication,,-11.55462,5,0,5
+awful,VERB,VB,s,adj.all,,1.1305,1,1,0
+awoke,VERB,VB,v,verb.body,change_state > change,6.4111,1,1,0
+back,VERB,VB,n,noun.body,body_part > part > thing,-8.3063,5,2,3
+backpack,VERB,VB,n,noun.artifact,bag > container > instrumentality,-4.9983,2,1,1
+bad,VERB,VB,n,noun.attribute,quality > attribute > abstraction,3.3174666666666663,3,3,0
+bag,VERB,VB,n,noun.artifact,container > instrumentality > artifact,0.2422,1,0,0
+balanced,VERB,VB,v,verb.stative,match > adjust > change,-19.9582,1,0,1
+balls,NOUN,NNS,n,noun.artifact,game_equipment > equipment > instrumentality,3.0724,2,2,0
+band,VERB,VB,n,noun.group,social_group > group > abstraction,-1.4662250000000001,4,0,3
+bandages,NOUN,NNS,n,noun.artifact,dressing > cloth_covering > covering,-20.0385,1,0,1
+bang,VERB,VB,n,noun.event,blow > impact > contact,-2.0584,1,0,1
+bar,VERB,VB,n,noun.artifact,room > area > structure,5.9162,1,1,0
+bare,VERB,VB,v,verb.contact,uncover,-0.774,2,0,2
+bark,VERB,VB,n,noun.plant,covering > natural_object > whole,-0.8913,1,0,1
+baseball,NOUN,NN,n,noun.act,ball_game > field_game > outdoor_game,3.9469000000000003,2,2,0
+based,VERB,VBN,v,verb.cognition,,-5.59555,2,0,2
+bash,VERB,VB,n,noun.event,blow > impact > contact,-2.34125,2,0,2
+basic,ADJ,JJ,n,noun.communication,programming_language > artificial_language > language,-19.8918,1,0,1
+bathe,VERB,VB,n,noun.act,swimming > water_sport > sport,11.3209,2,2,0
+bathrobe,VERB,VB,n,noun.artifact,robe > garment > clothing,20.2574,1,1,0
+baton,PROPN,NNP,n,noun.artifact,rod > implement > instrumentality,0.0827,1,0,0
+batter,VERB,VB,n,noun.person,ballplayer > player > contestant,0.5594,1,1,0
+battered,VERB,VB,v,verb.contact,strike > touch,-2.1797,1,0,1
+be,AUX,VB,n,noun.substance,metallic_element > chemical_element > substance,0.8064172413793103,29,24,1
+bealone,VERB,VB,,,,0.5973,1,1,0
+beat,VERB,VB,n,noun.location,path > line > location,0.98705,6,4,1
+beaten,VERB,VB,v,verb.competition,get_the_better_of,-0.6992,1,0,1
+beautiful,ADJ,JJ,a,adj.all,,10.29205,2,1,0
+became,VERB,VB,v,verb.change,change_state > change,0.4984,1,1,0
+because,SCONJ,IN,,,,0.6372,1,1,0
+become,VERB,VB,v,verb.change,change_state > change,-0.17956666666666665,3,0,1
+bedside,VERB,VB,n,noun.location,side > region > location,1.0487,1,1,0
+beekeeping,VERB,VBG,n,noun.act,cultivation > production > industry,20.2464,1,1,0
+befired,VERB,VBN,,,,4.4465,1,1,0
+began,VERB,VBN,v,verb.change,,0.33860833333333334,12,5,3
+begged,VERB,VB,v,verb.communication,plead > appeal > request,-0.10815000000000002,2,1,1
+begin,VERB,VB,n,noun.person,,-3.274825,4,0,3
+being,AUX,VBG,n,noun.state,state > attribute > abstraction,-11.07035,2,0,2
+believe,VERB,VB,v,verb.cognition,accept > evaluate > think,-10.97595,2,0,2
+belly,VERB,VB,n,noun.body,body_part > part > thing,1.9634,1,1,0
+below,ADP,IN,r,adv.all,,1.6008,1,1,0
+belt,VERB,VB,n,noun.artifact,loop > simple_closed_curve > closed_curve,-3.1284999999999994,3,2,1
+beneath,VERB,VB,r,adv.all,,0.0002,1,0,0
+bent,VERB,VB,n,noun.cognition,inclination > attitude > cognition,10.1463,1,1,0
+betrayed,VERB,VBN,v,verb.communication,unwrap > tell > inform,-1.3309,1,0,1
+better,VERB,VB,n,noun.attribute,good > quality > attribute,-0.1,1,0,0
+between,ADP,IN,r,adv.all,,-20.0965,1,0,1
+beware,VERB,VB,v,verb.cognition,watch,-10.0986,1,0,1
+bewarm,VERB,VB,,,,-2.4477,1,0,1
+bier,ADJ,JJR,n,noun.artifact,coffin > box > container,-10.2404,1,0,1
+big,VERB,VB,a,adj.all,,-4.2445,2,1,1
+bikini,VERB,VB,n,noun.location,,-1.005,1,0,1
+bill,VERB,VB,n,noun.communication,legal_document > document > writing,-1.6084,2,0,1
+binge,VERB,VB,n,noun.act,indulgence > gratification > satisfaction,-19.8264,1,0,1
+biology,NOUN,NN,n,noun.cognition,life_science > natural_science > science,-2.2395,1,0,1
+birds,NOUN,NNS,n,noun.animal,vertebrate > chordate > animal,1.2101,1,1,0
+bite,VERB,VB,n,noun.state,wound > injury > ill_health,0.27959999999999996,2,1,1
+bitterly,ADV,RB,r,adv.all,,1.2349,1,1,0
+bl,VERB,VB,,,,0.02849999999999997,2,1,1
+black,VERB,VB,n,noun.attribute,achromatic_color > color > visual_property,0.7739333333333334,3,2,1
+blacklist,VERB,VB,n,noun.communication,list > database > information,-2.7404,1,0,1
+blackmail,VERB,VB,n,noun.act,extortion > felony > crime,0.4504,1,1,0
+blame,VERB,VB,n,noun.communication,accusation > charge > pleading,-0.17520000000000002,2,1,1
+blazer,VERB,VB,n,noun.artifact,jacket > coat > overgarment,-0.3605,2,0,1
+ble,VERB,VB,,,,5.5863,2,1,1
+bled,VERB,VBN,v,verb.body,exhaust,0.7317,1,1,0
+bleed,VERB,VB,v,verb.body,exhaust,0.8191,1,1,0
+bleeding,VERB,VBG,n,noun.state,injury > ill_health > pathological_state,-0.25035,2,1,1
+blew,VERB,VB,v,verb.body,exhale > breathe,-0.30826666666666663,3,1,1
+blindfold,ADJ,JJ,n,noun.artifact,cloth_covering > covering > artifact,2.9879,2,2,0
+block,VERB,VB,n,noun.artifact,artifact > whole > object,-0.3578,1,0,1
+blood,NOUN,NN,n,noun.body,liquid_body_substance > body_substance > substance,-4.6858,1,0,1
+blouse,VERB,VB,n,noun.artifact,top > woman's_clothing > clothing,0.6698999999999999,2,1,0
+blow,VERB,VB,n,noun.act,stroke > motion > change,-0.2592,1,0,0
+blue,VERB,VB,n,noun.attribute,chromatic_color > color > visual_property,-0.3224,1,0,1
+bluntly,ADV,RB,r,adv.all,,0.8256,1,1,0
+boarded,VERB,VBN,v,verb.motion,enter,0.4529,1,1,0
+body,NOUN,NN,n,noun.body,natural_object > whole > object,0.9591,2,1,0
+boil,VERB,VB,n,noun.state,staphylococcal_infection > infection > ill_health,0.5214999999999999,2,1,1
+bolt,VERB,VB,n,noun.phenomenon,lightning > atmospheric_electricity > electrical_discharge,-0.8829,1,0,1
+boner,VERB,VB,n,noun.act,mistake > nonaccomplishment > act,1.781,1,1,0
+bones,NOUN,NNS,n,noun.artifact,percussion_instrument > musical_instrument > device,-20.3904,1,0,1
+bonnet,NOUN,NN,n,noun.artifact,hat > headdress > clothing,20.063,1,1,0
+boot,VERB,VB,n,noun.artifact,footwear > covering > artifact,-5.50535,2,0,2
+boots,NOUN,NNS,n,noun.artifact,footwear > covering > artifact,-4.627800000000001,4,3,1
+borrow,VERB,VB,v,verb.possession,get,-2.1465,1,0,1
+botany,VERB,VB,n,noun.group,collection > group > abstraction,-10.3836,1,0,1
+both,PRON,DT,s,adj.all,,2.26945,2,1,1
+bottom,VERB,VB,n,noun.location,side > surface > boundary,0.69075,2,2,0
+bound,VERB,VBN,n,noun.shape,line > shape > attribute,-0.5586,1,0,1
+box,VERB,VB,n,noun.artifact,container > instrumentality > artifact,-0.2784,1,0,0
+boxer,VERB,VB,n,noun.person,combatant > person > causal_agent,-10.3977,2,0,2
+boxers,NOUN,NNS,n,noun.artifact,underpants > undergarment > garment,0.7396,2,2,0
+boy,VERB,VB,n,noun.person,male > person > causal_agent,-0.1652,1,0,0
+boycott,VERB,VB,n,noun.act,protest > resistance > group_action,-0.9701500000000001,2,0,2
+boys,NOUN,NNS,n,noun.person,male > person > causal_agent,-20.405,1,0,1
+bra,VERB,VB,n,noun.artifact,woman's_clothing > clothing > consumer_goods,1.8105,1,1,0
+brainstorm,VERB,VB,n,noun.cognition,understanding > knowing > higher_cognitive_process,-11.680050000000001,2,0,2
+break,VERB,VB,n,noun.event,happening > event > psychological_feature,1.1242428571428573,7,4,2
+breast,VERB,VB,n,noun.body,external_body_part > body_part > part,-9.304,2,1,1
+breasts,NOUN,NNS,n,noun.body,external_body_part > body_part > part,3.6921,1,1,0
+breath,VERB,VB,n,noun.act,bodily_process > organic_process > process,-8.22885,2,0,2
+breathe,VERB,VB,v,verb.body,,1.653,1,1,0
+breathed,VERB,VBN,v,verb.body,,-1.7514200000000002,5,0,5
+breathing,VERB,VBG,n,noun.act,bodily_process > organic_process > process,0.4828,1,1,0
+bribe,VERB,VB,n,noun.possession,payment > cost > outgo,-19.9293,1,0,1
+brief,VERB,VB,n,noun.communication,legal_document > document > writing,-0.1615,1,0,0
+briefcase,VERB,VB,n,noun.artifact,case > container > instrumentality,-7.7655,1,0,1
+briefs,NOUN,NNS,n,noun.artifact,underpants > undergarment > garment,-1.6898,1,0,1
+bright,ADJ,JJ,a,adj.all,,0.1655,1,0,0
+bring,VERB,VB,v,verb.motion,transport > move,-1.626166666666667,9,4,2
+briskly,VERB,VB,r,adv.all,,-5.8264,1,0,1
+broke,VERB,VBD,v,verb.change,end > change,-1.37866,5,0,3
+broken,VERB,VBN,v,verb.change,end > change,-0.1394,1,0,0
+brought,VERB,VBN,v,verb.motion,transport > move,1.183775,4,2,0
+brow,VERB,VB,n,noun.body,feature > body_part > part,-0.06374999999999997,2,1,1
+brown,ADJ,JJ,n,noun.attribute,chromatic_color > color > visual_property,0.7749,2,1,1
+browse,VERB,VB,n,noun.group,vegetation > collection > group,-0.2356,1,0,0
+bruised,VERB,VB,v,verb.contact,injure > hurt > indispose,-1.7472,1,0,1
+brusquely,ADV,RB,r,adv.all,,0.13,1,0,0
+brutally,ADV,RB,r,adv.all,,-1.3239,1,0,1
+bucking,VERB,VBG,v,verb.social,endeavor > try > act,-0.142,1,0,0
+buddy,VERB,VB,n,noun.person,friend > person > causal_agent,-21.4415,1,0,1
+bugger,VERB,VB,n,noun.person,pervert > reprobate > wrongdoer,20.0532,1,1,0
+build,VERB,VB,n,noun.attribute,bodily_property > property > attribute,3.660066666666667,3,2,1
+bulge,VERB,VB,n,noun.shape,projection > convex_shape > solid,-3.7525,1,0,1
+bulging,VERB,VBG,v,verb.change,change_shape > change,4.0032,1,1,0
+burial,VERB,VB,n,noun.event,funeral > ceremony > affair,3.4772,1,1,0
+burn,VERB,VB,n,noun.state,pain > symptom > evidence,0.7555499999999999,2,2,0
+burning,VERB,VBG,n,noun.act,change_of_integrity > change > action,2.4768,2,2,0
+burrowed,VERB,VBN,v,verb.motion,dig > remove,-0.8455,1,0,1
+burst,VERB,VB,n,noun.act,change_of_integrity > change > action,0.18183333333333332,3,1,0
+butt,VERB,VB,n,noun.artifact,stock > handle > appendage,-1.4083,1,0,1
+buttered,VERB,VBN,v,verb.contact,cover,-0.5609,1,0,1
+butterflies,VERB,VB,n,noun.animal,lepidopterous_insect > insect > arthropod,-5.488650000000001,2,0,2
+buttocks,NOUN,NNS,n,noun.body,body_part > part > thing,-0.17089999999999983,2,1,1
+buy,VERB,VB,n,noun.possession,purchase > acquisition > transferred_property,1.85794,5,4,0
+by,ADP,IN,r,adv.all,,-1.1839,1,0,1
+ca,AUX,MD,n,noun.substance,metallic_element > chemical_element > substance,-2.6786000000000003,2,0,1
+calculate,VERB,VB,v,verb.cognition,reason > think,0.293,1,0,0
+calf,VERB,VB,n,noun.animal,young_mammal > young > animal,-0.7406,1,0,1
+call,VERB,VB,n,noun.communication,telephone > telecommunication > medium,-2.4581461538461538,26,9,10
+called,VERB,VBN,v,verb.communication,label > designate,1.054,7,3,3
+calledParis,PRON,PRP,,,,-1.8284,1,0,1
+calling,VERB,VBG,n,noun.act,occupation > activity > act,-1.785,1,0,1
+calm,VERB,VB,n,noun.attribute,disposition > nature > trait,-1.0452666666666668,3,0,3
+calmly,ADV,RB,r,adv.all,,1.2793333333333334,3,1,1
+came,VERB,VBD,v,verb.motion,travel,1.2497500000000001,2,2,0
+camera,VERB,VB,n,noun.artifact,photographic_equipment > equipment > instrumentality,1.594,1,1,0
+campaign,VERB,VB,n,noun.event,race > contest > social_event,-0.842,1,0,1
+cancel,VERB,VB,n,noun.communication,musical_notation > notation > writing,0.21706666666666674,3,1,2
+candidate,VERB,VB,n,noun.person,politician > leader > person,-1.9122,1,0,1
+candidates,NOUN,NNS,n,noun.person,politician > leader > person,-2.0704,1,0,1
+cane,VERB,VB,n,noun.artifact,walking_stick > stick > implement,-19.018,1,0,1
+cap,VERB,VB,n,noun.artifact,headdress > clothing > consumer_goods,1.77,2,2,0
+capital,VERB,VB,n,noun.possession,assets > possession > relation,-10.5021,1,0,1
+capitalism,NOUN,NN,n,noun.group,market_economy > economy > system,6.4675,1,1,0
+caramelize,VERB,VB,v,verb.change,convert > change,-1.6277,1,0,1
+cardigan,VERB,VB,n,noun.artifact,sweater > garment > clothing,-10.0752,2,0,2
+care,VERB,VB,n,noun.act,work > activity > act,-0.3577,1,0,1
+carefully,ADV,RB,r,adv.all,,-7.385933333333334,12,1,9
+caress,VERB,VB,n,noun.act,stroke > touch > act,1.55305,2,2,0
+caressed,VERB,VBN,v,verb.contact,stroke > touch,12.1968,1,1,0
+carpentry,VERB,VB,n,noun.act,trade > occupation > activity,-0.7986,1,0,1
+carried,VERB,VBN,v,verb.contact,move,0.18255,2,1,0
+carry,VERB,VB,n,noun.act,transportation > movement > change,-1.2143,1,0,1
+casket,VERB,VB,n,noun.artifact,box > container > instrumentality,0.3201,1,1,0
+casually,ADV,RB,r,adv.all,,-0.5155,1,0,1
+cats,NOUN,NNS,n,noun.animal,feline > carnivore > placental,1.2945,1,1,0
+cautiously,ADV,RB,r,adv.all,,-2.69115,2,0,2
+celebrate,VERB,VB,v,verb.social,,-10.55145,2,0,2
+cell,VERB,VB,n,noun.artifact,compartment > space > location,-0.30935,2,1,1
+cellphone,VERB,VB,n,noun.artifact,radiotelephone > telephone > electronic_equipment,-0.1587,1,0,0
+cells,NOUN,NNS,n,noun.artifact,compartment > space > location,-1.0052,1,0,1
+cellular,ADJ,JJ,a,adj.pert,,-2.8856,1,0,1
+cemetary,ADJ,JJ,,,,-0.8619,1,0,1
+cemeter,VERB,VB,,,,-9.9729,1,0,1
+cemetery,NOUN,NN,n,noun.location,site > tract > geographical_area,0.9309,1,1,0
+cenotaph,VERB,VB,n,noun.artifact,memorial > structure > artifact,-0.4929,1,0,1
+center,VERB,VB,n,noun.location,area > region > location,-2.9443,1,0,1
+centralise,VERB,VB,v,verb.change,change,-10.2608,1,0,1
+centralize,VERB,VB,v,verb.change,change,-11.6537,1,0,1
+certain,ADJ,JJ,s,adj.all,,0.4119,1,1,0
+ch,VERB,VB,,,,2.3099166666666666,6,2,3
+challenge,VERB,VB,n,noun.state,situation > state > attribute,-16.67172,5,0,5
+change,VERB,VB,n,noun.event,happening > event > psychological_feature,-0.8900888888888888,9,2,4
+changing,VERB,VBG,v,verb.change,,0.3739,1,1,0
+chant,VERB,VB,n,noun.communication,religious_song > song > musical_composition,-6.5059,1,0,1
+chanted,VERB,VB,v,verb.communication,sing > talk > communicate,-2.4363,1,0,1
+characterized,VERB,VBN,v,verb.communication,remember,17.792949999999998,2,2,0
+charge,VERB,VB,n,noun.act,attack > operation > activity,0.45783333333333326,6,4,1
+chargeSolution,NOUN,NN,,,,20.1211,1,1,0
+charged,VERB,VBN,v,verb.competition,rush > assail,-0.7422,1,0,1
+chase,VERB,VB,n,noun.act,motion > change > action,-0.85905,2,0,1
+chased,VERB,VBN,n,noun.person,hunted_person > victim > unfortunate,-0.074,1,0,0
+chat,VERB,VB,n,noun.communication,conversation > speech > auditory_communication,-3.7617,1,0,1
+chatted,VERB,VBN,v,verb.communication,converse > talk > communicate,0.8674,1,1,0
+cheated,VERB,VB,v,verb.social,victimize > wrong > treat,-0.9925,1,0,1
+check,VERB,VB,n,noun.possession,draft > negotiable_instrument > legal_document,-7.388316666666666,18,2,15
+checked,VERB,VBN,v,verb.cognition,analyze,-11.105133333333335,6,0,6
+cheek,VERB,VB,n,noun.body,feature > body_part > part,-9.562949999999999,2,1,1
+cheeks,NOUN,NNS,n,noun.body,feature > body_part > part,1.8645,2,2,0
+cheer,VERB,VB,n,noun.communication,approval > message > communication,-4.2617,1,0,1
+cheered,VERB,VBN,v,verb.emotion,encourage > inspire > stimulate,0.307,1,1,0
+cheerleading,VERB,VBG,v,verb.communication,cheer > encourage > inspire,-20.05,1,0,1
+chemical,VERB,VB,n,noun.substance,material > substance > part,-0.9792,1,0,1
+chess,NOUN,NN,n,noun.plant,brome > grass > gramineous_plant,-3.9101,1,0,1
+chest,VERB,VB,n,noun.body,body_part > part > thing,-2.3305499999999997,2,1,1
+chew,VERB,VB,n,noun.food,morsel > taste > small_indefinite_quantity,-1.3865,1,0,1
+chewed,VERB,VBN,v,verb.consumption,grate > break_up > break,0.62245,2,1,0
+chill,VERB,VB,n,noun.attribute,coldness > temperature > fundamental_quantity,2.0324999999999998,2,1,0
+chilly,VERB,VB,n,noun.food,hot_pepper > pepper > solanaceous_vegetable,-0.7414,1,0,1
+chin,VERB,VB,n,noun.body,feature > body_part > part,-0.09970000000000001,2,0,1
+choke,VERB,VB,n,noun.artifact,coil > reactor > electrical_device,-1.6089333333333335,3,0,3
+choked,VERB,VBN,v,verb.body,breathe,-1.7155500000000001,2,0,1
+choking,VERB,VBG,n,noun.state,disorder > physical_condition > condition,-0.4303,1,0,1
+choose,VERB,VB,v,verb.cognition,decide,-4.01185,8,0,7
+chop,VERB,VB,n,noun.phenomenon,physical_phenomenon > natural_phenomenon > phenomenon,0.0402,1,0,0
+chopped,VERB,VBN,v,verb.contact,cut > separate > move,-1.06,1,0,1
+chugged,VERB,VB,v,verb.perception,sound > cause_to_be_perceived,-0.884,1,0,1
+church,VERB,VB,n,noun.group,religion > institution > organization,0.3436,1,1,0
+churchyard,VERB,VB,n,noun.location,yard > tract > geographical_area,-0.7422,1,0,1
+circle,VERB,VB,n,noun.shape,ellipse > conic_section > plane_figure,-12.1632,1,0,1
+circumcised,VERB,VBN,v,verb.contact,cut > separate > move,-20.4967,1,0,1
+cite,VERB,VB,n,noun.communication,note > comment > statement,3.1443,1,1,0
+claim,VERB,VB,n,noun.communication,assertion > declaration > statement,-13.272166666666669,3,1,2
+clarify,VERB,VB,v,verb.communication,explain > inform > communicate,-9.56042,10,2,8
+clash,VERB,VB,n,noun.event,noise > sound > happening,-1.2592,1,0,1
+clasped,VERB,VBN,v,verb.contact,grasp > hold,20.0768,1,1,0
+claw,VERB,VB,n,noun.animal,horny_structure > structure > body_part,-10.598,1,0,1
+clean,VERB,VB,n,noun.act,weightlift > bodybuilding > exercise,-0.787,3,1,1
+clear,VERB,VB,n,noun.state,innocence > condition > state,-0.11080000000000001,2,0,0
+clearly,ADV,RB,r,adv.all,,-4.35695,2,1,1
+click,VERB,VB,n,noun.event,sound > happening > event,-0.0588,1,0,0
+cliff,VERB,VB,n,noun.object,geological_formation > object > physical_entity,-1.6058,1,0,1
+climate,VERB,VB,n,noun.state,environmental_condition > condition > state,-2.7339,1,0,1
+climb,VERB,VB,n,noun.object,slope > geological_formation > object,-0.34485,2,0,1
+climbed,VERB,VBN,v,verb.motion,rise > travel,15.7292,2,2,0
+clinked,VERB,VBN,v,verb.perception,sound,-0.914,1,0,1
+clit,VERB,VB,n,noun.body,erectile_organ > organ > body_part,1.1647,1,1,0
+cloak,VERB,VB,n,noun.artifact,covering > artifact > whole,-3.5292000000000003,2,0,1
+close,VERB,VB,n,noun.time,end > point > measure,0.9644750000000003,4,2,2
+closed,VERB,VB,v,verb.contact,,0.14142000000000002,5,3,2
+closely,ADV,RB,r,adv.all,,-22.2977,1,0,1
+clothes,NOUN,NNS,n,noun.artifact,clothing > consumer_goods > commodity,-6.773233333333334,3,2,1
+clothing,NOUN,NN,n,noun.artifact,consumer_goods > commodity > artifact,0.58935,2,1,0
+cloud,VERB,VB,n,noun.phenomenon,physical_phenomenon > natural_phenomenon > phenomenon,8.7103,1,1,0
+cloudy,VERB,VB,s,adj.all,,1.1783,1,1,0
+club,VERB,VB,n,noun.group,baseball_team > team > unit,1.9997,2,1,0
+clutched,VERB,VB,v,verb.contact,take,-2.5063,1,0,1
+coat,VERB,VB,n,noun.artifact,overgarment > garment > clothing,-6.617575,4,1,2
+cock,VERB,VB,n,noun.body,penis > erectile_organ > organ,1.41675,2,2,0
+cocked,VERB,VB,v,verb.motion,cant > move,5.6073,1,1,0
+code,VERB,VB,n,noun.communication,written_communication > communication > abstraction,-1.9392,1,0,1
+coding,VERB,VBG,n,noun.act,writing > activity > act,-20.9502,1,0,1
+coffin,VERB,VB,n,noun.artifact,box > container > instrumentality,4.0287,1,1,0
+cold,VERB,VB,n,noun.state,communicable_disease > disease > illness,1.5578,3,2,1
+coldly,ADV,RB,r,adv.all,,-7.992400000000001,2,1,1
+coldness,VERB,VB,n,noun.cognition,temperature > somesthesia > perception,0.06084999999999999,2,1,1
+collapse,VERB,VB,n,noun.state,illness > ill_health > pathological_state,-0.0847,1,0,0
+collapsed,VERB,VBN,v,verb.motion,change,-0.6536500000000001,2,1,1
+collar,VERB,VB,n,noun.artifact,band > strip > artifact,-20.1384,1,0,1
+collect,VERB,VB,n,noun.communication,prayer > request > speech_act,-2.3526,1,0,1
+collectively,ADV,RB,r,adv.all,,-21.3159,2,0,2
+combine,VERB,VB,n,noun.artifact,harvester > farm_machine > machine,-19.5502,1,0,1
+come,VERB,VB,n,noun.body,liquid_body_substance > body_substance > substance,-1.033577777777778,9,6,3
+comfort,VERB,VB,n,noun.state,condition > state > attribute,-11.60675,2,0,2
+comfortable,ADJ,JJ,a,adj.all,,-0.5493,1,0,1
+comforted,VERB,VB,v,verb.emotion,,-5.77365,2,0,2
+coming,VERB,VBG,n,noun.act,motion > change > action,-20.0285,1,0,1
+commit,VERB,VB,v,verb.social,act,-3.967,2,0,2
+commonly,ADV,RB,r,adv.all,,1.1168,1,1,0
+communicate,VERB,VB,v,verb.communication,convey > transfer > move,-12.1596625,8,1,7
+compelled,VERB,VBN,v,verb.social,induce,4.4333,1,1,0
+compile,VERB,VB,v,verb.possession,store > keep > have,-2.4088,1,0,1
+complain,VERB,VB,v,verb.communication,,0.9643857142857143,7,5,2
+complete,VERB,VB,v,verb.change,end > change,-1.1437,1,0,1
+completely,ADV,RB,r,adv.all,,-0.0004,1,0,0
+complex,VERB,VB,n,noun.cognition,whole > concept > idea,-1.2267,1,0,1
+comply,VERB,VB,v,verb.social,obey > adjust > change,2.3189499999999996,2,1,1
+compose,VERB,VB,v,verb.stative,constitute,1.9311,1,1,0
+compulsion,VERB,VB,n,noun.motive,irrational_impulse > irrational_motive > motivation,-1.0796,1,0,1
+computer,VERB,VB,n,noun.artifact,machine > device > instrumentality,-0.2759,1,0,0
+computers,NOUN,NNS,n,noun.artifact,machine > device > instrumentality,0.0969,1,0,0
+concentrate,VERB,VB,n,noun.substance,ore > mineral > material,1.3692,1,1,0
+condition,VERB,VB,n,noun.state,state > attribute > abstraction,-21.7041,1,0,1
+condom,VERB,VB,n,noun.artifact,contraceptive > device > instrumentality,2.8159,1,1,0
+confidentially,ADV,RB,r,adv.all,,6.7115,1,1,0
+confidently,ADV,RB,r,adv.all,,-13.3228,1,0,1
+confirm,VERB,VB,v,verb.cognition,,-20.4974,1,0,1
+confiscate,VERB,VB,v,verb.possession,take,4.11905,2,1,1
+confront,VERB,VB,v,verb.competition,meet,-8.595287500000001,8,0,7
+congratulations,NOUN,NNS,n,noun.communication,approval > message > communication,0.9508,1,1,0
+conjuring,VERB,VB,n,noun.cognition,magic > supernaturalism > belief,-20.6714,1,0,1
+connection,NOUN,NN,n,noun.relation,relation > abstraction > entity,-0.5809,1,0,1
+consider,VERB,VB,v,verb.cognition,think > evaluate > think,-6.03764347826087,23,0,21
+considerSolution,NUM,CD,,,,20.63815,2,2,0
+considered,VERB,VBN,v,verb.cognition,think > evaluate > think,-5.10095,2,0,1
+conspiratorially,ADV,RB,,,,-0.1326,1,0,0
+constellations,NOUN,NNS,n,noun.cognition,design > arrangement > structure,-20.0584,1,0,1
+constriction,VERB,VB,n,noun.shape,narrowing > shape > spatial_property,7.947,1,1,0
+consult,VERB,VB,v,verb.communication,ask > communicate > interact,-9.054314285714286,14,0,13
+contact,VERB,VB,n,noun.act,interaction > action > act,-4.707335294117647,17,1,15
+contempl,VERB,VB,,,,-1.2568,1,0,1
+contemplated,VERB,VBN,v,verb.perception,view > analyze,-0.8927666666666666,3,1,1
+contest,VERB,VB,n,noun.event,social_event > event > psychological_feature,-15.172575,4,0,4
+continue,VERB,VB,v,verb.stative,act,-5.011588888888889,9,1,6
+continued,VERB,VBN,v,verb.stative,act,-0.015016666666666604,6,2,4
+control,VERB,VB,n,noun.attribute,power > quality > attribute,-10.1605,1,0,1
+conv,VERB,VB,,,,-0.88045,2,1,1
+convince,VERB,VB,v,verb.communication,persuade > induce,-21.02865,2,0,2
+convulse,VERB,VB,v,verb.communication,amuse > cheer,9.7698,1,1,0
+cook,VERB,VB,n,noun.person,skilled_worker > worker > person,-0.6271,2,1,1
+cooking,VERB,VBG,n,noun.act,change_of_state > change > action,-1.5134,1,0,1
+cool,VERB,VB,n,noun.attribute,coldness > temperature > fundamental_quantity,20.1161,1,1,0
+coolly,ADV,RB,r,adv.all,,9.2356,1,1,0
+coolness,VERB,VB,n,noun.feeling,calmness > feeling > state,0.07610000000000001,2,1,0
+copyright,NOUN,NN,n,noun.communication,document > writing > written_communication,-20.0619,1,0,1
+corner,VERB,VB,n,noun.location,area > region > location,0.4015,1,1,0
+correct,VERB,VB,v,verb.change,change_by_reversal > change,-20.1242,1,0,1
+corset,VERB,VB,n,noun.artifact,foundation_garment > undergarment > garment,5.1677,1,1,0
+coughing,VERB,VBG,n,noun.state,symptom > evidence > information,2.9248,1,1,0
+could,AUX,MD,,,,0.46685,2,2,0
+couldn,VERB,VB,,,,-2.3331,1,0,1
+counsel,VERB,VB,n,noun.person,lawyer > professional > adult,-10.0243,1,0,1
+count,VERB,VB,n,noun.quantity,number > definite_quantity > measure,-2.8693,1,0,1
+counted,VERB,VBN,v,verb.communication,determine,-1.2434,1,0,1
+counter,VERB,VB,n,noun.artifact,table > furniture > furnishing,-7.582833333333333,3,0,3
+countersue,VERB,VB,,,,-10.9419,1,0,1
+cover,VERB,VB,n,noun.artifact,covering > artifact > whole,-0.2174,1,0,0
+covered,VERB,VBN,v,verb.contact,,0.33035,2,1,0
+cr,VERB,VB,n,noun.substance,metallic_element > chemical_element > substance,-2.485,1,0,1
+crack,VERB,VB,n,noun.object,opening > space > location,-0.2914,1,0,0
+crackdown,VERB,VB,n,noun.act,suppression > prevention > hindrance,-1.034,1,0,1
+cradled,VERB,VBN,v,verb.contact,hold,3.2751,1,1,0
+craft,VERB,VB,n,noun.act,occupation > activity > act,-20.737650000000002,2,0,2
+cramp,VERB,VB,n,noun.state,symptom > evidence > information,-10.73335,2,0,2
+cramping,VERB,VBG,v,verb.contact,fasten > attach > connect,-0.381,1,0,1
+cranked,VERB,VB,v,verb.motion,travel,1.2768,1,1,0
+crap,VERB,VB,n,noun.substance,fecal_matter > body_waste > waste,10.066,1,1,0
+craw,VERB,VB,n,noun.animal,stomach > internal_organ > organ,-1.6237,1,0,1
+crawl,VERB,VB,n,noun.act,motion > change > action,-1.07165,2,0,2
+crawled,VERB,VBN,v,verb.motion,travel,1.0693,1,1,0
+create,VERB,VB,v,verb.creation,,-9.330200000000001,11,1,9
+crem,VERB,VB,,,,-20.1463,1,0,1
+cremation,VERB,VB,n,noun.act,incineration > burning > change_of_integrity,-19.8688,1,0,1
+crematorium,VERB,VB,n,noun.artifact,morgue > building > structure,-1.3327,1,0,1
+crept,VERB,VB,v,verb.motion,travel,-7.9027,1,0,1
+cried,VERB,VBN,v,verb.communication,utter,1.09195,4,3,1
+crisply,VERB,VB,r,adv.all,,-1.4656,1,0,1
+crook,VERB,VB,n,noun.person,principal > wrongdoer > bad_person,-13.0874,1,0,1
+cross,VERB,VB,n,noun.artifact,structure > artifact > whole,13.7419,1,1,0
+crossroads,NOUN,NNS,n,noun.group,community > gathering > social_group,-3.4507,1,0,1
+crotch,VERB,VB,n,noun.shape,branch > subfigure > figure,0.9588,1,1,0
+crown,VERB,VB,n,noun.communication,symbol > signal > communication,-3.0367,1,0,1
+crucial,ADJ,JJ,a,adj.all,,-2.7757,1,0,1
+crum,VERB,VB,,,,-20.1556,1,0,1
+crumble,VERB,VB,v,verb.motion,change_integrity > change,0.9059,1,1,0
+crumple,VERB,VB,v,verb.motion,change_integrity > change,1.257,1,1,0
+crumpleading,VERB,VBG,,,,20.2406,1,1,0
+crush,VERB,VB,n,noun.substance,leather > animal_skin > animal_product,-20.6397,1,0,1
+crushed,VERB,VB,v,verb.social,,4.5044,2,1,0
+cry,VERB,VB,n,noun.communication,utterance > auditory_communication > communication,0.25910000000000005,6,4,2
+crying,VERB,VBG,n,noun.act,bodily_process > organic_process > process,1.27515,2,2,0
+cryptography,VERB,VB,n,noun.cognition,science > discipline > knowledge_domain,-10.4753,1,0,1
+cuddle,VERB,VB,n,noun.act,embrace > clasp > grasping,-4.5801,1,0,1
+cuddled,VERB,VB,v,verb.contact,cling_to > hold,0.3667,1,1,0
+cupped,VERB,VB,v,verb.change,shape > change,20.2636,1,1,0
+cur,VERB,VB,n,noun.animal,dog > domestic_animal > animal,-1.6054,1,0,1
+curb,VERB,VB,n,noun.artifact,edge > side > surface,-2.4313,1,0,1
+cure,VERB,VB,n,noun.artifact,medicine > drug > agent,-1.0161,1,0,1
+curiously,ADV,RB,r,adv.all,,-10.095,1,0,1
+curl,VERB,VB,n,noun.shape,round_shape > shape > attribute,-2.1436,1,0,1
+curled,VERB,VBN,v,verb.change,change_surface > change,0.8424,2,1,1
+currently,ADV,RB,r,adv.all,,-0.66065,2,0,2
+curs,NOUN,NNS,n,noun.animal,dog > domestic_animal > animal,-1.4665,1,0,1
+curse,VERB,VB,n,noun.communication,profanity > utterance > auditory_communication,-3.4729333333333336,3,0,3
+cursed,VERB,VB,v,verb.communication,express,0.323,1,1,0
+curses,NOUN,NNS,n,noun.communication,profanity > utterance > auditory_communication,-9.92655,2,0,1
+cursesame,VERB,VB,,,,20.6886,1,1,0
+curtly,ADV,RB,r,adv.all,,1.3193,1,1,0
+cut,VERB,VB,n,noun.possession,share > assets > possession,1.3539733333333333,15,8,6
+cuts,NOUN,NNS,n,noun.possession,share > assets > possession,-0.7344,1,0,1
+dabbed,VERB,VBN,v,verb.contact,put_on > cover,-2.9358,1,0,1
+damn,VERB,VB,n,noun.attribute,worthlessness > quality > attribute,5.5972,1,1,0
+damp,VERB,VB,n,noun.state,wetness > condition > state,-3.4454,1,0,1
+dance,VERB,VB,n,noun.communication,art > creation > artifact,-1.3553250000000001,4,0,4
+danced,VERB,VBN,v,verb.motion,move,-11.0601,1,0,1
+dark,VERB,VB,n,noun.state,illumination > state > attribute,6.643133333333334,3,1,2
+darkly,ADV,RB,r,adv.all,,1.7721,1,1,0
+darn,VERB,VB,n,noun.attribute,worthlessness > quality > attribute,-20.5946,1,0,1
+dead,ADJ,JJ,n,noun.group,people > group > abstraction,0.0774,1,0,0
+deal,VERB,VB,n,noun.act,transaction > group_action > event,-1.1021,1,0,1
+dear,VERB,VB,n,noun.person,lover > person > causal_agent,1.9505,1,1,0
+deathbed,VERB,VBN,n,noun.time,time_of_life > time_period > fundamental_quantity,-19.475,1,0,1
+decide,VERB,VB,v,verb.cognition,,-4.24555,6,1,4
+decided,VERB,VBN,v,verb.cognition,,-6.059033333333333,3,2,1
+decisively,ADV,RB,r,adv.all,,-10.5486,1,0,1
+declare,VERB,VB,v,verb.communication,state > express,-20.4236,1,0,1
+decline,VERB,VB,n,noun.process,decrease > process > physical_entity,-1.11775,2,0,2
+decrease,VERB,VB,n,noun.event,change > happening > event,-7.034700000000001,3,0,2
+deduct,VERB,VB,v,verb.cognition,calculate > reason > think,-1.3546,2,0,2
+defile,VERB,VB,n,noun.object,pass > location > object,-3.0639,1,0,1
+definitely,ADV,RB,r,adv.all,,-6.889191666666666,12,1,11
+defuse,VERB,VB,v,verb.competition,remove,21.0787,1,1,0
+deglaze,VERB,VB,v,verb.creation,cook > create_from_raw_material > make,0.0654,1,0,0
+dejectedly,ADV,RB,r,adv.all,,-9.9922,1,0,1
+delay,VERB,VB,n,noun.time,pause > time_interval > measure,-20.7461,1,0,1
+dem,VERB,VB,,,,-13.2695,1,0,1
+demand,VERB,VB,n,noun.communication,request > message > communication,-3.091441666666667,12,2,9
+demanded,VERB,VBN,v,verb.communication,request > communicate > convey,-1.2875,1,0,1
+democrats,NOUN,NNS,n,noun.person,politician > leader > person,-13.1687,1,0,1
+demonology,VERB,VB,,,,20.0521,1,1,0
+demons,NOUN,NNS,n,noun.person,evil_spirit > spirit > spiritual_being,20.0307,1,1,0
+demote,VERB,VB,v,verb.social,delegate > appoint,-0.5173,1,0,1
+deny,VERB,VB,v,verb.communication,contradict > disagree,-5.51325,2,1,1
+depart,VERB,VB,v,verb.motion,exit > move,0.3725,1,1,0
+departed,VERB,VBN,n,noun.person,person > causal_agent > physical_entity,-6.0573,1,0,1
+deploy,VERB,VB,v,verb.competition,position > put > move,-8.7452,2,0,2
+deposited,VERB,VBN,v,verb.contact,fasten > attach > connect,-20.304,1,0,1
+describe,VERB,VB,v,verb.communication,set_forth > elaborate > clarify,-2.1548,1,0,1
+described,VERB,VBN,v,verb.communication,set_forth > elaborate > clarify,3.3157,1,1,0
+design,VERB,VB,n,noun.act,creating_by_mental_acts > creation > activity,-1.1851,1,0,1
+designed,VERB,VBN,v,verb.creation,create_by_mental_act > make,-20.158,1,0,1
+desire,VERB,VB,n,noun.feeling,feeling > state > attribute,5.03485,2,2,0
+desperate,VERB,VB,n,noun.person,unfortunate > person > causal_agent,-20.5307,1,0,1
+destroy,VERB,VB,v,verb.creation,unmake,0.027866666666666706,3,1,1
+detain,VERB,VB,v,verb.social,,4.98425,2,2,0
+determinants,NOUN,NNS,n,noun.cognition,cognitive_factor > cognition > psychological_feature,-20.7638,1,0,1
+determine,VERB,VB,v,verb.communication,,-1.5411,1,0,1
+determined,VERB,VBN,v,verb.communication,,11.80015,2,2,0
+develop,VERB,VB,v,verb.creation,create,-12.23935,2,0,2
+di,VERB,VB,,,,-1.3934,1,0,1
+dialed,VERB,VBN,v,verb.communication,operate > manipulate > handle,-1.6868,1,0,1
+dick,VERB,VB,n,noun.person,detective > policeman > lawman,3.7585,2,2,0
+did,VERB,VBD,v,verb.social,,-3.22426,5,2,2
+die,VERB,VB,n,noun.artifact,cube > block > artifact,2.30308,5,4,0
+died,VERB,VBN,v,verb.change,change_state > change,0.10615,2,0,0
+diedSolution,NOUN,NN,,,,20.1483,1,1,0
+different,ADJ,JJ,a,adj.all,,5.44235,2,1,0
+dig,VERB,VB,n,noun.location,site > tract > geographical_area,-10.9233,1,0,1
+dinosaurs,NOUN,NNS,n,noun.animal,archosaur > diapsid > reptile,0.037099999999999994,2,0,0
+directly,ADV,RB,r,adv.all,,-10.1913,1,0,1
+dis,PRON,PRP,n,noun.person,,-1.905333333333333,3,0,3
+disappear,VERB,VB,v,verb.change,,-0.641,1,0,1
+disappointed,VERB,VBN,v,verb.emotion,thwart > prevent,-10.3569,1,0,1
+discharge,VERB,VB,n,noun.event,happening > event > psychological_feature,1.2475,1,1,0
+discharged,VERB,VB,v,verb.social,carry_through > effect > cause,-1.9109,1,0,1
+discipline,VERB,VB,n,noun.cognition,knowledge_domain > content > cognition,-3.4013999999999998,2,0,2
+disclose,VERB,VB,v,verb.communication,tell > inform > communicate,-7.363366666666667,3,0,2
+discovered,VERB,VBN,v,verb.perception,spy > perceive,-7.0048,1,0,1
+discuss,VERB,VB,n,noun.event,field_event > match > contest,-5.790344444444445,9,2,7
+discussed,VERB,VBN,v,verb.communication,cover > broach > hash_out,-3.129,1,0,1
+disembark,VERB,VB,v,verb.motion,land > arrive,-1.7373,1,0,1
+disembarked,VERB,VBN,v,verb.motion,land > arrive,2.0081,1,1,0
+disgorged,VERB,VB,v,verb.contact,move,-19.9505,1,0,1
+disgustedly,ADV,RB,r,adv.all,,-2.2819,1,0,1
+dismantle,VERB,VB,v,verb.creation,destroy > unmake,-1.1045,1,0,1
+dismiss,VERB,VB,v,verb.communication,reject > evaluate > think,0.8029,1,1,0
+dispers,NOUN,NNS,,,,-1.4566,1,0,1
+disperse,VERB,VB,v,verb.contact,discharge > spread,-0.1668,1,0,0
+dispute,VERB,VB,n,noun.communication,disagreement > speech_act > act,-20.0743,1,0,1
+disrobe,VERB,VB,v,verb.body,take_off > remove,-0.36660000000000004,2,1,1
+dissolve,VERB,VB,n,noun.communication,transition > passage > section,-3.5273,1,0,1
+dissolved,VERB,VBN,v,verb.change,change_state > change,-0.5429,1,0,1
+divided,VERB,VBN,v,verb.social,change_integrity > change,1.8369999999999997,2,1,1
+divorce,VERB,VB,n,noun.act,separation > group_action > event,-1.4866,1,0,1
+dizziness,VERB,VB,n,noun.state,symptom > evidence > information,0.11954999999999996,2,1,1
+do,VERB,VB,n,noun.event,party > affair > social_event,-0.7934121212121211,33,11,12
+doSolution,NOUN,NN,,,,20.6943,1,1,0
+doWhat,PRON,PRP,,,,-21.2749,1,0,1
+document,VERB,VB,n,noun.communication,writing > written_communication > communication,-10.9054375,8,0,8
+dogs,NOUN,NNS,n,noun.animal,domestic_animal > animal > organism,2.2605,1,1,0
+dolphins,NOUN,NNS,n,noun.animal,percoid_fish > spiny-finned_fish > teleost_fish,13.6236,1,1,0
+don,VERB,VB,n,noun.person,gentleman > man > adult,-0.2281,1,0,0
+done,VERB,VBN,v,verb.social,,-2.1315,1,0,1
+doneSolution,NUM,CD,,,,20.0049,1,1,0
+door,VERB,VB,n,noun.artifact,movable_barrier > barrier > obstruction,1.3236,1,1,0
+doorway,VERB,VB,n,noun.artifact,entrance > access > way,0.5391,1,1,0
+douse,VERB,VB,v,verb.weather,snuff_out,-1.9993,1,0,1
+down,ADV,RB,n,noun.animal,feather > body_covering > covering,4.342966666666666,6,4,2
+downed,VERB,VB,v,verb.consumption,drink > consume,3.0013666666666663,3,2,1
+downgrade,VERB,VB,n,noun.attribute,grade > gradient > position,-2.8499,1,0,1
+download,VERB,VB,v,verb.possession,transfer > move,-4.4027,1,0,1
+downsize,VERB,VB,v,verb.social,furlough > displace > remove,-1.349,1,0,1
+dozed,VERB,VBN,v,verb.body,nap > sleep > rest,-8.2075,1,0,1
+dr,VERB,VB,,,,-0.6755,2,1,1
+draft,VERB,VB,n,noun.possession,negotiable_instrument > legal_document > document,-14.648957142857142,7,0,7
+drag,VERB,VB,n,noun.phenomenon,resistance > mechanical_phenomenon > physical_phenomenon,0.7392,4,3,0
+dragged,VERB,VBN,v,verb.contact,pull > move,0.5014,1,1,0
+dragons,NOUN,NNS,n,noun.person,mythical_monster > mythical_being > imaginary_being,-0.3742,1,0,1
+drain,VERB,VB,n,noun.act,emptying > removal > separation,-0.3292,1,0,1
+drained,VERB,VBN,v,verb.motion,run > move,-1.1002,1,0,1
+drank,VERB,VB,v,verb.consumption,consume,1.36766,5,4,0
+draw,VERB,VB,n,noun.object,gully > valley > natural_depression,-1.1869,1,0,1
+dreamed,VERB,VB,v,verb.creation,imagine > create_by_mental_act > make,4.9497,1,1,0
+dreamt,VERB,VB,v,verb.creation,imagine > create_by_mental_act > make,6.3215,1,1,0
+dress,VERB,VB,n,noun.artifact,woman's_clothing > clothing > consumer_goods,0.8624,2,2,0
+drew,VERB,VB,n,noun.person,,-0.406825,4,1,2
+drifted,VERB,VBN,v,verb.motion,travel,-10.7969,1,0,1
+drink,VERB,VB,n,noun.food,helping > small_indefinite_quantity > indefinite_quantity,-16.829333333333334,3,0,3
+drive,VERB,VB,n,noun.act,propulsion > act > event,-8.282366666666666,3,1,2
+drop,VERB,VB,n,noun.shape,sphere > round_shape > shape,-0.39355,2,0,1
+dropped,VERB,VBN,v,verb.motion,move,-0.42577999999999994,5,3,2
+drove,VERB,VB,n,noun.group,animal_group > biological_group > group,-1.3517,1,0,1
+drown,VERB,VB,v,verb.contact,cover > touch,-0.18870000000000003,2,1,1
+drowning,VERB,VBG,v,verb.contact,cover > touch,0.1749,1,0,0
+drowsiness,VERB,VB,n,noun.state,temporary_state > state > attribute,-0.7226,1,0,1
+dry,VERB,VB,n,noun.person,reformer > disputant > person,-2.0580499999999997,4,1,3
+dryly,ADV,RB,r,adv.all,,-1.2108,1,0,1
+dug,VERB,VB,n,noun.animal,mammary_gland > exocrine_gland > gland,-19.8883,1,0,1
+dull,VERB,VB,v,verb.contact,change,-1.721,1,0,1
+dump,VERB,VB,n,noun.process,defecation > elimination > discharge,0.5604,1,1,0
+dumped,VERB,VB,v,verb.possession,discard > get_rid_of,0.6612,1,1,0
+dusted,VERB,VBN,v,verb.contact,clean > change,2.9903,1,1,0
+dying,VERB,VBG,n,noun.time,end > point > measure,-0.3171,1,0,1
+each,PRON,DT,s,adj.all,,-6.4791,3,1,1
+ear,VERB,VB,n,noun.body,sense_organ > organ > body_part,-0.99995,2,0,2
+earlobe,VERB,VB,n,noun.body,lobe > body_part > part,-0.5179,1,0,1
+early,ADJ,JJ,a,adj.all,,-0.1932,1,0,0
+earn,VERB,VB,v,verb.possession,get,-3.8279,1,0,1
+earnestly,ADV,RB,r,adv.all,,4.8748,1,1,0
+earrings,NOUN,NNS,n,noun.artifact,jewelry > adornment > decoration,-0.4661,1,0,1
+ears,NOUN,NNS,n,noun.body,sense_organ > organ > body_part,-5.4464500000000005,4,1,2
+eat,VERB,VB,v,verb.consumption,eat > consume,-3.416916666666667,6,2,2
+eavesdro,NOUN,NNS,,,,-10.7249,1,0,1
+economic,ADJ,JJ,a,adj.pert,,0.4724,1,1,0
+economics,NOUN,NNS,n,noun.cognition,social_science > science > discipline,-0.3907,1,0,1
+edge,VERB,VB,n,noun.location,boundary > extremity > region,-0.0474,1,0,0
+edit,VERB,VB,v,verb.change,change,-10.0375,2,0,1
+educate,VERB,VB,v,verb.social,better > change,2.2762,1,1,0
+either,ADV,RB,r,adv.all,,-1.25738,10,2,4
+electric,VERB,VB,n,noun.artifact,car > motor_vehicle > self-propelled_vehicle,-2.1769,1,0,1
+electricity,NOUN,NN,n,noun.phenomenon,physical_phenomenon > natural_phenomenon > phenomenon,1.2095666666666667,3,1,2
+eliminate,VERB,VB,v,verb.change,destroy > unmake,-0.6264,1,0,1
+embrace,VERB,VB,n,noun.act,clasp > grasping > control,-5.1833,2,1,1
+embryology,NOUN,NN,n,noun.cognition,biology > life_science > natural_science,-19.7397,1,0,1
+empathize,VERB,VB,v,verb.cognition,,-0.3068,1,0,1
+emphasize,VERB,VB,v,verb.communication,express > convey > impart,-6.111083333333333,6,1,5
+emphatically,ADV,RB,r,adv.all,,-2.8793500000000005,2,1,1
+emptied,VERB,VBN,v,verb.change,change,-0.2813333333333333,3,1,1
+empty,VERB,VB,n,noun.artifact,container > instrumentality > artifact,-0.6868,2,0,1
+enc,NOUN,NN,,,,-1.2923,1,0,1
+encourage,VERB,VB,v,verb.social,support,-3.1443285714285714,7,2,5
+end,VERB,VB,n,noun.location,extremity > region > location,-5.043585714285714,7,2,5
+endofthe,VERB,VB,,,,-0.6787,1,0,1
+energy,NOUN,NN,n,noun.phenomenon,physical_phenomenon > natural_phenomenon > phenomenon,-10.07375,2,0,1
+enforce,VERB,VB,v,verb.social,compel > induce,-0.84355,2,0,1
+eng,VERB,VB,,,,-1.6705,1,0,1
+engage,VERB,VB,v,verb.social,act,-5.4546,2,0,2
+engineering,NOUN,NN,n,noun.act,profession > occupation > activity,-0.743,1,0,1
+engorged,VERB,VBN,v,verb.consumption,eat > consume,-7.017933333333333,3,0,2
+enjoy,VERB,VB,v,verb.emotion,,-3.8511,1,0,1
+enjoyed,VERB,VBN,v,verb.emotion,,-2.3913,1,0,1
+enormous,VERB,VB,s,adj.all,,-10.30385,2,1,1
+enough,ADJ,JJ,n,noun.quantity,relative_quantity > measure > abstraction,11.359250000000001,2,1,0
+ensure,VERB,VB,v,verb.communication,,-6.946222222222222,9,0,9
+enter,VERB,VB,v,verb.motion,,-0.1396,2,1,1
+entered,VERB,VBN,v,verb.motion,,2.5576,1,1,0
+entrance,VERB,VB,n,noun.artifact,access > way > artifact,0.1609,1,0,0
+ere,VERB,VB,,,,0.1128,1,0,0
+erect,VERB,VB,v,verb.creation,construct > make,-0.27599999999999997,2,1,1
+erected,VERB,VB,v,verb.creation,construct > make,-20.5777,1,0,1
+erecting,VERB,VBG,n,noun.act,construction > creating_from_raw_materials > creation,-21.0988,1,0,1
+erection,VERB,VB,n,noun.state,sexual_arousal > arousal > physical_condition,1.94835,2,2,0
+erections,NOUN,NNS,n,noun.state,sexual_arousal > arousal > physical_condition,-10.0312,1,0,1
+ered,VERB,VBN,,,,-4.8823,3,0,3
+escal,ADJ,JJ,,,,-22.1202,1,0,1
+escalate,VERB,VB,v,verb.change,increase > change,-7.80415,4,0,4
+establish,VERB,VB,v,verb.social,open,-10.0093,1,0,1
+eulogy,NOUN,NN,n,noun.communication,praise > approval > message,-19.8479,1,0,1
+ev,VERB,VB,n,noun.quantity,work_unit > unit_of_measurement > definite_quantity,-5.19228,5,2,3
+evaluate,VERB,VB,v,verb.cognition,evaluate > think,3.864375,4,2,2
+eventually,ADV,RB,r,adv.all,,-7.5588,2,0,2
+ever,ADV,RB,r,adv.all,,-21.4484,2,0,2
+evermore,VERB,VB,r,adv.all,,-20.6766,1,0,1
+every,PRON,DT,s,adj.all,,-11.0992,2,0,2
+everybody,PRON,NN,,,,-1.0311,1,0,1
+everyone,PRON,NN,,,,0.9332333333333334,3,3,0
+everything,PRON,NN,,,,5.7342,1,1,0
+evict,VERB,VB,v,verb.contact,eject > expel > move,8.02024,5,4,0
+evolution,VERB,VB,n,noun.process,process > physical_entity > entity,-1.9136,1,0,1
+ex,PRON,PRP,n,noun.person,man > adult > person,-1.9613,1,0,1
+examine,VERB,VB,v,verb.cognition,,-0.9586333333333332,3,1,2
+examined,VERB,VBN,v,verb.cognition,,-7.171033333333334,3,1,2
+exasperated,VERB,VBN,v,verb.emotion,anger > arouse > make,-20.3076,1,0,1
+except,SCONJ,IN,v,verb.communication,object > disapprove > evaluate,-20.2671,1,0,1
+exchanged,VERB,VBN,v,verb.possession,transfer,-1.5966,1,0,1
+excitedly,ADV,RB,r,adv.all,,-0.934,1,0,1
+excretion,VERB,VB,n,noun.process,discharge > bodily_process > organic_process,-19.9316,1,0,1
+excruci,PROPN,NNP,,,,-1.9414,1,0,1
+execute,VERB,VB,v,verb.social,kill,-2.4162,1,0,1
+exercise,VERB,VB,n,noun.act,effort > labor > work,-7.801100000000001,3,0,3
+exhaled,VERB,VBN,v,verb.body,breathe,0.5492,1,1,0
+exited,VERB,VBN,v,verb.motion,move,0.7486,1,1,0
+expect,VERB,VB,v,verb.cognition,evaluate > think,-4.459661538461538,13,3,8
+expected,VERB,VBN,v,verb.cognition,evaluate > think,-1.6956,1,0,1
+expecting,VERB,VBG,v,verb.cognition,evaluate > think,-13.5192,1,0,1
+expel,VERB,VB,v,verb.social,move,-20.3382,1,0,1
+experiment,VERB,VB,n,noun.act,scientific_research > research > investigation,-1.50665,2,0,2
+expired,VERB,VBN,v,verb.stative,discontinue > end,3.7462,1,1,0
+explain,VERB,VB,v,verb.communication,inform > communicate > interact,-2.665146153846154,13,1,9
+expletives,NOUN,NNS,n,noun.communication,profanity > utterance > auditory_communication,8.764433333333335,3,2,1
+explode,VERB,VB,v,verb.change,change_integrity > change,0.25645,2,1,1
+exploit,VERB,VB,n,noun.act,accomplishment > action > act,-0.9301,1,0,1
+explore,VERB,VB,v,verb.cognition,investigate > analyze,-6.224566666666667,6,1,5
+exponents,NOUN,NNS,n,noun.person,person > causal_agent > physical_entity,-10.5039,1,0,1
+expose,VERB,VB,n,noun.communication,exposure > disclosure > speech_act,-7.5166,3,0,3
+exposed,VERB,VBN,v,verb.perception,subject > affect > change,-1.7657,1,0,1
+express,VERB,VB,n,noun.communication,mail > message > communication,-11.562000000000001,2,0,2
+extremely,ADV,RB,r,adv.all,,-9.9094,2,1,1
+eye,VERB,VB,n,noun.body,sense_organ > organ > body_part,0.8194,1,1,0
+eyes,NOUN,NNS,n,noun.cognition,opinion > belief > content,1.4393,1,1,0
+face,VERB,VB,n,noun.body,external_body_part > body_part > part,1.6790600000000002,5,2,3
+faced,VERB,VB,v,verb.communication,set_about > act,-1.69175,2,0,2
+fade,VERB,VB,n,noun.act,golf_stroke > stroke > maneuver,-1.6638,1,0,1
+fail,VERB,VB,v,verb.social,,3.9589,1,1,0
+fainted,VERB,VBN,v,verb.body,zonk_out > change_state > change,-0.8785999999999999,2,0,1
+faintly,ADV,RB,r,adv.all,,20.5554,1,1,0
+faintness,VERB,VB,n,noun.feeling,feeling > state > attribute,14.9598,1,1,0
+fair,VERB,VB,n,noun.act,show > entertainment > diversion,1.1981,1,1,0
+fall,VERB,VB,n,noun.time,season > time_period > fundamental_quantity,-1.1715,2,0,1
+famous,ADJ,JJ,s,adj.all,,-0.1732,2,0,1
+far,ADV,RB,n,noun.group,,-0.8774,1,0,1
+farted,VERB,VB,v,verb.body,act_involuntarily > act,-19.6463,1,0,1
+fast,VERB,VB,n,noun.act,abstinence > self-denial > control,-20.0008,1,0,1
+fat,VERB,VB,n,noun.substance,lipid > macromolecule > organic_compound,-20.4725,1,0,1
+fear,VERB,VB,n,noun.feeling,emotion > feeling > state,-2.7449,2,1,1
+feel,VERB,VB,n,noun.cognition,awareness > knowing > higher_cognitive_process,-4.7150625,16,4,10
+feeling,VERB,VBG,n,noun.Tops,state > attribute > abstraction,0.4394,2,1,0
+feet,NOUN,NNS,n,noun.body,vertebrate_foot > extremity > external_body_part,-1.0902,1,0,1
+fell,VERB,VB,n,noun.substance,animal_skin > animal_product > animal_material,0.4831666666666666,3,2,0
+fellate,VERB,VB,v,verb.perception,stimulate > sensitize,8.0482,1,1,0
+felt,VERB,VBN,n,noun.artifact,fabric > artifact > whole,-0.5814444444444447,9,5,4
+fever,VERB,VB,n,noun.state,symptom > evidence > information,-20.1069,1,0,1
+feverish,VERB,VB,s,adj.all,,-19.5412,1,0,1
+fiddle,VERB,VB,n,noun.artifact,bowed_stringed_instrument > stringed_instrument > musical_instrument,-21.2026,1,0,1
+fight,VERB,VB,n,noun.act,military_action > group_action > event,-3.6878166666666665,12,2,8
+fighting,VERB,VBG,n,noun.act,conflict > group_action > event,0.534,1,1,0
+figure,VERB,VB,n,noun.communication,illustration > artwork > visual_communication,-8.064174999999999,4,0,4
+file,VERB,VB,n,noun.communication,record > evidence > indication,-1.4173099999999998,20,3,15
+fill,VERB,VB,n,noun.quantity,enough > relative_quantity > measure,-1.9196,2,0,1
+filled,VERB,VBN,v,verb.change,change,-1.0703,4,0,3
+film,VERB,VB,n,noun.communication,product > creation > artifact,20.3171,1,1,0
+final,ADJ,JJ,n,noun.event,match > contest > social_event,-1.6466,1,0,1
+finally,ADV,RB,r,adv.all,,-9.9084,2,1,1
+find,VERB,VB,n,noun.cognition,insight > understanding > knowing,-0.7003142857142857,21,6,9
+fine,VERB,VB,n,noun.possession,penalty > payment > cost,-3.78788,5,2,2
+finger,VERB,VB,n,noun.body,digit > extremity > external_body_part,0.48899999999999993,3,1,1
+fingerless,VERB,VB,a,adj.all,,-20.2118,1,0,1
+fingers,NOUN,NNS,n,noun.body,digit > extremity > external_body_part,-5.94265,2,0,2
+finish,VERB,VB,n,noun.attribute,decorativeness > appearance > quality,-3.3867,1,0,1
+finished,VERB,VB,v,verb.change,end > change,4.6419,1,1,0
+fire,VERB,VB,n,noun.event,happening > event > psychological_feature,6.189061538461539,13,9,3
+fireSolution,NOUN,NNS,,,,20.1026,1,1,0
+firebomb,VERB,VB,n,noun.artifact,bomb > weaponry > instrumentality,21.5502,1,1,0
+fired,VERB,VBN,v,verb.competition,blast > fire,0.7421,2,2,0
+fireher,VERB,VB,,,,-0.0625,1,0,0
+firethem,PRON,PRP,,,,-1.038,1,0,1
+firmly,ADV,RB,r,adv.all,,-0.8945,1,0,1
+first,ADV,RB,n,noun.relation,rank > status > state,-6.746364285714286,14,1,13
+firstSolution,NOUN,NN,,,,21.3328,1,1,0
+firstStep,VERB,VB,,,,20.0855,1,1,0
+firstly,ADV,RB,r,adv.all,,-10.9945,5,0,5
+fish,VERB,VB,n,noun.animal,aquatic_vertebrate > vertebrate > chordate,20.0368,1,1,0
+fishing,VERB,VBG,n,noun.act,outdoor_sport > sport > diversion,-1.1146,1,0,1
+fist,VERB,VB,n,noun.body,hand > extremity > external_body_part,-20.306,1,0,1
+fists,NOUN,NNS,n,noun.body,hand > extremity > external_body_part,-1.8273,1,0,1
+fix,VERB,VB,n,noun.state,difficulty > condition > state,2.6901333333333333,3,2,1
+fixed,VERB,VBN,v,verb.change,better > change,-2.9327,1,0,1
+fl,X,ADD,n,noun.location,,-3.18218,5,1,3
+flaccid,VERB,VB,s,adj.all,,-1.1246,1,0,1
+flail,VERB,VB,n,noun.artifact,implement > instrumentality > artifact,0.2049,1,0,0
+flailing,VERB,VBG,v,verb.contact,beat,2.8435,1,1,0
+flannel,VERB,VB,n,noun.artifact,fabric > artifact > whole,-1.3107,1,0,1
+flapping,VERB,VBG,n,noun.event,wave > movement > happening,-7.8051,1,0,1
+flash,VERB,VB,n,noun.event,happening > event > psychological_feature,0.8037000000000001,2,2,0
+flashed,VERB,VBN,v,verb.perception,radiate > cause_to_be_perceived,20.0431,1,1,0
+flatly,ADV,RB,r,adv.all,,-9.817799999999998,2,0,2
+fled,VERB,VBN,v,verb.motion,scat > leave,1.9859,1,1,0
+flesh,VERB,VB,n,noun.body,animal_tissue > tissue > body_part,-20.5063,1,0,1
+flicked,VERB,VB,v,verb.perception,flash > radiate > cause_to_be_perceived,0.17370000000000005,3,1,2
+fling,VERB,VBG,n,noun.act,attempt > activity > act,-3.9472,1,0,1
+flipped,VERB,VB,v,verb.motion,turn > move,-1.1175,1,0,1
+flo,PROPN,NNP,,,,-3.0344499999999996,2,0,2
+float,VERB,VB,n,noun.time,time_interval > measure > abstraction,0.0641,1,0,0
+floating,VERB,VBG,n,noun.act,swimming > water_sport > sport,-0.6496,1,0,1
+flog,VERB,VB,v,verb.contact,beat,-0.8575999999999999,2,0,2
+flop,VERB,VB,n,noun.process,computer_operation > operation > data_processing,0.4704,1,1,0
+flopped,VERB,VBN,v,verb.motion,collapse > change,2.4484,1,1,0
+flung,VERB,VB,v,verb.contact,throw > propel > move,0.1283,2,0,0
+flush,VERB,VB,n,noun.time,time_period > fundamental_quantity > measure,-0.33505,2,0,1
+flushed,VERB,VB,v,verb.body,discolor > change,0.639,1,1,0
+flutter,VERB,VB,n,noun.act,motion > change > action,-0.6956,1,0,1
+fluttering,VERB,VBG,n,noun.event,wave > movement > happening,-1.3832,1,0,1
+fly,VERB,VB,n,noun.animal,dipterous_insect > insect > arthropod,-0.9423666666666667,3,1,2
+focus,VERB,VB,n,noun.cognition,concentration > attention > faculty,-7.684384615384616,13,0,13
+fog,VERB,VB,n,noun.phenomenon,aerosol > cloud > physical_phenomenon,-9.9713,1,0,1
+foggy,VERB,VB,s,adj.all,,4.8056,1,1,0
+folds,NOUN,NNS,n,noun.shape,angular_shape > shape > attribute,-7.0526,1,0,1
+folks,NOUN,NNS,n,noun.group,kin > social_group > group,-20.5779,1,0,1
+follow,VERB,VB,v,verb.motion,travel,-3.6169333333333333,12,2,10
+fond,ADJ,JJ,s,adj.all,,-0.4781,1,0,1
+fondle,VERB,VB,v,verb.contact,stroke > touch,0.7878000000000001,2,1,0
+fool,VERB,VB,n,noun.person,simpleton > person > causal_agent,-1.7682,1,0,1
+foolish,VERB,VB,a,adj.all,,-10.0704,1,0,1
+foot,VERB,VB,n,noun.body,vertebrate_foot > extremity > external_body_part,0.7835,1,1,0
+for,ADP,IN,,,,-1.0320181818181817,11,3,7
+forc,NOUN,NN,,,,-2.4565,1,0,1
+force,VERB,VB,n,noun.attribute,influence > power > quality,-4.465683333333334,6,2,4
+forced,VERB,VBN,v,verb.social,compel > induce,-0.73265,2,0,1
+forcefully,ADV,RB,r,adv.all,,-1.5073999999999999,3,0,3
+forcibly,ADV,RB,r,adv.all,,0.8468,1,1,0
+forecast,VERB,VB,n,noun.communication,prediction > statement > message,-0.6888,1,0,1
+forecasted,VERB,VBN,v,verb.communication,predict > guess > speculate,-0.3804,1,0,1
+forehead,VERB,VB,n,noun.body,feature > body_part > part,4.2156,1,1,0
+foreskin,ADJ,JJ,n,noun.body,skin > body_covering > covering,-8.5555,2,0,2
+forg,VERB,VB,,,,15.7722,1,1,0
+forget,VERB,VB,v,verb.cognition,,8.0132,4,3,0
+forgive,VERB,VB,v,verb.communication,concede > agree,0.0849,1,0,0
+forhelp,VERB,VB,,,,-0.0283,1,0,0
+form,VERB,VB,n,noun.communication,word > language_unit > part,-0.708,5,1,4
+forward,VERB,VB,n,noun.person,basketball_player > athlete > contestant,0.26069999999999993,2,1,1
+forĠhelp,VERB,VB,,,,-1.3878,1,0,1
+foul,VERB,VB,n,noun.act,violation > wrongdoing > activity,-11.149799999999999,2,0,2
+found,VERB,VB,n,noun.possession,wage > regular_payment > payment,-1.21748,5,1,4
+fractals,NOUN,NNS,n,noun.cognition,form > structure > cognition,0.9123,1,1,0
+fractions,NOUN,NNS,n,noun.substance,chemical > material > substance,-6.174,1,0,1
+frame,VERB,VB,n,noun.artifact,framework > supporting_structure > structure,-19.8316,1,0,1
+frantically,ADV,RB,r,adv.all,,-1.0874,1,0,1
+free,VERB,VB,n,noun.group,people > group > abstraction,-1.5505000000000002,3,0,3
+fresh,VERB,VB,a,adj.all,,2.9648,1,1,0
+frock,VERB,VB,n,noun.artifact,habit > attire > clothing,-1.131,1,0,1
+frogs,NOUN,NNS,n,noun.animal,amphibian > vertebrate > chordate,-0.47319999999999995,2,0,2
+from,ADP,IN,,,,-6.7439,3,0,1
+front,VERB,VB,n,noun.location,side > surface > boundary,0.7113,1,1,0
+fry,VERB,VB,n,noun.person,,5.2653,1,1,0
+fuck,VERB,VB,n,noun.act,sexual_intercourse > sexual_activity > bodily_process,6.4519142857142855,7,6,0
+fudge,VERB,VB,n,noun.food,candy > sweet > dainty,10.1544,2,1,0
+full,ADJ,JJ,n,noun.time,phase_of_the_moon > time_period > fundamental_quantity,2.4799,1,1,0
+fumble,VERB,VB,n,noun.act,blunder > mistake > nonaccomplishment,-3.7557,1,0,1
+functions,NOUN,NNS,n,noun.relation,mathematical_relation > relation > abstraction,-20.1223,1,0,1
+funeral,VERB,VB,n,noun.event,ceremony > affair > social_event,1.1718,1,1,0
+fungi,VERB,VB,n,noun.plant,kingdom > taxonomic_group > biological_group,-0.7114,1,0,1
+furiously,ADV,RB,r,adv.all,,-16.9346,1,0,1
+further,ADV,RB,v,verb.social,promote > support,-1.3398,1,0,1
+furthernotice,VERB,VB,,,,0.269,1,0,0
+gag,VERB,VB,n,noun.communication,wit > message > communication,-20.7121,1,0,1
+gagging,VERB,VBG,v,verb.perception,hush > suppress > control,-0.4685,1,0,1
+gang,VERB,VB,n,noun.group,association > organization > social_group,-0.4719,1,0,1
+gardening,VERB,VBG,n,noun.act,farming > cultivation > production,-0.5497,1,0,1
+gas,VERB,VB,n,noun.state,state_of_matter > chemical_phenomenon > natural_phenomenon,0.1867,1,0,0
+gasp,VERB,VB,n,noun.act,inhalation > breath > bodily_process,-2.533,1,0,1
+gasped,VERB,VBN,v,verb.body,blow > exhale > breathe,-2.6529,1,0,1
+gasping,VERB,VBG,v,verb.body,blow > exhale > breathe,1.5352,1,1,0
+gate,VERB,VB,n,noun.artifact,movable_barrier > barrier > obstruction,2.2922,1,1,0
+gates,NOUN,NNS,n,noun.person,,-0.1592,1,0,0
+gather,VERB,VB,n,noun.artifact,sewing > needlework > creation,-6.096391666666666,12,1,11
+gathered,VERB,VBN,v,verb.contact,,-2.9417,1,0,1
+gave,VERB,VB,v,verb.possession,,-0.5976545454545454,11,4,3
+gaz,VERB,VB,,,,-1.25335,2,0,2
+gaze,VERB,VB,n,noun.act,stare > look > sensing,-21.1916,1,0,1
+gazed,VERB,VB,v,verb.perception,look,-0.8302666666666666,6,3,2
+gee,VERB,VB,n,noun.quantity,force_unit > unit_of_measurement > definite_quantity,3.8468,1,1,0
+geez,VERB,VB,,,,-1.0891,1,0,1
+genealogy,NOUN,NN,n,noun.group,kin > social_group > group,0.5782,1,1,0
+generally,ADV,RB,r,adv.all,,-16.65865,2,0,2
+generate,VERB,VB,v,verb.creation,make,-15.774049999999999,2,0,2
+genetics,NOUN,NNS,n,noun.cognition,biology > life_science > natural_science,-5.39225,2,0,1
+genitals,NOUN,NNS,n,noun.body,reproductive_organ > organ > body_part,-1.147,2,0,2
+gently,ADV,RB,r,adv.all,,-4.2869166666666665,6,2,4
+geography,NOUN,NN,n,noun.cognition,earth_science > natural_science > science,1.0357,1,1,0
+geology,NOUN,NN,n,noun.cognition,earth_science > natural_science > science,4.37705,2,1,1
+geometry,VERB,VB,n,noun.cognition,pure_mathematics > mathematics > science,-0.1822,1,0,0
+gestured,VERB,VBN,v,verb.communication,communicate > interact > act,-10.577,2,0,2
+get,VERB,VB,n,noun.act,return > tennis_stroke > stroke,1.929590909090909,33,29,3
+getfired,VERB,VBN,,,,4.2064,1,1,0
+getting,VERB,VBG,n,noun.act,act > event > psychological_feature,-1.0647,1,0,1
+ghosts,NOUN,NNS,n,noun.cognition,apparition > illusion > appearance,4.646,1,1,0
+giddiness,VERB,VB,n,noun.attribute,frivolity > trait > attribute,0.5973,1,1,0
+giggled,VERB,VB,v,verb.body,laugh > express_emotion,-2.0338,3,1,2
+give,VERB,VB,n,noun.attribute,elasticity > physical_property > property,0.24127857142857148,28,15,7
+giveidthe,VERB,VB,,,,20.0967,1,1,0
+given,VERB,VBN,n,noun.cognition,assumption > hypothesis > concept,0.7858,1,1,0
+gl,VERB,VB,,,,-2.4137000000000004,2,0,2
+glad,VERB,VB,n,noun.plant,iridaceous_plant > bulbous_plant > vascular_plant,0.1671,1,0,0
+gladius,ADJ,JJ,,,,-10.1626,1,0,1
+glanced,VERB,VBN,v,verb.perception,look,-0.822275,4,0,3
+glasses,NOUN,NNS,n,noun.artifact,optical_instrument > instrument > device,-3.4913333333333334,3,0,1
+global,ADJ,JJ,s,adj.all,,-2.9196,1,0,1
+gloomy,VERB,VB,s,adj.all,,-2.5337,1,0,1
+glorious,ADJ,JJ,a,adj.all,,20.984,1,1,0
+glove,VERB,VB,n,noun.artifact,baseball_equipment > sports_equipment > equipment,-11.149,2,0,2
+gloves,NOUN,NNS,n,noun.artifact,baseball_equipment > sports_equipment > equipment,0.23244999999999993,2,1,1
+glutes,NOUN,NNS,n,noun.body,skeletal_muscle > muscle > contractile_organ,-10.2083,1,0,1
+gnomes,NOUN,NNS,n,noun.person,fairy > spiritual_being > belief,19.9857,1,1,0
+go,VERB,VB,n,noun.time,shift > hours > work_time,1.753867741935484,31,26,2
+god,PROPN,NNP,n,noun.person,,2.4684,1,1,0
+goggles,NOUN,NNS,n,noun.artifact,spectacles > optical_instrument > instrument,-0.8586,1,0,1
+going,VERB,VBG,n,noun.act,act > event > psychological_feature,0.5686,1,1,0
+golly,ADV,RB,,,,-0.4837,1,0,1
+good,ADJ,JJ,n,noun.attribute,advantage > asset > quality,-2.23742,5,4,1
+goodbye,VERB,VB,n,noun.communication,farewell > acknowledgment > message,-7.708324999999999,4,0,4
+google,VERB,VB,n,noun.communication,,-22.0655,1,0,1
+gorgeous,ADJ,JJ,s,adj.all,,9.958,2,1,1
+gosh,VERB,VB,,,,2.8887,1,1,0
+got,VERB,VB,v,verb.possession,,1.1996222222222221,9,4,5
+gouge,VERB,VB,n,noun.attribute,blemish > appearance > quality,-1.5548,1,0,1
+gown,VERB,VB,n,noun.artifact,dress > woman's_clothing > clothing,-3.8859,1,0,1
+gr,VERB,VB,,,,3.2545500000000005,4,1,3
+gra,VERB,VB,,,,7.9238,1,1,0
+grab,VERB,VB,n,noun.artifact,mechanical_device > mechanism > device,-3.6208,1,0,1
+grabbed,VERB,VBN,v,verb.contact,seize > take,-1.395225,4,1,3
+grant,VERB,VB,n,noun.possession,aid > gift > acquisition,-1.04155,2,1,1
+grate,VERB,VB,n,noun.artifact,framework > supporting_structure > structure,0.1299,1,0,0
+grateful,VERB,VB,a,adj.all,,-3.9205,1,0,1
+grav,VERB,VB,,,,-6.7885,1,0,1
+grave,VERB,VB,n,noun.time,death > end > point,0.3837,1,1,0
+gravely,ADV,RB,r,adv.all,,3.7475,1,1,0
+graves,NOUN,NNS,n,noun.person,,-0.5883,1,0,1
+graveside,NOUN,NN,,,,1.3006,1,1,0
+gravesite,VERB,VB,,,,0.722,1,1,0
+gravestone,VERB,VB,n,noun.artifact,stone > building_material > artifact,-4.9222,1,0,1
+graveyard,VERB,VB,n,noun.location,site > tract > geographical_area,2.434,1,1,0
+great,ADJ,JJ,n,noun.person,achiever > person > causal_agent,3.008,4,2,1
+grimly,ADV,RB,r,adv.all,,-20.5515,1,0,1
+grind,VERB,VB,n,noun.person,learner > person > causal_agent,-0.4077,2,0,1
+grinned,VERB,VBN,v,verb.body,smile > grimace > communicate,-1.8159999999999998,2,0,2
+gripped,VERB,VBN,v,verb.contact,seize > take,0.1383,1,0,0
+groaned,VERB,VBN,v,verb.communication,utter,-2.32125,2,1,1
+groin,VERB,VB,n,noun.body,area > body_part > part,1.0892,1,1,0
+grope,VERB,VB,n,noun.act,touch > act > event,-4.796049999999999,2,0,2
+ground,VERB,VB,n,noun.object,object > physical_entity > entity,-1.5407,2,0,1
+growing,VERB,VBG,n,noun.process,organic_process > process > physical_entity,-1.8782,1,0,1
+growled,VERB,VB,v,verb.communication,utter,-20.059,1,0,1
+gruffi,PROPN,NNP,,,,20.0073,1,1,0
+gruffly,VERB,VB,r,adv.all,,4.1424,1,1,0
+grumpily,VERB,VB,r,adv.all,,-13.229099999999999,2,0,2
+guess,VERB,VB,n,noun.communication,opinion > message > communication,-10.0755,1,0,1
+guide,VERB,VB,n,noun.person,escort > attendant > assistant,-0.16904999999999992,2,1,1
+guided,VERB,VB,v,verb.motion,control,-19.7109,1,0,1
+guilt,VERB,VB,n,noun.state,condition > state > attribute,0.5228,1,1,0
+guilty,ADJ,JJ,a,adj.all,,1.4172,1,1,0
+gulped,VERB,VBN,v,verb.consumption,drink > consume,15.282200000000001,3,3,0
+gun,VERB,VB,n,noun.artifact,weapon > instrument > device,-2.1309,1,0,1
+gush,VERB,VB,n,noun.event,flow > change_of_location > movement,-2.03545,2,0,2
+guys,NOUN,NNS,n,noun.person,man > adult > person,-20.3805,1,0,1
+hack,VERB,VB,n,noun.person,unskilled_person > person > causal_agent,-8.108966666666667,3,1,2
+had,VERB,VBD,v,verb.possession,,-1.4394444444444443,9,4,5
+hair,NOUN,NN,n,noun.body,body_covering > covering > natural_object,-3.3193333333333332,3,1,1
+halt,VERB,VB,n,noun.state,inaction > state > attribute,-3.2616,1,0,1
+halted,VERB,VB,v,verb.motion,stop,-7.4963,1,0,1
+hand,VERB,VB,n,noun.body,extremity > external_body_part > body_part,-1.6776333333333335,3,1,2
+handbag,VERB,VB,n,noun.artifact,container > instrumentality > artifact,-10.2363,2,0,2
+handc,NOUN,NNS,,,,-21.5686,1,0,1
+handed,VERB,VBN,v,verb.possession,transfer,-3.5071666666666665,6,2,3
+handle,VERB,VB,n,noun.artifact,appendage > part > object,-6.4745375,8,1,7
+handleSolution,NOUN,NN,,,,20.6749,1,1,0
+hands,NOUN,NNS,n,noun.act,guardianship > duty > social_control,1.2638666666666667,3,3,0
+hang,VERB,VB,n,noun.cognition,endowment > natural_ability > aptitude,19.9976,1,1,0
+happiness,NOUN,NN,n,noun.state,emotional_state > emotion > feeling,-2.1388,1,0,1
+happy,ADJ,JJ,a,adj.all,,-0.0078,1,0,0
+harangue,NOUN,NN,n,noun.communication,declamation > oratory > address,-20.3189,1,0,1
+harass,VERB,VB,v,verb.emotion,annoy > displease,-0.03394999999999998,2,1,1
+hard,ADJ,JJ,a,adj.all,,1.4631500000000002,2,2,0
+hardened,VERB,VBN,v,verb.change,change,0.0572,1,0,0
+hardening,VERB,VBG,n,noun.state,symptom > evidence > information,3.8354,1,1,0
+hardness,VERB,VB,n,noun.attribute,consistency > property > attribute,-3.611,1,0,1
+hardon,VERB,VB,,,,-10.8442,1,0,1
+harm,VERB,VB,n,noun.state,ill_health > pathological_state > physical_condition,4.4614,1,1,0
+harshly,ADV,RB,r,adv.all,,-8.56045,2,1,1
+hat,VERB,VB,n,noun.artifact,headdress > clothing > consumer_goods,0.6442,2,2,0
+have,VERB,VB,n,noun.person,person > causal_agent > physical_entity,0.30847500000000005,32,25,2
+haveThis,PRON,PRP,,,,-20.4601,1,0,1
+havewon,VERB,VB,,,,-0.4554,1,0,1
+he,PRON,PRP,n,noun.substance,chemical_element > substance > part,6.796433333333334,18,18,0
+head,VERB,VB,n,noun.body,external_body_part > body_part > part,1.88918,5,5,0
+headache,VERB,VB,n,noun.cognition,negative_stimulus > stimulation > information,-3.1783,1,0,1
+headband,VERB,VB,n,noun.artifact,band > strip > artifact,-0.0913,1,0,0
+headdress,VERB,VB,n,noun.artifact,clothing > consumer_goods > commodity,20.3869,1,1,0
+headed,VERB,VBN,v,verb.motion,proceed > travel,-4.49485,4,2,1
+headgear,VERB,VB,n,noun.artifact,clothing > consumer_goods > commodity,-0.0772,1,0,0
+headphones,NOUN,NNS,n,noun.artifact,electro-acoustic_transducer > transducer > electrical_device,-6.80495,2,0,2
+headpiece,VERB,VB,n,noun.artifact,band > strip > artifact,-19.0707,1,0,1
+headscarf,VERB,VB,n,noun.artifact,kerchief > scarf > garment,5.3526,1,1,0
+headstone,VERB,VB,n,noun.artifact,building_block > building_material > artifact,-4.8905,1,0,1
+heal,VERB,VB,v,verb.change,better > change_state > change,2.0861,1,1,0
+hear,VERB,VB,v,verb.perception,perceive,-0.3394333333333333,3,0,2
+heard,VERB,VB,v,verb.perception,perceive,-0.7375666666666668,3,1,2
+hearse,VERB,VB,n,noun.artifact,motor_vehicle > self-propelled_vehicle > wheeled_vehicle,-7.6674,1,0,1
+heat,VERB,VB,n,noun.phenomenon,energy > physical_phenomenon > natural_phenomenon,0.22329999999999997,3,1,1
+heaved,VERB,VBN,v,verb.communication,utter,-3.0507,1,0,1
+heaviness,VERB,VB,n,noun.attribute,weight > physical_property > property,0.8799,1,1,0
+heavy,ADJ,JJ,n,noun.person,actor > performer > entertainer,-1.3108000000000002,3,0,1
+heels,NOUN,NNS,n,noun.artifact,bottom > side > surface,-10.9183,1,0,1
+hel,PROPN,NNP,n,noun.person,,-0.3559,1,0,1
+held,VERB,VBN,v,verb.stative,,-1.33331,10,4,4
+hell,NOUN,NN,n,noun.location,region > location > object,-0.4548000000000001,2,1,1
+hello,INTJ,UH,n,noun.communication,greeting > acknowledgment > message,-10.7855,1,0,1
+hellort,VERB,VB,,,,-20.755,1,0,1
+helm,VERB,VB,n,noun.artifact,steering_system > mechanism > device,-3.2511,1,0,1
+helmet,VERB,VB,n,noun.artifact,armor_plate > plate > shield,0.7599499999999999,2,1,0
+help,VERB,VB,n,noun.act,activity > act > event,-7.094449999999999,12,0,10
+helped,VERB,VBN,v,verb.social,support,0.0264,1,0,0
+helphim,PRON,PRP,,,,0.544,1,1,0
+helpless,VERB,VB,s,adj.all,,1.3617,1,1,0
+her,PRON,PRP,,,,1.1167,6,4,1
+here,ADV,RB,n,noun.location,location > object > physical_entity,-13.7547,3,1,2
+heres,NOUN,NNS,n,noun.location,location > object > physical_entity,7.1422,1,1,0
+hesitantly,ADV,RB,r,adv.all,,0.2027,1,0,0
+hesitated,VERB,VBN,v,verb.stative,,-7.13175,2,0,2
+hey,INTJ,UH,,,,10.6022,2,2,0
+hh,PRON,PRP,,,,-6.5365,1,0,1
+hhh,VERB,VB,,,,-10.3738,1,0,1
+hhhh,VERB,VB,,,,-20.9093,1,0,1
+hhhhhh,VERB,VB,,,,-4.8291,1,0,1
+high,ADJ,JJ,n,noun.attribute,degree > property > attribute,-1.1052,1,0,1
+higher,ADJ,JJR,s,adj.all,,-1.1244,1,0,1
+highlight,VERB,VB,n,noun.relation,detail > part > relation,-11.013950000000001,2,0,2
+highly,ADV,RB,r,adv.all,,-1.1563,1,0,1
+hijab,VERB,VB,n,noun.artifact,headscarf > kerchief > scarf,3.5525,1,1,0
+him,PRON,PRP,,,,0.9798,1,1,0
+himself,PRON,PRP,,,,5.2075,1,1,0
+hips,NOUN,NNS,n,noun.body,body_part > part > thing,-5.4095,1,0,1
+hire,VERB,VB,n,noun.person,employee > worker > person,1.8053500000000002,14,9,5
+his,PRON,PRP$,,,,-2.7239875,16,10,6
+hissed,VERB,VBN,v,verb.communication,utter,-1.6134,1,0,1
+history,VERB,VB,n,noun.time,past > time > attribute,-0.6092,2,0,1
+hit,VERB,VB,n,noun.act,feat > accomplishment > action,1.1136875,8,6,1
+hoarsely,ADV,RB,r,adv.all,,-5.3893,2,1,1
+hoisted,VERB,VBN,v,verb.contact,raise > move,-1.1758,1,0,1
+hold,VERB,VB,n,noun.act,grasping > control > activity,-4.811471428571429,7,0,5
+home,VERB,VB,n,noun.location,residence > address > geographic_point,0.8423,1,1,0
+honked,VERB,VBN,v,verb.perception,sound > cause_to_be_perceived,20.337,1,1,0
+hood,VERB,VB,n,noun.person,criminal > principal > wrongdoer,9.7289,2,2,0
+hoodie,VERB,VB,,,,-0.7737,1,0,1
+hooted,VERB,VB,v,verb.communication,utter,-19.9268,1,0,1
+hope,VERB,VB,n,noun.feeling,anticipation > expectation > feeling,11.086075000000001,4,4,0
+hopeless,VERB,VB,a,adj.all,,-1.1382,1,0,1
+hopped,VERB,VBN,v,verb.motion,jump > move,-22.1329,1,0,1
+horrendous,ADJ,JJ,s,adj.all,,20.4068,1,1,0
+horrible,ADJ,JJ,s,adj.all,,-6.3202,1,0,1
+horses,NOUN,NNS,n,noun.animal,equine > odd-toed_ungulate > ungulate,1.3909,1,1,0
+hot,VERB,VB,a,adj.all,,-0.07825000000000001,2,1,1
+how,SCONJ,WRB,,,,-0.9068166666666665,12,6,6
+howl,VERB,VB,n,noun.communication,utterance > auditory_communication > communication,-2.08905,2,0,2
+hug,VERB,VB,n,noun.act,embrace > clasp > grasping,-3.8287,1,0,1
+huge,VERB,VB,s,adj.all,,-9.18155,2,1,1
+hugged,VERB,VBN,v,verb.contact,clasp > grasp > hold,-8.78805,2,1,1
+human,VERB,VB,n,noun.animal,hominid > primate > placental,-0.8208,2,0,2
+humiliate,VERB,VB,v,verb.emotion,hurt > arouse > make,-0.6069,1,0,1
+hummed,VERB,VBN,v,verb.communication,sing > talk > communicate,-11.92515,2,0,2
+hundreds,NOUN,NNS,n,noun.quantity,large_integer > integer > number,-1.5811,1,0,1
+hur,VERB,VB,,,,-1.8023,1,0,1
+hurl,VERB,VB,n,noun.act,throw > propulsion > act,-0.38935,2,0,1
+hurled,VERB,VBN,v,verb.contact,throw > propel > move,-0.8017,1,0,1
+hurriedly,ADV,RB,r,adv.all,,-20.5419,1,0,1
+hurt,VERB,VB,n,noun.state,ill_health > pathological_state > physical_condition,1.18445,2,1,0
+hypnosis,VERB,VB,n,noun.state,psychological_state > condition > state,20.4498,1,1,0
+iced,ADJ,JJ,v,verb.contact,cover,-10.6246,1,0,1
+ideally,ADV,RB,r,adv.all,,-15.13335,2,0,2
+identify,VERB,VB,v,verb.cognition,determine,-5.74395,2,1,1
+if,SCONJ,IN,,,,6.98512,5,4,0
+iffy,ADJ,JJ,s,adj.all,,20.4977,1,1,0
+ight,VERB,VB,,,,20.2393,1,1,0
+ignore,VERB,VB,v,verb.communication,treat > interact > act,-3.0210142857142857,7,1,5
+imagine,VERB,VB,v,verb.creation,create_by_mental_act > make,10.9197,1,1,0
+imagined,VERB,VBN,v,verb.creation,create_by_mental_act > make,7.3384,1,1,0
+immediately,ADV,RB,r,adv.all,,-5.426530769230769,13,2,9
+immense,VERB,VB,s,adj.all,,-20.7683,1,0,1
+impatient,ADJ,JJ,a,adj.all,,20.3844,1,1,0
+impatiently,ADV,RB,r,adv.all,,4.696,1,1,0
+implement,VERB,VB,n,noun.artifact,instrumentality > artifact > whole,-7.16624,5,0,4
+important,ADJ,JJ,a,adj.all,,-2.5353,1,0,1
+imprecations,NOUN,NNS,n,noun.communication,execration > denunciation > speech_act,-0.6875,1,0,1
+improve,VERB,VB,v,verb.change,change,-0.2241,1,0,0
+improvement,VERB,VB,n,noun.event,transformation > change > happening,-0.5917,1,0,1
+impulse,VERB,VB,n,noun.motive,motivation > psychological_feature > abstraction,-1.3057,1,0,1
+in,ADP,IN,n,noun.quantity,linear_unit > unit_of_measurement > definite_quantity,-2.020242105263158,19,8,8
+inaudibly,ADV,RB,r,adv.all,,-20.4081,1,0,1
+incantations,NOUN,NNS,n,noun.communication,spell > speech > auditory_communication,-0.2147,1,0,0
+include,VERB,VB,v,verb.stative,,-4.804266666666667,3,1,2
+incoher,VERB,VB,,,,-4.4627,2,0,2
+incoherently,ADV,RB,r,adv.all,,20.3671,1,1,0
+increase,VERB,VB,n,noun.quantity,indefinite_quantity > measure > abstraction,-3.7271571428571426,7,2,5
+increasingly,ADV,RB,r,adv.all,,-9.9716,1,0,1
+indeed,ADV,RB,r,adv.all,,-4.2428,1,0,1
+indicating,VERB,VBG,v,verb.communication,tell > inform > communicate,-10.8068,1,0,1
+indiffer,VERB,VB,,,,20.3532,1,1,0
+indifferently,ADV,RB,r,adv.all,,20.1561,1,1,0
+indignantly,ADV,RB,r,adv.all,,-0.0562,2,1,1
+indiscriminately,ADV,RB,r,adv.all,,0.4675,1,1,0
+indulge,VERB,VB,v,verb.social,,-10.1668,1,0,1
+inexplicable,VERB,VB,a,adj.all,,-1.4334,1,0,1
+inflict,VERB,VB,v,verb.communication,communicate > interact > act,-20.0825,1,0,1
+inform,VERB,VB,v,verb.communication,communicate > interact > act,-3.1357769230769232,13,1,12
+infuse,VERB,VB,v,verb.cognition,drill > teach > inform,-0.65,1,0,1
+ingested,VERB,VBN,v,verb.consumption,,-0.8053,1,0,1
+inhal,VERB,VB,,,,0.2951,1,0,0
+inhaled,VERB,VBN,v,verb.consumption,smoke > consume,-4.512575,4,0,3
+initiate,VERB,VB,n,noun.person,unskilled_person > person > causal_agent,0.7085,1,1,0
+inner,VERB,VB,s,adj.all,,-2.1542,1,0,1
+insist,VERB,VB,v,verb.communication,,0.22096666666666667,3,2,1
+insisters,NOUN,NNS,,,,19.9707,1,1,0
+inspect,VERB,VB,v,verb.perception,examine,-1.1629,1,0,1
+inspected,VERB,VBN,v,verb.perception,examine,-6.1532,1,0,1
+install,VERB,VB,v,verb.contact,put > move,-1.7244,1,0,1
+instead,ADV,RB,r,adv.all,,-10.712200000000001,3,0,3
+instruct,VERB,VB,v,verb.communication,inform > communicate > interact,-21.3573,1,0,1
+insult,VERB,VB,n,noun.communication,disrespect > message > communication,-4.54,1,0,1
+intense,ADJ,JJ,a,adj.all,,-7.5538333333333325,3,0,2
+intently,ADV,RB,r,adv.all,,8.8442,1,1,0
+intercede,VERB,VB,v,verb.communication,negociate > hash_out > talk_of,0.0786,1,0,0
+interfere,VERB,VB,v,verb.social,impede > prevent,-0.8082,1,0,1
+intervene,VERB,VB,v,verb.social,interact > act,-0.06646666666666667,3,1,2
+into,ADP,IN,,,,1.6839600000000001,5,2,2
+introduce,VERB,VB,v,verb.communication,inform > communicate > interact,-9.3729,1,0,1
+invest,VERB,VB,v,verb.possession,spend > pay > give,-1.793033333333333,3,0,3
+investigate,VERB,VB,v,verb.communication,analyze,-8.404785714285714,7,1,6
+invisibility,VERB,VB,n,noun.attribute,physical_property > property > attribute,-19.7886,1,0,1
+involve,VERB,VB,v,verb.stative,refer,-19.72535,2,0,2
+ionic,VERB,VB,n,noun.communication,ancient_greek > greek > indo-european,-21.5663,1,0,1
+irritably,ADV,RB,r,adv.all,,-0.01010000000000133,2,1,1
+is,AUX,VBZ,v,verb.stative,,-0.15034999999999987,2,1,1
+issue,VERB,VB,n,noun.cognition,content > cognition > psychological_feature,-3.850466666666667,3,1,2
+it,PRON,PRP,n,noun.cognition,engineering > discipline > knowledge_domain,1.8808619047619044,21,13,4
+itching,VERB,VBG,n,noun.cognition,cutaneous_sensation > touch > perception,-0.3171,1,0,1
+its,PRON,PRP$,n,noun.cognition,engineering > discipline > knowledge_domain,-0.69892,5,3,2
+jack,VERB,VB,n,noun.quantity,small_indefinite_quantity > indefinite_quantity > measure,-19.7073,1,0,1
+jacket,VERB,VB,n,noun.artifact,coat > overgarment > garment,-0.7145666666666667,3,1,1
+je,PROPN,NNP,,,,0.0972,1,0,0
+jeans,NOUN,NNS,n,noun.artifact,trouser > garment > clothing,-6.7114,3,0,3
+jeer,VERB,VB,n,noun.communication,derision > disrespect > message,-3.4527,1,0,1
+jeez,VERB,VB,,,,-0.6172,1,0,1
+jerk,VERB,VB,n,noun.person,misfit > anomaly > person,3.6747333333333336,3,3,0
+jerked,VERB,VBN,v,verb.contact,pull > move,0.6292,1,1,0
+jerking,VERB,VBG,n,noun.act,motion > change > action,21.7561,1,1,0
+jesus,PROPN,NNP,n,noun.person,,-0.7785,1,0,1
+jog,VERB,VB,n,noun.shape,angular_shape > shape > attribute,-1.6886,1,0,1
+johnny,PROPN,NNP,n,noun.person,confederate_soldier > soldier > enlisted_person,-20.6922,1,0,1
+join,VERB,VB,n,noun.shape,connection > shape > attribute,0.04440000000000001,4,1,3
+joined,VERB,VBN,v,verb.social,,-0.0839,1,0,0
+joked,VERB,VB,v,verb.communication,communicate > interact > act,-19.8881,1,0,1
+jolt,VERB,VB,n,noun.event,blow > impact > contact,-0.34359999999999996,2,0,1
+joltow,VERB,VB,,,,20.2619,1,1,0
+joy,VERB,VB,n,noun.feeling,emotion > feeling > state,-20.8326,1,0,1
+juice,VERB,VB,n,noun.food,foodstuff > food > substance,-20.0253,1,0,1
+juices,NOUN,NNS,n,noun.food,foodstuff > food > substance,-0.0987,1,0,0
+jump,VERB,VB,n,noun.event,increase > change > happening,0.35,1,1,0
+just,ADV,RB,a,adj.all,,0.6411392857142857,28,17,9
+justSolution,NOUN,NN,,,,19.9958,1,1,0
+keep,VERB,VB,n,noun.possession,resource > assets > possession,-2.18929,20,7,9
+kept,VERB,VB,v,verb.stative,,-1.0602,2,0,2
+kettle,VERB,VB,n,noun.artifact,pot > vessel > container,-4.1139,1,0,1
+keys,NOUN,NNS,n,noun.artifact,device > instrumentality > artifact,-7.6325,1,0,1
+kick,VERB,VB,n,noun.act,blow > stroke > motion,2.5431749999999997,8,6,2
+kicked,VERB,VBN,v,verb.contact,propel > move,-8.518666666666666,3,0,3
+kicking,VERB,VBG,n,noun.act,motion > change > action,0.9354,1,1,0
+kill,VERB,VB,n,noun.act,termination > change_of_state > change,3.9380249999999997,8,7,1
+killed,VERB,VBN,v,verb.contact,,7.0874,3,2,0
+kimono,VERB,VB,n,noun.artifact,robe > garment > clothing,13.674,1,1,0
+kiss,VERB,VB,n,noun.act,touch > act > event,1.702425,4,3,0
+kissed,VERB,VBN,v,verb.contact,touch,0.6697000000000001,3,3,0
+knead,VERB,VB,v,verb.contact,manipulate > handle > touch,-1.7330999999999999,2,0,2
+knee,VERB,VB,n,noun.body,hinge_joint > synovial_joint > joint,0.3406,1,1,0
+kneel,VERB,VB,n,noun.act,motion > change > action,-0.11190000000000001,2,0,1
+knees,NOUN,NNS,n,noun.body,hinge_joint > synovial_joint > joint,-5.3304,1,0,1
+knelt,VERB,VB,v,verb.contact,rest > be,1.4543,2,1,0
+knew,VERB,VB,v,verb.cognition,,-1.1795,1,0,1
+knickers,NOUN,NNS,n,noun.artifact,trouser > garment > clothing,10.8363,1,1,0
+knife,NOUN,NN,n,noun.artifact,edge_tool > cutter > cutting_implement,1.9659,1,1,0
+knob,VERB,VB,n,noun.artifact,projection > structure > artifact,-10.8903,1,0,1
+knock,VERB,VB,n,noun.event,sound > happening > event,-0.2093,1,0,0
+knocked,VERB,VB,v,verb.contact,strike > touch,-3.57995,2,0,2
+know,VERB,VB,n,noun.cognition,knowing > higher_cognitive_process > process,2.143708695652174,23,19,2
+known,VERB,VBN,v,verb.cognition,,-1.7349499999999998,2,1,1
+knuckle,VERB,VB,n,noun.body,synovial_joint > joint > body_part,0.5185,1,1,0
+knuckles,NOUN,NNS,n,noun.artifact,weapon > instrument > device,-9.73715,2,1,1
+labor,VERB,VB,n,noun.group,class > people > group,-14.2534,1,0,1
+lacerated,VERB,VB,v,verb.contact,tear > separate > move,1.7691,1,1,0
+laid,VERB,VBN,v,verb.contact,move,-3.7886800000000003,5,2,2
+lance,VERB,VB,n,noun.artifact,weapon > instrument > device,-10.0567,1,0,1
+large,VERB,VB,n,noun.attribute,size > property > attribute,-0.9393,1,0,1
+lash,VERB,VB,n,noun.body,hair > body_covering > covering,-0.7866500000000001,2,0,2
+last,VERB,VB,n,noun.time,end > point > measure,-2.6103,1,0,1
+later,ADV,RB,s,adj.all,,-0.0966,1,0,0
+lather,NOUN,NN,n,noun.object,foam > bubble > globule,-1.1191,1,0,1
+laugh,VERB,VB,n,noun.communication,utterance > auditory_communication > communication,-14.062600000000002,3,0,2
+laughed,VERB,VBN,v,verb.body,express_emotion,-0.11302500000000004,4,2,2
+launch,VERB,VB,n,noun.artifact,motorboat > boat > vessel,-20.4447,4,0,4
+lawfully,ADV,RB,r,adv.all,,20.9033,1,1,0
+lay,VERB,VB,n,noun.communication,song > musical_composition > music,-1.6477583333333332,12,3,6
+layed,VERB,VBN,v,verb.contact,move,21.1308,1,1,0
+layoff,VERB,VB,n,noun.act,closure > termination > change_of_state,8.2746,1,1,0
+lead,VERB,VB,n,noun.attribute,advantage > asset > quality,-0.6863999999999999,2,1,1
+lean,VERB,VB,n,noun.attribute,position > relation > abstraction,-1.9622,3,0,3
+leaned,VERB,VBN,v,verb.motion,bend > change_shape > change,-2.884244444444444,9,0,5
+learn,VERB,VB,v,verb.cognition,,0.03594000000000008,5,3,2
+leather,VERB,VB,n,noun.substance,animal_skin > animal_product > animal_material,-0.7571666666666667,3,0,3
+leave,VERB,VB,n,noun.time,time_off > time_period > fundamental_quantity,-3.569329411764706,17,8,8
+leavehim,PROPN,NNP,,,,-0.2712,1,0,0
+led,VERB,VBN,n,noun.artifact,diode > semiconductor_device > conductor,-0.8153,1,0,1
+left,VERB,VB,n,noun.location,position > point > location,-1.3426444444444445,9,1,6
+leg,VERB,VB,n,noun.body,limb > extremity > external_body_part,-0.45375,2,0,1
+legally,ADV,RB,r,adv.all,,-20.404049999999998,2,0,2
+legs,NOUN,NNS,n,noun.attribute,stamina > endurance > strength,0.0832,1,0,0
+length,VERB,VB,n,noun.attribute,fundamental_quantity > measure > abstraction,-2.0787,2,0,2
+let,VERB,VB,n,noun.group,,-0.24267037037037043,27,11,7
+lets,NOUN,NNS,n,noun.group,,2.0789,1,1,0
+level,VERB,VB,n,noun.attribute,property > attribute > abstraction,-10.19185,2,0,2
+leveled,VERB,VBN,v,verb.competition,aim > position > put,0.7064,1,1,0
+leverage,VERB,VB,n,noun.phenomenon,mechanical_phenomenon > physical_phenomenon > natural_phenomenon,-19.9599,1,0,1
+lick,VERB,VB,n,noun.object,sediment > matter > physical_entity,3.62425,2,2,0
+licked,VERB,VB,v,verb.contact,beat > get_the_better_of,7.228833333333333,3,2,1
+lie,VERB,VB,n,noun.communication,falsehood > statement > message,-5.86795,4,0,3
+lift,VERB,VB,n,noun.act,aid > activity > act,-1.6461,1,0,1
+lifted,VERB,VBN,v,verb.motion,move,-2.7710166666666667,6,0,4
+light,VERB,VB,n,noun.phenomenon,actinic_radiation > electromagnetic_radiation > radiation,-9.015,1,0,1
+lighted,VERB,VBN,v,verb.change,lighten > change,9.6943,2,1,1
+lightly,ADV,RB,r,adv.all,,9.692400000000001,2,1,1
+lightness,VERB,VB,n,noun.feeling,joy > emotion > feeling,7.9571499999999995,2,2,0
+like,INTJ,UH,n,noun.cognition,kind > category > concept,4.467688888888889,9,8,1
+likely,ADJ,JJ,a,adj.all,,0.306,1,1,0
+limp,VERB,VB,n,noun.act,gait > walk > locomotion,-4.4877,3,0,3
+linear,VERB,VB,a,adj.all,,-1.5794,1,0,1
+linguistics,NOUN,NNS,n,noun.cognition,science > discipline > knowledge_domain,-0.7376,1,0,1
+lips,NOUN,NNS,n,noun.body,articulator > speech_organ > organ,0.16803333333333328,3,1,1
+list,VERB,VB,n,noun.communication,database > information > message,-1.1997,2,0,1
+listen,VERB,VB,v,verb.perception,perceive,-1.123111111111111,9,2,4
+listened,VERB,VB,v,verb.perception,perceive,0.31488,5,3,1
+lit,VERB,VB,n,noun.cognition,literary_study > humanistic_discipline > discipline,0.17679999999999998,4,1,1
+literature,VERB,VB,n,noun.communication,writing > written_communication > communication,-0.4444,1,0,1
+little,ADJ,JJ,n,noun.quantity,small_indefinite_quantity > indefinite_quantity > measure,-0.56835,2,0,1
+live,VERB,VB,v,verb.stative,be,-5.1343499999999995,4,0,2
+llllll,VERB,VB,,,,20.0944,1,1,0
+load,VERB,VB,n,noun.artifact,weight > artifact > whole,-19.8221,1,0,1
+loaded,VERB,VBN,v,verb.contact,fill > change,-2.8777,1,0,1
+local,ADJ,JJ,n,noun.artifact,public_transport > conveyance > instrumentality,-1.8163,1,0,1
+located,VERB,VBN,v,verb.possession,find > get,1.5965,1,1,0
+lock,VERB,VB,n,noun.artifact,fastener > restraint > device,-6.2279,4,0,4
+locket,VERB,VB,n,noun.artifact,case > container > instrumentality,-20.5868,1,0,1
+lodge,VERB,VB,n,noun.person,,-7.769850000000001,2,1,1
+log,VERB,VB,n,noun.substance,wood > plant_material > material,0.606,1,1,0
+logarithms,NOUN,NNS,n,noun.communication,exponent > mathematical_notation > notation,-6.0948,1,0,1
+long,VERB,VB,v,verb.emotion,desire,6.391300000000001,3,2,1
+longed,VERB,VBN,v,verb.emotion,desire,-0.017349999999999532,2,1,1
+longing,VERB,VBG,n,noun.feeling,desire > feeling > state,1.0083,1,1,0
+look,VERB,VB,n,noun.attribute,countenance > appearance > quality,-1.2266,25,8,13
+looked,VERB,VBN,v,verb.perception,,0.33251,10,5,1
+looking,VERB,VBG,n,noun.act,sensing > sensory_activity > activity,-1.3174,1,0,1
+looks,NOUN,NNS,n,noun.attribute,countenance > appearance > quality,0.3984,1,1,0
+lord,PROPN,NNP,n,noun.person,,-10.2098,1,0,1
+lose,VERB,VB,v,verb.possession,,1.633233333333333,3,2,0
+loss,VERB,VB,n,noun.possession,transferred_property > possession > relation,1.8958,1,1,0
+lost,VERB,VB,n,noun.group,people > group > abstraction,1.7515,1,1,0
+loud,VERB,VB,a,adj.all,,-10.6381,1,0,1
+loudly,ADV,RB,r,adv.all,,0.29922499999999996,4,3,1
+love,VERB,VB,n,noun.feeling,emotion > feeling > state,-0.43604999999999994,2,1,1
+lower,VERB,VB,n,noun.artifact,berth > bed > bedroom_furniture,-5.452025,4,1,3
+lowered,VERB,VBN,v,verb.motion,move,-0.4716,1,0,1
+lucky,ADJ,JJ,s,adj.all,,10.3086,1,1,0
+lump,VERB,VB,n,noun.group,agglomeration > collection > group,-0.07875,2,0,1
+lunch,NOUN,NN,n,noun.food,meal > nutriment > food,-2.2637,1,0,1
+lunge,VERB,VB,n,noun.act,motion > change > action,-10.3488,1,0,1
+lunged,VERB,VB,v,verb.motion,move,-1.6182,1,0,1
+lurch,VERB,VB,n,noun.act,gait > walk > locomotion,-1.1997,2,0,2
+ly,VERB,VB,,,,-7.5388,1,0,1
+lying,VERB,VBG,n,noun.act,falsification > wrongdoing > activity,-0.1593,1,0,0
+lynch,VERB,VB,v,verb.social,kill,-0.4694,1,0,1
+made,VERB,VBN,v,verb.social,,-0.12218888888888887,9,2,5
+magic,NOUN,NN,n,noun.cognition,supernaturalism > belief > content,0.6613,1,1,0
+magnetism,NOUN,NN,n,noun.phenomenon,attraction > force > physical_phenomenon,-0.5468,1,0,1
+mainly,ADV,RB,r,adv.all,,0.3667,1,1,0
+maintain,VERB,VB,v,verb.stative,,7.4516,3,3,0
+maintained,VERB,VBN,v,verb.stative,,-22.3973,1,0,1
+make,VERB,VB,n,noun.cognition,kind > category > concept,-0.6860121212121211,33,15,11
+makearrests,NOUN,NNS,,,,-10.4813,1,0,1
+makeshift,VERB,VB,n,noun.act,expedient > means > implementation,-18.9239,1,0,1
+makeup,VERB,VB,n,noun.artifact,cosmetic > toiletry > instrumentality,-6.6865,1,0,1
+making,VERB,VBG,n,noun.act,production > act > event,-9.82075,2,1,1
+man,VERB,VB,n,noun.person,adult > person > causal_agent,9.422466666666667,3,2,0
+manhandle,VERB,VB,v,verb.contact,handle > touch,-0.4582,1,0,1
+manhood,VERB,VB,n,noun.state,adulthood > maturity > state,1.8185499999999999,2,2,0
+manipulate,VERB,VB,v,verb.social,influence > affect > change,-1.7106,1,0,1
+manly,VERB,VB,a,adj.all,,1.0636,1,1,0
+many,ADJ,JJ,a,adj.all,,0.3836,1,1,0
+mar,VERB,VB,n,noun.time,gregorian_calendar_month > calendar_month > time_period,1.7286,1,1,0
+march,VERB,VB,n,noun.time,gregorian_calendar_month > calendar_month > time_period,-1.36615,2,0,2
+marine,VERB,VB,n,noun.person,serviceman > skilled_worker > worker,-1.2699,1,0,1
+marry,VERB,VB,v,verb.social,unite > join,1.87195,2,2,0
+marryhim,NOUN,NN,,,,-0.2517,1,0,0
+marveled,VERB,VBN,v,verb.communication,react > act,-19.9355,1,0,1
+mash,VERB,VB,n,noun.substance,suspension > mixture > substance,1.7188,1,1,0
+mask,VERB,VB,n,noun.artifact,disguise > attire > clothing,1.5726,2,2,0
+mass,VERB,VB,n,noun.attribute,fundamental_quantity > measure > abstraction,0.214,1,0,0
+massage,VERB,VB,n,noun.act,treatment > care > work,0.50575,2,2,0
+massaged,VERB,VBN,v,verb.contact,manipulate > handle > touch,-2.45125,2,0,2
+massive,ADJ,JJ,s,adj.all,,-3.0333500000000004,2,1,1
+master,VERB,VB,n,noun.person,artist > creator > person,0.0355,1,0,0
+masturbate,VERB,VB,v,verb.contact,stimulate > sensitize,5.272833333333334,3,2,1
+masturbated,VERB,VBN,v,verb.contact,stimulate > sensitize,0.2362,1,0,0
+math,VERB,VB,n,noun.cognition,science > discipline > knowledge_domain,0.8399,1,1,0
+mathematics,VERB,VB,n,noun.cognition,science > discipline > knowledge_domain,-0.5895,1,0,1
+maul,VERB,VB,n,noun.artifact,hammer > hand_tool > tool,1.3953,1,1,0
+mausoleum,VERB,VB,n,noun.artifact,burial_chamber > chamber > enclosure,-2.3231,1,0,1
+maybe,ADV,RB,r,adv.all,,-1.1048333333333338,3,2,1
+mayتر,NOUN,NN,,,,-20.8297,1,0,1
+me,PRON,PRP,n,noun.location,,-4.716,1,0,1
+meaningfully,VERB,VB,r,adv.all,,20.3032,1,1,0
+measure,VERB,VB,n,noun.act,maneuver > move > decision,-2.7107,2,0,2
+measured,VERB,VBN,v,verb.cognition,decide,-2.2694,1,0,1
+mediate,VERB,VB,v,verb.communication,negociate > hash_out > talk_of,-19.9984,1,0,1
+medieval,NOUN,NN,a,adj.pert,,-0.8101,1,0,1
+meditation,NOUN,NN,n,noun.cognition,contemplation > consideration > thinking,-20.1781,1,0,1
+meet,VERB,VB,n,noun.event,athletic_contest > contest > social_event,-0.9852666666666666,3,0,3
+meiosis,VERB,VB,n,noun.process,cell_division > organic_process > process,20.5,1,1,0
+melt,VERB,VB,n,noun.process,heating > temperature_change > natural_process,1.8223,1,1,0
+member,VERB,VB,n,noun.person,associate > peer > person,-0.23654999999999998,2,1,1
+memorial,VERB,VB,n,noun.communication,recognition > approval > message,2.0981,1,1,0
+menacingly,ADV,RB,r,adv.all,,1.0017,1,1,0
+mention,VERB,VB,n,noun.communication,remark > statement > message,0.43760625000000003,16,11,4
+meteorology,VERB,VB,n,noun.communication,prediction > statement > message,10.6819,1,1,0
+milk,VERB,VB,n,noun.food,beverage > food > substance,-0.4938,1,0,1
+miss,VERB,VB,n,noun.person,woman > adult > person,0.7015,1,1,0
+mitochondria,VERB,VB,n,noun.body,organelle > organ > body_part,-1.4437,1,0,1
+mitosis,VERB,VB,n,noun.process,cell_division > organic_process > process,-0.5045,1,0,1
+mix,VERB,VB,n,noun.food,concoction > foodstuff > food,0.3857,1,1,0
+mixed,ADJ,JJ,v,verb.change,change_integrity > change,-0.84595,2,0,2
+moan,VERB,VB,n,noun.communication,utterance > auditory_communication > communication,-10.0198,1,0,1
+moaned,VERB,VBN,v,verb.communication,utter,0.4476,2,1,0
+mob,NOUN,NN,n,noun.group,crowd > gathering > social_group,-3.067,1,0,1
+mobilize,VERB,VB,v,verb.change,gather,-12.448475,4,1,3
+mockingly,ADV,RB,r,adv.all,,-20.6558,1,0,1
+money,NOUN,NN,n,noun.possession,medium_of_exchange > standard > system_of_measurement,-19.9021,1,0,1
+monitor,VERB,VB,n,noun.person,supervisor > superior > leader,-19.8337,1,0,1
+more,ADV,RBR,n,noun.person,,1.9059200000000005,5,2,2
+mostly,ADV,RB,r,adv.all,,0.1867,1,0,0
+mother,VERB,VB,n,noun.person,parent > genitor > progenitor,-20.0539,1,0,1
+motioned,VERB,VB,v,verb.communication,communicate > interact > act,-0.2248,1,0,0
+mount,VERB,VB,n,noun.animal,horse > equine > odd-toed_ungulate,0.5255,1,1,0
+mourned,VERB,VBN,v,verb.emotion,grieve > suffer > feel,8.188600000000001,2,1,1
+mouth,NOUN,NN,n,noun.body,rima > orifice > passage,-3.278966666666667,3,1,1
+move,VERB,VB,n,noun.act,decision > choice > action,-4.411613333333333,15,3,11
+moved,VERB,VBN,v,verb.motion,,0.21382000000000004,5,2,3
+movement,NOUN,NN,n,noun.act,change > action > act,0.64415,2,2,0
+moving,VERB,VBG,v,verb.motion,,0.6728,1,1,0
+much,ADJ,JJ,n,noun.quantity,large_indefinite_quantity > indefinite_quantity > measure,10.4679,1,1,0
+mumble,VERB,VB,n,noun.communication,utterance > auditory_communication > communication,-0.304,1,0,1
+mumbled,VERB,VBN,v,verb.communication,talk > communicate > interact,-0.99505,2,1,1
+munched,VERB,VB,v,verb.consumption,chew > grate > break_up,-9.99,1,0,1
+murder,VERB,VB,n,noun.act,homicide > killing > termination,0.7818499999999999,2,2,0
+murmur,ADJ,JJ,n,noun.event,sound > happening > event,-22.934,1,0,1
+murmured,VERB,VBN,v,verb.communication,talk > communicate > interact,-5.6212,1,0,1
+mused,VERB,VBN,v,verb.cognition,think,-20.5016,1,0,1
+music,NOUN,NN,n,noun.communication,auditory_communication > communication > abstraction,1.3196,1,1,0
+mutilate,VERB,VB,v,verb.change,damage > change,-0.8248,1,0,1
+mutilated,VERB,VB,v,verb.change,damage > change,-19.9043,1,0,1
+muttered,VERB,VBN,v,verb.communication,talk > communicate > interact,-10.858799999999999,2,0,2
+my,PRON,PRP$,,,,-1.8706,10,2,7
+myGod,VERB,VB,,,,-2.4795,1,0,1
+mycamp,VERB,VB,,,,20.2633,1,1,0
+mygod,VERB,VB,,,,-0.452,1,0,1
+myname,VERB,VB,,,,-1.9953,1,0,1
+myself,PRON,PRP,,,,-1.7451,1,0,1
+mythology,NOUN,NN,n,noun.group,collection > group > abstraction,-19.7724,1,0,1
+named,VERB,VBN,v,verb.communication,label > designate,2.1675,1,1,0
+napped,VERB,VBN,v,verb.body,sleep > rest > recumb,-10.1288,1,0,1
+nature,NOUN,NN,n,noun.attribute,quality > attribute > abstraction,-0.2528,1,0,0
+navel,VERB,VB,n,noun.body,point > location > object,-0.6404,1,0,1
+navigate,VERB,VB,v,verb.motion,travel > travel,-0.3137,1,0,1
+nearly,ADV,RB,r,adv.all,,-1.5593,1,0,1
+neck,VERB,VB,n,noun.body,external_body_part > body_part > part,3.6894000000000005,3,2,0
+necklace,VERB,VB,n,noun.artifact,jewelry > adornment > decoration,-0.4728,1,0,1
+necktie,VERB,VB,n,noun.artifact,neckwear > garment > clothing,-20.2733,1,0,1
+need,VERB,VB,n,noun.state,condition > state > attribute,-2.4973199999999998,5,1,3
+negoti,VERB,VB,,,,-4.47655,2,0,2
+negotiate,VERB,VB,v,verb.communication,hash_out > talk_of > talk,-7.833785714285715,7,0,7
+nestled,VERB,VBN,v,verb.contact,cling_to > hold,-1.5115,1,0,1
+never,ADV,RB,r,adv.all,,3.769104347826087,23,21,0
+next,ADJ,JJ,s,adj.all,,-0.2308,1,0,0
+nextmonth,NOUN,NN,,,,-0.6882,1,0,1
+nextweek,VERB,VB,,,,-0.7379,1,0,1
+nextyear,VERB,VB,,,,-0.1658,1,0,0
+nibble,ADJ,JJ,n,noun.quantity,computer_memory_unit > unit_of_measurement > definite_quantity,-0.7237,1,0,1
+nibbled,VERB,VBN,v,verb.contact,bite > grip > seize,1.229,1,1,0
+nice,ADJ,JJ,n,noun.location,,-0.1493,1,0,0
+night,NOUN,NN,n,noun.time,time_period > fundamental_quantity > measure,-7.413499999999999,2,1,1
+nightgently,ADV,RB,,,,19.9926,1,1,0
+nightgown,VERB,VB,n,noun.artifact,lingerie > underwear > undergarment,-0.1783,1,0,0
+nipple,VERB,VB,n,noun.body,reproductive_organ > organ > body_part,0.7594,1,1,0
+nipples,NOUN,NNS,n,noun.body,reproductive_organ > organ > body_part,3.6966,1,1,0
+no,INTJ,UH,n,noun.communication,negative > denial > speech_act,0.8445125,8,3,2
+noI,PROPN,NNP,,,,-20.825,1,0,1
+noSolution,NOUN,NN,,,,21.2487,1,1,0
+nobody,PRON,NN,n,noun.person,commoner > person > causal_agent,-3.8605,1,0,1
+nodded,VERB,VBN,v,verb.communication,gesticulate > communicate > interact,-8.744033333333334,3,0,3
+noon,NOUN,NN,n,noun.time,hour > clock_time > reading,2.0116,1,1,0
+noooo,VERB,VB,,,,-14.7737,1,0,1
+nope,VERB,VB,,,,-1.10425,2,0,2
+nose,VERB,VB,n,noun.body,chemoreceptor > sense_organ > organ,0.73085,2,2,0
+nost,VERB,VB,,,,-0.1457,1,0,0
+nostrils,NOUN,NNS,n,noun.body,naris > orifice > passage,1.7241,1,1,0
+not,PART,RB,r,adv.all,,0.9863148148148149,27,23,1
+notSolution,NOUN,NN,,,,21.2873,1,1,0
+note,VERB,VB,n,noun.communication,written_record > record > evidence,-0.9450666666666667,15,7,6
+notgood,VERB,VB,,,,-0.317,1,0,1
+nothing,PRON,NN,n,noun.quantity,relative_quantity > measure > abstraction,2.55542,5,3,1
+notice,VERB,VB,n,noun.communication,announcement > statement > message,-20.4613,1,0,1
+noticed,VERB,VBN,v,verb.perception,spy > perceive,-4.7936,3,0,3
+notify,VERB,VB,v,verb.communication,inform > communicate > interact,-6.483288888888889,9,0,9
+now,ADV,RB,n,noun.time,present > time > attribute,-2.6187363636363634,11,3,8
+nt,PART,RB,n,noun.group,nongovernmental_organization > organization > social_group,0.9943375,8,6,1
+numb,VERB,VB,v,verb.perception,desensitize > change,-1.7176,2,0,1
+numbers,NOUN,NNS,n,noun.communication,,1.7395,1,1,0
+numbness,VERB,VB,n,noun.state,symptom > evidence > information,-0.17315000000000003,2,1,1
+nuzzled,VERB,VBN,v,verb.contact,cling_to > hold,-0.6955,1,0,1
+object,VERB,VB,n,noun.Tops,physical_entity > entity,-2.7989,1,0,1
+obscenities,NOUN,NNS,n,noun.attribute,indecency > impropriety > demeanor,2.28845,2,2,0
+observed,VERB,VBN,v,verb.perception,spy > perceive,-6.255199999999999,3,1,2
+obtain,VERB,VB,v,verb.possession,get,8.89865,2,1,1
+oddly,ADV,RB,r,adv.all,,-2.7452,1,0,1
+of,ADP,IN,,,,-0.26620000000000005,11,8,3
+offer,VERB,VB,n,noun.communication,speech_act > act > event,-1.9103124999999996,8,3,5
+offered,VERB,VBN,v,verb.possession,supply > give > transfer,-3.323975,4,0,2
+offeridthe,PRON,DT,,,,19.9565,1,1,0
+officially,ADV,RB,r,adv.all,,1.4288,1,1,0
+often,ADV,RB,r,adv.all,,4.8445,2,2,0
+oh,INTJ,UH,n,noun.location,,-2.3503666666666665,3,1,2
+ok,VERB,VB,n,noun.location,,1.88395,4,3,1
+okay,VERB,VB,n,noun.communication,sanction > approval > message,-7.80136,5,2,3
+ominously,ADV,RB,r,adv.all,,0.8704,1,1,0
+on,ADP,IN,a,adj.all,,-7.3937333333333335,3,0,3
+one,NUM,CD,n,noun.quantity,digit > integer > number,2.8957142857142855,7,4,3
+only,ADV,RB,s,adj.all,,-2.640488888888889,9,4,5
+onset,VERB,VB,n,noun.event,start > beginning > happening,-0.2613,1,0,0
+onto,ADP,IN,,,,-3.4066,1,0,1
+oops,VERB,VBZ,,,,-0.6809,1,0,1
+open,VERB,VB,n,noun.location,area > region > location,1.1409285714285715,7,4,1
+opened,VERB,VBN,v,verb.contact,,1.6826375,8,6,2
+oppose,VERB,VB,v,verb.communication,argue > converse > talk,-3.6888,2,1,1
+option,VERB,VB,n,noun.possession,derivative_instrument > legal_document > document,-20.5013,1,0,1
+or,CCONJ,CC,n,noun.location,,-23.0457,1,0,1
+order,VERB,VB,n,noun.communication,command > speech_act > act,0.09516666666666662,3,1,2
+ordered,VERB,VBN,v,verb.communication,request > ask > request,-2.1254500000000003,2,0,2
+organ,VERB,VB,n,noun.body,body_part > part > thing,8.752,1,1,0
+organise,VERB,VB,v,verb.change,arrange > put > move,17.2263,1,1,0
+organize,VERB,VB,v,verb.social,make,-5.635133333333333,6,0,6
+origami,VERB,VB,n,noun.act,art > creation > activity,-2.4562,1,0,1
+ouch,VERB,VB,,,,-19.8828,1,0,1
+our,PRON,PRP$,,,,-11.65935,2,0,2
+out,ADV,RB,n,noun.act,failure > nonaccomplishment > act,-2.7110363636363632,11,1,8
+outer,VERB,VB,a,adj.all,,-7.2473,3,1,2
+outerwear,VERB,VB,n,noun.artifact,clothing > consumer_goods > commodity,-20.2644,1,0,1
+outline,VERB,VB,n,noun.location,boundary > extremity > region,-16.00995,2,0,2
+outloud,VERB,VB,,,,0.7856,1,1,0
+outsource,VERB,VB,v,verb.possession,source > obtain > get,16.0122,1,1,0
+over,ADP,IN,n,noun.time,part > concept > idea,-6.57218,5,1,2
+overcast,VERB,VB,n,noun.state,bad_weather > weather > atmospheric_phenomenon,1.9788,1,1,0
+overcoat,VERB,VB,n,noun.artifact,coat > overgarment > garment,5.36505,2,2,0
+overwhelmed,VERB,VB,v,verb.emotion,arouse > make,-1.3131,1,0,1
+owe,VERB,VB,v,verb.possession,,-20.0775,1,0,1
+owering,VERB,VBG,,,,-21.332,1,0,1
+own,VERB,VB,v,verb.possession,,2.9565,4,3,1
+oxygen,VERB,VB,n,noun.substance,gas > fluid > matter,-5.6647,1,0,1
+pack,VERB,VB,n,noun.quantity,large_indefinite_quantity > indefinite_quantity > measure,-0.126,1,0,0
+package,VERB,VB,n,noun.group,collection > group > abstraction,-10.5762,1,0,1
+packed,VERB,VBN,v,verb.contact,encase > enclose > surround,-0.8578,1,0,1
+paddling,VERB,VBG,v,verb.motion,boat > ride > travel,-20.551,1,0,1
+pain,VERB,VB,n,noun.state,symptom > evidence > information,1.0483,3,3,0
+paint,VERB,VB,n,noun.artifact,coating > covering > artifact,-1.087,1,0,1
+pajamas,NOUN,NNS,n,noun.artifact,trouser > garment > clothing,-7.588750000000001,2,1,1
+paleontology,NOUN,NN,n,noun.cognition,earth_science > natural_science > science,-2.6533,1,0,1
+palindrom,VERB,VB,,,,-20.4627,1,0,1
+pang,VERB,VB,n,noun.feeling,feeling > state > attribute,3.17,2,1,0
+panic,VERB,VB,n,noun.feeling,fear > emotion > feeling,-0.9019,1,0,1
+panicking,VERB,VBG,v,verb.emotion,fear,-1.8388,1,0,1
+panties,NOUN,NNS,n,noun.artifact,underpants > undergarment > garment,2.206466666666667,3,1,1
+pants,NOUN,NNS,n,noun.artifact,underpants > undergarment > garment,2.9300999999999995,3,2,0
+panty,NOUN,NN,n,noun.artifact,underpants > undergarment > garment,11.1985,1,1,0
+pantyhose,VERB,VB,n,noun.artifact,tights > hosiery > footwear,1.0491,1,1,0
+par,NOUN,NN,n,noun.quantity,score > number > definite_quantity,21.8119,1,1,0
+parade,VERB,VB,n,noun.group,procession > collection > group,-3.4502,1,0,1
+paranoia,VERB,VB,n,noun.state,psychosis > mental_illness > psychological_state,0.3482,1,1,0
+parapsych,VERB,VB,,,,-1.0556,1,0,1
+parboil,VERB,VB,v,verb.change,cook > change_integrity > change,-0.8105,1,0,1
+pardon,VERB,VB,n,noun.act,kindness > action > act,0.0549,1,0,0
+paris,PROPN,NNP,n,noun.location,,1.3183,1,1,0
+parked,VERB,VB,v,verb.contact,put > move,-3.9048,1,0,1
+parrots,NOUN,NNS,n,noun.animal,bird > vertebrate > chordate,-5.3144,1,0,1
+part,VERB,VB,n,noun.relation,relation > abstraction > entity,-1.2022,1,0,1
+parted,VERB,VBN,v,verb.motion,move,0.1176,1,0,0
+partially,ADV,RB,r,adv.all,,-8.322,1,0,1
+particularly,ADV,RB,r,adv.all,,20.5908,1,1,0
+partly,ADV,RB,r,adv.all,,-0.4644,1,0,1
+party,VERB,VB,n,noun.group,organization > social_group > group,-0.7786,1,0,1
+pass,VERB,VB,n,noun.act,accomplishment > action > act,-6.58395,4,0,4
+passed,VERB,VBN,v,verb.motion,travel,-0.13889999999999997,4,2,1
+passengers,NOUN,NNS,n,noun.person,traveler > person > causal_agent,-0.1475,1,0,0
+patrol,VERB,VB,n,noun.group,detachment > army_unit > military_unit,-2.6457,1,0,1
+patted,VERB,VB,v,verb.contact,caress > stroke > touch,2.7204,3,1,1
+pavements,NOUN,NNS,n,noun.artifact,paved_surface > horizontal_surface > surface,0.3666,1,1,0
+pavlov,VERB,VB,n,noun.person,,-19.9553,1,0,1
+paw,VERB,VB,n,noun.animal,animal_foot > vertebrate_foot > extremity,1.5801,1,1,0
+pay,VERB,VB,n,noun.possession,regular_payment > payment > cost,0.5324941176470587,17,12,3
+peace,NOUN,NN,n,noun.state,order > state > attribute,-4.1655,1,0,1
+peaceful,ADJ,JJ,a,adj.all,,-0.5497,1,0,1
+pecker,VERB,VB,n,noun.body,penis > erectile_organ > organ,1.35175,2,2,0
+peel,VERB,VB,n,noun.person,,-1.2219499999999999,2,0,1
+peered,VERB,VBN,v,verb.perception,look,-1.23516,5,0,4
+pelt,VERB,VB,n,noun.substance,animal_skin > animal_product > animal_material,0.9572499999999999,2,2,0
+pen,VERB,VB,n,noun.artifact,writing_implement > implement > instrumentality,-2.64815,2,1,1
+penetrate,VERB,VB,v,verb.contact,enter,9.9611,2,1,1
+penguins,NOUN,NNS,n,noun.animal,sphenisciform_seabird > seabird > aquatic_bird,3.6487,1,1,0
+penis,VERB,VB,n,noun.body,erectile_organ > organ > body_part,1.3309000000000002,2,2,0
+people,NOUN,NNS,n,noun.group,group > abstraction > entity,0.72395,2,2,0
+pepper,VERB,VB,n,noun.plant,true_pepper > vine > vascular_plant,2.7375,1,1,0
+perfect,VERB,VB,n,noun.relation,tense > grammatical_category > class,6.2623,1,1,0
+perform,VERB,VB,v,verb.creation,,-6.5913,1,0,1
+performed,VERB,VB,v,verb.creation,,-20.7517,1,0,1
+persist,VERB,VB,v,verb.stative,continue > be,-23.6766,1,0,1
+personally,ADV,RB,r,adv.all,,-1.6827,1,0,1
+pet,NOUN,NN,n,noun.animal,animal > organism > living_thing,-1.84355,2,0,2
+petition,VERB,VB,n,noun.communication,message > communication > abstraction,2.3709,1,1,0
+philosophy,VERB,VB,n,noun.cognition,belief > content > cognition,-1.3131,1,0,1
+phone,VERB,VB,n,noun.artifact,electronic_equipment > equipment > instrumentality,-7.1687,1,0,1
+photograph,VERB,VB,n,noun.artifact,representation > creation > artifact,-0.224,1,0,0
+photography,NOUN,NN,n,noun.act,pictorial_representation > representation > activity,-1.8947,1,0,1
+photosynthesis,VERB,VB,n,noun.process,chemical_process > natural_process > process,0.3546,1,1,0
+physically,ADV,RB,r,adv.all,,10.3212,2,2,0
+physics,NOUN,NN,n,noun.cognition,natural_science > science > discipline,-1.0363,1,0,1
+pick,VERB,VB,n,noun.cognition,decision_making > higher_cognitive_process > process,0.3750499999999999,2,1,1
+picked,VERB,VBN,v,verb.cognition,choose > decide,-0.5979333333333333,6,3,3
+pickers,NOUN,NNS,n,noun.person,person > causal_agent > physical_entity,-6.8607,1,0,1
+pictured,VERB,VBN,v,verb.creation,imagine > create_by_mental_act > make,-1.6213,1,0,1
+pinched,VERB,VBN,v,verb.contact,grip > seize > take,0.8483,1,1,0
+pinned,VERB,VBN,v,verb.contact,,0.6421,1,1,0
+pirates,NOUN,NNS,n,noun.person,thief > criminal > principal,-2.969,1,0,1
+pistol,VERB,VB,n,noun.artifact,firearm > gun > weapon,-0.9215,1,0,1
+pl,VERB,VB,,,,-0.7352,1,0,1
+placed,VERB,VBN,v,verb.contact,move,0.8964142857142858,7,6,1
+plan,VERB,VB,n,noun.cognition,idea > content > cognition,-9.1208,5,0,5
+planned,VERB,VBN,v,verb.cognition,intend,-21.409,1,0,1
+plants,NOUN,NNS,n,noun.artifact,building_complex > structure > artifact,3.8036,1,1,0
+platform,VERB,VB,n,noun.artifact,horizontal_surface > surface > artifact,-19.7459,1,0,1
+play,VERB,VB,n,noun.communication,dramatic_composition > writing > written_communication,0.37094,5,3,0
+played,VERB,VBN,v,verb.competition,compete,-10.6565,1,0,1
+please,VERB,VB,v,verb.emotion,satisfy,2.8826,1,1,0
+pleasure,VERB,VB,n,noun.feeling,feeling > state > attribute,-1.4966,1,0,1
+pledge,VERB,VB,n,noun.possession,security_interest > interest > share,-20.3237,1,0,1
+plumes,NOUN,NNS,n,noun.shape,shape > attribute > abstraction,-19.9196,1,0,1
+plunged,VERB,VBN,v,verb.contact,penetrate > enter,0.2428,1,0,0
+po,NOUN,NN,n,noun.substance,metallic_element > chemical_element > substance,-1.219,1,0,1
+pocket,VERB,VB,n,noun.artifact,pouch > bag > container,-4.6992,1,0,1
+pocketed,VERB,VB,v,verb.possession,take,-0.6851,1,0,1
+pockets,NOUN,NNS,n,noun.artifact,pouch > bag > container,-0.2094,1,0,0
+pod,VERB,VB,n,noun.plant,husk > sheath > covering,1.4091,1,1,0
+podium,VERB,VB,n,noun.artifact,platform > horizontal_surface > surface,-8.3067,1,0,1
+poetry,NOUN,NN,n,noun.communication,writing_style > expressive_style > communication,-0.1404,1,0,0
+point,VERB,VB,n,noun.cognition,component > part > concept,2.989,13,10,3
+pointed,VERB,VB,v,verb.communication,inform > communicate > interact,0.2096,2,1,0
+pointedly,ADV,RB,r,adv.all,,-0.9011,1,0,1
+poked,VERB,VB,v,verb.contact,thrust > push > move,-6.6786,1,0,1
+policies,NOUN,NNS,n,noun.cognition,plan_of_action > plan > idea,-7.7431,1,0,1
+policy,VERB,VB,n,noun.cognition,plan_of_action > plan > idea,-10.0513,1,0,1
+polit,VERB,VB,,,,0.1626,1,0,0
+politely,ADV,RB,r,adv.all,,-12.437483333333333,6,1,5
+political,ADJ,JJ,a,adj.all,,-18.8451,1,0,1
+politicians,NOUN,NNS,n,noun.person,leader > person > causal_agent,-4.2079,1,0,1
+polynomials,NOUN,NNS,n,noun.cognition,function > mathematical_relation > relation,20.9482,1,1,0
+ponder,VERB,VB,v,verb.cognition,think,-2.1465,1,0,1
+pondered,VERB,VB,v,verb.cognition,think,1.7084333333333335,3,2,1
+popped,VERB,VBN,v,verb.motion,change_shape > change,3.58485,2,2,0
+population,NOUN,NN,n,noun.group,people > group > abstraction,-2.2445,1,0,1
+pound,VERB,VB,n,noun.quantity,avoirdupois_unit > mass_unit > unit_of_measurement,-14.488033333333332,3,0,3
+pour,VERB,VB,v,verb.motion,move,-1.5369,1,0,1
+poured,VERB,VBN,v,verb.motion,move,0.6391,4,2,0
+powerless,VERB,VB,a,adj.all,,1.3362,1,1,0
+practice,VERB,VB,n,noun.act,activity > act > event,-20.66695,2,0,2
+pray,VERB,VB,v,verb.communication,commune > communicate > interact,3.6527,3,2,1
+prayed,VERB,VBN,v,verb.communication,commune > communicate > interact,2.83,2,1,0
+prayers,NOUN,NNS,n,noun.act,worship > activity > act,-0.879,1,0,1
+pre,VERB,VB,,,,9.6867,1,1,0
+precipice,VERB,VB,n,noun.object,cliff > geological_formation > object,-21.0029,1,0,1
+predicted,VERB,VBN,v,verb.communication,guess > speculate > reason,-1.6001,1,0,1
+predicting,VERB,VBG,v,verb.communication,guess > speculate > reason,-4.0612,1,0,1
+preface,VERB,VB,n,noun.communication,introduction > section > music,5.4053,1,1,0
+preheat,VERB,VB,v,verb.change,heat > change,-0.568,1,0,1
+prepare,VERB,VB,v,verb.change,change,-10.337925,8,0,7
+prepared,VERB,VBN,v,verb.change,change,-1.579175,4,0,3
+prescribe,VERB,VB,v,verb.communication,inflict > communicate > interact,-20.0226,1,0,1
+present,VERB,VB,n,noun.time,time > attribute > abstraction,-3.9270999999999994,3,0,2
+presented,VERB,VBN,v,verb.perception,show,-11.1042,1,0,1
+press,VERB,VB,n,noun.state,urgency > necessity > need,-0.7031,1,0,1
+pressed,VERB,VB,v,verb.contact,touch,-1.4821000000000002,7,0,5
+pressure,VERB,VB,n,noun.phenomenon,physical_phenomenon > natural_phenomenon > phenomenon,-0.3847250000000001,4,2,2
+pretended,VERB,VBN,v,verb.communication,misrepresent > represent > express,-1.1752,1,0,1
+pretty,ADV,RB,s,adj.all,,2.5805,1,1,0
+prettygood,VERB,VB,,,,-1.164,1,0,1
+prick,VERB,VB,n,noun.person,unpleasant_person > unwelcome_person > person,8.02985,4,4,0
+pricking,VERB,VBG,n,noun.act,puncture > activity > act,20.067,1,1,0
+prickle,VERB,VB,n,noun.plant,aculeus > plant_process > process,9.5936,1,1,0
+prickling,VERB,VBG,n,noun.cognition,somesthesia > perception > basic_cognitive_process,0.98735,2,2,0
+primarily,ADV,RB,r,adv.all,,11.251999999999999,2,2,0
+prioritise,VERB,VB,v,verb.cognition,rate > evaluate > think,-5.2121,2,1,1
+prioritize,VERB,VB,v,verb.cognition,rate > evaluate > think,-10.91212,10,0,9
+private,ADJ,JJ,n,noun.person,enlisted_man > enlisted_person > serviceman,-1.5637,1,0,1
+privates,NOUN,NNS,n,noun.body,reproductive_organ > organ > body_part,-1.9444,1,0,1
+probability,NOUN,NN,n,noun.attribute,measure > abstraction > entity,-2.0784,2,0,2
+probable,VERB,VB,n,noun.person,applicant > person > causal_agent,-19.8649,1,0,1
+probably,ADV,RB,r,adv.all,,-1.9827000000000001,20,5,10
+probablyA,NOUN,NN,,,,-22.5083,1,0,1
+probablyWhat,PRON,PRP,,,,-22.2893,1,0,1
+probe,VERB,VB,n,noun.cognition,inquiry > problem_solving > thinking,-20.7301,1,0,1
+probed,VERB,VBN,v,verb.communication,investigate > analyze,-20.2307,1,0,1
+proceed,VERB,VB,v,verb.communication,talk > communicate > interact,-7.689875,4,0,4
+proceeded,VERB,VB,v,verb.communication,talk > communicate > interact,-0.9616000000000001,3,0,2
+profanely,ADV,RB,r,adv.all,,19.9979,1,1,0
+profanities,NOUN,NNS,n,noun.communication,utterance > auditory_communication > communication,3.5677,2,2,0
+profanity,VERB,VB,n,noun.communication,utterance > auditory_communication > communication,-21.0927,1,0,1
+program,VERB,VB,n,noun.cognition,idea > content > cognition,0.3726,1,1,0
+programming,VERB,VBG,n,noun.act,planning > preparation > activity,-11.8433,1,0,1
+progressive,VERB,VB,n,noun.relation,tense > grammatical_category > class,-7.2886,1,0,1
+promise,VERB,VB,n,noun.communication,speech_act > act > event,-17.9937,1,0,1
+promising,VERB,VBG,v,verb.communication,declare > state > express,-0.3448,1,0,1
+promote,VERB,VB,v,verb.social,support,-20.7758,1,0,1
+promptly,ADV,RB,r,adv.all,,-9.769,1,0,1
+propose,VERB,VB,v,verb.communication,declare > state > express,-6.244379999999999,5,0,5
+propped,VERB,VBN,v,verb.contact,hold,-11.718333333333334,3,1,2
+prosthetic,VERB,VB,a,adj.pert,,-19.751,1,0,1
+protect,VERB,VB,v,verb.competition,defend > prevent,-0.9332,1,0,1
+protectionism,NOUN,NN,n,noun.communication,economic_policy > policy > argumentation,-10.4524,1,0,1
+protest,VERB,VB,n,noun.communication,objection > speech_act > act,-3.326975,4,1,3
+protesting,VERB,VBG,v,verb.communication,complain,-19.7951,1,0,1
+proud,ADJ,JJ,a,adj.all,,-20.1157,1,0,1
+prove,VERB,VB,v,verb.stative,be,-1.6983,1,0,1
+provide,VERB,VB,v,verb.possession,give > transfer,-8.6737125,8,0,8
+pry,VERB,VB,n,noun.artifact,lever > bar > implement,0.2066,1,0,0
+psychiatry,VERB,VB,n,noun.cognition,medicine > medical_science > life_science,-0.6865,1,0,1
+psychology,NOUN,NN,n,noun.cognition,science > discipline > knowledge_domain,-0.8376,1,0,1
+puff,VERB,VB,n,noun.phenomenon,gust > wind > weather,-0.7998,1,0,1
+puffed,VERB,VBN,v,verb.consumption,smoke > consume,2.5096,1,1,0
+puke,VERB,VB,n,noun.person,unpleasant_person > unwelcome_person > person,0.064,1,0,0
+pull,VERB,VB,n,noun.act,propulsion > act > event,1.0360111111111114,9,4,4
+pulled,VERB,VBN,v,verb.contact,move,-0.16563999999999998,10,4,5
+pulpit,VERB,VB,n,noun.artifact,platform > horizontal_surface > surface,20.0187,1,1,0
+puls,NOUN,NNS,n,noun.quantity,afghan_monetary_unit > monetary_unit > unit_of_measurement,-22.3237,1,0,1
+pulsating,VERB,VBG,v,verb.motion,beat > move,0.2518,2,1,1
+pulse,NOUN,NN,n,noun.event,wave > movement > happening,-19.7769,1,0,1
+pulsing,VERB,VBG,n,noun.event,wave > movement > happening,3.8059999999999996,2,1,1
+pummel,VERB,VB,v,verb.contact,hit > touch,0.3226,1,1,0
+pump,VERB,VB,n,noun.artifact,mechanical_device > mechanism > device,-1.0457,1,0,1
+pun,VERB,VB,n,noun.communication,fun > wit > message,-5.8721,1,0,1
+punch,VERB,VB,n,noun.act,blow > stroke > motion,-0.06466666666666662,3,1,1
+punched,VERB,VB,v,verb.contact,hit > touch,0.5557,1,1,0
+punctuality,VERB,VB,n,noun.attribute,timing > temporal_arrangement > temporal_property,-20.1493,1,0,1
+punish,VERB,VB,v,verb.social,,-4.885625,4,2,2
+purred,VERB,VBN,v,verb.perception,sound > cause_to_be_perceived,-15.1694,1,0,1
+pursue,VERB,VB,v,verb.social,act,-6.4007249999999996,4,0,4
+push,VERB,VB,n,noun.act,propulsion > act > event,-5.189611111111111,9,2,6
+pushed,VERB,VBN,v,verb.motion,move,0.74115,4,4,0
+pussy,VERB,VB,n,noun.body,female_genitalia > genitalia > reproductive_organ,20.1998,1,1,0
+put,VERB,VB,n,noun.act,option > derivative_instrument > legal_document,2.26545,28,23,3
+pyramids,NOUN,NNS,n,noun.shape,polyhedron > solid > shape,-2.387,1,0,1
+pyre,VERB,VB,n,noun.group,pile > collection > group,-20.2064,1,0,1
+pythagoras,X,ADD,n,noun.person,,-20.2203,1,0,1
+qu,VERB,VB,,,,-20.0189,1,0,1
+quadratic,VERB,VB,n,noun.communication,equation > mathematical_statement > statement,-2.5557,1,0,1
+qualify,VERB,VB,v,verb.stative,suffice > satisfy > meet,1.78475,2,2,0
+quantum,VERB,VB,n,noun.cognition,quantity > concept > idea,-1.8022,2,0,2
+queasiness,VERB,VB,n,noun.state,nausea > symptom > evidence,-19.9526,1,0,1
+quell,VERB,VB,v,verb.change,suppress > control > restrain,0.5001,1,1,0
+question,VERB,VB,n,noun.communication,questioning > request > speech_act,-12.04236,5,1,4
+quickly,ADV,RB,r,adv.all,,-1.9684,3,0,1
+quietly,ADV,RB,r,adv.all,,-7.6336,4,1,3
+quit,VERB,VB,v,verb.stative,,2.2957,8,5,2
+quite,ADV,RB,r,adv.all,,-11.2152,2,0,2
+rabfim,NOUN,NNS,,,,21.0044,1,1,0
+radio,VERB,VB,n,noun.communication,broadcasting > telecommunication > medium,-17.4851,1,0,1
+raging,VERB,VBG,v,verb.stative,act,-20.3373,1,0,1
+raid,VERB,VB,n,noun.act,penetration > attack > operation,-1.4889,1,0,1
+rail,VERB,VB,n,noun.artifact,barrier > obstruction > structure,0.4899,1,1,0
+railing,VERB,VBG,n,noun.artifact,barrier > obstruction > structure,2.0654,1,1,0
+railway,VERB,VB,n,noun.artifact,line > carrier > business,-0.1789,1,0,0
+rain,VERB,VB,n,noun.phenomenon,precipitation > weather > atmospheric_phenomenon,2.2654,1,1,0
+raincoat,VERB,VB,n,noun.artifact,coat > overgarment > garment,1.6003,2,2,0
+raining,VERB,VBG,v,verb.weather,precipitate,8.7029,1,1,0
+rainy,VERB,VB,s,adj.all,,1.3543,1,1,0
+raise,VERB,VB,n,noun.attribute,increase > amount > magnitude,-3.13142,10,2,8
+raised,VERB,VB,v,verb.change,increase > change,-2.7261999999999995,7,1,5
+rally,VERB,VB,n,noun.group,gathering > social_group > group,-0.1153,1,0,0
+rammed,VERB,VB,v,verb.contact,thrust > push > move,1.0658,1,1,0
+ran,VERB,VB,v,verb.motion,travel_rapidly > travel,-0.8776714285714285,7,3,4
+rape,VERB,VB,n,noun.plant,mustard > crucifer > herb,0.25675,2,1,1
+rapidly,ADV,RB,r,adv.all,,-2.3067,1,0,1
+rather,ADV,RB,r,adv.all,,-1.2388,1,0,1
+rav,VERB,VB,,,,-20.3843,1,0,1
+ravage,VERB,VB,n,noun.event,destruction > ending > happening,-1.98385,2,0,2
+ravish,VERB,VB,v,verb.social,assail,9.3945,2,1,1
+razor,VERB,VB,n,noun.artifact,edge_tool > cutter > cutting_implement,-1.9067,1,0,1
+re,VERB,VB,n,noun.substance,metallic_element > chemical_element > substance,-0.8106,4,1,3
+reach,VERB,VB,n,noun.location,limit > extremity > region,-6.205814285714285,7,1,6
+reached,VERB,VBN,v,verb.motion,,-2.1839375,8,0,8
+react,VERB,VB,v,verb.cognition,act,-20.0316,1,0,1
+read,VERB,VB,n,noun.communication,publication > work > product,-2.4884250000000003,8,4,4
+ready,ADJ,JJ,n,noun.state,readiness > state > attribute,-0.0551,1,0,0
+realize,VERB,VB,v,verb.cognition,know,-1.865,1,0,1
+realized,VERB,VBN,v,verb.cognition,know,-0.92875,2,0,2
+really,ADV,RB,r,adv.all,,3.43884375,16,12,3
+reapply,VERB,VB,,,,-2.644,1,0,1
+rear,VERB,VB,n,noun.group,formation > arrangement > group,0.1881,1,0,0
+reassure,VERB,VB,v,verb.emotion,calm > comfort,-19.9639,1,0,1
+reassuringly,ADV,RB,r,adv.all,,6.6053,1,1,0
+rebrand,VERB,VB,,,,-10.1326,1,0,1
+recall,VERB,VB,n,noun.communication,request > speech_act > act,-20.1751,1,0,1
+receive,VERB,VB,v,verb.possession,get,0.856823076923077,13,7,5
+reception,NOUN,NN,n,noun.communication,greeting > acknowledgment > message,-11.671,1,0,1
+recite,VERB,VB,v,verb.communication,perform,-20.8368,1,0,1
+recited,VERB,VBN,v,verb.communication,perform,-20.3515,1,0,1
+recl,VERB,VB,,,,-21.0741,1,0,1
+reclined,VERB,VB,v,verb.motion,lean > bend > change_shape,-19.9453,1,0,1
+recognized,VERB,VBN,v,verb.cognition,accept > evaluate > think,21.4816,1,1,0
+recommend,VERB,VB,v,verb.communication,propose > declare > state,-10.1901,5,0,5
+recommit,VERB,VB,v,verb.social,perpetrate > act,-10.1868,1,0,1
+reconsider,VERB,VB,v,verb.cognition,see > think > evaluate,-10.875,2,0,2
+recover,VERB,VB,v,verb.possession,get,-0.0941,1,0,0
+recursion,VERB,VB,n,noun.cognition,rule > procedure > activity,-20.6483,1,0,1
+recuse,VERB,VB,v,verb.communication,disqualify > pronounce > declare,20.1733,1,1,0
+red,VERB,VB,n,noun.attribute,chromatic_color > color > visual_property,-0.5665,1,0,1
+reduce,VERB,VB,v,verb.change,decrease > change,-3.353566666666667,6,1,5
+reel,VERB,VB,n,noun.artifact,film > photographic_paper > photographic_equipment,-20.3347,1,0,1
+refer,VERB,VB,v,verb.communication,think_of > associate > think,-7.849233333333333,3,1,2
+refilled,VERB,VB,v,verb.change,fill > change,2.0334,1,1,0
+reflected,VERB,VB,v,verb.perception,indicate > inform > communicate,-3.1534,1,0,1
+refrain,VERB,VB,n,noun.communication,music > auditory_communication > communication,-1.7092,1,0,1
+refuse,VERB,VB,n,noun.substance,waste > material > substance,0.007099999999999995,4,2,1
+refuseSolution,NOUN,NN,,,,21.41275,2,2,0
+refuseStep,VERB,VB,,,,20.3332,1,1,0
+refuseTo,VERB,VB,,,,20.533,1,1,0
+refuseToDef,VERB,VB,,,,20.3168,1,1,0
+refute,VERB,VB,v,verb.communication,disown > reject > evaluate,-19.707,1,0,1
+regret,VERB,VB,n,noun.feeling,sadness > feeling > state,-2.67985,2,0,2
+reincarnation,VERB,VB,n,noun.person,embodiment > personification > person,1.3088,1,1,0
+reject,VERB,VB,n,noun.cognition,decision_making > higher_cognitive_process > process,-2.3368,1,0,1
+relaxed,VERB,VB,v,verb.body,change_state > change,-12.66115,2,0,2
+release,VERB,VB,n,noun.artifact,merchandise > commodity > artifact,0.3417666666666666,3,1,2
+released,VERB,VBN,v,verb.contact,,-1.3735,1,0,1
+relent,VERB,VB,v,verb.stative,,-1.0428,1,0,1
+relief,VERB,VB,n,noun.feeling,comfort > pleasure > feeling,0.6526500000000001,2,1,1
+relieved,VERB,VB,v,verb.body,better > change,1.4627,1,1,0
+remain,VERB,VB,v,verb.change,be,-8.47475,4,0,4
+remained,VERB,VBD,v,verb.change,be,-0.8278,1,0,1
+remember,VERB,VB,v,verb.cognition,,-8.22185,4,0,4
+remind,VERB,VB,v,verb.cognition,,-0.9547375,8,2,5
+reminisced,VERB,VBN,v,verb.cognition,remember,7.2163,1,1,0
+remove,VERB,VB,n,noun.attribute,distance > spacing > placement,-4.753259999999999,10,2,4
+removed,VERB,VB,v,verb.change,,-11.0722,2,0,2
+renowned,VERB,VB,s,adj.all,,1.7373,1,1,0
+rent,VERB,VB,n,noun.possession,annuity_in_advance > annuity > regular_payment,2.2424,2,2,0
+repair,VERB,VB,n,noun.act,improvement > change_of_state > change,11.202,1,1,0
+repeat,VERB,VB,n,noun.event,periodic_event > happening > event,0.9016,1,1,0
+repeatedly,ADV,RB,r,adv.all,,-0.8206,1,0,1
+replace,VERB,VB,v,verb.change,regenerate > re-create > make,-7.112699999999999,3,0,2
+replaced,VERB,VBN,v,verb.change,regenerate > re-create > make,-1.7326,1,0,1
+replied,VERB,VBN,v,verb.communication,state > express,-1.8508,1,0,1
+reply,VERB,VB,n,noun.communication,statement > message > communication,-20.2759,2,0,2
+report,VERB,VB,n,noun.communication,document > writing > written_communication,-2.8872222222222224,18,3,13
+reported,VERB,VBN,v,verb.communication,inform > communicate > interact,0.7472,1,1,0
+represent,VERB,VB,v,verb.stative,equal,-12.56155,2,0,2
+repress,VERB,VB,v,verb.social,oppress,2.4029,1,1,0
+reprimand,VERB,VB,n,noun.communication,criticism > disapproval > message,-0.5252,1,0,1
+reprimed,VERB,VB,,,,20.1452,1,1,0
+reptiles,NOUN,NNS,n,noun.animal,vertebrate > chordate > animal,11.9259,2,2,0
+request,VERB,VB,n,noun.communication,message > communication > abstraction,-6.268866666666667,6,2,3
+requested,VERB,VBN,v,verb.communication,communicate > convey > transfer,-20.0454,1,0,1
+require,VERB,VB,v,verb.stative,,-1.7168,1,0,1
+required,VERB,VBN,v,verb.stative,,-20.2508,1,0,1
+reread,VERB,VB,v,verb.cognition,read > interpret > understand,-10.2772,1,0,1
+res,VERB,VB,n,noun.body,system > body_part > part,1.3243,1,1,0
+research,VERB,VB,n,noun.act,investigation > work > activity,-5.184233333333333,3,1,2
+resign,VERB,VB,v,verb.social,leave_office > leave > change,-5.360725,4,1,3
+resigned,VERB,VBN,v,verb.social,leave_office > leave > change,-1.5416,1,0,1
+resist,VERB,VB,v,verb.stative,elude > perplex > confuse,-1.95,2,0,2
+resisting,VERB,VBG,v,verb.stative,elude > perplex > confuse,0.2197,1,0,0
+respect,VERB,VB,n,noun.cognition,detail > fact > information,-8.35264,5,0,5
+respectfully,ADV,RB,r,adv.all,,-10.20595,2,0,2
+respond,VERB,VB,v,verb.cognition,act,-10.8911,12,1,11
+respondSolution,NUM,CD,,,,20.27705,2,2,0
+responding,VERB,VBG,v,verb.cognition,act,-0.7392,1,0,1
+responsible,ADJ,JJ,a,adj.all,,-3.3006,1,0,1
+rest,VERB,VB,n,noun.relation,part > relation > abstraction,0.4072,1,1,0
+rested,VERB,VBN,v,verb.contact,be,-0.2164,3,1,1
+restrain,VERB,VB,v,verb.social,inhibit > suppress > forget,20.1241,1,1,0
+resumed,VERB,VBN,v,verb.change,continue > keep,-1.80925,2,0,2
+ret,VERB,VB,v,verb.change,drench > wet > change,-2.4926,1,0,1
+retali,VERB,VB,,,,0.3963,1,1,0
+retaliate,VERB,VB,v,verb.competition,punish,-5.1058,6,1,5
+retrieved,VERB,VBN,v,verb.possession,get,-20.2011,1,0,1
+return,VERB,VB,n,noun.communication,legal_document > document > writing,-9.77165,2,1,1
+returned,VERB,VBN,v,verb.motion,travel,-0.37600000000000006,3,1,1
+reveal,VERB,VB,v,verb.perception,show,-0.9985,1,0,1
+revealed,VERB,VBN,v,verb.perception,show,-14.7231,1,0,1
+review,VERB,VB,n,noun.cognition,appraisal > classification > basic_cognitive_process,4.1594999999999995,9,5,3
+rib,VERB,VB,n,noun.artifact,support > device > instrumentality,-20.5285,1,0,1
+ribs,NOUN,NNS,n,noun.artifact,support > device > instrumentality,-12.0308,1,0,1
+rich,ADJ,JJ,n,noun.group,people > group > abstraction,-0.9197,1,0,1
+ride,VERB,VB,n,noun.act,journey > travel > motion,-13.33585,2,0,2
+rifle,VERB,VB,n,noun.artifact,firearm > gun > weapon,-2.4591,1,0,1
+right,VERB,VB,n,noun.attribute,abstraction > concept > idea,-8.435975,4,0,4
+rightfully,ADV,RB,r,adv.all,,-18.8466,1,0,1
+rigid,ADJ,JJ,s,adj.all,,-6.4608,1,0,1
+ring,VERB,VB,n,noun.attribute,sound > sound_property > property,-4.17525,2,0,2
+rinse,VERB,VB,n,noun.substance,hair_dye > dye > coloring_material,1.9166,1,1,0
+rinsed,VERB,VBN,v,verb.contact,wash > clean > change,0.1321,1,0,0
+riot,VERB,VB,n,noun.act,violence > aggression > action,0.45,1,1,0
+rip,VERB,VB,n,noun.person,libertine > bad_person > person,1.38115,2,1,0
+ripped,VERB,VBN,v,verb.contact,tear > separate > move,0.4578,1,1,0
+rise,VERB,VB,n,noun.event,emergence > beginning > happening,-0.0462,1,0,0
+river,VERB,VB,n,noun.object,stream > body_of_water > thing,-20.5432,1,0,1
+riverbank,VERB,VB,n,noun.object,bank > slope > geological_formation,-20.4508,1,0,1
+roaming,VERB,VBG,v,verb.motion,travel,-20.3724,1,0,1
+roared,VERB,VBN,v,verb.communication,make_noise > sound > cause_to_be_perceived,-11.2515,2,0,2
+roaring,VERB,VBG,n,noun.event,noise > sound > happening,-3.2232,1,0,1
+roast,VERB,VB,n,noun.food,cut > meat > food,0.1506,1,0,0
+roasting,VERB,VBG,n,noun.act,cooking > change_of_state > change,-20.4456,1,0,1
+robe,VERB,VB,n,noun.artifact,garment > clothing > consumer_goods,-5.202266666666667,3,2,1
+robots,NOUN,NNS,n,noun.artifact,mechanism > device > instrumentality,6.0436,1,1,0
+rock,VERB,VB,n,noun.object,natural_object > whole > object,-1.6900333333333333,3,0,3
+rocked,VERB,VBN,v,verb.motion,move_back_and_forth > move,-0.8821,1,0,1
+rod,VERB,VB,n,noun.artifact,implement > instrumentality > artifact,-15.530050000000001,2,0,2
+roll,VERB,VB,n,noun.event,rotation > turning > movement,0.4206666666666667,3,2,1
+rolled,VERB,VBN,v,verb.motion,turn > move,-1.9612999999999998,3,1,1
+rotated,VERB,VBN,v,verb.motion,turn > move,-19.9005,1,0,1
+round,VERB,VB,n,noun.artifact,ammunition > weaponry > instrumentality,-0.1725,1,0,0
+rub,VERB,VB,n,noun.cognition,obstacle > hindrance > difficulty,0.6399,2,1,0
+rubbed,VERB,VBN,v,verb.contact,guide,-4.09136,5,0,5
+ruin,VERB,VB,n,noun.state,devastation > deterioration > decay,-2.0769,1,0,1
+run,VERB,VB,n,noun.act,score > success > attainment,-1.7345,11,1,8
+rush,VERB,VB,n,noun.act,motion > change > action,-1.5028333333333332,3,0,1
+rushed,VERB,VBN,v,verb.motion,travel,-0.9373,1,0,1
+sabotage,VERB,VB,n,noun.act,destruction > termination > change_of_state,-21.847749999999998,2,0,2
+sack,VERB,VB,n,noun.artifact,bag > container > instrumentality,-0.6777,1,0,1
+sad,VERB,VB,a,adj.all,,2.2267,1,1,0
+said,VERB,VBD,v,verb.communication,express,0.8403636363636363,11,9,0
+saliva,VERB,VB,n,noun.body,secretion > liquid_body_substance > body_substance,-12.3306,1,0,1
+saluted,VERB,VBN,v,verb.consumption,honor > recognize > prize,-20.0325,1,0,1
+sand,VERB,VB,n,noun.substance,soil > earth > material,-0.9524,1,0,1
+sandals,NOUN,NNS,n,noun.artifact,shoe > footwear > covering,-12.0662,2,0,2
+sang,VERB,VB,n,noun.plant,herb > vascular_plant > plant,-0.3002,1,0,1
+sank,VERB,VB,v,verb.motion,change_posture > change,-0.4094,1,0,1
+sarcastically,ADV,RB,r,adv.all,,-10.735574999999999,4,0,4
+sari,VERB,VB,n,noun.artifact,dress > woman's_clothing > clothing,-0.0487,1,0,0
+sat,VERB,VB,n,noun.time,weekday > day_of_the_week > calendar_day,-0.6047625000000001,8,3,3
+saute,VERB,VB,n,noun.food,dish > nutriment > food,2.7041,1,1,0
+sauté,VERB,VB,,,,0.2384,1,0,0
+save,VERB,VB,n,noun.act,prevention > hindrance > act,-5.3473,4,1,3
+savored,VERB,VB,v,verb.emotion,,-0.7983,1,0,1
+saw,VERB,VB,n,noun.communication,saying > speech > auditory_communication,-4.376144444444445,9,3,4
+sawed,VERB,VB,v,verb.contact,cut > separate > move,-3.9777,1,0,1
+say,VERB,VB,n,noun.state,opportunity > possibility > being,2.864305555555555,18,15,2
+saying,VERB,VBG,n,noun.communication,speech > auditory_communication > communication,-1.5702,1,0,1
+scalp,VERB,VB,n,noun.body,skin > body_covering > covering,-0.3732,1,0,1
+scan,VERB,VB,n,noun.act,examination > investigation > work,-0.6628,1,0,1
+scanned,VERB,VBN,v,verb.perception,examine,-6.8395,2,0,2
+scared,VERB,VB,v,verb.emotion,stimulate > arouse > make,-6.3024,1,0,1
+scarf,VERB,VB,n,noun.artifact,garment > clothing > consumer_goods,-14.94425,2,0,2
+scattered,VERB,VBN,v,verb.motion,separate,-1.346,1,0,1
+scene,VERB,VB,n,noun.location,area > region > location,-8.6758,1,0,1
+schlong,VERB,VB,,,,-3.6185,1,0,1
+science,VERB,VB,n,noun.cognition,discipline > knowledge_domain > content,1.4202,1,1,0
+scold,VERB,VB,n,noun.person,unpleasant_person > unwelcome_person > person,-7.5821000000000005,2,1,1
+scooped,VERB,VB,v,verb.contact,remove,-0.4105,1,0,1
+scooted,VERB,VBN,v,verb.motion,rush > travel,-19.4238,1,0,1
+scrap,VERB,VB,n,noun.object,fragment > part > thing,-10.5589,1,0,1
+scrape,VERB,VB,n,noun.event,noise > sound > happening,-1.4608,1,0,1
+scratch,VERB,VB,n,noun.state,wound > injury > ill_health,-19.8773,1,0,1
+scream,VERB,VB,n,noun.communication,cry > utterance > auditory_communication,-4.868416666666667,6,1,5
+screamed,VERB,VBN,v,verb.communication,utter,-7.509333333333334,3,0,1
+screaming,VERB,VBG,n,noun.communication,cry > utterance > auditory_communication,3.953,1,1,0
+screeched,VERB,VBN,v,verb.perception,make_noise > sound > cause_to_be_perceived,-0.5307,1,0,1
+screw,VERB,VB,n,noun.person,lawman > defender > preserver,2.8215,1,1,0
+scroll,VERB,VB,n,noun.shape,round_shape > shape > attribute,-0.1291,1,0,0
+scrotum,VERB,VB,n,noun.body,pouch > sac > cavity,-2.5708,1,0,1
+scrub,VERB,VB,n,noun.group,vegetation > collection > group,-1.3886,1,0,1
+sea,VERB,VB,n,noun.object,body_of_water > thing > physical_entity,3.2301,1,1,0
+sear,VERB,VB,v,verb.change,heat > change,5.6969,1,1,0
+search,VERB,VB,n,noun.act,activity > act > event,0.22752857142857136,7,2,4
+searched,VERB,VBN,v,verb.contact,,-22.2834,1,0,1
+searing,VERB,VBG,v,verb.change,heat > change,-1.53035,2,0,2
+season,VERB,VB,n,noun.time,time_period > fundamental_quantity > measure,-0.1362,1,0,0
+seat,VERB,VB,n,noun.location,space > area > region,-0.0897,1,0,0
+seatbelt,VERB,VB,n,noun.artifact,safety_belt > restraint > device,-10.1868,2,0,2
+secrets,NOUN,NNS,n,noun.communication,information > message > communication,-21.1221,1,0,1
+seduce,VERB,VB,v,verb.contact,persuade > induce,-1.1574,2,0,2
+see,VERB,VB,n,noun.location,seat > center > area,-3.931025,12,6,5
+seed,VERB,VB,n,noun.plant,fruit > reproductive_structure > plant_organ,-0.2784,1,0,0
+seek,VERB,VB,n,noun.event,movement > happening > event,-5.3751999999999995,11,4,7
+seemed,VERB,VB,v,verb.perception,be,-0.821,1,0,1
+seize,VERB,VB,v,verb.contact,take,2.2668,1,1,0
+select,VERB,VB,v,verb.cognition,decide,-0.4859,2,0,2
+self,VERB,VB,n,noun.cognition,consciousness > cognitive_state > psychological_state,-15.249,1,0,1
+sell,VERB,VB,n,noun.act,sale > selling > commerce,3.429066666666667,6,3,1
+semen,NOUN,NN,n,noun.body,liquid_body_substance > body_substance > substance,-0.9003,1,0,1
+semi,VERB,VB,n,noun.event,match > contest > social_event,0.8388,1,1,0
+send,VERB,VB,v,verb.motion,move,-1.3130736842105264,19,7,10
+sensation,NOUN,NN,n,noun.cognition,perception > basic_cognitive_process > process,2.5656499999999998,2,2,0
+sense,VERB,VB,n,noun.cognition,awareness > knowing > higher_cognitive_process,1.2755,2,2,0
+sent,VERB,VBN,n,noun.quantity,estonian_monetary_unit > monetary_unit > unit_of_measurement,-0.55675,2,0,1
+separate,VERB,VB,n,noun.communication,article > piece > creation,-0.8600000000000001,2,0,1
+seriously,ADV,RB,r,adv.all,,0.9316,2,1,1
+serve,VERB,VB,n,noun.act,tennis_stroke > stroke > maneuver,-0.1350499999999999,2,1,1
+set,VERB,VB,n,noun.group,collection > group > abstraction,-2.3658923076923077,13,3,8
+settled,VERB,VBN,v,verb.motion,put > move,6.1290000000000004,3,1,2
+several,ADJ,JJ,s,adj.all,,-7.4786,1,0,1
+severe,VERB,VB,s,adj.all,,-0.7187,1,0,1
+sewing,VERB,VBG,n,noun.act,handicraft > trade > occupation,20.0791,1,1,0
+sex,NOUN,NN,n,noun.act,bodily_process > organic_process > process,11.6651,1,1,0
+sh,VERB,VB,,,,-1.5615166666666667,6,2,4
+shades,VERB,VB,n,noun.artifact,spectacles > optical_instrument > instrument,-20.1087,1,0,1
+shaft,VERB,VB,n,noun.communication,line > mark > indication,4.2637,2,2,0
+shake,VERB,VB,n,noun.substance,building_material > artifact > whole,-1.0374,3,0,2
+shaking,VERB,VBG,n,noun.act,agitation > motion > change,0.8365,1,1,0
+shapes,NOUN,NNS,n,noun.attribute,spatial_property > property > attribute,-9.9887,1,0,1
+share,VERB,VB,n,noun.possession,assets > possession > relation,-7.001599999999999,5,0,5
+shared,VERB,VBN,v,verb.stative,overlap > coincide > coexist,-1.3234,2,0,2
+sharp,VERB,VB,n,noun.communication,musical_notation > notation > writing,0.3382,2,1,1
+sharpened,VERB,VBN,v,verb.contact,change,-1.3407,1,0,1
+sharply,ADV,RB,r,adv.all,,-0.0688,1,0,0
+shave,VERB,VB,n,noun.act,depilation > cleaning > improvement,1.8609,1,1,0
+shawl,VERB,VB,n,noun.artifact,cloak > overgarment > garment,-1.2609,1,0,1
+she,PRON,PRP,,,,2.896925,12,9,2
+sheathed,VERB,VBN,v,verb.contact,cover,0.4759,1,1,0
+sheepishly,ADV,RB,r,adv.all,,-0.9784,1,0,1
+shi,PROPN,NNP,,,,20.7938,1,1,0
+shift,VERB,VB,n,noun.event,translation > change_of_location > movement,-2.9109,2,0,2
+ship,VERB,VB,n,noun.artifact,vessel > craft > vehicle,20.8433,1,1,0
+shipbuilding,VERB,VBG,n,noun.act,construction > creating_from_raw_materials > creation,20.5394,1,1,0
+ships,NOUN,NNS,n,noun.artifact,vessel > craft > vehicle,4.9033,1,1,0
+shipwre,VERB,VB,,,,1.6857,1,1,0
+shirt,VERB,VB,n,noun.artifact,garment > clothing > consumer_goods,-4.836725,4,1,1
+shirts,NOUN,NNS,n,noun.artifact,garment > clothing > consumer_goods,-20.0878,1,0,1
+shit,VERB,VB,n,noun.substance,fecal_matter > body_waste > waste,7.2394,1,1,0
+shiver,VERB,VB,n,noun.act,reflex > reaction > bodily_process,-1.3701999999999999,2,0,1
+shivered,VERB,VBN,v,verb.motion,tremble > shake > move,2.3844,1,1,0
+shivering,VERB,VBG,n,noun.state,symptom > evidence > information,0.2536,1,0,0
+shock,VERB,VB,n,noun.feeling,stupefaction > astonishment > feeling,6.31525,2,2,0
+shoe,VERB,VB,n,noun.artifact,footwear > covering > artifact,-5.98635,2,0,2
+shoes,NOUN,NNS,n,noun.state,situation > condition > state,-5.32615,4,0,2
+shook,VERB,VB,n,noun.artifact,barrel > vessel > container,0.14826666666666669,6,3,1
+shoot,VERB,VB,n,noun.plant,sprout > plant_organ > plant_part,6.506116666666666,6,5,0
+shooting,VERB,VBG,n,noun.act,propulsion > act > event,-1.2837,1,0,1
+shorts,NOUN,NNS,n,noun.artifact,trouser > garment > clothing,0.2459000000000001,3,2,1
+shot,VERB,VB,n,noun.act,propulsion > act > event,-9.456650000000002,2,1,1
+shoulder,VERB,VB,n,noun.body,body_part > part > thing,-6.9403999999999995,3,1,2
+shoulders,NOUN,NNS,n,noun.body,body_part > part > thing,0.1659,1,0,0
+shout,VERB,VB,n,noun.communication,utterance > auditory_communication > communication,-1.0464,3,0,3
+shouted,VERB,VBN,v,verb.communication,talk > communicate > interact,-7.584775,4,0,2
+shove,VERB,VB,n,noun.act,push > propulsion > act,-5.68975,2,0,2
+shoved,VERB,VBN,v,verb.motion,push > move,1.0415999999999999,2,1,0
+show,VERB,VB,n,noun.act,entertainment > diversion > activity,-1.11622,10,1,6
+showed,VERB,VB,v,verb.perception,show,-1.0705500000000001,2,0,1
+shower,VERB,VB,n,noun.artifact,plumbing_fixture > fixture > artifact,20.4133,1,1,0
+showery,VERB,VB,s,adj.all,,0.585,1,1,0
+showing,VERB,VBG,n,noun.communication,display > communication > abstraction,-3.1426499999999997,2,0,2
+shown,VERB,VBN,v,verb.perception,show,-0.1433,1,0,0
+shrine,VERB,VB,n,noun.artifact,place_of_worship > building > structure,-20.5939,1,0,1
+shucks,VERB,VB,n,noun.attribute,worthlessness > quality > attribute,6.0314,1,1,0
+shudder,VERB,VB,n,noun.feeling,fear > emotion > feeling,3.1168,1,1,0
+shut,VERB,VB,v,verb.contact,,-3.434225,4,2,2
+si,VERB,VB,n,noun.substance,semiconductor > conductor > material,-0.0028499999999999914,2,1,1
+sick,VERB,VB,n,noun.group,people > group > abstraction,-0.1903,1,0,0
+side,VERB,VB,n,noun.location,region > location > object,0.55545,2,2,0
+sifted,VERB,VBN,v,verb.motion,travel,-20.1276,1,0,1
+sighed,VERB,VBN,v,verb.body,breathe,-2.5241833333333332,6,2,4
+sight,NOUN,NN,n,noun.cognition,visual_percept > percept > representation,0.1337,1,0,0
+sighted,VERB,VB,v,verb.perception,perceive,0.5592,1,1,0
+silence,VERB,VB,n,noun.state,condition > state > attribute,-20.1323,1,0,1
+silent,ADJ,JJ,s,adj.all,,-19.2587,1,0,1
+silently,VERB,VB,r,adv.all,,-1.0907,1,0,1
+silk,VERB,VB,n,noun.artifact,fabric > artifact > whole,-10.7546,1,0,1
+simmer,VERB,VB,n,noun.attribute,temperature > fundamental_quantity > measure,-0.1552,1,0,0
+simply,ADV,RB,r,adv.all,,1.127075,4,1,2
+sing,VERB,VB,v,verb.creation,sing > talk > communicate,-2.0896,1,0,1
+singing,VERB,VBG,n,noun.act,musical_performance > performing_arts > humanistic_discipline,-19.9726,1,0,1
+sink,VERB,VB,n,noun.artifact,plumbing_fixture > fixture > artifact,3.4358,1,1,0
+sinking,VERB,VBG,n,noun.event,descent > change_of_location > movement,2.2276,1,1,0
+sipped,VERB,VBN,v,verb.consumption,drink > consume,-2.47226,5,2,2
+sir,NOUN,NN,n,noun.person,man > adult > person,7.0774,1,1,0
+sit,VERB,VB,v,verb.contact,,-5.1052,5,0,4
+site,VERB,VB,n,noun.location,tract > geographical_area > region,-0.5078,1,0,1
+situated,VERB,VBN,v,verb.stative,determine,1.2863,1,1,0
+skillfully,ADV,RB,r,adv.all,,-3.5794,1,0,1
+skin,NOUN,NN,n,noun.body,body_covering > covering > natural_object,-7.1854000000000005,3,1,2
+skirt,VERB,VB,n,noun.artifact,cloth_covering > covering > artifact,5.3698,1,1,0
+skull,VERB,VB,n,noun.body,bone > connective_tissue > animal_tissue,19.9935,1,1,0
+sl,VERB,VB,n,noun.group,,-0.7538400000000001,5,1,4
+slacks,NOUN,NNS,n,noun.artifact,trouser > garment > clothing,-3.6141,1,0,1
+slam,VERB,VB,n,noun.event,victory > ending > happening,-1.4607,1,0,1
+slammed,VERB,VBN,v,verb.contact,close,0.10303333333333335,3,1,1
+slap,VERB,VB,n,noun.event,blow > impact > contact,0.8682,2,1,0
+slapped,VERB,VBN,v,verb.contact,strike > touch,-0.0618,1,0,0
+slash,VERB,VB,n,noun.state,wound > injury > ill_health,-2.58845,2,0,2
+slashed,VERB,VBN,v,verb.contact,cut > separate > move,1.8404,1,1,0
+sleep,VERB,VB,n,noun.state,physical_condition > condition > state,-6.9076666666666675,3,1,2
+slept,VERB,VB,v,verb.body,rest > recumb > lie,3.3217,2,2,0
+sliced,VERB,VBN,v,verb.contact,cut > separate > move,0.2022,1,0,0
+slick,VERB,VB,n,noun.attribute,smoothness > texture > tactile_property,-19.316,1,0,1
+slid,VERB,VB,v,verb.motion,glide > travel,-0.2072,4,0,1
+slide,VERB,VB,n,noun.artifact,plate_glass > sheet > artifact,-1.03745,2,0,1
+slip,VERB,VB,n,noun.act,blunder > mistake > nonaccomplishment,-2.1327,1,0,1
+slipped,VERB,VBN,v,verb.motion,move,6.629433333333334,3,1,1
+slipper,VERB,VB,n,noun.artifact,footwear > covering > artifact,-19.9916,1,0,1
+slippers,NOUN,NNS,n,noun.artifact,footwear > covering > artifact,-0.32375,2,0,1
+slit,VERB,VB,n,noun.artifact,opening > artifact > whole,6.1051,1,1,0
+slither,VERB,VB,v,verb.motion,travel,0.5947,1,1,0
+slowly,ADV,RB,r,adv.all,,-5.100383333333332,12,1,8
+slump,VERB,VB,n,noun.process,deterioration > decline > decrease,0.5656,1,1,0
+slumped,VERB,VBN,v,verb.motion,sag > sink > change_posture,-4.258733333333333,3,0,2
+sm,VERB,VB,n,noun.substance,metallic_element > chemical_element > substance,-0.7245,4,0,2
+smack,VERB,VB,n,noun.event,blow > impact > contact,2.0231500000000002,2,2,0
+small,ADJ,JJ,n,noun.body,body_part > part > thing,-5.7704,4,1,3
+smash,VERB,VB,n,noun.event,blow > impact > contact,1.3673,1,1,0
+smashed,VERB,VBN,v,verb.contact,hit > touch,1.0088333333333332,3,3,0
+smell,VERB,VB,n,noun.cognition,sensation > perception > basic_cognitive_process,-0.07224999999999993,2,1,1
+smelled,VERB,VBN,v,verb.perception,perceive,-11.14465,4,0,4
+smiled,VERB,VBN,v,verb.body,grimace > communicate > interact,0.9043285714285715,7,4,1
+smite,VERB,VB,v,verb.contact,hit > touch,-21.3866,1,0,1
+smoked,VERB,VBN,v,verb.consumption,consume,3.70005,2,2,0
+smother,VERB,VB,n,noun.state,disorderliness > condition > state,-6.6702,1,0,1
+smotherackage,VERB,VB,,,,-7.0564,1,0,1
+smpect,VERB,VB,,,,-13.5512,1,0,1
+sn,VERB,VB,n,noun.substance,metallic_element > chemical_element > substance,0.6953333333333335,3,2,1
+snakes,NOUN,NNS,n,noun.animal,diapsid > reptile > vertebrate,0.4621,1,1,0
+snapped,VERB,VBN,v,verb.communication,talk > communicate > interact,1.3871,1,1,0
+snar,NOUN,NN,,,,-20.3295,1,0,1
+sniff,VERB,VB,n,noun.act,smell > sensing > sensory_activity,9.6523,1,1,0
+sniffed,VERB,VBN,v,verb.perception,smell > perceive,-0.14605,2,1,1
+snored,VERB,VBN,v,verb.body,breathe,-20.3046,1,0,1
+snorted,VERB,VB,v,verb.communication,utter,0.21700000000000003,2,1,1
+snow,VERB,VB,n,noun.phenomenon,precipitation > weather > atmospheric_phenomenon,11.6126,1,1,0
+snowing,VERB,VBG,v,verb.weather,precipitate,-19.9705,1,0,1
+snuggled,VERB,VB,v,verb.contact,cling_to > hold,0.8741,1,1,0
+so,ADV,RB,n,noun.communication,solfa_syllable > syllable > language_unit,-5.708083333333334,6,2,3
+soak,VERB,VB,n,noun.process,natural_process > process > physical_entity,1.0855,1,1,0
+sobbed,VERB,VBN,v,verb.body,cry > express_emotion,3.5919,2,2,0
+sobbing,VERB,VBG,n,noun.act,crying > bodily_process > organic_process,9.7741,1,1,0
+soccer,VERB,VB,n,noun.act,football > contact_sport > sport,-10.2527,1,0,1
+social,VERB,VB,n,noun.group,party > social_gathering > gathering,-8.7108,1,0,1
+socialism,NOUN,NN,n,noun.cognition,political_orientation > orientation > attitude,-2.4192,1,0,1
+socialist,VERB,VB,n,noun.person,politician > leader > person,-20.5068,1,0,1
+sock,VERB,VB,n,noun.artifact,hosiery > footwear > clothing,-1.9292,1,0,1
+socks,NOUN,NNS,n,noun.artifact,hosiery > footwear > clothing,-1.11,3,0,2
+sodomize,VERB,VB,v,verb.social,copulate > join > connect,-9.4793,1,0,1
+soffrit,VERB,VB,,,,-20.0494,1,0,1
+soft,ADJ,JJ,a,adj.all,,-10.4269,2,0,2
+soften,VERB,VB,v,verb.perception,change_intensity > change,0.8896,1,1,0
+softening,VERB,VBG,n,noun.process,natural_process > process > physical_entity,-0.1652,1,0,0
+softly,ADV,RB,r,adv.all,,-0.40616666666666673,3,1,2
+soiled,VERB,VBN,v,verb.contact,change,-3.8115,1,0,1
+solemnly,ADV,RB,r,adv.all,,3.2848,1,1,0
+some,PRON,DT,a,adj.all,,-2.405988888888889,9,5,3
+somebody,PRON,NN,n,noun.Tops,causal_agent > physical_entity > entity,2.2482,1,1,0
+someone,PRON,NN,n,noun.Tops,causal_agent > physical_entity > entity,-0.5621999999999999,2,0,1
+something,PRON,NN,,,,1.2011454545454545,11,8,1
+somewhat,ADV,RB,r,adv.all,,-20.1606,1,0,1
+son,VERB,VB,n,noun.person,male_offspring > child > offspring,-2.3631,1,0,1
+soon,ADV,RB,r,adv.all,,2.1433,1,1,0
+soothingly,ADV,RB,r,adv.all,,0.0152,1,0,0
+sorry,VERB,VB,a,adj.all,,-4.1243,5,2,3
+sp,VERB,VB,,,,-0.9187750000000001,4,2,1
+space,VERB,VB,n,noun.Tops,attribute > abstraction > entity,-0.3291,1,0,1
+span,VERB,VB,n,noun.time,duration > time_period > fundamental_quantity,-13.5957,1,0,1
+spank,VERB,VB,n,noun.act,smack > blow > stroke,0.8665,2,2,0
+spare,VERB,VB,n,noun.artifact,component > part > object,-0.1861,1,0,0
+spark,VERB,VB,n,noun.event,flash > happening > event,-1.4081,1,0,1
+sparked,VERB,VB,v,verb.creation,initiate > cause > make,-1.3458,1,0,1
+spasm,VERB,VB,n,noun.state,symptom > evidence > information,0.3809,2,1,0
+spat,VERB,VB,n,noun.communication,quarrel > dispute > disagreement,-2.480233333333333,3,0,3
+speak,VERB,VB,v,verb.communication,communicate > interact > act,-4.193127777777778,18,2,14
+spectacles,VERB,VB,n,noun.artifact,optical_instrument > instrument > device,2.7138999999999998,2,2,0
+spend,VERB,VB,v,verb.stative,,0.46825000000000006,2,1,0
+sperm,VERB,VB,n,noun.body,gamete > reproductive_cell > cell,-2.7152,1,0,1
+spew,VERB,VB,v,verb.body,expectorate > exhaust,-20.9164,1,0,1
+spiders,NOUN,NNS,n,noun.animal,arachnid > arthropod > invertebrate,10.0419,1,1,0
+spike,VERB,VB,n,noun.event,electrical_discharge > discharge > happening,-2.2909,1,0,1
+spilled,VERB,VBN,v,verb.contact,move,-12.9811,2,0,2
+spit,VERB,VB,n,noun.object,cape > land > object,0.6267,2,1,0
+spitting,VERB,VBG,n,noun.act,expulsion > propulsion > act,0.8439,1,1,0
+splashed,VERB,VB,v,verb.contact,scatter > discharge > spread,-19.8734,1,0,1
+splashing,VERB,VBG,n,noun.act,painting > application > manual_labor,0.9605,1,1,0
+splatter,VERB,VB,n,noun.event,noise > sound > happening,-19.9283,1,0,1
+spluttering,VERB,VBG,v,verb.communication,utter,-0.7892,1,0,1
+spoke,VERB,VB,n,noun.artifact,support > device > instrumentality,-0.6470750000000001,4,1,1
+spoon,VERB,VB,n,noun.artifact,cutlery > tableware > ware,-20.2902,1,0,1
+spooned,VERB,VBN,v,verb.contact,remove,2.0172,2,1,1
+sports,NOUN,NNS,n,noun.act,diversion > activity > act,1.2858,1,1,0
+spot,VERB,VB,n,noun.location,point > location > object,20.2981,1,1,0
+sprawled,VERB,VBN,v,verb.contact,sit,8.9925,1,1,0
+spray,VERB,VB,n,noun.substance,pesticide > chemical > material,0.2171,1,0,0
+spread,VERB,VB,n,noun.event,change_of_location > movement > happening,0.5692499999999999,4,2,2
+sprink,VERB,VB,,,,-0.9926,1,0,1
+sprinkled,VERB,VBN,v,verb.contact,discharge > spread,-10.411299999999999,2,0,2
+spun,VERB,VB,v,verb.motion,revolve > turn > move,-2.12025,2,0,2
+sputtering,VERB,VB,n,noun.event,noise > sound > happening,-0.5909,1,0,1
+squ,VERB,VB,,,,-5.8761,1,0,1
+squat,NOUN,NNS,n,noun.act,leg_exercise > exercise > effort,-20.611449999999998,2,0,2
+sque,VERB,VB,,,,-0.3789,1,0,1
+squeez,VERB,VB,,,,-1.5599,1,0,1
+squeeze,VERB,VB,n,noun.act,compression > press > push,-11.6087,2,0,2
+squeezed,VERB,VBN,v,verb.contact,press > touch,0.19169999999999998,2,1,0
+squinted,VERB,VBN,v,verb.body,grimace > communicate > interact,-1.3301,1,0,1
+squirm,VERB,VB,n,noun.act,motion > change > action,0.1672,1,0,0
+squirming,VERB,VBG,v,verb.motion,move,3.1925,1,1,0
+st,PROPN,NNP,,,,-4.64665,4,0,4
+stab,VERB,VB,n,noun.feeling,feeling > state > attribute,1.6860199999999999,5,5,0
+stabbed,VERB,VBN,v,verb.contact,injure > hurt > indispose,4.8542,1,1,0
+stabbing,VERB,VBG,v,verb.contact,injure > hurt > indispose,0.3673,1,1,0
+stage,VERB,VB,n,noun.time,time_period > fundamental_quantity > measure,-3.6671,2,0,2
+stagger,VERB,VB,n,noun.act,gait > walk > locomotion,5.8818,1,1,0
+stand,VERB,VB,n,noun.artifact,support > device > instrumentality,0.8099999999999999,7,4,1
+stare,VERB,VB,n,noun.act,look > sensing > sensory_activity,-3.57035,2,0,2
+stared,VERB,VB,v,verb.perception,look,-0.53106,10,3,6
+staring,VERB,VBG,v,verb.perception,look,-1.6247,1,0,1
+stars,NOUN,NNS,n,noun.object,celestial_body > natural_object > whole,0.1463,1,0,0
+start,VERB,VB,n,noun.event,beginning > happening > event,-1.042244,25,4,17
+started,VERB,VBN,v,verb.change,,-0.2651545454545454,11,4,2
+state,VERB,VB,n,noun.location,administrative_district > district > region,2.5447,1,1,0
+stated,VERB,VBN,v,verb.communication,express,-20.0341,1,0,1
+station,VERB,VB,n,noun.artifact,facility > artifact > whole,0.4018,1,1,0
+stay,VERB,VB,n,noun.act,act > event > psychological_feature,-1.4775727272727273,11,4,7
+steadied,VERB,VBN,v,verb.change,stabilize > change,-0.1136,1,0,0
+steam,VERB,VB,n,noun.substance,vapor > suspension > mixture,0.0653,1,0,0
+step,VERB,VB,n,noun.act,maneuver > move > decision,-8.657166666666667,3,0,3
+stepped,VERB,VBN,v,verb.motion,travel,-1.20442,5,0,5
+stern,VERB,VB,n,noun.artifact,rear > side > surface,-2.4671,1,0,1
+sternly,ADV,RB,r,adv.all,,-4.6446499999999995,2,1,1
+stick,VERB,VB,n,noun.artifact,implement > instrumentality > artifact,0.6644,1,1,0
+stiff,VERB,VB,n,noun.person,man > adult > person,1.0135,2,1,0
+stiffening,VERB,VBG,n,noun.act,procedure > activity > act,0.6065,2,1,0
+stiffy,VERB,VB,,,,-15.0826,1,0,1
+still,ADV,RB,n,noun.artifact,photograph > representation > creation,-1.2215,14,5,9
+stilled,VERB,VBN,v,verb.emotion,comfort,-3.8465,1,0,1
+stillness,VERB,VB,n,noun.attribute,silence > sound_property > property,-1.2115,1,0,1
+sting,VERB,VBG,n,noun.state,pain > symptom > evidence,-0.10785,2,0,0
+stinging,VERB,VBG,n,noun.state,pain > symptom > evidence,1.8798,1,1,0
+stir,VERB,VB,n,noun.state,disturbance > disorder > state,-0.1331,1,0,0
+stirred,VERB,VBN,v,verb.motion,move,-0.4294,1,0,1
+stirring,VERB,VBG,n,noun.act,agitation > motion > change,2.3837,1,1,0
+stockings,NOUN,NNS,n,noun.artifact,hosiery > footwear > clothing,1.1454,1,1,0
+stomp,VERB,VB,n,noun.act,social_dancing > dancing > diversion,-1.08305,2,0,2
+stone,VERB,VB,n,noun.object,natural_object > whole > object,0.2778,1,0,0
+stoned,VERB,VBN,v,verb.contact,kill,-1.005,1,0,1
+stones,NOUN,NNS,n,noun.object,natural_object > whole > object,-21.4768,1,0,1
+stoning,VERB,VBG,n,noun.act,corporal_punishment > punishment > social_control,-1.9058,1,0,1
+stood,VERB,VBD,v,verb.contact,rest > be,-0.07491999999999996,5,2,2
+stop,VERB,VB,n,noun.event,ending > happening > event,-0.7788549999999999,20,12,7
+stopped,VERB,VBN,v,verb.motion,,0.8340000000000001,2,1,0
+storm,VERB,VB,n,noun.phenomenon,atmospheric_phenomenon > physical_phenomenon > natural_phenomenon,-0.3724,1,0,1
+stormy,VERB,VB,a,adj.all,,-0.8844,1,0,1
+str,VERB,VB,,,,-12.3786,2,0,2
+straddle,VERB,VB,n,noun.cognition,position > orientation > attitude,3.3225,1,1,0
+straddled,VERB,VBN,v,verb.stative,be,0.2497,1,0,0
+straining,VERB,VBG,n,noun.act,effort > labor > work,1.8746,1,1,0
+strang,VERB,VB,,,,-2.11645,2,0,2
+strangely,ADV,RB,r,adv.all,,-4.0042,1,0,1
+strangle,VERB,VB,v,verb.contact,kill,-1.92962,5,1,4
+strangled,VERB,VB,v,verb.contact,kill,-1.0114,1,0,1
+strategize,VERB,VB,,,,-9.3332,1,0,1
+stream,VERB,VB,n,noun.object,body_of_water > thing > physical_entity,-20.6041,1,0,1
+strengthen,VERB,VB,v,verb.change,change,0.8015,1,1,0
+stress,VERB,VB,n,noun.communication,prosody > manner_of_speaking > expressive_style,-9.547400000000001,3,1,2
+stretched,VERB,VBN,v,verb.stative,be,0.14715,2,1,1
+strike,VERB,VB,n,noun.act,job_action > direct_action > protest,0.40781666666666666,6,3,1
+strip,VERB,VB,n,noun.object,part > thing > physical_entity,0.23463333333333336,3,1,0
+strive,VERB,VB,v,verb.social,try > act,-0.6233,1,0,1
+stroke,VERB,VB,n,noun.act,maneuver > motion > change,0.08574999999999999,2,0,0
+stroked,VERB,VB,v,verb.contact,touch,0.1090666666666668,3,2,1
+strong,ADJ,JJ,a,adj.all,,-0.3834,1,0,1
+strongly,ADV,RB,r,adv.all,,-11.1302,3,0,3
+struck,VERB,VBN,v,verb.contact,touch,-2.3085,1,0,1
+struggle,VERB,VB,n,noun.act,attempt > activity > act,-0.3442,1,0,1
+struggling,VERB,VBG,v,verb.social,try > act,-0.0002,1,0,0
+strum,VERB,VB,n,noun.event,sound > happening > event,-3.6099,1,0,1
+stuck,VERB,VB,v,verb.contact,fasten > attach > connect,1.36195,2,2,0
+studied,VERB,VBN,v,verb.cognition,,-0.447775,4,2,2
+study,VERB,VB,n,noun.act,examination > investigation > work,2.682,1,1,0
+stuffed,VERB,VBN,v,verb.contact,cram > put > move,4.8887,2,2,0
+stumble,VERB,VB,n,noun.act,gait > walk > locomotion,-0.2523,1,0,0
+stumbled,VERB,VBN,v,verb.motion,walk > travel,-3.9784,1,0,1
+subatomic,VERB,VB,a,adj.pert,,-20.0036,1,0,1
+subject,VERB,VB,n,noun.communication,message > communication > abstraction,-2.6076,2,0,2
+sublet,VERB,VB,n,noun.possession,lease > property > possession,-1.9323,1,0,1
+submit,VERB,VB,v,verb.communication,refer > send > move,-8.337733333333334,3,0,3
+succ,VERB,VB,,,,-1.6921,1,0,1
+succumbed,VERB,VBN,v,verb.communication,accept > react > act,-0.1108,1,0,0
+such,ADJ,JJ,s,adj.all,,-5.60415,2,0,2
+suck,VERB,VB,n,noun.act,consumption > bodily_process > organic_process,2.7605,3,3,0
+sucked,VERB,VBN,v,verb.consumption,drink > consume,6.839966666666666,3,1,0
+sucking,VERB,VBG,n,noun.act,consumption > bodily_process > organic_process,0.1931,1,0,0
+suckle,VERB,VB,v,verb.consumption,feed > consume,-6.17275,2,0,2
+suddenly,ADV,RB,r,adv.all,,-12.292033333333334,3,0,3
+sue,VERB,VB,n,noun.person,,2.605975,16,14,1
+suffer,VERB,VB,v,verb.perception,experience > undergo > change,-2.6337,1,0,1
+suggest,VERB,VB,v,verb.communication,declare > state > express,-12.423425,4,1,3
+suggesting,VERB,VBG,v,verb.communication,declare > state > express,-21.7232,1,0,1
+suicide,VERB,VB,n,noun.act,killing > termination > change_of_state,4.5335,1,1,0
+suicides,NOUN,NNS,n,noun.act,killing > termination > change_of_state,20.4426,1,1,0
+suit,VERB,VB,n,noun.artifact,garment > clothing > consumer_goods,-0.9301,2,0,1
+suitcase,VERB,VB,n,noun.artifact,baggage > case > container,-0.0433,1,0,0
+summar,VERB,VB,,,,-1.7252,1,0,1
+summarize,VERB,VB,v,verb.communication,repeat > tell > inform,0.4835,1,1,0
+sun,VERB,VB,n,noun.object,,13.2898,1,1,0
+sung,VERB,VB,n,noun.group,dynasty > family > lineage,1.6208,1,1,0
+sunglasses,NOUN,NNS,n,noun.artifact,spectacles > optical_instrument > instrument,0.8629,2,2,0
+sunny,ADJ,JJ,s,adj.all,,0.0659,1,0,0
+sunshine,VERB,VB,n,noun.phenomenon,light > actinic_radiation > electromagnetic_radiation,-0.3674,1,0,1
+support,VERB,VB,n,noun.act,activity > act > event,-2.71288,5,1,4
+supposed,VERB,VBN,v,verb.communication,speculate > reason > think,-0.4956,1,0,1
+suppress,VERB,VB,v,verb.change,control > restrain > inhibit,-20.3941,1,0,1
+sure,ADJ,JJ,a,adj.all,,1.2528666666666668,3,2,1
+surf,VERB,VB,n,noun.event,wave > movement > happening,0.5324,1,1,0
+surge,VERB,VB,n,noun.event,flow > change_of_location > movement,-0.23854999999999998,2,0,1
+surprise,VERB,VB,n,noun.feeling,astonishment > feeling > state,-2.0786,1,0,1
+surprisingly,ADV,RB,r,adv.all,,-2.7746,1,0,1
+surround,VERB,VB,n,noun.location,geographical_area > region > location,0.1945,1,0,0
+surveyed,VERB,VBN,v,verb.cognition,analyze,-5.0093,2,0,1
+survival,VERB,VB,n,noun.state,animation > being > state,-3.368,1,0,1
+survive,VERB,VB,v,verb.stative,,-3.1907,1,0,1
+suspend,VERB,VB,v,verb.contact,hang > fasten > attach,-0.32289999999999996,2,1,1
+sw,VERB,VB,n,noun.relation,compass_point > direction > position,-1.03645,2,0,2
+swal,NOUN,NN,,,,1.462,1,1,0
+swallowed,VERB,VB,v,verb.consumption,consume,0.22402500000000003,4,2,2
+swapped,VERB,VBN,v,verb.possession,exchange > transfer,0.4028,1,1,0
+swe,VERB,VB,,,,-0.3522,1,0,1
+swear,VERB,VB,v,verb.communication,express,-0.8528,1,0,1
+sweat,VERB,VB,n,noun.body,secretion > liquid_body_substance > body_substance,3.999,4,3,0
+sweated,VERB,VBN,v,verb.body,excrete > exhaust,11.14,1,1,0
+sweater,VERB,VB,n,noun.artifact,garment > clothing > consumer_goods,0.40835000000000005,2,1,0
+sweatpants,NOUN,NNS,n,noun.artifact,trouser > garment > clothing,-1.9227500000000002,2,0,2
+sweatshir,VERB,VB,,,,-0.4654,1,0,1
+sweatshirt,VERB,VB,n,noun.artifact,pullover > sweater > garment,4.95655,2,2,0
+sweet,ADJ,JJ,n,noun.person,,-11.1441,1,0,1
+swept,VERB,VB,v,verb.motion,move,-0.0896,1,0,0
+swigged,VERB,VBN,v,verb.contact,hit > touch,-10.5549,1,0,1
+swim,VERB,VB,n,noun.act,water_sport > sport > diversion,-9.7554,1,0,1
+swimming,VERB,VBG,n,noun.act,water_sport > sport > diversion,0.4447,1,1,0
+swimsuit,VERB,VB,n,noun.artifact,garment > clothing > consumer_goods,-0.0634,1,0,0
+swirled,VERB,VBN,v,verb.motion,revolve > turn > move,-7.259666666666665,3,0,3
+swished,VERB,VBN,v,verb.perception,sound > cause_to_be_perceived,20.2917,1,1,0
+switch,VERB,VB,n,noun.artifact,control > mechanism > device,-7.721933333333333,3,0,3
+swollen,VERB,VB,v,verb.change,increase > change_magnitude > change,-3.5066666666666664,3,1,2
+sword,VERB,VB,n,noun.artifact,weapon > instrument > device,-1.8053,1,0,1
+swore,VERB,VB,v,verb.communication,express,-0.2662,1,0,0
+swung,VERB,VB,v,verb.motion,move,-0.06409999999999998,3,1,2
+sympathetically,ADV,RB,r,adv.all,,0.2783,1,0,0
+table,VERB,VB,n,noun.group,array > arrangement > group,-3.8986,1,0,1
+tackle,VERB,VB,n,noun.person,lineman > football_player > player,-1.3129,1,0,1
+take,VERB,VB,n,noun.possession,income > financial_gain > gain,-0.4262942857142857,35,16,11
+takeIt,PROPN,NNP,,,,-21.6058,1,0,1
+takeSolution,NOUN,NN,,,,20.6994,1,1,0
+takeThis,VERB,VB,,,,-20.5126,1,0,1
+taking,VERB,VBG,n,noun.act,action > act > event,0.6578,1,1,0
+talk,VERB,VB,n,noun.communication,conversation > speech > auditory_communication,-2.607270833333333,24,3,16
+talked,VERB,VBN,v,verb.communication,communicate > interact > act,0.9533999999999999,2,1,0
+tap,VERB,VB,n,noun.event,sound > happening > event,1.2618,1,1,0
+tapped,VERB,VBN,v,verb.contact,cut > separate > move,1.2218,1,1,0
+target,VERB,VB,n,noun.communication,reference_point > indicator > signal,-10.931066666666666,3,0,3
+taste,VERB,VB,n,noun.cognition,sensation > perception > basic_cognitive_process,1.159,1,1,0
+tasted,VERB,VBN,v,verb.perception,,-0.2646,1,0,0
+tattered,VERB,VBN,s,adj.all,,-15.82065,2,0,2
+taunt,VERB,VB,n,noun.act,aggravation > aggression > behavior,0.9053,1,1,0
+tax,VERB,VB,n,noun.possession,levy > charge > liabilities,0.3772,2,1,1
+te,VERB,VB,n,noun.substance,chemical_element > substance > part,-1.7278,1,0,1
+teach,VERB,VB,n,noun.person,,-3.523616666666667,6,2,3
+tear,VERB,VB,n,noun.body,drop > small_indefinite_quantity > indefinite_quantity,1.13305,4,3,0
+teargas,VERB,VB,n,noun.substance,chemical_weapon > weapon_of_mass_destruction > weapon,13.1057,1,1,0
+tears,NOUN,NNS,n,noun.act,bodily_process > organic_process > process,-11.8823,2,0,2
+tease,VERB,VB,n,noun.person,unwelcome_person > person > causal_agent,-2.9423500000000002,2,0,2
+teeth,NOUN,NNS,n,noun.body,set > collection > group,0.121,2,1,1
+telepathy,VERB,VB,n,noun.communication,psychic_communication > communication > abstraction,1.5913,1,1,0
+tell,VERB,VB,n,noun.person,,0.7798576923076923,26,15,4
+tellidthe,PRON,DT,,,,20.0271,1,1,0
+temples,NOUN,NNS,n,noun.artifact,place_of_worship > building > structure,-1.2498,1,0,1
+tender,VERB,VB,n,noun.possession,medium_of_exchange > standard > system_of_measurement,-19.9199,1,0,1
+tension,VERB,VB,n,noun.state,strain > nervousness > psychological_state,-2.2328,1,0,1
+tentatively,ADV,RB,r,adv.all,,-0.8218,1,0,1
+terminate,VERB,VB,v,verb.change,change,-8.53504,5,0,4
+terrible,VERB,VB,s,adj.all,,11.07425,2,2,0
+terrified,VERB,VBN,v,verb.emotion,frighten > stimulate > arouse,-2.2599,1,0,1
+tersely,ADV,RB,r,adv.all,,1.7492,1,1,0
+tersors,NOUN,NNS,,,,0.233,1,0,0
+test,VERB,VB,n,noun.cognition,experiment > inquiry > problem_solving,0.0409,1,0,0
+tested,VERB,VBN,v,verb.social,evaluate > think,-1.4758,1,0,1
+testicles,NOUN,NNS,n,noun.body,male_reproductive_gland > reproductive_organ > organ,-0.43289999999999984,2,1,1
+text,VERB,VB,n,noun.communication,matter > writing > written_communication,-20.9935,1,0,1
+th,X,XX,n,noun.time,weekday > day_of_the_week > calendar_day,-1.2970333333333333,3,0,2
+thank,VERB,VB,v,verb.communication,convey > impart > tell,1.1495250000000001,8,4,3
+thankidthe,VERB,VB,,,,20.0346,1,1,0
+thanks,NOUN,NNS,n,noun.communication,acknowledgment > message > communication,5.7205,1,1,0
+thankype,VERB,VB,,,,9.8056,1,1,0
+that,PRON,DT,,,,2.1800166666666665,12,12,0
+thatSolution,NOUN,NN,,,,20.55125,2,2,0
+thatThe,VERB,VB,,,,-20.3764,1,0,1
+thats,PRON,DT,,,,8.1219,2,2,0
+the,PRON,DT,,,,1.6710266666666667,30,17,4
+theSolution,NOUN,NN,,,,-20.3906,1,0,1
+theThe,VERB,VB,,,,-20.9388,1,0,1
+theThere,ADV,RB,,,,-20.2279,1,0,1
+thehead,VERB,VB,,,,0.8237,1,1,0
+their,PRON,PRP$,,,,-3.8788,3,1,2
+them,PRON,PRP,,,,1.8796000000000002,2,1,1
+themind,VERB,VB,,,,0.3993,1,1,0
+then,ADV,RB,n,noun.time,point > measure > abstraction,-2.701641176470588,17,6,8
+there,ADV,RB,n,noun.location,location > object > physical_entity,1.2965181818181817,11,8,0
+therefore,ADV,RB,r,adv.all,,-12.488866666666667,3,0,3
+theres,PRON,EX,n,noun.location,location > object > physical_entity,1.3353,1,1,0
+thermodynamics,NOUN,NNS,n,noun.cognition,physics > natural_science > science,-7.6793,1,0,1
+these,PRON,DT,,,,4.655499999999999,3,1,1
+thesoul,NOUN,NN,,,,-0.3799,1,0,1
+they,PRON,PRP,,,,3.7183500000000005,12,7,4
+thick,VERB,VB,n,noun.location,inside > region > location,-1.0161250000000002,4,1,3
+thigh,VERB,VB,n,noun.body,limb > extremity > external_body_part,-1.4117666666666666,3,0,3
+thighs,NOUN,NNS,n,noun.body,limb > extremity > external_body_part,0.0828,1,0,0
+things,NOUN,NNS,n,noun.possession,property > possession > relation,-3.102,1,0,1
+think,VERB,VB,n,noun.cognition,deliberation > consideration > thinking,-1.3332562499999998,16,7,9
+this,PRON,DT,,,,0.5763571428571428,14,9,5
+thong,VERB,VB,n,noun.artifact,leather_strip > implement > instrumentality,-4.1462,1,0,1
+thoroughly,ADV,RB,r,adv.all,,0.15094999999999992,2,1,1
+those,PRON,DT,,,,1.7089333333333332,3,1,2
+thought,VERB,VBN,n,noun.cognition,content > cognition > psychological_feature,2.0099333333333336,6,4,1
+thoughtfully,ADV,RB,r,adv.all,,3.9003,1,1,0
+thr,PROPN,NNP,,,,0.8826000000000002,3,1,1
+thrash,VERB,VB,n,noun.act,swimming_kick > kick > motion,4.7197,1,1,0
+thrashing,VERB,VBG,n,noun.event,defeat > ending > happening,2.1243,1,1,0
+threaten,VERB,VB,v,verb.stative,exist,-5.812422222222222,9,1,7
+threatened,VERB,VBN,v,verb.stative,exist,-0.5334,1,0,1
+threatenidth,NOUN,NN,,,,20.2837,1,1,0
+threatening,VERB,VBG,v,verb.stative,exist,-1.0662,1,0,1
+threateningly,ADV,RB,r,adv.all,,-0.3467,1,0,1
+three,NUM,CD,n,noun.quantity,digit > integer > number,-0.1396,1,0,0
+threshold,VERB,VB,n,noun.time,beginning > point > measure,-1.6507,1,0,1
+threw,VERB,VB,v,verb.contact,propel > move,-0.5528166666666667,6,3,2
+thrill,VERB,VB,n,noun.feeling,exhilaration > joy > emotion,2.7829,1,1,0
+thro,VERB,VB,,,,-7.2169,2,0,2
+throat,VERB,VB,n,noun.body,tubular_cavity > cavity > structure,-3.33085,2,0,2
+throb,VERB,VB,n,noun.state,pain > symptom > evidence,0.7619,1,1,0
+throbbing,VERB,VBG,n,noun.event,pulse > periodic_event > happening,-0.42973333333333336,3,0,2
+throttle,VERB,VB,n,noun.artifact,valve > control > mechanism,-0.2629,1,0,0
+throttled,VERB,VBN,v,verb.change,control > restrain > inhibit,-2.1318,1,0,1
+through,ADP,IN,s,adj.all,,-5.625916666666666,6,0,5
+throw,VERB,VB,n,noun.act,propulsion > act > event,0.23832,5,3,1
+thrust,VERB,VB,n,noun.phenomenon,force > physical_phenomenon > natural_phenomenon,-1.3434,2,0,2
+thumb,VERB,VB,n,noun.body,finger > digit > extremity,-11.51815,2,0,2
+thumbs,NOUN,NNS,n,noun.body,finger > digit > extremity,-0.4981,1,0,1
+thunderstorms,NOUN,NNS,n,noun.phenomenon,storm > atmospheric_phenomenon > physical_phenomenon,-1.234,1,0,1
+thus,ADV,RB,n,noun.substance,gum > exudate > discharge,-1.4466,1,0,1
+tickle,VERB,VB,n,noun.cognition,cutaneous_sensation > touch > perception,-2.7445500000000003,2,0,2
+tides,NOUN,NNS,n,noun.event,periodic_event > happening > event,20.9082,1,1,0
+tie,VERB,VB,n,noun.artifact,neckwear > garment > clothing,-1.5990166666666668,6,2,4
+tigers,NOUN,NNS,n,noun.group,,20.0742,1,1,0
+tight,VERB,VB,a,adj.all,,3.045833333333334,3,1,1
+tightened,VERB,VBN,v,verb.change,change,-1.7347,1,0,1
+tightening,VERB,VBG,n,noun.act,alteration > change > action,0.6811,2,2,0
+tightness,VERB,VB,n,noun.state,lack > need > condition,0.27875,2,1,0
+tights,NOUN,NNS,n,noun.artifact,hosiery > footwear > clothing,2.2826,1,1,0
+time,NOUN,NN,n,noun.event,case > happening > event,-1.9911,1,0,1
+ting,NOUN,NN,n,noun.event,sound > happening > event,19.9377,1,1,0
+tingle,VERB,VB,n,noun.feeling,fear > emotion > feeling,4.1188,1,1,0
+tingleap,VERB,VB,,,,19.9883,1,1,0
+tingling,VERB,VBG,n,noun.cognition,somesthesia > perception > basic_cognitive_process,1.39175,2,2,0
+tinker,VERB,VB,n,noun.person,experimenter > person > causal_agent,20.6338,1,1,0
+tipped,VERB,VB,v,verb.motion,reorient > turn > move,-19.8481,1,0,1
+tits,NOUN,NNS,n,noun.body,mammary_gland > exocrine_gland > gland,-0.0361,1,0,0
+to,PART,TO,,,,4.8374,12,9,2
+toast,VERB,VB,n,noun.food,bread > baked_goods > food,-0.73,1,0,1
+toasted,VERB,VBN,v,verb.change,heat > change,-0.3486,2,0,1
+toasting,VERB,VBG,n,noun.act,cooking > change_of_state > change,-20.193649999999998,2,0,2
+today,NOUN,NN,n,noun.time,present > time > attribute,9.4851,1,1,0
+todger,VERB,VB,,,,-1.5135,1,0,1
+toe,VERB,VB,n,noun.body,digit > extremity > external_body_part,-1.5527,1,0,1
+toes,NOUN,NNS,n,noun.body,digit > extremity > external_body_part,-6.7599,2,0,2
+toher,VERB,VB,,,,-0.0183,1,0,0
+toherself,PRON,PRP,,,,0.495,1,1,0
+tohim,PRON,PRP,,,,0.2675,1,0,0
+toked,VERB,VB,,,,1.5774,1,1,0
+told,VERB,VB,v,verb.communication,express,0.47472857142857144,7,4,1
+tomb,VERB,VB,n,noun.artifact,topographic_point > point > location,-0.1458,1,0,0
+tombstone,VERB,VB,n,noun.artifact,stone > building_material > artifact,10.2499,1,1,0
+tomorrow,NOUN,NN,n,noun.time,day > time_unit > measure,-0.7037,1,0,1
+tongue,NOUN,NN,n,noun.body,articulator > speech_organ > organ,0.2345,1,0,0
+too,ADV,RB,r,adv.all,,-20.1356,1,0,1
+took,VERB,VB,v,verb.social,act,-0.13603636363636362,11,3,3
+tool,VERB,VB,n,noun.artifact,implement > instrumentality > artifact,4.247,1,1,0
+top,VERB,VB,n,noun.location,region > location > object,-3.11966,5,2,3
+topple,VERB,VB,v,verb.motion,descend > travel,10.6686,1,1,0
+tore,VERB,VB,n,noun.artifact,molding > decoration > artifact,-0.2877,1,0,0
+torment,VERB,VB,n,noun.state,pain > symptom > evidence,-2.37155,2,0,2
+tortoises,NOUN,NNS,n,noun.animal,turtle > chelonian > anapsid,20.0864,1,1,0
+torture,VERB,VB,n,noun.feeling,distress > pain > feeling,4.52595,2,2,0
+toss,VERB,VB,n,noun.act,throw > gambling > diversion,-1.7282,2,0,1
+tossed,VERB,VBN,v,verb.contact,fling > throw > propel,-0.5510599999999999,5,0,3
+touch,VERB,VB,n,noun.event,contact > happening > event,0.005700000000000011,4,2,2
+touched,VERB,VBN,v,verb.contact,,2.4993,1,1,0
+towel,VERB,VB,n,noun.artifact,piece_of_cloth > piece > part,-10.2643,1,0,1
+toy,VERB,VB,n,noun.artifact,artifact > whole > object,-6.7574,1,0,1
+traced,VERB,VB,v,verb.cognition,analyze,-1.8176999999999999,2,0,2
+tractors,NOUN,NNS,n,noun.artifact,self-propelled_vehicle > wheeled_vehicle > container,21.5074,1,1,0
+traded,VERB,VBN,v,verb.possession,,1.0183,1,1,0
+train,VERB,VB,n,noun.artifact,public_transport > conveyance > instrumentality,-0.173,1,0,0
+trained,VERB,VBN,v,verb.cognition,teach > inform > communicate,-0.4879,1,0,1
+trains,NOUN,NNS,n,noun.artifact,public_transport > conveyance > instrumentality,-0.3481,1,0,1
+trample,VERB,VB,n,noun.event,sound > happening > event,-1.3198,1,0,1
+transfer,VERB,VB,n,noun.act,movement > change > action,-2.2472,1,0,1
+trapped,VERB,VB,v,verb.social,confine,0.2536,1,0,0
+treat,VERB,VB,n,noun.food,nutriment > food > substance,-5.6707,5,0,5
+trembled,VERB,VBN,v,verb.motion,shake > move,20.9435,1,1,0
+trembling,VERB,VBG,n,noun.state,motion > state > attribute,-4.1329,1,0,1
+tremor,VERB,VB,n,noun.act,vibration > motion > change,1.4345,2,1,0
+tried,VERB,VBN,v,verb.social,act,1.1352777777777778,9,5,1
+trigonometric,VERB,VB,a,adj.pert,,-0.9405,1,0,1
+trigonometry,VERB,VB,n,noun.cognition,pure_mathematics > mathematics > science,-4.9806,2,0,2
+triumphantly,ADV,RB,r,adv.all,,8.145,1,1,0
+trophy,VERB,VB,n,noun.communication,award > symbol > signal,-20.0145,1,0,1
+trouser,VERB,VB,n,noun.artifact,garment > clothing > consumer_goods,-21.42805,2,0,2
+trousers,NOUN,NNS,n,noun.artifact,garment > clothing > consumer_goods,-0.11629999999999996,3,1,1
+trust,VERB,VB,n,noun.possession,property > possession > relation,-1.7902,1,0,1
+try,VERB,VB,n,noun.act,activity > act > event,-1.9566041666666667,24,9,14
+trySolution,NOUN,NN,,,,20.2075,1,1,0
+trying,VERB,VBG,v,verb.social,act,4.4277,1,1,0
+tuck,VERB,VB,n,noun.food,comestible > food > substance,-3.3292,1,0,1
+tug,NOUN,NN,n,noun.act,pull > propulsion > act,2.64525,2,2,0
+tugged,VERB,VBN,v,verb.contact,attract > pull > move,-0.1598,1,0,0
+tumble,VERB,VB,n,noun.act,acrobatic_stunt > stunt > feat,2.6243,1,1,0
+tunic,VERB,VB,n,noun.body,membrane > animal_tissue > tissue,8.2743,2,2,0
+turban,VERB,VB,n,noun.artifact,headdress > clothing > consumer_goods,20.1636,1,1,0
+turn,VERB,VB,n,noun.shape,curve > line > shape,-1.878553846153846,13,3,9
+turned,VERB,VBN,v,verb.motion,move,-0.001980000000000004,10,3,3
+turtles,NOUN,NNS,n,noun.artifact,sweater > garment > clothing,3.5238,1,1,0
+tuxedo,VERB,VB,n,noun.artifact,formalwear > attire > clothing,10.3164,1,1,0
+tw,PRON,PRP,,,,-2.3617,1,0,1
+twinge,VERB,VB,n,noun.feeling,feeling > state > attribute,3.5129,2,2,0
+twirled,VERB,VBN,v,verb.motion,revolve > turn > move,-1.423,1,0,1
+twist,VERB,VB,n,noun.event,development > change > happening,-0.4923,1,0,1
+twisted,VERB,VB,v,verb.motion,move,-1.8168,3,0,3
+twitch,VERB,VB,n,noun.state,spasm > symptom > evidence,2.744,1,1,0
+twitching,VERB,VBG,n,noun.state,spasm > symptom > evidence,-0.7619,1,0,1
+two,NUM,CD,n,noun.quantity,digit > integer > number,1.2231999999999998,5,1,3
+type,VERB,VB,n,noun.cognition,kind > category > concept,-0.0324,1,0,0
+typically,ADV,RB,r,adv.all,,21.5863,1,1,0
+uffering,VERB,VBG,,,,-20.2012,1,0,1
+uffing,VERB,VBG,,,,-20.6987,1,0,1
+uh,INTJ,UH,,,,-4.483633333333333,3,0,3
+umbrella,PROPN,NNP,n,noun.artifact,canopy > shelter > protective_covering,-2.0157,1,0,1
+un,VERB,VB,n,noun.group,world_organization > alliance > organization,-4.3405499999999995,2,0,2
+unafraid,VERB,VB,a,adj.all,,-19.9529,1,0,1
+unavailable,VERB,VB,a,adj.all,,-18.2417,1,0,1
+unb,VERB,VB,,,,-0.0087,1,0,0
+unbuckle,VERB,VB,v,verb.contact,undo > change_by_reversal > change,-9.2776,2,1,1
+unbutton,PROPN,NNP,v,verb.contact,undo > change_by_reversal > change,0.12284999999999996,2,1,1
+unbuttoned,ADJ,JJ,v,verb.contact,undo > change_by_reversal > change,-10.1305,1,0,1
+uncertain,VERB,VB,a,adj.all,,-1.1811,1,0,1
+unclear,VERB,VB,a,adj.all,,-20.5019,1,0,1
+uncovered,VERB,VBN,v,verb.perception,show,-19.6375,1,0,1
+und,VERB,VB,,,,-2.60695,2,1,1
+under,ADP,IN,s,adj.all,,0.5774,4,1,2
+underpants,NOUN,NNS,n,noun.artifact,undergarment > garment > clothing,2.0084,1,1,0
+undershirt,VERB,VB,n,noun.artifact,undergarment > garment > clothing,-2.9465,1,0,1
+undershorts,NOUN,NNS,,,,-2.2791,1,0,1
+understand,VERB,VB,v,verb.cognition,,-5.716816666666667,6,0,6
+underwear,VERB,VB,n,noun.artifact,undergarment > garment > clothing,-0.37720000000000004,3,0,2
+undid,VERB,VB,v,verb.contact,change_by_reversal > change,20.3618,1,1,0
+undo,VERB,VB,v,verb.contact,change_by_reversal > change,0.9359,1,1,0
+undoubtedly,ADV,RB,r,adv.all,,0.7247,1,1,0
+undress,VERB,VB,n,noun.state,nakedness > condition > state,-2.512125,4,3,1
+undressed,ADJ,JJ,v,verb.body,take_off > remove,-0.4513,1,0,1
+unfasten,ADJ,JJ,v,verb.contact,undo > change_by_reversal > change,4.5841,1,1,0
+unfolded,VERB,VB,v,verb.change,develop > grow > increase,-20.866,1,0,1
+unhappily,ADV,RB,r,adv.all,,20.6703,1,1,0
+unhapples,VERB,VB,,,,20.3846,1,1,0
+uniform,VERB,VB,n,noun.artifact,clothing > consumer_goods > commodity,-3.1035,2,0,1
+union,VERB,VB,n,noun.group,organization > social_group > group,-8.004850000000001,2,1,1
+unionise,VERB,VB,v,verb.social,enroll > register > record,-20.8585,1,0,1
+unionize,VERB,VB,v,verb.social,enroll > register > record,-6.2599,4,0,2
+unite,VERB,VB,v,verb.social,join,-1.0270500000000005,4,2,2
+unknown,ADJ,JJ,n,noun.location,region > location > object,-20.7345,1,0,1
+unlace,VERB,VB,v,verb.contact,undo > change_by_reversal > change,-1.2458,1,0,1
+unloaded,VERB,VB,v,verb.contact,deliver > bring > transmit,-1.1508,1,0,1
+unprepared,ADJ,JJ,a,adj.all,,-2.4312,1,0,1
+unsettled,VERB,VBN,v,verb.emotion,upset > arouse > make,9.8162,1,1,0
+unt,VERB,VB,,,,-11.6128,1,0,1
+untie,VERB,VB,v,verb.contact,undo > change_by_reversal > change,8.6915,3,2,0
+until,ADP,IN,,,,-22.2962,1,0,1
+unzip,VERB,VB,v,verb.contact,unfasten > undo > change_by_reversal,-0.1115,1,0,0
+up,ADV,RB,v,verb.change,increase > change,-11.1176,2,0,2
+updated,VERB,VBN,v,verb.change,modify > change,-21.319,1,0,1
+upload,VERB,VB,v,verb.possession,transfer > move,-2.0116,1,0,1
+ur,VERB,VB,n,noun.location,,0.04335,2,1,1
+urge,VERB,VB,n,noun.motive,motivation > psychological_feature > abstraction,-0.850975,4,1,2
+urgently,ADV,RB,r,adv.all,,-8.635,1,0,1
+urinate,VERB,VB,v,verb.body,excrete > exhaust,-10.4742,1,0,1
+urining,VERB,VBG,,,,-20.7597,1,0,1
+use,VERB,VB,n,noun.act,activity > act > event,0.5073045454545453,22,13,5
+used,VERB,VB,v,verb.consumption,,0.79375,2,1,0
+useforce,VERB,VB,,,,-1.1315,1,0,1
+utter,VERB,VB,v,verb.communication,,-19.4813,1,0,1
+utterly,ADV,RB,r,adv.all,,-1.9253,1,0,1
+vampires,NOUN,NNS,n,noun.person,evil_spirit > spirit > spiritual_being,7.3122,1,1,0
+vanish,VERB,VB,v,verb.change,,-0.7106,1,0,1
+various,ADJ,JJ,s,adj.all,,0.1147,1,0,0
+ve,VERB,VB,,,,-1.11191875,16,7,9
+vectors,NOUN,NNS,n,noun.cognition,variable > quantity > concept,-1.2267,1,0,1
+veil,VERB,VB,n,noun.artifact,garment > clothing > consumer_goods,-15.8577,2,0,2
+veins,NOUN,NNS,n,noun.body,blood_vessel > vessel > tube,-2.1051,2,0,2
+verify,VERB,VB,v,verb.cognition,confirm,-9.408833333333334,3,1,2
+very,ADV,RB,s,adj.all,,1.3496799999999998,5,3,2
+verygood,VERB,VB,,,,-0.8815,1,0,1
+vest,VERB,VB,n,noun.artifact,garment > clothing > consumer_goods,-0.6707,1,0,1
+vibrant,VERB,VB,s,adj.all,,20.3144,1,1,0
+vibration,VERB,VB,n,noun.act,motion > change > action,3.026,1,1,0
+violently,ADV,RB,r,adv.all,,0.0923,1,0,0
+visit,VERB,VB,n,noun.act,meeting > assembly > group_action,-8.66145,2,1,1
+visor,VERB,VB,n,noun.artifact,armor_plate > plate > shield,-1.0804,1,0,1
+voice,VERB,VB,n,noun.attribute,sound > sound_property > property,-2.1142,1,0,1
+volcanoes,NOUN,NNS,n,noun.object,crack > opening > space,1.54385,2,2,0
+vomit,VERB,VB,n,noun.substance,body_waste > waste > material,3.6405,1,1,0
+vomited,VERB,VBN,v,verb.body,excrete > exhaust,9.3742,1,1,0
+vote,VERB,VB,n,noun.act,choice > action > act,-2.7682499999999997,4,3,1
+waist,VERB,VB,n,noun.body,area > body_part > part,10.8121,2,2,0
+waistband,VERB,VB,n,noun.artifact,band > strip > artifact,-3.2994,1,0,1
+waistcoat,VERB,VB,n,noun.artifact,garment > clothing > consumer_goods,-9.0616,1,0,1
+wait,VERB,VB,n,noun.time,pause > time_interval > measure,-0.5953,11,4,7
+waited,VERB,VBN,v,verb.stative,,-1.7705222222222223,9,5,4
+wake,VERB,VB,n,noun.phenomenon,consequence > phenomenon > process,-0.1138,1,0,0
+walk,VERB,VB,n,noun.act,locomotion > motion > change,1.34005,6,4,2
+walked,VERB,VBD,v,verb.motion,travel,-1.1067000000000002,6,3,1
+wallet,VERB,VB,n,noun.artifact,case > container > instrumentality,-2.7463,1,0,1
+wander,VERB,VB,v,verb.motion,travel,-0.6547,1,0,1
+wandered,VERB,VBN,v,verb.motion,travel,-0.8671,1,0,1
+wanted,VERB,VBN,v,verb.emotion,,-1.524,1,0,1
+war,NOUN,NN,n,noun.act,military_action > group_action > event,3.9082,1,1,0
+warm,VERB,VB,v,verb.change,change,0.785475,4,2,2
+warmed,VERB,VBN,v,verb.change,change,0.653,1,1,0
+warmer,ADJ,JJR,n,noun.artifact,device > instrumentality > artifact,-1.5656,1,0,1
+warmth,VERB,VB,n,noun.cognition,temperature > somesthesia > perception,-0.6712,2,0,2
+warn,VERB,VB,v,verb.communication,inform > communicate > interact,0.381825,8,3,3
+was,AUX,VBD,n,noun.location,,2.395745454545455,11,9,0
+wasThe,VERB,VB,,,,-21.0697,1,0,1
+wash,VERB,VB,n,noun.artifact,water-base_paint > paint > coating,0.5183,2,2,0
+washed,VERB,VBN,v,verb.contact,serve > deliver > bring,1.05195,2,2,0
+watch,VERB,VB,n,noun.artifact,timepiece > measuring_instrument > instrument,-3.88048,5,1,3
+watched,VERB,VBN,v,verb.perception,,-0.19544999999999998,8,2,3
+water,VERB,VB,n,noun.substance,liquid > fluid > matter,0.6698,1,1,0
+wave,VERB,VB,n,noun.event,movement > happening > event,0.04845000000000001,2,1,0
+waved,VERB,VBN,v,verb.communication,gesticulate > communicate > interact,0.48285,2,1,1
+waylay,VERB,VB,v,verb.competition,wait,-20.3084,1,0,1
+we,PRON,PRP,,,,3.5403200000000004,15,12,2
+weak,ADJ,JJ,a,adj.all,,-21.1253,1,0,1
+weakness,VERB,VB,n,noun.state,imperfection > state > attribute,0.37305,2,2,0
+wear,VERB,VB,n,noun.state,deterioration > decay > unsoundness,-1.6285,1,0,1
+wearily,ADV,RB,r,adv.all,,-20.2895,1,0,1
+weary,ADJ,JJ,v,verb.body,indispose > change,-10.3816,1,0,1
+wedding,NOUN,NN,n,noun.event,ceremony > affair > social_event,0.3366,2,1,0
+weenie,VERB,VB,n,noun.food,sausage > meat > food,-0.6391,1,0,1
+weep,VERB,VB,v,verb.body,express_emotion,1.30825,2,1,1
+weeping,NOUN,NN,n,noun.act,bodily_process > organic_process > process,-10.4139,1,0,1
+weight,NOUN,NN,n,noun.attribute,physical_property > property > attribute,0.7564500000000001,2,1,1
+weightlessness,VERB,VB,n,noun.attribute,weight > physical_property > property,-5.39325,2,1,1
+well,ADV,RB,n,noun.artifact,excavation > artifact > whole,1.9555999999999998,5,4,1
+welling,VERB,VBG,v,verb.motion,surface > ascend > travel,-20.2429,1,0,1
+went,VERB,VB,v,verb.motion,,1.134675,8,6,0
+wept,VERB,VB,v,verb.body,express_emotion,0.9699,2,1,0
+were,AUX,VBD,v,verb.stative,,0.2635,1,0,0
+werewolves,NOUN,NNS,n,noun.person,mythical_monster > mythical_being > imaginary_being,0.2112,1,0,0
+wet,VERB,VB,n,noun.state,wetness > condition > state,2.50482,5,1,3
+whales,NOUN,NNS,n,noun.person,large_person > person > causal_agent,0.0373,1,0,0
+whaling,VERB,VBG,v,verb.competition,hunt > capture > get,-19.8023,1,0,1
+wharf,VERB,VB,n,noun.artifact,platform > horizontal_surface > surface,-3.0942,1,0,1
+what,PRON,WP,,,,-2.211982857142857,35,13,20
+whatSolution,NOUN,NN,,,,20.5104,1,1,0
+when,SCONJ,WRB,,,,2.152975,4,3,0
+where,SCONJ,WRB,,,,-0.3205,1,0,1
+which,PRON,WDT,,,,-3.0049333333333337,3,0,3
+whip,VERB,VB,n,noun.artifact,instrument > device > instrumentality,-5.851166666666667,3,1,1
+whisper,VERB,VB,n,noun.communication,speaking > utterance > auditory_communication,-2.10115,2,0,2
+whispered,VERB,VBN,v,verb.communication,talk > communicate > interact,-3.1235166666666667,6,0,6
+white,VERB,VB,n,noun.person,person > causal_agent > physical_entity,1.8241999999999998,2,1,0
+whittle,VERB,VB,n,noun.person,,-2.7528,1,0,1
+who,PRON,WP,n,noun.group,united_nations_agency > administrative_unit > unit,-4.7896,1,0,1
+whoever,PRON,WP,,,,-3.2417,1,0,1
+whom,PRON,WP,,,,-5.2618,1,0,1
+whomever,VERB,VB,,,,-1.65,1,0,1
+why,SCONJ,WRB,n,noun.motive,reason > rational_motive > motivation,3.5126666666666666,3,3,0
+widely,ADV,RB,r,adv.all,,-2.0162,1,0,1
+wig,VERB,VB,n,noun.artifact,hairpiece > attire > clothing,-3.7804,1,0,1
+willy,ADV,RB,,,,-10.084,1,0,1
+win,VERB,VB,n,noun.event,victory > ending > happening,5.3386,2,2,0
+wind,VERB,VB,n,noun.phenomenon,weather > atmospheric_phenomenon > physical_phenomenon,0.1609,1,0,0
+window,VERB,VB,n,noun.artifact,framework > supporting_structure > structure,2.3387,1,1,0
+windy,VERB,VB,s,adj.all,,-0.7812,1,0,1
+wip,VERB,VB,,,,-0.7314,2,0,2
+wipe,VERB,VB,n,noun.act,contact > touch > act,-0.5095,1,0,1
+wiped,VERB,VBN,v,verb.contact,rub > guide,7.056675,4,3,0
+wished,VERB,VBN,v,verb.emotion,desire,-10.63965,2,0,2
+witchcraft,VERB,VB,n,noun.cognition,sorcery > magic > supernaturalism,2.9553,1,1,0
+witches,NOUN,NNS,n,noun.person,occultist > person > causal_agent,-2.5464,1,0,1
+with,ADP,IN,,,,-8.202669230769231,13,0,11
+wither,VERB,VB,v,verb.change,decrease > change_magnitude > change,-1.6805,1,0,1
+withhold,VERB,VB,v,verb.possession,deny > keep > have,1.3504000000000005,2,1,1
+woe,NOUN,NN,n,noun.state,misery > ill-being > adversity,19.9998,1,1,0
+woke,VERB,VB,v,verb.body,,-0.5041,1,0,1
+wolves,NOUN,NNS,n,noun.animal,canine > carnivore > placental,-1.1554,1,0,1
+women,NOUN,NNS,n,noun.person,adult > person > causal_agent,4.351,1,1,0
+wondered,VERB,VBN,v,verb.cognition,question > ask > address,1.8628666666666664,3,2,1
+words,NOUN,NNS,n,noun.communication,speech > auditory_communication > communication,-0.6939666666666667,3,1,2
+work,VERB,VB,n,noun.act,activity > act > event,0.7419333333333333,12,8,4
+workers,NOUN,NNS,n,noun.person,person > causal_agent > physical_entity,-19.7561,1,0,1
+world,VERB,VB,n,noun.object,natural_object > whole > object,-4.668,1,0,1
+worms,NOUN,NNS,n,noun.animal,invertebrate > animal > organism,-1.1296,1,0,1
+worship,VERB,VB,n,noun.act,activity > act > event,-7.2816,1,0,1
+wound,VERB,VB,n,noun.state,injury > ill_health > pathological_state,0.0417,1,0,0
+wounded,VERB,VBN,n,noun.group,people > group > abstraction,-0.5426,1,0,1
+wounds,NOUN,NNS,n,noun.state,injury > ill_health > pathological_state,0.2771,1,0,0
+wow,INTJ,UH,n,noun.communication,joke > wit > message,1.27125,2,2,0
+wr,VERB,VB,,,,-1.0344,1,0,1
+wrap,VERB,VB,n,noun.artifact,cloak > overgarment > garment,-0.746,1,0,1
+wrapped,VERB,VBN,v,verb.contact,cover,-2.535575,4,0,4
+wriggling,VERB,VBG,v,verb.motion,move,1.9991,1,1,0
+wring,VERB,VB,n,noun.event,movement > happening > event,21.454,1,1,0
+wrists,NOUN,NNS,n,noun.body,gliding_joint > synovial_joint > joint,-0.1663,2,0,1
+wristwatch,VERB,VB,n,noun.artifact,watch > timepiece > measuring_instrument,20.3773,1,1,0
+write,VERB,VB,v,verb.creation,create_verbally > make,-1.8331499999999998,20,5,13
+writhe,VERB,VB,v,verb.motion,move,3.3745,1,1,0
+writhed,VERB,VBN,v,verb.motion,move,0.0393,1,0,0
+writhing,VERB,VBG,v,verb.motion,move,1.4153,1,1,0
+writing,VERB,VBG,n,noun.act,verbal_creation > creating_by_mental_acts > creation,-0.2296,1,0,0
+yanked,VERB,VB,v,verb.contact,pull > move,-0.0603,1,0,0
+yawned,VERB,VBN,v,verb.body,breathe,-0.3183,1,0,1
+yea,VERB,VB,n,noun.communication,affirmative > avowal > assertion,4.25885,2,1,1
+yeah,INTJ,UH,r,adv.all,,2.2432,2,1,1
+yearning,VERB,VBG,n,noun.feeling,desire > feeling > state,-1.1365,1,0,1
+yell,VERB,VB,n,noun.communication,utterance > auditory_communication > communication,-8.108,5,1,4
+yelled,VERB,VBN,v,verb.communication,utter,-6.329999999999999,3,1,1
+yelling,VERB,VBG,n,noun.communication,cry > utterance > auditory_communication,-20.1022,1,0,1
+yes,INTJ,UH,n,noun.communication,affirmative > avowal > assertion,7.654325,4,4,0
+yield,VERB,VB,n,noun.act,production > industry > commercial_enterprise,-19.9993,1,0,1
+ying,NOUN,NN,,,,-0.5262,2,1,1
+you,PRON,PRP,,,,1.6764625,8,7,1
+youll,PRON,PRP,,,,-19.6704,1,0,1
+your,PRON,PRP$,,,,-0.7995,3,0,2
+youve,PRON,PRP,,,,-20.2629,1,0,1
+zipper,NOUN,NN,n,noun.artifact,fastener > restraint > device,0.2077,1,0,0
+zombhound,VERB,VB,,,,-19.9957,1,0,1
+zombies,NOUN,NNS,n,noun.person,dead_person > person > causal_agent,-21.4656,1,0,1
+âĢľ,NUM,CD,,,,-20.726,1,0,1
+âĢľNo,NOUN,NNS,,,,0.2393,1,0,0
+ĊI,PROPN,NNP,,,,1.4799,1,1,0
+ĊâĢľ,VERB,VB,,,,3.4185,1,1,0
+ĊĊ,PROPN,NNP,,,,20.27815,2,2,0
+ĠI,NOUN,NN,,,,-10.660300000000001,2,1,1
+ĠParis,PROPN,NNP,,,,-0.0817,1,0,0
+ĠforĠhelp,VERB,VB,,,,-0.9624,1,0,1
+Ġlive,VERB,VB,,,,-1.1653,1,0,1
+Ġno,VERB,VB,,,,-23.8601,1,0,1
+Ġsunny,VERB,VB,,,,-1.447,1,0,1
+Ġthat,PROPN,NNP,,,,-21.4147,1,0,1
+Ġyes,NOUN,NNS,,,,-21.5608,1,0,1
+ĠâĢľ,PROPN,NNP,,,,1.19745,2,1,0
+язы,VERB,VB,,,,-6.7224,1,0,1
+パリ,NOUN,NN,,,,-6.7609,1,0,1
+当我的,VERB,VB,,,,20.0776,1,1,0
+您的,VERB,VB,,,,-13.3906,1,0,1
+拒绝拒绝拒绝,VERB,VB,,,,-21.7771,1,0,1
+根据问题,VERB,VB,,,,20.4237,1,1,0
+根据问题和,NOUN,NN,,,,20.0931,1,1,0
+根据题目,VERB,VB,,,,20.2058,1,1,0
