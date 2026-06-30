@@ -59,7 +59,8 @@
 		loading = true;
 		error = '';
 		try {
-			const res = await fetch(`${API_BASE}/data/csv?name=${ds.id}&limit=${ds.limit}`);
+			let res = await fetch(`${API_BASE}/api/data/csv?name=${ds.id}&limit=${ds.limit}`);
+		if (!res.ok) res = await fetch(`${API_BASE}/data/csv?name=${ds.id}&limit=${ds.limit}`);
 			const json = await res.json();
 			data = json.rows || [];
 			totalRows = json.total || data.length;
