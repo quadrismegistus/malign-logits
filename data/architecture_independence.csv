@@ -1,0 +1,45 @@
+architecture,family,word,base_pct,aligned_pct,delta_pct
+Transformer,olmo,kill,12.21,0.0,-12.21
+Transformer,olmo,scream,4.35,0.0,-4.35
+Transformer,olmo,hit,4.42,5.26,0.84
+Transformer,olmo,cry,4.35,0.0,-4.35
+Transformer,llama,kill,16.35,5.69,-10.65
+Transformer,llama,scream,5.39,23.96,18.57
+Transformer,llama,hit,6.16,3.4,-2.76
+Transformer,llama,cry,5.56,3.7,-1.86
+Transformer,qwen,kill,6.91,4.62,-2.29
+Transformer,qwen,scream,2.58,3.08,0.5
+Transformer,qwen,hit,5.91,3.01,-2.91
+Transformer,qwen,cry,1.26,0.91,-0.35
+Transformer,amber,kill,12.39,0.03,-12.36
+Transformer,amber,scream,5.23,28.37,23.14
+Transformer,amber,hit,4.28,0.05,-4.23
+Transformer,amber,cry,3.9,0.64,-3.26
+Transformer,pythia,kill,11.5,10.1,-1.4
+Transformer,pythia,scream,9.76,10.83,1.08
+Transformer,pythia,hit,7.97,8.71,0.74
+Transformer,pythia,cry,3.91,4.14,0.23
+Transformer,deepseek-7b,kill,0.0,0.0,0.0
+Transformer,deepseek-7b,scream,0.0,0.0,0.0
+Transformer,deepseek-7b,hit,0.0,0.0,0.0
+Transformer,deepseek-7b,cry,0.0,0.0,0.0
+SSM-Transformer hybrid,olmo-hybrid,kill,19.26,6.74,-12.52
+SSM-Transformer hybrid,olmo-hybrid,scream,7.37,10.56,3.2
+SSM-Transformer hybrid,olmo-hybrid,hit,6.45,7.82,1.37
+SSM-Transformer hybrid,olmo-hybrid,cry,11.41,4.8,-6.61
+SSM-Transformer hybrid,falcon-h1-7b,kill,9.96,3.26,-6.7
+SSM-Transformer hybrid,falcon-h1-7b,scream,11.98,47.38,35.41
+SSM-Transformer hybrid,falcon-h1-7b,hit,5.14,3.2,-1.94
+SSM-Transformer hybrid,falcon-h1-7b,cry,9.94,12.82,2.88
+Pure SSM,falcon-mamba,kill,3.74,2.97,-0.78
+Pure SSM,falcon-mamba,scream,16.78,24.84,8.06
+Pure SSM,falcon-mamba,hit,8.98,10.35,1.37
+Pure SSM,falcon-mamba,cry,4.81,5.54,0.74
+Pure SSM,falcon3-mamba,kill,14.2,2.37,-11.83
+Pure SSM,falcon3-mamba,scream,14.2,5.68,-8.52
+Pure SSM,falcon3-mamba,hit,7.6,7.77,0.17
+Pure SSM,falcon3-mamba,cry,7.6,9.97,2.37
+Pure RNN,rwkv,kill,8.77,10.69,1.92
+Pure RNN,rwkv,scream,10.96,14.08,3.12
+Pure RNN,rwkv,hit,4.95,5.29,0.34
+Pure RNN,rwkv,cry,5.47,3.71,-1.76

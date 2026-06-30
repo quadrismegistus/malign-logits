@@ -5,6 +5,10 @@
 
 	const DATASETS = [
 		{ id: 'displacement_agreement', label: 'Displacement Agreement (7071 rows)', limit: 7100 },
+		{ id: 'tulu_ablation_summary', label: 'Tulu 5-Way Ablation (100 rows)', limit: 200 },
+		{ id: 'continue_mode_comparison', label: 'Continue-Mode Comparison (320 rows)', limit: 500 },
+		{ id: 'architecture_independence', label: 'Architecture Independence (44 rows)', limit: 100 },
+		{ id: 'proceduralisation_asymmetry', label: 'Proceduralisation Asymmetry (346 rows)', limit: 500 },
 		{ id: 'bits_resistance', label: 'Bits of Resistance (32K rows)', limit: 5000 },
 		{ id: 'logit_lens_datadriven', label: 'Logit Lens (405K rows)', limit: 5000 },
 		{ id: 'system_prompt_effect', label: 'System Prompt Effect (286 rows)', limit: 500 },
