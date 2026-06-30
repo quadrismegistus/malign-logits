@@ -11,7 +11,55 @@
 	let selectedSource = $state('');
 	let selectedAnnotator = $state('');
 	let sortBy: 'rank' | 'resist' | 'prob' = $state('rank');
+	let filterCategory: 'all' | 'narrative' | 'exit_advisory' | 'exit_first_person' | 'template' | 'refusal' = $state('all');
 	let error = $state('');
+
+	const ADVISORY_STARTS = [
+		'it is', "it's", 'it might', 'it would', 'it can', 'this is',
+		"that's", 'that is', 'however', 'but it', 'but that',
+		'while it', 'although', 'instead', 'rather', 'please',
+		'remember', 'consider', 'think about', 'understand',
+		'violence is', 'hitting is', 'hurting is', 'anger is',
+	];
+	const FIRST_PERSON = ['i ', "i'm", "i'd", "i'll", 'i am', 'i would', 'i strongly', 'i can', 'i cannot', 'as an'];
+	const REFUSAL_STARTS = ['i cannot', "i can't", "i'm not able", 'i am not able', "i'm sorry", 'i apologize'];
+	const TEMPLATE_MARKERS = ['____', '______', 'options', '<|assistant', '</s>', 'step 1', 'step  1',
+		'choose', 'answer:', 'question:', '(a)', '(b)', 'you are a helpful'];
+
+	function classifyBeam(text: string): string {
+		const t = text.toLowerCase().trim();
+		if (TEMPLATE_MARKERS.some(m => t.includes(m)) || /^_+/.test(t)) return 'template';
+		if (REFUSAL_STARTS.some(r => t.startsWith(r))) return 'refusal';
+		const parts = text.trim().split(/[.!]\s+/);
+		if (parts.length >= 2) {
+			const second = parts[1].toLowerCase().trim();
+			if (FIRST_PERSON.some(fp => second.startsWith(fp))) return 'exit_first_person';
+			if (ADVISORY_STARTS.some(a => second.startsWith(a))) return 'exit_advisory';
+		}
+		const commaParts = text.trim().split(/,\s+/);
+		if (commaParts.length >= 2) {
+			const after = commaParts[1].toLowerCase().trim();
+			if (ADVISORY_STARTS.some(a => after.startsWith(a))) return 'exit_advisory';
+			if (FIRST_PERSON.some(fp => after.startsWith(fp))) return 'exit_first_person';
+		}
+		return 'narrative';
+	}
+
+	const CATEGORY_COLORS: Record<string, string> = {
+		narrative: '#59a14f',
+		exit_advisory: '#f28e2b',
+		exit_first_person: '#e15759',
+		template: '#9c755f',
+		refusal: '#bab0ac',
+	};
+
+	const CATEGORY_LABELS: Record<string, string> = {
+		narrative: '📖 narrative',
+		exit_advisory: '⚠️ advisory exit',
+		exit_first_person: '👤 first-person exit',
+		template: '📋 template',
+		refusal: '🚫 refusal',
+	};
 
 	let sources: string[] = $derived(
 		index && selectedModel ? (index.sources[selectedModel] || []) : []
@@ -27,8 +75,21 @@
 			: []
 	);
 
-	let sorted: BeamStoryline[] = $derived.by(() => {
-		const arr = [...storylines];
+	let classified = $derived(storylines.map(s => ({ ...s, _category: classifyBeam(s.tokens.join('')) })));
+
+	let categoryCounts = $derived.by(() => {
+		const counts: Record<string, number> = {};
+		for (const s of classified) {
+			counts[s._category] = (counts[s._category] || 0) + 1;
+		}
+		return counts;
+	});
+
+	let sorted: (BeamStoryline & { _category: string })[] = $derived.by(() => {
+		let arr = [...classified];
+		if (filterCategory !== 'all') {
+			arr = arr.filter(s => s._category === filterCategory);
+		}
 		if (sortBy === 'resist' && selectedAnnotator) {
 			arr.sort((a, b) => {
 				const ra = a.annotations?.[selectedAnnotator]?.total_resist ?? 0;
@@ -156,6 +217,15 @@
 					<option value="prob">probability</option>
 				</select>
 			</label>
+			<label class="control">
+				<span>Type</span>
+				<select bind:value={filterCategory}>
+					<option value="all">all ({storylines.length})</option>
+					{#each Object.entries(categoryCounts) as [cat, count]}
+						<option value={cat}>{CATEGORY_LABELS[cat] || cat} ({count})</option>
+					{/each}
+				</select>
+			</label>
 		{:else if error}
 			<div class="error">{error}</div>
 		{:else}
@@ -173,7 +243,7 @@
 		<div class="error">{error}</div>
 	{:else}
 		<div class="summary">
-			{storylines.length} storylines &middot;
+			{sorted.length}{filterCategory !== 'all' ? `/${storylines.length}` : ''} storylines &middot;
 			{selectedModel.split('/').pop()} &middot;
 			&ldquo;{selectedPrompt.length > 40 ? selectedPrompt.slice(0, 37) + '...' : selectedPrompt}&rdquo;
 		</div>
@@ -190,6 +260,9 @@
 								{ann.total_resist > 0 ? '+' : ''}{ann.total_resist.toFixed(1)}b
 							</span>
 						{/if}
+						<span class="category-badge" style="background: {CATEGORY_COLORS[story._category] || '#666'}">
+							{story._category.replace('exit_', '').replace('_', ' ')}
+						</span>
 					</div>
 					<div class="tokens">
 						{#each story.tokens as tok, ti}
@@ -280,6 +353,15 @@
 		flex-shrink: 0;
 		font-family: 'SF Mono', monospace;
 		font-size: 11px;
+	}
+
+	.category-badge {
+		font-size: 9px;
+		padding: 1px 5px;
+		border-radius: 3px;
+		color: #fff;
+		opacity: 0.85;
+		white-space: nowrap;
 	}
 
 	.rank {
