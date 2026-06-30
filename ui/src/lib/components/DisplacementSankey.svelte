@@ -10,6 +10,7 @@
 	let selectedPrompt = $state('');
 	let depth = $state(1);
 	let mode: 'beam' | 'word' = $state('word');
+	let topN = $state(10);
 
 	interface SankeyData {
 		sources: Record<string, Record<string, number>>;
@@ -57,6 +58,16 @@
 		const colSpacing = COL_W + COL_GAP;
 		const totalH = H_PER_STAGE;
 
+		// Collect top-N words from each stage
+		const topWords = new Set<string>();
+		for (const stage of stages) {
+			const dist = sankeyData.sources[stage] || {};
+			const sorted = Object.entries(dist).sort(([, a], [, b]) => b - a);
+			for (let i = 0; i < Math.min(topN, sorted.length); i++) {
+				topWords.add(sorted[i][0]);
+			}
+		}
+
 		const columns: { stage: string; tokens: { label: string; count: number; y: number; h: number; logitProb: number | null }[] }[] = [];
 
 		for (let si = 0; si < stages.length; si++) {
@@ -64,6 +75,7 @@
 			const logits = sankeyData.logit_probs?.[stages[si]] || {};
 			const total = Object.values(dist).reduce((a, b) => a + b, 0) || 1;
 			const tokens = Object.entries(dist)
+				.filter(([label]) => topWords.has(label))
 				.sort(([, a], [, b]) => b - a)
 				.map(([label, count]) => ({ label, count, y: 0, h: 0, logitProb: logits[label] ?? null }));
 
@@ -194,6 +206,17 @@
 					</select>
 				</label>
 			{/if}
+			<label class="control">
+				<span>Top N</span>
+				<select bind:value={topN}>
+					<option value={5}>5</option>
+					<option value={10}>10</option>
+					<option value={15}>15</option>
+					<option value={20}>20</option>
+					<option value={30}>30</option>
+					<option value={50}>all</option>
+				</select>
+			</label>
 		{:else}
 			<span class="loading-text">Loading...</span>
 		{/if}
