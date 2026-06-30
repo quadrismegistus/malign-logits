@@ -47,7 +47,7 @@
 
 	const COL_W = 100;
 	const COL_GAP = 180;
-	const MIN_H_PER_WORD = 40;
+	const MIN_H_PER_WORD = 60;
 	const PAD = { top: 30, bottom: 20, left: 10, right: 10 };
 	let H_PER_STAGE = $derived(Math.max(400, topN * MIN_H_PER_WORD + PAD.top + PAD.bottom));
 	let W = $derived(PAD.left + PAD.right + sourceOrder.length * COL_W + Math.max(0, sourceOrder.length - 1) * COL_GAP);
@@ -82,10 +82,11 @@
 
 			let y = PAD.top;
 			const usableH = totalH - PAD.top - PAD.bottom;
+			const minBarH = Math.max(18, usableH / (tokens.length * 2));
 			for (const t of tokens) {
-				t.h = Math.max(8, (t.count / total) * usableH);
+				t.h = Math.max(minBarH, (t.count / total) * usableH);
 				t.y = y;
-				y += t.h + 2;
+				y += t.h + 3;
 			}
 			columns.push({ stage: stages[si], tokens });
 		}
