@@ -47,8 +47,9 @@
 
 	const COL_W = 100;
 	const COL_GAP = 180;
-	const H_PER_STAGE = 400;
+	const MIN_H_PER_WORD = 40;
 	const PAD = { top: 30, bottom: 20, left: 10, right: 10 };
+	let H_PER_STAGE = $derived(Math.max(400, topN * MIN_H_PER_WORD + PAD.top + PAD.bottom));
 	let W = $derived(PAD.left + PAD.right + sourceOrder.length * COL_W + Math.max(0, sourceOrder.length - 1) * COL_GAP);
 
 	let svgData = $derived.by(() => {
