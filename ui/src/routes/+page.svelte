@@ -314,7 +314,7 @@
 				{/each}
 			</nav>
 
-			{#if !analysis && !['passages', 'beams', 'census', 'shifts', 'survival', 'correlation', 'resistance', 'sankey'].includes(activeTab)}
+			{#if !analysis && !['explorer', 'passages', 'beams', 'census', 'shifts', 'survival', 'correlation', 'resistance', 'sankey'].includes(activeTab)}
 				<div class="empty">
 					<p>Enter a prompt and click <strong>Analyze</strong> to trace probability displacement across alignment layers.</p>
 					<p class="hint">Cmd+Enter to submit</p>
