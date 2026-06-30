@@ -17,6 +17,7 @@
 	import CrossFamilyHeatmap from '$lib/components/CrossFamilyHeatmap.svelte';
 	import ResistanceTrajectories from '$lib/components/ResistanceTrajectories.svelte';
 	import DisplacementSankey from '$lib/components/DisplacementSankey.svelte';
+	import DataExplorer from '$lib/components/DataExplorer.svelte';
 
 	let connected = $state(false);
 	let dataOnly = $state(false);
@@ -173,6 +174,7 @@
 	let family = $derived(familyName(serverInfo));
 
 	const DATA_TABS = [
+		{ id: 'explorer', label: 'Data Explorer' },
 		{ id: 'beams', label: 'Beams' },
 		{ id: 'census', label: 'Census' },
 		{ id: 'shifts', label: 'Token Shifts' },
@@ -319,7 +321,9 @@
 				</div>
 			{:else}
 				<div class="tab-content">
-					{#if activeTab === 'beams'}
+					{#if activeTab === 'explorer'}
+						<DataExplorer />
+					{:else if activeTab === 'beams'}
 						<BeamExplorer />
 					{:else if activeTab === 'census'}
 						<CensusGrid />
