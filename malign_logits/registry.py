@@ -453,6 +453,33 @@ class Registry:
         """All nickname → model_id mappings."""
         return {v: k for k, v in NICKNAMES.items()}
 
+    def resolve(self, name: str) -> Optional[str]:
+        """Resolve any model name variant to its canonical HuggingFace ID.
+
+        Accepts: full HF ID, nickname, or sanitized beam source name
+        (e.g. 'Olmo_3_7B_Instruct_DPO' or 'olmo-dpo').
+        Returns the full HF ID or None if no match.
+        """
+        if name in self._models:
+            return name
+        nick_match = self.from_nickname(name)
+        if nick_match:
+            return nick_match
+        if not hasattr(self, '_sanitized_map'):
+            self._sanitized_map = {}
+            all_ids = set(self._models.keys()) | set(NICKNAMES.keys())
+            for model_id in all_ids:
+                short = model_id.split('/')[-1]
+                sanitized = short.replace('-', '_').replace('.', '_')
+                for variant in [short, short.lower(), sanitized, sanitized.lower()]:
+                    if variant not in self._sanitized_map:
+                        self._sanitized_map[variant] = model_id
+        sanitized_name = name.replace('-', '_').replace('.', '_')
+        for variant in [name, sanitized_name, name.lower(), sanitized_name.lower()]:
+            if variant in self._sanitized_map:
+                return self._sanitized_map[variant]
+        return None
+
     def __len__(self):
         return len(self._models)
 
