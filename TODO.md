@@ -107,3 +107,25 @@ Playwright installed for headless iteration. Goal: make the UI useful as a book 
 
 ### Pending beam data
 - [x] **Llama integration** — DONE. 30h local run, 497 entries, 7 variants (R1-Distill, Dolphin, Hermes, Tulu). 11 families total in beam cache.
+
+---
+
+## Scale remaining analyses to full census (2026-07-01)
+
+### Cheap (from existing cached data, no model loads)
+- [ ] **Taxonomy at 45 families** (currently 7) — spaCy POS tagging on existing word_probs. Classify displacement pairs as register shift / category shift / genre change / archaic displacement. ~10 min.
+- [ ] **Resistance trajectories at 35+ families** (currently 19) — recompute from beam cross cache with better family mapping. Per-position resistance across 10 token positions. ~2 min.
+- [ ] **Cross-family resistance at 35+ families** (currently 26) — recompute from beam cross cache. Which beams are universally blocked vs family-specific. ~2 min.
+
+### Moderate (new forward passes, local MPS)
+- [ ] **System prompt effect at 45 families** (currently 3) — 4 conditions (raw/chat-default/chat-safety/chat-permissive) × 5 prompts per model. ~5 hours on MPS.
+- [ ] **SFT↔DPO cross-resistance** — beam search on DPO, teacher-force through SFT and vice versa. For 3+ layer families (~20 families). ~8 hours on MPS.
+- [ ] **Teacher-forced prompt extension** — append target word (e.g. "kill") to prompt, compare next-token distributions between base and aligned. Geography-independent displacement measure. ~10 min per word across all families.
+
+### Expensive (need cloud GPU / generation cache)
+- [ ] **Surprisal / Shannon entropy at 45 families** (currently ~10) — needs n=100 generations per model per prompt. Cloud vLLM.
+- [ ] **BLT byte-level scoring at 45 families** (currently ~10) — needs generations + BLT 1B scoring. Cloud.
+- [ ] **Generation-level analysis / MMD at 45 families** (currently ~13) — needs generation cache. Cloud.
+- [ ] **Fold dimensionality at 45 families** (currently ~10) — needs generation cache. Cloud.
+- [ ] **Cross-generation MMD at 45 families** (currently ~10) — needs generation cache. Cloud.
+- [ ] **Step-level checkpoints** (currently 1 family) — OLMo Think-SFT only. Allen AI specific.
