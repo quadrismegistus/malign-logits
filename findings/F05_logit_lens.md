@@ -29,4 +29,26 @@ Projects each hidden layer's representation through the final unembedding matrix
 
 **The depth of repression predicts the qualitative character of the output.** OLMo (distributed repression) produces genre collapse into QA format. Llama (late-layer override) produces narrative sublimation. Amber (distributed but semantic) rotates between emotional strategies. This is because intermediate representations determine what kind of text the model can generate — if the intermediate layers already think in templates (OLMo) or code (Qwen), the output can only be templates or code.
 
+---
+
+**REVISION (2026-07-01): 40-family replication contradicts the 4-family finding.**
+
+Logit lens with data-driven movers (not fixed word list) across 40 families and 7 prompt types (405,248 rows) shows displacement is **overwhelmingly a final-layer operation**. 13/17 families show 100% onset depth on the anger prompt. Cross-prompt check confirms: sexual, institutional, profanity, death, power all show the same pattern.
+
+The original 4-family finding (OLMo distributed, Llama late-layer, Amber semantic, Qwen code-dominated) was likely an artifact of using a fixed word list (`kill`, `scream`) rather than data-driven movers. With data-driven targets, Llama also shows 100% final-layer onset, not late-layer override.
+
+**Revised finding:** Displacement manifests at the final 1-3 layers (unembedding projection) universally. Alignment changes the readout, not the representation. Hidden states are nearly identical between base and aligned through 97% of the network.
+
+**SFT vs DPO depth gradient (cross-family aggregate):**
+
+| Stage | Mean onset | Early divergence (<80% depth) |
+|-------|-----------|------------------------------|
+| SFT | 92% | 14% of words |
+| DPO | 96% | 7% of words |
+| RLVR | 98% | 0% of words |
+
+SFT operates slightly deeper (more distributed), DPO concentrates at the output projection, RLVR barely touches the network. Consistent with the three-layer model: form (SFT) modifies processing slightly, the bar (DPO) modifies selection, amplification (RLVR) is pure output-level.
+
+**Data:** `data/logit_lens_datadriven.csv` (405,248 rows, 40 families, 5 prompt types).
+
 See `context.md` for the full theoretical argument and detailed findings.
