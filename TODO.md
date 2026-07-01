@@ -113,14 +113,21 @@ Playwright installed for headless iteration. Goal: make the UI useful as a book 
 ## Scale remaining analyses to full census (2026-07-01)
 
 ### Cheap (from existing cached data, no model loads)
-- [ ] **Taxonomy at 45 families** (currently 7) — spaCy POS tagging on existing word_probs. Classify displacement pairs as register shift / category shift / genre change / archaic displacement. ~10 min.
-- [ ] **Resistance trajectories at 35+ families** (currently 19) — recompute from beam cross cache with better family mapping. Per-position resistance across 10 token positions. ~2 min.
-- [ ] **Cross-family resistance at 35+ families** (currently 26) — recompute from beam cross cache. Which beams are universally blocked vs family-specific. ~2 min.
+- [x] **Taxonomy at 43 families** — DONE (2026-07-01). 504 pairs. 64% synonym, 32% register shift, 4% category shift. `data/taxonomy_full_census.csv`.
+- [x] **Resistance trajectories at 41 families** — DONE (2026-07-01). 5,542 rows, both directions. `data/resistance_trajectories.csv`.
+- [x] **Cross-family resistance at 41 families** — DONE (2026-07-01). 1,670 rows, up to 41 families per pair. `data/cross_family_resistance.csv`.
 
 ### Moderate (new forward passes, local MPS)
 - [ ] **System prompt effect at 45 families** (currently 3) — 4 conditions (raw/chat-default/chat-safety/chat-permissive) × 5 prompts per model. ~5 hours on MPS.
 - [ ] **SFT↔DPO cross-resistance** — beam search on DPO, teacher-force through SFT and vice versa. For 3+ layer families (~20 families). ~8 hours on MPS.
 - [ ] **Teacher-forced prompt extension** — append target word (e.g. "kill") to prompt, compare next-token distributions between base and aligned. Geography-independent displacement measure. ~10 min per word across all families.
+
+### Data / findings cleanup
+- [ ] **Mark stale TODOs** — Archangel, OLMo-Hybrid, Falcon-Mamba at top of file are ALL DONE (session Jun 26-28). Clean up.
+- [ ] **F05 revision** — logit lens at 40 families contradicts F05 (distributed/late-layer patterns). All families show final-layer onset. Update finding file.
+- [ ] **Bidirectional resistance CSV** — save the 28-pair forward/reverse table as a browsable CSV for Data Explorer.
+- [ ] **Publication figures** — new findings (bidirectional, category-level, logit lens depth, system prompt) need figures for CI article / book.
+- [ ] **Summary table CSV** — one row per family with headline numbers (kill delta, reverse/forward bits, displacement style, architecture, alignment intensity). Master reference for drafting.
 
 ### Expensive (need cloud GPU / generation cache)
 - [ ] **Surprisal / Shannon entropy at 45 families** (currently ~10) — needs n=100 generations per model per prompt. Cloud vLLM.
