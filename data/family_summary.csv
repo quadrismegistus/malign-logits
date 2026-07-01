@@ -1,0 +1,48 @@
+family,name,architecture,n_layers,kill_base_pct,kill_delta_pct,scream_delta_pct,forward_bits,reverse_bits,ratio,resistance_style
+amber,Amber,transformer,3,12.4,-12.4,23.1,21.0,54.1,2.6,gradual
+archangel-dpo,Archangel DPO (Pythia 2.8B),transformer,3,10.1,-0.0,1.5,,1.6,,
+archangel-kto,Archangel KTO (Pythia 2.8B),transformer,3,10.1,0.1,1.8,,0.6,,
+archangel-ppo,Archangel PPO (Pythia 2.8B),transformer,3,10.1,-0.2,1.4,,1.8,,
+archangel-slic,Archangel SLIC (Pythia 2.8B),transformer,3,10.1,1.7,3.3,,0.6,,
+baichuan,Baichuan2 7B,transformer,2,,,,,,,
+bloom,BLOOM 7B,transformer,2,28.2,-11.7,5.2,,3.8,,
+ct-llm,CT-LLM 2B,transformer,3,14.4,-12.3,-0.6,,8.0,,
+deepseek-7b,DeepSeek LLM 7B,transformer,2,,0.0,0.0,2.9,3.6,1.2,gradual
+falcon-h1-1.5b,Falcon-H1 1.5B,transformer,2,8.3,-7.2,33.7,,,,
+falcon-h1-7b,Falcon-H1 7B,transformer,2,10.0,-6.7,35.4,,,,
+falcon-mamba,Falcon Mamba 7B,ssm,2,3.7,-0.8,8.1,,2.8,,
+falcon3-10b,Falcon3 10B,transformer,2,5.4,-1.7,11.8,,4.8,,
+falcon3-1b,Falcon3 1B,transformer,2,2.8,-1.8,11.7,,11.2,,
+falcon3-3b,Falcon3 3B,transformer,2,10.3,-6.9,3.2,,15.2,,
+falcon3-7b,Falcon3 7B,transformer,2,6.7,-4.1,7.6,,3.5,,
+falcon3-mamba,Falcon3 Mamba 7B,ssm,2,14.2,-11.8,-8.5,,-0.3,,
+glm4,GLM-4 9B,transformer,2,7.2,-1.0,3.3,,6.8,,
+internlm2,InternLM 2 7B,transformer,3,,,,,,,
+llama,Llama 3.1 8B,transformer,2,16.3,-10.7,18.6,11.9,6.2,0.5,immediate-redirect
+llama-70b,Llama 3.1 70B,transformer,2,9.6,-6.1,23.6,,,,
+map-neo,MAP-Neo 7B,transformer,3,12.5,-7.5,-0.6,,41.7,,
+minicpm,MiniCPM5 1B,transformer,3,18.7,-17.5,18.3,,23.4,,
+olmo,OLMo 3 7B,transformer,4,12.2,-12.2,-4.4,16.2,38.6,2.4,immediate-redirect
+olmo-32b,OLMo 3.1 32B,transformer,4,12.8,-10.3,31.3,,,,
+olmo-hybrid,OLMo Hybrid 7B,ssm-hybrid,3,19.3,-12.5,3.2,,6.2,,
+olmo-think,OLMo 3 7B Think,transformer,3,12.2,-7.2,5.6,3.6,8.3,2.3,
+olmo-tiny,OLMo 2 1B,transformer,4,27.6,-22.9,0.9,0.8,6.7,8.4,immediate-redirect
+olmoe,OLMoE 1B-7B,transformer,4,20.6,-11.3,8.7,,,,
+phi4,Phi-4 14B,transformer,2,7.9,5.1,-24.7,,1.2,,
+pythia,Pythia 6.9B,transformer,3,11.5,-1.4,1.1,1.2,1.4,1.2,token-block
+qwen,Qwen 2.5 7B,transformer,2,6.9,-2.3,0.5,9.2,6.5,0.7,immediate-redirect
+qwen-tiny,Qwen 2.5 0.5B,transformer,2,16.9,-9.5,1.8,3.0,3.3,1.1,immediate-redirect
+qwen3,Qwen3 8B,transformer,2,5.1,16.4,7.6,11.9,12.7,1.1,immediate-redirect
+redpajama,RedPajama 7B,transformer,3,11.9,-11.6,12.3,,37.2,,
+rwkv,RWKV-4 7B,rnn,2,8.8,1.9,3.1,,1.0,,
+smol,SmolLM2 360M,transformer,2,14.3,-2.2,0.9,3.4,4.0,1.2,immediate-redirect
+smol3,SmolLM3 3B,transformer,2,21.7,-6.4,2.1,13.3,3.9,0.3,immediate-redirect
+stablelm,StableLM 2 1.6B,transformer,3,10.9,-9.3,40.8,,15.0,,
+tinyllama,TinyLlama 1.1B,transformer,2,11.0,-5.7,5.2,,54.5,,
+tulu,Tulu 3.1 8B,transformer,4,16.3,-7.1,14.0,3.9,4.8,1.2,
+tulu-sft-full,Tulu SFT (full),transformer,2,16.3,-2.6,7.9,4.6,2.3,0.5,
+tulu-sft-nomath,Tulu SFT (no math),transformer,2,16.3,0.9,4.7,3.8,1.7,0.5,
+tulu-sft-nopersona,Tulu SFT (no persona),transformer,2,16.3,-1.0,6.0,4.2,1.9,0.5,
+tulu-sft-nowildchat,Tulu SFT (no wildchat),transformer,2,16.3,-1.1,5.6,4.2,1.7,0.4,
+yi,Yi 1.5 9B,transformer,2,10.2,2.3,9.0,,32.5,,token-block
+zephyr,Zephyr 7B,transformer,3,10.1,-6.8,24.1,3.3,40.0,12.1,token-block
