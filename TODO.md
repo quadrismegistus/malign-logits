@@ -1,32 +1,15 @@
 # TODO — Malign Logits
 
-## Next model families to run (2026-06-27)
-- [ ] **Archangel (Pythia 2.8B)** — DPO vs KTO vs PPO vs SLIC on same base+SFT. Only family with 4 alignment methods. `ContextualAI/archangel_sft_pythia2.8b` + 4 variants. Tiny, fast.
-- [ ] **OLMo Hybrid 7B** — SSM-Transformer hybrid, 3 stages. Tests if displacement is Transformer-specific. `allenai/Olmo-Hybrid-7B` / `SFT` / `DPO`.
-- [ ] **Falcon-Mamba 7B** — Pure SSM (Mamba), 2 stages. No attention. `tiiuae/falcon-mamba-7b` / `instruct`.
-- Queue: run sequentially after MAP-Neo 2×2 completes. Full pipeline (logits + beam_words + word_probs).
-- See `docs/model_candidates.md` for full survey.
+## Completed model families (2026-06-27 → 2026-06-30)
+- [x] **Archangel** — DONE. 4 methods on Pythia 2.8B. Method interchangeable.
+- [x] **OLMo Hybrid 7B** — DONE. SSM-Transformer hybrid, displacement works.
+- [x] **Falcon-Mamba 7B** — DONE. Pure SSM, displacement works.
+- [x] **45 families total** with word_probs, 40 with logit lens, 57 aligned models with reverse beams.
 
-## DeepSeek V3.1 671B (2026-06-27)
-- [ ] HuggingFace transformers `device_map="auto"` cannot dispatch 671B MoE (256 experts × 61 layers) in reasonable time. 1h20m on 8×A100, ~$13 wasted, never reached first forward pass.
-- [ ] Need vLLM with tensor parallelism, or DeepSeek's own inference code
-- [ ] Alternative: use API logprobs (top-20 only, already cached in gen_logprobs stash)
-- [ ] V3.1-Base and V3.1 (aligned) both on HF, architecturally supported, just can't load via transformers
-
-## Think mode for word_probs (2026-06-27)
-- [ ] Iron out how think mode affects logits/word_probs pipeline
-- [ ] Qwen3 and SmolLM3 support `mode="think"` via `_apply_mode`
-- [ ] Key question: does reasoning through the response produce different displacement targets?
-- [ ] The `<think>` token appearing in Qwen3 base raw-mode is pre-socialisation, not actual thinking
-- [ ] Need to decide: measure logits at the `<think>` position? After `</think>`? Or the full sequence probability?
-- [ ] Separate from cross-linguistic work — book-phase experiment
-
-## InternLM2 compatibility (2026-06-27)
-- [ ] InternLM2 custom modeling code (`trust_remote_code=True`) is incompatible with current transformers
-- [ ] Issues: missing `is_flash_attn_greater_or_equal_2_10`, `rope_scaling["type"]` → `rope_type`, `rope_scaling["factor"]` missing
-- [ ] Options: pin older transformers in a separate venv, or wait for native support
-- [ ] InternLM3 only has Instruct (no base checkpoint) — can't do base→aligned comparison
-- [ ] Low priority: CT-LLM + Qwen + Llama already cover Chinese cross-linguistic comparison
+## Deferred (not needed for CI article or book draft)
+- DeepSeek V3.1 671B: needs vLLM, abandoned at HF transformers level
+- Think mode for word_probs: book-phase experiment
+- InternLM2: custom code incompatible, low priority (CT-LLM covers Chinese)
 
 Work items from session 2026-06-20/21. Pick up when idle.
 
@@ -123,8 +106,8 @@ Playwright installed for headless iteration. Goal: make the UI useful as a book 
 - [ ] **Teacher-forced prompt extension** — append target word (e.g. "kill") to prompt, compare next-token distributions between base and aligned. Geography-independent displacement measure. ~10 min per word across all families.
 
 ### Data / findings cleanup
-- [ ] **Mark stale TODOs** — Archangel, OLMo-Hybrid, Falcon-Mamba at top of file are ALL DONE (session Jun 26-28). Clean up.
-- [ ] **F05 revision** — logit lens at 40 families contradicts F05 (distributed/late-layer patterns). All families show final-layer onset. Update finding file.
+- [x] **Mark stale TODOs** — DONE (2026-07-01). Cleaned up top-of-file items.
+- [x] **F05 revision** — DONE (2026-07-01). Updated with 40-family contradiction + SFT/DPO depth gradient.
 - [ ] **Bidirectional resistance CSV** — save the 28-pair forward/reverse table as a browsable CSV for Data Explorer.
 - [ ] **Publication figures** — new findings (bidirectional, category-level, logit lens depth, system prompt) need figures for CI article / book.
 - [ ] **Summary table CSV** — one row per family with headline numbers (kill delta, reverse/forward bits, displacement style, architecture, alignment intensity). Master reference for drafting.
