@@ -15,7 +15,8 @@
 		{ id: 'cross_family_resistance', label: 'Cross-Family Resistance (578 rows)', limit: 1000 },
 		{ id: 'category_displacement', label: 'Category Displacement (732 rows)', limit: 1000 },
 		{ id: 'word_annotations', label: 'Word Annotations (2975 rows)', limit: 3000 },
-		{ id: 'resistance_trajectories', label: 'Resistance Trajectories (7586 rows)', limit: 8000 },
+		{ id: 'taxonomy_full_census', label: 'Taxonomy Full Census (504 rows)', limit: 600 },
+		{ id: 'resistance_trajectories', label: 'Resistance Trajectories (5542 rows)', limit: 6000 },
 	];
 
 	let selectedDataset = $state(DATASETS[0].id);
