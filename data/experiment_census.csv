@@ -1,0 +1,20 @@
+experiment,method,n_families,selection_rule,data_file
+Word probs (displacement),word_probs,45,All families with logits cached,cross_model_displacement.csv
+Displacement agreement (data-driven),data-driven vocab >1% any model,45,"7091 word×prompt pairs, 2975 words",displacement_agreement.csv
+Bits of resistance,bits_resistance,45,"log2(p_base/p_aligned), symmetric filter",bits_resistance.csv
+Mixed-effects model,word + (1|family) + method,45,13742 obs on 23 key words,bits_resistance.csv
+PERMANOVA,cosine/euclidean/hamming,44,"69-112 models, 670 features",F31 finding
+Beam cross (base→aligned),batch_beam_annotate,35,100 beams × 73 prompts,beams stash
+Beam cross (aligned→base),overnight pipeline,57,100 beams × 73 prompts,beams stash
+Bidirectional resistance,matched forward+reverse,28,anger prompt only,bidirectional_resistance.csv
+Logit lens,output_hidden_states,40,"405K rows, 5 prompts, all checkpoints",logit_lens_datadriven.csv
+Resistance trajectories,per-position from beams,41,"5542 rows, both directions",resistance_trajectories.csv
+Cross-family resistance,per-token from beams,41,"1670 rows, up to 41 fam/pair",cross_family_resistance.csv
+Taxonomy (displacement type),spaCy POS + wordfreq,43,504 pairs,taxonomy_full_census.csv
+WordNet annotations,wordnet + spaCy,2975,"words, 87% coverage",word_annotations.csv
+System prompt effect,4 conditions × 5 prompts,22,raw/chat/safety/permissive,system_prompt_effect.csv
+SFT↔DPO cross-resistance,teacher-force both directions,17,36 directions,beams stash
+Teacher-forced extension,"prompt + word, next-token JS",9,8 target words,teacher_forced_extension.csv
+Help-seeker control,institutional help-seeker prompts,10,4 help-seeker + 4 subordinate,help_seeker_control.csv
+Marked register control,legal/bureaucratic/academic/medical,5,bits/token under base,marked_register_control.csv
+A/B SFT experiment,OLMo-2-1B ± safety data,1,"100K/1-epoch, null result",data/models/
