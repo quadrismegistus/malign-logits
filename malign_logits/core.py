@@ -282,6 +282,7 @@ def beam_word_probs(model, tokenizer, prompt, n_beams=1000, depth=3,
         output_scores=True,
         return_dict_in_generate=True,
         pad_token_id=pad_token_id,
+        length_penalty=0.0,
     )
 
     scores = out.sequences_scores.float().cpu().numpy()
