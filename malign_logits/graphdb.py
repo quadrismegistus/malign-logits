@@ -518,7 +518,7 @@ def _annotation_prefixes(node: dict, base_model_id: str = None) -> dict:
     Returns {prefix: model_id} mapping. Uses the base model's known
     variants to resolve ambiguous truncated prefixes.
     """
-    from .registry import Registry
+    from .registry import Registry, annotation_prefix
     reg = Registry()
 
     # Build prefix→model_id map from known variants of this base
@@ -533,10 +533,9 @@ def _annotation_prefixes(node: dict, base_model_id: str = None) -> dict:
         candidates = reg.models()
 
     for model_id in candidates:
-        short = model_id.split("/")[-1].replace("-", "_").replace(".", "_")[:20]
-        variant_map[short] = model_id
+        variant_map[annotation_prefix(model_id)] = model_id
         # Also try without dot replacement (annotate_tree only replaces -)
-        short_nodot = model_id.split("/")[-1].replace("-", "_")[:20]
+        short_nodot = annotation_prefix(model_id, dots=False)
         if short_nodot not in variant_map:
             variant_map[short_nodot] = model_id
 
@@ -549,8 +548,7 @@ def _annotation_prefixes(node: dict, base_model_id: str = None) -> dict:
             else:
                 # Fallback: try all models
                 for model_id in reg.models():
-                    short = model_id.split("/")[-1].replace("-", "_").replace(".", "_")[:20]
-                    if short == prefix:
+                    if annotation_prefix(model_id) == prefix:
                         prefixes[prefix] = model_id
                         break
 

@@ -53,6 +53,20 @@ class ModelInfo:
 
 # Preferred short names. Base models get the family name with no suffix.
 # Variants get family-stage or a custom name.
+def annotation_prefix(model_id: str, dots: bool = True, maxlen: int = 20) -> str:
+    """Truncated model-name prefix used for beam/tree annotation column names.
+
+    LOAD-BEARING format: it must match how the annotation columns were written.
+    ``annotate_tree`` replaces '-' but not '.', so the graphdb read-side tries
+    both ``dots=True`` and ``dots=False``. Single source for a form that was
+    duplicated across probe/graphdb/server.
+    """
+    s = model_id.split("/")[-1].replace("-", "_")
+    if dots:
+        s = s.replace(".", "_")
+    return s[:maxlen]
+
+
 NICKNAMES = {
     # Yi
     "01-ai/Yi-9B": "yi",

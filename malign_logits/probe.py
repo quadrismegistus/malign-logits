@@ -408,7 +408,7 @@ class Probe:
         replays all prompts, frees memory.
         """
         import gc
-        from .registry import Registry
+        from .registry import Registry, annotation_prefix
         from .models import load_model
 
         prompts = prompts or PROMPTS
@@ -908,7 +908,7 @@ class Probe:
         """
         import pandas as pd
         from .metrics import tree_metrics, entropy as _entropy
-        from .registry import Registry
+        from .registry import Registry, annotation_prefix
 
         reg = Registry()
         cache = _get_cache()
@@ -966,7 +966,7 @@ class Probe:
         """
         import pandas as pd
         from .metrics import tree_compare, js_divergence, base_token_surprisal
-        from .registry import Registry
+        from .registry import Registry, annotation_prefix
 
         reg = Registry()
         cache = _get_cache()
@@ -1191,7 +1191,7 @@ class Probe:
         """
         import gc
         from .models import load_model
-        from .registry import Registry
+        from .registry import Registry, annotation_prefix
         from scipy.special import softmax
 
         prompt_text = _resolve_prompt(prompt)
@@ -1219,7 +1219,7 @@ class Probe:
                 if key.endswith("_js"):
                     existing.add(key[:-3])
         annotators = [m for m in annotators
-                      if m.split("/")[-1].replace("-", "_")[:20] not in existing]
+                      if annotation_prefix(m, dots=False) not in existing]
         if not annotators:
             return nodes
 
@@ -1237,7 +1237,7 @@ class Probe:
         prompt_ids = tok.encode(prompt_text)
 
         for model_id in annotators:
-            short = model_id.split("/")[-1].replace("-", "_")[:20]
+            short = annotation_prefix(model_id, dots=False)
             print(f"  Annotating with {model_id.split('/')[-1]}...", end="", flush=True)
 
             try:
@@ -1408,7 +1408,7 @@ class Probe:
         """
         import gc
         from .models import load_model
-        from .registry import Registry
+        from .registry import Registry, annotation_prefix
         from scipy.special import softmax
 
         reg = Registry()
@@ -1465,7 +1465,7 @@ class Probe:
                 if key.endswith("_js"):
                     existing.add(key[:-3])
         annotators = [m for m in annotators
-                      if m.split("/")[-1].replace("-", "_")[:20] not in existing]
+                      if annotation_prefix(m, dots=False) not in existing]
         if not annotators:
             return trees
 
@@ -1473,7 +1473,7 @@ class Probe:
 
         # Step 2: for each annotator, load ONCE, annotate ALL prompts
         for ann_idx, model_id in enumerate(annotators):
-            short = model_id.split("/")[-1].replace("-", "_")[:20]
+            short = annotation_prefix(model_id, dots=False)
             ann_label = model_id.split("/")[-1]
 
             try:
@@ -1746,7 +1746,7 @@ class Probe:
             if not family:
                 raise ValueError("Specify family=")
             base_id = Probe.resolve(family)
-            from .registry import Registry
+            from .registry import Registry, annotation_prefix
             reg = Registry()
             variants = reg.variants_of(base_id)
             final = variants[-1] if variants else base_id
@@ -1769,7 +1769,7 @@ class Probe:
             models = kwargs.get('models', [])
             if not models and family:
                 base_id = Probe.resolve(family)
-                from .registry import Registry
+                from .registry import Registry, annotation_prefix
                 reg = Registry()
                 models = [base_id] + reg.variants_of(base_id)
             from scipy.special import softmax
@@ -1864,7 +1864,7 @@ class Probe:
     @classmethod
     def families(cls) -> pd.DataFrame:
         """All known families with metadata."""
-        from .registry import Registry
+        from .registry import Registry, annotation_prefix
         reg = Registry()
         rows = []
         for name, base_id in sorted(cls.FAMILIES.items()):
@@ -1897,7 +1897,7 @@ class Probe:
                      temperature: float = 0.8,
                      prompts: dict = None):
         """Collect data for a base model and all its variants."""
-        from .registry import Registry
+        from .registry import Registry, annotation_prefix
         base_id = cls.resolve(name)
         reg = Registry()
         models = [base_id] + reg.variants_of(base_id)
@@ -1911,7 +1911,7 @@ class Probe:
     def compare_tree(cls, name: str, prompt: str,
                      gen: int = 0, pos: int = 0) -> pd.DataFrame:
         """Compare all variants of a base model on one prompt."""
-        from .registry import Registry
+        from .registry import Registry, annotation_prefix
         from .metrics import js_divergence, base_token_surprisal, entropy
 
         base_id = cls.resolve(name)
