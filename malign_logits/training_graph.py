@@ -12,8 +12,8 @@ module provides the clean graph interface.
 """
 
 import os
-from hashstash import HashStash
 from . import PATH_DATA_RAW
+from .cache import open_stash
 from .registry import Registry, NICKNAMES
 
 GRAPH_ROOT = os.path.join(PATH_DATA_RAW, "graphs")
@@ -24,7 +24,7 @@ _graph = None
 def build_training_graph(store=None):
     """Build the training graph from the Registry."""
     if store is None:
-        store = HashStash(root_dir=GRAPH_ROOT, engine="pairtree")
+        store = open_stash(GRAPH_ROOT, engine="pairtree")
 
     g = store.graph("training")
 
@@ -57,7 +57,7 @@ def get_training_graph():
     """Get or create the training graph (cached singleton)."""
     global _graph
     if _graph is None:
-        store = HashStash(root_dir=GRAPH_ROOT, engine="pairtree")
+        store = open_stash(GRAPH_ROOT, engine="pairtree")
         g = store.graph("training")
         if len(g.nodes) == 0:
             g = build_training_graph(store)

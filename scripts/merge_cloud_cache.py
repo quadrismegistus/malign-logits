@@ -3,13 +3,13 @@
 
 Usage:
     # 1. Download cloud cache to temp dir
-    rsync -avz -e "ssh -p PORT" root@HOST:/workspace/malign-logits/data/raw/cache/psyche_derived/ /tmp/cloud_cache/
+    rsync -avz -e "ssh -p PORT" root@HOST:/workspace/malign-logits/data/raw/cache/trees/ /tmp/cloud_cache/
 
     # 2. Merge into local
     python scripts/merge_cloud_cache.py /tmp/cloud_cache
 
     # Or one-liner with custom local path:
-    python scripts/merge_cloud_cache.py /tmp/cloud_cache --local data/raw/cache/psyche_derived
+    python scripts/merge_cloud_cache.py /tmp/cloud_cache --local data/raw/cache/trees
 """
 
 import argparse
@@ -21,21 +21,21 @@ def main():
     parser = argparse.ArgumentParser(description="Merge cloud cache into local cache")
     parser.add_argument("cloud_path", help="Path to downloaded cloud cache directory")
     parser.add_argument("--local", default=None,
-                        help="Local cache path (default: project's psyche_derived)")
+                        help="Local cache path (default: project's trees stash)")
     parser.add_argument("--dry-run", action="store_true",
                         help="Count entries without writing")
     args = parser.parse_args()
 
-    import hashstash
+    from malign_logits.cache import open_stash
 
-    cloud = hashstash.HashStash(args.cloud_path, engine="lmdb")
+    cloud = open_stash(args.cloud_path)
 
     if args.local:
         local_path = args.local
     else:
-        local_path = str(Path(__file__).parent.parent / "data" / "raw" / "cache" / "psyche_derived")
+        local_path = str(Path(__file__).parent.parent / "data" / "raw" / "cache" / "trees")
 
-    local = hashstash.HashStash(local_path, engine="lmdb")
+    local = open_stash(local_path)
 
     cloud_keys = list(cloud.keys())
     local_keys = set(local.keys())

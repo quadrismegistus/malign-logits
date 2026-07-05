@@ -31,12 +31,12 @@ from malign_logits.cache import get_cache, normalize_text
 
 
 def old_stash(name):
-    from hashstash import HashStash
+    from malign_logits.cache import open_stash
     path = os.path.join(PATH_DATA_RAW, name)
     if not os.path.exists(path):
         print(f"  Skipping {name}: not found")
         return None
-    return HashStash(root_dir=path, engine="pairtree", compress="lz4", b64=True)
+    return open_stash(path, engine="pairtree")
 
 
 def migrate_logits(cache, dry_run=False):

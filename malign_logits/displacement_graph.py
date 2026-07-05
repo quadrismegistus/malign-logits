@@ -25,7 +25,7 @@ Edge properties:
 """
 
 import os
-from hashstash import HashStash
+from .cache import open_stash
 from . import PATH_DATA_RAW
 from .registry import NICKNAMES
 
@@ -43,7 +43,7 @@ def build_displacement_graph(store=None):
     tg = get_training_graph()
 
     if store is None:
-        store = HashStash(root_dir=GRAPH_ROOT, engine="lmdb")
+        store = open_stash(GRAPH_ROOT)
 
     g = store.graph("displacement")
 
@@ -124,7 +124,7 @@ def get_displacement_graph(rebuild=False):
     """Get or create the displacement graph (cached singleton)."""
     global _graph
     if _graph is None or rebuild:
-        store = HashStash(root_dir=GRAPH_ROOT, engine="lmdb")
+        store = open_stash(GRAPH_ROOT)
         g = store.graph("displacement")
         if len(g.edges) == 0 or rebuild:
             g = build_displacement_graph(store)

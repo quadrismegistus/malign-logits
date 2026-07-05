@@ -15,6 +15,6 @@ scipy
 spacy
 wordfreq
 matplotlib
-hashstash[rec]>=0.4.0
+hashstash[rec]>=1.0.1
 duckdb>=1.0.0
 python-arango>=8.0.0

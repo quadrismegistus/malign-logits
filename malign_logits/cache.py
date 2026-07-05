@@ -17,7 +17,12 @@ Each data type gets its own HashStash with dict keys:
     ├── score_vocab_v2/    {'type', 'model', 'prompt', 'words'} — word-level probabilities
     ├── beams/             {'type', 'model', 'prompt', ...} — beam storylines + annotations
     ├── trees/             {'type', 'model', 'prompt', ...} — tree exploration results
-    └── psyche_derived/    LEGACY — migrated data reads from new stashes first
+    ├── logit_lens/        {'model', 'prompt', 'k'} — per-layer top-k projections
+    ├── logit_lens_raw/    {'model', 'prompt'} — per-layer raw projection data
+    └── perplexity/        {'model', 'prompt'}
+
+    (psyche_derived, the legacy junk drawer, was retired 2026-07-05: every entry
+    was shadowed by the typed stashes above.)
 
 Text values in keys are hashed (SHA256[:16]) to avoid matching issues.
 """
@@ -27,6 +32,25 @@ import os
 from . import PATH_DATA_RAW
 
 CACHE_ROOT = os.path.join(PATH_DATA_RAW, "cache")
+
+# hashstash encodes serializer/compress/b64 into the on-disk path
+# (e.g. lmdb.hashstash.lz4+b64/data.db), so any open that relies on
+# library defaults silently resolves to a different, empty store when
+# those defaults change (b64 flips to False in hashstash 1.0). Every
+# stash open in this project must pin the full format explicitly.
+STASH_OPTIONS = dict(
+    engine="lmdb",
+    serializer="hashstash",
+    compress="lz4",
+    b64=True,
+    map_size=200 * 1024**3,  # 200GB limit
+)
+
+
+def open_stash(root_dir, **overrides):
+    """Open a HashStash with every format option pinned (see STASH_OPTIONS)."""
+    from hashstash import HashStash
+    return HashStash(root_dir=root_dir, **{**STASH_OPTIONS, **overrides})
 
 
 def normalize_text(text: str) -> str:
@@ -46,12 +70,7 @@ class CacheManager:
 
     def _stash(self, name):
         if name not in self._stashes:
-            from hashstash import HashStash
-            self._stashes[name] = HashStash(
-                root_dir=os.path.join(self.root, name),
-                engine="lmdb", compress="lz4", b64=True,
-                map_size=200 * 1024**3,  # 200GB limit
-            )
+            self._stashes[name] = open_stash(os.path.join(self.root, name))
         return self._stashes[name]
 
     # ── logits ──────────────────────────────────────────────────
@@ -470,66 +489,89 @@ class CacheManager:
     def has_tree(self, key):
         return key in self._stash("trees")
 
-    # ── psyche derived (LEGACY — reads from old stash, migrated data in new stashes) ──
+    # ── logit lens ──────────────────────────────────────────────
 
-    def get_derived(self, key):
-        t = key.get("type", "") if isinstance(key, dict) else ""
-        if t == "top_words":
-            val = self.get_top_words(key["model"], key["prompt"], key.get("k", 200))
-            if val is not None:
-                return val
-        elif t == "beam_words":
-            val = self.get_beam_words(key["model"], key["prompt"], key.get("n", 1000), key.get("depth", 3))
-            if val is not None:
-                return val
-        elif t == "score_vocab":
-            val = self.get_score_vocab(key["model"], key["prompt"])
-            if val is not None:
-                return val
-        elif t in ("beam_annotated_v1", "beam_cross_v1"):
-            val = self.get_beams(key)
-            if val is not None:
-                return val
-        elif t == "explore_tree_v3":
-            val = self.get_tree(key)
-            if val is not None:
-                return val
-        s = self._stash("psyche_derived")
+    def get_logit_lens(self, model, prompt, k):
+        s = self._stash("logit_lens")
+        key = {"model": model, "prompt": prompt, "k": k}
         return s[key] if key in s else None
 
-    def set_derived(self, key, value):
+    def set_logit_lens(self, model, prompt, k, value):
+        self._stash("logit_lens")[{"model": model, "prompt": prompt, "k": k}] = value
+
+    def get_logit_lens_raw(self, model, prompt):
+        s = self._stash("logit_lens_raw")
+        key = {"model": model, "prompt": prompt}
+        return s[key] if key in s else None
+
+    def set_logit_lens_raw(self, model, prompt, value):
+        self._stash("logit_lens_raw")[{"model": model, "prompt": prompt}] = value
+
+    # ── perplexity ──────────────────────────────────────────────
+
+    def get_perplexity(self, model, prompt):
+        s = self._stash("perplexity")
+        key = {"model": model, "prompt": prompt}
+        return s[key] if key in s else None
+
+    def set_perplexity(self, model, prompt, value):
+        self._stash("perplexity")[{"model": model, "prompt": prompt}] = value
+
+    # ── derived (typed routing for psyche.py cache keys) ────────
+
+    def _derived_route(self, key):
+        """Map a legacy-style derived key to (getter, setter, checker) thunks."""
         t = key.get("type", "") if isinstance(key, dict) else ""
+        m, p = key.get("model"), key.get("prompt")
         if t == "top_words":
-            self.set_top_words(key["model"], key["prompt"], value, key.get("k", 200))
-        elif t == "beam_words":
-            self.set_beam_words(key["model"], key["prompt"], value, key.get("n", 1000), key.get("depth", 3))
-        elif t == "score_vocab":
-            self.set_score_vocab(key["model"], key["prompt"], value)
-        elif t in ("beam_annotated_v1", "beam_cross_v1"):
-            self.set_beams(key, value)
-        elif t == "explore_tree_v3":
-            self.set_tree(key, value)
-        else:
-            self._stash("psyche_derived")[key] = value
+            k = key.get("k", 200)
+            return (lambda: self.get_top_words(m, p, k),
+                    lambda v: self.set_top_words(m, p, v, k),
+                    lambda: self.has_top_words(m, p, k))
+        if t == "beam_words":
+            n, d = key.get("n", 1000), key.get("depth", 3)
+            return (lambda: self.get_beam_words(m, p, n, d),
+                    lambda v: self.set_beam_words(m, p, v, n, d),
+                    lambda: self.has_beam_words(m, p, n, d))
+        if t == "score_vocab":
+            return (lambda: self.get_score_vocab(m, p),
+                    lambda v: self.set_score_vocab(m, p, v),
+                    lambda: self.has_score_vocab(m, p))
+        if t in ("beam_annotated_v1", "beam_cross_v1"):
+            return (lambda: self.get_beams(key),
+                    lambda v: self.set_beams(key, v),
+                    lambda: self.has_beams(key))
+        if t == "explore_tree_v3":
+            return (lambda: self.get_tree(key),
+                    lambda v: self.set_tree(key, v),
+                    lambda: self.has_tree(key))
+        if t == "logit_lens":
+            k = key.get("k")
+            return (lambda: self.get_logit_lens(m, p, k),
+                    lambda v: self.set_logit_lens(m, p, k, v),
+                    lambda: self.get_logit_lens(m, p, k) is not None)
+        if t == "logit_lens_raw":
+            return (lambda: self.get_logit_lens_raw(m, p),
+                    lambda v: self.set_logit_lens_raw(m, p, v),
+                    lambda: self.get_logit_lens_raw(m, p) is not None)
+        if t == "perplexity":
+            return (lambda: self.get_perplexity(m, p),
+                    lambda v: self.set_perplexity(m, p, v),
+                    lambda: self.get_perplexity(m, p) is not None)
+        raise ValueError(f"Unknown derived cache key type {t!r}: {key!r} — "
+                         f"add a typed stash in CacheManager._derived_route")
+
+    def get_derived(self, key):
+        getter, _, _ = self._derived_route(key)
+        return getter()
+
+    def set_derived(self, key, value):
+        _, setter, _ = self._derived_route(key)
+        setter(value)
 
     def has_derived(self, key):
-        t = key.get("type", "") if isinstance(key, dict) else ""
-        if t == "top_words":
-            if self.has_top_words(key["model"], key["prompt"], key.get("k", 200)):
-                return True
-        elif t == "beam_words":
-            if self.has_beam_words(key["model"], key["prompt"], key.get("n", 1000), key.get("depth", 3)):
-                return True
-        elif t == "score_vocab":
-            if self.has_score_vocab(key["model"], key["prompt"]):
-                return True
-        elif t in ("beam_annotated_v1", "beam_cross_v1"):
-            if self.has_beams(key):
-                return True
-        elif t == "explore_tree_v3":
-            if self.has_tree(key):
-                return True
-        return key in self._stash("psyche_derived")
+        _, _, checker = self._derived_route(key)
+        return checker()
 
 
 # Module-level singleton
