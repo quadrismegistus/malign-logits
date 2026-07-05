@@ -1205,7 +1205,7 @@ def main():
     td.add_argument("--input", "-i",
                     help="Raw generation parquet (default: data/gen_battery_raw.parquet)")
     td.add_argument("--output", "-o",
-                    help="Output CSV path (default: data/topic_drift.csv)")
+                    help="Output CSV path (default: data/passage_metrics.csv)")
     td.set_defaults(func=cmd_topic_drift)
 
     # surprisal

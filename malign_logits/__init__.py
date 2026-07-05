@@ -40,7 +40,11 @@ import torch
 from tqdm import tqdm
 
 import warnings
-warnings.filterwarnings("ignore")
+# Silence the noisy HF/torch chatter this project triggers on MPS, but do NOT
+# blanket-ignore everything — a bare filterwarnings("ignore") at import hid the
+# package's own DeprecationWarnings from every consumer.
+warnings.filterwarnings("ignore", category=UserWarning)
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 from dataclasses import dataclass
 

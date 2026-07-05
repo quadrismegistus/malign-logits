@@ -19,7 +19,9 @@ def _tokenize_for_generation(tokenizer, text, device):
     encoded = tokenizer(text, return_tensors="pt", padding=False)
     input_ids = encoded["input_ids"].to(device)
     if input_ids.numel() == 0:
-        seed_id = tokenizer.bos_token_id or tokenizer.eos_token_id
+        seed_id = tokenizer.bos_token_id
+        if seed_id is None:  # 'or' would wrongly fall through when BOS id == 0
+            seed_id = tokenizer.eos_token_id
         input_ids = torch.tensor([[seed_id]], device=device)
     attention_mask = encoded.get("attention_mask")
     if attention_mask is None or attention_mask.shape != input_ids.shape:
