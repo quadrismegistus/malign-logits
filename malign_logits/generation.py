@@ -31,37 +31,6 @@ def _tokenize_for_generation(tokenizer, text, device):
     return input_ids, attention_mask
 
 
-def model_generate(
-    model,
-    tokenizer,
-    prompt,
-    max_new_tokens=100,
-    temperature=1.0,
-    top_k=None,
-    do_sample=True,
-):
-    """Simple generation from a single model."""
-    def _continue(model, input_ids, attention_mask):
-        with torch.no_grad():
-            output_ids = model.generate(
-                input_ids,
-                attention_mask=attention_mask,
-                max_new_tokens=max_new_tokens,
-                do_sample=do_sample,
-                temperature=temperature,
-                top_k=top_k,
-                pad_token_id=tokenizer.eos_token_id,
-            )
-        return _decode_generated(tokenizer, output_ids[0][input_ids.shape[1]:])
-
-    print(f'Prompt:   {prompt}\n')
-    base_input, base_mask = _tokenize_for_generation(tokenizer, prompt, model.device)
-    text = _continue(model, base_input, base_mask)
-    print_wrapped(text)
-    print()
-    return text
-
-
 def generate(
     models,
     prompt,

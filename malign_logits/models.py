@@ -96,65 +96,6 @@ def load_model(model_name, revision=None, cache_dir=None):
     return model, tokenizer
 
 
-def load_models(
-    base_name=BASE_MODEL_NAME,
-    sft_name=SFT_MODEL_NAME,
-    dpo_name=DPO_MODEL_NAME,
-):
-    """Load base, SFT, and DPO models (3-layer topology).
-
-    All models share a single tokenizer (OLMo uses the same vocab
-    across all checkpoints).
-
-    Returns:
-        (base_model, sft_model, dpo_model, tokenizer)
-    """
-    kwargs = _platform_kwargs()
-    tokenizer = _load_tokenizer(base_name)
-
-    print(f"Loading base model ({base_name})...")
-    base_model = _load_causal_lm(base_name, **kwargs)
-
-    print(f"Loading SFT model ({sft_name})...")
-    sft_model = _load_causal_lm(sft_name, **kwargs)
-
-    print(f"Loading DPO model ({dpo_name})...")
-    dpo_model = _load_causal_lm(dpo_name, **kwargs)
-
-    print("All models loaded.")
-    return base_model, sft_model, dpo_model, tokenizer
-
-
-def load_four_models(
-    base_name=BASE_MODEL_NAME,
-    sft_name=SFT_MODEL_NAME,
-    dpo_name=DPO_MODEL_NAME,
-    instruct_name=INSTRUCT_MODEL_NAME,
-):
-    """Load base, SFT, DPO, and RLVR/Instruct models (4-layer topology).
-
-    Returns:
-        (base_model, sft_model, dpo_model, instruct_model, tokenizer)
-    """
-    kwargs = _platform_kwargs()
-    tokenizer = _load_tokenizer(base_name)
-
-    print(f"Loading base model ({base_name})...")
-    base_model = _load_causal_lm(base_name, **kwargs)
-
-    print(f"Loading SFT model ({sft_name})...")
-    sft_model = _load_causal_lm(sft_name, **kwargs)
-
-    print(f"Loading DPO model ({dpo_name})...")
-    dpo_model = _load_causal_lm(dpo_name, **kwargs)
-
-    print(f"Loading RLVR/Instruct model ({instruct_name})...")
-    instruct_model = _load_causal_lm(instruct_name, **kwargs)
-
-    print("All models loaded.")
-    return base_model, sft_model, dpo_model, instruct_model, tokenizer
-
-
 def get_base_logits(model, tokenizer, prompt, device=None):
     """Get raw logits from a model for a prompt (for displacement/overdetermination)."""
     if device is None:

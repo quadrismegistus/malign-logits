@@ -14,16 +14,6 @@ from tqdm import tqdm
 
 # ── Generation ────────────────────────────────────────────────────
 
-PATH_GEN_STASH = None  # set lazily
-
-
-def _gen_stash_path():
-    import warnings
-    warnings.warn("_gen_stash_path() is deprecated. Use CacheManager.", DeprecationWarning, stacklevel=2)
-    from . import PATH_STASH
-    return PATH_STASH + "_gen_battery"
-
-
 def _check_cached_count(prompt, temperature=1.0, model_ids=None,
                         cache_dir=None):
     """Check min generation count across model_ids for a prompt."""
@@ -455,32 +445,6 @@ def _get_gen_stash():
     return get_cache()
 
 
-def _cache_sent_embeddings(text, stash, embedder):
-    """Get or compute sentence embeddings for a passage."""
-    key = ("sent_embeddings", text)
-    if key in stash:
-        return stash[key]
-    sents = _split_sentences(text)
-    if len(sents) < 2:
-        return None
-    vecs = embedder.encode(sents, show_progress_bar=False)
-    norms = np.linalg.norm(vecs, axis=1, keepdims=True) + 1e-10
-    normed = (vecs / norms).tolist()
-    stash[key] = normed
-    return normed
-
-
-def _cache_token_surprisals(text, stash, ref_model_name="gpt2"):
-    """Get or compute per-token surprisals under a reference model."""
-    key = ("token_surprisals", ref_model_name, text)
-    if key in stash:
-        return stash[key]
-    s = passage_surprisal(text, model_name=ref_model_name)
-    result = s["token_surprisals"]
-    stash[key] = result
-    return result
-
-
 def drift_metrics_from_embeddings(sent_vecs):
     """Compute drift metrics from cached sentence embedding vectors."""
     sv = [np.array(v) for v in sent_vecs]
@@ -735,13 +699,6 @@ def load_generations_from_stash():
     return pd.DataFrame(rows)
 
 
-def compute_topic_drift(psg_df, min_sentences=3, model_name=None):
-    """Legacy wrapper — calls compute_passage_metrics and returns drift columns."""
-    df = compute_passage_metrics(psg_df, min_sentences=min_sentences,
-                                 embedder_name=model_name)
-    return df
-
-
 def run_topic_drift(raw_path=None, output_path="data/passage_metrics.csv"):
     """Compute drift + surprisal + metonymy for all cached generations.
 
@@ -804,8 +761,6 @@ def run_topic_drift(raw_path=None, output_path="data/passage_metrics.csv"):
     return df
 
 
-# Keep legacy names as aliases
-run_surprisal = run_topic_drift
 
 
 # ── Surprisal ────────────────────────────────────────────────────

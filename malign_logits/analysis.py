@@ -534,45 +534,4 @@ def top_movers(logits_a, logits_b, tokenizer, k=20):
 
     return {"repressed": repressed, "amplified": amplified}
 
-
-def measure_overdetermination(
-    word, base_logits, tokenizer, embeddings, top_k=20
-):
-    """
-    Measure how overdetermined a word is in the base model's landscape.
-
-    High entropy among semantically similar tokens = high overdetermination,
-    meaning multiple associative paths converge on this semantic region.
-    In Freudian terms, these are the nodal points where multiple drives meet.
-
-    Args:
-        word: The word to measure.
-        base_logits: Raw logits from the base model.
-        tokenizer: Tokenizer.
-        embeddings: Model embedding weights.
-        top_k: Number of semantic neighbors to consider.
-
-    Returns:
-        float: Entropy score (higher = more overdetermined).
-    """
-    token_ids = tokenizer.encode(word, add_special_tokens=False)
-    if not token_ids:
-        return 0.0
-
-    anchor_id = token_ids[0]
-    normed_emb = torch.nn.functional.normalize(embeddings.float(), dim=-1)
-    anchor_emb = normed_emb[anchor_id].unsqueeze(0)
-    similarities = (normed_emb @ anchor_emb.squeeze()).squeeze()
-
-    top_similar = torch.topk(similarities, top_k)
-
-    base_probs = torch.softmax(base_logits.float(), dim=-1)
-    neighbor_probs = base_probs[top_similar.indices]
-
-    if neighbor_probs.sum() > 0:
-        neighbor_dist = neighbor_probs / neighbor_probs.sum()
-        entropy = -(neighbor_dist * torch.log(neighbor_dist + 1e-10)).sum().item()
-    else:
-        entropy = 0.0
-
     return entropy
