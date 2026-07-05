@@ -46,6 +46,7 @@ SLUGS = {
     32: "template_mediated_distributions",
     33: "scale_effects",
     34: "cross_linguistic_displacement",
+    35: "architecture_independence",
 }
 
 
@@ -95,17 +96,26 @@ def _heading_to_anchor(heading):
     return anchor
 
 
+FINDINGS_END_MARKER = "<!-- findings:end -->"
+
+
 def build():
     """Rebuild README from parts: header + findings + footer."""
     text = README.read_text()
 
-    # Find boundaries
+    # Find boundaries. The explicit end marker is authoritative; the heading
+    # heuristic is only a fallback for a README that predates the marker
+    # (it broke once when old finding files contained internal ## headings,
+    # duplicating ~1,500 stale lines into the footer).
     findings_start = text.index("## Findings\n")
-    post_findings = re.search(r'\n## (?!Findings)', text[findings_start + 20:])
-    if post_findings:
-        findings_end = findings_start + 20 + post_findings.start()
+    if FINDINGS_END_MARKER in text:
+        findings_end = text.index(FINDINGS_END_MARKER) + len(FINDINGS_END_MARKER)
     else:
-        findings_end = len(text)
+        post_findings = re.search(r'\n## (?!Findings)', text[findings_start + 20:])
+        if post_findings:
+            findings_end = findings_start + 20 + post_findings.start()
+        else:
+            findings_end = len(text)
 
     header = text[:findings_start]
     footer = text[findings_end:]
@@ -134,6 +144,7 @@ def build():
         findings_parts.append(content)
         findings_parts.append("\n\n")
 
+    findings_parts.append(FINDINGS_END_MARKER)
     new_findings = "".join(findings_parts)
 
     # Rebuild TOC in header
