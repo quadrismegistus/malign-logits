@@ -199,12 +199,18 @@ def run_model(model_id, output_dir, prompts, do_logits=True, do_beams=True):
     gc.collect()
     torch.cuda.empty_cache()
 
-    import shutil
-    cache_dir = os.path.expanduser("~/.cache/huggingface/hub")
-    for d in os.listdir(cache_dir):
-        if d.startswith("models--"):
-            shutil.rmtree(os.path.join(cache_dir, d), ignore_errors=True)
-    print(f"  Cleared HF cache")
+    # Wipe the HF hub cache to make room for the next model — but ONLY on a
+    # throwaway cloud box. Run locally this would delete every cached model
+    # on the machine (hundreds of GB).
+    if os.path.exists("/workspace"):
+        import shutil
+        cache_dir = os.path.expanduser("~/.cache/huggingface/hub")
+        for d in os.listdir(cache_dir):
+            if d.startswith("models--"):
+                shutil.rmtree(os.path.join(cache_dir, d), ignore_errors=True)
+        print(f"  Cleared HF cache")
+    else:
+        print("  Skipping HF cache wipe (no /workspace — not a cloud instance)")
 
 
 def main():

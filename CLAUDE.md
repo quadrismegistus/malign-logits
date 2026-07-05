@@ -106,27 +106,11 @@ Requires `transformers >= 4.57.0` for OLMo 3 architecture support.
 
 ## Registered model families
 
-| Key | Name | Layers | Checkpoints |
-|-----|------|--------|-------------|
-| `olmo` (default) | OLMo 3 7B | 4 | `allenai/Olmo-3-1025-7B` / SFT / DPO / Instruct |
-| `olmo-think` | OLMo 3 7B Think | 3 | `allenai/Olmo-3-1025-7B` / Think-SFT / Think-DPO |
-| `olmo-tiny` | OLMo 2 1B (dev/low-RAM) | 4 | `allenai/OLMo-2-0425-1B` / SFT / DPO / Instruct |
-| `smol` | SmolLM2 360M (2-layer test fixture) | 2 | `HuggingFaceTB/SmolLM2-360M` / Instruct |
-| `qwen-tiny` | Qwen 2.5 0.5B (2-layer test fixture) | 2 | `Qwen/Qwen2.5-0.5B` / Instruct |
-| `amber` | Amber | 3 | `LLM360/Amber` / `AmberChat` / `AmberSafe` |
-| `llama` | Llama 3.1 8B | 2 | `meta-llama/Llama-3.1-8B` / Instruct |
-| `qwen` | Qwen 2.5 7B | 2 | `Qwen/Qwen2.5-7B` / Instruct |
+**47 families / 107 unique checkpoints** are registered in `MODEL_FAMILIES` (`__init__.py`) — the single source of truth. Do NOT rely on any table in a doc; run `malign info` for the live list, or see `docs/model_candidates.md` for provenance notes. Coverage spans: the OLMo 3 pipeline (default `olmo`, 4 layers), OLMo variants (think, tiny, 32B), Tulu + 4 SFT-ablation families, Llama (+70B, Dolphin, R1-distill), Qwen (+Qwen3, think), Amber, Zephyr, Pythia, SmolLM2/3, Falcon (+Mamba/H1 SSM variants), RWKV, OLMoE (MoE), archangel method variants (DPO/PPO/KTO/SLiC), Chinese families (MAP-Neo, CT-LLM, InternLM2, Yi, Baichuan, GLM4, MiniCPM), and scale ladders (Falcon3 1B→10B).
+
+Common keys: `olmo` (default), `olmo-tiny` (dev/low-RAM), `smol` / `qwen-tiny` (2-layer test fixtures), `amber`, `llama`, `qwen`, `zephyr`, `pythia`, `tulu`.
 
 CLI: `malign serve --family amber`, `malign battery --family qwen`, `malign info`.
-
-### Other potential families
-
-**Zephyr (HuggingFace, 7B):** Clean three-layer split available.
-- Base: `mistralai/Mistral-7B-v0.1`
-- SFT: `alignment-handbook/zephyr-7b-sft-full`
-- DPO: `HuggingFaceH4/zephyr-7b-beta`
-
-**PKU-Alignment / Beaver:** Separate SFT and safe-RLHF checkpoints with distinct helpfulness vs harmlessness objectives.
 
 ---
 
@@ -146,10 +130,10 @@ The `ModelFamily` dataclass (in `__init__.py`) maps model checkpoints to psychoa
 from malign_logits import Psyche
 
 # 4-layer (default): base + SFT + DPO + RLVR
-psyche = Psyche.from_family("olmo-3-7b")
+psyche = Psyche.from_family("olmo")
 
 # 2-layer: base + instruct (instruct maps to superego)
-psyche = Psyche.from_family("llama-3.1-8b")
+psyche = Psyche.from_family("llama")
 ```
 
 Layer topology determines available analyses:
@@ -159,7 +143,7 @@ Layer topology determines available analyses:
 
 `Psyche.ego` is `None` for 2-layer families. Properties that require ego raise `ValueError` with a clear message. Properties that can adapt (repression, formation_df, metrics) work with any layer count.
 
-CLI: `malign serve --family llama-3.1-8b`, `malign info`.
+CLI: `malign serve --family llama`, `malign info`.
 
 ---
 
@@ -168,27 +152,44 @@ CLI: `malign serve --family llama-3.1-8b`, `malign info`.
 ```
 malign-logits/
 ├── malign_logits/
-│   ├── __init__.py          # Package exports, ModelFamily registry
+│   ├── __init__.py          # Package exports, ModelFamily registry (MODEL_FAMILIES)
 │   ├── psyche.py            # Psyche, ModelLayer, RemoteModelLayer, PromptAnalysis
-│   ├── models.py            # Model loading (load_models, load_four_models)
-│   ├── core.py              # discover_top_words, get_word_logprobs, score_words_from_logits
+│   ├── models.py            # Model loading (load_model)
+│   ├── core.py              # get_base_logits, score_words_from_logits, beam_word_probs, hybrid_word_probs
 │   ├── analysis.py          # Repression, id, displacement engine (v4)
-│   ├── experiments.py       # Prompt battery, reporting
+│   ├── metrics.py           # Pure-numpy metrics (JS, mode decomposition, resistance)
+│   ├── probe.py             # Probe: token-tree exploration + teacher-forced annotation (F26)
+│   ├── deep_probe.py        # DeepDive: full tensor collection to parquet
+│   ├── beam.py              # Beam storylines + teacher-forced beam annotation (F27/F28)
+│   ├── registry.py          # Registry: model-centric view, NICKNAMES, typed relations
+│   ├── profile.py           # CircuitProfile per-family summaries
+│   ├── trajectory.py        # Hidden-state geometry, steering vectors, fold analysis (F12)
+│   ├── circuit.py           # Circuit class (F25 temporal signatures, reasoning branches, modes)
+│   ├── cache.py             # CacheManager + open_stash — ALL stash access goes through here
+│   ├── experiments.py       # Prompt battery definitions (DEFAULT/TIER1/INSTITUTIONAL_PROMPTS)
 │   ├── generation.py        # Text generation (standard + neurotic)
-│   ├── embedding.py         # Generation + embedding pipeline (run_generate_battery)
+│   ├── embedding.py         # Generation + embedding pipeline, surprisal (run_generate_battery)
 │   ├── taxonomy.py          # Displacement taxonomy + syntagmatic_js
+│   ├── graphdb.py           # ArangoDB graph of trees/annotations (probe ingest/census)
+│   ├── vecdb.py             # DuckDB vector store (hidden-state search)
 │   ├── ablation.py          # Tulu SFT data-mixture ablation
 │   ├── battery.py           # Multi-family prompt battery driver
 │   ├── logit_lens.py        # Logit-lens CSV+figure driver
 │   ├── step_analysis.py     # Step-level checkpoint analysis
-│   ├── circuit.py           # Circuit class (F25 temporal signatures, reasoning branches)
+│   ├── api_generate.py      # Frontier-API generation (DeepSeek etc.)
+│   ├── cloud.py             # vast.ai orchestration (malign cloud ...)
 │   ├── produce.py           # produce-all driver
 │   ├── viz.py               # Plotly visualizations
+│   ├── viz_sankey.py        # Beam/displacement Sankey figures
+│   ├── displacement_graph.py, training_graph.py, vocab.py  # graph/vocab utilities
 │   ├── cli.py               # CLI router (delegates to analysis modules)
-│   ├── app.py               # Gradio web UI
-│   └── server.py            # Model server (keeps models loaded across UI restarts)
+│   ├── app.py               # LEGACY Gradio UI (superseded by Svelte data explorer)
+│   ├── server.py            # Model/data server; serves Svelte UI from ui_dist/
+│   └── ui_dist/             # Built Svelte data explorer (source in ui/)
+├── ui/                      # SvelteKit data-explorer source
 ├── notebooks/               # Worked examples
-├── context.md               # Theoretical context and findings
+├── findings/                # F01–F35 individual finding files (README is built from these)
+├── context.md               # HISTORICAL (March 2026) theory notes — gitignored, architecture obsolete
 ├── pyproject.toml           # Package config (loads deps from requirements.txt)
 └── requirements.txt         # Dependencies
 ```
@@ -196,15 +197,13 @@ malign-logits/
 ### Dev workflow
 
 ```bash
-# Terminal 1: model server (load once, stays running)
-malign serve                          # default family (olmo-3-7b)
-malign serve --family llama-3.1-8b      # or a specific family
+# Terminal 1: model/data server (load once, stays running; binds 127.0.0.1)
+malign serve                     # default family (olmo)
+malign serve --family llama      # or a specific family
+malign serve --data-only         # cached data only, no model loading
 
-# Terminal 2: Gradio UI (restart freely, connects to server)
-malign ui
-
-# Or without server (models load lazily on cache miss)
-malign ui
+# Terminal 2: open the Svelte data explorer (served by malign serve)
+malign ui                        # opens browser; --dev runs Vite from ui/
 ```
 
 ### Key classes
@@ -471,7 +470,7 @@ Alignment is fold not wall. v2.6 held-out closure (corrected — the original ev
 
 ### Done: Cross-family Jakobsonian analysis
 
-`malign taxonomy --analyze` reads all taxonomy CSVs and computes paradigmatic-syntagmatic correlations per family. Trade-off holds for all 4 families tested: r = −0.34 (olmo-tiny) to −0.50 (zephyr). The Jakobsonian dissociation is structural, not safety-training-specific.
+`malign taxonomy --analyze` reads all taxonomy CSVs and computes paradigmatic-syntagmatic correlations per family. Trade-off holds for all 6 families tested (126k pairs): r = −0.34 (olmo-tiny) to −0.53 (llama). The Jakobsonian dissociation is structural, not safety-training-specific. (See F13 for current numbers.)
 
 ### Done: Flexible layer count
 

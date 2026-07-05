@@ -7,7 +7,7 @@ name = "malign-logits"
 version = "0.2.0"
 description = "A toolkit for psychoanalytic analysis of LLM probability distributions"
 readme = "README.md"
-license = {text = "MIT"}
+license = {text = "GPL-3.0-only"}
 requires-python = ">=3.10"
 authors = [
     {name = "rj416"},
@@ -25,7 +25,7 @@ keywords = [
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
@@ -58,16 +58,17 @@ ui = [
 malign = "malign_logits.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/rj416/malign-logits"
-Repository = "https://github.com/rj416/malign-logits"
-"Bug Reports" = "https://github.com/rj416/malign-logits/issues"
-"Source" = "https://github.com/rj416/malign-logits"
+Homepage = "https://github.com/quadrismegistus/malign-logits"
+Repository = "https://github.com/quadrismegistus/malign-logits"
+"Bug Reports" = "https://github.com/quadrismegistus/malign-logits/issues"
+"Source" = "https://github.com/quadrismegistus/malign-logits"
 
 [tool.setuptools]
 packages = ["malign_logits"]
 include-package-data = true
 
 [tool.pytest.ini_options]
+testpaths = ["tests"]
 markers = [
     "slow: requires model downloads or GPU (deselect with '-m \"not slow\"')",
 ]
@@ -76,4 +77,4 @@ markers = [
 dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.package-data]
-"malign_logits" = ["*.py"]
+"malign_logits" = ["ui_dist/**/*"]

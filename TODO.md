@@ -103,7 +103,7 @@ Playwright installed for headless iteration. Goal: make the UI useful as a book 
 ### Moderate (new forward passes, local MPS)
 - [ ] **System prompt effect at 45 families** (currently 3) — 4 conditions (raw/chat-default/chat-safety/chat-permissive) × 5 prompts per model. ~5 hours on MPS.
 - [ ] **SFT↔DPO cross-resistance** — beam search on DPO, teacher-force through SFT and vice versa. For 3+ layer families (~20 families). ~8 hours on MPS.
-- [ ] **Teacher-forced prompt extension** — append target word (e.g. "kill") to prompt, compare next-token distributions between base and aligned. Geography-independent displacement measure. ~10 min per word across all families.
+- [x] **Teacher-forced prompt extension** (done in fee76ad) — append target word (e.g. "kill") to prompt, compare next-token distributions between base and aligned. Geography-independent displacement measure. ~10 min per word across all families.
 
 ### Data / findings cleanup
 - [x] **Mark stale TODOs** — DONE (2026-07-01). Cleaned up top-of-file items.

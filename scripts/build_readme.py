@@ -45,6 +45,7 @@ SLUGS = {
     31: "permanova_decomposition",
     32: "template_mediated_distributions",
     33: "scale_effects",
+    26: "census",
     34: "cross_linguistic_displacement",
     35: "architecture_independence",
 }
