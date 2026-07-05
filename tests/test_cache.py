@@ -198,23 +198,62 @@ def test_real_generations():
 
 # ── Compat wrapper ──────────────────────────────────────────────
 
-def test_compute_passage_metrics_uses_cache():
-    """compute_passage_metrics uses CacheManager not StashCompat."""
-    from malign_logits.embedding import compute_passage_metrics
-    # Just verify it imports and the function exists — full test
-    # requires model loading
-    assert callable(compute_passage_metrics)
+def test_score_vocab_keyed_by_vocabulary(tmp_path):
+    """Two vocabularies for the same (model, prompt) must not collide.
+
+    Regression for the llama/tulu shared-base contamination: the old
+    {model, prompt} key let a second family read the first family's scores.
+    """
+    from malign_logits.cache import CacheManager
+    cm = CacheManager(root=str(tmp_path))
+    vocab_a = ["kill", "scream"]
+    vocab_b = ["hug", "smile"]
+    cm.set_score_vocab("m", "p", {"kill": 0.9, "scream": 0.1}, words=vocab_a)
+    cm.set_score_vocab("m", "p", {"hug": 0.5, "smile": 0.5}, words=vocab_b)
+
+    assert cm.get_score_vocab("m", "p", words=vocab_a) == {"kill": 0.9, "scream": 0.1}
+    assert cm.get_score_vocab("m", "p", words=vocab_b) == {"hug": 0.5, "smile": 0.5}
+    # a never-stored vocabulary is a clean miss, not a wrong hit
+    assert cm.get_score_vocab("m", "p", words=["other"]) is None
+
+
+def test_score_vocab_requires_words(tmp_path):
+    """Unkeyed writes are refused — they would collide across vocabularies."""
+    from malign_logits.cache import CacheManager
+    cm = CacheManager(root=str(tmp_path))
+    with pytest.raises(ValueError):
+        cm.set_score_vocab("m", "p", {"kill": 1.0})
+
+
+def test_derived_routing_roundtrip(tmp_path):
+    """get/set/has_derived route every typed key to its stash and back."""
+    from malign_logits.cache import CacheManager
+    cm = CacheManager(root=str(tmp_path))
+    cases = [
+        ({"type": "top_words", "model": "m", "prompt": "p", "k": 200}, {"w": 0.5}),
+        ({"type": "logit_lens", "model": "m", "prompt": "p", "k": 5}, [["t", 0.1]]),
+        ({"type": "perplexity", "model": "m", "prompt": "p"}, 42.0),
+    ]
+    for key, val in cases:
+        assert not cm.has_derived(key)
+        assert cm.get_derived(key) is None
+        cm.set_derived(key, val)
+        assert cm.has_derived(key)
+        assert cm.get_derived(key) == val
+    with pytest.raises(ValueError):        # unknown type is loud, not a junk drawer
+        cm.get_derived({"type": "mystery", "model": "m", "prompt": "p"})
 
 
 @pytest.mark.skipif(
     not os.path.exists(os.path.join(CACHE_ROOT, "logits")),
     reason="No migrated cache on this machine")
 def test_psyche_cache():
-    """Psyche uses CacheManager directly."""
+    """Psyche wires a working CacheManager (not just present — usable)."""
     from malign_logits.psyche import Psyche
     p = Psyche.from_family('olmo', load=False)
     assert p._cache is not None
-    assert hasattr(p._cache, 'get_logits')
+    # exercise a real read path rather than hasattr
+    assert p._cache.get_logits("no/such-model", "no such prompt") is None
 
 
 # ── Run directly ────────────────────────────────────────────────
