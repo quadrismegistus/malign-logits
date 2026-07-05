@@ -1451,8 +1451,7 @@ def mode_decomposition(dive, prompt: str, gen: int = 0, pos: int = 0) -> 'pd.Dat
     mode_labels = {
         ("raw", "chat"): "special tokens",
         ("chat", "continue"): "instruction framing",
-        ("chat", "think"): "thinking",
-        ("raw", "chat"): "total template",
+        ("continue", "think"): "thinking",
     }
 
     for cp in [base_cp, final_cp]:

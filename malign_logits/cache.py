@@ -395,24 +395,45 @@ class CacheManager:
 
     # ── score vocab (word-level probabilities) ─────────────────
 
+    @staticmethod
+    def _vocab_hash(words):
+        """Stable id for a vocabulary (order-insensitive)."""
+        import hashlib
+        return hashlib.sha256("\n".join(sorted(words)).encode()).hexdigest()[:16]
+
     def get_score_vocab(self, model, prompt, words=None):
-        key = {"model": model, "prompt": prompt}
+        """Word-probability scores for one (model, prompt, vocabulary).
+
+        Keys include a hash of the vocabulary: two families sharing a base
+        model (llama/tulu) have different focused vocabularies, and the old
+        {model, prompt} key let the second family silently read the first's
+        scores (missing words read as probability 0 in formation_df).
+        Ambiguous legacy {model, prompt} entries are deliberately NOT read.
+        words=None scans for any vocabulary's entry (display use only).
+        """
         s = self._stash("score_vocab_v2")
-        if key in s:
-            return s[key]
-        # Fall back to old format with words in key
         if words is not None:
-            old_key = {"type": "score_vocab", "model": model, "prompt": prompt, "words": tuple(words)}
+            key = {"model": model, "prompt": prompt,
+                   "vocab": self._vocab_hash(words)}
+            if key in s:
+                return s[key]
+            # Oldest format was already vocabulary-exact — safe to read
+            old_key = {"type": "score_vocab", "model": model, "prompt": prompt,
+                       "words": tuple(words)}
             if old_key in s:
                 return s[old_key]
-        else:
-            for k in s.keys():
-                if isinstance(k, dict) and k.get("model") == model and k.get("prompt") == prompt:
-                    return s[k]
+            return None
+        for k in s.keys():
+            if isinstance(k, dict) and k.get("model") == model \
+                    and k.get("prompt") == prompt and "vocab" in k:
+                return s[k]
         return None
 
     def set_score_vocab(self, model, prompt, scores, words=None):
-        key = {"model": model, "prompt": prompt}
+        if words is None:
+            raise ValueError("set_score_vocab requires the vocabulary (words=) — "
+                             "unkeyed score_vocab entries collide across vocabularies")
+        key = {"model": model, "prompt": prompt, "vocab": self._vocab_hash(words)}
         self._stash("score_vocab_v2")[key] = scores
 
     def has_score_vocab(self, model, prompt, words=None):
@@ -534,9 +555,10 @@ class CacheManager:
                     lambda v: self.set_beam_words(m, p, v, n, d),
                     lambda: self.has_beam_words(m, p, n, d))
         if t == "score_vocab":
-            return (lambda: self.get_score_vocab(m, p),
-                    lambda v: self.set_score_vocab(m, p, v),
-                    lambda: self.has_score_vocab(m, p))
+            w = key.get("words")
+            return (lambda: self.get_score_vocab(m, p, w),
+                    lambda v: self.set_score_vocab(m, p, v, w),
+                    lambda: self.has_score_vocab(m, p, w))
         if t in ("beam_annotated_v1", "beam_cross_v1"):
             return (lambda: self.get_beams(key),
                     lambda v: self.set_beams(key, v),

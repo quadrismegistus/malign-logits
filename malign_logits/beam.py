@@ -60,6 +60,7 @@ def beam_storylines(model_id: str, prompt: str, n: int = 100,
             max_new_tokens=max_tokens,
             output_scores=True,
             return_dict_in_generate=True,
+            length_penalty=0.0,  # sequences_scores = raw sum logprob (true path prob)
         )
 
     # Compute per-beam per-position entropy from scores (vectorized)
@@ -387,6 +388,7 @@ def batch_beam_annotate(model_id: str, prompts: dict = None,
                     ids, num_beams=n, num_return_sequences=n,
                     max_new_tokens=max_tokens, output_scores=True,
                     return_dict_in_generate=True,
+                    length_penalty=0.0,  # sequences_scores = raw sum logprob (true path prob)
                 )
             # Compute per-beam entropy (vectorized)
             from scipy.special import softmax as _softmax

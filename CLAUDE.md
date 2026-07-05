@@ -457,9 +457,9 @@ Under Pythia 1B: Fiction (+0.40σ) > Dreams (+0.14σ) > Abstracts (+0.10σ) > AI
 
 Logit-level entropy: alignment reduces from ~4 to ~3 nats. Self-surprisal: base models at Shannon's English rate (~1.0 bits/char), alignment compresses 9/10 families below. Self-vs-reference gap widens = "private language." Amber anomaly: safety model more surprised by own output. Category: liminal loses most entropy (r=-0.84, p=0.004). Data: `data/shannon_entropy.csv`, `data/self_surprisal.csv`. Notebook: `notebooks/10_shannon.ipynb`.
 
-### Done: Fold dimensionality (F12 revised)
+### Done: Fold dimensionality (F12 revised; numbers corrected 2026-07-05)
 
-Alignment is fold not wall. v2.6 held-out closure: 77% (Pythia) to 20% (OLMo). SVD K_50: 2 (Pythia) to 13 (OLMo). Foldability tracks alignment sophistication. Data: `data/fold_rank_summary.csv`, `data/intervention_*.csv`, `data/trajectory_geometry_*.csv`.
+Alignment is fold not wall. v2.6 held-out closure (corrected — the original evaluation leaked training prompts): 61% (Pythia) to 4% (OLMo, Llama); train closure 37–92% shows the gap is generalization, not capacity. SVD K_50: 2 (Pythia) to 13 (OLMo). Foldability tracks alignment sophistication (ρ ≈ −0.75 vs K_50). Data: `data/fold_rank_summary.csv`, `data/intervention_*.csv`, `data/trajectory_geometry_*.csv`. Re-derivation: `scripts/rederive_f12_heldout.py`.
 
 ### Done: vLLM generation pipeline
 

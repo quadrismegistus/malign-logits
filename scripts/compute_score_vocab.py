@@ -140,7 +140,7 @@ def main():
 
                 # Score every model against the union
                 for mid in models:
-                    if cm.has_score_vocab(mid, p):
+                    if cm.has_score_vocab(mid, p, candidate_words):
                         total_skipped += 1
                         continue
                     logits = cm.get_logits(mid, p)
@@ -152,7 +152,7 @@ def main():
                         scores = score_words_from_logits(
                             torch.tensor(logits), tokenizer, candidate_words
                         )
-                        cm.set_score_vocab(mid, p, scores)
+                        cm.set_score_vocab(mid, p, scores, candidate_words)
                         family_scored += 1
                         total_scored += 1
                     except Exception:

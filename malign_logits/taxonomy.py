@@ -155,6 +155,7 @@ def run_taxonomy(family_key="olmo", all_prompts=False, output_path=None,
                         "family": family_key,
                         "label": label,
                         "prompt": prompt[:60],
+                        "prompt_full": prompt,
                         "axis": axis,
                         "source": src,
                         "target": tgt,
@@ -265,6 +266,23 @@ def add_aligned_baseline(family_key="olmo", input_path=None, output_path=None,
         print("No superego model available. Cannot compute aligned baseline.")
         return df
 
+    # Full prompt text: the CSV's 'prompt' column is truncated to 60 chars for
+    # display, which silently changed the context for prompts longer than that.
+    # Prefer prompt_full; fall back to resolving the label for older CSVs.
+    def _full_prompt(row):
+        pf = row.get("prompt_full")
+        if isinstance(pf, str) and pf:
+            return pf
+        from .experiments import DEFAULT_PROMPTS, INSTITUTIONAL_PROMPTS
+        label_map = {**DEFAULT_PROMPTS, **INSTITUTIONAL_PROMPTS}
+        if row["label"] in label_map:
+            return label_map[row["label"]]
+        p = row["prompt"]
+        if isinstance(p, str) and len(p) < 60:
+            return p  # short enough that truncation never applied
+        raise ValueError(f"cannot recover full prompt for label {row['label']!r} "
+                         f"(truncated at 60 chars; re-run taxonomy to get prompt_full)")
+
     print(f"Computing aligned syntagmatic_js for {n_todo} pairs...")
     done = 0
     for idx in df.index[todo]:
@@ -272,7 +290,7 @@ def add_aligned_baseline(family_key="olmo", input_path=None, output_path=None,
         try:
             val = syntagmatic_js(
                 aligned.model, aligned.tokenizer,
-                row["prompt"], row["source"], row["target"],
+                _full_prompt(row), row["source"], row["target"],
             )
             df.at[idx, "syntagmatic_js_aligned"] = round(val, 6)
         except Exception:

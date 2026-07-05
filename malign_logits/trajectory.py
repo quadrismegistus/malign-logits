@@ -762,6 +762,7 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
             training_losses[(L, init_name)] = losses
             print(f"  done in {time.time() - t0:.1f}s, ||d||={d_learned.norm().item():.2f}")
 
+    eval_set = set(eval_keys)
     v26_rows = []
     for L in intervention_layers:
         for init_name in ["avg_init", "rand_init"]:
@@ -778,6 +779,7 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
                                                       d_learned, alpha)
                     v26_rows.append({
                         "init": init_name, "label": label, "layer": L, "alpha": alpha,
+                        "split": "eval" if label in eval_set else "train",
                         "js_to_base": js_divergence(logits_int, logits_b),
                         "js_to_dpo": js_divergence(logits_int, logits_d),
                         "baseline_js": js_bd,
@@ -786,15 +788,25 @@ def run_intervention(psyche, family, intervention_layers, out_dir, n_epochs=30,
     df_v26 = pd.DataFrame(v26_rows)
     df_v26["closure"] = (df_v26["baseline_js"] - df_v26["js_to_dpo"]) / df_v26["baseline_js"]
 
-    v26_summary = (df_v26[df_v26["alpha"] != 0]
+    # Held-out closure MUST be computed on eval prompts only — the training
+    # half saw these exact DPO targets during vector optimization, and mixing
+    # them in inflated the reported numbers (audit §1.1).
+    df_eval = df_v26[df_v26["split"] == "eval"]
+    v26_summary = (df_eval[df_eval["alpha"] != 0]
                    .groupby(["init", "layer", "alpha"])["closure"].mean().reset_index())
     v26_summary["mean_closure_pct"] = v26_summary["closure"] * 100
     best_per = v26_summary.loc[
         v26_summary.groupby(["init", "layer"])["closure"].idxmax()
     ].reset_index(drop=True)
 
-    print("\n  Best alpha per (init, layer) by held-out mean closure:")
+    print("\n  Best alpha per (init, layer) by held-out mean closure (eval split only):")
     print(best_per[["init", "layer", "alpha", "mean_closure_pct"]].round(2).to_string(index=False))
+
+    train_summary = (df_v26[(df_v26["split"] == "train") & (df_v26["alpha"] != 0)]
+                     .groupby(["init", "layer"])["closure"].max())
+    if len(train_summary):
+        print(f"  (train-split max closure for comparison: "
+              f"{train_summary.max() * 100:.1f}%)")
 
     # v2.6 figure
     fig, axes = plt.subplots(2, 2, figsize=(14, 10))
