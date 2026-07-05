@@ -1,3 +1,5 @@
+import warnings
+
 from . import *
 
 
@@ -236,10 +238,22 @@ def _apply_mode(prompt, tokenizer, mode="raw"):
         kwargs = {}
         if mode == "think":
             kwargs["enable_thinking"] = True
-        templated = tokenizer.apply_chat_template(
+        return tokenizer.apply_chat_template(
             messages, tokenize=False, add_generation_prompt=True, **kwargs)
-        return templated
-    except Exception:
+    except TypeError:
+        # enable_thinking unsupported by this template — retry as plain chat
+        # rather than silently dropping to a raw (un-templated) prompt.
+        if mode == "think":
+            try:
+                return tokenizer.apply_chat_template(
+                    messages, tokenize=False, add_generation_prompt=True)
+            except Exception as e:
+                warnings.warn(f"_apply_mode({mode!r}) falling back to raw prompt: {e}")
+                return prompt
+        warnings.warn(f"_apply_mode({mode!r}) falling back to raw prompt")
+        return prompt
+    except Exception as e:
+        warnings.warn(f"_apply_mode({mode!r}) falling back to raw prompt: {e}")
         return prompt
 
 

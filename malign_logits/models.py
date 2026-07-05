@@ -12,7 +12,9 @@ def _load_tokenizer(model_name, revision=None, cache_dir=None):
     tok = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True, **kwargs)
     # Some models (e.g. DeepSeek LLM 7B) ship a slow LlamaTokenizer that
     # doesn't decode GPT-2 byte-pair markers (Ġ→space). Detect and fix.
-    if tok.decode(tok.encode("a b")) != "a b":
+    # add_special_tokens=False so a prepended BOS (Llama, Amber, ...) doesn't
+    # make every such tokenizer look broken and trigger a needless reload.
+    if tok.decode(tok.encode("a b", add_special_tokens=False)) != "a b":
         tok = PreTrainedTokenizerFast.from_pretrained(model_name, trust_remote_code=True, **kwargs)
     return tok
 

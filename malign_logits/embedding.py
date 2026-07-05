@@ -1063,6 +1063,11 @@ def run_generate_battery(families=None, prompts_set="tier1", category=None,
         model_ids = [fam.base]
         if fam.ego: model_ids.append(fam.ego)
         if fam.superego: model_ids.append(fam.superego)
+        # generate_many below counts ALL layers; if the cache check omits the
+        # RLVR layer, a 4-layer family with a partially-cached RLVR looks
+        # "fully cached", the model never loads, and generation hits model=None.
+        if getattr(fam, "reinforced_superego", None):
+            model_ids.append(fam.reinforced_superego)
         needed_prompts = {
             label: prompt for label, prompt in prompts.items()
             if _check_cached_count(prompt, temperature=1.0, model_ids=model_ids) < n

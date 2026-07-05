@@ -903,8 +903,8 @@ class ModelHandler(BaseHTTPRequestHandler):
         return layer
 
     def do_OPTIONS(self):
+        self.send_response(204)  # status line MUST precede send_header calls
         self._cors_headers()
-        self.send_response(204)
         self.end_headers()
 
     def _cors_headers(self):

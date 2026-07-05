@@ -178,7 +178,8 @@ def cmd_launch(args):
         except (json.JSONDecodeError, ValueError):
             pass
         try:
-            parsed = eval(line)
+            import ast
+            parsed = ast.literal_eval(line)  # vast.ai emits Python dict-repr (single quotes)
             if isinstance(parsed, dict) and parsed.get('new_contract'):
                 instance_id = str(parsed['new_contract'])
                 break
@@ -200,6 +201,8 @@ def cmd_launch(args):
     print(f"Instance {instance_id} created. Waiting for SSH...", file=sys.stderr)
 
     ssh_host, ssh_port = None, None
+    status = ''  # bind before use: the else branch below references it even on
+                 # the first poll, when no instance may match instance_id yet
     for attempt in range(60):
         raw = vastai('show', 'instances', '--raw')
         instances = json.loads(raw)
