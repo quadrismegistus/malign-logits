@@ -97,6 +97,11 @@ PROMPTS = {
 OUTPUT_DIR = "/workspace/logits_deepseek_v3"
 
 
+# NOTE: n_beams=200 here vs 1000 everywhere else (core.beam_word_probs,
+# olmoe_cloud.py). Cost concession for a 671B model. Beam-word distributions
+# are not strictly comparable across beam widths — when comparing DeepSeek-V3.1
+# beam words against 1000-beam families, treat the width difference as a caveat
+# (narrower beam = fewer multi-token continuations surfaced).
 def beam_word_probs(model, tokenizer, prompt, n_beams=200, depth=3):
     device = next(model.parameters()).device
     input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)

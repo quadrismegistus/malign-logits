@@ -206,6 +206,34 @@ malign serve --data-only         # cached data only, no model loading
 malign ui                        # opens browser; --dev runs Vite from ui/
 ```
 
+### CLI subcommands
+
+`malign <cmd>` — run `malign <cmd> --help` for flags. (Source of truth: `cli.py`.)
+
+| Command | Purpose | Finding |
+|---|---|---|
+| `info` | Print registered families + config | — |
+| `serve` / `ui` | Model/data server + Svelte explorer | — |
+| `precompute` | Fast logit caching (1 fwd pass/layer×prompt) | F01 |
+| `battery` | Cross-family logit battery | F02, F06, F09 |
+| `taxonomy` | Displacement taxonomy; `--analyze`, `--baseline` | F08, F13, F14 |
+| `logit-lens` | Hidden states → unembedding per layer | F05 |
+| `step-analysis` | Repression across training-step checkpoints | F04 |
+| `trajectory` | Hidden-state geometry, steering vectors, fold | F12 |
+| `generate-battery` | Generate + embed + cluster metrics | F03 |
+| `topic-drift` / `surprisal` / `embed` | Passage metrics on cached generations | F15, F18 |
+| `bos-generate` | Unconditional (BOS) generation | F19 |
+| `ingest` | Load human corpora into the generation cache | F16 |
+| `api-generate` | Frontier-API generation (DeepSeek etc.) | F21 |
+| `vllm-generate` | Batched vLLM generation (`--tp` for tensor-parallel) | — |
+| `probe` | Token trees: `batch`, `status`, `merge`, `ingest`, `census`, `download`, `cloud-status` | F26, F27, F28 |
+| `deep-probe` | Full tensor collection to parquet | — |
+| `circuit` | Reasoning-model circuit / temporal signatures | F22, F23, F25 |
+| `ablation` | Tulu SFT data-mixture ablation | F10 |
+| `cloud` | vast.ai orchestration (`launch`, `run`, ...) | — |
+| `produce-all` | Run the full production pipeline | — |
+| `download-models` | Pre-fetch checkpoints | — |
+
 ### Key classes
 
 - **`ModelFamily`** — dataclass mapping a model family to its checkpoints. `MODEL_FAMILIES` dict in `__init__.py`.

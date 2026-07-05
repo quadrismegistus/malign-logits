@@ -179,6 +179,10 @@ class GraphDB:
 
             for pname, ptext in prompts.items():
                 try:
+                    # annotate_tree reads through explore_tree's canonical
+                    # tree_key, so a prior `malign probe batch` (fast, KV-cached)
+                    # is found here and NOT re-annotated. Run batch before
+                    # ingest; the slow per-node path only fires on a cold tree.
                     nodes = probe.annotate_tree(pname)
                 except Exception as e:
                     print(f"  Skip {base_short}/{pname}: {e}")

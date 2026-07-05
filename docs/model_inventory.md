@@ -1,4 +1,6 @@
-# Models studied: 17 families from 6 countries
+# Models studied: 17 primary families from 6 countries
+
+> **Scope note (as of 2026-07-05).** This table is the *curated deep-dive set* — the 17 families carried through the full analysis pipeline with per-family interpretive notes. The code registers **47 families / 107 checkpoints** total in `MODEL_FAMILIES` (run `malign info` for the live list); the remainder are scale ladders, architecture variants (SSM/MoE/RNN), and method ablations used in specific findings (e.g. F33 scale, F35 architecture). Family counts quoted elsewhere in older docs (20 in `model_candidates.md`, 59 in earlier PROBE notes) are point-in-time — `MODEL_FAMILIES` is the single source of truth.
 
 | Key | Family | Layers | Developer | Country | Significance |
 |-----|--------|--------|-----------|---------|-------------|
