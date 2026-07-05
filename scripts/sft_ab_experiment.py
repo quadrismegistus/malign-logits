@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """A/B SFT experiment: OLMo-2-1B with and without safety data.
 
-Condition A: full Tulu 3 SFT mix (~940K examples)
-Condition B: same mix minus CoCoNot/WildGuardMix/WildJailbreak (~830K examples)
+Condition A: full Tulu 3 SFT mix, subsampled to 100K examples (seed 42)
+Condition B: same subsample minus CoCoNot/WildGuardMix/WildJailbreak
 
 Then extracts logits for the standard 73-prompt battery from both checkpoints.
 
@@ -12,7 +12,11 @@ Usage on cloud (single A100):
     python scripts/sft_ab_experiment.py --condition no-safety
     python scripts/sft_ab_experiment.py --extract-logits  # after both conditions
 
-Hyperparameters match Tulu 3 SFT recipe.
+Training regime (cost-reduced from the Tulu 3 recipe, identical across both
+conditions so the A/B contrast is clean): 100K-example subsample (seed 42),
+1 epoch, effective batch 32, lr per Tulu 3. This is the exact configuration
+that produced data/logits_sft_base/, data/logits_sft_full/, and
+data/logits_sft_nosafety/.
 """
 
 import argparse
@@ -109,7 +113,7 @@ PROMPTS = {
 
 
 def is_safety(example):
-    src = example.get('source', '')
+    src = example.get('source', '') or ''
     return any(s in src.lower() for s in SAFETY_SOURCES)
 
 
@@ -158,6 +162,12 @@ def train(condition, tokenizer, max_length=2048):
     else:
         raise ValueError(f"Unknown condition: {condition}")
 
+    # Subsample for speed — 100K is sufficient for A/B comparison at 1B
+    MAX_EXAMPLES = 100000
+    if len(ds) > MAX_EXAMPLES:
+        ds = ds.shuffle(seed=42).select(range(MAX_EXAMPLES))
+        print(f"  Subsampled to {len(ds)} examples")
+
     # Tokenize
     print("Tokenizing...")
     ds = ds.map(
@@ -174,16 +184,16 @@ def train(condition, tokenizer, max_length=2048):
     # Training args (Tulu 3 SFT recipe)
     training_args = TrainingArguments(
         output_dir=output_dir,
-        num_train_epochs=2,
-        per_device_train_batch_size=1,
-        gradient_accumulation_steps=128,  # effective batch = 128
+        num_train_epochs=1,  # 1 epoch sufficient for A/B comparison
+        per_device_train_batch_size=4,
+        gradient_accumulation_steps=8,  # effective batch = 32
         learning_rate=2e-5,
         weight_decay=0.0,
         warmup_ratio=0.03,
         lr_scheduler_type="cosine",
         bf16=True,
         gradient_checkpointing=True,
-        logging_steps=50,
+        logging_steps=100,
         save_strategy="no",
         report_to="none",
         dataloader_num_workers=4,

@@ -232,7 +232,7 @@ class DeepDive:
                     tpl = chat_tokenizer.apply_chat_template(
                         messages, add_generation_prompt=True,
                         return_tensors="pt")
-                elif mode == "chat":
+                elif mode == "continue":
                     messages = [{"role": "assistant", "content": prompt_text}]
                     tpl = chat_tokenizer.apply_chat_template(
                         messages, continue_final_message=True,

@@ -226,18 +226,6 @@ class ModelHandler(BaseHTTPRequestHandler):
                     models.add(m)
                     prompts.add(k.get("prompt", ""))
                     sources_by_model[m].add(k.get("source", ""))
-                # Also check legacy stash
-                legacy = cm._stash("psyche_derived")
-                for k in legacy.keys():
-                    if not isinstance(k, dict):
-                        continue
-                    t = k.get("type", "")
-                    if t not in ("beam_annotated_v1", "beam_cross_v1"):
-                        continue
-                    m = k.get("model", "")
-                    models.add(m)
-                    prompts.add(k.get("prompt", ""))
-                    sources_by_model[m].add(k.get("source", ""))
                 sources_map = {m: sorted(s) for m, s in sources_by_model.items()}
                 nicks = {m: reg.nickname(m) for m in models}
                 # Build source nickname lookup (truncated name → nickname)
@@ -275,22 +263,6 @@ class ModelHandler(BaseHTTPRequestHandler):
                     elif t == "beam_annotated_v1" and not source:
                         data = cm.get_beams(k)
                         break
-                if data is None:
-                    legacy = cm._stash("psyche_derived")
-                    for k in legacy.keys():
-                        if not isinstance(k, dict):
-                            continue
-                        if k.get("model") != model or k.get("prompt") != prompt:
-                            continue
-                        t = k.get("type", "")
-                        if t == "beam_cross_v1":
-                            if source and k.get("source", "") != source:
-                                continue
-                            data = legacy[k]
-                            break
-                        elif t == "beam_annotated_v1" and not source:
-                            data = legacy[k]
-                            break
                 if data is None:
                     self._respond(200, {"storylines": [], "error": "not found"})
                     return
@@ -491,7 +463,10 @@ class ModelHandler(BaseHTTPRequestHandler):
         path = self.path.split("?")[0]
         if path == "/":
             path = "/index.html"
-        file_path = _UI_DIR / path.lstrip("/")
+        file_path = (_UI_DIR / path.lstrip("/")).resolve()
+        if not file_path.is_relative_to(_UI_DIR.resolve()):
+            self._respond(404, {"error": "not found"})
+            return
         if not file_path.is_file():
             file_path = _UI_DIR / "index.html"
         if not file_path.is_file():
@@ -952,7 +927,7 @@ class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
     daemon_threads = True
 
 
-def serve(port=8421, family=None, host="0.0.0.0", data_only=False):
+def serve(port=8421, family=None, host="127.0.0.1", data_only=False):
     """Start the model server."""
     global _family
     _family = family

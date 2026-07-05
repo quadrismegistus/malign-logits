@@ -178,14 +178,29 @@ def produce_all(families=None, skip=None, gen_n=30, force=False):
         print(f"\n{'=' * 60}\n  Embedding + generation metrics\n{'=' * 60}")
         try:
             from .embedding import (
-                compute_concept_metrics, compute_generation_metrics, embed_generations,
+                compute_concept_metrics, compute_generation_metrics,
+                embed_generations, load_generations_from_stash,
             )
-            embed_generations()
-            gen_metrics = compute_generation_metrics()
-            compute_concept_metrics()
-            if gen_metrics is not None:
-                gen_metrics.to_csv("data/gen_battery_metrics.csv", index=False)
-                print(f"  Saved data/gen_battery_metrics.csv")
+            psg_df = load_generations_from_stash()
+            if families:
+                psg_df = psg_df[psg_df["family"].isin(keys)].reset_index(drop=True)
+            if psg_df.empty:
+                raise RuntimeError("no cached generations found to embed")
+            print(f"  {len(psg_df)} cached generations")
+            embeds_df = embed_generations(psg_df)
+            metrics_rows = []
+            for (fam_key, label), idx in psg_df.groupby(["family", "label"]).groups.items():
+                sub_psg = psg_df.loc[idx].reset_index(drop=True)
+                sub_emb = embeds_df.loc[idx].reset_index(drop=True)
+                m = compute_generation_metrics(sub_emb, sub_psg)
+                m.update(compute_concept_metrics(sub_emb, sub_psg))
+                m["family"] = fam_key
+                m["label"] = label
+                m["n_generations"] = len(sub_psg)
+                metrics_rows.append(m)
+            gen_metrics = pd.DataFrame(metrics_rows)
+            gen_metrics.to_csv("data/gen_battery_metrics.csv", index=False)
+            print(f"  Saved data/gen_battery_metrics.csv ({len(gen_metrics)} rows)")
             results["embed-metrics"] = "done"
         except Exception as e:
             print(f"  ERROR: {e}")

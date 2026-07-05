@@ -80,6 +80,26 @@ def _get_cache():
     return get_cache()
 
 
+def tree_key(model_id, prompt_text, max_depth=10, coverage=0.5, branch_depth=2):
+    """Canonical trees-stash key — the ONE schema for explore_tree,
+    annotate_tree, batch_annotate, `malign probe status`, and GraphDB ingest.
+
+    Historically three schemas coexisted (explore/annotate keyed on
+    coverage/branch_depth, batch on path_threshold, cli status on a stale v2),
+    so batch-annotated trees were invisible to ingest — which then reloaded
+    every annotator and redid the work. Non-default coverage/branch_depth
+    explorations produce different trees, so those params join the key only
+    when they differ from the defaults.
+    """
+    key = {"model": model_id, "prompt": prompt_text,
+           "path_threshold": 0.01, "max_depth": max_depth,
+           "type": "explore_tree_v3"}
+    if coverage != 0.5 or branch_depth != 2:
+        key["coverage"] = coverage
+        key["branch_depth"] = branch_depth
+    return key
+
+
 class Probe:
     """One model's stored data: logits, hidden states, embeddings.
 
@@ -142,7 +162,7 @@ class Probe:
                     msgs = [{"role": "user", "content": prompt_text}]
                     tpl = tokenizer.apply_chat_template(
                         msgs, add_generation_prompt=True, return_tensors="pt")
-                elif mode == "chat":
+                elif mode == "continue":
                     msgs = [{"role": "assistant", "content": prompt_text}]
                     tpl = tokenizer.apply_chat_template(
                         msgs, continue_final_message=True, return_tensors="pt")
@@ -1023,13 +1043,18 @@ class Probe:
 
         prompt_text = _resolve_prompt(prompt)
         cache = _get_cache()
-        tree_key = {"model": self.model_id, "prompt": prompt_text,
-                    "coverage": coverage, "branch_depth": branch_depth,
-                    "max_depth": max_depth,
-                    "type": "explore_tree_v3"}
-        cached = cache.get_tree(tree_key)
+        key = tree_key(self.model_id, prompt_text, max_depth=max_depth,
+                       coverage=coverage, branch_depth=branch_depth)
+        cached = cache.get_tree(key)
         if cached is not None:
             return cached
+        # Pre-unification schema (coverage/branch_depth key) — migrate on read
+        legacy = cache.get_tree({"model": self.model_id, "prompt": prompt_text,
+                                 "coverage": coverage, "branch_depth": branch_depth,
+                                 "max_depth": max_depth, "type": "explore_tree_v3"})
+        if legacy is not None:
+            cache.set_tree(key, legacy)
+            return legacy
 
         model, tokenizer = load_model(self.model_id)
         self._tokenizer = tokenizer
@@ -1140,13 +1165,12 @@ class Probe:
 
         print(f" {len(nodes)} nodes")
         if cache:
-            tree_key = {"model": self.model_id, "prompt": prompt_text,
-                        "coverage": coverage, "branch_depth": branch_depth,
-                        "max_depth": max_depth, "type": "explore_tree_v3"}
+            key = tree_key(self.model_id, prompt_text, max_depth=max_depth,
+                           coverage=coverage, branch_depth=branch_depth)
             # Strip _logits before caching (150k floats per node = 170GB for full run)
             cache_nodes = [{k: v for k, v in n.items() if k != "_logits"}
                            for n in nodes]
-            cache.set_tree(tree_key, cache_nodes)
+            cache.set_tree(key, cache_nodes)
         return nodes
 
     def annotate_tree(self, prompt: str, annotators: list = None,
@@ -1366,10 +1390,9 @@ class Probe:
 
         # Update cache with annotated tree (same key as explore_tree)
         cache = _get_cache()
-        tree_key = {"model": self.model_id, "prompt": prompt_text,
-                    "coverage": 0.5, "branch_depth": 2,
-                    "max_depth": max_depth, "type": "explore_tree_v3"}
-        cache.set_tree(tree_key, nodes)
+        cache.set_tree(tree_key(self.model_id, prompt_text,
+                                max_depth=max_depth, coverage=coverage),
+                       nodes)
 
         return nodes
 
@@ -1397,10 +1420,8 @@ class Probe:
         uncached = {}
         cache = _get_cache()
         for pname, ptext in prompts.items():
-            tree_key = {"model": self.model_id, "prompt": ptext,
-                        "path_threshold": 0.01, "max_depth": max_depth,
-                        "type": "explore_tree_v3"}
-            cached = cache.get_tree(tree_key)
+            cached = cache.get_tree(tree_key(self.model_id, ptext,
+                                             max_depth=max_depth))
             if cached is not None:
                 trees[pname] = cached
             else:
@@ -1650,10 +1671,8 @@ class Probe:
         # Cache all annotated trees
         cache = _get_cache()
         for pname, ptext in prompts.items():
-            tree_key = {"model": self.model_id, "prompt": ptext,
-                        "path_threshold": 0.01, "max_depth": max_depth,
-                        "type": "explore_tree_v3"}
-            cache.set_tree(tree_key, trees[pname])
+            cache.set_tree(tree_key(self.model_id, ptext, max_depth=max_depth),
+                           trees[pname])
 
         return trees
 

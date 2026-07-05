@@ -121,7 +121,7 @@ def run_step_analysis(steps=None, prompts_set="tier1", category=None,
         rev = f"step{step}"
         model_id = f"{repo}@{rev}"
         all_cached = all(
-            ("logits", model_id, "step", prompt) in stash for prompt in prompts.values()
+            cache.has_logits(f"{model_id}_step", prompt) for prompt in prompts.values()
         )
         if all_cached:
             print(f"\n  step{step}: all logits cached, skipping.")

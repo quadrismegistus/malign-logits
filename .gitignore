@@ -225,9 +225,10 @@ notes/
 # Svelte UI
 ui/node_modules/
 ui/.svelte-kit/
-notebooks/archive/
-.vastai.jsondraft/
-logs
 
-draft
-*.bakdata/models/
+notebooks/archive/
+.vastai.json
+logs/
+draft/
+*.bak
+data/models/

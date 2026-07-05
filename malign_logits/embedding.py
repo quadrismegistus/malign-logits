@@ -812,11 +812,13 @@ run_surprisal = run_topic_drift
 
 _surprisal_model = None
 _surprisal_tokenizer = None
+_surprisal_model_name = None
 
 
 def _load_surprisal_model(model_name="gpt2"):
-    global _surprisal_model, _surprisal_tokenizer
-    if _surprisal_model is None:
+    global _surprisal_model, _surprisal_tokenizer, _surprisal_model_name
+    if _surprisal_model is None or _surprisal_model_name != model_name:
+        _surprisal_model_name = model_name
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
         print(f"Loading {model_name} for surprisal...")

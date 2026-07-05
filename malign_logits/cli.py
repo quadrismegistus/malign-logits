@@ -82,7 +82,8 @@ def cmd_serve(args):
     """Start model server."""
     from .server import serve
     key, _ = _get_family(args)
-    serve(port=args.port, family=key, data_only=getattr(args, 'data_only', False))
+    serve(port=args.port, family=key, host=getattr(args, 'host', '127.0.0.1'),
+          data_only=getattr(args, 'data_only', False))
 
 
 ALL_PROBE_FAMILIES = [
@@ -147,7 +148,7 @@ def cmd_probe(args):
         # Cloud: run on vast.ai, download, merge
         malign cloud launch
         # (on cloud): python scripts/cloud_batch_annotate.py
-        rsync -avz -e "ssh -p PORT" root@HOST:.../psyche_derived/ /tmp/cloud_cache/
+        rsync -avz -e "ssh -p PORT" root@HOST:.../data/raw/cache/trees/ /tmp/cloud_cache/
         malign probe merge /tmp/cloud_cache
         malign probe ingest --clear
         malign probe census
@@ -186,27 +187,25 @@ def cmd_probe(args):
 
         all_prompts = {**DEFAULT_PROMPTS, **INSTITUTIONAL_PROMPTS}
         cm = get_cache()
-        stash = cm._stash("psyche_derived")
         reg = Registry()
 
+        from .probe import tree_key
         print(f"Cache status: {len(all_prompts)} prompts × {len(ALL_PROBE_FAMILIES)} families\n")
         for base_id in ALL_PROBE_FAMILIES:
             cached = sum(1 for pt in all_prompts.values()
-                         if {"model": base_id, "prompt": pt,
-                             "path_threshold": 0.01, "max_depth": 5,
-                             "type": "explore_tree_v2"} in stash)
+                         if cm.has_tree(tree_key(base_id, pt)))
             n_ann = len(reg.variants_of(reg.base_of(base_id) or base_id))
             status = "DONE" if cached == len(all_prompts) else f"{cached}/{len(all_prompts)}"
             print(f"  {base_id.split('/')[-1]:25s} {status:>8s}  ({n_ann} annotators)")
 
     elif cmd == "merge":
-        import hashstash
         from tqdm import tqdm
         from pathlib import Path
+        from .cache import open_stash
 
-        cloud = hashstash.HashStash(args.cloud_path, engine="lmdb")
-        local_path = str(Path(__file__).parent.parent / "data" / "raw" / "cache" / "psyche_derived")
-        local = hashstash.HashStash(local_path, engine="lmdb")
+        cloud = open_stash(args.cloud_path)
+        local_path = str(Path(__file__).parent.parent / "data" / "raw" / "cache" / "trees")
+        local = open_stash(local_path)
 
         cloud_keys = list(cloud.keys())
         local_keys = set(local.keys())
@@ -297,7 +296,7 @@ def cmd_probe(args):
                              "-p", str(port), f"root@{host}",
                              "LOG=$(ls -t /workspace/beam*.log /workspace/batch*.log 2>/dev/null | head -1); "
                             "grep 'DONE\\|---\\|prompts,' $LOG 2>/dev/null; "
-                             "du -sh /workspace/malign-logits/data/raw/cache/psyche_derived/"],
+                             "du -sh /workspace/malign-logits/data/raw/cache/trees/"],
                             capture_output=True, text=True, timeout=15)
                         print("\n--- Batch Progress ---")
                         print(r.stdout)
@@ -320,7 +319,7 @@ def cmd_probe(args):
         rsync_cmd = [
             "rsync", "-avz", "--progress",
             "-e", f"ssh -o StrictHostKeyChecking=no -p {port}",
-            f"root@{host}:/workspace/malign-logits/data/raw/cache/psyche_derived/",
+            f"root@{host}:/workspace/malign-logits/data/raw/cache/trees/",
             f"{tmp_dir}/",
         ]
         subprocess.run(rsync_cmd)
@@ -331,12 +330,12 @@ def cmd_probe(args):
 
         if not args.no_merge:
             print("\nMerging into local cache...")
-            import hashstash
             from tqdm import tqdm
+            from .cache import open_stash
 
-            cloud = hashstash.HashStash(tmp_dir, engine="lmdb")
-            local_path = str(Path(__file__).parent.parent / "data" / "raw" / "cache" / "psyche_derived")
-            local = hashstash.HashStash(local_path, engine="lmdb")
+            cloud = open_stash(tmp_dir)
+            local_path = str(Path(__file__).parent.parent / "data" / "raw" / "cache" / "trees")
+            local = open_stash(local_path)
 
             cloud_keys = list(cloud.keys())
             print(f"Cloud: {len(cloud_keys)} entries")
@@ -414,9 +413,11 @@ def cmd_vllm_generate(args):
                 return
     else:
         families = list(mod.MODEL_FAMILIES.keys())
+    for fam in families:
         mod.generate_family(fam, n=args.n, temperature=args.temperature,
                             max_tokens=args.max_tokens,
-                            prompts_set=args.prompts, dry_run=args.dry_run)
+                            prompts_set=args.prompts, dry_run=args.dry_run,
+                            tp=args.tp)
 
 
 def cmd_api_generate(args):
@@ -1148,6 +1149,8 @@ def main():
     # serve
     sv = subparsers.add_parser("serve", help="Start model server (keeps models loaded)")
     sv.add_argument("--port", type=int, default=8421, help="Port (default 8421)")
+    sv.add_argument("--host", default="127.0.0.1",
+                    help="Bind address (default 127.0.0.1; use 0.0.0.0 to expose on LAN)")
     sv.add_argument("--data-only", action="store_true", help="Serve cached data only, no model loading")
     _add_family_arg(sv)
     sv.set_defaults(func=cmd_serve)
@@ -1333,6 +1336,8 @@ def main():
                     help="Prompt set: tier1 (18) or all (47) (default: tier1)")
     vg.add_argument("--dry-run", action="store_true",
                     help="Show what would be generated without running")
+    vg.add_argument("--tp", type=int, default=1,
+                    help="Tensor parallel size (default: 1)")
     vg.set_defaults(func=cmd_vllm_generate)
 
     # produce-all

@@ -152,7 +152,7 @@ class TestMode:
     def test_mode_values(self):
         assert Mode.RAW.value == "raw"
         assert Mode.CHAT.value == "chat"
-        assert Mode.COMPLETE.value == "complete"
+        assert Mode.CONTINUE.value == "continue"
         assert Mode.THINK.value == "think"
 
     def test_mode_members(self):
