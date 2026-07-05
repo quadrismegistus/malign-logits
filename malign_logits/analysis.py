@@ -368,6 +368,22 @@ def kl_divergence(logits_p, logits_q):
     return (p * (p.log() - q.log())).sum().item()
 
 
+def js_from_probs(p, q):
+    """Jensen-Shannon divergence between two probability vectors (torch).
+
+    The shared JS core. Use this when you already have probabilities —
+    e.g. JS against a mixture distribution. js_divergence() is the
+    logits-in wrapper. (Consolidates a third inline copy that lived in
+    psyche.contradiction_analysis.)
+    """
+    p = p.clamp(min=1e-10)
+    q = q.clamp(min=1e-10)
+    m = 0.5 * (p + q)
+    kl_pm = (p * (p.log() - m.log())).sum().item()
+    kl_qm = (q * (q.log() - m.log())).sum().item()
+    return 0.5 * (kl_pm + kl_qm)
+
+
 def js_divergence(logits_a, logits_b):
     """Jensen-Shannon divergence between two logit distributions.
 
@@ -382,12 +398,9 @@ def js_divergence(logits_a, logits_b):
         float: JS divergence in nats.
     """
     logits_a, logits_b = _align_logits(logits_a, logits_b)
-    p = torch.softmax(logits_a.float(), dim=-1).clamp(min=1e-10)
-    q = torch.softmax(logits_b.float(), dim=-1).clamp(min=1e-10)
-    m = 0.5 * (p + q)
-    kl_pm = (p * (p.log() - m.log())).sum().item()
-    kl_qm = (q * (q.log() - m.log())).sum().item()
-    return 0.5 * (kl_pm + kl_qm)
+    p = torch.softmax(logits_a.float(), dim=-1)
+    q = torch.softmax(logits_b.float(), dim=-1)
+    return js_from_probs(p, q)
 
 
 def top_k_overlap(logits_a, logits_b, k=50):

@@ -205,3 +205,25 @@ def test_align_logits_truncates_to_min_vocab():
     b = torch.randn(200)
     aa, bb = _align_logits(a, b)
     assert aa.shape[-1] == bb.shape[-1] == 200
+
+
+# ── cross-implementation consistency (torch analysis vs numpy metrics) ──
+
+def test_torch_numpy_js_agree():
+    """The two JS implementations must agree — equal AND unequal length,
+    now that both align by truncate-to-min."""
+    from malign_logits.analysis import js_divergence as js_t
+    from malign_logits.metrics import js_divergence as js_n
+    rng = np.random.default_rng(7)
+    for na, nb in [(2000, 2000), (2000, 1500)]:
+        a, b = rng.normal(size=na), rng.normal(size=nb)
+        assert js_t(torch.tensor(a), torch.tensor(b)) == pytest.approx(js_n(a, b), abs=1e-6)
+
+
+def test_js_from_probs_matches_logit_wrapper():
+    """js_divergence(logits) == js_from_probs(softmax(logits))."""
+    from malign_logits.analysis import js_divergence, js_from_probs
+    a, b = torch.randn(400), torch.randn(400)
+    p = torch.softmax(a, dim=-1)
+    q = torch.softmax(b, dim=-1)
+    assert js_divergence(a, b) == pytest.approx(js_from_probs(p, q), abs=1e-9)

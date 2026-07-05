@@ -1763,7 +1763,7 @@ class Psyche:
         if pairs is None:
             pairs = self.DEFAULT_CONTRADICTIONS
 
-        from .analysis import _align_logits
+        from .analysis import js_from_probs
 
         layers = [("base", self.primary_process)]
         if self.ego is not None:
@@ -1795,16 +1795,9 @@ class Psyche:
 
                 p_mean = 0.5 * (p_a + p_b)
 
-                def _js(p, q):
-                    p = p.clamp(min=1e-10)
-                    q = q.clamp(min=1e-10)
-                    m = 0.5 * (p + q)
-                    return (0.5 * (p * (p.log() - m.log())).sum()
-                            + 0.5 * (q * (q.log() - m.log())).sum()).item()
-
-                js_ab_mean = _js(p_ab, p_mean)
-                js_ab_a = _js(p_ab, p_a)
-                js_ab_b = _js(p_ab, p_b)
+                js_ab_mean = js_from_probs(p_ab, p_mean)
+                js_ab_a = js_from_probs(p_ab, p_a)
+                js_ab_b = js_from_probs(p_ab, p_b)
 
                 # Top words that differ most between A and B
                 diff_ab = (p_a - p_b).abs()

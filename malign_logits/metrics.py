@@ -46,17 +46,20 @@ from scipy.stats import spearmanr
 # =============================================================================
 
 def _align_vocab(a: np.ndarray, b: np.ndarray):
-    """Align two logit vectors with different vocab sizes.
-    Pads the shorter with -inf (zero prob after softmax).
+    """Align two logit vectors with different vocab sizes by truncating to the
+    shared prefix (min length).
+
+    Matches analysis._align_logits (truncate-to-min) so the torch and numpy
+    metric families agree — they were provably identical on equal-length inputs
+    (the only case that occurs for published numbers, since cross-family work
+    uses word-probability dicts, not raw-logit JS) but diverged on unequal
+    length. Truncate also avoids the pad-with-−1e10 pathology that corrupted
+    rank_correlation / top_k_overlap (a block of identical sentinel values).
     """
     if len(a) == len(b):
         return a, b
-    n = max(len(a), len(b))
-    if len(a) < n:
-        a = np.pad(a, (0, n - len(a)), constant_values=-1e10)
-    if len(b) < n:
-        b = np.pad(b, (0, n - len(b)), constant_values=-1e10)
-    return a, b
+    n = min(len(a), len(b))
+    return a[:n], b[:n]
 
 
 def entropy(logits: np.ndarray) -> float:
