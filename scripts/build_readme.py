@@ -124,6 +124,8 @@ def _status_badge(meta, children=None):
         parts.append(f"**Grade:** {grade}")
     if meta.get("superseded_by"):
         parts.append(f"see [{meta['superseded_by']}](findings/{meta['superseded_by']}.md)")
+    for sa in meta.get("see_also", []):
+        parts.append(f"see also [{sa}](findings/{sa}.md)")
     if children:
         links = [f"[{c['stem']}](findings/{c['path'].name})" for c in children]
         parts.append("Related: " + ", ".join(links))
@@ -277,9 +279,28 @@ def _grade_label(grade):
     return labels.get(grade, grade)
 
 
+def _trunc(text, maxlen=60):
+    """Truncate at word boundary."""
+    if len(text) <= maxlen:
+        return text
+    cut = text[:maxlen].rfind(' ')
+    if cut <= 0:
+        cut = maxlen
+    return text[:cut].rstrip('.,;:') + '...'
+
+
+def _sort_parent_first(findings):
+    """Sort so parents appear before their children within the same F-number."""
+    def sort_key(f):
+        has_parent = 1 if (f["meta"].get("parent") or f["role"] != "finding") else 0
+        role_order = {"finding": 0, "addendum": 1, "capstone": 2, "ledger": 3}
+        return (f["num"], has_parent, role_order.get(f["role"], 9))
+    return sorted(findings, key=sort_key)
+
+
 def index():
     """Generate INDEX.md — the citation layer."""
-    all_findings = load_all_findings()
+    all_findings = _sort_parent_first(load_all_findings())
 
     lines = [
         "# Findings Index",
@@ -299,8 +320,10 @@ def index():
         m = f["meta"]
         num_label = f"F{f['num']:02d}"
         role = f["role"]
-        if role != "finding":
-            num_label += f" ({role})"
+        is_child = m.get("parent") or role != "finding"
+        if is_child:
+            suffix = f" ({role})" if role != "finding" else " (sub)"
+            num_label = f"  {num_label}{suffix}"
 
         status = m.get("status", "—")
         grade = m.get("grade", "—")
@@ -311,7 +334,7 @@ def index():
         if superseded_by:
             citation += f" → [{superseded_by}](findings/{superseded_by}.md)"
 
-        lines.append(f"| {num_label} | {f['title'][:60]} | {status} | {grade} | {chapters} | {citation} |")
+        lines.append(f"| {num_label} | {_trunc(f['title'])} | {status} | {grade} | {chapters} | {citation} |")
 
     # By grade
     lines.append("")
@@ -324,7 +347,7 @@ def index():
         lines.append(f"### Grade {grade}: {_grade_label(grade)}")
         lines.append("")
         for f in members:
-            lines.append(f"- [{f['stem']}](findings/{f['path'].name}) — {f['title'][:60]}")
+            lines.append(f"- [{f['stem']}](findings/{f['path'].name}) — {_trunc(f['title'])}")
         lines.append("")
 
     ungraded = [f for f in all_findings if not f["meta"].get("grade")]
@@ -332,7 +355,7 @@ def index():
         lines.append("### Ungraded")
         lines.append("")
         for f in ungraded:
-            lines.append(f"- [{f['stem']}](findings/{f['path'].name}) — {f['title'][:60]}")
+            lines.append(f"- [{f['stem']}](findings/{f['path'].name}) — {_trunc(f['title'])}")
         lines.append("")
 
     # By chapter

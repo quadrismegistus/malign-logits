@@ -59,7 +59,7 @@ parent: F36_euphemism_vs_proximity
 
 ## Verification protocol
 
-All citation-source documents (F36_capstone.md, F36_ledger.md, F36_violence.md, F11_addendum.md, F11_contradiction.md, F21_addendum.md) were cross-verified in a two-session protocol: one session produced the analysis, a second session audited every table, coefficient, and summary claim against the source CSVs. Seven catches across six documents, all corrected before citation. The corrections above are a complete record.
+All citation-source documents (F36_capstone.md, F36_ledger.md, F36_violence.md, F11_addendum.md, F11_contradiction.md, F21_addendum.md, INDEX.md) were cross-verified in a two-session protocol: one session produced the analysis, a second session audited every table, coefficient, and summary claim against the source CSVs. Nine catches across seven artifacts, all corrected before citation. The corrections above are a complete record.
 
 ## Data files
 

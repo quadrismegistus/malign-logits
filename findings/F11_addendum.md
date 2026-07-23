@@ -6,7 +6,7 @@ role: addendum
 parent: F11_contradiction
 instruments: [logit-mass, intervention, classification]
 families: [olmo, amber, llama, qwen, tulu, zephyr, olmo-tiny]
-chapters: [ch09, ch11]
+chapters: [ch03, ch11]
 data: [contradiction_four_mass.csv, contradiction_rebaselined.csv, contradiction_address_check.csv, f11_classify_blinded.csv, f11_classify_metadata.csv]
 scripts: [f11_cross_family.py, f11_meta_contradiction.py, f11_new_pairs_all_families.py, f11_gen_classify.py]
 ---

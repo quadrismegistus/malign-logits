@@ -6,7 +6,7 @@ role: finding
 parent: F36_euphemism_vs_proximity
 instruments: [logit-mass, resistance, regression]
 families: [olmo, llama, amber, qwen, tulu, zephyr]
-chapters: [ch05]
+chapters: [ch04, ch05, ch06]
 data: [f36_violence_beams.csv, f36_violence_tokens.csv, f36_violence_set_d_v3.csv, f36_violence_set_e.csv]
 scripts: [f36_violence_battery.py, f36_violence_set_d_v3.py, f36_violence_set_d_v3_run.py, f36_violence_set_e.py, f36_violence_set_e_run.py, f36_minimal_pairs.py, f36_minimal_run.py, f36_minimal_beams.py]
 ---

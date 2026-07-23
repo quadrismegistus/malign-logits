@@ -3,6 +3,7 @@ status: solid-by-design
 grade: B
 date: 2026-06-25
 role: finding
+see_also: [F36_capstone]
 instruments: [logit-mass, census]
 families: [olmo, amber, llama, qwen, tulu, zephyr]
 chapters: [ch07]

@@ -330,7 +330,7 @@ Results in `data/ablation_results.csv`.
 
 ### 11. Contradiction Tolerance — Cross-Family Replication
 
-> **Status:** solid-by-design | **Grade:** B | Related: [F11_addendum](findings/F11_addendum.md)
+> **Status:** rescoped | **Grade:** B | see [F11_addendum](findings/F11_addendum.md) | Related: [F11_addendum](findings/F11_addendum.md)
 
 
 ## The question
@@ -1905,7 +1905,7 @@ Sequential: country|corpus = 2.8%. Corpus|country = 0.0%. The country effect IS 
 
 ### 32. Template-Mediated Distributions — Task Switch, Not Distribution Filter
 
-> **Status:** solid-by-design | **Grade:** B
+> **Status:** solid-by-design | **Grade:** B | see also [F36_capstone](findings/F36_capstone.md)
 
 
 **Summary**
