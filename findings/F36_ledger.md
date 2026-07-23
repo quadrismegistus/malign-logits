@@ -16,7 +16,7 @@
 | Disposition continue-mode | 37 trans prompts × n=3 | 6 families | DispositionTask (DeepSeek) | 663 | F36_capstone.md |
 | Disposition dialogue-mode | 24 inst prompts × n=3 | 5 families | DispositionTask (DeepSeek) | 360 | F36_capstone.md |
 | F21 re-run | 24 institutional × n=5 | 6 decomposable | AlignmentAsymmetryTask + DispositionTask | 2,141 | F21_addendum.md |
-| P4 sexual reroutes | 19 (12 sexual + 7 neutral) | 8 | Blind two-rater classification | 816 (κ=0.790) | F36_capstone.md |
+| P4 sexual reroutes | 17 (10 sexual + 7 neutral; gendered pair sexual_liminal_6/7 never generated) | 8 | Blind two-rater classification | 816 (κ=0.790) | F36_capstone.md |
 | P1.4 violence reroutes | 10 violence | 4 | Blind two-rater classification | 240 (κ=0.725) | F36_violence.md |
 | Bidirectional resistance | 73 prompts | 19 | Cross-teacher-forced beam resistance | ~200k beam stories | F36_capstone.md |
 | Tulu safety ablation | 37 trans × n=3 | 1 (Tulu, 4 variants) | DispositionTask | ~840 | F36_capstone.md |
@@ -34,7 +34,7 @@
 | Disposition is content-general | Benign arm comparison | **Revised** — mundane-biased (+0.42 benign vs +0.24 trans); ceiling hypothesis dead | F36_capstone |
 | Frame-keyed displacement (desire vs act) | Set D mixed model | **Falsified** (p=0.70) | F36_violence |
 | Unrealized/realized action hypothesis | Set E | **Falsified** (realized also suppressed, −1.65 to −1.69) | F36_violence |
-| Proceduralization = coherence artifact | F21 re-run with coherence control | **Falsified** (r=0.000, earned at weight level) | F21_addendum |
+| Proceduralization = coherence artifact | F21 re-run with coherence control | **Falsified** — proceduralization earned at weight level (r=0.000) | F21_addendum |
 | Generation-level Freudian typology | Blind two-rater classification | **Dissolved** at rates (except Amber-moralizing) | F36_capstone |
 | Moralizing is genre/format-keyed | Topic vs format decider | **Falsified** — moralizing is topic-keyed (weight-level, institutional content) | F36_capstone |
 
@@ -48,6 +48,7 @@
 | Capstone P3 revision | "Template installs sensibility" → template adds comportment (4/6); moralizing is weight-level | Late session |
 | Cut-sensitivity | Llama de-esc: P3-r1 matched +0.01 vs regression +0.45; regression is definitive | Late session |
 | OLMo-tiny arithmetic | SFT deference was −0.10, not +0.10 | Late session |
+| Drive-survival scoping | "The disposition was never aimed at the drive" softened to "not specially targeted" — the drive IS site-graded, not ignored (Ryan's catch) | Late session |
 
 ## Data files
 
@@ -68,5 +69,5 @@
 | f36_violence_beams.csv | 9,800 | P1 battery span resistance |
 | p4_key.csv + p4_r[12][ab].csv | 816 | P4 blind classification + rater files |
 | f36_sexual_reroutes.txt | 1,042 lines | P4 sexual reroute examples |
-| f36_violence_reroutes.txt | 313 lines | P1.4 violence reroute examples |
+| f36_violence_reroutes.txt | 703 lines | P1.4 violence reroute examples |
 | f36_sexual_examples.txt | 1,668 lines | Detailed sexual reroute + beam examples |
