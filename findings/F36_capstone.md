@@ -8,7 +8,7 @@ The reasonable subject decomposes into three addressing systems. Different dimen
 
 Installed by training, present without the chat template:
 
-- **Drive survival.** The transgressive token survives at median rank 2, ratio ~0.6–0.7, equally for transgressive and benign minimal pairs. Disposition over intact fluency.
+- **Drive survival.** The transgressive token is never foreclosed but its suppression is site-graded: at intention slots (Set D, "she wanted to kill") it drops to rank 1–2 with logdiff −1.2 to −2.0; at realized narration (P1 battery, "he raised the knife and stabbed him in the") it is enhanced (ratio 1.20, median rank 0). Reroute maps intact (Llama: kill rank 0→1, scream rank 3→0). Minimal-pair span resistance null (p=0.75) confirms no content-specific restructuring of the continuation beyond the lexical admission gate.
 - **Coherence reformatting.** Coherence shifts +0.55 transgressive / +0.52 benign — content-general.
 - **Institutional deference.** Present in raw-mode continuations (P2, r=0.000 with coherence). Weight-level, independent of coherence. Safety-data-style gradient: PKU-SafeRLHF +0.72, CoCoNot +0.19, none +0.08.
 - **Topic-keyed moralizing.** The model moralizes about institutional content in any format (raw 2.85, template 2.86). On narrative content it does not moralize (1.73–1.95). This is content-ideology installed by the training data, not a template persona.
@@ -20,11 +20,26 @@ Installed by training, present without the chat template:
 
 Activated by the chat template as such, present in both continuation and dialogue formats:
 
-- **De-escalation** +0.34–0.36 (p<0.0001), consistent across narrative and institutional topics.
-- **Deliberation** +0.35 (p<0.0001), consistent across topics.
+- **De-escalation** +0.34–0.36 pooled (p<0.0001), consistent across narrative and institutional topics. Per-family: present in 4/6 families (Llama +0.41 p=0.011, Tulu +0.42 p=0.001, OLMo +0.87 p<0.001, Qwen +0.81 p<0.001); null in Zephyr (−0.04, p=0.74) and DeepSeek (+0.00, p=0.94). Not universal — a majority pattern, strongest in families with safety-inclusive training.
+- **Deliberation** +0.30–0.35 pooled (p<0.0001), consistent across topics.
 - **Less-moralizing narrator** on narrative content (−0.22, p<0.0001) — template mode REDUCES moralizing on narrative while leaving it unchanged on institutional content.
 
 These are template-mode effects, not dialogue-format effects: the narrative column (raw-continuation vs template-continuation, format constant) shows the same increment as the cross-format institutional comparison.
+
+**Definitive per-family regression** (de_escalation ~ mode + coherence, narrative topic):
+
+| Family | Mode coef | 95% CI | p | Note |
+|---|---|---|---|---|
+| Llama | +0.45 | [+0.21, +0.70] | 0.0003 | Natively coherent, clean |
+| Tulu | +0.38 | [+0.15, +0.61] | 0.001 | |
+| OLMo | +0.95 | [+0.69, +1.22] | <0.0001 | Raw-coherent subset is tail-selected |
+| Qwen | +0.92 | [+0.69, +1.16] | <0.0001 | Raw-coherent subset is tail-selected |
+| Zephyr | −0.03 | [−0.25, +0.20] | 0.80 | NULL — no safety data |
+| DeepSeek | +0.05 | [−0.19, +0.29] | 0.69 | NULL on de-escalation |
+
+Template-mode de-escalation is a majority pattern (4/6 families), not a law. The family split does not cleanly track safety-data style (Tulu present, Zephyr null). Deliberation is 5/6 (DeepSeek present on deliberation but null on de-escalation).
+
+Cut-sensitivity note: Llama's de-escalation shows +0.45 in the regression (controlling coherence continuously) but +0.01 when coherence-matched by thresholding at ≥4. The regression is the more reliable estimate; the matched comparison over-controls by conditioning on a post-treatment variable.
 
 ### 3. Dialogue format specifically
 
@@ -65,6 +80,11 @@ De-escalation and deliberation: template-mode effects (consistent across topics)
 ## Method discipline
 
 The homology discipline applied to our own results: the three-way Freudian mapping (displacement / reaction formation / foreclosure) was found in examples, tested at rates under blind classification with two independent raters, and dissolved. That self-correction is the method, reported in the finding.
+
+## Caveats
+
+- **Tagger provenance.** Disposition dimensions (de-escalation, deliberation, moralizing, affect, coherence) are scored by DeepSeek (deepseek-chat) as sole scorer. Institutional deference is scored by F21's own AlignmentAsymmetryTask (also DeepSeek). No ensemble or second-rater validation on the disposition run. The P4 blind classification used two independent raters (κ=0.790).
+- **Scope.** Weight-level claims (drive survival, deference, moralizing, coherence) are established for open-weight families in raw mode. Frontier/product-level claims (GPT-4o, Claude, DeepSeek API) rest on the original mixed-mode F21 data, which scored template-mode API outputs — a product-interface claim, not a weight claim.
 
 ## Data
 
