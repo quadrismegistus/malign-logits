@@ -4,7 +4,7 @@
 
 The violence defense operates in three zones around the violent lexeme:
 
-1. **Admission suppressed.** At the slot where a violent verb would appear as the next token, alignment suppresses it. The suppression is graded by death-naming (kill/die vs act-depicting verbs, p=0.008), severity (p=0.045), live first-person enunciation (1st×present interaction, p=0.007), embedding depth (direct→reported gradient, p=0.03), and slot entropy (p=0.002). It does NOT key on desire-vs-act frame (p=0.70), prior commitment (p=0.17), or base probability (p=0.92). Content-specific: violent verbs sit ~1.3 log-units below the benign baseline at both unrealized and realized slots.
+1. **Admission suppressed.** At the slot where a violent verb would appear as the next token, alignment suppresses it. The suppression is graded by death-naming (kill/die vs act-depicting verbs, p=0.008), severity (p=0.045), live first-person enunciation (1st×present interaction, p=0.006), embedding depth (direct→reported gradient, p=0.03), and slot entropy (p=0.002). It does NOT key on desire-vs-act frame (p=0.26), prior commitment (p=0.18), or base probability (p=0.92). (All p-values from mixed model, n=355, deep-tail excluded, verb as random effect.) Content-specific: violent verbs sit ~1.3 log-units below the benign baseline at both unrealized and realized slots.
 
 2. **Syntagm sharpened.** Once a violent token is admitted into the context, the aligned model sharpens the next-token distribution around it (P1.2 ratio=1.20, median rank=0). The base argmax at mid-narration violence sites is enhanced, not suppressed. This is the coherence machinery operating on committed text.
 
@@ -22,32 +22,33 @@ Prompts truncated to the slot before the target verb. Log-prob difference = log�
 - Amber: kill rank 0→416 (hard foreclosure)
 - OLMo-tiny: kill rank 0→2 (mild suppression)
 
-**Mixed model coefficients (n=355, deep-tail excluded):**
+**Mixed model coefficients (n=355, deep-tail excluded, verb random effect):**
 
-| Effect | Coefficient | p-value | Interpretation |
-|---|---|---|---|
-| is_death (kill/die vs act verbs) | −1.77 | 0.008 | Death-naming lexemes more suppressed |
-| severity | −0.58 | 0.045 | Higher-severity verbs more suppressed (additive with death-naming) |
-| is_1st | +0.92 | 0.007 | 1st person LESS suppressed than 3rd |
-| is_1st × is_present | −1.41 | 0.006 | BUT 1st-present is MOST suppressed (live intent) |
-| base_entropy | −0.72 | 0.002 | Higher entropy → more suppression (opportunism) |
-| is_desire | +1.32 | 0.261 | NULL — frame factor |
-| is_committed | +1.60 | 0.182 | NULL — commitment |
-| log_base_p | +0.01 | 0.921 | NULL — base probability |
+| Effect | Coefficient | SE | p-value | Interpretation |
+|---|---|---|---|---|
+| is_death (kill/die vs act verbs) | −1.47 | 0.55 | 0.008 | Death-naming lexemes more suppressed |
+| severity | −0.58 | 0.29 | 0.045 | Higher-severity verbs more suppressed (additive) |
+| is_1st | +0.92 | 0.34 | 0.007 | 1st person less suppressed than 3rd |
+| is_present | +0.48 | 0.36 | 0.178 | Present tense: not significant alone |
+| is_1st × is_present | −1.40 | 0.52 | 0.007 | Interaction reverses person effect in present |
+| base_entropy | −0.71 | 0.23 | 0.002 | Higher entropy → more suppression |
+| is_desire | +1.36 | 1.17 | 0.247 | NULL — frame factor |
+| is_committed | +1.65 | 1.20 | 0.169 | NULL — commitment |
+| log_base_p | +0.01 | 0.10 | 0.921 | NULL — base probability |
 
-**Cell reconstruction (model-predicted logdiff, violent verbs):**
-- 1st-past: least suppressed (narrated past desire — the therapy register)
-- 3rd-past: intermediate
+**Cell reconstruction (model-predicted, person × tense):**
+- 1st-past: least suppressed
 - 3rd-present: intermediate
-- 1st-present: most suppressed (live first-person intent — the red-team pattern)
+- 3rd-past: intermediate
+- 1st-present: most suppressed
+
+Two readings of this structure, not adjudicated:
+- (a) **Enunciation-keyed:** the law binds live first-person intent and licenses narrated desire; the embedding gradient (direct→quoted→reported) sits on the same axis.
+- (b) **Data-distribution:** live intent (1st-present) is the red-team/jailbreak pattern; confessional past tense (1st-past) is the therapy register that safety data treats warmly. Both predict the cells.
 
 **Embedding gradient:**
 - Direct desire (−2.02) > Quoted desire (−1.46) > Reported desire (−1.01)
 - Direct vs reported: p=0.03. The law partially discounts through layers of fictional indirection; endpoint-significant only, quoted intermediate step underpowered.
-
-Two readings of the 1st×present interaction, not adjudicated:
-- (a) **Enunciation-keyed:** the law binds live first-person intent and licenses narrated desire.
-- (b) **Data-distribution:** live intent is the red-team pattern; confessional past tense is the therapy register safety data treats warmly.
 
 ### Set E: realized action slots (30 prompts, 4 families)
 
@@ -66,7 +67,7 @@ Per-family (realized constrained): Amber −2.20, OLMo-tiny −2.24, OLMo −1.3
 
 ### P1 battery: span resistance (49 prompts, 4 families)
 
-**Withheld facilitation verified.** Violence mean resistance +0.24, matched to neutral (+0.24), while high-intensity non-violent drama is facilitated (−0.03). Terror is the most facilitated (−0.15). The gap is NOT a base-fluency ceiling artifact: base argmax probability is non-monotonic with resistance (violence 0.332, terror 0.291, neutral 0.498 — content, not base fluency, keys the gap).
+**Withheld facilitation verified.** Violence mean resistance +0.24, matched to neutral (+0.24), while pooled high-intensity non-violent drama is facilitated (−0.03; terror alone −0.15, grief +0.04, exertion +0.01). The gap is NOT a base-fluency ceiling artifact: base argmax probability is non-monotonic with resistance (violence 0.332, terror 0.291, neutral 0.498 — content, not base fluency, keys the gap).
 
 Per-family: Amber +0.55 (largest gap — PKU-SafeRLHF, fourth convergent safety-data-style line), OLMo-tiny +0.31, OLMo +0.25, Llama +0.19.
 
@@ -80,7 +81,7 @@ Free-run continuations classified blind to family and condition. Inter-rater rel
 | B: Reaction/aftermath | 14 | 13 | −1 (FLAT) |
 | C: De-escalation/defusion | 12 | 23 | +11 |
 | F: Refusal/meta | 5 | 22 | +17 |
-| E: Collapse/incoherent | — | 16 | — |
+| E: Collapse/incoherent | 40 | 31 | −9 |
 
 **Act-to-reaction (kill→scream pattern) does NOT generalize to free generation.** B is flat (base 14, aligned 13). The aligned reroute is defuse + moralize (C up, F up), not act-to-reaction.
 
@@ -110,4 +111,4 @@ Set D v2 (run 1) reported a death-naming split and person effect based on verb_r
 
 ## For the paper
 
-The violence defense is a lexical-introduction gating mechanism: it suppresses the *naming* of violence (graded by death-naming, severity, live intent, embedding depth, entropy, and family style), sharpens the syntagm once the name is admitted, and withholds narrative facilitation from the elaboration span. It does not target frames, commitments, or base probability. Llama's kill→scream is the paradigm case of admission-level displacement: the violent word is pushed from rank 0 to rank 1, and the model's preferred alternative (scream — a reaction, not a synonym) rises to rank 0. But this paradigm does not generalize to free generation, where the aligned reroute is de-escalation and moralization, not act-to-reaction displacement. The three-zone structure — admission, syntagm, elaboration — is the violence analogue of the mundane-biased disposition: alignment gates on the lexical surface (the word that names violence) and leaves the narrative scene largely intact once the word passes.
+The violence defense is a lexical-introduction gating mechanism: it suppresses the *naming* of violence (graded by death-naming, severity, live intent, embedding depth, entropy, and family style), sharpens the syntagm once the name is admitted, and withholds narrative facilitation from the elaboration span. It does not target frames, commitments, or base probability. Llama's kill→scream is the paradigm case of admission-level displacement: the violent word is pushed from rank 0 to rank 1, and the model's preferred alternative (scream — a reaction, not a synonym) rises to rank 0. But this paradigm does not generalize to free generation, where the aligned reroute is de-escalation and moralization, not act-to-reaction displacement. The three-zone structure — admission, syntagm, elaboration — is the violence analogue of the mundane-biased disposition: alignment gates on the lexical surface (the word that names violence), sharpens the immediate syntagm once the word passes, but disinvests from the elaboration span relative to matched non-violent drama.
