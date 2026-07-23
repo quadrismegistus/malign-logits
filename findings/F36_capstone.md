@@ -8,7 +8,7 @@ The reasonable subject decomposes into three addressing systems. Different dimen
 
 Installed by training, present without the chat template:
 
-- **Drive survival.** The transgressive token is never foreclosed but its suppression is site-graded: at intention slots (Set D, "she wanted to kill") it drops to rank 1–2 with logdiff −1.2 to −2.0; at realized narration (P1 battery, "he raised the knife and stabbed him in the") it is enhanced (ratio 1.20, median rank 0). Reroute maps intact (Llama: kill rank 0→1, scream rank 3→0). Minimal-pair span resistance null (p=0.75) confirms no content-specific restructuring of the continuation beyond the lexical admission gate.
+- **Drive survival.** The transgressive token is never foreclosed but its suppression is site-graded: at intention slots (Set D, "she wanted to kill") it drops to rank 1–2 with logdiff −1.2 to −2.0; at realized narration (P1 battery, "he raised the knife and stabbed him in the") it is enhanced (ratio 1.20, median rank 0). Reroute maps intact (Llama: kill rank 0→1, scream rank 3→0). Span resistance does not exceed the neutral baseline (violence +0.24 = neutral +0.24, p=0.75); the span-level content effect is the withheld facilitation relative to matched drama (zone 3).
 - **Coherence reformatting.** Coherence shifts +0.55 transgressive / +0.52 benign — content-general.
 - **Institutional deference.** Present in raw-mode continuations (P2, r=0.000 with coherence). Weight-level, independent of coherence. Safety-data-style gradient: PKU-SafeRLHF +0.72, CoCoNot +0.19, none +0.08.
 - **Topic-keyed moralizing.** The model moralizes about institutional content in any format (raw 2.85, template 2.86). On narrative content it does not moralize (1.73–1.95). This is content-ideology installed by the training data, not a template persona.
@@ -20,7 +20,7 @@ Installed by training, present without the chat template:
 
 Activated by the chat template as such, present in both continuation and dialogue formats:
 
-- **De-escalation** +0.34–0.36 pooled (p<0.0001), consistent across narrative and institutional topics. Per-family: present in 4/6 families (Llama +0.41 p=0.011, Tulu +0.42 p=0.001, OLMo +0.87 p<0.001, Qwen +0.81 p<0.001); null in Zephyr (−0.04, p=0.74) and DeepSeek (+0.00, p=0.94). Not universal — a majority pattern, strongest in families with safety-inclusive training.
+- **De-escalation** +0.34–0.36 pooled (p<0.0001), consistent across narrative and institutional topics. Per-family: present in 4/6 families (Llama +0.41 p=0.011, Tulu +0.42 p=0.001, OLMo +0.87 p<0.001, Qwen +0.81 p<0.001); null in Zephyr (−0.04, p=0.74) and DeepSeek (+0.00, p=0.94). Not universal — a majority pattern.
 - **Deliberation** +0.30–0.35 pooled (p<0.0001), consistent across topics.
 - **Less-moralizing narrator** on narrative content (−0.22, p<0.0001) — template mode REDUCES moralizing on narrative while leaving it unchanged on institutional content.
 

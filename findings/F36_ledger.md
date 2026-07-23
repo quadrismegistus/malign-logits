@@ -50,6 +50,10 @@
 | OLMo-tiny arithmetic | SFT deference was −0.10, not +0.10 | Late session |
 | Drive-survival scoping | "The disposition was never aimed at the drive" softened to "not specially targeted" — the drive IS site-graded, not ignored (Ryan's catch) | Late session |
 
+## Verification protocol
+
+All citation-source documents (F36_capstone.md, F36_ledger.md, F36_violence.md, F11_addendum.md, F11_contradiction.md, F21_addendum.md) were cross-verified in a two-session protocol: one session produced the analysis, a second session audited every table, coefficient, and summary claim against the source CSVs. Seven catches across six documents, all corrected before citation. The corrections above are a complete record.
+
 ## Data files
 
 | File | Rows | Contents |

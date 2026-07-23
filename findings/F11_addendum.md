@@ -31,19 +31,19 @@ Contradiction-excess = (AB_delta − A_delta) for each mass. Re-baselined agains
 | Resolution | 8/35 | 23% | Pole commitment (6 antisocial pole, 2 prosocial) |
 | Null | 5/35 | 14% | No detectable contradiction-specific effect |
 
-Frame-exit is the **plurality** mechanism with genuine engage and resolve minorities. Classification threshold: in-frame excess < −0.05 = exit; > +0.05 = engage; pole excess > 0.05 with in-frame neutral = resolve. Five null cells sit within ±0.05 of the threshold, indicating threshold-sensitivity — report the tendency, not the partition.
+Frame-exit is the **plurality** mechanism with genuine engage and resolve minorities. Classification threshold: in-frame excess < −0.05 = exit; > +0.05 = engage; pole excess > 0.05 with in-frame neutral = resolve. 10 of 30 classified cells sit within 0.02 of the ±0.05 threshold, indicating substantial threshold-sensitivity — report the tendency, not the partition. 5 cells are unclassified (within the ±0.05 band).
 
 **Per-family mechanism profiles** (5 cells each, modal mechanism as tendency):
 
-| Family | Modal tendency | Cells | Note |
+| Family | Modal tendency | Cells (from CSV) | Note |
 |---|---|---|---|
-| OLMo | Exit | 3 exit, 1 engage, 1 resolve | |
-| OLMo-tiny | Exit | 3 exit, 1 engage, 1 resolve | |
-| Amber | Exit | 3 exit, 1 engage, 1 resolve | |
-| Qwen | Exit | 2 exit, 1 engage, 1 resolve, 1 null | |
-| Zephyr | Exit | 3 exit, 1 engage, 1 resolve | Post-deflation: engagement was on-topicness |
-| Tulu | Mixed | 1 exit, 1 engage, 2 resolve, 1 null | Only family with resolve as co-modal |
-| Llama | Mixed | 0 exit, 1 engage, 2 resolve, 2 null | Lightest intervention |
+| OLMo | Exit | 4 exit, 1 engage | |
+| OLMo-tiny | Exit | 2 exit, 1 engage, 1 resolve(p1), 1 null | |
+| Amber | Exit | 3 exit, 1 engage, 1 resolve(p2) | |
+| Qwen | Exit | 2 exit, 1 engage, 1 resolve(p2), 1 null | |
+| Zephyr | Exit | 2 exit, 1 engage, 1 resolve(p2), 1 null | Post-deflation |
+| Tulu | Mixed | 1 exit, 2 engage, 2 resolve(p2) | Resolve co-modal |
+| Llama | Mixed | 1 resolve(p1), 1 resolve(p2), 1 engage, 2 null | Lightest intervention |
 
 ## Pole-consistency null
 
@@ -71,9 +71,9 @@ For pairs where aligned mass shifts toward one pole, the direction is family-spe
 |---|---|---|---|
 | OLMo | 4/5 | 1/5 | Mostly prosocial |
 | Amber | 4/5 | 1/5 | Mostly prosocial |
-| Llama | 3/5 | 1/5 | Mixed |
-| Qwen | 3/5 | 1/5 | Mixed |
-| Tulu | 1/5 | 4/5 | Mostly antisocial |
+| Qwen | 4/5 | 1/5 | Mostly prosocial |
+| Llama | 3/5 | 2/5 | Mixed |
+| Tulu | 2/5 | 3/5 | Mixed |
 | Zephyr | 1/5 | 4/5 | Mostly antisocial |
 
 The drift is distributional mass movement, not stable commitment (consistency index < 1.0 for all families except OLMo's outlier). **Registered rival**: pole-direction may track alignment-corpus vocabulary frequency (PKU harm-focused data saturated with harm terms; UltraChat/UltraFeedback differ). The datasets are public; a pole-token frequency count against direction is a cheap decisive test. Neither the normative reading (alignment steers prosocial) nor the anti-normative reading (alignment steers antisocial) is established — the direction is family-specific drift, pending the frequency rival.
@@ -95,7 +95,7 @@ The aggregate resolution shift is SFT-driven (OLMo +0.16, OLMo-tiny +0.25 at SFT
 - `contradiction_four_mass.csv` — 330 rows (7 families × 5 pairs × stages × 3 prompts)
 - `contradiction_rebaselined.csv` — 35 rows (7 families × 5 pairs, re-baselined mechanisms)
 - `contradiction_address_check.csv` — 55 rows (5 families × 11 pairs, raw vs template)
-- Scripts: `f11_cross_family.py`
+- Scripts: `f11_cross_family.py` (logit caching + ratio analysis), `f11_meta_contradiction.py` (biplot), `f11_new_pairs_all_families.py` (extended pairs). Four-mass decomposition and re-baselining were computed interactively (session Jun 2026 D) — a standalone reproduction script is pending.
 
 ## For the paper
 
