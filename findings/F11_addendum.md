@@ -7,8 +7,8 @@ parent: F11_contradiction
 instruments: [logit-mass, intervention, classification]
 families: [olmo, amber, llama, qwen, tulu, zephyr, olmo-tiny]
 chapters: [ch03, ch11]
-data: [contradiction_four_mass.csv, contradiction_rebaselined.csv, contradiction_address_check.csv, f11_classify_blinded.csv, f11_classify_metadata.csv]
-scripts: [f11_cross_family.py, f11_meta_contradiction.py, f11_new_pairs_all_families.py, f11_gen_classify.py]
+data: [contradiction_four_mass.csv, contradiction_rebaselined.csv, contradiction_address_check.csv, f11_classify_blinded.csv, f11_classify_metadata.csv, f11_classify_key.csv, f11_r1a.csv, f11_r1b.csv, f11_r1c.csv, f11_r1d.csv, f11_r2a.csv, f11_r2b.csv, f11_r2c.csv, f11_r2d.csv]
+scripts: [f11_cross_family.py, f11_meta_contradiction.py, f11_new_pairs_all_families.py, f11_gen_classify.py, f11_classify_analysis.py]
 ---
 # F11 Addendum: Mechanism Decomposition — Frame-Exit, Not Exclusive Disjunction
 
@@ -94,12 +94,47 @@ The drift is distributional mass movement, not stable commitment (consistency in
 
 The aggregate resolution shift is SFT-driven (OLMo +0.16, OLMo-tiny +0.25 at SFT; DPO incremental). Coherence-independent (r = −0.032). Safety-data-style-independent (does not track PKU vs CoCoNot vs none). F11 joins deference and mild proceduralization in the ego-constitution cluster: instruction-following installs commitment/coherence as such.
 
+## Behavioral classification: level dissociation
+
+The four-mass mechanism (frame-exit plurality at the token level) does NOT propagate to the thematic structure of generated text. Two-rater blind classification (merged kappa 0.674 overall, 0.726 excluding neutral items, consensus coverage 79%) on 1,596 continuations (7 families × 11 pairs × 3 prompts × 2 layers × 3 samples + neutral controls).
+
+**BOTH-held tension is the modal outcome in both layers, unchanged by alignment.** On AB (contradiction) prompts, BOTH rate: base 0.45, aligned 0.45. Behavioral AWAY-excess over the single-pole baseline is tiny and smaller in aligned models (base +0.045, aligned +0.015). Pole commitment barely moves (0.22 to 0.25). Aligned models still write ambivalence at base rates.
+
+**The level dissociation:** the four-mass exit is an operating-point fact (next-token distribution) that does not propagate to the thematic structure of 300-char generations at temp 1.0 — the same gate-then-recover shape as violence (admission suppressed, scene continues). The wave reads text; at the text level, base and aligned are indistinguishable on contradiction-holding. This strengthens the anti-Fazi line: the unity is not even in aligned generations — it lives at the interface, not the output.
+
+**Per-family profiles** (aligned AB, consensus set):
+
+| Family | D1 | D2 | BOTH | AWAY | OFF | BOTH Δ (b→a) | Note |
+|---|---|---|---|---|---|---|---|
+| Amber | 0.11 | 0.04 | 0.56 | 0.04 | 0.26 | +0.21 | BOTH rises; neutral OFF improves (0.62→0.40) = coherence rescue |
+| Tulu | 0.13 | 0.13 | 0.57 | 0.07 | 0.10 | +0.03 | Stable |
+| Llama | 0.12 | 0.12 | 0.56 | 0.12 | 0.08 | +0.06 | Stable |
+| OLMo | 0.16 | 0.00 | 0.40 | 0.04 | 0.40 | −0.21 | BOTH drops but neutral OFF explodes (0.14→0.70) = collapse, not resolution |
+| Zephyr | 0.30 | 0.04 | 0.39 | 0.13 | 0.13 | −0.03 | Stable |
+| OLMo-tiny | 0.29 | 0.21 | 0.33 | 0.08 | 0.08 | −0.07 | Stable |
+| Qwen | 0.04 | 0.08 | 0.28 | 0.00 | 0.60 | −0.02 | OFF 0.60–1.00 everywhere = instrument-failure for continuation tasks |
+
+OLMo's BOTH drop is a collapse identity (the P4 genre-collapse pattern), not a resolution: OFF rises in parallel. Amber's BOTH rise is a coherence rescue (better narrative framing, not more contradiction-holding). Qwen is instrument-invalid for continuation classification.
+
+**Pair-level observations** (aligned AB, consensus, flagged not narrated):
+- obey/rebel (BOTH 0.65) and sacred/profane (BOTH 0.69) hold tension most
+- trust/fear concentrates avoidance (BOTH 0.08, AWAY 0.23, OFF 0.38)
+- man/woman: zero pole commitment either direction, half off-narrative (n=16)
+- Deleuzian pairs (desire/disgust, sacred/profane, man/woman, human/animal, create/destroy, free/captive) otherwise behave like classical ones — the conceptual pairs re-enter at the generation level where the token-set limitation does not apply
+
+**Caveats:**
+- 300-char truncation: resolution may develop later; the truncation is a real limit on the null
+- temp 1.0, n=3 samples per prompt
+- Consensus-set analysis only (79% coverage)
+- Sheet D kappa 0.48: rubric under-specified neutral items and quiz-format handling; convention divergence documented (rater methods lesson: enumerate every prompt type in rubrics)
+- Same-model raters caveat applies
+
 ## Scope
 
-- 5 classical affective contradiction pairs (love/hate, trust/fear, beautiful/disgusting, obey/rebel, pleasure/pain). 6 pairs dropped for token-set reasons: desire/disgust and sacred/profane (vocabulary overlap/abstraction), man/woman, human/animal, free/captive, create/destroy (Deleuzian pairs with shared continuations). The instrument reaches classical affective binaries, not conceptual ones.
-- n = 3 observations per cell (family × pair). Mechanism assignments are tendencies, not types.
+- 5 classical + 6 Deleuzian affective contradiction pairs (11 total). The 6 Deleuzian pairs (desire/disgust, sacred/profane, man/woman, human/animal, free/captive, create/destroy) were excluded from the token-set analysis but re-enter at the generation level.
+- Token-level: n = 3 observations per cell (family × pair). Mechanism assignments are tendencies, not types.
+- Behavioral: n = 3 generations per cell, 7 families, two-rater blind classification (kappa 0.674/0.726).
 - All claims are weight-level (open families, raw mode). Template-mode address-check provisional (p = 0.12; Qwen instrument-failure from format-switching).
-- All disposition dimensions scored by DeepSeek (deepseek-chat) as sole scorer.
 
 ## Data
 
@@ -107,10 +142,20 @@ The aggregate resolution shift is SFT-driven (OLMo +0.16, OLMo-tiny +0.25 at SFT
 - `contradiction_four_mass.csv` — 330 rows (7 families × 5 pairs × stages × 3 prompts)
 - `contradiction_rebaselined.csv` — 35 rows (7 families × 5 pairs, re-baselined mechanisms)
 - `contradiction_address_check.csv` — 55 rows (5 families × 11 pairs, raw vs template)
-- Scripts: `f11_cross_family.py` (logit caching + ratio analysis), `f11_meta_contradiction.py` (biplot), `f11_new_pairs_all_families.py` (extended pairs). Four-mass decomposition and re-baselining were computed interactively (session Jun 2026 D) — a standalone reproduction script is pending.
+- `f11_classify_blinded.csv` — 1,596 rows (blinded classification file)
+- `f11_classify_metadata.csv` — 1,596 rows (unblinded metadata)
+- `f11_classify_key.csv` — key file with codes, prompts, families, layers
+- `f11_r1a.csv` through `f11_r2d.csv` — raw rater sheets (2 raters × 4 sheets)
+- Scripts: `f11_cross_family.py` (logit caching + ratio analysis), `f11_meta_contradiction.py` (biplot), `f11_new_pairs_all_families.py` (extended pairs), `f11_gen_classify.py` (generation + blinding), `f11_classify_analysis.py` (kappa + consensus analysis). Four-mass decomposition and re-baselining were computed interactively (session Jun 2026 D) — a standalone reproduction script is pending.
 
 ## For the paper
 
-Alignment exits the contradictory frame rather than resolving within it. The base model's representation space contains clean contradiction axes (nnsight: equally linearly decomposable across training stages), and alignment shifts the default operating point without changing the axis — but the shift is predominantly outward (frame-exit), not lateral (pole-commitment). This is the original F11 formulation, confirmed by the mechanism decomposition and the consistency null. No family shows stable exclusive disjunction; the Deleuzian Oedipal-XOR reading is descriptively apt (alignment does impose departure from inclusive disjunction) but mechanistically wrong (the departure is exit, not choice).
+The F11 result operates at two levels with a clean dissociation between them:
 
-If the master-formulation is adopted: F11 is its cleanest instantiation — geometry preserved, default displaced, and the displacement is out of the frame, not onto a pole.
+**Token level (distribution):** alignment exits the contradictory frame rather than resolving within it. The base model's representation space contains clean contradiction axes (nnsight: equally linearly decomposable across training stages), and alignment shifts the default operating point without changing the axis — but the shift is predominantly outward (frame-exit), not lateral (pole-commitment). No family shows stable exclusive disjunction.
+
+**Text level (generation):** alignment does not change the rate of contradiction-holding in generated text. BOTH-held tension is modal (0.45) in both base and aligned models. The operating-point shift at the token level does not propagate to the thematic structure of continuations — the same gate-then-recover pattern as the violence finding (F36).
+
+**For the Fazi refutation:** this is stronger than the original formulation. The Hegelian synthesis is absent even in aligned generations: base models hold contradictions, aligned models hold contradictions at the same rate, and the token-level mechanism (frame-exit) operates at the interface without propagating to output structure. The Deleuzian Oedipal-XOR reading is descriptively apt at the distribution level but mechanistically wrong (the departure is exit, not choice) and textually invisible.
+
+If the master-formulation is adopted: F11 is its cleanest instantiation — geometry preserved, default displaced, and the displacement is out of the frame, not onto a pole, and the displacement does not reach the text.
