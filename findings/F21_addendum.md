@@ -12,7 +12,7 @@ Does F21's proceduralization finding (alignment steers toward institutional defe
 
 ## Method
 
-F21's own AlignmentAsymmetryTask (the institutional-deference tagger, NOT the disposition tagger) run across 6 decomposable families on institutional prompts (n=24), scored by DeepSeek. DispositionTask run in parallel for the coherence covariate. 5 generations per prompt per layer. Mixed-provenance caveat: deference is F21's own instrument; coherence and agency are tagger-scored.
+F21's own AlignmentAsymmetryTask (the institutional-deference tagger, NOT the disposition tagger) run across 6 decomposable families on institutional prompts (n=24), scored by DeepSeek. DispositionTask run in parallel for the coherence covariate. 5 generations per prompt per layer. Mixed-provenance caveat: deference is F21's own instrument; coherence and agency are tagger-scored. All scoring by DeepSeek (deepseek-chat) as sole scorer — no ensemble or second-rater validation on this run.
 
 ## Base levels
 
@@ -33,10 +33,10 @@ Base models already defer to institutions (mean deference 3.28, range 3.13–3.4
 |---|---|---|---|---|---|---|
 | amber | PKU-SafeRLHF | +0.03 | +0.68 | **+0.72** | +1.30 | +0.95 |
 | tulu | CoCoNot | +0.20 | −0.01 | +0.19 | +0.28 | +0.58 |
-| olmo-tiny | Allen AI | +0.10 | +0.23 | +0.14 | +0.53 | +0.76 |
+| olmo-tiny | CoCoNot/WildGuardMix | −0.10 | +0.24 | +0.14 | +0.53 | +0.76 |
 | pythia | HH-RLHF | +0.16 | −0.02 | +0.14 | +0.33 | +0.22 |
 | zephyr | None | +0.26 | −0.18 | +0.08 | +0.31 | +0.01 |
-| olmo | Allen AI | +0.02 | −0.14 | **−0.12** | +0.31 | +0.68 |
+| olmo | CoCoNot/WildGuardMix | +0.02 | −0.14 | **−0.12** | +0.31 | +0.68 |
 
 ## Safety-data-style gradient
 
@@ -69,7 +69,7 @@ Zephyr SFT (+0.26 deference) has no safety data at any stage (Mistral→UltraCha
 | zephyr | +0.08 | +0.10 | 119 | 119 |
 | olmo | −0.12 | −0.15 | 109 | 105 |
 
-Coherence-matched shifts are within ±0.03 of raw shifts for every family. Coherence explains zero variance in deference.
+Coherence-matched shifts are within ±0.05 of raw shifts for every family. Coherence explains zero variance in deference.
 
 ## Scope
 
