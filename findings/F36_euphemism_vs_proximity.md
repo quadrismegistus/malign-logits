@@ -1,3 +1,15 @@
+---
+status: rescoped
+grade: B
+date: 2026-07-15
+role: finding
+superseded_by: F36_capstone
+instruments: [logit-mass, resistance, census]
+families: [olmo, amber, llama, qwen, tulu, zephyr]
+chapters: [ch05]
+data: [euphemism_census.csv, euphemism_test.csv]
+scripts: [euphemism_test.py, euphemism_census.py, f36_stage_specificity.py]
+---
 # F36: Euphemism vs. Proximity — Alignment as Foreclosure, Not Metonymy
 
 ## Question

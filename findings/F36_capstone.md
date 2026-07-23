@@ -1,3 +1,15 @@
+---
+status: verified
+grade: A
+date: 2026-07-22
+role: capstone
+parent: F36_euphemism_vs_proximity
+instruments: [logit-mass, resistance, tagger, regression, generation]
+families: [olmo, amber, llama, qwen, tulu, zephyr, deepseek-7b]
+chapters: [ch05, ch07, ch09]
+data: [disposition_full.csv, disposition_continue.csv, disposition_all_stages.csv]
+scripts: [run_disposition_full.py, run_disposition_tagger.py, gen_continue_mode.py]
+---
 # F36 Capstone: Three Addressing Systems
 
 ## The decomposition

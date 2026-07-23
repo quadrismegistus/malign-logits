@@ -1,3 +1,14 @@
+---
+status: solid-by-design
+grade: B
+date: 2026-07-10
+role: finding
+instruments: [tagger, logit-mass]
+families: [olmo, amber, llama, qwen, tulu, zephyr, olmo-tiny, deepseek-7b, pythia, qwen-tiny, smol]
+chapters: [ch09]
+data: []
+scripts: []
+---
 # F21: Institutional Alignment
 
 **Does RLHF alignment systematically steer language models toward institutional positions over individual assertiveness?**

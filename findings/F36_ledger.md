@@ -1,3 +1,10 @@
+---
+status: verified
+grade: A
+date: 2026-07-23
+role: ledger
+parent: F36_euphemism_vs_proximity
+---
 # F36 Ledger: Complete Inventory
 
 ## Batteries and instruments

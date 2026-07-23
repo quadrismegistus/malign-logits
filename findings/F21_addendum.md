@@ -1,3 +1,15 @@
+---
+status: verified
+grade: A
+date: 2026-07-22
+role: addendum
+parent: F21_institutional_alignment
+instruments: [tagger, regression]
+families: [olmo, amber, llama, qwen, tulu, zephyr]
+chapters: [ch09]
+data: [f21_rerun.csv]
+scripts: [f21_rerun.py]
+---
 # F21 Addendum: Proceduralization Survives Coherence Control
 
 ## The question

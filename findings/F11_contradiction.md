@@ -1,3 +1,14 @@
+---
+status: solid-by-design
+grade: B
+date: 2026-07-20
+role: finding
+instruments: [logit-mass, intervention]
+families: [olmo, amber, llama, qwen, tulu, zephyr, olmo-tiny, deepseek-7b, pythia, qwen-tiny, smol]
+chapters: [ch09, ch11]
+data: [contradiction_cross_family.csv, contradiction_detail.csv]
+scripts: [f11_cross_family.py]
+---
 # F11: Contradiction Tolerance — Cross-Family Replication
 
 ## The question

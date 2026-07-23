@@ -1,3 +1,14 @@
+---
+status: solid-by-design
+grade: B
+date: 2026-06-25
+role: finding
+instruments: [logit-mass, census]
+families: [olmo, amber, llama, qwen, tulu, zephyr]
+chapters: [ch07]
+data: []
+scripts: []
+---
 # F32: Template-Mediated Distributions — Task Switch, Not Distribution Filter
 
 **Summary**
