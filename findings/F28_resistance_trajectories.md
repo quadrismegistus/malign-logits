@@ -78,42 +78,79 @@ The SFT/DPO dissociation at the position level extends F01's finding (SFT handle
 
 ---
 
-## Scale-up, 2026-07-26: the category-specific shapes DO NOT REPLICATE
+## Scale-up, 2026-07-26: a content-invariant gate at the first token
 
-F28 was established on **one model** (OLMo-2-0425-1B), 7,093 storylines. The
-beams stash now supports the same analysis on **19 families** — 335,799
-storyline-scorings, no new generation. `scripts/f28_scaled.py`,
-`data/f28_scaled_trajectories.csv`.
+F28 was established on **one model** (OLMo-2-0425-1B). The beams stash already
+supported the same analysis on **19 families** — 335,799 storyline-scorings, no
+new generation. `scripts/f28_scaled.py`, `data/f28_scaled_trajectories.csv`.
 
-**The two headline shapes reverse.**
+### The trajectory has a shape, and it is the same shape everywhere
 
-| claim (F28, OLMo-2-1B) | at 19 families |
+Pooled over 19 families × 10 content categories:
+
+| pos0 | pos1 | pos2 | pos3 | pos4 | pos5 | pos6 | pos7 |
+|---|---|---|---|---|---|---|---|
+| **+2.24** | **+0.51** | +0.91 | +0.92 | +0.83 | +0.84 | +0.80 | +0.83 |
+
+Not a decay — a **spike, a dip, then a plateau**. Resistance at the first
+generated token is **2.6× the steady state**. Position 1 then falls *below*
+the plateau it settles into, so the release after the gate briefly overshoots.
+pos0 is the peak in 40% of cells against a 17% chance baseline (binomial
+z=11.2), and the pos0→pos1 fall holds in 201/310 cells and in a majority of
+categories for **13 of 19 families**.
+
+### The gate does not care what you are writing about
+
+This is the sharpest result, and it *inverts* F28's original claim of
+category-specific signatures:
+
+- SD across the ten **category** means: **0.35 bits**
+- SD across the nineteen **family** means: **4.09 bits**
+- ratio **11.8×**
+
+Content category explains almost nothing. Every category shows the same
+spike-dip-plateau, differing only in height, and the height is a property of
+the *model family*. F28 proposed the trajectory as a category-specific temporal
+signature; at scale it is a **family-specific** one, and it is essentially
+content-blind.
+
+### Gate height is a family property with a very wide range
+
+| family | pos0 resistance |
 |---|---|
-| sexual: pos0 **+0.70** → pos1 **+2.17** (second-token spike) | pos0 **+2.60** → pos1 **+1.01** — *reversed* |
-| death: pos0 **−0.99** (alignment *facilitates*) | pos0 **+2.94** — *sign reversed* |
+| map-neo | **+14.90** |
+| amber | +8.64 |
+| zephyr | +7.85 |
+| redpajama | +2.46 |
+| … | |
+| olmo | −0.32 |
+| pythia | −0.39 |
+| llama | −0.58 |
 
-Every category now shows the same monotone decay from a high pos0
-(institutional +3.23, violence_liminal +3.07, substance +3.03, death +2.94,
-sexual_liminal +2.67, sexual_explicit +2.60, profanity +1.60). There is no
-category-specific trajectory *shape* at scale: there is one shape, and
-categories differ only in its height.
+Some families gate hard at the first token; others have no gate at all. Note
+that amber and olmo have near-identical total displacement (JS ≈ 0.18, F02) and
+sit at opposite ends here — so gate height is not a restatement of alignment
+intensity, and that dissociation is worth its own look.
 
-**And the surviving universal shape is not statistically robust.** Resistance
-at pos0 exceeds mean(pos2–5) by 1.10–1.76 bits, but with **family as the unit**
-(rule 2):
+### What this connects to
 
-| edge | mean drop | families | positive | t | 95% CI |
-|---|---|---|---|---|---|
-| base→ego | +1.76 bits | 12 | 9/12 | 1.79 | [−0.17, +3.69] |
-| base→superego | +1.12 bits | 19 | 8/19 | 1.64 | [−0.22, +2.46] |
+The first token is where the commitment is made, and it is where the
+intervention concentrates. That is the temporal counterpart of the
+**architectural** gate in F22/F23 (internal representation broadens, output
+narrows) and of F05 (displacement is a final-layer readout operation). It also
+matches F36's gate-then-recover shape and F11's level dissociation — an
+operating-point fact at the moment of commitment that does not propagate into
+the body of the text.
 
-Both intervals cross zero. Pooling the 310 family×role×category cells instead
-gives t=7.3 — which is the unit-of-analysis inflation rule 2 exists to prevent,
-and is what this analysis produced before the correction was applied.
+### Registered caveats
 
-**Status: F28 is demoted to discovery-sample-only.** The position-specific
-resistance trajectory is an OLMo-2-0425-1B result. What generalises is weaker
-and unsurprising: resistance concentrates at the first generated token and
-decays, in most families, in most categories, without reaching significance on
-a family-unit test. That is consistent with the output-gate account (F22/F23)
-and the final-layer account (F05), and adds no independent support to either.
+- The mean pos0-minus-tail difference is **not significant with family as the
+  unit** (ego +1.76, 9/12, t=1.79; superego +1.12, 8/19, t=1.64; both CIs cross
+  zero) — because between-family variance is enormous (SD 4.09), which is the
+  finding rather than an obstacle. The *shape* claims above are rank- and
+  count-based for that reason.
+- Pooling the 310 nested cells would give t=7.3 for that difference. That is
+  unit-of-analysis inflation (rule 2) and is not claimed.
+- F28's two specific shapes do not reproduce: sexual pos0 +0.70→pos1 +2.17
+  becomes +2.60→+1.01, and death's pos0 facilitation (−0.99) becomes +2.94.
+  Those were single-model results.
