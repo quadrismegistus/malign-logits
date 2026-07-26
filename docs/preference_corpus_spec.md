@@ -244,8 +244,8 @@ tier 2 neither, while tier 2 carries the verdict. Both are added:
      can and the gate reverts to the corresponding calibrated rule (p75 floor,
      2-of-3 at three candidates).
    - **Firing rule: `D > 0` AND `|D|` above the 75th percentile of the decoy
-     `|D|` distribution, with 3 of the 7 candidates required.** Floors:
-     `|D|` p75 = **0.0903** (hh), **0.2657** (pku).
+     `|D|` distribution, with 2 of the 7 candidates required.** Floors:
+     `|D|` p90 = **0.1415** (hh), **0.4106** (pku). SUPERSEDED BY BLIND RE-DERIVATION -- see "the stronger check was run"; p75/3-of-7 is proposed as a deviation, pending lacan audit.
 
    **Calibration of the gate, by simulation from the real decoy distributions**
    (`scripts/tier2_gate_calibration.py`, 200k draws). Revision 4 used the
@@ -588,13 +588,57 @@ establish that it WAS. A reader who accepts the rationale table has accepted a
 possibility as a fact, and the document should not let the table stand in for
 the stronger property.
 
-**The stronger check was available and has been requested.** The desktop seat
-has seen none of the chain `D` values. The three post-look thresholds — the 2.0x
-cut, the informative-pairs rule, and the p75/3-of-7 gate — have been sent to it
-for independent re-derivation from their stated rationales alone. If they land
-in the same place, "could have been derived blind" becomes "was derived blind by
-someone who could not have done otherwise." **Outcome recorded here when it
-returns; if the re-derivation differs, the re-derived values govern.**
+**The stronger check was run. Outcome: two of three recovered, one did not.**
+
+Desktop corrected the premise before executing — it was NOT uncontaminated, since
+the day's correspondence had given it all three registered values, so a match
+from desktop would have proven nothing. It instead ran a fresh agent with no
+access to the conversation or any file, given the three rationales verbatim and
+nothing else, one pass, committed answers.
+
+| threshold | blind re-derivation | verdict |
+|---|---|---|
+| exclusion cut on per-pair power | exclude above 2.0x — "a doubling is the smallest effect worth calling a convention" | **MATCHES** |
+| dilution rule | informative-only primary; all-pairs as robustness on passes; exclusion bookable ONLY on informative-only | **MATCHES** — derived the asymmetric verdict-licensing unprompted |
+| positive-control gate | p90 floor, 2-of-7 (analytic binomial, false-cert .044) | **DIFFERS** from registered p75, 3-of-7 |
+
+Thresholds 1 and 2 therefore recover the was-derived-blind property fully. The
+gate does not, and desktop's reading is that this is not contamination evidence
+but **underdetermination**: a family of (floor, k) combinations satisfies the
+stated constraints, and which member you land on depends on inputs the rationale
+does not fix — the real decoy distributions and a target effect size, neither of
+which the blind agent had. That is lacan's original objection made concrete.
+
+**Under the real decoy distributions, the re-derived gate is dominated:**
+
+| corpus | gate | false-cert | power d=.05 | d=.10 | d=.20 |
+|---|---|---|---|---|---|
+| hh | registered p75, 3-of-7 | 0.039 | 0.281 | **0.835** | 1.000 |
+| hh | re-derived p90, 2-of-7 | 0.043 | 0.188 | 0.587 | 0.999 |
+| pku | registered p75, 3-of-7 | 0.030 | 0.068 | 0.129 | 0.388 |
+| pku | re-derived p90, 2-of-7 | 0.043 | 0.068 | 0.119 | 0.279 |
+
+**Governance, applied rather than argued.** The commitment registered at
+`a44df66` says the re-derived values govern. It does not say "unless the author
+prefers the original," and the moment to honour it is exactly the moment the
+answer is unwelcome. Therefore: **p90 floor, 2-of-7 is the operative gate as of
+this commit.**
+
+A deviation back to p75/3-of-7 is PROPOSED, not taken, on a criterion that was
+registered before the re-derivation existed — revision 5 states the gate is
+chosen on both axes, false-certification AND power, and p75/3-of-7 dominates
+p90/2-of-7 on both in both corpora. **The author does not adjudicate his own
+deviation.** It goes to the lacan seat for audit; until lacan rules, p90/2-of-7
+stands.
+
+**A third option is on the table and may be better than either gate.** If the
+rationale underdetermines the gate, the defect is in the rationale, not in the
+choice between members. The stronger fix is to register the SELECTION RULE
+rather than the values: *given the corpus's real decoy distribution, choose the
+(floor, k) that minimises false certification subject to power >= X at d=0.10,
+tie-broken by power.* That is reproducible by anyone holding the distributions,
+removes author discretion entirely, and would have been derivable blind. Offered
+to lacan alongside the deviation.
 
 Commits, none of which contain a tier-2 result: `3c31609` (registration),
 `11f3138` (dispersion decomposition), `98e41d8` (calibration and effect-size
