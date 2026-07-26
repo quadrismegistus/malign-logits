@@ -1,15 +1,16 @@
 ---
-status: verified
-grade: A
+status: rescoped
+grade: C
 date: 2026-07-26
 role: finding
-description: "Registered preference-corpus test of the convention account. The gate failed in both corpora, so the registered outcome is the instrument-insensitivity finding and NOT a verdict on convention. Measured on: hh_rlhf and pku_saferlhf chosen/rejected unigram tables."
+description: "Registered preference-corpus test of the convention account. The gate failed, but six of seven markers did not meet the registered frequency-comparability precondition and the one that did fired in both corpora, so no finding books -- neither a verdict on convention nor instrument insensitivity. Measured on: hh_rlhf and pku_saferlhf chosen/rejected unigram tables."
 instruments: [logit-mass]
 chapters: [ch09]
 data: ["f37_corpus_unigrams_hh_rlhf_chosen_v2.csv", "f37_corpus_unigrams_hh_rlhf_rejected_v2.csv", "f37_corpus_unigrams_pku_saferlhf_chosen_v2.csv", "f37_corpus_unigrams_pku_saferlhf_rejected_v2.csv", "preference_corpus_results.json"]
 scripts: [preference_corpus_test.py, tier2_power_check.py, tier2_gate_calibration.py, tier2_gate_grid.py]
+superseded_by: "none (rescoped in place -- the instrument-insensitivity finding is withdrawn; the test needs a slate of attested markers inside the comparability band)"
 ---
-# F39: The chosen/rejected unigram instrument cannot detect lexical annotator preference
+# F39: The preference-corpus gate could not be validly run
 
 ## Summary
 
@@ -48,27 +49,73 @@ Three of seven run the *wrong way* in hh and three in pku. Only one pair
 backwards in hh — the same marker family as `sorry`→`unfortunately`, which was
 disqualified at spec-writing time for running backwards in both.
 
-## What this licenses, and what it does not
+## AMENDED 2026-07-26: the gate was invalidly constituted; NO finding books
 
-**Licensed.** The chosen/rejected unigram instrument is not sensitive to lexical
-annotator preference. This was pre-registered as an outcome rather than a
-nullity, with its reasoning stated in advance: a whole response is chosen for
-many reasons at once, and any single word's contribution is diluted by
-everything else in the text. Tier 2 cannot carry the verdict **for any marker
-set** — a better word list does not fix it.
+Two corrections arrived after the first write-up, one from each other seat. The
+second overturns the conclusion.
 
-**Not licensed.** Nothing about the convention account. It is not confirmed, not
-excluded, and not weakened. The chain-pair sign test was **not computed**: the
-spec makes the verdict unreachable through a failed gate, and computing it
-anyway would have meant knowing a number the design says must not count.
+**Desktop: the wrong gate parameters were used.** The spec's *final* firing rule,
+set by the registered selection rule whose grid was committed at `596213c`
+before it ran, is **hh p80 / 5-of-7 (threshold 0.1057)** and **pku p65 / 5-of-7
+(threshold 0.2114)**. I executed the p75 / 3-of-7 layer, which the spec itself
+marks as superseded. Recomputed under the registered gate the fired sets are
+identical (hh 2/7, pku 2/7) and, with three wrong-way markers per corpus, the
+ceiling was 4 against a threshold of 5 — the gate fails *a fortiori*. Outcome
+unchanged, **but the deviation ran in the certifying direction**: under other
+numbers 3-of-7 at p75 could have certified an instrument the registered gate
+failed. The spec retains its own revision history in one document and I executed
+the superseded layer.
 
-## The successor instrument, named in advance
+**lacan: the slate did not meet a registered precondition, and this is decisive.**
+The spec requires each marker to be *frequency-comparable to the chain pairs —
+both members within a factor of 3 of the median chain-word frequency* (band
+881–7,926 in hh). **Six of seven failed that requirement.** I recorded the
+shortfall in the marker declaration and proceeded anyway, treating a registered
+precondition as a disclosure. It is not a caveat; it is a gate condition, and
+the gate was therefore never validly constituted.
 
-The spec registered where to go if this happened: a **response-level** design —
-per-response presence/absence of the source and target words, with the word pair
-as the unit — rather than a token-rate comparison. That measures what an
-annotator actually chose between (whole responses) instead of a rate diluted
-across everything else in them.
+**And the single compliant marker fired in both corpora.** `stupid` → `unclear`
+(1,183 and 919 occurrences — the only pair inside the band) fires at **+0.1857
+in hh** and **+0.4454 in pku**, clearing every floor under both the registered
+and superseded gates, and is the only pair to fire in both.
+
+| | in band | hh | pku |
+|---|---|---|---|
+| stupid → unclear | **yes** | **FIRED** | **FIRED** |
+| other six | no | 1 fired | 1 fired |
+
+So the one marker measured at the frequencies the chains actually occupy behaved
+exactly as an attested annotator preference should, in both corpora. That is
+evidence the instrument *works* at chain-pair frequencies — the opposite of what
+the first write-up concluded.
+
+**Booking, replacing the insensitivity finding.** What is certain: *this gate
+could not certify the instrument.* What is **not** supported: that the
+instrument is insensitive. The likely explanation for the failure is the slate,
+not the instrument — six of seven markers were measured outside the frequency
+range the test was specified for, and the one inside it fired twice.
+
+Consequently:
+
+- **No verdict on convention.** Unchanged, and for the original reason.
+- **The instrument-insensitivity finding is WITHDRAWN.** It was inferred from a
+  gate that did not meet its own precondition.
+- **The response-level successor is not licensed by this result.** It was
+  registered as the consequence of demonstrated insensitivity, which has not
+  been demonstrated.
+- **What the test needs** is a slate of seven attested markers *inside the
+  comparability band*. That is genuinely hard: register markers are
+  systematically commoner or rarer than mid-frequency content words, so
+  attestation and frequency-matching pull against each other. That difficulty is
+  the real methodological residue here, and it was visible in the declaration
+  before the run.
+
+**Residue that survives independently of the band.** Three hedging markers
+misbehave across three settings: `sorry`→`unfortunately` runs backwards in both
+corpora (disqualified pre-spec), `no`→`unfortunately` fires in pku and runs
+backwards in hh, and `must`→`should` runs backwards in both. All three are far
+outside the band, so this is suggestive rather than established — but a hedging
+preference that reverses between two preference corpora is worth its own look.
 
 ## Registered weakness of the slate
 
