@@ -193,3 +193,46 @@ pos0, reverse peaking at pos1 — is not obviously predicted by sharpening, whic
 should inflate pos0 in the forward direction without producing a pos1 spike in
 the reverse. That contrast is the part worth pursuing; the family taxonomy and
 the defence reading are not established.
+
+### Residue controls (2026-07-26): the positional asymmetry does not survive either
+
+**Control A — the reverse pos1 spike is content-blind too.** Per-category
+`p1 − p0` in the reverse direction: neutral **+1.60**, death +1.99,
+violence_liminal +1.03, sexual_liminal +0.92, substance +0.85, institutional
++0.88, violence_explicit +0.62, power +0.51, sexual_explicit +0.36.
+Transgressive mean **+0.95 against neutral +1.60** — neutral prompts swerve
+*more*. Family as unit: −0.799 bits, 5/12 positive, t = −1.28. Same verdict as
+the forward gate: generic, not site-specific.
+
+**Control B — the base-vs-base null.** No cross-family base→base annotation
+exists in the stash (1,825 cross-family links, zero base-to-other-base), so this
+required one teacher-forcing pass: existing storylines re-scored under an
+unrelated family's base. `scripts/f28_null_control.py`, 240 storylines.
+
+| profile | p0 | p1 | p2 | p3 | p4 | p5 |
+|---|---|---|---|---|---|---|
+| forward (base→aligned) | 2.37 | 0.78 | 0.90 | 0.90 | 0.78 | 0.76 |
+| reverse (aligned→base) | 0.37 | 1.35 | 0.62 | 0.64 | 0.70 | 0.65 |
+| **null** olmo→pythia | **2.47** | 2.10 | 1.10 | 2.31 | 2.11 | 2.79 |
+| **null** pythia→olmo | **1.87** | 1.61 | 2.42 | 2.55 | 1.19 | 1.80 |
+
+**The forward pos0 spike does not beat the null.** Two unrelated base models
+diverge by 1.87–2.47 bits at position 0 — the same magnitude as the
+"gate" (2.37). Testing against zero, which the residue implicitly did, treated
+generic cross-model divergence as an alignment effect.
+
+**What the null does *not* explain** is the plateau: forward and reverse settle
+to 0.6–0.9 bits from pos2 while the null stays at 1.1–2.8 throughout. Aligned
+models track their own base far more closely than unrelated models track each
+other — which is unsurprising, and is a statement about shared weights rather
+than about alignment.
+
+**Limitation that matters.** The null pairs (olmo/pythia) have different
+tokenizers, so cross-scoring requires re-tokenisation and the null is inflated
+by that mismatch. It is an upper bound on generic divergence, not a fair one. A
+same-tokenizer unrelated-base pair would be the right null and no such pair
+exists in the roster. So the null is strong enough to remove the pos0 claim and
+too weak to license anything about the plateau.
+
+**Status: the positional asymmetry is not established.** F28 remains
+discovery-sample-only, and nothing in the scale-up replaces it.
