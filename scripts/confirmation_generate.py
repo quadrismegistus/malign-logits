@@ -37,7 +37,23 @@ MANIFEST_COLS = ["run_id", "backend", "family", "role", "model", "prompt",
                  "temp", "idx", "n_tokens", "timestamp"]
 
 
-def battery_prompts(cm):
+def battery_prompts(cm, path=None):
+    """Load the frozen battery instead of recomputing, when a path is given.
+
+    Recomputing requires the full generations stash (it selects prompts with
+    >=12 families of existing base+aligned coverage). On the cloud share that
+    would mean shipping ~80 GB of local stash to pick 71 strings. Freezing them
+    to a 4 KB JSON keeps the CLOUD AND MPS SHARES ON THE IDENTICAL PROMPT SET,
+    which matters more than the bandwidth: recomputing remotely against a
+    different stash state could silently select a different battery.
+    """
+    if path:
+        with open(path) as f:
+            return json.load(f)
+    return _battery_prompts_from_cache(cm)
+
+
+def _battery_prompts_from_cache(cm):
     """The 71 full-coverage prompts: DEFAULT_PROMPTS restricted to those with
     existing base+aligned generations in at least 12 families."""
     dp = E.DEFAULT_PROMPTS
@@ -151,6 +167,7 @@ def main():
     ap.add_argument("--backend", default="mps", choices=["mps", "vllm"],
                     help="mps = HF generate (local); vllm = batched (cloud share)")
     ap.add_argument("--tp", type=int, default=1, help="vllm tensor-parallel size")
+    ap.add_argument("--prompts-file", help="frozen battery JSON (see battery_prompts)")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--go", action="store_true",
                     help="required to generate. Without it the script reports and exits, "
@@ -158,7 +175,7 @@ def main():
     a = ap.parse_args()
 
     cm = get_cache()
-    prompts = battery_prompts(cm)
+    prompts = battery_prompts(cm, a.prompts_file)
     arms = [x.strip() for x in a.arms.split(",") if x.strip()]
     print(f"{len(prompts)} battery prompts x {N_DRAWS} draws x {len(arms)} families "
           f"x 2 roles = {len(prompts)*N_DRAWS*len(arms)*2} generations")
