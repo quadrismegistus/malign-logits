@@ -19,10 +19,27 @@ Three drafting defects made that possible, and this amendment fixes each.
 **Current text:** "If fewer than seven can be **attested** individually, the
 slate shrinks to the number that can…"
 
-Attestation is the external-grounds requirement; band-compliance and power are
-separate requirements in the same bullet. On the literal text the v1 slate had
-seven *attested* candidates, so the clause never triggered — the registered
-remedy for exactly this situation was drafted in terms that did not reach it.
+**The clause did not go unused. It fired correctly and passed.** (lacan's
+textual reading, which is sharper than "the remedy was overlooked" and is
+checkable by anyone against the spec.)
+
+Candidacy at lines 225–232 requires attested **and** frequency-comparable — so a
+non-comparable marker is not a candidate at all. But the shrink clause at
+lines 259–262 triggers on "fewer than seven can be **attested** individually",
+and *attested* refers back to the preceding sentence about stating external
+grounds. All seven v1 markers **were** attested; every one has grounds in the
+RLHF literature. Seven attested is not fewer than seven, so **the clause's own
+test was satisfied while candidacy was violated six times over**.
+
+**The general defect: a fallback clause must be keyed to the same predicate as
+the requirement it protects.** Here the requirement was attested-AND-in-band and
+the fallback read attested alone, so a slate could satisfy the fallback while
+failing the thing the fallback existed to protect. No amount of care in
+execution would have surfaced it, because the document said the slate was fine.
+That is why disclosure-substitution was the path of least resistance: the only
+clause that could have blocked the run was reading a different variable.
+
+An unused remedy is fixed by diligence. A mis-keyed one is not.
 
 **Amended text:** "If fewer than seven candidates are **valid** — attested AND
 in band AND adequately powered, all three — the slate shrinks to the number that
@@ -86,6 +103,12 @@ All below hh's 0.174. **Owed before registration:** an individual
 external-grounds line for each of the seven. Being in band and powered makes a
 pair *eligible*; it does not make it *attested*, and A1's validity condition
 requires both.
+
+**On "clears in both corpora" — do not write it.** Only `force`→`encourage`
+(0.104 hh, 0.130 pku) is under hh's stricter threshold in both. `demand`→`request`
+is 0.206 in pku: clears pku's laxer 0.405, **fails hh's 0.174**. Since pku is
+descriptive-only, the honest count of pairs meeting a meaningful bar in both is
+**one**, not two.
 
 **Note on composition:** three of seven are quantifier qualification and three
 are directive softening. A slate concentrated in two categories tests those
