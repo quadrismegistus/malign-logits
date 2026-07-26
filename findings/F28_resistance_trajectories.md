@@ -251,12 +251,25 @@ models track their own base far more closely than unrelated models track each
 other — which is unsurprising, and is a statement about shared weights rather
 than about alignment.
 
-**Limitation that matters.** The null pairs (olmo/pythia) have different
-tokenizers, so cross-scoring requires re-tokenisation and the null is inflated
-by that mismatch. It is an upper bound on generic divergence, not a fair one. A
-same-tokenizer unrelated-base pair would be the right null and no such pair
-exists in the roster. So the null is strong enough to remove the pos0 claim and
-too weak to license anything about the plateau.
+**Control B is UNINFORMATIVE, not a second kill.** The null pairs
+(olmo/pythia) have different tokenizers, so cross-scoring requires
+re-tokenisation and the null is inflated by that mismatch — a penalty the
+aligned/base comparison, sharing a tokenizer, never pays.
+
+An earlier version of this section argued that "the null being inflated makes it
+harder for the finding to fail, and it failed anyway." **That is inverted, and
+the error was caught by the TheoryMachines seat.** The finding survives by
+*beating* the null, so an inflated null is a *higher bar* — easier to fail
+against, not harder. If the fair same-tokenizer null sat substantially below
+2.37, the gate would beat it, and control B cannot rule that out. A
+same-tokenizer unrelated-base pair is the right null and none exists in the
+roster, so the fair test is currently unrunnable.
+
+**The death is carried by control A alone**, which is unconfounded and
+sufficient: the reverse pos1 spike is content-blind with the direction reversed
+(neutral +1.60 against transgressive +0.95), matching the forward gate's
+content-blindness. The verdict is unchanged; the evidence for it is one control,
+not two.
 
 **Status: the positional asymmetry is not established.** F28 remains
 discovery-sample-only, and nothing in the scale-up replaces it.
