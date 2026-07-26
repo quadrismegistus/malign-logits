@@ -1,5 +1,5 @@
 family,backend,base_dtype,aligned_dtype,symmetry,cloud_risk
-bloom,vllm,float16,unset,**DIFFERENT**,CONTAMINATED
+bloom,vllm,float16,unset->float16 (from safetensors),SAME,clean
 ct-llm,mps,float16,bfloat16,**DIFFERENT**,n/a (mps forces fp16 both arms)
 falcon-h1-1.5b,vllm,bfloat16,bfloat16,SAME,clean
 falcon-h1-7b,vllm,bfloat16,bfloat16,SAME,clean
