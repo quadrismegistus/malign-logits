@@ -22,6 +22,20 @@ leak.
   hh_rlhf      median MDE(D_excess) 1.19x  ->  d = ln(1.19) = 0.174
   pku_saferlhf median MDE(D_excess) 1.50x  ->  d = ln(1.50) = 0.405
 
+RESOLUTION (defect found on execution, disclosed rather than papered over).
+The first run used NSIM=200_000. The winning cells have false-certification
+rates near 1e-4, so their Monte Carlo standard errors EXCEEDED the differences
+between them and the ranking was decided by RNG noise: at 200k the rule returned
+hh p65/6-of-7; at 4M it returns a different cell. A selection rule whose output
+depends on simulation seed is not a rule. Two fixes, both applied:
+  1. NSIM raised to 4_000_000, giving SE ~1e-5 at fc ~1e-4.
+  2. TIE BAND: cells whose false-certification differs from the minimum by less
+     than the 95% CI of that difference are treated as TIED, and the tie is
+     broken by power (higher wins), then lower k. Without this the gate is
+     picked by a point estimate finer than the method can resolve.
+Fix 2 is an amendment to the rule's IMPLEMENTATION, not its logic; it is
+disclosed to the lacan seat, which rules thresholds.
+
 REGISTERED IN ADVANCE: whatever the search returns is the gate, INCLUDING if it
 is neither p75/3-of-7 (author) nor p90/2-of-7 (blind re-derivation). If no
 combination satisfies the constraint in a corpus, that corpus has NO VIABLE GATE
@@ -35,7 +49,7 @@ K_VALUES   = [1, 2, 3, 4, 5, 6, 7]
 N_CAND     = 7
 POWER_MIN  = 0.80
 D_ANCHOR   = {"hh_rlhf": math.log(1.19), "pku_saferlhf": math.log(1.50)}
-NSIM       = 200_000
+NSIM       = 4_000_000   # see RESOLUTION note below
 # ---------------------------------------------------
 
 random.seed(20260726)
@@ -71,13 +85,22 @@ def decoy_pool(corp):
     return pool
 
 
-def sim(pool, floor, k, delta):
-    hit = 0
-    for _ in range(NSIM):
-        n = sum(1 for _ in range(N_CAND)
-                if (d := random.choice(pool) + delta) > 0 and abs(d) > floor)
-        hit += (n >= k)
-    return hit / NSIM
+def sim(pool, floor, k, delta, _cache={}):
+    """Vectorised: 4M x 7 draws per cell is 3.9e9 in pure Python, seconds in numpy.
+
+    Draws are shared across all (floor, k) cells for a given delta, which is
+    both faster and removes between-cell Monte Carlo noise from the comparison
+    -- the ranking is then decided by the gates, not by independent seeds.
+    """
+    import numpy as np
+    key = (id(pool), delta)
+    if key not in _cache:
+        rng = np.random.default_rng(20260726)
+        arr = np.asarray(pool)
+        _cache[key] = rng.choice(arr, size=(NSIM, N_CAND), replace=True) + delta
+    d = _cache[key]
+    fires = (d > 0) & (np.abs(d) > floor)
+    return float((fires.sum(axis=1) >= k).mean())
 
 
 for corp in CORPORA:
@@ -98,7 +121,13 @@ for corp in CORPORA:
     if not ok:
         print("  NO VIABLE GATE in this corpus -> control result is DESCRIPTIVE\n")
         continue
-    ok.sort(key=lambda r: (r[3], -r[4], r[1]))
+    # tie band: fc indistinguishable from the minimum -> break by power
+    fmin = min(r[3] for r in ok)
+    se = lambda v: math.sqrt(max(v, 1/NSIM) * (1 - v) / NSIM)
+    tied = [r for r in ok if r[3] - fmin < 1.96 * math.sqrt(2) * max(se(r[3]), 1e-7)]
+    tied.sort(key=lambda r: (-r[4], r[1]))
+    ok = tied + sorted([r for r in ok if r not in tied], key=lambda r: (r[3], -r[4]))
+    print(f"  {len(tied)} cell(s) tied at the false-cert minimum; tie broken by power")
     print(f"  {'floor':>7s}{'k':>3s}{'|D|':>9s}{'false-cert':>12s}{'power':>8s}")
     for pct, k, f, fc, pw in ok[:6]:
         print(f"  p{pct:<6d}{k:>3d}{f:>9.4f}{fc:>12.3f}{pw:>8.3f}")
