@@ -231,6 +231,17 @@ tier 2 neither, while tier 2 carries the verdict. Both are added:
      explicit-refusal markers against blunt counterparts), each
      frequency-comparable to the chain pairs: both members within a factor of 3
      of the median chain-word frequency in that corpus.
+   - **PRECONDITION OF THE GATE — promoted from a disclosure about the markers,
+     because the grid made it load-bearing.** Both selected gates require **5 of
+     7** markers to fire. At the originally proposed 3-of-7 a partly weak slate
+     could still certify the instrument; at 5-of-7 the majority of the seven
+     must be genuine, or the gate fails and triggers the INSENSITIVITY FINDING
+     for reasons of marker quality rather than instrument sensitivity — a method
+     conclusion that would be an artifact of the slate. The individual
+     attestation requirement below is therefore what stands between a weak slate
+     and a spurious method conclusion, and it is a precondition of the gate
+     rather than a nicety about documentation. If the seven cannot each be
+     attested, the gate does not run.
    - **CONDITION ON THE COUNT, required independently by both other seats.**
      The power gain from seven is contingent on all seven being independently
      attested; seven markers where the last few were chosen to fill a slate is
@@ -257,6 +268,31 @@ tier 2 neither, while tier 2 carries the verdict. Both are added:
      the condition on which the selection rule was adopted, and the grid was
      declared and committed (`596213c`) before it was run. See
      `scripts/tier2_gate_grid.py`.
+
+     **Tie-band stability, checked because the band's confidence level is a
+     discretionary parameter.** The band was introduced because hh's top cells
+     differ by 7e-6 against a CI of 1.5e-5 — selection on noise. But 95% is
+     conventional, not derived, so the winner was recomputed at three levels:
+
+     | band | hh winner | pku winner |
+     |---|---|---|
+     | 90% | p80/5-of-7 | p65/5-of-7 |
+     | 95% | p80/5-of-7 | p65/5-of-7 |
+     | 99% | p80/5-of-7 | p65/5-of-7 |
+
+     **Stable. The choice of confidence level does not affect the outcome**, so
+     the band removes the discretion rather than relocating it. Had it flipped,
+     the registered response was to declare the cells unseparable and break the
+     tie on a stated a-priori preference instead.
+
+     **Paired ranking and absolute levels reported separately.** Common random
+     numbers shrink the variance of DIFFERENCES (which is what the ranking
+     uses) while leaving the variance of LEVELS unchanged — and the 0.10
+     false-certification standard applies to the level. Levels from independent
+     draws: hh p80/5-of-7 = **0.000112 ± 0.000010**; pku p65/5-of-7 =
+     **0.001167 ± 0.000033**. Both clear 0.10 by three orders of magnitude, so
+     nothing turns on the distinction here, but the two quantities are not the
+     same and are not reported as one.
 
    **Calibration of the gate, by simulation from the real decoy distributions**
    (`scripts/tier2_gate_calibration.py`, 200k draws). Revision 4 used the
@@ -288,7 +324,19 @@ tier 2 neither, while tier 2 carries the verdict. Both are added:
    effect size tested), which is why it is preferred to the alternatives at
    equal null rate.
 
-   **Registered limitation: the gate is informative in hh only.** In pku no gate
+   **The pku gate's new power figure does NOT undemote pku.** After the grid,
+  pku's gate reports power 0.824 against hh's 0.860, which invites reading them
+  as equivalent. They are not comparable: the two are computed at DIFFERENT
+  ANCHORS, because X is each corpus's own median chain-pair MDE — **1.19x for
+  hh, 1.50x for pku**. So hh's gate certifies sensitivity at 1.19x and pku's
+  certifies it only at 1.50x. The re-anchoring changed the question to one pku
+  can answer; it did not refute the finding that demoted pku, which was that no
+  gate clearing 0.10 reached power above 0.24 at d=0.20 under the common anchor.
+  **Registered: pku's descriptive-only status STANDS and is not revised by the
+  post-grid power figure.** Any report showing 0.860 beside 0.824 must state the
+  anchors alongside them.
+
+  **Registered limitation: the gate is informative in hh only.** In pku no gate
    clearing 0.10 reaches power above 0.24 even at `d`=0.20, because pku's decoy
    dispersion is ~3x hh's (p75 `|D|` 0.266 against 0.090). The pku control
    result is therefore DESCRIPTIVE, and the instrument check that gates tier 2
