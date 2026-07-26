@@ -486,6 +486,42 @@ now has three states, not two, and no verdict is reachable from the third.
 | any | positive control set did not fire (majority `D > 0` not reached) | **NO VERDICT.** Instrument failure, reported as such. |
 | untestable | any of the above | tier 2 stands alone; conditional-frequency gap named in the entry |
 
+## On the asymmetry of this document's own foreclosures
+
+This registration states five things it cannot do: it cannot speak to amber or
+beaver, cannot resolve the scarcity/overdispersion split, cannot detect below
+about 1.11x in pku, cannot import F37's ~3x as a prior, and cannot reach the
+exclusion verdict from an underpowered tier or a diluted sign test. A reader
+encountering five such clauses is entitled to ask whether the test was built to
+be unfalsifiable. The question is fair and the answer should be checkable rather
+than rhetorical.
+
+**The asymmetry is real.** Every foreclosure above makes a NEGATIVE result
+easier to explain away and leaves a POSITIVE result untouched. Each is a
+pre-authorized reason a null might not mean what it appears to mean. The
+document is therefore, by construction, more likely to conclude "we could not
+tell" than "convention is excluded" — and exclusion is the strongest claim in
+its outcome table. That property is not defended here; it is disclosed.
+
+**What distinguishes a constraint from an escape is when it was computed and
+whether it carries a number.** A foreclosure derived from a power calculation
+before any result exists is a constraint. A foreclosure asserted after a
+disappointing null is an escape. Every clause above is of the first kind:
+
+| foreclosure | number that fixes it | computed |
+|---|---|---|
+| cannot speak to amber/beaver | pku gate power 0.20 at 1.11x, ceiling 0.79 at 1.22x | before results |
+| cannot resolve the dispersion split | 43–64% scarcity across unmeasurable bias | before results |
+| cannot detect below ~1.11x in pku | median MDE(`D_excess`) 1.50x, 4/38 pairs above 2.0x | before results |
+| cannot import F37 as a prior | tier-1 conditional frequency vs tier-2 preference; not commensurable | before results |
+| cannot reach exclusion from a diluted test | false-cert 0.564 for the rev-4 gate; informative-pairs rule | before results |
+
+The commit history is what demonstrates this, not any assurance in the text:
+`3c31609` (registration), `11f3138` (dispersion decomposition), `98e41d8`
+(baseline calibration and effect-size conversion), `48d9592` (illustrative
+bounds). No result of the test existed at any of those commits. A reader who
+doubts the claim can check the dates against the results.
+
 ## Standing rules
 
 The six standing rules are canonical in `notes/standing-rules.md` (TheoryMachines),
