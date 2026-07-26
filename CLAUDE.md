@@ -405,7 +405,7 @@ Neutral vs transgressive separation: Qwen p=0.0001, OLMo p=0.01, Llama p=0.008, 
 
 **Interpretation:** Alignment displaces similar *total* probability mass on neutral and transgressive prompts (same JS), but on transgressive prompts the displaced mass comes specifically from transgressive tokens. On neutral prompts it comes from generic vocabulary reshaping. The superego operates surgically on specific tokens rather than reshaping the whole distribution differently. This is why scalar distributional metrics (JS, entropy, rank correlation) cannot detect alignment intervention — the signal is in *which* tokens move, not *how much* moves.
 
-Results in `data/transgressive_mass.csv`. Figure in `figures/perplexity_vs_displacement.png`. New metrics in `battery_results.csv`: `perplexity_base/ego/superego/instruct`, `rank_corr_base_superego/base_ego/ego_superego/superego_instruct`.
+Results in `data/transgressive_mass.csv`. Figure in `figures/perplexity_vs_displacement.png` (rebuilt 2026-07-26 on the 9-family battery). Metrics in `battery_results.csv`: `perplexity_base/ego/superego` and `rank_corr_base_superego/base_ego/ego_superego` — all present and populated (423/423, or 282/423 for the `ego` columns, which only exist for 3+-layer families). **`perplexity_instruct` and `rank_corr_superego_instruct` do not exist and never did**; an earlier version of this line named them. Pre-existing documentation error surfaced by the 2026-07-26 sweep, not clobber damage.
 
 ---
 
