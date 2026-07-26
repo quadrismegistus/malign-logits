@@ -170,44 +170,44 @@ Construct yield from the 62-candidate enumeration (hh):
 valid pair at all, and pejorative→neutral has two in-band pairs that both fail
 power. So the honest slate is three markers and the gate is k-of-3.
 
-### A4d. The honestly calibrated three-construct gate
+### A4d. The construct-level grid (committed at `20752e9` before results were read)
 
-Freshly simulated on the unchanged decoy pool, 4M draws, under the registered
-selection rule (minimise false-certification subject to power ≥ 0.80 at the
-corpus anchor):
+One marker per construct restores independence by construction, so the ordinary
+grid machinery applies unchanged — no blockwise estimator is needed for a
+structure the cap removes (lacan). Floors p50–p95 × k ∈ {1,2,3}, 4M draws,
+per-corpus anchors.
 
-| gate | false-cert | power |
-|---|---|---|
-| p50 floor 0.0481, 3-of-3 | 0.0141 | 0.804 |
-| **p80 floor 0.1057, 2-of-3 (RECOMMENDED)** | **0.0238** | **0.900** |
-| p75, 2-of-3 | 0.0380 | 0.939 |
-| p90, 3-of-3 | 0.00013 | 0.290 (fails power) |
+**The two objectives select very different cells:**
 
-**The registered selection rule picks the wrong cell, and the rule is what
-needs amending.** As written it minimises false certification subject to
-power ≥ 0.80, which selects p50/3-of-3 (0.0141, 0.804) over p80/2-of-3
-(0.0238, 0.900). But both sit far inside the 0.10 false-certification standard,
-and the analysis above shows **power is the axis that binds** — because a failed
-gate is not a null result, it produces a substantive insensitivity finding.
-Minimising the harmless quantity at the expense of the consequential one is
-backwards.
+| corpus | objective | selected | false-cert | power |
+|---|---|---|---|---|
+| hh | **R1** (registered: min fc s.t. power ≥ 0.80) | p50 / 3-of-3 | **0.0141** | 0.804 |
+| hh | **R2** (proposed A7: max power s.t. fc ≤ 0.10) | p60 / 2-of-3 | **0.0935** | 0.976 |
+| pku | R1 | p75 / 2-of-3 | 0.0317 | 0.813 |
+| pku | R2 | p55 / 2-of-3 | 0.0965 | 0.929 |
 
-**A7 (new): the selection rule's objective is amended** to *maximise power
-subject to false certification ≤ 0.10*, with the false-certification rate still
-declared. On the current pool that selects **p80 / 2-of-3**: false-cert 0.0238,
-power 0.900 — 0.26 better on power than the withdrawn 5-of-7 slate, at a rate
-still an order inside the standard. 3-of-3 is worse than either on power and is
-not a candidate.
+**This weakens A7, which is my own proposal, and I would not now adopt it as
+drafted.** R2 lands at false-certification 0.0935 in hh — 6.6× R1's rate and
+consuming 93% of the allowance. My argument was that power binds because a
+failed gate produces a substantive insensitivity finding rather than a null. But
+a *false certification* is equally substantive in the other direction: it
+certifies an instrument that does not work, and the convention verdict then
+rests on it. Both errors produce findings; neither is the harmless one. A7's
+premise — that false certification is the harmless quantity here — is wrong.
 
-**The true rate is 0.014, not 0.000113** — two orders of magnitude worse than
-the withdrawn 5-of-7 figure, which is exactly the inflation lacan's table
-predicts. It still clears the 0.10 standard comfortably. This is a smaller and
-truer instrument than 5-of-7 on a slate that was really three things.
+**So the objective is a genuine open choice and not mine to settle.** R1 is
+conservative against certifying a dead instrument; R2 is conservative against
+condemning a live one. The grid is committed and neutral; lacan and RH choose
+the objective, and the gate follows from it.
 
-**Cost, stated plainly:** a seven-*construct* gate would need a much wider
-enumeration than 62 candidates, and the four empty categories suggest the search
-is harder than the pair count implied. Whether to pay that or run a
-three-construct gate at 0.014 is RH's call, not mine.
+**Granularity limitation, stated so the winner is not presented as tuned**
+(lacan). With three constructs the usable k values are 2 and 3, and
+P(≥2 of 3) and P(3 of 3) are far apart with nothing between. Seven independent
+constructs would give fine control over the tradeoff; three give two rungs. So
+whichever cell is selected clears both criteria without being near either
+optimum. That is an argument for wider construct enumeration on **granularity**
+grounds — weaker than the validity argument lacan made and withdrew, and offered
+as an observation rather than a recommendation.
 
 ## A5. Gate parameters unchanged — and valid for the first time
 
