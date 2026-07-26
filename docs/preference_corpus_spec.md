@@ -241,7 +241,13 @@ tier 2 neither, while tier 2 carries the verdict. Both are added:
      attestation requirement below is therefore what stands between a weak slate
      and a spurious method conclusion, and it is a precondition of the gate
      rather than a nicety about documentation. If the seven cannot each be
-     attested, the gate does not run.
+     attested, the gate does not run — and **"did not run" is a separate outcome
+     from "ran and did not fire"**, kept apart in the outcome table below. The
+     two feel like the same disappointment and license opposite things: a gate
+     that runs and fails is evidence about the instrument; a slate that cannot
+     be built is evidence about the literature on annotator preference and says
+     nothing about sensitivity. Collapsing them would manufacture a substantive
+     method claim out of a failure to construct the test.
    - **CONDITION ON THE COUNT, required independently by both other seats.**
      The power gain from seven is contingent on all seven being independently
      attested; seven markers where the last few were chosen to fill a slate is
@@ -542,7 +548,8 @@ now has three states, not two, and no verdict is reachable from the third.
 | fails | fails, control fired | convention excluded; chains have no visible source anywhere |
 | any | **UNDERPOWERED** — fewer than 12 pairs surviving the count exclusion, or MDE(`D_excess`) above 2.0x on a majority of survivors | **NO VERDICT.** Convention is neither confirmed nor excluded. The entry records the power shortfall and names what corpus would fix it. Registered now: on current counts this branch does not trigger (53 and 38 survivors; 53/53 and 34/38 under 2.0x), so reaching it would be a change in the data, not a design escape. |
 | any | **count exclusions alone reduce survivors below 12** | **NO VERDICT**, reported explicitly as a vocabulary limit rather than an evidential one. |
-| any | positive control set did not fire (majority `D > 0` not reached) | **NO VERDICT.** Instrument failure, reported as such. |
+| any | **gate RAN and fewer than 5 of 7 markers fired** | **NO VERDICT** on convention, and this DOES license the instrument-insensitivity finding: the slate was valid, the instrument was exercised, and it did not detect known annotator preference. |
+| any | **gate DID NOT RUN — fewer than 7 markers individually attestable** | **TIER 2 VOID**, reason recorded as SLATE CONSTRUCTION. This is evidence about the literature on annotator preference, not about the instrument, and it licenses NOTHING about sensitivity. **It may not be reported as the instrument-insensitivity finding.** |
 | untestable | any of the above | tier 2 stands alone; conditional-frequency gap named in the entry |
 
 ## On the asymmetry of this document's own foreclosures
