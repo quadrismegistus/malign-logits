@@ -43,9 +43,15 @@ list — it was in band but underpowered at 0.219, and it is burned regardless.
 
 ## What this does not settle
 
-- **These are hh MDEs.** pku's threshold is its own median chain-pair MDE
-  (0.405, 1.50×) and the per-pair figures there must be computed separately.
-  pku is descriptive-only, so this does not gate the verdict.
+- **These are hh MDEs**, and "clears in both corpora" is a phrase to avoid.
+  pku's threshold is its own median chain-pair MDE (0.405, 1.50×) — 2.3× laxer
+  than hh's 0.174, and laxer *precisely because pku's chains are badly
+  measured*. So a pair can clear pku and still be inadequate by the standard
+  that matters. `demand`→`request` is 0.206 in pku: clears pku's bar, **fails
+  hh's**. Only `force`→`encourage` (0.104 hh, 0.130 pku) is under hh's stricter
+  threshold in both corpora. Combined with pku being descriptive-only, a pku
+  certification licenses nothing the test can use — so the honest count is
+  **one** pair meeting a meaningful bar in both, not two. (lacan's catch.)
 - **Attestation quality is not verified here.** Each pair needs its
   external-grounds line, individually, per the standing precondition. Being
   in-band and powered makes a pair *eligible*, not *attested*.
