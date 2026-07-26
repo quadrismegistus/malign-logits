@@ -222,30 +222,45 @@ point estimate of 0.0935; its upper bound is 0.1090. lacan's margin clause was
 raised as a contingency and it fires immediately. **Under A7 + margin the
 selection is p65/2-of-3** (FC 0.0714, power 0.966), not p60.
 
-**And the binary is misleading — but the knee is at p85, not p80.** (Corrected
-by lacan from the full CSV; I had named p80 from three points and then
-"confirmed" it from the full grid without computing the marginal ratios that
-define a knee.) Marginal power per unit false certification along the hh k=2
-rung:
+**There is no knee. The frontier is smoothly convex.** Three seats located a
+knee at three different places before anyone tested whether one exists. A knee
+is a *single large proportional drop* in the marginal rate, so the diagnostic is
+the ratio of successive marginal rates along the rung:
 
-| step | ΔFC | Δpower | ratio |
+| step ratio | value |
+|---|---|
+| p95→p90 / p90→p85 | 3.47 |
+| p90→p85 / p85→p80 | 3.34 |
+| p85→p80 / p80→p75 | 1.71 |
+| p80→p75 / p75→p70 | 3.14 |
+| p75→p70 / p70→p65 | 1.26 |
+| p70→p65 / p65→p60 | 1.59 |
+| p65→p60 / p60→p55 | 1.63 |
+| p60→p55 / p55→p50 | 2.20 |
+
+Max 3.47, min 1.26, spread 2.7× — **no outlier anywhere**. Smooth convexity, not
+a knee. I named p80, lacan corrected to p85, and the property neither of us
+tested for is absent from the curve. The knee language is **removed rather than
+relocated a third time**.
+
+**What survives, and it is the useful fact.** p85/2-of-3's distinction has
+nothing to do with its position on the curve — it is its relation to the
+registered rule. FC **0.01443** against R1's **0.01414**, a difference of
+**0.00029** far inside the bootstrap uncertainty on either cell, for **0.051 of
+power** that is not.
+
+**And the live band is narrow, which is what a decision-maker should take from
+this.** Once p85 is available:
+
+| position | cell | FC | power |
 |---|---|---|---|
-| p95→p90 | +0.0051 | +0.285 | **56.1** |
-| p90→p85 | +0.0074 | +0.120 | **16.2** |
-| p85→p80 | +0.0093 | +0.045 | 4.8 |
-| p80→p75 | +0.0138 | +0.039 | 2.8 |
-| p75→p70 | +0.0167 | +0.015 | 0.9 |
+| A-protective (guard against certifying a dead instrument) | p85 / 2-of-3 | 0.0144 | 0.855 |
+| B-protective (guard against condemning a live one) | p80 / 2-of-3 | 0.0237 | 0.900 |
 
-Returns collapse **after p85**, not after p80.
-
-**And p85/2-of-3 is the practical equivalent of dominating R1's selection.**
-R1 picks p50/3-of-3 at FC 0.01414, power 0.804. p85/2-of-3 is FC 0.01443, power
-0.855. The false-certification difference is **+0.00029** — far inside the
-bootstrap uncertainty on either cell — and the power difference is **+0.051**,
-which is not. No cell formally dominates R1 (none has FC ≤ R1's *with* higher
-power), but the registered rule is giving away five points of power for a
-false-certification advantage too small to measure. That is invisible unless
-every floor is plotted.
+Roughly **0.855–0.900 power at 0.0144–0.0237 false certification**. The
+conceptual asymmetry between the two errors is real and worth understanding; the
+decision it governs is **small**. A reader arriving expecting a consequential
+fork should be told the frontier has largely dissolved it.
 
 **Granularity limitation, stated so the winner is not presented as tuned**
 (lacan). With three constructs the usable k values are 2 and 3, and
