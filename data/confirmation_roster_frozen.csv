@@ -1,0 +1,22 @@
+family,stratum_reconciled,confirmation_bearing,reachability,backend,base,aligned,arch,gb,language,recipe,roster_stratum_original,cause
+baichuan,core,no,UNREACHABLE,,baichuan-inc/Baichuan2-7B-Base,baichuan-inc/Baichuan2-7B-Chat,BaichuanForCausalLM,15.0,zh/en,chat (undisclosed),core,"3 paths, 3 reasons: aligned weights never local (CONFIG-ONLY); BaichuanForCausalLM removed from vLLM after 0.23; remote code indexes past_key_values[0][0], a DynamicCache under transformers 5.4"
+bloom,core,YES,reached,vllm,bigscience/bloom-7b1,bigscience/bloomz-7b1,BloomForCausalLM,28.3,multi(46),instruction-FT (xP3),core,
+ct-llm,small,YES,reached,mps,m-a-p/CT-LLM-Base,m-a-p/CT-LLM-SFT-DPO,LlamaForCausalLM,8.5,zh/en,SFT->DPO,small,
+falcon-h1-1.5b,exploratory (ruling 2: non-transformer),no,reached,vllm,tiiuae/Falcon-H1-1.5B-Base,tiiuae/Falcon-H1-1.5B-Instruct,FalconH1ForCausalLM,6.2,en,instruct,exploratory,
+falcon-h1-7b,exploratory (ruling 2: non-transformer),no,reached,vllm,tiiuae/Falcon-H1-7B-Base,tiiuae/Falcon-H1-7B-Instruct,FalconH1ForCausalLM,30.3,en,instruct,exploratory,
+falcon-mamba,exploratory (ruling 2: non-transformer),no,reached,vllm,tiiuae/falcon-mamba-7b,tiiuae/falcon-mamba-7b-instruct,FalconMambaForCausalLM,29.1,en,instruct,core,
+falcon3-10b,exploratory (ruling 1: Falcon3 scale series),no,reached,vllm,tiiuae/Falcon3-10B-Base,tiiuae/Falcon3-10B-Instruct,LlamaForCausalLM,41.2,en,instruct,exploratory,
+falcon3-1b,exploratory (ruling 1: Falcon3 scale series),no,reached,vllm,tiiuae/Falcon3-1B-Base,tiiuae/Falcon3-1B-Instruct,LlamaForCausalLM,6.7,en,instruct,small,
+falcon3-3b,exploratory (ruling 1: Falcon3 scale series),no,reached,vllm,tiiuae/Falcon3-3B-Base,tiiuae/Falcon3-3B-Instruct,LlamaForCausalLM,12.9,en,instruct,small,
+falcon3-7b,core,YES,reached,vllm,tiiuae/Falcon3-7B-Base,tiiuae/Falcon3-7B-Instruct,LlamaForCausalLM,29.8,en,instruct,core,
+falcon3-mamba,exploratory (ruling 2: non-transformer),no,reached,vllm,tiiuae/Falcon3-Mamba-7B-Base,tiiuae/Falcon3-Mamba-7B-Instruct,FalconMambaForCausalLM,29.1,en,instruct,exploratory,
+glm4,core,YES,reached,vllm,zai-org/glm-4-9b-hf,zai-org/glm-4-9b-chat-hf,GlmForCausalLM,37.6,zh/en,chat (undisclosed),core,
+internlm2,core,no,UNREACHABLE,,internlm/internlm2-base-7b,internlm/internlm2-chat-7b,InternLM2ForCausalLM,15.5,zh/en,RLHF-style,core,remote-code InternLM2ForCausalLM.forward() signature missing intermediate_tensors under vLLM 0.26
+map-neo,core,YES,reached,vllm,m-a-p/neo_7b,m-a-p/neo_7b_instruct_v0.1,LlamaForCausalLM,31.2,zh/en,SFT->instruct,core,
+minicpm,small,YES,reached,mps,openbmb/MiniCPM5-1B-Base,openbmb/MiniCPM5-1B,LlamaForCausalLM,4.3,en,SFT,small,
+qwen3,core,YES,reached,vllm,Qwen/Qwen3-8B-Base,Qwen/Qwen3-8B,Qwen3ForCausalLM,32.8,zh/en/multi,instruct-compound,core,
+redpajama,core,YES,reached,vllm,togethercomputer/RedPajama-INCITE-Base-7B-v0.1,togethercomputer/RedPajama-INCITE-7B-Chat,GPTNeoXForCausalLM,27.5,en,instruct/chat SFT,core,
+rwkv,core,no,UNREACHABLE,,RWKV/rwkv-4-7b-pile,RWKV/rwkv-raven-7b,?,59.1,en,instruct (raven),core,"base weights incomplete, 0/17 shards; dropped pre-generation (prereg ruling 2)"
+stablelm,small,YES,reached,mps,stabilityai/stablelm-2-1_6b,stabilityai/stablelm-2-zephyr-1_6b,StableLmForCausalLM,6.6,en,DPO (zephyr recipe),small,
+tinyllama,small,YES,reached,mps,TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T,TinyLlama/TinyLlama-1.1B-Chat-v1.0,LlamaForCausalLM,6.6,en,DPO chain,small,"census arm is MPS; its vLLM draws are the registered cross-backend sanity pair, written to data/tinyllama_cloud_sanity.jsonl and never entered a stash"
+yi,core,YES,reached,vllm,01-ai/Yi-1.5-9B,01-ai/Yi-1.5-9B-Chat,LlamaForCausalLM,35.3,zh/en,chat (undisclosed),core,
