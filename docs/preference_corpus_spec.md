@@ -243,13 +243,20 @@ tier 2 neither, while tier 2 carries the verdict. Both are added:
      seven can be attested individually, the slate shrinks to the number that
      can and the gate reverts to the corresponding calibrated rule (p75 floor,
      2-of-3 at three candidates).
-   - **Firing rule (OPERATIVE, set by blind re-derivation): `D > 0` AND `|D|`
-     above the 90th percentile of the decoy `|D|` distribution, with 2 of the 7
-     candidates required.** Floors: `|D|` p90 = **0.1415** (hh), **0.4106**
-     (pku). This SUPERSEDES the author's registered p75/3-of-7 under the
-     governance commitment at `a44df66` — see "the stronger check was run"
-     below. A deviation back to p75/3-of-7 is proposed and pending lacan audit;
-     until lacan rules, the values here govern.
+   - **Firing rule (FINAL, set by the registered selection rule):
+     `D > 0` AND `|D|` above the corpus's selected percentile of the decoy
+     `|D|` distribution, with the selected k of 7 candidates.**
+
+     | corpus | floor | k | `|D|` threshold | false-cert | power at anchor |
+     |---|---|---|---|---|---|
+     | hh_rlhf | p80 | **5**-of-7 | 0.1057 | 0.000 | 0.860 |
+     | pku_saferlhf | p65 | **5**-of-7 | 0.2114 | 0.001 | 0.824 |
+
+     **This is neither candidate gate.** Not the author's p75/3-of-7, not the
+     blind re-derivation's p90/2-of-7. Accepting that outcome in advance was
+     the condition on which the selection rule was adopted, and the grid was
+     declared and committed (`596213c`) before it was run. See
+     `scripts/tier2_gate_grid.py`.
 
    **Calibration of the gate, by simulation from the real decoy distributions**
    (`scripts/tier2_gate_calibration.py`, 200k draws). Revision 4 used the
