@@ -56,7 +56,12 @@ def main():
             if r["corpus"] == corp and r["k"] >= 2:
                 print(f"{r['floor']:>7s}{r['k']:>3d}{r['threshold']:>9.4f}{r['false_cert']:>9.4f}"
                       f"{str(r['fc_upper95']):>12s}{r['power']:>8.3f}")
-    print("\nk=1 rows in the CSV; all have FC far above 0.10 and are not viable.")
+    # NOT true that k=1 is excluded: hh p95/1 clears the ceiling on both point
+    # estimate and bound (FC 0.0748, upper 0.0916, power 0.849), as does pku
+    # p95/1. k=1 is DOMINATED (p80/2 beats p95/1 on both axes), which is a
+    # different claim from excluded, and both seats made the wrong one.
+    print("\nk=1: mostly far above 0.10, but p95/1 clears in BOTH corpora --")
+    print("     dominated, not excluded. See the CSV.")
     print("-> data/tier2_full_frontier.csv")
 
 

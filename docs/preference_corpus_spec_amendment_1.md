@@ -222,13 +222,30 @@ point estimate of 0.0935; its upper bound is 0.1090. lacan's margin clause was
 raised as a contingency and it fires immediately. **Under A7 + margin the
 selection is p65/2-of-3** (FC 0.0714, power 0.966), not p60.
 
-**And the binary is misleading.** The choice is not 0.0143/0.804 against
-0.0935/0.976. **p80/2-of-3 gives power 0.900 — nearly R2's — at FC 0.0240, only
-1.7× R1's rate and comfortably inside every margin.** It buys ~0.10 of power for
-~0.01 of false certification. Whatever objective is adopted, that cell should be
-in front of the decision, because a reader shown only the two endpoints would
-conclude the trade is 8 points for 8 points when the frontier is sharply convex
-near R1.
+**And the binary is misleading — but the knee is at p85, not p80.** (Corrected
+by lacan from the full CSV; I had named p80 from three points and then
+"confirmed" it from the full grid without computing the marginal ratios that
+define a knee.) Marginal power per unit false certification along the hh k=2
+rung:
+
+| step | ΔFC | Δpower | ratio |
+|---|---|---|---|
+| p95→p90 | +0.0051 | +0.285 | **56.1** |
+| p90→p85 | +0.0074 | +0.120 | **16.2** |
+| p85→p80 | +0.0093 | +0.045 | 4.8 |
+| p80→p75 | +0.0138 | +0.039 | 2.8 |
+| p75→p70 | +0.0167 | +0.015 | 0.9 |
+
+Returns collapse **after p85**, not after p80.
+
+**And p85/2-of-3 is the practical equivalent of dominating R1's selection.**
+R1 picks p50/3-of-3 at FC 0.01414, power 0.804. p85/2-of-3 is FC 0.01443, power
+0.855. The false-certification difference is **+0.00029** — far inside the
+bootstrap uncertainty on either cell — and the power difference is **+0.051**,
+which is not. No cell formally dominates R1 (none has FC ≤ R1's *with* higher
+power), but the registered rule is giving away five points of power for a
+false-certification advantage too small to measure. That is invisible unless
+every floor is plotted.
 
 **Granularity limitation, stated so the winner is not presented as tuned**
 (lacan). With three constructs the usable k values are 2 and 3, and
