@@ -331,7 +331,15 @@ cm.count_generations('LLM360/Amber', '')              # → 0 (wrong!)
 
 **Same repression intensity, different psychic architecture.** OLMo and Amber both displace ~0.18 JS, but OLMo's SFT does ~90% of the work (ego-dominant), while Amber splits 50/50 between SFT and DPO (shared ego/superego labour). Same total repression, structurally different economies.
 
-**Liminal content triggers more displacement than explicit.** JS divergence: sexual liminal 0.13 > sexual explicit 0.10; violence liminal 0.15 > violence explicit 0.09. The superego is most active at the boundary, not on obviously transgressive content.
+**Liminal content displaces more than explicit — but this is ~91% an entropy effect, and "boundary" overstates it.** CORRECTED 2026-07-26. Recomputed across 9 families (amber, llama, olmo, olmo-tiny, qwen, smol, tulu, tulu-no-safety, zephyr), paired, family as unit:
+
+- **liminal − explicit JS = +0.0271**, CI [+0.0102, +0.0440], t=+3.15, **9/9 families positive**. Direction is solid.
+- **liminal − neutral JS = +0.0097**, CI [−0.0153, +0.0347], 6/9. **Not significant.** Liminal is indistinguishable from neutral, so there is no boundary *peak* — explicit sits low and everything else is flat.
+- Within-family JS-vs-entropy slope is +0.0187/nat; the liminal−explicit entropy gap of 1.315 nats predicts +0.0246 against +0.0271 observed. **Residual +0.0026.** The effect is almost entirely explained by liminal sites being higher-entropy than explicit ones.
+
+The previous version of this claim ("sexual liminal 0.13 > sexual explicit 0.10; violence liminal 0.15 > violence explicit 0.09; the superego is most active at the boundary") cited numbers matching no surviving file — `data/battery_results.csv` was later overwritten by a single-family (zephyr) run, so the booked figures had no live source. Per-family batteries in `data/battery_*.csv` are the real basis.
+
+Independently, lacan's freed-mass metric on the same prompts finds **no family-level liminal/explicit difference** (20/37) and explicit *below* neutral (26/37, p=0.020). Both metrics agree liminal ≈ neutral and that the raw effect is entropy-driven; they differ on the residual sign. The boundary claim is **METRIC-QUALIFIED** pending a registered metric-comparison study.
 
 **Substance use and profanity trigger unexpectedly strong alignment.** Substance prompts show the highest entropy drop (0.82 nats), exceeding sexual and violent content. Profanity also displaces substantially. These categories are not typical safety targets but are heavily restructured.
 
