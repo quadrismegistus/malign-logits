@@ -1,0 +1,19 @@
+family,backend,base_dtype,aligned_dtype,symmetry,cloud_risk
+bloom,vllm,float16,unset,**DIFFERENT**,CONTAMINATED
+ct-llm,mps,float16,bfloat16,**DIFFERENT**,n/a (mps forces fp16 both arms)
+falcon-h1-1.5b,vllm,bfloat16,bfloat16,SAME,clean
+falcon-h1-7b,vllm,bfloat16,bfloat16,SAME,clean
+falcon-mamba,vllm,bfloat16,bfloat16,SAME,clean
+falcon3-10b,vllm,bfloat16,bfloat16,SAME,clean
+falcon3-1b,vllm,bfloat16,bfloat16,SAME,clean
+falcon3-3b,vllm,bfloat16,bfloat16,SAME,clean
+falcon3-7b,vllm,bfloat16,bfloat16,SAME,clean
+falcon3-mamba,vllm,bfloat16,bfloat16,SAME,clean
+glm4,vllm,bfloat16,bfloat16,SAME,clean
+map-neo,vllm,bfloat16,bfloat16,SAME,clean
+minicpm,mps,bfloat16,bfloat16,SAME,n/a (mps forces fp16 both arms)
+qwen3,vllm,bfloat16,bfloat16,SAME,clean
+redpajama,vllm,float16,float16,SAME,clean
+stablelm,mps,float16,float16,SAME,n/a (mps forces fp16 both arms)
+tinyllama,mps,float32,bfloat16,**DIFFERENT**,n/a (mps forces fp16 both arms)
+yi,vllm,bfloat16,bfloat16,SAME,clean
