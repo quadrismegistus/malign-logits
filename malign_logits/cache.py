@@ -53,6 +53,60 @@ def open_stash(root_dir, **overrides):
     return HashStash(root_dir=root_dir, **{**STASH_OPTIONS, **overrides})
 
 
+def canonical_key(key):
+    """Sort dict keys so the on-disk key never depends on insertion order.
+
+    hashstash 0.4.0 serializes dicts in INSERTION ORDER, so
+    {"model": m, "prompt": p} and {"prompt": p, "model": m} are different
+    keys, and a reader using one order is silently blind to entries written
+    with the other. hashstash 1.0.1 canonicalizes and the two agree.
+
+    That difference bit us on 2026-07-26: the confirmation census was written
+    under 1.0.1 (.venv) and a 0.4.0 reader (venv) got None for every entry.
+    Sorting here makes the key identical under both versions, so the code
+    depends on no version's canonicalization behaviour.
+    """
+    return {k: key[k] for k in sorted(key)} if isinstance(key, dict) else key
+
+
+class _CanonicalStash:
+    """Proxy that canonicalizes dict keys on every access.
+
+    Wrapping at the stash boundary fixes all ~45 key-construction sites in
+    this module at once, and catches any added later.
+    """
+
+    __slots__ = ("_s",)
+
+    def __init__(self, stash):
+        object.__setattr__(self, "_s", stash)
+
+    def __getitem__(self, key):
+        return self._s[canonical_key(key)]
+
+    def __setitem__(self, key, value):
+        self._s[canonical_key(key)] = value
+
+    def __contains__(self, key):
+        return canonical_key(key) in self._s
+
+    def __delitem__(self, key):
+        del self._s[canonical_key(key)]
+
+    def get(self, key, default=None):
+        k = canonical_key(key)
+        return self._s[k] if k in self._s else default
+
+    def __len__(self):
+        return len(self._s)
+
+    def __iter__(self):
+        return iter(self._s)
+
+    def __getattr__(self, name):
+        return getattr(self._s, name)
+
+
 def normalize_text(text: str) -> str:
     """Canonical text normalization for cache keys.
 
@@ -70,7 +124,8 @@ class CacheManager:
 
     def _stash(self, name):
         if name not in self._stashes:
-            self._stashes[name] = open_stash(os.path.join(self.root, name))
+            self._stashes[name] = _CanonicalStash(
+                open_stash(os.path.join(self.root, name)))
         return self._stashes[name]
 
     # ── logits ──────────────────────────────────────────────────
