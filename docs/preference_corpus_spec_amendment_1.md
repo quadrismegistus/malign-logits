@@ -116,15 +116,55 @@ categories, not "register preference" in general. Whether that is acceptable is
 lacan's call; the alternative is a wider enumeration to spread the categories,
 at the cost of a longer search.
 
-## A5. Gate parameters are unchanged
+## A5. Gate parameters unchanged — and valid for the first time
 
-The registered selection rule chose the gate from the **decoy** distribution,
-which this amendment does not touch. So hh remains **p80 floor / 5-of-7**
-(threshold 0.1057) and pku **p65 / 5-of-7** (0.2114). Only the slate changes.
+**A defect in the v1 gate that nobody caught, including nine audit rounds**
+(lacan). The false-certification rates were simulated from the pooled **decoy**
+distribution, and the decoys are nearest-k in log frequency **to the chain
+pairs**. So the calibrated null describes a marker drawn from chain-frequency
+space. Six of seven v1 markers were out of band and mostly far commoner, and a
+commoner pair has a much tighter null. **The simulated false-certification rate
+was computed for a slate that did not exist.** The v1 gate was invalid twice
+over: precondition violated, and calibration not describing the markers it was
+applied to.
 
-If the slate ever shrinks under A1, the grid in `scripts/tier2_gate_grid.py`
-must be re-run at the new k and the resulting false-certification rate declared
-before any `D` is computed.
+**Direction, so this is not oversold:** the mismatch made the gate
+*conservative*, not permissive — tighter nulls on high-frequency markers clear
+an absolute floor by chance less often, so the true rate for that slate was
+*below* the simulated one. No false-pass risk, no change to the verdict. The
+defect is that a number in the registration was not about the thing it was
+attached to.
+
+**So in-band does two jobs, for two separate reasons**, and this should be
+stated wherever the requirement appears: it secures **power** at the operative
+effect size, *and* it makes the decoy-based **calibration valid**, because the
+markers then occupy the same frequency space as the decoys they are calibrated
+against. The v2 slate is entirely in band, so p80/5-of-7 is a valid calibration
+for the first time.
+
+**Recomputed, not inherited** (lacan's requirement — "should come out close" is
+the reasoning that put an unexamined number in the registration last time). 4M
+draws from the unchanged decoy pools:
+
+| corpus | gate | false-cert | power at anchor |
+|---|---|---|---|
+| hh_rlhf | p80 / 5-of-7, floor 0.1057 | **0.000113** | 0.860 |
+| pku_saferlhf | p65 / 5-of-7, floor 0.2114 | **0.001185** | 0.824 |
+
+Parameters therefore stand. If the slate ever shrinks under A1, re-run
+`scripts/tier2_gate_grid.py` at the new k and declare the new rate before any
+`D` is computed.
+
+## A5b. Why the rebuild is worth running, not merely valid
+
+Under the v1 slate a gate failure was **uninterpretable**: most markers were
+measured where the null model did not describe them and where power for
+chain-sized effects was unknown. Under a slate that is in band and powered,
+every null is a *precise null at the operative scale*. So if the new gate fails,
+that failure means something — attested annotator preferences genuinely absent
+at unigram level in these corpora — rather than meaning nothing. **The rebuild
+converts an unfalsifiable check into a falsifiable one.** That, rather than the
+seven pairs, is the argument for spending the tokens. (lacan.)
 
 ## A6. Declared certification size
 
