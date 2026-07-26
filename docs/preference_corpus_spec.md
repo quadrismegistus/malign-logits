@@ -243,9 +243,13 @@ tier 2 neither, while tier 2 carries the verdict. Both are added:
      seven can be attested individually, the slate shrinks to the number that
      can and the gate reverts to the corresponding calibrated rule (p75 floor,
      2-of-3 at three candidates).
-   - **Firing rule: `D > 0` AND `|D|` above the 75th percentile of the decoy
-     `|D|` distribution, with 2 of the 7 candidates required.** Floors:
-     `|D|` p90 = **0.1415** (hh), **0.4106** (pku). SUPERSEDED BY BLIND RE-DERIVATION -- see "the stronger check was run"; p75/3-of-7 is proposed as a deviation, pending lacan audit.
+   - **Firing rule (OPERATIVE, set by blind re-derivation): `D > 0` AND `|D|`
+     above the 90th percentile of the decoy `|D|` distribution, with 2 of the 7
+     candidates required.** Floors: `|D|` p90 = **0.1415** (hh), **0.4106**
+     (pku). This SUPERSEDES the author's registered p75/3-of-7 under the
+     governance commitment at `a44df66` — see "the stronger check was run"
+     below. A deviation back to p75/3-of-7 is proposed and pending lacan audit;
+     until lacan rules, the values here govern.
 
    **Calibration of the gate, by simulation from the real decoy distributions**
    (`scripts/tier2_gate_calibration.py`, 200k draws). Revision 4 used the
