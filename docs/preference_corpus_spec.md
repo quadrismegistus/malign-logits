@@ -508,19 +508,46 @@ whether it carries a number.** A foreclosure derived from a power calculation
 before any result exists is a constraint. A foreclosure asserted after a
 disappointing null is an escape. Every clause above is of the first kind:
 
-| foreclosure | number that fixes it | computed |
+| foreclosure | number that fixes it | prior looks spent when registered |
 |---|---|---|
-| cannot speak to amber/beaver | pku gate power 0.20 at 1.11x, ceiling 0.79 at 1.22x | before results |
-| cannot resolve the dispersion split | 43–64% scarcity across unmeasurable bias | before results |
-| cannot detect below ~1.11x in pku | median MDE(`D_excess`) 1.50x, 4/38 pairs above 2.0x | before results |
-| cannot import F37 as a prior | tier-1 conditional frequency vs tier-2 preference; not commensurable | before results |
-| cannot reach exclusion from a diluted test | false-cert 0.564 for the rev-4 gate; informative-pairs rule | before results |
+| cannot import F37 as a prior | tier-1 conditional freq vs tier-2 preference; not commensurable | none — a commensurability argument, no data |
+| cannot detect below ~1.11x in pku | median MDE(`D_excess`) 1.50x, 4/38 pairs above 2.0x | unigram counts only |
+| cannot speak to amber/beaver | pku gate power 0.20 at 1.11x, ceiling 0.79 at 1.22x | counts, decoys, **chain `D`**, control burn |
+| cannot resolve the dispersion split | 43–64% scarcity across unmeasurable bias | counts, decoys, **chain `D`**, control burn |
+| cannot reach exclusion from a diluted test | false-cert 0.564 for the rev-4 gate; informative-pairs rule | counts, decoys, **chain `D`**, control burn |
 
-The commit history is what demonstrates this, not any assurance in the text:
-`3c31609` (registration), `11f3138` (dispersion decomposition), `98e41d8`
-(baseline calibration and effect-size conversion), `48d9592` (illustrative
-bounds). No result of the test existed at any of those commits. A reader who
-doubts the claim can check the dates against the results.
+**"Predates any result" would be doing more work than it can bear, so it is not
+claimed.** Three looks were spent before the later commits, and flattening them
+would give this section a cleanliness the rest of the document explicitly
+disclaims:
+
+1. **F37's ~3x**, the hypothesis-generating observation — which is why "wanted
+   to" is excluded from the tier-1 test set.
+2. **The burned positive control**, `sorry`->`unfortunately` at `D` = −0.072,
+   which is why the replacement markers are registered as chosen with one look
+   already spent.
+3. **Raw chain-pair `D` values were printed during the decoy-feasibility run**
+   and are therefore visible to the author. This was not previously disclosed
+   and is disclosed here. In hh, `kill`->`scream` `D` = +0.090,
+   `die`->`fall` +0.107, `cry`->`feel` +0.060 — several positive, which is
+   directional information about the hypothesis under test.
+
+**What this does and does not compromise.** The registered statistic is
+`D_excess` against a decoy baseline, evaluated by sign test; **neither
+`D_excess` nor any sign test has been computed for the chain pairs**, and the
+positive-control slate has not been run. But the thresholds fixed after that
+run — the 2.0x cut, the informative-pairs rule, the p75/3-of-7 gate — were set
+with raw chain `D` visible. What protects them is that every one has a stated
+power rationale that a reader can check is independent of the observed `D`: the
+2.0x cut from MDE, the informative-pairs rule from sign-test dilution
+arithmetic, the gate from a false-certification simulation on decoys. A reader
+who suspects otherwise should check whether any threshold's justification
+references an observed chain value. None does — but the check is theirs to make,
+not mine to assert.
+
+Commits, none of which contain a tier-2 result: `3c31609` (registration),
+`11f3138` (dispersion decomposition), `98e41d8` (calibration and effect-size
+conversion), `48d9592` (illustrative bounds), `4a3d47d` (this section).
 
 ## Standing rules
 
