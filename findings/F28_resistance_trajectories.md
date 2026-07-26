@@ -1,3 +1,27 @@
+---
+status: rescoped
+grade: C
+date: 2026-07-26
+role: finding
+superseded_by: none — original OLMo-2-0425-1B result stands on its own data; the 19-family scale-up replaces it with nothing
+instruments: [beam-storylines, teacher-forcing, positional-resistance]
+families: [olmo-tiny]
+scale_up_families: [amber, archangel-dpo, ct-llm, deepseek-7b, llama, map-neo, minicpm, olmo, olmo-hybrid, olmo-tiny, pythia, qwen, qwen-tiny, qwen3, redpajama, smol, smol3, stablelm, zephyr]
+chapters: [ch05]
+data: [f28_scaled_trajectories.csv, f28_both_directions.csv, f28_gate_correlates.csv, f28_null_control.csv]
+scripts: [f28_scaled.py, f28_both_directions.py, f28_gate_correlates.py, f28_residue_controls.py, f28_null_control.py]
+---
+> **Status note (2026-07-26).** Rescoped to discovery-sample-only. A 19-family
+> scale-up was attempted on beams already in the stash (335,799
+> storyline-scorings, no new generation) and produced a positional signature —
+> forward resistance peaking at token 0, reverse at token 1 — which was then
+> withdrawn after four controls, three of which were requested by the
+> TheoryMachines seat. The original single-model result is untouched by this;
+> what failed is the generalisation. The full attempt, its intermediate claims
+> and every control are recorded below rather than deleted, because the
+> sequence is the useful part: each intermediate claim looked stronger than the
+> one it replaced, and each fell to a control that cost minutes to run.
+
 # F28: Position-Specific Resistance Trajectories
 
 **Summary**
