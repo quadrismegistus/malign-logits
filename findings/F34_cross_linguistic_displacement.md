@@ -1,3 +1,13 @@
+---
+status: unaudited
+grade: C
+date: 2026-06-27
+role: finding
+description: "Cross-linguistic displacement \u2014 the class engine is language-dependent (6 families, Chinese vs English). Measured on: qwen-only derived\n  CSVs."
+instruments: [logit-mass]
+data: ["stash:logits (CHINESE_PROMPTS, 73 prompts, 6 families) (source of record)", "qwen_chinese_logits.csv (qwen only; matched by content, not cited)", "qwen_chinese_generations.csv (qwen only; matched by content, not cited)"]
+scripts: [qwen_chinese_displacement.py, f25_chinese_displacement_figure.py]
+---
 # F34: Cross-Linguistic Displacement — The Class Engine Is Language-Dependent
 
 **Summary**

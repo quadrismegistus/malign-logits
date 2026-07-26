@@ -1,3 +1,12 @@
+---
+status: unaudited
+grade: C
+date: 2026-05-17
+role: finding
+description: "Documentary \u2014 dataset composition (CoCoNot, WildGuardMix, WildJailbreak; 76% Common Crawl) quoted from the OLMo 3 technical report; argues SFT/DPO division of labor implicates objective over data."
+instruments: [documentary]
+data: ["arXiv:2512.13961"]
+---
 # F07: Training data attribution: objective vs data composition (OLMo 3)
 
 The OLMo 3 technical report (arXiv:2512.13961) documents exact data mixtures for every training stage, making it possible to ask whether the displacement patterns above are driven by the training *objective* (SFT cross-entropy, DPO preference loss) or by the training *data* (specific safety datasets that teach the model what to refuse).

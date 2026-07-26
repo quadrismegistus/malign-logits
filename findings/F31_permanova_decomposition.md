@@ -1,3 +1,16 @@
+---
+status: rescoped
+grade: C
+date: 2026-06-26
+role: finding
+description: "PERMANOVA variance decomposition \u2014 pretraining dominates alignment. Measured on: 26k features; 37\u219244 families."
+instruments: [regression]
+families: [tulu]
+chapters: [ch05, ch09, ch11]
+data: ["stash:word_probs (4,098 entries, 37 models x ~120 prompts)"]
+scripts: [compute_score_vocab.py]
+superseded_by: "none (rescoped in place by its OWN canonical 44-family revision: the 14-family delta result REVERSED \u2014 relation_type 30.9% p=.002 at 14 families \u2192 2.9% n.s. at 44; family 97.8%. The operation-matters claim survives in exactly two places: within-family comparisons and controlled same-base comparisons. ch11:27-49, 164-182.)"
+---
 # F31: PERMANOVA Variance Decomposition — Pretraining Dominates Alignment
 
 **Summary**

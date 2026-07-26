@@ -1,3 +1,13 @@
+---
+status: unaudited
+grade: C
+date: 2026-06-28
+role: finding
+description: "Architecture independence \u2014 displacement is weight-level (unembedding), fires under transformer, Mamba, and RWKV alike; contra attention-locus readings. Measured on: cross-architecture battery, unembedding analysis."
+instruments: []
+data: [architecture_independence.csv]
+scripts: [decompose_circuit.py]
+---
 # F35: Architecture Independence — Displacement Is Weight-Level, Not Attention-Dependent
 
 **Summary**

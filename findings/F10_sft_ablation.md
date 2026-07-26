@@ -1,3 +1,13 @@
+---
+status: unaudited
+grade: C
+date: 2026-05-17
+role: finding
+description: "SFT data ablation (Tulu 3, 5 variants)."
+instruments: [logit-mass, intervention]
+data: [ablation_results.csv]
+scripts: [sft_ab_experiment.py]
+---
 # F10: SFT data ablation (Tulu 3, 5 variants, 47 prompts)
 
 Allen AI releases Tulu SFT checkpoints trained without specific data subsets. Same base, same architecture, different SFT data mixtures. Isolates the contribution of each data component to ego-stage displacement.

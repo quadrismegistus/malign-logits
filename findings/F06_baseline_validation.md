@@ -1,3 +1,13 @@
+---
+status: unaudited
+grade: C
+date: 2026-05-17
+role: finding
+description: "Alignment-specificity baseline \u2014 same total JS on neutral and transgressive; moved mass comes specifically from transgressive tokens (\"surgical targeting\"). Measured on: 47-prompt battery."
+instruments: [logit-mass]
+chapters: [ch05]
+data: [battery_results.csv, transgressive_mass.csv]
+---
 # F06: Baseline validation: is displacement alignment-specific? (4 families, 47 prompts)
 
 A colleague observed that our displacement metrics might reflect general SFT drift rather than alignment-specific intervention: if SFT reshapes all distributions, how do we know the changes on transgressive prompts are safety-related rather than a side-effect of instruction tuning?

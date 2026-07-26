@@ -1,3 +1,12 @@
+---
+status: unaudited
+grade: C
+date: 2026-05-17
+role: finding
+description: "Same base, different curriculum (Tulu 3.1 vs Llama 3.1). Measured on: 47-prompt battery."
+instruments: [logit-mass]
+data: [battery_tulu.csv]
+---
 # F09: Same base model, different alignment (Tulu 3.1 vs Llama 3.1, 47 prompts)
 
 Tulu 3.1 8B and Llama 3.1 8B share the exact same base model (`meta-llama/Llama-3.1-8B`). Llama uses Meta's opaque alignment (base → instruct, 2 layers). Tulu uses Allen AI's transparent pipeline (base → SFT → DPO → RLVR, 4 layers). This is the controlled experiment: same id, different socialisation.

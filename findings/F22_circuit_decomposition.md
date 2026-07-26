@@ -1,3 +1,14 @@
+---
+status: unaudited
+grade: C
+date: 2026-06-21
+role: finding
+description: "Circuit decomposition \u2014 SFT carries 92% of residual broadening (OLMo); class engine in the preference stage, mid-layer residual."
+instruments: [geometry]
+chapters: [ch04]
+data: [attention_class_phase_transition.csv, attention_cross_family.csv, attention_entropy_olmo.csv, attention_institutional.csv, attention_phase_transition.csv, circuit_decomposition.csv, layernorm_cross_family.csv, layernorm_decomposition.csv, midlayer_class_engine_cross_family.csv, mlp_gating.csv, value_vector_decomposition.csv, value_vectors_cross_family.csv]
+scripts: [decompose_circuit.py]
+---
 # F22: Circuit decomposition — the cut between mechanism and surface
 
 **Where in the transformer does alignment operate?**

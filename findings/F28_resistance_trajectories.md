@@ -4,7 +4,7 @@ grade: C
 date: 2026-07-26
 role: finding
 superseded_by: none — original OLMo-2-0425-1B result stands on its own data; the 19-family scale-up replaces it with nothing
-instruments: [beam-storylines, teacher-forcing, positional-resistance]
+instruments: [resistance]
 families: [olmo-tiny]
 scale_up_families: [amber, archangel-dpo, ct-llm, deepseek-7b, llama, map-neo, minicpm, olmo, olmo-hybrid, olmo-tiny, pythia, qwen, qwen-tiny, qwen3, redpajama, smol, smol3, stablelm, zephyr]
 chapters: [ch05]

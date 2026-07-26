@@ -1,3 +1,13 @@
+---
+status: unaudited
+grade: C
+date: 2026-05-17
+role: finding
+description: "Founding displacement result \u2014 kill\u2192scream, redistribution not deletion; the article's opening empirical fact."
+instruments: [logit-mass]
+chapters: [ch05, ch07, ch09]
+data: ["stash:logits (battery prompts, all families)"]
+---
 # F01: Logit-level analysis (OLMo 3 7B)
 
 **Sexual vs violent repression are structurally different.** Sexual content produces cross-category displacement (genitals → non-genital body → syntax). Violent content produces within-category synonym shuffling (kill → destroy). Sexuality is *repressed*; violence is merely *suppressed*.

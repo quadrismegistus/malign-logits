@@ -1,3 +1,13 @@
+---
+status: verified
+grade: A
+date: 2026-05-17
+role: finding
+description: "Automated displacement-type taxonomy (register / category / genre / archaic) over displacement pairs. Measured on: wordfreq Zipf."
+instruments: [classification]
+families: [olmo]
+data: [taxonomy_olmo.csv]
+---
 # F08: Automatic displacement taxonomy (OLMo + Llama, 18 prompts)
 
 Classifies each displacement pair from the displacement maps into four types using contextual spaCy POS tags (word tagged in the context of its prompt) and wordfreq corpus frequencies:

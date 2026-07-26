@@ -1,3 +1,15 @@
+---
+status: rescoped
+grade: C
+date: 2026-06-20
+role: finding
+description: "Temporal alignment signature \u2014 clinical-mechanism grid across the autoregressive sequence; foreclosure acquisition."
+instruments: [checkpoint, classification]
+chapters: [ch03, ch04, ch05, ch08, ch09, ch11]
+data: [f25_signature_summary.csv, mega_gen_olmo_4layer.csv, mega_gen_r1_reasoning.csv, mega_gen_reasoning_r1_qwen.csv, mega_gen_reasoning_smol3_think.csv, mega_generation_amber.csv, mega_generation_llama.csv, mega_generation_qwen.csv, mega_generation_smol3.csv]
+scripts: [circuit.py]
+superseded_by: "none (rescoped in place \u2014 causal locus reframed: foreclosure is INSTALLED BY SFT; DPO adds nothing qualitative, only amplifies (ch04:24-59). Lacan-sequence fracture RETIRED; co-emergence of subject and law vindicated at SFT (ch11:19-25).)"
+---
 # F25: Temporal alignment signature — four Lacanian mechanisms in the autoregressive sequence
 
 **When during generation does alignment intervene?**

@@ -1,3 +1,14 @@
+---
+status: unaudited
+grade: C
+date: 2026-05-17
+role: finding
+description: "Cross-generation MMD \u2014 alignment shifts WHAT is said (p=.0004) while smoothing HOW uniformly (p=.99). Measured on: 8 families."
+instruments: [embedding]
+chapters: [ch07]
+data: [mmd_cross_generation.csv]
+scripts: [cross_generation_mmd.py]
+---
 # F17: Cross-generation semantic divergence: alignment steers content differentially (8 families, 20k passages, 3 embedders)
 
 Within-passage metrics (Finding 15) show *how* each text sounds but not *what* alignment changes. This analysis directly measures the distributional distance between BASE and ALIGNED completions of the same prompt using MMD² (maximum mean discrepancy with RBF kernel, median heuristic). For each (family, prompt), mean-pool sentence embeddings per passage, then compute MMD² between the BASE and ALIGNED clouds. BASE split-half provides the null distribution. Permutation test (500 permutations) for significance.

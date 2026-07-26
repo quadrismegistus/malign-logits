@@ -62,6 +62,10 @@ VALID_INSTRUMENTS = {
     "logit-mass", "resistance", "tagger", "checkpoint",
     "entropy", "geometry", "classification", "generation",
     "embedding", "intervention", "census", "regression",
+    # added 2026-07-26 with the F07 ruling: a documentary finding's source is a
+    # published report, not a measurement. The controlled set predated the
+    # category.
+    "documentary",
 }
 
 
@@ -404,6 +408,12 @@ def lint():
             errors.append(f"{name}: invalid grade '{m['grade']}'")
         if m.get("role") and m["role"] not in VALID_ROLES:
             errors.append(f"{name}: invalid role '{m['role']}'")
+        # VALID_INSTRUMENTS was defined but never checked, so 54 out-of-vocabulary
+        # values linted clean and the vocabulary read as authoritative while
+        # constraining nothing. Enforced 2026-07-26.
+        for inst in m.get("instruments") or []:
+            if inst not in VALID_INSTRUMENTS:
+                errors.append(f"{name}: invalid instrument '{inst}'")
 
         # Rescoped/retracted must have superseded_by
         if m.get("status") in ("rescoped", "retracted") and not m.get("superseded_by"):

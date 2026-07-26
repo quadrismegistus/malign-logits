@@ -1,3 +1,16 @@
+---
+status: rescoped
+grade: C
+date: 2026-05-16
+role: finding
+description: "Unconditional (BOS) generation \u2014 aligned output below Shannon's 1.0 bits/char; sub-Shannon text feeds the next pretraining corpus (feedback loop)."
+instruments: [generation, entropy]
+families: [amber, llama, olmo, olmo-tiny, pythia, qwen, qwen-tiny, smol, tulu, zephyr]
+chapters: [ch06, ch10]
+data: [blt_combined.csv, blt_human_corpora.csv, bos_surprisal.csv, generation_analysis.parquet, jakobson.parquet]
+scripts: [blt_combined.py]
+superseded_by: "none (rescoped in place \u2014 the BLT-confirmation clause is SUSPENDED: prose-only BOS medians run 1.21 SFT / 1.05 DPO, ABOVE the cited 1.0 threshold; THE BLT CONFIRMATION MUST NOT BE CITED. Filter question specced and queued \u2014 unresolved whether wrong-claim or unstated-filter. Core claims stand: human-text numbers reproduce EXACTLY; self-surprisal roughly holds. Pipeline log 2892-2900.)"
+---
 # F19: Unconditional Generation & Information Density
 
 ***

@@ -1,3 +1,14 @@
+---
+status: unaudited
+grade: C
+date: 2026-06-21
+role: finding
+description: "Reasoning distillation as a third alignment regime; no \"reasoning model\" as a category."
+instruments: [logit-mass]
+chapters: [ch08]
+data: ["stash:reasoning_logits (source of record)"]
+scripts: [decompose_circuit.py, r1_full_battery.py, r1_smoke_test.py]
+---
 # F23: Reasoning distillation as a third alignment regime
 
 **Does reasoning alignment produce a different kind of subject than standard alignment?**

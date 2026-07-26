@@ -1,3 +1,14 @@
+---
+status: unaudited
+grade: C
+date: 2026-05-17
+role: finding
+description: "External anchors \u2014 dreams, waking narratives, fiction, abstracts in the same metric space. Measured on: human corpora."
+instruments: [embedding]
+chapters: [ch07]
+data: [c20_fiction_metrics.csv, corpus_metrics.parquet, dreams.csv]
+scripts: [corpus_metrics.py, dream_metrics.py]
+---
 # F16: Corpus comparison: dreams, waking narratives, fiction, abstracts (76k passages, length-normalized)
 
 Five text types through the same pipeline, all truncated to minimum sentences exceeding 75 words. Primary surprisal: Pythia 1B-deduped (independent of all families).

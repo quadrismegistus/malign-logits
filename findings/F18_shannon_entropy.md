@@ -1,3 +1,13 @@
+---
+status: unaudited
+grade: C
+date: 2026-05-17
+role: finding
+description: "Entropy compression \u2014 base ~4 nats \u2192 aligned ~3.5; alignment as lossy compression of drive."
+instruments: [entropy]
+chapters: [ch06]
+data: [asymmetric_entropy.csv, self_surprisal.csv, shannon_entropy.csv]
+---
 # F18: Shannon entropy: alignment as lossy compression of drive (10 families, 47 prompts)
 
 Shannon entropy H(p) of the full-vocabulary logit distribution at the last token position, computed from cached logits across all families and alignment stages. Redundancy = 1 − H/H_max, where H_max = log(vocab_size).

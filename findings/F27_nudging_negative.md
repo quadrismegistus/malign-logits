@@ -1,3 +1,13 @@
+---
+status: unaudited
+grade: C
+date: 2026-06-23
+role: finding
+description: "Negative control \u2014 nudging does not reproduce displacement (disconfirms the Yang et al. nudging hypothesis for this phenomenon). Measured on: displacement battery."
+instruments: [intervention]
+chapters: [ch05]
+data: [bidirectional_resistance.csv, bits_resistance.csv]
+---
 # F27: Nudging Does Not Reproduce Displacement (Negative Result)
 
 **Summary**

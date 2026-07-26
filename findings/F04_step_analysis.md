@@ -1,3 +1,13 @@
+---
+status: unaudited
+grade: C
+date: 2026-05-17
+role: finding
+description: "Checkpoint sequence \u2014 repression precedes displacement (the model learns what it can't say before what to say instead)."
+instruments: [checkpoint]
+chapters: [ch05]
+data: ["stash:logits (OLMo Think-SFT step checkpoints)"]
+---
 # F04: Step-level checkpoint analysis (OLMo Think-SFT, 10 checkpoints across 43k training steps)
 
 Traces repression emerging during supervised fine-tuning by extracting logits from 10 evenly-spaced SFT checkpoints, all compared against the fixed base model.

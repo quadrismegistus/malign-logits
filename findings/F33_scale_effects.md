@@ -1,3 +1,14 @@
+---
+status: unaudited
+grade: C
+date: 2026-06-27
+role: finding
+description: "Scale effects \u2014 same mechanism, different displacement vocabulary (incl. CT-LLM 2B). Measured on: 73-prompt battery."
+instruments: [logit-mass]
+chapters: [ch05, ch09]
+data: ["stash:logits (32B/70B, 10 prompts each)", logits_32b/, logits_70b/]
+scripts: [scale_test_full.py]
+---
 # F33: Scale Effects — Same Mechanism, Different Displacement Vocabulary
 
 **Summary**

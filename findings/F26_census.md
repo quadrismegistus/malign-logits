@@ -1,3 +1,14 @@
+---
+status: rescoped
+grade: D
+date: 2026-07-05
+role: finding
+description: "Token-tree census (53 models) + deleter/redirector typology. The variance headline is dead; the census data and typology are not implicated."
+instruments: [census, logit-mass]
+chapters: [ch04, ch05, ch09, ch11]
+data: [circuit_census_grid_final.csv, tree_census.csv]
+superseded_by: "F31 (and F31's own canonical 44-family PERMANOVA revision: family 97.8%, method 2.9% n.s. on deltas \u2014 ch11:176-179. Chain: F31 superseded F26's 5-prompt method; the F26/F31 reconciliation (\"holds at industrial intensity\") was then itself overturned by the canonical run.)"
+---
 # F26: The Token-Tree Census — Variance Decomposition and the Deleter/Redirector Typology (53 models, 5 prompts)
 
 **Summary**

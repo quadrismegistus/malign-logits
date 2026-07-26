@@ -1,3 +1,15 @@
+---
+status: rescoped
+grade: D
+date: 2026-05-17
+role: finding
+description: "Logit-lens per-family \"repression architectures\" (distributed / late-layer / semantic / code-dominated). Measured on: unembedding projection."
+instruments: [geometry, logit-mass]
+families: [amber, llama, olmo, qwen]
+chapters: [ch05]
+data: [logit_lens_datadriven.csv]
+superseded_by: "none (contradicted in place \u2014 the cross-family logit-lens rerun found the displacement operation final-layer/ unembedding-uniform in 13/17 families; F05's per-family layer architectures assessed as an artifact of the fixed word list or projection method (ch05 notes:813); cf. F35 \u00a73 for the unembedding locus. No numbered successor doc.)"
+---
 # F05: Logit lens: repression across network layers (4 families)
 
 Projects each hidden layer's representation through the final unembedding matrix to produce a probability distribution at every layer of the network. Shows *where* in the network the model "decides" to repress or amplify each word. Prompt: "She was so angry she wanted to..."

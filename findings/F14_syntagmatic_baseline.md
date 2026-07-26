@@ -1,3 +1,15 @@
+---
+status: rescoped
+grade: C
+date: 2026-05-17
+role: finding
+description: "Syntagmatic baseline \u2014 alignment-produced vs corpus-level combination damage. Measured on: 23k pairs."
+instruments: [embedding]
+families: [olmo]
+chapters: [ch05, ch07, ch11]
+data: [taxonomy_olmo.csv]
+superseded_by: "none (rescoped in place \u2014 the causal framing \"alignment damages combination / inverts the poetic function\" is retracted: the base model shares the same trade-off; alignment AMPLIFIES a pre-existing structure at targeted sites; deltas stand (sexual +0.106 etc.). ch05:454, ch05:827, ch11:146.)"
+---
 # F14: Syntagmatic baseline: alignment-produced vs corpus-level damage (OLMo 3 7B, 23k pairs)
 
 Finding 13 showed that paradigmatic and syntagmatic axes trade off within aligned-model displacements. But is the syntagmatic disruption alignment-produced, or does the base model exhibit it too? We compute `syntagmatic_js` for the same 23,013 displacement pairs under both the base model and the aligned (DPO) model: `p(next | prompt + source)` vs `p(next | prompt + target)` under each.

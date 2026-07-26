@@ -1,3 +1,14 @@
+---
+status: verified
+grade: A
+date: 2026-06-21
+role: finding
+description: "Pretraining developmental sequence \u2014 drives \u2192 structure \u2192 deference \u2192 superposition; inclusive disjunction a late acquisition. Measured on: 1B + 6.9B."
+instruments: [checkpoint]
+chapters: [ch02, ch03, ch07, ch09]
+data: [pythia1b_battery_emergence.csv, pythia1b_embedding_emergence.csv]
+scripts: [pythia_battery_emergence.py]
+---
 # F24: Pretraining emergence — the developmental sequence of the statistical unconscious
 
 **When do the base model's signature properties appear during pretraining?**

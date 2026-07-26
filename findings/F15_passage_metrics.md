@@ -1,3 +1,14 @@
+---
+status: unaudited
+grade: C
+date: 2026-05-17
+role: finding
+description: "Passage-metric space, 76k passages; base occupies the breakdown quadrant. Measured on: 10 families."
+instruments: [embedding]
+chapters: [ch07]
+data: [corpus_metrics.csv, corpus_metrics.parquet, passage_metrics.csv]
+scripts: [corpus_metrics.py]
+---
 # F15: Generation-level passage metrics (10 families, 76k passages, 47 prompts)
 
 76,214 passages across 10 families (47 prompts × 100 generations per prompt per layer), truncated to minimum sentences exceeding 75 words. Primary metrics: Pythia 1B-deduped surprisal (independent of all families, trained on deduplicated Pile) and bge-m3 drift (BAAI, independent architecture). Validated under additional references: GPT-2 (124M), Llama 3.1 8B. All findings hold under all references. 10,000-resample bootstrap CIs.

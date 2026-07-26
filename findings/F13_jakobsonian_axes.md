@@ -1,3 +1,14 @@
+---
+status: verified
+grade: A
+date: 2026-05-17
+role: finding
+description: "Jakobsonian decomposition \u2014 paradigmatic similarity and syntagmatic disruption negatively correlated at pair level; the strongest single quantitative result. Measured on: 126k pairs."
+instruments: [embedding]
+families: [olmo-tiny]
+chapters: [ch05]
+data: [taxonomy_summary.csv]
+---
 # F13: Jakobsonian axes: paradigmatic vs syntagmatic displacement (6 families, 126k pairs)
 
 Roman Jakobson's 1956 *Two Aspects of Language and Two Types of Aphasic Disturbances* argues that language is constituted by two complementary axes — selection/similarity (paradigmatic) and combination/contiguity (syntagmatic) — and that damage to one axis forces compensatory reliance on the other. We test whether the same structural trade-off operates in alignment-induced displacement.

@@ -1,3 +1,14 @@
+---
+status: unaudited
+grade: C
+date: 2026-05-17
+role: finding
+description: "Alignment as fold, not wall \u2014 trajectory geometry; fold concentration predicts steerability (Pythia 2D vs OLMo 13D)."
+instruments: [geometry, intervention]
+chapters: [ch06]
+data: [fold_rank_summary.csv]
+scripts: [rederive_f12_heldout.py]
+---
 # F12: Alignment as fold: trajectory geometry and steering vector analysis (10 families, 47 prompts, 100 passages)
 
 Two-part investigation of alignment's geometric signature, replicated across all 10 families with 47 prompts and 100 pre-generated passages per prompt.
