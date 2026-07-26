@@ -200,6 +200,36 @@ conservative against certifying a dead instrument; R2 is conservative against
 condemning a live one. The grid is committed and neutral; lacan and RH choose
 the objective, and the gate follows from it.
 
+### A4e. The full frontier, and why the R1/R2 binary is misleading
+
+Desktop required the whole frontier disclosed rather than the two pure-objective
+winners, so a hidden middle cannot make the choice look forced. lacan required a
+**margin clause**: the decoy pool is a finite sample (n=1,054) and the
+false-certification estimate inherits that sampling error, which more Monte Carlo
+draws do not reduce. Bootstrapped over the pool, 150 resamples × 1M draws (hh):
+
+| cell | FC | 95% upper | power | margin |
+|---|---|---|---|---|
+| p60 / 2-of-3 | 0.0938 | **0.1090** | 0.976 | **FAILS — exceeds 0.10** |
+| p65 / 2-of-3 | 0.0714 | 0.0885 | 0.966 | ok |
+| p70 / 2-of-3 | 0.0545 | 0.0651 | 0.954 | ok |
+| p75 / 2-of-3 | 0.0377 | 0.0456 | 0.939 | ok |
+| **p80 / 2-of-3** | **0.0240** | 0.0309 | **0.900** | ok |
+| p50 / 3-of-3 (R1) | 0.0143 | 0.0181 | 0.804 | ok |
+
+**A7's own selection fails A7's own constraint.** p60/2-of-3 was chosen on a
+point estimate of 0.0935; its upper bound is 0.1090. lacan's margin clause was
+raised as a contingency and it fires immediately. **Under A7 + margin the
+selection is p65/2-of-3** (FC 0.0714, power 0.966), not p60.
+
+**And the binary is misleading.** The choice is not 0.0143/0.804 against
+0.0935/0.976. **p80/2-of-3 gives power 0.900 — nearly R2's — at FC 0.0240, only
+1.7× R1's rate and comfortably inside every margin.** It buys ~0.10 of power for
+~0.01 of false certification. Whatever objective is adopted, that cell should be
+in front of the decision, because a reader shown only the two endpoints would
+conclude the trade is 8 points for 8 points when the frontier is sharply convex
+near R1.
+
 **Granularity limitation, stated so the winner is not presented as tuned**
 (lacan). With three constructs the usable k values are 2 and 3, and
 P(≥2 of 3) and P(3 of 3) are far apart with nothing between. Seven independent
