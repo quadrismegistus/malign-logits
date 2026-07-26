@@ -41,12 +41,31 @@ def run_battery(families=None, output_path=None):
         if torch.backends.mps.is_available():
             torch.mps.empty_cache()
 
-    combined = pd.concat(all_metrics, ignore_index=True)
+    # Per-family files are the source of truth; the combined file is DERIVED.
+    #
+    # This used to write only the families in `keys` straight to output_path,
+    # so `malign battery --family zephyr` silently replaced a 9-family
+    # battery_results.csv with 47 zephyr rows. A booked cross-family finding
+    # (CLAUDE.md, liminal vs explicit) then cited numbers no surviving file
+    # supported. Single-family runs must be additive, not destructive.
+    import glob
+    for m in all_metrics:
+        fam = m["family"].iloc[0]
+        m.to_csv(f"data/battery_{fam}.csv", index=False)
+
+    frames = []
+    for f in sorted(glob.glob("data/battery_*.csv")):
+        if "results" in f or "SUPERSEDED" in f:
+            continue
+        frames.append(pd.read_csv(f))
+    combined = pd.concat(frames, ignore_index=True)
     id_cols = ["family", "label", "prompt"]
     cols = id_cols + [c for c in combined.columns if c not in id_cols]
     combined = combined[cols]
 
     combined.to_csv(output_path, index=False)
+    print(f"combined rebuilt from {len(frames)} per-family files: "
+          f"{combined['family'].nunique()} families, {len(combined)} rows")
     print(f"\nResults saved to {output_path}")
     print(f"\n{combined.to_string()}")
     return combined
