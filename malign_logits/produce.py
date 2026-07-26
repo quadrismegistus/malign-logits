@@ -134,12 +134,22 @@ def produce_all(families=None, skip=None, gen_n=30, force=False):
         _free()
 
     if all_battery and "battery" not in skip:
-        combined = pd.concat(all_battery, ignore_index=True)
+        # Second clobber path, same failure mode as battery.py: writing only
+        # this run's families to the combined file silently narrows it. Write
+        # per-family files and rebuild the combined from all of them, so a
+        # partial produce-all run cannot destroy a wider battery.
+        import glob
+        for m in all_battery:
+            m.to_csv(f"data/battery_{m['family'].iloc[0]}.csv", index=False)
+        frames = [pd.read_csv(f) for f in sorted(glob.glob("data/battery_*.csv"))
+                  if "results" not in f and "SUPERSEDED" not in f]
+        combined = pd.concat(frames, ignore_index=True)
         id_cols = ["family", "label", "prompt"]
         cols = id_cols + [c for c in combined.columns if c not in id_cols]
         combined = combined[cols]
         combined.to_csv("data/battery_results.csv", index=False)
-        print(f"\nCombined battery: data/battery_results.csv ({len(combined)} rows)")
+        print(f"\nCombined battery: data/battery_results.csv ({len(combined)} rows, "
+              f"{combined['family'].nunique()} families, from {len(frames)} per-family files)")
 
     # ── Phase 2: logit lens (caches to stash; one psyche per family) ──
     if "logit-lens" not in skip:

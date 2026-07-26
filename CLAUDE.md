@@ -337,7 +337,7 @@ cm.count_generations('LLM360/Amber', '')              # → 0 (wrong!)
 - **liminal − neutral JS = +0.0097**, CI [−0.0153, +0.0347], 6/9. **Not significant.** Liminal is indistinguishable from neutral, so there is no boundary *peak* — explicit sits low and everything else is flat.
 - Within-family JS-vs-entropy slope is +0.0187/nat; the liminal−explicit entropy gap of 1.315 nats predicts +0.0246 against +0.0271 observed. **Residual +0.0026.** The effect is almost entirely explained by liminal sites being higher-entropy than explicit ones.
 
-The previous version of this claim ("sexual liminal 0.13 > sexual explicit 0.10; violence liminal 0.15 > violence explicit 0.09; the superego is most active at the boundary") cited numbers matching no surviving file — `data/battery_results.csv` was later overwritten by a single-family (zephyr) run, so the booked figures had no live source. Per-family batteries in `data/battery_*.csv` are the real basis.
+**The original numbers were correct; their source was destroyed, then recovered.** The booked figures (sexual liminal 0.13 > explicit 0.10; violence liminal 0.15 > explicit 0.09) match the 4-family `battery_results.csv` as it stood at commit `d5bada0` (2026-03-29, 188 rows, amber/llama/olmo/qwen) to two decimals: 0.1295, 0.1008, 0.1461, 0.0892. The file was later narrowed to a single family by `malign battery --family zephyr` (see `b727374`), which is why the numbers appeared unsourced. They were never wrong — the evidence was overwritten, and git preserved it. An earlier version of this correction said they "cited numbers matching no surviving file"; accurate about the working tree, misleading about the claim.
 
 Independently, lacan's freed-mass metric on the same prompts finds **no family-level liminal/explicit difference** (20/37) and explicit *below* neutral (26/37, p=0.020). Both metrics agree liminal ≈ neutral and that the raw effect is entropy-driven; they differ on the residual sign. The boundary claim is **METRIC-QUALIFIED** pending a registered metric-comparison study.
 
@@ -455,7 +455,7 @@ All 10 families × 47 prompts × 100 generations. 141k+ passages cached.
 
 ### Done: Cross-family logit validation
 
-47-prompt battery across OLMo, Amber, Llama 3.1, and Qwen 2.5. Key result: alignment intensity and internal architecture vary dramatically across families, but liminal > explicit displacement is consistent. See `data/battery_results.csv`.
+47-prompt battery across OLMo, Amber, Llama 3.1, and Qwen 2.5. Key result: alignment intensity and internal architecture vary dramatically across families. Liminal > explicit displacement holds (9/9 families on the rebuilt battery), **but it is ~91% an entropy effect and there is no boundary peak — liminal is indistinguishable from neutral.** See the corrected statement under "Confirmed findings (cross-family)" above; do not cite this line for the boundary claim. `data/battery_results.csv` now holds 9 families, rebuilt from the per-family files; the 4-family version these numbers were computed on is at commit `d5bada0`.
 
 ### Done: Battery-level aggregate metrics
 
