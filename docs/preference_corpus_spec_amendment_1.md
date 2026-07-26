@@ -121,16 +121,21 @@ preference in interchangeable words; `require`→`prefer`, `force`→`encourage`
 `demand`→`request` are a second; `angry`→`concerned` is a third. Blocks of
 **3, 3, 1**. Within a block markers fire or fail together.
 
-**The declared false-certification rate is understated by one to two orders of
-magnitude.** Independent P(≥5 of 7) against blockwise P, by per-candidate null
-firing probability p:
+**The binding defect is POWER, not false certification.** (Grounds corrected by
+lacan against its own initial ruling; verified here.) Solving back from the
+recomputed 0.000113 at 5-of-7 gives a per-candidate null firing probability of
+0.0912. Then:
 
-| p | independent | blockwise | inflation |
+| quantity | independent | blockwise (3,3,1) | effect |
 |---|---|---|---|
-| 0.05 | 0.00001 | 0.00250 | **415×** |
-| 0.10 | 0.00018 | 0.01000 | 57× |
-| 0.25 | 0.01288 | 0.06250 | 4.9× |
-| 0.40 | 0.09626 | 0.16000 | 1.7× |
+| false certification | 0.000113 | **0.0083** | 74× understated — but still an order of magnitude *inside* the 0.10 standard, so **non-binding** |
+| power at the anchor | 0.852 | **0.640** | **overstated by 0.212 — this binds** |
+
+A gate at 0.64 power fails on a *working* instrument more than a third of the
+time, and under the registered design a failed gate produces an
+**insensitivity finding**. So the correlation does not risk certifying a dead
+instrument; **it risks condemning a live one** — arriving at precisely the
+conclusion withdrawn today, by a different route.
 
 **And k=5 is decorative.** With blocks of 3, 3, 1, reaching five requires *both*
 three-blocks; three plus the singleton is four. The singleton can never decide
@@ -173,10 +178,26 @@ corpus anchor):
 
 | gate | false-cert | power |
 |---|---|---|
-| **p50 floor 0.0481, 3-of-3 (SELECTED)** | **0.0141** | 0.804 |
-| p80, 2-of-3 | 0.0238 | 0.900 |
+| p50 floor 0.0481, 3-of-3 | 0.0141 | 0.804 |
+| **p80 floor 0.1057, 2-of-3 (RECOMMENDED)** | **0.0238** | **0.900** |
 | p75, 2-of-3 | 0.0380 | 0.939 |
 | p90, 3-of-3 | 0.00013 | 0.290 (fails power) |
+
+**The registered selection rule picks the wrong cell, and the rule is what
+needs amending.** As written it minimises false certification subject to
+power ≥ 0.80, which selects p50/3-of-3 (0.0141, 0.804) over p80/2-of-3
+(0.0238, 0.900). But both sit far inside the 0.10 false-certification standard,
+and the analysis above shows **power is the axis that binds** — because a failed
+gate is not a null result, it produces a substantive insensitivity finding.
+Minimising the harmless quantity at the expense of the consequential one is
+backwards.
+
+**A7 (new): the selection rule's objective is amended** to *maximise power
+subject to false certification ≤ 0.10*, with the false-certification rate still
+declared. On the current pool that selects **p80 / 2-of-3**: false-cert 0.0238,
+power 0.900 — 0.26 better on power than the withdrawn 5-of-7 slate, at a rate
+still an order inside the standard. 3-of-3 is worse than either on power and is
+not a candidate.
 
 **The true rate is 0.014, not 0.000113** — two orders of magnitude worse than
 the withdrawn 5-of-7 figure, which is exactly the inflation lacan's table
