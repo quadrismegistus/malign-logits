@@ -2,7 +2,9 @@
  "F01": {
   "file": "F01_logit_analysis.md",
   "date": "2026-05-17",
-  "data": [],
+  "data": [
+   "stash:logits (battery prompts, all families)"
+  ],
   "scripts": [],
   "families": [],
   "data_named_but_missing": [],
@@ -37,7 +39,9 @@
  "F04": {
   "file": "F04_step_analysis.md",
   "date": "2026-05-17",
-  "data": [],
+  "data": [
+   "stash:logits (OLMo Think-SFT step checkpoints)"
+  ],
   "scripts": [],
   "families": [],
   "data_named_but_missing": [],
@@ -77,7 +81,9 @@
  "F07": {
   "file": "F07_training_data_attribution.md",
   "date": "2026-05-17",
-  "data": [],
+  "data": [
+   "arXiv:2512.13961"
+  ],
   "scripts": [],
   "families": [],
   "data_named_but_missing": [],
@@ -296,7 +302,9 @@
  "F23": {
   "file": "F23_reasoning_distillation.md",
   "date": "2026-06-21",
-  "data": [],
+  "data": [
+   "stash:reasoning_logits (source of record)"
+  ],
   "scripts": [
    "decompose_circuit.py",
    "r1_full_battery.py",
@@ -375,7 +383,9 @@
  "F31": {
   "file": "F31_permanova_decomposition.md",
   "date": "2026-06-26",
-  "data": [],
+  "data": [
+   "stash:word_probs (4,098 entries, 37 models x ~120 prompts)"
+  ],
   "scripts": [
    "compute_score_vocab.py"
   ],
@@ -389,7 +399,11 @@
  "F33": {
   "file": "F33_scale_effects.md",
   "date": "2026-06-27",
-  "data": [],
+  "data": [
+   "stash:logits (32B/70B, 10 prompts each)",
+   "logits_32b/",
+   "logits_70b/"
+  ],
   "scripts": [
    "scale_test_full.py"
   ],
@@ -401,8 +415,15 @@
  "F34": {
   "file": "F34_cross_linguistic_displacement.md",
   "date": "2026-06-27",
-  "data": [],
-  "scripts": [],
+  "data": [
+   "stash:logits (CHINESE_PROMPTS, 73 prompts, 6 families) (source of record)",
+   "qwen_chinese_logits.csv (qwen only; matched by content, not cited)",
+   "qwen_chinese_generations.csv (qwen only; matched by content, not cited)"
+  ],
+  "scripts": [
+   "qwen_chinese_displacement.py",
+   "f25_chinese_displacement_figure.py"
+  ],
   "families": [],
   "data_named_but_missing": [],
   "historical_refs": {},

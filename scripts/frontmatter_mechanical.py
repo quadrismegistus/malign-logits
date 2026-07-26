@@ -22,6 +22,41 @@ FILE_RE = re.compile(r"([\w./-]+\.(?:csv|parquet|json|jsonl))")
 # the resolution here rather than letting a heuristic guess, and rather than
 # reporting them as gaps a human must adjudicate -- both were traced on
 # 2026-07-26 and the answers are known.
+# Findings whose source of record is a stash or an external document rather than
+# a file on disk. Desktop ruling 2026-07-26: the data field admits three
+# visibly-typed shapes -- file paths, "stash:<name> (<pattern>)", and external
+# citations. For a DOCUMENTARY finding the external ID is a PRECISE pin, not a
+# coarse one; a stash reference there would be wrong rather than weaker.
+NON_FILE_SOURCES = {
+    "F01": ["stash:logits (battery prompts, all families)"],
+    "F04": ["stash:logits (OLMo Think-SFT step checkpoints)"],
+    "F07": ["arXiv:2512.13961"],                       # documentary; type specimen
+    "F23": ["stash:reasoning_logits (source of record)"],
+    "F31": ["stash:word_probs (4,098 entries, 37 models x ~120 prompts)"],
+    "F33": ["stash:logits (32B/70B, 10 prompts each)", "logits_32b/", "logits_70b/"],
+    "F34": ["stash:logits (CHINESE_PROMPTS, 73 prompts, 6 families) (source of record)"],
+}
+
+# Files associated with a finding by SEARCH rather than by citation -- the
+# finding does not name them and the provenance map does not list them; they
+# were matched on content. Kept separate from cited paths so the weaker basis
+# of the association is visible rather than absorbed into the same list.
+SCRIPTS_BY_SEARCH = {
+    "F34": ["qwen_chinese_displacement.py", "f25_chinese_displacement_figure.py"],
+}
+
+IDENTIFIED_BY_SEARCH = {
+    "F34": ["qwen_chinese_logits.csv (qwen only; matched by content, not cited)",
+            "qwen_chinese_generations.csv (qwen only; matched by content, not cited)"],
+}
+
+# Per-finding annotations kept IN the frontmatter so a reader following the file
+# list is told at the point of reading what it does and does not cover.
+DATA_NOTES = {
+    "F34": {"qwen_chinese_logits.csv": "(qwen only)",
+            "qwen_chinese_generations.csv": "(qwen only)"},
+}
+
 RESOLVED = {
     "displacement_taxonomy.csv":
         "renamed to taxonomy_olmo.csv at 39a3886 (2026-05-03)",
@@ -81,7 +116,11 @@ def main():
         scr_named = set(SCRIPT_RE.findall(txt)) | prov.get(num, (set(), set()))[0]
 
         data = sorted({v for v in (exists_data(x) for x in data_named) if v})
+        notes = DATA_NOTES.get(num, {})
+        data = [f"{d} {notes[d]}" if d in notes else d for d in data]
+        data = NON_FILE_SOURCES.get(num, []) + data + IDENTIFIED_BY_SEARCH.get(num, [])
         scripts = sorted({v for v in (exists_script(x) for x in scr_named) if v})
+        scripts += [x for x in SCRIPTS_BY_SEARCH.get(num, []) if x not in scripts]
         missing = sorted({x for x in data_named if not exists_data(x)
                           and os.path.basename(x) not in RESOLVED})
         resolved = sorted({os.path.basename(x) for x in data_named
