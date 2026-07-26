@@ -561,15 +561,25 @@ calibration in `scripts/tier2_gate_calibration.py` takes only the decoy
 distribution as input.
 
 But the coincidence is not information-free, and pretending otherwise would
-repeat the error this section exists to correct. `D` = 0.090 sitting at the 75th
-percentile of the null `|D_decoy|` distribution means **the flagship pair's raw
-asymmetry is an ordinary value relative to noise** — inside the bulk of the null,
-not out in its tail. That is a further prior look, it is now on the record, and
-it is not pursued further here. It also bears on how the result should be read
+repeat the error this section exists to correct. **The flagship pair's raw
+asymmetry is inside the bulk of the null**, and the exact figure is stated in the
+direction less comfortable for the hypothesis rather than more.
+
+An earlier draft of this paragraph called it "ordinary, at the 75th percentile,"
+which compared a SIGNED value to an ABSOLUTE-VALUE percentile and understated it
+by roughly a factor of two. The flagship `D` = +0.090 is signed and in the
+predicted direction, so the matching null quantity is one-sided:
+`P(D_decoy > +0.0903)` = **0.117**, not `P(|D_decoy| > 0.0903)` = 0.250. About
+**one null pair in 8.6** exceeds the flagship in the predicted direction — a
+one-sided null p of about 0.12 on a single pair. Still not significant, still
+inside the bulk, but twice as notable as first written. It is a further prior
+look, it is on the record, and it is not pursued further here. It also bears on
+how the result should be read
 when it arrives: the registered design gives the flagship pair no special
 weight, testing a sign across ~53 pairs precisely so that no single quotable
-pair carries the verdict. That property was registered before this coincidence
-surfaced, and it is the reason the coincidence is survivable.
+pair carries the verdict. A lone pair at one-sided p ≈ 0.12 settles nothing in
+either direction. That property was registered before this coincidence surfaced,
+and it is the reason the coincidence is survivable.
 
 **The remediation above is weaker than blindness, and is labelled as such.**
 Saying every threshold has a power rationale a reader can verify is independent
