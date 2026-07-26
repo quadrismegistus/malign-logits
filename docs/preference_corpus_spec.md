@@ -398,12 +398,33 @@ Registered consequences:
   |---|---|---|
   | observed sd(`D`) across decoys | 0.0884 | 0.2462 |
   | predicted from counts alone, `sqrt(1/a+1/b+1/c+1/d)` | 0.0990 | 0.1704 |
-  | overdispersion factor | 0.89x | **1.45x** |
+  | raw overdispersion factor | 0.89x | 1.45x |
+  | **calibrated factor** (hh forced to 1.00) | 1.00x | **1.62x** |
 
-  pku's dispersion exceeds hh's by 2.78x. Decomposed: **scarcity accounts for
-  53% of the log gap and overdispersion for 47%** — a near-even split, so
-  neither "route" nor "no known remedy" is accurate. hh shows no overdispersion
-  at all (0.89x), which is why its token-level instrument works.
+  **The counting baseline is validated at 0.89, not 1.00.** hh comes in 11%
+  UNDER its predicted SE — plausibly because nearest-k decoy matching induces
+  negative correlation across pairs — so the counting model overstates expected
+  SE in the one corpus where it can be checked. Recalibrating against hh raises
+  pku's overdispersion factor from 1.45x to **1.62x**.
+
+  pku's dispersion exceeds hh's by 2.78x, and the split is **roughly half each**
+  — but it is reported that way rather than as two precise figures, for a reason
+  worth stating exactly. A *uniform* baseline bias does NOT move the split: the
+  share is `log(predicted ratio)/log(observed ratio)`, and a constant multiplies
+  numerator and denominator of the predicted ratio alike and cancels (53.0%
+  before and after recalibration, verified). What does move it is
+  *non-uniformity* — a bias that differs between corpora, which cannot be ruled
+  out because it can only be measured where it can be checked:
+
+  | assumed pku baseline bias | scarcity | overdispersion |
+  |---|---|---|
+  | 0.80 | 43% | 57% |
+  | 0.89 (= hh, uniform) | 53% | 47% |
+  | 1.00 | 64% | 36% |
+
+  So: **roughly half each, and the method cannot resolve which is larger.**
+  hh itself shows no overdispersion, which is why its token-level instrument
+  works.
 
   The consequence is a ceiling, computed by rescaling pku's decoy distribution
   to remove **all** overdispersion — an upper bound assuming a perfect
@@ -415,14 +436,34 @@ Registered consequences:
   | ceiling, all overdispersion removed | 0.030 | 0.203 | **0.792** |
   | *(hh, for reference)* | 0.038 | 0.834 | 1.000 |
 
+  **What `d` means, since "large effects only" is uninterpretable without it.**
+  `D` is a difference of log odds ratios, so effect sizes convert directly to
+  ratio-of-ratios:
+
+  | `d` | ratio-of-ratios | reference |
+  |---|---|---|
+  | 0.05 | 1.05x | below every corpus MDE |
+  | 0.10 | 1.11x | the foreclosed case |
+  | **0.20** | **1.22x** | the powered case; cf. hh median MDE 1.19x |
+  | 0.30 | 1.35x | comfortably detectable in hh |
+
+  So the powered case in pku is an annotator preference of about **1.22x**, and
+  the permanently foreclosed case is about **1.11x**. A reader can then judge
+  the substantive question directly: is a shared annotator preference strong
+  enough to install cross-family reroute chains more likely to be a 1.2x
+  asymmetry or a 1.1x one? **The registration takes no position, and there is no
+  prior to appeal to** — F37's ~3x anchor is a tier-1 conditional frequency, not
+  a tier-2 annotator preference, and the two are not commensurable. That the
+  field has no established effect size for lexical annotator preference is
+  itself part of why this test was worth registering.
+
   **Registered accordingly:** a response-level instrument could test amber for a
-  LARGE convention effect (power 0.79 at `d`=0.20, up from 0.39) but would
-  remain underpowered for a moderate one (0.20 at `d`=0.10, against hh's 0.83),
-  and that is an upper bound no implementation can beat. So the amber gap is
-  **partially remediable at large effects only**, the residual is irreducible
-  scarcity, and any future amber claim must state which effect size it is
-  powered for. Registered as owed before any convention result is booked
-  against amber.
+  LARGE convention effect (power 0.79 at 1.22x, up from 0.39) but would remain
+  underpowered for a moderate one (0.20 at 1.11x, against hh's 0.83), and that
+  is an upper bound no implementation can beat. So the amber gap is **partially
+  remediable at large effects only**, the residual is irreducible scarcity, and
+  any future amber claim must state which effect size it is powered for.
+  Registered as owed before any convention result is booked against amber.
 
 Revision 1's table let "convention excluded" be reached from an underpowered
 tier 2, which violates rule 1 inside the document that carries rule 1. Tier 2
