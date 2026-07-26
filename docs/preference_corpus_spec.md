@@ -545,9 +545,51 @@ who suspects otherwise should check whether any threshold's justification
 references an observed chain value. None does — but the check is theirs to make,
 not mine to assert.
 
+**A numerical coincidence, addressed because a reviewer will see it first.**
+The registered gate floor in hh is `|D|` p75 = 0.0903. The flagship chain pair
+`kill`->`scream` has observed `D` = +0.090 in hh. These are the same number to
+three decimals, and the floor was chosen after the run in which the chain values
+were visible.
+
+It is a coincidence, and the reason the two are not commensurable is worth
+stating: **the floor governs whether the CONTROL MARKERS fire**, and control
+markers are a separate word set; **chain pairs are never evaluated against the
+floor at all**, but by sign test on `D_excess` against their own decoy
+baselines. No mechanism connects a pooled decoy percentile to one chain pair's
+value, and nothing in the gate's derivation references a chain pair. The
+calibration in `scripts/tier2_gate_calibration.py` takes only the decoy
+distribution as input.
+
+But the coincidence is not information-free, and pretending otherwise would
+repeat the error this section exists to correct. `D` = 0.090 sitting at the 75th
+percentile of the null `|D_decoy|` distribution means **the flagship pair's raw
+asymmetry is an ordinary value relative to noise** — inside the bulk of the null,
+not out in its tail. That is a further prior look, it is now on the record, and
+it is not pursued further here. It also bears on how the result should be read
+when it arrives: the registered design gives the flagship pair no special
+weight, testing a sign across ~53 pairs precisely so that no single quotable
+pair carries the verdict. That property was registered before this coincidence
+surfaced, and it is the reason the coincidence is survivable.
+
+**The remediation above is weaker than blindness, and is labelled as such.**
+Saying every threshold has a power rationale a reader can verify is independent
+of observed `D` establishes that each COULD have been derived blind. It does not
+establish that it WAS. A reader who accepts the rationale table has accepted a
+possibility as a fact, and the document should not let the table stand in for
+the stronger property.
+
+**The stronger check was available and has been requested.** The desktop seat
+has seen none of the chain `D` values. The three post-look thresholds — the 2.0x
+cut, the informative-pairs rule, and the p75/3-of-7 gate — have been sent to it
+for independent re-derivation from their stated rationales alone. If they land
+in the same place, "could have been derived blind" becomes "was derived blind by
+someone who could not have done otherwise." **Outcome recorded here when it
+returns; if the re-derivation differs, the re-derived values govern.**
+
 Commits, none of which contain a tier-2 result: `3c31609` (registration),
 `11f3138` (dispersion decomposition), `98e41d8` (calibration and effect-size
-conversion), `48d9592` (illustrative bounds), `4a3d47d` (this section).
+conversion), `48d9592` (illustrative bounds), `4a3d47d` (this section),
+`d1db3ea` (prior-look disclosure).
 
 ## Standing rules
 
