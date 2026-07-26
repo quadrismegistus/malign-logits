@@ -75,3 +75,45 @@ The SFT/DPO dissociation at the position level extends F01's finding (SFT handle
 - 71 prompts × 100 beams × 10 tokens = ~7,093 storylines per cross-pair
 - 14 cross-model pairs (base↔3 aligned + 3 training edges + 4 self)
 - Figure: `figures/resistance_trajectories.png`
+
+---
+
+## Scale-up, 2026-07-26: the category-specific shapes DO NOT REPLICATE
+
+F28 was established on **one model** (OLMo-2-0425-1B), 7,093 storylines. The
+beams stash now supports the same analysis on **19 families** — 335,799
+storyline-scorings, no new generation. `scripts/f28_scaled.py`,
+`data/f28_scaled_trajectories.csv`.
+
+**The two headline shapes reverse.**
+
+| claim (F28, OLMo-2-1B) | at 19 families |
+|---|---|
+| sexual: pos0 **+0.70** → pos1 **+2.17** (second-token spike) | pos0 **+2.60** → pos1 **+1.01** — *reversed* |
+| death: pos0 **−0.99** (alignment *facilitates*) | pos0 **+2.94** — *sign reversed* |
+
+Every category now shows the same monotone decay from a high pos0
+(institutional +3.23, violence_liminal +3.07, substance +3.03, death +2.94,
+sexual_liminal +2.67, sexual_explicit +2.60, profanity +1.60). There is no
+category-specific trajectory *shape* at scale: there is one shape, and
+categories differ only in its height.
+
+**And the surviving universal shape is not statistically robust.** Resistance
+at pos0 exceeds mean(pos2–5) by 1.10–1.76 bits, but with **family as the unit**
+(rule 2):
+
+| edge | mean drop | families | positive | t | 95% CI |
+|---|---|---|---|---|---|
+| base→ego | +1.76 bits | 12 | 9/12 | 1.79 | [−0.17, +3.69] |
+| base→superego | +1.12 bits | 19 | 8/19 | 1.64 | [−0.22, +2.46] |
+
+Both intervals cross zero. Pooling the 310 family×role×category cells instead
+gives t=7.3 — which is the unit-of-analysis inflation rule 2 exists to prevent,
+and is what this analysis produced before the correction was applied.
+
+**Status: F28 is demoted to discovery-sample-only.** The position-specific
+resistance trajectory is an OLMo-2-0425-1B result. What generalises is weaker
+and unsurprising: resistance concentrates at the first generated token and
+decays, in most families, in most categories, without reaching significance on
+a family-unit test. That is consistent with the output-gate account (F22/F23)
+and the final-layer account (F05), and adds no independent support to either.
