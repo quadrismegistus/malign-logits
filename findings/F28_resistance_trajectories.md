@@ -154,3 +154,42 @@ the body of the text.
 - F28's two specific shapes do not reproduce: sexual pos0 +0.70→pos1 +2.17
   becomes +2.60→+1.01, and death's pos0 facilitation (−0.99) becomes +2.94.
   Those were single-model results.
+
+### Deflationary control (desktop TM, 2026-07-26): the gate is NOT a defence
+
+The pos0 spike is **content-blind, including neutral prompts**:
+
+| institutional | death | violence_lim | violence_exp | power | substance | **neutral** | sexual_exp | sexual_lim | profanity |
+|---|---|---|---|---|---|---|---|---|---|
+| +2.78 | +2.48 | +2.37 | +2.35 | +2.35 | +2.28 | **+2.22** | +2.13 | +2.04 | +1.44 |
+
+Transgressive mean +2.18 against neutral +2.22 — a difference of **−0.04 bits**,
+family-as-unit t = −0.55, 9/19 positive, CI [−0.386, +0.216]. Neutral prompts
+gate exactly as hard as transgressive ones.
+
+**This is what the sharpening artifact predicts.** If aligned distributions are
+simply sharper than base ones, any non-modal base token scores low under the
+aligned model at pos0, mechanically, regardless of content. The
+entropy-drop correlation is then a restatement of that artifact rather than an
+explanation of it. **No gating-as-defence language is licensed by this data.**
+
+Two further corrections from the same review:
+
+- **The "tracks entropy drop, not JS" claim is withdrawn.** Those were computed
+  on different samples (n=19 vs n=7). On the common 7 families the two are
+  Spearman +0.607 and +0.464, Steiger dependent-test z = +0.29 — not
+  distinguishable. This was a rule-6 violation (significant-vs-not across
+  samples, difference untested).
+- **The defence-taxonomy convergence is weaker than first reported.** Only
+  **4 of 19** families carry prior hand labels, and the asymmetry table covers
+  12 families (7 have forward-only data). Of the four: amber (+7.98,
+  suppression) and llama (−1.39, narrative sublimation) fit; qwen (−0.33) is
+  near zero and predicts nothing; and **olmo (−1.88) contradicts the stated
+  mapping** — "genre collapse" is a flight to format, which should sit at the
+  suppression pole, and it sits at the substitution pole instead.
+
+**What survives.** The *positional* asymmetry — forward resistance peaking at
+pos0, reverse peaking at pos1 — is not obviously predicted by sharpening, which
+should inflate pos0 in the forward direction without producing a pos1 spike in
+the reverse. That contrast is the part worth pursuing; the family taxonomy and
+the defence reading are not established.
