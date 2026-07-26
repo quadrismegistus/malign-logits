@@ -385,14 +385,44 @@ Registered consequences:
 - A negative hh result is likewise restricted, and specifically **cannot support
   the "convention excluded, chains have no visible source anywhere" cell** for
   the pku-trained families.
-- **Named route to testing amber, so this is a gap with a successor rather than
-  a dead end:** the response-level instrument (per-response presence/absence,
-  word pair as unit) already registered for the zero-fired outcome is also the
-  candidate remedy here, because pku's failure is dispersion in *token* rates
-  and a response-level design uses response counts instead. Its power in pku is
-  NOT yet computed and is not promised — computing it is the precondition for
-  any amber claim, and that computation is registered as owed before any
-  convention result is booked against amber.
+- **A BOUNDED PARTIAL REMEDY WITH A COMPUTED CEILING — not a route, and not a
+  dead end.** Revision 6 called the response-level instrument a "route" to
+  testing amber. lacan objected that a response-level design removes
+  response-length variability from the variance but *cannot create
+  occurrences*, so the wording turns on whether pku's dispersion is
+  length-driven (fixable) or scarcity-driven (not). That is computable from the
+  existing tables, and it was computed rather than argued
+  (`scripts/tier2_dispersion_decomp.py`):
+
+  | | hh_rlhf | pku_saferlhf |
+  |---|---|---|
+  | observed sd(`D`) across decoys | 0.0884 | 0.2462 |
+  | predicted from counts alone, `sqrt(1/a+1/b+1/c+1/d)` | 0.0990 | 0.1704 |
+  | overdispersion factor | 0.89x | **1.45x** |
+
+  pku's dispersion exceeds hh's by 2.78x. Decomposed: **scarcity accounts for
+  53% of the log gap and overdispersion for 47%** — a near-even split, so
+  neither "route" nor "no known remedy" is accurate. hh shows no overdispersion
+  at all (0.89x), which is why its token-level instrument works.
+
+  The consequence is a ceiling, computed by rescaling pku's decoy distribution
+  to remove **all** overdispersion — an upper bound assuming a perfect
+  response-level design:
+
+  | pku gate (p75, 3-of-7) | false-cert | power d=.10 | power d=.20 |
+  |---|---|---|---|
+  | as-is, token-level | 0.031 | 0.128 | 0.390 |
+  | ceiling, all overdispersion removed | 0.030 | 0.203 | **0.792** |
+  | *(hh, for reference)* | 0.038 | 0.834 | 1.000 |
+
+  **Registered accordingly:** a response-level instrument could test amber for a
+  LARGE convention effect (power 0.79 at `d`=0.20, up from 0.39) but would
+  remain underpowered for a moderate one (0.20 at `d`=0.10, against hh's 0.83),
+  and that is an upper bound no implementation can beat. So the amber gap is
+  **partially remediable at large effects only**, the residual is irreducible
+  scarcity, and any future amber claim must state which effect size it is
+  powered for. Registered as owed before any convention result is booked
+  against amber.
 
 Revision 1's table let "convention excluded" be reached from an underpowered
 tier 2, which violates rule 1 inside the document that carries rule 1. Tier 2
