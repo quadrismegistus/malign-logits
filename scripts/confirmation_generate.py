@@ -217,12 +217,30 @@ def main():
 
     run_id = datetime.datetime.now().strftime("%Y%m%dT%H%M%S")
     print(f"\nrun_id={run_id}; manifest -> {MANIFEST}\n")
+    # PER-ARM ISOLATION. Without it one unloadable model kills the whole run:
+    # on 2026-07-26 Baichuan2 (architecture removed from vLLM) took internlm2 and
+    # redpajama down with it, then internlm2 (remote-code forward signature drift)
+    # took redpajama down a second time. An arm that cannot load is a datum about
+    # census reach, not a reason to abandon the arms behind it.
+    failed = []
     for k, role, m in plan:
-        if a.backend == "vllm":
-            run_arm_vllm(cm, k, role, m, prompts, a.backend, run_id, tp=a.tp,
-                         sidecar=a.sidecar)
-        else:
-            run_arm(cm, k, role, m, prompts, a.backend, run_id)
+        try:
+            if a.backend == "vllm":
+                run_arm_vllm(cm, k, role, m, prompts, a.backend, run_id, tp=a.tp,
+                             sidecar=a.sidecar)
+            else:
+                run_arm(cm, k, role, m, prompts, a.backend, run_id)
+        except Exception as e:
+            failed.append((k, role, m, f"{type(e).__name__}: {e}"))
+            print(f"  ARM FAILED {k}/{role} ({m}): {type(e).__name__}: {e}")
+            print("  continuing with the remaining arms")
+            gc.collect()
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
+    if failed:
+        print(f"\n{len(failed)} arm(s) failed:")
+        for k, role, m, err in failed:
+            print(f"  {k}/{role}  {m}\n    {err[:160]}")
 
 
 if __name__ == "__main__":
