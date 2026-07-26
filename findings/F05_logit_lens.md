@@ -33,7 +33,7 @@ Projects each hidden layer's representation through the final unembedding matrix
 
 **REVISION (2026-07-01): 40-family replication contradicts the 4-family finding.**
 
-Logit lens with data-driven movers (not fixed word list) across 40 families and 7 prompt types (405,248 rows) shows displacement is **overwhelmingly a final-layer operation**. 13/17 families show 100% onset depth on the anger prompt. Cross-prompt check confirms: sexual, institutional, profanity, death, power all show the same pattern.
+Logit lens with data-driven movers (not fixed word list) across 40 families and 6 prompt types (405,248 rows) shows displacement is **overwhelmingly a final-layer operation**. 13/17 families show 100% onset depth on the anger prompt. Cross-prompt check confirms: sexual, institutional, profanity, death, power all show the same pattern.
 
 The original 4-family finding (OLMo distributed, Llama late-layer, Amber semantic, Qwen code-dominated) was likely an artifact of using a fixed word list (`kill`, `scream`) rather than data-driven movers. With data-driven targets, Llama also shows 100% final-layer onset, not late-layer override.
 
@@ -49,6 +49,11 @@ The original 4-family finding (OLMo distributed, Llama late-layer, Amber semanti
 
 SFT operates slightly deeper (more distributed), DPO concentrates at the output projection, RLVR barely touches the network. Consistent with the three-layer model: form (SFT) modifies processing slightly, the bar (DPO) modifies selection, amplification (RLVR) is pure output-level.
 
-**Data:** `data/logit_lens_datadriven.csv` (405,248 rows, 40 families, 5 prompt types).
+**Data:** `data/logit_lens_datadriven.csv` (405,248 rows, 40 families, 6 prompt types).
 
 See `context.md` for the full theoretical argument and detailed findings.
+
+
+---
+
+**Provenance check, 2026-07-26.** Row count (405,248) and family count (40) reproduce exactly from `data/logit_lens_datadriven.csv`. The prompt-type count was stated as 5 in one place and 7 in another; the file contains 6. Both corrected.

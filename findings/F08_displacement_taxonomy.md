@@ -15,7 +15,7 @@ Classifies each displacement pair from the displacement maps into four types usi
 |---|---|---|---|---|
 | violence (explicit) | **86%** | 6% | 0% | 8% |
 | violence (liminal) | **65%** | 11% | **14%** | 10% |
-| power | **96%** | 14% | 0% | 4% |
+| power | **84%** | 12% | 0% | 4% |
 | substance | 50% | 19% | 4% | 27% |
 | death | 48% | 29% | 0% | 23% |
 | sexual (liminal) | 51% | 28% | 3% | 17% |
@@ -47,4 +47,9 @@ Classifies each displacement pair from the displacement maps into four types usi
 
 **Death and substance produce the most archaic displacement.** *stared* → *gazed*, *tomb* → *gravestone*, *thought* → *pondered*, *swallowed* → *gulped*. Alignment pushes these categories toward literary and formal registers.
 
-Results in `data/displacement_taxonomy.csv`.
+Results in `data/taxonomy_olmo.csv`.
+
+
+---
+
+**Provenance check, 2026-07-26.** Recomputed from `data/taxonomy_olmo.csv` (the file this finding cited as `displacement_taxonomy.csv`, renamed at `39a3886` on 2026-05-03). Every row reproduces within 1–3pp except **power**, which was published as 96/14/0/4 — a row summing to **114%** — against a recomputed 84/12/0/4. The 96% was a transcription error, corrected above; the impossible sum is what makes it certain rather than a judgement call. Row count is now 23,013 against the 22,458 published, a 2.5% increase from a later re-run of the taxonomy.

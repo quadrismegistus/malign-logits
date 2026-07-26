@@ -132,3 +132,35 @@ malign bos-generate --prompt "The" --n 100         # generate from custom prompt
 malign surprisal --self                             # self-surprisal for all cached generations
 malign surprisal --ref itazap/blt-1b-hf            # BLT byte-level reference surprisal
 ```
+
+
+---
+
+**Provenance check, 2026-07-26 — ONE HALF OF THE HEADLINE DOES NOT REPRODUCE.**
+
+Recomputed from `data/blt_combined.csv` and `data/generation_analysis.parquet`,
+both modified after this finding was booked.
+
+*Reproduces exactly.* Human text types, BLT mean bits/char: fiction **1.49**,
+dreams **1.32**, abstracts **1.28**, waking **1.24** — all four as published, all
+above 1.0.
+
+*Reproduces approximately.* Self-surprisal on prose-only BOS: SFT (ego) **0.94**
+against 0.93 published; DPO (superego) **0.85** against 0.96 published. The DPO
+number differs but in the direction of *more* compression, so the sub-Shannon
+claim holds on this measure.
+
+*Does NOT reproduce.* The claim is "SFT: 0.93, DPO: 0.96 — below the 1.0
+threshold. **Confirmed by both self-surprisal and independent BLT scoring**." On
+BLT, prose-only BOS gives SFT median **1.21** / mean 1.44 and DPO median **1.05**
+/ mean 1.20 — *above* 1.0, not below. English-only filtering does not change it
+(SFT 1.19/1.43, DPO 1.01/1.17). So the BLT half of the confirmation does not hold
+on the current file under any filter I could infer.
+
+**This is flagged, not corrected.** Today established the distinction between a
+claim being wrong and its record being lost, and I cannot tell which this is: the
+original analysis may have applied a filter the finding does not state. What the
+finding needs is its exact filter written down — genre, prompt_type, language,
+and which of `self_bits_per_char` / `blt_bits_per_char` — after which this either
+reproduces or it doesn't. Until then the *self-surprisal* half of the sub-Shannon
+claim stands and the *BLT confirmation* should not be cited.

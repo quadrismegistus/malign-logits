@@ -196,7 +196,7 @@ R1-Distill's raw logits diverge massively from base (JS 0.62 vs Instruct's 0.07;
 - Plain logits: `data/raw/cache/reasoning_logits/` (cached)
 - Smoke test: `scripts/r1_smoke_test.py` (running)
 - Circuit decomposition: TBC (`scripts/decompose_circuit.py --family` with R1-Distill)
-- Thinking chains: cached in `reasoning_logits` stash, also `data/reasoning_thinking_chains.csv`
+- Thinking chains: cached in `reasoning_logits` stash, (`data/reasoning_thinking_chains.csv` was a convenience export and was never committed — the stash is the source of record)
 
 **TODO**:
 - [ ] Complete smoke test (plain + instruct, 8 prompts)
