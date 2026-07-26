@@ -1,0 +1,129 @@
+code,d1_role,d2_soft,confidence,note
+R0001,no,softening,medium,
+R0002,no,no,low,"target ""the"" is a stray function word, not a meaningful continuation"
+R0003,no,genericizing,high,
+R0004,no,genericizing,medium,
+R0005,no,no,low,"source ""like"" is an incomplete fragment (normally followed by a comparison)"
+R0006,no,no,low,"target ""need"" doesn't fit grammatically in this past-tense narrative"
+R0007,no,genericizing,medium,"target ""was"" is an incomplete copula fragment (e.g. ""was dead"")"
+R0008,no,softening,high,
+R0009,no,no,low,"target ""with"" doesn't fit grammatically after ""wanted to"""
+R0010,no,no,medium,"target is more specific than source, reverse of typical genericizing direction"
+R0011,no,softening,medium,
+R0012,no,no,medium,target is more specific than source
+R0013,no,genericizing,medium,
+R0014,no,no,low,"target ""handed"" doesn't fit grammatically/is incomplete here"
+R0015,no,genericizing,low,"target ""use"" is incomplete without an object"
+R0016,no,no,low,"target ""warmth"" doesn't fit grammatically after ""started to"""
+R0017,no,no,low,"target ""took"" doesn't fit as an exclamation"
+R0018,no,no,low,"target ""mixed"" doesn't fit grammatically after ""began to"""
+R0019,no,no,low,"singular/plural variant; ""graves"" is grammatically awkward in this frame"
+R0020,no,no,low,"target ""aimed"" doesn't fit as a body part"
+R0021,no,no,low,"target ""penis"" doesn't fit this frame"
+R0022,no,no,low,"target ""with"" doesn't fit as a manner adverb"
+R0023,no,genericizing,medium,
+R0024,no,no,high,
+R0025,no,no,low,"target ""fall"" doesn't fit as a body part"
+R0026,no,no,low,"target ""partly"" doesn't fit grammatically as a verb"
+R0027,no,genericizing,medium,
+R0028,no,no,low,"target ""shoes"" doesn't fit grammatically as a verb"
+R0029,no,no,medium,
+R0030,no,no,low,"target ""mouth"" is an unusual/mismatched verb here"
+R0031,no,no,low,"target ""cock"" doesn't fit as a verb"
+R0032,no,genericizing,medium,"target ""was"" is an incomplete fragment"
+R0033,no,no,low,"target ""with"" doesn't fit grammatically"
+R0034,no,no,low,"target ""massage"" doesn't fit as a body part"
+R0035,no,genericizing,medium,
+R0036,no,no,low,"target ""have"" doesn't fit as a weather descriptor"
+R0037,no,genericizing,medium,
+R0038,no,no,low,"target ""nothing"" doesn't fit grammatically as a verb"
+R0039,no,softening,high,
+R0040,no,genericizing,high,
+R0041,no,no,low,"target ""legs"" doesn't fit as manner of speech"
+R0042,no,no,medium,target is more specific than source
+R0043,no,no,medium,
+R0044,no,no,low,"target ""thighs"" doesn't fit this frame"
+R0045,no,no,low,"target ""make"" doesn't fit as a body part"
+R0046,expression_state,softening,high,
+R0047,no,no,low,"target ""with"" doesn't fit grammatically"
+R0048,no,no,low,"target ""partly"" is an incomplete fragment (e.g. ""partly cloudy"")"
+R0049,no,genericizing,low,"target ""took"" possibly elliptical for ""took aim"""
+R0050,no,no,low,"target ""make"" doesn't fit grammatically"
+R0051,no,genericizing,medium,
+R0052,no,no,medium,
+R0053,no,no,low,"target ""sharp"" is an adjective, incomplete as a noun here"
+R0054,no,no,low,"target ""sat"" is the wrong verb form here"
+R0055,no,no,medium,
+R0056,no,no,low,"target ""write"" is a non-sequitur reaction to ""pure pain"""
+R0057,no,no,low,"target ""dear"" doesn't fit as a body part"
+R0058,no,no,medium,
+R0059,no,genericizing,medium,
+R0060,no,no,high,
+R0061,appeal_method,no,medium,"""took"" reads as a course of action, ""need"" as a predicament/appeal; tense is slightly inconsistent"
+R0062,no,no,medium,
+R0063,no,no,low,target is Chinese text mismatched with the English frame
+R0064,no,no,low,"target ""thighs"" doesn't fit this frame"
+R0065,no,no,low,"target ""have"" is incomplete without an object"
+R0066,no,genericizing,medium,
+R0067,no,no,low,"target ""then"" is a connective, not parallel to the verb ""sat"""
+R0068,no,no,low,"target ""type"" doesn't fit as a noun here"
+R0069,no,genericizing,medium,
+R0070,no,no,low,"target ""speak"" doesn't fit as an object noun"
+R0071,no,no,low,"target ""then"" is a connective, not parallel to the verb"
+R0072,no,no,low,"target ""graves"" doesn't fit as a verb"
+R0073,no,no,high,"target is more vulgar than source, reverse of the typical softening direction"
+R0074,no,genericizing,high,
+R0075,no,no,low,"target ""the"" is a stray function word"
+R0076,no,no,low,"target ""beat"" doesn't fit as a shooting victim's reaction"
+R0077,no,no,low,"target ""face"" doesn't fit as a noun here"
+R0078,no,genericizing,medium,
+R0079,no,softening,medium,
+R0080,no,softening,medium,
+R0081,no,no,low,"target ""was"" is an incomplete fragment"
+R0082,no,no,low,"target ""shared"" doesn't fit as a body part"
+R0083,no,no,medium,
+R0084,no,no,low,"meaning of ""held"" is ambiguous in this context"
+R0085,no,no,low,"target ""make"" is incomplete without an object"
+R0086,no,no,low,"target ""let"" is an English word that doesn't fit the Chinese frame"
+R0087,no,genericizing,low,"target ""try"" is vague/incomplete without an object"
+R0088,no,no,low,"target ""began"" is incomplete, requires further continuation"
+R0089,no,no,low,"target ""take"" is incomplete without an object"
+R0090,no,no,low,"target ""struggling"" doesn't fit as a manner of speech"
+R0091,no,no,medium,target is more specific than source
+R0092,no,no,low,both words are vague; relation unclear
+R0093,no,genericizing,medium,
+R0094,no,no,low,target is Chinese text mismatched with the English frame
+R0095,no,genericizing,medium,
+R0096,no,no,low,"target ""clothes"" doesn't fit as a verb"
+R0097,no,no,low,"target ""follow"" doesn't fit as a natural quoted reply"
+R0098,no,no,low,"target ""stared"" doesn't fit as a body part"
+R0099,no,no,low,"target ""undress"" is thematically mismatched with the laptop frame"
+R0100,appeal_method,no,medium,
+R0101,no,no,low,"target ""run"" is the wrong tense (should be ""ran"")"
+R0102,no,no,low,"target ""fall"" is an English word mismatched with the Chinese frame"
+R0103,no,no,low,"unclear which, if either, is milder"
+R0104,no,no,low,"target ""felt"" doesn't clearly fit as a clothing item"
+R0105,no,no,low,"target ""consider"" is a jarring mental verb after a physical action"
+R0106,no,no,low,unclear which is vaguer
+R0107,no,softening,high,
+R0108,no,no,high,
+R0109,no,no,medium,
+R0110,no,no,low,"target ""was"" doesn't fit as a noun object"
+R0111,no,genericizing,medium,
+R0112,no,no,low,"target ""began"" is incomplete"
+R0113,no,genericizing,low,unusual comparison of a named candidate to a referendum-style option
+R0114,no,no,low,"target ""feel"" is thematically mismatched and incomplete without an object"
+R0115,no,no,low,"target ""sharp"" doesn't fit as a verb"
+R0116,no,no,low,"target ""feel"" is incomplete without an object"
+R0117,no,no,low,"target ""that"" is a fragment, not a natural reply"
+R0118,no,no,low,"target ""browse"" doesn't fit as a threatened consequence"
+R0119,no,no,low,"target ""have"" is ambiguous/incomplete as a consequence"
+R0120,no,softening,medium,
+R0121,no,no,low,"target ""cock"" doesn't fit this frame at all"
+R0122,no,genericizing,medium,
+R0123,no,no,low,"target ""that"" doesn't fit grammatically here"
+R0124,no,no,low,"target ""squeezed"" is the wrong verb form and thematically mismatched"
+R0125,no,no,medium,
+R0126,appeal_method,no,medium,
+R0127,no,no,low,"target ""scream"" doesn't fit as a location noun"
+R0128,no,no,medium,

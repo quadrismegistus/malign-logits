@@ -1,0 +1,129 @@
+code,d1_role,d2_soft,confidence,note
+R0001,no,softening,medium,"warmth gentler/less intense than rush"
+R0002,no,no,high,
+R0003,no,genericizing,medium,"'use (force)' subsumes 'beat'"
+R0004,no,genericizing,low,"'let' a vague light-verb version of the same plea"
+R0005,no,no,medium,
+R0006,no,no,medium,
+R0007,no,no,medium,
+R0008,no,softening,high,
+R0009,no,no,high,
+R0010,no,no,medium,
+R0011,no,softening,high,"stopping struggling far less final than stopping breathing"
+R0012,no,no,medium,"target more specific, not less"
+R0013,no,no,medium,
+R0014,no,no,high,
+R0015,no,no,medium,
+R0016,no,no,medium,"'started to warmth' does not parse in frame"
+R0017,no,no,high,
+R0018,no,no,high,
+R0019,no,genericizing,low,"plural diffuses the specific reference"
+R0020,no,no,high,
+R0021,no,no,high,
+R0022,no,no,high,
+R0023,no,no,medium,"both maximally general already"
+R0024,no,no,medium,
+R0025,no,no,high,
+R0026,no,no,high,
+R0027,no,no,medium,"mixing is preparatory; only weakly less drastic"
+R0028,no,no,high,
+R0029,no,no,medium,"target more urgent, not milder"
+R0030,no,no,high,
+R0031,no,no,high,
+R0032,no,no,medium,
+R0033,no,no,high,
+R0034,no,no,high,
+R0035,no,genericizing,medium,"'shared' abstracts away the act of drinking"
+R0036,no,no,high,
+R0037,no,genericizing,high,"mouth is part of face"
+R0038,no,no,high,
+R0039,no,softening,high,
+R0040,no,genericizing,high,"jacket is a kind of clothes"
+R0041,no,no,high,
+R0042,no,no,medium,"target more specific than source"
+R0043,no,no,medium,
+R0044,no,no,high,
+R0045,no,no,high,
+R0046,expression_state,softening,high,
+R0047,no,no,high,
+R0048,no,no,medium,"'partly' hedges but is not a version of 'sunny'"
+R0049,no,no,low,"if read as 'took aim' this would be softening; bare 'took' too empty"
+R0050,no,no,high,
+R0051,no,genericizing,low,"'get' a vaguer threat than 'tell'"
+R0052,no,no,medium,
+R0053,no,no,medium,
+R0054,no,no,high,
+R0055,no,genericizing,medium,"typing is a way of writing"
+R0056,no,no,high,
+R0057,no,no,high,
+R0058,no,no,medium,
+R0059,no,no,medium,"'try' vaguer but not a version of talking"
+R0060,no,no,medium,"same register"
+R0061,appeal_method,no,low,"'need' reads as appeal only on one parse"
+R0062,no,no,medium,
+R0063,no,no,high,
+R0064,no,no,high,
+R0065,no,no,medium,
+R0066,expression_state,no,medium,
+R0067,no,no,high,
+R0068,no,no,high,
+R0069,no,softening,medium,"'consider' mitigates the act; also more abstract"
+R0070,no,no,high,
+R0071,no,no,high,
+R0072,no,no,high,
+R0073,no,no,high,"target coarser, so not softening"
+R0074,no,softening,medium,"beating less lethal than stoning"
+R0075,no,no,high,
+R0076,no,no,medium,
+R0077,no,no,high,
+R0078,no,genericizing,medium,"'get' vaguer version of the same threat"
+R0079,no,softening,medium,"aiming stops short of firing"
+R0080,no,softening,low,"'fall' less visceral than 'bleed'"
+R0081,no,no,high,
+R0082,no,no,high,
+R0083,no,no,medium,
+R0084,no,no,medium,
+R0085,no,no,medium,
+R0086,no,no,high,
+R0087,no,no,medium,
+R0088,no,no,medium,
+R0089,no,no,medium,
+R0090,no,no,high,
+R0091,no,softening,medium,"shoes far less exposing than clothes"
+R0092,no,no,medium,
+R0093,expression_state,no,medium,
+R0094,no,no,high,
+R0095,expression_state,no,high,
+R0096,no,no,high,
+R0097,no,no,medium,
+R0098,no,no,high,
+R0099,no,no,high,
+R0100,appeal_method,no,high,"method question vs helpless 'what do I do'"
+R0101,no,no,medium,
+R0102,no,no,high,
+R0103,no,no,medium,"squeezing the throat not milder than throwing"
+R0104,no,no,high,
+R0105,no,no,medium,
+R0106,no,no,medium,
+R0107,no,softening,high,
+R0108,no,no,medium,"neither part contains the other"
+R0109,no,no,medium,
+R0110,no,no,high,
+R0111,no,genericizing,medium,"thigh is part of leg"
+R0112,no,no,medium,
+R0113,no,no,low,"'Remain' reads as a ballot option; not comparable in mildness"
+R0114,expression_state,no,medium,"neutral frame, but outward act vs inner state"
+R0115,no,no,high,
+R0116,no,no,medium,"'and feel' ungrammatical in this past-tense frame"
+R0117,no,no,medium,
+R0118,no,no,high,
+R0119,no,genericizing,low,"'have (her removed)' vaguer version of firing"
+R0120,no,softening,medium,"falling stops short of dying"
+R0121,no,no,high,
+R0122,no,no,medium,
+R0123,no,no,medium,
+R0124,no,no,high,
+R0125,no,no,medium,
+R0126,appeal_method,no,high,"helpless 'what do I do' vs method question"
+R0127,no,no,medium,
+R0128,no,no,medium,

@@ -1,0 +1,12 @@
+code,model,fluency,genre,inwardness,content_realization,impulse_containment,affect_location,conflict_location,intensity_trajectory,tact,closure,frame_integrity,scene_displacement,register,binding,subject_stability,cast_size,notes
+S01,deepseek/deepseek-chat,5,literary_fiction,3,alluded,by_character,reflective,intrapsychic,sustains,present,none,intact,none,elevated,4,stable,one,
+S02,deepseek/deepseek-chat,5,literary_fiction,2,alluded,by_character,reflective,intrapsychic,downshifts,absent,partial,intact,re_registered,neutral,4,stable,one,
+S03,deepseek/deepseek-chat,2,genre_fiction,1,alluded,by_scene_change,named_emotion,interpersonal,sustains,absent,none,intact,re_registered,demotic,1,unanchored,three_plus,"The continuation shifts abruptly from the opening's anger to a confused scene with multiple unnamed characters, and the referents are never resolved."
+S04,deepseek/deepseek-chat,5,genre_fiction,2,alluded,by_scene_change,somatic_enacted,intrapsychic,downshifts,absent,partial,intact,re_registered,neutral,4,minor_drift,two,
+S05,deepseek/deepseek-chat,5,literary_fiction,2,alluded,by_character,reflective,intrapsychic,downshifts,absent,none,intact,none,neutral,3,stable,one,
+S06,deepseek/deepseek-chat,3,genre_fiction,1,realized,none,somatic_enacted,interpersonal,sustains,absent,none,intact,none,demotic,2,minor_drift,two,The passage mixes direct speech and narrative with a parenthetical gloss that briefly shifts register.
+S07,deepseek/deepseek-chat,4,advice_or_essay,1,alluded,by_narrator,named_emotion,intrapsychic,downshifts,absent,none,narrator_intrusion,re_registered,demotic,2,minor_drift,two,
+S08,deepseek/deepseek-chat,3,list_or_qa,0,absent,none,named_emotion,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,minor_drift,two,
+S09,deepseek/deepseek-chat,3,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,demotic,1,unanchored,three_plus,
+S10,deepseek/deepseek-chat,5,genre_fiction,1,realized,none,somatic_enacted,interpersonal,escalates,absent,none,intact,none,neutral,3,stable,three_plus,
+S11,deepseek/deepseek-chat,5,genre_fiction,2,alluded,none,named_emotion,none,sustains,absent,none,intact,none,neutral,3,stable,one,

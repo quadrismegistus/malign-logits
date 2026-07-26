@@ -1,0 +1,38 @@
+family,arch_family,stage_pair,stage_shape,cross_lab_comparable,model_a,model_b,rel_frobenius,n_tensors,max_tensor_rel,max_tensor,flag
+amber,llama,base->sft,sft,no,LLM360/Amber,LLM360/AmberChat,0.047173,289,0.08022,model.layers.0.self_attn.o_proj.weight,
+amber,llama,sft->safety_sft+dpo,sft+dpo,yes,LLM360/AmberChat,LLM360/AmberSafe,0.049874,289,0.087026,model.layers.0.self_attn.o_proj.weight,
+archangel,neox,base->sft,sft,no,EleutherAI/pythia-2.8b,ContextualAI/archangel_sft_pythia2-8b,0.002036,386,0.005245,gpt_neox.layers.31.mlp.dense_h_to_4h.bias,
+archangel,neox,sft->dpo,dpo,yes,ContextualAI/archangel_sft_pythia2-8b,ContextualAI/archangel_sft-dpo_pythia2-8b,0.000371,386,0.001469,gpt_neox.layers.30.attention.dense.bias,
+archangel,neox,sft->ppo,ppo,yes,ContextualAI/archangel_sft_pythia2-8b,ContextualAI/archangel_sft-ppo_pythia2-8b,0.000421,386,0.001367,gpt_neox.layers.31.mlp.dense_h_to_4h.bias,
+archangel,neox,sft->kto,kto,yes,ContextualAI/archangel_sft_pythia2-8b,ContextualAI/archangel_sft-kto_pythia2-8b,0.000576,386,0.002269,gpt_neox.layers.30.mlp.dense_4h_to_h.bias,
+archangel,neox,sft->slic,slic,yes,ContextualAI/archangel_sft_pythia2-8b,ContextualAI/archangel_sft-slic_pythia2-8b,0.00057,386,0.001957,gpt_neox.layers.2.attention.dense.weight,
+beaver,llama,base->sft,sft,no,huggyllama/llama-7b,PKU-Alignment/alpaca-7b-reproduced,0.014192,289,0.022147,model.layers.1.self_attn.o_proj.weight,
+beaver,llama,sft->ppo,ppo,yes,PKU-Alignment/alpaca-7b-reproduced,PKU-Alignment/beaver-7b-v1.0,0.004373,289,0.007575,model.layers.1.self_attn.o_proj.weight,
+ctllm,llama,base->sft,sft,no,m-a-p/CT-LLM-Base,m-a-p/CT-LLM-SFT,0.029766,289,0.07711,model.layers.0.self_attn.o_proj.weight,
+ctllm,llama,sft->dpo,dpo,yes,m-a-p/CT-LLM-SFT,m-a-p/CT-LLM-SFT-DPO,0.001396,289,0.004769,model.layers.0.self_attn.o_proj.weight,
+llama31,llama,base->instruct,instruct_compound,no,meta-llama/Llama-3.1-8B,meta-llama/Llama-3.1-8B-Instruct,0.044585,289,0.063455,model.layers.2.self_attn.v_proj.weight,
+neo7b,llama,base->sft,sft,no,m-a-p/neo_7b,m-a-p/neo_7b_sft_v0.1,0.072002,253,0.149725,model.layers.0.self_attn.o_proj.weight,
+neo7b,llama,sft->instruct,instruct_compound,no,m-a-p/neo_7b_sft_v0.1,m-a-p/neo_7b_instruct_v0.1,0.001557,253,0.006486,model.layers.0.self_attn.o_proj.weight,
+olmo2_1b,olmo2,base->sft,sft,no,allenai/OLMo-2-0425-1B,allenai/OLMo-2-0425-1B-SFT,1.095791,177,1.188178,model.layers.15.mlp.gate_proj.weight,ANOMALY: displacement exceeds weight norm; released base is almost certainly not the checkpoint this stage started from. Exclude.
+olmo2_1b,olmo2,sft->dpo,dpo,yes,allenai/OLMo-2-0425-1B-SFT,allenai/OLMo-2-0425-1B-DPO,0.003679,177,0.005822,model.layers.0.self_attn.k_proj.weight,
+olmo2_1b,olmo2,dpo->rlvr,rlvr,yes,allenai/OLMo-2-0425-1B-DPO,allenai/OLMo-2-0425-1B-Instruct,0.002396,177,0.003464,model.layers.1.self_attn.k_proj.weight,
+olmo3_7b,olmo3,base->sft,sft,no,allenai/Olmo-3-1025-7B,allenai/Olmo-3-7B-Instruct-SFT,0.263051,353,0.326147,model.layers.15.self_attn.k_proj.weight,
+olmo3_7b,olmo3,sft->dpo,dpo,yes,allenai/Olmo-3-7B-Instruct-SFT,allenai/Olmo-3-7B-Instruct-DPO,0.00151,353,0.003008,model.layers.0.self_attn.k_proj.weight,
+olmo3_7b,olmo3,dpo->rlvr,rlvr,yes,allenai/Olmo-3-7B-Instruct-DPO,allenai/Olmo-3-7B-Instruct,0.001815,353,0.00394,model.layers.0.self_attn.k_proj.weight,
+olmoe,olmoe,base->sft,sft,no,allenai/OLMoE-1B-7B-0125,allenai/OLMoE-1B-7B-0125-SFT,0.074468,3217,0.120559,model.layers.0.self_attn.q_proj.weight,
+olmoe,olmoe,sft->dpo,dpo,yes,allenai/OLMoE-1B-7B-0125-SFT,allenai/OLMoE-1B-7B-0125-DPO,0.001762,3217,0.004133,model.layers.14.self_attn.k_proj.weight,
+olmoe,olmoe,dpo->rlvr,rlvr,yes,allenai/OLMoE-1B-7B-0125-DPO,allenai/OLMoE-1B-7B-0125-Instruct,0.001323,3217,0.003163,model.layers.0.self_attn.o_proj.weight,
+pythia_hh,neox,base->sft,sft,no,EleutherAI/pythia-6.9b,lomahony/eleuther-pythia6.9b-hh-sft,0.00217,386,0.009986,gpt_neox.layers.31.mlp.dense_h_to_4h.bias,
+pythia_hh,neox,sft->dpo,dpo,yes,lomahony/eleuther-pythia6.9b-hh-sft,lomahony/eleuther-pythia6.9b-hh-dpo,0.001097,386,0.00475,gpt_neox.layers.31.mlp.dense_h_to_4h.bias,
+qwen25_05b,qwen2,base->instruct,instruct_compound,no,Qwen/Qwen2.5-0.5B,Qwen/Qwen2.5-0.5B-Instruct,0.035484,289,0.105072,model.layers.22.self_attn.q_proj.weight,
+qwen25_7b,qwen2,base->instruct,instruct_compound,no,Qwen/Qwen2.5-7B,Qwen/Qwen2.5-7B-Instruct,0.012119,337,0.027927,model.layers.0.self_attn.v_proj.weight,
+smollm2_360m,llama,base->instruct,instruct_compound,no,HuggingFaceTB/SmolLM2-360M,HuggingFaceTB/SmolLM2-360M-Instruct,0.075703,289,0.152244,model.layers.0.self_attn.o_proj.weight,
+tulu3,llama,base->sft,sft,no,meta-llama/Llama-3.1-8B,allenai/Llama-3.1-Tulu-3-8B-SFT,0.025709,289,0.042351,model.layers.2.self_attn.v_proj.weight,
+tulu3,llama,sft->dpo,dpo,yes,allenai/Llama-3.1-Tulu-3-8B-SFT,allenai/Llama-3.1-Tulu-3-8B-DPO,0.000855,289,0.002023,model.layers.11.self_attn.v_proj.weight,
+tulu3,llama,dpo->rlvr,rlvr,yes,allenai/Llama-3.1-Tulu-3-8B-DPO,allenai/Llama-3.1-Tulu-3.1-8B,0.002008,289,0.003901,model.layers.2.self_attn.v_proj.weight,
+tulu3,llama,sft_no_safety->sft_full,sft_component_safety,within_family_only,allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data,allenai/Llama-3.1-Tulu-3-8B-SFT,0.015885,289,0.038739,model.layers.2.self_attn.v_proj.weight,"leave-one-out SFT ablation: isolates one data component, same base and recipe"
+tulu3,llama,sft_no_math->sft_full,sft_component_math,within_family_only,allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data,allenai/Llama-3.1-Tulu-3-8B-SFT,0.017804,289,0.038612,model.layers.2.self_attn.v_proj.weight,"leave-one-out SFT ablation: isolates one data component, same base and recipe"
+tulu3,llama,sft_no_persona->sft_full,sft_component_persona,within_family_only,allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data,allenai/Llama-3.1-Tulu-3-8B-SFT,0.017516,289,0.038505,model.layers.2.self_attn.v_proj.weight,"leave-one-out SFT ablation: isolates one data component, same base and recipe"
+tulu3,llama,sft_no_wildchat->sft_full,sft_component_wildchat,within_family_only,allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data,allenai/Llama-3.1-Tulu-3-8B-SFT,0.02101,289,0.043826,model.layers.2.self_attn.v_proj.weight,"leave-one-out SFT ablation: isolates one data component, same base and recipe"
+zephyr,mistral,base->sft,sft,no,mistralai/Mistral-7B-v0.1,HuggingFaceH4/mistral-7b-sft-beta,0.008357,289,0.076057,model.layers.0.self_attn.v_proj.weight,
+zephyr,mistral,sft->dpo,dpo,yes,HuggingFaceH4/mistral-7b-sft-beta,HuggingFaceH4/zephyr-7b-beta,0.001384,289,0.00939,model.layers.0.self_attn.v_proj.weight,

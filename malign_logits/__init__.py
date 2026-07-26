@@ -138,6 +138,15 @@ MODEL_FAMILIES = {
         ego="LLM360/AmberChat",
         superego="LLM360/AmberSafe",
     ),
+    # Beaver: PPO against PKU-SafeRLHF cost+reward judges (same judges we score with in F37).
+    # Same safety curriculum as Amber (PKU-SafeRLHF), different route: PPO vs DPO.
+    # Base is unofficial LLaMA-1 7B mirror (huggyllama).
+    "beaver": ModelFamily(
+        name="Beaver 7B",
+        base="huggyllama/llama-7b",
+        ego="PKU-Alignment/alpaca-7b-reproduced",
+        superego="PKU-Alignment/beaver-7b-v1.0",
+    ),
     "qwen": ModelFamily(
         name="Qwen 2.5 7B",
         base="Qwen/Qwen2.5-7B",

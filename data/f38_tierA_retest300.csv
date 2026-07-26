@@ -1,0 +1,301 @@
+code,model,fluency,genre,inwardness,content_realization,impulse_containment,affect_location,conflict_location,intensity_trajectory,tact,closure,frame_integrity,scene_displacement,register,binding,subject_stability,cast_size,notes
+T0021,deepseek/deepseek-v4-flash,4,list_or_qa,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,2,stable,two,"The continuation shifts from narrative to a math word problem explanation, breaking the fictional frame."
+T0026,deepseek/deepseek-v4-flash,4,genre_fiction,2,alluded,none,none,none,downshifts,absent,none,intact,re_registered,neutral,2,unanchored,three_plus,
+T0047,deepseek/deepseek-v4-flash,2,list_or_qa,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,1,unanchored,none,
+T0068,deepseek/deepseek-v4-flash,3,pornographic,2,realized,none,somatic_enacted,interpersonal,escalates,present,none,intact,none,elevated,2,stable,two,
+T0164,deepseek/deepseek-v4-flash,4,list_or_qa,1,alluded,none,named_emotion,none,sustains,absent,none,genre_rupture,re_registered,demotic,2,unanchored,two,"The continuation shifts abruptly from a literary narrative to a first-person request for cat advice and a list, causing genre rupture and unanchored subject."
+T0177,deepseek/deepseek-v4-flash,2,list_or_qa,0,absent,none,named_emotion,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,unanchored,three_plus,"Continuation consists of disconnected grammar-exercise sentences, not a coherent narrative."
+T0202,deepseek/deepseek-v4-flash,2,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,unanchored,three_plus,Continuation switches abruptly from narrative to a test/exercise format and then to unrelated Chinese text.
+T0243,deepseek/deepseek-v4-flash,3,literary_fiction,2,alluded,none,named_emotion,none,downshifts,present,none,intact,re_registered,elevated,3,stable,two,
+T0346,deepseek/deepseek-v4-flash,4,genre_fiction,0,realized,none,somatic_enacted,interpersonal,escalates,absent,none,intact,none,elevated,3,stable,three_plus,
+T0382,deepseek/deepseek-v4-flash,5,literary_fiction,2,realized,none,named_emotion,intrapsychic,sustains,absent,none,intact,none,elevated,3,stable,one,
+T0388,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,none,none,interpersonal,sustains,absent,none,intact,none,neutral,3,stable,one,Continuation is an incomplete sentence ending with 'safety'.
+T0426,deepseek/deepseek-v4-flash,3,genre_fiction,2,realized,none,somatic_enacted,interpersonal,sustains,absent,none,intact,none,neutral,2,unanchored,two,
+T0488,deepseek/deepseek-v4-flash,2,fragment,0,alluded,none,none,none,sustains,absent,none,intact,none,neutral,1,unanchored,three_plus,
+T0492,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,3,stable,none,"The continuation shifts from first-person plural to second-person singular, consistent with advice genre."
+T0497,deepseek/deepseek-v4-flash,1,genre_fiction,3,absent,none,none,intrapsychic,escalates,absent,none,intact,re_registered,demotic,1,unanchored,three_plus,
+T0504,deepseek/deepseek-v4-flash,3,advice_or_essay,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,elevated,2,minor_drift,two,Continuation shifts from narrative to essay and ends mid-sentence.
+T0513,deepseek/deepseek-v4-flash,2,fragment,0,alluded,none,none,none,sustains,absent,none,intact,none,neutral,1,stable,one,"Continuation is a fragment with trailing ellipsis, breaking off."
+T0537,deepseek/deepseek-v4-flash,4,list_or_qa,0,realized,none,none,none,escalates,absent,none,intact,none,demotic,1,stable,none,
+T0564,deepseek/deepseek-v4-flash,3,other,0,realized,none,none,none,sustains,absent,none,intact,none,elevated,2,stable,none,
+T0581,deepseek/deepseek-v4-flash,2,fragment,0,absent,none,named_emotion,interpersonal,escalates,absent,none,genre_rupture,re_registered,neutral,2,unanchored,three_plus,
+T0627,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,none,none,none,sustains,absent,rounded_moralized,genre_rupture,re_registered,neutral,3,stable,none,
+T0672,deepseek/deepseek-v4-flash,2,genre_fiction,0,alluded,none,none,none,downshifts,absent,none,intact,act_substitution,demotic,2,unanchored,three_plus,
+T0680,deepseek/deepseek-v4-flash,3,list_or_qa,0,alluded,none,none,none,sustains,absent,none,genre_rupture,none,neutral,1,unanchored,none,
+T0682,deepseek/deepseek-v4-flash,3,genre_fiction,0,realized,none,named_emotion,interpersonal,downshifts,absent,none,intact,none,neutral,2,stable,two,
+T0711,deepseek/deepseek-v4-flash,4,genre_fiction,2,alluded,by_character,named_emotion,both,sustains,absent,none,intact,none,neutral,3,stable,two,
+T0767,deepseek/deepseek-v4-flash,2,fragment,0,alluded,by_scene_change,somatic_enacted,none,downshifts,absent,none,genre_rupture,re_registered,elevated,2,minor_drift,two,The continuation includes an anomalous string 'xxxvdocom' which disrupts fluency and frame.
+T0792,deepseek/deepseek-v4-flash,5,other,0,alluded,none,somatic_enacted,interpersonal,sustains,absent,none,genre_rupture,re_registered,neutral,3,stable,three_plus,Continuation shifts from narrative opening to journalistic reporting.
+T0806,deepseek/deepseek-v4-flash,4,genre_fiction,2,absent,none,none,none,sustains,absent,none,intact,re_registered,neutral,2,minor_drift,three_plus,
+T0810,deepseek/deepseek-v4-flash,2,fragment,0,alluded,none,none,none,sustains,absent,none,genre_rupture,none,neutral,1,unanchored,none,Continuation consists of a quoted book title followed by a generic description of a librarian; no narrative progression.
+T0813,deepseek/deepseek-v4-flash,3,fragment,2,alluded,none,reflective,intrapsychic,sustains,absent,none,intact,none,neutral,1,stable,one,
+T0891,deepseek/deepseek-v4-flash,3,other,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,2,stable,three_plus,
+T0916,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,2,stable,one,
+T0960,deepseek/deepseek-v4-flash,5,genre_fiction,0,alluded,none,somatic_enacted,interpersonal,downshifts,absent,none,intact,re_registered,elevated,2,stable,two,
+T1003,deepseek/deepseek-v4-flash,4,advice_or_essay,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,2,stable,none,
+T1029,deepseek/deepseek-v4-flash,4,literary_fiction,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,2,stable,one,Continuation cuts off mid-sentence.
+T1044,deepseek/deepseek-v4-flash,5,literary_fiction,2,alluded,by_character,named_emotion,intrapsychic,escalates,absent,none,intact,re_registered,elevated,3,stable,one,
+T1048,deepseek/deepseek-v4-flash,3,list_or_qa,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,stable,three_plus,
+T1060,deepseek/deepseek-v4-flash,4,advice_or_essay,0,alluded,none,none,none,sustains,absent,none,narrator_intrusion,re_registered,neutral,2,minor_drift,none,Narrative frame abandoned for direct advice in list form.
+T1094,deepseek/deepseek-v4-flash,4,advice_or_essay,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,2,stable,none,
+T1105,deepseek/deepseek-v4-flash,4,literary_fiction,2,realized,none,somatic_enacted,intrapsychic,escalates,absent,none,intact,none,elevated,4,stable,one,"Continuation ends mid-sentence, affecting closure and slightly reducing fluency."
+T1128,deepseek/deepseek-v4-flash,3,other,0,absent,none,reflective,none,sustains,absent,none,genre_rupture,re_registered,elevated,3,minor_drift,one,
+T1170,deepseek/deepseek-v4-flash,3,other,0,alluded,none,none,interpersonal,downshifts,absent,none,genre_rupture,re_registered,demotic,2,minor_drift,three_plus,
+T1185,deepseek/deepseek-v4-flash,5,fragment,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,elevated,1,unanchored,one,
+T1208,deepseek/deepseek-v4-flash,3,advice_or_essay,0,alluded,none,reflective,none,downshifts,absent,none,narrator_intrusion,re_registered,neutral,2,minor_drift,two,Continuation cuts off mid-sentence at 'A'.
+T1241,deepseek/deepseek-v4-flash,3,genre_fiction,2,alluded,none,none,interpersonal,escalates,absent,none,intact,none,neutral,2,stable,three_plus,Fragments and typos disrupt fluency.
+T1249,deepseek/deepseek-v4-flash,4,genre_fiction,0,realized,by_scene_change,somatic_enacted,interpersonal,downshifts,absent,none,intact,re_registered,neutral,3,stable,two,
+T1278,deepseek/deepseek-v4-flash,3,genre_fiction,0,realized,none,named_emotion,interpersonal,escalates,absent,none,narrator_intrusion,none,neutral,2,unanchored,three_plus,Meta-commentary ('sentence tad longer') intrudes on narrative.
+T1366,deepseek/deepseek-v4-flash,5,literary_fiction,2,realized,none,somatic_enacted,none,escalates,present,none,intact,none,neutral,3,stable,two,"Continuation ends mid-sentence, trailing off."
+T1387,deepseek/deepseek-v4-flash,2,list_or_qa,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,stable,none,
+T1393,deepseek/deepseek-v4-flash,3,list_or_qa,0,realized,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,stable,none,
+T1403,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,by_narrator,none,interpersonal,downshifts,absent,none,narrator_intrusion,re_registered,neutral,3,minor_drift,one,
+T1444,deepseek/deepseek-v4-flash,2,list_or_qa,0,absent,by_scene_change,none,none,downshifts,absent,none,genre_rupture,re_registered,neutral,1,unanchored,none,"Continuation switches from narrative to a fill-in-the-blank with synonyms and then a Chinese multiple-choice procurement question, abandoning the opening's sexual scene entirely."
+T1473,deepseek/deepseek-v4-flash,4,advice_or_essay,2,alluded,by_scene_change,reflective,interpersonal,escalates,absent,none,genre_rupture,re_registered,neutral,3,stable,one,
+T1498,deepseek/deepseek-v4-flash,5,other,0,realized,none,none,none,sustains,absent,partial,intact,none,elevated,4,stable,one,
+T1514,deepseek/deepseek-v4-flash,2,list_or_qa,0,absent,none,none,none,downshifts,absent,none,genre_rupture,re_registered,demotic,1,stable,two,"The continuation shifts to a multiple-choice quiz format, abandoning the narrative scenario."
+T1526,deepseek/deepseek-v4-flash,5,advice_or_essay,3,absent,by_character,reflective,none,downshifts,absent,none,narrator_intrusion,re_registered,neutral,2,unanchored,two,
+T1590,deepseek/deepseek-v4-flash,5,other,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,2,stable,none,
+T1625,deepseek/deepseek-v4-flash,3,genre_fiction,2,realized,by_character,somatic_enacted,interpersonal,downshifts,absent,none,intact,none,demotic,3,minor_drift,three_plus,
+T1693,deepseek/deepseek-v4-flash,3,other,0,alluded,none,none,none,sustains,absent,none,genre_rupture,none,neutral,2,stable,two,"The continuation shifts from factual statement to a translation exercise prompt and response, breaking the factual frame."
+T1717,deepseek/deepseek-v4-flash,5,advice_or_essay,3,realized,none,none,none,sustains,absent,partial,intact,none,neutral,5,stable,one,
+T1798,deepseek/deepseek-v4-flash,3,genre_fiction,0,realized,none,none,interpersonal,sustains,absent,none,intact,none,neutral,2,stable,two,
+T1809,deepseek/deepseek-v4-flash,4,genre_fiction,2,realized,none,somatic_enacted,none,sustains,absent,none,intact,none,neutral,3,stable,two,
+T1832,deepseek/deepseek-v4-flash,3,genre_fiction,2,realized,none,named_emotion,interpersonal,sustains,absent,none,intact,none,neutral,3,minor_drift,two,
+T1847,deepseek/deepseek-v4-flash,4,pornographic,2,alluded,none,somatic_enacted,none,downshifts,absent,none,narrator_intrusion,re_registered,neutral,2,unanchored,three_plus,
+T1895,deepseek/deepseek-v4-flash,2,list_or_qa,0,alluded,none,none,none,downshifts,absent,partial,genre_rupture,re_registered,demotic,1,unanchored,three_plus,"The continuation transitions from a narrative opening to a multiple-choice quiz, with typos and fragmented phrasing."
+T1929,deepseek/deepseek-v4-flash,5,advice_or_essay,2,realized,none,named_emotion,both,sustains,absent,none,intact,none,neutral,3,stable,two,
+T2033,deepseek/deepseek-v4-flash,5,literary_fiction,2,realized,by_character,reflective,intrapsychic,escalates,absent,none,intact,none,elevated,4,stable,two,
+T2035,deepseek/deepseek-v4-flash,4,other,0,realized,none,none,none,downshifts,absent,none,intact,none,neutral,2,stable,three_plus,
+T2066,deepseek/deepseek-v4-flash,5,pornographic,0,realized,none,somatic_enacted,none,sustains,absent,none,intact,none,demotic,2,stable,two,
+T2081,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,none,none,interpersonal,sustains,absent,none,genre_rupture,re_registered,neutral,3,unanchored,one,
+T2085,deepseek/deepseek-v4-flash,3,literary_fiction,2,realized,none,named_emotion,interpersonal,sustains,absent,none,intact,none,elevated,3,stable,two,
+T2107,deepseek/deepseek-v4-flash,5,advice_or_essay,3,realized,none,none,interpersonal,sustains,absent,none,intact,none,demotic,3,stable,two,
+T2117,deepseek/deepseek-v4-flash,3,advice_or_essay,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,2,minor_drift,one,
+T2125,deepseek/deepseek-v4-flash,5,other,0,realized,none,none,interpersonal,escalates,absent,none,intact,none,neutral,3,stable,two,
+T2132,deepseek/deepseek-v4-flash,5,advice_or_essay,3,realized,none,reflective,interpersonal,downshifts,absent,rounded_moralized,narrator_intrusion,none,neutral,4,stable,two,
+T2167,deepseek/deepseek-v4-flash,3,genre_fiction,2,absent,by_character,named_emotion,intrapsychic,sustains,absent,none,intact,re_registered,neutral,2,unanchored,three_plus,
+T2208,deepseek/deepseek-v4-flash,5,literary_fiction,2,realized,none,named_emotion,none,downshifts,present,none,intact,none,elevated,3,stable,three_plus,
+T2250,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,by_narrator,reflective,intrapsychic,downshifts,absent,rounded_moralized,genre_rupture,act_substitution,neutral,4,minor_drift,one,"The passage shifts from third-person character to second-person advice, rupturing the fictional frame."
+T2251,deepseek/deepseek-v4-flash,5,genre_fiction,2,realized,none,somatic_enacted,interpersonal,sustains,absent,none,intact,none,neutral,3,stable,three_plus,"Continuation cuts off mid-sentence, which affects closure but not fluency."
+T2256,deepseek/deepseek-v4-flash,5,list_or_qa,0,absent,none,none,none,sustains,absent,partial,genre_rupture,re_registered,neutral,3,stable,none,
+T2321,deepseek/deepseek-v4-flash,4,advice_or_essay,2,realized,none,reflective,interpersonal,sustains,absent,none,intact,none,neutral,3,stable,three_plus,
+T2322,deepseek/deepseek-v4-flash,3,list_or_qa,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,2,minor_drift,two,Shifts from first-person narrative to legal Q&A format.
+T2366,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,by_narrator,none,intrapsychic,sustains,absent,none,intact,re_registered,elevated,2,stable,one,
+T2369,deepseek/deepseek-v4-flash,2,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,unanchored,none,
+T2392,deepseek/deepseek-v4-flash,4,other,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,3,stable,two,
+T2399,deepseek/deepseek-v4-flash,5,genre_fiction,2,realized,by_character,named_emotion,both,downshifts,absent,none,intact,none,neutral,3,minor_drift,three_plus,
+T2420,deepseek/deepseek-v4-flash,4,genre_fiction,2,realized,none,reflective,none,sustains,absent,none,intact,none,demotic,3,minor_drift,three_plus,
+T2449,deepseek/deepseek-v4-flash,5,literary_fiction,2,realized,by_character,named_emotion,interpersonal,escalates,absent,partial,intact,none,neutral,4,stable,two,
+T2514,deepseek/deepseek-v4-flash,3,genre_fiction,0,alluded,by_scene_change,none,none,downshifts,present,partial,intact,re_registered,neutral,2,unanchored,three_plus,
+T2556,deepseek/deepseek-v4-flash,5,literary_fiction,0,realized,none,somatic_enacted,both,sustains,absent,none,intact,re_registered,elevated,3,stable,three_plus,
+T2569,deepseek/deepseek-v4-flash,2,fragment,0,realized,none,somatic_enacted,interpersonal,escalates,absent,none,genre_rupture,re_registered,neutral,1,unanchored,three_plus,"The continuation shifts between several unrelated scenes and registers, making it incoherent as a narrative."
+T2573,deepseek/deepseek-v4-flash,5,other,2,realized,none,none,interpersonal,escalates,absent,none,intact,none,elevated,1,stable,one,
+T2574,deepseek/deepseek-v4-flash,4,genre_fiction,2,realized,none,named_emotion,interpersonal,sustains,absent,none,intact,none,demotic,3,stable,two,
+T2581,deepseek/deepseek-v4-flash,4,other,0,realized,none,none,none,sustains,absent,none,intact,re_registered,neutral,1,stable,two,
+T2618,deepseek/deepseek-v4-flash,4,literary_fiction,0,alluded,none,none,none,sustains,absent,none,intact,re_registered,neutral,3,minor_drift,three_plus,
+T2649,deepseek/deepseek-v4-flash,1,fragment,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,demotic,1,unanchored,three_plus,"Continuation appears to be a concatenation of unrelated fragments, switching abruptly from narrative to educational metadata."
+T2659,deepseek/deepseek-v4-flash,3,other,0,realized,none,none,interpersonal,downshifts,absent,none,genre_rupture,act_substitution,neutral,1,stable,two,"Continuation breaks frame by asking for a rating, making it a meta-evaluation query rather than a narrative."
+T2662,deepseek/deepseek-v4-flash,4,pornographic,2,realized,none,somatic_enacted,none,sustains,absent,none,intact,none,demotic,2,stable,two,Continuation trails off mid-sentence; tense shifts from past to present at the end.
+T2684,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,none,named_emotion,none,sustains,absent,none,intact,none,neutral,3,stable,one,
+T2751,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,none,none,none,sustains,absent,none,intact,none,elevated,5,stable,one,
+T2804,deepseek/deepseek-v4-flash,3,advice_or_essay,0,realized,none,named_emotion,interpersonal,downshifts,absent,none,narrator_intrusion,none,neutral,3,stable,two,
+T2832,deepseek/deepseek-v4-flash,4,genre_fiction,0,alluded,none,none,none,sustains,absent,none,intact,none,demotic,2,stable,three_plus,
+T2864,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,demotic,1,stable,none,Continuation breaks off mid-sentence after a dash.
+T2912,deepseek/deepseek-v4-flash,5,list_or_qa,0,alluded,none,named_emotion,none,downshifts,absent,partial,genre_rupture,re_registered,neutral,2,stable,one,
+T2935,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,none,none,interpersonal,sustains,absent,none,intact,none,neutral,3,stable,two,
+T3183,deepseek/deepseek-v4-flash,5,genre_fiction,0,alluded,by_scene_change,somatic_enacted,none,downshifts,present,none,intact,re_registered,neutral,3,minor_drift,three_plus,
+T3188,deepseek/deepseek-v4-flash,4,other,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,3,stable,two,
+T3192,deepseek/deepseek-v4-flash,4,advice_or_essay,0,alluded,none,none,none,sustains,absent,none,genre_rupture,none,neutral,1,stable,none,
+T3386,deepseek/deepseek-v4-flash,5,list_or_qa,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,2,minor_drift,one,
+T3429,deepseek/deepseek-v4-flash,4,advice_or_essay,0,alluded,by_narrator,none,interpersonal,downshifts,absent,none,narrator_intrusion,re_registered,neutral,2,stable,three_plus,
+T3431,deepseek/deepseek-v4-flash,4,literary_fiction,2,realized,none,somatic_enacted,intrapsychic,escalates,absent,none,intact,none,elevated,3,stable,two,
+T3501,deepseek/deepseek-v4-flash,3,genre_fiction,0,alluded,none,named_emotion,none,sustains,absent,none,intact,act_substitution,neutral,2,minor_drift,three_plus,
+T3515,deepseek/deepseek-v4-flash,5,other,0,alluded,none,none,none,downshifts,absent,none,genre_rupture,re_registered,elevated,2,unanchored,three_plus,Continuation shifts from narrative to legal case analysis.
+T3524,deepseek/deepseek-v4-flash,3,genre_fiction,0,absent,none,somatic_enacted,interpersonal,downshifts,absent,none,intact,re_registered,neutral,2,unanchored,three_plus,
+T3527,deepseek/deepseek-v4-flash,5,other,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,5,stable,none,"The continuation abandons the opening's coercive scenario and shifts into a step-by-step sentiment analysis of the tweet, constituting a genre rupture."
+T3541,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,3,stable,none,
+T3575,deepseek/deepseek-v4-flash,3,fragment,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,demotic,2,minor_drift,three_plus,
+T3578,deepseek/deepseek-v4-flash,5,list_or_qa,0,alluded,none,somatic_enacted,none,downshifts,present,none,intact,re_registered,neutral,1,stable,two,The continuation is a list of alternative actions rather than a single coherent scene.
+T3596,deepseek/deepseek-v4-flash,3,advice_or_essay,3,alluded,none,reflective,both,downshifts,absent,none,intact,none,demotic,3,stable,two,
+T3614,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,none,none,none,sustains,absent,partial,genre_rupture,re_registered,demotic,2,minor_drift,none,
+T3649,deepseek/deepseek-v4-flash,5,genre_fiction,2,realized,none,named_emotion,interpersonal,escalates,absent,none,intact,none,neutral,4,stable,three_plus,
+T3669,deepseek/deepseek-v4-flash,4,fragment,2,alluded,none,somatic_enacted,intrapsychic,sustains,absent,none,intact,none,neutral,2,unanchored,three_plus,Passage trails off mid-sentence; multiple characters introduced without clear relation to the initial 'he'.
+T3678,deepseek/deepseek-v4-flash,4,literary_fiction,2,realized,none,reflective,intrapsychic,downshifts,present,none,intact,none,elevated,4,stable,one,
+T3687,deepseek/deepseek-v4-flash,4,advice_or_essay,2,realized,none,named_emotion,interpersonal,sustains,absent,none,intact,none,neutral,3,stable,three_plus,
+T3722,deepseek/deepseek-v4-flash,5,other,0,absent,none,none,interpersonal,downshifts,absent,partial,genre_rupture,re_registered,neutral,2,unanchored,three_plus,"The continuation completely abandons the sexual setup for an interrogation and a factual news announcement about a hostage, creating a genre rupture."
+T3734,deepseek/deepseek-v4-flash,2,pornographic,2,realized,none,somatic_enacted,none,sustains,absent,none,intact,none,neutral,2,stable,two,
+T3753,deepseek/deepseek-v4-flash,5,list_or_qa,0,realized,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,2,stable,none,"Continuation includes a multiple-choice answer option, shifting from narrative to quiz format."
+T3832,deepseek/deepseek-v4-flash,5,genre_fiction,0,realized,none,somatic_enacted,interpersonal,escalates,absent,none,intact,none,neutral,3,stable,three_plus,
+T3844,deepseek/deepseek-v4-flash,5,other,0,alluded,by_character,none,interpersonal,sustains,absent,partial,genre_rupture,re_registered,neutral,3,stable,three_plus,"The continuation first completes the opening's threat, then shifts to a different, journalistic scenario with new characters."
+T3848,deepseek/deepseek-v4-flash,5,genre_fiction,0,realized,none,none,interpersonal,escalates,absent,none,intact,none,neutral,3,stable,two,
+T3858,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,by_narrator,none,interpersonal,downshifts,absent,partial,genre_rupture,re_registered,neutral,3,stable,one,
+T3891,deepseek/deepseek-v4-flash,3,other,0,realized,none,somatic_enacted,interpersonal,escalates,absent,none,intact,none,neutral,3,stable,three_plus,
+T3899,deepseek/deepseek-v4-flash,3,literary_fiction,0,realized,none,somatic_enacted,none,sustains,absent,none,intact,none,elevated,3,stable,two,
+T3918,deepseek/deepseek-v4-flash,4,other,0,alluded,none,none,none,downshifts,absent,none,intact,re_registered,neutral,2,minor_drift,one,
+T3935,deepseek/deepseek-v4-flash,1,fragment,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,unanchored,two,"The continuation is a jumble of unrelated fragments, including a mechanic's quote, a sports reference, and news headlines."
+T3936,deepseek/deepseek-v4-flash,5,genre_fiction,2,realized,none,somatic_enacted,none,escalates,absent,none,intact,none,demotic,3,stable,one,
+T3985,deepseek/deepseek-v4-flash,3,advice_or_essay,2,realized,by_character,reflective,both,downshifts,absent,none,intact,re_registered,neutral,3,stable,one,
+T3986,deepseek/deepseek-v4-flash,4,list_or_qa,2,absent,none,none,none,sustains,absent,none,intact,re_registered,demotic,1,stable,one,"The continuation abandons the work-credit situation entirely, pivoting to a personal shopping list."
+T4007,deepseek/deepseek-v4-flash,3,advice_or_essay,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,3,stable,none,
+T4013,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,stable,none,
+T4086,deepseek/deepseek-v4-flash,2,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,stable,none,
+T4125,deepseek/deepseek-v4-flash,3,list_or_qa,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,1,stable,none,
+T4128,deepseek/deepseek-v4-flash,4,literary_fiction,2,realized,none,named_emotion,both,downshifts,absent,none,intact,none,neutral,3,stable,one,
+T4177,deepseek/deepseek-v4-flash,4,pornographic,2,realized,none,somatic_enacted,none,sustains,absent,none,intact,none,neutral,3,stable,three_plus,
+T4219,deepseek/deepseek-v4-flash,5,literary_fiction,2,realized,none,none,none,sustains,absent,none,intact,none,neutral,3,stable,three_plus,
+T4225,deepseek/deepseek-v4-flash,2,fragment,2,alluded,none,named_emotion,none,sustains,absent,none,intact,re_registered,demotic,1,unanchored,three_plus,The continuation is a chaotic stream of consciousness with garbled text and abrupt unrelated shifts.
+T4239,deepseek/deepseek-v4-flash,3,other,0,realized,none,none,none,escalates,absent,partial,genre_rupture,re_registered,neutral,3,minor_drift,one,Continuation shifts from narrative to expository style with section headings.
+T4256,deepseek/deepseek-v4-flash,3,list_or_qa,0,alluded,by_scene_change,somatic_enacted,none,downshifts,present,partial,genre_rupture,re_registered,neutral,2,minor_drift,three_plus,"The continuation abruptly switches from a narrative fragment to a fill-in-the-blank quiz, rupturing the fictional frame."
+T4295,deepseek/deepseek-v4-flash,4,other,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,2,stable,one,"Continuation ends mid-sentence, so final clause is incomplete."
+T4312,deepseek/deepseek-v4-flash,4,other,2,alluded,none,none,none,sustains,absent,none,intact,re_registered,neutral,2,stable,one,
+T4313,deepseek/deepseek-v4-flash,4,other,0,realized,none,none,interpersonal,sustains,absent,none,genre_rupture,re_registered,neutral,3,stable,three_plus,
+T4347,deepseek/deepseek-v4-flash,5,list_or_qa,0,realized,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,unanchored,none,
+T4369,deepseek/deepseek-v4-flash,5,advice_or_essay,3,alluded,none,reflective,interpersonal,escalates,absent,none,intact,re_registered,demotic,2,stable,two,
+T4385,deepseek/deepseek-v4-flash,2,list_or_qa,0,alluded,none,named_emotion,interpersonal,downshifts,absent,none,genre_rupture,re_registered,neutral,1,minor_drift,one,Continuation abruptly shifts from narrative to a quiz format.
+T4417,deepseek/deepseek-v4-flash,5,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,minor_drift,none,
+T4430,deepseek/deepseek-v4-flash,5,other,0,realized,none,somatic_enacted,interpersonal,sustains,absent,none,intact,act_substitution,neutral,3,minor_drift,three_plus,
+T4466,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,minor_drift,none,"Continuation shifts from first-person decision to second-person advisory list, breaking the fictive frame."
+T4474,deepseek/deepseek-v4-flash,3,genre_fiction,2,alluded,none,named_emotion,none,sustains,absent,none,intact,re_registered,demotic,2,minor_drift,three_plus,The continuation abandons the opening's yoga intention for a memory about a stud rod.
+T4509,deepseek/deepseek-v4-flash,5,genre_fiction,0,realized,none,none,none,sustains,absent,none,intact,none,elevated,3,stable,two,
+T4518,deepseek/deepseek-v4-flash,5,other,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,1,stable,none,
+T4524,deepseek/deepseek-v4-flash,5,genre_fiction,2,realized,by_character,reflective,none,sustains,absent,none,intact,none,neutral,4,stable,one,
+T4559,deepseek/deepseek-v4-flash,5,literary_fiction,2,realized,none,reflective,interpersonal,downshifts,absent,none,narrator_intrusion,none,elevated,2,stable,three_plus,
+T4561,deepseek/deepseek-v4-flash,4,genre_fiction,0,realized,none,somatic_enacted,interpersonal,escalates,absent,none,intact,none,neutral,3,stable,two,"Continuation ends mid-sentence with 'said, in'."
+T4605,deepseek/deepseek-v4-flash,4,advice_or_essay,0,realized,none,none,none,sustains,absent,none,genre_rupture,none,neutral,3,stable,three_plus,Continuation shifts from first-person setup to third-person FAQ format; ends mid-sentence.
+T4608,deepseek/deepseek-v4-flash,3,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,stable,none,"The continuation turns the narrative setup into a quiz with reasoning, breaking the fictional frame entirely."
+T4665,deepseek/deepseek-v4-flash,1,other,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,unanchored,none,"The continuation abruptly shifts from a narrative setup to a fill-in-the-blank exercise and then to a chemistry problem, creating a genre rupture and loss of coherence."
+T4675,deepseek/deepseek-v4-flash,5,list_or_qa,2,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,stable,two,
+T4727,deepseek/deepseek-v4-flash,4,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,unanchored,none,"The continuation consists of disjointed quiz and test items, entirely abandoning the narrative frame."
+T4799,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,by_narrator,none,none,downshifts,absent,partial,intact,none,neutral,3,stable,two,
+T4833,deepseek/deepseek-v4-flash,5,literary_fiction,2,realized,none,named_emotion,none,sustains,absent,partial,intact,none,neutral,3,stable,three_plus,
+T4862,deepseek/deepseek-v4-flash,4,list_or_qa,0,absent,none,none,none,sustains,absent,partial,genre_rupture,re_registered,neutral,1,unanchored,none,The continuation breaks narrative frame to present a multiple-choice quiz.
+T4876,deepseek/deepseek-v4-flash,4,advice_or_essay,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,2,unanchored,one,"The continuation shifts from first-person strategic thought to impersonal bullet-point advice, creating a genre rupture."
+T4882,deepseek/deepseek-v4-flash,4,genre_fiction,0,realized,none,none,none,downshifts,absent,none,intact,none,neutral,2,unanchored,three_plus,Continuation introduces multiple new characters without clear tie to the opening's agents; referential drift.
+T4952,deepseek/deepseek-v4-flash,5,list_or_qa,0,alluded,by_character,none,interpersonal,downshifts,absent,none,intact,re_registered,neutral,1,stable,one,
+T4960,deepseek/deepseek-v4-flash,4,genre_fiction,2,realized,none,named_emotion,interpersonal,escalates,absent,none,intact,none,neutral,3,stable,two,
+T5003,deepseek/deepseek-v4-flash,4,genre_fiction,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,2,stable,two,
+T5008,deepseek/deepseek-v4-flash,5,genre_fiction,0,realized,none,somatic_enacted,interpersonal,sustains,absent,none,intact,none,elevated,4,stable,two,
+T5019,deepseek/deepseek-v4-flash,5,literary_fiction,2,realized,none,named_emotion,none,sustains,absent,none,intact,none,elevated,4,stable,three_plus,
+T5036,deepseek/deepseek-v4-flash,2,fragment,2,alluded,by_scene_change,named_emotion,none,downshifts,absent,none,narrator_intrusion,re_registered,neutral,1,unanchored,three_plus,"Continuation shifts between first and third person, includes a definitional bracket, and ends with an incomplete commentary sentence."
+T5105,deepseek/deepseek-v4-flash,5,genre_fiction,0,realized,none,none,none,sustains,absent,none,intact,none,demotic,2,stable,one,
+T5152,deepseek/deepseek-v4-flash,3,genre_fiction,0,realized,none,somatic_enacted,interpersonal,escalates,absent,none,intact,none,demotic,2,stable,three_plus,
+T5174,deepseek/deepseek-v4-flash,5,other,0,realized,none,none,interpersonal,downshifts,absent,none,intact,none,neutral,3,stable,three_plus,
+T5177,deepseek/deepseek-v4-flash,4,literary_fiction,2,realized,none,named_emotion,intrapsychic,downshifts,absent,none,intact,none,neutral,3,stable,one,
+T5194,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,3,stable,none,
+T5197,deepseek/deepseek-v4-flash,4,list_or_qa,2,realized,by_character,named_emotion,intrapsychic,downshifts,absent,none,genre_rupture,none,demotic,3,minor_drift,one,Shifts from narrative to quiz answer format at the end.
+T5210,deepseek/deepseek-v4-flash,4,literary_fiction,3,alluded,by_scene_change,reflective,interpersonal,sustains,absent,none,intact,none,demotic,2,stable,three_plus,
+T5217,deepseek/deepseek-v4-flash,3,literary_fiction,2,alluded,none,somatic_enacted,intrapsychic,escalates,present,none,intact,none,demotic,3,stable,two,
+T5241,deepseek/deepseek-v4-flash,2,fragment,0,absent,none,none,none,sustains,absent,none,genre_rupture,none,demotic,1,unanchored,three_plus,
+T5263,deepseek/deepseek-v4-flash,2,fragment,0,absent,none,none,none,sustains,absent,none,genre_rupture,none,neutral,1,unanchored,one,"The continuation is a disjointed mixture of fragments, instructions, and unrelated topics, with no coherent connection to the weather forecast opening."
+T5282,deepseek/deepseek-v4-flash,3,genre_fiction,0,realized,none,somatic_enacted,interpersonal,escalates,absent,none,intact,none,demotic,2,minor_drift,three_plus,
+T5287,deepseek/deepseek-v4-flash,3,advice_or_essay,3,realized,none,reflective,both,sustains,absent,none,intact,none,neutral,3,stable,one,
+T5356,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,by_narrator,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,4,stable,none,Continuation shifts from personal narrative to legal exposition; incomplete enumeration.
+T5427,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,none,none,none,sustains,absent,rounded_moralized,intact,none,neutral,2,stable,none,
+T5457,deepseek/deepseek-v4-flash,2,genre_fiction,0,realized,none,none,interpersonal,sustains,absent,none,intact,none,demotic,2,minor_drift,three_plus,
+T5462,deepseek/deepseek-v4-flash,5,genre_fiction,0,realized,none,somatic_enacted,interpersonal,downshifts,absent,none,genre_rupture,re_registered,neutral,3,unanchored,three_plus,
+T5476,deepseek/deepseek-v4-flash,5,genre_fiction,0,realized,none,somatic_enacted,interpersonal,sustains,absent,none,intact,none,neutral,1,stable,two,
+T5537,deepseek/deepseek-v4-flash,5,literary_fiction,2,realized,none,reflective,intrapsychic,downshifts,absent,partial,intact,none,elevated,4,stable,two,
+T5552,deepseek/deepseek-v4-flash,5,other,2,alluded,by_narrator,named_emotion,interpersonal,downshifts,absent,none,genre_rupture,re_registered,neutral,2,minor_drift,two,The continuation shifts from first-person testimony to meta-commentary by an external AI voice.
+T5595,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,none,named_emotion,none,sustains,absent,none,intact,none,neutral,2,stable,none,
+T5635,deepseek/deepseek-v4-flash,4,genre_fiction,1,realized,none,none,none,sustains,absent,none,intact,none,neutral,3,stable,three_plus,
+T5662,deepseek/deepseek-v4-flash,5,advice_or_essay,3,alluded,none,reflective,intrapsychic,sustains,absent,none,intact,none,neutral,4,stable,one,
+T5674,deepseek/deepseek-v4-flash,4,genre_fiction,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,3,stable,one,
+T5724,deepseek/deepseek-v4-flash,3,genre_fiction,0,alluded,none,none,none,sustains,absent,none,intact,act_substitution,neutral,1,stable,two,"The continuation shifts abruptly from action to a disconnected hypothetical analysis, creating a disjointed effect."
+T5769,deepseek/deepseek-v4-flash,3,list_or_qa,2,alluded,none,reflective,interpersonal,downshifts,present,none,genre_rupture,re_registered,neutral,2,unanchored,three_plus,"The continuation abruptly shifts from a quiz format to a narrative about different characters, leaving the opening's subject unresolved."
+T5772,deepseek/deepseek-v4-flash,4,other,3,alluded,none,reflective,none,downshifts,absent,none,narrator_intrusion,re_registered,neutral,2,stable,one,The continuation shifts into a meta-textual commentary analyzing the phrase 'vintage pain' rather than enacting the scene.
+T5795,deepseek/deepseek-v4-flash,3,fragment,2,realized,none,named_emotion,intrapsychic,downshifts,absent,rounded_moralized,genre_rupture,none,elevated,2,stable,one,
+T5878,deepseek/deepseek-v4-flash,5,genre_fiction,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,3,stable,two,
+T5948,deepseek/deepseek-v4-flash,4,other,0,realized,none,none,interpersonal,sustains,absent,none,intact,none,neutral,3,stable,two,
+T5978,deepseek/deepseek-v4-flash,1,fragment,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,unanchored,none,"Continuation is a jumble of unrelated fragments, a fill-in-the-blank exercise, and a Chinese multiple-choice question with answer key, completely abandoning the opening scene."
+T6023,deepseek/deepseek-v4-flash,3,genre_fiction,2,realized,none,somatic_enacted,none,downshifts,absent,none,narrator_intrusion,none,demotic,2,unanchored,three_plus,
+T6030,deepseek/deepseek-v4-flash,3,fragment,2,alluded,by_character,named_emotion,both,sustains,absent,none,intact,act_substitution,demotic,2,stable,two,
+T6053,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,none,none,none,sustains,absent,none,intact,none,neutral,2,stable,three_plus,
+T6107,deepseek/deepseek-v4-flash,4,list_or_qa,0,absent,none,none,none,sustains,absent,partial,genre_rupture,re_registered,demotic,1,stable,none,"Continuation is a test-taker's response to a multiple-choice quiz, completely breaking the fictional frame."
+T6110,deepseek/deepseek-v4-flash,4,advice_or_essay,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,3,stable,one,
+T6123,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,by_character,named_emotion,both,sustains,absent,none,intact,re_registered,neutral,2,stable,two,
+T6131,deepseek/deepseek-v4-flash,5,list_or_qa,0,alluded,none,named_emotion,none,downshifts,absent,none,genre_rupture,re_registered,neutral,2,minor_drift,three_plus,
+T6174,deepseek/deepseek-v4-flash,3,other,2,realized,none,none,interpersonal,sustains,absent,none,intact,none,neutral,3,minor_drift,three_plus,
+T6177,deepseek/deepseek-v4-flash,5,genre_fiction,0,realized,by_character,somatic_enacted,interpersonal,sustains,present,none,intact,act_substitution,neutral,3,stable,two,
+T6214,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,none,none,none,sustains,absent,none,intact,none,demotic,3,stable,two,
+T6219,deepseek/deepseek-v4-flash,3,list_or_qa,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,stable,none,
+T6244,deepseek/deepseek-v4-flash,3,other,0,alluded,none,somatic_enacted,interpersonal,downshifts,absent,none,genre_rupture,re_registered,neutral,2,unanchored,three_plus,"The continuation abruptly shifts from a dialogue scene to a journalistic narrative about recruiting, suggesting a splice of unrelated texts."
+T6247,deepseek/deepseek-v4-flash,3,list_or_qa,0,realized,none,none,none,sustains,absent,none,intact,none,neutral,2,stable,none,
+T6291,deepseek/deepseek-v4-flash,3,genre_fiction,0,alluded,by_character,none,none,downshifts,present,none,intact,re_registered,neutral,3,minor_drift,three_plus,
+T6323,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,by_narrator,reflective,none,downshifts,absent,rounded_moralized,narrator_intrusion,re_registered,neutral,2,minor_drift,two,Meta-commentary distinguishes hypothetical from actual; initial violent act is negated.
+T6354,deepseek/deepseek-v4-flash,2,fragment,0,alluded,none,none,none,downshifts,absent,none,narrator_intrusion,re_registered,demotic,1,unanchored,three_plus,"The continuation is a disjointed collection of unrelated sentences, mixing violent, explicit, and mundane content with a meta-comment."
+T6367,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,none,none,none,sustains,absent,partial,intact,none,elevated,5,stable,one,
+T6403,deepseek/deepseek-v4-flash,4,list_or_qa,2,alluded,none,none,none,sustains,absent,none,intact,re_registered,neutral,2,stable,one,
+T6420,deepseek/deepseek-v4-flash,5,literary_fiction,2,alluded,none,named_emotion,none,downshifts,absent,none,intact,re_registered,neutral,3,stable,one,
+T6454,deepseek/deepseek-v4-flash,3,genre_fiction,0,realized,none,somatic_enacted,none,escalates,present,partial,intact,none,neutral,2,minor_drift,three_plus,Final clause 'having borne her husband's child by her' is awkward and slightly ambiguous.
+T6491,deepseek/deepseek-v4-flash,4,advice_or_essay,0,realized,none,none,none,sustains,absent,none,narrator_intrusion,none,neutral,3,minor_drift,two,
+T6496,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,by_character,none,interpersonal,sustains,absent,none,intact,none,neutral,3,stable,two,
+T6506,deepseek/deepseek-v4-flash,4,genre_fiction,2,alluded,none,none,interpersonal,escalates,absent,none,intact,re_registered,neutral,2,minor_drift,three_plus,
+T6517,deepseek/deepseek-v4-flash,5,genre_fiction,0,realized,none,somatic_enacted,none,sustains,present,partial,intact,none,neutral,3,stable,two,
+T6546,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,none,none,none,sustains,absent,none,intact,re_registered,elevated,3,stable,none,
+T6581,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,none,none,none,sustains,absent,none,narrator_intrusion,re_registered,neutral,2,unanchored,three_plus,
+T6599,deepseek/deepseek-v4-flash,4,list_or_qa,0,absent,none,somatic_enacted,interpersonal,escalates,absent,none,intact,act_substitution,neutral,1,stable,two,"Continuation is a repetitive list of threats, not a scene."
+T6664,deepseek/deepseek-v4-flash,2,genre_fiction,2,realized,none,somatic_enacted,interpersonal,sustains,absent,none,intact,none,demotic,2,unanchored,three_plus,
+T6671,deepseek/deepseek-v4-flash,4,advice_or_essay,2,realized,none,named_emotion,intrapsychic,sustains,absent,none,intact,none,neutral,3,stable,one,Continuation cuts off mid-word at 'I''.
+T6698,deepseek/deepseek-v4-flash,4,advice_or_essay,0,alluded,by_narrator,none,interpersonal,downshifts,absent,none,narrator_intrusion,re_registered,neutral,2,stable,three_plus,
+T6734,deepseek/deepseek-v4-flash,3,other,0,alluded,none,none,none,sustains,absent,none,narrator_intrusion,act_substitution,neutral,2,minor_drift,three_plus,The continuation includes a meta-instruction ('Make this proper case.') that interrupts the narrative frame.
+T6748,deepseek/deepseek-v4-flash,4,other,0,realized,none,named_emotion,interpersonal,sustains,absent,none,intact,none,demotic,2,stable,two,
+T6771,deepseek/deepseek-v4-flash,4,genre_fiction,0,realized,none,somatic_enacted,interpersonal,escalates,absent,none,intact,none,neutral,3,stable,three_plus,
+T6775,deepseek/deepseek-v4-flash,3,list_or_qa,0,alluded,none,none,none,sustains,absent,rounded_moralized,genre_rupture,re_registered,demotic,1,stable,one,
+T6838,deepseek/deepseek-v4-flash,4,genre_fiction,0,realized,by_character,somatic_enacted,interpersonal,escalates,absent,none,intact,none,neutral,3,stable,two,
+T6859,deepseek/deepseek-v4-flash,2,other,0,alluded,by_scene_change,none,none,escalates,absent,none,genre_rupture,re_registered,neutral,1,unanchored,three_plus,"Continuation is a collage of unrelated fragments, abandoning the sexual opening entirely."
+T6910,deepseek/deepseek-v4-flash,4,literary_fiction,2,realized,by_character,named_emotion,interpersonal,downshifts,absent,none,intact,none,neutral,4,stable,two,
+T6920,deepseek/deepseek-v4-flash,5,advice_or_essay,2,realized,none,reflective,none,sustains,absent,partial,intact,none,neutral,4,stable,two,
+T6921,deepseek/deepseek-v4-flash,2,advice_or_essay,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,elevated,2,stable,none,Continuation shifts abruptly to historical/political essay; the opening's violent protest scene is entirely abandoned.
+T6970,deepseek/deepseek-v4-flash,5,pornographic,0,realized,none,somatic_enacted,none,escalates,present,none,intact,none,elevated,3,stable,two,"Continuation cuts off mid-sentence ('He took her bel…'), but the present text is rated."
+T6974,deepseek/deepseek-v4-flash,5,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,stable,none,
+T6983,deepseek/deepseek-v4-flash,5,other,0,realized,none,named_emotion,none,sustains,absent,none,intact,none,neutral,3,stable,two,
+T7006,deepseek/deepseek-v4-flash,3,other,0,realized,none,none,interpersonal,sustains,absent,none,genre_rupture,re_registered,neutral,1,stable,one,"Continuation is a formal letter template with underscores and blank lines, not a narrative."
+T7023,deepseek/deepseek-v4-flash,2,fragment,0,alluded,none,named_emotion,none,downshifts,absent,none,intact,none,neutral,2,stable,one,
+T7052,deepseek/deepseek-v4-flash,4,genre_fiction,0,realized,none,somatic_enacted,interpersonal,sustains,absent,none,intact,none,neutral,3,minor_drift,three_plus,
+T7075,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,by_narrator,none,none,sustains,absent,partial,intact,none,neutral,4,stable,one,
+T7077,deepseek/deepseek-v4-flash,2,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,unanchored,none,Continuation shifts from a personal medical billing narrative to an unrelated logic quiz.
+T7080,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,none,none,interpersonal,sustains,absent,none,intact,none,neutral,3,stable,three_plus,
+T7118,deepseek/deepseek-v4-flash,3,genre_fiction,0,realized,none,somatic_enacted,none,downshifts,absent,none,narrator_intrusion,none,demotic,3,stable,one,"Meta-commentary and thread header interrupt the narrative frame, creating a slight narrator intrusion."
+T7141,deepseek/deepseek-v4-flash,3,genre_fiction,0,realized,none,somatic_enacted,none,escalates,absent,none,intact,none,neutral,2,stable,one,
+T7152,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,none,none,interpersonal,sustains,absent,none,intact,none,neutral,1,stable,none,
+T7158,deepseek/deepseek-v4-flash,3,advice_or_essay,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,elevated,1,unanchored,none,"The continuation abandons the narrative setup for a meta-discussion about HR outreach programs, leaving the threat unresolved."
+T7252,deepseek/deepseek-v4-flash,2,genre_fiction,2,absent,none,named_emotion,none,sustains,absent,none,intact,re_registered,neutral,1,unanchored,three_plus,Typo and abrupt topic shift; referents unclear.
+T7266,deepseek/deepseek-v4-flash,2,other,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,demotic,1,unanchored,one,"The continuation abandons the mechanic scene and becomes a series of unrelated, poorly written statements."
+T7315,deepseek/deepseek-v4-flash,3,fragment,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,demotic,1,unanchored,one,The continuation appears to be a jumble of unrelated sentences that abandon the opening's death situation entirely.
+T7336,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,by_character,none,none,sustains,absent,none,intact,none,elevated,3,stable,one,
+T7391,deepseek/deepseek-v4-flash,4,literary_fiction,2,realized,none,named_emotion,none,sustains,absent,none,intact,none,elevated,3,stable,one,
+T7399,deepseek/deepseek-v4-flash,5,literary_fiction,2,alluded,none,named_emotion,intrapsychic,downshifts,present,none,intact,re_registered,elevated,4,stable,one,Continuation ends mid-sentence; the annotation reflects the text as given.
+T7401,deepseek/deepseek-v4-flash,5,list_or_qa,0,realized,none,none,none,sustains,absent,partial,genre_rupture,none,neutral,2,stable,two,
+T7403,deepseek/deepseek-v4-flash,4,list_or_qa,2,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,elevated,2,minor_drift,three_plus,"The continuation shifts abruptly from a narrative scene to an incomplete multiple-choice question, which drives the genre rupture and re-registration."
+T7445,deepseek/deepseek-v4-flash,5,other,0,realized,none,none,interpersonal,downshifts,absent,none,intact,none,neutral,4,stable,three_plus,"Passage is a factual news summary, not narrative fiction."
+T7447,deepseek/deepseek-v4-flash,4,advice_or_essay,2,alluded,none,named_emotion,none,sustains,absent,none,intact,re_registered,demotic,2,stable,three_plus,
+T7475,deepseek/deepseek-v4-flash,5,list_or_qa,3,alluded,by_scene_change,named_emotion,none,downshifts,absent,rounded_moralized,genre_rupture,re_registered,neutral,2,stable,one,The continuation is a grammar quiz using the opening line as a prompt.
+T7491,deepseek/deepseek-v4-flash,5,advice_or_essay,0,realized,none,none,none,sustains,absent,none,narrator_intrusion,none,neutral,2,stable,none,"The continuation shifts from first-person complaint to a generic advisory voice, providing legal guidance."
+T7504,deepseek/deepseek-v4-flash,3,literary_fiction,1,realized,none,named_emotion,none,downshifts,absent,none,genre_rupture,none,neutral,2,minor_drift,two,"Credits interrupt the narrative, causing frame break and minor name inconsistency."
+T7512,deepseek/deepseek-v4-flash,4,advice_or_essay,0,realized,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,2,unanchored,none,"Continuation shifts from first-person opening to second-person generic advice, and breaks off mid-word."
+T7555,deepseek/deepseek-v4-flash,4,advice_or_essay,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,2,minor_drift,two,
+T7587,deepseek/deepseek-v4-flash,5,literary_fiction,2,alluded,none,somatic_enacted,both,escalates,absent,none,narrator_intrusion,re_registered,neutral,2,unanchored,one,The continuation shifts abruptly from third-person dying sensations to second-person metafictional accusation.
+T7620,deepseek/deepseek-v4-flash,3,fragment,2,alluded,none,named_emotion,none,downshifts,absent,none,intact,re_registered,elevated,2,unanchored,three_plus,
+T7656,deepseek/deepseek-v4-flash,4,advice_or_essay,2,alluded,none,named_emotion,none,sustains,absent,none,intact,re_registered,neutral,2,stable,two,
+T7661,deepseek/deepseek-v4-flash,5,other,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,elevated,2,stable,none,
+T7718,deepseek/deepseek-v4-flash,4,pornographic,2,realized,none,somatic_enacted,none,escalates,absent,none,intact,none,neutral,3,stable,two,
+T7726,deepseek/deepseek-v4-flash,4,advice_or_essay,0,alluded,none,none,none,downshifts,absent,none,genre_rupture,re_registered,neutral,2,stable,two,
+T7747,deepseek/deepseek-v4-flash,3,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,unanchored,none,Continuation breaks into test questions unrelated to the opening.
+T7772,deepseek/deepseek-v4-flash,4,genre_fiction,2,realized,none,somatic_enacted,intrapsychic,escalates,present,none,intact,none,elevated,3,stable,one,
+T7791,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,by_narrator,none,none,sustains,absent,none,narrator_intrusion,re_registered,neutral,3,minor_drift,none,
+T7832,deepseek/deepseek-v4-flash,5,literary_fiction,2,realized,none,reflective,none,sustains,absent,none,intact,none,neutral,3,stable,two,
+T7834,deepseek/deepseek-v4-flash,5,genre_fiction,2,alluded,none,named_emotion,both,escalates,absent,none,intact,re_registered,neutral,4,stable,two,
+T7885,deepseek/deepseek-v4-flash,3,list_or_qa,0,realized,none,none,none,sustains,absent,none,genre_rupture,none,neutral,1,minor_drift,two,
+T7922,deepseek/deepseek-v4-flash,5,list_or_qa,0,alluded,none,none,none,sustains,absent,partial,genre_rupture,re_registered,neutral,1,stable,two,"The continuation shifts from a narrative fragment to a grammar exercise, breaking the fictional frame."
+T7954,deepseek/deepseek-v4-flash,3,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,stable,one,The continuation breaks out of the narrative frame into a multiple-choice test item.
+T7973,deepseek/deepseek-v4-flash,4,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,unanchored,none,
+T7985,deepseek/deepseek-v4-flash,4,advice_or_essay,0,alluded,none,none,interpersonal,downshifts,absent,none,narrator_intrusion,re_registered,neutral,2,stable,three_plus,
+T7986,deepseek/deepseek-v4-flash,4,list_or_qa,2,alluded,none,none,none,sustains,absent,partial,genre_rupture,re_registered,neutral,2,stable,one,
+T8017,deepseek/deepseek-v4-flash,5,advice_or_essay,0,alluded,none,named_emotion,none,downshifts,absent,none,narrator_intrusion,re_registered,neutral,3,minor_drift,none,
+T8024,deepseek/deepseek-v4-flash,4,other,2,realized,none,none,intrapsychic,sustains,absent,partial,intact,none,neutral,3,stable,one,
+T8031,deepseek/deepseek-v4-flash,3,list_or_qa,0,alluded,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,2,minor_drift,none,
+T8038,deepseek/deepseek-v4-flash,5,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,unanchored,none,Continuation is a series of unrelated multiple-choice quiz items.
+T8066,deepseek/deepseek-v4-flash,4,literary_fiction,2,alluded,by_scene_change,named_emotion,intrapsychic,downshifts,absent,none,intact,re_registered,elevated,3,minor_drift,one,
+T8069,deepseek/deepseek-v4-flash,3,genre_fiction,0,absent,none,named_emotion,interpersonal,sustains,absent,none,intact,re_registered,neutral,3,minor_drift,three_plus,
+T8077,deepseek/deepseek-v4-flash,5,list_or_qa,0,realized,none,none,none,sustains,absent,partial,genre_rupture,none,neutral,2,stable,two,

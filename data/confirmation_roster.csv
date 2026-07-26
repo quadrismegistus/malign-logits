@@ -1,0 +1,22 @@
+family,stratum,base,aligned,base_status,aligned_status,gb,arch,hidden,layers,recipe,language
+baichuan,core,baichuan-inc/Baichuan2-7B-Base,baichuan-inc/Baichuan2-7B-Chat,COMPLETE,CONFIG-ONLY,15.0,BaichuanForCausalLM,4096,32,chat (undisclosed),zh/en
+bloom,core,bigscience/bloom-7b1,bigscience/bloomz-7b1,COMPLETE,COMPLETE,28.3,BloomForCausalLM,4096,,instruction-FT (xP3),multi(46)
+ct-llm,small,m-a-p/CT-LLM-Base,m-a-p/CT-LLM-SFT-DPO,COMPLETE,COMPLETE,8.5,LlamaForCausalLM,2048,32,SFT->DPO,zh/en
+falcon-h1-1.5b,exploratory,tiiuae/Falcon-H1-1.5B-Base,tiiuae/Falcon-H1-1.5B-Instruct,COMPLETE,COMPLETE,6.2,FalconH1ForCausalLM,2048,24,instruct,en
+falcon-h1-7b,exploratory,tiiuae/Falcon-H1-7B-Base,tiiuae/Falcon-H1-7B-Instruct,COMPLETE,COMPLETE,30.3,FalconH1ForCausalLM,3072,44,instruct,en
+falcon-mamba,core,tiiuae/falcon-mamba-7b,tiiuae/falcon-mamba-7b-instruct,COMPLETE,COMPLETE,29.1,FalconMambaForCausalLM,4096,64,instruct,en
+falcon3-10b,exploratory,tiiuae/Falcon3-10B-Base,tiiuae/Falcon3-10B-Instruct,COMPLETE,COMPLETE,41.2,LlamaForCausalLM,3072,40,instruct,en
+falcon3-1b,small,tiiuae/Falcon3-1B-Base,tiiuae/Falcon3-1B-Instruct,COMPLETE,COMPLETE,6.7,LlamaForCausalLM,2048,18,instruct,en
+falcon3-3b,small,tiiuae/Falcon3-3B-Base,tiiuae/Falcon3-3B-Instruct,COMPLETE,COMPLETE,12.9,LlamaForCausalLM,3072,22,instruct,en
+falcon3-7b,core,tiiuae/Falcon3-7B-Base,tiiuae/Falcon3-7B-Instruct,COMPLETE,COMPLETE,29.8,LlamaForCausalLM,3072,28,instruct,en
+falcon3-mamba,exploratory,tiiuae/Falcon3-Mamba-7B-Base,tiiuae/Falcon3-Mamba-7B-Instruct,COMPLETE,COMPLETE,29.1,FalconMambaForCausalLM,4096,64,instruct,en
+glm4,core,zai-org/glm-4-9b-hf,zai-org/glm-4-9b-chat-hf,COMPLETE,COMPLETE,37.6,GlmForCausalLM,4096,40,chat (undisclosed),zh/en
+internlm2,core,internlm/internlm2-base-7b,internlm/internlm2-chat-7b,COMPLETE,CONFIG-ONLY,15.5,InternLM2ForCausalLM,4096,32,RLHF-style,zh/en
+map-neo,core,m-a-p/neo_7b,m-a-p/neo_7b_instruct_v0.1,COMPLETE,COMPLETE,31.2,LlamaForCausalLM,3072,28,SFT->instruct,zh/en
+minicpm,small,openbmb/MiniCPM5-1B-Base,openbmb/MiniCPM5-1B,COMPLETE,COMPLETE,4.3,LlamaForCausalLM,1536,24,SFT,en
+qwen3,core,Qwen/Qwen3-8B-Base,Qwen/Qwen3-8B,COMPLETE,COMPLETE,32.8,Qwen3ForCausalLM,4096,36,instruct-compound,zh/en/multi
+redpajama,core,togethercomputer/RedPajama-INCITE-Base-7B-v0.1,togethercomputer/RedPajama-INCITE-7B-Chat,COMPLETE,PARTIAL(0/2),27.5,GPTNeoXForCausalLM,4096,32,instruct/chat SFT,en
+rwkv,core,RWKV/rwkv-4-7b-pile,RWKV/rwkv-raven-7b,PARTIAL(0/17),COMPLETE,59.1,?,,,instruct (raven),en
+stablelm,small,stabilityai/stablelm-2-1_6b,stabilityai/stablelm-2-zephyr-1_6b,COMPLETE,COMPLETE,6.6,StableLmForCausalLM,2048,24,DPO (zephyr recipe),en
+tinyllama,small,TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T,TinyLlama/TinyLlama-1.1B-Chat-v1.0,COMPLETE,COMPLETE,6.6,LlamaForCausalLM,2048,22,DPO chain,en
+yi,core,01-ai/Yi-1.5-9B,01-ai/Yi-1.5-9B-Chat,COMPLETE,COMPLETE,35.3,LlamaForCausalLM,4096,48,chat (undisclosed),zh/en

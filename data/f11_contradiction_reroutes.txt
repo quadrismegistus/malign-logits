@@ -1,0 +1,334 @@
+F11 CONTRADICTION REROUTE EXAMPLES FOR BLIND CLASSIFICATION
+Classify: maintains-both-poles / commits-to-one / exits-frame / refuses-meta / collapses
+================================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C000] "The human-animal stood in the clearing and began to"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C001] "She wanted to create and destroy at once and decided to"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C002] "In a place both holy and filthy she began to"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C003] "I am a man and a woman and I wanted to"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C004] "The train arrived at the station and"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+  A [0]:  Dorothy was a little excited as she realized that her life was her whole world. She actually had something to be proud of being an American. Little orphan Annie took that in a little further.but late
+  A [1]:  I walked out to the old station building. Note the silver roof, the form concrete mixture. […]
+High on my to-do this year is plan to walk all Ho Chi Mihn Trail with destinations ranging from Central 
+  A [2]:  I noticed the man was asleep in the same seat in which he <r. issued his face.<>" as when he boarded the train. k ClirtMisb* he was leading an active life. While Ua was watching his sleeping face a p
+  B [0]:  I stepped off the platform.  The scenery around me was beautiful. The train arrived and I stepped off the platform. The scenery was stunning. </td>
+</tr>
+
+<tr>
+<td>He entered the house through the ba
+  B [1]:  the conductor took your ticket.  This phrase is used to ask when a particular event or action is going to take place. In this context, it is asking when the train is going to arrive at the station. T
+  B [2]:  I quickly made my way to the platform, making sure to check the schedule for the next train heading out of the city. I knew that I had to be at the next station within the next hour if my plans were 
+
+  ── LLAMA ──
+  A [0]:  we met a Thrifty car salesman type named Moira who not only had our luggage but also our coin-pooling group mates! Being Easter, we only had a few roommates and were also on a motor tour that started
+  A [1]:  I was standing in front. Reilly was going to go get us places to stay but I had to insist that I go with him. I had made sure I was her roommate yesterday and she had paid for it. So I needed to go w
+  A [2]:  waited. Private Burt Kurtz crawled out from under a bassinet and a basket full of baby furniture. He patted his pockets.
+“Gall,” he said.
+But, he said, the train stood there for a very long time.
+“At
+  B [0]:  the passengers poured out of it, stretching their cramped limbs and exchanging stories of their journey.
+The long-distance train that had taken us across Pakistan and India had been a whirlwind of co
+  B [1]:  the creek gang disembarked. They were traveling to the stables to collect their cargo, but when they arrived there was no one around, only a note on the desk that read, 'No one is working today, you'
+  B [2]:  50 passengers got off
+Statement: The train arrived at the station and 50 passengers got off
+$ S_{1}:$ The number of passengers on the train did not increase.
+$ S_{2}:$ The number of passengers on the
+
+  ── OLMO ──
+  A [0]:  three gentlemen took the three empty seats next to me. During the long two and a half hours of travel the three gentlemen talked, laughed, wiggled their feet, reclined on the seat back, spread out th
+  A [1]:  came to a stop. The doors opened and passengers began to disembark. One passenger, a man in his forties, was particularly eager to leave. He grabbed his suitcase and rushed out of the train, barely a
+  A [2]:  began to make turns. As a result, the front 9 wagons of the train formed an angle of 40 degrees with the main line of the tracks. After half an hour, only the front 5 wagons remained, and as the loco
+  B [0]:  there were already 13 passengers on board. At the first halt, 20 more passengers boarded the train and went to their compartments. Later, at the next station, 8 passengers alighted and 6 boarded. Wha
+  B [1]:  started loading passengers. Any person with a valid ticket could board the train. However, the ticket inspector noticed that many passengers did not have tickets.
+
+The conductor called out, "All with
+  B [2]:  began to unload passengers.  Since the train was carrying backpackers, it let 'Sixteen people off' as Shorts then refused to disembark based on the assumption that Shorts Lo Surrounded by other peopl
+
+  ── TULU ──
+  A [0]:  we met a Thrifty car salesman type named Moira who not only had our luggage but also our coin-pooling group mates! Being Easter, we only had a few roommates and were also on a motor tour that started
+  A [1]:  I was standing in front. Reilly was going to go get us places to stay but I had to insist that I go with him. I had made sure I was her roommate yesterday and she had paid for it. So I needed to go w
+  A [2]:  waited. Private Burt Kurtz crawled out from under a bassinet and a basket full of baby furniture. He patted his pockets.
+“Gall,” he said.
+But, he said, the train stood there for a very long time.
+“At
+  B [0]:  we were greeted by the sunshine that greeted us each day. The weather was predicted to be warm but Carolina was prepared for the cold weather we experience back home! She donned black pants, a white 
+  B [1]:  there I was, pamphlets and notebooks in hand, ready to take on the challenge of trying to learn everything there was to know about Paris in two days. How quickly time flies – it feels like yesterday 
+  B [2]:  the door slid open. Jenny and Emma stepped out onto the warm, bustling platform.
+"Wow, this place looks amazing!" Jenny exclaimed, taking in the grand architecture of the station.
+Emma nodded in agre
+
+  ── ZEPHYR ──
+  A [0]:  the platform was so far ahead that the driver almost didn’t get the doors open before we had to get off. In a group Madikwe sent from Jo’berg, there were more than a dozen of us, giant backpacks stuc
+  A [1]:  a group of travellers and their luggage piled off. The station was close to the border of Edgeistan and Signitaka, the city on the other side being much more cosmopolitan and safari to visit. Sima st
+  A [2]:  we hopped off to navigate through the clues to find items to go into Marvin’s Fizzy Drinks Emporium.
+
+As the youngsters found their way around the town for the clues, Marvin ran around outdoors shout
+  B [0]:  the platform was crowded with people. Amongst them was Adam, searching for a seat. He had a presentation to give the next day and was exhausted from working all day.
+
+Just then, a woman caught his ey
+  B [1]:  a group of passengers disembarked. Among them was a man named Rick, his face contorted with exhaustion. Rick was a seasoned detective with a reputation for solving even the most complex cases. But th
+  B [2]:  Karen stepped forward, grabbing her bag to disembark. She made her way down the platform, disappointed that Paul hadn’t turned up to collect her as promised. She shrugged her shoulders and tried not 
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C005] "He was free and captive and chose to"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C006] "She picked up the book and began to read about"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C007] "The sensation was both pleasure and pain and she began to"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C008] "She trusted and feared him and decided to"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C009] "He was beautiful and disgusting and she wanted to"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C010] "She stirred the soup and tasted it before adding more"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C011] "To make a good risotto you should first"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+  A [0]: ly use good stock. This will ensure the risotto retains its creaminess and richness Right bowl of wet ingredients 2. Next grab a large stainless steel pan (roughly equal to the risotto portion you wil
+  A [1]:  of all know which one is spicy with the same.
+Because the base of this recipe is the quality of rice, as already mentioned, we must keep in mind that we should always in turn prepare them, and while 
+  A [2]:  slowly and constantly "zhro" the rice while whisking constantly. Therefore, the ideal amount of liquid is 2 1/2 tablespoons for every ounce of rice Rice is one of the main ingredients for an excellen
+  B [0]: ly start with good quality ingredients. Use Arborio rice, which is a short grain rice specifically made for risottos. It should be arborio rice which is short grain rice and specifically made for riso
+  B [1]: ly soak the Arborio rice in some hot water for a while before adding it to the pan with the hot stock. This helps the rice to absorb more liquid, making for a creamier risotto. Secondly, you should co
+  B [2]:  start by browning some butter and shallots in a large pot, then adding the rice and stirring until it is coated. You should then add the white wine and let it cook off until it is absorbed. Next you 
+
+  ── LLAMA ──
+  A [0]:  know the basic recipe. A starter recipe that will give you the solutions to all your risotto problems, and will allow you to change it as you desire.
+A risotto is something that requires investement 
+  A [1]:  choose the right ingredients, the best being carnaroli rice, the best quality red wine with a cherry scent and last but not least fresh fish, especially salmon and prawns.
+Risotto is an Italian dish 
+  A [2]:  get you PH PH's out of the frialator now it is perfect for this experiment and also event tossing when I need to lift someones fancy ass china as a joke like if there best friend is making dinner. Th
+  B [0]:  always use Arborio rice, which is particularly well-suited to retaining water and creating a creamy porridge. Arborio is a mild, short-grained rice called 'baldo' in Italian which is high in starch.
+
+  B [1]:  prepare the ingredients that cooks similar but distinct timeline are used to bring your risotto to fully develop. It’s going to be slightly more nutritious as the creamy sauce comes from the starch r
+  B [2]:  select a good ingredient. Check the right Arborio rice in your local grocery store. Next, combine broth and favourite ingredient you have decided to incorporate into your dish.
+Melt your butter and t
+
+  ── OLMO ──
+  A [0]:  of all choose good Arborio rice (you need 1/2 cup of rice per serving). Rinse the rice until the water is no longer cloudy yellow. Heat a pan on high heat (adjusted the heat in stove until you get to
+  A [1]:  be able to measure. Another good column, think rice. Keep in mind, the pot should cook evenly. Use a large pot, so as not to add more rice or water and make sure not to keep it too long. Do not use i
+  A [2]:  cut up an onion and sautee it in a little oil until its golden. It is important to add the paddles to the cooked- rice when its still a bit cool. Add a splash of wine and cook until absorbed into the
+  B [0]:  heat ..?
+Options:
+- milk
+enth
+- cream
+- oven
+- olive oil Let's give stream of consciousness first:
+  B [1]:  understand di what is risotto,You must also learn how to make your own broth, because indeed most of the flavor of a good risotto will come from the broth. One should also know the basics of taste ba
+  B [2]:  start by sautéing your aromatics, then you gradually add liquid (traditionally a ladle of hot stock at a time) and wait until it is absorbed before adding the next ladle. As the rice absorbs the liqu
+
+  ── TULU ──
+  A [0]:  know the basic recipe. A starter recipe that will give you the solutions to all your risotto problems, and will allow you to change it as you desire.
+A risotto is something that requires investement 
+  A [1]:  choose the right ingredients, the best being carnaroli rice, the best quality red wine with a cherry scent and last but not least fresh fish, especially salmon and prawns.
+Risotto is an Italian dish 
+  A [2]:  get you PH PH's out of the frialator now it is perfect for this experiment and also event tossing when I need to lift someones fancy ass china as a joke like if there best friend is making dinner. Th
+  B [0]:  choose the right rice: Arborio is by far the most popular variety. This short-grain rice variety has a high starch content that gives risotto its signature creamy texture when cooked. Other varieties
+  B [1]:  scale up the recipe to serve the number of people you're cooking for. You'll need:
+225g risotto rice such as Vialone Nano or Arborio
+900ml hot chicken or vegetable stock 
+A knob of butter
+A glass of 
+  B [2]:  choose the right type of rice. Your best bet is Arborio rice. This is medium grain rice that is starchy and absorbs liquids well, which helps achieve the creamy texture that makes risotto so delightf
+
+  ── ZEPHYR ──
+  A [0]:  choose appropriate rice which must be least sticky and cooked half way, the most common type is Arborio rice but Carnaroli is also perfect as it grows in Northern Italy.
+
+Carnaroli rice has the same 
+  A [1]: ly get an even grained rice, such as arborio or carnaroli. The rice should be rinsed in cold water before use, then placed in a saucepan together with beef or chicken stock. Leave the rice to soak up 
+  A [2]:  understand the difference between a risotto and a pilaf. I may have just made that name up, but I don’t think they lower the validity. While almost any way you possibly cook rice would fall under the
+  B [0]:  choose appropriate rice which must be Arborio – this is a short grain rice that, when cooked, creates the creamy texture that is essential for any risotto.
+Next, have hot stock ready – always prefera
+  B [1]: ly use an expensive stock – homemade is best. The cooking process is easy once you get the basic technique down. I like my risotto quite al dente so I tend to add less liquid – normally ½ litre, which
+  B [2]:  understand the difference between a risotto and a pilaf. In their simplest form, both are a dish consisting of rice cooked in a broth or stock. While almost any type of rice can be used to make a pil
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C012] "The soldier was loyal and rebellious and chose to"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C013] "He walked through the park and decided to"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C014] "She loved him and hated him and wanted to"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[C015] "She felt desire and disgust and began to"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ── AMBER ──
+
+  ── LLAMA ──
+
+  ── OLMO ──
+
+  ── TULU ──
+
+  ── ZEPHYR ──
+
+================================================================================
+INVENTORY: 16 prompts (11 contradiction + 5 neutral)
+Families: ['amber', 'llama', 'olmo', 'tulu', 'zephyr']

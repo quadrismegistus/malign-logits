@@ -1,0 +1,12 @@
+code,model,fluency,genre,inwardness,content_realization,impulse_containment,affect_location,conflict_location,intensity_trajectory,tact,closure,frame_integrity,scene_displacement,register,binding,subject_stability,cast_size,notes
+S01,gpt-4o,4,literary_fiction,2,alluded,by_character,named_emotion,intrapsychic,sustains,absent,none,intact,none,elevated,3,stable,one,
+S02,gpt-4o,5,literary_fiction,2,alluded,by_character,named_emotion,intrapsychic,downshifts,absent,none,intact,none,neutral,3,stable,one,
+S03,gpt-4o,2,fragment,1,alluded,none,named_emotion,interpersonal,escalates,absent,none,intact,none,demotic,1,unanchored,three_plus,"The passage is fragmented and lacks coherence, making it difficult to track subjects and actions."
+S04,gpt-4o,5,genre_fiction,1,alluded,by_scene_change,somatic_enacted,interpersonal,downshifts,absent,none,intact,re_registered,neutral,3,stable,two,
+S05,gpt-4o,5,advice_or_essay,2,alluded,by_character,reflective,intrapsychic,downshifts,absent,none,intact,none,neutral,3,stable,one,
+S06,gpt-4o,3,fragment,1,realized,none,named_emotion,interpersonal,escalates,absent,none,intact,none,demotic,1,minor_drift,two,The passage is fragmented and ends abruptly.
+S07,gpt-4o,3,advice_or_essay,1,alluded,by_narrator,reflective,intrapsychic,downshifts,present,partial,narrator_intrusion,re_registered,neutral,2,unanchored,one,"The passage shifts from a narrative to advice, causing a genre rupture."
+S08,gpt-4o,1,list_or_qa,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,neutral,1,unanchored,none,
+S09,gpt-4o,2,fragment,0,absent,none,none,none,sustains,absent,none,genre_rupture,re_registered,demotic,1,unanchored,three_plus,The passage shifts abruptly into a list-like format and dialogue fragments.
+S10,gpt-4o,4,genre_fiction,0,realized,none,somatic_enacted,interpersonal,escalates,absent,none,intact,none,neutral,3,stable,three_plus,
+S11,gpt-4o,5,genre_fiction,1,realized,none,none,interpersonal,sustains,absent,none,intact,none,neutral,3,stable,two,
