@@ -110,11 +110,83 @@ is 0.206 in pku: clears pku's laxer 0.405, **fails hh's 0.174**. Since pku is
 descriptive-only, the honest count of pairs meeting a meaningful bar in both is
 **one**, not two.
 
-**Note on composition:** three of seven are quantifier qualification and three
-are directive softening. A slate concentrated in two categories tests those
-categories, not "register preference" in general. Whether that is acceptable is
-lacan's call; the alternative is a wider enumeration to spread the categories,
-at the cost of a longer search.
+### A4b. The v2 slate is WITHDRAWN — correlated markers invalidate the rate
+
+lacan's ruling, and it is not a breadth concern but a second
+calibration-validity failure, running the *opposite* way from A5's.
+
+The seven pairs are three constructs, not seven draws:
+`entirely`→`mostly`, `totally`→`fairly`, `completely`→`largely` are one
+preference in interchangeable words; `require`→`prefer`, `force`→`encourage`,
+`demand`→`request` are a second; `angry`→`concerned` is a third. Blocks of
+**3, 3, 1**. Within a block markers fire or fail together.
+
+**The declared false-certification rate is understated by one to two orders of
+magnitude.** Independent P(≥5 of 7) against blockwise P, by per-candidate null
+firing probability p:
+
+| p | independent | blockwise | inflation |
+|---|---|---|---|
+| 0.05 | 0.00001 | 0.00250 | **415×** |
+| 0.10 | 0.00018 | 0.01000 | 57× |
+| 0.25 | 0.01288 | 0.06250 | 4.9× |
+| 0.40 | 0.09626 | 0.16000 | 1.7× |
+
+**And k=5 is decorative.** With blocks of 3, 3, 1, reaching five requires *both*
+three-blocks; three plus the singleton is four. The singleton can never decide
+anything, so 5-of-7 is really **2-of-3-constructs** wearing a stringent number.
+
+**The general form, worth the spec:** decoy-based calibration assumes candidates
+are *independent draws matched to the decoy distribution*. v1 broke the
+**matching** (out-of-band markers, tighter nulls) and was therefore
+**conservative**. v2 breaks the **independence** (correlated near-synonyms) and
+is therefore **anti-conservative**. Any slate property that breaks
+exchangeability with the decoys invalidates the rate; the direction depends on
+which property broke.
+
+### A4c. Slate size derives from CONSTRUCTS, not pairs
+
+A2 is extended one step: cap at **one marker per construct**, then calibrate k
+and the floor to that count with a freshly simulated rate.
+
+Construct yield from the 62-candidate enumeration (hh):
+
+| construct | candidates | in band | powered | best pair |
+|---|---|---|---|---|
+| quantifier qualification | 10 | 3 | 3 | `entirely`→`mostly` (0.136) |
+| directive softening | 7 | 3 | 3 | `require`→`prefer` (0.092) |
+| emotional de-escalation | 6 | 1 | 1 | `angry`→`concerned` (0.135) |
+| hedging / epistemic | 7 | 0 | 0 | — |
+| pejorative → neutral | 11 | 2 | **0** | — |
+| refusal softening | 7 | 0 | 0 | — |
+| blame → attribution | 6 | 0 | 0 | — |
+
+**Three constructs, not seven.** Four of seven enumerated categories yield no
+valid pair at all, and pejorative→neutral has two in-band pairs that both fail
+power. So the honest slate is three markers and the gate is k-of-3.
+
+### A4d. The honestly calibrated three-construct gate
+
+Freshly simulated on the unchanged decoy pool, 4M draws, under the registered
+selection rule (minimise false-certification subject to power ≥ 0.80 at the
+corpus anchor):
+
+| gate | false-cert | power |
+|---|---|---|
+| **p50 floor 0.0481, 3-of-3 (SELECTED)** | **0.0141** | 0.804 |
+| p80, 2-of-3 | 0.0238 | 0.900 |
+| p75, 2-of-3 | 0.0380 | 0.939 |
+| p90, 3-of-3 | 0.00013 | 0.290 (fails power) |
+
+**The true rate is 0.014, not 0.000113** — two orders of magnitude worse than
+the withdrawn 5-of-7 figure, which is exactly the inflation lacan's table
+predicts. It still clears the 0.10 standard comfortably. This is a smaller and
+truer instrument than 5-of-7 on a slate that was really three things.
+
+**Cost, stated plainly:** a seven-*construct* gate would need a much wider
+enumeration than 62 candidates, and the four empty categories suggest the search
+is harder than the pair count implied. Whether to pay that or run a
+three-construct gate at 0.014 is RH's call, not mine.
 
 ## A5. Gate parameters unchanged — and valid for the first time
 
