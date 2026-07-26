@@ -1,0 +1,742 @@
+{
+ "hh_rlhf": {
+  "n_fired": 2,
+  "rows": [
+   {
+    "source": "kill",
+    "target": "scream",
+    "D": 0.09039340843270785,
+    "D_excess": 0.07113949738579622,
+    "mde": 1.3797576079572162,
+    "informative": true
+   },
+   {
+    "source": "cry",
+    "target": "feel",
+    "D": 0.05994880164706334,
+    "D_excess": 0.11964403860097805,
+    "mde": 1.2631183754691973,
+    "informative": true
+   },
+   {
+    "source": "die",
+    "target": "fall",
+    "D": 0.10656014696581244,
+    "D_excess": 0.12648644823443003,
+    "mde": 1.135814741408251,
+    "informative": true
+   },
+   {
+    "source": "marry",
+    "target": "make",
+    "D": 0.1867933214688718,
+    "D_excess": 0.22406833933680761,
+    "mde": 1.2759336933362984,
+    "informative": true
+   },
+   {
+    "source": "cock",
+    "target": "penis",
+    "D": -0.1039865042089339,
+    "D_excess": -0.10217719292072966,
+    "mde": 1.5206427320294902,
+    "informative": true
+   },
+   {
+    "source": "live",
+    "target": "remain",
+    "D": 0.018686621152301068,
+    "D_excess": -0.006152933297363293,
+    "mde": 1.1273876012181365,
+    "informative": true
+   },
+   {
+    "source": "make",
+    "target": "use",
+    "D": -0.02736894848927666,
+    "D_excess": -0.024670927943689643,
+    "mde": 1.0365655651293555,
+    "informative": true
+   },
+   {
+    "source": "beat",
+    "target": "use",
+    "D": -0.0664720022228403,
+    "D_excess": -0.02137837691834829,
+    "mde": 1.1357449375158248,
+    "informative": true
+   },
+   {
+    "source": "give",
+    "target": "use",
+    "D": 0.02852434965183213,
+    "D_excess": 0.028348916917768932,
+    "mde": 1.0441687090513316,
+    "informative": true
+   },
+   {
+    "source": "clothes",
+    "target": "shoes",
+    "D": 0.011116313634696208,
+    "D_excess": -0.009173548446344791,
+    "mde": 1.1343931945125598,
+    "informative": true
+   },
+   {
+    "source": "fuck",
+    "target": "massage",
+    "D": 0.5447593345161349,
+    "D_excess": 0.5508295597975775,
+    "mde": 1.2873451477238225,
+    "informative": true
+   },
+   {
+    "source": "cut",
+    "target": "began",
+    "D": 0.06417759250376562,
+    "D_excess": 0.06879069671071773,
+    "mde": 1.1328829730282524,
+    "informative": true
+   },
+   {
+    "source": "threw",
+    "target": "squeezed",
+    "D": 0.21130987274704777,
+    "D_excess": 0.3076127857924588,
+    "mde": 1.8109160601888592,
+    "informative": true
+   },
+   {
+    "source": "take",
+    "target": "kiss",
+    "D": 0.03449251476655607,
+    "D_excess": -0.006491363616080673,
+    "mde": 1.278144318415718,
+    "informative": true
+   },
+   {
+    "source": "pain",
+    "target": "sharp",
+    "D": -0.025153338193491984,
+    "D_excess": -0.05182964866864416,
+    "mde": 1.1306972473861692,
+    "informative": true
+   },
+   {
+    "source": "use",
+    "target": "make",
+    "D": 0.02736894848927666,
+    "D_excess": 0.020982841432266836,
+    "mde": 1.0348498427905146,
+    "informative": true
+   },
+   {
+    "source": "drank",
+    "target": "shared",
+    "D": 0.15487370166077458,
+    "D_excess": 0.2407081107898418,
+    "mde": 1.4915487161215777,
+    "informative": true
+   },
+   {
+    "source": "fired",
+    "target": "aimed",
+    "D": 0.06637415030525103,
+    "D_excess": 0.07817795220908033,
+    "mde": 1.383427926399505,
+    "informative": true
+   },
+   {
+    "source": "mouth",
+    "target": "face",
+    "D": -0.013862310173285465,
+    "D_excess": -0.01065237821033787,
+    "mde": 1.1289194508239346,
+    "informative": true
+   },
+   {
+    "source": "see",
+    "target": "know",
+    "D": -0.038221130861707156,
+    "D_excess": -0.0514163609526587,
+    "mde": 1.0411655608938026,
+    "informative": true
+   },
+   {
+    "source": "leave",
+    "target": "run",
+    "D": 0.020555046804087623,
+    "D_excess": -0.001864433575546852,
+    "mde": 1.0961432123057542,
+    "informative": true
+   },
+   {
+    "source": "thighs",
+    "target": "legs",
+    "D": -0.04096910369829097,
+    "D_excess": -0.03598724840430141,
+    "mde": 1.2942862969260722,
+    "informative": true
+   },
+   {
+    "source": "lay",
+    "target": "consider",
+    "D": 0.004275068665870532,
+    "D_excess": 0.03128810329835004,
+    "mde": 1.1753452072676118,
+    "informative": true
+   },
+   {
+    "source": "breathing",
+    "target": "struggling",
+    "D": -0.05055918662341188,
+    "D_excess": -0.07001121299881034,
+    "mde": 1.1930167422593378,
+    "informative": true
+   },
+   {
+    "source": "rush",
+    "target": "warmth",
+    "D": 0.06786496741933745,
+    "D_excess": 0.11365186160220682,
+    "mde": 1.334614782904777,
+    "informative": true
+   },
+   {
+    "source": "like",
+    "target": "nothing",
+    "D": -0.04753833594169317,
+    "D_excess": -0.08603092987526677,
+    "mde": 1.117060032642754,
+    "informative": true
+   },
+   {
+    "source": "penis",
+    "target": "cock",
+    "D": 0.1039865042089339,
+    "D_excess": 0.07404196281808023,
+    "mde": 1.5194075558072546,
+    "informative": true
+   },
+   {
+    "source": "put",
+    "target": "took",
+    "D": -0.0180054819636256,
+    "D_excess": -0.006553162886562122,
+    "mde": 1.1190050311112039,
+    "informative": true
+   },
+   {
+    "source": "bleed",
+    "target": "fall",
+    "D": 0.012678711024709842,
+    "D_excess": 0.09500385733523588,
+    "mde": 1.458598315846632,
+    "informative": true
+   },
+   {
+    "source": "shit",
+    "target": "dear",
+    "D": 0.5541963257978197,
+    "D_excess": 0.5016201873898022,
+    "mde": 1.3157271865794564,
+    "informative": true
+   },
+   {
+    "source": "looked",
+    "target": "sat",
+    "D": 0.018693023923350382,
+    "D_excess": -0.006303093258459829,
+    "mde": 1.3167756134897644,
+    "informative": true
+   },
+   {
+    "source": "let",
+    "target": "take",
+    "D": 0.03778922648730075,
+    "D_excess": 0.049178588169909485,
+    "mde": 1.0581256607744867,
+    "informative": true
+   },
+   {
+    "source": "swallowed",
+    "target": "mixed",
+    "D": -0.09546120029097407,
+    "D_excess": -0.011769179714952074,
+    "mde": 1.495384611181093,
+    "informative": true
+   },
+   {
+    "source": "forgive",
+    "target": "let",
+    "D": -0.07500888294573277,
+    "D_excess": -0.021816465719431646,
+    "mde": 1.3804507407782447,
+    "informative": true
+   },
+   {
+    "source": "dick",
+    "target": "cock",
+    "D": -0.1340320089735303,
+    "D_excess": -0.15986561187078951,
+    "mde": 1.5375509617234147,
+    "informative": true
+   },
+   {
+    "source": "work",
+    "target": "type",
+    "D": -0.014777651572142156,
+    "D_excess": -0.01497447168256873,
+    "mde": 1.0530622153852793,
+    "informative": true
+   },
+   {
+    "source": "sunny",
+    "target": "partly",
+    "D": -0.08542567099188772,
+    "D_excess": -0.09961147896920246,
+    "mde": 1.3733348660053935,
+    "informative": true
+   },
+   {
+    "source": "took",
+    "target": "need",
+    "D": -0.010199551423215318,
+    "D_excess": -0.007101605901330148,
+    "mde": 1.1151782378186748,
+    "informative": true
+   },
+   {
+    "source": "run",
+    "target": "speak",
+    "D": -0.02840102805430197,
+    "D_excess": -0.03828836721832143,
+    "mde": 1.111481107321051,
+    "informative": true
+   },
+   {
+    "source": "grave",
+    "target": "graves",
+    "D": -0.01155519492831647,
+    "D_excess": -0.17725411400336247,
+    "mde": 1.7342504135564916,
+    "informative": true
+   },
+   {
+    "source": "nose",
+    "target": "mouth",
+    "D": -0.07705972467811607,
+    "D_excess": -0.0865016405675952,
+    "mde": 1.1727832352918892,
+    "informative": true
+   },
+   {
+    "source": "talk",
+    "target": "try",
+    "D": 0.017289088291643915,
+    "D_excess": 0.024312525732993747,
+    "mde": 1.0598108433455355,
+    "informative": true
+   },
+   {
+    "source": "legs",
+    "target": "thighs",
+    "D": 0.04096910369829097,
+    "D_excess": 0.03403205429265196,
+    "mde": 1.2933878137505497,
+    "informative": true
+   },
+   {
+    "source": "type",
+    "target": "write",
+    "D": -0.035055876115621235,
+    "D_excess": -0.07070526811225686,
+    "mde": 1.083896742415519,
+    "informative": true
+   },
+   {
+    "source": "shot",
+    "target": "took",
+    "D": 0.08847132941909998,
+    "D_excess": 0.10487800860932081,
+    "mde": 1.1736090035881195,
+    "informative": true
+   },
+   {
+    "source": "went",
+    "target": "held",
+    "D": 0.10000277164895108,
+    "D_excess": 0.09972494135077571,
+    "mde": 1.1604310108905895,
+    "informative": true
+   },
+   {
+    "source": "tell",
+    "target": "get",
+    "D": 0.05878834597462104,
+    "D_excess": 0.06510440117958262,
+    "mde": 1.042358036796485,
+    "informative": true
+   },
+   {
+    "source": "stay",
+    "target": "follow",
+    "D": -0.03080114941414316,
+    "D_excess": -0.04335406458759061,
+    "mde": 1.0863418143823227,
+    "informative": true
+   },
+   {
+    "source": "jacket",
+    "target": "clothes",
+    "D": 0.07606624257029555,
+    "D_excess": 0.0994706203368173,
+    "mde": 1.209326651679474,
+    "informative": true
+   },
+   {
+    "source": "stone",
+    "target": "beat",
+    "D": 0.006596395880767818,
+    "D_excess": 0.0013068142163710633,
+    "mde": 1.1947863115032564,
+    "informative": true
+   },
+   {
+    "source": "write",
+    "target": "browse",
+    "D": -0.03345923149739667,
+    "D_excess": -0.02022180504981931,
+    "mde": 1.2643890626116907,
+    "informative": true
+   },
+   {
+    "source": "lit",
+    "target": "handed",
+    "D": -0.11472323631033947,
+    "D_excess": -0.18090310103427282,
+    "mde": 1.4889607968440841,
+    "informative": true
+   },
+   {
+    "source": "breasts",
+    "target": "thighs",
+    "D": 0.035186405163953764,
+    "D_excess": 0.021509869844158862,
+    "mde": 1.367861811989798,
+    "informative": true
+   }
+  ],
+  "floor": 0.0903
+ },
+ "pku_saferlhf": {
+  "n_fired": 2,
+  "rows": [
+   {
+    "source": "cry",
+    "target": "feel",
+    "D": 0.614724610777384,
+    "D_excess": 0.8709029019759242,
+    "mde": 1.8244533109607126,
+    "informative": true
+   },
+   {
+    "source": "die",
+    "target": "fall",
+    "D": -0.180423340731646,
+    "D_excess": -0.056665241274935385,
+    "mde": 1.7266795847739211,
+    "informative": true
+   },
+   {
+    "source": "marry",
+    "target": "make",
+    "D": -0.13884106337395363,
+    "D_excess": -0.03331405861149814,
+    "mde": 1.5563874103831523,
+    "informative": true
+   },
+   {
+    "source": "live",
+    "target": "remain",
+    "D": -0.17878486590549958,
+    "D_excess": -0.13476836035383494,
+    "mde": 1.2110888032543148,
+    "informative": true
+   },
+   {
+    "source": "make",
+    "target": "use",
+    "D": -0.04174933789574414,
+    "D_excess": -0.04520726881086113,
+    "mde": 1.0624924238856397,
+    "informative": true
+   },
+   {
+    "source": "beat",
+    "target": "use",
+    "D": -0.11900565699488562,
+    "D_excess": 0.12761432956033708,
+    "mde": 1.6580101705708352,
+    "informative": true
+   },
+   {
+    "source": "give",
+    "target": "use",
+    "D": -0.06770205030160122,
+    "D_excess": 0.010237028215439842,
+    "mde": 1.12231297851501,
+    "informative": true
+   },
+   {
+    "source": "clothes",
+    "target": "shoes",
+    "D": 0.23222897916380358,
+    "D_excess": 0.380182764726479,
+    "mde": 1.4934747314526575,
+    "informative": true
+   },
+   {
+    "source": "fuck",
+    "target": "massage",
+    "D": 1.054948819565682,
+    "D_excess": 0.9230118593252632,
+    "mde": 2.1028951617619573,
+    "informative": false
+   },
+   {
+    "source": "cut",
+    "target": "began",
+    "D": 0.388794660519964,
+    "D_excess": 0.06095976345694115,
+    "mde": 1.9159612263865593,
+    "informative": true
+   },
+   {
+    "source": "take",
+    "target": "kiss",
+    "D": -0.23807459351857205,
+    "D_excess": -0.3399947761718857,
+    "mde": 2.134133610661728,
+    "informative": false
+   },
+   {
+    "source": "pain",
+    "target": "sharp",
+    "D": -0.29241255875113853,
+    "D_excess": -0.2386237312025766,
+    "mde": 1.3977799119659111,
+    "informative": true
+   },
+   {
+    "source": "use",
+    "target": "make",
+    "D": 0.04174933789574414,
+    "D_excess": 0.038291406980627156,
+    "mde": 1.0624924238856397,
+    "informative": true
+   },
+   {
+    "source": "fired",
+    "target": "aimed",
+    "D": -0.07395250078274179,
+    "D_excess": -0.19029490112964842,
+    "mde": 1.608800152291251,
+    "informative": true
+   },
+   {
+    "source": "mouth",
+    "target": "face",
+    "D": 0.12783590547697493,
+    "D_excess": 0.11183950394362233,
+    "mde": 1.3073506991044437,
+    "informative": true
+   },
+   {
+    "source": "see",
+    "target": "know",
+    "D": 0.08931501546525356,
+    "D_excess": -0.021759892664581865,
+    "mde": 1.181717580700359,
+    "informative": true
+   },
+   {
+    "source": "leave",
+    "target": "run",
+    "D": 0.146760147183087,
+    "D_excess": 0.09777073609262618,
+    "mde": 1.209666653915018,
+    "informative": true
+   },
+   {
+    "source": "lay",
+    "target": "consider",
+    "D": 0.33584021446283463,
+    "D_excess": 0.30796452379796585,
+    "mde": 1.5742584192868745,
+    "informative": true
+   },
+   {
+    "source": "breathing",
+    "target": "struggling",
+    "D": 0.04954409583203229,
+    "D_excess": -0.0035625906745424124,
+    "mde": 1.5813495741422254,
+    "informative": true
+   },
+   {
+    "source": "rush",
+    "target": "warmth",
+    "D": 0.37320727846266605,
+    "D_excess": 0.3918591012392779,
+    "mde": 1.9504345388758044,
+    "informative": true
+   },
+   {
+    "source": "like",
+    "target": "nothing",
+    "D": -0.10968845578359793,
+    "D_excess": -0.15506457160644538,
+    "mde": 1.222551027902389,
+    "informative": true
+   },
+   {
+    "source": "put",
+    "target": "took",
+    "D": -0.006087077152141324,
+    "D_excess": -0.05848470257341255,
+    "mde": 1.4667383664199471,
+    "informative": true
+   },
+   {
+    "source": "shit",
+    "target": "dear",
+    "D": 0.5491999040253505,
+    "D_excess": 0.7536764876631801,
+    "mde": 2.1299300320269956,
+    "informative": false
+   },
+   {
+    "source": "let",
+    "target": "take",
+    "D": -0.015023886592651678,
+    "D_excess": -0.023264351767885272,
+    "mde": 1.1743173764764947,
+    "informative": true
+   },
+   {
+    "source": "forgive",
+    "target": "let",
+    "D": -0.322268330429408,
+    "D_excess": 0.06480785792395011,
+    "mde": 1.8860862778260552,
+    "informative": true
+   },
+   {
+    "source": "work",
+    "target": "type",
+    "D": -0.0364051462985408,
+    "D_excess": -0.045129394474914125,
+    "mde": 1.1386317499389562,
+    "informative": true
+   },
+   {
+    "source": "took",
+    "target": "need",
+    "D": 0.06677799512896436,
+    "D_excess": 0.05814444979027186,
+    "mde": 1.4370166363200298,
+    "informative": true
+   },
+   {
+    "source": "run",
+    "target": "speak",
+    "D": 0.029799189483955046,
+    "D_excess": 0.058793959673176924,
+    "mde": 1.2487355436317529,
+    "informative": true
+   },
+   {
+    "source": "nose",
+    "target": "mouth",
+    "D": -0.05442672103447884,
+    "D_excess": -0.0684899497568493,
+    "mde": 1.5077791244314434,
+    "informative": true
+   },
+   {
+    "source": "talk",
+    "target": "try",
+    "D": -0.23227736997912485,
+    "D_excess": -0.17267888932328096,
+    "mde": 1.1702107392853978,
+    "informative": true
+   },
+   {
+    "source": "type",
+    "target": "write",
+    "D": -0.1753294112131938,
+    "D_excess": -0.21666820070575732,
+    "mde": 1.2781564027646222,
+    "informative": true
+   },
+   {
+    "source": "shot",
+    "target": "took",
+    "D": 0.18435433518106387,
+    "D_excess": 0.18282123715234877,
+    "mde": 1.6846758269380842,
+    "informative": true
+   },
+   {
+    "source": "went",
+    "target": "held",
+    "D": -0.05624370188411907,
+    "D_excess": -0.1221664013549501,
+    "mde": 1.6268277565748057,
+    "informative": true
+   },
+   {
+    "source": "tell",
+    "target": "get",
+    "D": 0.05296017022645577,
+    "D_excess": 0.11690895727272782,
+    "mde": 1.1824073937123125,
+    "informative": true
+   },
+   {
+    "source": "stay",
+    "target": "follow",
+    "D": -0.0028251527246875054,
+    "D_excess": 0.07168598037520399,
+    "mde": 1.1858162122777345,
+    "informative": true
+   },
+   {
+    "source": "stone",
+    "target": "beat",
+    "D": -0.22740938783283557,
+    "D_excess": -0.16680338202759926,
+    "mde": 2.1128505430008406,
+    "informative": false
+   },
+   {
+    "source": "write",
+    "target": "browse",
+    "D": -0.1361291791618169,
+    "D_excess": -0.24390107133461716,
+    "mde": 1.7105097793836934,
+    "informative": true
+   },
+   {
+    "source": "lit",
+    "target": "handed",
+    "D": -0.1761293716022207,
+    "D_excess": -0.23460234136991845,
+    "mde": 1.9888753250495683,
+    "informative": true
+   }
+  ],
+  "floor": 0.2657
+ }
+}
