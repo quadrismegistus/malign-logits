@@ -422,6 +422,12 @@ Registered consequences:
   | 0.89 (= hh, uniform) | 53% | 47% |
   | 1.00 | 64% | 36% |
 
+  **These bounds are illustrative, not justified.** 0.89 is observed in hh and
+  nothing is measured in pku, so nothing excludes a bias above 1.00, which would
+  push scarcity above 64%. Widening the range only widens the interval, which
+  strengthens the wording below rather than threatening it; the table is shown
+  to convey that the split is unresolvable, not to bound it.
+
   So: **roughly half each, and the method cannot resolve which is larger.**
   hh itself shows no overdispersion, which is why its token-level instrument
   works.
