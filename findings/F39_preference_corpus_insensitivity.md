@@ -110,12 +110,55 @@ Consequently:
   the real methodological residue here, and it was visible in the declaration
   before the run.
 
-**Residue that survives independently of the band.** Three hedging markers
-misbehave across three settings: `sorry`→`unfortunately` runs backwards in both
-corpora (disqualified pre-spec), `no`→`unfortunately` fires in pku and runs
-backwards in hh, and `must`→`should` runs backwards in both. All three are far
-outside the band, so this is suggestive rather than established — but a hedging
-preference that reverses between two preference corpora is worth its own look.
+### The one valid observation, booked separately
+
+The gate's invalidity does not invalidate an individual marker's measurement.
+`stupid` → `unclear` was attested, **in band** (1,183 and 919 occurrences), and
+fired in **both** corpora at +0.1857 (z=2.11) and +0.4454 (z=1.97). It is the
+only pair in the run measured under the conditions the spec required, and it
+behaved as an attested annotator preference predicts.
+
+**It is n=1 and certifies nothing.** The booking must not swing from "instrument
+insensitive" to "instrument works" on one pair. It is recorded because a future
+reader deciding whether to rebuild tier 2 needs to know that the single
+compliant marker worked.
+
+Two further measurements bear on the same question and were not part of the
+gate's logic: `must`→`should` and `always`→`often` return **precise zeros**
+(hh z=−0.32 and +1.07, SEs 0.025 and 0.018 — the two best-measured pairs). A
+blind instrument gives wide intervals everywhere; this one gives tight intervals
+around zero where it sees nothing and significant positives where it sees
+something. So the gate failed because several markers were not in fact preferred,
+not because the measurement cannot detect preference.
+
+### Is a compliant slate constructible? Yes, but the yield is low
+
+The methodological residue was whether attestation and frequency-matching pull
+against each other so hard that seven attested in-band markers do not exist.
+Enumerating 34 attested register-marker candidates (hedging, apology, softened
+refusal, quantifier qualification, de-escalation) against the hh band:
+
+| | count |
+|---|---|
+| below the 20-occurrence floor | 3 |
+| attested but **out of band** | 26 |
+| **attested and in band** | **5** |
+
+`stupid`→`unclear`, `totally`→`fairly`, `crazy`→`unusual`, `demand`→`request`,
+`force`→`encourage`. So a compliant slate is **constructible but expensive** —
+roughly a 15% yield, meaning ~50 enumerated candidates for seven usable pairs.
+One of the five is now burned by this run, leaving four.
+
+**Tier 2 is not structurally dead.** The design failure was mine (running an
+invalid slate), not the design's.
+
+**Residue, corrected.** An earlier version of this section claimed three hedging
+markers "run the wrong way" and treated that as suggestive. Computing `D/SE`
+shows **no pair is a precise negative** — every wrong-direction value is a
+precise zero or is indeterminate, and `no`→`unfortunately` is not a reversal but
+a strong positive in pku (z=9.61) beside a null in hh (z=−0.82). There is no
+anomaly to pursue. Both seats had proposed leaning on that pattern; it does not
+exist.
 
 ## Registered weakness of the slate
 
