@@ -83,7 +83,8 @@ def append_manifest(rows):
         w.writerows(rows)
 
 
-def run_arm_vllm(cm, family, role, model_id, prompts, backend, run_id, tp=1, log=print):
+def run_arm_vllm(cm, family, role, model_id, prompts, backend, run_id, tp=1,
+                 sidecar=None, log=print):
     """vLLM path for the cloud share.
 
     Shares the collision guard, manifest, battery selection, and cache keys with
@@ -93,7 +94,13 @@ def run_arm_vllm(cm, family, role, model_id, prompts, backend, run_id, tp=1, log
     inseparable.
     """
     from vllm import LLM, SamplingParams
-    coll = collisions(cm, model_id, prompts)
+    # Sidecar mode: the registered cross-backend sanity pair needs the SAME
+    # model+prompt+temp+idx generated on a second backend, but the stash key has
+    # no backend field, so writing them there would collide on every key. These
+    # draws feed only the backend comparison and never the main analysis, so
+    # they go to a JSONL file instead and the stash keeps one entry per key.
+    # (desktop ruling 2026-07-26, option (a); logged as implementation note.)
+    coll = [] if sidecar else collisions(cm, model_id, prompts)
     if coll:
         log(f"  ABORT {family}/{role}: {len(coll)} of {len(prompts)*N_DRAWS} keys "
             f"already exist in the generations stash (e.g. idx {coll[0][1]}).")
@@ -104,9 +111,16 @@ def run_arm_vllm(cm, family, role, model_id, prompts, backend, run_id, tp=1, log
     t0 = time.time()
     outs = llm.generate(prompts, sampling)
     rows, n = [], 0
+    sc = open(sidecar, "a") if sidecar else None
     for p, out in zip(prompts, outs):
         for i, comp in enumerate(out.outputs[:N_DRAWS]):
-            cm.set_generation(model_id, p, comp.text, temp=TEMP, idx=i)
+            if sc:
+                sc.write(json.dumps({"model": model_id, "prompt": p, "temp": TEMP,
+                                     "idx": i, "backend": backend, "run_id": run_id,
+                                     "family": family, "role": role,
+                                     "text": comp.text}) + "\n")
+            else:
+                cm.set_generation(model_id, p, comp.text, temp=TEMP, idx=i)
             rows.append(dict(run_id=run_id, backend=backend, family=family, role=role,
                              model=model_id, prompt=p, temp=TEMP, idx=i,
                              n_tokens=len(comp.token_ids),
@@ -116,6 +130,9 @@ def run_arm_vllm(cm, family, role, model_id, prompts, backend, run_id, tp=1, log
             append_manifest(rows); rows = []
     if rows:
         append_manifest(rows)
+    if sc:
+        sc.close()
+        log(f"  [sidecar] {n} draws -> {sidecar} (not written to the stash)")
     del llm
     gc.collect()
     log(f"  {family}/{role}: {n} generations in {time.time()-t0:.0f}s [vllm]")
@@ -168,6 +185,8 @@ def main():
                     help="mps = HF generate (local); vllm = batched (cloud share)")
     ap.add_argument("--tp", type=int, default=1, help="vllm tensor-parallel size")
     ap.add_argument("--prompts-file", help="frozen battery JSON (see battery_prompts)")
+    ap.add_argument("--sidecar", help="write draws to this JSONL instead of the stash "
+                                      "(cross-backend sanity pair; bypasses the collision guard)")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--go", action="store_true",
                     help="required to generate. Without it the script reports and exits, "
@@ -200,7 +219,8 @@ def main():
     print(f"\nrun_id={run_id}; manifest -> {MANIFEST}\n")
     for k, role, m in plan:
         if a.backend == "vllm":
-            run_arm_vllm(cm, k, role, m, prompts, a.backend, run_id, tp=a.tp)
+            run_arm_vllm(cm, k, role, m, prompts, a.backend, run_id, tp=a.tp,
+                         sidecar=a.sidecar)
         else:
             run_arm(cm, k, role, m, prompts, a.backend, run_id)
 
