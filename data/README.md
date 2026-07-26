@@ -22,7 +22,7 @@ Where each number in the paper comes from: analysis area â†’ producing command â
 
 | Finding | Command | Key outputs |
 |---|---|---|
-| F08 taxonomy | `malign taxonomy [--all-prompts]` | `displacement_taxonomy.csv` |
+| F08 taxonomy | `malign taxonomy [--all-prompts]` | `taxonomy_olmo.csv`, `taxonomy_<family>.csv` (was `displacement_taxonomy.csv`, renamed at 39a3886) |
 | F13 paradigmatic/syntagmatic | `malign taxonomy --analyze` | `taxonomy_<family>.csv`, `taxonomy_summary.csv` |
 | F14 syntagmatic baseline | `malign taxonomy --baseline --family olmo` | `taxonomy_olmo.csv` (`syntagmatic_js_aligned`) |
 | displacement method | `scripts/compute_bits_resistance.py` | `bits_resistance.csv`, `bits_resistance_datadriven.csv`, `displacement_agreement.csv` |

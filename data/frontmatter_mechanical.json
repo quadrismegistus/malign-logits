@@ -1,0 +1,425 @@
+{
+ "F01": {
+  "file": "F01_logit_analysis.md",
+  "date": "2026-05-17",
+  "data": [],
+  "scripts": [],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F02": {
+  "file": "F02_cross_family_logits.md",
+  "date": "2026-05-17",
+  "data": [
+   "battery_results.csv"
+  ],
+  "scripts": [],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F03": {
+  "file": "F03_cross_family_generation.md",
+  "date": "2026-05-17",
+  "data": [
+   "gen_battery_metrics.csv",
+   "gen_battery_raw.parquet"
+  ],
+  "scripts": [],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F04": {
+  "file": "F04_step_analysis.md",
+  "date": "2026-05-17",
+  "data": [],
+  "scripts": [],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F05": {
+  "file": "F05_logit_lens.md",
+  "date": "2026-05-17",
+  "data": [
+   "logit_lens_datadriven.csv"
+  ],
+  "scripts": [],
+  "families": [
+   "amber",
+   "llama",
+   "olmo",
+   "qwen"
+  ],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F06": {
+  "file": "F06_baseline_validation.md",
+  "date": "2026-05-17",
+  "data": [
+   "battery_results.csv",
+   "transgressive_mass.csv"
+  ],
+  "scripts": [],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F07": {
+  "file": "F07_training_data_attribution.md",
+  "date": "2026-05-17",
+  "data": [],
+  "scripts": [],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": false
+ },
+ "F08": {
+  "file": "F08_displacement_taxonomy.md",
+  "date": "2026-05-17",
+  "data": [
+   "taxonomy_olmo.csv"
+  ],
+  "scripts": [],
+  "families": [
+   "olmo"
+  ],
+  "data_named_but_missing": [],
+  "historical_refs": {
+   "displacement_taxonomy.csv": "renamed to taxonomy_olmo.csv at 39a3886 (2026-05-03)"
+  },
+  "provenance_map_row": true
+ },
+ "F09": {
+  "file": "F09_tulu_vs_llama.md",
+  "date": "2026-05-17",
+  "data": [
+   "battery_tulu.csv"
+  ],
+  "scripts": [],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F10": {
+  "file": "F10_sft_ablation.md",
+  "date": "2026-05-17",
+  "data": [
+   "ablation_results.csv"
+  ],
+  "scripts": [
+   "sft_ab_experiment.py"
+  ],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F12": {
+  "file": "F12_fold_geometry.md",
+  "date": "2026-05-17",
+  "data": [
+   "fold_rank_summary.csv"
+  ],
+  "scripts": [
+   "rederive_f12_heldout.py"
+  ],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F13": {
+  "file": "F13_jakobsonian_axes.md",
+  "date": "2026-05-17",
+  "data": [
+   "taxonomy_summary.csv"
+  ],
+  "scripts": [],
+  "families": [
+   "olmo-tiny"
+  ],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F14": {
+  "file": "F14_syntagmatic_baseline.md",
+  "date": "2026-05-17",
+  "data": [
+   "taxonomy_olmo.csv"
+  ],
+  "scripts": [],
+  "families": [
+   "olmo"
+  ],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F15": {
+  "file": "F15_passage_metrics.md",
+  "date": "2026-05-17",
+  "data": [
+   "corpus_metrics.csv",
+   "corpus_metrics.parquet",
+   "passage_metrics.csv"
+  ],
+  "scripts": [
+   "corpus_metrics.py"
+  ],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F16": {
+  "file": "F16_corpus_comparison.md",
+  "date": "2026-05-17",
+  "data": [
+   "c20_fiction_metrics.csv",
+   "corpus_metrics.parquet",
+   "dreams.csv"
+  ],
+  "scripts": [
+   "corpus_metrics.py",
+   "dream_metrics.py"
+  ],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F17": {
+  "file": "F17_cross_generation_mmd.md",
+  "date": "2026-05-17",
+  "data": [
+   "mmd_cross_generation.csv"
+  ],
+  "scripts": [
+   "cross_generation_mmd.py"
+  ],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F18": {
+  "file": "F18_shannon_entropy.md",
+  "date": "2026-05-17",
+  "data": [
+   "asymmetric_entropy.csv",
+   "self_surprisal.csv",
+   "shannon_entropy.csv"
+  ],
+  "scripts": [],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F19": {
+  "file": "F19_bos_entropy.md",
+  "date": "2026-05-16",
+  "data": [
+   "blt_combined.csv",
+   "blt_human_corpora.csv",
+   "bos_surprisal.csv",
+   "generation_analysis.parquet",
+   "jakobson.parquet"
+  ],
+  "scripts": [
+   "blt_combined.py"
+  ],
+  "families": [
+   "amber",
+   "llama",
+   "olmo",
+   "olmo-tiny",
+   "pythia",
+   "qwen",
+   "qwen-tiny",
+   "smol",
+   "tulu",
+   "zephyr"
+  ],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F20": {
+  "file": "F20_who_are_you.md",
+  "date": "2026-06-21",
+  "data": [],
+  "scripts": [],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": false
+ },
+ "F22": {
+  "file": "F22_circuit_decomposition.md",
+  "date": "2026-06-21",
+  "data": [
+   "attention_class_phase_transition.csv",
+   "attention_cross_family.csv",
+   "attention_entropy_olmo.csv",
+   "attention_institutional.csv",
+   "attention_phase_transition.csv",
+   "circuit_decomposition.csv",
+   "layernorm_cross_family.csv",
+   "layernorm_decomposition.csv",
+   "midlayer_class_engine_cross_family.csv",
+   "mlp_gating.csv",
+   "value_vector_decomposition.csv",
+   "value_vectors_cross_family.csv"
+  ],
+  "scripts": [
+   "decompose_circuit.py"
+  ],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F23": {
+  "file": "F23_reasoning_distillation.md",
+  "date": "2026-06-21",
+  "data": [],
+  "scripts": [
+   "decompose_circuit.py",
+   "r1_full_battery.py",
+   "r1_smoke_test.py"
+  ],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {
+   "reasoning_thinking_chains.csv": "never committed; source of record is the reasoning_logits stash"
+  },
+  "provenance_map_row": true
+ },
+ "F24": {
+  "file": "F24_pretraining_emergence.md",
+  "date": "2026-06-21",
+  "data": [
+   "pythia1b_battery_emergence.csv",
+   "pythia1b_embedding_emergence.csv"
+  ],
+  "scripts": [
+   "pythia_battery_emergence.py"
+  ],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F25": {
+  "file": "F25_temporal_alignment_signature.md",
+  "date": "2026-06-20",
+  "data": [
+   "f25_signature_summary.csv",
+   "mega_gen_olmo_4layer.csv",
+   "mega_gen_r1_reasoning.csv",
+   "mega_gen_reasoning_r1_qwen.csv",
+   "mega_gen_reasoning_smol3_think.csv",
+   "mega_generation_amber.csv",
+   "mega_generation_llama.csv",
+   "mega_generation_qwen.csv",
+   "mega_generation_smol3.csv"
+  ],
+  "scripts": [
+   "circuit.py"
+  ],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F26": {
+  "file": "F26_census.md",
+  "date": "2026-07-05",
+  "data": [
+   "circuit_census_grid_final.csv",
+   "tree_census.csv"
+  ],
+  "scripts": [],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F27": {
+  "file": "F27_nudging_negative.md",
+  "date": "2026-06-23",
+  "data": [
+   "bidirectional_resistance.csv",
+   "bits_resistance.csv"
+  ],
+  "scripts": [],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F31": {
+  "file": "F31_permanova_decomposition.md",
+  "date": "2026-06-26",
+  "data": [],
+  "scripts": [
+   "compute_score_vocab.py"
+  ],
+  "families": [
+   "tulu"
+  ],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F33": {
+  "file": "F33_scale_effects.md",
+  "date": "2026-06-27",
+  "data": [],
+  "scripts": [
+   "scale_test_full.py"
+  ],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ },
+ "F34": {
+  "file": "F34_cross_linguistic_displacement.md",
+  "date": "2026-06-27",
+  "data": [],
+  "scripts": [],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": false
+ },
+ "F35": {
+  "file": "F35_architecture_independence.md",
+  "date": "2026-06-28",
+  "data": [
+   "architecture_independence.csv"
+  ],
+  "scripts": [
+   "decompose_circuit.py"
+  ],
+  "families": [],
+  "data_named_but_missing": [],
+  "historical_refs": {},
+  "provenance_map_row": true
+ }
+}
