@@ -85,6 +85,8 @@ seat's citations live in files outside it (`gate-audit-spec.md`, the rulings,
 `notes/`), which this cannot see. Six were orphaned by the rewrites and lacan
 has remapped them against frozen final history:
 
+<!-- citation-check: historical -->
+
 | orphaned | final | subject |
 |---|---|---|
 | `20752e9` | `f9fd3c1` | DECLARE the construct-level selection grid, before running it |
@@ -93,6 +95,8 @@ has remapped them against frozen final history:
 | `bca5581` | `65528ff` | Amendment 1: v2 slate withdrawn |
 | `7e428c2` | `a26ffac` | Amendment 1: grounds corrected to POWER |
 | `05309ce` | `4f48e3f` | Seeded power lower bounds |
+
+<!-- citation-check: end -->
 
 `596213c` and `98e41d8` were unaffected and remain ancestors. **Read the 18-of-18
 above as coverage of this repository, not of the project.**

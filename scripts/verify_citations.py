@@ -37,6 +37,19 @@ import re
 import subprocess
 import sys
 
+# The HEAD this inventory's verifications are pinned to. A verification expires
+# under history REWRITING, not under history GROWTH: ancestry is monotonic
+# under append, so if X was an ancestor of PIN and PIN is still an ancestor of
+# HEAD, X is still an ancestor and the verification stands (lacan).
+#
+# That distinction is what keeps rule 14 from being a treadmill. HEAD moves
+# several times an hour; under the naive reading every inventory is stale on
+# arrival, and a rule violated by every commit is one everyone learns to skip.
+# So the cheap check is ON THE PIN, not on every citation -- one merge-base
+# call re-validates the whole inventory, and it fails loudly exactly when a
+# rewrite has happened, which is when re-verification is genuinely owed.
+PIN = "f4b7810979b47dbcfc45416f356bf6f7afb10b72"
+
 SHA_RE = re.compile(r"`([0-9a-f]{7,40})`")
 # Hex-looking tokens that are not commits. Extend rather than loosening the regex.
 NOT_A_SHA = {"deadbeef", "cafebabe"}
@@ -47,6 +60,21 @@ NOT_A_SHA = {"deadbeef", "cafebabe"}
 # it says "this identifier is discussed, not relied upon". Never add a SHA here
 # to silence a failure -- a citation that a finding actually RESTS on must be
 # remapped to a real commit instead.
+# Region markers for SHAs that are DISCUSSED, not relied upon: the left column
+# of a remap table, a quoted historical reference, a correction notice. lacan's
+# point is that this distinction is POSITIONAL and no automated check can make
+# it -- a superseded SHA in a mapping row is indistinguishable by grep from a
+# live citation. So the author declares it and the tool enforces the
+# declaration, which is the only division of labour that works: the tool cannot
+# infer intent, and an author who must remember to run a check will not.
+#
+#   <!-- citation-check: historical -->   ... SHAs here are not verified ...
+#   <!-- citation-check: end -->
+#
+# Everything outside such a region is a live citation and must resolve.
+HISTORICAL_OPEN = "<!-- citation-check: historical -->"
+HISTORICAL_CLOSE = "<!-- citation-check: end -->"
+
 DOCUMENTED_NONEXISTENT = {
     "5e0e5a3": "fabricated in F39; cited only in its own correction notice, "
                "which states it never existed. Real commit: 2b58732.",
@@ -66,11 +94,47 @@ def classify(sha):
     return "ORPHANED", subject
 
 
+def check_pin():
+    """Re-validate the whole inventory in one command. See PIN above."""
+    if subprocess.run(["git", "cat-file", "-e", f"{PIN}^{{commit}}"],
+                      capture_output=True).returncode != 0:
+        print(f"PIN {PIN[:7]} NO LONGER EXISTS -- history was rewritten.")
+        return False
+    ok = subprocess.run(["git", "merge-base", "--is-ancestor", PIN, "HEAD"],
+                        capture_output=True).returncode == 0
+    head = git("rev-parse", "--short", "HEAD").stdout.strip()
+    if ok:
+        print(f"pin {PIN[:7]} is an ancestor of HEAD {head} -- "
+              f"every verification below still stands (append, not rewrite).")
+    else:
+        print(f"PIN {PIN[:7]} IS NOT AN ANCESTOR of HEAD {head}. History was "
+              f"REWRITTEN; every citation needs re-verification.")
+    return ok
+
+
 def main():
+    if "--pin" in sys.argv:
+        return 0 if check_pin() else 1
+    pin_ok = check_pin()
+    print()
     cites = {}
     for d in ("findings", "docs"):
         for f in sorted(pathlib.Path(d).glob("*.md")):
-            for m in SHA_RE.finditer(f.read_text()):
+            text = f.read_text()
+            # Blank out declared-historical regions so their SHAs are not
+            # treated as claims. Replaced with spaces to preserve offsets.
+            out, i = [], 0
+            while True:
+                a = text.find(HISTORICAL_OPEN, i)
+                if a < 0:
+                    out.append(text[i:]); break
+                b = text.find(HISTORICAL_CLOSE, a)
+                if b < 0:
+                    out.append(text[i:a]); break
+                out.append(text[i:a]); out.append(" " * (b + len(HISTORICAL_CLOSE) - a))
+                i = b + len(HISTORICAL_CLOSE)
+            text = "".join(out)
+            for m in SHA_RE.finditer(text):
                 s = m.group(1)
                 if s not in NOT_A_SHA and s not in DOCUMENTED_NONEXISTENT:
                     cites.setdefault(s, set()).add(f"{d}/{f.name}")
@@ -89,6 +153,8 @@ def main():
         print(f"{sha:10s}{status:13s}{note}")
 
     print(f"\n{len(cites) - len(bad)} of {len(cites)} citations resolve in HEAD's history")
+    if not pin_ok:
+        return 1
     if bad:
         print("\nNOT VERIFIABLE BY A READER:")
         for sha, status, files in bad:
