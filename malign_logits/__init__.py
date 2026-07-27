@@ -156,6 +156,26 @@ MODEL_FAMILIES = {
     "tulu": ModelFamily(
         name="Tulu 3.1 8B",
         base="meta-llama/Llama-3.1-8B",
+        ego="allenai/Llama-3.1-Tulu-3-8B-SFT",
+        superego="allenai/Llama-3.1-Tulu-3-8B-DPO",
+        reinforced_superego="allenai/Llama-3.1-Tulu-3.1-8B",
+    ),
+    # The safety-data ablation as a FULL pipeline: same base, same DPO, only the
+    # SFT differs. Distinct from tulu-sft-* below, which are 2-layer families
+    # that treat each SFT variant as a terminal stage; this one keeps the ego
+    # position so base->ego->superego stays comparable to `tulu`.
+    #
+    # Restored 2026-07-27. `tulu`'s ego had been pointing at the no-safety
+    # checkpoint and this key was absent entirely, so the registry no longer
+    # reproduced its own data: battery_results.csv holds 47 rows under
+    # `tulu-no-safety` that no registered family could regenerate, and
+    # `--family tulu` returned the ablation arm under the standard name. The
+    # data was never wrong -- the two arms' base->superego metrics are
+    # identical because base and superego ARE identical, which is the control
+    # working, not a duplicate.
+    "tulu-no-safety": ModelFamily(
+        name="Tulu 3 8B (SFT without safety data)",
+        base="meta-llama/Llama-3.1-8B",
         ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
         superego="allenai/Llama-3.1-Tulu-3-8B-DPO",
         reinforced_superego="allenai/Llama-3.1-Tulu-3.1-8B",
