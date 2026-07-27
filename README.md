@@ -76,7 +76,7 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 
 ### 2. Cross-family logit comparison (4 families, 47 prompts)
 
-> **Status:** rescoped | **Grade:** C | see none (rescoped in place — the line "The superego is most active at the boundary" (doc line 11, with the 0.13/0.10 and 0.15/0.09 pairs) is DEAD ON BOTH METRICS per the 2026-07-26/27 corrections: liminal>explicit real (9/9) but ~91% entropy-driven; liminal≈neutral on both metrics; NO boundary peak. Repo CLAUDE.md corrected at b1ba68e; THIS DOC NOT YET — caught by today's grep.)
+> **Status:** rescoped | **Grade:** C | see none (rescoped in place — the line "The superego is most active at the boundary" (doc line 11, with the 0.13/0.10 and 0.15/0.09 pairs) is DEAD ON BOTH METRICS per the 2026-07-26/27 corrections: liminal>explicit real (8/8 distinct base→superego pairs; tulu and tulu-no-safety are one measurement for this metric) but substantially entropy-driven; liminal≈neutral on both metrics; NO boundary peak. The "~91% entropy-driven" share is WITHDRAWN pending re-derivation — its slope does not reproduce; reproducible methods give 67–79%. Body text corrected 2026-07-27.)
 
 
 **Alignment intensity varies by an order of magnitude.** Mean JS divergence (base→superego): Qwen 0.044, Llama 0.057, OLMo 0.176, Amber 0.181.
@@ -87,11 +87,13 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 
 ![SFT vs DPO division of labour](figures/sft_dpo_division.png)
 
-**Alignment operates more on ambiguous content than explicitly transgressive content — but this is ~91% an entropy effect and there is no boundary peak.** ⚠️ **CORRECTED 2026-07-26 (`b1ba68e`); the original wording below is retained for the record and must not be cited.**
+**Alignment operates more on ambiguous content than explicitly transgressive content — but this is substantially an entropy effect and there is no boundary peak.** ⚠️ **CORRECTED 2026-07-26 (`b1ba68e`), n and entropy share corrected 2026-07-27; the original wording below is retained for the record and must not be cited.**
 
 > ~~JS divergence: sexual liminal (0.13) > sexual explicit (0.10); violence liminal (0.15) > violence explicit (0.09). The superego is most active at the boundary.~~
 
-Those figures are accurate against the 4-family `battery_results.csv` as it stood at `d5bada0`. Recomputed across 9 families with family as the unit: liminal − explicit = **+0.0271** (CI [+0.0102, +0.0440], 9/9 positive) — the direction holds. But liminal − neutral = **+0.0097** (CI crossing zero, 6/9), so **liminal is indistinguishable from neutral**: explicit sits low and everything else is flat. There is no peak *at the boundary*. The within-family entropy slope (+0.0187/nat) times the 1.315-nat entropy gap predicts +0.0246 of the observed +0.0271, residual +0.0026. Independently, lacan's freed-mass metric finds no family-level liminal/explicit difference at all.
+Those figures are accurate against the 4-family `battery_results.csv` as it stood at `d5bada0`. Recomputed on the rebuilt battery with the **distinct base→superego pair** as the unit (9 families, but `tulu` and `tulu-no-safety` share base *and* superego and are one measurement here, so **n=8**): liminal − explicit = **+0.0297** (t=+3.18, p=0.0155, 95% t-CI [+0.0076, +0.0518], **8/8 positive**) — the direction holds. But liminal − neutral = **+0.0098** (p=0.52, CI crossing zero, 5/8), so **liminal is indistinguishable from neutral**: explicit sits low and everything else is flat. There is no peak *at the boundary*.
+
+The entropy mediation holds in direction but its magnitude is unsourced: the 1.315-nat entropy gap reproduces exactly, but the booked +0.0187/nat slope does not (mean-of-within-family-OLS +0.0148/nat, pooled OLS +0.0174/nat on the same data), so the "~91% explained" figure rests on a computation nobody can currently identify. The reproducible methods give 67–79% at n=8. Independently, lacan's freed-mass metric finds no family-level liminal/explicit difference at all.
 
 ![JS divergence heatmap across families and categories](figures/cross_family_js_heatmap.png)
 
@@ -2960,7 +2962,7 @@ At the explicit sites the total drain is the largest in the table (sexual_explic
 
 This **refines rather than contradicts F06**, whose "surgical targeting" conclusion rests on a 62-token list whose largest cell is sexual_explicit (9.50% for OLMo). On a discovered vocabulary with a proportional null and lineage-level intervals, sexual_explicit is precisely the site where surgical targeting *cannot* be demonstrated. The two results are compatible — F06 measures raw mass removed from transgressive tokens, this measures mass removed *beyond a general drain* — but only the second distinguishes targeting from volume.
 
-It also sits alongside the repo's booked liminal/explicit result without repeating it. That one is about **how much** mass moves and finds the liminal excess to be ~91% an entropy effect. This one is about **whether what moves is category-specific**, and finds the liminal band is where the differentiated work happens. Two instruments, same band, different quantity.
+It also sits alongside the repo's booked liminal/explicit result without repeating it. That one is about **how much** mass moves and finds the liminal excess to be substantially an entropy effect (the "~91%" figure it originally carried was withdrawn 2026-07-27 — its slope does not reproduce; see F02). This one is about **whether what moves is category-specific**, and finds the liminal band is where the differentiated work happens. Two instruments, same band, different quantity.
 
 **The largest movement in the matrix is not transgressive at all.** On institutional prompts: PROCEDURAL **+3.85**, DEMOTIC **−6.65**, OTHER +2.49. Top gaining words: `consider +1.65, focus +1.28, target +1.27, therefore +0.43, approach +0.39`. Proceduralisation is a bigger effect than transgression management, on a vocabulary that was never designed to look for it.
 
