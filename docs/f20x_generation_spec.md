@@ -208,3 +208,83 @@ already in `f20x_subject_beams.py` rather than inventing a second one.
 Partial results may be **read** as they arrive. They may not be **reported** as
 the result until the roster completes or the run is declared stopped, and if it
 is stopped early the write-up says at which family and why.
+
+***
+
+## Amendment 2, 2026-07-27: the LLM classifier, and four audit conditions
+
+RH proposed adding a purpose-built LLM annotator: a Task for the stability of
+the "I", and LLM annotation of what regex currently does. Audited by malign per
+the registration → second-seat audit → go process, since this spec's author
+cannot audit it. **Approved with four conditions, all binding, all below.**
+
+### The defect that changes the case for this amendment
+
+The argument for adding an LLM rested partly on the curly-apostrophe defect,
+cited in the past tense as *found and fixed*. The audit found it is **live**:
+
+| | |
+|---|---|
+| `scripts/f20x_kinship_analyse.py` | folds `[‘’ʼ´′]` — repaired |
+| `scripts/f20x_analyse.py` | `(I am\|I'm\|My name is\|This is)` — **ASCII only** |
+
+`f20x_analyse.py` computed the published `P_self` figures. So those figures were
+produced by an instrument still carrying the defect its own author documented and
+repaired in the file next door.
+
+**And the bias runs opposite to what was claimed.** The stated reason was that the
+defect is "biased against base arms, because base models emit curly quotes more."
+The premise is true — among apostrophe-bearing beams, 19.53% are curly at base
+against 6.90% at superego. **The consequence does not follow.** Base text barely
+self-predicates (0.088 against superego's 0.180), so there are far fewer
+self-predications there to miss. Repairing the pattern raises the *aligned* arms
+more than base, confirmed independently at this seat.
+
+**Repairing the defect therefore WIDENS the base-to-aligned gap.** The published
+direction is *understated*, not threatened. A correct premise carrying a wrong
+conclusion, which is why it survived: it sounded right.
+
+### Condition A — declare which regex, and do not mix them
+
+The amendment's purpose is that "regex is the comparable instrument." The beam
+figures were computed with the **defective** pattern. Classifying generations
+with a *repaired* regex and comparing against published beam numbers readmits the
+instrument confound this design exists to exclude.
+
+**Resolution adopted: repair first, recompute the beam figures, then use the
+repaired pattern everywhere.** Carrying a known defect forward to preserve
+comparability with a defective number is the wrong trade, and the repair
+strengthens rather than threatens the result. The recomputed beam figures are
+published beside the originals, never silently substituted.
+
+*This restates a figure inside a published finding and is flagged for RH rather
+than assumed.*
+
+### Condition B — stratify the beam sample by arm
+
+Instrument error here is **arm-dependent**, as demonstrated above and in the
+direction nobody predicted. An unstratified agreement sample averages a
+differential error into one number and hides the property that matters.
+
+### Condition C — report LLM-vs-LLM agreement on the same sample
+
+Without a self-agreement ceiling, "regex and the LLM disagree by X" is
+uninterpretable: X could be instrument disagreement or the LLM's own run-to-run
+variance. A disagreement below the self-agreement floor is not evidence about
+regex at all.
+
+### Condition D — kappa or per-class recall, never raw percent
+
+`P_self` positives are ~9–18% of beams, so a classifier answering "no" to
+everything scores 82–91% raw agreement. F38 already uses kappa.
+
+### Approved without condition
+
+The **separate Task**. `subject_stability` stays untouched inside
+`score_passage_narratology.py`: it is F38's, validated for narrative passages,
+and re-purposing a validated instrument mid-study is how it stops meaning one
+thing.
+
+And the frame that neither instrument audits itself. Today supplies the argument
+for running **both** rather than swapping: a regex defect is findable by reading
+four lines, and the audit just found one its author believed fixed.
