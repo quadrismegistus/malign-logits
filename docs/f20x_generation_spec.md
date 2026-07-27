@@ -93,6 +93,11 @@ a finding about window length and is reported as one.
 
 ### H1 (RH). Generation largely confirms the beams.
 
+> **⚠ THE TABLE BELOW IS SUPERSEDED. See Amendment 4.** Every figure in it was
+> withdrawn as permanently unrecomputable on 2026-07-27 and replaced by a
+> twice-verified re-measurement. The directional predictions survive unchanged;
+> the magnitudes do not, and own-lab naming differs by 65%. Do not cite these.
+
 At `dyad_qa`, base → terminal aligned, over the 23 paired base models
 (each test stating its own n, per Amendment 1):
 
