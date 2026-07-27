@@ -202,13 +202,17 @@ def run(smoke=False, only=None):
     print(f"roster: {len(fams)} families, {len({f['base'] for f in fams})} distinct bases")
     print("  first six: " + ", ".join(f["key"] for f in fams[:6]))
 
-    sink, cell = [], 0
+    sink, failures, cell = [], [], 0
     for fi, f in enumerate(fams, 1):
         for arm, mid in (("base", f["base"]), (f["slot"], f["aligned"])):
             try:
                 model, tok = load_model(mid)
             except Exception as e:
                 print(f"  SKIP {f['key']}/{arm}: {e}")
+                failures.append(dict(family=f["key"], arm=arm, model_id=mid,
+                                     base_model_id=f["base"], prompt=None,
+                                     temperature=None, seed=None,
+                                     error=f"load failed: {str(e)[:280]}"))
                 continue
             for pk, q in prompts.items():
                 for temp in temps:
@@ -217,7 +221,18 @@ def run(smoke=False, only=None):
                     try:
                         gens = sample(model, tok, RUNG.format(q=q), n, temp, seed)
                     except Exception as e:
+                        # Recorded in the OUTPUT, not only on stdout. A family
+                        # that is simply absent from the parquet reads as "no
+                        # data"; it means "unknown", and those are different
+                        # outcomes. Any check that collapses unknown into
+                        # either pass or fail lies at the rate the unknown
+                        # occurs -- which for MoE families on this hardware is
+                        # every single cell.
                         print(f"  FAIL {f['key']}/{arm}/{pk}/T{temp}: {e}")
+                        failures.append(dict(
+                            family=f["key"], arm=arm, model_id=mid,
+                            base_model_id=f["base"], prompt=pk,
+                            temperature=temp, seed=seed, error=str(e)[:300]))
                         continue
                     for g in gens:
                         sink.append(dict(
@@ -238,8 +253,18 @@ def run(smoke=False, only=None):
         df.to_parquet(OUT, compression="zstd", index=False)
         print(f"  [{fi}/{len(fams)}] {f['key']}: {len(sink):,} rows -> {OUT}")
 
+    if failures:
+        pd.DataFrame(failures).to_parquet(
+            OUT.replace(".parquet", "_failures.parquet"),
+            compression="zstd", index=False)
+        n_cells = len(failures)
+        fams = sorted({f["family"] for f in failures})
+        print(f"\n  {n_cells} FAILED CELLS across {len(fams)} families: "
+              f"{', '.join(fams)}")
+        print(f"  recorded in {OUT.replace('.parquet', '_failures.parquet')} -- "
+              f"absent rows in the main file are explained there, not silent")
     with open(OUT.replace(".parquet", "_provenance.json"), "w") as fh:
-        json.dump(prov, fh, indent=2)
+        json.dump({**prov, "failed_cells": len(failures)}, fh, indent=2)
     return sink
 
 
