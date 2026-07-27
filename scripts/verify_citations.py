@@ -48,7 +48,15 @@ import sys
 # So the cheap check is ON THE PIN, not on every citation -- one merge-base
 # call re-validates the whole inventory, and it fails loudly exactly when a
 # rewrite has happened, which is when re-verification is genuinely owed.
-PIN = "f4b7810979b47dbcfc45416f356bf6f7afb10b72"
+#
+# THE OTHER HALF OF THAT SCOPE, and it bites immediately (lacan): a pin
+# validates only the citations that EXISTED WHEN IT WAS TAKEN. Growth does not
+# invalidate old verifications and it does not extend them either. A citation
+# added after the pin is outside its coverage and --pin will pass while saying
+# nothing about it. So RE-PIN AFTER ADDING CITATIONS. The full run below always
+# checks every citation against current HEAD, so the pin is a fast
+# revalidation, never a substitute for it.
+PIN = "5dd59a51e4e014bc45e3e58c9bcb2b6376fa87c5"
 
 SHA_RE = re.compile(r"`([0-9a-f]{7,40})`")
 # Hex-looking tokens that are not commits. Extend rather than loosening the regex.

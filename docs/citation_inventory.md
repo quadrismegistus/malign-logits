@@ -1,6 +1,8 @@
 # Commit-citation inventory — frozen final history
 
-**HEAD `f4b7810` (`f4b7810979b47dbcfc45416f356bf6f7afb10b72`). Verified 2026-07-27 13:51 local.**
+**Pinned to `5dd59a5` (`5dd59a51e4e014bc45e3e58c9bcb2b6376fa87c5`), re-verified 2026-07-27 14:09 local.**
+
+Re-pinned from `f4b7810` after that pin was found not to cover the session's last commits — F39's status closure at `a25374b` is five minutes later than the old pin and sat outside it (lacan). **A pin validates only the citations that existed when it was taken**: growth does not invalidate old verifications and does not extend them either. Re-pin after adding citations; `scripts/verify_citations.py --pin` revalidates the whole set in one call, and the full run always checks every citation against current `HEAD`.
 
 A SHA verification expires when history is rewritten (lacan): a commit
 verified at 13:30 today was orphaned by 13:50. This inventory is valid
