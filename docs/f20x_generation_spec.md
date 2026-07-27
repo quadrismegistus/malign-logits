@@ -669,3 +669,29 @@ both of which are recorded in
 The first pass's 22-family partial is preserved at
 `data/f20x_generations_partA_25fam.parquet` so this claim stays auditable after
 the resumed run extends the main file.
+
+### Addendum to Amendment 6: the generations were not in the cache
+
+RH caught this and it is a rule 15 instance of the worst kind. `f20x_generate.py`
+writes a parquet and never calls `set_generation`. For the whole of the first
+pass, the only copy of ~10,500 completions -- several GPU-hours, several of them
+from models that will not load on this machine again -- was one file.
+
+Backfilled by `scripts/f20x_generations_to_cache.py`, verified by reading every
+draw back rather than by counting writes: 11,040 of 11,040 exact, 0 missing, 0
+mismatched, matching the parquet row for row.
+
+**Two required actions, recorded here rather than remembered:**
+
+1. **Run the backfill again when the roster finishes.** Pass 2 is still writing
+   and its later families are not yet cached.
+2. **Patch `f20x_generate.py` to cache inline**, AFTER the run. It is deliberately
+   not being patched mid-run: pass 2's provenance was captured against c4e8d76,
+   and editing the running script would leave a reader unable to tell which bytes
+   produced which rows.
+
+The first version of the backfill deduplicated on content and silently dropped 96
+genuinely repeated draws -- identical short completions sampled twice at
+temperature 0.7 -- reporting 10,464 against the parquet's 10,560. A cache that
+drops repeated draws misrepresents exactly the high-probability region it exists
+to preserve. Reconciled by cell instead, and the script now reads every draw back.
