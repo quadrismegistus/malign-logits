@@ -404,3 +404,38 @@ had the row moving.
 cells, stronger than the withdrawn +0.145 but still the weak row, and inventing
 a prediction for it now — after seeing it improve — would be the exact move this
 document exists to prevent.
+
+---
+
+## Run log, 2026-07-27: olmoe is a hardware exclusion, not attrition
+
+Written during the run, at the peer seat's request, before any generation
+aggregate exists at any seat. This records an observed mechanical failure. It
+does not amend the registration, and it is here rather than in a commit message
+because the population a result is computed over should be legible in the
+document the result is registered against.
+
+**`olmoe` fails every cell on this hardware.** All 16 of its cells — 2 arms x 4
+prompts x 2 temperatures — raise the same error inside `model.generate`:
+
+    "histogram_mps" not implemented for 'Int'
+
+An unimplemented MPS kernel for the mixture-of-experts routing path. It is the
+model and the backend, not the prompt, the seed, or the temperature: it failed
+identically in the smoke test on 2026-07-27 at 17:10 and again in the full run,
+across every cell both times, and no other family has failed a cell so far.
+
+**So the effective roster is 48 families / 38 distinct base models**, and a
+reader who later sees 48 where the registration says 49 should read a load-path
+limitation with a named cause, not a family that produced weak data and left.
+Every failed cell is written to `data/f20x_generations_failures.parquet` with its
+error string, precisely so that an absent family means *unknown* rather than
+*nothing* — and so that any check collapsing unknown into pass or fail is
+visibly wrong rather than quietly wrong.
+
+**This is a hardware exclusion and not a defensible scientific one.** OLMoE is
+the only sparse-MoE family in the roster, so what drops out is not a random unit:
+it is the entire architecture class. Nothing in this run licenses a claim about
+MoE models, and no aggregate here should be described as covering the registry.
+If the question matters, it needs a machine with a working kernel, not a
+footnote.
