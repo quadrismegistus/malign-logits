@@ -23,7 +23,18 @@ restores independence **by construction**, which is why the construct grid needs
 no blockwise estimator.
 
 Three constructs survived the enumeration of 62 attested candidates. Within each,
-the **lowest-MDE pair is taken**.
+the **lowest-MDE pair is taken** — a rule **adopted contemporaneously with the
+ranking**, and **outcome-blind by construction: counts only, no `D` computed for
+any marker.** (RH's wording, 2026-07-27.)
+
+The second clause is verifiable, not a mitigation offered on trust. MDE is
+`2.49 × sqrt(1/c_s + 1/r_s + 1/c_t + 1/r_t)` — a function of four corpus counts
+and nothing else. It cannot be evaluated on, and carries no information about,
+the direction or size of any `D`. So while the rule cannot be shown to predate
+the ranking (below), it also could not have been steered toward a wanted result:
+the quantity it ranks on was computable before any outcome existed, and no
+outcome existed to steer toward, since no `D` had been computed for any marker
+on the slate and none has been now.
 
 ### The within-construct rule is contemporaneous with the ranking, not prior to it
 
