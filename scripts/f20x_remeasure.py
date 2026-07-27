@@ -87,6 +87,12 @@ MEASURES = [
     ("P_self", None), ("AI-ness", "P_self"), ("human any", "P_self"),
     ("human role", "P_self"), ("human name", "P_self"),
     ("biography", "P_self"), ("own name", "P_self"),
+    # Added 2026-07-27 after the primary run, at malign's proposal and put
+    # through the SAME 8-cell grid as everything else rather than reported from
+    # the single cell it was noticed in. Its own pooled version was an artifact
+    # -- a few high-mass families carried an "other's name" collapse that did
+    # not survive the paired unit -- so the grid is the test, not the anecdote.
+    ("names", "P_self"), ("other's name", "P_self"),
 ]
 
 
