@@ -232,3 +232,10 @@ logs/
 draft/
 *.bak
 data/models/
+
+# F37 stash exports: 110 MiB and 103 MiB, both over GitHub's 100 MiB hard
+# limit, so tracking them makes the repository unpushable. Stripped from the
+# unpushed history on 2026-07-27 (RH's call) and kept on disk. Regenerate via
+# the F37 stash export path; cite as local-only artifacts in findings.
+data/f37_stash_generations.jsonl
+data/f37_stash_generations_scored.csv
