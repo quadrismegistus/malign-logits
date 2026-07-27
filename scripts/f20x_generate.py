@@ -32,11 +32,28 @@ silently spoil the run if done the obvious way instead:
    one the analysis uses is the analysis's declared choice, not a silent default
    made here.
 
-3. THE UNIT IS THE DISTINCT BASE MODEL. 29 families carry both arms; they
-   collapse to 23 base models via a six-deep Llama cluster and a two-deep Olmo
-   one. This file records `base_model_id` on every row so the dedup is available
-   at analysis time and cannot be forgotten. Rule 2's fifth instance was exactly
-   this grid.
+3. THE UNIT IS THE DISTINCT BASE MODEL. 49 families carry both arms; they
+   collapse to 39 base models via three clusters, ENUMERATED rather than
+   remembered: Llama-3.1-8B 7-deep (llama, tulu, tulu-no-safety, and the four
+   tulu-sft ablations), pythia-2.8b 4-deep (the four archangel objectives), and
+   Olmo-3-1025-7B 2-deep (olmo, olmo-think). 49 - 10 = 39. This file records
+   `base_model_id` on every row so the dedup is available at analysis time and
+   cannot be forgotten. Rule 2's fifth instance was exactly this grid.
+
+   Note the archangel cluster: four families differing ONLY in preference
+   objective (dpo/kto/ppo/slic) over one base. Treated as one unit they are one
+   observation; treated as four they are rule 2's pseudo-replication with the
+   most tempting possible cover story.
+
+   These counts read 29/23 until 2026-07-27, matching the BEAM battery's roster
+   rather than this one's. Amendment 3 to the spec corrected the registration to
+   49/39 -- the beam grid needed a chat template and dropped families lacking
+   one, and `dyad_qa` needs none, so this run sees every family in the registry
+   that carries both arms. The docstring was not corrected with the spec and was
+   found stale on the launch check. Nothing behavioural depended on it: roster()
+   was always computed from MODEL_FAMILIES and never from these numbers, which
+   is exactly why a wrong comment could sit here through a registration, an
+   audit and four amendments.
 
 4. PROVENANCE IN THE OUTPUT (rule 15). The run records the commit it ran under,
    the blob hashes of its execution closure, and whether each matches HEAD. A
@@ -120,7 +137,7 @@ def classify(text: str) -> dict:
     }
 
 
-# ── Roster: 29 families with both arms, ordered highest value first ─────────
+# ── Roster: 49 families with both arms, ordered highest value first ─────────
 
 def terminal_arm(fam):
     for s in SLOTS:
