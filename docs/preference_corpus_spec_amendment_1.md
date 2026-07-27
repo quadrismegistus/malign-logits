@@ -271,6 +271,64 @@ optimum. That is an argument for wider construct enumeration on **granularity**
 grounds — weaker than the validity argument lacan made and withdrew, and offered
 as an observation rather than a recommendation.
 
+### A4f. The power lower bounds are pinned, and one of them will not hold still
+
+Desktop caught that `p85/2-of-3`'s power lower bound had been reported to two
+seats as **0.788** and **0.782** on different days. Both were resample noise
+around one quantity, but an amendment carries **one** number. The asymmetry
+behind it: the false-certification bounds had been seeded and committed since
+`a20ab74` because FC was the contested constraint; the power bounds were "just
+the floor check" and ran from an ad-hoc interactive session. A tool doing its job
+on one axis while the other ran bare, invisible while the two were discussed
+together.
+
+`scripts/tier2_power_bounds.py` (`05309ce`, **committed before running**) pins
+them: 200 replicates, seeds declared in the file, decoy pool resampled — not the
+Monte Carlo draws, since the alternative is the pool shifted by the anchor, so a
+pool resample propagates into both the threshold and the draws. Seed streams are
+distinct from the FC-bound streams so the two bounds are not driven by a shared
+resample.
+
+**Then the obvious question, asked because the number had already moved once:
+what is the sampling error of the bound itself?** 1,600 replicates in 8 disjoint
+blocks of 200, independent seed streams, each block yielding its own 2.5th
+percentile:
+
+| cell | mean lower 95% | sd | min | max | vs the 0.80 floor |
+|---|---|---|---|---|---|
+| p50 / 3-of-3 | **0.7594** | 0.0079 | 0.7433 | 0.7675 | **below in all 8 blocks** |
+| p80 / 2-of-3 | 0.8649 | 0.0029 | 0.8607 | 0.8700 | above in all 8 blocks |
+| p85 / 2-of-3 | **0.8043** | 0.0085 | 0.7898 | 0.8165 | **straddles — 5 of 8 above** |
+
+**Two consequences, one housekeeping and one not.**
+
+*Housekeeping.* The ruled cell's disclosure should carry **0.759 (sd 0.008 over
+1,600 replicates)**, not the 0.751 of the original ad-hoc run nor the 0.764 of
+the single seeded one. Neither was wrong; both were single draws quoted to four
+figures. The conclusion is unchanged and robust — p50/3-of-3's power floor is met
+on the point estimate (0.8039) and **not shown at the 95% bound in any block**.
+That gap is the disclosure's content and it does not soften.
+
+*Not housekeeping.* **`p85/2-of-3` sits on the threshold, not near it.** Its
+bound is centred at 0.8043 against a 0.80 floor, so whether it is "shown" is
+decided by the resample. This matters beyond bookkeeping because reading two —
+now standing policy for gates registered after 2026-07-27 — turns eligibility on
+exactly this test, and `p85/2-of-3` has the **lowest false certification of any
+cell that could ever be eligible** (0.0145, against p80/2-of-3's 0.0240). So
+reading two's selection is **indeterminate at this resolution**: p85/2-of-3 when
+the bound lands high, p80/2-of-3 when it lands low. The worked example recorded
+in the ruling and the ledger as "reading two selects p80/2" is right by
+convention, not by computation, and the convention had not been stated.
+
+**Recommended addition to the rider, offered because the policy as adopted has no
+stated resolution.** A shown-satisfied precondition should require (i) a declared
+replicate count and seed, committed before the run, and (ii) that a bound
+straddling the floor at that resolution counts as **not shown**. Limb (ii)
+resolves straddle in the protective direction, which is the direction reading two
+exists to serve, and it preserves the already-booked answer: under it reading two
+selects p80/2-of-3, as recorded. Without it, a coin flip decides eligibility and
+the policy inherits the instability it was adopted to remove.
+
 ## A5. Gate parameters unchanged — and valid for the first time
 
 **A defect in the v1 gate that nobody caught, including nine audit rounds**

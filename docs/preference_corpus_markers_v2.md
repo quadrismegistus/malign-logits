@@ -23,8 +23,53 @@ restores independence **by construction**, which is why the construct grid needs
 no blockwise estimator.
 
 Three constructs survived the enumeration of 62 attested candidates. Within each,
-the lowest-MDE pair is taken — a rule fixed before the pairs were ranked, not a
-selection among them.
+the **lowest-MDE pair is taken**.
+
+### The within-construct rule is contemporaneous with the ranking, not prior to it
+
+An earlier draft of this document called that "a rule fixed before the pairs were
+ranked, not a selection among them." **That claim is withdrawn: it cannot be
+dated, and the dating runs the wrong way.** lacan applied the same check malign
+passed for `POWER_MIN`, and the answer is unfavourable — the ranked table with
+all seven MDEs is committed at `13f5efe`, 2026-07-26 22:54; the lowest-MDE rule
+first appears in any committed artifact at `12df45a`, 2026-07-27 11:17, twelve
+and a half hours *after* the ranking existed. `POWER_MIN` had eleven hours
+*before* the cells. A search of the repository for any earlier statement of the
+rule — `git log -S` over `docs/` and `scripts/`, the slate documents at
+`778ea36` and `13f5efe`, and any code selecting by MDE — returns nothing. **No
+prior dating exists.** The rule may sit undated in the peer record, as
+`FC_MAX = 0.10` does; that is not evidence and is not offered as any.
+
+**Direction, stated because it is against the gate's own purpose.** Lowest-MDE
+selects the best-powered pair in each construct (`require` 0.092 over `force`
+0.104 and `demand` 0.160; `entirely` 0.136 over `totally` 0.149 and `completely`
+0.155). Better-powered markers are more likely to clear the floor, so the rule
+makes the gate **easier to certify**, under an objective whose purpose is to make
+certification harder. A highest-MDE rule would have given
+`demand`/`completely`/`angry`, all still under 0.174.
+
+**One correction to how the consequence was described, and it cuts both ways.**
+The mechanism initially proposed for this — that better-powered markers raise
+gate power, admitting more cells to the floor-clearing set and letting the
+minimum-FC selection reach a lower FC — **does not operate**. The committed grid
+(`20752e9`) computes both false certification and power from the decoy pool and
+the corpus anchor; **no marker MDE enters it**. The cells, their rates and their
+power are identical under every admissible slate, so the selection rule can
+neither admit nor exclude a cell, and the ruled cell's 0.004 margin above the
+power floor is untouched by it. What the rule does change is the *real* gate: which
+three markers are actually tested. The easing is real; the route is through the
+instrument, not the calibration.
+
+**What bounds the consequence.** The grid's power figure assumes the markers
+behave like decoy draws, so it is honest only if their sampling noise resembles
+the decoys'. Against the 1,054-pair decoy pool's closed-form SE distribution, all
+seven candidates sit in its **tighter half** — `require`→`prefer` at the 20th
+percentile, `demand`→`request` at the 49th, the rest between. Every admissible
+slate is therefore tighter than the pool the floor is calibrated on, which makes
+the stated power **conservative** for any of them. The maximum harm from the
+undated rule is the gap between a 20th-percentile slate and a 49th-percentile
+one, both on the conservative side. That bounds it; it does not repair it, and
+the rule stands disclosed rather than defended.
 
 ## The three markers
 
@@ -104,3 +149,17 @@ was published: `totally`→`fairly`, `completely`→`largely`, `force`→`encour
 but `force`→`encourage` and `demand`→`request` lost their construct slots to
 `require`→`prefer` on the lowest-MDE rule and are available as replacements if
 any marker above fails its attestation on review.
+
+**A replacement must show all three requirements, not inherit two of them**
+(lacan, finding 2). The clause above is correctly keyed — it triggers on
+attestation failure, the same predicate as the requirement it protects — but as
+first written it named replacements by power alone. `force`→`encourage` (0.104)
+and `demand`→`request` (0.160) are powered; **their band membership is stated
+nowhere**, and a swap on that basis could reintroduce exactly the
+frequency-comparability gap that invalidated the first constitution, where six of
+seven markers were out of band. So: **any replacement must independently show
+(a) attestation on external grounds, (b) in-band counts against 881–7,926, and
+(c) MDE below 0.174, each shown rather than asserted, before it enters the
+slate.** A candidate's presence on the enumeration list is not a substitute for
+(b): the list records that a pair was enumerated, not that its counts were
+checked and displayed.
