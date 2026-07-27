@@ -26,6 +26,8 @@ WHAT IT RECORDS, and why the third field is the load-bearing one:
     tree_clean    whether anything was uncommitted (lacan's ask)
     script_blob   git hash-object of the RUNNING FILE, and whether it equals
                   the blob at HEAD for that path
+    closure       the same check for every first-party file the run EXECUTES,
+                  not just the entry point
 
 `script_blob` is strictly stronger than `tree_clean`. A dirty tree does not
 imply the *cited script* differed; a clean tree is not needed if the script's
@@ -34,11 +36,31 @@ independent of unrelated edits elsewhere in the tree, so a checker can confirm
 the pre-registration claim from the artifact alone without trusting the author
 and without requiring the whole repository to have been pristine.
 
+WHY CLOSURE AND NOT JUST THE ENTRY POINT (lacan, and it lands on this
+project's own code). The blob check answers "did the cited commit's bytes run"
+for the file you launched. It says nothing about what that file executes at
+runtime. `scripts/tier2_gate_grid.py` -- the script whose commit is named as
+THE registration in the power-floor ruling -- does:
+
+    exec(open('scripts/tier2_power_check.py').read().split(...)[0])
+
+and the registered gate reaches the same code through `tier2_construct_grid`.
+Either file could be edited between commit and run while the entry point's
+blob matches HEAD perfectly, voiding the pre-registration guarantee with every
+check proposed today returning green. A check that passes on the script most
+needing it is not a check.
+
+Declared closure is EXPLICIT because it has to be: `exec(open(...).read())`
+leaves no trace in `sys.modules`, and neither does `exec_module` on a spec that
+was never registered -- which is exactly how the gate loads its grid. The
+`sys.modules` sweep is a safety net for ordinary imports, not the mechanism.
+
 Usage, three lines at the top of any run whose result will be pre-registered:
 
     from malign_logits.provenance import provenance
     ...
-    json.dump({"provenance": provenance(__file__), **results}, fh)
+    prov = provenance(__file__, closure=["scripts/thing_it_execs.py"])
+    json.dump({"provenance": prov, **results}, fh)
 """
 from __future__ import annotations
 
@@ -51,7 +73,8 @@ def _git(*args: str) -> str:
     return r.stdout.strip() if r.returncode == 0 else ""
 
 
-def provenance(script_path: str | None = None) -> dict:
+def provenance(script_path: str | None = None,
+               closure: "list[str] | None" = None) -> dict:
     """Provenance for a registered run. Never raises; degrades to nulls.
 
     Failure to determine provenance must not abort an expensive run, but it
@@ -87,6 +110,33 @@ def provenance(script_path: str | None = None) -> dict:
     at_head = _git("rev-parse", f"HEAD:{rel}")
     if p["script_blob"] and at_head:
         p["script_matches_commit"] = p["script_blob"] == at_head
+
+    # Everything else this run executes. Declared paths first; then a sweep of
+    # already-imported first-party modules, which catches ordinary imports but
+    # NOT exec'd source -- hence the declaration.
+    paths = list(closure or [])
+    import sys as _sys
+    for m in list(_sys.modules.values()):
+        f2 = getattr(m, "__file__", None)
+        if f2 and root and str(pathlib.Path(f2).resolve()).startswith(root + "/"):
+            paths.append(str(pathlib.Path(f2).resolve()))
+    seen, cl = set(), []
+    for q in paths:
+        qp = pathlib.Path(q).resolve()
+        try:
+            qrel = str(qp.relative_to(root)) if root else str(qp)
+        except ValueError:
+            continue
+        if qrel in seen or qrel == rel:
+            continue
+        seen.add(qrel)
+        blob = _git("hash-object", str(qp)) if qp.exists() else ""
+        head = _git("rev-parse", f"HEAD:{qrel}")
+        cl.append(dict(path=qrel, blob=blob or None,
+                       matches_commit=(blob == head) if (blob and head) else None))
+    p["closure"] = sorted(cl, key=lambda d: d["path"]) or None
+    p["closure_matches_commit"] = (
+        all(c["matches_commit"] for c in cl) if cl else None)
     return p
 
 
@@ -102,4 +152,10 @@ def describe(p: dict) -> str:
     elif m is False:
         bits.append(f"*** {p['script']} DIFFERS FROM HEAD -- "
                     f"the cited commit is not what ran ***")
+    cl = p.get("closure") or []
+    bad = [c["path"] for c in cl if c["matches_commit"] is False]
+    if bad:
+        bits.append(f"*** CLOSURE DIFFERS FROM HEAD: {', '.join(bad)} ***")
+    elif cl:
+        bits.append(f"closure {len(cl)} file(s) match HEAD")
     return "provenance: " + ", ".join(bits)

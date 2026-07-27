@@ -142,7 +142,11 @@ def main():
                     help="also run the chain-pair verdict; REFUSED if the gate fails")
     a = ap.parse_args()
 
-    prov = provenance(__file__)
+    # Declared because neither is visible to a sys.modules sweep: the grid is
+    # loaded via exec_module on an unregistered spec, and it in turn exec()s
+    # tier2_power_check.py's source inside decoy_pool().
+    prov = provenance(__file__, closure=["scripts/tier2_construct_grid.py",
+                                        "scripts/tier2_power_check.py"])
     print(describe(prov))
 
     out = {"provenance": prov}

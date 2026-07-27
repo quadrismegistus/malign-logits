@@ -1,0 +1,22 @@
+#!/bin/sh
+# Block session links from leaving the machine. RH's standing rule: Claude
+# conversation/session links must never appear in anything public.
+#
+# WHY A HOOK AND NOT A HABIT. On 2026-07-27 a pre-push check was run by hand
+# and passed -- because it scoped to origin/main..HEAD, the UNPUSHED range,
+# and returned a clean zero while 297 such trailers sat in already-public
+# history. The rule is about what is PUBLIC, not about what is new. A check
+# that must be remembered, and whose scope must be chosen correctly each time,
+# is not a check.
+#
+# Scope here is deliberately the commits BEING PUSHED. Pre-existing history is
+# a separate, one-time decision; this hook exists so the set never grows.
+range=$(git rev-list "$2".."$1" 2>/dev/null || git rev-list HEAD)
+hits=$(git log --format='%H%n%s%n%b' $range 2>/dev/null \
+       | grep -icE 'claude\.ai/code/session|Claude-Session:')
+if [ "${hits:-0}" -gt 0 ]; then
+    echo "PUSH BLOCKED: $hits session-link reference(s) in the commits being pushed."
+    echo "Remove the Claude-Session trailers before pushing (git rebase or amend)."
+    exit 1
+fi
+exit 0
