@@ -1,10 +1,11 @@
 ---
-status: verified-pending-reverification
+status: verified
 grade: B
 date: 2026-07-27
 role: addendum
 verification: "STATUS MOVED 2026-07-27 on RH's ruling (\"Sure verified-pending-reverification but can we fix script and reverify?\"), relayed by lacan. THE HEADLINE TABLE DOES NOT RECOMPUTE. Found three ways, independently: (1) scripts/f20x_analyse.py, cited here, CRASHES -- it filters arms for {base, aligned} while f20x_beams.parquet carries base/ego/superego/reinforced_superego, so the set condition is unsatisfiable and the frame empties (lacan); (2) repaired with a one-line stage collapse it runs and reports 30 families, matching this finding, but emits no identity table at all, and no other script in the repository or in git history emits one either (malign); (3) the producing instrument was found uncommitted in a session scratchpad -- build_reader.py, whose seven flag keys ARE this table's seven rows -- and it returns different magnitudes: AI-ness 0.225->0.452 against the published 0.153->0.410 (lacan). Confirmed from the data side across four aggregation readings, none landing on the published values, with lacan's classifier imported unchanged so only aggregation varied (malign). The published COHORT is reconstructible -- 23 base-deduped families minus the documented smol exclusion is exactly 22 -- and under that exact cohort the figures still miss, moving further away rather than closer, so the residual is not a cohort effect. NOT A CLAIM THAT THE NUMBERS ARE WRONG: directions are right and large in every reading, and the P_self row reports its own null at p=0.222. The claim is that they do not currently recompute from anything anyone can run. Re-derivation in progress: lacan commits the extracted classifier and repairs the three known analyser defects (arm filter, bare ^ anchor, ASCII-only apostrophe); malign verifies independently against the committed module without lacan's aggregation code, since the author cannot be the one who finds their own finding was fine. Registered in advance: if no declared combination of measure mapping, cohort and aggregation lands on 0.153->0.410, the figures came from a data state or instrument that no longer exists and this finding is RESCOPED on the evidence rather than repaired."
-description: "Expansion of F20 to 24 distinct base models and 556k beams at a plain 'Q: ... A:' rung with no roles, no special tokens and no category word. WHAT IS ROBUST: alignment swaps what the first person predicates, from a human life to the AI category (human 0.312->0.080, AI 0.153->0.410, own-lab naming 0.009->0.093), each significant in 8 of 8 analysis specifications; 21 of 22 base models name their own lab in exactly 0.000 of self-predicating mass. WHAT IS NOT: the rate of self-predication rises only weakly and specification-sensitively (positive in 8/8 point estimates, significant in 5; honest deduplicated estimate +0.145 n.s.), and the earlier null was RETRACTED as the maximum-p cell of an unrun grid. KILLS three parent claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading built on it. Measured on: hh-independent; 30 families, 72 arms, beam search n=100 depth 10."
+reverified: "CLOSED 2026-07-27. The re-measurement ran (scripts/f20x_remeasure.py, registered at b8997c4 before running, executed at fda2bca with clean provenance) and was re-run independently at the non-author seat, reproducing the primary cell and the 8-cell robustness column TO THE DIGIT. The claims survive and are stronger than in their published form: AI self-attribution up and human self-description down, both p=0.0001, both 8 of 8 specifications, direction never reversing at any weighting or dedup. P_self remains the weak row at 6 of 8, which is what this finding already said about itself. ONE ROW IS WITHDRAWN: 'gives a human name' is 0 of 8 significant and direction-inconsistent, and the measure is demonstrably alive (fires on 9.8% of beams, hits are clean), so the null is a property of the world rather than of the instrument -- checked at the second seat specifically because a seat reporting its own finding wrong should be audited as hard as one reporting a confirmation. Every figure differs from the published table, declared in advance as the expected outcome. The instrument is now committed at scripts/f20x_identity.py and was verified at the second seat as a faithful extraction: zero flag disagreements across 28,100 beams. Repair by re-measurement, not by archaeology."
+description: "Expansion of F20 to 24 distinct base models and 556k beams at a plain 'Q: ... A:' rung with no roles, no special tokens and no category word. FIGURES RE-MEASURED 2026-07-27 and verified at a second seat; the originally published ones are permanently uncitable (computed on a frame that is not the published artifact). WHAT IS ROBUST: alignment swaps what the first person predicates, from a human life to the AI category (human 0.468->0.199, AI 0.235->0.509, own-lab naming 0.009->0.153), each p=0.0001-0.0015 and significant in 8 of 8 specifications with direction never reversing. WHAT IS NOT: the rate of self-predication rises weakly and specification-sensitively (+0.182, p=0.098, 6 of 8), and the earlier null was RETRACTED as the maximum-p cell of an unrun grid. ONE ROW WITHDRAWN: 'gives a human name' is 0 of 8 and direction-inconsistent, so the human story is carried by role and life story, not by naming. KILLS three parent claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading built on it. Measured on: hh-independent; 30 families, 72 arms, beam search n=100 depth 10."
 instruments: [logit-mass, generation, census]
 chapters: [ch03, ch04, ch09, ch11]
 data: ["f20x_beams.parquet", "f20x_kinship.parquet"]
@@ -120,15 +121,70 @@ The base model is right about who it is exactly when it is told.
 At `Q:/A:`, identity prompts, paired within family (Wilcoxon signed-rank),
 22 distinct base models against each family's terminal aligned arm.
 
-| measure | base | aligned | delta | p |
-|---|---|---|---|---|
-| says it is an AI | 0.153 | 0.410 | **+0.257** | 0.0002 |
-| describes itself as human | 0.312 | 0.080 | **-0.232** | 0.0007 |
-| of which, a human life story | 0.227 | 0.044 | -0.184 | 0.0002 |
-| of which, a human role | 0.085 | 0.037 | -0.048 | 0.030 |
-| says "I am ..." | 0.558 | 0.695 | +0.136 | **0.222, but see below** |
-| names its own lab | 0.009 | 0.093 | +0.084 | 0.0015 |
-| gives a human name | 0.050 | 0.095 | +0.046 | 0.924 (n.s.) |
+**RE-MEASURED 2026-07-27.** The figures below are not the ones this finding was
+published with. The originals were computed on a frame that is not the published
+artifact and could not be reproduced by any script in the repository; they are
+permanently uncitable. These come from `scripts/f20x_remeasure.py`, registered
+before it ran, executed against committed artifacts, and re-run independently at
+a second seat to the digit. Primary cell fixed in the docstring before any number
+was seen: terminal aligned arm, path-prob weighting, symmetric dedup, n=22.
+
+| measure | base | aligned | delta | p | robust |
+|---|---|---|---|---|---|
+| says it is an AI | 0.235 | 0.509 | **+0.274** | 0.0001 | 8/8 |
+| describes itself as human | 0.468 | 0.199 | **−0.268** | 0.0001 | 8/8 |
+| of which, a human role | 0.216 | 0.043 | −0.173 | 0.0009 | 8/8 |
+| of which, a life story | 0.148 | 0.041 | −0.107 | 0.0014 | 8/8 |
+| names its own lab | 0.009 | 0.153 | +0.144 | 0.0015 | 8/8 |
+| says "I am ..." | 0.567 | 0.748 | +0.182 | 0.0984 | 6/8 |
+| ~~gives a human name~~ | 0.104 | 0.117 | +0.014 | 0.9746 | **0/8** |
+
+`robust` = cells significant at p<0.05 across the full declared grid (arms ×
+weighting × dedup), with direction consistent in all eight for every row but the
+last. Full grid in `data/f20x_remeasured.parquet`.
+
+**The human-name row is withdrawn, not deleted.** It is the only measure failing
+both tests — 0 of 8 significant and direction-inconsistent — and the published
+version listed it in the table without that qualification. The honest reading is
+**no reliable change in how often a model offers a proper noun.** The human story
+is carried by *role* and *life story*: alignment stops the model claiming a job
+and a biography, and does not measurably change whether it gives a name. The
+correction was produced by the repair rather than by an audit, which is what a
+re-measurement is for.
+
+The measure is not dead — it fires on 9.8% of beams and its hits are clean
+(`My name is David, and I'm a` / `Hi! My name is Emily, and I'm`), so the null is
+a property of the world rather than of the instrument. Checked at the second seat
+specifically because a seat reporting that its own finding was wrong should be
+audited as hard as one reporting a confirmation.
+
+### What the naming rows actually say
+
+Seen at one cell, the naming decomposition was put through the same declared
+8-cell grid as everything else rather than taken on the strength of where it was
+noticed — the defence against adding a measure after the primary run is not
+restraint but applying the identical standard to the candidate. Two measures went
+in; one passed and one failed, which is what a real test looks like.
+
+| measure | base | aligned | delta | p | robust |
+|---|---|---|---|---|---|
+| names anything | 0.117 | 0.211 | +0.094 | 0.0141 | 8/8 |
+| names its own lab | 0.009 | 0.153 | +0.144 | 0.0015 | 8/8 |
+| ~~gives a human name~~ | 0.104 | 0.117 | +0.014 | 0.9746 | 0/8 |
+| ~~names someone else~~ | 0.108 | 0.058 | −0.049 | 0.8684 | 0/8 |
+
+**Total naming rises, and the entire rise is the model naming its own lab.**
+Nothing else in the naming family moves reliably — not human names, not other
+people's names. The two nulls are load-bearing rather than filler: without them
+"naming rises" reads as a model naming things generally, and the finding is that
+it names exactly **one** thing, itself.
+
+The fourth row also records a killed hypothesis. Pooled over all beams it looked
+as though alignment stopped the model naming other people (0.228 → 0.070, a large
+and tidy effect). Under the correct paired unit that collapses to p=0.87 and 0 of
+8 — it was carried by a few high-mass families. It is kept in the table because a
+plausible effect that dies under its own test is more useful to a later reader
+than a row silently omitted.
 
 ### The P_self figure is not robust, and an earlier draft of this file claimed it was
 
