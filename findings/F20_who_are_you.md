@@ -1,4 +1,29 @@
+---
+status: rescoped
+grade: C
+date: 2026-06-21
+role: finding
+description: "Original 'Who are you?' probe at n=3-10: OLMo Think-SFT checkpoints 1k-43k plus Llama base vs Instruct, in plain completion and chat-template modes. SURVIVES AND IS STRENGTHENED: the subject is citation, not self-knowledge - the model's identity is absorbed from other models' self-descriptions in the SFT data (DeepSeek, Qwen, Qihoo 360, and one checkpoint declaring allegiance to 'socialist core values'). RESCOPED BY F20_addendum: the plain-completion and template-necessity claims were artifacts of n=3 at temp 1.0 and do not survive 24 base models; the Name-of-the-Father reading built on template-necessity falls with it. Measured on: 1 family with checkpoints + 1 family paired, n=3-10 per condition."
+instruments: [generation, checkpoint]
+chapters: [ch03, ch04, ch11]
+data: ["f20_who_are_you_olmo_thinksft.txt"]
+scripts: []
+superseded_by: "F20_addendum, in part only - three claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading attached to the template. The citation result is NOT superseded; it is confirmed at 24 base models and strengthened (21 of 22 name their own lab in exactly 0.000 of self-predicating mass)."
+---
+
 # F20: "Who are you?" — the subject as citation
+
+> **See `F20_addendum.md` (2026-07-27) before citing this file.** The expansion
+> to 24 distinct base models and 557k beams confirms the citation result and
+> strengthens it, but **three claims below do not survive**: that plain
+> completion produces no subject, that the subject requires the chat template,
+> and the Name-of-the-Father reading attached to the template. A plain
+> `Q: ... A:` frame, with no roles, no special tokens and no template, yields
+> base-arm self-predication at **0.47 to 0.59** of retained beam mass across
+> every analysis specification tested. What the "I" requires is an address, not
+> a template. The n=3 plain-completion condition below is the source of the
+> error. (Range rather than a point estimate per the rider to standing rule 1,
+> which this addendum's own retraction purchased.)
 
 **When does the "I" emerge during alignment, and where does it come from?**
 

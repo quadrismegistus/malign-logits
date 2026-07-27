@@ -37,13 +37,14 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
   - [25. Temporal alignment signature — four Lacanian mechanisms in the autoregressive sequence](#25-temporal-alignment-signature--four-lacanian-mechanisms-in-the-autoregressive-sequence)
   - [26. The Token-Tree Census — Variance Decomposition and the Deleter/Redirector Typology](#26-the-token-tree-census--variance-decomposition-and-the-deleterredirector-typology-53-models-5-prompts)
   - [27. Nudging Does Not Reproduce Displacement](#27-nudging-does-not-reproduce-displacement-negative-result)
-  - [28. Position-Specific Resistance Trajectories](#28-position-specific-resistance-trajectories)
+  - [> **Status note](#status-note-2026-07-26-rescoped-to-discovery-sample-only-a-19-family)
   - [31. PERMANOVA Variance Decomposition — Pretraining Dominates Alignment](#31-permanova-variance-decomposition--pretraining-dominates-alignment)
   - [32. Template-Mediated Distributions — Task Switch, Not Distribution Filter](#32-template-mediated-distributions--task-switch-not-distribution-filter)
   - [33. Scale Effects — Same Mechanism, Different Displacement Vocabulary](#33-scale-effects--same-mechanism-different-displacement-vocabulary)
   - [34. Cross-Linguistic Displacement — The Class Engine Is Language-Dependent](#34-cross-linguistic-displacement--the-class-engine-is-language-dependent)
   - [35. Architecture Independence — Displacement Is Weight-Level, Not Attention-Dependent](#35-architecture-independence--displacement-is-weight-level-not-attention-dependent)
   - [36. Euphemism vs. Proximity — Alignment as Foreclosure, Not Metonymy](#36-euphemism-vs-proximity--alignment-as-foreclosure-not-metonymy)
+  - [39. `hh_rlhf` does not encode register preference at the scale the chain analysis required](#39-hh_rlhf-does-not-encode-register-preference-at-the-scale-the-chain-analysis-required)
 - [The argument](#the-argument)
 - [Installation](#installation)
 - [Quick start](#quick-start)
@@ -56,6 +57,9 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 ## Findings
 
 ### 1. Logit-level analysis (OLMo 3 7B)
+
+> **Status:** unaudited | **Grade:** C
+
 
 **Sexual vs violent repression are structurally different.** Sexual content produces cross-category displacement (genitals → non-genital body → syntax). Violent content produces within-category synonym shuffling (kill → destroy). Sexuality is *repressed*; violence is merely *suppressed*.
 
@@ -71,6 +75,9 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 
 ### 2. Cross-family logit comparison (4 families, 47 prompts)
 
+> **Status:** rescoped | **Grade:** C | see [none (rescoped in place — the line "The superego is most active at the boundary" (doc line 11, with the 0.13/0.10 and 0.15/0.09 pairs) is DEAD ON BOTH METRICS per the 2026-07-26/27 corrections: liminal>explicit real (9/9) but ~91% entropy-driven; liminal≈neutral on both metrics; NO boundary peak. Repo CLAUDE.md corrected at b1ba68e; THIS DOC NOT YET — caught by today's grep.)](findings/none (rescoped in place — the line "The superego is most active at the boundary" (doc line 11, with the 0.13/0.10 and 0.15/0.09 pairs) is DEAD ON BOTH METRICS per the 2026-07-26/27 corrections: liminal>explicit real (9/9) but ~91% entropy-driven; liminal≈neutral on both metrics; NO boundary peak. Repo CLAUDE.md corrected at b1ba68e; THIS DOC NOT YET — caught by today's grep.).md)
+
+
 **Alignment intensity varies by an order of magnitude.** Mean JS divergence (base→superego): Qwen 0.044, Llama 0.057, OLMo 0.176, Amber 0.181.
 
 ![Mean JS divergence by model family](figures/cross_family_js_means.png)
@@ -79,7 +86,11 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 
 ![SFT vs DPO division of labour](figures/sft_dpo_division.png)
 
-**Alignment operates more on ambiguous content than explicitly transgressive content.** JS divergence: sexual liminal (0.13) > sexual explicit (0.10); violence liminal (0.15) > violence explicit (0.09). The superego is most active at the boundary.
+**Alignment operates more on ambiguous content than explicitly transgressive content — but this is ~91% an entropy effect and there is no boundary peak.** ⚠️ **CORRECTED 2026-07-26 (`b1ba68e`); the original wording below is retained for the record and must not be cited.**
+
+> ~~JS divergence: sexual liminal (0.13) > sexual explicit (0.10); violence liminal (0.15) > violence explicit (0.09). The superego is most active at the boundary.~~
+
+Those figures are accurate against the 4-family `battery_results.csv` as it stood at `d5bada0`. Recomputed across 9 families with family as the unit: liminal − explicit = **+0.0271** (CI [+0.0102, +0.0440], 9/9 positive) — the direction holds. But liminal − neutral = **+0.0097** (CI crossing zero, 6/9), so **liminal is indistinguishable from neutral**: explicit sits low and everything else is flat. There is no peak *at the boundary*. The within-family entropy slope (+0.0187/nat) times the 1.315-nat entropy gap predicts +0.0246 of the observed +0.0271, residual +0.0026. Independently, lacan's freed-mass metric finds no family-level liminal/explicit difference at all.
 
 ![JS divergence heatmap across families and categories](figures/cross_family_js_heatmap.png)
 
@@ -88,6 +99,9 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 ![Top-50 overlap heatmap](figures/cross_family_overlap_heatmap.png)
 
 ### 3. Cross-family generation analysis (4 families, 18 prompts, n=5)
+
+> **Status:** unaudited | **Grade:** C
+
 
 Prompt: "He pushed her onto the bed and started to..." — 5 completions sampled at temperature 1.0 from each layer of each model family.
 
@@ -114,6 +128,9 @@ Prompt: "He pushed her onto the bed and started to..." — 5 completions sampled
 
 ### 4. Step-level checkpoint analysis (OLMo Think-SFT, 10 checkpoints across 43k training steps)
 
+> **Status:** unaudited | **Grade:** C
+
+
 Traces repression emerging during supervised fine-tuning by extracting logits from 10 evenly-spaced SFT checkpoints, all compared against the fixed base model.
 
 **Sexual repression is immediate — a phase transition, not a gradient.** `fuck` drops from 0.027 (base) to 0.008 by step 1000 (70% reduction in the first 2% of training) and reaches 0.002 by step 5000 (92% reduction). This matches Freud's concept of *primal repression* — sudden, structural, happening before the ego is fully formed.
@@ -137,6 +154,9 @@ Traces repression emerging during supervised fine-tuning by extracting logits fr
 **`said` rises 4.5x on violence prompts.** From 0.007 (base) to 0.030 by step 43000. The model increasingly deflects violence prompts into reported speech — narrative displacement at the word level.
 
 ### 5. Logit lens: repression across network layers (4 families)
+
+> **Status:** rescoped | **Grade:** D | see [none (contradicted in place — the cross-family logit-lens rerun found the displacement operation final-layer/ unembedding-uniform in 13/17 families; F05's per-family layer architectures assessed as an artifact of the fixed word list or projection method (ch05 notes:813); cf. F35 §3 for the unembedding locus. No numbered successor doc.)](findings/none (contradicted in place — the cross-family logit-lens rerun found the displacement operation final-layer/ unembedding-uniform in 13/17 families; F05's per-family layer architectures assessed as an artifact of the fixed word list or projection method (ch05 notes:813); cf. F35 §3 for the unembedding locus. No numbered successor doc.).md)
+
 
 Projects each hidden layer's representation through the final unembedding matrix to produce a probability distribution at every layer of the network. Shows *where* in the network the model "decides" to repress or amplify each word. Prompt: "She was so angry she wanted to..."
 
@@ -171,7 +191,7 @@ Projects each hidden layer's representation through the final unembedding matrix
 
 **REVISION (2026-07-01): 40-family replication contradicts the 4-family finding.**
 
-Logit lens with data-driven movers (not fixed word list) across 40 families and 7 prompt types (405,248 rows) shows displacement is **overwhelmingly a final-layer operation**. 13/17 families show 100% onset depth on the anger prompt. Cross-prompt check confirms: sexual, institutional, profanity, death, power all show the same pattern.
+Logit lens with data-driven movers (not fixed word list) across 40 families and 6 prompt types (405,248 rows) shows displacement is **overwhelmingly a final-layer operation**. 13/17 families show 100% onset depth on the anger prompt. Cross-prompt check confirms: sexual, institutional, profanity, death, power all show the same pattern.
 
 The original 4-family finding (OLMo distributed, Llama late-layer, Amber semantic, Qwen code-dominated) was likely an artifact of using a fixed word list (`kill`, `scream`) rather than data-driven movers. With data-driven targets, Llama also shows 100% final-layer onset, not late-layer override.
 
@@ -187,11 +207,19 @@ The original 4-family finding (OLMo distributed, Llama late-layer, Amber semanti
 
 SFT operates slightly deeper (more distributed), DPO concentrates at the output projection, RLVR barely touches the network. Consistent with the three-layer model: form (SFT) modifies processing slightly, the bar (DPO) modifies selection, amplification (RLVR) is pure output-level.
 
-**Data:** `data/logit_lens_datadriven.csv` (405,248 rows, 40 families, 5 prompt types).
+**Data:** `data/logit_lens_datadriven.csv` (405,248 rows, 40 families, 6 prompt types).
 
 See `context.md` for the full theoretical argument and detailed findings.
 
+
+---
+
+**Provenance check, 2026-07-26.** Row count (405,248) and family count (40) reproduce exactly from `data/logit_lens_datadriven.csv`. The prompt-type count was stated as 5 in one place and 7 in another; the file contains 6. Both corrected.
+
 ### 6. Baseline validation: is displacement alignment-specific? (4 families, 47 prompts)
+
+> **Status:** unaudited | **Grade:** C
+
 
 A colleague observed that our displacement metrics might reflect general SFT drift rather than alignment-specific intervention: if SFT reshapes all distributions, how do we know the changes on transgressive prompts are safety-related rather than a side-effect of instruction tuning?
 
@@ -219,6 +247,9 @@ Neutral vs transgressive separation: Qwen p=0.0001, OLMo p=0.01, Llama p=0.008, 
 
 ### 7. Training data attribution: objective vs data composition (OLMo 3)
 
+> **Status:** unaudited | **Grade:** C
+
+
 The OLMo 3 technical report (arXiv:2512.13961) documents exact data mixtures for every training stage, making it possible to ask whether the displacement patterns above are driven by the training *objective* (SFT cross-entropy, DPO preference loss) or by the training *data* (specific safety datasets that teach the model what to refuse).
 
 **Safety data is a small fraction of post-training.** OLMo's SFT stage uses ~110k safety prompts (CoCoNot, WildGuardMix, WildJailbreak) out of 2.15M total (~5%). DPO uses ~27k safety prompts out of 260k (~10%). The remaining 90-95% is math, code, instruction-following, science, and chat. Yet these small slices produce the displacement patterns documented above.
@@ -240,6 +271,9 @@ Source: OLMo 3 technical report, Tables 30 and 20 (Team OLMo, arXiv:2512.13961, 
 
 ### 8. Automatic displacement taxonomy (OLMo + Llama, 18 prompts)
 
+> **Status:** verified | **Grade:** A
+
+
 Classifies each displacement pair from the displacement maps into four types using contextual spaCy POS tags (word tagged in the context of its prompt) and wordfreq corpus frequencies:
 
 - **Register shift** — same POS, high similarity. Same referent, different social register (*kill* → *hurt*, *yell* → *shout*, *warmth* → *heat*).
@@ -255,7 +289,7 @@ Classifies each displacement pair from the displacement maps into four types usi
 |---|---|---|---|---|
 | violence (explicit) | **86%** | 6% | 0% | 8% |
 | violence (liminal) | **65%** | 11% | **14%** | 10% |
-| power | **96%** | 14% | 0% | 4% |
+| power | **84%** | 12% | 0% | 4% |
 | substance | 50% | 19% | 4% | 27% |
 | death | 48% | 29% | 0% | 23% |
 | sexual (liminal) | 51% | 28% | 3% | 17% |
@@ -287,9 +321,17 @@ Classifies each displacement pair from the displacement maps into four types usi
 
 **Death and substance produce the most archaic displacement.** *stared* → *gazed*, *tomb* → *gravestone*, *thought* → *pondered*, *swallowed* → *gulped*. Alignment pushes these categories toward literary and formal registers.
 
-Results in `data/displacement_taxonomy.csv`.
+Results in `data/taxonomy_olmo.csv`.
+
+
+---
+
+**Provenance check, 2026-07-26.** Recomputed from `data/taxonomy_olmo.csv` (the file this finding cited as `displacement_taxonomy.csv`, renamed at `39a3886` on 2026-05-03). Every row reproduces within 1–3pp except **power**, which was published as 96/14/0/4 — a row summing to **114%** — against a recomputed 84/12/0/4. The 96% was a transcription error, corrected above; the impossible sum is what makes it certain rather than a judgement call. Row count is now 23,013 against the 22,458 published, a 2.5% increase from a later re-run of the taxonomy.
 
 ### 9. Same base model, different alignment (Tulu 3.1 vs Llama 3.1, 47 prompts)
+
+> **Status:** unaudited | **Grade:** C
+
 
 Tulu 3.1 8B and Llama 3.1 8B share the exact same base model (`meta-llama/Llama-3.1-8B`). Llama uses Meta's opaque alignment (base → instruct, 2 layers). Tulu uses Allen AI's transparent pipeline (base → SFT → DPO → RLVR, 4 layers). This is the controlled experiment: same id, different socialisation.
 
@@ -309,6 +351,9 @@ OLMo represses kill far more aggressively. Tulu's repression is gradual — the 
 Results in `data/battery_tulu.csv`.
 
 ### 10. SFT data ablation (Tulu 3, 5 variants, 47 prompts)
+
+> **Status:** unaudited | **Grade:** C
+
 
 Allen AI releases Tulu SFT checkpoints trained without specific data subsets. Same base, same architecture, different SFT data mixtures. Isolates the contribution of each data component to ego-stage displacement.
 
@@ -427,6 +472,9 @@ No base model synthesizes contradictions — the Hegelian reading is refuted acr
 
 ### 12. Alignment as fold: trajectory geometry and steering vector analysis (10 families, 47 prompts, 100 passages)
 
+> **Status:** unaudited | **Grade:** C
+
+
 Two-part investigation of alignment's geometric signature, replicated across all 10 families with 47 prompts and 100 pre-generated passages per prompt.
 
 **Part A: No universal geometric signature.** Feed identical text through base/SFT/DPO/RLVR, capture per-token hidden states, measure trajectory geometry. The direction of geometric change is family-specific:
@@ -486,6 +534,9 @@ Script: `malign trajectory`. Results in `data/trajectory_geometry_*.csv`, `data/
 
 ### 13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (6 families, 126k pairs)
 
+> **Status:** verified | **Grade:** A
+
+
 Roman Jakobson's 1956 *Two Aspects of Language and Two Types of Aphasic Disturbances* argues that language is constituted by two complementary axes — selection/similarity (paradigmatic) and combination/contiguity (syntagmatic) — and that damage to one axis forces compensatory reliance on the other. We test whether the same structural trade-off operates in alignment-induced displacement.
 
 **Method.** For each (source → target) displacement pair from `Psyche.analyze().displacement_map()`, we compute two scores: `similarity` (cosine similarity between contextual embeddings — paradigmatic axis) and `syntagmatic_js` (JS divergence between `p(next_token | prompt + source)` and `p(next_token | prompt + target)` under the base model — syntagmatic axis). High similarity = good synonym found; high syntagmatic_js = the substitute disrupts the next-token chain.
@@ -533,6 +584,9 @@ CLI: `malign taxonomy --family olmo-tiny`, `malign taxonomy --analyze` (cross-fa
 
 ### 14. Syntagmatic baseline: alignment-produced vs corpus-level damage (OLMo 3 7B, 23k pairs)
 
+> **Status:** rescoped | **Grade:** C | see [none (rescoped in place — the causal framing "alignment damages combination / inverts the poetic function" is retracted: the base model shares the same trade-off; alignment AMPLIFIES a pre-existing structure at targeted sites; deltas stand (sexual +0.106 etc.). ch05:454, ch05:827, ch11:146.)](findings/none (rescoped in place — the causal framing "alignment damages combination / inverts the poetic function" is retracted: the base model shares the same trade-off; alignment AMPLIFIES a pre-existing structure at targeted sites; deltas stand (sexual +0.106 etc.). ch05:454, ch05:827, ch11:146.).md)
+
+
 Finding 13 showed that paradigmatic and syntagmatic axes trade off within aligned-model displacements. But is the syntagmatic disruption alignment-produced, or does the base model exhibit it too? We compute `syntagmatic_js` for the same 23,013 displacement pairs under both the base model and the aligned (DPO) model: `p(next | prompt + source)` vs `p(next | prompt + target)` under each.
 
 **The aligned model's continuations are more disrupted than the base model's in every content category.**
@@ -567,6 +621,9 @@ Results in `data/taxonomy_olmo.csv` (column `syntagmatic_js_aligned`). CLI: `mal
 
 ### 15. Generation-level passage metrics (10 families, 76k passages, 47 prompts)
 
+> **Status:** unaudited | **Grade:** C
+
+
 76,214 passages across 10 families (47 prompts × 100 generations per prompt per layer), truncated to minimum sentences exceeding 75 words. Primary metrics: Pythia 1B-deduped surprisal (independent of all families, trained on deduplicated Pile) and bge-m3 drift (BAAI, independent architecture). Validated under additional references: GPT-2 (124M), Llama 3.1 8B. All findings hold under all references. 10,000-resample bootstrap CIs.
 
 **Alignment universally smooths (every family, 95% CI).**
@@ -592,6 +649,9 @@ CLI: `malign topic-drift`. Results in `data/corpus_metrics.csv` / `data/corpus_m
 
 ### 16. Corpus comparison: dreams, waking narratives, fiction, abstracts (76k passages, length-normalized)
 
+> **Status:** unaudited | **Grade:** C
+
+
 Five text types through the same pipeline, all truncated to minimum sentences exceeding 75 words. Primary surprisal: Pythia 1B-deduped (independent of all families).
 
 | Text type | Surprisal (z) | 95% CI | Drift (z) | 95% CI | n |
@@ -611,6 +671,9 @@ Five text types through the same pipeline, all truncated to minimum sentences ex
 Scripts: `scripts/corpus_metrics.py`, `scripts/dream_metrics.py`. Results in `data/corpus_metrics.parquet`.
 
 ### 17. Cross-generation semantic divergence: alignment steers content differentially (8 families, 20k passages, 3 embedders)
+
+> **Status:** unaudited | **Grade:** C
+
 
 Within-passage metrics (Finding 15) show *how* each text sounds but not *what* alignment changes. This analysis directly measures the distributional distance between BASE and ALIGNED completions of the same prompt using MMD² (maximum mean discrepancy with RBF kernel, median heuristic). For each (family, prompt), mean-pool sentence embeddings per passage, then compute MMD² between the BASE and ALIGNED clouds. BASE split-half provides the null distribution. Permutation test (500 permutations) for significance.
 
@@ -650,6 +713,9 @@ Sexual explicit content shows the largest distributional shift — alignment cha
 Script: `scripts/cross_generation_mmd.py`. Results in `data/mmd_cross_generation.csv`.
 
 ### 18. Shannon entropy: alignment as lossy compression of drive (10 families, 47 prompts)
+
+> **Status:** unaudited | **Grade:** C
+
 
 Shannon entropy H(p) of the full-vocabulary logit distribution at the last token position, computed from cached logits across all families and alignment stages. Redundancy = 1 − H/H_max, where H_max = log(vocab_size).
 
@@ -720,6 +786,9 @@ Sexual_liminal loses twice the entropy of sexual_explicit (p=0.013). "She touche
 Results in `data/self_surprisal.csv`, `data/shannon_entropy.csv`. Notebook: `notebooks/10_shannon.ipynb`.
 
 ### 19. Unconditional Generation & Information Density
+
+> **Status:** rescoped | **Grade:** C | see [none (rescoped in place — the BLT-confirmation clause is SUSPENDED: prose-only BOS medians run 1.21 SFT / 1.05 DPO, ABOVE the cited 1.0 threshold; THE BLT CONFIRMATION MUST NOT BE CITED. Filter question specced and queued — unresolved whether wrong-claim or unstated-filter. Core claims stand: human-text numbers reproduce EXACTLY; self-surprisal roughly holds. Pipeline log 2892-2900.)](findings/none (rescoped in place — the BLT-confirmation clause is SUSPENDED: prose-only BOS medians run 1.21 SFT / 1.05 DPO, ABOVE the cited 1.0 threshold; THE BLT CONFIRMATION MUST NOT BE CITED. Filter question specced and queued — unresolved whether wrong-claim or unstated-filter. Core claims stand: human-text numbers reproduce EXACTLY; self-surprisal roughly holds. Pipeline log 2892-2900.).md)
+
 
 ***
 
@@ -854,7 +923,54 @@ malign surprisal --self                             # self-surprisal for all cac
 malign surprisal --ref itazap/blt-1b-hf            # BLT byte-level reference surprisal
 ```
 
+
+---
+
+**Provenance check, 2026-07-26 — ONE HALF OF THE HEADLINE DOES NOT REPRODUCE.**
+
+Recomputed from `data/blt_combined.csv` and `data/generation_analysis.parquet`,
+both modified after this finding was booked.
+
+*Reproduces exactly.* Human text types, BLT mean bits/char: fiction **1.49**,
+dreams **1.32**, abstracts **1.28**, waking **1.24** — all four as published, all
+above 1.0.
+
+*Reproduces approximately.* Self-surprisal on prose-only BOS: SFT (ego) **0.94**
+against 0.93 published; DPO (superego) **0.85** against 0.96 published. The DPO
+number differs but in the direction of *more* compression, so the sub-Shannon
+claim holds on this measure.
+
+*Does NOT reproduce.* The claim is "SFT: 0.93, DPO: 0.96 — below the 1.0
+threshold. **Confirmed by both self-surprisal and independent BLT scoring**." On
+BLT, prose-only BOS gives SFT median **1.21** / mean 1.44 and DPO median **1.05**
+/ mean 1.20 — *above* 1.0, not below. English-only filtering does not change it
+(SFT 1.19/1.43, DPO 1.01/1.17). So the BLT half of the confirmation does not hold
+on the current file under any filter I could infer.
+
+**This is flagged, not corrected.** Today established the distinction between a
+claim being wrong and its record being lost, and I cannot tell which this is: the
+original analysis may have applied a filter the finding does not state. What the
+finding needs is its exact filter written down — genre, prompt_type, language,
+and which of `self_bits_per_char` / `blt_bits_per_char` — after which this either
+reproduces or it doesn't. Until then the *self-surprisal* half of the sub-Shannon
+claim stands and the *BLT confirmation* should not be cited.
+
 ### 20. "Who are you?" — the subject as citation
+
+> **Status:** rescoped | **Grade:** C | see [F20_addendum, in part only - three claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading attached to the template. The citation result is NOT superseded; it is confirmed at 24 base models and strengthened (21 of 22 name their own lab in exactly 0.000 of self-predicating mass).](findings/F20_addendum, in part only - three claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading attached to the template. The citation result is NOT superseded; it is confirmed at 24 base models and strengthened (21 of 22 name their own lab in exactly 0.000 of self-predicating mass)..md) | Related: [F20_addendum](findings/F20_addendum.md)
+
+
+> **See `F20_addendum.md` (2026-07-27) before citing this file.** The expansion
+> to 24 distinct base models and 557k beams confirms the citation result and
+> strengthens it, but **three claims below do not survive**: that plain
+> completion produces no subject, that the subject requires the chat template,
+> and the Name-of-the-Father reading attached to the template. A plain
+> `Q: ... A:` frame, with no roles, no special tokens and no template, yields
+> base-arm self-predication at **0.47 to 0.59** of retained beam mass across
+> every analysis specification tested. What the "I" requires is an address, not
+> a template. The n=3 plain-completion condition below is the source of the
+> error. (Range rather than a point estimate per the rider to standing rule 1,
+> which this addendum's own retraction purchased.)
 
 **When does the "I" emerge during alignment, and where does it come from?**
 
@@ -1029,6 +1145,9 @@ Zephyr (aligned without safety data) proves the decomposition: instruction tunin
 
 ### 22. Circuit decomposition — the cut between mechanism and surface
 
+> **Status:** unaudited | **Grade:** C
+
+
 **Where in the transformer does alignment operate?**
 
 ***
@@ -1149,6 +1268,9 @@ Tested on 6 OLMo Think-SFT checkpoints. The law arrives suddenly; the internal r
 **Families tested**: OLMo (4 stages + 6 step-level checkpoints), Llama, Amber, Qwen, Tulu.
 
 ### 23. Reasoning distillation as a third alignment regime
+
+> **Status:** unaudited | **Grade:** C
+
 
 **Does reasoning alignment produce a different kind of subject than standard alignment?**
 
@@ -1346,7 +1468,7 @@ R1-Distill's raw logits diverge massively from base (JS 0.62 vs Instruct's 0.07;
 - Plain logits: `data/raw/cache/reasoning_logits/` (cached)
 - Smoke test: `scripts/r1_smoke_test.py` (running)
 - Circuit decomposition: TBC (`scripts/decompose_circuit.py --family` with R1-Distill)
-- Thinking chains: cached in `reasoning_logits` stash, also `data/reasoning_thinking_chains.csv`
+- Thinking chains: cached in `reasoning_logits` stash, (`data/reasoning_thinking_chains.csv` was a convenience export and was never committed — the stash is the source of record)
 
 **TODO**:
 - [ ] Complete smoke test (plain + instruct, 8 prompts)
@@ -1357,6 +1479,9 @@ R1-Distill's raw logits diverge massively from base (JS 0.62 vs Instruct's 0.07;
 - [ ] n=10 generations on love/hate AB for reasoning model
 
 ### 24. Pretraining emergence — the developmental sequence of the statistical unconscious
+
+> **Status:** verified | **Grade:** A
+
 
 **When do the base model's signature properties appear during pretraining?**
 
@@ -1458,6 +1583,9 @@ The base model is not the id. It already defers to institutions (F21), and this 
 **TODO**: Replicate on Pythia 6.9B (our registered family). Correlate with Pile content at each step via batch_viewer.py. Test whether the developmental sequence holds for OLMo (different corpus, different training order).
 
 ### 25. Temporal alignment signature — four Lacanian mechanisms in the autoregressive sequence
+
+> **Status:** rescoped | **Grade:** C | see [none (rescoped in place — causal locus reframed: foreclosure is INSTALLED BY SFT; DPO adds nothing qualitative, only amplifies (ch04:24-59). Lacan-sequence fracture RETIRED; co-emergence of subject and law vindicated at SFT (ch11:19-25).)](findings/none (rescoped in place — causal locus reframed: foreclosure is INSTALLED BY SFT; DPO adds nothing qualitative, only amplifies (ch04:24-59). Lacan-sequence fracture RETIRED; co-emergence of subject and law vindicated at SFT (ch11:19-25).).md)
+
 
 **When during generation does alignment intervene?**
 
@@ -1583,6 +1711,9 @@ This is the first empirically precise mapping of alignment mechanisms to Lacania
 
 ### 26. The Token-Tree Census — Variance Decomposition and the Deleter/Redirector Typology (53 models, 5 prompts)
 
+> **Status:** rescoped | **Grade:** D | see [F31 (and F31's own canonical 44-family PERMANOVA revision: family 97.8%, method 2.9% n.s. on deltas — ch11:176-179. Chain: F31 superseded F26's 5-prompt method; the F26/F31 reconciliation ("holds at industrial intensity") was then itself overturned by the canonical run.)](findings/F31 (and F31's own canonical 44-family PERMANOVA revision: family 97.8%, method 2.9% n.s. on deltas — ch11:176-179. Chain: F31 superseded F26's 5-prompt method; the F26/F31 reconciliation ("holds at industrial intensity") was then itself overturned by the canonical run.).md)
+
+
 **Summary**
 
 Probing every registered checkpoint through the same token trees turns the collection of families into a census: alignment's structure varies far more by *training relation* (base→SFT vs base→DPO vs base→RLVR) than by organization, country, or prompt. SFT does twice DPO's distributional work, RLVR adds almost nothing, and every family resolves into one of two clinical types — **deleters** (block the base continuation, fall back to the natural substitute: repression) and **redirectors** (block and substitute something foreign: foreclosure).
@@ -1635,6 +1766,9 @@ Embedding travel does not track alignment intensity (r = 0.07). Safety data volu
 **Data**: `data/tree_census.csv` (53 models × 5 prompts), `data/circuit_census_grid_final.csv`, `data/profiles/`. **Figures**: `figures/F26_three_distributions.png`, `figures/F26_two_timescales.png`, `figures/F26_jakobson_space.png`, `figures/F26_tree_entropy_*.png`, `figures/clinical_signature_census.png`. **CLI**: `malign probe batch/census`.
 
 ### 27. Nudging Does Not Reproduce Displacement (Negative Result)
+
+> **Status:** unaudited | **Grade:** C
+
 
 **Summary**
 
@@ -1726,7 +1860,21 @@ stories = beam_storylines("allenai/OLMo-2-0425-1B", "She was so angry she wanted
 stories = beam_storylines("allenai/OLMo-2-0425-1B", "I understand. She was so angry she wanted to")
 ```
 
-### 28. Position-Specific Resistance Trajectories
+> **Status note (2026-07-26).** Rescoped to discovery-sample-only. A 19-family
+
+> **Status:** rescoped | **Grade:** C | see [none — original OLMo-2-0425-1B result stands on its own data; the 19-family scale-up replaces it with nothing](findings/none — original OLMo-2-0425-1B result stands on its own data; the 19-family scale-up replaces it with nothing.md)
+
+> scale-up was attempted on beams already in the stash (335,799
+> storyline-scorings, no new generation) and produced a positional signature —
+> forward resistance peaking at token 0, reverse at token 1 — which was then
+> withdrawn after four controls, three of which were requested by the
+> TheoryMachines seat. The original single-model result is untouched by this;
+> what failed is the generalisation. The full attempt, its intermediate claims
+> and every control are recorded below rather than deleted, because the
+> sequence is the useful part: each intermediate claim looked stronger than the
+> one it replaced, and each fell to a control that cost minutes to run.
+
+# F28: Position-Specific Resistance Trajectories
 
 **Summary**
 
@@ -1804,7 +1952,184 @@ The SFT/DPO dissociation at the position level extends F01's finding (SFT handle
 - 14 cross-model pairs (base↔3 aligned + 3 training edges + 4 self)
 - Figure: `figures/resistance_trajectories.png`
 
+---
+
+## Scale-up, 2026-07-26: a content-invariant gate at the first token
+
+F28 was established on **one model** (OLMo-2-0425-1B). The beams stash already
+supported the same analysis on **19 families** — 335,799 storyline-scorings, no
+new generation. `scripts/f28_scaled.py`, `data/f28_scaled_trajectories.csv`.
+
+### The trajectory has a shape, and it is the same shape everywhere
+
+Pooled over 19 families × 10 content categories:
+
+| pos0 | pos1 | pos2 | pos3 | pos4 | pos5 | pos6 | pos7 |
+|---|---|---|---|---|---|---|---|
+| **+2.24** | **+0.51** | +0.91 | +0.92 | +0.83 | +0.84 | +0.80 | +0.83 |
+
+Not a decay — a **spike, a dip, then a plateau**. Resistance at the first
+generated token is **2.6× the steady state**. Position 1 then falls *below*
+the plateau it settles into, so the release after the gate briefly overshoots.
+pos0 is the peak in 40% of cells against a 17% chance baseline (binomial
+z=11.2), and the pos0→pos1 fall holds in 201/310 cells and in a majority of
+categories for **13 of 19 families**.
+
+### The gate does not care what you are writing about
+
+This is the sharpest result, and it *inverts* F28's original claim of
+category-specific signatures:
+
+- SD across the ten **category** means: **0.35 bits**
+- SD across the nineteen **family** means: **4.09 bits**
+- ratio **11.8×**
+
+Content category explains almost nothing. Every category shows the same
+spike-dip-plateau, differing only in height, and the height is a property of
+the *model family*. F28 proposed the trajectory as a category-specific temporal
+signature; at scale it is a **family-specific** one, and it is essentially
+content-blind.
+
+### Gate height is a family property with a very wide range
+
+| family | pos0 resistance |
+|---|---|
+| map-neo | **+14.90** |
+| amber | +8.64 |
+| zephyr | +7.85 |
+| redpajama | +2.46 |
+| … | |
+| olmo | −0.32 |
+| pythia | −0.39 |
+| llama | −0.58 |
+
+Some families gate hard at the first token; others have no gate at all. Note
+that amber and olmo have near-identical total displacement (JS ≈ 0.18, F02) and
+sit at opposite ends here — so gate height is not a restatement of alignment
+intensity, and that dissociation is worth its own look.
+
+### What this connects to
+
+The first token is where the commitment is made, and it is where the
+intervention concentrates. That is the temporal counterpart of the
+**architectural** gate in F22/F23 (internal representation broadens, output
+narrows) and of F05 (displacement is a final-layer readout operation). It also
+matches F36's gate-then-recover shape and F11's level dissociation — an
+operating-point fact at the moment of commitment that does not propagate into
+the body of the text.
+
+### Registered caveats
+
+- The mean pos0-minus-tail difference is **not significant with family as the
+  unit** (ego +1.76, 9/12, t=1.79; superego +1.12, 8/19, t=1.64; both CIs cross
+  zero) — because between-family variance is enormous (SD 4.09), which is the
+  finding rather than an obstacle. The *shape* claims above are rank- and
+  count-based for that reason.
+- Pooling the 310 nested cells would give t=7.3 for that difference. That is
+  unit-of-analysis inflation (rule 2) and is not claimed.
+- F28's two specific shapes do not reproduce: sexual pos0 +0.70→pos1 +2.17
+  becomes +2.60→+1.01, and death's pos0 facilitation (−0.99) becomes +2.94.
+  Those were single-model results.
+
+### Deflationary control (desktop TM, 2026-07-26): the gate is NOT a defence
+
+The pos0 spike is **content-blind, including neutral prompts**:
+
+| institutional | death | violence_lim | violence_exp | power | substance | **neutral** | sexual_exp | sexual_lim | profanity |
+|---|---|---|---|---|---|---|---|---|---|
+| +2.78 | +2.48 | +2.37 | +2.35 | +2.35 | +2.28 | **+2.22** | +2.13 | +2.04 | +1.44 |
+
+Transgressive mean +2.18 against neutral +2.22 — a difference of **−0.04 bits**,
+family-as-unit t = −0.55, 9/19 positive, CI [−0.386, +0.216]. Neutral prompts
+gate exactly as hard as transgressive ones.
+
+**This is what the sharpening artifact predicts.** If aligned distributions are
+simply sharper than base ones, any non-modal base token scores low under the
+aligned model at pos0, mechanically, regardless of content. The
+entropy-drop correlation is then a restatement of that artifact rather than an
+explanation of it. **No gating-as-defence language is licensed by this data.**
+
+Two further corrections from the same review:
+
+- **The "tracks entropy drop, not JS" claim is withdrawn.** Those were computed
+  on different samples (n=19 vs n=7). On the common 7 families the two are
+  Spearman +0.607 and +0.464, Steiger dependent-test z = +0.29 — not
+  distinguishable. This was a rule-6 violation (significant-vs-not across
+  samples, difference untested).
+- **The defence-taxonomy convergence is weaker than first reported.** Only
+  **4 of 19** families carry prior hand labels, and the asymmetry table covers
+  12 families (7 have forward-only data). Of the four: amber (+7.98,
+  suppression) and llama (−1.39, narrative sublimation) fit; qwen (−0.33) is
+  near zero and predicts nothing; and **olmo (−1.88) contradicts the stated
+  mapping** — "genre collapse" is a flight to format, which should sit at the
+  suppression pole, and it sits at the substitution pole instead.
+
+**What survives.** The *positional* asymmetry — forward resistance peaking at
+pos0, reverse peaking at pos1 — is not obviously predicted by sharpening, which
+should inflate pos0 in the forward direction without producing a pos1 spike in
+the reverse. That contrast is the part worth pursuing; the family taxonomy and
+the defence reading are not established.
+
+### Residue controls (2026-07-26): the positional asymmetry does not survive either
+
+**Control A — the reverse pos1 spike is content-blind too.** Per-category
+`p1 − p0` in the reverse direction: neutral **+1.60**, death +1.99,
+violence_liminal +1.03, sexual_liminal +0.92, substance +0.85, institutional
++0.88, violence_explicit +0.62, power +0.51, sexual_explicit +0.36.
+Transgressive mean **+0.95 against neutral +1.60** — neutral prompts swerve
+*more*. Family as unit: −0.799 bits, 5/12 positive, t = −1.28. Same verdict as
+the forward gate: generic, not site-specific.
+
+**Control B — the base-vs-base null.** No cross-family base→base annotation
+exists in the stash (1,825 cross-family links, zero base-to-other-base), so this
+required one teacher-forcing pass: existing storylines re-scored under an
+unrelated family's base. `scripts/f28_null_control.py`, 240 storylines.
+
+| profile | p0 | p1 | p2 | p3 | p4 | p5 |
+|---|---|---|---|---|---|---|
+| forward (base→aligned) | 2.37 | 0.78 | 0.90 | 0.90 | 0.78 | 0.76 |
+| reverse (aligned→base) | 0.37 | 1.35 | 0.62 | 0.64 | 0.70 | 0.65 |
+| **null** olmo→pythia | **2.47** | 2.10 | 1.10 | 2.31 | 2.11 | 2.79 |
+| **null** pythia→olmo | **1.87** | 1.61 | 2.42 | 2.55 | 1.19 | 1.80 |
+
+**The forward pos0 spike does not beat the null.** Two unrelated base models
+diverge by 1.87–2.47 bits at position 0 — the same magnitude as the
+"gate" (2.37). Testing against zero, which the residue implicitly did, treated
+generic cross-model divergence as an alignment effect.
+
+**What the null does *not* explain** is the plateau: forward and reverse settle
+to 0.6–0.9 bits from pos2 while the null stays at 1.1–2.8 throughout. Aligned
+models track their own base far more closely than unrelated models track each
+other — which is unsurprising, and is a statement about shared weights rather
+than about alignment.
+
+**Control B is UNINFORMATIVE, not a second kill.** The null pairs
+(olmo/pythia) have different tokenizers, so cross-scoring requires
+re-tokenisation and the null is inflated by that mismatch — a penalty the
+aligned/base comparison, sharing a tokenizer, never pays.
+
+An earlier version of this section argued that "the null being inflated makes it
+harder for the finding to fail, and it failed anyway." **That is inverted, and
+the error was caught by the TheoryMachines seat.** The finding survives by
+*beating* the null, so an inflated null is a *higher bar* — easier to fail
+against, not harder. If the fair same-tokenizer null sat substantially below
+2.37, the gate would beat it, and control B cannot rule that out. A
+same-tokenizer unrelated-base pair is the right null and none exists in the
+roster, so the fair test is currently unrunnable.
+
+**The death is carried by control A alone**, which is unconfounded and
+sufficient: the reverse pos1 spike is content-blind with the direction reversed
+(neutral +1.60 against transgressive +0.95), matching the forward gate's
+content-blindness. The verdict is unchanged; the evidence for it is one control,
+not two.
+
+**Status: the positional asymmetry is not established.** F28 remains
+discovery-sample-only, and nothing in the scale-up replaces it.
+
 ### 31. PERMANOVA Variance Decomposition — Pretraining Dominates Alignment
+
+> **Status:** rescoped | **Grade:** C | see [none (rescoped in place by its OWN canonical 44-family revision: the 14-family delta result REVERSED — relation_type 30.9% p=.002 at 14 families → 2.9% n.s. at 44; family 97.8%. The operation-matters claim survives in exactly two places: within-family comparisons and controlled same-base comparisons. ch11:27-49, 164-182.)](findings/none (rescoped in place by its OWN canonical 44-family revision: the 14-family delta result REVERSED — relation_type 30.9% p=.002 at 14 families → 2.9% n.s. at 44; family 97.8%. The operation-matters claim survives in exactly two places: within-family comparisons and controlled same-base comparisons. ch11:27-49, 164-182.).md)
+
 
 **Summary**
 
@@ -1974,6 +2299,9 @@ OLMo-7B continue-aligned distributions at n=200 produce same-letter clusters (ca
 
 ### 33. Scale Effects — Same Mechanism, Different Displacement Vocabulary
 
+> **Status:** unaudited | **Grade:** C
+
+
 **Summary**
 
 Logit-level displacement across three orders of magnitude (1B, 7B, 32B, 70B). The mechanism (SFT displaces, DPO amplifies) persists at all scales, but displacement targets shift toward closer semantic substitutes at larger scale. Higher capacity enables selective intervention rather than wholesale suppression.
@@ -2081,6 +2409,9 @@ SFT dominance holds at 32B (75–93%). The F26 2:1 SFT>DPO ratio persists. Notab
 
 ### 34. Cross-Linguistic Displacement — The Class Engine Is Language-Dependent
 
+> **Status:** unaudited | **Grade:** C
+
+
 **Summary**
 
 Alignment operates in opposite directions by language within the same weights. In English, alignment installs compliance (worker prompts) and suppresses transgressive vocabulary (kill→punch/scream). In Chinese, alignment installs agency (gratitude→"what should I do") and can intensify transgressive vocabulary (sexual, revenge). The pre-socialisation is in the pretraining corpus: Chinese-primary models embed deference that alignment overcomes; English-primary models embed procedural advice that alignment amplifies.
@@ -2151,6 +2482,9 @@ Refines the PERMANOVA country=corpus finding (F31): country effect is not just a
 - MAP-Neo full word_probs: running
 
 ### 35. Architecture Independence — Displacement Is Weight-Level, Not Attention-Dependent
+
+> **Status:** unaudited | **Grade:** C
+
 
 **Summary**
 
@@ -2358,6 +2692,195 @@ Whether this reflects a deliberate design choice in Llama's alignment pipeline o
 2. The dominant displacement geometry is foreclosure (field_adv < 0), but it is NOT a targeted defense — SFT→DPO field flight is equally intense on neutral and transgressive prompts. The "defense mechanism" framing must be qualified: foreclosure is how post-training reshapes distributions in general.
 3. Llama is the exception: the only family with significant transgression-specific metonymy (p = 0.007). The four-lenses-four-fractures frame holds — metonymy is a lens that works for Llama and fractures for OLMo.
 4. Flat suppression matches ~48% of individual sites. Say that.
+
+### 39. `hh_rlhf` does not encode register preference at the scale the chain analysis required
+
+> **Status:** verified | **Grade:** B
+
+
+## Summary
+
+The convention account — that shared public preference corpora installed the
+reroute chains — was the last surviving explanation after pretraining contiguity
+(Set-D) and structural semantic relation (the role test) were excluded. Testing
+it required first certifying the instrument: a chosen-vs-rejected unigram
+log-odds statistic must be shown to detect a preference known to be there before
+it can be trusted to report one that might not be.
+
+**The gate failed, 0 of 3, and the failure is bounded rather than merely
+negative.** Every marker's 95% interval excludes the effect size the design was
+built around. That is a result about `hh_rlhf`, not a result about the
+convention account, and the convention account remains untested.
+
+## The registered gate
+
+Three markers, one per surviving construct, declared with attestation,
+frequency-band membership and power shown individually in
+`docs/preference_corpus_markers_v2.md` before any `D` was computed. A marker
+fires iff `D > 0` and `|D|` exceeds the p50 decoy floor — the floor taken from
+the same decoy pool the false-certification and power rates were simulated on.
+Gate passes at 3 of 3. Script committed at `5e0e5a3` **before running**.
+
+| marker | construct | `D` | SE | 95% interval | verdict |
+|---|---|---|---|---|---|
+| `require` → `prefer` | directive softening | +0.0178 | 0.0370 | [−0.055, **+0.090**] | directional, below floor |
+| `entirely` → `mostly` | quantifier qualification | +0.0332 | 0.0544 | [−0.073, **+0.140**] | directional, below floor |
+| `angry` → `concerned` | emotional de-escalation | +0.0234 | 0.0541 | [−0.083, **+0.129**] | directional, below floor |
+| | | | | | **0/3 — GATE FAILS** |
+
+Floor `p50 = 0.0481`. False certification at this cell **0.01414** (95% upper
+0.0181), an order of magnitude inside the 0.10 standard, so the margin clause is
+not triggered.
+
+## Why this is a bounded negative and not a non-detection
+
+**The distinction is the whole content of the finding** (lacan). A gate can fail
+because the instrument cannot see, or because there is nothing of the relevant
+size to see. Only the second licenses anything.
+
+The design's alternative hypothesis is a specific number: the anchor, `hh`'s
+median chain-pair MDE, `log(1.19) = 0.1740`. That is the effect the gate was
+powered to catch and the effect the chain analysis would have needed. The
+observed markers can be tested against it directly:
+
+| marker | 95% upper bound | as a fraction of the 0.174 needed | z vs anchor | p |
+|---|---|---|---|---|
+| `require` → `prefer` | +0.090 | 0.52× | −4.22 | 0.00001 |
+| `entirely` → `mostly` | +0.140 | 0.80× | −2.59 | 0.005 |
+| `angry` → `concerned` | +0.129 | 0.74× | −2.78 | 0.003 |
+
+**Every upper bound falls below the effect the design required**, the largest at
+0.80× of it, and each marker is individually below the anchor at `p < 0.005`.
+Pooling by inverse variance — which assumes a common effect across the three
+constructs, and is therefore secondary to the per-marker intervals — gives
+`D = +0.02285 ± 0.02663` against an anchor of `0.17395`, indistinguishable from
+zero, **`5.674` SE below the anchor** (`p = 7 × 10⁻⁹`), with a 95% upper bound of
+`0.0750`, or `0.43×` the anchor.
+
+*(Inputs are quoted to five places because four do not reproduce the quotient:
+at 4 dp the same expression returns `5.684`, and the finding would not reproduce
+its own figure from its own published numbers. lacan's catch, and it is the p85
+pin one level down — a quantity whose stated precision exceeds what its printed
+inputs support. Full-precision values in `data/preference_corpus_exclusion.json`.)*
+
+**This answers the design's disclosed weakness rather than merely restating it.**
+The gate ran at a cell whose power floor was met on the point estimate (0.80389
+against 0.80) and **not shown** at the 95% bootstrap lower bound (0.759, sd 0.008
+over 1,600 replicates, below 0.80 in all 8 disjoint blocks). So the design ran
+toward error B — condemning a live instrument — more often than a
+shown-satisfied floor would allow, and roughly a fifth to a quarter of failures
+would be expected even against a true effect at the anchor. That is the scenario
+the caveat protects against, and **it is excluded on the evidence at
+`p = 7 × 10⁻⁹`**: an unlucky draw from a true effect of 0.174 does not produce
+three markers whose intervals all sit below 0.174.
+
+## What this books, and what it does not
+
+**Books.** For `hh_rlhf`, on the three constructs tested: chosen-vs-rejected
+unigram log-odds shows no register-preference effect at the scale a chain-pair
+verdict required, and effects at that scale are excluded rather than undetected.
+
+**Does not book: any positive claim about what *is* there** (lacan, and this is
+a correction to my own first reading). All three markers are directional, and it
+is tempting to read that as a real effect an order of magnitude smaller than the
+design assumed. **That claim is withdrawn and should not be made from this
+data.** All three `z` are under 1 (0.48, 0.61, 0.43); 3-of-3 directional is
+`p = 0.125` one-sided, which is nothing. And it would use the same three numbers
+in opposite directions — indistinguishable from zero when the point is that no
+effect exists at the design scale, consistently signed when the point is that a
+small real effect does. Those two readings are not jointly supportable from three
+`z` under 1.
+
+The reason this matters more here than it usually would: **the gate exists so
+that a positive empirical claim cannot enter the ledger without a check, and the
+gate just failed, so no check is available.** "Register softening is real but
+small" is exactly the class of claim the apparatus was built to stop at exactly
+this moment. The shape of what is there is left to an instrument that can see it.
+
+**Does not book: a verdict on convention.** Unchanged, and for the original
+reason. The response-level successor was registered as the consequence of
+demonstrated insensitivity, and that consequence is now met: **insensitivity is
+demonstrated for three marker classes in `hh_rlhf`; the successor is licensed for
+`hh_rlhf`, with its scope set by its own registration when written.** "Licensed"
+means only that the precondition for building it is satisfied. It still runs the
+full sequence before any statistic is computed — **registration, adversarial
+audit, then RH's go, in that order** (lacan) — and nothing here shortens it.
+
+The distinction is not pedantry (desktop). An earlier draft wrote "licensed for
+`hh_rlhf` at these three constructs," which is a **category slip**: the
+constructs are classes of *markers*, and they scope what the insensitivity
+demonstration covered. The successor tests *chain pairs* — a different
+population, on a different registration. Carrying the marker constructs into its
+license would quietly narrow an instrument that does not exist yet, and would do
+so in a document written before anyone had decided what it should cover.
+
+## Scope, stated as limits rather than caveats
+
+- **One corpus.** `hh_rlhf` certified nothing; `pku_saferlhf` **cannot** certify
+  and is descriptive-only — its chains are badly measured, its MDE threshold is
+  2.3× laxer, and its power at this cell is 0.649. An earlier phrasing said
+  "these preference corpora"; the plural is unsupported and contradicts the
+  descriptive-only flag (rule 8).
+- **Three constructs of seven enumerated.** Directive softening, quantifier
+  qualification, emotional de-escalation. Hedging/epistemic, pejorative→neutral,
+  refusal softening and blame→attribution yielded no valid pair at all. So this
+  licenses nothing about register preference in general.
+- **Two usable rungs.** With three constructs the available `k` are 2 and 3, far
+  apart with nothing between, so the operating cell clears both criteria without
+  being near either optimum.
+- **The within-construct rule is contemporaneous with the ranking**, not prior to
+  it, and eases certification in direction. It ranks on **MDE, a precision
+  functional**, while `D` is a location functional of the *same four counts* — so
+  MDE is **approximately ancillary** to effect location, which is weaker than the
+  "carries no information about any `D`" an earlier draft claimed and is all the
+  construction supports (lacan). Two functionals of one input set are not
+  independent in general, and the question **cannot be settled empirically
+  either way**: doing so would mean computing `D` for the pairs the rule did not
+  select, which burn discipline forbids. What is factual and unaffected: no `D`
+  was computed for any marker before selection, and none has been computed for
+  the unselected candidates now. Fully stated in
+  `docs/preference_corpus_markers_v2.md`.
+
+## Descriptive only: the `pku` oddity
+
+In `pku_saferlhf`, `require`→`prefer` (+0.1995) and `angry`→`concerned` (+0.3258)
+both fire against a floor 2.8× larger, while `entirely`→`mostly` runs **hard the
+wrong way** at −0.6094. Nothing is read off this — pku cannot certify — but the
+heterogeneity is on the record, and it is a further reason the plural claim above
+would have been unsafe even as a gesture.
+
+## History: two invalid constitutions before this one
+
+Retained because the failures are the reason the current slate has the
+requirements it has.
+
+**v1 (7 markers, p75, 3-of-7).** Six of seven markers fell outside the registered
+frequency-comparability band (881–7,926 in hh). The shortfall was recorded in the
+marker declaration and the gate was run anyway, treating a registered
+precondition as a disclosure. It is a gate condition, and the gate was never
+validly constituted. The superseded p75/3-of-7 layer was also executed in place
+of the registered p80/5-of-7 — a deviation in the *certifying* direction. That
+script is retained unmodified at `scripts/preference_corpus_test.py` as the
+record of what v1 was; it is not the gate.
+
+**v2 (7 markers, three constructs).** The seven pairs were three near-synonymous
+constructs in blocks of 3/3/1. Correlated markers understate false certification
+by 74× and **overstate power by 0.212** — the binding defect, since a gate at
+0.64 power condemns a working instrument more than a third of the time. Capping
+at one marker per construct restores independence by construction, which is why
+the current grid needs no blockwise estimator.
+
+**The general form, which is the durable methodological residue.** Decoy-based
+calibration assumes candidates are independent draws matched to the decoy
+distribution. v1 broke the *matching* and was therefore **conservative**; v2
+broke the *independence* and was therefore **anti-conservative**. Any slate
+property that breaks exchangeability with the decoys invalidates the rate, and
+the direction depends on which property broke.
+
+**One procedural note worth carrying forward.** In this run the standing rule
+that a failed gate forbids the chain-pair sign test is enforced **in code** —
+`preference_corpus_gate_v2.py` refuses tier 2 unless the gate passes — rather
+than by a person remembering at the right moment.
 
 <!-- findings:end -->
 ## Installation
