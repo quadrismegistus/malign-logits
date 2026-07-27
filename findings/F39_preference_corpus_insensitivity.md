@@ -106,8 +106,17 @@ this moment. The shape of what is there is left to an instrument that can see it
 
 **Does not book: a verdict on convention.** Unchanged, and for the original
 reason. The response-level successor was registered as the consequence of
-demonstrated insensitivity; that consequence is now licensed for `hh_rlhf` at
-these constructs, and the successor is where the convention question goes next.
+demonstrated insensitivity, and that consequence is now met: **insensitivity is
+demonstrated for three marker classes in `hh_rlhf`; the successor is licensed for
+`hh_rlhf`, with its scope set by its own registration when written.**
+
+The distinction is not pedantry (desktop). An earlier draft wrote "licensed for
+`hh_rlhf` at these three constructs," which is a **category slip**: the
+constructs are classes of *markers*, and they scope what the insensitivity
+demonstration covered. The successor tests *chain pairs* — a different
+population, on a different registration. Carrying the marker constructs into its
+license would quietly narrow an instrument that does not exist yet, and would do
+so in a document written before anyone had decided what it should cover.
 
 ## Scope, stated as limits rather than caveats
 
