@@ -695,3 +695,38 @@ genuinely repeated draws -- identical short completions sampled twice at
 temperature 0.7 -- reporting 10,464 against the parquet's 10,560. A cache that
 drops repeated draws misrepresents exactly the high-probability region it exists
 to preserve. Reconciled by cell instead, and the script now reads every draw back.
+
+### Amendment 6b, run closed 2026-07-27 22:14:57 local
+
+**Final: 18,720 completions, 39 families with data, 29 distinct base models.**
+Against 49 families / 39 bases registered in Amendment 3. The paired unit is 29.
+
+**One family lost that Amendment 6 did not anticipate.** `baichuan` failed all 16
+cells on `'DynamicCache' object is not subscriptable` — a transformers API
+incompatibility, not a hardware limit, and not foreseeable from the architecture.
+It is the tenth exclusion and the only one discovered after the roster was cut.
+
+**THE FAILURE LEDGER WAS NEVER WRITTEN FOR PASS 1, AND AMENDMENT 6 POINTED AT
+IT AS EVIDENCE.** `run()` writes the ledger only on completion. Pass 1 was killed
+mid-roster, so it never reached that line, and the file left on disk was the
+SMOKE TEST's. Amendment 6 says the exclusions are "recorded in
+`data/f20x_generations_failures.parquet` and the run log" — at the moment that
+sentence was committed, the parquet contained four smoke-test cells and none of
+the failures it was citing.
+
+Reconstructed from the run log, which is the only surviving record, and now
+carries both passes with a `pass_no` column:
+
+| pass | family | kind | records |
+|---|---|---|---|
+| 1 | olmoe | cell | 16 |
+| 1 | internlm2 | load | 2 |
+| 1 | olmo-32b | load | 2 |
+| 2 | baichuan | cell | 16 |
+
+The lesson is the one this document keeps relearning: a record written only at
+the end does not exist for any run that does not reach the end, and the runs that
+fail to reach the end are exactly the ones whose failures matter.
+
+**Cache synced and verified:** 18,720 of 18,720 draws read back exact, 0 missing,
+0 mismatched, matching the parquet row for row.

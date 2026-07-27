@@ -1,13 +1,13 @@
 {
-  "commit": "697a2b2947d61a59381a4ff5c50f3f2de664ce35",
-  "commit_short": "697a2b2",
+  "commit": "c4e8d76a544710af0a1c44ad085ffbb8f1ff7ba6",
+  "commit_short": "c4e8d76",
   "tree_clean": false,
   "dirty_paths": [
-    "scripts/f20x_generate.py"
+    "data/f20x_generations.parquet"
   ],
   "script": "scripts/f20x_generate.py",
-  "script_blob": "0152892cad60f168882f29af8795287e7b360b96",
-  "script_matches_commit": false,
+  "script_blob": "e182a12a4631549f4e88017fda90e70672d23762",
+  "script_matches_commit": true,
   "closure": [
     {
       "path": "malign_logits/__init__.py",
@@ -78,5 +78,5 @@
   ],
   "closure_matches_commit": true,
   "closure_unverified": null,
-  "failed_cells": 4
+  "failed_cells": 16
 }
