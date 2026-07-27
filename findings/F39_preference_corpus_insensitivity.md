@@ -1,5 +1,5 @@
 ---
-status: unaudited
+status: verified
 grade: B
 date: 2026-07-27
 role: finding
@@ -108,7 +108,10 @@ this moment. The shape of what is there is left to an instrument that can see it
 reason. The response-level successor was registered as the consequence of
 demonstrated insensitivity, and that consequence is now met: **insensitivity is
 demonstrated for three marker classes in `hh_rlhf`; the successor is licensed for
-`hh_rlhf`, with its scope set by its own registration when written.**
+`hh_rlhf`, with its scope set by its own registration when written.** "Licensed"
+means only that the precondition for building it is satisfied. It still runs the
+full sequence before any statistic is computed — **registration, adversarial
+audit, then RH's go, in that order** (lacan) — and nothing here shortens it.
 
 The distinction is not pedantry (desktop). An earlier draft wrote "licensed for
 `hh_rlhf` at these three constructs," which is a **category slip**: the
@@ -133,9 +136,16 @@ so in a document written before anyone had decided what it should cover.
   apart with nothing between, so the operating cell clears both criteria without
   being near either optimum.
 - **The within-construct rule is contemporaneous with the ranking**, not prior to
-  it, and eases certification in direction. It is outcome-blind by construction —
-  MDE is a function of four corpus counts and carries no information about any
-  `D` — but it cannot be shown to predate the ranking. Fully stated in
+  it, and eases certification in direction. It ranks on **MDE, a precision
+  functional**, while `D` is a location functional of the *same four counts* — so
+  MDE is **approximately ancillary** to effect location, which is weaker than the
+  "carries no information about any `D`" an earlier draft claimed and is all the
+  construction supports (lacan). Two functionals of one input set are not
+  independent in general, and the question **cannot be settled empirically
+  either way**: doing so would mean computing `D` for the pairs the rule did not
+  select, which burn discipline forbids. What is factual and unaffected: no `D`
+  was computed for any marker before selection, and none has been computed for
+  the unselected candidates now. Fully stated in
   `docs/preference_corpus_markers_v2.md`.
 
 ## Descriptive only: the `pku` oddity

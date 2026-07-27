@@ -27,14 +27,30 @@ the **lowest-MDE pair is taken** — a rule **adopted contemporaneously with the
 ranking**, and **outcome-blind by construction: counts only, no `D` computed for
 any marker.** (RH's wording, 2026-07-27.)
 
-The second clause is verifiable, not a mitigation offered on trust. MDE is
-`2.49 × sqrt(1/c_s + 1/r_s + 1/c_t + 1/r_t)` — a function of four corpus counts
-and nothing else. It cannot be evaluated on, and carries no information about,
-the direction or size of any `D`. So while the rule cannot be shown to predate
-the ranking (below), it also could not have been steered toward a wanted result:
-the quantity it ranks on was computable before any outcome existed, and no
-outcome existed to steer toward, since no `D` had been computed for any marker
-on the slate and none has been now.
+**How much that second clause supports, stated at its actual strength** (lacan).
+An earlier version of this paragraph said MDE "carries no information about the
+direction or size of any `D`." **That is too strong and is withdrawn.** MDE is
+`2.49 × sqrt(1/c_s + 1/r_s + 1/c_t + 1/r_t)` and `D` is
+`L(t) − L(s)` with `L(w) = log[(c_w/(N_c−c_w))/(r_w/(N_r−r_w))]` — **two
+functionals of the same four counts**, and two functionals of one input set are
+not independent in general. "Carries no information" is an independence claim the
+construction does not support.
+
+The defensible form is weaker and sufficient: **MDE is a precision functional and
+`D` a location functional, so MDE is approximately ancillary to effect
+location.** Ranking on precision is therefore not a covert ranking on outcome,
+though it is not provably orthogonal to one either.
+
+**And this cannot be checked empirically in either direction**, which is worth
+saying rather than leaving as an absence: testing it would require computing `D`
+for the pairs the rule did *not* select, and burn discipline forbids exactly
+that. The claim is unfalsifiable here by design, so it is offered at its weak
+strength and no further.
+
+What remains factual and unaffected: **no `D` was computed for any marker on the
+slate before selection, and none has been computed for the unselected candidates
+now.** That is RH's wording as given, and it stands as stated; the overreach was
+in the gloss added to it, not in it.
 
 ### The within-construct rule is contemporaneous with the ranking, not prior to it
 
