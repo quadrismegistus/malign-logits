@@ -75,7 +75,7 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 
 ### 2. Cross-family logit comparison (4 families, 47 prompts)
 
-> **Status:** rescoped | **Grade:** C | see [none (rescoped in place — the line "The superego is most active at the boundary" (doc line 11, with the 0.13/0.10 and 0.15/0.09 pairs) is DEAD ON BOTH METRICS per the 2026-07-26/27 corrections: liminal>explicit real (9/9) but ~91% entropy-driven; liminal≈neutral on both metrics; NO boundary peak. Repo CLAUDE.md corrected at b1ba68e; THIS DOC NOT YET — caught by today's grep.)](findings/none (rescoped in place — the line "The superego is most active at the boundary" (doc line 11, with the 0.13/0.10 and 0.15/0.09 pairs) is DEAD ON BOTH METRICS per the 2026-07-26/27 corrections: liminal>explicit real (9/9) but ~91% entropy-driven; liminal≈neutral on both metrics; NO boundary peak. Repo CLAUDE.md corrected at b1ba68e; THIS DOC NOT YET — caught by today's grep.).md)
+> **Status:** rescoped | **Grade:** C | see none (rescoped in place — the line "The superego is most active at the boundary" (doc line 11, with the 0.13/0.10 and 0.15/0.09 pairs) is DEAD ON BOTH METRICS per the 2026-07-26/27 corrections: liminal>explicit real (9/9) but ~91% entropy-driven; liminal≈neutral on both metrics; NO boundary peak. Repo CLAUDE.md corrected at b1ba68e; THIS DOC NOT YET — caught by today's grep.)
 
 
 **Alignment intensity varies by an order of magnitude.** Mean JS divergence (base→superego): Qwen 0.044, Llama 0.057, OLMo 0.176, Amber 0.181.
@@ -155,7 +155,7 @@ Traces repression emerging during supervised fine-tuning by extracting logits fr
 
 ### 5. Logit lens: repression across network layers (4 families)
 
-> **Status:** rescoped | **Grade:** D | see [none (contradicted in place — the cross-family logit-lens rerun found the displacement operation final-layer/ unembedding-uniform in 13/17 families; F05's per-family layer architectures assessed as an artifact of the fixed word list or projection method (ch05 notes:813); cf. F35 §3 for the unembedding locus. No numbered successor doc.)](findings/none (contradicted in place — the cross-family logit-lens rerun found the displacement operation final-layer/ unembedding-uniform in 13/17 families; F05's per-family layer architectures assessed as an artifact of the fixed word list or projection method (ch05 notes:813); cf. F35 §3 for the unembedding locus. No numbered successor doc.).md)
+> **Status:** rescoped | **Grade:** D | see none (contradicted in place — the cross-family logit-lens rerun found the displacement operation final-layer/ unembedding-uniform in 13/17 families; F05's per-family layer architectures assessed as an artifact of the fixed word list or projection method (ch05 notes:813); cf. F35 §3 for the unembedding locus. No numbered successor doc.)
 
 
 Projects each hidden layer's representation through the final unembedding matrix to produce a probability distribution at every layer of the network. Shows *where* in the network the model "decides" to repress or amplify each word. Prompt: "She was so angry she wanted to..."
@@ -584,7 +584,7 @@ CLI: `malign taxonomy --family olmo-tiny`, `malign taxonomy --analyze` (cross-fa
 
 ### 14. Syntagmatic baseline: alignment-produced vs corpus-level damage (OLMo 3 7B, 23k pairs)
 
-> **Status:** rescoped | **Grade:** C | see [none (rescoped in place — the causal framing "alignment damages combination / inverts the poetic function" is retracted: the base model shares the same trade-off; alignment AMPLIFIES a pre-existing structure at targeted sites; deltas stand (sexual +0.106 etc.). ch05:454, ch05:827, ch11:146.)](findings/none (rescoped in place — the causal framing "alignment damages combination / inverts the poetic function" is retracted: the base model shares the same trade-off; alignment AMPLIFIES a pre-existing structure at targeted sites; deltas stand (sexual +0.106 etc.). ch05:454, ch05:827, ch11:146.).md)
+> **Status:** rescoped | **Grade:** C | see none (rescoped in place — the causal framing "alignment damages combination / inverts the poetic function" is retracted: the base model shares the same trade-off; alignment AMPLIFIES a pre-existing structure at targeted sites; deltas stand (sexual +0.106 etc.). ch05:454, ch05:827, ch11:146.)
 
 
 Finding 13 showed that paradigmatic and syntagmatic axes trade off within aligned-model displacements. But is the syntagmatic disruption alignment-produced, or does the base model exhibit it too? We compute `syntagmatic_js` for the same 23,013 displacement pairs under both the base model and the aligned (DPO) model: `p(next | prompt + source)` vs `p(next | prompt + target)` under each.
@@ -787,7 +787,7 @@ Results in `data/self_surprisal.csv`, `data/shannon_entropy.csv`. Notebook: `not
 
 ### 19. Unconditional Generation & Information Density
 
-> **Status:** rescoped | **Grade:** C | see [none (rescoped in place — the BLT-confirmation clause is SUSPENDED: prose-only BOS medians run 1.21 SFT / 1.05 DPO, ABOVE the cited 1.0 threshold; THE BLT CONFIRMATION MUST NOT BE CITED. Filter question specced and queued — unresolved whether wrong-claim or unstated-filter. Core claims stand: human-text numbers reproduce EXACTLY; self-surprisal roughly holds. Pipeline log 2892-2900.)](findings/none (rescoped in place — the BLT-confirmation clause is SUSPENDED: prose-only BOS medians run 1.21 SFT / 1.05 DPO, ABOVE the cited 1.0 threshold; THE BLT CONFIRMATION MUST NOT BE CITED. Filter question specced and queued — unresolved whether wrong-claim or unstated-filter. Core claims stand: human-text numbers reproduce EXACTLY; self-surprisal roughly holds. Pipeline log 2892-2900.).md)
+> **Status:** rescoped | **Grade:** C | see none (rescoped in place — the BLT-confirmation clause is SUSPENDED: prose-only BOS medians run 1.21 SFT / 1.05 DPO, ABOVE the cited 1.0 threshold; THE BLT CONFIRMATION MUST NOT BE CITED. Filter question specced and queued — unresolved whether wrong-claim or unstated-filter. Core claims stand: human-text numbers reproduce EXACTLY; self-surprisal roughly holds. Pipeline log 2892-2900.)
 
 
 ***
@@ -957,7 +957,7 @@ claim stands and the *BLT confirmation* should not be cited.
 
 ### 20. "Who are you?" — the subject as citation
 
-> **Status:** rescoped | **Grade:** C | see [F20_addendum, in part only - three claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading attached to the template. The citation result is NOT superseded; it is confirmed at 24 base models and strengthened (21 of 22 name their own lab in exactly 0.000 of self-predicating mass).](findings/F20_addendum, in part only - three claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading attached to the template. The citation result is NOT superseded; it is confirmed at 24 base models and strengthened (21 of 22 name their own lab in exactly 0.000 of self-predicating mass)..md) | Related: [F20_addendum](findings/F20_addendum.md)
+> **Status:** rescoped | **Grade:** C | see [F20_addendum](findings/F20_addendum.md), in part only - three claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading attached to the template. The citation result is NOT superseded; it is confirmed at 24 base models and strengthened (21 of 22 name their own lab in exactly 0.000 of self-predicating mass). | Related: [F20_addendum](findings/F20_addendum.md)
 
 
 > **See `F20_addendum.md` (2026-07-27) before citing this file.** The expansion
@@ -1584,7 +1584,7 @@ The base model is not the id. It already defers to institutions (F21), and this 
 
 ### 25. Temporal alignment signature — four Lacanian mechanisms in the autoregressive sequence
 
-> **Status:** rescoped | **Grade:** C | see [none (rescoped in place — causal locus reframed: foreclosure is INSTALLED BY SFT; DPO adds nothing qualitative, only amplifies (ch04:24-59). Lacan-sequence fracture RETIRED; co-emergence of subject and law vindicated at SFT (ch11:19-25).)](findings/none (rescoped in place — causal locus reframed: foreclosure is INSTALLED BY SFT; DPO adds nothing qualitative, only amplifies (ch04:24-59). Lacan-sequence fracture RETIRED; co-emergence of subject and law vindicated at SFT (ch11:19-25).).md)
+> **Status:** rescoped | **Grade:** C | see none (rescoped in place — causal locus reframed: foreclosure is INSTALLED BY SFT; DPO adds nothing qualitative, only amplifies (ch04:24-59). Lacan-sequence fracture RETIRED; co-emergence of subject and law vindicated at SFT (ch11:19-25).)
 
 
 **When during generation does alignment intervene?**
@@ -1711,7 +1711,7 @@ This is the first empirically precise mapping of alignment mechanisms to Lacania
 
 ### 26. The Token-Tree Census — Variance Decomposition and the Deleter/Redirector Typology (53 models, 5 prompts)
 
-> **Status:** rescoped | **Grade:** D | see [F31 (and F31's own canonical 44-family PERMANOVA revision: family 97.8%, method 2.9% n.s. on deltas — ch11:176-179. Chain: F31 superseded F26's 5-prompt method; the F26/F31 reconciliation ("holds at industrial intensity") was then itself overturned by the canonical run.)](findings/F31 (and F31's own canonical 44-family PERMANOVA revision: family 97.8%, method 2.9% n.s. on deltas — ch11:176-179. Chain: F31 superseded F26's 5-prompt method; the F26/F31 reconciliation ("holds at industrial intensity") was then itself overturned by the canonical run.).md)
+> **Status:** rescoped | **Grade:** D | see F31 (and F31's own canonical 44-family PERMANOVA revision: family 97.8%, method 2.9% n.s. on deltas — ch11:176-179. Chain: F31 superseded F26's 5-prompt method; the F26/F31 reconciliation ("holds at industrial intensity") was then itself overturned by the canonical run.)
 
 
 **Summary**
@@ -1862,7 +1862,7 @@ stories = beam_storylines("allenai/OLMo-2-0425-1B", "I understand. She was so an
 
 > **Status note (2026-07-26).** Rescoped to discovery-sample-only. A 19-family
 
-> **Status:** rescoped | **Grade:** C | see [none — original OLMo-2-0425-1B result stands on its own data; the 19-family scale-up replaces it with nothing](findings/none — original OLMo-2-0425-1B result stands on its own data; the 19-family scale-up replaces it with nothing.md)
+> **Status:** rescoped | **Grade:** C | see none — original OLMo-2-0425-1B result stands on its own data; the 19-family scale-up replaces it with nothing
 
 > scale-up was attempted on beams already in the stash (335,799
 > storyline-scorings, no new generation) and produced a positional signature —
@@ -2128,7 +2128,7 @@ discovery-sample-only, and nothing in the scale-up replaces it.
 
 ### 31. PERMANOVA Variance Decomposition — Pretraining Dominates Alignment
 
-> **Status:** rescoped | **Grade:** C | see [none (rescoped in place by its OWN canonical 44-family revision: the 14-family delta result REVERSED — relation_type 30.9% p=.002 at 14 families → 2.9% n.s. at 44; family 97.8%. The operation-matters claim survives in exactly two places: within-family comparisons and controlled same-base comparisons. ch11:27-49, 164-182.)](findings/none (rescoped in place by its OWN canonical 44-family revision: the 14-family delta result REVERSED — relation_type 30.9% p=.002 at 14 families → 2.9% n.s. at 44; family 97.8%. The operation-matters claim survives in exactly two places: within-family comparisons and controlled same-base comparisons. ch11:27-49, 164-182.).md)
+> **Status:** rescoped | **Grade:** C | see none (rescoped in place by its OWN canonical 44-family revision: the 14-family delta result REVERSED — relation_type 30.9% p=.002 at 14 families → 2.9% n.s. at 44; family 97.8%. The operation-matters claim survives in exactly two places: within-family comparisons and controlled same-base comparisons. ch11:27-49, 164-182.)
 
 
 **Summary**

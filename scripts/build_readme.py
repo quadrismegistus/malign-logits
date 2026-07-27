@@ -76,6 +76,28 @@ VALID_INSTRUMENTS = {
 }
 
 
+
+def supersede_link(value, prefix="findings/"):
+    """Render superseded_by, which may be a finding stem OR prose.
+
+    The field was a bare stem until 2026-07-27, when F20's supersession became
+    PARTIAL -- three named claims die, the central result survives and is
+    strengthened -- and the honest way to say that is a sentence. Both callers
+    formatted it unconditionally as [value](findings/value.md), so the prose
+    became a link whose target was the whole sentence with `.md` on the end.
+
+    A stem is linked. Anything else is rendered as text, with the leading
+    finding name linked if the sentence starts with one, so the common case
+    ("F20_addendum, in part only - ...") still gets a working link.
+    """
+    v = str(value).strip()
+    if re.fullmatch(r"F\d{2}[A-Za-z0-9_]*", v):
+        return f"[{v}]({prefix}{v}.md)"
+    m = re.match(r"(F\d{2}[A-Za-z0-9_]*)(\W.*)", v, re.S)
+    if m and (ROOT / prefix / f"{m.group(1)}.md").exists():
+        return f"[{m.group(1)}]({prefix}{m.group(1)}.md){m.group(2)}"
+    return v
+
 def parse_frontmatter(path):
     """Parse YAML frontmatter from a markdown file. Returns (meta, body)."""
     text = path.read_text()
@@ -134,7 +156,7 @@ def _status_badge(meta, children=None):
     if grade:
         parts.append(f"**Grade:** {grade}")
     if meta.get("superseded_by"):
-        parts.append(f"see [{meta['superseded_by']}](findings/{meta['superseded_by']}.md)")
+        parts.append("see " + supersede_link(meta["superseded_by"]))
     for sa in meta.get("see_also", []):
         parts.append(f"see also [{sa}](findings/{sa}.md)")
     if children:
@@ -343,7 +365,7 @@ def index():
         superseded_by = m.get("superseded_by")
         citation = f"[{f['stem']}](findings/{f['path'].name})"
         if superseded_by:
-            citation += f" → [{superseded_by}](findings/{superseded_by}.md)"
+            citation += " → " + supersede_link(superseded_by)
 
         lines.append(f"| {num_label} | {_trunc(f['title'])} | {status} | {grade} | {chapters} | {citation} |")
 
