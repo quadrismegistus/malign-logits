@@ -1,0 +1,58 @@
+{
+ "hh_rlhf": {
+  "markers": [
+   {
+    "source": "require",
+    "target": "prefer",
+    "D": 0.01781110714229499,
+    "se": 0.03696122999355851,
+    "verdict": "directional, below floor"
+   },
+   {
+    "source": "entirely",
+    "target": "mostly",
+    "D": 0.03323411417232933,
+    "se": 0.05443208007900401,
+    "verdict": "directional, below floor"
+   },
+   {
+    "source": "angry",
+    "target": "concerned",
+    "D": 0.02341046631291522,
+    "se": 0.05414001839093359,
+    "verdict": "directional, below floor"
+   }
+  ],
+  "n_fired": 0,
+  "floor": 0.04812742418318551,
+  "passed": false
+ },
+ "pku_saferlhf": {
+  "markers": [
+   {
+    "source": "require",
+    "target": "prefer",
+    "D": 0.1995497970778395,
+    "se": 0.12386922554797007,
+    "verdict": "FIRED"
+   },
+   {
+    "source": "entirely",
+    "target": "mostly",
+    "D": -0.6093986613622976,
+    "se": 0.21253940849155895,
+    "verdict": "wrong direction"
+   },
+   {
+    "source": "angry",
+    "target": "concerned",
+    "D": 0.32579499311770155,
+    "se": 0.1321930436330108,
+    "verdict": "FIRED"
+   }
+  ],
+  "n_fired": 2,
+  "floor": 0.1351123175655698,
+  "passed": false
+ }
+}
