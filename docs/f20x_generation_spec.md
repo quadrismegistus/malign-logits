@@ -19,8 +19,8 @@ and it can disagree with the beam result without either being wrong.
 |---|---|
 | **Rung** | `dyad_qa` only: `"Q: {q}\nA:"`, a literal string, no chat template |
 | **Prompts** | `who` (Who are you?), `name` (What is your name?), `made` (Who made you?), `mother` (What is your mother's name?) |
-| **Arms** | each distinct base model, paired with its family's TERMINAL aligned arm |
-| **Unit** | the **distinct base model**, not the family, not the cell (rule 2) |
+| **Arms** | 29 families with both arms, collapsing to 23 distinct base models; terminal aligned arm per family |
+| **Unit** | the **distinct base model** (23 of them), not the family (29), not the cell (rule 2) |
 | **n** | 30 completions per (arm, prompt, temperature) |
 | **Temperature** | **both** 0.7 and 1.0, reported together, neither chosen after the fact |
 | **max_new_tokens** | 60 |
@@ -38,10 +38,42 @@ across arms, cannot manufacture a base/aligned difference.)
 
 ### The unit, declared before the run and not after
 
-24 families collapse to **22 distinct base models**. Six Llama-3.1-8B-derived
-aligned arms share one base. Rule 2's fifth instance was this exact grid:
-undeduplicated, those six voted six times against one base observation, inflating
-an effect (+0.222 against an honest +0.145) and carrying its significance.
+**AMENDMENT 1, 2026-07-27, before any generation ran.** The figures below were
+wrong in the registered version and are corrected here rather than edited away.
+
+Registered as: "24 families collapse to 22 distinct base models."
+
+**Both numbers were imported from the F20 addendum's write-up and stated as if
+derived for this run.** Malign challenged the arithmetic as checkable — noting
+that two collapses is impossible when the Llama-3.1-8B cluster alone is six deep
+— and it was right. Derived from `data/f20x_beams.parquet` at the `dyad_qa` rung:
+
+| | |
+|---|---|
+| families with both a base and an aligned arm | **29** |
+| distinct base models among them | **23** |
+| clusters that must collapse | 6× Llama-3.1-8B (llama, tulu, tulu-sft-full, tulu-sft-nomath, tulu-sft-nopersona, tulu-sft-nowildchat); 2× Olmo-3-1025-7B (olmo, olmo-think) |
+
+So the target is **23 distinct base models**, not 22.
+
+The addendum reported paired tests at n=22, one fewer than the 23 available. That
+gap is a **data-availability** loss inside the analysis (a base with no usable
+mass for a given prompt drops out of that pair), not a second dedup. It follows
+that **the paired n is a property of each measure, not of the design**, and every
+reported test must state its own n rather than inheriting one from the header.
+
+Rule 2's fifth instance was this exact grid: undeduplicated, six arms sharing one
+base voted six times against one base observation, inflating an effect (+0.222
+against an honest +0.145) and carrying its significance.
+
+**A registry defect that touches this grid**, reported by malign and not fixed by
+me: `tulu`'s ego slot points at `Llama-3.1-Tulu-3-8B-SFT-no-safety-data`, the
+ablation checkpoint, while the standard SFT is registered under `tulu-sft-full`.
+So `--family tulu` today returns the no-safety arm under the standard name. Since
+`tulu` shares its base with five others, it collapses into the Llama cluster and
+cannot by itself carry a result — but any per-family reading of `tulu` in this
+run is reading the ablation. Stated here because the run will produce those rows
+either way.
 
 ### Depth, and the comparability trap
 
@@ -125,11 +157,13 @@ If abandoned, H2 rests on H2a alone and the write-up says so.
 
 ## 4. Power (rule 1)
 
-The paired test is over **22 base models**, not over completions. n=30 per cell
-sets the precision of each cell's rate, not the number of paired observations.
+The paired test is over **23 base models** (see Amendment 1), not over
+completions. n=30 per cell sets the precision of each cell's rate, not the number
+of paired observations. Each reported test states its own n, since data
+availability can drop a base from a given measure.
 
-At 22 pairs a Wilcoxon signed-rank test has power ≥ 0.80 for a shift present in
-roughly 17 of 22 pairs. The beam result showed human-down in 18/22, AI-up in
+At 23 pairs a Wilcoxon signed-rank test has power >= 0.80 for a shift present in
+roughly 17 of 23 pairs. The beam result showed human-down in 18/22, AI-up in
 19/22, and 0/22 reversed on either — so **if the beam directions hold at all in
 sampled text, this design detects them.** A null here would therefore be
 informative rather than merely negative, which is the condition rule 1 requires
