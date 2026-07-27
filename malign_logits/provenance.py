@@ -118,8 +118,18 @@ def provenance(script_path: str | None = None,
     import sys as _sys
     for m in list(_sys.modules.values()):
         f2 = getattr(m, "__file__", None)
-        if f2 and root and str(pathlib.Path(f2).resolve()).startswith(root + "/"):
-            paths.append(str(pathlib.Path(f2).resolve()))
+        if not f2 or not root:
+            continue
+        rp = str(pathlib.Path(f2).resolve())
+        # The virtualenv lives INSIDE the repo root, so a naive "under root"
+        # test swept 1,139 site-packages files into the closure. They are not
+        # tracked, so every one resolved to matches_commit=None -- and the
+        # summary line reported "1152 file(s) match HEAD". A check that counts
+        # unverified files as passes is worse than no check, and this one
+        # produced its false green on its first real run.
+        if not rp.startswith(root + "/") or "/.venv/" in rp or "/site-packages/" in rp:
+            continue
+        paths.append(rp)
     seen, cl = set(), []
     for q in paths:
         qp = pathlib.Path(q).resolve()
@@ -127,16 +137,24 @@ def provenance(script_path: str | None = None,
             qrel = str(qp.relative_to(root)) if root else str(qp)
         except ValueError:
             continue
-        if qrel in seen or qrel == rel:
+        # Some third-party modules carry a RELATIVE __file__, which resolves
+        # against cwd and lands inside the repo root as a bare filename that
+        # does not exist. Drop those rather than reporting them unverified.
+        if qrel in seen or qrel == rel or not qp.exists():
             continue
         seen.add(qrel)
         blob = _git("hash-object", str(qp)) if qp.exists() else ""
         head = _git("rev-parse", f"HEAD:{qrel}")
         cl.append(dict(path=qrel, blob=blob or None,
+                       tracked=bool(head),
                        matches_commit=(blob == head) if (blob and head) else None))
     p["closure"] = sorted(cl, key=lambda d: d["path"]) or None
+    # True only if every closure file was actually CHECKED and matched.
+    # Unknown (untracked) counts against it rather than being ignored.
     p["closure_matches_commit"] = (
-        all(c["matches_commit"] for c in cl) if cl else None)
+        all(c["matches_commit"] is True for c in cl) if cl else None)
+    p["closure_unverified"] = [c["path"] for c in cl
+                               if c["matches_commit"] is not True] or None
     return p
 
 
@@ -157,5 +175,8 @@ def describe(p: dict) -> str:
     if bad:
         bits.append(f"*** CLOSURE DIFFERS FROM HEAD: {', '.join(bad)} ***")
     elif cl:
-        bits.append(f"closure {len(cl)} file(s) match HEAD")
+        good = sum(1 for c in cl if c["matches_commit"] is True)
+        unk = len(cl) - good
+        bits.append(f"closure {good}/{len(cl)} verified against HEAD"
+                    + (f", {unk} UNVERIFIED (untracked)" if unk else ""))
     return "provenance: " + ", ".join(bits)
