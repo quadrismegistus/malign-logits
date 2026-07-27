@@ -1,4 +1,15 @@
 {
+ "provenance": {
+  "commit": "c1b6447d8eeaabf162aa5e95e36c039c8391faaf",
+  "commit_short": "c1b6447",
+  "tree_clean": false,
+  "dirty_paths": [
+   "data/preference_corpus_gate_v2.json"
+  ],
+  "script": "scripts/preference_corpus_gate_v2.py",
+  "script_blob": "4926c52436479ced3a2525ca1a21339fe8a0508f",
+  "script_matches_commit": true
+ },
  "hh_rlhf": {
   "markers": [
    {
