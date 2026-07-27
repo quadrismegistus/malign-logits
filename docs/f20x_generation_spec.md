@@ -334,3 +334,68 @@ them costs one pass and leaves the comparison intact.
 is tested there. If the extension disagrees with the primary, that is a finding
 about which models were reachable by the beam instrument, and it is reported as
 one rather than folded into either number.
+
+***
+
+## Amendment 4, 2026-07-27: the beam baseline was withdrawn under this spec
+
+**Written before any generation aggregate has been computed.** The smoke test has
+run — 2 families, 2 prompts, n=5, 40 rows, and I have read individual completions
+from it — but no rate, share, or paired test on generation data exists at this
+seat or any other. That is the disclosure this amendment stands on.
+
+### What happened
+
+H1 was registered against the F20 addendum's beam table. That table has since
+been **withdrawn as permanently unrecomputable** — it was produced on a frame
+that is not the published artifact — and replaced by a re-measurement verified
+twice from committed artifacts. So this spec's stated baseline no longer exists.
+
+| measure | as registered here | re-measured (live) |
+|---|---|---|
+| human self-description | 0.312 → 0.080 | **0.468 → 0.199** |
+| AI self-attribution | 0.153 → 0.410 | **0.235 → 0.509** |
+| own-lab naming | 0.009 → 0.093 | **0.009 → 0.153** |
+| `P_self` | 0.558 → 0.695 | **0.567 → 0.748**, 6 of 8 |
+
+Own-lab naming differs by 65%.
+
+### The amendment, and why it is (a) rather than (b)
+
+The audit named two options: re-register H1 against the new baseline, or void H1
+and let the run report its own numbers with no confirmation claim.
+
+**H1 is re-registered, and the directional predictions are unchanged because they
+never depended on the figures.** Human self-description falls, AI self-attribution
+rises, own-lab naming rises — identical under both baselines, which agree on
+every direction and disagree on every magnitude. What is replaced is the table
+those directions were quoted beside.
+
+**And this registration is weaker than the original. It says so here rather than
+presenting itself as equivalent.** When H1 was first registered, neither the
+baseline nor the generation result was known to me. Now the baseline is known —
+to me, to malign, to registrar. The generation result is still unknown, which is
+what keeps this a prediction rather than a description, but the asymmetry is real
+and a reader should weigh it.
+
+### One prediction is ADDED, and it is the sharpest thing here
+
+The re-measurement found **"gives a human name" is null and direction-inconsistent
+across all 8 cells** (0.104 → 0.117, p=0.97), where the withdrawn table reported
+0.050 → 0.095 and read as a rise.
+
+**Registered now: the human-name null replicates in sampled generation.** If
+sampling shows human-name giving reliably changing in either direction, this
+prediction fails and the null was an artifact of beam search rather than a
+property of the models.
+
+That is a falsifiable prediction about a null, registered before the data, which
+is the one thing the original H1 could not offer — because the original baseline
+had the row moving.
+
+### Unchanged
+
+`P_self` still carries no prediction. Its re-measured effect is +0.182 at 6 of 8
+cells, stronger than the withdrawn +0.145 but still the weak row, and inventing
+a prediction for it now — after seeing it improve — would be the exact move this
+document exists to prevent.
