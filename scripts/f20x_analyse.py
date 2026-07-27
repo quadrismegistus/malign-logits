@@ -55,6 +55,20 @@ EXCLUDE_POOLED = {"smol"}          # correction 3
 # confirmation roster. Base arms are deduplicated by model_id below.
 
 
+ALIGNED_ARMS = ("ego", "superego", "reinforced_superego")
+
+
+def is_aligned(s):
+    """The post-training stages, collectively.
+
+    There is no arm called "aligned". This file assumed one at THREE separate
+    sites; repairing only the one that crashed first left the other two, and the
+    script then died further along on an empty frame. Defined once here so a
+    fourth site cannot reintroduce it.
+    """
+    return s.isin(ALIGNED_ARMS)
+
+
 def self_predicates(t):
     """Delegated to the committed classifier. The STOP-list gate lives there."""
     return "P_self" in flags_for(t, None)
@@ -111,14 +125,15 @@ def main():
              .apply(share, include_groups=False).rename("P").reset_index())
     piv = ident.pivot_table(index="family", columns=["mode", "arm"], values="P")
     cols = [(m, a) for m in ("chatml", "chat", "chat_nosys", "raw")
-            for a in ("base", "aligned") if (m, a) in piv.columns]
+            for a in ("base",) + ALIGNED_ARMS if (m, a) in piv.columns]
     print(piv[cols].round(3).to_string())
     print("\nchatml holds the FORMAT constant across families, so base-arm variance")
     print("there is about the model rather than about whose template says what.")
 
     print("\n=== specificity: control leakage at chat/aligned, by family ===")
-    ctl = (d[(d.pclass == "control") & (d["mode"] == "chat") & (d.arm == "aligned")]
-           .groupby("family").apply(share, include_groups=False).sort_values(ascending=False))
+    ctl = (d[(d.pclass == "control") & (d["mode"] == "chat") & is_aligned(d.arm)]
+           .groupby("family").apply(share, include_groups=False)
+           .squeeze().sort_values(ascending=False))
     print(ctl.round(3).head(6).to_string())
     if len(ctl) and ctl.iloc[0] > 0.10:
         print(f"NOTE: {ctl.index[0]} leaks at {ctl.iloc[0]:.3f} -- specificity is not uniform.")
