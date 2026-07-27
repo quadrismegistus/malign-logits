@@ -1,0 +1,82 @@
+{
+  "commit": "697a2b2947d61a59381a4ff5c50f3f2de664ce35",
+  "commit_short": "697a2b2",
+  "tree_clean": false,
+  "dirty_paths": [
+    "scripts/f20x_generate.py"
+  ],
+  "script": "scripts/f20x_generate.py",
+  "script_blob": "0152892cad60f168882f29af8795287e7b360b96",
+  "script_matches_commit": false,
+  "closure": [
+    {
+      "path": "malign_logits/__init__.py",
+      "blob": "8e3c5002fdbaefc9804bf0666e49ec72b79f66c6",
+      "tracked": true,
+      "matches_commit": true
+    },
+    {
+      "path": "malign_logits/analysis.py",
+      "blob": "a86603c23f29945be54a7b634ca32c5d90a1bb80",
+      "tracked": true,
+      "matches_commit": true
+    },
+    {
+      "path": "malign_logits/cache.py",
+      "blob": "87189bbf54d11039e360a762b63ef5750428f562",
+      "tracked": true,
+      "matches_commit": true
+    },
+    {
+      "path": "malign_logits/circuit.py",
+      "blob": "7e975ef4748edaf71081733784528a4cf00a69e2",
+      "tracked": true,
+      "matches_commit": true
+    },
+    {
+      "path": "malign_logits/core.py",
+      "blob": "aec1473f0eb17fd9a15c0698b735f154d1c01ba2",
+      "tracked": true,
+      "matches_commit": true
+    },
+    {
+      "path": "malign_logits/experiments.py",
+      "blob": "5c58f936e0de959a944ef4acb51e4edfff2d035f",
+      "tracked": true,
+      "matches_commit": true
+    },
+    {
+      "path": "malign_logits/generation.py",
+      "blob": "8cf74777b02e4ddb4fdae0001659599db3261bf7",
+      "tracked": true,
+      "matches_commit": true
+    },
+    {
+      "path": "malign_logits/models.py",
+      "blob": "75fe42f34f7ef244777792caef87c5c1813350b1",
+      "tracked": true,
+      "matches_commit": true
+    },
+    {
+      "path": "malign_logits/provenance.py",
+      "blob": "ed9746321b1ae9a22f7347b26b5fa9a1eb1c9105",
+      "tracked": true,
+      "matches_commit": true
+    },
+    {
+      "path": "malign_logits/psyche.py",
+      "blob": "e59a88d4ce580d42c8f6cbdf605ed3911ab0d371",
+      "tracked": true,
+      "matches_commit": true
+    },
+    {
+      "path": "malign_logits/viz.py",
+      "blob": "a6fac371d880bad4bcc15721ef941a01e0135bc9",
+      "tracked": true,
+      "matches_commit": true
+    }
+  ],
+  "closure_matches_commit": true,
+  "closure_unverified": null,
+  "failed_cells": 4
+}
