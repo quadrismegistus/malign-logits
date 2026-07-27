@@ -439,3 +439,99 @@ it is the entire architecture class. Nothing in this run licenses a claim about
 MoE models, and no aggregate here should be described as covering the registry.
 If the question matters, it needs a machine with a working kernel, not a
 footnote.
+
+---
+
+## Amendment 5, 2026-07-27: format drift, and what condition A now means
+
+Written with the roster at 15 of 49, before any hypothesis test on generation
+data exists at any seat. Drafted by this spec's author, audited by malign per the
+[46] rotation, timestamp booked by registrar.
+
+### Condition A's premise is superseded by Amendment 4, and the smoke test says how much
+
+Condition A required classifying generations with the **as-published** regex, so
+that the comparison against beam figures would be instrument-matched rather than
+confounded. That was correct when the beam baseline was the published table.
+Amendment 4 withdrew that table. The baseline is now the re-measured figures,
+which `f20x_remeasure.py` computed with `f20x_identity` — so instrument-matching
+now means the **committed classifier**, and using the as-published pattern would
+*create* the confound condition A exists to prevent.
+
+The smoke test quantifies the difference on this text type, n=36 stratified by arm:
+
+| pattern | fires | kappa vs LLM |
+|---|---|---|
+| as-published (`^` anchor) | 0.14 | +0.215 |
+| curly-apostrophe fix only | 0.14 | +0.215 |
+| committed `f20x_identity` (`^\s*`) | 0.44 | **+0.775** |
+
+Per arm the as-published pattern fires on **0.00 of base and 0.00 of superego**
+completions. Every generation begins with a space, because the rung ends `A:`,
+and the published pattern anchors its first alternative on `^`. It cannot see
+opening-position self-predication at all in this text type.
+
+**Condition A is therefore amended: `f20x_identity` is the regex arm everywhere.**
+Both defective patterns are still computed and written to the output, so the size
+of the defect stays inspectable rather than becoming a claim about it.
+
+### Format drift is an OUTCOME, not only a nuisance
+
+74% of completions leave the register of an answer for Q/A loops or
+multiple-choice exam items. `I am a\nB: I am John\nC: I am Mary\nAnswer: B`
+matches the P_self pattern three times and is not a self-predication once.
+
+**The primary analysis is UNGATED.** H1 and H2 were registered about what
+sampling produces, and a completion that drifts is something the model produced.
+Excluding drifted completions would silently change the question to *"among
+completions that stayed on task, how does the model answer"* — and staying on
+task is plausibly one of the things alignment changes, so the exclusion would
+remove part of the effect and call it cleaning.
+
+**A gated secondary is reported beside it**, restricted to
+`format_drift == "none"`, labelled as a different question rather than a
+robustness check, and reported with its retention rate per arm, because the
+retention is differential and a reader must see the selection.
+
+**And `format_drift` is tested in its own right**, at the paired unit: does a
+base model drift more than its aligned arm? Distinct base model is the unit
+(rule 2), aligned arms deduplicated, paired sign test and Wilcoxon, reported
+with its own n.
+
+### What I have already seen, stated so this registration is not read as blind
+
+Writing the annotator required reading generations, and the rates below are
+split by arm on the first 15 families. This registration is **weaker than a
+blind one and says so on its face**, exactly as Amendment 4 does.
+
+Pooled by arm: drift 0.852 base, 0.694 superego, 0.279 reinforced_superego on
+the full window; 0.415 / 0.336 / 0.069 on the 10-token prefix.
+
+**At the paired unit that ordering is much weaker, and this is the part worth
+registering.** Over the 9 distinct base models with both arms so far:
+
+    base mean 0.781, aligned mean 0.601
+    aligned drifts LESS in 6 of 9 base models
+
+Three base models run the other way — neo_7b 0.458→0.704, Mistral-7B
+0.862→0.879, MiniCPM5 0.725→0.992. At n=9 a one-sided sign test on 6/9 gives
+p=0.254. **So the clean pooled ordering is an artifact of pooling**, in the same
+way the withdrawn "other's name" collapse was, and anyone reading 0.85/0.69/0.28
+as a result is reading arm means driven by a few families.
+
+Registered consequence: if the paired test at the full roster fails to reach
+p<0.05, the drift ordering is reported as **not established**, and the pooled
+rates are never quoted without the paired test beside them.
+
+### Abandonment candidates, deferred rather than decided
+
+Four fields were single-valued above 90% in the smoke test: `gives_human_name`
+(91.7%), `declines` (94.4%), `contentless` (100%), `redaction` (100%). **Nothing
+is abandoned on n=36.** At that size a genuinely rare category is
+indistinguishable from a dead field. They are re-checked on the full annotation
+run against the same 90% threshold, and abandonment is reported as abandonment.
+
+### Unchanged
+
+H1, H2a and H2b keep their registered forms and their falsification conditions.
+The two-window design stands. `P_self` still carries no prediction.
