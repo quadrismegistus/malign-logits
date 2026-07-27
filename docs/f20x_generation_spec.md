@@ -535,3 +535,67 @@ run against the same 90% threshold, and abandonment is reported as abandonment.
 
 H1, H2a and H2b keep their registered forms and their falsification conditions.
 The two-window design stands. `P_self` still carries no prediction.
+
+### Amendment 5a, same day, at the audit seat's request
+
+Three corrections to Amendment 5, all from malign's audit, all verified
+independently at this seat before acceptance.
+
+**The drift interaction was mostly the `^`-anchor bug, not a property of the
+data.** Amendment 5 justified `format_drift` partly on the claim that
+scaffolding contaminates `P_self` in *different directions* across arms and so
+"cannot be subtracted out". That claim was computed with the as-published
+pattern. Recomputed over all 7,200 completions with the committed classifier:
+
+| arm | instrument | on-task | drifted |
+|---|---|---|---|
+| base | published | 0.221 | 0.152 |
+| base | **committed** | **0.368** | **0.386** |
+| superego | published | 0.301 | 0.175 |
+| superego | **committed** | 0.496 | 0.413 |
+| reinforced | published | 0.092 | 0.216 |
+| reinforced | **committed** | 0.436 | 0.507 |
+
+The base arm's drift effect goes from a 0.07 swing to 0.02, and the sign flip
+across arms largely dissolves. The mechanism is the one this spec already names:
+`^` cannot see opening-position predication, drifted text carries more
+*internal* post-newline predications that `^` can see, so drift status was
+partly a proxy for the bug's visibility.
+
+`format_drift` stays a per-completion field, but **its stated rationale was
+wrong and is replaced**: it is retained because drift is an outcome in its own
+right, and because the superego/reinforced ordering depends on it — not because
+it differentially contaminates `P_self`.
+
+**The stake in the ungated/gated call is narrower than Amendment 5 claimed.**
+Under the committed instrument:
+
+    ungated        base 0.383   superego 0.441   reinforced 0.456
+    on-task only   base 0.368   superego 0.496   reinforced 0.436
+    drifted only   base 0.386   superego 0.413   reinforced 0.507
+
+**base < aligned in every reading.** H1 and H2's core contrast does not turn on
+this decision at all. What turns on it is the superego-versus-reinforced
+ordering, which swaps. Amendment 5's framing — "74% of the corpus is text I
+cannot characterise" — overstated it, and the correct statement is that the
+gating call is a claim about stage ordering, not about the base/aligned result.
+
+If the gated secondary is reported, retention is **base 18%, superego 31%,
+reinforced 72%**: it compares arms selected at four times different rates, and
+that sentence appears beside it every time.
+
+**The output the spec describes does not exist.** Amendment 5 says all three
+patterns are written. `f20x_generate.py` writes `full_self_published`,
+`full_self_repaired`, `pre_self_published`, `pre_self_repaired` — only the two
+this spec now forbids using as primary. There is no `regex_committed` column.
+
+Resolution, and the running job is **not** being restarted for it: the
+completion text is stored, so the committed classifier is applied post hoc and
+reproduces exactly (~40s over 7,200 rows, done independently at both seats).
+The column is therefore **derived at analysis time and declared here**, rather
+than written at generation time. Restarting a 15-family run to add a losslessly
+derivable column would destroy real work for no information.
+
+`pattern: committed-but-not-running` — a spec describing an output its own
+pipeline does not emit. This is the same family as rule 15 and the instance is
+booked against this document.
