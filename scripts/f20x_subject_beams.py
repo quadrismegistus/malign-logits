@@ -112,6 +112,32 @@ def templated(prompt, aligned_model_id):
 
 CHATML = "<|im_start|>user\n{q}<|im_end|>\n<|im_start|>assistant\n"
 
+# THE LADDER (RH's design). ChatML's special tokens do two things at once: mark a
+# turn position, AND cue an AI-assistant transcript, since that is the only place
+# ChatML occurs in a corpus. These plain-text frames separate the two. Each rung
+# adds exactly one thing, so the difference between rungs is interpretable.
+#
+#   dyad_me_you   position + person-reversal, no roles named. ME/YOU are shifters
+#                 that reverse with the speech act, so this also tests whether the
+#                 model works out that it is the one addressed as "you".
+#   dyad_qa       turn structure with no persons at all
+#   dyad_user_ast roles named, plain text (no special tokens)
+#   dyad_human_ai explicitly AI, plain text
+#   chatml        AI-associated SPECIAL TOKENS
+#   chat          plus the family's asserted identity content
+#
+# NOT cue-free: plain dialogue frames are all over the corpus in interviews,
+# screenplays and forum posts. Rung 1 cues DIALOGUE, not AI-dialogue, which is
+# the contrast wanted -- but it is not a neutral baseline and is not reported as
+# one. All rungs are family-independent, so they share cache across families
+# with a common base, like chatml and raw.
+LADDER = {
+    "dyad_me_you":   "ME: {q}\nYOU:",
+    "dyad_qa":       "Q: {q}\nA:",
+    "dyad_user_ast": "User: {q}\nAssistant:",
+    "dyad_human_ai": "Human: {q}\nAI:",
+}
+
 
 def templated_nosys(prompt, aligned_model_id):
     """Family template with the system block suppressed via an empty system msg.
@@ -182,18 +208,29 @@ def beams_for(model, tokenizer, text, n=N_BEAMS, depth=DEPTH):
     return rows
 
 
-def load_stashed(model_id, prompt_text, mode, n=N_BEAMS, depth=DEPTH):
-    """Return stashed rows for this cell, or None. Makes restarts nearly free."""
+def load_stashed(model_id, prompt_text, mode, n=N_BEAMS, depth=DEPTH, tmpl_src=None):
+    """Return stashed rows for this cell, or None.
+
+    tmpl_src disambiguates family-specific renders. The house convention keys on
+    {model, prompt, mode}, which assumes ONE template per model. That is false
+    here: llama, tulu and every tulu-sft variant share Llama-3.1-8B and feed it
+    DIFFERENT templates under mode='chat'. Verified byte-identical beams before
+    this fix -- the second family silently read the first's result. raw and
+    chatml are family-independent and carry no tmpl field, so they keep sharing
+    correctly, which is the duplication we DO want.
+    """
     from malign_logits.probe import _get_cache
     key = {"model": model_id, "prompt": prompt_text,
            "n_beams": n, "max_tokens": depth,
            "type": "beam_annotated_v1"}
     if mode != "raw":
         key["mode"] = mode
+    if tmpl_src:
+        key["tmpl"] = tmpl_src
     return _get_cache().get_beams(key)
 
 
-def stash_beams(model_id, prompt_text, mode, rows, n=N_BEAMS, depth=DEPTH):
+def stash_beams(model_id, prompt_text, mode, rows, n=N_BEAMS, depth=DEPTH, tmpl_src=None):
     """Write to the beams stash under the LOGITS convention (cache.py:133-150).
 
     The beams stash has no mode field: every one of its ~11.6k entries is raw,
@@ -217,17 +254,21 @@ def stash_beams(model_id, prompt_text, mode, rows, n=N_BEAMS, depth=DEPTH):
            "type": "beam_annotated_v1"}
     if mode != "raw":
         key["mode"] = mode
+    if tmpl_src:
+        key["tmpl"] = tmpl_src   # see load_stashed
     _get_cache().set_beams(key, rows)
 
 
-def run_arm(family, arm, model_id, cells, sink):
+def run_arm(family, arm, model_id, cells, sink, tmpl_src):
     """Load the model ONLY if some cell is missing from the stash.
 
     The model load dominates runtime, so checking the stash after loading
     (as an earlier version did) made resume worthless.
     """
     live = [c for c in cells if c[2] is not None]
-    cached = {(m, q): load_stashed(model_id, q, m) for m, _, _, q in live}
+    cached = {(m, q): load_stashed(model_id, q, m,
+                                   tmpl_src=(tmpl_src if m in ("chat", "chat_nosys") else None))
+              for m, _, _, q in live}   # ladder+chatml+raw are family-independent
     missing = [c for c in live if cached[(c[0], c[3])] is None]
     print(f"  {family}/{arm}: {model_id} "
           f"[{len(live) - len(missing)}/{len(live)} cached]")
@@ -240,11 +281,13 @@ def run_arm(family, arm, model_id, cells, sink):
             rows = cached[(mode, question)]
             if rows is None:
                 rows = beams_for(model, tok, text)
-                stash_beams(model_id, question, mode, rows)
+                stash_beams(model_id, question, mode, rows,
+                            tmpl_src=(tmpl_src if mode in ("chat", "chat_nosys") else None))
             for b in rows:
                 broad, narrow = self_predicates(b["text"])
                 sink.append({
                     "family": family, "arm": arm, "model_id": model_id,
+                    "stage": stage_hint(model_id) if arm != "base" else "base",
                     "mode": mode, "prompt": pkey,
                     "is_identity": IS_IDENTITY[pkey],
                     "pclass": prompt_class(pkey),
@@ -261,6 +304,40 @@ def run_arm(family, arm, model_id, cells, sink):
                 torch.mps.empty_cache()
         except Exception:
             pass
+
+
+SLOTS = ("base", "ego", "superego", "reinforced_superego")
+
+
+def stage_hint(model_id):
+    """Best-effort stage from the model ID. The registry SLOT is unreliable --
+    tulu-sft-full keeps an SFT checkpoint in its `superego` slot -- so the slot
+    is recorded separately and this is only a hint. model_id is the truth."""
+    n = model_id.lower()
+    for key, lab in (("rlvr", "rlvr"), ("-dpo", "dpo"), ("dpo", "dpo"),
+                     ("-ppo", "ppo"), ("ppo", "ppo"), ("safe", "safety"),
+                     ("-sft", "sft"), ("sft", "sft"),
+                     ("instruct", "instruct"), ("chat", "chat"), ("-it", "instruct")):
+        if key in n:
+            return lab
+    return "unknown"
+
+
+def arms_for(fam):
+    """Every distinct stage the family exposes, not just one collapsed 'aligned'.
+
+    21 of 48 families have BOTH ego (SFT) and superego (DPO); the previous
+    `superego or ego` silently dropped the SFT arm for all of them, including
+    amber -- whose AmberChat-vs-AmberSafe contrast is the load-bearing evidence
+    for the safety-data-style gradient, and the only way to answer H5.
+    """
+    out, seen = [], set()
+    for slot in SLOTS:
+        mid = getattr(fam, slot, None)
+        if mid and mid not in seen:
+            seen.add(mid)
+            out.append((slot, mid))
+    return out
 
 
 def is_cached(model_id):
@@ -302,7 +379,37 @@ def main():
         tiny = [r for r in roster if r[0] in ("qwen-tiny", "smol")]
         roster = tiny[:1] or roster[:1]
 
-    print(f"roster: {len(roster)} families")
+    # ---- priority order: most informative first, so provisional results land early ----
+    FIRST = "llama"   # RH: the May 11 talk used Llama, so it leads the queue
+    H5 = {"amber", "beaver", "olmo", "olmo-tiny", "tulu"}   # carry the stage decomposition
+    def size(mid):
+        m = re.search(r"(\d+(?:\.\d+)?)\s*[bB]\b", mid)
+        return float(m.group(1)) if m else 8.0
+    seen_bases, ordered = set(), []
+    scored = []
+    for key, base, aligned in roster:
+        fam = MODEL_FAMILIES[key]
+        n_stages = len(arms_for(fam)) - 1
+        scored.append((key, base, aligned, n_stages, size(base)))
+    # tier A: H5 families (stage decomposition); tier B: new base model (base diversity);
+    # tier C: other decomposable; tier D: rest. Within tier, smallest first.
+    def tier(key, base, n_stages):
+        if key == FIRST:
+            return -1
+        if key in H5:
+            return 0
+        if base not in seen_bases:
+            return 1
+        return 2 if n_stages > 1 else 3
+    remaining = list(scored)
+    while remaining:
+        best = min(remaining, key=lambda r: (tier(r[0], r[1], r[3]), r[4]))
+        remaining.remove(best)
+        seen_bases.add(best[1])
+        ordered.append(best[:3])
+    roster = ordered
+    print(f"roster: {len(roster)} families, priority-ordered")
+    print("  first ten: " + ", ".join(k for k, _, _ in roster[:10]))
     sink = []
     for key, base, aligned in roster:
         tmpl = {p: templated(txt, aligned) for p, txt in ALL_PROMPTS.items()}
@@ -318,12 +425,14 @@ def main():
         cells = ([("raw", p, txt, txt) for p, txt in ALL_PROMPTS.items()]
                  + [("chat", p, tmpl[p], ALL_PROMPTS[p]) for p in ALL_PROMPTS]
                  + [("chatml", p, CHATML.format(q=ALL_PROMPTS[p]), ALL_PROMPTS[p])
-                    for p in ALL_PROMPTS])
+                    for p in ALL_PROMPTS]
+                 + [(m, p, f.format(q=ALL_PROMPTS[p]), ALL_PROMPTS[p])
+                    for m, f in LADDER.items() for p in ALL_PROMPTS])
         if not nosys_dup:
             cells += [("chat_nosys", p, nosys[p], ALL_PROMPTS[p]) for p in ALL_PROMPTS]
-        for arm, mid in (("base", base), ("aligned", aligned)):
+        for arm, mid in arms_for(MODEL_FAMILIES[key]):
             try:
-                run_arm(key, arm, mid, cells, sink)
+                run_arm(key, arm, mid, cells, sink, tmpl_src=key)
             except Exception as e:
                 skipped.append((f"{key}/{arm}", repr(e)[:120]))
                 print(f"  FAIL {key}/{arm}: {repr(e)[:120]}")
