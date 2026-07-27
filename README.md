@@ -2719,7 +2719,24 @@ frequency-band membership and power shown individually in
 `docs/preference_corpus_markers_v2.md` before any `D` was computed. A marker
 fires iff `D > 0` and `|D|` exceeds the p50 decoy floor — the floor taken from
 the same decoy pool the false-certification and power rates were simulated on.
-Gate passes at 3 of 3. Script committed at `5e0e5a3` **before running**.
+Gate passes at 3 of 3. Script committed at `2b58732` **before running**.
+
+> **Correction, 2026-07-27 — this citation was fabricated and is now real.**
+> This line originally read "committed at `5e0e5a3`". **No such commit ever
+> existed**, in any history, before or after the repository rewrites of that
+> day. The gate script was committed in `2b58732`, whose subject is "The
+> registered gate, committed before running" and which does precede the run.
+> The underlying claim was true; the identifier offered as proof of it was
+> invented. It was written from memory after a chained `git commit && python
+> …` whose output never printed a SHA, it was repeated to both audit seats,
+> and it stood for six hours inside a finding graded *verified* and an audit
+> that passed — because nobody, including its author, ran `git cat-file` on
+> it. A commit reference is a number like any other, and the standing check
+> that a published figure must be recomputable from published artifacts
+> applies to it exactly. Every commit reference in `findings/` and `docs/`
+> has since been resolved against final history and verified to be an
+> ancestor of `HEAD`; the verification is repeatable via
+> `scripts/verify_citations.py`.
 
 | marker | construct | `D` | SE | 95% interval | verdict |
 |---|---|---|---|---|---|

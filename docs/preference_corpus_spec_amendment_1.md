@@ -170,7 +170,7 @@ Construct yield from the 62-candidate enumeration (hh):
 valid pair at all, and pejorative→neutral has two in-band pairs that both fail
 power. So the honest slate is three markers and the gate is k-of-3.
 
-### A4d. The construct-level grid (committed at `20752e9` before results were read)
+### A4d. The construct-level grid (committed at `f9fd3c1` before results were read)
 
 One marker per construct restores independence by construction, so the ordinary
 grid machinery applies unchanged — no blockwise estimator is needed for a
@@ -277,12 +277,12 @@ Desktop caught that `p85/2-of-3`'s power lower bound had been reported to two
 seats as **0.788** and **0.782** on different days. Both were resample noise
 around one quantity, but an amendment carries **one** number. The asymmetry
 behind it: the false-certification bounds had been seeded and committed since
-`a20ab74` because FC was the contested constraint; the power bounds were "just
+`bbd16d8` because FC was the contested constraint; the power bounds were "just
 the floor check" and ran from an ad-hoc interactive session. A tool doing its job
 on one axis while the other ran bare, invisible while the two were discussed
 together.
 
-`scripts/tier2_power_bounds.py` (`05309ce`, **committed before running**) pins
+`scripts/tier2_power_bounds.py` (`4f48e3f`, **committed before running**) pins
 them: 200 replicates, seeds declared in the file, decoy pool resampled — not the
 Monte Carlo draws, since the alternative is the pool shifted by the anchor, so a
 pool resample propagates into both the threshold and the draws. Seed streams are

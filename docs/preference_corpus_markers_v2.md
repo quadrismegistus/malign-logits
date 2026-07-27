@@ -58,12 +58,12 @@ An earlier draft of this document called that "a rule fixed before the pairs wer
 ranked, not a selection among them." **That claim is withdrawn: it cannot be
 dated, and the dating runs the wrong way.** lacan applied the same check malign
 passed for `POWER_MIN`, and the answer is unfavourable — the ranked table with
-all seven MDEs is committed at `13f5efe`, 2026-07-26 22:54; the lowest-MDE rule
-first appears in any committed artifact at `12df45a`, 2026-07-27 11:17, twelve
+all seven MDEs is committed at `87452a4`, 2026-07-26 22:54; the lowest-MDE rule
+first appears in any committed artifact at `cf5a16c`, 2026-07-27 11:17, twelve
 and a half hours *after* the ranking existed. `POWER_MIN` had eleven hours
 *before* the cells. A search of the repository for any earlier statement of the
 rule — `git log -S` over `docs/` and `scripts/`, the slate documents at
-`778ea36` and `13f5efe`, and any code selecting by MDE — returns nothing. **No
+`cbc7834` and `87452a4`, and any code selecting by MDE — returns nothing. **No
 prior dating exists.** The rule may sit undated in the peer record, as
 `FC_MAX = 0.10` does; that is not evidence and is not offered as any.
 
@@ -79,7 +79,7 @@ certification harder. A highest-MDE rule would have given
 The mechanism initially proposed for this — that better-powered markers raise
 gate power, admitting more cells to the floor-clearing set and letting the
 minimum-FC selection reach a lower FC — **does not operate**. The committed grid
-(`20752e9`) computes both false certification and power from the decoy pool and
+(`f9fd3c1`) computes both false certification and power from the decoy pool and
 the corpus anchor; **no marker MDE enters it**. The cells, their rates and their
 power are identical under every admissible slate, so the selection rule can
 neither admit nor exclude a cell, and the ruled cell's 0.004 margin above the
