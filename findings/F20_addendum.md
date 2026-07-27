@@ -3,8 +3,8 @@ status: verified
 grade: B
 date: 2026-07-27
 role: addendum
-description: "Expansion of F20 to 24 distinct base models and 557k beams at a plain 'Q: ... A:' rung with no roles, no special tokens and no category word. WHAT IS ROBUST: alignment swaps what the first person predicates, from a human life to the AI category (human 0.312->0.080, AI 0.153->0.410, own-lab naming 0.009->0.093), each significant in 8 of 8 analysis specifications; 21 of 22 base models name their own lab in exactly 0.000 of self-predicating mass. WHAT IS NOT: the rate of self-predication rises only weakly and specification-sensitively (positive in 8/8 point estimates, significant in 5; honest deduplicated estimate +0.145 n.s.), and the earlier null was RETRACTED as the maximum-p cell of an unrun grid. KILLS three parent claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading built on it. Measured on: hh-independent; 30 families, 72 arms, beam search n=100 depth 10."
-instruments: [generation, census]
+description: "Expansion of F20 to 24 distinct base models and 556k beams at a plain 'Q: ... A:' rung with no roles, no special tokens and no category word. WHAT IS ROBUST: alignment swaps what the first person predicates, from a human life to the AI category (human 0.312->0.080, AI 0.153->0.410, own-lab naming 0.009->0.093), each significant in 8 of 8 analysis specifications; 21 of 22 base models name their own lab in exactly 0.000 of self-predicating mass. WHAT IS NOT: the rate of self-predication rises only weakly and specification-sensitively (positive in 8/8 point estimates, significant in 5; honest deduplicated estimate +0.145 n.s.), and the earlier null was RETRACTED as the maximum-p cell of an unrun grid. KILLS three parent claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading built on it. Measured on: hh-independent; 30 families, 72 arms, beam search n=100 depth 10."
+instruments: [logit-mass, generation, census]
 chapters: [ch03, ch04, ch09, ch11]
 data: ["f20x_beams.csv", "f20x_kinship.csv"]
 parent: F20_who_are_you
@@ -34,8 +34,22 @@ of the **retained 100-beam set**, not an absolute probability. The retained set
 typically carries 20 to 60 percent of the true distribution; the per-cell figure
 is recorded in the reader (below).
 
-**557,100 beams**, 30 families, 72 arms, 24 distinct base models, 42 aligned
-arms (24 base / 9 SFT / 30 DPO / 3 RLVR). Base arms are deduplicated by
+**556,100 beams**, 30 families, 72 arms, 24 distinct base models, 42 aligned
+arms (24 base / 9 SFT / 30 DPO / 3 RLVR).
+
+*(Corrected from 557,100 on 2026-07-27, and the reason belongs on the face
+because the file was right and the frame was wrong. The gap is exactly ten
+cells — `llama` base, `chat_nosys`, all ten prompts — present in the analysis
+frame and absent from `data/f20x_beams.csv`. They entered through the rebuild's
+`tmpl=None` fallback, the template-cache collision documented in
+`beams-stash-note.md`, where a `{model, prompt, mode}` key conflated `llama`,
+`tulu` and the tulu-sft variants on their shared Llama-3.1-8B before the
+conditional `tmpl` field existed — so they may be `llama` base rendered with
+another family's template and labelled `llama`. Provenance-uncertain, therefore
+excluded. Impact, checked before the ruling: OpenAI share of base naming
+99.3% → 99.2%, a tenth of a point; base naming under a native template 0.238,
+own-lab 0.000 and accuracy 0.000 are unmoved to three decimals. Nothing in the
+finding turns on them.)* Base arms are deduplicated by
 `model_id`: Llama-3.1-8B is the base for llama, tulu and every tulu-sft variant,
 so pooling by family would weight the base mean by how many aligned models a lab
 shipped.

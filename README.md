@@ -961,7 +961,7 @@ claim stands and the *BLT confirmation* should not be cited.
 
 
 > **See `F20_addendum.md` (2026-07-27) before citing this file.** The expansion
-> to 24 distinct base models and 557k beams confirms the citation result and
+> to 24 distinct base models and 556k beams confirms the citation result and
 > strengthens it, but **three claims below do not survive**: that plain
 > completion produces no subject, that the subject requires the chat template,
 > and the Name-of-the-Father reading attached to the template. A plain
