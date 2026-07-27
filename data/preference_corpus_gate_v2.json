@@ -1,28 +1,13 @@
 {
  "provenance": {
-  "commit": "787d1e28c46942b258706042f40107a25143c36b",
-  "commit_short": "787d1e2",
-  "tree_clean": false,
-  "dirty_paths": [
-   "data/preference_corpus_gate_v2.json",
-   "malign_logits/provenance.py"
-  ],
+  "commit": "c52df58c55357141551dd769db3fb81bf999c7c2",
+  "commit_short": "c52df58",
+  "tree_clean": true,
+  "dirty_paths": null,
   "script": "scripts/preference_corpus_gate_v2.py",
   "script_blob": "3b8a2ecbd43c455b81b78c8dff82f61383879442",
   "script_matches_commit": true,
   "closure": [
-   {
-    "path": "_classes.py",
-    "blob": null,
-    "tracked": false,
-    "matches_commit": null
-   },
-   {
-    "path": "_ops.py",
-    "blob": null,
-    "tracked": false,
-    "matches_commit": null
-   },
    {
     "path": "malign_logits/__init__.py",
     "blob": "5330e064f47927dd4527fe4a9731d5bcf9eed02b",
@@ -73,9 +58,9 @@
    },
    {
     "path": "malign_logits/provenance.py",
-    "blob": "2b28c0169809ff8316d01a1fcd17175d24dd95b1",
+    "blob": "ed9746321b1ae9a22f7347b26b5fa9a1eb1c9105",
     "tracked": true,
-    "matches_commit": false
+    "matches_commit": true
    },
    {
     "path": "malign_logits/psyche.py",
@@ -102,12 +87,8 @@
     "matches_commit": true
    }
   ],
-  "closure_matches_commit": false,
-  "closure_unverified": [
-   "_ops.py",
-   "_classes.py",
-   "malign_logits/provenance.py"
-  ]
+  "closure_matches_commit": true,
+  "closure_unverified": null
  },
  "hh_rlhf": {
   "markers": [
