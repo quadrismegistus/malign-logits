@@ -312,14 +312,16 @@ def _grade_label(grade):
     return labels.get(grade, grade)
 
 
-def _trunc(text, maxlen=60):
-    """Truncate at word boundary."""
-    if len(text) <= maxlen:
-        return text
-    cut = text[:maxlen].rfind(' ')
-    if cut <= 0:
-        cut = maxlen
-    return text[:cut].rstrip('.,;:') + '...'
+def _cell(text):
+    """Escape a title for a markdown table cell.
+
+    Titles are NOT truncated (RH, 2026-07-27). A citation layer whose entries
+    end in "..." makes the reader open the file to find out what the finding
+    says, which is the one thing an index exists to prevent. The only thing
+    needing handling is a literal pipe, which would split the row; no title
+    currently contains one.
+    """
+    return str(text).replace("|", "\\|")
 
 
 def _sort_parent_first(findings):
@@ -367,7 +369,7 @@ def index():
         if superseded_by:
             citation += " → " + supersede_link(superseded_by)
 
-        lines.append(f"| {num_label} | {_trunc(f['title'])} | {status} | {grade} | {chapters} | {citation} |")
+        lines.append(f"| {num_label} | {_cell(f['title'])} | {status} | {grade} | {chapters} | {citation} |")
 
     # By grade
     lines.append("")
@@ -380,7 +382,7 @@ def index():
         lines.append(f"### Grade {grade}: {_grade_label(grade)}")
         lines.append("")
         for f in members:
-            lines.append(f"- [{f['stem']}](findings/{f['path'].name}) — {_trunc(f['title'])}")
+            lines.append(f"- [{f['stem']}](findings/{f['path'].name}) — {f['title']}")
         lines.append("")
 
     ungraded = [f for f in all_findings if not f["meta"].get("grade")]
@@ -388,7 +390,7 @@ def index():
         lines.append("### Ungraded")
         lines.append("")
         for f in ungraded:
-            lines.append(f"- [{f['stem']}](findings/{f['path'].name}) — {_trunc(f['title'])}")
+            lines.append(f"- [{f['stem']}](findings/{f['path'].name}) — {f['title']}")
         lines.append("")
 
     # By chapter
