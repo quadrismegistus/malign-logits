@@ -2,7 +2,10 @@
 
     uv run python scripts/f20x_analyse.py
 
-Encodes three corrections made during the run, so they cannot be lost:
+Encodes four corrections made during the run, so they cannot be lost. Three are
+below; the fourth (base-model deduplication) is at its site in main(), because
+it was the one that was WRONG in this file and a reader should meet it next to
+the code rather than in a summary:
 
 1. THE PATTERN IS UNANCHORED. The registered pattern was anchored at
    start-of-string, so "Hello, my name is Qwen." scored zero. The undercount is
@@ -113,10 +116,29 @@ def main():
     nb = core[core.arm == "base"].model_id.nunique()
     print(f"    base arms deduplicated by model: {nb} distinct base models "
           f"from {core[core.arm=='base'].family.nunique()} families")
-    keep = (core[core.arm == "base"].drop_duplicates(["model_id", "mode", "prompt"])
-            .index.union(core[core.arm != "base"].index))
-    s = (core.loc[keep].groupby(["family", "arm", "mode", "pclass"])
+    # Correction 4, REPAIRED 2026-07-27 at the peer seat's report. The previous
+    # line deduplicated BEAMS, not families:
+    #
+    #     core[core.arm=="base"].drop_duplicates(["model_id","mode","prompt"])
+    #
+    # `drop_duplicates` operates on rows and a row is a beam, so it kept ONE
+    # beam per (model_id, mode, prompt) -- 89 of 11,300 base beams at dyad_qa x
+    # identity, 0.8%, and the survivor was the top-path_prob beam in 100% of
+    # cells because the file is stored in that order. The base column became a
+    # top-1 indicator while the aligned column stayed a mass-weighted share, and
+    # the two were differenced against each other in one table. It inflated the
+    # gap by about 0.2 in the direction that flatters the finding.
+    #
+    # The dedup belongs at the level the pseudo-replication lives at, which is
+    # the FAMILY: compute each family's share first, then collapse families
+    # sharing a base model to one observation. Same operation f20x_remeasure.py
+    # does, which is why that pipeline was never affected.
+    s = (core.groupby(["family", "model_id", "arm", "mode", "pclass"])
          .apply(share, include_groups=False).rename("P").reset_index())
+    b = (s[s.arm == "base"]
+         .groupby(["model_id", "arm", "mode", "pclass"], as_index=False).P.mean()
+         .assign(family=lambda x: x.model_id))
+    s = pd.concat([b, s[s.arm != "base"]], ignore_index=True)
     print(s.pivot_table(index=["mode", "arm"], columns="pclass",
                         values="P", aggfunc="mean").round(3).to_string())
 
