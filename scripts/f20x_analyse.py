@@ -28,7 +28,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pandas as pd
 
-BEAMS = "data/f20x_beams.csv"
+BEAMS = "data/f20x_beams.parquet"
 
 # Correction 1: allow an optional greeting/interjection before the predication.
 SELF = re.compile(r"(^|[.!?,]\s+|^\s*\w{1,12}[,!]\s+)(I am|I'm|My name is|This is)\b", re.I)
@@ -55,7 +55,7 @@ def share(g, col="sp"):
 
 
 def main():
-    d = pd.read_csv(BEAMS)
+    d = pd.read_parquet(BEAMS)
     d["text"] = d.text.fillna("")
     d["sp"] = [self_predicates(t) for t in d.text]
     d["think"] = [bool(THINK.search(t)) for t in d.text]

@@ -62,7 +62,7 @@ FAILED = {"falcon-h1-1.5b", "falcon-h1-7b", "internlm2", "olmoe", "glm4", "minic
 # The five run first, already stashed, so they cost nothing on a re-run.
 SEED = ["olmo-tiny", "qwen-tiny", "tinyllama", "smol", "llama"]
 
-OUT = "data/f20x_kinship.csv"
+OUT = "data/f20x_kinship.parquet"
 
 
 def roster():
@@ -140,7 +140,7 @@ def main():
                     gc.collect()
                     if torch.backends.mps.is_available():
                         torch.mps.empty_cache()
-            pd.DataFrame(sink).to_csv(OUT, index=False)
+            pd.DataFrame(sink).to_parquet(OUT, index=False, compression="zstd")
             print(f"    wrote {len(sink):,} rows -> {OUT}", flush=True)
     print("done")
 

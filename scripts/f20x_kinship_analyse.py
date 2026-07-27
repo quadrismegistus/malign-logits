@@ -1,10 +1,10 @@
 """Origin-battery analysis for the F20 addendum: reproduces every figure in its
-"The origin battery" section from data/f20x_kinship.csv alone.
+"The origin battery" section from data/f20x_kinship.parquet alone.
 
     uv run python scripts/f20x_kinship_analyse.py
 
 WHY THIS FILE EXISTS. The addendum's origin section quotes fifteen rate figures.
-`f20x_kinship.csv` carries no response classification -- its `pclass` is the
+`f20x_kinship.parquet` carries no response classification -- its `pclass` is the
 PROMPT class (origin_no / origin_ok / control_ok), not the response -- so the
 CSV alone reproduces the structural counts and none of the rates. malign found
 this by attempting the recomputation rather than reasoning about whether it would
@@ -45,7 +45,7 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
-CSV = "data/f20x_kinship.csv"
+PARQUET = "data/f20x_kinship.parquet"
 N_BOOT, BOOT_SEED0 = 2000, 0
 
 _CURLY = re.compile("[‘’ʼ´′]")
@@ -85,7 +85,7 @@ PROMPTS = ["mother", "father", "born", "made", "purpose", "name"]
 
 
 def load():
-    d = pd.read_csv(CSV)
+    d = pd.read_parquet(PARQUET)
     d["text"] = d.text.fillna("")
     for k, rx in FLAGS.items():
         d[k] = [bool(rx.search(norm(t))) for t in d.text]

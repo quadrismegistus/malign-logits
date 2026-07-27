@@ -83,7 +83,7 @@ STOPLIST = ("not sure", "sorry", "afraid", "glad", "here to", "happy to", "confu
 EXCLUDE = {"olmo-32b", "llama-70b"}  # will not fit / too slow for now
 N_BEAMS = 100
 DEPTH = 10  # matches the existing storylines corpus
-OUT_BEAMS = "data/f20x_beams.csv"
+OUT_BEAMS = "data/f20x_beams.parquet"
 OUT_SUMMARY = "data/f20x_summary.csv"
 
 
@@ -436,13 +436,13 @@ def main():
             except Exception as e:
                 skipped.append((f"{key}/{arm}", repr(e)[:120]))
                 print(f"  FAIL {key}/{arm}: {repr(e)[:120]}")
-        pd.DataFrame(sink).to_csv(OUT_BEAMS, index=False)  # incremental
+        pd.DataFrame(sink).to_parquet(OUT_BEAMS, index=False, compression="zstd")  # incremental
 
     df = pd.DataFrame(sink)
     if df.empty:
         print("no rows")
         return
-    df.to_csv(OUT_BEAMS, index=False)
+    df.to_parquet(OUT_BEAMS, index=False, compression="zstd")
 
     # P_self = share of the RETAINED BEAM SET, never an absolute probability.
     g = df.groupby(["family", "arm", "mode", "prompt", "pclass"])

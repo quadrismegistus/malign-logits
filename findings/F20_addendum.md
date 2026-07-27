@@ -6,9 +6,9 @@ role: addendum
 description: "Expansion of F20 to 24 distinct base models and 556k beams at a plain 'Q: ... A:' rung with no roles, no special tokens and no category word. WHAT IS ROBUST: alignment swaps what the first person predicates, from a human life to the AI category (human 0.312->0.080, AI 0.153->0.410, own-lab naming 0.009->0.093), each significant in 8 of 8 analysis specifications; 21 of 22 base models name their own lab in exactly 0.000 of self-predicating mass. WHAT IS NOT: the rate of self-predication rises only weakly and specification-sensitively (positive in 8/8 point estimates, significant in 5; honest deduplicated estimate +0.145 n.s.), and the earlier null was RETRACTED as the maximum-p cell of an unrun grid. KILLS three parent claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading built on it. Measured on: hh-independent; 30 families, 72 arms, beam search n=100 depth 10."
 instruments: [logit-mass, generation, census]
 chapters: [ch03, ch04, ch09, ch11]
-data: ["f20x_beams.csv", "f20x_kinship.csv"]
+data: ["f20x_beams.parquet", "f20x_kinship.parquet"]
 parent: F20_who_are_you
-scripts: [f20x_subject_beams.py, f20x_kinship.py, f20x_analyse.py]
+scripts: [f20x_subject_beams.py, f20x_kinship.py, f20x_analyse.py, f20x_kinship_analyse.py]
 supersedes: "F20's plain-completion claim, its template-necessity claim, and the Name-of-the-Father reading attached to the template; NOT its citation result, which is confirmed and strengthened"
 ---
 
@@ -40,7 +40,7 @@ arms (24 base / 9 SFT / 30 DPO / 3 RLVR).
 *(Corrected from 557,100 on 2026-07-27, and the reason belongs on the face
 because the file was right and the frame was wrong. The gap is exactly ten
 cells — `llama` base, `chat_nosys`, all ten prompts — present in the analysis
-frame and absent from `data/f20x_beams.csv`. They entered through the rebuild's
+frame and absent from `data/f20x_beams.parquet`. They entered through the rebuild's
 `tmpl=None` fallback, the template-cache collision documented in
 `beams-stash-note.md`, where a `{model, prompt, mode}` key conflated `llama`,
 `tulu` and the tulu-sft variants on their shared Llama-3.1-8B before the
@@ -395,7 +395,7 @@ this case it selected the maximum-p cell.
   7,515 cells, both batteries. Classifiers printed verbatim at the foot.
 - `TheoryMachines/agents/lacan/f20x-slopegraph.{pdf,svg,png}`. Panel A base to
   aligned, panel B base to SFT to DPO.
-- Data: `data/f20x_beams.csv`, `data/f20x_kinship.csv`. Beams stashed under the
+- Data: `data/f20x_beams.parquet`, `data/f20x_kinship.parquet`. Beams stashed under the
   conditional-mode key documented in
   `TheoryMachines/agents/lacan/beams-stash-note.md`.
 

@@ -239,3 +239,7 @@ data/models/
 # the F37 stash export path; cite as local-only artifacts in findings.
 data/f37_stash_generations.jsonl
 data/f37_stash_generations_scored.csv
+
+# Superseded by parquet+zstd exports (9x smaller, same rows).
+data/f20x_beams.csv
+data/f20x_kinship.csv
