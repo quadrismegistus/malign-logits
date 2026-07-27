@@ -55,7 +55,14 @@ SLUGS = {
     36: "euphemism_vs_proximity",
 }
 
-VALID_STATUSES = {"verified", "solid-by-design", "unaudited", "rescoped", "retracted"}
+VALID_STATUSES = {"verified", "solid-by-design", "unaudited", "rescoped", "retracted",
+                  # Added 2026-07-27. A finding whose audit PASSED but whose pass
+                  # rested on evidence since found unsound -- here, a fabricated
+                  # commit citation. Not "unaudited" (an audit happened) and not
+                  # "verified" (its basis is compromised). Resolves to verified
+                  # only via a DATED re-verification against frozen history,
+                  # because a SHA verification expires when history is rewritten.
+                  "verified-pending-reverification"}
 VALID_GRADES = {"A", "B", "C", "D"}
 VALID_ROLES = {"finding", "addendum", "capstone", "ledger"}
 VALID_INSTRUMENTS = {

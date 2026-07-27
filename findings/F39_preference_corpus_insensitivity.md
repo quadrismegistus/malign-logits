@@ -1,8 +1,9 @@
 ---
-status: verified
+status: verified-pending-reverification
 grade: B
 date: 2026-07-27
 role: finding
+verification: "Original audit pass (2026-07-27, lacan) rested in part on the commit citation for `committed before running`, which was FABRICATED. The design is unaffected and the grade stands; what is pending is a DATED re-verification of every citation against frozen final history. History is not yet frozen: a decision on scrubbing session-link trailers from public history is outstanding, and any further rewrite re-orphans every SHA."
 description: "Registered rebuild of the preference-corpus gate on a validly constituted three-construct slate. The gate failed 0/3 in hh_rlhf, and the failure is a BOUNDED NEGATIVE rather than a non-detection: every marker's 95% interval excludes the 0.174 effect the design required, the largest upper bound at 0.80x of it. No verdict on convention follows and none is available. Measured on: hh_rlhf chosen/rejected unigram tables; pku_saferlhf descriptive-only."
 instruments: [logit-mass]
 chapters: [ch09]
