@@ -47,6 +47,7 @@ Citation-grade index with status, grade, and chapter mapping. For the narrative 
 |   F36 (capstone) | Capstone: Three Addressing Systems | verified | A | ch05, ch07, ch09 | [F36_capstone](findings/F36_capstone.md) |
 |   F36 (ledger) | Ledger: Complete Inventory | verified | A | — | [F36_ledger](findings/F36_ledger.md) |
 | F39 | `hh_rlhf` does not encode register preference at the scale the chain analysis required | verified | B | ch09 | [F39_preference_corpus_insensitivity](findings/F39_preference_corpus_insensitivity.md) |
+| F40 | Discovered vocabulary — alignment is surgical at liminal sites and blunt at explicit ones | unaudited | B | ch05, ch07 | [F40_discovered_vocabulary](findings/F40_discovered_vocabulary.md) |
 
 ## By grade
 
@@ -69,6 +70,7 @@ Citation-grade index with status, grade, and chapter mapping. For the narrative 
 - [F32_template_mediated_distributions](findings/F32_template_mediated_distributions.md) — Template-Mediated Distributions — Task Switch, Not Distribution Filter
 - [F36_euphemism_vs_proximity](findings/F36_euphemism_vs_proximity.md) — Euphemism vs. Proximity — Alignment as Foreclosure, Not Metonymy
 - [F39_preference_corpus_insensitivity](findings/F39_preference_corpus_insensitivity.md) — `hh_rlhf` does not encode register preference at the scale the chain analysis required
+- [F40_discovered_vocabulary](findings/F40_discovered_vocabulary.md) — Discovered vocabulary — alignment is surgical at liminal sites and blunt at explicit ones
 
 ### Grade C: Unaudited
 
@@ -144,6 +146,7 @@ Citation-grade index with status, grade, and chapter mapping. For the narrative 
 - [F36_euphemism_vs_proximity](findings/F36_euphemism_vs_proximity.md) [B]
 - [F36_violence](findings/F36_violence.md) [A]
 - [F36_capstone](findings/F36_capstone.md) [A]
+- [F40_discovered_vocabulary](findings/F40_discovered_vocabulary.md) [B]
 
 ### ch06
 
@@ -162,6 +165,7 @@ Citation-grade index with status, grade, and chapter mapping. For the narrative 
 - [F24_pretraining_emergence](findings/F24_pretraining_emergence.md) [A]
 - [F32_template_mediated_distributions](findings/F32_template_mediated_distributions.md) [B]
 - [F36_capstone](findings/F36_capstone.md) [A]
+- [F40_discovered_vocabulary](findings/F40_discovered_vocabulary.md) [B]
 
 ### ch08
 

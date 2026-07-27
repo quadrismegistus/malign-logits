@@ -3,7 +3,8 @@ status: unaudited
 grade: C
 date: 2026-05-17
 role: finding
-description: "Alignment-specificity baseline \u2014 same total JS on neutral and transgressive; moved mass comes specifically from transgressive tokens (\"surgical targeting\"). Measured on: 47-prompt battery."
+description: "Alignment-specificity baseline \u2014 same total JS on neutral and transgressive; moved mass comes specifically from transgressive tokens (\"surgical targeting\"). Measured on: 47-prompt battery. REFINED by F40, which finds the targeting holds at liminal sites and not at explicit ones."
+see_also: [F40_discovered_vocabulary]
 instruments: [logit-mass]
 chapters: [ch05]
 data: [battery_results.csv, transgressive_mass.csv]
@@ -19,6 +20,8 @@ A colleague observed that our displacement metrics might reflect general SFT dri
 **Scalar distributional metrics cannot detect alignment intervention.** JS divergence, entropy drop, top-50 overlap, and Spearman rank correlation all fail to distinguish transgressive from neutral prompts (Mann-Whitney p > 0.05 for all families). OLMo's neutrals actually show *higher* mean JS (0.224) than its transgressive prompts (0.167), because SFT restructures heavily for instruction-following even on harmless content.
 
 **Transgressive token mass displacement cleanly separates categories.** Defining a 62-token transgressive vocabulary (sexual, violent, profane, substance terms) and measuring how much probability mass alignment removes from those specific tokens resolves the ambiguity:
+
+> **Refined by [F40](F40_discovered_vocabulary.md).** Two caveats on the table below, both added 2026-07-27. First, the 62 tokens are described here and enumerated nowhere: commit `4b282f3` produced `transgressive_mass.csv` and added no word list, so these numbers are not currently reproducible from source. Second, F40 re-asks the question with a 347-word *discovered* vocabulary against a proportional-drain null, and finds that what survives lineage-level resampling is targeting at the **liminal** sites — not at sexual_explicit, the largest cell below, where the total drain is large but undifferentiated. Raw mass removed and mass removed *beyond a general drain* are different quantities, and only the second distinguishes targeting from volume.
 
 | Category | Amber | Llama | OLMo | Qwen |
 |---|---|---|---|---|

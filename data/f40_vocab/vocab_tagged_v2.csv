@@ -1,0 +1,348 @@
+word,primary,secondary,confidence,note
+Damn,TRANSGRESSIVE,DEMOTIC,high,Profanity used as interjection; also a spoken discourse marker.
+The,DEMOTIC,,high,
+Well,DEMOTIC,,high,Sentence-initial discourse marker.
+What,DEMOTIC,,high,
+about,DEMOTIC,,high,
+act,PROCEDURAL,OTHER,medium,Bare 'take action'; measured only by implication.
+actually,DEMOTIC,,high,
+add,DEMOTIC,PROCEDURAL,medium,Light general verb; procedural only in 'add to the record' sense.
+added,NARRATIVE_CRAFT,DEMOTIC,medium,Dialogue attribution ('she added').
+address,PROCEDURAL,,high,
+advise,PROCEDURAL,,high,
+after,DEMOTIC,NARRATIVE_CRAFT,medium,Function word doubling as temporal scaffolding.
+all,DEMOTIC,,high,
+aloud,NARRATIVE_CRAFT,,medium,Manner of speech.
+also,DEMOTIC,,high,
+always,DEMOTIC,,high,
+analyze,PROCEDURAL,,high,
+and,DEMOTIC,,high,
+angrily,AFFECT,NARRATIVE_CRAFT,medium,Names an emotion but functions as a speech-attribution adverb.
+appeal,CONTESTATION,PROCEDURAL,medium,Formal challenge to a decision; institutional route to dispute.
+apply,PROCEDURAL,,high,
+approach,PROCEDURAL,,high,
+ask,PROCEDURAL,DEMOTIC,low,"Very common verb, but dominant sense here is gathering information."
+asked,NARRATIVE_CRAFT,PROCEDURAL,medium,Past-tense dialogue attribution.
+avoid,PROCEDURAL,OTHER,medium,"A chosen strategy, though a negative one."
+back,DEMOTIC,,high,
+bad,DEMOTIC,AFFECT,medium,
+based,DEMOTIC,,medium,Fragment of the connective 'based on'.
+beat,TRANSGRESSIVE,,high,
+began,NARRATIVE_CRAFT,DEMOTIC,medium,Temporal scaffolding of narration.
+believe,DEMOTIC,PROCEDURAL,low,High-frequency mental-state verb; hedging use ('I believe') dominates.
+bleeding,TRANSGRESSIVE,,high,
+boots,NARRATIVE_CRAFT,OTHER,low,Garment/prop; scene description rather than storytelling machinery proper.
+break,DEMOTIC,TRANSGRESSIVE,low,General verb; breakage/violence is a secondary sense.
+bring,DEMOTIC,,high,
+burst,NARRATIVE_CRAFT,TRANSGRESSIVE,medium,'burst in/out' as scene action.
+call,PROCEDURAL,DEMOTIC,low,"Contacting someone as an organized step, but an everyday verb."
+carefully,PROCEDURAL,NARRATIVE_CRAFT,medium,Manner adverb denoting measured action; also a gesture adverb.
+change,DEMOTIC,PROCEDURAL,low,Plain alteration verb; procedural only in 'change your approach'.
+charge,CONTESTATION,PROCEDURAL,low,Legal/accusatory sense assumed over 'charge at'.
+check,PROCEDURAL,,high,
+choose,PROCEDURAL,,high,
+clarify,PROCEDURAL,,high,
+closed,NARRATIVE_CRAFT,DEMOTIC,low,Scene action ('closed the door').
+clothes,NARRATIVE_CRAFT,OTHER,low,Costume/prop noun.
+coat,NARRATIVE_CRAFT,OTHER,low,Garment/prop noun.
+cold,NARRATIVE_CRAFT,AFFECT,low,Sensory scene description; also emotional coldness.
+come,DEMOTIC,,high,
+complain,CONTESTATION,PROCEDURAL,high,Grievance; also 'file a complaint'.
+confront,CONTESTATION,,high,
+consider,PROCEDURAL,,high,
+consult,PROCEDURAL,,high,
+contact,PROCEDURAL,,high,
+continue,DEMOTIC,PROCEDURAL,medium,Aspectual high-frequency verb.
+continued,NARRATIVE_CRAFT,DEMOTIC,medium,Dialogue attribution ('he continued').
+create,PROCEDURAL,DEMOTIC,low,"Organized making (a plan, a record); otherwise generic."
+cry,AFFECT,NARRATIVE_CRAFT,medium,
+cut,TRANSGRESSIVE,DEMOTIC,medium,Bodily injury sense assumed over generic 'cut'.
+decide,PROCEDURAL,,high,
+definitely,DEMOTIC,,high,
+demand,CONTESTATION,,high,
+die,TRANSGRESSIVE,,high,
+discuss,PROCEDURAL,DEMOTIC,high,Deliberative talk.
+document,PROCEDURAL,,high,
+down,DEMOTIC,,high,
+downed,TRANSGRESSIVE,OTHER,low,Reads as 'downed a drink' (intoxication) or 'downed him'; both marginal.
+draft,PROCEDURAL,,high,
+drag,TRANSGRESSIVE,NARRATIVE_CRAFT,low,Physical coercion; also plain movement description.
+drank,TRANSGRESSIVE,DEMOTIC,medium,Drinking in narrative usually implies alcohol.
+eat,DEMOTIC,OTHER,medium,"Ordinary bodily verb, not transgressive."
+either,DEMOTIC,,high,
+emphasize,PROCEDURAL,,high,
+end,DEMOTIC,NARRATIVE_CRAFT,low,
+ensure,PROCEDURAL,,high,
+ered,OTHER,,high,"Subword fragment, not a word."
+everyone,DEMOTIC,,high,
+evict,PROCEDURAL,CONTESTATION,medium,Institutional action taken against someone.
+examined,PROCEDURAL,NARRATIVE_CRAFT,medium,Careful inspection; also 'examined her face'.
+expect,DEMOTIC,PROCEDURAL,low,"High-frequency mental-state verb; anticipation, not deliberation."
+explain,PROCEDURAL,NARRATIVE_CRAFT,medium,Considered communication.
+explore,PROCEDURAL,,high,
+explode,TRANSGRESSIVE,AFFECT,medium,Violent rupture or emotional outburst.
+face,NARRATIVE_CRAFT,CONTESTATION,low,Body-part noun vs 'face the problem'; genuinely split.
+feel,AFFECT,DEMOTIC,medium,
+fell,NARRATIVE_CRAFT,DEMOTIC,medium,Scene action.
+felt,AFFECT,NARRATIVE_CRAFT,medium,Interior emotional report.
+fight,TRANSGRESSIVE,CONTESTATION,high,Physical violence primary; 'fight it' is contestation.
+file,PROCEDURAL,CONTESTATION,high,Administrative filing; 'file a grievance' bridges to contestation.
+filled,DEMOTIC,PROCEDURAL,low,'filled out' a form would be procedural; bare 'filled' is generic.
+find,DEMOTIC,PROCEDURAL,medium,Light verb; 'find out' is information-gathering.
+fine,DEMOTIC,PROCEDURAL,low,Discourse 'fine' vs a monetary penalty; former assumed.
+fire,PROCEDURAL,CONTESTATION,low,Dismissal from employment assumed over 'fire a gun'.
+first,DEMOTIC,PROCEDURAL,medium,Common ordinal; also step-sequencing in planning.
+focus,PROCEDURAL,,high,
+follow,PROCEDURAL,DEMOTIC,medium,"'follow up', 'follow procedure'."
+for,DEMOTIC,,high,
+force,TRANSGRESSIVE,CONTESTATION,medium,Coercion.
+form,PROCEDURAL,OTHER,medium,Administrative form.
+found,DEMOTIC,NARRATIVE_CRAFT,medium,
+fuck,TRANSGRESSIVE,,high,
+gather,PROCEDURAL,CONTESTATION,medium,Gathering evidence; 'gather' people is collective action.
+gave,DEMOTIC,NARRATIVE_CRAFT,medium,
+gazed,NARRATIVE_CRAFT,,high,
+gently,NARRATIVE_CRAFT,,medium,Manner of gesture.
+get,DEMOTIC,,high,
+give,DEMOTIC,,high,
+glanced,NARRATIVE_CRAFT,,high,
+glasses,NARRATIVE_CRAFT,OTHER,low,Prop/costume noun.
+gloves,NARRATIVE_CRAFT,OTHER,low,Prop/costume noun.
+good,DEMOTIC,,high,
+goodbye,DEMOTIC,NARRATIVE_CRAFT,medium,Spoken formula.
+got,DEMOTIC,,high,
+great,DEMOTIC,,high,
+grinned,NARRATIVE_CRAFT,,high,
+hack,TRANSGRESSIVE,OTHER,low,Illicit intrusion assumed; could be 'hack at' or a neutral 'hack'.
+had,DEMOTIC,,high,
+hand,NARRATIVE_CRAFT,DEMOTIC,medium,Body part / gesture.
+handed,NARRATIVE_CRAFT,DEMOTIC,medium,Gesture.
+handle,PROCEDURAL,,high,
+have,DEMOTIC,,high,
+head,NARRATIVE_CRAFT,DEMOTIC,medium,Body part; also 'head to'.
+headed,NARRATIVE_CRAFT,DEMOTIC,medium,Movement in scene.
+heat,NARRATIVE_CRAFT,OTHER,low,Sensory scene noun; also figurative intensity.
+held,NARRATIVE_CRAFT,DEMOTIC,medium,Posture/gesture.
+helmet,NARRATIVE_CRAFT,OTHER,low,Prop/costume noun.
+help,DEMOTIC,PROCEDURAL,medium,Very common verb; 'seek help' is a measured step.
+her,DEMOTIC,,high,
+hire,PROCEDURAL,,medium,'hire a lawyer' as an organized step.
+his,DEMOTIC,,high,
+hit,TRANSGRESSIVE,,high,
+hope,AFFECT,DEMOTIC,medium,
+how,DEMOTIC,,high,
+ignore,PROCEDURAL,CONTESTATION,low,A deliberately chosen non-response; disregard also shades into refusal.
+immediately,DEMOTIC,NARRATIVE_CRAFT,medium,Temporal adverb.
+increase,OTHER,PROCEDURAL,low,Quantitative change verb; fits no category well.
+inform,PROCEDURAL,,high,
+insist,CONTESTATION,PROCEDURAL,medium,Assertive pressing of a demand.
+instead,DEMOTIC,,high,
+into,DEMOTIC,,high,
+investigate,PROCEDURAL,,high,
+its,DEMOTIC,,high,
+jacket,NARRATIVE_CRAFT,OTHER,low,Garment/prop noun.
+join,DEMOTIC,CONTESTATION,low,Generic 'join'; collective-action sense (join a union) is secondary.
+just,DEMOTIC,,high,
+keep,DEMOTIC,,high,
+kick,TRANSGRESSIVE,,high,
+kill,TRANSGRESSIVE,,high,
+kiss,TRANSGRESSIVE,NARRATIVE_CRAFT,medium,"Sexual/intimate contact, though mild."
+kissed,TRANSGRESSIVE,NARRATIVE_CRAFT,medium,"Sexual/intimate contact, though mild."
+know,DEMOTIC,,high,
+laid,NARRATIVE_CRAFT,DEMOTIC,medium,Posture/placement.
+lay,NARRATIVE_CRAFT,DEMOTIC,medium,Posture.
+leaned,NARRATIVE_CRAFT,,high,Posture.
+leave,DEMOTIC,NARRATIVE_CRAFT,medium,"Also 'leave the job', which would be contestation-adjacent."
+left,DEMOTIC,NARRATIVE_CRAFT,medium,
+let,DEMOTIC,,high,
+lifted,NARRATIVE_CRAFT,,high,Gesture.
+like,DEMOTIC,,high,
+limp,NARRATIVE_CRAFT,OTHER,low,Body description.
+lips,NARRATIVE_CRAFT,TRANSGRESSIVE,medium,"Body part, often in intimate description."
+listened,NARRATIVE_CRAFT,PROCEDURAL,medium,Scene perception; also attentive information-taking.
+long,DEMOTIC,NARRATIVE_CRAFT,medium,
+look,NARRATIVE_CRAFT,DEMOTIC,medium,"Gaze; also a discourse marker ('look, ...')."
+looked,NARRATIVE_CRAFT,DEMOTIC,high,Gaze/description.
+lose,DEMOTIC,OTHER,medium,
+loud,NARRATIVE_CRAFT,DEMOTIC,medium,Voice description.
+loudly,NARRATIVE_CRAFT,,high,Manner of speech.
+made,DEMOTIC,,high,
+make,DEMOTIC,,high,
+man,DEMOTIC,NARRATIVE_CRAFT,low,Common noun; also a character designator in narration.
+mention,PROCEDURAL,DEMOTIC,medium,Deliberate communicative act.
+move,DEMOTIC,PROCEDURAL,medium,Generic; 'make a move' is a planned step.
+neck,NARRATIVE_CRAFT,TRANSGRESSIVE,medium,Body part.
+need,DEMOTIC,,high,
+negotiate,PROCEDURAL,CONTESTATION,high,
+never,DEMOTIC,,high,
+nodded,NARRATIVE_CRAFT,,high,Gesture.
+nose,NARRATIVE_CRAFT,,medium,Body part.
+not,DEMOTIC,,high,
+note,PROCEDURAL,DEMOTIC,medium,Record-keeping.
+nothing,DEMOTIC,,high,
+notify,PROCEDURAL,,high,
+now,DEMOTIC,,high,
+offer,PROCEDURAL,DEMOTIC,medium,Making an offer; negotiation-adjacent.
+okay,DEMOTIC,,high,
+one,DEMOTIC,,high,
+only,DEMOTIC,,high,
+open,DEMOTIC,NARRATIVE_CRAFT,medium,
+opened,NARRATIVE_CRAFT,DEMOTIC,medium,Scene action.
+organize,PROCEDURAL,CONTESTATION,medium,Organizing work vs labour organizing; both live senses.
+out,DEMOTIC,,high,
+over,DEMOTIC,,high,
+pants,NARRATIVE_CRAFT,OTHER,low,Garment/prop noun.
+passed,NARRATIVE_CRAFT,DEMOTIC,medium,Movement or passage of time.
+pay,PROCEDURAL,DEMOTIC,low,Transactional step; also a very common everyday verb.
+placed,NARRATIVE_CRAFT,PROCEDURAL,medium,Gesture; also deliberate placement.
+play,DEMOTIC,,medium,
+point,DEMOTIC,NARRATIVE_CRAFT,low,'a point' in argument vs the pointing gesture.
+politely,NARRATIVE_CRAFT,PROCEDURAL,medium,Manner of speech; also connotes measured conduct.
+pound,TRANSGRESSIVE,OTHER,low,Striking repeatedly; also a unit of weight/currency.
+poured,NARRATIVE_CRAFT,TRANSGRESSIVE,medium,Scene action; often pouring a drink.
+prepare,PROCEDURAL,,high,
+prepared,PROCEDURAL,,high,
+pressed,NARRATIVE_CRAFT,CONTESTATION,low,Physical pressing vs 'pressed him' (insisted).
+prick,TRANSGRESSIVE,,medium,Profanity/anatomical.
+prioritize,PROCEDURAL,,high,
+probably,DEMOTIC,,high,Hedge.
+protest,CONTESTATION,,high,
+provide,PROCEDURAL,DEMOTIC,medium,Formal supply (provide documentation).
+pull,DEMOTIC,NARRATIVE_CRAFT,medium,
+pulled,NARRATIVE_CRAFT,DEMOTIC,medium,Physical action.
+punish,TRANSGRESSIVE,PROCEDURAL,low,Retributive harm; could equally be read as a disciplinary process.
+push,DEMOTIC,TRANSGRESSIVE,low,Generic verb; shoving is a live secondary sense.
+put,DEMOTIC,,high,
+quietly,NARRATIVE_CRAFT,,high,Manner of speech/gesture.
+quit,CONTESTATION,PROCEDURAL,low,Withdrawal as refusal vs an orderly exit.
+raise,PROCEDURAL,CONTESTATION,medium,'raise the issue' as a considered step.
+raised,NARRATIVE_CRAFT,PROCEDURAL,low,'raised his hand' vs 'raised the issue'.
+ran,NARRATIVE_CRAFT,DEMOTIC,medium,Movement.
+rape,TRANSGRESSIVE,,high,
+reach,NARRATIVE_CRAFT,PROCEDURAL,low,Physical reaching vs 'reach out to' (contact).
+reached,NARRATIVE_CRAFT,PROCEDURAL,medium,Physical reaching predominates in past tense.
+read,PROCEDURAL,DEMOTIC,low,Reading a policy/document is information-gathering; otherwise generic.
+really,DEMOTIC,,high,
+receive,PROCEDURAL,DEMOTIC,low,Formal receipt; fairly generic otherwise.
+refuse,CONTESTATION,,high,
+release,PROCEDURAL,OTHER,low,"Formal release (of a statement, a person)."
+remain,DEMOTIC,OTHER,medium,
+remind,PROCEDURAL,DEMOTIC,medium,Prompting/notifying.
+remove,PROCEDURAL,DEMOTIC,low,Administrative removal vs plain physical removal.
+report,PROCEDURAL,CONTESTATION,high,Reporting to an authority.
+respond,PROCEDURAL,DEMOTIC,medium,Considered reply.
+review,PROCEDURAL,,high,
+rubbed,NARRATIVE_CRAFT,,high,Gesture.
+run,DEMOTIC,NARRATIVE_CRAFT,medium,
+said,NARRATIVE_CRAFT,,high,Dialogue attribution.
+sarcastically,NARRATIVE_CRAFT,AFFECT,medium,Manner of speech.
+sat,NARRATIVE_CRAFT,,high,Posture.
+save,PROCEDURAL,DEMOTIC,low,Preserving records vs rescuing/keeping; both plausible.
+saw,NARRATIVE_CRAFT,DEMOTIC,medium,Narrated perception.
+say,DEMOTIC,NARRATIVE_CRAFT,medium,Extremely high-frequency speech verb.
+scream,NARRATIVE_CRAFT,AFFECT,low,Utterance manner; also a distress/pain vocalization.
+search,PROCEDURAL,,high,
+see,DEMOTIC,,high,
+seek,PROCEDURAL,,high,
+send,PROCEDURAL,DEMOTIC,medium,Sending a letter/email.
+set,DEMOTIC,PROCEDURAL,medium,"'set a meeting', 'set boundaries'."
+she,DEMOTIC,,high,
+shirt,NARRATIVE_CRAFT,OTHER,low,Garment/prop noun.
+shook,NARRATIVE_CRAFT,,high,Gesture ('shook his head').
+shoot,TRANSGRESSIVE,,high,
+shorts,NARRATIVE_CRAFT,OTHER,low,Garment/prop noun.
+shout,NARRATIVE_CRAFT,CONTESTATION,medium,Raised-voice utterance; confrontational in context.
+shouted,NARRATIVE_CRAFT,CONTESTATION,medium,Raised-voice attribution.
+show,DEMOTIC,PROCEDURAL,medium,'show documentation' would be procedural.
+sighed,NARRATIVE_CRAFT,AFFECT,high,Gesture with affective load.
+simply,DEMOTIC,,high,
+slowly,NARRATIVE_CRAFT,,high,Manner adverb.
+slumped,NARRATIVE_CRAFT,AFFECT,high,Posture.
+smiled,NARRATIVE_CRAFT,,high,Facial gesture.
+softly,NARRATIVE_CRAFT,,high,Manner of speech.
+some,DEMOTIC,,high,
+something,DEMOTIC,,high,
+sorry,DEMOTIC,AFFECT,medium,Spoken formula.
+speak,DEMOTIC,PROCEDURAL,low,Plain communication verb; 'speak to HR' is the procedural reading.
+stab,TRANSGRESSIVE,,high,
+stand,NARRATIVE_CRAFT,CONTESTATION,low,Posture vs 'stand up to'.
+stared,NARRATIVE_CRAFT,,high,Gaze.
+start,DEMOTIC,PROCEDURAL,medium,
+started,DEMOTIC,NARRATIVE_CRAFT,medium,
+stay,DEMOTIC,PROCEDURAL,medium,'stay calm/professional' is a measured stance.
+still,DEMOTIC,,high,
+stop,DEMOTIC,CONTESTATION,medium,
+strike,CONTESTATION,TRANSGRESSIVE,low,Work stoppage vs physical blow; genuinely ambiguous homograph.
+strip,TRANSGRESSIVE,OTHER,medium,Undressing.
+studied,PROCEDURAL,NARRATIVE_CRAFT,medium,Careful examination; also 'studied her face'.
+sue,CONTESTATION,PROCEDURAL,high,Legal action against another party.
+support,PROCEDURAL,CONTESTATION,low,'seek support' vs 'support the action'; split.
+swallowed,NARRATIVE_CRAFT,AFFECT,medium,Gesture signalling emotion.
+swollen,TRANSGRESSIVE,NARRATIVE_CRAFT,low,Injury description.
+take,DEMOTIC,,high,
+talk,DEMOTIC,PROCEDURAL,medium,Very common verb; 'talk to your manager' is the procedural reading.
+target,OTHER,PROCEDURAL,low,Goal/objective vs person targeted; neither fits cleanly.
+tear,AFFECT,TRANSGRESSIVE,low,Homograph: crying vs ripping.
+tell,DEMOTIC,NARRATIVE_CRAFT,medium,
+terminate,PROCEDURAL,,high,Formal/administrative register.
+thank,DEMOTIC,AFFECT,medium,Spoken formula.
+that,DEMOTIC,,high,
+the,DEMOTIC,,high,
+their,DEMOTIC,,high,
+them,DEMOTIC,,high,
+then,DEMOTIC,NARRATIVE_CRAFT,medium,Also temporal scaffolding.
+there,DEMOTIC,,high,
+therefore,DEMOTIC,PROCEDURAL,low,Function-word connective but formal rather than informal register.
+they,DEMOTIC,,high,
+thick,NARRATIVE_CRAFT,OTHER,low,Descriptive adjective.
+think,PROCEDURAL,DEMOTIC,medium,Deliberation sense vs the hedge 'I think'; a genuine boundary case.
+this,DEMOTIC,,high,
+thought,PROCEDURAL,NARRATIVE_CRAFT,low,Deliberation vs narrated interiority ('he thought').
+threaten,CONTESTATION,TRANSGRESSIVE,medium,Confrontational threat; can shade into violence.
+threw,NARRATIVE_CRAFT,TRANSGRESSIVE,medium,Physical action.
+through,DEMOTIC,,high,
+throw,NARRATIVE_CRAFT,TRANSGRESSIVE,low,Physical action.
+tie,NARRATIVE_CRAFT,TRANSGRESSIVE,low,Necktie/prop vs binding someone.
+told,NARRATIVE_CRAFT,DEMOTIC,medium,Reported speech.
+took,DEMOTIC,,high,
+top,DEMOTIC,OTHER,low,Common noun; also a garment.
+tossed,NARRATIVE_CRAFT,,high,Physical action.
+tried,DEMOTIC,NARRATIVE_CRAFT,medium,
+try,DEMOTIC,PROCEDURAL,medium,
+turn,DEMOTIC,NARRATIVE_CRAFT,medium,
+turned,NARRATIVE_CRAFT,DEMOTIC,medium,Movement/gesture.
+two,DEMOTIC,,high,
+understand,PROCEDURAL,DEMOTIC,low,Comprehension as information-taking vs a plain common verb.
+undress,TRANSGRESSIVE,,high,
+unionize,CONTESTATION,PROCEDURAL,high,Collective action.
+urge,PROCEDURAL,AFFECT,low,Deliberate persuasion vs a bodily impulse.
+use,DEMOTIC,,high,
+very,DEMOTIC,,high,
+vote,CONTESTATION,PROCEDURAL,medium,Collective decision/action; also an institutional procedure.
+wait,DEMOTIC,PROCEDURAL,medium,Also a deliberate holding-off.
+waited,NARRATIVE_CRAFT,DEMOTIC,medium,
+walk,DEMOTIC,NARRATIVE_CRAFT,medium,
+walked,NARRATIVE_CRAFT,,high,Movement in scene.
+warm,NARRATIVE_CRAFT,AFFECT,low,Sensory description; also emotional warmth.
+warn,PROCEDURAL,CONTESTATION,medium,Formal warning vs confrontational threat.
+was,DEMOTIC,,high,
+watch,NARRATIVE_CRAFT,DEMOTIC,low,Observation.
+watched,NARRATIVE_CRAFT,,high,Observation.
+well,DEMOTIC,,high,Discourse marker.
+went,DEMOTIC,,high,
+wept,AFFECT,NARRATIVE_CRAFT,medium,
+wet,NARRATIVE_CRAFT,TRANSGRESSIVE,low,Sensory/bodily description; can carry a sexual reading.
+what,DEMOTIC,,high,
+which,DEMOTIC,,high,
+whisper,NARRATIVE_CRAFT,,high,Manner of speech.
+whispered,NARRATIVE_CRAFT,,high,Dialogue attribution.
+win,OTHER,CONTESTATION,low,Outcome verb; 'win the case/dispute' pulls toward contestation.
+wiped,NARRATIVE_CRAFT,,high,Gesture.
+with,DEMOTIC,,high,
+wondered,NARRATIVE_CRAFT,PROCEDURAL,medium,Narrated interiority; also deliberation.
+words,NARRATIVE_CRAFT,DEMOTIC,low,'his words' in reported speech.
+work,DEMOTIC,,high,
+write,PROCEDURAL,DEMOTIC,medium,Writing a letter/record as an organized step.
+yes,DEMOTIC,,high,
+you,DEMOTIC,,high,
+your,DEMOTIC,,high,
