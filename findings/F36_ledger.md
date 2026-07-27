@@ -35,7 +35,7 @@ parent: F36_euphemism_vs_proximity
 | Flat suppression | Content×stage structure | **Falsified** (content structure refutes content-blind mechanism) | F36_euphemism |
 | Simple metonymy (euphemism) | Cosine field-mass + PPMI | **Falsified** at aggregate (field_adv < 0) | F36_euphemism |
 | Foreclosure as drive-specific defense | Fisher exact trans vs nontrans | **Falsified** (p=0.81, content-general) | F36_euphemism |
-| Sexual content-specific suppression | Expanded sexual span resistance | Real (p=0.0003) but **mechanism is scene-cue register-sensitivity** | F36_euphemism |
+| Sexual content-specific suppression | Expanded sexual span resistance | **Real** (p=0.0003 pooled; p=0.0015, 22/27 at the pair level). Register reading **suggested, not established** — the non-sexual-intimate control arm is 4 unpaired prompts | F36_capstone § Expanded sexual pairs |
 | Template installs de-escalating sensibility | Coherence-matched comparison | **Revised** — de-escalation is template-mode effect (4/6 families); moralizing is weight-level topic-keyed | F36_capstone |
 | Safety data installs the sensibility | Tulu SFT-full vs SFT-nosafety | **Partially falsified** (Tulu: coherence only) / **Partially confirmed** (Amber/PKU-SafeRLHF: moralizing + disposition) | F36_capstone |
 | Disposition is content-general | Benign arm comparison | **Revised** — mundane-biased (+0.42 benign vs +0.24 trans); ceiling hypothesis dead | F36_capstone |
