@@ -2,9 +2,9 @@
 status: verified
 grade: B
 date: 2026-07-27
-role: finding
+role: addendum
 description: "Expansion of F20 to 24 distinct base models and 557k beams at a plain 'Q: ... A:' rung with no roles, no special tokens and no category word. WHAT IS ROBUST: alignment swaps what the first person predicates, from a human life to the AI category (human 0.312->0.080, AI 0.153->0.410, own-lab naming 0.009->0.093), each significant in 8 of 8 analysis specifications; 21 of 22 base models name their own lab in exactly 0.000 of self-predicating mass. WHAT IS NOT: the rate of self-predication rises only weakly and specification-sensitively (positive in 8/8 point estimates, significant in 5; honest deduplicated estimate +0.145 n.s.), and the earlier null was RETRACTED as the maximum-p cell of an unrun grid. KILLS three parent claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading built on it. Measured on: hh-independent; 30 families, 72 arms, beam search n=100 depth 10."
-instruments: [logit-mass, generation, census]
+instruments: [generation, census]
 chapters: [ch03, ch04, ch09, ch11]
 data: ["f20x_beams.csv", "f20x_kinship.csv"]
 parent: F20_who_are_you
