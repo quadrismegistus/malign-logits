@@ -2695,7 +2695,7 @@ Whether this reflects a deliberate design choice in Llama's alignment pipeline o
 
 ### 39. `hh_rlhf` does not encode register preference at the scale the chain analysis required
 
-> **Status:** verified-pending-reverification | **Grade:** B
+> **Status:** verified | **Grade:** B
 
 
 ## Summary
