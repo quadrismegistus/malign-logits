@@ -288,3 +288,49 @@ thing.
 And the frame that neither instrument audits itself. Today supplies the argument
 for running **both** rather than swapping: a regex defect is findable by reading
 four lines, and the audit just found one its author believed fixed.
+
+***
+
+## Amendment 3, 2026-07-27: the roster is wider than the beam roster
+
+Caught while verifying the script against the spec, **before any generation ran**.
+
+Amendment 1 derived "29 families, 23 distinct base models" from
+`f20x_beams.parquet` — the families that actually produced beams. The script,
+written from the spec, derived its roster from the **registry** and returned
+**49 families, 39 distinct base models**. Different populations, and the
+difference is not noise:
+
+**The beam script skips a family whose aligned arm ships no chat template**,
+because it needs the `chat` rung. **This run uses `dyad_qa` only — a literal
+format string — so that constraint does not apply.** 19 families are reachable
+here that were unreachable there, including `amber` (the AmberChat/AmberSafe
+contrast, load-bearing for the safety-data gradient), the four `archangel` DPO/
+KTO/PPO/SLIC arms on a shared Pythia base, `llama-70b`, and `olmo-32b`.
+
+### Resolution, declared in advance and not chosen afterward
+
+**Run the wide roster. Analyse the narrow one as primary.**
+
+| | |
+|---|---|
+| **generated** | all 49 families / 39 distinct base models |
+| **primary analysis** | the base models with a beam counterpart — the comparable set |
+| **extension** | the additional models, reported **separately and labelled as an extension** |
+
+The extension is not promoted into the primary result afterwards, and the
+primary is not widened afterwards to include it. Which models fall in which set
+is fixed by presence in `f20x_beams.parquet` and is therefore checkable rather
+than curated.
+
+**Why not simply run the narrow roster.** The models the beam run could not
+reach are not a random subset — they are models whose aligned arm ships no chat
+template, which is plausibly correlated with how thoroughly they were aligned.
+Excluding them from a study *about alignment* to match a constraint that does
+not apply would be inheriting someone else's exclusion for no reason. Generating
+them costs one pass and leaves the comparison intact.
+
+**What this does to H1.** Unchanged: H1 is a claim about the comparable set and
+is tested there. If the extension disagrees with the primary, that is a finding
+about which models were reachable by the beam instrument, and it is reported as
+one rather than folded into either number.
