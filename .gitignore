@@ -243,3 +243,11 @@ data/f37_stash_generations_scored.csv
 # Superseded by parquet+zstd exports (9x smaller, same rows).
 data/f20x_beams.csv
 data/f20x_kinship.csv
+
+# Machine-local seat identity for the agentdocket coordination store. Not
+# tracked (RH, 2026-07-27): it names which agent seat this checkout signs as,
+# which is a property of the machine, not of the code. Committing it would
+# hand every clone the same identity and let two processes sign as one seat --
+# the mis-signing failure the tool exists to prevent. Each checkout runs
+# `docket init <seat>` for itself.
+.docket-seat
