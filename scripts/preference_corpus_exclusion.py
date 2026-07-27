@@ -36,7 +36,7 @@ def norm_cdf(z):
 
 
 def main():
-    print(f"anchor (the alternative the gate was powered against) = {ANCHOR:.4f}\n")
+    print(f"anchor (the alternative the gate was powered against) = {ANCHOR:.5f}\n")
     print(f"{'marker':20s}{'D':>9s}{'SE':>8s}{'z vs 0':>9s}{'z vs anchor':>13s}"
           f"{'p(<=obs|anchor)':>17s}")
     rows = []
@@ -52,9 +52,9 @@ def main():
     za = (dbar - ANCHOR) / sebar
     hi = dbar + 1.96 * sebar
     print(f"\npooled (inverse variance; assumes a common effect across constructs)")
-    print(f"   D = {dbar:+.4f} +/- {sebar:.4f}")
+    print(f"   D = {dbar:+.5f} +/- {sebar:.5f}   (5 dp: 4 does not reproduce z)")
     print(f"   vs zero    z = {dbar / sebar:+.2f}   -- indistinguishable from no effect")
-    print(f"   vs anchor  z = {za:+.2f}   p = {norm_cdf(za):.3g}")
+    print(f"   vs anchor  z = {za:+.3f}   p = {norm_cdf(za):.3g}")
     print(f"   95% upper bound on the effect = {hi:.4f} = {hi / ANCHOR:.2f}x the anchor")
     print("\nThe gate did not merely fail to detect an effect at the anchor scale.")
     print("It EXCLUDES one. Every marker is individually below the anchor at")

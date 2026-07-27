@@ -67,8 +67,15 @@ observed markers can be tested against it directly:
 0.80× of it, and each marker is individually below the anchor at `p < 0.005`.
 Pooling by inverse variance — which assumes a common effect across the three
 constructs, and is therefore secondary to the per-marker intervals — gives
-`D = +0.0228 ± 0.0266`, indistinguishable from zero, `5.67` SE below the anchor
-(`p = 7 × 10⁻⁹`), with a 95% upper bound of `0.0750`, or `0.43×` the anchor.
+`D = +0.02285 ± 0.02663` against an anchor of `0.17395`, indistinguishable from
+zero, **`5.674` SE below the anchor** (`p = 7 × 10⁻⁹`), with a 95% upper bound of
+`0.0750`, or `0.43×` the anchor.
+
+*(Inputs are quoted to five places because four do not reproduce the quotient:
+at 4 dp the same expression returns `5.684`, and the finding would not reproduce
+its own figure from its own published numbers. lacan's catch, and it is the p85
+pin one level down — a quantity whose stated precision exceeds what its printed
+inputs support. Full-precision values in `data/preference_corpus_exclusion.json`.)*
 
 **This answers the design's disclosed weakness rather than merely restating it.**
 The gate ran at a cell whose power floor was met on the point estimate (0.80389
