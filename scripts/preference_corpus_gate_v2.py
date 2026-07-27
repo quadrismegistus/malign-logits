@@ -45,6 +45,8 @@ verdict off an instrument just shown not to work.
 import argparse, csv, importlib.util, json, math, statistics as st
 import numpy as np
 
+from malign_logits.provenance import provenance, describe
+
 _s = importlib.util.spec_from_file_location("g", "scripts/tier2_construct_grid.py")
 g = importlib.util.module_from_spec(_s)
 _s.loader.exec_module(g)
@@ -140,7 +142,10 @@ def main():
                     help="also run the chain-pair verdict; REFUSED if the gate fails")
     a = ap.parse_args()
 
-    out = {}
+    prov = provenance(__file__)
+    print(describe(prov))
+
+    out = {"provenance": prov}
     for corp in CORPORA:
         rows, n, floor, ch, rj, Nc, Nr = gate(corp)
         tag = "" if corp == VERDICT_CORPUS else "   DESCRIPTIVE-ONLY — cannot certify"
