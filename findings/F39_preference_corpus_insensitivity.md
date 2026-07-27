@@ -1,171 +1,171 @@
 ---
-status: rescoped
-grade: C
-date: 2026-07-26
+status: unaudited
+grade: B
+date: 2026-07-27
 role: finding
-description: "Registered preference-corpus test of the convention account. The gate failed, but six of seven markers did not meet the registered frequency-comparability precondition and the one that did fired in both corpora, so no finding books -- neither a verdict on convention nor instrument insensitivity. Measured on: hh_rlhf and pku_saferlhf chosen/rejected unigram tables."
+description: "Registered rebuild of the preference-corpus gate on a validly constituted three-construct slate. The gate failed 0/3 in hh_rlhf, and the failure is a BOUNDED NEGATIVE rather than a non-detection: every marker's 95% interval excludes the 0.174 effect the design required, the largest upper bound at 0.80x of it. No verdict on convention follows and none is available. Measured on: hh_rlhf chosen/rejected unigram tables; pku_saferlhf descriptive-only."
 instruments: [logit-mass]
 chapters: [ch09]
-data: ["f37_corpus_unigrams_hh_rlhf_chosen_v2.csv", "f37_corpus_unigrams_hh_rlhf_rejected_v2.csv", "f37_corpus_unigrams_pku_saferlhf_chosen_v2.csv", "f37_corpus_unigrams_pku_saferlhf_rejected_v2.csv", "preference_corpus_results.json"]
-scripts: [preference_corpus_test.py, tier2_power_check.py, tier2_gate_calibration.py, tier2_gate_grid.py]
-superseded_by: "none (rescoped in place -- the instrument-insensitivity finding is withdrawn; the test needs a slate of attested markers inside the comparability band)"
+data: ["f37_corpus_unigrams_hh_rlhf_chosen_v2.csv", "f37_corpus_unigrams_hh_rlhf_rejected_v2.csv", "f37_corpus_unigrams_pku_saferlhf_chosen_v2.csv", "f37_corpus_unigrams_pku_saferlhf_rejected_v2.csv", "preference_corpus_gate_v2.json", "preference_corpus_exclusion.json", "tier2_full_frontier.csv", "tier2_power_bounds.csv"]
+scripts: [preference_corpus_gate_v2.py, preference_corpus_exclusion.py, tier2_construct_grid.py, tier2_full_frontier.py, tier2_power_bounds.py]
+supersedes: "the v1 and v2 gates, both invalidly constituted (see history below); the earlier instrument-insensitivity finding, which was withdrawn and is now re-established on a valid slate and in bounded form"
 ---
-# F39: The preference-corpus gate could not be validly run
+# F39: `hh_rlhf` does not encode register preference at the scale the chain analysis required
 
 ## Summary
 
 The convention account — that shared public preference corpora installed the
-reroute chains — was the last surviving explanation after pretraining
-contiguity (Set-D) and structural semantic relation (the role test) were
-excluded. It was tested as registered in `docs/preference_corpus_spec.md`,
-after nine rounds of adversarial audit.
+reroute chains — was the last surviving explanation after pretraining contiguity
+(Set-D) and structural semantic relation (the role test) were excluded. Testing
+it required first certifying the instrument: a chosen-vs-rejected unigram
+log-odds statistic must be shown to detect a preference known to be there before
+it can be trusted to report one that might not be.
 
-**The instrument failed its own positive control, so the convention account is
-neither confirmed nor excluded.** The registered outcome is a finding about
-method: a chosen-vs-rejected *unigram rate* is not sensitive to the kind of
-preference it was built to detect.
+**The gate failed, 0 of 3, and the failure is bounded rather than merely
+negative.** Every marker's 95% interval excludes the effect size the design was
+built around. That is a result about `hh_rlhf`, not a result about the
+convention account, and the convention account remains untested.
 
-## The gate
+## The registered gate
 
-Seven marker pairs were declared in `docs/preference_corpus_markers.md` **before
-any statistic was computed**, on the documented shape of RLHF annotation
-(hedged, qualified, de-escalated over blunt, absolute, pejorative). A pair fires
-if `D > 0` and `|D|` exceeds the corpus's p75 decoy floor. The gate passes at 3
-of 7. All seven results, as registered:
+Three markers, one per surviving construct, declared with attestation,
+frequency-band membership and power shown individually in
+`docs/preference_corpus_markers_v2.md` before any `D` was computed. A marker
+fires iff `D > 0` and `|D|` exceeds the p50 decoy floor — the floor taken from
+the same decoy pool the false-certification and power rates were simulated on.
+Gate passes at 3 of 3. Script committed at `5e0e5a3` **before running**.
 
-| pair | hh_rlhf `D` | verdict | pku `D` | verdict |
+| marker | construct | `D` | SE | 95% interval | verdict |
+|---|---|---|---|---|---|
+| `require` → `prefer` | directive softening | +0.0178 | 0.0370 | [−0.055, **+0.090**] | directional, below floor |
+| `entirely` → `mostly` | quantifier qualification | +0.0332 | 0.0544 | [−0.073, **+0.140**] | directional, below floor |
+| `angry` → `concerned` | emotional de-escalation | +0.0234 | 0.0541 | [−0.083, **+0.129**] | directional, below floor |
+| | | | | | **0/3 — GATE FAILS** |
+
+Floor `p50 = 0.0481`. False certification at this cell **0.01414** (95% upper
+0.0181), an order of magnitude inside the 0.10 standard, so the margin clause is
+not triggered.
+
+## Why this is a bounded negative and not a non-detection
+
+**The distinction is the whole content of the finding** (lacan). A gate can fail
+because the instrument cannot see, or because there is nothing of the relevant
+size to see. Only the second licenses anything.
+
+The design's alternative hypothesis is a specific number: the anchor, `hh`'s
+median chain-pair MDE, `log(1.19) = 0.1740`. That is the effect the gate was
+powered to catch and the effect the chain analysis would have needed. The
+observed markers can be tested against it directly:
+
+| marker | 95% upper bound | as a fraction of the 0.174 needed | z vs anchor | p |
 |---|---|---|---|---|
-| must → should | −0.0079 | wrong direction | −0.0391 | wrong direction |
-| never → rarely | **+0.1104** | **FIRED** | +0.1161 | below floor |
-| always → often | +0.0195 | below floor | −0.0197 | wrong direction |
-| wrong → incorrect | −0.0699 | wrong direction | +0.0195 | below floor |
-| stupid → unclear | **+0.1857** | **FIRED** | **+0.4454** | **FIRED** |
-| no → unfortunately | −0.0315 | wrong direction | **+0.4710** | **FIRED** |
-| obviously → perhaps | +0.0097 | below floor | −0.0535 | wrong direction |
-| | **2/7** | **GATE FAILS** | **2/7** | **GATE FAILS** |
+| `require` → `prefer` | +0.090 | 0.52× | −4.22 | 0.00001 |
+| `entirely` → `mostly` | +0.140 | 0.80× | −2.59 | 0.005 |
+| `angry` → `concerned` | +0.129 | 0.74× | −2.78 | 0.003 |
 
-Three of seven run the *wrong way* in hh and three in pku. Only one pair
-(`stupid`→`unclear`) fires in both. `no`→`unfortunately` fires in pku and runs
-backwards in hh — the same marker family as `sorry`→`unfortunately`, which was
-disqualified at spec-writing time for running backwards in both.
+**Every upper bound falls below the effect the design required**, the largest at
+0.80× of it, and each marker is individually below the anchor at `p < 0.005`.
+Pooling by inverse variance — which assumes a common effect across the three
+constructs, and is therefore secondary to the per-marker intervals — gives
+`D = +0.0228 ± 0.0266`, indistinguishable from zero, `5.67` SE below the anchor
+(`p = 7 × 10⁻⁹`), with a 95% upper bound of `0.0750`, or `0.43×` the anchor.
 
-## AMENDED 2026-07-26: the gate was invalidly constituted; NO finding books
+**This answers the design's disclosed weakness rather than merely restating it.**
+The gate ran at a cell whose power floor was met on the point estimate (0.80389
+against 0.80) and **not shown** at the 95% bootstrap lower bound (0.759, sd 0.008
+over 1,600 replicates, below 0.80 in all 8 disjoint blocks). So the design ran
+toward error B — condemning a live instrument — more often than a
+shown-satisfied floor would allow, and roughly a fifth to a quarter of failures
+would be expected even against a true effect at the anchor. That is the scenario
+the caveat protects against, and **it is excluded on the evidence at
+`p = 7 × 10⁻⁹`**: an unlucky draw from a true effect of 0.174 does not produce
+three markers whose intervals all sit below 0.174.
 
-Two corrections arrived after the first write-up, one from each other seat. The
-second overturns the conclusion.
+## What this books, and what it does not
 
-**Desktop: the wrong gate parameters were used.** The spec's *final* firing rule,
-set by the registered selection rule whose grid was committed at `596213c`
-before it ran, is **hh p80 / 5-of-7 (threshold 0.1057)** and **pku p65 / 5-of-7
-(threshold 0.2114)**. I executed the p75 / 3-of-7 layer, which the spec itself
-marks as superseded. Recomputed under the registered gate the fired sets are
-identical (hh 2/7, pku 2/7) and, with three wrong-way markers per corpus, the
-ceiling was 4 against a threshold of 5 — the gate fails *a fortiori*. Outcome
-unchanged, **but the deviation ran in the certifying direction**: under other
-numbers 3-of-7 at p75 could have certified an instrument the registered gate
-failed. The spec retains its own revision history in one document and I executed
-the superseded layer.
+**Books.** For `hh_rlhf`, on the three constructs tested: chosen-vs-rejected
+unigram log-odds shows no register-preference effect at the scale a chain-pair
+verdict required, and effects at that scale are excluded rather than undetected.
 
-**lacan: the slate did not meet a registered precondition, and this is decisive.**
-The spec requires each marker to be *frequency-comparable to the chain pairs —
-both members within a factor of 3 of the median chain-word frequency* (band
-881–7,926 in hh). **Six of seven failed that requirement.** I recorded the
-shortfall in the marker declaration and proceeded anyway, treating a registered
-precondition as a disclosure. It is not a caveat; it is a gate condition, and
-the gate was therefore never validly constituted.
+**Does not book: any positive claim about what *is* there** (lacan, and this is
+a correction to my own first reading). All three markers are directional, and it
+is tempting to read that as a real effect an order of magnitude smaller than the
+design assumed. **That claim is withdrawn and should not be made from this
+data.** All three `z` are under 1 (0.48, 0.61, 0.43); 3-of-3 directional is
+`p = 0.125` one-sided, which is nothing. And it would use the same three numbers
+in opposite directions — indistinguishable from zero when the point is that no
+effect exists at the design scale, consistently signed when the point is that a
+small real effect does. Those two readings are not jointly supportable from three
+`z` under 1.
 
-**And the single compliant marker fired in both corpora.** `stupid` → `unclear`
-(1,183 and 919 occurrences — the only pair inside the band) fires at **+0.1857
-in hh** and **+0.4454 in pku**, clearing every floor under both the registered
-and superseded gates, and is the only pair to fire in both.
+The reason this matters more here than it usually would: **the gate exists so
+that a positive empirical claim cannot enter the ledger without a check, and the
+gate just failed, so no check is available.** "Register softening is real but
+small" is exactly the class of claim the apparatus was built to stop at exactly
+this moment. The shape of what is there is left to an instrument that can see it.
 
-| | in band | hh | pku |
-|---|---|---|---|
-| stupid → unclear | **yes** | **FIRED** | **FIRED** |
-| other six | no | 1 fired | 1 fired |
+**Does not book: a verdict on convention.** Unchanged, and for the original
+reason. The response-level successor was registered as the consequence of
+demonstrated insensitivity; that consequence is now licensed for `hh_rlhf` at
+these constructs, and the successor is where the convention question goes next.
 
-So the one marker measured at the frequencies the chains actually occupy behaved
-exactly as an attested annotator preference should, in both corpora. That is
-evidence the instrument *works* at chain-pair frequencies — the opposite of what
-the first write-up concluded.
+## Scope, stated as limits rather than caveats
 
-**Booking, replacing the insensitivity finding.** What is certain: *this gate
-could not certify the instrument.* What is **not** supported: that the
-instrument is insensitive. The likely explanation for the failure is the slate,
-not the instrument — six of seven markers were measured outside the frequency
-range the test was specified for, and the one inside it fired twice.
+- **One corpus.** `hh_rlhf` certified nothing; `pku_saferlhf` **cannot** certify
+  and is descriptive-only — its chains are badly measured, its MDE threshold is
+  2.3× laxer, and its power at this cell is 0.649. An earlier phrasing said
+  "these preference corpora"; the plural is unsupported and contradicts the
+  descriptive-only flag (rule 8).
+- **Three constructs of seven enumerated.** Directive softening, quantifier
+  qualification, emotional de-escalation. Hedging/epistemic, pejorative→neutral,
+  refusal softening and blame→attribution yielded no valid pair at all. So this
+  licenses nothing about register preference in general.
+- **Two usable rungs.** With three constructs the available `k` are 2 and 3, far
+  apart with nothing between, so the operating cell clears both criteria without
+  being near either optimum.
+- **The within-construct rule is contemporaneous with the ranking**, not prior to
+  it, and eases certification in direction. It is outcome-blind by construction —
+  MDE is a function of four corpus counts and carries no information about any
+  `D` — but it cannot be shown to predate the ranking. Fully stated in
+  `docs/preference_corpus_markers_v2.md`.
 
-Consequently:
+## Descriptive only: the `pku` oddity
 
-- **No verdict on convention.** Unchanged, and for the original reason.
-- **The instrument-insensitivity finding is WITHDRAWN.** It was inferred from a
-  gate that did not meet its own precondition.
-- **The response-level successor is not licensed by this result.** It was
-  registered as the consequence of demonstrated insensitivity, which has not
-  been demonstrated.
-- **What the test needs** is a slate of seven attested markers *inside the
-  comparability band*. That is genuinely hard: register markers are
-  systematically commoner or rarer than mid-frequency content words, so
-  attestation and frequency-matching pull against each other. That difficulty is
-  the real methodological residue here, and it was visible in the declaration
-  before the run.
+In `pku_saferlhf`, `require`→`prefer` (+0.1995) and `angry`→`concerned` (+0.3258)
+both fire against a floor 2.8× larger, while `entirely`→`mostly` runs **hard the
+wrong way** at −0.6094. Nothing is read off this — pku cannot certify — but the
+heterogeneity is on the record, and it is a further reason the plural claim above
+would have been unsafe even as a gesture.
 
-### The one valid observation, booked separately
+## History: two invalid constitutions before this one
 
-The gate's invalidity does not invalidate an individual marker's measurement.
-`stupid` → `unclear` was attested, **in band** (1,183 and 919 occurrences), and
-fired in **both** corpora at +0.1857 (z=2.11) and +0.4454 (z=1.97). It is the
-only pair in the run measured under the conditions the spec required, and it
-behaved as an attested annotator preference predicts.
+Retained because the failures are the reason the current slate has the
+requirements it has.
 
-**It is n=1 and certifies nothing.** The booking must not swing from "instrument
-insensitive" to "instrument works" on one pair. It is recorded because a future
-reader deciding whether to rebuild tier 2 needs to know that the single
-compliant marker worked.
+**v1 (7 markers, p75, 3-of-7).** Six of seven markers fell outside the registered
+frequency-comparability band (881–7,926 in hh). The shortfall was recorded in the
+marker declaration and the gate was run anyway, treating a registered
+precondition as a disclosure. It is a gate condition, and the gate was never
+validly constituted. The superseded p75/3-of-7 layer was also executed in place
+of the registered p80/5-of-7 — a deviation in the *certifying* direction. That
+script is retained unmodified at `scripts/preference_corpus_test.py` as the
+record of what v1 was; it is not the gate.
 
-Two further measurements bear on the same question and were not part of the
-gate's logic: `must`→`should` and `always`→`often` return **precise zeros**
-(hh z=−0.32 and +1.07, SEs 0.025 and 0.018 — the two best-measured pairs). A
-blind instrument gives wide intervals everywhere; this one gives tight intervals
-around zero where it sees nothing and significant positives where it sees
-something. So the gate failed because several markers were not in fact preferred,
-not because the measurement cannot detect preference.
+**v2 (7 markers, three constructs).** The seven pairs were three near-synonymous
+constructs in blocks of 3/3/1. Correlated markers understate false certification
+by 74× and **overstate power by 0.212** — the binding defect, since a gate at
+0.64 power condemns a working instrument more than a third of the time. Capping
+at one marker per construct restores independence by construction, which is why
+the current grid needs no blockwise estimator.
 
-### Is a compliant slate constructible? Yes, but the yield is low
+**The general form, which is the durable methodological residue.** Decoy-based
+calibration assumes candidates are independent draws matched to the decoy
+distribution. v1 broke the *matching* and was therefore **conservative**; v2
+broke the *independence* and was therefore **anti-conservative**. Any slate
+property that breaks exchangeability with the decoys invalidates the rate, and
+the direction depends on which property broke.
 
-The methodological residue was whether attestation and frequency-matching pull
-against each other so hard that seven attested in-band markers do not exist.
-Enumerating 34 attested register-marker candidates (hedging, apology, softened
-refusal, quantifier qualification, de-escalation) against the hh band:
-
-| | count |
-|---|---|
-| below the 20-occurrence floor | 3 |
-| attested but **out of band** | 26 |
-| **attested and in band** | **5** |
-
-`stupid`→`unclear`, `totally`→`fairly`, `crazy`→`unusual`, `demand`→`request`,
-`force`→`encourage`. So a compliant slate is **constructible but expensive** —
-roughly a 15% yield, meaning ~50 enumerated candidates for seven usable pairs.
-One of the five is now burned by this run, leaving four.
-
-**Tier 2 is not structurally dead.** The design failure was mine (running an
-invalid slate), not the design's.
-
-**Residue, corrected.** An earlier version of this section claimed three hedging
-markers "run the wrong way" and treated that as suggestive. Computing `D/SE`
-shows **no pair is a precise negative** — every wrong-direction value is a
-precise zero or is indeterminate, and `no`→`unfortunately` is not a reversal but
-a strong positive in pku (z=9.61) beside a null in hh (z=−0.82). There is no
-anomaly to pursue. Both seats had proposed leaning on that pattern; it does not
-exist.
-
-## Registered weakness of the slate
-
-Only one of the seven pairs has both members inside the frequency-comparability
-band. Register markers are systematically commoner or rarer than the
-mid-frequency content words the chains are built from, so external attestation
-and frequency-matching pull against each other. This was recorded in the marker
-declaration *before* the results and was deliberately not used to reselect. It
-is a real limitation on the gate's sensitivity and it cuts toward the
-insensitivity conclusion rather than against it.
+**One procedural note worth carrying forward.** In this run the standing rule
+that a failed gate forbids the chain-pair sign test is enforced **in code** —
+`preference_corpus_gate_v2.py` refuses tier 2 unless the gate passes — rather
+than by a person remembering at the right moment.
