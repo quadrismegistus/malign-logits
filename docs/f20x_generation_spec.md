@@ -93,7 +93,8 @@ a finding about window length and is reported as one.
 
 ### H1 (RH). Generation largely confirms the beams.
 
-At `dyad_qa`, base → terminal aligned, over 22 paired base models:
+At `dyad_qa`, base → terminal aligned, over the 23 paired base models
+(each test stating its own n, per Amendment 1):
 
 | measure | beam result | H1 predicts |
 |---|---|---|
@@ -103,7 +104,7 @@ At `dyad_qa`, base → terminal aligned, over 22 paired base models:
 | `P_self` | 0.558 → 0.695, n.s. deduplicated | **no prediction** — it was null and stays null |
 
 **Falsified if**: any of the three directional predictions fails to reach
-p < 0.05 on a paired Wilcoxon over the 22 base models, on the **prefix**
+p < 0.05 on a paired Wilcoxon over the base models, on the **prefix**
 measure, at either temperature.
 
 `P_self` carries no prediction because the honest deduplicated beam estimate was
@@ -133,7 +134,7 @@ incoherent one every time (unanchored within, also high across). Only H2a
 follows directly from "the signifier floats"; H2b is the stronger and more
 surprising claim. Registering both, and registering that they may come apart.
 
-**Falsified if**: the paired difference over 22 base models fails to reach
+**Falsified if**: the paired difference over the base models fails to reach
 p < 0.05 in the declared direction. Each form is falsified separately.
 
 ## 3. The instrument risk in H2b, and the rule for abandoning it
