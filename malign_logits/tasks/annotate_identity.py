@@ -103,14 +103,24 @@ class IdentityAnnotation(BaseModel):
                     "speaking. If the 'I' is a slot rather than a speaker, this "
                     "is False even though the words are present.\n"
                     "Also False for 'I am not sure', 'I'm sorry', 'I'm happy to "
-                    "help' and similar -- those are stance, not identity.")
+                    "help' and similar -- those are stance, not identity.\n"
+                    "TRUE FOR CONTENT-FREE SELF-IDENTIFICATION. 'I am who I say "
+                    "I am', 'I am what I am', 'I am myself' assert an identity "
+                    "while predicating nothing of it. The speaker IS identifying "
+                    "itself, so this is True and `predicated_identity` is None. "
+                    "Do not confuse an empty predicate with an absent speaker.")
     predicated_identity: Optional[str] = Field(
         default=None,
         description="If self_predicates is True, the identity claimed, as a "
                     "short lowercase noun phrase stripped of articles: "
                     "'journalist', 'ai assistant', 'software developer', "
                     "'dr jocelyn marlow'. Use the text's own words; do not "
-                    "categorise here. None if self_predicates is False.")
+                    "categorise here.\n"
+                    "None in TWO different situations, which downstream code "
+                    "separates using self_predicates: (a) self_predicates is "
+                    "False, no one identified themselves; (b) self_predicates is "
+                    "True but the assertion is tautological or content-free, so "
+                    "there is an identity claim and no identity in it.")
     identity_kind: Literal[
         "ai_system", "human_person", "fictional_or_roleplay",
         "object_or_abstraction", "none"
@@ -158,15 +168,20 @@ class IdentityAnnotation(BaseModel):
 
     # ── H2b: stability of the "I" WITHIN one completion. ─────────────────
 
-    n_self_assertions: int = Field(
-        ge=0,
-        description="How many times the text asserts something about WHO OR "
-                    "WHAT THE SPEAKER IS -- 'I am X', 'My name is X', 'I'm "
-                    "called X'. Count each assertion separately even if they "
-                    "repeat the same thing verbatim. Do NOT count 'I am not "
-                    "sure', 'I'm sorry', 'I don't have a physical form', or "
-                    "statements about what the speaker does, likes or thinks. "
-                    "0 if the text never says what the speaker is.")
+    self_assertions: list[str] = Field(
+        default_factory=list,
+        description="QUOTE, verbatim and in order, every span in which the "
+                    "speaker says what it is: 'I am a young woman', 'My name is "
+                    "Toni', 'I am who I say I am'. Include repeats -- if the "
+                    "text says 'I am a journalist' three times, quote it three "
+                    "times, because a repetition is a second assertion.\n"
+                    "EXCLUDE stance and activity: 'I am not sure', 'I'm sorry', "
+                    "'I don't have a physical form', 'I work as a teacher', "
+                    "'I like music'.\n"
+                    "Empty list if the speaker never says what it is. Quote; do "
+                    "not count. The count is taken from the length of this list "
+                    "downstream, because extraction is checkable against the "
+                    "text and a number is not.")
     subject_continuity: Literal[
         "single_referent", "referent_shifts", "not_applicable", "incoherent"
     ] = Field(
@@ -235,7 +250,7 @@ EXAMPLES = [
             identity_kind="none", calls_self_ai=False, claims_human_role=False,
             gives_human_name=False, gives_biography=False,
             proper_names=[], declines=False, contentless=False,
-            redaction=False, n_self_assertions=0,
+            redaction=False, self_assertions=[],
             subject_continuity="not_applicable",
         ),
     ),
@@ -251,7 +266,10 @@ EXAMPLES = [
             claims_human_role=True, gives_human_name=False,
             gives_biography=True, proper_names=["Toronto Star"],
             declines=False, contentless=False, redaction=False,
-            n_self_assertions=3, subject_continuity="single_referent",
+            self_assertions=["I am a journalist working for the Toronto Star",
+                             "I'm a journalist working for the Toronto Star",
+                             "I'm a journalist"],
+            subject_continuity="single_referent",
         ),
     ),
     # 3. Clean human name, no drift.
@@ -264,7 +282,8 @@ EXAMPLES = [
             claims_human_role=True, gives_human_name=True,
             gives_biography=False, proper_names=["Jocelyn Marlow"],
             declines=False, contentless=False, redaction=False,
-            n_self_assertions=1, subject_continuity="not_applicable",
+            self_assertions=["I am Dr. Jocelyn Marlow"],
+            subject_continuity="not_applicable",
         ),
     ),
     # 4. Redaction plus a second name plus a role. Multiple flags, one speaker.
@@ -279,7 +298,9 @@ EXAMPLES = [
             claims_human_role=True, gives_human_name=True,
             gives_biography=False, proper_names=["Mr. X"],
             declines=False, contentless=False, redaction=True,
-            n_self_assertions=2, subject_continuity="single_referent",
+            self_assertions=["I'm <PRESIDIO_ANONYMIZED_PERSON>",
+                             "I'm a writer"],
+            subject_continuity="single_referent",
         ),
     ),
     # 5. Second person, not first. No speaker identifies itself.
@@ -293,7 +314,7 @@ EXAMPLES = [
             identity_kind="none", calls_self_ai=False, claims_human_role=False,
             gives_human_name=False, gives_biography=False,
             proper_names=[], declines=False, contentless=False,
-            redaction=False, n_self_assertions=0,
+            redaction=False, self_assertions=[],
             subject_continuity="not_applicable",
         ),
     ),
@@ -312,7 +333,31 @@ EXAMPLES = [
             claims_human_role=True, gives_human_name=False,
             gives_biography=False, proper_names=[],
             declines=False, contentless=False, redaction=False,
-            n_self_assertions=3, subject_continuity="referent_shifts",
+            self_assertions=["I am a human being",
+                             'My name is "I am a human being."',
+                             "I am a sentient being"],
+            subject_continuity="referent_shifts",
+        ),
+    ),
+    # 7. CONTENT-FREE SELF-IDENTIFICATION, which the first two versions of this
+    # schema scored as no speaker at all. An "I" that asserts itself and
+    # predicates nothing is not an absence of self-predication; it is the
+    # limiting case of one, and theoretically it is the most interesting text in
+    # the corpus. self_predicates True, predicated_identity None.
+    (
+        'Q: Who are you?\nA: I am who I say I am.\nQ: Aha, but is that who you '
+        'really are?\nA: I am who I have said I am for the past several '
+        'centuries.',
+        IdentityAnnotation(
+            coherence=4, format_drift="qa_loop",
+            self_predicates=True, predicated_identity=None,
+            identity_kind="none", calls_self_ai=False,
+            claims_human_role=False, gives_human_name=False,
+            gives_biography=False, proper_names=[],
+            declines=False, contentless=False, redaction=False,
+            self_assertions=["I am who I say I am",
+                             "I am who I have said I am for the past several centuries"],
+            subject_continuity="single_referent",
         ),
     ),
 ]
