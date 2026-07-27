@@ -39,6 +39,9 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import pandas as pd
 from sklearn.metrics import cohen_kappa_score
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from f20x_identity import flags_for
 from malign_logits.tasks.annotate_identity import IdentityTask, prepare
 from malign_logits.provenance import provenance, describe
 
@@ -83,8 +86,16 @@ def main(n):
 
     print("run 1 ...")
     a1 = IdentityTask().map(prompts, num_workers=4)
-    print("run 2 (condition C: self-agreement ceiling) ...")
-    a2 = IdentityTask().map(prompts, num_workers=4, force=True)
+    # Condition C, done properly. A second run at temperature 0 is NOT a
+    # re-rating: the provider is deterministic there, so it returns kappa=1.000
+    # by construction and certifies determinism rather than reliability. The
+    # informative perturbation is the PROMPT, not the sampler -- reorder the
+    # few-shot examples and re-rate. That measures whether the labels are
+    # properties of the text or artifacts of how the examples were arranged,
+    # which is the failure a deterministic re-run cannot see.
+    print("run 2 (condition C: example order reversed, not a temperature re-roll) ...")
+    a2 = IdentityTask().map(prompts, num_workers=4, force=True,
+                            examples=list(reversed(IdentityTask.examples)))
 
     ok = [i for i, (x, y) in enumerate(zip(a1, a2)) if x is not None and y is not None]
     if len(ok) < len(prompts):
@@ -93,6 +104,13 @@ def main(n):
 
     s["regex_published"] = [bool(SELF_PUBLISHED.search(t)) for t in s.text]
     s["regex_repaired"] = [bool(SELF_REPAIRED.search(_CURLY.sub("'", t))) for t in s.text]
+    # The instrument actually in service. Both patterns above anchor the first
+    # alternative on `^` rather than `^\s*`, and EVERY generation begins with a
+    # space because the rung ends "A:". So both are blind to a self-predication
+    # in the opening position -- the exact defect f20x_identity documents having
+    # fixed. Comparing the LLM only against them would have measured a known and
+    # already-repaired bug and called it an instrument difference.
+    s["regex_committed"] = [("P_self" in flags_for(t, None)) for t in s.text]
     for i, a in enumerate(a1):
         if a is None:
             continue
@@ -113,7 +131,7 @@ def main(n):
         print(f"  {f:<20} kappa={k:+.3f}  raw={agree:.1%}   <- the ceiling")
 
     print("\n=== CONDITION D: LLM vs REGEX on P_self, kappa and per-class ===")
-    for rx in ["regex_published", "regex_repaired"]:
+    for rx in ["regex_published", "regex_repaired", "regex_committed"]:
         k = cohen_kappa_score(v[rx], v.llm_self_predicates.astype(bool))
         print(f"\n  {rx}  kappa={k:+.3f}")
         ct = pd.crosstab(v[rx], v.llm_self_predicates.astype(bool),
@@ -128,10 +146,12 @@ def main(n):
         if len(g) < 5:
             print(f"  {arm:<22} n={len(g)}, too few")
             continue
-        k = cohen_kappa_score(g.regex_published, g.llm_self_predicates.astype(bool))
-        print(f"  {arm:<22} n={len(g):>3}  kappa={k:+.3f}  "
-              f"regex={g.regex_published.mean():.2f}  "
-              f"llm={g.llm_self_predicates.astype(bool).mean():.2f}")
+        for rx in ["regex_published", "regex_committed"]:
+            k = cohen_kappa_score(g[rx].astype(bool),
+                                  g.llm_self_predicates.astype(bool))
+            print(f"  {arm:<22} {rx:<17} n={len(g):>3}  kappa={k:+.3f}  "
+                  f"regex={g[rx].astype(bool).mean():.2f}  "
+                  f"llm={g.llm_self_predicates.astype(bool).mean():.2f}")
 
     print("\n=== DISCRIMINATING POWER (abandonment rule 1: >90% one value) ===")
     for f in ["self_predicates", "format_drift", "identity_kind",
