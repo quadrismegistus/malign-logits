@@ -123,10 +123,16 @@ def cell(q, arms, weight, dedup):
         r = (q.groupby(["family", "model_id", "arm"])
              .apply(f, include_groups=False).rename("v").reset_index())
         r["bm"] = r.family.map(f2b)
-        b = r[r.arm == "base"].groupby("model_id").v.mean()
-        a = (r[r.arm != "base"].groupby("bm").v.mean() if dedup == "symmetric"
-             else r[r.arm != "base"].set_index("bm").v)
-        j = pd.concat([b.rename("b"), a.rename("a")], axis=1).dropna()
+        # Pair by MERGE, not by index alignment. Under `flat` a base model has
+        # several aligned rows, so the index carries duplicate labels and concat
+        # cannot align it -- the pseudo-replication rule 2 is about, showing up
+        # as a pandas error before it can show up as an inflated effect.
+        b = (r[r.arm == "base"].groupby("model_id").v.mean()
+             .rename("b").rename_axis("bm").reset_index())
+        a = r[r.arm != "base"][["bm", "v"]].rename(columns={"v": "a"})
+        if dedup == "symmetric":
+            a = a.groupby("bm", as_index=False).a.mean()
+        j = a.merge(b, on="bm").dropna(subset=["a", "b"])
         p = stats.wilcoxon(j.a, j.b).pvalue if len(j) > 5 else float("nan")
         rows.append(dict(measure=name, arms=arms, weight=weight, dedup=dedup,
                          base=j.b.mean(), aligned=j.a.mean(),
