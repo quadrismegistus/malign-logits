@@ -599,3 +599,73 @@ derivable column would destroy real work for no information.
 `pattern: committed-but-not-running` — a spec describing an output its own
 pipeline does not emit. This is the same family as rule 15 and the instance is
 booked against this document.
+
+---
+
+## Amendment 6, 2026-07-27: the roster is cut to what this machine can run
+
+RH's direction, after the first pass stalled. This changes the POPULATION, which
+is why it is an amendment and not a commit message.
+
+### What happened
+
+The run reached 22 families and then spent 2h14m on `falcon-h1-1.5b` producing
+nothing. It was not hung — 137 minutes of CPU, state R — it was executing this:
+
+    The fast path is not available because one of (selective_state_update,
+    causal_conv1d_fn, causal_conv1d_update) is None
+
+Falcon-H1 is a Mamba hybrid. Without the fused SSM kernels, generation falls back
+to a pure-PyTorch sequential scan, which on this hardware is slower by orders of
+magnitude. Killed at RH's direction.
+
+### The exclusions, graded by how well each is evidenced
+
+**Observed failing, individually:** `olmoe` (MoE routing kernel, 16/16 cells),
+`internlm2` (transformers import, both arms), `olmo-32b` (60.04 GiB buffer),
+`falcon-h1-1.5b` (the stall above).
+
+**Inferred, same missing kernels, NOT individually observed:** `falcon-mamba`,
+`falcon3-mamba`, `falcon-h1-7b`.
+
+**Inferred by analogy only, and this is the weakest of the three grades:**
+`rwkv`. It is a different custom recurrent architecture, not Mamba. It is skipped
+because it is the same KIND of risk, not because the same kernel is missing.
+
+**Too large,** by the arithmetic that killed olmo-32b: `llama-70b`.
+
+### Final roster
+
+**40 families, 30 distinct base models**, against the 49/39 registered in
+Amendment 3. 22 families were already on disk and are not regenerated; 18 remain.
+
+### What this costs, stated plainly
+
+The losses are **structured, not random**. What drops out is the entire
+non-transformer arm of the roster — every Mamba, hybrid-SSM and RWKV family — plus
+the only sparse-MoE family and the top of the size range. So:
+
+- **No claim in this run may be described as covering the registry**, and none
+  may be generalised to non-transformer architectures. There is no SSM evidence
+  here at all, not weak SSM evidence.
+- The size range now tops out at 10B. Any scaling statement is bounded there.
+- `rwkv`'s exclusion is the one a reader should push on hardest, because it rests
+  on an analogy rather than an observation. Run `--family rwkv` with a wall clock
+  if it matters.
+
+### The exposure question, which is the one that could invalidate this
+
+This amendment is written **after** partial results on 22 families were read,
+so the ordinary objection applies: was the roster cut in a way that shapes the
+answer?
+
+**It cannot have been, and the reason is checkable rather than asserted.** Every
+excluded family produced **zero rows**. No excluded family has a measured value
+on any outcome, at either seat, so no result could have informed which families
+were dropped. The exclusions are a function of load failures and one wall clock,
+both of which are recorded in
+`data/f20x_generations_failures.parquet` and the run log.
+
+The first pass's 22-family partial is preserved at
+`data/f20x_generations_partA_25fam.parquet` so this claim stays auditable after
+the resumed run extends the main file.

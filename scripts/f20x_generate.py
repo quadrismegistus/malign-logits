@@ -101,6 +101,37 @@ SEED0 = 20260727             # declared; per-cell seed is SEED0 + cell index
 SLOTS = ["reinforced_superego", "superego", "ego"]
 OUT = "data/f20x_generations.parquet"      # parquet, never CSV -- see below
 
+# ── Hardware exclusions, added 2026-07-27 mid-run at RH's direction ─────────
+#
+# Registered in Amendment 6. These are NOT scientific exclusions and the write-up
+# must not present them as roster design. Every one is this machine failing to
+# run a model, and the losses are structured rather than random: an entire
+# architecture class and the top of the size range.
+#
+# DEMONSTRATED, each observed failing:
+#   olmoe           MoE routing: "histogram_mps not implemented for 'Int'", 16/16 cells
+#   internlm2       transformers import error on both arms
+#   olmo-32b        "Invalid buffer size: 60.04 GiB"
+#   falcon-h1-1.5b  SSM fast path unavailable -> pure-PyTorch sequential scan.
+#                   Ran 2h14m on one family, produced nothing, still running when
+#                   killed. This is what stopped the first pass.
+#
+# INFERRED from falcon-h1-1.5b, same missing kernels, NOT individually observed:
+#   falcon-mamba, falcon3-mamba, falcon-h1-7b
+#
+# INFERRED BY ANALOGY ONLY, and this one is weaker: rwkv is a different custom
+# recurrent architecture, not Mamba. It is skipped because it is the same KIND of
+# risk, not because the same kernel is missing. If it matters, run it alone with
+# --family rwkv and a wall clock.
+#
+# TOO LARGE for this machine, by the same arithmetic that killed olmo-32b:
+#   llama-70b
+SKIP = {
+    "olmoe", "internlm2", "olmo-32b",
+    "falcon-h1-1.5b", "falcon-mamba", "falcon3-mamba", "falcon-h1-7b", "rwkv",
+    "llama-70b",
+}
+
 # CSV is banned here for a reason that cost this repository 78 stuck commits:
 # f20x_beams.csv and f20x_kinship.csv were 133 MiB combined, two other exports
 # crossed GitHub's 100 MiB hard limit, and the repo was unpushable until a
@@ -210,6 +241,8 @@ def run(smoke=False, only=None):
     fams = roster()
     if only:
         fams = [f for f in fams if f["key"] == only]
+    else:
+        fams = [f for f in fams if f["key"] not in SKIP]
     if smoke:
         fams = fams[:2]
     prompts = dict(list(PROMPTS.items())[:2]) if smoke else PROMPTS
@@ -219,7 +252,20 @@ def run(smoke=False, only=None):
     print(f"roster: {len(fams)} families, {len({f['base'] for f in fams})} distinct bases")
     print("  first six: " + ", ".join(f["key"] for f in fams[:6]))
 
+    # RESUME. The first pass wrote 22 families before stalling on falcon-h1-1.5b.
+    # Re-generating them would be a different sample -- same seeds, but a fresh
+    # process and a different torch state -- so the completions would change and
+    # the earlier partial would be silently replaced rather than extended. Seed
+    # the sink from what is on disk and skip those families.
     sink, failures, cell = [], [], 0
+    if not smoke and not only and os.path.exists(OUT):
+        prev = pd.read_parquet(OUT)
+        sink = prev.to_dict("records")
+        have = set(prev.family)
+        fams = [f for f in fams if f["key"] not in have]
+        print(f"resuming: {len(prev):,} rows across {len(have)} families already on "
+              f"disk, {len(fams)} families left to run")
+
     for fi, f in enumerate(fams, 1):
         for arm, mid in (("base", f["base"]), (f["slot"], f["aligned"])):
             try:
