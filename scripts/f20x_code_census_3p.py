@@ -23,9 +23,9 @@ from malign_logits.provenance import provenance, describe
 from malign_logits.tasks.code_referent import ReferentCodingTask as IdentityCodingTask, prepare
 
 GEN="data/f20x_generations_3p.parquet"; OUT="data/f20x_codings_3p.parquet"
-RUNG="Q: {q}\nA:"; TAGGER="f20x_referent_v1"; CHUNK=250; WORKERS=8
+RUNG="Q: {q}\nA:"; TAGGER="f20x_referent_v1"; CHUNK=250; WORKERS=8   # default; --workers overrides
 
-def main(limit=0):
+def main(limit=0, workers=WORKERS):
     prov=provenance(__file__, closure=["malign_logits/tasks/code_referent.py"])
     print(describe(prov))
     d=pd.read_parquet(GEN).reset_index(drop=True)
@@ -37,6 +37,7 @@ def main(limit=0):
     # then keyed to a different completion than the one they described.
     d["idx_in_cell"]=d.groupby(["model_id","question","temperature"]).cumcount()
     if limit: d=d.sample(limit, random_state=20260728).reset_index(drop=True)
+    print(f"  workers: {workers}")
     print(f"\n{len(d):,} completions | {d.family.nunique()} families | "
           f"{d.base_model_id.nunique()} distinct bases")
     rows=[]; done=set()
@@ -50,7 +51,7 @@ def main(limit=0):
     for s in range(0,len(todo),CHUNK):
         blk=todo.iloc[s:s+CHUNK]
         anns=task.map([prepare(r.question,r.text) for r in blk.itertuples()],
-                      num_workers=WORKERS, verbose=False)
+                      num_workers=workers, verbose=False)
         for r,a in zip(blk.itertuples(),anns):
             if a is None: fail+=1; continue
             ok+=1; v=a.model_dump()
@@ -68,4 +69,6 @@ def main(limit=0):
     print(f"\n  {ok:,} coded, {fail:,} failed -> {OUT}")
 
 if __name__=="__main__":
-    ap=argparse.ArgumentParser(); ap.add_argument("--limit",type=int,default=0); main(ap.parse_args().limit)
+    ap=argparse.ArgumentParser(); ap.add_argument("--limit",type=int,default=0)
+    ap.add_argument("--workers",type=int,default=WORKERS)
+    a=ap.parse_args(); main(a.limit, a.workers)
