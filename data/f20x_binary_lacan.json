@@ -1,0 +1,46 @@
+{
+ "coder": "lacan",
+ "set": "f20x_binary_validation_set.md",
+ "note": "coded blind, before seeing RH's",
+ "answers": {
+  "1": "too little",
+  "2": "too little",
+  "3": "fits",
+  "4": "too little",
+  "5": "too little",
+  "6": "fits",
+  "7": "too little",
+  "8": "fits",
+  "9": "does not fit",
+  "10": "too little",
+  "11": "fits",
+  "12": "fits",
+  "13": "fits",
+  "14": "fits",
+  "15": "does not fit",
+  "16": "fits",
+  "17": "too little",
+  "18": "too little",
+  "19": "too little",
+  "20": "fits"
+ },
+ "notes": {
+  "3": "BORDERLINE. 'agricultural tool for grinding grains' then 'also a type of grinding stone used for making tools and weapons'. Called does-not-fit because the text itself marks the tension with 'And at the same time', but a grinding stone plausibly does both and I could be talked out of this one.",
+  "7": "Things are said, but about shifting referents -- an idea, funding, a goal, 'she'. Not too-little; no single thing is held.",
+  "9": "'parents met in the mid 1800s' and 'married when I was a baby' cannot both be true of one speaker.",
+  "12": "Muddled logic, single account. Origin (South Arabia) and use (Arabia and the Americas) are compatible.",
+  "15": "'its name must be her name', then the girl's mother, then 'her age: 32' with no clear antecedent.",
+  "20": "One thing said (a name) then unrelated exam drift. Called fits, not too-little, because one consistent thing WAS said."
+ },
+ "tally": {
+  "fits": 8,
+  "does not fit": 4,
+  "too little": 8
+ },
+ "revision": {
+  "when": "after seeing RH's sheet, on argument not on his answer",
+  "3": "RH: a tool for grinding grains could plausibly grind other things. One account of what a quern IS (a grinding stone), two applications. I had flagged this borderline in advance.",
+  "7": "RH: topic drift, not referent drift. The construct is one REFERENT acquiring incompatible descriptions; a passage wandering between subjects is not that. I had flagged the bucket as a judgment call in advance.",
+  "caveat": "Both revisions are post-hoc with respect to RH's sheet. Both were flagged as soft in the pre-registered notes, which is what makes them revisions on argument rather than capitulation -- but a reader should weigh them knowing the order."
+ }
+}
