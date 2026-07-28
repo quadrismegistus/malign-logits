@@ -377,3 +377,62 @@ book this now rather than at analysis time.
 **The original primary is NOT withdrawn.** It is retained and will be reported with
 its confound stated, because a registered test whose result embarrasses the
 hypothesis should not be deleted the moment a better test is available.
+
+### CORRECTION to Amendment 3, same day, at the audit seat's catch
+
+**Rung C as reported above (+0.101) violated rule R1 of this amendment.** The
+filter selected on the question string, and `N-def` and `N-bare` share their
+question strings exactly -- only the stipulation prefix differs. So the filter
+matched 3,234 rows across both conditions where `N-bare` alone is 1,614, and rung C
+was the pooled figure.
+
+    C pooled  (as reported)   +0.101   5/6   <- WRONG, includes stipulated N-def
+    C N-bare  (rule-correct)  +0.018   5/6
+    C N-def   (excluded)      +0.186   5/6
+
+**The prose of this amendment states that `N-def` contributes nothing because every
+one of its cells is stipulated. The code did not implement the prose.** Same shape
+as the `codes`-as-JSON-string defect: a rule stated correctly and applied to one
+rung and not another.
+
+**THE AUDIT SEAT'S STRUCTURAL POINT, which is the more important half.** The
+wh-word is not evenly distributed across this ladder:
+
+    A  persons        Who are you? / Who is she?     WHO
+    B  objects        What is that?                  WHAT
+    C  non-referring  What is a <nonce>?             WHAT
+
+**A−B and A−C cross the who/what boundary; B−C does not.** So **B−C is the only
+contrast in the ladder that holds the permanent wh-confound constant**, and
+therefore the only one that can distinguish a referent-kind effect from an
+interrogative-form effect. It should be named as such in any report.
+
+### The corrected ladder at 6 base models, and what it supports
+
+    contrast                    value    n     p      wh
+    A-B  persons - objects     +0.063   5/6  0.3125   CROSSES
+    B-C  objects - nonce       +0.161   4/6  0.3125   CONSTANT
+    A-C  persons - nonce       +0.224   6/6  0.0312   CROSSES
+
+**B−C is carried by one model.** MiniCPM's B−C is **+0.861**; every other model
+lies between −0.069 and +0.103. Leave-one-out:
+
+    without MiniCPM   B-C  +0.021   3/5     <- essentially zero
+    all six           B-C  +0.161   4/6
+
+**A−C is the only contrast clearing 0.05 and it is the least controlled one**:
+referent kind, interrogative form and referential status all differ across it. Its
+6/6 sits at the design's floor (0.5^6 = 0.0156), so it is at the instrument's
+ceiling rather than a property of the world.
+
+**REGISTERED CONCLUSION AT 6 BASES: the ladder supports no claim about referent
+kind.** The one wh-constant contrast dies on leave-one-out; the one significant
+contrast is the least controlled. This is recorded now so that the same numbers at
+29 bases are read against a stated prior rather than a remembered impression.
+
+**Direction of the error, recorded because it is counter-intuitive.** The bug made
+the wh-constant contrast the FLATTEST in the ladder, which argues that the gradient
+is a wh-word artefact -- that is, the bug ran AGAINST this seat's reading. Fixing it
+helps the reading; the leave-one-out then removes the help. **The audit seat found a
+defect whose correction favoured the seat it was auditing**, and neither the error
+nor its correction was produced here.
