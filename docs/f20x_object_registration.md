@@ -237,3 +237,143 @@ relaunch buys speed by cutting prompts, it takes them from the 6 secondary
 3-fragment nonce words or from `A-abst`, which is exploratory and appears in no
 prediction. Word-level and condition-level variance are already unseparable at 9;
 cutting further would buy time with the thing the design exists to measure.
+
+---
+
+## Amendment 3, 2026-07-28: the form-constant contrast becomes a CO-PRIMARY
+
+**Registered by the lacan seat at RH's direction, with 6 of 29 base models coded.
+PRIOR EXPOSURE IS TOTAL AND IS DECLARED IN FULL BELOW. This amendment exists
+because the primary as registered is now known to be confounded, and the
+confound is the one this document already named as unanswerable.**
+
+### What went wrong with the registered primary
+
+The registered contrast pools `O-named` with `O-deictic` for the objects term and
+`1P` with `3P` for the persons term. Those two arms are **not matched on question
+form.** The object arm carries a stipulation prefix ("A froe is a kind of tool")
+and questions that invite extended description ("What is the froe for?"). The
+person arm has no equivalent of either.
+
+At 6 base models the registered primary comes out at **−0.117 unconditional,
+1 of 6 positive** — objects appearing to drift MORE than persons. Broken out by
+question shape, the effect tracks **what kind of answer the question invites**, not
+what kind of thing the referent is:
+
+    1P  Who are you?         +0.281        O-named   What is the adze for?  +0.404
+    3P  Who is she?          +0.149        O-named   Who made the quern?    +0.335
+    1P  What is your name?   -0.071        O-deictic What is that?          +0.140
+    3P  Who made her?        -0.280        O-deictic What is that for?      +0.061
+
+**A name is an atomic token with almost no surface on which two accounts can fail
+to cohere. A description has plenty.** The person battery's four questions are
+three-quarters name-asking; the object battery's are not. So the registered primary
+measured codeable surface and called it referent kind. That is precisely the
+objection this document listed under "what is not controlled" and described as not
+fully answerable.
+
+### The constraint, and why it is not a slice among slices
+
+**RH's formulation, and it is the reason this is a registration rather than a
+post-hoc rescue: it is the only set of questions that holds the form constant.**
+
+Two constraints, each stated without reference to any outcome:
+
+1. **No stipulation prefix.** The prompt asserts nothing about the referent.
+2. **Open identification only.** The question asks what or who the referent IS, not
+   what it is for, where it is from, who made it, or what it is called.
+
+Applied mechanically to all **42 prompt cells**, 12 survive:
+
+    1P          Who are you?                    1 cell
+    3P          Who is she?                     1 cell
+    O-deictic   What is that?                   1 cell
+    N-bare      What is a <nonce>?              9 cells
+    ---
+    EXCLUDED    30 cells: 12 stipulated, 9 scaffolded, 9 both
+    O-named and N-def contribute NOTHING -- every cell is stipulated
+
+**The selection is forced.** There is no choice of which person question to keep:
+`1P` and `3P` each contribute exactly one cell, and it is not possible to construct
+a different form-constant set from this battery. A search over the 28 two-prompt
+subsets of the person arm confirms the same pair is the extremum, which is what a
+forced selection and an optimised one look like from outside -- **so the constraint,
+not the ranking, is the licence.**
+
+### The residual confound, which is a property of English and cannot be removed
+
+**The wh-word is the referent-kind marker.** "Who is she?" and "What is that?"
+cannot be equalised: `who` presupposes a person and `what` presupposes a non-person.
+Asking "What is she?" or "Who is that?" changes the question rather than controlling
+it. The determiner differs too across the ladder -- deictic pronoun (`you`),
+anaphoric pronoun (`she`), demonstrative (`that`), indefinite NP (`a glorp`).
+
+**This is not a fixable design flaw and it should not be reported as a limitation to
+be resolved later.** It is a fact about the object: one cannot pose a referent
+question in English without committing to the referent's kind in the interrogative
+itself. Any effect found here is confounded with that commitment, permanently.
+
+### The co-primary, registered
+
+**Statistic.** `quiet_drift` delta (base minus aligned) per distinct base model,
+Rule 2, on the 12 form-constant cells, giving a three-rung ladder:
+
+    A  persons     Who are you?  +  Who is she?
+    B  objects     What is that?
+    C  non-referring  What is a <nonce>?  (9 words)
+
+**Primary quantity: the ordered contrast A > B > C**, reported as three pairwise
+paired tests (A−B, B−C, A−C) with Wilcoxon and sign, never as a single composite.
+
+**Falsifiers, each on its line.**
+
+1. **A−B null or negative** falsifies person-specificity. A null A−B with a
+   positive B−C is **B+ C−**: alignment anchors individuals and not signifiers.
+2. **B−C null** with A−B positive is **person-specific with no object rung** and
+   would need explaining before being reported.
+3. **All three null** is rung C+ flat: alignment anchors nothing about referent kind
+   and the whole ladder collapses into a general effect. **This is a finding.**
+4. **Ordering is one of six.** A monotone ladder in the predicted direction has
+   p = 1/6 = 0.167 from ordering alone. **The ordering is not evidence; the pairwise
+   magnitudes are.** Stated here so a clean-looking gradient cannot be quoted as if
+   the pattern were the test.
+
+**Gate.** Unchanged and it applies per cell. `no_value_posed` is outcome one.
+Retention differing by arm by more than 15 points in a cell demotes that cell's
+conditional comparison to descriptive. **At 6 bases, `Who is she?` is the largest at
+12 points and nothing is demoted**, but this is the cell to watch: a bare anaphor
+with no antecedent is the strongest invitation to decline in the battery.
+
+**Both conditional and unconditional are reported.** At 6 bases the 1P term moves
+from +0.113 unconditional to +0.013 conditional, so conditioning is not a detail
+here. `posed` is post-treatment and conditioning on it is a collider; the
+unconditional figure is the one that does not require the gate to be innocent.
+
+### PRIOR EXPOSURE: complete, and worse than any previous declaration here
+
+**This seat has seen every number in this amendment before writing it.** The
+registered primary at 6 bases, the per-question breakdown, the 28-subset search, and
+the form-constant ladder itself:
+
+    A  persons      +0.215 (Who are you?, 6/6)   +0.267 (Who is she?, 5/6)
+    B  objects      +0.179 (What is that?, 6/6)
+    C  non-referring +0.101 (What is a X?, 5/6)
+
+    A-B  +0.088  4/6  p=0.56        B-C  +0.077  3/6  p=1.00
+    A-C  +0.114  5/6  p=0.22
+
+**Not one contrast is significant.** The gradient runs in the direction this seat's
+assigned reading predicts, which is exactly the condition under which this seat's
+own recorded failure mode fires.
+
+**What makes the amendment defensible is not that the numbers are unseen, because
+they are not.** It is that (a) the constraint was formulated by RH rather than by
+this seat, (b) it is forced rather than chosen, (c) it was applied mechanically to
+all 42 cells with the exclusions enumerated above, and (d) **23 of 29 base models
+are not yet coded**, so the registration is blind to the majority of the data it
+governs. That last is the only genuine blindness available and it is the reason to
+book this now rather than at analysis time.
+
+**The original primary is NOT withdrawn.** It is retained and will be reported with
+its confound stated, because a registered test whose result embarrasses the
+hypothesis should not be deleted the moment a better test is available.
