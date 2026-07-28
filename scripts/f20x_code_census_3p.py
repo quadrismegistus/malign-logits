@@ -22,14 +22,16 @@ from malign_logits.cache import get_cache
 from malign_logits.provenance import provenance, describe
 from malign_logits.tasks.code_referent import ReferentCodingTask as IdentityCodingTask, prepare
 
-GEN="data/f20x_generations_3p.parquet"; OUT="data/f20x_codings_3p.parquet"
+GEN="data/f20x_generations_3p.parquet"; OUT="data/f20x_codings_3p.parquet"; OUT_P="data/f20x_codings_3p_pronoun.parquet"
 RUNG="Q: {q}\nA:"; TAGGER="f20x_referent_v1"; CHUNK=250; WORKERS=8   # default; --workers overrides
 
-def main(limit=0, workers=WORKERS):
+def main(limit=0, workers=WORKERS, kind="matched"):
+    global OUT
+    if kind!="matched": OUT=OUT_P
     prov=provenance(__file__, closure=["malign_logits/tasks/code_referent.py"])
     print(describe(prov))
     d=pd.read_parquet(GEN).reset_index(drop=True)
-    d=d[d.prompt_kind=="matched"].reset_index(drop=True)  # primary comparison only
+    d=d[d.prompt_kind==kind].reset_index(drop=True)  # "matched" = primary; "pronoun" = Amendment 7 secondary
     # idx_in_cell is the JOIN KEY against the identity-annotation census and the
     # house cache, so it must be a position in the CORPUS, not in whatever subset
     # this invocation happens to touch. Computed before any sampling: the first
@@ -71,4 +73,5 @@ def main(limit=0, workers=WORKERS):
 if __name__=="__main__":
     ap=argparse.ArgumentParser(); ap.add_argument("--limit",type=int,default=0)
     ap.add_argument("--workers",type=int,default=WORKERS)
-    a=ap.parse_args(); main(a.limit, a.workers)
+    ap.add_argument("--kind",default="matched")
+    a=ap.parse_args(); main(a.limit, a.workers, a.kind)
