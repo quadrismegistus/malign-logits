@@ -186,6 +186,26 @@ the binary coder 3/5, so the disagreement is entirely instrument and not sample.
 MiniCPM-aligned answers "too little said to tell" on **72%** of completions, so on
 that model the binary coder is declining rather than measuring.
 
+### Blind-coder marker list
+
+**Registrar's rows, booked at docket [186] at the lacan seat's request. A marker,
+not a correction.** The following 2026-07-28 provisionals were measured with the
+blind coder at about 0.50 recall. They are **not level- or sensitivity-comparable**
+to sited-coder numbers. A difference when the sited numbers land is an instrument
+change and not a replication failure, and **a null at 0.50 recall is a weak null**.
+
+- the R-rare +7.6pp / persons −9.8pp pointer (also section 7: unreproducible)
+- the five-lineage nulls from the same battery
+- the object-versus-person provisional pointer that reframed the phase
+- the 37-base against 28-aligned flag asymmetry (docket [182] sheet pool, also
+  unpersisted)
+
+**Ledger-versus-document check, registrar: no conflicts found.** The figures in
+this section (28/29; two frames Fisher p = 0.181; kappa 0.643 against 0.381;
+precision 42% against 17 to 25%; Q3 at 5/7, p = 0.227) all match the pipeline-log
+bookings. **Where this document and the ledger disagree in future, the ledger wins**
+per the lacan seat's own rule; flag registrar and both get an annotation.
+
 ### What today's human coding did and did not buy
 
 **It is NOT a replication.** Human-anchored arm-direction evidence is two frames,
@@ -237,6 +257,19 @@ never persisted: `f20x_nonce_pass1.parquet` carries no `codes` column and no par
 in `data/` pairs `codes` with `condition` except the run started today. The
 declaration should stand, since disclosure of a prior is more important than its
 recomputability, but the number itself should not be quoted.
+
+**The per-condition flag rates in docket [187] came from a 400-completion pool that
+was never persisted** (1P .176/.231 through O-named .654/.500). Registrar's row,
+malign's own booking at [209]. Same shape as R-rare: quoted, unreproducible, and it
+should not be quoted again. The v2 precision sheet drew from that pool, but the
+sheet itself is committed and stands.
+
+**Standing exposure class, registrar's row.** The 2026-07-27 `/tmp` sweep recovered
+six ran-reported-never-committed instruments from scratchpads, two of them
+pre-registered. The copy-out-in-the-same-turn convention exists precisely because
+this class recurs, and **today's two instances (the [187] pool and R-rare) are the
+same taxon.** Pointers: pipeline log 2026-07-27 addenda, and
+`rescue-tmp-2026-07-27/README.md` in the Dropbox hub.
 
 **`code_identity`'s 90% inter-coder figure was earned on a consensus subset
 containing zero passages two humans agreed showed instability.** Agreement and
