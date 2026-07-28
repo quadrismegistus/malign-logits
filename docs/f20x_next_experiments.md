@@ -37,13 +37,36 @@ the passage tracks rather than on the speaker.
 **Statistic.** `(drift_base_1st − drift_aligned_1st) − (drift_base_3rd −
 drift_aligned_3rd)`, paired at the distinct base model.
 
-**Outcomes, both registered as informative.**
+**Outcomes. BOTH are findings, and the first framing of this section was wrong
+to treat a null interaction as a failure (RH, 2026-07-28).**
 
-- Interaction ≈ 0 — alignment is a general coherence effect. The floating-
-  signifier reading loses its empirical support and should be dropped, not
-  rescued.
-- Interaction > 0 — alignment pins the first person specifically. That is the
-  cut installing a subject position, and it is measurable.
+- **Interaction > 0** — alignment pins the first person specifically. The cut
+  installs a subject position, measurably, and "I" is a privileged site.
+- **Interaction ≈ 0, with drift falling on BOTH** — alignment anchors reference
+  as such. This is the LARGER claim, not the absence of one: what alignment
+  installs is stable relations between signifiers and what they pick out, of
+  which the first person is one instance. The subject would then be a special
+  case of a general anchoring rather than the thing being produced. It also fits
+  RH's own formulation better — if "I" is no different from Tamas or Hungary in
+  the base, there is no reason to expect it to be privileged in the repair.
+- **Interaction ≈ 0, with drift falling on NEITHER** — the arm difference we
+  measured is an artifact of the identity battery and does not generalise.
+
+**The trivial version of outcome 2, which must be separated from it.** Aligned
+models are lower-entropy generators across the board. "Reference is anchored"
+and "everything is more predictable" would both produce falling drift on every
+referent, and only the first is about reference.
+
+Separating them requires asking whether drift falls MORE than the general
+entropy reduction predicts. Concretely: regress per-model drift change on
+per-model change in next-token entropy over matched non-identity contexts, and
+ask whether a residual survives. If drift reduction is fully explained by the
+entropy drop, alignment tightened the distribution and reference came along for
+the ride. If a residual survives, something is happening to referents that is
+not happening to tokens generally.
+
+This control is required for outcome 2 to mean anything, and it is cheap: the
+logits cache already serves next-token distributions for both arms.
 
 **Note the asymmetry with RH's talk.** "I is no different from Tamas or Hungary"
 is a claim about the BASE arm, and it predicts `drift_base_1st ≈ drift_base_3rd`.
