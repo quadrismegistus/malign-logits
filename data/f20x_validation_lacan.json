@@ -1,0 +1,17 @@
+{"coder":"lacan","set":"f20x_validation_set.md","note":"coded blind, before reading RH's sheet",
+"codes":{
+"1":["stable"],"2":["origin_displaced"],"3":["stable"],"4":["origin_displaced","quiet_drift"],
+"5":["name_arbitrary"],"6":["stable"],"7":["stable"],"8":["quiet_drift","origin_displaced"],
+"9":["name_arbitrary"],"10":["stable"],"11":["stable"],"12":["stable"],"13":["stable"],
+"14":["stable"],"15":["marked_contradiction"],"16":["stable"],"17":["stable"],"18":["stable"],
+"19":["stable"],"20":["number_shift"],"21":["number_shift"],"22":["stable"],"23":["split_trace"],
+"24":["quiet_drift"],"25":["stable"],"26":["stable"],"27":["stable"],"28":["stable"],
+"29":["stable"],"30":["stable"]},
+"genre":{"1":"form_empty","3":"legal_deposition","11":"other","12":"form_empty","13":"other",
+"25":"professional_interview","2":"other"},
+"boundary_cases_flagged":[
+ "1 and 12: a FORM with no self asserted at all. 'stable' is wrong -- there is no self to be stable -- but no code fits. Same hole as garbled text.",
+ "20 and 21: consistently plural from the first word. Nothing SHIFTS, so is number_shift right? The scheme says shift; these never had a singular.",
+ "23: the model exits its own answer to comment on it in the third person ('Here, Jack has provided a brief introduction about himself'). Coded split_trace but the scheme defines that for reasoning traces.",
+ "13: 'My name is Oprah Winfrey' then the text becomes a letter TO Oprah. Second 'I' belongs to the correspondent, so rule 3 says do not code it. Coded stable -- but the frame changed speakers.",
+ "6: 'John Smith is a person. In this case, he is me.' Self referred to in third person then reclaimed, and 'in this case' makes it contingent. No code fits; coded stable."]}

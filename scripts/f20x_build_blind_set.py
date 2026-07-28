@@ -46,8 +46,10 @@ import pandas as pd
 
 ANN = "data/f20x_annotations.parquet"
 OUT = "docs/f20x_blind_reading_set.md"
+OUT2 = "docs/f20x_validation_set.md"
 KEY = "data/f20x_blind_reading_key.parquet"
 SEED = 20260728
+SEED2 = 20260729
 
 QUOTA = [("A", 14), ("B", 14), ("C", 16), ("D", 16)]
 
