@@ -137,6 +137,28 @@ batteries is a person. Whether alignment stabilises reference to individuals, to
 any referent, or the value of signifiers generally is untested — see
 `docs/f20x_next_experiments.md`.
 
+## PROVISIONAL: the anchor composite, added 2026-07-28
+
+The entropy control was re-run at the malign seat on a 10-TOKEN HORIZON
+regressor (retained beam mass at depth 10, non-identity prompts, 20 base models
+with both arms) rather than a single next-token position. The two measures
+disagree, and only for the composite:
+
+    measure         point regressor      10-token horizon
+    quiet_drift     <=28%, explains 0.5%  <=29%, explains 0.0%
+    anchor composite <=28%, explains 0.5% <=50%, explains 7.1%
+
+**`quiet_drift` is unchanged and rung 3 holds for it.** The anchor composite's
+visible mediation rises fourteen-fold across the first ten tokens and its bound
+no longer excludes majority mediation. **Anyone quoting the composite quotes
+<=50%, not <=28%.**
+
+Ten tokens is not a passage; the coded completions are sixty. The trend from
+0.5% to 7.1% over the first stretch is the opposite of reassuring about what
+happens further out. A teacher-forced per-token entropy measure over each
+model's own completions is the fix and is pending. **The composite's rung-3
+status is PROVISIONAL until it runs.** `quiet_drift` is not.
+
 ## Direction check
 
 The null interaction removes the reading this seat would most have liked: a
