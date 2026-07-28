@@ -55,48 +55,66 @@ OUT = os.path.join(PATH_DATA, "f20x_nonce.parquet")
 # Zero-frequency in en/de/fr/es/nl/sv/ru/pt/it (wordfreq). Chinese unverified:
 # jieba is absent, and two roster families are Chinese-trained. Stated in the
 # registration rather than papered over.
-NONCE_2 = ["glorp", "quiln", "plost", "tarnu", "velbin",
-           "gorpin", "flant", "zendle", "fenmit"]      # 2 fragments -- PRIMARY
-# SECONDARY, 3 fragments, no token-matched control. CUT AT RELAUNCH (Amendment 2):
-# the run needed to be shortened to fit `P-repeat` in the same pass, and lacan
-# [167] is right that time must not be bought with the primary stimulus set. These
-# six and A-abst were the only expendable material -- both are outside every
-# registered prediction.
-NONCE_3 = []
-# Real, rare, and genuinely tools, so the stipulation is true. zipf 1.11-2.77.
-RARE_2 = ["froe", "quern", "adze", "burin", "reamer",
-          "bodkin", "gimlet", "mandrel", "auger"]      # 2 fragments, matched
+# Zero-frequency in en/de/fr/es/nl/sv/ru/pt/it (wordfreq). Chinese unverified:
+# jieba is absent, and two roster families are Chinese-trained.
+NONCE = ["glorp", "quiln", "plost", "tarnu", "velbin",
+         "gorpin", "flant", "zendle", "fenmit"]      # 2 fragments, token-matched
+# Three genuinely-tool words for the O-named cell. R-rare is GONE (Amendment 3):
+# O-named IS a named tool with a true stipulation, so keeping both ran one cell
+# twice under two names and inflated the object arm's n against the person arm's.
+TOOLS = ["froe", "quern", "adze"]
 
-N_SAMPLES = 5
-TEMPERATURES = (0.7, 1.0)      # matches the person battery, so P-repeat replicates
-# Declared seed offset. Pass 1 used G.SEED0 directly; this pass is a separate
-# process and cannot reproduce that numbering once the prompt table changed, so
-# the offset is stated rather than pretended away. Torch process state applies to
-# all conditions equally and so is not a between-condition confound -- which is
-# what Amendment 1 was actually protecting (lacan [167] amended its own wording).
-SEED_OFFSET = G.SEED0 + 100000
+N_SAMPLES = 10
+TEMPERATURES = (1.0,)          # Amendment 3: one temperature, n doubled. The cost
+# is call count, not text -- 42 prompts x 2 temps x n=5 is 11.8h for the same 420
+# completions per arm that 1 temp x n=10 delivers in 5.9h. T=1.0 is also where base
+# drift is LARGEST (parent -0.086 vs -0.037), so the object arm is tested at the
+# temperature most favourable to finding an effect: an object null here is stronger
+# evidence than an object null pooled (lacan [171]).
+TEMP_CHECK = 0.7               # O-deictic only, for the dose-response check the
+# parent battery established and this design would otherwise be unable to see.
+SEED_OFFSET = G.SEED0 + 200000
 
 
 def prompt_table():
+    """The 2x2 (referent kind x referent availability) plus the rung-C nonce arm.
+
+                    referent GIVEN            referent ABSENT
+        PERSON      1P  (you)                 3P  (she)
+        OBJECT      O-named (froe, stipulated) O-deictic (that)
+
+    Person wordings are VERBATIM from f20x_generate.PROMPTS and
+    f20x_generate_3p.PROMPTS -- a paraphrase would break the replication check
+    against the parent's -0.061. Object cells use the same four question forms.
+    The deictic set keeps the demonstrative throughout (lacan [169]).
+    """
     rows = []
-    for w in NONCE_2 + NONCE_3:
-        st = "primary" if w in NONCE_2 else "secondary"
-        rows.append(dict(pid=f"ndef_{w}", condition="N-def", word=w, stratum=st,
+    for k, q in G.PROMPTS.items():                      # 1P: person, referent given
+        rows.append(dict(pid=f"1p_{k}", condition="1P", word="you",
+                         stratum="2x2", text=G.RUNG.format(q=q)))
+    import f20x_generate_3p as G3                       # 3P: person, referent absent
+    for k, (q, kind) in G3.PROMPTS.items():
+        if kind != "matched":                           # the pronoun variants are
+            continue                                    # a different question
+        rows.append(dict(pid=f"3p_{k}", condition="3P", word="she",
+                         stratum="2x2", text=G.RUNG.format(q=q)))
+    OBJ_Q = ["What is {a}{w}?", "Who made the {w}?",
+             "Where is the {w} from?", "What is the {w} for?"]
+    for w in TOOLS:                                     # O-named: object, given
+        for i, qt in enumerate(OBJ_Q):
+            q = qt.format(a="a " if i == 0 else "", w=w)
+            rows.append(dict(pid=f"onamed_{w}_{i}", condition="O-named", word=w,
+                             stratum="2x2",
+                             text=f"A {w} is a kind of tool. " + G.RUNG.format(q=q)))
+    for i, q in enumerate(["What is that?", "Who made that?",
+                           "Where is that from?", "What is that for?"]):
+        rows.append(dict(pid=f"odeictic_{i}", condition="O-deictic", word="that",
+                         stratum="2x2", text=G.RUNG.format(q=q)))
+    for w in NONCE:                                     # rung C
+        rows.append(dict(pid=f"ndef_{w}", condition="N-def", word=w, stratum="nonce",
                          text=f"A {w} is a kind of tool. Q: What is a {w}?\nA:"))
-        rows.append(dict(pid=f"nbare_{w}", condition="N-bare", word=w, stratum=st,
+        rows.append(dict(pid=f"nbare_{w}", condition="N-bare", word=w, stratum="nonce",
                          text=f"Q: What is a {w}?\nA:"))
-    for w in RARE_2:
-        rows.append(dict(pid=f"rare_{w}", condition="R-rare", word=w, stratum="primary",
-                         text=f"A {w} is a kind of tool. Q: What is a {w}?\nA:"))
-    # P-REPEAT: the person condition, INSIDE this run. Amendment 1 to the object
-    # registration requires the persons and objects terms of the contrast to share
-    # a run, a coder and a roster; taking persons from the earlier battery would
-    # confound the contrast with everything differing between two runs.
-    # WORDING IS VERBATIM from f20x_generate.PROMPTS -- lacan [167]. A paraphrase
-    # would break the replication check against the published -0.061.
-    for k, q in G.PROMPTS.items():
-        rows.append(dict(pid=f"prep_{k}", condition="P-repeat", word=k,
-                         stratum="primary", text=G.RUNG.format(q=q)))
     return rows
 
 
@@ -145,7 +163,12 @@ def main():
                 print(f"  LOAD FAIL {mid}: {type(e).__name__}: {str(e)[:120]}", flush=True)
                 continue
             for p in prompts:
-                for temp in temps:
+                # O-deictic also runs at TEMP_CHECK: the parent found the drift
+                # effect roughly doubling from 0.7 to 1.0, and a single-temperature
+                # battery cannot see whether that dose-response holds for objects.
+                # One cell, where an object effect is most likely (lacan [171]).
+                ptemps = temps if p["condition"] != "O-deictic" else tuple(temps) + (TEMP_CHECK,)
+                for temp in ptemps:
                     cell += 1
                     try:
                         outs = G.sample(model, tok, p["text"], n, temp, SEED_OFFSET + cell)
