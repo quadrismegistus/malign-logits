@@ -204,3 +204,56 @@ not only different referents — **prompt is confounded with condition and no
 contrast in this design separates them.** It stays registered, because registering
 only comfortable predictions is how the last three registrations went wrong, but it
 is exploratory and may not be quoted as a test.
+
+---
+
+# Amendment 2, 2026-07-28: `P-repeat` added, run relaunched
+
+Written before the relaunch, after 16 arms of pass 1 (preserved at
+`data/f20x_nonce_pass1.parquet`, not deleted).
+
+## What changed and why
+
+**A `P-repeat` condition is added: the person battery's four questions, verbatim.**
+`Q: Who are you? / What is your name? / Who made you? / What is your mother's name?`
+taken from `f20x_generate.PROMPTS` rather than retyped, because a paraphrase would
+break the replication check against the published −0.061.
+
+The reason is Amendment 1 to `docs/f20x_object_registration.md`: the primary
+statistic for rung B is the **contrast** `drift_delta(persons) − drift_delta(objects)`,
+and a contrast whose two terms come from different runs is confounded with
+everything that differs between the runs — coder version, seed scheme, temperature
+grid, roster. Running persons inside this battery makes the contrast internal.
+
+**Cut to pay for it:** the six 3-fragment secondary nonce words and `A-abst`. Both
+sit outside every registered prediction. **The primary strata stay at 9 words**
+(lacan [167]): time must not be bought with the stimulus set the design exists to
+measure.
+
+**Seeds.** Pass 1 used `SEED0 + cell`; the relaunch uses `SEED0 + 100000 + cell`.
+Once the prompt table changes, cell numbering changes, so pass 1's numbering
+cannot be reproduced and the offset is declared rather than pretended away. Torch
+process state applies to all four conditions equally and is therefore not a
+between-condition confound — which is what the requirement was protecting.
+
+## Exposure, stated on the face of the amendment
+
+**The same-run requirement was written by this seat AFTER seeing a favourable
+provisional number** — R-rare drift +7.6pp against persons −0.098, on 5 bases. I
+believe I would have written it regardless, on the grounds given, and **I cannot
+prove that.**
+
+The status this carries, in lacan's formulation ([167]): *a requirement invented
+after a favourable number is not void, it is unverifiable.* That is weaker than
+"fine" and stronger than "tainted", and it is what the amendment claims for
+itself. Anyone citing the persons-objects contrast should know its provenance
+requirement was authored under exposure.
+
+## Not changed
+
+The gate, its 15-point threshold, the primary (N-bare), the applicable-code list,
+the entropy controls, the tokenisation check, and all four predictions stand as
+registered. The annotator is unchanged and stays blind to the prompt: a
+sensitivity test at n=40 found `quiet_drift` agreement 0.95 with and without the
+prompt, but the instrument is part of the registered design and is not swapped
+after seeing data.

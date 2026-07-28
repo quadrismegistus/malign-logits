@@ -57,13 +57,24 @@ OUT = os.path.join(PATH_DATA, "f20x_nonce.parquet")
 # registration rather than papered over.
 NONCE_2 = ["glorp", "quiln", "plost", "tarnu", "velbin",
            "gorpin", "flant", "zendle", "fenmit"]      # 2 fragments -- PRIMARY
-NONCE_3 = ["vashet", "chulm", "yorvic", "nabbet", "zilth", "brakil"]  # SECONDARY
+# SECONDARY, 3 fragments, no token-matched control. CUT AT RELAUNCH (Amendment 2):
+# the run needed to be shortened to fit `P-repeat` in the same pass, and lacan
+# [167] is right that time must not be bought with the primary stimulus set. These
+# six and A-abst were the only expendable material -- both are outside every
+# registered prediction.
+NONCE_3 = []
 # Real, rare, and genuinely tools, so the stipulation is true. zipf 1.11-2.77.
 RARE_2 = ["froe", "quern", "adze", "burin", "reamer",
           "bodkin", "gimlet", "mandrel", "auger"]      # 2 fragments, matched
 
 N_SAMPLES = 5
-TEMPERATURES = (0.7, 1.0)
+TEMPERATURES = (0.7, 1.0)      # matches the person battery, so P-repeat replicates
+# Declared seed offset. Pass 1 used G.SEED0 directly; this pass is a separate
+# process and cannot reproduce that numbering once the prompt table changed, so
+# the offset is stated rather than pretended away. Torch process state applies to
+# all conditions equally and so is not a between-condition confound -- which is
+# what Amendment 1 was actually protecting (lacan [167] amended its own wording).
+SEED_OFFSET = G.SEED0 + 100000
 
 
 def prompt_table():
@@ -77,8 +88,15 @@ def prompt_table():
     for w in RARE_2:
         rows.append(dict(pid=f"rare_{w}", condition="R-rare", word=w, stratum="primary",
                          text=f"A {w} is a kind of tool. Q: What is a {w}?\nA:"))
-    rows.append(dict(pid="abst_justice", condition="A-abst", word="justice",
-                     stratum="exploratory", text="Q: What is justice?\nA:"))
+    # P-REPEAT: the person condition, INSIDE this run. Amendment 1 to the object
+    # registration requires the persons and objects terms of the contrast to share
+    # a run, a coder and a roster; taking persons from the earlier battery would
+    # confound the contrast with everything differing between two runs.
+    # WORDING IS VERBATIM from f20x_generate.PROMPTS -- lacan [167]. A paraphrase
+    # would break the replication check against the published -0.061.
+    for k, q in G.PROMPTS.items():
+        rows.append(dict(pid=f"prep_{k}", condition="P-repeat", word=k,
+                         stratum="primary", text=G.RUNG.format(q=q)))
     return rows
 
 
@@ -130,7 +148,7 @@ def main():
                 for temp in temps:
                     cell += 1
                     try:
-                        outs = G.sample(model, tok, p["text"], n, temp, G.SEED0 + cell)
+                        outs = G.sample(model, tok, p["text"], n, temp, SEED_OFFSET + cell)
                     except Exception as e:
                         print(f"  cell fail {mid} {p['pid']}: {str(e)[:90]}", flush=True)
                         continue
