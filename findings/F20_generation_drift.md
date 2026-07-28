@@ -176,9 +176,17 @@ The provisional marking below is LIFTED. Teacher-forced mean per-token entropy
 over each model's OWN sampled completions at coding length — the regressor whose
 object finally matches the outcome's — 62 models, 27 base models with both arms.
 
-    measure          1 position    10-token beam    PASSAGE (60 tokens)
-    quiet_drift        <=28%           <=29%             <=6%
-    anchor composite   <=28%           <=50%            <=14%
+THREE SEPARATE CONTROLS THAT AGREE. NOT A PROGRESSION — the three regressors
+are three different OBJECTS at three different n, and printing them as a curve
+is a misreading this document invited once already:
+
+    regressor                       object                    n     quiet_drift  composite
+    next-token entropy              sampled, 1 position      29        <=28%       <=28%
+    retained beam mass, depth 10    MODE-SEEKING, 10 tokens  20        <=29%       <=50%
+    teacher-forced per-token        SAMPLED, full passage    29        <=6%        <=18%
+
+The third is the one whose object matches the outcome's: the model's own sampled
+completions, at the length the coding used. All 66 models scored, no exclusions.
 
 **The bounds tighten rather than loosen.** The extrapolation feared here —
 0.5% to 7.1% explained across the first ten tokens, so what by sixty — does not
@@ -195,11 +203,19 @@ CAVEAT ON COMPARING THE THREE: n differs (29 / 20 / 27) so the bounds are not
 strictly commensurable. What survives is the direction — the best-matched
 regressor gives the tightest bound.
 
-LOSS, named so it is not read as coverage: 4 models failed, costing 2 complete
-lineages (`m-a-p/CT-LLM-*`, `m-a-p/neo_7b*`), `trust_remote_code` prompting
-interactively with no tty. Not a missing kernel, an absent terminal — a
-different class from Amendments 6/6b. Both are Chinese-family models, so n=27
-is systematically missing one lab rather than two random units.
+EARLIER LOSS, NOW REPAIRED AND WORTH KEEPING FOR THE METHOD. A first pass lost
+2 complete lineages (`m-a-p/CT-LLM-*`, `m-a-p/neo_7b*`), both Chinese-family, so
+the control had a hole correlated with training corpus — exactly where a referee
+presses. Re-run at n=29 with all 66 models: `quiet_drift` <=6% either way, the
+composite <=18% against <=14%. **The missing lab does not move it**, which is
+worth more having been checked than assumed, since that is precisely the claim
+nobody can make without running it.
+
+The cause was a caller bug, not an environment limit: `trust_remote_code=True`
+was passed to `AutoModelForCausalLM.from_pretrained` and not to
+`AutoTokenizer.from_pretrained`. The tokenizer prompted, the background process
+auto-declined, and the error names the REPOSITORY rather than the call — so it
+reads as a model-capability problem and is a two-word omission one line up.
 
 ## Direction check
 
