@@ -436,3 +436,92 @@ is a wh-word artefact -- that is, the bug ran AGAINST this seat's reading. Fixin
 helps the reading; the leave-one-out then removes the help. **The audit seat found a
 defect whose correction favoured the seat it was auditing**, and neither the error
 nor its correction was produced here.
+
+---
+
+## Amendment 4, 2026-07-28: the wh-word is not a confound, and Amendment 3 drew the wrong consequence from stating it correctly
+
+**RH's correction, and it changes what the ladder tests rather than how it is
+described.**
+
+### What Amendment 3 got wrong
+
+Amendment 3 registered the who/what asymmetry as a "permanent confound... a property
+of English and not a fixable design flaw." **The description is right and the
+category is wrong.**
+
+Calling it a confound presupposes a latent variable, referent kind, existing
+independently of how the language marks it, with the interrogative laid over the top
+as contamination. **There is no such variable.** In English the referent's kind is
+carried by the interrogative. One cannot ask about a person without `who`. Asking
+with `who` is not a noisy proxy for a person-referent; at the level where the model
+operates, it is what having a person-referent consists in.
+
+**This is the positivist move RH named earlier in the campaign**: treating a
+linguistic marking as noise around a real quantity, when the position of the project
+is that the subject is an effect of the signifier rather than a thing the signifier
+points at.
+
+### The consequence Amendment 3 got backwards
+
+Amendment 3 concluded that **B−C is "the only contrast that can distinguish a
+referent-kind effect from an interrogative-form effect"** and should be preferred.
+
+**That is backwards. A−B IS the referent-kind test, in the only form such a test can
+take.** Holding the wh-word constant does not purify the manipulation; it removes
+it. B−C is not a cleaner version of A−B, it is a different question.
+
+### The ladder, restructured
+
+    A vs B/C   the WHO position against the WHAT position.
+               Does alignment anchor the SUBJECT-POSITION differently from the
+               thing-position? This is the project's claim in its Jakobsonian form:
+               the paradigm from which `who` is selected is the paradigm of
+               subjects, so selecting it already installs a subject-position.
+
+    B vs C     within the WHAT position, referring against non-referring.
+               Does having a referent at all matter?
+
+**Both are real questions and neither is a degraded version of the other.** Reports
+must not describe B−C as "the clean contrast" or A−B as "confounded."
+
+### What survives from Amendment 3, narrower
+
+**An attribution limit, not a validity limit.** If an effect appears on A−B it
+cannot be attributed to referent kind *rather than* to interrogative form, because
+they covary perfectly and there is no world in which they do not. That is a limit on
+decomposition.
+
+**A−C remains the weakest contrast**, and for a reason unaffected by this amendment:
+it differs in interrogative, referent kind AND referential status simultaneously, so
+a result there cannot say which of the three produced it. Its 6/6 at n=6 also sits
+at the design floor of 0.0156.
+
+### NEW PREDICTION registered here, because the constitutive reading makes one the confound reading does not
+
+If the wh-word installs the position rather than labelling a pre-existing referent,
+then **the effect should follow the referent the completion CONSTRUCTS, not only the
+interrogative it was given.** The original registration already anticipated the
+material: *"`it` may be read as a person in some completions. Recorded via
+`referent_note` and reported."*
+
+**Prediction.** Within the `O-deictic` cell (`What is that?`), completions whose
+`referent_note` indicates the model took the referent to be a PERSON show a
+base-minus-aligned `quiet_drift` delta closer to rung A than to the rest of rung B.
+
+**Falsifier.** No difference, or a difference in the other direction. Either says
+the effect tracks the interrogative given rather than the referent constructed,
+which supports the wh-word as the operative variable and weakens the constitutive
+reading's specific version of it.
+
+**Declared limits before running.** Person-readings of `that` will be rare, so this
+is powered for a direction and not a rate; the split is made on coder output rather
+than on human judgment; and `referent_note` is free text, so the classification rule
+must be fixed and stated before the split is computed. **It favours this seat's
+reading if it lands, which is the standing reason to book the falsifier first.**
+
+### Status of the empirical situation, unchanged by this amendment
+
+**Nothing clears at 6 base models.** A−B +0.063 (5/6, p=0.31); B−C +0.161 (4/6,
+p=0.31) and carried by one model; A−C +0.224 (6/6, p=0.031) and least decomposable.
+This amendment changes what a result would MEAN. It does not produce one.
