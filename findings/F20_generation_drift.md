@@ -146,7 +146,9 @@ would not survive one more code in its family.
 coin flip carried by magnitudes in a few families, and p=0.6188 at T=1.0.
 Reported and dismissed on the sign count, not omitted.
 
-## PROVISIONAL: the anchor composite, added 2026-07-28
+## SUPERSEDED — see the passage-level resolution below
+
+### (as written 2026-07-28, before the passage measure ran)
 
 The entropy control was re-run at the malign seat on a 10-TOKEN HORIZON
 regressor (retained beam mass at depth 10, non-identity prompts, 20 base models
@@ -167,6 +169,37 @@ Ten tokens is not a passage; the coded completions are sixty. The trend from
 happens further out. A teacher-forced per-token entropy measure over each
 model's own completions is the fix and is pending. **The composite's rung-3
 status is PROVISIONAL until it runs.** `quiet_drift` is not.
+
+## RESOLVED: the passage-level control, 2026-07-28
+
+The provisional marking below is LIFTED. Teacher-forced mean per-token entropy
+over each model's OWN sampled completions at coding length — the regressor whose
+object finally matches the outcome's — 62 models, 27 base models with both arms.
+
+    measure          1 position    10-token beam    PASSAGE (60 tokens)
+    quiet_drift        <=28%           <=29%             <=6%
+    anchor composite   <=28%           <=50%            <=14%
+
+**The bounds tighten rather than loosen.** The extrapolation feared here —
+0.5% to 7.1% explained across the first ten tokens, so what by sixty — does not
+continue. It reverses.
+
+**And the reason is substantive rather than arithmetic: the slope is NEGATIVE.**
+The confound story requires a positive slope, models that tighten more showing
+more drift reduction. Observed, models that tighten LESS show MORE drift
+reduction (r=-0.286). The mediated component works against the observed effect
+rather than composing with it. Passage-level tightening and referential
+anchoring are not merely separable — they are mildly opposed.
+
+CAVEAT ON COMPARING THE THREE: n differs (29 / 20 / 27) so the bounds are not
+strictly commensurable. What survives is the direction — the best-matched
+regressor gives the tightest bound.
+
+LOSS, named so it is not read as coverage: 4 models failed, costing 2 complete
+lineages (`m-a-p/CT-LLM-*`, `m-a-p/neo_7b*`), `trust_remote_code` prompting
+interactively with no tty. Not a missing kernel, an absent terminal — a
+different class from Amendments 6/6b. Both are Chinese-family models, so n=27
+is systematically missing one lab rather than two random units.
 
 ## Direction check
 
