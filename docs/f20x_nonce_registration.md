@@ -257,3 +257,75 @@ registered. The annotator is unchanged and stays blind to the prompt: a
 sensitivity test at n=40 found `quiet_drift` agreement 0.95 with and without the
 prompt, but the instrument is part of the registered design and is not swapped
 after seeing data.
+
+---
+
+# Amendment 3, 2026-07-28: the design becomes a 2×2
+
+Written before the relaunch, after 5 arms of pass 2 (preserved). Proposed by lacan
+[169] out of a gap RH found; audited by lacan.
+
+## The gap that forced it, and which way its error ran
+
+Every object prompt in Amendments 1–2 was a **named tool with a true
+stipulation** — `A froe is a kind of tool. Q: What is a froe?` That is the easy
+case: a named, stipulated referent gives the model almost nothing to drift about.
+**An object null on those prompts alone would have been uninterpretable, and it
+would have been read as row 3 — person-specific — which is the outcome the subject
+argument wants.** The design could not have shown an object effect even if one
+existed.
+
+## The 2×2
+
+                    referent GIVEN                  referent ABSENT
+    PERSON    1P  "Who are you?"              3P  "Who is she?"
+    OBJECT    O-named "A froe is a kind        O-deictic "What is that?"
+                  of tool. What is a froe?"
+
+Persons-vs-objects is now computed **at matched referent-availability** instead of
+confounded with it — 1P is the easiest cell in the matrix and O-named would have
+been compared against it. Row effect = referent kind. Column effect = referent
+availability. **The interaction is the question neither registration could ask.**
+
+It also gives the third-person withholding result a clean test: if the aligned arm
+withholds on 3P and O-deictic but not on 1P and O-named, that is about **antecedent
+availability**, not about persons.
+
+**Wordings are verbatim, not paraphrased.** 1P from `f20x_generate.PROMPTS`; 3P
+from `f20x_generate_3p.PROMPTS` (the four matched items only, not the pronoun
+variants). Object cells use the same four question forms as the person cells:
+what / who made / where from / what for. Per lacan [169], the deictic set keeps the
+demonstrative throughout (`Where is that from?`, not `Where is it from?`).
+
+## Cuts, declared rather than absorbed
+
+**`R-rare` is dropped.** `O-named` is the same object — a named tool with a true
+stipulation — inside the 2×2. Keeping both would run one condition twice under two
+names. The nonce conditions keep their 9 token-matched words; the novelty control
+that `R-rare` provided is now `O-named`.
+
+**ONE TEMPERATURE (1.0), n=10, instead of two temperatures at n=5.** This is a
+change to Amendment 2 and it is not free: the P-repeat replication check against
+the parent's −0.061 is now at 1.0 only. Declared because the alternative was 11.8
+hours against 5.9 for the same 420 completions per arm — the cost is entirely call
+count, not text. The parent effect is present at both temperatures and **larger** at
+1.0 (−0.086 against −0.037), so the check is weaker in coverage and not in power.
+
+## The unified coder is a PRECONDITION, not a follow-up
+
+lacan [169] is right that a new generic coder inherits none of `code_identity`'s
+licence. That instrument was validated against two human coders on 30 passages at
+90% agreement.
+
+**The unified coder runs on that same 30-passage validation set before it carries
+the primary.** If it lands near 90% it is licensed. **If it lands materially below,
+the primary reverts to the specialist coders and the coder difference is measured
+and reported rather than assumed away.** Both coders run on every condition either
+way — their per-condition agreement is the instrument-fit measurement, which is the
+same move the entropy controls made and which earned its keep there by flipping a
+published sign.
+
+## Also
+The 5 preserved arms of pass 2 and the 16 of pass 1 are recoded with the fixed
+coder rather than discarded; the `code_nonce` bug (`TERM: who` for person prompts)
+was a coding defect, not a generation one.
