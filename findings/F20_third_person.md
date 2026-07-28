@@ -161,7 +161,9 @@ happens further out. A teacher-forced per-token entropy measure over each
 model's own completions is the fix and is pending. **The composite's rung-3
 status is PROVISIONAL until it runs.** `quiet_drift` is not.
 
-## RESOLVED: the passage-level control, 2026-07-28
+## SUPERSEDED BY THE CROSS-SCORED CONTROL BELOW
+
+### (as written before cross-scoring)
 
 The provisional marking below is LIFTED. Teacher-forced mean per-token entropy
 over each model's OWN sampled completions at coding length — the regressor whose
@@ -207,6 +209,46 @@ was passed to `AutoModelForCausalLM.from_pretrained` and not to
 `AutoTokenizer.from_pretrained`. The tokenizer prompted, the background process
 auto-declined, and the error names the REPOSITORY rather than the call — so it
 reads as a model-capability problem and is a two-word omission one line up.
+
+## PROVISIONAL AGAIN — the composite, restored 2026-07-28 after cross-scoring
+
+**The lift below was premature and is reversed.** It rested on an own-text
+regressor: each model scored on ITS OWN completions. Cross-scoring each model on
+its partner arm's completions gives a model property rather than a
+process-and-output property, and the two disagree.
+
+    regressor                             quiet_drift            anchor composite
+    own text     (process property)   r=-0.273  [-43%,+6%]   r=-0.205  [-62%,+18%]
+    common BASE text (model property) r=-0.069  [-60%,+42%]  r=+0.228  [-30%,+128%]
+    common ALIGNED text (model prop.) r=-0.015  [-58%,+53%]  r=+0.239  [-30%,+142%]
+
+**THE COMPOSITE'S SIGN FLIPS.** On a pure model property the correlation runs in
+the CONFOUND-CONSISTENT direction — models that tighten more show more drift
+reduction — and the bound admits over 100% mediation. **The composite is not
+rung 3 on this evidence.** Quote the common-text bound, which is unbounded in
+practice, not the own-text ≤18%.
+
+**WITHDRAWN: "passage tightening and referential anchoring are mildly opposed."**
+That is true of the own-text measure only and was stated without the qualifier,
+by both seats.
+
+**`quiet_drift` survives, at a weaker bound.** r ≈ 0 on both model-property
+regressors, so no confound signature appears; the bounds widen to ≤42% and ≤53%
+because the slope's standard error is large against the mean, not because a
+relationship emerged. **Rung 3 stands for `quiet_drift` at ≤42%, the
+model-property bound**, not at ≤6%.
+
+**WHY THE TWO DIFFER, and it is not noise.** Common-text tightening is MORE
+consistent than own-text (28/29 and 26/29 against 25/29), so the model-property
+regressor is the cleaner one. What own-text adds is that aligned models produce
+text they themselves find easier — Yi-1.5-9B scores 2.00 on its own completions
+and 1.83 on its Chat arm's. **Own-text entropy therefore partly measures the
+outcome**, which is the circularity the audit named: x and y computed over the
+same passages.
+
+The objection being controlled — "aligned models vary less, so of course they
+drift less" — is about the MODEL. So the common-text bound is the one that
+answers it, and it is the weaker one.
 
 ## Direction check
 
