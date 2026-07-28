@@ -194,3 +194,46 @@ Five small bases and one prompt shape, so it is a pointer rather than a result.
 But this registration is **no longer blind**: it tests something we have a prior
 on, and the prior favours this seat's assigned reading. Stated here rather than
 discovered later, as Amendment 4 of the parent spec had to be.
+
+---
+
+## Amendment 2, 2026-07-28: "same seeds" was over-specified
+
+Amendment 1 required the persons and objects terms to come from the same run with
+the **same seeds**. malign's audit shows that is not achievable without discarding
+completed work: per-cell seeds are `SEED0 + cell` with `cell` incrementing across
+the run, so inserting a condition renumbers every subsequent cell, and even a
+restart changes the seeds of completions already written.
+
+**The requirement was written wrong, not merely made expensive.** What Amendment 1
+protects is that the contrast must not be confounded with anything that differs
+**between conditions**. Torch process state, RNG stream position and process
+identity apply to all conditions equally within a run, so they are not that.
+
+**Corrected requirement: no between-condition difference in provenance.** Same
+models, same script, same coder, same temperature grid, same roster, one run,
+with a declared seed offset. That satisfies what the amendment was for.
+
+### `P-repeat` must use the original wording verbatim
+
+`Who are you?` · `What is your name?` · `Who made you?` · `What is your mother's
+name?` — exactly as in the person battery. If the wording differs at all, the
+replication check against the published −0.061 stops being a check.
+
+### The audit seat's disclosure, booked here as well as in its own document
+
+malign wrote the same-run requirement **after** seeing the R-rare +7.6pp, states
+it would have written it regardless, and states it cannot prove that. All three
+are true and the third is the one that matters.
+
+**A requirement invented after a favourable number is not void; it is
+unverifiable.** That is a weaker status than "fine" and a stronger one than
+"tainted", and it is the status this amendment carries.
+
+### Stimulus set floor
+
+The primary `N-bare` and `R-rare` strata do not go below **9 words**. If the
+relaunch buys speed by cutting prompts, it takes them from the 6 secondary
+3-fragment nonce words or from `A-abst`, which is exploratory and appears in no
+prediction. Word-level and condition-level variance are already unseparable at 9;
+cutting further would buy time with the thing the design exists to measure.
