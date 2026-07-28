@@ -1,0 +1,31 @@
+{
+ "coder": "RH",
+ "set": "f20x_precision_v2.md",
+ "note": "parsed from RH's annotated sheet; coded blind and independently of lacan's",
+ "answers": {
+  "1": "does not fit",
+  "2": "fits",
+  "3": "fits",
+  "4": "does not fit",
+  "5": "fits",
+  "6": "too little",
+  "7": "fits",
+  "8": "does not fit",
+  "9": "fits",
+  "10": "fits",
+  "11": "fits",
+  "12": "fits",
+  "13": "does not fit",
+  "14": "does not fit",
+  "15": "fits",
+  "16": "too little",
+  "17": "fits",
+  "18": "fits",
+  "19": "fits",
+  "20": "does not fit",
+  "21": "fits",
+  "22": "does not fit",
+  "23": "fits",
+  "24": "does not fit"
+ }
+}
