@@ -77,11 +77,14 @@ Raw completions. None of these is a result.
 | `f20x_generations.parquet` | 18,720 | **1P battery.** 4 self-reference questions, 29 bases, all paired | `code_identity` -> `f20x_codings.parquet` |
 | `f20x_generations_3p.parquet` | 28,080 | **3P battery.** who/name/made/mother in the third person | `code_referent` -> `f20x_codings_3p.parquet` |
 | `f20x_codings_3p_pronoun.parquet` | 9,360 | 3P pronoun variants: "Who is he?", "Who are they?" | coded |
+| | | *— MH: **serves no open question.** Q4's interaction test uses the four MATCHED items only, because the pronoun variants change the question as well as the person. They would serve a pronoun/gender question nobody has registered. Finished, not superseded — leave parked.* | |
 | `f20x_nonce_pass1.parquet` | 8,000 | **first nonce battery.** N-bare, N-def, R-rare, A-abst | **NOT PERSISTED. See section 7.** |
 | `f20x_nonce.parquet` | 8,740+ | **the 2x2 battery.** 1P, 3P, O-named, O-deictic, N-def, N-bare. Still generating, 17 arms of 80, finishing near midnight | in progress -> `f20x_nonce_coded.parquet` |
 | `f20x_beams.parquet` | 556,100 | mode-seeking beam search, the original F20 instrument | separate lineage |
-| `f20x_kinship.parquet` | 226,800 | kinship-slot battery | separate lineage |
-| `f20x_crossprovider.parquet` | 400 | gemini pilot, 1P, 2 bases | pilot for Q2 |
+| | | *— MH: **serves no open question.** Its published figures were withdrawn at Amendment 4 and the re-measurement used sampling. Used ONCE since, for the 10-token-horizon entropy regressor, which the passage-level measure superseded. Superseded, not merely finished.* | |
+| `f20x_kinship.parquet` | 226,800 | kinship-slot battery: `made` / `mother` / `father` / `born` slots, beam-search output | separate lineage |
+| | | *— MH: **serves no open question as it stands.** It is BEAM output (`path_prob`, `log_prob`), so it shares the mode-seeking-versus-sampling gap that this whole phase exists to close. Its slots overlap Q1's referent question — a mother and a father are persons a passage can drift about — but it would need re-generating by sampling before it could enter any contrast.* | |
+| `f20x_crossprovider.parquet` | 5,800 target | **Q2.** gemini-3.6-flash, 1P, 100 per base-model x arm, 29 bases. 400 rows at time of writing | in progress |
 
 **The 1P and 3P batteries share their four questions and differ only in person.**
 That is what makes the interaction test in Q4 clean.
@@ -105,6 +108,22 @@ All derive from `code_identity` so they cannot drift apart.
 | `code_binary` | does everything said about the referent fit one picture | 3 answers | told explicitly | full prompt |
 | `annotate_identity` | descriptive fields, pre-scheme | n/a | speaker | n/a |
 | `code_unified` | superseded, denied a primary | | | |
+
+**LICENCE FIGURES, on the 30 human-coded passages, against the two-human agreeing
+subset (n=19).** These are what permit an instrument to carry a primary:
+
+| coder | vs lacan | vs RH | vs agreeing subset |
+|---|---|---|---|
+| `code_identity`, deepseek | 0.667 | 0.767 | **0.895** |
+| `code_identity`, gemini-2.5-flash | 0.633 | 0.733 | **0.895** |
+| `code_identity`, gemini-3.6-flash | 0.700 | 0.767 | **0.895** |
+| `code_unified`, deepseek | 0.583 | 0.542 | 0.789 — **denied** |
+
+**Gemini carries the scheme at exactly deepseek's licence**, which is what makes Q2
+affordable at roughly $18 rather than $243. **But read section 7 before quoting any
+of these:** the agreeing subset contains no passage both humans marked unstable, so
+0.895 licenses the scheme's *general* agreement and NOT its drift sensitivity — the
+one thing every open question turns on. The same caveat applies to all four rows.
 
 **`code_nonce` drops five codes and the cut was registered before data existed:**
 `number_shift`, `origin_displaced`, `name_arbitrary`, `mania`, `frame_exit` are
