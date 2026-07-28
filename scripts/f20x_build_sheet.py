@@ -101,25 +101,31 @@ def main():
                "enrichment, so any recall computed on this has a denominator "
                "nothing selected. Arm, family and model removed; order shuffled.")
     else:
-        from malign_logits.tasks.code_identity import IdentityCodingTask
-        from malign_logits.tasks.code_identity import prepare as prep_p
-        from malign_logits.tasks.code_nonce import NonceCodingTask
-        from malign_logits.tasks.code_nonce import prepare as prep_t
+        # SITED coder, not blind. The blind coder recalls 1 of 2 human-agreed
+        # drift passages, so a sheet built from its flags samples what a
+        # half-recall instrument happened to catch. The sited coder recalls 2 of 2.
+        from malign_logits.tasks.code_sited import SitedCodingTask
+        from malign_logits.tasks.code_sited import prepare as prep_s
         pool = pd.concat([g.sample(min(a.pool // 2, len(g)), random_state=SEED)
                           for _, g in d.groupby("al")]).reset_index(drop=True)
-        flags = []
-        for is_p, sub in pool.groupby(pool.condition.isin(PERSON)):
-            task = IdentityCodingTask() if is_p else NonceCodingTask()
-            items = ([prep_p(r.prompt.split("Q: ")[-1].split("\n")[0], r.text)
-                      for r in sub.itertuples()] if is_p else
-                     [prep_t(r.word, r.text) for r in sub.itertuples()])
-            for r, o in zip(sub.itertuples(), task.map(items, num_proc=8, desc="code")):
-                if o and "quiet_drift" in o.codes:
-                    flags.append(r.Index)
+        out = SitedCodingTask().map(
+            [prep_s(r.condition, r.word, r.prompt, r.text) for r in pool.itertuples()],
+            num_proc=8, desc="sited")
+        flags = [r.Index for r, o in zip(pool.itertuples(), out)
+                 if o and "quiet_drift" in o.codes]
         f = pool.loc[flags]
         print(f"flagged {len(f)}/{len(pool)}  {f.al.value_counts().to_dict()}")
-        picked = pd.concat([g.sample(min(a.n // 2, len(g)), random_state=SEED)
-                            for _, g in f.groupby("al")])
+        # STRATIFY BY ARM *AND* REFERENT KIND. Drawing from flagged passages by
+        # arm alone produced a 24-passage sheet with ZERO person passages: the
+        # person cells are 8 of 42 prompts, so they are a fifth of the pool before
+        # flagging. A precision check that cannot speak to the person arm cannot
+        # licence a persons-versus-objects contrast, which is the whole use.
+        f = f.copy()
+        f["kind"] = f.condition.map(lambda c: "person" if c in PERSON
+                                    else "nonce" if c.startswith("N-") else "object")
+        per = max(1, a.n // (2 * f.kind.nunique()))
+        picked = pd.concat([g.sample(min(per, len(g)), random_state=SEED)
+                            for _, g in f.groupby(["al", "kind"])])
         title = "F20x precision by arm — prompt shown"
         pre = (f"{len(picked)} completions **the coder called drift**, half from "
                "each arm. Your job is to say whether it was right. Arm, family and "
@@ -130,8 +136,9 @@ def main():
     picked.insert(0, "n", range(1, len(picked) + 1))
     out = a.out or f"docs/f20x_sheet_{a.mode}.md"
     open(out, "w").write("\n".join(sheet_rows(picked, title, pre)))
-    picked[["n", "condition", "word", "family", "arm", "al", "model_id", "pid",
-            "temperature", "prompt", "text"]].to_parquet(
+    keep = ["n", "condition", "word", "family", "arm", "al", "model_id", "pid",
+            "temperature", "prompt", "text"]
+    picked[[c for c in keep if c in picked.columns]].to_parquet(
         out.replace("docs/", "data/").replace(".md", "_key.parquet"), index=False)
     print(f"{len(picked)} passages -> {out}  "
           f"({picked.condition.value_counts().to_dict()})")
