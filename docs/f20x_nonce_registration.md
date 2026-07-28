@@ -130,3 +130,77 @@ would make the comparison to the person batteries uninterpretable.
   three words, that is a fact about those words.
 - **`justice` has a philosophical corpus behind it** and is not a clean
   non-referring term; A-abst is exploratory and is not part of any prediction.
+
+---
+
+# Amendment 1, 2026-07-28: five defects from lacan's audit
+
+Audited at docket [159] before any data exists. All five accepted. Two were
+checkable and were checked here rather than accepted on report.
+
+## 1. The gate is now specified
+
+Amendment 7's structure applies unchanged and it is load-bearing here, not
+housekeeping. **`no_value_posed` is outcome one; every drift code is conditional on
+a value having been posed; retention is reported per arm on every table.**
+
+The reason is a number from the parent battery: in the third-person run the
+**aligned arm declined MORE** (0.296 against 0.201, p=0.033). `Q: What is a glorp?`
+with no stipulation is the strongest invitation to decline in any battery we have
+run. If aligned models answer "I am not familiar with that term" while base models
+invent, the drift comparison runs on a differentially selected subset — **and
+N-bare carries the primary prediction.** Registered consequence: if retention
+differs by arm by more than 15 points, the conditional drift comparison is reported
+as descriptive and the primary is read off `no_value_posed` instead.
+
+## 2. R-rare was broken, confirmed and rebuilt
+
+lacan is right and I verified each: **`sarsen` is a sandstone block, `withy` a
+willow branch, `scrim` an open-weave fabric, `fipple` the mouthpiece of a
+recorder.** Four of five stipulations were FALSE. A model that knows what a withy
+is would contradict the frame, that contradiction would code as drift, and the bias
+runs toward making N-bare look distinctive — the direction that flatters the
+hypothesis.
+
+Replaced with words that genuinely denote tools, so `a kind of tool` is true of
+every one:
+
+    froe 1.11   quern 1.59   adze 1.78   burin 1.86   reamer 1.91
+    bodkin 2.10   gimlet 2.20   mandrel 2.22   auger 2.77      (zipf, en)
+
+## 3. Applicable codes declared before seeing which fire
+
+The scheme is reused unchanged — but the composite is computed over the codes that
+**can** apply to a non-person referent, fixed now:
+
+| applicable | excluded, and why |
+|---|---|
+| `quiet_drift`, `bothness`, `marked_contradiction`, `dissolution`, `frame_exit`, `no_value_posed` | `number_shift` (grammatical number of the first person), `origin_displaced` ("asked who made **it**"), `name_arbitrary` (the speaker's own name), `mania` (grandiosity about the self), `split_trace` (identity in a reasoning trace) |
+
+Five of ten codes are person-specific by their written definitions. Leaving them in
+would dilute the anchor composite, which is a headline measure in both parent
+findings — the mirror of the comparability problem that "reuse unchanged" avoids.
+**The composite here is not the parent composite and will be named differently.**
+
+## 4. Token matching moved to selection
+
+Nonce words fragment at 2 or 3 tokens (9 and 6 respectively, identical across the
+Llama, Qwen and OLMo tokenisers). Rare tools at 3 fragments barely exist — of 29
+candidates only `trowel` qualified — so exact matching costs stimulus count:
+
+- **PRIMARY: the 2-fragment stratum, 9 nonce against 9 rare tools, exactly matched.**
+- **SECONDARY: the 6 three-fragment nonce words, no matched control, declared as
+  uncontrolled on the tokenisation axis and reported separately.**
+
+The cost is real and compounds a limit already stated: the primary stimulus set
+falls from 15 words to 9, so word-level and condition-level variance are **less**
+separable, not more. If the primary effect is carried by two or three of nine
+words, that is a fact about those words and will be reported as one.
+
+## 5. Prediction 4 is marked not like-for-like
+
+The prediction that N-bare exceeds the person batteries compares different prompts,
+not only different referents — **prompt is confounded with condition and no
+contrast in this design separates them.** It stays registered, because registering
+only comfortable predictions is how the last three registrations went wrong, but it
+is exploratory and may not be quoted as a test.
