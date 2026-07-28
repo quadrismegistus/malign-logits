@@ -137,3 +137,60 @@ reported, never raw.
   `referent_note` and reported.
 - **Fifteen prompts is not a stimulus set.** Four per condition, and word-level
   variance is not separable from condition-level variance.
+
+---
+
+## Amendment 1, 2026-07-28, at the audit seat's request
+
+### The contrast must be computed within one run
+
+malign's point and it is the mirror of one this seat made about own-text
+entropy: **a difference computed across two runs is a difference about the runs
+too.** Taking the persons term from the existing battery and the objects term
+from this one would confound the contrast with coder version, sampling seeds,
+temperature grid, and anything else that differs.
+
+**Resolution: a person condition runs INSIDE the object battery.** Four prompts,
+the original who/name/made/mother, same models, same seeds-by-cell scheme, same
+coding pass. The contrast is computed on those. The existing person battery
+becomes a **replication check** on that term rather than the term itself — if
+the within-run person effect differs materially from the published −0.061, that
+is a finding about run-to-run variance and it is reported before the contrast is.
+
+Condition table becomes:
+
+| condition | prompts | role |
+|---|---|---|
+| **P-repeat** | who / name / made / mother | the persons term, same run |
+| **O-bare** | what is it / called / who made it / where from | the objects term |
+| **O-def** | as O-bare, with `A thing was left on the table.` | anaphora control |
+
+### The objection this seat raised is answered, with a number
+
+The worry was that a smaller object effect could be a smaller *codeable surface*
+rather than a weaker operation. Base-arm `quiet_drift` rates, from the nonce
+battery which already contains a rudimentary object condition (`R-rare`, real
+rare tools):
+
+    PERSONS, all 29 bases                0.103
+    PERSONS, the five nonce-paired bases 0.150
+    OBJECTS (R-rare, real tools)         0.109
+    NON-REFERRING (N-bare nonce)         0.077
+
+**Objects sit inside the person range.** A passage that fails to cohere about a
+froe is as codeable as one that fails to cohere about a self. This licenses
+`quiet_drift` specifically and **not** the composite, where five of six surviving
+codes still have unequal surface across referent kinds — so the composite stays
+off the primary.
+
+### PRIOR EXPOSURE, declared before this runs
+
+**A provisional object result already exists and both seats have seen it.**
+R-rare, 5 paired bases: base 0.109 → aligned 0.185, **delta +7.6pp, in the wrong
+direction**, against −0.098 for persons on the same five models. A within-model,
+within-instrument, within-run dissociation pointing at **row 3, person-specific**.
+
+Five small bases and one prompt shape, so it is a pointer rather than a result.
+But this registration is **no longer blind**: it tests something we have a prior
+on, and the prior favours this seat's assigned reading. Stated here rather than
+discovered later, as Amendment 4 of the parent spec had to be.
