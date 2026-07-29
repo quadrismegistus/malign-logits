@@ -176,16 +176,33 @@ vs -0.462 all); dedup key includes axis ([425]; the published
 primary never used the collapsed frame and is unaffected, verified
 to the third decimal at all thirty cells).
 
-REGISTERED CHECK OUTSTANDING ([451].3): the 30/30 primary and
-amber's P1 were computed on pairs whose word labels inherit defect
-#6 — similarity was computed for the labeled word, probability for
-its first token, so collided pairs carry mismatched coordinates.
-Before the 30/30 is quoted anywhere else, the per-layer primary
-re-runs RESTRICTED TO SINGLE-TOKEN WORDS in each family's tokenizer
-(exact probabilities, no collisions; retention ~85-90% for five
-families, 57% for amber, published per cell). Registered prediction:
-the direction survives restriction. If it does not, that is the
-finding.
+REGISTERED CHECK DISCHARGED (registered [451].3; run [478] lacan,
+scratchpad/f13_singletoken.py; audited [483] malign by independent
+recomputation from raw CSVs): the per-layer primary was re-run
+RESTRICTED TO PAIRS BOTH OF WHOSE WORDS ARE SINGLE-TOKEN in that
+family's tokenizer — the stronger restriction, under which no
+probability in the retained set is an approximation of anything.
+RESULT: 30/30 entering cells negative, p=1.86e-09, median r -0.339
+to -0.718 — the registered prediction held, and the 30/30 may be
+quoted WITH THIS RESTRICTION STATED BESIDE IT. Row-level retention
+64-87% (olmo 64-74%, zephyr 67-71%, olmo-tiny 76-80%, llama 84%,
+tulu 83-87%, qwen 86%; the earlier ~85-90% figure was
+vocabulary-level — rows are what the correlations are computed
+over, and olmo loses over a third of its pairs, not a tenth).
+UNREGISTERED HALF, reported as observation: the depth gradient also
+survives, L3 strongest in 10/10 cells — now robust to
+spread-matching, region, and the first-token approximation; its
+finding number remains HELD for want of an out-of-sample corpus,
+unchanged. FRAGILE CELL, flagged wherever quoted: olmo/repression
+L1 moved -0.482 -> -0.577 under this restriction (0.095) and by
+0.137 under the MIN_PAIRS floor — the smallest cell in the table
+moves materially under every restriction applied to it. NOT
+DISCHARGED: the construct (pairs are faller x riser selected by a
+similarity floor, not observed substitutions — the sentence heading
+this addendum is unaffected); the magnitudes remain non-quotable
+per-category; defect #6 is BOUNDED for these stored CSVs, not
+repaired — the replacement instrument's word_probs route is the
+repair.
 
 PARTIAL ANSWER ALREADY IN HAND, for amber only and on the weaker of
 the two restrictions: dropping every pair with a collided word on
