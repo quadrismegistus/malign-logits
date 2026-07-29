@@ -1,7 +1,7 @@
-# Four-level format battery: cell templates and sampling conventions
+# Five-level format battery: cell templates and sampling conventions
 
 Malign's rows for the registration draft, per registrar's freeze checklist.
-**Deictic column: generated in all four levels, demoted by rule if it fails the gate** — see §4.
+**Deictic column: generated in all five levels, demoted by rule if it fails the gate** — see §4.
 
 ---
 
@@ -11,12 +11,34 @@ The axis is **resemblance to question-shaped post-training data**, not
 presence/absence of a manipulation. That framing is RH's ([241].3) and it is what
 makes the prediction graded rather than binary.
 
-| level | question? | bounded frame? | scaffold? |
-|---|---|---|---|
-| `rung` | yes | yes | `Q:`/`A:` |
-| `prose_q` | yes | yes | none |
-| `narrative` | no | yes | none |
-| `document` | no | no | none |
+| level | question? | bounded frame? | scaffold? | exam/MC ambiguity |
+|---|---|---|---|---|
+| `rung` | yes | yes | `Q:`/`A:` | yes — `A:` reads as option A |
+| `spelled_rung` | yes | yes | `Question:`/`Answer:` | no |
+| `prose_q` | yes | yes | none | no |
+| `narrative` | no | yes | none | no |
+| `document` | no | no | none | no |
+
+`spelled_rung` is RH's amendment ([290]). Levels 1 and 2 hold the scaffold constant
+and differ in whether the answer marker is ambiguous with a multiple-choice option,
+so the 1→2 step measures the exam-genre component of the published finding directly:
+a delta drop quantifies the artefact, no drop means the finding survives its own
+scaffolding. The original `Q:`/`A:` **must** run — it is the format the entire
+published record was measured in.
+
+Motivation is already measured: the [288] marker census (1,571 line-initial `b:`,
+597 `c:`, 450 `d:` — the exam genre is being read into the rung), the pilot's
+MC-debris collapse 0.56 → 0.03 on leaving the rung, and the withdrawn
+"61% exam scaffolding" figure, which used `\n[A-D]:` and caught ordinary answer turns.
+
+> **Open question on where level 2 sits, raised before freeze.** The axis is
+> *resemblance to question-shaped post-training data*. The amendment places
+> `spelled_rung` below `rung`, which is right on the exam dimension. But
+> `Question:`/`Answer:` is a common **instruction-tuning** format, so level 2 may
+> resemble post-training data *more* than the bare rung on a second dimension while
+> resembling exam data less. If so the ordering is non-monotone at the top and the
+> slope secondary is uninterpretable across the 1–2 step, though the **ends contrast
+> (rung vs document) is untouched**. See §5.
 
 `narrative` is not the absence of a response frame — it is a bounded speech act
 *without* a question (lacan's correction of his own [239]). `document` is the level
@@ -26,7 +48,7 @@ changes to referent-adopted.
 
 ## 2. Templates
 
-**The identical stimulus wording appears in all four cells.** Within-`N-bare`
+**The identical stimulus wording appears in all five cells.** Within-`N-bare`
 stimulus range is 0.089 against a level of +0.085 — the noise floor is the size of
 the effect — so the format contrast is computed within-stimulus and paired, never
 across different words.
@@ -35,12 +57,13 @@ Stipulated classes carry the stipulation **in every cell**, because the stipulat
 is one of the accounts ([184]); dropping it in the non-question cells would change
 the stimulus as well as the format.
 
-| class | rung | prose_q | narrative | document |
-|---|---|---|---|---|
-| `1P` | `Q: Who are you?\nA:` | `Someone asks you: Who are you? You reply:` | `Let me tell you about myself.` | `I am` |
-| `3P` | `Q: Who is she?\nA:` | `Someone asks you: Who is she? You reply:` | `Let me tell you about her.` | `She is` |
-| `O-named` | `A froe is a kind of tool. Q: What is a froe?\nA:` | `A froe is a kind of tool. Someone asks you: What is a froe? You reply:` | `A froe is a kind of tool. Let me tell you about the froe.` | `A froe is a kind of tool. The froe is` |
-| `N-bare` | `Q: What is a glorp?\nA:` | `Someone asks you: What is a glorp? You reply:` | `Let me tell you about a glorp.` | `A glorp is` |
+| class | rung | spelled_rung | prose_q | narrative | document |
+|---|---|---|---|---|---|
+| `1P` | `Q: Who are you?\nA:` | `Question: Who are you?\nAnswer:` | `Someone asks you: Who are you? You reply:` | `Let me tell you about myself.` | `I am` |
+| `3P` | `Q: Who is she?\nA:` | `Question: Who is she?\nAnswer:` | `Someone asks you: Who is she? You reply:` | `Let me tell you about her.` | `She is` |
+| `O-named` | `A froe is a kind of tool. Q: What is a froe?\nA:` | `A froe is a kind of tool. Question: What is a froe?\nAnswer:` | `A froe is a kind of tool. Someone asks you: What is a froe? You reply:` | `A froe is a kind of tool. Let me tell you about the froe.` | `A froe is a kind of tool. The froe is` |
+| `N-bare` | `Q: What is a glorp?\nA:` | `Question: What is a glorp?\nAnswer:` | `Someone asks you: What is a glorp? You reply:` | `Let me tell you about a glorp.` | `A glorp is` |
+| `O-deictic` | `Q: What is that?\nA:` | `Question: What is that?\nAnswer:` | `Someone asks you: What is that? You reply:` | `Let me tell you about that.` | `That is` |
 
 Stimuli: 9 nonce words (`N-bare`), 3 tools froe/quern/adze (`O-named`),
 `you` (`1P`), `she` (`3P`). Person wordings verbatim from both parent batteries.
@@ -55,8 +78,16 @@ Matched to the 2×2 so the rung cell is comparable to the finished battery:
   a property rather than a cost ([171]).
 - **200 max new tokens.** The pilot's ceiling: at 500 the base arm resumes looping,
   at 60 there is nothing to develop an account in.
-- **N=5 per cell** per registrar's power table — 0.96 against the attenuation band,
-  17,400 completions, ~1.6× the finished battery.
+- **N=5 per cell** per registrar's power table — 0.96 against the attenuation band.
+  With `spelled_rung` added ([290]) the run is **21,750 completions**, ~25% up on the
+  17,400 costed at [248]. The ends contrast is untouched by the insertion and the
+  slope gains a level, so the simulated powers are conservative.
+- **Every loop / turn-marker quantity uses the WIDE marker family**, never `\nQ:`.
+  [288] showed mediation tracks the arm gap in the marker rather than the loop rate
+  (4.7–7.9% across the family), so a narrow marker is not a nuisance parameter — it
+  is the estimate. This matters doubly for `spelled_rung`, whose own turns are
+  `Question:`/`Answer:` and which `\nQ:` would score as having **no loops at all**.
+  **Report every mediation figure beside its arm gap.**
 - **Seeds** `SEED0 + cell`, cell incrementing across the run, `SEED0` declared in the
   script. Resume keys **derived**, never read back from disk, and **`family` in the
   key** — a base model is shared across families and a key without it collides on
@@ -84,14 +115,14 @@ different antecedents.** A stimulus that changes kind along the format axis is w
 the identical-stimulus constraint forbids, so the cell either enters with that
 declared or drops with cause.
 
-`scripts/f20x_format_pilot.py` runs the deictic against a nonce control across all
-four levels, one model pair, descriptive. The decision rule, fixed before reading it:
+`scripts/f20x_format_pilot.py` runs the deictic against a nonce control across the
+original four levels, one model pair, descriptive. The decision rule, fixed before reading it:
 
 - if the model resolves `that` the same way in both frame types — inventing a scene,
   or inventing prior discourse, consistently — the cell enters
 - if it invents a **scene** under the question frames and **prior discourse** under
   the non-question frames, the cell is measuring two manipulations and it drops from
-  the four-level ordering, surviving in `rung` + `prose_q` only, where it is one
+  the ordering, surviving in the question-framed levels only, where it is one
 - the nonce control has no antecedent problem in any frame, so anything seen in the
   deictic cell and not in the control is about deixis rather than about format
 
@@ -164,3 +195,40 @@ produces 95 words base / 44 aligned against ~140–160 everywhere else.
 `rung` + `prose_q` only, where it is one manipulation. Its published rung result
 stands; it simply cannot travel along this axis. The ordering's object arm is carried
 by `O-named`, which is stipulated and therefore stable across all four frames.
+
+## 5. Where `spelled_rung` sits on the axis — raised before freeze
+
+The amendment's premise is that levels 1 and 2 "differ in exactly one property
+(MC/exam ambiguity, scaffold held constant)". **They differ in one property that was
+intended and plausibly a second that was not.**
+
+    dimension                       Q:/A:          Question:/Answer:
+    exam / multiple-choice          ambiguous      not ambiguous     <- intended
+    instruction-tuning format       less typical   MORE typical      <- unintended
+
+`Question:`/`Answer:` is a common SFT and instruction-dataset format. If it resembles
+post-training data *more* than the bare rung on that second dimension while
+resembling exam data less, the two dimensions pull opposite ways across the 1→2 step.
+
+**What this does and does not threaten.**
+
+- **The ends contrast (`rung` vs `document`) is untouched.** It is [248]'s primary and
+  the insertion cannot reach it.
+- **The monotone slope secondary becomes uninterpretable across 1→2 specifically.** A
+  drop could be the exam artefact leaving; a rise could be instruction-format
+  resemblance arriving; a flat could be both at once.
+- **The amendment's own question survives**, because it is a difference and not an
+  ordering: whatever the sign, the 1→2 step is *some* measure of what the `Q:`/`A:`
+  scaffold contributes. It just cannot be read as a step down the resemblance axis.
+
+**Cheapest resolution, and it needs no generation:** the [288] marker census counts
+line-initial markers in model *output*. Counting `Question:`/`Answer:` against
+`Q:`/`A:` in the **document** and **narrative** cells — where no scaffold is supplied
+and whatever the model emits is its own prior — indexes which form these models carry.
+If they emit `Question:` spontaneously at a rate comparable to `Q:`, the second
+dimension is live and the 1→2 step should be reported as a difference rather than a
+step. That is a measurement on data the battery produces anyway.
+
+**Registered here rather than raised at analysis time**, because a non-monotone
+result at the top of the ordering would otherwise be available to be read as
+attenuation by whoever runs the join.
