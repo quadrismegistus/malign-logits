@@ -52,16 +52,41 @@ OBJECT = ["O-named", "O-deictic"]
 NONCE = ["N-def", "N-bare"]
 
 
+def _key(d):
+    """The row's identity, DERIVED. A base model is shared across families -- 
+    Llama-3.1-8B is the base for 7 -- so without `family` the base-arm rows of
+    different families collide on model_id|pid|temperature|idx_in_cell while
+    carrying different completions (seeds are SEED_OFFSET + cell, incrementing
+    across the run). 1,825 of 1,840 colliding groups differ in text."""
+    return (d.family + "|" + d.model_id + "|" + d.pid + "|"
+            + d.temperature.astype(str) + "|" + d.idx_in_cell.astype(str))
+
+
 def code(limit: int, workers: int) -> None:
     d = pd.read_parquet(SRC)
     d["text"] = d.text.fillna("")
     d = d[d.text.str.strip().str.len() > 0].reset_index(drop=True)
-    d["key"] = (d.model_id + "|" + d.pid + "|" + d.temperature.astype(str)
-                + "|" + d.idx_in_cell.astype(str))
+    # RESUME RECOMPUTES THE KEY FROM STORED COLUMNS. Reading the stored `key`
+    # column instead is what turned the fix below into a second defect: the
+    # already-written rows carried the OLD key format, nothing matched the new
+    # one, and the script recoded all 35,650 rows and wrote 8,266 duplicates
+    # before it was killed. A key is a function of the row, so derive it; never
+    # trust a persisted copy of it across a definition change.
+    #
+    # FAMILY IS PART OF THE KEY AND OMITTING IT SILENTLY DROPPED 3,910 ROWS.
+    # A base model is shared across families -- Llama-3.1-8B is the base for 7 --
+    # so its base-arm rows carry the same model_id, pid, temperature and
+    # idx_in_cell in every one of them. Seeds are SEED_OFFSET + cell with cell
+    # incrementing across the run, so those rows are DIFFERENT completions:
+    # 1,825 of 1,840 colliding key groups carry different text. The resume
+    # filter `~d.key.isin(done)` therefore skipped genuine rows and reported a
+    # backlog of zero, because it was counting keys and not rows.
+    d["key"] = _key(d)
 
     done = set()
     if os.path.exists(OUT):
-        done = set(pd.read_parquet(OUT)["key"])
+        prev = pd.read_parquet(OUT)
+        done = set(_key(prev))          # DERIVED, never the stored column
         print(f"resuming: {len(done):,} already coded")
     todo = d[~d.key.isin(done)].reset_index(drop=True)
     if limit:
