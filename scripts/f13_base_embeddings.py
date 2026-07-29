@@ -210,8 +210,16 @@ def main(a):
                 ntok = span.shape[1]
                 rec = {"role": role, "word": word, "n_tok": int(ntok),
                        "mean": span.mean(dim=1).to(torch.float16).cpu().numpy()}
-                if ntok > 1:                    # first-token variant isolates
+                if ntok > 1:
+                    # THREE POOLINGS, not two, per docket [607]. `mean` blurs a
+                    # multi-token word toward its own centroid (+0.068-0.136
+                    # cosine, [488]); `first` is the token the old instrument
+                    # aliased on; `last` is the position an autoregressive model
+                    # actually conditions the NEXT token on, so it is the one a
+                    # word-level successor would want and the only one that
+                    # could not be recovered afterwards without re-running.
                     rec["first"] = span[:, 0, :].to(torch.float16).cpu().numpy()
+                    rec["last"] = span[:, -1, :].to(torch.float16).cpu().numpy()
                 store[key] = rec
                 k += 1
                 if k % 200 == 0:
