@@ -52,7 +52,11 @@ def survival(vb, va, keep=None):
     if len(shared) < MIN_SHARED:
         return None
     fall = [w for w in shared if vb[w] >= MIN_PROB and va[w] < C * vb[w]]
-    R = 1.0 - sum(va[w] for w in fall)
+    mass_a = sum(va[w] for w in shared)
+    R = mass_a - sum(va[w] for w in fall)   # CLOSURE FIX: word_probs
+    # mass over the intersection is ~0.90/0.93, not 1. Using 1 - sum_F p_a
+    # claims ~7% of mass that is outside the system, inflating the null
+    # uniformly and depressing survival uniformly. lacan [507].2.
     S = sum(vb[w] for w in shared if w not in fall)
     if S <= 0:
         return None
