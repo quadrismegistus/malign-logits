@@ -301,3 +301,75 @@ Q-numbers or say the dataset serves none. Your licence figure for
 carry a blind-coder marker, and section 7 needs anything in the record you know to
 be wrong that is not listed. If a claim in section 5 is booked at a different status
 in the ledger, the ledger wins and this document is what is wrong.
+
+---
+
+## 9. HANDOFF, 2026-07-29: what to do next and what not to
+
+**All sessions restarted here. Nothing is running. Everything below is on disk.**
+
+### Closed
+
+    Q1  referent kind   2x2 battery, 29/29 bases, 35,650 coded.  NULL.
+    Q2  provider        gemini 20/29 p=0.018 on the full corpus. REPLICATES.
+    Q3  construct       binary coder 19/29 p=0.068.              SAME DIRECTION.
+    Q4  first person    null interaction 1P vs 3P.               NOT ABOUT THE "I".
+
+### The finding, stated as it should be written
+
+**Alignment reduces incompatible accounts of whatever occupies the topic position.
++0.085, 26 of 29 distinct base models, spread of 0.013 across first person, third
+person, deictic object and invented word.** No contrast between referent kinds
+survives; person-specificity is significant IN THE WRONG DIRECTION (−0.059, 8/29,
+Wilcoxon p=0.017). Stipulation does not survive its within-word control (+0.042,
+p=0.163, against a stimulus-level range of 0.089).
+
+**Whether this is specific to the topic or a general consistency effect is
+UNTESTED**, and that is an honest limitation rather than a manufactured one.
+
+### Fact drift is dead on this corpus, and not for want of power
+
+3.53% of answers carry two or more distinct numbers, and none of twelve sampled is a
+candidate: they are single compatible claims about different things. **To contradict
+yourself about a date you must state it twice, and a sixty-token Q/A answer states
+each fact once.** The measure needs RESTATEMENT — a genre requirement, not a topic
+one. `docs/f20x_factdrift_registration.md` and `code_factdrift.py` are kept for the
+design reasoning; the premise is known dead here.
+
+### DO NEXT: the narrative battery
+
+Every measurement in this project — beam search, the published finding, 3P, the 2x2
+— has used one prompt format. Pilot at `f13c635`, one model pair, 4 lengths:
+
+    Q/A rung   200 tok   base 120 wds / aligned 51    Q-loop 1.00/0.00   MC 0.75/0.00
+    narrative  200 tok   base 168 wds / aligned 167   Q-loop 0.00/0.00   MC 0.00/0.00
+
+**`Let me tell you about {myself / her / the quern / a glorp / <real person>}`, 200
+tokens, full roster, coded for topic drift and fact drift in ONE pass.**
+
+- Removes the two artefacts behind nearly every problem of the campaign: Q/A looping
+  0.69 -> 0.02, multiple-choice capture 0.56 -> 0.03.
+- **Matches the arms on realized output**, which the rung does not.
+- Gives fact drift the restatement it needs.
+- 500 tokens is too long: the base arm starts looping again. **200 is the ceiling.**
+- Produces passages a human can adjudicate, which no sixty-token rung passage was.
+
+### DO NOT
+
+- **Do not register a fact-as-referent condition.** Referent kind is null across four
+  kinds at 29 bases; a fifth buys one more confirmation of the null.
+- **Do not compare a topic delta from one corpus against a fact delta from another.**
+  Prompt design alone moves the delta from +0.078 to +0.226 — larger than any effect
+  under test. Both measures must come from the same passages.
+- **Do not quote a `code_sited` level beside the published `code_identity` one.**
+  Different instruments, ~2.5x apart in level. Directions and contrasts only.
+
+### The reading of the whole campaign
+
+RH said in June that we could FEEL base identity was slipperier, and that if the
+numbers would not show it the measurement was wrong. **He was right and it was not
+the coder — it was the format.** Sixty tokens of `Q:`/`A:` is too short to develop an
+account and too captured by the rung to hold one, which is why three independent
+coder pairs agreed on DIRECTION and disagreed on CASES at a Jaccard of 0.22. They
+were reading fragments and multiple-choice debris. At 200 narrative tokens the
+phenomenon is legible to a reader.
