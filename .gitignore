@@ -251,3 +251,9 @@ data/f20x_kinship.csv
 # the mis-signing failure the tool exists to prevent. Each checkout runs
 # `docket init <seat>` for itself.
 .docket-seat
+
+# Sealed exploratory results: readable only at the holding seat until the
+# corresponding design freezes. The pen has repo write access as of docket
+# [467], so committing these would broadcast exactly what the seal withholds.
+# The sha256 is published on the docket; the content is not.
+data/sealed/
