@@ -14,6 +14,24 @@ with token t1, so expanding EVERY token with P(t1) >= theta is COMPLETE for ever
 word with P(w) >= theta. No word can hide behind a token below the floor. That is
 a guarantee; it removes the word-inventory decision entirely.
 
+AND THE GUARANTEE HOLDS AT EVERY DEPTH, not only at depth 1 (lacan, docket [661]):
+prefix mass is monotonically non-increasing, so `keep = m2 >= theta` can never
+drop a prefix OF a qualifying word. The completeness argument carries all the way
+down, which is stronger than this docstring originally claimed.
+
+SELF-CONTAINED BY DESIGN. P0 is computed from THIS pass's own forward call, never
+read from the `logits` stash. Measured: the stash and a fresh pass on the same
+model and prompt disagree by 4.4e-03 -- fp16 nondeterminism or a different torch
+build -- and the mover floor is 3e-03, so a word near the floor could be a mover
+under one artifact and not the other. The stash remains the depth-1 SELECTOR
+(theta = 1e-03 is a wide net, where 4e-03 is harmless) and is NOT a source of
+values. BOS: verified that `tok.encode`'s default matches how the stash was
+built (4.4e-03 with BOS vs 2.4e-02 without).
+
+LEFT-PADDING VERIFIED, not assumed: the same prefix alone and left-padded behind
+39 pad tokens agree to 1.4e-06, so position ids derive correctly from the mask
+and batch composition does not move a probability.
+
 TERMINATION IS AN EXACT PARTITION. At each node the next-token mass splits:
     P(prefix) = P(prefix ENDS here) + sum over continuations P(prefix + t)
 Terminators are tokens that START A NEW WORD -- leading space marker, punctuation,
