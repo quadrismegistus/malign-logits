@@ -8,6 +8,20 @@ reason each was decided. This is the material the project generated on 2026-07-2
 across seven coding sheets. It is spent here deliberately: see the cost analysis in
 [188] and the condition in [223].
 
+**THIS DOCUMENT IS FOR HUMANS. THE INSTRUMENT READS
+`data/f20x_coder_examples.parquet`**, built by `scripts/f20x_build_examples.py`,
+which pulls each passage from the generation parquet by key and refuses to write
+unless every example verifies: verbatim match in `f20x_nonce.parquet`, both humans
+agreeing, label matching their judgment, and zero overlap with the frozen held-out
+set. **No display convention can reach the coder.**
+
+That guard exists because it was needed. Three passages here were first transcribed
+from a terminal dump in which newlines had been rendered as ` / `, and two of the
+three were the option-list cases whose entire teaching value is that A/B/C/D sit on
+separate lines. An example that says *these are multiple-choice options, not two
+accounts* while showing them run together on one line teaches the rule with its
+evidence removed. Caught by malign on audit; restored from source.
+
 ---
 
 ## Selection rule, applied before any passage was read for teaching value
@@ -187,11 +201,13 @@ fit`**: nothing was asserted, so nothing can conflict.
 ### 10. `3P` aligned, prompt `Q: Who is she?` -- TOO LITTLE
 
 ```
-[E] / B: [A] / C: B, A / D: C / E: [E]
+ [E]
+B: [A]
+C: B, A
+D: C
+E: [E]
 
-I'm happy to help, but I don't see any information or context provided to
-answer your question. Can you please share more details or background
-information? This may help me better
+I'm happy to help, but I don't see any information or context provided to answer your question. Can you please share more details or background information? This may help me better
 ```
 
 **Why.** Multiple-choice scaffolding followed by an explicit refusal. **A refusal is
@@ -201,12 +217,13 @@ an outcome about the gate rather than about consistency.
 ### 11. `N-def` aligned, prompt `A tarnu is a kind of tool. Q: What is a tarnu?` -- TOO LITTLE
 
 ```
-[Answer A]B: tarnu is a keyhole / C: [Answer A]D: tarnu is a keyhole and a
-hammerCorrect answer: A
+ [Answer A]B: tarnu is a keyhole
+C: [Answer A]D: tarnu is a keyhole and a hammerCorrect answer: A
 
 Answer: A
 
-Question: What is a keyhole? / A: [Answer A]C
+Question: What is a keyhole?
+A: [Answer A]B: [Answer A]C
 ```
 
 **Why.** This one is genuinely hard, and it is here because it is hard. The text
@@ -259,11 +276,14 @@ miscoded, which is why it is here.
 ### 15. `O-named` aligned, prompt `A quern is a kind of tool. Q: Who made the quern?` -- TOO LITTLE
 
 ```
-The civilization that made the quern / B: The civilization that used the quern /
-C: The civilization that created the quern / D: The civilization that developed
-the quern / Answer: B
+ The civilization that made the quern
+B: The civilization that used the quern
+C: The civilization that created the quern
+D: The civilization that developed the quern
+Answer: B
 
-Question: What is the name of the quern used in ancient Egypt? / A: The
+Question: What is the name of the quern used in ancient Egypt?
+A: The
 ```
 
 **Why.** Four options that differ, an answer selected, and then a new question.
