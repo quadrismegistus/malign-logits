@@ -88,6 +88,41 @@ found that the instrument does not measure what the finding claims:
 4. The two axes are measured in different models: similarity from
    the aligned model's hidden states, syntagmatic_js under the base
    model.
+5. (Declared during re-analysis, [420]/[425]: the undeclared
+   MIN_PAIRS floor and the axis-less dedup key — both measured,
+   neither verdict-changing; listed here so the count is complete.)
+6. FIRST-TOKEN IDENTIFICATION ([449], found by RH's direct question
+   "raw logits or reconstructed word probabilities?"): word
+   probabilities are FIRST-TOKEN approximations (core.py:144-170) —
+   every word sharing a first token carries an identical number in
+   every row, at every layer, in both arms. In qwen, `casket` and
+   `crotch` — a death word and a sexual word, assigned to different
+   content categories in this finding's own table — are numerically
+   indistinguishable. Multi-token share of the source/target
+   vocabularies, and the share of PAIRS with a collided word on
+   either side (`scripts/f13_token_collision_audit.py`):
+
+       family      multi-token   in collision   % of rows hit
+       olmo             15.3%           5.5%           14.5%
+       olmo-tiny        16.3%           7.2%           10.4%
+       llama            11.0%           4.6%            8.5%
+       qwen             10.3%           4.9%           12.0%
+       zephyr           27.9%          19.3%           30.7%
+       tulu             10.8%           3.7%           10.2%
+       amber            43.0%          36.3%           51.0%
+
+   The row-level column is the finding's actual exposure and is
+   larger than the vocabulary share everywhere. Amber, the corpus
+   used as this finding's out-of-sample test, has HALF its pairs
+   affected; zephyr is the second-worst and was absent from the
+   first tabulation. The collisions are not marginal words: amber
+   collapses `fuck/fucked/fucking/fuckstick` with `fathom/flare/fry`
+   into one number, and `pussy` with `punch` and `pondered` —
+   cross-category collapse in precisely the sexual-versus-violent
+   distinction this project's central claim rests on.
+   Consequence: the CATEGORY ASSIGNMENT of a probability change is
+   not identified wherever a first token is shared, and a "faller"
+   may be a token falling rather than the word credited.
 
 WHAT SURVIVES: the qualitative direction (negative correlation, six
 families, consistent sign, holds within every category; the
@@ -140,6 +175,29 @@ olmo/repression is the one cell that moves materially, -0.599 kept
 vs -0.462 all); dedup key includes axis ([425]; the published
 primary never used the collapsed frame and is unaffected, verified
 to the third decimal at all thirty cells).
+
+REGISTERED CHECK OUTSTANDING ([451].3): the 30/30 primary and
+amber's P1 were computed on pairs whose word labels inherit defect
+#6 — similarity was computed for the labeled word, probability for
+its first token, so collided pairs carry mismatched coordinates.
+Before the 30/30 is quoted anywhere else, the per-layer primary
+re-runs RESTRICTED TO SINGLE-TOKEN WORDS in each family's tokenizer
+(exact probabilities, no collisions; retention ~85-90% for five
+families, 57% for amber, published per cell). Registered prediction:
+the direction survives restriction. If it does not, that is the
+finding.
+
+PARTIAL ANSWER ALREADY IN HAND, for amber only and on the weaker of
+the two restrictions: dropping every pair with a collided word on
+either side (51% of amber's rows) leaves the collinearity diagnosis
+below intact — per-layer sd 0.030/0.048/0.096 against 0.031/0.050/
+0.100 unrestricted, per-layer median 0.868→0.522 against 0.879→0.542,
+and the depth ordering unchanged in both axes. So defect #6 does NOT
+explain amber's anomalous similarity profile, and the P2 strike and
+its collinearity reason stand as written. This is the weaker
+restriction — it removes words CONFUSED with another word but keeps
+multi-token words whose probability is approximate without being
+ambiguous — so it does not discharge the registered check above.
 
 OUT-OF-SAMPLE RESULT (amber, 46,551 rows, never in F13; predictions
 registered [421] BEFORE the run; corrected [425], audited [427];

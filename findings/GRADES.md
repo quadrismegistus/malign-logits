@@ -51,6 +51,15 @@ the finding.
    moves the finding back to C/unaudited in the same commit, or
    explains why not.
 
+4. **A question from outside the process can catch what three
+   audits did not.** Defect #6 (first-token identification) was
+   found by the principal asking one naive-sounding question after
+   six findings-grade audits of the same instrument family. The
+   audits checked arithmetic, constructs, keys, and floors; none
+   asked what a "word probability" physically was. Instruments
+   should state their measurement's physical referent in one
+   sentence a non-specialist can interrogate.
+
 Grade and status vocabularies are enforced by scripts/build_readme.py
 (lint). If you add a value, add it there, here, and in the same
 commit.
