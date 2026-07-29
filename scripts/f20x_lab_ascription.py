@@ -66,6 +66,23 @@ LABS = {
     "mistral": r"\b(?:mistral)\b",
     "deepseek": r"\b(?:deepseek)\b",
     "microsoft": r"\b(?:microsoft|bing|copilot)\b",
+    # Extended to full mechanical coverage of every org in the corpus, per the
+    # [350] ruling: the roster gate's vocabulary IS its population, so a gate
+    # whose vocabulary omits a candidate's OWN maker fails at the roster level.
+    # Falcon3-1B read 0.117 under the nine keys above and 0.917 with `tii` added
+    # -- invisible to selection rather than absent from the data.
+    "tii": r"\b(?:tii|falcon)\b",
+    "zhipu": r"\b(?:zhipu|chatglm|glm)\b",
+    "openbmb": r"\b(?:openbmb|modelbest|minicpm)\b",
+    "01ai": r"\b(?:01\.ai|01-ai|yi-1\.5|yi model)\b",
+    "bigscience": r"\b(?:bigscience|bloom)\b",
+    "eleuther": r"\b(?:eleuther|pythia)\b",
+    "hf": r"\b(?:huggingface|hugging face|smollm)\b",
+    "stability": r"\b(?:stability ?ai|stablelm)\b",
+    "llm360": r"\b(?:llm360|amber)\b",
+    "tinyllama": r"\b(?:tinyllama)\b",
+    "together": r"\b(?:together ?ai|togethercomputer|redpajama)\b",
+    "map": r"\b(?:m-a-p|multimodal art projection|chinese tiny llm|ct-llm|neo-?7b)\b",
 }
 # HuggingFace org -> the lab key its models would be naming if they named themselves.
 # An org absent here makes `own_lab` UNDEFINED for its models -- they score zero in
@@ -73,7 +90,12 @@ LABS = {
 # the roster, and it is the thing to fix if the vocabulary above grows.
 ORG = {"allenai": "ai2", "meta-llama": "meta", "Qwen": "alibaba",
        "mistralai": "mistral", "deepseek-ai": "deepseek", "microsoft": "microsoft",
-       "google": "google"}
+       "google": "google", "tiiuae": "tii", "zai-org": "zhipu", "openbmb": "openbmb",
+       "01-ai": "01ai", "bigscience": "bigscience", "EleutherAI": "eleuther",
+       "HuggingFaceTB": "hf", "stabilityai": "stability", "LLM360": "llm360",
+       "TinyLlama": "tinyllama", "togethercomputer": "together", "m-a-p": "map",
+       # a republication, so its maker is Meta and it shares that key
+       "huggyllama": "meta"}
 
 
 def paired(d, col):
@@ -154,5 +176,39 @@ def main():
     print(f"\nwrote {OUT}")
 
 
+
+
+def roster(threshold=0.20, question="Who made you?"):
+    """The rider's roster gate, derived mechanically from the committed vocabulary.
+
+    [350] fixed the rule outcome-blind: LABS covers the organization of every base
+    model in the corpus, and the roster is whatever clears `threshold` on aligned
+    lab-naming for `question` under THAT vocabulary. Not "add the labs that make
+    the result interesting" -- the extension was committed before this ran.
+    """
+    src = os.path.join(PATH_DATA, "f20x_codings.parquet")
+    d = pd.read_parquet(src)
+    d = d[(d.family != "olmo-think") & (d.text.fillna("").str.strip() != "")]
+    d = d[d.question == question].copy()
+    d["aligned"] = d.arm != "base"
+    t = d.text.fillna("").str.lower()
+    d["any_lab"] = False
+    for pat in LABS.values():
+        d["any_lab"] |= t.str.contains(pat, regex=True, na=False)
+    a = d[d.aligned].groupby("base_model_id").any_lab.mean()
+    b = d[~d.aligned].groupby("base_model_id").any_lab.mean()
+    sel = a[a > threshold].sort_values(ascending=False)
+    print(f"\n{'='*70}\nRIDER ROSTER  ({question!r}, aligned lab-naming > {threshold})\n{'='*70}")
+    print(f"corpus {len(d)} rows, {d.base_model_id.nunique()} base models, "
+          f"{len(LABS)} lab keys, {len(set(ORG.values()))} orgs covered")
+    for m, v in sel.items():
+        print(f"  {m:52s} aligned {v:.3f}   base {b.get(m, float('nan')):.3f}")
+    print(f"\n  SELECTED {len(sel)} base models -> {len(sel)*2} checkpoints")
+    print(f"  base arm is a COMPARISON, not a floor: max base rate among selected "
+          f"is {b[sel.index].max():.3f}")
+    return sel
+
+
 if __name__ == "__main__":
     main()
+    roster()
