@@ -1,7 +1,7 @@
 # Four-level format battery: cell templates and sampling conventions
 
 Malign's rows for the registration draft, per registrar's freeze checklist.
-**Deictic column is held pending `scripts/f20x_format_pilot.py`** — see §4.
+**Deictic column: generated in all four levels, demoted by rule if it fails the gate** — see §4.
 
 ---
 
@@ -68,7 +68,7 @@ Matched to the 2×2 so the rung cell is comparable to the finished battery:
   non-empty output, `assert len(out) <= len(src)` after every write. Both defects that
   produced silent skips and silent duplicates printed nothing but successes.
 
-## 4. The deictic column — HELD
+## 4. The deictic column — GENERATED, GATE-DEMOTED
 
 `O-deictic` is not obviously the same stimulus across the axis:
 
