@@ -290,6 +290,22 @@ The construct sentence heads all of it: these are facts about
 faller-riser pairs selected by a similarity floor that differs by
 corpus and by layer — not about observed substitutions.
 
+UNCHECKED AXIS, registered 2026-07-29 (docket [552].3): no
+frequency control was ever in this design. The paradigmatic
+similarity is raw cosine in anisotropic hidden states, where
+frequent tokens are close to everything (hubness), and the
+syntagmatic JS is also frequency-sensitive — so a frequency
+structure appearing on both axes could produce a negative
+correlation without any substitution semantics. The 30/30
+direction's robustness checks (spread-matching, region,
+single-token restriction) do not control frequency. This is an
+open check, not a found defect: synthetic validation of the
+successor instrument showed a permutation test cannot rescue a
+frequency-entangled similarity measure at any stratification
+resolution, so the control must live in the measure itself. The
+check transfers to the F13-anew design (RH's rebuild order,
+docket [541]) rather than to a further audit of this finding.
+
 Downstream effects at rescoping time: F08 (the taxonomy this finding
 quantifies) rescoped in the same pass; paper v3 §IV's two citations
 flagged to RH; CLAUDE.md's "strongest single quantitative result"
