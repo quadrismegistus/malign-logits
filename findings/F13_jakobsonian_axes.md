@@ -122,3 +122,71 @@ flagged to RH; CLAUDE.md's "strongest single quantitative result"
 line flagged. See also F14 (corpus-inheritance correction) and F36
 euphemism-vs-proximity (alignment neutral at cos > 0.5), which
 independently constrain the near-neighbour-substitution reading.
+
+## Re-analysis outcome (2026-07-29, appended after the [420]/[427] audits)
+
+THE DIRECTION SURVIVES, restated. Under the frozen spec (per-layer
+primary, axis-separated, prompt unit, within-family sign tests):
+30 of 30 family x axis x layer cells have median within-prompt
+r < 0 (sign-consistency p=1.9e-09; every within-cell sign test
+p<=0.0213; median r -0.355 to -0.701; docket [419], audited [420]).
+De-duplication strengthened the correlation relative to the
+published layered values (repression -0.461 -> -0.547; sublimation
+-0.404 -> -0.460): the original was attenuated by its own layer
+triplication. Declared parameters: MIN_PAIRS=10 (undeclared in the
+spec, found by audit, necessary — the unfiltered minimum is three
+pairs per correlation; kept-vs-all table published;
+olmo/repression is the one cell that moves materially, -0.599 kept
+vs -0.462 all); dedup key includes axis ([425]; the published
+primary never used the collapsed frame and is unaffected, verified
+to the third decimal at all thirty cells).
+
+OUT-OF-SAMPLE RESULT (amber, 46,551 rows, never in F13; predictions
+registered [421] BEFORE the run; corrected [425], audited [427];
+P2's status revised [432]/[433], narrowed [436]/[438]): P1
+(DIRECTION) CONFIRMED, 6/6 entering rows negative — the within-cell
+trade-off holds on fresh data. P2 (DEPTH) is STRUCK as a
+confirmation, for the narrow reason: within amber, LAYER, SPREAD,
+AND REGION ARE COLLINEAR (per-layer sd 0.031/0.050/0.100; per-layer
+median 0.879/0.783/0.542 while the six families sit flat on both),
+so any two can be matched only by breaking composition on the
+third. Amber's residual depth signal after spread-matching is real
+but small (12-23% of apparent size, monotone, 2/2 axes) and CANNOT
+BE ASSIGNED to depth, spread, or region. "L3 strongest" raw on
+amber is what its variance profile predicts with or without a depth
+effect. [423] is superseded by [425]; cite only the latter.
+
+DEPTH GRADIENT, status: an IN-SAMPLE result with both known
+confounds treated and dispatched ([436].A.2, measured): robust to
+spread-matching (L3 strongest in 10/10 matched cells; matched span
+LARGER than raw in 6/10) and region is flat across depth in-sample
+(per-layer medians trendless). UNCONFIRMED out-of-sample — the
+stated reason is that NO CORPUS HAS YET BEEN FOUND THAT CAN TEST IT,
+not that a confound is untreated. FINDING NUMBER HELD. Precondition
+for any candidate corpus ([433].2 + [436].A.5): publish per-layer
+sd(similarity) AND per-layer median profiles first; enter only if
+both are comparable to in-sample at L1. Two treatments were
+proposed and closed by their own composition stages: P3 (floor
+equalization — a no-op, 0.1-1.3% dropped) and P3' (matched band —
+no shared band exists at L1). Re-derivation of the variance and
+region tables: `scripts/f13_variance_audit.py`.
+
+ANISOTROPY CAVEAT, project-wide ([430].6 as upgraded [432].7):
+cross-family comparisons of raw cosine are comparisons across
+different scales, and the scales VARY BY DEPTH within a family
+(amber near-collinear at 25% depth, sd 0.031, normal by 75%, sd
+0.100). Any similarity threshold fixed across families and layers
+is a different selection at each. This is the third independent
+reason this finding's original per-category similarity means were
+never quotable.
+
+The construct sentence heads all of it: these are facts about
+faller-riser pairs selected by a similarity floor that differs by
+corpus and by layer — not about observed substitutions.
+
+Downstream effects at rescoping time: F08 (the taxonomy this finding
+quantifies) rescoped in the same pass; paper v3 §IV's two citations
+flagged to RH; CLAUDE.md's "strongest single quantitative result"
+line flagged. See also F14 (corpus-inheritance correction) and F36
+euphemism-vs-proximity (alignment neutral at cos > 0.5), which
+independently constrain the near-neighbour-substitution reading.

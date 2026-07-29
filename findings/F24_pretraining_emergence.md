@@ -1,7 +1,7 @@
 ---
-status: verified
-grade: A
-date: 2026-06-21
+status: unaudited
+grade: C
+date: 2026-07-29
 role: finding
 description: "Pretraining developmental sequence \u2014 drives \u2192 structure \u2192 deference \u2192 superposition; inclusive disjunction a late acquisition. Measured on: 1B + 6.9B."
 instruments: [checkpoint]
@@ -109,3 +109,27 @@ The base model is not the id. It already defers to institutions (F21), and this 
 **Model**: Pythia 1B (EleutherAI/pythia-1b), 11 checkpoints: step 0, 1, 64, 512, 1000, 5000, 10000, 25000, 50000, 100000, 143000.
 
 **TODO**: Replicate on Pythia 6.9B (our registered family). Correlate with Pile content at each step via batch_viewer.py. Test whether the developmental sequence holds for OLMo (different corpus, different training order).
+
+---
+
+## Status note (2026-07-29)
+
+Downgraded from verified/A to unaudited/C at RH's direction. The
+verified/A stamp entered at the 2026-07-26 frontmatter merge
+(c681d1e), which added frontmatter to this file for the first time —
+before it, the finding carried no status fields at all. That commit
+took its judgment fields by transcription from the TheoryMachines
+claims ledger, so the stamp records a claim someone made; no check
+is identifiable anywhere in this repo's history. No commit since
+2026-07-01 has touched the finding's claims, data, or code, and the
+body's own TODO (replicate on Pythia 6.9B; test the developmental
+sequence on OLMo) remains open. This is a downgrade for lack of
+verification, not a correction: no defect has been found in the
+finding.
+
+UPGRADE PATH, stated so the A can be earned rather than restored:
+run the pending Pythia-6.9B replication (checkpoints on disk) and
+the OLMo sequence test; a dated audit of the result against the
+finding's claims returns it to verified at whatever grade the
+outcome supports. Until then its numbers cite with an
+"unaudited" flag.

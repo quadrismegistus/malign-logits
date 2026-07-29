@@ -246,7 +246,12 @@ def build():
             children_by_num.setdefault(f["num"], []).append(f)
 
     finding_headings = []
-    findings_parts = ["## Findings\n\n"]
+    findings_parts = [
+        "## Findings\n\n",
+        "*Every finding below carries a status and grade badge. "
+        "[What they mean](findings/GRADES.md) — and why a badge is a dated "
+        "claim rather than a property of the finding.*\n\n",
+    ]
 
     for f in primary:
         content = f["body"].strip()

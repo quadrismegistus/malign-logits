@@ -57,6 +57,8 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 
 ## Findings
 
+*Every finding below carries a status and grade badge. [What they mean](findings/GRADES.md) — and why a badge is a dated claim rather than a property of the finding.*
+
 ### 1. Logit-level analysis (OLMo 3 7B)
 
 > **Status:** unaudited | **Grade:** C
@@ -276,7 +278,7 @@ Source: OLMo 3 technical report, Tables 30 and 20 (Team OLMo, arXiv:2512.13961, 
 
 ### 8. Automatic displacement taxonomy (OLMo + Llama, 18 prompts)
 
-> **Status:** verified | **Grade:** A
+> **Status:** rescoped | **Grade:** C
 
 
 Classifies each displacement pair from the displacement maps into four types using contextual spaCy POS tags (word tagged in the context of its prompt) and wordfreq corpus frequencies:
@@ -332,6 +334,39 @@ Results in `data/taxonomy_olmo.csv`.
 ---
 
 **Provenance check, 2026-07-26.** Recomputed from `data/taxonomy_olmo.csv` (the file this finding cited as `displacement_taxonomy.csv`, renamed at `39a3886` on 2026-05-03). Every row reproduces within 1–3pp except **power**, which was published as 96/14/0/4 — a row summing to **114%** — against a recomputed 84/12/0/4. The 96% was a transcription error, corrected above; the impossible sum is what makes it certain rather than a judgement call. Row count is now 23,013 against the 22,458 published, a 2.5% increase from a later re-run of the taxonomy.
+
+---
+
+## Rescoping addendum (2026-07-29)
+
+Two events, kept distinct because they check different things:
+
+1. ARITHMETIC AUDIT, 2026-07-26 (d0cd6a5): the published percentages
+   were reconciled against the renamed data file; every row
+   reproduced within 1-3pp except the power row (published 96/14/0/4,
+   summing to 114%) — a transcription error, corrected. This audit
+   validated the numbers.
+2. CONSTRUCT AUDIT, 2026-07-29 (docket [399]/[401]): the pairs the
+   taxonomy classifies come from `displacement_map()`, which emits
+   the cross-product of fallen-probability words x risen-probability
+   words filtered at cosine >= 0.15 — not observed substitutions.
+   Every taxonomy percentage (register_shift, category_shift,
+   genre_change, archaic) is therefore a proportion of that
+   cross-product. The arithmetic audit could not have caught this:
+   reconciliation validates numbers, not constructs, and the one
+   error it did catch was found by impossibility (a row summing to
+   114%), not by scrutiny of the construct.
+
+WHAT SURVIVES: the taxonomy scheme itself and the classification
+code, which apply to any properly-derived pair set. WHAT IS NOT
+QUOTABLE until re-analysis: every published percentage over
+displacement pairs, in this file and wherever cited (F13 builds
+directly on this taxonomy and is rescoped in the same pass).
+
+REGISTERED RE-ANALYSIS: identical to F13's, docket [400].2 items
+(a)-(d), extended to F08 at [402] — F13 cannot be rehabilitated on a
+taxonomy that inherits the same pairing rule, so the two re-analyses
+are one job. Assigned to lacan, audited by malign, per RH 2026-07-29.
 
 ### 9. Same base model, different alignment (Tulu 3.1 vs Llama 3.1, 47 prompts)
 
@@ -539,7 +574,7 @@ Script: `malign trajectory`. Results in `data/trajectory_geometry_*.csv`, `data/
 
 ### 13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (6 families, 126k pairs)
 
-> **Status:** verified | **Grade:** A
+> **Status:** rescoped | **Grade:** C
 
 
 Roman Jakobson's 1956 *Two Aspects of Language and Two Types of Aphasic Disturbances* argues that language is constituted by two complementary axes — selection/similarity (paradigmatic) and combination/contiguity (syntagmatic) — and that damage to one axis forces compensatory reliance on the other. We test whether the same structural trade-off operates in alignment-induced displacement.
@@ -586,6 +621,141 @@ Total: 125,836 displacement pairs. The correlation holds within every content ca
 **Caveats.** Single-position syntagmatic measure (next-token only); multi-position surprisal would be a sharper test. ~~Preliminary on OLMo-tiny only~~ — now replicated across 6 families. ~~Neutral category at boundary~~ — resolved in Finding 14.
 
 CLI: `malign taxonomy --family olmo-tiny`, `malign taxonomy --analyze` (cross-family). Results in `data/taxonomy_*.csv`, `data/taxonomy_summary.csv`.
+
+---
+
+## Rescoping addendum (2026-07-29)
+
+This finding was marked verified/A at authoring (2026-05-17) and
+first audited 2026-07-29 (docket [399], lacan; independently
+triggered by RH's verification query the same morning). The audit
+found that the instrument does not measure what the finding claims:
+
+1. `displacement_map()` emits the full cross-product of every word
+   whose probability fell against every word whose probability rose,
+   filtered at cosine >= 0.15. A "displacement pair" is not an
+   observed substitution; the causal reading is supplied by the
+   function's name.
+2. The per-category similarity means are dead twice over: (i)
+   selected on their own outcome — pairs enter only above the 0.15
+   similarity floor, so the reported means are truncated means and
+   cannot evidence that substitutes are paradigmatically close; and
+   (ii) averaged over a quantity that is not stable in its own
+   defining dimension — similarity varies by up to 0.50 across the
+   three conventionally-chosen layers (25/50/75% depth) for
+   essentially every pair, while syntagmatic_js is exactly
+   layer-invariant (verified on all 40,228 distinct pairs, docket
+   [409]/[410]).
+3. n = 125,836 is a layer-triplicated cross-product (pairs appended
+   once per layer, up to three times; pairs share members massively
+   within prompts). The Pearson r is computed without clustering;
+   the independent unit is nearer the prompt or family than the
+   pair.
+4. The two axes are measured in different models: similarity from
+   the aligned model's hidden states, syntagmatic_js under the base
+   model.
+
+WHAT SURVIVES: the qualitative direction (negative correlation, six
+families, consistent sign, holds within every category; the
+similarity truncation attenuates rather than manufactures a negative
+correlation). WHAT IS NOT QUOTABLE until re-analysis: the r values,
+the n, the per-category means, and any "strongest quantitative
+result" framing.
+
+REGISTERED RE-ANALYSIS (docket [400].2 as amended [408]/[411]/[412],
+frozen; assigned to lacan, audited by malign [410], per RH
+2026-07-29): (a) de-duplicate to distinct word pairs (syntagmatic_js
+verified exactly layer-invariant; collapse rule for similarity =
+malign's declared call with a robustness alternative); (b) cluster
+to the prompt as unit, sign tests WITHIN family, never pooled across
+unequal prompt counts; (c) the similarity filter is a selection
+criterion; its mean is never reported as a result; (d) mixed-model
+caveat carried on every number; (A1) correlations computed
+separately by axis (repression/sublimation) with NO pooled-across-
+axis correlation at all — llama/qwen are 100% repression and
+olmo/olmo-tiny ~89% sublimation, so the published between-family
+spread may be an axis artifact; (A2) direction is the test,
+magnitude pre-declared undetermined; (A3) reading table: cell =
+family x axis entering at >=10 computable prompts; direction
+survives only if every entering cell has median within-prompt r < 0;
+any positive-median cell = MIXED, named, no survival claim. The
+published r values, n, and per-category means are retired whatever
+the re-analysis shows.
+
+Downstream effects at rescoping time: F08 (the taxonomy this finding
+quantifies) rescoped in the same pass; paper v3 §IV's two citations
+flagged to RH; CLAUDE.md's "strongest single quantitative result"
+line flagged. See also F14 (corpus-inheritance correction) and F36
+euphemism-vs-proximity (alignment neutral at cos > 0.5), which
+independently constrain the near-neighbour-substitution reading.
+
+## Re-analysis outcome (2026-07-29, appended after the [420]/[427] audits)
+
+THE DIRECTION SURVIVES, restated. Under the frozen spec (per-layer
+primary, axis-separated, prompt unit, within-family sign tests):
+30 of 30 family x axis x layer cells have median within-prompt
+r < 0 (sign-consistency p=1.9e-09; every within-cell sign test
+p<=0.0213; median r -0.355 to -0.701; docket [419], audited [420]).
+De-duplication strengthened the correlation relative to the
+published layered values (repression -0.461 -> -0.547; sublimation
+-0.404 -> -0.460): the original was attenuated by its own layer
+triplication. Declared parameters: MIN_PAIRS=10 (undeclared in the
+spec, found by audit, necessary — the unfiltered minimum is three
+pairs per correlation; kept-vs-all table published;
+olmo/repression is the one cell that moves materially, -0.599 kept
+vs -0.462 all); dedup key includes axis ([425]; the published
+primary never used the collapsed frame and is unaffected, verified
+to the third decimal at all thirty cells).
+
+OUT-OF-SAMPLE RESULT (amber, 46,551 rows, never in F13; predictions
+registered [421] BEFORE the run; corrected [425], audited [427];
+P2's status revised [432]/[433], narrowed [436]/[438]): P1
+(DIRECTION) CONFIRMED, 6/6 entering rows negative — the within-cell
+trade-off holds on fresh data. P2 (DEPTH) is STRUCK as a
+confirmation, for the narrow reason: within amber, LAYER, SPREAD,
+AND REGION ARE COLLINEAR (per-layer sd 0.031/0.050/0.100; per-layer
+median 0.879/0.783/0.542 while the six families sit flat on both),
+so any two can be matched only by breaking composition on the
+third. Amber's residual depth signal after spread-matching is real
+but small (12-23% of apparent size, monotone, 2/2 axes) and CANNOT
+BE ASSIGNED to depth, spread, or region. "L3 strongest" raw on
+amber is what its variance profile predicts with or without a depth
+effect. [423] is superseded by [425]; cite only the latter.
+
+DEPTH GRADIENT, status: an IN-SAMPLE result with both known
+confounds treated and dispatched ([436].A.2, measured): robust to
+spread-matching (L3 strongest in 10/10 matched cells; matched span
+LARGER than raw in 6/10) and region is flat across depth in-sample
+(per-layer medians trendless). UNCONFIRMED out-of-sample — the
+stated reason is that NO CORPUS HAS YET BEEN FOUND THAT CAN TEST IT,
+not that a confound is untreated. FINDING NUMBER HELD. Precondition
+for any candidate corpus ([433].2 + [436].A.5): publish per-layer
+sd(similarity) AND per-layer median profiles first; enter only if
+both are comparable to in-sample at L1. Two treatments were
+proposed and closed by their own composition stages: P3 (floor
+equalization — a no-op, 0.1-1.3% dropped) and P3' (matched band —
+no shared band exists at L1). Re-derivation of the variance and
+region tables: `scripts/f13_variance_audit.py`.
+
+ANISOTROPY CAVEAT, project-wide ([430].6 as upgraded [432].7):
+cross-family comparisons of raw cosine are comparisons across
+different scales, and the scales VARY BY DEPTH within a family
+(amber near-collinear at 25% depth, sd 0.031, normal by 75%, sd
+0.100). Any similarity threshold fixed across families and layers
+is a different selection at each. This is the third independent
+reason this finding's original per-category similarity means were
+never quotable.
+
+The construct sentence heads all of it: these are facts about
+faller-riser pairs selected by a similarity floor that differs by
+corpus and by layer — not about observed substitutions.
+
+Downstream effects at rescoping time: F08 (the taxonomy this finding
+quantifies) rescoped in the same pass; paper v3 §IV's two citations
+flagged to RH; CLAUDE.md's "strongest single quantitative result"
+line flagged. See also F14 (corpus-inheritance correction) and F36
+euphemism-vs-proximity (alignment neutral at cos > 0.5), which
+independently constrain the near-neighbour-substitution reading.
 
 ### 14. Syntagmatic baseline: alignment-produced vs corpus-level damage (OLMo 3 7B, 23k pairs)
 
@@ -962,7 +1132,7 @@ claim stands and the *BLT confirmation* should not be cited.
 
 ### 20. "Who are you?" — the subject as citation
 
-> **Status:** rescoped | **Grade:** C | see [F20_addendum](findings/F20_addendum.md), in part only - three claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading attached to the template. The citation result is NOT superseded; it is confirmed at 24 base models and strengthened (21 of 22 name their own lab in exactly 0.000 of self-predicating mass). | Related: [F20_addendum](findings/F20_addendum.md)
+> **Status:** rescoped | **Grade:** C | see [F20_addendum](findings/F20_addendum.md), in part only - three claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading attached to the template. The citation result is NOT superseded; it is confirmed at 24 base models and strengthened (21 of 22 name their own lab in exactly 0.000 of self-predicating mass). | Related: [F20_addendum](findings/F20_addendum.md), [F20_generation_drift](findings/F20_generation_drift.md), [F20_third_person](findings/F20_third_person.md)
 
 
 > **See `F20_addendum.md` (2026-07-27) before citing this file.** The expansion
@@ -1485,7 +1655,7 @@ R1-Distill's raw logits diverge massively from base (JS 0.62 vs Instruct's 0.07;
 
 ### 24. Pretraining emergence — the developmental sequence of the statistical unconscious
 
-> **Status:** verified | **Grade:** A
+> **Status:** unaudited | **Grade:** C
 
 
 **When do the base model's signature properties appear during pretraining?**
@@ -1586,6 +1756,30 @@ The base model is not the id. It already defers to institutions (F21), and this 
 **Model**: Pythia 1B (EleutherAI/pythia-1b), 11 checkpoints: step 0, 1, 64, 512, 1000, 5000, 10000, 25000, 50000, 100000, 143000.
 
 **TODO**: Replicate on Pythia 6.9B (our registered family). Correlate with Pile content at each step via batch_viewer.py. Test whether the developmental sequence holds for OLMo (different corpus, different training order).
+
+---
+
+## Status note (2026-07-29)
+
+Downgraded from verified/A to unaudited/C at RH's direction. The
+verified/A stamp entered at the 2026-07-26 frontmatter merge
+(c681d1e), which added frontmatter to this file for the first time —
+before it, the finding carried no status fields at all. That commit
+took its judgment fields by transcription from the TheoryMachines
+claims ledger, so the stamp records a claim someone made; no check
+is identifiable anywhere in this repo's history. No commit since
+2026-07-01 has touched the finding's claims, data, or code, and the
+body's own TODO (replicate on Pythia 6.9B; test the developmental
+sequence on OLMo) remains open. This is a downgrade for lack of
+verification, not a correction: no defect has been found in the
+finding.
+
+UPGRADE PATH, stated so the A can be earned rather than restored:
+run the pending Pythia-6.9B replication (checkpoints on disk) and
+the OLMo sequence test; a dated audit of the result against the
+finding's claims returns it to verified at whatever grade the
+outcome supports. Until then its numbers cite with an
+"unaudited" flag.
 
 ### 25. Temporal alignment signature — four Lacanian mechanisms in the autoregressive sequence
 
