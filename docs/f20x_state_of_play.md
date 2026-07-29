@@ -1,5 +1,11 @@
 # F20x state of play
 
+> **READ SECTION 9 FIRST.** Sections 1 through 8 were written while the questions
+> were open and describe runs that have since finished. **Section 9 is the handoff
+> of 2026-07-29: all four questions are closed, nothing is running, and it says what
+> to do next and what not to.** The earlier sections are kept because they record
+> what each instrument was FOR, which is the thing that goes missing first.
+
 **Live document. Started by the lacan seat 2026-07-28 at RH's request, after a day
 in which the registered primary of the phase acquired no data while three
 validation instruments were built, argued over, and partly retired.**
