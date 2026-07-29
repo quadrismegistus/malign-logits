@@ -201,8 +201,12 @@ DISCHARGED: the construct (pairs are faller x riser selected by a
 similarity floor, not observed substitutions — the sentence heading
 this addendum is unaffected); the magnitudes remain non-quotable
 per-category; defect #6 is BOUNDED for these stored CSVs, not
-repaired — the replacement instrument's word_probs route is the
-repair.
+repaired — and the replacement instrument repairs it only under
+SINGLE-TOKEN RESTRICTION, where hybrid_word_probs returns the exact
+vocabulary probability; its multi-token entries are beam-set-
+normalised and inflated (docket [488], audited: 43-90% exceed their
+first-token ceiling), so for multi-token words the successor does
+not repair defect #6, it exchanges it.
 
 PARTIAL ANSWER ALREADY IN HAND, for amber only and on the weaker of
 the two restrictions: dropping every pair with a collided word on
