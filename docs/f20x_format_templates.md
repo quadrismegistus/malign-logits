@@ -232,3 +232,34 @@ step. That is a measurement on data the battery produces anyway.
 **Registered here rather than raised at analysis time**, because a non-monotone
 result at the top of the ordering would otherwise be available to be read as
 attenuation by whoever runs the join.
+
+## 6. Execution order
+
+Fixed after [318], because one step has to precede a decision that was made when
+its cost term was three times smaller.
+
+1. **Cache check before examples are drawn.** The coder's fixed block (scheme +
+   examples) is byte-identical across all 21,750 calls and is 7–16× the passage
+   content, so whether it caches is a factor-of-ten swing on the bill. Fixed block
+   FIRST, variable passage LAST — necessary and **not sufficient**: providers impose
+   minimum cacheable prefix lengths and any upstream variation (timestamp, model
+   string, stray whitespace on the first call) silently misses. **The coder asserts
+   its measured cache-hit rate on the first hundred calls and refuses to continue
+   below threshold**, per [230] — a resumed run asserts its invariants rather than
+   printing them, and a printed number is only useful to someone who already knows
+   what it should be.
+2. **Then draw and freeze the held-out set** ([224] condition), from the battery,
+   before any example is written.
+3. **Then choose the example count.** 15 was set at [224] when each example was a
+   42-word passage. Battery-drawn examples are ~200 tokens, so the block is ~3×
+   larger and is now the dominant cost term. **If caching engages the count is free
+   and should be chosen for instrument quality alone; if it does not, 15 × 200 IS
+   the bill and the count needs justifying against it.** Same number, two different
+   decisions, and step 1 picks between them.
+4. **Then write examples, then code.** Rule-discovery pass first, agreement pass
+   after ([283]).
+
+**Generation timing:** the ~20–24h in §3 is a **floor**, not an estimate — it
+extrapolates a tokens-vs-calls relation measured at 60 tokens ([209]) to 200, and
+KV-cache growth lowers achievable throughput as sequence length rises. **Time arm one
+at 200 tokens and report the schedule from measured throughput**, not before arm zero.
