@@ -202,6 +202,19 @@ remaining families are unmeasured. The restriction here was forced
 by measurement validity (defect #6), not chosen, and the 30/30 is
 a direction claim among single-token words; this sentence states
 the direction in which that scope selects.
+H4 TOKENIZER NOTE (docket [520].5/[524], checked at source): the
+HuggingFaceH4 checkpoints (zephyr-7b-beta, mistral-7b-sft-beta)
+double-encode the leading space, which renders the word_probs
+stash unusable for those arms; this finding is NOT affected, by
+two independent routes — its taxonomy path uses
+score_words_from_logits, which guards against the whitespace-only
+first token, and its word probabilities were computed under the
+base (Mistral-7B-v0.1) tokenizer, which does not double. The
+zephyr cells of the 30/30, the single-token discharge, and the
+collision table stand unchanged. One residual, a perturbation not
+a contamination: syntagmatic_js under the aligned model encodes a
+spurious interior space token for H4 families, identically in
+src and tgt, so the contrast stays like-for-like.
 UNREGISTERED HALF, reported as observation: the depth gradient also
 survives, L3 strongest in 10/10 cells — now robust to
 spread-matching, region, and the first-token approximation; its
