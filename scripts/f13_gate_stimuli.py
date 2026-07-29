@@ -147,6 +147,39 @@ UNRELATED_JUDGED = [
 ]
 
 
+# REASONS FOR THE SELECTED UNRELATED PAIRS ([498].1). Same discipline as the
+# middle tier: a published one-line reason per pair, so any of them can be
+# overturned by reading rather than by re-running.
+#
+# THE SHARED FRAME IS DECLARED, because it is real and it bounds the tier: most
+# of these come from `He walked into the library and asked for a book about`, so
+# they share "possible book topic". That is a weak frame and it is the RIGHT one
+# -- all three tiers must be plausible fillers of ONE slot, or the comparison
+# varies plausibility instead of relation. It does mean this tier is "unrelated
+# within a shared syntactic frame", not "maximally distant in the language".
+UNRELATED_REASONS = {
+    ("animals", "philosophy"): "a natural kind and an academic discipline",
+    ("climate", "math"): "a physical system and a formal one; adjacent only as "
+                         "school subjects",
+    ("astronomy", "success"): "a science and an evaluative abstraction",
+    ("money", "spiders"): "an institution and an animal; no situation seats them "
+                          "together",
+    ("programming", "butterflies"): "a human activity and an organism",
+    ("forgiveness", "skeletons"): "a moral act and anatomical remains",
+    ("cats", "religion"): "a domestic animal and an institution",
+    ("music", "insects"): "an art form and a taxon",
+    ("vampires", "geography"): "a folklore figure and a discipline",
+    ("witches", "baseball"): "folklore and organised sport",
+    ("cell", "sports"): "WEAKEST-2: 'cell' is polysemous (biological / prison / "
+                        "phone) and the prison sense sits nearer the corpus",
+    ("crematorium", "sound"): "WEAKEST-1: both are available inside the death "
+                              "prompt's scene, so situational co-presence is not "
+                              "fully excluded",
+    ("poetry", "volcanoes"): "an art form and a geological event",
+    ("history", "tortoises"): "a discipline and an animal",
+}
+
+
 def stem4(w):
     return w[:4].lower()
 
@@ -312,6 +345,15 @@ def main():
                         and (a, b) not in UNRELATED_VETO
                         and (b, a) not in UNRELATED_VETO]
                 while need and rest:
+                    # re-filter against the GROWING used set each pass: building
+                    # `rest` once and drawing from it let `volcanoes` into two
+                    # pairs, breaking the no-repeat rule this function enforces
+                    # three lines above. Same class as every defect today --
+                    # a check applied at one point and not at the next.
+                    rest = [ab for ab in rest
+                            if ab[0] not in used and ab[1] not in used]
+                    if not rest:
+                        break
                     cur = [nt(w) for pr in out for w in pr]
                     best = min(rest, key=lambda ab: abs(
                         (sum(cur) + nt(ab[0]) + nt(ab[1])) / (len(cur) + 2) - tgt))
@@ -329,7 +371,20 @@ def main():
                   f"mean {sum(ts)/len(ts):.2f} tok/word"
                   + (f"  UNMATCHED signatures: {missing}" if missing else ""))
             for a, b in got:
-                print(f"      {a:<14}{b:<14}({nt(a)},{nt(b)})")
+                why = UNRELATED_REASONS.get((a, b)) or UNRELATED_REASONS.get((b, a))
+                tag = f"({nt(a)},{nt(b)})"
+                if name == "UNRELATED":
+                    print(f"      {a:<13}{b:<13}{tag:<8}{why or '*** NO REASON ***'}")
+                else:
+                    print(f"      {a:<14}{b:<14}{tag}")
+            if name == "UNRELATED":
+                miss = [p_ for p_ in got
+                        if not (UNRELATED_REASONS.get(p_)
+                                or UNRELATED_REASONS.get(p_[::-1]))]
+                if miss:
+                    print(f"      *** {len(miss)} SELECTED PAIRS LACK A REASON: "
+                          f"{miss} -- the tier is not publishable until they have "
+                          f"one ***")
         pts = [nt(w) for pr in p for w in pr]
         print(f"  {'PROXIMATE':<11}held fixed 20/20  mean {sum(pts)/len(pts):.2f} "
               f"tok/word (the target)")
