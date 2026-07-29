@@ -40,57 +40,104 @@ from transformers import LlamaModel, LlamaPreTrainedModel
 
 KEY = ["idx", "model", "prompt", "temp", "temp_type"]
 
+# EVERY JUDGE DECLARES ITS OWN HEAD NAME AND ITS OWN TEMPLATE. Both were
+# previously assumed to be PKU's, which is wrong for the two non-PKU judges:
+#   - UltraRM-13b is `LlamaRewardModel` with `regression_head` (bias=False), NOT
+#     `score_head`. Loading it into the PKU class silently builds a RANDOMLY
+#     INITIALIZED head and leaves the checkpoint's head on disk -- the scores come
+#     out plausible-looking and mean nothing. `_assert_head_loaded` makes that
+#     failure loud instead.
+#   - the OASST deberta is a cross-encoder trained on a (question, answer) PAIR,
+#     not on one concatenated string. It gets the pair form.
 JUDGES = {
-    "pku-reward": ("PKU-Alignment/beaver-7b-v1.0-reward", "llama-score"),
-    "pku-cost":   ("PKU-Alignment/beaver-7b-v1.0-cost",   "llama-score"),
-    "oasst-deberta": ("OpenAssistant/reward-model-deberta-v3-large-v2", "seqcls"),
-    "ultrarm": ("openbmb/UltraRM-13b", "llama-score"),
+    "pku-reward": dict(model_id="PKU-Alignment/beaver-7b-v1.0-reward",
+                       kind="llama-score", head="score_head", bias=True,
+                       template="BEGINNING OF CONVERSATION: USER: {user} ASSISTANT:{assistant}"),
+    "pku-cost":   dict(model_id="PKU-Alignment/beaver-7b-v1.0-cost",
+                       kind="llama-score", head="score_head", bias=True,
+                       template="BEGINNING OF CONVERSATION: USER: {user} ASSISTANT:{assistant}"),
+    "oasst-deberta": dict(model_id="OpenAssistant/reward-model-deberta-v3-large-v2",
+                          kind="seqcls-pair", head=None, bias=None, template=None),
+    "ultrarm": dict(model_id="openbmb/UltraRM-13b",
+                    kind="llama-score", head="regression_head", bias=False,
+                    template="Human: {user}\n\nAssistant:{assistant}"),
 }
-PKU_TEMPLATE = "BEGINNING OF CONVERSATION: USER: {user} ASSISTANT:{assistant}"
 # A BOS item has no user turn to put in the template; these are the BOS keys.
 BOS_PROMPTS = {"", "<|endoftext|>", "<s>"}
 BOS_STAND_IN = "Write something."
 
 
-class LlamaForScore(LlamaPreTrainedModel):
-    """PKU's scoring head. Kept here so the instance needs no project code."""
-    _tied_weights_keys = []
+def make_scorer(head_name, head_bias):
+    """Build a LLaMA scoring class whose head is named as the CHECKPOINT names it.
 
-    def __init__(self, config):
-        super().__init__(config)
-        self.all_tied_weights_keys = {}
-        self.model = LlamaModel(config)
-        self.score_dim = getattr(config, "score_dim", 1)
-        self.score_head = nn.Linear(config.hidden_size, self.score_dim,
-                                    bias=getattr(config, "score_bias", True))
+    PKU calls it `score_head` (bias=True); UltraRM calls it `regression_head`
+    (bias=False). The name is not cosmetic: `from_pretrained` matches weights by
+    key, so a class with the wrong head name loads the body, silently randomises
+    the head, and returns numbers with the right shape and no meaning."""
 
-    def forward(self, input_ids, attention_mask=None, **kw):
-        h = self.model(input_ids, attention_mask=attention_mask).last_hidden_state
-        scores = self.score_head(h)
-        # score at the last non-pad position of each sequence
-        idx = attention_mask.sum(dim=1) - 1 if attention_mask is not None \
-            else torch.full((h.size(0),), h.size(1) - 1, device=h.device)
-        return scores[torch.arange(h.size(0), device=h.device), idx].squeeze(-1)
+    class _Score(LlamaPreTrainedModel):
+        _tied_weights_keys = []
+
+        def __init__(self, config):
+            super().__init__(config)
+            self.all_tied_weights_keys = {}
+            self.model = LlamaModel(config)
+            dim = getattr(config, "score_dim", 1)
+            setattr(self, head_name,
+                    nn.Linear(config.hidden_size, dim, bias=head_bias))
+
+        def forward(self, input_ids, attention_mask=None, **kw):
+            h = self.model(input_ids, attention_mask=attention_mask).last_hidden_state
+            scores = getattr(self, head_name)(h)
+            # score at the last non-pad position of each sequence
+            idx = attention_mask.sum(dim=1) - 1 if attention_mask is not None \
+                else torch.full((h.size(0),), h.size(1) - 1, device=h.device)
+            return scores[torch.arange(h.size(0), device=h.device), idx].squeeze(-1)
+
+    return _Score
 
 
-def build_text(prompt, text, framed=True):
+def _assert_head_loaded(info, head_name):
+    """A randomly-initialised scoring head is the failure this whole run cannot
+    survive: it produces well-formed numbers for every item and no error. So the
+    head is checked against the loader's own missing-keys report, not assumed."""
+    missing = [k for k in (info or {}).get("missing_keys", []) if head_name in k]
+    if missing:
+        raise SystemExit(
+            f"FATAL: {head_name} was NOT loaded from the checkpoint "
+            f"({missing}). Scores would be random. Check the head name against "
+            f"the checkpoint's weight map before rerunning.")
+
+
+def build_text(judge, prompt, text, framed=True):
+    """Return either a string, or a (question, answer) PAIR for cross-encoders."""
+    spec = JUDGES[judge]
+    user = BOS_STAND_IN if str(prompt) in BOS_PROMPTS else str(prompt)
+    if spec["kind"] == "seqcls-pair":
+        # the OASST deberta is a cross-encoder: it wants two segments, not one
+        # concatenated string. Unframed collapses to answer-only.
+        return (user, str(text)) if framed else ("", str(text))
     if not framed:
         return str(text)
-    user = BOS_STAND_IN if str(prompt) in BOS_PROMPTS else str(prompt)
-    return PKU_TEMPLATE.format(user=user, assistant=" " + str(text))
+    return spec["template"].format(user=user, assistant=" " + str(text))
 
 
 def load(judge):
-    model_id, kind = JUDGES[judge]
+    spec = JUDGES[judge]
+    model_id, kind = spec["model_id"], spec["kind"]
     tok = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     dev = "cuda" if torch.cuda.is_available() else "cpu"
     if kind == "llama-score":
-        m = LlamaForScore.from_pretrained(model_id, torch_dtype=torch.float16)
+        cls = make_scorer(spec["head"], spec["bias"])
+        m, info = cls.from_pretrained(model_id, torch_dtype=torch.float16,
+                                      output_loading_info=True)
+        _assert_head_loaded(info, spec["head"])
     else:
-        m = AutoModelForSequenceClassification.from_pretrained(
-            model_id, torch_dtype=torch.float16)
+        m, info = AutoModelForSequenceClassification.from_pretrained(
+            model_id, torch_dtype=torch.float16, output_loading_info=True)
+        _assert_head_loaded(info, "classifier")
     m = m.to(dev).eval()
     # RESOLVED model id recorded per score, never the requested alias: an alias
     # whose referent moves silently is how this project lost the ability to say
@@ -119,7 +166,7 @@ def main(a):
         return
 
     m, tok, kind, model_id, rev, dev = load(a.judge)
-    texts = [build_text(p, t, a.framed) for p, t in zip(todo.prompt, todo.text)]
+    texts = [build_text(a.judge, p, t, a.framed) for p, t in zip(todo.prompt, todo.text)]
 
     # INCREMENTAL WRITES. The first version wrote once at the end, so a crash at
     # 99% returned nothing and cost the whole GPU-hour. Resume is by key parity
@@ -149,14 +196,18 @@ def main(a):
     scores, t0 = [], time.time()
     for i in range(0, len(texts), a.batch):
         b = texts[i:i + a.batch]
-        enc = tok(b, return_tensors="pt", padding=True, truncation=True,
-                  max_length=a.maxlen).to(dev)
+        if kind == "seqcls-pair":
+            enc = tok([x[0] for x in b], [x[1] for x in b], return_tensors="pt",
+                      padding=True, truncation=True, max_length=a.maxlen).to(dev)
+        else:
+            enc = tok(b, return_tensors="pt", padding=True, truncation=True,
+                      max_length=a.maxlen).to(dev)
         with torch.no_grad():
             if kind == "llama-score":
                 s = m(**enc)
             else:
                 s = m(**enc).logits.squeeze(-1)
-        scores.extend(s.float().cpu().tolist())
+        scores.extend(s.float().cpu().tolist() if s.dim() else [s.item()])
         if (i // a.batch) % 20 == 0 and i:
             el = time.time() - t0
             print(f"  {i:,}/{len(texts):,}  {i/el:.1f} it/s  "
