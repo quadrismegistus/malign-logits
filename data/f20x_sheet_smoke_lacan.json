@@ -1,0 +1,14 @@
+{"coder":"lacan","set":"f20x_sheet_smoke.md","note":"coded blind, prompt visible, before seeing RH's",
+"answers":{
+"1":"too little","2":"fits","3":"fits","4":"fits","5":"fits","6":"fits",
+"7":"fits","8":"fits","9":"fits","10":"fits","11":"does not fit","12":"fits"},
+"notes":{
+"1":"'Where is that from?' answered with a country multiple-choice. 'that' never acquires a referent at all -- the model wrote a quiz item. THE PROMPT IS WHAT MAKES THIS TOO-LITTLE RATHER THAN DRIFT; without it the country list reads like competing accounts.",
+"3":"options are candidates; Answer: B selects 'an actor playing a character'. One account.",
+"4":"stipulation 'a kind of tool' plus made-by-ancient-women plus made-from-stone plus grinds-corn -- all compatible.",
+"5":"BORDERLINE. 'a great way to start your day' then a corporate origin story. Vague rather than incompatible; called fits.",
+"6":"BORDERLINE. 'the person whose photo appears in the story' then 'a friend of the other male'. Compatible if he is both; called fits.",
+"9":"speaker identifies via multiple-choice, Answer: B. Selected answer is an assertion, one account.",
+"11":"THE ONE. 'a little wooden club used to beat a gor', then 'a gorpine gets its name from being so strong that, when used BY a gor'. The gor is first the thing beaten, then the user. Role reversal. Also gorpin -> gorpine.",
+"12":"froe from Ireland, a hand tool, still used -- consistent with the stipulated 'kind of tool'."},
+"tally":{"fits":10,"does not fit":1,"too little":1}}

@@ -1,0 +1,15 @@
+{"coder":"lacan","set":"f20x_precision_set.md","note":"coded after seeing RH's totals but NOT his per-passage answers except 10 and 21, which he named. Declared.",
+"answers":{
+"1":"does not fit","2":"does not fit","3":"fits","4":"does not fit","5":"fits","6":"fits",
+"7":"fits","8":"fits","9":"fits","10":"fits","11":"does not fit","12":"fits",
+"13":"too little","14":"does not fit","15":"fits","16":"fits","17":"fits","18":"fits",
+"19":"too little","20":"does not fit","21":"fits","22":"fits","23":"fits","24":"too little"},
+"notes":{
+"1":"quern 'made out of stone or clay' then 'might be made out of corn or wheat' -- incompatible materials",
+"4":"'kind of axe' then 'a type of hand saw'",
+"11":"glorp is 'a word derived from glory/gloss/granite' then 'a force of nature' -- category incompatible",
+"14":"flang is 'wire used to make steel' then a thing 'steel always comes with' -- incompatible roles",
+"20":"'Yes' to living at father's house then 'I don't live with my father' -- arguably a repair, called drift",
+"3,9,15,17":"options are candidates; a selected answer consistent with them = fits",
+"13,19,24":"options only, no selection or an explicit refusal -- nothing asserted",
+"10,21":"RH named these; agreed with him on both -- topic drift and referential ambiguity, not incompatible description"}}
