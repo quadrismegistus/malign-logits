@@ -49,6 +49,7 @@ TWO DEFECTS OF THE RIDER SCRIPT FIXED HERE:
     the write finer-grained, which is the obvious refinement after a kill.
 """
 import argparse
+import gc
 import os
 import sys
 
@@ -148,6 +149,7 @@ def main(n, limit_arms):
         assert len(done) < planned, "resume has nothing to do; check the key"
 
     cell = 0
+    failed = []
     for i, r in enumerate(ck.itertuples(), 1):
         # Iterate ONLY what is pending -- a partial checkpoint must not regenerate
         # levels already on disk and append duplicates.
@@ -159,7 +161,19 @@ def main(n, limit_arms):
             continue
         print(f"[{i}/{len(ck)}] {r.model_id} ({r.arm}) — {len(pend)} cells",
               flush=True)
-        tok = AutoTokenizer.from_pretrained(r.model_id)
+        # trust_remote_code: CT-LLM/MAP-Neo and MiniCPM ship custom modelling
+        # code and refuse to load without it. Already the project's practice
+        # (f13_base_embeddings.py, twp_cloud.py) and these are registry models.
+        try:
+            tok = AutoTokenizer.from_pretrained(r.model_id, trust_remote_code=True)
+        except Exception as e:
+            # A CHECKPOINT MUST NOT END THE ROSTER -- but per this file's own
+            # rule a skipped model must not be SILENT either, so it is recorded
+            # and reprinted at the end rather than scrolling past in a log.
+            print(f"    LOAD FAILED: {type(e).__name__}: {str(e)[:100]}", flush=True)
+            failed.append((r.model_id, r.arm, f"tokenizer: {type(e).__name__}"))
+            gc.collect(); torch.mps.empty_cache()
+            continue
         if tok.pad_token is None:
             tok.pad_token = tok.eos_token
         # LEFT padding is required for decoder-only generation: right padding
@@ -171,8 +185,15 @@ def main(n, limit_arms):
         # unbatched rider never hit it because padding was what exposed it.
         # Small models are cheap in fp32, so buy the stability.
         dtype = torch.float32 if is_small(r.model_id) else torch.float16
-        model = AutoModelForCausalLM.from_pretrained(
-            r.model_id, dtype=dtype, device_map="mps").eval()
+        try:
+            model = AutoModelForCausalLM.from_pretrained(
+                r.model_id, dtype=dtype, device_map="mps",
+                trust_remote_code=True).eval()
+        except Exception as e:
+            print(f"    LOAD FAILED: {type(e).__name__}: {str(e)[:100]}", flush=True)
+            failed.append((r.model_id, r.arm, f"model: {type(e).__name__}"))
+            gc.collect(); torch.mps.empty_cache()
+            continue
         rows = []
         # Batch ACROSS STIMULI. One call per chunk of prompts instead of one per
         # cell: a batch of 5 amortises per-call overhead ~4x worse than a batch
@@ -213,6 +234,11 @@ def main(n, limit_arms):
                         "text": tok.decode(gen[pi * n + d_i][plen:],
                                            skip_special_tokens=True)})
         del model
+        # `del` drops ONE reference and HF modules hold cycles, so without the
+        # cycle collector the object survives and empty_cache() reclaims
+        # nothing. Same defect that let a 1.5B model OOM against 65 GiB on the
+        # cloud roster tonight.
+        gc.collect()
         torch.mps.empty_cache()
 
         out = pd.DataFrame(rows)
@@ -223,6 +249,16 @@ def main(n, limit_arms):
         done |= {key_of(x["family"], x["model_id"], x["stim_id"], x["level"],
                         x["draw"]) for x in rows}
         print(f"    wrote {len(out):,} total", flush=True)
+
+    if failed:
+        # THE HOLE IS NAMED. This file's rule is that a skipped model is a
+        # silent hole in the roster; guarding the load without printing what it
+        # swallowed would create exactly that. The unit is the base model, so a
+        # missing arm changes a denominator and must be visible at the end of
+        # the run, not only at the moment it happened.
+        print(f"\n{len(failed)} CHECKPOINT(S) SKIPPED -- the roster has holes:")
+        for mid, arm, why in failed:
+            print(f"  {mid:<48}{arm:<10}{why}")
 
     d = pd.read_parquet(OUT)
     print(f"\nwrote {OUT}: {len(d):,} completions, "
