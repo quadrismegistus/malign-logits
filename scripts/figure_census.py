@@ -19,8 +19,14 @@ that exist, and it discredits the one entry that is real.
 So each figure is resolved in THREE tiers and the tier is REPORTED, because they
 are different strengths of evidence:
 
-  EXACT    the full basename appears as a literal in committed source. The
-           producer is identified with certainty.
+  EXACT    the full basename appears as a literal in committed source AND that
+           source contains a figure-writing call. BOTH halves are required:
+           the literal alone detects MENTION, not PRODUCTION, and is satisfied
+           by a docstring, a comment, or an audit script. This file was itself
+           the one false positive -- its docstring names
+           displacement_sexual_44fam.png, so the census certified the very
+           figure it was auditing, in the tier it recommends as the print bar.
+           Caught by lacan at [703]; 92 of 93 other resolvers were genuine.
   PATTERN  the basename's leading token appears in a source f-string or path
            join alongside a figures/ write. STRONG BUT NOT PROOF -- it shows
            something in that family is generated there, not that THIS file is.
@@ -73,10 +79,15 @@ def main(a):
         except Exception:
             pass
 
+    # A RESOLVER MUST BE ABLE TO DRAW. Without this the tier detects mention.
+    WRITES = ("savefig", "write_image", "write_html", "imsave", "to_file",
+              "fig.write", "plt.save")
+
     rows = []
     for f in figs:
         stem = os.path.splitext(f)[0]
-        exact = [s for s, b in blobs.items() if stem in b]
+        exact = [s for s, b in blobs.items()
+                 if stem in b and any(w in b for w in WRITES)]
         if exact:
             rows.append((f, "EXACT", exact[0]))
             continue
