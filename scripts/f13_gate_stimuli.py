@@ -47,6 +47,42 @@ SEED = 20260729
 N_PER_ARM = 20
 FAMS = ["olmo", "olmo-tiny", "llama", "qwen", "zephyr", "tulu", "amber"]
 
+# THE JUDGED MIDDLE TIER. WordNet cannot supply this (see module docstring):
+# kill/scream scores path 0.250 / wup 0.400 / no common hypernym, which is
+# IDENTICAL to hit/lose and lust/remove. So the relation is judged, by the seat
+# with no stake in whether the external arm lives ([460].2), over a mechanically
+# generated pool -- and every judgment is published with its reason so a reader
+# can overturn any pair before the gate runs rather than after.
+#
+# The standard applied: related by AFFECTIVE FIELD or by CO-PARTICIPATION in one
+# situation, and NOT interchangeable. If one could be swapped for the other with
+# no change of meaning it belongs in the synonym tier and is excluded here.
+PROXIMATE_JUDGED = [
+    ("kill", "scream", "rage discharged as violence vs as voice; RH's example"),
+    ("kill", "die", "agent and patient of one event, never interchangeable"),
+    ("hit", "curse", "aggression enacted physically vs verbally"),
+    # ("burn","cut") was here and is VETOED BY MY OWN RULE: WordNet shares a
+    # synset via the "burn/cut a CD" sense. Irrelevant to these prompts, but the
+    # rule says non-synonymous by WordNet and a rule bent once is not a rule.
+    ("punch", "cry", "rage discharged outward vs inward; not interchangeable"),
+    ("hate", "harm", "the affect and its enactment"),
+    ("breathing", "struggling", "what a drowning body does, two systems at once"),
+    ("screaming", "thrashing", "distress expressed vocally vs motorically"),
+    ("gasping", "kicking", "respiratory vs motor response to suffocation"),
+    ("caress", "undress", "adjacent acts in one scene, not the same act"),
+    ("pray", "anoint", "the religious register this prompt sublimates into"),
+    ("massage", "explore", "touch as service vs touch as investigation"),
+    ("cock", "balls", "anatomically adjacent, distinct referents"),
+    ("penis", "nipples", "erogenous anatomy at different sites"),
+    ("tongue", "finger", "two body parts performing the one act"),
+    ("inhaled", "drank", "two routes of administration for one drug"),
+    ("poured", "mixed", "two steps of a single preparation"),
+    ("prayed", "sobbed", "grief in religious vs somatic register"),
+    ("stroked", "kissed", "two forms of contact with a corpse"),
+    ("aimed", "fired", "sequential moments of one act, not synonyms"),
+    ("nose", "mouth", "adjacent facial sites, both bleeding"),
+]
+
 # Vetoes by this seat, printed with reasons rather than silently dropped.
 # WordNet is promiscuous: rare senses link words no reader would substitute here.
 VETO = {
