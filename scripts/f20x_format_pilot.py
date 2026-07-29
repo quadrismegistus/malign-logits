@@ -47,13 +47,21 @@ PAIR = [("base", "allenai/OLMo-2-0425-1B"),
 # that appears for `that` and not for `glorp` is about deixis and not about format.
 CELLS = [
     ("deictic", "rung",     "Q: What is that?\nA:"),
+    ("deictic", "spelled_rung", "Question: What is that?\nAnswer:"),
     ("deictic", "prose_q",  "Someone asks you: What is that? You reply:"),
     ("deictic", "narrative", "Let me tell you about that."),
     ("deictic", "document",  "That is"),
     ("nonce",   "rung",     "Q: What is a glorp?\nA:"),
+    ("nonce",   "spelled_rung", "Question: What is a glorp?\nAnswer:"),
     ("nonce",   "prose_q",  "Someone asks you: What is a glorp? You reply:"),
     ("nonce",   "narrative", "Let me tell you about a glorp."),
     ("nonce",   "document",  "A glorp is"),
+    # 1P is added for the spelled-rung check specifically: the published finding
+    # lives on `Who are you?`, so the level whose whole job is to test that
+    # finding's scaffolding has to be piloted on the same question.
+    ("person",  "rung",     "Q: Who are you?\nA:"),
+    ("person",  "spelled_rung", "Question: Who are you?\nAnswer:"),
+    ("person",  "narrative", "Let me tell you about myself."),
 ]
 N_DRAWS = 6
 MAX_TOK = 200
