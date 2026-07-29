@@ -193,9 +193,46 @@ def main():
 
     s = emit("SYNONYM", syn)
     print()
-    p = emit("PROXIMATE  (the load-bearing tier)", prox)
+
+    # THE PROXIMATE TIER IS THE JUDGED LIST, NOT THE MECHANICAL POOL.
+    # An earlier revision defined PROXIMATE_JUDGED and then emitted `prox`
+    # anyway -- so the committed script produced the WordNet pool this module
+    # docstring condemns (lust/remove, beat/work, experiment/kill) while the
+    # judged list lived in the file unreferenced. Anyone running the script got
+    # a tier its own author had rejected in prose.
+    print(f"--- PROXIMATE (the load-bearing tier) ({len(PROXIMATE_JUDGED)}, "
+          f"judged; WordNet cannot supply this relation) ---")
+    p = [(a, b) for a, b, _ in PROXIMATE_JUDGED]
+    for a, b, why in PROXIMATE_JUDGED:
+        print(f"  {a:<13}{b:<13}{why}")
+    print(f"\n  (mechanical WordNet pool held {len(prox):,} candidates and is "
+          f"NOT used: sampling from it returns lust/remove and beat/work,\n"
+          f"   because path-similarity >= 0.20 has poor precision on this "
+          f"vocabulary -- see module docstring.)")
     print()
     u = emit("UNRELATED", unrel)
+
+    # TOKEN-LENGTH PROFILE, declared because subword pooling inflates cosine.
+    # The encoder pools over a word's subwords, so longer words are pulled
+    # toward a shared centroid and score MORE similar for reasons that are not
+    # semantic (measured in the model's own space: +0.07 to +0.14, docket [488]).
+    # If the tiers differ in token length the ordinal test is confounded -- so
+    # the profile is printed with the direction of its bias stated.
+    try:
+        from transformers import AutoTokenizer
+        bt = AutoTokenizer.from_pretrained("BAAI/bge-m3")
+        print("\n--- TOKEN-LENGTH PROFILE (bge-m3) ---")
+        for name, pairs in (("SYNONYM", s), ("PROXIMATE", p), ("UNRELATED", u)):
+            ts = [len(bt.encode(" " + w, add_special_tokens=False))
+                  for pr in pairs for w in pr[:2]]
+            if ts:
+                print(f"  {name:<12}mean {sum(ts)/len(ts):.2f} tokens/word")
+        print("  Longer words pool more and so score MORE similar. Measured on "
+              "this set the\n  order is SYNONYM < PROXIMATE < UNRELATED, so the "
+              "artifact pushes AGAINST the\n  required ordering -- it makes the "
+              "gate harder to pass, never easier.")
+    except Exception as e:                      # tokenizer optional, never fatal
+        print(f"\n(token-length profile unavailable: {e})")
     print(f"\nseed {SEED} | emitted {len(s)} synonym, {len(p)} proximate, "
           f"{len(u)} unrelated")
     print("PASS iff cos(SYN) > cos(PROX) > cos(UNREL), with PROX-vs-UNREL the "
