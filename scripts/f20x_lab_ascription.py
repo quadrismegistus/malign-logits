@@ -77,20 +77,31 @@ ORG = {"allenai": "ai2", "meta-llama": "meta", "Qwen": "alibaba",
 
 
 def paired(d, col):
-    """Mean delta AND sign count.
+    """Mean delta AND sign count, with TIES DROPPED FROM THE DENOMINATOR.
 
-    A row where the two disagree is a signal that the outcome is undefined for
-    some units, not that the statistic misbehaves -- see the docstring.
+    An earlier version divided by the model count. A sign test's denominator is
+    the NON-TIED pairs -- scoring ties as failures inflates n and deflates p, and
+    it turned a p=0.26 into a p=0.03 elsewhere in this project. Ties are reported
+    beside the count, never folded into either side: a model with zero events in
+    both arms carries no directional information and both seats of this campaign
+    once assigned such cells to whichever side they were arguing for.
+
+    A row where the mean and the sign count disagree signals that the outcome is
+    undefined for some units, not that the statistic misbehaves -- see the
+    docstring.
     """
     p = d.pivot_table(index="base_model_id", columns="aligned", values=col,
                       aggfunc="mean").dropna()
     delta = p[True] - p[False]
     pos = int((delta > 0).sum())
+    ties = int((delta == 0).sum())
+    n_eff = len(delta) - ties
     return {"metric": col, "base": p[False].mean(), "aligned": p[True].mean(),
             "delta": delta.mean(), "pos": pos, "n": len(delta),
-            "p": stats.binomtest(pos, len(delta), 0.5).pvalue,
+            "ties": ties, "n_eff": n_eff,
+            "p": stats.binomtest(pos, n_eff, 0.5).pvalue if n_eff else float("nan"),
             # mean says one thing, per-model direction says another
-            "incoherent": (delta.mean() > 0) != (pos > len(delta) / 2)}
+            "incoherent": (delta.mean() > 0) != (pos > n_eff / 2 if n_eff else False)}
 
 
 def main():
@@ -122,7 +133,8 @@ def main():
         flag = ("   <-- UNDEFINED for most units; see the eligible-only row"
                 if r["incoherent"] else "")
         print(f"  {r['metric']:10s} base {r['base']:.4f}  aligned {r['aligned']:.4f}"
-              f"  delta {r['delta']:+.4f}  {r['pos']}/{r['n']}  p={r['p']:.4f}{flag}")
+              f"  delta {r['delta']:+.4f}  {r['pos']}/{r['n_eff']}"
+              f"  (ties {r['ties']})  p={r['p']:.4f}{flag}")
 
     # Is the openai result one family? The question that decides whether it is a
     # finding or a quirk -- asked here rather than left to a reader.
