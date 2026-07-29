@@ -1,11 +1,11 @@
 ---
-status: verified
-grade: A
-date: 2026-05-17
+status: rescoped
+grade: C
+date: 2026-07-29
 role: finding
-description: "Jakobsonian decomposition \u2014 paradigmatic similarity and syntagmatic disruption negatively correlated at pair level; the strongest single quantitative result. Measured on: 126k pairs."
+description: "Jakobsonian decomposition — negative paradigmatic/syntagmatic correlation, direction plausible across 6 families; QUANTITIES NOT QUOTABLE pending registered re-analysis (docket [399]/[400]). Was verified/A at authoring; never audited until 2026-07-29."
 instruments: [embedding]
-families: [olmo-tiny]
+families: [llama, zephyr, tulu, olmo, qwen, olmo-tiny]
 chapters: [ch05]
 data: [taxonomy_summary.csv]
 ---
@@ -55,3 +55,70 @@ Total: 125,836 displacement pairs. The correlation holds within every content ca
 **Caveats.** Single-position syntagmatic measure (next-token only); multi-position surprisal would be a sharper test. ~~Preliminary on OLMo-tiny only~~ — now replicated across 6 families. ~~Neutral category at boundary~~ — resolved in Finding 14.
 
 CLI: `malign taxonomy --family olmo-tiny`, `malign taxonomy --analyze` (cross-family). Results in `data/taxonomy_*.csv`, `data/taxonomy_summary.csv`.
+
+---
+
+## Rescoping addendum (2026-07-29)
+
+This finding was marked verified/A at authoring (2026-05-17) and
+first audited 2026-07-29 (docket [399], lacan; independently
+triggered by RH's verification query the same morning). The audit
+found that the instrument does not measure what the finding claims:
+
+1. `displacement_map()` emits the full cross-product of every word
+   whose probability fell against every word whose probability rose,
+   filtered at cosine >= 0.15. A "displacement pair" is not an
+   observed substitution; the causal reading is supplied by the
+   function's name.
+2. The per-category similarity means are dead twice over: (i)
+   selected on their own outcome — pairs enter only above the 0.15
+   similarity floor, so the reported means are truncated means and
+   cannot evidence that substitutes are paradigmatically close; and
+   (ii) averaged over a quantity that is not stable in its own
+   defining dimension — similarity varies by up to 0.50 across the
+   three conventionally-chosen layers (25/50/75% depth) for
+   essentially every pair, while syntagmatic_js is exactly
+   layer-invariant (verified on all 40,228 distinct pairs, docket
+   [409]/[410]).
+3. n = 125,836 is a layer-triplicated cross-product (pairs appended
+   once per layer, up to three times; pairs share members massively
+   within prompts). The Pearson r is computed without clustering;
+   the independent unit is nearer the prompt or family than the
+   pair.
+4. The two axes are measured in different models: similarity from
+   the aligned model's hidden states, syntagmatic_js under the base
+   model.
+
+WHAT SURVIVES: the qualitative direction (negative correlation, six
+families, consistent sign, holds within every category; the
+similarity truncation attenuates rather than manufactures a negative
+correlation). WHAT IS NOT QUOTABLE until re-analysis: the r values,
+the n, the per-category means, and any "strongest quantitative
+result" framing.
+
+REGISTERED RE-ANALYSIS (docket [400].2 as amended [408]/[411]/[412],
+frozen; assigned to lacan, audited by malign [410], per RH
+2026-07-29): (a) de-duplicate to distinct word pairs (syntagmatic_js
+verified exactly layer-invariant; collapse rule for similarity =
+malign's declared call with a robustness alternative); (b) cluster
+to the prompt as unit, sign tests WITHIN family, never pooled across
+unequal prompt counts; (c) the similarity filter is a selection
+criterion; its mean is never reported as a result; (d) mixed-model
+caveat carried on every number; (A1) correlations computed
+separately by axis (repression/sublimation) with NO pooled-across-
+axis correlation at all — llama/qwen are 100% repression and
+olmo/olmo-tiny ~89% sublimation, so the published between-family
+spread may be an axis artifact; (A2) direction is the test,
+magnitude pre-declared undetermined; (A3) reading table: cell =
+family x axis entering at >=10 computable prompts; direction
+survives only if every entering cell has median within-prompt r < 0;
+any positive-median cell = MIXED, named, no survival claim. The
+published r values, n, and per-category means are retired whatever
+the re-analysis shows.
+
+Downstream effects at rescoping time: F08 (the taxonomy this finding
+quantifies) rescoped in the same pass; paper v3 §IV's two citations
+flagged to RH; CLAUDE.md's "strongest single quantitative result"
+line flagged. See also F14 (corpus-inheritance correction) and F36
+euphemism-vs-proximity (alignment neutral at cos > 0.5), which
+independently constrain the near-neighbour-substitution reading.

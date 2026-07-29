@@ -1,12 +1,12 @@
 ---
-status: verified
-grade: A
-date: 2026-05-17
+status: rescoped
+grade: C
+date: 2026-07-29
 role: finding
-description: "Automated displacement-type taxonomy (register / category / genre / archaic) over displacement pairs. Measured on: wordfreq Zipf."
+description: "Displacement-type taxonomy (register / category / genre / archaic) over displacement_map pairs. Numbers recomputed 2026-07-26 (d0cd6a5, transcription error in power row caught and fixed); CONSTRUCT compromised per docket [399]/[401] — the pairs were never shown to be substitutions. Rescoped 2026-07-29."
 instruments: [classification]
-families: [olmo]
-data: [taxonomy_olmo.csv]
+families: [olmo, llama]
+data: [taxonomy_olmo.csv, taxonomy_llama.csv]
 ---
 # F08: Automatic displacement taxonomy (OLMo + Llama, 18 prompts)
 
@@ -63,3 +63,36 @@ Results in `data/taxonomy_olmo.csv`.
 ---
 
 **Provenance check, 2026-07-26.** Recomputed from `data/taxonomy_olmo.csv` (the file this finding cited as `displacement_taxonomy.csv`, renamed at `39a3886` on 2026-05-03). Every row reproduces within 1–3pp except **power**, which was published as 96/14/0/4 — a row summing to **114%** — against a recomputed 84/12/0/4. The 96% was a transcription error, corrected above; the impossible sum is what makes it certain rather than a judgement call. Row count is now 23,013 against the 22,458 published, a 2.5% increase from a later re-run of the taxonomy.
+
+---
+
+## Rescoping addendum (2026-07-29)
+
+Two events, kept distinct because they check different things:
+
+1. ARITHMETIC AUDIT, 2026-07-26 (d0cd6a5): the published percentages
+   were reconciled against the renamed data file; every row
+   reproduced within 1-3pp except the power row (published 96/14/0/4,
+   summing to 114%) — a transcription error, corrected. This audit
+   validated the numbers.
+2. CONSTRUCT AUDIT, 2026-07-29 (docket [399]/[401]): the pairs the
+   taxonomy classifies come from `displacement_map()`, which emits
+   the cross-product of fallen-probability words x risen-probability
+   words filtered at cosine >= 0.15 — not observed substitutions.
+   Every taxonomy percentage (register_shift, category_shift,
+   genre_change, archaic) is therefore a proportion of that
+   cross-product. The arithmetic audit could not have caught this:
+   reconciliation validates numbers, not constructs, and the one
+   error it did catch was found by impossibility (a row summing to
+   114%), not by scrutiny of the construct.
+
+WHAT SURVIVES: the taxonomy scheme itself and the classification
+code, which apply to any properly-derived pair set. WHAT IS NOT
+QUOTABLE until re-analysis: every published percentage over
+displacement pairs, in this file and wherever cited (F13 builds
+directly on this taxonomy and is rescoped in the same pass).
+
+REGISTERED RE-ANALYSIS: identical to F13's, docket [400].2 items
+(a)-(d), extended to F08 at [402] — F13 cannot be rehabilitated on a
+taxonomy that inherits the same pairing rule, so the two re-analyses
+are one job. Assigned to lacan, audited by malign, per RH 2026-07-29.

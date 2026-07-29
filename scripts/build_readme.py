@@ -64,11 +64,30 @@ VALID_STATUSES = {"verified", "solid-by-design", "unaudited", "rescoped", "retra
                   # because a SHA verification expires when history is rewritten.
                   "verified-pending-reverification"}
 VALID_GRADES = {"A", "B", "C", "D"}
+
+# Checked from 2026-07-29. Families were the last unchecked vocabulary:
+# F13 carried [olmo-tiny] against a six-family body and the build could
+# never have caught it. Derived from MODEL_FAMILIES plus the aggregate keys
+# findings legitimately use.
+VALID_FAMILIES = {
+    "olmo", "olmo-tiny", "olmo-think", "olmo-32b", "llama", "qwen",
+    "qwen-tiny", "qwen3", "amber", "zephyr", "pythia", "tulu",
+    "tulu-no-safety", "smol", "smol3", "deepseek-7b", "map-neo", "ct-llm",
+    "yi", "glm4", "minicpm", "falcon", "redpajama", "archangel-dpo",
+    "archangel-kto", "archangel-ppo", "archangel-slic", "olmo-hybrid",
+    "stablelm", "tinyllama", "bloom", "phi", "r1-llama", "r1-qwen",
+    "4families", "all",
+}
 VALID_ROLES = {"finding", "addendum", "capstone", "ledger"}
 VALID_INSTRUMENTS = {
     "logit-mass", "resistance", "tagger", "checkpoint",
     "entropy", "geometry", "classification", "generation",
     "embedding", "intervention", "census", "regression",
+    # added 2026-07-29: the F20 campaign codes passages with LLM coders and
+    # with human coders, and its licence rests on the human pair. Neither was
+    # expressible; both linted clean only because instruments went unchecked
+    # until 2026-07-26.
+    "llm-coding", "llm-annotation", "human-coding",
     # added 2026-07-26 with the F07 ruling: a documentary finding's source is a
     # published report, not a measurement. The controlled set predated the
     # category.
@@ -437,6 +456,9 @@ def lint():
             errors.append(f"{name}: invalid status '{m['status']}'")
         if m.get("grade") and m["grade"] not in VALID_GRADES:
             errors.append(f"{name}: invalid grade '{m['grade']}'")
+        for fam in m.get("families") or []:
+            if fam not in VALID_FAMILIES:
+                errors.append(f"{name}: invalid family '{fam}'")
         if m.get("role") and m["role"] not in VALID_ROLES:
             errors.append(f"{name}: invalid role '{m['role']}'")
         # VALID_INSTRUMENTS was defined but never checked, so 54 out-of-vocabulary
@@ -446,8 +468,14 @@ def lint():
             if inst not in VALID_INSTRUMENTS:
                 errors.append(f"{name}: invalid instrument '{inst}'")
 
-        # Rescoped/retracted must have superseded_by
-        if m.get("status") in ("rescoped", "retracted") and not m.get("superseded_by"):
+        # Rescoped/retracted must have superseded_by OR an in-file rescoping
+        # addendum. A finding can be rescoped in place by an audit that
+        # supersedes nothing yet -- the addendum IS the rescoping record, and
+        # superseded_by stays a pointer for the case where a successor exists.
+        # Checked on the heading, not on good intentions.
+        has_addendum = "## Rescoping addendum" in (f.get("body") or "")
+        if (m.get("status") in ("rescoped", "retracted")
+                and not m.get("superseded_by") and not has_addendum):
             errors.append(f"{name}: status '{m['status']}' requires superseded_by")
 
         # Addendum must have parent
