@@ -95,7 +95,41 @@ four levels, one model pair, descriptive. The decision rule, fixed before readin
 - the nonce control has no antecedent problem in any frame, so anything seen in the
   deictic cell and not in the control is about deixis rather than about format
 
-### VERDICT: DROPS. Second branch, unambiguously.
+### VERDICT: GENERATED, NOT CUT. The pilot is a reason to expect demotion, not a decision.
+
+**The cut was proposed and withdrawn ([264] → [267] → [270]).** A removal is the
+strongest quantity a pilot can emit — it decides what the battery is able to ask —
+and this pilot's own rule is that no rate from it should be quoted. Four separate
+patterns this campaign were clean at n=6 and gone by n=20 (the B−C ladder +0.161 →
++0.023, the gradient, person-specificity, stipulation). **A design decision at one
+model pair is that bet with the stakes moved to the design.**
+
+The cell is generated in all four levels (~580 completions, 3% of the run) and
+demoted by rule on 29 base models if it behaves as the pilot suggests. That also
+recovers the [169] question — whether antecedent-availability behaves the same way
+across formats — which is the only question in the battery about whether reference
+has an **antecedent** rather than a **kind**.
+
+**Gate, amended.** [208] as registered demotes a condition whose retention *differs
+by arm* by more than 15 points. The deictic cell fails in **both** arms, so its arm
+differential is ~0 and it would pass the gate, pool into the narrative and document
+levels, and contribute a small noisy delta — a spurious monotone decline. So:
+
+> demote if the arm differential exceeds 15 points **OR** if referent uptake is
+> below **0.25 in both arms**.
+
+The floor is set between two measured regimes — the 2×2 put `O-deictic` at
+0.503/0.427 `no_value_posed`, so the rung sits near half-uptake; the pilot's
+narrative and document cells sit at approximately zero — and not chosen to produce a
+verdict. It is on the record as a judgment, ratified by lacan rather than by the seat
+that tried to cut the cell.
+
+**On the pre-commitment claim.** The rule below was written before any completion was
+read, which licenses the *rule*. It does not license the *decision*, which came after
+and could not have come before: blindness bounds selection, not sampling error, and
+only sampling error was at issue.
+
+### What the pilot showed. Second branch, unambiguously — at n=6.
 
 Rule written after the base arm had generated and **before any completion text was
 read**. 6 draws per cell, one model pair, descriptive — the standing of a pilot, not
@@ -126,7 +160,7 @@ formats. That is what the control was for.
 Cell counts confirm the collapse rather than resting on the samples: the deictic rung
 produces 95 words base / 44 aligned against ~140–160 everywhere else.
 
-**Consequence:** `O-deictic` is excluded from the four-level ordering and retained in
+**Consequence (SUPERSEDED by the verdict above; kept as the pilot's reading):** `O-deictic` would be excluded from the ordering and retained in
 `rung` + `prose_q` only, where it is one manipulation. Its published rung result
 stands; it simply cannot travel along this axis. The ordering's object arm is carried
 by `O-named`, which is stipulated and therefore stable across all four frames.
