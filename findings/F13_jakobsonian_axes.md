@@ -204,8 +204,9 @@ per-category; defect #6 is BOUNDED for these stored CSVs, not
 repaired — and the replacement instrument repairs it only under
 SINGLE-TOKEN RESTRICTION, where hybrid_word_probs returns the exact
 vocabulary probability; its multi-token entries are beam-set-
-normalised and inflated (docket [488], audited: 43-90% exceed their
-first-token ceiling), so for multi-token words the successor does
+normalised and inflated (docket [488], reproduced at a second seat
+[registrar, docket ~504]: 43-90% and 82-95% of multi-token entries
+exceed their first-token ceiling on independent prompt samples), so for multi-token words the successor does
 not repair defect #6, it exchanges it.
 
 PARTIAL ANSWER ALREADY IN HAND, for amber only and on the weaker of
