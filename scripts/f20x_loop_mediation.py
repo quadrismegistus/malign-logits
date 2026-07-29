@@ -158,10 +158,43 @@ def run(d, strata, label):
     return r
 
 
+# The mediator is a REGEX PROXY for "the model wrote its own turn", and malign's
+# audit at docket [284] showed the estimate moves a third between two defensible
+# definitions. Sweeping instead of picking, because the sweep turned out to carry
+# the real finding: mediation tracks the ARM GAP in the marker, near-monotonically.
+# Marker census over the corpus (line-initial short token + : . or ) ):
+#   q 21,711 | a 20,289 | b 1,571 | c 597 | question 460 | d 450 | answer 418
+# Note `a` is AMBIGUOUS -- answer-turn and multiple-choice option A -- and the
+# b/c/d counts are what proves the MC structure is present. That is the same
+# conflation behind the withdrawn "61% exam scaffolding" figure.
+MEDIATOR_DEFS = {
+    "A narrow  \\nQ:                (docket [260])": r"\nQ:",
+    "B  + Question, whitespace      (docket [284])": r"\n\s*(?:Q|Question)\s*:",
+    "C  + User, + Q. / Question.": r"\n\s*(?:Q|Question|User)\s*[:.]",
+    "D  + bare A: / Answer:       (MC-contaminated)":
+        r"\n\s*(?:Q|Question|User|A|Answer)\s*[:.]",
+}
+
+
+def sweep(d):
+    print("=" * 62)
+    print("MEDIATOR SENSITIVITY -- the estimate is definition-dependent\n")
+    for label, rx in MEDIATOR_DEFS.items():
+        d["loop"] = d.text.str.contains(rx, regex=True, na=False)
+        b, a = d[~d.al].loop.mean(), d[d.al].loop.mean()
+        r = run(d, ["loop"], label)
+        med = (r.crude.sum() - r["std"].sum()) / r.crude.sum()
+        print(f"    loop base {b:.4f}  aligned {a:.4f}  GAP {b - a:.4f}"
+              f"   mediation {med:+.3f}\n")
+
+
 if __name__ == "__main__":
     d = load()
     d["wt"] = d.groupby("base_model_id").words.transform(
         lambda s: pd.qcut(s, 3, labels=False, duplicates="drop"))
+    sweep(d)
+    d["loop"] = d.text.str.contains(MEDIATOR_DEFS[
+        "A narrow  \\nQ:                (docket [260])"], regex=True, na=False)
     # Three-way decomposition. Standardizing on loop x length removes BOTH, so
     # the joint figure alone cannot be read as the loop's contribution net of
     # length -- the length-only run is what makes the attribution possible.
