@@ -379,3 +379,46 @@ account and too captured by the rung to hold one, which is why three independent
 coder pairs agreed on DIRECTION and disagreed on CASES at a Jaccard of 0.22. They
 were reading fragments and multiple-choice debris. At 200 narrative tokens the
 phenomenon is legible to a reader.
+
+### Three things malign holds that the handoff above did not
+
+**(a) THE AI-IDENTIFICATION RESULT, which belongs in the write-up.** On the bare
+`Q:`/`A:` rung, no chat template, no system prompt, no role tokens, 29 base models:
+
+    says it is an AI    base 0.059 -> aligned 0.211   +0.180   24/29   p=0.00027
+
+**And it is a CONTENT effect, not a fixing one.** Within I-am-an-AI passages,
+alignment does not reduce drift (0.024 -> 0.016, but 4 of 19 models, direction
+against): they were already at the floor in both arms. **The 1P stability gain runs
+entirely through the NON-AI passages (0.110 -> 0.060, 25/29).**
+
+So alignment quadruples the rate at which a model identifies as an AI and names its
+lab, at the weight level with no template cue, **and makes that identity no more
+stable than the invented ones it replaces.** Independent of anything the narrative
+battery tests.
+
+**(b) SEMANTIC MODE COLLAPSE IS NOT EXCLUDED, and both seats over-read the entropy
+control to think it was.** Per-token predictability and semantic diversity are
+different quantities; ≤6% entropy mediation says nothing about whether aligned
+passages explore less MEANING. **Within-passage embedding spread across the sentences
+of one completion, base against aligned, on the stored passages.** No GPU, no new
+coder. Run it ALONGSIDE the narrative battery, not instead: if this is doing the
+work, the narrative result gets reinterpreted the same way.
+
+**(c) THE OBJECTION TO THE NARRATIVE BATTERY, and it is the sharpest thing said
+about it.** malign's pragmatic account is that alignment converts CONTINUATION into
+ANSWERING — evidenced by aligned models writing longer answers (23.5 against 19.9
+words, 20/29) while drifting less, with the Q-loop rate collapsing 0.673 -> 0.459.
+That is the only candidate mechanism predicting an effect identical across self,
+stranger, object and nonce word.
+
+**`Let me tell you about X` is not a question.** If the pragmatic account is right,
+a narrative prompt measures the phenomenon in the one format where the mechanism is
+absent.
+
+**That is a reason to register it differently, not a reason not to run it.** It may
+be the sharpest available test of the pragmatic account: **if the effect vanishes
+under narrative framing, the finding is about ANSWERING and not about referents at
+all.** The registration must name that disappearance in advance as a possible
+outcome and a FINDING, not as a failure — otherwise a null gets written up as "the
+narrative battery didn't work."
