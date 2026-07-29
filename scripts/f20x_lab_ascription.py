@@ -15,12 +15,31 @@ from a coder; these did not, and the two must not be quoted side by side as thou
 they were one instrument. Booked as a candidate finding pending a
 `lab_self_ascription` enum on the four-level battery's coder pass.
 
-THE TRAP THIS SCRIPT EXISTS TO EXPOSE RATHER THAN HIDE. The `own_lab` row has a
-pooled mean of +0.050 and a sign count of 7/29 -- mean and per-model direction
-pointing OPPOSITE ways, because a handful of families are trained to name themselves
-while most do not move. **`own_lab` is not quotable as a mean.** Every row therefore
-prints its sign count beside its mean, and a row whose two disagree is flagged in the
-output rather than left for a reader to notice.
+THE `own_lab` ROW IS UNDETERMINED AT THIS ROSTER -- NOT "unquotable as a mean",
+which is what an earlier version of this docstring said and which was wrong.
+
+Only 10 of the 29 base models have an org that maps to a lab key at all, so for the
+other 19 the own-lab outcome is UNDEFINED, not negative: they score zero in both arms
+by construction. All seven positive deltas therefore fall among the ten, and 7/10 is
+p=0.34 -- indistinguishable from half, the opposite of the "significantly below half"
+the 7/29 appears to show. The ten also span only SIX labs, six of them from two
+(3 allenai, 3 Qwen), so correcting the population turns an uninterpretable 7/29 into
+an underpowered 7/10 over ~6 effective units.
+
+That is a limit on the instrument's reach, not a statistic misbehaving. The
+distinction matters because a false caveat costs what a false claim costs.
+
+CONSEQUENCE FOR THE OTHER ROWS: `other_lab` is defined for all 29 (every model can
+name someone else's lab) and `own_lab` for 10. The two are measured on different
+rosters and must never be tabled as though the difference between them were
+informative. The instrument sees misattribution across the whole roster and is blind
+to CORRECT attribution for 19 of 29 -- Falcon naming Falcon, Pythia naming
+EleutherAI, GLM naming Zhipu are definitionally absent.
+
+THE FIX, for the coder pass: record the LAB NAMED, not a boolean. Own-versus-other is
+then computed afterwards against a roster table that can be corrected without
+recoding. Same argument as the tuple rule one level up -- the vocabulary is
+provisional and the data format has to outlive it.
 
 UNIT is the distinct base model (Rule 2), paired base vs aligned, sign test at n=29.
 """
@@ -49,15 +68,20 @@ LABS = {
     "microsoft": r"\b(?:microsoft|bing|copilot)\b",
 }
 # HuggingFace org -> the lab key its models would be naming if they named themselves.
-# Orgs with no lab key (EleutherAI, bigscience, ...) can only ever score `other_lab`,
-# which is why `own_lab` is a minority-of-families quantity by construction.
+# An org absent here makes `own_lab` UNDEFINED for its models -- they score zero in
+# both arms whatever they say, so they must not be counted as negatives. This map is
+# the roster, and it is the thing to fix if the vocabulary above grows.
 ORG = {"allenai": "ai2", "meta-llama": "meta", "Qwen": "alibaba",
        "mistralai": "mistral", "deepseek-ai": "deepseek", "microsoft": "microsoft",
        "google": "google"}
 
 
 def paired(d, col):
-    """Mean delta AND sign count. A row where they disagree is not quotable."""
+    """Mean delta AND sign count.
+
+    A row where the two disagree is a signal that the outcome is undefined for
+    some units, not that the statistic misbehaves -- see the docstring.
+    """
     p = d.pivot_table(index="base_model_id", columns="aligned", values=col,
                       aggfunc="mean").dropna()
     delta = p[True] - p[False]
@@ -85,11 +109,18 @@ def main():
         d["own_lab"] |= hit & (d.org == lab)
         d["other_lab"] |= hit & (d.org != lab)
 
+    eligible = sorted(d[d.org != "__none__"].base_model_id.unique())
+    print(f"own_lab is DEFINED for {len(eligible)} of "
+          f"{d.base_model_id.nunique()} base models; UNDEFINED for the rest.\n")
+
     rows = [paired(d, c) for c in ("any_lab", "other_lab", "own_lab")]
+    rows.append(paired(d[d.base_model_id.isin(eligible)], "own_lab")
+                | {"metric": "own_lab (eligible only)"})
     res = pd.DataFrame(rows)
     print("1P corpus, lab naming, unit = base model, paired\n")
     for r in rows:
-        flag = "   <-- MEAN AND SIGN COUNT DISAGREE; NOT QUOTABLE" if r["incoherent"] else ""
+        flag = ("   <-- UNDEFINED for most units; see the eligible-only row"
+                if r["incoherent"] else "")
         print(f"  {r['metric']:10s} base {r['base']:.4f}  aligned {r['aligned']:.4f}"
               f"  delta {r['delta']:+.4f}  {r['pos']}/{r['n']}  p={r['p']:.4f}{flag}")
 
