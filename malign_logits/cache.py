@@ -517,6 +517,40 @@ class CacheManager:
 
     # ── beam word probs (word-level via beam search) ─────────────
 
+    # ---- true_word_probs: exact P(next WORD) by threshold-bounded expansion ----
+    # THETA IS IN THE KEY. beam_words put `n` in its key and two beam widths
+    # (200 and 1000) then coexisted across 70+ models on different unrecoverable
+    # scales, silently mixed by any reader that did not filter. Theta plays the
+    # same structural role here, so it is keyed for the same reason -- but unlike
+    # a beam width it is a PRINCIPLED floor: expanding every token above theta is
+    # complete for every word above theta, and the unexpanded mass is reported as
+    # residual rather than divided away.
+    def get_true_word_probs(self, model, prompt, theta=0.001, mode="raw"):
+        key = {"type": "true_word_probs", "model": model, "prompt": prompt,
+               "theta": theta}
+        if mode != "raw":
+            key["mode"] = mode
+        s = self._stash("true_word_probs")
+        return s[key] if key in s else None
+
+    def set_true_word_probs(self, model, prompt, payload, theta=0.001, mode="raw"):
+        """payload = {"rows": [{word, t1, p}, ...], "residual": {tail, drop, open,
+        total}, "batches": int}. One row per (word, FIRST TOKEN): a surface can be
+        reached by more than one token path, and t1 is the join key to the
+        token-level table and the grouping the masking test needs."""
+        key = {"type": "true_word_probs", "model": model, "prompt": prompt,
+               "theta": theta}
+        if mode != "raw":
+            key["mode"] = mode
+        self._stash("true_word_probs")[key] = payload
+
+    def has_true_word_probs(self, model, prompt, theta=0.001, mode="raw"):
+        key = {"type": "true_word_probs", "model": model, "prompt": prompt,
+               "theta": theta}
+        if mode != "raw":
+            key["mode"] = mode
+        return key in self._stash("true_word_probs")
+
     def get_beam_words(self, model, prompt, n=1000, depth=3, mode="raw"):
         key = {"type": "beam_words", "model": model, "prompt": prompt, "n": n, "depth": depth}
         if mode != "raw":

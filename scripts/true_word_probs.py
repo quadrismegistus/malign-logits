@@ -52,7 +52,7 @@ import numpy as np, torch
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from malign_logits import MODEL_FAMILIES as M, PATH_DATA
-from malign_logits.cache import get_cache, open_stash
+from malign_logits.cache import get_cache, open_stash  # noqa: F401
 
 THETA_EXPAND = 0.001      # completeness floor -- expansion stops below this
 THETA_REPORT = 0.003      # the registered mover floor; reporting convention only
@@ -101,39 +101,53 @@ def expand(model, tok, prompt, device, bmask, theta=THETA_EXPAND):
     lg = model(torch.tensor([prompt_ids], device=device)).logits[0, -1, :].float()
     P0 = torch.softmax(lg, dim=-1).cpu().numpy()
     sel = np.flatnonzero(P0 >= theta)
-    live = [((int(t),), float(P0[t])) for t in sel]
+    live = [((int(t),), float(P0[t]), int(t)) for t in sel]   # prefix, mass, t1
     # THE DEPTH-1 TAIL IS RESIDUAL TOO. Tokens below theta are never expanded, so
     # their mass belongs in the residual from the start -- omitting it made
     # Sum(P)+residual come to 0.891 instead of 1.0. The partition among EXPANDED
     # prefixes was exact; the accounting simply did not record what was declined.
-    words, residual, calls = {}, float(1.0 - P0[sel].sum()), 0
+    # ONE ROW PER (word, first_token), not per word: a surface can be reached by
+    # more than one token path (`cock` as ▁cock and as ▁co+ck), so t1 is not
+    # single-valued per word. Merging would sum across tokenisations silently and
+    # would destroy the join key to the token table -- which is also what makes
+    # the masking question (pencil up / penis down / pen flat) answerable, since
+    # it needs words GROUPED BY shared first token.
+    words = {}                       # (surface, t1) -> mass
+    # THREE RESIDUALS, not one. They mean different things and only the third
+    # indicates a defect.
+    res_tail = float(1.0 - P0[sel].sum())   # depth-1 tokens below theta: expected, large
+    res_drop = 0.0                          # dropped mid-expansion: real but too rare
+    res_open = 0.0                          # still unterminated at MAX_DEPTH: DEFECT signal
+    calls = 0
     for _ in range(MAX_DEPTH):
         if not live:
             break
-        dist = next_dist(model, tok, prompt_ids, [p for p, _ in live], device)
+        dist = next_dist(model, tok, prompt_ids, [p for p, _, _ in live], device)
         calls += 1
         nxt = []
-        for (pref, mass), row in zip(live, dist):
+        for (pref, mass, t1), row in zip(live, dist):
             # EXACT PARTITION: terminating mass -> this word; the rest recurses
             term = float(row[bmask].sum())
             surface = tok.decode(list(pref)).strip()
             if surface:
-                words[surface] = words.get(surface, 0.0) + mass * term
+                k = (surface, t1)
+                words[k] = words.get(k, 0.0) + mass * term
             else:
                 # A prefix decoding to pure whitespace terminates into no word.
                 # Dropping it silently leaked ~0.001 and showed up as
                 # Sum+residual = 0.999 -- small, and exactly the kind of gap the
                 # conservation check exists to expose. It is residual, not zero.
-                residual += mass * term
+                res_drop += mass * term
             cont = np.flatnonzero(~bmask)
             m2 = mass * row[cont]
             keep = m2 >= theta
             for t, mm in zip(cont[keep], m2[keep]):
-                nxt.append(((*pref, int(t)), float(mm)))
-            residual += float(m2[~keep].sum())      # below floor: recorded, not lost
+                nxt.append(((*pref, int(t)), float(mm), t1))
+            res_drop += float(m2[~keep].sum())      # below floor: recorded, not lost
         live = nxt
-    residual += sum(m for _, m in live)             # hit MAX_DEPTH unterminated
-    return words, residual, calls
+    res_open = sum(m for _, m, _ in live)           # hit MAX_DEPTH: defect signal
+    return words, dict(tail=res_tail, drop=res_drop, open=res_open,
+                       total=res_tail + res_drop + res_open), calls
 
 
 def main(a):
@@ -141,6 +155,9 @@ def main(a):
     ls = open_stash(os.path.join(PATH_DATA, "raw", "cache", "logits"))
     prompts = sorted({k["prompt"] for k in ls.keys()
                       if isinstance(k, dict) and k.get("model") == a.model})
+    if not a.redo:
+        prompts = [p for p in prompts
+                   if not cm.has_true_word_probs(a.model, p, THETA_EXPAND)]
     if a.limit:
         prompts = prompts[:a.limit]
     print(f"{a.model}: {len(prompts)} prompts", flush=True)
@@ -151,22 +168,34 @@ def main(a):
         a.model, torch_dtype=torch.float16, trust_remote_code=True).to(dev).eval()
     bmask = boundary_mask(tok, model.config.vocab_size)
     print(f"  boundary tokens: {bmask.sum():,}/{len(bmask):,}", flush=True)
-    store = None if a.pilot else open_stash(OUT)
+    # ALL writes go through CacheManager, never a raw stash: the pinned
+    # open lives there and an unpinned one resolves to a different, EMPTY
+    # store while raising nothing. That trap produced phantom stores in
+    # this data tree today.
+    store = cm
     t0 = time.time()
     for i, p in enumerate(prompts, 1):
         w, res, calls = expand(model, tok, p, dev, bmask)
-        tot = sum(w.values()) + res
+        tot = sum(w.values()) + res["total"]
+        # collapse (surface, t1) rows to per-surface totals for display only
+        per_word = {}
+        for (sf, t1), m in w.items():
+            per_word[sf] = per_word.get(sf, 0.0) + m
+        multipath = len({sf for sf, _ in w}) != len(w)
         if a.pilot:
-            top = sorted(w.items(), key=lambda x: -x[1])[:8]
+            top = sorted(per_word.items(), key=lambda x: -x[1])[:8]
             print(f"\n  {p[:56]!r}")
-            print(f"    words {len(w)}  Sum(P)+residual = {tot:.4f}  "
-                  f"residual {res:.4f}  batches {calls}")
+            print(f"    words {len(per_word)} ({len(w)} word x t1 rows)  "
+                  f"Sum+res = {tot:.4f}  batches {calls}")
+            print(f"    residual  tail {res['tail']:.4f}  drop {res['drop']:.4f}  "
+                  f"OPEN {res['open']:.4f}")
             print(f"    top: {[(x, round(y,4)) for x, y in top]}")
-            over = {k_: round(v,4) for k_, v in w.items() if v >= THETA_REPORT}
-            print(f"    >= {THETA_REPORT}: {len(over)} words")
+            print(f"    >= {THETA_REPORT}: {sum(1 for v in per_word.values() if v >= THETA_REPORT)}"
+                  f" words | multi-path surfaces: {multipath}")
         else:
-            store[{"model": a.model, "prompt": p, "theta": THETA_EXPAND}] = \
-                {"words": w, "residual": res}
+            cm.set_true_word_probs(a.model, p, {
+                "rows": [{"word": sf, "t1": t1, "p": m} for (sf, t1), m in w.items()],
+                "residual": res, "batches": calls}, theta=THETA_EXPAND)
         if i % 20 == 0:
             print(f"  {i}/{len(prompts)}  {i/(time.time()-t0):.2f} prompt/s", flush=True)
     print(f"\ndone in {(time.time()-t0)/60:.1f} min")
@@ -177,4 +206,5 @@ if __name__ == "__main__":
     ap.add_argument("--model", required=True)
     ap.add_argument("--limit", type=int)
     ap.add_argument("--pilot", action="store_true", help="print, do not write")
+    ap.add_argument("--redo", action="store_true", help="ignore existing entries")
     main(ap.parse_args())
