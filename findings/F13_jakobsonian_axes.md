@@ -189,6 +189,19 @@ quoted WITH THIS RESTRICTION STATED BESIDE IT. Row-level retention
 tulu 83-87%, qwen 86%; the earlier ~85-90% figure was
 vocabulary-level — rows are what the correlations are computed
 over, and olmo loses over a third of its pairs, not a tenth).
+SCOPE DIRECTION (docket [505].3 malign, reproduced [507].4 lacan,
+clause committed per [506].3): the single-token restriction is not
+a neutral filter — on the five Tier-1 arms measured, words whose
+probability alignment moves are more likely to be single-token in
+three families (AmberSafe, AmberChat, zephyr; bias +0.09 to +0.25
+depending on the definition of "moved") and unbiased in two (qwen,
+olmo, ~0.00) — so a single-token-restricted sample over-represents
+alignment-moved words where the bias exists. Of this finding's
+roster, zephyr carries the large bias and qwen/olmo none; the
+remaining families are unmeasured. The restriction here was forced
+by measurement validity (defect #6), not chosen, and the 30/30 is
+a direction claim among single-token words; this sentence states
+the direction in which that scope selects.
 UNREGISTERED HALF, reported as observation: the depth gradient also
 survives, L3 strongest in 10/10 cells — now robust to
 spread-matching, region, and the first-token approximation; its
