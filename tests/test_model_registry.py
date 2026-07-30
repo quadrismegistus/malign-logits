@@ -69,8 +69,8 @@ def test_every_spec_model_has_a_row(doc, ids):
 
 def test_relation_endpoints_exist(doc, ids):
     for e in doc["relations"]:
-        assert e["source"] in ids, f"dangling source {e['source']}"
-        assert e["target"] in ids, f"dangling target {e['target']}"
+        assert e["parent"] in ids, f"dangling parent {e['parent']}"
+        assert e["child"] in ids, f"dangling child {e['child']}"
 
 
 def test_relation_types_are_declared(doc):
@@ -80,8 +80,17 @@ def test_relation_types_are_declared(doc):
 
 
 def test_relation_direction_is_stated(doc):
-    """An edge label without a direction convention invites a silent inversion."""
-    assert doc["_schema"]["relations"].get("direction")
+    """An edge label without a direction convention invites a silent inversion.
+
+    And the convention must name the FIELDS it applies to: this file's edges
+    were written source/target while `Relation` declares parent/child, so the
+    two disagreed and the assertions read a key that was not there.
+    """
+    rel = doc["_schema"]["relations"]
+    assert rel.get("direction")
+    assert rel.get("field_names") == ["parent", "child", "relation"]
+    for e in doc["relations"]:
+        assert set(e) == {"parent", "child", "relation"}, e
 
 
 def test_hierarchical_relations_are_acyclic(doc):
@@ -90,7 +99,7 @@ def test_hierarchical_relations_are_acyclic(doc):
     adj = {}
     for e in doc["relations"]:
         if e["relation"] in hier:
-            adj.setdefault(e["source"], []).append(e["target"])
+            adj.setdefault(e["parent"], []).append(e["child"])
     seen, stack = set(), set()
 
     def walk(n):
