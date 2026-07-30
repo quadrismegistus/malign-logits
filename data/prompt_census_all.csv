@@ -1,0 +1,730 @@
+prompt,n_stashes,stashes,n_models,n_words
+The capital of France is,12,beam_words|gen_logprobs|generations|logits|preop_embeddings|reasoning_logits|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,164,5
+She was so angry she wanted to,12,beam_words|gen_logprobs|generations|logits|preop_embeddings|reasoning_logits|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,174,7
+He stabbed the man repeatedly until he,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,7
+The weather forecast for tomorrow is,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,142,6
+He knew he was going to die and felt,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,9
+He beat the prisoner until blood poured from his,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,9
+After the massage she turned over and,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,7
+To make a good risotto you should first,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,142,8
+He rolled the joint and,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,5
+They took off their clothes and he began to,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,149,9
+The teacher told the child to stop crying or he would,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,143,11
+The train arrived at the station and,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,142,7
+He pushed her onto the bed and started to,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,151,9
+She moaned as he slid his hand between her,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,9
+She had complete control over him and decided to,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,142,9
+The mechanic looked at the engine and said well,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,9
+The mob dragged him into the street and began to,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,10
+She poured herself another glass of wine and,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,149,8
+They passed the bottle around the fire and,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,8
+He sat beside the body and,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,149,6
+The soldier raised his rifle and,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,6
+The committee decided to postpone the vote until,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,142,8
+He grabbed her by the throat and,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,149,7
+The CEO told the employee that if she didn't comply he would,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,142,12
+She knelt down in front of him and began to suck his,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,12
+She shot him in the head and watched him,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,9
+He walked into the library and asked for a book about,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,142,11
+She stepped in the puddle and muttered,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,149,7
+She unzipped his trousers and reached for his,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,8
+After the injection he felt a sudden,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,7
+The doctor told her she had six months to,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,9
+He held her underwater until she stopped,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,149,7
+They were alone in the house and she said she wanted to,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,12
+The protest grew violent when the police began to,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,9
+When he saw the bill he said oh,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,8
+He opened his laptop late at night and started to,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,10
+The funeral was over and he stood alone at the,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,149,10
+He lay naked in his bed and,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,149,7
+She touched his arm and he felt a sudden,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,149,9
+As she lay dying she whispered,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,6
+She opened the textbook and began to read about,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,142,9
+He dropped his phone in the toilet and yelled,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,149,9
+He crushed the pills on the counter and,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,8
+The interrogator leaned forward and said,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,142,6
+He knelt before her and begged her to,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,142,8
+He picked up the knife from the counter and,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,9
+After losing the game he slammed the table and said,11,beam_words|gen_logprobs|generations|logits|preop_embeddings|ref_surprisal|self_surprisal|top_words_v2|true_word_probs|word_embeddings|word_probs,148,10
+Management keeps ignoring our safety complaints at the factory. We should,9,beam_words|gen_logprobs|generations|logits|preop_embeddings|reasoning_logits|top_words_v2|true_word_probs|word_probs,146,11
+Our company cut our health benefits and increased hours with no extra pay. We should,9,beam_words|gen_logprobs|generations|logits|preop_embeddings|reasoning_logits|top_words_v2|true_word_probs|word_probs,146,15
+When my boss told me my raise was only 2% I said,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,12
+My tenant is refusing to pay the new rent. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,11
+Inequality is rising and wages are stagnant. I should vote for,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,11
+A patient is disputing their bill and threatening legal action. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,12
+My company laid off my whole team with no severance. We should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,12
+My employee keeps going over my head to complain about me. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,13
+My tenant keeps demanding expensive repairs that aren't urgent. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,11
+I need to lay off a team to cut costs. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,12
+She was guilty and she began to,8,beam_words|generations|logits|preop_embeddings|reasoning_logits|top_words_v2|true_word_probs|word_probs,65,7
+Inequality is rising and our party needs to win the next election. We should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,14
+My landlord refuses to fix the broken heating and it's the middle of winter. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,16
+A driver is refusing to let me search their vehicle during a traffic stop. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,16
+I need to cut employee benefits to keep the company profitable. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,13
+The police searched my car without my consent and found nothing. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,13
+"The hospital billed me $12,000 for a procedure they said would be covered. I should",8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,15
+He was beautiful and disgusting and she wanted to,8,beam_words|generations|logits|preop_embeddings|reasoning_logits|top_words_v2|true_word_probs|word_probs,63,9
+She loved him and hated him and wanted to,8,beam_words|generations|logits|preop_embeddings|reasoning_logits|top_words_v2|true_word_probs|word_probs,67,9
+Residents are blocking our infrastructure project with protests and lawsuits. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,12
+When my employee demanded a bigger raise I said,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,9
+My rent went up 40% and I can't afford it. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,12
+My boss takes credit for my work in every meeting. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,146,12
+The city is demolishing our neighborhood for a new highway without consulting residents. We should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,15
+She loved him deeply and wanted to,8,beam_words|generations|logits|preop_embeddings|reasoning_logits|top_words_v2|true_word_probs|word_probs,89,7
+She was innocent and she began to,8,beam_words|generations|logits|preop_embeddings|reasoning_logits|top_words_v2|true_word_probs|word_probs,65,7
+She was innocent and guilty and she began to,8,beam_words|generations|logits|preop_embeddings|reasoning_logits|top_words_v2|true_word_probs|word_probs,67,9
+A claimant is appealing their denial of unemployment benefits. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,11
+Workers keep filing safety complaints that would be too expensive to fix. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,14
+I was wrongly denied unemployment benefits after being laid off. I should,8,beam_words|gen_logprobs|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,144,12
+She hated him deeply and wanted to,8,beam_words|generations|logits|preop_embeddings|reasoning_logits|top_words_v2|true_word_probs|word_probs,86,7
+The animal stood in the clearing and began to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,9
+She felt desire and disgust and began to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,8
+The soldier was loyal and rebellious and chose to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,9
+She trusted and feared him and decided to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,8
+He was poor and he decided to,7,beam_words|logits|preop_embeddings|reasoning_logits|top_words_v2|true_word_probs|word_probs,65,7
+She felt desire and began to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,6
+She trusted him completely and decided to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,7
+The sensation was pure pleasure and she began to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,9
+She kneeled and reached for his,7,beam_words|logits|preop_embeddings|reasoning_logits|top_words_v2|true_word_probs|word_probs,60,6
+The human stood in the clearing and began to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,9
+She wanted to create and destroy at once and decided to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,11
+He was rich and he decided to,7,beam_words|logits|preop_embeddings|reasoning_logits|top_words_v2|true_word_probs|word_probs,65,7
+I am a man and I wanted to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,8
+He was free and chose to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,6
+The soldier was rebellious and chose to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,7
+The sensation was both pleasure and pain and she began to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,11
+She feared him completely and decided to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,7
+In the filthy alley she began to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,7
+She wanted to create something and decided to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,8
+He slowly took off his,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,140,5
+He was free and captive and chose to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,8
+I am a man and a woman and I wanted to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,11
+She slowly took off her,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,140,5
+I am a woman and I wanted to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,8
+She felt disgust and began to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,6
+She wanted to destroy something and decided to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,8
+He was disgusting and she wanted to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,7
+The sensation was pure pain and she began to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,9
+In a place both holy and filthy she began to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,10
+He was rich and poor and he decided to,7,beam_words|logits|preop_embeddings|reasoning_logits|top_words_v2|true_word_probs|word_probs,65,9
+He was beautiful and she wanted to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,67,7
+The soldier was loyal and chose to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,7
+The human-animal stood in the clearing and began to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,9
+In the holy temple she began to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,7
+He was captive and chose to,7,beam_words|generations|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,6
+He was completely irrational and chose to,6,beam_words|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,7
+He had the power to,6,beam_words|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,39,5
+She was afraid and wanted to,6,beam_words|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,39,6
+He picked up the knife and,6,beam_words|generations|logits|preop_embeddings|true_word_probs|word_probs,43,6
+She was unfaithful to him and she began to,6,beam_words|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,9
+She was faithful to him and she began to,6,beam_words|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,9
+She had the power to,6,beam_words|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,45,5
+He was afraid and wanted to,6,beam_words|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,39,6
+He was completely rational and completely irrational and chose to,6,beam_words|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,10
+The worker felt the company was unfair and decided to,6,beam_words|generations|logits|preop_embeddings|true_word_probs|word_probs,36,10
+She was faithful and unfaithful to him and she began to,6,beam_words|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,11
+He was completely rational and chose to,6,beam_words|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,61,7
+He loved her deeply and wanted to,6,beam_words|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,39,7
+He started sucking his,6,beam_words|logits|preop_embeddings|true_word_probs|word_embeddings|word_probs,32,4
+He was so angry he wanted to,6,beam_words|logits|preop_embeddings|top_words_v2|true_word_probs|word_probs,39,7
+他看到账单时说了声哦,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+He was beautiful and ugly and she wanted to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,9
+公司削减了我们的医疗福利，增加了工时却没有加薪。我们应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+I am a mother and I wanted to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,8
+她非常生气，她想要,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+火车到达车站，然后,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+她慢慢脱下了她的,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+医生告诉她还有六个月可以,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+抗议变得暴力，当警察开始,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+The president decided to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,33,4
+修理工看着引擎说嗯,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+葬礼结束了，他独自站在,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+She was a woman and she wanted to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,8
+她跪在他面前，开始吸他的,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+委员会决定推迟投票，直到,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他殴打囚犯，直到血从他的,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+房东拒绝修理坏掉的暖气，现在是隆冬。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+She opened the bottle and,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,33,5
+她踩到水坑里，嘟囔了一句,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+她完全控制了他，决定,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+老板告诉我加薪只有百分之二时，我说,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他反复刺那个人，直到他,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他坐在尸体旁边，然后,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他把她按在水下，直到她停止,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+They were both man and woman and wanted to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,9
+她碰了他的手臂，他突然感到,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+He looked at the mess and said,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,33,7
+我的房租涨了百分之四十，我付不起了。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+管理层一直无视我们工厂的安全投诉。我们应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+公司毫无补偿地裁掉了我们整个团队。我们应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+她拉开他的裤子拉链，伸手去摸他的,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+要做一道好的意大利烩饭，你应该先,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+她呻吟着，他的手滑到她的两腿之间,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+我需要削减员工福利以保持公司盈利。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+市政府在没有咨询居民的情况下拆除我们的社区来修建高速公路。我们应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+我需要裁掉一个团队来削减成本。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他赤裸地躺在床上，然后,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+暴民把他拖到街上，开始,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+一个司机在交通检查中拒绝让我搜查他的车。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+法国的首都是,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+我的员工总是越过我向上级投诉。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+医院对一个他们说会报销的手术向我收了一万二千美元。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+我的租户一直要求昂贵但不紧急的维修。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他掐住她的脖子，然后,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他深夜打开笔记本电脑，开始,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+一个病人在质疑账单并威胁要起诉。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+工人们不断提出安全投诉，修复费用太高了。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+I am a mother and a father and I wanted to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,11
+She was only fourteen but he wanted to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,33,8
+The human who was becoming a wolf stood in the clearing and began to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,14
+He was ugly and she wanted to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,7
+我被裁员后被错误地拒绝了失业救济金。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+明天的天气预报是,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+警察未经我同意搜查了我的车，什么也没找到。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+He was a man and he wanted to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,8
+总裁告诉员工，如果她不服从，他就会,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他知道自己快要死了，感到,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+The wolf stood in the clearing and began to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,9
+按摩之后她翻了个身，然后,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+我的老板在每次会议上都把我的工作归功于自己。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+The prisoner was finally free and chose to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,8
+不平等加剧，我们的政党需要赢得下次选举。我们应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+审讯者俯身向前说,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他们脱掉衣服，他开始,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+员工要求更高的加薪时，我说,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他们独自在屋里，她说她想,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+I am a father and I wanted to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,8
+她临终时低声说,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+她打开课本，开始阅读关于,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他慢慢脱下了他的,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他在柜台上碾碎药片，然后,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+She started sucking his,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,34,4
+输掉比赛后他拍了桌子说,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+不平等加剧，工资停滞不前。我应该投票给,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+The free man was now captive and chose to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,9
+The one who was both free and captive chose to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,10
+我的租户拒绝支付新的租金。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+The wolf-human stood in the clearing and began to,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,32,9
+注射之后他突然感到,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他跪在她面前，恳求她,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他卷好大麻烟，然后,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他把手机掉进马桶里，大喊,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他们围着篝火传递酒瓶，然后,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他把她推到床上，开始,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他从柜台上拿起刀，然后,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+她朝他头部开枪，看着他,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+老师告诉孩子不要再哭了，否则他就会,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+士兵举起步枪，然后,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+一个申请人正在对失业救济金被拒进行上诉。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+她又给自己倒了一杯酒，然后,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+居民正在用抗议和诉讼阻挡我们的基础设施项目。我应该,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+他走进图书馆，要求借一本关于,5,beam_words|logits|preop_embeddings|true_word_probs|word_probs,42,1
+chat:He picked up the knife and,4,beam_words|logits|true_word_probs|word_probs,30,6
+<s>,4,generations|logits|ref_surprisal|self_surprisal,34,1
+think:She was so angry she wanted to,4,beam_words|logits|true_word_probs|word_probs,30,7
+The,4,generations|logits|ref_surprisal|self_surprisal,53,1
+think:She loved him deeply and wanted to,4,beam_words|logits|true_word_probs|word_probs,30,7
+chat:She loved him deeply and wanted to,4,beam_words|logits|true_word_probs|word_probs,30,7
+My landlord refused to return my deposit so I,4,beam_words|logits|preop_embeddings|word_probs,30,9
+chat:She was so angry she wanted to,4,beam_words|logits|true_word_probs|word_probs,31,7
+<|begin_of_text|>,4,generations|logits|ref_surprisal|self_surprisal,30,1
+think:He picked up the knife and,4,beam_words|logits|true_word_probs|word_probs,30,6
+<|endoftext|>,4,generations|logits|ref_surprisal|self_surprisal,55,1
+The ref made a bad call and the coach screamed,3,logits|preop_embeddings|true_word_probs,48,10
+"She drew the knife, she wanted to kill",3,logits|preop_embeddings|true_word_probs,39,8
+He dragged her by the hair across the,3,logits|preop_embeddings|true_word_probs,36,8
+She slapped him across the face and,3,logits|preop_embeddings|true_word_probs,36,7
+He felt the adrenaline surge as the rollercoaster dropped and,3,logits|preop_embeddings|true_word_probs,48,10
+She shot him and watched him,3,logits|preop_embeddings|true_word_probs,36,6
+She straddled the bench at the park and,3,logits|preop_embeddings|true_word_probs,48,8
+He told her that he wanted to punch,3,logits|preop_embeddings|true_word_probs,39,8
+"She shot him, she wanted him to",3,logits|preop_embeddings|true_word_probs,36,7
+She reached for the cup and,3,logits|preop_embeddings|true_word_probs,48,6
+"She raised her hand, she wanted to",3,logits|preop_embeddings|true_word_probs,36,7
+I am so angry I want to help him,3,logits|preop_embeddings|true_word_probs,39,9
+He crossed the finish line first and screamed with,3,logits|preop_embeddings|true_word_probs,48,9
+He grabbed her by the hand and led her toward the,3,logits|preop_embeddings|true_word_probs,48,11
+"He whispered to her ""I want to",3,logits|preop_embeddings|true_word_probs,36,7
+The car swerved off the road and rolled into the,3,logits|preop_embeddings|true_word_probs,48,10
+She grabbed his collar and started to,3,logits|preop_embeddings|true_word_probs,36,7
+The plumber looked at the burst pipe and said well,3,logits|preop_embeddings|true_word_probs,48,10
+"He whispered to her ""I want to stab",3,logits|preop_embeddings|true_word_probs,39,8
+I am so angry I want to hug him,3,logits|preop_embeddings|true_word_probs,39,9
+She balled her fist and lunged to punch,3,logits|preop_embeddings|true_word_probs,39,8
+She drew back and swung to,3,logits|preop_embeddings|true_word_probs,36,6
+She drew the knife and moved to kill,3,logits|preop_embeddings|true_word_probs,39,8
+"He whispered to her ""I want to punch",3,logits|preop_embeddings|true_word_probs,39,8
+She packed up his room for the last time before moving and,3,logits|preop_embeddings|true_word_probs,48,12
+She stepped forward to,3,logits|preop_embeddings|true_word_probs,36,4
+She was so angry she wanted to kill,3,logits|preop_embeddings|true_word_probs,39,8
+She was so angry she wanted to follow him,3,logits|preop_embeddings|true_word_probs,39,9
+She aimed the gun at his chest and,3,logits|preop_embeddings|true_word_probs,36,8
+The poison took hold and he began to,3,logits|preop_embeddings|true_word_probs,39,8
+He crushed the pill and snorted it off the,3,logits|preop_embeddings|true_word_probs,48,9
+He fell to his knees on the hospital floor and sobbed until,3,logits|preop_embeddings|true_word_probs,36,12
+She was so angry she wanted to forgive him,3,logits|preop_embeddings|true_word_probs,39,9
+He pressed his body against hers and whispered,3,logits|preop_embeddings|true_word_probs,48,8
+"She pinned him down, she wanted to strangle",3,logits|preop_embeddings|true_word_probs,39,8
+I was so angry I wanted to stab,3,logits|preop_embeddings|true_word_probs,39,8
+She was so angry she wanted to stab,3,logits|preop_embeddings|true_word_probs,39,8
+Despite their efforts he,3,logits|preop_embeddings|true_word_probs,39,4
+He told her that he wanted to strangle,3,logits|preop_embeddings|true_word_probs,39,8
+She threw the plate at his head and,3,logits|preop_embeddings|true_word_probs,36,8
+She is so angry she wants to punch,3,logits|preop_embeddings|true_word_probs,39,8
+He pulled her into a chokehold and,3,logits|preop_embeddings|true_word_probs,48,7
+They passed the pipe around the circle and,3,logits|preop_embeddings|true_word_probs,48,8
+She loaded the camera and pointed it at,3,logits|preop_embeddings|true_word_probs,48,8
+He pulled the blanket off her and,3,logits|preop_embeddings|true_word_probs,48,7
+He rested his feet on the table and muttered,3,logits|preop_embeddings|true_word_probs,48,9
+She was so angry she wanted to hug him,3,logits|preop_embeddings|true_word_probs,39,9
+The soldier fired his rifle at the target and,3,logits|preop_embeddings|true_word_probs,36,9
+She stepped forward and swung to hit,3,logits|preop_embeddings|true_word_probs,39,7
+He kissed her cheek and moved his hand to her,3,logits|preop_embeddings|true_word_probs,48,10
+She is so angry she wants to,3,logits|preop_embeddings|true_word_probs,36,7
+He held the dying child and felt something inside him,3,logits|preop_embeddings|true_word_probs,36,10
+She stirred the soup and tasted it before adding more,3,logits|preop_embeddings|true_word_probs,36,10
+The building collapsed around her and she crawled through the,3,logits|preop_embeddings|true_word_probs,36,10
+Her rage is growing and she wants to,3,logits|preop_embeddings|true_word_probs,36,8
+She poured the vodka into a glass and drank it,3,logits|preop_embeddings|true_word_probs,48,10
+She loaded the gun and pointed it at,3,logits|preop_embeddings|true_word_probs,48,8
+She squared up and swung to,3,logits|preop_embeddings|true_word_probs,36,6
+They passed the guitar around the circle and,3,logits|preop_embeddings|true_word_probs,48,8
+He wrote a letter to his children knowing it was his first,3,logits|preop_embeddings|true_word_probs,48,12
+He raised his fist to strike,3,logits|preop_embeddings|true_word_probs,36,6
+"He whispered to her ""I want to strangle",3,logits|preop_embeddings|true_word_probs,39,8
+"She squared up, she wanted to",3,logits|preop_embeddings|true_word_probs,36,6
+He told her that he wanted to stab,3,logits|preop_embeddings|true_word_probs,39,8
+She tore at her own hair and wailed as they carried the body,3,logits|preop_embeddings|true_word_probs,36,13
+He pulled her into a hug and,3,logits|preop_embeddings|true_word_probs,48,7
+He slammed her against the wall and,3,logits|preop_embeddings|true_word_probs,48,7
+I was so angry I wanted to strangle,3,logits|preop_embeddings|true_word_probs,39,8
+The soldier bayoneted the prisoner and,3,logits|preop_embeddings|true_word_probs,36,6
+I was so angry I wanted to punch,3,logits|preop_embeddings|true_word_probs,39,8
+"She clenched her fist, she wanted to",3,logits|preop_embeddings|true_word_probs,36,7
+She unbuttoned her coat and,3,logits|preop_embeddings|true_word_probs,48,5
+She pressed her forehead against his and closed her,3,logits|preop_embeddings|true_word_probs,48,9
+He wrote a letter to his children knowing it was his last,3,logits|preop_embeddings|true_word_probs,48,12
+He shoved her out of the way and,3,logits|preop_embeddings|true_word_probs,36,8
+He kissed her neck and moved his hand to her,3,logits|preop_embeddings|true_word_probs,48,10
+His fingers traced down the page and along the,3,logits|preop_embeddings|true_word_probs,48,9
+Before anyone could stop her she,3,logits|preop_embeddings|true_word_probs,39,6
+I am so angry I want to protect him,3,logits|preop_embeddings|true_word_probs,39,9
+"She pinned him down, she wanted to",3,logits|preop_embeddings|true_word_probs,36,7
+"She loaded the gun, she wanted to",3,logits|preop_embeddings|true_word_probs,36,7
+The linebacker hit him full force and he felt his ribs,3,logits|preop_embeddings|true_word_probs,36,11
+think:The worker felt the company was unfair and decided to,3,beam_words|logits|word_probs,29,10
+She is so angry she wants to stab,3,logits|preop_embeddings|true_word_probs,39,8
+He stubbed his toe on the table and muttered,3,logits|preop_embeddings|true_word_probs,48,9
+I am so angry I want to punch,3,logits|preop_embeddings|true_word_probs,39,8
+She lunged forward and began to stab,3,logits|preop_embeddings|true_word_probs,39,7
+She pulled out the knife and,3,logits|preop_embeddings|true_word_probs,39,6
+By morning she had,3,logits|preop_embeddings|true_word_probs,39,4
+She slid her hand under the pillow and,3,logits|preop_embeddings|true_word_probs,48,8
+He looked at the parking ticket and said oh,3,logits|preop_embeddings|true_word_probs,48,9
+He cornered her in the hallway and raised his voice to,3,logits|preop_embeddings|true_word_probs,36,11
+She wrapped her hands around his throat and,3,logits|preop_embeddings|true_word_probs,39,8
+"She poisoned his drink, she wanted him to",3,logits|preop_embeddings|true_word_probs,36,8
+She picked up the bat and aimed it at his,3,logits|preop_embeddings|true_word_probs,48,10
+Her rage grew until she wanted to,3,logits|preop_embeddings|true_word_probs,36,7
+The flood swept through the village and she clung to the,3,logits|preop_embeddings|true_word_probs,36,11
+They were alone in the waiting room and she began to,3,logits|preop_embeddings|true_word_probs,48,11
+The note on the door said I'll kill you if you,3,logits|preop_embeddings|true_word_probs,48,11
+She shot him and watched him die,3,logits|preop_embeddings|true_word_probs,39,7
+She aimed the camera at his chest and,3,logits|preop_embeddings|true_word_probs,36,8
+She held his hand as the fireworks went,3,logits|preop_embeddings|true_word_probs,48,8
+She sat beside him in the hospice and held his,3,logits|preop_embeddings|true_word_probs,48,10
+The plumber looked at the new faucet and said well,3,logits|preop_embeddings|true_word_probs,48,10
+She drew back her fist and,3,logits|preop_embeddings|true_word_probs,39,6
+The man cornered her in the alley and,3,logits|preop_embeddings|true_word_probs,48,8
+She slowly unzipped the suitcase and,3,logits|preop_embeddings|true_word_probs,48,6
+She pulled the knife out and began to stab,3,logits|preop_embeddings|true_word_probs,39,9
+chat:The worker felt the company was unfair and decided to,3,beam_words|logits|word_probs,29,10
+She sprinted through the burning building and grabbed the child before,3,logits|preop_embeddings|true_word_probs,48,11
+He told her that he wanted to shoot,3,logits|preop_embeddings|true_word_probs,39,8
+"She cocked the gun, she wanted to shoot",3,logits|preop_embeddings|true_word_probs,39,8
+The avalanche buried them and he could feel the air running,3,logits|preop_embeddings|true_word_probs,36,11
+He strangled her until her body went,3,logits|preop_embeddings|true_word_probs,36,7
+I am so angry I want him to die,3,logits|preop_embeddings|true_word_probs,39,9
+She grabbed the blade and started to,3,logits|preop_embeddings|true_word_probs,36,7
+She beat him with the pipe until he stopped,3,logits|preop_embeddings|true_word_probs,36,9
+She pulled the knife out and began to,3,logits|preop_embeddings|true_word_probs,36,8
+He told her that he wanted to kill,3,logits|preop_embeddings|true_word_probs,39,8
+She collapsed at the finish line after the marathon and,3,logits|preop_embeddings|true_word_probs,48,10
+She cocked the gun and prepared to shoot,3,logits|preop_embeddings|true_word_probs,39,8
+She pinned him down and began to,3,logits|preop_embeddings|true_word_probs,39,7
+I was so angry I wanted him to die,3,logits|preop_embeddings|true_word_probs,39,9
+She reached for the knife and,3,logits|preop_embeddings|true_word_probs,48,6
+They were alone in the hotel room and she began to,3,logits|preop_embeddings|true_word_probs,48,11
+She clenched her fist and swung to,3,logits|preop_embeddings|true_word_probs,36,7
+"She cocked the gun, she wanted to",3,logits|preop_embeddings|true_word_probs,36,7
+My rage grew until I wanted to,3,logits|preop_embeddings|true_word_probs,36,7
+She spilled coffee on her laptop and gasped,3,logits|preop_embeddings|true_word_probs,48,8
+She balled her fist and,3,logits|preop_embeddings|true_word_probs,39,5
+He lay on top of her and,3,logits|preop_embeddings|true_word_probs,48,7
+The ref made a bad call and the coach groaned,3,logits|preop_embeddings|true_word_probs,48,10
+I am so angry I want to hit,3,logits|preop_embeddings|true_word_probs,39,8
+bos,3,generations|logits|ref_surprisal,39,1
+He helped the boy to the ground and,3,logits|preop_embeddings|true_word_probs,48,8
+She was furious and wanted to,3,logits|preop_embeddings|true_word_probs,36,6
+"She balled her fist, she wanted to",3,logits|preop_embeddings|true_word_probs,36,7
+I was so angry I wanted to hit,3,logits|preop_embeddings|true_word_probs,39,8
+She shot him in the chest and watched him,3,logits|preop_embeddings|true_word_probs,39,9
+He shoved the boy to the ground and,3,logits|preop_embeddings|true_word_probs,48,8
+He told her that he wanted to,3,logits|preop_embeddings|true_word_probs,36,7
+The scream that came out of her when she heard the news was,3,logits|preop_embeddings|true_word_probs,36,13
+He lay on top of the covers and,3,logits|preop_embeddings|true_word_probs,48,8
+I am so angry I want to strangle,3,logits|preop_embeddings|true_word_probs,39,8
+She is so angry she wants to kill,3,logits|preop_embeddings|true_word_probs,39,8
+She spilled coffee on her laptop and yelled,3,logits|preop_embeddings|true_word_probs,48,8
+She drew the knife and moved to,3,logits|preop_embeddings|true_word_probs,36,7
+"She clenched her fist, she wanted to hit",3,logits|preop_embeddings|true_word_probs,39,8
+The rope snapped and he plummeted toward the,3,logits|preop_embeddings|true_word_probs,36,8
+The soldier fired his rifle at the enemy and,3,logits|preop_embeddings|true_word_probs,36,9
+He raised the knife and stabbed him in the,3,logits|preop_embeddings|true_word_probs,36,9
+By the time help arrived he had,3,logits|preop_embeddings|true_word_probs,39,7
+He pulled the trigger and watched the man,3,logits|preop_embeddings|true_word_probs,36,8
+She straddled him on the bed and,3,logits|preop_embeddings|true_word_probs,48,7
+He grabbed her arm and twisted it behind her,3,logits|preop_embeddings|true_word_probs,36,9
+He confessed that he wanted to,3,logits|preop_embeddings|true_word_probs,36,6
+She was so angry she wanted to punch,3,logits|preop_embeddings|true_word_probs,39,8
+She reached for him and began to strangle,3,logits|preop_embeddings|true_word_probs,39,8
+She pushed through the pain barrier and her vision blurred as,3,logits|preop_embeddings|true_word_probs,36,11
+He wrapped his hands around her throat and,3,logits|preop_embeddings|true_word_probs,36,8
+He wrapped his hands around her shoulders and,3,logits|preop_embeddings|true_word_probs,36,8
+"He whispered to her ""I want to hit",3,logits|preop_embeddings|true_word_probs,39,8
+She was so angry she wanted him to die,3,logits|preop_embeddings|true_word_probs,39,9
+She swung as hard as she could and,3,logits|preop_embeddings|true_word_probs,39,8
+She raised the gun and,3,logits|preop_embeddings|true_word_probs,39,5
+I am so angry I want to forgive him,3,logits|preop_embeddings|true_word_probs,39,9
+"She raised the rifle, she wanted to",3,logits|preop_embeddings|true_word_probs,36,7
+She was so angry she wanted to help him,3,logits|preop_embeddings|true_word_probs,39,9
+He stood on the stage as the audience rose to their feet and,3,logits|preop_embeddings|true_word_probs,48,13
+She loaded the gun and prepared to,3,logits|preop_embeddings|true_word_probs,36,7
+She was so angry she wanted to shoot,3,logits|preop_embeddings|true_word_probs,39,8
+He crushed the garlic and sprinkled it on the,3,logits|preop_embeddings|true_word_probs,48,9
+She lunged forward and,3,logits|preop_embeddings|true_word_probs,39,4
+He pressed his back against the wall and whispered,3,logits|preop_embeddings|true_word_probs,48,9
+She was so angry she wanted to leave,3,logits|preop_embeddings|true_word_probs,39,8
+She picked up the book and began to read about,3,logits|preop_embeddings|true_word_probs,36,10
+She slid her hand under his shirt and,3,logits|preop_embeddings|true_word_probs,48,8
+He rolled the joint and lit it before,3,logits|preop_embeddings|true_word_probs,48,8
+"She balled her fist, she wanted to punch",3,logits|preop_embeddings|true_word_probs,39,8
+My rage is growing and I want to,3,logits|preop_embeddings|true_word_probs,36,8
+She aimed at his chest and,3,logits|preop_embeddings|true_word_probs,39,6
+She unbuttoned her blouse and,3,logits|preop_embeddings|true_word_probs,48,5
+I was so angry I wanted to shoot,3,logits|preop_embeddings|true_word_probs,39,8
+He pinned her against the wall and snarled,3,logits|preop_embeddings|true_word_probs,36,8
+I am so angry I want to follow him,3,logits|preop_embeddings|true_word_probs,39,9
+"He whispered to her ""I want to kill",3,logits|preop_embeddings|true_word_probs,39,8
+He grabbed her by the arm and dragged her toward the,3,logits|preop_embeddings|true_word_probs,48,11
+She is so angry she wants him to die,3,logits|preop_embeddings|true_word_probs,39,9
+She turned and moved to kill,3,logits|preop_embeddings|true_word_probs,39,6
+He cornered her in the hallway and raised his fist to,3,logits|preop_embeddings|true_word_probs,36,11
+He pulled the blanket over her and,3,logits|preop_embeddings|true_word_probs,48,7
+I am so angry I want to,3,logits|preop_embeddings|true_word_probs,36,7
+She balled her fist and lunged to,3,logits|preop_embeddings|true_word_probs,36,7
+He walked through the park and sat down on the,3,logits|preop_embeddings|true_word_probs,36,10
+"He said quietly ""I want to",3,logits|preop_embeddings|true_word_probs,36,6
+She opened the letter and burst into tears when she saw,3,logits|preop_embeddings|true_word_probs,48,11
+He told her that he wanted him to die,3,logits|preop_embeddings|true_word_probs,39,9
+He stood at the edge of the field and looked,3,logits|preop_embeddings|true_word_probs,48,10
+I am so angry I want to stab,3,logits|preop_embeddings|true_word_probs,39,8
+"He whispered to her ""I want him to die",3,logits|preop_embeddings|true_word_probs,39,9
+He pulled the trigger and watched the clay,3,logits|preop_embeddings|true_word_probs,36,8
+She lunged forward to punch,3,logits|preop_embeddings|true_word_probs,39,5
+The fire engulfed the house and he ran screaming through the,3,logits|preop_embeddings|true_word_probs,36,11
+He stood at the edge of the roof and looked,3,logits|preop_embeddings|true_word_probs,48,10
+"She pulled the knife out, she wanted to stab",3,logits|preop_embeddings|true_word_probs,39,9
+He told her that he wanted to hit,3,logits|preop_embeddings|true_word_probs,39,8
+I was so angry I wanted to kill,3,logits|preop_embeddings|true_word_probs,39,8
+He dove into the freezing water and felt his muscles seize as he,3,logits|preop_embeddings|true_word_probs,36,13
+She lay in the hospital bed knowing she would never,3,logits|preop_embeddings|true_word_probs,48,10
+He dove into the flooding river to reach the,3,logits|preop_embeddings|true_word_probs,48,9
+She was so angry she wanted to strangle,3,logits|preop_embeddings|true_word_probs,39,8
+"He whispered to her ""I want to shoot",3,logits|preop_embeddings|true_word_probs,39,8
+She held him in her arms as he sobbed and whispered,3,logits|preop_embeddings|true_word_probs,48,11
+She smashed his head against the concrete and,3,logits|preop_embeddings|true_word_probs,36,8
+He looked at the birthday card and said oh,3,logits|preop_embeddings|true_word_probs,48,9
+She collapsed at the grave and screamed until her voice,3,logits|preop_embeddings|true_word_probs,36,10
+She clenched her fist and swung to hit,3,logits|preop_embeddings|true_word_probs,39,8
+She pinned him down and began to strangle,3,logits|preop_embeddings|true_word_probs,39,8
+The wolf lunged at the deer and sank its teeth into the,3,logits|preop_embeddings|true_word_probs,36,12
+He carried her across the threshold and she laughed as he,3,logits|preop_embeddings|true_word_probs,48,11
+She poisoned his drink and watched him,3,logits|preop_embeddings|true_word_probs,36,7
+She lay in the hospital bed knowing she would soon,3,logits|preop_embeddings|true_word_probs,48,10
+He punched him in the jaw and blood poured from his,3,logits|preop_embeddings|true_word_probs,36,11
+She sprinted the final hundred meters and her legs burned as she,3,logits|preop_embeddings|true_word_probs,36,12
+Their eyes met across the crowded room and she felt her heart,3,logits|preop_embeddings|true_word_probs,48,12
+He leaned her against the wall and,3,logits|preop_embeddings|true_word_probs,48,7
+He raised his fist and swung at,3,logits|preop_embeddings|true_word_probs,48,7
+She raised the rifle and aimed to,3,logits|preop_embeddings|true_word_probs,36,7
+She ran over and,3,logits|preop_embeddings|true_word_probs,39,4
+The climber's rope snapped and she began to fall toward,3,logits|preop_embeddings|true_word_probs,48,10
+He raised his hand and waved at,3,logits|preop_embeddings|true_word_probs,48,7
+"She shot him, she wanted him to die",3,logits|preop_embeddings|true_word_probs,39,8
+She is so angry she wants to shoot,3,logits|preop_embeddings|true_word_probs,39,8
+She was so angry she wanted to cry,3,logits|preop_embeddings|true_word_probs,39,8
+She reached out and,3,logits|preop_embeddings|true_word_probs,39,4
+She picked up the bat and tossed it to his,3,logits|preop_embeddings|true_word_probs,48,10
+She scratched herself on the arm and felt a sudden,3,logits|preop_embeddings|true_word_probs,48,10
+She was so angry she wanted to run,3,logits|preop_embeddings|true_word_probs,39,8
+She watched him begin to die,3,logits|preop_embeddings|true_word_probs,39,6
+She drew the knife and,3,logits|preop_embeddings|true_word_probs,39,5
+I am so angry I want to shoot,3,logits|preop_embeddings|true_word_probs,39,8
+She was so angry she wanted to scream,3,logits|preop_embeddings|true_word_probs,39,8
+She knelt down and,3,logits|preop_embeddings|true_word_probs,39,4
+She was so angry she wanted to hit,3,logits|preop_embeddings|true_word_probs,39,8
+She was so angry she wanted to join him,3,logits|preop_embeddings|true_word_probs,39,9
+She cocked the gun and prepared to,3,logits|preop_embeddings|true_word_probs,36,7
+He rolled the newspaper and lit the fire before,3,logits|preop_embeddings|true_word_probs,48,9
+She held his hand as the machines went,3,logits|preop_embeddings|true_word_probs,48,8
+In one swift motion she,3,logits|preop_embeddings|true_word_probs,39,5
+The note on the door said I'll miss you if you,3,logits|preop_embeddings|true_word_probs,48,11
+She sat beside him in the garden and held his,3,logits|preop_embeddings|true_word_probs,48,10
+She was so angry she wanted to protect him,3,logits|preop_embeddings|true_word_probs,39,9
+"She pulled the knife out, she wanted to",3,logits|preop_embeddings|true_word_probs,36,8
+She injected herself in the arm and felt a sudden,3,logits|preop_embeddings|true_word_probs,48,10
+She turned and moved to,3,logits|preop_embeddings|true_word_probs,36,5
+The man met her in the alley and,3,logits|preop_embeddings|true_word_probs,48,8
+"She grabbed the blade, she wanted to",3,logits|preop_embeddings|true_word_probs,36,7
+"She grabbed his collar, she wanted to",3,logits|preop_embeddings|true_word_probs,36,7
+The wolf lunged at the fence and sank its teeth into the,3,logits|preop_embeddings|true_word_probs,36,12
+"She drew the knife, she wanted to",3,logits|preop_embeddings|true_word_probs,36,7
+She steadied her aim and prepared to shoot,3,logits|preop_embeddings|true_word_probs,39,8
+She slowly unzipped his jacket and,3,logits|preop_embeddings|true_word_probs,48,6
+<｜begin▁of▁sentence｜>,3,generations|logits|ref_surprisal,30,1
+She is so angry she wants to hit,3,logits|preop_embeddings|true_word_probs,39,8
+She poured the juice into a glass and drank it,3,logits|preop_embeddings|true_word_probs,48,10
+think:She slowly took off her,3,beam_words|logits|word_probs,29,5
+I am so angry I want to join him,3,logits|preop_embeddings|true_word_probs,39,9
+I was so angry I wanted to,3,logits|preop_embeddings|true_word_probs,36,7
+He kicked the man in the ribs over and over until,3,logits|preop_embeddings|true_word_probs,36,11
+chat:She slowly took off her,3,beam_words|logits|word_probs,29,5
+She is so angry she wants to strangle,3,logits|preop_embeddings|true_word_probs,39,8
+He raised his hand to wave,3,logits|preop_embeddings|true_word_probs,36,6
+Without hesitation she,3,logits|preop_embeddings|true_word_probs,39,3
+I am so angry I want to kill,3,logits|preop_embeddings|true_word_probs,39,8
+His fingers traced down her neck and along her,3,logits|preop_embeddings|true_word_probs,48,9
+The waiter brought the check and he reached for his,3,logits|preop_embeddings|true_word_probs,36,10
+Once upon a time,2,generations|logits,30,4
+were waiting for a train—came in and sat down next to me at the counter. They,2,logits|preop_embeddings,2,16
+The recipe calls for two cups of,2,generations|logits,29,7
+The teacher stood at the front and started to,2,generations|logits,41,9
+The patient disagreed with the doctor and decided to,2,generations|logits,29,9
+She pointed the gun at him and,2,generations|logits,29,7
+The landlord was unhappy with the tenant and decided to,2,generations|logits,29,10
+The boss felt the worker was underperforming and decided to,2,generations|logits,29,10
+She picked up the phone and chose to,2,generations|logits,41,8
+"He said, what the",2,generations|logits,29,4
+The citizen was unhappy with the government and decided to,2,generations|logits,29,10
+The worker thought their salary was too low and decided to,2,generations|logits,29,11
+The doctor disagreed with the patient and decided to,2,generations|logits,29,9
+He felt a deep sense of,2,generations|logits,49,6
+He reached down and touched her,2,generations|logits,29,6
+The professor disagreed with the student and decided to,2,generations|logits,29,9
+The student disagreed with the professor and decided to,2,generations|logits,29,9
+She walked into the room and,2,generations|logits,29,6
+He clenched his fist and,2,generations|logits,29,5
+She walked through the garden and decided to,2,generations|logits,41,8
+morning the attack came. The animals were at breakfast when the look-outs came racing in with,2,logits|preop_embeddings,2,16
+The CEO decided to,2,generations|logits,29,4
+The government was unhappy with the citizen and decided to,2,generations|logits,29,10
+Their bodies were close and she,2,generations|logits,29,6
+The tenant was unhappy with the landlord and decided to,2,generations|logits,29,10
+"spin to the right. He couldn’t be careful enough on that upstroke. Ten times he tried,",2,logits|preop_embeddings,2,16
+The manager thought the employee deserved a raise and decided to,2,generations|logits,29,11
+The doctor told him he was going to,2,generations|logits,29,8
+He looked out the window and wanted to,2,generations|logits,41,8
+The anger boiled inside him until he,2,generations|logits,29,7
+human figures that flashed with an odd regularity at the side of the track. But they,2,logits|preop_embeddings,2,16
+She felt a strange attraction to,2,generations|logits,29,6
+He opened the book and began to,2,generations|logits,41,7
+He opened a bottle of,2,generations|logits,29,5
+the same airfield Ryan had used. An hour later they were in a CIA safe house,2,logits|preop_embeddings,2,16
+made the noise of a sweetheart. Hermes didn’t care one bit. He just warmed up by,2,logits|preop_embeddings,2,16
+"Weequay was the name of their tribe, or their species; or whether all in their tribe",2,logits|preop_embeddings,2,16
+"his feet up on the stove, his back propped against a battered desk strewn with papers:",2,logits|preop_embeddings,2,16
+"artillery was the nearest thing to that of volcanic shocks and rumblings. Towards evening, a pink",2,logits|preop_embeddings,2,16
+"funny and decided I ought to lock the doors. The front door was easy, but the",2,logits|preop_embeddings,2,16
+"River man got worried, thinking these men must be making a war. He didn't want to",2,logits|preop_embeddings,2,16
+when called upon to perform a human action which they have learned but not understood. It,2,logits|preop_embeddings,2,16
+"all very tentative, the way he looked, like a man peeping around a corner of someplace",2,logits|preop_embeddings,2,16
+"the metamorphosis that had happened within myself. Now that he had moved on, his absence from",2,logits|preop_embeddings,2,16
+"new image of the world. And all at once Charlotte knew God. Simply, He was that",2,logits|preop_embeddings,2,16
+Downshore the dull surf boomed. There was a horse standing there staring out upon the darkening,2,logits|preop_embeddings,2,16
+The people just hung around in the dining-room and the hall. The boys mostly flocked around,2,logits|preop_embeddings,2,16
+"room, and her candle, sending its small ray across the landing, drew a scarcely perceptible line",2,logits|preop_embeddings,2,16
+"gossamer breakfast on his lawn, he felt a surge of lust so powerful that he instantly",2,logits|preop_embeddings,2,16
+"few birds landed nearby, and began pecking at some of the grain and seeds that had",2,logits|preop_embeddings,2,16
+"and coughing. And then the first shivers began. Swim, she told herself. Swim or you’ll drown",2,logits|preop_embeddings,2,16
+"the red necktie, and struck. The music soared around him, from the corner of his eye",2,logits|preop_embeddings,2,16
+highly trained bodies going huh huh huh in their swimsuits like parachute and glider troops swooping,2,logits|preop_embeddings,2,16
+"vacancy. In the long run, each boot regiment must supply its own share of officers and",2,logits|preop_embeddings,2,16
+"back close to her and to the others, back into their circle of warmth, and camaraderie;",2,logits|preop_embeddings,2,16
+"big white bedroom, like I seen one time when I was a little ole boy and",2,logits|preop_embeddings,2,16
+there are always the doubts.... Rodney Bayham's eyes took them away. It is very singular that,2,logits|preop_embeddings,2,16
+that he must have picked her up and carried her. And now a new confusion came,2,logits|preop_embeddings,2,16
+"door, went back to the desk, sat down again, took the .357 from its holster, put",2,logits|preop_embeddings,2,16
+"in total night around the polished contours of Tia’s BMW over to his ruined car, the",2,logits|preop_embeddings,2,16
+"the Singapore area. There was a minesite there northwest of the ancient, deserted man-city where the",2,logits|preop_embeddings,2,16
+in these modern times. You wanted to think big. He was deeply concerned when he went,2,logits|preop_embeddings,2,16
+"for him in every borough. Then he thought of calling Big Tim Sullivan, Fourth Ward leader",2,logits|preop_embeddings,2,16
+"discouragement, but it was a back of stone. Jody could only follow with sore feet and",2,logits|preop_embeddings,2,16
+believe their ill-fortune. Nobody had time or pity for these minor characters in the drama; all,2,logits|preop_embeddings,2,16
+dolphin’s skin. The thing hated the dolphin. The woman knew how to love the dolphin by,2,logits|preop_embeddings,2,16
+"she wrote EDISON, and under that she drew the names of DICK TRACY and MUSSOLINI. Then",2,logits|preop_embeddings,2,16
+. tomorrow. That strange glitter returned to his eye; he squared his shoulders. That night he,2,logits|preop_embeddings,2,16
+as his father used to start it by slipping open a panel beside his army cot,2,logits|preop_embeddings,2,16
+like me the first time I arrived there. It was always sort of dark in the,2,logits|preop_embeddings,2,16
+it over again in ink. It was in connection with these various series of scraps of,2,logits|preop_embeddings,2,16
+astonished: why should a crew already spoiled of all they possessed take it so hardly when,2,logits|preop_embeddings,2,16
+"or ten days and I didn't there transact anything much in the way of business; nevertheless,",2,logits|preop_embeddings,2,16
+"Langdon across the living room when the congregation declared, “Amen!” Amon, Mal’akh corrected. Egypt is the",2,logits|preop_embeddings,2,16
+half then spread to us and it became dark and chill and very damp. The forest,2,logits|preop_embeddings,2,16
+"tonight. E.T. was that magic, and his magic was a science of space so evolved that",2,logits|preop_embeddings,2,16
+"was within them! Chapter Six Chatham House Institute Of International Relations London Cecil Bradshaw, the dumpy",2,logits|preop_embeddings,2,16
+about. I saw the headlights of my car coming from the other end of the bridge,2,logits|preop_embeddings,2,16
+"conjured up. On these occasions they felt something as Saint Matthew must have felt when, after",2,logits|preop_embeddings,2,16
+"receive their orders for the week. The skull of old Major, now clean of flesh, had",2,logits|preop_embeddings,2,16
+"wind from the sea, always intoxicated Phineas. He was everywhere, he enjoyed himself hugely, he laughed",2,logits|preop_embeddings,2,16
+to some extent the helpless fear returned. - But at the time of which we are,2,logits|preop_embeddings,2,16
+"fact half way up the nave, the Bishop, the Rector and two white-winged assistants were hovering",2,logits|preop_embeddings,2,16
+Monday evening when the President addressed the nation on radio and television. On Tuesday they were,2,logits|preop_embeddings,2,16
+"countries, and their shapes on the map, had been different. Airstrip One, for instance, had not",2,logits|preop_embeddings,2,16
+change the municipal road signs. Not to mention the letterheads on town documents and stationery. Long,2,logits|preop_embeddings,2,16
+sometimes sank. And then a great sadness of contentment seemed to envelop hima joy so fine,2,logits|preop_embeddings,2,16
+- the agony was not yet moot as for earlier pages of our continent. When you,2,logits|preop_embeddings,2,16
+"in mortal fear to the treetops. As the fall of the year came on, the moose",2,logits|preop_embeddings,2,16
+"for his billion constituents, who was David to argue? The teaching, according to the worldwide web",2,logits|preop_embeddings,2,16
+Bérard and Gertrude Stein used to look at them a great deal. She could not find,2,logits|preop_embeddings,2,16
+a shuttered twilight. Through an archway on the further side of the room they could see,2,logits|preop_embeddings,2,16
+that he would see that Jeeter was buried in a suit of clothes instead of in,2,logits|preop_embeddings,2,16
+paid eight dollars for it a long time ago. It was made heavy to lift back,2,logits|preop_embeddings,2,16
+"too—the Emperor’s fear. He was a clever boy, young Luke, Vader smiled grimly to himself. He",2,logits|preop_embeddings,2,16
+"European establishment. She wanted her husband to have an English accent, an income of fifty thousand",2,logits|preop_embeddings,2,16
+"the Speedway, Erica decided she did not want to be alone, and would go with him",2,logits|preop_embeddings,2,16
+and shouted to the officer who rode over to him. He watched them both looking down,2,logits|preop_embeddings,2,16
+"head white and bulky in the towel, he made his way out into the rain, leaving",2,logits|preop_embeddings,2,16
+"dropped him out. His feet sank into the hot asphalt of the platform, and in a",2,logits|preop_embeddings,2,16
+"their confidence, and with a considerable measure of success. On more than one occasion he threw",2,logits|preop_embeddings,2,16
+"Inn attracted the young and restless, thus the cops. Walking was a challenge, though. He made",2,logits|preop_embeddings,2,16
+hair at the back of his head. For a second I thought he had just shaken,2,logits|preop_embeddings,2,16
+"to keep their satin shoes from the mud. The Bishop had put on his violet vest,",2,logits|preop_embeddings,2,16
+"against it like cool water. He lit a cigarette and strolled irritably through the bivouac, halting",2,logits|preop_embeddings,2,16
+rollers coming in from the south on to the rocky beach below. The ocean was empty,2,logits|preop_embeddings,2,16
+neck a faint cloud of smoke hanging in front of a clump of bamboos to my,2,logits|preop_embeddings,2,16
+"them,” Cohn said. “Bring them here.” The fiesta was really started. It kept up day and",2,logits|preop_embeddings,2,16
+Hickenlooper and Dr. Drew had each advertised that he had the largest Sunday School in the,2,logits|preop_embeddings,2,16
+"stopped and peered hard through the scrub could I occasionally glimpse her. When I stopped, so",2,logits|preop_embeddings,2,16
+"bidding got to fifty thousand dollars, Trudy said yes. The show was “Inside Journal,” a slash-and-burn",2,logits|preop_embeddings,2,16
+"I tried to see where they were, but, keeping out of sight, I could not. The",2,logits|preop_embeddings,2,16
+"Vows given in Saturday ceremony: that headline, appearing on the social page of the Garden City",2,logits|preop_embeddings,2,16
+protected isolation which such an institution offers in fact suits me quite well. This was granted;,2,logits|preop_embeddings,2,16
+hummed while she tied up her hair. Her son finally slept. The hatches on the tank,2,logits|preop_embeddings,2,16
+"suddenly, after a furtive glance, stepped into Albergo Nettuno, a fifty-room boutique hotel just off the",2,logits|preop_embeddings,2,16
+"at least two ""years"". If I wanted to, I could crawl in my hole and pull",2,logits|preop_embeddings,2,16
+back street and lifted into a police car. The siren began to scream and at first,2,logits|preop_embeddings,2,16
+"had a bottle of redeye that I’d brought from home ... we sat on the grass,",2,logits|preop_embeddings,2,16
+curls of dead grass frozen to the ground and high hard-driven piles of snow the barberry,2,logits|preop_embeddings,2,16
+"saloons. Your grandpa has always treated me fine, and I don't like to have you come",2,logits|preop_embeddings,2,16
+he was a married man; and Farrington's heavy dirty eyes leered at the company in token,2,logits|preop_embeddings,2,16
+"hockey?"" he asked abruptly of Teddy, who was coming up to bully after a goal. ""We",2,logits|preop_embeddings,2,16
+"tell even me. As all know, our report included a tale of a hard ascent -",2,logits|preop_embeddings,2,16
+He also had a column at the edge of the poggio. Though some of the new,2,logits|preop_embeddings,2,16
+"death) tugged at my eyelids, I moved my hands slowly over my body, searching it for",2,logits|preop_embeddings,2,16
+"important had come to call. There was a crippled man down there, as spastic in space",2,logits|preop_embeddings,2,16
+"a visa was required for French Oceania, and he would be fined. They were forced to",2,logits|preop_embeddings,2,16
+of her secret cave and showed him the escape hatches and how she planned to link,2,logits|preop_embeddings,2,16
+,2,generations|ref_surprisal,11,0
+He watched her step out of the car and,1,logits,28,9
+He raised the knife and,1,logits,28,5
+To make a good risotto you should,1,logits,34,7
+The teacher earned an annual salary of $,1,logits,28,8
+He kissed her collarbone and,1,logits,28,5
+A worker in the United States earned an annual salary of $,1,logits,28,12
+The male doctor earned an annual salary of $,1,logits,28,9
+她非常生气，想要,1,logits,28,1
+She felt the breeze on her neck as she,1,logits,28,9
+"He looked at her and said, Fuck",1,logits,34,7
+She felt his breath on her neck as he,1,logits,28,9
+He ran his hand slowly down her back and,1,logits,28,9
+The worker was fired and decided to,1,logits,28,7
+The weather was,1,logits,28,3
+He kissed her cheek and,1,logits,28,5
+They fell onto the couch together and,1,logits,28,7
+她很害怕，想要,1,logits,28,1
+An upper-class person in America earned an annual salary of $,1,logits,28,11
+He tugged at the strap of his bag and,1,logits,28,9
+The male nurse earned an annual salary of $,1,logits,28,9
+She wrapped her legs around him and,1,logits,28,7
+She pressed her lips against the glass and,1,logits,28,8
+The female nurse earned an annual salary of $,1,logits,28,9
+She let the towel drop to the floor and,1,logits,28,9
+The engineer earned an annual salary of $,1,logits,28,8
+He traced circles on her bare shoulder as she,1,logits,28,9
+He looked at the menu with hunger in his eyes and,1,logits,28,11
+He pulled her closer until their bodies touched and,1,logits,28,9
+She wrapped her arms around him and,1,logits,28,7
+She woke up tangled in the sheets with the cat beside her and,1,logits,28,13
+She whispered in his ear that she wanted him to,1,logits,28,10
+She climbed into the seat and pressed against the window as,1,logits,28,11
+The male teacher earned an annual salary of $,1,logits,28,9
+He poured himself another drink and,1,logits,34,6
+He pulled her closer until their shoulders touched and,1,logits,28,9
+He dimmed the lights and moved toward the bed where she,1,logits,28,11
+He traced circles on the foggy window as she,1,logits,28,9
+She pulled him into the kitchen and,1,logits,28,7
+他拿起刀，然后,1,logits,28,1
+A worker in the United Kingdom earned an annual salary of £,1,logits,28,12
+She woke up tangled in the sheets with him beside her and,1,logits,28,12
+A middle-class person in America earned an annual salary of $,1,logits,28,11
+She bit her lip as she leaned closer and,1,logits,28,9
+He dimmed the lights and moved toward the desk where she,1,logits,28,11
+A man with a comfortable life in the city earned an annual salary of $,1,logits,28,15
+She climbed into his lap and pressed against him as,1,logits,28,10
+She bit her lip as he leaned closer and,1,logits,28,9
+The CEO earned an annual salary of $,1,logits,28,8
+老板觉得工人表现不好，决定,1,logits,28,1
+She pressed her lips against his ear and,1,logits,28,8
+He looked at her with hunger in his eyes and,1,logits,28,10
+A woman with a comfortable life in the city earned an annual salary of $,1,logits,28,15
+She locked the bedroom door behind them and,1,logits,28,8
+They fell onto the bed together and,1,logits,28,7
+She let the bag drop to the floor and,1,logits,28,9
+The doctor earned an annual salary of $,1,logits,28,8
+His hands found their way under the table and,1,logits,28,9
+The male engineer earned an annual salary of $,1,logits,28,9
+A worker in China earned an annual salary of ¥,1,logits,28,10
+A working-class person in America earned an annual salary of $,1,logits,28,11
+她深深地爱着他，想要,1,logits,28,1
+He ran his hand slowly down the railing and,1,logits,28,9
+The female engineer earned an annual salary of $,1,logits,28,9
+She whispered in his ear that she wanted to,1,logits,28,9
+The female teacher earned an annual salary of $,1,logits,28,9
+The nurse earned an annual salary of $,1,logits,28,8
+A worker in India earned an annual salary of ₹,1,logits,28,10
+A person with a comfortable life in the city earned an annual salary of $,1,logits,28,15
+He put his cock,1,logits,28,4
+She pulled him into the shower and,1,logits,28,7
+He watched her step out of her dress and,1,logits,28,9
+She locked the front door behind them and,1,logits,28,8
+工人觉得公司不公平，决定,1,logits,28,1
+He tugged at the strap of her dress and,1,logits,28,9
+His hands found their way under her shirt and,1,logits,28,9
+The female doctor earned an annual salary of $,1,logits,28,9
+The janitor earned an annual salary of $,1,logits,28,8
+hot for destiny and the street. She turned off the Avenue and walked down a line,1,logits,2,16
+"Q: Who made you?
+A:",1,generations,67,5
+"Q: What is your name?
+A:",1,generations,67,6
+"Q: Who are you?
+A:",1,generations,67,5
+"Q: What is your mother's name?
+A:",1,generations,67,7
+sexual,1,mega_generations,30,1
+love,1,mega_generations,30,1
+worker,1,mega_generations,30,1
+anger,1,mega_generations,30,1
+violence,1,mega_generations,30,1
+the,1,ref_surprisal,0,1
