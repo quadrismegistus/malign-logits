@@ -178,3 +178,58 @@ def test_stage_is_never_guessed_for_unknown_procedures(doc):
     declared = set(doc["_schema"]["fields"]["stage"]["values"])
     for m in doc["models"]:
         assert m["stage"] in declared or m["stage"] == "", m["model_id"]
+
+
+# ── environment-conditional load facts ────────────────────────────────────
+
+ENVPATH = os.path.join(HERE, "data", "model_load_environments.json")
+
+
+@pytest.fixture(scope="module")
+def envdoc():
+    if not os.path.exists(ENVPATH):
+        pytest.skip("model_load_environments.json not present")
+    with open(ENVPATH) as fh:
+        return json.load(fh)
+
+
+def test_every_observation_names_a_declared_environment(envdoc):
+    """An outcome without an environment is not an observation.
+
+    AmberSafe failed and then loaded on the SAME BOX, so the model id alone
+    cannot key the fact.
+    """
+    envs = set(envdoc["environments"])
+    for o in envdoc["observations"]:
+        assert o["environment"] in envs, o
+
+
+def test_load_observations_reference_real_models(envdoc, ids):
+    for o in envdoc["observations"]:
+        assert o["model_id"] in ids, o["model_id"]
+    for m in envdoc["predicted_untested"]["model_ids"]:
+        assert m in ids, m
+
+
+def test_predictions_agree_with_the_weights_audit(envdoc):
+    """The predicted-untested list is derived, so it must match its producer."""
+    import csv as _csv
+    with open(os.path.join(HERE, "data", "weights_audit.csv")) as fh:
+        w = {r["model"]: r for r in _csv.DictReader(fh)}
+    for m in envdoc["predicted_untested"]["model_ids"]:
+        assert w[m]["needs_torch"] == "2.6", m
+
+
+def test_torch_floor_population_is_fully_accounted(envdoc):
+    """Every model the audit says needs torch>=2.6 is observed OR predicted.
+
+    Absence of an observation must never read as success.
+    """
+    import csv as _csv
+    with open(os.path.join(HERE, "data", "weights_audit.csv")) as fh:
+        need = {r["model"] for r in _csv.DictReader(fh)
+                if r["needs_torch"] == "2.6"}
+    seen = {o["model_id"] for o in envdoc["observations"]
+            if o["outcome"] == "load_failed"}
+    seen |= set(envdoc["predicted_untested"]["model_ids"])
+    assert need <= seen, f"unaccounted: {sorted(need - seen)}"
