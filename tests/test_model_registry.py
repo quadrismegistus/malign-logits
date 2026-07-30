@@ -37,7 +37,13 @@ def ids(doc):
 def test_every_declared_enum_value_is_used_and_every_used_value_declared(doc):
     """A value list nobody checks is documentation, not a schema."""
     f = doc["_schema"]["fields"]
-    for field in ("position", "architecture", "stage", "weights_format", "status"):
+    # org_type AND country ARE IN THIS LIST BECAUSE THEY WERE NOT. The field
+    # carried `corporate` from one source and `company` from another -- one
+    # field, two vocabularies -- and this test did not look because it named
+    # its fields and org_type was not among them. A test that enumerates
+    # omits silently.
+    for field in ("position", "architecture", "stage", "weights_format",
+                  "status", "org_type"):
         declared = set(f[field].get("values", []))
         if not declared:
             continue

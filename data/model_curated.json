@@ -1,8 +1,8 @@
 {
- "_note": "HAND-CURATED facts about models that no artifact can regenerate. Extracted from data/model_registry.json as it stood at 9c4c2b8~1, where they had been hand-entered and were then destroyed by a regeneration that only knew how to rebuild DERIVED fields. This file is never regenerated; the builder merges it.",
+ "_note": "HAND-CURATED facts about models that no artifact can regenerate. Extracted from data/model_registry.json as it stood at 9c4c2b8~1, where they had been hand-entered and were then destroyed by a regeneration that only knew how to rebuild DERIVED fields. This file is never regenerated; the builder merges it. ORG-LEVEL facts were added 2026-07-30 from a sourced research pass; every value carries a URL and every gap left empty carries a reason. A guessed value is worse than an empty one: `country` and `org_type` are branch variables for the country confound and the org-type contrast, and an analysis would treat a guess as a fact.",
  "_fields": {
-  "org_type": "curated",
-  "country": "curated",
+  "org_type": "curated (sourced)",
+  "country": "curated (sourced)",
   "corpus": "curated",
   "open_data": "curated",
   "open_weight": "curated",
@@ -371,6 +371,193 @@
    "country": "US",
    "open_weight": true,
    "open_data": false
+  }
+ },
+ "orgs": {
+  "01-ai": {
+   "country": "CN",
+   "org_type": "company",
+   "source": "https://en.wikipedia.org/wiki/01.AI",
+   "evidence": "AI company based in Beijing, founded 2023 by Kai-Fu Lee"
+  },
+  "ContextualAI": {
+   "country": "US",
+   "org_type": "company",
+   "source": "https://en.wikipedia.org/wiki/Contextual_AI",
+   "evidence": "HQ Mountain View, CA; founded 2023"
+  },
+  "EleutherAI": {
+   "country": "US",
+   "org_type": "nonprofit",
+   "source": "https://huggingface.co/EleutherAI",
+   "evidence": "HF badge 'non-profit'; incorporated 2023 as the EleutherAI Institute",
+   "note": "began as a Discord collective in 2020; nonprofit is the CURRENT legal form"
+  },
+  "PKU-Alignment": {
+   "country": "CN",
+   "org_type": "academic",
+   "source": "https://huggingface.co/PKU-Alignment",
+   "evidence": "HF org-type badge 'University'; research team at Peking University"
+  },
+  "TinyLlama": {
+   "country": "SG",
+   "org_type": "academic",
+   "source": "https://www.sutd.edu.sg/media-releases-listing/sutd-launches-first-of-its-kind-mini-ai-model-with-three-trillion-token-punch",
+   "evidence": "StatNLP Research Group, Singapore University of Technology and Design",
+   "note": "I would have guessed US. A research project at a Singapore university."
+  },
+  "allenai": {
+   "country": "US",
+   "org_type": "nonprofit",
+   "source": "https://en.wikipedia.org/wiki/Allen_Institute_for_AI",
+   "evidence": "501(c)(3) research institute, Seattle WA, founded 2014"
+  },
+  "lomahony": {
+   "country": "IE",
+   "org_type": "individual",
+   "source": "https://lauraaisling.github.io/",
+   "evidence": "PhD student, CRT Foundations of Data Science, funded by Science Foundation Ireland",
+   "note": "I would have guessed US from the Pythia/EleutherAI adjacency. Ireland."
+  },
+  "meta-llama": {
+   "country": "US",
+   "org_type": "company",
+   "source": "https://huggingface.co/meta-llama",
+   "evidence": "Meta Platforms, Inc., Menlo Park CA"
+  },
+  "microsoft": {
+   "country": "US",
+   "org_type": "company",
+   "source": "https://huggingface.co/microsoft",
+   "evidence": "Microsoft Corporation, Redmond WA"
+  },
+  "stabilityai": {
+   "country": "GB",
+   "org_type": "company",
+   "source": "https://find-and-update.company-information.service.gov.uk/company/12295325",
+   "evidence": "STABILITY AI LTD, incorporated 2019 England & Wales, registered office London"
+  },
+  "togethercomputer": {
+   "country": "US",
+   "org_type": "company",
+   "source": "https://huggingface.co/togethercomputer",
+   "evidence": "Together Computer, Inc. / Together AI, San Francisco, founded 2022"
+  },
+  "zai-org": {
+   "country": "CN",
+   "org_type": "company",
+   "source": "https://en.wikipedia.org/wiki/Z.ai",
+   "evidence": "Zhipu AI / Z.ai, Beijing; 2019 Tsinghua KEG spinoff"
+  },
+  "HuggingFaceTB": {
+   "country": "US",
+   "org_type": "company",
+   "source": "https://huggingface.co/HuggingFaceTB",
+   "evidence": "a TEAM within Hugging Face, Inc. (Delaware corp, HQ New York)",
+   "note": "not an independent legal entity; inherits the parent's nationality"
+  },
+  "tiiuae": {
+   "country": "AE",
+   "org_type": "government",
+   "source": "https://www.tii.ae",
+   "evidence": "'part of Abu Dhabi Government's Advanced Technology Research Council'",
+   "note": "HF's own badge says 'company' and is WRONG about the legal nature. The declared value follows the institution, not the badge."
+  },
+  "internlm": {
+   "country": "CN",
+   "org_type": "government",
+   "source": "https://huggingface.co/internlm",
+   "evidence": "'developed by Shanghai AI Laboratory', a state-backed national research institute",
+   "note": "edge case; nonprofit was the closest fit before `government` existed"
+  },
+  "openbmb": {
+   "country": "CN",
+   "org_type": "",
+   "source": "https://www.openbmb.org/en/about-us",
+   "evidence": "Tsinghua THUNLP open-source initiative, founded and supported by THUNLP and ModelBest Inc. (Beijing)",
+   "note": "GENUINELY DUAL: an academic lab's initiative with a commercial spin-off behind it. country is solid; org_type left empty rather than forced."
+  },
+  "RWKV": {
+   "country": "",
+   "org_type": "collective",
+   "source": "https://www.rwkv.com",
+   "evidence": "originated by Bo Peng (Hong Kong); governed since Sept 2023 as a Linux Foundation project (US)",
+   "note": "TWO nationalities entangled -- originator vs governing foundation. Neither written."
+  },
+  "bigscience": {
+   "country": "",
+   "org_type": "collective",
+   "source": "https://huggingface.co/bigscience",
+   "evidence": "1000+ researchers worldwide; coordinated by Hugging Face (US), compute via GENCI/IDRIS/CNRS on Jean Zay (FR)",
+   "note": "a year-long multi-institution workshop, not a single incorporated body."
+  },
+  "m-a-p": {
+   "country": "",
+   "org_type": "collective",
+   "source": "https://m-a-p.ai/about",
+   "evidence": "non-profit open-source research community; contributors at CUHK-Shenzhen, PKU, Zhejiang (CN) and Manchester, QMUL (UK)",
+   "note": "no single country dominates."
+  },
+  "huggyllama": {
+   "country": "",
+   "org_type": "individual",
+   "source": "https://huggingface.co/huggyllama",
+   "evidence": "personal account, empty bio, hosts LLaMA re-uploads it did not originate",
+   "note": "A RE-UPLOADER. Meta is the originator; assigning Meta's US here would be wrong in the way that looks right. country UNVERIFIED."
+  }
+ },
+ "params": {
+  "LLM360/Amber": {
+   "b": 6.7,
+   "source": "https://huggingface.co/LLM360/Amber",
+   "evidence": "card hyperparameter table: 'Total Parameters: 6.7B'; config = LLaMA-1-7B arch (6,738,415,616)"
+  },
+  "LLM360/AmberChat": {
+   "b": 6.7,
+   "source": "https://huggingface.co/LLM360/AmberChat",
+   "evidence": "card: 'Total Parameters: 6.7B'; config identical to Amber"
+  },
+  "LLM360/AmberSafe": {
+   "b": 6.7,
+   "source": "https://huggingface.co/LLM360/AmberSafe",
+   "evidence": "config bit-for-bit identical to Amber/AmberChat",
+   "note": "ITS OWN CARD STATES NO COUNT. Inferred from architecture identity with its siblings -- the weakest-sourced value in this file."
+  },
+  "bigscience/bloom-7b1": {
+   "b": 7.069,
+   "source": "https://huggingface.co/bigscience/bloom-7b1",
+   "evidence": "card technical specs: '7,069,016,064 parameters'",
+   "note": "CONFIRMS that '7b1' is BLOOM's notation for 7.1B rounded. This is the row I refused to parse, and the true value is 7.069 not 7.1."
+  },
+  "bigscience/bloomz-7b1": {
+   "b": 7.069,
+   "source": "https://huggingface.co/bigscience/bloomz-7b1",
+   "evidence": "card: 'Architecture: Same as bloom-7b1'; xP3 finetune, same weight count"
+  },
+  "m-a-p/CT-LLM-Base": {
+   "b": 2.0,
+   "source": "https://arxiv.org/abs/2404.04167",
+   "evidence": "paper describes a 2B model; config 2048/32/16/5504, vocab 125824"
+  },
+  "m-a-p/CT-LLM-SFT": {
+   "b": 2.0,
+   "source": "https://huggingface.co/m-a-p/CT-LLM-SFT",
+   "evidence": "card: 'Model size: 2B params'; config identical to Base"
+  },
+  "m-a-p/CT-LLM-SFT-DPO": {
+   "b": 2.0,
+   "source": "https://huggingface.co/m-a-p/CT-LLM-SFT-DPO",
+   "evidence": "card: 'Model size: 2B params'; config identical to Base"
+  },
+  "microsoft/phi-4": {
+   "b": 14.0,
+   "source": "https://huggingface.co/microsoft/phi-4",
+   "evidence": "card: '14B parameters, dense decoder-only Transformer model'"
+  },
+  "microsoft/phi-4-reasoning": {
+   "b": 14.0,
+   "source": "https://huggingface.co/microsoft/phi-4-reasoning",
+   "evidence": "card: 'Base model same as previously released Phi-4, 14B parameters'"
   }
  }
 }

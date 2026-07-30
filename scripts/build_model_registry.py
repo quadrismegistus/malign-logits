@@ -129,6 +129,18 @@ SCALE_LADDERS = [
 ]
 
 
+# ONE FIELD, TWO VOCABULARIES. The pre-existing curated data used
+# corporate/state; the sourced pass used company/government. Both are correct
+# English and they are the same concepts, so the values are normalised to the
+# declared enum rather than the enum widened to hold synonyms -- a value list
+# that admits two words for one thing cannot be asserted against.
+#
+# This survived my own enum assertion because that test checked position,
+# architecture, stage, weights_format and status, and NOT org_type. A test
+# that names its fields explicitly omits silently.
+ORG_TYPE_ALIASES = {"corporate": "company", "state": "government"}
+
+
 def sh(cmd):
     try:
         return subprocess.run(cmd, shell=True, capture_output=True,
@@ -188,8 +200,10 @@ def build():
     spec_rows = spec["spec"] if isinstance(spec, dict) else spec
     in_spec = {r["model"] for r in spec_rows}
     sw = {k: load_csv(v[0]) for k, v in SWEEPS.items()}
-    cur = (json.load(open(CURATED))["models"]
-           if os.path.exists(CURATED) else {})
+    _c = json.load(open(CURATED)) if os.path.exists(CURATED) else {}
+    cur = _c.get("models", {})
+    org_facts = _c.get("orgs", {})
+    param_facts = _c.get("params", {})
 
     rows, relations = {}, []
     for fam_key, fam in sorted(MODEL_FAMILIES.items()):
@@ -237,6 +251,23 @@ def build():
                     status="ACTIVE", exclusion_reason="", pending_repair=None,
                 )
                 r.update(cur.get(mid, {}))          # curated wins; never derived
+                if r.get("org_type") in ORG_TYPE_ALIASES:
+                    r["org_type"] = ORG_TYPE_ALIASES[r["org_type"]]
+                # ORG-LEVEL curated facts, applied per row. Only non-empty
+                # values are written: an org whose country is deliberately
+                # blank (a multinational collective) must stay blank rather
+                # than acquire "" as though it were unknown-by-omission.
+                of = org_facts.get(mid.split("/")[0], {})
+                for k in ("country", "org_type"):
+                    if of.get(k):
+                        r[k] = of[k]
+                # SOURCED params override every parse. bloom-7b1 is 7.069B by
+                # its own card -- the row I declined to guess, and the guess
+                # would have been 7.1.
+                pf = param_facts.get(mid)
+                if pf:
+                    r["params_b"] = pf["b"]
+                    r["params"] = f"{pf['b']}B"
             else:
                 relations.append({"parent": mid, "child": fam_key,
                                   "relation": "also_member_of"})
@@ -357,6 +388,19 @@ def main(a):
                                    "method, else from position. The four "
                                    "archangel arms differ only by method and a "
                                    "position-derived stage called all four dpo.")},
+                "country": {"source": "curated (sourced)",
+                            "note": ("blank where ONE country would mislead -- "
+                                     "RWKV, bigscience and m-a-p are multinational, "
+                                     "and huggyllama is a re-uploader, not an "
+                                     "originator")},
+                "org_type": {"source": "curated (sourced)",
+                             "values": ["company", "academic", "nonprofit",
+                                        "collective", "individual", "government"],
+                             "note": ("`government` was added because the original "
+                                      "five had no slot for a state research "
+                                      "institute -- TII is part of the Abu Dhabi "
+                                      "government's ATRC and HF's own badge calls "
+                                      "it a company")},
                 "architecture": {"source": "declared",
                                  "values": ["transformer", "ssm", "hybrid",
                                             "linear_attn_rnn", "moe"]},

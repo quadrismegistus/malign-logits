@@ -32,6 +32,22 @@
     ],
     "note": "from the MODEL NAME where it carries the method, else from position. The four archangel arms differ only by method and a position-derived stage called all four dpo."
    },
+   "country": {
+    "source": "curated (sourced)",
+    "note": "blank where ONE country would mislead -- RWKV, bigscience and m-a-p are multinational, and huggyllama is a re-uploader, not an originator"
+   },
+   "org_type": {
+    "source": "curated (sourced)",
+    "values": [
+     "company",
+     "academic",
+     "nonprofit",
+     "collective",
+     "individual",
+     "government"
+    ],
+    "note": "`government` was added because the original five had no slot for a state research institute -- TII is part of the Abu Dhabi government's ATRC and HF's own badge calls it a company"
+   },
    "architecture": {
     "source": "declared",
     "values": [
@@ -105,7 +121,7 @@
  },
  "_provenance": {
   "built_by": "scripts/build_model_registry.py",
-  "head": "6f8ee47",
+  "head": "be3ae9d",
   "measured_from": {
    "weights": {
     "artifact": "data/weights_audit.csv",
@@ -156,7 +172,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "CN",
+   "org_type": "company"
   },
   {
    "model_id": "01-ai/Yi-1.5-9B-Chat",
@@ -182,7 +200,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "country": "CN",
    "open_weight": true,
    "open_data": false
@@ -210,7 +228,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "company"
   },
   {
    "model_id": "ContextualAI/archangel_sft-kto_pythia2-8b",
@@ -235,7 +255,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "company"
   },
   {
    "model_id": "ContextualAI/archangel_sft-ppo_pythia2-8b",
@@ -260,7 +282,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "company"
   },
   {
    "model_id": "ContextualAI/archangel_sft-slic_pythia2-8b",
@@ -285,7 +309,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "company"
   },
   {
    "model_id": "ContextualAI/archangel_sft_pythia2-8b",
@@ -310,7 +336,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "company"
   },
   {
    "model_id": "EleutherAI/pythia-2.8b",
@@ -335,7 +363,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "nonprofit"
   },
   {
    "model_id": "EleutherAI/pythia-6.9b",
@@ -391,7 +421,7 @@
    "status": "EXCLUDED",
    "exclusion_reason": "safetensors shards present but index absent; falls back to the .bin index, refused below torch 2.6",
    "pending_repair": true,
-   "org_type": "corporate",
+   "org_type": "company",
    "country": "US",
    "open_weight": true,
    "open_data": false,
@@ -421,7 +451,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "country": "US",
    "open_weight": true,
    "open_data": false
@@ -450,7 +480,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "scale": "360M",
    "country": "US",
    "open_weight": true,
@@ -481,7 +511,9 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "open_weight": true,
-   "open_data": false
+   "open_data": false,
+   "country": "US",
+   "org_type": "company"
   },
   {
    "model_id": "HuggingFaceTB/SmolLM3-3B",
@@ -508,7 +540,9 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "open_weight": true,
-   "open_data": false
+   "open_data": false,
+   "country": "US",
+   "org_type": "company"
   },
   {
    "model_id": "HuggingFaceTB/SmolLM3-3B-Base",
@@ -534,7 +568,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "scale": "3B",
    "country": "US",
    "open_weight": true,
@@ -547,8 +581,8 @@
    "position": "base",
    "stage": "base",
    "org": "LLM360",
-   "params": "",
-   "params_b": null,
+   "params": "6.7B",
+   "params_b": 6.7,
    "architecture": "transformer",
    "tokenizer_class": "LlamaTokenizer",
    "vocab_size": 32000,
@@ -577,8 +611,8 @@
    "position": "ego",
    "stage": "sft",
    "org": "LLM360",
-   "params": "",
-   "params_b": null,
+   "params": "6.7B",
+   "params_b": 6.7,
    "architecture": "transformer",
    "tokenizer_class": "LlamaTokenizer",
    "vocab_size": 32000,
@@ -606,8 +640,8 @@
    "position": "superego",
    "stage": "dpo",
    "org": "LLM360",
-   "params": "",
-   "params_b": null,
+   "params": "6.7B",
+   "params_b": 6.7,
    "architecture": "transformer",
    "tokenizer_class": "LlamaTokenizer",
    "vocab_size": 32000,
@@ -651,7 +685,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "CN",
+   "org_type": "academic"
   },
   {
    "model_id": "PKU-Alignment/beaver-7b-v1.0",
@@ -676,7 +712,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "CN",
+   "org_type": "academic"
   },
   {
    "model_id": "Qwen/Qwen2.5-0.5B",
@@ -702,7 +740,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "scale": "0.5B",
    "country": "CN",
    "open_weight": true,
@@ -732,7 +770,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "country": "CN",
    "open_weight": true,
    "open_data": false
@@ -761,7 +799,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "scale": "7B",
    "country": "CN",
    "open_weight": true,
@@ -791,7 +829,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "country": "CN",
    "open_weight": true,
    "open_data": false
@@ -820,7 +858,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "country": "CN",
    "open_weight": true,
    "open_data": false
@@ -849,7 +887,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "scale": "8B",
    "country": "CN",
    "open_weight": true,
@@ -879,6 +917,7 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
+   "org_type": "collective",
    "excluded_from": "grid_v3"
   },
   {
@@ -905,6 +944,7 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
+   "org_type": "collective",
    "excluded_from": "grid_v3"
   },
   {
@@ -930,7 +970,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "SG",
+   "org_type": "academic"
   },
   {
    "model_id": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
@@ -955,7 +997,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "SG",
+   "org_type": "academic"
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-DPO",
@@ -1302,7 +1346,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "nonprofit"
   },
   {
    "model_id": "allenai/OLMoE-1B-7B-0125-DPO",
@@ -1327,7 +1373,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "nonprofit"
   },
   {
    "model_id": "allenai/OLMoE-1B-7B-0125-Instruct",
@@ -1352,7 +1400,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "nonprofit"
   },
   {
    "model_id": "allenai/OLMoE-1B-7B-0125-SFT",
@@ -1378,6 +1428,8 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
+   "country": "US",
+   "org_type": "nonprofit",
    "excluded_from": "grid_v3"
   },
   {
@@ -1433,7 +1485,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "nonprofit"
   },
   {
    "model_id": "allenai/Olmo-3-7B-Instruct",
@@ -1603,7 +1657,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "nonprofit"
   },
   {
    "model_id": "allenai/Olmo-3.1-32B-Instruct-DPO",
@@ -1628,7 +1684,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "nonprofit"
   },
   {
    "model_id": "allenai/Olmo-3.1-32B-Instruct-SFT",
@@ -1653,7 +1711,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "nonprofit"
   },
   {
    "model_id": "allenai/Olmo-Hybrid-7B",
@@ -1678,7 +1738,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "nonprofit"
   },
   {
    "model_id": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
@@ -1703,7 +1765,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "nonprofit"
   },
   {
    "model_id": "allenai/Olmo-Hybrid-Instruct-SFT-7B",
@@ -1728,7 +1792,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "nonprofit"
   },
   {
    "model_id": "baichuan-inc/Baichuan2-7B-Base",
@@ -1754,7 +1820,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "scale": "7B",
    "country": "CN",
    "open_weight": true,
@@ -1784,7 +1850,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "country": "CN",
    "open_weight": true,
    "open_data": false
@@ -1796,8 +1862,8 @@
    "position": "base",
    "stage": "base",
    "org": "bigscience",
-   "params": "",
-   "params_b": null,
+   "params": "7.069B",
+   "params_b": 7.069,
    "architecture": "transformer",
    "tokenizer_class": "TokenizersBackend",
    "vocab_size": 250680,
@@ -1812,7 +1878,8 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "collective"
   },
   {
    "model_id": "bigscience/bloomz-7b1",
@@ -1821,8 +1888,8 @@
    "position": "superego",
    "stage": "dpo",
    "org": "bigscience",
-   "params": "",
-   "params_b": null,
+   "params": "7.069B",
+   "params_b": 7.069,
    "architecture": "transformer",
    "tokenizer_class": "TokenizersBackend",
    "vocab_size": 250680,
@@ -1837,7 +1904,8 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "collective"
   },
   {
    "model_id": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
@@ -1863,7 +1931,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "country": "CN",
    "open_weight": true,
    "open_data": false
@@ -1892,7 +1960,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "country": "CN",
    "open_weight": true,
    "open_data": false
@@ -1921,7 +1989,7 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
-   "org_type": "corporate",
+   "org_type": "company",
    "scale": "7B",
    "country": "CN",
    "open_weight": true,
@@ -1952,7 +2020,7 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
-   "org_type": "corporate",
+   "org_type": "company",
    "country": "CN",
    "open_weight": true,
    "open_data": false,
@@ -1981,7 +2049,8 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "individual"
   },
   {
    "model_id": "internlm/internlm2-base-7b",
@@ -2006,7 +2075,9 @@
    "in_grid_spec": false,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "CN",
+   "org_type": "government"
   },
   {
    "model_id": "internlm/internlm2-chat-7b",
@@ -2031,7 +2102,9 @@
    "in_grid_spec": false,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "CN",
+   "org_type": "government"
   },
   {
    "model_id": "internlm/internlm2-chat-7b-sft",
@@ -2056,7 +2129,9 @@
    "in_grid_spec": false,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "CN",
+   "org_type": "government"
   },
   {
    "model_id": "lomahony/eleuther-pythia6.9b-hh-dpo",
@@ -2084,6 +2159,8 @@
    "pending_repair": true,
    "open_weight": true,
    "open_data": false,
+   "country": "IE",
+   "org_type": "individual",
    "excluded_from": "grid_v3"
   },
   {
@@ -2112,6 +2189,8 @@
    "pending_repair": true,
    "open_weight": true,
    "open_data": false,
+   "country": "IE",
+   "org_type": "individual",
    "excluded_from": "grid_v3"
   },
   {
@@ -2121,8 +2200,8 @@
    "position": "base",
    "stage": "base",
    "org": "m-a-p",
-   "params": "",
-   "params_b": null,
+   "params": "2.0B",
+   "params_b": 2.0,
    "architecture": "transformer",
    "tokenizer_class": "BaichuanTokenizer",
    "vocab_size": 125696,
@@ -2137,7 +2216,8 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "collective"
   },
   {
    "model_id": "m-a-p/CT-LLM-SFT",
@@ -2146,8 +2226,8 @@
    "position": "ego",
    "stage": "sft",
    "org": "m-a-p",
-   "params": "",
-   "params_b": null,
+   "params": "2.0B",
+   "params_b": 2.0,
    "architecture": "transformer",
    "tokenizer_class": "BaichuanTokenizer",
    "vocab_size": 125696,
@@ -2162,7 +2242,8 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "collective"
   },
   {
    "model_id": "m-a-p/CT-LLM-SFT-DPO",
@@ -2171,8 +2252,8 @@
    "position": "superego",
    "stage": "dpo",
    "org": "m-a-p",
-   "params": "",
-   "params_b": null,
+   "params": "2.0B",
+   "params_b": 2.0,
    "architecture": "transformer",
    "tokenizer_class": "BaichuanTokenizer",
    "vocab_size": 125696,
@@ -2187,7 +2268,8 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "collective"
   },
   {
    "model_id": "m-a-p/neo_7b",
@@ -2212,7 +2294,8 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "collective"
   },
   {
    "model_id": "m-a-p/neo_7b_instruct_v0.1",
@@ -2237,7 +2320,8 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "collective"
   },
   {
    "model_id": "m-a-p/neo_7b_sft_v0.1",
@@ -2262,7 +2346,8 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "collective"
   },
   {
    "model_id": "meta-llama/Llama-3.1-70B",
@@ -2287,7 +2372,9 @@
    "in_grid_spec": false,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "company"
   },
   {
    "model_id": "meta-llama/Llama-3.1-70B-Instruct",
@@ -2312,7 +2399,9 @@
    "in_grid_spec": false,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "company"
   },
   {
    "model_id": "meta-llama/Llama-3.1-8B",
@@ -2338,7 +2427,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "scale": "8B",
    "country": "US",
    "open_weight": true,
@@ -2368,7 +2457,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "country": "US",
    "open_weight": true,
    "open_data": false
@@ -2380,8 +2469,8 @@
    "position": "base",
    "stage": "base",
    "org": "microsoft",
-   "params": "",
-   "params_b": null,
+   "params": "14.0B",
+   "params_b": 14.0,
    "architecture": "transformer",
    "tokenizer_class": "TokenizersBackend",
    "vocab_size": 100352,
@@ -2396,7 +2485,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "company"
   },
   {
    "model_id": "microsoft/phi-4-reasoning",
@@ -2405,8 +2496,8 @@
    "position": "superego",
    "stage": "dpo",
    "org": "microsoft",
-   "params": "",
-   "params_b": null,
+   "params": "14.0B",
+   "params_b": 14.0,
    "architecture": "transformer",
    "tokenizer_class": "TokenizersBackend",
    "vocab_size": 100352,
@@ -2421,7 +2512,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "company"
   },
   {
    "model_id": "mistralai/Mistral-7B-v0.1",
@@ -2447,7 +2540,7 @@
    "status": "ACTIVE",
    "exclusion_reason": "",
    "pending_repair": null,
-   "org_type": "corporate",
+   "org_type": "company",
    "scale": "7B",
    "country": "FR",
    "open_weight": true,
@@ -2476,7 +2569,8 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "CN"
   },
   {
    "model_id": "openbmb/MiniCPM5-1B-Base",
@@ -2501,7 +2595,8 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "CN"
   },
   {
    "model_id": "openbmb/MiniCPM5-1B-SFT",
@@ -2526,7 +2621,8 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "CN"
   },
   {
    "model_id": "stabilityai/stablelm-2-1_6b",
@@ -2551,7 +2647,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "GB",
+   "org_type": "company"
   },
   {
    "model_id": "stabilityai/stablelm-2-1_6b-chat",
@@ -2576,7 +2674,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "GB",
+   "org_type": "company"
   },
   {
    "model_id": "stabilityai/stablelm-2-zephyr-1_6b",
@@ -2601,7 +2701,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "GB",
+   "org_type": "company"
   },
   {
    "model_id": "tiiuae/Falcon-H1-1.5B-Base",
@@ -2626,7 +2728,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/Falcon-H1-1.5B-Instruct",
@@ -2651,7 +2755,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/Falcon-H1-7B-Base",
@@ -2676,7 +2782,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/Falcon-H1-7B-Instruct",
@@ -2701,7 +2809,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/Falcon3-10B-Base",
@@ -2726,7 +2836,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/Falcon3-10B-Instruct",
@@ -2751,7 +2863,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/Falcon3-1B-Base",
@@ -2776,7 +2890,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/Falcon3-1B-Instruct",
@@ -2801,7 +2917,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/Falcon3-3B-Base",
@@ -2826,7 +2944,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/Falcon3-3B-Instruct",
@@ -2851,7 +2971,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/Falcon3-7B-Base",
@@ -2876,7 +2998,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/Falcon3-7B-Instruct",
@@ -2901,7 +3025,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/Falcon3-Mamba-7B-Base",
@@ -2926,7 +3052,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/Falcon3-Mamba-7B-Instruct",
@@ -2951,7 +3079,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/falcon-mamba-7b",
@@ -2976,7 +3106,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "tiiuae/falcon-mamba-7b-instruct",
@@ -3001,7 +3133,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "AE",
+   "org_type": "government"
   },
   {
    "model_id": "togethercomputer/RedPajama-INCITE-7B-Chat",
@@ -3027,6 +3161,8 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
+   "country": "US",
+   "org_type": "company",
    "excluded_from": "grid_v3"
   },
   {
@@ -3053,6 +3189,8 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
+   "country": "US",
+   "org_type": "company",
    "excluded_from": "grid_v3"
   },
   {
@@ -3079,6 +3217,8 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
+   "country": "US",
+   "org_type": "company",
    "excluded_from": "grid_v3"
   },
   {
@@ -3104,7 +3244,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "CN",
+   "org_type": "company"
   },
   {
    "model_id": "zai-org/glm-4-9b-hf",
@@ -3129,7 +3271,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "country": "CN",
+   "org_type": "company"
   }
  ],
  "relations": [
