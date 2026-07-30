@@ -34,6 +34,7 @@ from __future__ import annotations
 import collections
 import json
 import os
+import re
 import sys
 
 import pytest
@@ -268,7 +269,21 @@ def test_pole_a_word_precedes_pole_b_word_in_the_both_prompt(rows):
             continue
         a, b = (w.lower() for w in pairs[gid])
         text = r["prompt"].lower()
-        ia, ib = text.find(a), text.find(b)
+        # WORD-ANCHORED, not substring. `rational` is a substring of `irrational` and
+        # `faithful` of `unfaithful`, so a bare find() can match POLE_A's term INSIDE
+        # POLE_B's. Demonstrated: with irrational first, find('rational') returns 31 --
+        # a position inside `irrational` -- where the anchored search returns 45.
+        # The verdict happens to come out right on today's word order, so this test
+        # passed while matching the wrong occurrence. Found by the Chinese translation
+        # pass, which hit the identical defect in 非理性 CONTAINS 理性 and 不忠 sharing
+        # 忠 with 忠诚. Chinese has no word boundaries, so \b is applied only to ASCII
+        # terms and plain search is the honest fallback for the rest.
+        def _pos(term):
+            if term.isascii():
+                m = re.search(rf"\b{re.escape(term)}\b", text)
+                return m.start() if m else -1
+            return text.find(term)
+        ia, ib = _pos(a), _pos(b)
         if ia < 0 or ib < 0:
             bad.append(f"{gid}: pole word absent from BOTH prompt {r['prompt'][:44]!r}")
         elif ia > ib:

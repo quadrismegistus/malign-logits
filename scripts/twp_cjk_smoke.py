@@ -44,7 +44,14 @@ from malign_logits import PATH_DATA  # noqa: E402
 DICT = os.path.join(PATH_DATA, "dict", "jieba_dict_big.txt")
 CJK = re.compile(r"[一-鿿㐀-䶿]")
 PUNCT = set(".,;:!?\"'()[]{}—-–…/\\*#…") | {"\n", "\r", "\t"}
-CJK_PUNCT = set("。，、；：！？「」『』（）《》〈〉…—～·")
+CJK_PUNCT = set("。，、；：！？「」『』（）《》〈〉…—～·"
+                # CURLY QUOTES ADDED 2026-07-30. The set had the corner brackets
+                # 「」『』 and not “” (U+201C/U+201D), which are the ordinary Chinese
+                # quotation marks in simplified text. Six whisper_want prompts open
+                # with “ and would have got NO WORD BOUNDARY there -- the quote cannot
+                # be dropped, since direct speech is what separates whisper_want from
+                # told_want. Found by the translation pass, not by this smoke test.
+                "“”‘’")
 THETA, MAX_DEPTH = 0.001, 6
 
 

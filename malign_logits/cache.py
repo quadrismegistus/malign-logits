@@ -59,6 +59,12 @@ def canonical_key(key):
     hashstash 0.4.0 serializes dicts in INSERTION ORDER, so
     {"model": m, "prompt": p} and {"prompt": p, "model": m} are different
     keys, and a reader using one order is silently blind to entries written
+    with the other. hashstash 1.0.1 canonicalizes and the two agree.
+
+    That difference bit us on 2026-07-26: the confirmation census was written
+    under 1.0.1 (.venv) and a 0.4.0 reader (venv) got None for every entry.
+    Sorting here makes the key identical under both versions, so the code
+    depends on no version's canonicalization behaviour.
 
     MODE-KEY CONVENTION IS SPLIT ACROSS STASHES. READ THIS BEFORE WRITING A READER.
 
@@ -80,12 +86,6 @@ def canonical_key(key):
 
     A mode-less key IS raw, by declaration, for every stash that omits it.
 
-    with the other. hashstash 1.0.1 canonicalizes and the two agree.
-
-    That difference bit us on 2026-07-26: the confirmation census was written
-    under 1.0.1 (.venv) and a 0.4.0 reader (venv) got None for every entry.
-    Sorting here makes the key identical under both versions, so the code
-    depends on no version's canonicalization behaviour.
     """
     return {k: key[k] for k in sorted(key)} if isinstance(key, dict) else key
 
