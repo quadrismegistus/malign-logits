@@ -735,3 +735,78 @@ def test_logical_rows_carry_a_sentinel_surface_not_an_empty_one(all_rows):
         if logical and not r.get("resolver"):
             bad.append(f"{r['prompt_id']}: model_resolved with no resolver named")
     assert not bad, f"{len(bad)} logical-row encoding faults: " + "; ".join(bad[:6])
+
+
+def test_grid_spec_universe_obeys_its_own_membership_rule(all_rows):
+    """THE CLASS OF DEFECT NO PRECONDITION LOOKS FOR: the universe disobeying its own rule.
+
+    The preconditions all ask whether a prompt SURVIVES something -- encoding, a
+    tokenizer, an arm. None asks whether the set of prompts is the set the rule says it
+    is. So when `build_grid_spec` computed `active` as `status == "ACTIVE"`, two strings
+    whose only non-retired row was DISPUTED fell into `retired - active` and vanished
+    from a frozen object, while the rule of record read "excluded iff retired in EVERY
+    row". Seven preconditions passed and the spec was stamped, frozen and re-verified.
+
+    It was caught by an impossible SHAPE rather than a failed check -- `setd_reason_M/U`
+    scored on 41 of 103 models and present in 0 arms, where remaining work would show 62
+    and never 0. That is an eye, and an eye does not run every time.
+
+    THE RULE, from the record: the universe is the union of the categorisation, the
+    census and the store, EXCLUDING strings retired in EVERY row (a string retired in one
+    row but live in another is KEPT, because a live design still uses it) and excluding
+    the declared BOS/label literals.
+
+    Two assertions, both cheap:
+      1. the spec's own stamped count equals the rule applied to the sources
+      2. nothing is SCHEDULED that the rule excludes
+
+    Skips when the spec is absent or predates the categorisation, because then it
+    describes a different object and a mismatch would be stale rather than wrong.
+    """
+    import csv
+    spec_path = os.path.join(os.path.dirname(CAT), "grid_spec.json")
+    if not os.path.exists(spec_path):
+        pytest.skip("grid_spec.json absent")
+    spec = json.load(open(spec_path))
+    meta = spec.get("_meta") if isinstance(spec, dict) else None
+    if not meta or "prompts" not in meta:
+        pytest.skip("grid_spec.json carries no _meta.prompts to check against")
+
+    by_str = collections.defaultdict(list)
+    for r in all_rows:
+        if r.get("prompt"):
+            by_str[r["prompt"]].append(r)
+    live = {s for s, rs in by_str.items()
+            if any(x.get("status") != "RETIRED" for x in rs)}
+
+    census_path = os.path.join(os.path.dirname(CAT), "prompt_census_all.csv")
+    if os.path.exists(census_path):
+        with open(census_path, newline="") as fh:
+            for row in csv.DictReader(fh):
+                p = row.get("prompt")
+                if p and p not in by_str:      # census-only strings have no rows to retire
+                    live.add(p)
+
+    arms = spec.get("spec") or spec.get("arms") or []
+    scheduled = set()
+    for e in arms:
+        scheduled |= set(e.get("prompts") or [])
+
+    # 2 first: it needs no assumption about what the arm lists mean.
+    excluded_but_scheduled = sorted(
+        p for p in scheduled
+        if p in by_str and all(r.get("status") == "RETIRED" for r in by_str[p]))
+    assert not excluded_but_scheduled, (
+        f"{len(excluded_but_scheduled)} prompts are SCHEDULED but retired in every row: "
+        + "; ".join(repr(p[:44]) for p in excluded_but_scheduled[:6]))
+
+    # 1: the stamped count is the rule's own count. The spec may legitimately schedule
+    # FEWER than the universe (a fully-scored prompt has no work left), so the count is
+    # checked against _meta, which states the universe, not against the arm lists.
+    stamped = meta["prompts"]
+    assert stamped == len(live), (
+        f"spec _meta.prompts = {stamped} but the membership rule applied to the "
+        f"categorisation and census yields {len(live)}. A universe that disagrees with "
+        f"its own rule by {abs(stamped - len(live))} is the DISPUTED-string class: "
+        f"check whether `active` is being computed as status == 'ACTIVE' rather than "
+        f"status != 'RETIRED'.")
