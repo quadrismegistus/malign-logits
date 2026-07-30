@@ -277,8 +277,45 @@ def next_dist(model, tok, pids, prefixes, dev, batch=64):
     return np.concatenate(out, 0)
 
 
+# BOS POLICY: THE RUNNER OWNS IT, NOT tokenizer_config.json.
+# Amendment 2 to freeze [781]. Inheriting the tokenizer default means the
+# conditioning is set by whoever wrote that checkpoint's config -- not a
+# research decision anyone made -- and it DEMONSTRABLY VARIES BETWEEN ARMS OF
+# ONE FAMILY: internlm2's base does not auto-prepend BOS while both aligned arms
+# do, on 763 of 763 prompts, so every base-vs-aligned edge compared different
+# conditioning with every position shifted.
+#
+# DEFAULT IS `inherited`, DELIBERATELY. A global switch to explicit BOS would
+# change the encoding for every model already scored and make the whole grid
+# mixed -- the harm the amendment exists to prevent. So the policy REPRODUCES
+# current behaviour everywhere except families measured to be internally
+# inconsistent, which is internlm2 alone.
+BOS_POLICY = {"internlm2": "forced"}      # substring match on the model id
+
+
+def bos_policy_for(model_id):
+    for k, v in BOS_POLICY.items():
+        if k in model_id.lower():
+            return v
+    return "inherited"
+
+
+def encode_prompt(tok, prompt, policy):
+    """Return ids under an EXPLICIT policy, and the policy actually applied."""
+    if policy == "inherited":
+        return tok.encode(prompt), "inherited"
+    ids = tok.encode(prompt, add_special_tokens=False)
+    if policy == "forced":
+        b = getattr(tok, "bos_token_id", None)
+        if b is None:
+            return ids, "none(no_bos_token)"   # declared, never silent
+        return [b] + ids, "forced"
+    return ids, "none"
+
+
 @torch.no_grad()
-def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None):
+def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
+           bos_policy="inherited"):
     """cjk=(prefix_trie, ids, strings) enables dictionary word boundaries.
 
     ONE INSTRUMENT, DISPATCHING ON SCRIPT -- not two runs side by side. A non-CJK
@@ -288,7 +325,7 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None):
     per-cell choice mixed text cannot make.
     """
 
-    pids = tok.encode(prompt)
+    pids, _applied = encode_prompt(tok, prompt, bos_policy)
     lg = model(torch.tensor([pids], device=dev)).logits[0, -1, :].float()
     P0 = torch.softmax(lg, -1).cpu().numpy()
     sel = np.flatnonzero(P0 >= theta)
@@ -427,6 +464,9 @@ def main(a):
             print(f"  MASK FAILED: {type(e).__name__}: {str(e)[:100]}", flush=True)
             free(model, tok)
             continue
+        pol = bos_policy_for(mid)
+        if pol != "inherited":
+            print(f"  bos_policy: {pol}", flush=True)
         t0, i = time.time(), 0
         # ONE MODEL MUST NOT END THE ROSTER. The first version guarded only the
         # load, so a mid-run OOM on model 17 of 103 took the other 87 with it.
@@ -435,13 +475,15 @@ def main(a):
         try:
             with open(path, "a") as f:
                 for i, p in enumerate(todo, 1):
-                    w, res, calls = expand(model, tok, p, dev, bmask, cjk=cjk)
+                    w, res, calls = expand(model, tok, p, dev, bmask, cjk=cjk,
+                                           bos_policy=pol)
                     tot = sum(w.values()) + res["total"]
                     f.write(json.dumps({
                         "model": mid, "prompt": p, "theta": THETA,
                         "rule_version": RULE_VERSION,
                         "rule_commits": RULE_COMMITS,
                         "dict_sha": dict_sha,
+                        "bos_policy": pol,
                         "rows": [{"word": s_, "t1": t_, "p": m_} for (s_, t_), m_ in w.items()],
                         "residual": res, "batches": calls, "conservation": tot}) + "\n")
                     f.flush()                  # crash-safe: complete line on disk
