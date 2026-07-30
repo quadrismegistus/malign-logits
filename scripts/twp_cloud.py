@@ -38,6 +38,15 @@ THETA, MAX_DEPTH = 0.001, 6
 #     + dictionary prefix trie on CJK surfaces (6bb9f56)
 #     + script transition is a boundary, both directions (68ec402)
 RULE_VERSION = 2
+# KNOWN LIMITATION, v2, deliberately not fixed: punctuation is a boundary
+# regardless of context, so digits and contractions split. `$100,000` records as
+# `100`, and `$100,000` / `$100,500` / `$100` are indistinguishable. Same for
+# `3.14`, `don't`, `state-of-the-art` -- all those characters are in PUNCT.
+# Uniform across every cell, so it does not confound within-run comparison, and
+# every cell carries rule_version so affected cells are findable. It DOES mean
+# numeric-magnitude questions (the wage/salary battery) are not answerable from
+# v2 output. A v3 fix is "punctuation flanked by digits or letters is not a
+# boundary".
 RULE_COMMITS = ["50e0b13", "6bb9f56", "68ec402"]
 PUNCT = set(".,;:!?\"'()[]{}—-–…/\\*#") | {"\n", "\r", "\t"}
 # FULLWIDTH CJK PUNCTUATION WAS MISSING AND IT IS NOT COSMETIC. The set above is
