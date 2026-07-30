@@ -346,6 +346,38 @@ def encode_prompt(tok, prompt, policy):
     return ids, "none"
 
 
+def assert_prompt_survives(tok, prompt, ids):
+    """The prompt the model sees must BE the prompt, not a remainder of it.
+
+    Two failures, and the second is the dangerous one:
+
+      empty ids      deepseek-llm-7b maps every CJK character to nothing -- no
+                     UNK, no replacement, no error -- so a Chinese prompt
+                     becomes []. That crashes downstream with a dtype error
+                     naming nothing relevant.
+      SILENT TRUNCATION
+                     a MIXED prompt losing only its CJK would encode fine,
+                     score fine, and resolve fine, on a sentence with part of
+                     it removed. Not an error: a plausible number computed on
+                     the wrong input.
+
+    An ASSERTION, not a print, per the standing rule -- a warning in a 60,000-
+    cell run is a line nobody reads. Swept over the roster: 2 of 110 models
+    drop CJK (both deepseek arms), 0 truncate partially.
+    """
+    if not ids:
+        raise ValueError(
+            f"tokenizer produced ZERO ids for a non-empty prompt {prompt[:40]!r} "
+            f"-- this tokenizer discards the prompt's script entirely")
+    want = len(CJK.findall(prompt))
+    if want:
+        got = len(CJK.findall(tok.decode(ids)))
+        if got < want:
+            raise ValueError(
+                f"prompt lost {want - got} of {want} CJK characters in encoding "
+                f"{prompt[:40]!r} -- the model would score a TRUNCATED prompt")
+
+
 @torch.no_grad()
 def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
            bos_policy="inherited"):
@@ -359,6 +391,7 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
     """
 
     pids, _applied = encode_prompt(tok, prompt, bos_policy)
+    assert_prompt_survives(tok, prompt, pids)
     lg = model(torch.tensor([pids], device=dev)).logits[0, -1, :].float()
     P0 = torch.softmax(lg, -1).cpu().numpy()
     sel = np.flatnonzero(P0 >= theta)
