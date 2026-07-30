@@ -161,8 +161,16 @@ def test_no_prompt_string_repeats_within_one_finding(rows):
     So the invariant is NOT "prompt is unique" -- the prompt is deliberately not a
     key. It is: a prompt may appear twice only under DIFFERENT findings.
     """
-    AUTO = lambda r: (str(r.get("prompt_id", "")).startswith("store_g")
-                      or r.get("source") == "OTHER")
+    # AUTO detects the AUTO-MAPPER's rows, and it once tested source == "OTHER" because that
+    # was the mapper's label. THE MEANING OF `OTHER` CHANGED on 2026-07-30: a grep found
+    # declaring files for 34 of its 40 rows, and the remaining six were relabelled to mean
+    # "no declaring file anywhere". So `OTHER` now marks undeclared provenance, not automated
+    # keying, and the old test blocked a legitimate dual-design exemption the moment a second
+    # identity was correctly given source=OTHER.
+    #
+    # A predicate that encodes a field's OLD semantics keeps passing until the semantics move,
+    # then fails on correct data. Detect the mapper by its id prefix, which has not changed.
+    AUTO = lambda r: str(r.get("prompt_id", "")).startswith("store_g")
     seen = collections.defaultdict(list)
     for r in rows:
         seen[(r["prompt"].strip(), r.get("finding"))].append(r)
