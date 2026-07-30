@@ -322,6 +322,15 @@ def test_marked_unmarked_groups_have_exactly_one_of_each(rows, declared_markedne
         n = collections.Counter(r.get("group_role") for r in members)
         if not (n["MARKED"] or n["UNMARKED"]):
             continue
+        # TWO EXEMPTIONS, and the second was added because the first did not cover a
+        # group that has no entry in Set D/E at all. `He was a man and he wanted to` /
+        # `She was a woman and she wanted to` is a GENDER SWAP -- same frame, one token
+        # changed, NEITHER member marked -- and there is no `was a man and a woman` BOTH
+        # cell because the third-person-singular form is ungrammatical. Markedness
+        # balance is simply not a property of that design.
+        NOT_A_MARKEDNESS_AXIS = {"gender_swap", "grammar_swap", "intensity_ladder"}
+        if {m.get("contrast_type") for m in members} & NOT_A_MARKEDNESS_AXIS:
+            continue                    # contrast_type says markedness is not the axis
         flags = {declared_markedness[m["prompt"].strip()] for m in members
                  if m["prompt"].strip() in declared_markedness}
         if len(flags) == 1:
