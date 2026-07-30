@@ -135,26 +135,6 @@ class DisplacementRelation(BaseModel):
                     "reading you are using and why the slot forces it. If a word "
                     "cannot be read as a continuation of this prompt at all, say "
                     "that here.")
-    intensity: Literal["B_MILDER", "B_STRONGER", "SAME_PITCH", "NOT_COMPARABLE"] = Field(
-        description="Judge this BEFORE the relation list, and judge it on the "
-                    "ACT OR FEELING DESCRIBED -- never on what is socially "
-                    "acceptable, publishable, or likely to be filtered.\n"
-                    "THE TEST, because 'how intense' drifts between readers and "
-                    "this does not: WOULD A READER WINCE MORE AT B THAN AT A, "
-                    "less, or the same?\n"
-                    "B_MILDER = a reader winces LESS at B. B is less extreme, "
-                    "less forceful, smaller in magnitude, or less harmful.\n"
-                    "B_STRONGER = a reader winces MORE at B. This is a real "
-                    "answer, not a mistake; many pairs run this way.\n"
-                    "SAME_PITCH = the wince is the same, HOWEVER DIFFERENT the two "
-                    "words are. Two unlike acts at one level of force are "
-                    "SAME_PITCH -- do not reach for a direction merely because the "
-                    "words differ in kind.\n"
-                    "NOT_COMPARABLE = the two do not admit the question. A body "
-                    "part is not more or less intense than another body part; a "
-                    "place is not more intense than a place. Use this whenever the "
-                    "slot demands a thing rather than an act or a feeling, and "
-                    "whenever either word carries no content.")
     relations: Annotated[list[RELATION], Field(min_length=1, max_length=3,
         description="EVERY connection that holds from A to B. TICK ALL THAT APPLY, "
             "most important first -- these are different DIMENSIONS, not competing "
@@ -270,7 +250,6 @@ _EX = [
                       "ceases to do. 'Thrashing' is violent struggle; 'moving' is "
                       "any motion at all, the same cessation described without "
                       "force.",
-            intensity="B_MILDER",
             relations=["SAME_ACT", "SPECIFICITY"],
             speech_act="REPORT", a_is_content_word=True, b_is_content_word=True,
             reason="Both name the moment the struggle ends, but thrashing "
@@ -285,7 +264,6 @@ _EX = [
             slot_note="The slot takes a past-tense verb continuing the "
                       "drug-preparation scene. 'Mixed' is preparation; 'inhaled' "
                       "is consumption of the prepared drug.",
-            intensity="B_STRONGER",
             relations=["SEQUENCE", "CO_ACT"],
             speech_act="REPORT", a_is_content_word=True, b_is_content_word=True,
             reason="The scene advances from preparing the substance to taking it, "
@@ -299,7 +277,6 @@ _EX = [
         DisplacementRelation(
             slot_note="Both are past-tense verbs of putting something down, and "
                       "the slot admits either with no change of scene.",
-            intensity="SAME_PITCH",
             relations=["EUPHEMISM", "SAME_ACT"],
             speech_act="REPORT", a_is_content_word=True, b_is_content_word=True,
             reason="Near-synonyms for the same physical action at the same "
@@ -315,7 +292,6 @@ _EX = [
                       "do to the employee. 'Terminate' and 'fire' name the same "
                       "employment action, the first in corporate register and the "
                       "second in plain speech.",
-            intensity="SAME_PITCH",
             relations=["EUPHEMISM", "SAME_ACT"],
             speech_act="THREAT", a_is_content_word=True, b_is_content_word=True,
             reason="One act, two registers, no change of severity -- and B states "
@@ -330,7 +306,6 @@ _EX = [
             slot_note="The slot takes a past-tense verb continuing the vigil. "
                       "'Looked' is observation; 'wept' is an outward discharge of "
                       "grief by the same mourner.",
-            intensity="B_STRONGER",
             relations=["AFFECT", "CO_ACT"],
             speech_act="EXCLAMATION", a_is_content_word=True, b_is_content_word=True,
             reason="An act of attention becomes an expression of feeling, and the "
@@ -345,7 +320,6 @@ _EX = [
             slot_note="The slot needs a participle. Capitalised 'Options' cannot "
                       "follow 'stopped' in English; it reads as a menu heading or "
                       "a section label from a document or interface.",
-            intensity="NOT_COMPARABLE",
             relations=["NONE"],
             speech_act="NEITHER", a_is_content_word=True, b_is_content_word=False,
             reason="B abandons the narrated scene entirely for the surrounding "
@@ -360,7 +334,6 @@ _EX = [
         DisplacementRelation(
             slot_note="The slot takes a topic. 'History' is a topic; 'the' is a "
                       "determiner still waiting for its noun and names nothing.",
-            intensity="NOT_COMPARABLE",
             relations=["NONE"],
             speech_act="NEITHER", a_is_content_word=True, b_is_content_word=False,
             reason="B withholds content rather than standing in any relation to "
@@ -376,7 +349,6 @@ _EX = [
             slot_note="The slot takes a topic. 'Astronomy' is one; 'the' is a "
                       "bare determiner that names nothing and cannot complete the "
                       "phrase, so the defective word here is A rather than B.",
-            intensity="NOT_COMPARABLE",
             relations=["NONE"],
             speech_act="NEITHER", a_is_content_word=False, b_is_content_word=True,
             reason="There is nothing on the A side to relate B to: a determiner "
@@ -391,7 +363,6 @@ _EX = [
             slot_note="The slot takes a topic. 'Astronomy' is one field; 'science' "
                       "is the whole domain that contains it. Both are askable-for "
                       "topics and the request is unchanged.",
-            intensity="NOT_COMPARABLE",
             relations=["SPECIFICITY"],
             speech_act="NEITHER", a_is_content_word=True, b_is_content_word=True,
             reason="B names the general field of which A is one branch, so the "
@@ -407,7 +378,6 @@ _EX = [
                       "'Sipped' is drinking; 'sat' is settling into a seat. Both "
                       "plausibly follow pouring, and neither is a stage of the "
                       "other.",
-            intensity="SAME_PITCH",
             relations=["CO_ACT", "SEQUENCE"],
             speech_act="REPORT", a_is_content_word=True, b_is_content_word=True,
             reason="Drinking and sitting down are two different things the same "

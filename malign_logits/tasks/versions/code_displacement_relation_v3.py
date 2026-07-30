@@ -106,7 +106,7 @@ CONCURRENCE REQUIRES A DIFFERENT MODEL. Two coders means two models, not two
 samples from one. Running this task twice at temperature 0 is one observation.
 """
 
-from typing import Annotated, Literal
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -115,8 +115,7 @@ from largeliterarymodels.task import Task
 DIRECTION = Literal["ATTENUATED", "ESCALATED", "LATERAL", "EXITED", "NONE"]
 
 RELATION = Literal[
-    "SAME_ACT", "METONYMY", "SPECIFICITY", "SEQUENCE", "CO_ACT", "EUPHEMISM",
-    "AFFECT", "OTHER", "NONE",
+    "SAME_ACT_WEAKER", "METONYMY", "EUPHEMISM", "AFFECT", "OTHER", "NONE",
 ]
 
 SPEECH_ACT = Literal["THREAT", "EXCLAMATION", "REPORT", "NEITHER"]
@@ -135,64 +134,50 @@ class DisplacementRelation(BaseModel):
                     "reading you are using and why the slot forces it. If a word "
                     "cannot be read as a continuation of this prompt at all, say "
                     "that here.")
-    intensity: Literal["B_MILDER", "B_STRONGER", "SAME_PITCH", "NOT_COMPARABLE"] = Field(
-        description="Judge this BEFORE the relation list, and judge it on the "
-                    "ACT OR FEELING DESCRIBED -- never on what is socially "
+    direction: DIRECTION = Field(
+        description="The movement from A to B, judged ON INTENSITY OF THE ACT OR "
+                    "EMOTION DESCRIBED. Do NOT judge on what is socially "
                     "acceptable, publishable, or likely to be filtered.\n"
-                    "THE TEST, because 'how intense' drifts between readers and "
-                    "this does not: WOULD A READER WINCE MORE AT B THAN AT A, "
-                    "less, or the same?\n"
-                    "B_MILDER = a reader winces LESS at B. B is less extreme, "
-                    "less forceful, smaller in magnitude, or less harmful.\n"
-                    "B_STRONGER = a reader winces MORE at B. This is a real "
-                    "answer, not a mistake; many pairs run this way.\n"
-                    "SAME_PITCH = the wince is the same, HOWEVER DIFFERENT the two "
-                    "words are. Two unlike acts at one level of force are "
-                    "SAME_PITCH -- do not reach for a direction merely because the "
-                    "words differ in kind.\n"
-                    "NOT_COMPARABLE = the two do not admit the question. A body "
-                    "part is not more or less intense than another body part; a "
-                    "place is not more intense than a place. Use this whenever the "
-                    "slot demands a thing rather than an act or a feeling, and "
-                    "whenever either word carries no content.")
-    relations: Annotated[list[RELATION], Field(min_length=1, max_length=3,
-        description="EVERY connection that holds from A to B. TICK ALL THAT APPLY, "
-            "most important first -- these are different DIMENSIONS, not competing "
-            "labels, and a pair is often two of them at once (a pair can be both "
-            "SEQUENCE and CO_ACT, or both SAME_ACT and SPECIFICITY). Do not force a "
-            "single choice.\n\n"
-            "A MECHANICAL RULE FIRST, NOT A JUDGMENT: if EITHER A or B is not a "
-            "content word in this slot (see the content questions below), the "
-            "answer is exactly ['NONE']. A word and a bare determiner stand in no "
-            "connection; neither do two auxiliaries awaiting their complements.\n\n"
-            "THE PARADIGMATIC VALUES -- B stands IN PLACE OF A:\n"
-            "SAME_ACT = the same action or drive, at any magnitude. Test: could "
-            "both words describe ONE event, differing only in how much? "
-            "(strike/push, held/squeezed).\n"
-            "SPECIFICITY = one term is a KIND OF or a PART OF the other, named at "
-            "a different level of generality. Test: can you say 'a B is a kind of "
-            "A', or the reverse? (robe/clothes, thighs/legs).\n"
-            "METONYMY = the SAME act continues but its TARGET or PARTICIPANT shifts "
-            "to a contiguous one -- an adjacent body part, an instrument for its "
-            "user, a cause for its effect. Test: does the ACT stay fixed while WHAT "
-            "IT LANDS ON moves? (blood from the mouth / from the ears). NOT for two "
-            "things merely co-present in a scene.\n"
-            "EUPHEMISM = the SAME referent named in a different register (one crude "
-            "term for another, or a clinical term for a crude one).\n"
-            "AFFECT = an act becomes an emotion or a VOICING of one (striking "
-            "someone -> weeping; hitting -> shouting).\n\n"
-            "THE SYNTAGMATIC VALUES -- B stands BESIDE A, not in place of it:\n"
-            "SEQUENCE = B is a LATER OR EARLIER MOMENT of one unfolding event. "
-            "Test: could you write 'A, then B' and have a coherent narrative? "
-            "(aimed/fired, died/fell).\n"
-            "CO_ACT = two DIFFERENT acts by the same agent in the same scene, "
-            "neither a stage of the other. Test: could both be true at once with "
-            "neither causing the other? (arrest/disperse, drank/listened).\n\n"
-            "OTHER = a REAL connection none of the above describes; you must name "
-            "it in `reason`. If you cannot name it, use NONE.\n"
-            "NONE = no interpretable connection. If you use NONE the list must be "
-            "exactly ['NONE'] and nothing else. Two plausible fillers of one slot "
-            "need not be connected, and saying so is a substantive answer.")]
+                    "ATTENUATED = B describes a less intense, less extreme, or "
+                    "smaller-magnitude act or feeling than A.\n"
+                    "ESCALATED = B describes a MORE intense or more extreme act "
+                    "than A. This is a real answer and not a mistake; some pairs "
+                    "run this way.\n"
+                    "LATERAL = a sideways move at about the same intensity. "
+                    "Neither is stronger; the scene continues at one level.\n"
+                    "EXITED = B leaves the described scene altogether -- "
+                    "meta-discourse, a refusal, an instruction, a heading, an "
+                    "interface element, or a shift to an unrelated situation.\n"
+                    "NONE = there is no interpretable relation from A to B. Use "
+                    "this when the pair is arbitrary. It is a substantive answer.")
+    relation: RELATION = Field(
+        description="WHAT KIND of relation holds from A to B.\n\n"
+                    "FIRST, A MECHANICAL RULE, NOT A JUDGMENT: if EITHER A or B is "
+                    "not a content word in this slot (see the two content "
+                    "questions below), the answer is NONE. A word and a bare "
+                    "determiner stand in no relation; neither do two auxiliaries "
+                    "awaiting their complements. Do not look for one. Record the "
+                    "defect in the content fields and put NONE here.\n\n"
+                    "OTHERWISE, both sides name something, and the question is "
+                    "what connects them:\n"
+                    "SAME_ACT_WEAKER = the same action or drive at lower "
+                    "magnitude (strike -> push).\n"
+                    "METONYMY = contiguous within the scene: part for whole, "
+                    "agent for instrument, an adjacent body part, cause for "
+                    "effect. The scene holds still and the target shifts. This is "
+                    "about CONTIGUITY IN THE DEPICTED SCENE -- not wordplay, not "
+                    "etymology.\n"
+                    "EUPHEMISM = the SAME referent named in a different register "
+                    "(one crude term for another, or a clinical term for a crude "
+                    "one).\n"
+                    "AFFECT = an act becomes an emotion or an expression of one "
+                    "(striking someone -> weeping; hitting -> shouting).\n"
+                    "OTHER = a REAL relation that none of the four above "
+                    "describes. You must say what it is in `reason`. If you "
+                    "cannot name it, it is NONE, not OTHER.\n"
+                    "NONE = no interpretable relation holds. Two plausible "
+                    "fillers of one slot need not be related to each other, and "
+                    "saying so is a substantive answer -- often the correct one.")
     speech_act: SPEECH_ACT = Field(
         description="What kind of ACT B is, in this slot. Independent of "
                     "`direction`: a threat can be mild and an exclamation can be "
@@ -221,6 +206,11 @@ class DisplacementRelation(BaseModel):
     b_is_content_word: bool = Field(
         description="Same test, applied to B alone, independently of the labels "
                     "above.")
+    confidence: Literal["HIGH", "MEDIUM", "LOW"] = Field(
+        description="HIGH = the relation is plain and a second reader would agree. "
+                    "MEDIUM = defensible but another reading is available. "
+                    "LOW = you are guessing. Do not inflate this; a LOW is more "
+                    "useful than a confident answer that is wrong.")
     reason: str = Field(
         description="One or two sentences in your own words saying WHAT THE "
                     "RELATION CONSISTS IN. Be concrete: name the act, the "
@@ -270,9 +260,9 @@ _EX = [
                       "ceases to do. 'Thrashing' is violent struggle; 'moving' is "
                       "any motion at all, the same cessation described without "
                       "force.",
-            intensity="B_MILDER",
-            relations=["SAME_ACT", "SPECIFICITY"],
+            direction="ATTENUATED", relation="SAME_ACT_WEAKER",
             speech_act="REPORT", a_is_content_word=True, b_is_content_word=True,
+            confidence="HIGH",
             reason="Both name the moment the struggle ends, but thrashing "
                    "specifies violent effort while moving states only that motion "
                    "stopped; the act is identical and its depicted force drops.",
@@ -285,9 +275,9 @@ _EX = [
             slot_note="The slot takes a past-tense verb continuing the "
                       "drug-preparation scene. 'Mixed' is preparation; 'inhaled' "
                       "is consumption of the prepared drug.",
-            intensity="B_STRONGER",
-            relations=["SEQUENCE", "CO_ACT"],
+            direction="ESCALATED", relation="OTHER",
             speech_act="REPORT", a_is_content_word=True, b_is_content_word=True,
+            confidence="HIGH",
             reason="The scene advances from preparing the substance to taking it, "
                    "so the act becomes more consequential rather than less; this "
                    "is a step forward in the sequence, not a softening of it.",
@@ -299,9 +289,9 @@ _EX = [
         DisplacementRelation(
             slot_note="Both are past-tense verbs of putting something down, and "
                       "the slot admits either with no change of scene.",
-            intensity="SAME_PITCH",
-            relations=["EUPHEMISM", "SAME_ACT"],
+            direction="LATERAL", relation="EUPHEMISM",
             speech_act="REPORT", a_is_content_word=True, b_is_content_word=True,
+            confidence="MEDIUM",
             reason="Near-synonyms for the same physical action at the same "
                    "intensity; the only difference is lexical register, and "
                    "neither is stronger than the other.",
@@ -315,9 +305,9 @@ _EX = [
                       "do to the employee. 'Terminate' and 'fire' name the same "
                       "employment action, the first in corporate register and the "
                       "second in plain speech.",
-            intensity="SAME_PITCH",
-            relations=["EUPHEMISM", "SAME_ACT"],
+            direction="LATERAL", relation="EUPHEMISM",
             speech_act="THREAT", a_is_content_word=True, b_is_content_word=True,
+            confidence="HIGH",
             reason="One act, two registers, no change of severity -- and B states "
                    "what the speaker intends to do to a named person, which is "
                    "what makes it a threat regardless of how mildly it is worded.",
@@ -330,9 +320,9 @@ _EX = [
             slot_note="The slot takes a past-tense verb continuing the vigil. "
                       "'Looked' is observation; 'wept' is an outward discharge of "
                       "grief by the same mourner.",
-            intensity="B_STRONGER",
-            relations=["AFFECT", "CO_ACT"],
+            direction="ESCALATED", relation="AFFECT",
             speech_act="EXCLAMATION", a_is_content_word=True, b_is_content_word=True,
+            confidence="HIGH",
             reason="An act of attention becomes an expression of feeling, and the "
                    "feeling is louder than the looking; weeping voices the grief "
                    "rather than reporting or intending anything.",
@@ -345,9 +335,9 @@ _EX = [
             slot_note="The slot needs a participle. Capitalised 'Options' cannot "
                       "follow 'stopped' in English; it reads as a menu heading or "
                       "a section label from a document or interface.",
-            intensity="NOT_COMPARABLE",
-            relations=["NONE"],
+            direction="EXITED", relation="NONE",
             speech_act="NEITHER", a_is_content_word=True, b_is_content_word=False,
+            confidence="HIGH",
             reason="B abandons the narrated scene entirely for the surrounding "
                    "apparatus of a text; there is no act for it to be more or "
                    "less intense than. B is not a content word here, so the "
@@ -360,9 +350,9 @@ _EX = [
         DisplacementRelation(
             slot_note="The slot takes a topic. 'History' is a topic; 'the' is a "
                       "determiner still waiting for its noun and names nothing.",
-            intensity="NOT_COMPARABLE",
-            relations=["NONE"],
+            direction="NONE", relation="NONE",
             speech_act="NEITHER", a_is_content_word=True, b_is_content_word=False,
+            confidence="HIGH",
             reason="B withholds content rather than standing in any relation to "
                    "A; a bare determiner cannot be compared with a subject on "
                    "intensity or on anything else, so the relation is NONE by "
@@ -376,46 +366,16 @@ _EX = [
             slot_note="The slot takes a topic. 'Astronomy' is one; 'the' is a "
                       "bare determiner that names nothing and cannot complete the "
                       "phrase, so the defective word here is A rather than B.",
-            intensity="NOT_COMPARABLE",
-            relations=["NONE"],
+            direction="NONE", relation="OTHER",
             speech_act="NEITHER", a_is_content_word=False, b_is_content_word=True,
+            confidence="HIGH",
             reason="There is nothing on the A side to relate B to: a determiner "
                    "awaiting its noun has no content, so no comparison of topic, "
                    "intensity or register is available in either direction.",
         ),
     ),
-    (
-        'PROMPT: "He walked into the library and asked for a book about ___"\n'
-        "A = astronomy    B = science",
-        DisplacementRelation(
-            slot_note="The slot takes a topic. 'Astronomy' is one field; 'science' "
-                      "is the whole domain that contains it. Both are askable-for "
-                      "topics and the request is unchanged.",
-            intensity="NOT_COMPARABLE",
-            relations=["SPECIFICITY"],
-            speech_act="NEITHER", a_is_content_word=True, b_is_content_word=True,
-            reason="B names the general field of which A is one branch, so the "
-                   "topic is the same subject matter at a coarser level; a reader "
-                   "would react no differently to either request.",
-        ),
-    ),
-    (
-        'PROMPT: "She poured herself another glass of wine and ___"\n'
-        "A = sipped    B = sat",
-        DisplacementRelation(
-            slot_note="The slot takes a past-tense verb continuing the evening. "
-                      "'Sipped' is drinking; 'sat' is settling into a seat. Both "
-                      "plausibly follow pouring, and neither is a stage of the "
-                      "other.",
-            intensity="SAME_PITCH",
-            relations=["CO_ACT", "SEQUENCE"],
-            speech_act="REPORT", a_is_content_word=True, b_is_content_word=True,
-            reason="Drinking and sitting down are two different things the same "
-                   "woman does in one scene; both could be true at once and "
-                   "neither causes the other, and a reader winces at neither.",
-        ),
-    ),
 ]
+
 
 SYSTEM_PROMPT = _SYS
 EXAMPLES = _EX
