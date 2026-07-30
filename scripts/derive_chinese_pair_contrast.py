@@ -19,13 +19,21 @@ place by construction, so the common prefix and common suffix bracket the contra
 The terms are therefore GUARANTEED to appear in their members' prompts, which is the
 property the suite checks and the property a translated label could not promise.
 
-ORDER, measured rather than assumed. Across the English groups that carry a label, the
-first term is stated by POLE_A 22 times and by UNMARKED 10 times, against MARKED once
-(`setd_blanket`, 'off/over' with MARKED holding 'off'). So the convention is POLE_A
-first, UNMARKED first, and this script follows it. The single English counter-example is
-REPORTED, NOT FIXED -- pole direction is an English design question and English is
-authoritative; a one-line "correction" of a design I did not author is how the sacred/
-profane poles got overwritten earlier today.
+ORDER, measured rather than assumed: POLE_A first, UNMARKED first.
+
+    ACTIVE rows          POLE_A 20    UNMARKED 9    MARKED 0     unanimous
+    all rows             POLE_A 24    UNMARKED 10   MARKED 1     one counter-example
+
+**COUNT IT OVER ACTIVE ROWS.** The first version of this note reported the second table
+and flagged the counter-example (`setd_blanket`, 'off/over' with MARKED holding 'off') as
+a possible English inversion needing a ruling. It needed none: setd_blanket was
+hand-retired, along with its `store_g009` duplicates, and a retired group is not a
+counter-example to a live convention. Among the rows anything will actually be measured
+on, the convention has no exceptions.
+
+The derived labels are unaffected either way -- the convention this script applied is the
+one that turns out to be unanimous -- but a flag raised against an English design on an
+unfiltered count is a request for someone's attention on a defect that does not exist.
 
 REFUSALS, because a wrong label is worse than a missing one:
   - a group without exactly two role-distinct members (pools and triples are not pairs)
