@@ -76,6 +76,13 @@ def main(model, out, workers=8, limit=0):
         # level up: without it a re-code leaves two taxonomies in one table
         # with nothing to tell them apart.
         v["instrument_sha256"] = sha
+        # THE VALUE SET ITSELF, not a version integer -- lacan's [923]/[925]
+        # amendment to my own proposal, and the better form for the same reason
+        # a count check is weaker than a set check. An integer needs an external
+        # table someone must maintain and will forget; `v5` told nobody which
+        # nine relations it offered, which is why establishing that took a
+        # person reading a file. THIS SAYS WHAT THE CODER COULD HAVE CHOSEN.
+        v["relation_values"] = "|".join(sorted(values))
         v["n_relation_values"] = len(values) or None
         v["coder_model"] = task.model
         keep.append({**{k: getattr(r, k) for k in d.columns}, **v})
