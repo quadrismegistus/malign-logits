@@ -52,6 +52,23 @@ def doc():
 
 @pytest.fixture(scope="module")
 def rows(doc):
+    """ACTIVE rows only. A RETIRED row cannot be consumed by an analysis, so holding it
+    to a structural invariant is holding the wrong object to it.
+
+    This was a defect in the first version of these tests, and it surfaced the moment
+    the retirements ran: the duplicate test reported all 51 duplicates still present
+    when 50 of them had just been retired, and the DISPUTED test reported a bypass by a
+    row whose status was RETIRED -- which is the opposite of a bypass. Both were the
+    test counting rows the file had already excluded.
+
+    `all_rows` is available where the invariant genuinely covers retired rows too
+    (uniqueness of prompt_id, declared vocabularies).
+    """
+    return [r for r in doc["prompts"] if r.get("status") != "RETIRED"]
+
+
+@pytest.fixture(scope="module")
+def all_rows(doc):
     return doc["prompts"]
 
 
@@ -128,8 +145,8 @@ def groups(rows, prefix=None):
 # 1. IDENTITY AND UNIQUENESS
 # --------------------------------------------------------------------------
 
-def test_prompt_id_is_unique(rows):
-    dup = [k for k, n in collections.Counter(r["prompt_id"] for r in rows).items() if n > 1]
+def test_prompt_id_is_unique(all_rows):
+    dup = [k for k, n in collections.Counter(r["prompt_id"] for r in all_rows).items() if n > 1]
     assert not dup, f"{len(dup)} duplicated prompt_id: {dup[:10]}"
 
 
@@ -143,13 +160,27 @@ def test_no_prompt_string_repeats_within_one_finding(rows):
     So the invariant is NOT "prompt is unique" -- the prompt is deliberately not a
     key. It is: a prompt may appear twice only under DIFFERENT findings.
     """
+    AUTO = lambda r: (str(r.get("prompt_id", "")).startswith("store_g")
+                      or r.get("source") == "OTHER")
     seen = collections.defaultdict(list)
     for r in rows:
-        seen[(r["prompt"].strip(), r.get("finding"))].append(r["prompt_id"])
-    bad = {k: v for k, v in seen.items() if len(v) > 1}
+        seen[(r["prompt"].strip(), r.get("finding"))].append(r)
+    bad = {}
+    for k, group in seen.items():
+        if len(group) < 2:
+            continue
+        # A prompt may serve TWO GENUINE DESIGNS that happen to share a finding. The
+        # case that forced this: `My boss takes credit for my work in every meeting. I
+        # should` is BOTH the canonical F21 battery member `institutional_labor_worker_2`
+        # AND Set E's E1 pair member `e1_credit_M`. Same finding, two designs, and
+        # retiring either destroys a real identity. The signature is that neither row is
+        # auto-mapped and they come from different declared sources.
+        if not any(AUTO(r) for r in group) and len({r.get("source") for r in group}) > 1:
+            continue
+        bad[k] = [r["prompt_id"] for r in group]
     assert not bad, (
-        f"{len(bad)} prompt strings duplicated WITHIN one finding (merge defect, not "
-        f"dual membership). First few: "
+        f"{len(bad)} prompt strings duplicated WITHIN one finding by two build paths "
+        f"(not dual design). First few: "
         + "; ".join(f"{k[1]} {k[0][:40]!r} -> {v}" for k, v in list(bad.items())[:5]))
 
 
@@ -322,12 +353,12 @@ def test_f11_triples_are_complete_or_declared_incomplete(rows):
 # 4. CONTROLLED VOCABULARIES
 # --------------------------------------------------------------------------
 
-def test_domain_values_are_declared_in_the_schema(rows, doc):
+def test_domain_values_are_declared_in_the_schema(all_rows, doc):
     """`domain=sensation` exists in 4 rows and is not a declared value, while the
     declared `class` has none.
     """
     allowed = set(doc["_schema"]["domain"]["values"])
-    seen = collections.Counter(r.get("domain") for r in rows)
+    seen = collections.Counter(r.get("domain") for r in all_rows)
     undeclared = {k: n for k, n in seen.items() if k is not None and k not in allowed}
     assert not undeclared, f"undeclared domain values in use: {undeclared}"
 
@@ -387,7 +418,7 @@ def test_ladder_ranks_are_contiguous_from_one(rows):
 
 
 @pytest.mark.parametrize("field", ["finding", "source", "apparatus", "group_role", "slot"])
-def test_enum_fields_only_use_declared_values(rows, doc, field):
+def test_enum_fields_only_use_declared_values(all_rows, doc, field):
     """Generalises the domain check to every field the schema gives a value list for.
 
     The audit found `finding=F19` on 109 rows and `source` in {UNMAPPED, CENSUS} on
@@ -399,7 +430,7 @@ def test_enum_fields_only_use_declared_values(rows, doc, field):
     if not isinstance(spec, dict) or "values" not in spec:
         pytest.skip(f"{field} has no declared value list")
     allowed = set(spec["values"])
-    seen = collections.Counter(r.get(field) for r in rows)
+    seen = collections.Counter(r.get(field) for r in all_rows)
     bad = {k: n for k, n in seen.items() if k is not None and k not in allowed}
     assert not bad, f"{field} uses undeclared values: {bad}"
 
