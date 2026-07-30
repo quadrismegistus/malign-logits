@@ -449,6 +449,32 @@ def resolve_logical(tok, prompt):
     return None, None, "skip:no_bos_token"      # RECORDED, not silent
 
 
+def purge_model(mid, enabled=True):
+    """Delete a model's HF cache. CALLED ON EVERY EXIT PATH, INCLUDING FAILURE.
+
+    THE LOAD-FAILURE PATH USED TO `continue` PAST THE PURGE, and that is the
+    second time disk has nearly killed this run. The first was purging AFTER
+    completion, so four 65 GB downloads accumulated; the fix moved it before
+    each download -- but a model that FAILS TO LOAD never reaches the next
+    download, so its cache was never collected.
+
+    Measured on the v3 grid: two 32B arms OOM'd at load and left 123 GB EACH
+    resident, with RWKV, mistral-sft and three more failures beside them. Disk
+    went 247 GB -> 53 GB free and was still falling. A failed model's weights
+    are the LEAST worth keeping and were the only ones kept.
+    """
+    if not enabled:
+        return
+    hub = os.path.expanduser("~/.cache/huggingface/hub")
+    tag = mid.replace("/", "--")
+    if not os.path.isdir(hub):
+        return
+    for sub in os.listdir(hub):
+        if sub.startswith("models--") and tag in sub:
+            shutil.rmtree(os.path.join(hub, sub), ignore_errors=True)
+            print(f"  purged {sub}", flush=True)
+
+
 def assert_prompt_survives(tok, prompt, ids):
     """The prompt the model sees must BE the prompt, not a remainder of it.
 
@@ -697,6 +723,7 @@ def main(a):
         except Exception as e:
             print(f"  LOAD FAILED: {str(e)[:120]}", flush=True)
             free()                 # the traceback held the partial load
+            purge_model(mid, a.purge)   # ITS WEIGHTS ARE NOW DEAD WEIGHT
             continue
         # INSIDE THE GUARD. This sat BETWEEN the guarded load and the guarded
         # run, so a tokenizer that cannot decode every id in range(vocab_size)
@@ -773,13 +800,7 @@ def main(a):
             print(f"  RUN FAILED after {i-1}/{len(todo)}: "
                   f"{type(e).__name__}: {str(e)[:120]}", flush=True)
         free(model, tok)
-        if a.purge:                            # download is the binding constraint
-            for d in ("~/.cache/huggingface/hub",):
-                for sub in os.listdir(os.path.expanduser(d)):
-                    if sub.startswith("models--") and mid.replace("/", "--") in sub:
-                        shutil.rmtree(os.path.join(os.path.expanduser(d), sub),
-                                      ignore_errors=True)
-                        print(f"  purged {sub}", flush=True)
+        purge_model(mid, a.purge)          # download is the binding constraint
     print("\nALL MODELS COMPLETE", flush=True)
 
 
