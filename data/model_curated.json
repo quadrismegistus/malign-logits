@@ -1,0 +1,376 @@
+{
+ "_note": "HAND-CURATED facts about models that no artifact can regenerate. Extracted from data/model_registry.json as it stood at 9c4c2b8~1, where they had been hand-entered and were then destroyed by a regeneration that only knew how to rebuild DERIVED fields. This file is never regenerated; the builder merges it.",
+ "_fields": {
+  "org_type": "curated",
+  "country": "curated",
+  "corpus": "curated",
+  "open_data": "curated",
+  "open_weight": "curated",
+  "scale": "curated"
+ },
+ "models": {
+  "allenai/Olmo-3-1025-7B": {
+   "org_type": "nonprofit",
+   "scale": "7B",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/Olmo-3-7B-Instruct-SFT": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/Olmo-3-7B-Instruct-DPO": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/Olmo-3-7B-Instruct": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/Olmo-3-7B-Think-SFT": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/Olmo-3-7B-Think-DPO": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/OLMo-2-0425-1B": {
+   "org_type": "nonprofit",
+   "scale": "1B",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/OLMo-2-0425-1B-SFT": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/OLMo-2-0425-1B-DPO": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/OLMo-2-0425-1B-Instruct": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "HuggingFaceTB/SmolLM2-360M": {
+   "org_type": "corporate",
+   "scale": "360M",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "HuggingFaceTB/SmolLM2-360M-Instruct": {
+   "open_weight": true,
+   "open_data": false
+  },
+  "Qwen/Qwen2.5-0.5B": {
+   "org_type": "corporate",
+   "scale": "0.5B",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "Qwen/Qwen2.5-0.5B-Instruct": {
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "meta-llama/Llama-3.1-8B": {
+   "org_type": "corporate",
+   "scale": "8B",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "meta-llama/Llama-3.1-8B-Instruct": {
+   "org_type": "corporate",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "deepseek-ai/DeepSeek-R1-Distill-Llama-8B": {
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "LLM360/Amber": {
+   "org_type": "academic",
+   "scale": "7B",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "LLM360/AmberChat": {
+   "org_type": "academic",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "LLM360/AmberSafe": {
+   "org_type": "academic",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "Qwen/Qwen2.5-7B": {
+   "org_type": "corporate",
+   "scale": "7B",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "Qwen/Qwen2.5-7B-Instruct": {
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": {
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/Llama-3.1-Tulu-3-8B-DPO": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/Llama-3.1-Tulu-3.1-8B": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "mistralai/Mistral-7B-v0.1": {
+   "org_type": "corporate",
+   "scale": "7B",
+   "country": "FR",
+   "open_weight": true,
+   "open_data": false
+  },
+  "HuggingFaceH4/mistral-7b-sft-beta": {
+   "org_type": "corporate",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "HuggingFaceH4/zephyr-7b-beta": {
+   "org_type": "corporate",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "EleutherAI/pythia-6.9b": {
+   "org_type": "nonprofit",
+   "scale": "7B",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "lomahony/eleuther-pythia6.9b-hh-sft": {
+   "open_weight": true,
+   "open_data": false
+  },
+  "lomahony/eleuther-pythia6.9b-hh-dpo": {
+   "open_weight": true,
+   "open_data": false
+  },
+  "deepseek-ai/deepseek-llm-7b-base": {
+   "org_type": "corporate",
+   "scale": "7B",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "deepseek-ai/deepseek-llm-7b-chat": {
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "HuggingFaceTB/SmolLM3-3B-Base": {
+   "org_type": "corporate",
+   "scale": "3B",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "HuggingFaceTB/SmolLM3-3B": {
+   "open_weight": true,
+   "open_data": false
+  },
+  "Qwen/Qwen3-8B-Base": {
+   "org_type": "corporate",
+   "scale": "8B",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "Qwen/Qwen3-8B": {
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/Llama-3.1-Tulu-3-8B-SFT": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data": {
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "google/gemma-7b": {
+   "org_type": "corporate",
+   "scale": "7B",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "google/gemma-7b-it": {
+   "org_type": "corporate",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "tiiuae/falcon-7b": {
+   "org_type": "state",
+   "scale": "7B",
+   "country": "AE",
+   "open_weight": true,
+   "open_data": false
+  },
+  "tiiuae/falcon-7b-instruct": {
+   "org_type": "state",
+   "country": "AE",
+   "open_weight": true,
+   "open_data": false
+  },
+  "baichuan-inc/Baichuan2-7B-Base": {
+   "org_type": "corporate",
+   "scale": "7B",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "baichuan-inc/Baichuan2-7B-Chat": {
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "internlm/internlm2_5-7b": {
+   "org_type": "academic",
+   "scale": "7B",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "internlm/internlm2_5-7b-chat": {
+   "org_type": "academic",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "01-ai/Yi-9B": {
+   "org_type": "corporate",
+   "scale": "9B",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "01-ai/Yi-1.5-9B-Chat": {
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
+  },
+  "dphn/Dolphin3.0-Llama3.1-8B": {
+   "org_type": "corporate",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "NousResearch/Hermes-3-Llama-3.1-8B": {
+   "org_type": "corporate",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "teknium/OpenHermes-2.5-Mistral-7B": {
+   "org_type": "corporate",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "NousResearch/Nous-Hermes-2-Mistral-7B-DPO": {
+   "org_type": "corporate",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "openchat/openchat-3.5-0106": {
+   "org_type": "corporate",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "berkeley-nest/Starling-LM-7B-alpha": {
+   "org_type": "academic",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  },
+  "cognitivecomputations/dolphin-2.6-mistral-7b-dpo": {
+   "org_type": "corporate",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
+  }
+ }
+}

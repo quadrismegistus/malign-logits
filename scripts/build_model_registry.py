@@ -57,6 +57,14 @@ from malign_logits import MODEL_FAMILIES, PATH_DATA  # noqa: E402
 from malign_logits.registry import NICKNAMES  # noqa: E402
 
 OUT = os.path.join(PATH_DATA, "model_registry.json")
+# HAND-CURATED FACTS NO ARTIFACT CAN REGENERATE -- org_type, country, scale.
+# The first run of this builder DESTROYED them: the file it overwrote was both a
+# stale derived cache AND a store of hand-entered values, and "regenerate, never
+# read-if-exists" is right for the first and fatal for the second. They were
+# recovered from git and now live in their own file, which is merged and never
+# rebuilt. `country` is not incidental -- the Chinese-family contrast and the
+# country confound both read it.
+CURATED = os.path.join(PATH_DATA, "model_curated.json")
 SPEC = os.path.join(PATH_DATA, "grid_spec.json")
 
 # ---- measured inputs: (artifact, producer script, key column) ----
@@ -140,6 +148,8 @@ def build():
     spec_rows = spec["spec"] if isinstance(spec, dict) else spec
     in_spec = {r["model"] for r in spec_rows}
     sw = {k: load_csv(v[0]) for k, v in SWEEPS.items()}
+    cur = (json.load(open(CURATED))["models"]
+           if os.path.exists(CURATED) else {})
 
     rows, relations = {}, []
     for fam_key, fam in sorted(MODEL_FAMILIES.items()):
@@ -180,13 +190,14 @@ def build():
                     in_grid_spec=mid in in_spec,
                     status="ACTIVE", exclusion_reason="", pending_repair=None,
                 )
+                r.update(cur.get(mid, {}))          # curated wins; never derived
             else:
-                relations.append({"source": mid, "target": fam_key,
+                relations.append({"parent": mid, "child": fam_key,
                                   "relation": "also_member_of"})
         # training-axis edges, from the family's own slots
         for pos in ("ego", "superego", "reinforced_superego", "reasoning"):
             if base_id and arms.get(pos):
-                relations.append({"source": base_id, "target": arms[pos],
+                relations.append({"parent": base_id, "child": arms[pos],
                                   "relation": f"{POSITION_STAGE[pos]}_of"})
     return rows, relations, sw
 
@@ -204,14 +215,14 @@ def lateral(rows, relations):
         sibs = sorted(set(members) - {base})
         for i, a in enumerate(sibs):
             for b in sibs[i + 1:]:
-                relations.append({"source": a, "target": b,
+                relations.append({"parent": a, "child": b,
                                   "relation": "same_base_as"})
     # data_ablation_of: the pair that can say WHICH training data
     for mid in rows:
         if "no-" in mid and "Tulu" in mid:
             full = re.sub(r"-no-[a-z]+-data", "", mid)
             if full in rows:
-                relations.append({"source": full, "target": mid,
+                relations.append({"parent": full, "child": mid,
                                   "relation": "data_ablation_of"})
     return relations
 
@@ -245,8 +256,8 @@ def main(a):
     # dedupe; an edge asserted twice is not two edges
     seen, uniq = set(), []
     for e in relations:
-        k = (e["source"], e["target"], e["relation"])
-        if k not in seen and e["source"] in rows and e["target"] in rows:
+        k = (e["parent"], e["child"], e["relation"])
+        if k not in seen and e["parent"] in rows and e["child"] in rows:
             seen.add(k)
             uniq.append(e)
 
@@ -286,7 +297,8 @@ def main(a):
                                             "are different facts.")},
             },
             "relations": {
-                "direction": "target is the <relation> of source",
+                "direction": "child is the <relation> of parent",
+            "field_names": ["parent", "child", "relation"],
                 "values": ["sft_of", "dpo_of", "rlvr_of", "reasoning_of",
                            "same_base_as", "data_ablation_of", "also_member_of"],
                 "symmetric": ["same_base_as"],
@@ -305,7 +317,7 @@ def main(a):
             },
         },
         "models": [rows[k] for k in sorted(rows)],
-        "relations": sorted(uniq, key=lambda e: (e["relation"], e["source"])),
+        "relations": sorted(uniq, key=lambda e: (e["relation"], e["parent"])),
     }
 
     print(f"models {len(doc['models'])}   relations {len(doc['relations'])}")

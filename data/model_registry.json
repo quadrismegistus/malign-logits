@@ -79,7 +79,12 @@
    }
   },
   "relations": {
-   "direction": "target is the <relation> of source",
+   "direction": "child is the <relation> of parent",
+   "field_names": [
+    "parent",
+    "child",
+    "relation"
+   ],
    "values": [
     "sft_of",
     "dpo_of",
@@ -96,7 +101,7 @@
  },
  "_provenance": {
   "built_by": "scripts/build_model_registry.py",
-  "head": "62b3838",
+  "head": "9c4c2b8",
   "measured_from": {
    "weights": {
     "artifact": "data/weights_audit.csv",
@@ -170,7 +175,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "ContextualAI/archangel_sft-dpo_pythia2-8b",
@@ -338,7 +347,12 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "scale": "7B",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "HuggingFaceH4/mistral-7b-sft-beta",
@@ -363,6 +377,10 @@
    "status": "EXCLUDED",
    "exclusion_reason": "safetensors shards present but index absent; falls back to the .bin index, refused below torch 2.6",
    "pending_repair": true,
+   "org_type": "corporate",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false,
    "excluded_from": "grid_v3"
   },
   {
@@ -387,7 +405,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "HuggingFaceTB/SmolLM2-360M",
@@ -411,7 +433,12 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "scale": "360M",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "HuggingFaceTB/SmolLM2-360M-Instruct",
@@ -435,7 +462,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "HuggingFaceTB/SmolLM3-3B",
@@ -459,7 +488,9 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "HuggingFaceTB/SmolLM3-3B-Base",
@@ -483,7 +514,12 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "scale": "3B",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "LLM360/Amber",
@@ -507,7 +543,12 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "academic",
+   "scale": "7B",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "LLM360/AmberChat",
@@ -531,7 +572,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "academic",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "LLM360/AmberSafe",
@@ -555,7 +600,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "academic",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "PKU-Alignment/alpaca-7b-reproduced",
@@ -627,7 +676,12 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "scale": "0.5B",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
@@ -651,7 +705,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "Qwen/Qwen2.5-7B",
@@ -675,7 +733,12 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "scale": "7B",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "Qwen/Qwen2.5-7B-Instruct",
@@ -699,7 +762,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "Qwen/Qwen3-8B",
@@ -723,7 +790,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "Qwen/Qwen3-8B-Base",
@@ -747,7 +818,12 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "scale": "8B",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "RWKV/rwkv-4-7b-pile",
@@ -869,7 +945,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT",
@@ -893,7 +973,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
@@ -917,7 +1001,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
@@ -941,7 +1029,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
@@ -965,7 +1057,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
@@ -989,7 +1085,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3.1-8B",
@@ -1013,7 +1113,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/OLMo-2-0425-1B",
@@ -1037,7 +1141,12 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "scale": "1B",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/OLMo-2-0425-1B-DPO",
@@ -1062,6 +1171,10 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false,
    "excluded_from": "grid_v3"
   },
   {
@@ -1086,7 +1199,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/OLMo-2-0425-1B-SFT",
@@ -1111,6 +1228,10 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false,
    "excluded_from": "grid_v3"
   },
   {
@@ -1232,7 +1353,12 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "scale": "7B",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/Olmo-3-1125-32B",
@@ -1280,7 +1406,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/Olmo-3-7B-Instruct-DPO",
@@ -1304,7 +1434,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/Olmo-3-7B-Instruct-SFT",
@@ -1328,7 +1462,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/Olmo-3-7B-Think-DPO",
@@ -1352,7 +1490,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/Olmo-3-7B-Think-SFT",
@@ -1376,7 +1518,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "nonprofit",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "allenai/Olmo-3.1-32B-Instruct",
@@ -1544,7 +1690,12 @@
    "in_grid_spec": false,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "scale": "7B",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "baichuan-inc/Baichuan2-7B-Chat",
@@ -1568,7 +1719,11 @@
    "in_grid_spec": false,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "bigscience/bloom-7b1",
@@ -1640,7 +1795,11 @@
    "in_grid_spec": false,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
@@ -1664,7 +1823,11 @@
    "in_grid_spec": false,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "deepseek-ai/deepseek-llm-7b-base",
@@ -1689,6 +1852,11 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
+   "org_type": "corporate",
+   "scale": "7B",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false,
    "excluded_from": "grid_v3"
   },
   {
@@ -1714,6 +1882,10 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
+   "org_type": "corporate",
+   "country": "CN",
+   "open_weight": true,
+   "open_data": false,
    "excluded_from": "grid_v3"
   },
   {
@@ -1835,6 +2007,8 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
+   "open_weight": true,
+   "open_data": false,
    "excluded_from": "grid_v3"
   },
   {
@@ -1860,6 +2034,8 @@
    "status": "EXCLUDED",
    "exclusion_reason": "bin-only checkpoint; refused below torch 2.6",
    "pending_repair": true,
+   "open_weight": true,
+   "open_data": false,
    "excluded_from": "grid_v3"
   },
   {
@@ -2076,7 +2252,12 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "scale": "8B",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "meta-llama/Llama-3.1-8B-Instruct",
@@ -2100,7 +2281,11 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "country": "US",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "microsoft/phi-4",
@@ -2172,7 +2357,12 @@
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
-   "pending_repair": null
+   "pending_repair": null,
+   "org_type": "corporate",
+   "scale": "7B",
+   "country": "FR",
+   "open_weight": true,
+   "open_data": false
   },
   {
    "model_id": "openbmb/MiniCPM5-1B",
@@ -2828,778 +3018,778 @@
  ],
  "relations": [
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
    "relation": "data_ablation_of"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
    "relation": "data_ablation_of"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
    "relation": "data_ablation_of"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
    "relation": "data_ablation_of"
   },
   {
-   "source": "01-ai/Yi-1.5-9B",
-   "target": "01-ai/Yi-1.5-9B-Chat",
+   "parent": "01-ai/Yi-1.5-9B",
+   "child": "01-ai/Yi-1.5-9B-Chat",
    "relation": "dpo_of"
   },
   {
-   "source": "EleutherAI/pythia-2.8b",
-   "target": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "parent": "EleutherAI/pythia-2.8b",
+   "child": "ContextualAI/archangel_sft-dpo_pythia2-8b",
    "relation": "dpo_of"
   },
   {
-   "source": "EleutherAI/pythia-2.8b",
-   "target": "ContextualAI/archangel_sft-kto_pythia2-8b",
+   "parent": "EleutherAI/pythia-2.8b",
+   "child": "ContextualAI/archangel_sft-kto_pythia2-8b",
    "relation": "dpo_of"
   },
   {
-   "source": "EleutherAI/pythia-2.8b",
-   "target": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+   "parent": "EleutherAI/pythia-2.8b",
+   "child": "ContextualAI/archangel_sft-ppo_pythia2-8b",
    "relation": "dpo_of"
   },
   {
-   "source": "EleutherAI/pythia-2.8b",
-   "target": "ContextualAI/archangel_sft-slic_pythia2-8b",
+   "parent": "EleutherAI/pythia-2.8b",
+   "child": "ContextualAI/archangel_sft-slic_pythia2-8b",
    "relation": "dpo_of"
   },
   {
-   "source": "EleutherAI/pythia-6.9b",
-   "target": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "parent": "EleutherAI/pythia-6.9b",
+   "child": "lomahony/eleuther-pythia6.9b-hh-dpo",
    "relation": "dpo_of"
   },
   {
-   "source": "HuggingFaceTB/SmolLM2-360M",
-   "target": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "parent": "HuggingFaceTB/SmolLM2-360M",
+   "child": "HuggingFaceTB/SmolLM2-360M-Instruct",
    "relation": "dpo_of"
   },
   {
-   "source": "HuggingFaceTB/SmolLM3-3B-Base",
-   "target": "HuggingFaceTB/SmolLM3-3B",
+   "parent": "HuggingFaceTB/SmolLM3-3B-Base",
+   "child": "HuggingFaceTB/SmolLM3-3B",
    "relation": "dpo_of"
   },
   {
-   "source": "LLM360/Amber",
-   "target": "LLM360/AmberSafe",
+   "parent": "LLM360/Amber",
+   "child": "LLM360/AmberSafe",
    "relation": "dpo_of"
   },
   {
-   "source": "Qwen/Qwen2.5-0.5B",
-   "target": "Qwen/Qwen2.5-0.5B-Instruct",
+   "parent": "Qwen/Qwen2.5-0.5B",
+   "child": "Qwen/Qwen2.5-0.5B-Instruct",
    "relation": "dpo_of"
   },
   {
-   "source": "Qwen/Qwen2.5-7B",
-   "target": "Qwen/Qwen2.5-7B-Instruct",
+   "parent": "Qwen/Qwen2.5-7B",
+   "child": "Qwen/Qwen2.5-7B-Instruct",
    "relation": "dpo_of"
   },
   {
-   "source": "Qwen/Qwen3-8B-Base",
-   "target": "Qwen/Qwen3-8B",
+   "parent": "Qwen/Qwen3-8B-Base",
+   "child": "Qwen/Qwen3-8B",
    "relation": "dpo_of"
   },
   {
-   "source": "RWKV/rwkv-4-7b-pile",
-   "target": "RWKV/rwkv-raven-7b",
+   "parent": "RWKV/rwkv-4-7b-pile",
+   "child": "RWKV/rwkv-raven-7b",
    "relation": "dpo_of"
   },
   {
-   "source": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
-   "target": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "parent": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "child": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
    "relation": "dpo_of"
   },
   {
-   "source": "allenai/OLMo-2-0425-1B",
-   "target": "allenai/OLMo-2-0425-1B-DPO",
+   "parent": "allenai/OLMo-2-0425-1B",
+   "child": "allenai/OLMo-2-0425-1B-DPO",
    "relation": "dpo_of"
   },
   {
-   "source": "allenai/OLMoE-1B-7B-0125",
-   "target": "allenai/OLMoE-1B-7B-0125-DPO",
+   "parent": "allenai/OLMoE-1B-7B-0125",
+   "child": "allenai/OLMoE-1B-7B-0125-DPO",
    "relation": "dpo_of"
   },
   {
-   "source": "allenai/Olmo-3-1025-7B",
-   "target": "allenai/Olmo-3-7B-Instruct-DPO",
+   "parent": "allenai/Olmo-3-1025-7B",
+   "child": "allenai/Olmo-3-7B-Instruct-DPO",
    "relation": "dpo_of"
   },
   {
-   "source": "allenai/Olmo-3-1025-7B",
-   "target": "allenai/Olmo-3-7B-Think-DPO",
+   "parent": "allenai/Olmo-3-1025-7B",
+   "child": "allenai/Olmo-3-7B-Think-DPO",
    "relation": "dpo_of"
   },
   {
-   "source": "allenai/Olmo-3-1125-32B",
-   "target": "allenai/Olmo-3.1-32B-Instruct-DPO",
+   "parent": "allenai/Olmo-3-1125-32B",
+   "child": "allenai/Olmo-3.1-32B-Instruct-DPO",
    "relation": "dpo_of"
   },
   {
-   "source": "allenai/Olmo-Hybrid-7B",
-   "target": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
+   "parent": "allenai/Olmo-Hybrid-7B",
+   "child": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
    "relation": "dpo_of"
   },
   {
-   "source": "baichuan-inc/Baichuan2-7B-Base",
-   "target": "baichuan-inc/Baichuan2-7B-Chat",
+   "parent": "baichuan-inc/Baichuan2-7B-Base",
+   "child": "baichuan-inc/Baichuan2-7B-Chat",
    "relation": "dpo_of"
   },
   {
-   "source": "bigscience/bloom-7b1",
-   "target": "bigscience/bloomz-7b1",
+   "parent": "bigscience/bloom-7b1",
+   "child": "bigscience/bloomz-7b1",
    "relation": "dpo_of"
   },
   {
-   "source": "deepseek-ai/deepseek-llm-7b-base",
-   "target": "deepseek-ai/deepseek-llm-7b-chat",
+   "parent": "deepseek-ai/deepseek-llm-7b-base",
+   "child": "deepseek-ai/deepseek-llm-7b-chat",
    "relation": "dpo_of"
   },
   {
-   "source": "huggyllama/llama-7b",
-   "target": "PKU-Alignment/beaver-7b-v1.0",
+   "parent": "huggyllama/llama-7b",
+   "child": "PKU-Alignment/beaver-7b-v1.0",
    "relation": "dpo_of"
   },
   {
-   "source": "internlm/internlm2-base-7b",
-   "target": "internlm/internlm2-chat-7b",
+   "parent": "internlm/internlm2-base-7b",
+   "child": "internlm/internlm2-chat-7b",
    "relation": "dpo_of"
   },
   {
-   "source": "m-a-p/CT-LLM-Base",
-   "target": "m-a-p/CT-LLM-SFT-DPO",
+   "parent": "m-a-p/CT-LLM-Base",
+   "child": "m-a-p/CT-LLM-SFT-DPO",
    "relation": "dpo_of"
   },
   {
-   "source": "m-a-p/neo_7b",
-   "target": "m-a-p/neo_7b_instruct_v0.1",
+   "parent": "m-a-p/neo_7b",
+   "child": "m-a-p/neo_7b_instruct_v0.1",
    "relation": "dpo_of"
   },
   {
-   "source": "meta-llama/Llama-3.1-70B",
-   "target": "meta-llama/Llama-3.1-70B-Instruct",
+   "parent": "meta-llama/Llama-3.1-70B",
+   "child": "meta-llama/Llama-3.1-70B-Instruct",
    "relation": "dpo_of"
   },
   {
-   "source": "meta-llama/Llama-3.1-8B",
-   "target": "meta-llama/Llama-3.1-8B-Instruct",
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
    "relation": "dpo_of"
   },
   {
-   "source": "meta-llama/Llama-3.1-8B",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-DPO",
    "relation": "dpo_of"
   },
   {
-   "source": "meta-llama/Llama-3.1-8B",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT",
    "relation": "dpo_of"
   },
   {
-   "source": "meta-llama/Llama-3.1-8B",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
    "relation": "dpo_of"
   },
   {
-   "source": "meta-llama/Llama-3.1-8B",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
    "relation": "dpo_of"
   },
   {
-   "source": "meta-llama/Llama-3.1-8B",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
    "relation": "dpo_of"
   },
   {
-   "source": "microsoft/phi-4",
-   "target": "microsoft/phi-4-reasoning",
+   "parent": "microsoft/phi-4",
+   "child": "microsoft/phi-4-reasoning",
    "relation": "dpo_of"
   },
   {
-   "source": "mistralai/Mistral-7B-v0.1",
-   "target": "HuggingFaceH4/zephyr-7b-beta",
+   "parent": "mistralai/Mistral-7B-v0.1",
+   "child": "HuggingFaceH4/zephyr-7b-beta",
    "relation": "dpo_of"
   },
   {
-   "source": "openbmb/MiniCPM5-1B-Base",
-   "target": "openbmb/MiniCPM5-1B",
+   "parent": "openbmb/MiniCPM5-1B-Base",
+   "child": "openbmb/MiniCPM5-1B",
    "relation": "dpo_of"
   },
   {
-   "source": "stabilityai/stablelm-2-1_6b",
-   "target": "stabilityai/stablelm-2-zephyr-1_6b",
+   "parent": "stabilityai/stablelm-2-1_6b",
+   "child": "stabilityai/stablelm-2-zephyr-1_6b",
    "relation": "dpo_of"
   },
   {
-   "source": "tiiuae/Falcon-H1-1.5B-Base",
-   "target": "tiiuae/Falcon-H1-1.5B-Instruct",
+   "parent": "tiiuae/Falcon-H1-1.5B-Base",
+   "child": "tiiuae/Falcon-H1-1.5B-Instruct",
    "relation": "dpo_of"
   },
   {
-   "source": "tiiuae/Falcon-H1-7B-Base",
-   "target": "tiiuae/Falcon-H1-7B-Instruct",
+   "parent": "tiiuae/Falcon-H1-7B-Base",
+   "child": "tiiuae/Falcon-H1-7B-Instruct",
    "relation": "dpo_of"
   },
   {
-   "source": "tiiuae/Falcon3-10B-Base",
-   "target": "tiiuae/Falcon3-10B-Instruct",
+   "parent": "tiiuae/Falcon3-10B-Base",
+   "child": "tiiuae/Falcon3-10B-Instruct",
    "relation": "dpo_of"
   },
   {
-   "source": "tiiuae/Falcon3-1B-Base",
-   "target": "tiiuae/Falcon3-1B-Instruct",
+   "parent": "tiiuae/Falcon3-1B-Base",
+   "child": "tiiuae/Falcon3-1B-Instruct",
    "relation": "dpo_of"
   },
   {
-   "source": "tiiuae/Falcon3-3B-Base",
-   "target": "tiiuae/Falcon3-3B-Instruct",
+   "parent": "tiiuae/Falcon3-3B-Base",
+   "child": "tiiuae/Falcon3-3B-Instruct",
    "relation": "dpo_of"
   },
   {
-   "source": "tiiuae/Falcon3-7B-Base",
-   "target": "tiiuae/Falcon3-7B-Instruct",
+   "parent": "tiiuae/Falcon3-7B-Base",
+   "child": "tiiuae/Falcon3-7B-Instruct",
    "relation": "dpo_of"
   },
   {
-   "source": "tiiuae/Falcon3-Mamba-7B-Base",
-   "target": "tiiuae/Falcon3-Mamba-7B-Instruct",
+   "parent": "tiiuae/Falcon3-Mamba-7B-Base",
+   "child": "tiiuae/Falcon3-Mamba-7B-Instruct",
    "relation": "dpo_of"
   },
   {
-   "source": "tiiuae/falcon-mamba-7b",
-   "target": "tiiuae/falcon-mamba-7b-instruct",
+   "parent": "tiiuae/falcon-mamba-7b",
+   "child": "tiiuae/falcon-mamba-7b-instruct",
    "relation": "dpo_of"
   },
   {
-   "source": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
-   "target": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "parent": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "child": "togethercomputer/RedPajama-INCITE-7B-Chat",
    "relation": "dpo_of"
   },
   {
-   "source": "zai-org/glm-4-9b-hf",
-   "target": "zai-org/glm-4-9b-chat-hf",
+   "parent": "zai-org/glm-4-9b-hf",
+   "child": "zai-org/glm-4-9b-chat-hf",
    "relation": "dpo_of"
   },
   {
-   "source": "Qwen/Qwen2.5-7B",
-   "target": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+   "parent": "Qwen/Qwen2.5-7B",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
    "relation": "reasoning_of"
   },
   {
-   "source": "meta-llama/Llama-3.1-8B",
-   "target": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
    "relation": "reasoning_of"
   },
   {
-   "source": "allenai/OLMo-2-0425-1B",
-   "target": "allenai/OLMo-2-0425-1B-Instruct",
+   "parent": "allenai/OLMo-2-0425-1B",
+   "child": "allenai/OLMo-2-0425-1B-Instruct",
    "relation": "rlvr_of"
   },
   {
-   "source": "allenai/OLMoE-1B-7B-0125",
-   "target": "allenai/OLMoE-1B-7B-0125-Instruct",
+   "parent": "allenai/OLMoE-1B-7B-0125",
+   "child": "allenai/OLMoE-1B-7B-0125-Instruct",
    "relation": "rlvr_of"
   },
   {
-   "source": "allenai/Olmo-3-1025-7B",
-   "target": "allenai/Olmo-3-7B-Instruct",
+   "parent": "allenai/Olmo-3-1025-7B",
+   "child": "allenai/Olmo-3-7B-Instruct",
    "relation": "rlvr_of"
   },
   {
-   "source": "allenai/Olmo-3-1125-32B",
-   "target": "allenai/Olmo-3.1-32B-Instruct",
+   "parent": "allenai/Olmo-3-1125-32B",
+   "child": "allenai/Olmo-3.1-32B-Instruct",
    "relation": "rlvr_of"
   },
   {
-   "source": "meta-llama/Llama-3.1-8B",
-   "target": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
    "relation": "rlvr_of"
   },
   {
-   "source": "ContextualAI/archangel_sft-dpo_pythia2-8b",
-   "target": "ContextualAI/archangel_sft-kto_pythia2-8b",
+   "parent": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-kto_pythia2-8b",
    "relation": "same_base_as"
   },
   {
-   "source": "ContextualAI/archangel_sft-dpo_pythia2-8b",
-   "target": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+   "parent": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-ppo_pythia2-8b",
    "relation": "same_base_as"
   },
   {
-   "source": "ContextualAI/archangel_sft-dpo_pythia2-8b",
-   "target": "ContextualAI/archangel_sft-slic_pythia2-8b",
+   "parent": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-slic_pythia2-8b",
    "relation": "same_base_as"
   },
   {
-   "source": "ContextualAI/archangel_sft-dpo_pythia2-8b",
-   "target": "ContextualAI/archangel_sft_pythia2-8b",
+   "parent": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "child": "ContextualAI/archangel_sft_pythia2-8b",
    "relation": "same_base_as"
   },
   {
-   "source": "ContextualAI/archangel_sft-kto_pythia2-8b",
-   "target": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+   "parent": "ContextualAI/archangel_sft-kto_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-ppo_pythia2-8b",
    "relation": "same_base_as"
   },
   {
-   "source": "ContextualAI/archangel_sft-kto_pythia2-8b",
-   "target": "ContextualAI/archangel_sft-slic_pythia2-8b",
+   "parent": "ContextualAI/archangel_sft-kto_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-slic_pythia2-8b",
    "relation": "same_base_as"
   },
   {
-   "source": "ContextualAI/archangel_sft-kto_pythia2-8b",
-   "target": "ContextualAI/archangel_sft_pythia2-8b",
+   "parent": "ContextualAI/archangel_sft-kto_pythia2-8b",
+   "child": "ContextualAI/archangel_sft_pythia2-8b",
    "relation": "same_base_as"
   },
   {
-   "source": "ContextualAI/archangel_sft-ppo_pythia2-8b",
-   "target": "ContextualAI/archangel_sft-slic_pythia2-8b",
+   "parent": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-slic_pythia2-8b",
    "relation": "same_base_as"
   },
   {
-   "source": "ContextualAI/archangel_sft-ppo_pythia2-8b",
-   "target": "ContextualAI/archangel_sft_pythia2-8b",
+   "parent": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+   "child": "ContextualAI/archangel_sft_pythia2-8b",
    "relation": "same_base_as"
   },
   {
-   "source": "ContextualAI/archangel_sft-slic_pythia2-8b",
-   "target": "ContextualAI/archangel_sft_pythia2-8b",
+   "parent": "ContextualAI/archangel_sft-slic_pythia2-8b",
+   "child": "ContextualAI/archangel_sft_pythia2-8b",
    "relation": "same_base_as"
   },
   {
-   "source": "HuggingFaceH4/mistral-7b-sft-beta",
-   "target": "HuggingFaceH4/zephyr-7b-beta",
+   "parent": "HuggingFaceH4/mistral-7b-sft-beta",
+   "child": "HuggingFaceH4/zephyr-7b-beta",
    "relation": "same_base_as"
   },
   {
-   "source": "LLM360/AmberChat",
-   "target": "LLM360/AmberSafe",
+   "parent": "LLM360/AmberChat",
+   "child": "LLM360/AmberSafe",
    "relation": "same_base_as"
   },
   {
-   "source": "PKU-Alignment/alpaca-7b-reproduced",
-   "target": "PKU-Alignment/beaver-7b-v1.0",
+   "parent": "PKU-Alignment/alpaca-7b-reproduced",
+   "child": "PKU-Alignment/beaver-7b-v1.0",
    "relation": "same_base_as"
   },
   {
-   "source": "Qwen/Qwen2.5-7B-Instruct",
-   "target": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+   "parent": "Qwen/Qwen2.5-7B-Instruct",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-DPO",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-DPO",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-DPO",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-DPO",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-DPO",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-DPO",
-   "target": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-DPO",
-   "target": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-DPO",
-   "target": "meta-llama/Llama-3.1-8B-Instruct",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT",
-   "target": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT",
-   "target": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT",
-   "target": "meta-llama/Llama-3.1-8B-Instruct",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
-   "target": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
-   "target": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
-   "target": "meta-llama/Llama-3.1-8B-Instruct",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
-   "target": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
-   "target": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
-   "target": "meta-llama/Llama-3.1-8B-Instruct",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
-   "target": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
-   "target": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
-   "target": "meta-llama/Llama-3.1-8B-Instruct",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
-   "target": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
-   "target": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
-   "target": "meta-llama/Llama-3.1-8B-Instruct",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3.1-8B",
-   "target": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "parent": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Llama-3.1-Tulu-3.1-8B",
-   "target": "meta-llama/Llama-3.1-8B-Instruct",
+   "parent": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/OLMo-2-0425-1B-DPO",
-   "target": "allenai/OLMo-2-0425-1B-Instruct",
+   "parent": "allenai/OLMo-2-0425-1B-DPO",
+   "child": "allenai/OLMo-2-0425-1B-Instruct",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/OLMo-2-0425-1B-DPO",
-   "target": "allenai/OLMo-2-0425-1B-SFT",
+   "parent": "allenai/OLMo-2-0425-1B-DPO",
+   "child": "allenai/OLMo-2-0425-1B-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/OLMo-2-0425-1B-Instruct",
-   "target": "allenai/OLMo-2-0425-1B-SFT",
+   "parent": "allenai/OLMo-2-0425-1B-Instruct",
+   "child": "allenai/OLMo-2-0425-1B-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/OLMoE-1B-7B-0125-DPO",
-   "target": "allenai/OLMoE-1B-7B-0125-Instruct",
+   "parent": "allenai/OLMoE-1B-7B-0125-DPO",
+   "child": "allenai/OLMoE-1B-7B-0125-Instruct",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/OLMoE-1B-7B-0125-DPO",
-   "target": "allenai/OLMoE-1B-7B-0125-SFT",
+   "parent": "allenai/OLMoE-1B-7B-0125-DPO",
+   "child": "allenai/OLMoE-1B-7B-0125-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/OLMoE-1B-7B-0125-Instruct",
-   "target": "allenai/OLMoE-1B-7B-0125-SFT",
+   "parent": "allenai/OLMoE-1B-7B-0125-Instruct",
+   "child": "allenai/OLMoE-1B-7B-0125-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-3-7B-Instruct",
-   "target": "allenai/Olmo-3-7B-Instruct-DPO",
+   "parent": "allenai/Olmo-3-7B-Instruct",
+   "child": "allenai/Olmo-3-7B-Instruct-DPO",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-3-7B-Instruct",
-   "target": "allenai/Olmo-3-7B-Instruct-SFT",
+   "parent": "allenai/Olmo-3-7B-Instruct",
+   "child": "allenai/Olmo-3-7B-Instruct-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-3-7B-Instruct",
-   "target": "allenai/Olmo-3-7B-Think-DPO",
+   "parent": "allenai/Olmo-3-7B-Instruct",
+   "child": "allenai/Olmo-3-7B-Think-DPO",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-3-7B-Instruct",
-   "target": "allenai/Olmo-3-7B-Think-SFT",
+   "parent": "allenai/Olmo-3-7B-Instruct",
+   "child": "allenai/Olmo-3-7B-Think-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-3-7B-Instruct-DPO",
-   "target": "allenai/Olmo-3-7B-Instruct-SFT",
+   "parent": "allenai/Olmo-3-7B-Instruct-DPO",
+   "child": "allenai/Olmo-3-7B-Instruct-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-3-7B-Instruct-DPO",
-   "target": "allenai/Olmo-3-7B-Think-DPO",
+   "parent": "allenai/Olmo-3-7B-Instruct-DPO",
+   "child": "allenai/Olmo-3-7B-Think-DPO",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-3-7B-Instruct-DPO",
-   "target": "allenai/Olmo-3-7B-Think-SFT",
+   "parent": "allenai/Olmo-3-7B-Instruct-DPO",
+   "child": "allenai/Olmo-3-7B-Think-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-3-7B-Instruct-SFT",
-   "target": "allenai/Olmo-3-7B-Think-DPO",
+   "parent": "allenai/Olmo-3-7B-Instruct-SFT",
+   "child": "allenai/Olmo-3-7B-Think-DPO",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-3-7B-Instruct-SFT",
-   "target": "allenai/Olmo-3-7B-Think-SFT",
+   "parent": "allenai/Olmo-3-7B-Instruct-SFT",
+   "child": "allenai/Olmo-3-7B-Think-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-3-7B-Think-DPO",
-   "target": "allenai/Olmo-3-7B-Think-SFT",
+   "parent": "allenai/Olmo-3-7B-Think-DPO",
+   "child": "allenai/Olmo-3-7B-Think-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-3.1-32B-Instruct",
-   "target": "allenai/Olmo-3.1-32B-Instruct-DPO",
+   "parent": "allenai/Olmo-3.1-32B-Instruct",
+   "child": "allenai/Olmo-3.1-32B-Instruct-DPO",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-3.1-32B-Instruct",
-   "target": "allenai/Olmo-3.1-32B-Instruct-SFT",
+   "parent": "allenai/Olmo-3.1-32B-Instruct",
+   "child": "allenai/Olmo-3.1-32B-Instruct-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-3.1-32B-Instruct-DPO",
-   "target": "allenai/Olmo-3.1-32B-Instruct-SFT",
+   "parent": "allenai/Olmo-3.1-32B-Instruct-DPO",
+   "child": "allenai/Olmo-3.1-32B-Instruct-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
-   "target": "allenai/Olmo-Hybrid-Instruct-SFT-7B",
+   "parent": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
+   "child": "allenai/Olmo-Hybrid-Instruct-SFT-7B",
    "relation": "same_base_as"
   },
   {
-   "source": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
-   "target": "meta-llama/Llama-3.1-8B-Instruct",
+   "parent": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
    "relation": "same_base_as"
   },
   {
-   "source": "internlm/internlm2-chat-7b",
-   "target": "internlm/internlm2-chat-7b-sft",
+   "parent": "internlm/internlm2-chat-7b",
+   "child": "internlm/internlm2-chat-7b-sft",
    "relation": "same_base_as"
   },
   {
-   "source": "lomahony/eleuther-pythia6.9b-hh-dpo",
-   "target": "lomahony/eleuther-pythia6.9b-hh-sft",
+   "parent": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "child": "lomahony/eleuther-pythia6.9b-hh-sft",
    "relation": "same_base_as"
   },
   {
-   "source": "m-a-p/CT-LLM-SFT",
-   "target": "m-a-p/CT-LLM-SFT-DPO",
+   "parent": "m-a-p/CT-LLM-SFT",
+   "child": "m-a-p/CT-LLM-SFT-DPO",
    "relation": "same_base_as"
   },
   {
-   "source": "m-a-p/neo_7b_instruct_v0.1",
-   "target": "m-a-p/neo_7b_sft_v0.1",
+   "parent": "m-a-p/neo_7b_instruct_v0.1",
+   "child": "m-a-p/neo_7b_sft_v0.1",
    "relation": "same_base_as"
   },
   {
-   "source": "openbmb/MiniCPM5-1B",
-   "target": "openbmb/MiniCPM5-1B-SFT",
+   "parent": "openbmb/MiniCPM5-1B",
+   "child": "openbmb/MiniCPM5-1B-SFT",
    "relation": "same_base_as"
   },
   {
-   "source": "stabilityai/stablelm-2-1_6b-chat",
-   "target": "stabilityai/stablelm-2-zephyr-1_6b",
+   "parent": "stabilityai/stablelm-2-1_6b-chat",
+   "child": "stabilityai/stablelm-2-zephyr-1_6b",
    "relation": "same_base_as"
   },
   {
-   "source": "togethercomputer/RedPajama-INCITE-7B-Chat",
-   "target": "togethercomputer/RedPajama-INCITE-7B-Instruct",
+   "parent": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "child": "togethercomputer/RedPajama-INCITE-7B-Instruct",
    "relation": "same_base_as"
   },
   {
-   "source": "EleutherAI/pythia-2.8b",
-   "target": "ContextualAI/archangel_sft_pythia2-8b",
+   "parent": "EleutherAI/pythia-2.8b",
+   "child": "ContextualAI/archangel_sft_pythia2-8b",
    "relation": "sft_of"
   },
   {
-   "source": "EleutherAI/pythia-6.9b",
-   "target": "lomahony/eleuther-pythia6.9b-hh-sft",
+   "parent": "EleutherAI/pythia-6.9b",
+   "child": "lomahony/eleuther-pythia6.9b-hh-sft",
    "relation": "sft_of"
   },
   {
-   "source": "LLM360/Amber",
-   "target": "LLM360/AmberChat",
+   "parent": "LLM360/Amber",
+   "child": "LLM360/AmberChat",
    "relation": "sft_of"
   },
   {
-   "source": "allenai/OLMo-2-0425-1B",
-   "target": "allenai/OLMo-2-0425-1B-SFT",
+   "parent": "allenai/OLMo-2-0425-1B",
+   "child": "allenai/OLMo-2-0425-1B-SFT",
    "relation": "sft_of"
   },
   {
-   "source": "allenai/OLMoE-1B-7B-0125",
-   "target": "allenai/OLMoE-1B-7B-0125-SFT",
+   "parent": "allenai/OLMoE-1B-7B-0125",
+   "child": "allenai/OLMoE-1B-7B-0125-SFT",
    "relation": "sft_of"
   },
   {
-   "source": "allenai/Olmo-3-1025-7B",
-   "target": "allenai/Olmo-3-7B-Instruct-SFT",
+   "parent": "allenai/Olmo-3-1025-7B",
+   "child": "allenai/Olmo-3-7B-Instruct-SFT",
    "relation": "sft_of"
   },
   {
-   "source": "allenai/Olmo-3-1025-7B",
-   "target": "allenai/Olmo-3-7B-Think-SFT",
+   "parent": "allenai/Olmo-3-1025-7B",
+   "child": "allenai/Olmo-3-7B-Think-SFT",
    "relation": "sft_of"
   },
   {
-   "source": "allenai/Olmo-3-1125-32B",
-   "target": "allenai/Olmo-3.1-32B-Instruct-SFT",
+   "parent": "allenai/Olmo-3-1125-32B",
+   "child": "allenai/Olmo-3.1-32B-Instruct-SFT",
    "relation": "sft_of"
   },
   {
-   "source": "allenai/Olmo-Hybrid-7B",
-   "target": "allenai/Olmo-Hybrid-Instruct-SFT-7B",
+   "parent": "allenai/Olmo-Hybrid-7B",
+   "child": "allenai/Olmo-Hybrid-Instruct-SFT-7B",
    "relation": "sft_of"
   },
   {
-   "source": "huggyllama/llama-7b",
-   "target": "PKU-Alignment/alpaca-7b-reproduced",
+   "parent": "huggyllama/llama-7b",
+   "child": "PKU-Alignment/alpaca-7b-reproduced",
    "relation": "sft_of"
   },
   {
-   "source": "internlm/internlm2-base-7b",
-   "target": "internlm/internlm2-chat-7b-sft",
+   "parent": "internlm/internlm2-base-7b",
+   "child": "internlm/internlm2-chat-7b-sft",
    "relation": "sft_of"
   },
   {
-   "source": "m-a-p/CT-LLM-Base",
-   "target": "m-a-p/CT-LLM-SFT",
+   "parent": "m-a-p/CT-LLM-Base",
+   "child": "m-a-p/CT-LLM-SFT",
    "relation": "sft_of"
   },
   {
-   "source": "m-a-p/neo_7b",
-   "target": "m-a-p/neo_7b_sft_v0.1",
+   "parent": "m-a-p/neo_7b",
+   "child": "m-a-p/neo_7b_sft_v0.1",
    "relation": "sft_of"
   },
   {
-   "source": "meta-llama/Llama-3.1-8B",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT",
    "relation": "sft_of"
   },
   {
-   "source": "meta-llama/Llama-3.1-8B",
-   "target": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
    "relation": "sft_of"
   },
   {
-   "source": "mistralai/Mistral-7B-v0.1",
-   "target": "HuggingFaceH4/mistral-7b-sft-beta",
+   "parent": "mistralai/Mistral-7B-v0.1",
+   "child": "HuggingFaceH4/mistral-7b-sft-beta",
    "relation": "sft_of"
   },
   {
-   "source": "openbmb/MiniCPM5-1B-Base",
-   "target": "openbmb/MiniCPM5-1B-SFT",
+   "parent": "openbmb/MiniCPM5-1B-Base",
+   "child": "openbmb/MiniCPM5-1B-SFT",
    "relation": "sft_of"
   },
   {
-   "source": "stabilityai/stablelm-2-1_6b",
-   "target": "stabilityai/stablelm-2-1_6b-chat",
+   "parent": "stabilityai/stablelm-2-1_6b",
+   "child": "stabilityai/stablelm-2-1_6b-chat",
    "relation": "sft_of"
   },
   {
-   "source": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
-   "target": "togethercomputer/RedPajama-INCITE-7B-Instruct",
+   "parent": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "child": "togethercomputer/RedPajama-INCITE-7B-Instruct",
    "relation": "sft_of"
   }
  ]

@@ -331,8 +331,19 @@ class Registry:
     def _load(self):
         with open(self._path) as f:
             data = json.load(f)
+        # TOLERATE FIELDS THE DATACLASS DOES NOT DECLARE, and keep them.
+        # The canonical file carries family/position/architecture/weights_format
+        # and more; ModelInfo predates all of it. Passing the row straight in
+        # raised TypeError and broke every caller the moment the file was
+        # regenerated. Dropping the unknown keys instead would be worse -- the
+        # loader would silently return less than the file says.
+        known = set(ModelInfo.__dataclass_fields__)
         for m in data.get("models", []):
-            self._models[m["model_id"]] = ModelInfo(**m)
+            info = ModelInfo(**{k: v for k, v in m.items() if k in known})
+            for k, v in m.items():
+                if k not in known:
+                    setattr(info, k, v)
+            self._models[m["model_id"]] = info
         for r in data.get("relations", []):
             self._relations.append(Relation(**r))
 
