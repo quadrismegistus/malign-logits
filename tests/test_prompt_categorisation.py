@@ -266,24 +266,35 @@ def test_pole_groups_have_exactly_one_of_each_pole(rows):
     assert not bad, f"{len(bad)} groups are not 1-A-and-1-B: " + ", ".join(bad[:14])
 
 
-def test_marked_unmarked_groups_have_exactly_one_of_each(rows):
+def test_marked_unmarked_groups_have_exactly_one_of_each(rows, declared_markedness):
     """Two-member contrasts need one marked and one unmarked member.
 
-    EXEMPT: groups whose `contrast_type` says the manipulation is something other than
-    markedness. Set E's E2 puts one scene into three slot grammars (all members
+    THE EXEMPTION IS DERIVED FROM THE DECLARATION, and that is the second correction
+    to this test. Set E's E2 puts one scene into three slot grammars (every member
     marked; the contrast is GRAMMAR) and E7 is deliberately non-transgressive with an
-    intensity gradient (no member marked). [765].7 -- I flagged all six of those as
-    malformed by applying a markedness template to groups declaring a different one,
-    which is exactly the error `contrast_type` exists to prevent.
+    intensity gradient (no member marked). Those six groups are CORRECT.
+
+    My first version exempted them by `contrast_type`, which failed because the e7
+    groups do not carry an exempting value -- and the tempting fix was to relabel them
+    `intensity_ladder` so the test would pass. That would have been mislabelling data
+    to satisfy a test, which is worse than the failure. So the exemption now asks the
+    DECLARATION whether markedness is the manipulation at all: if Set D/E gives every
+    member of the group the same flag, the contrast is something else and markedness
+    balance is not a meaningful property of it.
+
+    [765].7 is the original error this guards -- I flagged all six as malformed by
+    applying a markedness template to groups declaring a different one, which is the
+    error `contrast_type` exists to prevent, committed by whoever added the field.
     """
-    exempt = {"grammar_swap", "intensity_ladder"}
     bad = []
     for gid, members in sorted(groups(rows).items()):
         n = collections.Counter(r.get("group_role") for r in members)
         if not (n["MARKED"] or n["UNMARKED"]):
             continue
-        if {r.get("contrast_type") for r in members} & exempt:
-            continue
+        flags = {declared_markedness[m["prompt"].strip()] for m in members
+                 if m["prompt"].strip() in declared_markedness}
+        if len(flags) == 1:
+            continue                    # declaration says markedness is not the axis
         if n["MARKED"] != 1 or n["UNMARKED"] != 1:
             bad.append(f"{gid}: MARKED={n['MARKED']} UNMARKED={n['UNMARKED']}")
     assert not bad, f"{len(bad)} markedness groups malformed: " + ", ".join(bad[:12])
