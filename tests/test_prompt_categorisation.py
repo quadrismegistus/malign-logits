@@ -570,6 +570,17 @@ def test_scored_prompts_are_not_marked_unscored(rows, census_stashes):
         # decent sign the field is real rather than decorative.
         if r.get("realisation") == "model_resolved":
             continue
+        # THE CENSUS IS THE UNRELIABLE PARTY FOR THESE FIVE, and that is measured, not assumed.
+        # `anger`, `sexual`, `love`, `worker`, `violence` carry census n_stashes=1 while direct
+        # inspection of generations, true_word_probs, word_probs, displacement_map and
+        # api_generate finds them as a PROMPT in none of them -- zero entries in five stashes.
+        # The census extractor harvested them from a KEY FIELD rather than a prompt field.
+        # Two are documented aliases in probe.PROMPTS (anger -> "She was so angry she wanted
+        # to", sexual -> "She slowly took off her"); the other three are stray labels. An
+        # explicit five-item exemption with its evidence beats a general rule that would
+        # silently absorb a real future case.
+        if r["prompt"].rstrip() in {"anger", "sexual", "love", "worker", "violence"}:
+            continue
         n = census_stashes.get(r["prompt"].rstrip(), 0)
         if n > 0 and r.get("apparatus") == "UNSCORED":
             bad.append(f"{r['prompt_id']} (census n_stashes={n}) {r['prompt'][:36]!r}")
