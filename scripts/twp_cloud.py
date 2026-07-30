@@ -91,15 +91,19 @@ def cjk_vocab(tok, n):
     mangling for CJK, so a script test on the token string finds ZERO CJK
     tokens in a Chinese model's vocabulary.
     """
-    ids, strs = [], []
+    ids, strs, latin = [], [], []
     for i in range(n):
         try:
             t = tok.decode([i])
         except Exception:
             continue
-        if t and is_cjk(t) and t == t.strip():
+        if not t:
+            continue
+        if is_cjk(t) and t == t.strip():
             ids.append(i); strs.append(t)
-    return np.array(ids, dtype=int), strs
+        elif t[0].isascii() and t[0].isalnum():
+            latin.append(i)      # word-continuing Latin: boundary after CJK
+    return np.array(ids, dtype=int), strs, np.array(latin, dtype=int)
 
 
 def boundary_mask(tok, n):
@@ -215,10 +219,21 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None):
         for (pref, mass, t1), row in zip(live, dist):
             surf = clean_surface(tok.decode(list(pref)).strip())
             b = bmask
-            if cjk is not None and is_cjk(surf):
-                trie, cids, cstrs = cjk
+            if cjk is not None and surf:
+                trie, cids, cstrs, lids = cjk
                 b = bcache.get(surf)
-                if b is None:
+                if b is None and not is_cjk(surf):
+                    # A SCRIPT TRANSITION IS A WORD BOUNDARY. Latin surfaces are
+                    # extended by CJK tokens under the static rule -- a CJK token
+                    # is neither space-prefixed nor punctuation, so nothing stops
+                    # it. The roster contains the result: `mouth什么意思` and
+                    # `mouth和He` reported as single words on an ENGLISH prompt.
+                    # The dictionary rule alone does not fix this; it only moves
+                    # the cut one character later, to `mouth什`.
+                    b = bmask.copy()
+                    b[cids] = True
+                    bcache[surf] = b
+                elif b is None:
                     # EVERY CJK token is judged, not just the probable ones.
                     # Termination sums over ALL boundary tokens, so improbable
                     # CJK tokens that should end the word must be marked or the
@@ -227,6 +242,7 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None):
                     inside = np.fromiter(((surf + t) in trie for t in cstrs),
                                          dtype=bool, count=len(cstrs))
                     b[cids] = ~inside
+                    b[lids] = True      # CJK -> Latin is a transition too
                     bcache[surf] = b
             term = float(row[b].sum())
             if surf:
@@ -295,9 +311,9 @@ def main(a):
             bmask = boundary_mask(tok, model.config.vocab_size)
             cjk = None
             if trie is not None:
-                cids, cstrs = cjk_vocab(tok, model.config.vocab_size)
+                cids, cstrs, lids = cjk_vocab(tok, model.config.vocab_size)
                 if len(cids):
-                    cjk = (trie, cids, cstrs)
+                    cjk = (trie, cids, cstrs, lids)
                     print(f"  cjk: {len(cids):,} tokens", flush=True)
         except Exception as e:
             print(f"  MASK FAILED: {type(e).__name__}: {str(e)[:100]}", flush=True)
