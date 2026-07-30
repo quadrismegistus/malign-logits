@@ -413,6 +413,30 @@ def test_f11_triples_are_complete_or_declared_incomplete(rows):
     assert not bad, f"{len(bad)} F11 groups incomplete: " + ", ".join(bad)
 
 
+
+def test_contradiction_groups_have_one_domain(rows):
+    """A pole_swap group is ONE stimulus in three cells, so its cells share a domain.
+
+    A transgressive_swap group is the opposite: it contrasts a transgressive member against a
+    benign one, so ['neutral', 'violence'] IS the design and a single-domain rule would be
+    wrong for it. 21 groups span two domains and only ONE was a defect -- f11_captive, whose
+    pole carried `neutral` from an earlier assignment while its group-mates were
+    `contradiction`. The other 20 are f36 minimal pairs and e7_urgent, all correct.
+
+    So the invariant is scoped to the contrast type that implies sameness, not applied to
+    every group. A broader version of this test would have failed on 20 correct groups and
+    been switched off.
+    """
+    bad = []
+    for gid, members in sorted(groups(rows).items()):
+        if not any(m.get("contrast_type") == "pole_swap" for m in members):
+            continue
+        doms = {m.get("domain") for m in members if m.get("domain")}
+        if len(doms) > 1:
+            bad.append(f"{gid}: {sorted(doms)}")
+    assert not bad, f"{len(bad)} pole_swap groups span more than one domain: " + ", ".join(bad[:8])
+
+
 # --------------------------------------------------------------------------
 # 4. CONTROLLED VOCABULARIES
 # --------------------------------------------------------------------------
