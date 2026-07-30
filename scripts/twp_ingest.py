@@ -80,6 +80,7 @@ def main(a):
         return
     cm = get_cache()
     tot = Counter()
+    mix = Counter()
     loud, per_model = [], []
 
     for path in files:
@@ -112,15 +113,39 @@ def main(a):
                 stats["already"] += 1
                 continue
             stats["write"] += 1
+            mix[rec.get("rule_version", 1)] += 1
             if not a.dry_run:
                 cm.set_true_word_probs(model, p, {
                     "rows": rec["rows"], "residual": res,
                     "batches": rec.get("batches"),
+                    # CARRIED INTO THE STORE, not left in the transport file.
+                    # The boundary rule is not in the cache key, so without this
+                    # a partial re-run leaves the stash holding two rules with
+                    # nothing to tell them apart. v1 (absent field) is run 1.
+                    "rule_version": rec.get("rule_version", 1),
+                    "rule_commits": rec.get("rule_commits"),
+                    "dict_sha": rec.get("dict_sha"),
                 }, theta=theta)
 
         per_model.append((model, stats))
         tot.update(stats)
 
+    # CELLS ALREADY IN THE STORE PREDATE THIS FIELD, SO THEY ARE v1 BY
+    # DEFINITION -- countable without reading the stash. Counting only what THIS
+    # pass writes would leave the warning silent in exactly the case it exists
+    # for: a store that already holds v1 and is now receiving v2.
+    present = dict(mix)
+    if tot["already"]:
+        present[1] = present.get(1, 0) + tot["already"]
+    if len(present) > 1:
+        print(f"!! STORE HOLDS {len(present)} BOUNDARY-RULE VERSIONS: "
+              f"{dict(sorted(present.items()))}")
+        print("!! v1 predates the CJK fixes (ASCII punctuation only). Chinese "
+              "cells resolve 3-16% of mass there against 80-90% for English, "
+              "and English-prompt cells can contain glued cross-script units.")
+        print("!! DO NOT COMPARE v1 AND v2 ON ANY CJK OR MIXED-SCRIPT CELL.\n")
+    elif present:
+        print(f"boundary rule: all cells v{list(present)[0]}\n")
     w = max(len(m) for m, _ in per_model)
     print(f"{'model':<{w}}{'write':>8}{'already':>9}{'dup':>6}"
           f"{'conserve':>10}{'trunc':>7}")

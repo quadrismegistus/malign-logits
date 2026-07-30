@@ -22,6 +22,23 @@ import numpy as np, torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 THETA, MAX_DEPTH = 0.001, 6
+
+# THE BOUNDARY RULE IS NOT IN THE CACHE KEY, SO IT GOES IN THE VALUE.
+# OVERWRITE makes the END state uniform and does nothing for the INTERMEDIATE
+# one: an interrupted run leaves old-rule and new-rule cells coexisting with no
+# marker distinguishing them -- beam_words verbatim, two rules in one store
+# under a key that does not record which. A per-cell version makes every cell
+# self-describing, so a PARTIAL state stays diagnosable without depending on a
+# manifest having survived.
+#
+# v1  ASCII punctuation only; no CJK punctuation, no dictionary, no script
+#     transition. Chinese resolves 3-16% of mass against 80-90% for English, and
+#     English-prompt cells contain glued cross-script units. Run 1 is v1.
+# v2  + fullwidth CJK punctuation            (50e0b13)
+#     + dictionary prefix trie on CJK surfaces (6bb9f56)
+#     + script transition is a boundary, both directions (68ec402)
+RULE_VERSION = 2
+RULE_COMMITS = ["50e0b13", "6bb9f56", "68ec402"]
 PUNCT = set(".,;:!?\"'()[]{}—-–…/\\*#") | {"\n", "\r", "\t"}
 # FULLWIDTH CJK PUNCTUATION WAS MISSING AND IT IS NOT COSMETIC. The set above is
 # ASCII-only, so `。` `，` `？` `！` were never boundaries -- in Chinese, where
@@ -279,6 +296,17 @@ def main(a):
     os.makedirs(a.out, exist_ok=True)
     dev = "cuda" if torch.cuda.is_available() else "cpu"
     trie = None if a.no_dict else load_prefix_trie(a.dict)
+    # THE DICTIONARY IS PART OF THE RULE. A different word list is a different
+    # boundary rule wearing the same version number, so its hash is stamped per
+    # cell alongside the version.
+    import hashlib
+    dict_sha = None
+    if trie is not None and os.path.exists(a.dict):
+        h = hashlib.sha256()
+        with open(a.dict, "rb") as fh:
+            for blk in iter(lambda: fh.read(1 << 20), b""):
+                h.update(blk)
+        dict_sha = h.hexdigest()[:16]
     if trie is None:
         print("NO CJK DICTIONARY -- Chinese resolves ~3-16% of mass against "
               "80-90% for English. Chinese cells produced without it are not "
@@ -331,6 +359,9 @@ def main(a):
                     tot = sum(w.values()) + res["total"]
                     f.write(json.dumps({
                         "model": mid, "prompt": p, "theta": THETA,
+                        "rule_version": RULE_VERSION,
+                        "rule_commits": RULE_COMMITS,
+                        "dict_sha": dict_sha,
                         "rows": [{"word": s_, "t1": t_, "p": m_} for (s_, t_), m_ in w.items()],
                         "residual": res, "batches": calls, "conservation": tot}) + "\n")
                     f.flush()                  # crash-safe: complete line on disk
