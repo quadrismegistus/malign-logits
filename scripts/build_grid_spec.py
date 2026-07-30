@@ -74,7 +74,19 @@ def main(a):
     # The earlier version was `{e["prompt"]: e for e in cats}` -- a dict
     # comprehension that silently dropped 56 rows by last-write-wins, of which 5
     # were genuine dual membership. Deduplication is now explicit and counted.
+    # STATUS FILTER, IN THE CODE. Amendment 1a's filter was applied BY HAND to
+    # grid_spec.json and never landed here, so every rebuild silently reinstated
+    # retired prompts -- undoing a freeze amendment with nobody deciding to.
+    # Measured when found: 109 retired-only strings, 60 already back in the spec,
+    # 49 more that a rebuild would have added.
+    #
+    # A string RETIRED in one row but ACTIVE in another is KEPT: 46 of 67 retired
+    # strings are dual-membership, and dropping on any-retired would delete
+    # prompts that a live design still uses.
     cats = json.load(open(CATS))["prompts"]
+    retired = {e["prompt"] for e in cats if e.get("status") == "RETIRED"}
+    active = {e["prompt"] for e in cats if e.get("status") == "ACTIVE"}
+    drop_retired = retired - active
     rows_by_prompt = defaultdict(list)
     for e in cats:
         if e["prompt"]:
@@ -99,8 +111,10 @@ def main(a):
                 pass
     models = sorted(have)
 
-    universe = sorted(set(by_prompt) | universe_extra |
-                      {p for v in have.values() for p in v})
+    universe = sorted((set(by_prompt) | universe_extra |
+                       {p for v in have.values() for p in v}) - drop_retired)
+    print(f"retired-only strings excluded: {len(drop_retired)}  "
+          f"(kept {len(retired & active)} that are ACTIVE elsewhere)")
     excl = set(a.exclude_finding or [])
     fof = lambda p: (by_prompt.get(p) or {}).get("finding")
     keep = [p for p in universe if fof(p) not in excl]
