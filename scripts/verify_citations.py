@@ -126,8 +126,14 @@ def main():
     pin_ok = check_pin()
     print()
     cites = {}
-    for d in ("findings", "docs"):
-        for f in sorted(pathlib.Path(d).glob("*.md")):
+    # `meta` IS GLOBBED RECURSIVELY AND THAT IS THE POINT. It was outside this
+    # check twice over -- wrong directory, and nested one level down, so
+    # `meta/M01_displacement/README.md` was invisible to a top-level `*.md`.
+    # The meta layer is where clauses are assembled into the paper's sentences,
+    # each one carrying a docket citation as its evidence, which makes it the
+    # LAST place an unresolvable identifier should be able to sit.
+    for d in ("findings", "docs", "meta"):
+        for f in sorted(pathlib.Path(d).rglob("*.md")):
             text = f.read_text()
             # Blank out declared-historical regions so their SHAs are not
             # treated as claims. Replaced with spaces to preserve offsets.

@@ -6,6 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # FULL HISTORY, NOT THE DEFAULT SHALLOW CLONE. verify_citations asks
+          # whether each cited SHA is an ANCESTOR OF HEAD; under fetch-depth 1
+          # no SHA is reachable, so every real citation reports FABRICATED and
+          # the check becomes noise that gets switched off. A checker that
+          # fails on everything is worth less than no checker.
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -16,3 +23,9 @@ jobs:
           pip install pytest lmdb
       - name: Run tests
         run: pytest tests/ -v -m "not slow"
+      # The invariant assertions have run on every push since they were written;
+      # the citation checker was a script someone remembered to run. That is the
+      # asymmetry F39 was lost to -- a fabricated SHA survived six hours inside a
+      # finding graded *verified*, and an eye does not run every time.
+      - name: Verify cited commit SHAs resolve
+        run: python scripts/verify_citations.py
