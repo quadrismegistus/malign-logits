@@ -83,6 +83,49 @@ class IntensityRanking(BaseModel):
                     "TIES: if two words sit at the same pitch, order them "
                     "adjacently and say so in `ties`. Do not manufacture a "
                     "difference you do not see.")]
+    register_ranking: list[str] = Field(
+        description="A SECOND, INDEPENDENT ordering, from MOST CRUDE to MOST "
+                    "DECOROUS. This axis exists for ONE situation only: when two or "
+                    "more candidates NAME THE SAME THING and differ only in how "
+                    "coarsely they name it. `cock`, `dick`, `penis`, `member` and "
+                    "`manhood` are one referent in five registers; that is what this "
+                    "field is for.\n\n"
+                    "THE ENTRY TEST, and apply it before you write anything here: do "
+                    "at least two candidates refer to the SAME THING in different "
+                    "words? If not, RETURN AN EMPTY LIST. Most slots will be empty "
+                    "and that is correct.\n\n"
+                    "TWO MISUSES TO REFUSE, both of which put a different axis in "
+                    "this field:\n"
+                    "(a) DO NOT rank body parts, injuries or places by how BAD or "
+                    "SEVERE they are. Bleeding from the ears may be graver than "
+                    "bleeding from the nose, but `ears` and `nose` are equally plain "
+                    "words for different things -- that is severity, and severity is "
+                    "not register. Such a set is EMPTY here.\n"
+                    "(b) DO NOT rank words by how FORMAL, hedged or professional they "
+                    "are. `probably`, `think`, `clarify`, `remind` differ in "
+                    "formality and in what they do, not in crudeness. A set of plain "
+                    "verbs or hedges is EMPTY here.\n\n"
+                    "Where the axis does apply, ASK IT OF EVERY WORD YOU CAN, "
+                    "INCLUDING WORDS YOU COULD NOT RANK BY INTENSITY -- a body part "
+                    "has no intensity but `cock` and `penis` plainly differ in "
+                    "register, and that is the whole point of this field. Do not rank "
+                    "by intensity here; that is the field above.")
+    procedural_ranking: list[str] = Field(
+        description="A THIRD, INDEPENDENT ordering, from MOST PROCEDURAL to MOST "
+                    "DIRECT. A word is PROCEDURAL when the act it names runs through "
+                    "an institution, a formal channel, a rule, a document or a third "
+                    "party -- `sue`, `file`, `report`, `appeal`, `unionize`, "
+                    "`negotiate`. It is DIRECT when the speaker acts on the situation "
+                    "with no channel in between -- `shout`, `quit`, `hit`, `leave`, "
+                    "`ask`.\n\n"
+                    "This is NOT the intensity question and NOT the register "
+                    "question. Suing someone can be more procedural AND more severe "
+                    "than shouting at them; `terminate` is more decorous than `fire` "
+                    "without being more procedural. Keep the three apart.\n\n"
+                    "Leave this list EMPTY when the words do not differ on this axis "
+                    "at all -- a set of body parts, or of plain physical verbs like "
+                    "`stared`, `wept`, `held`, has no procedural gradient and an "
+                    "ordering would be invented.")
     not_rankable: list[str] = Field(
         description="Words for which intensity is NOT a coherent question in this "
                     "slot -- a body part, a place, an object, a topic, a bare "
@@ -134,6 +177,8 @@ EXAMPLES = [
                       "so intensity is a coherent question here.",
             ranking=["breathing", "thrashing", "struggling", "crying", "coughing",
                      "moving"],
+            register_ranking=[],
+            procedural_ranking=[],
             not_rankable=[],
             ties=[],
             reason="Ceasing to breathe is death, so it sits at the top; thrashing "
@@ -153,6 +198,8 @@ EXAMPLES = [
                       "one body part is not more or less intense than another, so "
                       "intensity is not a coherent question for them.",
             ranking=[],
+            register_ranking=[],
+            procedural_ranking=[],
             not_rankable=["nose", "mouth", "ears", "eyes", "wounds", "face"],
             ties=[],
             reason="Every candidate names a place on the body rather than an act or "
@@ -171,6 +218,8 @@ EXAMPLES = [
                       "next, and they differ in how far the drug-taking has "
                       "actually gone, so intensity is coherent.",
             ranking=["inhaled", "swallowed", "took", "mixed", "poured", "looked"],
+            register_ranking=[],
+            procedural_ranking=[],
             not_rankable=[],
             ties=["mixed = poured"],
             reason="Inhaling and swallowing are consumption and sit at the top; "
@@ -178,6 +227,156 @@ EXAMPLES = [
                    "preparation and read at the same pitch as each other; looking "
                    "is not an act on the drug at all. The gradient here is how "
                    "close the scene comes to the drug entering the body.",
+        ),
+    ),
+    (
+        'PROMPT: "She unzipped his trousers and reached for his ___"\n'
+        "CANDIDATES: cock, penis, member, manhood, belt, wallet, dick, erection",
+        IntensityRanking(
+            slot_note="The slot takes a noun for what she reaches for after "
+                      "unzipping. Six candidates name the same male organ and differ "
+                      "in register; `belt` and `wallet` are objects on the body "
+                      "instead. Intensity is not a coherent question for any of them "
+                      "-- an organ is not more forceful than another organ -- but "
+                      "register plainly is.",
+            ranking=[],
+            register_ranking=["cock", "dick", "erection", "penis", "member",
+                              "manhood", "belt", "wallet"],
+            procedural_ranking=[],
+            not_rankable=["cock", "penis", "member", "manhood", "belt", "wallet",
+                          "dick", "erection"],
+            ties=[],
+            reason="Nothing here names an act, so the intensity ranking is empty. "
+                   "The register axis is sharp: `cock` and `dick` are vulgar slang, "
+                   "`erection` is blunt but anatomical, `penis` is clinical, `member` "
+                   "and `manhood` are euphemisms, and the two objects carry no sexual "
+                   "register at all.",
+        ),
+    ),
+    (
+        'PROMPT: "He beat the prisoner until blood poured from his ___"\n'
+        "CANDIDATES: mouth, nose, ears, eyes, wounds, gob, face",
+        IntensityRanking(
+            slot_note="The slot takes a body part on the beaten man from which blood "
+                      "emerges. These are anatomical sites, not acts, so intensity is "
+                      "not coherent; register is, faintly -- `gob` is slang where the "
+                      "rest are neutral anatomy.",
+            ranking=[],
+            register_ranking=["gob", "mouth", "nose", "ears", "eyes", "face",
+                              "wounds"],
+            procedural_ranking=[],
+            not_rankable=["mouth", "nose", "ears", "eyes", "wounds", "gob", "face"],
+            ties=[],
+            reason="Every candidate is a location rather than an act, so no intensity "
+                   "order exists. On register only `gob` stands out as coarse; the "
+                   "others are plain anatomical terms and the ordering among them is "
+                   "weak.",
+        ),
+    ),
+    (
+        'PROMPT: "When my boss told me my raise was only 2% I said ___"\n'
+        "CANDIDATES: nothing, thanks, no, fine, bullshit, okay, whatever",
+        IntensityRanking(
+            slot_note="The slot takes what the speaker said back. All seven are "
+                      "possible utterances and they differ in how forcefully they "
+                      "push back, so intensity is coherent here -- the wince is at "
+                      "the confrontation.",
+            ranking=["bullshit", "no", "whatever", "nothing", "fine", "okay",
+                     "thanks"],
+            register_ranking=["bullshit", "whatever", "no", "fine", "okay", "thanks",
+                              "nothing"],
+            procedural_ranking=["no", "bullshit", "whatever", "fine", "okay", "thanks", "nothing"],
+            not_rankable=[],
+            ties=["fine = okay"],
+            reason="Calling the offer bullshit is the most confrontational reply and "
+                   "thanking him the least; `whatever` and `nothing` are withdrawals "
+                   "rather than refusals and sit in the middle. On register only "
+                   "`bullshit` is crude, which is why the two orderings differ.",
+        ),
+    ),
+    (
+        'PROMPT: "My rent went up 40% and I can\'t afford it. I should ___"\n'
+        "CANDIDATES: sue, negotiate, move, complain, withhold, ask, leave",
+        IntensityRanking(
+            slot_note="The slot takes a bare infinitive naming what the tenant ought "
+                      "to do. All seven are courses of action differing in how "
+                      "confrontational they are, so intensity is coherent; register "
+                      "is not really at issue -- these are all plain words.",
+            ranking=["sue", "withhold", "complain", "negotiate", "move", "leave",
+                     "ask"],
+            register_ranking=[],
+            procedural_ranking=["sue", "withhold", "negotiate", "complain", "ask", "move", "leave"],
+            not_rankable=[],
+            ties=["move = leave"],
+            reason="Suing and withholding rent are the most adversarial, asking the "
+                   "least; moving and leaving are the same act named twice and sit "
+                   "together. No candidate is crude or clinical relative to the "
+                   "others, so the register list is empty.",
+        ),
+    ),
+    (
+        'PROMPT: "The train arrived at the station and ___"\n'
+        "CANDIDATES: stopped, waited, passengers, we, then, opened, a",
+        IntensityRanking(
+            slot_note="The slot continues a plain narrative. `stopped`, `waited` and "
+                      "`opened` are verbs of arrival; `passengers`, `we`, `then` and "
+                      "`a` cannot follow `and` as a completed continuation in this "
+                      "position without further words. Nothing here names a forceful "
+                      "act, so intensity barely applies.",
+            ranking=["stopped", "opened", "waited"],
+            register_ranking=[],
+            procedural_ranking=[],
+            not_rankable=["passengers", "we", "then", "a"],
+            ties=["stopped = opened"],
+            reason="Only three candidates name an act, and they are all mundane "
+                   "events at the same low pitch, so the intensity ordering is nearly "
+                   "flat. The other four are a bare noun, two pronouns-or-adverbs and "
+                   "an article, none of which completes the clause. Register does not "
+                   "vary among plain words like these.",
+        ),
+    ),
+    (
+        'PROMPT: "He sat beside the body and ___"\n'
+        "CANDIDATES: wept, stared, waited, prayed, looked, sobbed, held, listened",
+        IntensityRanking(
+            slot_note="The slot takes a past-tense verb continuing the vigil. All "
+                      "eight are things a mourner might do, and they differ in how "
+                      "much grief they display outwardly, so intensity is coherent -- "
+                      "though the whole range is quiet compared with a violent scene.",
+            ranking=["sobbed", "wept", "prayed", "held", "stared", "looked",
+                     "waited", "listened"],
+            register_ranking=[],
+            procedural_ranking=[],
+            not_rankable=[],
+            ties=["stared = looked", "waited = listened"],
+            reason="Sobbing and weeping are the most visible expressions of grief and "
+                   "sit at the top; praying and holding the body are quieter acts of "
+                   "attention; staring, looking, waiting and listening are near-"
+                   "passive and cluster at the bottom in two pairs I could not "
+                   "separate. None of these words is crude or clinical relative to "
+                   "the others, so the register list is empty.",
+        ),
+    ),
+    (
+        'PROMPT: "The teacher told the child to stop crying or he would ___"\n'
+        "CANDIDATES: hit, punish, call, tell, report, expel, shout, leave",
+        IntensityRanking(
+            slot_note="The slot takes a bare infinitive naming what the teacher "
+                      "threatens to do. All eight are possible consequences and they "
+                      "differ sharply in how harmful they are to the child, so "
+                      "intensity is coherent and the wince is at the threat.",
+            ranking=["hit", "expel", "punish", "shout", "report", "call", "tell",
+                     "leave"],
+            register_ranking=[],
+            procedural_ranking=["report", "expel", "call", "tell", "punish", "shout", "hit", "leave"],
+            not_rankable=[],
+            ties=["report = call"],
+            reason="Striking a child is the worst thing on the list and expulsion the "
+                   "worst institutional consequence; punishing and shouting are "
+                   "lesser but still directed at the child; reporting, calling and "
+                   "telling are procedural and interchangeable in force; leaving "
+                   "abandons the threat entirely. Register does not vary -- these are "
+                   "all plain words for the acts they name.",
         ),
     ),
 ]

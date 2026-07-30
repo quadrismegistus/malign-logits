@@ -47,10 +47,11 @@ import pandas as pd
 from malign_logits.cache import get_cache
 import malign_logits.taxonomy as T
 from scripts.f13_draw_relation_items import THETA, FLOOR, DT, TYPE_OF, FUNC, admissible
+from scripts.f13_setd_prompts import SETD
 
 POOL_MAX = 15
 SEED = 20260730
-OUT = "data/f13_ranking_items.parquet"
+OUT = "data/f13_ranking_items_full.parquet"
 
 
 def content(w: str) -> bool:
@@ -58,16 +59,29 @@ def content(w: str) -> bool:
     return bool(w) and any(c.isalpha() for c in w) and w.lower() not in FUNC
 
 
+PIPELINE = ["base", "ego", "superego", "reinforced_superego"]
+
+
 def edges(seen):
+    """EVERY ORDERED PAIR ALONG THE PIPELINE, not just base->X.
+
+    The earlier draws emitted base->ego, base->superego and base->reinforced only,
+    so every measured edge conflated the stages it spanned: base->superego mixes
+    SFT with DPO and cannot say which did the work. The stage edges (ego->superego,
+    superego->reinforced) are the decomposition, and four families have the arms
+    for them: olmo-tiny, olmoe, amber, minicpm.
+
+    `arm` becomes the edge label `from>to` so downstream groupby's read as stages.
+    """
     out = []
     for name, f in T.MODEL_FAMILIES.items():
-        b = getattr(f, "base", None)
-        if b not in seen:
-            continue
-        for arm in ("superego", "reinforced_superego", "ego"):
-            a = getattr(f, arm, None)
-            if a and a in seen and a != b:
-                out.append((name, arm, b, a))
+        present = [(a, getattr(f, a, None)) for a in PIPELINE]
+        present = [(a, m) for a, m in present if m and m in seen]
+        for i in range(len(present)):
+            for j in range(i + 1, len(present)):
+                (fa, fm), (ta, tm) = present[i], present[j]
+                if fm != tm:
+                    out.append((name, f"{fa}>{ta}", fm, tm))
     return out
 
 
@@ -80,9 +94,21 @@ def main():
     print(f"true_word_probs entries at read time: {len(s):,}")
     print(f"edges {len(E)}  POOL_MAX {POOL_MAX}  seed {SEED}  FLOOR {FLOOR}  DT {DT}")
 
+    # canonical 73 keep their taxonomy names; Set D prompts are added with their
+    # hand-assigned slot, pair_id and transgressive flag. Both sets are drawn.
+    PROMPTS = [(nm, v.rstrip(), TYPE_OF[nm], None, None, "canonical")
+               for nm, v in T.DEFAULT_PROMPTS.items()]
+    for txt, (slot, pair, tr) in SETD.items():
+        nm = "setd_" + (pair or txt.lower().split()[-1]) + ("_T" if tr else "_N")
+        PROMPTS.append((nm, txt.rstrip(), slot, pair, tr, "setd"))
+    print(f"prompts: {len(PROMPTS)}  "
+          f"({sum(1 for x in PROMPTS if x[5]=='canonical')} canonical, "
+          f"{sum(1 for x in PROMPTS if x[5]=='setd')} setd, "
+          f"{len({x[3] for x in PROMPTS if x[3]})} matched pairs)")
+
     rows, drop = [], collections.Counter()
     for fam, arm, bid, aid in E:
-        for nm, p in ((k, v.rstrip()) for k, v in T.DEFAULT_PROMPTS.items()):
+        for nm, p, slotg, pair, tr, pset in PROMPTS:
             pb, pa = (cm.get_true_word_probs(bid, p, theta=THETA),
                       cm.get_true_word_probs(aid, p, theta=THETA))
             if not pb or not pa:
@@ -114,8 +140,9 @@ def main():
             rng.shuffle(shown)
             rows.append(dict(
                 family=fam, arm=arm, base_id=bid, aligned_id=aid, prompt_name=nm,
-                prompt=p, slot=TYPE_OF[nm],
-                intensity_slot=TYPE_OF[nm] in {"ACT", "RESULT"},
+                prompt=p, slot=slotg, pair_id=pair, transgressive=tr,
+                prompt_set=pset,
+                intensity_slot=slotg in {"ACT", "RESULT"},
                 faller=a_w, riser=b_w,
                 pa_base=B.get(a_w, 0.0), pa_al=A.get(a_w, 0.0),
                 pb_base=B.get(b_w, 0.0), pb_al=A.get(b_w, 0.0),
@@ -139,6 +166,10 @@ def main():
           f"{df[df.intensity_slot].family.nunique()} families, "
           f"{df[df.intensity_slot].prompt_name.nunique()} prompts")
     print("\nSAMPLE ITEM (what the coder sees, and the metadata it never sees):")
+    print("\nSET D COVERAGE:")
+    sd = df[df.prompt_set == "setd"]
+    if len(sd):
+        print(sd.groupby(["pair_id", "transgressive"]).size().rename("items").to_string())
     r = df[df.prompt_name == "violence_liminal_3"].iloc[0]
     print(f"  PROMPT: {r.prompt} ___")
     print(f"  CANDIDATES: {', '.join(r.shown.split('|'))}")
