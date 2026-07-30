@@ -1,0 +1,24 @@
+{
+ "run": "twp_grid_v2",
+ "frozen_at": "docket [781]",
+ "date": "2026-07-30",
+ "spec_commit": "bb3b604",
+ "versioning_commit": "96c493b",
+ "rule_version": 2,
+ "rule_commits": [
+  "50e0b13",
+  "6bb9f56",
+  "68ec402"
+ ],
+ "dict_sha": "b16011275c42955c",
+ "dict": "jieba dict.txt.big 584429 entries",
+ "categorisation_sha": "8dd1951778e7a5c61b8577907d7bf1ebd320953b",
+ "models": 103,
+ "prompts": 767,
+ "grid_cells": 79001,
+ "to_run": 65186,
+ "disposition": "OVERWRITE",
+ "theta_expand": 0.001,
+ "theta_report": 0.003,
+ "max_depth": 6
+}

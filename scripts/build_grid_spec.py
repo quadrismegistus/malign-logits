@@ -20,6 +20,18 @@ indistinguishable once both are present -- the defect that made `beam_words`
 unusable when two beam widths coexisted across 70+ models. Running the whole
 grid under one rule means there is never a mixture to detect.
 
+POPULATIONS OF RECORD (registrar [787].1, superseding earlier figures):
+
+    GRID      767 STRINGS   -- frozen at docket [781], unchanged by any of this
+    ANALYSIS  754 ACTIVE rows, one-to-many join
+    RETIRED    69 rows, excluded from every join BY STATUS
+
+**An analysis that reads the categorisation file without a status filter is
+wrong by construction.** The earlier figure of 772 is superseded. None of this
+touches the grid: scoring is per STRING and the reconciliation moved only rows
+and fields, which is the property that let the run and the reconciliation
+proceed in parallel.
+
 THE PROMPT UNIVERSE IS THE CENSUS, NOT THE STORE. `prompt_inventory.csv` sees
 only what true_word_probs scored (604). `prompt_census_all.csv` is the union
 over 13 stashes (725), and the categorisation adds 43 F21 pairs no stash has
