@@ -675,7 +675,16 @@ def main(a):
         mid, prompts = entry["model"], entry["prompts"]
         safe = mid.replace("/", "__")
         path = os.path.join(a.out, f"{safe}.jsonl")
-        todo = [p for p in prompts if p not in done_prompts(path)]
+        # HOISTED, AND IT MATTERS ON EVERY RESTART. This read
+        # `p not in done_prompts(path)` inside the comprehension, so the whole
+        # jsonl was re-read and re-parsed ONCE PER PROMPT -- 979 x 979 = ~958k
+        # JSON parses to decide that a finished model has nothing to do. A
+        # completed model took ~2 minutes to SKIP, so resuming past 22 finished
+        # models cost ~45 minutes of pure re-parsing before the first new cell.
+        # Invisible while the run goes forward and only ever paid on recovery,
+        # which is exactly when time is worth most.
+        done = done_prompts(path)
+        todo = [p for p in prompts if p not in done]
         print(f"\n[{mi}/{len(spec)}] {mid}  {len(todo)}/{len(prompts)} to do", flush=True)
         if not todo:
             continue
