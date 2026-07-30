@@ -24427,7 +24427,7 @@
    "resolution_scope": null
   },
   {
-   "prompt": "",
+   "prompt": "<<<LOGICAL:BOS>>>",
    "prompt_id": "BOS",
    "finding": "F19",
    "source": "LOGICAL",
@@ -24447,11 +24447,11 @@
    "group_role": null,
    "apparatus": "UNSCORED",
    "n_stashes": 0,
-   "status": "RETIRED",
+   "status": "ACTIVE",
    "realisation": "model_resolved",
    "resolver": "unconditional_bos",
    "resolution_scope": "13 of 46 families auto-prepend BOS and resolve to the EMPTY STRING; 15 resolve to their bos_token string; 18 have bos_token=None and need a declared fallback or a recorded skip. The `prompt` field is empty because a logical row has no literal surface -- the surface is produced by the resolver and must be STORED in the cell.",
-   "notes": "THE LOGICAL BOS PROMPT, replacing four literal strings that were being scored on all 103 models and shattering into character sequences off-family. RH asked whether BOS should be a formal prompt type: yes as a ROLE, no as a STRING. The four literal rows stay for provenance but are superseded as the way to measure unconditional generation. | contrast_type is deliberately NULL: f19_bos is a BATTERY, not a contrast. Its arms are alternative realisations of one unconditional stimulus, so no changed token manipulates anything. Recorded so the absence reads as a decision rather than a gap. | RETIRED as a NON-STIMULUS string (RH, 2026-07-30). This is a special token or an empty string, not a prompt: it entered through the census, which unions whatever any stash was scored on. A displacement statistic computed at a position no stimulus occupies is a number about nothing. Freeze amendment 1a already excluded these, but that exclusion was applied by hand to grid_spec.json rather than to the builder, so every rebuild reinstated them; the builder now filters by status, which makes this field the durable place to say it."
+   "notes": "THE LOGICAL BOS PROMPT, replacing four literal strings that were being scored on all 103 models and shattering into character sequences off-family. RH asked whether BOS should be a formal prompt type: yes as a ROLE, no as a STRING. The four literal rows stay for provenance but are superseded as the way to measure unconditional generation. | contrast_type is deliberately NULL: f19_bos is a BATTERY, not a contrast. Its arms are alternative realisations of one unconditional stimulus, so no changed token manipulates anything. Recorded so the absence reads as a decision rather than a gap. | RESTORED and given a sentinel surface (2026-07-30). The non-stimulus pass retired this row by matching on SHAPE -- an empty prompt -- and so caught the replacement along with the four literal special tokens it replaces; the retirement note it appended also claimed this row came through the census, which is false, its source is LOGICAL. An absent surface means two opposite things (no stimulus, or a stimulus not expressible as text) and only `realisation` distinguishes them. prompt is now the sentinel <<<LOGICAL:BOS>>> rather than the empty string, because '' crashes the expansion (encode('') -> [], empty float tensor), collides with the prompt key used for ingested human corpora, and is dropped by the grid builder before status is read. THE SENTINEL IS NEVER FED: the runner dispatches on prompt_id and resolves to ids=[bos_id] directly, never via a string that is then encoded, which is what avoids the tok('<s>') -> [1,1] doubling. Any encode site should import refuse_if_sentinel() from scripts/restore_logical_bos.py, because a sentinel fails silently where the empty string failed loudly."
   },
   {
    "prompt": "She was so angry she wanted to",

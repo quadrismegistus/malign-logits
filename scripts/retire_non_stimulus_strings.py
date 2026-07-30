@@ -20,10 +20,23 @@ NEXT REBUILD; a filter that lives in the code and the data lasts.
 `bos` (census_0180) was already retired, so this is completing a pass someone started
 rather than a new judgment.
 
-MATCHED CONSERVATIVELY, on shape rather than on a list of names: a prompt that is empty,
-or that consists ENTIRELY of one angle-bracket special token. A real stimulus is not
-either of those, and a prompt that merely CONTAINS such a token is left alone -- that
-would be a template question, not a non-stimulus one.
+MATCHED ON SHAPE rather than on a list of names: a prompt that is empty, or that consists
+ENTIRELY of one angle-bracket special token. That is how the deepseek BOS was caught --
+`<｜begin▁of▁sentence｜>` uses fullwidth ｜ and ▁, so a search for `<|` misses it.
+
+AND SHAPE ALONE OVER-MATCHED, WHICH IS THE CORRECTION. The first run retired the LOGICAL
+BOS row along with the four literals, because its `prompt` is empty too. It is the
+opposite of a non-stimulus: it is the row that REPLACES those literals and makes
+unconditional generation measurable at all, and its surface is empty precisely because
+`realisation: model_resolved` means the surface is produced by a resolver rather than
+stored. Retiring it removed F19's only stimulus from the grid.
+
+**AN ABSENT SURFACE MEANS TWO OPPOSITE THINGS** -- no stimulus, or a stimulus not
+expressible as text -- and shape cannot tell them apart. `realisation` can, so rows that
+declare a resolver are exempt. The boilerplate note made it worse by asserting all five
+rows "entered through the census"; true of the four, false of the LOGICAL row, whose
+source says LOGICAL. A constant note over a heterogeneous set states something false
+about whichever member does not fit.
 """
 from __future__ import annotations
 
@@ -48,7 +61,12 @@ NOTE = (
 )
 
 
-def is_non_stimulus(p):
+def is_non_stimulus(row):
+    # A row that declares a RESOLVER has no literal surface BY DESIGN. Its emptiness is
+    # the design working, not a missing stimulus, and it is exempt however it looks.
+    if row.get("realisation") == "model_resolved" or row.get("resolver"):
+        return None
+    p = row.get("prompt")
     if not (p or "").strip():
         return "empty string"
     if SPECIAL.match(p):
@@ -62,10 +80,14 @@ def main(write):
 
     todo, already = [], []
     for r in rows:
-        why = is_non_stimulus(r.get("prompt"))
+        why = is_non_stimulus(r)
         if not why:
             continue
         (todo if r.get("status") == "ACTIVE" else already).append((r, why))
+    exempt = [r for r in rows if r.get("realisation") == "model_resolved" or r.get("resolver")]
+    for r in exempt:
+        print(f"  EXEMPT {r.get('prompt_id'):<15} declares resolver "
+              f"{r.get('resolver')!r}; absent surface is by design")
 
     print(f"{'APPLIED' if write else 'DRY RUN'}\n")
     print(f"non-stimulus rows: {len(todo)} active, {len(already)} already retired\n")

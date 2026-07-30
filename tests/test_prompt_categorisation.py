@@ -699,3 +699,39 @@ def test_canonical_slots_match_the_single_source_of_truth(rows):
             bad.append(f"{r['prompt_id']}: file={r['slot']} TYPE_OF={want} "
                        f"{r['prompt'][:36]!r}")
     assert not bad, f"{len(bad)} canonical prompts disagree with TYPE_OF: " + "; ".join(bad[:8])
+
+
+def test_logical_rows_carry_a_sentinel_surface_not_an_empty_one(all_rows):
+    """A logical row has no literal surface: `realisation: model_resolved` means the
+    surface is produced by a resolver at run time. That absence used to be encoded as
+    `prompt: ""`, and the empty string cannot carry it -- `encode("")` returns `[]` and
+    the embedding lookup rejects the empty float tensor; `''` is already the prompt key
+    for ingested human corpora, so the two become indistinguishable; and the grid builder
+    drops empty strings before status is read.
+
+    It also made the row LOOK like a non-stimulus. A shape-based retirement pass matched
+    its empty prompt and retired it along with four literal special tokens -- which are
+    the very things it replaces -- removing F19's only stimulus from the grid. AN ABSENT
+    SURFACE MEANS TWO OPPOSITE THINGS, no stimulus or a stimulus not expressible as text,
+    and only `realisation` tells them apart.
+
+    So the surface is a sentinel, `<<<LOGICAL:NAME>>>`, which is never fed to a tokenizer
+    -- the runner dispatches on prompt_id and resolves to ids directly. This asserts the
+    encoding holds in the file. The complementary half cannot be asserted here: a sentinel
+    fails SILENTLY if some consumer encodes it, where the empty string failed loudly, so
+    encode sites import refuse_if_sentinel() from scripts/restore_logical_bos.py.
+    """
+    from scripts.restore_logical_bos import SENTINEL_RE
+    bad = []
+    for r in all_rows:
+        logical = r.get("realisation") == "model_resolved" or r.get("resolver")
+        sentinel = bool(SENTINEL_RE.match(r.get("prompt") or ""))
+        if logical and not sentinel:
+            bad.append(f"{r['prompt_id']}: realisation={r.get('realisation')!r} "
+                       f"resolver={r.get('resolver')!r} but prompt={r.get('prompt')!r}")
+        if sentinel and not logical:
+            bad.append(f"{r['prompt_id']}: prompt is a sentinel {r.get('prompt')!r} but "
+                       f"the row declares no resolver -- nothing would resolve it")
+        if logical and not r.get("resolver"):
+            bad.append(f"{r['prompt_id']}: model_resolved with no resolver named")
+    assert not bad, f"{len(bad)} logical-row encoding faults: " + "; ".join(bad[:6])
