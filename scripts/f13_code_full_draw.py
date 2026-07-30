@@ -4,6 +4,13 @@
 
 FROZEN, and these are the terms:
   instrument sha256  9636474914b37bb2010fc413598d40b5590565630eb85579cdf700dde8ba5687
+    -- THAT IS THE SHA OF THE INSTRUMENT THAT PRODUCED f13_full_v5_*, NOT of the
+    one this script imports today. The module has since gained `intensity` and
+    `direction`, so a run now codes under a DIFFERENT instrument. That was
+    documented ([914].4) but nothing in this file said it, and the line above
+    reads as a live guarantee. The runner now prints the live sha, warns on a
+    mismatch, and STAMPS IT INTO EVERY ROW -- so a file says which taxonomy
+    coded it instead of a reader having to inspect its value set to find out.
   AXIS is read from relations[0] -- the field says "most important first", and on
     the dev set reading ANY paradigmatic value in the list flipped pure-syntagmatic
     pairs (arrest/disperse) to paradigmatic. Primary-label axis unanimity 83% vs
@@ -20,9 +27,16 @@ import argparse, os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import pandas as pd
 from malign_logits.tasks.code_displacement_relation import (
-    DisplacementRelationTask, prepare)
+    RELATION, DisplacementRelationTask, prepare)
 
 SRC = "data/f13_relation_items.parquet"
+
+# The nine-relation instrument that produced f13_full_v5_*. Recorded so a file
+# can say which taxonomy it was coded under WITHOUT anyone reading its value
+# set to find out -- which is what [912] had to do, by hand, to establish that
+# v5 and the frozen schema shared a taxonomy. Not an assertion: OPPOSITION's
+# addition changes this sha legitimately. A MISMATCH IS A NOTICE, NOT A FAILURE.
+SHA_NINE = "9636474914b37bb2010fc413598d40b5590565630eb85579cdf700dde8ba5687"
 
 
 def main(model, out, workers=8, limit=0):
@@ -32,7 +46,14 @@ def main(model, out, workers=8, limit=0):
     task = DisplacementRelationTask()
     if model:
         task.model = model
-    print(f"instrument sha256: {task.instrument_sha256()}")
+    sha = task.instrument_sha256()
+    values = list(getattr(RELATION, "__args__", ()))
+    print(f"instrument sha256: {sha}")
+    if sha != SHA_NINE:
+        print(f"  NOTE: differs from the nine-relation instrument ({SHA_NINE[:12]}...). "
+              f"{len(values)} relation values: {','.join(values) if values else 'unread'}")
+        print("  Judgments from a different instrument DO NOT POOL with it, and an "
+              "agreement statistic across the two would measure the schema.")
     print(f"model {task.model}   items {len(d)}   "
           f"unique item strings {d.apply(lambda r: (r.prompt, r.a, r.b), axis=1).nunique()}")
     print(f"edges {d.groupby(['base_id','aligned_id']).ngroups}   "
@@ -48,6 +69,15 @@ def main(model, out, workers=8, limit=0):
         v = a.model_dump()
         v["relations"] = list(v["relations"])
         v["relation_primary"] = v["relations"][0]
+        # STAMPED INTO EVERY ROW, not printed and lost. The runner already
+        # computed the sha and only ever showed it to whoever watched the run;
+        # the file it wrote could not say what coded it. That is the same
+        # omission `rule_version` exists to prevent at the cell layer, one
+        # level up: without it a re-code leaves two taxonomies in one table
+        # with nothing to tell them apart.
+        v["instrument_sha256"] = sha
+        v["n_relation_values"] = len(values) or None
+        v["coder_model"] = task.model
         keep.append({**{k: getattr(r, k) for k in d.columns}, **v})
     o = pd.DataFrame(keep)
     o["relations"] = o.relations.map(lambda x: "|".join(x))
