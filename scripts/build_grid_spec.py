@@ -51,8 +51,30 @@ OUT = os.path.join(PATH_DATA, "grid_spec.json")
 
 
 def main(a):
+    # THE UNIVERSE IS A UNION OF STRINGS, NOT A READ OF THE CATEGORISATION FILE.
+    # Built this way so the spec is INDEPENDENT of the pending reconciliation:
+    # retiring duplicate rows cannot remove a prompt (both rows carry the same
+    # string), and unkeying groups or deleting pair_role/group_role are field
+    # operations. Verified: categorisation 767, census 724, store 604, UNION 767
+    # -- the census and store are subsets, and the 43 extra are the F21 pairs no
+    # stash has scored, which are the additions we want.
+    #
+    # The earlier version was `{e["prompt"]: e for e in cats}` -- a dict
+    # comprehension that silently dropped 56 rows by last-write-wins, of which 5
+    # were genuine dual membership. Deduplication is now explicit and counted.
     cats = json.load(open(CATS))["prompts"]
-    by_prompt = {e["prompt"]: e for e in cats if e["prompt"] != ""}
+    rows_by_prompt = defaultdict(list)
+    for e in cats:
+        if e["prompt"]:
+            rows_by_prompt[e["prompt"]].append(e)
+    universe_extra = set()
+    if os.path.exists(CENSUS):
+        universe_extra |= {r["prompt"] for r in csv.DictReader(open(CENSUS))
+                           if r["prompt"]}
+    by_prompt = {p: rs[0] for p, rs in rows_by_prompt.items()}
+    dup = sum(len(rs) - 1 for rs in rows_by_prompt.values())
+    print(f"categorisation    {len(cats)} rows -> {len(by_prompt)} distinct "
+          f"({dup} duplicate rows collapsed; scoring is per STRING)")
 
     # models: every model that has ever produced a true_word_probs file
     have = defaultdict(set)
@@ -65,14 +87,16 @@ def main(a):
                 pass
     models = sorted(have)
 
-    universe = sorted(by_prompt)
+    universe = sorted(set(by_prompt) | universe_extra |
+                      {p for v in have.values() for p in v})
     excl = set(a.exclude_finding or [])
-    keep = [p for p in universe if by_prompt[p].get("finding") not in excl]
-    dropped = [p for p in universe if by_prompt[p].get("finding") in excl]
+    fof = lambda p: (by_prompt.get(p) or {}).get("finding")
+    keep = [p for p in universe if fof(p) not in excl]
+    dropped = [p for p in universe if fof(p) in excl]
 
     grid = len(models) * len(keep)
     todo = sum(len(set(keep) - have[m]) for m in models)
-    fin = Counter(by_prompt[p].get("finding") for p in keep)
+    fin = Counter(fof(p) for p in keep)
 
     print(f"models            {len(models)}")
     print(f"prompt universe   {len(universe)}   (census union + categorised, "
@@ -81,7 +105,7 @@ def main(a):
         # THE HOUSE RULE: what a filter removes is counted and named, never
         # silently absent -- a grid that quietly omits a stratum reads as
         # complete coverage of a smaller world.
-        dc = Counter(by_prompt[p].get("finding") for p in dropped)
+        dc = Counter(fof(p) for p in dropped)
         print(f"EXCLUDED          {len(dropped)}   {dict(dc)}   "
               f"({len(models)*len(dropped):,} cells not run)")
     print(f"prompts in grid   {len(keep)}   {dict(fin)}")
