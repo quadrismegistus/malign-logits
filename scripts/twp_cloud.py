@@ -369,13 +369,26 @@ def assert_prompt_survives(tok, prompt, ids):
         raise ValueError(
             f"tokenizer produced ZERO ids for a non-empty prompt {prompt[:40]!r} "
             f"-- this tokenizer discards the prompt's script entirely")
-    want = len(CJK.findall(prompt))
-    if want:
-        got = len(CJK.findall(tok.decode(ids)))
-        if got < want:
+    # FULL ROUND-TRIP, not a CJK check. The first version of this guard tested
+    # only for lost CJK, and it PASSED deepseek-llm-7b on English:
+    #
+    #     'She was so angry she wanted to' -> 'Shewassoangryshewantedto'
+    #
+    # Seven ids, non-empty, no CJK to lose. A transformers v5 regression
+    # (#45488) installs a SentencePiece Metaspace pre-tokenizer over the
+    # ByteLevel one the repo declares; whitespace fails to remap and vanishes,
+    # and with `unk_token: null` nothing raises. So a script-specific test was
+    # the wrong shape -- the question is whether the model sees THE PROMPT.
+    back = tok.decode(ids)
+    if back.strip() != prompt.strip():
+        # normalise only what a tokenizer may legitimately alter
+        a = " ".join(back.split())
+        b = " ".join(prompt.split())
+        if a != b:
             raise ValueError(
-                f"prompt lost {want - got} of {want} CJK characters in encoding "
-                f"{prompt[:40]!r} -- the model would score a TRUNCATED prompt")
+                f"prompt does not survive encoding:\n  sent {prompt[:60]!r}\n"
+                f"  got  {back[:60]!r}\n"
+                f"the model would score text that is not the prompt")
 
 
 @torch.no_grad()
