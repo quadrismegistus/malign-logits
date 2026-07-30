@@ -333,8 +333,11 @@ def test_pair_contrast_first_term_belongs_to_pole_a(rows):
 
     The general shape: two checks that each validate a field against a third thing can
     both pass while disagreeing with each other. Check them against each other too.
+
+    Covers Chinese too, now that the Chinese pole groups carry derived labels -- and it
+    matters more there: this assertion was WRITTEN by the translation pass, which found
+    f11_parent inverted in the ENGLISH while verifying its own output.
     """
-    rows = english(rows)
     bad = []
     for gid, members in sorted(groups(rows, "f11_").items()):
         by = {m.get("group_role"): m for m in members}
