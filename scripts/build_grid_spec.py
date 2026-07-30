@@ -108,7 +108,20 @@ def main(a):
     if os.path.exists(CENSUS):
         universe_extra |= {r["prompt"] for r in csv.DictReader(open(CENSUS))
                            if r["prompt"]}
-    by_prompt = {p: rs[0] for p, rs in rows_by_prompt.items()}
+    # RANKED PICK, not file order. rs[0] took whichever row the file happened
+    # to list first; measured on the current file, 62 strings have multiple rows
+    # and 7 differ in `finding` between file-order and ranked -- which feeds the
+    # by-finding counts and --exclude-finding routing. [856].4 declared the
+    # ranking and it was absent from the highest-stakes string-keyed lookup in
+    # the repo, which is the script that occasioned the rule.
+    _RANK = {"ACTIVE": 0, "DISPUTED": 1, "RETIRED": 2}
+    def _pick(rs):
+        return sorted(rs, key=lambda e: (
+            _RANK.get(e.get("status"), 3),          # ACTIVE > DISPUTED > RETIRED
+            0 if e.get("group_id") else 1,          # grouped before ungrouped
+            0 if e.get("group_role") else 1,        # role-bearing before not
+        ))[0]
+    by_prompt = {p: _pick(rs) for p, rs in rows_by_prompt.items()}
     dup = sum(len(rs) - 1 for rs in rows_by_prompt.values())
     print(f"categorisation    {len(cats)} rows -> {len(by_prompt)} distinct "
           f"({dup} duplicate rows collapsed; scoring is per STRING)")
@@ -181,8 +194,12 @@ def main(a):
                "spec": spec}, open(a.out, "w"))
     print(f"\nwrote {a.out}: {len(spec)} models, "
           f"{sum(len(e['prompts']) for e in spec):,} cells")
-    print("BOUNDARY RULE: CJK punctuation + dictionary trie + script transition. "
-          "The rule is NOT in the cache key, so this must OVERWRITE.")
+    print("BOUNDARY RULE: CJK punctuation + dictionary trie + script transition "
+          "+ intra-word punctuation + mojibake excluded (rule_version 3).")
+    print("The rule IS stamped per cell since 96c493b, so a mixed state is "
+          "DETECTABLE -- the ingestor prints the version mix first. Overwrite "
+          "is still preferred for a uniform end state, but a partial run is no "
+          "longer indistinguishable, which is what the stamp bought.")
 
 
 if __name__ == "__main__":

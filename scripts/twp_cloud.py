@@ -458,6 +458,10 @@ def assert_prompt_survives(tok, prompt, ids):
                 f"the model would score text that is not the prompt")
 
 
+class SkipPrompt(Exception):
+    """This PROMPT cannot be scored on this model. Not a model failure."""
+
+
 @torch.no_grad()
 def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
            bos_policy="inherited"):
@@ -471,10 +475,23 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
     """
 
     lg_ = resolve_logical(tok, prompt)
+    resolved_surface, resolver_id = None, None
     if lg_ is not None:
-        pids, _surface, _resolver = lg_
+        pids, resolved_surface, resolver_id = lg_
         if pids is None:
-            raise ValueError(f"logical prompt {prompt!r} unresolvable: {_resolver}")
+            # A RECORDED SKIP, NOT A CRASH. This raised, and main()'s per-model
+            # try/except wraps the WHOLE prompt loop -- so one unresolvable
+            # prompt aborted the entire model, which wrote nothing and failed
+            # identically on every resume. Measured: 18 of 103 models have
+            # bos_token=None and are not covered by the fallback table (all
+            # OLMo-Hybrid/OLMoE, the whole Falcon line, glm4), and the sentinel
+            # sorts near-first, so ~14,000 cells would have been lost in a way
+            # no retry could repair.
+            #
+            # [789].2a required "a declared fallback or a RECORDED skip". This
+            # is the recorded skip; the fallback table is a research decision
+            # and is owed separately.
+            raise SkipPrompt(resolver_id or "unresolvable_logical")
         # a resolved logical prompt bypasses the survival assert BY DESIGN:
         # there is no surface that was supposed to round-trip
     else:
@@ -555,7 +572,9 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
     res_open = float(sum(m for _, m, _ in live))
     return words, dict(tail=res_tail, drop=res_drop, open=res_open,
                        mojibake=res_moji,
-                       total=res_tail + res_drop + res_open + res_moji), calls
+                       total=res_tail + res_drop + res_open + res_moji,
+                       resolver=resolver_id,
+                       resolved_surface=resolved_surface), calls
 
 
 def done_prompts(path):
@@ -630,7 +649,7 @@ def main(a):
         pol = bos_policy_for(mid)
         if pol != "inherited":
             print(f"  bos_policy: {pol}", flush=True)
-        t0, i = time.time(), 0
+        t0, i, skipped = time.time(), 0, 0
         # ONE MODEL MUST NOT END THE ROSTER. The first version guarded only the
         # load, so a mid-run OOM on model 17 of 103 took the other 87 with it.
         # Per-prompt writes are already flushed, so a model that dies partway
@@ -638,8 +657,19 @@ def main(a):
         try:
             with open(path, "a") as f:
                 for i, p in enumerate(todo, 1):
-                    w, res, calls = expand(model, tok, p, dev, bmask, cjk=cjk,
-                                           bos_policy=pol)
+                    try:
+                        w, res, calls = expand(model, tok, p, dev, bmask,
+                                               cjk=cjk, bos_policy=pol)
+                    except SkipPrompt as sk:
+                        # recorded, flushed, resumable -- and the model lives
+                        f.write(json.dumps({
+                            "model": mid, "prompt": p, "theta": THETA,
+                            "skipped": str(sk), "rows": [], "residual": None,
+                            "rule_version": RULE_VERSION,
+                            "bos_policy": pol, "loader": loader_id}) + "\n")
+                        f.flush()
+                        skipped += 1
+                        continue
                     tot = sum(w.values()) + res["total"]
                     f.write(json.dumps({
                         "model": mid, "prompt": p, "theta": THETA,
@@ -648,12 +678,15 @@ def main(a):
                         "dict_sha": dict_sha,
                         "bos_policy": pol,
                         "loader": loader_id,
+                        "resolver": res.get("resolver"),
+                        "resolved_surface": res.get("resolved_surface"),
                         "rows": [{"word": s_, "t1": t_, "p": m_} for (s_, t_), m_ in w.items()],
                         "residual": res, "batches": calls, "conservation": tot}) + "\n")
                     f.flush()                  # crash-safe: complete line on disk
                     if i % 50 == 0:
                         print(f"    {i}/{len(todo)}  {i/(time.time()-t0):.2f} p/s", flush=True)
-            print(f"  done {len(todo)} in {(time.time()-t0)/60:.1f} min", flush=True)
+            print(f"  done {len(todo)} in {(time.time()-t0)/60:.1f} min"
+                  + (f"  ({skipped} SKIPPED)" if skipped else ""), flush=True)
         except Exception as e:
             print(f"  RUN FAILED after {i-1}/{len(todo)}: "
                   f"{type(e).__name__}: {str(e)[:120]}", flush=True)
