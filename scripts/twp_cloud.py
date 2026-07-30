@@ -26,9 +26,26 @@ PUNCT = set(".,;:!?\"'()[]{}—-–…/\\*#") | {"\n", "\r", "\t"}
 
 
 def boundary_mask(tok, n):
+    """MODEL VOCAB SIZE AND TOKENIZER PIECE COUNT ARE NOT THE SAME NUMBER.
+
+    `config.vocab_size` is the unembedding width, which is padded up to a
+    hardware-friendly multiple; the tokenizer holds fewer real pieces. CT-LLM's
+    sentencepiece raises `IndexError: piece id is out of range` on the padding
+    ids rather than returning None, which killed the roster from inside a
+    function nobody thought could fail.
+
+    An id with no piece is treated as a BOUNDARY. It can never be produced as
+    real text, so the only question is whether it terminates a word or extends
+    one, and terminating is the safe answer: an unknown id extending a prefix
+    would silently glue garbage onto a real word, while terminating merely ends
+    it. The mass involved is negligible either way -- these ids are untrained.
+    """
     m = np.zeros(n, dtype=bool)
     for i in range(n):
-        s = tok.convert_ids_to_tokens(i)
+        try:
+            s = tok.convert_ids_to_tokens(i)
+        except Exception:
+            m[i] = True; continue      # padding id past the tokenizer's pieces
         if s is None:
             m[i] = True; continue
         if s.startswith("Ġ") or s.startswith("▁") or s.startswith(" "):
@@ -161,7 +178,18 @@ def main(a):
             print(f"  LOAD FAILED: {str(e)[:120]}", flush=True)
             free()                 # the traceback held the partial load
             continue
-        bmask = boundary_mask(tok, model.config.vocab_size)
+        # INSIDE THE GUARD. This sat BETWEEN the guarded load and the guarded
+        # run, so a tokenizer that cannot decode every id in range(vocab_size)
+        # killed the whole roster from the one unguarded line -- CT-LLM's
+        # sentencepiece raises "piece id is out of range" because the model's
+        # config vocab_size exceeds the tokenizer's actual piece count. Guarding
+        # two of three phases is guarding none of them.
+        try:
+            bmask = boundary_mask(tok, model.config.vocab_size)
+        except Exception as e:
+            print(f"  MASK FAILED: {type(e).__name__}: {str(e)[:100]}", flush=True)
+            free(model, tok)
+            continue
         t0, i = time.time(), 0
         # ONE MODEL MUST NOT END THE ROSTER. The first version guarded only the
         # load, so a mid-run OOM on model 17 of 103 took the other 87 with it.
