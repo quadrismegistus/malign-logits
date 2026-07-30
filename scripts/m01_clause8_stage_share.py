@@ -117,6 +117,22 @@ def staged_families():
     return out
 
 
+def store_universe(cm):
+    """Every prompt the store holds, at any model. One pass over the keys.
+
+    Read from the STORE rather than a registry so unmapped material -- Set D,
+    the F36 minimal pairs, literary passages -- is inside the population
+    instead of invisible to it.
+    """
+    out = set()
+    for k in cm._stash("true_word_probs").keys():
+        d = dict(k) if not isinstance(k, dict) else k
+        p = d.get("prompt")
+        if isinstance(p, str) and p:
+            out.add(p)
+    return out
+
+
 def categorise(prompt, index):
     return index.get(prompt, "")
 
@@ -141,7 +157,16 @@ def main(a):
     cat_of = load_category_index()
     print(f"{len(fams)} families carry base+ego+superego in MODEL_FAMILIES\n")
 
-    prompts = sorted(cat_of) if not a.prompts else a.prompts
+    # THE UNIVERSE IS THE STORE, NOT THE REGISTRY. This iterated the category
+    # index -- 146 registry-mapped prompts -- and so silently scored amber on
+    # 73 of the 209 it actually has, dropping 65% of available cells. The
+    # dropped material is the UNMAPPED stratum `build_prompt_inventory.py`
+    # already warned about: Set D variants, the F36 minimal pairs, literary
+    # passages, ~40% of everything ever scored. A category-keyed loop cannot
+    # see prompts that have no category, which is exactly the population whose
+    # only purpose is a contrast.
+    store_prompts = store_universe(cm) if not a.prompts else set(a.prompts)
+    prompts = sorted(store_prompts)
     rows, versions, skipped = [], Counter(), Counter()
 
     for key, ids in sorted(fams.items()):
@@ -216,6 +241,28 @@ def main(a):
               f"{np.median([r['js_base_ego'] for r in rs]):>12.4f}"
               f"{np.median([r['js_ego_superego'] for r in rs]):>12.4f}"
               f"{np.median([r['sft_over_dpo'] for r in rs]):>11.2f}")
+
+    # STRATIFIED BEFORE THE STATISTIC, NOT AFTER (lacan [948].4). On this
+    # prompt set the JS tail belongs to the LITERARY stratum -- 10% of prompts
+    # supplying 57% of the high-divergence cases -- and the high-JS cases are
+    # function words collapsing to near-certainty on mid-sentence prose
+    # truncations. That is out-of-distribution handling, not alignment's
+    # content work, and it is in the grid for F19. A pooled median inherits it.
+    dom_of = defaultdict(list)
+    for r in rows:
+        c = r["category"]
+        dom = ("literary" if not c else
+               c.split("_")[0] if "_" in c else c) or "unmapped"
+        dom_of[dom].append(r)
+    print(f"\n{'domain':<18}{'n':>7}{'med share':>11}{'med JS b>e':>12}"
+          f"{'med JS e>s':>12}")
+    for d, rs in sorted(dom_of.items(), key=lambda kv: -len(kv[1])):
+        print(f"{d:<18}{len(rs):>7}"
+              f"{np.median([r['sft_share'] for r in rs]):>11.3f}"
+              f"{np.median([r['js_base_ego'] for r in rs]):>12.4f}"
+              f"{np.median([r['js_ego_superego'] for r in rs]):>12.4f}")
+    print("LITERARY IS REPORTED SEPARATELY AND NEVER POOLED into a number that "
+          "would be read as being about transgression.")
 
     shares = [np.median([r["sft_share"] for r in rs]) for rs in fam_of.values()]
     print(f"\nACROSS {len(shares)} FAMILIES, family as unit: "
