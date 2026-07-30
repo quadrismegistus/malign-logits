@@ -250,7 +250,8 @@
   "resolution_scope": {
    "type": "str|null",
    "desc": "WHERE RESOLUTION FAILS, recorded on the row. Without it a reader sees a complete-looking model_resolved row and cannot tell that a third of the roster was skipped -- the same reason a rate is not a number without its population."
-  }
+  },
+  "_mode_is_not_one_dimension": "MODE IS NOT ONE DIMENSION AND A FLAT `mode` FIELD WILL MAKE IT LOOK LIKE ONE. Verified in core.py:_apply_mode and circuit.py:Circuit.logits, which agree:\n  RAW       the prompt, bare.\n  CHAT      the prompt as a user message in the model's chat template. SAME STIMULUS, differently framed -- the text the model reads still ends with the prompt.\n  CONTINUE  'Continue this text: {prompt}' as a user message. A DIFFERENT STIMULUS: an instruction is PREPENDED, so the model is no longer completing the prompt, it is obeying a request about the prompt.\n  THINK     identical text to CONTINUE, plus enable_thinking=True. So CONTINUE and THINK share a stimulus and differ only in a template flag.\nCONSEQUENCE FOR ANALYSIS: RAW and CHAT are comparable as framings of one stimulus. CONTINUE and THINK are not framings of it -- they measure a different object, and pooling them with RAW or CHAT compares completions of the prompt against responses to an instruction about the prompt. A flat mode field in a cache key records four values at one level and hides that the four fall into two groups of two. Recorded here because the pending mode-key migration is exactly the moment the distinction would get flattened."
  },
  "_provenance": {
   "built_by": "scripts/build_prompt_categorisation.py",
