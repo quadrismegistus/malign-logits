@@ -38,7 +38,16 @@ THETA, MAX_DEPTH = 0.001, 6
 #     + dictionary prefix trie on CJK surfaces (6bb9f56)
 #     + script transition is a boundary, both directions (68ec402)
 RULE_VERSION = 3
-RULE_COMMITS_V3_NOTE = "intra-word punctuation + apostrophe normalisation"
+RULE_COMMITS_V3_NOTE = ("intra-word punctuation + apostrophe normalisation "
+                        "+ mojibake is not a word")
+# v3 ALSO EXCLUDES MOJIBAKE. A surface containing U+FFFD is broken bytes, not
+# vocabulary, and it went into `words` under v1/v2 -- so RESOLVED MASS IS
+# OVERSTATED IN v1/v2 CELLS for any model whose tokenizer cannot represent the
+# prompt's script. Measured on amber/Chinese: 0.892 -> 0.467, the difference
+# being 0.428 of replacement characters. Its mass now lands in
+# residual["mojibake"], a named channel, because it is real mass the model
+# assigned and folding it into `drop` would hide it in the sub-theta tail --
+# which is how it survived this long.
 # v2's KNOWN LIMITATION, FIXED IN v3: punctuation is a boundary
 # regardless of context, so digits and contractions split. `$100,000` records as
 # `100`, and `$100,000` / `$100,500` / `$100` are indistinguishable. Same for
@@ -112,6 +121,30 @@ def intra_word(surface, tok_str):
     if c not in INTRA:
         return False
     return len(tok_str) > 1 and tok_str[1].isalnum()
+
+
+REPLACEMENT = "\ufffd"
+
+
+def is_mojibake(s):
+    """A surface containing U+FFFD is BROKEN BYTES, not a word.
+
+    A Latin-oriented tokenizer fragments CJK into byte pieces; an individual
+    byte token is not valid UTF-8, so `tok.decode` yields the replacement
+    character. The boundary rule then treats it as a perfectly good word --
+    non-empty, no boundary character, terminates cleanly -- and it RESOLVES.
+
+    Measured before the fix: Amber, beaver, alpaca and llama-7b put 39-47% of
+    their Chinese probability mass on `\ufffd`. Raw resolved mass therefore
+    RANKED BROKEN-BYTE MODELS ABOVE FLUENT ONES: Amber scored 0.94 on Chinese
+    prompts against Qwen's 0.03, and the difference was that Amber's tokenizer
+    could not represent the text at all.
+
+    `is_word` never caught it. That field tests for ASCII-alphabetic surfaces,
+    so it flags mojibake only when nothing else does -- and here mojibake WAS
+    the top word.
+    """
+    return REPLACEMENT in s
 
 
 def clean_surface(s):
@@ -331,6 +364,7 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
     sel = np.flatnonzero(P0 >= theta)
     live = [((int(t),), float(P0[t]), int(t)) for t in sel]
     words, calls, bcache, intra_cache = {}, 0, {}, {}
+    res_moji = 0.0
     res_tail, res_drop = float(1.0 - P0[sel].sum()), 0.0
     for _ in range(MAX_DEPTH):
         if not live:
@@ -379,10 +413,17 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
                     b[lids] = True      # CJK -> Latin is a transition too
                     bcache[surf] = b
             term = float(row[b].sum())
-            if surf:
+            if surf and not is_mojibake(surf):
                 words[(surf, t1)] = words.get((surf, t1), 0.0) + mass * term
             else:
-                res_drop += mass * term
+                # A SEPARATE CHANNEL, not silent. Mojibake mass is real mass
+                # the model assigned; it is simply not a word, so it must be
+                # accounted rather than dropped into the general residual where
+                # it would be indistinguishable from sub-theta tail.
+                if surf:
+                    res_moji += mass * term
+                else:
+                    res_drop += mass * term
             cont = np.flatnonzero(~b)
             m2 = mass * row[cont]
             keep = m2 >= theta
@@ -392,7 +433,8 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
         live = nxt
     res_open = float(sum(m for _, m, _ in live))
     return words, dict(tail=res_tail, drop=res_drop, open=res_open,
-                       total=res_tail + res_drop + res_open), calls
+                       mojibake=res_moji,
+                       total=res_tail + res_drop + res_open + res_moji), calls
 
 
 def done_prompts(path):
