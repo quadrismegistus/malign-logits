@@ -70,6 +70,22 @@ def _measure(cell, metric, rule):
         return None          # mixed rule_version, counted by the frame
 
 
+def _population(language, where):
+    """The prompts a frame runs over. `where` is any catalogue field, e.g. finding="F36".
+
+    WITHOUT THIS A FRAME SILENTLY POOLS DESIGNS. `MARKED`/`UNMARKED` is a role used by
+    THREE findings -- 133 and 129 rows across the catalogue, of which F36 owns 69 and 68.
+    Asking for "the marked pairs" and getting all of them mixes a transgressive swap with
+    a gender swap with a register swap, which are different manipulations answering
+    different questions. The pooled number would look fine and mean nothing.
+    """
+    from .prompts import Prompts
+    kw = dict(where or {})
+    if language:
+        kw["language"] = language
+    return Prompts.where(**kw) if kw else Prompts.all()
+
+
 def _check(metric):
     if metric not in METRICS:
         raise ValueError(f"unknown metric {metric!r}. Known: {', '.join(METRICS)}")
@@ -247,7 +263,7 @@ class Contrast:
 # ---------------------------------------------------------------------------
 
 def by_role(step, a, b, key="group_id", role="group_role", metric="js", rule=None,
-            language="en", tag=None):
+            language="en", tag=None, where=None):
     """PAIRED within a catalogue group: MARKED vs UNMARKED, POLE_A vs POLE_B.
 
     A unit is a group holding EXACTLY ONE of each role. Groups holding two of a role, or
@@ -255,9 +271,8 @@ def by_role(step, a, b, key="group_id", role="group_role", metric="js", rule=Non
     would compare a different population than it names.
     """
     _check(metric)
-    from .prompts import Prompts
     buckets = collections.defaultdict(lambda: collections.defaultdict(list))
-    for p in Prompts.where(language=language) if language else Prompts.all():
+    for p in _population(language, where):
         k, r = p.row.get(key), p.row.get(role)
         if k and r in (a, b):
             buckets[k][r].append(p)
@@ -278,7 +293,8 @@ def by_role(step, a, b, key="group_id", role="group_role", metric="js", rule=Non
                     tag=tag or f"{a} vs {b}")
 
 
-def by_field(step, a, b, field="domain", metric="js", rule=None, language="en", tag=None):
+def by_field(step, a, b, field="domain", metric="js", rule=None, language="en", tag=None,
+             where=None):
     """STRATIFIED on any catalogue field: worker vs mgmt, institutional vs neutral.
 
     Two INDEPENDENT samples. Use this where no grouping key pairs the prompts -- which is
@@ -287,9 +303,8 @@ def by_field(step, a, b, field="domain", metric="js", rule=None, language="en", 
     which are paired and lose power if compared this way.
     """
     _check(metric)
-    from .prompts import Prompts
     A, B, units, dropped = [], [], [], collections.Counter()
-    for p in Prompts.where(language=language) if language else Prompts.all():
+    for p in _population(language, where):
         v = p.row.get(field)
         if v not in (a, b):
             continue
@@ -357,7 +372,8 @@ def by_step(step_a, step_b, metric="js", rule=None, language="en", texts=None, t
                     tag=tag or f"{step_a.label} vs {step_b.label}")
 
 
-def sweep(step, field, baseline, metric="js", rule=None, language="en", min_n=25):
+def sweep(step, field, baseline, metric="js", rule=None, language="en", min_n=25,
+          where=None):
     """Every level of `field` against one baseline level. Returns a list of Contrasts.
 
     `min_n` drops levels too small to say anything, and the count of dropped levels is
@@ -365,16 +381,13 @@ def sweep(step, field, baseline, metric="js", rule=None, language="en", min_n=25
     them hold fewer than 15 prompts.
     """
     _check(metric)
-    from .prompts import Prompts
-    levels = collections.Counter(
-        p.row.get(field) for p in
-        (Prompts.where(language=language) if language else Prompts.all()))
+    levels = collections.Counter(p.row.get(field) for p in _population(language, where))
     out = []
     for lvl, n in levels.most_common():
         if lvl is None or lvl == baseline or n < min_n:
             continue
         out.append(by_field(step, lvl, baseline, field=field, metric=metric,
-                            rule=rule, language=language,
+                            rule=rule, language=language, where=where,
                             tag=f"{lvl} vs {baseline}"))
     return out
 

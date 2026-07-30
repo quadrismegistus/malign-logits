@@ -158,3 +158,29 @@ def test_measure_reports_none_for_an_absent_cell():
     class _Cell:
         is_present = False
     assert _measure(_Cell(), "js", None) is None
+
+
+# --- restricting the population --------------------------------------------
+
+def test_where_restricts_the_population_and_changes_the_answer():
+    """A frame without `where` POOLS DESIGNS. `MARKED`/`UNMARKED` is a role used by three
+    findings; F36 owns 34 clean pairs and F13 owns 17, and they answer differently
+    (F13 p=0.049, F36 p=0.86, pooled p=0.25 -- the pool hides both). This test asserts
+    the mechanism rather than those numbers: restricting must yield a strict subset.
+    """
+    from malign_logits.contrast import _population
+    allp = list(_population("en", None))
+    f36 = list(_population("en", {"finding": "F36"}))
+    assert 0 < len(f36) < len(allp)
+    assert {p.id for p in f36} < {p.id for p in allp}
+    assert all(p.row.get("finding") == "F36" for p in f36)
+
+
+def test_where_composes_with_language():
+    from malign_logits.contrast import _population
+    en = list(_population("en", {"finding": "F36"}))
+    zh = list(_population("zh", {"finding": "F36"}))
+    assert en and zh
+    assert all(p.row.get("language") == "en" for p in en)
+    assert all(p.row.get("language") == "zh" for p in zh)
+    assert not ({p.id for p in en} & {p.id for p in zh})
