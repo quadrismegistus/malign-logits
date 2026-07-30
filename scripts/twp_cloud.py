@@ -19,6 +19,8 @@ where cancelling costs nothing.
 """
 import argparse, gc, json, os, re, shutil, subprocess, sys, time
 import numpy as np, torch
+import transformers as _tf
+_TFV = _tf.__version__
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 THETA, MAX_DEPTH = 0.001, 6
@@ -746,6 +748,18 @@ def main(a):
                         "dict_sha": dict_sha,
                         "bos_policy": pol,
                         "loader": loader_id,
+                        # LIBRARY VERSIONS, ADDED 2026-07-30 BECAUSE THEY TURNED
+                        # OUT TO MATTER. transformers refuses .bin weights below
+                        # torch 2.6 (check_torch_load_is_safe), which cost this
+                        # grid 12 models on a box pinned at 2.5.1 -- so the
+                        # recovered arms must be scored under a DIFFERENT torch
+                        # than the rest. Local-vs-box on one shared model gave an
+                        # IDENTICAL surface set with per-word probabilities
+                        # differing by <=1.5e-3, so the effect is small; small is
+                        # not zero, and a cell that cannot say which library
+                        # produced it cannot be excluded from a comparison later.
+                        "torch_version": torch.__version__,
+                        "transformers_version": _TFV,
                         "resolver": res.get("resolver"),
                         "resolved_surface": res.get("resolved_surface"),
                         "rows": [{"word": s_, "t1": t_, "p": m_} for (s_, t_), m_ in w.items()],
