@@ -84,9 +84,22 @@ def main(a):
     # strings are dual-membership, and dropping on any-retired would delete
     # prompts that a live design still uses.
     cats = json.load(open(CATS))["prompts"]
+    # AMENDMENT 1a HAD TWO HALVES AND ONLY ONE REACHED THE CODE. The status
+    # filter landed here; the BOS/label exclusion did not, so the rebuild put all
+    # four per-family BOS strings back. The round-trip check caught ONE of them
+    # (deepseek's, which fails to encode) and could not see the other three --
+    # they round-trip perfectly on their own tokenizer. They are wrong for a
+    # SEMANTIC reason: a per-family BOS scored on 103 models is that family's
+    # token fed to models where it is a literal string, shattering into
+    # characters (<|begin_of_text|> is 9 tokens on Amber). No encoding test can
+    # detect that, which is why the exclusion has to be declared, not derived.
+    EXCLUDE_LITERAL = {
+        "<s>", "<|endoftext|>", "<|begin_of_text|>", "\uff5cbegin\u2581of\u2581sentence\uff5c",
+        "<\uff5cbegin\u2581of\u2581sentence\uff5c>", "bos",
+    }
     retired = {e["prompt"] for e in cats if e.get("status") == "RETIRED"}
     active = {e["prompt"] for e in cats if e.get("status") == "ACTIVE"}
-    drop_retired = retired - active
+    drop_retired = (retired - active) | EXCLUDE_LITERAL
     rows_by_prompt = defaultdict(list)
     for e in cats:
         if e["prompt"]:
@@ -113,8 +126,9 @@ def main(a):
 
     universe = sorted((set(by_prompt) | universe_extra |
                        {p for v in have.values() for p in v}) - drop_retired)
-    print(f"retired-only strings excluded: {len(drop_retired)}  "
-          f"(kept {len(retired & active)} that are ACTIVE elsewhere)")
+    print(f"excluded: {len(retired - active)} retired-only + "
+          f"{len(EXCLUDE_LITERAL)} BOS/label literals "
+          f"(kept {len(retired & active)} retired-but-active-elsewhere)")
     excl = set(a.exclude_finding or [])
     fof = lambda p: (by_prompt.get(p) or {}).get("finding")
     keep = [p for p in universe if fof(p) not in excl]
@@ -143,11 +157,28 @@ def main(a):
         print("\nDRY RUN -- no spec written")
         return
 
+    # STAMP THE SOURCE. The categorisation file moved three times in thirty
+    # minutes while these rebuilds ran, so two specs built minutes apart differ
+    # for reasons no one can reconstruct from the spec alone. A spec that does
+    # not name the categorisation it was built from is undatable, which is the
+    # live-store lesson applied to a file instead of a stash.
+    import subprocess
+    cat_sha = subprocess.run(
+        ["git", "log", "-1", "--format=%H", "--", CATS],
+        capture_output=True, text=True).stdout.strip() or "UNCOMMITTED"
+    dirty = subprocess.run(["git", "status", "--porcelain", CATS],
+                           capture_output=True, text=True).stdout.strip()
+    print(f"categorisation: {cat_sha[:12]}{' +UNCOMMITTED CHANGES' if dirty else ''}")
+
     spec = [{"model": m, "prompts": sorted(set(keep) - have[m])} for m in models]
     spec = [e for e in spec if e["prompts"]]
     # ascending by work, so a cancellation costs the least-finished model
     spec.sort(key=lambda e: len(e["prompts"]))
-    json.dump(spec, open(a.out, "w"))
+    json.dump({"_meta": {"categorisation_sha": cat_sha,
+                         "categorisation_dirty": bool(dirty),
+                         "prompts": len(keep), "models": len(models),
+                         "cells_to_run": sum(len(e["prompts"]) for e in spec)},
+               "spec": spec}, open(a.out, "w"))
     print(f"\nwrote {a.out}: {len(spec)} models, "
           f"{sum(len(e['prompts']) for e in spec):,} cells")
     print("BOUNDARY RULE: CJK punctuation + dictionary trie + script transition. "
