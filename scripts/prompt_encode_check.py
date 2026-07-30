@@ -33,7 +33,10 @@ OUT = os.path.join(PATH_DATA, "prompt_encode_check.csv")
 
 
 def main():
-    spec = json.load(open(SPEC))
+    raw = json.load(open(SPEC))
+    spec = raw["spec"] if isinstance(raw, dict) else raw
+    meta = raw.get("_meta", {}) if isinstance(raw, dict) else {}
+    if meta: print(f"spec built from categorisation {meta.get('categorisation_sha','?')[:12]}")
     total = sum(len(e["prompts"]) for e in spec)
     print(f"{len(spec)} models, {total:,} (model, prompt) pairs\n")
     fails, per_model, checked = [], Counter(), 0
@@ -48,6 +51,11 @@ def main():
         bad = 0
         for p in entry["prompts"]:
             checked += 1
+            if p == getattr(_tc, "SENTINEL_BOS", None):
+                # a LOGICAL prompt is resolved, never encoded -- there is no
+                # surface that was supposed to round-trip, so testing one would
+                # manufacture a failure the design deliberately does not have
+                continue
             try:
                 ids = tok.encode(p, add_special_tokens=False)
                 back = tok.decode(ids)
