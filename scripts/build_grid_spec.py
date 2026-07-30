@@ -97,9 +97,21 @@ def main(a):
         "<s>", "<|endoftext|>", "<|begin_of_text|>", "\uff5cbegin\u2581of\u2581sentence\uff5c",
         "<\uff5cbegin\u2581of\u2581sentence\uff5c>", "bos",
     }
+    # RETIRED IN *EVERY* ROW -- not "retired and not ACTIVE". The earlier form
+    # tested `status == "ACTIVE"`, so a string whose only non-retired row was
+    # DISPUTED fell into `retired - active` and was dropped, contradicting the
+    # rule frozen at [858].2 (exclude retired-in-every-row, include active-in-
+    # any-row). setd_reason_M/U are the case: one DISPUTED row plus one RETIRED
+    # duplicate, scored on 41 of 103 models already, and present in ZERO arms of
+    # the spec. A three-valued status read through a two-valued test.
+    all_status = defaultdict(set)
+    for e in cats:
+        if e["prompt"]:
+            all_status[e["prompt"]].add(e.get("status"))
+    drop_retired = ({p for p, st in all_status.items() if st == {"RETIRED"}}
+                    | EXCLUDE_LITERAL)
     retired = {e["prompt"] for e in cats if e.get("status") == "RETIRED"}
     active = {e["prompt"] for e in cats if e.get("status") == "ACTIVE"}
-    drop_retired = (retired - active) | EXCLUDE_LITERAL
     rows_by_prompt = defaultdict(list)
     for e in cats:
         if e["prompt"]:
@@ -163,8 +175,12 @@ def main(a):
               f"({len(models)*len(dropped):,} cells not run)")
     print(f"prompts in grid   {len(keep)}   {dict(fin)}")
     print(f"grid cells        {grid:,}")
-    print(f"already present   {grid - todo:,}")
-    print(f"TO RUN            {todo:,}   ~{todo/4/3600:.1f} h at 4 p/s")
+    if a.from_scratch:
+        print(f"already present   {grid - todo:,}  IGNORED (--from-scratch)")
+        print(f"TO RUN            {grid:,}   ~{grid/4/3600:.1f} h at 4 p/s")
+    else:
+        print(f"already present   {grid - todo:,}")
+        print(f"TO RUN            {todo:,}   ~{todo/4/3600:.1f} h at 4 p/s")
 
     if a.dry_run:
         print("\nDRY RUN -- no spec written")
@@ -183,7 +199,17 @@ def main(a):
                            capture_output=True, text=True).stdout.strip()
     print(f"categorisation: {cat_sha[:12]}{' +UNCOMMITTED CHANGES' if dirty else ''}")
 
-    spec = [{"model": m, "prompts": sorted(set(keep) - have[m])} for m in models]
+    # REGENERATE FROM SCRATCH (RH, 30 Jul): the resume subtraction is skipped.
+    # The 29,873 existing cells were produced under rule_version 1 and 2 --
+    # before the mojibake exclusion, the intra-word punctuation rule, the BOS
+    # policy and the loader table -- so reusing them would build the grid out of
+    # two instruments and call the difference a result. The whole point of the
+    # per-cell stamp was to make that mixture VISIBLE; regenerating makes it
+    # ABSENT.
+    if a.from_scratch:
+        spec = [{"model": m, "prompts": sorted(keep)} for m in models]
+    else:
+        spec = [{"model": m, "prompts": sorted(set(keep) - have[m])} for m in models]
     spec = [e for e in spec if e["prompts"]]
     # ascending by work, so a cancellation costs the least-finished model
     spec.sort(key=lambda e: len(e["prompts"]))
@@ -207,4 +233,6 @@ if __name__ == "__main__":
     ap.add_argument("--exclude-finding", nargs="*", default=[])
     ap.add_argument("--out", default=OUT)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--from-scratch", action="store_true",
+                    help="ignore existing cells; every model scores every prompt")
     main(ap.parse_args())
