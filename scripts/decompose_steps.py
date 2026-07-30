@@ -14,8 +14,42 @@ TWO MODES, and they were built to answer two different questions.
 
   --mode steps     ENGLISH ONLY, paired on the prompt, within one family. Holds the
                    tokenizer AND the prompt set constant, so a difference between
-                   base->sft and sft->preference is attributable to the step. This is
-                   the mode that produced a result.
+                   consecutive steps is attributable to the step.
+
+                   **READ THE REFUTATION BELOW BEFORE QUOTING THIS MODE.**
+
+WHAT THIS MODE FOUND, THEN UNFOUND. On 2026-07-30, with amber the only family holding
+both a base->sft and a preference step, this mode reported: `arrived` identical across
+the two steps (300/601, p=1.0) while `departed` nearly doubled (0.095 -> 0.164,
+p=1.8e-21). Read as: SFT redistributes, the preference step represses. It was published
+here as single-family and explicitly not to be quoted otherwise.
+
+The 2026-07-31 reingest added olmo, olmo-think and two tulu chains. **The result does not
+replicate. It reverses.** Every other family moves LESS at each successive step, and by
+the last step most cells have no fallers at all:
+
+    olmo        js_total  0.152 -> 0.027 -> 0.005     no-faller cells   1% -> 32% -> 97%
+    olmo-think            0.127 -> 0.005                                1% -> 99%
+    tulu                  0.030 -> 0.006                               13% -> 99%
+    archangel             0.006 -> 0.002                               99% -> 100%
+    amber                 0.115 -> 0.137   <- THE ONLY INCREASE         1% -> 2%
+
+So the general shape is monotone decay along the chain, and the honest first explanation
+is not repression but STEP SIZE: turning a base model into an instruct model is a large
+intervention, and each subsequent nudge is smaller. That needs no Lacanian gloss; it is
+the training recipe.
+
+What survives is narrower and more interesting. Amber is the single family whose
+preference step moves MORE than its SFT step, and AmberSafe is the only targeted SAFETY
+DPO in the set. The live hypothesis is therefore about safety-targeted preference
+training specifically, not about preference training as such -- and it is a hypothesis
+about ONE model until a second safety-tuned arm lands.
+
+CAVEAT ON THE RATIO COLUMNS. `selectivity` divides by `departed`, which vanishes exactly
+where the late-chain steps live: on archangel 594 of 601 cells have no faller at all, so
+its median is taken over SEVEN cells while the columns beside it are over 601. `report()`
+suppresses any row whose population falls below 20 and prints k/n for the rest, so the
+population is always on screen. Read it.
 
   --mode language  the en/zh translation frame, decomposed. This mode exists to show
                    that the frame DOES NOT WORK, and it should be read as a diagnostic
