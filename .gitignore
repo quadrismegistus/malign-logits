@@ -257,3 +257,7 @@ data/f20x_kinship.csv
 # [467], so committing these would broadcast exactly what the seal withholds.
 # The sha256 is published on the docket; the content is not.
 data/sealed/
+
+# twp JSONL transport files — canonical store is HashStash; archives in data/archive/
+data/twp_cloud/
+data/archive/*.tar.gz
