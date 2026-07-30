@@ -1,0 +1,198 @@
+"""One measurement: a step's two checkpoints, at one prompt.
+
+    from malign_logits.step import Step
+    from malign_logits.checkpoint import Checkpoint
+
+    c = Step(Checkpoint("LLM360/Amber"), Checkpoint("LLM360/AmberChat")).cell(text)
+    c.movement(CANONICAL).risers
+    c.js(), c.l1()
+    c.prompt.domain            # stratification, for free
+
+WHY THE CELL IS THE UNIT. Risers and fallers are per (step, prompt) -- a step alone has
+none, a prompt alone has none. Everything measured in this project lives here, which is
+also why a graph is the wrong container for it: 100,837 of these is a table, not a
+topology.
+
+THREE THINGS IT REFUSES TO DO SILENTLY, all of them defects from 2026-07-30:
+
+  MIXED `rule_version` RAISES. A v1 pre-arm against a v3 post-arm books an INSTRUMENT
+  CHANGE as alignment movement -- v3 changed what a word is, so words appear, merge and
+  vanish between arms for reasons that have nothing to do with the model. Pass
+  `allow_mixed=True` with a reason; never for a number that will be quoted.
+
+  THE PARTITION IS SUMMED, NOT OVERWRITTEN. `word_probs()` does the folding; a cell never
+  rebuilds it. `{r["word"]: r["p"] for r in rows}` drops mass on 20% of payloads and up to
+  99.9% on the smallest ones, which is the defect this project shipped in three separate
+  consumers.
+
+  `prompt` IS THE CATALOGUE ROW WHERE ONE EXISTS, None WHERE IT DOES NOT. The grid scores
+  strings from the census as well as the catalogue, so not every cell has metadata. A
+  None here is a real gap and analyses that stratify must decide what to do with it --
+  which is better than a default domain quietly pooling unclassified prompts into
+  "neutral".
+
+STRATIFY BEFORE THE STATISTIC, NOT AFTER. `cell.prompt.domain` is one attribute away, and
+that is deliberate: the amendment that made stratification a declared step cost a round
+on the docket, and this is what makes it the path of least resistance instead of a rule
+someone remembers.
+"""
+from __future__ import annotations
+
+import math
+from functools import cached_property
+
+
+class Cell:
+    """A (step, prompt) pair. Constructed by `Step.cell()`; rarely built directly."""
+
+    def __init__(self, step, prompt, theta=0.001, mode="raw"):
+        self.step = step
+        self.prompt_text = prompt.text if hasattr(prompt, "text") else prompt
+        self.theta = theta
+        self.mode = mode
+
+    def __repr__(self):
+        t = (self.prompt_text or "")[:34]
+        return f"Cell({self.step.label}, {t!r}, present={self.is_present})"
+
+    # -- the two distributions ----------------------------------------------
+    @cached_property
+    def pre(self):
+        from .movement import word_probs
+        return word_probs(self.step.pre.id, self.prompt_text, self.theta, self.mode)
+
+    @cached_property
+    def post(self):
+        from .movement import word_probs
+        return word_probs(self.step.post.id, self.prompt_text, self.theta, self.mode)
+
+    @property
+    def is_present(self):
+        """Both arms have this prompt scored. A cell can be asked for and not exist."""
+        return self.pre is not None and self.post is not None
+
+    @property
+    def rule_version(self):
+        """The instrument that produced both arms, or a tuple when they disagree."""
+        if not self.is_present:
+            return None
+        a, b = self.pre.rule_version, self.post.rule_version
+        return a if a == b else (a, b)
+
+    # -- the prompt's own metadata ------------------------------------------
+    @cached_property
+    def prompt(self):
+        """The catalogue row for this text, or None if the text is not catalogued.
+
+        Uses the ranked pick, because 61 texts carry more than one row and choosing
+        arbitrarily among them is what reported 48 group disagreements where there was 1.
+        """
+        from .prompts import Prompt
+        try:
+            return Prompt.find(self.prompt_text)
+        except Exception:
+            return None
+
+    @property
+    def domain(self):
+        p = self.prompt
+        return p.domain if p is not None else None
+
+    @property
+    def language(self):
+        p = self.prompt
+        return p.language if p is not None else None
+
+    # -- measurements --------------------------------------------------------
+    def movement(self, rule=None, allow_mixed=False):
+        """Risers and fallers under a NAMED rule.
+
+        The rule is an argument and has no default that hides it: `movement(CANONICAL)`
+        says at the call site what `displacement_map()` never did.
+        """
+        from .movement import CANONICAL, movement as _movement
+        rule = rule or CANONICAL
+        if not self.is_present:
+            return None
+        self._check_versions(allow_mixed)
+        m = _movement(self.pre.probs, self.post.probs, rule,
+                      residual_pre=self.pre.residual, residual_post=self.post.residual)
+        m.diagnostics.update(step=self.step.label, direction=self.step.direction,
+                             prompt=self.prompt_text, rule_version=self.rule_version)
+        return m
+
+    def js(self, allow_mixed=False):
+        """Jensen-Shannon divergence in bits, over the scored words plus the residual.
+
+        THE RESIDUAL IS A BIN, NOT A RENORMALISATION. Dropping it would report a
+        redistribution among survivors and hide the mass that left the scored set --
+        about a quarter of the distribution on this instrument.
+        """
+        return self._divergence(_js, allow_mixed)
+
+    def l1(self, allow_mixed=False):
+        """Summed |dp|. Clause 8's booked metric, and NOT the same quantity as `js` --
+        the two disagree by roughly 50% of a ratio, which is why a movement statistic
+        that does not name its metric is not a number."""
+        return self._divergence(_l1, allow_mixed)
+
+    def _divergence(self, fn, allow_mixed):
+        if not self.is_present:
+            return None
+        self._check_versions(allow_mixed)
+        p = dict(self.pre.probs)
+        q = dict(self.post.probs)
+        p["__TAIL__"] = self.pre.residual
+        q["__TAIL__"] = self.post.residual
+        return fn(p, q)
+
+    def _check_versions(self, allow_mixed):
+        rv = self.rule_version
+        if isinstance(rv, tuple) and not allow_mixed:
+            raise ValueError(
+                f"rule_version mismatch on {self.prompt_text[:40]!r}: "
+                f"{self.step.pre.id} is v{rv[0]}, {self.step.post.id} is v{rv[1]}. "
+                f"The arms were produced by different instruments, so a difference "
+                f"between them is not attributable to training. Re-run the lagging arm, "
+                f"or pass allow_mixed=True with a stated reason.")
+
+    def record(self, rule=None):
+        """A flat dict for a dataframe row: the measurement WITH its stratification.
+
+        Carries domain, language and rule_version alongside the numbers, so a table
+        built from these can be stratified without a second join -- and so a pooled
+        statistic that ignored the strata is visibly a choice.
+        """
+        m = self.movement(rule)
+        return {
+            "step": self.step.label, "direction": self.step.direction,
+            "pre": self.step.pre.id, "post": self.step.post.id,
+            "prompt": self.prompt_text, "domain": self.domain,
+            "language": self.language, "rule_version": self.rule_version,
+            "js": self.js(), "l1": self.l1(),
+            "n_fallers": len(m.fallers) if m else None,
+            "n_risers": len(m.risers) if m else None,
+            "top_riser": m.top_riser() if m else None,
+            "residual_pre": self.pre.residual if self.pre else None,
+            "residual_post": self.post.residual if self.post else None,
+        }
+
+
+def _js(p, q):
+    keys = set(p) | set(q)
+    sp, sq = sum(p.values()) or 1.0, sum(q.values()) or 1.0
+    d = 0.0
+    for k in keys:
+        a, b = p.get(k, 0.0) / sp, q.get(k, 0.0) / sq
+        m = 0.5 * (a + b)
+        if m <= 0:
+            continue
+        if a > 0:
+            d += 0.5 * a * math.log2(a / m)
+        if b > 0:
+            d += 0.5 * b * math.log2(b / m)
+    return max(0.0, d)
+
+
+def _l1(p, q):
+    return sum(abs(q.get(k, 0.0) - p.get(k, 0.0)) for k in set(p) | set(q))
