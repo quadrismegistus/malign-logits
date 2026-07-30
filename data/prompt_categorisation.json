@@ -21683,6 +21683,58 @@
    "n_stashes": 5,
    "status": "ACTIVE",
    "notes": "SECOND IDENTITY for a prompt that serves two designs, which is precedented here. As gender_swap UNMARKED it is the unmarked member of a male/female swap; as f11_gender_3p POLE_A it is one pole of a third-person contradiction whose BOTH cell Set F writes. The pronoun is held constant across the 3p triple ('He was a woman'), because the he/she pair varies pronoun AND gender together -- fine for a swap, fatal for a pole pair."
+  },
+  {
+   "prompt": "He loved her deeply and hated her deeply and wanted to",
+   "prompt_id": "setf_f11_love_he_both_matched_01",
+   "finding": "F11",
+   "source": "SETF",
+   "language": "en",
+   "domain": "contradiction",
+   "subdomain": "love",
+   "slot": "ACT",
+   "slot_status": "ASSIGNED",
+   "pair_id": "f11_love_he",
+   "pair_role": null,
+   "pair_contrast": null,
+   "contrast_type": "pole_swap",
+   "ladder_id": null,
+   "ladder_rank": null,
+   "axes_expected": [
+    "intensity"
+   ],
+   "group_id": "f11_love_he",
+   "group_role": "BOTH_MATCHED",
+   "apparatus": "UNSCORED",
+   "n_stashes": 0,
+   "status": "ACTIVE",
+   "notes": "SET F, F5b matches the poles' `deeply` -- I reproduced the very drift I was fixing when I wrote the he-side BOTH without it. F11's measurement is the BOTH cell against its poles, so any wording difference between them is a confound inside the primary comparison. The original BOTH stays so the two can be compared."
+  },
+  {
+   "prompt": "She wanted to create something and destroy something and decided to",
+   "prompt_id": "setf_f11_create_both_matched_02",
+   "finding": "F11",
+   "source": "SETF",
+   "language": "en",
+   "domain": "contradiction",
+   "subdomain": "creation",
+   "slot": "ACT",
+   "slot_status": "ASSIGNED",
+   "pair_id": "f11_create",
+   "pair_role": null,
+   "pair_contrast": null,
+   "contrast_type": "pole_swap",
+   "ladder_id": null,
+   "ladder_rank": null,
+   "axes_expected": [
+    "intensity"
+   ],
+   "group_id": "f11_create",
+   "group_role": "BOTH_MATCHED",
+   "apparatus": "UNSCORED",
+   "n_stashes": 0,
+   "status": "ACTIVE",
+   "notes": "SET F, F5c matches the poles' `something`, which the original BOTH ('create and destroy at once') drops while adding `at once`. F11's measurement is the BOTH cell against its poles, so any wording difference between them is a confound inside the primary comparison. The original BOTH stays so the two can be compared."
   }
  ]
 }
