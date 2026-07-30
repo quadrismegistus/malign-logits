@@ -280,3 +280,114 @@ def movers(pre_model, post_model, prompt, rule=CANONICAL, theta=0.001, mode="raw
                          collapsed_post=b.collapsed, n_surfaces_pre=a.n_surfaces,
                          n_surfaces_post=b.n_surfaces)
     return m
+
+
+# ---------------------------------------------------------------------------
+# Decomposition. JS is a SUM over words, so it partitions by role exactly.
+# ---------------------------------------------------------------------------
+
+def js_terms(p, q):
+    """Per-key JS contributions in bits. `sum(js_terms(p,q).values()) == JS(p,q)`.
+
+    The whole point: a divergence that is a sum can be ATTRIBUTED. Plain JS answers
+    "how much did this distribution move", which is not the question -- it conflates
+    mass moving between identifiable words with mass draining into an unresolved tail,
+    and those have opposite meanings for a displacement claim.
+    """
+    keys = set(p) | set(q)
+    sp, sq = sum(p.values()) or 1.0, sum(q.values()) or 1.0
+    out = {}
+    for k in keys:
+        a, b = p.get(k, 0.0) / sp, q.get(k, 0.0) / sq
+        m = 0.5 * (a + b)
+        if m <= 0:
+            out[k] = 0.0
+            continue
+        t = 0.0
+        if a > 0:
+            t += 0.5 * a * math.log2(a / m)
+        if b > 0:
+            t += 0.5 * b * math.log2(b / m)
+        out[k] = t
+    return out
+
+
+def decompose(pre, post, rule=CANONICAL, residual_pre=0.0, residual_post=0.0):
+    """Split a step's divergence into the parts a displacement claim cares about.
+
+    THE DIVERGENCE, BY ROLE. These four are EXACT and sum to `js_total`:
+
+        js_fallers    contributed by words that FELL
+        js_risers     contributed by words that ROSE BEYOND THE NULL
+        js_tail       contributed by the residual bin -- movement into or out of the
+                      UNRESOLVED mass, which is not a lexical event at all
+        js_other      words that moved but too little to be either
+
+    THE MASS. Note what `excess` is before reading these:
+
+        **Excess is ZERO-SUM across the survivors.** sum_non-fallers null == R by
+        construction, and sum_non-fallers Q == R too, so the excesses cancel to zero
+        over the union support (verified: 1e-07 on a live cell). Excess is therefore a
+        REDISTRIBUTION AMONG SURVIVORS laid on top of proportional renormalisation --
+        not a share of anything the fallers gave up.
+
+        departed      mass that left the fallers. The magnitude of the repression.
+        arrived       positive excess on the flagged risers. The magnitude of the
+                      SELECTIVE uptake.
+        tail_excess   the residual bin's OWN excess, and the substitution-vs-deflection
+                      quantity: POSITIVE means mass went into the unresolved tail beyond
+                      what renormalisation hands it -- the step dispersed. NEGATIVE means
+                      the tail gave mass up to nameable words -- the step substituted.
+        selectivity   arrived / departed. **NOT a share of `departed`** -- the zero-sum
+                      identity above means the two have no ordering relation and this
+                      routinely exceeds 1. Read it as selective uptake per unit repressed:
+                      near 0 is pure renormalisation, large is a step that promotes
+                      particular words while it demotes others.
+        captured      arrived / all positive excess. THIS one is a 0-1 share: how much of
+                      the selective uptake landed on words the rule flags at all, rather
+                      than dribbling across words below its thresholds.
+        concentration top riser's share of `arrived`. Scale-free, so unlike JS it does not
+                      shrink when a tokenizer resolves a language coarsely -- it asks how
+                      the resolvable mass DISTRIBUTED itself, not how much there was.
+        tail_share    js_tail / js_total. **The diagnostic that decides whether a
+                      cross-language JS comparison means anything**: high here says the
+                      divergence is dominated by mass the instrument cannot see inside,
+                      and two languages with different tail_shares are not comparable on
+                      plain JS however significant the difference looks.
+    """
+    m = movement(pre, post, rule, residual_pre=residual_pre, residual_post=residual_post)
+    P = {**pre, RESIDUAL_KEY: residual_pre}
+    Q = {**post, RESIDUAL_KEY: residual_post}
+    terms = js_terms(P, Q)
+
+    fall, rise = set(m.fallers), set(m.risers)
+    js_f = sum(v for k, v in terms.items() if k in fall)
+    js_r = sum(v for k, v in terms.items() if k in rise)
+    js_t = terms.get(RESIDUAL_KEY, 0.0)
+    total = sum(terms.values())
+
+    # Excess over EVERY survivor, on the UNION support. Iterating P's keys alone would
+    # skip post-only words, which carry excess = Q against a null of zero -- and dropping
+    # them broke the zero-sum identity by 0.006 on the first cell tested.
+    R = 1.0 - sum(Q.get(w, 0.0) for w in fall)
+    S = sum(P.get(k, 0.0) for k in set(P) | set(Q) if k not in fall)
+    ratio = (R / S) if S > 0 else 1.0
+    exc_all = {k: Q.get(k, 0.0) - P.get(k, 0.0) * ratio
+               for k in set(P) | set(Q) if k not in fall}
+    pos_excess = sum(v for v in exc_all.values() if v > 0)
+
+    departed = sum(-m.delta[w] for w in m.fallers) if m.fallers else 0.0
+    arrived = sum(m.excess.values()) if m.excess else 0.0
+    top = max(m.excess.values(), default=0.0)
+
+    return {
+        "js_total": total, "js_fallers": js_f, "js_risers": js_r, "js_tail": js_t,
+        "js_other": total - js_f - js_r - js_t,
+        "departed": departed, "arrived": arrived,
+        "tail_excess": exc_all.get(RESIDUAL_KEY, 0.0),
+        "selectivity": (arrived / departed) if departed > 0 else None,
+        "captured": (arrived / pos_excess) if pos_excess > 0 else None,
+        "concentration": (top / arrived) if arrived > 0 else None,
+        "tail_share": (js_t / total) if total > 0 else None,
+        "n_fallers": len(m.fallers), "n_risers": len(m.risers),
+    }

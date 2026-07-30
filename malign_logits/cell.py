@@ -136,6 +136,23 @@ class Cell:
         that does not name its metric is not a number."""
         return self._divergence(_l1, allow_mixed)
 
+    def decompose(self, rule=None, allow_mixed=False):
+        """JS split by ROLE -- fallers, risers, tail, other -- plus the mass ratios.
+
+        `js()` answers "how much did this move", which conflates two opposite events:
+        mass passing between identifiable words, and mass draining into an unresolved
+        tail. Because JS is a sum over words it partitions exactly, so the parts can be
+        told apart. `tail_share` is the diagnostic that decides whether a cross-language
+        JS comparison means anything at all. See `movement.decompose`.
+        """
+        from .movement import CANONICAL, decompose as _decompose
+        if not self.is_present:
+            return None
+        self._check_versions(allow_mixed)
+        return _decompose(self.pre.probs, self.post.probs, rule or CANONICAL,
+                          residual_pre=self.pre.residual,
+                          residual_post=self.post.residual)
+
     def _divergence(self, fn, allow_mixed):
         if not self.is_present:
             return None
