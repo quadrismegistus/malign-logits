@@ -20282,7 +20282,7 @@
    "slot": "NARR",
    "pair_id": "gender_a_with_a_comfortable_l",
    "pair_role": null,
-   "pair_contrast": "male/female",
+   "pair_contrast": "man/woman",
    "contrast_type": "gender_swap",
    "ladder_id": null,
    "ladder_rank": null,
@@ -20295,7 +20295,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery using the indirect/euphemistic class descriptor 'a comfortable life in the city' rather than an explicit class word (person/man/woman v | keyed gender_a_with_a_comfortable_l on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery using the indirect/euphemistic class descriptor 'a comfortable life in the city' rather than an explicit class word (person/man/woman v | keyed gender_a_with_a_comfortable_l on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed. | pair_contrast corrected to 'man/woman': it had been hardcoded 'male/female' but this pair's prompts use those other tokens, so the label named words present in neither -- the setd_beauty defect again, committed by me, caught by the same assertion."
   },
   {
    "prompt": "She climbed into his lap and pressed against him as",
@@ -20464,7 +20464,7 @@
    "slot": "NARR",
    "pair_id": "gender_a_with_a_comfortable_l",
    "pair_role": null,
-   "pair_contrast": "male/female",
+   "pair_contrast": "man/woman",
    "contrast_type": "gender_swap",
    "ladder_id": null,
    "ladder_rank": null,
@@ -20477,7 +20477,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery using the indirect/euphemistic class descriptor 'a comfortable life in the city' rather than an explicit class word (person/man/woman v | keyed gender_a_with_a_comfortable_l on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery using the indirect/euphemistic class descriptor 'a comfortable life in the city' rather than an explicit class word (person/man/woman v | keyed gender_a_with_a_comfortable_l on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed. | pair_contrast corrected to 'man/woman': it had been hardcoded 'male/female' but this pair's prompts use those other tokens, so the label named words present in neither -- the setd_beauty defect again, committed by me, caught by the same assertion."
   },
   {
    "prompt": "She locked the bedroom door behind them and",
