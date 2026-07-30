@@ -54,6 +54,38 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from malign_logits import MODEL_FAMILIES as M, PATH_DATA
 from malign_logits.cache import get_cache, open_stash  # noqa: F401
 
+SCOPE: THIS INSTRUMENT IS FOR WHITESPACE-SEGMENTED LANGUAGES. CJK CELLS ARE
+EXCLUDED FROM THE ITEM DRAW AND FROM ANY CROSS-LANGUAGE COMPARISON.
+
+    Chinese prompts resolve 3-16% of probability mass; English prompts on the
+    SAME models resolve 80-90%. 730 CJK cells measured, all 14 affected models,
+    including the Chinese-NATIVE families (CT-LLM, MAP-Neo) which are the best
+    case and still fail.
+
+THE FAILURE IS DIFFUSENESS, NOT CHINESE, and the distinction is the whole point.
+A word ends where a boundary token starts; Chinese marks no word boundaries, so
+a prefix extends until its mass drops below theta and is discarded through
+`drop` one continuation at a time. Where the distribution CONCENTRATES the same
+algorithm works fine -- formulaic completions of institutional `我应该` prompts
+resolve at up to 0.927 and return genuine multi-character units (`怎么做？`,
+`如何处理这种情况？`). So the instrument is not blind to Chinese; it is blind to
+diffuse mass, and Chinese without whitespace is where that blindness bites.
+
+WHY THE 54 CELLS THAT DO RESOLVE ARE STILL EXCLUDED, and it is NOT unusability:
+they clear the eligibility floor at 7.4% against English's 92%, and they clear
+it BECAUSE they concentrated -- so they are a subsample selected on the very
+quantity any entropy-adjacent comparison would be about. A 7.4% selected stratum
+cannot sit beside a 92% unselected one. They stay in the store as valid
+measurements carrying that selection statement, available for within-Chinese
+description, never for the primary or a cross-language rate.
+
+NOTE FOR THE READER WHO TRUSTS THE CONSERVATION CHECK: it passes on these cells.
+Exactly. Conservation says where the mass WENT, never whether it went anywhere
+useful, and it sat at 1.000000 beside a 97%-missing result. The `open` residual
+is NOT the CJK detector either -- median `open` on Chinese prompts is 0.0000;
+the mass leaves through `drop`. Resolved mass is the only quantity that shows
+this, and it is why the residual is reported in three parts.
+
 THETA_EXPAND = 0.001      # completeness floor -- expansion stops below this
 THETA_REPORT = 0.003      # the registered mover floor; reporting convention only
 MAX_DEPTH = 6             # backstop; theta terminates the recursion on its own
