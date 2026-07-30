@@ -1,0 +1,85 @@
+{
+ "_families_clean": 44,
+ "_families_with_bare": 2,
+ "_families_live_defect": 2,
+ "clean": [
+  "olmo",
+  "olmo-think",
+  "olmo-tiny",
+  "smol",
+  "qwen-tiny",
+  "llama",
+  "amber",
+  "beaver",
+  "qwen",
+  "tulu",
+  "tulu-no-safety",
+  "tulu-sft-full",
+  "tulu-sft-nopersona",
+  "tulu-sft-nomath",
+  "tulu-sft-nowildchat",
+  "zephyr",
+  "pythia",
+  "deepseek-7b",
+  "smol3",
+  "qwen3",
+  "internlm2",
+  "archangel-dpo",
+  "archangel-kto",
+  "archangel-ppo",
+  "archangel-slic",
+  "olmo-hybrid",
+  "rwkv",
+  "olmoe",
+  "falcon3-1b",
+  "falcon3-3b",
+  "falcon3-7b",
+  "falcon3-10b",
+  "falcon-h1-1.5b",
+  "falcon-h1-7b",
+  "yi",
+  "glm4",
+  "stablelm",
+  "redpajama",
+  "tinyllama",
+  "bloom",
+  "minicpm",
+  "phi4",
+  "olmo-32b",
+  "llama-70b"
+ ],
+ "findings": {
+  "falcon-mamba": {
+   "arms": {
+    "base": "tiiuae/falcon-mamba-7b",
+    "superego": "tiiuae/falcon-mamba-7b-instruct"
+   },
+   "tokens": {
+    "assistant": {
+     "arms": [
+      "superego"
+     ],
+     "asymmetric": true,
+     "corpus_prompts": 1,
+     "example": "fact half way up the nave, the Bishop, the Rector and two white-winged"
+    }
+   }
+  },
+  "falcon3-mamba": {
+   "arms": {
+    "base": "tiiuae/Falcon3-Mamba-7B-Base",
+    "superego": "tiiuae/Falcon3-Mamba-7B-Instruct"
+   },
+   "tokens": {
+    "assistant": {
+     "arms": [
+      "superego"
+     ],
+     "asymmetric": true,
+     "corpus_prompts": 1,
+     "example": "fact half way up the nave, the Bishop, the Rector and two white-winged"
+    }
+   }
+  }
+ }
+}
