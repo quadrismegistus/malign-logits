@@ -37,8 +37,9 @@ THETA, MAX_DEPTH = 0.001, 6
 # v2  + fullwidth CJK punctuation            (50e0b13)
 #     + dictionary prefix trie on CJK surfaces (6bb9f56)
 #     + script transition is a boundary, both directions (68ec402)
-RULE_VERSION = 2
-# KNOWN LIMITATION, v2, deliberately not fixed: punctuation is a boundary
+RULE_VERSION = 3
+RULE_COMMITS_V3_NOTE = "intra-word punctuation + apostrophe normalisation"
+# v2's KNOWN LIMITATION, FIXED IN v3: punctuation is a boundary
 # regardless of context, so digits and contractions split. `$100,000` records as
 # `100`, and `$100,000` / `$100,500` / `$100` are indistinguishable. Same for
 # `3.14`, `don't`, `state-of-the-art` -- all those characters are in PUNCT.
@@ -46,7 +47,10 @@ RULE_VERSION = 2
 # every cell carries rule_version so affected cells are findable. It DOES mean
 # numeric-magnitude questions (the wage/salary battery) are not answerable from
 # v2 output. A v3 fix is "punctuation flanked by digits or letters is not a
-# boundary".
+# boundary". DONE -- that is v3, plus one thing the v2 note missed: `didn't` and
+# `didn't` with a curly apostrophe were TWO entries in one cell with the mass
+# divided between them, because PUNCT held U+0027 and not U+2019. Normalisation
+# is required whatever the boundary rule does.
 RULE_COMMITS = ["50e0b13", "6bb9f56", "68ec402"]
 PUNCT = set(".,;:!?\"'()[]{}—-–…/\\*#") | {"\n", "\r", "\t"}
 # FULLWIDTH CJK PUNCTUATION WAS MISSING AND IT IS NOT COSMETIC. The set above is
@@ -69,6 +73,47 @@ def is_cjk(s):
     return bool(s) and bool(CJK.search(s))
 
 
+# INTRA-WORD PUNCTUATION. These characters end a word in prose and sit INSIDE
+# one when flanked by letters or digits:  don't  100,000  3.14  state-of-the-art
+INTRA = set("'\u2019\u02bc,.-\u2010\u2011")
+
+# ONE APOSTROPHE. A model emits U+0027 or U+2019 stochastically, and v2 had only
+# the ASCII one in PUNCT -- so `didn't` split to `didn` while `didn't` with a
+# curly mark survived whole, and the SAME WORD occupied two entries in one cell
+# with its mass divided between them. Normalising is required whatever the
+# boundary rule does.
+APOS = {"\u2019": "'", "\u02bc": "'", "\u2018": "'"}
+
+
+def norm_apos(s):
+    for k, v in APOS.items():
+        s = s.replace(k, v)
+    return s
+
+
+def intra_word(surface, tok_str):
+    """Is tok_str's leading punctuation INSIDE a word rather than ending one?
+
+    True only when the surface so far ends alphanumeric AND the character
+    immediately after the punctuation is alphanumeric -- `don` + `'t`,
+    `100` + `,000`. False for `ran` + `, then` (space follows) and for a token
+    that is punctuation alone (nothing follows).
+
+    LIMIT, declared rather than hidden: a tokenizer that emits the punctuation
+    as its OWN token gives us nothing to look ahead to, so `3` `.` `14` still
+    breaks. Resolving that needs lookahead the expansion does not have at the
+    point the mask is applied.
+    """
+    if not surface or not tok_str:
+        return False
+    if not surface[-1].isalnum():
+        return False
+    c = tok_str[0]
+    if c not in INTRA:
+        return False
+    return len(tok_str) > 1 and tok_str[1].isalnum()
+
+
 def clean_surface(s):
     """A word cannot CONTAIN punctuation or whitespace, so truncate at the first.
 
@@ -80,8 +125,15 @@ def clean_surface(s):
     on word W terminated by punctuation. Surfaces differing only in trailing
     punctuation merge, which is correct -- they are the same word.
     """
+    s = norm_apos(s)
     for i, c in enumerate(s):
-        if c in PUNCT or c.isspace():
+        if c.isspace():
+            return s[:i]
+        if c in PUNCT:
+            # keep it if it is flanked by alphanumerics on BOTH sides
+            if 0 < i < len(s) - 1 and s[i-1].isalnum() and s[i+1].isalnum() \
+                    and c in INTRA:
+                continue
             return s[:i]
     return s
 
@@ -118,6 +170,7 @@ def cjk_vocab(tok, n):
     tokens in a Chinese model's vocabulary.
     """
     ids, strs, latin = [], [], []
+    punct_ids, punct_str = [], []
     for i in range(n):
         try:
             t = tok.decode([i])
@@ -129,7 +182,12 @@ def cjk_vocab(tok, n):
             ids.append(i); strs.append(t)
         elif t[0].isascii() and t[0].isalnum():
             latin.append(i)      # word-continuing Latin: boundary after CJK
-    return np.array(ids, dtype=int), strs, np.array(latin, dtype=int)
+        tn = norm_apos(t)
+        if tn and tn[0] in INTRA and len(tn) > 1 and tn[1].isalnum():
+            # a token that COULD be intra-word: `'t`, `,000`, `-of`
+            punct_ids.append(i); punct_str.append(tn)
+    return (np.array(ids, dtype=int), strs, np.array(latin, dtype=int),
+            np.array(punct_ids, dtype=int))
 
 
 def boundary_mask(tok, n):
@@ -235,7 +293,7 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None):
     P0 = torch.softmax(lg, -1).cpu().numpy()
     sel = np.flatnonzero(P0 >= theta)
     live = [((int(t),), float(P0[t]), int(t)) for t in sel]
-    words, calls, bcache = {}, 0, {}
+    words, calls, bcache, intra_cache = {}, 0, {}, {}
     res_tail, res_drop = float(1.0 - P0[sel].sum()), 0.0
     for _ in range(MAX_DEPTH):
         if not live:
@@ -245,8 +303,21 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None):
         for (pref, mass, t1), row in zip(live, dist):
             surf = clean_surface(tok.decode(list(pref)).strip())
             b = bmask
+            if cjk is not None and surf and surf[-1].isalnum():
+                # INTRA-WORD PUNCTUATION UNMASKED. A token like `'t` or `,000`
+                # is a boundary in bmask (it starts with punctuation) but is
+                # INSIDE a word when the surface ends alphanumeric. Unmask those
+                # ids so the word continues: don + 't -> don't, 100 + ,000 ->
+                # 100,000. Surface-dependent, so it cannot live in the static
+                # mask -- same reason as the CJK rule.
+                b = intra_cache.get(surf)
+                if b is None:
+                    b = bmask.copy()
+                    b[cjk[4]] = False
+                    intra_cache[surf] = b
             if cjk is not None and surf:
-                trie, cids, cstrs, lids = cjk
+                trie, cids, cstrs, lids, pids_intra = cjk
+                base_b = b
                 b = bcache.get(surf)
                 if b is None and not is_cjk(surf):
                     # A SCRIPT TRANSITION IS A WORD BOUNDARY. Latin surfaces are
@@ -256,7 +327,7 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None):
                     # `mouth和He` reported as single words on an ENGLISH prompt.
                     # The dictionary rule alone does not fix this; it only moves
                     # the cut one character later, to `mouth什`.
-                    b = bmask.copy()
+                    b = base_b.copy()
                     b[cids] = True
                     bcache[surf] = b
                 elif b is None:
@@ -264,7 +335,7 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None):
                     # Termination sums over ALL boundary tokens, so improbable
                     # CJK tokens that should end the word must be marked or the
                     # word runs to the clause end and its mass drains via `drop`.
-                    b = bmask.copy()
+                    b = base_b.copy()
                     inside = np.fromiter(((surf + t) in trie for t in cstrs),
                                          dtype=bool, count=len(cstrs))
                     b[cids] = ~inside
@@ -348,9 +419,9 @@ def main(a):
             bmask = boundary_mask(tok, model.config.vocab_size)
             cjk = None
             if trie is not None:
-                cids, cstrs, lids = cjk_vocab(tok, model.config.vocab_size)
+                cids, cstrs, lids, pids_intra = cjk_vocab(tok, model.config.vocab_size)
                 if len(cids):
-                    cjk = (trie, cids, cstrs, lids)
+                    cjk = (trie, cids, cstrs, lids, pids_intra)
                     print(f"  cjk: {len(cids):,} tokens", flush=True)
         except Exception as e:
             print(f"  MASK FAILED: {type(e).__name__}: {str(e)[:100]}", flush=True)
