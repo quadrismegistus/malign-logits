@@ -525,11 +525,36 @@ class CacheManager:
     # a beam width it is a PRINCIPLED floor: expanding every token above theta is
     # complete for every word above theta, and the unexpanded mass is reported as
     # residual rather than divided away.
+    # KEY SHAPE CHANGED 2026-07-30, on RH's instruction, while the grid was being
+    # rebuilt anyway. Two changes, both of which alter the key and therefore need the
+    # migration in scripts/migrate_twp_keys.py run before any read:
+    #
+    #   `type` REMOVED. It was 'true_word_probs' on all 13,815 entries -- a
+    #   discriminator inside a stash of that name, carrying no information. (It is
+    #   still present in other stashes' keys and is NOT being removed there; see the
+    #   scope note below.)
+    #
+    #   `mode` ALWAYS PRESENT, no longer omitted when raw. The conditional form
+    #   `if mode != "raw": key["mode"] = mode` gave a raw key and a mode key different
+    #   SHAPES, which prevents collision but makes raw IMPLICIT -- a four-field entry
+    #   was indistinguishable from one written before the mode parameter existed.
+    #   Explicit beats inferable.
+    #
+    # SCOPE, and it is deliberate: ONLY true_word_probs changes. `mode` is keyed in
+    # four stashes of twenty-seven and the four acquired it ad hoc, so a general
+    # migration is a separate and larger decision. RH: "HOLD OFF ON REKEYING ANY OTHER
+    # STASH, it deserves special care."
+    #
+    # AND MODE IS NOT ONE DIMENSION, which a flat field here will hide: RAW and CHAT
+    # are two framings of ONE stimulus, while CONTINUE and THINK prepend
+    # "Continue this text:" and therefore measure a DIFFERENT stimulus. See
+    # _schema._mode_is_not_one_dimension in data/prompt_categorisation.json. Anything
+    # that groups on this field must not pool across that boundary.
+    def _twp_key(self, model, prompt, theta, mode):
+        return {"model": model, "prompt": prompt, "theta": theta, "mode": mode}
+
     def get_true_word_probs(self, model, prompt, theta=0.001, mode="raw"):
-        key = {"type": "true_word_probs", "model": model, "prompt": prompt,
-               "theta": theta}
-        if mode != "raw":
-            key["mode"] = mode
+        key = self._twp_key(model, prompt, theta, mode)
         s = self._stash("true_word_probs")
         return s[key] if key in s else None
 
@@ -538,18 +563,11 @@ class CacheManager:
         total}, "batches": int}. One row per (word, FIRST TOKEN): a surface can be
         reached by more than one token path, and t1 is the join key to the
         token-level table and the grouping the masking test needs."""
-        key = {"type": "true_word_probs", "model": model, "prompt": prompt,
-               "theta": theta}
-        if mode != "raw":
-            key["mode"] = mode
-        self._stash("true_word_probs")[key] = payload
+        self._stash("true_word_probs")[
+            self._twp_key(model, prompt, theta, mode)] = payload
 
     def has_true_word_probs(self, model, prompt, theta=0.001, mode="raw"):
-        key = {"type": "true_word_probs", "model": model, "prompt": prompt,
-               "theta": theta}
-        if mode != "raw":
-            key["mode"] = mode
-        return key in self._stash("true_word_probs")
+        return self._twp_key(model, prompt, theta, mode) in self._stash("true_word_probs")
 
     def get_beam_words(self, model, prompt, n=1000, depth=3, mode="raw"):
         key = {"type": "beam_words", "model": model, "prompt": prompt, "n": n, "depth": depth}
