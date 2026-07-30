@@ -116,7 +116,7 @@ DIRECTION = Literal["ATTENUATED", "ESCALATED", "LATERAL", "EXITED", "NONE"]
 
 RELATION = Literal[
     "SAME_ACT", "METONYMY", "SPECIFICITY", "SEQUENCE", "CO_ACT", "EUPHEMISM",
-    "AFFECT", "OTHER", "NONE",
+    "AFFECT", "OPPOSITION", "OTHER", "NONE",
 ]
 
 SPEECH_ACT = Literal["THREAT", "EXCLAMATION", "REPORT", "NEITHER"]
@@ -180,7 +180,24 @@ class DisplacementRelation(BaseModel):
             "EUPHEMISM = the SAME referent named in a different register (one crude "
             "term for another, or a clinical term for a crude one).\n"
             "AFFECT = an act becomes an emotion or a VOICING of one (striking "
-            "someone -> weeping; hitting -> shouting).\n\n"
+            "someone -> weeping; hitting -> shouting).\n"
+            "OPPOSITION = A and B point in OPPOSITE DIRECTIONS along one axis -- of "
+            "motion, of action upon a shared object, of relation, or of degree. Kinds: "
+            "SCALAR, the two ends of a gradable dimension (chill/warmth); CONVERSE, one "
+            "relation seen from its two ends (go/come, buy/sell, fire/hire); CONTRARY "
+            "DISPOSITION, opposed ways of acting on one thing or in one situation "
+            "(take/leave, threw/swallowed, keep/share); ABSENCE, where B is the ZERO of "
+            "what A names (sad/nothing). THE TEST IS DIRECTIONALITY, NOT EXCLUSIVITY: "
+            "two alternatives that merely cannot both be true are NOT thereby opposites, "
+            "since every pair of fillers in one slot is mutually exclusive by "
+            "construction. Ask whether A and B move in opposite directions along some "
+            "axis, or are simply two different values. sunny/overcast are two weather "
+            "STATES with no direction between them -- NOT opposition, however exclusive; "
+            "threw/swallowed are expel versus ingest -- opposition; strike/laugh and "
+            "legs/ribs are merely DIFFERENT. Against SAME_ACT: SAME_ACT moves ALONG one "
+            "direction where OPPOSITION REVERSES it -- push/strike differ in HOW MUCH, "
+            "fire/hire in WHICH WAY. The mechanical content-word rule above still "
+            "governs: a bare negation particle names nothing and remains ['NONE'].\n\n"
             "THE SYNTAGMATIC VALUES -- B stands BESIDE A, not in place of it:\n"
             "SEQUENCE = B is a LATER OR EARLIER MOMENT of one unfolding event. "
             "Test: could you write 'A, then B' and have a coherent narrative? "
@@ -192,7 +209,12 @@ class DisplacementRelation(BaseModel):
             "it in `reason`. If you cannot name it, use NONE.\n"
             "NONE = no interpretable connection. If you use NONE the list must be "
             "exactly ['NONE'] and nothing else. Two plausible fillers of one slot "
-            "need not be connected, and saying so is a substantive answer.")]
+            "need not be connected, and saying so is a substantive answer.\n"
+            "A CONNECTION YOU HAVE JUST NAMED IN YOUR `reason` IS NEVER NONE. If you "
+            "can state how A and B relate, state it and use OTHER. NONE is for pairs "
+            "where nothing relates them -- not for pairs whose relation this list "
+            "omits. Taking NONE because no label fits discards the only thing that "
+            "would let the list be corrected.")]
     speech_act: SPEECH_ACT = Field(
         description="What kind of ACT B is, in this slot. Independent of "
                     "`direction`: a threat can be mild and an exclamation can be "
