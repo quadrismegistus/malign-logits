@@ -59,6 +59,27 @@ def canonical_key(key):
     hashstash 0.4.0 serializes dicts in INSERTION ORDER, so
     {"model": m, "prompt": p} and {"prompt": p, "model": m} are different
     keys, and a reader using one order is silently blind to entries written
+
+    MODE-KEY CONVENTION IS SPLIT ACROSS STASHES. READ THIS BEFORE WRITING A READER.
+
+        true_word_probs   ALWAYS emits mode        {model, prompt, theta, mode}
+        logits            conditional              mode present only if != "raw"
+        word_probs        conditional
+        beam_words        conditional
+        (the other 23)    no mode field at all
+
+    A reader that learns the convention from `true_word_probs` and applies it to
+    `logits` builds a four-field key against three-field data and gets None --
+    silently, because a miss is indistinguishable from an absent entry. That is
+    the hazard this note exists to catch.
+
+    Why they differ: true_word_probs was migrated (13,815 keys converted, one
+    shape, verified at two seats); the other three were not. Migrating them is
+    RH-GATED -- his word was "hold off on rekeying any other stash, it deserves
+    special care" -- and governs until he says otherwise.
+
+    A mode-less key IS raw, by declaration, for every stash that omits it.
+
     with the other. hashstash 1.0.1 canonicalizes and the two agree.
 
     That difference bit us on 2026-07-26: the confirmation census was written
