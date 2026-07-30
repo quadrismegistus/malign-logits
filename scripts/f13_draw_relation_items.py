@@ -102,6 +102,33 @@ being have has had having do does did doing would should could will shall may mi
 must can there here what which who whom whose when where why how""".split())
 
 
+def surface_probs(payload, keep=None):
+    """Sum probability over ALL token paths to each surface.
+
+    `set_true_word_probs` documents its payload as ONE ROW PER (word, FIRST TOKEN):
+    "a surface can be reached by more than one token path, and t1 is the join key".
+    A dict comprehension keyed on `word` therefore keeps whichever path came last
+    and silently discards the others. On `The capital of France is`, OLMo-2-1B base,
+    the surface `Paris` has two rows -- t1=12366 at 0.7359 and t1=4194 at 0.0022 --
+    and last-write-wins returned 0.0022, understating it by a factor of 335.
+
+    Measured across 400 cells: 1.0% of surfaces are multi-path but 28% of CELLS
+    contain at least one, and the affected surfaces skew high-mass because short
+    strings reachable with and without a leading space (`A`, `,`, `:`, `I`) are
+    exactly the ones carrying large probability. Largest single mass discarded: 0.153.
+
+    Every draw and every posted probability figure used the broken form. This is the
+    one place the aggregation lives now; callers must not rebuild it.
+    """
+    out = {}
+    for r in payload["rows"]:
+        w = (r.get("word") or "").strip()
+        if not w or (keep is not None and not keep(w)):
+            continue
+        out[w] = out.get(w, 0.0) + float(r["p"])
+    return out
+
+
 def admissible(w: str) -> bool:
     """The declared hygiene filter. Function words PASS -- they are what the
     a_is_word / b_is_word fields exist to classify."""
@@ -152,10 +179,8 @@ def main(limit=0):
             if not pb or not pa:
                 drop["edge_prompt_missing"] += 1
                 continue
-            B = {r["word"].strip(): float(r["p"]) for r in pb["rows"]
-                 if admissible(r["word"])}
-            A = {r["word"].strip(): float(r["p"]) for r in pa["rows"]
-                 if admissible(r["word"])}
+            B = surface_probs(pb, admissible)
+            A = surface_probs(pa, admissible)
             n_raw = len(pb["rows"]) + len(pa["rows"])
             drop["words_failing_hygiene"] += n_raw - len(B) - len(A)
             words = set(B) | set(A)

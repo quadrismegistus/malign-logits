@@ -48,7 +48,7 @@ import pandas as pd
 from malign_logits.cache import get_cache
 import malign_logits.taxonomy as T
 from scripts.f13_draw_relation_items import (
-    THETA, FLOOR, DT, DEV, TYPE_OF, FUNC, admissible)
+    surface_probs, THETA, FLOOR, DT, DEV, TYPE_OF, FUNC, admissible)
 
 TOL = 3.0          # decoy p_base within this factor of the real riser's
 K_DECOY = 3        # up to this many matched decoys per real item
@@ -94,10 +94,8 @@ def main():
             if not pb or not pa:
                 drop["prompt absent"] += 1
                 continue
-            B = {r["word"].strip(): float(r["p"]) for r in pb["rows"]
-                 if admissible(r["word"]) and content(r["word"])}
-            A = {r["word"].strip(): float(r["p"]) for r in pa["rows"]
-                 if admissible(r["word"]) and content(r["word"])}
+            B = surface_probs(pb, lambda w: admissible(w) and content(w))
+            A = surface_probs(pa, lambda w: admissible(w) and content(w))
             W = set(B) | set(A)
             d = {w: A.get(w, 0.0) - B.get(w, 0.0) for w in W}
             fallers = [w for w in W if B.get(w, 0) >= FLOOR and d[w] <= -DT]
