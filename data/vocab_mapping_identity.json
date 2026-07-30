@@ -1,0 +1,1602 @@
+{
+ "_families": 46,
+ "_clean": 33,
+ "_size_differs": [
+  "beaver",
+  "tulu",
+  "tulu-no-safety",
+  "tulu-sft-full",
+  "tulu-sft-nopersona",
+  "tulu-sft-nomath",
+  "tulu-sft-nowildchat",
+  "falcon-h1-1.5b",
+  "falcon-h1-7b"
+ ],
+ "_fatal": [
+  "olmo",
+  "olmo-hybrid",
+  "olmoe",
+  "olmo-32b"
+ ],
+ "families": {
+  "olmo": {
+   "arms": {
+    "base": "allenai/Olmo-3-1025-7B",
+    "ego": "allenai/Olmo-3-7B-Instruct-SFT",
+    "superego": "allenai/Olmo-3-7B-Instruct-DPO",
+    "reinforced_superego": "allenai/Olmo-3-7B-Instruct"
+   },
+   "sizes": {
+    "base": 100278,
+    "ego": 100278,
+    "superego": 100278,
+    "reinforced_superego": 100278
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 100274,
+     "id_mismatches": 6,
+     "examples": [
+      {
+       "token": "<|extra_id_1|>",
+       "base": 100266,
+       "ego": 100270
+      },
+      {
+       "token": "<|extra_id_2|>",
+       "base": 100267,
+       "ego": 100271
+      },
+      {
+       "token": "<|extra_id_3|>",
+       "base": 100268,
+       "ego": 100272
+      },
+      {
+       "token": "<|extra_id_4|>",
+       "base": 100269,
+       "ego": 100273
+      },
+      {
+       "token": "<|extra_id_5|>",
+       "base": 100270,
+       "ego": 100274
+      }
+     ],
+     "reference_only": 4,
+     "arm_only": 4,
+     "arm_only_examples": [
+      "</function_calls>",
+      "</functions>",
+      "<function_calls>",
+      "<functions>"
+     ]
+    },
+    "superego": {
+     "shared": 100274,
+     "id_mismatches": 6,
+     "examples": [
+      {
+       "token": "<|extra_id_1|>",
+       "base": 100266,
+       "superego": 100270
+      },
+      {
+       "token": "<|extra_id_2|>",
+       "base": 100267,
+       "superego": 100271
+      },
+      {
+       "token": "<|extra_id_3|>",
+       "base": 100268,
+       "superego": 100272
+      },
+      {
+       "token": "<|extra_id_4|>",
+       "base": 100269,
+       "superego": 100273
+      },
+      {
+       "token": "<|extra_id_5|>",
+       "base": 100270,
+       "superego": 100274
+      }
+     ],
+     "reference_only": 4,
+     "arm_only": 4,
+     "arm_only_examples": [
+      "</function_calls>",
+      "</functions>",
+      "<function_calls>",
+      "<functions>"
+     ]
+    },
+    "reinforced_superego": {
+     "shared": 100274,
+     "id_mismatches": 6,
+     "examples": [
+      {
+       "token": "<|extra_id_1|>",
+       "base": 100266,
+       "reinforced_superego": 100270
+      },
+      {
+       "token": "<|extra_id_2|>",
+       "base": 100267,
+       "reinforced_superego": 100271
+      },
+      {
+       "token": "<|extra_id_3|>",
+       "base": 100268,
+       "reinforced_superego": 100272
+      },
+      {
+       "token": "<|extra_id_4|>",
+       "base": 100269,
+       "reinforced_superego": 100273
+      },
+      {
+       "token": "<|extra_id_5|>",
+       "base": 100270,
+       "reinforced_superego": 100274
+      }
+     ],
+     "reference_only": 4,
+     "arm_only": 4,
+     "arm_only_examples": [
+      "</function_calls>",
+      "</functions>",
+      "<function_calls>",
+      "<functions>"
+     ]
+    }
+   }
+  },
+  "olmo-think": {
+   "arms": {
+    "base": "allenai/Olmo-3-1025-7B",
+    "ego": "allenai/Olmo-3-7B-Think-SFT",
+    "superego": "allenai/Olmo-3-7B-Think-DPO"
+   },
+   "sizes": {
+    "base": 100278,
+    "ego": 100278,
+    "superego": 100278
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 100278,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "superego": {
+     "shared": 100278,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "olmo-tiny": {
+   "arms": {
+    "base": "allenai/OLMo-2-0425-1B",
+    "ego": "allenai/OLMo-2-0425-1B-SFT",
+    "superego": "allenai/OLMo-2-0425-1B-DPO",
+    "reinforced_superego": "allenai/OLMo-2-0425-1B-Instruct"
+   },
+   "sizes": {
+    "base": 100278,
+    "ego": 100278,
+    "superego": 100278,
+    "reinforced_superego": 100278
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 100278,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "superego": {
+     "shared": 100278,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "reinforced_superego": {
+     "shared": 100278,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "smol": {
+   "arms": {
+    "base": "HuggingFaceTB/SmolLM2-360M",
+    "superego": "HuggingFaceTB/SmolLM2-360M-Instruct"
+   },
+   "sizes": {
+    "base": 49152,
+    "superego": 49152
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 49152,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "qwen-tiny": {
+   "arms": {
+    "base": "Qwen/Qwen2.5-0.5B",
+    "superego": "Qwen/Qwen2.5-0.5B-Instruct"
+   },
+   "sizes": {
+    "base": 151665,
+    "superego": 151665
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 151665,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "llama": {
+   "arms": {
+    "base": "meta-llama/Llama-3.1-8B",
+    "superego": "meta-llama/Llama-3.1-8B-Instruct"
+   },
+   "sizes": {
+    "base": 128256,
+    "superego": 128256
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 128256,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "amber": {
+   "arms": {
+    "base": "LLM360/Amber",
+    "ego": "LLM360/AmberChat",
+    "superego": "LLM360/AmberSafe"
+   },
+   "sizes": {
+    "base": 32000,
+    "ego": 32000,
+    "superego": 32000
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 32000,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "superego": {
+     "shared": 32000,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "beaver": {
+   "arms": {
+    "base": "huggyllama/llama-7b",
+    "ego": "PKU-Alignment/alpaca-7b-reproduced",
+    "superego": "PKU-Alignment/beaver-7b-v1.0"
+   },
+   "sizes": {
+    "base": 32000,
+    "ego": 32001,
+    "superego": 32001
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 32000,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    },
+    "superego": {
+     "shared": 32000,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    }
+   }
+  },
+  "qwen": {
+   "arms": {
+    "base": "Qwen/Qwen2.5-7B",
+    "superego": "Qwen/Qwen2.5-7B-Instruct"
+   },
+   "sizes": {
+    "base": 151665,
+    "superego": 151665
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 151665,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "tulu": {
+   "arms": {
+    "base": "meta-llama/Llama-3.1-8B",
+    "ego": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+    "superego": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+    "reinforced_superego": "allenai/Llama-3.1-Tulu-3.1-8B"
+   },
+   "sizes": {
+    "base": 128256,
+    "ego": 128257,
+    "superego": 128257,
+    "reinforced_superego": 128257
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 128256,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    },
+    "superego": {
+     "shared": 128256,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    },
+    "reinforced_superego": {
+     "shared": 128256,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    }
+   }
+  },
+  "tulu-no-safety": {
+   "arms": {
+    "base": "meta-llama/Llama-3.1-8B",
+    "ego": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+    "superego": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+    "reinforced_superego": "allenai/Llama-3.1-Tulu-3.1-8B"
+   },
+   "sizes": {
+    "base": 128256,
+    "ego": 128257,
+    "superego": 128257,
+    "reinforced_superego": 128257
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 128256,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    },
+    "superego": {
+     "shared": 128256,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    },
+    "reinforced_superego": {
+     "shared": 128256,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    }
+   }
+  },
+  "tulu-sft-full": {
+   "arms": {
+    "base": "meta-llama/Llama-3.1-8B",
+    "superego": "allenai/Llama-3.1-Tulu-3-8B-SFT"
+   },
+   "sizes": {
+    "base": 128256,
+    "superego": 128257
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 128256,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    }
+   }
+  },
+  "tulu-sft-nopersona": {
+   "arms": {
+    "base": "meta-llama/Llama-3.1-8B",
+    "superego": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data"
+   },
+   "sizes": {
+    "base": 128256,
+    "superego": 128257
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 128256,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    }
+   }
+  },
+  "tulu-sft-nomath": {
+   "arms": {
+    "base": "meta-llama/Llama-3.1-8B",
+    "superego": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data"
+   },
+   "sizes": {
+    "base": 128256,
+    "superego": 128257
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 128256,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    }
+   }
+  },
+  "tulu-sft-nowildchat": {
+   "arms": {
+    "base": "meta-llama/Llama-3.1-8B",
+    "superego": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data"
+   },
+   "sizes": {
+    "base": 128256,
+    "superego": 128257
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 128256,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    }
+   }
+  },
+  "zephyr": {
+   "arms": {
+    "base": "mistralai/Mistral-7B-v0.1",
+    "ego": "HuggingFaceH4/mistral-7b-sft-beta",
+    "superego": "HuggingFaceH4/zephyr-7b-beta"
+   },
+   "sizes": {
+    "base": 32000,
+    "ego": 32000,
+    "superego": 32000
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 32000,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "superego": {
+     "shared": 32000,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "pythia": {
+   "arms": {
+    "base": "EleutherAI/pythia-6.9b",
+    "ego": "lomahony/eleuther-pythia6.9b-hh-sft",
+    "superego": "lomahony/eleuther-pythia6.9b-hh-dpo"
+   },
+   "sizes": {
+    "base": 50277,
+    "ego": 50277,
+    "superego": 50277
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 50277,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "superego": {
+     "shared": 50277,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "deepseek-7b": {
+   "arms": {
+    "base": "deepseek-ai/deepseek-llm-7b-base",
+    "superego": "deepseek-ai/deepseek-llm-7b-chat"
+   },
+   "sizes": {
+    "base": 100015,
+    "superego": 100015
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 100015,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "smol3": {
+   "arms": {
+    "base": "HuggingFaceTB/SmolLM3-3B-Base",
+    "superego": "HuggingFaceTB/SmolLM3-3B"
+   },
+   "sizes": {
+    "base": 128256,
+    "superego": 128256
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 128254,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 2,
+     "arm_only": 2,
+     "arm_only_examples": [
+      "</code>",
+      "<code>"
+     ]
+    }
+   }
+  },
+  "qwen3": {
+   "arms": {
+    "base": "Qwen/Qwen3-8B-Base",
+    "superego": "Qwen/Qwen3-8B"
+   },
+   "sizes": {
+    "base": 151669,
+    "superego": 151669
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 151669,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "internlm2": {
+   "arms": {
+    "base": "internlm/internlm2-base-7b",
+    "ego": "internlm/internlm2-chat-7b-sft",
+    "superego": "internlm/internlm2-chat-7b"
+   },
+   "sizes": {
+    "base": 92544,
+    "ego": 92544,
+    "superego": 92544
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 92538,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 6,
+     "arm_only": 6,
+     "arm_only_examples": [
+      "<|action_end|>",
+      "<|action_start|>",
+      "<|im_end|>",
+      "<|im_start|>",
+      "<|interpreter|>",
+      "<|plugin|>"
+     ]
+    },
+    "superego": {
+     "shared": 92538,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 6,
+     "arm_only": 6,
+     "arm_only_examples": [
+      "<|action_end|>",
+      "<|action_start|>",
+      "<|im_end|>",
+      "<|im_start|>",
+      "<|interpreter|>",
+      "<|plugin|>"
+     ]
+    }
+   }
+  },
+  "archangel-dpo": {
+   "arms": {
+    "base": "EleutherAI/pythia-2.8b",
+    "ego": "ContextualAI/archangel_sft_pythia2-8b",
+    "superego": "ContextualAI/archangel_sft-dpo_pythia2-8b"
+   },
+   "sizes": {
+    "base": 50277,
+    "ego": 50277,
+    "superego": 50277
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 50277,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "superego": {
+     "shared": 50277,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "archangel-kto": {
+   "arms": {
+    "base": "EleutherAI/pythia-2.8b",
+    "ego": "ContextualAI/archangel_sft_pythia2-8b",
+    "superego": "ContextualAI/archangel_sft-kto_pythia2-8b"
+   },
+   "sizes": {
+    "base": 50277,
+    "ego": 50277,
+    "superego": 50277
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 50277,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "superego": {
+     "shared": 50277,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "archangel-ppo": {
+   "arms": {
+    "base": "EleutherAI/pythia-2.8b",
+    "ego": "ContextualAI/archangel_sft_pythia2-8b",
+    "superego": "ContextualAI/archangel_sft-ppo_pythia2-8b"
+   },
+   "sizes": {
+    "base": 50277,
+    "ego": 50277,
+    "superego": 50277
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 50277,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "superego": {
+     "shared": 50277,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "archangel-slic": {
+   "arms": {
+    "base": "EleutherAI/pythia-2.8b",
+    "ego": "ContextualAI/archangel_sft_pythia2-8b",
+    "superego": "ContextualAI/archangel_sft-slic_pythia2-8b"
+   },
+   "sizes": {
+    "base": 50277,
+    "ego": 50277,
+    "superego": 50277
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 50277,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "superego": {
+     "shared": 50277,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "olmo-hybrid": {
+   "arms": {
+    "base": "allenai/Olmo-Hybrid-7B",
+    "ego": "allenai/Olmo-Hybrid-Instruct-SFT-7B",
+    "superego": "allenai/Olmo-Hybrid-Instruct-DPO-7B"
+   },
+   "sizes": {
+    "base": 100278,
+    "ego": 100278,
+    "superego": 100278
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 100274,
+     "id_mismatches": 6,
+     "examples": [
+      {
+       "token": "<|extra_id_1|>",
+       "base": 100266,
+       "ego": 100270
+      },
+      {
+       "token": "<|extra_id_2|>",
+       "base": 100267,
+       "ego": 100271
+      },
+      {
+       "token": "<|extra_id_3|>",
+       "base": 100268,
+       "ego": 100272
+      },
+      {
+       "token": "<|extra_id_4|>",
+       "base": 100269,
+       "ego": 100273
+      },
+      {
+       "token": "<|extra_id_5|>",
+       "base": 100270,
+       "ego": 100274
+      }
+     ],
+     "reference_only": 4,
+     "arm_only": 4,
+     "arm_only_examples": [
+      "</function_calls>",
+      "</functions>",
+      "<function_calls>",
+      "<functions>"
+     ]
+    },
+    "superego": {
+     "shared": 100274,
+     "id_mismatches": 6,
+     "examples": [
+      {
+       "token": "<|extra_id_1|>",
+       "base": 100266,
+       "superego": 100270
+      },
+      {
+       "token": "<|extra_id_2|>",
+       "base": 100267,
+       "superego": 100271
+      },
+      {
+       "token": "<|extra_id_3|>",
+       "base": 100268,
+       "superego": 100272
+      },
+      {
+       "token": "<|extra_id_4|>",
+       "base": 100269,
+       "superego": 100273
+      },
+      {
+       "token": "<|extra_id_5|>",
+       "base": 100270,
+       "superego": 100274
+      }
+     ],
+     "reference_only": 4,
+     "arm_only": 4,
+     "arm_only_examples": [
+      "</function_calls>",
+      "</functions>",
+      "<function_calls>",
+      "<functions>"
+     ]
+    }
+   }
+  },
+  "falcon-mamba": {
+   "arms": {
+    "base": "tiiuae/falcon-mamba-7b",
+    "superego": "tiiuae/falcon-mamba-7b-instruct"
+   },
+   "sizes": {
+    "base": 65024,
+    "superego": 65024
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 65019,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 5,
+     "arm_only": 5,
+     "arm_only_examples": [
+      "<|begin_of_text|>",
+      "<|end_of_text|>",
+      "<|im_end|>",
+      "<|im_start|>",
+      "assistant"
+     ]
+    }
+   }
+  },
+  "falcon3-mamba": {
+   "arms": {
+    "base": "tiiuae/Falcon3-Mamba-7B-Base",
+    "superego": "tiiuae/Falcon3-Mamba-7B-Instruct"
+   },
+   "sizes": {
+    "base": 65024,
+    "superego": 65024
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 65019,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 5,
+     "arm_only": 5,
+     "arm_only_examples": [
+      "<|begin_of_text|>",
+      "<|end_of_text|>",
+      "<|im_end|>",
+      "<|im_start|>",
+      "assistant"
+     ]
+    }
+   }
+  },
+  "rwkv": {
+   "arms": {
+    "base": "RWKV/rwkv-4-7b-pile",
+    "superego": "RWKV/rwkv-raven-7b"
+   },
+   "sizes": {
+    "base": 50277,
+    "superego": 50277
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 50277,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "olmoe": {
+   "arms": {
+    "base": "allenai/OLMoE-1B-7B-0125",
+    "ego": "allenai/OLMoE-1B-7B-0125-SFT",
+    "superego": "allenai/OLMoE-1B-7B-0125-DPO",
+    "reinforced_superego": "allenai/OLMoE-1B-7B-0125-Instruct"
+   },
+   "sizes": {
+    "base": 50280,
+    "ego": 50280,
+    "superego": 50281,
+    "reinforced_superego": 50281
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 50280,
+     "id_mismatches": 2,
+     "examples": [
+      {
+       "token": "<|endoftext|>",
+       "base": 50279,
+       "ego": 0
+      },
+      {
+       "token": "|||IP_ADDRESS|||",
+       "base": 0,
+       "ego": 50279
+      }
+     ],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "superego": {
+     "shared": 50280,
+     "id_mismatches": 2,
+     "examples": [
+      {
+       "token": "<|endoftext|>",
+       "base": 50279,
+       "superego": 0
+      },
+      {
+       "token": "|||IP_ADDRESS|||",
+       "base": 0,
+       "superego": 50279
+      }
+     ],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    },
+    "reinforced_superego": {
+     "shared": 50280,
+     "id_mismatches": 2,
+     "examples": [
+      {
+       "token": "<|endoftext|>",
+       "base": 50279,
+       "reinforced_superego": 0
+      },
+      {
+       "token": "|||IP_ADDRESS|||",
+       "base": 0,
+       "reinforced_superego": 50279
+      }
+     ],
+     "reference_only": 0,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<pad>"
+     ]
+    }
+   }
+  },
+  "falcon3-1b": {
+   "arms": {
+    "base": "tiiuae/Falcon3-1B-Base",
+    "superego": "tiiuae/Falcon3-1B-Instruct"
+   },
+   "sizes": {
+    "base": 131072,
+    "superego": 131072
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 131072,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "falcon3-3b": {
+   "arms": {
+    "base": "tiiuae/Falcon3-3B-Base",
+    "superego": "tiiuae/Falcon3-3B-Instruct"
+   },
+   "sizes": {
+    "base": 131072,
+    "superego": 131072
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 131072,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "falcon3-7b": {
+   "arms": {
+    "base": "tiiuae/Falcon3-7B-Base",
+    "superego": "tiiuae/Falcon3-7B-Instruct"
+   },
+   "sizes": {
+    "base": 131072,
+    "superego": 131072
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 131071,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 1,
+     "arm_only": 1,
+     "arm_only_examples": [
+      "<|pad|>"
+     ]
+    }
+   }
+  },
+  "falcon3-10b": {
+   "arms": {
+    "base": "tiiuae/Falcon3-10B-Base",
+    "superego": "tiiuae/Falcon3-10B-Instruct"
+   },
+   "sizes": {
+    "base": 131072,
+    "superego": 131072
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 131072,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "falcon-h1-1.5b": {
+   "arms": {
+    "base": "tiiuae/Falcon-H1-1.5B-Base",
+    "superego": "tiiuae/Falcon-H1-1.5B-Instruct"
+   },
+   "sizes": {
+    "base": 65536,
+    "superego": 65537
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 65533,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 3,
+     "arm_only": 4,
+     "arm_only_examples": [
+      "<pad>",
+      "<|im_end|>",
+      "<|im_start|>",
+      "<|system|>"
+     ]
+    }
+   }
+  },
+  "falcon-h1-7b": {
+   "arms": {
+    "base": "tiiuae/Falcon-H1-7B-Base",
+    "superego": "tiiuae/Falcon-H1-7B-Instruct"
+   },
+   "sizes": {
+    "base": 130048,
+    "superego": 130049
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 130045,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 3,
+     "arm_only": 4,
+     "arm_only_examples": [
+      "<pad>",
+      "<|im_end|>",
+      "<|im_start|>",
+      "<|system|>"
+     ]
+    }
+   }
+  },
+  "yi": {
+   "arms": {
+    "base": "01-ai/Yi-1.5-9B",
+    "superego": "01-ai/Yi-1.5-9B-Chat"
+   },
+   "sizes": {
+    "base": 63992,
+    "superego": 63992
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 63992,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "glm4": {
+   "arms": {
+    "base": "zai-org/glm-4-9b-hf",
+    "superego": "zai-org/glm-4-9b-chat-hf"
+   },
+   "sizes": {
+    "base": 151343,
+    "superego": 151343
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 151343,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "stablelm": {
+   "arms": {
+    "base": "stabilityai/stablelm-2-1_6b",
+    "ego": "stabilityai/stablelm-2-1_6b-chat",
+    "superego": "stabilityai/stablelm-2-zephyr-1_6b"
+   },
+   "sizes": {
+    "base": 100289,
+    "ego": 100289,
+    "superego": 100289
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 100289,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "superego": {
+     "shared": 100289,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "redpajama": {
+   "arms": {
+    "base": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+    "ego": "togethercomputer/RedPajama-INCITE-7B-Instruct",
+    "superego": "togethercomputer/RedPajama-INCITE-7B-Chat"
+   },
+   "sizes": {
+    "base": 50277,
+    "ego": 50277,
+    "superego": 50277
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 50277,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "superego": {
+     "shared": 50277,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "tinyllama": {
+   "arms": {
+    "base": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+    "superego": "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+   },
+   "sizes": {
+    "base": 32000,
+    "superego": 32000
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 32000,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "bloom": {
+   "arms": {
+    "base": "bigscience/bloom-7b1",
+    "superego": "bigscience/bloomz-7b1"
+   },
+   "sizes": {
+    "base": 250680,
+    "superego": 250680
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 250680,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "minicpm": {
+   "arms": {
+    "base": "openbmb/MiniCPM5-1B-Base",
+    "ego": "openbmb/MiniCPM5-1B-SFT",
+    "superego": "openbmb/MiniCPM5-1B"
+   },
+   "sizes": {
+    "base": 130560,
+    "ego": 130560,
+    "superego": 130560
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 130560,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    },
+    "superego": {
+     "shared": 130560,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  },
+  "phi4": {
+   "arms": {
+    "base": "microsoft/phi-4",
+    "superego": "microsoft/phi-4-reasoning"
+   },
+   "sizes": {
+    "base": 100352,
+    "superego": 100352
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 100350,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 2,
+     "arm_only": 2,
+     "arm_only_examples": [
+      "</think>",
+      "<think>"
+     ]
+    }
+   }
+  },
+  "olmo-32b": {
+   "arms": {
+    "base": "allenai/Olmo-3-1125-32B",
+    "ego": "allenai/Olmo-3.1-32B-Instruct-SFT",
+    "superego": "allenai/Olmo-3.1-32B-Instruct-DPO",
+    "reinforced_superego": "allenai/Olmo-3.1-32B-Instruct"
+   },
+   "sizes": {
+    "base": 100278,
+    "ego": 100278,
+    "superego": 100278,
+    "reinforced_superego": 100278
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "ego": {
+     "shared": 100274,
+     "id_mismatches": 6,
+     "examples": [
+      {
+       "token": "<|extra_id_1|>",
+       "base": 100266,
+       "ego": 100270
+      },
+      {
+       "token": "<|extra_id_2|>",
+       "base": 100267,
+       "ego": 100271
+      },
+      {
+       "token": "<|extra_id_3|>",
+       "base": 100268,
+       "ego": 100272
+      },
+      {
+       "token": "<|extra_id_4|>",
+       "base": 100269,
+       "ego": 100273
+      },
+      {
+       "token": "<|extra_id_5|>",
+       "base": 100270,
+       "ego": 100274
+      }
+     ],
+     "reference_only": 4,
+     "arm_only": 4,
+     "arm_only_examples": [
+      "</function_calls>",
+      "</functions>",
+      "<function_calls>",
+      "<functions>"
+     ]
+    },
+    "superego": {
+     "shared": 100274,
+     "id_mismatches": 6,
+     "examples": [
+      {
+       "token": "<|extra_id_1|>",
+       "base": 100266,
+       "superego": 100270
+      },
+      {
+       "token": "<|extra_id_2|>",
+       "base": 100267,
+       "superego": 100271
+      },
+      {
+       "token": "<|extra_id_3|>",
+       "base": 100268,
+       "superego": 100272
+      },
+      {
+       "token": "<|extra_id_4|>",
+       "base": 100269,
+       "superego": 100273
+      },
+      {
+       "token": "<|extra_id_5|>",
+       "base": 100270,
+       "superego": 100274
+      }
+     ],
+     "reference_only": 4,
+     "arm_only": 4,
+     "arm_only_examples": [
+      "</function_calls>",
+      "</functions>",
+      "<function_calls>",
+      "<functions>"
+     ]
+    },
+    "reinforced_superego": {
+     "shared": 100274,
+     "id_mismatches": 6,
+     "examples": [
+      {
+       "token": "<|extra_id_1|>",
+       "base": 100266,
+       "reinforced_superego": 100270
+      },
+      {
+       "token": "<|extra_id_2|>",
+       "base": 100267,
+       "reinforced_superego": 100271
+      },
+      {
+       "token": "<|extra_id_3|>",
+       "base": 100268,
+       "reinforced_superego": 100272
+      },
+      {
+       "token": "<|extra_id_4|>",
+       "base": 100269,
+       "reinforced_superego": 100273
+      },
+      {
+       "token": "<|extra_id_5|>",
+       "base": 100270,
+       "reinforced_superego": 100274
+      }
+     ],
+     "reference_only": 4,
+     "arm_only": 4,
+     "arm_only_examples": [
+      "</function_calls>",
+      "</functions>",
+      "<function_calls>",
+      "<functions>"
+     ]
+    }
+   }
+  },
+  "llama-70b": {
+   "arms": {
+    "base": "meta-llama/Llama-3.1-70B",
+    "superego": "meta-llama/Llama-3.1-70B-Instruct"
+   },
+   "sizes": {
+    "base": 128256,
+    "superego": 128256
+   },
+   "reference_arm": "base",
+   "pairs": {
+    "superego": {
+     "shared": 128256,
+     "id_mismatches": 0,
+     "examples": [],
+     "reference_only": 0,
+     "arm_only": 0,
+     "arm_only_examples": []
+    }
+   }
+  }
+ }
+}
