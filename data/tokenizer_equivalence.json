@@ -1,0 +1,940 @@
+{
+ "_n_prompts": 763,
+ "_families_checked": 46,
+ "_families_disagreeing": 4,
+ "_unavailable": [
+  "map-neo (0 arm(s) loadable, missing ['base', 'ego', 'superego'])",
+  "ct-llm (0 arm(s) loadable, missing ['base', 'ego', 'superego'])",
+  "baichuan (0 arm(s) loadable, missing ['base', 'superego'])"
+ ],
+ "families": {
+  "olmo": {
+   "arms": [
+    "base",
+    "ego",
+    "superego",
+    "reinforced_superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "olmo-think": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "olmo-tiny": {
+   "arms": [
+    "base",
+    "ego",
+    "superego",
+    "reinforced_superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "smol": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "qwen-tiny": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "llama": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "amber": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "beaver": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "qwen": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "tulu": {
+   "arms": [
+    "base",
+    "ego",
+    "superego",
+    "reinforced_superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "tulu-no-safety": {
+   "arms": [
+    "base",
+    "ego",
+    "superego",
+    "reinforced_superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "tulu-sft-full": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "tulu-sft-nopersona": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "tulu-sft-nomath": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "tulu-sft-nowildchat": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "zephyr": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "pythia": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "deepseek-7b": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "smol3": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "qwen3": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "internlm2": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 763,
+   "rate": 1.0,
+   "kinds": [
+    "leading-token",
+    "length"
+   ],
+   "examples": [
+    {
+     "prompt": "- the agony was not yet moot as for earlier pages of our continent. Wh",
+     "kinds": [
+      "leading-token",
+      "length"
+     ],
+     "ids": {
+      "base": [
+       285,
+       410,
+       1071,
+       3710,
+       703,
+       668,
+       3763,
+       427
+      ],
+      "ego": [
+       1,
+       285,
+       410,
+       1071,
+       3710,
+       703,
+       668,
+       3763
+      ],
+      "superego": [
+       1,
+       285,
+       410,
+       1071,
+       3710,
+       703,
+       668,
+       3763
+      ]
+     }
+    },
+    {
+     "prompt": ". tomorrow. That strange glitter returned to his eye; he squared his s",
+     "kinds": [
+      "leading-token",
+      "length"
+     ],
+     "ids": {
+      "base": [
+       281,
+       16712,
+       281,
+       3103,
+       15017,
+       53169,
+       6080,
+       442
+      ],
+      "ego": [
+       1,
+       281,
+       16712,
+       281,
+       3103,
+       15017,
+       53169,
+       6080
+      ],
+      "superego": [
+       1,
+       281,
+       16712,
+       281,
+       3103,
+       15017,
+       53169,
+       6080
+      ]
+     }
+    },
+    {
+     "prompt": "<s>",
+     "kinds": [
+      "length"
+     ],
+     "ids": {
+      "base": [
+       1
+      ],
+      "ego": [
+       1,
+       1
+      ],
+      "superego": [
+       1,
+       1
+      ]
+     }
+    },
+    {
+     "prompt": "<|begin_of_text|>",
+     "kinds": [
+      "leading-token",
+      "length"
+     ],
+     "ids": {
+      "base": [
+       333,
+       352,
+       7412,
+       3736,
+       4486,
+       352,
+       330
+      ],
+      "ego": [
+       1,
+       333,
+       352,
+       7412,
+       3736,
+       4486,
+       352,
+       330
+      ],
+      "superego": [
+       1,
+       333,
+       352,
+       7412,
+       3736,
+       4486,
+       352,
+       330
+      ]
+     }
+    },
+    {
+     "prompt": "<|endoftext|>",
+     "kinds": [
+      "leading-token",
+      "length"
+     ],
+     "ids": {
+      "base": [
+       333,
+       352,
+       8825,
+       856,
+       558,
+       352,
+       330
+      ],
+      "ego": [
+       1,
+       333,
+       352,
+       8825,
+       856,
+       558,
+       352,
+       330
+      ],
+      "superego": [
+       1,
+       333,
+       352,
+       8825,
+       856,
+       558,
+       352,
+       330
+      ]
+     }
+    }
+   ]
+  },
+  "archangel-dpo": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "archangel-kto": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "archangel-ppo": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "archangel-slic": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "olmo-hybrid": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "falcon-mamba": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 3,
+   "rate": 0.0039,
+   "kinds": [
+    "leading-token",
+    "length"
+   ],
+   "examples": [
+    {
+     "prompt": "<|begin_of_text|>",
+     "kinds": [
+      "leading-token",
+      "length"
+     ],
+     "ids": {
+      "base": [
+       39,
+       103,
+       12520,
+       74,
+       1487,
+       74,
+       2164,
+       54146
+      ],
+      "superego": [
+       8
+      ]
+     }
+    },
+    {
+     "prompt": "<|endoftext|>",
+     "kinds": [
+      "leading-token",
+      "length"
+     ],
+     "ids": {
+      "base": [
+       11
+      ],
+      "superego": [
+       39,
+       103,
+       415,
+       1487,
+       2164,
+       54146
+      ]
+     }
+    },
+    {
+     "prompt": "fact half way up the nave, the Bishop, the Rector and two white-winged",
+     "kinds": [
+      "length"
+     ],
+     "ids": {
+      "base": [
+       27407,
+       2465,
+       818,
+       510,
+       248,
+       41220,
+       23,
+       248
+      ],
+      "superego": [
+       27407,
+       2465,
+       818,
+       510,
+       248,
+       41220,
+       23,
+       248
+      ]
+     }
+    }
+   ]
+  },
+  "falcon3-mamba": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 3,
+   "rate": 0.0039,
+   "kinds": [
+    "leading-token",
+    "length"
+   ],
+   "examples": [
+    {
+     "prompt": "<|begin_of_text|>",
+     "kinds": [
+      "leading-token",
+      "length"
+     ],
+     "ids": {
+      "base": [
+       39,
+       103,
+       12520,
+       74,
+       1487,
+       74,
+       2164,
+       54146
+      ],
+      "superego": [
+       8
+      ]
+     }
+    },
+    {
+     "prompt": "<|endoftext|>",
+     "kinds": [
+      "leading-token",
+      "length"
+     ],
+     "ids": {
+      "base": [
+       11
+      ],
+      "superego": [
+       39,
+       103,
+       415,
+       1487,
+       2164,
+       54146
+      ]
+     }
+    },
+    {
+     "prompt": "fact half way up the nave, the Bishop, the Rector and two white-winged",
+     "kinds": [
+      "length"
+     ],
+     "ids": {
+      "base": [
+       27407,
+       2465,
+       818,
+       510,
+       248,
+       41220,
+       23,
+       248
+      ],
+      "superego": [
+       27407,
+       2465,
+       818,
+       510,
+       248,
+       41220,
+       23,
+       248
+      ]
+     }
+    }
+   ]
+  },
+  "rwkv": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "olmoe": {
+   "arms": [
+    "base",
+    "ego",
+    "superego",
+    "reinforced_superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 1,
+   "rate": 0.0013,
+   "kinds": [
+    "ids-same-length",
+    "leading-token"
+   ],
+   "examples": [
+    {
+     "prompt": "<|endoftext|>",
+     "kinds": [
+      "ids-same-length",
+      "leading-token"
+     ],
+     "ids": {
+      "base": [
+       50279
+      ],
+      "ego": [
+       0
+      ],
+      "superego": [
+       0
+      ],
+      "reinforced_superego": [
+       0
+      ]
+     }
+    }
+   ]
+  },
+  "falcon3-1b": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "falcon3-3b": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "falcon3-7b": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "falcon3-10b": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "falcon-h1-1.5b": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "falcon-h1-7b": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "yi": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "glm4": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "stablelm": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "redpajama": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "tinyllama": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "bloom": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "minicpm": {
+   "arms": [
+    "base",
+    "ego",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "phi4": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "olmo-32b": {
+   "arms": [
+    "base",
+    "ego",
+    "superego",
+    "reinforced_superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  },
+  "llama-70b": {
+   "arms": [
+    "base",
+    "superego"
+   ],
+   "missing_arms": [],
+   "n_prompts": 763,
+   "n_disagreeing": 0,
+   "rate": 0.0,
+   "kinds": [],
+   "examples": []
+  }
+ }
+}

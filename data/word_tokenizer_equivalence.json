@@ -1,0 +1,88 @@
+{
+ "_n_words": 1805,
+ "_families_disagreeing": 1,
+ "families": {
+  "zephyr": {
+   "n_words": 1805,
+   "bare_differs": 0,
+   "leading_space_differs": 1805,
+   "rate_leading": 1.0,
+   "examples": [
+    {
+     "word": "A",
+     "form": "leading_space",
+     "ids": {
+      "base": [
+       330
+      ],
+      "ego": [
+       28705,
+       330
+      ],
+      "superego": [
+       28705,
+       330
+      ]
+     }
+    },
+    {
+     "word": "ALWAYS",
+     "form": "leading_space",
+     "ids": {
+      "base": [
+       10461,
+       26548,
+       28735
+      ],
+      "ego": [
+       28705,
+       10461,
+       26548,
+       28735
+      ],
+      "superego": [
+       28705,
+       10461,
+       26548,
+       28735
+      ]
+     }
+    },
+    {
+     "word": "Africa",
+     "form": "leading_space",
+     "ids": {
+      "base": [
+       7710
+      ],
+      "ego": [
+       28705,
+       7710
+      ],
+      "superego": [
+       28705,
+       7710
+      ]
+     }
+    },
+    {
+     "word": "African",
+     "form": "leading_space",
+     "ids": {
+      "base": [
+       8623
+      ],
+      "ego": [
+       28705,
+       8623
+      ],
+      "superego": [
+       28705,
+       8623
+      ]
+     }
+    }
+   ]
+  }
+ }
+}
