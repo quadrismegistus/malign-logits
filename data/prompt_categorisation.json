@@ -14111,10 +14111,10 @@
    "group_id": "f19_bos",
    "group_role": null,
    "slot_status": "NOT_APPLICABLE",
-   "apparatus": "SURPRISAL",
+   "apparatus": "GENERATION",
    "n_stashes": 4,
    "status": "ACTIVE",
-   "notes": "UN-RETIRED. I retired this as tokenizer leakage and it is a DELIBERATE STIMULUS: findings/F19_bos_entropy.md measures unconditional generation, and this row is one arm of it -- the special-token strings test whether a model treats a LITERAL '<s>' differently from the real BOS token, and 'The'/'the' are the minimal-content controls against a bare BOS. The file told me so and I read past it: apparatus=SURPRISAL and n_stashes=4 both record that it was scored on purpose, across several caches. Same failure as reading past a field in a table that was already in front of me. slot_status=NOT_APPLICABLE is correct here and is not a gap: an unconditional probe has no frame, so it has no continuation slot in the battery's sense."
+   "notes": "UN-RETIRED. I retired this as tokenizer leakage and it is a DELIBERATE STIMULUS: findings/F19_bos_entropy.md measures unconditional generation, and this row is one arm of it -- the special-token strings test whether a model treats a LITERAL '<s>' differently from the real BOS token, and 'The'/'the' are the minimal-content controls against a bare BOS. The file told me so and I read past it: apparatus=SURPRISAL and n_stashes=4 both record that it was scored on purpose, across several caches. Same failure as reading past a field in a table that was already in front of me. slot_status=NOT_APPLICABLE is correct here and is not a gap: an unconditional probe has no frame, so it has no continuation slot in the battery's sense. | apparatus corrected SURPRISAL -> GENERATION: measured 0 occurrences in true_word_probs and 0 in word_probs, against thousands in the generations stash. These were never scored for logits, so they must NOT enter the word-probability grid -- a logit measurement on them would be a new experiment, not a re-run. AND THE STRING IS FAMILY-SPECIFIC: '<s>' is the real BOS for Llama-1/Mistral/Amber and a 3-token literal for Llama-3 or Qwen, so these four rows are ONE stimulus in four per-family realizations. classify_generations.py groups them under a single prompt_type for exactly that reason. A cross-family comparison must group them, never treat them as four distinct prompts."
   },
   {
    "prompt": "think:She was so angry she wanted to",
@@ -14159,10 +14159,10 @@
    "group_id": "f19_bos",
    "group_role": null,
    "slot_status": "NOT_APPLICABLE",
-   "apparatus": "SURPRISAL",
+   "apparatus": "GENERATION",
    "n_stashes": 4,
    "status": "ACTIVE",
-   "notes": "UN-RETIRED. I retired this as tokenizer leakage and it is a DELIBERATE STIMULUS: findings/F19_bos_entropy.md measures unconditional generation, and this row is one arm of it -- the special-token strings test whether a model treats a LITERAL '<s>' differently from the real BOS token, and 'The'/'the' are the minimal-content controls against a bare BOS. The file told me so and I read past it: apparatus=SURPRISAL and n_stashes=4 both record that it was scored on purpose, across several caches. Same failure as reading past a field in a table that was already in front of me. slot_status=NOT_APPLICABLE is correct here and is not a gap: an unconditional probe has no frame, so it has no continuation slot in the battery's sense."
+   "notes": "UN-RETIRED. I retired this as tokenizer leakage and it is a DELIBERATE STIMULUS: findings/F19_bos_entropy.md measures unconditional generation, and this row is one arm of it -- the special-token strings test whether a model treats a LITERAL '<s>' differently from the real BOS token, and 'The'/'the' are the minimal-content controls against a bare BOS. The file told me so and I read past it: apparatus=SURPRISAL and n_stashes=4 both record that it was scored on purpose, across several caches. Same failure as reading past a field in a table that was already in front of me. slot_status=NOT_APPLICABLE is correct here and is not a gap: an unconditional probe has no frame, so it has no continuation slot in the battery's sense. | apparatus corrected to GENERATION. NB only capital 'The' is a declared arm (classify_generations.py: ('the', ['The'])); lowercase 'the' is NOT in that list and has no generations of its own, so it is a separate artifact rather than a second control."
   },
   {
    "prompt": "think:She loved him deeply and wanted to",
@@ -14282,10 +14282,10 @@
    "group_id": "f19_bos",
    "group_role": null,
    "slot_status": "NOT_APPLICABLE",
-   "apparatus": "SURPRISAL",
+   "apparatus": "GENERATION",
    "n_stashes": 4,
    "status": "ACTIVE",
-   "notes": "UN-RETIRED. I retired this as tokenizer leakage and it is a DELIBERATE STIMULUS: findings/F19_bos_entropy.md measures unconditional generation, and this row is one arm of it -- the special-token strings test whether a model treats a LITERAL '<s>' differently from the real BOS token, and 'The'/'the' are the minimal-content controls against a bare BOS. The file told me so and I read past it: apparatus=SURPRISAL and n_stashes=4 both record that it was scored on purpose, across several caches. Same failure as reading past a field in a table that was already in front of me. slot_status=NOT_APPLICABLE is correct here and is not a gap: an unconditional probe has no frame, so it has no continuation slot in the battery's sense."
+   "notes": "UN-RETIRED. I retired this as tokenizer leakage and it is a DELIBERATE STIMULUS: findings/F19_bos_entropy.md measures unconditional generation, and this row is one arm of it -- the special-token strings test whether a model treats a LITERAL '<s>' differently from the real BOS token, and 'The'/'the' are the minimal-content controls against a bare BOS. The file told me so and I read past it: apparatus=SURPRISAL and n_stashes=4 both record that it was scored on purpose, across several caches. Same failure as reading past a field in a table that was already in front of me. slot_status=NOT_APPLICABLE is correct here and is not a gap: an unconditional probe has no frame, so it has no continuation slot in the battery's sense. | apparatus corrected SURPRISAL -> GENERATION: measured 0 occurrences in true_word_probs and 0 in word_probs, against thousands in the generations stash. These were never scored for logits, so they must NOT enter the word-probability grid -- a logit measurement on them would be a new experiment, not a re-run. AND THE STRING IS FAMILY-SPECIFIC: '<s>' is the real BOS for Llama-1/Mistral/Amber and a 3-token literal for Llama-3 or Qwen, so these four rows are ONE stimulus in four per-family realizations. classify_generations.py groups them under a single prompt_type for exactly that reason. A cross-family comparison must group them, never treat them as four distinct prompts."
   },
   {
    "prompt": "think:He picked up the knife and",
@@ -14330,10 +14330,10 @@
    "group_id": "f19_bos",
    "group_role": null,
    "slot_status": "NOT_APPLICABLE",
-   "apparatus": "SURPRISAL",
+   "apparatus": "GENERATION",
    "n_stashes": 4,
    "status": "ACTIVE",
-   "notes": "UN-RETIRED. I retired this as tokenizer leakage and it is a DELIBERATE STIMULUS: findings/F19_bos_entropy.md measures unconditional generation, and this row is one arm of it -- the special-token strings test whether a model treats a LITERAL '<s>' differently from the real BOS token, and 'The'/'the' are the minimal-content controls against a bare BOS. The file told me so and I read past it: apparatus=SURPRISAL and n_stashes=4 both record that it was scored on purpose, across several caches. Same failure as reading past a field in a table that was already in front of me. slot_status=NOT_APPLICABLE is correct here and is not a gap: an unconditional probe has no frame, so it has no continuation slot in the battery's sense."
+   "notes": "UN-RETIRED. I retired this as tokenizer leakage and it is a DELIBERATE STIMULUS: findings/F19_bos_entropy.md measures unconditional generation, and this row is one arm of it -- the special-token strings test whether a model treats a LITERAL '<s>' differently from the real BOS token, and 'The'/'the' are the minimal-content controls against a bare BOS. The file told me so and I read past it: apparatus=SURPRISAL and n_stashes=4 both record that it was scored on purpose, across several caches. Same failure as reading past a field in a table that was already in front of me. slot_status=NOT_APPLICABLE is correct here and is not a gap: an unconditional probe has no frame, so it has no continuation slot in the battery's sense. | apparatus corrected SURPRISAL -> GENERATION: measured 0 occurrences in true_word_probs and 0 in word_probs, against thousands in the generations stash. These were never scored for logits, so they must NOT enter the word-probability grid -- a logit measurement on them would be a new experiment, not a re-run. AND THE STRING IS FAMILY-SPECIFIC: '<s>' is the real BOS for Llama-1/Mistral/Amber and a 3-token literal for Llama-3 or Qwen, so these four rows are ONE stimulus in four per-family realizations. classify_generations.py groups them under a single prompt_type for exactly that reason. A cross-family comparison must group them, never treat them as four distinct prompts."
   },
   {
    "prompt": "She drew the knife, she wanted to kill",
@@ -16239,23 +16239,23 @@
    "finding": "F19",
    "source": "CENSUS",
    "language": "en",
-   "domain": "unconditional",
-   "subdomain": "special_token",
+   "domain": "other",
+   "subdomain": null,
    "slot": null,
-   "pair_id": "f19_bos",
+   "pair_id": null,
    "pair_role": null,
    "pair_contrast": null,
    "contrast_type": null,
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [],
-   "group_id": "f19_bos",
+   "group_id": null,
    "group_role": null,
    "slot_status": "NOT_APPLICABLE",
    "apparatus": "SURPRISAL",
    "n_stashes": 3,
-   "status": "ACTIVE",
-   "notes": "UN-RETIRED. I retired this as tokenizer leakage and it is a DELIBERATE STIMULUS: findings/F19_bos_entropy.md measures unconditional generation, and this row is one arm of it -- the special-token strings test whether a model treats a LITERAL '<s>' differently from the real BOS token, and 'The'/'the' are the minimal-content controls against a bare BOS. The file told me so and I read past it: apparatus=SURPRISAL and n_stashes=3 both record that it was scored on purpose, across several caches. Same failure as reading past a field in a table that was already in front of me. slot_status=NOT_APPLICABLE is correct here and is not a gap: an unconditional probe has no frame, so it has no continuation slot in the battery's sense."
+   "status": "RETIRED",
+   "notes": "RETIRED AGAIN, and my first retirement had the right verdict for the wrong reason. 'bos' is not a tokenizer token and not a prompt: it is a PROMPT_TYPE LABEL leaked into the prompt field. classify_generations.py:208 reads ('bos', ['<|endoftext|>','<|begin_of_text|>','<s>']) -- 'bos' NAMES the group of three real BOS strings -- and deepseek_generate.py:123 is {'bos': ''}, where the label is 'bos' and the actual prompt is the EMPTY STRING. Same class as 'sexual'/'love'/'worker': a key mistaken for a stimulus."
   },
   {
    "prompt": "She shot him in the chest and watched him",
@@ -18200,10 +18200,10 @@
    "group_id": "f19_bos",
    "group_role": null,
    "slot_status": "NOT_APPLICABLE",
-   "apparatus": "SURPRISAL",
+   "apparatus": "GENERATION",
    "n_stashes": 3,
    "status": "ACTIVE",
-   "notes": "UN-RETIRED. I retired this as tokenizer leakage and it is a DELIBERATE STIMULUS: findings/F19_bos_entropy.md measures unconditional generation, and this row is one arm of it -- the special-token strings test whether a model treats a LITERAL '<s>' differently from the real BOS token, and 'The'/'the' are the minimal-content controls against a bare BOS. The file told me so and I read past it: apparatus=SURPRISAL and n_stashes=3 both record that it was scored on purpose, across several caches. Same failure as reading past a field in a table that was already in front of me. slot_status=NOT_APPLICABLE is correct here and is not a gap: an unconditional probe has no frame, so it has no continuation slot in the battery's sense."
+   "notes": "UN-RETIRED. I retired this as tokenizer leakage and it is a DELIBERATE STIMULUS: findings/F19_bos_entropy.md measures unconditional generation, and this row is one arm of it -- the special-token strings test whether a model treats a LITERAL '<s>' differently from the real BOS token, and 'The'/'the' are the minimal-content controls against a bare BOS. The file told me so and I read past it: apparatus=SURPRISAL and n_stashes=3 both record that it was scored on purpose, across several caches. Same failure as reading past a field in a table that was already in front of me. slot_status=NOT_APPLICABLE is correct here and is not a gap: an unconditional probe has no frame, so it has no continuation slot in the battery's sense. | apparatus corrected SURPRISAL -> GENERATION: measured 0 occurrences in true_word_probs and 0 in word_probs, against thousands in the generations stash. These were never scored for logits, so they must NOT enter the word-probability grid -- a logit measurement on them would be a new experiment, not a re-run. AND THE STRING IS FAMILY-SPECIFIC: '<s>' is the real BOS for Llama-1/Mistral/Amber and a 3-token literal for Llama-3 or Qwen, so these four rows are ONE stimulus in four per-family realizations. classify_generations.py groups them under a single prompt_type for exactly that reason. A cross-family comparison must group them, never treat them as four distinct prompts."
   },
   {
    "prompt": "think:She slowly took off her",
@@ -21250,10 +21250,10 @@
    "group_id": null,
    "group_role": null,
    "slot_status": "NOT_APPLICABLE",
-   "apparatus": "GENERATION",
-   "n_stashes": 1,
+   "apparatus": "UNSCORED",
+   "n_stashes": 0,
    "status": "RETIRED",
-   "notes": "apparatus GENERATION; mid-sentence prose fragment: continuation point is not a designed slot | RETIRED: a bare category label harvested from a generation cache, not a prompt. Kept rather than deleted so the row stays inspectable and the disposition stays reversible."
+   "notes": "RETIREMENT CONFIRMED BY MEASUREMENT on RH's ruling. These appear as a PROMPT in no stash at all -- 0 in generations, 0 in true_word_probs, 0 in word_probs, 0 in displacement_map, 0 in api_generate. They were never used as stimuli. 'sexual' and 'violence' are literal category prefixes of DEFAULT_PROMPTS; 'love', 'anger' and 'worker' are prompt-family labels. Same class as 'bos'. AND THE FILE'S OWN apparatus=GENERATION / n_stashes=1 IS FALSE FOR THEM: the census recorded a stash membership that does not exist as a prompt, which means its extractor harvested these from a KEY FIELD rather than a prompt field. So apparatus and n_stashes are not the reliable intent-check I claimed when I un-retired the BOS rows on their strength -- they are reliable for a POSITIVE reading only when the prompt is actually present in the stash they name."
   },
   {
    "prompt": "love",
@@ -21274,10 +21274,10 @@
    "group_id": null,
    "group_role": null,
    "slot_status": "NOT_APPLICABLE",
-   "apparatus": "GENERATION",
-   "n_stashes": 1,
+   "apparatus": "UNSCORED",
+   "n_stashes": 0,
    "status": "RETIRED",
-   "notes": "apparatus GENERATION; mid-sentence prose fragment: continuation point is not a designed slot | RETIRED: a bare category label harvested from a generation cache, not a prompt. Kept rather than deleted so the row stays inspectable and the disposition stays reversible."
+   "notes": "RETIREMENT CONFIRMED BY MEASUREMENT on RH's ruling. These appear as a PROMPT in no stash at all -- 0 in generations, 0 in true_word_probs, 0 in word_probs, 0 in displacement_map, 0 in api_generate. They were never used as stimuli. 'sexual' and 'violence' are literal category prefixes of DEFAULT_PROMPTS; 'love', 'anger' and 'worker' are prompt-family labels. Same class as 'bos'. AND THE FILE'S OWN apparatus=GENERATION / n_stashes=1 IS FALSE FOR THEM: the census recorded a stash membership that does not exist as a prompt, which means its extractor harvested these from a KEY FIELD rather than a prompt field. So apparatus and n_stashes are not the reliable intent-check I claimed when I un-retired the BOS rows on their strength -- they are reliable for a POSITIVE reading only when the prompt is actually present in the stash they name."
   },
   {
    "prompt": "worker",
@@ -21298,10 +21298,10 @@
    "group_id": null,
    "group_role": null,
    "slot_status": "NOT_APPLICABLE",
-   "apparatus": "GENERATION",
-   "n_stashes": 1,
+   "apparatus": "UNSCORED",
+   "n_stashes": 0,
    "status": "RETIRED",
-   "notes": "apparatus GENERATION; mid-sentence prose fragment: continuation point is not a designed slot | RETIRED: a bare category label harvested from a generation cache, not a prompt. Kept rather than deleted so the row stays inspectable and the disposition stays reversible."
+   "notes": "RETIREMENT CONFIRMED BY MEASUREMENT on RH's ruling. These appear as a PROMPT in no stash at all -- 0 in generations, 0 in true_word_probs, 0 in word_probs, 0 in displacement_map, 0 in api_generate. They were never used as stimuli. 'sexual' and 'violence' are literal category prefixes of DEFAULT_PROMPTS; 'love', 'anger' and 'worker' are prompt-family labels. Same class as 'bos'. AND THE FILE'S OWN apparatus=GENERATION / n_stashes=1 IS FALSE FOR THEM: the census recorded a stash membership that does not exist as a prompt, which means its extractor harvested these from a KEY FIELD rather than a prompt field. So apparatus and n_stashes are not the reliable intent-check I claimed when I un-retired the BOS rows on their strength -- they are reliable for a POSITIVE reading only when the prompt is actually present in the stash they name."
   },
   {
    "prompt": "anger",
@@ -21322,10 +21322,10 @@
    "group_id": null,
    "group_role": null,
    "slot_status": "NOT_APPLICABLE",
-   "apparatus": "GENERATION",
-   "n_stashes": 1,
+   "apparatus": "UNSCORED",
+   "n_stashes": 0,
    "status": "RETIRED",
-   "notes": "apparatus GENERATION; mid-sentence prose fragment: continuation point is not a designed slot | RETIRED: a bare category label harvested from a generation cache, not a prompt. Kept rather than deleted so the row stays inspectable and the disposition stays reversible."
+   "notes": "RETIREMENT CONFIRMED BY MEASUREMENT on RH's ruling. These appear as a PROMPT in no stash at all -- 0 in generations, 0 in true_word_probs, 0 in word_probs, 0 in displacement_map, 0 in api_generate. They were never used as stimuli. 'sexual' and 'violence' are literal category prefixes of DEFAULT_PROMPTS; 'love', 'anger' and 'worker' are prompt-family labels. Same class as 'bos'. AND THE FILE'S OWN apparatus=GENERATION / n_stashes=1 IS FALSE FOR THEM: the census recorded a stash membership that does not exist as a prompt, which means its extractor harvested these from a KEY FIELD rather than a prompt field. So apparatus and n_stashes are not the reliable intent-check I claimed when I un-retired the BOS rows on their strength -- they are reliable for a POSITIVE reading only when the prompt is actually present in the stash they name."
   },
   {
    "prompt": "violence",
@@ -21346,10 +21346,10 @@
    "group_id": null,
    "group_role": null,
    "slot_status": "NOT_APPLICABLE",
-   "apparatus": "GENERATION",
-   "n_stashes": 1,
+   "apparatus": "UNSCORED",
+   "n_stashes": 0,
    "status": "RETIRED",
-   "notes": "apparatus GENERATION; mid-sentence prose fragment: continuation point is not a designed slot | RETIRED: a bare category label harvested from a generation cache, not a prompt. Kept rather than deleted so the row stays inspectable and the disposition stays reversible."
+   "notes": "RETIREMENT CONFIRMED BY MEASUREMENT on RH's ruling. These appear as a PROMPT in no stash at all -- 0 in generations, 0 in true_word_probs, 0 in word_probs, 0 in displacement_map, 0 in api_generate. They were never used as stimuli. 'sexual' and 'violence' are literal category prefixes of DEFAULT_PROMPTS; 'love', 'anger' and 'worker' are prompt-family labels. Same class as 'bos'. AND THE FILE'S OWN apparatus=GENERATION / n_stashes=1 IS FALSE FOR THEM: the census recorded a stash membership that does not exist as a prompt, which means its extractor harvested these from a KEY FIELD rather than a prompt field. So apparatus and n_stashes are not the reliable intent-check I claimed when I un-retired the BOS rows on their strength -- they are reliable for a POSITIVE reading only when the prompt is actually present in the stash they name."
   },
   {
    "prompt": "the",
@@ -21370,10 +21370,10 @@
    "group_id": "f19_bos",
    "group_role": null,
    "slot_status": "NOT_APPLICABLE",
-   "apparatus": "SURPRISAL",
+   "apparatus": "GENERATION",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "UN-RETIRED. I retired this as tokenizer leakage and it is a DELIBERATE STIMULUS: findings/F19_bos_entropy.md measures unconditional generation, and this row is one arm of it -- the special-token strings test whether a model treats a LITERAL '<s>' differently from the real BOS token, and 'The'/'the' are the minimal-content controls against a bare BOS. The file told me so and I read past it: apparatus=SURPRISAL and n_stashes=1 both record that it was scored on purpose, across several caches. Same failure as reading past a field in a table that was already in front of me. slot_status=NOT_APPLICABLE is correct here and is not a gap: an unconditional probe has no frame, so it has no continuation slot in the battery's sense."
+   "notes": "UN-RETIRED. I retired this as tokenizer leakage and it is a DELIBERATE STIMULUS: findings/F19_bos_entropy.md measures unconditional generation, and this row is one arm of it -- the special-token strings test whether a model treats a LITERAL '<s>' differently from the real BOS token, and 'The'/'the' are the minimal-content controls against a bare BOS. The file told me so and I read past it: apparatus=SURPRISAL and n_stashes=1 both record that it was scored on purpose, across several caches. Same failure as reading past a field in a table that was already in front of me. slot_status=NOT_APPLICABLE is correct here and is not a gap: an unconditional probe has no frame, so it has no continuation slot in the battery's sense. | apparatus corrected to GENERATION. NB only capital 'The' is a declared arm (classify_generations.py: ('the', ['The'])); lowercase 'the' is NOT in that list and has no generations of its own, so it is a separate artifact rather than a second control."
   },
   {
    "prompt": "He hated her deeply and wanted to",
