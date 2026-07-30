@@ -76,6 +76,26 @@ def main():
     with open(OUT, "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=["model", "prompt", "reason"])
         w.writeheader(); w.writerows(fails)
+
+    # RECORD THE PASS, not only the failures. A zero-failure run wrote an EMPTY
+    # csv, which is byte-identical to a run that never happened -- so the
+    # evidence for a clean precondition lived only in a docket post. Same shape
+    # as the figure-without-a-committed-producer rule: the producer was
+    # committed, the RESULT was not.
+    import datetime, subprocess
+    sha = subprocess.run(["git", "log", "-1", "--format=%h", "--", SPEC],
+                         capture_output=True, text=True).stdout.strip()
+    summ = os.path.join(PATH_DATA, "prompt_encode_check_summary.csv")
+    new_file = not os.path.exists(summ)
+    with open(summ, "a", newline="") as fh:
+        w = csv.writer(fh)
+        if new_file:
+            w.writerow(["run_at", "spec_commit", "categorisation_sha",
+                        "models", "pairs_checked", "failures"])
+        w.writerow([datetime.datetime.now().isoformat(timespec="seconds"), sha,
+                    meta.get("categorisation_sha", "")[:12], len(spec),
+                    checked, len(fails)])
+    print(f"appended pass record to {summ}")
     print(f"\nchecked {checked:,} pairs.  FAILURES {len(fails)}")
     if fails:
         print("by reason:", dict(Counter(f["reason"] for f in fails)))

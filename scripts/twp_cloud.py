@@ -625,7 +625,14 @@ def done_prompts(path):
 
 
 def main(a):
-    spec = json.load(open(a.models))          # [{model, prompts:[...]}, ...]
+    # THE SPEC GAINED A _meta WRAPPER when the categorisation sha was stamped
+    # into it; this read a flat list and got the string "_meta". Accept both --
+    # older spec files on disk are still flat, and a runner that only accepts
+    # the newest format cannot re-run an archived spec.
+    _raw = json.load(open(a.models))
+    spec = _raw["spec"] if isinstance(_raw, dict) else _raw
+    if isinstance(_raw, dict) and _raw.get("_meta"):
+        print(f"spec meta: {_raw['_meta']}", flush=True)
     os.makedirs(a.out, exist_ok=True)
     dev = "cuda" if torch.cuda.is_available() else "cpu"
     trie = None if a.no_dict else load_prefix_trie(a.dict)

@@ -1,24 +1,28 @@
 {
- "run": "twp_grid_v2",
- "frozen_at": "docket [781]",
+ "run": "twp_grid_v3_from_scratch",
+ "instance": 46301965,
+ "gpu": "A100-SXM4-80GB",
+ "frozen_at": "docket [892]",
  "date": "2026-07-30",
- "spec_commit": "bb3b604",
- "versioning_commit": "96c493b",
- "rule_version": 2,
+ "spec_commit": "e5b42a3",
+ "repo_head": "f9e07ad",
+ "rule_version": 3,
  "rule_commits": [
   "50e0b13",
   "6bb9f56",
-  "68ec402"
+  "68ec402",
+  "e145e42",
+  "3658a10"
  ],
  "dict_sha": "b16011275c42955c",
- "dict": "jieba dict.txt.big 584429 entries",
- "categorisation_sha": "8dd1951778e7a5c61b8577907d7bf1ebd320953b",
+ "categorisation_sha": "9fd292bc081715b0ce035dccd580384f247f6ebf",
  "models": 103,
- "prompts": 767,
- "grid_cells": 79001,
- "to_run": 65186,
- "disposition": "OVERWRITE",
- "theta_expand": 0.001,
- "theta_report": 0.003,
- "max_depth": 6
+ "prompts": 979,
+ "cells": 100837,
+ "from_scratch": true,
+ "disposition": "ALL CELLS FRESH -- no reuse of v1/v2",
+ "preconditions": {
+  "p7": "100837 pairs, 0 failures",
+  "p8": "75 bos_token / 28 fallback / 0 unresolvable"
+ }
 }
