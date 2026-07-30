@@ -328,7 +328,12 @@ def test_marked_unmarked_groups_have_exactly_one_of_each(rows, declared_markedne
         # changed, NEITHER member marked -- and there is no `was a man and a woman` BOTH
         # cell because the third-person-singular form is ungrammatical. Markedness
         # balance is simply not a property of that design.
-        NOT_A_MARKEDNESS_AXIS = {"gender_swap", "grammar_swap", "intensity_ladder"}
+        # `gender_swap` was in this set and RH removed it: FEMALE IS MARKED. In the
+        # standard structuralist sense `man` is the unmarked default and `woman` carries
+        # the marked feature, so a gender swap IS a markedness contrast and must balance
+        # 1 MARKED / 1 UNMARKED like any other. Treating it as symmetric erased the exact
+        # asymmetry the project measures.
+        NOT_A_MARKEDNESS_AXIS = {"grammar_swap", "intensity_ladder"}
         if {m.get("contrast_type") for m in members} & NOT_A_MARKEDNESS_AXIS:
             continue                    # contrast_type says markedness is not the axis
         flags = {declared_markedness[m["prompt"].strip()] for m in members

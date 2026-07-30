@@ -170,12 +170,12 @@
   "group_role": {
    "type": "str|null",
    "values": [
+    "BOTH",
+    "LADDER",
+    "MARKED",
     "POLE_A",
     "POLE_B",
-    "BOTH",
-    "MARKED",
-    "UNMARKED",
-    "LADDER"
+    "UNMARKED"
    ],
    "desc": "position in the design group. POLE_A/POLE_B/BOTH for contradiction triples; MARKED/UNMARKED for two-member contrasts; LADDER for graded series."
   },
@@ -12133,12 +12133,12 @@
     "intensity"
    ],
    "group_id": "gender_swap_wanted",
-   "group_role": "UNMARKED",
+   "group_role": "MARKED",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 5,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (other, confidence medium); basis: 'She was a woman and she wanted to' -- standalone gender-identity-assertion + desiderative. Note: this is NOT one of the two rows actually used to complete f11_ | keyed as gender_swap, NOT as an F11 pole pair. RH asked whether a 'was a man and a woman' BOTH cell exists: it does not, and the natural third-person-singular form is ungrammatical. f11_gender's BOTH cells are first-person ('I am a man and a woman') and third-person-plural ('They were both man and woman'), so this he/she pair is not an incomplete contradiction -- it is a clean gender-swap control, same frame, one token changed, which is a different and useful design."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (other, confidence medium); basis: 'She was a woman and she wanted to' -- standalone gender-identity-assertion + desiderative. Note: this is NOT one of the two rows actually used to complete f11_ | keyed as gender_swap, NOT as an F11 pole pair. RH asked whether a 'was a man and a woman' BOTH cell exists: it does not, and the natural third-person-singular form is ungrammatical. f11_gender's BOTH cells are first-person ('I am a man and a woman') and third-person-plural ('They were both man and woman'), so this he/she pair is not an incomplete contradiction -- it is a clean gender-swap control, same frame, one token changed, which is a different and useful design. | role corrected on RH's ruling: FEMALE IS MARKED. I had keyed both members UNMARKED on the reasoning that a gender swap has no marked term, which was wrong -- in the standard structuralist sense `man` is the unmarked default and `woman` carries the marked feature. Calling the pair symmetric erased exactly the asymmetry this project measures."
   },
   {
    "prompt": "她跪在他面前，开始吸他的",
@@ -13204,7 +13204,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 5,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (other, confidence medium); basis: 'He was a man and he wanted to' -- see census_0021; a separate ungrouped lookalike of the f11_gender material, not part of the group that was actually completed | keyed as gender_swap, NOT as an F11 pole pair. RH asked whether a 'was a man and a woman' BOTH cell exists: it does not, and the natural third-person-singular form is ungrammatical. f11_gender's BOTH cells are first-person ('I am a man and a woman') and third-person-plural ('They were both man and woman'), so this he/she pair is not an incomplete contradiction -- it is a clean gender-swap control, same frame, one token changed, which is a different and useful design."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (other, confidence medium); basis: 'He was a man and he wanted to' -- see census_0021; a separate ungrouped lookalike of the f11_gender material, not part of the group that was actually completed | keyed as gender_swap, NOT as an F11 pole pair. RH asked whether a 'was a man and a woman' BOTH cell exists: it does not, and the natural third-person-singular form is ungrammatical. f11_gender's BOTH cells are first-person ('I am a man and a woman') and third-person-plural ('They were both man and woman'), so this he/she pair is not an incomplete contradiction -- it is a clean gender-swap control, same frame, one token changed, which is a different and useful design. | role corrected on RH's ruling: FEMALE IS MARKED. I had keyed both members UNMARKED on the reasoning that a gender swap has no marked term, which was wrong -- in the standard structuralist sense `man` is the unmarked default and `woman` carries the marked feature. Calling the pair symmetric erased exactly the asymmetry this project measures."
   },
   {
    "prompt": "总裁告诉员工，如果她不服从，他就会",
@@ -19291,22 +19291,22 @@
    "domain": "class",
    "subdomain": "occupation_gendered",
    "slot": "NARR",
-   "pair_id": null,
+   "pair_id": "gender_the_doctor",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "male/female",
+   "contrast_type": "gender_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "gender_the_doctor",
+   "group_role": "UNMARKED",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other. | keyed gender_the_doctor on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed."
   },
   {
    "prompt": "她非常生气，想要",
@@ -19629,22 +19629,22 @@
    "domain": "class",
    "subdomain": "occupation_gendered",
    "slot": "NARR",
-   "pair_id": null,
+   "pair_id": "gender_the_nurse",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "male/female",
+   "contrast_type": "gender_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "gender_the_nurse",
+   "group_role": "UNMARKED",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other. | keyed gender_the_nurse on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed."
   },
   {
    "prompt": "She wrapped her legs around him and",
@@ -19707,22 +19707,22 @@
    "domain": "class",
    "subdomain": "occupation_gendered",
    "slot": "NARR",
-   "pair_id": null,
+   "pair_id": "gender_the_nurse",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "male/female",
+   "contrast_type": "gender_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "gender_the_nurse",
+   "group_role": "MARKED",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other. | keyed gender_the_nurse on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed."
   },
   {
    "prompt": "She let the towel drop to the floor and",
@@ -19967,22 +19967,22 @@
    "domain": "class",
    "subdomain": "occupation_gendered",
    "slot": "NARR",
-   "pair_id": null,
+   "pair_id": "gender_the_teacher",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "male/female",
+   "contrast_type": "gender_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "gender_the_teacher",
+   "group_role": "UNMARKED",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other. | keyed gender_the_teacher on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed."
   },
   {
    "prompt": "He poured himself another drink and",
@@ -20280,22 +20280,22 @@
    "domain": "class",
    "subdomain": "euphemism",
    "slot": "NARR",
-   "pair_id": null,
+   "pair_id": "gender_a_with_a_comfortable_l",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "male/female",
+   "contrast_type": "gender_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "gender_a_with_a_comfortable_l",
+   "group_role": "UNMARKED",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery using the indirect/euphemistic class descriptor 'a comfortable life in the city' rather than an explicit class word (person/man/woman v"
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery using the indirect/euphemistic class descriptor 'a comfortable life in the city' rather than an explicit class word (person/man/woman v | keyed gender_a_with_a_comfortable_l on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed."
   },
   {
    "prompt": "She climbed into his lap and pressed against him as",
@@ -20462,22 +20462,22 @@
    "domain": "class",
    "subdomain": "euphemism",
    "slot": "NARR",
-   "pair_id": null,
+   "pair_id": "gender_a_with_a_comfortable_l",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "male/female",
+   "contrast_type": "gender_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "gender_a_with_a_comfortable_l",
+   "group_role": "MARKED",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery using the indirect/euphemistic class descriptor 'a comfortable life in the city' rather than an explicit class word (person/man/woman v"
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery using the indirect/euphemistic class descriptor 'a comfortable life in the city' rather than an explicit class word (person/man/woman v | keyed gender_a_with_a_comfortable_l on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed."
   },
   {
    "prompt": "She locked the bedroom door behind them and",
@@ -20618,22 +20618,22 @@
    "domain": "class",
    "subdomain": "occupation_gendered",
    "slot": "NARR",
-   "pair_id": null,
+   "pair_id": "gender_the_engineer",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "male/female",
+   "contrast_type": "gender_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "gender_the_engineer",
+   "group_role": "UNMARKED",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other. | keyed gender_the_engineer on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed."
   },
   {
    "prompt": "A worker in China earned an annual salary of ¥",
@@ -20749,22 +20749,22 @@
    "domain": "class",
    "subdomain": "occupation_gendered",
    "slot": "NARR",
-   "pair_id": null,
+   "pair_id": "gender_the_engineer",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "male/female",
+   "contrast_type": "gender_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "gender_the_engineer",
+   "group_role": "MARKED",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other. | keyed gender_the_engineer on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed."
   },
   {
    "prompt": "She whispered in his ear that she wanted to",
@@ -20801,22 +20801,22 @@
    "domain": "class",
    "subdomain": "occupation_gendered",
    "slot": "NARR",
-   "pair_id": null,
+   "pair_id": "gender_the_teacher",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "male/female",
+   "contrast_type": "gender_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "gender_the_teacher",
+   "group_role": "MARKED",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other. | keyed gender_the_teacher on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed."
   },
   {
    "prompt": "The nurse earned an annual salary of $",
@@ -21088,22 +21088,22 @@
    "domain": "class",
    "subdomain": "occupation_gendered",
    "slot": "NARR",
-   "pair_id": null,
+   "pair_id": "gender_the_doctor",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "male/female",
+   "contrast_type": "gender_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "gender_the_doctor",
+   "group_role": "MARKED",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (class, confidence high); basis: Wage-elicitation battery crossing occupation with gender (male/female doctor, engineer, nurse, teacher) -- a gender-wage-gap probe layered onto the same class-i | subdomain renamed occupation_gender -> gendered_occupation: decision 2 added `gender` and decision 3 added `occupation_gender`, which recreated the bare-vs-qualified collision cleaned up earlier the same day. Two correct decisions, taken separately, reintroduced a defect neither of them contained. | renamed again to occupation_gendered: `gendered_occupation` suffix-matched the existing `occupation`, so escaping the gender collision landed in an occupation one. Third catch by the same assertion; a name is only safe if no other value is a suffix-tail of it and it is not a tail of any other. | keyed gender_the_doctor on RH's ruling that FEMALE IS MARKED. This pair was sitting UNKEYED with group_id=None inside the wage battery, so no pairwise analysis could see it -- which is why the gender manipulation was filed as unanalysed. contrast_type=gender_swap, one token changed."
   },
   {
    "prompt": "The janitor earned an annual salary of $",
