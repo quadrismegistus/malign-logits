@@ -378,6 +378,41 @@ def encode_prompt(tok, prompt, policy):
     return ids, "none"
 
 
+# LOGICAL PROMPTS: a surface the runner RESOLVES rather than feeds.
+#
+# BOS is the first. Its realisation is model-specific, so it cannot be keyed on
+# its realisation -- a per-family BOS string scored on 103 models is one
+# family's token fed to models where it is a literal, shattering into characters
+# (<|begin_of_text|> is 9 tokens on Amber). The sentinel is never tokenized; the
+# runner dispatches on it and builds ids DIRECTLY.
+#
+# ids = [bos_id] AND NOT tok.encode(bos_token). Encoding the string doubles the
+# BOS on every tokenizer that auto-prepends one -- amber's tok('<s>') is [1, 1].
+# That is amendment 2's rule and this is where it binds.
+SENTINEL_BOS = "<<<LOGICAL:BOS>>>"
+
+# 18 families report bos_token=None. A declared fallback or a RECORDED SKIP --
+# never the string "None", never a silent crash (registrar, [789].2a).
+BOS_FALLBACK = {
+    "Qwen": "<|endoftext|>",          # the project's own table
+}
+
+
+def resolve_logical(tok, prompt):
+    """(ids, resolved_surface, resolver_id) for a sentinel, else None."""
+    if prompt != SENTINEL_BOS:
+        return None
+    b = getattr(tok, "bos_token_id", None)
+    if b is not None:
+        return [b], (tok.bos_token or ""), "bos_token"
+    for key, tokstr in BOS_FALLBACK.items():
+        if key.lower() in str(getattr(tok, "name_or_path", "")).lower():
+            ids = tok.convert_tokens_to_ids([tokstr])
+            if ids and ids[0] is not None:
+                return ids, tokstr, f"fallback:{tokstr}"
+    return None, None, "skip:no_bos_token"      # RECORDED, not silent
+
+
 def assert_prompt_survives(tok, prompt, ids):
     """The prompt the model sees must BE the prompt, not a remainder of it.
 
@@ -435,8 +470,16 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
     per-cell choice mixed text cannot make.
     """
 
-    pids, _applied = encode_prompt(tok, prompt, bos_policy)
-    assert_prompt_survives(tok, prompt, pids)
+    lg_ = resolve_logical(tok, prompt)
+    if lg_ is not None:
+        pids, _surface, _resolver = lg_
+        if pids is None:
+            raise ValueError(f"logical prompt {prompt!r} unresolvable: {_resolver}")
+        # a resolved logical prompt bypasses the survival assert BY DESIGN:
+        # there is no surface that was supposed to round-trip
+    else:
+        pids, _applied = encode_prompt(tok, prompt, bos_policy)
+        assert_prompt_survives(tok, prompt, pids)
     lg = model(torch.tensor([pids], device=dev)).logits[0, -1, :].float()
     P0 = torch.softmax(lg, -1).cpu().numpy()
     sel = np.flatnonzero(P0 >= theta)
