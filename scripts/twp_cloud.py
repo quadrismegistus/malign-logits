@@ -393,8 +393,41 @@ SENTINEL_BOS = "<<<LOGICAL:BOS>>>"
 
 # 18 families report bos_token=None. A declared fallback or a RECORDED SKIP --
 # never the string "None", never a silent crash (registrar, [789].2a).
+# PER-FAMILY, FROM EACH FAMILY'S OWN TRAINING CONVENTION -- never one global
+# choice (RH). The measurement that proves the rule: Falcon-H1 uses
+# <|end_of_text|> where the rest of the Falcon line uses <|endoftext|>, so a
+# single global token would be WRONG for two arms while looking right.
+#
+# Each token is the family's own eos / document separator, read from its
+# tokenizer rather than assumed. Longest key wins, so Falcon-H1 is matched
+# before the generic falcon prefix.
+#
+# STRATIFICATION IS FROZEN WITH THE TABLE: F19 reports true-BOS arms and
+# fallback arms as SEPARATE STRATA before any pooling. <|endoftext|> signals
+# DOCUMENT-START, not sequence-start -- a fallback arm's unconditional
+# distribution is conditioned on "a document just ended", which is a different
+# state from "nothing precedes this". The resolver stamp is the stratification
+# key, so this costs nothing at run time.
+#
+# Entries retire visibly: if a family later ships a real bos_token, resolve_logical
+# takes the bos_token branch first and the row becomes dead code a reader can see.
 BOS_FALLBACK = {
-    "Qwen": "<|endoftext|>",          # the project's own table
+    "allenai/olmoe":        "<|endoftext|>",    # OLMo/Dolma document separator
+    "allenai/olmo-3":       "<|endoftext|>",    # same lineage
+    "allenai/olmo-hybrid":  "<|endoftext|>",    # same lineage
+    "tiiuae/falcon-h1":     "<|end_of_text|>",  # H1 DIFFERS from the Falcon line
+    "tiiuae/falcon3":       "<|endoftext|>",
+    "tiiuae/falcon-mamba":  "<|endoftext|>",
+    "zai-org/glm-4":        "<|endoftext|>",    # eos == pad here
+    # SmolLM3 IS THE CASE THAT NEEDED A DECISION RATHER THAN A LOOKUP. Its base
+    # eos is <|end_of_text|> (a document separator) but its instruct eos is
+    # <|im_end|> (a CHAT-TURN terminator). Taking each arm's own eos would
+    # condition the two arms of ONE FAMILY on different KINDS of state --
+    # document-start vs turn-end -- and every comparison this project makes is
+    # WITHIN family. <|end_of_text|> exists at id 128001 on BOTH arms, so the
+    # family is conditioned consistently on its document separator.
+    "huggingfacetb/smollm3": "<|end_of_text|>",
+    "qwen":                 "<|endoftext|>",    # the project's own table
 }
 
 
@@ -405,8 +438,9 @@ def resolve_logical(tok, prompt):
     b = getattr(tok, "bos_token_id", None)
     if b is not None:
         return [b], (tok.bos_token or ""), "bos_token"
-    for key, tokstr in BOS_FALLBACK.items():
-        if key.lower() in str(getattr(tok, "name_or_path", "")).lower():
+    name = str(getattr(tok, "name_or_path", "")).lower()
+    for key, tokstr in sorted(BOS_FALLBACK.items(), key=lambda kv: -len(kv[0])):
+        if key in name:
             ids = tok.convert_tokens_to_ids([tokstr])
             if ids and ids[0] is not None:
                 return ids, tokstr, f"fallback:{tokstr}"
