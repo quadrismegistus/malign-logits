@@ -30,7 +30,10 @@ script-specific (deepseek: whitespace AND CJK) or shape-specific.
 import csv, os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from malign_logits import MODEL_FAMILIES, PATH_DATA
-from transformers import AutoTokenizer
+import importlib.util as _ilu
+_sp=_ilu.spec_from_file_location("tc", os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "twp_cloud.py"))
+_tc=_ilu.module_from_spec(_sp); _sp.loader.exec_module(_tc)
 
 PROBES = {
     "english":   "She was so angry she wanted to",
@@ -50,7 +53,7 @@ def main():
                 continue
             seen.add(mid)
             try:
-                tok = AutoTokenizer.from_pretrained(mid, trust_remote_code=True)
+                tok, _loader = _tc.load_tokenizer(mid)   # THROUGH THE TABLE
             except Exception as e:
                 rows.append(dict(model=mid, family=fam, tokenizer=type(e).__name__,
                                  **{k: "LOADFAIL" for k in PROBES}, verdict="UNMEASURED"))

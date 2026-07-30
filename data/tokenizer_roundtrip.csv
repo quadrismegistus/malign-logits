@@ -18,8 +18,8 @@ bigscience/bloomz-7b1,bloom,TokenizersBackend,exact,exact,exact,exact,exact,clea
 m-a-p/CT-LLM-Base,ct-llm,BaichuanTokenizer,exact,exact,exact,exact,exact,clean
 m-a-p/CT-LLM-SFT,ct-llm,BaichuanTokenizer,exact,exact,exact,exact,exact,clean
 m-a-p/CT-LLM-SFT-DPO,ct-llm,BaichuanTokenizer,exact,exact,exact,exact,exact,clean
-deepseek-ai/deepseek-llm-7b-base,deepseek-7b,LlamaTokenizer,CORRUPT,CORRUPT,CORRUPT,CORRUPT,CORRUPT,"CORRUPT:english,contract,numeric,cjk,mixed"
-deepseek-ai/deepseek-llm-7b-chat,deepseek-7b,LlamaTokenizer,CORRUPT,CORRUPT,CORRUPT,CORRUPT,CORRUPT,"CORRUPT:english,contract,numeric,cjk,mixed"
+deepseek-ai/deepseek-llm-7b-base,deepseek-7b,TokenizersBackend,exact,exact,exact,exact,exact,clean
+deepseek-ai/deepseek-llm-7b-chat,deepseek-7b,TokenizersBackend,exact,exact,exact,exact,exact,clean
 tiiuae/Falcon-H1-1.5B-Base,falcon-h1-1.5b,TokenizersBackend,exact,exact,exact,exact,exact,clean
 tiiuae/Falcon-H1-1.5B-Instruct,falcon-h1-1.5b,TokenizersBackend,exact,exact,exact,exact,exact,clean
 tiiuae/Falcon-H1-7B-Base,falcon-h1-7b,TokenizersBackend,exact,exact,exact,exact,exact,clean

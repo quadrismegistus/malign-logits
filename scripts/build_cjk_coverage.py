@@ -2,7 +2,10 @@
 import json, re, sys, csv, os, datetime
 sys.path.insert(0,'/Users/rj416/github/malign-logits')
 from malign_logits import MODEL_FAMILIES, PATH_DATA
-from transformers import AutoTokenizer
+import importlib.util as _ilu
+_sp=_ilu.spec_from_file_location("tc", os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "twp_cloud.py"))
+_tc=_ilu.module_from_spec(_sp); _sp.loader.exec_module(_tc)
 CJK = re.compile(r'[一-鿿㐀-䶿]')
 TIERS = [(3500,"FLUENT"),(2500,"MARGINAL"),(1000,"PARTIAL"),(0,"NOMINAL")]
 
@@ -13,7 +16,13 @@ for fam, F in sorted(MODEL_FAMILIES.items()):
         if not mid: continue
         if mid in seen:
             seen[mid]["families"].add(fam); seen[mid]["positions"].add(pos); continue
-        try: tok = AutoTokenizer.from_pretrained(mid, trust_remote_code=True)
+        # THROUGH THE LOADER TABLE, not AutoTokenizer. The first build measured
+        # deepseek at 0 CJK characters, which was the broken loader's output and
+        # not a fact about the model -- transformers v5 installs a Metaspace
+        # pre-tokenizer over the repo's declared ByteLevel one. A coverage file
+        # that describes tokenizers must load them the way the runner does, or
+        # it measures the loading bug.
+        try: tok, _loader = _tc.load_tokenizer(mid)
         except Exception as e:
             rows.append(dict(model=mid, vocab=0, cjk_tokens=-1, cjk_chars=-1,
                              tier="UNMEASURED", note=type(e).__name__,

@@ -20,7 +20,10 @@ probe keep its CJK.
 import csv, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from malign_logits import MODEL_FAMILIES, PATH_DATA
-from transformers import AutoTokenizer
+import importlib.util as _ilu
+_sp=_ilu.spec_from_file_location("tc", os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "twp_cloud.py"))
+_tc=_ilu.module_from_spec(_sp); _sp.loader.exec_module(_tc)
 
 CJK = re.compile(r'[一-鿿㐀-䶿]')
 PURE = "她非常生气，想要"
@@ -42,7 +45,7 @@ def main():
                 continue
             seen.add(mid)
             try:
-                tok = AutoTokenizer.from_pretrained(mid, trust_remote_code=True)
+                tok, _loader = _tc.load_tokenizer(mid)   # THROUGH THE TABLE
             except Exception as e:
                 rows.append(dict(model=mid, family=fam, pure_ids=-1, pure_cjk=-1,
                                  mixed_ids=-1, mixed_cjk=-1, drops_cjk="",

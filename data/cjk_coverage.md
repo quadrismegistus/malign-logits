@@ -1,71 +1,68 @@
 # CJK tokenizer coverage
 
-`data/cjk_coverage.csv` — one row per MODEL ID (not family, because a family's
-arms can differ). Built by `scripts/build_cjk_coverage.py`.
+`data/cjk_coverage.csv` — one row per MODEL ID. Rebuilt by
+`scripts/build_cjk_coverage.py`.
 
-**110 models measured, 2026-07-30.** {'FLUENT': 28, 'MARGINAL': 2, 'NOMINAL': 60, 'PARTIAL': 20}
+**110 models, 2026-07-30.** {'FLUENT': 28, 'MARGINAL': 4, 'NOMINAL': 58, 'PARTIAL': 20}
+ · **drops_cjk: 0**
 
-## What is counted, and why two numbers
+## MEASURED THROUGH THE LOADER TABLE, and the first build was not
+
+The first build called `AutoTokenizer` directly and recorded
+**deepseek-llm-7b at 0 CJK characters**. That was the loading bug, not the
+model: transformers v5 (#45488) installs a SentencePiece Metaspace
+pre-tokenizer over the ByteLevel one the repo declares, deleting whitespace and
+dropping CJK entirely, with `unk_token: null` so nothing raises. Through
+`twp_cloud.load_tokenizer` the same model measures **3,429 characters /**
+**18,006 tokens**.
+
+**A file that describes tokenizers must load them the way the runner loads**
+**them, or it documents a different object.** The same correction was applied
+to preconditions 5 and 6.
+
+## Columns
 
 | column | meaning |
 |---|---|
-| `cjk_chars` | distinct CJK codepoints appearing in ANY token. A model can only write a character it has a token for. |
-| `cjk_tokens` | tokens that decode to bare CJK — what the word-expansion can select as a continuation. |
-| `tokens_per_char` | the ratio. **This is the fluency signal.** |
-
-**The ratio separates word-level from character-level vocabularies.** ct-llm has
-71,062 tokens over 21,006 characters — 3.38 tokens per character, i.e. real
-multi-character WORDS. Amber has 700 over 700 — exactly 1.00, one token per
-character and no words at all. A model at ratio 1.0 can spell Chinese but cannot
-reach for a Chinese word.
+| `cjk_chars` | distinct CJK codepoints reachable. Sets the tier. |
+| `cjk_tokens` | tokens decoding to bare CJK. |
+| `tokens_per_char` | **the fluency signal** — words vs spellings. |
+| `drops_cjk` | tokenizer discards CJK input entirely. Separate axis from tier. |
 
 ## Tiers
 
-Thresholds are on `cjk_chars`, against external reference points rather than
-anything in this project: **~3,500 characters covers modern general-purpose
-Chinese; ~2,500 is the PRC primary-school list.**
+Cut on external reference points: **~3,500 characters covers modern
+general-purpose Chinese; ~2,500 is the PRC primary-school list.**
 
-| tier | rule | meaning |
-|---|---|---|
-| FLUENT | >= 3,500 | content vocabulary present; a paradigm is expressible |
-| MARGINAL | 2,500-3,499 | above primary-school, below general-purpose |
-| PARTIAL | 1,000-2,499 | common characters only — particles and pronouns |
-| NOMINAL | < 1,000 | cannot form ordinary prose |
+| tier | rule |
+|---|---|
+| FLUENT | >= 3,500 |
+| MARGINAL | 2,500–3,499 |
+| PARTIAL | 1,000–2,499 |
+| NOMINAL | < 1,000 |
 
-## The measured consequence, which is why this file exists
-
-On `她非常生气，想要` (*she was so angry she wanted to*), v3 word probabilities:
+## The two metrics can disagree, and deepseek is the case
 
 ```
-CT-LLM   (21,006 chars)  离开 打 离婚 把 找 报复   leave/hit/divorce/seek/revenge
-OLMo-2   (   570 chars)  把 去 一个 她 自己 让      particles and pronouns
-Amber    (   700 chars)  我 和 知道 我们 的 去      particles and pronouns
+ct-llm    21,006 chars   71,062 tokens   3.38/char   broad and deep
+deepseek   3,429 chars   18,006 tokens   5.25/char   NARROW AND DEEPEST
+amber        700 chars      700 tokens   1.00/char   narrow and flat
 ```
 
-**All three produce grammatical Chinese. Only the FLUENT one produces a**
-**PARADIGM** — an anger-directed action set parallel to English
-`kill/throw/go/die/run`. The others give grammatical scaffolding with no charged
-vocabulary for alignment to move, so a displacement measurement on them has
-nothing to measure.
+**deepseek has the roster's highest tokens-per-character** — a word-level
+Chinese vocabulary — while sitting **71 characters below the FLUENT cut**.
+`cjk_chars` measures breadth of glyph coverage; `tokens_per_char` measures
+whether the vocabulary holds words or spellings. MARGINAL exists for exactly
+this: a cut point on a continuum, surfacing the case rather than hiding it.
 
-**Amber additionally carries a mojibake residual of 0.40-0.46** on these prompts:
-its tokenizer fragments CJK into bytes that do not reassemble into valid UTF-8.
-Under v1/v2 that mass was counted as WORDS and inflated its apparent resolution
-to 0.94, above Qwen's 0.03. v3 excludes it (commit `3658a10`).
+## Chinese scope
 
-## Proposed use — REGISTRAR CONFIRMATION REQUESTED
+**FLUENT + MARGINAL, excluding `drops_cjk` — 32 arms** (was 30 before the
+deepseek correction). Chinese prompts do not run on PARTIAL or NOMINAL arms:
+a displacement measurement requires a paradigm to displace, and those arms
+return particles and pronouns.
 
-**Chinese prompts should run only on FLUENT models.** The battery currently runs
-them on 89 models. On PARTIAL and NOMINAL arms the measurement is of tokenizer
-scaffolding, not displacement.
-
-This is a proposal, not a decision. The tier thresholds are defensible but they
-are cut points on a continuum, and MARGINAL exists precisely because 3,500 is a
-convention rather than a fact.
-
-## Tier listing
-
-### FLUENT — 28 models
+### FLUENT — 28
 
 | model | cjk_chars | cjk_tokens | tok/char |
 |---|---|---|---|
@@ -98,14 +95,16 @@ convention rather than a fact.
 | `tiiuae/Falcon-H1-7B-Base` | 3652 | 18386 | 5.03 |
 | `tiiuae/Falcon-H1-7B-Instruct` | 3652 | 18386 | 5.03 |
 
-### MARGINAL — 2 models
+### MARGINAL — 4
 
 | model | cjk_chars | cjk_tokens | tok/char |
 |---|---|---|---|
+| `deepseek-ai/deepseek-llm-7b-base` | 3429 | 18006 | 5.25 |
+| `deepseek-ai/deepseek-llm-7b-chat` | 3429 | 18006 | 5.25 |
 | `tiiuae/Falcon-H1-1.5B-Base` | 2829 | 8933 | 3.16 |
 | `tiiuae/Falcon-H1-1.5B-Instruct` | 2829 | 8933 | 3.16 |
 
-### PARTIAL — 20 models
+### PARTIAL — 20
 
 | model | cjk_chars | cjk_tokens | tok/char |
 |---|---|---|---|
@@ -130,7 +129,7 @@ convention rather than a fact.
 | `tiiuae/falcon-mamba-7b` | 1077 | 1441 | 1.34 |
 | `tiiuae/falcon-mamba-7b-instruct` | 1077 | 1441 | 1.34 |
 
-### NOMINAL — 60 models
+### NOMINAL — 58
 
 | model | cjk_chars | cjk_tokens | tok/char |
 |---|---|---|---|
@@ -192,5 +191,3 @@ convention rather than a fact.
 | `togethercomputer/RedPajama-INCITE-Base-7B-v0.1` | 302 | 313 | 1.04 |
 | `HuggingFaceTB/SmolLM2-360M` | 77 | 80 | 1.04 |
 | `HuggingFaceTB/SmolLM2-360M-Instruct` | 77 | 80 | 1.04 |
-| `deepseek-ai/deepseek-llm-7b-base` | 0 | 0 |  |
-| `deepseek-ai/deepseek-llm-7b-chat` | 0 | 0 |  |

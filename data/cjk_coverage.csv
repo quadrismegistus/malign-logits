@@ -27,6 +27,8 @@ zai-org/glm-4-9b-hf,FLUENT,4223,28473,151329,6.74,glm4,base,,false
 01-ai/Yi-1.5-9B-Chat,FLUENT,4013,21347,63992,5.32,yi,superego,,false
 tiiuae/Falcon-H1-7B-Base,FLUENT,3652,18386,130048,5.03,falcon-h1-7b,base,,false
 tiiuae/Falcon-H1-7B-Instruct,FLUENT,3652,18386,130048,5.03,falcon-h1-7b,superego,,false
+deepseek-ai/deepseek-llm-7b-base,MARGINAL,3429,18006,100000,5.25,deepseek-7b,base,,false
+deepseek-ai/deepseek-llm-7b-chat,MARGINAL,3429,18006,100000,5.25,deepseek-7b,superego,,false
 tiiuae/Falcon-H1-1.5B-Base,MARGINAL,2829,8933,65536,3.16,falcon-h1-1.5b,base,,false
 tiiuae/Falcon-H1-1.5B-Instruct,MARGINAL,2829,8933,65536,3.16,falcon-h1-1.5b,superego,,false
 HuggingFaceTB/SmolLM3-3B,PARTIAL,2322,4132,128000,1.78,smol3,superego,,false
@@ -107,5 +109,3 @@ togethercomputer/RedPajama-INCITE-7B-Instruct,NOMINAL,302,313,50254,1.04,redpaja
 togethercomputer/RedPajama-INCITE-Base-7B-v0.1,NOMINAL,302,313,50254,1.04,redpajama,base,,false
 HuggingFaceTB/SmolLM2-360M,NOMINAL,77,80,49152,1.04,smol,base,,false
 HuggingFaceTB/SmolLM2-360M-Instruct,NOMINAL,77,80,49152,1.04,smol,superego,,false
-deepseek-ai/deepseek-llm-7b-base,NOMINAL,0,0,100000,,deepseek-7b,base,,true
-deepseek-ai/deepseek-llm-7b-chat,NOMINAL,0,0,100000,,deepseek-7b,superego,,true
