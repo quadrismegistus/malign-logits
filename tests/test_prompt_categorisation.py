@@ -133,6 +133,22 @@ def census_stashes():
     return out
 
 
+def english(rows):
+    """Rows whose assertions can be tested in English.
+
+    THREE ASSERTIONS ARE LANGUAGE-SPECIFIC AND SAYING SO IS BETTER THAN WEAKENING THEM.
+    `pair_contrast` names tokens and checks they occur; pole ORDER is read off word order;
+    markedness balance is read off declared English flags. None of these transfers to a
+    translation: Chinese has no word boundaries (noted when the word-anchored search was
+    written), and a contrast label inherited from an English parent names tokens that are
+    not in the Chinese prompt at all.
+
+    The alternative -- loosening each check until it passes on both -- would have cost the
+    English coverage that caught three sign inversions today. Scope beats dilution.
+    """
+    return [r for r in rows if r.get("language") != "zh"]
+
+
 def groups(rows, prefix=None):
     by = collections.defaultdict(list)
     for r in rows:
@@ -265,6 +281,7 @@ def test_pole_a_word_precedes_pole_b_word_in_the_both_prompt(rows):
     in each pair's natural reading order, not because anything enforced it. A future
     map written the other way inverts the sign for one group silently.
     """
+    rows = english(rows)
     pairs = {}
     for gid, members in groups(rows, "f11_").items():
         contrast = next((r.get("pair_contrast") for r in members if r.get("pair_contrast")), None)
@@ -317,6 +334,7 @@ def test_pair_contrast_first_term_belongs_to_pole_a(rows):
     The general shape: two checks that each validate a field against a third thing can
     both pass while disagreeing with each other. Check them against each other too.
     """
+    rows = english(rows)
     bad = []
     for gid, members in sorted(groups(rows, "f11_").items()):
         by = {m.get("group_role"): m for m in members}
@@ -375,6 +393,7 @@ def test_marked_unmarked_groups_have_exactly_one_of_each(rows, declared_markedne
     applying a markedness template to groups declaring a different one, which is the
     error `contrast_type` exists to prevent, committed by whoever added the field.
     """
+    rows = english(rows)
     bad = []
     for gid, members in sorted(groups(rows).items()):
         n = collections.Counter(r.get("group_role") for r in members)
@@ -410,7 +429,12 @@ def test_f11_triples_are_complete_or_declared_incomplete(rows):
     Two groups carry TWO BOTH cells (`f11_captive`, `f11_gender`); [768].4(a) confirmed
     that is within-group replication of the same contradiction, not over-matching.
     """
-    known_incomplete = {"f11_gender"}
+    known_incomplete = {
+        "f11_gender",       # its single-pole prompts do not exist in any set
+        "f11_holy_b_zh",    # its BOTH cell has no entry in WORKLIST_217: the de-confounded
+                            # place-poles variant was written AFTER the translation pass ran,
+                            # so its apex was never translated. A declared gap, not a defect.
+    }
     bad = []
     for gid, members in sorted(groups(rows, "f11_").items()):
         n = collections.Counter(r.get("group_role") for r in members)
@@ -627,6 +651,7 @@ def test_pair_contrast_words_appear_in_the_group_prompts(rows):
     simply omits `disgusting` rather than substituting a synonym. Hardcoded in
     build_prompt_categorisation.SETD_META, so no derivation would catch it.
     """
+    rows = english(rows)
     bad = []
     for gid, members in sorted(groups(rows).items()):
         contrast = next((r.get("pair_contrast") for r in members if r.get("pair_contrast")), None)
