@@ -30,11 +30,32 @@ FOUR MORE RULES, each from a defect found later the same day:
      role-bearing; a tie that disagrees about the group is dual identity and REFUSES.
   5. STATUS FOLLOWS THE SOURCE. A design retracted in English is retracted in Chinese;
      the defect is in the stimulus construction, not the language.
-  6. `design_not_survived` ENTRIES ARE NOT KEYED, and are listed, because a design the
-     translator declared broken is the one thing worse than an untranslated design.
+  6. `design_not_survived` HOLDS TWO VERDICTS AND THEY ARE OPPOSITE INSTRUCTIONS.
+     "DROP" means do not key; "SHIP WITH FLAG" means key it and carry the caveat. Round
+     two returned 2 DROP and 3 SHIP WITH FLAG. The first version of this file skipped
+     every entry in that dict, which would have silently discarded three designs the
+     translator explicitly said to ship -- a refusal dressed as caution. The flag text is
+     written into each shipped row's note, because a caveat that lives only in a
+     translations file is a caveat nobody reading the catalogue will ever see.
   7. SLOT IS NOT INHERITED WHEN THE TRANSLATOR DECLARED slot_preserved: false -- the
      English slot would then be a claim about the Chinese that the translator has already
      denied. It is recorded as UNVERIFIED for a human pass.
+  8. IDENTITY IS (chinese, group), NOT chinese. One Chinese string can be a member of TWO
+     designs, because its English is: 他是美丽的，她想要 is POLE_A of BOTH `f11_beauty`
+     and `f11_beauty_ugly`. Deduplicating on the string alone keys one and drops the
+     other, leaving a group without its POLE_A -- which is the f11_holy_b defect, and the
+     first version of this file reproduced it inside the script written to prevent round
+     one's defects. Such a row takes its SOURCE FROM ITS ENGLISH ROW (PSYCHE_DECLARED vs
+     CONTRADICTION_UGLY here) rather than the batch label, because identical
+     (prompt, finding, source) across two rows is the signature of a merge defect and
+     differing source is what marks a real dual identity -- the f11_holy_b precedent.
+  9. THE SAME STRING TWICE IN ONE GROUP IS REFUSED, not keyed. Chinese has no obligatory
+     tense, so `census_0210` ("I am so angry I want to") and `census_0257` ("I was so
+     angry I wanted to") translate identically. Keying both would put two rows on ONE
+     measurement inside one pool, and every per-row statistic would then count that single
+     measurement twice -- the grid scores per string, so the second row buys no data and
+     silently doubles a weight. The English member is recorded as having no distinct
+     Chinese counterpart instead.
 
 --smoke VALIDATES THE RESOLVER against round one's 217 already-keyed translations, which
 are 217 known-good outcomes. For each, it derives what it WOULD build and compares
@@ -139,38 +160,84 @@ def main(write, smoke):
         return
     doc = json.load(open(CATS))
     rows = doc["prompts"]
+
+    # The census is the record of what was actually SCORED, and it is the only external
+    # check on the apparatus field.
+    census = {}
+    cpath = os.path.join(ROOT, "data", "prompt_census_all.csv")
+    if os.path.exists(cpath):
+        import csv
+        with open(cpath, newline="") as fh:
+            for r in csv.DictReader(fh):
+                try:
+                    census[(r.get("prompt") or "").rstrip()] = int(r.get("n_stashes") or 0)
+                except ValueError:
+                    pass
+
     tdoc = json.load(open(src))
     trans = tdoc["prompts"]
-    dropped = set(tdoc.get("design_not_survived") or {})
+    verdicts = tdoc.get("design_not_survived") or {}
+    dropped = {k for k, v in verdicts.items()
+               if str(v[0] if isinstance(v, (list, tuple)) else v).upper().startswith("DROP")}
+    flagged = {k: v for k, v in verdicts.items() if k not in dropped}
+
+    # A Chinese string may legitimately appear in two GROUPS (dual identity) but never
+    # twice in one. Count group memberships per string so the dual-identity case can take
+    # its source from the English row, per rule 8.
+    zh_groups = collections.defaultdict(set)
+    for t in trans:
+        if t.get("chinese") and t.get("group") not in dropped:
+            zh_groups[t["chinese"]].add(t.get("group"))
 
     by_str = collections.defaultdict(list)
+    by_id = {}
     for r in rows:
         if r.get("language") != "zh":
             by_str[r["prompt"]].append(r)
-    have_zh = {r["prompt"] for r in rows if r.get("language") == "zh"}
+            by_id[r["prompt_id"]] = r
+    have_zh = {(r["prompt"], r.get("group_id")) for r in rows if r.get("language") == "zh"}
     have_id = {r["prompt_id"] for r in rows}
 
     added, skipped = [], collections.Counter()
     for t in trans:
         en_text, zh_text = t.get("english"), t.get("chinese")
         if t.get("group") in dropped:
-            skipped["design declared not survived"] += 1
+            skipped["design declared DROP by the translator"] += 1
             continue
         if not zh_text or not str(zh_text).strip():
             skipped["no chinese supplied"] += 1
             continue
-        if zh_text in have_zh:
-            skipped["chinese already present"] += 1
+        # RESOLVE BY prompt_id, NOT BY STRING. The translation entry names the exact
+        # English row it was made from, so a string lookup throws that away and then has
+        # to guess among the twins it created. It refused the f11_beauty /
+        # f11_beauty_ugly pair as "ambiguous" for precisely that reason -- two real rows,
+        # one string, and each translation entry already saying which one it meant. The
+        # ranked pick survives only as a fallback for entries carrying no usable id.
+        er = by_id.get(t.get("prompt_id"))
+        if er is None:
+            src_rows = by_str.get(en_text)
+            if not src_rows:
+                skipped["no english row for this prompt"] += 1
+                continue
+            er, ambiguous = pick(src_rows)
+            if ambiguous:
+                skipped["ambiguous english source, and no id to disambiguate"] += 1
+                print(f"  REFUSED {t.get('prompt_id')}: english twins disagree about group "
+                      f"{[(a['prompt_id'], a.get('group_id')) for a in ambiguous]}")
+                continue
+        elif er["prompt"] != en_text:
+            skipped["english text disagrees with the row that id names"] += 1
+            print(f"  REFUSED {t.get('prompt_id')}: entry's english is {en_text!r} but "
+                  f"that prompt_id holds {er['prompt']!r}")
             continue
-        src_rows = by_str.get(en_text)
-        if not src_rows:
-            skipped["no english row for this prompt"] += 1
-            continue
-        er, ambiguous = pick(src_rows)
-        if ambiguous:
-            skipped["ambiguous english source (dual identity)"] += 1
-            print(f"  REFUSED {t.get('prompt_id')}: english twins disagree about group "
-                  f"{[(a['prompt_id'], a.get('group_id')) for a in ambiguous]}")
+        gid = zh_group(er.get("group_id"))
+        if (zh_text, gid) in have_zh:
+            # Rule 9: one measurement, two rows, inside one group. Refuse the second.
+            skipped["same chinese string already in this group (tense collapse)"] += 1
+            print(f"  REFUSED {t.get('prompt_id')}: {zh_text!r} is already keyed into "
+                  f"{gid}. Chinese has no obligatory tense, so this English member has no "
+                  f"DISTINCT Chinese counterpart; keying it would double-weight one "
+                  f"measurement rather than add data.")
             continue
         pid = er["prompt_id"] + "_zh"
         if pid in have_id:
@@ -178,11 +245,13 @@ def main(write, smoke):
             continue
 
         slot_ok = t.get("slot_preserved") is not False
+        dual = len(zh_groups.get(zh_text, ())) > 1      # rule 8
+        flag = flagged.get(t.get("group"))
         new = {k: er.get(k) for k in INHERIT}
         new.update({
             "prompt": zh_text,
             "prompt_id": pid,
-            "source": "F13_CHINESE_PROMPTS_2",
+            "source": er.get("source") if dual else "F13_CHINESE_PROMPTS_2",
             "language": "zh",
             "slot": er.get("slot") if slot_ok else None,
             "slot_status": er.get("slot_status") if slot_ok else "UNVERIFIED",
@@ -192,7 +261,13 @@ def main(write, smoke):
             "ladder_rank": None,                         # rule 3
             "group_id": zh_group(er.get("group_id")),    # rule 1
             "group_role": er.get("group_role"),
-            "apparatus": "UNSCORED", "n_stashes": 0,
+            # A NEW ROW ON AN EXISTING STRING IS NOT UNSCORED. Two round-two renderings
+            # land on 她非常生气，她想要, which the census shows in FIVE stashes already --
+            # the string exists in the corpus under another row. Hardcoding UNSCORED
+            # asserts nothing has measured it, and the census is the external record that
+            # says otherwise. Read the census rather than assuming novelty.
+            "apparatus": "BATTERY" if census.get(zh_text.rstrip(), 0) else "UNSCORED",
+            "n_stashes": census.get(zh_text.rstrip(), 0),
             "status": er.get("status"),                  # rule 5
             "resolver": None, "resolution_scope": None,
             "notes": (
@@ -205,10 +280,20 @@ def main(write, smoke):
                    " SLOT NOT INHERITED: the translator declared slot_preserved=false, so "
                    "the English slot would be a claim about this Chinese prompt that the "
                    "translator has already denied. slot_status=UNVERIFIED pending a human "
-                   f"pass. Translator note: {t.get('notes')!r}")),
+                   f"pass. Translator note: {t.get('notes')!r}")
+                + ("" if not dual else
+                   f" DUAL IDENTITY: this Chinese string is a member of "
+                   f"{sorted(zh_groups[zh_text])} because its English is. source is taken "
+                   f"from the English row rather than the batch label, so the two rows are "
+                   f"distinguishable -- identical (prompt, finding, source) is the "
+                   f"signature of a merge defect.")
+                + ("" if not flag else
+                   f" SHIPPED WITH A FLAG from the translator: {flag[1] if len(flag)>1 else flag}"
+                   f" -- {flag[2] if len(flag)>2 else ''} Read any result on this design "
+                   f"against that caveat.")),
         })
         added.append((new, er, slot_ok))
-        have_zh.add(zh_text)
+        have_zh.add((zh_text, gid))
         have_id.add(pid)
 
     print(f"\n{'APPLIED' if write else 'DRY RUN'}   source {os.path.basename(src)}")
@@ -226,6 +311,14 @@ def main(write, smoke):
         print(f"\n  {nover} rows carry slot_status=UNVERIFIED and want a human pass")
 
     if write:
+        # A NEW SOURCE VALUE IS DECLARED, NOT SMUGGLED. The schema enumerates every legal
+        # source and an assertion enforces it, so a batch that invents a label must add it
+        # here, visibly, in the same act.
+        vals = doc.get("_schema", {}).get("source", {}).get("values")
+        if vals is not None and "F13_CHINESE_PROMPTS_2" not in vals:
+            vals.append("F13_CHINESE_PROMPTS_2")
+            vals.sort()
+            print("  declared new source value F13_CHINESE_PROMPTS_2 in _schema")
         rows.extend(n for n, _, _ in added)
         json.dump(doc, open(CATS, "w"), ensure_ascii=False, indent=1)
         print(f"\nwrote {CATS}   rows now {len(rows)}")
