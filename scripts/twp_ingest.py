@@ -57,6 +57,58 @@ TOL = 1e-4          # conservation is exact to ~2e-07 in practice; 1e-4 is loose
 OPEN_LOUD = 0.01    # an `open` residual above this is worth naming
 
 
+def store_versions(cm):
+    """{rule_version: count} over the whole store. Full payload scan, ~1.6s/14k.
+
+    THE VERSION IS IN THE PAYLOAD, NOT THE KEY -- deliberately, per RH's ruling
+    of 2026-07-30. The key is {model, prompt, theta, mode}, so the store CANNOT
+    REPRESENT two boundary rules: a second version silently loses every
+    collision to whatever is already there. Keying the version would make
+    mixture safe to hold, and nothing here wants to hold it. The store holds
+    ONE rule and a mixture is an error, so this exists to find one rather than
+    to tolerate it.
+    """
+    vs = Counter()
+    s = cm._stash("true_word_probs")
+    for k in s.keys():
+        v = s[k]
+        vs[(v or {}).get("rule_version", 1)] += 1
+    return vs
+
+
+def version_gate(store_vs, incoming_vs, force_mix=False):
+    """(ok, message). Refuses a write that would leave two rules in the store.
+
+    ABORT BEFORE WRITING, not a warning after. The previous form reported the
+    mixture once it existed, which is a description of damage rather than a
+    guard against it -- and the damage is unrecoverable by inspection, because
+    `has_true_word_probs()` answers the same for both versions and the OLDER
+    cell wins every collision. A default ingest into a v1 store would have kept
+    12,855 stale cells and discarded their replacements silently.
+    """
+    su, iu = set(store_vs), set(incoming_vs)
+    if len(iu) > 1:
+        return False, (f"THE INCOMING FILES THEMSELVES HOLD {len(iu)} RULE "
+                       f"VERSIONS {dict(incoming_vs)}. Nothing to ingest into: "
+                       f"fix the source, do not filter it here.")
+    if not su or su == iu:
+        return True, ""
+    if force_mix:
+        return True, (f"--force-mix: writing {iu} into a store holding {su}. "
+                      f"THE STORE IS NOW MIXED AND THE KEY CANNOT TELL THEM "
+                      f"APART.")
+    return False, (
+        f"REFUSING TO MIX BOUNDARY RULES.\n"
+        f"  store holds    {dict(store_vs)}\n"
+        f"  incoming is    {dict(incoming_vs)}\n"
+        f"The key is {{model, prompt, theta, mode}} -- rule_version is NOT in it,\n"
+        f"so these cannot coexist and the older cell wins every collision.\n"
+        f"v3 changed what a WORD is (contractions, mojibake, CJK), so a v1 base\n"
+        f"against a v3 superego books an instrument change as alignment movement.\n"
+        f"Wipe data/raw/cache/true_word_probs and ingest whole, or --force-mix\n"
+        f"if you genuinely intend a store nothing can disentangle.")
+
+
 def records(path):
     """Yield (lineno, obj) for parseable lines; a truncated tail is reported."""
     trunc = 0
@@ -79,6 +131,22 @@ def main(a):
         print(f"no jsonl under {a.src}")
         return
     cm = get_cache()
+
+    # ---- THE GATE, BEFORE A SINGLE WRITE ----
+    incoming = Counter()
+    for path in files:
+        for n, rec in records(path):
+            if "__truncated__" not in rec:
+                incoming[rec.get("rule_version", 1)] += 1
+    sv = store_versions(cm)
+    ok, msg = version_gate(sv, incoming, a.force_mix)
+    print(f"store  {dict(sv) or 'EMPTY'}\nfiles  {dict(incoming)}")
+    if not ok:
+        print(f"\n{msg}")
+        return 1
+    if msg:
+        print(f"\n!! {msg}")
+
     tot = Counter()
     mix = Counter()
     loud, per_model = [], []
@@ -170,6 +238,17 @@ def main(a):
 
     if a.dry_run:
         print("\nDRY RUN -- nothing written")
+        return 0
+
+    # ---- VERIFY THE INVARIANT HELD, rather than assume the gate did its job ----
+    after = store_versions(cm)
+    if len(after) > 1:
+        print(f"\n!! POST-WRITE CHECK FAILED: store now holds {dict(after)}. "
+              f"The gate passed and the invariant broke anyway -- INVESTIGATE "
+              f"before anything reads this store.")
+        return 1
+    print(f"\nstore is single-version: {dict(after) or 'EMPTY'}")
+    return 0
 
 
 if __name__ == "__main__":
@@ -178,4 +257,8 @@ if __name__ == "__main__":
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--force", action="store_true",
                     help="rewrite keys already present")
-    main(ap.parse_args())
+    ap.add_argument("--force-mix", action="store_true",
+                    help="write a version the store does not already hold. "
+                         "Leaves a store nothing can disentangle; the key has "
+                         "no rule_version field.")
+    raise SystemExit(main(ap.parse_args()) or 0)
