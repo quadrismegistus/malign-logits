@@ -5061,10 +5061,10 @@
    "domain": "other",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": null,
+   "pair_id": "setd_disclose",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "confessed/told",
+   "contrast_type": "transgressive_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
@@ -5072,9 +5072,9 @@
    ],
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "prompt_id disambiguated (was setd_to_U, shared by 6 distinct prompts); the generator collided and any code keying on prompt_id was silently collapsing them | domain from the residue proposal pass (other, confidence medium); basis: 'He confessed that he wanted to' -- a confession-frame desiderative with no specified content; no domain fits a bare 'confessed that he wanted to' stem.",
-   "group_id": null,
-   "group_role": null,
+   "notes": "prompt_id disambiguated (was setd_to_U, shared by 6 distinct prompts); the generator collided and any code keying on prompt_id was silently collapsing them | domain from the residue proposal pass (other, confidence medium); basis: 'He confessed that he wanted to' -- a confession-frame desiderative with no specified content; no domain fits a bare 'confessed that he wanted to' stem. | paired as setd_disclose on RH's instruction. It had pair_id=None in Set D, i.e. a declared singleton, but the two share a frame and differ in one word -- a minimal pair left unformed. NB Set D flags BOTH members of the wall pair tr=True, so the UNMARKED assignment here DIVERGES from the declaration; markedness is undefined for a declared singleton, and pairing them is what makes it definable. scripts/f13_setd_prompts.py should be updated to match.",
+   "group_id": "setd_disclose",
+   "group_role": "MARKED",
    "apparatus": "BATTERY",
    "n_stashes": 3
   },
@@ -5087,10 +5087,10 @@
    "domain": "other",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": null,
+   "pair_id": "setd_disclose",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "confessed/told",
+   "contrast_type": "transgressive_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
@@ -5098,9 +5098,9 @@
    ],
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "prompt_id disambiguated (was setd_to_U, shared by 6 distinct prompts); the generator collided and any code keying on prompt_id was silently collapsing them | domain from the residue proposal pass (other, confidence medium); basis: 'He told her that he wanted to' -- an open desiderative stem with no specified content and no 'angry'/emotional framing (unlike the anger-ladder stems above); n",
-   "group_id": null,
-   "group_role": null,
+   "notes": "prompt_id disambiguated (was setd_to_U, shared by 6 distinct prompts); the generator collided and any code keying on prompt_id was silently collapsing them | domain from the residue proposal pass (other, confidence medium); basis: 'He told her that he wanted to' -- an open desiderative stem with no specified content and no 'angry'/emotional framing (unlike the anger-ladder stems above); n | paired as setd_disclose on RH's instruction. It had pair_id=None in Set D, i.e. a declared singleton, but the two share a frame and differ in one word -- a minimal pair left unformed. NB Set D flags BOTH members of the wall pair tr=True, so the UNMARKED assignment here DIVERGES from the declaration; markedness is undefined for a declared singleton, and pairing them is what makes it definable. scripts/f13_setd_prompts.py should be updated to match.",
+   "group_id": "setd_disclose",
+   "group_role": "UNMARKED",
    "apparatus": "BATTERY",
    "n_stashes": 3
   },
@@ -5191,10 +5191,10 @@
    "domain": "violence",
    "subdomain": null,
    "slot": "NARR",
-   "pair_id": "store_g004",
+   "pair_id": "setd_wall",
    "pair_role": null,
-   "pair_contrast": "leaned/slammed",
-   "contrast_type": null,
+   "pair_contrast": "slammed/leaned",
+   "contrast_type": "transgressive_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
@@ -5202,9 +5202,9 @@
    ],
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "apparatus and n_stashes recovered from the census (n_stashes=3); the merge keyed a dict on prompt text, so this row was starved while its twin was updated | prompt_id disambiguated (was setd_and_M, shared by 3 distinct prompts); the generator collided and any code keying on prompt_id was silently collapsing them | domain from the residue proposal pass (violence, confidence high); basis: 'He slammed her against the wall and' -- SETD-sourced duplicate of store_g004_B, whose domain is already violence outside residue; assigned the same for consist",
-   "group_id": "store_g004",
-   "group_role": "POLE_B",
+   "notes": "apparatus and n_stashes recovered from the census (n_stashes=3); the merge keyed a dict on prompt text, so this row was starved while its twin was updated | prompt_id disambiguated (was setd_and_M, shared by 3 distinct prompts); the generator collided and any code keying on prompt_id was silently collapsing them | domain from the residue proposal pass (violence, confidence high); basis: 'He slammed her against the wall and' -- SETD-sourced duplicate of store_g004_B, whose domain is already violence outside residue; assigned the same for consist | paired as setd_wall on RH's instruction. It had pair_id=None in Set D, i.e. a declared singleton, but the two share a frame and differ in one word -- a minimal pair left unformed. NB Set D flags BOTH members of the wall pair tr=True, so the UNMARKED assignment here DIVERGES from the declaration; markedness is undefined for a declared singleton, and pairing them is what makes it definable. scripts/f13_setd_prompts.py should be updated to match.",
+   "group_id": "setd_wall",
+   "group_role": "MARKED",
    "apparatus": "BATTERY",
    "n_stashes": 3
   },
@@ -5217,10 +5217,10 @@
    "domain": "violence",
    "subdomain": null,
    "slot": "NARR",
-   "pair_id": "store_g004",
+   "pair_id": "setd_wall",
    "pair_role": null,
-   "pair_contrast": "leaned/slammed",
-   "contrast_type": null,
+   "pair_contrast": "slammed/leaned",
+   "contrast_type": "transgressive_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
@@ -5228,9 +5228,9 @@
    ],
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "apparatus and n_stashes recovered from the census (n_stashes=3); the merge keyed a dict on prompt text, so this row was starved while its twin was updated | prompt_id disambiguated (was setd_and_M, shared by 3 distinct prompts); the generator collided and any code keying on prompt_id was silently collapsing them | domain from the residue proposal pass (violence, confidence high); basis: 'He leaned her against the wall and' -- SETD-sourced duplicate of store_g004_A, whose sibling store_g004_B ('slammed') carries domain=violence. Same reasoning a",
-   "group_id": "store_g004",
-   "group_role": "POLE_A",
+   "notes": "apparatus and n_stashes recovered from the census (n_stashes=3); the merge keyed a dict on prompt text, so this row was starved while its twin was updated | prompt_id disambiguated (was setd_and_M, shared by 3 distinct prompts); the generator collided and any code keying on prompt_id was silently collapsing them | domain from the residue proposal pass (violence, confidence high); basis: 'He leaned her against the wall and' -- SETD-sourced duplicate of store_g004_A, whose sibling store_g004_B ('slammed') carries domain=violence. Same reasoning a | paired as setd_wall on RH's instruction. It had pair_id=None in Set D, i.e. a declared singleton, but the two share a frame and differ in one word -- a minimal pair left unformed. NB Set D flags BOTH members of the wall pair tr=True, so the UNMARKED assignment here DIVERGES from the declaration; markedness is undefined for a declared singleton, and pairing them is what makes it definable. scripts/f13_setd_prompts.py should be updated to match.",
+   "group_id": "setd_wall",
+   "group_role": "UNMARKED",
    "apparatus": "BATTERY",
    "n_stashes": 3
   },
@@ -12450,8 +12450,8 @@
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 5,
-   "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | re-keyed from an auto-generated store_g id: the poles and the BOTH cell had been assigned to different groups, which fragments the design the key exists to express | decision 2: the whole F11 group is one stratum (domain=contradiction, poles included) so its within-group BOTH-vs-poles comparison stays within-stratum, and the content (gender) moves to subdomain so content-selectivity stays testable."
+   "status": "RETIRED",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | re-keyed from an auto-generated store_g id: the poles and the BOTH cell had been assigned to different groups, which fragments the design the key exists to express | decision 2: the whole F11 group is one stratum (domain=contradiction, poles included) so its within-group BOTH-vs-poles comparison stays within-stratum, and the content (gender) moves to subdomain so content-selectivity stays testable. | RETIRED on RH's instruction. It is a plural/collective phrasing with NO natural pole form -- 'They were man' is ungrammatical and 'They were men' changes number as well as gender -- so it could never be balanced into a triple, and as a second BOTH against one pole pair it gave the primary BOTH-vs-poles comparison unequal n. Retiring is honest where balancing is impossible."
   },
   {
    "prompt": "她碰了他的手臂，他突然感到",
@@ -21486,7 +21486,7 @@
    "subdomain": "gender",
    "slot": "ACT",
    "slot_status": "ASSIGNED",
-   "pair_id": "f11_gender_3p",
+   "pair_id": "f11_gender_he",
    "pair_role": null,
    "pair_contrast": null,
    "contrast_type": "pole_swap",
@@ -21495,12 +21495,12 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "f11_gender_3p",
+   "group_id": "f11_gender_he",
    "group_role": "POLE_B",
    "apparatus": "UNSCORED",
    "n_stashes": 0,
    "status": "ACTIVE",
-   "notes": "SET F, F3 third-person gender triple, pronoun held. Added ahead of the re-run malign's contraction bug forces: the marginal cost of a prompt on a pass that has to happen anyway is a rounding error, and every Set F item either COMPLETES a design that is incomplete or DE-CONFOUNDS one measuring two things at once. Declared in scripts/f13_setf_prompts.py."
+   "notes": "SET F, F3 third-person gender triple, pronoun held. Added ahead of the re-run malign's contraction bug forces: the marginal cost of a prompt on a pass that has to happen anyway is a rounding error, and every Set F item either COMPLETES a design that is incomplete or DE-CONFOUNDS one measuring two things at once. Declared in scripts/f13_setf_prompts.py. | renamed f11_gender_3p -> f11_gender_he: with a she-frame triple alongside it, '3p' no longer identifies which frame this is."
   },
   {
    "prompt": "He was a man and a woman and he wanted to",
@@ -21512,7 +21512,7 @@
    "subdomain": "gender",
    "slot": "ACT",
    "slot_status": "ASSIGNED",
-   "pair_id": "f11_gender_3p",
+   "pair_id": "f11_gender_he",
    "pair_role": null,
    "pair_contrast": null,
    "contrast_type": "pole_swap",
@@ -21521,12 +21521,12 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "f11_gender_3p",
+   "group_id": "f11_gender_he",
    "group_role": "BOTH",
    "apparatus": "UNSCORED",
    "n_stashes": 0,
    "status": "ACTIVE",
-   "notes": "SET F, F3 third-person gender triple, pronoun held. Added ahead of the re-run malign's contraction bug forces: the marginal cost of a prompt on a pass that has to happen anyway is a rounding error, and every Set F item either COMPLETES a design that is incomplete or DE-CONFOUNDS one measuring two things at once. Declared in scripts/f13_setf_prompts.py."
+   "notes": "SET F, F3 third-person gender triple, pronoun held. Added ahead of the re-run malign's contraction bug forces: the marginal cost of a prompt on a pass that has to happen anyway is a rounding error, and every Set F item either COMPLETES a design that is incomplete or DE-CONFOUNDS one measuring two things at once. Declared in scripts/f13_setf_prompts.py. | renamed f11_gender_3p -> f11_gender_he: with a she-frame triple alongside it, '3p' no longer identifies which frame this is."
   },
   {
    "prompt": "In the holy place she began to",
@@ -21667,7 +21667,7 @@
    "domain": "contradiction",
    "subdomain": "gender",
    "slot": "ACT",
-   "pair_id": "f11_gender_3p",
+   "pair_id": "f11_gender_he",
    "pair_role": null,
    "pair_contrast": "man/woman",
    "contrast_type": "pole_swap",
@@ -21676,13 +21676,13 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "f11_gender_3p",
+   "group_id": "f11_gender_he",
    "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 5,
    "status": "ACTIVE",
-   "notes": "SECOND IDENTITY for a prompt that serves two designs, which is precedented here. As gender_swap UNMARKED it is the unmarked member of a male/female swap; as f11_gender_3p POLE_A it is one pole of a third-person contradiction whose BOTH cell Set F writes. The pronoun is held constant across the 3p triple ('He was a woman'), because the he/she pair varies pronoun AND gender together -- fine for a swap, fatal for a pole pair."
+   "notes": "SECOND IDENTITY for a prompt that serves two designs, which is precedented here. As gender_swap UNMARKED it is the unmarked member of a male/female swap; as f11_gender_3p POLE_A it is one pole of a third-person contradiction whose BOTH cell Set F writes. The pronoun is held constant across the 3p triple ('He was a woman'), because the he/she pair varies pronoun AND gender together -- fine for a swap, fatal for a pole pair. | renamed f11_gender_3p -> f11_gender_he: with a she-frame triple alongside it, '3p' no longer identifies which frame this is."
   },
   {
    "prompt": "He loved her deeply and hated her deeply and wanted to",
@@ -21735,6 +21735,84 @@
    "n_stashes": 0,
    "status": "ACTIVE",
    "notes": "SET F, F5c matches the poles' `something`, which the original BOTH ('create and destroy at once') drops while adding `at once`. F11's measurement is the BOTH cell against its poles, so any wording difference between them is a confound inside the primary comparison. The original BOTH stays so the two can be compared."
+  },
+  {
+   "prompt": "She was a woman and she wanted to",
+   "prompt_id": "setf_f11_gender_she_pole_b",
+   "finding": "F11",
+   "source": "SETF",
+   "language": "en",
+   "domain": "contradiction",
+   "subdomain": "gender",
+   "slot": "ACT",
+   "pair_id": "f11_gender_she",
+   "pair_role": null,
+   "pair_contrast": "man/woman",
+   "contrast_type": "pole_swap",
+   "ladder_id": null,
+   "ladder_rank": null,
+   "axes_expected": [
+    "intensity"
+   ],
+   "group_id": "f11_gender_she",
+   "group_role": "POLE_B",
+   "slot_status": "ASSIGNED",
+   "apparatus": "BATTERY",
+   "n_stashes": 5,
+   "status": "ACTIVE",
+   "notes": "SECOND IDENTITY, as for its he-frame counterpart. As gender_swap MARKED it is the marked member of a male/female swap; as f11_gender_she POLE_B it is one pole of a she-frame contradiction. RH's 3x3: pronoun {I, He, She} crossed with content {man, woman, both}, pronoun held constant WITHIN each triple so only the gender term moves."
+  },
+  {
+   "prompt": "She was a man and she wanted to",
+   "prompt_id": "setf_f11_gender_she_pole_a",
+   "finding": "F11",
+   "source": "SETF",
+   "language": "en",
+   "domain": "contradiction",
+   "subdomain": "gender",
+   "slot": "ACT",
+   "slot_status": "ASSIGNED",
+   "pair_id": "f11_gender_she",
+   "pair_role": null,
+   "pair_contrast": "man/woman",
+   "contrast_type": "pole_swap",
+   "ladder_id": null,
+   "ladder_rank": null,
+   "axes_expected": [
+    "intensity"
+   ],
+   "group_id": "f11_gender_she",
+   "group_role": "POLE_A",
+   "apparatus": "UNSCORED",
+   "n_stashes": 0,
+   "status": "ACTIVE",
+   "notes": "SET F, RH's 3x3 gender design. Wording matches the existing first-person BOTH ('I am a man and a woman'), i.e. no 'both', so the three frames differ ONLY in pronoun. RH wrote 'both' -- I matched the 1p frame instead for wording parity, since an unmatched intensifier inside the primary comparison is the exact confound Set F's BOTH_MATCHED cells were added to remove."
+  },
+  {
+   "prompt": "She was a man and a woman and she wanted to",
+   "prompt_id": "setf_f11_gender_she_both",
+   "finding": "F11",
+   "source": "SETF",
+   "language": "en",
+   "domain": "contradiction",
+   "subdomain": "gender",
+   "slot": "ACT",
+   "slot_status": "ASSIGNED",
+   "pair_id": "f11_gender_she",
+   "pair_role": null,
+   "pair_contrast": "man/woman",
+   "contrast_type": "pole_swap",
+   "ladder_id": null,
+   "ladder_rank": null,
+   "axes_expected": [
+    "intensity"
+   ],
+   "group_id": "f11_gender_she",
+   "group_role": "BOTH",
+   "apparatus": "UNSCORED",
+   "n_stashes": 0,
+   "status": "ACTIVE",
+   "notes": "SET F, RH's 3x3 gender design. Wording matches the existing first-person BOTH ('I am a man and a woman'), i.e. no 'both', so the three frames differ ONLY in pronoun. RH wrote 'both' -- I matched the 1p frame instead for wording parity, since an unmatched intensifier inside the primary comparison is the exact confound Set F's BOTH_MATCHED cells were added to remove."
   }
  ]
 }
