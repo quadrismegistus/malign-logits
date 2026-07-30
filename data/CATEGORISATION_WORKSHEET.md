@@ -1,3 +1,19 @@
+> **EXECUTED AND SUPERSEDED — 2026-07-30, commit `0214eff`.**
+>
+> Every decision in Part 1 below has been RATIFIED AND APPLIED. Part 2's residue was
+> categorised and is down from 223 rows to 37. This document is retained for provenance
+> only and must not be read as a list of outstanding work.
+>
+> Current state is `data/prompt_categorisation.json`: 823 rows, 754 active, 69 retired,
+> 767 distinct strings, 13/13 F11 groups complete, `domain=other` at 37.
+> **The authority is `pytest tests/test_prompt_categorisation.py` — 26 pass, 0 fail.**
+> If this file and the suite ever disagree, the suite is right.
+>
+> Kept as a header rather than deleted because a document describing completed work as
+> pending is the same defect as the `coverage_note` that claimed the Chinese battery was
+> absent while 73 present-and-wrong rows sat in the file: a false caveat disarms the
+> check that would catch it.
+
 # Categorisation worksheet
 
 State: `data/prompt_categorisation.json`, 823 rows, 767 distinct strings.
