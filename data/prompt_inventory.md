@@ -2,7 +2,7 @@
 
 `data/prompt_inventory.csv` — every prompt scored into `true_word_probs`, with its registered category and slot where one exists.
 
-**Population: 604 distinct prompts, 13,782 cells, read 2026-07-30 09:59 local.**
+**Population: 604 distinct prompts, 13,940 cells, read 2026-07-30 10:23 local.**
 
 **THE STORE IS WRITTEN WHILE THE ROSTER RUNS.** Two reads twenty minutes apart gave 603/13,693 and 604/13,782. A count over a growing store carries its read time or it is a claim about nothing datable — rebuild rather than quote these.
 
@@ -18,7 +18,7 @@
 | `n_models`, `n_cells` | coverage (equal: one cell per model) |
 | `n_words`, `script` | shape; `script` is CJK vs latin |
 
-## Mapped — 146 prompts, 8,328 cells
+## Mapped — 146 prompts, 8,474 cells
 
 Three parallel batteries over the same nine content categories plus eleven institutional roles.
 
@@ -45,27 +45,27 @@ Three parallel batteries over the same nine content categories plus eleven insti
 | CHINESE | institutional_political_party | 1 | 14 |
 | CHINESE | institutional_medical_patient | 1 | 14 |
 | CHINESE | institutional_police_citizen | 1 | 14 |
-| DEFAULT | sexual_liminal | 7 | 700 |
-| DEFAULT | neutral | 7 | 700 |
-| DEFAULT | sexual_explicit | 5 | 502 |
-| DEFAULT | violence_liminal | 5 | 502 |
-| DEFAULT | profanity | 5 | 500 |
-| DEFAULT | substance | 5 | 500 |
-| DEFAULT | death | 5 | 500 |
-| DEFAULT | violence_explicit | 5 | 500 |
-| DEFAULT | power | 5 | 500 |
-| INSTITUTIONAL | institutional_labor_worker | 5 | 502 |
-| INSTITUTIONAL | institutional_labor_mgmt | 5 | 500 |
-| INSTITUTIONAL | institutional_govt_agency | 2 | 200 |
-| INSTITUTIONAL | institutional_govt_citizen | 2 | 200 |
-| INSTITUTIONAL | institutional_housing_tenant | 2 | 200 |
-| INSTITUTIONAL | institutional_housing_landlord | 2 | 200 |
-| INSTITUTIONAL | institutional_police_officer | 1 | 100 |
-| INSTITUTIONAL | institutional_medical_doctor | 1 | 100 |
-| INSTITUTIONAL | institutional_political_party | 1 | 100 |
-| INSTITUTIONAL | institutional_political_citizen | 1 | 100 |
-| INSTITUTIONAL | institutional_medical_patient | 1 | 100 |
-| INSTITUTIONAL | institutional_police_citizen | 1 | 100 |
+| DEFAULT | sexual_liminal | 7 | 714 |
+| DEFAULT | neutral | 7 | 714 |
+| DEFAULT | sexual_explicit | 5 | 512 |
+| DEFAULT | violence_liminal | 5 | 512 |
+| DEFAULT | profanity | 5 | 510 |
+| DEFAULT | substance | 5 | 510 |
+| DEFAULT | death | 5 | 510 |
+| DEFAULT | violence_explicit | 5 | 510 |
+| DEFAULT | power | 5 | 510 |
+| INSTITUTIONAL | institutional_labor_worker | 5 | 512 |
+| INSTITUTIONAL | institutional_labor_mgmt | 5 | 510 |
+| INSTITUTIONAL | institutional_govt_agency | 2 | 204 |
+| INSTITUTIONAL | institutional_govt_citizen | 2 | 204 |
+| INSTITUTIONAL | institutional_housing_tenant | 2 | 204 |
+| INSTITUTIONAL | institutional_housing_landlord | 2 | 204 |
+| INSTITUTIONAL | institutional_police_officer | 1 | 102 |
+| INSTITUTIONAL | institutional_medical_doctor | 1 | 102 |
+| INSTITUTIONAL | institutional_political_party | 1 | 102 |
+| INSTITUTIONAL | institutional_political_citizen | 1 | 102 |
+| INSTITUTIONAL | institutional_medical_patient | 1 | 102 |
+| INSTITUTIONAL | institutional_police_citizen | 1 | 102 |
 
 ## Slot grammar
 
@@ -80,14 +80,14 @@ Every mapped prompt carries one; **no unmapped prompt does.**
 | SENSE | 8 |
 | RESULT | 6 |
 
-## UNMAPPED — 458 prompts, 5,454 cells
+## UNMAPPED — 458 prompts, 5,466 cells
 
-**40% of all cells scored, with no category — so every category-stratified analysis silently drops them, including the entire minimal-pair design, whose only purpose is a contrast.**
+**39% of all cells scored, with no category — so every category-stratified analysis silently drops them, including the entire minimal-pair design, whose only purpose is a contrast.**
 
 | shape | prompts | cells | what it is |
 |---|---|---|---|
-| 7-15 words | 303 | 4,585 | Set D narrative variants — the bulk |
-| 3-6 words | 55 | 669 | minimal pairs (captive/free, desire/…) — the F36 line |
+| 7-15 words | 303 | 4,591 | Set D narrative variants — the bulk |
+| 3-6 words | 55 | 675 | minimal pairs (captive/free, desire/…) — the F36 line |
 | 16+ words | 100 | 200 | literary passages; 2 models only, a side experiment |
 
 **Every Chinese prompt IS mapped** (`CHINESE_PROMPTS` covers all of them); it is the Set D and F36 material that is not.
