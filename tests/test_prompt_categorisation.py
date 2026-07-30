@@ -277,6 +277,41 @@ def test_pole_a_word_precedes_pole_b_word_in_the_both_prompt(rows):
     assert not bad, "; ".join(bad[:6])
 
 
+
+def test_pair_contrast_first_term_belongs_to_pole_a(rows):
+    """THE HOLE THAT LET AN INVERTED GROUP THROUGH, and it took a translation pass to find.
+
+    `test_pole_a_word_precedes_pole_b_word_in_the_both_prompt` checks that pair_contrast's
+    terms appear in the BOTH cell in the order the label states. It never checks that the
+    FIRST term is the one POLE_A actually states. So a group can satisfy it while POLE_A
+    holds the second term -- both facts consistent with each other, both wrong together.
+
+    f11_parent was exactly that: pair_contrast 'mother/father', BOTH cell 'I am a mother
+    and a father' (order correct), and POLE_A = 'I am a father' (role inverted). Two
+    passing assertions and an inverted sign. Found by the Chinese translation pass, which
+    verified POLE_A-before-POLE_B in the ENGLISH as well as in its own output.
+
+    The general shape: two checks that each validate a field against a third thing can
+    both pass while disagreeing with each other. Check them against each other too.
+    """
+    bad = []
+    for gid, members in sorted(groups(rows, "f11_").items()):
+        by = {m.get("group_role"): m for m in members}
+        if "POLE_A" not in by or "POLE_B" not in by:
+            continue
+        label = next((m.get("pair_contrast") for m in members if m.get("pair_contrast")), None)
+        if not label or "/" not in label:
+            continue
+        first, second = [w.strip().lower() for w in label.split("/", 1)]
+        if first not in by["POLE_A"]["prompt"].lower():
+            bad.append(f"{gid}: pair_contrast={label!r} but POLE_A does not state "
+                       f"{first!r} -- {by['POLE_A']['prompt'][:44]!r}")
+        if second not in by["POLE_B"]["prompt"].lower():
+            bad.append(f"{gid}: pair_contrast={label!r} but POLE_B does not state "
+                       f"{second!r} -- {by['POLE_B']['prompt'][:44]!r}")
+    assert not bad, f"{len(bad)} role/label inversions: " + "; ".join(bad[:6])
+
+
 # --------------------------------------------------------------------------
 # 3. GROUP SHAPE
 # --------------------------------------------------------------------------
