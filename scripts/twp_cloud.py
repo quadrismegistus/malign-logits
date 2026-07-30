@@ -480,7 +480,25 @@ def assert_prompt_survives(tok, prompt, ids):
     # ByteLevel one the repo declares; whitespace fails to remap and vanishes,
     # and with `unk_token: null` nothing raises. So a script-specific test was
     # the wrong shape -- the question is whether the model sees THE PROMPT.
-    back = tok.decode(ids)
+    # skip_special_tokens=True, AND THE REASON IS THIS GUARD'S OWN BUG.
+    # `ids` comes from encode_prompt() under the BOS POLICY, so on any
+    # Mistral/Llama-family tokenizer it carries a leading <s> THAT WE ASKED FOR.
+    # Decoding it back without skipping specials rendered '<s> - the agony...'
+    # and the guard failed the prompt against its own BOS -- killing
+    # zephyr-7b-beta at 0/979 in the v3 grid.
+    #
+    # THE REAL DEFECT WAS THAT PRECONDITION 7 AND THIS GUARD TESTED DIFFERENT
+    # PATHS. prompt_encode_check.py encodes with add_special_tokens=False and
+    # passed 100,837 pairs with 0 failures; the runner encodes through the BOS
+    # policy. A precondition that green-lights a path the run does not take is
+    # the same shape as an encode guarantee established on another library
+    # version -- it reads as verified and covers something else.
+    #
+    # The cost of skipping is real and small: a tokenizer that mangled the
+    # prompt INTO special tokens would now pass. Nothing in the roster does
+    # that, and the failure it replaces was a false positive that discarded a
+    # whole model.
+    back = tok.decode(ids, skip_special_tokens=True)
     if back.strip() != prompt.strip():
         # normalise only what a tokenizer may legitimately alter
         a = " ".join(back.split())
