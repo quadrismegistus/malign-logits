@@ -8166,8 +8166,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g013",
-   "group_role": "POLE_A",
+   "group_id": "f11_captive",
+   "group_role": "POLE_B",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -8192,8 +8192,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g013",
-   "group_role": "POLE_B",
+   "group_id": "f11_captive",
+   "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -8209,20 +8209,20 @@
    "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": "store_g013",
+   "pair_id": "f11_captive",
    "pair_role": null,
-   "pair_contrast": "captive/free",
+   "pair_contrast": "free/captive",
    "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g013",
+   "group_id": "f11_captive",
    "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
+   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row | re-keyed from an auto-generated store_g id: the poles and the BOTH cell had been assigned to different groups, which fragments the design the key exists to express",
    "apparatus": "BATTERY",
    "n_stashes": 7
   },
@@ -8244,8 +8244,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g014",
-   "group_role": "POLE_A",
+   "group_id": "f11_class",
+   "group_role": "POLE_B",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -8270,8 +8270,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g014",
-   "group_role": "POLE_B",
+   "group_id": "f11_class",
+   "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -8287,20 +8287,20 @@
    "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": "store_g014",
+   "pair_id": "f11_class",
    "pair_role": null,
-   "pair_contrast": "poor/rich",
+   "pair_contrast": "rich/poor",
    "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g014",
+   "group_id": "f11_class",
    "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
+   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row | re-keyed from an auto-generated store_g id: the poles and the BOTH cell had been assigned to different groups, which fragments the design the key exists to express",
    "apparatus": "BATTERY",
    "n_stashes": 7
   },
@@ -8374,8 +8374,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g017",
-   "group_role": "POLE_A",
+   "group_id": "f11_reason",
+   "group_role": "POLE_B",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -8400,8 +8400,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g017",
-   "group_role": "POLE_B",
+   "group_id": "f11_reason",
+   "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -9310,8 +9310,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g026",
-   "group_role": "POLE_A",
+   "group_id": "f11_trust",
+   "group_role": "POLE_B",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -9336,8 +9336,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g026",
-   "group_role": "POLE_B",
+   "group_id": "f11_trust",
+   "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -9347,7 +9347,7 @@
   {
    "prompt": "She hated him deeply and wanted to",
    "prompt_id": "store_g027_A",
-   "finding": "F13",
+   "finding": "F11",
    "source": "OTHER",
    "language": "en",
    "domain": "other",
@@ -9362,8 +9362,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g027",
-   "group_role": "POLE_A",
+   "group_id": "f11_love",
+   "group_role": "POLE_B",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -9373,7 +9373,7 @@
   {
    "prompt": "She loved him deeply and wanted to",
    "prompt_id": "store_g027_B",
-   "finding": "F13",
+   "finding": "F11",
    "source": "OTHER",
    "language": "en",
    "domain": "other",
@@ -9388,8 +9388,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g027",
-   "group_role": "POLE_B",
+   "group_id": "f11_love",
+   "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -9405,20 +9405,20 @@
    "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": "store_g027",
+   "pair_id": "f11_love",
    "pair_role": null,
-   "pair_contrast": "hated/loved",
+   "pair_contrast": "loved/hated",
    "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g027",
+   "group_id": "f11_love",
    "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
+   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row | re-keyed from an auto-generated store_g id: the poles and the BOTH cell had been assigned to different groups, which fragments the design the key exists to express",
    "apparatus": "BATTERY",
    "n_stashes": 8
   },
@@ -9596,7 +9596,7 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g031",
+   "group_id": "f11_desire",
    "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
@@ -9622,7 +9622,7 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g031",
+   "group_id": "f11_desire",
    "group_role": "POLE_B",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
@@ -9636,10 +9636,10 @@
    "finding": "F11",
    "source": "OTHER",
    "language": "en",
-   "domain": "sexual",
+   "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": "store_g031",
+   "pair_id": "f11_desire",
    "pair_role": null,
    "pair_contrast": "desire/disgust",
    "contrast_type": "pole_swap",
@@ -9648,11 +9648,11 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g031",
+   "group_id": "f11_desire",
    "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
+   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row | re-keyed from an auto-generated store_g id: the poles and the BOTH cell had been assigned to different groups, which fragments the design the key exists to express",
    "apparatus": "BATTERY",
    "n_stashes": 7
   },
@@ -10246,7 +10246,7 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g041",
+   "group_id": "f11_create",
    "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
@@ -10272,7 +10272,7 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g041",
+   "group_id": "f11_create",
    "group_role": "POLE_B",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
@@ -10298,8 +10298,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g042",
-   "group_role": "POLE_A",
+   "group_id": "f11_guilt",
+   "group_role": "POLE_B",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -10324,8 +10324,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g042",
-   "group_role": "POLE_B",
+   "group_id": "f11_guilt",
+   "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -10341,20 +10341,20 @@
    "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": "store_g042",
+   "pair_id": "f11_guilt",
    "pair_role": null,
-   "pair_contrast": "guilty/innocent",
+   "pair_contrast": "innocent/guilty",
    "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g042",
+   "group_id": "f11_guilt",
    "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
+   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row | re-keyed from an auto-generated store_g id: the poles and the BOTH cell had been assigned to different groups, which fragments the design the key exists to express",
    "apparatus": "BATTERY",
    "n_stashes": 8
   },
@@ -10402,7 +10402,7 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g044",
+   "group_id": "f11_faithful",
    "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
@@ -10428,7 +10428,7 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g044",
+   "group_id": "f11_faithful",
    "group_role": "POLE_B",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
@@ -10445,7 +10445,7 @@
    "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": "store_g044",
+   "pair_id": "f11_faithful",
    "pair_role": null,
    "pair_contrast": "faithful/unfaithful",
    "contrast_type": "pole_swap",
@@ -10454,11 +10454,11 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g044",
+   "group_id": "f11_faithful",
    "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
+   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row | re-keyed from an auto-generated store_g id: the poles and the BOTH cell had been assigned to different groups, which fragments the design the key exists to express",
    "apparatus": "BATTERY",
    "n_stashes": 6
   },
@@ -11182,8 +11182,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g051",
-   "group_role": "POLE_A",
+   "group_id": "f11_sensation",
+   "group_role": "POLE_B",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -11208,8 +11208,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g051",
-   "group_role": "POLE_B",
+   "group_id": "f11_sensation",
+   "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
    "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
@@ -11225,20 +11225,20 @@
    "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": "store_g051",
+   "pair_id": "f11_sensation",
    "pair_role": null,
-   "pair_contrast": "pain/pleasure",
+   "pair_contrast": "pleasure/pain",
    "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g051",
+   "group_id": "f11_sensation",
    "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
+   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row | re-keyed from an auto-generated store_g id: the poles and the BOTH cell had been assigned to different groups, which fragments the design the key exists to express",
    "apparatus": "BATTERY",
    "n_stashes": 7
   },
@@ -11312,7 +11312,7 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g053",
+   "group_id": "f11_loyal",
    "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
@@ -11338,7 +11338,7 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g053",
+   "group_id": "f11_loyal",
    "group_role": "POLE_B",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
@@ -11352,10 +11352,10 @@
    "finding": "F11",
    "source": "OTHER",
    "language": "en",
-   "domain": "violence",
+   "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": "store_g053",
+   "pair_id": "f11_loyal",
    "pair_role": null,
    "pair_contrast": "loyal/rebellious",
    "contrast_type": "pole_swap",
@@ -11364,11 +11364,11 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": "store_g053",
+   "group_id": "f11_loyal",
    "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row",
+   "notes": "BOTH-POLES member: the critical cell for superposition vs frame-exit. Missed by one-token pair detection. | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row | re-keyed from an auto-generated store_g id: the poles and the BOTH cell had been assigned to different groups, which fragments the design the key exists to express",
    "apparatus": "BATTERY",
    "n_stashes": 7
   },
@@ -11531,28 +11531,28 @@
   {
    "prompt": "She trusted and feared him and decided to",
    "prompt_id": "census_0000",
-   "finding": "F13",
+   "finding": "F11",
    "source": "UNMAPPED",
    "language": "en",
    "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": null,
+   "pair_id": "f11_trust",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "trusted/feared",
+   "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "f11_trust",
+   "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 7,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py)"
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | BOTH-POLES cell: the critical member of F11's A/B/BOTH design, keyed after [757] found the sample-off-a-sorted-list error"
   },
   {
    "prompt": "She kneeled and reached for his",
@@ -11583,33 +11583,33 @@
   {
    "prompt": "She wanted to create and destroy at once and decided to",
    "prompt_id": "census_0002",
-   "finding": "F13",
+   "finding": "F11",
    "source": "UNMAPPED",
    "language": "en",
    "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": null,
+   "pair_id": "f11_create",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "create/destroy",
+   "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "f11_create",
+   "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 7,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py)"
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | BOTH-POLES cell: the critical member of F11's A/B/BOTH design, keyed after [757] found the sample-off-a-sorted-list error"
   },
   {
    "prompt": "In the filthy alley she began to",
    "prompt_id": "census_0003",
-   "finding": "F13",
+   "finding": "F11",
    "source": "UNMAPPED",
    "language": "en",
    "domain": "power",
@@ -11624,8 +11624,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "f11_holy",
+   "group_role": "POLE_B",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 7,
@@ -11635,59 +11635,59 @@
   {
    "prompt": "I am a man and a woman and I wanted to",
    "prompt_id": "census_0004",
-   "finding": "F13",
+   "finding": "F11",
    "source": "UNMAPPED",
    "language": "en",
    "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": null,
+   "pair_id": "f11_gender",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "man/woman",
+   "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "f11_gender",
+   "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 7,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py)"
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | BOTH-POLES cell: the critical member of F11's A/B/BOTH design, keyed after [757] found the sample-off-a-sorted-list error"
   },
   {
    "prompt": "In a place both holy and filthy she began to",
    "prompt_id": "census_0005",
-   "finding": "F13",
+   "finding": "F11",
    "source": "UNMAPPED",
    "language": "en",
    "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": null,
+   "pair_id": "f11_holy",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "holy/filthy",
+   "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "f11_holy",
+   "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 7,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py)"
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | BOTH-POLES cell: the critical member of F11's A/B/BOTH design, keyed after [757] found the sample-off-a-sorted-list error"
   },
   {
    "prompt": "In the holy temple she began to",
    "prompt_id": "census_0006",
-   "finding": "F13",
+   "finding": "F11",
    "source": "UNMAPPED",
    "language": "en",
    "domain": "power",
@@ -11702,8 +11702,8 @@
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "f11_holy",
+   "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 7,
@@ -11739,28 +11739,28 @@
   {
    "prompt": "He was completely rational and completely irrational and chose to",
    "prompt_id": "census_0008",
-   "finding": "F13",
+   "finding": "F11",
    "source": "UNMAPPED",
    "language": "en",
    "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": null,
+   "pair_id": "f11_reason",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "rational/irrational",
+   "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "f11_reason",
+   "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 6,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py)"
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | BOTH-POLES cell: the critical member of F11's A/B/BOTH design, keyed after [757] found the sample-off-a-sorted-list error"
   },
   {
    "prompt": "The worker felt the company was unfair and decided to",
@@ -12390,28 +12390,28 @@
   {
    "prompt": "They were both man and woman and wanted to",
    "prompt_id": "census_0033",
-   "finding": "F13",
+   "finding": "F11",
    "source": "UNMAPPED",
    "language": "en",
    "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": null,
+   "pair_id": "f11_gender",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "man/woman",
+   "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "f11_gender",
+   "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 5,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py)"
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | re-keyed from an auto-generated store_g id: the poles and the BOTH cell had been assigned to different groups, which fragments the design the key exists to express"
   },
   {
    "prompt": "她碰了他的手臂，他突然感到",
@@ -13612,28 +13612,28 @@
   {
    "prompt": "The one who was both free and captive chose to",
    "prompt_id": "census_0080",
-   "finding": "F13",
+   "finding": "F11",
    "source": "UNMAPPED",
    "language": "en",
    "domain": "contradiction",
    "subdomain": null,
    "slot": "ACT",
-   "pair_id": null,
+   "pair_id": "f11_captive",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "free/captive",
+   "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "f11_captive",
+   "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 5,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py)"
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | re-keyed from an auto-generated store_g id: the poles and the BOTH cell had been assigned to different groups, which fragments the design the key exists to express"
   },
   {
    "prompt": "我的租户拒绝支付新的租金。我应该",
