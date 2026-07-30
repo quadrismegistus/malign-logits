@@ -117,6 +117,18 @@ ARCHITECTURE = {
 }
 
 
+# SCALE LADDERS, DECLARED. `smaller_version_of` carries the scale question --
+# one org, one recipe, three sizes, which is a far better design for "does the
+# effect scale" than any cross-org comparison. Declared rather than inferred
+# from the family-key prefix, because name-pattern inference produced two
+# defects today (a \b that matched nothing, an architecture default asserted
+# from a spec read).
+SCALE_LADDERS = [
+    ["olmo-tiny", "olmo", "olmo-32b"],
+    ["falcon3-1b", "falcon3-3b", "falcon3-10b"],
+]
+
+
 def sh(cmd):
     try:
         return subprocess.run(cmd, shell=True, capture_output=True,
@@ -133,14 +145,42 @@ def load_csv(fn):
         return {r["model"]: r for r in csv.DictReader(fh)}
 
 
+# PARAMS THE NAME CANNOT YIELD. Declared, because THREE ATTEMPTS AT A RULE BROKE
+# THREE DIFFERENT FAMILIES:
+#     naive `\d+b`                 archangel_sft-kto_pythia2-8b -> 8B   (it is 2.8B)
+#     hyphen-as-decimal            rwkv-4-7b -> 4.7B, OLMo-2-0425-1B -> 425.1B
+#     + require a letter before    Falcon3-1B -> 3.1B  (the 3 is a GENERATION)
+# `pythia2-8b` and `Falcon3-1B` are syntactically identical and semantically
+# opposite, so no pattern separates them. This is lacan's own rule arriving on
+# my code: name-pattern inference produced two defects today, and trying to
+# rescue it produced two more.
+PARAMS_OVERRIDE = {
+    "ContextualAI/archangel_sft_pythia2-8b": 2.8,
+    "ContextualAI/archangel_sft-dpo_pythia2-8b": 2.8,
+    "ContextualAI/archangel_sft-kto_pythia2-8b": 2.8,
+    "ContextualAI/archangel_sft-ppo_pythia2-8b": 2.8,
+    "ContextualAI/archangel_sft-slic_pythia2-8b": 2.8,
+}
+
+
 def params_from_name(mid):
+    """(display, billions). None when the name does not carry a size.
+
+    Overrides first; then the plain `<n>b` / `<n>m` forms. NO hyphen-as-decimal
+    rule -- see PARAMS_OVERRIDE for why it cannot exist.
+    """
+    if mid in PARAMS_OVERRIDE:
+        v = PARAMS_OVERRIDE[mid]
+        return f"{v}B", v
     s = mid.lower()
     m = re.findall(r"[-_/](\d+(?:\.\d+)?)b(?![a-z0-9])", s) or \
         re.findall(r"(\d+(?:\.\d+)?)b(?![a-z0-9])", s)
     if m:
-        return f"{m[-1]}B"
+        return f"{m[-1]}B", float(m[-1])
     m = re.findall(r"(\d+)m(?![a-z0-9])", s)
-    return f"{m[-1]}M" if m else ""
+    if m:
+        return f"{m[-1]}M", float(m[-1]) / 1000
+    return "", None
 
 
 def build():
@@ -173,14 +213,20 @@ def build():
                     family=fam_key, position=pos,
                     stage=(method.group(1).lower() if method
                            else POSITION_STAGE.get(pos, "")),
-                    org=mid.split("/")[0], params=params_from_name(mid),
+                    org=mid.split("/")[0],
+                    params=params_from_name(mid)[0],
+                    params_b=params_from_name(mid)[1],
                     architecture=ARCHITECTURE.get(mid, "transformer"),
                     tokenizer_class=rt.get("tokenizer", ""),
                     vocab_size=int(cj["vocab_size"]) if cj.get("vocab_size") else None,
                     cjk_tier=cj.get("tier", ""),
                     cjk_chars=int(cj["cjk_chars"]) if cj.get("cjk_chars") else None,
                     weights_format=w.get("weights_format", ""),
-                    index_present=w.get("index_present", ""),
+                    # A REAL BOOLEAN. It was the STRING "true"/"false", so
+                    # `if row["index_present"]` was True for "false" as well --
+                    # one field, two types, waiting.
+                    index_present=({"true": True, "false": False}
+                                   .get(w.get("index_present", ""), None)),
                     needs_torch=w.get("needs_torch", ""),
                     bos_stratum=bo.get("stratum", ""),
                     bos_resolver=bo.get("resolver", ""),
@@ -194,11 +240,30 @@ def build():
             else:
                 relations.append({"parent": mid, "child": fam_key,
                                   "relation": "also_member_of"})
-        # training-axis edges, from the family's own slots
-        for pos in ("ego", "superego", "reinforced_superego", "reasoning"):
-            if base_id and arms.get(pos):
-                relations.append({"parent": base_id, "child": arms[pos],
-                                  "relation": f"{POSITION_STAGE[pos]}_of"})
+        # TRAINING-AXIS EDGES: CHAINED, NOT STAR-SHAPED, and typed by the
+        # child's STAGE rather than its position.
+        #
+        # Star shape hung every aligned arm off the BASE, so the SFT step was
+        # invisible to a traversal and "what sequence of training produced this
+        # checkpoint" could not be answered from the relations at all. The
+        # parent is now the previous stage where one exists.
+        #
+        # And the label follows the stage: the four archangel arms differ only
+        # by preference method, so an edge typed from `position` called kto_of
+        # dpo_of and contradicted the node it pointed at.
+        prev = base_id
+        for pos in ("ego", "superego", "reinforced_superego"):
+            mid_pos = arms.get(pos)
+            if not mid_pos:
+                continue
+            if prev:
+                st = rows[mid_pos].get("stage") or POSITION_STAGE[pos]
+                relations.append({"parent": prev, "child": mid_pos,
+                                  "relation": f"{st}_of"})
+            prev = mid_pos
+        if base_id and arms.get("reasoning"):
+            relations.append({"parent": base_id, "child": arms["reasoning"],
+                              "relation": "reasoning_of"})
     return rows, relations, sw
 
 
@@ -217,6 +282,22 @@ def lateral(rows, relations):
             for b in sibs[i + 1:]:
                 relations.append({"parent": a, "child": b,
                                   "relation": "same_base_as"})
+    # smaller_version_of: ORDERED at [984].5 and absent from the first build.
+    # Emitted between consecutive rungs AND transitively, so "every olmo" is one
+    # traversal rather than a hand-assembly from three unconnected family keys.
+    fam_of = {}
+    for mid, r in rows.items():
+        fam_of.setdefault(r.get("family"), []).append(mid)
+    for ladder in SCALE_LADDERS:
+        present = [f for f in ladder if fam_of.get(f)]
+        for i, small in enumerate(present):
+            for big in present[i + 1:]:
+                for a in fam_of[small]:
+                    for b in fam_of[big]:
+                        if rows[a].get("position") == rows[b].get("position"):
+                            relations.append({"parent": a, "child": b,
+                                              "relation": "smaller_version_of"})
+
     # data_ablation_of: the pair that can say WHICH training data
     for mid in rows:
         if "no-" in mid and "Tulu" in mid:
@@ -297,10 +378,26 @@ def main(a):
                                             "are different facts.")},
             },
             "relations": {
-                "direction": "child is the <relation> of parent",
-            "field_names": ["parent", "child", "relation"],
-                "values": ["sft_of", "dpo_of", "rlvr_of", "reasoning_of",
-                           "same_base_as", "data_ablation_of", "also_member_of"],
+                "field_names": ["parent", "child", "relation"],
+                # A WORKED SENTENCE PER TYPE, not a direction flag. lacan's own
+                # two founding examples required OPPOSITE readings of one
+                # convention -- "X is the kto_of Y" and "X is the
+                # smaller_version_of Y" cannot both be true under one rule. A
+                # sentence naming both roles cannot be read backwards.
+                "reads": {
+                    "sft_of": "{child} is the SFT-tuned version of {parent}",
+                    "dpo_of": "{child} is the DPO-aligned version of {parent}",
+                    "kto_of": "{child} is the KTO-aligned version of {parent}",
+                    "ppo_of": "{child} is the PPO-aligned version of {parent}",
+                    "slic_of": "{child} is the SLiC-aligned version of {parent}",
+                    "rlvr_of": "{child} is the RLVR-tuned version of {parent}",
+                    "instruct_of": "{child} is the instruct version of {parent}",
+                    "reasoning_of": "{child} is the reasoning-distilled version of {parent}",
+                    "smaller_version_of": "{parent} is a smaller-parameter version of {child}",
+                    "data_ablation_of": "{child} is {parent} trained without some data",
+                    "same_base_as": "{parent} and {child} share a base checkpoint",
+                    "also_member_of": "{parent} is also a member of family {child}",
+                },
                 "symmetric": ["same_base_as"],
             },
         },

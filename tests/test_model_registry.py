@@ -74,7 +74,7 @@ def test_relation_endpoints_exist(doc, ids):
 
 
 def test_relation_types_are_declared(doc):
-    declared = set(doc["_schema"]["relations"]["values"])
+    declared = set(doc["_schema"]["relations"]["reads"])
     used = {e["relation"] for e in doc["relations"]}
     assert used <= declared, f"undeclared relation types: {used - declared}"
 
@@ -87,7 +87,7 @@ def test_relation_direction_is_stated(doc):
     two disagreed and the assertions read a key that was not there.
     """
     rel = doc["_schema"]["relations"]
-    assert rel.get("direction")
+    assert rel.get("reads"), "no per-type reading sentences"
     assert rel.get("field_names") == ["parent", "child", "relation"]
     for e in doc["relations"]:
         assert set(e) == {"parent", "child", "relation"}, e
@@ -165,7 +165,7 @@ def test_weights_format_mixed_records_which_index(doc):
     """
     for m in doc["models"]:
         if m.get("weights_format") == "mixed":
-            assert m.get("index_present") in ("true", "false"), m["model_id"]
+            assert isinstance(m.get("index_present"), bool), m["model_id"]
 
 
 def test_stage_is_never_guessed_for_unknown_procedures(doc):
@@ -233,3 +233,83 @@ def test_torch_floor_population_is_fully_accounted(envdoc):
             if o["outcome"] == "load_failed"}
     seen |= set(envdoc["predicted_untested"]["model_ids"])
     assert need <= seen, f"unaccounted: {sorted(need - seen)}"
+
+
+# ── defects lacan found by building against the file ──────────────────────
+
+def test_edge_type_agrees_with_the_child_node(doc):
+    """An edge must not assert a method its own endpoint denies.
+
+    kto/ppo/slic arms travelled as `dpo_of` while their `stage` said otherwise
+    -- three edges contradicting the nodes they connect.
+    """
+    stage = {m["model_id"]: m["stage"] for m in doc["models"]}
+    METHOD = {"sft_of", "dpo_of", "kto_of", "ppo_of", "slic_of", "rlvr_of"}
+    for e in doc["relations"]:
+        if e["relation"] in METHOD:
+            assert e["relation"] == f"{stage[e['child']]}_of", (
+                f"{e['relation']} points at a node whose stage is "
+                f"{stage[e['child']]}: {e}")
+
+
+def test_params_match_the_base_across_training_edges(doc):
+    """A 2.8B base cannot have 8B children.
+
+    `archangel_sft-kto_pythia2-8b` IS pythia-2.8b -- the decimal point is
+    written as a hyphen -- and a naive parse gave 8B for five rows. This finds
+    that class without anyone reading the values.
+    """
+    pb = {m["model_id"]: m.get("params_b") for m in doc["models"]}
+    TRAIN = {"sft_of", "dpo_of", "kto_of", "ppo_of", "slic_of", "rlvr_of",
+             "instruct_of"}
+    for e in doc["relations"]:
+        if e["relation"] in TRAIN:
+            a, b = pb.get(e["parent"]), pb.get(e["child"])
+            if a and b:
+                assert abs(a - b) < 1e-6, (
+                    f"{e['relation']}: parent {a}B vs child {b}B -- "
+                    f"training does not change parameter count ({e})")
+
+
+def test_scale_ladder_relation_exists(doc):
+    """Ordered in the founding commit and absent from the first build.
+
+    It carries the scale question: one org, one recipe, three sizes.
+    """
+    lad = [e for e in doc["relations"] if e["relation"] == "smaller_version_of"]
+    assert lad, "smaller_version_of was ordered and is missing"
+    pb = {m["model_id"]: m.get("params_b") for m in doc["models"]}
+    for e in lad:
+        a, b = pb.get(e["parent"]), pb.get(e["child"])
+        if a and b:
+            assert a < b, f"smaller_version_of points the wrong way: {e}"
+
+
+def test_every_relation_type_states_how_to_read_it(doc):
+    """A direction flag needs a reader to remember what 'forward' means.
+
+    lacan's two founding examples required OPPOSITE readings of one convention,
+    so each type carries a sentence naming both roles.
+    """
+    reads = doc["_schema"]["relations"]["reads"]
+    used = {e["relation"] for e in doc["relations"]}
+    for r in used:
+        assert r in reads, f"{r} has no reads sentence"
+        assert "{parent}" in reads[r] and "{child}" in reads[r], reads[r]
+
+
+def test_symmetric_relations_are_symmetric(doc):
+    sym = set(doc["_schema"]["relations"].get("symmetric", []))
+    pairs = {(e["parent"], e["child"]) for e in doc["relations"]
+             if e["relation"] in sym}
+    for a, b in pairs:
+        assert (b, a) in pairs or a < b, (
+            f"symmetric relation stored one-way and unordered: {a} {b}")
+
+
+def test_index_present_is_a_boolean_not_a_string(doc):
+    """One field, two types, waiting: `if row["index_present"]` was True for
+    the STRING "false"."""
+    for m in doc["models"]:
+        v = m.get("index_present")
+        assert v is None or isinstance(v, bool), (m["model_id"], type(v))
