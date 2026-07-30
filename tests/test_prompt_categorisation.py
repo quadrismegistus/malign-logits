@@ -547,6 +547,14 @@ def test_scored_prompts_are_not_marked_unscored(rows, census_stashes):
     """
     bad = []
     for r in rows:
+        # A model_resolved row's `prompt` is a PLACEHOLDER, not a literal, so joining it to
+        # the census by prompt text is a category error -- which is precisely what the
+        # `realisation` field exists to signal. The logical BOS row has prompt="" and the
+        # census holds 2,261 generations for the empty-string LITERAL; those are different
+        # objects. This exemption was needed the moment the field was added, which is a
+        # decent sign the field is real rather than decorative.
+        if r.get("realisation") == "model_resolved":
+            continue
         n = census_stashes.get(r["prompt"].rstrip(), 0)
         if n > 0 and r.get("apparatus") == "UNSCORED":
             bad.append(f"{r['prompt_id']} (census n_stashes={n}) {r['prompt'][:36]!r}")
