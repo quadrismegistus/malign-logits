@@ -148,3 +148,61 @@ def test_rule_is_a_declared_object_so_thresholds_are_cited_not_retyped():
                   null_test=True)
     m = movement({"f": 0.5, "a": 0.5}, {"f": 0.05, "a": 0.95}, custom)
     assert m.rule.name == "strict"
+
+
+# ---------------------------------------------------------------------------
+# Cache accessors. These need the cache; they skip cleanly without it.
+# ---------------------------------------------------------------------------
+
+def _cache_or_skip():
+    try:
+        from malign_logits.cache import get_cache
+        return get_cache()
+    except Exception:
+        pytest.skip("cache unavailable")
+
+
+def test_word_probs_sums_token_paths_instead_of_overwriting_them():
+    """THE DEFECT THIS ACCESSOR EXISTS TO PREVENT.
+
+    The payload is one row per (word, FIRST TOKEN) and those rows are a PARTITION: summed
+    over every row, plus the residual, they come to 1.0. `{r["word"]: r["p"] for r in
+    rows}` keeps the last path and drops the rest -- silently, and on 20% of payloads.
+    """
+    from malign_logits.movement import word_probs
+    cm = _cache_or_skip()
+    model, prompt = ("ContextualAI/archangel_sft_pythia2-8b",
+                     "他把身体贴在她身上，低声说")
+    payload = cm.get_true_word_probs(model, prompt)
+    if payload is None:
+        pytest.skip("reference cell not cached")
+    rows = payload["rows"]
+    naive = {r["word"]: r["p"] for r in rows}
+    w = word_probs(model, prompt, cache=cm)
+
+    assert w.collapsed > 0, "reference cell no longer has duplicate surfaces; pick another"
+    assert w.total == pytest.approx(1.0, abs=1e-6), (
+        "rows plus residual must partition the distribution; if not, summing is the "
+        "wrong fold and this accessor's premise is broken")
+    assert sum(naive.values()) < sum(w.probs.values()), (
+        "the naive comprehension must lose mass here, or the test is vacuous")
+
+
+def test_movers_refuses_a_mixed_rule_version():
+    """A v1 arm against a v3 arm books an INSTRUMENT CHANGE as alignment movement."""
+    from malign_logits import movement as mv
+    calls = {}
+
+    def fake(model, prompt, theta=0.001, mode="raw", cache=None):
+        return mv.WordProbs(probs={"a": 0.5}, residual=0.5,
+                            rule_version=calls.setdefault(model, 1 if "pre" in model else 3))
+
+    orig = mv.word_probs
+    mv.word_probs = fake
+    try:
+        with pytest.raises(ValueError, match="rule_version mismatch"):
+            mv.movers("pre/model", "post/model", "p")
+        assert mv.movers("pre/model", "post/model", "p",
+                         allow_mixed_rule_version=True) is not None
+    finally:
+        mv.word_probs = orig

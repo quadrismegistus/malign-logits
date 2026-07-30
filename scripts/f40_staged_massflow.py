@@ -92,7 +92,17 @@ def load_arm(model):
                 d = json.loads(line)
             except Exception:
                 continue
-            dist = {r["word"]: r["p"] for r in d.get("rows") or []}
+            # SUM over token paths, never overwrite. The payload is one row per
+            # (word, FIRST TOKEN) and the rows are a PARTITION -- summed with the
+            # residual they come to 1.0. A dict comprehension keeps the last path and
+            # drops the rest, silently, on 20% of payloads; on one Chinese cell it lost
+            # 2.7% of the distribution. This file had that bug until 2026-07-30 and the
+            # error fell hardest on Chinese, where surfaces have more token paths --
+            # i.e. on exactly the comparison it was written to make.
+            # malign_logits.movement.word_probs() is the canonical accessor.
+            dist = {}
+            for r in d.get("rows") or []:
+                dist[r["word"]] = dist.get(r["word"], 0.0) + r["p"]
             # THE TAIL IS A BUCKET. See the docstring: renormalising would delete the
             # movement this script exists to measure.
             dist["__TAIL__"] = (d.get("residual") or {}).get("total", 0.0)

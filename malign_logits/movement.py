@@ -197,3 +197,86 @@ def movement_from_logits(pre_logits, post_logits, rule=CANONICAL, labels=None):
     P = {idx[i]: p[i] for i in range(len(p))}
     Q = {idx[i]: q[i] for i in range(len(q))}
     return _movement(P, Q, rule, residual_share=0.0, exact_null=True)
+
+
+# ---------------------------------------------------------------------------
+# Cache accessors. THE ONE-LINER EVERYONE WRITES IS WRONG.
+# ---------------------------------------------------------------------------
+
+@dataclass
+class WordProbs:
+    """A prompt's word distribution for one model, plus what it took to build it."""
+    probs: dict                  # word -> probability, SUMMED over token paths
+    residual: float              # untruncated remainder; probs + residual == 1
+    rule_version: int = None     # the boundary rule that produced the cells
+    n_rows: int = 0              # payload rows
+    n_surfaces: int = 0          # distinct words
+    collapsed: int = 0           # rows folded into an existing surface
+
+    @property
+    def total(self):
+        return sum(self.probs.values()) + self.residual
+
+
+def word_probs(model, prompt, theta=0.001, mode="raw", cache=None):
+    """`{word: prob}` for one model and prompt, or None if the cell is not cached.
+
+    **DO NOT WRITE `{r["word"]: r["p"] for r in payload["rows"]}`.** The payload is one
+    row per (word, FIRST TOKEN) -- a surface reachable by several token paths gets
+    several rows -- and those rows are a PARTITION: summed over every row, plus the
+    residual, they come to 1.000000. A dict comprehension keeps the last path and DROPS
+    THE REST.
+
+    Measured on this cache: **20% of payloads contain a duplicated surface**, up to three
+    rows for one word, and on a Chinese payload the naive comprehension lost 2.7% of the
+    distribution (0.973 instead of 1.000). The error is silent, it is larger where a
+    language has more token paths per surface, and it therefore falls hardest on exactly
+    the cross-language comparison it would be used for.
+
+    `collapsed` reports how many rows were folded, so a caller can see when it happened.
+    """
+    from .cache import get_cache
+    cm = cache or get_cache()
+    payload = cm.get_true_word_probs(model, prompt, theta=theta, mode=mode)
+    if payload is None:
+        return None
+    rows = payload.get("rows") or []
+    probs = {}
+    for r in rows:
+        w = r["word"]
+        probs[w] = probs.get(w, 0.0) + r["p"]      # SUM, never overwrite
+    return WordProbs(
+        probs=probs,
+        residual=(payload.get("residual") or {}).get("total", 0.0),
+        rule_version=payload.get("rule_version"),
+        n_rows=len(rows), n_surfaces=len(probs), collapsed=len(rows) - len(probs))
+
+
+def movers(pre_model, post_model, prompt, rule=CANONICAL, theta=0.001, mode="raw",
+           cache=None, allow_mixed_rule_version=False):
+    """Risers and fallers between two models on one prompt, straight from the cache.
+
+    Returns None if either cell is missing.
+
+    **REFUSES A MIXED rule_version BY DEFAULT.** A v1 pre-arm against a v3 post-arm books
+    an INSTRUMENT CHANGE as alignment movement: v3 changed what a word is, so words
+    appear, merge and vanish between the arms for reasons that have nothing to do with
+    the model. Pass `allow_mixed_rule_version=True` only with a reason, and never for a
+    number that will be quoted.
+    """
+    a = word_probs(pre_model, prompt, theta, mode, cache)
+    b = word_probs(post_model, prompt, theta, mode, cache)
+    if a is None or b is None:
+        return None
+    if (a.rule_version != b.rule_version) and not allow_mixed_rule_version:
+        raise ValueError(
+            f"rule_version mismatch: {pre_model} is v{a.rule_version}, {post_model} is "
+            f"v{b.rule_version}. The arms were produced by different instruments, so a "
+            f"difference between them is not attributable to alignment. Re-run the "
+            f"lagging arm, or pass allow_mixed_rule_version=True with a stated reason.")
+    m = movement(a.probs, b.probs, rule,
+                 residual_pre=a.residual, residual_post=b.residual)
+    m.diagnostics.update(rule_version=a.rule_version, collapsed_pre=a.collapsed,
+                         collapsed_post=b.collapsed, n_surfaces_pre=a.n_surfaces,
+                         n_surfaces_post=b.n_surfaces)
+    return m
