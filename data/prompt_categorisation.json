@@ -90,6 +90,7 @@
     "occupation",
     "occupation_gendered",
     "officer",
+    "parenthood",
     "party",
     "patient",
     "reason",
@@ -4602,8 +4603,8 @@
    "ladder_rank": null,
    "axes_expected": [],
    "slot_status": "NOT_APPLICABLE",
-   "status": "ACTIVE",
-   "notes": "mid-sentence fragment of published prose, from the human-vs-AI self-surprisal experiment. NOT a designed prompt: the continuation slot is the arbitrary truncation point. Detectable as starts-lowercase or contains a sentence boundary; 87 of 102 start lowercase where 0 of 146 designed prompts do. Must never enter a slot- or domain-stratified statistic. | domain set to literary: F19 corpus material, not a transgressive-vs-neutral stimulus. Checked before applying -- only 1 of 102 literary rows contains any transgressive token, so no content is erased. `other` was conflating corpus material with uncategorised stimuli.",
+   "status": "RETIRED",
+   "notes": "mid-sentence fragment of published prose, from the human-vs-AI self-surprisal experiment. NOT a designed prompt: the continuation slot is the arbitrary truncation point. Detectable as starts-lowercase or contains a sentence boundary; 87 of 102 start lowercase where 0 of 146 designed prompts do. Must never enter a slot- or domain-stratified statistic. | domain set to literary: F19 corpus material, not a transgressive-vs-neutral stimulus. Checked before applying -- only 1 of 102 literary rows contains any transgressive token, so no content is erased. `other` was conflating corpus material with uncategorised stimuli. | RETIRED: a leaked reasoning-template prefix, exactly like the `chat:` rows already retired. My prefix rule matched chat|user|assistant|system and not `think`, so five of ten identical defects were fixed and five left active -- a half-applied rule, which is worse than none because the survivors look considered.",
    "group_id": null,
    "group_role": null,
    "apparatus": "BATTERY",
@@ -8710,26 +8711,26 @@
   {
    "prompt": "I am a father and I wanted to",
    "prompt_id": "store_g021_A",
-   "finding": "F13",
+   "finding": "F11",
    "source": "OTHER",
    "language": "en",
-   "domain": "other",
-   "subdomain": null,
+   "domain": "contradiction",
+   "subdomain": "parenthood",
    "slot": "ACT",
-   "pair_id": null,
+   "pair_id": "f11_parent",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "mother/father",
+   "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "f11_parent",
+   "group_role": "POLE_A",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row | domain from the residue proposal pass (other, confidence medium-high); basis: store_g021 residual pair (father/mother; the man/woman members of this same originally-4-way group were already re-keyed out to f11_gender). Parental-identity + | group_role and pair_role deleted: both were assigned by enumerate(sorted(prompts)), verified 32/32 alphabetical, so pair_role=MARKED labelled `leaned` marked and `slammed` unmarked. No recoverable true value, hence deletion rather than repair. | UNKEYED: pair_contrast was 'father/man' and ['man'] appears in none of the group's prompts -- an alphabetised mapper label naming a token that is not there, and not re-derivable. The group goes rather than an invented token.",
+   "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row | domain from the residue proposal pass (other, confidence medium-high); basis: store_g021 residual pair (father/mother; the man/woman members of this same originally-4-way group were already re-keyed out to f11_gender). Parental-identity + | group_role and pair_role deleted: both were assigned by enumerate(sorted(prompts)), verified 32/32 alphabetical, so pair_role=MARKED labelled `leaned` marked and `slammed` unmarked. No recoverable true value, hence deletion rather than repair. | UNKEYED: pair_contrast was 'father/man' and ['man'] appears in none of the group's prompts -- an alphabetised mapper label naming a token that is not there, and not re-derivable. The group goes rather than an invented token. | keyed into f11_parent: all three members of this contradiction already existed unkeyed, with the BOTH cell at domain=contradiction and the poles at other -- the exact split decision 2 fixed for the other 13 groups. A 14th F11 triple available at no cost.",
    "apparatus": "BATTERY",
    "n_stashes": 5
   },
@@ -8762,26 +8763,26 @@
   {
    "prompt": "I am a mother and I wanted to",
    "prompt_id": "store_g021_2",
-   "finding": "F13",
+   "finding": "F11",
    "source": "OTHER",
    "language": "en",
-   "domain": "other",
-   "subdomain": null,
+   "domain": "contradiction",
+   "subdomain": "parenthood",
    "slot": "ACT",
-   "pair_id": null,
+   "pair_id": "f11_parent",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "mother/father",
+   "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "f11_parent",
+   "group_role": "POLE_B",
    "slot_status": "ASSIGNED",
    "status": "ACTIVE",
-   "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row | domain from the residue proposal pass (other, confidence medium-high); basis: store_g021 residual pair (father/mother; the man/woman members of this same originally-4-way group were already re-keyed out to f11_gender). Parental-identity + | group_role and pair_role deleted: both were assigned by enumerate(sorted(prompts)), verified 32/32 alphabetical, so pair_role=MARKED labelled `leaned` marked and `slammed` unmarked. No recoverable true value, hence deletion rather than repair. | UNKEYED: pair_contrast was 'father/man' and ['man'] appears in none of the group's prompts -- an alphabetised mapper label naming a token that is not there, and not re-derivable. The group goes rather than an invented token.",
+   "notes": "detected one-token contrast; slot and domain need hand assignment | slot and domain hand-assigned by rule (see build_prompt_categorisation.py); dispute the rule, not the row | domain from the residue proposal pass (other, confidence medium-high); basis: store_g021 residual pair (father/mother; the man/woman members of this same originally-4-way group were already re-keyed out to f11_gender). Parental-identity + | group_role and pair_role deleted: both were assigned by enumerate(sorted(prompts)), verified 32/32 alphabetical, so pair_role=MARKED labelled `leaned` marked and `slammed` unmarked. No recoverable true value, hence deletion rather than repair. | UNKEYED: pair_contrast was 'father/man' and ['man'] appears in none of the group's prompts -- an alphabetised mapper label naming a token that is not there, and not re-derivable. The group goes rather than an invented token. | keyed into f11_parent: all three members of this contradiction already existed unkeyed, with the BOTH cell at domain=contradiction and the poles at other -- the exact split decision 2 fixed for the other 13 groups. A 14th F11 triple available at no cost.",
    "apparatus": "BATTERY",
    "n_stashes": 5
   },
@@ -13027,28 +13028,28 @@
   {
    "prompt": "I am a mother and a father and I wanted to",
    "prompt_id": "census_0056",
-   "finding": "F13",
+   "finding": "F11",
    "source": "UNMAPPED",
    "language": "en",
    "domain": "contradiction",
-   "subdomain": null,
+   "subdomain": "parenthood",
    "slot": "ACT",
-   "pair_id": null,
+   "pair_id": "f11_parent",
    "pair_role": null,
-   "pair_contrast": null,
-   "contrast_type": null,
+   "pair_contrast": "mother/father",
+   "contrast_type": "pole_swap",
    "ladder_id": null,
    "ladder_rank": null,
    "axes_expected": [
     "intensity"
    ],
-   "group_id": null,
-   "group_role": null,
+   "group_id": "f11_parent",
+   "group_role": "BOTH",
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 5,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (contradiction, confidence medium-high); basis: 'I am a mother and a father and I wanted to' -- an unformalized BOTH-cell candidate for the store_g021 father/mother pole pair (parallel to how census_0004/0033"
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (contradiction, confidence medium-high); basis: 'I am a mother and a father and I wanted to' -- an unformalized BOTH-cell candidate for the store_g021 father/mother pole pair (parallel to how census_0004/0033 | keyed into f11_parent: all three members of this contradiction already existed unkeyed, with the BOTH cell at domain=contradiction and the poles at other -- the exact split decision 2 fixed for the other 13 groups. A 14th F11 triple available at no cost."
   },
   {
    "prompt": "She was only fourteen but he wanted to",
@@ -14133,8 +14134,8 @@
    "slot_status": "NOT_APPLICABLE",
    "apparatus": "BATTERY",
    "n_stashes": 4,
-   "status": "ACTIVE",
-   "notes": "apparatus BATTERY; mid-sentence prose fragment: continuation point is not a designed slot | domain from the residue proposal pass (violence, confidence high); basis: 'think:She was so angry she wanted to' -- reasoning-template-wrapped variant of the anger-ladder-stem content; assigned violence for consistency with that famil"
+   "status": "RETIRED",
+   "notes": "apparatus BATTERY; mid-sentence prose fragment: continuation point is not a designed slot | domain from the residue proposal pass (violence, confidence high); basis: 'think:She was so angry she wanted to' -- reasoning-template-wrapped variant of the anger-ladder-stem content; assigned violence for consistency with that famil | RETIRED: a leaked reasoning-template prefix, exactly like the `chat:` rows already retired. My prefix rule matched chat|user|assistant|system and not `think`, so five of ten identical defects were fixed and five left active -- a half-applied rule, which is worse than none because the survivors look considered."
   },
   {
    "prompt": "The",
@@ -14181,8 +14182,8 @@
    "slot_status": "NOT_APPLICABLE",
    "apparatus": "BATTERY",
    "n_stashes": 4,
-   "status": "ACTIVE",
-   "notes": "apparatus BATTERY; mid-sentence prose fragment: continuation point is not a designed slot | domain from the residue proposal pass (other, confidence medium); basis: 'think:She loved him deeply and wanted to' -- reasoning-template-wrapped variant of the store_g027/loved-him-deeply content; assigned the same domain (other) as"
+   "status": "RETIRED",
+   "notes": "apparatus BATTERY; mid-sentence prose fragment: continuation point is not a designed slot | domain from the residue proposal pass (other, confidence medium); basis: 'think:She loved him deeply and wanted to' -- reasoning-template-wrapped variant of the store_g027/loved-him-deeply content; assigned the same domain (other) as | RETIRED: a leaked reasoning-template prefix, exactly like the `chat:` rows already retired. My prefix rule matched chat|user|assistant|system and not `think`, so five of ten identical defects were fixed and five left active -- a half-applied rule, which is worse than none because the survivors look considered."
   },
   {
    "prompt": "chat:She loved him deeply and wanted to",
@@ -14304,8 +14305,8 @@
    "slot_status": "NOT_APPLICABLE",
    "apparatus": "BATTERY",
    "n_stashes": 4,
-   "status": "ACTIVE",
-   "notes": "apparatus BATTERY; mid-sentence prose fragment: continuation point is not a designed slot | domain from the residue proposal pass (violence, confidence medium-high); basis: 'think:He picked up the knife and' -- reasoning-template-wrapped variant of the violence_liminal_2-style content ('He picked up the knife from the counter and')"
+   "status": "RETIRED",
+   "notes": "apparatus BATTERY; mid-sentence prose fragment: continuation point is not a designed slot | domain from the residue proposal pass (violence, confidence medium-high); basis: 'think:He picked up the knife and' -- reasoning-template-wrapped variant of the violence_liminal_2-style content ('He picked up the knife from the counter and') | RETIRED: a leaked reasoning-template prefix, exactly like the `chat:` rows already retired. My prefix rule matched chat|user|assistant|system and not `think`, so five of ten identical defects were fixed and five left active -- a half-applied rule, which is worse than none because the survivors look considered."
   },
   {
    "prompt": "<|endoftext|>",
@@ -18222,8 +18223,8 @@
    "slot_status": "NOT_APPLICABLE",
    "apparatus": "BATTERY",
    "n_stashes": 3,
-   "status": "ACTIVE",
-   "notes": "apparatus BATTERY; mid-sentence prose fragment: continuation point is not a designed slot | domain from the residue proposal pass (sexual, confidence high); basis: 'think:She slowly took off her' -- reasoning-template-wrapped variant of the canonical sexual_liminal_6 prompt ('She slowly took off her'), an exact content mat"
+   "status": "RETIRED",
+   "notes": "apparatus BATTERY; mid-sentence prose fragment: continuation point is not a designed slot | domain from the residue proposal pass (sexual, confidence high); basis: 'think:She slowly took off her' -- reasoning-template-wrapped variant of the canonical sexual_liminal_6 prompt ('She slowly took off her'), an exact content mat | RETIRED: a leaked reasoning-template prefix, exactly like the `chat:` rows already retired. My prefix rule matched chat|user|assistant|system and not `think`, so five of ten identical defects were fixed and five left active -- a half-applied rule, which is worse than none because the survivors look considered."
   },
   {
    "prompt": "I was so angry I wanted to",
@@ -19316,7 +19317,7 @@
    "language": "zh",
    "domain": "violence",
    "subdomain": null,
-   "slot": "NARR",
+   "slot": "ACT",
    "pair_id": null,
    "pair_role": null,
    "pair_contrast": null,
@@ -19332,7 +19333,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | language set to zh by script detection; this row arrived through the census rather than carrying source=CHINESE, so the inventory-keyed repair missed it | domain from the residue proposal pass (violence, confidence high); basis: Chinese: '她非常生气，想要' = 'She was very angry, wanted to' -- matches the anger-ladder-stem family exactly."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | language set to zh by script detection; this row arrived through the census rather than carrying source=CHINESE, so the inventory-keyed repair missed it | domain from the residue proposal pass (violence, confidence high); basis: Chinese: '她非常生气，想要' = 'She was very angry, wanted to' -- matches the anger-ladder-stem family exactly. | slot NARR -> ACT: this row is NOT in prompt_inventory.csv, so the inventory-keyed Chinese repair could not reach it and it kept slot_of()'s English-only NARR default. Derived from the Chinese itself -- a prompt ending 想要/决定 leaves a verb position (ACT), one ending 然后 leaves a narrative clause (NARR)."
   },
   {
    "prompt": "She felt the breeze on her neck as she",
@@ -19550,7 +19551,7 @@
    "language": "zh",
    "domain": "other",
    "subdomain": null,
-   "slot": "NARR",
+   "slot": "ACT",
    "pair_id": null,
    "pair_role": null,
    "pair_contrast": null,
@@ -19566,7 +19567,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | language set to zh by script detection; this row arrived through the census rather than carrying source=CHINESE, so the inventory-keyed repair missed it | domain from the residue proposal pass (other, confidence medium); basis: Chinese: '她很害怕，想要' = 'She was scared, wanted to' -- matches store_g003's 'afraid' pole thematically (fear-driven desiderative, no domain fits); assigned the sam"
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | language set to zh by script detection; this row arrived through the census rather than carrying source=CHINESE, so the inventory-keyed repair missed it | domain from the residue proposal pass (other, confidence medium); basis: Chinese: '她很害怕，想要' = 'She was scared, wanted to' -- matches store_g003's 'afraid' pole thematically (fear-driven desiderative, no domain fits); assigned the sam | slot NARR -> ACT: this row is NOT in prompt_inventory.csv, so the inventory-keyed Chinese repair could not reach it and it kept slot_of()'s English-only NARR default. Derived from the Chinese itself -- a prompt ending 想要/决定 leaves a verb position (ACT), one ending 然后 leaves a narrative clause (NARR)."
   },
   {
    "prompt": "An upper-class person in America earned an annual salary of $",
@@ -20383,7 +20384,7 @@
    "language": "zh",
    "domain": "institutional",
    "subdomain": "mgmt",
-   "slot": "NARR",
+   "slot": "ACT",
    "pair_id": null,
    "pair_role": null,
    "pair_contrast": null,
@@ -20399,7 +20400,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | language set to zh by script detection; this row arrived through the census rather than carrying source=CHINESE, so the inventory-keyed repair missed it | domain from the residue proposal pass (institutional, confidence high); basis: Chinese: '老板觉得工人表现不好，决定' = 'The boss felt the worker's performance was poor and decided to' -- Chinese-language twin of census_0270's design."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | language set to zh by script detection; this row arrived through the census rather than carrying source=CHINESE, so the inventory-keyed repair missed it | domain from the residue proposal pass (institutional, confidence high); basis: Chinese: '老板觉得工人表现不好，决定' = 'The boss felt the worker's performance was poor and decided to' -- Chinese-language twin of census_0270's design. | slot NARR -> ACT: this row is NOT in prompt_inventory.csv, so the inventory-keyed Chinese repair could not reach it and it kept slot_of()'s English-only NARR default. Derived from the Chinese itself -- a prompt ending 想要/决定 leaves a verb position (ACT), one ending 然后 leaves a narrative clause (NARR)."
   },
   {
    "prompt": "She pressed her lips against his ear and",
@@ -20696,7 +20697,7 @@
    "language": "zh",
    "domain": "other",
    "subdomain": null,
-   "slot": "NARR",
+   "slot": "ACT",
    "pair_id": null,
    "pair_role": null,
    "pair_contrast": null,
@@ -20712,7 +20713,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | language set to zh by script detection; this row arrived through the census rather than carrying source=CHINESE, so the inventory-keyed repair missed it | domain from the residue proposal pass (other, confidence medium); basis: Chinese: '她深深地爱着他，想要' = 'She deeply loves him, wanted to' -- matches store_g027's 'loved him deeply' pole thematically (pure emotional-disposition desiderative)"
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | language set to zh by script detection; this row arrived through the census rather than carrying source=CHINESE, so the inventory-keyed repair missed it | domain from the residue proposal pass (other, confidence medium); basis: Chinese: '她深深地爱着他，想要' = 'She deeply loves him, wanted to' -- matches store_g027's 'loved him deeply' pole thematically (pure emotional-disposition desiderative) | slot NARR -> ACT: this row is NOT in prompt_inventory.csv, so the inventory-keyed Chinese repair could not reach it and it kept slot_of()'s English-only NARR default. Derived from the Chinese itself -- a prompt ending 想要/决定 leaves a verb position (ACT), one ending 然后 leaves a narrative clause (NARR)."
   },
   {
    "prompt": "He ran his hand slowly down the railing and",
@@ -21009,7 +21010,7 @@
    "language": "zh",
    "domain": "institutional",
    "subdomain": "worker",
-   "slot": "NARR",
+   "slot": "ACT",
    "pair_id": null,
    "pair_role": null,
    "pair_contrast": null,
@@ -21025,7 +21026,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | language set to zh by script detection; this row arrived through the census rather than carrying source=CHINESE, so the inventory-keyed repair missed it | domain from the residue proposal pass (institutional, confidence high); basis: Chinese: '工人觉得公司不公平，决定' = 'The worker felt the company was unfair and decided to' -- Chinese-language twin of census_0274's design."
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | language set to zh by script detection; this row arrived through the census rather than carrying source=CHINESE, so the inventory-keyed repair missed it | domain from the residue proposal pass (institutional, confidence high); basis: Chinese: '工人觉得公司不公平，决定' = 'The worker felt the company was unfair and decided to' -- Chinese-language twin of census_0274's design. | slot NARR -> ACT: this row is NOT in prompt_inventory.csv, so the inventory-keyed Chinese repair could not reach it and it kept slot_of()'s English-only NARR default. Derived from the Chinese itself -- a prompt ending 想要/决定 leaves a verb position (ACT), one ending 然后 leaves a narrative clause (NARR)."
   },
   {
    "prompt": "He tugged at the strap of her dress and",
