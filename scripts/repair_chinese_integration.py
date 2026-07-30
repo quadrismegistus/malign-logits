@@ -147,6 +147,28 @@ def main(write):
             continue
         er, ambiguous = pick(src_rows)
 
+        # AMBIGUITY SKIPS, IT DOES NOT JUST GET LOGGED. The first version logged the
+        # warning and then applied the changes anyway off `ordered[0]`, so a genuine dual
+        # identity got re-pointed on a coin flip -- and because the by_zh lookup is keyed
+        # by STRING, the row it re-pointed was the second identity added by block D on the
+        # previous run. Block D then found no BOTH cell in that group and added a THIRD
+        # row. The suite caught it on duplicate prompt_id. Same string-keyed-lookup hazard
+        # this script's own docstring is about, reintroduced inside the fix for it.
+        if t["english"] in DUAL:
+            # BLOCK D OWNS EVERY ROW ON THIS STRING and C must not touch them. `by_zh` is
+            # keyed by string, so it resolves this string to whichever duplicate was
+            # appended last -- which is D's own second identity. C would then re-point it
+            # to the other group on each run. The first attempt at this guard exempted
+            # DUAL from the ambiguity skip instead of from C, which is backwards.
+            continue
+        if ambiguous:
+            log.append(f"  ! {zr['prompt_id']:<34} AMBIGUOUS: english twins tie on status, "
+                       f"grouping and role but disagree about the group: "
+                       f"{[(a['prompt_id'], a.get('group_id')) for a in ambiguous]} "
+                       f"-- SKIPPED, this is dual identity and wants a second row")
+            changes["! ambiguous, skipped"] += 1
+            continue
+
         # C: design membership
         for zf, ef, xform in (("group_id", "group_id", zh_group),
                               ("pair_id", "pair_id", zh_group),
@@ -173,17 +195,12 @@ def main(write):
                     f"defect is in the stimulus construction, not in the language.")
             changes[f"{'A' if why=='RETIRED' else 'B'} status -> {why}"] += 1
 
-        if ambiguous and t["english"] not in DUAL:
-            log.append(f"  ! {zr['prompt_id']:<34} AMBIGUOUS: english twins tie on status, "
-                       f"grouping and role but disagree about the group: "
-                       f"{[(a['prompt_id'], a.get('group_id')) for a in ambiguous]} "
-                       f"-- left untouched, this is dual identity and wants a second row")
-            changes["! ambiguous, untouched"] += 1
-
     # ---- D: second row for the dual-identity BOTH cell ---------------------------
     for text, (er_id, group) in DUAL.items():
-        if any(r.get("language") == "zh" and r.get("group_id") == zh_group(group)
-               and r.get("group_role") == "BOTH" for r in rows):
+        # KEYED ON THE ROW'S OWN IDENTITY, not on whether the group has a BOTH cell.
+        # The membership test was not idempotent: anything that moved the row out of the
+        # group made this block add another one.
+        if any(r.get("prompt_id") == er_id + "_zh" for r in rows):
             continue
         zr = by_zh.get(next((t["chinese"] for t in trans if t["english"] == text), None))
         er = next((r for r in rows if r.get("prompt_id") == er_id), None)
