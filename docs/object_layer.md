@@ -103,10 +103,17 @@ unknown    either stage is unknown, and says so
 
 Calling `kto → dpo` "reverse" would invent an ordering the training never had.
 
-Direction is read from **stage order**, not from the edge list, because the registry's
-relations are star-shaped from the base — an aligned arm hangs off the base, not off its
-own SFT arm. `path()` therefore cannot tell you `sft→dpo` runs forwards.
-`Step.chain(family)` gives the sequence the relations cannot.
+Direction is read from **stage order**, not from the edge list. The registry's relations
+*are* now chained — `path(base, kto_arm)` returns `sft_of` then `kto_of` — but a traversal
+only answers where an edge exists, and a `Step` is defined for pairs that have none: two
+checkpoints from different families, a base against another family's aligned arm, any
+comparison nobody declared. Stage order answers for all of them.
+
+*(An earlier draft of this section said the edges were star-shaped from the base and that
+`path()` therefore could not sequence them. That was true when the layer was written and
+was fixed in `92ebc95`, seven minutes later. The design does not change — `Step` takes a
+pair precisely so that it does not depend on how the edges are shaped — but the reason
+given for it was stale, and a doc organised by defect should not carry one.)*
 
 ### Two vocabularies, kept apart on purpose
 
@@ -203,10 +210,12 @@ faller: an undifferentiated bucket has no word to fall.
 stale-cache bug rather than missing structure. A `GraphStash` wrapper would have inherited
 the same 41 rows with a nicer query language.
 
-**No `Lineage`.** "Every olmo" is a real question — does the effect scale across 1B → 7B →
-32B on one recipe — but building it now means inferring the grouping from the key prefix,
-and name-pattern inference has produced two defects. The fix is the `smaller_version_of`
-relation in the data; with it declared, the grouping is a traversal.
+**No `Lineage` — but the blocker is gone.** "Every olmo" is a real question: does the
+effect scale across 1B → 7B → 32B on one recipe. Building it *was* blocked because the
+grouping would have had to be inferred from the key prefix, and name-pattern inference
+had already produced two defects. **`smaller_version_of` now carries 18 edges**, so the
+grouping is a declared traversal and the class can be built on evidence whenever an
+analysis wants it.
 
 **No persisted derived movement.** The cache plus `word_probs()` gives recomputation for
 free, and persisting derived numbers is the staleness that retired clause 8.
