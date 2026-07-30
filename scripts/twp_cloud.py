@@ -326,6 +326,38 @@ def next_dist(model, tok, pids, prefixes, dev, batch=64):
 BOS_POLICY = {"internlm2": "forced"}      # substring match on the model id
 
 
+# PER-MODEL LOADER TABLE. A DECLARED POLICY, NOT AN INLINE SPECIAL CASE.
+#
+# transformers v5 (#45488) makes LlamaTokenizer.__init__ install a SentencePiece
+# Metaspace pre-tokenizer over the ByteLevel one a repo's tokenizer.json
+# declares. On deepseek-llm-7b that deletes every space -- 'She was so angry she
+# wanted to' encodes and decodes as 'Shewassoangryshewantedto' -- and drops CJK
+# entirely, with unk_token=null so nothing raises. PR #45936 fixed models with
+# bespoke architecture tags; #47017 would fix generic model_type=llama repos and
+# is NOT merged as of transformers 5.4.0.
+#
+# The entry retires VISIBLY when upstream lands the generic fix: precondition 6
+# (tokenizer_roundtrip_sweep.py) will report the model clean and the row can go.
+# An inline `if "deepseek" in mid` would never retire, because nothing would
+# ever tell anyone it had become unnecessary.
+LOADER_OVERRIDE = {
+    "deepseek-ai/deepseek-llm-7b-base": ("PreTrainedTokenizerFast", "#45488/#47017"),
+    "deepseek-ai/deepseek-llm-7b-chat": ("PreTrainedTokenizerFast", "#45488/#47017"),
+}
+
+
+def load_tokenizer(mid):
+    """Return (tokenizer, loader_id). loader_id is STAMPED ON THE CELL."""
+    from transformers import AutoTokenizer, PreTrainedTokenizerFast
+    ov = LOADER_OVERRIDE.get(mid)
+    if ov and ov[0] == "PreTrainedTokenizerFast":
+        # bypasses AutoTokenizer class resolution, which follows
+        # tokenizer_config.json's tokenizer_class field and lands on the broken
+        # class regardless of use_fast
+        return PreTrainedTokenizerFast.from_pretrained(mid), f"override:{ov[1]}"
+    return AutoTokenizer.from_pretrained(mid, trust_remote_code=True), "auto"
+
+
 def bos_policy_for(model_id):
     for k, v in BOS_POLICY.items():
         if k in model_id.lower():
@@ -527,7 +559,7 @@ def main(a):
         if not todo:
             continue
         try:
-            tok = AutoTokenizer.from_pretrained(mid, trust_remote_code=True)
+            tok, loader_id = load_tokenizer(mid)
             model = AutoModelForCausalLM.from_pretrained(
                 mid, torch_dtype=torch.float16, trust_remote_code=True).to(dev).eval()
         except Exception as e:
@@ -572,6 +604,7 @@ def main(a):
                         "rule_commits": RULE_COMMITS,
                         "dict_sha": dict_sha,
                         "bos_policy": pol,
+                        "loader": loader_id,
                         "rows": [{"word": s_, "t1": t_, "p": m_} for (s_, t_), m_ in w.items()],
                         "residual": res, "batches": calls, "conservation": tot}) + "\n")
                     f.flush()                  # crash-safe: complete line on disk
