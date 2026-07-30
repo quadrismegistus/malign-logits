@@ -17,7 +17,7 @@ because the binding constraint is DOWNLOAD (~1.3 TB for the roster), not compute
 Ascending order also means anything too large for the card sorts to the end,
 where cancelling costs nothing.
 """
-import argparse, gc, json, os, shutil, subprocess, sys, time
+import argparse, gc, json, os, re, shutil, subprocess, sys, time
 import numpy as np, torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -32,6 +32,74 @@ PUNCT = set(".,;:!?\"'()[]{}—-–…/\\*#") | {"\n", "\r", "\t"}
 # is the one-line half.)
 CJK_PUNCT = set("。，、；：！？「」『』（）《》〈〉【】…—～·　")
 PUNCT |= CJK_PUNCT
+
+
+CJK = re.compile(r"[\u4e00-\u9fff\u3400-\u4dbf]")
+DICT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                    "..", "data", "dict", "jieba_dict_big.txt")
+
+
+def is_cjk(s):
+    return bool(s) and bool(CJK.search(s))
+
+
+def clean_surface(s):
+    """A word cannot CONTAIN punctuation or whitespace, so truncate at the first.
+
+    The boundary mask asks whether a token STARTS a word, which is a test on its
+    FIRST character. Byte-level BPE merges punctuation into the middle of tokens
+    -- Qwen has one token for the string 'X?' -- so a token beginning with a CJK
+    glyph can carry a clause end inside it that the first-character test cannot
+    see. Truncating is exact rather than cosmetic: the mass on 'W?' IS the mass
+    on word W terminated by punctuation. Surfaces differing only in trailing
+    punctuation merge, which is correct -- they are the same word.
+    """
+    for i, c in enumerate(s):
+        if c in PUNCT or c.isspace():
+            return s[:i]
+    return s
+
+
+def load_prefix_trie(path=DICT):
+    """Dictionary words plus every PROPER PREFIX of one, or None if absent.
+
+    Proper prefixes must be present because the test during expansion is "could
+    this surface still grow into a word". Without them every multi-character
+    word is cut at its first character, which is character-split by another
+    route -- and character-split reproduces at character level exactly the
+    uninterpretability that motivated word-level probabilities in the first
+    place.
+    """
+    if not os.path.exists(path):
+        return None
+    pref = set()
+    with open(path) as f:
+        for line in f:
+            w = line.split(" ")[0].strip()
+            if not w or not CJK.search(w):
+                continue
+            pref.add(w)
+            for i in range(1, len(w)):
+                pref.add(w[:i])
+    return pref
+
+
+def cjk_vocab(tok, n):
+    """(ids, strings) for tokens that DECODE to bare CJK.
+
+    DECODE, never convert_ids_to_tokens: byte-level BPE returns the byte
+    mangling for CJK, so a script test on the token string finds ZERO CJK
+    tokens in a Chinese model's vocabulary.
+    """
+    ids, strs = [], []
+    for i in range(n):
+        try:
+            t = tok.decode([i])
+        except Exception:
+            continue
+        if t and is_cjk(t) and t == t.strip():
+            ids.append(i); strs.append(t)
+    return np.array(ids, dtype=int), strs
 
 
 def boundary_mask(tok, n):
@@ -122,13 +190,22 @@ def next_dist(model, tok, pids, prefixes, dev, batch=64):
 
 
 @torch.no_grad()
-def expand(model, tok, prompt, dev, bmask, theta=THETA):
+def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None):
+    """cjk=(prefix_trie, ids, strings) enables dictionary word boundaries.
+
+    ONE INSTRUMENT, DISPATCHING ON SCRIPT -- not two runs side by side. A non-CJK
+    surface keeps the whitespace/punctuation rule; a CJK surface takes the
+    dictionary rule. Mixed-script text is therefore handled correctly WITHIN a
+    cell, which two parallel datasets could not do since they would force a
+    per-cell choice mixed text cannot make.
+    """
+
     pids = tok.encode(prompt)
     lg = model(torch.tensor([pids], device=dev)).logits[0, -1, :].float()
     P0 = torch.softmax(lg, -1).cpu().numpy()
     sel = np.flatnonzero(P0 >= theta)
     live = [((int(t),), float(P0[t]), int(t)) for t in sel]
-    words, calls = {}, 0
+    words, calls, bcache = {}, 0, {}
     res_tail, res_drop = float(1.0 - P0[sel].sum()), 0.0
     for _ in range(MAX_DEPTH):
         if not live:
@@ -136,13 +213,27 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA):
         dist = next_dist(model, tok, pids, [p for p, _, _ in live], dev); calls += 1
         nxt = []
         for (pref, mass, t1), row in zip(live, dist):
-            term = float(row[bmask].sum())
-            surf = tok.decode(list(pref)).strip()
+            surf = clean_surface(tok.decode(list(pref)).strip())
+            b = bmask
+            if cjk is not None and is_cjk(surf):
+                trie, cids, cstrs = cjk
+                b = bcache.get(surf)
+                if b is None:
+                    # EVERY CJK token is judged, not just the probable ones.
+                    # Termination sums over ALL boundary tokens, so improbable
+                    # CJK tokens that should end the word must be marked or the
+                    # word runs to the clause end and its mass drains via `drop`.
+                    b = bmask.copy()
+                    inside = np.fromiter(((surf + t) in trie for t in cstrs),
+                                         dtype=bool, count=len(cstrs))
+                    b[cids] = ~inside
+                    bcache[surf] = b
+            term = float(row[b].sum())
             if surf:
                 words[(surf, t1)] = words.get((surf, t1), 0.0) + mass * term
             else:
                 res_drop += mass * term
-            cont = np.flatnonzero(~bmask)
+            cont = np.flatnonzero(~b)
             m2 = mass * row[cont]
             keep = m2 >= theta
             for t, mm in zip(cont[keep], m2[keep]):
@@ -171,6 +262,13 @@ def main(a):
     spec = json.load(open(a.models))          # [{model, prompts:[...]}, ...]
     os.makedirs(a.out, exist_ok=True)
     dev = "cuda" if torch.cuda.is_available() else "cpu"
+    trie = None if a.no_dict else load_prefix_trie(a.dict)
+    if trie is None:
+        print("NO CJK DICTIONARY -- Chinese resolves ~3-16% of mass against "
+              "80-90% for English. Chinese cells produced without it are not "
+              "usable at word level.", flush=True)
+    else:
+        print(f"cjk dictionary: {len(trie):,} words+prefixes", flush=True)
     for mi, entry in enumerate(spec, 1):
         mid, prompts = entry["model"], entry["prompts"]
         safe = mid.replace("/", "__")
@@ -195,6 +293,12 @@ def main(a):
         # two of three phases is guarding none of them.
         try:
             bmask = boundary_mask(tok, model.config.vocab_size)
+            cjk = None
+            if trie is not None:
+                cids, cstrs = cjk_vocab(tok, model.config.vocab_size)
+                if len(cids):
+                    cjk = (trie, cids, cstrs)
+                    print(f"  cjk: {len(cids):,} tokens", flush=True)
         except Exception as e:
             print(f"  MASK FAILED: {type(e).__name__}: {str(e)[:100]}", flush=True)
             free(model, tok)
@@ -207,7 +311,7 @@ def main(a):
         try:
             with open(path, "a") as f:
                 for i, p in enumerate(todo, 1):
-                    w, res, calls = expand(model, tok, p, dev, bmask)
+                    w, res, calls = expand(model, tok, p, dev, bmask, cjk=cjk)
                     tot = sum(w.values()) + res["total"]
                     f.write(json.dumps({
                         "model": mid, "prompt": p, "theta": THETA,
@@ -236,4 +340,10 @@ if __name__ == "__main__":
     ap.add_argument("--models", required=True)
     ap.add_argument("--out", default="/workspace/twp")
     ap.add_argument("--purge", action="store_true")
+    ap.add_argument("--dict", default=DICT,
+                    help="CJK prefix dictionary; on a cloud box the repo-relative "
+                         "default will not resolve, so pass the uploaded path")
+    ap.add_argument("--no-dict", action="store_true",
+                    help="disable CJK dictionary boundaries (reproduces the "
+                         "pre-fix rule; Chinese cells will be unusable)")
     main(ap.parse_args())
