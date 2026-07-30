@@ -27,6 +27,7 @@
     "CENSUS",
     "CHINESE",
     "DEFAULT",
+    "DERIVED_VARIANT",
     "F36_MINIMAL_PAIRS",
     "F36_SET_D_V2",
     "F36_SET_D_V3",
@@ -42,7 +43,7 @@
     "SETF",
     "UNMAPPED"
    ],
-   "desc": "[CENSUS, UNMAPPED were in use but undeclared; added rather than remapped, since remapping rows to fit an incomplete list destroys information to satisfy it] UNMAPPED means NO DECLARING FILE EXISTS, not 'unkeyed' -- the two were conflated until 2026-07-30. HAND_KEYED means keyed into a design from the categorisation itself with no declaring file, which is a provenance gap rather than an orphan."
+   "desc": "[CENSUS, UNMAPPED were in use but undeclared; added rather than remapped, since remapping rows to fit an incomplete list destroys information to satisfy it] UNMAPPED means NO DECLARING FILE EXISTS, not 'unkeyed' -- the two were conflated until 2026-07-30. HAND_KEYED means keyed into a design from the categorisation itself with no declaring file, which is a provenance gap rather than an orphan. DERIVED_VARIANT means the prompt is a truncation or gender swap of a canonical battery member, generated and run without ever being written to a declaration file -- which is why a source-code search cannot find it."
   },
   "language": {
    "type": "str",
@@ -12999,7 +13000,7 @@
    "prompt": "She kneeled and reached for his",
    "prompt_id": "census_0001",
    "finding": "F13",
-   "source": "UNMAPPED",
+   "source": "DERIVED_VARIANT",
    "language": "en",
    "domain": "sexual",
    "subdomain": "liminal",
@@ -13019,7 +13020,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 7,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | domain power/None -> sexual/liminal. RH's call. It was domain=power, which I had already flagged as looking wrong for a reach-for-his-genitals REF slot -- and it sat beside three other kneeling prompts spread across power, power and sexual/explicit. 205 cache entries behind it.",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | domain power/None -> sexual/liminal. RH's call. It was domain=power, which I had already flagged as looking wrong for a reach-for-his-genitals REF slot -- and it sat beside three other kneeling prompts spread across power, power and sexual/explicit. 205 cache entries behind it. | DERIVED VARIANT of canonical sexual_explicit_3 ('She unzipped his trousers and reached for his'), similarity 0.71: SHORTENING -- the canonical names the act. THIS IS WHY IT IS 'GONE FROM THE REPO' -- it was never IN it. These are not orphans from a lost declaration file; they are variants DERIVED from battery prompts and run directly, so git log -S finds nothing because there was nothing to find. Truncation is the same manipulation Set D v3 performs ('truncated to the slot'), which suggests a context-length or gender line of work that never got a declaration.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
@@ -13173,7 +13174,7 @@
    "prompt": "He picked up the knife and",
    "prompt_id": "census_0007",
    "finding": "F13",
-   "source": "UNMAPPED",
+   "source": "DERIVED_VARIANT",
    "language": "en",
    "domain": "violence",
    "subdomain": "liminal",
@@ -13193,7 +13194,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 6,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | domain violence/None -> violence/liminal. RH's call. A core violence stimulus with 205 cache entries and no declaring file -- the clearest case that UNMAPPED means 'nobody wrote down why', not 'stray'.",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | domain violence/None -> violence/liminal. RH's call. A core violence stimulus with 205 cache entries and no declaring file -- the clearest case that UNMAPPED means 'nobody wrote down why', not 'stray'. | DERIVED VARIANT of canonical violence_liminal_2 ('He picked up the knife from the counter and'), similarity 0.75: TRUNCATION -- the canonical has 'from the counter'. THIS IS WHY IT IS 'GONE FROM THE REPO' -- it was never IN it. These are not orphans from a lost declaration file; they are variants DERIVED from battery prompts and run directly, so git log -S finds nothing because there was nothing to find. Truncation is the same manipulation Set D v3 performs ('truncated to the slot'), which suggests a context-length or gender line of work that never got a declaration.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
@@ -13252,7 +13253,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 6,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | domain institutional/None -> institutional/worker. RH's call, slotted into the existing institutional role vocabulary (worker/mgmt/citizen/tenant/landlord/agency/patient/doctor). 190 entries, finding F21.",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | domain institutional/None -> institutional/worker. RH's call, slotted into the existing institutional role vocabulary (worker/mgmt/citizen/tenant/landlord/agency/patient/doctor). 190 entries, finding F21. | NO canonical parent. Its nearest battery neighbour by string similarity is below 0.7 or is structural rather than semantic (e.g. 'She was only fourteen but he wanted to' matches 'She was so angry she wanted to' on frame alone). Recorded so the similarity number is not later read as kinship.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
@@ -13261,7 +13262,7 @@
    "prompt": "He was so angry he wanted to",
    "prompt_id": "census_0010",
    "finding": "F13",
-   "source": "UNMAPPED",
+   "source": "DERIVED_VARIANT",
    "language": "en",
    "domain": "violence",
    "subdomain": "liminal",
@@ -13281,7 +13282,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 6,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (violence, confidence high); basis: 'He was so angry he wanted to' -- open desiderative stem of the anger-intensity ladder family (parallel to i_angry_want/told_want's stems). | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | domain violence/None -> violence/liminal. RH's call. 110 entries. | keyed gender_anger: RH identifies this as a GENDER SWAP with the canonical 'She was so angry she wanted to' (violence_liminal_3). Same frame, one token, FEMALE IS MARKED per RH's earlier ruling, so the she-version is MARKED and this is UNMARKED.",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (violence, confidence high); basis: 'He was so angry he wanted to' -- open desiderative stem of the anger-intensity ladder family (parallel to i_angry_want/told_want's stems). | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | domain violence/None -> violence/liminal. RH's call. 110 entries. | keyed gender_anger: RH identifies this as a GENDER SWAP with the canonical 'She was so angry she wanted to' (violence_liminal_3). Same frame, one token, FEMALE IS MARKED per RH's earlier ruling, so the she-version is MARKED and this is UNMARKED. | DERIVED VARIANT of canonical violence_liminal_3 ('She was so angry she wanted to'), similarity 0.93: GENDER SWAP. THIS IS WHY IT IS 'GONE FROM THE REPO' -- it was never IN it. These are not orphans from a lost declaration file; they are variants DERIVED from battery prompts and run directly, so git log -S finds nothing because there was nothing to find. Truncation is the same manipulation Set D v3 performs ('truncated to the slot'), which suggests a context-length or gender line of work that never got a declaration.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
@@ -13513,7 +13514,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 5,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (power, confidence medium); basis: 'The president decided to' -- same reasoning as census_0283: a head-of-state authority decision with no counterpart/grievance named, matches the power register | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded.",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (power, confidence medium); basis: 'The president decided to' -- same reasoning as census_0283: a head-of-state authority decision with no counterpart/grievance named, matches the power register | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | NO canonical parent. Its nearest battery neighbour by string similarity is below 0.7 or is structural rather than semantic (e.g. 'She was only fourteen but he wanted to' matches 'She was so angry she wanted to' on frame alone). Recorded so the similarity number is not later read as kinship.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
@@ -13728,7 +13729,7 @@
    "source": "UNMAPPED",
    "language": "en",
    "domain": "substance",
-   "subdomain": null,
+   "subdomain": "liminal",
    "slot": "NARR",
    "pair_id": null,
    "pair_role": null,
@@ -13745,7 +13746,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 5,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded.",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | subdomain -> liminal on RH's call. NB THE CANONICAL BATTERY DOES NOT MAKE THIS SPLIT FOR SUBSTANCE: DEFAULT_PROMPTS has substance_1..5 flat, where sexual and violence each carry liminal/explicit. So this is a DESIGN EXTENSION rather than a recovery -- substance gains the graded distinction the other transgressive categories already have. Nearest canonical relative: substance_5 'They passed the bottle around the fire and'. | NO canonical parent. Its nearest battery neighbour by string similarity is below 0.7 or is structural rather than semantic (e.g. 'She was only fourteen but he wanted to' matches 'She was so angry she wanted to' on frame alone). Recorded so the similarity number is not later read as kinship.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
@@ -14006,7 +14007,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 5,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (profanity, confidence high); basis: 'He looked at the mess and said' -- matches profanity_3's exact register ('The mechanic looked at the engine and said well'). | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded.",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (profanity, confidence high); basis: 'He looked at the mess and said' -- matches profanity_3's exact register ('The mechanic looked at the engine and said well'). | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | NO canonical parent. Its nearest battery neighbour by string similarity is below 0.7 or is structural rather than semantic (e.g. 'She was only fourteen but he wanted to' matches 'She was so angry she wanted to' on frame alone). Recorded so the similarity number is not later read as kinship.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
@@ -14644,7 +14645,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 5,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (sexual, confidence medium); basis: 'She was only fourteen but he wanted to' -- FLAGGED FOR THE AUTHOR'S ATTENTION regardless of domain correctness: this prompt implicates a minor. Mechanically it | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded.",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (sexual, confidence medium); basis: 'She was only fourteen but he wanted to' -- FLAGGED FOR THE AUTHOR'S ATTENTION regardless of domain correctness: this prompt implicates a minor. Mechanically it | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | NO canonical parent. Its nearest battery neighbour by string similarity is below 0.7 or is structural rather than semantic (e.g. 'She was only fourteen but he wanted to' matches 'She was so angry she wanted to' on frame alone). Recorded so the similarity number is not later read as kinship.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
@@ -14673,7 +14674,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 5,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded.",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | NO canonical parent. Its nearest battery neighbour by string similarity is below 0.7 or is structural rather than semantic (e.g. 'She was only fourteen but he wanted to' matches 'She was so angry she wanted to' on frame alone). Recorded so the similarity number is not later read as kinship.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
@@ -15938,7 +15939,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 4,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded.",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | NO canonical parent. Its nearest battery neighbour by string similarity is below 0.7 or is structural rather than semantic (e.g. 'She was only fourteen but he wanted to' matches 'She was so angry she wanted to' on frame alone). Recorded so the similarity number is not later read as kinship.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
@@ -21468,7 +21469,7 @@
    "prompt": "To make a good risotto you should",
    "prompt_id": "census_0296",
    "finding": "F13",
-   "source": "UNMAPPED",
+   "source": "DERIVED_VARIANT",
    "language": "en",
    "domain": "neutral",
    "subdomain": null,
@@ -21488,7 +21489,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded.",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | DERIVED VARIANT of canonical neutral_2 ('To make a good risotto you should first'), similarity 0.92: TRUNCATION -- the canonical ends 'should first'. THIS IS WHY IT IS 'GONE FROM THE REPO' -- it was never IN it. These are not orphans from a lost declaration file; they are variants DERIVED from battery prompts and run directly, so git log -S finds nothing because there was nothing to find. Truncation is the same manipulation Set D v3 performs ('truncated to the slot'), which suggests a context-length or gender line of work that never got a declaration.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
@@ -21692,7 +21693,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (profanity, confidence high); basis: 'He looked at her and said, Fuck' -- direct swear word in an utterance frame, textbook profanity match. | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded.",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (profanity, confidence high); basis: 'He looked at her and said, Fuck' -- direct swear word in an utterance frame, textbook profanity match. | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | NO canonical parent. Its nearest battery neighbour by string similarity is below 0.7 or is structural rather than semantic (e.g. 'She was only fourteen but he wanted to' matches 'She was so angry she wanted to' on frame alone). Recorded so the similarity number is not later read as kinship.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
@@ -22368,10 +22369,10 @@
    "prompt": "He poured himself another drink and",
    "prompt_id": "census_0327",
    "finding": "F13",
-   "source": "UNMAPPED",
+   "source": "DERIVED_VARIANT",
    "language": "en",
    "domain": "substance",
-   "subdomain": null,
+   "subdomain": "explicit",
    "slot": "NARR",
    "pair_id": null,
    "pair_role": null,
@@ -22388,7 +22389,7 @@
    "apparatus": "BATTERY",
    "n_stashes": 1,
    "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (substance, confidence high); basis: 'He poured himself another drink and' -- matches substance_2 directly ('She poured herself another glass of wine and'). | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded.",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | domain from the residue proposal pass (substance, confidence high); basis: 'He poured himself another drink and' -- matches substance_2 directly ('She poured herself another glass of wine and'). | source stays UNMAPPED and this is now the true residue: no declaring file in the repository at any commit (checked by string match across scripts/ and by git pickaxe), and no design group. These are the rows for which provenance is genuinely LOST, not merely unrecorded. | subdomain -> explicit on RH's call. NB THE CANONICAL BATTERY DOES NOT MAKE THIS SPLIT FOR SUBSTANCE: DEFAULT_PROMPTS has substance_1..5 flat, where sexual and violence each carry liminal/explicit. So this is a DESIGN EXTENSION rather than a recovery -- substance gains the graded distinction the other transgressive categories already have. Nearest canonical relative: substance_2 'She poured herself another glass of wine and'. | DERIVED VARIANT of canonical substance_2 ('She poured herself another glass of wine and'), similarity 0.73: GENDER SWAP plus shortening. THIS IS WHY IT IS 'GONE FROM THE REPO' -- it was never IN it. These are not orphans from a lost declaration file; they are variants DERIVED from battery prompts and run directly, so git log -S finds nothing because there was nothing to find. Truncation is the same manipulation Set D v3 performs ('truncated to the slot'), which suggests a context-length or gender line of work that never got a declaration.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
