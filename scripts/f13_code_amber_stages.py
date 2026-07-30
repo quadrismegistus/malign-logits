@@ -46,7 +46,8 @@ import malign_logits.taxonomy as T
 from malign_logits.tasks.code_displacement_relation import (
     DisplacementRelationTask, prepare)
 from scripts.f13_draw_relation_items import (
-    THETA, FLOOR, DT, EPS, DEV, TYPE_OF, FUNC, admissible, content_share)
+    THETA, FLOOR, DT, EPS, DEV, TYPE_OF, FUNC, admissible, content_share,
+    surface_probs)
 
 TOL = 3.0            # decoy p_base within this factor of the real riser's
 OUT = "data/f13_amber_stage_codings.parquet"
@@ -58,8 +59,16 @@ def probs(cm, model, prompt):
     p = cm.get_true_word_probs(model, prompt, theta=THETA)
     if not p:
         return None
-    return {r["word"].strip(): float(r["p"]) for r in p["rows"]
-            if admissible(r["word"])}
+    # THE CANONICAL AGGREGATOR, NOT A REBUILT ONE. This was
+    # `{r["word"].strip(): float(r["p"]) for r in p["rows"] if admissible(...)}`
+    # -- the broken form `surface_probs`'s own docstring forbids rebuilding.
+    # The payload is ONE ROW PER (word, FIRST TOKEN) and the rows are a
+    # PARTITION, so a comprehension keeps the last token path and DROPS THE
+    # REST. Measured over 2,937 amber cells: mean 3.4% of mass lost, median
+    # 0.0%, MAX 99.9% -- 175 cells losing more than 5%. Heavy-tailed, so it
+    # passes every spot check and fails where a surface has several token
+    # paths, which is disproportionately Chinese.
+    return surface_probs(p, keep=admissible)
 
 
 def main(limit=0, workers=6, model=None, out_path=None):
