@@ -18,6 +18,48 @@ assembly after the F37 freeze and write-up.
 | C2 | The mechanism is LEXICAL and replicated: institutional strata receive PROCEDURAL REMEDIES as top risers (contact, file, send, serve, sue, consider) while the same families' neutral strata receive NARRATIVE continuation (pulled, whispered, stared, began) — two registers, cleanly separated, across six families and four preference objectives. | [1015].2 | true_word_probs v3, modal top-riser inspection / distributional | ONE-SEAT; caveat frozen: have/be/A are generic (A likely answer-list formatting); the CONTENT words carry the claim |
 | C3 | Amber is an outlier in MAGNITUDE ONLY (+9.55 vs next-highest +4.80 on the 5-family pass; next-highest +5.09 on the 16-family pass, [1037] single-seat) — real, unexplained, and NOT evidence for a safety mechanism (the other safety family is unremarkable). THIRD LEG WITHDRAWN AS SUPPORT ([1037].3 -> [1038].2, provisional pending malign's count confirmation): the [1031].2 de-transgression exception (marked licensed set falls -0.147 while unmarked partner's rises +0.168, p=0.035) was the sole exception among 5 families; at 16 families it is 1 significant of 16 tests at alpha=0.05, expected false positives 0.8, observed 1 — indistinguishable from the multiple-comparisons rate (arithmetic pen-verified; amber's numbers unchanged, the DENOMINATOR changed and the inference with it). Leg uncitable in either direction until malign confirms no OTHER family de-transgresses significantly; off outright on confirmation. The GENERAL licensed-set finding STRENGTHENS on the same pass: 12 of 16 families' marked licensed sets RISE — alignment preserves what the context licenses and sheds generic alternatives (single-seat, same pending). | [1015].3; [1031].2-3; [1037].3; [1038].2 | as C1; licensed-set vs probability-matched controls, threshold grid posted with the result / distributional | OPEN ANOMALY on MAGNITUDE (two legs); de-transgression leg WITHDRAWN-AS-SUPPORT pending second seat |
 
+## C1 RIDER — the person component (added [1687], 2026-07-31)
+
+**Second clause of the attribution constraint.**
+
+The institutional and individual arms of the F21 paired substrate differ in
+GRAMMATICAL PERSON on **5 of 12 pairs** — 4 individual-plural/institution-singular,
+1 the reverse (`political`: individual `I should vote for`, institution `We
+should`). **Exact counts on one corpus of 12 pairs; n is small and no reference
+distribution exists for a 12-pair corpus, so this is a single realisation, not an
+estimate** ([1684], independently reached; [1686] corrects a 4:0 reading whose
+regex required prompt-final position and so dropped the medial counter-example).
+
+Set D established **person x tense as an active axis** at the violence site
+(1st x present interaction), so an axis known to be live varies inside the
+contrast C1 rests on.
+
+**AND THE DIFFERENCE IS PARTLY INTRINSIC TO THE MANIPULATION, NOT AN AUTHORING
+ARTEFACT: institutions speak through individuals.** The individual arm is
+typically a worker speaking for a group (*"my whole team... we should"*), the
+institutional arm a decision-maker speaking as the office (*"I need to lay off a
+team... I should"*). **So "institutional perspective" and "singular
+decision-maker voice" are not fully separable by authoring — holding the pronoun
+constant makes the institutional arm's voice less natural, which substitutes one
+confound for another.**
+
+**Until the person-held design runs, C1 reads "prompts in the institutional
+stratum", never "institutional content", and now also NEVER WITH PERSON TREATED
+AS CONTROLLED.**
+
+**Two further substrate facts, from the same read ([1686].3):** the modal frame is
+NOT universal — at least one pair is a reporting-verb frame (`I said`) — and
+marker POSITION already varies, one individual arm being marker-medial. **The
+substrate's "uniformly should-framed" description was never accurate**, and the
+three-level FORM factor {final, medial, absent} proposed for the discharge design
+has at least one existing instance at each level.
+
+**AUTHORIZED, non-gating:** C1 recomputed on the 6 person-matched pairs against
+the 5 mismatched ones. **6 and 5 pairs — suggestive at best.** Its asymmetry is
+why it is worth running underpowered: *C1 survives on the matched subset* is worth
+having; *C1 disappears on it* would be decisive.
+
+
 ## Does not enter (superseded/refuted, kept per the chain rule)
 
 - **"Safety-targeted preference training is content-selective" — REFUTED BY
