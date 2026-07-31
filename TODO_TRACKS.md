@@ -35,12 +35,22 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   one trace open (F36's group_role MARKED/UNMARKED writer, 129 rows).
   THE BINDING FACT: at the standing 0.10 displacement threshold the
   scoreable pair count is ONE under EVERY reading — the field schism
-  bound nothing. THE DECISION (RH's, at registration; both seats
-  count-exposed so neither proposes): a LOOSER threshold (whose
-  justification cannot be "more pairs") vs NEW PROMPTS built so the
-  transgressive member displaces (both seats lean here). Power
-  rebuilds per-finding, on texts, scoreable-population, after RH
-  chooses. No paired difference computed anywhere; blindness intact. Design notes
+  bound nothing. DOSSIER COMPLETE
+  ([1239]/[1241] -> [1242]) — RH DECIDES AT REGISTRATION: (a) field
+  settled (pair_role by provenance; F11's 44 rows out as provenance
+  fact; set REUSABLE — the retraction was single-reasoned); (b)
+  DOMAIN STRATIFICATION REQUIRED (markedness and domain confounded:
+  strong positives all institutional-marked, strongest negative
+  violence-marked — unstratified contrast may measure domain); (c)
+  THRESHOLD OPTIONS w/ percentile context MANDATORY (0.10 = p87 of
+  the corpus — reads moderate, is extreme; 0.05 = the corpus MEDIAN,
+  the justification that is not "more pairs" — 10-15 scoreable
+  pairs; pairs are TYPICAL, displacing slightly above corpus, so
+  one-pair-at-0.10 is squared-15% arithmetic, not bad pairs; NEW
+  PROMPTS = commissioning p87-twice, unproven); (d) both seats
+  formally out of position — neither proposes. Power rebuilds
+  per-finding, on texts, in the scoreable population, after RH's
+  choice. No paired difference computed anywhere; blindness intact. Design notes
   that survive: THE PAIR is the unit; the effect
   unexpectedly concentrates in the INSTITUTIONAL stratum (+0.448 / 21
   prompts); the F01 flagship row sits near ZERO on 5 prompts (the
