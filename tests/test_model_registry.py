@@ -310,18 +310,60 @@ def test_params_match_the_base_across_training_edges(doc):
                     f"training does not change parameter count ({e})")
 
 
+SCALE_RELS = ("smaller_sibling_of", "smaller_predecessor_of")
+
+
 def test_scale_ladder_relation_exists(doc):
     """Ordered in the founding commit and absent from the first build.
 
-    It carries the scale question: one org, one recipe, three sizes.
+    It carries the scale question: one org, one recipe, three sizes. SPLIT at
+    [1116].2 — see the next test for why one relation could not carry it.
     """
-    lad = [e for e in doc["relations"] if e["relation"] == "smaller_version_of"]
-    assert lad, "smaller_version_of was ordered and is missing"
+    lad = [e for e in doc["relations"] if e["relation"] in SCALE_RELS]
+    assert lad, "the scale-ladder relations were ordered and are missing"
+    assert not [e for e in doc["relations"] if e["relation"] == "smaller_version_of"], (
+        "smaller_version_of is retired; it conflated a scale contrast with a "
+        "generation change")
     pb = {m["model_id"]: m.get("params_b") for m in doc["models"]}
     for e in lad:
         a, b = pb.get(e["parent"]), pb.get(e["child"])
         if a and b:
-            assert a < b, f"smaller_version_of points the wrong way: {e}"
+            assert a < b, f"{e['relation']} points the wrong way: {e}"
+
+
+def test_a_scale_edge_never_crosses_a_generation(doc):
+    """"Same family, different SCALE" may not be drawn from a different RELEASE.
+
+    `smaller_version_of` emitted 18 edges over two ladders, and one ladder crossed
+    OLMo-2 to OLMo-3 — a different pretraining corpus and post-training recipe, a
+    year apart. Counting family pairs off it gave 6 where the clause's own words
+    allow 4, which is the difference between a claim proceeding and a claim being
+    ruled underpowered ([1114]/[1116].1).
+
+    The invariant is the SPLIT, not either count: a sibling edge has ONE
+    generation on both ends, a predecessor edge has TWO, and neither may be
+    empty — an undeclared generation is what let two of them sit on one ladder
+    unremarked. It holds at any roster size.
+    """
+    gen = {m["model_id"]: m.get("generation", "") for m in doc["models"]}
+    seen = set()
+    for e in doc["relations"]:
+        if e["relation"] not in SCALE_RELS:
+            continue
+        seen.add(e["relation"])
+        g0, g1 = gen.get(e["parent"], ""), gen.get(e["child"], "")
+        assert g0 and g1, (
+            f"{e}: a scale edge with an undeclared generation — absence must "
+            "never be read as 'the same release'")
+        if e["relation"] == "smaller_sibling_of":
+            assert g0 == g1, f"sibling edge crosses a generation: {e} ({g0} vs {g1})"
+        else:
+            assert g0 != g1, (
+                f"predecessor edge does not cross a generation: {e} — it is a "
+                "sibling and belongs under the other relation")
+    assert seen == set(SCALE_RELS), (
+        f"only {seen} present; if a ladder lost its generation split the "
+        "conflation is back")
 
 
 def test_every_relation_type_states_how_to_read_it(doc):

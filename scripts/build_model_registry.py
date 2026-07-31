@@ -135,10 +135,25 @@ ARCHITECTURE = {
 # from the family-key prefix, because name-pattern inference produced two
 # defects today (a \b that matched nothing, an architecture default asserted
 # from a spec read).
+#
+# GENERATION IS DECLARED PER RUNG, and it is why this list is pairs rather than
+# keys ([1116].2). `olmo-tiny` is OLMo-**2**; `olmo` and `olmo-32b` are OLMo-**3**
+# — a different pretraining corpus and a different post-training recipe, a year
+# apart. A single `smaller_version_of` relation over this ladder therefore emitted
+# edges that cross a model GENERATION and called them a SCALE contrast, which is
+# not what "same family, different scale" names. Split below.
+#
+# Declared, never parsed: `OLMo-2-0425-1B` and `Olmo-3-1025-7B` differ by one
+# character in the position a parser would read, and name-pattern inference is
+# retired for fact fields.
 SCALE_LADDERS = [
-    ["olmo-tiny", "olmo", "olmo-32b"],
-    ["falcon3-1b", "falcon3-3b", "falcon3-10b"],
+    [("olmo-tiny", "OLMo-2"), ("olmo", "OLMo-3"), ("olmo-32b", "OLMo-3")],
+    [("falcon3-1b", "Falcon3"), ("falcon3-3b", "Falcon3"),
+     ("falcon3-10b", "Falcon3")],
 ]
+#: family key -> declared generation. EMPTY MEANS UNDECLARED, NEVER "the same":
+#: absence is what let two generations sit on one ladder unremarked.
+GENERATION = {k: g for ladder in SCALE_LADDERS for k, g in ladder}
 
 
 # ONE FIELD, TWO VOCABULARIES. The pre-existing curated data used
@@ -259,6 +274,11 @@ def build():
                     loader_override=(bo.get("loader", "")
                                      if bo.get("loader") not in ("", "AutoTokenizer")
                                      else ""),
+                    # fam_key, NOT fam -- `fam` is the ModelFamily object and
+                    # .get() on it returns "" for every row without erroring,
+                    # which would ship an all-empty column that reads as
+                    # "no generation declared anywhere".
+                    generation=GENERATION.get(fam_key, ""),
                     in_grid_spec=mid in in_spec,
                     status="ACTIVE", exclusion_reason="", pending_repair=None,
                 )
@@ -325,21 +345,28 @@ def lateral(rows, relations):
             for b in sibs[i + 1:]:
                 relations.append({"parent": a, "child": b,
                                   "relation": "same_base_as"})
-    # smaller_version_of: ORDERED at [984].5 and absent from the first build.
+    # scale ladders: ORDERED at [984].5 and absent from the first build.
     # Emitted between consecutive rungs AND transitively, so "every olmo" is one
     # traversal rather than a hand-assembly from three unconnected family keys.
     fam_of = {}
     for mid, r in rows.items():
         fam_of.setdefault(r.get("family"), []).append(mid)
+    # THE RELATION IS SPLIT BY GENERATION ([1116].2). `smaller_version_of`
+    # conflated "smaller sibling in the same release" with "smaller predecessor",
+    # so a pair count taken off it answered a question the clause did not ask:
+    # 6 pairs, of which only 4 were same-generation. A clause that says
+    # "same family, different SCALE" may only draw on the first kind.
     for ladder in SCALE_LADDERS:
-        present = [f for f in ladder if fam_of.get(f)]
-        for i, small in enumerate(present):
-            for big in present[i + 1:]:
+        present = [(f, g) for f, g in ladder if fam_of.get(f)]
+        for i, (small, g_small) in enumerate(present):
+            for big, g_big in present[i + 1:]:
+                rel = ("smaller_sibling_of" if g_small == g_big
+                       else "smaller_predecessor_of")
                 for a in fam_of[small]:
                     for b in fam_of[big]:
                         if rows[a].get("position") == rows[b].get("position"):
                             relations.append({"parent": a, "child": b,
-                                              "relation": "smaller_version_of"})
+                                              "relation": rel})
 
     # data_ablation_of: the pair that can say WHICH training data
     for mid in rows:
@@ -496,7 +523,17 @@ def main(a):
                     "rlvr_of": "{child} is the RLVR-tuned version of {parent}",
                     "instruct_of": "{child} is the instruct version of {parent}",
                     "reasoning_of": "{child} is the reasoning-distilled version of {parent}",
-                    "smaller_version_of": "{parent} is a smaller-parameter version of {child}",
+                    # SPLIT AT [1116].2. One relation cannot carry both readings:
+                    # a smaller sibling shares a pretraining corpus and a recipe,
+                    # a smaller predecessor does not, and only the first is the
+                    # "same family, different scale" a scale clause may draw on.
+                    "smaller_sibling_of": ("{parent} is a smaller-parameter version of "
+                                           "{child} FROM THE SAME RELEASE (same declared "
+                                           "generation)"),
+                    "smaller_predecessor_of": ("{parent} is a smaller-parameter model from "
+                                               "an EARLIER GENERATION than {child} -- scale "
+                                               "AND release differ, so this pair is not a "
+                                               "scale contrast"),
                     "data_ablation_of": "{child} is {parent} trained without some data",
                     "same_base_as": "{parent} and {child} share a base checkpoint",
                     "also_member_of": "{parent} is also a member of family {child}",

@@ -221,7 +221,9 @@ the same 41 rows with a nicer query language.
 **No `Lineage` — but the blocker is gone.** "Every olmo" is a real question: does the
 effect scale across 1B → 7B → 32B on one recipe. Building it *was* blocked because the
 grouping would have had to be inferred from the key prefix, and name-pattern inference
-had already produced two defects. **`smaller_version_of` now carries 18 edges**, so the
+had already produced two defects. **the scale-ladder relations now carry 18 edges** — `smaller_sibling_of` (10) and
+`smaller_predecessor_of` (8), split at [1116].2 because one relation cannot say both
+"smaller sibling in the same release" and "smaller predecessor" — so the
 grouping is a declared traversal and the class can be built on evidence whenever an
 analysis wants it.
 
