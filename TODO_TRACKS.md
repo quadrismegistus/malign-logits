@@ -310,10 +310,28 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   population/curve state CERTIFIED and FROZEN ([1297].3: no paired
   arousal difference computes until RH rules among run-as-registered
   / zh-arm-first / prompt-building / defer).
-- [ ] Registration B (high-mass decomposition) spec draft as
-  executable arithmetic — registered [1258], coupling columns per
-  [1270].1, H_n/n baseline per [1272], blindness intact. Draft ->
-  pen freeze -> malign audit. UNGATED as of custody close.
+- [x] Registration B SPEC FROZEN ([1377]): v8 at ae516dae7613ad27,
+  eight versions in one afternoon, append-only chain intact,
+  confirmed by mutation-proved grep with the [1370] watermark.
+  Final design: per-cell CUSUM along the cell's own |delta| order,
+  ONE JOINT permutation null (seed 20260731, 10k draws), E_n
+  divisor (exact-enum n<=6 / seeded sim above), qualifying >= 3
+  (n=2 permutation-invariant), outcome NOT residualised (two-link
+  measurement: corr(arousal,logP)=+0.070 in-population; 0.15
+  reopen bar WIRED at run time), per-cell percentiles description
+  only (distinct-value counts vector-dependent; no n<=6 cell
+  reaches 0.05, empirical over 5,500 enumerations + directed
+  construction, margin 0.0526), curve descriptive stratified by
+  role size, falsifier = T at chance kills [1250].3.
+- [~] REGISTRATION B RUNWAY ([1377].1): lacan writes producer to
+  the frozen spec (§8 calibration in main path; 0.15 bar wired;
+  seed in code) -> §8 posts -> MALIGN AUDITS CODE BEFORE ANY REAL
+  RUN -> pen clears -> THE RUN (first look at the blind quantity
+  anywhere) -> results + declaration line; custody via malign per
+  [1049] before any number quotes.
+- [ ] QUEUED post-freeze ([1375].3): hill-climb attack on the
+  distinct-count ceiling (if it reaches 20, the description row's
+  claim dies cheaply now rather than in review).
 
 ## Track P — the pen
 
