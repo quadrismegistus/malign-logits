@@ -33,13 +33,25 @@ SO, AND BOTH FLAGGED FOR THE AUDIT RATHER THAN DECIDED QUIETLY:
   (2) THE GLOBAL FIT'S POPULATION IS AMBIGUOUS AND BOTH ARE PRINTED. §E6 inherits
       v6 §C0's "GLOBAL over the qualifying population, never within cell." E's
       declared population is the GAP stratum, so the natural reading is a fit over
-      the gap. C fitted over ALL strata pooled. RULED AT [1827].2: THE GAP. §C0's
-      WORDING is inherited, not C's population, and E's qualifying population IS
-      the gap (§E1). The substantive reason is the evening's own lesson: the strata
-      differ in movement by construction, in entropy, and in bar-selectivity, so an
-      all-strata fit imports a coefficient estimated where the relationship may not
-      hold. FIT WHERE YOU CORRECT. C's pooled fit prints beside it as a declared
-      sensitivity.
+      the gap. C fitted over ALL strata pooled. RULED AT [1829], REVERSING
+      [1827].2: C's ALL-STRATA FIT IS PRIMARY. Three reasons, and the first is
+      decisive on its own:
+        - COMPARABILITY. §E3's reading rule instructs comparison against "the
+          effect size C measured (0.0251 displacing / 0.0340 gap, both from C)".
+          Those were produced under C's all-strata fit. Residualise E differently
+          and E's number is not on that scale — the spec's own reading rule
+          becomes unexecutable, and nothing in the spec says so.
+        - E IS A DELTA. §E0: C's v6 "governs everything not named here." §E1 says
+          "GLOBAL fit" and does NOT name a population, so it INHERITS. A delta
+          that silently changes an inherited parameter is not a delta.
+        - LEAKAGE. Fitting arousal-to-valence ON the gap and then testing valence
+          ON the gap absorbs gap-specific arousal/valence structure into "the
+          confound" and subtracts it. That is the base-axis pattern — 8/21
+          reversal without leave-one-out, 11/21 nothing with it — and it pointed
+          where the other results pointed, which is what made it believable.
+      The superseded "fit where you correct" argument is not wrong in isolation;
+      it is wrong against this project's history. The gap fit still prints as the
+      declared sensitivity.
 """
 
 import argparse
@@ -325,8 +337,15 @@ def main(a):
     print("  POOLED and ran ~20% HIGH (a bar too strict, hence conservative). THE TWO")
     print("  REGISTRATIONS' BENCHMARKS ARE NOT COMPUTED THE SAME WAY and E's is the")
     print("  corrected one. Do not compare E's benchmark to C's as like for like.")
-    print("  AROUSAL FIT: over the GAP stratum, per [1827].2 -- fit where you correct.")
-    print("  C's all-strata fit is printed above as a declared sensitivity.")
+    # DERIVED FROM THE CONSTANT, NEVER RESTATED. A declaration line that spells out
+    # a parameter in prose goes stale the moment the parameter moves -- which is
+    # exactly what happened to this line when FIT_POPULATION was reversed to "all"
+    # and the text still read "over the GAP stratum, per [1827].2".
+    _fit = ("ALL STRATA, as Registration C (the INHERITED parameter: E is a delta "
+            "and §E1 does not name a fit population)" if FIT_POPULATION == "all"
+            else "the GAP stratum only")
+    print(f"  AROUSAL FIT: FIT_POPULATION={FIT_POPULATION!r} -- {_fit}, per [1829]")
+    print("  reversing [1827].2. The other fit is printed above as a declared sensitivity.")
 
 
 if __name__ == "__main__":
