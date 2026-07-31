@@ -404,3 +404,83 @@ def table(contrasts, title=""):
     for c in sorted(contrasts, key=lambda c: (c.test().get("p") is None,
                                               c.test().get("p") or 1.0)):
         print(c.line())
+
+
+# ---------------------------------------------------------------------------
+# Per-cell reporting. Because a group statistic can be null while the cells
+# under it contain the interpretable events.
+# ---------------------------------------------------------------------------
+
+def per_cell(step, texts=None, metric="js", rule=None, language="en", where=None):
+    """One record per cell, each carrying its PERCENTILE within the step.
+
+    WHY A PERCENTILE AND NOT A P-VALUE. A cell has no sampling noise -- the logits are a
+    deterministic forward pass, so the same prompt through the same model gives the same
+    answer every time. There is no sampling distribution, so there is no classical
+    significance for one cell, and any table that printed a p per cell would be inventing
+    one. What a cell CAN be placed against is a REFERENCE distribution, and the honest one
+    is the step's own cells: "this prompt moved more than 80% of what this step moved."
+    That controls for step size, which is the quantity that varies most between families
+    (js medians run 0.152 to 0.002 across the roster).
+
+    Two other per-cell tests exist and are NOT this function's job:
+      - the RENORMALISATION NULL is already a per-cell, per-word test -- `CANONICAL` asks
+        whether a word rose beyond what removing the fallers hands it for free.
+      - a matched-word control within one cell, which needs a declared control set.
+
+    **WHEN THE GROUP TEST CANNOT REACH SIGNIFICANCE, THIS IS NOT A GARNISH.** A sign test
+    on 6 pairs has a floor of p=0.031 at 6 of 6; on 4 pairs the floor is 0.125. Subsets
+    that small cannot produce a conventional result however large the effect, and reporting
+    per cell is the only thing that can say anything at all about them.
+
+    The reference is always the step's FULL scored population in `language`, never the
+    subset passed as `texts` -- a percentile against six cells would be meaningless.
+    """
+    _check(metric)
+    ref = sorted(v for p in _population(language, None)
+                 if (v := _measure(step.cell(p.text), metric, rule)) is not None)
+    if not ref:
+        return []
+    if texts is None:
+        texts = [p.text for p in _population(language, where)]
+
+    out = []
+    for t in texts:
+        c = step.cell(t)
+        v = _measure(c, metric, rule)
+        if v is None:
+            continue
+        try:
+            m = c.movement(rule)
+        except ValueError:
+            m = None
+        out.append({
+            "step": step.label, "family": step.family, "prompt": t,
+            "domain": c.domain, "metric": metric, "value": v,
+            "percentile": 100.0 * sum(1 for x in ref if x <= v) / len(ref),
+            "n_reference": len(ref),
+            "top_riser": m.top_riser() if m else None,
+            "top_faller": (m.fallers[0] if (m and m.fallers) else None),
+            "n_fallers": len(m.fallers) if m else None,
+            "n_risers": len(m.risers) if m else None,
+        })
+    return out
+
+
+def cells_table(records, title="", limit=0, sort="percentile"):
+    """Print per-cell records. `top faller -> top riser` is the interpretable column."""
+    if not records:
+        print("  no cells")
+        return
+    if title:
+        print(f"\n{title}")
+    r0 = records[0]
+    print(f"  step={r0['step']}  metric={r0['metric']}  "
+          f"reference={r0['n_reference']} cells of this step")
+    print(f"  {'prompt':<50}{r0['metric'][:8]:>9}{'pct':>6}   displacement")
+    rs = sorted(records, key=lambda r: -r.get(sort, 0))
+    for r in (rs[:limit] if limit else rs):
+        disp = (f"-{r['top_faller']} -> +{r['top_riser']}"
+                if r["top_faller"] and r["top_riser"]
+                else (f"+{r['top_riser']}" if r["top_riser"] else "-"))
+        print(f"  {r['prompt'][:48]:<50}{r['value']:>9.4f}{r['percentile']:>6.0f}   {disp}")

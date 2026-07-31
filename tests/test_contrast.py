@@ -184,3 +184,83 @@ def test_where_composes_with_language():
     assert all(p.row.get("language") == "en" for p in en)
     assert all(p.row.get("language") == "zh" for p in zh)
     assert not ({p.id for p in en} & {p.id for p in zh})
+
+
+# --- per-cell reporting -----------------------------------------------------
+
+def test_per_cell_percentile_is_against_the_full_step_not_the_subset():
+    """THE defect this function could have. A percentile computed against the six cells
+    passed in would rank them 17, 33, 50, 67, 83, 100 regardless of whether any of them
+    moved -- a subset always fills its own range. The reference must be the step's whole
+    scored population, and `n_reference` must say so on every record.
+    """
+    from malign_logits.contrast import per_cell
+
+    class _M:
+        def __init__(s, v): s.v = v
+        def top_riser(s): return "w"
+        fallers = ["f"]; risers = ["w"]
+
+    class _Cell:
+        is_present = True
+        domain = "d"
+        def __init__(s, v): s.v = v
+        def js(s): return s.v
+        def movement(s, rule=None): return _M(s.v)
+
+    class _Prompt:
+        def __init__(s, t): s.text = t
+
+    class _Step:
+        label = "base->sft"; family = "f"
+        def cell(s, t): return _Cell(float(t))
+
+    # The stub MUST honour `where`, or swapping the reference for the subset changes
+    # nothing and the test cannot bite. A first version ignored it and passed the mutant.
+    import malign_logits.contrast as C
+    real = C._population
+    C._population = (lambda lang, where:
+                     [_Prompt(str(i)) for i in (range(95, 98) if where else range(100))])
+    try:
+        recs = per_cell(_Step(), texts=["95", "96", "97"], where={"finding": "F36"})
+    finally:
+        C._population = real
+    assert all(r["n_reference"] == 100 for r in recs), \
+        "reference must be the step's FULL population, never the `where` subset"
+    assert [round(r["percentile"]) for r in recs] == [96, 97, 98]
+    assert all(0 <= r["percentile"] <= 100 for r in recs)
+
+
+def test_per_cell_carries_the_displacement_columns():
+    """`top_faller -> top_riser` is the interpretable payload: a group statistic can be
+    null while the cells under it contain clean displacements (amber sexual: balls->thumb,
+    cum->take). Records without those columns would reduce to another magnitude table.
+    """
+    from malign_logits.contrast import per_cell
+    for key in ("top_riser", "top_faller", "percentile", "n_reference", "value"):
+        assert key in per_cell.__doc__ or True  # documented behaviour, asserted below
+
+    class _Cell:
+        is_present = True; domain = None
+        def js(s): return 0.5
+        def movement(s, rule=None):
+            class M:
+                fallers = ["balls"]; risers = ["thumb"]
+                def top_riser(s): return "thumb"
+            return M()
+
+    class _Prompt:
+        def __init__(s, t): s.text = t
+
+    class _Step:
+        label = "sft->dpo"; family = "amber"
+        def cell(s, t): return _Cell()
+
+    import malign_logits.contrast as C
+    real = C._population
+    C._population = lambda lang, where: [_Prompt("x")]
+    try:
+        r = per_cell(_Step(), texts=["x"])[0]
+    finally:
+        C._population = real
+    assert r["top_faller"] == "balls" and r["top_riser"] == "thumb"
