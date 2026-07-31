@@ -1,9 +1,9 @@
-"""M01 clause 8: which stage does the displacing, at word level, across families.
+"""M01 stage-share: which stage does the displacing, at word level, across families.
 
-    uv run .venv/bin/python scripts/m01_clause8_stage_share.py --dry-run
-    uv run .venv/bin/python scripts/m01_clause8_stage_share.py
+    uv run .venv/bin/python scripts/m01_stage_share.py --dry-run
+    uv run .venv/bin/python scripts/m01_stage_share.py
 
-WHY THIS EXISTS. Clause 8 is VERIFIED by two seats and reads as a roster-grade
+WHY THIS EXISTS. stage-share is VERIFIED by two seats and reads as a roster-grade
 claim -- "base->SFT carries a median 72% of word-level distributional movement
 (2.58x DPO), uniformly across content categories." It cites dockets, not a
 script. There is no producer in `scripts/` and `meta/M01_displacement/scripts/`
@@ -31,7 +31,7 @@ the ratio cannot distinguish them. If a family's DPO stage barely moves, "the
 operation installs almost entirely at SFT" is really "this particular DPO did
 little" -- the same sentence, the opposite finding. A ratio whose terms are not
 published is a number whose meaning lives in a computation nobody can re-run,
-which is how clause 8 got here.
+which is how stage-share got here.
 
 THE ARCHANGEL FOUR ARE THE DECISIVE CELL. DPO/KTO/PPO/SLiC share a base and one
 SFT checkpoint and differ only in the preference-optimisation METHOD:
@@ -44,7 +44,7 @@ SFT checkpoint and differ only in the preference-optimisation METHOD:
 
 With one DPO variant those readings are observationally identical.
 
-DECLARED BEFORE THE DATA EXISTS: clause 8's 72% either replicates across the
+DECLARED BEFORE THE DATA EXISTS: stage-share's 72% either replicates across the
 three-arm families or is revealed as amber-shaped. Both are results. Only the
 current state -- verified, general-sounding, single-family, no producer -- is
 not.
@@ -64,7 +64,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from malign_logits import MODEL_FAMILIES, PATH_DATA  # noqa: E402
 from malign_logits.cache import get_cache  # noqa: E402
 
-OUT = os.path.join(PATH_DATA, "m01_clause8_stage_share.csv")
+OUT = os.path.join(PATH_DATA, "m01_stage_share.csv")
 ARMS = ("base", "ego", "superego")
 
 
@@ -295,7 +295,7 @@ def main(a):
     shares = [np.median([r["sft_share"] for r in rs]) for rs in fam_of.values()]
     print(f"\nACROSS {len(shares)} FAMILIES, family as unit: "
           f"median {np.median(shares):.3f}, range {min(shares):.3f}-{max(shares):.3f}")
-    print("Clause 8 books 0.72 (2.58x). It is a ONE-FAMILY figure until this "
+    print("stage-share books 0.72 (2.58x). It is a ONE-FAMILY figure until this "
           "table says otherwise; the spread above is the test.")
 
     arch = {k: v for k, v in fam_of.items() if k.startswith("archangel")}

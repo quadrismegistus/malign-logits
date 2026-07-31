@@ -226,7 +226,7 @@ grouping is a declared traversal and the class can be built on evidence whenever
 analysis wants it.
 
 **No persisted derived movement.** The cache plus `word_probs()` gives recomputation for
-free, and persisting derived numbers is the staleness that retired clause 8.
+free, and persisting derived numbers is the staleness that retired M01/stage-share.
 
 **No aggregation helpers yet.** `step.records()` produces dataframe rows; anything above
 that is better shaped by the first real analysis than guessed in advance.

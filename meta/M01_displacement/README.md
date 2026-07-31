@@ -62,10 +62,13 @@ mapping. Cross-document references use the qualified form
                            schema 81b06f9, not a script)
     slot-sensitivity       NONE
     liminal-targeting      NONE (F40 instrument, unaudited)
-    stage-share            scripts/m01_clause8_stage_share.py (the [942]
+    stage-share            scripts/m01_stage_share.py (the [942]
                            successor; the only clause with a committed
-                           producer; filename keeps the pre-split number
-                           — rename is malign's option per [1046])
+                           producer; renamed off the pre-split number
+                           2026-07-31 per [1046]/[1048].3, output at
+                           data/m01_stage_share.csv. "clause-8" survives
+                           in this file ONLY as the pre-split citation
+                           key — see the row above)
     acquisition-order      NONE (F04 instrument, audit pending)
 
     A clause acquiring a producer updates this block IN THE SAME COMMIT

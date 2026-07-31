@@ -5,7 +5,7 @@
 
 THE QUESTION, which is RH's and which no existing measure answers.
 
-Clause 8 reads "the operation installs almost entirely at SFT: base->SFT carries a median
+stage-share reads "the operation installs almost entirely at SFT: base->SFT carries a median
 72% of word-level distributional movement." That statistic is JS over the WHOLE scored
 word set. **JS measures TOTAL movement; the claim is about DE-TRANSGRESSING, and the two
 come apart badly.** SFT is where a model learns chat format, register, "As an AI
@@ -29,7 +29,7 @@ complete in the v3 grid already.
 
 THREE THINGS THIS PRINTS AND WHY EACH IS THERE
 
-  1. JS PER STAGE, and the share -- the clause-8 statistic, reproduced on v3 cells so the
+  1. JS PER STAGE, and the share -- the stage-share statistic, reproduced on v3 cells so the
      new number has an old one to sit beside.
   2. F40 CATEGORY MASS FLOW PER STAGE -- signed sum of dp over each tag's words. Negative
      means mass LEFT that category at that stage. This is the measure the claim needs.
@@ -184,7 +184,7 @@ def main(domain, theta_note):
     if not prompts:
         return
 
-    print(f"\n{'='*86}\n1. JS PER STAGE  (the clause-8 statistic, on v3 cells)\n{'='*86}")
+    print(f"\n{'='*86}\n1. JS PER STAGE  (the stage-share statistic, on v3 cells)\n{'='*86}")
     print(f"{'method':<8}{'JS base>ego':>13}{'JS ego>sup':>13}{'share':>9}"
           f"{'n':>7}")
     js_be_all = []
@@ -253,9 +253,9 @@ def main(domain, theta_note):
 
     print(f"\n{'='*86}\n3. THE READ\n{'='*86}")
     print("  Compare row `base>ego (SFT)` against the `ego>sup` rows, column by column.")
-    print("  PROCEDURAL large at SFT + TRANSGRESSIVE large at ego>sup  -> clause 8's JS")
+    print("  PROCEDURAL large at SFT + TRANSGRESSIVE large at ego>sup  -> stage-share's JS")
     print("    was measuring FORMAT work and the de-transgressing is the second stage.")
-    print("  TRANSGRESSIVE large at SFT                                -> clause 8 holds")
+    print("  TRANSGRESSIVE large at SFT                                -> stage-share holds")
     print("    on an instrument that can tell the two apart.")
     print("  TRANSGRESSIVE n is 24-27 of 347 and the two taggings agree on 79.5% of")
     print("    primaries: treat a difference between v1 and v2 columns as the error bar,")

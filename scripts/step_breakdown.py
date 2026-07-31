@@ -38,7 +38,7 @@ WHAT IS REPORTED PER STRATUM, and why each column is there:
     JS median/mean    the divergence distribution is heavily skewed -- on amber the mean
                       runs 3x the median -- so a single central figure hides the shape.
                       Both, always.
-    L1 median         a DIFFERENT quantity from JS, not a check on it. Clause 8 died
+    L1 median         a DIFFERENT quantity from JS, not a check on it. stage-share died
                       because "word-level distributional movement" named neither.
     fallers/risers    counts under the named rule.
     max lost          the largest single drop, |dp|, with the word.
