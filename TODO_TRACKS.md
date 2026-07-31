@@ -41,8 +41,23 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   run the gradient under Warriner on the ~14K overlap, under GPT norms
   on the overlap AND the 112K extension — separates human/model
   divergence from coverage artifact. English lacks familiarity (es/de
-  are the four-variable sets); exact English file URL being chased for
-  a hash pin. Decision AFTER the current audit closes.
+  are the four-variable sets). EN FILES PINNED (abstraction seat,
+  OSF-verified against published digests): osf.io/k5a4x, CC BY-NC-SA;
+  single-words sha256 878aa7b6cb44625e (126,397 rows, osf.io/download/
+  mkghz), MWE 8710700f29f2ae50 (63,680 rows, 6p8sn). ERRATUM TRAP:
+  arousal in the single-word file was MISASSIGNED in every copy
+  downloaded before 2025-01-13 (publisher erratum kv8ay; caught by
+  Westera, Leiden) — ONLY the pinned digest is arousal-valid; any
+  other copy is POISONED for arousal. Schema per dimension:
+  X_GPT_dom / X_GPT_prob / rank / rank% — X_GPT_prob is an EXPECTATION
+  over the model's rating distribution, the closest object-type to
+  this project's own instrument. Caveats: master list "includes some
+  faulty entries (mainly from Hollis)" — budget a cleaning pass
+  pre-join; model-version drift (list gpt-4o-2024-08-06, studies
+  -05-13); two stray empty columns. Verified copies landing at
+  TheoryMachines/norms_sources/llm_martinez/ (SEPARATE from the
+  exogenous human sources by design). Decision AFTER the current
+  audit closes.
 - Queued small items (RH: "still queued"): register-fidelity judge;
   literary-below-neutral design; eleventh-clause candidate.
 
