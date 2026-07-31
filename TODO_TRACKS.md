@@ -296,14 +296,16 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   asymmetric-change hypothesis TESTED, not assumed — losing eight
   neutral comparators moved nothing. THE NORMS ARC IS CLOSED END
   TO END (registration [1147] -> close [1313], one day).
-- [ ] PRICING COMMISSIONS for RH's Registration A decision
-  ([1314]): malign = new-pairs battery cost/time estimate (~25-30
-  authored en pairs, roster edges; estimate only); lacan =
-  pair-authoring template + exemplar skeletons (fields at birth:
-  pair_id, pair_role, contrast_type BOTH members, domain,
-  language, writer named). Pen's recommendation to RH on record:
-  do NOT run at 6 (spends the blindness); zh arm + authored pairs,
-  run once.
+- [x] REGISTRATION A PATH DECIDED BY RH ([1324]: "let's not do 6
+  pairs only... move on for the most part... a standing ledger for
+  new prompts"): DEFER-AND-QUEUE. The [1297].3 freeze is STANDING
+  (blind quantity stays unseen; the one clean shot preserved for
+  the grown population). New pairs = PROMPT_QUEUE.md entry 001
+  (Sonnet drafts ~3x oversample -> lacan template audit -> malign
+  field audit -> RH construct read -> queued for next cloud run;
+  no drafting until RH's word on the entry). Template delivered
+  ([1316]); battery cost estimate moot until the queue fires.
+  A's spec deferred with it ([1321].5 confirmed indefinite).
 - [GATED: RH's word on Registration A] Registration A spec draft —
   population/curve state CERTIFIED and FROZEN ([1297].3: no paired
   arousal difference computes until RH rules among run-as-registered
