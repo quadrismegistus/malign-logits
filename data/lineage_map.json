@@ -1,0 +1,404 @@
+{
+ "_rule": "Two checkpoints are in the same lineage if the registry records a\nrelation between them that implies shared pretraining. Lineages are the connected\ncomponents of that relation set. A FAMILY's lineage is its BASE checkpoint's,\nbecause \"independent alignment implementation\" means independent PRETRAINING \u2014\ntwo alignment recipes applied to one base are two recipes, not two implementations.\n\n    UNIONING          same_base_as, sft_of, dpo_of, kto_of, ppo_of, slic_of,\n                      rlvr_of, reasoning_of, data_ablation_of\n    THE ONE JUDGEMENT  smaller_sibling_of / smaller_predecessor_of \u2014 a size ladder\n                      is one recipe at several scales. Counting the four falcon3\n                      sizes as four implementations overstates independence;\n                      counting them as one discards real variation. TOGGLED AND\n                      REPORTED BOTH WAYS rather than decided here.",
+ "_caveat": "UPPER BOUND on independence, not an estimate: the registry's relations are populated unevenly, so two genuinely related models with no recorded edge remain separate.",
+ "_unioning": [
+  "data_ablation_of",
+  "dpo_of",
+  "kto_of",
+  "ppo_of",
+  "reasoning_of",
+  "rlvr_of",
+  "same_base_as",
+  "sft_of",
+  "slic_of"
+ ],
+ "_sibling": [
+  "smaller_sibling_of"
+ ],
+ "_predecessor": [
+  "smaller_predecessor_of"
+ ],
+ "sizes_separate": {
+  "n_edges_used": 155,
+  "n_families": 49,
+  "n_lineages": 39,
+  "unresolved_families": [],
+  "lineages": {
+   "01-ai/Yi-1.5-9B": [
+    "yi"
+   ],
+   "ContextualAI/archangel_sft-dpo_pythia2-8b": [
+    "archangel-dpo",
+    "archangel-kto",
+    "archangel-ppo",
+    "archangel-slic"
+   ],
+   "EleutherAI/pythia-6.9b": [
+    "pythia"
+   ],
+   "HuggingFaceH4/mistral-7b-sft-beta": [
+    "zephyr"
+   ],
+   "HuggingFaceTB/SmolLM2-360M": [
+    "smol"
+   ],
+   "HuggingFaceTB/SmolLM3-3B": [
+    "smol3"
+   ],
+   "LLM360/Amber": [
+    "amber"
+   ],
+   "PKU-Alignment/alpaca-7b-reproduced": [
+    "beaver"
+   ],
+   "Qwen/Qwen2.5-0.5B": [
+    "qwen-tiny"
+   ],
+   "Qwen/Qwen2.5-7B": [
+    "qwen"
+   ],
+   "Qwen/Qwen3-8B": [
+    "qwen3"
+   ],
+   "RWKV/rwkv-4-7b-pile": [
+    "rwkv"
+   ],
+   "TinyLlama/TinyLlama-1.1B-Chat-v1.0": [
+    "tinyllama"
+   ],
+   "allenai/Llama-3.1-Tulu-3-8B-DPO": [
+    "llama",
+    "tulu",
+    "tulu-no-safety",
+    "tulu-sft-full",
+    "tulu-sft-nomath",
+    "tulu-sft-nopersona",
+    "tulu-sft-nowildchat"
+   ],
+   "allenai/OLMo-2-0425-1B": [
+    "olmo-tiny"
+   ],
+   "allenai/OLMoE-1B-7B-0125": [
+    "olmoe"
+   ],
+   "allenai/Olmo-3-1025-7B": [
+    "olmo",
+    "olmo-think"
+   ],
+   "allenai/Olmo-3-1125-32B": [
+    "olmo-32b"
+   ],
+   "allenai/Olmo-Hybrid-7B": [
+    "olmo-hybrid"
+   ],
+   "baichuan-inc/Baichuan2-7B-Base": [
+    "baichuan"
+   ],
+   "bigscience/bloom-7b1": [
+    "bloom"
+   ],
+   "deepseek-ai/deepseek-llm-7b-base": [
+    "deepseek-7b"
+   ],
+   "internlm/internlm2-base-7b": [
+    "internlm2"
+   ],
+   "m-a-p/CT-LLM-Base": [
+    "ct-llm"
+   ],
+   "m-a-p/neo_7b": [
+    "map-neo"
+   ],
+   "meta-llama/Llama-3.1-70B": [
+    "llama-70b"
+   ],
+   "microsoft/phi-4": [
+    "phi4"
+   ],
+   "openbmb/MiniCPM5-1B": [
+    "minicpm"
+   ],
+   "stabilityai/stablelm-2-1_6b": [
+    "stablelm"
+   ],
+   "tiiuae/Falcon-H1-1.5B-Base": [
+    "falcon-h1-1.5b"
+   ],
+   "tiiuae/Falcon-H1-7B-Base": [
+    "falcon-h1-7b"
+   ],
+   "tiiuae/Falcon3-10B-Base": [
+    "falcon3-10b"
+   ],
+   "tiiuae/Falcon3-1B-Base": [
+    "falcon3-1b"
+   ],
+   "tiiuae/Falcon3-3B-Base": [
+    "falcon3-3b"
+   ],
+   "tiiuae/Falcon3-7B-Base": [
+    "falcon3-7b"
+   ],
+   "tiiuae/Falcon3-Mamba-7B-Base": [
+    "falcon3-mamba"
+   ],
+   "tiiuae/falcon-mamba-7b": [
+    "falcon-mamba"
+   ],
+   "togethercomputer/RedPajama-INCITE-7B-Chat": [
+    "redpajama"
+   ],
+   "zai-org/glm-4-9b-chat-hf": [
+    "glm4"
+   ]
+  }
+ },
+ "siblings_merged": {
+  "n_edges_used": 173,
+  "n_families": 49,
+  "n_lineages": 34,
+  "unresolved_families": [],
+  "lineages": {
+   "01-ai/Yi-1.5-9B": [
+    "yi"
+   ],
+   "ContextualAI/archangel_sft-dpo_pythia2-8b": [
+    "archangel-dpo",
+    "archangel-kto",
+    "archangel-ppo",
+    "archangel-slic"
+   ],
+   "EleutherAI/pythia-6.9b": [
+    "pythia"
+   ],
+   "HuggingFaceH4/mistral-7b-sft-beta": [
+    "zephyr"
+   ],
+   "HuggingFaceTB/SmolLM2-360M": [
+    "smol"
+   ],
+   "HuggingFaceTB/SmolLM3-3B": [
+    "smol3"
+   ],
+   "LLM360/Amber": [
+    "amber"
+   ],
+   "PKU-Alignment/alpaca-7b-reproduced": [
+    "beaver"
+   ],
+   "Qwen/Qwen2.5-0.5B": [
+    "qwen",
+    "qwen-tiny"
+   ],
+   "Qwen/Qwen3-8B": [
+    "qwen3"
+   ],
+   "RWKV/rwkv-4-7b-pile": [
+    "rwkv"
+   ],
+   "TinyLlama/TinyLlama-1.1B-Chat-v1.0": [
+    "tinyllama"
+   ],
+   "allenai/Llama-3.1-Tulu-3-8B-DPO": [
+    "llama",
+    "tulu",
+    "tulu-no-safety",
+    "tulu-sft-full",
+    "tulu-sft-nomath",
+    "tulu-sft-nopersona",
+    "tulu-sft-nowildchat"
+   ],
+   "allenai/OLMo-2-0425-1B": [
+    "olmo-tiny"
+   ],
+   "allenai/OLMoE-1B-7B-0125": [
+    "olmoe"
+   ],
+   "allenai/Olmo-3-1025-7B": [
+    "olmo",
+    "olmo-32b",
+    "olmo-think"
+   ],
+   "allenai/Olmo-Hybrid-7B": [
+    "olmo-hybrid"
+   ],
+   "baichuan-inc/Baichuan2-7B-Base": [
+    "baichuan"
+   ],
+   "bigscience/bloom-7b1": [
+    "bloom"
+   ],
+   "deepseek-ai/deepseek-llm-7b-base": [
+    "deepseek-7b"
+   ],
+   "internlm/internlm2-base-7b": [
+    "internlm2"
+   ],
+   "m-a-p/CT-LLM-Base": [
+    "ct-llm"
+   ],
+   "m-a-p/neo_7b": [
+    "map-neo"
+   ],
+   "meta-llama/Llama-3.1-70B": [
+    "llama-70b"
+   ],
+   "microsoft/phi-4": [
+    "phi4"
+   ],
+   "openbmb/MiniCPM5-1B": [
+    "minicpm"
+   ],
+   "stabilityai/stablelm-2-1_6b": [
+    "stablelm"
+   ],
+   "tiiuae/Falcon-H1-1.5B-Base": [
+    "falcon-h1-1.5b"
+   ],
+   "tiiuae/Falcon-H1-7B-Base": [
+    "falcon-h1-7b"
+   ],
+   "tiiuae/Falcon3-10B-Base": [
+    "falcon3-10b",
+    "falcon3-1b",
+    "falcon3-3b",
+    "falcon3-7b"
+   ],
+   "tiiuae/Falcon3-Mamba-7B-Base": [
+    "falcon3-mamba"
+   ],
+   "tiiuae/falcon-mamba-7b": [
+    "falcon-mamba"
+   ],
+   "togethercomputer/RedPajama-INCITE-7B-Chat": [
+    "redpajama"
+   ],
+   "zai-org/glm-4-9b-chat-hf": [
+    "glm4"
+   ]
+  }
+ },
+ "siblings_and_predecessors_merged": {
+  "n_edges_used": 181,
+  "n_families": 49,
+  "n_lineages": 33,
+  "unresolved_families": [],
+  "lineages": {
+   "01-ai/Yi-1.5-9B": [
+    "yi"
+   ],
+   "ContextualAI/archangel_sft-dpo_pythia2-8b": [
+    "archangel-dpo",
+    "archangel-kto",
+    "archangel-ppo",
+    "archangel-slic"
+   ],
+   "EleutherAI/pythia-6.9b": [
+    "pythia"
+   ],
+   "HuggingFaceH4/mistral-7b-sft-beta": [
+    "zephyr"
+   ],
+   "HuggingFaceTB/SmolLM2-360M": [
+    "smol"
+   ],
+   "HuggingFaceTB/SmolLM3-3B": [
+    "smol3"
+   ],
+   "LLM360/Amber": [
+    "amber"
+   ],
+   "PKU-Alignment/alpaca-7b-reproduced": [
+    "beaver"
+   ],
+   "Qwen/Qwen2.5-0.5B": [
+    "qwen",
+    "qwen-tiny"
+   ],
+   "Qwen/Qwen3-8B": [
+    "qwen3"
+   ],
+   "RWKV/rwkv-4-7b-pile": [
+    "rwkv"
+   ],
+   "TinyLlama/TinyLlama-1.1B-Chat-v1.0": [
+    "tinyllama"
+   ],
+   "allenai/Llama-3.1-Tulu-3-8B-DPO": [
+    "llama",
+    "tulu",
+    "tulu-no-safety",
+    "tulu-sft-full",
+    "tulu-sft-nomath",
+    "tulu-sft-nopersona",
+    "tulu-sft-nowildchat"
+   ],
+   "allenai/OLMo-2-0425-1B": [
+    "olmo",
+    "olmo-32b",
+    "olmo-think",
+    "olmo-tiny"
+   ],
+   "allenai/OLMoE-1B-7B-0125": [
+    "olmoe"
+   ],
+   "allenai/Olmo-Hybrid-7B": [
+    "olmo-hybrid"
+   ],
+   "baichuan-inc/Baichuan2-7B-Base": [
+    "baichuan"
+   ],
+   "bigscience/bloom-7b1": [
+    "bloom"
+   ],
+   "deepseek-ai/deepseek-llm-7b-base": [
+    "deepseek-7b"
+   ],
+   "internlm/internlm2-base-7b": [
+    "internlm2"
+   ],
+   "m-a-p/CT-LLM-Base": [
+    "ct-llm"
+   ],
+   "m-a-p/neo_7b": [
+    "map-neo"
+   ],
+   "meta-llama/Llama-3.1-70B": [
+    "llama-70b"
+   ],
+   "microsoft/phi-4": [
+    "phi4"
+   ],
+   "openbmb/MiniCPM5-1B": [
+    "minicpm"
+   ],
+   "stabilityai/stablelm-2-1_6b": [
+    "stablelm"
+   ],
+   "tiiuae/Falcon-H1-1.5B-Base": [
+    "falcon-h1-1.5b"
+   ],
+   "tiiuae/Falcon-H1-7B-Base": [
+    "falcon-h1-7b"
+   ],
+   "tiiuae/Falcon3-10B-Base": [
+    "falcon3-10b",
+    "falcon3-1b",
+    "falcon3-3b",
+    "falcon3-7b"
+   ],
+   "tiiuae/Falcon3-Mamba-7B-Base": [
+    "falcon3-mamba"
+   ],
+   "tiiuae/falcon-mamba-7b": [
+    "falcon-mamba"
+   ],
+   "togethercomputer/RedPajama-INCITE-7B-Chat": [
+    "redpajama"
+   ],
+   "zai-org/glm-4-9b-chat-hf": [
+    "glm4"
+   ]
+  }
+ }
+}
