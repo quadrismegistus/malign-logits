@@ -33,7 +33,12 @@ assembly after the F37 freeze and write-up.
 
 ## Related, filed elsewhere
 
-- LITERARY BELOW NEUTRAL in 14 of 15 families (four base->preference
-  families at p<1e-6) — the most replicated pattern in the [1015] table,
-  unsought, F19 territory, flagged-not-claimed; needs its own designed
-  test before it is a clause anywhere ([1015].4).
+- LITERARY BELOW NEUTRAL — scope corrected at [1017]: NOT "essentially
+  everywhere". In the families where the effect is significant it holds
+  THROUGH THE WHOLE DISTRIBUTION (below neutral at median, P90 and P99,
+  under-represented in the top decile); in the two families where the
+  rank-sum was non-significant (tulu, archangel-kto) it INVERTS in the
+  tail. Still the most replicated pattern in the [1015] table, unsought,
+  F19 territory, flagged-not-claimed; any design for it must be
+  PER-FAMILY and report the TAIL as well as the middle — a rank-sum
+  alone would have missed the inversion entirely ([1015].4/[1017]).
