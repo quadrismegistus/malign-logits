@@ -333,11 +333,13 @@ def test_sweep_returns_the_whole_grid_so_no_cell_can_be_picked():
         class post: id = "POST"
     import malign_logits.movement as MV
     orig = MV.word_probs
-    # BOTH arms must license something, or every pair is (correctly) dropped for an
-    # empty set and the sweep returns nothing. A first fixture gave only the marked arm a
-    # distinctive word and returned 0 rows -- the code was right and the fixture was not.
-    seq = {("PRE", "m"):  _P({"a": .30, "b": .10, "c": .05}),
-           ("POST", "m"): _P({"a": .10, "b": .10, "c": .05}),
+    # BOTH arms must license something AT EVERY RATIO, or rows are correctly skipped.
+    # Two fixtures failed before this one and the code was right both times: the first
+    # gave only the marked arm a distinctive word (every pair dropped, 0 rows); the second
+    # had the unmarked arm's contrast at 6x, so ratio=10 emptied its set and 3 rows
+    # vanished. Here both arms sit at 15x.
+    seq = {("PRE", "m"):  _P({"a": .30, "b": .10, "c": .02}),
+           ("POST", "m"): _P({"a": .10, "b": .10, "c": .02}),
            ("PRE", "u"):  _P({"a": .02, "b": .10, "c": .30}),
            ("POST", "u"): _P({"a": .02, "b": .10, "c": .20})}
     MV.word_probs = lambda mid, t, *a, **k: seq.get((mid, t))
@@ -348,3 +350,25 @@ def test_sweep_returns_the_whole_grid_so_no_cell_can_be_picked():
     assert len(rows) == 12, "all ratio x floor combinations must be returned"
     assert {(r["ratio"], r["floor"]) for r in rows} == {
         (r, f) for r in (2.0, 3.0, 5.0, 10.0) for f in (0.001, 0.003, 0.01)}
+
+
+def test_sweep_skips_a_cell_whose_population_collapses(monkeypatch):
+    """Real behaviour, pinned. A high ratio can empty an arm's licensed set, and the row
+    is then DROPPED rather than reported on a handful of pairs. A grid with a hole in it
+    is honest; a grid whose corner rests on three pairs is not.
+    """
+    import malign_logits.contrast as C
+    import malign_logits.movement as MV
+    class _S:
+        label = "sft->dpo"; family = "f"
+        class pre: id = "PRE"
+        class post: id = "POST"
+    # the unmarked arm's contrast is only 6x, so ratio=10 empties it
+    seq = {("PRE", "m"):  _P({"a": .30, "b": .10, "c": .05}),
+           ("POST", "m"): _P({"a": .10, "b": .10, "c": .05}),
+           ("PRE", "u"):  _P({"a": .02, "b": .10, "c": .30}),
+           ("POST", "u"): _P({"a": .02, "b": .10, "c": .20})}
+    monkeypatch.setattr(MV, "word_probs", lambda mid, t, *a, **k: seq.get((mid, t)))
+    rows = C.licensed_sweep(_S(), [("m", "u")] * 12)
+    assert len(rows) == 9, "the three ratio=10 rows must be absent, not reported thin"
+    assert 10.0 not in {r["ratio"] for r in rows}
