@@ -289,13 +289,21 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   six items verified in output; every prior figure reproduces;
   corr(concreteness,logfreq)=+0.177 asymmetry flagged) -> custody
   DONE ([1300], 5867e08).
-- [~] C1 REFRESH in flight ([1309]): producer refused correctly
-  (drift = exactly the eight retired F36 strings, ids named);
-  institutional SET-EQUAL at 54, neutral 135->127; lacan's hashes
-  derived and WITHHELD per the blind protocol — malign derives
-  independently (warning: ranked-pick-WITHIN-stratum, not
-  Prompt.find). At re-freeze: `_canonicalisation` joins
-  c1_population.json ([1102].2 applied; no number changes).
+- [x] C1 REFRESH CLOSED ([1309]-[1313], ruled [1315]): verdict
+  IDENTICAL (14 of 21 two-sided at the 96-model store); two-seat
+  blind set agreement 54/127; institutional byte-identical to pin;
+  `_canonicalisation` now declared in c1_population.json; the
+  asymmetric-change hypothesis TESTED, not assumed — losing eight
+  neutral comparators moved nothing. THE NORMS ARC IS CLOSED END
+  TO END (registration [1147] -> close [1313], one day).
+- [ ] PRICING COMMISSIONS for RH's Registration A decision
+  ([1314]): malign = new-pairs battery cost/time estimate (~25-30
+  authored en pairs, roster edges; estimate only); lacan =
+  pair-authoring template + exemplar skeletons (fields at birth:
+  pair_id, pair_role, contrast_type BOTH members, domain,
+  language, writer named). Pen's recommendation to RH on record:
+  do NOT run at 6 (spends the blindness); zh arm + authored pairs,
+  run once.
 - [GATED: RH's word on Registration A] Registration A spec draft —
   population/curve state CERTIFIED and FROZEN ([1297].3: no paired
   arousal difference computes until RH rules among run-as-registered
