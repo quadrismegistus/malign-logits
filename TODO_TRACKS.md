@@ -89,7 +89,18 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   exclude by the F11 provenance rule, named in the spec. Process
   rule booked: MARKEDNESS IS AN AUTHORED FACT (written at
   JSON-finishing time; an unnameable writer = arbitrary by
-  default). Pattern: lacan drafts after the
+  default). POPULATION RULE RESTATED AT RH'S SECOND CATCH ([1276]):
+  MARKED is POLYSEMOUS across the corpus — transgressive-marking
+  (SETD/SETE) vs linguistic gender-marking (F11, female = marked
+  member by convention) are DIFFERENT CONSTRUCTS under one label.
+  Admission = nameable writer AND transgressive convention, both
+  stated per source. F11's 44 rows excluded on TWO independent
+  grounds (provenance + construct) — the second is PERMANENT:
+  resolving the second-writer trace never re-admits them here;
+  gender-marked pairs route to the gendered-displacement line
+  (P3). The F36 trace must establish the writer's CONVENTION, not
+  only identity. Ledger: A LABEL SHARED ACROSS FINDINGS DOES NOT
+  SHARE A MEANING. Pattern: lacan drafts after the
   window, pen freezes, malign audits. Original dossier
   ([1225] -> [1226]): the
   norms instrument's strongest possible sentence if it holds —
