@@ -175,3 +175,107 @@ Annotation run (second coder pending) → `faller-riser-relation` and
 `slot-sensitivity` positive form. F01/F04/F40 audit days →
 `mass-migration`, `liminal-targeting`, `acquisition-order`. Anger audit
 ([714].2) → `recipient-agreement`. Roster completion → all figures.
+
+---
+
+## Registrations C and D — the affect-dimension findings (31 Jul 2026)
+
+Registration C ran on the frozen norms population; Registration D is frozen and
+awaiting its battery. Every figure below carries its docket citation.
+
+### H2 — valence de-extremification: CONFIRMED, and what that does NOT license
+
+**CANONICAL STATUS ([1609].1), quotable only in this form:** *both tested strata
+are well-powered and the effect is real at each — displacing +0.0251 (p 0.0012),
+gap +0.0340 (p 0.0010), residualised. It is NOT monotone: the gap carries LESS
+movement (median departed 0.094 vs 0.161) and MORE effect. **Whether it holds at
+control sites is UNKNOWN — the control arm's MDE (0.0390) exceeded the displacing
+effect (0.0251), so its null could not have detected an effect of the size at
+issue.*** ([1608])
+
+**The displacement-specificity question is OPEN, not answered.** And the
+three-step stratum ladder it would have been read off is an artefact:
+un-barred the strata sit at 0.0067 / 0.0088 / 0.0959 — **two conditions** — and
+after the >=3-per-role bar at 0.0566 / 0.0943 / 0.1610, a smooth gradient
+([1599].2/[1600].2). **You cannot read a gradient off a ladder the bar built.**
+
+**The reading rule's first conjunct (the signed riser term) is evaluated but its
+value is SEALED AT RH** — it IS the withheld quantity. Canonical: *"confirmed on
+the A-condition at displacing; the first conjunct is evaluated (audited
+instrument, single-seat output, result at RH) and unauditable-in-value while the
+pairs arm is held blind; the gap qualifier travels with the claim."* ([1590].2)
+
+### H3 dead; H1-top quarantined
+
+**H3 (dominance de-extremification) DIES** — raw +0.0077 does not reach its own
+confound benchmark (+0.0218); residualised −0.0125, p 0.82 ([1576].2).
+
+**H1 top-movers QUARANTINED under §7(a)** — the registered riser arm confirms at
+displacing (+0.0444, p 0.0039) but the CONTROL faller readout is +0.2070 at
+p 0.0002, **3.4x the displacing value** ([1574].3).
+
+**The row that justified the design:** every RAW arm beats its benchmark in every
+stratum **including control** (raw H2 at control +0.0845, p 0.0012). Without the
+mandatory arousal-residualised arm this run reports three confirmations, one of
+them at the control site.
+
+### The de-control finding, and a rule for every §7(a) pass
+
+**The >=3-per-role qualification bar admits 258 of 2,478 control cells (10.4%),
+and the admitted ones carry 8.5x the departed mass of the excluded ones —
+2.8x the CONTROL_BELOW ceiling that defined their prompts as inert** ([1595]/[1596]).
+The bar selects, from control prompts, the cells whose movement would disqualify
+them if the stratum were defined cell-wise.
+
+**RULE: §7(a) FAILURES need no power check; §7(a) PASSES do.** A moving control is
+a positive finding that low power makes harder to see; a clean control is a
+negative finding, and a negative finding from an arm that could not have detected
+the effect is not evidence. **Every §7(a) pass carries its arm's MDE.** ([1608].3)
+
+**LAW: a qualification bar selects hardest where the stratum is thinnest — it
+compresses strata toward each other and can manufacture the gradient the design
+means to test.** ([1600].3)
+
+### P1 stands unamended
+
+P1's own admission bar does NOT select on movement (ratio 0.8x against the
+count-bar's 8.5x), so its control is inert by the sites and not by the filter
+([1602]/[1605]). **The count-bar/ratio-bar distinction is the operative law: a bar
+requiring N of something scales with the thing; a bar on a ratio does not.**
+
+### Family invariance and prompt determination
+
+**H2's effect does not vary by family: ICC −0.002 across 38 alignment
+implementations** — different labs, data and RLHF/DPO recipes, same
+valence-extremity contrast. **That is what licenses stating H2 as a claim about
+ALIGNMENT rather than about any pipeline**; the registration assumed it by
+pooling and it is now measured ([1645]).
+
+**H1's signed quantity is recipe-tinged (family ICC +0.029) and strongly
+prompt-determined** — prompt-clustered ICC +0.094 to +0.249 depending on
+substrate, against the extremity arms' +0.075 to +0.139 ([1645]/[1655]/[1657], in
+interval form: three-group ICCs have SE ~0.21 and span zero).
+
+**Cells sharing a prompt share a continuation distribution, so effective units
+per prompt saturate at ~1/ICC. FAMILY behaves like replication; PROMPT carries the
+dependence — more MODELS buy nothing, only more PAIRS do.**
+
+### Registration D status
+
+**Frozen v6 (`d7af5a07f0be58c6`), awaiting its battery.** Paired design: the unit
+is the pair, `D = A(marked) − A(unmarked)`, sign-flip null, threshold curve with
+a collapse clause, four arms (H1-signed carried verbatim from v4; arousal,
+valence-extremity, dominance-extremity as the site-specificity family).
+
+**The twin is a matched MOVING control** — marked-displaces-and-unmarked-inert
+co-occurs ZERO times in 126 pair-cells (p 4e-6), so the design reads whether the
+COMPOSITION of movement differs, not whether the twin stays still ([1648]/[1650]).
+
+**Power in ordinal facts and cardinal intervals:** the signed arm clusters far
+worse than the extremity arms; clean co-qualification ~85%. At MEI 0.025: H2
+42-339 pool pairs, H3 30-269, arousal powered at the current pool, **H1 480-1,950
+and reported out of consideration — reachable only at a clustering value every
+adequately-sampled measurement rejects** ([1657]/[1660]).
+
+**A ~160-pair drafting round is commissioned ([1662]) to cover the site arms'
+entire measured uncertainty.**
