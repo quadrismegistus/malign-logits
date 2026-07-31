@@ -31,7 +31,7 @@ authorized; malign's §7 audit gates the first quotable number.
 | Spec, drafted blind | docket [1150] |
 | Spec freeze + blind floors + restricted-null promotion | docket [1152] |
 | §2 header verification, falsification, amendment | docket [1153] -> [1154] |
-| Source files, staged + hashed | /Users/rj416/Dropbox/Prof/Articles/TheoryMachines/norms_sources/ (Brysbaert at its abslithists home) |
+| Source files, staged + hashed | /Users/rj416/Dropbox/Prof/Articles/TheoryMachines/norms_sources/ (ALL FOUR, incl. Brysbaert consolidated 2026-07-31 — the earlier 'at its abslithists home' was a gesture, not a location: [1212].2) |
 | Producer | pending (lacan authorized, [1154].4) |
 
 ## Sources (16-hex prefixes; full digests in the spec artifact)
