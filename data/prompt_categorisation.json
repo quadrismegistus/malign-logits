@@ -339,7 +339,8 @@
     "action": "retire by string: final-manipulated-word defect",
     "strings": 15,
     "rows": 16,
-    "note": "the ratified projection said 7 rows over 6 strings; the by-string sweep yields 16 over 15. A ratification binds the RULE, not the projection made of it -- the zh cessation strings end on the manipulated word (停止/开始) exactly as the English do, and were outside the single-final-TOKEN scan that produced the original count."
+    "note": "the ratified projection said 7 rows over 6 strings; the by-string sweep yields 16 over 15. A ratification binds the RULE, not the projection made of it -- the zh cessation strings end on the manipulated word (停止/开始) exactly as the English do, and were outside the single-final-TOKEN scan that produced the original count.",
+    "second_pass": "+1 row / +1 string: violence_explicit_5_zh. The first pass keyed on prompt_ids derived from an id that does not exist (e6_water_M_zh); the Chinese MARKED member is filed under the F01 id. 17 rows over 16 strings in total."
    }
   ]
  },
@@ -13955,8 +13956,8 @@
    "slot_status": "ASSIGNED",
    "apparatus": "BATTERY",
    "n_stashes": 5,
-   "status": "ACTIVE",
-   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | prompt_id recovered from prompt_inventory.csv (was census_0032); the census sweep had replaced the canonical id with a positional one",
+   "status": "RETIRED",
+   "notes": "slot and domain assigned by rule (merge_prompt_categorisation.py) | prompt_id recovered from prompt_inventory.csv (was census_0032); the census sweep had replaced the canonical id with a positional one | RETIRED 2026-07-31, SECOND PASS: the by-string sweep missed this row because the Chinese MARKED cessation member is filed under violence_explicit_5_zh, not under an e6_water_M_zh that was assumed absent. Same defect as its seven siblings -- the measurement position falls after a final manipulated word (停止) -- and its omission would have left the defect live in Chinese while every English sibling and its own UNMARKED partner retired.",
    "realisation": "literal",
    "resolver": null,
    "resolution_scope": null
