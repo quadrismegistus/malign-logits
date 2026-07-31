@@ -142,14 +142,40 @@ def realized_mde(null, alpha=ALPHA, power=0.80):
     return crit + stats.norm.ppf(power) * float(np.std(null, ddof=1))
 
 
-def pooled_arm(cells, coef, token, label):
+def pooled_arm(cells, coef_fitted, token, label):
+    """One arm. `label` is "raw" or "residualised" and it selects BOTH the value
+    function and the bar, which are coupled.
+
+    C's convention, read from m01_registration_c3.main() rather than inferred:
+
+        run_general(..., coef, ..., 0.0 if coef is not None else bench)
+
+        RAW           values UNRESIDUALISED, bar = the AROUSAL-INDUCED benchmark
+        RESIDUALISED  values RESIDUALISED,   bar = ZERO
+
+    and C's own comment: "raw-beats-benchmark and residualised-beats-zero are ONE
+    test." They are two expressions of one question — does the faller/riser gap
+    in valence-extremity exceed what arousal alone would induce — and the bar
+    moves to zero precisely because residualising has already removed the thing
+    the benchmark represents.
+
+    The first version of this function applied the fitted benchmark to BOTH arms.
+    That put the residualised arm against a bar the residualisation had already
+    subtracted (too strict, and it printed "beats benchmark: False" on a value
+    that clears its real bar), and it crashed the raw arm, whose coef is None.
+    """
     _check(token)
     rng = arm_rng(f"pooled:{label}")
-    A_ar, bench, n_ar = benchmark_cell_averaged(cells, coef)
-    res = C3.run_general(cells, DIM, VARIANT, coef, rng, B.N_PERM, bench)
+    A_ar, bench, n_ar = benchmark_cell_averaged(cells, coef_fitted)
+    if label == "raw":
+        coef_used, bar = None, bench
+    else:
+        coef_used, bar = coef_fitted, 0.0
+    res = C3.run_general(cells, DIM, VARIANT, coef_used, rng, B.N_PERM, bar)
     if res is None:
         return None
     res["A_arousal"] = A_ar
+    res["induced_benchmark"] = bench
     res["n_arousal_cells"] = n_ar
     return res
 
@@ -265,8 +291,8 @@ def main(a):
     print("\n" + "=" * 70)
     print("POOLED ARM (§E3) — CONFIRMATORY IN DESIGN, SIGHTED IN FACT (§E0)")
     print("=" * 70)
-    for label, cf in (("residualised", coef), ("raw", None)):
-        r = pooled_arm(gap, cf, token, label)
+    for label in ("raw", "residualised"):
+        r = pooled_arm(gap, coef, token, label)
         if r is None:
             print(f"  {label}: below the {B.MIN_CELLS_TO_REPORT}-cell floor")
             continue
@@ -274,11 +300,17 @@ def main(a):
         print(f"     four numbers   M_f {r['Mf']:+.4f}  M_r {r['Mr']:+.4f}  "
               f"wmean_f {r['wf']:+.4f}  wmean_r {r['wr']:+.4f}")
         print(f"     null median {r['null']:+.4f}   p_up {r['p_up']:.4g}")
-        if label == "residualised":
-            print(f"     benchmark {r['benchmark']:+.4f} from A_arousal "
-                  f"{r['A_arousal']:+.4f} CELL-AVERAGED over {r['n_arousal_cells']} "
-                  f"cells (departure 1)")
-            print(f"     beats benchmark: {r['beats']}")
+        print(f"     bar {r['benchmark']:+.4f}   "
+              f"{'BEATS' if r['beats'] else 'does NOT beat'} it")
+        if label == "raw":
+            print(f"     the bar is the AROUSAL-INDUCED benchmark, from A_arousal "
+                  f"{r['A_arousal']:+.4f}")
+            print(f"     CELL-AVERAGED over {r['n_arousal_cells']} cells per §E3 "
+                  f"(C pooled and ran ~20% high, [1594].1)")
+        else:
+            print(f"     the bar is ZERO because residualisation already removed "
+                  f"the induced component ({r['induced_benchmark']:+.4f})")
+        print("     raw-beats-benchmark and residualised-beats-zero are ONE test")
 
     # --- SCOPE ARM, §E4 ----------------------------------------------------
     print("\n" + "=" * 70)
@@ -323,6 +355,22 @@ def main(a):
 
     signs = {kx: (v[0] > v[1] / 2) for kx, v in results.items()}
     agree = len(set(signs.values())) == 1
+    # "THE ARMS AGREE" IS MEANINGLESS IF A WIRING BUG MADE THEM ONE COMPUTATION.
+    # §E4 warns that two estimators differing by 0.3 points are one estimator
+    # counted twice; the worse case is that they ARE one by defect. Print their
+    # actual divergence so agreement is a finding about estimators and not about
+    # my plumbing.
+    dv = np.array([adjusted[f] - naive[f] for f in passing])
+    nv = np.array([naive[f] for f in passing])
+    av = np.array([adjusted[f] for f in passing])
+    print(f"\n  ESTIMATOR DIVERGENCE (are these two distinct computations?)")
+    print(f"     max |adjusted - naive| {np.abs(dv).max():.5f}   "
+          f"mean |diff| {np.abs(dv).mean():.5f}")
+    print(f"     corr(naive, adjusted)  {np.corrcoef(nv, av)[0,1]:.6f}   "
+          f"identical values: {np.allclose(nv, av)}")
+    print(f"     families whose SIGN differs between them: "
+          f"{int((np.sign(nv) != np.sign(av)).sum())}")
+
     print(f"\n  AGREEMENT ON SIGN ALONE (§E4): "
           f"{'ARMS AGREE' if agree else 'ARMS DISAGREE — scope claim is ESTIMATOR-DEPENDENT'}")
     if not agree:
