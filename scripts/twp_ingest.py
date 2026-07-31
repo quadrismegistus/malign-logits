@@ -148,6 +148,7 @@ def main(a):
         print(f"\n!! {msg}")
 
     tot = Counter()
+    resident = Counter()   # rule_version of cells ALREADY in the store
     mix = Counter()
     loud, per_model = [], []
 
@@ -179,6 +180,12 @@ def main(a):
             theta = rec.get("theta", 0.001)
             if not a.force and cm.has_true_word_probs(model, p, theta=theta):
                 stats["already"] += 1
+                # READ the resident cell's version; do not assume it. See below.
+                try:
+                    resident[cm.get_true_word_probs(model, p, theta=theta)
+                             .get("rule_version", 1)] += 1
+                except Exception:
+                    resident[None] += 1
                 continue
             stats["write"] += 1
             mix[rec.get("rule_version", 1)] += 1
@@ -198,13 +205,20 @@ def main(a):
         per_model.append((model, stats))
         tot.update(stats)
 
-    # CELLS ALREADY IN THE STORE PREDATE THIS FIELD, SO THEY ARE v1 BY
-    # DEFINITION -- countable without reading the stash. Counting only what THIS
-    # pass writes would leave the warning silent in exactly the case it exists
-    # for: a store that already holds v1 and is now receiving v2.
+    # RESIDENT VERSIONS ARE READ, NOT ASSUMED. This block used to count every
+    # already-present cell as v1 -- "countable without reading the stash" --
+    # because when it was written the store predated the rule_version field. That
+    # assumption expired: the store is now uniformly v3, and the shortcut
+    # manufactured a two-version warning on a single-version store, reporting
+    # {1: 144, 3: 1795} where the truth was {3: 1939}.
+    #
+    # A FALSE ALARM ON A GATE IS WORSE THAN NO GATE: it either blocks a correct
+    # ingest or teaches the operator to click past the one warning that matters.
+    # The cost of reading is one stash hit per already-present cell, paid only on
+    # re-ingest.
     present = dict(mix)
-    if tot["already"]:
-        present[1] = present.get(1, 0) + tot["already"]
+    for rv, n in resident.items():
+        present[rv] = present.get(rv, 0) + n
     if len(present) > 1:
         print(f"!! STORE HOLDS {len(present)} BOUNDARY-RULE VERSIONS: "
               f"{dict(sorted(present.items()))}")
