@@ -30,7 +30,7 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   power is bounded by groups holding BOTH roles at displacing sites =
   ONE today — so this is a PROMPT-DESIGN task first (new minimal
   pairs built for displacing sites), an analysis second. Design notes
-  that survive: PROMPT AS THE UNIT... no — THE PAIR as the unit; the effect
+  that survive: THE PAIR is the unit; the effect
   unexpectedly concentrates in the INSTITUTIONAL stratum (+0.448 / 21
   prompts); the F01 flagship row sits near ZERO on 5 prompts (the
   inconvenient row — predict honestly around it). DESIGN CORRECTED
