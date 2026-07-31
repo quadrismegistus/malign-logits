@@ -29,6 +29,10 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   gap driven by high-mass FALLERS unusually aroused, high-mass RISERS
   unusually calm, or both? Populations exist; norm-free/rated split
   fits the audit pattern; BOTH SEATS REFRAIN until registered.
+  REGISTER AROUND THE ALREADY-OBSERVED ([1252].3): the riser/faller
+  concentration asymmetry (risers more concentrated at every
+  quantile, [1244]) is on the record and cannot be un-seen — the
+  registration treats it as given, not as a prediction.
 - [RH] MARKED/UNMARKED AROUSAL REGISTRATION ([1225] -> [1226]): the
   norms instrument's strongest possible sentence if it holds —
   displacement down the arousal gradient SPECIFIC to the transgressive
