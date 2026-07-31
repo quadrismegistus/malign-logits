@@ -28,9 +28,15 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   (2/6). Design notes: PROMPT AS THE UNIT from line one; the effect
   unexpectedly concentrates in the INSTITUTIONAL stratum (+0.448 / 21
   prompts); the F01 flagship row sits near ZERO on 5 prompts (the
-  inconvenient row — predict honestly around it). Needs: new prompts
-  or the existing 13 declared as the population with its 7-vs-6 power
-  stated.
+  inconvenient row — predict honestly around it). DESIGN CORRECTED
+  ([1227] -> [1228]): register the PAIRED form — within-pair
+  differences on the 129 two-role groups (sign or Wilcoxon); the 14
+  single-role groups (e2 marked triples, e7 unmarked sets, f11_gender)
+  are a DIFFERENT question, excluded from the contrast; the
+  exploratory 7-vs-6 mixed paired and single-role groups differently
+  across arms (non-comparable); "33 of 42" was the U statistic, never
+  design pairs. THE UNIT IS THE PAIR — it climbs until it meets the
+  design.
 - [RH] LLM-GENERATED NORMS as a SECOND instrument (pointer from the
   abstraction seat, 2026-07-31): Martinez/Conde/Reviriego family
   (GPT-4o; en 126K words + 63K MWEs, es 128K, de 185K w/ GPT columns
