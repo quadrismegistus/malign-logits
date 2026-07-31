@@ -248,10 +248,11 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   m01_norms 87d6d405. [1049] holds LIFTED for concentration +
   direction-agreement ([1301]); both quotable again, VERIFIED
   waits on second-seat number checks only.
-- [~] SECOND-SEAT NUMBER CHECKS, re-ruled ([1302] -> [1304]):
-  concentration REPRODUCED-FROM-COMMITTED-PRODUCER (third seat,
-  clean env, figures within thousandths); direction-agreement
-  reproduction queued at malign's convenience. The REAL bar
+- [x] SECOND-SEAT NUMBER CHECKS, re-ruled ([1302] -> [1304]): BOTH
+  clauses REPRODUCED-FROM-COMMITTED-PRODUCER (third seat, clean
+  env; concentration [1302] within thousandths; direction-agreement
+  [1308] all headline figures + the impossible-fall mechanism
+  corroborated same-proposition on 400x data). The REAL bar
   ([1028].3) = INDEPENDENT ARITHMETIC — not satisfiable by this
   table (all seats exposed); DEFERRED TO DRAFTING NEED per
   [1118].2. Complete input for the fresh-seat run when triggered:
@@ -288,9 +289,13 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   six items verified in output; every prior figure reproduces;
   corr(concreteness,logfreq)=+0.177 asymmetry flagged) -> custody
   DONE ([1300], 5867e08).
-- [ ] C1 REFRESH at 17 families (lacan; last item of the norms
-  arc): c1_population re-derives at the full roster; [1138]
-  refresh; floor sentence re-certifies or supersedes visibly.
+- [~] C1 REFRESH in flight ([1309]): producer refused correctly
+  (drift = exactly the eight retired F36 strings, ids named);
+  institutional SET-EQUAL at 54, neutral 135->127; lacan's hashes
+  derived and WITHHELD per the blind protocol — malign derives
+  independently (warning: ranked-pick-WITHIN-stratum, not
+  Prompt.find). At re-freeze: `_canonicalisation` joins
+  c1_population.json ([1102].2 applied; no number changes).
 - [GATED: RH's word on Registration A] Registration A spec draft —
   population/curve state CERTIFIED and FROZEN ([1297].3: no paired
   arousal difference computes until RH rules among run-as-registered
