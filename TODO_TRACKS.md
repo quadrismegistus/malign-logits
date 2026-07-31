@@ -80,7 +80,16 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   unit = THE PAIR; domain stratification (pooled + within-domain
   where a domain clears the floor), confound named up front.
   Coupling diagnostic column required: per-cell mover counts at
-  each threshold ([1270].1). Pattern: lacan drafts after the
+  each threshold ([1270].1). PRE-SPEC GATE ADDED AT RH'S
+  INTERJECTION ([1275], 2026-07-31): the F36 group_role writer
+  trace (129 rows) is PROMOTED from post-gate — before the spec
+  freezes, the seats certify the pair population does not key on
+  the untraced field (129-groups vs 129-rows number coincidence
+  checked, not assumed); nonempty intersection -> trace first or
+  exclude by the F11 provenance rule, named in the spec. Process
+  rule booked: MARKEDNESS IS AN AUTHORED FACT (written at
+  JSON-finishing time; an unnameable writer = arbitrary by
+  default). Pattern: lacan drafts after the
   window, pen freezes, malign audits. Original dossier
   ([1225] -> [1226]): the
   norms instrument's strongest possible sentence if it holds —
@@ -203,6 +212,10 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   single-seat, [1037].3).
 - [ ] Ladder counts FROM THE ARTIFACT -> claim (B) wakes
   self-executingly ([1122].3).
+- [ ] F36 group_role WRITER TRACE (129 rows) — PROMOTED to pre-spec
+  gate on Registration A ([1275].1, RH's interjection); runs before
+  the marked/unmarked spec freezes if the pair population
+  intersects the untraced rows.
 - [ ] Anger audit ([714].2) — recipient-agreement's remaining flag.
 - [ ] Numeric-reference remainder ([1048].3: docs/object_layer.md:221,
   f40_staged_massflow.py).
