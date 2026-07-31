@@ -104,4 +104,18 @@ DRAFTING PROTOCOL (pen's design, briefed to RH 2026-07-31):
   free and decoupled from the battery, which waits for the next
   cloud run.
 
+### CANDIDATES (surveyed 2026-07-31, pen-proposed, RH selects)
+
+Full ranked survey in `pair_drafts/prompt_queue_candidates.md` (8
+candidates, grounded with file refs). Top 3 by payoff-per-cost:
+1. **F20 narrative battery** — RH's own "DO NEXT"; fixes the Q/A-loop
+   artifact contaminating nearly every F20 result; M02's missing leg.
+2. **F20 referent 2x2** — fully pre-registered, item-selection-only gate
+   on "the project's actual question" (subject-position vs mere reference).
+3. **M03 institutional-deference factorial** (domain x modal x person x
+   speech-act) — the named discharge condition for M03's attribution
+   caveat. Then: F20 persona battery, F36 non-sexual-intimate control,
+   F36 death-verb+agency, F41-P3 gendered-anger sites, F34 third-language.
+None admitted to the queue yet — awaiting RH's selection.
+
 ### (next entries as needs arise)
