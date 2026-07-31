@@ -18,13 +18,17 @@ token, so the family decomposition is unprintable rather than merely forbidden
 TWO PLACES WHERE THIS PRODUCER DEPARTS FROM C's CODE, BOTH BECAUSE THE SPEC SAYS
 SO, AND BOTH FLAGGED FOR THE AUDIT RATHER THAN DECIDED QUIETLY:
 
-  (1) THE BENCHMARK IS CELL-AVERAGED. §E3 requires the per-stratum benchmark be
-      computed with "the ARM'S OWN ESTIMATOR (cell-averaged, never pooled)."
-      m01_registration_c3.main() computes A_arousal by flattening every word of
-      every cell into one list — a POOLED estimator — while the arm it benchmarks
-      (run_general) averages A over cells. Those differ whenever cells vary in
-      word count. E follows the spec: A_arousal is computed per cell and averaged,
-      matching the arm exactly.
+  (1) THE BENCHMARK IS CELL-AVERAGED, AND THIS IS A BOOKED CORRECTION LANDING,
+      NOT A DRIFT. [1592].1 measured the mismatch and [1594].1 ruled it: C's
+      benchmark POOLED every word of every cell into one list while the arm it
+      benchmarks CELL-AVERAGES. Pooled ran ~20% HIGH throughout, so every C arm
+      faced a bar that was too strict — CONSERVATIVE, which is why no C verdict
+      moved. It was booked as a producer amendment for the next touch. E IS THE
+      NEXT TOUCH and §E3's "arm's own estimator, cell-averaged, never pooled" is
+      that amendment written into a spec deliberately.
+      **E's AND C's BENCHMARKS ARE NOT COMPUTED THE SAME WAY. E's is the corrected
+      one.** A reader comparing the two registrations must not have to discover
+      that, so the declaration line says it ([1827].1).
 
   (2) THE GLOBAL FIT'S POPULATION IS AMBIGUOUS AND BOTH ARE PRINTED. §E6 inherits
       v6 §C0's "GLOBAL over the qualifying population, never within cell." E's
@@ -295,6 +299,12 @@ def main(a):
     print("\nDECLARATION LINE")
     print(f"  spec {token} | producer {hashlib.sha256(open(__file__,'rb').read()).hexdigest()[:16]}"
           f" | map {LINEAGE_SETTING} | seed {B.SEED} | perms {B.N_PERM}")
+    print("  BENCHMARK: CELL-AVERAGED, per [1594].1. Registration C's benchmark was")
+    print("  POOLED and ran ~20% HIGH (a bar too strict, hence conservative). THE TWO")
+    print("  REGISTRATIONS' BENCHMARKS ARE NOT COMPUTED THE SAME WAY and E's is the")
+    print("  corrected one. Do not compare E's benchmark to C's as like for like.")
+    print("  AROUSAL FIT: over the GAP stratum, per [1827].2 -- fit where you correct.")
+    print("  C's all-strata fit is printed above as a declared sensitivity.")
 
 
 if __name__ == "__main__":
