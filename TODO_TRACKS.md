@@ -26,18 +26,21 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   arm, minimal-pair control at chance. THE EXPLORATORY SIGNAL IS
   WITHDRAWN ([1229]: the 7-vs-6 arms were DISJOINT prompt designs —
   role confounded with design; the one genuine displacing pair,
-  e1_credit +0.536, establishes nothing at n=1). CONSTRAINT, THIRD
-  CORRECTION ([1231] -> [1233] -> [1234]): power is a dial AND
-  field-dependent AND join-bounded. The two seats' curves counted
-  DIFFERENT ROLE FIELDS (pair_role: 56 both-role groups; group_role:
-  109 + 217 other values) — the field question routes to the
-  POPULATING CODE (malign traces; RH rules if ambiguous). POWER IS
-  COUNTED IN THE SCOREABLE POPULATION (movement threshold AND norm
-  join — the join costs ~half): pair_role honest range = 26 @ 0.02 /
-  15 @ 0.05 / ONE @ 0.10. Threshold freezes at registration against
-  LABELED columns (field + rows-vs-texts); looser-threshold vs
-  new-prompts is the live design choice. No paired difference
-  computed anywhere; blindness intact. Design notes
+  e1_credit +0.536, establishes nothing at n=1). FINAL STATE
+  ([1236]/[1237] -> [1240]): pair_role = THE minimal-pair field BY
+  PROVENANCE (SETD/SETE writers key MARKED to the transgressive
+  flag); F11's 44 rows EXCLUDED AS PROVENANCE FACT (written from sort
+  position, overwritten by an unidentified second writer — MARKED
+  there means nobody-knows; second-writer trace = post-gate item);
+  one trace open (F36's group_role MARKED/UNMARKED writer, 129 rows).
+  THE BINDING FACT: at the standing 0.10 displacement threshold the
+  scoreable pair count is ONE under EVERY reading — the field schism
+  bound nothing. THE DECISION (RH's, at registration; both seats
+  count-exposed so neither proposes): a LOOSER threshold (whose
+  justification cannot be "more pairs") vs NEW PROMPTS built so the
+  transgressive member displaces (both seats lean here). Power
+  rebuilds per-finding, on texts, scoreable-population, after RH
+  chooses. No paired difference computed anywhere; blindness intact. Design notes
   that survive: THE PAIR is the unit; the effect
   unexpectedly concentrates in the INSTITUTIONAL stratum (+0.448 / 21
   prompts); the F01 flagship row sits near ZERO on 5 prompts (the
