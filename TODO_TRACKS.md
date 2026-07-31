@@ -242,8 +242,12 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
 - [ ] EXECUTE THE RETIREMENT PACKAGE ([1051].2 ratified; [1128]
   sequence): by string, duplicate sweep, F36 four included. Unblocks
   the re-freeze and everything behind it.
-- [ ] Custody commits: m01_concentration.py @ 705789fa,
-  m01_direction_agreement.py @ 30d8a9f1.
+- [x] Custody commits DONE ([1300], repo commit 5867e08): all three
+  producers at the hashes that made the on-record numbers —
+  m01_concentration bc651a77, m01_direction_agreement 30d8a9f1,
+  m01_norms 87d6d405. [1049] holds LIFTED for concentration +
+  direction-agreement ([1301]); both quotable again, VERIFIED
+  waits on second-seat number checks only.
 - [ ] SECOND-SEAT NUMBER CHECKS: concentration, direction-agreement
   (post-re-freeze numbers only, [1128].3).
 - [ ] C3 DE-TRANSGRESSION COUNT CONFIRMATION — outstanding since
@@ -271,19 +275,21 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   population, corrected js(); frozen-population regime). Draft -> pen
   freeze -> malign audit.
 - [ ] instrument_commitments.md entries 9-10 — confirm committed.
-- [~] NORMS SIX-ITEM EDIT WINDOW (lacan drives, [1255].4 opened at
-  five, [1262].3 granted the sixth): (1) BRYSBAERT_PATH re-point to
-  norms_sources/; (2) the reverted 751-gap-cells null-skip; (3) §3
-  unweighted column; (4) restricted-n print; (5) three prints
-  wherever a restricted figure appears — own cell-n, dropout rate
-  per stratum, own control ([1261].3); (6) P4(b) in the producer:
-  logfreq as measured dimension, database r printed once,
-  moving-vocabulary r printed too ([1262].3). Then re-hash; then
-  malign's custody block; then C1 refresh at 17 families.
-- [GATED: edit window] Registration A (marked/unmarked curve) +
-  Registration B (high-mass decomposition) spec drafts as executable
-  arithmetic — registered [1258], coupling columns per [1270].1,
-  H_n/n baseline per [1272]. Draft -> pen freeze -> malign audit.
+- [x] NORMS SIX-ITEM EDIT WINDOW DONE ([1277], hash 87d6d405; all
+  six items verified in output; every prior figure reproduces;
+  corr(concreteness,logfreq)=+0.177 asymmetry flagged) -> custody
+  DONE ([1300], 5867e08).
+- [ ] C1 REFRESH at 17 families (lacan; last item of the norms
+  arc): c1_population re-derives at the full roster; [1138]
+  refresh; floor sentence re-certifies or supersedes visibly.
+- [GATED: RH's word on Registration A] Registration A spec draft —
+  population/curve state CERTIFIED and FROZEN ([1297].3: no paired
+  arousal difference computes until RH rules among run-as-registered
+  / zh-arm-first / prompt-building / defer).
+- [ ] Registration B (high-mass decomposition) spec draft as
+  executable arithmetic — registered [1258], coupling columns per
+  [1270].1, H_n/n baseline per [1272], blindness intact. Draft ->
+  pen freeze -> malign audit. UNGATED as of custody close.
 
 ## Track P — the pen
 
