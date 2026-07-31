@@ -6,8 +6,8 @@ role: finding
 instruments: [tagger, logit-mass]
 families: [olmo, amber, llama, qwen, tulu, zephyr, olmo-tiny, deepseek-7b, pythia, qwen-tiny, smol]
 chapters: [ch09]
-data: []
-scripts: []
+data: [f21_institutional_generations.csv, f21_rider_recheck.csv]
+scripts: [f21_rider_recheck.py]
 ---
 # F21: Institutional Alignment
 
@@ -31,7 +31,50 @@ Logit distributions cached across 11 open-weight model families (base vs aligned
 - **Adversarial tone**: alignment suppresses confrontational tone for individuals more than institutions (individual -13.0pp, institution -8.0pp).
 - **Empathetic tone**: alignment adds empathy selectively toward individuals (+10.3pp individual, +2.9pp institution).
 
-**Alignment proceduralises individuals, not institutions.** Binarised at deference >= 3 (procedural vs confrontational): alignment increases individual procedural rate from 73.7% to 79.0% (+5.3pp) while institution rates remain near ceiling (91.6% → 94.1%).
+**Alignment proceduralises individuals, not institutions.** Binarised at deference >= 3 (procedural vs confrontational): alignment increases individual procedural rate from 73.7% to 79.0% (+5.3pp) while institution rates remain near ceiling (91.6% → 94.1%). **[QUALIFIED — see the rider below. This claim depends on the >= 3 cut and reverses at >= 4.]**
+
+***
+
+## RIDER (2026-07-31): the cut, the arm, and what neither of them was declared to be
+
+This rider qualifies the two claims immediately above — proceduralisation and the emotional asymmetries. It is **not a retraction**: the deference-gap headline (*the gap is in the pretraining data, not alignment*) is a different claim on a different statistic and is untouched. Every number here re-derives with `.venv/bin/python scripts/f21_rider_recheck.py` → `data/f21_rider_recheck.csv`.
+
+**1. THE CEILING IS A PROPERTY OF THE CUT, NOT OF INSTITUTIONS.** The outcome is a 1–5 ordinal tagger score binarised at `deference >= 3`. The 91.6% that makes the institutional arm "near ceiling" is the ceiling *of that binarisation*. Move the cut one notch and both rates fall, both headrooms grow, and **the ordering reverses on the claim's own scale — raw percentage points, no transform involved**:
+
+| cut | individual Δpp | institution Δpp | moves more |
+|---|---|---|---|
+| >= 2 | +7.5 | +3.0 | individual |
+| **>= 3** (as published) | **+6.4** | **+3.7** | **individual** |
+| **>= 4** | **+5.4** | **+9.5** | **INSTITUTION** |
+| >= 5 | −2.2 | −2.6 | individual |
+
+*(10 families with a base checkpoint; aligned = DPO+RLVR; pooled generations. The reversal at >= 4 holds under **all five** definitions of the aligned arm tried — dpo, dpo+rlvr, sft+dpo, sft+dpo+rlvr, sft-only.)* **The published cut is the one cut at which the institutional arm is compressed against its ceiling. Nothing in the finding declares it as a choice.**
+
+**2. THE ARM DEFINITION IS ALSO UNDECLARED, AND IT ALSO MOVES THE ORDERING.** "Base vs aligned checkpoints" never says which post-training stages "aligned" covers. Under SFT-only the individual effect is **negative** (−2.9pp at cut >= 3); under DPO-only it is +6.8pp. **Two undeclared choices — where to cut and what counts as aligned — each move the direction, not merely the magnitude.**
+
+**3. AND UNBINARISING DOES NOT SETTLE IT.** The obvious repair is to drop the cut and test the ordinal scale directly; ~21,000 observations support that. It does not resolve the question. The ordinal mean difference is individual +0.167 vs institution +0.140 under DPO+RLVR (headline direction, margin 0.03 of a scale point), but it **ties** under sft+dpo+rlvr (+0.097 vs +0.101) and goes **negative for the individual** under SFT-only. A designed test with matched baselines and a declared arm would settle this; the existing data do not.
+
+**4. SCALE-DEPENDENCE, AS THE SECONDARY DEMONSTRATION.** Even taking the published cut and the published four numbers at face value, the outcome is a **bounded proportion with unequal headroom** (individual 73.7% base, 26.3pp available; institution 91.6% base, 8.4pp available — "near ceiling" in this finding's own words). The ordering is not scale-invariant:
+
+| scale | individual | institution | ordering |
+|---|---|---|---|
+| raw percentage points | +5.3pp | +2.5pp | individual |
+| fraction of headroom closed | 20.2% | 29.8% | **institution** |
+| log-odds | +0.294 | +0.380 | **institution** |
+
+Raw percentage points is the reading that treats a 0–100% scale as unbounded, which it is not; log-odds is the standard transform for a proportion, and "near ceiling" is the reason it matters. **Note the ordering is genuinely contested, not simply overturned: the risk ratio on the procedural side (1.072 vs 1.027) agrees with the published reading, and the risk ratio is not invariant to which outcome is called the event — taken on the confrontational side it is the headroom fraction and reverses.** Of the two readings that *are* coding-invariant, the risk difference supports the claim and the log-odds contradicts it. **2.5pp over 8.4pp of headroom is a small number over a small number, which no transform makes easy to interpret.** Until a designed test exists, the finding reads *on raw percentage points, at a cut of 3*.
+
+**5. THE APOLOGY ASYMMETRY WAS CHECKED AND HOLDS.** Individual 1.2% → 8.6% (+7.4pp, 7.2x, log-odds +2.05); institution 1.8% → 2.6% (+0.8pp, 1.4x, log-odds +0.38). These are **floor**-adjacent rather than ceiling-adjacent, and at the floor the transforms agree instead of diverging: the individual arm moves more on raw points, on ratio, and on log-odds. **Recorded as checked, not merely unmentioned — a claim that survived the check should be distinguishable from one nobody applied it to.**
+
+**6. THE TONE ASYMMETRIES CANNOT BE CHECKED FROM THIS DOCUMENT AT ALL.** Adversarial (individual −13.0pp, institution −8.0pp) and empathetic (+10.3pp, +2.9pp) are stated in percentage points **with no base rates printed**. A reader therefore cannot compute headroom, log-odds, or a ratio — the scale-dependence of these two claims is *undeterminable from the finding as written*. This is worse than the proceduralisation claim in one respect: that one lets a reader do the arithmetic and disagree. **Standing rule that follows: a rate difference is not reportable without its two base rates — not as a matter of style, but because without the bases no transform can be computed at all, so a declaration of scale would be unfalsifiable.** Recovering these bases is a later job.
+
+**7. THE BOOKED FOUR NUMBERS DO NOT REPRODUCE FROM THE SURVIVING TAGGED DATA.** Thirty specifications were swept (2 family sets × 5 aligned-arm definitions × 3 aggregations). The aligned arm reproduces closely (79.1% against a booked 79.0%); **the base arm misses under every one of them and in the same direction — 72.7%/91.1% against a booked 73.7%/91.6%.** The closest overall fit is 2.30pp off, and matching the base arm exactly requires dropping two families that the finding does not say were dropped. **Stopped there by rule: with enough specification freedom something eventually lands, and a further reading would be fitting rather than reproducing.** The direction of the published claim is unaffected — the reproduced deltas are *larger* on both arms (+6.4pp and +3.7pp) — but the exact figures should be read as unreproduced. The frontmatter declared `data: []` and `scripts: []`; both are now populated, which is why this was checkable at all.
+
+**8. SCOPE LINE ON THE INSTRUMENT: an aligned LLM is the measuring instrument for a property that alignment is hypothesised to install.** The DeepSeek tagger was blind to side and to model, and that blinding is right — it is not the exposure. The exposure is that if the tagger carries its own deference priors, its 1–5 scale may compress or expand exactly the differences under test. **No re-derivation fixes this, because the instrument is a model and the measurand is a model property.** This is one of three distinct kinds of instrument dependence in this corpus: *derived-from-the-data* (M03's C2 riser list), *bases-unprintable* (clause 6 above), and *measured-by-a-kindred-system* (this clause).
+
+**9. ONE FURTHER ITEM, FLAGGED NOT RESOLVED.** The reported p-values (up to p=1.0e-194) are computed over ~21,000 generations that are 24 prompts × ~11 families × 25 completions. Generations sharing a prompt share a continuation distribution; the effective number of independent units is far smaller than the row count. **The unit of the null should be the unit that the design replicates.** No corrected p-value is asserted here; this is queued.
+
+***
 
 The effect varies by domain (individual side, aligned - base):
 
