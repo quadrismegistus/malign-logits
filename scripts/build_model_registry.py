@@ -65,7 +65,10 @@ OUT = os.path.join(PATH_DATA, "model_registry.json")
 # rebuilt. `country` is not incidental -- the Chinese-family contrast and the
 # country confound both read it.
 CURATED = os.path.join(PATH_DATA, "model_curated.json")
-SPEC = os.path.join(PATH_DATA, "grid_spec.json")
+# THE ROSTER. Completeness is asked of the object, never of the execution plan --
+# a plan that shrinks is not a roster that shrank, and "82 of 82 ACTIVE" was this
+# file cheerfully reporting a full house against a spec the night had narrowed.
+SPEC = os.path.join(PATH_DATA, "grid_roster.json")
 
 # ---- measured inputs: (artifact, producer script, key column) ----
 SWEEPS = {
@@ -74,6 +77,15 @@ SWEEPS = {
     "bos": ("bos_resolution.csv", "scripts/bos_resolution_sweep.py"),
     "roundtrip": ("tokenizer_roundtrip.csv", "scripts/tokenizer_roundtrip_sweep.py"),
 }
+
+FULL = 979          # a complete arm; the grid scores 979 prompts per model
+CANCELLED_COMPUTE = {  # RH, 2026-07-31 -- compute-bound, held for a faster box
+    "tiiuae/falcon-mamba-7b", "tiiuae/falcon-mamba-7b-instruct",
+    "tiiuae/Falcon3-Mamba-7B-Base", "tiiuae/Falcon3-Mamba-7B-Instruct",
+    "tiiuae/Falcon-H1-1.5B-Base", "tiiuae/Falcon-H1-1.5B-Instruct",
+    "tiiuae/Falcon-H1-7B-Base", "tiiuae/Falcon-H1-7B-Instruct"}
+OOM_32B = {"allenai/Olmo-3.1-32B-Instruct-SFT",
+           "allenai/Olmo-3.1-32B-Instruct-DPO"}
 
 POSITIONS = ("base", "ego", "superego", "reinforced_superego",
              "reasoning", "reasoning_base")
@@ -348,22 +360,53 @@ def main(a):
     # BOX THE v3 GRID RAN ON, which had 2.5.1. Writing that as a property of the
     # model would be the mistake this field exists to prevent -- tonight every
     # exclusion looked permanent and every one was a version floor.
+    # EXCLUSION IS DECIDED BY THE STORE, NOT BY THE WEIGHTS FORMAT. `needs_torch`
+    # is a property of the CHECKPOINT; `status` is a question about whether we
+    # HAVE the data. The two coincided only while the box sat below the floor.
+    # The repair pass scored all thirteen under torch 2.6, so keying exclusion
+    # off the format would report models as missing while their cells sit in the
+    # store -- the completeness query answering from a cause instead of a fact.
+    from malign_logits.cache import get_cache as _gc
+    _cm = _gc()
+    scored = {}
+    for k in _cm._stash("true_word_probs").keys():
+        d = dict(k) if not isinstance(k, dict) else k
+        scored[d.get("model")] = scored.get(d.get("model"), 0) + 1
+
     n_exc = 0
     for mid, r in rows.items():
         if not r.get("in_grid_spec"):
             continue
+        n = scored.get(mid, 0)
+        r["cells_in_store"] = n
+        # COVERAGE DECIDES STATUS; the REASON is looked up afterwards. Keying
+        # status off a cause misses every model that went missing for a
+        # different one -- the first version excluded the thirteen torch-floor
+        # checkpoints and silently passed Falcon x8 and the two 32B arms, which
+        # are equally unscored and merely fail for other reasons.
+        if n >= FULL:
+            continue
         w = sw["weights"].get(mid, {})
         if w.get("needs_torch") == "2.6":
-            mixed = w.get("weights_format") == "mixed"
-            r["status"] = "EXCLUDED"
-            r["exclusion_reason"] = (
-                "safetensors shards present but index absent; falls back to the "
-                ".bin index, refused below torch 2.6"
-                if mixed else
-                "bin-only checkpoint; refused below torch 2.6")
-            r["pending_repair"] = True
-            r["excluded_from"] = "grid_v3"
-            n_exc += 1
+            reason = ("safetensors shards present but index absent; falls back "
+                      "to the .bin index, refused below torch 2.6"
+                      if w.get("weights_format") == "mixed"
+                      else "bin-only checkpoint; refused below torch 2.6")
+        elif mid in CANCELLED_COMPUTE:
+            reason = ("hybrid/SSM: 0.081 p/s against 0.9-2.5 for dense "
+                      "transformers, GPU at 100% -- compute-bound, cancelled "
+                      "on RH's word; wants a faster card, not more VRAM")
+        elif mid in OOM_32B:
+            reason = ("CUDA OOM at load: 64 GB of fp16 weights plus transient "
+                      "peaks against 79.15 GiB usable; wants >80 GB, not a "
+                      "newer torch")
+        else:
+            reason = f"incomplete: {n} of {FULL} cells"
+        r["status"] = "EXCLUDED"
+        r["exclusion_reason"] = reason
+        r["pending_repair"] = True
+        r["excluded_from"] = "grid_v3"
+        n_exc += 1
 
     # dedupe; an edge asserted twice is not two edges
     seen, uniq = set(), []

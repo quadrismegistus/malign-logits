@@ -45,7 +45,10 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from malign_logits import PATH_DATA  # noqa: E402
 
 OUT = os.path.join(PATH_DATA, "weights_audit.csv")
-SPEC = os.path.join(PATH_DATA, "grid_spec.json")
+# THE ROSTER, not the last execution plan. grid_spec.json was narrowed twice on
+# 2026-07-31 and now holds 82 entries describing what ran last; the audit is a
+# question about the 103-model object.
+SPEC = os.path.join(PATH_DATA, "grid_roster.json")
 ST_INDEX = "model.safetensors.index.json"
 BIN_INDEX = "pytorch_model.bin.index.json"
 

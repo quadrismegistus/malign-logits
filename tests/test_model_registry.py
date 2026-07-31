@@ -18,7 +18,7 @@ import pytest
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH = os.path.join(HERE, "data", "model_registry.json")
-SPEC = os.path.join(HERE, "data", "grid_spec.json")
+SPEC = os.path.join(HERE, "data", "grid_roster.json")
 
 
 @pytest.fixture(scope="module")
