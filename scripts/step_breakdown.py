@@ -7,8 +7,30 @@
 Written against the object layer, so the stratification is attached to each cell rather
 than joined on afterwards. That ordering is the point: **stratify before the statistic,
 not after.** A pooled median over this prompt set mixes a literary stratum that exists
-for F19 with the charged strata the displacement claim is about, and on one cell tonight
-the literary prompts supplied 57% of the high-divergence cases while being 10% of the set.
+for F19 with the charged strata the displacement claim is about.
+
+THE NUMBER THAT USED TO SIT HERE WAS A RATE WITHOUT ITS POPULATION, and it was mine.
+This docstring read: *"on one cell tonight the literary prompts supplied 57% of the
+high-divergence cases while being 10% of the set."* Checked 2026-07-31:
+
+  - "high-divergence cases" named no cutoff. Under the nearest reading -- the top 20
+    English cells of archangel-dpo's sft->dpo step -- literary supplies 50%, not 57%.
+    Under a top-decile reading it supplies 28% at most, on ANY of 24 steps.
+  - "10% of the set" is 97/987, which counts CHINESE rows in the denominator while the
+    numerator was English-only. Against the population actually measured, literary is
+    97/601 = **16%**.
+
+So the effect was real and its statement was not: a mismatched denominator made the
+over-representation look 1.6x larger than it was, and an unstated cutoff made a
+single-step maximum read as a general fact.
+
+**THE VERIFIED VERSION, WHICH IS MORE USEFUL BECAUSE IT IS STEP-DEPENDENT.** Literary
+runs BELOW neutral at the median, at P90 and at P99 in most families, and is
+UNDER-represented in the top decile there (8-33% against 42% expected on a literary+
+neutral pool). It is over-represented in the tail only on archangel and tulu -- which are
+exactly the two families where the literary-vs-neutral rank-sum is non-significant. Both
+observations are true and they belong to different steps, which is the whole reason to
+stratify before the statistic rather than after.
 
 WHAT IS REPORTED PER STRATUM, and why each column is there:
 
