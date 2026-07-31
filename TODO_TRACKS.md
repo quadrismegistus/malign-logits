@@ -310,7 +310,21 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   population/curve state CERTIFIED and FROZEN ([1297].3: no paired
   arousal difference computes until RH rules among run-as-registered
   / zh-arm-first / prompt-building / defer).
-- [x] Registration B SPEC FROZEN ([1377]): v8 at ae516dae7613ad27,
+- [x] Registration B SPEC FROZEN — FINAL at v13, 06186c42f9ff46e0
+  ([1412]; the v8 freeze reopened under the A-FREEZE-PROTECTS-THE-
+  LOOK-NOT-THE-VERSION-NUMBER doctrine when the spread-weighting
+  bar fired at 2.66 vs 1.5): normaliser = M_cell (the cell's own
+  permutation mean; exact enumeration n<=6; null-defined — five
+  candidates examined, one survivor, all eliminations by two-seat
+  measurement); §8 re-indexed to size x spread on the population's
+  own deciles (0.470-1.252), gates the implementation not the
+  choice (M_cell pass = identity; the E_n fire at 2.66x is the
+  informative half); CV direction corrected (large cells carry
+  ~2x relative noise; small-cell quiet = constraint not
+  precision); SPREAD IS NOT SIGNAL in §3; §10 states what
+  actually chose the statistic. THIRTEEN versions, twelve sealed
+  predecessors, blind quantity untouched throughout. Original v8
+  freeze record ([1377]): v8 at ae516dae7613ad27,
   eight versions in one afternoon, append-only chain intact,
   confirmed by mutation-proved grep with the [1370] watermark.
   Final design: per-cell CUSUM along the cell's own |delta| order,
@@ -323,12 +337,13 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   reaches 0.05, empirical over 5,500 enumerations + directed
   construction, margin 0.0526), curve descriptive stratified by
   role size, falsifier = T at chance kills [1250].3.
-- [~] REGISTRATION B RUNWAY ([1377].1): lacan writes producer to
-  the frozen spec (§8 calibration in main path; 0.15 bar wired;
-  seed in code) -> §8 posts -> MALIGN AUDITS CODE BEFORE ANY REAL
-  RUN -> pen clears -> THE RUN (first look at the blind quantity
-  anywhere) -> results + declaration line; custody via malign per
-  [1049] before any number quotes.
+- [~] REGISTRATION B RUNWAY LIVE ([1412].2): lacan writes producer
+  to v13 (seed in code; §8 spread-grid calibration in main path;
+  0.15 bar wired; M_cell by enumeration n<=6) -> §8 tables post ->
+  MALIGN AUDITS CODE BEFORE ANY REAL RUN -> pen clears -> THE RUN
+  (first look at the blind quantity anywhere) -> results +
+  declaration line; custody via malign per [1049] before any
+  number quotes.
 - [ ] QUEUED post-freeze ([1375].3): hill-climb attack on the
   distinct-count ceiling (if it reaches 20, the description row's
   claim dies cheaply now rather than in review).
