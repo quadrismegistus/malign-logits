@@ -74,6 +74,14 @@ made invisible commitments.
 `Prompt.find(text)` gives the ranked pick — ACTIVE over DISPUTED over RETIRED, then
 grouped, then role-bearing — and `.duplicates` makes the ambiguity visible where it bites.
 
+*(That 61 is **all statuses, English only**. The same question has four answers — 64 all
+statuses all languages, 12 ACTIVE all languages, 9 ACTIVE English — and this doc quoted it
+without its population until 2026-07-31, when a hand-rolled lookup elsewhere let RETIRED
+rows win keys and moved a rank-sum across the significance line in three families. The
+ranked pick is what makes the ACTIVE figure the operative one; see
+`instrument_commitments.md` §9 for the version an implementation outside this package
+needs.)*
+
 `Step` is identified by its **pair of checkpoints**, not by a family and a label. A label
 needs a lookup table; the pair needs nothing and works for comparisons nobody named.
 

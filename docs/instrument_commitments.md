@@ -91,20 +91,71 @@ relation and their ratio routinely exceeds 1), and any per-word excess must be c
 the **union** of pre and post keys — iterating the pre keys alone skips post-only words and
 breaks the identity.
 
-## 7. Any distributional claim must exceed the sharpening baseline
+## 7. Sharpening is measured per family, never assumed
 
-Preference training reduces next-word entropy by **0.2–0.6 bits** and raises top-1 mass by
-**2–10 points** in five of six families. Two peaked distributions over different supports
-have high JS almost mechanically, so a great many "effects" reduce to this.
+Two peaked distributions over different supports have high JS almost mechanically, so a
+step that concentrates its distributions raises pairwise divergence for free. **Every
+distributional claim reports its own families' measured sharpening beside the effect.**
 
-`malign_logits.sharpening` computes it. **`archangel` does not sharpen and is the roster's
-natural null** — if a claimed effect is absent there too, it is a candidate for reduction.
+`malign_logits.sharpening` computes it. **A family the operation barely touches is the
+roster's natural null** — if a claimed effect is absent there too, it is a candidate for
+reduction. On the current roster `archangel` and `ct-llm` are flat.
 
 An effect significant at 1e-06 to 1e-27 across five families was found to be entirely this.
 
-## 8. Every posted table names its language population and its residual handling
+**This entry carried a MAGNITUDE until 2026-07-31 — "0.2–0.6 bits, five of six families" —
+and the magnitude was wrong.** Measured on sixteen families the median is −0.034 bits, the
+range runs −0.643 to +0.378, and one family de-sharpens. The figure came from six families
+that happened to include the heaviest sharpeners. **The rule now carries no numbers at all,
+deliberately: writing a population-bound figure into a standing rule is the original defect,
+not its fix.** A gate's error propagates retroactively through everything it filters, so
+**a gate carries a higher population bar than the claims it gates.**
 
-Two lines. They turn a non-replication into a five-minute reconciliation.
+## 8. Every posted table names its population, its residual handling, and its test sidedness
+
+Three lines. They turn a non-replication into a five-minute reconciliation — and on
+2026-07-31 the absence of each one in turn moved a count: residual handling (7 of 10 vs
+3 of 10), sidedness (11 vs 14 of 16), population (a duplicated row, then seven retired
+ones). **Not one of them moved the direction.**
+
+And the corollary, learned the same day: **a declared population is not a checked
+population. The diff is the check.** Two seats each stated an `n`; neither read the
+other's, and the difference sat in both header lines for an hour.
+
+## 9. The catalogue holds retired rows, and a text can carry more than one
+
+`data/prompt_categorisation.json` is **not** a list of live prompts. It holds 1,189 rows of
+which 198 are `RETIRED` and 4 `DISPUTED`, and **the same prompt text can appear on several
+rows**, sometimes under different findings, sometimes with different domains:
+
+```
+texts on more than one row      all statuses   64      ACTIVE only   12
+                          English only   61      ACTIVE + English    9
+```
+
+Each of those four is the answer to a different question, and `61` — the figure quoted in
+`object_layer.md` and across the docket — is the **all-status English-only** one. State
+which you mean; the gap between 64 and 9 is the gap between "this file has duplicates" and
+"a live lookup will hit one."
+
+```python
+{r["prompt"]: r["domain"] for r in doc["prompts"]}          # WRONG, twice over
+```
+
+That comprehension lets a **retired** row win a key by file order, and it collapses a
+one-to-many relation to one value. Both happened: six prompts were reassigned from their
+live `neutral` classification to a `violence` label carried only on a retired F13 row, which
+silently removed them from a stratum and shifted a rank-sum across the significance line in
+three families.
+
+**Filter status before building any lookup, and expect a text to carry more than one row.**
+`Prompts.where()` defaults to `status="ACTIVE"` and `Prompt.find()` applies a ranked pick —
+the package guards this by construction, which is exactly why an independent implementation
+that (correctly) does not import the package needs it written here.
+
+**Still undeclared, and small:** one English text is `neutral` on one ACTIVE row and
+`contradiction` on another. It currently enters both strata because nobody has ruled
+otherwise. If you build a stratum, say which rule you used.
 
 ---
 
