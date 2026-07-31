@@ -20,6 +20,15 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   architecture independence have NO meta home (see register) —
   M-clause, book-only, or defer.
 - [RH] Cursor-provenance docket fix (maude builds on RH's word).
+- [RH] HIGH-MASS DECOMPOSITION REGISTRATION ([1250] -> [1252]):
+  smaller, cleaner sibling of the marked/unmarked candidate. The
+  unregistered sign observation: P1's weighted effect EXCEEDS
+  unweighted — the arousal gap is largest among the biggest movers,
+  which is what intensity-dissolution predicts (heavy movement on
+  arousal-differentiated words). The registerable experiment: is the
+  gap driven by high-mass FALLERS unusually aroused, high-mass RISERS
+  unusually calm, or both? Populations exist; norm-free/rated split
+  fits the audit pattern; BOTH SEATS REFRAIN until registered.
 - [RH] MARKED/UNMARKED AROUSAL REGISTRATION ([1225] -> [1226]): the
   norms instrument's strongest possible sentence if it holds —
   displacement down the arousal gradient SPECIFIC to the transgressive
