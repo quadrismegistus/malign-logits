@@ -14,13 +14,45 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   assembly. RH's own sequencing: after the prior clauses' producers
   land — measurably close. STANDING REMINDER: the SEQUENCE-rate
   prediction registers on the docket BEFORE any coder pass executes.
-- [RH] NORMS-INSTRUMENT WORD: word-level norms (arousal / concreteness
-  / dominance, en+zh) as exogenous instrument; recon agent running.
+- [x] NORMS-INSTRUMENT WORD — GIVEN AND EXECUTED (2026-07-31, one
+  day): F41 registered [1147], spec frozen [1152], run + full audit
+  complete [1254]. P1 AROUSAL QUOTABLE as measured-single-seat, no
+  conditions — canonical block at [1266].2, NOTHING outside it
+  travels (+0.221/+0.123 inseparable; control population-named
+  +0.018 full / +0.063 restricted-arm; unmoved under word
+  restriction, +0.206 -> +0.204 like-for-like; frequency delta
+  +0.393 structural and slightly SUPPRESSIVE, r_moving = -0.040,
+  predicts -0.016 z against +0.221 observed; both nulls held;
+  en-only; function words excluded). P2 CONCRETENESS QUOTABLE AS
+  NULL (+0.011/+0.014, cancellation excluded): displacement is
+  AFFECTIVE, not abstractive. Tail: SIX-item edit window (lacan) ->
+  one custody block (malign) -> C1 refresh at 17 families. P1
+  two-seat verification = post-gate; malign's seat PRESERVED
+  ([1262].1 — never joined arousal to movement). Does NOT travel:
+  "grows by 13%" ([1261].1), the 1/n floor decomposition ([1273]),
+  the +0.026 database r as a moving-vocabulary claim ([1263]).
 - [RH] F34 / F35 META-HOMES: cross-linguistic displacement and
   architecture independence have NO meta home (see register) —
   M-clause, book-only, or defer.
 - [RH] Cursor-provenance docket fix (maude builds on RH's word).
-- [RH] HIGH-MASS DECOMPOSITION REGISTRATION ([1250] -> [1252]):
+- [x -> GATED: edit window] HIGH-MASS DECOMPOSITION — RH's WORD GIVEN
+  2026-07-31 ("yes, register it"); REGISTERED at [1258].4-.5 with
+  directions FIXED BLIND: primary = high-mass fallers rate
+  higher-arousal than the faller tail; secondary (weaker prior,
+  declared) = high-mass risers rate lower than the riser tail;
+  falsifier stated (neither sub-effect -> the gap is a weighting
+  artifact and [1250].3 dies as evidence). Registered AROUND the
+  already-observed: [1244] asymmetry and [1247] gap are GIVENS;
+  the blind quantity = mass-conditional arousal profiles by role,
+  UNSEEN at every seat and guarded ([1266].4: no mass-weighted
+  arousal quantity computes before the spec freezes; the -0.040
+  mass-weighted r is a declared given for the frequency column,
+  which is LOAD-BEARING here). Spec must name the
+  sparse-concentrated coupling with a diagnostic column: per-cell
+  mover counts per mass stratum, H_n/n baseline for any
+  concentration-adjacent quantity ([1270].1, corrected by [1272]).
+  Pattern: lacan drafts after the window, pen freezes, malign
+  audits. Original dossier ([1250] -> [1252]):
   smaller, cleaner sibling of the marked/unmarked candidate. The
   unregistered sign observation: P1's weighted effect EXCEEDS
   unweighted — the arousal gap is largest among the biggest movers,
@@ -33,7 +65,24 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   concentration asymmetry (risers more concentrated at every
   quantile, [1244]) is on the record and cannot be un-seen — the
   registration treats it as given, not as a prediction.
-- [RH] MARKED/UNMARKED AROUSAL REGISTRATION ([1225] -> [1226]): the
+- [x -> GATED: edit window] MARKED/UNMARKED AROUSAL — RH's WORD GIVEN
+  2026-07-31 ("let's do this, the curves"); REGISTERED at
+  [1258].1-.3 in CURVE FORM, which DISSOLVES the threshold decision:
+  the registered object is the whole curve of within-pair
+  differences across displacement thresholds — every point prints
+  its scoreable-pair n and corpus percentile; quoting one point
+  alone is quoting outside the registration. Prediction fixed:
+  within-pair difference POSITIVE (marked member descends the
+  arousal gradient more) at every threshold with n >= 6 pairs
+  (blind floor, [1113].3 precedent; below-floor points print
+  UNDERPOWERED). Dossier requirements carried into the
+  registration: pair_role by provenance; F11's 44 rows excluded;
+  unit = THE PAIR; domain stratification (pooled + within-domain
+  where a domain clears the floor), confound named up front.
+  Coupling diagnostic column required: per-cell mover counts at
+  each threshold ([1270].1). Pattern: lacan drafts after the
+  window, pen freezes, malign audits. Original dossier
+  ([1225] -> [1226]): the
   norms instrument's strongest possible sentence if it holds —
   displacement down the arousal gradient SPECIFIC to the transgressive
   arm, minimal-pair control at chance. THE EXPLORATORY SIGNAL IS
@@ -167,7 +216,19 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   population, corrected js(); frozen-population regime). Draft -> pen
   freeze -> malign audit.
 - [ ] instrument_commitments.md entries 9-10 — confirm committed.
-- [GATED: RH norms word] Norms-instrument spec draft.
+- [~] NORMS SIX-ITEM EDIT WINDOW (lacan drives, [1255].4 opened at
+  five, [1262].3 granted the sixth): (1) BRYSBAERT_PATH re-point to
+  norms_sources/; (2) the reverted 751-gap-cells null-skip; (3) §3
+  unweighted column; (4) restricted-n print; (5) three prints
+  wherever a restricted figure appears — own cell-n, dropout rate
+  per stratum, own control ([1261].3); (6) P4(b) in the producer:
+  logfreq as measured dimension, database r printed once,
+  moving-vocabulary r printed too ([1262].3). Then re-hash; then
+  malign's custody block; then C1 refresh at 17 families.
+- [GATED: edit window] Registration A (marked/unmarked curve) +
+  Registration B (high-mass decomposition) spec drafts as executable
+  arithmetic — registered [1258], coupling columns per [1270].1,
+  H_n/n baseline per [1272]. Draft -> pen freeze -> malign audit.
 
 ## Track P — the pen
 

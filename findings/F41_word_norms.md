@@ -1,5 +1,5 @@
 ---
-status: registered
+status: measured-single-seat
 grade: ungraded
 date: 2026-07-31
 role: finding
@@ -19,9 +19,21 @@ argument; this page is the map.
 
 ## Status
 
-REGISTERED, PRE-DATA. No norm value has been joined against any
-movement data ([1147] state-of-contact declaration). The producer is
-authorized; malign's §7 audit gates the first quotable number.
+MEASURED, QUOTABLE (2026-07-31, same day as registration). P1 arousal
+CONFIRMING, quotable as MEASURED-SINGLE-SEAT with no conditions; the
+canonical quotable block is docket [1266].2 and NOTHING outside that
+list travels. P2 concreteness NULL, quotable unconditionally
+(displacement is affective, not abstractive). P3 dominance and the zh
+arm did not run in this pass (en-only; zh gated on a declared
+closed-class list). Full audit trail [1247] -> [1254]; gate CLEAR.
+Tail before VERIFIED: six-item edit window -> custody block -> C1
+refresh; P1 two-seat verification post-gate (malign eligible, seat
+preserved [1262].1).
+
+Withdrawn forms that do NOT travel: "grows by 13%" ([1261].1); the
+1/n floor decomposition ([1273]); the database r = +0.026 quoted as
+a moving-vocabulary fact (sign flips to -0.040 on the moving
+vocabulary, [1263] — frequency slightly suppresses the effect).
 
 ## Pointers
 
@@ -31,8 +43,14 @@ authorized; malign's §7 audit gates the first quotable number.
 | Spec, drafted blind | docket [1150] |
 | Spec freeze + blind floors + restricted-null promotion | docket [1152] |
 | §2 header verification, falsification, amendment | docket [1153] -> [1154] |
+| Results: P1/P2 arms, weighted + unweighted | docket [1247] |
+| Audit (four candidates) + clearances | docket [1254] -> [1257], [1261] |
+| Frequency control P4(b): database + band + moving-vocab transfer | docket [1259], [1260], [1263] |
+| QUOTABILITY RULINGS + canonical P1 block | docket [1255], [1266].2 |
+| Registrations A (curve) + B (decomposition), directions fixed | docket [1258]; coupling columns [1270].1 |
+| Sparse-concentrated coupling (structural, unit-level) | meta/M01_displacement/README.md structural note; [1264]/[1267]/[1272] |
 | Source files, staged + hashed | /Users/rj416/Dropbox/Prof/Articles/TheoryMachines/norms_sources/ (ALL FOUR, incl. Brysbaert consolidated 2026-07-31 — the earlier 'at its abslithists home' was a gesture, not a location: [1212].2) |
-| Producer | pending (lacan authorized, [1154].4) |
+| Producer | lacan's seat; enters scripts/ in the custody block (six-item window pending) |
 
 ## Sources (16-hex prefixes; full digests in the spec artifact)
 

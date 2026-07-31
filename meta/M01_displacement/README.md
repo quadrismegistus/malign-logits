@@ -96,6 +96,50 @@ mapping. Cross-document references use the qualified form
     coincide with the queued post-ingest re-runs — the producer IS the
     re-run script.
 
+## Structural property of the unit: the sparsity-concentration coupling
+
+Filed against the UNIT, not any clause: this is a property of
+(cell, word) under CANONICAL, and it surfaces in every statistic that
+shares that unit ([1267].2, ledger rule booked [1269].2).
+
+THE PROPERTY. Per-cell mover count and top-mover share are strongly
+inversely coupled: Pearson -0.464 on a 60-prompt sample ([1264],
+malign, top-mover share of |mass|); -0.672 Pearson / -0.756 Spearman
+on the full 39,870-cell population ([1267], lacan, top-riser share of
+arriving excess). Two producers, two metrics, genuine corroboration
+by the [1252] test. Record-reason only; no clause quotes it as a
+finding.
+
+THE DECOMPOSITION, against the DECLARED null ([1272]). The chance
+baseline for a top share over n draws is E[max] under Dirichlet(1..1)
+= H_n/n, NEVER 1/n: 1/n is the uniform MEAN, and a maximum exceeds
+the mean by construction ([1120].3 mutation catch; two seats
+independently reached for 1/n the same day). Against H_n/n the
+observed/null ratio is FLAT at 0.99-1.21 across four orders of cell
+density (top band 1.66 on 87 cells). The coupling is almost entirely
+the arithmetic of a maximum over n draws; the behavioural excess is
+the same ~15-20% at every density — it is the 1.135 already in
+`concentration`'s quotable block, and it does not grow with sparsity.
+
+THE TEST THIS LICENSES (the note's operative content, [1271] form).
+Any statistic on this unit that (a) weights by mass, (b) ranks by
+mass, or (c) conditions on a per-cell count is EXPOSED BEFORE IT IS
+COMPUTED. The check: compute per-cell mover count, report its
+distribution beside the statistic, and baseline any top-share against
+H_n/n. A spec on this unit that lacks the diagnostic column fails
+audit ([1270].1: Registrations A and B carry it as columns, not
+caveats). Route the quantity through the instrument that owns it
+(`m01_concentration.py` holds the declared, mutation-tested null):
+AN AD-HOC COMPUTATION OF A QUANTITY AN INSTRUMENT ALREADY OWNS
+INHERITS NONE OF THE INSTRUMENT'S DECLARATIONS ([1273], the day's
+second sighting of the [1187] shape).
+
+SIGHTINGS (three clauses, one mechanism): `concentration`'s family
+ordering UNIDENTIFIED ([1120].1, Spearman -0.698 then); F41 audit
+candidate (3), weighted mean = one word's rating in a large minority
+of cells; F41 audit candidate (4), which cells survive the restricted
+arm. Found as three exposures; they are one ([1268].3).
+
 ## What does not enter (superseded/vetoed, kept per the chain rule)
 
 - "A fifth to two fifths of amplification is artifact" — RETIRED
