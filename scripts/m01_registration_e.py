@@ -1,0 +1,308 @@
+#!/usr/bin/env python3
+"""Registration E producer — H2 on the GAP stratum.
+
+FROZEN SPEC: registration_e_gap_v3.md  6b58842efad50e90  (commit 2807e3a)
+DELTA ON:    registration_c_delta_v6.md 06f0272d7f21b901
+
+    .venv/bin/python scripts/m01_registration_e.py
+
+NOT YET AUDITED. Per [1825] this is written, then code-audited by lacan, then
+cleared by the pen, and only then run. It has NOT been run against real data.
+
+THE GATE IS STRUCTURAL, NOT DISCIPLINARY. `require_frozen_spec()` returns the
+spec hash and every emitting function DEMANDS that hash as an argument, verifying
+it again before it prints. A caller who has not passed the gate cannot obtain the
+token, so the family decomposition is unprintable rather than merely forbidden
+([1809].4). This is why the token is threaded rather than checked once in main().
+
+TWO PLACES WHERE THIS PRODUCER DEPARTS FROM C's CODE, BOTH BECAUSE THE SPEC SAYS
+SO, AND BOTH FLAGGED FOR THE AUDIT RATHER THAN DECIDED QUIETLY:
+
+  (1) THE BENCHMARK IS CELL-AVERAGED. §E3 requires the per-stratum benchmark be
+      computed with "the ARM'S OWN ESTIMATOR (cell-averaged, never pooled)."
+      m01_registration_c3.main() computes A_arousal by flattening every word of
+      every cell into one list — a POOLED estimator — while the arm it benchmarks
+      (run_general) averages A over cells. Those differ whenever cells vary in
+      word count. E follows the spec: A_arousal is computed per cell and averaged,
+      matching the arm exactly.
+
+  (2) THE GLOBAL FIT'S POPULATION IS AMBIGUOUS AND BOTH ARE PRINTED. §E6 inherits
+      v6 §C0's "GLOBAL over the qualifying population, never within cell." E's
+      declared population is the GAP stratum, so the natural reading is a fit over
+      the gap. But C fitted over ALL strata pooled. The two give different
+      coefficients and I will not choose silently: the gap fit is used, C's
+      all-strata fit is printed beside it as a declared sensitivity, and the
+      audit should rule which the spec means.
+"""
+
+import argparse
+import collections
+import hashlib
+import math
+import os
+import statistics as st
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import json
+import numpy as np
+
+import m01_registration_b as B
+import m01_registration_c3 as C3
+from m01_registration_e_gate import require_frozen_spec, SPEC_SHA256
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LINEAGE_MAP = os.path.join(ROOT, "data", "lineage_map.json")
+LINEAGE_SETTING = "siblings_merged"        #: §E4, the principled setting. NAMED.
+DIM, VARIANT = "valence", "extremity"      #: H2
+K_THRESHOLDS = (20, 30)                    #: §E4 SECONDARY, both declared in the spec
+ALPHA = 0.05                               #: one-sided, §E1 SIDEDNESS
+
+
+def arm_rng(arm):
+    """§E6: per-arm seed from sha256 of the arm name, NEVER builtin hash().
+
+    `hash()` is salted per process, so a seed derived from it is not reproducible
+    across runs — the defect this rule exists to prevent.
+    """
+    h = int(hashlib.sha256(arm.encode()).hexdigest()[:8], 16)
+    return np.random.default_rng([B.SEED, h])
+
+
+def _check(token):
+    """Every emitter re-verifies. The token cannot be forged by a caller who
+    skipped the gate, because obtaining it IS passing the gate."""
+    if token != SPEC_SHA256:
+        raise RuntimeError(
+            "EMIT REFUSED: no valid frozen-spec token. The gap's family "
+            "decomposition is structurally unprintable until require_frozen_spec() "
+            "has passed ([1809].4). This is not a check you may skip.")
+
+
+def cell_A(cell, coef, dim=DIM, variant=VARIANT):
+    vals = [C3.value_of(z, dim, variant, coef) for z in cell["z"]]
+    return C3.A_and_terms(vals, cell["w"], cell["roles"])
+
+
+def benchmark_cell_averaged(cells, coef):
+    """§E3: the benchmark uses THE ARM'S OWN ESTIMATOR — cell-averaged.
+
+    A_arousal is computed per cell and averaged, exactly as run_general averages
+    A over cells. C's main() pools instead; see the module docstring, departure (1).
+    """
+    per = []
+    for c in cells:
+        t = C3.A_and_terms([z["arousal"] for z in c["z"]], c["w"], c["roles"])
+        if t is not None:
+            per.append(t["A"])
+    A_ar = st.mean(per) if per else float("nan")
+    b = coef[1] * A_ar + (coef[2] * A_ar * A_ar if len(coef) > 2 else 0.0)
+    return A_ar, b, len(per)
+
+
+def realized_mde(null, alpha=ALPHA, power=0.80):
+    """The effect this arm COULD have detected, from its own null's spread.
+
+    §E3: a null at an MDE above the effect C measured reads UNINFORMATIVE, not
+    negative. That sentence is unusable without this number, so it is computed
+    here rather than left to the reader.
+    """
+    from scipy import stats
+    crit = float(np.quantile(null, 1 - alpha))
+    return crit + stats.norm.ppf(power) * float(np.std(null, ddof=1))
+
+
+def pooled_arm(cells, coef, token, label):
+    _check(token)
+    rng = arm_rng(f"pooled:{label}")
+    A_ar, bench, n_ar = benchmark_cell_averaged(cells, coef)
+    res = C3.run_general(cells, DIM, VARIANT, coef, rng, B.N_PERM, bench)
+    if res is None:
+        return None
+    res["A_arousal"] = A_ar
+    res["n_arousal_cells"] = n_ar
+    return res
+
+
+def family_effects(cells, coef, token):
+    """§E4 CO-PRIMARY: naive family means and prompt-adjusted family terms."""
+    _check(token)
+    rows = []
+    for c in cells:
+        t = cell_A(c, coef)
+        if t is not None:
+            rows.append((c["family"], c["prompt"], t["A"]))
+    fams = sorted({f for f, _, _ in rows})
+    prompts = sorted({p for _, p, _ in rows})
+
+    naive = {}
+    for f in fams:
+        v = [a for ff, _, a in rows if ff == f]
+        naive[f] = float(np.mean(v))
+
+    fi = {f: i for i, f in enumerate(fams)}
+    pi = {p: i for i, p in enumerate(prompts)}
+    F, P = len(fams), len(prompts)
+    X = np.zeros((len(rows), F + P))
+    y = np.zeros(len(rows))
+    for r, (f, p, a) in enumerate(rows):
+        X[r, fi[f]] = 1.0
+        X[r, F + pi[p]] = 1.0
+        y[r] = a
+    con = np.zeros((1, F + P))
+    con[0, F:] = 1.0                       # prompt effects sum to zero
+    beta, *_ = np.linalg.lstsq(np.vstack([X, con * 100.0]),
+                               np.concatenate([y, [0.0]]), rcond=None)
+    adjusted = {f: float(beta[fi[f]]) for f in fams}
+    counts = collections.Counter(f for f, _, _ in rows)
+    return rows, naive, adjusted, counts
+
+
+def thresholded_core(rows, k, token):
+    """§E4 SECONDARY at the two declared k. Diagnostic of DISCARDING."""
+    _check(token)
+    per_prompt = collections.defaultdict(set)
+    for f, p, _ in rows:
+        per_prompt[p].add(f)
+    keep = {p for p, fs in per_prompt.items() if len(fs) >= k}
+    sub = [(f, p, a) for f, p, a in rows if p in keep]
+    fams = sorted({f for f, _, _ in sub})
+    means = {f: float(np.mean([a for ff, _, a in sub if ff == f])) for f in fams}
+    return keep, means
+
+
+def sign_test(vals):
+    v = [x for x in vals if x != 0]
+    n, k = len(v), sum(1 for x in v if x > 0)
+    p = sum(math.comb(n, i) for i in range(k, n + 1)) / 2 ** n if n else 1.0
+    return k, n, p
+
+
+def lineage_of(families, token):
+    """§E4: family counts CITE the published map and NAME the setting."""
+    _check(token)
+    lm = json.load(open(LINEAGE_MAP))
+    d = lm[LINEAGE_SETTING]
+    f2l = {f: lin for lin, fams in d["lineages"].items() for f in fams}
+    missing = [f for f in families if f not in f2l]
+    return f2l, missing, d["n_lineages"]
+
+
+def main(a):
+    token = require_frozen_spec()          # THE GATE. Nothing above this reads data.
+    print("REGISTRATION E — H2 on the GAP stratum")
+    print(f"  SPEC    registration_e_gap_v3.md  {token}   FROZEN, gate passed")
+    print(f"  DELTA ON registration_c_delta_v6.md 06f0272d7f21b901")
+    print(f"  SIDEDNESS one-sided, A_|valence| > 0, C's confirmed direction")
+    print(f"  NULL    membership, {B.N_PERM} draws, per-arm sha256-derived seeds\n")
+
+    N, C = B._instrument()
+    fp, fm, _h, drift = C.frozen_population()
+    if drift:
+        sys.exit(f"POPULATION DRIFT: {drift}")
+    edges, _ = C.operation_edges(fm)
+    norms, _f, _ = N.load_norms()
+    cells, diag, n_moved, n_disp, n_ctrl = C3.collect(fp, edges, norms, N, C)
+    gap = [c for c in cells if c["stratum"] == "gap"]
+
+    # --- selection diagnostic, §E3 ALONGSIDE ------------------------------
+    print("SELECTION DIAGNOSTIC")
+    print(f"  registered prompts {len(fp)} | with movement {n_moved} | "
+          f"displacing {n_disp} | control {n_ctrl} | gap {n_moved-n_disp-n_ctrl}")
+    print(f"  GAP qualifying: {len(gap)} cells | "
+          f"{len({c['prompt'] for c in gap})} prompts | "
+          f"{len({c['family'] for c in gap})} families")
+    for k, v in diag.most_common(5):
+        print(f"      {v:>7}  {k}")
+
+    # --- global fit: E's population, with C's as declared sensitivity ------
+    def fit_over(cs):
+        flat = [z for c in cs for z in c["z"]]
+        return C3.fit([z["arousal"] for z in flat],
+                      [abs(z[DIM] - C3.ORIGIN_Z) for z in flat], quad=True), len(flat)
+    coef_gap, n_gap_words = fit_over(gap)
+    coef_all, n_all_words = fit_over(cells)
+    print(f"\nGLOBAL AROUSAL FIT (departure 2 — both printed, audit to rule)")
+    print(f"  over the GAP stratum   n={n_gap_words:>6}  " +
+          "  ".join(f"b{i}={v:+.4f}" for i, v in enumerate(coef_gap)) + "   <- USED")
+    print(f"  over ALL strata (as C) n={n_all_words:>6}  " +
+          "  ".join(f"b{i}={v:+.4f}" for i, v in enumerate(coef_all)))
+
+    # --- POOLED ARM, §E3 ---------------------------------------------------
+    print("\n" + "=" * 70)
+    print("POOLED ARM (§E3) — CONFIRMATORY IN DESIGN, SIGHTED IN FACT (§E0)")
+    print("=" * 70)
+    for label, coef in (("residualised", coef_gap), ("raw", None)):
+        r = pooled_arm(gap, coef, token, label)
+        if r is None:
+            print(f"  {label}: below the {B.MIN_CELLS_TO_REPORT}-cell floor")
+            continue
+        print(f"  {label.upper():<14} A = {r['A']:+.4f}   n={r['n']} cells")
+        print(f"     four numbers   M_f {r['Mf']:+.4f}  M_r {r['Mr']:+.4f}  "
+              f"wmean_f {r['wf']:+.4f}  wmean_r {r['wr']:+.4f}")
+        print(f"     null median {r['null']:+.4f}   p_up {r['p_up']:.4g}")
+        if label == "residualised":
+            print(f"     benchmark {r['benchmark']:+.4f} from A_arousal "
+                  f"{r['A_arousal']:+.4f} CELL-AVERAGED over {r['n_arousal_cells']} "
+                  f"cells (departure 1)")
+            print(f"     beats benchmark: {r['beats']}")
+
+    # --- SCOPE ARM, §E4 ----------------------------------------------------
+    print("\n" + "=" * 70)
+    print("SCOPE ARM (§E4) — GENUINELY BLIND. Co-primary; agreement on SIGN ALONE.")
+    print("=" * 70)
+    rows, naive, adjusted, counts = family_effects(gap, coef_gap, token)
+    passing = [f for f in sorted(naive) if counts[f] >= B.MIN_CELLS_TO_REPORT]
+    thin = [f for f in sorted(naive) if counts[f] < B.MIN_CELLS_TO_REPORT]
+    print(f"  {len(passing)} families at the {B.MIN_CELLS_TO_REPORT}-cell floor; "
+          f"{len(thin)} below and PRINTED, not dropped: {thin or 'none'}")
+
+    f2l, missing, n_lin_total = lineage_of(passing, token)
+    print(f"  lineage map: data/lineage_map.json setting '{LINEAGE_SETTING}' "
+          f"({n_lin_total} lineages total)" +
+          (f"   NOT IN MAP: {missing}" if missing else ""))
+
+    print(f"\n  {'arm':<34}{'k of N':>10}{'p one-sided':>14}")
+    results = {}
+    for name, est in (("naive family mean", naive), ("prompt-adjusted", adjusted)):
+        for unit, grp in (("family", lambda f: f), ("lineage", lambda f: f2l.get(f, f))):
+            agg = collections.defaultdict(list)
+            for f in passing:
+                agg[grp(f)].append(est[f])
+            vals = [float(np.mean(v)) for v in agg.values()]
+            k, n, p = sign_test(vals)
+            results[(name, unit)] = (k, n, p)
+            print(f"  {name + ', ' + unit + ' unit':<34}{f'{k} of {n}':>10}{p:>14.4g}")
+
+    for k_thr in K_THRESHOLDS:
+        keep, means = thresholded_core(rows, k_thr, token)
+        vals = [means[f] for f in sorted(means) if counts[f] >= B.MIN_CELLS_TO_REPORT]
+        kk, nn, pp = sign_test(vals)
+        print(f"  {'thresholded core k=' + str(k_thr):<34}{f'{kk} of {nn}':>10}"
+              f"{pp:>14.4g}   ({len(keep)} prompts retained)")
+
+    signs = {kx: (v[0] > v[1] / 2) for kx, v in results.items()}
+    agree = len(set(signs.values())) == 1
+    print(f"\n  AGREEMENT ON SIGN ALONE (§E4): "
+          f"{'ARMS AGREE' if agree else 'ARMS DISAGREE — scope claim is ESTIMATOR-DEPENDENT'}")
+    if not agree:
+        print("  §E4 pre-declared disagreement as the INFORMATIVE outcome: at the")
+        print("  measured ICC these should not disagree, so this indicts a modelling")
+        print("  assumption and not the finding. REPORT LOUDLY.")
+
+    print("\nDECLARATION LINE")
+    print(f"  spec {token} | producer {hashlib.sha256(open(__file__,'rb').read()).hexdigest()[:16]}"
+          f" | map {LINEAGE_SETTING} | seed {B.SEED} | perms {B.N_PERM}")
+
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--gate-only", action="store_true",
+                    help="verify the freeze gate and exit without reading anything")
+    args = ap.parse_args()
+    if args.gate_only:
+        print(f"gate passes: {require_frozen_spec()}")
+        sys.exit(0)
+    sys.exit(main(args) or 0)
