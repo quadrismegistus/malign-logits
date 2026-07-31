@@ -131,6 +131,7 @@ cites them.
 | F38 pipeline/confirmation | — | BOOK (ch4/ch5); campaign memory |
 | F39 preference-corpus insensitivity | verified B | M03 |
 | F40 discovered vocabulary | unaudited B | M01 `liminal-targeting` |
+| F41 word norms | registered — | REGISTERED pre-data ([1147]); P1 -> candidate M01 clause `arousal-descent`; P3 -> gendered work; TEMPLATE for the pointer convention |
 
 Carried live from TODO.md (malign's log): publication figures for new
 findings; the one-row-per-family summary CSV for drafting; everything

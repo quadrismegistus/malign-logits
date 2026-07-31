@@ -1,0 +1,72 @@
+---
+status: registered
+grade: ungraded
+date: 2026-07-31
+role: finding
+description: "Word-norm instrument (arousal/concreteness/dominance, en+zh): exogenous test of the intensity-dissolution frame. Predictions registered before any norm-movement join."
+instruments: [word_norms, true_word_probs]
+chapters: [ch05, ch06]
+data: [TheoryMachines/norms_sources/]
+scripts: [pending — producer authorized under the frozen spec]
+---
+
+# F41: Word norms — the exogenous gradient test
+
+FIRST FILE UNDER THE POINTER CONVENTION (RH's word, 2026-07-31): a
+finding file is born WITH its registration, spec, and producer, and
+consists of pointers and statuses, not narrative. The docket is the
+argument; this page is the map.
+
+## Status
+
+REGISTERED, PRE-DATA. No norm value has been joined against any
+movement data ([1147] state-of-contact declaration). The producer is
+authorized; malign's §7 audit gates the first quotable number.
+
+## Pointers
+
+| Object | Where |
+|---|---|
+| Pre-registration (predictions P1-P4, sources pinned) | docket [1147] |
+| Spec, drafted blind | docket [1150] |
+| Spec freeze + blind floors + restricted-null promotion | docket [1152] |
+| §2 header verification, falsification, amendment | docket [1153] -> [1154] |
+| Source files, staged + hashed | /Users/rj416/Dropbox/Prof/Articles/TheoryMachines/norms_sources/ (Brysbaert at its abslithists home) |
+| Producer | pending (lacan authorized, [1154].4) |
+
+## Sources (16-hex prefixes; full digests in the spec artifact)
+
+| Source | Role | Hash |
+|---|---|---|
+| Warriner et al. 2013 (en V/A/D, 13,915, M/F splits) | en affect | 85f6d7e35069b0ef |
+| Brysbaert et al. 2014 (en concreteness + SUBTLEX + Percent_known) | en concreteness + FREQUENCY (two-source join, [1154].1) + reliability floor | 0b4082dbd38585b0 |
+| Chan & Tse 2024 (zh, 5 dims + 3 log-freqs, Word_Trad + Word_Sim) | zh PRIMARY (14/14 gate-one coverage) | f1ae2435300c2a41 |
+| Xu & Li 2020 (zh concreteness, sheet pinned by name) | CROSS-CHECK ONLY (9/14; never back-fills) | d329b49de1ebbc5d |
+| Sulpizio et al. 2024 taboo (OSF ecr32) | supplement, unstaged | — |
+
+## Registered predictions (directions fixed pre-join; [1147])
+
+- P1 arousal (primary): fallers > risers at displacing sites, flat at
+  controls; both languages, z within language; falsifier stated.
+  Quotable only on BOTH nulls (full permutation + restricted,
+  [1152].4).
+- P2 concreteness (secondary): risers more abstract at displacing
+  sites; weak prior declared.
+- P3 dominance (en-only, declared): faller-to-riser dominance drop
+  larger at female-subject anger sites; >= 6 sites/arm or UNDERPOWERED.
+- P4 controls (gate): flat controls; log-frequency delta beside every
+  norm delta; any survival sentence NAMES THE POPULATION IT SURVIVED ON.
+
+## Floors and gates (all set blind)
+
+mass_covered >= 0.60 both roles; Percent_known >= 0.85 (Brysbaert);
+P3 >= 6 sites/arm; Log_Freq_W headline with C1/C2 sensitivity pair;
+0.02-0.10 site-conditioning gap unassigned and counted.
+
+## Meta routing
+
+P1, if it holds both nulls and the frequency control: candidate NEW
+M01 clause (working slug `arousal-descent`) — the first clause on an
+instrument external to the project. P3: routes to the
+gendered-displacement work, not M01. Nulls and failures are findings
+and file here either way.
