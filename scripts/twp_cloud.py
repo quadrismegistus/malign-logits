@@ -278,8 +278,26 @@ def free(*objs):
         torch.cuda.synchronize()
 
 
+# THE ADAPTED BATCH SURVIVES THE PROMPT THAT DISCOVERED IT.
+# Halving on OOM was right; throwing the answer away afterwards was not. `batch`
+# was a per-call default, so EVERY prompt restarted at 64, OOM'd, halved and only
+# then succeeded -- one full OOM-and-retry per prompt, forever.
+#
+# Measured on Falcon-H1-1.5B: 49 OOMs in 58 prompts, 0.083 p/s, which is 3.3 h
+# for one arm and 26 h for the eight Falcon arms. The same code ran 7B dense
+# transformers at 0.9-2.5 p/s. The models were never the problem.
+#
+# Reset per MODEL (a new checkpoint gets a fresh ceiling), carried across
+# PROMPTS within one model.
+_BATCH = {"n": 64}
+
+
+def reset_batch(start=64):
+    _BATCH["n"] = start
+
+
 @torch.no_grad()
-def next_dist(model, tok, pids, prefixes, dev, batch=64):
+def next_dist(model, tok, pids, prefixes, dev, batch=None):
     """Batch is ADAPTIVE because it is architecture-blind.
 
     A dense transformer's peak scales with batch x seq x vocab. An SSM's does
@@ -287,8 +305,9 @@ def next_dist(model, tok, pids, prefixes, dev, batch=64):
     hidden_states[...,None], which is batch x seq x heads x state x dim and hit
     24 GiB at batch=64 on a 1.5B model -- it OOM'd where a 7B transformer was
     fine. Rather than maintain a per-architecture table that is wrong the moment
-    a new family is registered, halve on OOM and carry on.
+    a new family is registered, halve on OOM and carry on -- AND REMEMBER.
     """
+    batch = _BATCH["n"] if batch is None else batch
     out, i = [], 0
     while i < len(prefixes):
         ch = prefixes[i:i + batch]
@@ -305,6 +324,7 @@ def next_dist(model, tok, pids, prefixes, dev, batch=64):
             if batch == 1:
                 raise                      # genuinely cannot fit; let it surface
             batch = max(1, batch // 2)
+            _BATCH["n"] = batch            # remember it for every later prompt
             print(f"    [oom] batch -> {batch}", flush=True)
             continue                       # retry the SAME slice, smaller
         out.append(torch.softmax(lg, -1).cpu().numpy())
@@ -725,6 +745,7 @@ def main(a):
             free()                 # the traceback held the partial load
             purge_model(mid, a.purge)   # ITS WEIGHTS ARE NOW DEAD WEIGHT
             continue
+        reset_batch()                  # a new checkpoint gets a fresh ceiling
         # INSIDE THE GUARD. This sat BETWEEN the guarded load and the guarded
         # run, so a tokenizer that cannot decode every id in range(vocab_size)
         # killed the whole roster from the one unguarded line -- CT-LLM's
