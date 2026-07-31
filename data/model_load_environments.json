@@ -20,7 +20,11 @@
     "cause": "measured -- the raised error, abbreviated",
     "fix": "declared -- what made it load, where known"
    },
-   "outcome_values": ["loads", "load_failed", "run_failed"]
+   "outcome_values": [
+    "loads",
+    "load_failed",
+    "run_failed"
+   ]
   }
  },
  "_provenance": {
@@ -31,75 +35,124 @@
   ],
   "note": "Observations are recorded when seen. Absence of an observation means UNTESTED, never 'works' -- eight of the thirteen torch-floor models were predicted from the weights audit before the run reached them, and are marked predicted rather than observed."
  },
-
  "environments": {
   "grid_v3_box_initial": {
    "torch": "2.5.1+cu124",
    "transformers": "5.14.1",
    "device": "A100-SXM4-80GB",
-   "packages_absent": ["sentencepiece", "protobuf", "tiktoken"],
+   "packages_absent": [
+    "sentencepiece",
+    "protobuf",
+    "tiktoken"
+   ],
    "note": "vast.ai instance 46301965 as provisioned. requirements.txt was never installed on it -- sentencepiece and protobuf are DECLARED in the repo and were simply missing."
   },
   "grid_v3_box_repaired": {
    "torch": "2.5.1+cu124",
    "transformers": "5.14.1",
    "device": "A100-SXM4-80GB",
-   "packages_present": ["sentencepiece 0.2.2", "protobuf 7.35.1"],
-   "packages_absent": ["tiktoken"],
+   "packages_present": [
+    "sentencepiece 0.2.2",
+    "protobuf 7.35.1"
+   ],
+   "packages_absent": [
+    "tiktoken"
+   ],
    "note": "Same box after installing the two declared packages mid-run. tiktoken was DELIBERATELY NOT installed: transformers was falling back to a TikToken extractor for a SentencePiece file, and installing it would have let the WRONG converter succeed silently. The LOAD FAILED was protective."
   },
   "local_mps": {
    "torch": "2.11.0",
    "transformers": "5.4.0",
    "device": "MPS (M2 Max)",
-   "packages_present": ["sentencepiece", "protobuf"],
-   "packages_absent": ["tiktoken"],
+   "packages_present": [
+    "sentencepiece",
+    "protobuf"
+   ],
+   "packages_absent": [
+    "tiktoken"
+   ],
    "note": "Loads every .bin checkpoint the box refuses, because torch >= 2.6 satisfies check_torch_load_is_safe."
   }
  },
-
  "observations": [
-  {"model_id": "LLM360/AmberSafe", "environment": "grid_v3_box_initial",
+  {
+   "model_id": "LLM360/AmberSafe",
+   "environment": "grid_v3_box_initial",
    "outcome": "load_failed",
    "cause": "SentencePieceExtractor requires the protobuf library -> falls back to TikToken extractor -> `tiktoken` is required",
-   "fix": "pip install sentencepiece protobuf. The first error named sentencepiece; after installing it the error CHANGED to name protobuf. Following the message beat guessing."},
-  {"model_id": "LLM360/AmberSafe", "environment": "grid_v3_box_repaired",
+   "fix": "pip install sentencepiece protobuf. The first error named sentencepiece; after installing it the error CHANGED to name protobuf. Following the message beat guessing."
+  },
+  {
+   "model_id": "LLM360/AmberSafe",
+   "environment": "grid_v3_box_repaired",
    "outcome": "loads",
    "cause": "",
-   "fix": "verified before scoring: vocab 32000, ids IDENTICAL to LLM360/Amber on 4 probes incl. Chinese and a literary prompt"},
-
-  {"model_id": "HuggingFaceH4/mistral-7b-sft-beta", "environment": "grid_v3_box_repaired",
+   "fix": "verified before scoring: vocab 32000, ids IDENTICAL to LLM360/Amber on 4 probes incl. Chinese and a literary prompt"
+  },
+  {
+   "model_id": "HuggingFaceH4/mistral-7b-sft-beta",
+   "environment": "grid_v3_box_repaired",
    "outcome": "load_failed",
    "cause": "torch.load refusal; safetensors shards PRESENT but model.safetensors.index.json ABSENT, so transformers falls back to the .bin index",
-   "fix": "scripts/repair_safetensors_index.py rebuilds the index from the shard headers over HTTP range requests. use_safetensors=True does NOT help -- the flag selects a format, it does not synthesise the map."},
-
-  {"model_id": "allenai/OLMo-2-0425-1B-DPO", "environment": "grid_v3_box_repaired",
-   "outcome": "load_failed", "cause": "bin-only; check_torch_load_is_safe requires torch >= 2.6",
-   "fix": "upgrade torch on the box"},
-  {"model_id": "allenai/OLMo-2-0425-1B-DPO", "environment": "local_mps",
-   "outcome": "loads", "cause": "",
-   "fix": "verified interactively: 1.48B params, no complaint. THIS IS THE OBSERVATION THAT IDENTIFIED THE CAUSE -- RH asked why a model runs on MPS and not on the bigger machine."},
-
-  {"model_id": "allenai/OLMo-2-0425-1B-SFT", "environment": "grid_v3_box_repaired",
-   "outcome": "load_failed", "cause": "bin-only; torch >= 2.6", "fix": "upgrade torch"},
-  {"model_id": "allenai/OLMoE-1B-7B-0125-SFT", "environment": "grid_v3_box_repaired",
-   "outcome": "load_failed", "cause": "bin-only; torch >= 2.6", "fix": "upgrade torch"},
-  {"model_id": "RWKV/rwkv-4-7b-pile", "environment": "grid_v3_box_repaired",
-   "outcome": "load_failed", "cause": "bin-only; torch >= 2.6", "fix": "upgrade torch"},
-  {"model_id": "RWKV/rwkv-raven-7b", "environment": "grid_v3_box_repaired",
-   "outcome": "load_failed", "cause": "bin-only; torch >= 2.6", "fix": "upgrade torch"},
-
-  {"model_id": "allenai/Olmo-3-1125-32B", "environment": "grid_v3_box_repaired",
+   "fix": "scripts/repair_safetensors_index.py rebuilds the index from the shard headers over HTTP range requests. use_safetensors=True does NOT help -- the flag selects a format, it does not synthesise the map."
+  },
+  {
+   "model_id": "allenai/OLMo-2-0425-1B-DPO",
+   "environment": "grid_v3_box_repaired",
+   "outcome": "load_failed",
+   "cause": "bin-only; check_torch_load_is_safe requires torch >= 2.6",
+   "fix": "upgrade torch on the box"
+  },
+  {
+   "model_id": "allenai/OLMo-2-0425-1B-DPO",
+   "environment": "local_mps",
    "outcome": "loads",
    "cause": "",
-   "fix": "32B at fp16 fits an 80GB card at ~93% VRAM (76,113 MiB) and scores at ~1.0 p/s. Purge-before-download held: 247 GB disk free with the model resident."},
-
-  {"model_id": "HuggingFaceH4/zephyr-7b-beta", "environment": "grid_v3_box_repaired",
+   "fix": "verified interactively: 1.48B params, no complaint. THIS IS THE OBSERVATION THAT IDENTIFIED THE CAUSE -- RH asked why a model runs on MPS and not on the bigger machine."
+  },
+  {
+   "model_id": "allenai/OLMo-2-0425-1B-SFT",
+   "environment": "grid_v3_box_repaired",
+   "outcome": "load_failed",
+   "cause": "bin-only; torch >= 2.6",
+   "fix": "upgrade torch"
+  },
+  {
+   "model_id": "allenai/OLMoE-1B-7B-0125-SFT",
+   "environment": "grid_v3_box_repaired",
+   "outcome": "load_failed",
+   "cause": "bin-only; torch >= 2.6",
+   "fix": "upgrade torch"
+  },
+  {
+   "model_id": "RWKV/rwkv-4-7b-pile",
+   "environment": "grid_v3_box_repaired",
+   "outcome": "load_failed",
+   "cause": "bin-only; torch >= 2.6",
+   "fix": "upgrade torch"
+  },
+  {
+   "model_id": "RWKV/rwkv-raven-7b",
+   "environment": "grid_v3_box_repaired",
+   "outcome": "load_failed",
+   "cause": "bin-only; torch >= 2.6",
+   "fix": "upgrade torch"
+  },
+  {
+   "model_id": "allenai/Olmo-3-1125-32B",
+   "environment": "grid_v3_box_repaired",
+   "outcome": "loads",
+   "cause": "",
+   "fix": "32B at fp16 fits an 80GB card at ~93% VRAM (76,113 MiB) and scores at ~1.0 p/s. Purge-before-download held: 247 GB disk free with the model resident."
+  },
+  {
+   "model_id": "HuggingFaceH4/zephyr-7b-beta",
+   "environment": "grid_v3_box_repaired",
    "outcome": "run_failed",
    "cause": "MY BUG, not the environment: assert_prompt_survives decoded without skip_special_tokens, so the guard failed the prompt against the BOS its own policy had added. Mistral/Llama-family tokenizers only.",
-   "fix": "skip_special_tokens=True in the guard; all five affected models rescored"}
+   "fix": "skip_special_tokens=True in the guard; all five affected models rescored"
+  }
  ],
-
  "predicted_untested": {
   "note": "From data/weights_audit.csv, not from observation. bin-only checkpoints that the run had not yet reached. Listed so absence of an observation is never read as success.",
   "environment": "grid_v3_box_repaired",
@@ -115,12 +168,13 @@
    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1"
   ]
  },
-
  "provisioning_lessons": [
   "INSTALL requirements.txt ON THE BOX. sentencepiece and protobuf were declared in the repo and absent from the instance; that alone cost one model and an hour.",
   "PIN torch >= 2.6, or thirteen checkpoints in the 103-model spec are unloadable and the cause reads like a transformers policy.",
   "DO NOT install tiktoken to silence a SentencePiece conversion error. It lets the wrong converter succeed on a SentencePiece file, turning a loud failure into a quiet one.",
   "Library versions are an INSTRUMENT dimension. Local vs box on one shared model: identical surface set, per-word probabilities differing by <=1.5e-3. Small, not zero -- cells now stamp torch_version and transformers_version.",
-  "The box ran 5.14.1 while every precondition was established locally on 5.4.0. An encode guarantee established on a different library version than the run uses is not a guarantee."
+  "The box ran 5.14.1 while every precondition was established locally on 5.4.0. An encode guarantee established on a different library version than the run uses is not a guarantee.",
+  "RUN ARCHIVES DO NOT BELONG IN meta/. meta/ is one folder per meta-finding, with clause tables and scope sentences; a run log is not a claim. Putting the grid_v3 archive there routed around `logs/` being gitignored -- and that gitignore rule was the thing that would have stopped a live HF_TOKEN from entering a commit. GitHub push protection caught it instead. The archive now lives at logs/cloud_runs/grid_v3_46301965/, local and untracked; the facts worth keeping were already in THIS file.",
+  "PROVISIONING WRITES CREDENTIALS INTO SCRIPTS, AND ARCHIVING THOSE SCRIPTS PUBLISHES THEM. launch.sh/repair.sh/repair2.sh each carried an inline HF_TOKEN because the gated Llama checkpoints need it and the box had no profile to source. Scan the whole tree before committing a pulled run directory, not just the files a scanner happens to name."
  ]
 }
