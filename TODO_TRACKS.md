@@ -20,6 +20,17 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   architecture independence have NO meta home (see register) —
   M-clause, book-only, or defer.
 - [RH] Cursor-provenance docket fix (maude builds on RH's word).
+- [RH] MARKED/UNMARKED AROUSAL REGISTRATION ([1225] -> [1226]): the
+  norms instrument's strongest possible sentence if it holds —
+  displacement down the arousal gradient SPECIFIC to the transgressive
+  arm, minimal-pair control at chance. Exploratory (UNQUOTABLE) signal:
+  marked median +0.454 (6/7 prompts positive) vs unmarked -0.103
+  (2/6). Design notes: PROMPT AS THE UNIT from line one; the effect
+  unexpectedly concentrates in the INSTITUTIONAL stratum (+0.448 / 21
+  prompts); the F01 flagship row sits near ZERO on 5 prompts (the
+  inconvenient row — predict honestly around it). Needs: new prompts
+  or the existing 13 declared as the population with its 7-vs-6 power
+  stated.
 - [RH] LLM-GENERATED NORMS as a SECOND instrument (pointer from the
   abstraction seat, 2026-07-31): Martinez/Conde/Reviriego family
   (GPT-4o; en 126K words + 63K MWEs, es 128K, de 185K w/ GPT columns
