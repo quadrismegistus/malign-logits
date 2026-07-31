@@ -67,6 +67,15 @@ DIM, VARIANT = "valence", "extremity"      #: H2
 K_THRESHOLDS = (20, 30)                    #: §E4 SECONDARY, both declared in the spec
 ALPHA = 0.05                               #: one-sided, §E1 SIDEDNESS
 
+#: THE CONTESTED PARAMETER, NAMED SO THE SWAP IS ONE LINE AND SO IT CANNOT BECOME
+#: UNDECLARED. [1827].2 ruled GAP ("fit where you correct"); [1828] ruled ALL
+#: ("E is a delta and does not name the fit population; and §E3's reading rule
+#: compares E's number to C's 0.0251/0.0340, which were produced under C's
+#: all-strata fit -- a different fit puts E on a different scale and makes the
+#: spec's own reading rule unexecutable"). BOTH ARE COMPUTED AND BOTH PRINT
+#: whichever is primary. UNRESOLVED at the time of writing; the pen adjudicates.
+FIT_POPULATION = "all"          #: "all" (C's, per [1828]) or "gap" (per [1827].2)
+
 
 def arm_rng(arm):
     """§E6: per-arm seed from sha256 of the arm name, NEVER builtin hash().
@@ -231,18 +240,21 @@ def main(a):
                       [abs(z[DIM] - C3.ORIGIN_Z) for z in flat], quad=True), len(flat)
     coef_gap, n_gap_words = fit_over(gap)
     coef_all, n_all_words = fit_over(cells)
-    print(f"\nGLOBAL AROUSAL FIT (departure 2 — both printed, audit to rule)")
-    print(f"  over the GAP stratum   n={n_gap_words:>6}  " +
-          "  ".join(f"b{i}={v:+.4f}" for i, v in enumerate(coef_gap)) + "   <- USED")
+    coef = coef_all if FIT_POPULATION == "all" else coef_gap
+    print(f"\nGLOBAL AROUSAL FIT — primary is FIT_POPULATION={FIT_POPULATION!r}")
     print(f"  over ALL strata (as C) n={n_all_words:>6}  " +
-          "  ".join(f"b{i}={v:+.4f}" for i, v in enumerate(coef_all)))
+          "  ".join(f"b{i}={v:+.4f}" for i, v in enumerate(coef_all)) +
+          ("   <- PRIMARY" if FIT_POPULATION == "all" else "   (sensitivity)"))
+    print(f"  over the GAP stratum   n={n_gap_words:>6}  " +
+          "  ".join(f"b{i}={v:+.4f}" for i, v in enumerate(coef_gap)) +
+          ("   <- PRIMARY" if FIT_POPULATION == "gap" else "   (sensitivity)"))
 
     # --- POOLED ARM, §E3 ---------------------------------------------------
     print("\n" + "=" * 70)
     print("POOLED ARM (§E3) — CONFIRMATORY IN DESIGN, SIGHTED IN FACT (§E0)")
     print("=" * 70)
-    for label, coef in (("residualised", coef_gap), ("raw", None)):
-        r = pooled_arm(gap, coef, token, label)
+    for label, cf in (("residualised", coef), ("raw", None)):
+        r = pooled_arm(gap, cf, token, label)
         if r is None:
             print(f"  {label}: below the {B.MIN_CELLS_TO_REPORT}-cell floor")
             continue
@@ -260,16 +272,21 @@ def main(a):
     print("\n" + "=" * 70)
     print("SCOPE ARM (§E4) — GENUINELY BLIND. Co-primary; agreement on SIGN ALONE.")
     print("=" * 70)
-    rows, naive, adjusted, counts = family_effects(gap, coef_gap, token)
+    rows, naive, adjusted, counts = family_effects(gap, coef, token)
     passing = [f for f in sorted(naive) if counts[f] >= B.MIN_CELLS_TO_REPORT]
     thin = [f for f in sorted(naive) if counts[f] < B.MIN_CELLS_TO_REPORT]
     print(f"  {len(passing)} families at the {B.MIN_CELLS_TO_REPORT}-cell floor; "
           f"{len(thin)} below and PRINTED, not dropped: {thin or 'none'}")
 
     f2l, missing, n_lin_total = lineage_of(passing, token)
-    print(f"  lineage map: data/lineage_map.json setting '{LINEAGE_SETTING}' "
-          f"({n_lin_total} lineages total)" +
-          (f"   NOT IN MAP: {missing}" if missing else ""))
+    n_arm = len({f2l.get(f, f) for f in passing})
+    print(f"  lineage map: data/lineage_map.json setting '{LINEAGE_SETTING}'")
+    print(f"     ROSTER lineages      {n_lin_total}   (the map's own partition, "
+          f"NOT this arm's denominator)")
+    print(f"     lineages IN THIS ARM {n_arm}   <- the denominator any 'k of N' uses")
+    if missing:
+        print(f"     UNMAPPED, each counted as its OWN lineage ({len(missing)}), which "
+              f"OVERSTATES independence: {missing}")
 
     print(f"\n  {'arm':<34}{'k of N':>10}{'p one-sided':>14}")
     results = {}
@@ -281,7 +298,9 @@ def main(a):
             vals = [float(np.mean(v)) for v in agg.values()]
             k, n, p = sign_test(vals)
             results[(name, unit)] = (k, n, p)
-            print(f"  {name + ', ' + unit + ' unit':<34}{f'{k} of {n}':>10}{p:>14.4g}")
+            note = (f"   [{len(missing)} unmapped counted as own lineage]"
+                    if unit == "lineage" and missing else "")
+            print(f"  {name + ', ' + unit + ' unit':<34}{f'{k} of {n}':>10}{p:>14.4g}{note}")
 
     for k_thr in K_THRESHOLDS:
         keep, means = thresholded_core(rows, k_thr, token)
