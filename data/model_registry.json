@@ -86,8 +86,10 @@
     "source": "declared",
     "values": [
      "ACTIVE",
-     "EXCLUDED"
-    ]
+     "EXCLUDED",
+     "NOT_IN_GRID"
+    ],
+    "note": "scoped to the ROSTER. ACTIVE and EXCLUDED are answers about coverage and only a model that was asked can hold one; NOT_IN_GRID is the registry rows the v3 grid never asked, which is not a coverage gap."
    },
    "pending_repair": {
     "source": "declared",
@@ -121,7 +123,7 @@
  },
  "_provenance": {
   "built_by": "scripts/build_model_registry.py",
-  "head": "b623a5f",
+  "head": "c56ae85",
   "measured_from": {
    "weights": {
     "artifact": "data/weights_audit.csv",
@@ -1871,14 +1873,15 @@
    "bos_resolver": "",
    "loader_override": "",
    "in_grid_spec": false,
-   "status": "ACTIVE",
-   "exclusion_reason": "",
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
    "pending_repair": null,
    "org_type": "company",
    "scale": "7B",
    "country": "CN",
    "open_weight": true,
-   "open_data": false
+   "open_data": false,
+   "cells_in_store": 0
   },
   {
    "model_id": "baichuan-inc/Baichuan2-7B-Chat",
@@ -1901,13 +1904,14 @@
    "bos_resolver": "",
    "loader_override": "",
    "in_grid_spec": false,
-   "status": "ACTIVE",
-   "exclusion_reason": "",
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
    "pending_repair": null,
    "org_type": "company",
    "country": "CN",
    "open_weight": true,
-   "open_data": false
+   "open_data": false,
+   "cells_in_store": 0
   },
   {
    "model_id": "bigscience/bloom-7b1",
@@ -1984,13 +1988,14 @@
    "bos_resolver": "",
    "loader_override": "",
    "in_grid_spec": false,
-   "status": "ACTIVE",
-   "exclusion_reason": "",
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
    "pending_repair": null,
    "org_type": "company",
    "country": "CN",
    "open_weight": true,
-   "open_data": false
+   "open_data": false,
+   "cells_in_store": 0
   },
   {
    "model_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
@@ -2013,13 +2018,14 @@
    "bos_resolver": "",
    "loader_override": "",
    "in_grid_spec": false,
-   "status": "ACTIVE",
-   "exclusion_reason": "",
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
    "pending_repair": null,
    "org_type": "company",
    "country": "CN",
    "open_weight": true,
-   "open_data": false
+   "open_data": false,
+   "cells_in_store": 0
   },
   {
    "model_id": "deepseek-ai/deepseek-llm-7b-base",
@@ -2130,11 +2136,12 @@
    "bos_resolver": "",
    "loader_override": "",
    "in_grid_spec": false,
-   "status": "ACTIVE",
-   "exclusion_reason": "",
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
    "pending_repair": null,
    "country": "CN",
-   "org_type": "government"
+   "org_type": "government",
+   "cells_in_store": 0
   },
   {
    "model_id": "internlm/internlm2-chat-7b",
@@ -2157,11 +2164,12 @@
    "bos_resolver": "",
    "loader_override": "",
    "in_grid_spec": false,
-   "status": "ACTIVE",
-   "exclusion_reason": "",
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
    "pending_repair": null,
    "country": "CN",
-   "org_type": "government"
+   "org_type": "government",
+   "cells_in_store": 0
   },
   {
    "model_id": "internlm/internlm2-chat-7b-sft",
@@ -2184,11 +2192,12 @@
    "bos_resolver": "",
    "loader_override": "",
    "in_grid_spec": false,
-   "status": "ACTIVE",
-   "exclusion_reason": "",
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
    "pending_repair": null,
    "country": "CN",
-   "org_type": "government"
+   "org_type": "government",
+   "cells_in_store": 0
   },
   {
    "model_id": "lomahony/eleuther-pythia6.9b-hh-dpo",
@@ -2433,11 +2442,12 @@
    "bos_resolver": "",
    "loader_override": "",
    "in_grid_spec": false,
-   "status": "ACTIVE",
-   "exclusion_reason": "",
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
    "pending_repair": null,
    "country": "US",
-   "org_type": "company"
+   "org_type": "company",
+   "cells_in_store": 0
   },
   {
    "model_id": "meta-llama/Llama-3.1-70B-Instruct",
@@ -2460,11 +2470,12 @@
    "bos_resolver": "",
    "loader_override": "",
    "in_grid_spec": false,
-   "status": "ACTIVE",
-   "exclusion_reason": "",
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
    "pending_repair": null,
    "country": "US",
-   "org_type": "company"
+   "org_type": "company",
+   "cells_in_store": 0
   },
   {
    "model_id": "meta-llama/Llama-3.1-8B",

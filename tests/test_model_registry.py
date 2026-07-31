@@ -153,6 +153,39 @@ def test_completeness_is_a_query(doc):
     assert all(m["pending_repair"] for m in excluded)
 
 
+def test_status_is_roster_scoped_and_never_asked_is_not_an_answer(doc):
+    """A model the grid never asked cannot hold an answer about coverage.
+
+    Nine registry rows sit outside the v3 roster and kept the constructor's default
+    ACTIVE until 2026-07-31, so a registry-wide `status == "ACTIVE"` returned 102
+    while 93 models were scored. The buckets summed to the whole the entire time —
+    a partition test passes over this happily, because a partition is not a
+    semantics. The invariant that catches it is the SCOPE:
+
+        ACTIVE or EXCLUDED  =>  in_grid_spec
+
+    and it holds at any roster size, so it cannot go stale and cannot fire when the
+    remaining ten are finally scored.
+    """
+    for m in doc["models"]:
+        if m["status"] in ("ACTIVE", "EXCLUDED"):
+            assert m["in_grid_spec"], (
+                f"{m['model_id']} is {m['status']} but was never on the roster; "
+                "never-asked is not answered")
+        else:
+            assert m["status"] == "NOT_IN_GRID", f"{m['model_id']}: {m['status']}"
+            assert not m["in_grid_spec"]
+
+    # COVERAGE IS PRESENT ON EVERY ROW, so absence can never be read as zero. The
+    # off-roster rows had no `cells_in_store` key at all, which is how a consumer
+    # gets a KeyError where it wanted a nought.
+    assert all("cells_in_store" in m for m in doc["models"])
+    assert all(m["cells_in_store"] == 0 for m in doc["models"]
+               if m["status"] == "NOT_IN_GRID"), (
+        "an off-roster model has cells in the store — either it was asked after all "
+        "or the roster is missing a row")
+
+
 def test_measured_fields_name_their_producers(doc):
     """A measured field whose producer is a shell history is not measured."""
     prov = doc["_provenance"]["measured_from"]

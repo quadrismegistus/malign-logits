@@ -375,10 +375,21 @@ def main(a):
 
     n_exc = 0
     for mid, r in rows.items():
-        if not r.get("in_grid_spec"):
-            continue
+        # COVERAGE IS MEASURED FOR EVERY ROW, so absence of the field can never be
+        # read as zero-by-luck and a KeyError can never stand in for "no data".
         n = scored.get(mid, 0)
         r["cells_in_store"] = n
+        if not r.get("in_grid_spec"):
+            # NEVER ASKED IS NOT THE SAME ANSWER AS ASKED AND ANSWERED. These nine
+            # rows kept the constructor's default ACTIVE, so a registry-wide
+            # `status == "ACTIVE"` returned 102 while 93 models were scored -- the
+            # roster-scoped judgment applied to the registry-scoped population. The
+            # buckets still summed to the whole, which is why a partition test
+            # passes over it: a partition is not a semantics.
+            r["status"] = "NOT_IN_GRID"
+            r["exclusion_reason"] = ("not on the v3 grid roster; never asked. Not a "
+                                     "failure and not a gap in coverage")
+            continue
         # COVERAGE DECIDES STATUS; the REASON is looked up afterwards. Keying
         # status off a cause misses every model that went missing for a
         # different one -- the first version excluded the thirteen torch-floor
@@ -458,7 +469,12 @@ def main(a):
                 "needs_torch": {"source": "measured",
                                 "note": "transformers refuses .bin below 2.6"},
                 "status": {"source": "declared",
-                           "values": ["ACTIVE", "EXCLUDED"]},
+                           "values": ["ACTIVE", "EXCLUDED", "NOT_IN_GRID"],
+                           "note": ("scoped to the ROSTER. ACTIVE and EXCLUDED are "
+                                    "answers about coverage and only a model that "
+                                    "was asked can hold one; NOT_IN_GRID is the "
+                                    "registry rows the v3 grid never asked, which "
+                                    "is not a coverage gap.")},
                 "pending_repair": {"source": "declared",
                                    "note": ("EXCLUDED rows only. 'excluded' and "
                                             "'excluded until the repair pass' "
@@ -521,6 +537,17 @@ def main(a):
     print(f"\n  COMPLETENESS IS A QUERY, not a sentence: "
           f"{act} of {sum(1 for r in doc['models'] if r['in_grid_spec'])} ACTIVE"
           f"   ({n_exc} EXCLUDED, all pending_repair)")
+    # THE DENOMINATOR IS PART OF THE ANSWER. Reporting the roster count without the
+    # registry count invites the reading that the registry IS the roster, which is
+    # how nine never-asked models sat at ACTIVE.
+    nig = sum(1 for r in doc["models"] if r["status"] == "NOT_IN_GRID")
+    print(f"  registry holds {len(doc['models'])}; {nig} NOT_IN_GRID (never asked, "
+          f"not a coverage gap)")
+    assert act + n_exc + nig == len(doc["models"]), "status buckets do not partition"
+    assert all(r["status"] != "ACTIVE" or r["in_grid_spec"] for r in doc["models"]), (
+        "a model outside the roster is marked ACTIVE; never-asked is not answered")
+    assert all("cells_in_store" in r for r in doc["models"]), (
+        "coverage absent on some row; absence would be read as zero")
     if a.dry_run:
         print("\nDRY RUN -- nothing written")
         return 0
