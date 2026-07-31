@@ -30,8 +30,16 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   candidate question: does the displacement gradient look the same
   under human affect ratings and a model's own semantic priors?
   Book-native (LLM aesthetics). Provenance: abstraction seat's memory
-  project_llm_generated_norms_rejected.md. Decision AFTER the current
-  audit closes.
+  project_llm_generated_norms_rejected.md. ANSWERED 2026-07-31: the
+  English set carries AROUSAL + VALENCE + concreteness, and the
+  single-word AFFECT columns are the directly validated arm (Study 2,
+  benchmarked against Warriner) — so the second instrument could test
+  affect, not only abstraction. Design sketch (abstraction seat's):
+  run the gradient under Warriner on the ~14K overlap, under GPT norms
+  on the overlap AND the 112K extension — separates human/model
+  divergence from coverage artifact. English lacks familiarity (es/de
+  are the four-variable sets); exact English file URL being chased for
+  a hash pin. Decision AFTER the current audit closes.
 - Queued small items (RH: "still queued"): register-fidelity judge;
   literary-below-neutral design; eleventh-clause candidate.
 
