@@ -116,9 +116,13 @@ def _movement(P, Q, rule, residual_share, exact_null):
         fall = [k for k in keys if P.get(k, 0.0) >= rule.floor and d[k] <= -rule.delta]
     fallset = set(fall)
 
+    # sorted() here is LEXICOGRAPHIC on word strings, NOT by mass. Downstream
+    # code that iterates fallers gets alphabetical order; sort explicitly if
+    # order matters. ([1567]/[1572])
     m = Movement(fallers=sorted(fall), delta=d, rule=rule)
 
     if not rule.null_test:
+        # LEXICOGRAPHIC, not by mass -- same caveat as fallers above.
         m.risers = sorted(k for k in keys if d[k] >= rule.delta)
         m.diagnostics = {"rule": rule.name, "null_tested": False,
                          "residual_share": residual_share, "exact_null": None,
@@ -138,6 +142,7 @@ def _movement(P, Q, rule, residual_share, exact_null):
             and max(P.get(k, 0.0), Q.get(k, 0.0)) > rule.min_prob
             and d[k] > rule.delta
             and Q.get(k, 0.0) > m.null.get(k, 0.0)]
+    # LEXICOGRAPHIC, not by mass -- same caveat as fallers above.
     m.risers = sorted(rise)
     m.excess = {k: Q.get(k, 0.0) - m.null[k] for k in rise}
     m.diagnostics = {"rule": rule.name, "null_tested": True, "inflation": infl,
