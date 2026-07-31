@@ -258,7 +258,23 @@ def boundary_mask(tok, n):
 
 
 def free(*objs):
-    """del -> gc.collect() -> empty_cache(), IN THAT ORDER.
+    """gc.collect() -> empty_cache(). THE CALLER MUST DROP ITS OWN REFERENCES FIRST.
+
+    THE ARGUMENTS ARE ACCEPTED AND CANNOT HELP. `del o` inside this function
+    deletes the LOCAL name bound to the parameter; the caller's `model` still
+    holds the object, so `free(model, tok)` released nothing and every model
+    stayed resident in VRAM until the caller rebound `model` -- which happens
+    DURING the next load, making the peak TWO models rather than one.
+
+    Invisible at 7B (14 + 14 GB against 80) and fatal at 32B (64 + 64 against 93):
+    it is why Olmo-3.1-32B-Instruct-SFT reported `126.56 MiB is free` at load
+    after the DPO arm had completed 979 cells on the same card, and it is the real
+    cause of the 2026-07-30 32B OOM that was booked as "32B at fp16 is marginal on
+    80 GB". A single 32B is 64 GB and fits; two at once do not.
+
+    Callers now do `model = tok = None` and call this with no arguments. The
+    signature is kept only so an old call site fails loudly at review rather than
+    silently at runtime.
 
     `del model` drops one reference; HF modules hold cycles (child -> parent,
     config, hooks), so the object survives until the cycle collector runs, and
@@ -762,7 +778,8 @@ def main(a):
                     print(f"  cjk: {len(cids):,} tokens", flush=True)
         except Exception as e:
             print(f"  MASK FAILED: {type(e).__name__}: {str(e)[:100]}", flush=True)
-            free(model, tok)
+            model = tok = None          # THE CALLER drops its own references
+            free()
             continue
         pol = bos_policy_for(mid)
         if pol != "inherited":
@@ -820,7 +837,8 @@ def main(a):
         except Exception as e:
             print(f"  RUN FAILED after {i-1}/{len(todo)}: "
                   f"{type(e).__name__}: {str(e)[:120]}", flush=True)
-        free(model, tok)
+        model = tok = None                 # THE CALLER drops its own references;
+        free()                             # passing them to free() released nothing
         purge_model(mid, a.purge)          # download is the binding constraint
     print("\nALL MODELS COMPLETE", flush=True)
 
