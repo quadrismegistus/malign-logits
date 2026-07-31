@@ -224,8 +224,8 @@
   ]
  },
  "neutral": {
-  "n": 135,
-  "sha256": "d0174a26daa59e98cd8b365eb1292fbf05be405f71cdfe203c452311bf94b682",
+  "n": 127,
+  "sha256": "30a17048124a7e55bdbd6589f4d51fd8f4f3f1742b807122d7dd29897be74c47",
   "prompts": [
    [
     "census_0111",
@@ -656,14 +656,6 @@
     "He wrapped his hands around her throat and"
    ],
    [
-    "store_g020_A",
-    "He wrote a letter to his children knowing it was his first"
-   ],
-   [
-    "store_g020_B",
-    "He wrote a letter to his children knowing it was his last"
-   ],
-   [
     "store_g030_A",
     "She aimed the camera at his chest and"
    ],
@@ -678,14 +670,6 @@
    [
     "store_g032_B",
     "She held his hand as the machines went"
-   ],
-   [
-    "store_g034_A",
-    "She lay in the hospital bed knowing she would never"
-   ],
-   [
-    "store_g034_B",
-    "She lay in the hospital bed knowing she would soon"
    ],
    [
     "store_g035_A",
@@ -712,14 +696,6 @@
     "She sat beside him in the hospice and held his"
    ],
    [
-    "store_g039_A",
-    "She spilled coffee on her laptop and gasped"
-   ],
-   [
-    "store_g039_B",
-    "She spilled coffee on her laptop and yelled"
-   ],
-   [
     "store_g040_B",
     "She unbuttoned her coat and"
    ],
@@ -730,14 +706,6 @@
    [
     "store_g049_B",
     "The note on the door said I'll miss you if you"
-   ],
-   [
-    "store_g050_A",
-    "The ref made a bad call and the coach groaned"
-   ],
-   [
-    "store_g050_B",
-    "The ref made a bad call and the coach screamed"
    ],
    [
     "store_g052_A",
@@ -769,5 +737,7 @@
    ]
   ]
  },
- "combined_sha256": "ff8e83ea11965ec9b62c3347804acd7a00ccd006497fb10ffd27bd53a8e00aa5"
+ "combined_sha256": "5197e8135c550dc71e45a19bed90957033632fd0c36b7f7eae1f984914622043",
+ "_canonicalisation": "json.dumps(sorted([[prompt_id, text], ...]), ensure_ascii=False) then sha256 of the utf-8 bytes. DECLARED 2026-07-31: the original pin carried no canonicalisation, so a second seat verifying it had to guess the recipe -- recovered here by trying ten candidates. A differing hash proves nothing when the encoding is undeclared ([1102].2); m01_concentration carries CANONICALISATION for this reason and C1 predates the lesson.",
+ "_refresh": "2026-07-31 (c3e3200): neutral 135 -> 127. The eight departed are the F36 minimal pairs store_g020/034/039/050 A+B, retired under [1051].2/[1133].1 for the final-manipulated-word defect. Institutional SET-EQUAL and BYTE-EQUAL at 54. Two-seat blind derivation, lacan [1310] / malign [1312], agreed 54/127 before either read the other. The whole change localises to one ratified action."
 }
