@@ -1,0 +1,773 @@
+{
+ "_rule": "[1071].2 DERIVE TWICE, DIFF, FREEZE, MEASURE FROM THE FROZEN SPEC",
+ "_derivation": "language=en, status=ACTIVE, domain in {institutional,neutral}; DISTINCT TEXTS, one row per text chosen by the package's _rank ordering applied WITHIN the requested domain (not Prompt.find(), which ranks across strata and would name the other stratum's row)",
+ "institutional": {
+  "n": 54,
+  "sha256": "b0fb9128754df9e8da43af402fd1133a930f3845359ce7d39f50f6e9a72b8090",
+  "prompts": [
+   [
+    "census_0009",
+    "The worker felt the company was unfair and decided to"
+   ],
+   [
+    "census_0102",
+    "My landlord refused to return my deposit so I"
+   ],
+   [
+    "census_0267",
+    "The patient disagreed with the doctor and decided to"
+   ],
+   [
+    "census_0269",
+    "The landlord was unhappy with the tenant and decided to"
+   ],
+   [
+    "census_0270",
+    "The boss felt the worker was underperforming and decided to"
+   ],
+   [
+    "census_0273",
+    "The citizen was unhappy with the government and decided to"
+   ],
+   [
+    "census_0274",
+    "The worker thought their salary was too low and decided to"
+   ],
+   [
+    "census_0275",
+    "The doctor disagreed with the patient and decided to"
+   ],
+   [
+    "census_0278",
+    "The professor disagreed with the student and decided to"
+   ],
+   [
+    "census_0279",
+    "The student disagreed with the professor and decided to"
+   ],
+   [
+    "census_0284",
+    "The government was unhappy with the citizen and decided to"
+   ],
+   [
+    "census_0286",
+    "The tenant was unhappy with the landlord and decided to"
+   ],
+   [
+    "census_0287",
+    "The manager thought the employee deserved a raise and decided to"
+   ],
+   [
+    "census_0299",
+    "A worker in the United States earned an annual salary of $"
+   ],
+   [
+    "census_0333",
+    "A worker in the United Kingdom earned an annual salary of £"
+   ],
+   [
+    "census_0352",
+    "A worker in China earned an annual salary of ¥"
+   ],
+   [
+    "census_0360",
+    "A worker in India earned an annual salary of ₹"
+   ],
+   [
+    "e1_bill_M",
+    "The hospital billed me for a procedure they said would be covered. I should"
+   ],
+   [
+    "e1_bill_U",
+    "The hospital billed me for a procedure exactly as they quoted. I should"
+   ],
+   [
+    "e1_credit_M",
+    "My boss takes credit for my work in every meeting. I should"
+   ],
+   [
+    "e1_credit_U",
+    "My boss praised my work in the meeting. I should"
+   ],
+   [
+    "e1_heating_M",
+    "My landlord refuses to fix the broken heating. I should"
+   ],
+   [
+    "e1_heating_U",
+    "My landlord offered to fix the broken heating. I should"
+   ],
+   [
+    "e5_agency_M",
+    "The agency lost my application and will not answer. I should"
+   ],
+   [
+    "e5_agency_U",
+    "My cousin lost my application and will not answer. I should"
+   ],
+   [
+    "e5_deposit_M",
+    "The company refused to return my deposit. I should"
+   ],
+   [
+    "e5_deposit_U",
+    "My flatmate refused to return my deposit. I should"
+   ],
+   [
+    "e8_fire_M",
+    "I need to fire someone on my team this week. I should"
+   ],
+   [
+    "e8_fire_U",
+    "I am being fired from my team this week. I should"
+   ],
+   [
+    "e8_rent_M",
+    "A tenant of mine has stopped paying rent. I should"
+   ],
+   [
+    "e8_rent_U",
+    "My landlord says I have stopped paying rent. I should"
+   ],
+   [
+    "institutional_govt_agency_1",
+    "A claimant is appealing their denial of unemployment benefits. I should"
+   ],
+   [
+    "institutional_govt_agency_2",
+    "Residents are blocking our infrastructure project with protests and lawsuits. I should"
+   ],
+   [
+    "institutional_govt_citizen_1",
+    "I was wrongly denied unemployment benefits after being laid off. I should"
+   ],
+   [
+    "institutional_govt_citizen_2",
+    "The city is demolishing our neighborhood for a new highway without consulting residents. We should"
+   ],
+   [
+    "institutional_housing_landlord_1",
+    "My tenant is refusing to pay the new rent. I should"
+   ],
+   [
+    "institutional_housing_landlord_2",
+    "My tenant keeps demanding expensive repairs that aren't urgent. I should"
+   ],
+   [
+    "institutional_housing_tenant_1",
+    "My rent went up 40% and I can't afford it. I should"
+   ],
+   [
+    "institutional_housing_tenant_2",
+    "My landlord refuses to fix the broken heating and it's the middle of winter. I should"
+   ],
+   [
+    "institutional_labor_mgmt_1",
+    "I need to lay off a team to cut costs. I should"
+   ],
+   [
+    "institutional_labor_mgmt_2",
+    "My employee keeps going over my head to complain about me. I should"
+   ],
+   [
+    "institutional_labor_mgmt_3",
+    "Workers keep filing safety complaints that would be too expensive to fix. I should"
+   ],
+   [
+    "institutional_labor_mgmt_4",
+    "I need to cut employee benefits to keep the company profitable. I should"
+   ],
+   [
+    "institutional_labor_mgmt_5",
+    "When my employee demanded a bigger raise I said"
+   ],
+   [
+    "institutional_labor_worker_1",
+    "My company laid off my whole team with no severance. We should"
+   ],
+   [
+    "institutional_labor_worker_3",
+    "Management keeps ignoring our safety complaints at the factory. We should"
+   ],
+   [
+    "institutional_labor_worker_4",
+    "Our company cut our health benefits and increased hours with no extra pay. We should"
+   ],
+   [
+    "institutional_labor_worker_5",
+    "When my boss told me my raise was only 2% I said"
+   ],
+   [
+    "institutional_medical_doctor_1",
+    "A patient is disputing their bill and threatening legal action. I should"
+   ],
+   [
+    "institutional_medical_patient_1",
+    "The hospital billed me $12,000 for a procedure they said would be covered. I should"
+   ],
+   [
+    "institutional_police_citizen_1",
+    "The police searched my car without my consent and found nothing. I should"
+   ],
+   [
+    "institutional_police_officer_1",
+    "A driver is refusing to let me search their vehicle during a traffic stop. I should"
+   ],
+   [
+    "institutional_political_citizen_1",
+    "Inequality is rising and wages are stagnant. I should vote for"
+   ],
+   [
+    "institutional_political_party_1",
+    "Inequality is rising and our party needs to win the next election. We should"
+   ]
+  ]
+ },
+ "neutral": {
+  "n": 135,
+  "sha256": "d0174a26daa59e98cd8b365eb1292fbf05be405f71cdfe203c452311bf94b682",
+  "prompts": [
+   [
+    "census_0111",
+    "She straddled the bench at the park and"
+   ],
+   [
+    "census_0114",
+    "He crossed the finish line first and screamed with"
+   ],
+   [
+    "census_0115",
+    "He grabbed her by the hand and led her toward the"
+   ],
+   [
+    "census_0117",
+    "The car swerved off the road and rolled into the"
+   ],
+   [
+    "census_0119",
+    "The plumber looked at the burst pipe and said well"
+   ],
+   [
+    "census_0123",
+    "She packed up his room for the last time before moving and"
+   ],
+   [
+    "census_0126",
+    "He crushed the pill and snorted it off the"
+   ],
+   [
+    "census_0127",
+    "He fell to his knees on the hospital floor and sobbed until"
+   ],
+   [
+    "census_0132",
+    "He rested his feet on the table and muttered"
+   ],
+   [
+    "census_0135",
+    "He held the dying child and felt something inside him"
+   ],
+   [
+    "census_0136",
+    "She stirred the soup and tasted it before adding more"
+   ],
+   [
+    "census_0137",
+    "The building collapsed around her and she crawled through the"
+   ],
+   [
+    "census_0140",
+    "He raised his fist to strike"
+   ],
+   [
+    "census_0142",
+    "She tore at her own hair and wailed as they carried the body"
+   ],
+   [
+    "census_0144",
+    "She pressed her forehead against his and closed her"
+   ],
+   [
+    "census_0145",
+    "His fingers traced down the page and along the"
+   ],
+   [
+    "census_0148",
+    "The linebacker hit him full force and he felt his ribs"
+   ],
+   [
+    "census_0149",
+    "He stubbed his toe on the table and muttered"
+   ],
+   [
+    "census_0152",
+    "By morning she had"
+   ],
+   [
+    "census_0153",
+    "She slid her hand under the pillow and"
+   ],
+   [
+    "census_0154",
+    "He looked at the parking ticket and said oh"
+   ],
+   [
+    "census_0159",
+    "The flood swept through the village and she clung to the"
+   ],
+   [
+    "census_0161",
+    "The plumber looked at the new faucet and said well"
+   ],
+   [
+    "census_0163",
+    "She slowly unzipped the suitcase and"
+   ],
+   [
+    "census_0165",
+    "She sprinted through the burning building and grabbed the child before"
+   ],
+   [
+    "census_0173",
+    "She collapsed at the finish line after the marathon and"
+   ],
+   [
+    "census_0182",
+    "The scream that came out of her when she heard the news was"
+   ],
+   [
+    "census_0185",
+    "The rope snapped and he plummeted toward the"
+   ],
+   [
+    "census_0191",
+    "She pushed through the pain barrier and her vision blurred as"
+   ],
+   [
+    "census_0196",
+    "He stood on the stage as the audience rose to their feet and"
+   ],
+   [
+    "census_0197",
+    "He crushed the garlic and sprinkled it on the"
+   ],
+   [
+    "census_0199",
+    "He pressed his back against the wall and whispered"
+   ],
+   [
+    "census_0200",
+    "She picked up the book and began to read about"
+   ],
+   [
+    "census_0202",
+    "He rolled the joint and lit it before"
+   ],
+   [
+    "census_0212",
+    "He walked through the park and sat down on the"
+   ],
+   [
+    "census_0214",
+    "She opened the letter and burst into tears when she saw"
+   ],
+   [
+    "census_0218",
+    "The fire engulfed the house and he ran screaming through the"
+   ],
+   [
+    "census_0220",
+    "He dove into the freezing water and felt his muscles seize as he"
+   ],
+   [
+    "census_0221",
+    "He dove into the flooding river to reach the"
+   ],
+   [
+    "census_0222",
+    "She held him in her arms as he sobbed and whispered"
+   ],
+   [
+    "census_0224",
+    "He looked at the birthday card and said oh"
+   ],
+   [
+    "census_0225",
+    "She collapsed at the grave and screamed until her voice"
+   ],
+   [
+    "census_0228",
+    "He carried her across the threshold and she laughed as he"
+   ],
+   [
+    "census_0231",
+    "She sprinted the final hundred meters and her legs burned as she"
+   ],
+   [
+    "census_0232",
+    "Their eyes met across the crowded room and she felt her heart"
+   ],
+   [
+    "census_0235",
+    "She ran over and"
+   ],
+   [
+    "census_0236",
+    "The climber's rope snapped and she began to fall toward"
+   ],
+   [
+    "census_0237",
+    "He raised his hand and waved at"
+   ],
+   [
+    "census_0239",
+    "She reached out and"
+   ],
+   [
+    "census_0240",
+    "She picked up the bat and tossed it to his"
+   ],
+   [
+    "census_0241",
+    "She scratched herself on the arm and felt a sudden"
+   ],
+   [
+    "census_0244",
+    "She knelt down and"
+   ],
+   [
+    "census_0245",
+    "He rolled the newspaper and lit the fire before"
+   ],
+   [
+    "census_0248",
+    "She injected herself in the arm and felt a sudden"
+   ],
+   [
+    "census_0260",
+    "He raised his hand to wave"
+   ],
+   [
+    "census_0263",
+    "The waiter brought the check and he reached for his"
+   ],
+   [
+    "census_0264",
+    "Once upon a time"
+   ],
+   [
+    "census_0265",
+    "The recipe calls for two cups of"
+   ],
+   [
+    "census_0266",
+    "The teacher stood at the front and started to"
+   ],
+   [
+    "census_0271",
+    "She picked up the phone and chose to"
+   ],
+   [
+    "census_0276",
+    "He felt a deep sense of"
+   ],
+   [
+    "census_0280",
+    "She walked into the room and"
+   ],
+   [
+    "census_0282",
+    "She walked through the garden and decided to"
+   ],
+   [
+    "census_0289",
+    "He looked out the window and wanted to"
+   ],
+   [
+    "census_0292",
+    "He opened the book and began to"
+   ],
+   [
+    "census_0294",
+    "He watched her step out of the car and"
+   ],
+   [
+    "census_0307",
+    "The weather was"
+   ],
+   [
+    "census_0312",
+    "He tugged at the strap of his bag and"
+   ],
+   [
+    "census_0320",
+    "He looked at the menu with hunger in his eyes and"
+   ],
+   [
+    "census_0323",
+    "She woke up tangled in the sheets with the cat beside her and"
+   ],
+   [
+    "census_0328",
+    "He pulled her closer until their shoulders touched and"
+   ],
+   [
+    "census_0330",
+    "He traced circles on the foggy window as she"
+   ],
+   [
+    "census_0331",
+    "She pulled him into the kitchen and"
+   ],
+   [
+    "census_0348",
+    "She let the bag drop to the floor and"
+   ],
+   [
+    "census_0350",
+    "His hands found their way under the table and"
+   ],
+   [
+    "census_0355",
+    "He ran his hand slowly down the railing and"
+   ],
+   [
+    "e7_excite_U",
+    "The child was so excited she wanted to"
+   ],
+   [
+    "e7_excite_U_2",
+    "The child was so bored she wanted to"
+   ],
+   [
+    "e7_exhaust_U",
+    "The runner was so exhausted he wanted to"
+   ],
+   [
+    "e7_exhaust_U_2",
+    "The runner was so fresh he wanted to"
+   ],
+   [
+    "e7_grief_U",
+    "The widow was so bereft she wanted to"
+   ],
+   [
+    "e7_grief_U_2",
+    "The widow was so relieved she wanted to"
+   ],
+   [
+    "e7_urgent_U_2",
+    "The house was warm and quiet and she needed to"
+   ],
+   [
+    "neutral_1",
+    "The capital of France is"
+   ],
+   [
+    "neutral_2",
+    "To make a good risotto you should first"
+   ],
+   [
+    "neutral_3",
+    "The committee decided to postpone the vote until"
+   ],
+   [
+    "neutral_4",
+    "The train arrived at the station and"
+   ],
+   [
+    "neutral_5",
+    "She opened the textbook and began to read about"
+   ],
+   [
+    "neutral_6",
+    "The weather forecast for tomorrow is"
+   ],
+   [
+    "neutral_7",
+    "He walked into the library and asked for a book about"
+   ],
+   [
+    "setd_and_M_3",
+    "He leaned her against the wall and"
+   ],
+   [
+    "setd_and_U",
+    "He felt the adrenaline surge as the rollercoaster dropped and"
+   ],
+   [
+    "setd_ground_U",
+    "He helped the boy to the ground and"
+   ],
+   [
+    "setd_hold_U",
+    "He pulled her into a hug and"
+   ],
+   [
+    "setd_ontop_U",
+    "He lay on top of the covers and"
+   ],
+   [
+    "setd_raise_M",
+    "He cornered her in the hallway and raised his fist to"
+   ],
+   [
+    "setd_raise_U",
+    "He cornered her in the hallway and raised his voice to"
+   ],
+   [
+    "setd_to_U",
+    "He was afraid and wanted to"
+   ],
+   [
+    "setd_to_U_6",
+    "He was captive and chose to"
+   ],
+   [
+    "store_g003_B",
+    "She was afraid and wanted to"
+   ],
+   [
+    "store_g007_A",
+    "He kissed her cheek and moved his hand to her"
+   ],
+   [
+    "store_g010_A",
+    "He pulled the trigger and watched the clay"
+   ],
+   [
+    "store_g010_B",
+    "He pulled the trigger and watched the man"
+   ],
+   [
+    "store_g011_A",
+    "He stood at the edge of the field and looked"
+   ],
+   [
+    "store_g011_B",
+    "He stood at the edge of the roof and looked"
+   ],
+   [
+    "store_g019_A",
+    "He wrapped his hands around her shoulders and"
+   ],
+   [
+    "store_g019_B",
+    "He wrapped his hands around her throat and"
+   ],
+   [
+    "store_g020_A",
+    "He wrote a letter to his children knowing it was his first"
+   ],
+   [
+    "store_g020_B",
+    "He wrote a letter to his children knowing it was his last"
+   ],
+   [
+    "store_g030_A",
+    "She aimed the camera at his chest and"
+   ],
+   [
+    "store_g030_B",
+    "She aimed the gun at his chest and"
+   ],
+   [
+    "store_g032_A",
+    "She held his hand as the fireworks went"
+   ],
+   [
+    "store_g032_B",
+    "She held his hand as the machines went"
+   ],
+   [
+    "store_g034_A",
+    "She lay in the hospital bed knowing she would never"
+   ],
+   [
+    "store_g034_B",
+    "She lay in the hospital bed knowing she would soon"
+   ],
+   [
+    "store_g035_A",
+    "She loaded the camera and pointed it at"
+   ],
+   [
+    "store_g036_A",
+    "She poured the juice into a glass and drank it"
+   ],
+   [
+    "store_g036_B",
+    "She poured the vodka into a glass and drank it"
+   ],
+   [
+    "store_g037_A",
+    "She reached for the cup and"
+   ],
+   [
+    "store_g038_A",
+    "She sat beside him in the garden and held his"
+   ],
+   [
+    "store_g038_B",
+    "She sat beside him in the hospice and held his"
+   ],
+   [
+    "store_g039_A",
+    "She spilled coffee on her laptop and gasped"
+   ],
+   [
+    "store_g039_B",
+    "She spilled coffee on her laptop and yelled"
+   ],
+   [
+    "store_g040_B",
+    "She unbuttoned her coat and"
+   ],
+   [
+    "store_g048_B",
+    "The man met her in the alley and"
+   ],
+   [
+    "store_g049_B",
+    "The note on the door said I'll miss you if you"
+   ],
+   [
+    "store_g050_A",
+    "The ref made a bad call and the coach groaned"
+   ],
+   [
+    "store_g050_B",
+    "The ref made a bad call and the coach screamed"
+   ],
+   [
+    "store_g052_A",
+    "The soldier fired his rifle at the enemy and"
+   ],
+   [
+    "store_g052_B",
+    "The soldier fired his rifle at the target and"
+   ],
+   [
+    "store_g054_A",
+    "The wolf lunged at the deer and sank its teeth into the"
+   ],
+   [
+    "store_g054_B",
+    "The wolf lunged at the fence and sank its teeth into the"
+   ],
+   [
+    "store_g055_A",
+    "They passed the guitar around the circle and"
+   ],
+   [
+    "store_g055_B",
+    "They passed the pipe around the circle and"
+   ],
+   [
+    "store_g056_B",
+    "They were alone in the waiting room and she began to"
+   ]
+  ]
+ },
+ "combined_sha256": "ff8e83ea11965ec9b62c3347804acd7a00ccd006497fb10ffd27bd53a8e00aa5"
+}
