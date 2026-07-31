@@ -23,9 +23,14 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
 - [RH] MARKED/UNMARKED AROUSAL REGISTRATION ([1225] -> [1226]): the
   norms instrument's strongest possible sentence if it holds —
   displacement down the arousal gradient SPECIFIC to the transgressive
-  arm, minimal-pair control at chance. Exploratory (UNQUOTABLE) signal:
-  marked median +0.454 (6/7 prompts positive) vs unmarked -0.103
-  (2/6). Design notes: PROMPT AS THE UNIT from line one; the effect
+  arm, minimal-pair control at chance. THE EXPLORATORY SIGNAL IS
+  WITHDRAWN ([1229]: the 7-vs-6 arms were DISJOINT prompt designs —
+  role confounded with design; the one genuine displacing pair,
+  e1_credit +0.536, establishes nothing at n=1). THE REAL CONSTRAINT:
+  power is bounded by groups holding BOTH roles at displacing sites =
+  ONE today — so this is a PROMPT-DESIGN task first (new minimal
+  pairs built for displacing sites), an analysis second. Design notes
+  that survive: PROMPT AS THE UNIT... no — THE PAIR as the unit; the effect
   unexpectedly concentrates in the INSTITUTIONAL stratum (+0.448 / 21
   prompts); the F01 flagship row sits near ZERO on 5 prompts (the
   inconvenient row — predict honestly around it). DESIGN CORRECTED
