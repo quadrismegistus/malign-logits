@@ -42,13 +42,16 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   DOMAIN STRATIFICATION REQUIRED (markedness and domain confounded:
   strong positives all institutional-marked, strongest negative
   violence-marked — unstratified contrast may measure domain); (c)
-  THRESHOLD OPTIONS w/ percentile context MANDATORY (0.10 = p87 of
-  the corpus — reads moderate, is extreme; 0.05 = the corpus MEDIAN,
-  the justification that is not "more pairs" — 10-15 scoreable
-  pairs; pairs are TYPICAL, displacing slightly above corpus, so
-  one-pair-at-0.10 is squared-15% arithmetic, not bad pairs; NEW
-  PROMPTS = commissioning p87-twice, unproven); (d) both seats
-  formally out of position — neither proposes. Power rebuilds
+  THE DECISION REFRAMED ([1243] -> [1245]): "at what percentile does
+  a PAIRED design condition" — NOT loose-vs-build; NO prompt-building
+  indicated (pairs are TYPICAL, displacing slightly above corpus;
+  one-pair-at-0.10 = squared-15% arithmetic). 0.10 = p87 (a
+  CONDITIONING bar inherited as a SELECTION bar — squaring turns a
+  defensible condition into an impossible one); 0.05 = the corpus
+  MEDIAN (the justification that is not "more pairs") -> 10-15
+  scoreable pairs. Percentile context MANDATORY in the registration.
+  (d) both seats formally out of position (doubly, declared) —
+  neither proposes. Power rebuilds
   per-finding, on texts, in the scoreable population, after RH's
   choice. No paired difference computed anywhere; blindness intact. Design notes
   that survive: THE PAIR is the unit; the effect
