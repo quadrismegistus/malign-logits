@@ -79,7 +79,12 @@ SWEEPS = {
 }
 
 FULL = 979          # a complete arm; the grid scores 979 prompts per model
-CANCELLED_COMPUTE = {  # RH, 2026-07-31 -- compute-bound, held for a faster box
+# SSM/hybrid, deferred 2026-07-31. Originally booked as "compute-bound, wants a
+# faster card" -- the right SYMPTOM (GPU pinned at 100%) with the wrong CAUSE.
+# UTILIZATION AT 100% DOES NOT NAME ITS CAUSE: a naive state-space scan launches
+# thousands of tiny kernels and reads identically on the gauge to saturated
+# arithmetic. A faster card would have been $24 spent proving it.
+SSM_DEFERRED = {
     "tiiuae/falcon-mamba-7b", "tiiuae/falcon-mamba-7b-instruct",
     "tiiuae/Falcon3-Mamba-7B-Base", "tiiuae/Falcon3-Mamba-7B-Instruct",
     "tiiuae/Falcon-H1-1.5B-Base", "tiiuae/Falcon-H1-1.5B-Instruct",
@@ -176,7 +181,7 @@ NOT_A_SCALE_RUNG = {
     "qwen3": "Qwen3 -- a later GENERATION than the Qwen2.5 ladder, not a rung on it",
     "smol": "SmolLM2 against SmolLM3 is a generation change",
     "smol3": "SmolLM3 against SmolLM2 is a generation change",
-    "falcon-h1-1.5b": "hybrid architecture; UNSCORED (compute-bound, held)",
+    "falcon-h1-1.5b": "hybrid architecture; UNSCORED (SSM fast path unavailable)",
     "falcon-h1-7b": "hybrid architecture; UNSCORED",
     "falcon-mamba": "SSM architecture; UNSCORED",
     "falcon3-mamba": "SSM architecture against dense Falcon3; UNSCORED",
@@ -464,10 +469,19 @@ def main(a):
                       "to the .bin index, refused below torch 2.6"
                       if w.get("weights_format") == "mixed"
                       else "bin-only checkpoint; refused below torch 2.6")
-        elif mid in CANCELLED_COMPUTE:
-            reason = ("hybrid/SSM: 0.081 p/s against 0.9-2.5 for dense "
-                      "transformers, GPU at 100% -- compute-bound, cancelled "
-                      "on RH's word; wants a faster card, not more VRAM")
+        elif mid in SSM_DEFERRED:
+            reason = ("SSM/hybrid: the mamba-ssm / causal-conv1d fast-path CUDA "
+                      "kernels are UNAVAILABLE at torch 2.6, so transformers "
+                      "falls back to a naive scan -- 0.068 p/s against 0.9-2.5 "
+                      "for dense transformers, ~32 h for the eight. A source "
+                      "build succeeded and the extension still fails to load "
+                      "(undefined symbol c10::cuda::c10_cuda_check_"
+                      "implementation); the version that works needs torch "
+                      "2.13, which breaks the compiled triple and sits above "
+                      "nothing the .bin floor needs. NOT a card problem. "
+                      "Deferred at docket [1144] to the F35 book-phase "
+                      "decision; 68 partial cells preserved unmerged at "
+                      "data/twp_phasefalcon/")
         elif mid in OOM_32B:
             reason = ("CUDA OOM at load: 64 GB of fp16 weights plus transient "
                       "peaks against 79.15 GiB usable; wants >80 GB, not a "
