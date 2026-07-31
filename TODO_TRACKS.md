@@ -20,6 +20,18 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   architecture independence have NO meta home (see register) —
   M-clause, book-only, or defer.
 - [RH] Cursor-provenance docket fix (maude builds on RH's word).
+- [RH] LLM-GENERATED NORMS as a SECOND instrument (pointer from the
+  abstraction seat, 2026-07-31): Martinez/Conde/Reviriego family
+  (GPT-4o; en 126K words + 63K MWEs, es 128K, de 185K w/ GPT columns
+  BESIDE seven human sources in Conde2026.xlsx — a ready-made
+  human-vs-model comparison; Trott 2024 r=.81 vs human concreteness).
+  Excluded from the CURRENT exogenous instrument by design (would
+  dissolve the exogeneity argument, mirror of abstraction's firewall);
+  candidate question: does the displacement gradient look the same
+  under human affect ratings and a model's own semantic priors?
+  Book-native (LLM aesthetics). Provenance: abstraction seat's memory
+  project_llm_generated_norms_rejected.md. Decision AFTER the current
+  audit closes.
 - Queued small items (RH: "still queued"): register-fidelity judge;
   literary-below-neutral design; eleventh-clause candidate.
 
