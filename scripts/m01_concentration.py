@@ -58,8 +58,24 @@ RESIDUAL = "carried as a bin (__TAIL__), never renormalised away"
 SIDEDNESS = "n/a — this producer reports distributions, it runs no test"
 
 # --- THE FROZEN POPULATION, [1071].2, diffed two-seat at [1100]/[1102] -----
-PROMPTS_SHA = "a8693d7963f725c52386b5e2734ed0752bb74c471bbe4624343aceaf604991a4"
-MODELS_SHA = "7bcc9e9d6aee8323e2dc343c4bb8dbe348d838d08f2a7fbe9f59d2d3f909dc78"
+PROMPTS_SHA = "fd3f14796ba9481b6597b94871013f8db5357a0a330751dc042268895209c8b4"
+MODELS_SHA = "e4c507eb8dbcf593477f568d9c011695c7a84a0525454bdbf50107820f32e164"
+#: RE-FROZEN 2026-07-31 at 959 x 93 (efe2788), two-seat blind diff closed TWICE.
+#: THE FIRST FREEZE AT 960 WAS WRONG BY ONE ROW and is kept here as the reason the
+#: second one is trustworthy: the Chinese MARKED cessation string survived the sweep
+#: under `violence_explicit_5_zh`, because a by-STRING retirement was executed by an
+#: id-pattern query at both seats. A LOOKUP THAT RETURNS NOTHING HAS NOT ESTABLISHED
+#: THAT NOTHING IS THERE, ONLY THAT NOTHING IS THERE UNDER THAT KEY ([1166].3). The
+#: refusal-on-drift caught it mid-sequence, between two producers that had already run.
+#: Earlier close, now dead: 960 / 1281b149...
+#: RE-FROZEN at 960 x 93, first blind diff [1157]/[1160]:
+#: both seats derived 1281b149.../7bcc9e9d... independently, neither having read the
+#: other's file. The prompts hash moved because the ratified ends-on-contrast retirement
+#: removed 15 strings (975 -> 960); THE MODELS HASH DID NOT MOVE, and that is structural
+#: rather than lucky -- shrinking the prompt set can only make completeness easier, so
+#: all 93 stayed complete. Predicted at [1135] before the edit, confirmed from both
+#: seats after. The two digests move independently and a producer must not assume
+#: otherwise.
 #: Declared because a digest without one makes a MISMATCH ambiguous between
 #: "different set" and "different encoding" — [1102].2. Matching hashes prove
 #: agreement; differing hashes prove nothing without this line.
@@ -262,6 +278,46 @@ def main(a):
 
     check_null()                 # unconditional; see its docstring for why
     prompts, models, (ph, mh), drift = frozen_population()
+
+    # --- THE DERIVE-TWICE EMITTER, [1071].2 ---------------------------------
+    # RUNS BEFORE THE DRIFT REFUSAL, DELIBERATELY. This path exists to produce the
+    # population artifact for a two-seat blind diff, and the moment it is most needed is
+    # exactly when the pin is STALE -- after a ratified retirement executes and the old
+    # hash no longer matches. An emitter that refused on drift would be useless at the
+    # only time anyone reaches for it. It measures nothing, so it cannot launder a
+    # drifted population into a number; it writes the list and says the pin disagrees.
+    #
+    # Hashes alone give MISMATCH without localising, which is [1102].2's problem and the
+    # reason CANONICALISATION is a declared constant. The list travels with them so a
+    # disagreeing seat gets the offending texts, not just a verdict.
+    if a.emit_population:
+        import json
+        doc = {
+            "_rule": "[1071].2 DERIVE TWICE, DIFF, FREEZE, MEASURE FROM THE FROZEN SPEC",
+            "_derivation": (f"prompts: {POPULATION}, re-derived from Prompts.all("
+                            "status='ACTIVE'), distinct texts, sorted. models: every "
+                            "model whose true_word_probs stash covers ALL of those "
+                            "prompts -- a RULE, never a count ([1100].3)."),
+            "_canonicalisation": CANONICALISATION,
+            "_edge": EDGE,
+            "n_prompts": len(prompts), "n_models": len(models),
+            "prompts_sha256": ph, "models_sha256": mh,
+            "pinned_prompts_sha256": PROMPTS_SHA, "pinned_models_sha256": MODELS_SHA,
+            "agrees_with_pin": not drift,
+            "drift": drift,
+            "prompts": prompts, "models": models,
+        }
+        with open(a.emit_population, "w") as fh:
+            json.dump(doc, fh, ensure_ascii=False, indent=1)
+        print(f"POPULATION EMITTED  {a.emit_population}")
+        print(f"  prompts {len(prompts)}  sha {ph}")
+        print(f"  models  {len(models)}  sha {mh}")
+        print(f"  agrees with the pinned hashes: {not drift}")
+        for d in drift:
+            print(f"    DRIFT  {d}")
+        print("  Diff this against the other seat's file, not against its hash: a bare")
+        print("  MISMATCH cannot tell a different SET from a different ENCODING.")
+        return 0
     print(f"POPULATION   {POPULATION}")
     print(f"NULL         {NULL}   (simulation-checked at import)")
     print(f"RESIDUAL     {RESIDUAL}")
@@ -483,4 +539,7 @@ if __name__ == "__main__":
     p.add_argument("--by-step", action="store_true",
                    help="also emit every consecutive step, to show whether EDGE matters")
     p.add_argument("--csv")
+    p.add_argument("--emit-population", metavar="PATH",
+                   help="write the re-derived population (list + hashes) for a two-seat "
+                        "blind diff and exit; runs even when the pin has drifted")
     sys.exit(main(p.parse_args()))
