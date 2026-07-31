@@ -248,8 +248,17 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   m01_norms 87d6d405. [1049] holds LIFTED for concentration +
   direction-agreement ([1301]); both quotable again, VERIFIED
   waits on second-seat number checks only.
-- [ ] SECOND-SEAT NUMBER CHECKS: concentration, direction-agreement
-  (post-re-freeze numbers only, [1128].3).
+- [~] SECOND-SEAT NUMBER CHECKS, re-ruled ([1302] -> [1304]):
+  concentration REPRODUCED-FROM-COMMITTED-PRODUCER (third seat,
+  clean env, figures within thousandths); direction-agreement
+  reproduction queued at malign's convenience. The REAL bar
+  ([1028].3) = INDEPENDENT ARITHMETIC — not satisfiable by this
+  table (all seats exposed); DEFERRED TO DRAFTING NEED per
+  [1118].2. Complete input for the fresh-seat run when triggered:
+  docket [1303] (twelve lines) + [1305] (three missing decision
+  points: theta, mode, four skip rules — THE FIFTEEN) + [1306]
+  (direction-agreement's line; derive the population ONCE for
+  both clauses).
 - [ ] C3 DE-TRANSGRESSION COUNT CONFIRMATION — outstanding since
   [1038].2.
 - [ ] M03 C2 second-seat verification (lexical mechanism, one-seat
