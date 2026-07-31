@@ -484,3 +484,150 @@ def cells_table(records, title="", limit=0, sort="percentile"):
                 if r["top_faller"] and r["top_riser"]
                 else (f"+{r['top_riser']}" if r["top_riser"] else "-"))
         print(f"  {r['prompt'][:48]:<50}{r['value']:>9.4f}{r['percentile']:>6.0f}   {disp}")
+
+
+# ---------------------------------------------------------------------------
+# The licensed set: what a marked prompt makes available that its partner does not.
+# ---------------------------------------------------------------------------
+
+def licensed_set(pre_self, pre_other, ratio=3.0, floor=0.003):
+    """Words this prompt LICENSES that its minimal partner does not.
+
+        { w : P_self(w) >= floor  AND  P_self(w) >= ratio * P_other(w) }
+
+    THE DESIGN SUPPLIES THE SET, so no word list and no judgement is needed. A tagged
+    vocabulary was tried first and abandoned: `data/f40_vocab/vocab_tagged_v2.csv` gives
+    40 TRANSGRESSIVE words, but only 13-18 of 34 F36 cells contained ANY of them, and the
+    list is general (`cut`, `die`, `fight`) where these slots want `stabbed`, `squeezed`,
+    `pinned`. **A category mass-flow over cells that contain none of the category is not a
+    number.** The pair-defined set has full coverage by construction.
+    """
+    return {w: p for w, p in pre_self.probs.items()
+            if p >= floor and p >= ratio * pre_other.probs.get(w, 0.0)}
+
+
+def _matched(pre, L):
+    """Nearest-probability words NOT in L, one per licensed word, no reuse.
+
+    Necessary because EVERYTHING falls a little when anything falls: a licensed set that
+    is merely higher-probability would drop more for that reason alone. Matching on the
+    pre-probability removes the renormalisation share. It does NOT control for part of
+    speech or semantic class, and that limit is real.
+    """
+    pool = sorted(((p, w) for w, p in pre.probs.items() if w not in L), reverse=True)
+    used, out = set(), {}
+    for w, p in sorted(L.items(), key=lambda kv: -kv[1]):
+        best = min(((abs(pp - p), i) for i, (pp, _) in enumerate(pool) if i not in used),
+                   default=(None, None))
+        if best[1] is not None:
+            used.add(best[1]); out[pool[best[1]][1]] = pool[best[1]][0]
+    return out
+
+
+def _rel_change(pre_self, pre_other, post_self, ratio, floor):
+    L = licensed_set(pre_self, pre_other, ratio, floor)
+    if not L:
+        return None, None, 0
+    l0 = sum(L.values())
+    if l0 <= 0:
+        return None, None, 0
+    l1 = sum(post_self.probs.get(w, 0.0) for w in L)
+    M = _matched(pre_self, L)
+    m0 = sum(M.values())
+    m1 = sum(post_self.probs.get(w, 0.0) for w in M) if m0 > 0 else None
+    return (l1 - l0) / l0, ((m1 - m0) / m0 if m0 > 0 else None), len(L)
+
+
+def detransgression(step, pairs, ratio=3.0, floor=0.003, rule=None):
+    """Does the MARKED arm suppress its licensed set more than UNMARKED suppresses its own?
+
+        pairs   [(marked_text, unmarked_text), ...]
+
+    Paired and SYMMETRIC: both arms get the same treatment and each gets its own licensed
+    set, so the test is not handed the transgressive arm and told to find something.
+    A negative median difference means the transgressive arm's licensed continuations are
+    cut harder -- de-transgression.
+
+    WHEN THIS TEST WORKS
+
+      * A MINIMAL PAIR IS REQUIRED. No partner, no licensed set. This cannot run on a
+        stratified contrast (`worker` vs `mgmt` carry no pairing) and must not be faked by
+        pairing arbitrary prompts.
+      * THE SLOT MUST AFFORD THE CONTINUATIONS. At a grammatically closed slot -- "...and
+        held his ___" gives `hand` at 0.920 -- the licensed set is tiny or degenerate and
+        the ratio is unstable. Check `n_licensed`; a median below ~5 is not a measurement.
+      * THE MANIPULATION MUST ACTUALLY SHIFT THE DISTRIBUTION. If the arms are nearly
+        identical the set is empty and the pair is silently dropped, counted in `dropped`.
+
+    WHEN IT MISLEADS
+
+      * **READ IT BESIDE THE PAIR'S GAP.** The licensed set is defined as high-in-self,
+        low-in-other, so if the two arms CONVERGE overall it falls mechanically and the
+        test reports de-transgression that is really convergence. On this instrument the
+        arms diverge, so a fall is informative -- but that is an empirical fact about
+        these models, not a property of the method.
+      * **THE THRESHOLDS ARE A FORKING PATH AND MUST BE SWEPT.** On amber's F36 pairs the
+        DIRECTION is negative at all 12 combinations of ratio in (2,3,5,10) and floor in
+        (0.001,0.003,0.01) -- but p<0.05 at only 5 of them, and the default (3, 0.003) is
+        one of the 5. Reporting a single setting would be choosing the result. Use
+        `licensed_sweep` and publish the grid.
+      * Matching is on probability alone. A licensed verb matched against a determiner of
+        the same probability controls for renormalisation and nothing else.
+    """
+    A, B, units, dropped = [], [], [], collections.Counter()
+    sizes = []
+    from .movement import word_probs
+    for mt, ut in pairs:
+        mp, mq = word_probs(step.pre.id, mt), word_probs(step.post.id, mt)
+        up, uq = word_probs(step.pre.id, ut), word_probs(step.post.id, ut)
+        if None in (mp, mq, up, uq):
+            dropped["an arm is not in the cache"] += 1
+            continue
+        rm, _, nm = _rel_change(mp, up, mq, ratio, floor)
+        ru, _, nu = _rel_change(up, mp, uq, ratio, floor)
+        if rm is None or ru is None:
+            dropped["licensed set is empty for an arm"] += 1
+            continue
+        A.append(rm); B.append(ru); units.append(mt); sizes.append(nm)
+    c = Contrast("MARKED", A, "UNMARKED", B, paired=True, metric="licensed_rel_change",
+                 step=step, frame=f"licensed(ratio={ratio},floor={floor})",
+                 dropped=dropped, units=units,
+                 tag=f"{step.family or '?'} {step.label}")
+    c.n_licensed = st.median(sizes) if sizes else 0
+    return c
+
+
+def licensed_sweep(step, pairs, ratios=(2.0, 3.0, 5.0, 10.0),
+                   floors=(0.001, 0.003, 0.01)):
+    """The threshold grid. Publish it; do not pick a cell from it.
+
+    Returns one row per (ratio, floor) with the median difference, the sign test and the
+    median licensed-set size. **The direction being stable while the p-value is not is the
+    normal outcome and is worth reporting as such** -- it says the effect is real in sign
+    and underpowered in size, which is a different claim from either "significant" or
+    "null".
+    """
+    out = []
+    for r in ratios:
+        for f in floors:
+            c = detransgression(step, pairs, ratio=r, floor=f)
+            if c.n < 10:
+                continue
+            t = c.test()
+            out.append({"ratio": r, "floor": f, "n": c.n,
+                        "n_licensed": c.n_licensed,
+                        "median_diff": st.median(c.diffs),
+                        "k": t.get("k"), "test_n": t.get("n"), "p": t.get("p")})
+    return out
+
+
+def sweep_table(rows, title=""):
+    if title:
+        print(f"\n{title}")
+    print(f"  {'ratio':>6}{'floor':>8}{'pairs':>7}{'med |L|':>9}{'med diff':>10}"
+          f"{'k/n':>9}{'p':>9}")
+    for r in rows:
+        star = " *" if (r["p"] is not None and r["p"] < 0.05) else ""
+        print(f"  {r['ratio']:>6.0f}{r['floor']:>8.3f}{r['n']:>7}{r['n_licensed']:>9.0f}"
+              f"{r['median_diff']:>10.3f}{f'{r[chr(107)]}/{r[chr(116)+chr(101)+chr(115)+chr(116)+chr(95)+chr(110)]}':>9}"
+              f"{(f'{r[chr(112)]:.2g}' if r['p'] else '-'):>9}{star}")

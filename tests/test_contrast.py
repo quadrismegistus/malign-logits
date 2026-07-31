@@ -264,3 +264,87 @@ def test_per_cell_carries_the_displacement_columns():
     finally:
         C._population = real
     assert r["top_faller"] == "balls" and r["top_riser"] == "thumb"
+
+
+# --- the licensed set -------------------------------------------------------
+
+class _P:
+    def __init__(s, probs, residual=0.1): s.probs = probs; s.residual = residual
+
+
+def test_licensed_set_is_relative_to_the_partner_not_absolute():
+    """The whole point. `hit` at 0.20 is NOT licensed if the partner also has it at 0.20 --
+    it is the CONTRAST that licenses, so an absolute threshold would return the marked
+    arm's whole head and measure nothing about the manipulation."""
+    from malign_logits.contrast import licensed_set
+    M = _P({"hit": 0.20, "stabbed": 0.05, "began": 0.10})
+    U = _P({"hit": 0.20, "stabbed": 0.001, "began": 0.10})
+    L = licensed_set(M, U, ratio=3.0, floor=0.003)
+    assert set(L) == {"stabbed"}, "only the word the partner lacks is licensed"
+
+
+def test_licensed_set_honours_the_floor():
+    from malign_logits.contrast import licensed_set
+    M = _P({"a": 0.002, "b": 0.05})
+    U = _P({"a": 0.0, "b": 0.0})
+    assert set(licensed_set(M, U, 3.0, 0.003)) == {"b"}
+
+
+def test_matched_controls_are_probability_matched_and_not_reused():
+    """Without matching, a licensed set that is merely higher-probability drops more from
+    renormalisation alone. Reuse would let one control stand in for several licensed words
+    and understate the control's own movement."""
+    from malign_logits.contrast import _matched
+    pre = _P({"L1": 0.10, "L2": 0.05, "c1": 0.11, "c2": 0.049, "c3": 0.048})
+    M = _matched(pre, {"L1": 0.10, "L2": 0.05})
+    assert len(M) == 2 and not ({"L1", "L2"} & set(M))
+    assert len(set(M)) == 2, "no control may be reused"
+
+
+def test_detransgression_is_symmetric_between_the_arms():
+    """Each arm gets ITS OWN licensed set. Handing the marked arm a set and the unmarked
+    arm nothing would guarantee an asymmetry whatever the data did."""
+    import malign_logits.contrast as C
+    same = _P({"x": 0.3, "y": 0.2, "z": 0.1})
+    class _S:
+        label = "sft->dpo"; family = "f"
+        class pre: id = "PRE"
+        class post: id = "POST"
+    import malign_logits.movement as MV
+    orig = MV.word_probs
+    MV.word_probs = lambda mid, t, *a, **k: same
+    try:
+        c = C.detransgression(_S(), [("m", "u")])
+    finally:
+        MV.word_probs = orig
+    # identical arms => no licensed set on either side => the pair is DROPPED, not scored 0
+    assert c.n == 0
+    assert sum(c.dropped.values()) == 1
+
+
+def test_sweep_returns_the_whole_grid_so_no_cell_can_be_picked():
+    """The thresholds are a forking path: on amber the DIRECTION is negative at all 12
+    combinations while p<0.05 at only 5, and the default is one of the 5. A function that
+    returned one row would be choosing the result."""
+    import malign_logits.contrast as C
+    class _S:
+        label = "sft->dpo"; family = "f"
+        class pre: id = "PRE"
+        class post: id = "POST"
+    import malign_logits.movement as MV
+    orig = MV.word_probs
+    # BOTH arms must license something, or every pair is (correctly) dropped for an
+    # empty set and the sweep returns nothing. A first fixture gave only the marked arm a
+    # distinctive word and returned 0 rows -- the code was right and the fixture was not.
+    seq = {("PRE", "m"):  _P({"a": .30, "b": .10, "c": .05}),
+           ("POST", "m"): _P({"a": .10, "b": .10, "c": .05}),
+           ("PRE", "u"):  _P({"a": .02, "b": .10, "c": .30}),
+           ("POST", "u"): _P({"a": .02, "b": .10, "c": .20})}
+    MV.word_probs = lambda mid, t, *a, **k: seq.get((mid, t))
+    try:
+        rows = C.licensed_sweep(_S(), [("m", "u")] * 12)
+    finally:
+        MV.word_probs = orig
+    assert len(rows) == 12, "all ratio x floor combinations must be returned"
+    assert {(r["ratio"], r["floor"]) for r in rows} == {
+        (r, f) for r in (2.0, 3.0, 5.0, 10.0) for f in (0.001, 0.003, 0.01)}
