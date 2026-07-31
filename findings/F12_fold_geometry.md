@@ -1,5 +1,5 @@
 ---
-status: unaudited
+status: retained-downgraded
 grade: C
 date: 2026-05-17
 role: finding
@@ -10,6 +10,12 @@ data: [fold_rank_summary.csv]
 scripts: [rederive_f12_heldout.py]
 ---
 # F12: Alignment as fold: trajectory geometry and steering vector analysis (10 families, 47 prompts, 100 passages)
+
+> **DISPOSITION (RH ruling 2026-07-31, docket [1050]): RETAINED, DOWNGRADED.**
+> Not cut, but explicitly UNVERIFIED: no audit day is scheduled, it holds
+> zero M-clause citations, and nothing below is citable in the meta layer
+> or in current drafts. Kept because it may be relevant to later articles;
+> any future use requires a full audit first.
 
 Two-part investigation of alignment's geometric signature, replicated across all 10 families with 47 prompts and 100 pre-generated passages per prompt.
 
