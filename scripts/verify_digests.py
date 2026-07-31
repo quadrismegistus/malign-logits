@@ -72,22 +72,47 @@ def sha256(p):
 def index(dirs, exts=None):
     """digest -> [paths]. MULTIPLE PATHS PER DIGEST IS THE NORMAL CASE and the
     reason this is a list: copies, backups, and symlinks into other volumes all
-    carry identical bytes, and collapsing them to one would hide the spread."""
+    carry identical bytes, and collapsing them to one would hide the spread.
+
+    `recurse_symlinks=True` IS LOAD-BEARING AND THE DEFAULT IS A TRAP. `rglob`
+    does not traverse symlinked directories unless told to, so the first version
+    of this file reported the Brysbaert digest as `resolves 1` while a SECOND
+    copy sat at ~/github/abslithists/abstraction/data/... -- a symlink into
+    /Volumes/chambers, and the copy the norms producer actually pins.
+
+    THE FALSE "1" WAS WORSE THAN A MISS, because the whole point of the count is
+    to distinguish one-of-one from one-of-five, and a non-following scan reports
+    the reassuring number. A SCAN THAT DOES NOT FOLLOW SYMLINKS ANSWERS ABOUT
+    THE TREE, NOT ABOUT THE FILESYSTEM."""
     out = {}
+    seen_real = set()
     for d in dirs:
         if not d.exists():
             continue
-        for p in d.rglob("*"):
-            if not p.is_file():
-                continue
-            if exts and p.suffix not in exts:
-                continue
-            try:
-                if p.stat().st_size < MIN_BYTES:
+        # os.walk(followlinks=True), NOT rglob(recurse_symlinks=True): the latter
+        # needs Python 3.13 and this repo's venv is 3.11, so the "fix" raised
+        # TypeError at import on the interpreter that actually runs it. A GUARD
+        # THAT NEEDS A NEWER INTERPRETER THAN THE ONE IT RUNS UNDER IS NOT A GUARD.
+        for root, _dirs, names in os.walk(d, followlinks=True):
+            for nm in names:
+                p = pathlib.Path(root) / nm
+                if not p.is_file():
                     continue
-                out.setdefault(sha256(p), []).append(p)
-            except OSError:
-                continue
+                if exts and p.suffix not in exts:
+                    continue
+                try:
+                    if p.stat().st_size < MIN_BYTES:
+                        continue
+                    # one entry per DISTINCT FILE; a symlinked directory
+                    # otherwise reports the same inode twice and inflates the
+                    # candidate count the whole report turns on
+                    rp = os.path.realpath(p)
+                    if rp in seen_real:
+                        continue
+                    seen_real.add(rp)
+                    out.setdefault(sha256(p), []).append(p)
+                except OSError:
+                    continue
     return out
 
 
