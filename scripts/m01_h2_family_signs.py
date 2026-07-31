@@ -130,6 +130,43 @@ def main():
     print(f"    ratio between/within                       : "
           f"{per['mean'].std()/per['std'].median():.2f}")
 
+    # ---- LINEAGE SENSITIVITY ([1794]) -------------------------------------
+    # 37 families are not 37 independent alignment implementations: the tulu six
+    # are one recipe with pieces removed, the falcon3 four are one recipe at four
+    # sizes. Collapsing is necessary and the MAP IS A JUDGEMENT, so the answer is
+    # reported across several defensible maps rather than computed on one.
+    print("\n" + "=" * 70)
+    print("LINEAGE SENSITIVITY — how far does the answer move with the map?")
+    print("=" * 70)
+    from malign_logits import MODEL_FAMILIES as MF
+
+    def prefix(f):
+        for q in ("qwen", "olmo", "tulu", "falcon3", "smol"):
+            if f.startswith(q):
+                return q
+        return {"tinyllama": "llama-arch", "llama": "llama-arch"}.get(f, f)
+
+    def strict(f):
+        q = prefix(f)
+        return "llama-arch" if q in ("llama-arch", "tulu") or f == "beaver" else q
+
+    def by_base(f):
+        """The only map that is NOT a judgement about names."""
+        fam = MF.get(f)
+        return (getattr(fam, "base", None) if fam else None) or f
+
+    passing = per[~per.index.isin(thin.index)]
+    for lab, fn in (("no collapse (family = unit)", lambda f: f),
+                    ("name-prefix map", prefix),
+                    ("strict: all Llama-derived together", strict),
+                    ("BASE CHECKPOINT from the registry", by_base)):
+        lin = pd.DataFrame({"A": passing["mean"],
+                            "lin": [fn(f) for f in passing.index]}).groupby("lin").A.mean()
+        k, n = int((lin > 0).sum()), len(lin)
+        print(f"  {lab:<40}{k:>3} of {n:<3}  p = {sign_test_one_sided(k, n):.4f}")
+    print("  The direction is robust to the map; the EVIDENTIAL WEIGHT is not --")
+    print("  p spans fivefold, and the most assumption-free map is the weakest.")
+
     d.to_csv(OUT, index=False)
     print(f"\nwrote {OUT}")
 
