@@ -78,18 +78,46 @@ def word_dist(cell):
     d = defaultdict(float)
     for r in cell["rows"]:
         d[r["word"]] += r["p"]
+    # CARRIED, NOT DROPPED. js() bins it; a caller that wants the old
+    # renormalised quantity must ask for it explicitly.
+    d["__TAIL__"] = float(cell.get("residual", {}).get("total", 0.0))
     return d
 
 
-def js(a, b):
-    """Jensen-Shannon (base 2) over the union of surfaces, each renormalised.
+def js(a, b, keep_residual=True):
+    """Jensen-Shannon (base 2) over the union of surfaces.
 
-    Renormalisation is deliberate and must be stated with any number this
-    produces: the residual (unresolved mass) is DROPPED, so this measures
-    movement within the resolved vocabulary, not movement including the part
-    the instrument could not name. Two cells with different residuals are
-    still comparable here, but the metric is blind to a shift INTO residual.
+    THE RESIDUAL IS A BIN, NOT A RENORMALISATION -- and this function used to
+    renormalise, which was wrong for the question it is asked.
+
+    `cell.py` states the commitment: dropping the residual "would report a
+    redistribution among survivors and hide the mass that left the scored set."
+    ALIGNMENT MOVING MASS OUT OF THE SCORED VOCABULARY IS ITSELF A DISPLACEMENT,
+    so a metric blind to it is blind to part of the phenomenon; renormalising
+    measures redistribution among survivors, which is a different question.
+
+    The earlier version DECLARED that it dropped the residual, in this
+    docstring, and was still wrong. Declaring a choice makes it auditable; it
+    does not make it correct.
+
+    Measured cost of the old default, institutional-vs-neutral over 16 families:
+
+        residual  population   significant
+        BIN       en-only       14 of 16
+        BIN       en+zh         13 of 16
+        dropped   en-only       12 of 16
+        dropped   en+zh          4 of 16   <- the old default
+
+    The language split is worth ~1 family with the residual kept and ~8 with it
+    dropped, so the en/zh incompatibility is largely an INTERACTION with this
+    error rather than an independent problem -- the Chinese cells are where the
+    residual is largest.
     """
+    a = dict(a)
+    b = dict(b)
+    if keep_residual:
+        a["__TAIL__"] = a.get("__TAIL__", 0.0)
+        b["__TAIL__"] = b.get("__TAIL__", 0.0)
     keys = sorted(set(a) | set(b))
     if not keys:
         return float("nan")
