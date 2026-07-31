@@ -33,10 +33,13 @@ SO, AND BOTH FLAGGED FOR THE AUDIT RATHER THAN DECIDED QUIETLY:
   (2) THE GLOBAL FIT'S POPULATION IS AMBIGUOUS AND BOTH ARE PRINTED. §E6 inherits
       v6 §C0's "GLOBAL over the qualifying population, never within cell." E's
       declared population is the GAP stratum, so the natural reading is a fit over
-      the gap. But C fitted over ALL strata pooled. The two give different
-      coefficients and I will not choose silently: the gap fit is used, C's
-      all-strata fit is printed beside it as a declared sensitivity, and the
-      audit should rule which the spec means.
+      the gap. C fitted over ALL strata pooled. RULED AT [1827].2: THE GAP. §C0's
+      WORDING is inherited, not C's population, and E's qualifying population IS
+      the gap (§E1). The substantive reason is the evening's own lesson: the strata
+      differ in movement by construction, in entropy, and in bar-selectivity, so an
+      all-strata fit imports a coefficient estimated where the relationship may not
+      hold. FIT WHERE YOU CORRECT. C's pooled fit prints beside it as a declared
+      sensitivity.
 """
 
 import argparse
