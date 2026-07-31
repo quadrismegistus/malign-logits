@@ -34,9 +34,12 @@ SPEC = os.path.join(ROOT, "meta", "M01_displacement", "registration_e_gap_v3.md"
 
 #: The frozen spec's sha256, FIRST 16 HEX CHARS, as posted to the docket at freeze.
 #: None until the pen freezes and malign commits. A gate with no hash refuses.
-#: v1 e7771dcc5a1bfddc SUPERSEDED. v2 d811f26e777497d2 NOT CLEARED ([1817]: §E0
-#: asserted blindness that §E7 withdraws; title read v1 on the v2 file).
-SPEC_SHA256 = None
+#: v1 e7771dcc5a1bfddc SUPERSEDED, artifact UNRECOVERABLE (never committed).
+#: v2 d811f26e777497d2 SUPERSEDED, artifact UNRECOVERABLE (never committed);
+#:    not cleared at [1817] -- §E0 asserted a blindness §E7 withdraws.
+#: v3 CLEARED and committed. 47cc1a519bf723b1 was an INTERMEDIATE hash published
+#:    mid-edit and names no artifact; do not treat it as a version.
+SPEC_SHA256 = "6b58842efad50e90"
 
 
 class NotFrozen(RuntimeError):
