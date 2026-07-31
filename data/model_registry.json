@@ -124,7 +124,7 @@
  },
  "_provenance": {
   "built_by": "scripts/build_model_registry.py",
-  "head": "e069332",
+  "head": "03b04bc",
   "measured_from": {
    "weights": {
     "artifact": "data/weights_audit.csv",
@@ -778,7 +778,7 @@
    "bos_stratum": "fallback",
    "bos_resolver": "fallback:<|endoftext|>",
    "loader_override": "auto",
-   "generation": "",
+   "generation": "Qwen2.5",
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
@@ -810,7 +810,7 @@
    "bos_stratum": "fallback",
    "bos_resolver": "fallback:<|endoftext|>",
    "loader_override": "auto",
-   "generation": "",
+   "generation": "Qwen2.5",
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
@@ -841,7 +841,7 @@
    "bos_stratum": "fallback",
    "bos_resolver": "fallback:<|endoftext|>",
    "loader_override": "auto",
-   "generation": "",
+   "generation": "Qwen2.5",
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
@@ -873,7 +873,7 @@
    "bos_stratum": "fallback",
    "bos_resolver": "fallback:<|endoftext|>",
    "loader_override": "auto",
-   "generation": "",
+   "generation": "Qwen2.5",
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
@@ -2081,7 +2081,7 @@
    "bos_stratum": "",
    "bos_resolver": "",
    "loader_override": "",
-   "generation": "",
+   "generation": "Qwen2.5",
    "in_grid_spec": false,
    "status": "NOT_IN_GRID",
    "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
@@ -3196,7 +3196,7 @@
    "bos_stratum": "fallback",
    "bos_resolver": "fallback:<|endoftext|>",
    "loader_override": "auto",
-   "generation": "",
+   "generation": "Falcon3",
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
@@ -3225,7 +3225,7 @@
    "bos_stratum": "fallback",
    "bos_resolver": "fallback:<|endoftext|>",
    "loader_override": "auto",
-   "generation": "",
+   "generation": "Falcon3",
    "in_grid_spec": true,
    "status": "ACTIVE",
    "exclusion_reason": "",
@@ -4317,6 +4317,16 @@
    "relation": "smaller_predecessor_of"
   },
   {
+   "parent": "Qwen/Qwen2.5-0.5B",
+   "child": "Qwen/Qwen2.5-7B",
+   "relation": "smaller_sibling_of"
+  },
+  {
+   "parent": "Qwen/Qwen2.5-0.5B-Instruct",
+   "child": "Qwen/Qwen2.5-7B-Instruct",
+   "relation": "smaller_sibling_of"
+  },
+  {
    "parent": "allenai/Olmo-3-1025-7B",
    "child": "allenai/Olmo-3-1125-32B",
    "relation": "smaller_sibling_of"
@@ -4343,6 +4353,11 @@
   },
   {
    "parent": "tiiuae/Falcon3-1B-Base",
+   "child": "tiiuae/Falcon3-7B-Base",
+   "relation": "smaller_sibling_of"
+  },
+  {
+   "parent": "tiiuae/Falcon3-1B-Base",
    "child": "tiiuae/Falcon3-10B-Base",
    "relation": "smaller_sibling_of"
   },
@@ -4353,7 +4368,17 @@
   },
   {
    "parent": "tiiuae/Falcon3-1B-Instruct",
+   "child": "tiiuae/Falcon3-7B-Instruct",
+   "relation": "smaller_sibling_of"
+  },
+  {
+   "parent": "tiiuae/Falcon3-1B-Instruct",
    "child": "tiiuae/Falcon3-10B-Instruct",
+   "relation": "smaller_sibling_of"
+  },
+  {
+   "parent": "tiiuae/Falcon3-3B-Base",
+   "child": "tiiuae/Falcon3-7B-Base",
    "relation": "smaller_sibling_of"
   },
   {
@@ -4363,6 +4388,21 @@
   },
   {
    "parent": "tiiuae/Falcon3-3B-Instruct",
+   "child": "tiiuae/Falcon3-7B-Instruct",
+   "relation": "smaller_sibling_of"
+  },
+  {
+   "parent": "tiiuae/Falcon3-3B-Instruct",
+   "child": "tiiuae/Falcon3-10B-Instruct",
+   "relation": "smaller_sibling_of"
+  },
+  {
+   "parent": "tiiuae/Falcon3-7B-Base",
+   "child": "tiiuae/Falcon3-10B-Base",
+   "relation": "smaller_sibling_of"
+  },
+  {
+   "parent": "tiiuae/Falcon3-7B-Instruct",
    "child": "tiiuae/Falcon3-10B-Instruct",
    "relation": "smaller_sibling_of"
   }

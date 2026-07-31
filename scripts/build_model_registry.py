@@ -148,9 +148,43 @@ ARCHITECTURE = {
 # retired for fact fields.
 SCALE_LADDERS = [
     [("olmo-tiny", "OLMo-2"), ("olmo", "OLMo-3"), ("olmo-32b", "OLMo-3")],
+    # falcon3-7b was COMPLETE IN THE STORE the whole time and simply never
+    # declared ([1121].2). The ladder was not wrong about any edge it drew; it
+    # was SILENT ABOUT AN EDGE IT NEVER DREW, which no assertion about existing
+    # edges can catch. Hence the completeness test below.
     [("falcon3-1b", "Falcon3"), ("falcon3-3b", "Falcon3"),
-     ("falcon3-10b", "Falcon3")],
+     ("falcon3-7b", "Falcon3"), ("falcon3-10b", "Falcon3")],
+    [("qwen-tiny", "Qwen2.5"), ("qwen", "Qwen2.5")],
 ]
+#: DECLARED NON-RUNGS. The completeness test asks: is every same-org family that
+#: differs in scale from another either ON a ladder or declared not a rung? Keyed
+#: by FAMILY rather than by pair, because the reasons are properties of the family
+#: (it is an architecture variant, a recipe variant, a data ablation, a different
+#: base lineage) and pairwise declaration would need 52 entries saying twelve things.
+#:
+#: "Considered and excluded" and "never noticed" must be DIFFERENT STATES. That
+#: distinction is the entire lesson of falcon3-7b, which was neither.
+NOT_A_SCALE_RUNG = {
+    "olmo-hybrid": "architecture contrast at one scale, not a scale rung",
+    "olmo-think": "training-recipe contrast (Think) at one scale",
+    "olmoe": "MoE against dense at one scale",
+    "tulu": "Llama base despite the allenai org -- a different lineage",
+    "tulu-no-safety": "data ablation of tulu, not a scale rung",
+    "tulu-sft-nomath": "data ablation of tulu",
+    "tulu-sft-nopersona": "data ablation of tulu",
+    "tulu-sft-nowildchat": "data ablation of tulu",
+    "qwen3": "Qwen3 -- a later GENERATION than the Qwen2.5 ladder, not a rung on it",
+    "smol": "SmolLM2 against SmolLM3 is a generation change",
+    "smol3": "SmolLM3 against SmolLM2 is a generation change",
+    "falcon-h1-1.5b": "hybrid architecture; UNSCORED (compute-bound, held)",
+    "falcon-h1-7b": "hybrid architecture; UNSCORED",
+    "falcon-mamba": "SSM architecture; UNSCORED",
+    "falcon3-mamba": "SSM architecture against dense Falcon3; UNSCORED",
+    "deepseek-7b": "different lineage from the deepseek-org distill families",
+    "llama": "Llama-3.1 8B; its 70B sibling is NOT_IN_GRID, so no rung exists yet",
+    "ct-llm": "2B model, not a rung on any declared series",
+    "map-neo": "7B model, not a rung on any declared series",
+}
 #: family key -> declared generation. EMPTY MEANS UNDECLARED, NEVER "the same":
 #: absence is what let two generations sit on one ladder unremarked.
 GENERATION = {k: g for ladder in SCALE_LADDERS for k, g in ladder}

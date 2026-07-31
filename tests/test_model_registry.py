@@ -10,6 +10,7 @@ written on 26 June IF IT EXISTED, so 59 models permanently shadowed 112 and
 covered 41 of the 103 in the frozen spec. A cache that can outrank its source is
 not a cache.
 """
+import itertools
 import json
 import os
 import re
@@ -394,3 +395,48 @@ def test_index_present_is_a_boolean_not_a_string(doc):
     for m in doc["models"]:
         v = m.get("index_present")
         assert v is None or isinstance(v, bool), (m["model_id"], type(v))
+
+
+def test_every_scale_ladder_candidate_is_declared_or_excluded(doc):
+    """A RELATION CAN BE WRONG BY SILENCE ([1122].4).
+
+    `falcon3-7b` was complete in the store, same generation as its three siblings,
+    and simply absent from the declared ladder. Every assertion here checked the
+    edges that WERE drawn — direction, endpoints, generation consistency — and none
+    could catch an edge that was never drawn. A dormant clause's revival turned on
+    the resulting pair count.
+
+    The fix is a completeness assertion over the DECLARED set: any group of families
+    sharing an org and a declared generation, at two or more parameter counts, is
+    either on a ladder or named in NOT_A_SCALE_RUNG. "Considered and excluded" and
+    "never noticed" must be different states, which is exactly what the silence
+    destroyed.
+    """
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "bmr", os.path.join(HERE, "scripts", "build_model_registry.py"))
+    bmr = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(bmr)
+
+    on_ladder = {k for lad in bmr.SCALE_LADDERS for k, _ in lad}
+    fams = {}
+    for m in doc["models"]:
+        f = m.get("family")
+        if f:
+            fams.setdefault(f, {"org": m.get("org"), "gen": m.get("generation", ""),
+                                "params": set()})["params"].add(m.get("params"))
+    missing = []
+    for a, b in itertools.combinations(sorted(fams), 2):
+        ia, ib = fams[a], fams[b]
+        if ia["org"] != ib["org"]:
+            continue
+        if ia["params"] == ib["params"]:          # not a scale contrast
+            continue
+        if a in on_ladder and b in on_ladder:
+            continue
+        if a in bmr.NOT_A_SCALE_RUNG or b in bmr.NOT_A_SCALE_RUNG:
+            continue
+        missing.append(f"{a}/{b}")
+    assert not missing, (
+        "same-org multi-scale family groups neither on a ladder nor declared "
+        f"NOT_A_LADDER: {sorted(missing)} — add the rung or state why it is not one")
