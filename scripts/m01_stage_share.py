@@ -195,6 +195,24 @@ def main(a):
     # only purpose is a contrast.
     store_prompts = store_universe(cm) if not a.prompts else set(a.prompts)
     prompts = sorted(store_prompts)
+
+    # --dry-run WAS DECLARED AND NEVER READ ([1106].2). argparse stored it, nothing
+    # consulted it, so the flag computed the full result and OVERWROTE OUT -- while
+    # the module docstring advertises it as the first line of usage. The documented
+    # safe first command was the destructive one, and it looked harmless because it
+    # printed a summary. Implemented here as advertised: presence only, via
+    # has_true_word_probs, no cell fetched, no JS computed, no file written.
+    if a.dry_run:
+        print("DRY RUN -- arm availability only. Nothing is computed and "
+              f"{os.path.basename(OUT)} is NOT written.\n")
+        for key, ids in sorted(fams.items()):
+            got = sum(1 for p in prompts
+                      if all(cm.has_true_word_probs(ids[arm], p, theta=a.theta)
+                             for arm in ARMS))
+            print(f"  {key:<20}{got:>5} of {len(prompts)} prompts with all three arms"
+                  f"{'   (none)' if not got else ''}")
+        return
+
     rows, versions, skipped = [], Counter(), Counter()
 
     for key, ids in sorted(fams.items()):
