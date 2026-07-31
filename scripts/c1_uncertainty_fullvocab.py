@@ -50,10 +50,12 @@ def kl(a, b):
 def main():
     cm = get_cache()
     neut = [p.text for p in distinct_texts("neutral")]
-    rows = []
+    rows, coverage = [], {}
     for key, step in isolated_steps().items():
         ts = [t for t in neut
               if cm.has_logits(step.pre.id, t) and cm.has_logits(step.post.id, t)]
+        if len(ts) >= 5:
+            coverage[key] = ts
         if len(ts) < MIN_TEXTS:
             continue
         for t in ts:
@@ -88,6 +90,38 @@ def main():
         print(f"   peak at quintile {int(m.idxmax())} of {m.index.max()};  "
               f"top/peak {m.iloc[-1] / m.max():.2f};  "
               f"families peaking below top: {below}/{len(per)}\n")
+
+    # ---- COVERAGE DIAGNOSTIC ------------------------------------------------
+    # The families BELOW the coverage floor have 7-12 cached texts. Tempting to run
+    # them anyway and report a 21-family tally. They cannot test the relation, and
+    # the reason is not small-n alone: 14 of 16 score an IDENTICAL 7-text set, so
+    # they are ONE SAMPLE MEASURED SIXTEEN TIMES. The proof is to evaluate that same
+    # 7-text set inside the families where the effect IS established -- it returns
+    # -0.21 to +0.75 there, so any verdict from it is noise wearing a family label.
+    print("COVERAGE DIAGNOSTIC -- why the sub-floor families are excluded")
+    below = {k: v for k, v in coverage.items() if len(v) < MIN_TEXTS}
+    if below:
+        shared = sorted(set.intersection(*[set(v) for v in below.values()]))
+        print(f"   {len(below)} families below the floor; "
+              f"{len(shared)} texts common to ALL of them")
+        print("   that same shared set, scored inside the families ABOVE the floor:")
+        for key in sorted(d.family.unique()):
+            step = isolated_steps()[key]
+            H, M = [], []
+            for t in shared:
+                if not (cm.has_logits(step.pre.id, t) and cm.has_logits(step.post.id, t)):
+                    continue
+                pp, qq = softmax(cm.get_logits(step.pre.id, t)), softmax(cm.get_logits(step.post.id, t))
+                H.append(float(-(pp[pp > 0] * np.log(pp[pp > 0])).sum()))
+                M.append(float(0.5 * np.abs(qq - pp).sum()))
+            if len(H) >= 5:
+                full = d[d.family == key]
+                print(f"     {key:<16} rho on all {len(full):>3}: "
+                      f"{full.H_full.corr(full.l1_full, method='spearman'):+.3f}    "
+                      f"rho on the shared {len(H)}: "
+                      f"{pd.Series(H).corr(pd.Series(M), method='spearman'):+.3f}")
+        print("   UNINFORMATIVE, NOT NULL. A tally over these families reports the")
+        print("   sample, not the families.\n")
 
     print("THE THRESHOLDED VERSION, for comparison:")
     print("   0.0345  0.0812  0.0848  0.0904  0.0864   peak at quintile 3, top/peak 0.96")
