@@ -35,18 +35,31 @@ import statistics as st
 import sys
 import unicodedata
 
+# FAILS AT USE, NOT AT IMPORT ([1430].3). An import-time exit made every constant
+# here hostage to the store; a consumer wanting only DISPLACING_AT or PERM_SEED, or
+# a pure-simulation calibration, could not load the file at all.
+_SIB = None
 for _root in (os.path.dirname(os.path.abspath(__file__)), os.getcwd()):
     if os.path.isfile(os.path.join(_root, "m01_concentration.py")):
         sys.path.insert(0, _root)
+        _SIB = _root
         break
-else:                                        # pragma: no cover - environment failure
-    sys.exit("m01_concentration.py must sit beside this file; it holds the frozen "
-             "population and all three M01 clauses are frozen to one ([1116].1)")
 
-from m01_concentration import (                            # noqa: E402
-    CANONICALISATION, EDGE, POPULATION, RESIDUAL, RULE,
-    frozen_population, operation_edges,
-)
+if _SIB is not None:
+    from m01_concentration import (                        # noqa: E402
+        CANONICALISATION, EDGE, POPULATION, RESIDUAL, RULE,
+        frozen_population, operation_edges,
+    )
+else:                                        # pragma: no cover - environment failure
+    CANONICALISATION = EDGE = POPULATION = RESIDUAL = RULE = None
+
+    def _missing(*_a, **_k):
+        raise RuntimeError(
+            "m01_concentration.py must sit beside this file for the data path; it "
+            "holds the frozen population and all three M01 clauses are frozen to "
+            "one ([1116].1). Constants import fine without it.")
+
+    frozen_population = operation_edges = _missing
 
 SIDEDNESS = "n/a — this producer reports distributions and a permutation percentile"
 
@@ -575,20 +588,39 @@ def main(a):
     # --- pass 1: departed per prompt, for the site conditioning -----------------
     departed = collections.defaultdict(list)
     lang_of, cells = {}, collections.defaultdict(dict)
+    pass1 = collections.Counter()
     for fam, pos, step in sorted(edges):
         for t in prompts:
             c = step.cell(t)
             if not c.is_present:
+                pass1["cell absent from the store (cut)"] += 1
                 continue
             try:
                 d = c.decompose(None)
-            except Exception:
+            except RuntimeError:
+                # ENVIRONMENT FAULT, NEVER A DATA FACT. Route (a) converted the
+                # store-missing failure from SystemExit (uncatchable by
+                # `except Exception`) to RuntimeError (catchable), so without
+                # this arm the guard below would SWALLOW the very error route
+                # (a) introduced. Registrar's [1435].2 rider, applied to the
+                # conversion it was booked about.
+                raise
+            except Exception as e:
+                pass1["cell errored: " + type(e).__name__ + " (code)"] += 1
                 continue
             if not d:
+                pass1["cell decomposed empty (data)"] += 1
                 continue
             departed[t].append(d["departed"])
             lang_of[t] = c.language
             cells[fam][t] = c
+    print("\nPASS-1 POPULATION ACCOUNTING  " + (str(dict(pass1)) if pass1 else "no drops"))
+    print("  Buckets SPLIT: (cut) declared boundary, (data) corpus fact, (code)")
+    print("  program defect. A (code) count above zero is a DEFECT REPORT.")
+    print("  MEASURED ZERO on the frozen population before this counter existed")
+    print("  (probe, 2026-07-31): the drop was LATENT here, so no posted F41")
+    print("  number was computed over a thinned set. A zero counter is evidence")
+    print("  only beside proof the loop ran -- an aborted traversal prints zero too.")
     disp = {t for t, v in departed.items() if v and st.median(v) >= DISPLACING_AT}
     ctrl = {t for t, v in departed.items() if v and st.median(v) < CONTROL_BELOW}
     gap = set(departed) - disp - ctrl

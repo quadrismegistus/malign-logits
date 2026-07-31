@@ -47,10 +47,24 @@ def _find_repo():
 
 
 REPO = _find_repo()
-if REPO is None:                         # pragma: no cover - environment failure
-    sys.exit("cannot find the malign_logits package above this file or the cwd; "
-             "run from the repository")
-sys.path.insert(0, REPO)
+if REPO is not None:
+    sys.path.insert(0, REPO)
+
+
+def _require_repo():
+    """Raise at USE, never at IMPORT. [1430].3.
+
+    An import-time exit makes every exported CONSTANT hostage to the store: a
+    consumer that only wants POPULATION or RULE, or a numpy-only calibration that
+    touches no data at all, could not load this file on a machine without the
+    package. **A MODULE SHOULD FAIL WHEN ITS DATA LAYER IS USED, NOT WHEN IT IS
+    IMPORTED.** Behaviourally inert on the data path -- the outputs reproduce
+    identically -- and the hash changes anyway, which is why the record keeps both.
+    """
+    if REPO is None:                     # pragma: no cover - environment failure
+        raise RuntimeError(
+            "cannot find the malign_logits package above this file or the cwd; "
+            "run from the repository. (Constants import fine without it.)")
 
 # --- THE DECLARED TRIPLE, per [1030].3 v2 ----------------------------------
 POPULATION = "ACTIVE distinct texts, ALL languages"   # 975; not English-only
@@ -165,6 +179,7 @@ def frozen_population():
     07:26, before the repair pass, and the rule yields 93 today without being touched
     ([1100].3). So the rule is the artifact and the digest is the check on it.
     """
+    _require_repo()
     from malign_logits.cache import get_cache
     from malign_logits.prompts import Prompts
 
@@ -194,6 +209,7 @@ def operation_edges(models):
     Derived from the registry's declared positions, never from a hand-listed roster —
     a hand-enumerated candidate set is not a derivation ([1100].4).
     """
+    _require_repo()
     from malign_logits.family import Family
     from malign_logits.step import Step
 
