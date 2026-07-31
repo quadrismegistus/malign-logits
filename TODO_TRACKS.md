@@ -26,10 +26,15 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   arm, minimal-pair control at chance. THE EXPLORATORY SIGNAL IS
   WITHDRAWN ([1229]: the 7-vs-6 arms were DISJOINT prompt designs —
   role confounded with design; the one genuine displacing pair,
-  e1_credit +0.536, establishes nothing at n=1). THE REAL CONSTRAINT:
-  power is bounded by groups holding BOTH roles at displacing sites =
-  ONE today — so this is a PROMPT-DESIGN task first (new minimal
-  pairs built for displacing sites), an analysis second. Design notes
+  e1_credit +0.536, establishes nothing at n=1). CONSTRAINT CORRECTED
+  ([1231]): power is a DIAL, not a wall — both-role pairs with both
+  members displacing: 116 @ 0.02 / 59 @ 0.05 / 10 @ 0.10 / 1 @ 0.15;
+  the one-pair reading was threshold-and-pool artifact. THE THRESHOLD
+  FREEZES BEFORE ANY PAIRED DIFFERENCE COMPUTES (else the sample is
+  chosen by its answer); malign recommends 0.10 headline + 0.05/0.15
+  sensitivity (ten honest pairs; sign-test unanimity = 1/512). No
+  paired difference computed anywhere; blindness intact. No new
+  prompts strictly required at 0.10. Design notes
   that survive: THE PAIR is the unit; the effect
   unexpectedly concentrates in the INSTITUTIONAL stratum (+0.448 / 21
   prompts); the F01 flagship row sits near ZERO on 5 prompts (the
