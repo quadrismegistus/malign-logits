@@ -33,7 +33,8 @@ def norm(s: str) -> str:
     """The one normalisation every check shares. Order matters: NFKC before
     casefold, hyphen-folding before whitespace collapse."""
     s = unicodedata.normalize("NFKC", s)
-    s = s.replace("‑", "-").replace("–", "-").replace("—", "-")
+    for ch in "\u2010\u2011\u2012\u2013\u2014\u2015\u2212\uFF0D":  # hyphen & MINUS SIGN variants
+        s = s.replace(ch, "-")
     s = re.sub(r"[-_]+", " ", s)          # hyphen/underscore == space
     s = re.sub(r"\s+", " ", s)            # newlines vanish; phrases survive
     return s.casefold().strip()
