@@ -280,3 +280,8 @@ data/*-backup-*.json
 
 # instance state, same class as the already-ignored .vastai.json
 .vastai.json.*
+
+# Cloud transport for the 32B/Falcon phases. Merged into data/raw/cache by
+# twp_ingest.py; committing it would duplicate the store in git.
+data/twp_phase32b/
+data/twp_phasefalcon/
