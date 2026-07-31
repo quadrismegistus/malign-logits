@@ -261,3 +261,22 @@ data/sealed/
 # twp JSONL transport files — canonical store is HashStash; archives in data/archive/
 data/twp_cloud/
 data/archive/*.tar.gz
+
+# ── transport and redundant backups (added 2026-07-31) ────────────────────
+# The cloud runner's JSONL is a TRANSPORT format, not the store: 594 MB that
+# twp_ingest.py has already merged into data/raw/cache. Committing it would
+# near-double a repo whose history has already had oversized blobs stripped
+# once, to preserve data that exists in two other places.
+data/twp_grid_v3/
+data/twp_cloud/
+
+# FILE-LEVEL BACKUPS OF VERSION-CONTROLLED FILES ARE REDUNDANT WITH GIT.
+# I made three ~5 MB copies of grid_spec.json tonight before editing it --
+# pre-reorder, with-falcon, pre-fastfirst -- when `git show <sha>:path` already
+# holds every one of them. The named variants that a RUN depends on stay
+# (grid_spec_repair*.json); the "before I edited it" copies do not.
+data/*.pre-*.json
+data/*-backup-*.json
+
+# instance state, same class as the already-ignored .vastai.json
+.vastai.json.*
