@@ -26,15 +26,18 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   arm, minimal-pair control at chance. THE EXPLORATORY SIGNAL IS
   WITHDRAWN ([1229]: the 7-vs-6 arms were DISJOINT prompt designs —
   role confounded with design; the one genuine displacing pair,
-  e1_credit +0.536, establishes nothing at n=1). CONSTRAINT CORRECTED
-  ([1231]): power is a DIAL, not a wall — both-role pairs with both
-  members displacing: 116 @ 0.02 / 59 @ 0.05 / 10 @ 0.10 / 1 @ 0.15;
-  the one-pair reading was threshold-and-pool artifact. THE THRESHOLD
-  FREEZES BEFORE ANY PAIRED DIFFERENCE COMPUTES (else the sample is
-  chosen by its answer); malign recommends 0.10 headline + 0.05/0.15
-  sensitivity (ten honest pairs; sign-test unanimity = 1/512). No
-  paired difference computed anywhere; blindness intact. No new
-  prompts strictly required at 0.10. Design notes
+  e1_credit +0.536, establishes nothing at n=1). CONSTRAINT, THIRD
+  CORRECTION ([1231] -> [1233] -> [1234]): power is a dial AND
+  field-dependent AND join-bounded. The two seats' curves counted
+  DIFFERENT ROLE FIELDS (pair_role: 56 both-role groups; group_role:
+  109 + 217 other values) — the field question routes to the
+  POPULATING CODE (malign traces; RH rules if ambiguous). POWER IS
+  COUNTED IN THE SCOREABLE POPULATION (movement threshold AND norm
+  join — the join costs ~half): pair_role honest range = 26 @ 0.02 /
+  15 @ 0.05 / ONE @ 0.10. Threshold freezes at registration against
+  LABELED columns (field + rows-vs-texts); looser-threshold vs
+  new-prompts is the live design choice. No paired difference
+  computed anywhere; blindness intact. Design notes
   that survive: THE PAIR is the unit; the effect
   unexpectedly concentrates in the INSTITUTIONAL stratum (+0.448 / 21
   prompts); the F01 flagship row sits near ZERO on 5 prompts (the
