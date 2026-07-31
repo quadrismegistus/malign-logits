@@ -29,7 +29,10 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   dissolve the exogeneity argument, mirror of abstraction's firewall);
   candidate question: does the displacement gradient look the same
   under human affect ratings and a model's own semantic priors?
-  Book-native (LLM aesthetics). Provenance: abstraction seat's memory
+  Book-native (LLM aesthetics). RIDER ([1196].3): inherits the
+  function-word exclusion, AND reports the source's willingness to
+  score closed-class words as a validity finding in its own right.
+  Provenance: abstraction seat's memory
   project_llm_generated_norms_rejected.md. ANSWERED 2026-07-31: the
   English set carries AROUSAL + VALENCE + concreteness, and the
   single-word AFFECT columns are the directly validated arm (Study 2,

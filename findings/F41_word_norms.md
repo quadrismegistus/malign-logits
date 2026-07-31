@@ -63,6 +63,15 @@ mass_covered >= 0.60 both roles; Percent_known >= 0.85 (Brysbaert);
 P3 >= 6 sites/arm; Log_Freq_W headline with C1/C2 sensitivity pair;
 0.02-0.10 site-conditioning gap unassigned and counted.
 
+FUNCTION-WORD EXCLUSION (RH's word, [1196]): closed-class words (NLTK
+en stoplist, 198 entries) are excluded from the scored set in every
+role — any database rating they carry is INVALID ("have"/"be" have no
+valence or arousal; their frequency and mass would confound). Floor
+and denominator UNCHANGED ([1170] intact); coverage printed
+before/after; zh closed-class list to be declared before any zh
+scoring resumes. For the LLM-norms candidate the rule doubles as a
+validity diagnostic of the source.
+
 ## Meta routing
 
 P1, if it holds both nulls and the frequency control: candidate NEW
