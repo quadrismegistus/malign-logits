@@ -810,3 +810,70 @@ def test_grid_spec_universe_obeys_its_own_membership_rule(all_rows):
         f"its own rule by {abs(stamped - len(live))} is the DISPUTED-string class: "
         f"check whether `active` is being computed as status == 'ACTIVE' rather than "
         f"status != 'RETIRED'.")
+
+
+# --- apparatus / n_stashes must not go stale again --------------------------
+
+def test_apparatus_matches_actual_stash_membership():
+    """A FIELD THAT MIRRORS A LIVE STORE DECAYS UNLESS SOMETHING RE-DERIVES IT.
+
+    `apparatus` and `n_stashes` are computed from stash membership at build time. Nothing
+    re-derived them as the grid grew, so 365 ACTIVE rows read UNSCORED/0 while sitting in
+    `true_word_probs`, and a filter to `apparatus == "BATTERY"` dropped 37% of scored data
+    SILENTLY -- returning a smaller answer rather than an error. Repaired 2026-07-31.
+
+    This test is what stops it recurring: it re-derives from the store and compares. It
+    will FAIL the next time the grid scores prompts the catalogue has not caught up with,
+    which is the intended behaviour and the signal to re-run
+    `scripts/repair_apparatus_field.py --apply`.
+
+    SKIPS rather than fails when the store is unreadable, because a missing cache is an
+    environment problem and a red test there would train people to ignore this one.
+    """
+    import json
+    import os
+    import pytest
+
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    try:
+        from scripts.repair_apparatus_field import STASHES, classify, membership
+    except Exception as e:                                    # pragma: no cover
+        pytest.skip(f"repair script not importable: {type(e).__name__}")
+    try:
+        member = membership()
+    except Exception as e:                                    # pragma: no cover
+        pytest.skip(f"stash store unreadable: {type(e).__name__}")
+    if not member.get("true_word_probs"):                     # pragma: no cover
+        pytest.skip("true_word_probs is empty; no membership to check against")
+
+    doc = json.load(open(os.path.join(root, "data", "prompt_categorisation.json")))
+    stale = []
+    for r in doc["prompts"]:
+        if r.get("status") != "ACTIVE":
+            continue
+        present = [n for n in STASHES if r["prompt"] in member[n]]
+        want_app, want_ns = classify(present), len(present)
+        if want_app != r.get("apparatus") or want_ns != r.get("n_stashes"):
+            stale.append((r["prompt_id"], r.get("apparatus"), want_app,
+                          r.get("n_stashes"), want_ns))
+
+    assert not stale, (
+        f"{len(stale)} ACTIVE rows disagree with the store. Re-run "
+        f"`scripts/repair_apparatus_field.py --apply`. First five: {stale[:5]}")
+
+
+def test_no_active_row_is_marked_unscored_while_it_is_scored():
+    """The specific defect, pinned separately from the general check above.
+
+    Cheap and store-free: every ACTIVE row is in `true_word_probs`, so none may claim to
+    be unscored. Kept as its own test because the general check SKIPS without a store and
+    this one must hold regardless.
+    """
+    import json
+    import os
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    doc = json.load(open(os.path.join(root, "data", "prompt_categorisation.json")))
+    bad = [r["prompt_id"] for r in doc["prompts"]
+           if r.get("status") == "ACTIVE"
+           and (r.get("apparatus") == "UNSCORED" or r.get("n_stashes") == 0)]
+    assert not bad, f"ACTIVE rows claiming to be unscored: {bad[:10]}"
