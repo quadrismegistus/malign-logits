@@ -51,4 +51,30 @@ no consumer never gets authored.
   closed-class declaration), not a prompt need — tracked in
   TODO_TRACKS, not here
 
+DRAFTING PROTOCOL (pen's design, briefed to RH 2026-07-31):
+
+- PRINCIPLE: brief the agent on the CONSTRUCT, not the HYPOTHESIS.
+  The drafter learns what a transgressive_swap is; it never learns
+  what alignment is predicted to do to arousal. No arousal numbers,
+  no displacement results, no mention of the gradient prediction.
+- THE AGENT SEES four things: (1) pair_authoring_template.md
+  (fields at birth; the five anti-patterns, each from a real
+  exclusion); (2) the six surviving pairs VERBATIM as style
+  anchors (prompts only, no outcomes); (3) a one-line map of the
+  other conventions (grievance/channel/role/register/intensity
+  swaps) framed as what NOT to produce; (4) a disjoint scene/domain
+  assignment per parallel agent (domestic violence, weapons,
+  sexual coercion, substances, verbal threat...) so the set spans
+  scenes instead of clustering; dedupe afterward.
+- OVERSAMPLE ~3x: ~200 candidates for the 50-80 target. Attrition
+  layers: lacan template audit (mechanical conformance) -> malign
+  field/catalogue audit (collisions, duplicates) -> RH CONSTRUCT
+  READ of survivors (the decisive filter; 4/4 today).
+- SEQUENCING RULE: every audit-surviving pair commits to the
+  catalogue (fields at birth, writer named) BEFORE the battery
+  runs — the population is declared in advance; no post-hoc
+  selection of which authored pairs count. Drafting/auditing are
+  free and decoupled from the battery, which waits for the next
+  cloud run.
+
 ### (next entries as needs arise)
