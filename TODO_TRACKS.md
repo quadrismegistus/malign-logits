@@ -100,7 +100,38 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   gender-marked pairs route to the gendered-displacement line
   (P3). The F36 trace must establish the writer's CONVENTION, not
   only identity. Ledger: A LABEL SHARED ACROSS FINDINGS DOES NOT
-  SHARE A MEANING. Pattern: lacan drafts after the
+  SHARE A MEANING. THE GATE'S RESOLUTION ([1277]-[1291], same
+  afternoon): the trace CLEARED (intersection 12 rows,
+  provenance+convention clean; "129 groups" was transcription, it
+  is 109; the pair population = 56 two-role groups / 112 rows,
+  zero lacking pair_role). Then RH's institutional question broke
+  it open: the catalogue's OWN contrast_type field declares the
+  construct on every row — five named conventions
+  (transgressive_swap, grievance_swap, channel_swap, role_swap,
+  register_swap, + pole_swap in a mixed pair), 19 pairs declare
+  NOTHING, 5 pairs disagree between members. POPULATION RULE FINAL
+  ([1290].1 + [1291].1): BOTH members must declare
+  transgressive_swap. POPULATION CERTIFIED ([1293] diffs clean
+  against [1289], two blind derivations identical): 15 pairs, 9
+  English / 6 Chinese. contrast_type populated on only 39 of 58
+  two-role groups — the field that answered the question is silent
+  for a third of the pairs (stated as catalogue property).
+  setd_raise keyed but INADMISSIBLE by its own field
+  (intensity_ladder, a sixth named convention) — the repair stands
+  on reachability, the ceiling unmoved. CONSTRUCT VERIFICATION
+  ([1292]): 11 of 15 apply the declared convention; FOUR FLAGGED
+  FOR RH with strings (e9_death = prognosis not transgression,
+  clearest miss; e9_swear = model-supplies-transgression
+  mechanism, arguably in scope, RH's call; e3_syringe en+zh =
+  ominousness constant). Curve prints all three variants
+  (15/12/11) so RH's ruling selects a line, no rerun ([1294].2).
+  ESCALATION PRE-NAMED ([1291].3): at 9 English pairs the n>=6
+  floor almost surely dies at the join — certified curve goes to
+  RH with: UNDERPOWERED points printed; zh arm = 6 of 15 pairs
+  behind one bounded gate; [1245]'s "no prompt-building" flagged
+  as PRE-SHRINKAGE (written against 34 pairs). F21 NOT broken
+  (tr did F21's work; defect only at the import boundary);
+  institutional oppositions separately registrable if RH wants. Pattern: lacan drafts after the
   window, pen freezes, malign audits. Original dossier
   ([1225] -> [1226]): the
   norms instrument's strongest possible sentence if it holds —

@@ -35,6 +35,20 @@ Withdrawn forms that do NOT travel: "grows by 13%" ([1261].1); the
 a moving-vocabulary fact (sign flips to -0.040 on the moving
 vocabulary, [1263] — frequency slightly suppresses the effect).
 
+Canonical-block amendment ([1284], post-window): line (ii) is the
+FLOORED pair +0.199 w / +0.109 unw (median over cells clearing the
+registered 0.60 mass-coverage floor); +0.221/+0.123 is the
+UNFILTERED pair, named not superseded. Every numeric line names its
+cell filter (A FILTER IS PART OF A NUMBER'S NAME). Producer hash
+after the six-item window: 87d6d405d8ab3fc2.
+
+STANDING ASYMMETRY ([1279].3): corr(concreteness, logfreq) = +0.177
+in the database, against arousal's +0.026. The two dimensions never
+deserved the same control confidence. P2's null is unthreatened,
+but any FUTURE concreteness-effect claim — the LLM-norms second
+instrument included — carries a live frequency-control burden that
+arousal's does not ([1277].1 flag).
+
 ## Pointers
 
 | Object | Where |
