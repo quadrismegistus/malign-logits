@@ -54,10 +54,18 @@ Marks: [ ] open, [~] in flight, [RH] awaits RH's word, [GATED: x].
   this project's own instrument. Caveats: master list "includes some
   faulty entries (mainly from Hollis)" — budget a cleaning pass
   pre-join; model-version drift (list gpt-4o-2024-08-06, studies
-  -05-13); two stray empty columns. Verified copies landing at
+  -05-13); two stray empty columns. DELIVERED at
   TheoryMachines/norms_sources/llm_martinez/ (SEPARATE from the
-  exogenous human sources by design). Decision AFTER the current
-  audit closes.
+  exogenous human sources by design): both xlsx + Erratum.pdf
+  (d48550a5, traveling WITH the data) + PROVENANCE.md (leads
+  NOT-A-HUMAN-SOURCE; quotes the erratum; poisoned-copy warning;
+  all caveats attributed). Hashes verified IN PLACE post-copy.
+  NEW DEFECT (abstraction seat): the two files disagree on column
+  naming — MWE file has Valence_GPT_probs / Arousal_GPT_probs
+  (PLURAL) but Concreteness_GPT_prob (singular); single-words file
+  singular throughout — a naive shared loader silently drops the MWE
+  affect columns. Any future spec inherits this warning. Decision
+  AFTER the current audit closes.
 - Queued small items (RH: "still queued"): register-fidelity judge;
   literary-below-neutral design; eleventh-clause candidate.
 
