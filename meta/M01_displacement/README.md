@@ -68,7 +68,19 @@ mapping. Cross-document references use the qualified form
                            2026-07-31 per [1046]/[1048].3, output at
                            data/m01_stage_share.csv. "clause-8" survives
                            in this file ONLY as the pre-split citation
-                           key — see the row above)
+                           key — see the row above). KNOWN DEFECTS
+                           ([1106].2-.3, pen ruling [1107]): --dry-run
+                           declared and never read — the documented safe
+                           first command overwrites the CSV; fix ordered
+                           NOW (safety, not numbers). Population is the
+                           STORE's 979 incl. the four DISPUTED Set D
+                           reason prompts, not the ACTIVE 975 — OUTPUT
+                           NOT QUOTABLE; population fix FOLDED INTO the
+                           [942]-successor re-measurement, which
+                           inherits the full frozen-population regime
+                           (rule+hash, canonicalisation in artifact,
+                           sharpening + residual columns, [959] floor
+                           reading)
     acquisition-order      NONE (F04 instrument, audit pending)
 
     A clause acquiring a producer updates this block IN THE SAME COMMIT
