@@ -59,6 +59,27 @@ the 5 mismatched ones. **6 and 5 pairs — suggestive at best.** Its asymmetry i
 why it is worth running underpowered: *C1 survives on the matched subset* is worth
 having; *C1 disappears on it* would be decisive.
 
+**RUN, AND IT SURVIVED (`scripts/c1_person_split.py` @ `50ae696`, [1722]/[1723]).**
+The check was applied and it is recorded here as applied, because a claim that
+survived a check must be distinguishable from one nobody applied the check to.
+**C1 holds on the person-matched pairs alone — 12 prompts against 127 neutrals,
+20 of 21 families positive in direction, 9 significant two-sided, median
+rank-biserial r = +0.316, which is ABOVE the full 54-text institutional stratum's
++0.283. THE ENTANGLEMENT ABOVE INFLATES THE EFFECT; IT DOES NOT CREATE IT.**
+That bound is what this rider gained by being checked, and the rider's own claim
+is unchanged: it was always about entanglement, never about causation.
+
+**Person is not inert.** The 5 mismatched pairs carry the larger effect, r =
++0.408 against +0.316. **That gap is written and its interpretation is refused in
+the same breath: person is CONFOUNDED WITH DOMAIN in this split** — three of the
+five mismatched pairs are `labor` and one is the `political` reverse case, while
+the matched set is domain-diverse — **so the two arms differ in more than person
+and the +0.09 cannot be attributed to it. The crossed CONTENT x PERSON design is
+what would license that attribution, and it has not run.** The magnitude
+comparison is made on rank-biserial r rather than on significance counts, because
+the arms have different n (12 prompts against 10) and z and p both scale with n:
+comparing the counts would have restated the sample sizes.
+
 
 ## Does not enter (superseded/refuted, kept per the chain rule)
 
