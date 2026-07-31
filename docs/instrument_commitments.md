@@ -157,6 +157,58 @@ that (correctly) does not import the package needs it written here.
 `contradiction` on another. It currently enters both strata because nobody has ruled
 otherwise. If you build a stratum, say which rule you used.
 
+## 10. The transport directory and the stash are different objects
+
+`data/twp_grid_v3/` is the **rsync transport** — one JSONL line per scored prompt, written
+by the cloud grid so a kill is survivable and a sync is incremental. The **stash**
+(`true_word_probs`, via `CacheManager`) is what `Step.cell()` measures. `twp_ingest.py`
+bridges one to the other, and says so in its own first line: *"THE CLOUD FILES ARE A
+TRANSPORT FORMAT, NOT THE STORE."*
+
+**They diverge whenever ingest lags.** On 2026-07-31 the transport held 90,350 lines
+against the stash's 80,336 payloads — a gap of 10,014, because the repair pass was writing
+faster than it was being ingested. Neither number is wrong; they count different objects.
+
+```
+count the STASH   when you mean "what was measured"       <- pins, provenance, coverage
+count the FILES   when you mean "what has arrived"        <- run progress, ingest lag
+```
+
+**Three separate errors came from this in one day**, all of them at the pin-and-provenance
+layer rather than in any measurement:
+
+- a producer's `STORE` constant pointed at the transport, so its "store pinned 90,077
+  payloads" was a line count — and the figure reached a certified clause before anyone
+  checked what the constant counted;
+- that same producer then reported the table as **stable across five store sizes**. It was
+  five reads of a store that never moved, while the transport filled beside it.
+  *A re-run is evidence only if the input could have changed;*
+- and the transport is **gitignored**, with zero tracked files, so any path into it raises
+  `FileNotFoundError` on a fresh clone — for exactly the independent implementer this
+  document exists for.
+
+**A live instance, currently harmless, kept here because harmless-today is the point.**
+`Checkpoint.landed` globs the transport directory:
+
+```python
+def _landed():
+    d = os.path.join(PATH_DATA, "twp_grid_v3")      # transport, not stash
+```
+
+Checked 2026-07-31: transport and stash agree exactly, 95 models each, zero divergence in
+either direction. **So `landed` is right — by coincidence.** It reads a proxy that happens
+to match the fact today and would part from it the moment transport is pruned after ingest,
+or a model is ingested from anywhere else. Every family enumeration in this project filters
+on `landed and prompts`, and only the second of those reads the stash.
+
+**The general form, which is the shape of five defects found on 2026-07-31 across two
+seats: AN ARTIFACT MUST ANSWER FROM THE FACT, NOT FROM A CAUSE OR A PROXY OF IT.** A grid
+spec is an execution plan, not a roster — *a plan that shrinks is not a roster that shrank*.
+An exclusion keyed on weights format answers "why might this fail" when the question was
+"do we have the data". A test pinning a roster count asserts a state as though it were a
+property. And a transport line count answers "what has arrived" when the clause asked "what
+was measured".
+
 ---
 
 ## The rule behind the rules
