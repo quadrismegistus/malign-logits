@@ -33,8 +33,14 @@ def test_translation_round_trip_lands_on_a_row_with_the_same_text():
 
 def test_partner_refuses_to_guess_in_a_triple():
     """Two members: unambiguous. Three: silently picking one of two poles is how sign
-    errors happen, so it returns None and the caller must use .group."""
-    assert Prompt("e6_water_M").partner.id == "e6_water_U"
+    errors happen, so it returns None and the caller must use .group.
+
+    The two-member example was `e6_water_M` until 2026-07-31, when the cessation set
+    retired. A FIXTURE NAMING A SPECIFIC PROMPT IS A BET THAT THE PROMPT SURVIVES —
+    the subject here is partner resolution, not that prompt, so it now names a live
+    pair and the assertion is about the API rather than the catalogue.
+    """
+    assert Prompt("e1_bill_M").partner.id == "e1_bill_U"
     triple = PromptGroup("f11_love")
     assert len(triple) > 2
     assert triple.members[0].partner is None
