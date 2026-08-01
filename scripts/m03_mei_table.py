@@ -57,9 +57,24 @@ ANCHORS = (("better-controlled (entropy-trimmed C1)", 0.0050),
 FRACTIONS = (("a third", 1 / 3), ("a half", 1 / 2))
 
 
-def mde(S, sig=SIGMA, rho=0.0, sqrt6=False):
+#: [1996].1 offered a middle reading — partial realisation credit at the
+#: measured stem ICC — and used 2.8 as the effective n. 2.8 IS THE DESIGN
+#: EFFECT, not the effective n. With m=6 realisations and ICC=0.356:
+#:     DEFF  = 1 + (m-1)*ICC = 2.780
+#:     n_eff = m / DEFF       = 2.158
+#: The correction moves the middle reading from 0.0092-0.0130 to 0.0104-0.0148,
+#: which leaves every target unreachable and changes ONE clause: at rho=0.5 the
+#: MDE is 0.0104, just BELOW C1's ceiling of 0.0112 rather than at or above it.
+M_REAL, STEM_ICC = 6, 0.356
+DEFF = 1 + (M_REAL - 1) * STEM_ICC
+N_EFF = M_REAL / DEFF
+
+
+def mde(S, sig=SIGMA, rho=0.0, sqrt6=False, div=None):
     t = stats.t.ppf(1 - ALPHA / 2, S - 1) + stats.t.ppf(POWER, S - 1)
     m = t * sig * np.sqrt(2 * (1 - rho)) / np.sqrt(S)
+    if div is not None:
+        return m / np.sqrt(div)
     return m / np.sqrt(6) if sqrt6 else m
 
 
@@ -76,11 +91,18 @@ def main():
     print(f"  sigma {SIGMA}  (SD of the family-averaged prompt value)")
     print(f"  alpha {ALPHA} two-sided, power {POWER}, n = S scenarios\n")
 
-    print("WHAT S=18 REACHES")
-    print(f"  {'':<26}{'rho=0':>10}{'rho=0.5':>10}")
-    for tag, s6 in (("MDE", False), ("MDE / sqrt(6)  [optimistic]", True)):
-        print(f"  {tag:<26}{mde(S_DESIGN, rho=0.0, sqrt6=s6):>10.4f}"
-              f"{mde(S_DESIGN, rho=0.5, sqrt6=s6):>10.4f}")
+    print("WHAT S=18 REACHES — three readings, and the middle one is the "
+          "realistic\none because the stem ICC is MEASURED (+0.356) rather "
+          "than assumed.")
+    print(f"  {'':<40}{'rho=0':>10}{'rho=0.5':>10}")
+    for tag, kw in (
+            ("MDE, no realisation credit", {}),
+            (f"MDE / sqrt(n_eff={N_EFF:.3f})  [MEASURED ICC]", {"div": N_EFF}),
+            ("MDE / sqrt(6)  [optimistic, ICC=0]", {"sqrt6": True})):
+        print(f"  {tag:<40}{mde(S_DESIGN, rho=0.0, **kw):>10.4f}"
+              f"{mde(S_DESIGN, rho=0.5, **kw):>10.4f}")
+    print(f"  DEFF = 1+(m-1)*ICC = {DEFF:.3f}; n_eff = m/DEFF = {N_EFF:.3f}. "
+          f"THE DEFF IS NOT THE n_eff.")
 
     print("\nTHE FOUR CANDIDATE TARGETS, against S=18")
     print(f"  {'target':<40}{'value':>8}{'rho=0':>10}{'rho=0.5':>10}"
