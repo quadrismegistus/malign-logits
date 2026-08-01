@@ -1,6 +1,6 @@
-# Ledger — derived from the docket at [1950]
+# Ledger — derived from the docket at [1951]
 
-**89 BOOKINGS extracted from 1950 posts — not 89 principles, and a FLOOR either way.**
+**89 BOOKINGS extracted from 1951 posts — not 89 principles, and a FLOOR either way.**
 
 - A rule stated without the word *Ledger* is invisible to the extractor, so this is a floor.
 - It counts BOOKINGS. Five of these are one rule ([1401], [1836], [1851], [1859], [1923]) and share almost no vocabulary, so no lexical pass surfaces them. **The distinct-principle count is smaller and UNMEASURED — the equivalence relation is semantic and nobody has one.**
