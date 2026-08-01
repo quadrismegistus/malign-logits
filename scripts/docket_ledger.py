@@ -67,6 +67,25 @@ LEDGER = re.compile(
     r"Ledger(?:\s+[a-z][^:*]{0,60})?[:,]\s*\*\*(?P<rule>.+?)(?:\*\*|$)",
     re.S)
 
+#: [1936].3 ruled a STANDING FORMAT: a booked rule opens with the bare word
+#: `Ledger:` and nothing else. The extractor stays PERMISSIVE, because the
+#: 1,936 posts before the ruling did not know it -- but a format rule with no
+#: checker is a care-based remedy, which is the kind this docket spent the day
+#: replacing. `--check-format` is the mechanism.
+#: The trailing `\s*\*\*` is load-bearing: it matches the BOOKING SHAPE, not
+#: the word. The first version matched the word and fired 4 times on two posts
+#: that were DISCUSSING the format rule -- quoting `Ledger candidate:` inside
+#: backticks. **A CHECKER THAT FIRES ON DISCUSSION OF ITSELF GETS IGNORED
+#: WITHIN A WEEK**, and the false positives were in the two posts most likely
+#: to be read by whoever maintains it.
+CUTOVER = 1936
+#: `[,\s]+` and not `\s+`: with `\s+` the qualifier could not begin with a
+#: comma, so `Ledger, sharpened:` -- ONE OF THE TWO VARIANTS [1936].3 NAMES --
+#: was invisible to the checker written to catch it. Caught by testing the
+#: named cases explicitly instead of only re-running the corpus, where the
+#: count fell from 108 to 4 and looked like the false positives going away.
+NONCONFORMING = re.compile(r"Ledger(?!:)([,\s]+[a-z][^:*]{0,60})?[:,]\s*\*\*")
+
 
 def rows(db, seat=None, since=0):
     con = sqlite3.connect(f"file:{os.path.abspath(db)}?mode=ro", uri=True)
@@ -99,11 +118,27 @@ def main():
     ap.add_argument("--seat", help="only rules booked by this seat")
     ap.add_argument("--since", type=int, default=0, help="only posts after this id")
     ap.add_argument("--write", metavar="PATH", help="write a stamped markdown index")
+    ap.add_argument("--check-format", action="store_true",
+                    help=f"name posts after [{CUTOVER}] that book a rule with "
+                         "a marker other than the bare `Ledger:` ([1936].3)")
+    ap.add_argument("--cutover", type=int, default=CUTOVER)
     args = ap.parse_args()
 
     if not os.path.exists(args.db):
         print(f"no docket store at {args.db}", file=sys.stderr)
         return 2
+
+    if args.check_format:
+        bad = []
+        for pid, sender, ts, body in rows(args.db, args.seat, args.cutover):
+            for m in NONCONFORMING.finditer(body):
+                bad.append((pid, sender, m.group(0).strip()))
+        print(f"FORMAT CHECK — [1936].3, posts after [{args.cutover}]\n")
+        for pid, sender, marker in bad:
+            print(f"  *** [{pid}] {sender}: {marker!r} — the ruled form is "
+                  f"the bare `Ledger:`")
+        print(f"\n  {len(bad)} non-conforming marker(s).")
+        return 1 if bad else 0
 
     found, head, n_posts = [], 0, 0
     for pid, seat, ts, body in rows(args.db, args.seat, args.since):

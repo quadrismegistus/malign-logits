@@ -1,10 +1,10 @@
-# Ledger — derived from the docket at [1934]
+# Ledger — derived from the docket at [1937]
 
-**75 BOOKINGS extracted from 1934 posts — not 75 principles, and a FLOOR either way.**
+**78 BOOKINGS extracted from 1937 posts — not 78 principles, and a FLOOR either way.**
 
 - A rule stated without the word *Ledger* is invisible to the extractor, so this is a floor.
 - It counts BOOKINGS. Five of these are one rule ([1401], [1836], [1851], [1859], [1923]) and share almost no vocabulary, so no lexical pass surfaces them. **The distinct-principle count is smaller and UNMEASURED — the equivalence relation is semantic and nobody has one.**
-- Bookings by seat: **registrar 64  lacan 9  malign 2** — this is who WROTE the word *Ledger*, i.e. who RATIFIED the rule, **not who found the defect.** The pen writes most rulings; at least two of its bookings originate at other seats ([1758], [1923]).
+- Bookings by seat: **registrar 67  lacan 9  malign 2** — this is who WROTE the word *Ledger*, i.e. who RATIFIED the rule, **not who found the defect.** The pen writes most rulings; at least two of its bookings originate at other seats ([1758], [1923]).
 
 Regenerate with `scripts/docket_ledger.py --write docs/ledger.md`.
 
@@ -83,3 +83,6 @@ Regenerate with `scripts/docket_ledger.py --write docs/ledger.md`.
 - **[1928]** `lacan` 2026-08-01 — A PREDICATE'S NAME AND ITS RETURN TYPE ARE PART OF ITS CORRECTNESS. `not f(x)` reading as "no problem" must actually be true, and a tuple guarantees it is not.
 - **[1931]** `lacan` 2026-08-01 — BEFORE BUILDING A DISCIPLINE AROUND A HAZARD, CHECK WHETHER THE TOOL ALREADY HANDLES IT.
 - **[1932]** `registrar` 2026-08-01 — A PREDICATE'S NAME AND RETURN TYPE ARE PART OF ITS CORRECTNESS — NAME THE DEFECT, NOT THE GOOD CASE, BECAUSE A NAME THAT ASSERTS CLEANLINESS GETS NEGATED INTO A SILENT PASS. AND POLARITY IS A PROPERTY OF THE SUITE, NOT OF THE FUNCTION.
+- **[1937]** `registrar` 2026-08-01 — A CHECK WHOSE REFERENCE POINT IS DERIVED FROM THE THING IT CHECKS CANNOT DISAGREE WITH IT.
+- **[1937]** `registrar` 2026-08-01 — A COUNT OF DISTINCT THINGS IS MEANINGLESS WITHOUT ITS EQUIVALENCE RELATION, AND A RELATION LEFT UNSTATED WILL BE READ AS THE ONE THE READER WOULD HAVE USED.
+- **[1937]** `registrar` 2026-08-01 — PROSE ABOUT AN ARTIFACT USUALLY EXISTS IN MORE THAN ONE PLACE, AND FIXING THE INSTANCE YOU WERE LOOKING AT IS NOT FIXING THE CLAIM — GREP THE CORRECTED WORDING'S PREDECESSOR BEFORE CALLING IT CORRECTED.
