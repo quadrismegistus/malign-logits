@@ -51,11 +51,56 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "lineage_map_models.json")
+MAP = {}
+
+
+
+def consumers():
+    """Every finding whose population block cites a family/lineage count.
+
+    **A COMPLETED AUDIT IS INVALIDATED BY A NEW INSTRUMENT THAT CHANGES ITS
+    POPULATION, AND NOTHING RE-OPENS IT AUTOMATICALLY** ([2207].3). The map's
+    arrival is a RE-AUDIT TRIGGER for every finding it re-counts — **not only
+    those whose numbers it changes.** F11's audit was complete, correct at the
+    family unit, and wrong at the lineage; nothing in the repo noticed, and
+    twice in one day the trigger was a human remembering to ask.
+
+    So the builder emits its own re-audit list. Each row reports the finding's
+    declared families resolved through the CURRENT map, so a row where labels
+    exceed lineages is a finding whose population double-counts a pretraining
+    run — visible at build time, before anyone asks.
+    """
+    import glob
+    import re
+    try:
+        from malign_logits import MODEL_FAMILIES as MF
+    except Exception:
+        print("  (registry unavailable — consumer scan skipped)")
+        return []
+    reg = json.load(open(os.path.join(ROOT, "data", "model_registry.json")))
+    rows = []
+    for f in sorted(glob.glob(os.path.join(ROOT, "findings", "*.md"))):
+        head = "".join(open(f, errors="ignore").readlines()[:14])
+        m = re.search(r"^families:\s*\[(.*?)\]", head, re.M)
+        if not m:
+            continue
+        fams = [x.strip() for x in m.group(1).split(",") if x.strip()]
+        if not fams:
+            continue
+        lin = set()
+        for k in fams:
+            b = getattr(MF.get(k), "base", None)
+            lin.add(MAP.get(b, b or k))
+        rows.append((os.path.basename(f), len(fams), len(lin)))
+    return rows
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--consumers", action="store_true",
+                    help="print every finding this map re-counts "
+                         "(the re-audit trigger list, [2207].3)")
     args = ap.parse_args()
 
     from malign_logits.registry import Registry
@@ -109,6 +154,9 @@ def main():
             parent.setdefault(rel["child"], rel["child"])
             union(rel["parent"], rel["child"])
             n_sib += 1
+
+    global MAP
+    MAP = {m: find(m) for m in models}
 
     lin = collections.defaultdict(list)
     for m in models:
@@ -177,6 +225,20 @@ def main():
     for f, s in sorted(span.items())[:6]:
         print(f"    {f:<24}{len(s)} lineages")
     print(f"    ({len(span)} of {len(byfam)} families)")
+
+    if args.consumers:
+        rows = consumers()
+        print(f"\n  RE-AUDIT TRIGGER LIST — {len(rows)} findings declare a "
+              f"family population")
+        bad = [r for r in rows if r[1] != r[2]]
+        print(f"    {'finding':<44}{'labels':>7}{'lineages':>10}")
+        for n, a_, b_ in rows:
+            mark = "  <-- DOUBLE-COUNTS" if a_ != b_ else ""
+            print(f"    {n:<44}{a_:>7}{b_:>10}{mark}")
+        print(f"\n  {len(bad)} of {len(rows)} declare more labels than lineages. "
+              f"**A completed audit is invalidated by a new instrument that\n"
+              f"  changes its population, and nothing re-opens it automatically.**")
+        return 0
 
     if not args.write:
         print("\n  (print only; --write to commit the artifact)")

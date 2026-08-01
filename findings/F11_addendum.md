@@ -28,6 +28,33 @@ scripts: [f11_cross_family.py, f11_meta_contradiction.py, f11_new_pairs_all_fami
 > is computable from no named file. **A full-roster run produces new numbers at
 > scale and leaves those two exactly as unsourced**, so the roster run must not
 > be mistaken for the whole clearance.
+>
+> **CANONICAL RESTATEMENT ([2204]/[2207]), and it corrects this file's own body.**
+> **Five of six lineages are exit-modal; the sixth, `meta-llama/Llama-3.1-8B`,
+> RESOLVES rather than exits, consistently across BOTH its alignment
+> implementations (1 exit cell in 10).** The tables below print `llama` and
+> `tulu` as two adjacent "Mixed" rows — **they are one pretraining run, counted
+> twice, and the collapse is exactly the dissent.** Merged: {resolve 4, engage
+> 3, null 2, exit 1}. **Two families disagreeing independently is noise; one run
+> disagreeing consistently across both its recipes is a property of that run** —
+> smaller dissent, far more structured, and more threatening to a universal
+> reading than the family count showed.
+>
+> **The rate demotion FIRMS at the correct unit:** ICC 0.107 by lineage (not
+> 0.084 by family), DEFF 1.51, so the frame-exit plurality sits at **p ≈ 0.19**,
+> not the audited 0.09. **Rank, never rate.**
+>
+> **The pole-direction table carries the same double-count:** `llama` 3/5 and
+> `tulu` 2/5 prosocial merge to **5 of 10** — the exact no-direction midpoint of
+> a scale running from OLMo/Amber/Qwen at 4/5 to Zephyr at 1/5. At the family
+> unit that reads as two wobbling families; at the lineage it is **one run with
+> no pole direction at all.** Flagged, not asserted: the registered rival
+> (pole-token corpus frequency) is untested.
+>
+> **Descriptive counts in this file stay at 7 family labels** — the behavioural
+> n and the CSV row arithmetic describe how many files were read, not how many
+> independent things were measured. Restating them would stop the row counts
+> reconciling with the data.
 
 ## Summary
 
