@@ -10,6 +10,16 @@ chapters: [ch03, ch11]
 data: [contradiction_cross_family.csv, contradiction_detail.csv]
 scripts: [f11_cross_family.py]
 ---
+> **PROMOTION CONDITION ([2198], RH's standing scope rule).** A canonical claim
+> in a `meta/` campaign runs on **all families we have** under a declared
+> admissibility rule — never a hand-picked subset. This finding measures
+> **11 family labels = 9 independent lineages**, against a roster of
+> **49 labels / 34 lineages** ([[data/lineage_map_models.json]]). It is
+> therefore an **F-series observation** and cites its subset. **If the ratio or mechanism tables is
+> promoted to M-canonical, the promotion INCLUDES the full-roster re-run** —
+> promotion is re-measurement, not relabelling. Priced when the cloud grid
+> frees.
+
 # F11: Contradiction Tolerance — Cross-Family Replication
 
 ## The question

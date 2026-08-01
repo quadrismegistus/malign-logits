@@ -12,6 +12,16 @@ scripts: [f11_cross_family.py, f11_meta_contradiction.py, f11_new_pairs_all_fami
 ---
 # F11 Addendum: Mechanism Decomposition — Frame-Exit, Not Exclusive Disjunction
 
+> **PROMOTION CONDITION ([2198], RH's standing scope rule).** A canonical claim
+> in a `meta/` campaign runs on **all families we have** under a declared
+> admissibility rule — never a hand-picked subset. This finding measures
+> **7 family labels = 6 independent lineages**, against a roster of
+> **49 labels / 34 lineages** ([[data/lineage_map_models.json]]). It is
+> therefore an **F-series observation** and cites its subset. **If the frame-exit result (the reframe leans on it) is
+> promoted to M-canonical, the promotion INCLUDES the full-roster re-run** —
+> promotion is re-measurement, not relabelling. Priced when the cloud grid
+> frees.
+
 ## Summary
 
 The original F11 formulation is vindicated by the mechanism decomposition: alignment shifts the model OUT OF the contradictory frame, not onto a pole within it. The strong exclusive-disjunction claim (Deleuze's Oedipal XOR) fails everywhere — no family shows stable pole-commitment on contradictions.

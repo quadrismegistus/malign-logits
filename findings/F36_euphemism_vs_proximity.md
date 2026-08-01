@@ -10,6 +10,16 @@ chapters: [ch05]
 data: [euphemism_census.csv, euphemism_test.csv]
 scripts: [euphemism_test.py, euphemism_census.py, f36_stage_specificity.py]
 ---
+> **PROMOTION CONDITION ([2198], RH's standing scope rule).** A canonical claim
+> in a `meta/` campaign runs on **all families we have** under a declared
+> admissibility rule — never a hand-picked subset. This finding measures
+> **6 family labels = 5 independent lineages**, against a roster of
+> **49 labels / 34 lineages** ([[data/lineage_map_models.json]]). It is
+> therefore an **F-series observation** and cites its subset. **If any per-family piece is
+> promoted to M-canonical, the promotion INCLUDES the full-roster re-run** —
+> promotion is re-measurement, not relabelling. Priced when the cloud grid
+> frees.
+
 # F36: Euphemism vs. Proximity — Alignment as Foreclosure, Not Metonymy
 
 ## Question

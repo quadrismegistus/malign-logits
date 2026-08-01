@@ -12,6 +12,16 @@ scripts: [run_disposition_full.py, run_disposition_tagger.py, gen_continue_mode.
 ---
 # F36 Capstone: Three Addressing Systems
 
+> **PROMOTION CONDITION ([2198], RH's standing scope rule).** A canonical claim
+> in a `meta/` campaign runs on **all families we have** under a declared
+> admissibility rule — never a hand-picked subset. This finding measures
+> **7 family labels = 6 independent lineages**, against a roster of
+> **49 labels / 34 lineages** ([[data/lineage_map_models.json]]). It is
+> therefore an **F-series observation** and cites its subset. **If any per-family piece is
+> promoted to M-canonical, the promotion INCLUDES the full-roster re-run** —
+> promotion is re-measurement, not relabelling. Priced when the cloud grid
+> frees.
+
 ## The decomposition
 
 The reasonable subject decomposes into three addressing systems. Different dimensions of the alignment operation live at different levels: weight-level content-ideology, template-mode comportment, and dialogue-specific task-switching.
