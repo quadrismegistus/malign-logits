@@ -408,7 +408,13 @@ def cmd_stop(args):
             return
 
     print(f"Destroying instance {instance_id}...", file=sys.stderr)
-    subprocess.run(['vastai', 'destroy', 'instance', instance_id],
+    #: str(): the state file stores instance_id as an INT (json round-trips
+    #: the number vastai returns), and subprocess rejects a non-str argv
+    #: entry with `TypeError: expected str, bytes or os.PathLike object,
+    #: not int`. Every OTHER call site formats it into a string first, so
+    #: this was the one path that never ran -- and it is the teardown
+    #: path, which is the one that costs money when it fails.
+    subprocess.run(['vastai', 'destroy', 'instance', str(instance_id)],
                    input='y\n', text=True, capture_output=True)
     STATE_FILE.unlink(missing_ok=True)
     print("Instance destroyed. All billing stopped.")
