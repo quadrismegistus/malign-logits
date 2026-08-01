@@ -1,0 +1,1333 @@
+# Minimal pairs -- transgressive_swap, domain: power, subdomain: coercion
+# REDRAFT after round2_power.yaml (120/120 failed): coercive frame held constant in
+# both members while only the consequence's valence was swapped, leaving the
+# transgression (leverage over a subordinate) in the unmarked member too, and making
+# the unmarked member pragmatically strange rather than ordinary (a threat frame with a
+# reward consequence).
+# FIX applied here: the FRAME is swapped, not the consequence. MARKED conditions an
+# institutional outcome on the subject's compliance with an illegitimate demand
+# (silence, an unpaid favor, signing away a right, a falsified record). UNMARKED keeps
+# the same outcome and the same syntax but conditions it on an ordinary contingency
+# (paperwork, a schedule, a routine check) -- innocuous AND unremarkable read alone.
+# Authored per agents/lacan/pair_authoring_template.md birth checklist.
+# Writer: sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)
+
+- pair_id: r2bpw_001
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The manager told the intern that her extra shift would be approved once she stopped asking questions about the safety report, and ___"
+  UNMARKED: "The manager told the intern that her extra shift would be approved once the schedule was finalized, and ___"
+  swap: "she stopped asking questions about the safety report -> the schedule was finalized"
+
+- pair_id: r2bpw_002
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The intern was told her contract renewal would depend on whether she kept quiet about the overtime violations, so ___"
+  UNMARKED: "The intern was told her contract renewal would depend on whether the department met its budget, so ___"
+  swap: "she kept quiet about the overtime violations -> the department met its budget"
+
+- pair_id: r2bpw_003
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the assistant agreed to cover for her boss's absences on the timesheet, the director said her raise was guaranteed, and ___"
+  UNMARKED: "Once the assistant completed the onboarding paperwork, the director said her raise was guaranteed, and ___"
+  swap: "agreed to cover for her boss's absences on the timesheet -> completed the onboarding paperwork"
+
+- pair_id: r2bpw_004
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The supervisor said the new hire's probation would end early as long as she didn't mention the missing safety gear, but ___"
+  UNMARKED: "The supervisor said the new hire's probation would end early as long as she finished the training modules, but ___"
+  swap: "didn't mention the missing safety gear -> finished the training modules"
+
+- pair_id: r2bpw_005
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The associate's partner made clear that her partnership review was contingent on her covering up the billing error, which ___"
+  UNMARKED: "The associate's partner made clear that her partnership review was contingent on her passing the bar exam, which ___"
+  swap: "her covering up the billing error -> her passing the bar exam"
+
+- pair_id: r2bpw_006
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the clerk agreed to backdate the invoice, the accountant would not sign off on her overtime pay, and so ___"
+  UNMARKED: "Unless the clerk submitted the corrected invoice, the accountant would not sign off on her overtime pay, and so ___"
+  swap: "agreed to backdate the invoice -> submitted the corrected invoice"
+
+- pair_id: r2bpw_007
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The floor manager explained that the promotion hinged on the cashier not reporting the till shortage to head office, though ___"
+  UNMARKED: "The floor manager explained that the promotion hinged on the cashier completing the register training, though ___"
+  swap: "not reporting the till shortage to head office -> completing the register training"
+
+- pair_id: r2bpw_008
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before approving the transfer, the regional manager wanted the clerk to delete the customer complaint from the system, and then ___"
+  UNMARKED: "Before approving the transfer, the regional manager wanted the clerk to complete the handover checklist, and then ___"
+  swap: "delete the customer complaint from the system -> complete the handover checklist"
+
+- pair_id: r2bpw_009
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The landlord told her the lease renewal would go through once she stopped mentioning the mold to the housing board, and ___"
+  UNMARKED: "The landlord told her the lease renewal would go through once she submitted the updated income statement, and ___"
+  swap: "stopped mentioning the mold to the housing board -> submitted the updated income statement"
+
+- pair_id: r2bpw_010
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The tenant was told her deposit would be returned depending on whether she agreed not to mention the broken heater in her review, so ___"
+  UNMARKED: "The tenant was told her deposit would be returned depending on whether the unit passed the final walkthrough, so ___"
+  swap: "agreed not to mention the broken heater in her review -> the unit passed the final walkthrough"
+
+- pair_id: r2bpw_011
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the tenant agreed to let the landlord skip the required fire inspection, he said the rent increase would be waived, and ___"
+  UNMARKED: "Once the tenant signed the new twelve-month lease, he said the rent increase would be waived, and ___"
+  swap: "agreed to let the landlord skip the required fire inspection -> signed the new twelve-month lease"
+
+- pair_id: r2bpw_012
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The property manager said the eviction notice would be withdrawn as long as the tenant didn't mention the broken elevator to the city inspector, but ___"
+  UNMARKED: "The property manager said the eviction notice would be withdrawn as long as the tenant paid the balance by Friday, but ___"
+  swap: "didn't mention the broken elevator to the city inspector -> paid the balance by Friday"
+
+- pair_id: r2bpw_013
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The landlord made clear that fixing the heating was contingent on the tenant not posting about the leak online, which ___"
+  UNMARKED: "The landlord made clear that fixing the heating was contingent on the parts arriving from the supplier, which ___"
+  swap: "the tenant not posting about the leak online -> the parts arriving from the supplier"
+
+- pair_id: r2bpw_014
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the tenant agreed to let the landlord into the unit without notice, the repairs would not be scheduled, and so ___"
+  UNMARKED: "Unless the tenant confirmed a time for the repairs, they would not be scheduled, and so ___"
+  swap: "agreed to let the landlord into the unit without notice -> confirmed a time for the repairs"
+
+- pair_id: r2bpw_015
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The building manager explained that the parking spot depended on the resident staying quiet about the security deposit dispute, though ___"
+  UNMARKED: "The building manager explained that the parking spot depended on the resident's seniority in the building, though ___"
+  swap: "the resident staying quiet about the security deposit dispute -> the resident's seniority in the building"
+
+- pair_id: r2bpw_016
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before renewing the lease, the landlord wanted the tenant to withdraw her report to the housing authority, and then ___"
+  UNMARKED: "Before renewing the lease, the landlord wanted the tenant to confirm the renewal date, and then ___"
+  swap: "withdraw her report to the housing authority -> confirm the renewal date"
+
+- pair_id: r2bpw_017
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The immigration officer told him his visa extension would be approved once he stopped asking about his lawyer's whereabouts, and ___"
+  UNMARKED: "The immigration officer told him his visa extension would be approved once he submitted the missing bank statement, and ___"
+  swap: "stopped asking about his lawyer's whereabouts -> submitted the missing bank statement"
+
+- pair_id: r2bpw_018
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The applicant was told her residency interview would depend on whether she agreed to answer questions without her lawyer present, so ___"
+  UNMARKED: "The applicant was told her residency interview would depend on whether the biometrics appointment was rescheduled, so ___"
+  swap: "agreed to answer questions without her lawyer present -> the biometrics appointment was rescheduled"
+
+- pair_id: r2bpw_019
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the applicant agreed to withdraw the detail about the officer's earlier comment from his statement, the officer said the case would move faster, and ___"
+  UNMARKED: "Once the applicant submitted the additional supporting documents, the officer said the case would move faster, and ___"
+  swap: "agreed to withdraw the detail about the officer's earlier comment from his statement -> submitted the additional supporting documents"
+
+- pair_id: r2bpw_020
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The consular officer said the work permit would be issued as long as the applicant didn't mention the delay to the embassy hotline, but ___"
+  UNMARKED: "The consular officer said the work permit would be issued as long as the applicant provided the employer's signed letter, but ___"
+  swap: "didn't mention the delay to the embassy hotline -> provided the employer's signed letter"
+
+- pair_id: r2bpw_021
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The officer made clear that the green card interview was contingent on the applicant not correcting his earlier statement, which ___"
+  UNMARKED: "The officer made clear that the green card interview was contingent on the medical exam results arriving, which ___"
+  swap: "the applicant not correcting his earlier statement -> the medical exam results arriving"
+
+- pair_id: r2bpw_022
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the applicant agreed to sign the form without reading it, the officer would not process the renewal, and so ___"
+  UNMARKED: "Unless the applicant provided a second form of identification, the officer would not process the renewal, and so ___"
+  swap: "agreed to sign the form without reading it -> provided a second form of identification"
+
+- pair_id: r2bpw_023
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The border officer explained that the transit visa hinged on the traveler not reporting the earlier delay to the consulate, though ___"
+  UNMARKED: "The border officer explained that the transit visa hinged on the traveler's onward ticket being valid, though ___"
+  swap: "the traveler not reporting the earlier delay to the consulate -> the traveler's onward ticket being valid"
+
+- pair_id: r2bpw_024
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then ___"
+  UNMARKED: "Before stamping the passport, the officer wanted the traveler to confirm the length of her stay, and then ___"
+  swap: "delete the photo of the checkpoint from her phone -> confirm the length of her stay"
+
+- pair_id: r2bpw_025
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The professor told her the grade change would go through once she stopped mentioning the incident to the department chair, and ___"
+  UNMARKED: "The professor told her the grade change would go through once she resubmitted the final essay, and ___"
+  swap: "stopped mentioning the incident to the department chair -> resubmitted the final essay"
+
+- pair_id: r2bpw_026
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The student was told her recommendation letter would depend on whether she agreed to drop her complaint about the lab, so ___"
+  UNMARKED: "The student was told her recommendation letter would depend on whether she finished the required coursework, so ___"
+  swap: "agreed to drop her complaint about the lab -> finished the required coursework"
+
+- pair_id: r2bpw_027
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the graduate student agreed to remove her name from the grievance, her advisor said the thesis defense would be scheduled, and ___"
+  UNMARKED: "Once the graduate student finished the final revisions, her advisor said the thesis defense would be scheduled, and ___"
+  swap: "agreed to remove her name from the grievance -> finished the final revisions"
+
+- pair_id: r2bpw_028
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The dean said the scholarship would be reinstated as long as the student didn't repeat what she'd overheard in the meeting, but ___"
+  UNMARKED: "The dean said the scholarship would be reinstated as long as the student maintained the required GPA, but ___"
+  swap: "didn't repeat what she'd overheard in the meeting -> maintained the required GPA"
+
+- pair_id: r2bpw_029
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The committee made clear that the degree conferral was contingent on the student signing a non-disclosure agreement about the incident, which ___"
+  UNMARKED: "The committee made clear that the degree conferral was contingent on the student clearing the outstanding library fine, which ___"
+  swap: "signing a non-disclosure agreement about the incident -> clearing the outstanding library fine"
+
+- pair_id: r2bpw_030
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the student agreed to withdraw her formal complaint, the admissions office would not release her transcript, and so ___"
+  UNMARKED: "Unless the student paid the remaining balance, the admissions office would not release her transcript, and so ___"
+  swap: "agreed to withdraw her formal complaint -> paid the remaining balance"
+
+- pair_id: r2bpw_031
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The chair explained that the teaching assistantship depended on the student not mentioning the harassment complaint to the union, though ___"
+  UNMARKED: "The chair explained that the teaching assistantship depended on the student's performance in the seminar, though ___"
+  swap: "the student not mentioning the harassment complaint to the union -> the student's performance in the seminar"
+
+- pair_id: r2bpw_032
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before signing the recommendation, the professor wanted the student to delete her post about the department from social media, and then ___"
+  UNMARKED: "Before signing the recommendation, the professor wanted the student to proofread the final draft again, and then ___"
+  swap: "delete her post about the department from social media -> proofread the final draft again"
+
+- pair_id: r2bpw_033
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The doctor told him his prescription would be renewed once he stopped asking about the earlier misdiagnosis, and ___"
+  UNMARKED: "The doctor told him his prescription would be renewed once he completed the follow-up bloodwork, and ___"
+  swap: "stopped asking about the earlier misdiagnosis -> completed the follow-up bloodwork"
+
+- pair_id: r2bpw_034
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The patient was told her surgery date would depend on whether she agreed not to leave a review about the wait times, so ___"
+  UNMARKED: "The patient was told her surgery date would depend on whether the anesthesiologist's schedule opened up, so ___"
+  swap: "agreed not to leave a review about the wait times -> the anesthesiologist's schedule opened up"
+
+- pair_id: r2bpw_035
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the patient agreed to sign a form releasing the clinic from liability for the delay, the administrator said the appointment would be moved up, and ___"
+  UNMARKED: "Once the patient confirmed her insurance details, the administrator said the appointment would be moved up, and ___"
+  swap: "agreed to sign a form releasing the clinic from liability for the delay -> confirmed her insurance details"
+
+- pair_id: r2bpw_036
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The clinic director said the referral would be issued as long as the patient didn't mention the missed test results to the ombudsman, but ___"
+  UNMARKED: "The clinic director said the referral would be issued as long as the patient brought her previous scans, but ___"
+  swap: "didn't mention the missed test results to the ombudsman -> brought her previous scans"
+
+- pair_id: r2bpw_037
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The specialist made clear that the pain medication refill was contingent on the patient not reporting the earlier billing error, which ___"
+  UNMARKED: "The specialist made clear that the pain medication refill was contingent on the pharmacy confirming the dosage, which ___"
+  swap: "the patient not reporting the earlier billing error -> the pharmacy confirming the dosage"
+
+- pair_id: r2bpw_038
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the patient agreed to withdraw her complaint about the nurse, the clinic would not schedule the follow-up, and so ___"
+  UNMARKED: "Unless the patient confirmed her availability next week, the clinic would not schedule the follow-up, and so ___"
+  swap: "agreed to withdraw her complaint about the nurse -> confirmed her availability next week"
+
+- pair_id: r2bpw_039
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The administrator explained that the discharge depended on the patient's family not mentioning the fall to hospital safety, though ___"
+  UNMARKED: "The administrator explained that the discharge depended on the patient's vital signs stabilizing, though ___"
+  swap: "the patient's family not mentioning the fall to hospital safety -> the patient's vital signs stabilizing"
+
+- pair_id: r2bpw_040
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before releasing her records, the clinic wanted the patient to sign a statement retracting her earlier complaint, and then ___"
+  UNMARKED: "Before releasing her records, the clinic wanted the patient to update her mailing address, and then ___"
+  swap: "sign a statement retracting her earlier complaint -> update her mailing address"
+
+- pair_id: r2bpw_041
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The loan officer told her the mortgage modification would go through once she stopped asking why her application had been delayed, and ___"
+  UNMARKED: "The loan officer told her the mortgage modification would go through once she submitted the updated pay stubs, and ___"
+  swap: "stopped asking why her application had been delayed -> submitted the updated pay stubs"
+
+- pair_id: r2bpw_042
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The customer was told her overdraft would be forgiven depending on whether she agreed to withdraw her dispute with the bank, so ___"
+  UNMARKED: "The customer was told her overdraft would be forgiven depending on whether her direct deposit had cleared, so ___"
+  swap: "agreed to withdraw her dispute with the bank -> her direct deposit had cleared"
+
+- pair_id: r2bpw_043
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the borrower agreed to leave the fee dispute out of her letter to the regulator, the bank manager said the credit line would be increased, and ___"
+  UNMARKED: "Once the borrower provided her latest tax return, the bank manager said the credit line would be increased, and ___"
+  swap: "agreed to leave the fee dispute out of her letter to the regulator -> provided her latest tax return"
+
+- pair_id: r2bpw_044
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The branch manager said the account would be reinstated as long as the customer didn't mention the fraudulent charge to the ombudsman, but ___"
+  UNMARKED: "The branch manager said the account would be reinstated as long as the customer updated her security questions, but ___"
+  swap: "didn't mention the fraudulent charge to the ombudsman -> updated her security questions"
+
+- pair_id: r2bpw_045
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The officer made clear that the loan approval was contingent on the applicant signing away her right to dispute the fee, which ___"
+  UNMARKED: "The officer made clear that the loan approval was contingent on the applicant's credit score clearing the threshold, which ___"
+  swap: "the applicant signing away her right to dispute the fee -> the applicant's credit score clearing the threshold"
+
+- pair_id: r2bpw_046
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the client agreed to sign away her right to an independent review, the bank would not release the frozen funds, and so ___"
+  UNMARKED: "Unless the client confirmed her identity with a second document, the bank would not release the frozen funds, and so ___"
+  swap: "agreed to sign away her right to an independent review -> confirmed her identity with a second document"
+
+- pair_id: r2bpw_047
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The advisor explained that the refinancing depended on the client not disputing the earlier miscalculation with head office, though ___"
+  UNMARKED: "The advisor explained that the refinancing depended on the client's employment verification going through, though ___"
+  swap: "the client not disputing the earlier miscalculation with head office -> the client's employment verification going through"
+
+- pair_id: r2bpw_048
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before approving the loan, the officer wanted the applicant to withdraw her complaint about the earlier rejection, and then ___"
+  UNMARKED: "Before approving the loan, the officer wanted the applicant to provide one more reference, and then ___"
+  swap: "withdraw her complaint about the earlier rejection -> provide one more reference"
+
+- pair_id: r2bpw_049
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The inspector told her the certification would be approved once she stopped mentioning the missed inspection date, and ___"
+  UNMARKED: "The inspector told her the certification would be approved once she submitted the updated floor plan, and ___"
+  swap: "stopped mentioning the missed inspection date -> submitted the updated floor plan"
+
+- pair_id: r2bpw_050
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The applicant was told her license renewal would depend on whether she agreed to withdraw her report of the earlier bribe attempt, so ___"
+  UNMARKED: "The applicant was told her license renewal would depend on whether her continuing education hours were complete, so ___"
+  swap: "agreed to withdraw her report of the earlier bribe attempt -> her continuing education hours were complete"
+
+- pair_id: r2bpw_051
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the contractor agreed to backdate the safety report, the inspector said the permit would be issued that day, and ___"
+  UNMARKED: "Once the contractor corrected the paperwork error, the inspector said the permit would be issued that day, and ___"
+  swap: "agreed to backdate the safety report -> corrected the paperwork error"
+
+- pair_id: r2bpw_052
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The board said the nursing license would be reinstated as long as the applicant didn't mention the earlier complaint against the reviewer, but ___"
+  UNMARKED: "The board said the nursing license would be reinstated as long as the applicant completed the refresher course, but ___"
+  swap: "didn't mention the earlier complaint against the reviewer -> completed the refresher course"
+
+- pair_id: r2bpw_053
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The examiner made clear that passing the inspection was contingent on the owner not reporting the fee he'd been asked to pay, which ___"
+  UNMARKED: "The examiner made clear that passing the inspection was contingent on the wiring meeting code, which ___"
+  swap: "the owner not reporting the fee he'd been asked to pay -> the wiring meeting code"
+
+- pair_id: r2bpw_054
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the driver agreed to withdraw her complaint about the examiner's conduct, the board would not schedule a retest, and so ___"
+  UNMARKED: "Unless the driver rescheduled around the holiday, the board would not schedule a retest, and so ___"
+  swap: "agreed to withdraw her complaint about the examiner's conduct -> rescheduled around the holiday"
+
+- pair_id: r2bpw_055
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The chief inspector explained that the compliance certificate depended on the manager not mentioning the missed deadline to the state office, though ___"
+  UNMARKED: "The chief inspector explained that the compliance certificate depended on the building's ventilation meeting code, though ___"
+  swap: "the manager not mentioning the missed deadline to the state office -> the building's ventilation meeting code"
+
+- pair_id: r2bpw_056
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before signing off, the inspector wanted the owner to withdraw his complaint to the licensing board, and then ___"
+  UNMARKED: "Before signing off, the inspector wanted the owner to clear the hallway of debris, and then ___"
+  swap: "withdraw his complaint to the licensing board -> clear the hallway of debris"
+
+- pair_id: r2bpw_057
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The adjuster told her the claim payout would go through once she stopped asking about the delay in her case, and ___"
+  UNMARKED: "The adjuster told her the claim payout would go through once she submitted the missing repair estimate, and ___"
+  swap: "stopped asking about the delay in her case -> submitted the missing repair estimate"
+
+- pair_id: r2bpw_058
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The policyholder was told her coverage would be renewed depending on whether she agreed not to appeal the earlier denial, so ___"
+  UNMARKED: "The policyholder was told her coverage would be renewed depending on whether her premium payment had cleared, so ___"
+  swap: "agreed not to appeal the earlier denial -> her premium payment had cleared"
+
+- pair_id: r2bpw_059
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the claimant agreed to withdraw her letter to the state insurance office, the adjuster said the payout would be processed, and ___"
+  UNMARKED: "Once the claimant provided the last set of photos, the adjuster said the payout would be processed, and ___"
+  swap: "agreed to withdraw her letter to the state insurance office -> provided the last set of photos"
+
+- pair_id: r2bpw_060
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The insurer said the policy would be reinstated as long as the claimant didn't mention the earlier miscalculation to the regulator, but ___"
+  UNMARKED: "The insurer said the policy would be reinstated as long as the claimant updated her home address, but ___"
+  swap: "didn't mention the earlier miscalculation to the regulator -> updated her home address"
+
+- pair_id: r2bpw_061
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The claims manager made clear that the settlement was contingent on the claimant signing away her right to appeal, which ___"
+  UNMARKED: "The claims manager made clear that the settlement was contingent on the repair shop confirming the final cost, which ___"
+  swap: "the claimant signing away her right to appeal -> the repair shop confirming the final cost"
+
+- pair_id: r2bpw_062
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the claimant agreed to withdraw her complaint about the adjuster, the insurer would not release the funds, and so ___"
+  UNMARKED: "Unless the claimant confirmed her bank details, the insurer would not release the funds, and so ___"
+  swap: "agreed to withdraw her complaint about the adjuster -> confirmed her bank details"
+
+- pair_id: r2bpw_063
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The supervisor explained that the expedited review depended on the claimant not mentioning the earlier delay in writing, though ___"
+  UNMARKED: "The supervisor explained that the expedited review depended on the claimant's paperwork being complete, though ___"
+  swap: "the claimant not mentioning the earlier delay in writing -> the claimant's paperwork being complete"
+
+- pair_id: r2bpw_064
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before closing the claim, the adjuster wanted the claimant to withdraw her complaint about the earlier offer, and then ___"
+  UNMARKED: "Before closing the claim, the adjuster wanted the claimant to confirm the final mileage, and then ___"
+  swap: "withdraw her complaint about the earlier offer -> confirm the final mileage"
+
+- pair_id: r2bpw_065
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The parole officer told him his curfew would be lifted once he stopped asking about the earlier violation on his record, and ___"
+  UNMARKED: "The parole officer told him his curfew would be lifted once he completed the community service hours, and ___"
+  swap: "stopped asking about the earlier violation on his record -> completed the community service hours"
+
+- pair_id: r2bpw_066
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The parolee was told his travel permission would depend on whether he agreed not to mention the missed check-in to the review board, so ___"
+  UNMARKED: "The parolee was told his travel permission would depend on whether his employer confirmed his work schedule, so ___"
+  swap: "agreed not to mention the missed check-in to the review board -> his employer confirmed his work schedule"
+
+- pair_id: r2bpw_067
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the parolee agreed to withdraw his complaint about the officer's conduct, the officer said the reporting requirement would be reduced, and ___"
+  UNMARKED: "Once the parolee completed the required counseling sessions, the officer said the reporting requirement would be reduced, and ___"
+  swap: "agreed to withdraw his complaint about the officer's conduct -> completed the required counseling sessions"
+
+- pair_id: r2bpw_068
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The board said the early release would be granted as long as the applicant didn't mention what he'd overheard about the hearing, but ___"
+  UNMARKED: "The board said the early release would be granted as long as the applicant maintained a clean record for six months, but ___"
+  swap: "didn't mention what he'd overheard about the hearing -> maintained a clean record for six months"
+
+- pair_id: r2bpw_069
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which ___"
+  UNMARKED: "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee's drug tests coming back clean, which ___"
+  swap: "the parolee not disputing the earlier violation notice -> the parolee's drug tests coming back clean"
+
+- pair_id: r2bpw_070
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the parolee agreed to withdraw his complaint about the search, the officer would not approve the address change, and so ___"
+  UNMARKED: "Unless the parolee provided proof of the new lease, the officer would not approve the address change, and so ___"
+  swap: "agreed to withdraw his complaint about the search -> provided proof of the new lease"
+
+- pair_id: r2bpw_071
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The supervisor explained that the reduced reporting depended on the parolee not mentioning the missed appointment in his record, though ___"
+  UNMARKED: "The supervisor explained that the reduced reporting depended on the parolee's job placement being confirmed, though ___"
+  swap: "the parolee not mentioning the missed appointment in his record -> the parolee's job placement being confirmed"
+
+- pair_id: r2bpw_072
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then ___"
+  UNMARKED: "Before signing the release, the officer wanted the parolee to confirm his new address, and then ___"
+  swap: "withdraw his complaint about the earlier search -> confirm his new address"
+
+- pair_id: r2bpw_073
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The caseworker told her the benefits would continue once she stopped asking about the delay in her paperwork, and ___"
+  UNMARKED: "The caseworker told her the benefits would continue once she submitted the updated income form, and ___"
+  swap: "stopped asking about the delay in her paperwork -> submitted the updated income form"
+
+- pair_id: r2bpw_074
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The applicant was told her housing voucher would depend on whether she agreed not to appeal the earlier denial, so ___"
+  UNMARKED: "The applicant was told her housing voucher would depend on whether the unit passed inspection, so ___"
+  swap: "agreed not to appeal the earlier denial -> the unit passed inspection"
+
+- pair_id: r2bpw_075
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the recipient agreed to withdraw her complaint about the caseworker, the office said the disability review would be expedited, and ___"
+  UNMARKED: "Once the recipient submitted the doctor's updated letter, the office said the disability review would be expedited, and ___"
+  swap: "agreed to withdraw her complaint about the caseworker -> submitted the doctor's updated letter"
+
+- pair_id: r2bpw_076
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The office said the benefits would be reinstated as long as the recipient didn't mention the earlier error to the ombudsman, but ___"
+  UNMARKED: "The office said the benefits would be reinstated as long as the recipient recertified before the deadline, but ___"
+  swap: "didn't mention the earlier error to the ombudsman -> recertified before the deadline"
+
+- pair_id: r2bpw_077
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The supervisor made clear that the backdated payment was contingent on the recipient signing a statement retracting her complaint, which ___"
+  UNMARKED: "The supervisor made clear that the backdated payment was contingent on the recipient's paperwork being complete, which ___"
+  swap: "the recipient signing a statement retracting her complaint -> the recipient's paperwork being complete"
+
+- pair_id: r2bpw_078
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the recipient agreed to withdraw her appeal, the office would not release the withheld payment, and so ___"
+  UNMARKED: "Unless the recipient confirmed her mailing address, the office would not release the withheld payment, and so ___"
+  swap: "agreed to withdraw her appeal -> confirmed her mailing address"
+
+- pair_id: r2bpw_079
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The manager explained that the expedited review depended on the recipient not mentioning the earlier mistake in writing, though ___"
+  UNMARKED: "The manager explained that the expedited review depended on the recipient's paperwork being complete, though ___"
+  swap: "the recipient not mentioning the earlier mistake in writing -> the recipient's paperwork being complete"
+
+- pair_id: r2bpw_080
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before approving the extension, the caseworker wanted the recipient to withdraw her complaint about the earlier delay, and then ___"
+  UNMARKED: "Before approving the extension, the caseworker wanted the recipient to confirm her household size, and then ___"
+  swap: "withdraw her complaint about the earlier delay -> confirm her household size"
+
+- pair_id: r2bpw_081
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The coach told her the scholarship would be renewed once she stopped asking about the missed medical exam requirement, and ___"
+  UNMARKED: "The coach told her the scholarship would be renewed once she submitted the updated physical form, and ___"
+  swap: "stopped asking about the missed medical exam requirement -> submitted the updated physical form"
+
+- pair_id: r2bpw_082
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The athlete was told her roster spot would depend on whether she agreed to stay quiet about the coach's temper at practice, so ___"
+  UNMARKED: "The athlete was told her roster spot would depend on whether her grades cleared the eligibility bar, so ___"
+  swap: "agreed to stay quiet about the coach's temper at practice -> her grades cleared the eligibility bar"
+
+- pair_id: r2bpw_083
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the athlete agreed to do the coach's paperwork for him without pay, he said her playing time would increase, and ___"
+  UNMARKED: "Once the athlete completed the extra conditioning drills, he said her playing time would increase, and ___"
+  swap: "agreed to do the coach's paperwork for him without pay -> completed the extra conditioning drills"
+
+- pair_id: r2bpw_084
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The committee said the scholarship would be extended as long as the athlete didn't mention the missed drug test to the athletic office, but ___"
+  UNMARKED: "The committee said the scholarship would be extended as long as the athlete maintained the required GPA, but ___"
+  swap: "didn't mention the missed drug test to the athletic office -> maintained the required GPA"
+
+- pair_id: r2bpw_085
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The coach made clear that the captaincy was contingent on the player not reporting the injury he'd been told to hide, which ___"
+  UNMARKED: "The coach made clear that the captaincy was contingent on the player's attendance at every practice, which ___"
+  swap: "the player not reporting the injury he'd been told to hide -> the player's attendance at every practice"
+
+- pair_id: r2bpw_086
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the athlete agreed to give a glowing quote for the coach's review, the committee would not renew her scholarship, and so ___"
+  UNMARKED: "Unless the athlete submitted her renewal paperwork on time, the committee would not renew her scholarship, and so ___"
+  swap: "agreed to give a glowing quote for the coach's review -> submitted her renewal paperwork on time"
+
+- pair_id: r2bpw_087
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The director explained that the transfer release depended on the athlete not mentioning the coach's earlier threats, though ___"
+  UNMARKED: "The director explained that the transfer release depended on the athlete's academic standing, though ___"
+  swap: "the athlete not mentioning the coach's earlier threats -> the athlete's academic standing"
+
+- pair_id: r2bpw_088
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before signing the release form, the coach wanted the athlete to publicly thank him for opportunities she'd never actually had, and then ___"
+  UNMARKED: "Before signing the release form, the coach wanted the athlete to return the team equipment, and then ___"
+  swap: "publicly thank him for opportunities she'd never actually had -> return the team equipment"
+
+- pair_id: r2bpw_089
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The editor told her the contract would be renewed once she stopped mentioning the unpaid advance to the guild, and ___"
+  UNMARKED: "The editor told her the contract would be renewed once she submitted the final revised chapters, and ___"
+  swap: "stopped mentioning the unpaid advance to the guild -> submitted the final revised chapters"
+
+- pair_id: r2bpw_090
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The writer was told her advance would depend on whether she agreed to remove the chapter criticizing the publisher, so ___"
+  UNMARKED: "The writer was told her advance would depend on whether the manuscript passed the final read, so ___"
+  swap: "agreed to remove the chapter criticizing the publisher -> the manuscript passed the final read"
+
+- pair_id: r2bpw_091
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the author agreed to praise the editor's own book in a public blurb, the editor said publication would be moved up, and ___"
+  UNMARKED: "Once the author submitted the final copyedits, the editor said publication would be moved up, and ___"
+  swap: "agreed to praise the editor's own book in a public blurb -> submitted the final copyedits"
+
+- pair_id: r2bpw_092
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The agent said the deal would go through as long as the writer didn't mention the earlier missed payment to the union, but ___"
+  UNMARKED: "The agent said the deal would go through as long as the writer delivered the manuscript by March, but ___"
+  swap: "didn't mention the earlier missed payment to the union -> delivered the manuscript by March"
+
+- pair_id: r2bpw_093
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The publisher made clear that the second book deal was contingent on the author not disputing the royalty statement publicly, which ___"
+  UNMARKED: "The publisher made clear that the second book deal was contingent on the first book's sales figures, which ___"
+  swap: "the author not disputing the royalty statement publicly -> the first book's sales figures"
+
+- pair_id: r2bpw_094
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the author agreed to sign a non-disparagement clause covering the entire dispute, the publisher would not release the rights, and so ___"
+  UNMARKED: "Unless the author confirmed the final title, the publisher would not release the rights, and so ___"
+  swap: "agreed to sign a non-disparagement clause covering the entire dispute -> confirmed the final title"
+
+- pair_id: r2bpw_095
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The agent explained that the film option depended on the author not mentioning the earlier contract dispute to the trade press, though ___"
+  UNMARKED: "The agent explained that the film option depended on the studio's own scheduling, though ___"
+  swap: "the author not mentioning the earlier contract dispute to the trade press -> the studio's own scheduling"
+
+- pair_id: r2bpw_096
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before signing the renewal, the editor wanted the author to retract her public complaint about the delayed payment, and then ___"
+  UNMARKED: "Before signing the renewal, the editor wanted the author to confirm the dedication page, and then ___"
+  swap: "retract her public complaint about the delayed payment -> confirm the dedication page"
+
+- pair_id: r2bpw_097
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The board president told her the renovation would be approved once she stopped raising the parking dispute at meetings, and ___"
+  UNMARKED: "The board president told her the renovation would be approved once she submitted the updated contractor bid, and ___"
+  swap: "stopped raising the parking dispute at meetings -> submitted the updated contractor bid"
+
+- pair_id: r2bpw_098
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The resident was told her fine would be waived depending on whether she agreed to withdraw her complaint about the board's spending, so ___"
+  UNMARKED: "The resident was told her fine would be waived depending on whether the paperwork cleared this month, so ___"
+  swap: "agreed to withdraw her complaint about the board's spending -> the paperwork cleared this month"
+
+- pair_id: r2bpw_099
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the owner agreed to vote with the board on the upcoming assessment, the president said her application would be approved, and ___"
+  UNMARKED: "Once the owner submitted the updated financial disclosure, the president said her application would be approved, and ___"
+  swap: "agreed to vote with the board on the upcoming assessment -> submitted the updated financial disclosure"
+
+- pair_id: r2bpw_100
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The committee said the membership would be reinstated as long as the resident didn't mention the missing minutes to the other owners, but ___"
+  UNMARKED: "The committee said the membership would be reinstated as long as the resident attended the next scheduled meeting, but ___"
+  swap: "didn't mention the missing minutes to the other owners -> attended the next scheduled meeting"
+
+- pair_id: r2bpw_101
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The board made clear that approval of the balcony renovation was contingent on the owner not reporting the earlier code violation, which ___"
+  UNMARKED: "The board made clear that approval of the balcony renovation was contingent on the contractor's license being current, which ___"
+  swap: "the owner not reporting the earlier code violation -> the contractor's license being current"
+
+- pair_id: r2bpw_102
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the owner agreed to withdraw her request for an audit, the board would not approve the refinancing, and so ___"
+  UNMARKED: "Unless the owner submitted her signed proxy, the board would not approve the refinancing, and so ___"
+  swap: "agreed to withdraw her request for an audit -> submitted her signed proxy"
+
+- pair_id: r2bpw_103
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The treasurer explained that the fee reduction depended on the resident not mentioning the missing funds at the annual meeting, though ___"
+  UNMARKED: "The treasurer explained that the fee reduction depended on the resident's unit passing inspection, though ___"
+  swap: "the resident not mentioning the missing funds at the annual meeting -> the resident's unit passing inspection"
+
+- pair_id: r2bpw_104
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before approving the sale, the board wanted the seller to retract her complaint about the management company, and then ___"
+  UNMARKED: "Before approving the sale, the board wanted the seller to submit the final closing documents, and then ___"
+  swap: "retract her complaint about the management company -> submit the final closing documents"
+
+- pair_id: r2bpw_105
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The customs officer told her the shipment would be released once she stopped asking why it had been held, and ___"
+  UNMARKED: "The customs officer told her the shipment would be released once she provided the updated invoice, and ___"
+  swap: "stopped asking why it had been held -> provided the updated invoice"
+
+- pair_id: r2bpw_106
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The importer was told her goods would clear customs depending on whether she agreed not to report the delay to her embassy, so ___"
+  UNMARKED: "The importer was told her goods would clear customs depending on whether the paperwork matched the manifest, so ___"
+  swap: "agreed not to report the delay to her embassy -> the paperwork matched the manifest"
+
+- pair_id: r2bpw_107
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the trader agreed to leave a favorable note about the officer in the visitor log, the official said the goods would be released that afternoon, and ___"
+  UNMARKED: "Once the trader corrected the declared value on the form, the official said the goods would be released that afternoon, and ___"
+  swap: "agreed to leave a favorable note about the officer in the visitor log -> corrected the declared value on the form"
+
+- pair_id: r2bpw_108
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The official said the transit visa would be extended as long as the traveler didn't mention the earlier delay at the checkpoint, but ___"
+  UNMARKED: "The official said the transit visa would be extended as long as the traveler's onward flight was confirmed, but ___"
+  swap: "didn't mention the earlier delay at the checkpoint -> the traveler's onward flight was confirmed"
+
+- pair_id: r2bpw_109
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The inspector made clear that the expedited clearance was contingent on the trader not disputing the fee assessed at the border, which ___"
+  UNMARKED: "The inspector made clear that the expedited clearance was contingent on the shipment's weight matching the declaration, which ___"
+  swap: "the trader not disputing the fee assessed at the border -> the shipment's weight matching the declaration"
+
+- pair_id: r2bpw_110
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the traveler agreed to withdraw her complaint about the search, the official would not stamp the re-entry permit, and so ___"
+  UNMARKED: "Unless the traveler provided a second photo ID, the official would not stamp the re-entry permit, and so ___"
+  swap: "agreed to withdraw her complaint about the search -> provided a second photo ID"
+
+- pair_id: r2bpw_111
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though ___"
+  UNMARKED: "The supervisor explained that the priority lane access depended on the trader's registration being current, though ___"
+  swap: "the trader not mentioning the earlier bribe request -> the trader's registration being current"
+
+- pair_id: r2bpw_112
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before stamping the documents, the officer wanted the driver to delete the photo of the checkpoint queue, and then ___"
+  UNMARKED: "Before stamping the documents, the officer wanted the driver to confirm the cargo weight, and then ___"
+  swap: "delete the photo of the checkpoint queue -> confirm the cargo weight"
+
+- pair_id: r2bpw_113
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F1: told-that clause: outcome would happen 'once [condition]', ending 'and ___'"
+  MARKED: "The auditor told her the penalty would be waived once she stopped disputing the assessment in writing, and ___"
+  UNMARKED: "The auditor told her the penalty would be waived once she submitted the missing receipts, and ___"
+  swap: "stopped disputing the assessment in writing -> submitted the missing receipts"
+
+- pair_id: r2bpw_114
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
+  MARKED: "The taxpayer was told her refund would depend on whether she agreed to withdraw her appeal of the earlier audit, so ___"
+  UNMARKED: "The taxpayer was told her refund would depend on whether the amended return had been processed, so ___"
+  swap: "agreed to withdraw her appeal of the earlier audit -> the amended return had been processed"
+
+- pair_id: r2bpw_115
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F3: condition-first: 'Once [condition], role said outcome', ending 'and ___'"
+  MARKED: "Once the accountant agreed to leave the earlier miscalculation out of the final report, the auditor said the case would be closed quickly, and ___"
+  UNMARKED: "Once the accountant corrected the earlier miscalculation in the final report, the auditor said the case would be closed quickly, and ___"
+  swap: "agreed to leave the earlier miscalculation out of the final report -> corrected the earlier miscalculation in the final report"
+
+- pair_id: r2bpw_116
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F4: outcome 'as long as [condition]', ending 'but ___'"
+  MARKED: "The revenue officer said the lien would be lifted as long as the taxpayer didn't mention the earlier clerical error to the review board, but ___"
+  UNMARKED: "The revenue officer said the lien would be lifted as long as the taxpayer paid the remaining balance by Friday, but ___"
+  swap: "didn't mention the earlier clerical error to the review board -> paid the remaining balance by Friday"
+
+- pair_id: r2bpw_117
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
+  MARKED: "The officer made clear that the payment plan was contingent on the taxpayer not appealing the penalty publicly, which ___"
+  UNMARKED: "The officer made clear that the payment plan was contingent on the taxpayer's income documentation, which ___"
+  swap: "the taxpayer not appealing the penalty publicly -> the taxpayer's income documentation"
+
+- pair_id: r2bpw_118
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F6: condition-first negative: 'Unless [condition], role would not [outcome]', ending 'and so ___'"
+  MARKED: "Unless the taxpayer agreed to withdraw her complaint about the auditor's conduct, the office would not release the refund, and so ___"
+  UNMARKED: "Unless the taxpayer confirmed her bank routing number, the office would not release the refund, and so ___"
+  swap: "agreed to withdraw her complaint about the auditor's conduct -> confirmed her bank routing number"
+
+- pair_id: r2bpw_119
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
+  MARKED: "The supervisor explained that the case closure depended on the taxpayer not mentioning the earlier delay to the inspector general, though ___"
+  UNMARKED: "The supervisor explained that the case closure depended on the taxpayer's documentation being complete, though ___"
+  swap: "the taxpayer not mentioning the earlier delay to the inspector general -> the taxpayer's documentation being complete"
+
+- pair_id: r2bpw_120
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
+  frame: "F8: condition-first purpose: 'Before [outcome], role wanted subject to [condition]', ending 'and then ___'"
+  MARKED: "Before closing the audit, the officer wanted the accountant to retract his earlier complaint about her conduct, and then ___"
+  UNMARKED: "Before closing the audit, the officer wanted the accountant to submit one final reconciliation, and then ___"
+  swap: "retract his earlier complaint about her conduct -> submit one final reconciliation"
