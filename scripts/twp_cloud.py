@@ -578,6 +578,16 @@ class SkipPrompt(Exception):
     """This PROMPT cannot be scored on this model. Not a model failure."""
 
 
+#: expand() computes the logit vector deep inside its beam loop and returns
+#: word probabilities. Threading a second return value through every call
+#: site and its two exception paths would touch code the run depends on;
+#: a one-slot handoff touches none of it. Single-threaded by construction
+#: -- one model, one prompt at a time -- and OVERWRITTEN EVERY PROMPT, so
+#: a stale read is impossible: the write happens between expand() and the
+#: jsonl line for the same prompt.
+_LOGIT = {"v": None}
+
+
 @torch.no_grad()
 def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
            bos_policy="inherited"):
@@ -614,6 +624,16 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
         pids, _applied = encode_prompt(tok, prompt, bos_policy)
         assert_prompt_survives(tok, prompt, pids)
     lg = model(torch.tensor([pids], device=dev)).logits[0, -1, :].float()
+    #: THE LOGIT FOLD (RH, 2026-08-01). `lg` IS ALREADY the full-vocabulary
+    #: last-position vector the logit stash wants -- this call is batch-1,
+    #: consumes no RNG, and P0/theta/the residual/the beam are all
+    #: downstream, so capturing it is a PURE SIDE EFFECT and word-prob
+    #: values are bit-identical. RULE_VERSION versions the WORD-BOUNDARY
+    #: RULE; a logit vector segments nothing, so no v3->v4.
+    #: float16 ON RH's RULING: the existing store is MIXED (49 models f16,
+    #: 87 f32) and a uniform store is worth more than a marginally more
+    #: precise one that cannot be compared across its own rows.
+    _LOGIT["v"] = lg.half().cpu().numpy()
     P0 = torch.softmax(lg, -1).cpu().numpy()
     sel = np.flatnonzero(P0 >= theta)
     live = [((int(t),), float(P0[t]), int(t)) for t in sel]
@@ -790,7 +810,15 @@ def main(a):
         # Per-prompt writes are already flushed, so a model that dies partway
         # keeps what it finished and resumes there on the next pass.
         try:
-            with open(path, "a") as f:
+            lpath = os.path.join(a.out, f"{safe}.f16")
+            #: Row counter RESUMES from the file's own size, never from a
+            #: remembered count -- the file is the record of how many rows it
+            #: holds, and a counter that starts at 0 on restart would overwrite
+            #: nothing and mis-index everything after it.
+            _dim = getattr(model.config, "vocab_size", None)
+            logit_n = (os.path.getsize(lpath) // (2 * _dim)
+                       if _dim and os.path.exists(lpath) else 0)
+            with open(path, "a") as f, open(lpath, "ab") as lf:
                 for i, p in enumerate(todo, 1):
                     try:
                         w, res, calls = expand(model, tok, p, dev, bmask,
@@ -806,8 +834,24 @@ def main(a):
                         skipped += 1
                         continue
                     tot = sum(w.values()) + res["total"]
+                    #: SIDECAR, NOT JSONL. 109 KB of float per cell cannot go in
+                    #: a JSON line -- base64 would be ~145 KB of text per row
+                    #: plus the parse cost on every resume scan. Raw float16
+                    #: appended to a .f16 file; `logit_row` indexes it, so row
+                    #: n of the binary IS the nth logit-bearing jsonl line and
+                    #: the pairing survives a crash mid-model.
+                    _lg = _LOGIT["v"]
+                    _row = None
+                    if _lg is not None:
+                        _row = logit_n
+                        lf.write(_lg.tobytes()); lf.flush()
+                        logit_n += 1
+                        _LOGIT["v"] = None
                     f.write(json.dumps({
                         "model": mid, "prompt": p, "theta": THETA,
+                        "logit_row": _row, "logit_dim": (int(_lg.shape[0])
+                                                         if _lg is not None else None),
+                        "logit_dtype": "float16",
                         "rule_version": RULE_VERSION,
                         "rule_commits": RULE_COMMITS,
                         "dict_sha": dict_sha,
