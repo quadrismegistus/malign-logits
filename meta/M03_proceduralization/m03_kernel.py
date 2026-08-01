@@ -202,7 +202,16 @@ def dual_is_coactor(pl):
     return not ACC.search(pl)
 
 
-def only_pronoun_expanded(sg, pl):
+def pronoun_expansion_defect(sg, pl):
+    """Return a DEFECT MESSAGE, or None if clean. The name says what truthy means.
+
+    RENAMED AND RESIGNATURED AFTER [1926].1. It was `only_pronoun_expanded`
+    returning `(ok, msg)`, and a second seat wrote `not pe` -- which is ALWAYS
+    False, because a non-empty tuple is truthy. Their verdict silently reduced to
+    the co-actor check alone and reported all three regression cases as MISSED.
+    A PREDICATE WHOSE FAILURE VALUE IS TRUTHY IS A TRAP, and the caller was not
+    the problem: the signature invited it. Falsy now means clean.
+    """
     """Removing the dual from `pl` must give back `sg`, modulo forced agreement.
 
     PRE-PATCH COUNT 20. The first version inspected only `replace` opcodes, but
@@ -221,11 +230,11 @@ def only_pronoun_expanded(sg, pl):
     if norm[:1].isupper() and sg[:1].isupper():
         norm = norm[0].upper() + norm[1:]
     if norm == sg:
-        return True, ""
+        return None
     for a, b in AGREE:
         if norm.replace(a, b) == sg:
-            return True, ""
-    return False, f"removing the dual does not give back the singular: {norm!r}"
+            return None
+    return f"removing the dual does not give back the singular: {norm!r}"
 
 
 def lint(k, cells):
@@ -240,8 +249,8 @@ def lint(k, cells):
             out.append(f"(v) {arm} plural is indefinite: {pl!r}")
         if not dual_is_coactor(pl):
             out.append(f"(v) {arm} dual is a CO-RECIPIENT, not a co-actor: {pl!r}")
-        ok, why = only_pronoun_expanded(sg, pl)
-        if not ok:
+        why = pronoun_expansion_defect(sg, pl)
+        if why:
             out.append(f"(iv) {arm} sg->pl is not a bare pronoun expansion -- {why}")
         # (iv) sg must be a strict substring-modulo-the-dual of pl
         if len(pl.split()) - len(sg.split()) > 5:
