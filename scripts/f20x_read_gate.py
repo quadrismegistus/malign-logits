@@ -60,6 +60,76 @@ def load(unfreeze=None, path=PARQUET):
     return d
 
 
+#: THE FOUR JOIN KEYS, AND THE EXISTING ROWS ARE THE AUTHORITY ON ALL FOUR.
+#: [2117].3: **a completion run is a JOIN, and every join key is a claim that
+#: two populations were built the same way.** A completion run would naturally
+#: be written from the SPEC, and the spec disagrees with the artifact on the
+#: one that matters: [248] enumerates FIFTEEN stimuli and templates §2 lists
+#: fourteen plus the deictic, while the artifact holds SIXTEEN — the sixteenth
+#: is a nonce.
+#:
+#: **THE PRIMARY IS A WITHIN-STIMULUS PAIRED SIGN TEST, so a stimulus present
+#: at `rung` and absent at `document` DROPS OUT OF THE PAIRING SILENTLY.** The
+#: contrast still computes, over 15 pairs instead of 16, and reports nothing
+#: about the missing one — and every count on the way looks clean: 29 families,
+#: balanced arms, complete levels. A defect that survives every gate because
+#: the gate counts what is there.
+LEVELS_DECLARED = ("rung", "spelled_rung", "prose_q", "narrative", "document")
+
+
+def assert_join_compatible(new, path=PARQUET):
+    """Call BEFORE the first generation call of a completion run.
+
+    `new` is the DataFrame (or dict of iterables) the run is about to produce.
+    Raises on any join-key divergence from the existing rows. Refusing to start
+    costs minutes; discovering it after 13,920 completions costs the run.
+    """
+    old = pd.read_parquet(path)
+    errs = []
+
+    #: (a) stimulus set — the one the spec gets wrong
+    o, n = set(old.stim_id), set(new["stim_id"])
+    if o != n:
+        errs.append(f"stim_id set differs: only-existing {sorted(o - n)}, "
+                    f"only-new {sorted(n - o)} (existing has {len(o)}; the SPEC "
+                    f"says 15 and is WRONG — the artifact is the authority)")
+
+    #: (b) level vocabulary, byte-for-byte. `prose_question` or `spelled-rung`
+    #: would split the level factor into six values where the design has five,
+    #: and every per-level count would still look balanced.
+    bad = set(new["level"]) - set(LEVELS_DECLARED)
+    if bad:
+        errs.append(f"level values not in the declared five: {sorted(bad)}")
+    if set(new["level"]) & set(old.level):
+        errs.append(f"level already present in the artifact: "
+                    f"{sorted(set(new['level']) & set(old.level))} — a "
+                    f"completion run must add levels, not re-generate them")
+
+    #: (c) draw numbering CONTINUES rather than restarting, or the merged file
+    #: carries two conventions and nothing on its face says so.
+    if min(new["draw"]) <= max(old.draw):
+        errs.append(f"draw restarts at {min(new['draw'])}; existing max is "
+                    f"{max(old.draw)} — continue the numbering")
+
+    #: (d) schema. Extra or missing columns make the merge lossy or ragged.
+    if "seed" not in new and "seed" not in old.columns:
+        errs.append("NEITHER population carries `seed`, though templates §3 "
+                    "declares 'seeds are in the output or the run is void' — "
+                    "the existing rows already violate it, so a completion run "
+                    "cannot inherit compliance and must decide explicitly")
+    #: OUTCOME is exempt: this runs BEFORE generation, so the completions do
+    #: not exist yet. A schema check that demanded them would make the guard
+    #: uncallable at the only moment it is useful.
+    miss = set(old.columns) - set(new) - {OUTCOME}
+    if miss:
+        errs.append(f"columns missing from the new rows: {sorted(miss)}")
+
+    if errs:
+        raise AssertionError("JOIN INCOMPATIBLE — do not generate:\n  " +
+                             "\n  ".join(errs))
+    return True
+
+
 if __name__ == "__main__":
     d = load()
     print(f"gated load: {len(d):,} rows, {len(d.columns)} columns")
