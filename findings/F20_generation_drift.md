@@ -83,11 +83,19 @@ failure-to-anchor codes — the family the headline itself names — at alpha 0.
 `no_self_posed`, whose raw p is larger but which sits against the loosest
 threshold. Under a step-down the largest p is not the fragile one.
 
-**The published Holm column is a separate matter and remains unreproduced:** its
-multipliers (x10 `number_shift`, x8 `dissolution`, x2 `name_arbitrary`) imply a
-family of about eleven codes, which is not recorded anywhere in this finding.
-That affects the *column*, not the headline, because the headline names its own
-family in words. Producer: `scripts/f20_lineage_recount.py`.
+**THE FAMILY IS DECLARED BECAUSE TWO ARE IN PLAY AND ONLY ONE IS RECOVERABLE.**
+The five above are the family *this clause's own sentence names* — "every code
+for failure-to-anchor" — construct-defined a priori, not selected for passing.
+**The published Holm column corrects over a different and larger family:** its
+multipliers (x10 `number_shift`, x8 `dissolution`, x2 `name_arbitrary`) imply
+about **eleven** codes, and those eleven are recorded nowhere in this finding.
+
+**Under that family `mania`'s verdict is not recoverable.** At rank 6 of 11 its
+threshold would be 0.05/6 = 0.0083 and it would fail; ranked later it passes.
+**The four unseen p-values decide and nobody has them.** So the clause is
+restated at the family its wording declares, with the loss stated — **not
+silently re-scoped to whichever family could be computed.** Ruled [2190].
+Producer: `scripts/f20_lineage_recount.py`.
 | `bothness` | 0.021 | 0.019 | 15/29 | 0.6888 | 0.847 |
 | `origin_displaced` | 0.164 | 0.137 | 17/29 | 0.1326 | 0.499 |
 | `frame_exit` | 0.035 | 0.055 | 10/29 | 0.1246 | 0.499 |
