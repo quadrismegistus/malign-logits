@@ -50,10 +50,12 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #: exactly like a caught mutant otherwise, which is this file's own failure mode.
 MATRICES = {
     "m04": {
-        "M1 main calls gate_4 ungated": (
-            '    print("This file is the artifact',
-            '    gate_4_contrasts({}, 0.0, [0.0]*9)\n'
-            '    print("This file is the artifact'),
+        #: RE-ANCHORED at 66ef2e08: main() now calls run_pipeline, so the old
+        #: anchor is gone. The mutant is unchanged in spirit -- reach stage 4
+        #: without passing gates 1-3 -- and is now expressed as skipping the
+        #: gate_2 halt inside run_pipeline.
+        "M1 gate_2 halt bypassed": (
+            "if not gate_2_divergence(", "if False and not gate_2_divergence("),
         "M2 pos0 leaks into the curve": (
             "CURVE = list(range(1, 10))", "CURVE = list(range(0, 10))"),
         "M3 control passes on flat": (
