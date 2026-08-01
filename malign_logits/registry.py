@@ -24,6 +24,27 @@ from pathlib import Path
 from typing import Optional, Dict, List, Tuple
 
 
+#: EVERY RELATION KIND IS ASSIGNED TO EXACTLY ONE CLASS, so a new kind cannot
+#: default into the walk ([2159](ii)).
+#:
+#:   WALKED   directed descent: the parent is an ANCESTOR, so base_of climbs it
+#:   UNIONED  co-lineage: same pretraining, NO ancestor -- unions the lineage
+#:            and is never walked. `smaller_sibling_of` is one release at
+#:            several scales, and NO RUNG IS ANOTHER RUNG'S BASE; walking it
+#:            made Falcon3-10B ambiguous between 1B, 3B and 7B, which is not an
+#:            ambiguity but a category error.
+#:   CHECKED  post-repair assertion only: `same_base_as` is SYMMETRIC, and a
+#:            symmetric relation walked upward makes a SIBLING the parent --
+#:            it made kto's "base" the dpo checkpoint, right only by luck.
+_WALKED = frozenset({"sft_of", "dpo_of", "rlvr_of", "kto_of", "ppo_of",
+                     "slic_of", "reasoning_of", "data_ablation_of"})
+_UNIONED = frozenset({"smaller_sibling_of"})
+_CHECKED = frozenset({"same_base_as", "smaller_predecessor_of"})
+_DESCENT = _WALKED
+_STAGE_REL = {"sft": "sft_of", "dpo": "dpo_of", "rlvr": "rlvr_of",
+              "kto": "kto_of", "ppo": "ppo_of", "slic": "slic_of",
+              "reasoning": "reasoning_of"}
+
 REGISTRY_PATH = Path(__file__).parent.parent / "data" / "model_registry.json"
 
 RELATION_TYPES = [
@@ -366,13 +387,35 @@ class Registry:
             if current in visited:
                 break
             visited.add(current)
-            parent = None
-            for r in self._relations:
-                if r.child == current:
-                    parent = r.parent
-                    break
-            if parent is None:
+            #: DESCENT EDGES ONLY. `same_base_as` is 77 of 181 relations and
+            #: is SYMMETRIC -- walking it upward makes a SIBLING the parent,
+            #: which terminates on whatever that peer's chain reaches and is
+            #: right only by luck ([2152].2, ruled [2154]).
+            #:
+            #: AND FILE ORDER DECIDED NOTHING FROM HERE ON. This took the FIRST
+            #: matching relation in JSON key order, so the base of a model with
+            #: several edges depended on how the file happened to be written --
+            #: a silent ordering dependency inside the quantity every roster
+            #: count is built from. Where several DESCENT edges match, take the
+            #: stage-consistent one; where that is ambiguous, RAISE rather than
+            #: pick, because a wrong base is a wrong independence claim and a
+            #: loud failure is cheaper than a plausible number.
+            cands = [r for r in self._relations
+                     if r.child == current and r.relation in _DESCENT]
+            if not cands:
                 return current
+            if len(cands) > 1:
+                st = self.stage_of(current)
+                want = _STAGE_REL.get(st)
+                consistent = [r for r in cands if r.relation == want]
+                if len(consistent) != 1:
+                    raise ValueError(
+                        f"base_of({current!r}) is AMBIGUOUS: "
+                        f"{[(r.relation, r.parent) for r in cands]} with "
+                        f"stage={st!r}. Add the stage-consistent descent edge "
+                        f"or remove the spurious one; file order must not decide.")
+                cands = consistent
+            parent = cands[0].parent
             current = parent
         return current
 

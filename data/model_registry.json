@@ -149,6 +149,22 @@
   },
   "measurement_context": {
    "note": "tokenizer and weight measurements are library-version dependent; the sweeps ran locally, the v3 grid ran on transformers 5.14.1 / torch 2.5.1"
+  },
+  "spurious_edge_removed_2159": {
+   "removed": {
+    "child": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+    "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+    "relation": "dpo_of"
+   },
+   "source": "https://huggingface.co/allenai/Llama-3.1-Tulu-3-8B-DPO -- the publisher's card states 'Finetuned from model: allenai/Llama-3.1-Tulu-3-8B-SFT'. The removed edge asserted the main DPO arm descends from the SAFETY-ABLATED SFT, which would make the ablation study's control its own treatment's parent.",
+   "was_decided_by": "JSON key order, silently, until the [2154] guard raised"
+  },
+  "lineage_repair_2148": {
+   "rule": "base_of names the TRUE PRETRAINING BASE wherever the record establishes it, crossing family labels freely ([2148].7)",
+   "stage_edits": 3,
+   "relation_edits": 3,
+   "new_edges": 0,
+   "not_repaired": "same_base_as consumed as a parent edge by base_of(), 77 of 181 relations, first-match-in-file-order — a resolver defect, reported [2152], unruled"
   }
  },
  "models": [
@@ -1128,7 +1144,7 @@
    "nickname": "tulu-sft-nomath",
    "family": "tulu-sft-nomath",
    "position": "superego",
-   "stage": "dpo",
+   "stage": "sft",
    "org": "allenai",
    "params": "8B",
    "params_b": 8.0,
@@ -1159,7 +1175,7 @@
    "nickname": "tulu-sft-nopersona",
    "family": "tulu-sft-nopersona",
    "position": "superego",
-   "stage": "dpo",
+   "stage": "sft",
    "org": "allenai",
    "params": "8B",
    "params_b": 8.0,
@@ -1221,7 +1237,7 @@
    "nickname": "tulu-sft-nowildchat",
    "family": "tulu-sft-nowildchat",
    "position": "superego",
-   "stage": "dpo",
+   "stage": "sft",
    "org": "allenai",
    "params": "8B",
    "params_b": 8.0,
@@ -3587,11 +3603,6 @@
    "relation": "dpo_of"
   },
   {
-   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
-   "child": "allenai/Llama-3.1-Tulu-3-8B-DPO",
-   "relation": "dpo_of"
-  },
-  {
    "parent": "allenai/OLMo-2-0425-1B-SFT",
    "child": "allenai/OLMo-2-0425-1B-DPO",
    "relation": "dpo_of"
@@ -3669,17 +3680,17 @@
   {
    "parent": "meta-llama/Llama-3.1-8B",
    "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
-   "relation": "dpo_of"
+   "relation": "sft_of"
   },
   {
    "parent": "meta-llama/Llama-3.1-8B",
    "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
-   "relation": "dpo_of"
+   "relation": "sft_of"
   },
   {
    "parent": "meta-llama/Llama-3.1-8B",
    "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
-   "relation": "dpo_of"
+   "relation": "sft_of"
   },
   {
    "parent": "microsoft/phi-4",
