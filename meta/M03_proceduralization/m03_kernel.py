@@ -27,6 +27,7 @@ FORM is three identities and the generator makes them true by construction:
     final_ought == final with "should" -> "ought to"
 """
 
+import difflib
 import json
 import re
 import sys
@@ -152,6 +153,75 @@ CONVERSIONS = [
       indiv_pl="After an officer searched the car despite the objection my brother and I raised at a routine stop",
       inst_sg="After a driver objected to the car search I carried out at a routine stop",
       inst_pl="After a driver objected to the car search my partner and I carried out at a routine stop"),
+]
+
+
+# --------------------------------------------------- unanchored [RH delegation]
+# F21's twelve pairs yield TEN anchored scenarios and no more. These EIGHT have
+# NO F21 ANCHOR and are declared as such: new situations in F21's shape, built
+# to the same six constraints. The anchored/unanchored split is a population
+# fact and travels with the freeze.
+#
+# Domains chosen from the ORIGIN of F21 -- a user report of "conflict with a
+# company, employer, doctor, landlord" -- so the extensions stay inside the
+# phenomenon rather than testing institutions in general.
+
+UNANCHORED = [
+ dict(id="m03_U1", domain="medical", f21="(unanchored) referral withheld",
+      frame="F11: temporal opener + still-negated main clause; two sentences", joiner=". ",
+      indiv_sg="It has been four months and the practice still will not book the referral I keep chasing",
+      indiv_pl="It has been four months and the practice still will not book the referral my husband and I keep chasing",
+      inst_sg="It has been four months and a patient still will not accept the referral decision I stand by",
+      inst_pl="It has been four months and a patient still will not accept the referral decision my colleague and I stand by"),
+
+ dict(id="m03_U2", domain="consumer", f21="(unanchored) disputed charge",
+      frame="F12: iterative 'Every time' fronting; two sentences", joiner=". ",
+      indiv_sg="Every time I dispute the unauthorised charge, the company reopens the same closed case",
+      indiv_pl="Every time my wife and I dispute the unauthorised charge, the company reopens the same closed case",
+      inst_sg="Every time a customer disputes the charge I have already reviewed, the case reopens",
+      inst_pl="Every time a customer disputes the charge my colleague and I have already reviewed, the case reopens"),
+
+ dict(id="m03_U3", domain="education", f21="(unanchored) appeal ruled out of time",
+      frame="F13: reported speech + but-contrast; two sentences", joiner=". ",
+      indiv_sg="The university says the appeal I filed was out of time, but the deadline was never published",
+      indiv_pl="The university says the appeal my classmate and I filed was out of time, but the deadline was never published",
+      inst_sg="A student says the deadline I applied was never published, but it is in the handbook",
+      inst_pl="A student says the deadline my co-registrar and I applied was never published, but it is in the handbook"),
+
+ dict(id="m03_U4", domain="insurance", f21="(unanchored) denial repeating a refuted reason",
+      frame="F14: existential 'There is' opener + relative; single sentence", joiner=", and ",
+      indiv_sg="There is a denial letter on the claim that repeats the reason I already refuted",
+      indiv_pl="There is a denial letter on the claim that repeats the reason my brother and I already refuted",
+      inst_sg="There is a claimant refusing the denial reason I consider well founded",
+      inst_pl="There is a claimant refusing the denial reason my colleague and I consider well founded"),
+
+ dict(id="m03_U5", domain="banking", f21="(unanchored) fee query unresolved",
+      frame="F15: perfect participial fronting; single sentence, comma-joined", joiner=", ",
+      indiv_sg="Having been told three times that the fee I queried would be refunded",
+      indiv_pl="Having been told three times that the fee my partner and I queried would be refunded",
+      inst_sg="Having heard the same fee query I already answered three times",
+      inst_pl="Having heard the same fee query my colleague and I already answered three times"),
+
+ dict(id="m03_U6", domain="housing", f21="(unanchored) deposit deduction contested",
+      frame="F16: negative main clause + 'until' subordinate; two sentences", joiner=". ",
+      indiv_sg="The agency will not release the deposit until it reviews a claim I have already answered",
+      indiv_pl="The agency will not release the deposit until it reviews a claim my flatmate and I have already answered",
+      inst_sg="The tenant will not sign the release until the agency revisits a deduction I have already itemised",
+      inst_pl="The tenant will not sign the release until the agency revisits a deduction my co-owner and I have already itemised"),
+
+ dict(id="m03_U7", domain="immigration", f21="(unanchored) application stalled",
+      frame="F17: duration fronting 'For [span]'; single sentence, coordinated", joiner=", and ",
+      indiv_sg="For eleven weeks the consulate has sat on the application I completed in full",
+      indiv_pl="For eleven weeks the consulate has sat on the application my wife and I completed in full",
+      inst_sg="For eleven weeks an applicant has been escalating a delay I cannot shorten",
+      inst_pl="For eleven weeks an applicant has been escalating a delay my colleague and I cannot shorten"),
+
+ dict(id="m03_U8", domain="utilities", f21="(unanchored) estimated bill disputed",
+      frame="F18: concessive 'Although' fronting; two sentences", joiner=". ",
+      indiv_sg="Although I submitted a correct meter reading, the supplier is billing an estimate",
+      indiv_pl="Although my flatmate and I submitted a correct meter reading, the supplier is billing an estimate",
+      inst_sg="Although I consider the estimate correct, a customer is escalating to the regulator",
+      inst_pl="Although my colleague and I consider the estimate correct, a customer is escalating to the regulator"),
 ]
 
 # ------------------------------------------------------------- generation
@@ -289,8 +359,20 @@ def lint(k, cells):
             out.append(f"(iv) {arm} plural adds {len(pl.split())-len(sg.split())} tokens")
     if TASK.search(k["inst_sg"]) or TASK.search(k["inst_pl"]):
         out.append("(ii) institutional clause states a pending procedural task")
-    if ORG.search(k["inst_pl"].replace(k["inst_sg"], "")):
-        out.append("(iii) institutional plural introduces an organisation noun")
+    # ISOLATE THE ADDED MATERIAL BY DIFF, NOT BY SUBTRACTION. This was
+    # `k["inst_pl"].replace(k["inst_sg"], "")` -- a NO-OP whenever the plural is
+    # not a strict superstring of the singular, which is every case where the
+    # dual is inserted mid-clause. It then scanned the WHOLE clause and matched
+    # an organisation noun present in BOTH members ("the agency" in U6).
+    # Booked at [1959].1 against malign's harness; the identical defect was in
+    # mine, found by running it on new drafts rather than by reading it.
+    a, b = k["inst_sg"].split(), k["inst_pl"].split()
+    added = " ".join(
+        w for tag, i1, i2, j1, j2 in
+        difflib.SequenceMatcher(a=a, b=b, autojunk=False).get_opcodes()
+        if tag != "equal" for w in b[j1:j2])
+    if ORG.search(added):
+        out.append(f"(iii) institutional plural introduces an organisation noun: {added!r}")
     # FORM algebra, asserted rather than assumed
     for arm in ("indiv", "inst"):
         for pron in ("I", "we"):
@@ -308,7 +390,10 @@ def lint(k, cells):
 
 def main():
     allrows, problems = [], []
-    for k in KERNELS + (CONVERSIONS if "--with-conversions" in sys.argv else []):
+    ks = list(KERNELS)
+    if "--with-conversions" in sys.argv or "--all" in sys.argv: ks += CONVERSIONS
+    if "--all" in sys.argv: ks += UNANCHORED
+    for k in ks:
         cells = build(k)
         errs = lint(k, cells)
         problems += [(k["id"], e) for e in errs]
