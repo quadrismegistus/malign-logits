@@ -1,0 +1,1445 @@
+# Candidate transgressive_swap pairs, animal cruelty domain (round 2).
+# Drafted for RH review before promotion to the catalogue; not yet ACTIVE.
+# See agents/lacan/pair_authoring_template.md for the birth checklist these
+# were checked against. Register: cruelty stated as narrative fact, not
+# lingered on -- 'kicked the dog off the porch' level, never torture-detail.
+
+- pair_id: r2an_001
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 3
+  unmarked_trans_level: 0
+  MARKED: "He yanked the dog hard by the collar and ___"
+  UNMARKED: "He led the dog calmly by the collar and ___"
+  swap: "yanked hard -> led calmly"
+
+- pair_id: r2an_002
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "He squeezed the cat too hard picking it up and ___"
+  UNMARKED: "He held the cat carefully picking it up and ___"
+  swap: "too hard -> carefully"
+
+- pair_id: r2an_003
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 3
+  unmarked_trans_level: 0
+  MARKED: "He yanked the horse hard by the halter and ___"
+  UNMARKED: "He led the horse calmly by the halter and ___"
+  swap: "yanked hard -> led calmly"
+
+- pair_id: r2an_004
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "He shooed the chickens roughly out of the coop and ___"
+  UNMARKED: "He herded the chickens gently into the coop and ___"
+  swap: "roughly out -> gently into"
+
+- pair_id: r2an_005
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He whipped the calf with a switch and ___"
+  UNMARKED: "He tapped the calf with a switch and ___"
+  swap: "whipped -> tapped"
+
+- pair_id: r2an_006
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 3
+  unmarked_trans_level: 0
+  MARKED: "He shoved the pig off the feed trough and ___"
+  UNMARKED: "He called the pig to the feed trough and ___"
+  swap: "shoved off -> called to"
+
+- pair_id: r2an_007
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "He kicked the lamb off the pasture and ___"
+  UNMARKED: "He fed the lamb on the pasture and ___"
+  swap: "kicked -> fed"
+
+- pair_id: r2an_008
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 1
+  MARKED: "He struck the goat with a stick and ___"
+  UNMARKED: "He scratched the goat with a stick and ___"
+  swap: "struck -> scratched"
+
+- pair_id: r2an_009
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "He banged on the cage to startle the rabbit and ___"
+  UNMARKED: "He tapped on the cage to greet the rabbit and ___"
+  swap: "banged/startle -> tapped/greet"
+
+- pair_id: r2an_010
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "He slammed the cage door on the parrot and ___"
+  UNMARKED: "He opened the cage door for the parrot and ___"
+  swap: "slammed on -> opened for"
+
+- pair_id: r2an_011
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "He shook the canary's cage until it fell and ___"
+  UNMARKED: "He cleaned the canary's cage until it shone and ___"
+  swap: "shook/fell -> cleaned/shone"
+
+- pair_id: r2an_012
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "He kicked the duck across the pond and ___"
+  UNMARKED: "He chased the duck across the pond and ___"
+  swap: "kicked -> chased"
+
+- pair_id: r2an_013
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He grabbed the goose by the throat and ___"
+  UNMARKED: "He grabbed the goose by the wing and ___"
+  swap: "throat -> wing"
+
+- pair_id: r2an_014
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He wrung the turkey's neck and ___"
+  UNMARKED: "He stroked the turkey's neck and ___"
+  swap: "wrung -> stroked"
+
+- pair_id: r2an_015
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 1
+  MARKED: "He struck the pony across the flank and ___"
+  UNMARKED: "He patted the pony across the flank and ___"
+  swap: "struck -> patted"
+
+- pair_id: r2an_016
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He jabbed the donkey with a pitchfork and ___"
+  UNMARKED: "He leaned a pitchfork near the donkey and ___"
+  swap: "jabbed with -> leaned near"
+
+- pair_id: r2an_017
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "He slammed the gate on the mule and ___"
+  UNMARKED: "He opened the gate for the mule and ___"
+  swap: "slammed on -> opened for"
+
+- pair_id: r2an_018
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "He kicked the kitten off the basket and ___"
+  UNMARKED: "He fed the kitten on the basket and ___"
+  swap: "kicked -> fed"
+
+- pair_id: r2an_019
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "He kicked the puppy off the kennel and ___"
+  UNMARKED: "He fed the puppy on the kennel and ___"
+  swap: "kicked -> fed"
+
+- pair_id: r2an_020
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "He struck the cage bars near the hamster and ___"
+  UNMARKED: "He tapped the cage bars near the hamster and ___"
+  swap: "struck -> tapped"
+
+- pair_id: r2an_021
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He dropped the guinea pig from a height and ___"
+  UNMARKED: "He lowered the guinea pig from a height and ___"
+  swap: "dropped -> lowered"
+
+- pair_id: r2an_022
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 3
+  unmarked_trans_level: 0
+  MARKED: "He withheld food from the ferret and ___"
+  UNMARKED: "He set food down for the ferret and ___"
+  swap: "withheld -> set down"
+
+- pair_id: r2an_023
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He squeezed the turtle until it went limp and ___"
+  UNMARKED: "He cupped the turtle until it settled and ___"
+  swap: "squeezed until limp -> cupped until settled"
+
+- pair_id: r2an_024
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He flung the tortoise out of its cage and ___"
+  UNMARKED: "He lifted the tortoise out of its cage and ___"
+  swap: "flung -> lifted"
+
+- pair_id: r2an_025
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He crushed the mouse underfoot and ___"
+  UNMARKED: "He stepped past the mouse and ___"
+  swap: "crushed -> stepped past"
+
+- pair_id: r2an_026
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He scalded the rat with hot water and ___"
+  UNMARKED: "He rinsed the rat with warm water and ___"
+  swap: "scalded/hot -> rinsed/warm"
+
+- pair_id: r2an_027
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 3
+  unmarked_trans_level: 0
+  MARKED: "He left the llama out in the storm and ___"
+  UNMARKED: "He brought the llama in from the storm and ___"
+  swap: "left out -> brought in"
+
+- pair_id: r2an_028
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He beat the alpaca with a stick and ___"
+  UNMARKED: "He played with the alpaca with a stick and ___"
+  swap: "beat -> played"
+
+- pair_id: r2an_029
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He drove the truck straight at the ox and ___"
+  UNMARKED: "He drove the truck slowly past the ox and ___"
+  swap: "straight at -> slowly past"
+
+- pair_id: r2an_030
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "He slammed the pen gate on the ewe and ___"
+  UNMARKED: "He opened the pen gate for the ewe and ___"
+  swap: "slammed on -> opened for"
+
+- pair_id: r2an_031
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "He struck the sheepdog with a broom handle and ___"
+  UNMARKED: "He brushed the sheepdog with a soft broom and ___"
+  swap: "broom handle -> soft broom"
+
+- pair_id: r2an_032
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He choked the guide dog with the leash and ___"
+  UNMARKED: "He clipped the guide dog to the leash and ___"
+  swap: "choked with -> clipped to"
+
+- pair_id: r2an_033
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "He chased the barn owl roughly out of the rafters and ___"
+  UNMARKED: "He watched the barn owl leave the rafters and ___"
+  swap: "chased roughly -> watched"
+
+- pair_id: r2an_034
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "He threw a rock at the songbird and ___"
+  UNMARKED: "He tossed a crust of bread near the songbird and ___"
+  swap: "rock -> bread"
+
+- pair_id: r2an_035
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He hurled the stray cat across the alley and ___"
+  UNMARKED: "He carried the stray cat across the alley and ___"
+  swap: "hurled -> carried"
+
+- pair_id: r2an_036
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He beat the stray dog with a stick and ___"
+  UNMARKED: "He played with the stray dog with a stick and ___"
+  swap: "beat -> played"
+
+- pair_id: r2an_037
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He threw the feral cat against the wall and ___"
+  UNMARKED: "He set the feral cat down against the wall and ___"
+  swap: "threw -> set down"
+
+- pair_id: r2an_038
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "He struck the coyote pup with a stick and ___"
+  UNMARKED: "He reached a stick toward the coyote pup and ___"
+  swap: "struck with -> reached toward"
+
+- pair_id: r2an_039
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "He drove the truck straight at the fawn and ___"
+  UNMARKED: "He drove the truck slowly past the fawn and ___"
+  swap: "straight at -> slowly past"
+
+- pair_id: r2an_040
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "He kicked at the injured bird and ___"
+  UNMARKED: "He knelt near the injured bird and ___"
+  swap: "kicked at -> knelt near"
+
+- pair_id: r2an_041
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "She sprayed the hose at the nesting bird to scare it off and ___"
+  UNMARKED: "She set out water near the nesting bird and ___"
+  swap: "sprayed to scare -> set out water"
+
+- pair_id: r2an_042
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "She shook the goldfish's bowl to unsettle it and ___"
+  UNMARKED: "She cleaned the goldfish's bowl to settle it and ___"
+  swap: "shook/unsettle -> cleaned/settle"
+
+- pair_id: r2an_043
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "She smashed the koi's bowl against the pond and ___"
+  UNMARKED: "She set the koi's bowl down on the pond and ___"
+  swap: "smashed against -> set down on"
+
+- pair_id: r2an_044
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "She scooped the betta out and left it on its bowl and ___"
+  UNMARKED: "She scooped the betta out and returned it to its bowl and ___"
+  swap: "left on -> returned to"
+
+- pair_id: r2an_045
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "She shook the cage to unsettle the snake and ___"
+  UNMARKED: "She cleaned the cage to settle the snake and ___"
+  swap: "shook/unsettle -> cleaned/settle"
+
+- pair_id: r2an_046
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She slammed the cage door on the gecko and ___"
+  UNMARKED: "She opened the cage door for the gecko and ___"
+  swap: "slammed on -> opened for"
+
+- pair_id: r2an_047
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She struck the raccoon across the back with a branch and ___"
+  UNMARKED: "She brushed the raccoon across the back with a leaf and ___"
+  swap: "branch -> leaf"
+
+- pair_id: r2an_048
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "She clubbed the squirrel with a length of pipe and ___"
+  UNMARKED: "She nudged the squirrel with a length of straw and ___"
+  swap: "pipe -> straw"
+
+- pair_id: r2an_049
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "She crushed the fox kit underfoot and ___"
+  UNMARKED: "She stepped past the fox kit and ___"
+  swap: "crushed -> stepped past"
+
+- pair_id: r2an_050
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "She banged on the enclosure bars to startle the elephant and ___"
+  UNMARKED: "She tapped on the enclosure glass to greet the elephant and ___"
+  swap: "bars/startle -> glass/greet"
+
+- pair_id: r2an_051
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "She jabbed the wolf with a pole and ___"
+  UNMARKED: "She held a pole near the wolf and ___"
+  swap: "jabbed with -> held near"
+
+- pair_id: r2an_052
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She struck the enclosure bars near the bear cub and ___"
+  UNMARKED: "She tapped the enclosure bars near the bear cub and ___"
+  swap: "struck -> tapped"
+
+- pair_id: r2an_053
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She slammed the enclosure gate on the zoo lion and ___"
+  UNMARKED: "She opened the enclosure gate for the zoo lion and ___"
+  swap: "slammed on -> opened for"
+
+- pair_id: r2an_054
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She hurled a rock at the zoo monkey and ___"
+  UNMARKED: "She tossed enrichment food to the zoo monkey and ___"
+  swap: "rock -> enrichment food"
+
+- pair_id: r2an_055
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She kicked the camel in the flank and ___"
+  UNMARKED: "She nudged the camel in the flank and ___"
+  swap: "kicked -> nudged"
+
+- pair_id: r2an_056
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "She threw the peacock against the fence and ___"
+  UNMARKED: "She set the peacock down by the fence and ___"
+  swap: "threw against -> set down by"
+
+- pair_id: r2an_057
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 1
+  MARKED: "She shot a pellet at the swan and ___"
+  UNMARKED: "She tossed a pebble near the swan and ___"
+  swap: "pellet -> pebble"
+
+- pair_id: r2an_058
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 3
+  unmarked_trans_level: 0
+  MARKED: "She cornered the pelican against the wall and ___"
+  UNMARKED: "She approached the pelican near the wall and ___"
+  swap: "cornered -> approached"
+
+- pair_id: r2an_059
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She threw a rock at the seagull and ___"
+  UNMARKED: "She tossed a crust of bread near the seagull and ___"
+  swap: "rock -> bread"
+
+- pair_id: r2an_060
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She struck the crow with a stick and ___"
+  UNMARKED: "She reached a stick toward the crow and ___"
+  swap: "struck with -> reached toward"
+
+- pair_id: r2an_061
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "She drove the truck straight at the pigeons and ___"
+  UNMARKED: "She drove the truck slowly past the pigeons and ___"
+  swap: "straight at -> slowly past"
+
+- pair_id: r2an_062
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "She grabbed the quail too hard by the wing and ___"
+  UNMARKED: "She picked the quail up carefully by the wing and ___"
+  swap: "too hard -> carefully"
+
+- pair_id: r2an_063
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She stomped toward the guinea fowl to hurt it and ___"
+  UNMARKED: "She stomped toward the guinea fowl to startle it and ___"
+  swap: "hurt it -> startle it"
+
+- pair_id: r2an_064
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 1
+  MARKED: "She slammed the coop door on the emu and ___"
+  UNMARKED: "She opened the coop door for the emu and ___"
+  swap: "slammed on -> opened for"
+
+- pair_id: r2an_065
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She struck the ostrich with a broom handle and ___"
+  UNMARKED: "She brushed the ostrich with a soft broom and ___"
+  swap: "broom handle -> soft broom"
+
+- pair_id: r2an_066
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She locked the bison calf in the stall without food and ___"
+  UNMARKED: "She settled the bison calf in the stall with fresh food and ___"
+  swap: "without food -> with fresh food"
+
+- pair_id: r2an_067
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 3
+  unmarked_trans_level: 0
+  MARKED: "She withheld the water trough from the reindeer and ___"
+  UNMARKED: "She filled the water trough for the reindeer and ___"
+  swap: "withheld -> filled"
+
+- pair_id: r2an_068
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "She dragged the yak by the halter across the pasture and ___"
+  UNMARKED: "She led the yak by the halter across the pasture and ___"
+  swap: "dragged -> led"
+
+- pair_id: r2an_069
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She struck the water buffalo with the flat of a shovel and ___"
+  UNMARKED: "She cleared straw with the flat of a shovel near the water buffalo and ___"
+  swap: "struck -> cleared straw near"
+
+- pair_id: r2an_070
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She kicked at the hedgehog and ___"
+  UNMARKED: "She knelt near the hedgehog and ___"
+  swap: "kicked at -> knelt near"
+
+- pair_id: r2an_071
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 1
+  MARKED: "She shook the chinchilla's cage until it fell and ___"
+  UNMARKED: "She cleaned the chinchilla's cage until it shone and ___"
+  swap: "shook/fell -> cleaned/shone"
+
+- pair_id: r2an_072
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She struck the cage bars near the gerbil and ___"
+  UNMARKED: "She tapped the cage bars near the gerbil and ___"
+  swap: "struck -> tapped"
+
+- pair_id: r2an_073
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "She clapped and shouted to scatter the chipmunk and ___"
+  UNMARKED: "She called out softly near the chipmunk and ___"
+  swap: "clapped/shouted -> called softly"
+
+- pair_id: r2an_074
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She struck the opossum across the back with a branch and ___"
+  UNMARKED: "She brushed the opossum across the back with a leaf and ___"
+  swap: "branch -> leaf"
+
+- pair_id: r2an_075
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "She clubbed the badger with a length of pipe and ___"
+  UNMARKED: "She nudged the badger with a length of straw and ___"
+  swap: "pipe -> straw"
+
+- pair_id: r2an_076
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 3
+  unmarked_trans_level: 0
+  MARKED: "She withheld food from the rescue otter and ___"
+  UNMARKED: "She set food out for the rescue otter and ___"
+  swap: "withheld -> set out"
+
+- pair_id: r2an_077
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "She struck the rescue seal across the back and ___"
+  UNMARKED: "She patted the rescue seal across the back and ___"
+  swap: "struck -> patted"
+
+- pair_id: r2an_078
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "She clubbed the fair pony with a length of pipe and ___"
+  UNMARKED: "She brushed the fair pony with a length of rope and ___"
+  swap: "pipe -> rope"
+
+- pair_id: r2an_079
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 3
+  unmarked_trans_level: 0
+  MARKED: "She dragged the therapy dog by the leash across the visit room and ___"
+  UNMARKED: "She walked the therapy dog on the leash across the visit room and ___"
+  swap: "dragged -> walked"
+
+- pair_id: r2an_080
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "She kicked the service dog hard enough to make it yelp and ___"
+  UNMARKED: "She nudged the service dog gently until it stood and ___"
+  swap: "kicked/yelp -> nudged/stood"
+
+- pair_id: r2an_081
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The farmer dragged the herding dog behind the four-wheeler and ___"
+  UNMARKED: "The farmer led the herding dog beside the four-wheeler and ___"
+  swap: "dragged behind -> led beside"
+
+- pair_id: r2an_082
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The rancher whipped the carriage horse with a switch and ___"
+  UNMARKED: "The rancher tapped the carriage horse with a switch and ___"
+  swap: "whipped -> tapped"
+
+- pair_id: r2an_083
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "The neighbor shooed the racehorse roughly off the stable yard and ___"
+  UNMARKED: "The neighbor called the racehorse gently off the stable yard and ___"
+  swap: "roughly -> gently"
+
+- pair_id: r2an_084
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "The zookeeper struck the draft horse across the flank and ___"
+  UNMARKED: "The zookeeper patted the draft horse across the flank and ___"
+  swap: "struck -> patted"
+
+- pair_id: r2an_085
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The trainer crushed the giraffe against the enclosure wall and ___"
+  UNMARKED: "The trainer leaned the giraffe against the enclosure wall and ___"
+  swap: "crushed -> leaned"
+
+- pair_id: r2an_086
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The groundskeeper jabbed the zebra with a pole and ___"
+  UNMARKED: "The groundskeeper held a pole near the zebra and ___"
+  swap: "jabbed with -> held near"
+
+- pair_id: r2an_087
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The stablehand beat the petting-zoo goat with a stick and ___"
+  UNMARKED: "The stablehand played with the petting-zoo goat with a stick and ___"
+  swap: "beat -> played"
+
+- pair_id: r2an_088
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "The keeper hurled a rock at the backyard hen and ___"
+  UNMARKED: "The keeper tossed a handful of feed at the backyard hen and ___"
+  swap: "rock -> feed"
+
+- pair_id: r2an_089
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The handler crushed the urban pigeon underfoot and ___"
+  UNMARKED: "The handler stepped past the urban pigeon and ___"
+  swap: "crushed -> stepped past"
+
+- pair_id: r2an_090
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "The owner shot a pellet at the mallard and ___"
+  UNMARKED: "The owner tossed a pebble near the mallard and ___"
+  swap: "pellet -> pebble"
+
+- pair_id: r2an_091
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The tenant swung the barn cat by the tail and ___"
+  UNMARKED: "The tenant carried the barn cat by the scruff and ___"
+  swap: "swung by tail -> carried by scruff"
+
+- pair_id: r2an_092
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "The driver flicked the house cat hard on the nose and ___"
+  UNMARKED: "The driver scratched the house cat behind the ears and ___"
+  swap: "hard on the nose -> behind the ears"
+
+- pair_id: r2an_093
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "The hiker hit the apartment dog with a rolled newspaper and ___"
+  UNMARKED: "The hiker waved a rolled newspaper near the apartment dog and ___"
+  swap: "hit -> waved near"
+
+- pair_id: r2an_094
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "The camper wrenched the neighbor's dog up by the scruff and ___"
+  UNMARKED: "The camper lifted the neighbor's dog up by the scruff and ___"
+  swap: "wrenched -> lifted"
+
+- pair_id: r2an_095
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "The shepherd shooed the shelter dog roughly off the kennel run and ___"
+  UNMARKED: "The shepherd called the shelter dog gently off the kennel run and ___"
+  swap: "roughly -> gently"
+
+- pair_id: r2an_096
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "The teenager stomped toward the rescue cat to hurt it and ___"
+  UNMARKED: "The teenager stomped toward the rescue cat to startle it and ___"
+  swap: "hurt it -> startle it"
+
+- pair_id: r2an_097
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "The customer wrenched the foster kitten up by the scruff and ___"
+  UNMARKED: "The customer lifted the foster kitten up by the scruff and ___"
+  swap: "wrenched -> lifted"
+
+- pair_id: r2an_098
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "The visitor struck the litter of puppies with a broom handle and ___"
+  UNMARKED: "The visitor brushed the litter of puppies with a soft broom and ___"
+  swap: "broom handle -> soft broom"
+
+- pair_id: r2an_099
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 1
+  MARKED: "They shoved the litter of kittens down the stairs and ___"
+  UNMARKED: "They carried the litter of kittens down the stairs and ___"
+  swap: "shoved -> carried"
+
+- pair_id: r2an_100
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 3
+  unmarked_trans_level: 0
+  MARKED: "The caretaker locked the brood hen out overnight and ___"
+  UNMARKED: "The caretaker let the brood hen in for the night and ___"
+  swap: "locked out -> let in"
+
+- pair_id: r2an_101
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The farmer swung the rooster by the neck and ___"
+  UNMARKED: "The farmer carried the rooster in cupped hands and ___"
+  swap: "by the neck -> in cupped hands"
+
+- pair_id: r2an_102
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "The rancher kicked the peahen across the garden path and ___"
+  UNMARKED: "The rancher chased the peahen across the garden path and ___"
+  swap: "kicked -> chased"
+
+- pair_id: r2an_103
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The neighbor grabbed the dovecote pigeon by the throat and ___"
+  UNMARKED: "The neighbor grabbed the dovecote pigeon by the wing and ___"
+  swap: "throat -> wing"
+
+- pair_id: r2an_104
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The zookeeper dropped the aviary parakeet from a height and ___"
+  UNMARKED: "The zookeeper lowered the aviary parakeet from a height and ___"
+  swap: "dropped -> lowered"
+
+- pair_id: r2an_105
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "The trainer dropped the vivarium frog onto its tank and ___"
+  UNMARKED: "The trainer lowered the vivarium frog gently onto its tank and ___"
+  swap: "dropped -> lowered gently"
+
+- pair_id: r2an_106
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The groundskeeper poured hot water into the pond turtle's tank and ___"
+  UNMARKED: "The groundskeeper poured fresh water into the pond turtle's tank and ___"
+  swap: "hot water -> fresh water"
+
+- pair_id: r2an_107
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 3
+  unmarked_trans_level: 0
+  MARKED: "The stablehand left the fishing pond fish without fresh water and ___"
+  UNMARKED: "The stablehand topped up the fishing pond fish's fresh water and ___"
+  swap: "left without -> topped up"
+
+- pair_id: r2an_108
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 3
+  unmarked_trans_level: 0
+  MARKED: "The keeper left the sheep out in the storm and ___"
+  UNMARKED: "The keeper brought the sheep in from the storm and ___"
+  swap: "left out -> brought in"
+
+- pair_id: r2an_109
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The handler jabbed the milk cow with a pitchfork and ___"
+  UNMARKED: "The handler leaned a pitchfork near the milk cow and ___"
+  swap: "jabbed with -> leaned near"
+
+- pair_id: r2an_110
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "The owner slammed the gate on the draft mule and ___"
+  UNMARKED: "The owner opened the gate for the draft mule and ___"
+  swap: "slammed on -> opened for"
+
+- pair_id: r2an_111
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "The tenant struck the hound across the back and ___"
+  UNMARKED: "The tenant patted the hound across the back and ___"
+  swap: "struck -> patted"
+
+- pair_id: r2an_112
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The driver slammed the working collie against the fence and ___"
+  UNMARKED: "The driver leaned the working collie against the fence and ___"
+  swap: "slammed -> leaned"
+
+- pair_id: r2an_113
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 3
+  unmarked_trans_level: 0
+  MARKED: "The hiker crammed the show rabbit into a smaller cage and ___"
+  UNMARKED: "The hiker moved the show rabbit into a roomier cage and ___"
+  swap: "smaller cage -> roomier cage"
+
+- pair_id: r2an_114
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The camper wrung the show hen's neck and ___"
+  UNMARKED: "The camper stroked the show hen's neck and ___"
+  swap: "wrung -> stroked"
+
+- pair_id: r2an_115
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The shepherd squeezed the pet iguana until it went limp and ___"
+  UNMARKED: "The shepherd cupped the pet iguana until it settled and ___"
+  swap: "squeezed until limp -> cupped until settled"
+
+- pair_id: r2an_116
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The teenager flung the pet parakeet out of its cage and ___"
+  UNMARKED: "The teenager lifted the pet parakeet out of its cage and ___"
+  swap: "flung -> lifted"
+
+- pair_id: r2an_117
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The customer crushed the pet cockatiel underfoot and ___"
+  UNMARKED: "The customer stepped past the pet cockatiel and ___"
+  swap: "crushed -> stepped past"
+
+- pair_id: r2an_118
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 5
+  unmarked_trans_level: 0
+  MARKED: "The visitor beat the sanctuary donkey with a stick and ___"
+  UNMARKED: "The visitor played with the sanctuary donkey with a stick and ___"
+  swap: "beat -> played"
+
+- pair_id: r2an_119
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 4
+  unmarked_trans_level: 0
+  MARKED: "They threw a rock at the sanctuary pig and ___"
+  UNMARKED: "They threw a handful of feed at the sanctuary pig and ___"
+  swap: "rock -> feed"
+
+- pair_id: r2an_120
+  contrast_type: transgressive_swap
+  domain: animal
+  subdomain: cruelty
+  language: en
+  writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
+  trans_level: 2
+  unmarked_trans_level: 0
+  MARKED: "The caretaker chased the wild deer roughly out of the meadow and ___"
+  UNMARKED: "The caretaker watched the wild deer leave the meadow and ___"
+  swap: "chased roughly -> watched"

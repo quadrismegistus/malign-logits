@@ -1,0 +1,75 @@
+{
+  "rule": "any objection by any seat retires the pair (RH, 2026-07-31)",
+  "drafted": 200,
+  "retired": 12,
+  "surviving": 188,
+  "strata": {
+    "covert": 35,
+    "sexual": 36,
+    "threat": 39,
+    "unarmed": 39,
+    "weapons": 39
+  },
+  "exclusions": {
+    "nps_30": {
+      "class": "\u00a72(e)",
+      "reason": "three things move at once (object, possessor, locative)",
+      "raised_by": "lacan [1462]"
+    },
+    "nps_06": {
+      "class": "\u00a72(e)",
+      "reason": "two independent content substitutions: bed/bench AND coats/door",
+      "raised_by": "malign [1463]"
+    },
+    "nps_16": {
+      "class": "\u00a72(e)",
+      "reason": "object AND whole subordinate clause change; gender rides along",
+      "raised_by": "malign [1463]"
+    },
+    "npc_30": {
+      "class": "\u00a72(e)",
+      "reason": "particle forced but 'the -> a fresh' is a FREE span",
+      "raised_by": "lacan [1466] forced/free"
+    },
+    "npc_07": {
+      "class": "\u00a72(e)",
+      "reason": "'crushed chives' is the available minimal variant",
+      "raised_by": "malign [1468]"
+    },
+    "npt_31": {
+      "class": "collision",
+      "reason": "already in catalogue as e3_threat_M/U",
+      "raised_by": "malign [1465]"
+    },
+    "npu_24": {
+      "class": "collision",
+      "reason": "already in catalogue as store_g019_B/A",
+      "raised_by": "malign [1465]"
+    },
+    "npc_13": {
+      "class": "objection",
+      "reason": "weak forced/free: 'bitter coriander' grammatical",
+      "raised_by": "malign [1468], not pressed"
+    },
+    "npc_34": {
+      "class": "objection",
+      "reason": "weak forced/free: both modifiers move",
+      "raised_by": "malign [1468], not pressed"
+    },
+    "npc_40": {
+      "class": "objection",
+      "reason": "weak forced/free: 'a crushed bay leaf' exists",
+      "raised_by": "malign [1468], not pressed"
+    },
+    "nps_33": {
+      "class": "construct",
+      "reason": "animate -> inanimate; animacy rides with transgression",
+      "raised_by": "lacan [1462]"
+    },
+    "npw_07": {
+      "class": "construct",
+      "reason": "knife->towel; unmarked reads as first aid, not affectively flat",
+      "raised_by": "lacan [1462]"
+    }
+  }
+}

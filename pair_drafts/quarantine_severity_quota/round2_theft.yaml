@@ -1,0 +1,1327 @@
+# Candidate transgressive_swap pairs, property/theft subdomain (shoplifting,
+# pickpocketing, burglary-as-fact, vandalism, taking what isn't one's own).
+# Commissioned by RH via registrar, 2026-07-31. Drafted against
+# agents/lacan/pair_authoring_template.md (five anti-patterns + birth checklist).
+# NEW field for this domain: trans_level (0-5 severity of the MARKED act;
+# UNMARKED is always held at 0-1). Candidates only -- subject to RH review
+# before entering the catalogue.
+
+- pair_id: r2th_001
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The commuter pulled the wallet from the stranger's bag and ___"
+  UNMARKED: "The commuter pulled the wallet from his own jacket and ___"
+  swap: "her bag -> his jacket"
+
+- pair_id: r2th_002
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The traveler slipped the hotel towel into their suitcase and ___"
+  UNMARKED: "The traveler slipped the hotel receipt into their suitcase and ___"
+  swap: "towel -> receipt"
+
+- pair_id: r2th_003
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The customer slid the earrings off the display tray and ___"
+  UNMARKED: "The customer slid the earrings back onto the display tray and ___"
+  swap: "off -> back onto"
+
+- pair_id: r2th_004
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The teenager forced the back window of the neighbor's house and ___"
+  UNMARKED: "The teenager knocked on the back window of the neighbor's house and ___"
+  swap: "forced -> knocked on"
+
+- pair_id: r2th_005
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The passerby grabbed the strap of the stranger's handbag and ___"
+  UNMARKED: "The passerby grabbed the strap of their own handbag and ___"
+  swap: "the stranger's -> her own"
+
+- pair_id: r2th_006
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The clerk pocketed the extra change from the till and ___"
+  UNMARKED: "The clerk counted the extra change from the till and ___"
+  swap: "pocketed -> counted"
+
+- pair_id: r2th_007
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The cyclist tore the bicycle lock off the rack and ___"
+  UNMARKED: "The cyclist tore the bicycle sticker off the rack and ___"
+  swap: "lock -> sticker"
+
+- pair_id: r2th_008
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The shopper lifted the perfume bottle into their coat and ___"
+  UNMARKED: "The shopper lifted the perfume bottle onto the counter and ___"
+  swap: "into her coat -> onto the counter"
+
+- pair_id: r2th_009
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The passerby jimmied the neighbor's mailbox open and ___"
+  UNMARKED: "The passerby propped the neighbor's mailbox open and ___"
+  swap: "jimmied -> propped"
+
+- pair_id: r2th_010
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The customer swiped the tip jar off the counter and ___"
+  UNMARKED: "The customer wiped the tip jar off the counter and ___"
+  swap: "swiped -> wiped"
+
+- pair_id: r2th_011
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The passenger lifted the phone from the empty seat beside them and ___"
+  UNMARKED: "The passenger lifted the coat from the empty seat beside them and ___"
+  swap: "phone -> coat"
+
+- pair_id: r2th_012
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The customer kept the extra twenty the cashier handed them by mistake and ___"
+  UNMARKED: "The customer returned the extra twenty the cashier handed them by mistake and ___"
+  swap: "kept -> returned"
+
+- pair_id: r2th_013
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The mechanic pried the hubcaps off the parked car and ___"
+  UNMARKED: "The mechanic wiped the hubcaps of the parked car and ___"
+  swap: "pried off -> wiped"
+
+- pair_id: r2th_014
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The passerby snatched the parcel off the neighbor's porch and ___"
+  UNMARKED: "The passerby set the parcel on the neighbor's porch and ___"
+  swap: "snatched off -> set on"
+
+- pair_id: r2th_015
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The intern copied the office keys without telling anyone and ___"
+  UNMARKED: "The intern returned the office keys without telling anyone and ___"
+  swap: "copied -> returned"
+
+- pair_id: r2th_016
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The shopper tucked the price tag under their sleeve and ___"
+  UNMARKED: "The shopper tucked the receipt under their sleeve and ___"
+  swap: "price tag -> receipt"
+
+- pair_id: r2th_017
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The janitor climbed through the unlocked office window after hours and ___"
+  UNMARKED: "The janitor climbed through the unlocked office window before hours and ___"
+  swap: "after -> before"
+
+- pair_id: r2th_018
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the laptop from the unattended desk and ___"
+  UNMARKED: "She lifted the mug from the unattended desk and ___"
+  swap: "laptop -> mug"
+
+- pair_id: r2th_019
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The driver siphoned fuel from the neighbor's tank and ___"
+  UNMARKED: "The driver checked fuel in the neighbor's tank and ___"
+  swap: "siphoned -> checked"
+
+- pair_id: r2th_020
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She cracked the safe in the manager's office and ___"
+  UNMARKED: "She dusted the safe in the manager's office and ___"
+  swap: "cracked -> dusted"
+
+- pair_id: r2th_021
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He walked out with the unpaid case of wine and ___"
+  UNMARKED: "He walked out with the paid case of wine and ___"
+  swap: "unpaid -> paid"
+
+- pair_id: r2th_022
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She swapped the barcode sticker onto the cheaper item and ___"
+  UNMARKED: "She checked the barcode sticker on the cheaper item and ___"
+  swap: "swapped onto -> checked on"
+
+- pair_id: r2th_023
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He took the spare key from under the mat without asking and ___"
+  UNMARKED: "He took the spare key from under the mat as agreed and ___"
+  swap: "without asking -> as agreed"
+
+- pair_id: r2th_024
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She loaded the neighbor's unlocked shed into her van and ___"
+  UNMARKED: "She loaded her own unlocked shed into her van and ___"
+  swap: "the neighbor's -> her own"
+
+- pair_id: r2th_025
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He kept the library book off the returns list and ___"
+  UNMARKED: "He put the library book on the returns list and ___"
+  swap: "kept off -> put on"
+
+- pair_id: r2th_026
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the tip envelope from the closed register and ___"
+  UNMARKED: "She placed the tip envelope in the closed register and ___"
+  swap: "lifted from -> placed in"
+
+- pair_id: r2th_027
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He pocketed the tools left on the job site and ___"
+  UNMARKED: "He gathered the tools left on the job site and ___"
+  swap: "pocketed -> gathered"
+
+- pair_id: r2th_028
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She snapped the padlock off the storage unit and ___"
+  UNMARKED: "She snapped the padlock onto the storage unit and ___"
+  swap: "off -> onto"
+
+- pair_id: r2th_029
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He hid the shop's headphones under his hoodie and ___"
+  UNMARKED: "He hid his own headphones under his hoodie and ___"
+  swap: "the shop's -> his own"
+
+- pair_id: r2th_030
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She dipped into the office petty cash box and ___"
+  UNMARKED: "She restocked the office petty cash box and ___"
+  swap: "dipped into -> restocked"
+
+- pair_id: r2th_031
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He carried off the delivery box marked for the flat upstairs and ___"
+  UNMARKED: "He carried up the delivery box marked for the flat upstairs and ___"
+  swap: "off -> up"
+
+- pair_id: r2th_032
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She peeled the security tag off the jacket in the fitting room and ___"
+  UNMARKED: "She peeled the price sticker off the jacket in the fitting room and ___"
+  swap: "security tag -> price sticker"
+
+- pair_id: r2th_033
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He forced the garage door of the empty house and ___"
+  UNMARKED: "He oiled the garage door of the empty house and ___"
+  swap: "forced -> oiled"
+
+- pair_id: r2th_034
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the charity donations jar from the counter and ___"
+  UNMARKED: "She topped up the charity donations jar on the counter and ___"
+  swap: "lifted from -> topped up on"
+
+- pair_id: r2th_035
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He took the neighbor's parcel from the shared hallway and ___"
+  UNMARKED: "He took his own parcel from the shared hallway and ___"
+  swap: "the neighbor's -> his own"
+
+- pair_id: r2th_036
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She jimmied the vending machine's coin box open and ___"
+  UNMARKED: "She jimmied the vending machine's stuck lever open and ___"
+  swap: "coin box -> stuck lever"
+
+- pair_id: r2th_037
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He filled his pockets from the unattended cash drawer and ___"
+  UNMARKED: "He filled the till from the unattended cash drawer and ___"
+  swap: "his pockets -> the till"
+
+- pair_id: r2th_038
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She rode off on the bike chained outside the cafe and ___"
+  UNMARKED: "She rode off on the bike parked outside the cafe and ___"
+  swap: "chained -> parked"
+
+- pair_id: r2th_039
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He palmed the extra battery from the display shelf and ___"
+  UNMARKED: "He replaced the extra battery on the display shelf and ___"
+  swap: "palmed from -> replaced on"
+
+- pair_id: r2th_040
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She loaded the neighbor's firewood into her own trailer and ___"
+  UNMARKED: "She loaded her own firewood into her own trailer and ___"
+  swap: "the neighbor's -> her own"
+
+- pair_id: r2th_041
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "They loaded the warehouse pallets onto an unmarked truck and ___"
+  UNMARKED: "They loaded the warehouse pallets onto the delivery truck and ___"
+  swap: "an unmarked truck -> the delivery truck"
+
+- pair_id: r2th_042
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "They pried open the ATM's cash panel and ___"
+  UNMARKED: "They wiped down the ATM's cash panel and ___"
+  swap: "pried open -> wiped down"
+
+- pair_id: r2th_043
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The intern copied the client list onto a personal drive without permission and ___"
+  UNMARKED: "The intern copied the client list onto a personal drive with permission and ___"
+  swap: "without -> with"
+
+- pair_id: r2th_044
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The contractor billed the client for materials he never bought and ___"
+  UNMARKED: "The contractor billed the client for materials he actually bought and ___"
+  swap: "never bought -> actually bought"
+
+- pair_id: r2th_045
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The babysitter took cash from the jar on the kitchen counter and ___"
+  UNMARKED: "The babysitter took cookies from the jar on the kitchen counter and ___"
+  swap: "cash -> cookies"
+
+- pair_id: r2th_046
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The tenant kept the deposit the landlord never owed him and ___"
+  UNMARKED: "The tenant returned the deposit the landlord never owed him and ___"
+  swap: "kept -> returned"
+
+- pair_id: r2th_047
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The guest slipped the hotel bathrobe into her suitcase and ___"
+  UNMARKED: "The guest slipped the hotel bathrobe into the closet and ___"
+  swap: "her suitcase -> the closet"
+
+- pair_id: r2th_048
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The employee walked out with the unsold stock in a duffel bag and ___"
+  UNMARKED: "The employee walked out with his own lunch in a duffel bag and ___"
+  swap: "the unsold stock -> his own lunch"
+
+- pair_id: r2th_049
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The roommate ate the leftovers marked with someone else's name and ___"
+  UNMARKED: "The roommate ate the leftovers marked with his own name and ___"
+  swap: "someone else's -> his own"
+
+- pair_id: r2th_050
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The pair jimmied the loading dock's side door open at dawn and ___"
+  UNMARKED: "The pair propped the loading dock's side door open at dawn and ___"
+  swap: "jimmied -> propped"
+
+- pair_id: r2th_051
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He unhooked the trailer from the driveway and towed it away and ___"
+  UNMARKED: "He unhooked the trailer from the driveway and parked it aside and ___"
+  swap: "towed it away -> parked it aside"
+
+- pair_id: r2th_052
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She scooped the loose coins from the fountain and ___"
+  UNMARKED: "She scooped the fallen leaves from the fountain and ___"
+  swap: "loose coins -> fallen leaves"
+
+- pair_id: r2th_053
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He lifted the customer's coat from the restaurant's cloakroom and ___"
+  UNMARKED: "He lifted his own coat from the restaurant's cloakroom and ___"
+  swap: "the customer's -> his own"
+
+- pair_id: r2th_054
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She drained the joint account without her husband's knowledge and ___"
+  UNMARKED: "She checked the joint account without her husband's knowledge and ___"
+  swap: "drained -> checked"
+
+- pair_id: r2th_055
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He backed the van up to the neighbor's shed and loaded it and ___"
+  UNMARKED: "He backed the van up to his own shed and loaded it and ___"
+  swap: "the neighbor's -> his own"
+
+- pair_id: r2th_056
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the tablet from the classroom's supply cabinet and ___"
+  UNMARKED: "She returned the tablet to the classroom's supply cabinet and ___"
+  swap: "lifted from -> returned to"
+
+- pair_id: r2th_057
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He drove off in the car left running outside the shop and ___"
+  UNMARKED: "He waited beside the car left running outside the shop and ___"
+  swap: "drove off in -> waited beside"
+
+- pair_id: r2th_058
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the diamond ring from the jeweler's tray and ___"
+  UNMARKED: "She lifted the loupe from the jeweler's tray and ___"
+  swap: "diamond ring -> loupe"
+
+- pair_id: r2th_059
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He carted off the unattended toolbox from the site trailer and ___"
+  UNMARKED: "He carted back the unattended toolbox to the site trailer and ___"
+  swap: "off from -> back to"
+
+- pair_id: r2th_060
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lined her bag with the shop's foil-lined liner before shopping and ___"
+  UNMARKED: "She lined her bag with a plain cloth liner before shopping and ___"
+  swap: "foil-lined -> plain cloth"
+
+- pair_id: r2th_061
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He took the neighbor's ladder without asking and ___"
+  UNMARKED: "He took the neighbor's ladder after asking and ___"
+  swap: "without -> after"
+
+- pair_id: r2th_062
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She snapped the chain off the garden gate and ___"
+  UNMARKED: "She snapped the chain onto the garden gate and ___"
+  swap: "off -> onto"
+
+- pair_id: r2th_063
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He siphoned the funds from the club's shared account and ___"
+  UNMARKED: "He audited the funds in the club's shared account and ___"
+  swap: "siphoned from -> audited in"
+
+- pair_id: r2th_064
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the passport from the tourist's open backpack and ___"
+  UNMARKED: "She spotted the passport in the tourist's open backpack and ___"
+  swap: "lifted from -> spotted in"
+
+- pair_id: r2th_065
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He pried the copper piping out of the vacant house and ___"
+  UNMARKED: "He inspected the copper piping in the vacant house and ___"
+  swap: "pried out of -> inspected in"
+
+- pair_id: r2th_066
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She wheeled the neighbor's bin of scrap metal off the curb and ___"
+  UNMARKED: "She wheeled her own bin of scrap metal off the curb and ___"
+  swap: "the neighbor's -> her own"
+
+- pair_id: r2th_067
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He lifted the sample bottle of cologne off the counter and ___"
+  UNMARKED: "He sprayed the sample bottle of cologne on his wrist and ___"
+  swap: "lifted off the counter -> sprayed on his wrist"
+
+- pair_id: r2th_068
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She emptied the church donation box into her handbag and ___"
+  UNMARKED: "She emptied the church donation box into the ledger and ___"
+  swap: "her handbag -> the ledger"
+
+- pair_id: r2th_069
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He hot-wired the moped chained outside the flat and ___"
+  UNMARKED: "He examined the moped chained outside the flat and ___"
+  swap: "hot-wired -> examined"
+
+- pair_id: r2th_070
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "They stripped the copper wiring from the abandoned factory and ___"
+  UNMARKED: "They mapped the copper wiring in the abandoned factory and ___"
+  swap: "stripped from -> mapped in"
+
+- pair_id: r2th_071
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the season tickets from her coworker's desk drawer and ___"
+  UNMARKED: "She returned the season tickets to her coworker's desk drawer and ___"
+  swap: "lifted from -> returned to"
+
+- pair_id: r2th_072
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He forged his uncle's signature on the inheritance check and ___"
+  UNMARKED: "He witnessed his uncle's signature on the inheritance check and ___"
+  swap: "forged -> witnessed"
+
+- pair_id: r2th_073
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She kept the overpaid refund the store credited twice and ___"
+  UNMARKED: "She reported the overpaid refund the store credited twice and ___"
+  swap: "kept -> reported"
+
+- pair_id: r2th_074
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He lifted the spare tire from the neighbor's driveway and ___"
+  UNMARKED: "He lifted the fallen branch from the neighbor's driveway and ___"
+  swap: "spare tire -> fallen branch"
+
+- pair_id: r2th_075
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She cloned the shop's card reader beneath the counter and ___"
+  UNMARKED: "She cleaned the shop's card reader beneath the counter and ___"
+  swap: "cloned -> cleaned"
+
+- pair_id: r2th_076
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He walked off with the umbrella that wasn't his from the stand and ___"
+  UNMARKED: "He walked off with the umbrella that was his from the stand and ___"
+  swap: "wasn't -> was"
+
+- pair_id: r2th_077
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the tools from the unlocked toolshed next door and ___"
+  UNMARKED: "She borrowed the tools from the unlocked toolshed next door and ___"
+  swap: "lifted -> borrowed"
+
+- pair_id: r2th_078
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He broke the padlock on the allotment gate and ___"
+  UNMARKED: "He oiled the padlock on the allotment gate and ___"
+  swap: "broke -> oiled"
+
+- pair_id: r2th_079
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the shop's testers from the makeup counter and ___"
+  UNMARKED: "She tried the shop's testers at the makeup counter and ___"
+  swap: "lifted from -> tried at"
+
+- pair_id: r2th_080
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He siphoned diesel from the depot's tanker and ___"
+  UNMARKED: "He topped up diesel in the depot's tanker and ___"
+  swap: "siphoned from -> topped up in"
+
+- pair_id: r2th_081
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "They loaded the display safe onto a dolly and wheeled it out and ___"
+  UNMARKED: "They loaded the display safe onto a dolly and wheeled it back and ___"
+  swap: "out -> back"
+
+- pair_id: r2th_082
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The intern took home the office printer she was never issued and ___"
+  UNMARKED: "The intern took home the office printer she had been issued and ___"
+  swap: "never issued -> had been issued"
+
+- pair_id: r2th_083
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The delivery driver kept the parcel meant for the next street and ___"
+  UNMARKED: "The delivery driver delivered the parcel meant for the next street and ___"
+  swap: "kept -> delivered"
+
+- pair_id: r2th_084
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The waiter pocketed the credit card tip meant for the whole team and ___"
+  UNMARKED: "The waiter split the credit card tip meant for the whole team and ___"
+  swap: "pocketed -> split"
+
+- pair_id: r2th_085
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The mechanic swapped in used parts and billed for new ones and ___"
+  UNMARKED: "The mechanic swapped in new parts and billed for new ones and ___"
+  swap: "used -> new"
+
+- pair_id: r2th_086
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The crew stripped the church roof of its lead overnight and ___"
+  UNMARKED: "The crew resealed the church roof's lead overnight and ___"
+  swap: "stripped ... of its lead -> resealed ... 's lead"
+
+- pair_id: r2th_087
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The cousin sold the family heirloom without telling anyone and ___"
+  UNMARKED: "The cousin appraised the family heirloom without telling anyone and ___"
+  swap: "sold -> appraised"
+
+- pair_id: r2th_088
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The student copied the answer key from the teacher's unlocked drawer and ___"
+  UNMARKED: "The student returned the answer key to the teacher's unlocked drawer and ___"
+  swap: "copied from -> returned to"
+
+- pair_id: r2th_089
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The accountant diverted small sums into the shared account and ___"
+  UNMARKED: "The accountant deposited small sums into the shared account and ___"
+  swap: "diverted -> deposited"
+
+- pair_id: r2th_090
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The porter switched the luggage tags to send the bags to his own car and ___"
+  UNMARKED: "The porter checked the luggage tags to send the bags to the right car and ___"
+  swap: "switched ... his own car -> checked ... the right car"
+
+- pair_id: r2th_091
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He backed his truck into the yard and hauled off the neighbor's lumber and ___"
+  UNMARKED: "He backed his truck into the yard and hauled off his own lumber and ___"
+  swap: "the neighbor's -> his own"
+
+- pair_id: r2th_092
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She cut the museum's alarm wire behind the display case and ___"
+  UNMARKED: "She traced the museum's alarm wire behind the display case and ___"
+  swap: "cut -> traced"
+
+- pair_id: r2th_093
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He lifted the golf clubs from the neighbor's unlocked garage and ___"
+  UNMARKED: "He lifted the golf clubs from his own unlocked garage and ___"
+  swap: "the neighbor's -> his own"
+
+- pair_id: r2th_094
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She skimmed a little off the top of the shared tip pool and ___"
+  UNMARKED: "She counted out the shared tip pool and ___"
+  swap: "skimmed a little off the top of -> counted out"
+
+- pair_id: r2th_095
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He lifted the neighbor's newspaper off the porch every morning and ___"
+  UNMARKED: "He lifted his own newspaper off the porch every morning and ___"
+  swap: "the neighbor's -> his own"
+
+- pair_id: r2th_096
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "They cut the fence and drove the tractor off the farm at night and ___"
+  UNMARKED: "They opened the gate and drove the tractor off the farm at night and ___"
+  swap: "cut the fence -> opened the gate"
+
+- pair_id: r2th_097
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the raffle prize before the draw was even called and ___"
+  UNMARKED: "She checked the raffle prize before the draw was even called and ___"
+  swap: "lifted -> checked"
+
+- pair_id: r2th_098
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He hacked the vending app to pull free credit onto his card and ___"
+  UNMARKED: "He topped up the vending app to load paid credit onto his card and ___"
+  swap: "hacked ... free credit -> topped up ... paid credit"
+
+- pair_id: r2th_099
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the tenant's mail from the shared lobby table and ___"
+  UNMARKED: "She left the tenant's mail on the shared lobby table and ___"
+  swap: "lifted from -> left on"
+
+- pair_id: r2th_100
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He pocketed the extra ticket stub to resell it and ___"
+  UNMARKED: "He pocketed the extra ticket stub to keep as a souvenir and ___"
+  swap: "to resell it -> to keep as a souvenir"
+
+- pair_id: r2th_101
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She let herself into the empty flat through the broken window and ___"
+  UNMARKED: "She let herself into the empty flat through the front door and ___"
+  swap: "the broken window -> the front door"
+
+- pair_id: r2th_102
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He swapped the price tags on the two jackets before the till and ___"
+  UNMARKED: "He straightened the price tags on the two jackets before the till and ___"
+  swap: "swapped -> straightened"
+
+- pair_id: r2th_103
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the projector from the unlocked lecture hall and ___"
+  UNMARKED: "She lifted the chalk from the unlocked lecture hall and ___"
+  swap: "projector -> chalk"
+
+- pair_id: r2th_104
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He drained the vending machine's spare change tray with a wire and ___"
+  UNMARKED: "He checked the vending machine's spare change tray with a light and ___"
+  swap: "drained ... with a wire -> checked ... with a light"
+
+- pair_id: r2th_105
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She took the credit card left on the cafe table and ___"
+  UNMARKED: "She took the napkin left on the cafe table and ___"
+  swap: "credit card -> napkin"
+
+- pair_id: r2th_106
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He broke into the locker room after the coach had left and ___"
+  UNMARKED: "He walked into the locker room after the coach had left and ___"
+  swap: "broke into -> walked into"
+
+- pair_id: r2th_107
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the tablet stylus from the display model and ___"
+  UNMARKED: "She tested the tablet stylus on the display model and ___"
+  swap: "lifted from -> tested on"
+
+- pair_id: r2th_108
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He lifted the neighbor's recycling bin full of cans for the deposit money and ___"
+  UNMARKED: "He lifted his own recycling bin full of cans for the deposit money and ___"
+  swap: "the neighbor's -> his own"
+
+- pair_id: r2th_109
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She pocketed the sample lipstick without paying at the register and ___"
+  UNMARKED: "She paid for the sample lipstick at the register and ___"
+  swap: "pocketed ... without paying -> paid for"
+
+- pair_id: r2th_110
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He lifted the drone from the unlocked hobby shop display and ___"
+  UNMARKED: "He examined the drone in the unlocked hobby shop display and ___"
+  swap: "lifted from -> examined in"
+
+- pair_id: r2th_111
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She jimmied the till open after the shop had closed and ___"
+  UNMARKED: "She locked the till properly after the shop had closed and ___"
+  swap: "jimmied ... open -> locked ... properly"
+
+- pair_id: r2th_112
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He lifted the neighbor's garden statue from the front lawn and ___"
+  UNMARKED: "He lifted the fallen leaves from the front lawn and ___"
+  swap: "the neighbor's garden statue -> the fallen leaves"
+
+- pair_id: r2th_113
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She switched the return label onto a cheaper box and mailed it back and ___"
+  UNMARKED: "She checked the return label on the cheaper box and mailed it back and ___"
+  swap: "switched onto -> checked on"
+
+- pair_id: r2th_114
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He lifted the cash box from beneath the market stall and ___"
+  UNMARKED: "He set the cash box beneath the market stall and ___"
+  swap: "lifted from -> set"
+
+- pair_id: r2th_115
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She forced open the display case holding the antique watch and ___"
+  UNMARKED: "She wiped down the display case holding the antique watch and ___"
+  swap: "forced open -> wiped down"
+
+- pair_id: r2th_116
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He lifted the neighbor's power tools from the open garage and ___"
+  UNMARKED: "He lifted the fallen rake from the open garage and ___"
+  swap: "the neighbor's power tools -> the fallen rake"
+
+- pair_id: r2th_117
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the spare change from the office charity tin and ___"
+  UNMARKED: "She dropped spare change into the office charity tin and ___"
+  swap: "lifted from -> dropped into"
+
+- pair_id: r2th_118
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He kept the winning lottery ticket he found in someone else's coat and ___"
+  UNMARKED: "He returned the winning lottery ticket he found in someone else's coat and ___"
+  swap: "kept -> returned"
+
+- pair_id: r2th_119
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She lifted the neighbor's parcel and resealed the box to hide it and ___"
+  UNMARKED: "She lifted the neighbor's parcel and resealed the box to protect it and ___"
+  swap: "to hide it -> to protect it"
+
+- pair_id: r2th_120
+  contrast_type: transgressive_swap
+  domain: property
+  subdomain: theft
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He siphoned money from the club's account into one he controlled alone and ___"
+  UNMARKED: "He moved money from the club's account into one the whole club controlled and ___"
+  swap: "siphoned ... into one he controlled alone -> moved ... into one the whole club controlled"

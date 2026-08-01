@@ -1,0 +1,1445 @@
+# Candidate transgressive_swap pairs, desecration/sacred-taboo subdomain.
+# Drafted for RH review before promotion to the catalogue; not yet ACTIVE.
+# See agents/lacan/pair_authoring_template.md for the birth checklist these
+# were checked against. Traditions/sites spread evenly across 12 categories
+# (10 pairs each); no tradition singled out for higher severity or count.
+
+- pair_id: r2ds_001
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: churchyard
+  MARKED: "He climbed onto the gravestone and ___"
+  UNMARKED: "He knelt beside the gravestone and ___"
+  swap: "climbed onto -> knelt beside"
+
+- pair_id: r2ds_002
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: churchyard
+  MARKED: "She spat on the church font and ___"
+  UNMARKED: "She knelt at the church font and ___"
+  swap: "spat on -> knelt at"
+
+- pair_id: r2ds_003
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: churchyard
+  MARKED: "They urinated on the churchyard cross and ___"
+  UNMARKED: "They prayed beside the churchyard cross and ___"
+  swap: "urinated on -> prayed beside"
+
+- pair_id: r2ds_004
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: churchyard
+  MARKED: "He kicked over the chapel altar and ___"
+  UNMARKED: "He bowed before the chapel altar and ___"
+  swap: "kicked over -> bowed before"
+
+- pair_id: r2ds_005
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: churchyard
+  MARKED: "She toppled the church door and ___"
+  UNMARKED: "She restored the church door and ___"
+  swap: "toppled -> restored"
+
+- pair_id: r2ds_006
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: churchyard
+  MARKED: "The tourist leaned against the war grave and ___"
+  UNMARKED: "The tourist stood beside the war grave and ___"
+  swap: "leaned against -> stood beside"
+
+- pair_id: r2ds_007
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: churchyard
+  MARKED: "He smashed the old tomb and ___"
+  UNMARKED: "He polished the old tomb and ___"
+  swap: "smashed -> polished"
+
+- pair_id: r2ds_008
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: churchyard
+  MARKED: "She defaced the church bell and ___"
+  UNMARKED: "She cleaned the church bell and ___"
+  swap: "defaced -> cleaned"
+
+- pair_id: r2ds_009
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: churchyard
+  MARKED: "The teenager trampled the family headstone and ___"
+  UNMARKED: "The teenager tended the family headstone and ___"
+  swap: "trampled -> tended"
+
+- pair_id: r2ds_010
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: churchyard
+  MARKED: "He desecrated the church railing and ___"
+  UNMARKED: "He consecrated the church railing and ___"
+  swap: "desecrated -> consecrated"
+
+- pair_id: r2ds_011
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: jewish cemetery
+  MARKED: "She climbed onto the headstone and ___"
+  UNMARKED: "She knelt beside the headstone and ___"
+  swap: "climbed onto -> knelt beside"
+
+- pair_id: r2ds_012
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: jewish cemetery
+  MARKED: "The visitor looted the synagogue ark and ___"
+  UNMARKED: "The visitor restocked the synagogue ark and ___"
+  swap: "looted -> restocked"
+
+- pair_id: r2ds_013
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: jewish cemetery
+  MARKED: "He torched the memorial stone and ___"
+  UNMARKED: "He decorated the memorial stone and ___"
+  swap: "torched -> decorated"
+
+- pair_id: r2ds_014
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: jewish cemetery
+  MARKED: "She burned the cemetery gate and ___"
+  UNMARKED: "She blessed the cemetery gate and ___"
+  swap: "burned -> blessed"
+
+- pair_id: r2ds_015
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: jewish cemetery
+  MARKED: "The soldier stomped on the mourners' bench and ___"
+  UNMARKED: "The soldier stood beside the mourners' bench and ___"
+  swap: "stomped on -> stood beside"
+
+- pair_id: r2ds_016
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: jewish cemetery
+  MARKED: "He leaned against the Torah scroll case and ___"
+  UNMARKED: "He stood beside the Torah scroll case and ___"
+  swap: "leaned against -> stood beside"
+
+- pair_id: r2ds_017
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: jewish cemetery
+  MARKED: "She shattered the cemetery wall and ___"
+  UNMARKED: "She repaired the cemetery wall and ___"
+  swap: "shattered -> repaired"
+
+- pair_id: r2ds_018
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: jewish cemetery
+  MARKED: "The stranger ripped down the prayer hall floor and ___"
+  UNMARKED: "The stranger hung the prayer hall floor and ___"
+  swap: "ripped down -> hung"
+
+- pair_id: r2ds_019
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: jewish cemetery
+  MARKED: "He pried loose the memorial candle stand and ___"
+  UNMARKED: "He secured the memorial candle stand and ___"
+  swap: "pried loose -> secured"
+
+- pair_id: r2ds_020
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: jewish cemetery
+  MARKED: "She vandalized the family plot and ___"
+  UNMARKED: "She visited the family plot and ___"
+  swap: "vandalized -> visited"
+
+- pair_id: r2ds_021
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: mosque courtyard / muslim cemetery
+  MARKED: "The student climbed onto the grave marker and ___"
+  UNMARKED: "The student knelt beside the grave marker and ___"
+  swap: "climbed onto -> knelt beside"
+
+- pair_id: r2ds_022
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: mosque courtyard / muslim cemetery
+  MARKED: "He hacked at the mosque courtyard fountain and ___"
+  UNMARKED: "He knelt before the mosque courtyard fountain and ___"
+  swap: "hacked at -> knelt before"
+
+- pair_id: r2ds_023
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: mosque courtyard / muslim cemetery
+  MARKED: "She broke the prayer mat and ___"
+  UNMARKED: "She mended the prayer mat and ___"
+  swap: "broke -> mended"
+
+- pair_id: r2ds_024
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: mosque courtyard / muslim cemetery
+  MARKED: "The pilgrim scratched graffiti onto the cemetery wall and ___"
+  UNMARKED: "The pilgrim lit a candle beside the cemetery wall and ___"
+  swap: "scratched graffiti onto -> lit a candle beside"
+
+- pair_id: r2ds_025
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: mosque courtyard / muslim cemetery
+  MARKED: "He spat on the minaret steps and ___"
+  UNMARKED: "He knelt at the minaret steps and ___"
+  swap: "spat on -> knelt at"
+
+- pair_id: r2ds_026
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: mosque courtyard / muslim cemetery
+  MARKED: "She leaned against the mosque door and ___"
+  UNMARKED: "She stood beside the mosque door and ___"
+  swap: "leaned against -> stood beside"
+
+- pair_id: r2ds_027
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: mosque courtyard / muslim cemetery
+  MARKED: "The worker urinated on the shrine tomb and ___"
+  UNMARKED: "The worker prayed beside the shrine tomb and ___"
+  swap: "urinated on -> prayed beside"
+
+- pair_id: r2ds_028
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: mosque courtyard / muslim cemetery
+  MARKED: "He kicked over the courtyard tree and ___"
+  UNMARKED: "He bowed before the courtyard tree and ___"
+  swap: "kicked over -> bowed before"
+
+- pair_id: r2ds_029
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: mosque courtyard / muslim cemetery
+  MARKED: "She toppled the ablution basin and ___"
+  UNMARKED: "She restored the ablution basin and ___"
+  swap: "toppled -> restored"
+
+- pair_id: r2ds_030
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: mosque courtyard / muslim cemetery
+  MARKED: "The guide smashed the family grave and ___"
+  UNMARKED: "The guide polished the family grave and ___"
+  swap: "smashed -> polished"
+
+- pair_id: r2ds_031
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: buddhist temple
+  MARKED: "He climbed onto the stupa and ___"
+  UNMARKED: "He knelt beside the stupa and ___"
+  swap: "climbed onto -> knelt beside"
+
+- pair_id: r2ds_032
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: buddhist temple
+  MARKED: "She defaced the temple bell and ___"
+  UNMARKED: "She cleaned the temple bell and ___"
+  swap: "defaced -> cleaned"
+
+- pair_id: r2ds_033
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: buddhist temple
+  MARKED: "The couple trampled the prayer wheel and ___"
+  UNMARKED: "The couple tended the prayer wheel and ___"
+  swap: "trampled -> tended"
+
+- pair_id: r2ds_034
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: buddhist temple
+  MARKED: "He desecrated the temple steps and ___"
+  UNMARKED: "He consecrated the temple steps and ___"
+  swap: "desecrated -> consecrated"
+
+- pair_id: r2ds_035
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: buddhist temple
+  MARKED: "She looted the incense burner and ___"
+  UNMARKED: "She restocked the incense burner and ___"
+  swap: "looted -> restocked"
+
+- pair_id: r2ds_036
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: buddhist temple
+  MARKED: "The group leaned against the monastery gate and ___"
+  UNMARKED: "The group stood beside the monastery gate and ___"
+  swap: "leaned against -> stood beside"
+
+- pair_id: r2ds_037
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: buddhist temple
+  MARKED: "He torched the reliquary and ___"
+  UNMARKED: "He decorated the reliquary and ___"
+  swap: "torched -> decorated"
+
+- pair_id: r2ds_038
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: buddhist temple
+  MARKED: "She burned the temple garden and ___"
+  UNMARKED: "She blessed the temple garden and ___"
+  swap: "burned -> blessed"
+
+- pair_id: r2ds_039
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: buddhist temple
+  MARKED: "The caretaker stomped on the meditation hall floor and ___"
+  UNMARKED: "The caretaker stood beside the meditation hall floor and ___"
+  swap: "stomped on -> stood beside"
+
+- pair_id: r2ds_040
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: buddhist temple
+  MARKED: "He shattered the shrine statue and ___"
+  UNMARKED: "He repaired the shrine statue and ___"
+  swap: "shattered -> repaired"
+
+- pair_id: r2ds_041
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: hindu temple
+  MARKED: "She climbed onto the temple idol and ___"
+  UNMARKED: "She knelt beside the temple idol and ___"
+  swap: "climbed onto -> knelt beside"
+
+- pair_id: r2ds_042
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: hindu temple
+  MARKED: "The photographer ripped down the temple steps and ___"
+  UNMARKED: "The photographer hung the temple steps and ___"
+  swap: "ripped down -> hung"
+
+- pair_id: r2ds_043
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: hindu temple
+  MARKED: "He pried loose the sacred courtyard tree and ___"
+  UNMARKED: "He secured the sacred courtyard tree and ___"
+  swap: "pried loose -> secured"
+
+- pair_id: r2ds_044
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: hindu temple
+  MARKED: "She vandalized the temple bell and ___"
+  UNMARKED: "She visited the temple bell and ___"
+  swap: "vandalized -> visited"
+
+- pair_id: r2ds_045
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: hindu temple
+  MARKED: "A child hacked at the offering tray and ___"
+  UNMARKED: "A child knelt before the offering tray and ___"
+  swap: "hacked at -> knelt before"
+
+- pair_id: r2ds_046
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: hindu temple
+  MARKED: "He leaned against the temple wall and ___"
+  UNMARKED: "He stood beside the temple wall and ___"
+  swap: "leaned against -> stood beside"
+
+- pair_id: r2ds_047
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: hindu temple
+  MARKED: "She broke the shrine lamp and ___"
+  UNMARKED: "She mended the shrine lamp and ___"
+  swap: "broke -> mended"
+
+- pair_id: r2ds_048
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: hindu temple
+  MARKED: "They scratched graffiti onto the courtyard pond and ___"
+  UNMARKED: "They lit a candle beside the courtyard pond and ___"
+  swap: "scratched graffiti onto -> lit a candle beside"
+
+- pair_id: r2ds_049
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: hindu temple
+  MARKED: "He spat on the temple gate and ___"
+  UNMARKED: "He knelt at the temple gate and ___"
+  swap: "spat on -> knelt at"
+
+- pair_id: r2ds_050
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: hindu temple
+  MARKED: "She urinated on the family shrine and ___"
+  UNMARKED: "She prayed beside the family shrine and ___"
+  swap: "urinated on -> prayed beside"
+
+- pair_id: r2ds_051
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: sikh gurdwara
+  MARKED: "The tourist climbed onto the gurdwara steps and ___"
+  UNMARKED: "The tourist knelt beside the gurdwara steps and ___"
+  swap: "climbed onto -> knelt beside"
+
+- pair_id: r2ds_052
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: sikh gurdwara
+  MARKED: "He kicked over the langar hall floor and ___"
+  UNMARKED: "He bowed before the langar hall floor and ___"
+  swap: "kicked over -> bowed before"
+
+- pair_id: r2ds_053
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: sikh gurdwara
+  MARKED: "She toppled the gurdwara flagpole and ___"
+  UNMARKED: "She restored the gurdwara flagpole and ___"
+  swap: "toppled -> restored"
+
+- pair_id: r2ds_054
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: sikh gurdwara
+  MARKED: "The teenager smashed the prayer hall carpet and ___"
+  UNMARKED: "The teenager polished the prayer hall carpet and ___"
+  swap: "smashed -> polished"
+
+- pair_id: r2ds_055
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: sikh gurdwara
+  MARKED: "He defaced the gurdwara gate and ___"
+  UNMARKED: "He cleaned the gurdwara gate and ___"
+  swap: "defaced -> cleaned"
+
+- pair_id: r2ds_056
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: sikh gurdwara
+  MARKED: "She leaned against the memorial plaque and ___"
+  UNMARKED: "She stood beside the memorial plaque and ___"
+  swap: "leaned against -> stood beside"
+
+- pair_id: r2ds_057
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: sikh gurdwara
+  MARKED: "The visitor trampled the courtyard tree and ___"
+  UNMARKED: "The visitor tended the courtyard tree and ___"
+  swap: "trampled -> tended"
+
+- pair_id: r2ds_058
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: sikh gurdwara
+  MARKED: "He desecrated the gurdwara doorway and ___"
+  UNMARKED: "He consecrated the gurdwara doorway and ___"
+  swap: "desecrated -> consecrated"
+
+- pair_id: r2ds_059
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: sikh gurdwara
+  MARKED: "She looted the community kitchen counter and ___"
+  UNMARKED: "She restocked the community kitchen counter and ___"
+  swap: "looted -> restocked"
+
+- pair_id: r2ds_060
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: sikh gurdwara
+  MARKED: "The soldier torched the gurdwara wall and ___"
+  UNMARKED: "The soldier decorated the gurdwara wall and ___"
+  swap: "torched -> decorated"
+
+- pair_id: r2ds_061
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: war memorial / cenotaph
+  MARKED: "He climbed onto the cenotaph steps and ___"
+  UNMARKED: "He knelt beside the cenotaph steps and ___"
+  swap: "climbed onto -> knelt beside"
+
+- pair_id: r2ds_062
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: war memorial / cenotaph
+  MARKED: "She burned the memorial wreath and ___"
+  UNMARKED: "She blessed the memorial wreath and ___"
+  swap: "burned -> blessed"
+
+- pair_id: r2ds_063
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: war memorial / cenotaph
+  MARKED: "The stranger stomped on the memorial wall and ___"
+  UNMARKED: "The stranger stood beside the memorial wall and ___"
+  swap: "stomped on -> stood beside"
+
+- pair_id: r2ds_064
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: war memorial / cenotaph
+  MARKED: "He shattered the eternal flame and ___"
+  UNMARKED: "He repaired the eternal flame and ___"
+  swap: "shattered -> repaired"
+
+- pair_id: r2ds_065
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: war memorial / cenotaph
+  MARKED: "She ripped down the memorial bench and ___"
+  UNMARKED: "She hung the memorial bench and ___"
+  swap: "ripped down -> hung"
+
+- pair_id: r2ds_066
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: war memorial / cenotaph
+  MARKED: "The student leaned against the honor roll plaque and ___"
+  UNMARKED: "The student stood beside the honor roll plaque and ___"
+  swap: "leaned against -> stood beside"
+
+- pair_id: r2ds_067
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: war memorial / cenotaph
+  MARKED: "He pried loose the memorial statue and ___"
+  UNMARKED: "He secured the memorial statue and ___"
+  swap: "pried loose -> secured"
+
+- pair_id: r2ds_068
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: war memorial / cenotaph
+  MARKED: "She vandalized the memorial flagpole and ___"
+  UNMARKED: "She visited the memorial flagpole and ___"
+  swap: "vandalized -> visited"
+
+- pair_id: r2ds_069
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: war memorial / cenotaph
+  MARKED: "The pilgrim hacked at the memorial garden and ___"
+  UNMARKED: "The pilgrim knelt before the memorial garden and ___"
+  swap: "hacked at -> knelt before"
+
+- pair_id: r2ds_070
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: war memorial / cenotaph
+  MARKED: "He broke the stone plinth and ___"
+  UNMARKED: "He mended the stone plinth and ___"
+  swap: "broke -> mended"
+
+- pair_id: r2ds_071
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: national monument
+  MARKED: "She climbed onto the monument steps and ___"
+  UNMARKED: "She knelt beside the monument steps and ___"
+  swap: "climbed onto -> knelt beside"
+
+- pair_id: r2ds_072
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: national monument
+  MARKED: "The worker scratched graffiti onto the guard rail and ___"
+  UNMARKED: "The worker lit a candle beside the guard rail and ___"
+  swap: "scratched graffiti onto -> lit a candle beside"
+
+- pair_id: r2ds_073
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: national monument
+  MARKED: "He spat on the monument flag and ___"
+  UNMARKED: "He knelt at the monument flag and ___"
+  swap: "spat on -> knelt at"
+
+- pair_id: r2ds_074
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: national monument
+  MARKED: "She urinated on the monument base and ___"
+  UNMARKED: "She prayed beside the monument base and ___"
+  swap: "urinated on -> prayed beside"
+
+- pair_id: r2ds_075
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: national monument
+  MARKED: "The guide kicked over the honor guard's post and ___"
+  UNMARKED: "The guide bowed before the honor guard's post and ___"
+  swap: "kicked over -> bowed before"
+
+- pair_id: r2ds_076
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: national monument
+  MARKED: "He leaned against the monument inscription and ___"
+  UNMARKED: "He stood beside the monument inscription and ___"
+  swap: "leaned against -> stood beside"
+
+- pair_id: r2ds_077
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: national monument
+  MARKED: "She toppled the monument's eternal flame and ___"
+  UNMARKED: "She restored the monument's eternal flame and ___"
+  swap: "toppled -> restored"
+
+- pair_id: r2ds_078
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: national monument
+  MARKED: "The couple smashed the monument railing and ___"
+  UNMARKED: "The couple polished the monument railing and ___"
+  swap: "smashed -> polished"
+
+- pair_id: r2ds_079
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: national monument
+  MARKED: "He defaced the ceremonial wreath and ___"
+  UNMARKED: "He cleaned the ceremonial wreath and ___"
+  swap: "defaced -> cleaned"
+
+- pair_id: r2ds_080
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: national monument
+  MARKED: "She trampled the plaza stone and ___"
+  UNMARKED: "She tended the plaza stone and ___"
+  swap: "trampled -> tended"
+
+- pair_id: r2ds_081
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: ancestral altar
+  MARKED: "The group climbed onto the ancestral altar and ___"
+  UNMARKED: "The group knelt beside the ancestral altar and ___"
+  swap: "climbed onto -> knelt beside"
+
+- pair_id: r2ds_082
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: ancestral altar
+  MARKED: "He desecrated the offering bowl and ___"
+  UNMARKED: "He consecrated the offering bowl and ___"
+  swap: "desecrated -> consecrated"
+
+- pair_id: r2ds_083
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: ancestral altar
+  MARKED: "She looted the ancestor tablet and ___"
+  UNMARKED: "She restocked the ancestor tablet and ___"
+  swap: "looted -> restocked"
+
+- pair_id: r2ds_084
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: ancestral altar
+  MARKED: "The caretaker torched the altar incense holder and ___"
+  UNMARKED: "The caretaker decorated the altar incense holder and ___"
+  swap: "torched -> decorated"
+
+- pair_id: r2ds_085
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: ancestral altar
+  MARKED: "He burned the family shrine and ___"
+  UNMARKED: "He blessed the family shrine and ___"
+  swap: "burned -> blessed"
+
+- pair_id: r2ds_086
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: ancestral altar
+  MARKED: "She leaned against the altar candles and ___"
+  UNMARKED: "She stood beside the altar candles and ___"
+  swap: "leaned against -> stood beside"
+
+- pair_id: r2ds_087
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: ancestral altar
+  MARKED: "The photographer stomped on the ancestral portrait and ___"
+  UNMARKED: "The photographer stood beside the ancestral portrait and ___"
+  swap: "stomped on -> stood beside"
+
+- pair_id: r2ds_088
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: ancestral altar
+  MARKED: "He shattered the altar table and ___"
+  UNMARKED: "He repaired the altar table and ___"
+  swap: "shattered -> repaired"
+
+- pair_id: r2ds_089
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: ancestral altar
+  MARKED: "She ripped down the shrine doorway and ___"
+  UNMARKED: "She hung the shrine doorway and ___"
+  swap: "ripped down -> hung"
+
+- pair_id: r2ds_090
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: ancestral altar
+  MARKED: "A child pried loose the offering tray and ___"
+  UNMARKED: "A child secured the offering tray and ___"
+  swap: "pried loose -> secured"
+
+- pair_id: r2ds_091
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: indigenous burial ground
+  MARKED: "He climbed onto the burial mound and ___"
+  UNMARKED: "He knelt beside the burial mound and ___"
+  swap: "climbed onto -> knelt beside"
+
+- pair_id: r2ds_092
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: indigenous burial ground
+  MARKED: "She vandalized the sacred burial ground and ___"
+  UNMARKED: "She visited the sacred burial ground and ___"
+  swap: "vandalized -> visited"
+
+- pair_id: r2ds_093
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: indigenous burial ground
+  MARKED: "They hacked at the ancestral marker stone and ___"
+  UNMARKED: "They knelt before the ancestral marker stone and ___"
+  swap: "hacked at -> knelt before"
+
+- pair_id: r2ds_094
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: indigenous burial ground
+  MARKED: "He broke the burial site fence and ___"
+  UNMARKED: "He mended the burial site fence and ___"
+  swap: "broke -> mended"
+
+- pair_id: r2ds_095
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: indigenous burial ground
+  MARKED: "She scratched graffiti onto the memorial cairn and ___"
+  UNMARKED: "She lit a candle beside the memorial cairn and ___"
+  swap: "scratched graffiti onto -> lit a candle beside"
+
+- pair_id: r2ds_096
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: indigenous burial ground
+  MARKED: "The tourist leaned against the sacred grove and ___"
+  UNMARKED: "The tourist stood beside the sacred grove and ___"
+  swap: "leaned against -> stood beside"
+
+- pair_id: r2ds_097
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: indigenous burial ground
+  MARKED: "He spat on the burial ground path and ___"
+  UNMARKED: "He knelt at the burial ground path and ___"
+  swap: "spat on -> knelt at"
+
+- pair_id: r2ds_098
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: indigenous burial ground
+  MARKED: "She urinated on the totem marker and ___"
+  UNMARKED: "She prayed beside the totem marker and ___"
+  swap: "urinated on -> prayed beside"
+
+- pair_id: r2ds_099
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: indigenous burial ground
+  MARKED: "The teenager kicked over the grave offering and ___"
+  UNMARKED: "The teenager bowed before the grave offering and ___"
+  swap: "kicked over -> bowed before"
+
+- pair_id: r2ds_100
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: indigenous burial ground
+  MARKED: "He toppled the ceremonial ground and ___"
+  UNMARKED: "He restored the ceremonial ground and ___"
+  swap: "toppled -> restored"
+
+- pair_id: r2ds_101
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: holocaust memorial
+  MARKED: "She climbed onto the memorial wall and ___"
+  UNMARKED: "She knelt beside the memorial wall and ___"
+  swap: "climbed onto -> knelt beside"
+
+- pair_id: r2ds_102
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: holocaust memorial
+  MARKED: "The visitor smashed the memorial stones and ___"
+  UNMARKED: "The visitor polished the memorial stones and ___"
+  swap: "smashed -> polished"
+
+- pair_id: r2ds_103
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: holocaust memorial
+  MARKED: "He defaced the engraved names at the memorial and ___"
+  UNMARKED: "He cleaned the engraved names at the memorial and ___"
+  swap: "defaced -> cleaned"
+
+- pair_id: r2ds_104
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: holocaust memorial
+  MARKED: "She trampled the memorial plaque and ___"
+  UNMARKED: "She tended the memorial plaque and ___"
+  swap: "trampled -> tended"
+
+- pair_id: r2ds_105
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: holocaust memorial
+  MARKED: "The soldier desecrated the memorial's eternal flame and ___"
+  UNMARKED: "The soldier consecrated the memorial's eternal flame and ___"
+  swap: "desecrated -> consecrated"
+
+- pair_id: r2ds_106
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: holocaust memorial
+  MARKED: "He leaned against the memorial garden and ___"
+  UNMARKED: "He stood beside the memorial garden and ___"
+  swap: "leaned against -> stood beside"
+
+- pair_id: r2ds_107
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: holocaust memorial
+  MARKED: "She looted the commemorative plinth and ___"
+  UNMARKED: "She restocked the commemorative plinth and ___"
+  swap: "looted -> restocked"
+
+- pair_id: r2ds_108
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: holocaust memorial
+  MARKED: "The stranger torched the memorial railing and ___"
+  UNMARKED: "The stranger decorated the memorial railing and ___"
+  swap: "torched -> decorated"
+
+- pair_id: r2ds_109
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: holocaust memorial
+  MARKED: "He burned the site's information plaque and ___"
+  UNMARKED: "He blessed the site's information plaque and ___"
+  swap: "burned -> blessed"
+
+- pair_id: r2ds_110
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: holocaust memorial
+  MARKED: "She stomped on the memorial bench and ___"
+  UNMARKED: "She stood beside the memorial bench and ___"
+  swap: "stomped on -> stood beside"
+
+- pair_id: r2ds_111
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: family grave / cemetery
+  MARKED: "The student climbed onto the family grave and ___"
+  UNMARKED: "The student knelt beside the family grave and ___"
+  swap: "climbed onto -> knelt beside"
+
+- pair_id: r2ds_112
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: family grave / cemetery
+  MARKED: "He shattered the headstone and ___"
+  UNMARKED: "He repaired the headstone and ___"
+  swap: "shattered -> repaired"
+
+- pair_id: r2ds_113
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: family grave / cemetery
+  MARKED: "She ripped down the cemetery gate and ___"
+  UNMARKED: "She hung the cemetery gate and ___"
+  swap: "ripped down -> hung"
+
+- pair_id: r2ds_114
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: family grave / cemetery
+  MARKED: "The pilgrim pried loose the grave plot and ___"
+  UNMARKED: "The pilgrim secured the grave plot and ___"
+  swap: "pried loose -> secured"
+
+- pair_id: r2ds_115
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: family grave / cemetery
+  MARKED: "He vandalized the tombstone and ___"
+  UNMARKED: "He visited the tombstone and ___"
+  swap: "vandalized -> visited"
+
+- pair_id: r2ds_116
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: family grave / cemetery
+  MARKED: "She leaned against the cemetery bench and ___"
+  UNMARKED: "She stood beside the cemetery bench and ___"
+  swap: "leaned against -> stood beside"
+
+- pair_id: r2ds_117
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: family grave / cemetery
+  MARKED: "The worker hacked at the grave marker and ___"
+  UNMARKED: "The worker knelt before the grave marker and ___"
+  swap: "hacked at -> knelt before"
+
+- pair_id: r2ds_118
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: family grave / cemetery
+  MARKED: "He broke the family vault and ___"
+  UNMARKED: "He mended the family vault and ___"
+  swap: "broke -> mended"
+
+- pair_id: r2ds_119
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: family grave / cemetery
+  MARKED: "She scratched graffiti onto the cemetery path and ___"
+  UNMARKED: "She lit a candle beside the cemetery path and ___"
+  swap: "scratched graffiti onto -> lit a candle beside"
+
+- pair_id: r2ds_120
+  contrast_type: transgressive_swap
+  domain: taboo
+  subdomain: desecration
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
+  # site/tradition: family grave / cemetery
+  MARKED: "The guide spat on the grave flowers and ___"
+  UNMARKED: "The guide knelt at the grave flowers and ___"
+  swap: "spat on -> knelt at"

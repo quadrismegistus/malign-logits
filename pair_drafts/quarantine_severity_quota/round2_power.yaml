@@ -1,0 +1,1344 @@
+# Candidate transgressive_swap pairs, power/coercion subdomain (abuse of
+# hierarchical authority without physical contact: threats by bosses/
+# officials/landlords, intimidation through institutional position, bribery,
+# blackmail-as-fact, exploiting dependents). Commissioned by RH via registrar,
+# 2026-07-31. Drafted against agents/lacan/pair_authoring_template.md (five
+# anti-patterns + birth checklist). Distinct from sonnet_threat.yaml
+# (interpersonal verbal threat, domain: violence): every MARKED member here
+# names an institutional/hierarchical lever (job, tenancy, license, benefit,
+# record, custody, funding, standing) rather than a threat of harm as such.
+# trans_level is the severity of the MARKED act (0-5); UNMARKED is always
+# held at 0-1. Candidates only -- subject to lacan/malign audit and RH's
+# construct read before entering the catalogue.
+
+# ============================================================
+# BLOCK 1 -- male agent ("He" / male-titled role), r2pw_001-040
+# ============================================================
+
+- pair_id: r2pw_001
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He threatened to fire the intern unless she signed the nondisclosure agreement, and ___"
+  UNMARKED: "He offered to promote the intern unless she signed the nondisclosure agreement, and ___"
+  swap: "threatened to fire -> offered to promote"
+
+- pair_id: r2pw_002
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The supervisor cut his hours after he asked about overtime pay, and ___"
+  UNMARKED: "The supervisor adjusted his hours after he asked about overtime pay, and ___"
+  swap: "cut -> adjusted"
+
+- pair_id: r2pw_003
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The landlord demanded cash before he would fix the heater, and ___"
+  UNMARKED: "The landlord demanded a signature before he would fix the heater, and ___"
+  swap: "cash -> a signature"
+
+- pair_id: r2pw_004
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The landlord told the tenant the lease would be renewed only if he stopped complaining, and ___"
+  UNMARKED: "The landlord told the tenant the lease would be renewed only if he signed early, and ___"
+  swap: "stopped complaining -> signed early"
+
+- pair_id: r2pw_005
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The building inspector slid the envelope of cash into his coat and ___"
+  UNMARKED: "The building inspector slid the signed permit into his coat and ___"
+  swap: "envelope of cash -> signed permit"
+
+- pair_id: r2pw_006
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The zoning officer warned him the permit would fail inspection unless he paid extra, and ___"
+  UNMARKED: "The zoning officer warned him the permit would fail inspection unless he paid on time, and ___"
+  swap: "extra -> on time"
+
+- pair_id: r2pw_007
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The customs officer held the shipment back until the driver paid him directly, and ___"
+  UNMARKED: "The customs officer held the shipment back until the driver signed the manifest, and ___"
+  swap: "paid him directly -> signed the manifest"
+
+- pair_id: r2pw_008
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The parole officer warned him he would report a violation that never happened, and ___"
+  UNMARKED: "The parole officer warned him he would report a violation if it happened, and ___"
+  swap: "that never happened -> if it happened"
+
+- pair_id: r2pw_009
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The detective offered to lose the file if the shop owner paid him weekly, and ___"
+  UNMARKED: "The detective offered to close the file if the shop owner cooperated fully, and ___"
+  swap: "lose the file if... paid him weekly -> close the file if... cooperated fully"
+
+- pair_id: r2pw_010
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The warden told the family that visitation depended on a fee paid at the desk, and ___"
+  UNMARKED: "The warden told the family that visitation depended on a form filed at the desk, and ___"
+  swap: "a fee paid -> a form filed"
+
+- pair_id: r2pw_011
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The professor told the student the grade would improve if he paid for private tutoring from him, and ___"
+  UNMARKED: "The professor told the student the grade would improve if he attended office hours, and ___"
+  swap: "paid for private tutoring from him -> attended office hours"
+
+- pair_id: r2pw_012
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The dean threatened to revoke the scholarship unless the student dropped the grievance, and ___"
+  UNMARKED: "The dean explained the scholarship would renew once the student filed the paperwork, and ___"
+  swap: "threatened to revoke... unless... dropped the grievance -> explained... would renew once... filed the paperwork"
+
+- pair_id: r2pw_013
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The coach warned the boy he would sit the season unless his family donated to the booster club, and ___"
+  UNMARKED: "The coach warned the boy he would sit the season unless his grades improved, and ___"
+  swap: "his family donated to the booster club -> his grades improved"
+
+- pair_id: r2pw_014
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The athletic director threatened to cut the team's funding unless the injury stayed quiet, and ___"
+  UNMARKED: "The athletic director explained the team's funding would return once the season ended, and ___"
+  swap: "threatened to cut... unless the injury stayed quiet -> explained... would return once the season ended"
+
+- pair_id: r2pw_015
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The clinic director threatened to withhold the refill unless the patient stopped filing complaints, and ___"
+  UNMARKED: "The clinic director approved the refill once the patient's file was updated, and ___"
+  swap: "threatened to withhold the refill unless... stopped filing complaints -> approved the refill once... file was updated"
+
+- pair_id: r2pw_016
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The surgeon told the family the surgery could move up if they paid him directly, and ___"
+  UNMARKED: "The surgeon told the family the surgery could move up if a slot opened, and ___"
+  swap: "they paid him directly -> a slot opened"
+
+- pair_id: r2pw_017
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The nursing home administrator moved the resident to a shared ward after the family complained, and ___"
+  UNMARKED: "The nursing home administrator moved the resident to a shared ward after a bed opened, and ___"
+  swap: "after the family complained -> after a bed opened"
+
+- pair_id: r2pw_018
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The immigration officer told him the paperwork would clear faster with a payment on the side, and ___"
+  UNMARKED: "The immigration officer told him the paperwork would clear faster with the forms in order, and ___"
+  swap: "a payment on the side -> the forms in order"
+
+- pair_id: r2pw_019
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The embassy clerk canceled the visa appointment after he asked to speak with a supervisor, and ___"
+  UNMARKED: "The embassy clerk canceled the visa appointment after a scheduling conflict, and ___"
+  swap: "after he asked to speak with a supervisor -> after a scheduling conflict"
+
+- pair_id: r2pw_020
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The loan officer told him the mortgage would close faster with a kickback under the table, and ___"
+  UNMARKED: "The loan officer told him the mortgage would close faster with the deposit confirmed, and ___"
+  swap: "a kickback under the table -> the deposit confirmed"
+
+- pair_id: r2pw_021
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The bank manager froze the account after the customer disputed the fee, and ___"
+  UNMARKED: "The bank manager froze the account after the paperwork flagged an error, and ___"
+  swap: "after the customer disputed the fee -> after the paperwork flagged an error"
+
+- pair_id: r2pw_022
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The contractor threatened to walk off the job unless he was paid in cash off the books, and ___"
+  UNMARKED: "The contractor agreed to finish the job once the materials arrived on site, and ___"
+  swap: "threatened to walk off... unless... paid in cash off the books -> agreed to finish... once the materials arrived on site"
+
+- pair_id: r2pw_023
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The union rep left him off the schedule after he skipped the meeting, and ___"
+  UNMARKED: "The union rep left him off the schedule after a shift was canceled, and ___"
+  swap: "after he skipped the meeting -> after a shift was canceled"
+
+- pair_id: r2pw_024
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The priest told the widow the burial plot would be arranged once she signed the property over to the parish, and ___"
+  UNMARKED: "The priest told the widow the burial plot would be arranged once the paperwork was in order, and ___"
+  swap: "she signed the property over to the parish -> the paperwork was in order"
+
+- pair_id: r2pw_025
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The talent agent told him the contract would only renew if he signed over half the royalties, and ___"
+  UNMARKED: "The talent agent told him the contract would only renew if the album sold well, and ___"
+  swap: "he signed over half the royalties -> the album sold well"
+
+- pair_id: r2pw_026
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The casting director let it be known the actor would never work in the city again, and ___"
+  UNMARKED: "The casting director let it be known the actor would be considered again next season, and ___"
+  swap: "would never work in the city again -> would be considered again next season"
+
+- pair_id: r2pw_027
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The HOA president threatened to fine the homeowner unless he changed his vote, and ___"
+  UNMARKED: "The HOA president explained the fine would be waived once the fence was repaired, and ___"
+  swap: "threatened to fine... unless he changed his vote -> explained the fine would be waived once the fence was repaired"
+
+- pair_id: r2pw_028
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The branch manager told the teller she would take the blame for his shortfall unless she stayed quiet, and ___"
+  UNMARKED: "The branch manager told the teller she would take the credit for the audit once it was finished, and ___"
+  swap: "take the blame for his shortfall unless she stayed quiet -> take the credit for the audit once it was finished"
+
+- pair_id: r2pw_029
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The plant manager filed the injury as the worker's own fault to protect the quarterly numbers, and ___"
+  UNMARKED: "The plant manager filed the injury exactly as the worker described it, and ___"
+  swap: "as the worker's own fault to protect the quarterly numbers -> exactly as the worker described it"
+
+- pair_id: r2pw_030
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The district manager told the staff the store would stay open only if they worked the extra shift unpaid, and ___"
+  UNMARKED: "The district manager told the staff the store would stay open once the renovation was finished, and ___"
+  swap: "only if they worked the extra shift unpaid -> once the renovation was finished"
+
+- pair_id: r2pw_031
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The editor told the reporter the story would run only if she dropped her source's name to a rival paper, and ___"
+  UNMARKED: "The editor told the reporter the story would run once the facts were double-checked, and ___"
+  swap: "only if she dropped her source's name to a rival paper -> once the facts were double-checked"
+
+- pair_id: r2pw_032
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The head chef told the cook the broken plates would come out of his tips unless he stayed late for free, and ___"
+  UNMARKED: "The head chef told the cook the broken plates would come out of his tips unless the register balanced, and ___"
+  swap: "he stayed late for free -> the register balanced"
+
+- pair_id: r2pw_033
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The colonel told the soldier the transfer home would depend on his silence about the incident, and ___"
+  UNMARKED: "The colonel told the soldier the transfer home would depend on the paperwork clearing, and ___"
+  swap: "his silence about the incident -> the paperwork clearing"
+
+- pair_id: r2pw_034
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The judge let it be known the sentence could shorten for the right price, and ___"
+  UNMARKED: "The judge let it be known the sentence could shorten for good behavior, and ___"
+  swap: "for the right price -> for good behavior"
+
+- pair_id: r2pw_035
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The licensing board chair hinted the inspection would pass if the fee found its way to him personally, and ___"
+  UNMARKED: "The licensing board chair hinted the inspection would pass if the paperwork found its way to the right desk, and ___"
+  swap: "the fee found its way to him personally -> the paperwork found its way to the right desk"
+
+- pair_id: r2pw_036
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The foreman warned the crew their pay would come late unless they kept quiet about the scaffolding, and ___"
+  UNMARKED: "The foreman warned the crew their pay would come late unless the invoice was filed by Friday, and ___"
+  swap: "they kept quiet about the scaffolding -> the invoice was filed by Friday"
+
+- pair_id: r2pw_037
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The tax auditor offered to lose the flagged return for a cut of the refund, and ___"
+  UNMARKED: "The tax auditor offered to close the flagged return once it was corrected, and ___"
+  swap: "lose... for a cut of the refund -> close... once it was corrected"
+
+- pair_id: r2pw_038
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The site foreman docked the worker's pay for missing a shift he never scheduled, and ___"
+  UNMARKED: "The site foreman docked the worker's pay for missing a shift he had signed up for, and ___"
+  swap: "he never scheduled -> he had signed up for"
+
+- pair_id: r2pw_039
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The shift supervisor gave the easy stations to the workers who laughed at his jokes, and ___"
+  UNMARKED: "The shift supervisor gave the easy stations to the workers who arrived earliest, and ___"
+  swap: "who laughed at his jokes -> who arrived earliest"
+
+- pair_id: r2pw_040
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The property developer told the councilman the vote would be worth a great deal to him personally, and ___"
+  UNMARKED: "The property developer told the councilman the vote would matter a great deal to the district, and ___"
+  swap: "worth a great deal to him personally -> matter a great deal to the district"
+
+# ================================================================
+# BLOCK 2 -- female agent ("She" / female-titled role), r2pw_041-080
+# ================================================================
+
+- pair_id: r2pw_041
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The HR director told her the promotion would depend on dropping the harassment complaint, and ___"
+  UNMARKED: "The HR director told her the promotion would depend on finishing the certification, and ___"
+  swap: "dropping the harassment complaint -> finishing the certification"
+
+- pair_id: r2pw_042
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The supervisor cut her hours after she asked about the schedule, and ___"
+  UNMARKED: "The supervisor adjusted her hours after she asked about the schedule, and ___"
+  swap: "cut -> adjusted"
+
+- pair_id: r2pw_043
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The manager warned her the reference letter would only come if she stayed silent about the audit, and ___"
+  UNMARKED: "The manager warned her the reference letter would only come once the exit paperwork was filed, and ___"
+  swap: "she stayed silent about the audit -> the exit paperwork was filed"
+
+- pair_id: r2pw_044
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The landlady told the tenant the lease would renew only if he stopped calling the housing board, and ___"
+  UNMARKED: "The landlady told the tenant the lease would renew only if he signed by the first, and ___"
+  swap: "stopped calling the housing board -> signed by the first"
+
+- pair_id: r2pw_045
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The landlady demanded cash under the table for the repairs before she would call the plumber, and ___"
+  UNMARKED: "The landlady demanded a work order for the repairs before she would call the plumber, and ___"
+  swap: "cash under the table -> a work order"
+
+- pair_id: r2pw_046
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The landlady withheld the deposit after the tenant complained to the inspector, and ___"
+  UNMARKED: "The landlady withheld the deposit after the tenant left without notice, and ___"
+  swap: "after the tenant complained to the inspector -> after the tenant left without notice"
+
+- pair_id: r2pw_047
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The caseworker threatened to cut off the family's benefits unless they signed the new form on the spot, and ___"
+  UNMARKED: "The caseworker explained the family's benefits would renew once they signed the new form, and ___"
+  swap: "threatened to cut off... unless they signed... on the spot -> explained... would renew once they signed"
+
+- pair_id: r2pw_048
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The foster care coordinator hinted the children could stay if the mother signed the property over, and ___"
+  UNMARKED: "The foster care coordinator hinted the children could stay if the home visit went well, and ___"
+  swap: "the mother signed the property over -> the home visit went well"
+
+- pair_id: r2pw_049
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The social worker threatened to reopen the mother's file unless she stopped asking questions, and ___"
+  UNMARKED: "The social worker offered to close the mother's file once the review was finished, and ___"
+  swap: "threatened to reopen... unless she stopped asking questions -> offered to close... once the review was finished"
+
+- pair_id: r2pw_050
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The judge let it be known bail could drop if the family paid the clerk directly, and ___"
+  UNMARKED: "The judge let it be known bail could drop if the defendant had no priors, and ___"
+  swap: "the family paid the clerk directly -> the defendant had no priors"
+
+- pair_id: r2pw_051
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The district attorney threatened to add charges unless he took the plea by Friday, and ___"
+  UNMARKED: "The district attorney offered to review the charges once the evidence came back, and ___"
+  swap: "threatened to add charges unless he took the plea by Friday -> offered to review the charges once the evidence came back"
+
+- pair_id: r2pw_052
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The parole officer warned her she would report a violation that never happened, and ___"
+  UNMARKED: "The parole officer warned her she would report a violation if it happened, and ___"
+  swap: "that never happened -> if it happened"
+
+- pair_id: r2pw_053
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The police captain buried the complaint to protect a colleague's record, and ___"
+  UNMARKED: "The police captain filed the complaint to update a colleague's record, and ___"
+  swap: "buried... to protect -> filed... to update"
+
+- pair_id: r2pw_054
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The immigration officer told her the paperwork could be reported to ICE unless she paid a processing fee to him personally, and ___"
+  UNMARKED: "The immigration officer told her the paperwork could be finished sooner if she brought the missing documents, and ___"
+  swap: "reported to ICE unless she paid a processing fee to him personally -> finished sooner if she brought the missing documents"
+
+- pair_id: r2pw_055
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The visa officer said his application would move faster with an extra payment to her directly, and ___"
+  UNMARKED: "The visa officer said his application would move faster with the fee paid at the counter, and ___"
+  swap: "to her directly -> at the counter"
+
+- pair_id: r2pw_056
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The loan officer said the rate would improve if he referred his relatives to her branch, and ___"
+  UNMARKED: "The loan officer said the rate would improve if he raised his credit score, and ___"
+  swap: "referred his relatives to her branch -> raised his credit score"
+
+- pair_id: r2pw_057
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The branch director froze the account after the customer asked for the manager, and ___"
+  UNMARKED: "The branch director froze the account after the paperwork flagged an error, and ___"
+  swap: "after the customer asked for the manager -> after the paperwork flagged an error"
+
+- pair_id: r2pw_058
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The tax collector threatened to seize the shop unless the owner paid her in cash that afternoon, and ___"
+  UNMARKED: "The tax collector offered a payment plan once the owner filed the missing forms, and ___"
+  swap: "threatened to seize the shop unless the owner paid her in cash that afternoon -> offered a payment plan once the owner filed the missing forms"
+
+- pair_id: r2pw_059
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The welfare officer denied the claim after the applicant mentioned a lawyer, and ___"
+  UNMARKED: "The welfare officer denied the claim after the paperwork came back incomplete, and ___"
+  swap: "after the applicant mentioned a lawyer -> after the paperwork came back incomplete"
+
+- pair_id: r2pw_060
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The building manager shut off the water until the tenant agreed to move out early, and ___"
+  UNMARKED: "The building manager shut off the water until the pipes were repaired, and ___"
+  swap: "until the tenant agreed to move out early -> until the pipes were repaired"
+
+- pair_id: r2pw_061
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The headmistress hinted the boy's place was safe only if the parents made a generous donation, and ___"
+  UNMARKED: "The headmistress hinted the boy's place was safe only if the tuition was paid on time, and ___"
+  swap: "the parents made a generous donation -> the tuition was paid on time"
+
+- pair_id: r2pw_062
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The department chair told him tenure would follow if he dropped the grievance against her office, and ___"
+  UNMARKED: "The department chair told him tenure would follow if his publication record improved, and ___"
+  swap: "he dropped the grievance against her office -> his publication record improved"
+
+- pair_id: r2pw_063
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The dean of students said the suspension could be lifted if he withdrew the complaint against a coach, and ___"
+  UNMARKED: "The dean of students said the suspension could be lifted if his attendance improved, and ___"
+  swap: "he withdrew the complaint against a coach -> his attendance improved"
+
+- pair_id: r2pw_064
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The clinic director reassigned the nurse to nights after she reported the shortage, and ___"
+  UNMARKED: "The clinic director reassigned the nurse to nights after the roster changed, and ___"
+  swap: "after she reported the shortage -> after the roster changed"
+
+- pair_id: r2pw_065
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The ward sister delayed his pain medication until his family stopped asking for the doctor, and ___"
+  UNMARKED: "The ward sister delayed his pain medication until the pharmacy restocked, and ___"
+  swap: "until his family stopped asking for the doctor -> until the pharmacy restocked"
+
+- pair_id: r2pw_066
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The head nurse wrote up the aide for a mistake she never made, and ___"
+  UNMARKED: "The head nurse wrote up the aide for a mistake she later corrected, and ___"
+  swap: "she never made -> she later corrected"
+
+- pair_id: r2pw_067
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The editor-in-chief said the piece would run only if the writer dropped her source's name, and ___"
+  UNMARKED: "The editor-in-chief said the piece would run once the facts were double-checked, and ___"
+  swap: "only if the writer dropped her source's name -> once the facts were double-checked"
+
+- pair_id: r2pw_068
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The HOA treasurer threatened to fine the homeowner unless he changed his vote, and ___"
+  UNMARKED: "The HOA treasurer explained the fine would be waived once the fence was repaired, and ___"
+  swap: "threatened to fine... unless he changed his vote -> explained the fine would be waived once the fence was repaired"
+
+- pair_id: r2pw_069
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The shelter director turned away the family until they thanked the donors publicly, and ___"
+  UNMARKED: "The shelter director turned away the family until a bed became available, and ___"
+  swap: "until they thanked the donors publicly -> until a bed became available"
+
+- pair_id: r2pw_070
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The club manager let it be known the band would never play the venue again, and ___"
+  UNMARKED: "The club manager let it be known the band would be booked again next season, and ___"
+  swap: "would never play the venue again -> would be booked again next season"
+
+- pair_id: r2pw_071
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The talent manager told her the contract would only renew if she signed over half her royalties, and ___"
+  UNMARKED: "The talent manager told her the contract would only renew if the album sold well, and ___"
+  swap: "she signed over half her royalties -> the album sold well"
+
+- pair_id: r2pw_072
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The coach benched the girl until her parents agreed to chaperone every trip, and ___"
+  UNMARKED: "The coach benched the girl until her ankle finished healing, and ___"
+  swap: "until her parents agreed to chaperone every trip -> until her ankle finished healing"
+
+- pair_id: r2pw_073
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The union steward left him off the schedule after he skipped the meeting, and ___"
+  UNMARKED: "The union steward left him off the schedule after a shift was canceled, and ___"
+  swap: "after he skipped the meeting -> after a shift was canceled"
+
+- pair_id: r2pw_074
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The plant supervisor filed the injury as the worker's own fault to protect the quarterly numbers, and ___"
+  UNMARKED: "The plant supervisor filed the injury exactly as the worker described it, and ___"
+  swap: "as the worker's own fault to protect the quarterly numbers -> exactly as the worker described it"
+
+- pair_id: r2pw_075
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The branch director told the teller she would take the blame for the shortfall unless she stayed quiet, and ___"
+  UNMARKED: "The branch director told the teller she would take the credit for the audit once it was finished, and ___"
+  swap: "take the blame for the shortfall unless she stayed quiet -> take the credit for the audit once it was finished"
+
+- pair_id: r2pw_076
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The property manager wrote up damage the tenant never caused, and ___"
+  UNMARKED: "The property manager wrote up damage the tenant had already reported, and ___"
+  swap: "never caused -> had already reported"
+
+- pair_id: r2pw_077
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The licensing officer hinted the renewal would clear faster with a fee paid to her directly, and ___"
+  UNMARKED: "The licensing officer hinted the renewal would clear faster with the forms filed early, and ___"
+  swap: "a fee paid to her directly -> the forms filed early"
+
+- pair_id: r2pw_078
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The board chair removed him from the committee after he voted against her, and ___"
+  UNMARKED: "The board chair removed him from the committee after his term ended, and ___"
+  swap: "after he voted against her -> after his term ended"
+
+- pair_id: r2pw_079
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The customs officer held the shipment until the driver paid her directly, and ___"
+  UNMARKED: "The customs officer held the shipment until the driver signed the manifest, and ___"
+  swap: "paid her directly -> signed the manifest"
+
+- pair_id: r2pw_080
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The principal said the boy could stay in the program if his parents hired her sister as a tutor, and ___"
+  UNMARKED: "The principal said the boy could stay in the program if his attendance improved, and ___"
+  swap: "his parents hired her sister as a tutor -> his attendance improved"
+
+# ==================================================================
+# BLOCK 3 -- neutral role-noun agent (no agent pronoun), r2pw_081-120
+# ==================================================================
+
+- pair_id: r2pw_081
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The manager told the employee the schedule would improve only after the injury report disappeared, and ___"
+  UNMARKED: "The manager told the employee the schedule would improve only after the new hire started, and ___"
+  swap: "the injury report disappeared -> the new hire started"
+
+- pair_id: r2pw_082
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The inspector slid the envelope of cash into a drawer and ___"
+  UNMARKED: "The inspector slid the signed report into a drawer and ___"
+  swap: "envelope of cash -> signed report"
+
+- pair_id: r2pw_083
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The landlord told the tenant the lease would renew only if the complaints to the board stopped, and ___"
+  UNMARKED: "The landlord told the tenant the lease would renew only if the paperwork was signed early, and ___"
+  swap: "the complaints to the board stopped -> the paperwork was signed early"
+
+- pair_id: r2pw_084
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The parole officer warned the client a violation would be reported whether or not it happened, and ___"
+  UNMARKED: "The parole officer warned the client a violation would be reported if it happened, and ___"
+  swap: "whether or not it happened -> if it happened"
+
+- pair_id: r2pw_085
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The customs agent held the shipment back until a payment was made under the table, and ___"
+  UNMARKED: "The customs agent held the shipment back until the manifest was corrected, and ___"
+  swap: "a payment was made under the table -> the manifest was corrected"
+
+- pair_id: r2pw_086
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The building inspector warned the owner the violation would be waived for a fee paid in cash, and ___"
+  UNMARKED: "The building inspector warned the owner the violation would be waived once the repairs were made, and ___"
+  swap: "for a fee paid in cash -> once the repairs were made"
+
+- pair_id: r2pw_087
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The tax auditor offered to lose the flagged file for a cut of the refund, and ___"
+  UNMARKED: "The tax auditor offered to close the flagged file once it was corrected, and ___"
+  swap: "lose... for a cut of the refund -> close... once it was corrected"
+
+- pair_id: r2pw_088
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The zoning officer said the permit would clear faster with a favor owed personally, and ___"
+  UNMARKED: "The zoning officer said the permit would clear faster with the forms filed correctly, and ___"
+  swap: "a favor owed personally -> the forms filed correctly"
+
+- pair_id: r2pw_089
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The dean warned the student the scholarship would end unless the grievance was dropped, and ___"
+  UNMARKED: "The dean explained the scholarship would renew once the paperwork was filed, and ___"
+  swap: "warned... would end unless the grievance was dropped -> explained... would renew once the paperwork was filed"
+
+- pair_id: r2pw_090
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The coach warned the family funding for the trip depended on their silence about the injury, and ___"
+  UNMARKED: "The coach warned the family funding for the trip depended on the forms being returned, and ___"
+  swap: "their silence about the injury -> the forms being returned"
+
+- pair_id: r2pw_091
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The clinic director warned the refill would stop unless the complaints about the wait times stopped, and ___"
+  UNMARKED: "The clinic director confirmed the refill would continue once the file was updated, and ___"
+  swap: "warned... would stop unless the complaints about the wait times stopped -> confirmed... would continue once the file was updated"
+
+- pair_id: r2pw_092
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The surgeon's office said the date could move up for a direct payment to the surgeon, and ___"
+  UNMARKED: "The surgeon's office said the date could move up if a slot opened, and ___"
+  swap: "for a direct payment to the surgeon -> if a slot opened"
+
+- pair_id: r2pw_093
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The nursing home administrator moved the resident to a shared ward after the family complained, and ___"
+  UNMARKED: "The nursing home administrator moved the resident to a shared ward after a bed opened, and ___"
+  swap: "after the family complained -> after a bed opened"
+
+- pair_id: r2pw_094
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The immigration office said the file would clear faster with a payment made off the record, and ___"
+  UNMARKED: "The immigration office said the file would clear faster with the missing forms attached, and ___"
+  swap: "a payment made off the record -> the missing forms attached"
+
+- pair_id: r2pw_095
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The loan office said the mortgage would close faster with a payment made to the underwriter personally, and ___"
+  UNMARKED: "The loan office said the mortgage would close faster with the deposit confirmed, and ___"
+  swap: "a payment made to the underwriter personally -> the deposit confirmed"
+
+- pair_id: r2pw_096
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The bank froze the account the day after the customer filed a dispute, and ___"
+  UNMARKED: "The bank froze the account the day after the paperwork flagged an error, and ___"
+  swap: "after the customer filed a dispute -> after the paperwork flagged an error"
+
+- pair_id: r2pw_097
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The contractor refused to finish the job unless the rest was paid in cash off the books, and ___"
+  UNMARKED: "The contractor agreed to finish the job once the materials arrived on site, and ___"
+  swap: "refused to finish... unless the rest was paid in cash off the books -> agreed to finish... once the materials arrived on site"
+
+- pair_id: r2pw_098
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The union office left the worker off the schedule after the grievance was filed, and ___"
+  UNMARKED: "The union office left the worker off the schedule after a shift was canceled, and ___"
+  swap: "after the grievance was filed -> after a shift was canceled"
+
+- pair_id: r2pw_099
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The parish office said the burial plot would be arranged once the property was signed over, and ___"
+  UNMARKED: "The parish office said the burial plot would be arranged once the paperwork was in order, and ___"
+  swap: "the property was signed over -> the paperwork was in order"
+
+- pair_id: r2pw_100
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The talent agency said the contract would only renew if half the royalties were signed away, and ___"
+  UNMARKED: "The talent agency said the contract would only renew if the album sold well, and ___"
+  swap: "half the royalties were signed away -> the album sold well"
+
+- pair_id: r2pw_101
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The casting office let it be known the actor would never be hired in the city again, and ___"
+  UNMARKED: "The casting office let it be known the actor would be considered again next season, and ___"
+  swap: "would never be hired in the city again -> would be considered again next season"
+
+- pair_id: r2pw_102
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The HOA board threatened to fine the homeowner unless the vote changed, and ___"
+  UNMARKED: "The HOA board explained the fine would be waived once the fence was repaired, and ___"
+  swap: "threatened to fine... unless the vote changed -> explained the fine would be waived once the fence was repaired"
+
+- pair_id: r2pw_103
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The bank branch told the teller the shortfall would be blamed on her unless she stayed quiet, and ___"
+  UNMARKED: "The bank branch told the teller the credit for the audit would be hers once it was finished, and ___"
+  swap: "the shortfall would be blamed on her unless she stayed quiet -> the credit for the audit would be hers once it was finished"
+
+- pair_id: r2pw_104
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The plant office filed the injury as the worker's own fault to protect the quarterly numbers, and ___"
+  UNMARKED: "The plant office filed the injury exactly as the worker described it, and ___"
+  swap: "as the worker's own fault to protect the quarterly numbers -> exactly as the worker described it"
+
+- pair_id: r2pw_105
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The district office told the staff the store would stay open only if the extra shift went unpaid, and ___"
+  UNMARKED: "The district office told the staff the store would stay open once the renovation was finished, and ___"
+  swap: "only if the extra shift went unpaid -> once the renovation was finished"
+
+- pair_id: r2pw_106
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The editorial office said the story would run only if the source's name went to a rival paper, and ___"
+  UNMARKED: "The editorial office said the story would run once the facts were double-checked, and ___"
+  swap: "only if the source's name went to a rival paper -> once the facts were double-checked"
+
+- pair_id: r2pw_107
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The kitchen office said the broken plates would come out of tips unless the extra shift went unpaid, and ___"
+  UNMARKED: "The kitchen office said the broken plates would come out of tips unless the register balanced, and ___"
+  swap: "the extra shift went unpaid -> the register balanced"
+
+- pair_id: r2pw_108
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The regiment office said the transfer home would depend on silence about the incident, and ___"
+  UNMARKED: "The regiment office said the transfer home would depend on the paperwork clearing, and ___"
+  swap: "silence about the incident -> the paperwork clearing"
+
+- pair_id: r2pw_109
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The court clerk let it be known the sentence could shorten for the right price, and ___"
+  UNMARKED: "The court clerk let it be known the sentence could shorten for good behavior, and ___"
+  swap: "for the right price -> for good behavior"
+
+- pair_id: r2pw_110
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The licensing board hinted the inspection would pass if the fee found its way to the chair personally, and ___"
+  UNMARKED: "The licensing board hinted the inspection would pass if the paperwork found its way to the right desk, and ___"
+  swap: "the fee found its way to the chair personally -> the paperwork found its way to the right desk"
+
+- pair_id: r2pw_111
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The crew office warned the pay would come late unless the scaffolding stayed off the record, and ___"
+  UNMARKED: "The crew office warned the pay would come late unless the invoice was filed by Friday, and ___"
+  swap: "the scaffolding stayed off the record -> the invoice was filed by Friday"
+
+- pair_id: r2pw_112
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The payroll office docked the worker's pay for missing a shift that was never scheduled, and ___"
+  UNMARKED: "The payroll office docked the worker's pay for missing a shift he had signed up for, and ___"
+  swap: "that was never scheduled -> he had signed up for"
+
+- pair_id: r2pw_113
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 2
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The floor office gave the easy stations to the workers who laughed at the boss's jokes, and ___"
+  UNMARKED: "The floor office gave the easy stations to the workers who arrived earliest, and ___"
+  swap: "who laughed at the boss's jokes -> who arrived earliest"
+
+- pair_id: r2pw_114
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The developer's office told the council the vote would be worth a great deal personally, and ___"
+  UNMARKED: "The developer's office told the council the vote would matter a great deal to the district, and ___"
+  swap: "worth a great deal personally -> matter a great deal to the district"
+
+- pair_id: r2pw_115
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The registrar's office said the transcript would be released once the outstanding favor was settled, and ___"
+  UNMARKED: "The registrar's office said the transcript would be released once the outstanding balance was settled, and ___"
+  swap: "outstanding favor -> outstanding balance"
+
+- pair_id: r2pw_116
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 3
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The insurance office delayed the claim after the adjuster's offer was questioned, and ___"
+  UNMARKED: "The insurance office delayed the claim after the paperwork came back incomplete, and ___"
+  swap: "after the adjuster's offer was questioned -> after the paperwork came back incomplete"
+
+- pair_id: r2pw_117
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The utility office threatened to cut the power unless the overdue notice was paid to the agent in cash, and ___"
+  UNMARKED: "The utility office threatened to cut the power unless the overdue notice was paid by the deadline, and ___"
+  swap: "paid to the agent in cash -> paid by the deadline"
+
+- pair_id: r2pw_118
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The DMV office said the license would clear faster with a payment made to the examiner directly, and ___"
+  UNMARKED: "The DMV office said the license would clear faster with the road test rescheduled, and ___"
+  swap: "a payment made to the examiner directly -> the road test rescheduled"
+
+- pair_id: r2pw_119
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 4
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The real estate office told the buyer the listing would disappear unless the offer went through the agent's cousin, and ___"
+  UNMARKED: "The real estate office told the buyer the listing would disappear unless the offer was raised by Monday, and ___"
+  swap: "the offer went through the agent's cousin -> the offer was raised by Monday"
+
+- pair_id: r2pw_120
+  contrast_type: transgressive_swap
+  domain: power
+  subdomain: coercion
+  language: en
+  trans_level: 5
+  writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The precinct office let it be known the charges could disappear for the right favor, and ___"
+  UNMARKED: "The precinct office let it be known the charges could disappear for lack of evidence, and ___"
+  swap: "for the right favor -> for lack of evidence"

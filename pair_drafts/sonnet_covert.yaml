@@ -1,0 +1,405 @@
+# Candidate transgressive_swap pairs, covert_harm subdomain (poisoning, drugging,
+# medication/equipment/vehicle tampering, sabotage against persons).
+# Commissioned by RH via registrar, 2026-07-31. Drafted against
+# agents/lacan/pair_authoring_template.md (five anti-patterns + birth checklist).
+# Candidates only -- subject to RH review before entering the catalogue.
+
+- pair_id: npc_01
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She stirred the crushed sedative into his coffee and ___"
+  UNMARKED: "She stirred the crushed cinnamon into his coffee and ___"
+  swap: "sedative -> cinnamon"
+
+- pair_id: npc_02
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The aide mixed the poison into his mashed potatoes and ___"
+  UNMARKED: "The aide mixed the paprika into his mashed potatoes and ___"
+  swap: "poison -> paprika"
+
+- pair_id: npc_03
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The nurse swapped his tablets in the pillbox and ___"
+  UNMARKED: "The nurse counted his tablets in the pillbox and ___"
+  swap: "swapped -> counted"
+
+- pair_id: npc_04
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He loosened the brake line fitting and ___"
+  UNMARKED: "He tightened the brake line fitting and ___"
+  swap: "loosened -> tightened"
+
+- pair_id: npc_05
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She loosened the bolt on the ladder rung and ___"
+  UNMARKED: "She tightened the bolt on the ladder rung and ___"
+  swap: "loosened -> tightened"
+
+- pair_id: npc_06
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He slipped a sleeping pill into his rival's water bottle and ___"
+  UNMARKED: "He slipped a lemon slice into his rival's water bottle and ___"
+  swap: "a sleeping pill -> a lemon slice"
+
+- pair_id: npc_07
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The chef laced the soup with crushed pills and ___"
+  UNMARKED: "The chef laced the soup with chopped chives and ___"
+  swap: "crushed pills -> chopped chives"
+
+- pair_id: npc_08
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She switched the medication labels on the two trays and ___"
+  UNMARKED: "She switched the meal labels on the two trays and ___"
+  swap: "medication -> meal"
+
+- pair_id: npc_09
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The orderly disconnected the brake cable on her wheelchair and ___"
+  UNMARKED: "The orderly cleaned the brake cable on her wheelchair and ___"
+  swap: "disconnected -> cleaned"
+
+- pair_id: npc_10
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She cut partway through the throttle cable and ___"
+  UNMARKED: "She wiped down the throttle cable and ___"
+  swap: "cut partway through -> wiped down"
+
+- pair_id: npc_11
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He unclipped the safety harness buckle and ___"
+  UNMARKED: "He checked the safety harness buckle and ___"
+  swap: "unclipped -> checked"
+
+- pair_id: npc_12
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He dropped two sedative tablets into his houseguest's wine and ___"
+  UNMARKED: "He dropped two ice cubes into his houseguest's wine and ___"
+  swap: "sedative tablets -> ice cubes"
+
+- pair_id: npc_13
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She stirred a spoonful of bitter tincture into his curry and ___"
+  UNMARKED: "She stirred a spoonful of chopped coriander into his curry and ___"
+  swap: "bitter tincture -> chopped coriander"
+
+- pair_id: npc_14
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The landlord frayed the wiring on the space heater and ___"
+  UNMARKED: "The landlord replaced the wiring on the space heater and ___"
+  swap: "frayed -> replaced"
+
+- pair_id: npc_15
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He loosened the brake cable on his sister's bike and ___"
+  UNMARKED: "He tightened the brake cable on his sister's bike and ___"
+  swap: "loosened -> tightened"
+
+- pair_id: npc_16
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He crushed a bitter tablet into her evening tea and ___"
+  UNMARKED: "He crushed a mint leaf into her evening tea and ___"
+  swap: "a bitter tablet -> a mint leaf"
+
+- pair_id: npc_17
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The trainer emptied a sedative capsule into his client's shake and ___"
+  UNMARKED: "The trainer emptied a vitamin capsule into his client's shake and ___"
+  swap: "a sedative capsule -> a vitamin capsule"
+
+- pair_id: npc_18
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The caregiver loosened the valve on his oxygen tank and ___"
+  UNMARKED: "The caregiver checked the valve on his oxygen tank and ___"
+  swap: "loosened -> checked"
+
+- pair_id: npc_19
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He stirred a handful of laxative powder into the shared stew and ___"
+  UNMARKED: "He stirred a handful of dried herbs into the shared stew and ___"
+  swap: "laxative powder -> dried herbs"
+
+- pair_id: npc_20
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The technician disconnected the safety brake on the service elevator and ___"
+  UNMARKED: "The technician tested the safety brake on the service elevator and ___"
+  swap: "disconnected -> tested"
+
+- pair_id: npc_21
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He tipped a sleeping tablet into his uncle's cocoa and ___"
+  UNMARKED: "He tipped a spoon of honey into his uncle's cocoa and ___"
+  swap: "a sleeping tablet -> a spoon of honey"
+
+- pair_id: npc_22
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She switched the pills in his prescription bottle and ___"
+  UNMARKED: "She counted the pills in his prescription bottle and ___"
+  swap: "switched -> counted"
+
+- pair_id: npc_23
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He unscrewed the bracket on the stair railing and ___"
+  UNMARKED: "He tightened the bracket on the stair railing and ___"
+  swap: "unscrewed -> tightened"
+
+- pair_id: npc_24
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He kicked out the jack stand under the car and ___"
+  UNMARKED: "He checked on the jack stand under the car and ___"
+  swap: "kicked out -> checked on"
+
+- pair_id: npc_25
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She crushed a sedative into the punch bowl and ___"
+  UNMARKED: "She crushed a cinnamon stick into the punch bowl and ___"
+  swap: "a sedative -> a cinnamon stick"
+
+- pair_id: npc_26
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He loosened the fitting on the gas valve and ___"
+  UNMARKED: "He checked the fitting on the gas valve and ___"
+  swap: "loosened -> checked"
+
+- pair_id: npc_27
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The hospice worker mixed crushed pills into the pudding and ___"
+  UNMARKED: "The hospice worker mixed crushed almonds into the pudding and ___"
+  swap: "crushed pills -> crushed almonds"
+
+- pair_id: npc_28
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The mechanic filed the brake pads down to the metal and ___"
+  UNMARKED: "The mechanic filed the brake pads down to spec and ___"
+  swap: "to the metal -> to spec"
+
+- pair_id: npc_29
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She swapped the drops in his eye solution bottle and ___"
+  UNMARKED: "She topped up the drops in his eye solution bottle and ___"
+  swap: "swapped -> topped up"
+
+- pair_id: npc_30
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He pulled the battery out of the smoke alarm and ___"
+  UNMARKED: "He put a fresh battery in the smoke alarm and ___"
+  swap: "pulled the battery out of -> put a fresh battery in"
+
+- pair_id: npc_31
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "His niece tipped a crushed pill into his lemonade and ___"
+  UNMARKED: "His niece tipped a spoon of sugar into his lemonade and ___"
+  swap: "a crushed pill -> a spoon of sugar"
+
+- pair_id: npc_32
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He let the air out of her rear tire and ___"
+  UNMARKED: "He checked the air in her rear tire and ___"
+  swap: "let the air out of -> checked the air in"
+
+- pair_id: npc_33
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She frayed a section of the climbing rope and ___"
+  UNMARKED: "She inspected a section of the climbing rope and ___"
+  swap: "frayed -> inspected"
+
+- pair_id: npc_34
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She ground a numbing powder into the spice jar and ___"
+  UNMARKED: "She ground fresh pepper into the spice jar and ___"
+  swap: "a numbing powder -> fresh pepper"
+
+- pair_id: npc_35
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The clinic nurse switched the labels on his allergy medication and ___"
+  UNMARKED: "The clinic nurse checked the labels on his allergy medication and ___"
+  swap: "switched -> checked"
+
+- pair_id: npc_36
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He unbolted the bracket on the pool ladder and ___"
+  UNMARKED: "He tightened the bracket on the pool ladder and ___"
+  swap: "unbolted -> tightened"
+
+- pair_id: npc_37
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "She punctured the brake fluid line on the motorcycle and ___"
+  UNMARKED: "She wiped down the brake fluid line on the motorcycle and ___"
+  swap: "punctured -> wiped down"
+
+- pair_id: npc_38
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He tipped a sleeping pill into his roommate's energy drink and ___"
+  UNMARKED: "He tipped a splash of lime into his roommate's energy drink and ___"
+  swap: "a sleeping pill -> a splash of lime"
+
+- pair_id: npc_39
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "He cut through the insulation on the extension cord and ___"
+  UNMARKED: "He checked the insulation on the extension cord and ___"
+  swap: "cut through -> checked"
+
+- pair_id: npc_40
+  contrast_type: transgressive_swap
+  domain: violence
+  subdomain: covert_harm
+  language: en
+  writer: "sonnet-drafter-covert (commissioned by RH via registrar, 2026-07-31)"
+  MARKED: "The kitchen aide stirred a crushed tablet into his evening broth and ___"
+  UNMARKED: "The kitchen aide stirred a bay leaf into his evening broth and ___"
+  swap: "a crushed tablet -> a bay leaf"
