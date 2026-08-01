@@ -135,6 +135,18 @@ def assert_join_compatible(new, path=PARQUET):
     #: x 16 stimuli x 2 levels = 1,856 cells consumed, seeds
     #: [20260729, 20262585). The completion needs 58 x 16 x 3 = 2,784 and MUST
     #: START AT cell >= 1856.
+    #:
+    #: DIRECTION, CORRECTED [2127]. I first wrote "overlaps after 38
+    #: model-arms", which reads as first-38-fine-then-bad. IT IS THE REVERSE.
+    #: A restarted model-arm k occupies cells [48k, 48(k+1)), so it collides
+    #: with the existing [0, 1856) iff 48k < 1856, i.e. k <= 38:
+    #:     CONTAMINATED  k = 0..38   THE FIRST 39
+    #:     CLEAN         k = 39..57  THE TAIL OF 19
+    #: **A triage performed on my sentence would KEEP the contaminated head and
+    #: DISCARD the only clean rows**, and both 39 and 19 are plausible
+    #: partitions of 58, so no count would object. **A QUOTIENT FROM A BOUNDARY
+    #: DIVISION NAMES A CROSSING POINT, NOT A DIRECTION — the side comes from
+    #: the inequality, never from the number.**
     SEED0, EXISTING_CELLS = 20260729, 1856
     if "seed" in new:
         lo = min(new["seed"])
