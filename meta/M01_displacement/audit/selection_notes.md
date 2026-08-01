@@ -23,11 +23,36 @@ MEASURED here rather than recorded, from `r2_audit.json`:**
     ALL OTHER subdomains' survivors      n=437   mean 11.95
                                                  difference -2.81,  MW p = 6.8e-06
 
-**CONFIRMED AND LARGER THAN THE INTERNAL GAP.** Animal's survivors are ~2.8 tokens
-shorter than every other subdomain's survivors — nearly three times the 1.0-token
-gap between animal's own survivors and failures. So the effect is **not only** the
-filter removing longer pairs within animal; **animal's pairs were shorter to begin
-with, and the filter sharpened it.**
+**THE SECOND COMPARISON IS WITHDRAWN AS FRAMED ([1878].2).** It pools five
+subdomains spanning **7.93 to 18.70 tokens** and reports a difference against the
+mean of a heterogeneous set. That is not a comparator. Unpooled:
+
+    subdomain     domain        n    mean MARKED length
+    desecration   taboo       100     7.93
+    cruelty       animal       47     9.15   <- SHORTER than three, LONGER than one
+    theft         property    109    10.09
+    intimate      betrayal    115    10.59
+    coercion      power       113    18.70
+
+    spread 10.77 tokens (2.4x)
+
+**ANIMAL IS NOT ANOMALOUSLY SHORT — it is second of five and longer than
+desecration. The pooled figure made a mid-table subdomain look like an outlier.**
+
+**AND THE REAL FINDING IS THE ONE THE COMMISSION MISSED: the design carries a
+10.77-token length spread BY CONSTRUCTION, and animal's selection moves 1.00 token
+inside it.** *"X told Y that if Y did Z, X would W"* cannot be short; *"He knocked
+the crucifix off the wall"* cannot be long. **The confound already in the design is
+an order of magnitude larger than the one recorded here**, and the power redraft
+does not fix it — the new frame is the same length class or longer.
+
+**IT IS A HYPOTHESIS, NOT A DEMONSTRATED CONFOUND.** Length plausibly moves
+continuation entropy and §4 of the M03 guide holds entropy predicts movement — but
+**these are candidates that have not been run, so no movement or entropy value
+exists for any of them.** This is a measurement of the draft pool's structure and
+nothing more. **LENGTH IS DECLARED HERE AS A DESCRIPTIVE COVARIATE ON THE
+POPULATION** — not targeted, not excluded on, not a finding. Free to declare now;
+inseparable from any between-subdomain movement difference after the run.
 
 **Counts here use the aligned diff's own criterion (`n_spans > 1`) and give 47/73;
 lacan's 50 also reflects hand rulings on the second pass, so the two are close but
