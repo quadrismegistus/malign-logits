@@ -105,6 +105,113 @@ def deletion_mutants(src):
         out.append((f"DEL {name}", src[:start] + stub + src[end:]))
     return out
 
+
+def orphan_functions(src):
+    """Top-level functions NOT REACHABLE FROM main(). The [2298] shape.
+
+    **This is the check whose absence cost a clearance** — and whose FIRST
+    version, written twenty minutes later, missed the same defect for the same
+    reason one level down.
+
+    v1 counted references anywhere in the file and reported "none" on the very
+    file that was broken, because `gate_2_divergence` is called twice inside the
+    SELF-TEST and case 7 greps the literal string `gate_4_contrasts`. **A
+    pipeline stage exercised only by its own test looks called.** Same error
+    class as the two-namespace false zero and the wildcard that cleared 28
+    files: **the count was taken over the wrong region, and it erred toward
+    CLEARANCE, which is the direction nobody re-reads.**
+
+    v2 walks the actual call graph from `main()`, transitively, and EXCLUDES
+    `selftest` from the walk — because a function reachable only through the
+    self-test is precisely what "verifies beautifully and does nothing" means.
+    """
+    bodies = {}
+    for m in re.finditer(r"^(?:def|class) ([A-Za-z_][A-Za-z0-9_]*)\(?", src, re.M):
+        name = m.group(1)
+        start = m.end()
+        nxt = re.search(r"^(def |class |# \u2500|if __name__)", src[start:], re.M)
+        bodies[name] = src[start:start + (nxt.start() if nxt else len(src) - start)]
+    if "main" not in bodies:
+        return []
+    seen, stack = set(), ["main"]
+    while stack:
+        cur = stack.pop()
+        if cur in seen or cur not in bodies:
+            continue
+        seen.add(cur)
+        for other in bodies:
+            #: the self-test is NOT a route to the pipeline
+            if other == "selftest" or other == cur:
+                continue
+            if re.search(rf"\b{re.escape(other)}\s*\(", bodies[cur]):
+                stack.append(other)
+    return [(n, 0, 0) for n in sorted(bodies)
+            if n not in seen and n not in ("main", "selftest")
+            and not n.startswith("_") and n[0].islower()]
+
+
+
+#: ── THE HARNESS'S OWN KNOWN-ANSWER CASES ──────────────────────────────────────
+#: [2305]: an auditor's instrument meets the same bar as the audited. This
+#: reachability check was WRONG TWICE in twenty minutes and cleared nothing until
+#: it had these. Each fixture is one of those two failures, plus the two shapes
+#: they must not over-report.
+
+_FIX = {
+    "A unreachable function is FLAGGED": ("""
+def orphan(x):
+    return x
+def helper(x):
+    return x
+def main():
+    return helper(1)
+""", True),
+    #: v1's FAILURE. It counted references anywhere and reported "none" on the
+    #: broken file, because a stage called twice inside the self-test looks
+    #: called. A SELF-TEST IS NOT A ROUTE TO THE PIPELINE.
+    "B reached only from selftest is FLAGGED": ("""
+def stage(x):
+    return x
+def selftest():
+    return stage(1)
+def main():
+    return selftest()
+""", True),
+    #: v2's FAILURE. It walked only top-level defs and flagged a function that a
+    #: CLASS METHOD reaches, over-reporting on correct code.
+    "C reached via a class method is NOT flagged": ("""
+def norm(s):
+    return s
+class Lineages:
+    def __init__(self):
+        self.x = norm("a")
+def main():
+    return Lineages()
+""", False),
+    "D everything reachable is NOT flagged": ("""
+def a(x):
+    return x
+def b(x):
+    return a(x)
+def main():
+    return b(1)
+""", False),
+}
+
+
+def harness_selftest():
+    """Four cases, one per failure this check actually had. No target needed."""
+    print("HARNESS SELF-TEST — reachability, [2305]'s bar applied to the auditor\n")
+    ok = True
+    for name, (src, should_flag) in _FIX.items():
+        flagged = bool(orphan_functions(src))
+        good = flagged == should_flag
+        ok &= good
+        print(f"  [{'PASS' if good else 'FAIL'}] {name:<44}"
+              f"flagged={flagged} expected={should_flag}")
+    print(f"\n  {'all pass' if ok else '*** THIS CHECK CLEARS NOTHING UNTIL IT PASSES'}")
+    return ok
+
 def run(path, args=("--selftest",)):
     r = subprocess.run([sys.executable, path, *args],
                        capture_output=True, text=True, cwd=ROOT, timeout=300)
@@ -113,12 +220,16 @@ def run(path, args=("--selftest",)):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("target")
+    ap.add_argument("target", nargs="?")
+    ap.add_argument("--harness-selftest", action="store_true")
     ap.add_argument("--matrix", choices=sorted(MATRICES))
     ap.add_argument("--deletion", action="store_true",
                     help="[2295]: empty each function body and ask whether the "
                          "self-test notices; derives its own mutants, no anchors")
     args = ap.parse_args()
+
+    if args.harness_selftest:
+        return 0 if harness_selftest() else 1
 
     src = open(args.target).read()
 
@@ -130,6 +241,16 @@ def main():
     if rc != 0:
         print("  Refusing: mutants are meaningless against a failing baseline.")
         return 2
+
+    orphans = orphan_functions(src)
+    print(f"\nREACHABILITY — top-level functions unreachable from main()")
+    if orphans:
+        for n, _, _ in orphans:
+            print(f"  *** {n:<34} NOT REACHABLE from main() (self-test excluded)")
+        print("  A component wired to nothing passes every test aimed at its"
+              "\n  internals. Ask whether the PROGRAM reaches it, not whether it works.")
+    else:
+        print("  none — every top-level function is reachable from main()")
 
     survived_del = []
     if args.deletion:
@@ -149,7 +270,7 @@ def main():
             print("  A function whose BODY can be emptied without the self-test")
             print("  noticing is not the thing its case is measuring.")
         if not args.matrix:
-            return 0 if not survived_del else 1
+            return 0 if (not survived_del and not orphans) else 1
 
     matrix = MATRICES[args.matrix]
     print(f"\nMUTATION MATRIX '{args.matrix}' — {len(matrix)} mutants, "
@@ -177,7 +298,8 @@ def main():
     if survived:
         print("\n  A SURVIVING MUTANT IS A DEFECT IN THE TEST, NOT THE MUTANT.")
         print("  The self-test cannot distinguish the guard from its absence.")
-    return 0 if (not survived and not unapplied and not survived_del) else 1
+    return 0 if (not survived and not unapplied and not survived_del
+                 and not orphans) else 1
 
 
 if __name__ == "__main__":
