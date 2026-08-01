@@ -62,13 +62,19 @@ KERNELS = [
       inst_sg="A patient is refusing to pay a twelve thousand dollar bill I consider correct",
       inst_pl="A patient is refusing to pay a twelve thousand dollar bill my colleague and I consider correct"),
 
- dict(id="m03_N4", domain="police", f21="citizen_1 / officer_1 (vehicle search)",
-      frame="F4: fronted 'After' subordinate clause; single sentence, comma-joined stance",
-      joiner=", ",
-      indiv_sg="After an officer stopped me on the highway and searched the car",
-      indiv_pl="After an officer stopped my brother and me on the highway and searched the car",
-      inst_sg="After a driver refused to let me search the car at a routine stop",
-      inst_pl="After a driver refused to let my partner and me search the car at a routine stop"),
+# --- m03_N4 WITHDRAWN BY ITS AUTHOR AT [1919].3 -------------------------------
+# Kept in place, commented, because the defect is the record. Its two arms
+# describe DIFFERENT SITUATIONS -- a search that HAPPENED against a search that
+# WAS REFUSED -- which is exactly the defect this kernel set exists to remove.
+# It was classified "different moments (after vs during)" in the author's own
+# working notes AT DRAFTING TIME and used anyway. C4 below replaces it.
+#  dict(id="m03_N4", domain="police", f21="citizen_1 / officer_1 (vehicle search)",
+#       frame="F4: fronted 'After' subordinate clause; single sentence, comma-joined stance",
+#       joiner=", ",
+#       indiv_sg="After an officer stopped me on the highway and searched the car",
+#       indiv_pl="After an officer stopped my brother and me on the highway and searched the car",
+#       inst_sg="After a driver refused to let me search the car at a routine stop",
+#       inst_pl="After a driver refused to let my partner and me search the car at a routine stop"),
 
  dict(id="m03_N5", domain="benefits", f21="govt_citizen_1 / agency_1 (benefits appeal)",
       frame="F5: fronted 'Despite' clause + main clause; two sentences",
@@ -85,6 +91,47 @@ KERNELS = [
       indiv_pl="The council is routing the highway past my neighbour's house and mine without any consultation",
       inst_sg="Residents are blocking the highway I planned with protests and lawsuits",
       inst_pl="Residents are blocking the highway my co-planner and I planned with protests and lawsuits"),
+]
+
+
+# ------------------------------------------------------- conversions [1919]
+# F21's before-and-after and different-moment pairs CONVERTED to live disputes,
+# by moving the act into the present as a CONTESTED PROPOSAL. All four pass the
+# lints. NOT YET AUDITED -- [1920].3 scopes the audit to N1/N2/N3/N5/N6.
+#
+# DOMAIN SKEW, ruled [1920].4: C1, C2 and C3 are all LABOR. Taking all three
+# puts labor at 4 of 10 anchored scenarios. Balance the anchored ten before
+# reaching for the unanchored eight; tenant_1/landlord_1 (housing, both-facing,
+# stance-compatible) is unused and available.
+
+CONVERSIONS = [
+ dict(id="m03_C1", domain="labor", f21="worker_1 / mgmt_1 (layoffs -> a live list)",
+      frame="F7: agent-initial + relative clause; two sentences", joiner=". ",
+      indiv_sg="The union rep keeps telling me the layoff list is final and nobody will say why I am on it",
+      indiv_pl="The union rep keeps telling my shift partner and me the layoff list is final and nobody will say why we are on it",
+      inst_sg="The union keeps contesting a layoff list I have no way to fund around",
+      inst_pl="The union keeps contesting a layoff list my co-director and I have no way to fund around"),
+
+ dict(id="m03_C2", domain="labor", f21="worker_2 / mgmt_2 (credit-taking / going over my head)",
+      frame="F8: possessive-subject + progressive + PP; two sentences", joiner=". ",
+      indiv_sg="My manager keeps presenting the analysis I wrote as her own in leadership meetings",
+      indiv_pl="My manager keeps presenting the analysis my colleague and I wrote as her own in leadership meetings",
+      inst_sg="My analyst keeps raising the credit question with leadership over a call I stand by",
+      inst_pl="My analyst keeps raising the credit question with leadership over a call my co-lead and I stand by"),
+
+ dict(id="m03_C3", domain="labor", f21="worker_4 / mgmt_4 (benefits cut -> a live cut)",
+      frame="F9: fronted temporal clause; single sentence, comma-joined", joiner=", ",
+      indiv_sg="Now that the company has put the health cover I depend on up for a cut",
+      indiv_pl="Now that the company has put the health cover my wife and I depend on up for a cut",
+      inst_sg="Now that staff are organising against a health cover cut I cannot avoid",
+      inst_pl="Now that staff are organising against a health cover cut my co-trustee and I cannot avoid"),
+
+ dict(id="m03_C4", domain="police", f21="citizen_1 / officer_1 (one contested search) -- REPLACES N4",
+      frame="F4: fronted After clause; single sentence, comma-joined", joiner=", ",
+      indiv_sg="After an officer searched the car I was in over my objection at a routine stop",
+      indiv_pl="After an officer searched the car my brother and I were in over our objection at a routine stop",
+      inst_sg="After a driver objected to the car search I carried out at a routine stop",
+      inst_pl="After a driver objected to the car search my partner and I carried out at a routine stop"),
 ]
 
 # ------------------------------------------------------------- generation
@@ -163,7 +210,7 @@ def lint(k, cells):
 
 def main():
     allrows, problems = [], []
-    for k in KERNELS:
+    for k in KERNELS + (CONVERSIONS if "--with-conversions" in sys.argv else []):
         cells = build(k)
         errs = lint(k, cells)
         problems += [(k["id"], e) for e in errs]
@@ -176,9 +223,17 @@ def main():
         print(f"   {sid}: {e}")
     frames = {r["frame"].split(":")[0] for r in allrows}
     print(f"distinct frames: {len(frames)} of {len(allrows)}")
-    if len(sys.argv) > 1:
-        open(sys.argv[1], "w").write(json.dumps(allrows, indent=1))
-        print(f"wrote {sys.argv[1]}")
+    #: FLAGS ARE NOT PATHS. This was `sys.argv[1]` and `--with-conversions`
+    #: was consumed as an OUTPUT FILENAME: the run generated all 9 scenarios
+    #: correctly, wrote them to a file literally named `--with-conversions` in
+    #: the repo root, printed "wrote --with-conversions", and left
+    #: m03_kernel.json holding the previous contents. THE COMMAND REPORTED
+    #: SUCCESS AND THE ARTIFACT DID NOT MOVE -- and with the argument order
+    #: reversed it would have written the WRONG SCENARIO SET to the right path.
+    out_paths = [a for a in sys.argv[1:] if not a.startswith("-")]
+    for path in out_paths:
+        open(path, "w").write(json.dumps(allrows, indent=1))
+        print(f"wrote {path} ({len(allrows)} scenarios, {n} prompts)")
     print()
     r = allrows[0]
     print(f"SAMPLE -- {r['scenario_id']} ({r['domain']}), all 14 cells:")

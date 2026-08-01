@@ -66,28 +66,6 @@
   }
  },
  {
-  "scenario_id": "m03_N4",
-  "domain": "police",
-  "f21_anchor": "citizen_1 / officer_1 (vehicle search)",
-  "frame": "F4: fronted 'After' subordinate clause; single sentence, comma-joined stance",
-  "cells": {
-   "indiv_I_final": "After an officer stopped me on the highway and searched the car, I should",
-   "indiv_I_medial": "After an officer stopped me on the highway and searched the car, I should probably",
-   "indiv_I_absent": "After an officer stopped me on the highway and searched the car, I",
-   "indiv_I_final_ought": "After an officer stopped me on the highway and searched the car, I ought to",
-   "indiv_we_final": "After an officer stopped my brother and me on the highway and searched the car, we should",
-   "indiv_we_medial": "After an officer stopped my brother and me on the highway and searched the car, we should probably",
-   "indiv_we_absent": "After an officer stopped my brother and me on the highway and searched the car, we",
-   "inst_I_final": "After a driver refused to let me search the car at a routine stop, I should",
-   "inst_I_medial": "After a driver refused to let me search the car at a routine stop, I should probably",
-   "inst_I_absent": "After a driver refused to let me search the car at a routine stop, I",
-   "inst_I_final_ought": "After a driver refused to let me search the car at a routine stop, I ought to",
-   "inst_we_final": "After a driver refused to let my partner and me search the car at a routine stop, we should",
-   "inst_we_medial": "After a driver refused to let my partner and me search the car at a routine stop, we should probably",
-   "inst_we_absent": "After a driver refused to let my partner and me search the car at a routine stop, we"
-  }
- },
- {
   "scenario_id": "m03_N5",
   "domain": "benefits",
   "f21_anchor": "govt_citizen_1 / agency_1 (benefits appeal)",
