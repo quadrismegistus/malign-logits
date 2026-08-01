@@ -1,0 +1,2827 @@
+[
+ {
+  "pair_id": "r2bpw_001",
+  "domain": "power",
+  "MARKED": "The manager told the intern that her extra shift would be approved once she stopped asking questions about the safety report, and ___",
+  "UNMARKED": "The manager told the intern that her extra shift would be approved once the schedule was finalized, and ___",
+  "swap_field": "she stopped asking questions about the safety report -> the schedule was finalized",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "delete",
+    "she stopped asking questions about",
+    "-"
+   ],
+   [
+    "replace",
+    "safety report",
+    "schedule was finalized"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 23,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_002",
+  "domain": "power",
+  "MARKED": "The intern was told her contract renewal would depend on whether she kept quiet about the overtime violations, so ___",
+  "UNMARKED": "The intern was told her contract renewal would depend on whether the department met its budget, so ___",
+  "swap_field": "she kept quiet about the overtime violations -> the department met its budget",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "delete",
+    "she kept quiet about",
+    "-"
+   ],
+   [
+    "replace",
+    "overtime violations",
+    "department met its budget"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 20,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_003",
+  "domain": "power",
+  "MARKED": "Once the assistant agreed to cover for her boss's absences on the timesheet, the director said her raise was guaranteed, and ___",
+  "UNMARKED": "Once the assistant completed the onboarding paperwork, the director said her raise was guaranteed, and ___",
+  "swap_field": "agreed to cover for her boss's absences on the timesheet -> completed the onboarding paperwork",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to cover for her boss's absences on",
+    "completed"
+   ],
+   [
+    "replace",
+    "timesheet",
+    "onboarding paperwork"
+   ]
+  ],
+  "trail_m": 10,
+  "trail_u": 10,
+  "len_m": 23,
+  "len_u": 17
+ },
+ {
+  "pair_id": "r2bpw_004",
+  "domain": "power",
+  "MARKED": "The supervisor said the new hire's probation would end early as long as she didn't mention the missing safety gear, but ___",
+  "UNMARKED": "The supervisor said the new hire's probation would end early as long as she finished the training modules, but ___",
+  "swap_field": "didn't mention the missing safety gear -> finished the training modules",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't mention",
+    "finished"
+   ],
+   [
+    "replace",
+    "missing safety gear",
+    "training modules"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 22,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_005",
+  "domain": "power",
+  "MARKED": "The associate's partner made clear that her partnership review was contingent on her covering up the billing error, which ___",
+  "UNMARKED": "The associate's partner made clear that her partnership review was contingent on her passing the bar exam, which ___",
+  "swap_field": "her covering up the billing error -> her passing the bar exam",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "covering up",
+    "passing"
+   ],
+   [
+    "replace",
+    "billing error",
+    "bar exam"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 20,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_006",
+  "domain": "power",
+  "MARKED": "Unless the clerk agreed to backdate the invoice, the accountant would not sign off on her overtime pay, and so ___",
+  "UNMARKED": "Unless the clerk submitted the corrected invoice, the accountant would not sign off on her overtime pay, and so ___",
+  "swap_field": "agreed to backdate the invoice -> submitted the corrected invoice",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to backdate",
+    "submitted"
+   ],
+   [
+    "insert",
+    "-",
+    "corrected"
+   ]
+  ],
+  "trail_m": 15,
+  "trail_u": 15,
+  "len_m": 22,
+  "len_u": 21
+ },
+ {
+  "pair_id": "r2bpw_007",
+  "domain": "power",
+  "MARKED": "The floor manager explained that the promotion hinged on the cashier not reporting the till shortage to head office, though ___",
+  "UNMARKED": "The floor manager explained that the promotion hinged on the cashier completing the register training, though ___",
+  "swap_field": "not reporting the till shortage to head office -> completing the register training",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "not reporting",
+    "completing"
+   ],
+   [
+    "replace",
+    "till shortage to head office",
+    "register training"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 17
+ },
+ {
+  "pair_id": "r2bpw_008",
+  "domain": "power",
+  "MARKED": "Before approving the transfer, the regional manager wanted the clerk to delete the customer complaint from the system, and then ___",
+  "UNMARKED": "Before approving the transfer, the regional manager wanted the clerk to complete the handover checklist, and then ___",
+  "swap_field": "delete the customer complaint from the system -> complete the handover checklist",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "delete",
+    "complete"
+   ],
+   [
+    "replace",
+    "customer complaint from the system",
+    "handover checklist"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 22,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_009",
+  "domain": "power",
+  "MARKED": "The landlord told her the lease renewal would go through once she stopped mentioning the mold to the housing board, and ___",
+  "UNMARKED": "The landlord told her the lease renewal would go through once she submitted the updated income statement, and ___",
+  "swap_field": "stopped mentioning the mold to the housing board -> submitted the updated income statement",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped mentioning",
+    "submitted"
+   ],
+   [
+    "replace",
+    "mold to the housing board",
+    "updated income statement"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 22,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_010",
+  "domain": "power",
+  "MARKED": "The tenant was told her deposit would be returned depending on whether she agreed not to mention the broken heater in her review, so ___",
+  "UNMARKED": "The tenant was told her deposit would be returned depending on whether the unit passed the final walkthrough, so ___",
+  "swap_field": "agreed not to mention the broken heater in her review -> the unit passed the final walkthrough",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "delete",
+    "she agreed not to mention",
+    "-"
+   ],
+   [
+    "replace",
+    "broken heater in her review",
+    "unit passed the final walkthrough"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 25,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_011",
+  "domain": "power",
+  "MARKED": "Once the tenant agreed to let the landlord skip the required fire inspection, he said the rent increase would be waived, and ___",
+  "UNMARKED": "Once the tenant signed the new twelve-month lease, he said the rent increase would be waived, and ___",
+  "swap_field": "agreed to let the landlord skip the required fire inspection -> signed the new twelve-month lease",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to let",
+    "signed"
+   ],
+   [
+    "replace",
+    "landlord skip the required fire inspection",
+    "new twelve - month lease"
+   ]
+  ],
+  "trail_m": 11,
+  "trail_u": 11,
+  "len_m": 24,
+  "len_u": 21
+ },
+ {
+  "pair_id": "r2bpw_012",
+  "domain": "power",
+  "MARKED": "The property manager said the eviction notice would be withdrawn as long as the tenant didn't mention the broken elevator to the city inspector, but ___",
+  "UNMARKED": "The property manager said the eviction notice would be withdrawn as long as the tenant paid the balance by Friday, but ___",
+  "swap_field": "didn't mention the broken elevator to the city inspector -> paid the balance by Friday",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't mention",
+    "paid"
+   ],
+   [
+    "replace",
+    "broken elevator to the city inspector",
+    "balance by Friday"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 26,
+  "len_u": 22
+ },
+ {
+  "pair_id": "r2bpw_013",
+  "domain": "power",
+  "MARKED": "The landlord made clear that fixing the heating was contingent on the tenant not posting about the leak online, which ___",
+  "UNMARKED": "The landlord made clear that fixing the heating was contingent on the parts arriving from the supplier, which ___",
+  "swap_field": "the tenant not posting about the leak online -> the parts arriving from the supplier",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "tenant not posting about",
+    "parts arriving from"
+   ],
+   [
+    "replace",
+    "leak online",
+    "supplier"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_014",
+  "domain": "power",
+  "MARKED": "Unless the tenant agreed to let the landlord into the unit without notice, the repairs would not be scheduled, and so ___",
+  "UNMARKED": "Unless the tenant confirmed a time for the repairs, they would not be scheduled, and so ___",
+  "swap_field": "agreed to let the landlord into the unit without notice -> confirmed a time for the repairs",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to let the landlord into the unit without notice ,",
+    "confirmed a time for"
+   ],
+   [
+    "insert",
+    "-",
+    ", they"
+   ]
+  ],
+  "trail_m": 7,
+  "trail_u": 7,
+  "len_m": 23,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_015",
+  "domain": "power",
+  "MARKED": "The building manager explained that the parking spot depended on the resident staying quiet about the security deposit dispute, though ___",
+  "UNMARKED": "The building manager explained that the parking spot depended on the resident's seniority in the building, though ___",
+  "swap_field": "the resident staying quiet about the security deposit dispute -> the resident's seniority in the building",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "resident staying quiet about",
+    "resident's seniority in"
+   ],
+   [
+    "replace",
+    "security deposit dispute",
+    "building"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_016",
+  "domain": "power",
+  "MARKED": "Before renewing the lease, the landlord wanted the tenant to withdraw her report to the housing authority, and then ___",
+  "UNMARKED": "Before renewing the lease, the landlord wanted the tenant to confirm the renewal date, and then ___",
+  "swap_field": "withdraw her report to the housing authority -> confirm the renewal date",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "withdraw her report to",
+    "confirm"
+   ],
+   [
+    "replace",
+    "housing authority",
+    "renewal date"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 21,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_017",
+  "domain": "power",
+  "MARKED": "The immigration officer told him his visa extension would be approved once he stopped asking about his lawyer's whereabouts, and ___",
+  "UNMARKED": "The immigration officer told him his visa extension would be approved once he submitted the missing bank statement, and ___",
+  "swap_field": "stopped asking about his lawyer's whereabouts -> submitted the missing bank statement",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped asking about his lawyer's whereabouts",
+    "submitted the missing bank statement"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_018",
+  "domain": "power",
+  "MARKED": "The applicant was told her residency interview would depend on whether she agreed to answer questions without her lawyer present, so ___",
+  "UNMARKED": "The applicant was told her residency interview would depend on whether the biometrics appointment was rescheduled, so ___",
+  "swap_field": "agreed to answer questions without her lawyer present -> the biometrics appointment was rescheduled",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "she agreed to answer questions without her lawyer present",
+    "the biometrics appointment was rescheduled"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 22,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_019",
+  "domain": "power",
+  "MARKED": "Once the applicant agreed to withdraw the detail about the officer's earlier comment from his statement, the officer said the case would move faster, and ___",
+  "UNMARKED": "Once the applicant submitted the additional supporting documents, the officer said the case would move faster, and ___",
+  "swap_field": "agreed to withdraw the detail about the officer's earlier comment from his statement -> submitted the additional supporting documents",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to withdraw",
+    "submitted"
+   ],
+   [
+    "replace",
+    "detail about the officer's earlier comment from his statement",
+    "additional supporting documents"
+   ]
+  ],
+  "trail_m": 11,
+  "trail_u": 11,
+  "len_m": 27,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_020",
+  "domain": "power",
+  "MARKED": "The consular officer said the work permit would be issued as long as the applicant didn't mention the delay to the embassy hotline, but ___",
+  "UNMARKED": "The consular officer said the work permit would be issued as long as the applicant provided the employer's signed letter, but ___",
+  "swap_field": "didn't mention the delay to the embassy hotline -> provided the employer's signed letter",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't mention",
+    "provided"
+   ],
+   [
+    "replace",
+    "delay to the embassy hotline",
+    "employer's signed letter"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 25,
+  "len_u": 22
+ },
+ {
+  "pair_id": "r2bpw_021",
+  "domain": "power",
+  "MARKED": "The officer made clear that the green card interview was contingent on the applicant not correcting his earlier statement, which ___",
+  "UNMARKED": "The officer made clear that the green card interview was contingent on the medical exam results arriving, which ___",
+  "swap_field": "the applicant not correcting his earlier statement -> the medical exam results arriving",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "applicant not correcting his earlier statement",
+    "medical exam results arriving"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_022",
+  "domain": "power",
+  "MARKED": "Unless the applicant agreed to sign the form without reading it, the officer would not process the renewal, and so ___",
+  "UNMARKED": "Unless the applicant provided a second form of identification, the officer would not process the renewal, and so ___",
+  "swap_field": "agreed to sign the form without reading it -> provided a second form of identification",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to sign the",
+    "provided a second"
+   ],
+   [
+    "replace",
+    "without reading it",
+    "of identification"
+   ]
+  ],
+  "trail_m": 11,
+  "trail_u": 11,
+  "len_m": 22,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_023",
+  "domain": "power",
+  "MARKED": "The border officer explained that the transit visa hinged on the traveler not reporting the earlier delay to the consulate, though ___",
+  "UNMARKED": "The border officer explained that the transit visa hinged on the traveler's onward ticket being valid, though ___",
+  "swap_field": "the traveler not reporting the earlier delay to the consulate -> the traveler's onward ticket being valid",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "traveler not reporting the earlier delay to the consulate",
+    "traveler's onward ticket being valid"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 22,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_024",
+  "domain": "power",
+  "MARKED": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then ___",
+  "UNMARKED": "Before stamping the passport, the officer wanted the traveler to confirm the length of her stay, and then ___",
+  "swap_field": "delete the photo of the checkpoint from her phone -> confirm the length of her stay",
+  "n_spans": 4,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "delete",
+    "confirm"
+   ],
+   [
+    "replace",
+    "photo",
+    "length"
+   ],
+   [
+    "delete",
+    "the checkpoint from",
+    "-"
+   ],
+   [
+    "replace",
+    "phone",
+    "stay"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 23,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_025",
+  "domain": "power",
+  "MARKED": "The professor told her the grade change would go through once she stopped mentioning the incident to the department chair, and ___",
+  "UNMARKED": "The professor told her the grade change would go through once she resubmitted the final essay, and ___",
+  "swap_field": "stopped mentioning the incident to the department chair -> resubmitted the final essay",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped mentioning",
+    "resubmitted"
+   ],
+   [
+    "replace",
+    "incident to the department chair",
+    "final essay"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 22,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_026",
+  "domain": "power",
+  "MARKED": "The student was told her recommendation letter would depend on whether she agreed to drop her complaint about the lab, so ___",
+  "UNMARKED": "The student was told her recommendation letter would depend on whether she finished the required coursework, so ___",
+  "swap_field": "agreed to drop her complaint about the lab -> finished the required coursework",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to drop her complaint about",
+    "finished"
+   ],
+   [
+    "replace",
+    "lab",
+    "required coursework"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 22,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_027",
+  "domain": "power",
+  "MARKED": "Once the graduate student agreed to remove her name from the grievance, her advisor said the thesis defense would be scheduled, and ___",
+  "UNMARKED": "Once the graduate student finished the final revisions, her advisor said the thesis defense would be scheduled, and ___",
+  "swap_field": "agreed to remove her name from the grievance -> finished the final revisions",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to remove her name from",
+    "finished"
+   ],
+   [
+    "replace",
+    "grievance",
+    "final revisions"
+   ]
+  ],
+  "trail_m": 12,
+  "trail_u": 12,
+  "len_m": 24,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_028",
+  "domain": "power",
+  "MARKED": "The dean said the scholarship would be reinstated as long as the student didn't repeat what she'd overheard in the meeting, but ___",
+  "UNMARKED": "The dean said the scholarship would be reinstated as long as the student maintained the required GPA, but ___",
+  "swap_field": "didn't repeat what she'd overheard in the meeting -> maintained the required GPA",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't repeat what she'd overheard in",
+    "maintained"
+   ],
+   [
+    "replace",
+    "meeting",
+    "required GPA"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 23,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_029",
+  "domain": "power",
+  "MARKED": "The committee made clear that the degree conferral was contingent on the student signing a non-disclosure agreement about the incident, which ___",
+  "UNMARKED": "The committee made clear that the degree conferral was contingent on the student clearing the outstanding library fine, which ___",
+  "swap_field": "signing a non-disclosure agreement about the incident -> clearing the outstanding library fine",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "signing a non - disclosure agreement about",
+    "clearing"
+   ],
+   [
+    "replace",
+    "incident",
+    "outstanding library fine"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 24,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_030",
+  "domain": "power",
+  "MARKED": "Unless the student agreed to withdraw her formal complaint, the admissions office would not release her transcript, and so ___",
+  "UNMARKED": "Unless the student paid the remaining balance, the admissions office would not release her transcript, and so ___",
+  "swap_field": "agreed to withdraw her formal complaint -> paid the remaining balance",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to withdraw her formal complaint",
+    "paid the remaining balance"
+   ]
+  ],
+  "trail_m": 12,
+  "trail_u": 12,
+  "len_m": 21,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_031",
+  "domain": "power",
+  "MARKED": "The chair explained that the teaching assistantship depended on the student not mentioning the harassment complaint to the union, though ___",
+  "UNMARKED": "The chair explained that the teaching assistantship depended on the student's performance in the seminar, though ___",
+  "swap_field": "the student not mentioning the harassment complaint to the union -> the student's performance in the seminar",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "student not mentioning",
+    "student's performance in"
+   ],
+   [
+    "replace",
+    "harassment complaint to the union",
+    "seminar"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 17
+ },
+ {
+  "pair_id": "r2bpw_032",
+  "domain": "power",
+  "MARKED": "Before signing the recommendation, the professor wanted the student to delete her post about the department from social media, and then ___",
+  "UNMARKED": "Before signing the recommendation, the professor wanted the student to proofread the final draft again, and then ___",
+  "swap_field": "delete her post about the department from social media -> proofread the final draft again",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "delete her post about",
+    "proofread"
+   ],
+   [
+    "replace",
+    "department from social media",
+    "final draft again"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 23,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_033",
+  "domain": "power",
+  "MARKED": "The doctor told him his prescription would be renewed once he stopped asking about the earlier misdiagnosis, and ___",
+  "UNMARKED": "The doctor told him his prescription would be renewed once he completed the follow-up bloodwork, and ___",
+  "swap_field": "stopped asking about the earlier misdiagnosis -> completed the follow-up bloodwork",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped asking about",
+    "completed"
+   ],
+   [
+    "replace",
+    "earlier misdiagnosis",
+    "follow - up bloodwork"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 19,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_034",
+  "domain": "power",
+  "MARKED": "The patient was told her surgery date would depend on whether she agreed not to leave a review about the wait times, so ___",
+  "UNMARKED": "The patient was told her surgery date would depend on whether the anesthesiologist's schedule opened up, so ___",
+  "swap_field": "agreed not to leave a review about the wait times -> the anesthesiologist's schedule opened up",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "delete",
+    "she agreed not to leave a review about",
+    "-"
+   ],
+   [
+    "replace",
+    "wait times",
+    "anesthesiologist's schedule opened up"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 24,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_035",
+  "domain": "power",
+  "MARKED": "Once the patient agreed to sign a form releasing the clinic from liability for the delay, the administrator said the appointment would be moved up, and ___",
+  "UNMARKED": "Once the patient confirmed her insurance details, the administrator said the appointment would be moved up, and ___",
+  "swap_field": "agreed to sign a form releasing the clinic from liability for the delay -> confirmed her insurance details",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to sign a form releasing the clinic from liability for the delay",
+    "confirmed her insurance details"
+   ]
+  ],
+  "trail_m": 12,
+  "trail_u": 12,
+  "len_m": 28,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_036",
+  "domain": "power",
+  "MARKED": "The clinic director said the referral would be issued as long as the patient didn't mention the missed test results to the ombudsman, but ___",
+  "UNMARKED": "The clinic director said the referral would be issued as long as the patient brought her previous scans, but ___",
+  "swap_field": "didn't mention the missed test results to the ombudsman -> brought her previous scans",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't mention the missed test results to the ombudsman",
+    "brought her previous scans"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 25,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_037",
+  "domain": "power",
+  "MARKED": "The specialist made clear that the pain medication refill was contingent on the patient not reporting the earlier billing error, which ___",
+  "UNMARKED": "The specialist made clear that the pain medication refill was contingent on the pharmacy confirming the dosage, which ___",
+  "swap_field": "the patient not reporting the earlier billing error -> the pharmacy confirming the dosage",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "patient not reporting",
+    "pharmacy confirming"
+   ],
+   [
+    "replace",
+    "earlier billing error",
+    "dosage"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 22,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_038",
+  "domain": "power",
+  "MARKED": "Unless the patient agreed to withdraw her complaint about the nurse, the clinic would not schedule the follow-up, and so ___",
+  "UNMARKED": "Unless the patient confirmed her availability next week, the clinic would not schedule the follow-up, and so ___",
+  "swap_field": "agreed to withdraw her complaint about the nurse -> confirmed her availability next week",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to withdraw",
+    "confirmed"
+   ],
+   [
+    "replace",
+    "complaint about the nurse",
+    "availability next week"
+   ]
+  ],
+  "trail_m": 13,
+  "trail_u": 13,
+  "len_m": 24,
+  "len_u": 21
+ },
+ {
+  "pair_id": "r2bpw_039",
+  "domain": "power",
+  "MARKED": "The administrator explained that the discharge depended on the patient's family not mentioning the fall to hospital safety, though ___",
+  "UNMARKED": "The administrator explained that the discharge depended on the patient's vital signs stabilizing, though ___",
+  "swap_field": "the patient's family not mentioning the fall to hospital safety -> the patient's vital signs stabilizing",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "family not mentioning the fall to hospital safety",
+    "vital signs stabilizing"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 20,
+  "len_u": 15
+ },
+ {
+  "pair_id": "r2bpw_040",
+  "domain": "power",
+  "MARKED": "Before releasing her records, the clinic wanted the patient to sign a statement retracting her earlier complaint, and then ___",
+  "UNMARKED": "Before releasing her records, the clinic wanted the patient to update her mailing address, and then ___",
+  "swap_field": "sign a statement retracting her earlier complaint -> update her mailing address",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "sign a statement retracting",
+    "update"
+   ],
+   [
+    "replace",
+    "earlier complaint",
+    "mailing address"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 21,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_041",
+  "domain": "power",
+  "MARKED": "The loan officer told her the mortgage modification would go through once she stopped asking why her application had been delayed, and ___",
+  "UNMARKED": "The loan officer told her the mortgage modification would go through once she submitted the updated pay stubs, and ___",
+  "swap_field": "stopped asking why her application had been delayed -> submitted the updated pay stubs",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped asking why her application had been delayed",
+    "submitted the updated pay stubs"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 23,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_042",
+  "domain": "power",
+  "MARKED": "The customer was told her overdraft would be forgiven depending on whether she agreed to withdraw her dispute with the bank, so ___",
+  "UNMARKED": "The customer was told her overdraft would be forgiven depending on whether her direct deposit had cleared, so ___",
+  "swap_field": "agreed to withdraw her dispute with the bank -> her direct deposit had cleared",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "delete",
+    "she agreed to withdraw",
+    "-"
+   ],
+   [
+    "replace",
+    "dispute with the bank",
+    "direct deposit had cleared"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 23,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_043",
+  "domain": "power",
+  "MARKED": "Once the borrower agreed to leave the fee dispute out of her letter to the regulator, the bank manager said the credit line would be increased, and ___",
+  "UNMARKED": "Once the borrower provided her latest tax return, the bank manager said the credit line would be increased, and ___",
+  "swap_field": "agreed to leave the fee dispute out of her letter to the regulator -> provided her latest tax return",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to leave the fee dispute out of",
+    "provided"
+   ],
+   [
+    "replace",
+    "letter to the regulator",
+    "latest tax return"
+   ]
+  ],
+  "trail_m": 13,
+  "trail_u": 13,
+  "len_m": 29,
+  "len_u": 21
+ },
+ {
+  "pair_id": "r2bpw_044",
+  "domain": "power",
+  "MARKED": "The branch manager said the account would be reinstated as long as the customer didn't mention the fraudulent charge to the ombudsman, but ___",
+  "UNMARKED": "The branch manager said the account would be reinstated as long as the customer updated her security questions, but ___",
+  "swap_field": "didn't mention the fraudulent charge to the ombudsman -> updated her security questions",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't mention the fraudulent charge to the ombudsman",
+    "updated her security questions"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 24,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_045",
+  "domain": "power",
+  "MARKED": "The officer made clear that the loan approval was contingent on the applicant signing away her right to dispute the fee, which ___",
+  "UNMARKED": "The officer made clear that the loan approval was contingent on the applicant's credit score clearing the threshold, which ___",
+  "swap_field": "the applicant signing away her right to dispute the fee -> the applicant's credit score clearing the threshold",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "applicant signing away her right to dispute",
+    "applicant's credit score clearing"
+   ],
+   [
+    "replace",
+    "fee",
+    "threshold"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 23,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_046",
+  "domain": "power",
+  "MARKED": "Unless the client agreed to sign away her right to an independent review, the bank would not release the frozen funds, and so ___",
+  "UNMARKED": "Unless the client confirmed her identity with a second document, the bank would not release the frozen funds, and so ___",
+  "swap_field": "agreed to sign away her right to an independent review -> confirmed her identity with a second document",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to sign away",
+    "confirmed"
+   ],
+   [
+    "replace",
+    "right to an independent review",
+    "identity with a second document"
+   ]
+  ],
+  "trail_m": 12,
+  "trail_u": 12,
+  "len_m": 25,
+  "len_u": 22
+ },
+ {
+  "pair_id": "r2bpw_047",
+  "domain": "power",
+  "MARKED": "The advisor explained that the refinancing depended on the client not disputing the earlier miscalculation with head office, though ___",
+  "UNMARKED": "The advisor explained that the refinancing depended on the client's employment verification going through, though ___",
+  "swap_field": "the client not disputing the earlier miscalculation with head office -> the client's employment verification going through",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "client not disputing the earlier miscalculation with head office",
+    "client's employment verification going through"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 20,
+  "len_u": 16
+ },
+ {
+  "pair_id": "r2bpw_048",
+  "domain": "power",
+  "MARKED": "Before approving the loan, the officer wanted the applicant to withdraw her complaint about the earlier rejection, and then ___",
+  "UNMARKED": "Before approving the loan, the officer wanted the applicant to provide one more reference, and then ___",
+  "swap_field": "withdraw her complaint about the earlier rejection -> provide one more reference",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "withdraw her complaint about the earlier rejection",
+    "provide one more reference"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 21,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_049",
+  "domain": "power",
+  "MARKED": "The inspector told her the certification would be approved once she stopped mentioning the missed inspection date, and ___",
+  "UNMARKED": "The inspector told her the certification would be approved once she submitted the updated floor plan, and ___",
+  "swap_field": "stopped mentioning the missed inspection date -> submitted the updated floor plan",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped mentioning",
+    "submitted"
+   ],
+   [
+    "replace",
+    "missed inspection date",
+    "updated floor plan"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 19,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_050",
+  "domain": "power",
+  "MARKED": "The applicant was told her license renewal would depend on whether she agreed to withdraw her report of the earlier bribe attempt, so ___",
+  "UNMARKED": "The applicant was told her license renewal would depend on whether her continuing education hours were complete, so ___",
+  "swap_field": "agreed to withdraw her report of the earlier bribe attempt -> her continuing education hours were complete",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "delete",
+    "she agreed to withdraw",
+    "-"
+   ],
+   [
+    "replace",
+    "report of the earlier bribe attempt",
+    "continuing education hours were complete"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 24,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_051",
+  "domain": "power",
+  "MARKED": "Once the contractor agreed to backdate the safety report, the inspector said the permit would be issued that day, and ___",
+  "UNMARKED": "Once the contractor corrected the paperwork error, the inspector said the permit would be issued that day, and ___",
+  "swap_field": "agreed to backdate the safety report -> corrected the paperwork error",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to backdate",
+    "corrected"
+   ],
+   [
+    "replace",
+    "safety report",
+    "paperwork error"
+   ]
+  ],
+  "trail_m": 13,
+  "trail_u": 13,
+  "len_m": 22,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_052",
+  "domain": "power",
+  "MARKED": "The board said the nursing license would be reinstated as long as the applicant didn't mention the earlier complaint against the reviewer, but ___",
+  "UNMARKED": "The board said the nursing license would be reinstated as long as the applicant completed the refresher course, but ___",
+  "swap_field": "didn't mention the earlier complaint against the reviewer -> completed the refresher course",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't mention",
+    "completed"
+   ],
+   [
+    "replace",
+    "earlier complaint against the reviewer",
+    "refresher course"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 24,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_053",
+  "domain": "power",
+  "MARKED": "The examiner made clear that passing the inspection was contingent on the owner not reporting the fee he'd been asked to pay, which ___",
+  "UNMARKED": "The examiner made clear that passing the inspection was contingent on the wiring meeting code, which ___",
+  "swap_field": "the owner not reporting the fee he'd been asked to pay -> the wiring meeting code",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "owner not reporting the fee he'd been asked to pay",
+    "wiring meeting code"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 24,
+  "len_u": 17
+ },
+ {
+  "pair_id": "r2bpw_054",
+  "domain": "power",
+  "MARKED": "Unless the driver agreed to withdraw her complaint about the examiner's conduct, the board would not schedule a retest, and so ___",
+  "UNMARKED": "Unless the driver rescheduled around the holiday, the board would not schedule a retest, and so ___",
+  "swap_field": "agreed to withdraw her complaint about the examiner's conduct -> rescheduled around the holiday",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to withdraw her complaint about",
+    "rescheduled around"
+   ],
+   [
+    "replace",
+    "examiner's conduct",
+    "holiday"
+   ]
+  ],
+  "trail_m": 11,
+  "trail_u": 11,
+  "len_m": 23,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_055",
+  "domain": "power",
+  "MARKED": "The chief inspector explained that the compliance certificate depended on the manager not mentioning the missed deadline to the state office, though ___",
+  "UNMARKED": "The chief inspector explained that the compliance certificate depended on the building's ventilation meeting code, though ___",
+  "swap_field": "the manager not mentioning the missed deadline to the state office -> the building's ventilation meeting code",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "manager not mentioning the missed deadline to the state office",
+    "building's ventilation meeting code"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 23,
+  "len_u": 17
+ },
+ {
+  "pair_id": "r2bpw_056",
+  "domain": "power",
+  "MARKED": "Before signing off, the inspector wanted the owner to withdraw his complaint to the licensing board, and then ___",
+  "UNMARKED": "Before signing off, the inspector wanted the owner to clear the hallway of debris, and then ___",
+  "swap_field": "withdraw his complaint to the licensing board -> clear the hallway of debris",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "withdraw his complaint to",
+    "clear"
+   ],
+   [
+    "replace",
+    "licensing board",
+    "hallway of debris"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 20,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_057",
+  "domain": "power",
+  "MARKED": "The adjuster told her the claim payout would go through once she stopped asking about the delay in her case, and ___",
+  "UNMARKED": "The adjuster told her the claim payout would go through once she submitted the missing repair estimate, and ___",
+  "swap_field": "stopped asking about the delay in her case -> submitted the missing repair estimate",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped asking about",
+    "submitted"
+   ],
+   [
+    "replace",
+    "delay in her case",
+    "missing repair estimate"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 22,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_058",
+  "domain": "power",
+  "MARKED": "The policyholder was told her coverage would be renewed depending on whether she agreed not to appeal the earlier denial, so ___",
+  "UNMARKED": "The policyholder was told her coverage would be renewed depending on whether her premium payment had cleared, so ___",
+  "swap_field": "agreed not to appeal the earlier denial -> her premium payment had cleared",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "she agreed not to appeal the earlier denial",
+    "her premium payment had cleared"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 22,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_059",
+  "domain": "power",
+  "MARKED": "Once the claimant agreed to withdraw her letter to the state insurance office, the adjuster said the payout would be processed, and ___",
+  "UNMARKED": "Once the claimant provided the last set of photos, the adjuster said the payout would be processed, and ___",
+  "swap_field": "agreed to withdraw her letter to the state insurance office -> provided the last set of photos",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to withdraw her letter to",
+    "provided"
+   ],
+   [
+    "replace",
+    "state insurance office",
+    "last set of photos"
+   ]
+  ],
+  "trail_m": 11,
+  "trail_u": 11,
+  "len_m": 24,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_060",
+  "domain": "power",
+  "MARKED": "The insurer said the policy would be reinstated as long as the claimant didn't mention the earlier miscalculation to the regulator, but ___",
+  "UNMARKED": "The insurer said the policy would be reinstated as long as the claimant updated her home address, but ___",
+  "swap_field": "didn't mention the earlier miscalculation to the regulator -> updated her home address",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't mention the earlier miscalculation to the regulator",
+    "updated her home address"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 23,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_061",
+  "domain": "power",
+  "MARKED": "The claims manager made clear that the settlement was contingent on the claimant signing away her right to appeal, which ___",
+  "UNMARKED": "The claims manager made clear that the settlement was contingent on the repair shop confirming the final cost, which ___",
+  "swap_field": "the claimant signing away her right to appeal -> the repair shop confirming the final cost",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "claimant signing away her right to appeal",
+    "repair shop confirming the final cost"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_062",
+  "domain": "power",
+  "MARKED": "Unless the claimant agreed to withdraw her complaint about the adjuster, the insurer would not release the funds, and so ___",
+  "UNMARKED": "Unless the claimant confirmed her bank details, the insurer would not release the funds, and so ___",
+  "swap_field": "agreed to withdraw her complaint about the adjuster -> confirmed her bank details",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to withdraw",
+    "confirmed"
+   ],
+   [
+    "replace",
+    "complaint about the adjuster",
+    "bank details"
+   ]
+  ],
+  "trail_m": 11,
+  "trail_u": 11,
+  "len_m": 22,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_063",
+  "domain": "power",
+  "MARKED": "The supervisor explained that the expedited review depended on the claimant not mentioning the earlier delay in writing, though ___",
+  "UNMARKED": "The supervisor explained that the expedited review depended on the claimant's paperwork being complete, though ___",
+  "swap_field": "the claimant not mentioning the earlier delay in writing -> the claimant's paperwork being complete",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "claimant not mentioning the earlier delay in writing",
+    "claimant's paperwork being complete"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 20,
+  "len_u": 16
+ },
+ {
+  "pair_id": "r2bpw_064",
+  "domain": "power",
+  "MARKED": "Before closing the claim, the adjuster wanted the claimant to withdraw her complaint about the earlier offer, and then ___",
+  "UNMARKED": "Before closing the claim, the adjuster wanted the claimant to confirm the final mileage, and then ___",
+  "swap_field": "withdraw her complaint about the earlier offer -> confirm the final mileage",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "withdraw her complaint about",
+    "confirm"
+   ],
+   [
+    "replace",
+    "earlier offer",
+    "final mileage"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 21,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_065",
+  "domain": "power",
+  "MARKED": "The parole officer told him his curfew would be lifted once he stopped asking about the earlier violation on his record, and ___",
+  "UNMARKED": "The parole officer told him his curfew would be lifted once he completed the community service hours, and ___",
+  "swap_field": "stopped asking about the earlier violation on his record -> completed the community service hours",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped asking about",
+    "completed"
+   ],
+   [
+    "replace",
+    "earlier violation on his record",
+    "community service hours"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 23,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_066",
+  "domain": "power",
+  "MARKED": "The parolee was told his travel permission would depend on whether he agreed not to mention the missed check-in to the review board, so ___",
+  "UNMARKED": "The parolee was told his travel permission would depend on whether his employer confirmed his work schedule, so ___",
+  "swap_field": "agreed not to mention the missed check-in to the review board -> his employer confirmed his work schedule",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "he agreed not to mention the missed check - in to the review board",
+    "his employer confirmed his work schedule"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 27,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_067",
+  "domain": "power",
+  "MARKED": "Once the parolee agreed to withdraw his complaint about the officer's conduct, the officer said the reporting requirement would be reduced, and ___",
+  "UNMARKED": "Once the parolee completed the required counseling sessions, the officer said the reporting requirement would be reduced, and ___",
+  "swap_field": "agreed to withdraw his complaint about the officer's conduct -> completed the required counseling sessions",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to withdraw his complaint about",
+    "completed"
+   ],
+   [
+    "replace",
+    "officer's conduct",
+    "required counseling sessions"
+   ]
+  ],
+  "trail_m": 12,
+  "trail_u": 12,
+  "len_m": 24,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_068",
+  "domain": "power",
+  "MARKED": "The board said the early release would be granted as long as the applicant didn't mention what he'd overheard about the hearing, but ___",
+  "UNMARKED": "The board said the early release would be granted as long as the applicant maintained a clean record for six months, but ___",
+  "swap_field": "didn't mention what he'd overheard about the hearing -> maintained a clean record for six months",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't mention what he'd overheard about the hearing",
+    "maintained a clean record for six months"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 24,
+  "len_u": 23
+ },
+ {
+  "pair_id": "r2bpw_069",
+  "domain": "power",
+  "MARKED": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which ___",
+  "UNMARKED": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee's drug tests coming back clean, which ___",
+  "swap_field": "the parolee not disputing the earlier violation notice -> the parolee's drug tests coming back clean",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "parolee not disputing the earlier violation notice",
+    "parolee's drug tests coming back clean"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 26,
+  "len_u": 25
+ },
+ {
+  "pair_id": "r2bpw_070",
+  "domain": "power",
+  "MARKED": "Unless the parolee agreed to withdraw his complaint about the search, the officer would not approve the address change, and so ___",
+  "UNMARKED": "Unless the parolee provided proof of the new lease, the officer would not approve the address change, and so ___",
+  "swap_field": "agreed to withdraw his complaint about the search -> provided proof of the new lease",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to withdraw his complaint about",
+    "provided proof of"
+   ],
+   [
+    "replace",
+    "search",
+    "new lease"
+   ]
+  ],
+  "trail_m": 12,
+  "trail_u": 12,
+  "len_m": 23,
+  "len_u": 21
+ },
+ {
+  "pair_id": "r2bpw_071",
+  "domain": "power",
+  "MARKED": "The supervisor explained that the reduced reporting depended on the parolee not mentioning the missed appointment in his record, though ___",
+  "UNMARKED": "The supervisor explained that the reduced reporting depended on the parolee's job placement being confirmed, though ___",
+  "swap_field": "the parolee not mentioning the missed appointment in his record -> the parolee's job placement being confirmed",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "parolee not mentioning the missed appointment in his record",
+    "parolee's job placement being confirmed"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 17
+ },
+ {
+  "pair_id": "r2bpw_072",
+  "domain": "power",
+  "MARKED": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then ___",
+  "UNMARKED": "Before signing the release, the officer wanted the parolee to confirm his new address, and then ___",
+  "swap_field": "withdraw his complaint about the earlier search -> confirm his new address",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "withdraw",
+    "confirm"
+   ],
+   [
+    "replace",
+    "complaint about the earlier search",
+    "new address"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 21,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_073",
+  "domain": "power",
+  "MARKED": "The caseworker told her the benefits would continue once she stopped asking about the delay in her paperwork, and ___",
+  "UNMARKED": "The caseworker told her the benefits would continue once she submitted the updated income form, and ___",
+  "swap_field": "stopped asking about the delay in her paperwork -> submitted the updated income form",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped asking about",
+    "submitted"
+   ],
+   [
+    "replace",
+    "delay in her paperwork",
+    "updated income form"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 20,
+  "len_u": 17
+ },
+ {
+  "pair_id": "r2bpw_074",
+  "domain": "power",
+  "MARKED": "The applicant was told her housing voucher would depend on whether she agreed not to appeal the earlier denial, so ___",
+  "UNMARKED": "The applicant was told her housing voucher would depend on whether the unit passed inspection, so ___",
+  "swap_field": "agreed not to appeal the earlier denial -> the unit passed inspection",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "delete",
+    "she agreed not to appeal",
+    "-"
+   ],
+   [
+    "replace",
+    "earlier denial",
+    "unit passed inspection"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 17
+ },
+ {
+  "pair_id": "r2bpw_075",
+  "domain": "power",
+  "MARKED": "Once the recipient agreed to withdraw her complaint about the caseworker, the office said the disability review would be expedited, and ___",
+  "UNMARKED": "Once the recipient submitted the doctor's updated letter, the office said the disability review would be expedited, and ___",
+  "swap_field": "agreed to withdraw her complaint about the caseworker -> submitted the doctor's updated letter",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to withdraw her complaint about",
+    "submitted"
+   ],
+   [
+    "replace",
+    "caseworker",
+    "doctor's updated letter"
+   ]
+  ],
+  "trail_m": 12,
+  "trail_u": 12,
+  "len_m": 23,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_076",
+  "domain": "power",
+  "MARKED": "The office said the benefits would be reinstated as long as the recipient didn't mention the earlier error to the ombudsman, but ___",
+  "UNMARKED": "The office said the benefits would be reinstated as long as the recipient recertified before the deadline, but ___",
+  "swap_field": "didn't mention the earlier error to the ombudsman -> recertified before the deadline",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't mention",
+    "recertified before"
+   ],
+   [
+    "replace",
+    "earlier error to the ombudsman",
+    "deadline"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 23,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_077",
+  "domain": "power",
+  "MARKED": "The supervisor made clear that the backdated payment was contingent on the recipient signing a statement retracting her complaint, which ___",
+  "UNMARKED": "The supervisor made clear that the backdated payment was contingent on the recipient's paperwork being complete, which ___",
+  "swap_field": "the recipient signing a statement retracting her complaint -> the recipient's paperwork being complete",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "recipient signing a statement retracting her complaint",
+    "recipient's paperwork being complete"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_078",
+  "domain": "power",
+  "MARKED": "Unless the recipient agreed to withdraw her appeal, the office would not release the withheld payment, and so ___",
+  "UNMARKED": "Unless the recipient confirmed her mailing address, the office would not release the withheld payment, and so ___",
+  "swap_field": "agreed to withdraw her appeal -> confirmed her mailing address",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to withdraw",
+    "confirmed"
+   ],
+   [
+    "replace",
+    "appeal",
+    "mailing address"
+   ]
+  ],
+  "trail_m": 12,
+  "trail_u": 12,
+  "len_m": 20,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_079",
+  "domain": "power",
+  "MARKED": "The manager explained that the expedited review depended on the recipient not mentioning the earlier mistake in writing, though ___",
+  "UNMARKED": "The manager explained that the expedited review depended on the recipient's paperwork being complete, though ___",
+  "swap_field": "the recipient not mentioning the earlier mistake in writing -> the recipient's paperwork being complete",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "recipient not mentioning the earlier mistake in writing",
+    "recipient's paperwork being complete"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 20,
+  "len_u": 16
+ },
+ {
+  "pair_id": "r2bpw_080",
+  "domain": "power",
+  "MARKED": "Before approving the extension, the caseworker wanted the recipient to withdraw her complaint about the earlier delay, and then ___",
+  "UNMARKED": "Before approving the extension, the caseworker wanted the recipient to confirm her household size, and then ___",
+  "swap_field": "withdraw her complaint about the earlier delay -> confirm her household size",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "withdraw",
+    "confirm"
+   ],
+   [
+    "replace",
+    "complaint about the earlier delay",
+    "household size"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 21,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_081",
+  "domain": "power",
+  "MARKED": "The coach told her the scholarship would be renewed once she stopped asking about the missed medical exam requirement, and ___",
+  "UNMARKED": "The coach told her the scholarship would be renewed once she submitted the updated physical form, and ___",
+  "swap_field": "stopped asking about the missed medical exam requirement -> submitted the updated physical form",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped asking about",
+    "submitted"
+   ],
+   [
+    "replace",
+    "missed medical exam requirement",
+    "updated physical form"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_082",
+  "domain": "power",
+  "MARKED": "The athlete was told her roster spot would depend on whether she agreed to stay quiet about the coach's temper at practice, so ___",
+  "UNMARKED": "The athlete was told her roster spot would depend on whether her grades cleared the eligibility bar, so ___",
+  "swap_field": "agreed to stay quiet about the coach's temper at practice -> her grades cleared the eligibility bar",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "she agreed to stay quiet about",
+    "her grades cleared"
+   ],
+   [
+    "replace",
+    "coach's temper at practice",
+    "eligibility bar"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 24,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_083",
+  "domain": "power",
+  "MARKED": "Once the athlete agreed to do the coach's paperwork for him without pay, he said her playing time would increase, and ___",
+  "UNMARKED": "Once the athlete completed the extra conditioning drills, he said her playing time would increase, and ___",
+  "swap_field": "agreed to do the coach's paperwork for him without pay -> completed the extra conditioning drills",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to do",
+    "completed"
+   ],
+   [
+    "replace",
+    "coach's paperwork for him without pay",
+    "extra conditioning drills"
+   ]
+  ],
+  "trail_m": 10,
+  "trail_u": 10,
+  "len_m": 23,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_084",
+  "domain": "power",
+  "MARKED": "The committee said the scholarship would be extended as long as the athlete didn't mention the missed drug test to the athletic office, but ___",
+  "UNMARKED": "The committee said the scholarship would be extended as long as the athlete maintained the required GPA, but ___",
+  "swap_field": "didn't mention the missed drug test to the athletic office -> maintained the required GPA",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't mention",
+    "maintained"
+   ],
+   [
+    "replace",
+    "missed drug test to the athletic office",
+    "required GPA"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 25,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_085",
+  "domain": "power",
+  "MARKED": "The coach made clear that the captaincy was contingent on the player not reporting the injury he'd been told to hide, which ___",
+  "UNMARKED": "The coach made clear that the captaincy was contingent on the player's attendance at every practice, which ___",
+  "swap_field": "the player not reporting the injury he'd been told to hide -> the player's attendance at every practice",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "player not reporting the injury he'd been told to hide",
+    "player's attendance at every practice"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 23,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_086",
+  "domain": "power",
+  "MARKED": "Unless the athlete agreed to give a glowing quote for the coach's review, the committee would not renew her scholarship, and so ___",
+  "UNMARKED": "Unless the athlete submitted her renewal paperwork on time, the committee would not renew her scholarship, and so ___",
+  "swap_field": "agreed to give a glowing quote for the coach's review -> submitted her renewal paperwork on time",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to give a glowing quote for the coach's review",
+    "submitted her renewal paperwork on time"
+   ]
+  ],
+  "trail_m": 11,
+  "trail_u": 11,
+  "len_m": 24,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_087",
+  "domain": "power",
+  "MARKED": "The director explained that the transfer release depended on the athlete not mentioning the coach's earlier threats, though ___",
+  "UNMARKED": "The director explained that the transfer release depended on the athlete's academic standing, though ___",
+  "swap_field": "the athlete not mentioning the coach's earlier threats -> the athlete's academic standing",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "athlete not mentioning the coach's earlier threats",
+    "athlete's academic standing"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 19,
+  "len_u": 15
+ },
+ {
+  "pair_id": "r2bpw_088",
+  "domain": "power",
+  "MARKED": "Before signing the release form, the coach wanted the athlete to publicly thank him for opportunities she'd never actually had, and then ___",
+  "UNMARKED": "Before signing the release form, the coach wanted the athlete to return the team equipment, and then ___",
+  "swap_field": "publicly thank him for opportunities she'd never actually had -> return the team equipment",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "publicly thank him for opportunities she'd never actually had",
+    "return the team equipment"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 24,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_089",
+  "domain": "power",
+  "MARKED": "The editor told her the contract would be renewed once she stopped mentioning the unpaid advance to the guild, and ___",
+  "UNMARKED": "The editor told her the contract would be renewed once she submitted the final revised chapters, and ___",
+  "swap_field": "stopped mentioning the unpaid advance to the guild -> submitted the final revised chapters",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped mentioning",
+    "submitted"
+   ],
+   [
+    "replace",
+    "unpaid advance to the guild",
+    "final revised chapters"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_090",
+  "domain": "power",
+  "MARKED": "The writer was told her advance would depend on whether she agreed to remove the chapter criticizing the publisher, so ___",
+  "UNMARKED": "The writer was told her advance would depend on whether the manuscript passed the final read, so ___",
+  "swap_field": "agreed to remove the chapter criticizing the publisher -> the manuscript passed the final read",
+  "n_spans": 3,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "delete",
+    "she agreed to remove",
+    "-"
+   ],
+   [
+    "replace",
+    "chapter criticizing",
+    "manuscript passed"
+   ],
+   [
+    "replace",
+    "publisher",
+    "final read"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_091",
+  "domain": "power",
+  "MARKED": "Once the author agreed to praise the editor's own book in a public blurb, the editor said publication would be moved up, and ___",
+  "UNMARKED": "Once the author submitted the final copyedits, the editor said publication would be moved up, and ___",
+  "swap_field": "agreed to praise the editor's own book in a public blurb -> submitted the final copyedits",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to praise",
+    "submitted"
+   ],
+   [
+    "replace",
+    "editor's own book in a public blurb",
+    "final copyedits"
+   ]
+  ],
+  "trail_m": 11,
+  "trail_u": 11,
+  "len_m": 25,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_092",
+  "domain": "power",
+  "MARKED": "The agent said the deal would go through as long as the writer didn't mention the earlier missed payment to the union, but ___",
+  "UNMARKED": "The agent said the deal would go through as long as the writer delivered the manuscript by March, but ___",
+  "swap_field": "didn't mention the earlier missed payment to the union -> delivered the manuscript by March",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't mention",
+    "delivered"
+   ],
+   [
+    "replace",
+    "earlier missed payment to the union",
+    "manuscript by March"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 24,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_093",
+  "domain": "power",
+  "MARKED": "The publisher made clear that the second book deal was contingent on the author not disputing the royalty statement publicly, which ___",
+  "UNMARKED": "The publisher made clear that the second book deal was contingent on the first book's sales figures, which ___",
+  "swap_field": "the author not disputing the royalty statement publicly -> the first book's sales figures",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "author not disputing the royalty statement publicly",
+    "first book's sales figures"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 22,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_094",
+  "domain": "power",
+  "MARKED": "Unless the author agreed to sign a non-disparagement clause covering the entire dispute, the publisher would not release the rights, and so ___",
+  "UNMARKED": "Unless the author confirmed the final title, the publisher would not release the rights, and so ___",
+  "swap_field": "agreed to sign a non-disparagement clause covering the entire dispute -> confirmed the final title",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to sign a non - disparagement clause covering",
+    "confirmed"
+   ],
+   [
+    "replace",
+    "entire dispute",
+    "final title"
+   ]
+  ],
+  "trail_m": 11,
+  "trail_u": 11,
+  "len_m": 26,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_095",
+  "domain": "power",
+  "MARKED": "The agent explained that the film option depended on the author not mentioning the earlier contract dispute to the trade press, though ___",
+  "UNMARKED": "The agent explained that the film option depended on the studio's own scheduling, though ___",
+  "swap_field": "the author not mentioning the earlier contract dispute to the trade press -> the studio's own scheduling",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "author not mentioning the earlier contract dispute to the trade press",
+    "studio's own scheduling"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 23,
+  "len_u": 15
+ },
+ {
+  "pair_id": "r2bpw_096",
+  "domain": "power",
+  "MARKED": "Before signing the renewal, the editor wanted the author to retract her public complaint about the delayed payment, and then ___",
+  "UNMARKED": "Before signing the renewal, the editor wanted the author to confirm the dedication page, and then ___",
+  "swap_field": "retract her public complaint about the delayed payment -> confirm the dedication page",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "retract her public complaint about",
+    "confirm"
+   ],
+   [
+    "replace",
+    "delayed payment",
+    "dedication page"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 22,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_097",
+  "domain": "power",
+  "MARKED": "The board president told her the renovation would be approved once she stopped raising the parking dispute at meetings, and ___",
+  "UNMARKED": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and ___",
+  "swap_field": "stopped raising the parking dispute at meetings -> submitted the updated contractor bid",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped raising",
+    "submitted"
+   ],
+   [
+    "replace",
+    "parking dispute at meetings",
+    "updated contractor bid"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_098",
+  "domain": "power",
+  "MARKED": "The resident was told her fine would be waived depending on whether she agreed to withdraw her complaint about the board's spending, so ___",
+  "UNMARKED": "The resident was told her fine would be waived depending on whether the paperwork cleared this month, so ___",
+  "swap_field": "agreed to withdraw her complaint about the board's spending -> the paperwork cleared this month",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "delete",
+    "she agreed to withdraw her complaint about",
+    "-"
+   ],
+   [
+    "replace",
+    "board's spending",
+    "paperwork cleared this month"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 24,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_099",
+  "domain": "power",
+  "MARKED": "Once the owner agreed to vote with the board on the upcoming assessment, the president said her application would be approved, and ___",
+  "UNMARKED": "Once the owner submitted the updated financial disclosure, the president said her application would be approved, and ___",
+  "swap_field": "agreed to vote with the board on the upcoming assessment -> submitted the updated financial disclosure",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to vote with",
+    "submitted"
+   ],
+   [
+    "replace",
+    "board on the upcoming assessment",
+    "updated financial disclosure"
+   ]
+  ],
+  "trail_m": 11,
+  "trail_u": 11,
+  "len_m": 24,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_100",
+  "domain": "power",
+  "MARKED": "The committee said the membership would be reinstated as long as the resident didn't mention the missing minutes to the other owners, but ___",
+  "UNMARKED": "The committee said the membership would be reinstated as long as the resident attended the next scheduled meeting, but ___",
+  "swap_field": "didn't mention the missing minutes to the other owners -> attended the next scheduled meeting",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't mention",
+    "attended"
+   ],
+   [
+    "replace",
+    "missing minutes to the other owners",
+    "next scheduled meeting"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 24,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_101",
+  "domain": "power",
+  "MARKED": "The board made clear that approval of the balcony renovation was contingent on the owner not reporting the earlier code violation, which ___",
+  "UNMARKED": "The board made clear that approval of the balcony renovation was contingent on the contractor's license being current, which ___",
+  "swap_field": "the owner not reporting the earlier code violation -> the contractor's license being current",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "owner not reporting the earlier code violation",
+    "contractor's license being current"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 23,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_102",
+  "domain": "power",
+  "MARKED": "Unless the owner agreed to withdraw her request for an audit, the board would not approve the refinancing, and so ___",
+  "UNMARKED": "Unless the owner submitted her signed proxy, the board would not approve the refinancing, and so ___",
+  "swap_field": "agreed to withdraw her request for an audit -> submitted her signed proxy",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to withdraw",
+    "submitted"
+   ],
+   [
+    "replace",
+    "request for an audit",
+    "signed proxy"
+   ]
+  ],
+  "trail_m": 11,
+  "trail_u": 11,
+  "len_m": 22,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_103",
+  "domain": "power",
+  "MARKED": "The treasurer explained that the fee reduction depended on the resident not mentioning the missing funds at the annual meeting, though ___",
+  "UNMARKED": "The treasurer explained that the fee reduction depended on the resident's unit passing inspection, though ___",
+  "swap_field": "the resident not mentioning the missing funds at the annual meeting -> the resident's unit passing inspection",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "resident not mentioning the missing funds at the annual meeting",
+    "resident's unit passing inspection"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 22,
+  "len_u": 16
+ },
+ {
+  "pair_id": "r2bpw_104",
+  "domain": "power",
+  "MARKED": "Before approving the sale, the board wanted the seller to retract her complaint about the management company, and then ___",
+  "UNMARKED": "Before approving the sale, the board wanted the seller to submit the final closing documents, and then ___",
+  "swap_field": "retract her complaint about the management company -> submit the final closing documents",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "retract her complaint about",
+    "submit"
+   ],
+   [
+    "replace",
+    "management company",
+    "final closing documents"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 21,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_105",
+  "domain": "power",
+  "MARKED": "The customs officer told her the shipment would be released once she stopped asking why it had been held, and ___",
+  "UNMARKED": "The customs officer told her the shipment would be released once she provided the updated invoice, and ___",
+  "swap_field": "stopped asking why it had been held -> provided the updated invoice",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped asking why it had been held",
+    "provided the updated invoice"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 21,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_106",
+  "domain": "power",
+  "MARKED": "The importer was told her goods would clear customs depending on whether she agreed not to report the delay to her embassy, so ___",
+  "UNMARKED": "The importer was told her goods would clear customs depending on whether the paperwork matched the manifest, so ___",
+  "swap_field": "agreed not to report the delay to her embassy -> the paperwork matched the manifest",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "delete",
+    "she agreed not to report",
+    "-"
+   ],
+   [
+    "replace",
+    "delay to her embassy",
+    "paperwork matched the manifest"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 24,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_107",
+  "domain": "power",
+  "MARKED": "Once the trader agreed to leave a favorable note about the officer in the visitor log, the official said the goods would be released that afternoon, and ___",
+  "UNMARKED": "Once the trader corrected the declared value on the form, the official said the goods would be released that afternoon, and ___",
+  "swap_field": "agreed to leave a favorable note about the officer in the visitor log -> corrected the declared value on the form",
+  "n_spans": 3,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to leave a favorable note about",
+    "corrected"
+   ],
+   [
+    "replace",
+    "officer in",
+    "declared value on"
+   ],
+   [
+    "replace",
+    "visitor log",
+    "form"
+   ]
+  ],
+  "trail_m": 13,
+  "trail_u": 13,
+  "len_m": 29,
+  "len_u": 23
+ },
+ {
+  "pair_id": "r2bpw_108",
+  "domain": "power",
+  "MARKED": "The official said the transit visa would be extended as long as the traveler didn't mention the earlier delay at the checkpoint, but ___",
+  "UNMARKED": "The official said the transit visa would be extended as long as the traveler's onward flight was confirmed, but ___",
+  "swap_field": "didn't mention the earlier delay at the checkpoint -> the traveler's onward flight was confirmed",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "traveler didn't mention the earlier delay at the checkpoint",
+    "traveler's onward flight was confirmed"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 24,
+  "len_u": 20
+ },
+ {
+  "pair_id": "r2bpw_109",
+  "domain": "power",
+  "MARKED": "The inspector made clear that the expedited clearance was contingent on the trader not disputing the fee assessed at the border, which ___",
+  "UNMARKED": "The inspector made clear that the expedited clearance was contingent on the shipment's weight matching the declaration, which ___",
+  "swap_field": "the trader not disputing the fee assessed at the border -> the shipment's weight matching the declaration",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "trader not disputing",
+    "shipment's weight matching"
+   ],
+   [
+    "replace",
+    "fee assessed at the border",
+    "declaration"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 23,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_110",
+  "domain": "power",
+  "MARKED": "Unless the traveler agreed to withdraw her complaint about the search, the official would not stamp the re-entry permit, and so ___",
+  "UNMARKED": "Unless the traveler provided a second photo ID, the official would not stamp the re-entry permit, and so ___",
+  "swap_field": "agreed to withdraw her complaint about the search -> provided a second photo ID",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to withdraw her complaint about the search",
+    "provided a second photo ID"
+   ]
+  ],
+  "trail_m": 14,
+  "trail_u": 14,
+  "len_m": 25,
+  "len_u": 22
+ },
+ {
+  "pair_id": "r2bpw_111",
+  "domain": "power",
+  "MARKED": "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though ___",
+  "UNMARKED": "The supervisor explained that the priority lane access depended on the trader's registration being current, though ___",
+  "swap_field": "the trader not mentioning the earlier bribe request -> the trader's registration being current",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "trader not mentioning the earlier bribe request",
+    "trader's registration being current"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 20,
+  "len_u": 17
+ },
+ {
+  "pair_id": "r2bpw_112",
+  "domain": "power",
+  "MARKED": "Before stamping the documents, the officer wanted the driver to delete the photo of the checkpoint queue, and then ___",
+  "UNMARKED": "Before stamping the documents, the officer wanted the driver to confirm the cargo weight, and then ___",
+  "swap_field": "delete the photo of the checkpoint queue -> confirm the cargo weight",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "delete",
+    "confirm"
+   ],
+   [
+    "replace",
+    "photo of the checkpoint queue",
+    "cargo weight"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 21,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_113",
+  "domain": "power",
+  "MARKED": "The auditor told her the penalty would be waived once she stopped disputing the assessment in writing, and ___",
+  "UNMARKED": "The auditor told her the penalty would be waived once she submitted the missing receipts, and ___",
+  "swap_field": "stopped disputing the assessment in writing -> submitted the missing receipts",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "stopped disputing",
+    "submitted"
+   ],
+   [
+    "replace",
+    "assessment in writing",
+    "missing receipts"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 19,
+  "len_u": 17
+ },
+ {
+  "pair_id": "r2bpw_114",
+  "domain": "power",
+  "MARKED": "The taxpayer was told her refund would depend on whether she agreed to withdraw her appeal of the earlier audit, so ___",
+  "UNMARKED": "The taxpayer was told her refund would depend on whether the amended return had been processed, so ___",
+  "swap_field": "agreed to withdraw her appeal of the earlier audit -> the amended return had been processed",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "delete",
+    "she agreed to withdraw her appeal of",
+    "-"
+   ],
+   [
+    "replace",
+    "earlier audit",
+    "amended return had been processed"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 22,
+  "len_u": 18
+ },
+ {
+  "pair_id": "r2bpw_115",
+  "domain": "power",
+  "MARKED": "Once the accountant agreed to leave the earlier miscalculation out of the final report, the auditor said the case would be closed quickly, and ___",
+  "UNMARKED": "Once the accountant corrected the earlier miscalculation in the final report, the auditor said the case would be closed quickly, and ___",
+  "swap_field": "agreed to leave the earlier miscalculation out of the final report -> corrected the earlier miscalculation in the final report",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to leave",
+    "corrected"
+   ],
+   [
+    "replace",
+    "out of",
+    "in"
+   ]
+  ],
+  "trail_m": 15,
+  "trail_u": 15,
+  "len_m": 26,
+  "len_u": 23
+ },
+ {
+  "pair_id": "r2bpw_116",
+  "domain": "power",
+  "MARKED": "The revenue officer said the lien would be lifted as long as the taxpayer didn't mention the earlier clerical error to the review board, but ___",
+  "UNMARKED": "The revenue officer said the lien would be lifted as long as the taxpayer paid the remaining balance by Friday, but ___",
+  "swap_field": "didn't mention the earlier clerical error to the review board -> paid the remaining balance by Friday",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "didn't mention",
+    "paid"
+   ],
+   [
+    "replace",
+    "earlier clerical error to the review board",
+    "remaining balance by Friday"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 26,
+  "len_u": 22
+ },
+ {
+  "pair_id": "r2bpw_117",
+  "domain": "power",
+  "MARKED": "The officer made clear that the payment plan was contingent on the taxpayer not appealing the penalty publicly, which ___",
+  "UNMARKED": "The officer made clear that the payment plan was contingent on the taxpayer's income documentation, which ___",
+  "swap_field": "the taxpayer not appealing the penalty publicly -> the taxpayer's income documentation",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "taxpayer not appealing the penalty publicly",
+    "taxpayer's income documentation"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 20,
+  "len_u": 17
+ },
+ {
+  "pair_id": "r2bpw_118",
+  "domain": "power",
+  "MARKED": "Unless the taxpayer agreed to withdraw her complaint about the auditor's conduct, the office would not release the refund, and so ___",
+  "UNMARKED": "Unless the taxpayer confirmed her bank routing number, the office would not release the refund, and so ___",
+  "swap_field": "agreed to withdraw her complaint about the auditor's conduct -> confirmed her bank routing number",
+  "n_spans": 2,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "agreed to withdraw",
+    "confirmed"
+   ],
+   [
+    "replace",
+    "complaint about the auditor's conduct",
+    "bank routing number"
+   ]
+  ],
+  "trail_m": 11,
+  "trail_u": 11,
+  "len_m": 23,
+  "len_u": 19
+ },
+ {
+  "pair_id": "r2bpw_119",
+  "domain": "power",
+  "MARKED": "The supervisor explained that the case closure depended on the taxpayer not mentioning the earlier delay to the inspector general, though ___",
+  "UNMARKED": "The supervisor explained that the case closure depended on the taxpayer's documentation being complete, though ___",
+  "swap_field": "the taxpayer not mentioning the earlier delay to the inspector general -> the taxpayer's documentation being complete",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "taxpayer not mentioning the earlier delay to the inspector general",
+    "taxpayer's documentation being complete"
+   ]
+  ],
+  "trail_m": 2,
+  "trail_u": 2,
+  "len_m": 22,
+  "len_u": 16
+ },
+ {
+  "pair_id": "r2bpw_120",
+  "domain": "power",
+  "MARKED": "Before closing the audit, the officer wanted the accountant to retract his earlier complaint about her conduct, and then ___",
+  "UNMARKED": "Before closing the audit, the officer wanted the accountant to submit one final reconciliation, and then ___",
+  "swap_field": "retract his earlier complaint about her conduct -> submit one final reconciliation",
+  "n_spans": 1,
+  "n_spans_prefix_method": 1,
+  "spans": [
+   [
+    "replace",
+    "retract his earlier complaint about her conduct",
+    "submit one final reconciliation"
+   ]
+  ],
+  "trail_m": 3,
+  "trail_u": 3,
+  "len_m": 21,
+  "len_u": 18
+ }
+]
