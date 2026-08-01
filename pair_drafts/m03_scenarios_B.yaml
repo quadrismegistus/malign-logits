@@ -1,6 +1,9 @@
 # M03 proceduralization -- Set A style scenario battery, batch B.
-# 9 scenarios x 13 prompts (12-cell SPEAKER x PERSON x FORM design plus the
-# indiv_I marker-final "ought to" variant) = 117 prompts.
+# 9 scenarios x 14 prompts (12-cell SPEAKER x PERSON x FORM design plus the
+# marker-final "ought to" variant at BOTH indiv_I and inst_I) = 126 prompts.
+# CORRECTED 2026-08-01: the header said 13 prompts / 117, written before the
+# cross-SPEAKER `ought to` cell landed. The file has carried 14 since.
+# Verify with scripts/m03_cell_algebra.py, never from this comment.
 # Domains: police (3), government/benefits (3), political/civic (3).
 # Drafted against
 # /Users/rj416/github/malign-logits/meta/M03_proceduralization/prompt_authoring_guide.md
@@ -10,7 +13,7 @@
 # Cell key:
 #   indiv_I_final / indiv_I_medial / indiv_I_absent / indiv_I_final_ought
 #   indiv_we_final / indiv_we_medial / indiv_we_absent
-#   inst_I_final / inst_I_medial / inst_I_absent
+#   inst_I_final / inst_I_medial / inst_I_absent / inst_I_final_ought
 #   inst_we_final / inst_we_medial / inst_we_absent
 # FORM: final = ends "...should"/"...ought to"; medial = ends "...should
 # probably" (filler fixed to "probably" everywhere, per SS3c); absent = ends

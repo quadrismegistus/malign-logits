@@ -1,14 +1,18 @@
 # M03 Set A scenario drafts — LABOR (3), HOUSING (3), MEDICAL (3)
 # Per prompt_authoring_guide.md meta/M03_proceduralization/, sections 2, 3, 7, 8.
-# 9 scenarios x 13 cells (12 factorial cells + one should/ought-to variant
-# at indiv_I_final) = 117 prompts.
+# 9 scenarios x 14 cells (12 factorial cells + the should/ought-to variant
+# at BOTH indiv_I_final and inst_I_final) = 126 prompts.
+# CORRECTED 2026-08-01: the header said 13 cells / 117 prompts, written
+# before the cross-SPEAKER `ought to` cell landed. The file has carried 14
+# since. Verify with scripts/m03_cell_algebra.py, never from this comment.
 #
 # Factors: SPEAKER {indiv, inst} x PERSON {I, we} x FORM {final, medial, absent}.
 # Medial filler fixed to "probably" throughout, per one word rule (guide S3c).
-# should/ought-to pair carried only at indiv_I_final, per commissioning brief.
+# should/ought-to pair carried at indiv_I_final AND inst_I_final (the
+# cross-SPEAKER addition, post-dating the commissioning brief).
 #
 # Frame field (added per coordinator note, mid-draft): each scenario has its
-# own syntactic skeleton, held constant across its 13 cells, varied across
+# own syntactic skeleton, held constant across its 14 cells, varied across
 # the 9 scenarios so the set is not one frame with nine fillings.
 
 - scenario_id: m03_A01
