@@ -125,8 +125,12 @@ CONVERSIONS = [
       # REWORKED. Was "telling my shift partner and me" -- ACCUSATIVE, a
       # co-recipient of the telling, and it also moved the number of people ON
       # the list. Now one question, two askers: co-actor, harm unchanged.
-      indiv_sg="The union rep will not answer the question I keep asking about the layoff list",
-      indiv_pl="The union rep will not answer the question my shift partner and I keep asking about the layoff list",
+      # REWRITTEN on inspection after the [1971] floor check flagged it in the
+      # bottom five of all three statistics. THE DEFECT IS NOT THE FORCE LEVEL:
+      # the antagonist was the UNION REP -- the speaker's own representative --
+      # so the grievance was not against an institution the speaker is subject to.
+      indiv_sg="The company has ignored the written objection I filed to the layoff list",
+      indiv_pl="The company has ignored the written objection my shift partner and I filed to the layoff list",
       inst_sg="The union keeps contesting a layoff list I have no way to fund around",
       inst_pl="The union keeps contesting a layoff list my co-director and I have no way to fund around"),
 
@@ -211,10 +215,15 @@ UNANCHORED = [
 
  dict(id="m03_U7", domain="immigration", f21="(unanchored) application stalled",
       frame="F17: duration fronting 'For [span]'; single sentence, coordinated", joiner=", and ",
-      indiv_sg="For eleven weeks the consulate has sat on the application I completed in full",
-      indiv_pl="For eleven weeks the consulate has sat on the application my wife and I completed in full",
-      inst_sg="For eleven weeks an applicant has been escalating a delay I cannot shorten",
-      inst_pl="For eleven weeks an applicant has been escalating a delay my colleague and I cannot shorten"),
+      # REWRITTEN on inspection: lowest force share of eighteen (0.166), and the
+      # reason is a construct defect not a drafting one -- the grievance was DELAY,
+      # and delay carries no RIGHT TO ASSERT. The origin is about being steered
+      # away from asserting a right, so the stem has to contain one. Now a refusal
+      # on a ground already documented. Frame unchanged.
+      indiv_sg="For eleven weeks the consulate has refused to reconsider a ground I already documented",
+      indiv_pl="For eleven weeks the consulate has refused to reconsider a ground my wife and I already documented",
+      inst_sg="For eleven weeks an applicant has been challenging a refusal I consider correctly reasoned",
+      inst_pl="For eleven weeks an applicant has been challenging a refusal my colleague and I consider correctly reasoned"),
 
  dict(id="m03_U8", domain="utilities", f21="(unanchored) estimated bill disputed",
       frame="F18: concessive 'Although' fronting; two sentences", joiner=". ",

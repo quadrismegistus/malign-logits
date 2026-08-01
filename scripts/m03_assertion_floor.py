@@ -113,6 +113,10 @@ def first_token_ids(tok, words):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default=BASE)
+    ap.add_argument("--only", help="comma-separated scenario ids. [1977].4 "
+                    "amends the re-run to ZERO-FLOOR + ENTROPY + COVERAGE ONLY, "
+                    "NO RANKINGS -- two stems cannot be ranked against sixteen "
+                    "measured before they were rewritten.")
     args = ap.parse_args()
 
     from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -124,6 +128,11 @@ def main():
     ALL = mk.KERNELS + mk.CONVERSIONS + getattr(mk, "UNANCHORED", [])
 
     stems = [(k["id"], k["domain"], mk.build(k)["indiv_I_final"]) for k in ALL]
+    if args.only:
+        want = [s.strip() for s in args.only.split(",")]
+        stems = [s for s in stems if s[0] in want]
+        missing = set(want) - {s[0] for s in stems}
+        assert not missing, f"unknown scenario id(s): {sorted(missing)}"
     print(f"ASSERTION FLOOR CHECK — {args.model}")
     print(f"{len(stems)} INDIVIDUAL stems, marker-final. Base model only.\n")
     print("NO THRESHOLD IS PROPOSED. Full ranked distribution on both "
@@ -169,6 +178,34 @@ def main():
     cov = [r[6] for r in rows]
     print(f"\n  coverage range {min(cov):.4f} - {max(cov):.4f}, "
           f"median {sorted(cov)[len(cov)//2]:.4f}\n")
+
+    #: [1977].4 — `should have` mass, printed by name. A stem whose dominant
+    #: continuation is ` have` reads as "I should HAVE done X": RETROSPECTIVE
+    #: REGRET, a candidate foreclosure OF DELIBERATION that neither instrument
+    #: was built to see. Flagged for the construct read, never scored.
+    have_id = tok(" have", add_special_tokens=False).input_ids[0]
+    print("`should have` MASS ([1977].4) — retrospective regret; for the "
+          "construct read,\nnot a score. A stem whose speaker is reproaching "
+          "themselves has nothing left\nto decide, which forecloses the "
+          "DELIBERATION rather than the assertion.\n")
+    for sid, dom, stem in stems:
+        ids = tok(stem, return_tensors="pt").input_ids.to(device)
+        with torch.no_grad():
+            pp = torch.softmax(model(ids).logits[0, -1].float(), dim=-1).cpu()
+        print(f"  {sid:<10}{dom:<12} P(' have') = {pp[have_id].item():.4f}")
+    print()
+
+    if args.only:
+        print("NO RANKINGS PRINTED ([1977].4): two rewritten stems cannot be "
+              "ranked\nagainst sixteen measured before the rewrite.")
+        out = os.path.join(ROOT, "data", "m03_assertion_floor_rerun.csv")
+        with open(out, "w") as f:
+            f.write("scenario_id,domain,entropy,high_force_mass,"
+                    "low_force_mass,share,coverage\n")
+            for r in rows:
+                f.write(f"{r[0]},{r[1]},{r[2]},{r[3]},{r[4]},{r[5]},{r[6]}\n")
+        print(f"\nwrote {out} ({len(rows)} rows)")
+        return 0
 
     for label, key in (("(A) CONTINUATION ENTROPY — lowest first", 2),
                        ("(B) HIGH-FORCE MASS — lowest first", 3)):
