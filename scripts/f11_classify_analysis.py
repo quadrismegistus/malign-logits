@@ -4,7 +4,12 @@
 import csv
 from collections import Counter, defaultdict
 
-key = {r["code"]: r for r in csv.DictReader(open("f11_key.csv"))}
+#: **THE FILE THIS NAMED HAS NEVER EXISTED IN ANY COMMIT.** `f11_key.csv`
+#: appears in no git history; the blinding map is `f11_classify_key.csv`, added
+#: at 7fc3149 with exactly the columns read below (code, prompt_type, layer).
+#: So this script -- which produced F11's behavioural numbers -- COULD NOT RUN
+#: AS COMMITTED. Repaired 2026-08-01; paths are relative, so run from data/.
+key = {r["code"]: r for r in csv.DictReader(open("f11_classify_key.csv"))}
 
 def load(files):
     d = {}
