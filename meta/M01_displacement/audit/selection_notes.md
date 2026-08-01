@@ -22,19 +22,32 @@ MEASURED here rather than recorded, from `r2_audit.json`:**
     animal survivors                     n= 47   mean  9.15
     ALL OTHER subdomains' survivors      n=437   mean 11.95
                                                  difference -2.81,  MW p = 6.8e-06
+                                                 *** WITHDRAWN — see below ***
+
+**The pooled comparator is 26% POWER, and power is 9.6 tokens longer than animal.
+DROP THAT ONE GROUP AND -2.80 BECOMES -0.37.** The -2.81 is **power's length, not
+animal's shortness** ([1880].2).
 
 **THE SECOND COMPARISON IS WITHDRAWN AS FRAMED ([1878].2).** It pools five
 subdomains spanning **7.93 to 18.70 tokens** and reports a difference against the
 mean of a heterogeneous set. That is not a comparator. Unpooled:
 
-    subdomain     domain        n    mean MARKED length
-    desecration   taboo       100     7.93
-    cruelty       animal       47     9.15   <- SHORTER than three, LONGER than one
-    theft         property    109    10.09
-    intimate      betrayal    115    10.59
-    coercion      power       113    18.70
+    subdomain     domain     MECHANICAL (single-span)   ADMISSIBLE (2e-passing)
+                                  n    mean                  n    mean
+    desecration   taboo         100    7.93                 120    8.09
+    cruelty       animal         47    9.15                  50    9.16
+    theft         property      109   10.09                 104   10.05
+    intimate      betrayal      115   10.59                 108   10.62
+    coercion      power         113   18.70                 119   18.76
 
-    spread 10.77 tokens (2.4x)
+    spread                            10.77 (2.4x)               10.67 (2.3x)
+
+**TWO DENOMINATORS, BOTH PRINTED, AND THEY ARE NOT THE SAME POPULATION.** The left
+column is this seat's, on the aligned diff's mechanical criterion (`n_spans > 1`).
+The right is lacan's, on the **2(e)-passing set after his hand rulings** — the
+actual admissible pool. **They agree to within 0.16 tokens everywhere, which is a
+check on the extraction and not on the quantity. Cite the ADMISSIBLE column; the
+mechanical one is shown so the two records do not circulate as a disagreement.**
 
 **ANIMAL IS NOT ANOMALOUSLY SHORT — it is second of five and longer than
 desecration. The pooled figure made a mid-table subdomain look like an outlier.**
