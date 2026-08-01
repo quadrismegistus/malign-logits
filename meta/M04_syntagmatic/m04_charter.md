@@ -121,7 +121,17 @@ enough syntagm is converted from a design argument into a measurement.**
 position, and it is the cross-forced quantity. The profile costs no generation and
 no re-forcing.**
 
-**Report the effect at depths 1..10. The three branches, frozen before any read:**
+**POSITION 0 IS REPORTED SEPARATELY AND IS NOT PART OF THE CURVE THE BRANCHES
+READ.** F28 establishes a first-token spike at **+2.24 against a ~+0.85 plateau
+(2.6x)**, peak in 40% of cells against a 17% baseline (z = 11.2), the pos0->pos1
+fall holding in 201/310 cells and 13 of 19 families — **content-blind, and a
+FAMILY property.** A depth curve including pos0 would read that spike's decay as
+combination damage localizing: **"falls from 1 to 5" is exactly what the artifact
+predicts.** Separating it removes a known, measured artifact from the curve before
+any data exists, at no cost.
+
+**Report the effect at depths 1..10, and read the shape and all three branches
+from pos1 onward. The three branches, frozen before any read:**
 
     PRESENT and PLATEAUED or FALLING by ~token 5-7
       -> ten is sufficient, the ceiling is not binding,
@@ -212,7 +222,14 @@ on the taxonomy corpus, a corpus M04 does not use, and the unit here is the
 LINEAGE.
 
 **So the registration carries re-powering against M04's own realized sd, from its
-first cells, as a REQUIRED step and not an optional check.** The [325] precedent is
+first cells, as a REQUIRED step and not an optional check.**
+
+**DIRECTIONAL PRIOR, and it argues the re-powering will BITE rather than confirm:**
+F28 measures **family SD 4.09 bits against content SD 0.35 — 11.8x** — on a
+related quantity over 19 families. **A prior, never a substitute: different
+quantity, different corpus.** But it says the between-lineage component likely
+dominates the between-content one by an order of magnitude, which is the shape
+[325] found when an assumed 0.02 measured at 0.15-0.19. The [325] precedent is
 explicit: an assumed 0.02 turned out to be 0.15–0.19, an order of magnitude, and
 only running it could show that.
 
