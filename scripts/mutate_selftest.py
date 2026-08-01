@@ -147,9 +147,23 @@ def orphan_functions(src):
                 continue
             if re.search(rf"\b{re.escape(other)}\s*\(", bodies[cur]):
                 stack.append(other)
-    return [(n, 0, 0) for n in sorted(bodies)
-            if n not in seen and n not in ("main", "selftest")
-            and not n.startswith("_") and n[0].islower()]
+    #: **A TOMBSTONE IS A TRUE POSITIVE ABOUT THE FILE AND A NON-FINDING ABOUT
+    #: THE DESIGN** ([2499]). A function deliberately retired SHOULD be
+    #: unreachable — reporting it beside a ruling that never got wired makes the
+    #: real finding one line in a list of expected ones, which is how a checker
+    #: that cries wolf stops being read. Retirement must be DECLARED in the
+    #: docstring, so silence is still a defect and only an explicit tombstone
+    #: is exempt.
+    RETIRED = re.compile(r"\bRETIRED\b|\bTOMBSTONE\b|retired at \[|superseded by",
+                         re.I)
+    out = []
+    for n in sorted(bodies):
+        if n in seen or n in ("main", "selftest") or n.startswith("_"):
+            continue
+        if not n[0].islower():
+            continue
+        out.append((n, "TOMBSTONE" if RETIRED.search(bodies[n]) else "UNREACHED", 0))
+    return out
 
 
 
@@ -244,11 +258,16 @@ def main():
         print("  Refusing: mutants are meaningless against a failing baseline.")
         return 2
 
-    orphans = orphan_functions(src)
+    orphans = [o for o in orphan_functions(src) if o[1] != "TOMBSTONE"]
+    tombs = [o for o in orphan_functions(src) if o[1] == "TOMBSTONE"]
+    orphans = orphans + tombs
     print(f"\nREACHABILITY — top-level functions unreachable from main()")
     if orphans:
-        for n, _, _ in orphans:
-            print(f"  *** {n:<34} NOT REACHABLE from main() (self-test excluded)")
+        for n, kind, _ in orphans:
+            if kind == "TOMBSTONE":
+                print(f"      {n:<34} unreachable, DECLARED RETIRED - expected")
+            else:
+                print(f"  *** {n:<34} NOT REACHABLE from main() (self-test excluded)")
         print("  A component wired to nothing passes every test aimed at its"
               "\n  internals. Ask whether the PROGRAM reaches it, not whether it works.")
     else:
@@ -300,8 +319,9 @@ def main():
     if survived:
         print("\n  A SURVIVING MUTANT IS A DEFECT IN THE TEST, NOT THE MUTANT.")
         print("  The self-test cannot distinguish the guard from its absence.")
+    real = [o for o in orphans if o[1] != 'TOMBSTONE']
     return 0 if (not survived and not unapplied and not survived_del
-                 and not orphans) else 1
+                 and not real) else 1
 
 
 if __name__ == "__main__":
