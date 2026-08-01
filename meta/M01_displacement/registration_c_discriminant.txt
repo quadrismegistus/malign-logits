@@ -1,0 +1,112 @@
+REGISTRATION C -- THE WITHHELD DISCRIMINANT, RELEASED
+
+Released [2085] on RH's word given directly to the holder; C closed complete
+[2086]. Committed here per [2087].2: the closing post must not be the only
+durable record of the number a closed registration turns on.
+
+PROVENANCE
+  producer      scripts/m01_registration_c3.py (H1-general arms)
+                agents/lacan/instruments/m01_c6_conjunct.py --deliver (conjunct)
+  spec          registration_c_delta_v6.md  06f0272d7f21b901, frozen [1559]
+  population    displacing 1978 cells / control 258 cells -- C's frozen set
+  origin        PRODUCER STDOUT, recovered verbatim from tool-result records in
+                the session log. Not transcribed, not restated, not recomputed.
+  why not rerun the producer REFUSES: population drift. C's population is a RULE
+                over live status=ACTIVE, and 1,620 rows went ACTIVE 2026-08-01.
+                A rule-derived population is only stable if its source is.
+  recovered     2026-08-01, on RH's instruction to search the logs
+
+======================================================================
+H1-GENERAL -- valence/signed, REGISTERED H1
+======================================================================
+
+===== DISPLACING — 1978 cells =====
+    A_arousal on THIS stratum = +0.2492   (benchmarks below are computed FROM IT, not pooled)
+
+    valence/signed/RAW                REGISTERED H1
+      A -0.0580   null +0.0022   p_dn 0.0001   cells 1978
+      benchmark -0.0824   does NOT beat it   (raw-beats-benchmark and residualised-beats-zero are ONE test)
+      M_f 0.1324  M_r 0.2318  wmean_f +0.3337  wmean_r +0.3917  Delta_E +0.0535
+
+    valence/signed/RESIDUALISED       REGISTERED H1
+      A +0.0093   null +0.0004   p_dn 0.7483   cells 1978
+      benchmark +0.0000   does NOT beat it
+      M_f 0.1324  M_r 0.2318  wmean_f +0.0325  wmean_r +0.0232  Delta_E +0.0057
+      TOP-MOVERS faller  R +0.0608  null -0.0002  p_up 0.0006  p_dn 0.9995  cells 1978
+      TOP-MOVERS riser   R +0.0444  null -0.0000  p_up 0.0038  p_dn 0.9963  cells 1978
+
+===== CONTROL — 258 cells =====
+    A_arousal on THIS stratum = +0.2884   (benchmarks below are computed FROM IT, not pooled)
+    valence/signed/RAW                REGISTERED H1
+      A -0.1505   null +0.0076   p_dn 0.0001   cells 258
+      benchmark -0.0954   BEATS it   (raw-beats-benchmark and residualised-beats-zero are ONE test)
+      M_f 0.0601  M_r 0.1355  wmean_f +0.4591  wmean_r +0.6096  Delta_E +0.0448
+    valence/signed/RESIDUALISED       REGISTERED H1
+      A -0.0678   null +0.0060   p_dn 0.0303   cells 258
+      benchmark +0.0000   BEATS it
+      M_f 0.0601  M_r 0.1355  wmean_f +0.1771  wmean_r +0.2449  Delta_E +0.0109
+      TOP-MOVERS faller  R +0.2070  null -0.0004  p_up 0.0002  p_dn 0.9999  cells 258
+      TOP-MOVERS riser   R +0.0259  null +0.0007  p_up 0.3078  p_dn 0.6923  cells 258
+
+======================================================================
+SEC C6 FIRST CONJUNCT -- wmean_v(risers) vs its own membership null
+======================================================================
+
+  displacing  wmean_v(risers) +0.0232   null +0.0190   p_up 0.2918   cells 1978
+    -> EXCEEDS its null: NO (H2 conjunct)
+  control     wmean_v(risers) +0.2449   null +0.2163   p_up 0.0755   cells 258
+    -> EXCEEDS its null: NO (H2 conjunct)
+Shell cwd was reset to /Users/rj416/Dropbox/Prof/Articles/TheoryMachines/agents/lacan
+
+======================================================================
+DECLARATION LINES
+======================================================================
+
+H1 FAILS ON ITS REGISTERED STRATUM AND FIRES ON THE CONTROL.
+  displacing residualised +0.0093, p_dn 0.7483 -- at chance, wrong sign,
+  does not beat benchmark. Control residualised -0.0678, p_dn 0.0303, BEATS.
+  The quarantine was right rather than cautious.
+
+BOTH STRATA POINT TO H2, NOT H1 on the C6 conjunct: the riser mean sits at
+  its permutation expectation in both.
+
+THRESHOLD FENCE, and it is an implementer's artefact not a result:
+  SEC C6 DECLARES NO SIGNIFICANCE LEVEL. The evaluator used p_up < 0.05.
+  On CONTROL that choice IS the verdict -- p_up 0.0755 reads "NO (H2
+  conjunct)" at 0.05 and flips to the H1 conjunct at 0.10. Displacing
+  (0.2918) is robust to any level. QUOTE THE CONJUNCT ONLY WITH ITS
+  THRESHOLD STATED.
+
+PERMANENTLY SINGLE-SEAT ([1584], no retroactive upgrade). The auditor could
+  not read this without breaking the blind he held, so the evaluation is
+  single-seat BY CONSTRUCTION, not by omission.
+
+--------------------------------------------------------------------------
+CUSTODY BLOCK — added by malign at commit time, [2087].2 / [2089]
+
+  committed        2026-08-01, this repository, from the untracked file
+                   lacan produced; sha256[:16] 24642d8d2ae88344 verified at
+                   my seat BEFORE the append and quoted here so the pre-append
+                   object remains identifiable.
+  prior location   a session transcript, ~/.claude/projects/.../*.jsonl,
+                   lines 7135 / 7144 / 7227. IT RESOLVED FOR NOBODY AND
+                   WOULD HAVE DIED WITH THAT SESSION.
+  why it matters   these are the DISCRIMINANT OF A CLOSED REGISTRATION. Until
+                   this commit, Registration C's closing post would have cited
+                   a chat log — the same defect that left Registration E v1
+                   and v2 cited by hash and resolving to nothing, permanently.
+
+  WHAT I DID NOT ADD. Lacan offered a run date and a producer commit "rather
+  than my guesses". I DO NOT HAVE THEM EITHER, so the fields are ABSENT rather
+  than filled — an absent field is a known gap and a guessed one is a false
+  provenance that reads identically to a true one.
+
+  RE-DERIVATION IS NOT AVAILABLE and the reason is on the record: C's
+  population is a RULE over live `status=ACTIVE`, and 1,620 rows went ACTIVE
+  on 2026-08-01. The rule now yields a different object. A historical extract
+  (`git show 0aa396f:data/prompt_categorisation.json` — 970 ACTIVE, 959
+  distinct) reproduces the frozen catalogue read-only, but the producer's
+  OTHER inputs would also need serving from that state, and that audit was
+  never run because this artifact made it unnecessary.
+
+  A RULE-DERIVED POPULATION IS ONLY STABLE IF ITS SOURCE IS.
