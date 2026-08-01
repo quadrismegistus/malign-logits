@@ -4,8 +4,8 @@
  "_unit_warning": "Every count here carries its unit. models != families != lineages, and the roster was once counted as 37, 42, 21 and 32 in one evening because four calculations used four units and none said so.",
  "_family_level": "data/lineage_map.json holds the same rule at FAMILY level in three settings; NOT superseded, coarser.",
  "counts": {
-  "models": 112,
-  "families": 48,
+  "models": 117,
+  "families": 49,
   "lineages": 34
  },
  "model_to_lineage": {
@@ -27,6 +27,8 @@
   "LLM360/Amber": "LLM360/Amber",
   "LLM360/AmberChat": "LLM360/Amber",
   "LLM360/AmberSafe": "LLM360/Amber",
+  "NousResearch/Hermes-3-Llama-3.1-8B": "meta-llama/Llama-3.1-8B",
+  "NousResearch/Nous-Hermes-2-Mistral-7B-DPO": "mistralai/Mistral-7B-v0.1",
   "PKU-Alignment/alpaca-7b-reproduced": "huggyllama/llama-7b",
   "PKU-Alignment/beaver-7b-v1.0": "huggyllama/llama-7b",
   "Qwen/Qwen2.5-0.5B": "Qwen/Qwen2.5-7B",
@@ -71,6 +73,8 @@
   "baichuan-inc/Baichuan2-7B-Chat": "baichuan-inc/Baichuan2-7B-Base",
   "bigscience/bloom-7b1": "bigscience/bloom-7b1",
   "bigscience/bloomz-7b1": "bigscience/bloom-7b1",
+  "cognitivecomputations/Dolphin3.0-Llama3.1-8B": "meta-llama/Llama-3.1-8B",
+  "cognitivecomputations/dolphin-2.6-mistral-7b-dpo": "mistralai/Mistral-7B-v0.1",
   "deepseek-ai/DeepSeek-R1-Distill-Llama-8B": "meta-llama/Llama-3.1-8B",
   "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": "Qwen/Qwen2.5-7B",
   "deepseek-ai/deepseek-llm-7b-base": "deepseek-ai/deepseek-llm-7b-base",
@@ -100,6 +104,7 @@
   "stabilityai/stablelm-2-1_6b": "stabilityai/stablelm-2-1_6b",
   "stabilityai/stablelm-2-1_6b-chat": "stabilityai/stablelm-2-1_6b",
   "stabilityai/stablelm-2-zephyr-1_6b": "stabilityai/stablelm-2-1_6b",
+  "teknium/OpenHermes-2.5-Mistral-7B": "mistralai/Mistral-7B-v0.1",
   "tiiuae/Falcon-H1-1.5B-Base": "tiiuae/Falcon-H1-1.5B-Base",
   "tiiuae/Falcon-H1-1.5B-Instruct": "tiiuae/Falcon-H1-1.5B-Base",
   "tiiuae/Falcon-H1-7B-Base": "tiiuae/Falcon-H1-7B-Base",
@@ -141,6 +146,8 @@
   "LLM360/Amber": "LLM360/Amber",
   "LLM360/AmberChat": "LLM360/Amber",
   "LLM360/AmberSafe": "LLM360/Amber",
+  "NousResearch/Hermes-3-Llama-3.1-8B": "meta-llama/Llama-3.1-8B",
+  "NousResearch/Nous-Hermes-2-Mistral-7B-DPO": "mistralai/Mistral-7B-v0.1",
   "PKU-Alignment/alpaca-7b-reproduced": "huggyllama/llama-7b",
   "PKU-Alignment/beaver-7b-v1.0": "huggyllama/llama-7b",
   "Qwen/Qwen2.5-0.5B": "Qwen/Qwen2.5-0.5B",
@@ -185,6 +192,8 @@
   "baichuan-inc/Baichuan2-7B-Chat": "baichuan-inc/Baichuan2-7B-Base",
   "bigscience/bloom-7b1": "bigscience/bloom-7b1",
   "bigscience/bloomz-7b1": "bigscience/bloom-7b1",
+  "cognitivecomputations/Dolphin3.0-Llama3.1-8B": "meta-llama/Llama-3.1-8B",
+  "cognitivecomputations/dolphin-2.6-mistral-7b-dpo": "mistralai/Mistral-7B-v0.1",
   "deepseek-ai/DeepSeek-R1-Distill-Llama-8B": "meta-llama/Llama-3.1-8B",
   "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": "Qwen/Qwen2.5-7B",
   "deepseek-ai/deepseek-llm-7b-base": "deepseek-ai/deepseek-llm-7b-base",
@@ -214,6 +223,7 @@
   "stabilityai/stablelm-2-1_6b": "stabilityai/stablelm-2-1_6b",
   "stabilityai/stablelm-2-1_6b-chat": "stabilityai/stablelm-2-1_6b",
   "stabilityai/stablelm-2-zephyr-1_6b": "stabilityai/stablelm-2-1_6b",
+  "teknium/OpenHermes-2.5-Mistral-7B": "mistralai/Mistral-7B-v0.1",
   "tiiuae/Falcon-H1-1.5B-Base": "tiiuae/Falcon-H1-1.5B-Base",
   "tiiuae/Falcon-H1-1.5B-Instruct": "tiiuae/Falcon-H1-1.5B-Base",
   "tiiuae/Falcon-H1-7B-Base": "tiiuae/Falcon-H1-7B-Base",
@@ -255,6 +265,8 @@
   "LLM360/Amber": "amber",
   "LLM360/AmberChat": "amber",
   "LLM360/AmberSafe": "amber",
+  "NousResearch/Hermes-3-Llama-3.1-8B": "(unregistered)",
+  "NousResearch/Nous-Hermes-2-Mistral-7B-DPO": "(unregistered)",
   "PKU-Alignment/alpaca-7b-reproduced": "beaver",
   "PKU-Alignment/beaver-7b-v1.0": "beaver",
   "Qwen/Qwen2.5-0.5B": "qwen-tiny",
@@ -299,6 +311,8 @@
   "baichuan-inc/Baichuan2-7B-Chat": "baichuan",
   "bigscience/bloom-7b1": "bloom",
   "bigscience/bloomz-7b1": "bloom",
+  "cognitivecomputations/Dolphin3.0-Llama3.1-8B": "(unregistered)",
+  "cognitivecomputations/dolphin-2.6-mistral-7b-dpo": "(unregistered)",
   "deepseek-ai/DeepSeek-R1-Distill-Llama-8B": "llama",
   "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": "qwen",
   "deepseek-ai/deepseek-llm-7b-base": "deepseek-7b",
@@ -328,6 +342,7 @@
   "stabilityai/stablelm-2-1_6b": "stablelm",
   "stabilityai/stablelm-2-1_6b-chat": "stablelm",
   "stabilityai/stablelm-2-zephyr-1_6b": "stablelm",
+  "teknium/OpenHermes-2.5-Mistral-7B": "(unregistered)",
   "tiiuae/Falcon-H1-1.5B-Base": "falcon-h1-1.5b",
   "tiiuae/Falcon-H1-1.5B-Instruct": "falcon-h1-1.5b",
   "tiiuae/Falcon-H1-7B-Base": "falcon-h1-7b",
@@ -369,6 +384,8 @@
   "LLM360/Amber": "base",
   "LLM360/AmberChat": "sft",
   "LLM360/AmberSafe": "dpo",
+  "NousResearch/Hermes-3-Llama-3.1-8B": "sft",
+  "NousResearch/Nous-Hermes-2-Mistral-7B-DPO": "dpo",
   "PKU-Alignment/alpaca-7b-reproduced": "sft",
   "PKU-Alignment/beaver-7b-v1.0": "dpo",
   "Qwen/Qwen2.5-0.5B": "base",
@@ -413,6 +430,8 @@
   "baichuan-inc/Baichuan2-7B-Chat": "dpo",
   "bigscience/bloom-7b1": "base",
   "bigscience/bloomz-7b1": "dpo",
+  "cognitivecomputations/Dolphin3.0-Llama3.1-8B": "sft",
+  "cognitivecomputations/dolphin-2.6-mistral-7b-dpo": "dpo",
   "deepseek-ai/DeepSeek-R1-Distill-Llama-8B": "reasoning",
   "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": "reasoning",
   "deepseek-ai/deepseek-llm-7b-base": "base",
@@ -442,6 +461,7 @@
   "stabilityai/stablelm-2-1_6b": "base",
   "stabilityai/stablelm-2-1_6b-chat": "sft",
   "stabilityai/stablelm-2-zephyr-1_6b": "dpo",
+  "teknium/OpenHermes-2.5-Mistral-7B": "sft",
   "tiiuae/Falcon-H1-1.5B-Base": "base",
   "tiiuae/Falcon-H1-1.5B-Instruct": "dpo",
   "tiiuae/Falcon-H1-7B-Base": "base",
@@ -485,7 +505,10 @@
   "mistralai/Mistral-7B-v0.1": [
    "HuggingFaceH4/mistral-7b-sft-beta",
    "HuggingFaceH4/zephyr-7b-beta",
-   "mistralai/Mistral-7B-v0.1"
+   "NousResearch/Nous-Hermes-2-Mistral-7B-DPO",
+   "cognitivecomputations/dolphin-2.6-mistral-7b-dpo",
+   "mistralai/Mistral-7B-v0.1",
+   "teknium/OpenHermes-2.5-Mistral-7B"
   ],
   "HuggingFaceTB/SmolLM2-360M": [
    "HuggingFaceTB/SmolLM2-360M",
@@ -499,6 +522,20 @@
    "LLM360/Amber",
    "LLM360/AmberChat",
    "LLM360/AmberSafe"
+  ],
+  "meta-llama/Llama-3.1-8B": [
+   "NousResearch/Hermes-3-Llama-3.1-8B",
+   "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "allenai/Llama-3.1-Tulu-3.1-8B",
+   "cognitivecomputations/Dolphin3.0-Llama3.1-8B",
+   "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "meta-llama/Llama-3.1-8B",
+   "meta-llama/Llama-3.1-8B-Instruct"
   ],
   "huggyllama/llama-7b": [
    "PKU-Alignment/alpaca-7b-reproduced",
@@ -523,18 +560,6 @@
   "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T": [
    "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T"
-  ],
-  "meta-llama/Llama-3.1-8B": [
-   "allenai/Llama-3.1-Tulu-3-8B-DPO",
-   "allenai/Llama-3.1-Tulu-3-8B-SFT",
-   "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
-   "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
-   "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
-   "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
-   "allenai/Llama-3.1-Tulu-3.1-8B",
-   "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
-   "meta-llama/Llama-3.1-8B",
-   "meta-llama/Llama-3.1-8B-Instruct"
   ],
   "allenai/OLMo-2-0425-1B": [
    "allenai/OLMo-2-0425-1B",
@@ -646,5 +671,10 @@
    "zai-org/glm-4-9b-hf"
   ]
  },
- "families_spanning_multiple_lineages": {}
+ "families_spanning_multiple_lineages": {
+  "(unregistered)": [
+   "meta-llama/Llama-3.1-8B",
+   "mistralai/Mistral-7B-v0.1"
+  ]
+ }
 }

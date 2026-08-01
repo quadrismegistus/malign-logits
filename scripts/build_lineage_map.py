@@ -112,7 +112,13 @@ def main():
     #: one roster addition makes it false and nothing notices.
     base = {m: r.base_of(m) for m in models}
     missing = [m for m, b in base.items() if not b]
-    fam = {m: r.family_key(m) for m in models}
+    #: `family_key` reverse-looks-up MODEL_FAMILIES, so a registry row for a
+    #: model with no MODEL_FAMILIES entry returns None — and `sorted()` on a set
+    #: containing None raises TypeError. **Five rows added from the beam stash's
+    #: unresolved labels crashed this build, and the crash was INVISIBLE because
+    #: the print path had already emitted 117 models and 34 lineages before
+    #: reaching the sort.** A partial print is not a completed run.
+    fam = {m: (r.family_key(m) or "(unregistered)") for m in models}
     stage = {m: r.stage_of(m) for m in models}
 
     #: LINEAGE = connected component over the base relation. Every model joins

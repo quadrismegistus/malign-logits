@@ -165,6 +165,23 @@
    "relation_edits": 3,
    "new_edges": 0,
    "not_repaired": "same_base_as consumed as a parent edge by base_of(), 77 of 181 relations, first-match-in-file-order — a resolver defect, reported [2152], unruled"
+  },
+  "beam_label_gaps_2368": {
+   "why": "9 beam-stash source labels resolved to no registry row; these 5 have a base ALREADY REGISTERED, so the descent edge is an existing-relation match rather than an assertion.",
+   "added": [
+    "cognitivecomputations/Dolphin3.0-Llama3.1-8B",
+    "NousResearch/Hermes-3-Llama-3.1-8B",
+    "NousResearch/Nous-Hermes-2-Mistral-7B-DPO",
+    "teknium/OpenHermes-2.5-Mistral-7B",
+    "cognitivecomputations/dolphin-2.6-mistral-7b-dpo"
+   ],
+   "not_added": [
+    "Starling_LM_7B_alpha",
+    "openchat_3.5_0106",
+    "falcon_7b_instruct",
+    "Yi_9B"
+   ],
+   "not_added_why": "their bases are themselves absent; adding the child requires adding a parent whose identity I will not assert from memory ([2159], the spurious Tulu edge)."
   }
  },
  "models": [
@@ -3514,6 +3531,31 @@
    "country": "CN",
    "org_type": "company",
    "cells_in_store": 979
+  },
+  {
+   "model_id": "cognitivecomputations/Dolphin3.0-Llama3.1-8B",
+   "family": "dolphin",
+   "stage": "sft"
+  },
+  {
+   "model_id": "NousResearch/Hermes-3-Llama-3.1-8B",
+   "family": "hermes",
+   "stage": "sft"
+  },
+  {
+   "model_id": "NousResearch/Nous-Hermes-2-Mistral-7B-DPO",
+   "family": "hermes",
+   "stage": "dpo"
+  },
+  {
+   "model_id": "teknium/OpenHermes-2.5-Mistral-7B",
+   "family": "hermes",
+   "stage": "sft"
+  },
+  {
+   "model_id": "cognitivecomputations/dolphin-2.6-mistral-7b-dpo",
+   "family": "dolphin",
+   "stage": "dpo"
   }
  ],
  "relations": [
@@ -4416,6 +4458,31 @@
    "parent": "tiiuae/Falcon3-7B-Instruct",
    "child": "tiiuae/Falcon3-10B-Instruct",
    "relation": "smaller_sibling_of"
+  },
+  {
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "cognitivecomputations/Dolphin3.0-Llama3.1-8B",
+   "relation": "sft_of"
+  },
+  {
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "NousResearch/Hermes-3-Llama-3.1-8B",
+   "relation": "sft_of"
+  },
+  {
+   "parent": "mistralai/Mistral-7B-v0.1",
+   "child": "NousResearch/Nous-Hermes-2-Mistral-7B-DPO",
+   "relation": "dpo_of"
+  },
+  {
+   "parent": "mistralai/Mistral-7B-v0.1",
+   "child": "teknium/OpenHermes-2.5-Mistral-7B",
+   "relation": "sft_of"
+  },
+  {
+   "parent": "mistralai/Mistral-7B-v0.1",
+   "child": "cognitivecomputations/dolphin-2.6-mistral-7b-dpo",
+   "relation": "dpo_of"
   }
  ]
 }
