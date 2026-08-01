@@ -422,3 +422,30 @@ under narrative framing, the finding is about ANSWERING and not about referents 
 all.** The registration must name that disappearance in advance as a possible
 outcome and a FINDING, not as a failure — otherwise a null gets written up as "the
 narrative battery didn't work."
+
+## STATUS AS OF 2026-08-01 ([2096] inventory)
+
+**THE FORMAT BATTERY IS 2 OF 5 LEVELS AND HAS BEEN SINCE 2026-07-30.**
+
+    data/f20x_format_battery.parquet   9,280 rows, written 2026-07-30 03:07
+      rung           4,640   PRESENT
+      narrative      4,640   PRESENT
+      spelled_rung       0   ABSENT
+      prose_q            0   ABSENT
+      document           0   ABSENT
+
+    29 families x 3 arms x 16 stimuli x 10 draws, temp 1.0
+    EVERY family holds exactly 320 rows -- the two levels present are COMPLETE
+    and BALANCED; there is no per-family gap, only a per-LEVEL one.
+
+**What exists cannot answer the five-level question it was built for.** The
+design's whole point is the gradient across question-ness, boundedness and
+scaffold; two adjacent points on it are a contrast, not a gradient — and the
+two present (`rung`, `narrative`) are the extremes, so the three intermediate
+levels that would locate the boundary are exactly the missing ones.
+
+**No format-battery REGISTRATION exists.** Five F20x registrations are on file
+(`examplematch`, `factdrift`, `nonce`, `object`, `referent_2x2`) and none is
+this battery's; `f20x_format_templates.md` is a TEMPLATE SPEC, not an analysis
+plan. **No boundary-discriminator spec and no concession thresholds are booked
+anywhere in `docs/` or `meta/`.**
