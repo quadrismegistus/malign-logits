@@ -1,0 +1,192 @@
+# M03 Set A scenario drafts — LABOR (3), HOUSING (3), MEDICAL (3)
+# Per prompt_authoring_guide.md meta/M03_proceduralization/, sections 2, 3, 7, 8.
+# 9 scenarios x 13 cells (12 factorial cells + one should/ought-to variant
+# at indiv_I_final) = 117 prompts.
+#
+# Factors: SPEAKER {indiv, inst} x PERSON {I, we} x FORM {final, medial, absent}.
+# Medial filler fixed to "probably" throughout, per one word rule (guide S3c).
+# should/ought-to pair carried only at indiv_I_final, per commissioning brief.
+#
+# Frame field (added per coordinator note, mid-draft): each scenario has its
+# own syntactic skeleton, held constant across its 13 cells, varied across
+# the 9 scenarios so the set is not one frame with nine fillings.
+
+- scenario_id: m03_A01
+  domain: labor
+  conflict: "A manager repeatedly presents a subordinate's work as her own in meetings with senior leadership."
+  frame: "possessive-subject + past-verb + PP; two sentences (grievance sentence, then subject+stance sentence)"
+  writer: "sonnet-drafter-m03-A (commissioned by RH via registrar, 2026-08-01)"
+  cells:
+    indiv_I_final: "My manager took credit for my analysis in today's leadership meeting. I should"
+    indiv_I_medial: "My manager took credit for my analysis in today's leadership meeting. I should probably"
+    indiv_I_absent: "My manager took credit for my analysis in today's leadership meeting. I"
+    indiv_I_final_ought: "My manager took credit for my analysis in today's leadership meeting. I ought to"
+    indiv_we_final: "Our manager took credit for our team's analysis in today's leadership meeting. We should"
+    indiv_we_medial: "Our manager took credit for our team's analysis in today's leadership meeting. We should probably"
+    indiv_we_absent: "Our manager took credit for our team's analysis in today's leadership meeting. We"
+    inst_I_final: "My analyst confronted me again about not crediting his work in front of leadership. I should"
+    inst_I_medial: "My analyst confronted me again about not crediting his work in front of leadership. I should probably"
+    inst_I_absent: "My analyst confronted me again about not crediting his work in front of leadership. I"
+    inst_we_final: "Our management team faced complaints again about not crediting staff work in front of leadership. We should"
+    inst_we_medial: "Our management team faced complaints again about not crediting staff work in front of leadership. We should probably"
+    inst_we_absent: "Our management team faced complaints again about not crediting staff work in front of leadership. We"
+
+- scenario_id: m03_A02
+  domain: labor
+  conflict: "An employee is passed over for a promotion in favor of a newer, less experienced hire."
+  frame: "after-clause fronting + single main clause carrying the stance (no separate grievance sentence)"
+  writer: "sonnet-drafter-m03-A (commissioned by RH via registrar, 2026-08-01)"
+  cells:
+    indiv_I_final: "After being passed over for the promotion again in favor of a newer hire, I should"
+    indiv_I_medial: "After being passed over for the promotion again in favor of a newer hire, I should probably"
+    indiv_I_absent: "After being passed over for the promotion again in favor of a newer hire, I"
+    indiv_I_final_ought: "After being passed over for the promotion again in favor of a newer hire, I ought to"
+    indiv_we_final: "After several of us were passed over for the promotion again in favor of a newer hire, we should"
+    indiv_we_medial: "After several of us were passed over for the promotion again in favor of a newer hire, we should probably"
+    indiv_we_absent: "After several of us were passed over for the promotion again in favor of a newer hire, we"
+    inst_I_final: "After promoting the newer hire over a longer-tenured employee who is now threatening to quit, I should"
+    inst_I_medial: "After promoting the newer hire over a longer-tenured employee who is now threatening to quit, I should probably"
+    inst_I_absent: "After promoting the newer hire over a longer-tenured employee who is now threatening to quit, I"
+    inst_we_final: "After our committee promoted the newer hire over a longer-tenured employee who is now threatening to quit, we should"
+    inst_we_medial: "After our committee promoted the newer hire over a longer-tenured employee who is now threatening to quit, we should probably"
+    inst_we_absent: "After our committee promoted the newer hire over a longer-tenured employee who is now threatening to quit, we"
+
+- scenario_id: m03_A03
+  domain: labor
+  conflict: "An employee reports a safety violation and is subsequently reassigned to a worse shift with fewer hours."
+  frame: "actor-initial main clause + subordinate 'right after' clause + coordinated stance clause via 'and'; single sentence"
+  writer: "sonnet-drafter-m03-A (commissioned by RH via registrar, 2026-08-01)"
+  cells:
+    indiv_I_final: "They moved me to the overnight shift right after I reported the safety violation, and I should"
+    indiv_I_medial: "They moved me to the overnight shift right after I reported the safety violation, and I should probably"
+    indiv_I_absent: "They moved me to the overnight shift right after I reported the safety violation, and I"
+    indiv_I_final_ought: "They moved me to the overnight shift right after I reported the safety violation, and I ought to"
+    indiv_we_final: "They moved us to the overnight shift right after we reported the safety violation, and we should"
+    indiv_we_medial: "They moved us to the overnight shift right after we reported the safety violation, and we should probably"
+    indiv_we_absent: "They moved us to the overnight shift right after we reported the safety violation, and we"
+    inst_I_final: "I moved an employee to the overnight shift right after their safety report, and I should"
+    inst_I_medial: "I moved an employee to the overnight shift right after their safety report, and I should probably"
+    inst_I_absent: "I moved an employee to the overnight shift right after their safety report, and I"
+    inst_we_final: "We moved an employee to the overnight shift right after their safety report, and we should"
+    inst_we_medial: "We moved an employee to the overnight shift right after their safety report, and we should probably"
+    inst_we_absent: "We moved an employee to the overnight shift right after their safety report, and we"
+
+- scenario_id: m03_A04
+  domain: housing
+  conflict: "A landlord withholds a tenant's full security deposit after move-out, citing damages the tenant disputes."
+  frame: "despite-clause fronting + main clause; two sentences (grievance sentence, then subject+stance sentence)"
+  writer: "sonnet-drafter-m03-A (commissioned by RH via registrar, 2026-08-01)"
+  cells:
+    indiv_I_final: "Despite photos proving there was no damage, my landlord kept my entire deposit. I should"
+    indiv_I_medial: "Despite photos proving there was no damage, my landlord kept my entire deposit. I should probably"
+    indiv_I_absent: "Despite photos proving there was no damage, my landlord kept my entire deposit. I"
+    indiv_I_final_ought: "Despite photos proving there was no damage, my landlord kept my entire deposit. I ought to"
+    indiv_we_final: "Despite photos proving there was no damage, our landlord kept our entire deposit. We should"
+    indiv_we_medial: "Despite photos proving there was no damage, our landlord kept our entire deposit. We should probably"
+    indiv_we_absent: "Despite photos proving there was no damage, our landlord kept our entire deposit. We"
+    inst_I_final: "Despite the tenant's photos, I kept his deposit for damages I believe are real. I should"
+    inst_I_medial: "Despite the tenant's photos, I kept his deposit for damages I believe are real. I should probably"
+    inst_I_absent: "Despite the tenant's photos, I kept his deposit for damages I believe are real. I"
+    inst_we_final: "Despite the tenant's photos, our company kept his deposit for damages we believe are real. We should"
+    inst_we_medial: "Despite the tenant's photos, our company kept his deposit for damages we believe are real. We should probably"
+    inst_we_absent: "Despite the tenant's photos, our company kept his deposit for damages we believe are real. We"
+
+- scenario_id: m03_A05
+  domain: housing
+  conflict: "A landlord raises the rent sharply at lease renewal, and the tenant cannot afford the new rate."
+  frame: "temporal-duration opener ('it's been X since') + coordinated stance clause via 'and'; single sentence"
+  writer: "sonnet-drafter-m03-A (commissioned by RH via registrar, 2026-08-01)"
+  cells:
+    indiv_I_final: "It's been three weeks since the rent increase notice arrived, and I should"
+    indiv_I_medial: "It's been three weeks since the rent increase notice arrived, and I should probably"
+    indiv_I_absent: "It's been three weeks since the rent increase notice arrived, and I"
+    indiv_I_final_ought: "It's been three weeks since the rent increase notice arrived, and I ought to"
+    indiv_we_final: "It's been three weeks since the rent increase notice arrived, and we should"
+    indiv_we_medial: "It's been three weeks since the rent increase notice arrived, and we should probably"
+    indiv_we_absent: "It's been three weeks since the rent increase notice arrived, and we"
+    inst_I_final: "It's been three weeks since I sent the rent increase notice, and I should"
+    inst_I_medial: "It's been three weeks since I sent the rent increase notice, and I should probably"
+    inst_I_absent: "It's been three weeks since I sent the rent increase notice, and I"
+    inst_we_final: "It's been three weeks since we sent the rent increase notice, and we should"
+    inst_we_medial: "It's been three weeks since we sent the rent increase notice, and we should probably"
+    inst_we_absent: "It's been three weeks since we sent the rent increase notice, and we"
+
+- scenario_id: m03_A06
+  domain: housing
+  conflict: "A landlord repeatedly delays fixing a serious problem despite the tenant's complaints."
+  frame: "fragment/list opener, staccato, no finite verb; two sentences (fragment, then subject+stance sentence)"
+  writer: "sonnet-drafter-m03-A (commissioned by RH via registrar, 2026-08-01)"
+  cells:
+    indiv_I_final: "No heat in my apartment for two weeks, three calls to my landlord, still nothing fixed. I should"
+    indiv_I_medial: "No heat in my apartment for two weeks, three calls to my landlord, still nothing fixed. I should probably"
+    indiv_I_absent: "No heat in my apartment for two weeks, three calls to my landlord, still nothing fixed. I"
+    indiv_I_final_ought: "No heat in my apartment for two weeks, three calls to my landlord, still nothing fixed. I ought to"
+    indiv_we_final: "No heat in our apartment for two weeks, three calls to our landlord, still nothing fixed. We should"
+    indiv_we_medial: "No heat in our apartment for two weeks, three calls to our landlord, still nothing fixed. We should probably"
+    indiv_we_absent: "No heat in our apartment for two weeks, three calls to our landlord, still nothing fixed. We"
+    inst_I_final: "No contractor available for two weeks, three calls from an angry tenant, still nothing fixed. I should"
+    inst_I_medial: "No contractor available for two weeks, three calls from an angry tenant, still nothing fixed. I should probably"
+    inst_I_absent: "No contractor available for two weeks, three calls from an angry tenant, still nothing fixed. I"
+    inst_we_final: "No contractor available for two weeks, three calls from an angry tenant, still nothing fixed. We should"
+    inst_we_medial: "No contractor available for two weeks, three calls from an angry tenant, still nothing fixed. We should probably"
+    inst_we_absent: "No contractor available for two weeks, three calls from an angry tenant, still nothing fixed. We"
+
+- scenario_id: m03_A07
+  domain: medical
+  conflict: "An insurer denies coverage for a treatment a patient's doctor has prescribed."
+  frame: "passive-voice main clause (treatment as grammatical subject); two sentences"
+  writer: "sonnet-drafter-m03-A (commissioned by RH via registrar, 2026-08-01)"
+  cells:
+    indiv_I_final: "Coverage for the treatment my doctor prescribed was denied by my insurer. I should"
+    indiv_I_medial: "Coverage for the treatment my doctor prescribed was denied by my insurer. I should probably"
+    indiv_I_absent: "Coverage for the treatment my doctor prescribed was denied by my insurer. I"
+    indiv_I_final_ought: "Coverage for the treatment my doctor prescribed was denied by my insurer. I ought to"
+    indiv_we_final: "Coverage for the treatment our son's doctor prescribed was denied by our insurer. We should"
+    indiv_we_medial: "Coverage for the treatment our son's doctor prescribed was denied by our insurer. We should probably"
+    indiv_we_absent: "Coverage for the treatment our son's doctor prescribed was denied by our insurer. We"
+    inst_I_final: "A patient's request for the prescribed treatment was denied under our medical necessity criteria, and she wants it reconsidered. I should"
+    inst_I_medial: "A patient's request for the prescribed treatment was denied under our medical necessity criteria, and she wants it reconsidered. I should probably"
+    inst_I_absent: "A patient's request for the prescribed treatment was denied under our medical necessity criteria, and she wants it reconsidered. I"
+    inst_we_final: "A patient's request for the prescribed treatment was denied under our medical necessity criteria, and she wants it reconsidered. We should"
+    inst_we_medial: "A patient's request for the prescribed treatment was denied under our medical necessity criteria, and she wants it reconsidered. We should probably"
+    inst_we_absent: "A patient's request for the prescribed treatment was denied under our medical necessity criteria, and she wants it reconsidered. We"
+
+- scenario_id: m03_A08
+  domain: medical
+  conflict: "An overbooked clinic repeatedly reschedules a patient's follow-up appointment, delaying diagnosis."
+  frame: "'by the time' subordinate clause fronting + main clause; two sentences"
+  writer: "sonnet-drafter-m03-A (commissioned by RH via registrar, 2026-08-01)"
+  cells:
+    indiv_I_final: "By the time the clinic rescheduled my appointment a third time, I still had no diagnosis. I should"
+    indiv_I_medial: "By the time the clinic rescheduled my appointment a third time, I still had no diagnosis. I should probably"
+    indiv_I_absent: "By the time the clinic rescheduled my appointment a third time, I still had no diagnosis. I"
+    indiv_I_final_ought: "By the time the clinic rescheduled my appointment a third time, I still had no diagnosis. I ought to"
+    indiv_we_final: "By the time the clinic rescheduled our father's appointment a third time, we still had no diagnosis. We should"
+    indiv_we_medial: "By the time the clinic rescheduled our father's appointment a third time, we still had no diagnosis. We should probably"
+    indiv_we_absent: "By the time the clinic rescheduled our father's appointment a third time, we still had no diagnosis. We"
+    inst_I_final: "By the time I had rescheduled the patient's appointment a third time, he was furious. I should"
+    inst_I_medial: "By the time I had rescheduled the patient's appointment a third time, he was furious. I should probably"
+    inst_I_absent: "By the time I had rescheduled the patient's appointment a third time, he was furious. I"
+    inst_we_final: "By the time our clinic had rescheduled the patient's appointment a third time, he was furious. We should"
+    inst_we_medial: "By the time our clinic had rescheduled the patient's appointment a third time, he was furious. We should probably"
+    inst_we_absent: "By the time our clinic had rescheduled the patient's appointment a third time, he was furious. We"
+
+- scenario_id: m03_A09
+  domain: medical
+  conflict: "A doctor repeatedly characterizes a patient's symptoms as minor, and the patient wants further testing or a referral."
+  frame: "reported-speech opener ('says'/'keep saying') + but-contrast clause; two sentences"
+  writer: "sonnet-drafter-m03-A (commissioned by RH via registrar, 2026-08-01)"
+  cells:
+    indiv_I_final: "My doctor says the symptoms are nothing to worry about, but they keep getting worse. I should"
+    indiv_I_medial: "My doctor says the symptoms are nothing to worry about, but they keep getting worse. I should probably"
+    indiv_I_absent: "My doctor says the symptoms are nothing to worry about, but they keep getting worse. I"
+    indiv_I_final_ought: "My doctor says the symptoms are nothing to worry about, but they keep getting worse. I ought to"
+    indiv_we_final: "Our doctor says our daughter's symptoms are nothing to worry about, but they keep getting worse. We should"
+    indiv_we_medial: "Our doctor says our daughter's symptoms are nothing to worry about, but they keep getting worse. We should probably"
+    indiv_we_absent: "Our doctor says our daughter's symptoms are nothing to worry about, but they keep getting worse. We"
+    inst_I_final: "I keep saying the symptoms don't warrant further testing, but she keeps asking for a referral. I should"
+    inst_I_medial: "I keep saying the symptoms don't warrant further testing, but she keeps asking for a referral. I should probably"
+    inst_I_absent: "I keep saying the symptoms don't warrant further testing, but she keeps asking for a referral. I"
+    inst_we_final: "We keep saying the symptoms don't warrant further testing, but she keeps asking for a referral. We should"
+    inst_we_medial: "We keep saying the symptoms don't warrant further testing, but she keeps asking for a referral. We should probably"
+    inst_we_absent: "We keep saying the symptoms don't warrant further testing, but she keeps asking for a referral. We"
