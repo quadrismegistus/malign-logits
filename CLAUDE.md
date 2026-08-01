@@ -340,7 +340,9 @@ cm.count_generations('LLM360/Amber', '')              # → 0 (wrong!)
 
 **The original numbers were correct; their source was destroyed, then recovered.** The booked figures (sexual liminal 0.13 > explicit 0.10; violence liminal 0.15 > explicit 0.09) match the 4-family `battery_results.csv` as it stood at commit `d5bada0` (2026-03-29, 188 rows, amber/llama/olmo/qwen) to two decimals: 0.1295, 0.1008, 0.1461, 0.0892. The file was later narrowed to a single family by `malign battery --family zephyr` (see `b727374`), which is why the numbers appeared unsourced. They were never wrong — the evidence was overwritten, and git preserved it. An earlier version of this correction said they "cited numbers matching no surviving file"; accurate about the working tree, misleading about the claim.
 
-Independently, lacan's freed-mass metric on the same prompts finds **no family-level liminal/explicit difference** (20/37) and explicit *below* neutral (26/37, p=0.020). Both metrics agree liminal ≈ neutral and that the raw effect is entropy-driven; they differ on the residual sign. The boundary claim is **METRIC-QUALIFIED** pending a registered metric-comparison study.
+**WITHDRAWN 2026-08-01, no producer.** A freed-mass claim stood here. It was cited at n=37 *families*; the model-level lineage map caps the whole roster at **34 lineages**, so at least 3 of the 37 were duplicates — and the metric has **no producer script anywhere on this machine**, so it cannot be rerun at the corrected unit. Best case it survives, worst case it does not, and an interval spanning its own threshold is not a result. Ruled [2186]. Nothing in this repo may rest on it.
+
+The boundary claim therefore rests on the JS metric alone: liminal is indistinguishable from neutral, so there is no boundary *peak*. That reading never depended on the withdrawn number.
 
 **Substance use and profanity trigger unexpectedly strong alignment.** Substance prompts show the highest entropy drop (0.82 nats), exceeding sexual and violent content. Profanity also displaces substantially. These categories are not typical safety targets but are heavily restructured.
 
