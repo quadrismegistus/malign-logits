@@ -1,5 +1,18 @@
 # M03 prompt-authoring guide — institutional deference and proceduralisation
 
+---
+
+## STATUS AS OF 2026-08-01 — added [2073], derived from the docket
+
+**M03 IS EXPLORATORY. THE GUIDE'S §3(b) EXAMPLE IS WITHDRAWN.**
+
+- **M03 at S=18 is NOT registered as a confirmatory test of the SPEAKER effect** ([2002]). Best MDE across every reading is 0.0104 against a largest candidate target of 0.0056 — unreachable by 1.86x. The MEI closes as NOT-REQUIRED-UNDER-EXPLORATORY and reopens as the first item if a confirmatory M03 is ever specified.
+- **§3(b)'s worked example is withdrawn.** It cited `"...our party needs to win the next election. We should"` as how to write institutional `we`. That is the ONE F21 prompt using an ORGANISATION as institutional `we`, and 11 of 12 drafted cells followed it. **PERSON is a pluralisation of the SPEAKER — a definite dual, co-actor, nominative — never an organisation noun** ([1910]).
+- **Two hypotheses are reclassified:** SPEAKER main effect CONFIRMATORY (replicates F21's 12 pairs); PERSON main effect and SPEAKER x PERSON EXPLORATORY — F21's own PERSON is confounded with arm at 4 against 1, so there is no prior on the axis ([1914]).
+- **Scope lines from the two register probes:** marker preference is FLAT by arm (`should` ~131x `ought to` in both, arm effect 0.035 of a within-arm SD); marker-driven CONTINUATION divergence is arm-INDEPENDENT to within a fifth of itself. Both declared before their runs.
+- **Constraint classes are not one list:** five constraints protect against a NULL; the assertion-live constraint protects against a FALSE POSITIVE — violated, it manufactures the finding rather than obscuring it ([1963]).
+
+
 Pen-authored 2026-07-31, docket [1679]-[1747]. **DRAFT FOR RH. Nothing here is
 frozen; the registration text is written from this once RH signs off.**
 

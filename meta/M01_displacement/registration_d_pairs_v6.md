@@ -1,5 +1,17 @@
 # Registration D v6 — the definitive displacement-site test, all three dimensions
 
+---
+
+## STATUS AS OF 2026-08-01 — added [2073], derived from the docket
+
+**DISCHARGED, AND THE POPULATION IS IN A LIVE CLOUD RUN.**
+
+- **Discharged** on RH's word ([1988]); the discharge's SCOPE was ambiguous between gate-clearance and release of the sealed values, disambiguated at [1991]/[1992], and the wall word given separately at [2072].
+- **§D0's population is no longer hypothetical.** The 188 round-1 survivors are ingested and running: cloud run `46494481`, 103 models x 2,583 prompts. Manifests at `meta/M01_displacement/audit/manifests/survivors_round1_*.json`, reproducing `EXCLUSIONS.json`'s own 188.
+- **The 188 had never been in the catalogue** until [2056]. Nothing was wrong with them; no commission had named them, so no manifest existed and no path in. Booked at [2057]: *a population nobody asks for never enters.*
+- **Re-audited at [1864]** with the token-aligned diff the template prescribes: no further 2(e) failures among the 188 — the two flagged are the template's own LICENSED bound-particle examples. The count does not move.
+
+
 A DELTA on frozen `registration_c_delta_v6.md` `06f0272d7f21b901`, which governs
 everything not named here. **v1-v3, v4 `1bd4ad8bbf461282` and v5 `b1d2ccd596a4231e` are SUPERSEDED.** v4's H1-signed arm carries over VERBATIM and is untouched by this amendment — it was designed before any unblinding and its primary status is preserved:
 RH ruled the paired design and ruled out a single displacement bar ([1598]).
