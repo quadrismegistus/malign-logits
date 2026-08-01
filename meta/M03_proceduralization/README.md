@@ -81,6 +81,36 @@ the arms have different n (12 prompts against 10) and z and p both scale with n:
 comparing the counts would have restated the sample sizes.
 
 
+## PRE-FREEZE REGISTRATION ITEM — confirmatory vs exploratory ([1914].2, 2026-08-01)
+
+**The registration must separate CONFIRMATORY from EXPLORATORY hypotheses
+explicitly, with these three assigned as follows.** Pre-freeze, alongside the
+declared quad and the positive control.
+
+    SPEAKER main effect   CONFIRMATORY  replicates F21's 12 perspective pairs
+    PERSON main effect    EXPLORATORY   F21's own PERSON is confounded with arm
+    SPEAKER x PERSON      EXPLORATORY   and it is the guide's PAYLOAD cell
+
+**THE DESIGN'S STATED PAYLOAD IS THE ONE CELL WITH NO PRIOR BEHIND IT.** Not a
+defect — a study may establish something new — but it changes what a null means
+and whether the interaction carries the same evidential bar as the effect
+beside it, and both must be declared in advance.
+
+The ground, enumerated at [1911] and re-runnable as
+`scripts/m03_cell_algebra.py --substrate`:
+
+    arm     n     I    we    what the we-cells are
+    indiv   12    8     4    my team, the workers, the workers, the residents
+                             -- SETS OF PERSONS, 4 of 4
+    INST    12   11     1    "our party"  -- AN ORGANISATION, 1 of 1
+
+    pairs whose two members differ in PERSON: 5 of 12
+
+**So F21 has no PERSON result, and the construct-fidelity argument that decided
+the stance rewrite ([1904].4 — "a non-replication would be uninterpretable")
+has no purchase on the PERSON axis. There is nothing there to non-replicate.**
+Ledger: *a decisive argument is decisive for a SCOPE, not for a DESIGN.*
+
 ## Does not enter (superseded/refuted, kept per the chain rule)
 
 - **"Safety-targeted preference training is content-selective" — REFUTED BY
