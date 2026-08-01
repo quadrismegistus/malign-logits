@@ -126,6 +126,9 @@ def main():
     out = subprocess.run(["git", "status", "--porcelain", "--untracked-files=all",
                           "pair_drafts", "meta"], cwd=ROOT,
                          capture_output=True, text=True).stdout.strip()
+    #: `.strip()` on porcelain output ASSERTS that surrounding whitespace
+    #: cannot matter. It cannot: porcelain is line-oriented and a blank
+    #: result is the pass condition, which is exactly what strip preserves.
     if out:
         for line in out.splitlines():
             print(f"    *** {line}")

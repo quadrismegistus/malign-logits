@@ -106,6 +106,10 @@ def extract(body):
     """Every ledger line in one post. A post may book more than one."""
     out = []
     for m in LEDGER.finditer(body):
+        #: Collapses internal whitespace and newlines. ASSERTS that line
+        #: breaks inside a booked rule cannot matter to an INDEX -- true
+        #: because the index is a pointer and the post is the artifact, and
+        #: safe because the stamp lets any row be re-derived from source.
         rule = " ".join(m.group("rule").split())
         if len(rule) > 12:
             out.append(rule)

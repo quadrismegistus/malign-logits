@@ -352,7 +352,10 @@ def lint(k, cells):
     for arm in ("indiv", "inst"):
         sg, pl = k[f"{arm}_sg"], k[f"{arm}_pl"]
         # (iii) the plural must add a definite dual, and must not be an organisation
-        added = pl.replace(sg, "") if sg in pl else pl
+        # NB an `added = pl.replace(sg, "")` line stood here, unused, after the
+        # same expression was fixed 25 lines below. DEAD CODE THAT ENCODES A
+        # BOOKED DEFECT IS A TRAP: the next reader wires it up. Removed in the
+        # normalisation sweep ([2017]).
         if not DUAL.search(pl):
             out.append(f"(iii) {arm} plural is not a speaker-dual: {pl!r}")
         if INDEF.search(pl):

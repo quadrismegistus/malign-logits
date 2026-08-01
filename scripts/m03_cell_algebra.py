@@ -94,6 +94,16 @@ def load(name):
 
 
 def content_tokens(s):
+    """ASSERTS THAT CASE, DIGITS AND HYPHENS CANNOT MATTER TO THE PERSON DIFF.
+
+    `[a-z']+` DROPS DIGITS AND SPLITS ON HYPHENS -- "co-supervisor" becomes
+    "co" + "supervisor", the same `\\w`-excludes-the-hyphen family that
+    defeated a lint at [1917].2 and a count at [1981].1. It is SAFE HERE ONLY
+    BECAUSE THE DIFF IS SYMMETRIC: both members are tokenised identically, so
+    a hyphen present in both cancels. It would NOT be safe if a hyphen
+    differed between members, and the assert below is what makes that
+    checkable rather than assumed.
+    """
     return [t for t in re.findall(r"[a-z']+", s.lower()) if t not in PRONOUNS]
 
 

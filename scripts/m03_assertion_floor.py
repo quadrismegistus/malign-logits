@@ -165,6 +165,13 @@ def main():
         top = torch.topk(p, 8)
         rows.append((sid, dom, ent, h, l,
                      h / (h + l) if (h + l) > 0 else float("nan"), h + l,
+                     #: `.strip()` IS DISPLAY-ONLY AND IT HIDES THE FEATURE
+                     #: THE MEASUREMENT IS ABOUT. The mass reported is
+                     #: P(" have") -- the LEADING SPACE is what makes it a
+                     #: word-initial token -- and this print shows `have`.
+                     #: The numbers come from the token ID, never from this
+                     #: string, so they are unaffected; a reader of the
+                     #: printout cannot tell " have" from "have".
                      [(tok.decode([i]).strip(), round(v.item(), 3))
                       for v, i in zip(top.values, top.indices)]))
 

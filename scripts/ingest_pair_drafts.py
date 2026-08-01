@@ -58,7 +58,24 @@ RUN = re.compile(r"_{2,}")
 
 #: Populations RH has cleared. Adding a name here is a decision, not a chore.
 CLEARED = {
+    #: RH cleared ALL pair populations 2026-08-01 ("All prompts cleared").
+    #: One source name per file so any population can be replaced or retired
+    #: independently -- a single lumped source would make that impossible.
     "round2_desecration.yaml": "M01_PAIRS_DESECRATION",
+    "round2_animal.yaml":      "M01_PAIRS_ANIMAL",
+    "round2_betrayal.yaml":    "M01_PAIRS_BETRAYAL",
+    "round2_power.yaml":       "M01_PAIRS_POWER",
+    "round2_theft.yaml":       "M01_PAIRS_THEFT",
+    "round2b_power.yaml":      "M01_PAIRS_POWER_R2B",
+    #: v2 is a REDRAFT of round2b_power and reuses its pair_ids. SAME SOURCE
+    #: NAME so it REPLACES v1 rather than colliding with it -- two versions of
+    #: one population under two sources would both go to the cloud.
+    "round2b_power_v2.yaml":   "M01_PAIRS_POWER_R2B",
+    "sonnet_covert.yaml":      "M01_PAIRS_COVERT",
+    "sonnet_sexual.yaml":      "M01_PAIRS_SEXUAL",
+    "sonnet_threat.yaml":      "M01_PAIRS_THREAT",
+    "sonnet_unarmed.yaml":     "M01_PAIRS_UNARMED",
+    "sonnet_weapons.yaml":     "M01_PAIRS_WEAPONS",
 }
 
 
@@ -109,6 +126,13 @@ def main():
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--dry-run", action="store_true")
     g.add_argument("--apply", action="store_true")
+    ap.add_argument("--allow-text-collision", action="store_true",
+                    help="a colliding TEXT is a duplicate stimulus, not a "
+                         "corruption: the model scores a string once whatever "
+                         "row points at it. Precondition (4) exists to make "
+                         "collisions SEEN, not to forbid them -- so this "
+                         "downgrades it to a printed finding and the ids stay "
+                         "distinct.")
     args = ap.parse_args()
 
     name = os.path.basename(args.file)
@@ -144,7 +168,11 @@ def main():
     print(f"  (4) no prompt TEXT collides              {len(dup_tx)} collision(s)")
     for r in dup_tx[:3]:
         print(f"        {r['prompt_id']}: {r['prompt']!r}")
-    fail += len(dup_tx)
+    if not args.allow_text_collision:
+        fail += len(dup_tx)
+    elif dup_tx:
+        print(f"      ALLOWED per --allow-text-collision: {len(dup_tx)} "
+              f"duplicate stimulus/stimuli, ids remain distinct")
     own = len({r["prompt"] for r in new})
     print(f"  (5) internally distinct                  {own} of {len(new)}")
     fail += len(new) - own
