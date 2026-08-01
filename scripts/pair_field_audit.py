@@ -43,8 +43,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DRAFTS = os.path.join(ROOT, "pair_drafts", "round2_*.yaml")
-REQUIRED = ("pair_id", "contrast_type", "domain", "language", "writer",
-            "MARKED", "UNMARKED", "swap")
+REQUIRED = ("pair_id", "contrast_type", "domain", "subdomain", "language",
+            "writer", "MARKED", "UNMARKED", "swap")
 
 FUNC = set("""a an the he she it they we you i his her its their our my your him them us me
 this that these those and or but so then as at by for from in into of off on onto out over
@@ -157,10 +157,19 @@ def main():
     dupes = [i for i, n in collections.Counter(ids).items() if n > 1]
     print(f"  unique ids {len(set(ids))} of {len(ids)}"
           + (f"   *** DUPLICATES: {dupes}" if dupes else "   ok"))
-    off = [r["pair_id"] for r in recs
-           if r.get("domain", "")[:2] not in r["pair_id"][2:5].lower()]
-    print(f"  ids whose stem does not match their domain: {len(off)}"
-          + (f"   e.g. {off[:5]}" if off else ""))
+    # THE STEM ENCODES THE SUBDOMAIN, NOT THE DOMAIN. The taxonomy is two-level:
+    # `taboo/desecration`, `property/theft`. A first check compared the stem to
+    # domain[:2] and flagged 480 of 600 -- four domains out of five -- which is
+    # what a broken check looks like, not what 480 broken ids look like. The
+    # stems (r2an r2bt r2ds r2pw r2th) track the SUBDOMAIN and are consistent.
+    stems = collections.defaultdict(collections.Counter)
+    for r in recs:
+        stems[(r.get("domain"), r.get("subdomain") or r["_file"])][r["pair_id"][:4]] += 1
+    multi = {k: dict(v) for k, v in stems.items() if len(v) > 1}
+    print(f"  stem consistency within (domain, subdomain): "
+          + ("ok, one stem each" if not multi else f"*** MIXED {multi}"))
+    for (dom, sub), v in sorted(stems.items()):
+        print(f"     {str(dom):<12} / {str(sub):<14} {list(v)[0]}  x{sum(v.values())}")
 
     print("\nCATALOGUE COLLISIONS (NFKC, case-folded, ws-collapsed, slot stripped)")
     try:
