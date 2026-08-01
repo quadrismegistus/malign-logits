@@ -43,8 +43,29 @@ defined from the HYPOTHESIS and it can fail.** Declared in full at [1967]
 before the run. Heuristic, never targeted, **never reused as an outcome
 instrument downstream.**
 
+**COVERAGE IS PRINTED BEFORE ANY RATIO** ([1969].2/[1970].1). The lists total
+37 words; the most probable continuations after a grievance stem are `file`,
+`contact`, `call`, `write`, `send`, `take` — **and none is on either list,
+because `file a complaint` is HIGH force and `file the paperwork` is LOW: the
+force is carried by the OBJECT, not the verb, so it is unlistable at the first
+content token.** **A NEAR-ZERO HIGH SCORE OVER MASS THE INSTRUMENT CANNOT SEE
+MEANS THE LIST MISSED, NOT THAT THE STEM FORECLOSED**, and only the coverage
+number separates those. The top continuations are printed per stem so the
+missed vocabulary is visible rather than inferred.
+
+**STEM EXCLUDED BY CONSTRUCTION.** Scoring reads the next-token distribution
+only; the stem is never matched against. `appeal`, `dispute` and `stop` occur
+in the drafted stems in other senses, and matching by token id rather than
+substring means the `file`-inside-`issued` family cannot fire here.
+
+**THE LIST IS NOT GROWN TOWARD COVERAGE** ([1970].1): a list grown to cover the
+mass becomes a proceduralization lexicon, which is the thing the axis
+correction forbids. Small, hypothesis-derived, plus its own coverage number.
+
 FLAG = UNION, NOT INTERSECTION, and the asymmetry sets the rule: **a false flag
 costs the drafter twenty minutes and a missed one manufactures the finding.**
+**Low coverage can only ADD flags, never suppress them** ([1970].2), so the cut
+survives it: ambiguous stems get inspected with the coverage number beside them.
 
 NO THRESHOLD IS PROPOSED HERE. A cut chosen by the seat reporting the result is
 a selection rule wearing a floor's name. **The full ranked distribution of all
@@ -132,23 +153,40 @@ def main():
         ent = -(p[p > 0] * p[p > 0].log()).sum().item()
         h = sum(p[i].item() for i in hi)
         l = sum(p[i].item() for i in lo)
-        rows.append((sid, dom, ent, h, l, h / (h + l) if (h + l) > 0 else float("nan")))
+        top = torch.topk(p, 8)
+        rows.append((sid, dom, ent, h, l,
+                     h / (h + l) if (h + l) > 0 else float("nan"), h + l,
+                     [(tok.decode([i]).strip(), round(v.item(), 3))
+                      for v, i in zip(top.values, top.indices)]))
+
+    print("COVERAGE FIRST ([1969].2) — what fraction of the continuation the "
+          "instrument\ncan see at all. A near-zero HIGH over mass the lists "
+          "cannot see means the\nLIST MISSED, not that the stem foreclosed.\n")
+    print(f"  {'scenario':<10}{'coverage':>10}   top continuations (mass)")
+    for r in sorted(rows, key=lambda x: -x[6]):
+        tops = "  ".join(f"{w}:{v}" for w, v in r[7][:6])
+        print(f"  {r[0]:<10}{r[6]:>10.4f}   {tops}")
+    cov = [r[6] for r in rows]
+    print(f"\n  coverage range {min(cov):.4f} - {max(cov):.4f}, "
+          f"median {sorted(cov)[len(cov)//2]:.4f}\n")
 
     for label, key in (("(A) CONTINUATION ENTROPY — lowest first", 2),
                        ("(B) HIGH-FORCE MASS — lowest first", 3)):
         print(f"{label}")
         print(f"  {'scenario':<10}{'domain':<12}{'entropy':>9}{'high':>10}"
-              f"{'low':>10}{'high/(h+l)':>12}")
+              f"{'low':>10}{'share':>8}{'coverage':>10}")
         for r in sorted(rows, key=lambda x: x[key]):
             print(f"  {r[0]:<10}{r[1]:<12}{r[2]:>9.3f}{r[3]:>10.5f}"
-                  f"{r[4]:>10.5f}{r[5]:>12.3f}")
+                  f"{r[4]:>10.5f}{r[5]:>8.3f}{r[6]:>10.4f}")
         print()
 
     out = os.path.join(ROOT, "data", "m03_assertion_floor.csv")
     with open(out, "w") as f:
-        f.write("scenario_id,domain,entropy,high_force_mass,low_force_mass,share\n")
+        f.write("scenario_id,domain,entropy,high_force_mass,low_force_mass,"
+                "share,coverage,top_continuations\n")
         for r in rows:
-            f.write(",".join(str(x) for x in r) + "\n")
+            f.write(f"{r[0]},{r[1]},{r[2]},{r[3]},{r[4]},{r[5]},{r[6]},"
+                    f"\"{' '.join(w for w, _ in r[7])}\"\n")
     print(f"wrote {out} ({len(rows)} rows)")
     return 0
 
