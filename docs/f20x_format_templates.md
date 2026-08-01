@@ -275,9 +275,23 @@ at 200 tokens and report the schedule from measured throughput**, not before arm
       prose_q            0   ABSENT
       document           0   ABSENT
 
-    29 families x 3 arms x 16 stimuli x 10 draws, temp 1.0
+    29 families x 2 arms x 16 stimuli x 5 draws, temp 1.0
     EVERY family holds exactly 320 rows -- the two levels present are COMPLETE
     and BALANCED; there is no per-family gap, only a per-LEVEL one.
+
+    CORRECTED 2026-08-01. This block first read "3 arms x 10 draws". It is
+    TWO ARMS PER FAMILY for all 29 -- the one family carrying
+    reinforced_superego has it INSTEAD of superego, not in addition -- and
+    FIVE DRAWS, not ten. The true factorisation is 16 x 2 x 2 x 5 = 320,
+    verified on amber.
+
+    My wrong version does not multiply to 320 at all: 16 x 3 x 2 x 10 = 960.
+    It never reconciled with the per-family total printed two lines above it,
+    because I read the arm TOTALS off a value_counts (base 4,640 / superego
+    4,320 / reinforced_superego 320) and wrote them as a per-family STRUCTURE
+    without ever multiplying them out. A FACTORISATION QUOTED FROM MARGINALS
+    IS NOT A FACTORISATION: the cross-tab carries the joint and the marginals
+    do not.
 
 **What exists cannot answer the five-level question it was built for.** The
 design's whole point is the gradient across question-ness, boundedness and
