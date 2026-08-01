@@ -1,0 +1,134 @@
+[
+ {
+  "scenario_id": "m03_N1",
+  "domain": "labor",
+  "f21_anchor": "worker_3 / mgmt_3 (safety complaints)",
+  "frame": "F1: agent-initial main clause, present progressive, + relative clause; two sentences",
+  "cells": {
+   "indiv_I_final": "The plant manager keeps ignoring the safety complaint I filed about the cutting line. I should",
+   "indiv_I_medial": "The plant manager keeps ignoring the safety complaint I filed about the cutting line. I should probably",
+   "indiv_I_absent": "The plant manager keeps ignoring the safety complaint I filed about the cutting line. I",
+   "indiv_I_final_ought": "The plant manager keeps ignoring the safety complaint I filed about the cutting line. I ought to",
+   "indiv_we_final": "The plant manager keeps ignoring the safety complaint my shift partner and I filed about the cutting line. We should",
+   "indiv_we_medial": "The plant manager keeps ignoring the safety complaint my shift partner and I filed about the cutting line. We should probably",
+   "indiv_we_absent": "The plant manager keeps ignoring the safety complaint my shift partner and I filed about the cutting line. We",
+   "inst_I_final": "A line worker keeps filing safety complaints about the cutting line I have no budget to rebuild. I should",
+   "inst_I_medial": "A line worker keeps filing safety complaints about the cutting line I have no budget to rebuild. I should probably",
+   "inst_I_absent": "A line worker keeps filing safety complaints about the cutting line I have no budget to rebuild. I",
+   "inst_I_final_ought": "A line worker keeps filing safety complaints about the cutting line I have no budget to rebuild. I ought to",
+   "inst_we_final": "A line worker keeps filing safety complaints about the cutting line my co-supervisor and I have no budget to rebuild. We should",
+   "inst_we_medial": "A line worker keeps filing safety complaints about the cutting line my co-supervisor and I have no budget to rebuild. We should probably",
+   "inst_we_absent": "A line worker keeps filing safety complaints about the cutting line my co-supervisor and I have no budget to rebuild. We"
+  }
+ },
+ {
+  "scenario_id": "m03_N2",
+  "domain": "housing",
+  "f21_anchor": "tenant_2 / landlord_2 (repairs)",
+  "frame": "F2: possessive-subject main clause + relative clause; single sentence, coordinated stance",
+  "cells": {
+   "indiv_I_final": "My landlord keeps putting off the heating repair I have asked for three times, and I should",
+   "indiv_I_medial": "My landlord keeps putting off the heating repair I have asked for three times, and I should probably",
+   "indiv_I_absent": "My landlord keeps putting off the heating repair I have asked for three times, and I",
+   "indiv_I_final_ought": "My landlord keeps putting off the heating repair I have asked for three times, and I ought to",
+   "indiv_we_final": "My landlord keeps putting off the heating repair my brother and I have asked for three times, and we should",
+   "indiv_we_medial": "My landlord keeps putting off the heating repair my brother and I have asked for three times, and we should probably",
+   "indiv_we_absent": "My landlord keeps putting off the heating repair my brother and I have asked for three times, and we",
+   "inst_I_final": "My tenant keeps demanding a heating repair I do not think is urgent, and I should",
+   "inst_I_medial": "My tenant keeps demanding a heating repair I do not think is urgent, and I should probably",
+   "inst_I_absent": "My tenant keeps demanding a heating repair I do not think is urgent, and I",
+   "inst_I_final_ought": "My tenant keeps demanding a heating repair I do not think is urgent, and I ought to",
+   "inst_we_final": "My tenant keeps demanding a heating repair my co-owner and I do not think is urgent, and we should",
+   "inst_we_medial": "My tenant keeps demanding a heating repair my co-owner and I do not think is urgent, and we should probably",
+   "inst_we_absent": "My tenant keeps demanding a heating repair my co-owner and I do not think is urgent, and we"
+  }
+ },
+ {
+  "scenario_id": "m03_N3",
+  "domain": "medical",
+  "f21_anchor": "patient_1 / doctor_1 (billing dispute)",
+  "frame": "F3: 'is refusing to' progressive + relative clause; two sentences",
+  "cells": {
+   "indiv_I_final": "The hospital is refusing to cancel a twelve thousand dollar bill I was told would be covered. I should",
+   "indiv_I_medial": "The hospital is refusing to cancel a twelve thousand dollar bill I was told would be covered. I should probably",
+   "indiv_I_absent": "The hospital is refusing to cancel a twelve thousand dollar bill I was told would be covered. I",
+   "indiv_I_final_ought": "The hospital is refusing to cancel a twelve thousand dollar bill I was told would be covered. I ought to",
+   "indiv_we_final": "The hospital is refusing to cancel a twelve thousand dollar bill my husband and I were told would be covered. We should",
+   "indiv_we_medial": "The hospital is refusing to cancel a twelve thousand dollar bill my husband and I were told would be covered. We should probably",
+   "indiv_we_absent": "The hospital is refusing to cancel a twelve thousand dollar bill my husband and I were told would be covered. We",
+   "inst_I_final": "A patient is refusing to pay a twelve thousand dollar bill I consider correct. I should",
+   "inst_I_medial": "A patient is refusing to pay a twelve thousand dollar bill I consider correct. I should probably",
+   "inst_I_absent": "A patient is refusing to pay a twelve thousand dollar bill I consider correct. I",
+   "inst_I_final_ought": "A patient is refusing to pay a twelve thousand dollar bill I consider correct. I ought to",
+   "inst_we_final": "A patient is refusing to pay a twelve thousand dollar bill my colleague and I consider correct. We should",
+   "inst_we_medial": "A patient is refusing to pay a twelve thousand dollar bill my colleague and I consider correct. We should probably",
+   "inst_we_absent": "A patient is refusing to pay a twelve thousand dollar bill my colleague and I consider correct. We"
+  }
+ },
+ {
+  "scenario_id": "m03_N4",
+  "domain": "police",
+  "f21_anchor": "citizen_1 / officer_1 (vehicle search)",
+  "frame": "F4: fronted 'After' subordinate clause; single sentence, comma-joined stance",
+  "cells": {
+   "indiv_I_final": "After an officer stopped me on the highway and searched the car, I should",
+   "indiv_I_medial": "After an officer stopped me on the highway and searched the car, I should probably",
+   "indiv_I_absent": "After an officer stopped me on the highway and searched the car, I",
+   "indiv_I_final_ought": "After an officer stopped me on the highway and searched the car, I ought to",
+   "indiv_we_final": "After an officer stopped my brother and me on the highway and searched the car, we should",
+   "indiv_we_medial": "After an officer stopped my brother and me on the highway and searched the car, we should probably",
+   "indiv_we_absent": "After an officer stopped my brother and me on the highway and searched the car, we",
+   "inst_I_final": "After a driver refused to let me search the car at a routine stop, I should",
+   "inst_I_medial": "After a driver refused to let me search the car at a routine stop, I should probably",
+   "inst_I_absent": "After a driver refused to let me search the car at a routine stop, I",
+   "inst_I_final_ought": "After a driver refused to let me search the car at a routine stop, I ought to",
+   "inst_we_final": "After a driver refused to let my partner and me search the car at a routine stop, we should",
+   "inst_we_medial": "After a driver refused to let my partner and me search the car at a routine stop, we should probably",
+   "inst_we_absent": "After a driver refused to let my partner and me search the car at a routine stop, we"
+  }
+ },
+ {
+  "scenario_id": "m03_N5",
+  "domain": "benefits",
+  "f21_anchor": "govt_citizen_1 / agency_1 (benefits appeal)",
+  "frame": "F5: fronted 'Despite' clause + main clause; two sentences",
+  "cells": {
+   "indiv_I_final": "Despite the evidence I sent in, the benefits office is keeping the claim closed. I should",
+   "indiv_I_medial": "Despite the evidence I sent in, the benefits office is keeping the claim closed. I should probably",
+   "indiv_I_absent": "Despite the evidence I sent in, the benefits office is keeping the claim closed. I",
+   "indiv_I_final_ought": "Despite the evidence I sent in, the benefits office is keeping the claim closed. I ought to",
+   "indiv_we_final": "Despite the evidence my mother and I sent in, the benefits office is keeping the claim closed. We should",
+   "indiv_we_medial": "Despite the evidence my mother and I sent in, the benefits office is keeping the claim closed. We should probably",
+   "indiv_we_absent": "Despite the evidence my mother and I sent in, the benefits office is keeping the claim closed. We",
+   "inst_I_final": "Despite the guidance I follow, a claimant is appealing the decision for the third time. I should",
+   "inst_I_medial": "Despite the guidance I follow, a claimant is appealing the decision for the third time. I should probably",
+   "inst_I_absent": "Despite the guidance I follow, a claimant is appealing the decision for the third time. I",
+   "inst_I_final_ought": "Despite the guidance I follow, a claimant is appealing the decision for the third time. I ought to",
+   "inst_we_final": "Despite the guidance my colleague and I follow, a claimant is appealing the decision for the third time. We should",
+   "inst_we_medial": "Despite the guidance my colleague and I follow, a claimant is appealing the decision for the third time. We should probably",
+   "inst_we_absent": "Despite the guidance my colleague and I follow, a claimant is appealing the decision for the third time. We"
+  }
+ },
+ {
+  "scenario_id": "m03_N6",
+  "domain": "civic",
+  "f21_anchor": "citizen_2 / agency_2 (infrastructure)",
+  "frame": "F6: agent-initial progressive + instrumental PP; single sentence, coordinated stance",
+  "cells": {
+   "indiv_I_final": "The council is routing the highway past my house without any consultation, and I should",
+   "indiv_I_medial": "The council is routing the highway past my house without any consultation, and I should probably",
+   "indiv_I_absent": "The council is routing the highway past my house without any consultation, and I",
+   "indiv_I_final_ought": "The council is routing the highway past my house without any consultation, and I ought to",
+   "indiv_we_final": "The council is routing the highway past my neighbour's house and mine without any consultation, and we should",
+   "indiv_we_medial": "The council is routing the highway past my neighbour's house and mine without any consultation, and we should probably",
+   "indiv_we_absent": "The council is routing the highway past my neighbour's house and mine without any consultation, and we",
+   "inst_I_final": "Residents are blocking the highway I planned with protests and lawsuits, and I should",
+   "inst_I_medial": "Residents are blocking the highway I planned with protests and lawsuits, and I should probably",
+   "inst_I_absent": "Residents are blocking the highway I planned with protests and lawsuits, and I",
+   "inst_I_final_ought": "Residents are blocking the highway I planned with protests and lawsuits, and I ought to",
+   "inst_we_final": "Residents are blocking the highway my co-planner and I planned with protests and lawsuits, and we should",
+   "inst_we_medial": "Residents are blocking the highway my co-planner and I planned with protests and lawsuits, and we should probably",
+   "inst_we_absent": "Residents are blocking the highway my co-planner and I planned with protests and lawsuits, and we"
+  }
+ }
+]
