@@ -94,6 +94,22 @@ def main():
             parent.setdefault(b, b)
             union(m, b)
 
+    #: THE UNIONED CLASS, WHICH THIS FILE DOCUMENTED AND DID NOT APPLY.
+    #: `smaller_sibling_of` is one release at several scales — ONE lineage, and
+    #: no rung is another rung's base ([2160]). The resolver therefore CANNOT
+    #: join them: a directed walk leaves each rung at itself, correctly. They
+    #: join HERE or not at all, and for one commit they did not:
+    #: **39 lineages against 34, five ladder rungs counted as independent
+    #: pretraining runs, which is the direction that makes every p SMALLER.**
+    reg = json.load(open(os.path.join(ROOT, "data", "model_registry.json")))
+    n_sib = 0
+    for rel in reg["relations"]:
+        if rel["relation"] == "smaller_sibling_of":
+            parent.setdefault(rel["parent"], rel["parent"])
+            parent.setdefault(rel["child"], rel["child"])
+            union(rel["parent"], rel["child"])
+            n_sib += 1
+
     lin = collections.defaultdict(list)
     for m in models:
         lin[find(m)].append(m)
@@ -102,11 +118,50 @@ def main():
     for m in models:
         fams[find(m)].add(fam[m])
 
+    #: THE POSITIVE CONTROLS, ordered [2161], each at the unit its OWN class
+    #: licenses. `same_base_as` is CHECKED, so it is tested against the directed
+    #: walk's base. `smaller_sibling_of` is UNIONED, so it is tested against the
+    #: LINEAGE — **testing it against the base asserts exactly what the union
+    #: partition denies, and it duly failed 8 of 8 groups while nothing was
+    #: wrong.** A control inherits the algebra of the class it controls.
+    ctrl = []
+    for kind, unit in (("same_base_as", "base"), ("smaller_sibling_of", "lineage")):
+        grp = collections.defaultdict(set)
+        for rel in reg["relations"]:
+            if rel["relation"] == kind:
+                grp[rel["parent"]].add(rel["parent"])
+                grp[rel["parent"]].add(rel["child"])
+        key = (lambda m: base.get(m)) if unit == "base" else find
+        bad = [g for g, ms in grp.items()
+               if len({key(m) for m in ms if m in parent}) > 1]
+        ctrl.append((kind, unit, len(grp), len(bad)))
+
+    #: AN ABLATION QUALIFIER IS MONOTONE DOWNWARD ([2161]): a child cannot shed
+    #: an ablation its parent was defined by. The rule that decided the Tulu
+    #: edge without a network fetch, kept as a standing gate.
+    import re
+    viol = [rel for rel in reg["relations"]
+            if rel["relation"] in ("sft_of", "dpo_of", "rlvr_of", "kto_of",
+                                   "ppo_of", "slic_of", "data_ablation_of")
+            and not frozenset(re.findall(r"no-[a-z]+-data", rel["parent"]))
+            <= frozenset(re.findall(r"no-[a-z]+-data", rel["child"]))]
+
     print("THE LINEAGE MAP — model level\n")
     print(f"  models              {len(models)}")
     print(f"  families            {len(set(fam.values()))}")
     print(f"  INDEPENDENT LINEAGES{len(lin):>4}")
     print(f"  base_of missing     {len(missing)}   {missing or '(none)'}")
+    print(f"  sibling unions      {n_sib} edges applied (UNIONED class)")
+    print("\n  CONTROLS (each at the unit its class licenses):")
+    for kind, unit, ng, nb in ctrl:
+        print(f"    {kind:<22} {ng:>2} groups -> one {unit:<8}"
+              f"{'PASS' if not nb else f'*** {nb} SPLIT'}")
+    print(f"    ablation-subset rule   {len(viol)} violations "
+          f"{'PASS' if not viol else '*** MONOTONICITY BROKEN'}")
+    if any(nb for *_, nb in ctrl) or viol:
+        print("\n  *** CONTROL FAILED — refusing to write.")
+        return 1
+
 
     multi = {k: v for k, v in lin.items() if len(v) > 1}
     print(f"\n  lineages with >1 model: {len(multi)}")
