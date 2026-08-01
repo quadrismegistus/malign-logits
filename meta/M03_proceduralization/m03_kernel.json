@@ -97,7 +97,7 @@
   "f21_anchor": "citizen_2 / agency_2 (infrastructure)",
   "frame": "F6: agent-initial progressive + instrumental PP; single sentence, coordinated stance",
   "lint": [
-   "(v) indiv dual is a CO-RECIPIENT, not a co-actor: \"The council is routing the highway past my neighbour's house and mine without any consultation\"",
+   "(v) indiv dual is a CO-RECIPIENT, not a co-actor ('and mine'): \"The council is routing the highway past my neighbour's house and mine without any consultation\"",
    "(iv) indiv sg->pl is not a bare pronoun expansion -- removing the dual does not give back the singular: \"The council is routing the highway past my neighbour's house  without any consultation\""
   ],
   "cells": {

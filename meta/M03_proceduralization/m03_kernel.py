@@ -197,9 +197,20 @@ ACC = re.compile(r"\band (?:me|mine)\b", re.I)
 FPS = re.compile(r"\b(I|me|my)\b")
 
 
-def dual_is_coactor(pl):
-    """Nominative dual only. Accusative or possessive coordination is a recipient."""
-    return not ACC.search(pl)
+def coactor_defect(pl):
+    """Return a DEFECT MESSAGE, or None if clean. ONE POLARITY ACROSS THE SUITE.
+
+    Was `dual_is_coactor` returning TRUE-is-clean while its neighbour returned
+    falsy-is-clean -- OPPOSITE POLARITIES fifteen lines apart, so a caller
+    handling both had to remember which was which. That is the exact condition
+    the tuple bug came from, surviving in the adjacent function after the ledger
+    was booked. A ledger line not carried to its other instances is an
+    observation, not a rule ([1929].2, malign).
+
+    Nominative dual only. Accusative or possessive coordination is a recipient.
+    """
+    m = ACC.search(pl)
+    return f"dual is a CO-RECIPIENT, not a co-actor ({m.group(0)!r})" if m else None
 
 
 def pronoun_expansion_defect(sg, pl):
@@ -247,8 +258,9 @@ def lint(k, cells):
             out.append(f"(iii) {arm} plural is not a speaker-dual: {pl!r}")
         if INDEF.search(pl):
             out.append(f"(v) {arm} plural is indefinite: {pl!r}")
-        if not dual_is_coactor(pl):
-            out.append(f"(v) {arm} dual is a CO-RECIPIENT, not a co-actor: {pl!r}")
+        why_ca = coactor_defect(pl)
+        if why_ca:
+            out.append(f"(v) {arm} {why_ca}: {pl!r}")
         why = pronoun_expansion_defect(sg, pl)
         if why:
             out.append(f"(iv) {arm} sg->pl is not a bare pronoun expansion -- {why}")
