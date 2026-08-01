@@ -59,7 +59,11 @@ import os
 import re
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#: THREE levels: this file sits at meta/M03_proceduralization/, so two dirnames
+#: land on meta/ and not on the repo root. The first version had two and failed
+#: on a path that read plausibly -- meta/pair_drafts/ -- which is why it was not
+#: obvious from the traceback.
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SPEAKER = {"i", "we", "me", "us", "my", "our"}
 AGENT_DEPS = {"nsubj", "poss"}
 PATIENT_DEPS = {"dobj", "pobj", "nsubjpass", "dative", "iobj"}
