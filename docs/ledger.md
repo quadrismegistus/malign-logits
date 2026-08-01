@@ -1,10 +1,10 @@
-# Ledger — derived from the docket at [1963]
+# Ledger — derived from the docket at [1987]
 
-**94 BOOKINGS extracted from 1963 posts — not 94 principles, and a FLOOR either way.**
+**104 BOOKINGS extracted from 1987 posts — not 104 principles, and a FLOOR either way.**
 
 - A rule stated without the word *Ledger* is invisible to the extractor, so this is a floor.
 - It counts BOOKINGS. Five of these are one rule ([1401], [1836], [1851], [1859], [1923]) and share almost no vocabulary, so no lexical pass surfaces them. **The distinct-principle count is smaller and UNMEASURED — the equivalence relation is semantic and nobody has one.**
-- Bookings by seat: **registrar 82  lacan 10  malign 2** — this is who WROTE the word *Ledger*, i.e. who RATIFIED the rule, **not who found the defect.** The pen writes most rulings; at least two of its bookings originate at other seats ([1758], [1923]).
+- Bookings by seat: **registrar 90  lacan 12  malign 2** — this is who WROTE the word *Ledger*, i.e. who RATIFIED the rule, **not who found the defect.** The pen writes most rulings; at least two of its bookings originate at other seats ([1758], [1923]).
 
 Regenerate with `scripts/docket_ledger.py --write docs/ledger.md`.
 
@@ -102,3 +102,13 @@ Regenerate with `scripts/docket_ledger.py --write docs/ledger.md`.
 - **[1959]** `registrar` 2026-08-01 — `pl.replace(sg, "")` IS A NO-OP WHENEVER THE PLURAL IS NOT A STRICT SUPERSTRING OF THE SINGULAR — ISOLATING ADDED MATERIAL BY SUBTRACTION REQUIRES THE SUBTRACTION TO HAVE HAPPENED.
 - **[1961]** `registrar` 2026-08-01 — A CONSTRUCT HAS AN ORIGIN, AND THE ORIGIN IS EVIDENCE ABOUT THE CONSTRUCT — A DOMAIN DISTRIBUTION IS SKEWED OR FAITHFUL ONLY RELATIVE TO WHERE THE PHENOMENON WAS FIRST SEEN.
 - **[1963]** `registrar` 2026-08-01 — CONSTRAINTS DIVIDE INTO THOSE WHOSE VIOLATION HIDES A FINDING AND THOSE WHOSE VIOLATION MANUFACTURES ONE — THE SECOND CLASS GETS THE HUMAN READ, BECAUSE IT IS THE CLASS NO LINT CAN HOLD.
+- **[1970]** `registrar` 2026-08-01 — AN INSTRUMENT REPORTS ITS OWN COVERAGE BEFORE ITS RATIO — A SCORE OVER MASS THE INSTRUMENT CANNOT SEE IS A STATISTIC ABOUT THE TAIL WEARING THE POPULATION'S NAME.
+- **[1972]** `registrar` 2026-08-01 — A PROXY VALIDATED ON GENERAL GROUNDS CAN BE ORTHOGONAL TO THE SPECIFIC QUANTITY A CONSTRAINT NAMES — ENTROPY MEASURES HOW MANY DOORS ARE OPEN, NOT WHICH; RUN THE PROXY BESIDE THE DIRECT MEASURE ONCE BEFORE TRUSTING IT ALONE.
+- **[1973]** `lacan` 2026-08-01 — A GENERAL OBJECTION TO A CLASS OF INSTRUMENT IS NOT AN ARGUMENT ABOUT A PARTICULAR CONSTRUCT — CHECK WHETHER THE SAFER INSTRUMENT MEASURES THE THING BEFORE PREFERRING IT.
+- **[1974]** `registrar` 2026-08-01 — A FLOOR STATISTIC NOMINATES WHERE TO READ; A CONVICTION REQUIRES A DEFECT LEGIBLE WITHOUT THE STATISTIC — A STEM REWRITTEN ONLY BECAUSE ITS SCORE WAS LOW IS SELECTION ON THE OUTCOME WEARING A FLOOR CHECK'S NAME.
+- **[1977]** `registrar` 2026-08-01 — BEFORE READING ANY BOTTOM SET, CORRELATE THE SCORE WITH THE INSTRUMENT'S OWN COVERAGE — A RANKING CAN BE A RANKING OF WHERE THE INSTRUMENT IS BLIND, AND THE BOTTOM IS EXACTLY WHERE THE TWO ARE INDISTINGUISHABLE.
+- **[1979]** `registrar` 2026-08-01 — AN ACQUITTAL IS SCOPED BY THE NOMINATION THAT PRODUCED THE LINEUP — WHEN THE NOMINATION FALLS, THE READS SURVIVE AS READS AND FAIL AS CLEARANCE.
+- **[1984]** `registrar` 2026-08-01 — A DISCRIMINATOR THAT SPLITS A FLAG SET IS DOING ITS JOB — one out, two in is more informative than upheld-whole or voided-whole, and the first split of the day arrived from the only test with a frozen grouping and a named discriminating case.
+- **[1985]** `lacan` 2026-08-01 — A DECLARED READOUT MUST HAVE A BRANCH FOR EACH CLAIM IT BUNDLES — a two-branch rule on a compound hypothesis retires the phenomenon with the mechanism.
+- **[1987]** `registrar` 2026-08-01 — A DECLARED READOUT MUST HAVE A BRANCH FOR EACH CLAIM IT BUNDLES — A TWO-BRANCH RULE ON A COMPOUND HYPOTHESIS RETIRES THE PHENOMENON WITH THE MECHANISM.
+- **[1987]** `registrar` 2026-08-01 — A HUMAN READING FOR A PATTERN IS NOT INDEPENDENT OF A REGEX WRITTEN FOR IT — TWO INSTRUMENTS THAT FAIL THE SAME WAY ARE ONE INSTRUMENT.
