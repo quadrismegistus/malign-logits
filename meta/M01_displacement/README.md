@@ -279,3 +279,26 @@ adequately-sampled measurement rejects** ([1657]/[1660]).
 
 **A ~160-pair drafting round is commissioned ([1662]) to cover the site arms'
 entire measured uncertainty.**
+
+## STATUS AS OF 2026-08-01 ([2074] currency sweep)
+
+**This file's citations stop at [1662]; the record is at [2074]. What changed
+since, and where it is written:**
+
+- **Registration E ran and CONFIRMED on the GAP stratum** — 19 of 25 lineages,
+  p = 0.0073, on a blind arm. The displacing stratum is 16 of 25 at p = 0.11 and
+  does not speak. Four refusals stand ([2807e3a] frozen spec; see
+  `registration_e_gap_v3.md` and the project memory).
+- **Registration D is DISCHARGED** on RH's word, and its population — 188
+  round-1 survivor pairs — is IN the live cloud run 46494481 for the first time.
+  It had never been ingested: nobody had asked, so no manifest existed
+  ([2056]).
+- **Registration C closes COMPLETE** on the pen's closing post, the wall having
+  been RELEASED by RH ([2072]). The single-seat label on C stays permanent.
+- **THE UNIT OF CLEARANCE IS THE SURVIVOR SET, NOT THE DRAFT FILE** ([2046]).
+  Manifests at `audit/manifests/`. v1 power has ZERO survivors and no path into
+  any population.
+- **The `___` terminator convention is DEAD.** 2,080 prompt strings across
+  twelve files ended in a fill-in-the-blank cue; the template specified it and
+  both auditors stripped it before looking. Gated at
+  `scripts/prompt_terminator_gate.py` ([2010]-[2032]).

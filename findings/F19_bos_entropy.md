@@ -177,3 +177,18 @@ finding needs is its exact filter written down — genre, prompt_type, language,
 and which of `self_bits_per_char` / `blt_bits_per_char` — after which this either
 reproduces or it doesn't. Until then the *self-surprisal* half of the sub-Shannon
 claim stands and the *BLT confirmation* should not be cited.
+
+## STATUS AS OF 2026-08-01 ([2069]-[2071])
+
+**The four literal BOS strings this finding used — `<s>`, `<|begin_of_text|>`,
+`<|endoftext|>`, `<｜begin▁of▁sentence｜>` — are RETIRED and SUPERSEDED by
+`<<<LOGICAL:BOS>>>` (prompt_id `BOS`, ACTIVE), which resolves per model.**
+
+They were being scored on all 103 models and shattering into character
+sequences off-family: a literal `<s>` fed to a Qwen tokenizer is not Qwen's BOS.
+**The F19 arm is measured by the row that replaced them, and that row IS in
+cloud run 46494481.**
+
+Their catalogue notes carried an "UN-RETIRED" line that a later decision
+overturned; the notes were amended 2026-08-01 and **no status field changed —
+the status was current and the prose was stale.**

@@ -135,3 +135,20 @@ Ledger: *a decisive argument is decisive for a SCOPE, not for a DESIGN.*
   F19 territory, flagged-not-claimed; any design for it must be
   PER-FAMILY and report the TAIL as well as the middle — a rank-sum
   alone would have missed the inversion entirely ([1015].4/[1017]).
+
+## STATUS AS OF 2026-08-01 ([2074] currency sweep)
+
+- **M03 IS EXPLORATORY ON RH's RULING ([2002]).** S=18's MDE (0.0217 / 0.0153,
+  or 0.0148 / 0.0104 at the measured stem ICC) exceeds every candidate target;
+  the largest is 0.0056. **M03 CANNOT CONFIRM F21's PROCEDURALIZATION FINDING**
+  and is not registered as a confirmatory test of the SPEAKER effect.
+- **THE PROHIBITION TRAVELS WITH EVERY ARTIFACT ([2006]):** the SPEAKER
+  contrast is reported as an ESTIMATE WITH ITS INTERVAL and is NEVER quoted as
+  support or non-support for F21's finding.
+- The MEI closes NOT-REQUIRED-UNDER-EXPLORATORY, and reopens as the FIRST item
+  if a confirmatory M03 is ever specified. Its unit problem is on the record:
+  the anchors are next-token JS and the origin's evidence is perceptual, and
+  nothing translates one into the other.
+- The substrate is 18 scenarios / 252 prompts, generated from 24 authored
+  clauses by `m03_kernel.py`, catalogue-clean, zero-floor passed, **and IN the
+  live cloud run**.

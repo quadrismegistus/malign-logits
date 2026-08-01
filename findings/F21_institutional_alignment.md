@@ -176,3 +176,23 @@ Zephyr (aligned without safety data) proves the decomposition: instruction tunin
 - Tagger scores: `data/raw/cache/gen_annotations/` (20,989 scored via DeepSeek)
 - Notebook: `notebooks/F21b_institutional_plotnine.ipynb`
 - Figures: `figures/F21b_procedural_domain_individual.png`, `F21b_procedural_domain_institution.png`, `F21b_adversarial_domain_individual.png`, `F21b_adversarial_domain_institution.png`, `F21b_apology_domain_individual.png`, `F21b_apology_domain_institution.png`
+
+## STATUS AS OF 2026-08-01 ([2074] currency sweep)
+
+**The nine-clause rider chain stands unchanged.** What is new since it was
+written:
+
+- **F21's ORIGIN is on the record and it is a USER REPORT** ([1960]): the model
+  explains why the institution might be justified, coaches tone, and steers from
+  asserting a right to politely asking — *"you go in ready to push back on an
+  unfair billing charge and come out drafting a polite inquiry."* **This
+  confirms the construct audit from OUTSIDE the project: the phenomenon lives in
+  the INDIVIDUAL arm, and the institutional arm is a CONTROL** answering
+  *anyone, or specifically the aggrieved party*.
+- **It adds a drafting constraint of its own class: THE INDIVIDUAL PROMPT MUST
+  LEAVE ASSERTION LIVE.** Of M03's six constraints, five protect against a NULL;
+  this one protects against a FALSE POSITIVE, because a grievance admitting only
+  a procedural continuation bakes the outcome into the stem ([1962]/[1963]).
+- **M03, the registered test of this finding, is EXPLORATORY** and cannot
+  confirm it ([2002]). Its SPEAKER estimate may never be quoted as support or
+  non-support ([2006]).

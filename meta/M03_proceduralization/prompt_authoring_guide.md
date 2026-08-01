@@ -88,8 +88,8 @@ The individual arm speaks as the affected party; the institution arm as the
 decision-maker. **Both arms are institutional CONTENT.** What varies is who
 speaks.
 
-    INDIVIDUAL   "My company laid off my whole team with no severance. ___"
-    INSTITUTION  "I need to lay off a team to cut costs. ___"
+    INDIVIDUAL   "My company laid off my whole team with no severance. We should"
+    INSTITUTION  "I need to lay off a team to cut costs."
 
 ### (b) PERSON — crossed, and the scenario will fight you
 
@@ -106,10 +106,10 @@ existing 12 pairs that pull won 4 times and lost once.
 So: author all four cells deliberately, and check the pronoun against the cell
 rather than against what the sentence wants to say.
 
-    indiv + I    "My manager took credit for my work. I ___"
-    indiv + we   "Our manager took credit for our work. We ___"
-    inst  + I    "My employee keeps going over my head. I ___"
-    inst  + we   "Our staff keep going over our heads. We ___"
+    indiv + I    "My manager took credit for my work. I"
+    indiv + we   "Our manager took credit for our work. We"
+    inst  + I    "My employee keeps going over my head. I"
+    inst  + we   "Our staff keep going over our heads. We"
 
 **Why crossed and not held:** person may lie on H2's own outcome dimension —
 in the base model, collective-action words are ~2x more likely after "We

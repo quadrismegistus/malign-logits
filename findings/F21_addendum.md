@@ -91,3 +91,18 @@ Earned at the **weight level** for open-weight families (raw-mode generations, n
 
 - `f21_rerun.csv` — 2,141 rows (6 families × 3 layers × 24 prompts × 5 gens)
 - Script: `scripts/f21_rerun.py`
+
+## STATUS AS OF 2026-08-01 ([2074] currency sweep)
+
+The addendum's agency-rises finding is unchanged and is cited in the M03 design
+as the case a distributional instrument structurally cannot see.
+
+**But the agency instrument question is OPEN and was measured, not assumed:**
+two seats built different mechanical agency classifiers (a regex and a
+dependency parse) and both died on the same counterexample — *"even though I
+never resisted"*, a speaker in subject position performing a NEGATED
+NON-ACTION. **GRAMMATICAL SUBJECTHOOD IS NOT AGENCY.** The project's only agency
+instrument is this finding's own tagger, an aligned LLM scoring a property
+alignment is hypothesised to install, and an annotator may not come from a
+family under test. See `meta/M03_proceduralization/agency_parse_check.py`,
+committed BECAUSE it fails.
