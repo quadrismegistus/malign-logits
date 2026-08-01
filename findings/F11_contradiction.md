@@ -13,12 +13,19 @@ scripts: [f11_cross_family.py]
 > **PROMOTION CONDITION ([2198], RH's standing scope rule).** A canonical claim
 > in a `meta/` campaign runs on **all families we have** under a declared
 > admissibility rule — never a hand-picked subset. This finding measures
-> **11 family labels = 9 independent lineages**, against a roster of
+> **11 family labels = 9 independent lineages** (`llama`+`tulu` on Llama-3.1-8B; `qwen`+`qwen-tiny` on the Qwen2.5 size ladder — the first collapse is visible by eye, the second only through the map), against a roster of
 > **49 labels / 34 lineages** ([[data/lineage_map_models.json]]). It is
 > therefore an **F-series observation** and cites its subset. **If the ratio or mechanism tables is
 > promoted to M-canonical, the promotion INCLUDES the full-roster re-run** —
 > promotion is re-measurement, not relabelling. Priced when the cloud grid
 > frees.
+>
+> **AND THE PROMOTION HAS TWO CONDITIONS, NOT ONE** ([2199].3, ruled [2201].2).
+> Alongside the full-roster run: the [2111].2 **substrate repairs** — the
+> intervention has no named substrate and the coherence confound (r = −0.032)
+> is computable from no named file. **A full-roster run produces new numbers at
+> scale and leaves those two exactly as unsourced**, so the roster run must not
+> be mistaken for the whole clearance.
 
 # F11: Contradiction Tolerance — Cross-Family Replication
 

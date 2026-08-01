@@ -21,6 +21,13 @@ scripts: [f11_cross_family.py, f11_meta_contradiction.py, f11_new_pairs_all_fami
 > promoted to M-canonical, the promotion INCLUDES the full-roster re-run** —
 > promotion is re-measurement, not relabelling. Priced when the cloud grid
 > frees.
+>
+> **AND THE PROMOTION HAS TWO CONDITIONS, NOT ONE** ([2199].3, ruled [2201].2).
+> Alongside the full-roster run: the [2111].2 **substrate repairs** — the
+> intervention has no named substrate and the coherence confound (r = −0.032)
+> is computable from no named file. **A full-roster run produces new numbers at
+> scale and leaves those two exactly as unsourced**, so the roster run must not
+> be mistaken for the whole clearance.
 
 ## Summary
 
