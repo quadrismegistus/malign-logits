@@ -69,7 +69,10 @@ scripts: [f11_cross_family.py, f11_meta_contradiction.py, f11_new_pairs_all_fami
 > count, whether blend is an explicit list or a residual — none of it is
 > recorded. The numbers can be read and cannot be regenerated.
 >
-> **Status: VERIFIED-AS-RECORDED; INSTRUMENT UNREGENERABLE.** The [2110] audit
+> **Status: VERIFIED-AS-RECORDED; NOT REPRODUCIBLE IN PRINCIPLE** (sharpened
+> from "unregenerable" at [2228] — **a construct with no recorded definition is
+> not the same construct**, so a re-specification produces a different
+> instrument, not this one). The [2110] audit
 > reproduced the decomposition FROM this CSV, which verifies its arithmetic and
 > cannot verify the instrument, because there is none to verify. **This is not
 > a claim that the numbers are wrong** — they were produced by something, and
@@ -78,6 +81,15 @@ scripts: [f11_cross_family.py, f11_meta_contradiction.py, f11_new_pairs_all_fami
 > definitions, so a full-roster "re-run" is necessarily a **RE-SPECIFICATION**,
 > and its agreement with the published bands is a reported question rather than
 > an assumed continuity.
+>
+> **AND THE AUDIT'S REPRODUCTION STATEMENTS DO NOT CLEAR THE INSTRUMENT**
+> ([2228].2). The [2110] audit's "9 of 9 reproduces" and "34 of 35 rule
+> agreement" are statements about the CLASSIFICATION STEP: they read
+> `contradiction_rebaselined.csv`, which is **downstream of the four-mass**, and
+> re-derive a labelling over columns whose construction was never questioned.
+> **A derived file reproduces perfectly from its parent and says nothing about
+> the parent.** "The numbers reproduce" is exactly the sentence a reader takes
+> as clearance, and it is not one.
 >
 > Frame-exit claims therefore carry **two** flags: the rank-not-rate demotion
 > (p ≈ 0.19 at the lineage) and this one.
