@@ -182,6 +182,22 @@
     "Yi_9B"
    ],
    "not_added_why": "their bases are themselves absent; adding the child requires adding a parent whose identity I will not assert from memory ([2159], the spurious Tulu edge)."
+  },
+  "beam_label_gaps_cards_2375": {
+   "sourced_from": "publisher model cards, fetched 2026-08-01",
+   "added": [
+    "tiiuae/falcon-7b",
+    "tiiuae/falcon-7b-instruct",
+    "openchat/openchat-3.5-0106"
+   ],
+   "citations": {
+    "tiiuae/falcon-7b-instruct": "card: 'Finetuned from model: Falcon-7B (tiiuae/falcon-7b)'",
+    "openchat/openchat-3.5-0106": "card model tree: base model mistralai/Mistral-7B-v0.1"
+   },
+   "HELD": {
+    "berkeley-nest/Starling-LM-7B-alpha": "card: 'Finetuned from model: Openchat 3.5 (based on Mistral-7B-v0.1)'. Its direct parent openchat/openchat_3.5 is a DIFFERENT model from openchat-3.5-0106 and is itself unregistered; and Starling's training method (APA/RLAIF) maps to no relation kind in this vocabulary without an assertion. Held: the lineage is knowable, the EDGE KIND is not.",
+    "01-ai/Yi-9B": "card: 'continuously trained based on Yi-6B'. Yi-6B is unregistered, and the card DOES NOT STATE whether Yi-9B and the registered Yi-1.5-9B share a pretraining run. Held: merging them would collapse two lineages, splitting them would invent one, and the card licenses neither."
+   }
   }
  },
  "models": [
@@ -3556,6 +3572,21 @@
    "model_id": "cognitivecomputations/dolphin-2.6-mistral-7b-dpo",
    "family": "dolphin",
    "stage": "dpo"
+  },
+  {
+   "model_id": "tiiuae/falcon-7b",
+   "family": "falcon",
+   "stage": "base"
+  },
+  {
+   "model_id": "tiiuae/falcon-7b-instruct",
+   "family": "falcon",
+   "stage": "sft"
+  },
+  {
+   "model_id": "openchat/openchat-3.5-0106",
+   "family": "openchat",
+   "stage": "sft"
   }
  ],
  "relations": [
@@ -4483,6 +4514,16 @@
    "parent": "mistralai/Mistral-7B-v0.1",
    "child": "cognitivecomputations/dolphin-2.6-mistral-7b-dpo",
    "relation": "dpo_of"
+  },
+  {
+   "parent": "tiiuae/falcon-7b",
+   "child": "tiiuae/falcon-7b-instruct",
+   "relation": "sft_of"
+  },
+  {
+   "parent": "mistralai/Mistral-7B-v0.1",
+   "child": "openchat/openchat-3.5-0106",
+   "relation": "sft_of"
   }
  ]
 }

@@ -4,9 +4,9 @@
  "_unit_warning": "Every count here carries its unit. models != families != lineages, and the roster was once counted as 37, 42, 21 and 32 in one evening because four calculations used four units and none said so.",
  "_family_level": "data/lineage_map.json holds the same rule at FAMILY level in three settings; NOT superseded, coarser.",
  "counts": {
-  "models": 117,
+  "models": 120,
   "families": 49,
-  "lineages": 34
+  "lineages": 35
  },
  "model_to_lineage": {
   "01-ai/Yi-1.5-9B": "01-ai/Yi-1.5-9B",
@@ -101,6 +101,7 @@
   "openbmb/MiniCPM5-1B": "openbmb/MiniCPM5-1B-Base",
   "openbmb/MiniCPM5-1B-Base": "openbmb/MiniCPM5-1B-Base",
   "openbmb/MiniCPM5-1B-SFT": "openbmb/MiniCPM5-1B-Base",
+  "openchat/openchat-3.5-0106": "mistralai/Mistral-7B-v0.1",
   "stabilityai/stablelm-2-1_6b": "stabilityai/stablelm-2-1_6b",
   "stabilityai/stablelm-2-1_6b-chat": "stabilityai/stablelm-2-1_6b",
   "stabilityai/stablelm-2-zephyr-1_6b": "stabilityai/stablelm-2-1_6b",
@@ -119,6 +120,8 @@
   "tiiuae/Falcon3-7B-Instruct": "tiiuae/Falcon3-10B-Base",
   "tiiuae/Falcon3-Mamba-7B-Base": "tiiuae/Falcon3-Mamba-7B-Base",
   "tiiuae/Falcon3-Mamba-7B-Instruct": "tiiuae/Falcon3-Mamba-7B-Base",
+  "tiiuae/falcon-7b": "tiiuae/falcon-7b",
+  "tiiuae/falcon-7b-instruct": "tiiuae/falcon-7b",
   "tiiuae/falcon-mamba-7b": "tiiuae/falcon-mamba-7b",
   "tiiuae/falcon-mamba-7b-instruct": "tiiuae/falcon-mamba-7b",
   "togethercomputer/RedPajama-INCITE-7B-Chat": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
@@ -220,6 +223,7 @@
   "openbmb/MiniCPM5-1B": "openbmb/MiniCPM5-1B-Base",
   "openbmb/MiniCPM5-1B-Base": "openbmb/MiniCPM5-1B-Base",
   "openbmb/MiniCPM5-1B-SFT": "openbmb/MiniCPM5-1B-Base",
+  "openchat/openchat-3.5-0106": "mistralai/Mistral-7B-v0.1",
   "stabilityai/stablelm-2-1_6b": "stabilityai/stablelm-2-1_6b",
   "stabilityai/stablelm-2-1_6b-chat": "stabilityai/stablelm-2-1_6b",
   "stabilityai/stablelm-2-zephyr-1_6b": "stabilityai/stablelm-2-1_6b",
@@ -238,6 +242,8 @@
   "tiiuae/Falcon3-7B-Instruct": "tiiuae/Falcon3-7B-Base",
   "tiiuae/Falcon3-Mamba-7B-Base": "tiiuae/Falcon3-Mamba-7B-Base",
   "tiiuae/Falcon3-Mamba-7B-Instruct": "tiiuae/Falcon3-Mamba-7B-Base",
+  "tiiuae/falcon-7b": "tiiuae/falcon-7b",
+  "tiiuae/falcon-7b-instruct": "tiiuae/falcon-7b",
   "tiiuae/falcon-mamba-7b": "tiiuae/falcon-mamba-7b",
   "tiiuae/falcon-mamba-7b-instruct": "tiiuae/falcon-mamba-7b",
   "togethercomputer/RedPajama-INCITE-7B-Chat": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
@@ -339,6 +345,7 @@
   "openbmb/MiniCPM5-1B": "minicpm",
   "openbmb/MiniCPM5-1B-Base": "minicpm",
   "openbmb/MiniCPM5-1B-SFT": "minicpm",
+  "openchat/openchat-3.5-0106": "(unregistered)",
   "stabilityai/stablelm-2-1_6b": "stablelm",
   "stabilityai/stablelm-2-1_6b-chat": "stablelm",
   "stabilityai/stablelm-2-zephyr-1_6b": "stablelm",
@@ -357,6 +364,8 @@
   "tiiuae/Falcon3-7B-Instruct": "falcon3-7b",
   "tiiuae/Falcon3-Mamba-7B-Base": "falcon3-mamba",
   "tiiuae/Falcon3-Mamba-7B-Instruct": "falcon3-mamba",
+  "tiiuae/falcon-7b": "(unregistered)",
+  "tiiuae/falcon-7b-instruct": "(unregistered)",
   "tiiuae/falcon-mamba-7b": "falcon-mamba",
   "tiiuae/falcon-mamba-7b-instruct": "falcon-mamba",
   "togethercomputer/RedPajama-INCITE-7B-Chat": "redpajama",
@@ -458,6 +467,7 @@
   "openbmb/MiniCPM5-1B": "dpo",
   "openbmb/MiniCPM5-1B-Base": "base",
   "openbmb/MiniCPM5-1B-SFT": "sft",
+  "openchat/openchat-3.5-0106": "sft",
   "stabilityai/stablelm-2-1_6b": "base",
   "stabilityai/stablelm-2-1_6b-chat": "sft",
   "stabilityai/stablelm-2-zephyr-1_6b": "dpo",
@@ -476,6 +486,8 @@
   "tiiuae/Falcon3-7B-Instruct": "dpo",
   "tiiuae/Falcon3-Mamba-7B-Base": "base",
   "tiiuae/Falcon3-Mamba-7B-Instruct": "dpo",
+  "tiiuae/falcon-7b": "base",
+  "tiiuae/falcon-7b-instruct": "sft",
   "tiiuae/falcon-mamba-7b": "base",
   "tiiuae/falcon-mamba-7b-instruct": "dpo",
   "togethercomputer/RedPajama-INCITE-7B-Chat": "dpo",
@@ -508,6 +520,7 @@
    "NousResearch/Nous-Hermes-2-Mistral-7B-DPO",
    "cognitivecomputations/dolphin-2.6-mistral-7b-dpo",
    "mistralai/Mistral-7B-v0.1",
+   "openchat/openchat-3.5-0106",
    "teknium/OpenHermes-2.5-Mistral-7B"
   ],
   "HuggingFaceTB/SmolLM2-360M": [
@@ -657,6 +670,10 @@
    "tiiuae/Falcon3-Mamba-7B-Base",
    "tiiuae/Falcon3-Mamba-7B-Instruct"
   ],
+  "tiiuae/falcon-7b": [
+   "tiiuae/falcon-7b",
+   "tiiuae/falcon-7b-instruct"
+  ],
   "tiiuae/falcon-mamba-7b": [
    "tiiuae/falcon-mamba-7b",
    "tiiuae/falcon-mamba-7b-instruct"
@@ -674,7 +691,8 @@
  "families_spanning_multiple_lineages": {
   "(unregistered)": [
    "meta-llama/Llama-3.1-8B",
-   "mistralai/Mistral-7B-v0.1"
+   "mistralai/Mistral-7B-v0.1",
+   "tiiuae/falcon-7b"
   ]
  }
 }
