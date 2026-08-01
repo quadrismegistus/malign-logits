@@ -191,13 +191,32 @@ def generate(new, n_ma):
             prompt = grp.iloc[0].prompt
             try:
                 torch.manual_seed(seed)
-                ids = tok.encode(prompt, return_tensors="pt").to(model.device)
-                plen = ids.shape[1]
+                #: **`tok(...)` AND `**enc`, MATCHING THE ORIGINAL HALF.** The
+                #: first version used `tok.encode(...)` + `generate(ids, ...)`,
+                #: which passes NO ATTENTION MASK — and transformers said so on
+                #: stdout: "attention mask is not set and cannot be inferred
+                #: because pad token is same as eos token."
+                #:
+                #: `f20x_format_battery.py:206` — the producer of the 9,280
+                #: existing rows — uses `tok(prompts, ..., padding=True)` and
+                #: `generate(**enc, ...)`, so the mask IS passed there. **The
+                #: two halves of one battery would have been generated under
+                #: different attention handling, and the LEVEL FACTOR — the
+                #: whole point of the completion — would have been confounded
+                #: with it.** [2135]'s stack-as-join-key, one layer down: the
+                #: tokenization call is a join key nobody declared.
+                #:
+                #: Caught six minutes in by lacan reading my log. Eight hours in
+                #: it would have cost the run.
+                if tok.pad_token is None:
+                    tok.pad_token = tok.eos_token
+                enc = tok(prompt, return_tensors="pt").to(model.device)
+                plen = enc["input_ids"].shape[1]
                 with torch.no_grad():
                     out = model.generate(
-                        ids, do_sample=True, temperature=TEMP, top_p=1.0,
+                        **enc, do_sample=True, temperature=TEMP, top_p=1.0,
                         num_return_sequences=DRAWS, max_new_tokens=MAX_TOK,
-                        pad_token_id=tok.eos_token_id)
+                        pad_token_id=tok.pad_token_id)
             except Exception as e:
                 #: REPORTED, never repaired in place ([2135].5). A cell that
                 #: failed and a cell that was never attempted must not look alike.
