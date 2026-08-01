@@ -26,6 +26,19 @@ import collections, json
 import numpy as np, pandas as pd
 from scipy import stats
 
+#: **THE TEST IS WILCOXON SIGNED-RANK ON PAIRED PER-UNIT RATES, NOT A SIGN
+#: TEST.** The first version of this script ran a binomial on the direction
+#: counts and reported p=7.8e-07 against the finding's "p<0.0001" as though the
+#: two were comparable. THEY ARE DIFFERENT TESTS. The k/N column IS a direction
+#: count, but the p beside it never was one -- 18/29 is binomial p=0.13 and the
+#: finding books 0.0075. Substituting a test is not recounting a unit.
+#:
+#: **AND HOLM IS NOT ADJUDICATED HERE.** The published Holm column is not Holm
+#: over the seven visible rows: the implied multipliers (x10 number_shift, x8
+#: dissolution, x2 name_arbitrary) put the family at about eleven codes, and
+#: that family is not recorded in the finding. Applying Holm over seven would
+#: substitute a family and call the answer a correction.
+
 CODE = "quiet_drift"
 d = pd.read_parquet("data/f20x_codings.parquet")
 d[CODE] = d.codes.apply(lambda c: CODE in (c if c is not None else []))

@@ -4,7 +4,7 @@ grade: A
 date: 2026-07-28
 role: finding
 verification: "Independently reproduced at the malign seat from f20x_codings.parquet, parsing the codes and pairing at the base model without the author's aggregation code: every cell of the headline table matches. Four attacks run against it. (1) POWER -- the obvious objection is that anchor codes are frequent enough to detect and conflict codes are not. Dead: on base-arm rates the two families are matched in median frequency (0.0205 anchor against 0.0182 conflict) and Spearman(rate, p) = -0.018, p=0.958. The author's stronger version of this -- 'the codes that move are rarer' -- was CIRCULAR and is withdrawn: it pooled both arms, and anchor codes fall under alignment, so pooling deflated exactly the codes that move. (2) MULTIPLE COMPARISONS -- Holm across ten codes: quiet_drift 0.0000, number_shift 0.0030, dissolution 0.0040, no_self_posed 0.0382, mania 0.0450, all surviving; every conflict code dies (marked_contradiction 0.332, name_arbitrary 0.847, bothness 0.847). (3) MIXTURE -- no_self_posed is not garbled text in disguise: the garbled component is 0.0007 base against 0.0010 aligned and null, the whole effect is legible-but-selfless (0.1482 vs 0.0985, p=0.0069), mean coherence 3.45/3.59. (4) TEMPERATURE -- the author had pooled T=0.7 and T=1.0 and was not reporting the split; within each the result holds and roughly DOUBLES from 0.7 to 1.0, which is a dose-response in sampling freedom."
-description: "Sampled generation at the plain Q:/A: rung, 18,720 completions across 29 distinct base models, coded by an instrument built from a blind two-reader typology. WHAT ALIGNMENT DOES IS ANCHOR A REFERENT; what the base does is DRIFT. Every code for failure-to-anchor moves and survives Holm: quiet_drift 0.103->0.042 (base higher in 28 of 29 base models, p<0.0001), no_self_posed 0.149->0.100, number_shift 0.020->0.009, dissolution 0.013->0.005, mania 0.012->0.005. NOT ONE CODE FOR CONFLICT MOVES: bothness 0.021->0.019, name_arbitrary 0.029->0.027, marked_contradiction 0.009->0.005 (dies at correction). Contradiction requires a fixed referent for two predicates to disagree about; drift is what the absence of one looks like. WITHDRAWN ON THE WAY: the author's earlier reading that ALIGNED models contradict themselves and base models do not, built on four completions and killed by the census (referent_shifts 0.011 vs 0.010, p=0.457). CANNOT ANSWER: whether alignment installs a capacity or one memorised fact."
+description: "Sampled generation at the plain Q:/A: rung, 18,720 completions across 29 base model strings = 25 independent lineages (corrected 2026-08-01), coded by an instrument built from a blind two-reader typology. WHAT ALIGNMENT DOES IS ANCHOR A REFERENT; what the base does is DRIFT. Every code for failure-to-anchor moves and survives Holm: quiet_drift 0.103->0.042 (base higher in 24 of 25 independent lineages, Wilcoxon p<0.0001), no_self_posed 0.149->0.100, number_shift 0.020->0.009, dissolution 0.013->0.005, mania 0.012->0.005. NOT ONE CODE FOR CONFLICT MOVES: bothness 0.021->0.019, name_arbitrary 0.029->0.027, marked_contradiction 0.009->0.005 (dies at correction). Contradiction requires a fixed referent for two predicates to disagree about; drift is what the absence of one looks like. WITHDRAWN ON THE WAY: the author's earlier reading that ALIGNED models contradict themselves and base models do not, built on four completions and killed by the census (referent_shifts 0.011 vs 0.010, p=0.457). CANNOT ANSWER: whether alignment installs a capacity or one memorised fact."
 instruments: [generation, llm-annotation, human-coding]
 chapters: [ch03, ch04, ch05, ch11]
 data: ["f20x_generations.parquet", "f20x_annotations.parquet", "f20x_codings.parquet"]
@@ -27,7 +27,13 @@ the malign seat.
 
 ## The headline
 
-18,720 completions. 39 families, **29 distinct base models**, which is the unit.
+18,720 completions. 39 families, 29 distinct base model strings, which are
+**25 independent pretraining lineages** — the unit. **CORRECTED 2026-08-01:**
+this line read "29 distinct base models, which is the unit" until the model-level
+lineage map (`data/lineage_map_models.json`, 112 models / 34 lineages) showed
+those 29 strings hold two size ladders — Qwen2.5 0.5B/7B, and Falcon3
+1B/3B/7B/10B. One release measured at several scales is one pretraining run.
+**The recount changes no conclusion in this finding** (`scripts/f20_lineage_recount.py`).
 `olmo-think` excluded: it is the only family whose reasoning trace is sometimes
 visible inside a 60-token window, so whether a split appears depends on where
 truncation falls rather than on the model.
@@ -42,6 +48,34 @@ truncation falls rather than on the model.
 | `mania` | 0.012 | 0.005 | 18/29 | 0.0075 | 0.0450 |
 | `marked_contradiction` | 0.009 | 0.005 | 15/29 | 0.0663 | 0.332 |
 | `name_arbitrary` | 0.029 | 0.027 | 14/29 | 0.4235 | 0.847 |
+
+**THE COUNTS ABOVE ARE AT THE BASE-STRING UNIT AND THE HOLM COLUMN IS UNDER
+REVIEW (2026-08-01).** Recounted at the lineage, the directional counts and the
+finding's own Wilcoxon test give:
+
+| code | base-string | lineage | Wilcoxon p (lineage) |
+|---|---|---|---|
+| `quiet_drift` | 28/29 | **24/25** | <0.0001 |
+| `no_self_posed` | 23/29 | 19/25 | 0.0255 |
+| `number_shift` | 25/29 | 22/25 | 0.0004 |
+| `dissolution` | 22/29 | 18/25 | 0.0022 |
+| `mania` | 18/29 | 16/25 | 0.0177 |
+| `marked_contradiction` | 15/29 | 13/25 | 0.0398 |
+| `name_arbitrary` | 15/29 | 14/25 | 0.4076 |
+
+**Every raw p above reproduces the published column exactly except
+`name_arbitrary`, where this recount gets 15/29 and p=0.3035 against the booked
+14/29 and 0.4235 — one unexplained cell, flagged rather than overwritten.**
+
+**WHAT THIS DOES NOT SETTLE: whether the headline "every code for
+failure-to-anchor survives Holm" still holds.** `no_self_posed` (0.0055 ->
+0.0255) and `mania` (0.0075 -> 0.0177) move toward the boundary. Holm's verdict
+depends on the correction FAMILY, and the published Holm column is not Holm over
+these seven rows — its multipliers (x10 on `number_shift`, x8 on `dissolution`,
+x2 on `name_arbitrary`) imply a family of about eleven. **That family is not
+recorded here, so applying Holm over the seven visible rows would substitute a
+different family and call the result a correction.** Producer:
+`scripts/f20_lineage_recount.py`.
 | `bothness` | 0.021 | 0.019 | 15/29 | 0.6888 | 0.847 |
 | `origin_displaced` | 0.164 | 0.137 | 17/29 | 0.1326 | 0.499 |
 | `frame_exit` | 0.035 | 0.055 | 10/29 | 0.1246 | 0.499 |
@@ -49,8 +83,13 @@ truncation falls rather than on the model.
 **Every code that moves is a failure to anchor. Not one code for conflict moves.**
 
 `quiet_drift` — a biography that accumulates across turns and fails to cohere,
-with nothing marking the inconsistency — is base-higher in **28 of 29 distinct
-base models**. One dissenting model in the roster.
+with nothing marking the inconsistency — is base-higher in **24 of 25 independent lineages** (Wilcoxon p < 0.0001, the
+finding's own test). One dissenter
+in the roster. **CORRECTED 2026-08-01 from "28 of 29 distinct base models"**:
+the recount collapses two size ladders, which costs four *positive* votes and
+keeps the dissenter — the worst available case — and still clears by two orders
+of magnitude. All six collapsed rungs are base-higher, so the three plausible
+aggregation rules (majority, largest rung, pooled) return the identical count.
 
 ## The distinction that matters
 
