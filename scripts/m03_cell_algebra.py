@@ -134,13 +134,70 @@ def person_diffs(sid, domain, cells):
     return out
 
 
+#: Key fragments naming the INSTITUTIONAL member of each F21 perspective pair.
+INST_SIDE = ("mgmt", "landlord", "doctor", "officer", "agency", "party")
+
+
+def substrate():
+    """F21's own PERSON distribution, because the redraft brief's constraint
+    (iii) departs from the substrate and the size of that departure is a fact,
+    not a judgment.
+
+    THE RESULT ([1911]): the organisation/persons split M03 was found to have
+    is ALREADY IN F21 AT n=1 PER SIDE -- "our party needs to win the next
+    election. We should" is F21's ONLY institutional plural and it is an
+    organisation; all four individual plurals are sets of persons. M03 crossed
+    PERSON fully and turned a one-prompt quirk into a systematic 11 of 12.
+
+    **AND PERSON IS CONFOUNDED WITH ARM IN F21 ITSELF (4 plural against 1),
+    SO F21 HAS NO PERSON RESULT. There is nothing on this axis to
+    non-replicate, and the construct-fidelity argument that decided the STANCE
+    rewrite ([1904].4) has no purchase on the PERSON decision.**
+
+    The 5-of-12 pair figure this prints independently reproduces the authoring
+    guide's own opening line, reached from the other direction.
+    """
+    from malign_logits.experiments import INSTITUTIONAL_PROMPTS as P
+
+    def stance_person(t):
+        m = re.search(r"\b(I|We)\b\s+(should|said)\b[^.]*$", t)
+        return m.group(1) if m else "?"
+
+    rows = [("INST" if any(s in k for s in INST_SIDE) else "indiv",
+             stance_person(v), k, v) for k, v in sorted(P.items())]
+    print("F21 SUBSTRATE — PERSON by arm (constraint (iii)'s fidelity check)\n")
+    for arm in ("indiv", "INST"):
+        sub = [r for r in rows if r[0] == arm]
+        n_we = sum(1 for r in sub if r[1] == "We")
+        print(f"  {arm:<6} n={len(sub):<3} I={len(sub) - n_we:<3} we={n_we}")
+        for _, p, k, v in sub:
+            if p != "I":
+                print(f"      [{p}] {k}\n           {v}")
+
+    pairs = {}
+    for arm, p, k, _ in rows:
+        pairs.setdefault(re.sub(r"_(worker|mgmt|tenant|landlord|patient|doctor"
+                                r"|citizen|officer|agency|party)_", "_", k),
+                         {})[arm] = p
+    diff = [k for k, d in pairs.items() if len(d) == 2 and d["indiv"] != d["INST"]]
+    print(f"\n  pairs whose two members differ in PERSON: {len(diff)} of {len(pairs)}"
+          "   (the guide's opening line, reached from the other direction)")
+    return 0
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mutate", action="store_true",
                     help="corrupt one cell in memory and confirm clause (i) "
                          "fails -- a gate that cannot fail is not a gate")
     ap.add_argument("--quiet", action="store_true", help="counts only")
+    ap.add_argument("--substrate", action="store_true",
+                    help="F21's own PERSON distribution by arm — the fidelity "
+                         "check on the redraft brief's constraint (iii)")
     args = ap.parse_args()
+
+    if args.substrate:
+        return substrate()
 
     fail, n_cells, n_arms, n_moved = 0, 0, 0, 0
     for name in FILES:
