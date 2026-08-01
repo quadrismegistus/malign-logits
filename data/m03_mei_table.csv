@@ -1,0 +1,5 @@
+anchor,fraction,target,mde_rho0,mde_rho50,mde_rho0_sqrt6,mde_rho50_sqrt6,S_rho0,S_rho50,S_rho0_sqrt6,S_rho50_sqrt6
+"better-controlled (entropy-trimmed C1)","a third",0.001667,0.021704,0.015347,0.008860,0.006265,2713,1358,454,228
+"better-controlled (entropy-trimmed C1)","a half",0.002500,0.021704,0.015347,0.008860,0.006265,1207,605,203,103
+"ceiling (booked C1)","a third",0.003733,0.021704,0.015347,0.008860,0.006265,543,273,92,47
+"ceiling (booked C1)","a half",0.005600,0.021704,0.015347,0.008860,0.006265,243,122,42,23
