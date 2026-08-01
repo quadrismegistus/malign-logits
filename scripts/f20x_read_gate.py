@@ -111,12 +111,39 @@ def assert_join_compatible(new, path=PARQUET):
         errs.append(f"draw restarts at {min(new['draw'])}; existing max is "
                     f"{max(old.draw)} — continue the numbering")
 
-    #: (d) schema. Extra or missing columns make the merge lossy or ragged.
-    if "seed" not in new and "seed" not in old.columns:
-        errs.append("NEITHER population carries `seed`, though templates §3 "
-                    "declares 'seeds are in the output or the run is void' — "
-                    "the existing rows already violate it, so a completion run "
-                    "cannot inherit compliance and must decide explicitly")
+    #: (d) SEED DISJOINTNESS, COMPUTED FROM THE SCRIPT, NOT ASSUMED.
+    #:
+    #: WITHDRAWN AND REPLACED [2123]. This branch used to refuse because
+    #: NEITHER population carries a `seed` column, on the reading that
+    #: templates §3 requires seeds in the output. **THE CLAUSE WAS
+    #: MISQUOTED**: §3 is DERIVATION-BASED -- `SEED0` declared in the script,
+    #: resume keys derived and never read back from disk -- so a stored column
+    #: was never part of the design and the absence is not a violation. My
+    #: refusal was calibrated to a clause, and the clause was wrong.
+    #:
+    #: THE REAL HAZARD SURVIVES AND NEITHER FRAMING CAUGHT IT. The seed is a
+    #: PURE FUNCTION of `SEED0 + cell` (f20x_format_battery.py:64, :204), so a
+    #: completion run that restarts the counter REISSUES THE IDENTICAL TORCH
+    #: SEEDS. Different prompts, so not a validity failure -- but the two runs
+    #: draw from the same RNG states, and any claim of independent sampling
+    #: across levels would be false.
+    #:
+    #: AND THE STRIDE DIFFERS, which is why "continue the counter" is not
+    #: "continue by the same stride": the existing run advances `cell` by
+    #: len(STIMULI)*len(LEVELS) per model-arm (:159) with LEVELS=2 -> 32; the
+    #: completion has LEVELS=3 -> 48. Measured on the artifact: 58 model-arms
+    #: x 16 stimuli x 2 levels = 1,856 cells consumed, seeds
+    #: [20260729, 20262585). The completion needs 58 x 16 x 3 = 2,784 and MUST
+    #: START AT cell >= 1856.
+    SEED0, EXISTING_CELLS = 20260729, 1856
+    if "seed" in new:
+        lo = min(new["seed"])
+        if lo < SEED0 + EXISTING_CELLS:
+            errs.append(
+                f"seed {lo} falls inside the range the existing run consumed "
+                f"[{SEED0}, {SEED0 + EXISTING_CELLS}) — restarting `cell` "
+                f"reissues identical torch seeds. Start at cell >= "
+                f"{EXISTING_CELLS} (seed >= {SEED0 + EXISTING_CELLS}).")
     #: OUTCOME is exempt: this runs BEFORE generation, so the completions do
     #: not exist yet. A schema check that demanded them would make the guard
     #: uncallable at the only moment it is useful.
