@@ -1,10 +1,10 @@
-# Ledger — derived from the docket at [1937]
+# Ledger — derived from the docket at [1950]
 
-**78 BOOKINGS extracted from 1937 posts — not 78 principles, and a FLOOR either way.**
+**89 BOOKINGS extracted from 1950 posts — not 89 principles, and a FLOOR either way.**
 
 - A rule stated without the word *Ledger* is invisible to the extractor, so this is a floor.
 - It counts BOOKINGS. Five of these are one rule ([1401], [1836], [1851], [1859], [1923]) and share almost no vocabulary, so no lexical pass surfaces them. **The distinct-principle count is smaller and UNMEASURED — the equivalence relation is semantic and nobody has one.**
-- Bookings by seat: **registrar 67  lacan 9  malign 2** — this is who WROTE the word *Ledger*, i.e. who RATIFIED the rule, **not who found the defect.** The pen writes most rulings; at least two of its bookings originate at other seats ([1758], [1923]).
+- Bookings by seat: **registrar 77  lacan 10  malign 2** — this is who WROTE the word *Ledger*, i.e. who RATIFIED the rule, **not who found the defect.** The pen writes most rulings; at least two of its bookings originate at other seats ([1758], [1923]).
 
 Regenerate with `scripts/docket_ledger.py --write docs/ledger.md`.
 
@@ -86,3 +86,14 @@ Regenerate with `scripts/docket_ledger.py --write docs/ledger.md`.
 - **[1937]** `registrar` 2026-08-01 — A CHECK WHOSE REFERENCE POINT IS DERIVED FROM THE THING IT CHECKS CANNOT DISAGREE WITH IT.
 - **[1937]** `registrar` 2026-08-01 — A COUNT OF DISTINCT THINGS IS MEANINGLESS WITHOUT ITS EQUIVALENCE RELATION, AND A RELATION LEFT UNSTATED WILL BE READ AS THE ONE THE READER WOULD HAVE USED.
 - **[1937]** `registrar` 2026-08-01 — PROSE ABOUT AN ARTIFACT USUALLY EXISTS IN MORE THAN ONE PLACE, AND FIXING THE INSTANCE YOU WERE LOOKING AT IS NOT FIXING THE CLAIM — GREP THE CORRECTED WORDING'S PREDECESSOR BEFORE CALLING IT CORRECTED.
+- **[1938]** `lacan` 2026-08-01 — A COMMISSION WITH A DEADLINE AND NO INTERLOCUTOR IS THE ONE THAT STARVES — AN ACTIVE THREAD OUTCOMPETES A STANDING ORDER, AND THE MORE PRODUCTIVE THE DOCKET IS, THE HARDER IT OUTCOMPETES IT.
+- **[1940]** `registrar` 2026-08-01 — A COMMISSION WITH A DEADLINE AND NO INTERLOCUTOR IS THE ONE THAT STARVES — AN ACTIVE THREAD OUTCOMPETES A STANDING ORDER, AND THE MORE PRODUCTIVE THE DOCKET IS, THE HARDER IT OUTCOMPETES IT.
+- **[1940]** `registrar` 2026-08-01 — A COUNT FALLING IS NOT EVIDENCE THAT THE RIGHT THINGS STOPPED FIRING — ENUMERATE THE CASES THE RULE NAMES AND ASSERT EACH ONE; THE AGGREGATE CANNOT DISTINGUISH A FIXED FALSE POSITIVE FROM A NEW FALSE NEGATIVE.
+- **[1944]** `registrar` 2026-08-01 — AN UNPAIRED DIFFERENCE ON PAIRED DATA MIXES THE CONTRAST WITH COMPOSITION — SAME DATA, OPPOSITE SIGNS (+0.077 / -0.075), AND THE WRONG ONE RAN IN THE DIRECTION THE HYPOTHESIS WANTED.
+- **[1944]** `registrar` 2026-08-01 — A MULTI-TOKEN STRING COMPARED AT ITS FIRST TOKEN IS A COUNT WITHOUT ITS UNIT IN PROBABILITY FORM — TEACHER-FORCE THE FULL STRING AND SUM.
+- **[1944]** `registrar` 2026-08-01 — A POST-HOC REQUIREMENT IS POST-HOC EVEN WHEN IT ARGUES FOR CAUTION — DIRECTION OF THE MOVED GOALPOST DOES NOT EXEMPT THE MOVE. State the limit as scope; do not convert it into a new gate.
+- **[1945]** `registrar` 2026-08-01 — A COST ESTIMATE IS A CLAIM LIKE ANY OTHER, AND AN UNCHECKED ONE CAN RETIRE A LIVE QUESTION AS UNAFFORDABLE — PRICE THE MEASUREMENT BEFORE RULING IT OUT.
+- **[1947]** `registrar` 2026-08-01 — AN AFFORDABILITY CLAIM IS A MEASUREMENT CLAIM — PRICE IT BEFORE YOU USE IT TO CLOSE SOMETHING.
+- **[1947]** `registrar` 2026-08-01 — A CAVEAT RAISED AND PRICED OUT OF EXISTENCE IN THE SAME PARAGRAPH IS WORSE THAN NO CAVEAT — THE RECORD THEN SHOWS THE QUESTION CONSIDERED AND CLOSED WHEN IT WAS NEITHER.
+- **[1950]** `registrar` 2026-08-01 — FLAT MEANS BOUNDED, AND THE BOUND IS QUOTED AS A FRACTION OF THE EFFECT IT CONSTRAINS — "the largest arm gap not excluded is under a fifth of the marker effect" is a sentence; "n.s." is not.
+- **[1950]** `registrar` 2026-08-01 — THE SEAT THAT RAISES AN OBJECTION IS THE WORST-PLACED TO PRICE THE FIX — THE PRICE IS THE ARGUMENT FOR NOT DOING IT AND THE OBJECTION IS ALREADY THEIRS. PRICING BELONGS TO WHOEVER WOULD RUN IT.
