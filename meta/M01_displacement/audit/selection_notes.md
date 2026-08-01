@@ -77,14 +77,18 @@ not between 47 and 50.**
 **Sentence length is not a nuisance in this project — it is upstream of the
 outcome.** Departed mass and every movement statistic depend on the continuation
 distribution, and a shorter prompt with fewer preceding content words is a
-different distributional object from a longer one. **Any per-subdomain comparison
-involving animal is confounded with length**, and any pooled analysis carries
-animal as a systematically shorter stratum.
+different distributional object from a longer one.
 
-**Not a reason to drop animal. A reason that `subdomain` and length must both be
-available to anyone who compares across subdomains, and that a subdomain-level
-difference involving animal is not interpretable as a content difference without
-the length control.**
+**EVERY per-subdomain comparison is confounded with length, not only ones
+involving animal ([1880].3).** The subdomains span 8.09 to 18.76 by construction.
+**Animal is mid-range; POWER IS THE OUTLIER at more than twice desecration.** An
+earlier draft of this section put the caveat on animal alone — **which would have
+left the mid-range subdomain carrying a length flag and the actual outlier
+carrying none.**
+
+**Not a reason to drop anything. A reason that `subdomain` and length must both be
+available to anyone comparing across subdomains, and that NO subdomain-level
+difference is interpretable as a content difference without the length control.**
 
 ## THE GENERAL FORM
 
