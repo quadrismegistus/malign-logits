@@ -177,6 +177,57 @@ DUAL = re.compile(r"\bmy [\w-]+(?:'s)?(?: [\w-]+)? and (?:I|me)\b|\band mine\b",
 INDEF = re.compile(r"\b(several of us|some of us|our whole \w+|all of us|our household)\b", re.I)
 
 
+# --- (v) CO-ACTOR vs CO-RECIPIENT, and (iv) SUBSTITUTION -----------------------
+# Both added after [1922]. The suite had been mutation-tested against SYNTHETIC
+# corruptions of itself and passed; run against the THREE REAL DEFECTS it was
+# written for it CAUGHT A02, MISSED B02 entirely, and caught B03 only by accident
+# via (iii). A lint tested only on its own mutation is tested against itself.
+#
+# (v)  ENGLISH CASE MARKING DOES THE WORK. A co-actor dual is NOMINATIVE
+#      ("my shift partner and I filed"); a co-recipient is ACCUSATIVE
+#      ("put my coworker and me in handcuffs") or POSSESSIVE ("and mine").
+#      B02, withdrawn N4, and N6 are all caught by that one distinction.
+# (iv) A TOKEN COUNT CANNOT SEE A SUBSTITUTION. B03's delta was 5 against a
+#      threshold of >5 -- one token from firing, by luck rather than detection.
+#      The real rule: sg -> pl must be EXACTLY ONE changed span, and the text it
+#      replaces must be the speaker pronoun (plus forced agreement), never
+#      content.
+
+ACC = re.compile(r"\band (?:me|mine)\b", re.I)
+FPS = re.compile(r"\b(I|me|my)\b")
+
+
+def dual_is_coactor(pl):
+    """Nominative dual only. Accusative or possessive coordination is a recipient."""
+    return not ACC.search(pl)
+
+
+def only_pronoun_expanded(sg, pl):
+    """Removing the dual from `pl` must give back `sg`, modulo forced agreement.
+
+    PRE-PATCH COUNT 20. The first version inspected only `replace` opcodes, but
+    the dual expansion is usually an INSERT ("the complaint I filed" -> "the
+    complaint my shift partner and I filed" inserts "my shift partner and"
+    before "I"), so it reported an empty replaced-span on every clean clause.
+    That is an opcode-kind bug, real independently of which drafts it flagged.
+    """
+    AGREE = [(" were ", " was "), (" have ", " has "), (" are ", " is ")]
+    # re.I: a clause-initial "My partner and I" did not match without it, so a
+    # clean institutional arm reported a substitution. Third character-class /
+    # flag defect in this suite today; each was found by running the lint on
+    # material whose status was already known.
+    norm = re.sub(r"\bmy [\w-]+(?:'s)?(?: [\w-]+)? and (I|me)\b", r"\1", pl, flags=re.I)
+    norm = re.sub(r"\band mine\b", "", norm, flags=re.I)
+    if norm[:1].isupper() and sg[:1].isupper():
+        norm = norm[0].upper() + norm[1:]
+    if norm == sg:
+        return True, ""
+    for a, b in AGREE:
+        if norm.replace(a, b) == sg:
+            return True, ""
+    return False, f"removing the dual does not give back the singular: {norm!r}"
+
+
 def lint(k, cells):
     out = []
     for arm in ("indiv", "inst"):
@@ -187,6 +238,11 @@ def lint(k, cells):
             out.append(f"(iii) {arm} plural is not a speaker-dual: {pl!r}")
         if INDEF.search(pl):
             out.append(f"(v) {arm} plural is indefinite: {pl!r}")
+        if not dual_is_coactor(pl):
+            out.append(f"(v) {arm} dual is a CO-RECIPIENT, not a co-actor: {pl!r}")
+        ok, why = only_pronoun_expanded(sg, pl)
+        if not ok:
+            out.append(f"(iv) {arm} sg->pl is not a bare pronoun expansion -- {why}")
         # (iv) sg must be a strict substring-modulo-the-dual of pl
         if len(pl.split()) - len(sg.split()) > 5:
             out.append(f"(iv) {arm} plural adds {len(pl.split())-len(sg.split())} tokens")
@@ -208,14 +264,22 @@ def lint(k, cells):
     return out
 
 
+
 def main():
     allrows, problems = [], []
     for k in KERNELS + (CONVERSIONS if "--with-conversions" in sys.argv else []):
         cells = build(k)
         errs = lint(k, cells)
         problems += [(k["id"], e) for e in errs]
+        #: `lint` TRAVELS WITH THE ROW. The JSON was being written regardless
+        #: of findings, so m03_kernel.json held N6 with two lint failures and
+        #: NOTHING IN THE FILE SAID SO — a consumer reading the artifact could
+        #: not tell it from a clean one. Refusing to write would block
+        #: legitimate work in progress; STAMPING cannot. An empty list is a
+        #: positive assertion of cleanliness, not an absent field.
         allrows.append({"scenario_id": k["id"], "domain": k["domain"],
-                        "f21_anchor": k["f21"], "frame": k["frame"], "cells": cells})
+                        "f21_anchor": k["f21"], "frame": k["frame"],
+                        "lint": errs, "cells": cells})
     n = sum(len(r["cells"]) for r in allrows)
     print(f"{len(allrows)} scenarios x 14 cells = {n} prompts")
     print(f"lint: {len(problems)} problem(s)")
@@ -233,7 +297,9 @@ def main():
     out_paths = [a for a in sys.argv[1:] if not a.startswith("-")]
     for path in out_paths:
         open(path, "w").write(json.dumps(allrows, indent=1))
-        print(f"wrote {path} ({len(allrows)} scenarios, {n} prompts)")
+        dirty = sum(1 for r in allrows if r["lint"])
+        print(f"wrote {path} ({len(allrows)} scenarios, {n} prompts, "
+              f"{dirty} carrying lint findings)")
     print()
     r = allrows[0]
     print(f"SAMPLE -- {r['scenario_id']} ({r['domain']}), all 14 cells:")

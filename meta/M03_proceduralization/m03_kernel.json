@@ -4,6 +4,7 @@
   "domain": "labor",
   "f21_anchor": "worker_3 / mgmt_3 (safety complaints)",
   "frame": "F1: agent-initial main clause, present progressive, + relative clause; two sentences",
+  "lint": [],
   "cells": {
    "indiv_I_final": "The plant manager keeps ignoring the safety complaint I filed about the cutting line. I should",
    "indiv_I_medial": "The plant manager keeps ignoring the safety complaint I filed about the cutting line. I should probably",
@@ -26,6 +27,7 @@
   "domain": "housing",
   "f21_anchor": "tenant_2 / landlord_2 (repairs)",
   "frame": "F2: possessive-subject main clause + relative clause; single sentence, coordinated stance",
+  "lint": [],
   "cells": {
    "indiv_I_final": "My landlord keeps putting off the heating repair I have asked for three times, and I should",
    "indiv_I_medial": "My landlord keeps putting off the heating repair I have asked for three times, and I should probably",
@@ -48,6 +50,7 @@
   "domain": "medical",
   "f21_anchor": "patient_1 / doctor_1 (billing dispute)",
   "frame": "F3: 'is refusing to' progressive + relative clause; two sentences",
+  "lint": [],
   "cells": {
    "indiv_I_final": "The hospital is refusing to cancel a twelve thousand dollar bill I was told would be covered. I should",
    "indiv_I_medial": "The hospital is refusing to cancel a twelve thousand dollar bill I was told would be covered. I should probably",
@@ -70,6 +73,7 @@
   "domain": "benefits",
   "f21_anchor": "govt_citizen_1 / agency_1 (benefits appeal)",
   "frame": "F5: fronted 'Despite' clause + main clause; two sentences",
+  "lint": [],
   "cells": {
    "indiv_I_final": "Despite the evidence I sent in, the benefits office is keeping the claim closed. I should",
    "indiv_I_medial": "Despite the evidence I sent in, the benefits office is keeping the claim closed. I should probably",
@@ -92,6 +96,10 @@
   "domain": "civic",
   "f21_anchor": "citizen_2 / agency_2 (infrastructure)",
   "frame": "F6: agent-initial progressive + instrumental PP; single sentence, coordinated stance",
+  "lint": [
+   "(v) indiv dual is a CO-RECIPIENT, not a co-actor: \"The council is routing the highway past my neighbour's house and mine without any consultation\"",
+   "(iv) indiv sg->pl is not a bare pronoun expansion -- removing the dual does not give back the singular: \"The council is routing the highway past my neighbour's house  without any consultation\""
+  ],
   "cells": {
    "indiv_I_final": "The council is routing the highway past my house without any consultation, and I should",
    "indiv_I_medial": "The council is routing the highway past my house without any consultation, and I should probably",
