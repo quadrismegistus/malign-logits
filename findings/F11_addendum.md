@@ -55,6 +55,32 @@ scripts: [f11_cross_family.py, f11_meta_contradiction.py, f11_new_pairs_all_fami
 > n and the CSV row arithmetic describe how many files were read, not how many
 > independent things were measured. Restating them would stop the row counts
 > reconciling with the data.
+>
+> **INSTRUMENT UNREGENERABLE ([2222]/[2223]), added 2026-08-01.**
+> `data/contradiction_four_mass.csv` — the substrate for the frame-exit
+> mechanism below — **has no producer, and never had one.** The file landed
+> alone at `c71b1dd` (23 Jul, one file changed, 331 rows, no code);
+> `git log --all -S'pole1_mass' -- '*.py' '*.ipynb'` returns **zero commits
+> across all history**, and `blend_mass` appears in exactly one file in the
+> repository: the CSV itself.
+>
+> **So `pole1_mass` / `pole2_mass` / `blend_mass` / `in_frame` / `remainder`
+> have no definition here.** Which surfaces count as pole1, whether inflections
+> count, whether blend is an explicit list or a residual — none of it is
+> recorded. The numbers can be read and cannot be regenerated.
+>
+> **Status: VERIFIED-AS-RECORDED; INSTRUMENT UNREGENERABLE.** The [2110] audit
+> reproduced the decomposition FROM this CSV, which verifies its arithmetic and
+> cannot verify the instrument, because there is none to verify. **This is not
+> a claim that the numbers are wrong** — they were produced by something, and
+> they reproduce internally. **It is a claim that no new question can be asked
+> of them:** any re-unit, re-roster or re-threshold needs the generating
+> definitions, so a full-roster "re-run" is necessarily a **RE-SPECIFICATION**,
+> and its agreement with the published bands is a reported question rather than
+> an assumed continuity.
+>
+> Frame-exit claims therefore carry **two** flags: the rank-not-rate demotion
+> (p ≈ 0.19 at the lineage) and this one.
 
 ## Summary
 
