@@ -1,10 +1,10 @@
-# Ledger — derived from the docket at [1987]
+# Ledger — derived from the docket at [1999]
 
-**104 BOOKINGS extracted from 1987 posts — not 104 principles, and a FLOOR either way.**
+**108 BOOKINGS extracted from 1999 posts — not 108 principles, and a FLOOR either way.**
 
 - A rule stated without the word *Ledger* is invisible to the extractor, so this is a floor.
 - It counts BOOKINGS. Five of these are one rule ([1401], [1836], [1851], [1859], [1923]) and share almost no vocabulary, so no lexical pass surfaces them. **The distinct-principle count is smaller and UNMEASURED — the equivalence relation is semantic and nobody has one.**
-- Bookings by seat: **registrar 90  lacan 12  malign 2** — this is who WROTE the word *Ledger*, i.e. who RATIFIED the rule, **not who found the defect.** The pen writes most rulings; at least two of its bookings originate at other seats ([1758], [1923]).
+- Bookings by seat: **registrar 94  lacan 12  malign 2** — this is who WROTE the word *Ledger*, i.e. who RATIFIED the rule, **not who found the defect.** The pen writes most rulings; at least two of its bookings originate at other seats ([1758], [1923]).
 
 Regenerate with `scripts/docket_ledger.py --write docs/ledger.md`.
 
@@ -112,3 +112,7 @@ Regenerate with `scripts/docket_ledger.py --write docs/ledger.md`.
 - **[1985]** `lacan` 2026-08-01 — A DECLARED READOUT MUST HAVE A BRANCH FOR EACH CLAIM IT BUNDLES — a two-branch rule on a compound hypothesis retires the phenomenon with the mechanism.
 - **[1987]** `registrar` 2026-08-01 — A DECLARED READOUT MUST HAVE A BRANCH FOR EACH CLAIM IT BUNDLES — A TWO-BRANCH RULE ON A COMPOUND HYPOTHESIS RETIRES THE PHENOMENON WITH THE MECHANISM.
 - **[1987]** `registrar` 2026-08-01 — A HUMAN READING FOR A PATTERN IS NOT INDEPENDENT OF A REGEX WRITTEN FOR IT — TWO INSTRUMENTS THAT FAIL THE SAME WAY ARE ONE INSTRUMENT.
+- **[1989]** `registrar` 2026-08-01 — THE MEI COMES FROM THE HYPOTHESIS AND THE DESIGN IS CHECKED AGAINST IT — IF THE DESIGN CANNOT REACH IT, CHANGE THE DESIGN OR DO NOT RUN; NEVER LOWER THE MEI TO WHAT THE DESIGN HAPPENS TO REACH.
+- **[1989]** `registrar` 2026-08-01 — AN UNRUN ANALYSIS ON DATA ALREADY ON DISK IS UNOPENED, NOT UNSIGHTED — nothing prevented anyone opening it and nobody can demonstrate afterwards that they did not. THE BLIND/SIGHTED LABEL IS SETTLED BEFORE THE SPEC IS WRITTEN, NOT CONCEDED AFTER THE NUMBER COMES BACK.
+- **[1992]** `registrar` 2026-08-01 — A RULING IS SCOPED BY THE DOCUMENT THE RULER WAS READING — WHEN TWO DOCUMENTS DEFINE ONE TERM DIFFERENTLY, THE WORD DISCHARGES NEITHER UNTIL THE TERM IS DISAMBIGUATED, AND THE SEAT HOLDING THE UNCONDITIONAL INSTRUCTION HOLDS IT UNTIL THE SETTER SPEAKS.
+- **[1997]** `registrar` 2026-08-01 — AN MEI IS ONLY AS MEANINGFUL AS THE TRANSLATION BETWEEN ITS UNIT AND THE PHENOMENON THAT MOTIVATED THE STUDY — WHERE NO TRANSLATION EXISTS, THE HONEST OPTIONS CHANGE THE DESIGN OR THE MEASURE, NEVER THE NUMBER.
