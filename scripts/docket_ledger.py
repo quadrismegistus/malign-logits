@@ -32,6 +32,24 @@ WHAT IT CANNOT DO. The extraction is a regex over prose written by three seats
 who agreed on no format. It finds the `Ledger:` / `Ledger, sharpened:` /
 `Ledger candidate:` family. **A RULE STATED WITHOUT THAT WORD IS INVISIBLE TO
 IT, and the count below is a floor, never a total.** Reported as a floor.
+
+TWO CORRECTIONS FROM [1934], BOTH ADOPTED, BOTH ABOUT WHAT THE NUMBERS NAME.
+
+**IT COUNTS BOOKINGS, NOT PRINCIPLES.** Lexical de-duplication found one exact
+duplicate and ZERO near-duplicates at Jaccard 0.20 -- and reading all 74 side
+by side found FIVE THAT ARE ONE RULE ([1401], [1836], [1851], [1859], [1923]:
+*a check whose reference point is derived from the thing it checks cannot
+disagree with it*, said of a gate, an audit, a diagnostic, a checker and a
+lint). **Ten words for two concepts, no pair sharing enough vocabulary to
+register.** So the distinct-principle count is smaller than the booking count
+and is UNMEASURED. **A DUPLICATE COUNT IS MEANINGLESS WITHOUT ITS EQUIVALENCE
+RELATION ([1850]); the relation here is SEMANTIC and nobody has one.**
+
+**THE SEAT IS THE BOOKER, NOT THE FINDER.** It counts who wrote the word
+*Ledger*, and the pen writes most rulings -- so a reader takes 63/9/2 as a
+record of who finds defects when it is a record of who RATIFIES them. At least
+two of the pen's are other seats': [1758] came from a seat's entropy check and
+[1923] from a seat's audit of another's kernel.
 """
 
 import argparse
@@ -94,10 +112,29 @@ def main():
         for rule in extract(body):
             found.append((pid, seat, ts[:10], rule))
 
-    lines = [f"# Ledger — derived from the docket at [{head}]", "",
-             f"**{len(found)} rules extracted from {n_posts} posts. THIS IS A FLOOR:**",
-             "a rule stated without the word *Ledger* is invisible to the",
-             "extractor. Regenerate with `scripts/docket_ledger.py --write`.", ""]
+    seats = {}
+    for _, s, _, _ in found:
+        seats[s] = seats.get(s, 0) + 1
+    tally = "  ".join(f"{s} {n}" for s, n in sorted(seats.items(),
+                                                    key=lambda x: -x[1]))
+    lines = [
+        f"# Ledger — derived from the docket at [{head}]", "",
+        f"**{len(found)} BOOKINGS extracted from {n_posts} posts — not "
+        f"{len(found)} principles, and a FLOOR either way.**", "",
+        "- A rule stated without the word *Ledger* is invisible to the "
+        "extractor, so this is a floor.",
+        "- It counts BOOKINGS. Five of these are one rule ([1401], [1836], "
+        "[1851], [1859], [1923]) and share almost no vocabulary, so no "
+        "lexical pass surfaces them. **The distinct-principle count is "
+        "smaller and UNMEASURED — the equivalence relation is semantic and "
+        "nobody has one.**",
+        f"- Bookings by seat: **{tally}** — this is who WROTE the word "
+        "*Ledger*, i.e. who RATIFIED the rule, **not who found the defect.** "
+        "The pen writes most rulings; at least two of its bookings originate "
+        "at other seats ([1758], [1923]).",
+        "",
+        "Regenerate with `scripts/docket_ledger.py --write docs/ledger.md`.",
+        ""]
     for pid, seat, day, rule in found:
         lines.append(f"- **[{pid}]** `{seat}` {day} — {rule}")
 
@@ -105,8 +142,11 @@ def main():
     if args.write:
         with open(args.write, "w") as f:
             f.write(text)
-        print(f"wrote {args.write} — {len(found)} rules, derived at [{head}] "
-              f"over {n_posts} posts")
+        #: "bookings", not "rules" -- the success line was the last place the
+        #: old word survived after [1934] corrected the header, which is the
+        #: stale-self-description defect inside the fix for it.
+        print(f"wrote {args.write} — {len(found)} bookings, derived at "
+              f"[{head}] over {n_posts} posts")
     else:
         print(text)
     return 0
