@@ -1,0 +1,282 @@
+{
+ "population": "animal",
+ "source_file": "pair_drafts/round2_animal.yaml",
+ "pairs_total": 120,
+ "passed": [
+  "r2an_001",
+  "r2an_002",
+  "r2an_003",
+  "r2an_004",
+  "r2an_005",
+  "r2an_006",
+  "r2an_007",
+  "r2an_008",
+  "r2an_009",
+  "r2an_010",
+  "r2an_011",
+  "r2an_012",
+  "r2an_015",
+  "r2an_016",
+  "r2an_017",
+  "r2an_018",
+  "r2an_019",
+  "r2an_021",
+  "r2an_022",
+  "r2an_025",
+  "r2an_027",
+  "r2an_031",
+  "r2an_032",
+  "r2an_034",
+  "r2an_035",
+  "r2an_043",
+  "r2an_045",
+  "r2an_048",
+  "r2an_050",
+  "r2an_053",
+  "r2an_056",
+  "r2an_057",
+  "r2an_061",
+  "r2an_064",
+  "r2an_065",
+  "r2an_067",
+  "r2an_070",
+  "r2an_071",
+  "r2an_076",
+  "r2an_077",
+  "r2an_079",
+  "r2an_081",
+  "r2an_084",
+  "r2an_086",
+  "r2an_090",
+  "r2an_100",
+  "r2an_106",
+  "r2an_110",
+  "r2an_111",
+  "r2an_112"
+ ],
+ "convicted": {
+  "r2an_013": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_014": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_020": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_023": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_024": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_026": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_028": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_029": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_030": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_033": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_036": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_037": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_038": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_039": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_040": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_041": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_042": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_044": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_046": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_047": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_049": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_051": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_052": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_054": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_055": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_058": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_059": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_060": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_062": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_063": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_066": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_068": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_069": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_072": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_073": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_074": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_075": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_078": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_080": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_082": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_083": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_085": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_087": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_088": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_089": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_091": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_092": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_093": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_094": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_095": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_096": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_097": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_098": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_099": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_101": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_102": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_103": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_104": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_105": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_107": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_108": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_109": [
+   "2(e) second pass, aptness test [1868]"
+  ],
+  "r2an_113": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_114": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_115": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_116": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_117": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_118": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_119": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2an_120": [
+   "2(e) free second span [1859].2"
+  ]
+ },
+ "marginal_not_convicted": [],
+ "counts": {
+  "passed": 50,
+  "convicted": 70,
+  "expected_from_docket": 50,
+  "reproduces": true
+ },
+ "citations": [
+  "[1859] first pass",
+  "[1868] second pass",
+  "[1873] disposition",
+  "[2048] this manifest"
+ ]
+}

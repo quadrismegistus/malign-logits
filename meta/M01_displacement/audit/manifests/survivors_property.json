@@ -1,0 +1,174 @@
+{
+ "population": "property",
+ "source_file": "pair_drafts/round2_theft.yaml",
+ "pairs_total": 120,
+ "passed": [
+  "r2th_001",
+  "r2th_002",
+  "r2th_003",
+  "r2th_007",
+  "r2th_008",
+  "r2th_009",
+  "r2th_010",
+  "r2th_011",
+  "r2th_013",
+  "r2th_014",
+  "r2th_015",
+  "r2th_018",
+  "r2th_020",
+  "r2th_021",
+  "r2th_022",
+  "r2th_023",
+  "r2th_024",
+  "r2th_025",
+  "r2th_026",
+  "r2th_027",
+  "r2th_028",
+  "r2th_029",
+  "r2th_030",
+  "r2th_031",
+  "r2th_032",
+  "r2th_033",
+  "r2th_034",
+  "r2th_035",
+  "r2th_036",
+  "r2th_037",
+  "r2th_038",
+  "r2th_039",
+  "r2th_040",
+  "r2th_041",
+  "r2th_042",
+  "r2th_043",
+  "r2th_045",
+  "r2th_047",
+  "r2th_048",
+  "r2th_049",
+  "r2th_050",
+  "r2th_051",
+  "r2th_052",
+  "r2th_053",
+  "r2th_055",
+  "r2th_056",
+  "r2th_058",
+  "r2th_059",
+  "r2th_060",
+  "r2th_061",
+  "r2th_062",
+  "r2th_063",
+  "r2th_064",
+  "r2th_065",
+  "r2th_066",
+  "r2th_067",
+  "r2th_068",
+  "r2th_069",
+  "r2th_070",
+  "r2th_072",
+  "r2th_074",
+  "r2th_075",
+  "r2th_077",
+  "r2th_078",
+  "r2th_079",
+  "r2th_081",
+  "r2th_082",
+  "r2th_083",
+  "r2th_084",
+  "r2th_085",
+  "r2th_086",
+  "r2th_087",
+  "r2th_088",
+  "r2th_090",
+  "r2th_091",
+  "r2th_092",
+  "r2th_093",
+  "r2th_094",
+  "r2th_095",
+  "r2th_096",
+  "r2th_097",
+  "r2th_098",
+  "r2th_099",
+  "r2th_100",
+  "r2th_101",
+  "r2th_102",
+  "r2th_103",
+  "r2th_104",
+  "r2th_105",
+  "r2th_106",
+  "r2th_107",
+  "r2th_108",
+  "r2th_109",
+  "r2th_110",
+  "r2th_111",
+  "r2th_112",
+  "r2th_113",
+  "r2th_114",
+  "r2th_115",
+  "r2th_116",
+  "r2th_117",
+  "r2th_118",
+  "r2th_119",
+  "r2th_120"
+ ],
+ "convicted": {
+  "r2th_004": [
+   "2(e) second pass, aptness test [1868]"
+  ],
+  "r2th_005": [
+   "2(e) second pass, aptness test [1868]"
+  ],
+  "r2th_006": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2th_012": [
+   "2(e) second pass, aptness test [1868]"
+  ],
+  "r2th_016": [
+   "2(e) second pass, aptness test [1868]"
+  ],
+  "r2th_017": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2th_019": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2th_044": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2th_046": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2th_054": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2th_057": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2th_071": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2th_073": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2th_076": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2th_080": [
+   "2(e) second pass, aptness test [1868]"
+  ],
+  "r2th_089": [
+   "2(e) free second span [1859].2"
+  ]
+ },
+ "marginal_not_convicted": [],
+ "counts": {
+  "passed": 104,
+  "convicted": 16,
+  "expected_from_docket": 104,
+  "reproduces": true
+ },
+ "citations": [
+  "[1859] first pass",
+  "[1868] second pass",
+  "[1873] disposition",
+  "[2048] this manifest"
+ ]
+}

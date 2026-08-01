@@ -123,6 +123,13 @@ def rows_for(draft, source, name, sha):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--file", required=True)
+    ap.add_argument("--manifest", help="SURVIVOR MANIFEST json (meta/M01_"
+                    "displacement/audit/manifests/). [2046].2: THE UNIT OF "
+                    "CLEARANCE IS THE SURVIVOR SET, NOT THE FILE. Ingestion "
+                    "took whole files once and put v1 power's 120-of-120 "
+                    "failures and animal's 70 convicted pairs beside frozen "
+                    "rows. Without this, only a population whose manifest says "
+                    "every pair passed may be ingested.")
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--dry-run", action="store_true")
     g.add_argument("--apply", action="store_true")
@@ -143,6 +150,31 @@ def main():
     source = CLEARED[name]
 
     draft, sha, path = load_draft(name)
+
+    #: SURVIVOR FILTER. `passed` is the admitted set; anything else in the
+    #: draft is a pair some seat convicted, and a draft file is not a
+    #: population.
+    if args.manifest:
+        man = json.load(open(args.manifest))
+        keep = set(man.get("passed") or man.get("survivors") or [])
+        if man.get("source_file") and os.path.basename(man["source_file"]) != name:
+            print(f"REFUSED: manifest names {man['source_file']!r}, not {name!r}",
+                  file=sys.stderr)
+            return 2
+        before = len(draft)
+        draft = [r for r in draft if r["pair_id"] in keep]
+        print(f"  SURVIVOR MANIFEST {os.path.basename(args.manifest)}: "
+              f"{before} drafted -> {len(draft)} passed "
+              f"({before - len(draft)} convicted or unlisted, EXCLUDED)")
+        missing = keep - {r["pair_id"] for r in draft}
+        if missing:
+            print(f"  *** {len(missing)} manifest id(s) NOT IN THE DRAFT: "
+                  f"{sorted(missing)[:5]}", file=sys.stderr)
+            return 2
+    else:
+        print("  NO MANIFEST — whole file. Permitted only for a population "
+              "whose audit convicted nothing.")
+
     new = rows_for(draft, source, name, sha)
     print(f"{name}  sha256[:16] {sha}  {len(draft)} pairs -> {len(new)} rows"
           f"  source={source}\n")

@@ -1,0 +1,184 @@
+{
+ "population": "betrayal",
+ "source_file": "pair_drafts/round2_betrayal.yaml",
+ "pairs_total": 120,
+ "passed": [
+  "r2bt_001",
+  "r2bt_002",
+  "r2bt_005",
+  "r2bt_008",
+  "r2bt_009",
+  "r2bt_010",
+  "r2bt_014",
+  "r2bt_015",
+  "r2bt_016",
+  "r2bt_017",
+  "r2bt_018",
+  "r2bt_019",
+  "r2bt_020",
+  "r2bt_022",
+  "r2bt_023",
+  "r2bt_024",
+  "r2bt_025",
+  "r2bt_026",
+  "r2bt_027",
+  "r2bt_028",
+  "r2bt_029",
+  "r2bt_030",
+  "r2bt_031",
+  "r2bt_033",
+  "r2bt_035",
+  "r2bt_036",
+  "r2bt_037",
+  "r2bt_038",
+  "r2bt_039",
+  "r2bt_041",
+  "r2bt_043",
+  "r2bt_044",
+  "r2bt_045",
+  "r2bt_046",
+  "r2bt_047",
+  "r2bt_048",
+  "r2bt_049",
+  "r2bt_050",
+  "r2bt_052",
+  "r2bt_053",
+  "r2bt_054",
+  "r2bt_055",
+  "r2bt_056",
+  "r2bt_058",
+  "r2bt_059",
+  "r2bt_060",
+  "r2bt_061",
+  "r2bt_062",
+  "r2bt_063",
+  "r2bt_064",
+  "r2bt_065",
+  "r2bt_066",
+  "r2bt_067",
+  "r2bt_069",
+  "r2bt_070",
+  "r2bt_071",
+  "r2bt_072",
+  "r2bt_073",
+  "r2bt_074",
+  "r2bt_075",
+  "r2bt_076",
+  "r2bt_077",
+  "r2bt_079",
+  "r2bt_080",
+  "r2bt_081",
+  "r2bt_082",
+  "r2bt_083",
+  "r2bt_085",
+  "r2bt_086",
+  "r2bt_087",
+  "r2bt_088",
+  "r2bt_089",
+  "r2bt_090",
+  "r2bt_091",
+  "r2bt_092",
+  "r2bt_093",
+  "r2bt_094",
+  "r2bt_095",
+  "r2bt_096",
+  "r2bt_097",
+  "r2bt_098",
+  "r2bt_099",
+  "r2bt_100",
+  "r2bt_101",
+  "r2bt_102",
+  "r2bt_103",
+  "r2bt_104",
+  "r2bt_105",
+  "r2bt_106",
+  "r2bt_107",
+  "r2bt_108",
+  "r2bt_109",
+  "r2bt_111",
+  "r2bt_112",
+  "r2bt_113",
+  "r2bt_114",
+  "r2bt_115",
+  "r2bt_116",
+  "r2bt_117",
+  "r2bt_118",
+  "r2bt_119",
+  "r2bt_120"
+ ],
+ "convicted": {
+  "r2bt_003": [
+   "2(d) no agent transgresses [1859].4"
+  ],
+  "r2bt_004": [
+   "2(e) second pass, aptness test [1868]"
+  ],
+  "r2bt_006": [
+   "2(d) no agent transgresses [1859].4"
+  ],
+  "r2bt_007": [
+   "2(e) second pass, aptness test [1868]"
+  ],
+  "r2bt_011": [
+   "2(e) second pass, aptness test [1868]"
+  ],
+  "r2bt_012": [
+   "2(d) no agent transgresses [1859].4"
+  ],
+  "r2bt_013": [
+   "2(d) no agent transgresses [1859].4"
+  ],
+  "r2bt_021": [
+   "2(e) second pass, aptness test [1868]"
+  ],
+  "r2bt_032": [
+   "2(d) no agent transgresses [1859].4"
+  ],
+  "r2bt_034": [
+   "2(d) no agent transgresses [1859].4"
+  ],
+  "r2bt_040": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2bt_042": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2bt_051": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2bt_057": [
+   "2(e) free second span [1859].2"
+  ],
+  "r2bt_068": [
+   "2(e) second pass, aptness test [1868]"
+  ],
+  "r2bt_078": [
+   "2(e) second pass, aptness test [1868]"
+  ],
+  "r2bt_084": [
+   "2(e) second pass, aptness test [1868]"
+  ],
+  "r2bt_110": [
+   "2(e) free second span [1859].2",
+   "2(d) no agent transgresses [1859].4"
+  ]
+ },
+ "marginal_not_convicted": [
+  "r2bt_019",
+  "r2bt_035",
+  "r2bt_082",
+  "r2bt_120"
+ ],
+ "counts": {
+  "passed": 102,
+  "convicted": 18,
+  "expected_from_docket": 102,
+  "reproduces": true
+ },
+ "citations": [
+  "[1859] first pass",
+  "[1868] second pass",
+  "[1873] disposition",
+  "[2048] this manifest"
+ ]
+}

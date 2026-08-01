@@ -403,6 +403,34 @@ def main():
         },
         "prompts": rows,
     }
+    #: REGENERATION GUARD ([2046].2, commissioned [2047]b). This producer has
+    #: ZERO knowledge of the pair populations ingested by
+    #: scripts/ingest_pair_drafts.py, and this file's own schema note says
+    #: "Regenerate; never read-if-exists." Running it after an ingestion would
+    #: therefore VANISH every ingested population INCLUDING FROZEN ONES --
+    #: **AN ARTIFACT WHOSE PRODUCER CANNOT REPRODUCE IT IS ONE COMMAND FROM
+    #: LOSING ITS OWN CONTENTS.** Until the producer learns the ingestion stage
+    #: (see the module docstring's TWO-STAGE BUILD note), it REFUSES rather
+    #: than silently dropping rows it cannot regenerate.
+    if os.path.exists(OUT):
+        _prev = json.load(open(OUT))
+        _ing = (_prev.get("_provenance", {}) or {}).get("ingested_pair_sources", {})
+        _have = {r.get("source") for r in rows}
+        _lost = {src: sum(1 for r in _prev.get("prompts", [])
+                          if r.get("source") == src)
+                 for src in _ing if src not in _have}
+        if _lost:
+            print("\nREFUSED TO WRITE — this build would drop rows it cannot "
+                  "regenerate:")
+            for src, n in sorted(_lost.items()):
+                meta = _ing[src]
+                print(f"    {src:<28}{n:>5} rows   from {meta.get('file')} "
+                      f"@ {meta.get('sha256_16')}")
+            print("\n  Re-ingest with scripts/ingest_pair_drafts.py AFTER this "
+                  "build, or\n  teach this producer the ingestion stage. "
+                  "ARTIFACT UNCHANGED.")
+            return 1
+
     with open(OUT, "w") as f:
         json.dump(doc, f, indent=1, ensure_ascii=False)
     print(f"wrote {len(rows)} prompts -> {OUT}\n")
@@ -417,4 +445,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main() or 0)
