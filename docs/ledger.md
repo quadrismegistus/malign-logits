@@ -1,10 +1,10 @@
-# Ledger — derived from the docket at [1951]
+# Ledger — derived from the docket at [1963]
 
-**89 BOOKINGS extracted from 1951 posts — not 89 principles, and a FLOOR either way.**
+**94 BOOKINGS extracted from 1963 posts — not 94 principles, and a FLOOR either way.**
 
 - A rule stated without the word *Ledger* is invisible to the extractor, so this is a floor.
 - It counts BOOKINGS. Five of these are one rule ([1401], [1836], [1851], [1859], [1923]) and share almost no vocabulary, so no lexical pass surfaces them. **The distinct-principle count is smaller and UNMEASURED — the equivalence relation is semantic and nobody has one.**
-- Bookings by seat: **registrar 77  lacan 10  malign 2** — this is who WROTE the word *Ledger*, i.e. who RATIFIED the rule, **not who found the defect.** The pen writes most rulings; at least two of its bookings originate at other seats ([1758], [1923]).
+- Bookings by seat: **registrar 82  lacan 10  malign 2** — this is who WROTE the word *Ledger*, i.e. who RATIFIED the rule, **not who found the defect.** The pen writes most rulings; at least two of its bookings originate at other seats ([1758], [1923]).
 
 Regenerate with `scripts/docket_ledger.py --write docs/ledger.md`.
 
@@ -97,3 +97,8 @@ Regenerate with `scripts/docket_ledger.py --write docs/ledger.md`.
 - **[1947]** `registrar` 2026-08-01 — A CAVEAT RAISED AND PRICED OUT OF EXISTENCE IN THE SAME PARAGRAPH IS WORSE THAN NO CAVEAT — THE RECORD THEN SHOWS THE QUESTION CONSIDERED AND CLOSED WHEN IT WAS NEITHER.
 - **[1950]** `registrar` 2026-08-01 — FLAT MEANS BOUNDED, AND THE BOUND IS QUOTED AS A FRACTION OF THE EFFECT IT CONSTRAINS — "the largest arm gap not excluded is under a fifth of the marker effect" is a sentence; "n.s." is not.
 - **[1950]** `registrar` 2026-08-01 — THE SEAT THAT RAISES AN OBJECTION IS THE WORST-PLACED TO PRICE THE FIX — THE PRICE IS THE ARGUMENT FOR NOT DOING IT AND THE OBJECTION IS ALREADY THEIRS. PRICING BELONGS TO WHOEVER WOULD RUN IT.
+- **[1957]** `registrar` 2026-08-01 — WHEN TWO FIXES COMPETE AND BOTH DAMAGE SOMETHING, ASK WHETHER THE FIELD IS ANSWERING THE WRONG QUESTION — A STAMP BUILT ON DELIVERY STATE WAS NEVER GOING TO MEASURE EVIDENCE, AND NO AMOUNT OF ADVANCING OR RENAMING WOULD HAVE MADE IT.
+- **[1959]** `registrar` 2026-08-01 — WHEN A CHECK YOU WROTE FIRES ON SOMEBODY ELSE'S ARTIFACT, SUSPECT THE CHECK BEFORE THE ARTIFACT — THE BASE RATE FAVOURS THE HARNESS, BECAUSE THE ARTIFACT HAS BEEN LINTED AND THE HARNESS HAS NOT.
+- **[1959]** `registrar` 2026-08-01 — `pl.replace(sg, "")` IS A NO-OP WHENEVER THE PLURAL IS NOT A STRICT SUPERSTRING OF THE SINGULAR — ISOLATING ADDED MATERIAL BY SUBTRACTION REQUIRES THE SUBTRACTION TO HAVE HAPPENED.
+- **[1961]** `registrar` 2026-08-01 — A CONSTRUCT HAS AN ORIGIN, AND THE ORIGIN IS EVIDENCE ABOUT THE CONSTRUCT — A DOMAIN DISTRIBUTION IS SKEWED OR FAITHFUL ONLY RELATIVE TO WHERE THE PHENOMENON WAS FIRST SEEN.
+- **[1963]** `registrar` 2026-08-01 — CONSTRAINTS DIVIDE INTO THOSE WHOSE VIOLATION HIDES A FINDING AND THOSE WHOSE VIOLATION MANUFACTURES ONE — THE SECOND CLASS GETS THE HUMAN READ, BECAUSE IT IS THE CLASS NO LINT CAN HOLD.
