@@ -85,3 +85,29 @@ probability of the source's tokens" reads naturally and is wrong.
 **A field's name and shape constrain what it could be; only the writer says what
 it is.** The read cost one `grep` on the field name and led straight to
 `beam.py:547`.
+
+---
+
+## Provenance in every analysis output — ratified [2437]
+
+**Every analysis output carries its own provenance IN the artifact**: producer
+script, producer commit hash, run timestamp. A header comment line for CSV, a
+metadata field for parquet. Effective from the M04 rewrite onward.
+
+The reason is a filename that acquired two histories in one evening.
+`data/m04_coverage.csv` was written first by a **self-test fixture** — the
+producer's `run_pipeline` defaulted its output root to the repo — and later by a
+**real stage-1 run**. Same name, same location, same schema, and nothing inside
+either file said which. The first was caught only because a reader recognised
+`FALCON3,death,judge` as fixture text.
+
+    A NAME IS SHARED; A HASH IS NOT.
+
+This is the same rule the beam stash taught above, turned on our own outputs. A
+field's name and shape constrain what it could be; only the writer says what it
+is — and for a data file, the writer must say so *in the file*, because the
+reader tomorrow has the artifact and not the conversation.
+
+**And a regenerated output retires its predecessor as a dated tombstone rather
+than overwriting it in place**, whenever numbers from the old run have been
+quoted anywhere.
