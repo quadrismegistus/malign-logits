@@ -67,15 +67,27 @@ finding's own Wilcoxon test give:
 `name_arbitrary`, where this recount gets 15/29 and p=0.3035 against the booked
 14/29 and 0.4235 — one unexplained cell, flagged rather than overwritten.**
 
-**WHAT THIS DOES NOT SETTLE: whether the headline "every code for
-failure-to-anchor survives Holm" still holds.** `no_self_posed` (0.0055 ->
-0.0255) and `mania` (0.0075 -> 0.0177) move toward the boundary. Holm's verdict
-depends on the correction FAMILY, and the published Holm column is not Holm over
-these seven rows — its multipliers (x10 on `number_shift`, x8 on `dissolution`,
-x2 on `name_arbitrary`) imply a family of about eleven. **That family is not
-recorded here, so applying Holm over the seven visible rows would substitute a
-different family and call the result a correction.** Producer:
-`scripts/f20_lineage_recount.py`.
+**AND THE HOLM CLAUSE HOLDS AT THE LINEAGE.** Step-down over the five
+failure-to-anchor codes — the family the headline itself names — at alpha 0.05:
+
+| i | code | p | threshold | |
+|---|---|---|---|---|
+| 1 | `quiet_drift` | <0.0001 | 0.0100 | pass |
+| 2 | `number_shift` | 0.0004 | 0.0125 | pass |
+| 3 | `dissolution` | 0.0022 | 0.0167 | pass |
+| 4 | `mania` | **0.0177** | **0.0250** | pass — **the binding step** |
+| 5 | `no_self_posed` | 0.0255 | 0.0500 | pass |
+
+`quiet_drift` is evaluated at exactly 0.0001, the most conservative reading of
+`<0.0001`. **The binding step is `mania` at i=4 with 0.007 of headroom** — not
+`no_self_posed`, whose raw p is larger but which sits against the loosest
+threshold. Under a step-down the largest p is not the fragile one.
+
+**The published Holm column is a separate matter and remains unreproduced:** its
+multipliers (x10 `number_shift`, x8 `dissolution`, x2 `name_arbitrary`) imply a
+family of about eleven codes, which is not recorded anywhere in this finding.
+That affects the *column*, not the headline, because the headline names its own
+family in words. Producer: `scripts/f20_lineage_recount.py`.
 | `bothness` | 0.021 | 0.019 | 15/29 | 0.6888 | 0.847 |
 | `origin_displaced` | 0.164 | 0.137 | 17/29 | 0.1326 | 0.499 |
 | `frame_exit` | 0.035 | 0.055 | 10/29 | 0.1246 | 0.499 |
