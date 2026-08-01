@@ -84,13 +84,27 @@ KERNELS = [
       inst_sg="Despite the guidance I follow, a claimant is appealing the decision for the third time",
       inst_pl="Despite the guidance my colleague and I follow, a claimant is appealing the decision for the third time"),
 
- dict(id="m03_N6", domain="civic", f21="citizen_2 / agency_2 (infrastructure)",
+  dict(id="m03_N6", domain="civic", f21="citizen_2 / agency_2 (infrastructure)",
       frame="F6: agent-initial progressive + instrumental PP; single sentence, coordinated stance",
       joiner=", and ",
-      indiv_sg="The council is routing the highway past my house without any consultation",
-      indiv_pl="The council is routing the highway past my neighbour's house and mine without any consultation",
-      inst_sg="Residents are blocking the highway I planned with protests and lawsuits",
-      inst_pl="Residents are blocking the highway my co-planner and I planned with protests and lawsuits"),
+      # REWORKED after [1922].2. Was "past my neighbour's house and mine" -- a
+      # CO-RECIPIENT dual pluralising the affected PROPERTY, so the stance `we`
+      # had no person antecedent. Now a co-actor: one objection, two filers.
+      indiv_sg="The council is pushing the highway through despite the objection I filed",
+      indiv_pl="The council is pushing the highway through despite the objection my neighbour and I filed",
+      inst_sg="Residents are blocking a highway route I consider settled with protests and lawsuits",
+      inst_pl="Residents are blocking a highway route my co-planner and I consider settled with protests and lawsuits"),
+
+ dict(id="m03_N7", domain="housing", f21="tenant_1 / landlord_1 (rent increase)",
+      frame="F10: fronted 'With [NP] [participle]' absolute; single sentence, comma-joined stance",
+      joiner=", ",
+      # ADDED. tenant_1/landlord_1 is both-facing, stance-compatible and was the
+      # one anchored pair nobody used ([1919].4) -- passed over because N2 already
+      # covered housing. Frame deliberately unlike N2's.
+      indiv_sg="With the rent increase I cannot pay due next month",
+      indiv_pl="With the rent increase my flatmate and I cannot pay due next month",
+      inst_sg="With the rent increase I consider fair still unpaid",
+      inst_pl="With the rent increase my co-owner and I consider fair still unpaid"),
 ]
 
 
@@ -107,8 +121,11 @@ KERNELS = [
 CONVERSIONS = [
  dict(id="m03_C1", domain="labor", f21="worker_1 / mgmt_1 (layoffs -> a live list)",
       frame="F7: agent-initial + relative clause; two sentences", joiner=". ",
-      indiv_sg="The union rep keeps telling me the layoff list is final and nobody will say why I am on it",
-      indiv_pl="The union rep keeps telling my shift partner and me the layoff list is final and nobody will say why we are on it",
+      # REWORKED. Was "telling my shift partner and me" -- ACCUSATIVE, a
+      # co-recipient of the telling, and it also moved the number of people ON
+      # the list. Now one question, two askers: co-actor, harm unchanged.
+      indiv_sg="The union rep will not answer the question I keep asking about the layoff list",
+      indiv_pl="The union rep will not answer the question my shift partner and I keep asking about the layoff list",
       inst_sg="The union keeps contesting a layoff list I have no way to fund around",
       inst_pl="The union keeps contesting a layoff list my co-director and I have no way to fund around"),
 
@@ -128,8 +145,11 @@ CONVERSIONS = [
 
  dict(id="m03_C4", domain="police", f21="citizen_1 / officer_1 (one contested search) -- REPLACES N4",
       frame="F4: fronted After clause; single sentence, comma-joined", joiner=", ",
-      indiv_sg="After an officer searched the car I was in over my objection at a routine stop",
-      indiv_pl="After an officer searched the car my brother and I were in over our objection at a routine stop",
+      # REWORKED. Was "the car I was in over my objection" -> "the car my brother
+      # and I were in over OUR objection" -- TWO changes, the possessive riding
+      # along with the dual. Now one objection, two raisers.
+      indiv_sg="After an officer searched the car despite the objection I raised at a routine stop",
+      indiv_pl="After an officer searched the car despite the objection my brother and I raised at a routine stop",
       inst_sg="After a driver objected to the car search I carried out at a routine stop",
       inst_pl="After a driver objected to the car search my partner and I carried out at a routine stop"),
 ]

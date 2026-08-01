@@ -96,25 +96,45 @@
   "domain": "civic",
   "f21_anchor": "citizen_2 / agency_2 (infrastructure)",
   "frame": "F6: agent-initial progressive + instrumental PP; single sentence, coordinated stance",
-  "lint": [
-   "(v) indiv dual is a CO-RECIPIENT, not a co-actor ('and mine'): \"The council is routing the highway past my neighbour's house and mine without any consultation\"",
-   "(iv) indiv sg->pl is not a bare pronoun expansion -- removing the dual does not give back the singular: \"The council is routing the highway past my neighbour's house  without any consultation\""
-  ],
+  "lint": [],
   "cells": {
-   "indiv_I_final": "The council is routing the highway past my house without any consultation, and I should",
-   "indiv_I_medial": "The council is routing the highway past my house without any consultation, and I should probably",
-   "indiv_I_absent": "The council is routing the highway past my house without any consultation, and I",
-   "indiv_I_final_ought": "The council is routing the highway past my house without any consultation, and I ought to",
-   "indiv_we_final": "The council is routing the highway past my neighbour's house and mine without any consultation, and we should",
-   "indiv_we_medial": "The council is routing the highway past my neighbour's house and mine without any consultation, and we should probably",
-   "indiv_we_absent": "The council is routing the highway past my neighbour's house and mine without any consultation, and we",
-   "inst_I_final": "Residents are blocking the highway I planned with protests and lawsuits, and I should",
-   "inst_I_medial": "Residents are blocking the highway I planned with protests and lawsuits, and I should probably",
-   "inst_I_absent": "Residents are blocking the highway I planned with protests and lawsuits, and I",
-   "inst_I_final_ought": "Residents are blocking the highway I planned with protests and lawsuits, and I ought to",
-   "inst_we_final": "Residents are blocking the highway my co-planner and I planned with protests and lawsuits, and we should",
-   "inst_we_medial": "Residents are blocking the highway my co-planner and I planned with protests and lawsuits, and we should probably",
-   "inst_we_absent": "Residents are blocking the highway my co-planner and I planned with protests and lawsuits, and we"
+   "indiv_I_final": "The council is pushing the highway through despite the objection I filed, and I should",
+   "indiv_I_medial": "The council is pushing the highway through despite the objection I filed, and I should probably",
+   "indiv_I_absent": "The council is pushing the highway through despite the objection I filed, and I",
+   "indiv_I_final_ought": "The council is pushing the highway through despite the objection I filed, and I ought to",
+   "indiv_we_final": "The council is pushing the highway through despite the objection my neighbour and I filed, and we should",
+   "indiv_we_medial": "The council is pushing the highway through despite the objection my neighbour and I filed, and we should probably",
+   "indiv_we_absent": "The council is pushing the highway through despite the objection my neighbour and I filed, and we",
+   "inst_I_final": "Residents are blocking a highway route I consider settled with protests and lawsuits, and I should",
+   "inst_I_medial": "Residents are blocking a highway route I consider settled with protests and lawsuits, and I should probably",
+   "inst_I_absent": "Residents are blocking a highway route I consider settled with protests and lawsuits, and I",
+   "inst_I_final_ought": "Residents are blocking a highway route I consider settled with protests and lawsuits, and I ought to",
+   "inst_we_final": "Residents are blocking a highway route my co-planner and I consider settled with protests and lawsuits, and we should",
+   "inst_we_medial": "Residents are blocking a highway route my co-planner and I consider settled with protests and lawsuits, and we should probably",
+   "inst_we_absent": "Residents are blocking a highway route my co-planner and I consider settled with protests and lawsuits, and we"
+  }
+ },
+ {
+  "scenario_id": "m03_N7",
+  "domain": "housing",
+  "f21_anchor": "tenant_1 / landlord_1 (rent increase)",
+  "frame": "F10: fronted 'With [NP] [participle]' absolute; single sentence, comma-joined stance",
+  "lint": [],
+  "cells": {
+   "indiv_I_final": "With the rent increase I cannot pay due next month, I should",
+   "indiv_I_medial": "With the rent increase I cannot pay due next month, I should probably",
+   "indiv_I_absent": "With the rent increase I cannot pay due next month, I",
+   "indiv_I_final_ought": "With the rent increase I cannot pay due next month, I ought to",
+   "indiv_we_final": "With the rent increase my flatmate and I cannot pay due next month, we should",
+   "indiv_we_medial": "With the rent increase my flatmate and I cannot pay due next month, we should probably",
+   "indiv_we_absent": "With the rent increase my flatmate and I cannot pay due next month, we",
+   "inst_I_final": "With the rent increase I consider fair still unpaid, I should",
+   "inst_I_medial": "With the rent increase I consider fair still unpaid, I should probably",
+   "inst_I_absent": "With the rent increase I consider fair still unpaid, I",
+   "inst_I_final_ought": "With the rent increase I consider fair still unpaid, I ought to",
+   "inst_we_final": "With the rent increase my co-owner and I consider fair still unpaid, we should",
+   "inst_we_medial": "With the rent increase my co-owner and I consider fair still unpaid, we should probably",
+   "inst_we_absent": "With the rent increase my co-owner and I consider fair still unpaid, we"
   }
  }
 ]
