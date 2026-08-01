@@ -83,19 +83,39 @@ failure-to-anchor codes — the family the headline itself names — at alpha 0.
 `no_self_posed`, whose raw p is larger but which sits against the loosest
 threshold. Under a step-down the largest p is not the fragile one.
 
-**THE FAMILY IS DECLARED BECAUSE TWO ARE IN PLAY AND ONLY ONE IS RECOVERABLE.**
-The five above are the family *this clause's own sentence names* — "every code
-for failure-to-anchor" — construct-defined a priori, not selected for passing.
-**The published Holm column corrects over a different and larger family:** its
-multipliers (x10 `number_shift`, x8 `dissolution`, x2 `name_arbitrary`) imply
-about **eleven** codes, and those eleven are recorded nowhere in this finding.
+**THE FAMILY IS DECLARED BECAUSE TWO ARE IN PLAY AND THE SECOND IS WORSE FOR
+THIS CLAUSE.** The five above are the family *this clause's own sentence names* —
+"every code for failure-to-anchor" — construct-defined a priori, not selected
+for passing. **The published Holm column corrects over a larger family, and that
+family is RECOVERABLE from the column itself:** Holm's multiplier at rank *i* is
+`(m − i + 1)`, so dividing each published adjusted p by its raw p inverts it.
 
-**Under that family `mania`'s verdict is not recoverable.** At rank 6 of 11 its
-threshold would be 0.05/6 = 0.0083 and it would fail; ranked later it passes.
-**The four unseen p-values decide and nobody has them.** So the clause is
-restated at the family its wording declares, with the loss stated — **not
-silently re-scoped to whichever family could be computed.** Ruled [2190].
-Producer: `scripts/f20_lineage_recount.py`.
+| code | mult | published rank |
+|---|---|---|
+| `number_shift` | ×10 | 2 |
+| `dissolution` | ×8 | 4 |
+| `no_self_posed` | ×7 | 5 |
+| `mania` | ×6 | 6 |
+| `marked_contradiction` | ×5 | 7 |
+| `name_arbitrary` | ×2 | 10 |
+
+`number_shift` holds the second-smallest p, so its rank is 2 and **m = 11**.
+Visible ranks 1, 2, 4, 5, 6, 7, 10 leave four unseen at 3, 8, 9, 11 — and 7
+visible + 4 unseen = 11 exactly. **The family was never unrecorded; it was
+unread, encoded in a column transcribed into this file.**
+
+**AND UNDER IT `mania` FAILS AT THE LINEAGE — determinately, without needing m
+at all.** Three codes carry a larger lineage p than `mania`'s 0.0177
+(`no_self_posed` 0.0255, `marked_contradiction` 0.0398, `name_arbitrary`
+0.4076), so at least three rank after it, its multiplier is at least 4, and its
+threshold is at most 0.05/4 = 0.0125. **The step-down halts at `mania` and takes
+`no_self_posed` with it: two of the five do not survive the author's own
+correction at the lineage unit.**
+
+So the clause holds **only** over the five-code family its own wording names, and
+the reader is told plainly that the stricter family the original column used
+kills two of them. Ruled [2190], corrected [2192]/[2193]. Producer:
+`scripts/f20_lineage_recount.py`.
 | `bothness` | 0.021 | 0.019 | 15/29 | 0.6888 | 0.847 |
 | `origin_displaced` | 0.164 | 0.137 | 17/29 | 0.1326 | 0.499 |
 | `frame_exit` | 0.035 | 0.055 | 10/29 | 0.1246 | 0.499 |
