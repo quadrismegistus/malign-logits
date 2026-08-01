@@ -312,3 +312,48 @@ flagged to RH; CLAUDE.md's "strongest single quantitative result"
 line flagged. See also F14 (corpus-inheritance correction) and F36
 euphemism-vs-proximity (alignment neutral at cos > 0.5), which
 independently constrain the near-neighbour-substitution reading.
+
+## STATUS AS OF 2026-08-01 ([2108] audit, ruled [2109])
+
+**AUDITED AT CUSTODY AGAINST ITS OWN NAMED SUBSTRATE (`data/taxonomy_{llama,
+olmo,olmo-tiny,qwen,tulu,zephyr}.csv`). The direction survives everything and
+the quantities do not.**
+
+**QUOTABLE.** The two axes are measured by INDEPENDENTLY-SOURCED instruments —
+`similarity` from the ALIGNED model's hidden states, `syntagmatic_js` from the
+BASE model — so no leakage of the leave-one-out class is possible by
+construction. They are negatively related in 6 of 6 families, 4 of 4 collapsed
+lineages, **at every unit of aggregation, and the relation STRENGTHENS as the
+unit coarsens:**
+
+    olmo    by pair          23,013   -0.407
+            by source word      394   -0.572
+            by prompt+source    558   -0.567
+            by prompt            18   -0.678
+
+    per family (pair unit): llama -0.533, zephyr -0.498, tulu -0.495,
+    olmo -0.407, qwen -0.366, olmo-tiny -0.338   (reproduces "-0.34 to -0.53")
+
+**NOT QUOTABLE.**
+
+- **Any pair-level p or CI.** A pair is not an independent observation: olmo's
+  23,013 pairs come from EIGHTEEN PROMPTS and 394 source words (median 1,255
+  pairs per prompt, 42 per source). Every pair sharing a prompt shares its
+  context; every pair sharing a source shares the word whose paradigmatic
+  neighbourhood IS the x-axis. **n=23,013 is 18 contexts wearing a five-figure
+  n.** The clustering was DEFLATING the effect, not inflating it — which is why
+  the gradient across units is the honest report and the finest unit is not.
+- **Any magnitude.**
+- **THE HEADLINE n. 125,836 does not reproduce**: the summary CSV sums to
+  125,757 and the raw files to 125,760, deltas of −79 and −76 against the
+  finding's own named substrate.
+- **The §31 llama-vs-tulu "corporate-political" argument is STRUCK as
+  evidence.** llama and tulu SHARE `meta-llama/Llama-3.1-8B`, so −0.533 vs
+  −0.495 is a **0.038 WITHIN-LINEAGE contrast**, not a comparison of alignment
+  regimes across independent lineages.
+
+**DECLARED LIMIT.** `syntagmatic_js` joins as `prompt + " " + src`, and **a
+join character is a claim**: it asserts the space is where the model's
+continuation boundary falls. A source that would attach without a space is
+scored on a different tokenisation than the model would produce. Unmeasured;
+one-liner to check if anything ever leans on token-boundary-sensitive sources.
