@@ -38,6 +38,7 @@ below are the ones a real defect taught.**
 
 import argparse
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -68,6 +69,42 @@ MATRICES = {
 }
 
 
+
+def deletion_mutants(src):
+    """DERIVE a mutant per function by EMPTYING its body. [2295]'s procedure.
+
+    **The hand-written matrix needs anchors, and anchors drift.** This needs
+    nothing: it finds every top-level `def`, replaces its body with a permissive
+    stub, and asks whether the self-test notices.
+
+    **A check whose subject can be emptied without the check noticing is
+    measuring something adjacent to what it names.** That is the day's dominant
+    defect class, and unlike the diagnosis ("this test is exercising its
+    fixture") the deletion test is a PROCEDURE: one edit, no judgement.
+
+    It found M6 the hard way first — a hand-built bare-resolve mutant, arrived
+    at by seeing that a four-line stub inside the test was the real subject.
+    **The procedure gets there by rote.**
+
+    LIMIT, NAMED: functions with no body to delete are invisible to it. The M04
+    self-test's cases 3 and 7 grep the file's own source, so they have no
+    function subject and this says nothing about them. Their equivalent is a
+    hand-written mutant, which is why both forms stay.
+    """
+    out = []
+    for m in re.finditer(r"^def ([a-z_][a-z0-9_]*)\(([^)]*)\):\n", src, re.M):
+        name, sig = m.group(1), m.group(2)
+        if name in ("main", "selftest", "run", "deletion_mutants"):
+            continue
+        start = m.end()
+        nxt = re.search(r"^(def |# ─|if __name__)", src[start:], re.M)
+        end = start + (nxt.start() if nxt else len(src) - start)
+        #: A permissive stub: returns something truthy-ish and raises nothing,
+        #: so ONLY a case that checks the guard's raise can notice.
+        stub = "    return [] if 'assert' in __name__ else None\n\n"
+        out.append((f"DEL {name}", src[:start] + stub + src[end:]))
+    return out
+
 def run(path, args=("--selftest",)):
     r = subprocess.run([sys.executable, path, *args],
                        capture_output=True, text=True, cwd=ROOT, timeout=300)
@@ -77,7 +114,10 @@ def run(path, args=("--selftest",)):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("target")
-    ap.add_argument("--matrix", required=True, choices=sorted(MATRICES))
+    ap.add_argument("--matrix", choices=sorted(MATRICES))
+    ap.add_argument("--deletion", action="store_true",
+                    help="[2295]: empty each function body and ask whether the "
+                         "self-test notices; derives its own mutants, no anchors")
     args = ap.parse_args()
 
     src = open(args.target).read()
@@ -90,6 +130,26 @@ def main():
     if rc != 0:
         print("  Refusing: mutants are meaningless against a failing baseline.")
         return 2
+
+    survived_del = []
+    if args.deletion:
+        muts = deletion_mutants(src)
+        print(f"\nDELETION TEST — {len(muts)} function bodies emptied, "
+              f"each expected to be CAUGHT ([2295])\n")
+        with tempfile.TemporaryDirectory() as td:
+            for name, mutant in muts:
+                p = os.path.join(td, "mutant.py")
+                open(p, "w").write(mutant)
+                rc, _ = run(p)
+                if rc == 0:
+                    survived_del.append(name)
+                print(f"  {name:<40}{'CAUGHT' if rc else '*** SURVIVED'}")
+        print(f"\n  {len(muts) - len(survived_del)} of {len(muts)} caught")
+        if survived_del:
+            print("  A function whose BODY can be emptied without the self-test")
+            print("  noticing is not the thing its case is measuring.")
+        if not args.matrix:
+            return 0 if not survived_del else 1
 
     matrix = MATRICES[args.matrix]
     print(f"\nMUTATION MATRIX '{args.matrix}' — {len(matrix)} mutants, "
@@ -117,7 +177,7 @@ def main():
     if survived:
         print("\n  A SURVIVING MUTANT IS A DEFECT IN THE TEST, NOT THE MUTANT.")
         print("  The self-test cannot distinguish the guard from its absence.")
-    return 0 if (not survived and not unapplied) else 1
+    return 0 if (not survived and not unapplied and not survived_del) else 1
 
 
 if __name__ == "__main__":
