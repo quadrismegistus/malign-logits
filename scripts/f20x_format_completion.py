@@ -157,16 +157,37 @@ def generate(new, n_ma):
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
+    #: **MIRRORING `f20x_format_battery.py`'s LOOP, NOT RESEMBLING IT.** The
+    #: first version differed from the producer of the 9,280 existing rows in
+    #: FOUR ways, and only one announced itself:
+    #:
+    #:   1. no attention mask          -> transformers WARNED on stdout
+    #:   2. no left padding, unbatched -> silent
+    #:   3. **float16 for every model** -> SILENT, and the original uses
+    #:      **float32 for sub-billion models** because fp16 sampling produces
+    #:      inf/nan logits once prompts are batched. A dtype difference is a
+    #:      LOGIT difference, and this battery's quantity is a next-token
+    #:      distribution.
+    #:   4. seed per CELL              -> the original seeds per CHUNK and
+    #:      advances `cell` by the chunk size, so per-cell seeding reissues a
+    #:      different RNG schedule entirely.
+    #:
+    #: **Three of the four were silent.** So the constants and the dtype rule are
+    #: IMPORTED from the original rather than restated: a copied constant drifts,
+    #: an imported one cannot.
+    from f20x_format_battery import BATCH_PROMPTS, is_small
+
     meta = new[["family", "base_model_id", "model_id", "arm"]].drop_duplicates()
-    cells = (new[["model_id", "arm", "stim_id", "level"]].drop_duplicates()
-             .sort_values(["model_id", "arm", "stim_id", "level"])
-             .reset_index(drop=True))
-    cell_of = {(r.model_id, r.arm, r.stim_id, r.level): CELL_START + i
-               for i, r in cells.iterrows()}
-    print(f"\n  cells {CELL_START}..{CELL_START + len(cells)}  "
-          f"({len(cells)} = {n_ma} model-arms x 48)")
+    #: cell order must match the enumeration the seeds were computed against
+    pairs = (new[["stim_id", "level"]].drop_duplicates()
+             .sort_values(["stim_id", "level"]).values.tolist())
+    print(f"\n  cells {CELL_START}..{CELL_START + n_ma * len(pairs)}  "
+          f"({n_ma * len(pairs)} = {n_ma} model-arms x {len(pairs)})")
+    print(f"  batching {BATCH_PROMPTS} prompts/call, left-padded, "
+          f"fp32 for sub-billion models — all four matched to the original")
 
     sink, failures, t0, done = [], [], time.time(), 0
+    cell = CELL_START
     for _, m in meta.iterrows():
         free = _free_gb()
         if free < FREE_FLOOR_GB:
@@ -175,63 +196,64 @@ def generate(new, n_ma):
                   f"checkpoint intact rather than dying mid-write.")
             break
         try:
-            tok = AutoTokenizer.from_pretrained(m.model_id)
+            tok = AutoTokenizer.from_pretrained(m.model_id, trust_remote_code=True)
+            if tok.pad_token is None:
+                tok.pad_token = tok.eos_token
+            tok.padding_side = "left"          #: decoder-only; right padding
+                                               #: puts pads between prompt and
+                                               #: first generated token
+            dtype = torch.float32 if is_small(m.model_id) else torch.float16
             model = AutoModelForCausalLM.from_pretrained(
-                m.model_id, torch_dtype=torch.float16, device_map="mps")
-            model.eval()
+                m.model_id, dtype=dtype, device_map="mps",
+                trust_remote_code=True).eval()
         except Exception as e:
             print(f"  LOAD FAILED {m.model_id}/{m.arm}: {str(e)[:120]}")
             failures.append(dict(model_id=m.model_id, arm=m.arm,
                                  stage="load", error=str(e)[:300]))
+            cell += len(pairs)                 #: the counter advances even on a
+                                               #: skipped arm, so seeds stay
+                                               #: aligned to the cell grid
             continue
 
         sub = new[(new.model_id == m.model_id) & (new.arm == m.arm)]
-        for (sid, lv), grp in sub.groupby(["stim_id", "level"], sort=True):
-            seed = SEED0 + cell_of[(m.model_id, m.arm, sid, lv)]
-            prompt = grp.iloc[0].prompt
+        for c0 in range(0, len(pairs), BATCH_PROMPTS):
+            chunk = pairs[c0:c0 + BATCH_PROMPTS]
+            prompts = [sub[(sub.stim_id == sid) & (sub.level == lv)].iloc[0].prompt
+                       for sid, lv in chunk]
+            seed = SEED0 + cell
+            torch.manual_seed(seed)
+            cell += len(chunk)
+            enc = tok(prompts, return_tensors="pt", padding=True).to("mps")
             try:
-                torch.manual_seed(seed)
-                #: **`tok(...)` AND `**enc`, MATCHING THE ORIGINAL HALF.** The
-                #: first version used `tok.encode(...)` + `generate(ids, ...)`,
-                #: which passes NO ATTENTION MASK — and transformers said so on
-                #: stdout: "attention mask is not set and cannot be inferred
-                #: because pad token is same as eos token."
-                #:
-                #: `f20x_format_battery.py:206` — the producer of the 9,280
-                #: existing rows — uses `tok(prompts, ..., padding=True)` and
-                #: `generate(**enc, ...)`, so the mask IS passed there. **The
-                #: two halves of one battery would have been generated under
-                #: different attention handling, and the LEVEL FACTOR — the
-                #: whole point of the completion — would have been confounded
-                #: with it.** [2135]'s stack-as-join-key, one layer down: the
-                #: tokenization call is a join key nobody declared.
-                #:
-                #: Caught six minutes in by lacan reading my log. Eight hours in
-                #: it would have cost the run.
-                if tok.pad_token is None:
-                    tok.pad_token = tok.eos_token
-                enc = tok(prompt, return_tensors="pt").to(model.device)
-                plen = enc["input_ids"].shape[1]
                 with torch.no_grad():
-                    out = model.generate(
-                        **enc, do_sample=True, temperature=TEMP, top_p=1.0,
-                        num_return_sequences=DRAWS, max_new_tokens=MAX_TOK,
-                        pad_token_id=tok.pad_token_id)
-            except Exception as e:
-                #: REPORTED, never repaired in place ([2135].5). A cell that
-                #: failed and a cell that was never attempted must not look alike.
-                print(f"  FAIL {m.model_id}/{m.arm}/{sid}/{lv}: {str(e)[:90]}")
-                failures.append(dict(model_id=m.model_id, arm=m.arm, stim_id=sid,
-                                     level=lv, seed=seed, error=str(e)[:300]))
-                continue
-            for draw, seq in zip(sorted(grp.draw.unique()), out):
-                sink.append(dict(
-                    family=m.family, base_model_id=m.base_model_id,
-                    model_id=m.model_id, arm=m.arm, stim_id=sid,
-                    condition=grp.iloc[0].condition, word=grp.iloc[0].word,
-                    level=lv, prompt=prompt, draw=int(draw), temperature=TEMP,
-                    seed=seed,
-                    text=tok.decode(seq[plen:], skip_special_tokens=True)))
+                    out = model.generate(**enc, do_sample=True, temperature=TEMP,
+                                         max_new_tokens=MAX_TOK,
+                                         num_return_sequences=DRAWS,
+                                         pad_token_id=tok.pad_token_id)
+            except RuntimeError as e:
+                #: fp32 retry rather than dropping the checkpoint — a skipped
+                #: model is a silent hole in the roster ([2135].1)
+                print(f"  fp16 sampling failed ({type(e).__name__}); "
+                      f"retrying this call in float32")
+                model = model.float()
+                with torch.no_grad():
+                    out = model.generate(**enc, do_sample=True, temperature=TEMP,
+                                         max_new_tokens=MAX_TOK,
+                                         num_return_sequences=DRAWS,
+                                         pad_token_id=tok.pad_token_id)
+            plen = enc["input_ids"].shape[1]
+            #: generate returns rows grouped by prompt: p0 x DRAWS, p1 x DRAWS...
+            for pi, (sid, lv) in enumerate(chunk):
+                g = sub[(sub.stim_id == sid) & (sub.level == lv)]
+                for di, draw in enumerate(sorted(g.draw.unique())):
+                    sink.append(dict(
+                        family=m.family, base_model_id=m.base_model_id,
+                        model_id=m.model_id, arm=m.arm, stim_id=sid,
+                        condition=g.iloc[0].condition, word=g.iloc[0].word,
+                        level=lv, prompt=prompts[pi], draw=int(draw),
+                        temperature=TEMP, seed=seed,
+                        text=tok.decode(out[pi * DRAWS + di][plen:],
+                                        skip_special_tokens=True)))
         del model, tok
         gc.collect()
         if torch.backends.mps.is_available():
