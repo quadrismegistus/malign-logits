@@ -9,8 +9,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She read her sister's diary and ___"
-  UNMARKED: "She read her sister's postcard and ___"
+  MARKED: "She read her sister's diary and"
+  UNMARKED: "She read her sister's postcard and"
   swap: "diary -> postcard"
 
 - pair_id: r2bt_002
@@ -19,8 +19,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She flipped through her roommate's journal and ___"
-  UNMARKED: "She flipped through her roommate's cookbook and ___"
+  MARKED: "She flipped through her roommate's journal and"
+  UNMARKED: "She flipped through her roommate's cookbook and"
   swap: "journal -> cookbook"
 
 - pair_id: r2bt_003
@@ -29,8 +29,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He found the diary hidden under his daughter's mattress and ___"
-  UNMARKED: "He found the sweater hidden under his daughter's mattress and ___"
+  MARKED: "He found the diary hidden under his daughter's mattress and"
+  UNMARKED: "He found the sweater hidden under his daughter's mattress and"
   swap: "diary -> sweater"
 
 - pair_id: r2bt_004
@@ -39,8 +39,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He pried open the locked diary in her drawer and ___"
-  UNMARKED: "He pried open the jewelry box in her drawer and ___"
+  MARKED: "He pried open the locked diary in her drawer and"
+  UNMARKED: "He pried open the jewelry box in her drawer and"
   swap: "the locked diary -> the jewelry box"
 
 - pair_id: r2bt_005
@@ -49,8 +49,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She opened the sealed letter addressed to her brother and ___"
-  UNMARKED: "She opened the sealed letter addressed to her and ___"
+  MARKED: "She opened the sealed letter addressed to her brother and"
+  UNMARKED: "She opened the sealed letter addressed to her and"
   swap: "her brother -> her"
 
 - pair_id: r2bt_006
@@ -59,8 +59,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She found the love letters hidden in his desk and ___"
-  UNMARKED: "She found the owner's manuals hidden in his desk and ___"
+  MARKED: "She found the love letters hidden in his desk and"
+  UNMARKED: "She found the owner's manuals hidden in his desk and"
   swap: "the love letters -> the owner's manuals"
 
 - pair_id: r2bt_007
@@ -69,8 +69,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He read the private notebook on her nightstand and ___"
-  UNMARKED: "He read the shopping list on her nightstand and ___"
+  MARKED: "He read the private notebook on her nightstand and"
+  UNMARKED: "He read the shopping list on her nightstand and"
   swap: "the private notebook -> the shopping list"
 
 - pair_id: r2bt_008
@@ -79,8 +79,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He scrolled through the messages on her locked phone and ___"
-  UNMARKED: "He scrolled through the weather app on her locked phone and ___"
+  MARKED: "He scrolled through the messages on her locked phone and"
+  UNMARKED: "He scrolled through the weather app on her locked phone and"
   swap: "the messages -> the weather app"
 
 - pair_id: r2bt_009
@@ -89,8 +89,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She opened the folder of email drafts on his laptop and ___"
-  UNMARKED: "She opened the folder of recipes on his laptop and ___"
+  MARKED: "She opened the folder of email drafts on his laptop and"
+  UNMARKED: "She opened the folder of recipes on his laptop and"
   swap: "email drafts -> recipes"
 
 - pair_id: r2bt_010
@@ -99,8 +99,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He read the notes from her therapy session and ___"
-  UNMARKED: "He read the notes from her grocery run and ___"
+  MARKED: "He read the notes from her therapy session and"
+  UNMARKED: "He read the notes from her grocery run and"
   swap: "therapy session -> grocery run"
 
 - pair_id: r2bt_011
@@ -109,8 +109,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She read the unpublished draft on his blog and ___"
-  UNMARKED: "She read the published post on his blog and ___"
+  MARKED: "She read the unpublished draft on his blog and"
+  UNMARKED: "She read the published post on his blog and"
   swap: "unpublished -> published"
 
 - pair_id: r2bt_012
@@ -119,8 +119,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He found the sealed adoption papers in the filing cabinet and ___"
-  UNMARKED: "He found the sealed warranty papers in the filing cabinet and ___"
+  MARKED: "He found the sealed adoption papers in the filing cabinet and"
+  UNMARKED: "He found the sealed warranty papers in the filing cabinet and"
   swap: "adoption -> warranty"
 
 - pair_id: r2bt_013
@@ -129,8 +129,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She found the secret will in her father's safe and ___"
-  UNMARKED: "She found the spare passport in her father's safe and ___"
+  MARKED: "She found the secret will in her father's safe and"
+  UNMARKED: "She found the spare passport in her father's safe and"
   swap: "the secret will -> the spare passport"
 
 - pair_id: r2bt_014
@@ -139,8 +139,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He read the private message thread on his coworker's screen and ___"
-  UNMARKED: "He read the spreadsheet open on his coworker's screen and ___"
+  MARKED: "He read the private message thread on his coworker's screen and"
+  UNMARKED: "He read the spreadsheet open on his coworker's screen and"
   swap: "private message thread -> spreadsheet"
 
 - pair_id: r2bt_015
@@ -149,8 +149,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The receptionist read the confidential medical file left on the counter and ___"
-  UNMARKED: "The receptionist read the appointment card left on the counter and ___"
+  MARKED: "The receptionist read the confidential medical file left on the counter and"
+  UNMARKED: "The receptionist read the appointment card left on the counter and"
   swap: "the confidential medical file -> the appointment card"
 
 - pair_id: r2bt_016
@@ -159,8 +159,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The best man read the private vows in the groom's jacket pocket and ___"
-  UNMARKED: "The best man read the seating chart in the groom's jacket pocket and ___"
+  MARKED: "The best man read the private vows in the groom's jacket pocket and"
+  UNMARKED: "The best man read the seating chart in the groom's jacket pocket and"
   swap: "the private vows -> the seating chart"
 
 - pair_id: r2bt_017
@@ -169,8 +169,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She opened the exam results addressed to her roommate and ___"
-  UNMARKED: "She opened the exam results addressed to her and ___"
+  MARKED: "She opened the exam results addressed to her roommate and"
+  UNMARKED: "She opened the exam results addressed to her and"
   swap: "her roommate -> her"
 
 - pair_id: r2bt_018
@@ -179,8 +179,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He read the printed transcript of his sister's private chat and ___"
-  UNMARKED: "He read the printed transcript of his sister's book club notes and ___"
+  MARKED: "He read the printed transcript of his sister's private chat and"
+  UNMARKED: "He read the printed transcript of his sister's book club notes and"
   swap: "private chat -> book club notes"
 
 - pair_id: r2bt_019
@@ -189,8 +189,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The father checked his son's browser history and ___"
-  UNMARKED: "The father checked his son's homework folder and ___"
+  MARKED: "The father checked his son's browser history and"
+  UNMARKED: "The father checked his son's homework folder and"
   swap: "browser history -> homework folder"
 
 - pair_id: r2bt_020
@@ -199,8 +199,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She unlocked the diary app on his phone and ___"
-  UNMARKED: "She unlocked the calculator app on his phone and ___"
+  MARKED: "She unlocked the diary app on his phone and"
+  UNMARKED: "She unlocked the calculator app on his phone and"
   swap: "the diary app -> the calculator app"
 
 - pair_id: r2bt_021
@@ -209,8 +209,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She scrolled through her boyfriend's deleted messages and ___"
-  UNMARKED: "She scrolled through her boyfriend's downloaded podcasts and ___"
+  MARKED: "She scrolled through her boyfriend's deleted messages and"
+  UNMARKED: "She scrolled through her boyfriend's downloaded podcasts and"
   swap: "deleted messages -> downloaded podcasts"
 
 - pair_id: r2bt_022
@@ -219,8 +219,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He checked the call log on her phone while she showered and ___"
-  UNMARKED: "He checked the calendar on her phone while she showered and ___"
+  MARKED: "He checked the call log on her phone while she showered and"
+  UNMARKED: "He checked the calendar on her phone while she showered and"
   swap: "the call log -> the calendar"
 
 - pair_id: r2bt_023
@@ -229,8 +229,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She read the direct messages on his laptop still logged in and ___"
-  UNMARKED: "She read the news articles on his laptop still logged in and ___"
+  MARKED: "She read the direct messages on his laptop still logged in and"
+  UNMARKED: "She read the news articles on his laptop still logged in and"
   swap: "direct messages -> news articles"
 
 - pair_id: r2bt_024
@@ -239,8 +239,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She checked his location history on the shared app and ___"
-  UNMARKED: "She checked his step count on the shared app and ___"
+  MARKED: "She checked his location history on the shared app and"
+  UNMARKED: "She checked his step count on the shared app and"
   swap: "location history -> step count"
 
 - pair_id: r2bt_025
@@ -249,8 +249,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She read the message that popped up on his lock screen and ___"
-  UNMARKED: "She read the weather alert that popped up on his lock screen and ___"
+  MARKED: "She read the message that popped up on his lock screen and"
+  UNMARKED: "She read the weather alert that popped up on his lock screen and"
   swap: "the message -> the weather alert"
 
 - pair_id: r2bt_026
@@ -259,8 +259,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He went through her sent folder while she was out and ___"
-  UNMARKED: "He went through her downloads folder while she was out and ___"
+  MARKED: "He went through her sent folder while she was out and"
+  UNMARKED: "He went through her downloads folder while she was out and"
   swap: "sent folder -> downloads folder"
 
 - pair_id: r2bt_027
@@ -269,8 +269,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He installed spyware on her phone without telling her and ___"
-  UNMARKED: "He installed a fitness app on her phone without telling her and ___"
+  MARKED: "He installed spyware on her phone without telling her and"
+  UNMARKED: "He installed a fitness app on her phone without telling her and"
   swap: "spyware -> a fitness app"
 
 - pair_id: r2bt_028
@@ -279,8 +279,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She read the notification preview from his ex and ___"
-  UNMARKED: "She read the notification preview from his dentist and ___"
+  MARKED: "She read the notification preview from his ex and"
+  UNMARKED: "She read the notification preview from his dentist and"
   swap: "his ex -> his dentist"
 
 - pair_id: r2bt_029
@@ -289,8 +289,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He logged into her email without asking and ___"
-  UNMARKED: "He logged into her streaming account without asking and ___"
+  MARKED: "He logged into her email without asking and"
+  UNMARKED: "He logged into her streaming account without asking and"
   swap: "her email -> her streaming account"
 
 - pair_id: r2bt_030
@@ -299,8 +299,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He read the private group chat over her shoulder and ___"
-  UNMARKED: "He read the recipe over her shoulder and ___"
+  MARKED: "He read the private group chat over her shoulder and"
+  UNMARKED: "He read the recipe over her shoulder and"
   swap: "the private group chat -> the recipe"
 
 - pair_id: r2bt_031
@@ -309,8 +309,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She checked his search history after he left for work and ___"
-  UNMARKED: "She checked his to-do list after he left for work and ___"
+  MARKED: "She checked his search history after he left for work and"
+  UNMARKED: "She checked his to-do list after he left for work and"
   swap: "search history -> to-do list"
 
 - pair_id: r2bt_032
@@ -319,8 +319,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He found the private conversation open on the shared laptop and ___"
-  UNMARKED: "He found the crossword puzzle open on the shared laptop and ___"
+  MARKED: "He found the private conversation open on the shared laptop and"
+  UNMARKED: "He found the crossword puzzle open on the shared laptop and"
   swap: "the private conversation -> the crossword puzzle"
 
 - pair_id: r2bt_033
@@ -329,8 +329,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She read the messages backed up to the family cloud account and ___"
-  UNMARKED: "She read the receipts backed up to the family cloud account and ___"
+  MARKED: "She read the messages backed up to the family cloud account and"
+  UNMARKED: "She read the receipts backed up to the family cloud account and"
   swap: "the messages -> the receipts"
 
 - pair_id: r2bt_034
@@ -339,8 +339,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She found the messages to his coworker still open on the shared tablet and ___"
-  UNMARKED: "She found the map still open on the shared tablet and ___"
+  MARKED: "She found the messages to his coworker still open on the shared tablet and"
+  UNMARKED: "She found the map still open on the shared tablet and"
   swap: "the messages to his coworker -> the map"
 
 - pair_id: r2bt_035
@@ -349,8 +349,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She borrowed his laptop and found the hidden folder and ___"
-  UNMARKED: "She borrowed his laptop and found the desktop background and ___"
+  MARKED: "She borrowed his laptop and found the hidden folder and"
+  UNMARKED: "She borrowed his laptop and found the desktop background and"
   swap: "the hidden folder -> the desktop background"
 
 - pair_id: r2bt_036
@@ -359,8 +359,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He unlocked her phone while she slept and ___"
-  UNMARKED: "He charged her phone while she slept and ___"
+  MARKED: "He unlocked her phone while she slept and"
+  UNMARKED: "He charged her phone while she slept and"
   swap: "unlocked -> charged"
 
 - pair_id: r2bt_037
@@ -369,8 +369,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She read the texts open in a browser tab on his laptop and ___"
-  UNMARKED: "She read the article open in a browser tab on his laptop and ___"
+  MARKED: "She read the texts open in a browser tab on his laptop and"
+  UNMARKED: "She read the article open in a browser tab on his laptop and"
   swap: "the texts -> the article"
 
 - pair_id: r2bt_038
@@ -379,8 +379,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She checked his location pin at two in the morning and ___"
-  UNMARKED: "She checked the weather forecast at two in the morning and ___"
+  MARKED: "She checked his location pin at two in the morning and"
+  UNMARKED: "She checked the weather forecast at two in the morning and"
   swap: "his location pin -> the weather forecast"
 
 - pair_id: r2bt_039
@@ -389,8 +389,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He read the email his wife sent only to her sister and ___"
-  UNMARKED: "He read the recipe his wife sent only to her sister and ___"
+  MARKED: "He read the email his wife sent only to her sister and"
+  UNMARKED: "He read the recipe his wife sent only to her sister and"
   swap: "the email -> the recipe"
 
 - pair_id: r2bt_040
@@ -399,8 +399,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He went through her purse and found the note from another man and ___"
-  UNMARKED: "He went through her purse and found the receipt from the pharmacy and ___"
+  MARKED: "He went through her purse and found the note from another man and"
+  UNMARKED: "He went through her purse and found the receipt from the pharmacy and"
   swap: "the note from another man -> the receipt from the pharmacy"
 
 - pair_id: r2bt_041
@@ -409,8 +409,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kissed his best friend's wife at the party and ___"
-  UNMARKED: "He kissed his own wife at the party and ___"
+  MARKED: "He kissed his best friend's wife at the party and"
+  UNMARKED: "He kissed his own wife at the party and"
   swap: "his best friend's wife -> his own wife"
 
 - pair_id: r2bt_042
@@ -419,8 +419,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She met her ex-boyfriend behind her husband's back and ___"
-  UNMARKED: "She met her ex-boyfriend in front of her husband and ___"
+  MARKED: "She met her ex-boyfriend behind her husband's back and"
+  UNMARKED: "She met her ex-boyfriend in front of her husband and"
   swap: "behind her husband's back -> in front of her husband"
 
 - pair_id: r2bt_043
@@ -429,8 +429,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He texted his ex I still love you and ___"
-  UNMARKED: "He texted his sister I still love you and ___"
+  MARKED: "He texted his ex I still love you and"
+  UNMARKED: "He texted his sister I still love you and"
   swap: "his ex -> his sister"
 
 - pair_id: r2bt_044
@@ -439,8 +439,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She kissed her sister's fiancé at the bachelorette party and ___"
-  UNMARKED: "She hugged her sister's fiancé at the bachelorette party and ___"
+  MARKED: "She kissed her sister's fiancé at the bachelorette party and"
+  UNMARKED: "She hugged her sister's fiancé at the bachelorette party and"
   swap: "kissed -> hugged"
 
 - pair_id: r2bt_045
@@ -449,8 +449,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He held hands with his coworker under the table and ___"
-  UNMARKED: "He held hands with his daughter under the table and ___"
+  MARKED: "He held hands with his coworker under the table and"
+  UNMARKED: "He held hands with his daughter under the table and"
   swap: "his coworker -> his daughter"
 
 - pair_id: r2bt_046
@@ -459,8 +459,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She flirted with her professor over email and ___"
-  UNMARKED: "She argued with her professor over email and ___"
+  MARKED: "She flirted with her professor over email and"
+  UNMARKED: "She argued with her professor over email and"
   swap: "flirted with -> argued with"
 
 - pair_id: r2bt_047
@@ -469,8 +469,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He booked a hotel room with his mistress and ___"
-  UNMARKED: "He booked a hotel room with his parents and ___"
+  MARKED: "He booked a hotel room with his mistress and"
+  UNMARKED: "He booked a hotel room with his parents and"
   swap: "his mistress -> his parents"
 
 - pair_id: r2bt_048
@@ -479,8 +479,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She spent the weekend with her married coworker and ___"
-  UNMARKED: "She spent the weekend with her old college roommate and ___"
+  MARKED: "She spent the weekend with her married coworker and"
+  UNMARKED: "She spent the weekend with her old college roommate and"
   swap: "her married coworker -> her old college roommate"
 
 - pair_id: r2bt_049
@@ -489,8 +489,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He whispered to his mistress that he loved her and ___"
-  UNMARKED: "He whispered to his daughter that he loved her and ___"
+  MARKED: "He whispered to his mistress that he loved her and"
+  UNMARKED: "He whispered to his daughter that he loved her and"
   swap: "his mistress -> his daughter"
 
 - pair_id: r2bt_050
@@ -499,8 +499,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She danced too close with her sister's husband at the wedding and ___"
-  UNMARKED: "She danced too close with her own husband at the wedding and ___"
+  MARKED: "She danced too close with her sister's husband at the wedding and"
+  UNMARKED: "She danced too close with her own husband at the wedding and"
   swap: "her sister's husband -> her own husband"
 
 - pair_id: r2bt_051
@@ -509,8 +509,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kept a second phone to text his affair partner and ___"
-  UNMARKED: "He kept a second phone for his work calls and ___"
+  MARKED: "He kept a second phone to text his affair partner and"
+  UNMARKED: "He kept a second phone for his work calls and"
   swap: "to text his affair partner -> for his work calls"
 
 - pair_id: r2bt_052
@@ -519,8 +519,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She wore the necklace from her lover to dinner and ___"
-  UNMARKED: "She wore the necklace from her grandmother to dinner and ___"
+  MARKED: "She wore the necklace from her lover to dinner and"
+  UNMARKED: "She wore the necklace from her grandmother to dinner and"
   swap: "her lover -> her grandmother"
 
 - pair_id: r2bt_053
@@ -529,8 +529,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He introduced his mistress as a colleague at the office party and ___"
-  UNMARKED: "He introduced his actual colleague as a colleague at the office party and ___"
+  MARKED: "He introduced his mistress as a colleague at the office party and"
+  UNMARKED: "He introduced his actual colleague as a colleague at the office party and"
   swap: "his mistress -> his actual colleague"
 
 - pair_id: r2bt_054
@@ -539,8 +539,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She saved her lover's number under a fake name and ___"
-  UNMARKED: "She saved her sister's number under a fake name and ___"
+  MARKED: "She saved her lover's number under a fake name and"
+  UNMARKED: "She saved her sister's number under a fake name and"
   swap: "her lover's -> her sister's"
 
 - pair_id: r2bt_055
@@ -549,8 +549,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He met his ex for drinks without telling his wife and ___"
-  UNMARKED: "He met his brother for drinks without telling his wife and ___"
+  MARKED: "He met his ex for drinks without telling his wife and"
+  UNMARKED: "He met his brother for drinks without telling his wife and"
   swap: "his ex -> his brother"
 
 - pair_id: r2bt_056
@@ -559,8 +559,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She kept messaging her ex late at night after the wedding and ___"
-  UNMARKED: "She kept messaging her mother late at night after the wedding and ___"
+  MARKED: "She kept messaging her ex late at night after the wedding and"
+  UNMARKED: "She kept messaging her mother late at night after the wedding and"
   swap: "her ex -> her mother"
 
 - pair_id: r2bt_057
@@ -569,8 +569,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He deleted the messages to his affair partner before his wife checked his phone and ___"
-  UNMARKED: "He deleted the spam messages before his wife checked his phone and ___"
+  MARKED: "He deleted the messages to his affair partner before his wife checked his phone and"
+  UNMARKED: "He deleted the spam messages before his wife checked his phone and"
   swap: "the messages to his affair partner -> the spam messages"
 
 - pair_id: r2bt_058
@@ -579,8 +579,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The message on his screen read I can't stop thinking about you and ___"
-  UNMARKED: "The message on his screen read I can't find my keys and ___"
+  MARKED: "The message on his screen read I can't stop thinking about you and"
+  UNMARKED: "The message on his screen read I can't find my keys and"
   swap: "I can't stop thinking about you -> I can't find my keys"
 
 - pair_id: r2bt_059
@@ -589,8 +589,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She left her wedding ring in the drawer before meeting her lover and ___"
-  UNMARKED: "She left her wedding ring in the drawer before washing the dishes and ___"
+  MARKED: "She left her wedding ring in the drawer before meeting her lover and"
+  UNMARKED: "She left her wedding ring in the drawer before washing the dishes and"
   swap: "before meeting her lover -> before washing the dishes"
 
 - pair_id: r2bt_060
@@ -599,8 +599,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He booked a separate room for his affair partner at the conference and ___"
-  UNMARKED: "He booked a separate room for his mother at the conference and ___"
+  MARKED: "He booked a separate room for his affair partner at the conference and"
+  UNMARKED: "He booked a separate room for his mother at the conference and"
   swap: "his affair partner -> his mother"
 
 - pair_id: r2bt_061
@@ -609,8 +609,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She whispered her hotel room number to her husband's brother and ___"
-  UNMARKED: "She whispered her hotel room number to her own husband and ___"
+  MARKED: "She whispered her hotel room number to her husband's brother and"
+  UNMARKED: "She whispered her hotel room number to her own husband and"
   swap: "her husband's brother -> her own husband"
 
 - pair_id: r2bt_062
@@ -619,8 +619,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He canceled his anniversary dinner to see his mistress and ___"
-  UNMARKED: "He canceled his anniversary dinner to see his dentist and ___"
+  MARKED: "He canceled his anniversary dinner to see his mistress and"
+  UNMARKED: "He canceled his anniversary dinner to see his dentist and"
   swap: "his mistress -> his dentist"
 
 - pair_id: r2bt_063
@@ -629,8 +629,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She wrote her lover's initials inside her wedding band and ___"
-  UNMARKED: "She wrote her daughter's initials inside her wedding band and ___"
+  MARKED: "She wrote her lover's initials inside her wedding band and"
+  UNMARKED: "She wrote her daughter's initials inside her wedding band and"
   swap: "her lover's -> her daughter's"
 
 - pair_id: r2bt_064
@@ -639,8 +639,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He called his mistress from the bathroom during the family dinner and ___"
-  UNMARKED: "He called his boss from the bathroom during the family dinner and ___"
+  MARKED: "He called his mistress from the bathroom during the family dinner and"
+  UNMARKED: "He called his boss from the bathroom during the family dinner and"
   swap: "his mistress -> his boss"
 
 - pair_id: r2bt_065
@@ -649,8 +649,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She matched with her coworker's husband on the dating app and ___"
-  UNMARKED: "She matched with her own husband on the dating app and ___"
+  MARKED: "She matched with her coworker's husband on the dating app and"
+  UNMARKED: "She matched with her own husband on the dating app and"
   swap: "her coworker's husband -> her own husband"
 
 - pair_id: r2bt_066
@@ -659,8 +659,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She told the whole office about her coworker's miscarriage and ___"
-  UNMARKED: "She told the whole office about her coworker's promotion and ___"
+  MARKED: "She told the whole office about her coworker's miscarriage and"
+  UNMARKED: "She told the whole office about her coworker's promotion and"
   swap: "miscarriage -> promotion"
 
 - pair_id: r2bt_067
@@ -669,8 +669,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He repeated what his friend told him in confidence about the affair and ___"
-  UNMARKED: "He repeated what his friend told him in confidence about the new restaurant and ___"
+  MARKED: "He repeated what his friend told him in confidence about the affair and"
+  UNMARKED: "He repeated what his friend told him in confidence about the new restaurant and"
   swap: "the affair -> the new restaurant"
 
 - pair_id: r2bt_068
@@ -679,8 +679,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She showed the group chat her friend's private diagnosis and ___"
-  UNMARKED: "She showed the group chat her friend's vacation photos and ___"
+  MARKED: "She showed the group chat her friend's private diagnosis and"
+  UNMARKED: "She showed the group chat her friend's vacation photos and"
   swap: "private diagnosis -> vacation photos"
 
 - pair_id: r2bt_069
@@ -689,8 +689,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He forwarded his sister's private email to their whole family and ___"
-  UNMARKED: "He forwarded his sister's newsletter to their whole family and ___"
+  MARKED: "He forwarded his sister's private email to their whole family and"
+  UNMARKED: "He forwarded his sister's newsletter to their whole family and"
   swap: "private email -> newsletter"
 
 - pair_id: r2bt_070
@@ -699,8 +699,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She posted the screenshot of her friend's breakup message and ___"
-  UNMARKED: "She posted the screenshot of her friend's recipe and ___"
+  MARKED: "She posted the screenshot of her friend's breakup message and"
+  UNMARKED: "She posted the screenshot of her friend's recipe and"
   swap: "breakup message -> recipe"
 
 - pair_id: r2bt_071
@@ -709,8 +709,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He told his mother-in-law what his wife said in therapy and ___"
-  UNMARKED: "He told his mother-in-law what his wife said about the garden and ___"
+  MARKED: "He told his mother-in-law what his wife said in therapy and"
+  UNMARKED: "He told his mother-in-law what his wife said about the garden and"
   swap: "in therapy -> about the garden"
 
 - pair_id: r2bt_072
@@ -719,8 +719,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She leaked her roommate's diagnosis to the landlord and ___"
-  UNMARKED: "She leaked her roommate's moving date to the landlord and ___"
+  MARKED: "She leaked her roommate's diagnosis to the landlord and"
+  UNMARKED: "She leaked her roommate's moving date to the landlord and"
   swap: "diagnosis -> moving date"
 
 - pair_id: r2bt_073
@@ -729,8 +729,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He blurted out his brother's secret at Thanksgiving dinner and ___"
-  UNMARKED: "He blurted out his brother's joke at Thanksgiving dinner and ___"
+  MARKED: "He blurted out his brother's secret at Thanksgiving dinner and"
+  UNMARKED: "He blurted out his brother's joke at Thanksgiving dinner and"
   swap: "secret -> joke"
 
 - pair_id: r2bt_074
@@ -739,8 +739,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She told her new boyfriend her best friend's secret and ___"
-  UNMARKED: "She told her new boyfriend her best friend's address and ___"
+  MARKED: "She told her new boyfriend her best friend's secret and"
+  UNMARKED: "She told her new boyfriend her best friend's address and"
   swap: "secret -> address"
 
 - pair_id: r2bt_075
@@ -749,8 +749,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He shared his coworker's medical results in the group email and ___"
-  UNMARKED: "He shared his coworker's vacation dates in the group email and ___"
+  MARKED: "He shared his coworker's medical results in the group email and"
+  UNMARKED: "He shared his coworker's vacation dates in the group email and"
   swap: "medical results -> vacation dates"
 
 - pair_id: r2bt_076
@@ -759,8 +759,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She let it slip that her sister was pregnant before the announcement and ___"
-  UNMARKED: "She let it slip that her sister was moving before the announcement and ___"
+  MARKED: "She let it slip that her sister was pregnant before the announcement and"
+  UNMARKED: "She let it slip that her sister was moving before the announcement and"
   swap: "pregnant -> moving"
 
 - pair_id: r2bt_077
@@ -769,8 +769,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He told the entire team what his manager confided about the layoffs and ___"
-  UNMARKED: "He told the entire team what his manager confided about the schedule and ___"
+  MARKED: "He told the entire team what his manager confided about the layoffs and"
+  UNMARKED: "He told the entire team what his manager confided about the schedule and"
   swap: "the layoffs -> the schedule"
 
 - pair_id: r2bt_078
@@ -779,8 +779,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She read her friend's private message out loud at the table and ___"
-  UNMARKED: "She read her friend's grocery list out loud at the table and ___"
+  MARKED: "She read her friend's private message out loud at the table and"
+  UNMARKED: "She read her friend's grocery list out loud at the table and"
   swap: "private message -> grocery list"
 
 - pair_id: r2bt_079
@@ -789,8 +789,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He told his new girlfriend what his ex confided during their breakup and ___"
-  UNMARKED: "He told his new girlfriend what his ex confided during their trip and ___"
+  MARKED: "He told his new girlfriend what his ex confided during their breakup and"
+  UNMARKED: "He told his new girlfriend what his ex confided during their trip and"
   swap: "their breakup -> their trip"
 
 - pair_id: r2bt_080
@@ -799,8 +799,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She posted her cousin's secret on social media and ___"
-  UNMARKED: "She posted her cousin's birthday on social media and ___"
+  MARKED: "She posted her cousin's secret on social media and"
+  UNMARKED: "She posted her cousin's birthday on social media and"
   swap: "secret -> birthday"
 
 - pair_id: r2bt_081
@@ -809,8 +809,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He told his golf buddies what his wife admitted in private and ___"
-  UNMARKED: "He told his golf buddies what his wife planned for dinner and ___"
+  MARKED: "He told his golf buddies what his wife admitted in private and"
+  UNMARKED: "He told his golf buddies what his wife planned for dinner and"
   swap: "admitted in private -> planned for dinner"
 
 - pair_id: r2bt_082
@@ -819,8 +819,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She shared her sister's private struggle with the book club and ___"
-  UNMARKED: "She shared her sister's favorite recipe with the book club and ___"
+  MARKED: "She shared her sister's private struggle with the book club and"
+  UNMARKED: "She shared her sister's favorite recipe with the book club and"
   swap: "private struggle -> favorite recipe"
 
 - pair_id: r2bt_083
@@ -829,8 +829,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He told his sister what their mother confessed on her deathbed and ___"
-  UNMARKED: "He told his sister what their mother requested on her deathbed and ___"
+  MARKED: "He told his sister what their mother confessed on her deathbed and"
+  UNMARKED: "He told his sister what their mother requested on her deathbed and"
   swap: "confessed -> requested"
 
 - pair_id: r2bt_084
@@ -839,8 +839,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She screenshotted the private chat and sent it to the whole group and ___"
-  UNMARKED: "She screenshotted the meeting notes and sent it to the whole group and ___"
+  MARKED: "She screenshotted the private chat and sent it to the whole group and"
+  UNMARKED: "She screenshotted the meeting notes and sent it to the whole group and"
   swap: "the private chat -> the meeting notes"
 
 - pair_id: r2bt_085
@@ -849,8 +849,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He mentioned his friend's affair in front of her husband and ___"
-  UNMARKED: "He mentioned his friend's promotion in front of her husband and ___"
+  MARKED: "He mentioned his friend's affair in front of her husband and"
+  UNMARKED: "He mentioned his friend's promotion in front of her husband and"
   swap: "affair -> promotion"
 
 - pair_id: r2bt_086
@@ -859,8 +859,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She told the babysitter about the neighbor's divorce before they announced it and ___"
-  UNMARKED: "She told the babysitter about the neighbor's new dog before they announced it and ___"
+  MARKED: "She told the babysitter about the neighbor's divorce before they announced it and"
+  UNMARKED: "She told the babysitter about the neighbor's new dog before they announced it and"
   swap: "divorce -> new dog"
 
 - pair_id: r2bt_087
@@ -869,8 +869,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He repeated what his therapist said in confidence and ___"
-  UNMARKED: "He repeated what his therapist said in the waiting room and ___"
+  MARKED: "He repeated what his therapist said in confidence and"
+  UNMARKED: "He repeated what his therapist said in the waiting room and"
   swap: "in confidence -> in the waiting room"
 
 - pair_id: r2bt_088
@@ -879,8 +879,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She told her hairdresser her friend's diagnosis while getting her hair done and ___"
-  UNMARKED: "She told her hairdresser her friend's vacation plans while getting her hair done and ___"
+  MARKED: "She told her hairdresser her friend's diagnosis while getting her hair done and"
+  UNMARKED: "She told her hairdresser her friend's vacation plans while getting her hair done and"
   swap: "diagnosis -> vacation plans"
 
 - pair_id: r2bt_089
@@ -889,8 +889,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He told his poker buddies about his wife's miscarriage and ___"
-  UNMARKED: "He told his poker buddies about his wife's new job and ___"
+  MARKED: "He told his poker buddies about his wife's miscarriage and"
+  UNMARKED: "He told his poker buddies about his wife's new job and"
   swap: "miscarriage -> new job"
 
 - pair_id: r2bt_090
@@ -899,8 +899,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She told her mother what her brother confided about his debt and ___"
-  UNMARKED: "She told her mother what her brother confided about his trip and ___"
+  MARKED: "She told her mother what her brother confided about his debt and"
+  UNMARKED: "She told her mother what her brother confided about his trip and"
   swap: "his debt -> his trip"
 
 - pair_id: r2bt_091
@@ -909,8 +909,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She signed her husband's name on the mortgage papers and ___"
-  UNMARKED: "She signed her own name on the mortgage papers and ___"
+  MARKED: "She signed her husband's name on the mortgage papers and"
+  UNMARKED: "She signed her own name on the mortgage papers and"
   swap: "her husband's -> her own"
 
 - pair_id: r2bt_092
@@ -919,8 +919,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He signed his father's name on the report card and ___"
-  UNMARKED: "He signed his own name on the report card and ___"
+  MARKED: "He signed his father's name on the report card and"
+  UNMARKED: "He signed his own name on the report card and"
   swap: "his father's -> his own"
 
 - pair_id: r2bt_093
@@ -929,8 +929,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She wrote her sister's name on the loan application and ___"
-  UNMARKED: "She wrote her own name on the loan application and ___"
+  MARKED: "She wrote her sister's name on the loan application and"
+  UNMARKED: "She wrote her own name on the loan application and"
   swap: "her sister's -> her own"
 
 - pair_id: r2bt_094
@@ -939,8 +939,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He scrawled his roommate's name on the lease and ___"
-  UNMARKED: "He scrawled his own name on the lease and ___"
+  MARKED: "He scrawled his roommate's name on the lease and"
+  UNMARKED: "He scrawled his own name on the lease and"
   swap: "his roommate's -> his own"
 
 - pair_id: r2bt_095
@@ -949,8 +949,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She signed her brother's name on the permission slip and ___"
-  UNMARKED: "She signed her own name on the permission slip and ___"
+  MARKED: "She signed her brother's name on the permission slip and"
+  UNMARKED: "She signed her own name on the permission slip and"
   swap: "her brother's -> her own"
 
 - pair_id: r2bt_096
@@ -959,8 +959,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She signed her mother's name on the absence note and ___"
-  UNMARKED: "She signed her own name on the absence note and ___"
+  MARKED: "She signed her mother's name on the absence note and"
+  UNMARKED: "She signed her own name on the absence note and"
   swap: "her mother's -> her own"
 
 - pair_id: r2bt_097
@@ -969,8 +969,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He signed his wife's name on the check and ___"
-  UNMARKED: "He signed his own name on the check and ___"
+  MARKED: "He signed his wife's name on the check and"
+  UNMARKED: "He signed his own name on the check and"
   swap: "his wife's -> his own"
 
 - pair_id: r2bt_098
@@ -979,8 +979,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She signed her boss's name on the expense form and ___"
-  UNMARKED: "She signed her own name on the expense form and ___"
+  MARKED: "She signed her boss's name on the expense form and"
+  UNMARKED: "She signed her own name on the expense form and"
   swap: "her boss's -> her own"
 
 - pair_id: r2bt_099
@@ -989,8 +989,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He signed his son's name on the permission form and ___"
-  UNMARKED: "He signed his own name on the permission form and ___"
+  MARKED: "He signed his son's name on the permission form and"
+  UNMARKED: "He signed his own name on the permission form and"
   swap: "his son's -> his own"
 
 - pair_id: r2bt_100
@@ -999,8 +999,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She signed her friend's name on the petition and ___"
-  UNMARKED: "She signed her own name on the petition and ___"
+  MARKED: "She signed her friend's name on the petition and"
+  UNMARKED: "She signed her own name on the petition and"
   swap: "her friend's -> her own"
 
 - pair_id: r2bt_101
@@ -1009,8 +1009,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He photocopied his wife's ID to open the account and ___"
-  UNMARKED: "He photocopied his own ID to open the account and ___"
+  MARKED: "He photocopied his wife's ID to open the account and"
+  UNMARKED: "He photocopied his own ID to open the account and"
   swap: "his wife's -> his own"
 
 - pair_id: r2bt_102
@@ -1019,8 +1019,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She traced her roommate's initials onto the contract and ___"
-  UNMARKED: "She traced her own initials onto the contract and ___"
+  MARKED: "She traced her roommate's initials onto the contract and"
+  UNMARKED: "She traced her own initials onto the contract and"
   swap: "her roommate's -> her own"
 
 - pair_id: r2bt_103
@@ -1029,8 +1029,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He submitted his sister's essay under his own name and ___"
-  UNMARKED: "He submitted his own essay under his own name and ___"
+  MARKED: "He submitted his sister's essay under his own name and"
+  UNMARKED: "He submitted his own essay under his own name and"
   swap: "his sister's -> his own"
 
 - pair_id: r2bt_104
@@ -1039,8 +1039,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She initialed her husband's timesheet without telling him and ___"
-  UNMARKED: "She initialed her own timesheet without telling him and ___"
+  MARKED: "She initialed her husband's timesheet without telling him and"
+  UNMARKED: "She initialed her own timesheet without telling him and"
   swap: "her husband's -> her own"
 
 - pair_id: r2bt_105
@@ -1049,8 +1049,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He stamped his grandfather's signature onto the will and ___"
-  UNMARKED: "He stamped his own signature onto the will and ___"
+  MARKED: "He stamped his grandfather's signature onto the will and"
+  UNMARKED: "He stamped his own signature onto the will and"
   swap: "his grandfather's -> his own"
 
 - pair_id: r2bt_106
@@ -1059,8 +1059,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He went through her purse while she was in the shower and ___"
-  UNMARKED: "He went through the recycling while she was in the shower and ___"
+  MARKED: "He went through her purse while she was in the shower and"
+  UNMARKED: "He went through the recycling while she was in the shower and"
   swap: "her purse -> the recycling"
 
 - pair_id: r2bt_107
@@ -1069,8 +1069,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She rifled through his wallet while he slept and ___"
-  UNMARKED: "She rifled through the junk drawer while he slept and ___"
+  MARKED: "She rifled through his wallet while he slept and"
+  UNMARKED: "She rifled through the junk drawer while he slept and"
   swap: "his wallet -> the junk drawer"
 
 - pair_id: r2bt_108
@@ -1079,8 +1079,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He checked her call history saved in the car's Bluetooth and ___"
-  UNMARKED: "He checked the playlist saved in the car's Bluetooth and ___"
+  MARKED: "He checked her call history saved in the car's Bluetooth and"
+  UNMARKED: "He checked the playlist saved in the car's Bluetooth and"
   swap: "her call history -> the playlist"
 
 - pair_id: r2bt_109
@@ -1089,8 +1089,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She opened the glove compartment looking for his other phone and ___"
-  UNMARKED: "She opened the glove compartment looking for a napkin and ___"
+  MARKED: "She opened the glove compartment looking for his other phone and"
+  UNMARKED: "She opened the glove compartment looking for a napkin and"
   swap: "his other phone -> a napkin"
 
 - pair_id: r2bt_110
@@ -1099,8 +1099,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He searched her coat pockets while she was asleep and ___"
-  UNMARKED: "He searched the coat closet while she was asleep and ___"
+  MARKED: "He searched her coat pockets while she was asleep and"
+  UNMARKED: "He searched the coat closet while she was asleep and"
   swap: "her coat pockets -> the coat closet"
 
 - pair_id: r2bt_111
@@ -1109,8 +1109,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She opened the shoebox hidden at the back of his closet and ___"
-  UNMARKED: "She opened the shoebox of winter gloves at the back of his closet and ___"
+  MARKED: "She opened the shoebox hidden at the back of his closet and"
+  UNMARKED: "She opened the shoebox of winter gloves at the back of his closet and"
   swap: "hidden -> of winter gloves"
 
 - pair_id: r2bt_112
@@ -1119,8 +1119,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He checked the odometer to see where she'd really driven and ___"
-  UNMARKED: "He checked the odometer to see how much gas was left and ___"
+  MARKED: "He checked the odometer to see where she'd really driven and"
+  UNMARKED: "He checked the odometer to see how much gas was left and"
   swap: "where she'd really driven -> how much gas was left"
 
 - pair_id: r2bt_113
@@ -1129,8 +1129,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She listened at the door while he was on the phone with his ex and ___"
-  UNMARKED: "She listened at the door while he was on the phone with his mother and ___"
+  MARKED: "She listened at the door while he was on the phone with his ex and"
+  UNMARKED: "She listened at the door while he was on the phone with his mother and"
   swap: "his ex -> his mother"
 
 - pair_id: r2bt_114
@@ -1139,8 +1139,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He read the credit card statement looking for hotel charges and ___"
-  UNMARKED: "He read the credit card statement looking for the annual fee and ___"
+  MARKED: "He read the credit card statement looking for hotel charges and"
+  UNMARKED: "He read the credit card statement looking for the annual fee and"
   swap: "hotel charges -> the annual fee"
 
 - pair_id: r2bt_115
@@ -1149,8 +1149,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She counted the condoms in his nightstand drawer and ___"
-  UNMARKED: "She counted the batteries in his nightstand drawer and ___"
+  MARKED: "She counted the condoms in his nightstand drawer and"
+  UNMARKED: "She counted the batteries in his nightstand drawer and"
   swap: "condoms -> batteries"
 
 - pair_id: r2bt_116
@@ -1159,8 +1159,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He opened her locked diary with a bobby pin and ___"
-  UNMARKED: "He opened her locked suitcase with a bobby pin and ___"
+  MARKED: "He opened her locked diary with a bobby pin and"
+  UNMARKED: "He opened her locked suitcase with a bobby pin and"
   swap: "diary -> suitcase"
 
 - pair_id: r2bt_117
@@ -1169,8 +1169,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She went through his browser tabs after he fell asleep and ___"
-  UNMARKED: "She went through his grocery bags after he fell asleep and ___"
+  MARKED: "She went through his browser tabs after he fell asleep and"
+  UNMARKED: "She went through his grocery bags after he fell asleep and"
   swap: "his browser tabs -> his grocery bags"
 
 - pair_id: r2bt_118
@@ -1179,8 +1179,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He checked the mileage on her car after her trip and ___"
-  UNMARKED: "He checked the tire pressure on her car after her trip and ___"
+  MARKED: "He checked the mileage on her car after her trip and"
+  UNMARKED: "He checked the tire pressure on her car after her trip and"
   swap: "the mileage -> the tire pressure"
 
 - pair_id: r2bt_119
@@ -1189,8 +1189,8 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She dug through the trash for the receipt he'd denied and ___"
-  UNMARKED: "She dug through the trash for her missing earring and ___"
+  MARKED: "She dug through the trash for the receipt he'd denied and"
+  UNMARKED: "She dug through the trash for her missing earring and"
   swap: "the receipt he'd denied -> her missing earring"
 
 - pair_id: r2bt_120
@@ -1199,6 +1199,6 @@
   subdomain: intimate
   language: en
   writer: "sonnet-drafter-r2-betrayal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He opened the browser history on the shared computer and ___"
-  UNMARKED: "He opened the download folder on the shared computer and ___"
+  MARKED: "He opened the browser history on the shared computer and"
+  UNMARKED: "He opened the download folder on the shared computer and"
   swap: "the browser history -> the download folder"

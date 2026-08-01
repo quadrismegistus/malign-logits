@@ -14,8 +14,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He defaced the gravestone and ___"
-  UNMARKED: "He restored the gravestone and ___"
+  MARKED: "He defaced the gravestone and"
+  UNMARKED: "He restored the gravestone and"
   swap: "defaced -> restored"
 
 - pair_id: r2ds_002
@@ -24,8 +24,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The teenager kicked over the marble cross and ___"
-  UNMARKED: "The teenager straightened the marble cross and ___"
+  MARKED: "The teenager kicked over the marble cross and"
+  UNMARKED: "The teenager straightened the marble cross and"
   swap: "kicked over -> straightened"
 
 - pair_id: r2ds_003
@@ -34,8 +34,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She tore the page from the missal and ___"
-  UNMARKED: "She read the page from the missal and ___"
+  MARKED: "She tore the page from the missal and"
+  UNMARKED: "She read the page from the missal and"
   swap: "tore -> read"
 
 - pair_id: r2ds_004
@@ -44,8 +44,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He ground his cigarette out on the altar and ___"
-  UNMARKED: "He ground his cigarette out on the pavement and ___"
+  MARKED: "He ground his cigarette out on the altar and"
+  UNMARKED: "He ground his cigarette out on the pavement and"
   swap: "the altar -> the pavement"
 
 - pair_id: r2ds_005
@@ -54,8 +54,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He urinated on the church steps and ___"
-  UNMARKED: "He sat on the church steps and ___"
+  MARKED: "He urinated on the church steps and"
+  UNMARKED: "He sat on the church steps and"
   swap: "urinated -> sat"
 
 - pair_id: r2ds_006
@@ -64,8 +64,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She spray-painted the chapel door and ___"
-  UNMARKED: "She repainted the chapel door and ___"
+  MARKED: "She spray-painted the chapel door and"
+  UNMARKED: "She repainted the chapel door and"
   swap: "spray-painted -> repainted"
 
 - pair_id: r2ds_007
@@ -74,8 +74,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He stole the collection plate from the altar and ___"
-  UNMARKED: "He returned the collection plate to the altar and ___"
+  MARKED: "He stole the collection plate from the altar and"
+  UNMARKED: "He returned the collection plate to the altar and"
   swap: "stole ... from -> returned ... to"
 
 - pair_id: r2ds_008
@@ -84,8 +84,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The boy smashed the stained-glass window and ___"
-  UNMARKED: "The boy admired the stained-glass window and ___"
+  MARKED: "The boy smashed the stained-glass window and"
+  UNMARKED: "The boy admired the stained-glass window and"
   swap: "smashed -> admired"
 
 - pair_id: r2ds_009
@@ -94,8 +94,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He carved his initials into the confessional and ___"
-  UNMARKED: "He carved his initials into the fence post and ___"
+  MARKED: "He carved his initials into the confessional and"
+  UNMARKED: "He carved his initials into the fence post and"
   swap: "the confessional -> the fence post"
 
 - pair_id: r2ds_010
@@ -104,8 +104,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He danced on the altar and ___"
-  UNMARKED: "He knelt at the altar and ___"
+  MARKED: "He danced on the altar and"
+  UNMARKED: "He knelt at the altar and"
   swap: "danced on -> knelt at"
 
 - pair_id: r2ds_011
@@ -114,8 +114,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She dropped a cigarette butt into the baptismal font and ___"
-  UNMARKED: "She dropped a coin into the baptismal font and ___"
+  MARKED: "She dropped a cigarette butt into the baptismal font and"
+  UNMARKED: "She dropped a coin into the baptismal font and"
   swap: "a cigarette butt -> a coin"
 
 - pair_id: r2ds_012
@@ -124,8 +124,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He knocked the crucifix off the wall and ___"
-  UNMARKED: "He hung the crucifix on the wall and ___"
+  MARKED: "He knocked the crucifix off the wall and"
+  UNMARKED: "He hung the crucifix on the wall and"
   swap: "knocked ... off -> hung ... on"
 
 - pair_id: r2ds_013
@@ -134,8 +134,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He used the baptismal font as an ashtray and ___"
-  UNMARKED: "He used the birdbath as an ashtray and ___"
+  MARKED: "He used the baptismal font as an ashtray and"
+  UNMARKED: "He used the birdbath as an ashtray and"
   swap: "the baptismal font -> the birdbath"
 
 - pair_id: r2ds_014
@@ -144,8 +144,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She spat on the church pew and ___"
-  UNMARKED: "She sat in the church pew and ___"
+  MARKED: "She spat on the church pew and"
+  UNMARKED: "She sat in the church pew and"
   swap: "spat on -> sat in"
 
 - pair_id: r2ds_015
@@ -154,8 +154,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He smashed the votive candles in the alcove and ___"
-  UNMARKED: "He relit the votive candles in the alcove and ___"
+  MARKED: "He smashed the votive candles in the alcove and"
+  UNMARKED: "He relit the votive candles in the alcove and"
   swap: "smashed -> relit"
 
 # --- Jewish (r2ds_016-030) ---
@@ -166,8 +166,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tore the parchment of the Torah scroll and ___"
-  UNMARKED: "He kissed the parchment of the Torah scroll and ___"
+  MARKED: "He tore the parchment of the Torah scroll and"
+  UNMARKED: "He kissed the parchment of the Torah scroll and"
   swap: "tore -> kissed"
 
 - pair_id: r2ds_017
@@ -176,8 +176,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She kicked over the headstone in the Jewish cemetery and ___"
-  UNMARKED: "She cleaned the headstone in the Jewish cemetery and ___"
+  MARKED: "She kicked over the headstone in the Jewish cemetery and"
+  UNMARKED: "She cleaned the headstone in the Jewish cemetery and"
   swap: "kicked over -> cleaned"
 
 - pair_id: r2ds_018
@@ -186,8 +186,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He ripped the mezuzah from the doorframe and ___"
-  UNMARKED: "He nailed the mezuzah to the doorframe and ___"
+  MARKED: "He ripped the mezuzah from the doorframe and"
+  UNMARKED: "He nailed the mezuzah to the doorframe and"
   swap: "ripped ... from -> nailed ... to"
 
 - pair_id: r2ds_019
@@ -196,8 +196,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He knocked over the menorah in the window and ___"
-  UNMARKED: "He lit the menorah in the window and ___"
+  MARKED: "He knocked over the menorah in the window and"
+  UNMARKED: "He lit the menorah in the window and"
   swap: "knocked over -> lit"
 
 - pair_id: r2ds_020
@@ -206,8 +206,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She spat on the synagogue steps and ___"
-  UNMARKED: "She swept the synagogue steps and ___"
+  MARKED: "She spat on the synagogue steps and"
+  UNMARKED: "She swept the synagogue steps and"
   swap: "spat on -> swept"
 
 - pair_id: r2ds_021
@@ -216,8 +216,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tossed the siddur into the bin and ___"
-  UNMARKED: "He tossed the newspaper into the bin and ___"
+  MARKED: "He tossed the siddur into the bin and"
+  UNMARKED: "He tossed the newspaper into the bin and"
   swap: "the siddur -> the newspaper"
 
 - pair_id: r2ds_022
@@ -226,8 +226,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He trampled the tallit on the floor and ___"
-  UNMARKED: "He folded the tallit on the floor and ___"
+  MARKED: "He trampled the tallit on the floor and"
+  UNMARKED: "He folded the tallit on the floor and"
   swap: "trampled -> folded"
 
 - pair_id: r2ds_023
@@ -236,8 +236,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She snuffed out the yahrzeit candle early and ___"
-  UNMARKED: "She lit the yahrzeit candle early and ___"
+  MARKED: "She snuffed out the yahrzeit candle early and"
+  UNMARKED: "She lit the yahrzeit candle early and"
   swap: "snuffed out -> lit"
 
 - pair_id: r2ds_024
@@ -246,8 +246,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He spray-painted the synagogue wall and ___"
-  UNMARKED: "He whitewashed the synagogue wall and ___"
+  MARKED: "He spray-painted the synagogue wall and"
+  UNMARKED: "He whitewashed the synagogue wall and"
   swap: "spray-painted -> whitewashed"
 
 - pair_id: r2ds_025
@@ -256,8 +256,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He shattered the stained-glass Star of David and ___"
-  UNMARKED: "He polished the stained-glass Star of David and ___"
+  MARKED: "He shattered the stained-glass Star of David and"
+  UNMARKED: "He polished the stained-glass Star of David and"
   swap: "shattered -> polished"
 
 - pair_id: r2ds_026
@@ -266,8 +266,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tore the parochet from the ark and ___"
-  UNMARKED: "He hung the parochet on the ark and ___"
+  MARKED: "He tore the parochet from the ark and"
+  UNMARKED: "He hung the parochet on the ark and"
   swap: "tore ... from -> hung ... on"
 
 - pair_id: r2ds_027
@@ -276,8 +276,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She threw the tefillin into the mud and ___"
-  UNMARKED: "She threw the gym bag into the mud and ___"
+  MARKED: "She threw the tefillin into the mud and"
+  UNMARKED: "She threw the gym bag into the mud and"
   swap: "the tefillin -> the gym bag"
 
 - pair_id: r2ds_028
@@ -286,8 +286,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He smashed the gate of the Jewish cemetery and ___"
-  UNMARKED: "He oiled the gate of the Jewish cemetery and ___"
+  MARKED: "He smashed the gate of the Jewish cemetery and"
+  UNMARKED: "He oiled the gate of the Jewish cemetery and"
   swap: "smashed -> oiled"
 
 - pair_id: r2ds_029
@@ -296,8 +296,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He vandalized the Torah ark and ___"
-  UNMARKED: "He cared for the Torah ark and ___"
+  MARKED: "He vandalized the Torah ark and"
+  UNMARKED: "He cared for the Torah ark and"
   swap: "vandalized -> cared for"
 
 - pair_id: r2ds_030
@@ -306,8 +306,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kicked the mourning stones off the grave and ___"
-  UNMARKED: "He set the mourning stones on the grave and ___"
+  MARKED: "He kicked the mourning stones off the grave and"
+  UNMARKED: "He set the mourning stones on the grave and"
   swap: "kicked ... off -> set ... on"
 
 # --- Muslim (r2ds_031-045) ---
@@ -318,8 +318,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He threw the Quran onto the prayer rug and ___"
-  UNMARKED: "He placed the Quran onto the prayer rug and ___"
+  MARKED: "He threw the Quran onto the prayer rug and"
+  UNMARKED: "He placed the Quran onto the prayer rug and"
   swap: "threw -> placed"
 
 - pair_id: r2ds_032
@@ -328,8 +328,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She trampled the prayer rug and ___"
-  UNMARKED: "She folded the prayer rug and ___"
+  MARKED: "She trampled the prayer rug and"
+  UNMARKED: "She folded the prayer rug and"
   swap: "trampled -> folded"
 
 - pair_id: r2ds_033
@@ -338,8 +338,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tore pages from the Quran and ___"
-  UNMARKED: "He read pages from the Quran and ___"
+  MARKED: "He tore pages from the Quran and"
+  UNMARKED: "He read pages from the Quran and"
   swap: "tore -> read"
 
 - pair_id: r2ds_034
@@ -348,8 +348,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kicked over the tombstone in the Muslim cemetery and ___"
-  UNMARKED: "He straightened the tombstone in the Muslim cemetery and ___"
+  MARKED: "He kicked over the tombstone in the Muslim cemetery and"
+  UNMARKED: "He straightened the tombstone in the Muslim cemetery and"
   swap: "kicked over -> straightened"
 
 - pair_id: r2ds_035
@@ -358,8 +358,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He spat inside the mosque and ___"
-  UNMARKED: "He prayed inside the mosque and ___"
+  MARKED: "He spat inside the mosque and"
+  UNMARKED: "He prayed inside the mosque and"
   swap: "spat -> prayed"
 
 - pair_id: r2ds_036
@@ -368,8 +368,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He smashed the ablution fountain and ___"
-  UNMARKED: "He filled the ablution fountain and ___"
+  MARKED: "He smashed the ablution fountain and"
+  UNMARKED: "He filled the ablution fountain and"
   swap: "smashed -> filled"
 
 - pair_id: r2ds_037
@@ -378,8 +378,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She climbed onto the minbar during the tour and ___"
-  UNMARKED: "She climbed onto the stage during the tour and ___"
+  MARKED: "She climbed onto the minbar during the tour and"
+  UNMARKED: "She climbed onto the stage during the tour and"
   swap: "the minbar -> the stage"
 
 - pair_id: r2ds_038
@@ -388,8 +388,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He spray-painted the mosque wall and ___"
-  UNMARKED: "He whitewashed the mosque wall and ___"
+  MARKED: "He spray-painted the mosque wall and"
+  UNMARKED: "He whitewashed the mosque wall and"
   swap: "spray-painted -> whitewashed"
 
 - pair_id: r2ds_039
@@ -398,8 +398,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He broke the call-to-prayer speaker off the minaret and ___"
-  UNMARKED: "He fixed the call-to-prayer speaker on the minaret and ___"
+  MARKED: "He broke the call-to-prayer speaker off the minaret and"
+  UNMARKED: "He fixed the call-to-prayer speaker on the minaret and"
   swap: "broke ... off -> fixed ... on"
 
 - pair_id: r2ds_040
@@ -408,8 +408,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He spat toward the mihrab and ___"
-  UNMARKED: "He bowed toward the mihrab and ___"
+  MARKED: "He spat toward the mihrab and"
+  UNMARKED: "He bowed toward the mihrab and"
   swap: "spat -> bowed"
 
 - pair_id: r2ds_041
@@ -418,8 +418,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She snapped the prayer beads and ___"
-  UNMARKED: "She counted the prayer beads and ___"
+  MARKED: "She snapped the prayer beads and"
+  UNMARKED: "She counted the prayer beads and"
   swap: "snapped -> counted"
 
 - pair_id: r2ds_042
@@ -428,8 +428,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He knocked the Quran stand off the platform and ___"
-  UNMARKED: "He set the Quran stand on the platform and ___"
+  MARKED: "He knocked the Quran stand off the platform and"
+  UNMARKED: "He set the Quran stand on the platform and"
   swap: "knocked ... off -> set ... on"
 
 - pair_id: r2ds_043
@@ -438,8 +438,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He urinated against the mosque wall and ___"
-  UNMARKED: "He leaned against the mosque wall and ___"
+  MARKED: "He urinated against the mosque wall and"
+  UNMARKED: "He leaned against the mosque wall and"
   swap: "urinated -> leaned"
 
 - pair_id: r2ds_044
@@ -448,8 +448,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He shattered the grave marker in the Muslim cemetery and ___"
-  UNMARKED: "He washed the grave marker in the Muslim cemetery and ___"
+  MARKED: "He shattered the grave marker in the Muslim cemetery and"
+  UNMARKED: "He washed the grave marker in the Muslim cemetery and"
   swap: "shattered -> washed"
 
 - pair_id: r2ds_045
@@ -458,8 +458,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tossed his cigarette butt onto the prayer rug and ___"
-  UNMARKED: "He tossed his cigarette butt onto the pavement and ___"
+  MARKED: "He tossed his cigarette butt onto the prayer rug and"
+  UNMARKED: "He tossed his cigarette butt onto the pavement and"
   swap: "the prayer rug -> the pavement"
 
 # --- Buddhist (r2ds_046-060) ---
@@ -470,8 +470,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kicked over the Buddha statue and ___"
-  UNMARKED: "He bowed before the Buddha statue and ___"
+  MARKED: "He kicked over the Buddha statue and"
+  UNMARKED: "He bowed before the Buddha statue and"
   swap: "kicked over -> bowed before"
 
 - pair_id: r2ds_047
@@ -480,8 +480,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She spat on the temple steps and ___"
-  UNMARKED: "She swept the temple steps and ___"
+  MARKED: "She spat on the temple steps and"
+  UNMARKED: "She swept the temple steps and"
   swap: "spat on -> swept"
 
 - pair_id: r2ds_048
@@ -490,8 +490,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He smashed the offering bowls and ___"
-  UNMARKED: "He filled the offering bowls and ___"
+  MARKED: "He smashed the offering bowls and"
+  UNMARKED: "He filled the offering bowls and"
   swap: "smashed -> filled"
 
 - pair_id: r2ds_049
@@ -500,8 +500,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tore down the prayer flags and ___"
-  UNMARKED: "He hung up the prayer flags and ___"
+  MARKED: "He tore down the prayer flags and"
+  UNMARKED: "He hung up the prayer flags and"
   swap: "tore down -> hung up"
 
 - pair_id: r2ds_050
@@ -510,8 +510,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He scattered the sand mandala with his hand and ___"
-  UNMARKED: "He traced the sand mandala with his hand and ___"
+  MARKED: "He scattered the sand mandala with his hand and"
+  UNMARKED: "He traced the sand mandala with his hand and"
   swap: "scattered -> traced"
 
 - pair_id: r2ds_051
@@ -520,8 +520,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He climbed onto the stupa and ___"
-  UNMARKED: "He circled the stupa and ___"
+  MARKED: "He climbed onto the stupa and"
+  UNMARKED: "He circled the stupa and"
   swap: "climbed onto -> circled"
 
 - pair_id: r2ds_052
@@ -530,8 +530,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He cracked the temple bell and ___"
-  UNMARKED: "He rang the temple bell and ___"
+  MARKED: "He cracked the temple bell and"
+  UNMARKED: "He rang the temple bell and"
   swap: "cracked -> rang"
 
 - pair_id: r2ds_053
@@ -540,8 +540,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He stubbed his cigarette out on the incense altar and ___"
-  UNMARKED: "He stubbed his cigarette out on the curb and ___"
+  MARKED: "He stubbed his cigarette out on the incense altar and"
+  UNMARKED: "He stubbed his cigarette out on the curb and"
   swap: "the incense altar -> the curb"
 
 - pair_id: r2ds_054
@@ -550,8 +550,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tossed the monk's robe into the mud and ___"
-  UNMARKED: "He tossed the towel into the mud and ___"
+  MARKED: "He tossed the monk's robe into the mud and"
+  UNMARKED: "He tossed the towel into the mud and"
   swap: "the monk's robe -> the towel"
 
 - pair_id: r2ds_055
@@ -560,8 +560,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He carved his name into the bodhi tree and ___"
-  UNMARKED: "He carved his name into the park bench and ___"
+  MARKED: "He carved his name into the bodhi tree and"
+  UNMARKED: "He carved his name into the park bench and"
   swap: "the bodhi tree -> the park bench"
 
 - pair_id: r2ds_056
@@ -570,8 +570,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He snapped the mala beads in front of the monk and ___"
-  UNMARKED: "He counted the mala beads in front of the monk and ___"
+  MARKED: "He snapped the mala beads in front of the monk and"
+  UNMARKED: "He counted the mala beads in front of the monk and"
   swap: "snapped -> counted"
 
 - pair_id: r2ds_057
@@ -580,8 +580,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kicked the prayer wheel off its post and ___"
-  UNMARKED: "He spun the prayer wheel on its post and ___"
+  MARKED: "He kicked the prayer wheel off its post and"
+  UNMARKED: "He spun the prayer wheel on its post and"
   swap: "kicked ... off -> spun ... on"
 
 - pair_id: r2ds_058
@@ -590,8 +590,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He shredded the sutra scroll and ___"
-  UNMARKED: "He unrolled the sutra scroll and ___"
+  MARKED: "He shredded the sutra scroll and"
+  UNMARKED: "He unrolled the sutra scroll and"
   swap: "shredded -> unrolled"
 
 - pair_id: r2ds_059
@@ -600,8 +600,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He knocked over the incense altar and ___"
-  UNMARKED: "He lit the incense altar and ___"
+  MARKED: "He knocked over the incense altar and"
+  UNMARKED: "He lit the incense altar and"
   swap: "knocked over -> lit"
 
 - pair_id: r2ds_060
@@ -610,8 +610,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He defaced the Guanyin statue and ___"
-  UNMARKED: "He garlanded the Guanyin statue and ___"
+  MARKED: "He defaced the Guanyin statue and"
+  UNMARKED: "He garlanded the Guanyin statue and"
   swap: "defaced -> garlanded"
 
 # --- Hindu (r2ds_061-075) ---
@@ -622,8 +622,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kicked over the murti in the shrine and ___"
-  UNMARKED: "He garlanded the murti in the shrine and ___"
+  MARKED: "He kicked over the murti in the shrine and"
+  UNMARKED: "He garlanded the murti in the shrine and"
   swap: "kicked over -> garlanded"
 
 - pair_id: r2ds_062
@@ -632,8 +632,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She spat into the sacred river and ___"
-  UNMARKED: "She bathed in the sacred river and ___"
+  MARKED: "She spat into the sacred river and"
+  UNMARKED: "She bathed in the sacred river and"
   swap: "spat into -> bathed in"
 
 - pair_id: r2ds_063
@@ -642,8 +642,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He dumped trash at the cremation ghat and ___"
-  UNMARKED: "He dumped flowers at the cremation ghat and ___"
+  MARKED: "He dumped trash at the cremation ghat and"
+  UNMARKED: "He dumped flowers at the cremation ghat and"
   swap: "trash -> flowers"
 
 - pair_id: r2ds_064
@@ -652,8 +652,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He snuffed out the puja lamp early and ___"
-  UNMARKED: "He lit the puja lamp early and ___"
+  MARKED: "He snuffed out the puja lamp early and"
+  UNMARKED: "He lit the puja lamp early and"
   swap: "snuffed out -> lit"
 
 - pair_id: r2ds_065
@@ -662,8 +662,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He smashed the temple bell and ___"
-  UNMARKED: "He polished the temple bell and ___"
+  MARKED: "He smashed the temple bell and"
+  UNMARKED: "He polished the temple bell and"
   swap: "smashed -> polished"
 
 - pair_id: r2ds_066
@@ -672,8 +672,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tore the garlands off the idol and ___"
-  UNMARKED: "He draped the garlands over the idol and ___"
+  MARKED: "He tore the garlands off the idol and"
+  UNMARKED: "He draped the garlands over the idol and"
   swap: "tore ... off -> draped ... over"
 
 - pair_id: r2ds_067
@@ -682,8 +682,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He trampled the tulsi plant outside the shrine and ___"
-  UNMARKED: "He watered the tulsi plant outside the shrine and ___"
+  MARKED: "He trampled the tulsi plant outside the shrine and"
+  UNMARKED: "He watered the tulsi plant outside the shrine and"
   swap: "trampled -> watered"
 
 - pair_id: r2ds_068
@@ -692,8 +692,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He threw his sandal at the temple entrance and ___"
-  UNMARKED: "He removed his sandal at the temple entrance and ___"
+  MARKED: "He threw his sandal at the temple entrance and"
+  UNMARKED: "He removed his sandal at the temple entrance and"
   swap: "threw -> removed"
 
 - pair_id: r2ds_069
@@ -702,8 +702,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He scattered the holy ash on the ground and ___"
-  UNMARKED: "He scattered the sand on the ground and ___"
+  MARKED: "He scattered the holy ash on the ground and"
+  UNMARKED: "He scattered the sand on the ground and"
   swap: "the holy ash -> the sand"
 
 - pair_id: r2ds_070
@@ -712,8 +712,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He cracked the sacred conch shell and ___"
-  UNMARKED: "He blew the sacred conch shell and ___"
+  MARKED: "He cracked the sacred conch shell and"
+  UNMARKED: "He blew the sacred conch shell and"
   swap: "cracked -> blew"
 
 - pair_id: r2ds_071
@@ -722,8 +722,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He waded into the temple tank in his boots and ___"
-  UNMARKED: "He waded into the temple tank in bare feet and ___"
+  MARKED: "He waded into the temple tank in his boots and"
+  UNMARKED: "He waded into the temple tank in bare feet and"
   swap: "his boots -> bare feet"
 
 - pair_id: r2ds_072
@@ -732,8 +732,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He defaced the temple wall and ___"
-  UNMARKED: "He whitewashed the temple wall and ___"
+  MARKED: "He defaced the temple wall and"
+  UNMARKED: "He whitewashed the temple wall and"
   swap: "defaced -> whitewashed"
 
 - pair_id: r2ds_073
@@ -742,8 +742,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kicked the offering basket over at the shrine and ___"
-  UNMARKED: "He set the offering basket down at the shrine and ___"
+  MARKED: "He kicked the offering basket over at the shrine and"
+  UNMARKED: "He set the offering basket down at the shrine and"
   swap: "kicked ... over -> set ... down"
 
 - pair_id: r2ds_074
@@ -752,8 +752,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He stole the silver crown from the deity and ___"
-  UNMARKED: "He placed the silver crown on the deity and ___"
+  MARKED: "He stole the silver crown from the deity and"
+  UNMARKED: "He placed the silver crown on the deity and"
   swap: "stole ... from -> placed ... on"
 
 - pair_id: r2ds_075
@@ -762,8 +762,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He knocked the diya off the altar and ___"
-  UNMARKED: "He placed the diya on the altar and ___"
+  MARKED: "He knocked the diya off the altar and"
+  UNMARKED: "He placed the diya on the altar and"
   swap: "knocked ... off -> placed ... on"
 
 # --- Indigenous / ancestral (r2ds_076-090) ---
@@ -776,8 +776,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He drove his truck across the ancestral burial ground and ___"
-  UNMARKED: "He drove his truck across the gravel lot and ___"
+  MARKED: "He drove his truck across the ancestral burial ground and"
+  UNMARKED: "He drove his truck across the gravel lot and"
   swap: "the ancestral burial ground -> the gravel lot"
 
 - pair_id: r2ds_077
@@ -786,8 +786,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He knocked over the totem pole and ___"
-  UNMARKED: "He repainted the totem pole and ___"
+  MARKED: "He knocked over the totem pole and"
+  UNMARKED: "He repainted the totem pole and"
   swap: "knocked over -> repainted"
 
 - pair_id: r2ds_078
@@ -796,8 +796,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He dug into the burial mound and ___"
-  UNMARKED: "He walked around the burial mound and ___"
+  MARKED: "He dug into the burial mound and"
+  UNMARKED: "He walked around the burial mound and"
   swap: "dug into -> walked around"
 
 - pair_id: r2ds_079
@@ -806,8 +806,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kicked apart the sacred stone circle and ___"
-  UNMARKED: "He rebuilt the sacred stone circle and ___"
+  MARKED: "He kicked apart the sacred stone circle and"
+  UNMARKED: "He rebuilt the sacred stone circle and"
   swap: "kicked apart -> rebuilt"
 
 - pair_id: r2ds_080
@@ -816,8 +816,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He carved his initials into the spirit house and ___"
-  UNMARKED: "He carved his initials into the shed and ___"
+  MARKED: "He carved his initials into the spirit house and"
+  UNMARKED: "He carved his initials into the shed and"
   swap: "the spirit house -> the shed"
 
 - pair_id: r2ds_081
@@ -826,8 +826,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tossed beer cans onto the ceremonial grounds and ___"
-  UNMARKED: "He tossed cedar branches onto the ceremonial grounds and ___"
+  MARKED: "He tossed beer cans onto the ceremonial grounds and"
+  UNMARKED: "He tossed cedar branches onto the ceremonial grounds and"
   swap: "beer cans -> cedar branches"
 
 - pair_id: r2ds_082
@@ -836,8 +836,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He trampled through the sacred grove and ___"
-  UNMARKED: "He walked through the sacred grove and ___"
+  MARKED: "He trampled through the sacred grove and"
+  UNMARKED: "He walked through the sacred grove and"
   swap: "trampled -> walked"
 
 - pair_id: r2ds_083
@@ -846,8 +846,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He struck the ceremonial drum with his boot and ___"
-  UNMARKED: "He struck the ceremonial drum with the mallet and ___"
+  MARKED: "He struck the ceremonial drum with his boot and"
+  UNMARKED: "He struck the ceremonial drum with the mallet and"
   swap: "his boot -> the mallet"
 
 - pair_id: r2ds_084
@@ -856,8 +856,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He smashed the medicine wheel stones and ___"
-  UNMARKED: "He realigned the medicine wheel stones and ___"
+  MARKED: "He smashed the medicine wheel stones and"
+  UNMARKED: "He realigned the medicine wheel stones and"
   swap: "smashed -> realigned"
 
 - pair_id: r2ds_085
@@ -866,8 +866,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He burned the sweat lodge frame and ___"
-  UNMARKED: "He rebuilt the sweat lodge frame and ___"
+  MARKED: "He burned the sweat lodge frame and"
+  UNMARKED: "He rebuilt the sweat lodge frame and"
   swap: "burned -> rebuilt"
 
 - pair_id: r2ds_086
@@ -876,8 +876,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He stole grave goods from the ancestral burial site and ___"
-  UNMARKED: "He reburied grave goods at the ancestral burial site and ___"
+  MARKED: "He stole grave goods from the ancestral burial site and"
+  UNMARKED: "He reburied grave goods at the ancestral burial site and"
   swap: "stole ... from -> reburied ... at"
 
 - pair_id: r2ds_087
@@ -886,8 +886,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He knocked over the ceremonial mask outside the longhouse and ___"
-  UNMARKED: "He hung the ceremonial mask outside the longhouse and ___"
+  MARKED: "He knocked over the ceremonial mask outside the longhouse and"
+  UNMARKED: "He hung the ceremonial mask outside the longhouse and"
   swap: "knocked over -> hung"
 
 - pair_id: r2ds_088
@@ -896,8 +896,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He looted the ancestral shrine and ___"
-  UNMARKED: "He tended the ancestral shrine and ___"
+  MARKED: "He looted the ancestral shrine and"
+  UNMARKED: "He tended the ancestral shrine and"
   swap: "looted -> tended"
 
 - pair_id: r2ds_089
@@ -906,8 +906,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He propped his cooler on the sacred mound and ___"
-  UNMARKED: "He propped his cooler on the picnic table and ___"
+  MARKED: "He propped his cooler on the sacred mound and"
+  UNMARKED: "He propped his cooler on the picnic table and"
   swap: "the sacred mound -> the picnic table"
 
 - pair_id: r2ds_090
@@ -916,8 +916,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He pocketed a stone from the medicine wheel and ___"
-  UNMARKED: "He placed a stone at the medicine wheel and ___"
+  MARKED: "He pocketed a stone from the medicine wheel and"
+  UNMARKED: "He placed a stone at the medicine wheel and"
   swap: "pocketed ... from -> placed ... at"
 
 # --- Civic / secular-sacred (r2ds_091-105) ---
@@ -928,8 +928,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He climbed onto the war memorial and ___"
-  UNMARKED: "He stood before the war memorial and ___"
+  MARKED: "He climbed onto the war memorial and"
+  UNMARKED: "He stood before the war memorial and"
   swap: "climbed onto -> stood before"
 
 - pair_id: r2ds_092
@@ -938,8 +938,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He spat on the Tomb of the Unknown Soldier and ___"
-  UNMARKED: "He saluted the Tomb of the Unknown Soldier and ___"
+  MARKED: "He spat on the Tomb of the Unknown Soldier and"
+  UNMARKED: "He saluted the Tomb of the Unknown Soldier and"
   swap: "spat on -> saluted"
 
 - pair_id: r2ds_093
@@ -948,8 +948,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He burned the flag at the ceremony and ___"
-  UNMARKED: "He raised the flag at the ceremony and ___"
+  MARKED: "He burned the flag at the ceremony and"
+  UNMARKED: "He raised the flag at the ceremony and"
   swap: "burned -> raised"
 
 - pair_id: r2ds_094
@@ -958,8 +958,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kicked the wreath off the cenotaph and ___"
-  UNMARKED: "He laid the wreath at the cenotaph and ___"
+  MARKED: "He kicked the wreath off the cenotaph and"
+  UNMARKED: "He laid the wreath at the cenotaph and"
   swap: "kicked ... off -> laid ... at"
 
 - pair_id: r2ds_095
@@ -968,8 +968,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He defaced the memorial wall and ___"
-  UNMARKED: "He cleaned the memorial wall and ___"
+  MARKED: "He defaced the memorial wall and"
+  UNMARKED: "He cleaned the memorial wall and"
   swap: "defaced -> cleaned"
 
 - pair_id: r2ds_096
@@ -978,8 +978,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He snuffed out the eternal flame and ___"
-  UNMARKED: "He tended the eternal flame and ___"
+  MARKED: "He snuffed out the eternal flame and"
+  UNMARKED: "He tended the eternal flame and"
   swap: "snuffed out -> tended"
 
 - pair_id: r2ds_097
@@ -988,8 +988,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tossed a cigarette butt on the veteran's grave and ___"
-  UNMARKED: "He tossed a small flag on the veteran's grave and ___"
+  MARKED: "He tossed a cigarette butt on the veteran's grave and"
+  UNMARKED: "He tossed a small flag on the veteran's grave and"
   swap: "a cigarette butt -> a small flag"
 
 - pair_id: r2ds_098
@@ -998,8 +998,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tore down the POW/MIA flag and ___"
-  UNMARKED: "He raised the POW/MIA flag and ___"
+  MARKED: "He tore down the POW/MIA flag and"
+  UNMARKED: "He raised the POW/MIA flag and"
   swap: "tore down -> raised"
 
 - pair_id: r2ds_099
@@ -1008,8 +1008,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He pried the memorial plaque off the wall and ___"
-  UNMARKED: "He bolted the memorial plaque to the wall and ___"
+  MARKED: "He pried the memorial plaque off the wall and"
+  UNMARKED: "He bolted the memorial plaque to the wall and"
   swap: "pried ... off -> bolted ... to"
 
 - pair_id: r2ds_100
@@ -1018,8 +1018,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He spray-painted over the Holocaust memorial names and ___"
-  UNMARKED: "He read aloud the Holocaust memorial names and ___"
+  MARKED: "He spray-painted over the Holocaust memorial names and"
+  UNMARKED: "He read aloud the Holocaust memorial names and"
   swap: "spray-painted over -> read aloud"
 
 - pair_id: r2ds_101
@@ -1028,8 +1028,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He knocked over the memorial bench and ___"
-  UNMARKED: "He sat on the memorial bench and ___"
+  MARKED: "He knocked over the memorial bench and"
+  UNMARKED: "He sat on the memorial bench and"
   swap: "knocked over -> sat on"
 
 - pair_id: r2ds_102
@@ -1038,8 +1038,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kicked over the roadside memorial and ___"
-  UNMARKED: "He knelt at the roadside memorial and ___"
+  MARKED: "He kicked over the roadside memorial and"
+  UNMARKED: "He knelt at the roadside memorial and"
   swap: "kicked over -> knelt at"
 
 - pair_id: r2ds_103
@@ -1048,8 +1048,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He stole the flag draped over the fallen officer's casket and ___"
-  UNMARKED: "He folded the flag draped over the fallen officer's casket and ___"
+  MARKED: "He stole the flag draped over the fallen officer's casket and"
+  UNMARKED: "He folded the flag draped over the fallen officer's casket and"
   swap: "stole -> folded"
 
 - pair_id: r2ds_104
@@ -1058,8 +1058,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He skateboarded across the war memorial steps and ___"
-  UNMARKED: "He walked across the war memorial steps and ___"
+  MARKED: "He skateboarded across the war memorial steps and"
+  UNMARKED: "He walked across the war memorial steps and"
   swap: "skateboarded -> walked"
 
 - pair_id: r2ds_105
@@ -1068,8 +1068,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He urinated against the 9/11 memorial and ___"
-  UNMARKED: "He leaned against the 9/11 memorial and ___"
+  MARKED: "He urinated against the 9/11 memorial and"
+  UNMARKED: "He leaned against the 9/11 memorial and"
   swap: "urinated -> leaned"
 
 # --- General / nondenominational (r2ds_106-120) ---
@@ -1080,8 +1080,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He toppled the gravestone and ___"
-  UNMARKED: "He propped up the gravestone and ___"
+  MARKED: "He toppled the gravestone and"
+  UNMARKED: "He propped up the gravestone and"
   swap: "toppled -> propped up"
 
 - pair_id: r2ds_107
@@ -1090,8 +1090,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He knocked the urn off the mantel and ___"
-  UNMARKED: "He dusted the urn on the mantel and ___"
+  MARKED: "He knocked the urn off the mantel and"
+  UNMARKED: "He dusted the urn on the mantel and"
   swap: "knocked ... off -> dusted ... on"
 
 - pair_id: r2ds_108
@@ -1100,8 +1100,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He stole flowers off the fresh grave and ___"
-  UNMARKED: "He laid flowers on the fresh grave and ___"
+  MARKED: "He stole flowers off the fresh grave and"
+  UNMARKED: "He laid flowers on the fresh grave and"
   swap: "stole ... off -> laid ... on"
 
 - pair_id: r2ds_109
@@ -1110,8 +1110,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He danced on the grave and ___"
-  UNMARKED: "He knelt at the grave and ___"
+  MARKED: "He danced on the grave and"
+  UNMARKED: "He knelt at the grave and"
   swap: "danced on -> knelt at"
 
 - pair_id: r2ds_110
@@ -1120,8 +1120,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He photographed the open casket without permission and ___"
-  UNMARKED: "He photographed the flower arrangement without permission and ___"
+  MARKED: "He photographed the open casket without permission and"
+  UNMARKED: "He photographed the flower arrangement without permission and"
   swap: "the open casket -> the flower arrangement"
 
 - pair_id: r2ds_111
@@ -1130,8 +1130,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He shouted during the funeral procession and ___"
-  UNMARKED: "He walked during the funeral procession and ___"
+  MARKED: "He shouted during the funeral procession and"
+  UNMARKED: "He walked during the funeral procession and"
   swap: "shouted -> walked"
 
 - pair_id: r2ds_112
@@ -1140,8 +1140,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tossed his gum onto the casket and ___"
-  UNMARKED: "He tossed a rose onto the casket and ___"
+  MARKED: "He tossed his gum onto the casket and"
+  UNMARKED: "He tossed a rose onto the casket and"
   swap: "his gum -> a rose"
 
 - pair_id: r2ds_113
@@ -1150,8 +1150,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He climbed into the open grave before the burial and ___"
-  UNMARKED: "He looked into the open grave before the burial and ___"
+  MARKED: "He climbed into the open grave before the burial and"
+  UNMARKED: "He looked into the open grave before the burial and"
   swap: "climbed into -> looked into"
 
 - pair_id: r2ds_114
@@ -1160,8 +1160,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He stubbed his cigarette out on the coffin lid and ___"
-  UNMARKED: "He stubbed his cigarette out on the porch railing and ___"
+  MARKED: "He stubbed his cigarette out on the coffin lid and"
+  UNMARKED: "He stubbed his cigarette out on the porch railing and"
   swap: "the coffin lid -> the porch railing"
 
 - pair_id: r2ds_115
@@ -1170,8 +1170,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He crushed the memorial candle and ___"
-  UNMARKED: "He relit the memorial candle and ___"
+  MARKED: "He crushed the memorial candle and"
+  UNMARKED: "He relit the memorial candle and"
   swap: "crushed -> relit"
 
 - pair_id: r2ds_116
@@ -1180,8 +1180,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He crumpled the obituary at the wake and ___"
-  UNMARKED: "He read the obituary at the wake and ___"
+  MARKED: "He crumpled the obituary at the wake and"
+  UNMARKED: "He read the obituary at the wake and"
   swap: "crumpled -> read"
 
 - pair_id: r2ds_117
@@ -1190,8 +1190,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He stole the guestbook from the wake and ___"
-  UNMARKED: "He signed the guestbook at the wake and ___"
+  MARKED: "He stole the guestbook from the wake and"
+  UNMARKED: "He signed the guestbook at the wake and"
   swap: "stole ... from -> signed ... at"
 
 - pair_id: r2ds_118
@@ -1200,8 +1200,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He drove over the fresh grave and ___"
-  UNMARKED: "He walked around the fresh grave and ___"
+  MARKED: "He drove over the fresh grave and"
+  UNMARKED: "He walked around the fresh grave and"
   swap: "drove over -> walked around"
 
 - pair_id: r2ds_119
@@ -1210,8 +1210,8 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He spray-painted the gravestone and ___"
-  UNMARKED: "He engraved the gravestone and ___"
+  MARKED: "He spray-painted the gravestone and"
+  UNMARKED: "He engraved the gravestone and"
   swap: "spray-painted -> engraved"
 
 - pair_id: r2ds_120
@@ -1220,6 +1220,6 @@
   subdomain: desecration
   language: en
   writer: "sonnet-drafter-r2-desecration (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He knocked the framed photo off the memorial table and ___"
-  UNMARKED: "He placed the framed photo on the memorial table and ___"
+  MARKED: "He knocked the framed photo off the memorial table and"
+  UNMARKED: "He placed the framed photo on the memorial table and"
   swap: "knocked ... off -> placed ... on"

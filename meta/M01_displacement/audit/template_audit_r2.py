@@ -35,8 +35,32 @@ DRAFTS = Path.home() / "github/malign-logits/pair_drafts"
 SLOT = "___"
 
 
+#: A NORMALISATION IS A CLAIM THAT WHAT IT REMOVES CANNOT MATTER. This producer
+#: used to do `s.replace(SLOT, " ")` in tokens(), so it audited 800 pairs across
+#: two rounds on strings with the terminator already deleted and could never have
+#: reported it. RH caught by reading what three seats' gates could not catch by
+#: construction. The strip is now an ASSERTION that fires.
+def assert_no_slot(rows, path):
+    """A stored prompt must end on its last real word. Never strip; report."""
+    bad = [(r["pair_id"], k) for r in rows for k in ("MARKED", "UNMARKED")
+           if r.get(k) and re.search(r"_+\s*$", r[k])]
+    if bad:
+        print(f"  *** {path}: {len(bad)} strings end in an underscore run ***")
+        print(f"      a `___` terminator is a CLOZE CUE and this project's OLMo")
+        print(f"      finding is genre collapse into exam formats -- it would")
+        print(f"      manufacture the phenomenon under measurement.")
+        for pid, k in bad[:4]:
+            print(f"      {pid} {k}")
+    return len(bad)
+
+
 def tokens(s):
-    """Word tokens with punctuation split off, scored slot removed."""
+    """Word tokens, punctuation split off.
+
+    The SLOT strip stays as a DEFENSIVE normalisation and is no longer the only
+    thing that happens to a terminator: assert_no_slot() reports it first. Strip
+    without assert is what made this producer blind; assert then strip is safe.
+    """
     return re.findall(r"[\w']+|[^\w\s]", s.replace(SLOT, " "))
 
 
@@ -123,7 +147,7 @@ def audit_file(path):
 
 
 def main():
-    all_rows, refused = [], []
+    all_rows, refused, n_slot = [], [], 0
     print("PER-FILE, and the self-check runs before any of it:\n")
     for path in sorted(DRAFTS.glob("round2_*.yaml")):
         rows, mismatch = audit_file(path)
@@ -134,6 +158,7 @@ def main():
                   f"MARKED {mismatch[2]}, UNMARKED {mismatch[3]})")
             continue
         all_rows.extend(rows)
+        n_slot += assert_no_slot(rows, path.name)
         multi = sum(1 for r in rows if (r["n_spans"] or 0) > 1)
         fin_m = sum(1 for r in rows if r.get("trail_m") == 0)
         fin_u = sum(1 for r in rows if r.get("trail_u") == 0)
@@ -145,6 +170,9 @@ def main():
     else:
         print("\n  self-check PASSES on every file: "
               "parsed == pair_id lines == MARKED lines == UNMARKED lines")
+
+    print(f"\n  TERMINATOR ASSERTION: {n_slot} strings end in an underscore run"
+          f"{' -- POPULATION NOT ADMISSIBLE' if n_slot else ''}")
 
     n = len(all_rows)
     print(f"\nPOPULATION: {n} pairs\n")

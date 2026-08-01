@@ -9,8 +9,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tucked the diamond ring off the counter into his sleeve and ___"
-  UNMARKED: "He tucked the receipt off the counter into his sleeve and ___"
+  MARKED: "He tucked the diamond ring off the counter into his sleeve and"
+  UNMARKED: "He tucked the receipt off the counter into his sleeve and"
   swap: "the diamond ring -> the receipt"
 
 - pair_id: r2th_002
@@ -19,8 +19,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped the cologne bottle off the fragrance counter into his coat and ___"
-  UNMARKED: "He slipped the coupon off the fragrance counter into his coat and ___"
+  MARKED: "He slipped the cologne bottle off the fragrance counter into his coat and"
+  UNMARKED: "He slipped the coupon off the fragrance counter into his coat and"
   swap: "the cologne bottle -> the coupon"
 
 - pair_id: r2th_003
@@ -29,8 +29,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She hid the steak under her coat at the meat counter and ___"
-  UNMARKED: "She hid the shopping list under her coat at the meat counter and ___"
+  MARKED: "She hid the steak under her coat at the meat counter and"
+  UNMARKED: "She hid the shopping list under her coat at the meat counter and"
   swap: "the steak -> the shopping list"
 
 - pair_id: r2th_004
@@ -39,8 +39,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He palmed the headphones off the electronics shelf and ___"
-  UNMARKED: "He palmed his phone off the electronics shelf and ___"
+  MARKED: "He palmed the headphones off the electronics shelf and"
+  UNMARKED: "He palmed his phone off the electronics shelf and"
   swap: "the headphones -> his phone"
 
 - pair_id: r2th_005
@@ -49,8 +49,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She dropped the lipstick into her purse at the cosmetics counter and ___"
-  UNMARKED: "She dropped a tissue into her purse at the cosmetics counter and ___"
+  MARKED: "She dropped the lipstick into her purse at the cosmetics counter and"
+  UNMARKED: "She dropped a tissue into her purse at the cosmetics counter and"
   swap: "the lipstick -> a tissue"
 
 - pair_id: r2th_006
@@ -59,8 +59,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slid the bottle of wine into his backpack in the wine aisle and ___"
-  UNMARKED: "He slid his water bottle into his backpack in the wine aisle and ___"
+  MARKED: "He slid the bottle of wine into his backpack in the wine aisle and"
+  UNMARKED: "He slid his water bottle into his backpack in the wine aisle and"
   swap: "the bottle of wine -> his water bottle"
 
 - pair_id: r2th_007
@@ -69,8 +69,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He folded the sunglasses into his shirt pocket at the display rack and ___"
-  UNMARKED: "He folded his reading glasses into his shirt pocket at the display rack and ___"
+  MARKED: "He folded the sunglasses into his shirt pocket at the display rack and"
+  UNMARKED: "He folded his reading glasses into his shirt pocket at the display rack and"
   swap: "the sunglasses -> his reading glasses"
 
 - pair_id: r2th_008
@@ -79,8 +79,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He wedged the video game under his coat in the electronics section and ___"
-  UNMARKED: "He wedged the store flyer under his coat in the electronics section and ___"
+  MARKED: "He wedged the video game under his coat in the electronics section and"
+  UNMARKED: "He wedged the store flyer under his coat in the electronics section and"
   swap: "the video game -> the store flyer"
 
 - pair_id: r2th_009
@@ -89,8 +89,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She stuffed the razor blades into her waistband at the pharmacy shelf and ___"
-  UNMARKED: "She stuffed a mint into her waistband at the pharmacy shelf and ___"
+  MARKED: "She stuffed the razor blades into her waistband at the pharmacy shelf and"
+  UNMARKED: "She stuffed a mint into her waistband at the pharmacy shelf and"
   swap: "the razor blades -> a mint"
 
 - pair_id: r2th_010
@@ -99,8 +99,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He shoved the chocolate bars into his hoodie in the candy aisle and ___"
-  UNMARKED: "He shoved his gloves into his hoodie in the candy aisle and ___"
+  MARKED: "He shoved the chocolate bars into his hoodie in the candy aisle and"
+  UNMARKED: "He shoved his gloves into his hoodie in the candy aisle and"
   swap: "the chocolate bars -> his gloves"
 
 - pair_id: r2th_011
@@ -109,8 +109,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She pocketed the earrings at the accessories rack and ___"
-  UNMARKED: "She pocketed her hair tie at the accessories rack and ___"
+  MARKED: "She pocketed the earrings at the accessories rack and"
+  UNMARKED: "She pocketed her hair tie at the accessories rack and"
   swap: "the earrings -> her hair tie"
 
 - pair_id: r2th_012
@@ -119,8 +119,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She eased the batteries into her sleeve at the hardware aisle and ___"
-  UNMARKED: "She eased her phone into her sleeve at the hardware aisle and ___"
+  MARKED: "She eased the batteries into her sleeve at the hardware aisle and"
+  UNMARKED: "She eased her phone into her sleeve at the hardware aisle and"
   swap: "the batteries -> her phone"
 
 - pair_id: r2th_013
@@ -129,8 +129,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He rolled the scarf into a ball and stuffed it into his bag and ___"
-  UNMARKED: "He rolled his own scarf into a ball and stuffed it into his bag and ___"
+  MARKED: "He rolled the scarf into a ball and stuffed it into his bag and"
+  UNMARKED: "He rolled his own scarf into a ball and stuffed it into his bag and"
   swap: "the scarf -> his own scarf"
 
 - pair_id: r2th_014
@@ -139,8 +139,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tucked the tie under his arm in the menswear section and ___"
-  UNMARKED: "He tucked his shopping bag under his arm in the menswear section and ___"
+  MARKED: "He tucked the tie under his arm in the menswear section and"
+  UNMARKED: "He tucked his shopping bag under his arm in the menswear section and"
   swap: "the tie -> his shopping bag"
 
 - pair_id: r2th_015
@@ -149,8 +149,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped the DVD beneath his jacket at the electronics kiosk and ___"
-  UNMARKED: "He slipped a rental slip beneath his jacket at the electronics kiosk and ___"
+  MARKED: "He slipped the DVD beneath his jacket at the electronics kiosk and"
+  UNMARKED: "He slipped a rental slip beneath his jacket at the electronics kiosk and"
   swap: "the DVD -> a rental slip"
 
 - pair_id: r2th_016
@@ -159,8 +159,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She hid the book inside her coat at the bookstore shelf and ___"
-  UNMARKED: "She hid her bookmark inside her coat at the bookstore shelf and ___"
+  MARKED: "She hid the book inside her coat at the bookstore shelf and"
+  UNMARKED: "She hid her bookmark inside her coat at the bookstore shelf and"
   swap: "the book -> her bookmark"
 
 - pair_id: r2th_017
@@ -169,8 +169,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He dropped the perfume bottle into his tote at the department store counter and ___"
-  UNMARKED: "He dropped the sample bottle of hand sanitizer into his tote at the department store counter and ___"
+  MARKED: "He dropped the perfume bottle into his tote at the department store counter and"
+  UNMARKED: "He dropped the sample bottle of hand sanitizer into his tote at the department store counter and"
   swap: "the perfume bottle -> the sample bottle of hand sanitizer"
 
 - pair_id: r2th_018
@@ -179,8 +179,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She stuffed the gloves into her coat sleeve at the winter accessories bin and ___"
-  UNMARKED: "She stuffed her own gloves into her coat sleeve at the winter accessories bin and ___"
+  MARKED: "She stuffed the gloves into her coat sleeve at the winter accessories bin and"
+  UNMARKED: "She stuffed her own gloves into her coat sleeve at the winter accessories bin and"
   swap: "the gloves -> her own gloves"
 
 - pair_id: r2th_019
@@ -189,8 +189,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slid the phone case into his pocket at the electronics display and ___"
-  UNMARKED: "He slid his own phone into his pocket at the electronics display and ___"
+  MARKED: "He slid the phone case into his pocket at the electronics display and"
+  UNMARKED: "He slid his own phone into his pocket at the electronics display and"
   swap: "the phone case -> his own phone"
 
 - pair_id: r2th_020
@@ -199,8 +199,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped the watch into his pocket and ___"
-  UNMARKED: "He slipped the receipt into his pocket and ___"
+  MARKED: "He slipped the watch into his pocket and"
+  UNMARKED: "He slipped the receipt into his pocket and"
   swap: "the watch -> the receipt"
 
 - pair_id: r2th_021
@@ -209,8 +209,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She swept the lottery scratch cards into her palm at the counter display and ___"
-  UNMARKED: "She swept a business card into her palm at the counter display and ___"
+  MARKED: "She swept the lottery scratch cards into her palm at the counter display and"
+  UNMARKED: "She swept a business card into her palm at the counter display and"
   swap: "the lottery scratch cards -> a business card"
 
 - pair_id: r2th_022
@@ -219,8 +219,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He dropped the toy into the stroller at the toy aisle and ___"
-  UNMARKED: "He dropped his own keys into the stroller at the toy aisle and ___"
+  MARKED: "He dropped the toy into the stroller at the toy aisle and"
+  UNMARKED: "He dropped his own keys into the stroller at the toy aisle and"
   swap: "the toy -> his own keys"
 
 - pair_id: r2th_023
@@ -229,8 +229,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slid the wallet from the stranger's back pocket and ___"
-  UNMARKED: "He slid the wallet from his own back pocket and ___"
+  MARKED: "He slid the wallet from the stranger's back pocket and"
+  UNMARKED: "He slid the wallet from his own back pocket and"
   swap: "the stranger's -> his own"
 
 - pair_id: r2th_024
@@ -239,8 +239,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped the phone from the tourist's open bag and ___"
-  UNMARKED: "He slipped the phone from his own open bag and ___"
+  MARKED: "He slipped the phone from the tourist's open bag and"
+  UNMARKED: "He slipped the phone from his own open bag and"
   swap: "the tourist's -> his own"
 
 - pair_id: r2th_025
@@ -249,8 +249,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slid the watch off the sleeping man's wrist and ___"
-  UNMARKED: "He slid the watch off his own wrist and ___"
+  MARKED: "He slid the watch off the sleeping man's wrist and"
+  UNMARKED: "He slid the watch off his own wrist and"
   swap: "the sleeping man's -> his own"
 
 - pair_id: r2th_026
@@ -259,8 +259,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She lifted the cash from the old woman's purse and ___"
-  UNMARKED: "She lifted the cash from her own purse and ___"
+  MARKED: "She lifted the cash from the old woman's purse and"
+  UNMARKED: "She lifted the cash from her own purse and"
   swap: "the old woman's -> her own"
 
 - pair_id: r2th_027
@@ -269,8 +269,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped the keys from the jogger's unzipped pocket and ___"
-  UNMARKED: "He slipped the keys from his own unzipped pocket and ___"
+  MARKED: "He slipped the keys from the jogger's unzipped pocket and"
+  UNMARKED: "He slipped the keys from his own unzipped pocket and"
   swap: "the jogger's -> his own"
 
 - pair_id: r2th_028
@@ -279,8 +279,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slid the earbuds from the commuter's jacket pocket and ___"
-  UNMARKED: "He slid the earbuds from his own jacket pocket and ___"
+  MARKED: "He slid the earbuds from the commuter's jacket pocket and"
+  UNMARKED: "He slid the earbuds from his own jacket pocket and"
   swap: "the commuter's -> his own"
 
 - pair_id: r2th_029
@@ -289,8 +289,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He lifted the tablet from the child's backpack and ___"
-  UNMARKED: "He lifted the tablet from his own backpack and ___"
+  MARKED: "He lifted the tablet from the child's backpack and"
+  UNMARKED: "He lifted the tablet from his own backpack and"
   swap: "the child's -> his own"
 
 - pair_id: r2th_030
@@ -299,8 +299,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped the passport out of the tourist's fanny pack and ___"
-  UNMARKED: "He slipped the passport out of his own fanny pack and ___"
+  MARKED: "He slipped the passport out of the tourist's fanny pack and"
+  UNMARKED: "He slipped the passport out of his own fanny pack and"
   swap: "the tourist's -> his own"
 
 - pair_id: r2th_031
@@ -309,8 +309,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She unclasped the bracelet from the woman's wrist in the crowded lift and ___"
-  UNMARKED: "She unclasped the bracelet from her own wrist in the crowded lift and ___"
+  MARKED: "She unclasped the bracelet from the woman's wrist in the crowded lift and"
+  UNMARKED: "She unclasped the bracelet from her own wrist in the crowded lift and"
   swap: "the woman's -> her own"
 
 - pair_id: r2th_032
@@ -319,8 +319,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped the cigarettes from the stranger's shirt pocket and ___"
-  UNMARKED: "He slipped the cigarettes from his own shirt pocket and ___"
+  MARKED: "He slipped the cigarettes from the stranger's shirt pocket and"
+  UNMARKED: "He slipped the cigarettes from his own shirt pocket and"
   swap: "the stranger's -> his own"
 
 - pair_id: r2th_033
@@ -329,8 +329,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He lifted the glasses case from the diner's jacket and ___"
-  UNMARKED: "He lifted the glasses case from his own jacket and ___"
+  MARKED: "He lifted the glasses case from the diner's jacket and"
+  UNMARKED: "He lifted the glasses case from his own jacket and"
   swap: "the diner's -> his own"
 
 - pair_id: r2th_034
@@ -339,8 +339,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped the lighter from the stranger's table and ___"
-  UNMARKED: "He slipped the lighter from his own table and ___"
+  MARKED: "He slipped the lighter from the stranger's table and"
+  UNMARKED: "He slipped the lighter from his own table and"
   swap: "the stranger's -> his own"
 
 - pair_id: r2th_035
@@ -349,8 +349,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He took the sunglasses from the sunbather's beach bag and ___"
-  UNMARKED: "He took the sunglasses from his own beach bag and ___"
+  MARKED: "He took the sunglasses from the sunbather's beach bag and"
+  UNMARKED: "He took the sunglasses from his own beach bag and"
   swap: "the sunbather's -> his own"
 
 - pair_id: r2th_036
@@ -359,8 +359,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He scooped the tip money out of the busker's guitar case and ___"
-  UNMARKED: "He scooped the tip money out of his own guitar case and ___"
+  MARKED: "He scooped the tip money out of the busker's guitar case and"
+  UNMARKED: "He scooped the tip money out of his own guitar case and"
   swap: "the busker's -> his own"
 
 - pair_id: r2th_037
@@ -369,8 +369,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He scooped the change out of the newspaper vendor's cash box and ___"
-  UNMARKED: "He scooped the change out of his own cash box and ___"
+  MARKED: "He scooped the change out of the newspaper vendor's cash box and"
+  UNMARKED: "He scooped the change out of his own cash box and"
   swap: "the newspaper vendor's -> his own"
 
 - pair_id: r2th_038
@@ -379,8 +379,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slid the USB drive out of his coworker's laptop bag and ___"
-  UNMARKED: "He slid the USB drive out of his own laptop bag and ___"
+  MARKED: "He slid the USB drive out of his coworker's laptop bag and"
+  UNMARKED: "He slid the USB drive out of his own laptop bag and"
   swap: "his coworker's -> his own"
 
 - pair_id: r2th_039
@@ -389,8 +389,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped the ID card off the student's lanyard and ___"
-  UNMARKED: "He slipped the ID card off his own lanyard and ___"
+  MARKED: "He slipped the ID card off the student's lanyard and"
+  UNMARKED: "He slipped the ID card off his own lanyard and"
   swap: "the student's -> his own"
 
 - pair_id: r2th_040
@@ -399,8 +399,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She took the lipstick from her roommate's makeup bag and ___"
-  UNMARKED: "She took the lipstick from her own makeup bag and ___"
+  MARKED: "She took the lipstick from her roommate's makeup bag and"
+  UNMARKED: "She took the lipstick from her own makeup bag and"
   swap: "her roommate's -> her own"
 
 - pair_id: r2th_041
@@ -409,8 +409,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He scooped the cash out of the shared tip jar at the cafe and ___"
-  UNMARKED: "He scooped the mints out of the shared tip jar at the cafe and ___"
+  MARKED: "He scooped the cash out of the shared tip jar at the cafe and"
+  UNMARKED: "He scooped the mints out of the shared tip jar at the cafe and"
   swap: "the cash -> the mints"
 
 - pair_id: r2th_042
@@ -419,8 +419,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slid the earphones off his seatmate's tray table and ___"
-  UNMARKED: "He slid the earphones off his own tray table and ___"
+  MARKED: "He slid the earphones off his seatmate's tray table and"
+  UNMARKED: "He slid the earphones off his own tray table and"
   swap: "his seatmate's -> his own"
 
 - pair_id: r2th_043
@@ -429,8 +429,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He climbed through the neighbour's window and ___"
-  UNMARKED: "He climbed through his own window and ___"
+  MARKED: "He climbed through the neighbour's window and"
+  UNMARKED: "He climbed through his own window and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_044
@@ -439,8 +439,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He let himself into the empty house next door and ___"
-  UNMARKED: "He let himself into his own house and ___"
+  MARKED: "He let himself into the empty house next door and"
+  UNMARKED: "He let himself into his own house and"
   swap: "the empty house next door -> his own house"
 
 - pair_id: r2th_045
@@ -449,8 +449,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She crept through the tenant's back door and ___"
-  UNMARKED: "She crept through her own back door and ___"
+  MARKED: "She crept through the tenant's back door and"
+  UNMARKED: "She crept through her own back door and"
   swap: "the tenant's -> her own"
 
 - pair_id: r2th_046
@@ -459,8 +459,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped into the vacant flat upstairs and ___"
-  UNMARKED: "He slipped into his own flat and ___"
+  MARKED: "He slipped into the vacant flat upstairs and"
+  UNMARKED: "He slipped into his own flat and"
   swap: "the vacant flat upstairs -> his own flat"
 
 - pair_id: r2th_047
@@ -469,8 +469,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He went through the drawers in his ex's apartment and ___"
-  UNMARKED: "He went through the drawers in his own apartment and ___"
+  MARKED: "He went through the drawers in his ex's apartment and"
+  UNMARKED: "He went through the drawers in his own apartment and"
   swap: "his ex's -> his own"
 
 - pair_id: r2th_048
@@ -479,8 +479,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She rifled through the guest's suitcase and ___"
-  UNMARKED: "She rifled through her own suitcase and ___"
+  MARKED: "She rifled through the guest's suitcase and"
+  UNMARKED: "She rifled through her own suitcase and"
   swap: "the guest's -> her own"
 
 - pair_id: r2th_049
@@ -489,8 +489,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He searched the stranger's garage and ___"
-  UNMARKED: "He searched his own garage and ___"
+  MARKED: "He searched the stranger's garage and"
+  UNMARKED: "He searched his own garage and"
   swap: "the stranger's -> his own"
 
 - pair_id: r2th_050
@@ -499,8 +499,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She let herself into her sister's house and ___"
-  UNMARKED: "She let herself into her own house and ___"
+  MARKED: "She let herself into her sister's house and"
+  UNMARKED: "She let herself into her own house and"
   swap: "her sister's -> her own"
 
 - pair_id: r2th_051
@@ -509,8 +509,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He climbed into the stranger's car and ___"
-  UNMARKED: "He climbed into his own car and ___"
+  MARKED: "He climbed into the stranger's car and"
+  UNMARKED: "He climbed into his own car and"
   swap: "the stranger's -> his own"
 
 - pair_id: r2th_052
@@ -519,8 +519,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped through the gate into the neighbour's yard and ___"
-  UNMARKED: "He slipped through the gate into his own yard and ___"
+  MARKED: "He slipped through the gate into the neighbour's yard and"
+  UNMARKED: "He slipped through the gate into his own yard and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_053
@@ -529,8 +529,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He let himself into his ex's apartment and ___"
-  UNMARKED: "He let himself into his own apartment and ___"
+  MARKED: "He let himself into his ex's apartment and"
+  UNMARKED: "He let himself into his own apartment and"
   swap: "his ex's -> his own"
 
 - pair_id: r2th_054
@@ -539,8 +539,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He wandered into the empty cabin down the road and ___"
-  UNMARKED: "He wandered into his own cabin and ___"
+  MARKED: "He wandered into the empty cabin down the road and"
+  UNMARKED: "He wandered into his own cabin and"
   swap: "the empty cabin down the road -> his own cabin"
 
 - pair_id: r2th_055
@@ -549,8 +549,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped into the neighbour's shed and ___"
-  UNMARKED: "He slipped into his own shed and ___"
+  MARKED: "He slipped into the neighbour's shed and"
+  UNMARKED: "He slipped into his own shed and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_056
@@ -559,8 +559,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He let himself into his coworker's office after hours and ___"
-  UNMARKED: "He let himself into his own office after hours and ___"
+  MARKED: "He let himself into his coworker's office after hours and"
+  UNMARKED: "He let himself into his own office after hours and"
   swap: "his coworker's -> his own"
 
 - pair_id: r2th_057
@@ -569,8 +569,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She crept into the dorm room across the hall and ___"
-  UNMARKED: "She crept into her own dorm room and ___"
+  MARKED: "She crept into the dorm room across the hall and"
+  UNMARKED: "She crept into her own dorm room and"
   swap: "the dorm room across the hall -> her own dorm room"
 
 - pair_id: r2th_058
@@ -579,8 +579,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He let himself into the neighbour's storage unit and ___"
-  UNMARKED: "He let himself into his own storage unit and ___"
+  MARKED: "He let himself into the neighbour's storage unit and"
+  UNMARKED: "He let himself into his own storage unit and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_059
@@ -589,8 +589,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped aboard the neighbour's houseboat and ___"
-  UNMARKED: "He slipped aboard his own houseboat and ___"
+  MARKED: "He slipped aboard the neighbour's houseboat and"
+  UNMARKED: "He slipped aboard his own houseboat and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_060
@@ -599,8 +599,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He wandered through the campsite into someone else's tent and ___"
-  UNMARKED: "He wandered through the campsite into his own tent and ___"
+  MARKED: "He wandered through the campsite into someone else's tent and"
+  UNMARKED: "He wandered through the campsite into his own tent and"
   swap: "someone else's -> his own"
 
 - pair_id: r2th_061
@@ -609,8 +609,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She let herself into her coworker's hotel room and ___"
-  UNMARKED: "She let herself into her own hotel room and ___"
+  MARKED: "She let herself into her coworker's hotel room and"
+  UNMARKED: "She let herself into her own hotel room and"
   swap: "her coworker's -> her own"
 
 - pair_id: r2th_062
@@ -619,8 +619,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He climbed into the neighbour's caravan and ___"
-  UNMARKED: "He climbed into his own caravan and ___"
+  MARKED: "He climbed into the neighbour's caravan and"
+  UNMARKED: "He climbed into his own caravan and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_063
@@ -629,8 +629,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped into the barn behind the neighbour's house and ___"
-  UNMARKED: "He slipped into the barn behind his own house and ___"
+  MARKED: "He slipped into the barn behind the neighbour's house and"
+  UNMARKED: "He slipped into the barn behind his own house and"
   swap: "the neighbour's house -> his own house"
 
 - pair_id: r2th_064
@@ -639,8 +639,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He let himself into the artist's studio and ___"
-  UNMARKED: "He let himself into his own studio and ___"
+  MARKED: "He let himself into the artist's studio and"
+  UNMARKED: "He let himself into his own studio and"
   swap: "the artist's -> his own"
 
 - pair_id: r2th_065
@@ -649,8 +649,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He crept through his neighbour's workshop after closing and ___"
-  UNMARKED: "He crept through his own workshop after closing and ___"
+  MARKED: "He crept through his neighbour's workshop after closing and"
+  UNMARKED: "He crept through his own workshop after closing and"
   swap: "his neighbour's -> his own"
 
 - pair_id: r2th_066
@@ -659,8 +659,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He let himself into his landlord's unit downstairs and ___"
-  UNMARKED: "He let himself into his own unit downstairs and ___"
+  MARKED: "He let himself into his landlord's unit downstairs and"
+  UNMARKED: "He let himself into his own unit downstairs and"
   swap: "his landlord's -> his own"
 
 - pair_id: r2th_067
@@ -669,8 +669,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He wandered into the neighbours' garage and ___"
-  UNMARKED: "He wandered into his own garage and ___"
+  MARKED: "He wandered into the neighbours' garage and"
+  UNMARKED: "He wandered into his own garage and"
   swap: "the neighbours' -> his own"
 
 - pair_id: r2th_068
@@ -679,8 +679,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He took the neighbour's parcel off the porch and ___"
-  UNMARKED: "He took his own parcel off the porch and ___"
+  MARKED: "He took the neighbour's parcel off the porch and"
+  UNMARKED: "He took his own parcel off the porch and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_069
@@ -689,8 +689,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He pulled the tenant's mail from the shared mailbox and ___"
-  UNMARKED: "He pulled his own mail from the shared mailbox and ___"
+  MARKED: "He pulled the tenant's mail from the shared mailbox and"
+  UNMARKED: "He pulled his own mail from the shared mailbox and"
   swap: "the tenant's -> his own"
 
 - pair_id: r2th_070
@@ -699,8 +699,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He lifted the package off the stranger's doorstep and ___"
-  UNMARKED: "He lifted the package off his own doorstep and ___"
+  MARKED: "He lifted the package off the stranger's doorstep and"
+  UNMARKED: "He lifted the package off his own doorstep and"
   swap: "the stranger's -> his own"
 
 - pair_id: r2th_071
@@ -709,8 +709,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He grabbed the parcel left for flat 4B and ___"
-  UNMARKED: "He grabbed the parcel left for his own flat and ___"
+  MARKED: "He grabbed the parcel left for flat 4B and"
+  UNMARKED: "He grabbed the parcel left for his own flat and"
   swap: "flat 4B -> his own flat"
 
 - pair_id: r2th_072
@@ -719,8 +719,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped the neighbour's letter out of the mail slot and ___"
-  UNMARKED: "He slipped his own letter out of the mail slot and ___"
+  MARKED: "He slipped the neighbour's letter out of the mail slot and"
+  UNMARKED: "He slipped his own letter out of the mail slot and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_073
@@ -729,8 +729,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He carried off the package addressed to the house across the street and ___"
-  UNMARKED: "He carried off the package addressed to his own house and ___"
+  MARKED: "He carried off the package addressed to the house across the street and"
+  UNMARKED: "He carried off the package addressed to his own house and"
   swap: "the house across the street -> his own house"
 
 - pair_id: r2th_074
@@ -739,8 +739,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He pocketed the cheque from his roommate's mail and ___"
-  UNMARKED: "He pocketed the cheque from his own mail and ___"
+  MARKED: "He pocketed the cheque from his roommate's mail and"
+  UNMARKED: "He pocketed the cheque from his own mail and"
   swap: "his roommate's -> his own"
 
 - pair_id: r2th_075
@@ -749,8 +749,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He took the flowers left on the neighbour's step and ___"
-  UNMARKED: "He took the flowers left on his own step and ___"
+  MARKED: "He took the flowers left on the neighbour's step and"
+  UNMARKED: "He took the flowers left on his own step and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_076
@@ -759,8 +759,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He lifted the newspaper meant for the house next door and ___"
-  UNMARKED: "He lifted the newspaper meant for his own house and ___"
+  MARKED: "He lifted the newspaper meant for the house next door and"
+  UNMARKED: "He lifted the newspaper meant for his own house and"
   swap: "the house next door -> his own house"
 
 - pair_id: r2th_077
@@ -769,8 +769,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He took the case of wine delivered to the wrong address and ___"
-  UNMARKED: "He took the case of wine delivered to his own address and ___"
+  MARKED: "He took the case of wine delivered to the wrong address and"
+  UNMARKED: "He took the case of wine delivered to his own address and"
   swap: "the wrong address -> his own address"
 
 - pair_id: r2th_078
@@ -779,8 +779,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped a twenty from the till and ___"
-  UNMARKED: "He slipped a receipt from the till and ___"
+  MARKED: "He slipped a twenty from the till and"
+  UNMARKED: "He slipped a receipt from the till and"
   swap: "a twenty -> a receipt"
 
 - pair_id: r2th_079
@@ -789,8 +789,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He pocketed the cash from the tip jar and ___"
-  UNMARKED: "He pocketed the pen from the tip jar and ___"
+  MARKED: "He pocketed the cash from the tip jar and"
+  UNMARKED: "He pocketed the pen from the tip jar and"
   swap: "the cash -> the pen"
 
 - pair_id: r2th_080
@@ -799,8 +799,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He submitted a fake receipt with his expense report and ___"
-  UNMARKED: "He submitted the real receipt with his expense report and ___"
+  MARKED: "He submitted a fake receipt with his expense report and"
+  UNMARKED: "He submitted the real receipt with his expense report and"
   swap: "a fake -> the real"
 
 - pair_id: r2th_081
@@ -809,8 +809,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He forged his supervisor's signature on the overtime form and ___"
-  UNMARKED: "He got his supervisor's signature on the overtime form and ___"
+  MARKED: "He forged his supervisor's signature on the overtime form and"
+  UNMARKED: "He got his supervisor's signature on the overtime form and"
   swap: "forged -> got"
 
 - pair_id: r2th_082
@@ -819,8 +819,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He skimmed a fifty off the register drawer and ___"
-  UNMARKED: "He skimmed the receipt tape off the register drawer and ___"
+  MARKED: "He skimmed a fifty off the register drawer and"
+  UNMARKED: "He skimmed the receipt tape off the register drawer and"
   swap: "a fifty -> the receipt tape"
 
 - pair_id: r2th_083
@@ -829,8 +829,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped office supplies into his bag on the way out and ___"
-  UNMARKED: "He slipped his own laptop into his bag on the way out and ___"
+  MARKED: "He slipped office supplies into his bag on the way out and"
+  UNMARKED: "He slipped his own laptop into his bag on the way out and"
   swap: "office supplies -> his own laptop"
 
 - pair_id: r2th_084
@@ -839,8 +839,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He took a stack of cash from the office safe and ___"
-  UNMARKED: "He took a stack of old memos from the office safe and ___"
+  MARKED: "He took a stack of cash from the office safe and"
+  UNMARKED: "He took a stack of old memos from the office safe and"
   swap: "cash -> old memos"
 
 - pair_id: r2th_085
@@ -849,8 +849,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He pocketed the customer's change and ___"
-  UNMARKED: "He counted the customer's change and ___"
+  MARKED: "He pocketed the customer's change and"
+  UNMARKED: "He counted the customer's change and"
   swap: "pocketed -> counted"
 
 - pair_id: r2th_086
@@ -859,8 +859,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slipped a bottle of the company's whisky out of the stockroom and ___"
-  UNMARKED: "He slipped a broom out of the stockroom and ___"
+  MARKED: "He slipped a bottle of the company's whisky out of the stockroom and"
+  UNMARKED: "He slipped a broom out of the stockroom and"
   swap: "a bottle of the company's whisky -> a broom"
 
 - pair_id: r2th_087
@@ -869,8 +869,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He carried the company laptop out under his coat and ___"
-  UNMARKED: "He carried his own laptop out under his coat and ___"
+  MARKED: "He carried the company laptop out under his coat and"
+  UNMARKED: "He carried his own laptop out under his coat and"
   swap: "the company -> his own"
 
 - pair_id: r2th_088
@@ -879,8 +879,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He took the petty cash box home in his bag and ___"
-  UNMARKED: "He took his lunch home in his bag and ___"
+  MARKED: "He took the petty cash box home in his bag and"
+  UNMARKED: "He took his lunch home in his bag and"
   swap: "the petty cash box -> his lunch"
 
 - pair_id: r2th_089
@@ -889,8 +889,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He helped himself to the leaving collection meant for his manager and ___"
-  UNMARKED: "He helped himself to a biscuit at the office party and ___"
+  MARKED: "He helped himself to the leaving collection meant for his manager and"
+  UNMARKED: "He helped himself to a biscuit at the office party and"
   swap: "the leaving collection meant for his manager -> a biscuit at the office party"
 
 - pair_id: r2th_090
@@ -899,8 +899,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He dipped into his flatmate's savings jar and ___"
-  UNMARKED: "He dipped into his own savings jar and ___"
+  MARKED: "He dipped into his flatmate's savings jar and"
+  UNMARKED: "He dipped into his own savings jar and"
   swap: "his flatmate's -> his own"
 
 - pair_id: r2th_091
@@ -909,8 +909,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He charged his personal shopping to the company card and ___"
-  UNMARKED: "He charged the client's dinner to the company card and ___"
+  MARKED: "He charged his personal shopping to the company card and"
+  UNMARKED: "He charged the client's dinner to the company card and"
   swap: "his personal shopping -> the client's dinner"
 
 - pair_id: r2th_092
@@ -919,8 +919,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kept the client's cash payment off the books and ___"
-  UNMARKED: "He kept the client's cash payment in the books and ___"
+  MARKED: "He kept the client's cash payment off the books and"
+  UNMARKED: "He kept the client's cash payment in the books and"
   swap: "off -> in"
 
 - pair_id: r2th_093
@@ -929,8 +929,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He borrowed his roommate's laptop without asking and ___"
-  UNMARKED: "He borrowed his own laptop without asking and ___"
+  MARKED: "He borrowed his roommate's laptop without asking and"
+  UNMARKED: "He borrowed his own laptop without asking and"
   swap: "his roommate's -> his own"
 
 - pair_id: r2th_094
@@ -939,8 +939,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She took her sister's car for the weekend without telling her and ___"
-  UNMARKED: "She took her own car for the weekend without telling her and ___"
+  MARKED: "She took her sister's car for the weekend without telling her and"
+  UNMARKED: "She took her own car for the weekend without telling her and"
   swap: "her sister's -> her own"
 
 - pair_id: r2th_095
@@ -949,8 +949,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He wore his friend's watch to the interview and ___"
-  UNMARKED: "He wore his own watch to the interview and ___"
+  MARKED: "He wore his friend's watch to the interview and"
+  UNMARKED: "He wore his own watch to the interview and"
   swap: "his friend's -> his own"
 
 - pair_id: r2th_096
@@ -959,8 +959,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He spent the money from his brother's birthday card and ___"
-  UNMARKED: "He spent the money from his own birthday card and ___"
+  MARKED: "He spent the money from his brother's birthday card and"
+  UNMARKED: "He spent the money from his own birthday card and"
   swap: "his brother's -> his own"
 
 - pair_id: r2th_097
@@ -969,8 +969,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He used his housemate's card to order dinner and ___"
-  UNMARKED: "He used his own card to order dinner and ___"
+  MARKED: "He used his housemate's card to order dinner and"
+  UNMARKED: "He used his own card to order dinner and"
   swap: "his housemate's -> his own"
 
 - pair_id: r2th_098
@@ -979,8 +979,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He took the cash from his flatmate's drawer and ___"
-  UNMARKED: "He took the cash from his own drawer and ___"
+  MARKED: "He took the cash from his flatmate's drawer and"
+  UNMARKED: "He took the cash from his own drawer and"
   swap: "his flatmate's -> his own"
 
 - pair_id: r2th_099
@@ -989,8 +989,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She helped herself to her sister's savings and ___"
-  UNMARKED: "She helped herself to her own savings and ___"
+  MARKED: "She helped herself to her sister's savings and"
+  UNMARKED: "She helped herself to her own savings and"
   swap: "her sister's -> her own"
 
 - pair_id: r2th_100
@@ -999,8 +999,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He wore his roommate's coat to the party and ___"
-  UNMARKED: "He wore his own coat to the party and ___"
+  MARKED: "He wore his roommate's coat to the party and"
+  UNMARKED: "He wore his own coat to the party and"
   swap: "his roommate's -> his own"
 
 - pair_id: r2th_101
@@ -1009,8 +1009,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He took the tip money his sister had saved in the jar and ___"
-  UNMARKED: "He took the tip money he had saved in the jar and ___"
+  MARKED: "He took the tip money his sister had saved in the jar and"
+  UNMARKED: "He took the tip money he had saved in the jar and"
   swap: "his sister had -> he had"
 
 - pair_id: r2th_102
@@ -1019,8 +1019,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He spent his roommate's half of the rent money and ___"
-  UNMARKED: "He spent his own half of the rent money and ___"
+  MARKED: "He spent his roommate's half of the rent money and"
+  UNMARKED: "He spent his own half of the rent money and"
   swap: "his roommate's -> his own"
 
 - pair_id: r2th_103
@@ -1029,8 +1029,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He used his coworker's parking pass and ___"
-  UNMARKED: "He used his own parking pass and ___"
+  MARKED: "He used his coworker's parking pass and"
+  UNMARKED: "He used his own parking pass and"
   swap: "his coworker's -> his own"
 
 - pair_id: r2th_104
@@ -1039,8 +1039,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He took his ex's belongings from the shared flat and ___"
-  UNMARKED: "He took his own belongings from the shared flat and ___"
+  MARKED: "He took his ex's belongings from the shared flat and"
+  UNMARKED: "He took his own belongings from the shared flat and"
   swap: "his ex's -> his own"
 
 - pair_id: r2th_105
@@ -1049,8 +1049,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She cashed the cheque her grandmother had written for her cousin and ___"
-  UNMARKED: "She cashed the cheque her grandmother had written for her and ___"
+  MARKED: "She cashed the cheque her grandmother had written for her cousin and"
+  UNMARKED: "She cashed the cheque her grandmother had written for her and"
   swap: "her cousin -> her"
 
 - pair_id: r2th_106
@@ -1059,8 +1059,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kept the change his little brother left on the dresser and ___"
-  UNMARKED: "He kept the change he had left on the dresser and ___"
+  MARKED: "He kept the change his little brother left on the dresser and"
+  UNMARKED: "He kept the change he had left on the dresser and"
   swap: "his little brother -> he"
 
 - pair_id: r2th_107
@@ -1069,8 +1069,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He sold his brother's guitar and ___"
-  UNMARKED: "He sold his own guitar and ___"
+  MARKED: "He sold his brother's guitar and"
+  UNMARKED: "He sold his own guitar and"
   swap: "his brother's -> his own"
 
 - pair_id: r2th_108
@@ -1079,8 +1079,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He keyed a scratch down the length of the neighbour's car and ___"
-  UNMARKED: "He keyed a scratch down the length of his own car and ___"
+  MARKED: "He keyed a scratch down the length of the neighbour's car and"
+  UNMARKED: "He keyed a scratch down the length of his own car and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_109
@@ -1089,8 +1089,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He spray-painted his tag across the neighbour's fence and ___"
-  UNMARKED: "He spray-painted his tag across his own fence and ___"
+  MARKED: "He spray-painted his tag across the neighbour's fence and"
+  UNMARKED: "He spray-painted his tag across his own fence and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_110
@@ -1099,8 +1099,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He smashed the windscreen of his ex's car and ___"
-  UNMARKED: "He smashed the windscreen of his own car and ___"
+  MARKED: "He smashed the windscreen of his ex's car and"
+  UNMARKED: "He smashed the windscreen of his own car and"
   swap: "his ex's -> his own"
 
 - pair_id: r2th_111
@@ -1109,8 +1109,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slashed the tyres on his neighbour's truck and ___"
-  UNMARKED: "He slashed the tyres on his own truck and ___"
+  MARKED: "He slashed the tyres on his neighbour's truck and"
+  UNMARKED: "He slashed the tyres on his own truck and"
   swap: "his neighbour's -> his own"
 
 - pair_id: r2th_112
@@ -1119,8 +1119,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kicked a dent into the neighbour's garage door and ___"
-  UNMARKED: "He kicked a dent into his own garage door and ___"
+  MARKED: "He kicked a dent into the neighbour's garage door and"
+  UNMARKED: "He kicked a dent into his own garage door and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_113
@@ -1129,8 +1129,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He carved his initials into the neighbour's fence post and ___"
-  UNMARKED: "He carved his initials into his own fence post and ___"
+  MARKED: "He carved his initials into the neighbour's fence post and"
+  UNMARKED: "He carved his initials into his own fence post and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_114
@@ -1139,8 +1139,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He knocked over the flowerpots outside the neighbour's door and ___"
-  UNMARKED: "He knocked over the flowerpots outside his own door and ___"
+  MARKED: "He knocked over the flowerpots outside the neighbour's door and"
+  UNMARKED: "He knocked over the flowerpots outside his own door and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_115
@@ -1149,8 +1149,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He scratched an insult into the paint of his coworker's car and ___"
-  UNMARKED: "He scratched an insult into the paint of his own car and ___"
+  MARKED: "He scratched an insult into the paint of his coworker's car and"
+  UNMARKED: "He scratched an insult into the paint of his own car and"
   swap: "his coworker's -> his own"
 
 - pair_id: r2th_116
@@ -1159,8 +1159,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He pulled down the flag outside the neighbour's house and ___"
-  UNMARKED: "He pulled down the flag outside his own house and ___"
+  MARKED: "He pulled down the flag outside the neighbour's house and"
+  UNMARKED: "He pulled down the flag outside his own house and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_117
@@ -1169,8 +1169,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He toppled the bins outside the shop after closing and ___"
-  UNMARKED: "He toppled the bins outside his own house after closing and ___"
+  MARKED: "He toppled the bins outside the shop after closing and"
+  UNMARKED: "He toppled the bins outside his own house after closing and"
   swap: "the shop -> his own house"
 
 - pair_id: r2th_118
@@ -1179,8 +1179,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tore down the poster from the neighbour's fence and ___"
-  UNMARKED: "He tore down the poster from his own fence and ___"
+  MARKED: "He tore down the poster from the neighbour's fence and"
+  UNMARKED: "He tore down the poster from his own fence and"
   swap: "the neighbour's -> his own"
 
 - pair_id: r2th_119
@@ -1189,8 +1189,8 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He let the air out of the tyres on his coworker's bike and ___"
-  UNMARKED: "He let the air out of the tyres on his own bike and ___"
+  MARKED: "He let the air out of the tyres on his coworker's bike and"
+  UNMARKED: "He let the air out of the tyres on his own bike and"
   swap: "his coworker's -> his own"
 
 - pair_id: r2th_120
@@ -1199,6 +1199,6 @@
   subdomain: theft
   language: en
   writer: "sonnet-drafter-r2-theft (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He dumped his rubbish over the neighbour's fence and ___"
-  UNMARKED: "He dumped his rubbish over his own fence and ___"
+  MARKED: "He dumped his rubbish over the neighbour's fence and"
+  UNMARKED: "He dumped his rubbish over his own fence and"
   swap: "the neighbour's -> his own"

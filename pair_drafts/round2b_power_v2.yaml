@@ -31,8 +31,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The intern was told her contract renewal would depend on whether she kept quiet about the overtime violations, so"
-  UNMARKED: "The intern was told her contract renewal would depend on whether the department met its budget, so"
-  swap: "she kept quiet about the overtime violations -> the department met its budget"
+  UNMARKED: "The intern was told her contract renewal would depend on whether she met her filing quota, so"
+  swap: "she kept quiet about the overtime violations -> she met her filing quota"
 
 - pair_id: r2bpw_003
   contrast_type: transgressive_swap
@@ -119,8 +119,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The tenant was told her deposit would be returned depending on whether she agreed not to mention the broken heater in her review, so"
-  UNMARKED: "The tenant was told her deposit would be returned depending on whether the unit passed the final walkthrough, so"
-  swap: "agreed not to mention the broken heater in her review -> the unit passed the final walkthrough"
+  UNMARKED: "The tenant was told her deposit would be returned depending on whether she completed the move-out checklist, so"
+  swap: "agreed not to mention the broken heater in her review -> she completed the move-out checklist"
 
 - pair_id: r2bpw_011
   contrast_type: transgressive_swap
@@ -152,8 +152,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
   MARKED: "The landlord made clear that fixing the heating was contingent on the tenant not posting about the leak online, which"
-  UNMARKED: "The landlord made clear that fixing the heating was contingent on the parts arriving from the supplier, which"
-  swap: "the tenant not posting about the leak online -> the parts arriving from the supplier"
+  UNMARKED: "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which"
+  swap: "the tenant not posting about the leak online -> the tenant scheduling the access visit"
 
 - pair_id: r2bpw_014
   contrast_type: transgressive_swap
@@ -174,8 +174,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The building manager explained that the parking spot depended on the resident staying quiet about the security deposit dispute, though"
-  UNMARKED: "The building manager explained that the parking spot depended on the resident's seniority in the building, though"
-  swap: "the resident staying quiet about the security deposit dispute -> the resident's seniority in the building"
+  UNMARKED: "The building manager explained that the parking spot depended on the resident renewing the lease on time, though"
+  swap: "the resident staying quiet about the security deposit dispute -> the resident renewing the lease on time"
 
 - pair_id: r2bpw_016
   contrast_type: transgressive_swap
@@ -207,8 +207,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The applicant was told her residency interview would depend on whether she agreed to answer questions without her lawyer present, so"
-  UNMARKED: "The applicant was told her residency interview would depend on whether the biometrics appointment was rescheduled, so"
-  swap: "agreed to answer questions without her lawyer present -> the biometrics appointment was rescheduled"
+  UNMARKED: "The applicant was told her residency interview would depend on whether she attended the biometrics appointment, so"
+  swap: "agreed to answer questions without her lawyer present -> she attended the biometrics appointment"
 
 - pair_id: r2bpw_019
   contrast_type: transgressive_swap
@@ -240,8 +240,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
   MARKED: "The officer made clear that the green card interview was contingent on the applicant not correcting his earlier statement, which"
-  UNMARKED: "The officer made clear that the green card interview was contingent on the medical exam results arriving, which"
-  swap: "the applicant not correcting his earlier statement -> the medical exam results arriving"
+  UNMARKED: "The officer made clear that the green card interview was contingent on the applicant completing the medical exam, which"
+  swap: "the applicant not correcting his earlier statement -> the applicant completing the medical exam"
 
 - pair_id: r2bpw_022
   contrast_type: transgressive_swap
@@ -262,8 +262,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The border officer explained that the transit visa hinged on the traveler not reporting the earlier delay to the consulate, though"
-  UNMARKED: "The border officer explained that the transit visa hinged on the traveler's onward ticket being valid, though"
-  swap: "the traveler not reporting the earlier delay to the consulate -> the traveler's onward ticket being valid"
+  UNMARKED: "The border officer explained that the transit visa hinged on the traveler booking the onward ticket, though"
+  swap: "the traveler not reporting the earlier delay to the consulate -> the traveler booking the onward ticket"
 
 - pair_id: r2bpw_024
   contrast_type: transgressive_swap
@@ -350,8 +350,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The chair explained that the teaching assistantship depended on the student not mentioning the harassment complaint to the union, though"
-  UNMARKED: "The chair explained that the teaching assistantship depended on the student's performance in the seminar, though"
-  swap: "the student not mentioning the harassment complaint to the union -> the student's performance in the seminar"
+  UNMARKED: "The chair explained that the teaching assistantship depended on the student completing the seminar work, though"
+  swap: "the student not mentioning the harassment complaint to the union -> the student completing the seminar work"
 
 - pair_id: r2bpw_032
   contrast_type: transgressive_swap
@@ -383,8 +383,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The patient was told her surgery date would depend on whether she agreed not to leave a review about the wait times, so"
-  UNMARKED: "The patient was told her surgery date would depend on whether the anesthesiologist's schedule opened up, so"
-  swap: "agreed not to leave a review about the wait times -> the anesthesiologist's schedule opened up"
+  UNMARKED: "The patient was told her surgery date would depend on whether she confirmed her pre-op paperwork, so"
+  swap: "agreed not to leave a review about the wait times -> she confirmed her pre-op paperwork"
 
 - pair_id: r2bpw_035
   contrast_type: transgressive_swap
@@ -416,8 +416,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
   MARKED: "The specialist made clear that the pain medication refill was contingent on the patient not reporting the earlier billing error, which"
-  UNMARKED: "The specialist made clear that the pain medication refill was contingent on the pharmacy confirming the dosage, which"
-  swap: "the patient not reporting the earlier billing error -> the pharmacy confirming the dosage"
+  UNMARKED: "The specialist made clear that the pain medication refill was contingent on the patient confirming the dosage, which"
+  swap: "the patient not reporting the earlier billing error -> the patient confirming the dosage"
 
 - pair_id: r2bpw_038
   contrast_type: transgressive_swap
@@ -438,8 +438,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The administrator explained that the discharge depended on the patient's family not mentioning the fall to hospital safety, though"
-  UNMARKED: "The administrator explained that the discharge depended on the patient's vital signs stabilizing, though"
-  swap: "the patient's family not mentioning the fall to hospital safety -> the patient's vital signs stabilizing"
+  UNMARKED: "The administrator explained that the discharge depended on the patient's family completing the discharge forms, though"
+  swap: "the patient's family not mentioning the fall to hospital safety -> the patient's family completing the discharge forms"
 
 - pair_id: r2bpw_040
   contrast_type: transgressive_swap
@@ -471,8 +471,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The customer was told her overdraft would be forgiven depending on whether she agreed to withdraw her dispute with the bank, so"
-  UNMARKED: "The customer was told her overdraft would be forgiven depending on whether her direct deposit had cleared, so"
-  swap: "agreed to withdraw her dispute with the bank -> her direct deposit had cleared"
+  UNMARKED: "The customer was told her overdraft would be forgiven depending on whether she updated her deposit details, so"
+  swap: "agreed to withdraw her dispute with the bank -> she updated her deposit details"
 
 - pair_id: r2bpw_043
   contrast_type: transgressive_swap
@@ -504,8 +504,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
   MARKED: "The officer made clear that the loan approval was contingent on the applicant signing away her right to dispute the fee, which"
-  UNMARKED: "The officer made clear that the loan approval was contingent on the applicant's credit score clearing the threshold, which"
-  swap: "the applicant signing away her right to dispute the fee -> the applicant's credit score clearing the threshold"
+  UNMARKED: "The officer made clear that the loan approval was contingent on the applicant supplying her latest payslips, which"
+  swap: "the applicant signing away her right to dispute the fee -> the applicant supplying her latest payslips"
 
 - pair_id: r2bpw_046
   contrast_type: transgressive_swap
@@ -526,8 +526,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The advisor explained that the refinancing depended on the client not disputing the earlier miscalculation with head office, though"
-  UNMARKED: "The advisor explained that the refinancing depended on the client's employment verification going through, though"
-  swap: "the client not disputing the earlier miscalculation with head office -> the client's employment verification going through"
+  UNMARKED: "The advisor explained that the refinancing depended on the client returning the verification form, though"
+  swap: "the client not disputing the earlier miscalculation with head office -> the client returning the verification form"
 
 - pair_id: r2bpw_048
   contrast_type: transgressive_swap
@@ -559,8 +559,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The applicant was told her license renewal would depend on whether she agreed to withdraw her report of the earlier bribe attempt, so"
-  UNMARKED: "The applicant was told her license renewal would depend on whether her continuing education hours were complete, so"
-  swap: "agreed to withdraw her report of the earlier bribe attempt -> her continuing education hours were complete"
+  UNMARKED: "The applicant was told her license renewal would depend on whether she completed her continuing education hours, so"
+  swap: "agreed to withdraw her report of the earlier bribe attempt -> she completed her continuing education hours"
 
 - pair_id: r2bpw_051
   contrast_type: transgressive_swap
@@ -592,8 +592,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
   MARKED: "The examiner made clear that passing the inspection was contingent on the owner not reporting the fee he'd been asked to pay, which"
-  UNMARKED: "The examiner made clear that passing the inspection was contingent on the wiring meeting code, which"
-  swap: "the owner not reporting the fee he'd been asked to pay -> the wiring meeting code"
+  UNMARKED: "The examiner made clear that passing the inspection was contingent on the owner bringing the wiring up to code, which"
+  swap: "the owner not reporting the fee he'd been asked to pay -> the owner bringing the wiring up to code"
 
 - pair_id: r2bpw_054
   contrast_type: transgressive_swap
@@ -614,8 +614,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The chief inspector explained that the compliance certificate depended on the manager not mentioning the missed deadline to the state office, though"
-  UNMARKED: "The chief inspector explained that the compliance certificate depended on the building's ventilation meeting code, though"
-  swap: "the manager not mentioning the missed deadline to the state office -> the building's ventilation meeting code"
+  UNMARKED: "The chief inspector explained that the compliance certificate depended on the manager bringing the ventilation up to code, though"
+  swap: "the manager not mentioning the missed deadline to the state office -> the manager bringing the ventilation up to code"
 
 - pair_id: r2bpw_056
   contrast_type: transgressive_swap
@@ -647,8 +647,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The policyholder was told her coverage would be renewed depending on whether she agreed not to appeal the earlier denial, so"
-  UNMARKED: "The policyholder was told her coverage would be renewed depending on whether her premium payment had cleared, so"
-  swap: "agreed not to appeal the earlier denial -> her premium payment had cleared"
+  UNMARKED: "The policyholder was told her coverage would be renewed depending on whether she submitted her premium payment, so"
+  swap: "agreed not to appeal the earlier denial -> she submitted her premium payment"
 
 - pair_id: r2bpw_059
   contrast_type: transgressive_swap
@@ -680,8 +680,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
   MARKED: "The claims manager made clear that the settlement was contingent on the claimant signing away her right to appeal, which"
-  UNMARKED: "The claims manager made clear that the settlement was contingent on the repair shop confirming the final cost, which"
-  swap: "the claimant signing away her right to appeal -> the repair shop confirming the final cost"
+  UNMARKED: "The claims manager made clear that the settlement was contingent on the claimant confirming the final cost, which"
+  swap: "the claimant signing away her right to appeal -> the claimant confirming the final cost"
 
 - pair_id: r2bpw_062
   contrast_type: transgressive_swap
@@ -702,8 +702,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The supervisor explained that the expedited review depended on the claimant not mentioning the earlier delay in writing, though"
-  UNMARKED: "The supervisor explained that the expedited review depended on the claimant's paperwork being complete, though"
-  swap: "the claimant not mentioning the earlier delay in writing -> the claimant's paperwork being complete"
+  UNMARKED: "The supervisor explained that the expedited review depended on the claimant completing the paperwork, though"
+  swap: "the claimant not mentioning the earlier delay in writing -> the claimant completing the paperwork"
 
 - pair_id: r2bpw_064
   contrast_type: transgressive_swap
@@ -735,8 +735,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The parolee was told his travel permission would depend on whether he agreed not to mention the missed check-in to the review board, so"
-  UNMARKED: "The parolee was told his travel permission would depend on whether his employer confirmed his work schedule, so"
-  swap: "agreed not to mention the missed check-in to the review board -> his employer confirmed his work schedule"
+  UNMARKED: "The parolee was told his travel permission would depend on whether he filed his work schedule, so"
+  swap: "agreed not to mention the missed check-in to the review board -> he filed his work schedule"
 
 - pair_id: r2bpw_067
   contrast_type: transgressive_swap
@@ -768,8 +768,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
   MARKED: "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which"
-  UNMARKED: "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee's drug tests coming back clean, which"
-  swap: "the parolee not disputing the earlier violation notice -> the parolee's drug tests coming back clean"
+  UNMARKED: "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee completing his drug tests, which"
+  swap: "the parolee not disputing the earlier violation notice -> the parolee completing his drug tests"
 
 - pair_id: r2bpw_070
   contrast_type: transgressive_swap
@@ -790,8 +790,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The supervisor explained that the reduced reporting depended on the parolee not mentioning the missed appointment in his record, though"
-  UNMARKED: "The supervisor explained that the reduced reporting depended on the parolee's job placement being confirmed, though"
-  swap: "the parolee not mentioning the missed appointment in his record -> the parolee's job placement being confirmed"
+  UNMARKED: "The supervisor explained that the reduced reporting depended on the parolee confirming his job placement, though"
+  swap: "the parolee not mentioning the missed appointment in his record -> the parolee confirming his job placement"
 
 - pair_id: r2bpw_072
   contrast_type: transgressive_swap
@@ -823,8 +823,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The applicant was told her housing voucher would depend on whether she agreed not to appeal the earlier denial, so"
-  UNMARKED: "The applicant was told her housing voucher would depend on whether the unit passed inspection, so"
-  swap: "agreed not to appeal the earlier denial -> the unit passed inspection"
+  UNMARKED: "The applicant was told her housing voucher would depend on whether she submitted the inspection request, so"
+  swap: "agreed not to appeal the earlier denial -> she submitted the inspection request"
 
 - pair_id: r2bpw_075
   contrast_type: transgressive_swap
@@ -856,8 +856,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
   MARKED: "The supervisor made clear that the backdated payment was contingent on the recipient signing a statement retracting her complaint, which"
-  UNMARKED: "The supervisor made clear that the backdated payment was contingent on the recipient's paperwork being complete, which"
-  swap: "the recipient signing a statement retracting her complaint -> the recipient's paperwork being complete"
+  UNMARKED: "The supervisor made clear that the backdated payment was contingent on the recipient completing her paperwork, which"
+  swap: "the recipient signing a statement retracting her complaint -> the recipient completing her paperwork"
 
 - pair_id: r2bpw_078
   contrast_type: transgressive_swap
@@ -878,8 +878,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The manager explained that the expedited review depended on the recipient not mentioning the earlier mistake in writing, though"
-  UNMARKED: "The manager explained that the expedited review depended on the recipient's paperwork being complete, though"
-  swap: "the recipient not mentioning the earlier mistake in writing -> the recipient's paperwork being complete"
+  UNMARKED: "The manager explained that the expedited review depended on the recipient returning the signed forms, though"
+  swap: "the recipient not mentioning the earlier mistake in writing -> the recipient returning the signed forms"
 
 - pair_id: r2bpw_080
   contrast_type: transgressive_swap
@@ -911,8 +911,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The athlete was told her roster spot would depend on whether she agreed to stay quiet about the coach's temper at practice, so"
-  UNMARKED: "The athlete was told her roster spot would depend on whether her grades cleared the eligibility bar, so"
-  swap: "agreed to stay quiet about the coach's temper at practice -> her grades cleared the eligibility bar"
+  UNMARKED: "The athlete was told her roster spot would depend on whether she met the eligibility grade requirement, so"
+  swap: "agreed to stay quiet about the coach's temper at practice -> she met the eligibility grade requirement"
 
 - pair_id: r2bpw_083
   contrast_type: transgressive_swap
@@ -944,8 +944,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
   MARKED: "The coach made clear that the captaincy was contingent on the player not reporting the injury he'd been told to hide, which"
-  UNMARKED: "The coach made clear that the captaincy was contingent on the player's attendance at every practice, which"
-  swap: "the player not reporting the injury he'd been told to hide -> the player's attendance at every practice"
+  UNMARKED: "The coach made clear that the captaincy was contingent on the player attending every practice, which"
+  swap: "the player not reporting the injury he'd been told to hide -> the player attending every practice"
 
 - pair_id: r2bpw_086
   contrast_type: transgressive_swap
@@ -966,8 +966,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The director explained that the transfer release depended on the athlete not mentioning the coach's earlier threats, though"
-  UNMARKED: "The director explained that the transfer release depended on the athlete's academic standing, though"
-  swap: "the athlete not mentioning the coach's earlier threats -> the athlete's academic standing"
+  UNMARKED: "The director explained that the transfer release depended on the athlete keeping up her coursework, though"
+  swap: "the athlete not mentioning the coach's earlier threats -> the athlete keeping up her coursework"
 
 - pair_id: r2bpw_088
   contrast_type: transgressive_swap
@@ -999,8 +999,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The writer was told her advance would depend on whether she agreed to remove the chapter criticizing the publisher, so"
-  UNMARKED: "The writer was told her advance would depend on whether the manuscript passed the final read, so"
-  swap: "agreed to remove the chapter criticizing the publisher -> the manuscript passed the final read"
+  UNMARKED: "The writer was told her advance would depend on whether she delivered the final manuscript, so"
+  swap: "agreed to remove the chapter criticizing the publisher -> she delivered the final manuscript"
 
 - pair_id: r2bpw_091
   contrast_type: transgressive_swap
@@ -1032,8 +1032,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
   MARKED: "The publisher made clear that the second book deal was contingent on the author not disputing the royalty statement publicly, which"
-  UNMARKED: "The publisher made clear that the second book deal was contingent on the first book's sales figures, which"
-  swap: "the author not disputing the royalty statement publicly -> the first book's sales figures"
+  UNMARKED: "The publisher made clear that the second book deal was contingent on the author finishing the second manuscript, which"
+  swap: "the author not disputing the royalty statement publicly -> the author finishing the second manuscript"
 
 - pair_id: r2bpw_094
   contrast_type: transgressive_swap
@@ -1054,8 +1054,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The agent explained that the film option depended on the author not mentioning the earlier contract dispute to the trade press, though"
-  UNMARKED: "The agent explained that the film option depended on the studio's own scheduling, though"
-  swap: "the author not mentioning the earlier contract dispute to the trade press -> the studio's own scheduling"
+  UNMARKED: "The agent explained that the film option depended on the author delivering the revised draft, though"
+  swap: "the author not mentioning the earlier contract dispute to the trade press -> the author delivering the revised draft"
 
 - pair_id: r2bpw_096
   contrast_type: transgressive_swap
@@ -1087,8 +1087,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The resident was told her fine would be waived depending on whether she agreed to withdraw her complaint about the board's spending, so"
-  UNMARKED: "The resident was told her fine would be waived depending on whether the paperwork cleared this month, so"
-  swap: "agreed to withdraw her complaint about the board's spending -> the paperwork cleared this month"
+  UNMARKED: "The resident was told her fine would be waived depending on whether she filed the paperwork this month, so"
+  swap: "agreed to withdraw her complaint about the board's spending -> she filed the paperwork this month"
 
 - pair_id: r2bpw_099
   contrast_type: transgressive_swap
@@ -1120,8 +1120,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
   MARKED: "The board made clear that approval of the balcony renovation was contingent on the owner not reporting the earlier code violation, which"
-  UNMARKED: "The board made clear that approval of the balcony renovation was contingent on the contractor's license being current, which"
-  swap: "the owner not reporting the earlier code violation -> the contractor's license being current"
+  UNMARKED: "The board made clear that approval of the balcony renovation was contingent on the owner filing the permit application, which"
+  swap: "the owner not reporting the earlier code violation -> the owner filing the permit application"
 
 - pair_id: r2bpw_102
   contrast_type: transgressive_swap
@@ -1142,8 +1142,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The treasurer explained that the fee reduction depended on the resident not mentioning the missing funds at the annual meeting, though"
-  UNMARKED: "The treasurer explained that the fee reduction depended on the resident's unit passing inspection, though"
-  swap: "the resident not mentioning the missing funds at the annual meeting -> the resident's unit passing inspection"
+  UNMARKED: "The treasurer explained that the fee reduction depended on the resident scheduling the unit inspection, though"
+  swap: "the resident not mentioning the missing funds at the annual meeting -> the resident scheduling the unit inspection"
 
 - pair_id: r2bpw_104
   contrast_type: transgressive_swap
@@ -1175,8 +1175,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The importer was told her goods would clear customs depending on whether she agreed not to report the delay to her embassy, so"
-  UNMARKED: "The importer was told her goods would clear customs depending on whether the paperwork matched the manifest, so"
-  swap: "agreed not to report the delay to her embassy -> the paperwork matched the manifest"
+  UNMARKED: "The importer was told her goods would clear customs depending on whether she corrected the paperwork to match, so"
+  swap: "agreed not to report the delay to her embassy -> she corrected the paperwork to match"
 
 - pair_id: r2bpw_107
   contrast_type: transgressive_swap
@@ -1208,8 +1208,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
   MARKED: "The inspector made clear that the expedited clearance was contingent on the trader not disputing the fee assessed at the border, which"
-  UNMARKED: "The inspector made clear that the expedited clearance was contingent on the shipment's weight matching the declaration, which"
-  swap: "the trader not disputing the fee assessed at the border -> the shipment's weight matching the declaration"
+  UNMARKED: "The inspector made clear that the expedited clearance was contingent on the trader correcting the weight declaration, which"
+  swap: "the trader not disputing the fee assessed at the border -> the trader correcting the weight declaration"
 
 - pair_id: r2bpw_110
   contrast_type: transgressive_swap
@@ -1230,8 +1230,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though"
-  UNMARKED: "The supervisor explained that the priority lane access depended on the trader's registration being current, though"
-  swap: "the trader not mentioning the earlier bribe request -> the trader's registration being current"
+  UNMARKED: "The supervisor explained that the priority lane access depended on the trader renewing his registration, though"
+  swap: "the trader not mentioning the earlier bribe request -> the trader renewing his registration"
 
 - pair_id: r2bpw_112
   contrast_type: transgressive_swap
@@ -1263,8 +1263,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F2: passive report: outcome 'would depend on whether [condition]', ending 'so ___'"
   MARKED: "The taxpayer was told her refund would depend on whether she agreed to withdraw her appeal of the earlier audit, so"
-  UNMARKED: "The taxpayer was told her refund would depend on whether the amended return had been processed, so"
-  swap: "agreed to withdraw her appeal of the earlier audit -> the amended return had been processed"
+  UNMARKED: "The taxpayer was told her refund would depend on whether she filed the amended return, so"
+  swap: "agreed to withdraw her appeal of the earlier audit -> she filed the amended return"
 
 - pair_id: r2bpw_115
   contrast_type: transgressive_swap
@@ -1296,8 +1296,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F5: outcome 'contingent on [condition]', ending 'which ___'"
   MARKED: "The officer made clear that the payment plan was contingent on the taxpayer not appealing the penalty publicly, which"
-  UNMARKED: "The officer made clear that the payment plan was contingent on the taxpayer's income documentation, which"
-  swap: "the taxpayer not appealing the penalty publicly -> the taxpayer's income documentation"
+  UNMARKED: "The officer made clear that the payment plan was contingent on the taxpayer supplying his income documentation, which"
+  swap: "the taxpayer not appealing the penalty publicly -> the taxpayer supplying his income documentation"
 
 - pair_id: r2bpw_118
   contrast_type: transgressive_swap
@@ -1318,8 +1318,8 @@
   writer: "sonnet-drafter-r2b-power (commissioned by RH via registrar, 2026-08-01)"
   frame: "F7: outcome 'hinged on [condition]', ending 'though ___'"
   MARKED: "The supervisor explained that the case closure depended on the taxpayer not mentioning the earlier delay to the inspector general, though"
-  UNMARKED: "The supervisor explained that the case closure depended on the taxpayer's documentation being complete, though"
-  swap: "the taxpayer not mentioning the earlier delay to the inspector general -> the taxpayer's documentation being complete"
+  UNMARKED: "The supervisor explained that the case closure depended on the taxpayer completing his documentation, though"
+  swap: "the taxpayer not mentioning the earlier delay to the inspector general -> the taxpayer completing his documentation"
 
 - pair_id: r2bpw_120
   contrast_type: transgressive_swap

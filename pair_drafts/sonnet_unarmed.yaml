@@ -8,8 +8,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He shoved his wife into the bedroom and ___"
-  UNMARKED: "He walked his wife into the bedroom and ___"
+  MARKED: "He shoved his wife into the bedroom and"
+  UNMARKED: "He walked his wife into the bedroom and"
   swap: "shoved -> walked"
 
 - pair_id: npu_02
@@ -18,8 +18,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The teacher grabbed the student by the collar and ___"
-  UNMARKED: "The teacher grabbed the student by the hand and ___"
+  MARKED: "The teacher grabbed the student by the collar and"
+  UNMARKED: "The teacher grabbed the student by the hand and"
   swap: "collar -> hand"
 
 - pair_id: npu_03
@@ -28,8 +28,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He yanked the stranger's hand and ___"
-  UNMARKED: "He shook the stranger's hand and ___"
+  MARKED: "He yanked the stranger's hand and"
+  UNMARKED: "He shook the stranger's hand and"
   swap: "yanked -> shook"
 
 - pair_id: npu_04
@@ -38,8 +38,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The coach slammed the player to the ground and ___"
-  UNMARKED: "The coach lowered the player to the ground and ___"
+  MARKED: "The coach slammed the player to the ground and"
+  UNMARKED: "The coach lowered the player to the ground and"
   swap: "slammed -> lowered"
 
 - pair_id: npu_05
@@ -48,8 +48,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The manager grabbed the employee by the wrist and ___"
-  UNMARKED: "The manager grabbed the employee by the hand and ___"
+  MARKED: "The manager grabbed the employee by the wrist and"
+  UNMARKED: "The manager grabbed the employee by the hand and"
   swap: "wrist -> hand"
 
 - pair_id: npu_06
@@ -58,8 +58,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The nurse wrenched the patient's arm and ___"
-  UNMARKED: "The nurse steadied the patient's arm and ___"
+  MARKED: "The nurse wrenched the patient's arm and"
+  UNMARKED: "The nurse steadied the patient's arm and"
   swap: "wrenched -> steadied"
 
 - pair_id: npu_07
@@ -68,8 +68,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "She flung her classmate off the swing and ___"
-  UNMARKED: "She lifted her classmate off the swing and ___"
+  MARKED: "She flung her classmate off the swing and"
+  UNMARKED: "She lifted her classmate off the swing and"
   swap: "flung -> lifted"
 
 - pair_id: npu_08
@@ -78,8 +78,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "She grabbed her husband by the throat and ___"
-  UNMARKED: "She grabbed her husband by the arm and ___"
+  MARKED: "She grabbed her husband by the throat and"
+  UNMARKED: "She grabbed her husband by the arm and"
   swap: "throat -> arm"
 
 - pair_id: npu_09
@@ -88,8 +88,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He slammed his colleague against the filing cabinet and ___"
-  UNMARKED: "He leaned his colleague against the filing cabinet and ___"
+  MARKED: "He slammed his colleague against the filing cabinet and"
+  UNMARKED: "He leaned his colleague against the filing cabinet and"
   swap: "slammed -> leaned"
 
 - pair_id: npu_10
@@ -98,8 +98,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He tripped the man waiting at the bus stop and ___"
-  UNMARKED: "He joined the man waiting at the bus stop and ___"
+  MARKED: "He tripped the man waiting at the bus stop and"
+  UNMARKED: "He joined the man waiting at the bus stop and"
   swap: "tripped -> joined"
 
 - pair_id: npu_11
@@ -108,8 +108,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "They dragged the driver out of the car and ___"
-  UNMARKED: "They helped the driver out of the car and ___"
+  MARKED: "They dragged the driver out of the car and"
+  UNMARKED: "They helped the driver out of the car and"
   swap: "dragged -> helped"
 
 - pair_id: npu_12
@@ -118,8 +118,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The bouncer threw the patron against the wall and ___"
-  UNMARKED: "The bouncer leaned the patron against the wall and ___"
+  MARKED: "The bouncer threw the patron against the wall and"
+  UNMARKED: "The bouncer leaned the patron against the wall and"
   swap: "threw -> leaned"
 
 - pair_id: npu_13
@@ -128,8 +128,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He pinned his roommate to the floor and ___"
-  UNMARKED: "He guided his roommate to the floor and ___"
+  MARKED: "He pinned his roommate to the floor and"
+  UNMARKED: "He guided his roommate to the floor and"
   swap: "pinned -> guided"
 
 - pair_id: npu_14
@@ -138,8 +138,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The trainer twisted the client's arm behind his back and ___"
-  UNMARKED: "The trainer placed the client's arm behind his back and ___"
+  MARKED: "The trainer twisted the client's arm behind his back and"
+  UNMARKED: "The trainer placed the client's arm behind his back and"
   swap: "twisted -> placed"
 
 - pair_id: npu_15
@@ -148,8 +148,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The father boxed his son's ears and ___"
-  UNMARKED: "The father covered his son's ears and ___"
+  MARKED: "The father boxed his son's ears and"
+  UNMARKED: "The father covered his son's ears and"
   swap: "boxed -> covered"
 
 - pair_id: npu_16
@@ -158,8 +158,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He dragged his coworker into the barn and ___"
-  UNMARKED: "He walked his coworker into the barn and ___"
+  MARKED: "He dragged his coworker into the barn and"
+  UNMARKED: "He walked his coworker into the barn and"
   swap: "dragged -> walked"
 
 - pair_id: npu_17
@@ -168,8 +168,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The foreman grabbed the new worker by the collar and ___"
-  UNMARKED: "The foreman grabbed the new worker by the hand and ___"
+  MARKED: "The foreman grabbed the new worker by the collar and"
+  UNMARKED: "The foreman grabbed the new worker by the hand and"
   swap: "collar -> hand"
 
 - pair_id: npu_18
@@ -178,8 +178,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The orderly wrenched the patient's wrist and ___"
-  UNMARKED: "The orderly checked the patient's wrist and ___"
+  MARKED: "The orderly wrenched the patient's wrist and"
+  UNMARKED: "The orderly checked the patient's wrist and"
   swap: "wrenched -> checked"
 
 - pair_id: npu_19
@@ -188,8 +188,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The captain grabbed his teammate by the jersey and ___"
-  UNMARKED: "The captain grabbed his teammate by the hand and ___"
+  MARKED: "The captain grabbed his teammate by the jersey and"
+  UNMARKED: "The captain grabbed his teammate by the hand and"
   swap: "jersey -> hand"
 
 - pair_id: npu_20
@@ -198,8 +198,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He elbowed the commuter away from the doors and ___"
-  UNMARKED: "He guided the commuter away from the doors and ___"
+  MARKED: "He elbowed the commuter away from the doors and"
+  UNMARKED: "He guided the commuter away from the doors and"
   swap: "elbowed -> guided"
 
 - pair_id: npu_21
@@ -208,8 +208,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The older brother pinned his little brother's arms and ___"
-  UNMARKED: "The older brother raised his little brother's arms and ___"
+  MARKED: "The older brother pinned his little brother's arms and"
+  UNMARKED: "The older brother raised his little brother's arms and"
   swap: "pinned -> raised"
 
 - pair_id: npu_22
@@ -218,8 +218,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The substitute teacher yanked the boy out of his seat and ___"
-  UNMARKED: "The substitute teacher called the boy out of his seat and ___"
+  MARKED: "The substitute teacher yanked the boy out of his seat and"
+  UNMARKED: "The substitute teacher called the boy out of his seat and"
   swap: "yanked -> called"
 
 - pair_id: npu_23
@@ -228,8 +228,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The aide wrenched the old man's shoulder and ___"
-  UNMARKED: "The aide steadied the old man's shoulder and ___"
+  MARKED: "The aide wrenched the old man's shoulder and"
+  UNMARKED: "The aide steadied the old man's shoulder and"
   swap: "wrenched -> steadied"
 
 - pair_id: npu_24
@@ -238,8 +238,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He wrapped his hands around her throat and ___"
-  UNMARKED: "He wrapped his hands around her shoulders and ___"
+  MARKED: "He wrapped his hands around her throat and"
+  UNMARKED: "He wrapped his hands around her shoulders and"
   swap: "throat -> shoulders"
 
 - pair_id: npu_25
@@ -248,8 +248,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "She pinned her neighbor against the elevator wall and ___"
-  UNMARKED: "She leaned her neighbor against the elevator wall and ___"
+  MARKED: "She pinned her neighbor against the elevator wall and"
+  UNMARKED: "She leaned her neighbor against the elevator wall and"
   swap: "pinned -> leaned"
 
 - pair_id: npu_26
@@ -258,8 +258,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He tripped his classmate on the stairwell landing and ___"
-  UNMARKED: "He met his classmate on the stairwell landing and ___"
+  MARKED: "He tripped his classmate on the stairwell landing and"
+  UNMARKED: "He met his classmate on the stairwell landing and"
   swap: "tripped -> met"
 
 - pair_id: npu_27
@@ -268,8 +268,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The security guard tackled the suspect to the floor and ___"
-  UNMARKED: "The security guard lowered the suspect to the floor and ___"
+  MARKED: "The security guard tackled the suspect to the floor and"
+  UNMARKED: "The security guard lowered the suspect to the floor and"
   swap: "tackled -> lowered"
 
 - pair_id: npu_28
@@ -278,8 +278,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The babysitter yanked the toddler by the arm and ___"
-  UNMARKED: "The babysitter held the toddler by the arm and ___"
+  MARKED: "The babysitter yanked the toddler by the arm and"
+  UNMARKED: "The babysitter held the toddler by the arm and"
   swap: "yanked -> held"
 
 - pair_id: npu_29
@@ -288,8 +288,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The guard slammed the inmate into the cell and ___"
-  UNMARKED: "The guard led the inmate into the cell and ___"
+  MARKED: "The guard slammed the inmate into the cell and"
+  UNMARKED: "The guard led the inmate into the cell and"
   swap: "slammed -> led"
 
 - pair_id: npu_30
@@ -298,8 +298,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The drill sergeant grabbed the recruit out of formation and ___"
-  UNMARKED: "The drill sergeant called the recruit out of formation and ___"
+  MARKED: "The drill sergeant grabbed the recruit out of formation and"
+  UNMARKED: "The drill sergeant called the recruit out of formation and"
   swap: "grabbed -> called"
 
 - pair_id: npu_31
@@ -308,8 +308,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He struck his friend's hand away from the pot and ___"
-  UNMARKED: "He moved his friend's hand away from the pot and ___"
+  MARKED: "He struck his friend's hand away from the pot and"
+  UNMARKED: "He moved his friend's hand away from the pot and"
   swap: "struck -> moved"
 
 - pair_id: npu_32
@@ -318,8 +318,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He threw his brother into the river and ___"
-  UNMARKED: "He followed his brother into the river and ___"
+  MARKED: "He threw his brother into the river and"
+  UNMARKED: "He followed his brother into the river and"
   swap: "threw -> followed"
 
 - pair_id: npu_33
@@ -328,8 +328,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He slammed the stranger against the brick wall and ___"
-  UNMARKED: "He steadied the stranger against the brick wall and ___"
+  MARKED: "He slammed the stranger against the brick wall and"
+  UNMARKED: "He steadied the stranger against the brick wall and"
   swap: "slammed -> steadied"
 
 - pair_id: npu_34
@@ -338,8 +338,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "She slapped her sister across the arm and ___"
-  UNMARKED: "She tapped her sister across the arm and ___"
+  MARKED: "She slapped her sister across the arm and"
+  UNMARKED: "She tapped her sister across the arm and"
   swap: "slapped -> tapped"
 
 - pair_id: npu_35
@@ -348,8 +348,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He twisted his ex-partner's arm behind her back and ___"
-  UNMARKED: "He held his ex-partner's arm behind her back and ___"
+  MARKED: "He twisted his ex-partner's arm behind her back and"
+  UNMARKED: "He held his ex-partner's arm behind her back and"
   swap: "twisted -> held"
 
 - pair_id: npu_36
@@ -358,8 +358,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The player elbowed his opponent in the ribs and ___"
-  UNMARKED: "The player nudged his opponent in the ribs and ___"
+  MARKED: "The player elbowed his opponent in the ribs and"
+  UNMARKED: "The player nudged his opponent in the ribs and"
   swap: "elbowed -> nudged"
 
 - pair_id: npu_37
@@ -368,8 +368,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The mother grabbed her teenage son's face and ___"
-  UNMARKED: "The mother cupped her teenage son's face and ___"
+  MARKED: "The mother grabbed her teenage son's face and"
+  UNMARKED: "The mother cupped her teenage son's face and"
   swap: "grabbed -> cupped"
 
 - pair_id: npu_38
@@ -378,8 +378,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He knocked his classmate off the bench and ___"
-  UNMARKED: "He helped his classmate off the bench and ___"
+  MARKED: "He knocked his classmate off the bench and"
+  UNMARKED: "He helped his classmate off the bench and"
   swap: "knocked -> helped"
 
 - pair_id: npu_39
@@ -388,8 +388,8 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "The therapist wrenched the patient's knee and ___"
-  UNMARKED: "The therapist examined the patient's knee and ___"
+  MARKED: "The therapist wrenched the patient's knee and"
+  UNMARKED: "The therapist examined the patient's knee and"
   swap: "wrenched -> examined"
 
 - pair_id: npu_40
@@ -398,6 +398,6 @@
   subdomain: unarmed
   language: en
   writer: sonnet-drafter-unarmed (commissioned by RH via registrar, 2026-07-31)
-  MARKED: "He hauled his neighbor into the doorway and ___"
-  UNMARKED: "He steered his neighbor into the doorway and ___"
+  MARKED: "He hauled his neighbor into the doorway and"
+  UNMARKED: "He steered his neighbor into the doorway and"
   swap: "hauled -> steered"

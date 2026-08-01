@@ -9,8 +9,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kicked the dog off the porch and ___"
-  UNMARKED: "He carried the dog off the porch and ___"
+  MARKED: "He kicked the dog off the porch and"
+  UNMARKED: "He carried the dog off the porch and"
   swap: "kicked -> carried"
 
 - pair_id: r2an_002
@@ -19,8 +19,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She hurled the cat across the room and ___"
-  UNMARKED: "She carried the cat across the room and ___"
+  MARKED: "She hurled the cat across the room and"
+  UNMARKED: "She carried the cat across the room and"
   swap: "hurled -> carried"
 
 - pair_id: r2an_003
@@ -29,8 +29,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The rider whipped the horse across its flank and ___"
-  UNMARKED: "The rider brushed the horse across its flank and ___"
+  MARKED: "The rider whipped the horse across its flank and"
+  UNMARKED: "The rider brushed the horse across its flank and"
   swap: "whipped -> brushed"
 
 - pair_id: r2an_004
@@ -39,8 +39,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The farmer struck the cow with the pole and ___"
-  UNMARKED: "The farmer guided the cow with the pole and ___"
+  MARKED: "The farmer struck the cow with the pole and"
+  UNMARKED: "The farmer guided the cow with the pole and"
   swap: "struck -> guided"
 
 - pair_id: r2an_005
@@ -49,8 +49,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He stomped on the chicken's foot and ___"
-  UNMARKED: "He examined the chicken's foot and ___"
+  MARKED: "He stomped on the chicken's foot and"
+  UNMARKED: "He examined the chicken's foot and"
   swap: "stomped on -> examined"
 
 - pair_id: r2an_006
@@ -59,8 +59,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She stepped on the kitten's tail and ___"
-  UNMARKED: "She stepped over the kitten's tail and ___"
+  MARKED: "She stepped on the kitten's tail and"
+  UNMARKED: "She stepped over the kitten's tail and"
   swap: "on -> over"
 
 - pair_id: r2an_007
@@ -69,8 +69,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slammed the puppy's cage door shut and ___"
-  UNMARKED: "He latched the puppy's cage door shut and ___"
+  MARKED: "He slammed the puppy's cage door shut and"
+  UNMARKED: "He latched the puppy's cage door shut and"
   swap: "slammed -> latched"
 
 - pair_id: r2an_008
@@ -79,8 +79,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He dragged the goat by its horns and ___"
-  UNMARKED: "He led the goat by its horns and ___"
+  MARKED: "He dragged the goat by its horns and"
+  UNMARKED: "He led the goat by its horns and"
   swap: "dragged -> led"
 
 - pair_id: r2an_009
@@ -89,8 +89,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She squeezed the rabbit in her grip and ___"
-  UNMARKED: "She cradled the rabbit in her grip and ___"
+  MARKED: "She squeezed the rabbit in her grip and"
+  UNMARKED: "She cradled the rabbit in her grip and"
   swap: "squeezed -> cradled"
 
 - pair_id: r2an_010
@@ -99,8 +99,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He threw the pigeon against the wall and ___"
-  UNMARKED: "He threw the pillow against the wall and ___"
+  MARKED: "He threw the pigeon against the wall and"
+  UNMARKED: "He threw the pillow against the wall and"
   swap: "the pigeon -> the pillow"
 
 - pair_id: r2an_011
@@ -109,8 +109,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The boy pelted the duck with rocks and ___"
-  UNMARKED: "The boy pelted the target with rocks and ___"
+  MARKED: "The boy pelted the duck with rocks and"
+  UNMARKED: "The boy pelted the target with rocks and"
   swap: "the duck -> the target"
 
 - pair_id: r2an_012
@@ -119,8 +119,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He swung the broom at the cat and ___"
-  UNMARKED: "He swung the broom at the cobweb and ___"
+  MARKED: "He swung the broom at the cat and"
+  UNMARKED: "He swung the broom at the cobweb and"
   swap: "the cat -> the cobweb"
 
 - pair_id: r2an_013
@@ -129,8 +129,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She yanked the dog's leash hard and ___"
-  UNMARKED: "She held the dog's leash loosely and ___"
+  MARKED: "She yanked the dog's leash hard and"
+  UNMARKED: "She held the dog's leash loosely and"
   swap: "yanked ... hard -> held ... loosely"
 
 - pair_id: r2an_014
@@ -139,8 +139,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He locked the dog in the hot car and ___"
-  UNMARKED: "He left the dog in the shaded car and ___"
+  MARKED: "He locked the dog in the hot car and"
+  UNMARKED: "He left the dog in the shaded car and"
   swap: "locked ... hot -> left ... shaded"
 
 - pair_id: r2an_015
@@ -149,8 +149,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The trainer jabbed the elephant behind the ear and ___"
-  UNMARKED: "The trainer scratched the elephant behind the ear and ___"
+  MARKED: "The trainer jabbed the elephant behind the ear and"
+  UNMARKED: "The trainer scratched the elephant behind the ear and"
   swap: "jabbed -> scratched"
 
 - pair_id: r2an_016
@@ -159,8 +159,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He twisted the parrot's wing and ___"
-  UNMARKED: "He folded the parrot's wing and ___"
+  MARKED: "He twisted the parrot's wing and"
+  UNMARKED: "He folded the parrot's wing and"
   swap: "twisted -> folded"
 
 - pair_id: r2an_017
@@ -169,8 +169,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She flung the hamster's cage off the shelf and ___"
-  UNMARKED: "She lifted the hamster's cage off the shelf and ___"
+  MARKED: "She flung the hamster's cage off the shelf and"
+  UNMARKED: "She lifted the hamster's cage off the shelf and"
   swap: "flung -> lifted"
 
 - pair_id: r2an_018
@@ -179,8 +179,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He starved the pig in the pen for days and ___"
-  UNMARKED: "He fed the pig in the pen for days and ___"
+  MARKED: "He starved the pig in the pen for days and"
+  UNMARKED: "He fed the pig in the pen for days and"
   swap: "starved -> fed"
 
 - pair_id: r2an_019
@@ -189,8 +189,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The boy trapped the squirrel in the bucket and ___"
-  UNMARKED: "The boy released the squirrel from the bucket and ___"
+  MARKED: "The boy trapped the squirrel in the bucket and"
+  UNMARKED: "The boy released the squirrel from the bucket and"
   swap: "trapped ... in -> released ... from"
 
 - pair_id: r2an_020
@@ -199,8 +199,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He crushed the snail under his boot and ___"
-  UNMARKED: "He stepped around the snail under the ledge and ___"
+  MARKED: "He crushed the snail under his boot and"
+  UNMARKED: "He stepped around the snail under the ledge and"
   swap: "crushed ... his boot -> stepped around ... the ledge"
 
 - pair_id: r2an_021
@@ -209,8 +209,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She swatted the kitten off the counter and ___"
-  UNMARKED: "She lifted the kitten off the counter and ___"
+  MARKED: "She swatted the kitten off the counter and"
+  UNMARKED: "She lifted the kitten off the counter and"
   swap: "swatted -> lifted"
 
 - pair_id: r2an_022
@@ -219,8 +219,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The handler jabbed the horse with the crop and ___"
-  UNMARKED: "The handler patted the horse with the crop and ___"
+  MARKED: "The handler jabbed the horse with the crop and"
+  UNMARKED: "The handler patted the horse with the crop and"
   swap: "jabbed -> patted"
 
 - pair_id: r2an_023
@@ -229,8 +229,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He hoisted the fish by the gills and ___"
-  UNMARKED: "He held the fish by the tail and ___"
+  MARKED: "He hoisted the fish by the gills and"
+  UNMARKED: "He held the fish by the tail and"
   swap: "hoisted ... gills -> held ... tail"
 
 - pair_id: r2an_024
@@ -239,8 +239,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She wrung the chicken's neck at the counter and ___"
-  UNMARKED: "She wiped the chicken's cage at the counter and ___"
+  MARKED: "She wrung the chicken's neck at the counter and"
+  UNMARKED: "She wiped the chicken's cage at the counter and"
   swap: "wrung ... neck -> wiped ... cage"
 
 - pair_id: r2an_025
@@ -249,8 +249,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He held the puppy's head underwater and ___"
-  UNMARKED: "He held the puppy's paw underwater and ___"
+  MARKED: "He held the puppy's head underwater and"
+  UNMARKED: "He held the puppy's paw underwater and"
   swap: "head -> paw"
 
 - pair_id: r2an_026
@@ -259,8 +259,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The teenager set the anthill on fire with lighter fluid and ___"
-  UNMARKED: "The teenager doused the anthill with water and ___"
+  MARKED: "The teenager set the anthill on fire with lighter fluid and"
+  UNMARKED: "The teenager doused the anthill with water and"
   swap: "set ... on fire with lighter fluid -> doused ... with water"
 
 - pair_id: r2an_027
@@ -269,8 +269,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He shot the stray dog behind the shed and ___"
-  UNMARKED: "He photographed the stray dog behind the shed and ___"
+  MARKED: "He shot the stray dog behind the shed and"
+  UNMARKED: "He photographed the stray dog behind the shed and"
   swap: "shot -> photographed"
 
 - pair_id: r2an_028
@@ -279,8 +279,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She poisoned the neighbor's cat with antifreeze and ___"
-  UNMARKED: "She fed the neighbor's cat with a spoon and ___"
+  MARKED: "She poisoned the neighbor's cat with antifreeze and"
+  UNMARKED: "She fed the neighbor's cat with a spoon and"
   swap: "poisoned ... with antifreeze -> fed ... with a spoon"
 
 - pair_id: r2an_029
@@ -289,8 +289,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He dangled the kitten by its tail and ___"
-  UNMARKED: "He carried the kitten by the scruff and ___"
+  MARKED: "He dangled the kitten by its tail and"
+  UNMARKED: "He carried the kitten by the scruff and"
   swap: "dangled ... tail -> carried ... scruff"
 
 - pair_id: r2an_030
@@ -299,8 +299,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The zookeeper prodded the tiger with the metal rod and ___"
-  UNMARKED: "The zookeeper guided the tiger with the wooden panel and ___"
+  MARKED: "The zookeeper prodded the tiger with the metal rod and"
+  UNMARKED: "The zookeeper guided the tiger with the wooden panel and"
   swap: "prodded ... metal rod -> guided ... wooden panel"
 
 - pair_id: r2an_031
@@ -309,8 +309,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tied the dog to the fence and left it in the sun and ___"
-  UNMARKED: "He tied the dog to the fence and left it in the shade and ___"
+  MARKED: "He tied the dog to the fence and left it in the sun and"
+  UNMARKED: "He tied the dog to the fence and left it in the shade and"
   swap: "the sun -> the shade"
 
 - pair_id: r2an_032
@@ -319,8 +319,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She flicked the goldfish out of its bowl and ___"
-  UNMARKED: "She scooped the goldfish out of its bowl and ___"
+  MARKED: "She flicked the goldfish out of its bowl and"
+  UNMARKED: "She scooped the goldfish out of its bowl and"
   swap: "flicked -> scooped"
 
 - pair_id: r2an_033
@@ -329,8 +329,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He pinned the lizard under his shoe and ___"
-  UNMARKED: "He watched the lizard under the ledge and ___"
+  MARKED: "He pinned the lizard under his shoe and"
+  UNMARKED: "He watched the lizard under the ledge and"
   swap: "pinned ... under his shoe -> watched ... under the ledge"
 
 - pair_id: r2an_034
@@ -339,8 +339,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The driver ran over the raccoon on purpose and ___"
-  UNMARKED: "The driver swerved around the raccoon on purpose and ___"
+  MARKED: "The driver ran over the raccoon on purpose and"
+  UNMARKED: "The driver swerved around the raccoon on purpose and"
   swap: "ran over -> swerved around"
 
 - pair_id: r2an_035
@@ -349,8 +349,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She locked the rabbit in the shed with no water and ___"
-  UNMARKED: "She locked the rabbit in the shed with fresh water and ___"
+  MARKED: "She locked the rabbit in the shed with no water and"
+  UNMARKED: "She locked the rabbit in the shed with fresh water and"
   swap: "no water -> fresh water"
 
 - pair_id: r2an_036
@@ -359,8 +359,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He cracked the whip across the mule's back and ___"
-  UNMARKED: "He rested the blanket across the mule's back and ___"
+  MARKED: "He cracked the whip across the mule's back and"
+  UNMARKED: "He rested the blanket across the mule's back and"
   swap: "cracked the whip -> rested the blanket"
 
 - pair_id: r2an_037
@@ -369,8 +369,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The boy shook the birdcage until the finch fell and ___"
-  UNMARKED: "The boy cleaned the birdcage until the finch perched and ___"
+  MARKED: "The boy shook the birdcage until the finch fell and"
+  UNMARKED: "The boy cleaned the birdcage until the finch perched and"
   swap: "shook ... fell -> cleaned ... perched"
 
 - pair_id: r2an_038
@@ -379,8 +379,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He grabbed the piglet by its ear and ___"
-  UNMARKED: "He scratched the piglet behind its ear and ___"
+  MARKED: "He grabbed the piglet by its ear and"
+  UNMARKED: "He scratched the piglet behind its ear and"
   swap: "grabbed ... by -> scratched ... behind"
 
 - pair_id: r2an_039
@@ -389,8 +389,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She threw the ferret into the freezing yard and ___"
-  UNMARKED: "She carried the ferret into the heated yard and ___"
+  MARKED: "She threw the ferret into the freezing yard and"
+  UNMARKED: "She carried the ferret into the heated yard and"
   swap: "threw ... freezing -> carried ... heated"
 
 - pair_id: r2an_040
@@ -399,8 +399,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He stabbed the sheep in the flank and ___"
-  UNMARKED: "He clipped the sheep in the pasture and ___"
+  MARKED: "He stabbed the sheep in the flank and"
+  UNMARKED: "He clipped the sheep in the pasture and"
   swap: "stabbed ... flank -> clipped ... pasture"
 
 - pair_id: r2an_041
@@ -409,8 +409,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The man beat the donkey with a stick and ___"
-  UNMARKED: "The man led the donkey with a rope and ___"
+  MARKED: "The man beat the donkey with a stick and"
+  UNMARKED: "The man led the donkey with a rope and"
   swap: "beat ... a stick -> led ... a rope"
 
 - pair_id: r2an_042
@@ -419,8 +419,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She strangled the pigeon in her fist and ___"
-  UNMARKED: "She warmed the pigeon in her hands and ___"
+  MARKED: "She strangled the pigeon in her fist and"
+  UNMARKED: "She warmed the pigeon in her hands and"
   swap: "strangled ... fist -> warmed ... hands"
 
 - pair_id: r2an_043
@@ -429,8 +429,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He clubbed the seal pup on the ice and ___"
-  UNMARKED: "He photographed the seal pup on the ice and ___"
+  MARKED: "He clubbed the seal pup on the ice and"
+  UNMARKED: "He photographed the seal pup on the ice and"
   swap: "clubbed -> photographed"
 
 - pair_id: r2an_044
@@ -439,8 +439,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The vet's assistant burned the dog's paw with the iron and ___"
-  UNMARKED: "The vet's assistant bandaged the dog's paw with the wrap and ___"
+  MARKED: "The vet's assistant burned the dog's paw with the iron and"
+  UNMARKED: "The vet's assistant bandaged the dog's paw with the wrap and"
   swap: "burned ... the iron -> bandaged ... the wrap"
 
 - pair_id: r2an_045
@@ -449,8 +449,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tossed the turtle off the bridge and ___"
-  UNMARKED: "He tossed the pebble off the bridge and ___"
+  MARKED: "He tossed the turtle off the bridge and"
+  UNMARKED: "He tossed the pebble off the bridge and"
   swap: "the turtle -> the pebble"
 
 - pair_id: r2an_046
@@ -459,8 +459,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She slammed the car trunk on the cat's tail and ___"
-  UNMARKED: "She checked the car trunk near the cat's bed and ___"
+  MARKED: "She slammed the car trunk on the cat's tail and"
+  UNMARKED: "She checked the car trunk near the cat's bed and"
   swap: "slammed ... on the cat's tail -> checked ... near the cat's bed"
 
 - pair_id: r2an_047
@@ -469,8 +469,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The farmhand branded the calf without sedation and ___"
-  UNMARKED: "The farmhand brushed the calf without hurrying and ___"
+  MARKED: "The farmhand branded the calf without sedation and"
+  UNMARKED: "The farmhand brushed the calf without hurrying and"
   swap: "branded ... sedation -> brushed ... hurrying"
 
 - pair_id: r2an_048
@@ -479,8 +479,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kicked the rooster across the yard and ___"
-  UNMARKED: "He herded the rooster across the yard and ___"
+  MARKED: "He kicked the rooster across the yard and"
+  UNMARKED: "He herded the rooster across the yard and"
   swap: "kicked -> herded"
 
 - pair_id: r2an_049
@@ -489,8 +489,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She pulled the parakeet's feathers out one by one and ___"
-  UNMARKED: "She smoothed the parakeet's feathers down one by one and ___"
+  MARKED: "She pulled the parakeet's feathers out one by one and"
+  UNMARKED: "She smoothed the parakeet's feathers down one by one and"
   swap: "pulled ... out -> smoothed ... down"
 
 - pair_id: r2an_050
@@ -499,8 +499,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He shoved the goat off the truck bed and ___"
-  UNMARKED: "He lifted the goat off the truck bed and ___"
+  MARKED: "He shoved the goat off the truck bed and"
+  UNMARKED: "He lifted the goat off the truck bed and"
   swap: "shoved -> lifted"
 
 - pair_id: r2an_051
@@ -509,8 +509,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The trapper crushed the raccoon's leg in the jaw trap and ___"
-  UNMARKED: "The trapper cupped the raccoon's leg in his hands and ___"
+  MARKED: "The trapper crushed the raccoon's leg in the jaw trap and"
+  UNMARKED: "The trapper cupped the raccoon's leg in his hands and"
   swap: "crushed ... the jaw trap -> cupped ... his hands"
 
 - pair_id: r2an_052
@@ -519,8 +519,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He duct-taped the cat's mouth shut and ___"
-  UNMARKED: "He wiped the cat's mouth clean and ___"
+  MARKED: "He duct-taped the cat's mouth shut and"
+  UNMARKED: "He wiped the cat's mouth clean and"
   swap: "duct-taped ... shut -> wiped ... clean"
 
 - pair_id: r2an_053
@@ -529,8 +529,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She microwaved the hamster in its cage and ___"
-  UNMARKED: "She misted the hamster in its cage and ___"
+  MARKED: "She microwaved the hamster in its cage and"
+  UNMARKED: "She misted the hamster in its cage and"
   swap: "microwaved -> misted"
 
 - pair_id: r2an_054
@@ -539,8 +539,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He dropped the guinea pig from the balcony and ___"
-  UNMARKED: "He carried the guinea pig onto the balcony and ___"
+  MARKED: "He dropped the guinea pig from the balcony and"
+  UNMARKED: "He carried the guinea pig onto the balcony and"
   swap: "dropped ... from -> carried ... onto"
 
 - pair_id: r2an_055
@@ -549,8 +549,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The handler electrocuted the bear with the cattle prod and ___"
-  UNMARKED: "The handler rewarded the bear with the fish treat and ___"
+  MARKED: "The handler electrocuted the bear with the cattle prod and"
+  UNMARKED: "The handler rewarded the bear with the fish treat and"
   swap: "electrocuted ... cattle prod -> rewarded ... fish treat"
 
 - pair_id: r2an_056
@@ -559,8 +559,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He nailed the bat's wings to the barn door and ___"
-  UNMARKED: "He nailed the horseshoe to the barn door and ___"
+  MARKED: "He nailed the bat's wings to the barn door and"
+  UNMARKED: "He nailed the horseshoe to the barn door and"
   swap: "the bat's wings -> the horseshoe"
 
 - pair_id: r2an_057
@@ -569,8 +569,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She spat on the shelter dog through the bars and ___"
-  UNMARKED: "She waved at the shelter dog through the bars and ___"
+  MARKED: "She spat on the shelter dog through the bars and"
+  UNMARKED: "She waved at the shelter dog through the bars and"
   swap: "spat on -> waved at"
 
 - pair_id: r2an_058
@@ -579,8 +579,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He held the lamb down and sheared it to the skin and ___"
-  UNMARKED: "He held the lamb still and sheared it to the wool line and ___"
+  MARKED: "He held the lamb down and sheared it to the skin and"
+  UNMARKED: "He held the lamb still and sheared it to the wool line and"
   swap: "down ... to the skin -> still ... to the wool line"
 
 - pair_id: r2an_059
@@ -589,8 +589,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The boy flushed the goldfish down the toilet alive and ___"
-  UNMARKED: "The boy lowered the goldfish into the new tank and ___"
+  MARKED: "The boy flushed the goldfish down the toilet alive and"
+  UNMARKED: "The boy lowered the goldfish into the new tank and"
   swap: "flushed ... down the toilet -> lowered ... into the new tank"
 
 - pair_id: r2an_060
@@ -599,8 +599,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He hit the mule across the eyes with the reins and ___"
-  UNMARKED: "He tapped the mule across the flank with the reins and ___"
+  MARKED: "He hit the mule across the eyes with the reins and"
+  UNMARKED: "He tapped the mule across the flank with the reins and"
   swap: "hit ... the eyes -> tapped ... the flank"
 
 - pair_id: r2an_061
@@ -609,8 +609,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She dropped the kitten into the washing machine and ___"
-  UNMARKED: "She dropped the towel into the washing machine and ___"
+  MARKED: "She dropped the kitten into the washing machine and"
+  UNMARKED: "She dropped the towel into the washing machine and"
   swap: "the kitten -> the towel"
 
 - pair_id: r2an_062
@@ -619,8 +619,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The poacher snared the deer by its leg and ___"
-  UNMARKED: "The ranger tagged the deer by its ear and ___"
+  MARKED: "The poacher snared the deer by its leg and"
+  UNMARKED: "The ranger tagged the deer by its ear and"
   swap: "The poacher snared ... leg -> The ranger tagged ... ear"
 
 - pair_id: r2an_063
@@ -629,8 +629,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He wedged the cat's tail in the door on purpose and ___"
-  UNMARKED: "He checked the cat's tail near the door on his way out and ___"
+  MARKED: "He wedged the cat's tail in the door on purpose and"
+  UNMARKED: "He checked the cat's tail near the door on his way out and"
   swap: "wedged ... in the door on purpose -> checked ... near the door on his way out"
 
 - pair_id: r2an_064
@@ -639,8 +639,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She left the horse without water in the paddock and ___"
-  UNMARKED: "She left the horse with fresh hay in the paddock and ___"
+  MARKED: "She left the horse without water in the paddock and"
+  UNMARKED: "She left the horse with fresh hay in the paddock and"
   swap: "without water -> with fresh hay"
 
 - pair_id: r2an_065
@@ -649,8 +649,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The boy plucked the wings off the fly and ___"
-  UNMARKED: "The boy watched the wings of the fly and ___"
+  MARKED: "The boy plucked the wings off the fly and"
+  UNMARKED: "The boy watched the wings of the fly and"
   swap: "plucked ... off -> watched ... of"
 
 - pair_id: r2an_066
@@ -659,8 +659,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He fired the pellet gun at the crow on the fence and ___"
-  UNMARKED: "He aimed the camera at the crow on the fence and ___"
+  MARKED: "He fired the pellet gun at the crow on the fence and"
+  UNMARKED: "He aimed the camera at the crow on the fence and"
   swap: "fired the pellet gun -> aimed the camera"
 
 - pair_id: r2an_067
@@ -669,8 +669,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She kicked the pig back into its stall and ___"
-  UNMARKED: "She nudged the pig back into its stall and ___"
+  MARKED: "She kicked the pig back into its stall and"
+  UNMARKED: "She nudged the pig back into its stall and"
   swap: "kicked -> nudged"
 
 - pair_id: r2an_068
@@ -679,8 +679,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He crammed the chickens into the crate until they screamed and ___"
-  UNMARKED: "He counted the chickens into the crate until they settled and ___"
+  MARKED: "He crammed the chickens into the crate until they screamed and"
+  UNMARKED: "He counted the chickens into the crate until they settled and"
   swap: "crammed ... screamed -> counted ... settled"
 
 - pair_id: r2an_069
@@ -689,8 +689,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The neighbor threatened the dog with a shovel and ___"
-  UNMARKED: "The neighbor greeted the dog with a treat and ___"
+  MARKED: "The neighbor threatened the dog with a shovel and"
+  UNMARKED: "The neighbor greeted the dog with a treat and"
   swap: "threatened ... a shovel -> greeted ... a treat"
 
 - pair_id: r2an_070
@@ -699,8 +699,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He held the mouse over the stove flame and ___"
-  UNMARKED: "He held the mouse over the warm blanket and ___"
+  MARKED: "He held the mouse over the stove flame and"
+  UNMARKED: "He held the mouse over the warm blanket and"
   swap: "the stove flame -> the warm blanket"
 
 - pair_id: r2an_071
@@ -709,8 +709,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She abandoned the puppy on the highway shoulder and ___"
-  UNMARKED: "She walked the puppy on the highway shoulder and ___"
+  MARKED: "She abandoned the puppy on the highway shoulder and"
+  UNMARKED: "She walked the puppy on the highway shoulder and"
   swap: "abandoned -> walked"
 
 - pair_id: r2an_072
@@ -719,8 +719,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He clamped the pliers on the lobster's claw and ___"
-  UNMARKED: "He clamped the tongs on the lobster's tank and ___"
+  MARKED: "He clamped the pliers on the lobster's claw and"
+  UNMARKED: "He clamped the tongs on the lobster's tank and"
   swap: "the claw -> the tank"
 
 - pair_id: r2an_073
@@ -729,8 +729,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The zoo visitor banged on the glass to scare the panda and ___"
-  UNMARKED: "The zoo visitor pointed at the glass to show the panda and ___"
+  MARKED: "The zoo visitor banged on the glass to scare the panda and"
+  UNMARKED: "The zoo visitor pointed at the glass to show the panda and"
   swap: "banged on ... to scare -> pointed at ... to show"
 
 - pair_id: r2an_074
@@ -739,8 +739,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He stuck a firecracker in the frog's mouth and ___"
-  UNMARKED: "He stuck a thermometer near the frog's tank and ___"
+  MARKED: "He stuck a firecracker in the frog's mouth and"
+  UNMARKED: "He stuck a thermometer near the frog's tank and"
   swap: "a firecracker in the frog's mouth -> a thermometer near the frog's tank"
 
 - pair_id: r2an_075
@@ -749,8 +749,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She yanked the collar so the puppy yelped and ___"
-  UNMARKED: "She clipped the collar so the puppy relaxed and ___"
+  MARKED: "She yanked the collar so the puppy yelped and"
+  UNMARKED: "She clipped the collar so the puppy relaxed and"
   swap: "yanked ... yelped -> clipped ... relaxed"
 
 - pair_id: r2an_076
@@ -759,8 +759,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tossed lit fireworks at the flock of geese and ___"
-  UNMARKED: "He tossed handfuls of grain at the flock of geese and ___"
+  MARKED: "He tossed lit fireworks at the flock of geese and"
+  UNMARKED: "He tossed handfuls of grain at the flock of geese and"
   swap: "lit fireworks -> handfuls of grain"
 
 - pair_id: r2an_077
@@ -769,8 +769,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The trainer starved the dog to make it obey faster and ___"
-  UNMARKED: "The trainer praised the dog to make it obey faster and ___"
+  MARKED: "The trainer starved the dog to make it obey faster and"
+  UNMARKED: "The trainer praised the dog to make it obey faster and"
   swap: "starved -> praised"
 
 - pair_id: r2an_078
@@ -779,8 +779,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slammed the trunk lid on the cat inside and ___"
-  UNMARKED: "He propped the trunk lid near the cat outside and ___"
+  MARKED: "He slammed the trunk lid on the cat inside and"
+  UNMARKED: "He propped the trunk lid near the cat outside and"
   swap: "slammed ... inside -> propped ... outside"
 
 - pair_id: r2an_079
@@ -789,8 +789,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She threw scalding water at the stray cats under the porch and ___"
-  UNMARKED: "She threw kibble at the stray cats under the porch and ___"
+  MARKED: "She threw scalding water at the stray cats under the porch and"
+  UNMARKED: "She threw kibble at the stray cats under the porch and"
   swap: "scalding water -> kibble"
 
 - pair_id: r2an_080
@@ -799,8 +799,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He twisted the turtle's shell to flip it over and ___"
-  UNMARKED: "He tipped the turtle's ramp to help it climb and ___"
+  MARKED: "He twisted the turtle's shell to flip it over and"
+  UNMARKED: "He tipped the turtle's ramp to help it climb and"
   swap: "twisted ... shell to flip it over -> tipped ... ramp to help it climb"
 
 - pair_id: r2an_081
@@ -809,8 +809,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The handler withheld water from the sled dogs after the race and ___"
-  UNMARKED: "The handler brought water to the sled dogs after the race and ___"
+  MARKED: "The handler withheld water from the sled dogs after the race and"
+  UNMARKED: "The handler brought water to the sled dogs after the race and"
   swap: "withheld ... from -> brought ... to"
 
 - pair_id: r2an_082
@@ -819,8 +819,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He shot a slingshot pellet at the squirrel in the tree and ___"
-  UNMARKED: "He tossed a peanut toward the squirrel in the tree and ___"
+  MARKED: "He shot a slingshot pellet at the squirrel in the tree and"
+  UNMARKED: "He tossed a peanut toward the squirrel in the tree and"
   swap: "shot a slingshot pellet at -> tossed a peanut toward"
 
 - pair_id: r2an_083
@@ -829,8 +829,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She wired the rooster's spurs with razors before the fight and ___"
-  UNMARKED: "She wrapped the rooster's leg with gauze before the walk and ___"
+  MARKED: "She wired the rooster's spurs with razors before the fight and"
+  UNMARKED: "She wrapped the rooster's leg with gauze before the walk and"
   swap: "wired ... spurs with razors before the fight -> wrapped ... leg with gauze before the walk"
 
 - pair_id: r2an_084
@@ -839,8 +839,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He hit the horse's muzzle when it flinched and ___"
-  UNMARKED: "He steadied the horse's muzzle when it flinched and ___"
+  MARKED: "He hit the horse's muzzle when it flinched and"
+  UNMARKED: "He steadied the horse's muzzle when it flinched and"
   swap: "hit -> steadied"
 
 - pair_id: r2an_085
@@ -849,8 +849,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The boy set the frog on the anthill to watch it suffer and ___"
-  UNMARKED: "The boy set the frog by the pond to watch it swim and ___"
+  MARKED: "The boy set the frog on the anthill to watch it suffer and"
+  UNMARKED: "The boy set the frog by the pond to watch it swim and"
   swap: "on the anthill to watch it suffer -> by the pond to watch it swim"
 
 - pair_id: r2an_086
@@ -859,8 +859,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He pressed the cigarette into the dog's ear and ___"
-  UNMARKED: "He pressed the cotton swab into the dog's ear and ___"
+  MARKED: "He pressed the cigarette into the dog's ear and"
+  UNMARKED: "He pressed the cotton swab into the dog's ear and"
   swap: "the cigarette -> the cotton swab"
 
 - pair_id: r2an_087
@@ -869,8 +869,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She left the ferret in the shed all winter without heat and ___"
-  UNMARKED: "She kept the ferret in the house all winter near the heater and ___"
+  MARKED: "She left the ferret in the shed all winter without heat and"
+  UNMARKED: "She kept the ferret in the house all winter near the heater and"
   swap: "left ... in the shed ... without heat -> kept ... in the house ... near the heater"
 
 - pair_id: r2an_088
@@ -879,8 +879,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He clipped the parrot's wings against its will and ___"
-  UNMARKED: "He cleaned the parrot's cage as it watched and ___"
+  MARKED: "He clipped the parrot's wings against its will and"
+  UNMARKED: "He cleaned the parrot's cage as it watched and"
   swap: "clipped ... wings against its will -> cleaned ... cage as it watched"
 
 - pair_id: r2an_089
@@ -889,8 +889,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The farmer castrated the calf without anesthetic and ___"
-  UNMARKED: "The farmer inspected the calf without delay and ___"
+  MARKED: "The farmer castrated the calf without anesthetic and"
+  UNMARKED: "The farmer inspected the calf without delay and"
   swap: "castrated ... without anesthetic -> inspected ... without delay"
 
 - pair_id: r2an_090
@@ -899,8 +899,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He threw the cat down the stairs and ___"
-  UNMARKED: "He carried the cat down the stairs and ___"
+  MARKED: "He threw the cat down the stairs and"
+  UNMARKED: "He carried the cat down the stairs and"
   swap: "threw -> carried"
 
 - pair_id: r2an_091
@@ -909,8 +909,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She sprayed bleach into the stray dog's eyes and ___"
-  UNMARKED: "She sprayed water into the stray dog's bowl and ___"
+  MARKED: "She sprayed bleach into the stray dog's eyes and"
+  UNMARKED: "She sprayed water into the stray dog's bowl and"
   swap: "bleach into the stray dog's eyes -> water into the stray dog's bowl"
 
 - pair_id: r2an_092
@@ -919,8 +919,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He tied firecrackers to the cat's tail and ___"
-  UNMARKED: "He tied a ribbon to the cat's collar and ___"
+  MARKED: "He tied firecrackers to the cat's tail and"
+  UNMARKED: "He tied a ribbon to the cat's collar and"
   swap: "firecrackers to the cat's tail -> a ribbon to the cat's collar"
 
 - pair_id: r2an_093
@@ -929,8 +929,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The rider spurred the horse's bleeding flank and ___"
-  UNMARKED: "The rider patted the horse's sweating flank and ___"
+  MARKED: "The rider spurred the horse's bleeding flank and"
+  UNMARKED: "The rider patted the horse's sweating flank and"
   swap: "spurred ... bleeding -> patted ... sweating"
 
 - pair_id: r2an_094
@@ -939,8 +939,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He locked the puppy in the crate for the whole weekend and ___"
-  UNMARKED: "He walked the puppy around the block every morning and ___"
+  MARKED: "He locked the puppy in the crate for the whole weekend and"
+  UNMARKED: "He walked the puppy around the block every morning and"
   swap: "locked ... in the crate for the whole weekend -> walked ... around the block every morning"
 
 - pair_id: r2an_095
@@ -949,8 +949,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She smashed the fish tank against the wall with the fish inside and ___"
-  UNMARKED: "She carried the fish tank across the room with the fish inside and ___"
+  MARKED: "She smashed the fish tank against the wall with the fish inside and"
+  UNMARKED: "She carried the fish tank across the room with the fish inside and"
   swap: "smashed ... against the wall -> carried ... across the room"
 
 - pair_id: r2an_096
@@ -959,8 +959,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kicked the sheepdog for herding too slowly and ___"
-  UNMARKED: "He praised the sheepdog for herding so carefully and ___"
+  MARKED: "He kicked the sheepdog for herding too slowly and"
+  UNMARKED: "He praised the sheepdog for herding so carefully and"
   swap: "kicked ... too slowly -> praised ... so carefully"
 
 - pair_id: r2an_097
@@ -969,8 +969,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The poacher sawed the tusks off the elephant while it breathed and ___"
-  UNMARKED: "The vet checked the tusks of the elephant while it grazed and ___"
+  MARKED: "The poacher sawed the tusks off the elephant while it breathed and"
+  UNMARKED: "The vet checked the tusks of the elephant while it grazed and"
   swap: "The poacher sawed ... off ... while it breathed -> The vet checked ... of ... while it grazed"
 
 - pair_id: r2an_098
@@ -979,8 +979,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He shoved the calf into the trailer with the cattle prod and ___"
-  UNMARKED: "He guided the calf into the trailer with a bucket of feed and ___"
+  MARKED: "He shoved the calf into the trailer with the cattle prod and"
+  UNMARKED: "He guided the calf into the trailer with a bucket of feed and"
   swap: "shoved ... with the cattle prod -> guided ... with a bucket of feed"
 
 - pair_id: r2an_099
@@ -989,8 +989,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She left the bird's wing untreated on purpose and ___"
-  UNMARKED: "She had the bird's wing treated right away and ___"
+  MARKED: "She left the bird's wing untreated on purpose and"
+  UNMARKED: "She had the bird's wing treated right away and"
   swap: "left ... untreated on purpose -> had ... treated right away"
 
 - pair_id: r2an_100
@@ -999,8 +999,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He punched the guard dog in the ribs and ___"
-  UNMARKED: "He rubbed the guard dog on the ribs and ___"
+  MARKED: "He punched the guard dog in the ribs and"
+  UNMARKED: "He rubbed the guard dog on the ribs and"
   swap: "punched ... in -> rubbed ... on"
 
 - pair_id: r2an_101
@@ -1009,8 +1009,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The circus hand chained the bear's leg to the stake all day and ___"
-  UNMARKED: "The circus hand walked the bear on a leash all day and ___"
+  MARKED: "The circus hand chained the bear's leg to the stake all day and"
+  UNMARKED: "The circus hand walked the bear on a leash all day and"
   swap: "chained ... leg to the stake -> walked ... on a leash"
 
 - pair_id: r2an_102
@@ -1019,8 +1019,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He threw the cat's food bowl at the cat and ___"
-  UNMARKED: "He set the cat's food bowl down for the cat and ___"
+  MARKED: "He threw the cat's food bowl at the cat and"
+  UNMARKED: "He set the cat's food bowl down for the cat and"
   swap: "threw ... at -> set ... down for"
 
 - pair_id: r2an_103
@@ -1029,8 +1029,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She held the puppy by its neck and shook it and ___"
-  UNMARKED: "She held the puppy by its middle and lifted it and ___"
+  MARKED: "She held the puppy by its neck and shook it and"
+  UNMARKED: "She held the puppy by its middle and lifted it and"
   swap: "by its neck and shook it -> by its middle and lifted it"
 
 - pair_id: r2an_104
@@ -1039,8 +1039,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He fired a nail gun at the crow perched on the barn and ___"
-  UNMARKED: "He aimed a hose at the crow perched on the barn and ___"
+  MARKED: "He fired a nail gun at the crow perched on the barn and"
+  UNMARKED: "He aimed a hose at the crow perched on the barn and"
   swap: "fired a nail gun -> aimed a hose"
 
 - pair_id: r2an_105
@@ -1049,8 +1049,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The owner declawed the cat for the new sofa and ___"
-  UNMARKED: "The owner trimmed the cat's claws for the new sofa and ___"
+  MARKED: "The owner declawed the cat for the new sofa and"
+  UNMARKED: "The owner trimmed the cat's claws for the new sofa and"
   swap: "declawed -> trimmed the cat's claws"
 
 - pair_id: r2an_106
@@ -1059,8 +1059,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He kept the horse in a stall too small to turn around in and ___"
-  UNMARKED: "He kept the horse in a stall big enough to turn around in and ___"
+  MARKED: "He kept the horse in a stall too small to turn around in and"
+  UNMARKED: "He kept the horse in a stall big enough to turn around in and"
   swap: "too small -> big enough"
 
 - pair_id: r2an_107
@@ -1069,8 +1069,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She dropped the mouse into the snake's tank to watch it get eaten and ___"
-  UNMARKED: "She dropped the pellets into the snake's tank to watch it eat and ___"
+  MARKED: "She dropped the mouse into the snake's tank to watch it get eaten and"
+  UNMARKED: "She dropped the pellets into the snake's tank to watch it eat and"
   swap: "the mouse ... watch it get eaten -> the pellets ... watch it eat"
 
 - pair_id: r2an_108
@@ -1079,8 +1079,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He hit the mare across the nose for balking at the gate and ___"
-  UNMARKED: "He calmed the mare beside the fence for balking at the gate and ___"
+  MARKED: "He hit the mare across the nose for balking at the gate and"
+  UNMARKED: "He calmed the mare beside the fence for balking at the gate and"
   swap: "hit ... across the nose -> calmed ... beside the fence"
 
 - pair_id: r2an_109
@@ -1089,8 +1089,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The intern injected the lab rat with an untested toxin and ___"
-  UNMARKED: "The intern injected the lab rat with the scheduled vaccine and ___"
+  MARKED: "The intern injected the lab rat with an untested toxin and"
+  UNMARKED: "The intern injected the lab rat with the scheduled vaccine and"
   swap: "an untested toxin -> the scheduled vaccine"
 
 - pair_id: r2an_110
@@ -1099,8 +1099,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He slung the dead rooster at his rival's dog and ___"
-  UNMARKED: "He slung the tennis ball at his rival's dog and ___"
+  MARKED: "He slung the dead rooster at his rival's dog and"
+  UNMARKED: "He slung the tennis ball at his rival's dog and"
   swap: "the dead rooster -> the tennis ball"
 
 - pair_id: r2an_111
@@ -1109,8 +1109,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She left the litter of kittens in the box by the dumpster and ___"
-  UNMARKED: "She left the litter of kittens in the box by the heater and ___"
+  MARKED: "She left the litter of kittens in the box by the dumpster and"
+  UNMARKED: "She left the litter of kittens in the box by the heater and"
   swap: "the dumpster -> the heater"
 
 - pair_id: r2an_112
@@ -1119,8 +1119,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He gaffed the dolphin caught in the net and ___"
-  UNMARKED: "He freed the dolphin caught in the net and ___"
+  MARKED: "He gaffed the dolphin caught in the net and"
+  UNMARKED: "He freed the dolphin caught in the net and"
   swap: "gaffed -> freed"
 
 - pair_id: r2an_113
@@ -1129,8 +1129,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The handler jerked the show dog's head up by the collar and ___"
-  UNMARKED: "The handler lifted the show dog's chin with her hand and ___"
+  MARKED: "The handler jerked the show dog's head up by the collar and"
+  UNMARKED: "The handler lifted the show dog's chin with her hand and"
   swap: "jerked ... up by the collar -> lifted ... with her hand"
 
 - pair_id: r2an_114
@@ -1139,8 +1139,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He stuffed the cat into the suitcase and zipped it shut and ___"
-  UNMARKED: "He tucked the cat into the carrier and latched it shut and ___"
+  MARKED: "He stuffed the cat into the suitcase and zipped it shut and"
+  UNMARKED: "He tucked the cat into the carrier and latched it shut and"
   swap: "stuffed ... suitcase and zipped -> tucked ... carrier and latched"
 
 - pair_id: r2an_115
@@ -1149,8 +1149,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She kicked the beehive to watch the bees swarm the dog and ___"
-  UNMARKED: "She pointed at the beehive to watch the bees enter the hive and ___"
+  MARKED: "She kicked the beehive to watch the bees swarm the dog and"
+  UNMARKED: "She pointed at the beehive to watch the bees enter the hive and"
   swap: "kicked ... swarm the dog -> pointed at ... enter the hive"
 
 - pair_id: r2an_116
@@ -1159,8 +1159,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He pressed his boot on the puppy's paw until it cried and ___"
-  UNMARKED: "He pressed his palm on the puppy's paw until it calmed and ___"
+  MARKED: "He pressed his boot on the puppy's paw until it cried and"
+  UNMARKED: "He pressed his palm on the puppy's paw until it calmed and"
   swap: "his boot ... cried -> his palm ... calmed"
 
 - pair_id: r2an_117
@@ -1169,8 +1169,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The farmer let the pigs stand in their own waste for weeks and ___"
-  UNMARKED: "The farmer mucked out the pigs' pen every morning and ___"
+  MARKED: "The farmer let the pigs stand in their own waste for weeks and"
+  UNMARKED: "The farmer mucked out the pigs' pen every morning and"
   swap: "let the pigs stand in their own waste for weeks -> mucked out the pigs' pen every morning"
 
 - pair_id: r2an_118
@@ -1179,8 +1179,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He threw the injured bird back outside into the storm and ___"
-  UNMARKED: "He brought the injured bird inside out of the storm and ___"
+  MARKED: "He threw the injured bird back outside into the storm and"
+  UNMARKED: "He brought the injured bird inside out of the storm and"
   swap: "threw ... back outside into -> brought ... inside out of"
 
 - pair_id: r2an_119
@@ -1189,8 +1189,8 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She wound the wire tight around the puppy's snout and ___"
-  UNMARKED: "She wound the bandage loose around the puppy's paw and ___"
+  MARKED: "She wound the wire tight around the puppy's snout and"
+  UNMARKED: "She wound the bandage loose around the puppy's paw and"
   swap: "the wire tight ... snout -> the bandage loose ... paw"
 
 - pair_id: r2an_120
@@ -1199,6 +1199,6 @@
   subdomain: cruelty
   language: en
   writer: "sonnet-drafter-r2-animal (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He starved the guard dogs to keep them aggressive and ___"
-  UNMARKED: "He trained the guard dogs to keep them obedient and ___"
+  MARKED: "He starved the guard dogs to keep them aggressive and"
+  UNMARKED: "He trained the guard dogs to keep them obedient and"
   swap: "starved ... aggressive -> trained ... obedient"

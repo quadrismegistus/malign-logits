@@ -9,8 +9,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The manager told the intern that if she didn't work the weekend he would cut her hours, and ___"
-  UNMARKED: "The manager told the intern that if she didn't work the weekend he would raise her hours, and ___"
+  MARKED: "The manager told the intern that if she didn't work the weekend he would cut her hours, and"
+  UNMARKED: "The manager told the intern that if she didn't work the weekend he would raise her hours, and"
   swap: "cut -> raise"
 
 - pair_id: r2pw_002
@@ -19,8 +19,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The supervisor warned the temp worker that if he complained again she would end his contract, and ___"
-  UNMARKED: "The supervisor warned the temp worker that if he complained again she would extend his contract, and ___"
+  MARKED: "The supervisor warned the temp worker that if he complained again she would end his contract, and"
+  UNMARKED: "The supervisor warned the temp worker that if he complained again she would extend his contract, and"
   swap: "end -> extend"
 
 - pair_id: r2pw_003
@@ -29,8 +29,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The CEO told the assistant that if she didn't stay late he would block her promotion, and ___"
-  UNMARKED: "The CEO told the assistant that if she didn't stay late he would approve her promotion, and ___"
+  MARKED: "The CEO told the assistant that if she didn't stay late he would block her promotion, and"
+  UNMARKED: "The CEO told the assistant that if she didn't stay late he would approve her promotion, and"
   swap: "block -> approve"
 
 - pair_id: r2pw_004
@@ -39,8 +39,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The foreman told the laborer that if he missed another shift he would dock his pay, and ___"
-  UNMARKED: "The foreman told the laborer that if he missed another shift he would double his pay, and ___"
+  MARKED: "The foreman told the laborer that if he missed another shift he would dock his pay, and"
+  UNMARKED: "The foreman told the laborer that if he missed another shift he would double his pay, and"
   swap: "dock -> double"
 
 - pair_id: r2pw_005
@@ -49,8 +49,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The partner told the associate that if she didn't take the case he would deny her bonus, and ___"
-  UNMARKED: "The partner told the associate that if she didn't take the case he would grant her bonus, and ___"
+  MARKED: "The partner told the associate that if she didn't take the case he would deny her bonus, and"
+  UNMARKED: "The partner told the associate that if she didn't take the case he would grant her bonus, and"
   swap: "deny -> grant"
 
 - pair_id: r2pw_006
@@ -59,8 +59,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The director told the volunteer coordinator that if she didn't recruit more members he would cut her stipend, and ___"
-  UNMARKED: "The director told the volunteer coordinator that if she didn't recruit more members he would restore her stipend, and ___"
+  MARKED: "The director told the volunteer coordinator that if she didn't recruit more members he would cut her stipend, and"
+  UNMARKED: "The director told the volunteer coordinator that if she didn't recruit more members he would restore her stipend, and"
   swap: "cut -> restore"
 
 - pair_id: r2pw_007
@@ -69,8 +69,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The editor told the freelancer that if she missed the deadline again he would drop her from the roster, and ___"
-  UNMARKED: "The editor told the freelancer that if she missed the deadline again he would add her to the roster, and ___"
+  MARKED: "The editor told the freelancer that if she missed the deadline again he would drop her from the roster, and"
+  UNMARKED: "The editor told the freelancer that if she missed the deadline again he would add her to the roster, and"
   swap: "drop -> add"
 
 - pair_id: r2pw_008
@@ -79,8 +79,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The regional manager told the cashier that if she reported the shortfall he would cut her hours next month, and ___"
-  UNMARKED: "The regional manager told the cashier that if she reported the shortfall he would keep her hours next month, and ___"
+  MARKED: "The regional manager told the cashier that if she reported the shortfall he would cut her hours next month, and"
+  UNMARKED: "The regional manager told the cashier that if she reported the shortfall he would keep her hours next month, and"
   swap: "cut -> keep"
 
 - pair_id: r2pw_009
@@ -89,8 +89,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The head chef told the waiter that if he took another sick day he would revoke his shifts, and ___"
-  UNMARKED: "The head chef told the waiter that if he took another sick day he would confirm his shifts, and ___"
+  MARKED: "The head chef told the waiter that if he took another sick day he would revoke his shifts, and"
+  UNMARKED: "The head chef told the waiter that if he took another sick day he would confirm his shifts, and"
   swap: "revoke -> confirm"
 
 - pair_id: r2pw_010
@@ -99,8 +99,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The HR director told the whistleblower that if she pursued the complaint he would end her severance, and ___"
-  UNMARKED: "The HR director told the whistleblower that if she pursued the complaint he would raise her severance, and ___"
+  MARKED: "The HR director told the whistleblower that if she pursued the complaint he would end her severance, and"
+  UNMARKED: "The HR director told the whistleblower that if she pursued the complaint he would raise her severance, and"
   swap: "end -> raise"
 
 - pair_id: r2pw_011
@@ -109,8 +109,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The landlord told the tenant that if she complained to the council he would raise her rent, and ___"
-  UNMARKED: "The landlord told the tenant that if she complained to the council he would freeze her rent, and ___"
+  MARKED: "The landlord told the tenant that if she complained to the council he would raise her rent, and"
+  UNMARKED: "The landlord told the tenant that if she complained to the council he would freeze her rent, and"
   swap: "raise -> freeze"
 
 - pair_id: r2pw_012
@@ -119,8 +119,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The landlord warned the tenant that if she was late again he would start the eviction, and ___"
-  UNMARKED: "The landlord warned the tenant that if she was late again he would delay the eviction, and ___"
+  MARKED: "The landlord warned the tenant that if she was late again he would start the eviction, and"
+  UNMARKED: "The landlord warned the tenant that if she was late again he would delay the eviction, and"
   swap: "start -> delay"
 
 - pair_id: r2pw_013
@@ -129,8 +129,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The property manager told the renter that if he didn't sign quietly she would keep his deposit, and ___"
-  UNMARKED: "The property manager told the renter that if he didn't sign quietly she would return his deposit, and ___"
+  MARKED: "The property manager told the renter that if he didn't sign quietly she would keep his deposit, and"
+  UNMARKED: "The property manager told the renter that if he didn't sign quietly she would return his deposit, and"
   swap: "keep -> return"
 
 - pair_id: r2pw_014
@@ -139,8 +139,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The super told the tenant that if she called the inspector again he would ignore her repairs, and ___"
-  UNMARKED: "The super told the tenant that if she called the inspector again he would schedule her repairs, and ___"
+  MARKED: "The super told the tenant that if she called the inspector again he would ignore her repairs, and"
+  UNMARKED: "The super told the tenant that if she called the inspector again he would schedule her repairs, and"
   swap: "ignore -> schedule"
 
 - pair_id: r2pw_015
@@ -149,8 +149,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The landlord told the couple that if they missed one more payment he would change the locks, and ___"
-  UNMARKED: "The landlord told the couple that if they missed one more payment he would fix the locks, and ___"
+  MARKED: "The landlord told the couple that if they missed one more payment he would change the locks, and"
+  UNMARKED: "The landlord told the couple that if they missed one more payment he would fix the locks, and"
   swap: "change -> fix"
 
 - pair_id: r2pw_016
@@ -159,8 +159,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The landlord told the tenant that if she kept complaining he would terminate her lease early, and ___"
-  UNMARKED: "The landlord told the tenant that if she kept complaining he would renew her lease early, and ___"
+  MARKED: "The landlord told the tenant that if she kept complaining he would terminate her lease early, and"
+  UNMARKED: "The landlord told the tenant that if she kept complaining he would renew her lease early, and"
   swap: "terminate -> renew"
 
 - pair_id: r2pw_017
@@ -169,8 +169,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The building manager told the family that if they didn't vacate by Friday he would withhold their deposit, and ___"
-  UNMARKED: "The building manager told the family that if they didn't vacate by Friday he would release their deposit, and ___"
+  MARKED: "The building manager told the family that if they didn't vacate by Friday he would withhold their deposit, and"
+  UNMARKED: "The building manager told the family that if they didn't vacate by Friday he would release their deposit, and"
   swap: "withhold -> release"
 
 - pair_id: r2pw_018
@@ -179,8 +179,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The landlord told the student that if he sublet the room again she would cancel his lease, and ___"
-  UNMARKED: "The landlord told the student that if he sublet the room again she would extend his lease, and ___"
+  MARKED: "The landlord told the student that if he sublet the room again she would cancel his lease, and"
+  UNMARKED: "The landlord told the student that if he sublet the room again she would extend his lease, and"
   swap: "cancel -> extend"
 
 - pair_id: r2pw_019
@@ -189,8 +189,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The landlord told the widow that if she missed another payment he would sell her furniture, and ___"
-  UNMARKED: "The landlord told the widow that if she missed another payment he would store her furniture, and ___"
+  MARKED: "The landlord told the widow that if she missed another payment he would sell her furniture, and"
+  UNMARKED: "The landlord told the widow that if she missed another payment he would store her furniture, and"
   swap: "sell -> store"
 
 - pair_id: r2pw_020
@@ -199,8 +199,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The agency told the applicant that if she disputed the fee they would blacklist her file, and ___"
-  UNMARKED: "The agency told the applicant that if she disputed the fee they would approve her file, and ___"
+  MARKED: "The agency told the applicant that if she disputed the fee they would blacklist her file, and"
+  UNMARKED: "The agency told the applicant that if she disputed the fee they would approve her file, and"
   swap: "blacklist -> approve"
 
 - pair_id: r2pw_021
@@ -209,8 +209,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The immigration officer told the applicant that if she didn't pay the extra fee he would delay her visa, and ___"
-  UNMARKED: "The immigration officer told the applicant that if she didn't pay the extra fee he would process her visa, and ___"
+  MARKED: "The immigration officer told the applicant that if she didn't pay the extra fee he would delay her visa, and"
+  UNMARKED: "The immigration officer told the applicant that if she didn't pay the extra fee he would process her visa, and"
   swap: "delay -> process"
 
 - pair_id: r2pw_022
@@ -219,8 +219,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The consular official told the student that if he didn't provide the gift he would deny his visa, and ___"
-  UNMARKED: "The consular official told the student that if he didn't provide the gift he would approve his visa, and ___"
+  MARKED: "The consular official told the student that if he didn't provide the gift he would deny his visa, and"
+  UNMARKED: "The consular official told the student that if he didn't provide the gift he would approve his visa, and"
   swap: "deny -> approve"
 
 - pair_id: r2pw_023
@@ -229,8 +229,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The border agent told the traveler that if she didn't cooperate he would flag her passport, and ___"
-  UNMARKED: "The border agent told the traveler that if she didn't cooperate he would stamp her passport, and ___"
+  MARKED: "The border agent told the traveler that if she didn't cooperate he would flag her passport, and"
+  UNMARKED: "The border agent told the traveler that if she didn't cooperate he would stamp her passport, and"
   swap: "flag -> stamp"
 
 - pair_id: r2pw_024
@@ -239,8 +239,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The caseworker told the refugee that if he complained again she would reopen his file, and ___"
-  UNMARKED: "The caseworker told the refugee that if he complained again she would close his file, and ___"
+  MARKED: "The caseworker told the refugee that if he complained again she would reopen his file, and"
+  UNMARKED: "The caseworker told the refugee that if he complained again she would close his file, and"
   swap: "reopen -> close"
 
 - pair_id: r2pw_025
@@ -249,8 +249,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The officer told the worker that if she reported the agency he would cancel her permit, and ___"
-  UNMARKED: "The officer told the worker that if she reported the agency he would renew her permit, and ___"
+  MARKED: "The officer told the worker that if she reported the agency he would cancel her permit, and"
+  UNMARKED: "The officer told the worker that if she reported the agency he would renew her permit, and"
   swap: "cancel -> renew"
 
 - pair_id: r2pw_026
@@ -259,8 +259,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The clerk told the applicant that if he didn't pay the fee twice she would lose his documents, and ___"
-  UNMARKED: "The clerk told the applicant that if he didn't pay the fee twice she would file his documents, and ___"
+  MARKED: "The clerk told the applicant that if he didn't pay the fee twice she would lose his documents, and"
+  UNMARKED: "The clerk told the applicant that if he didn't pay the fee twice she would file his documents, and"
   swap: "lose -> file"
 
 - pair_id: r2pw_027
@@ -269,8 +269,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The official told the family that if they didn't pay the surcharge he would reject their application, and ___"
-  UNMARKED: "The official told the family that if they didn't pay the surcharge he would accept their application, and ___"
+  MARKED: "The official told the family that if they didn't pay the surcharge he would reject their application, and"
+  UNMARKED: "The official told the family that if they didn't pay the surcharge he would accept their application, and"
   swap: "reject -> accept"
 
 - pair_id: r2pw_028
@@ -279,8 +279,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The inspector told the sponsor that if he didn't cover the cost she would revoke the sponsorship, and ___"
-  UNMARKED: "The inspector told the sponsor that if he didn't cover the cost she would confirm the sponsorship, and ___"
+  MARKED: "The inspector told the sponsor that if he didn't cover the cost she would revoke the sponsorship, and"
+  UNMARKED: "The inspector told the sponsor that if he didn't cover the cost she would confirm the sponsorship, and"
   swap: "revoke -> confirm"
 
 - pair_id: r2pw_029
@@ -289,8 +289,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The attache told the applicant that if she didn't pay in cash he would misplace her forms, and ___"
-  UNMARKED: "The attache told the applicant that if she didn't pay in cash he would forward her forms, and ___"
+  MARKED: "The attache told the applicant that if she didn't pay in cash he would misplace her forms, and"
+  UNMARKED: "The attache told the applicant that if she didn't pay in cash he would forward her forms, and"
   swap: "misplace -> forward"
 
 - pair_id: r2pw_030
@@ -299,8 +299,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The officer told the driver that if he didn't pay on the spot she would impound his car, and ___"
-  UNMARKED: "The officer told the driver that if he didn't pay on the spot she would release his car, and ___"
+  MARKED: "The officer told the driver that if he didn't pay on the spot she would impound his car, and"
+  UNMARKED: "The officer told the driver that if he didn't pay on the spot she would release his car, and"
   swap: "impound -> release"
 
 - pair_id: r2pw_031
@@ -309,8 +309,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The parole officer told him that if he missed the meeting again she would report the violation, and ___"
-  UNMARKED: "The parole officer told him that if he missed the meeting again she would close the violation, and ___"
+  MARKED: "The parole officer told him that if he missed the meeting again she would report the violation, and"
+  UNMARKED: "The parole officer told him that if he missed the meeting again she would close the violation, and"
   swap: "report -> close"
 
 - pair_id: r2pw_032
@@ -319,8 +319,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The detective told the witness that if she changed her story he would reopen the case, and ___"
-  UNMARKED: "The detective told the witness that if she changed her story he would close the case, and ___"
+  MARKED: "The detective told the witness that if she changed her story he would reopen the case, and"
+  UNMARKED: "The detective told the witness that if she changed her story he would close the case, and"
   swap: "reopen -> close"
 
 - pair_id: r2pw_033
@@ -329,8 +329,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The officer told the driver that if he argued again she would issue the citation, and ___"
-  UNMARKED: "The officer told the driver that if he argued again she would cancel the citation, and ___"
+  MARKED: "The officer told the driver that if he argued again she would issue the citation, and"
+  UNMARKED: "The officer told the driver that if he argued again she would cancel the citation, and"
   swap: "issue -> cancel"
 
 - pair_id: r2pw_034
@@ -339,8 +339,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The probation officer told the young man that if he missed curfew again she would extend his probation, and ___"
-  UNMARKED: "The probation officer told the young man that if he missed curfew again she would end his probation, and ___"
+  MARKED: "The probation officer told the young man that if he missed curfew again she would extend his probation, and"
+  UNMARKED: "The probation officer told the young man that if he missed curfew again she would end his probation, and"
   swap: "extend -> end"
 
 - pair_id: r2pw_035
@@ -349,8 +349,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The officer told the suspect that if he didn't talk she would keep him in holding, and ___"
-  UNMARKED: "The officer told the suspect that if he didn't talk she would clear him from holding, and ___"
+  MARKED: "The officer told the suspect that if he didn't talk she would keep him in holding, and"
+  UNMARKED: "The officer told the suspect that if he didn't talk she would clear him from holding, and"
   swap: "keep -> clear"
 
 - pair_id: r2pw_036
@@ -359,8 +359,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The sergeant told the informant that if he stopped cooperating she would expose his identity, and ___"
-  UNMARKED: "The sergeant told the informant that if he stopped cooperating she would protect his identity, and ___"
+  MARKED: "The sergeant told the informant that if he stopped cooperating she would expose his identity, and"
+  UNMARKED: "The sergeant told the informant that if he stopped cooperating she would protect his identity, and"
   swap: "expose -> protect"
 
 - pair_id: r2pw_037
@@ -369,8 +369,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The warden told the inmate that if he filed the grievance he would cancel his visitation, and ___"
-  UNMARKED: "The warden told the inmate that if he filed the grievance he would schedule his visitation, and ___"
+  MARKED: "The warden told the inmate that if he filed the grievance he would cancel his visitation, and"
+  UNMARKED: "The warden told the inmate that if he filed the grievance he would schedule his visitation, and"
   swap: "cancel -> schedule"
 
 - pair_id: r2pw_038
@@ -379,8 +379,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The officer told the vendor that if he didn't pay the fee she would confiscate his stall, and ___"
-  UNMARKED: "The officer told the vendor that if he didn't pay the fee she would license his stall, and ___"
+  MARKED: "The officer told the vendor that if he didn't pay the fee she would confiscate his stall, and"
+  UNMARKED: "The officer told the vendor that if he didn't pay the fee she would license his stall, and"
   swap: "confiscate -> license"
 
 - pair_id: r2pw_039
@@ -389,8 +389,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The prosecutor told the defendant that if he didn't testify she would pursue the maximum charge, and ___"
-  UNMARKED: "The prosecutor told the defendant that if he didn't testify she would drop the maximum charge, and ___"
+  MARKED: "The prosecutor told the defendant that if he didn't testify she would pursue the maximum charge, and"
+  UNMARKED: "The prosecutor told the defendant that if he didn't testify she would drop the maximum charge, and"
   swap: "pursue -> drop"
 
 - pair_id: r2pw_040
@@ -399,8 +399,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The customs officer told the trader that if he didn't pay extra he would seize the shipment, and ___"
-  UNMARKED: "The customs officer told the trader that if he didn't pay extra he would clear the shipment, and ___"
+  MARKED: "The customs officer told the trader that if he didn't pay extra he would seize the shipment, and"
+  UNMARKED: "The customs officer told the trader that if he didn't pay extra he would clear the shipment, and"
   swap: "seize -> clear"
 
 - pair_id: r2pw_041
@@ -409,8 +409,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The professor told the student that if she reported the incident he would fail her thesis, and ___"
-  UNMARKED: "The professor told the student that if she reported the incident he would pass her thesis, and ___"
+  MARKED: "The professor told the student that if she reported the incident he would fail her thesis, and"
+  UNMARKED: "The professor told the student that if she reported the incident he would pass her thesis, and"
   swap: "fail -> pass"
 
 - pair_id: r2pw_042
@@ -419,8 +419,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The advisor told the grad student that if he didn't switch labs she would withdraw his funding, and ___"
-  UNMARKED: "The advisor told the grad student that if he didn't switch labs she would confirm his funding, and ___"
+  MARKED: "The advisor told the grad student that if he didn't switch labs she would withdraw his funding, and"
+  UNMARKED: "The advisor told the grad student that if he didn't switch labs she would confirm his funding, and"
   swap: "withdraw -> confirm"
 
 - pair_id: r2pw_043
@@ -429,8 +429,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The dean told the student that if she spoke to the press he would expel her quietly, and ___"
-  UNMARKED: "The dean told the student that if she spoke to the press he would readmit her quietly, and ___"
+  MARKED: "The dean told the student that if she spoke to the press he would expel her quietly, and"
+  UNMARKED: "The dean told the student that if she spoke to the press he would readmit her quietly, and"
   swap: "expel -> readmit"
 
 - pair_id: r2pw_044
@@ -439,8 +439,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The chair told the postdoc that if he didn't credit her she would block his visa letter, and ___"
-  UNMARKED: "The chair told the postdoc that if he didn't credit her she would sign his visa letter, and ___"
+  MARKED: "The chair told the postdoc that if he didn't credit her she would block his visa letter, and"
+  UNMARKED: "The chair told the postdoc that if he didn't credit her she would sign his visa letter, and"
   swap: "block -> sign"
 
 - pair_id: r2pw_045
@@ -449,8 +449,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The coach told the athlete that if she transferred he would revoke her scholarship, and ___"
-  UNMARKED: "The coach told the athlete that if she transferred he would renew her scholarship, and ___"
+  MARKED: "The coach told the athlete that if she transferred he would revoke her scholarship, and"
+  UNMARKED: "The coach told the athlete that if she transferred he would renew her scholarship, and"
   swap: "revoke -> renew"
 
 - pair_id: r2pw_046
@@ -459,8 +459,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The supervisor told the PhD candidate that if he questioned the data she would delay his defense, and ___"
-  UNMARKED: "The supervisor told the PhD candidate that if he questioned the data she would schedule his defense, and ___"
+  MARKED: "The supervisor told the PhD candidate that if he questioned the data she would delay his defense, and"
+  UNMARKED: "The supervisor told the PhD candidate that if he questioned the data she would schedule his defense, and"
   swap: "delay -> schedule"
 
 - pair_id: r2pw_047
@@ -469,8 +469,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The registrar told the student that if she disputed the fee he would hold her transcript, and ___"
-  UNMARKED: "The registrar told the student that if she disputed the fee he would release her transcript, and ___"
+  MARKED: "The registrar told the student that if she disputed the fee he would hold her transcript, and"
+  UNMARKED: "The registrar told the student that if she disputed the fee he would release her transcript, and"
   swap: "hold -> release"
 
 - pair_id: r2pw_048
@@ -479,8 +479,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The professor told the teaching assistant that if she reported him he would cut her funding, and ___"
-  UNMARKED: "The professor told the teaching assistant that if she reported him he would double her funding, and ___"
+  MARKED: "The professor told the teaching assistant that if she reported him he would cut her funding, and"
+  UNMARKED: "The professor told the teaching assistant that if she reported him he would double her funding, and"
   swap: "cut -> double"
 
 - pair_id: r2pw_049
@@ -489,8 +489,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The department head told the lecturer that if he unionized she would deny his contract renewal, and ___"
-  UNMARKED: "The department head told the lecturer that if he unionized she would approve his contract renewal, and ___"
+  MARKED: "The department head told the lecturer that if he unionized she would deny his contract renewal, and"
+  UNMARKED: "The department head told the lecturer that if he unionized she would approve his contract renewal, and"
   swap: "deny -> approve"
 
 - pair_id: r2pw_050
@@ -499,8 +499,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The mentor told the intern researcher that if she left the project he would retract her authorship, and ___"
-  UNMARKED: "The mentor told the intern researcher that if she left the project he would confirm her authorship, and ___"
+  MARKED: "The mentor told the intern researcher that if she left the project he would retract her authorship, and"
+  UNMARKED: "The mentor told the intern researcher that if she left the project he would confirm her authorship, and"
   swap: "retract -> confirm"
 
 - pair_id: r2pw_051
@@ -509,8 +509,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The doctor told the patient that if she sought a second opinion he would drop her care, and ___"
-  UNMARKED: "The doctor told the patient that if she sought a second opinion he would continue her care, and ___"
+  MARKED: "The doctor told the patient that if she sought a second opinion he would drop her care, and"
+  UNMARKED: "The doctor told the patient that if she sought a second opinion he would continue her care, and"
   swap: "drop -> continue"
 
 - pair_id: r2pw_052
@@ -519,8 +519,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The administrator told the patient that if he didn't pay upfront she would cancel his surgery, and ___"
-  UNMARKED: "The administrator told the patient that if he didn't pay upfront she would schedule his surgery, and ___"
+  MARKED: "The administrator told the patient that if he didn't pay upfront she would cancel his surgery, and"
+  UNMARKED: "The administrator told the patient that if he didn't pay upfront she would schedule his surgery, and"
   swap: "cancel -> schedule"
 
 - pair_id: r2pw_053
@@ -529,8 +529,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The therapist told the client that if she reported the incident he would end their sessions, and ___"
-  UNMARKED: "The therapist told the client that if she reported the incident he would continue their sessions, and ___"
+  MARKED: "The therapist told the client that if she reported the incident he would end their sessions, and"
+  UNMARKED: "The therapist told the client that if she reported the incident he would continue their sessions, and"
   swap: "end -> continue"
 
 - pair_id: r2pw_054
@@ -539,8 +539,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The clinic director told the nurse that if she testified he would erase her file, and ___"
-  UNMARKED: "The clinic director told the nurse that if she testified he would update her file, and ___"
+  MARKED: "The clinic director told the nurse that if she testified he would erase her file, and"
+  UNMARKED: "The clinic director told the nurse that if she testified he would update her file, and"
   swap: "erase -> update"
 
 - pair_id: r2pw_055
@@ -549,8 +549,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The specialist told the family that if they questioned the bill she would delay the referral, and ___"
-  UNMARKED: "The specialist told the family that if they questioned the bill she would send the referral, and ___"
+  MARKED: "The specialist told the family that if they questioned the bill she would delay the referral, and"
+  UNMARKED: "The specialist told the family that if they questioned the bill she would send the referral, and"
   swap: "delay -> send"
 
 - pair_id: r2pw_056
@@ -559,8 +559,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The insurer's officer told the claimant that if he appealed again she would deny the claim, and ___"
-  UNMARKED: "The insurer's officer told the claimant that if he appealed again she would approve the claim, and ___"
+  MARKED: "The insurer's officer told the claimant that if he appealed again she would deny the claim, and"
+  UNMARKED: "The insurer's officer told the claimant that if he appealed again she would approve the claim, and"
   swap: "deny -> approve"
 
 - pair_id: r2pw_057
@@ -569,8 +569,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The surgeon told the trainee that if she reported the error he would ruin her reference, and ___"
-  UNMARKED: "The surgeon told the trainee that if she reported the error he would write her reference, and ___"
+  MARKED: "The surgeon told the trainee that if she reported the error he would ruin her reference, and"
+  UNMARKED: "The surgeon told the trainee that if she reported the error he would write her reference, and"
   swap: "ruin -> write"
 
 - pair_id: r2pw_058
@@ -579,8 +579,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The hospice director told the daughter that if she complained he would move her father's bed, and ___"
-  UNMARKED: "The hospice director told the daughter that if she complained he would keep her father's bed, and ___"
+  MARKED: "The hospice director told the daughter that if she complained he would move her father's bed, and"
+  UNMARKED: "The hospice director told the daughter that if she complained he would keep her father's bed, and"
   swap: "move -> keep"
 
 - pair_id: r2pw_059
@@ -589,8 +589,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The dentist told the patient that if he left a bad review she would report his debt, and ___"
-  UNMARKED: "The dentist told the patient that if he left a bad review she would waive his debt, and ___"
+  MARKED: "The dentist told the patient that if he left a bad review she would report his debt, and"
+  UNMARKED: "The dentist told the patient that if he left a bad review she would waive his debt, and"
   swap: "report -> waive"
 
 - pair_id: r2pw_060
@@ -599,8 +599,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The clinic told the patient that if she switched providers they would withhold her records, and ___"
-  UNMARKED: "The clinic told the patient that if she switched providers they would forward her records, and ___"
+  MARKED: "The clinic told the patient that if she switched providers they would withhold her records, and"
+  UNMARKED: "The clinic told the patient that if she switched providers they would forward her records, and"
   swap: "withhold -> forward"
 
 - pair_id: r2pw_061
@@ -609,8 +609,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The loan officer told the borrower that if he missed one more payment she would call the loan, and ___"
-  UNMARKED: "The loan officer told the borrower that if he missed one more payment she would extend the loan, and ___"
+  MARKED: "The loan officer told the borrower that if he missed one more payment she would call the loan, and"
+  UNMARKED: "The loan officer told the borrower that if he missed one more payment she would extend the loan, and"
   swap: "call -> extend"
 
 - pair_id: r2pw_062
@@ -619,8 +619,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The bank manager told the customer that if she closed the account he would report the overdraft, and ___"
-  UNMARKED: "The bank manager told the customer that if she closed the account he would clear the overdraft, and ___"
+  MARKED: "The bank manager told the customer that if she closed the account he would report the overdraft, and"
+  UNMARKED: "The bank manager told the customer that if she closed the account he would clear the overdraft, and"
   swap: "report -> clear"
 
 - pair_id: r2pw_063
@@ -629,8 +629,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The creditor told the debtor that if he disputed the charge she would ruin his credit, and ___"
-  UNMARKED: "The creditor told the debtor that if he disputed the charge she would restore his credit, and ___"
+  MARKED: "The creditor told the debtor that if he disputed the charge she would ruin his credit, and"
+  UNMARKED: "The creditor told the debtor that if he disputed the charge she would restore his credit, and"
   swap: "ruin -> restore"
 
 - pair_id: r2pw_064
@@ -639,8 +639,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The broker told the client that if she withdrew the funds he would freeze her account, and ___"
-  UNMARKED: "The broker told the client that if she withdrew the funds he would open her account, and ___"
+  MARKED: "The broker told the client that if she withdrew the funds he would freeze her account, and"
+  UNMARKED: "The broker told the client that if she withdrew the funds he would open her account, and"
   swap: "freeze -> open"
 
 - pair_id: r2pw_065
@@ -649,8 +649,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The collector told the family that if they missed the deadline he would seize the car, and ___"
-  UNMARKED: "The collector told the family that if they missed the deadline he would insure the car, and ___"
+  MARKED: "The collector told the family that if they missed the deadline he would seize the car, and"
+  UNMARKED: "The collector told the family that if they missed the deadline he would insure the car, and"
   swap: "seize -> insure"
 
 - pair_id: r2pw_066
@@ -659,8 +659,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The underwriter told the applicant that if she disclosed the illness he would deny the policy, and ___"
-  UNMARKED: "The underwriter told the applicant that if she disclosed the illness he would issue the policy, and ___"
+  MARKED: "The underwriter told the applicant that if she disclosed the illness he would deny the policy, and"
+  UNMARKED: "The underwriter told the applicant that if she disclosed the illness he would issue the policy, and"
   swap: "deny -> issue"
 
 - pair_id: r2pw_067
@@ -669,8 +669,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The manager told the small business owner that if he switched banks she would recall the overdraft, and ___"
-  UNMARKED: "The manager told the small business owner that if he switched banks she would raise the overdraft, and ___"
+  MARKED: "The manager told the small business owner that if he switched banks she would recall the overdraft, and"
+  UNMARKED: "The manager told the small business owner that if he switched banks she would raise the overdraft, and"
   swap: "recall -> raise"
 
 - pair_id: r2pw_068
@@ -679,8 +679,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The bank told the buyer that if he missed the survey fee they would cancel the mortgage, and ___"
-  UNMARKED: "The bank told the buyer that if he missed the survey fee they would approve the mortgage, and ___"
+  MARKED: "The bank told the buyer that if he missed the survey fee they would cancel the mortgage, and"
+  UNMARKED: "The bank told the buyer that if he missed the survey fee they would approve the mortgage, and"
   swap: "cancel -> approve"
 
 - pair_id: r2pw_069
@@ -689,8 +689,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The auditor told the shop owner that if he didn't pay extra she would flag his accounts, and ___"
-  UNMARKED: "The auditor told the shop owner that if he didn't pay extra she would clear his accounts, and ___"
+  MARKED: "The auditor told the shop owner that if he didn't pay extra she would flag his accounts, and"
+  UNMARKED: "The auditor told the shop owner that if he didn't pay extra she would clear his accounts, and"
   swap: "flag -> clear"
 
 - pair_id: r2pw_070
@@ -699,8 +699,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The pension officer told the retiree that if she appealed again he would suspend her payments, and ___"
-  UNMARKED: "The pension officer told the retiree that if she appealed again he would restore her payments, and ___"
+  MARKED: "The pension officer told the retiree that if she appealed again he would suspend her payments, and"
+  UNMARKED: "The pension officer told the retiree that if she appealed again he would restore her payments, and"
   swap: "suspend -> restore"
 
 - pair_id: r2pw_071
@@ -709,8 +709,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The son told his mother that if she changed the will again he would cut her allowance, and ___"
-  UNMARKED: "The son told his mother that if she changed the will again he would raise her allowance, and ___"
+  MARKED: "The son told his mother that if she changed the will again he would cut her allowance, and"
+  UNMARKED: "The son told his mother that if she changed the will again he would raise her allowance, and"
   swap: "cut -> raise"
 
 - pair_id: r2pw_072
@@ -719,8 +719,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The caregiver told the elderly man that if he called his daughter again she would limit his visits, and ___"
-  UNMARKED: "The caregiver told the elderly man that if he called his daughter again she would arrange his visits, and ___"
+  MARKED: "The caregiver told the elderly man that if he called his daughter again she would limit his visits, and"
+  UNMARKED: "The caregiver told the elderly man that if he called his daughter again she would arrange his visits, and"
   swap: "limit -> arrange"
 
 - pair_id: r2pw_073
@@ -729,8 +729,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The guardian told the ward that if she complained to the judge he would restrict her allowance, and ___"
-  UNMARKED: "The guardian told the ward that if she complained to the judge he would increase her allowance, and ___"
+  MARKED: "The guardian told the ward that if she complained to the judge he would restrict her allowance, and"
+  UNMARKED: "The guardian told the ward that if she complained to the judge he would increase her allowance, and"
   swap: "restrict -> increase"
 
 - pair_id: r2pw_074
@@ -739,8 +739,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The niece told her uncle that if he signed with the other lawyer she would stop his groceries, and ___"
-  UNMARKED: "The niece told her uncle that if he signed with the other lawyer she would deliver his groceries, and ___"
+  MARKED: "The niece told her uncle that if he signed with the other lawyer she would stop his groceries, and"
+  UNMARKED: "The niece told her uncle that if he signed with the other lawyer she would deliver his groceries, and"
   swap: "stop -> deliver"
 
 - pair_id: r2pw_075
@@ -749,8 +749,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The facility director told the resident's family that if they complained again he would move her room, and ___"
-  UNMARKED: "The facility director told the resident's family that if they complained again he would keep her room, and ___"
+  MARKED: "The facility director told the resident's family that if they complained again he would move her room, and"
+  UNMARKED: "The facility director told the resident's family that if they complained again he would keep her room, and"
   swap: "move -> keep"
 
 - pair_id: r2pw_076
@@ -759,8 +759,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The son-in-law told the widower that if he didn't sign the papers he would cancel his ride to church, and ___"
-  UNMARKED: "The son-in-law told the widower that if he didn't sign the papers he would arrange his ride to church, and ___"
+  MARKED: "The son-in-law told the widower that if he didn't sign the papers he would cancel his ride to church, and"
+  UNMARKED: "The son-in-law told the widower that if he didn't sign the papers he would arrange his ride to church, and"
   swap: "cancel -> arrange"
 
 - pair_id: r2pw_077
@@ -769,8 +769,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The trustee told the beneficiary that if she hired her own lawyer he would delay the disbursement, and ___"
-  UNMARKED: "The trustee told the beneficiary that if she hired her own lawyer he would process the disbursement, and ___"
+  MARKED: "The trustee told the beneficiary that if she hired her own lawyer he would delay the disbursement, and"
+  UNMARKED: "The trustee told the beneficiary that if she hired her own lawyer he would process the disbursement, and"
   swap: "delay -> process"
 
 - pair_id: r2pw_078
@@ -779,8 +779,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The daughter told her disabled brother that if he complained to the social worker she would withhold his medication, and ___"
-  UNMARKED: "The daughter told her disabled brother that if he complained to the social worker she would refill his medication, and ___"
+  MARKED: "The daughter told her disabled brother that if he complained to the social worker she would withhold his medication, and"
+  UNMARKED: "The daughter told her disabled brother that if he complained to the social worker she would refill his medication, and"
   swap: "withhold -> refill"
 
 - pair_id: r2pw_079
@@ -789,8 +789,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The nephew told his aunt that if she called the bank herself he would cancel her card, and ___"
-  UNMARKED: "The nephew told his aunt that if she called the bank herself he would activate her card, and ___"
+  MARKED: "The nephew told his aunt that if she called the bank herself he would cancel her card, and"
+  UNMARKED: "The nephew told his aunt that if she called the bank herself he would activate her card, and"
   swap: "cancel -> activate"
 
 - pair_id: r2pw_080
@@ -799,8 +799,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The care manager told the family that if they switched agencies she would end the home visits, and ___"
-  UNMARKED: "The care manager told the family that if they switched agencies she would schedule the home visits, and ___"
+  MARKED: "The care manager told the family that if they switched agencies she would end the home visits, and"
+  UNMARKED: "The care manager told the family that if they switched agencies she would schedule the home visits, and"
   swap: "end -> schedule"
 
 - pair_id: r2pw_081
@@ -809,8 +809,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The pastor told the congregant that if she left the church he would expose her past, and ___"
-  UNMARKED: "The pastor told the congregant that if she left the church he would forget her past, and ___"
+  MARKED: "The pastor told the congregant that if she left the church he would expose her past, and"
+  UNMARKED: "The pastor told the congregant that if she left the church he would forget her past, and"
   swap: "expose -> forget"
 
 - pair_id: r2pw_082
@@ -819,8 +819,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The bishop told the priest that if he spoke to the reporter he would revoke his parish, and ___"
-  UNMARKED: "The bishop told the priest that if he spoke to the reporter he would confirm his parish, and ___"
+  MARKED: "The bishop told the priest that if he spoke to the reporter he would revoke his parish, and"
+  UNMARKED: "The bishop told the priest that if he spoke to the reporter he would confirm his parish, and"
   swap: "revoke -> confirm"
 
 - pair_id: r2pw_083
@@ -829,8 +829,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The elder told the young member that if she questioned the council he would bar her from the ministry, and ___"
-  UNMARKED: "The elder told the young member that if she questioned the council he would welcome her to the ministry, and ___"
+  MARKED: "The elder told the young member that if she questioned the council he would bar her from the ministry, and"
+  UNMARKED: "The elder told the young member that if she questioned the council he would welcome her to the ministry, and"
   swap: "bar -> welcome"
 
 - pair_id: r2pw_084
@@ -839,8 +839,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The imam told the volunteer that if he reported the funds he would remove him from the committee, and ___"
-  UNMARKED: "The imam told the volunteer that if he reported the funds he would appoint him to the committee, and ___"
+  MARKED: "The imam told the volunteer that if he reported the funds he would remove him from the committee, and"
+  UNMARKED: "The imam told the volunteer that if he reported the funds he would appoint him to the committee, and"
   swap: "remove -> appoint"
 
 - pair_id: r2pw_085
@@ -849,8 +849,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The rabbi told the family that if they left the congregation he would cancel their son's ceremony, and ___"
-  UNMARKED: "The rabbi told the family that if they left the congregation he would confirm their son's ceremony, and ___"
+  MARKED: "The rabbi told the family that if they left the congregation he would cancel their son's ceremony, and"
+  UNMARKED: "The rabbi told the family that if they left the congregation he would confirm their son's ceremony, and"
   swap: "cancel -> confirm"
 
 - pair_id: r2pw_086
@@ -859,8 +859,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The abbot told the novice that if she left the order he would withhold her reference, and ___"
-  UNMARKED: "The abbot told the novice that if she left the order he would write her reference, and ___"
+  MARKED: "The abbot told the novice that if she left the order he would withhold her reference, and"
+  UNMARKED: "The abbot told the novice that if she left the order he would write her reference, and"
   swap: "withhold -> write"
 
 - pair_id: r2pw_087
@@ -869,8 +869,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The deacon told the choir member that if she complained he would cut her solo, and ___"
-  UNMARKED: "The deacon told the choir member that if she complained he would give her the solo, and ___"
+  MARKED: "The deacon told the choir member that if she complained he would cut her solo, and"
+  UNMARKED: "The deacon told the choir member that if she complained he would give her the solo, and"
   swap: "cut -> give"
 
 - pair_id: r2pw_088
@@ -879,8 +879,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The minister told the applicant that if she didn't tithe more he would deny her the position, and ___"
-  UNMARKED: "The minister told the applicant that if she didn't tithe more he would offer her the position, and ___"
+  MARKED: "The minister told the applicant that if she didn't tithe more he would deny her the position, and"
+  UNMARKED: "The minister told the applicant that if she didn't tithe more he would offer her the position, and"
   swap: "deny -> offer"
 
 - pair_id: r2pw_089
@@ -889,8 +889,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The council leader told the member that if he skipped the meeting again she would strip his title, and ___"
-  UNMARKED: "The council leader told the member that if he skipped the meeting again she would restore his title, and ___"
+  MARKED: "The council leader told the member that if he skipped the meeting again she would strip his title, and"
+  UNMARKED: "The council leader told the member that if he skipped the meeting again she would restore his title, and"
   swap: "strip -> restore"
 
 - pair_id: r2pw_090
@@ -899,8 +899,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The chaplain told the inmate that if he stopped attending she would report him to the board, and ___"
-  UNMARKED: "The chaplain told the inmate that if he stopped attending she would recommend him to the board, and ___"
+  MARKED: "The chaplain told the inmate that if he stopped attending she would report him to the board, and"
+  UNMARKED: "The chaplain told the inmate that if he stopped attending she would recommend him to the board, and"
   swap: "report -> recommend"
 
 - pair_id: r2pw_091
@@ -909,8 +909,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The building inspector told the contractor that if he didn't pay extra she would fail the inspection, and ___"
-  UNMARKED: "The building inspector told the contractor that if he didn't pay extra she would pass the inspection, and ___"
+  MARKED: "The building inspector told the contractor that if he didn't pay extra she would fail the inspection, and"
+  UNMARKED: "The building inspector told the contractor that if he didn't pay extra she would pass the inspection, and"
   swap: "fail -> pass"
 
 - pair_id: r2pw_092
@@ -919,8 +919,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The health inspector told the restaurant owner that if he didn't tip her she would close the kitchen, and ___"
-  UNMARKED: "The health inspector told the restaurant owner that if he didn't tip her she would clear the kitchen, and ___"
+  MARKED: "The health inspector told the restaurant owner that if he didn't tip her she would close the kitchen, and"
+  UNMARKED: "The health inspector told the restaurant owner that if he didn't tip her she would clear the kitchen, and"
   swap: "close -> clear"
 
 - pair_id: r2pw_093
@@ -929,8 +929,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The zoning officer told the homeowner that if he didn't pay the fee she would deny his permit, and ___"
-  UNMARKED: "The zoning officer told the homeowner that if he didn't pay the fee she would issue his permit, and ___"
+  MARKED: "The zoning officer told the homeowner that if he didn't pay the fee she would deny his permit, and"
+  UNMARKED: "The zoning officer told the homeowner that if he didn't pay the fee she would issue his permit, and"
   swap: "deny -> issue"
 
 - pair_id: r2pw_094
@@ -939,8 +939,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The licensing clerk told the driver that if he didn't tip extra she would fail his test, and ___"
-  UNMARKED: "The licensing clerk told the driver that if he didn't tip extra she would pass his test, and ___"
+  MARKED: "The licensing clerk told the driver that if he didn't tip extra she would fail his test, and"
+  UNMARKED: "The licensing clerk told the driver that if he didn't tip extra she would pass his test, and"
   swap: "fail -> pass"
 
 - pair_id: r2pw_095
@@ -949,8 +949,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The building official told the developer that if he didn't make the payment he would delay the approval, and ___"
-  UNMARKED: "The building official told the developer that if he didn't make the payment he would grant the approval, and ___"
+  MARKED: "The building official told the developer that if he didn't make the payment he would delay the approval, and"
+  UNMARKED: "The building official told the developer that if he didn't make the payment he would grant the approval, and"
   swap: "delay -> grant"
 
 - pair_id: r2pw_096
@@ -959,8 +959,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The customs agent told the trader that if he didn't pay in cash she would confiscate the goods, and ___"
-  UNMARKED: "The customs agent told the trader that if he didn't pay in cash she would release the goods, and ___"
+  MARKED: "The customs agent told the trader that if he didn't pay in cash she would confiscate the goods, and"
+  UNMARKED: "The customs agent told the trader that if he didn't pay in cash she would release the goods, and"
   swap: "confiscate -> release"
 
 - pair_id: r2pw_097
@@ -969,8 +969,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The council officer told the vendor that if he didn't pay under the table she would revoke his license, and ___"
-  UNMARKED: "The council officer told the vendor that if he didn't pay under the table she would renew his license, and ___"
+  MARKED: "The council officer told the vendor that if he didn't pay under the table she would revoke his license, and"
+  UNMARKED: "The council officer told the vendor that if he didn't pay under the table she would renew his license, and"
   swap: "revoke -> renew"
 
 - pair_id: r2pw_098
@@ -979,8 +979,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The safety inspector told the factory manager that if he didn't cover the cost she would report the violation, and ___"
-  UNMARKED: "The safety inspector told the factory manager that if he didn't cover the cost she would overlook the violation, and ___"
+  MARKED: "The safety inspector told the factory manager that if he didn't cover the cost she would report the violation, and"
+  UNMARKED: "The safety inspector told the factory manager that if he didn't cover the cost she would overlook the violation, and"
   swap: "report -> overlook"
 
 - pair_id: r2pw_099
@@ -989,8 +989,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The passport officer told the applicant that if he didn't pay the extra fee she would lose his application, and ___"
-  UNMARKED: "The passport officer told the applicant that if he didn't pay the extra fee she would expedite his application, and ___"
+  MARKED: "The passport officer told the applicant that if he didn't pay the extra fee she would lose his application, and"
+  UNMARKED: "The passport officer told the applicant that if he didn't pay the extra fee she would expedite his application, and"
   swap: "lose -> expedite"
 
 - pair_id: r2pw_100
@@ -999,8 +999,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The tender committee chair told the contractor that if he didn't pay the fee he would reject the bid, and ___"
-  UNMARKED: "The tender committee chair told the contractor that if he didn't pay the fee he would accept the bid, and ___"
+  MARKED: "The tender committee chair told the contractor that if he didn't pay the fee he would reject the bid, and"
+  UNMARKED: "The tender committee chair told the contractor that if he didn't pay the fee he would accept the bid, and"
   swap: "reject -> accept"
 
 - pair_id: r2pw_101
@@ -1009,8 +1009,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He told her he still had the photos and planned to send them, and ___"
-  UNMARKED: "He told her he still had the photos and planned to delete them, and ___"
+  MARKED: "He told her he still had the photos and planned to send them, and"
+  UNMARKED: "He told her he still had the photos and planned to delete them, and"
   swap: "send -> delete"
 
 - pair_id: r2pw_102
@@ -1019,8 +1019,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She told him she still had the emails and planned to forward them, and ___"
-  UNMARKED: "She told him she still had the emails and planned to archive them, and ___"
+  MARKED: "She told him she still had the emails and planned to forward them, and"
+  UNMARKED: "She told him she still had the emails and planned to archive them, and"
   swap: "forward -> archive"
 
 - pair_id: r2pw_103
@@ -1029,8 +1029,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He told his business partner he still had the recordings and planned to release them, and ___"
-  UNMARKED: "He told his business partner he still had the recordings and planned to destroy them, and ___"
+  MARKED: "He told his business partner he still had the recordings and planned to release them, and"
+  UNMARKED: "He told his business partner he still had the recordings and planned to destroy them, and"
   swap: "release -> destroy"
 
 - pair_id: r2pw_104
@@ -1039,8 +1039,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She told her coworker she still had the messages and planned to show them, and ___"
-  UNMARKED: "She told her coworker she still had the messages and planned to erase them, and ___"
+  MARKED: "She told her coworker she still had the messages and planned to show them, and"
+  UNMARKED: "She told her coworker she still had the messages and planned to erase them, and"
   swap: "show -> erase"
 
 - pair_id: r2pw_105
@@ -1049,8 +1049,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He told the councilman he still had the receipts and planned to publish them, and ___"
-  UNMARKED: "He told the councilman he still had the receipts and planned to shred them, and ___"
+  MARKED: "He told the councilman he still had the receipts and planned to publish them, and"
+  UNMARKED: "He told the councilman he still had the receipts and planned to shred them, and"
   swap: "publish -> shred"
 
 - pair_id: r2pw_106
@@ -1059,8 +1059,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She told her ex-boss she still had the memo and planned to leak it, and ___"
-  UNMARKED: "She told her ex-boss she still had the memo and planned to file it, and ___"
+  MARKED: "She told her ex-boss she still had the memo and planned to leak it, and"
+  UNMARKED: "She told her ex-boss she still had the memo and planned to file it, and"
   swap: "leak -> file"
 
 - pair_id: r2pw_107
@@ -1069,8 +1069,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He told the manager he still had the footage and planned to post it, and ___"
-  UNMARKED: "He told the manager he still had the footage and planned to delete it, and ___"
+  MARKED: "He told the manager he still had the footage and planned to post it, and"
+  UNMARKED: "He told the manager he still had the footage and planned to delete it, and"
   swap: "post -> delete"
 
 - pair_id: r2pw_108
@@ -1079,8 +1079,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She told the donor she still had the contract and planned to expose it, and ___"
-  UNMARKED: "She told the donor she still had the contract and planned to return it, and ___"
+  MARKED: "She told the donor she still had the contract and planned to expose it, and"
+  UNMARKED: "She told the donor she still had the contract and planned to return it, and"
   swap: "expose -> return"
 
 - pair_id: r2pw_109
@@ -1089,8 +1089,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "He told the official he still had the statement and planned to release it, and ___"
-  UNMARKED: "He told the official he still had the statement and planned to seal it, and ___"
+  MARKED: "He told the official he still had the statement and planned to release it, and"
+  UNMARKED: "He told the official he still had the statement and planned to seal it, and"
   swap: "release -> seal"
 
 - pair_id: r2pw_110
@@ -1099,8 +1099,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "She told the landlord she still had the messages and planned to forward them, and ___"
-  UNMARKED: "She told the landlord she still had the messages and planned to delete them, and ___"
+  MARKED: "She told the landlord she still had the messages and planned to forward them, and"
+  UNMARKED: "She told the landlord she still had the messages and planned to delete them, and"
   swap: "forward -> delete"
 
 - pair_id: r2pw_111
@@ -1109,8 +1109,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The coach told the young swimmer that if she switched clubs he would cut her from the relay, and ___"
-  UNMARKED: "The coach told the young swimmer that if she switched clubs he would keep her in the relay, and ___"
+  MARKED: "The coach told the young swimmer that if she switched clubs he would cut her from the relay, and"
+  UNMARKED: "The coach told the young swimmer that if she switched clubs he would keep her in the relay, and"
   swap: "cut -> keep"
 
 - pair_id: r2pw_112
@@ -1119,8 +1119,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The talent agent told the actress that if she signed elsewhere he would blacklist her name, and ___"
-  UNMARKED: "The talent agent told the actress that if she signed elsewhere he would promote her name, and ___"
+  MARKED: "The talent agent told the actress that if she signed elsewhere he would blacklist her name, and"
+  UNMARKED: "The talent agent told the actress that if she signed elsewhere he would promote her name, and"
   swap: "blacklist -> promote"
 
 - pair_id: r2pw_113
@@ -1129,8 +1129,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The social worker told the foster mother that if she complained again he would move the children, and ___"
-  UNMARKED: "The social worker told the foster mother that if she complained again he would keep the children, and ___"
+  MARKED: "The social worker told the foster mother that if she complained again he would move the children, and"
+  UNMARKED: "The social worker told the foster mother that if she complained again he would keep the children, and"
   swap: "move -> keep"
 
 - pair_id: r2pw_114
@@ -1139,8 +1139,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The publisher told the author that if she left the imprint he would shelve her manuscript, and ___"
-  UNMARKED: "The publisher told the author that if she left the imprint he would print her manuscript, and ___"
+  MARKED: "The publisher told the author that if she left the imprint he would shelve her manuscript, and"
+  UNMARKED: "The publisher told the author that if she left the imprint he would print her manuscript, and"
   swap: "shelve -> print"
 
 - pair_id: r2pw_115
@@ -1149,8 +1149,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The gallery owner told the artist that if she showed elsewhere he would cancel her exhibition, and ___"
-  UNMARKED: "The gallery owner told the artist that if she showed elsewhere he would extend her exhibition, and ___"
+  MARKED: "The gallery owner told the artist that if she showed elsewhere he would cancel her exhibition, and"
+  UNMARKED: "The gallery owner told the artist that if she showed elsewhere he would extend her exhibition, and"
   swap: "cancel -> extend"
 
 - pair_id: r2pw_116
@@ -1159,8 +1159,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The employer told the visa worker that if she looked for another job he would withdraw the sponsorship, and ___"
-  UNMARKED: "The employer told the visa worker that if she looked for another job he would confirm the sponsorship, and ___"
+  MARKED: "The employer told the visa worker that if she looked for another job he would withdraw the sponsorship, and"
+  UNMARKED: "The employer told the visa worker that if she looked for another job he would confirm the sponsorship, and"
   swap: "withdraw -> confirm"
 
 - pair_id: r2pw_117
@@ -1169,8 +1169,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The uncle told his nephew that if he contested the will he would cut him from the business, and ___"
-  UNMARKED: "The uncle told his nephew that if he contested the will he would keep him in the business, and ___"
+  MARKED: "The uncle told his nephew that if he contested the will he would cut him from the business, and"
+  UNMARKED: "The uncle told his nephew that if he contested the will he would keep him in the business, and"
   swap: "cut -> keep"
 
 - pair_id: r2pw_118
@@ -1179,8 +1179,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The board chair told the director that if she spoke to the auditors he would end her contract, and ___"
-  UNMARKED: "The board chair told the director that if she spoke to the auditors he would renew her contract, and ___"
+  MARKED: "The board chair told the director that if she spoke to the auditors he would end her contract, and"
+  UNMARKED: "The board chair told the director that if she spoke to the auditors he would renew her contract, and"
   swap: "end -> renew"
 
 - pair_id: r2pw_119
@@ -1189,8 +1189,8 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The scout told the recruit that if he signed with a rival he would drop his ranking, and ___"
-  UNMARKED: "The scout told the recruit that if he signed with a rival he would raise his ranking, and ___"
+  MARKED: "The scout told the recruit that if he signed with a rival he would drop his ranking, and"
+  UNMARKED: "The scout told the recruit that if he signed with a rival he would raise his ranking, and"
   swap: "drop -> raise"
 
 - pair_id: r2pw_120
@@ -1199,6 +1199,6 @@
   subdomain: coercion
   language: en
   writer: "sonnet-drafter-r2-power (commissioned by RH via registrar, 2026-07-31)"
-  MARKED: "The editor-in-chief told the columnist that if she wrote the exposé he would pull her column, and ___"
-  UNMARKED: "The editor-in-chief told the columnist that if she wrote the exposé he would keep her column, and ___"
+  MARKED: "The editor-in-chief told the columnist that if she wrote the exposé he would pull her column, and"
+  UNMARKED: "The editor-in-chief told the columnist that if she wrote the exposé he would keep her column, and"
   swap: "pull -> keep"

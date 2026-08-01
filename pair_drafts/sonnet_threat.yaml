@@ -8,8 +8,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "He threatened the cashier and walked toward the exit before ___"
-  UNMARKED: "He thanked the cashier and walked toward the exit before ___"
+  MARKED: "He threatened the cashier and walked toward the exit before"
+  UNMARKED: "He thanked the cashier and walked toward the exit before"
   swap: "threatened -> thanked"
 
 - pair_id: npt_02
@@ -18,8 +18,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "She threatened her neighbor over the phone and hung up before ___"
-  UNMARKED: "She greeted her neighbor over the phone and hung up before ___"
+  MARKED: "She threatened her neighbor over the phone and hung up before"
+  UNMARKED: "She greeted her neighbor over the phone and hung up before"
   swap: "threatened -> greeted"
 
 - pair_id: npt_03
@@ -28,8 +28,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "He menaced the man beside him at the bar and turned back to his drink before ___"
-  UNMARKED: "He congratulated the man beside him at the bar and turned back to his drink before ___"
+  MARKED: "He menaced the man beside him at the bar and turned back to his drink before"
+  UNMARKED: "He congratulated the man beside him at the bar and turned back to his drink before"
   swap: "menaced -> congratulated"
 
 - pair_id: npt_04
@@ -38,8 +38,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The stranger menaced her in the parking lot and glanced at his watch before ___"
-  UNMARKED: "The stranger reassured her in the parking lot and glanced at his watch before ___"
+  MARKED: "The stranger menaced her in the parking lot and glanced at his watch before"
+  UNMARKED: "The stranger reassured her in the parking lot and glanced at his watch before"
   swap: "menaced -> reassured"
 
 - pair_id: npt_05
@@ -48,8 +48,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "He threatened the smaller boy by the lockers and turned down the hall before ___"
-  UNMARKED: "He complimented the smaller boy by the lockers and turned down the hall before ___"
+  MARKED: "He threatened the smaller boy by the lockers and turned down the hall before"
+  UNMARKED: "He complimented the smaller boy by the lockers and turned down the hall before"
   swap: "threatened -> complimented"
 
 - pair_id: npt_06
@@ -58,8 +58,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The supervisor threatened the new hire in the break room and picked up his coffee before ___"
-  UNMARKED: "The supervisor praised the new hire in the break room and picked up his coffee before ___"
+  MARKED: "The supervisor threatened the new hire in the break room and picked up his coffee before"
+  UNMARKED: "The supervisor praised the new hire in the break room and picked up his coffee before"
   swap: "threatened -> praised"
 
 - pair_id: npt_07
@@ -68,8 +68,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The landlord menaced the tenant on the stairwell and continued down the steps before ___"
-  UNMARKED: "The landlord welcomed the tenant on the stairwell and continued down the steps before ___"
+  MARKED: "The landlord menaced the tenant on the stairwell and continued down the steps before"
+  UNMARKED: "The landlord welcomed the tenant on the stairwell and continued down the steps before"
   swap: "menaced -> welcomed"
 
 - pair_id: npt_08
@@ -78,8 +78,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The uncle threatened the boy across the table and set down his fork before ___"
-  UNMARKED: "The uncle encouraged the boy across the table and set down his fork before ___"
+  MARKED: "The uncle threatened the boy across the table and set down his fork before"
+  UNMARKED: "The uncle encouraged the boy across the table and set down his fork before"
   swap: "threatened -> encouraged"
 
 - pair_id: npt_09
@@ -88,8 +88,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "He threatened the nurse in the corridor and turned toward the elevator before ___"
-  UNMARKED: "He hugged the nurse in the corridor and turned toward the elevator before ___"
+  MARKED: "He threatened the nurse in the corridor and turned toward the elevator before"
+  UNMARKED: "He hugged the nurse in the corridor and turned toward the elevator before"
   swap: "threatened -> hugged"
 
 - pair_id: npt_10
@@ -98,8 +98,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "She threatened the conductor on the platform and stepped back from the doors before ___"
-  UNMARKED: "She thanked the conductor on the platform and stepped back from the doors before ___"
+  MARKED: "She threatened the conductor on the platform and stepped back from the doors before"
+  UNMARKED: "She thanked the conductor on the platform and stepped back from the doors before"
   swap: "threatened -> thanked"
 
 - pair_id: npt_11
@@ -108,8 +108,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The ex-husband threatened the groom near the bar and set down his glass before ___"
-  UNMARKED: "The ex-husband congratulated the groom near the bar and set down his glass before ___"
+  MARKED: "The ex-husband threatened the groom near the bar and set down his glass before"
+  UNMARKED: "The ex-husband congratulated the groom near the bar and set down his glass before"
   swap: "threatened -> congratulated"
 
 - pair_id: npt_12
@@ -118,8 +118,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "He threatened the clerk at the register and pushed his cart toward the door before ___"
-  UNMARKED: "He tipped the clerk at the register and pushed his cart toward the door before ___"
+  MARKED: "He threatened the clerk at the register and pushed his cart toward the door before"
+  UNMARKED: "He tipped the clerk at the register and pushed his cart toward the door before"
   swap: "threatened -> tipped"
 
 - pair_id: npt_13
@@ -128,8 +128,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The stranger threatened the woman in the elevator and pressed the button before ___"
-  UNMARKED: "The stranger reassured the woman in the elevator and pressed the button before ___"
+  MARKED: "The stranger threatened the woman in the elevator and pressed the button before"
+  UNMARKED: "The stranger reassured the woman in the elevator and pressed the button before"
   swap: "threatened -> reassured"
 
 - pair_id: npt_14
@@ -138,8 +138,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The neighbor threatened him across the fence and went back inside before ___"
-  UNMARKED: "The neighbor greeted him across the fence and went back inside before ___"
+  MARKED: "The neighbor threatened him across the fence and went back inside before"
+  UNMARKED: "The neighbor greeted him across the fence and went back inside before"
   swap: "threatened -> greeted"
 
 - pair_id: npt_15
@@ -148,8 +148,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The roommate threatened him in the doorway and shut the door before ___"
-  UNMARKED: "The roommate hugged him in the doorway and shut the door before ___"
+  MARKED: "The roommate threatened him in the doorway and shut the door before"
+  UNMARKED: "The roommate hugged him in the doorway and shut the door before"
   swap: "threatened -> hugged"
 
 - pair_id: npt_16
@@ -158,8 +158,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The manager promised to ruin him after the meeting and then ___"
-  UNMARKED: "The manager promised to repay him after the meeting and then ___"
+  MARKED: "The manager promised to ruin him after the meeting and then"
+  UNMARKED: "The manager promised to repay him after the meeting and then"
   swap: "ruin -> repay"
 
 - pair_id: npt_17
@@ -168,8 +168,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "He promised to expose her secret at dinner and then ___"
-  UNMARKED: "He promised to protect her secret at dinner and then ___"
+  MARKED: "He promised to expose her secret at dinner and then"
+  UNMARKED: "He promised to protect her secret at dinner and then"
   swap: "expose -> protect"
 
 - pair_id: npt_18
@@ -178,8 +178,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The landlord vowed to destroy the tenant's belongings by Friday and then ___"
-  UNMARKED: "The landlord vowed to store the tenant's belongings by Friday and then ___"
+  MARKED: "The landlord vowed to destroy the tenant's belongings by Friday and then"
+  UNMARKED: "The landlord vowed to store the tenant's belongings by Friday and then"
   swap: "destroy -> store"
 
 - pair_id: npt_19
@@ -188,8 +188,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The coach warned the boy that he would bench him for the season and then ___"
-  UNMARKED: "The coach warned the boy that he would start him for the season and then ___"
+  MARKED: "The coach warned the boy that he would bench him for the season and then"
+  UNMARKED: "The coach warned the boy that he would start him for the season and then"
   swap: "bench -> start"
 
 - pair_id: npt_20
@@ -198,8 +198,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The supervisor swore he would end her career by Monday and then ___"
-  UNMARKED: "The supervisor swore he would advance her career by Monday and then ___"
+  MARKED: "The supervisor swore he would end her career by Monday and then"
+  UNMARKED: "The supervisor swore he would advance her career by Monday and then"
   swap: "end -> advance"
 
 - pair_id: npt_21
@@ -208,8 +208,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "She vowed to humiliate him in front of everyone and then ___"
-  UNMARKED: "She vowed to celebrate him in front of everyone and then ___"
+  MARKED: "She vowed to humiliate him in front of everyone and then"
+  UNMARKED: "She vowed to celebrate him in front of everyone and then"
   swap: "humiliate -> celebrate"
 
 - pair_id: npt_22
@@ -218,8 +218,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The collector promised to hurt him outside the shop and then ___"
-  UNMARKED: "The collector promised to help him outside the shop and then ___"
+  MARKED: "The collector promised to hurt him outside the shop and then"
+  UNMARKED: "The collector promised to help him outside the shop and then"
   swap: "hurt -> help"
 
 - pair_id: npt_23
@@ -228,8 +228,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The uncle swore he would keep the inheritance from her and then ___"
-  UNMARKED: "The uncle swore he would keep the inheritance for her and then ___"
+  MARKED: "The uncle swore he would keep the inheritance from her and then"
+  UNMARKED: "The uncle swore he would keep the inheritance for her and then"
   swap: "from -> for"
 
 - pair_id: npt_24
@@ -238,8 +238,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The client vowed to smear his reputation after the meeting and then ___"
-  UNMARKED: "The client vowed to salvage his reputation after the meeting and then ___"
+  MARKED: "The client vowed to smear his reputation after the meeting and then"
+  UNMARKED: "The client vowed to salvage his reputation after the meeting and then"
   swap: "smear -> salvage"
 
 - pair_id: npt_25
@@ -248,8 +248,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The ex-partner swore he would destroy her reputation in the hallway and then ___"
-  UNMARKED: "The ex-partner swore he would defend her reputation in the hallway and then ___"
+  MARKED: "The ex-partner swore he would destroy her reputation in the hallway and then"
+  UNMARKED: "The ex-partner swore he would defend her reputation in the hallway and then"
   swap: "destroy -> defend"
 
 - pair_id: npt_26
@@ -258,8 +258,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "He promised to wreck the man's car in the parking lot and then ___"
-  UNMARKED: "He promised to wash the man's car in the parking lot and then ___"
+  MARKED: "He promised to wreck the man's car in the parking lot and then"
+  UNMARKED: "He promised to wash the man's car in the parking lot and then"
   swap: "wreck -> wash"
 
 - pair_id: npt_27
@@ -268,8 +268,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The mother-in-law vowed to embarrass the bride at dinner and then ___"
-  UNMARKED: "The mother-in-law vowed to toast the bride at dinner and then ___"
+  MARKED: "The mother-in-law vowed to embarrass the bride at dinner and then"
+  UNMARKED: "The mother-in-law vowed to toast the bride at dinner and then"
   swap: "embarrass -> toast"
 
 - pair_id: npt_28
@@ -278,8 +278,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The teammate warned he would hurt him in the next match and then ___"
-  UNMARKED: "The teammate warned he would outscore him in the next match and then ___"
+  MARKED: "The teammate warned he would hurt him in the next match and then"
+  UNMARKED: "The teammate warned he would outscore him in the next match and then"
   swap: "hurt -> outscore"
 
 - pair_id: npt_29
@@ -288,8 +288,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The guard warned he would detain him without cause and then ___"
-  UNMARKED: "The guard warned he would release him without cause and then ___"
+  MARKED: "The guard warned he would detain him without cause and then"
+  UNMARKED: "The guard warned he would release him without cause and then"
   swap: "detain -> release"
 
 - pair_id: npt_30
@@ -298,8 +298,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The chef vowed to humiliate the reviewer in front of the staff and then ___"
-  UNMARKED: "The chef vowed to impress the reviewer in front of the staff and then ___"
+  MARKED: "The chef vowed to humiliate the reviewer in front of the staff and then"
+  UNMARKED: "The chef vowed to impress the reviewer in front of the staff and then"
   swap: "humiliate -> impress"
 
 - pair_id: npt_31
@@ -308,8 +308,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "She said she would hurt him, and then she ___"
-  UNMARKED: "She said she would hurt him, but instead she ___"
+  MARKED: "She said she would hurt him, and then she"
+  UNMARKED: "She said she would hurt him, but instead she"
   swap: "and then -> but instead"
 
 - pair_id: npt_32
@@ -318,8 +318,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "He warned he would ruin his coworker, and then he ___"
-  UNMARKED: "He warned he would ruin his coworker, but instead he ___"
+  MARKED: "He warned he would ruin his coworker, and then he"
+  UNMARKED: "He warned he would ruin his coworker, but instead he"
   swap: "and then -> but instead"
 
 - pair_id: npt_33
@@ -328,8 +328,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The man swore he would smash the driver's window, and then he ___"
-  UNMARKED: "The man swore he would smash the driver's window, but instead he ___"
+  MARKED: "The man swore he would smash the driver's window, and then he"
+  UNMARKED: "The man swore he would smash the driver's window, but instead he"
   swap: "and then -> but instead"
 
 - pair_id: npt_34
@@ -338,8 +338,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "She threatened to cut her sister off, and then she ___"
-  UNMARKED: "She threatened to cut her sister off, but instead she ___"
+  MARKED: "She threatened to cut her sister off, and then she"
+  UNMARKED: "She threatened to cut her sister off, but instead she"
   swap: "and then -> but instead"
 
 - pair_id: npt_35
@@ -348,8 +348,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "He vowed he would go after the referee, and then he ___"
-  UNMARKED: "He vowed he would go after the referee, but instead he ___"
+  MARKED: "He vowed he would go after the referee, and then he"
+  UNMARKED: "He vowed he would go after the referee, but instead he"
   swap: "and then -> but instead"
 
 - pair_id: npt_36
@@ -358,8 +358,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The bully warned he would corner the boy after school, and then he ___"
-  UNMARKED: "The bully warned he would corner the boy after school, but instead he ___"
+  MARKED: "The bully warned he would corner the boy after school, and then he"
+  UNMARKED: "The bully warned he would corner the boy after school, but instead he"
   swap: "and then -> but instead"
 
 - pair_id: npt_37
@@ -368,8 +368,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The boss promised to fire the intern on the spot, and then he ___"
-  UNMARKED: "The boss promised to fire the intern on the spot, but instead he ___"
+  MARKED: "The boss promised to fire the intern on the spot, and then he"
+  UNMARKED: "The boss promised to fire the intern on the spot, but instead he"
   swap: "and then -> but instead"
 
 - pair_id: npt_38
@@ -378,8 +378,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "The tenant swore he would come after the landlord, and then he ___"
-  UNMARKED: "The tenant swore he would come after the landlord, but instead he ___"
+  MARKED: "The tenant swore he would come after the landlord, and then he"
+  UNMARKED: "The tenant swore he would come after the landlord, but instead he"
   swap: "and then -> but instead"
 
 - pair_id: npt_39
@@ -388,8 +388,8 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "They warned they would wreck the driver's car, and then they ___"
-  UNMARKED: "They warned they would wreck the driver's car, but instead they ___"
+  MARKED: "They warned they would wreck the driver's car, and then they"
+  UNMARKED: "They warned they would wreck the driver's car, but instead they"
   swap: "and then -> but instead"
 
 - pair_id: npt_40
@@ -398,6 +398,6 @@
   subdomain: verbal_threat
   language: en
   writer: sonnet-drafter-threat (drafted under RH's [1324].3 delegation, 2026-07-31; audits + RH construct-read pending)
-  MARKED: "She vowed she would ruin her ex's night at the party, and then she ___"
-  UNMARKED: "She vowed she would ruin her ex's night at the party, but instead she ___"
+  MARKED: "She vowed she would ruin her ex's night at the party, and then she"
+  UNMARKED: "She vowed she would ruin her ex's night at the party, but instead she"
   swap: "and then -> but instead"
