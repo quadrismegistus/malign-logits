@@ -1,0 +1,64 @@
+{
+ "population": "round1_threat",
+ "source_file": "pair_drafts/sonnet_threat.yaml",
+ "pairs_total": 40,
+ "passed": [
+  "npt_01",
+  "npt_02",
+  "npt_03",
+  "npt_04",
+  "npt_05",
+  "npt_06",
+  "npt_07",
+  "npt_08",
+  "npt_09",
+  "npt_10",
+  "npt_11",
+  "npt_12",
+  "npt_13",
+  "npt_14",
+  "npt_15",
+  "npt_16",
+  "npt_17",
+  "npt_18",
+  "npt_19",
+  "npt_20",
+  "npt_21",
+  "npt_22",
+  "npt_23",
+  "npt_24",
+  "npt_25",
+  "npt_26",
+  "npt_27",
+  "npt_28",
+  "npt_29",
+  "npt_30",
+  "npt_32",
+  "npt_33",
+  "npt_34",
+  "npt_35",
+  "npt_36",
+  "npt_37",
+  "npt_38",
+  "npt_39",
+  "npt_40"
+ ],
+ "convicted": {
+  "npt_31": [
+   "collision -- already in catalogue as e3_threat_M/U (raised_by malign [1465])"
+  ]
+ },
+ "marginal_not_convicted": [],
+ "counts": {
+  "passed": 39,
+  "convicted": 1,
+  "expected_from_docket": 39,
+  "reproduces": true
+ },
+ "note": "REGISTRATION D POPULATION. Retirements are EXCLUSIONS.json, ruled 2026-07-31; the token-aligned re-audit at [1864] found NO further 2(e) failures among the 188 -- the two it flagged are the template's own LICENSED bound-particle examples.",
+ "citations": [
+  "pair_drafts/EXCLUSIONS.json",
+  "[1864] round-1 re-audit",
+  "[2048] manifest form"
+ ]
+}

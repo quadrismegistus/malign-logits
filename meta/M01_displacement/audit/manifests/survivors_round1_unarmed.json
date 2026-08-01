@@ -1,0 +1,64 @@
+{
+ "population": "round1_unarmed",
+ "source_file": "pair_drafts/sonnet_unarmed.yaml",
+ "pairs_total": 40,
+ "passed": [
+  "npu_01",
+  "npu_02",
+  "npu_03",
+  "npu_04",
+  "npu_05",
+  "npu_06",
+  "npu_07",
+  "npu_08",
+  "npu_09",
+  "npu_10",
+  "npu_11",
+  "npu_12",
+  "npu_13",
+  "npu_14",
+  "npu_15",
+  "npu_16",
+  "npu_17",
+  "npu_18",
+  "npu_19",
+  "npu_20",
+  "npu_21",
+  "npu_22",
+  "npu_23",
+  "npu_25",
+  "npu_26",
+  "npu_27",
+  "npu_28",
+  "npu_29",
+  "npu_30",
+  "npu_31",
+  "npu_32",
+  "npu_33",
+  "npu_34",
+  "npu_35",
+  "npu_36",
+  "npu_37",
+  "npu_38",
+  "npu_39",
+  "npu_40"
+ ],
+ "convicted": {
+  "npu_24": [
+   "collision -- already in catalogue as store_g019_B/A (raised_by malign [1465])"
+  ]
+ },
+ "marginal_not_convicted": [],
+ "counts": {
+  "passed": 39,
+  "convicted": 1,
+  "expected_from_docket": 39,
+  "reproduces": true
+ },
+ "note": "REGISTRATION D POPULATION. Retirements are EXCLUSIONS.json, ruled 2026-07-31; the token-aligned re-audit at [1864] found NO further 2(e) failures among the 188 -- the two it flagged are the template's own LICENSED bound-particle examples.",
+ "citations": [
+  "pair_drafts/EXCLUSIONS.json",
+  "[1864] round-1 re-audit",
+  "[2048] manifest form"
+ ]
+}

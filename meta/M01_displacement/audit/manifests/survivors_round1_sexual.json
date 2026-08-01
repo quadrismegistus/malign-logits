@@ -1,0 +1,70 @@
+{
+ "population": "round1_sexual",
+ "source_file": "pair_drafts/sonnet_sexual.yaml",
+ "pairs_total": 40,
+ "passed": [
+  "nps_01",
+  "nps_02",
+  "nps_03",
+  "nps_04",
+  "nps_05",
+  "nps_07",
+  "nps_08",
+  "nps_09",
+  "nps_10",
+  "nps_11",
+  "nps_12",
+  "nps_13",
+  "nps_14",
+  "nps_15",
+  "nps_17",
+  "nps_18",
+  "nps_19",
+  "nps_20",
+  "nps_21",
+  "nps_22",
+  "nps_23",
+  "nps_24",
+  "nps_25",
+  "nps_26",
+  "nps_27",
+  "nps_28",
+  "nps_29",
+  "nps_31",
+  "nps_32",
+  "nps_34",
+  "nps_35",
+  "nps_36",
+  "nps_37",
+  "nps_38",
+  "nps_39",
+  "nps_40"
+ ],
+ "convicted": {
+  "nps_30": [
+   "\u00a72(e) -- three things move at once (object, possessor, locative) (raised_by lacan [1462])"
+  ],
+  "nps_06": [
+   "\u00a72(e) -- two independent content substitutions: bed/bench AND coats/door (raised_by malign [1463])"
+  ],
+  "nps_16": [
+   "\u00a72(e) -- object AND whole subordinate clause change; gender rides along (raised_by malign [1463])"
+  ],
+  "nps_33": [
+   "construct -- animate -> inanimate; animacy rides with transgression (raised_by lacan [1462])"
+  ]
+ },
+ "marginal_not_convicted": [],
+ "counts": {
+  "passed": 36,
+  "convicted": 4,
+  "expected_from_docket": 36,
+  "reproduces": true
+ },
+ "note": "REGISTRATION D POPULATION. Retirements are EXCLUSIONS.json, ruled 2026-07-31; the token-aligned re-audit at [1864] found NO further 2(e) failures among the 188 -- the two it flagged are the template's own LICENSED bound-particle examples.",
+ "citations": [
+  "pair_drafts/EXCLUSIONS.json",
+  "[1864] round-1 re-audit",
+  "[2048] manifest form"
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "population": "round1_weapons",
+ "source_file": "pair_drafts/sonnet_weapons.yaml",
+ "pairs_total": 40,
+ "passed": [
+  "npw_01",
+  "npw_02",
+  "npw_03",
+  "npw_04",
+  "npw_05",
+  "npw_06",
+  "npw_08",
+  "npw_09",
+  "npw_10",
+  "npw_11",
+  "npw_12",
+  "npw_13",
+  "npw_14",
+  "npw_15",
+  "npw_16",
+  "npw_17",
+  "npw_18",
+  "npw_19",
+  "npw_20",
+  "npw_21",
+  "npw_22",
+  "npw_23",
+  "npw_24",
+  "npw_25",
+  "npw_26",
+  "npw_27",
+  "npw_28",
+  "npw_29",
+  "npw_30",
+  "npw_31",
+  "npw_32",
+  "npw_33",
+  "npw_34",
+  "npw_35",
+  "npw_36",
+  "npw_37",
+  "npw_38",
+  "npw_39",
+  "npw_40"
+ ],
+ "convicted": {
+  "npw_07": [
+   "construct -- knife->towel; unmarked reads as first aid, not affectively flat (raised_by lacan [1462])"
+  ]
+ },
+ "marginal_not_convicted": [],
+ "counts": {
+  "passed": 39,
+  "convicted": 1,
+  "expected_from_docket": 39,
+  "reproduces": true
+ },
+ "note": "REGISTRATION D POPULATION. Retirements are EXCLUSIONS.json, ruled 2026-07-31; the token-aligned re-audit at [1864] found NO further 2(e) failures among the 188 -- the two it flagged are the template's own LICENSED bound-particle examples.",
+ "citations": [
+  "pair_drafts/EXCLUSIONS.json",
+  "[1864] round-1 re-audit",
+  "[2048] manifest form"
+ ]
+}

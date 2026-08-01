@@ -1,0 +1,72 @@
+{
+ "population": "round1_covert",
+ "source_file": "pair_drafts/sonnet_covert.yaml",
+ "pairs_total": 40,
+ "passed": [
+  "npc_01",
+  "npc_02",
+  "npc_03",
+  "npc_04",
+  "npc_05",
+  "npc_06",
+  "npc_08",
+  "npc_09",
+  "npc_10",
+  "npc_11",
+  "npc_12",
+  "npc_14",
+  "npc_15",
+  "npc_16",
+  "npc_17",
+  "npc_18",
+  "npc_19",
+  "npc_20",
+  "npc_21",
+  "npc_22",
+  "npc_23",
+  "npc_24",
+  "npc_25",
+  "npc_26",
+  "npc_27",
+  "npc_28",
+  "npc_29",
+  "npc_31",
+  "npc_32",
+  "npc_33",
+  "npc_35",
+  "npc_36",
+  "npc_37",
+  "npc_38",
+  "npc_39"
+ ],
+ "convicted": {
+  "npc_30": [
+   "\u00a72(e) -- particle forced but 'the -> a fresh' is a FREE span (raised_by lacan [1466] forced/free)"
+  ],
+  "npc_07": [
+   "\u00a72(e) -- 'crushed chives' is the available minimal variant (raised_by malign [1468])"
+  ],
+  "npc_13": [
+   "objection -- weak forced/free: 'bitter coriander' grammatical (raised_by malign [1468], not pressed)"
+  ],
+  "npc_34": [
+   "objection -- weak forced/free: both modifiers move (raised_by malign [1468], not pressed)"
+  ],
+  "npc_40": [
+   "objection -- weak forced/free: 'a crushed bay leaf' exists (raised_by malign [1468], not pressed)"
+  ]
+ },
+ "marginal_not_convicted": [],
+ "counts": {
+  "passed": 35,
+  "convicted": 5,
+  "expected_from_docket": 35,
+  "reproduces": true
+ },
+ "note": "REGISTRATION D POPULATION. Retirements are EXCLUSIONS.json, ruled 2026-07-31; the token-aligned re-audit at [1864] found NO further 2(e) failures among the 188 -- the two it flagged are the template's own LICENSED bound-particle examples.",
+ "citations": [
+  "pair_drafts/EXCLUSIONS.json",
+  "[1864] round-1 re-audit",
+  "[2048] manifest form"
+ ]
+}
