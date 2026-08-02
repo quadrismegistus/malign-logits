@@ -689,25 +689,93 @@ class CacheManager:
     # deliberately NOT reimplementing anything: the schema and the engine are
     # the single source of both shape and behaviour.
 
-    def _twp_key(self, model, prompt, theta, mode):
-        return self.key_for("true_word_probs", model=model, prompt=prompt,
-                            theta=theta, mode=mode)
+    # THE RULE DIMENSION, and why the reads do not take a required parameter.
+    #
+    # [2959] proved the naive flip dead: every named accessor passes exactly
+    # (model, prompt, theta, mode) and CANNOT supply two new required fields,
+    # so making them required breaks twelve read sites the moment the schema
+    # moves. Making them DEFAULTED would be worse -- a silent default is how
+    # `rule_version` ends up on a cell no rule of that version produced.
+    #
+    # So: RESOLVE, OR REFUSE. A read that names no rule is answerable exactly
+    # while the store holds ONE rule, and is ambiguous the instant it holds
+    # two. The accessor resolves in the first case and RAISES in the second,
+    # naming the rules it found. No call site changes today; no call site can
+    # silently pool tomorrow. Enforce by refusal, not by convention.
+    #
+    # The resolution is cached because it costs a key scan, and invalidated on
+    # every write -- a cache that survives the write that invalidates it is the
+    # defect this class exists to avoid.
 
-    def get_true_word_probs(self, model, prompt, theta=0.001, mode="raw"):
-        return self.get("true_word_probs", model=model, prompt=prompt,
-                        theta=theta, mode=mode)
+    _RULE_CACHE = None
+
+    def _twp_rules(self):
+        """{(rule_version, dict_sha)} present in the store. Cached."""
+        if CacheManager._RULE_CACHE is None:
+            CacheManager._RULE_CACHE = {
+                ((v or {}).get("rule_version"), (v or {}).get("dict_sha"))
+                for _k, v in self.iter_items("true_word_probs")}
+        return CacheManager._RULE_CACHE
+
+    def _twp_resolve_rule(self, rule_version, dict_sha):
+        """Fill an unnamed rule from the store, or refuse if it is ambiguous."""
+        if rule_version is not None and dict_sha is not None:
+            return rule_version, dict_sha
+        rules = self._twp_rules()
+        if len(rules) == 1:
+            only = next(iter(rules))
+            return (rule_version if rule_version is not None else only[0],
+                    dict_sha if dict_sha is not None else only[1])
+        if not rules:
+            return rule_version, dict_sha          # empty store: nothing to mix
+        raise KeyError(
+            "true_word_probs holds %d rules %s -- a read that names none is "
+            "AMBIGUOUS. Pass rule_version= and dict_sha= explicitly; do not "
+            "pool across boundary rules." % (len(rules), sorted(rules)))
+
+    def _twp_key(self, model, prompt, theta, mode,
+                 rule_version=None, dict_sha=None):
+        kw = dict(model=model, prompt=prompt, theta=theta, mode=mode)
+        if "rule_version" in self._schema("true_word_probs").fields:
+            rv, ds = self._twp_resolve_rule(rule_version, dict_sha)
+            kw.update(rule_version=rv, dict_sha=ds)
+        return self.key_for("true_word_probs", **kw)
+
+    def get_true_word_probs(self, model, prompt, theta=0.001, mode="raw",
+                            rule_version=None, dict_sha=None):
+        key = self._twp_key(model, prompt, theta, mode, rule_version, dict_sha)
+        s = self._stash("true_word_probs")
+        return s[key] if key in s else None
 
     def set_true_word_probs(self, model, prompt, payload, theta=0.001, mode="raw"):
         """payload = {"rows": [{word, t1, p}, ...], "residual": {tail, drop, open,
         total}, "batches": int}. One row per (word, FIRST TOKEN): a surface can be
         reached by more than one token path, and t1 is the join key to the
-        token-level table and the grouping the masking test needs."""
-        self.set("true_word_probs", payload, model=model, prompt=prompt,
-                 theta=theta, mode=mode)
+        token-level table and the grouping the masking test needs.
 
-    def has_true_word_probs(self, model, prompt, theta=0.001, mode="raw"):
-        return self.has("true_word_probs", model=model, prompt=prompt,
-                        theta=theta, mode=mode)
+        THE RULE IS READ OFF THE PAYLOAD, NEVER DEFAULTED. A writer that cannot
+        say which rule produced a cell must not write it: [2963].2 quarantined
+        13,940 rows for exactly this, and defaulting them would have keyed them
+        to a rule version that never produced them.
+        """
+        keyed = "rule_version" in self._schema("true_word_probs").fields
+        rv = ds = None
+        if keyed:
+            rv, ds = (payload or {}).get("rule_version"), (payload or {}).get("dict_sha")
+            if rv is None or ds is None:
+                raise KeyError(
+                    "refusing to write %s / %.40r: payload carries "
+                    "rule_version=%r dict_sha=%r and the key requires both. "
+                    "A cell whose rule is unknown is quarantined, not guessed."
+                    % (model, prompt, rv, ds))
+        self._stash("true_word_probs")[
+            self._twp_key(model, prompt, theta, mode, rv, ds)] = payload
+        CacheManager._RULE_CACHE = None            # the write may add a rule
+
+    def has_true_word_probs(self, model, prompt, theta=0.001, mode="raw",
+                            rule_version=None, dict_sha=None):
+        return self._twp_key(model, prompt, theta, mode,
+                             rule_version, dict_sha) in self._stash("true_word_probs")
 
     def get_beam_words(self, model, prompt, n=1000, depth=3, mode="raw"):
         key = {"type": "beam_words", "model": model, "prompt": prompt, "n": n, "depth": depth}
