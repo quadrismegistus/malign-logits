@@ -104,16 +104,17 @@ def main():
     # twp row for the same (model, prompt). A row read at the WRONG OFFSET
     # belongs to a different prompt and its argmax will not be among that
     # prompt's t1 set at all.
-    agree = disagree = unusable = 0
-    detail = []
+    ok_ranks, off_ranks = [], []
+    unusable = 0
     for d in rng.sample(keys, min(a.n_known, len(keys))):
         twp = cm.get_true_word_probs(d["model"], d["prompt"], theta=0.001,
                                      mode="raw")
         rows = (twp or {}).get("rows") or []
         if not rows:
             unusable += 1; continue          # empty cells: [3015]
-        v = np.asarray(cm.get_logits(d["model"], d["prompt"], mode=d["mode"],
-                                     dtype=d["dtype"]))
+        e = cm.get_logits_entry(d["model"], d["prompt"], mode=d["mode"],
+                                dtype=d["dtype"])
+        v = np.asarray(cm._logit_array(e, d["dtype"]))
         if not np.isfinite(np.asarray(v, dtype=np.float32)).all():
             unusable += 1; continue
         #: DIRECTION MATTERS, AND THE SECOND VERSION HAD IT BACKWARDS.
@@ -129,29 +130,41 @@ def main():
         #: prompt actually prefers would not be near the top of it.
         top_row = max(rows, key=lambda r: r["p"])
         t1 = int(top_row["t1"])
-        rank = int((v > v[t1]).sum())        # 0 == argmax
-        if rank < 20:
-            agree += 1
-        else:
-            disagree += 1
-            if len(detail) < 5:
-                detail.append((d["model"][:32], d["prompt"][:26],
-                               f"twp_top={top_row['word']!r}",
-                               f"t1_rank={rank}"))
-    tot = agree + disagree
-    print(f"(C) KNOWN ANSWER twp top word's t1 ranks <20 in the logits, "
-          f"{tot} comparable "
-          f"({unusable} unusable): {agree} AGREE, {disagree} DISAGREE"
-          + (f"  = {100*agree/tot:.1f}%" if tot else ""))
-    for row in detail:
-        print("      ", *row)
+        ok_ranks.append(int((v > v[t1]).sum()))
+        #: BUILT-IN NEGATIVE CONTROL. Read row+1 and rank the same t1. A check
+        #: that does not measure its own discriminating power is a check whose
+        #: power nobody knows -- and this column's first threshold (rank < 20)
+        #: false-passed an off-by-one 52.7% of the time while reporting
+        #: "491/491 = 100.0%".
+        try:
+            off = cm._logit_array({**e, "row": e["row"] + 1}, d["dtype"])
+            off_ranks.append(int((off > off[t1]).sum()))
+        except Exception:
+            pass
+
+    import statistics as _st
+    def _q(arr, p):
+        arr = sorted(arr); return arr[min(len(arr)-1, int(p*len(arr)))]
+    med = _st.median(ok_ranks) if ok_ranks else None
+    med_off = _st.median(off_ranks) if off_ranks else None
+    print(f"(C) KNOWN ANSWER twp top word's t1, rank in the logit vector "
+          f"({len(ok_ranks)} rows, {unusable} unusable)")
+    print(f"      CORRECT row      median {med}   p99 {_q(ok_ranks,.99)}   "
+          f"max {max(ok_ranks) if ok_ranks else '-'}")
+    print(f"      OFF-BY-ONE row   median {med_off}   p10 {_q(off_ranks,.10)}"
+          f"   <- the built-in negative control")
+    #: THE STATISTIC IS THE DISTRIBUTION, NOT A PER-ROW THRESHOLD. Individual
+    #: rows overlap: even rank<1 fails 7.7% of CORRECT rows and passes 20.3%
+    #: of off-by-one ones. The medians do not overlap at all -- 0 against 16 --
+    #: so the sample-level statistic separates where no per-row cut can.
+    known_ok = (med == 0 and med_off is not None and med_off >= 5)
 
     #: (B)'s failures are the all-NaN Falcon-H1-7B rows ([3015]) -- a KNOWN
     #: DEFECT IN THE DATA that this column is CORRECTLY DETECTING. Failing the
     #: index for finding them would conflate "the index is wrong" with "the
     #: run produced two bad models", which are different verdicts with
     #: different owners. (B) is reported, not gated.
-    ok = (bad_addr == 0 and tot and agree / tot >= 0.95)
+    ok = (bad_addr == 0 and known_ok)
     print()
     print("  VERDICT:", "INDEX VERIFIED -- addressing exact on every sampled row, "
           "and the cross-store known answer agrees" if ok else "*** NOT VERIFIED")

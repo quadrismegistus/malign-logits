@@ -210,10 +210,30 @@ class CacheManager:
     _LOGIT_MMAP = {}          #: basename -> np.memmap, one handle per file
 
     def _logit_root(self):
+        """Where .f16 payloads live, DERIVED FROM THIS INSTANCE'S CACHE ROOT.
+
+        THE FIRST VERSION READ A MODULE CONSTANT AND IGNORED THE INSTANCE, so a
+        CacheManager pointed at a temp directory still wrote payloads to the
+        production one: running the test suite deposited `model-a.float32.f16`
+        and `model-a.float64.f16` into data/raw/cloud_run_20260801, beside 50 GB
+        of real run output. An isolated cache that is not isolated is worse than
+        no isolation, because the caller believes it.
+
+        Same shape as [2970].3 -- a class attribute answering for every
+        instance -- one layer down and in the direction that WRITES.
+        """
         import os as _os
-        from . import PATH_DATA_RAW
-        return _os.environ.get("MALIGN_LOGIT_ROOT") or _os.path.join(
-            PATH_DATA_RAW, "cloud_run_20260801")
+        env = _os.environ.get("MALIGN_LOGIT_ROOT")
+        if env:
+            return env
+        #: self.root is this instance's cache dir; the payloads sit beside it
+        #: under the run directory, so a temp-rooted manager gets a temp payload
+        #: dir and cannot touch the real one.
+        base = getattr(self, "root", None) or CACHE_ROOT
+        if _os.path.abspath(base) == _os.path.abspath(CACHE_ROOT):
+            from . import PATH_DATA_RAW
+            return _os.path.join(PATH_DATA_RAW, "cloud_run_20260801")
+        return _os.path.join(base, "logit_payloads")
 
     def _logit_array(self, entry, dtype):
         """The vector for one index entry, via a cached memmap.
