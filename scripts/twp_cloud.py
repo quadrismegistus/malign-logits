@@ -568,10 +568,27 @@ def assert_prompt_survives(tok, prompt, ids):
         a = " ".join(back.split())
         b = " ".join(prompt.split())
         if a != b:
-            raise ValueError(
-                f"prompt does not survive encoding:\n  sent {prompt[:60]!r}\n"
-                f"  got  {back[:60]!r}\n"
-                f"the model would score text that is not the prompt")
+            # ONE PROMPT MUST NOT KILL A MODEL. This raised ValueError, which
+            # propagated out of the per-prompt loop and ended the whole run for
+            # that checkpoint: Falcon3-Mamba-7B-Instruct died at 1106/2583 on
+            # 2026-08-02 and the runner purged it and moved on, costing 1,477
+            # cells to protect 1.
+            #
+            # THE REFUSAL IS STILL CORRECT and is NOT being softened. The cause
+            # there was the ordinary English word `assistant`, which these
+            # tokenizers encode to id 7 -- a reserved CHAT-ROLE token that
+            # `decode(skip_special_tokens=True)` drops. The model really would
+            # read a role marker where the prompt has a noun, so the cell is
+            # not scoreable and must not be written.
+            #
+            # What changes is the SCOPE of the refusal: SkipPrompt is exactly
+            # this case ("this PROMPT cannot be scored on this model, not a
+            # model failure"), it writes a row carrying the reason, and the
+            # shard therefore remains its own ledger -- every skip enumerated
+            # by (model, prompt), none absorbed. Ruled [2993].
+            raise SkipPrompt(
+                f"prompt_does_not_survive_encoding: sent {prompt[:48]!r} "
+                f"got {back[:48]!r}")
 
 
 class SkipPrompt(Exception):

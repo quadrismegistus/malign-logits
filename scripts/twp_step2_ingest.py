@@ -60,17 +60,65 @@ def gate_transport_complete(expect_models=None):
     roster = {e["model"] for e in spec}
     expect = max(len(e["prompts"]) for e in spec)
 
-    counts, newest = {}, 0.0
+    #: A SKIP ROW IS A ROW. `SkipPrompt` writes one line per unscoreable prompt
+    #: -- correctly, so the shard is its own ledger -- but that means a model
+    #: which skipped EVERY prompt produces a full-length shard carrying no data
+    #: and this gate would have called it complete. Count SCORED rows, and
+    #: report skips separately so a systematic failure cannot wear the shape of
+    #: a finished model. Same error as reading `[n/8]` progress markers, one
+    #: level down: the line count is not the achievement either.
+    counts, skips, newest = {}, {}, 0.0
     for f in files:
         m = os.path.basename(f)[:-6].replace("__", "/")
-        counts[m] = sum(1 for _ in open(f, errors="ignore"))
+        scored = sk = 0
+        for line in open(f, errors="ignore"):
+            #: PARSE, do not substring-match. The first version tested
+            #: `'"skipped"' in line` and counted 2,324 "skips" across 100
+            #: models -- 2,319 of which were ORDINARY SCORED ROWS whose
+            #: word-probability list happens to contain the word "skipped"
+            #: (`{"word": "skipped", ...}`). A grep for a key that matches a
+            #: value is the same defect as a monitor grepping LOAD FAILED at a
+            #: runner that says RUN FAILED: the pattern did not mirror the
+            #: producer. The real count was 6.
+            try:
+                rec = json.loads(line)
+            except Exception:
+                continue
+            if "skipped" in rec:
+                sk += 1
+            else:
+                scored += 1
+        counts[m], skips[m] = scored, sk
         newest = max(newest, os.path.getmtime(f))
 
-    complete = {m for m, n in counts.items() if n >= expect}
+    #: complete = scored + declared skips reaches the roster, AND the skips are
+    #: a small named minority rather than the model's whole output.
+    SKIP_CEILING = 0.05
+    complete, over = set(), []
+    for m, n in counts.items():
+        sk = skips[m]
+        if n + sk < expect:
+            continue
+        if sk > expect * SKIP_CEILING:
+            over.append((m, sk))
+            continue
+        complete.add(m)
     missing = sorted(roster - complete)
     quiet_s = time.time() - newest
+    total_sk = sum(skips.values())
     print(f"(2a) transport   {len(files)} shards, {len(complete)} complete "
           f"of {len(roster)} roster, expect {expect} rows")
+    print(f"     declared skips {total_sk} across "
+          f"{sum(1 for v in skips.values() if v)} model(s)")
+    for m, sk in sorted(skips.items()):
+        if sk:
+            print(f"       {m}  {sk} skipped")
+    if over:
+        for m, sk in over:
+            print(f"     *** {m}: {sk} skips exceeds {SKIP_CEILING:.0%} of "
+                  f"{expect} -- a systematic failure wearing a full shard")
+        fail("a model skipped more than the ceiling; that is a model failure, "
+             "not a set of per-prompt gaps")
     print(f"     newest shard written {quiet_s/60:.1f} min ago")
     if missing:
         print(f"     INCOMPLETE ({len(missing)}):")

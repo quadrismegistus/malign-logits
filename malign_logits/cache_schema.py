@@ -25,8 +25,8 @@ findable only by someone who already knows to look.
 
 SCOPE, DELIBERATE
 -----------------
-**ONLY `true_word_probs` is declared here.** The other twenty-six migrate when
-they are next touched. A cache refactor that competes with the paper is the
+**`true_word_probs` and `logits` are declared here.** The other twenty-five
+migrate when they are next touched. A cache refactor that competes with the paper is the
 wrong trade; this one is declared because it blocks a live decision (whether a
 run/rule dimension belongs in the key) and it serves as the worked example.
 
@@ -170,8 +170,41 @@ TRUE_WORD_PROBS_WITH_RULE = KeySchema(
     }),
 )
 
+LOGITS = KeySchema(
+    name="logits",
+    fields=["model", "prompt", "mode", "dtype"],
+    defaults={"mode": "raw"},
+    required=["model", "prompt", "dtype"],
+    doc="Full-vocabulary next-token logits at the last position. Value: "
+        "{logits: ndarray, dtype, vocab_size, torch_version, "
+        "transformers_version, device, stamped_at}. THE VALUE CARRIES ITS OWN "
+        "PROVENANCE -- the archived store held bare ndarrays and could not say "
+        "what produced any of them.",
+    notes={
+        "mode":
+            "ALWAYS PRESENT. The archived stash omitted it when raw "
+            "(`if mode != 'raw': key['mode'] = mode`, copy-pasted across "
+            "get/set/has), which gave raw keys a DIFFERENT SHAPE from moded "
+            "ones and made raw IMPLICIT: 31,402 bare {model, prompt} entries "
+            "against 21,398 {mode, model, prompt}, with a pre-mode entry "
+            "indistinguishable from a raw one. Identical to the defect "
+            "true_word_probs was re-keyed to remove on 2026-07-30; logits was "
+            "scoped out of that migration and the defect grew.",
+        "dtype":
+            "KEYED, and this is the rule_version analogue. m04_rescore.py "
+            "states it: *A DTYPE DIFFERENCE IS A LOGIT DIFFERENCE, and this "
+            "campaign's quantity IS a next-token probability.* The archived "
+            "store mixed float16 and float32 with nothing in key or value "
+            "recording which -- so unlike true_word_probs, where the collision "
+            "had not yet happened, here it already had.",
+        "model": "Full HuggingFace id, never a family key or short label.",
+        "prompt": "The exact stimulus string.",
+    },
+)
+
 SCHEMAS = {
     "true_word_probs": TRUE_WORD_PROBS,
+    "logits": LOGITS,
 }
 
 

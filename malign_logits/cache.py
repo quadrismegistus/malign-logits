@@ -151,24 +151,78 @@ class CacheManager:
 
     # ── logits ──────────────────────────────────────────────────
 
-    def get_logits(self, model, prompt, mode="raw"):
-        key = {"model": model, "prompt": prompt}
-        if mode != "raw":
-            key["mode"] = mode
-        s = self._stash("logits")
-        return s[key] if key in s else None
+    # THE ARCHIVED STASH'S TWO DEFECTS, AND HOW THESE AVOID THEM.
+    #
+    # The store retired on 2026-08-02 held 52,800 entries in TWO key shapes --
+    # 31,402 {model, prompt} and 21,398 {mode, model, prompt} -- because the
+    # three methods below each carried `if mode != "raw": key["mode"] = mode`.
+    # Raw was therefore IMPLICIT and a pre-mode entry was indistinguishable
+    # from a raw one. `mode` is now always present, via the declared schema.
+    #
+    # It also mixed float16 and float32 with NOTHING recording which, in key or
+    # value. `dtype` is now KEYED: a dtype difference is a logit difference,
+    # and a next-token probability is this campaign's quantity.
+    #
+    # `dtype` is REQUIRED and deliberately has no default. A default would
+    # invent provenance for a caller who did not know it -- the same refusal
+    # `set_true_word_probs` makes about `rule_version`.
 
-    def set_logits(self, model, prompt, logits, mode="raw"):
-        key = {"model": model, "prompt": prompt}
-        if mode != "raw":
-            key["mode"] = mode
-        self._stash("logits")[key] = logits
+    def _logits_resolve_dtype(self, model, prompt, mode, dtype):
+        """RESOLVE, OR REFUSE -- the same third way as the twp rule dimension.
 
-    def has_logits(self, model, prompt, mode="raw"):
-        key = {"model": model, "prompt": prompt}
-        if mode != "raw":
-            key["mode"] = mode
-        return key in self._stash("logits")
+        A read that names no dtype is answerable exactly while this
+        (model, prompt, mode) holds ONE, and ambiguous the instant it holds
+        two. Requiring the caller to name it would break every `has_logits`
+        used as "should I compute this?"; DEFAULTING it would invent
+        provenance. So: one present -> fill it; two -> raise, naming both;
+        none -> _NO_RULE, which makes has False and get None rather than an
+        error. [2970].1's bootstrap lesson, applied before it could bite twice.
+        """
+        if dtype is not None:
+            return dtype
+        found = {d.get("dtype") for d in self.iter_keys(
+            "logits", model=model, prompt=prompt, mode=mode)}
+        if len(found) == 1:
+            return next(iter(found))
+        if not found:
+            return CacheManager._NO_RULE
+        raise KeyError(
+            f"logits for {model} / {str(prompt)[:32]!r} exist at {len(found)} "
+            f"dtypes {sorted(found)} -- a read that names none is AMBIGUOUS. "
+            f"Pass dtype=; a dtype difference is a logit difference.")
+
+    def get_logits(self, model, prompt, mode="raw", dtype=None):
+        dt = self._logits_resolve_dtype(model, prompt, mode, dtype)
+        if dt is CacheManager._NO_RULE:
+            return None
+        return self.get("logits", model=model, prompt=prompt,
+                        mode=mode, dtype=dt)
+
+    def set_logits(self, model, prompt, logits, mode="raw", dtype=None):
+        """`logits` may be a bare array or a payload dict carrying provenance.
+
+        A bare array is accepted so existing callers keep working, but its
+        dtype is then read OFF THE ARRAY rather than guessed -- if it cannot be
+        read, the write is refused rather than keyed to an invented dtype.
+        """
+        dt = dtype
+        if dt is None:
+            dt = (logits or {}).get("dtype") if isinstance(logits, dict) \
+                else getattr(logits, "dtype", None)
+        if dt is None:
+            raise KeyError(
+                f"refusing to write logits for {model} / {str(prompt)[:40]!r}: "
+                f"no dtype on the payload and none passed. A dtype difference "
+                f"IS a logit difference; it is keyed and never defaulted.")
+        self.set("logits", logits, model=model, prompt=prompt,
+                 mode=mode, dtype=str(dt))
+
+    def has_logits(self, model, prompt, mode="raw", dtype=None):
+        dt = self._logits_resolve_dtype(model, prompt, mode, dtype)
+        if dt is CacheManager._NO_RULE:
+            return False
+        return self.has("logits", model=model, prompt=prompt,
+                        mode=mode, dtype=dt)
 
     # ── generations ─────────────────────────────────────────────
 
