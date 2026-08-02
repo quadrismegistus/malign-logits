@@ -31,12 +31,14 @@ def main():
     from malign_logits.core import _apply_mode
 
     cm = get_cache()
-    logits_stash = cm._stash("logits")
-
+    #: WAS `if "mode" not in k` -- a test for the ABSENCE of the field, which
+    #: is how the archived stash spelled "raw". Under the declared schema every
+    #: key carries `mode`, so that filter now matches NOTHING and this script
+    #: would have found no work and exited cleanly. A filter keyed to a missing
+    #: field fails silently the moment the field stops being missing.
     model_prompts = defaultdict(set)
-    for k in logits_stash.keys():
-        if isinstance(k, dict) and "mode" not in k:
-            model_prompts[k["model"]].add(k["prompt"])
+    for k in cm.iter_keys("logits", mode="raw"):
+        model_prompts[k["model"]].add(k["prompt"])
 
     SMALL = ['SmolLM2', 'SmolLM3', 'Qwen2.5-0.5B', 'OLMo-2-0425-1B']
     def sort_key(m):

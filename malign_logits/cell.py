@@ -51,31 +51,77 @@ class Cell:
         self.theta = theta
         self.mode = mode
 
+    #: REFUSE TO COMPUTE. NEVER REFUSE TO DESCRIBE.
+    #:
+    #: Once `rule_version` is a KEY field, a read that names no rule RAISES in
+    #: a store holding two -- correctly, because a statistic pooled across
+    #: boundary rules is the defect the key exists to prevent. But that raise
+    #: propagated into `is_present` and `__repr__`, so in exactly the state
+    #: worth inspecting the object became UNPRINTABLE, and `rule_version` --
+    #: documented as returning "a tuple when they disagree" -- raised instead
+    #: of reporting the disagreement. The mixed-rule reporter was unreachable
+    #: in the mixed-rule case.
+    #:
+    #: The line is drawn by WHAT THE CALLER DOES WITH THE ANSWER, which is why
+    #: it differs from `has_true_word_probs` (which keeps its raise): that one
+    #: is asked in order to DECIDE -- the ingest writes or skips on it, so a
+    #: wrong False changes what is stored. These are asked in order to LOOK.
+    #:
+    #:     A PREDICATE THAT GATES AN ACTION MUST REFUSE WHEN IT CANNOT ANSWER.
+    #:     A PREDICATE THAT GATES A PRINT MUST ANSWER.
+
+    AMBIGUOUS = "ambiguous"          #: sentinel: present, but at >1 rule
+
     def __repr__(self):
         t = (self.prompt_text or "")[:34]
-        return f"Cell({self.step.label}, {t!r}, present={self.is_present})"
+        rv = self.rule_version
+        extra = f", rules={rv}" if rv == self.AMBIGUOUS else ""
+        return (f"Cell({self.step.label}, {t!r}, "
+                f"present={self.is_present}{extra})")
 
     # -- the two distributions ----------------------------------------------
+    def _arm(self, checkpoint_id):
+        """One arm's word probabilities, or the AMBIGUOUS sentinel.
+
+        Only an ambiguity is converted; every other failure propagates, because
+        swallowing them is how a missing arm becomes a zero.
+        """
+        from .movement import word_probs
+        try:
+            return word_probs(checkpoint_id, self.prompt_text,
+                              self.theta, self.mode)
+        except KeyError as exc:
+            if "AMBIGUOUS" in str(exc).upper() or "ambiguous" in str(exc):
+                return self.AMBIGUOUS
+            raise
+
     @cached_property
     def pre(self):
-        from .movement import word_probs
-        return word_probs(self.step.pre.id, self.prompt_text, self.theta, self.mode)
+        return self._arm(self.step.pre.id)
 
     @cached_property
     def post(self):
-        from .movement import word_probs
-        return word_probs(self.step.post.id, self.prompt_text, self.theta, self.mode)
+        return self._arm(self.step.post.id)
 
     @property
     def is_present(self):
-        """Both arms have this prompt scored. A cell can be asked for and not exist."""
-        return self.pre is not None and self.post is not None
+        """Both arms have this prompt scored. A cell can be asked for and not exist.
+
+        ANSWERS, never raises. An ambiguous arm IS present -- the data is there,
+        the read was underspecified -- so this is True and `rule_version`
+        carries the reason. A caller that only handles None would otherwise be
+        unable to tell "absent" from "ambiguous".
+        """
+        return (self.pre is not None and self.post is not None)
 
     @property
     def rule_version(self):
-        """The instrument that produced both arms, or a tuple when they disagree."""
+        """The instrument that produced both arms, a tuple when they disagree,
+        or AMBIGUOUS when either arm is present at more than one rule."""
         if not self.is_present:
             return None
+        if self.pre is self.AMBIGUOUS or self.post is self.AMBIGUOUS:
+            return self.AMBIGUOUS
         a, b = self.pre.rule_version, self.post.rule_version
         return a if a == b else (a, b)
 
@@ -165,6 +211,21 @@ class Cell:
 
     def _check_versions(self, allow_mixed):
         rv = self.rule_version
+        #: AMBIGUOUS IS NOT "MIXED", AND `allow_mixed` MUST NOT COVER IT.
+        #: Mixed means two rules I can name and have chosen to accept.
+        #: Ambiguous means the store holds more than one and the read did not
+        #: say which -- so there is no pair of distributions to accept. This
+        #: is the single choke point every compute path passes through
+        #: (`movement`, `js`, `l1`, `decompose`, `_divergence`), and without
+        #: it the sentinel would reach `self.pre.probs` and die as an
+        #: AttributeError on a string: a confusing failure in place of a
+        #: refusal that names its cause.
+        if rv == self.AMBIGUOUS:
+            raise ValueError(
+                f"refusing to compute on {self!r}: an arm is present at MORE "
+                f"THAN ONE boundary rule and this read named none. Pass the "
+                f"rule explicitly; `allow_mixed` does not cover ambiguity, "
+                f"because there is no chosen pair to accept.")
         if isinstance(rv, tuple) and not allow_mixed:
             raise ValueError(
                 f"rule_version mismatch on {self.prompt_text[:40]!r}: "
