@@ -1,0 +1,15 @@
+{
+  "instance_id": "46494481",
+  "offer_id": "41153677",
+  "ssh_host": "ssh5.vast.ai",
+  "ssh_port": 14480,
+  "num_gpus": 1,
+  "gpu": "1\u00d7 A100 SXM4 81920GB",
+  "price_per_hour": 1.6723333333333332,
+  "launched_at": "2026-08-01T11:58:23",
+  "setup_done": true,
+  "_status": "DESTROYED 2026-08-02T14:40 UTC on RH's word. 95/103 models, 245,397 rows, VERIFIED byte-identical to the local mirror (97 shards, md5+line count, delta 0) BEFORE destroy.",
+  "destroyed_at_utc": "2026-08-02T14:40",
+  "local_mirror": "data/raw/cloud_run_20260801",
+  "remaining": "8 SSM/hybrid models unstarted: Falcon-H1-1.5B x2, Falcon-H1-7B x2, Falcon3-Mamba-7B x2, falcon-mamba-7b x2"
+}

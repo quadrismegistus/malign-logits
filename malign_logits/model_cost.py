@@ -57,10 +57,17 @@ ARCH_PATTERNS = [
 #
 #   transformer  2.90   median across 55 consecutive models, run 46301965/46494481
 #   transformer_32b 1.15-1.43  four consecutive 32Bs, models 52-55 of 46494481
-#   hybrid/ssm   0.61-0.72  Olmo-Hybrid-7B, three readings over 40 min, 46494481
-#                WITHOUT mamba-ssm/causal-conv1d kernels. With them this number
-#                is expected to rise substantially and has never been measured
-#                here — see docs; do not treat 0.65 as an architecture constant.
+#   hybrid/ssm   0.61-0.72  Olmo-Hybrid-7B, three readings over 40 min, 46494481,
+#                WITHOUT kernels — and 0.62-0.64 for Falcon3-Mamba-7B on
+#                46613310 WITH mamba-ssm and causal-conv1d verified importable.
+#                THE KERNELS DID NOT CHANGE THE RATE. July's "Falcon needs
+#                KERNELS not a card" does not hold for THIS workload: twp
+#                expands a token tree per prompt and an SSM has no KV-cache
+#                equivalent, so every node re-runs the full sequence and the
+#                scan kernel is not the binding cost. transformers 5.14.1 does
+#                not even expose `is_fast_path_available` on its Mamba modules.
+#                0.65 is now measured in BOTH configurations; treat it as this
+#                loop's rate, still not an architecture constant.
 CLASS_RATE = {
     "transformer": 2.90,
     "moe":         2.00,
@@ -79,15 +86,33 @@ CLASS_LOAD_S = {
     "ssm":         60.0,
 }
 
-# Approximate resident GPU memory, GB, for the shard scheduler's budget. These
-# are the readings that mattered: one Falcon-H1 ballooned to 67 GB of 80 while
-# two transformers were resident, which is what turned a parallel run into a
-# thrash. Deliberately conservative.
+# Approximate resident GPU memory, GB, for the shard scheduler's budget.
+#
+# TWO MEASUREMENTS, TWO CONFIGURATIONS, AND THEY DISAGREE BY 3x:
+#
+#   67 GB   one Falcon-H1 on 46494481 while two transformers were resident,
+#           no SSM kernels. This is what turned a parallel run into a thrash.
+#   31 GB   Falcon3-Mamba-7B ALONE on 46613310 with mamba-ssm and
+#           causal-conv1d installed, 2026-08-02.
+#
+# The budget keeps the LARGER because it is the one that describes the
+# situation the budget exists to prevent: a heavy model sharing a card. A
+# scheduler sized on the 31 GB reading would co-schedule exactly the pair that
+# produced the 67. THE CONSERVATIVE NUMBER IS THE ONE MEASURED UNDER
+# CONTENTION, not the one measured in the quiet.
 CLASS_GPU_GB = {
     "transformer": 18.0,
     "moe":         30.0,
     "hybrid":      67.0,
     "ssm":         67.0,
+}
+# Measured alone-with-kernels, for planning a DEDICATED box rather than a
+# shared one. Not used by the shard scheduler; see the note above.
+CLASS_GPU_GB_ALONE = {
+    "transformer": 16.0,
+    "moe":         28.0,
+    "hybrid":      31.0,
+    "ssm":         31.0,
 }
 
 
