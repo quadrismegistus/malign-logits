@@ -71,6 +71,11 @@ include-package-data = true
 testpaths = ["tests"]
 markers = [
     "slow: requires model downloads or GPU (deselect with '-m \"not slow\"')",
+    # A DURATION IS NOT A CONTENT FAILURE. test_apparatus_matches_actual_stash_
+    # membership walks a live lmdb and began exceeding the 150s pytest-timeout
+    # as the stash grew; it reported as `FAILED`, indistinguishable in the
+    # summary from an apparatus that had actually gone stale.
+    "stashwalk: walks a live lmdb; duration scales with the stash, so a timeout here is a size signal and not a content failure",
 ]
 
 [tool.setuptools.dynamic]

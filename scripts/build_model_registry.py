@@ -65,6 +65,13 @@ OUT = os.path.join(PATH_DATA, "model_registry.json")
 # rebuilt. `country` is not incidental -- the Chinese-family contrast and the
 # country confound both read it.
 CURATED = os.path.join(PATH_DATA, "model_curated.json")
+# Registry rows that exist for BEAM-LABEL RESOLUTION and are not on the grid
+# roster. They were appended to the artifact AFTER a build, so they carried no
+# status fields and three tests failed on KeyError -- and a rebuild would have
+# deleted them, because this producer builds from its own sources and had no
+# way to learn they existed. A POPULATION THAT ENTERS AN ARTIFACT BY A PATH THE
+# PRODUCER DOES NOT KNOW IS ONE THE PRODUCER WILL SILENTLY DROP.
+EXTRA_MODELS = os.path.join(PATH_DATA, "registry_extra_models.json")
 # THE ROSTER. Completeness is asked of the object, never of the execution plan --
 # a plan that shrinks is not a roster that shrank, and "82 of 82 ACTIVE" was this
 # file cheerfully reporting a full house against a spec the night had narrowed.
@@ -189,6 +196,13 @@ NOT_A_SCALE_RUNG = {
     "llama": "Llama-3.1 8B; its 70B sibling is NOT_IN_GRID, so no rung exists yet",
     "ct-llm": "2B model, not a rung on any declared series",
     "map-neo": "7B model, not a rung on any declared series",
+    # Falcon-1 (2023) against Falcon3 (2024) is a GENERATION change at the same
+    # org, the same call already made for qwen3 and smol/smol3 above. These
+    # rows exist only for beam-label resolution (data/registry_extra_models.json)
+    # and carry no measured params, so a Falcon-1/Falcon3 pair would read as a
+    # scale contrast between a sized family and an unsized one.
+    "falcon": "Falcon-1 7B (2023) -- a different GENERATION from the Falcon3 "
+              "series, not a rung on it; off-roster, beam-label rows only",
 }
 #: family key -> declared generation. EMPTY MEANS UNDECLARED, NEVER "the same":
 #: absence is what let two generations sit on one ladder unremarked.
@@ -433,6 +447,41 @@ def main(a):
     # off the format would report models as missing while their cells sit in the
     # store -- the completeness query answering from a cause instead of a fact.
     from malign_logits.cache import get_cache as _gc
+    # ── DECLARED EXTRA ROWS ──────────────────────────────────────────────
+    # Added here, BEFORE the status loop, so they go through exactly the same
+    # NOT_IN_GRID stamping as any other off-roster row. Adding them after would
+    # reproduce the defect this file exists to fix.
+    if os.path.exists(EXTRA_MODELS):
+        _x = json.load(open(EXTRA_MODELS))
+        for mid, meta in (_x.get("models") or {}).items():
+            if mid in rows:
+                continue
+            r = dict(model_id=mid, nickname=NICKNAMES.get(mid, ""),
+                     family=meta.get("family", ""), position="",
+                     stage=meta.get("stage", ""), org=mid.split("/")[0],
+                     params="", params_b=None, architecture="",
+                     tokenizer_class="", vocab_size=None, cjk_tier="",
+                     cjk_chars=None, weights_format="", index_present=None,
+                     needs_torch="", bos_stratum="", bos_resolver="",
+                     loader_override="", generation="",
+                     in_grid_spec=False,
+                     status="ACTIVE", exclusion_reason="", pending_repair=None)
+            _cj = json.load(open(CURATED)) if os.path.exists(CURATED) else {}
+            r.update((_cj.get("models") or {}).get(mid, {}))   # curated wins
+            _of = (_cj.get("orgs") or {}).get(mid.split("/")[0], {})
+            for _k in ("country", "org_type"):
+                if _of.get(_k):
+                    r[_k] = _of[_k]
+            # ONE FIELD, TWO VOCABULARIES -- the curated data says
+            # corporate/state and the schema declares company/government. The
+            # main loop normalises; the first version of this block did not,
+            # and shipped two undeclared enum values into a rebuilt artifact.
+            if r.get("org_type") in ORG_TYPE_ALIASES:
+                r["org_type"] = ORG_TYPE_ALIASES[r["org_type"]]
+            rows[mid] = r
+        print(f"  + {len(_x.get('models') or {})} declared extra row(s) "
+              f"(beam-label resolution; off-roster)")
+
     _cm = _gc()
     scored = {}
     for k in _cm._stash("true_word_probs").keys():

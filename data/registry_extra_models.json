@@ -1,0 +1,23 @@
+{
+  "_why": "Registry rows that exist for BEAM-LABEL RESOLUTION, not for the grid. The beam stash's `source` labels are normalised short forms, and nine of them resolved to no registry row; these eight have a base already registered or a publisher card naming one, so the descent edge is a match rather than an assertion. They are NOT on the v3 roster and must never be counted as coverage.",
+
+  "_the_defect_this_file_fixes": "These eight were appended to data/model_registry.json AFTER the producer ran, so they carried only {model_id, family, stage} and none of the status fields. Three tests failed on KeyError 'status' / 'in_grid_spec'. Rebuilding would have DELETED them, because scripts/build_model_registry.py builds 112 rows from its own sources and had no way to learn about these. A population that enters an artifact by a path the producer does not know is a population the producer will silently drop.",
+
+  "_provenance": "Authored by @lacan; recorded in model_registry.json _provenance under beam_label_gaps_2368 (5, bases already registered) and beam_label_gaps_cards_2375 (3, sourced from publisher model cards fetched 2026-08-01). This file DECLARES them so a rebuild preserves them; it does not add to or subtract from that list.",
+
+  "_held_deliberately_not_here": {
+    "01-ai/Yi-9B": "card says 'continuously trained based on Yi-6B'; Yi-6B unregistered and the card does not state whether Yi-9B shares a pretraining run with the registered Yi-1.5-9B. Merging collapses two lineages, splitting invents one.",
+    "berkeley-nest/Starling-LM-7B-alpha": "lineage knowable, EDGE KIND not: APA/RLAIF maps to no relation kind in this vocabulary without an assertion."
+  },
+
+  "models": {
+    "cognitivecomputations/Dolphin3.0-Llama3.1-8B": {"family": "llama", "stage": "sft"},
+    "NousResearch/Hermes-3-Llama-3.1-8B": {"family": "llama", "stage": "sft"},
+    "NousResearch/Nous-Hermes-2-Mistral-7B-DPO": {"family": "zephyr", "stage": "dpo"},
+    "teknium/OpenHermes-2.5-Mistral-7B": {"family": "zephyr", "stage": "sft"},
+    "cognitivecomputations/dolphin-2.6-mistral-7b-dpo": {"family": "zephyr", "stage": "dpo"},
+    "tiiuae/falcon-7b": {"family": "falcon", "stage": "base"},
+    "tiiuae/falcon-7b-instruct": {"family": "falcon", "stage": "sft"},
+    "openchat/openchat-3.5-0106": {"family": "zephyr", "stage": "sft"}
+  }
+}

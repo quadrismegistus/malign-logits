@@ -814,6 +814,7 @@ def test_grid_spec_universe_obeys_its_own_membership_rule(all_rows):
 
 # --- apparatus / n_stashes must not go stale again --------------------------
 
+@pytest.mark.stashwalk
 def test_apparatus_matches_actual_stash_membership():
     """A FIELD THAT MIRRORS A LIVE STORE DECAYS UNLESS SOMETHING RE-DERIVES IT.
 
