@@ -17,14 +17,39 @@ cache_key = {"model": model_id, "source": source_short, "prompt": ptext,
 
 - **`source`** — the model that GENERATED the storyline. A normalised short
   label (`Llama_3_1_8B`), **not** a HuggingFace id.
-- **`model`** — the model that SCORED it. A full HuggingFace id
-  (`meta-llama/Llama-3.1-8B`).
+- **`model`** — **THE RUN ANCHOR. NOT THE SCORER.** It is
+  `batch_beam_annotate`'s first argument, written unchanged into every key that
+  invocation produces, for every `source` in the run (`beam.py:577-583`).
 
-**These are two namespaces in one key.** Comparing them as strings returns a
-clean, confident false zero — it did, on bidirectionality, and again on
-truncation, and again on dotted-vs-collapsed spellings. Resolve both through
-`data/lineage_map_models.json` with every non-alphanumeric collapsed, on both
-sides, always.
+> **CORRECTED 2026-08-02.** This file previously said `model` was "the model
+> that SCORED it". **That is false and it cost two seats a night.** The judge
+> does not appear in the key at all — judges live only in
+> `annotations[scorer_short]`, as the section below correctly states. **One
+> field was documented from the writer and the field beside it from an
+> assumption, and two censuses were built on the assumption.**
+
+**THE CONSEQUENCE, WHICH IS THE REASON THIS MATTERS:**
+
+    fixed `source`, varying `model`  ->  0 of 76 groups have identical
+                                         token sets; median Jaccard ~0.19
+
+Two keys with the same `source` and different `model` are **the same model's
+beams generated in two different runs.** `all_beams` is rebuilt per invocation,
+and beam search re-run on one model and prompt does not reproduce its 100 beams.
+
+    "the beams of model X"          UNDEFINED
+    "the beams of model X in run R" EXACTLY ONE KEY, well defined
+
+**Any arm-level or lineage-level beam statistic must STRATIFY ON `model`.**
+Pooling across runs compares two independent beam searches and produces a
+number about the sampler, not about alignment. If a lineage's two arms never
+co-occur in one run, that lineage has no valid comparison and must say so.
+
+**These are two namespaces in one key.** Comparing `source` to `model` as
+strings returns a clean, confident false zero — it did, on bidirectionality, and
+again on truncation, and again on dotted-vs-collapsed spellings. Resolve both
+through `data/lineage_map_models.json` with every non-alphanumeric collapsed, on
+both sides, always.
 
 Some `source` labels are **truncated at 20 characters**. A truncation is a label
 that is not itself a real name AND is a strict prefix of one — not a label of a

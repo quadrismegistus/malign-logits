@@ -58,31 +58,49 @@ OPEN_LOUD = 0.01    # an `open` residual above this is worth naming
 
 
 def store_versions(cm):
-    """{rule_version: count} over the whole store. Full payload scan, ~1.6s/14k.
+    """{rule_version: count} over the whole store.
 
-    THE VERSION IS IN THE PAYLOAD, NOT THE KEY -- deliberately, per RH's ruling
-    of 2026-07-30. The key is {model, prompt, theta, mode}, so the store CANNOT
-    REPRESENT two boundary rules: a second version silently loses every
-    collision to whatever is already there. Keying the version would make
-    mixture safe to hold, and nothing here wants to hold it. The store holds
-    ONE rule and a mixture is an error, so this exists to find one rather than
-    to tolerate it.
+    THIS DOCSTRING PREVIOUSLY STATED A PREMISE THE CODEBASE THEN FALSIFIED, and
+    the correction is booked as a rule rather than a fix: *the prose was true
+    the day it was written and a later commit made it false, and the commit that
+    falsifies a stated premise must update it in the same delta* -- not leave it
+    to be discovered by the first user a gate wrongly refuses.
+
+    What it said: "the key is {model, prompt, theta, mode}, so the store CANNOT
+    REPRESENT two boundary rules; a second version silently loses every
+    collision." Every clause of that is now false. `rule_version` and `dict_sha`
+    ARE key fields; two rules coexist on one (model, prompt) and both remain
+    retrievable; nothing loses a collision.
+
+    So this is no longer a DAMAGE DETECTOR. It reports what the store holds, and
+    the guard below is a POLICY guard: one rule per store is what we INTEND, not
+    what the key enforces.
     """
-    # rule_version lives in the VALUE, not the key -- which is precisely why
-    # two boundary rules can collide here and why this gate exists at all.
+    #: reads the KEY when the rule is keyed, the payload when it is not -- the
+    #: branch is inside CacheManager and this call is correct either way.
+    from malign_logits.cache_schema import schema_for
+    if "rule_version" in schema_for("true_word_probs").fields:
+        return Counter(rv for rv, _ds in cm._twp_rules())
     return Counter(cm.value_count_by("true_word_probs", "rule_version",
                                      default=1))
 
 
-def version_gate(store_vs, incoming_vs, force_mix=False):
+def version_gate(store_vs, incoming_vs, allow_second_rule=False):
     """(ok, message). Refuses a write that would leave two rules in the store.
 
-    ABORT BEFORE WRITING, not a warning after. The previous form reported the
-    mixture once it existed, which is a description of damage rather than a
-    guard against it -- and the damage is unrecoverable by inspection, because
-    `has_true_word_probs()` answers the same for both versions and the OLDER
-    cell wins every collision. A default ingest into a v1 store would have kept
-    12,855 stale cells and discarded their replacements silently.
+    A POLICY GUARD, not a damage detector -- and the distinction is the whole
+    point of the rewrite. It was written when the key could not represent two
+    rules, so a mixture was UNRECOVERABLE: `has_true_word_probs()` answered the
+    same for both versions and the older cell won every collision. A default
+    ingest into a v1 store would have kept 12,855 stale cells and discarded
+    their replacements silently.
+
+    THE KEY NOW REPRESENTS THE RULE, so none of that is true: two rules coexist,
+    both retrievable, nothing overwritten. The refusal STAYS anyway, because
+    one rule per store is what this project INTENDS -- a v1 base compared against
+    a v3 superego books an instrument change as alignment movement, and that
+    hazard is about ANALYSIS, not about storage. What changed is that a
+    deliberate second rule is now a supported state rather than a corruption.
     """
     su, iu = set(store_vs), set(incoming_vs)
     if len(iu) > 1:
@@ -91,20 +109,23 @@ def version_gate(store_vs, incoming_vs, force_mix=False):
                        f"fix the source, do not filter it here.")
     if not su or su == iu:
         return True, ""
-    if force_mix:
-        return True, (f"--force-mix: writing {iu} into a store holding {su}. "
-                      f"THE STORE IS NOW MIXED AND THE KEY CANNOT TELL THEM "
-                      f"APART.")
+    if allow_second_rule:
+        return True, (f"--allow-second-rule: writing {iu} into a store holding "
+                      f"{su}. The key distinguishes them and both stay "
+                      f"retrievable; a read that names NO rule will now refuse "
+                      f"as ambiguous rather than pick one silently.")
     return False, (
-        f"REFUSING TO MIX BOUNDARY RULES.\n"
+        f"REFUSING TO ADD A SECOND BOUNDARY RULE.\n"
         f"  store holds    {dict(store_vs)}\n"
         f"  incoming is    {dict(incoming_vs)}\n"
-        f"The key is {{model, prompt, theta, mode}} -- rule_version is NOT in it,\n"
-        f"so these cannot coexist and the older cell wins every collision.\n"
-        f"v3 changed what a WORD is (contractions, mojibake, CJK), so a v1 base\n"
-        f"against a v3 superego books an instrument change as alignment movement.\n"
-        f"Wipe data/raw/cache/true_word_probs and ingest whole, or --force-mix\n"
-        f"if you genuinely intend a store nothing can disentangle.")
+        f"This store is INTENDED to hold one rule. The key can represent both\n"
+        f"(rule_version and dict_sha are key fields), so this is a policy\n"
+        f"refusal, not a corruption warning -- nothing would be overwritten.\n"
+        f"The hazard is ANALYSIS, not storage: v3 changed what a WORD is\n"
+        f"(contractions, mojibake, CJK), so a v1 base against a v3 superego\n"
+        f"books an instrument change as alignment movement.\n"
+        f"Ingest whole after a clear, or pass --allow-second-rule to hold both\n"
+        f"deliberately -- reads must then name their rule.")
 
 
 def records(path):
@@ -137,7 +158,7 @@ def main(a):
             if "__truncated__" not in rec:
                 incoming[rec.get("rule_version", 1)] += 1
     sv = store_versions(cm)
-    ok, msg = version_gate(sv, incoming, a.force_mix)
+    ok, msg = version_gate(sv, incoming, a.allow_second_rule)
     print(f"store  {dict(sv) or 'EMPTY'}\nfiles  {dict(incoming)}")
     if not ok:
         print(f"\n{msg}")
@@ -167,6 +188,31 @@ def main(a):
             seen[p] = rec
 
         for p, rec in seen.items():
+            #: SKIP ROWS ARE ROWS AND THEY HAVE NO DISTRIBUTION. `SkipPrompt`
+            #: writes {"skipped": reason, "rows": [], "residual": None} so the
+            #: shard stays its own ledger -- and this loop then did
+            #: `res["total"]` on None and killed the ingest at 246,491 of
+            #: 266,049 cells. Written through, counted, and NOT conservation-
+            #: checked: a prompt that could not be scored has no mass to
+            #: conserve, and asserting on it would fail every one.
+            if rec.get("skipped") is not None:
+                #: A SKIP CELL IS NOT WRITTEN, and the reason is structural
+                #: rather than convenient. Two facts, both from the artifact:
+                #:
+                #:   the row has no distribution -- rows=[], residual=None
+                #:   the row carries rule_version but NOT dict_sha, so the
+                #:   rule-keyed schema REFUSES it rather than invent one
+                #:
+                #: The second is the design working: `set_true_word_probs`
+                #: will not guess provenance. Supplying dict_sha from a
+                #: sibling row would be exactly that guess.
+                #:
+                #: So the store holds SCORED cells only, and the SHARD REMAINS
+                #: THE LEDGER for what could not be scored -- which is where
+                #: the skip was recorded in the first place, by the process
+                #: that observed it.
+                stats["skipped"] += 1
+                continue
             res = rec["residual"]
             got = sum(r["p"] for r in rec["rows"]) + res["total"]
             if abs(got - 1.0) > TOL:
@@ -269,8 +315,14 @@ if __name__ == "__main__":
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--force", action="store_true",
                     help="rewrite keys already present")
-    ap.add_argument("--force-mix", action="store_true",
-                    help="write a version the store does not already hold. "
-                         "Leaves a store nothing can disentangle; the key has "
-                         "no rule_version field.")
+    #: dest is pinned so the flag can be renamed without a half-rename
+    #: breaking the read: the previous edit renamed the FLAG and left
+    #: `a.force_mix` at the call site, which argparse would have turned into an
+    #: AttributeError on the one path nobody exercises.
+    ap.add_argument("--allow-second-rule", dest="allow_second_rule",
+                    action="store_true",
+                    help="deliberately hold a second boundary rule. The key "
+                         "distinguishes them and both stay retrievable -- but "
+                         "reads that name no rule will then REFUSE as "
+                         "ambiguous rather than silently pick one.")
     raise SystemExit(main(ap.parse_args()) or 0)

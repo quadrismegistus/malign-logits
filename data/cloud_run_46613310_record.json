@@ -1,0 +1,17 @@
+{
+  "instance_id": "46613310",
+  "offer_id": "29296810",
+  "ssh_host": "ssh4.vast.ai",
+  "ssh_port": 13310,
+  "num_gpus": 1,
+  "gpu": "1\u00d7 A100 SXM4 81920GB",
+  "price_per_hour": 1.1883333333333335,
+  "launched_at": "2026-08-02T15:38:19",
+  "profile": "ssm",
+  "pins": [
+    "torch>=2.6",
+    "mamba-ssm",
+    "causal-conv1d"
+  ],
+  "image": "vllm/vllm-openai:latest"
+}

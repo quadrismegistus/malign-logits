@@ -202,8 +202,13 @@ LOGITS = KeySchema(
     },
 )
 
+#: FLIPPED 2026-08-02, in the same delta as version_gate's rewrite ([2973])
+#: and simultaneously with the clear ([2999] clearance). The flip and the clear
+#: MUST land together: a rule-keyed schema over an unkeyed store makes every
+#: read raise, and an unkeyed schema over a rule-keyed store loses the
+#: dimension silently.
 SCHEMAS = {
-    "true_word_probs": TRUE_WORD_PROBS,
+    "true_word_probs": TRUE_WORD_PROBS_WITH_RULE,
     "logits": LOGITS,
 }
 

@@ -124,7 +124,7 @@
  },
  "_provenance": {
   "built_by": "scripts/build_model_registry.py",
-  "head": "0eb9f83",
+  "head": "66bfeb5",
   "measured_from": {
    "weights": {
     "artifact": "data/weights_audit.csv",
@@ -179,7 +179,7 @@
    "pending_repair": null,
    "country": "CN",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "01-ai/Yi-1.5-9B-Chat",
@@ -210,7 +210,7 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "ContextualAI/archangel_sft-dpo_pythia2-8b",
@@ -239,7 +239,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "ContextualAI/archangel_sft-kto_pythia2-8b",
@@ -268,7 +268,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "ContextualAI/archangel_sft-ppo_pythia2-8b",
@@ -297,7 +297,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "ContextualAI/archangel_sft-slic_pythia2-8b",
@@ -326,7 +326,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "ContextualAI/archangel_sft_pythia2-8b",
@@ -355,7 +355,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "EleutherAI/pythia-2.8b",
@@ -384,7 +384,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "EleutherAI/pythia-6.9b",
@@ -416,7 +416,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "HuggingFaceH4/mistral-7b-sft-beta",
@@ -447,7 +447,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "HuggingFaceH4/zephyr-7b-beta",
@@ -478,7 +478,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "HuggingFaceTB/SmolLM2-360M",
@@ -510,7 +510,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "HuggingFaceTB/SmolLM2-360M-Instruct",
@@ -541,7 +541,7 @@
    "open_data": false,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "HuggingFaceTB/SmolLM3-3B",
@@ -572,7 +572,7 @@
    "open_data": false,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "HuggingFaceTB/SmolLM3-3B-Base",
@@ -604,7 +604,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "LLM360/Amber",
@@ -636,7 +636,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "LLM360/AmberChat",
@@ -667,7 +667,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "LLM360/AmberSafe",
@@ -698,7 +698,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "NousResearch/Hermes-3-Llama-3.1-8B",
@@ -789,7 +789,7 @@
    "pending_repair": null,
    "country": "CN",
    "org_type": "academic",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "PKU-Alignment/beaver-7b-v1.0",
@@ -818,7 +818,7 @@
    "pending_repair": null,
    "country": "CN",
    "org_type": "academic",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "Qwen/Qwen2.5-0.5B",
@@ -850,7 +850,7 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
@@ -881,7 +881,7 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "Qwen/Qwen2.5-7B",
@@ -913,7 +913,7 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "Qwen/Qwen2.5-7B-Instruct",
@@ -944,7 +944,7 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "Qwen/Qwen3-8B",
@@ -975,7 +975,7 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "Qwen/Qwen3-8B-Base",
@@ -1007,7 +1007,7 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "RWKV/rwkv-4-7b-pile",
@@ -1035,7 +1035,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "RWKV/rwkv-raven-7b",
@@ -1063,7 +1063,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
@@ -1092,7 +1092,7 @@
    "pending_repair": null,
    "country": "SG",
    "org_type": "academic",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
@@ -1121,7 +1121,7 @@
    "pending_repair": null,
    "country": "SG",
    "org_type": "academic",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-DPO",
@@ -1152,7 +1152,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT",
@@ -1183,7 +1183,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
@@ -1214,7 +1214,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
@@ -1245,7 +1245,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
@@ -1276,7 +1276,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
@@ -1307,7 +1307,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3.1-8B",
@@ -1338,7 +1338,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/OLMo-2-0425-1B",
@@ -1370,7 +1370,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/OLMo-2-0425-1B-DPO",
@@ -1401,7 +1401,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/OLMo-2-0425-1B-Instruct",
@@ -1432,7 +1432,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/OLMo-2-0425-1B-SFT",
@@ -1463,7 +1463,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/OLMoE-1B-7B-0125",
@@ -1492,7 +1492,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/OLMoE-1B-7B-0125-DPO",
@@ -1521,7 +1521,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/OLMoE-1B-7B-0125-Instruct",
@@ -1550,7 +1550,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/OLMoE-1B-7B-0125-SFT",
@@ -1579,7 +1579,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Olmo-3-1025-7B",
@@ -1611,7 +1611,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Olmo-3-1125-32B",
@@ -1640,7 +1640,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Olmo-3-7B-Instruct",
@@ -1671,7 +1671,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Olmo-3-7B-Instruct-DPO",
@@ -1702,7 +1702,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Olmo-3-7B-Instruct-SFT",
@@ -1733,7 +1733,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Olmo-3-7B-Think-DPO",
@@ -1764,7 +1764,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Olmo-3-7B-Think-SFT",
@@ -1795,7 +1795,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Olmo-3.1-32B-Instruct",
@@ -1824,7 +1824,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Olmo-3.1-32B-Instruct-DPO",
@@ -1853,7 +1853,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Olmo-3.1-32B-Instruct-SFT",
@@ -1877,13 +1877,12 @@
    "loader_override": "auto",
    "generation": "OLMo-3",
    "in_grid_spec": true,
-   "status": "EXCLUDED",
-   "exclusion_reason": "CUDA OOM at load: 64 GB of fp16 weights plus transient peaks against 79.15 GiB usable; wants >80 GB, not a newer torch",
-   "pending_repair": true,
+   "status": "ACTIVE",
+   "exclusion_reason": "",
+   "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 960,
-   "excluded_from": "grid_v3"
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Olmo-Hybrid-7B",
@@ -1912,7 +1911,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
@@ -1941,7 +1940,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "allenai/Olmo-Hybrid-Instruct-SFT-7B",
@@ -1970,7 +1969,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "baichuan-inc/Baichuan2-7B-Base",
@@ -2061,7 +2060,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "bigscience/bloomz-7b1",
@@ -2089,7 +2088,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "cognitivecomputations/Dolphin3.0-Llama3.1-8B",
@@ -2241,7 +2240,7 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "deepseek-ai/deepseek-llm-7b-chat",
@@ -2272,7 +2271,7 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "huggyllama/llama-7b",
@@ -2300,7 +2299,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "individual",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "internlm/internlm2-base-7b",
@@ -2418,7 +2417,7 @@
    "open_data": false,
    "country": "IE",
    "org_type": "individual",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "lomahony/eleuther-pythia6.9b-hh-sft",
@@ -2449,7 +2448,7 @@
    "open_data": false,
    "country": "IE",
    "org_type": "individual",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "m-a-p/CT-LLM-Base",
@@ -2477,7 +2476,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "m-a-p/CT-LLM-SFT",
@@ -2505,7 +2504,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "m-a-p/CT-LLM-SFT-DPO",
@@ -2533,7 +2532,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "m-a-p/neo_7b",
@@ -2561,7 +2560,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "m-a-p/neo_7b_instruct_v0.1",
@@ -2589,7 +2588,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "m-a-p/neo_7b_sft_v0.1",
@@ -2617,7 +2616,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "meta-llama/Llama-3.1-70B",
@@ -2707,7 +2706,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "meta-llama/Llama-3.1-8B-Instruct",
@@ -2738,7 +2737,7 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "microsoft/phi-4",
@@ -2767,7 +2766,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "microsoft/phi-4-reasoning",
@@ -2796,7 +2795,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "mistralai/Mistral-7B-v0.1",
@@ -2828,7 +2827,7 @@
    "country": "FR",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "openbmb/MiniCPM5-1B",
@@ -2856,7 +2855,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "country": "CN",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "openbmb/MiniCPM5-1B-Base",
@@ -2884,7 +2883,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "country": "CN",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "openbmb/MiniCPM5-1B-SFT",
@@ -2912,7 +2911,7 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "country": "CN",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "openchat/openchat-3.5-0106",
@@ -2972,7 +2971,7 @@
    "pending_repair": null,
    "country": "GB",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "stabilityai/stablelm-2-1_6b-chat",
@@ -3001,7 +3000,7 @@
    "pending_repair": null,
    "country": "GB",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "stabilityai/stablelm-2-zephyr-1_6b",
@@ -3030,7 +3029,7 @@
    "pending_repair": null,
    "country": "GB",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "teknium/OpenHermes-2.5-Mistral-7B",
@@ -3085,13 +3084,12 @@
    "loader_override": "auto",
    "generation": "",
    "in_grid_spec": true,
-   "status": "EXCLUDED",
-   "exclusion_reason": "SSM/hybrid: the mamba-ssm / causal-conv1d fast-path CUDA kernels are UNAVAILABLE at torch 2.6, so transformers falls back to a naive scan -- 0.068 p/s against 0.9-2.5 for dense transformers, ~32 h for the eight. A source build succeeded and the extension still fails to load (undefined symbol c10::cuda::c10_cuda_check_implementation); the version that works needs torch 2.13, which breaks the compiled triple and sits above nothing the .bin floor needs. NOT a card problem. Deferred at docket [1144] to the F35 book-phase decision; 68 partial cells preserved unmerged at data/twp_phasefalcon/",
-   "pending_repair": true,
+   "status": "ACTIVE",
+   "exclusion_reason": "",
+   "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 230,
-   "excluded_from": "grid_v3"
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/Falcon-H1-1.5B-Instruct",
@@ -3115,13 +3113,12 @@
    "loader_override": "auto",
    "generation": "",
    "in_grid_spec": true,
-   "status": "EXCLUDED",
-   "exclusion_reason": "SSM/hybrid: the mamba-ssm / causal-conv1d fast-path CUDA kernels are UNAVAILABLE at torch 2.6, so transformers falls back to a naive scan -- 0.068 p/s against 0.9-2.5 for dense transformers, ~32 h for the eight. A source build succeeded and the extension still fails to load (undefined symbol c10::cuda::c10_cuda_check_implementation); the version that works needs torch 2.13, which breaks the compiled triple and sits above nothing the .bin floor needs. NOT a card problem. Deferred at docket [1144] to the F35 book-phase decision; 68 partial cells preserved unmerged at data/twp_phasefalcon/",
-   "pending_repair": true,
+   "status": "ACTIVE",
+   "exclusion_reason": "",
+   "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 0,
-   "excluded_from": "grid_v3"
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/Falcon-H1-7B-Base",
@@ -3145,13 +3142,12 @@
    "loader_override": "auto",
    "generation": "",
    "in_grid_spec": true,
-   "status": "EXCLUDED",
-   "exclusion_reason": "SSM/hybrid: the mamba-ssm / causal-conv1d fast-path CUDA kernels are UNAVAILABLE at torch 2.6, so transformers falls back to a naive scan -- 0.068 p/s against 0.9-2.5 for dense transformers, ~32 h for the eight. A source build succeeded and the extension still fails to load (undefined symbol c10::cuda::c10_cuda_check_implementation); the version that works needs torch 2.13, which breaks the compiled triple and sits above nothing the .bin floor needs. NOT a card problem. Deferred at docket [1144] to the F35 book-phase decision; 68 partial cells preserved unmerged at data/twp_phasefalcon/",
-   "pending_repair": true,
+   "status": "ACTIVE",
+   "exclusion_reason": "",
+   "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 0,
-   "excluded_from": "grid_v3"
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/Falcon-H1-7B-Instruct",
@@ -3175,13 +3171,12 @@
    "loader_override": "auto",
    "generation": "",
    "in_grid_spec": true,
-   "status": "EXCLUDED",
-   "exclusion_reason": "SSM/hybrid: the mamba-ssm / causal-conv1d fast-path CUDA kernels are UNAVAILABLE at torch 2.6, so transformers falls back to a naive scan -- 0.068 p/s against 0.9-2.5 for dense transformers, ~32 h for the eight. A source build succeeded and the extension still fails to load (undefined symbol c10::cuda::c10_cuda_check_implementation); the version that works needs torch 2.13, which breaks the compiled triple and sits above nothing the .bin floor needs. NOT a card problem. Deferred at docket [1144] to the F35 book-phase decision; 68 partial cells preserved unmerged at data/twp_phasefalcon/",
-   "pending_repair": true,
+   "status": "ACTIVE",
+   "exclusion_reason": "",
+   "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 0,
-   "excluded_from": "grid_v3"
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/Falcon3-10B-Base",
@@ -3210,7 +3205,7 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/Falcon3-10B-Instruct",
@@ -3239,7 +3234,7 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/Falcon3-1B-Base",
@@ -3268,7 +3263,7 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/Falcon3-1B-Instruct",
@@ -3297,7 +3292,7 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/Falcon3-3B-Base",
@@ -3326,7 +3321,7 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/Falcon3-3B-Instruct",
@@ -3355,7 +3350,7 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/Falcon3-7B-Base",
@@ -3384,7 +3379,7 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/Falcon3-7B-Instruct",
@@ -3413,7 +3408,7 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/Falcon3-Mamba-7B-Base",
@@ -3437,13 +3432,12 @@
    "loader_override": "auto",
    "generation": "",
    "in_grid_spec": true,
-   "status": "EXCLUDED",
-   "exclusion_reason": "SSM/hybrid: the mamba-ssm / causal-conv1d fast-path CUDA kernels are UNAVAILABLE at torch 2.6, so transformers falls back to a naive scan -- 0.068 p/s against 0.9-2.5 for dense transformers, ~32 h for the eight. A source build succeeded and the extension still fails to load (undefined symbol c10::cuda::c10_cuda_check_implementation); the version that works needs torch 2.13, which breaks the compiled triple and sits above nothing the .bin floor needs. NOT a card problem. Deferred at docket [1144] to the F35 book-phase decision; 68 partial cells preserved unmerged at data/twp_phasefalcon/",
-   "pending_repair": true,
+   "status": "ACTIVE",
+   "exclusion_reason": "",
+   "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 0,
-   "excluded_from": "grid_v3"
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/Falcon3-Mamba-7B-Instruct",
@@ -3467,13 +3461,12 @@
    "loader_override": "auto",
    "generation": "",
    "in_grid_spec": true,
-   "status": "EXCLUDED",
-   "exclusion_reason": "SSM/hybrid: the mamba-ssm / causal-conv1d fast-path CUDA kernels are UNAVAILABLE at torch 2.6, so transformers falls back to a naive scan -- 0.068 p/s against 0.9-2.5 for dense transformers, ~32 h for the eight. A source build succeeded and the extension still fails to load (undefined symbol c10::cuda::c10_cuda_check_implementation); the version that works needs torch 2.13, which breaks the compiled triple and sits above nothing the .bin floor needs. NOT a card problem. Deferred at docket [1144] to the F35 book-phase decision; 68 partial cells preserved unmerged at data/twp_phasefalcon/",
-   "pending_repair": true,
+   "status": "ACTIVE",
+   "exclusion_reason": "",
+   "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 0,
-   "excluded_from": "grid_v3"
+   "cells_in_store": 2577
   },
   {
    "model_id": "tiiuae/falcon-7b",
@@ -3560,13 +3553,12 @@
    "loader_override": "auto",
    "generation": "",
    "in_grid_spec": true,
-   "status": "EXCLUDED",
-   "exclusion_reason": "SSM/hybrid: the mamba-ssm / causal-conv1d fast-path CUDA kernels are UNAVAILABLE at torch 2.6, so transformers falls back to a naive scan -- 0.068 p/s against 0.9-2.5 for dense transformers, ~32 h for the eight. A source build succeeded and the extension still fails to load (undefined symbol c10::cuda::c10_cuda_check_implementation); the version that works needs torch 2.13, which breaks the compiled triple and sits above nothing the .bin floor needs. NOT a card problem. Deferred at docket [1144] to the F35 book-phase decision; 68 partial cells preserved unmerged at data/twp_phasefalcon/",
-   "pending_repair": true,
+   "status": "ACTIVE",
+   "exclusion_reason": "",
+   "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 0,
-   "excluded_from": "grid_v3"
+   "cells_in_store": 2583
   },
   {
    "model_id": "tiiuae/falcon-mamba-7b-instruct",
@@ -3590,13 +3582,12 @@
    "loader_override": "auto",
    "generation": "",
    "in_grid_spec": true,
-   "status": "EXCLUDED",
-   "exclusion_reason": "SSM/hybrid: the mamba-ssm / causal-conv1d fast-path CUDA kernels are UNAVAILABLE at torch 2.6, so transformers falls back to a naive scan -- 0.068 p/s against 0.9-2.5 for dense transformers, ~32 h for the eight. A source build succeeded and the extension still fails to load (undefined symbol c10::cuda::c10_cuda_check_implementation); the version that works needs torch 2.13, which breaks the compiled triple and sits above nothing the .bin floor needs. NOT a card problem. Deferred at docket [1144] to the F35 book-phase decision; 68 partial cells preserved unmerged at data/twp_phasefalcon/",
-   "pending_repair": true,
+   "status": "ACTIVE",
+   "exclusion_reason": "",
+   "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 0,
-   "excluded_from": "grid_v3"
+   "cells_in_store": 2577
   },
   {
    "model_id": "togethercomputer/RedPajama-INCITE-7B-Chat",
@@ -3625,7 +3616,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "togethercomputer/RedPajama-INCITE-7B-Instruct",
@@ -3654,7 +3645,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
@@ -3683,7 +3674,7 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "zai-org/glm-4-9b-chat-hf",
@@ -3712,7 +3703,7 @@
    "pending_repair": null,
    "country": "CN",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   },
   {
    "model_id": "zai-org/glm-4-9b-hf",
@@ -3741,7 +3732,7 @@
    "pending_repair": null,
    "country": "CN",
    "org_type": "company",
-   "cells_in_store": 979
+   "cells_in_store": 2583
   }
  ],
  "relations": [
