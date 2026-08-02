@@ -147,8 +147,7 @@ def content_share(acc: dict, topk: int = 20) -> float:
 def edges():
     """(family, arm, base_id, aligned_id) for every pair present in the store."""
     cm = get_cache()
-    s = cm._stash("true_word_probs")
-    seen = {(dict(k) if not isinstance(k, dict) else k).get("model") for k in s}
+    seen = cm.distinct("true_word_probs", "model")
     out = []
     for name, f in T.MODEL_FAMILIES.items():
         b = getattr(f, "base", None)
@@ -163,8 +162,7 @@ def edges():
 
 def main(limit=0):
     cm = get_cache()
-    s = cm._stash("true_word_probs")
-    n_entries = len(s)
+    n_entries = cm.count("true_word_probs")
     txt_of = {nm: t.rstrip() for nm, t in T.DEFAULT_PROMPTS.items()}
     E = edges()
     print(f"true_word_probs entries at read time: {n_entries:,}")

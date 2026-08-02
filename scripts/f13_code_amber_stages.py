@@ -73,7 +73,8 @@ def probs(cm, model, prompt):
 
 def main(limit=0, workers=6, model=None, out_path=None):
     cm = get_cache()
-    print(f"true_word_probs entries at read time: {len(cm._stash('true_word_probs')):,}")
+    print(f"true_word_probs entries at read time: "
+          f"{cm.count('true_word_probs'):,}")
     print(f"TOL = within a factor of {TOL} on p_base;  FLOOR={FLOOR} DT={DT} EPS={EPS}")
 
     items, drop = [], collections.Counter()

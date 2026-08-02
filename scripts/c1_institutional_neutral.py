@@ -132,11 +132,9 @@ def pin_store():
     """
     from malign_logits.cache import get_cache
     n, models = 0, set()
-    for k in get_cache()._stash("true_word_probs"):
-        d = dict(k) if not isinstance(k, dict) else k
-        n += 1
-        models.add(d.get("model"))
-    return n, len(models)
+    cm = get_cache()
+    return (cm.count("true_word_probs"),
+            len(cm.distinct("true_word_probs", "model")))
 
 
 def distinct_texts(domain):

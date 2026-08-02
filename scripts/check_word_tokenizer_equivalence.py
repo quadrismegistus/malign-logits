@@ -83,13 +83,8 @@ def words():
         return json.load(open(path))
     from malign_logits.cache import get_cache
     cm = get_cache()
-    st = cm._stash("true_word_probs")
     out, n = set(), 0
-    for k in st:
-        try:
-            pay = st[k]
-        except Exception:
-            continue
+    for _k, pay in cm.iter_items("true_word_probs"):
         n += 1
         for r in (pay.get("rows") or []):
             w = (r.get("word") or "").strip()

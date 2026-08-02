@@ -483,10 +483,9 @@ def main(a):
               f"(beam-label resolution; off-roster)")
 
     _cm = _gc()
-    scored = {}
-    for k in _cm._stash("true_word_probs").keys():
-        d = dict(k) if not isinstance(k, dict) else k
-        scored[d.get("model")] = scored.get(d.get("model"), 0) + 1
+    # CELL count per model, one pass, through the declared schema. A hand-built
+    # key here would go stale at the next rekey exactly as fourteen others did.
+    scored = _cm.count_by("true_word_probs", "model")
 
     n_exc = 0
     for mid, r in rows.items():

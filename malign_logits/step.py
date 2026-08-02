@@ -177,10 +177,4 @@ def _scored(model_id):
     """Prompts this model has in the true_word_probs store."""
     from .cache import get_cache
     cm = get_cache()
-    s = cm._stash("true_word_probs")
-    out = set()
-    for k in s:
-        d = dict(k) if not isinstance(k, dict) else k
-        if d.get("model") == model_id:
-            out.add(d.get("prompt"))
-    return out
+    return cm.distinct("true_word_probs", "prompt", model=model_id)

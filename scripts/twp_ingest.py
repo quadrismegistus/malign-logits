@@ -68,12 +68,10 @@ def store_versions(cm):
     ONE rule and a mixture is an error, so this exists to find one rather than
     to tolerate it.
     """
-    vs = Counter()
-    s = cm._stash("true_word_probs")
-    for k in s.keys():
-        v = s[k]
-        vs[(v or {}).get("rule_version", 1)] += 1
-    return vs
+    # rule_version lives in the VALUE, not the key -- which is precisely why
+    # two boundary rules can collide here and why this gate exists at all.
+    return Counter(cm.value_count_by("true_word_probs", "rule_version",
+                                     default=1))
 
 
 def version_gate(store_vs, incoming_vs, force_mix=False):

@@ -153,12 +153,8 @@ def store_universe(cm):
     instead of invisible to it.
     """
     out = set()
-    for k in cm._stash("true_word_probs").keys():
-        d = dict(k) if not isinstance(k, dict) else k
-        p = d.get("prompt")
-        if isinstance(p, str) and p:
-            out.add(p)
-    return out
+    return {p for p in cm.distinct("true_word_probs", "prompt")
+            if isinstance(p, str) and p}
 
 
 def categorise(prompt, index):

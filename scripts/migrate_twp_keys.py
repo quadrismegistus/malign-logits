@@ -49,6 +49,12 @@ NEW_SHAPE = ("mode", "model", "prompt", "theta")
 def main(write, limit):
     from malign_logits.cache import get_cache
     cm = get_cache()
+    # RAW ACCESS IS CORRECT HERE AND NOWHERE ELSE. A migration rewrites keys
+    # from the OLD shape to the NEW one, so it must read entries the declared
+    # schema does not yet describe -- routing it through the typed layer would
+    # make it refuse exactly the rows it exists to convert. Every other twp
+    # consumer goes through CacheManager's declared engine; this is the one
+    # deliberate exemption and it is named as such.
     s = cm._stash("true_word_probs")
 
     shapes = collections.Counter()

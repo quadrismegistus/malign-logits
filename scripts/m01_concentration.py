@@ -185,8 +185,7 @@ def frozen_population():
 
     prompts = sorted({p.text for p in Prompts.all(status="ACTIVE")})
     per = collections.defaultdict(set)
-    for k in get_cache()._stash("true_word_probs"):
-        d = dict(k) if not isinstance(k, dict) else k
+    for d in get_cache().iter_keys("true_word_probs"):
         per[d.get("model")].add(d.get("prompt"))
     need = set(prompts)
     models = sorted(m for m, got in per.items() if need <= got)

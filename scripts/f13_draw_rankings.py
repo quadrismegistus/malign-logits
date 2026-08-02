@@ -88,11 +88,11 @@ def edges(seen):
 
 def main():
     cm = get_cache()
-    s = cm._stash("true_word_probs")
-    seen = {(dict(k) if not isinstance(k, dict) else k).get("model") for k in s}
+    seen = cm.distinct("true_word_probs", "model")
     E = edges(seen)
     rng = random.Random(SEED)
-    print(f"true_word_probs entries at read time: {len(s):,}")
+    print(f"true_word_probs entries at read time: "
+          f"{cm.count('true_word_probs'):,}")
     print(f"edges {len(E)}  POOL_MAX {POOL_MAX}  seed {SEED}  FLOOR {FLOOR}  DT {DT}")
 
     # canonical 73 keep their taxonomy names; Set D prompts are added with their

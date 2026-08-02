@@ -79,10 +79,10 @@ def edges(seen):
 
 def main():
     cm = get_cache()
-    s = cm._stash("true_word_probs")
-    seen = {(dict(k) if not isinstance(k, dict) else k).get("model") for k in s}
+    seen = cm.distinct("true_word_probs", "model")
     E = edges(seen)
-    print(f"true_word_probs entries at read time: {len(s):,}")
+    print(f"true_word_probs entries at read time: "
+          f"{cm.count('true_word_probs'):,}")
     print(f"edges {len(E)}  TOL {TOL}x  K_DECOY {K_DECOY}  "
           f"FLOOR {FLOOR}  DT {DT}  stationary = |delta| < DT")
 
