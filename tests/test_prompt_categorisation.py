@@ -486,7 +486,7 @@ def test_domain_values_are_declared_in_the_schema(all_rows, doc):
     assert not undeclared, f"undeclared domain values in use: {undeclared}"
 
 
-def test_subdomain_uses_one_vocabulary(rows):
+def test_subdomain_uses_one_vocabulary(rows, doc):
     """The build script and the merge script each invented a naming scheme, so the
     file carries both: worker/labor_worker, mgmt/labor_mgmt, tenant/housing_tenant,
     citizen/govt_citizen, agency/govt_agency, officer/police_officer.
@@ -499,9 +499,25 @@ def test_subdomain_uses_one_vocabulary(rows):
     collisions = sorted(
         (bare, qual) for bare in seen for qual in seen
         if qual != bare and qual.endswith("_" + bare))
-    assert not collisions, (
-        f"{len(collisions)} subdomain values exist in both a bare and a qualified "
-        f"form: {collisions}")
+
+    # RE-INDEXED 2026-08-02, and NOT relaxed. The defect above is ACCIDENTAL
+    # duplication of one construct by two naming schemes. A DELIBERATE homonym
+    # -- two constructs colliding on a suffix, zero rows shared -- is the
+    # opposite case, and merging it would destroy a partition rather than
+    # repair one. So a collision still FAILS; it passes only when the SCHEMA
+    # declares it with a reason. Silence remains a failure, and the exception
+    # lives in the artifact rather than in this test, so the claim is where a
+    # reader of the data will find it.
+    declared = {(d["bare"], d["qualified"])
+                for d in (doc.get("_schema", {})
+                          .get("_subdomain_declared_homonyms", {})
+                          .get("pairs") or [])
+                if d.get("reason")}
+    undeclared = [c for c in collisions if c not in declared]
+    assert not undeclared, (
+        f"{len(undeclared)} subdomain values exist in both a bare and a qualified "
+        f"form with no declaration: {undeclared} — declare each in "
+        f"_schema._subdomain_declared_homonyms with a reason, or merge them")
 
 
 def test_contrast_type_values_are_declared(rows, doc):

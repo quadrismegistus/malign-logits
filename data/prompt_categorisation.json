@@ -44,6 +44,17 @@
     "INSTITUTIONAL",
     "LITERARY",
     "LOGICAL",
+    "M01_PAIRS_ANIMAL",
+    "M01_PAIRS_BETRAYAL",
+    "M01_PAIRS_COVERT",
+    "M01_PAIRS_DESECRATION",
+    "M01_PAIRS_POWER_R2B",
+    "M01_PAIRS_SEXUAL",
+    "M01_PAIRS_THEFT",
+    "M01_PAIRS_THREAT",
+    "M01_PAIRS_UNARMED",
+    "M01_PAIRS_WEAPONS",
+    "M03_SPEAKER_KERNEL",
     "OLMO_THINK_BATTERY",
     "OTHER",
     "PROBE_ALIAS",
@@ -57,7 +68,20 @@
     "SETF",
     "UNMAPPED"
    ],
-   "desc": "[CENSUS, UNMAPPED were in use but undeclared; added rather than remapped, since remapping rows to fit an incomplete list destroys information to satisfy it] UNMAPPED means NO DECLARING FILE EXISTS, not 'unkeyed' -- the two were conflated until 2026-07-30. HAND_KEYED means keyed into a design from the categorisation itself with no declaring file, which is a provenance gap rather than an orphan. DERIVED_VARIANT means the prompt is a truncation or gender swap of a canonical battery member, generated and run without ever being written to a declaration file -- which is why a source-code search cannot find it. APP_ENTERED means the prompt was typed into the Svelte web app and scored through server.py, which reads body['prompt'] directly -- so it exists in the cache with no declaration anywhere. A source-code search cannot find these by construction."
+   "desc": "[CENSUS, UNMAPPED were in use but undeclared; added rather than remapped, since remapping rows to fit an incomplete list destroys information to satisfy it] UNMAPPED means NO DECLARING FILE EXISTS, not 'unkeyed' -- the two were conflated until 2026-07-30. HAND_KEYED means keyed into a design from the categorisation itself with no declaring file, which is a provenance gap rather than an orphan. DERIVED_VARIANT means the prompt is a truncation or gender swap of a canonical battery member, generated and run without ever being written to a declaration file -- which is why a source-code search cannot find it. APP_ENTERED means the prompt was typed into the Svelte web app and scored through server.py, which reads body['prompt'] directly -- so it exists in the cache with no declaration anywhere. A source-code search cannot find these by construction. | ADDED 2026-08-02 [2958]: the M01_PAIRS_* batteries and M03_SPEAKER_KERNEL.",
+   "senses": {
+    "M01_PAIRS_DESECRATION": "M01 minimal-pair battery, MARKED/UNMARKED, one file per transgression domain. The `M01_PAIRS_` PREFIX IS LOAD-BEARING: it is the only field separating M01's pairs from the other transgressive_swap rows (F36_MINIMAL_PAIRS, F13 Chinese, SETE, SETD) and is what the M05 selector matches on.",
+    "M01_PAIRS_POWER_R2B": "M01 minimal-pair battery, MARKED/UNMARKED, one file per transgression domain. The `M01_PAIRS_` PREFIX IS LOAD-BEARING: it is the only field separating M01's pairs from the other transgressive_swap rows (F36_MINIMAL_PAIRS, F13 Chinese, SETE, SETD) and is what the M05 selector matches on.",
+    "M01_PAIRS_THEFT": "M01 minimal-pair battery, MARKED/UNMARKED, one file per transgression domain. The `M01_PAIRS_` PREFIX IS LOAD-BEARING: it is the only field separating M01's pairs from the other transgressive_swap rows (F36_MINIMAL_PAIRS, F13 Chinese, SETE, SETD) and is what the M05 selector matches on.",
+    "M01_PAIRS_BETRAYAL": "M01 minimal-pair battery, MARKED/UNMARKED, one file per transgression domain. The `M01_PAIRS_` PREFIX IS LOAD-BEARING: it is the only field separating M01's pairs from the other transgressive_swap rows (F36_MINIMAL_PAIRS, F13 Chinese, SETE, SETD) and is what the M05 selector matches on.",
+    "M01_PAIRS_ANIMAL": "M01 minimal-pair battery, MARKED/UNMARKED, one file per transgression domain. The `M01_PAIRS_` PREFIX IS LOAD-BEARING: it is the only field separating M01's pairs from the other transgressive_swap rows (F36_MINIMAL_PAIRS, F13 Chinese, SETE, SETD) and is what the M05 selector matches on.",
+    "M01_PAIRS_THREAT": "M01 minimal-pair battery, MARKED/UNMARKED, one file per transgression domain. The `M01_PAIRS_` PREFIX IS LOAD-BEARING: it is the only field separating M01's pairs from the other transgressive_swap rows (F36_MINIMAL_PAIRS, F13 Chinese, SETE, SETD) and is what the M05 selector matches on.",
+    "M01_PAIRS_UNARMED": "M01 minimal-pair battery, MARKED/UNMARKED, one file per transgression domain. The `M01_PAIRS_` PREFIX IS LOAD-BEARING: it is the only field separating M01's pairs from the other transgressive_swap rows (F36_MINIMAL_PAIRS, F13 Chinese, SETE, SETD) and is what the M05 selector matches on.",
+    "M01_PAIRS_WEAPONS": "M01 minimal-pair battery, MARKED/UNMARKED, one file per transgression domain. The `M01_PAIRS_` PREFIX IS LOAD-BEARING: it is the only field separating M01's pairs from the other transgressive_swap rows (F36_MINIMAL_PAIRS, F13 Chinese, SETE, SETD) and is what the M05 selector matches on.",
+    "M01_PAIRS_SEXUAL": "M01 minimal-pair battery, MARKED/UNMARKED, one file per transgression domain. The `M01_PAIRS_` PREFIX IS LOAD-BEARING: it is the only field separating M01's pairs from the other transgressive_swap rows (F36_MINIMAL_PAIRS, F13 Chinese, SETE, SETD) and is what the M05 selector matches on.",
+    "M01_PAIRS_COVERT": "M01 minimal-pair battery, MARKED/UNMARKED, one file per transgression domain. The `M01_PAIRS_` PREFIX IS LOAD-BEARING: it is the only field separating M01's pairs from the other transgressive_swap rows (F36_MINIMAL_PAIRS, F13 Chinese, SETE, SETD) and is what the M05 selector matches on.",
+    "M03_SPEAKER_KERNEL": "the M03 scenario kernels: one situation per institutional sector, realised across the group_role speaker cross (person x number x modal position)."
+   }
   },
   "language": {
    "type": "str",
@@ -69,28 +93,62 @@
   "domain": {
    "type": "str",
    "values": [
+    "animal",
+    "banking",
+    "benefits",
+    "betrayal",
+    "civic",
     "class",
+    "consumer",
     "contradiction",
     "death",
     "disaster",
+    "education",
+    "housing",
     "identity",
+    "immigration",
     "institutional",
+    "insurance",
+    "labor",
     "literary",
+    "medical",
     "neutral",
     "other",
+    "police",
     "power",
     "profanity",
+    "property",
     "sensation",
     "sexual",
     "substance",
+    "taboo",
     "unconditional",
+    "utilities",
     "violence"
    ],
-   "desc": "[sensation were in use but undeclared; added rather than remapped, since remapping rows to fit an incomplete list destroys information to satisfy it] `primed` WAS ADDED AND THEN REMOVED THE SAME DAY, and the reason is worth keeping. The construct is real -- a frame that implies transgression without transgressive vocabulary -- and RH was right that pooling it into `neutral` would contaminate neutral averages with the effect under test, which is why it was made a domain rather than a subdomain. But EVERY CANDIDATE ROW TURNED OUT TO BE A DECLARED OPEN SLOT from an f36 design, where the prompt is deliberately content-free because the transgression is the SCORED VERB. So the domain had no valid members: I had read English connotation off strings whose content lives in a verb list. The clinching evidence was that 'Before anyone could stop her she' (assigned primed) and 'By morning she had' (assigned neutral) are variant 1 and variant 0 of ONE realized_open cell for the SAME verbs. If a genuinely primed stimulus is ever written, it should be a domain for RH's original reason."
+   "desc": "[sensation were in use but undeclared; added rather than remapped, since remapping rows to fit an incomplete list destroys information to satisfy it] `primed` WAS ADDED AND THEN REMOVED THE SAME DAY, and the reason is worth keeping. The construct is real -- a frame that implies transgression without transgressive vocabulary -- and RH was right that pooling it into `neutral` would contaminate neutral averages with the effect under test, which is why it was made a domain rather than a subdomain. But EVERY CANDIDATE ROW TURNED OUT TO BE A DECLARED OPEN SLOT from an f36 design, where the prompt is deliberately content-free because the transgression is the SCORED VERB. So the domain had no valid members: I had read English connotation off strings whose content lives in a verb list. The clinching evidence was that 'Before anyone could stop her she' (assigned primed) and 'By morning she had' (assigned neutral) are variant 1 and variant 0 of ONE realized_open cell for the SAME verbs. If a genuinely primed stimulus is ever written, it should be a domain for RH's original reason. | ADDED 2026-08-02 [2958]: 16 values in use and undeclared, ADDED NOT REMAPPED per this field's own `sensation` precedent. TWO DESIGNS, AND THE SPLIT IS LOAD-BEARING: taboo/property/betrayal/animal are M01 TRANSGRESSION KINDS (siblings of violence/sexual/power); the thirteen M03 values are INSTITUTIONAL SECTORS -- the institution the speaker is in conflict with, not a kind of wrong. Do not pool across the two. AND `police` IS NOT A SECTOR LIKE THE OTHERS: F21's police exception is a FINDING, so that level is both a stratum and a result -- a reader grouping on domain must not read the police cell as a sector average.",
+   "senses": {
+    "taboo": "violation of the sacred or the dead; desecration, corpse, grave (M01 r2)",
+    "property": "taking or damaging what belongs to another; theft, vandalism (M01 r2)",
+    "betrayal": "violation of a relational trust between intimates, not of a law (M01 r2)",
+    "animal": "harm to a non-human animal; isolates the victim's SPECIES, not the act, so it crosses cruelty and killing (M01 r2)",
+    "labor": "M03 sector: employer or workplace",
+    "housing": "M03 sector: landlord or letting agent",
+    "medical": "M03 sector: hospital, clinic, billing",
+    "benefits": "M03 sector: welfare or claims office",
+    "civic": "M03 sector: council or local government",
+    "police": "M03 sector: officer or force -- SEE THE NOTE; this level is also a FINDING",
+    "consumer": "M03 sector: a company as seller",
+    "education": "M03 sector: school or university",
+    "insurance": "M03 sector: insurer or claims handler",
+    "banking": "M03 sector: bank or fee dispute",
+    "immigration": "M03 sector: consulate or immigration authority",
+    "utilities": "M03 sector: supplier of power, water, metering"
+   }
   },
   "subdomain": {
    "type": "str|null",
-   "desc": "liminal|explicit for violence and sexual; worker|mgmt|tenant|landlord|citizen|agency|patient|doctor|officer|party for institutional; null otherwise",
+   "desc": "liminal|explicit for violence and sexual; worker|mgmt|tenant|landlord|citizen|agency|patient|doctor|officer|party for institutional; null otherwise | ADDED 2026-08-02 [2958]. `indiv`/`inst` REDUNDANTLY ENCODE group_role's person term, so the two fields can disagree: GROUP_ROLE IS AUTHORITATIVE. And `boundary` vs `realized_boundary` are HOMONYMS FROM DIFFERENT DESIGNS, not a duplicate -- merging them would destroy a partition.",
    "values": [
     "act_committed",
     "act_uncommitted",
@@ -101,10 +159,15 @@
     "beautiful_ugly",
     "benign_high",
     "benign_realized",
+    "boundary",
     "captivity",
     "citizen",
     "class",
+    "coercion",
+    "covert_harm",
     "creation",
+    "cruelty",
+    "desecration",
     "desire",
     "desire_committed",
     "desire_uncommitted",
@@ -119,11 +182,14 @@
     "holiness",
     "human_animal",
     "implied_transgression",
+    "indiv",
+    "inst",
     "intensity_1",
     "intensity_2",
     "intensity_3",
     "intensity_4",
     "intensity_5",
+    "intimate",
     "landlord",
     "liminal",
     "logical_bos",
@@ -151,6 +217,7 @@
     "species_wolf",
     "state_frame",
     "tenant",
+    "theft",
     "trans_level_0",
     "trans_level_1",
     "trans_level_2",
@@ -158,9 +225,26 @@
     "trans_level_4",
     "trans_level_5",
     "trust",
+    "unarmed",
     "uncued",
+    "verbal_threat",
+    "weapons",
     "worker"
-   ]
+   ],
+   "senses": {
+    "desecration": "the sacred or the dead (domain taboo)",
+    "theft": "taking what belongs to another (domain property)",
+    "intimate": "trust between intimates (domain betrayal)",
+    "cruelty": "gratuitous harm to an animal (domain animal)",
+    "coercion": "compliance extracted under power (domain power)",
+    "verbal_threat": "harm announced, not enacted (domain violence)",
+    "unarmed": "bodily force without a weapon (domain violence)",
+    "weapons": "an instrument of harm is present (domain violence)",
+    "covert_harm": "harm concealed as an ordinary act (domain violence)",
+    "boundary": "a bodily or consent boundary crossed (domain sexual). NOT `realized_boundary`: that is F36's slot-constraint family (open/constrained/boundary, domain violence, contrast_type null) and grades HOW FAR THE FRAME CONSTRAINS THE VERB. This one is a property of the TRANSGRESSION. Zero rows overlap and none could belong to both.",
+    "indiv": "the speaker is the individual in the conflict (M03)",
+    "inst": "the speaker holds the institutional position (M03)"
+   }
   },
   "slot": {
    "type": "str",
@@ -205,10 +289,14 @@
     "register_swap",
     "role_swap",
     "setting_swap",
+    "speaker_position",
     "target_swap",
     "transgressive_swap"
    ],
-   "desc": "what the changed token manipulates. Three designs were all being called 'minimal pairs'. TWO VALUES ADDED during the hand-assignment of the 25 auto-mapped groups, because the existing twelve could not express them: `setting_swap` (the SETTING implies the transgression and no token names it -- 'the edge of the roof', 'the hospice') and `intensity_swap` (a TWO-MEMBER intensity contrast, which intensity_ladder cannot express since a ladder is a graded series carrying ranks)."
+   "desc": "what the changed token manipulates. Three designs were all being called 'minimal pairs'. TWO VALUES ADDED during the hand-assignment of the 25 auto-mapped groups, because the existing twelve could not express them: `setting_swap` (the SETTING implies the transgression and no token names it -- 'the edge of the roof', 'the hospice') and `intensity_swap` (a TWO-MEMBER intensity contrast, which intensity_ladder cannot express since a ladder is a graded series carrying ranks).",
+   "senses": {
+    "speaker_position": "the changed material is WHO SPEAKS and FROM WHERE, not what is done. Unlike every other contrast_type the manipulation is not a token swap inside a fixed frame: the individual and institutional members REWRITE the scenario so one conflict is narrated from either side. THE STIMULUS IS RECONSTRUCTED, NOT PERTURBED, so a pair-level statistic assuming one-token distance does not apply."
+   }
   },
   "ladder_id": {
    "type": "str|null",
@@ -246,9 +334,39 @@
     "POLE_B",
     "QUOTED_DESIRE_UNCOMMITTED",
     "REPORTED_DESIRE_UNCOMMITTED",
-    "UNMARKED"
+    "UNMARKED",
+    "indiv_I_absent",
+    "indiv_I_final",
+    "indiv_I_final_ought",
+    "indiv_I_medial",
+    "indiv_we_absent",
+    "indiv_we_final",
+    "indiv_we_medial",
+    "inst_I_absent",
+    "inst_I_final",
+    "inst_I_final_ought",
+    "inst_I_medial",
+    "inst_we_absent",
+    "inst_we_final",
+    "inst_we_medial"
    ],
-   "desc": "position in the design group. POLE_A/POLE_B/BOTH for contradiction triples; MARKED/UNMARKED for two-member contrasts; LADDER for graded series."
+   "desc": "position in the design group. POLE_A/POLE_B/BOTH for contradiction triples; MARKED/UNMARKED for two-member contrasts; LADDER for graded series. | ADDED 2026-08-02 [2958]: a 2x2x4 cross (person x number x modal position). THE CROSS IS 2x2x4=16 AND ONLY 14 EXIST: ['indiv_we_final_ought', 'inst_we_final_ought'] are ABSENT -- the `ought` control was run on `I` and not on `we`, so any contrast using final_ought is SINGULAR-ONLY and cannot be read as a number-general result. Recorded so the gap does not enter as an unmarked hole.",
+   "senses": {
+    "indiv_I_final": "individual speaker, singular pronoun, prompt ends on the modal ('I should')",
+    "indiv_I_medial": "individual speaker, singular pronoun, modal followed by a hedge ('I should probably')",
+    "indiv_I_absent": "individual speaker, singular pronoun, no modal; ends on the pronoun ('I')",
+    "indiv_I_final_ought": "individual speaker, singular pronoun, 'ought to' rather than 'should' -- the modal-lexeme control",
+    "indiv_we_final": "individual speaker, plural pronoun, prompt ends on the modal ('I should')",
+    "indiv_we_medial": "individual speaker, plural pronoun, modal followed by a hedge ('I should probably')",
+    "indiv_we_absent": "individual speaker, plural pronoun, no modal; ends on the pronoun ('I')",
+    "inst_I_final": "institutional speaker, singular pronoun, prompt ends on the modal ('I should')",
+    "inst_I_medial": "institutional speaker, singular pronoun, modal followed by a hedge ('I should probably')",
+    "inst_I_absent": "institutional speaker, singular pronoun, no modal; ends on the pronoun ('I')",
+    "inst_I_final_ought": "institutional speaker, singular pronoun, 'ought to' rather than 'should' -- the modal-lexeme control",
+    "inst_we_final": "institutional speaker, plural pronoun, prompt ends on the modal ('I should')",
+    "inst_we_medial": "institutional speaker, plural pronoun, modal followed by a hedge ('I should probably')",
+    "inst_we_absent": "institutional speaker, plural pronoun, no modal; ends on the pronoun ('I')"
+   }
   },
   "slot_status": {
    "type": "str",
@@ -307,7 +425,18 @@
    "type": "str|null",
    "desc": "WHERE RESOLUTION FAILS, recorded on the row. Without it a reader sees a complete-looking model_resolved row and cannot tell that a third of the roster was skipped -- the same reason a rate is not a number without its population."
   },
-  "_mode_is_not_one_dimension": "MODE IS NOT ONE DIMENSION AND A FLAT `mode` FIELD WILL MAKE IT LOOK LIKE ONE. Verified in core.py:_apply_mode and circuit.py:Circuit.logits, which agree:\n  RAW       the prompt, bare.\n  CHAT      the prompt as a user message in the model's chat template. SAME STIMULUS, differently framed -- the text the model reads still ends with the prompt.\n  CONTINUE  'Continue this text: {prompt}' as a user message. A DIFFERENT STIMULUS: an instruction is PREPENDED, so the model is no longer completing the prompt, it is obeying a request about the prompt.\n  THINK     identical text to CONTINUE, plus enable_thinking=True. So CONTINUE and THINK share a stimulus and differ only in a template flag.\nCONSEQUENCE FOR ANALYSIS: RAW and CHAT are comparable as framings of one stimulus. CONTINUE and THINK are not framings of it -- they measure a different object, and pooling them with RAW or CHAT compares completions of the prompt against responses to an instruction about the prompt. A flat mode field in a cache key records four values at one level and hides that the four fall into two groups of two. Recorded here because the pending mode-key migration is exactly the moment the distinction would get flattened."
+  "_mode_is_not_one_dimension": "MODE IS NOT ONE DIMENSION AND A FLAT `mode` FIELD WILL MAKE IT LOOK LIKE ONE. Verified in core.py:_apply_mode and circuit.py:Circuit.logits, which agree:\n  RAW       the prompt, bare.\n  CHAT      the prompt as a user message in the model's chat template. SAME STIMULUS, differently framed -- the text the model reads still ends with the prompt.\n  CONTINUE  'Continue this text: {prompt}' as a user message. A DIFFERENT STIMULUS: an instruction is PREPENDED, so the model is no longer completing the prompt, it is obeying a request about the prompt.\n  THINK     identical text to CONTINUE, plus enable_thinking=True. So CONTINUE and THINK share a stimulus and differ only in a template flag.\nCONSEQUENCE FOR ANALYSIS: RAW and CHAT are comparable as framings of one stimulus. CONTINUE and THINK are not framings of it -- they measure a different object, and pooling them with RAW or CHAT compares completions of the prompt against responses to an instruction about the prompt. A flat mode field in a cache key records four values at one level and hides that the four fall into two groups of two. Recorded here because the pending mode-key migration is exactly the moment the distinction would get flattened.",
+  "_subdomain_declared_homonyms": {
+   "_why": "The bare-vs-qualified test exists because a build script and a merge script each invented a naming scheme, so worker/labor_worker and five siblings SPLIT every institutional cell in half. That defect is ACCIDENTAL duplication of ONE construct. A DELIBERATE homonym -- two different constructs that happen to collide on a suffix -- is the opposite case, and merging it would destroy a partition rather than repair one. The gate is therefore re-indexed: a collision is a FAILURE unless it is declared HERE with its reason. Silence is still a failure.",
+   "pairs": [
+    {
+     "bare": "boundary",
+     "qualified": "realized_boundary",
+     "reason": "Homonyms from different designs, ruled [2958].1. `realized_boundary` is one member of F36's realized_* family (open/constrained/boundary): domain violence, contrast_type null, n=2, and it grades HOW FAR THE FRAME CONSTRAINS THE SCORED VERB -- a property of the SLOT. `boundary` is M01_PAIRS_SEXUAL: domain sexual, contrast_type transgressive_swap, n=72, MARKED/UNMARKED -- a property of the TRANSGRESSION, naming what the marked token violates. ZERO ROWS OVERLAP AND NO ROW COULD BELONG TO BOTH.",
+     "not_renamed_because": "`boundary` would read better as `consent_boundary` and a rename preserves the partition, so it does not violate add-don't-remap. It is NOT done now because 72 of those rows are the M05 arm corpus and the value sits inside a selector in a live amendment candidate. Renaming a value under a registered selector is the hazard already booked. If renamed, it is a REGISTERED CHANGE."
+    }
+   ]
+  }
  },
  "_provenance": {
   "built_by": "scripts/build_prompt_categorisation.py",
@@ -425,6 +554,13 @@
     "M01_PAIRS_DESECRATION"
    ],
    "reason": "[2046].1 -- ingestion took whole files, not survivor sets; v1 power failed 120/120 on the gate it was redrafted to fix, animal passed 50 of 120, betrayal/theft carry 2(e) convictions. Re-enter as SURVIVOR MANIFESTS on RH's scope answer."
+  },
+  "schema_declarations_2958": {
+   "when": "2026-08-02",
+   "declared_by": "lacan [2958]",
+   "implemented_by": "malign",
+   "values_added": 53,
+   "claim": "THESE VALUES ARE DECLARED, NOT VALIDATED. Declaring what a value MEANS and verifying that every row's assignment is CORRECT are different claims; only the first was made. The domain field carries a `primed` precedent where the values were real and every candidate row was mis-assigned."
   }
  },
  "prompts": [
