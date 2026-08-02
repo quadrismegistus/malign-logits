@@ -215,16 +215,28 @@ class CacheManager:
         return _os.environ.get("MALIGN_LOGIT_ROOT") or _os.path.join(
             PATH_DATA_RAW, "cloud_run_20260801")
 
-    def _logit_array(self, entry):
-        """The vector for one index entry, via a cached memmap."""
+    def _logit_array(self, entry, dtype):
+        """The vector for one index entry, via a cached memmap.
+
+        THE DTYPE COMES FROM THE KEY, NEVER A CONSTANT. This hardcoded
+        float16 and was harmless only while every payload happened to be
+        float16 -- a float32 file read at 2 bytes per value returns garbage
+        that is finite, plausibly ranged, and wrong, which is the exact failure
+        class lacan named for a wrong stride. I saw it, called it latent, and
+        left it; `set_logits` accepting arrays made it live within the hour,
+        and tests/test_cache.py::test_logits_roundtrip caught it immediately.
+        A LATENT BUG IS ONE WHOSE PRECONDITION HAS NOT ARRIVED YET.
+        """
         import os as _os
         import numpy as _np
         f, row, dim = entry["file"], entry["row"], entry["dim"]
-        mm = CacheManager._LOGIT_MMAP.get(f)
+        dt = _np.dtype(str(dtype))
+        ck = (f, dt.str)
+        mm = CacheManager._LOGIT_MMAP.get(ck)
         if mm is None:
             path = _os.path.join(self._logit_root(), f)
-            mm = _np.memmap(path, dtype=_np.float16, mode="r").reshape(-1, dim)
-            CacheManager._LOGIT_MMAP[f] = mm
+            mm = _np.memmap(path, dtype=dt, mode="r").reshape(-1, dim)
+            CacheManager._LOGIT_MMAP[ck] = mm
         return _np.array(mm[row])
 
     def get_logits(self, model, prompt, mode="raw", dtype=None):
@@ -241,7 +253,7 @@ class CacheManager:
                 f"{type(entry).__name__}, not an index entry. The store holds "
                 f"{{file, row, dim}} and nothing else; a raw array here is a "
                 f"second dialect and the reason the previous store was retired.")
-        return self._logit_array(entry)
+        return self._logit_array(entry, dt)
 
     def get_logits_entry(self, model, prompt, mode="raw", dtype=None):
         """The INDEX entry itself -- {file, row, dim} -- without touching the
@@ -286,7 +298,8 @@ class CacheManager:
                 f"every row after it reads at the wrong offset.")
         with open(path, "ab") as fh:
             fh.write(vec.tobytes())
-        CacheManager._LOGIT_MMAP.pop(rel, None)      # stale handle
+        for k in [k for k in CacheManager._LOGIT_MMAP if k[0] == rel]:
+            CacheManager._LOGIT_MMAP.pop(k, None)        # stale handle
         return rel, n // (dim * isz), dim
 
     def set_logits(self, model, prompt, value, mode="raw", dtype=None):
