@@ -164,16 +164,21 @@ def cmd_launch(args):
     image = prof['image']
     rel = prof.get('min_reliability', 0.95)
     cuda = prof.get('cuda_max_good', 12.4)
+    #: COMPUTE PARALLELISES ACROSS GPUs; THE NETWORK DOES NOT. A roster is
+    #: ~1.4 TB of weights that must cross one link no matter how many cards sit
+    #: behind it, so a cheap box with a slow NIC is not cheap. See
+    #: data/cloud_profiles.json _bandwidth_note for the measured case.
+    min_down = prof.get('min_inet_down_mbps', 0)
     print(f"Profile {getattr(args, 'profile', None) or 'default'}: "
-          f"{num_gpus}x {gpu_name} >={min_ram}GB, {disk_gb}GB, {image}",
-          file=sys.stderr)
+          f"{num_gpus}x {gpu_name} >={min_ram}GB, {disk_gb}GB, {image}, "
+          f"link >={min_down} Mbps", file=sys.stderr)
     if prof.get('pins'):
         print(f"  package floors: {', '.join(prof['pins'])}", file=sys.stderr)
 
     print(f"Searching for {num_gpus}× A100 80GB offers ({disk_gb} GB disk)...", file=sys.stderr)
     raw = vastai(
         'search', 'offers',
-        f'gpu_name={gpu_name} num_gpus={num_gpus} gpu_ram>={min_ram} reliability>{rel} disk_space>={disk_gb} cuda_max_good>={cuda}',
+        f'gpu_name={gpu_name} num_gpus={num_gpus} gpu_ram>={min_ram} reliability>{rel} disk_space>={disk_gb} cuda_max_good>={cuda} inet_down>={min_down}',
         '-o', 'dph+',
         '--raw',
     )
@@ -181,7 +186,7 @@ def cmd_launch(args):
     if not offers:
         raw = vastai(
             'search', 'offers',
-            f'gpu_name=A100 num_gpus={num_gpus} gpu_ram>={min_ram} reliability>{rel} disk_space>={disk_gb} cuda_max_good>={cuda}',
+            f'gpu_name=A100 num_gpus={num_gpus} gpu_ram>={min_ram} reliability>{rel} disk_space>={disk_gb} cuda_max_good>={cuda} inet_down>={min_down}',
             '-o', 'dph+',
             '--raw',
         )
@@ -292,6 +297,10 @@ def cmd_launch(args):
         'profile': getattr(args, 'profile', None) or 'default',
         'pins': prof.get('pins', []),
         'image': image,
+        #: the environment record must be able to say what the link WAS: a cost
+        #: estimate that does not name its bandwidth is not reproducible.
+        'inet_down_mbps': offer.get('inet_down'),
+        'min_inet_down_mbps': min_down,
     }
     save_state(state)
 
