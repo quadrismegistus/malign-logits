@@ -211,12 +211,63 @@ def main(a):
     else:
         spec = [{"model": m, "prompts": sorted(set(keep) - have[m])} for m in models]
     spec = [e for e in spec if e["prompts"]]
-    # ascending by work, so a cancellation costs the least-finished model
-    spec.sort(key=lambda e: len(e["prompts"]))
+
+    # ── COST ORDERING, not length ordering ───────────────────────────────
+    # The intent was always cost: twp_cloud.py:15 says "anything too large for
+    # the card sorts to the end, where cancelling costs nothing". len(prompts)
+    # implements that ONLY while prompt count tracks cost, which is true for
+    # transformers and false for SSM/hybrid models -- they carry ordinary
+    # prompt counts at ~4x the per-prompt cost, so they scattered through the
+    # July roster instead of sorting to the end.
+    from malign_logits import model_cost as MC
+    costs = MC.load_costs()
+
+    if a.exclude_class:
+        drop = [e for e in spec if MC.arch_class(e["model"]) in a.exclude_class]
+        spec = [e for e in spec if MC.arch_class(e["model"]) not in a.exclude_class]
+        # A DECLARED cut, printed by name. A silent truncation reads as
+        # "covered everything" when it did not.
+        print(f"\nEXCLUDED {len(drop)} model(s) by class {sorted(a.exclude_class)}:")
+        for e in drop:
+            print(f"    {e['model']}  ({MC.arch_class(e['model'])})")
+
+    spec.sort(key=lambda e: MC.cost_hours(e["model"], len(e["prompts"]), costs))
+
+    if a.max_hours is not None:
+        kept, cum = [], 0.0
+        for e in spec:
+            h = MC.cost_hours(e["model"], len(e["prompts"]), costs)
+            if cum + h > a.max_hours:
+                break
+            kept.append(e)
+            cum += h
+        dropped = spec[len(kept):]
+        print(f"\n--max-hours {a.max_hours}: keeping {len(kept)} of "
+              f"{len(spec)} models, {cum:.2f} h. DROPPED {len(dropped)}:")
+        for e in dropped:
+            print(f"    {e['model']:<52} "
+                  f"{MC.cost_hours(e['model'], len(e['prompts']), costs):6.2f} h")
+        spec = kept
+
+    rows = MC.summarise(spec, costs)
+    total_h = sum(r["hours"] for r in rows)
+    n_meas = sum(1 for r in rows if r["rate_source"] == "measured")
+    print(f"\nCOST PLAN: {total_h:.1f} h over {len(rows)} models "
+          f"({n_meas} measured rates, {len(rows) - n_meas} class defaults)")
+    for r in sorted(rows, key=lambda r: -r["hours"])[:5]:
+        print(f"    slowest: {r['model']:<50} {r['hours']:6.2f} h  "
+              f"{r['arch']:<11} {r['rate']:.2f} p/s ({r['rate_source']})")
     json.dump({"_meta": {"categorisation_sha": cat_sha,
                          "categorisation_dirty": bool(dirty),
                          "prompts": len(keep), "models": len(models),
-                         "cells_to_run": sum(len(e["prompts"]) for e in spec)},
+                         "cells_to_run": sum(len(e["prompts"]) for e in spec),
+                         "ordering": "measured cost_hours ascending "
+                                     "(malign_logits.model_cost)",
+                         "excluded_classes": sorted(a.exclude_class or []),
+                         "max_hours": a.max_hours,
+                         "planned_hours": round(total_h, 2),
+                         "rates_measured": n_meas,
+                         "rates_class_default": len(rows) - n_meas},
                "spec": spec}, open(a.out, "w"))
     print(f"\nwrote {a.out}: {len(spec)} models, "
           f"{sum(len(e['prompts']) for e in spec):,} cells")
@@ -231,6 +282,17 @@ def main(a):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--exclude-finding", nargs="*", default=[])
+    ap.add_argument("--exclude-class", nargs="*", default=[],
+                    choices=["ssm", "hybrid", "moe", "transformer"],
+                    help="drop whole ARCHITECTURE CLASSES. A class filter, not "
+                         "a name list: a named exclusion goes stale the day "
+                         "someone adds a Falcon. Exclusions are printed by "
+                         "name and recorded in the spec's _meta.")
+    ap.add_argument("--max-hours", type=float, default=None,
+                    help="keep models in cost order until the budget is spent, "
+                         "then stop. Makes the tail a DECLARED cut with the "
+                         "dropped models named, rather than a cancellation "
+                         "discovered later.")
     ap.add_argument("--out", default=OUT)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--from-scratch", action="store_true",

@@ -726,6 +726,65 @@ def done_prompts(path):
     return seen
 
 
+def shard_spec(spec, n_shards, index, gpu_budget_gb, quiet=False):
+    """Partition a roster into `n_shards` PARALLEL slices plus a HEAVY PHASE.
+
+    Valid `index` is 0..n_shards inclusive. Index n_shards is the heavy phase.
+
+    Two rules, both learned the expensive way:
+
+    1. BALANCE ON COST, NOT COUNT. Equal model counts finish at wildly
+       different times when one slice holds the 32Bs. Longest-processing-time-
+       first (assign the costliest remaining model to the lightest slice) is
+       the standard greedy and lands within 4/3 of optimal.
+
+    2. HEAVY MODELS ARE A SEPARATE PHASE, NOT A HEAVIER SHARD. A model whose
+       resident footprint exceeds `gpu_budget_gb / n_shards` cannot share the
+       card with n_shards-1 peers. The first version of this function appended
+       them to the LAST parallel shard, which gave that shard 48 models and
+       26.5 h against its siblings' 9 -- and it still could not run in
+       parallel. They get their own phase, run alone after the others, one at
+       a time.
+    """
+    from malign_logits import model_cost as MC
+    costs = MC.load_costs()
+    if not 0 <= index <= n_shards:
+        raise SystemExit(f"REFUSING: --shard-index {index} is outside "
+                         f"0..{n_shards} (index {n_shards} is the heavy phase)")
+    per_worker_gb = gpu_budget_gb / max(1, n_shards)
+
+    def hours(e):
+        return MC.cost_hours(e["model"], len(e["prompts"]), costs)
+
+    heavy = [e for e in spec if MC.gpu_gb(e["model"], costs) > per_worker_gb]
+    light = [e for e in spec if MC.gpu_gb(e["model"], costs) <= per_worker_gb]
+
+    buckets = [[] for _ in range(n_shards)]
+    load = [0.0] * n_shards
+    for e in sorted(light, key=lambda e: -hours(e)):
+        i = load.index(min(load))
+        buckets[i].append(e)
+        load[i] += hours(e)
+    buckets.append(heavy)                      # the heavy phase, index n_shards
+
+    if not quiet:
+        for i, b in enumerate(buckets):
+            tag = "  <- HEAVY PHASE, run ALONE after the others" \
+                if i == n_shards else ""
+            print(f"  shard {i}: {len(b):3d} models, "
+                  f"{sum(hours(e) for e in b):6.2f} h{tag}", flush=True)
+        if heavy:
+            print(f"  {len(heavy)} model(s) exceed {per_worker_gb:.0f} GB "
+                  f"(= {gpu_budget_gb:.0f} / {n_shards}) and were segregated:",
+                  flush=True)
+            for e in heavy:
+                print(f"      {e['model']:<52} ~{MC.gpu_gb(e['model'], costs):.0f} GB"
+                      f"  {MC.arch_class(e['model'])}", flush=True)
+
+    # within a shard, cheapest first -- so a cancellation costs the least
+    return sorted(buckets[index], key=hours)
+
+
 def main(a):
     # THE SPEC GAINED A _meta WRAPPER when the categorisation sha was stamped
     # into it; this read a flat list and got the string "_meta". Accept both --
@@ -735,6 +794,20 @@ def main(a):
     spec = _raw["spec"] if isinstance(_raw, dict) else _raw
     if isinstance(_raw, dict) and _raw.get("_meta"):
         print(f"spec meta: {_raw['_meta']}", flush=True)
+
+    # ── SHARDING, by measured cost and with a MEMORY budget ──────────────
+    # Three workers were run by hand on 2026-08-02 and one Falcon-H1 ballooned
+    # to 67 GB of 80 while two transformers were resident. A worker COUNT does
+    # not express that constraint; a memory budget does. Heavy models are
+    # segregated into their own shard so two can never be in flight together.
+    if a.shards > 1 or a.shard_index is not None:
+        if a.shard_index is None:
+            raise SystemExit("REFUSING: --shards needs --shard-index. Which "
+                             "slice this process runs is not guessable.")
+        spec = shard_spec(spec, a.shards, a.shard_index, a.gpu_budget_gb)
+        print(f"shard {a.shard_index}/{a.shards}: {len(spec)} models, "
+              f"{sum(len(e['prompts']) for e in spec):,} cells", flush=True)
+
     os.makedirs(a.out, exist_ok=True)
     dev = "cuda" if torch.cuda.is_available() else "cpu"
     trie = None if a.no_dict else load_prefix_trie(a.dict)
@@ -892,6 +965,18 @@ if __name__ == "__main__":
     ap.add_argument("--models", required=True)
     ap.add_argument("--out", default="/workspace/twp")
     ap.add_argument("--purge", action="store_true")
+    ap.add_argument("--shards", type=int, default=1,
+                    help="split the roster into N cost-balanced slices; run "
+                         "one process per slice")
+    ap.add_argument("--shard-index", type=int, default=None,
+                    help="which slice THIS process runs (0-based). Index N "
+                         "(equal to --shards) is the HEAVY PHASE, which runs "
+                         "alone after the parallel shards finish. Required "
+                         "whenever --shards > 1.")
+    ap.add_argument("--gpu-budget-gb", type=float, default=80.0,
+                    help="total card memory the shards share. Models whose "
+                         "footprint exceeds budget/shards are segregated into "
+                         "the LAST shard, to be run alone.")
     ap.add_argument("--dict", default=DICT,
                     help="CJK prefix dictionary; on a cloud box the repo-relative "
                          "default will not resolve, so pass the uploaded path")

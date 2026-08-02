@@ -1,0 +1,54 @@
+{
+  "_note": "Provisioning profiles for `malign cloud launch --profile NAME`. A profile is the machine SHAPE plus the package floors that a run needs. It exists because provisioning was retyped each time and the floors were remembered rather than declared -- transformers cannot read .bin checkpoints under torch<2.6, and that floor silently cost the July grid 13 models.",
+
+  "default": {
+    "description": "One A100 80GB, the shape every twp/grid run has used.",
+    "gpu_name": "A100_SXM4",
+    "num_gpus": 1,
+    "min_gpu_ram": 79,
+    "disk_gb": 300,
+    "image": "vllm/vllm-openai:latest",
+    "min_reliability": 0.95,
+    "cuda_max_good": 12.4,
+    "pins": [
+      "torch>=2.6"
+    ],
+    "pin_reasons": {
+      "torch>=2.6": "transformers refuses .bin checkpoints under torch<2.6 (CVE-driven torch.load policy). Thirteen models failed to load in the July grid on exactly this and it read as a model problem, not an environment one. See project_torch_bin_floor."
+    }
+  },
+
+  "bigdisk": {
+    "description": "Same card, 600 GB. For rosters whose cumulative download exceeds the default disk when --purge is not used.",
+    "gpu_name": "A100_SXM4",
+    "num_gpus": 1,
+    "min_gpu_ram": 79,
+    "disk_gb": 600,
+    "image": "vllm/vllm-openai:latest",
+    "min_reliability": 0.95,
+    "cuda_max_good": 12.4,
+    "pins": [
+      "torch>=2.6"
+    ]
+  },
+
+  "ssm": {
+    "description": "For the heavy phase. Same card, plus the SSM kernels -- WITHOUT these, Falcon/Mamba models fall back to a sequential scan that is slow on ANY GPU, so a bigger card does not help. Grid v3 closed with 'Falcon needs KERNELS not a card'.",
+    "gpu_name": "A100_SXM4",
+    "num_gpus": 1,
+    "min_gpu_ram": 79,
+    "disk_gb": 300,
+    "image": "vllm/vllm-openai:latest",
+    "min_reliability": 0.95,
+    "cuda_max_good": 12.4,
+    "pins": [
+      "torch>=2.6",
+      "mamba-ssm",
+      "causal-conv1d"
+    ],
+    "pin_reasons": {
+      "mamba-ssm": "the fused selective-scan kernel; absent it, a fallback loop",
+      "causal-conv1d": "the fused depthwise conv; same story"
+    }
+  }
+}

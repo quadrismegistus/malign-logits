@@ -1358,7 +1358,22 @@ def main():
                            help="Number of GPUs required (default: 1)")
     cl_launch.add_argument("--disk", type=int, default=None,
                            help="Disk space in GB (default: 300, or 600 for multi-GPU)")
+    cl_launch.add_argument("--profile", default="default",
+                           help="Machine shape + package floors from "
+                                "data/cloud_profiles.json (default, bigdisk, ssm). "
+                                "See `malign cloud profiles`.")
+    cloud_sub.add_parser("profiles", help="List provisioning profiles and their pins")
     cloud_sub.add_parser("setup", help="Install malign-logits on instance")
+
+    cov = cloud_sub.add_parser("coverage",
+                               help="Planned vs delivered for a run directory")
+    cov.add_argument("run_dir", help="directory of per-model .jsonl shards")
+    cov.add_argument("--spec", default="data/grid_spec.json",
+                     help="the roster the run was launched against")
+    cov.add_argument("--expect", type=int, default=None,
+                     help="rows per complete model; inferred from the spec "
+                          "when omitted")
+    cov.add_argument("--out", default=None, help="write the report to a file")
 
     cr = cloud_sub.add_parser("run", help="Run a command in tmux on cloud")
     cr.add_argument("--families", help="Comma-separated families (for produce-all)")
