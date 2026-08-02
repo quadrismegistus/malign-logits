@@ -251,27 +251,70 @@ class CacheManager:
             return None
         return self.get("logits", model=model, prompt=prompt, mode=mode, dtype=dt)
 
-    def set_logits(self, model, prompt, entry, mode="raw", dtype=None):
-        """Write an INDEX ENTRY: {"file": basename, "row": int, "dim": int}.
+    #: where newly COMPUTED vectors are appended. The 2026-08-01 run's payloads
+    #: are read-only history; anything computed since needs its own file.
+    LOGIT_WRITE_DIR = "computed"
 
-        AN ARRAY IS REFUSED. The store is an index into .f16 payloads; a raw
-        array here would found a second value dialect, which is precisely the
-        defect that retired the previous store (two KEY shapes there, two VALUE
-        shapes here -- same failure, one field over).
+    def _append_logit_payload(self, model, vec):
+        """Append one vector to this model's writable .f16 and return its row.
+
+        THE STORE IS AN INDEX, SO A WRITER SUPPLYING AN ARRAY NEEDS SOMEWHERE
+        TO PUT IT. Twenty-one call sites across psyche, circuit, step_analysis
+        and the f36/f11/r1 scripts pass `logits.cpu().numpy()`; refusing them
+        outright would have made the contract correct and the codebase broken.
+        So an array is accepted, WRITTEN TO THE PAYLOAD, and indexed -- one
+        value dialect, and every caller unchanged.
         """
-        if not isinstance(entry, dict) or not {"file", "row", "dim"} <= set(entry):
-            raise TypeError(
-                f"refusing to write logits for {model} / {str(prompt)[:40]!r}: "
-                f"value must be an index entry {{file, row, dim}}, got "
-                f"{type(entry).__name__}. The vectors live in .f16 files; "
-                f"storing one here holds the same bytes twice.")
-        dt = dtype or entry.get("dtype")
+        import os as _os
+        import numpy as _np
+        vec = _np.ascontiguousarray(vec)
+        d = _os.path.join(self._logit_root(), CacheManager.LOGIT_WRITE_DIR)
+        _os.makedirs(d, exist_ok=True)
+        rel = _os.path.join(CacheManager.LOGIT_WRITE_DIR,
+                            model.replace("/", "__") + f".{vec.dtype}.f16")
+        path = _os.path.join(self._logit_root(), rel)
+        isz = vec.dtype.itemsize
+        dim = int(vec.shape[-1])
+        n = _os.path.getsize(path) if _os.path.exists(path) else 0
+        #: DIM MUST BE CONSTANT WITHIN A FILE -- lacan [3012]. A file whose
+        #: stride changes mid-way returns real floats at wrong offsets forever
+        #: after, and no value check can see it.
+        if n % (dim * isz):
+            raise ValueError(
+                f"{rel}: size {n} is not a multiple of dim {dim} x {isz}. "
+                f"A vector of a different width was appended to this file; "
+                f"every row after it reads at the wrong offset.")
+        with open(path, "ab") as fh:
+            fh.write(vec.tobytes())
+        CacheManager._LOGIT_MMAP.pop(rel, None)      # stale handle
+        return rel, n // (dim * isz), dim
+
+    def set_logits(self, model, prompt, value, mode="raw", dtype=None):
+        """Write logits. Accepts an index entry OR a vector.
+
+        An index entry `{file, row, dim}` is stored as-is (the indexer's path).
+        A VECTOR is appended to this model's writable payload and the resulting
+        entry stored -- so the store keeps ONE value dialect while callers that
+        naturally hold an array keep working.
+        """
+        if isinstance(value, dict) and {"file", "row", "dim"} <= set(value):
+            dt = dtype or value.get("dtype")
+            if dt is None:
+                raise KeyError(
+                    f"refusing to write logits for {model} / "
+                    f"{str(prompt)[:40]!r}: no dtype. A dtype difference IS a "
+                    f"logit difference; it is keyed and never defaulted.")
+            self.set("logits", {k: value[k] for k in ("file", "row", "dim")},
+                     model=model, prompt=prompt, mode=mode, dtype=str(dt))
+            return
+        dt = dtype or getattr(value, "dtype", None)
         if dt is None:
             raise KeyError(
                 f"refusing to write logits for {model} / {str(prompt)[:40]!r}: "
-                f"no dtype. A dtype difference IS a logit difference; it is "
-                f"keyed and never defaulted.")
-        self.set("logits", {k: entry[k] for k in ("file", "row", "dim")},
+                f"value is neither an index entry nor an array with a dtype. "
+                f"A dtype difference IS a logit difference; never defaulted.")
+        rel, row, dim = self._append_logit_payload(model, value)
+        self.set("logits", {"file": rel, "row": row, "dim": dim},
                  model=model, prompt=prompt, mode=mode, dtype=str(dt))
 
     def has_logits(self, model, prompt, mode="raw", dtype=None):
