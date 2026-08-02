@@ -707,18 +707,54 @@ class CacheManager:
     # every write -- a cache that survives the write that invalidates it is the
     # defect this class exists to avoid.
 
-    _RULE_CACHE = None
+    #: sentinel: the store holds NO rules, so an unnamed read cannot match.
+    #: Not an error and not a default -- the exact answer is "nothing is there".
+    _NO_RULE = object()
 
     def _twp_rules(self):
-        """{(rule_version, dict_sha)} present in the store. Cached."""
-        if CacheManager._RULE_CACHE is None:
-            CacheManager._RULE_CACHE = {
-                ((v or {}).get("rule_version"), (v or {}).get("dict_sha"))
-                for _k, v in self.iter_items("true_word_probs")}
-        return CacheManager._RULE_CACHE
+        """{(rule_version, dict_sha)} present in the store. Cached PER INSTANCE.
+
+        [2970].3: this was a CLASS attribute, so two CacheManagers on different
+        roots shared one cache and whichever populated first answered for both
+        -- an EMPTY store reported the real store's rule. `self._stashes` is
+        already per-instance one line above; this follows it.
+
+        [2970].2: populated from the KEYS, not the payloads. After the flip
+        `rule_version` and `dict_sha` ARE key fields, so fetching 93,216
+        payloads to recover two fields already in the key costs 12.83s against
+        0.65s -- the same 15.5x argument this class already books for
+        `iter_items`, applied to itself.
+        """
+        if getattr(self, "_rule_cache", None) is None:
+            sch = self._schema("true_word_probs")
+            if "rule_version" in sch.fields:
+                self._rule_cache = {(d.get("rule_version"), d.get("dict_sha"))
+                                    for d in self.iter_keys("true_word_probs")}
+            else:
+                self._rule_cache = {
+                    ((v or {}).get("rule_version"), (v or {}).get("dict_sha"))
+                    for _k, v in self.iter_items("true_word_probs")}
+        return self._rule_cache
+
+    def _twp_note_rule(self, rv, ds):
+        """A write can only ADD a rule, and the writer knows which one.
+
+        [2970].2: the previous version INVALIDATED on every write and the next
+        read repopulated by a full scan. The ingest loop is has-then-set per
+        record, so that is N^2/2 payload reads -- 3.26e10 at N=255,506, about
+        51 DAYS. Extending is O(1) and exactly correct.
+
+        A deletion cannot be noticed this way, so the set can only ever be too
+        LARGE -- which yields a spurious "ambiguous, name your rule" refusal.
+        THAT FAILS SAFE, which is the right direction for a safety property,
+        and it is said here rather than left for the next reader to derive.
+        """
+        if getattr(self, "_rule_cache", None) is not None:
+            self._rule_cache.add((rv, ds))
 
     def _twp_resolve_rule(self, rule_version, dict_sha):
-        """Fill an unnamed rule from the store, or refuse if it is ambiguous."""
+        """Fill an unnamed rule from the store, refuse if ambiguous, or report
+        _NO_RULE when the store is empty."""
         if rule_version is not None and dict_sha is not None:
             return rule_version, dict_sha
         rules = self._twp_rules()
@@ -727,7 +763,15 @@ class CacheManager:
             return (rule_version if rule_version is not None else only[0],
                     dict_sha if dict_sha is not None else only[1])
         if not rules:
-            return rule_version, dict_sha          # empty store: nothing to mix
+            #: [2970].1 -- BOOTSTRAP. Returning (None, None) here made build()
+            #: raise on the required field, so `has` threw on an EMPTY store and
+            #: the ingest died at record 1: it calls has BEFORE set on every
+            #: record, and nothing could write the first cell to bootstrap from.
+            #: On a store holding zero rules an unnamed read cannot match
+            #: anything -- has is FALSE, get is None. That is the exact answer,
+            #: not a default, and conflating it with "you failed to specify" is
+            #: the one confusion this design exists to prevent.
+            return CacheManager._NO_RULE, CacheManager._NO_RULE
         raise KeyError(
             "true_word_probs holds %d rules %s -- a read that names none is "
             "AMBIGUOUS. Pass rule_version= and dict_sha= explicitly; do not "
@@ -735,15 +779,20 @@ class CacheManager:
 
     def _twp_key(self, model, prompt, theta, mode,
                  rule_version=None, dict_sha=None):
+        """The key, or None when the store holds no rule to resolve against."""
         kw = dict(model=model, prompt=prompt, theta=theta, mode=mode)
         if "rule_version" in self._schema("true_word_probs").fields:
             rv, ds = self._twp_resolve_rule(rule_version, dict_sha)
+            if rv is CacheManager._NO_RULE:
+                return None                    # empty store: nothing can match
             kw.update(rule_version=rv, dict_sha=ds)
         return self.key_for("true_word_probs", **kw)
 
     def get_true_word_probs(self, model, prompt, theta=0.001, mode="raw",
                             rule_version=None, dict_sha=None):
         key = self._twp_key(model, prompt, theta, mode, rule_version, dict_sha)
+        if key is None:
+            return None
         s = self._stash("true_word_probs")
         return s[key] if key in s else None
 
@@ -770,12 +819,13 @@ class CacheManager:
                     % (model, prompt, rv, ds))
         self._stash("true_word_probs")[
             self._twp_key(model, prompt, theta, mode, rv, ds)] = payload
-        CacheManager._RULE_CACHE = None            # the write may add a rule
+        if keyed:
+            self._twp_note_rule(rv, ds)        # O(1); see _twp_note_rule
 
     def has_true_word_probs(self, model, prompt, theta=0.001, mode="raw",
                             rule_version=None, dict_sha=None):
-        return self._twp_key(model, prompt, theta, mode,
-                             rule_version, dict_sha) in self._stash("true_word_probs")
+        key = self._twp_key(model, prompt, theta, mode, rule_version, dict_sha)
+        return False if key is None else key in self._stash("true_word_probs")
 
     def get_beam_words(self, model, prompt, n=1000, depth=3, mode="raw"):
         key = {"type": "beam_words", "model": model, "prompt": prompt, "n": n, "depth": depth}
