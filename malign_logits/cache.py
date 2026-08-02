@@ -191,31 +191,88 @@ class CacheManager:
             f"dtypes {sorted(found)} -- a read that names none is AMBIGUOUS. "
             f"Pass dtype=; a dtype difference is a logit difference.")
 
+    # ── THE LOGITS VALUE CONTRACT: AN INDEX, NEVER AN ARRAY ───────────
+    #
+    # The value is ALWAYS {"file": basename, "row": int, "dim": int} and the
+    # vectors stay in their .f16 files, memmapped on read. Measured on the real
+    # data 2026-08-02: lz4 compresses float16 logits to 100.0% of original and
+    # hashstash b64 adds 33%, so an lmdb copy would cost 66.6 GB to hold 50 GB
+    # -- and the .f16 files are not transient, they are the archive of a
+    # 30-hour run, so ingesting them means holding the same bytes TWICE.
+    #
+    # ONE VALUE SHAPE, ENFORCED. The archived store held two KEY shapes and
+    # that is what retired it; founding two VALUE shapes in the successor would
+    # be the same defect one field over. `set_logits` refuses an array.
+    #
+    # `file` is a BASENAME resolved against LOGIT_ROOT at read time, so moving
+    # the payloads is a config change and not a re-index.
+
+    _LOGIT_MMAP = {}          #: basename -> np.memmap, one handle per file
+
+    def _logit_root(self):
+        import os as _os
+        from . import PATH_DATA_RAW
+        return _os.environ.get("MALIGN_LOGIT_ROOT") or _os.path.join(
+            PATH_DATA_RAW, "cloud_run_20260801")
+
+    def _logit_array(self, entry):
+        """The vector for one index entry, via a cached memmap."""
+        import os as _os
+        import numpy as _np
+        f, row, dim = entry["file"], entry["row"], entry["dim"]
+        mm = CacheManager._LOGIT_MMAP.get(f)
+        if mm is None:
+            path = _os.path.join(self._logit_root(), f)
+            mm = _np.memmap(path, dtype=_np.float16, mode="r").reshape(-1, dim)
+            CacheManager._LOGIT_MMAP[f] = mm
+        return _np.array(mm[row])
+
     def get_logits(self, model, prompt, mode="raw", dtype=None):
         dt = self._logits_resolve_dtype(model, prompt, mode, dtype)
         if dt is CacheManager._NO_RULE:
             return None
-        return self.get("logits", model=model, prompt=prompt,
-                        mode=mode, dtype=dt)
+        entry = self.get("logits", model=model, prompt=prompt,
+                         mode=mode, dtype=dt)
+        if entry is None:
+            return None
+        if not isinstance(entry, dict) or "file" not in entry:
+            raise TypeError(
+                f"logits value for {model} / {str(prompt)[:32]!r} is a "
+                f"{type(entry).__name__}, not an index entry. The store holds "
+                f"{{file, row, dim}} and nothing else; a raw array here is a "
+                f"second dialect and the reason the previous store was retired.")
+        return self._logit_array(entry)
 
-    def set_logits(self, model, prompt, logits, mode="raw", dtype=None):
-        """`logits` may be a bare array or a payload dict carrying provenance.
+    def get_logits_entry(self, model, prompt, mode="raw", dtype=None):
+        """The INDEX entry itself -- {file, row, dim} -- without touching the
+        payload. The cheap question stays cheap."""
+        dt = self._logits_resolve_dtype(model, prompt, mode, dtype)
+        if dt is CacheManager._NO_RULE:
+            return None
+        return self.get("logits", model=model, prompt=prompt, mode=mode, dtype=dt)
 
-        A bare array is accepted so existing callers keep working, but its
-        dtype is then read OFF THE ARRAY rather than guessed -- if it cannot be
-        read, the write is refused rather than keyed to an invented dtype.
+    def set_logits(self, model, prompt, entry, mode="raw", dtype=None):
+        """Write an INDEX ENTRY: {"file": basename, "row": int, "dim": int}.
+
+        AN ARRAY IS REFUSED. The store is an index into .f16 payloads; a raw
+        array here would found a second value dialect, which is precisely the
+        defect that retired the previous store (two KEY shapes there, two VALUE
+        shapes here -- same failure, one field over).
         """
-        dt = dtype
-        if dt is None:
-            dt = (logits or {}).get("dtype") if isinstance(logits, dict) \
-                else getattr(logits, "dtype", None)
+        if not isinstance(entry, dict) or not {"file", "row", "dim"} <= set(entry):
+            raise TypeError(
+                f"refusing to write logits for {model} / {str(prompt)[:40]!r}: "
+                f"value must be an index entry {{file, row, dim}}, got "
+                f"{type(entry).__name__}. The vectors live in .f16 files; "
+                f"storing one here holds the same bytes twice.")
+        dt = dtype or entry.get("dtype")
         if dt is None:
             raise KeyError(
                 f"refusing to write logits for {model} / {str(prompt)[:40]!r}: "
-                f"no dtype on the payload and none passed. A dtype difference "
-                f"IS a logit difference; it is keyed and never defaulted.")
-        self.set("logits", logits, model=model, prompt=prompt,
-                 mode=mode, dtype=str(dt))
+                f"no dtype. A dtype difference IS a logit difference; it is "
+                f"keyed and never defaulted.")
+        self.set("logits", {k: entry[k] for k in ("file", "row", "dim")},
+                 model=model, prompt=prompt, mode=mode, dtype=str(dt))
 
     def has_logits(self, model, prompt, mode="raw", dtype=None):
         dt = self._logits_resolve_dtype(model, prompt, mode, dtype)
