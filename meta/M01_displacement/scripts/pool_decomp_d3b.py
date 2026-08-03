@@ -41,8 +41,35 @@ AMENDMENT_A_SHA16 = "b69b3e7d3e5edf68"
 #: §D6b's arms, by name. D2 read val_extrem and dom_extrem; D3b decomposes both.
 D3B_ARMS = ("val_extrem", "dom_extrem")
 
-#: The benchmark being decomposed. §Preamble, read a1d712093155f32c.
-D2_OBSERVED = {"val_extrem": 0.01511, "dom_extrem": 0.01655}
+#: **THE BENCHMARK IS READ FROM D2's ARTIFACT, NEVER TYPED.** It was a dict of
+#: `{"val_extrem": 0.01511, ...}` copied from a docket post -- the ROUNDED
+#: PRINTED values -- while the residual side divided by `mean(D_pair)` from the
+#: data. Two denominators 0.03% apart under a sentence claiming ONE scale
+#: ([3564]). The numbers were nearly right and the stated property was false.
+#:
+#: **AND THE FIX IS A CHECK, NOT A BETTER CONSTANT.** Sourcing it from
+#: `D_pair_mean` would fix the arithmetic and destroy the evidence that D2's
+#: RESULT and this producer's MEAN are the same number. They are bit-identical
+#: on both arms; that is a FACT and it is asserted, not assumed. A mismatch
+#: means the two populations are not the same 632 -- a finding, not a rounding
+#: question -- and stage 2 STOPS.
+D2_READ = "result_d2_stage2.json"
+D2_READ_SHA16 = "a1d712093155f32c"     #: the read cited in D3b's own preamble
+
+
+def d2_observed():
+    """D2's D per arm, at STORED precision, from a hash-gated artifact."""
+    path = os.path.join(CAMPAIGN, "results", D2_READ)
+    with open(path) as fh:
+        blob = fh.read()
+    got = hashlib.sha256(blob.encode()).hexdigest()[:16]
+    if got != D2_READ_SHA16:
+        raise SystemExit(
+            f"BENCHMARK GATE FAILED: {D2_READ} hashes {got}, expected "
+            f"{D2_READ_SHA16}. D3b does not decompose an unidentified result.")
+    d = json.loads(blob)
+    return {a: d["arms"][a]["per_t"]["0.00"]["D"] for a in D3B_ARMS}
+
 
 #: §3's floor, declared in the registration BEFORE any reliability existed.
 RELIABILITY_FLOOR = 0.60
@@ -450,10 +477,23 @@ def stage2(coll, stage1_path, stage1_sha16, out_path, seed=SEED):
         "_relabel_primary": RELABEL_PRIMARY,
         "arms": {},
     }
+    observed = d2_observed()
+    payload["_benchmark_source"] = f"{D2_READ} @ {D2_READ_SHA16}, stored precision"
     for name, a in coll["arms"].items():
         s1a = s1["arms"][name]
         y = [a["by_id"][p]["D_pair"] for p in a["admitted"]]
-        rec = {"n": len(y), "D2_observed": D2_OBSERVED[name],
+        #: **THE FREE CROSS-ARTIFACT KNOWN ANSWER.** D2's result and this
+        #: producer's mean are two quantities computed by two producers on two
+        #: occasions; §A5 says they are the same number. BIT-equality, not a
+        #: tolerance -- a tolerance would pass the very rounding this replaces.
+        mean_here = float(np.mean(y))
+        if observed[name] != mean_here:
+            raise SystemExit(
+                f"BENCHMARK MISMATCH on {name}: D2's stored D is "
+                f"{observed[name]!r}, mean(D_pair) here is {mean_here!r}. "
+                "The populations are not the same 632. STOP -- this is a "
+                "finding, not a rounding question.")
+        rec = {"n": len(y), "D2_observed": observed[name],
                "D_pair_mean": float(np.mean(y)), "residual_side": {},
                "confound_side": {}}
 
@@ -497,7 +537,7 @@ def stage2(coll, stage1_path, stage1_sha16, out_path, seed=SEED):
             r = relabel_D(coll["built"], coll["pairs"], a["arm_A"],
                           a["dim"], key, a["admitted"])
             if r:
-                r["ratio_to_D2"] = r["D_relabelled"] / D2_OBSERVED[name]
+                r["ratio_to_D2"] = r["D_relabelled"] / observed[name]
             if r:
                 r["role"] = ("PRIMARY (§A2)" if key == RELABEL_PRIMARY
                              else "sensitivity")
@@ -598,10 +638,25 @@ def selftest(verbose=True):
     #: as calls or subscripts.
     s1 = src[src.index("def stage1("):src.index("def require_stage1(")]
     for forbidden in ('["D_pair"]', "relabel_D(", "disattenuate(",
-                      "ratio_to_D2", "D2_OBSERVED"):
+                      #: `D2_OBSERVED` was in this list and the identifier no
+                      #: longer exists, so that entry had become a check that
+                      #: CANNOT FAIL. Renaming a forbidden symbol silently
+                      #: retires the guard that forbade it.
+                      "ratio_to_D2", "d2_observed("):
         check(f"stage1 contains no {forbidden}", forbidden not in s1)
-    check("stage2 calls the gate", "require_stage1(" in
-          src[src.index("def stage2("):src.index("def selftest(")])
+    _s2 = src[src.index("def stage2("):src.index("def selftest(")]
+    check("stage2 calls the gate", "require_stage1(" in _s2)
+    #: **THE GUARDS MUST NAME SYMBOLS STAGE 2 ACTUALLY USES, or the list
+    #: decays into prose.** `D2_OBSERVED` sat in the forbidden list after the
+    #: identifier was renamed away, so that entry could no longer fail --
+    #: RENAMING A FORBIDDEN SYMBOL SILENTLY RETIRES THE GUARD THAT FORBADE IT.
+    #: Checked against stage 2's own body: a symbol stage 1 must not contain is
+    #: only a guard if stage 2 contains it.
+    for sym in ("relabel_D", "disattenuate", "ratio_to_D2", "d2_observed"):
+        check(f"stage2 uses the symbol {sym!r} that stage1 is forbidden",
+              sym in _s2)
+    check("stage2 ASSERTS the benchmark against the local mean",
+          "BENCHMARK MISMATCH" in _s2 and "!=" in _s2)
     _gate = src[src.index("def require_stage1("):
                 src.index("# ═", src.index("def require_stage1("))]
     check("the gate compares hashes and exits", "SystemExit" in _gate)
