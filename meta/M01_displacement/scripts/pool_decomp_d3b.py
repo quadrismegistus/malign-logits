@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""D3b: decomposing D2's effect against pool extremity. FROZEN e20c412c898b58fc.
+"""D3b: decomposing D2's effect against pool extremity. FROZEN f02f59d403906503.
 
 **THIS PRODUCER IS WRITTEN AGAINST THE FROZEN REGISTRATION AND CITES IT BY
 SECTION AT EVERY DECISION.** Where the registration is silent, this file RAISES
@@ -33,7 +33,10 @@ sys.path.insert(0, HERE)
 
 import pairs_d as D                      #: FROZEN 84011269d00eea6b, §8
 
-REGISTRATION_SHA16 = "e20c412c898b58fc"
+#: D3b RE-FROZEN after Amendment A. Verified at this seat: three consecutive
+#: re-hashes, 19,102 bytes, -r--r--r--, in HEAD.
+REGISTRATION_SHA16 = "f02f59d403906503"
+AMENDMENT_A_SHA16 = "b69b3e7d3e5edf68"
 
 #: §D6b's arms, by name. D2 read val_extrem and dom_extrem; D3b decomposes both.
 D3B_ARMS = ("val_extrem", "dom_extrem")

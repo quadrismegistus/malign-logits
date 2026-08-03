@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Invoke D3b's STAGE 1. A RUNNER, NOT A PRODUCER.
 
-**IT REFUSES UNTIL THE PRODUCER IS FROZEN.** `D3B_SHA` is None while the
+**IT REFUSES UNTIL THE PRODUCER IS FROZEN.** `PRODUCER_SHA` is None while the
 producer is still under edit; running with an unfrozen producer would emit a
 stage-1 artifact nobody can reproduce, and the artifact would hash cleanly.
 """
@@ -17,17 +17,22 @@ sys.path.insert(0, HERE)
 import pairs_d as D
 import pool_decomp_d3b as P
 
-D_SHA = "84011269d00eea6b"          #: §8, frozen
-D3B_SHA = None                       #: <- SET WHEN THE PRODUCER FREEZES
+D_SHA = "84011269d00eea6b"          #: §8, frozen -- pairs_d.py
+#: **RENAMED FROM `D3B_SHA`, WHICH RESOLVED TWO WAYS.** It named the PRODUCER's
+#: hash; [3553] read it as D3b's REGISTRATION hash and handed me
+#: `f02f59d403906503`. The mismatch would have refused loudly rather than run
+#: on the wrong pin -- but a constant whose name admits two referents is the
+#: day's own defect class wearing an identifier.
+PRODUCER_SHA = None                  #: <- SET WHEN THE PRODUCER FREEZES
 OUT = os.path.join(CAMPAIGN, "results", "result_d3b_stage1.json")
 
-if not D3B_SHA:
+if not PRODUCER_SHA:
     raise SystemExit(
-        "REFUSING: pool_decomp_d3b.py is not frozen (D3B_SHA is unset).\n"
+        "REFUSING: pool_decomp_d3b.py is not frozen (PRODUCER_SHA is unset).\n"
         "An unfrozen producer emits an artifact that hashes cleanly and "
         "reproduces nothing. Freeze first, pin here, then run.")
 
-for mod, want in (("pairs_d.py", D_SHA), ("pool_decomp_d3b.py", D3B_SHA)):
+for mod, want in (("pairs_d.py", D_SHA), ("pool_decomp_d3b.py", PRODUCER_SHA)):
     got = hashlib.sha256(open(os.path.join(HERE, mod), "rb").read()).hexdigest()[:16]
     if got != want:
         raise SystemExit(f"REFUSING: {mod} is {got}, frozen is {want}")
