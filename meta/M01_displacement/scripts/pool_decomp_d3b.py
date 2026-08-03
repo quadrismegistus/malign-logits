@@ -362,7 +362,23 @@ def stage1(coll, out_path, seed=SEED):
 
 
 def require_stage1(path, expect_sha16):
-    """STAGE 2 REFUSES WITHOUT STAGE 1'S HASH. D's gate, unchanged."""
+    """STAGE 2 REFUSES WITHOUT STAGE 1'S HASH. Returns (payload, observed).
+
+    **TWO SHAPES TAKEN FROM [3500].3, WHICH FOUND THEM IN THE EARLIER RUNNERS:**
+
+    FAILS CLOSED. An ABSENT expectation raises rather than skipping the check.
+    D's runners read `if expect_sha16 and got != expect_sha16`, so a falsy
+    expected hash silently disabled the gate; it was populated everywhere, so
+    nothing was ever wrong -- **and a gate that can be switched off by an empty
+    string is not a gate, it is a gate-shaped default.**
+
+    RETURNS WHAT IT FOUND. The caller prints the OBSERVED hash, never the
+    expected constant. **A success line echoing its own expectation would have
+    printed "PASSED" even under the fail-open shape above.**
+    """
+    if not expect_sha16:
+        raise SystemExit("STAGE 1 GATE: no expected hash supplied. "
+                         "An absent expectation is a REFUSAL, not a skip.")
     with open(path) as fh:
         blob = fh.read()
     got = hashlib.sha256(blob.encode()).hexdigest()[:16]
@@ -370,7 +386,7 @@ def require_stage1(path, expect_sha16):
         raise SystemExit(
             f"STAGE 1 GATE FAILED: {path} hashes {got}, expected {expect_sha16}. "
             "Stage 2 does not run.")
-    return json.loads(blob)
+    return json.loads(blob), got
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -378,7 +394,9 @@ def require_stage1(path, expect_sha16):
 # ══════════════════════════════════════════════════════════════════════════
 def stage2(coll, stage1_path, stage1_sha16, out_path, seed=SEED):
     """§2's two sides, §3's fork resolved by stage 1's number, §7's ratio."""
-    s1 = require_stage1(stage1_path, stage1_sha16)
+    s1, observed = require_stage1(stage1_path, stage1_sha16)
+    #: the gate prints WHAT IT FOUND, not what it hoped for ([3500].3)
+    print(f"stage-1 gate PASSED; {stage1_path} OBSERVED {observed}")
     payload = {
         "_what": "D3b STAGE 2. The bracket: relabel (upper bound on the "
                  "pool-associated share) and intercept (upper bound on the "
@@ -523,9 +541,30 @@ def selftest(verbose=True):
         check(f"stage1 contains no {forbidden}", forbidden not in s1)
     check("stage2 calls the gate", "require_stage1(" in
           src[src.index("def stage2("):src.index("def selftest(")])
-    check("the gate compares hashes and exits",
-          "SystemExit" in src[src.index("def require_stage1("):
-                              src.index("# ═", src.index("def require_stage1("))])
+    _gate = src[src.index("def require_stage1("):
+                src.index("# ═", src.index("def require_stage1("))]
+    check("the gate compares hashes and exits", "SystemExit" in _gate)
+    #: [3500].3's two shapes, checked BEHAVIOURALLY -- a gate that can be
+    #: disabled by an empty string is a gate-shaped default
+    import tempfile as _tf
+    with _tf.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
+        fh.write('{"x": 1}'); _tmp = fh.name
+    _real = hashlib.sha256(open(_tmp).read().encode()).hexdigest()[:16]
+    for absent in (None, "", 0):
+        try:
+            require_stage1(_tmp, absent); check(f"absent expectation {absent!r} REFUSES", False)
+        except SystemExit:
+            check(f"absent expectation {absent!r} REFUSES", True)
+    try:
+        require_stage1(_tmp, "0" * 16); check("wrong expectation refuses", False)
+    except SystemExit:
+        check("wrong expectation refuses", True)
+    _payload, _obs = require_stage1(_tmp, _real)
+    check("the gate RETURNS the observed hash, not the expected constant",
+          _obs == _real and _payload == {"x": 1})
+    check("stage2 prints the OBSERVED hash",
+          "OBSERVED {observed}" in src)
+    os.unlink(_tmp)
 
     #: --- §2's silence is DECLARED, not defaulted ---
     check("RELABEL_PRIMARY is unset until the pen rules",
