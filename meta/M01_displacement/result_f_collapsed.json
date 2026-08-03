@@ -1,0 +1,305 @@
+{
+  "amendment": "596dcefec9f001aa",
+  "primary": {
+    "n": 33,
+    "ties_dropped": 1,
+    "positives": 20,
+    "critical_k": 22,
+    "achieved_size": 0.04007165622897446,
+    "p_value": 0.1481031842995435,
+    "reject": false
+  },
+  "depth": {
+    "n": 34,
+    "ties_dropped": 0,
+    "positives": 23,
+    "critical_k": 23,
+    "achieved_size": 0.028806336456909776,
+    "p_value": 0.028806336456909776,
+    "reject": true
+  },
+  "units": {
+    "01-ai/Yi-1.5-9B": {
+      "delta": 0.036549707602339165,
+      "depth_delta": -0.5825242718446604,
+      "arms": [
+        "01-ai/Yi-1.5-9B-Chat"
+      ],
+      "n_arms": 1
+    },
+    "EleutherAI/pythia-2.8b": {
+      "delta": 0.007309941520467836,
+      "depth_delta": 0.16666666666666652,
+      "arms": [
+        "ContextualAI/archangel_sft-dpo_pythia2-8b"
+      ],
+      "n_arms": 1
+    },
+    "mistralai/Mistral-7B-v0.1": {
+      "delta": 0.02777777777777779,
+      "depth_delta": 0.8838709677419354,
+      "arms": [
+        "HuggingFaceH4/zephyr-7b-beta"
+      ],
+      "n_arms": 1
+    },
+    "HuggingFaceTB/SmolLM2-360M": {
+      "delta": -0.06725146198830406,
+      "depth_delta": 0.1006711409395975,
+      "arms": [
+        "HuggingFaceTB/SmolLM2-360M-Instruct"
+      ],
+      "n_arms": 1
+    },
+    "HuggingFaceTB/SmolLM3-3B-Base": {
+      "delta": 0.036549707602339165,
+      "depth_delta": 0.28244274809160297,
+      "arms": [
+        "HuggingFaceTB/SmolLM3-3B"
+      ],
+      "n_arms": 1
+    },
+    "LLM360/Amber": {
+      "delta": -0.00877192982456143,
+      "depth_delta": -0.1262135922330101,
+      "arms": [
+        "LLM360/AmberSafe"
+      ],
+      "n_arms": 1
+    },
+    "huggyllama/llama-7b": {
+      "delta": -0.010233918128654984,
+      "depth_delta": -0.0685714285714285,
+      "arms": [
+        "PKU-Alignment/beaver-7b-v1.0"
+      ],
+      "n_arms": 1
+    },
+    "Qwen/Qwen2.5-0.5B": {
+      "delta": 0.04093567251461988,
+      "depth_delta": -0.6515151515151518,
+      "arms": [
+        "Qwen/Qwen2.5-0.5B-Instruct"
+      ],
+      "n_arms": 1
+    },
+    "Qwen/Qwen2.5-7B": {
+      "delta": 0.0,
+      "depth_delta": 0.5384615384615383,
+      "arms": [
+        "Qwen/Qwen2.5-7B-Instruct"
+      ],
+      "n_arms": 1
+    },
+    "Qwen/Qwen3-8B-Base": {
+      "delta": -0.002923976608187162,
+      "depth_delta": 0.25409836065573765,
+      "arms": [
+        "Qwen/Qwen3-8B"
+      ],
+      "n_arms": 1
+    },
+    "RWKV/rwkv-4-7b-pile": {
+      "delta": -0.04678362573099415,
+      "depth_delta": -0.1212121212121211,
+      "arms": [
+        "RWKV/rwkv-raven-7b"
+      ],
+      "n_arms": 1
+    },
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T": {
+      "delta": 0.008771929824561375,
+      "depth_delta": 0.47457627118644075,
+      "arms": [
+        "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+      ],
+      "n_arms": 1
+    },
+    "meta-llama/Llama-3.1-8B": {
+      "delta": 0.00511695906432752,
+      "depth_delta": 0.046428571428571486,
+      "arms": [
+        "allenai/Llama-3.1-Tulu-3-8B-DPO",
+        "meta-llama/Llama-3.1-8B-Instruct"
+      ],
+      "n_arms": 2
+    },
+    "allenai/OLMo-2-0425-1B": {
+      "delta": -0.032163742690058394,
+      "depth_delta": -0.036199095022624306,
+      "arms": [
+        "allenai/OLMo-2-0425-1B-DPO"
+      ],
+      "n_arms": 1
+    },
+    "allenai/OLMoE-1B-7B-0125": {
+      "delta": -0.0014619883040935533,
+      "depth_delta": -0.45789473684210513,
+      "arms": [
+        "allenai/OLMoE-1B-7B-0125-DPO"
+      ],
+      "n_arms": 1
+    },
+    "allenai/Olmo-3-1025-7B": {
+      "delta": 0.05409356725146203,
+      "depth_delta": 0.1941747572815533,
+      "arms": [
+        "allenai/Olmo-3-7B-Instruct-DPO"
+      ],
+      "n_arms": 1
+    },
+    "allenai/Olmo-3-1125-32B": {
+      "delta": -0.026315789473684237,
+      "depth_delta": 0.38095238095238093,
+      "arms": [
+        "allenai/Olmo-3.1-32B-Instruct-DPO"
+      ],
+      "n_arms": 1
+    },
+    "allenai/Olmo-Hybrid-7B": {
+      "delta": -0.0014619883040935533,
+      "depth_delta": -0.03921568627451011,
+      "arms": [
+        "allenai/Olmo-Hybrid-Instruct-DPO-7B"
+      ],
+      "n_arms": 1
+    },
+    "bigscience/bloom-7b1": {
+      "delta": 0.020467836257309913,
+      "depth_delta": 0.23140495867768562,
+      "arms": [
+        "bigscience/bloomz-7b1"
+      ],
+      "n_arms": 1
+    },
+    "deepseek-ai/deepseek-llm-7b-base": {
+      "delta": -0.005847953216374269,
+      "depth_delta": 0.6000000000000001,
+      "arms": [
+        "deepseek-ai/deepseek-llm-7b-chat"
+      ],
+      "n_arms": 1
+    },
+    "EleutherAI/pythia-6.9b": {
+      "delta": -0.005847953216374269,
+      "depth_delta": 0.33333333333333326,
+      "arms": [
+        "lomahony/eleuther-pythia6.9b-hh-dpo"
+      ],
+      "n_arms": 1
+    },
+    "m-a-p/CT-LLM-Base": {
+      "delta": 0.055555555555555525,
+      "depth_delta": 0.03418803418803407,
+      "arms": [
+        "m-a-p/CT-LLM-SFT-DPO"
+      ],
+      "n_arms": 1
+    },
+    "m-a-p/neo_7b": {
+      "delta": 0.05263157894736842,
+      "depth_delta": -0.17518248175182505,
+      "arms": [
+        "m-a-p/neo_7b_instruct_v0.1"
+      ],
+      "n_arms": 1
+    },
+    "openbmb/MiniCPM5-1B-Base": {
+      "delta": 0.03654970760233911,
+      "depth_delta": 0.08368200836820083,
+      "arms": [
+        "openbmb/MiniCPM5-1B"
+      ],
+      "n_arms": 1
+    },
+    "stabilityai/stablelm-2-1_6b": {
+      "delta": 0.017543859649122806,
+      "depth_delta": 0.061728395061728225,
+      "arms": [
+        "stabilityai/stablelm-2-zephyr-1_6b"
+      ],
+      "n_arms": 1
+    },
+    "tiiuae/Falcon-H1-1.5B-Base": {
+      "delta": 0.04678362573099415,
+      "depth_delta": 0.3006535947712421,
+      "arms": [
+        "tiiuae/Falcon-H1-1.5B-Instruct"
+      ],
+      "n_arms": 1
+    },
+    "tiiuae/Falcon3-10B-Base": {
+      "delta": 0.08771929824561403,
+      "depth_delta": 1.1166666666666667,
+      "arms": [
+        "tiiuae/Falcon3-10B-Instruct"
+      ],
+      "n_arms": 1
+    },
+    "tiiuae/Falcon3-1B-Base": {
+      "delta": 0.0628654970760234,
+      "depth_delta": -0.4576271186440679,
+      "arms": [
+        "tiiuae/Falcon3-1B-Instruct"
+      ],
+      "n_arms": 1
+    },
+    "tiiuae/Falcon3-3B-Base": {
+      "delta": 0.03801169590643272,
+      "depth_delta": 0.08547008547008517,
+      "arms": [
+        "tiiuae/Falcon3-3B-Instruct"
+      ],
+      "n_arms": 1
+    },
+    "tiiuae/Falcon3-7B-Base": {
+      "delta": 0.042397660818713434,
+      "depth_delta": 0.37349397590361466,
+      "arms": [
+        "tiiuae/Falcon3-7B-Instruct"
+      ],
+      "n_arms": 1
+    },
+    "tiiuae/Falcon3-Mamba-7B-Base": {
+      "delta": -0.007342143906020504,
+      "depth_delta": -0.11398963730569989,
+      "arms": [
+        "tiiuae/Falcon3-Mamba-7B-Instruct"
+      ],
+      "n_arms": 1
+    },
+    "tiiuae/falcon-mamba-7b": {
+      "delta": 0.01762114537444931,
+      "depth_delta": 0.2946428571428572,
+      "arms": [
+        "tiiuae/falcon-mamba-7b-instruct"
+      ],
+      "n_arms": 1
+    },
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1": {
+      "delta": -0.030701754385965008,
+      "depth_delta": 1.3300970873786406,
+      "arms": [
+        "togethercomputer/RedPajama-INCITE-7B-Chat"
+      ],
+      "n_arms": 1
+    },
+    "zai-org/glm-4-9b-hf": {
+      "delta": 0.04824561403508776,
+      "depth_delta": 0.013157894736842035,
+      "arms": [
+        "zai-org/glm-4-9b-chat-hf"
+      ],
+      "n_arms": 1
+    }
+  },
+  "excluded": {
+    "microsoft/phi-4": "no qualifying dpo arm"
+  },
+  "ledger": {
+    "arm_not_edge_stage": 29,
+    "unit_median_of_multiple_arms": 1,
+    "arm_reasoning_excluded": 2,
+    "unit_excluded_no_qualifying_arm": 1
+  }
+}
