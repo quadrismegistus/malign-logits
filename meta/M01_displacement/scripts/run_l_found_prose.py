@@ -96,6 +96,9 @@ def build():
 
 
 if __name__ == "__main__":
+    import freeze_gate
+    freeze_gate.require_frozen(os.path.join(
+        os.path.dirname(HERE), "registrations", "registration_l_found_prose.md"))
     rows, diag = build()
     src = open(os.path.abspath(__file__), "rb").read()
     out = {

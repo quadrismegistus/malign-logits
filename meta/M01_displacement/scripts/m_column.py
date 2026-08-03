@@ -30,6 +30,10 @@ def norm(w):
 
 
 def main():
+    import freeze_gate
+    freeze_gate.require_frozen(os.path.join(
+        os.path.dirname(HERE), "registrations", "registration_m_perturbation_null.md"))
+
     d4 = {}
     for f in ("data/d4_fiction_sites.json", "data/d4_fiction_sites_2500.json"):
         for r in json.load(open(os.path.join(ROOT, f))):

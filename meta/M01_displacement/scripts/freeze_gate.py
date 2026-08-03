@@ -227,6 +227,34 @@ def report(path):
     return ok
 
 
+def require_frozen(registration_path):
+    """REFUSE to proceed unless the registration passes every mechanical gate.
+
+    **A PRODUCER THAT CONSUMES A REGISTRATION CALLS THIS FIRST.**
+
+    Registration M was signed by both seats, the owner gave the word, and the
+    file was UNTRACKED AND WRITABLE while a producer read it. The gate that
+    would have caught it existed, was written by the same seat, and had been run
+    on the sibling registration four hours earlier. It was not run here because
+    producing a column is not a freeze, so no ceremony fired.
+
+    **THE GATE WAS NOT ATTACHED TO ANYTHING. IT RAN WHEN SOMEONE REMEMBERED.**
+    This is the same shape as the locking gap that failed all campaign until it
+    was wired into the freeze event -- the fix is never "remember", it is an
+    edge in the call graph.
+    """
+    ok, rows = gate(registration_path)
+    if not ok:
+        bad = "; ".join("%s: %s" % (n, d) for s, n, d in rows if s == "FAIL")
+        raise SystemExit(
+            "REFUSING TO PRODUCE: %s is not frozen.\n  %s\n"
+            "A producer consuming an unfrozen registration is a run whose "
+            "premise can change under it." % (registration_path, bad))
+    observed = next((d for s, n, d in rows if n == "hash"), "")
+    print("  registration gate PASSED: %s\n    %s" % (registration_path, observed))
+    return True
+
+
 def selftest():
     """Every check must be proven to FAIL on a broken input, not just pass."""
     import tempfile
