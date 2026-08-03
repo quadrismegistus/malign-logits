@@ -23,7 +23,7 @@ D_SHA = "84011269d00eea6b"          #: §8, frozen -- pairs_d.py
 #: `f02f59d403906503`. The mismatch would have refused loudly rather than run
 #: on the wrong pin -- but a constant whose name admits two referents is the
 #: day's own defect class wearing an identifier.
-PRODUCER_SHA = "886351ecb988a349"   #: FROZEN, committed bbd2284, locked
+PRODUCER_SHA = "6ec1601c21fea6f6"   #: FROZEN, committed bbd2284, locked
 OUT = os.path.join(CAMPAIGN, "results", "result_d3b_stage1.json")
 
 if not PRODUCER_SHA:
@@ -31,6 +31,32 @@ if not PRODUCER_SHA:
         "REFUSING: pool_decomp_d3b.py is not frozen (PRODUCER_SHA is unset).\n"
         "An unfrozen producer emits an artifact that hashes cleanly and "
         "reproduces nothing. Freeze first, pin here, then run.")
+
+#: ══════════════════════════════════════════════════════════════════════════
+#: **A ONCE-ONLY RUNNER REFUSES A SECOND RUN.** [3572].1, ordered after I
+#: re-ran stage 1 by accident: I piped this runner to `head -3` to read its two
+#: VERIFIED lines, and `head` waited for a third line that prints AFTER the
+#: artifact is written. **`head` IS NOT AN ABORT, AND A ONCE-ONLY RUNNER IS NOT
+#: AN INSPECTION TOOL** -- `shasum` answers what that run was invoked to ask.
+#: The bytes were identical, which is luck about determinism and not a defence.
+#: ══════════════════════════════════════════════════════════════════════════
+if os.path.exists(OUT) and "--rerun" not in sys.argv:
+    raise SystemExit(
+        f"REFUSING: {os.path.basename(OUT)} already exists.\n"
+        "This runner emits a ONCE-ONLY registered artifact. To re-run, pass\n"
+        "  --rerun '<the docket ruling that authorises it>'\n"
+        "which PRINTS the authority and the superseded hash with the run.")
+RERUN_AUTHORITY = None
+if "--rerun" in sys.argv:
+    i = sys.argv.index("--rerun")
+    RERUN_AUTHORITY = sys.argv[i + 1] if i + 1 < len(sys.argv) else None
+    if not RERUN_AUTHORITY:
+        raise SystemExit("REFUSING: --rerun requires the authorising ruling as "
+                         "its argument. A re-run with no named authority is an "
+                         "accident with a flag on it.")
+    print(f"RE-RUN AUTHORISED BY: {RERUN_AUTHORITY}", flush=True)
+    _prior = hashlib.sha256(open(OUT, "rb").read()).hexdigest()[:16]
+    print(f"SUPERSEDING: {os.path.basename(OUT)} @ {_prior}", flush=True)
 
 for mod, want in (("pairs_d.py", D_SHA), ("pool_decomp_d3b.py", PRODUCER_SHA)):
     got = hashlib.sha256(open(os.path.join(HERE, mod), "rb").read()).hexdigest()[:16]
