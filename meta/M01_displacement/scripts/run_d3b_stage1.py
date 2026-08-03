@@ -23,7 +23,7 @@ D_SHA = "84011269d00eea6b"          #: §8, frozen -- pairs_d.py
 #: `f02f59d403906503`. The mismatch would have refused loudly rather than run
 #: on the wrong pin -- but a constant whose name admits two referents is the
 #: day's own defect class wearing an identifier.
-PRODUCER_SHA = "6ec1601c21fea6f6"   #: FROZEN, committed bbd2284, locked
+PRODUCER_SHA = "6ec1601c21fea6f6"   #: FROZEN, committed 4911490 (was bbd2284, see meta/commit_map_20260803_word_pool_strip.tsv), locked
 OUT = os.path.join(CAMPAIGN, "results", "result_d3b_stage1.json")
 
 if not PRODUCER_SHA:
