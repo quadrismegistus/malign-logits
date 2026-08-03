@@ -10,11 +10,11 @@ computed. Freeze state is recorded on the docket and in git history.**
     OCCASION    defects of ONE CLASS -- an English phrase a builder must turn
                 into a quantity, resolving more than one way. Found after the
                 freeze, on signed bytes, by the build, by a pattern-sweep, and
-                by the SPECIFICATION PARSE, which ran on the frozen bytes ahead
-                of this draft so RH is asked once.
-    BUNDLE      CLOSED at seven items across four sections, ruled [3488].3.
-                Nothing further is admitted; anything found later is a new
-                amendment, not an extension of this one.
+                by the SPECIFICATION PARSE, run twice: on the frozen bytes ahead
+                of this draft, and again on this draft.
+    BUNDLE      CLOSED at EIGHT items, ruled [3488].3 and extended once at
+                [3491].1. Nothing further is admitted; anything found later is a
+                new amendment, not an extension of this one.
 
 **NO CLAUSE OF D3b's DESIGN CHANGES.** The bracket, the fork's direction, the
 reading rule, the four refusals and §6's four bias entries are untouched. **This
@@ -54,7 +54,8 @@ LATER CAN FALSIFY IT.** Present-tense state expires; dated state does not.
 constructions sort the pairs differently:
 
     concordance of the DATA's roles with a pool sort
-      valence mean|z| unweighted    417/632   65.98%   <- §4's DECLARED REGRESSOR
+      valence mean|z| unweighted    417/632   65.98%   <- §4's REGRESSOR, itself
+                                                          named in §A3 below
       valence tail>=1  unweighted   439/632   69.46%
       valence mean|z| |delta|-wtd   362/632   57.28%
 
@@ -64,23 +65,6 @@ ratio. Under three sorts it takes three values.**
 **DECLARED: THE SORT KEY IS §4's REGRESSOR — `mean|z|` UNWEIGHTED — PRIMARY.** The
 other two constructions are **declared sensitivities**, each reporting
 `relabelled D` and §7's ratio, so the range travels with the primary.
-
-**AND §4's REGRESSOR IS ITSELF NAMED HERE, BECAUSE THE POINTER DID NOT CLOSE.**
-§4 reads `gap_pair (mean_abs_z, MARKED - UNMARKED)` and never says over what
-`mean_abs_z` is taken:
-
-    POOLED    all qualifying words across a member's cells, one flat pool
-    AVERAGED  the mean of the per-cell means
-
-    DECLARED: POOLED.  A cell-mean average weights a 3-word cell like a 40-word
-    one, and the confound this bracket is about is HOW MANY EXTREME WORDS WERE
-    AVAILABLE -- a count question, which pooling answers and averaging does not.
-
-**This is the same reasoning already declared for the D2 pool diagnostic, and the
-concordance table above is computed pooled**, so the table and the regressor read
-the same measure. **Recorded as a defect of this amendment's first draft: §A2
-resolved §2 by pointing at §4 without parsing §4, and a pointer into an unnamed
-quantity names nothing.**
 
 **THE GROUND IS INTERNAL COHERENCE, NOT A NUMBER.** §5's table chose no
 construction because it describes a REJECTED test, where none carries a
@@ -116,7 +100,35 @@ been computed** — no D3b quantity exists.
 
 ---
 
-## §A3 §3's RELIABILITY — a method, a unit, a floor, a hazard, and no estimand
+## §A3 §4's REGRESSOR — the pooling, and why a pointer did not close it
+
+**THE EIGHTH ITEM, ON ITS OWN LINE BECAUSE IT PROPAGATES BEYOND THE SECTION THAT
+FOUND IT.** §4's regressor is consumed by §3's reliability and §7's regression, not
+only §2's relabel; filed under "sort key" a reader would not see that it governs
+every quantity on the residual side of the bracket.
+
+**§4 reads `gap_pair (mean_abs_z, MARKED - UNMARKED)` and never says over what
+`mean_abs_z` is taken:**
+
+    POOLED    all qualifying words across a member's cells, one flat pool
+    AVERAGED  the mean of the per-cell means
+
+    DECLARED: POOLED.  A cell-mean average weights a 3-word cell like a 40-word
+    one, and the confound this bracket is about is HOW MANY EXTREME WORDS WERE
+    AVAILABLE -- a count question, which pooling answers and averaging does not.
+
+**This is the same reasoning already declared for the D2 pool diagnostic, and §A2's
+concordance table is computed pooled**, so the table and the regressor read the
+same measure.
+
+**RECORDED AS A DEFECT OF THIS AMENDMENT'S FIRST DRAFT: §A2 resolved §2 by pointing
+at "§4's declared regressor" — and §4 declares no such thing. A POINTER RESOLVES
+ONLY AS FAR AS ITS TARGET IS NAMED.** A citation that lands on an unnamed quantity
+names nothing, and reads as though it named something, which is worse than silence.
+
+---
+
+## §A4 §3's RELIABILITY — a method, a unit, a floor, a hazard, and no estimand
 
 **D3b §3 says reliability "is estimated by split-half over each member's cells"
 and never says reliability OF WHAT.** The disattenuation divides by the
@@ -153,12 +165,43 @@ data without holding this document.** **Recorded as a defect of this amendment's
 first draft: it wrote "the seed is a declared constant" and declared no constant —
 the class under repair, committed in the sentence repairing it.**
 
-**§3's floor (0.60), its fallback to the raw intercept, and the weighting fork are
-UNCHANGED.**
+### FOUR MORE REFERENTS IN THIS SECTION, FOUND BY THE SECOND PARSE
+
+**All four were RESOLVED SILENTLY IN THE PRODUCER and ordered by no document.**
+Each is declared here with its ground, and **the producer then conforms to the
+document — the document does not launder the producer.**
+
+    FIRST-STEP TIE IN THE GREEDY RULE.  At the first cell both halves hold zero
+    mass, and EVERY member hits it.  DECLARED: on EQUAL MASS assign to the half
+    holding FEWER CELLS; if the cell counts are equal too, to half A -- halves
+    being those of the cell-key-ascending enumeration this section already owns.
+    GROUND: derived from an ordering already declared, so no new constant enters
+    the document and there is nothing to mis-transcribe.
+
+    WHICH PAIRS ENTER THE CORRELATION.  DECLARED: the ADMITTED 632 -- the
+    population the corrected estimator is fit on -- with the all-pairs figure
+    REPORTED BESIDE IT as a sensitivity.
+    GROUND: the reliability describes the regressor the regression consumes; a
+    reliability computed over a population the correction is not applied to
+    describes a different quantity, and the 0.60 floor would be compared against
+    a number from the wrong set.
+
+    A MEMBER WITH FEWER THAN 2 CELLS has no split-half.  DECLARED: SKIPPED FROM
+    THE RELIABILITY COMPUTATION ONLY -- the pair stays in the regression -- and
+    the SKIP COUNT PRINTS beside the reliability.
+    GROUND: dropping the pair from the regression would change the estimand
+    rather than its correction; and a figure computed on a reduced set is
+    unreadable without the size of the reduction.
+
+    WHICH CORRELATION.  DECLARED: PEARSON.
+    GROUND: Spearman-Brown presumes it.  The presumption becomes a word.
+
+**§3's floor (0.60) applies PER REGRESSOR (see §A6), its fallback to the raw
+intercept and the weighting fork are UNCHANGED.**
 
 ---
 
-## §A4 §7's `b0` BRANCHES — the branch the ratio fix did not touch
+## §A5 §7's `b0` BRANCHES — the branch the ratio fix did not touch
 
     b0 far from 0    substantial D_pair is NOT linearly predictable from the gap
     b0 near 0        most of D_pair IS linearly predictable from it
@@ -188,17 +231,35 @@ introduce one:**
                   is met, the raw intercept where it is not, whichever §3's
                   fallback selects, and the printed row SAYS WHICH
     denominator   mean(D_pair) over THE SAME PAIRS THE REGRESSION FITS, not
-                  over all 632 and not over the relabelled set
+                  over all 684 and not over the relabelled set
     sign          SIGNED, no absolute value on either term.  mean(D_pair) is
-                  negative under the valence arm; a NEGATIVE share means the
-                  pool-independent component runs OPPOSITE the effect, which is
-                  a finding and must not be hidden by an absolute value
+                  POSITIVE on both D2 arms -- +0.015106155684521026 (val_extrem)
+                  and +0.016554961336197260 (dom_extrem) at t=0.00 -- so a
+                  NEGATIVE share means the pool-independent component runs
+                  OPPOSITE the effect, which is a finding and must not be hidden
+                  by an absolute value
     range         NOT bounded to [0,1].  A share above 1 or below 0 is a real
                   outcome of a linear decomposition and is reported as-is
 
-**With §7's ratio on the pool-associated side and this share on the pool-independent
-side, BOTH sides of the bracket put their widths on the page** — which is what the
-deliverable was declared to be, now literal.
+**THE DENOMINATOR IS D2's OWN D, AND THAT UNIFIES THE BRACKET.** The sign-flip
+statistic IS the mean of `D_pair`, so:
+
+    §7   relabelled D / D2's D      the pool-ASSOCIATED side
+    §A5  b0           / D2's D      the pool-INDEPENDENT side
+
+**Both sides of the bracket land on ONE scale, directly comparable, and their sum
+is interpretable.** That is stronger than this section originally claimed for
+itself, and it is stated because a correction that strengthens the deliverable is
+what the second parse is for.
+
+**RECORDED, THE ERROR THAT LED HERE: this section's first draft asserted that
+`mean(D_pair)` is NEGATIVE under the valence arm, and built the sign clause's
+interpretation on it.** What is negative is `A_marked` and `A_unmarked`
+*separately* (−0.017145, −0.032251) — the residualised extremity levels, not their
+difference. **The declared rule survived unchanged; its GROUND did not, and the
+ground is the interpretation** — a reader believing the denominator negative reads
+every share's sign backwards. **§D1's rule that both terms print beside every D is
+what makes the two easy to conflate.**
 
 **THIS IS THE CLASS RULE BITING THE FIX THAT ESTABLISHED IT.** The [3457] pass
 repaired one of §7's two branch-pairs and left the other — **and the repaired one
@@ -208,7 +269,7 @@ what makes the class invisible.*
 
 ---
 
-## §A5 §3's FLOOR AND DISATTENUATION — two forms the frozen text leaves open
+## §A6 §3's FLOOR AND DISATTENUATION — two forms the frozen text leaves open
 
     THE FLOOR'S SCOPE.  Two regressors exist (primary + weighting sensitivity),
     each with its own reliability. DECLARED: the 0.60 floor applies PER
@@ -226,25 +287,25 @@ bundle is open and expensive after.**
 
 ---
 
-## §A6 WHAT THIS AMENDMENT DOES NOT DO
+## §A7 WHAT THIS AMENDMENT DOES NOT DO
 
 - **It changes NO design clause.** The bracket, both bias directions, §6's four
   entries, §7's reading rule and ratio, §5's twelve-cell exclusion and §1's four
   refusals stand as frozen.
-- **It resolves NO ambiguity in D3b's favour.** §A3's estimand corrects MORE than
+- **It resolves NO ambiguity in D3b's favour.** §A4's estimand corrects MORE than
   the alternative; §A2's concordance correction lowers the baseline the
-  full-strength claim is priced against; **§A4's share is a printed magnitude with
+  full-strength claim is priced against; **§A5's share is a printed magnitude with
   no threshold, so no reading turns on it in either direction.**
 - **It CHOOSES NO CUT.** Every item names a quantity or a formula; not one names a
   value a result must clear. That distinction is what keeps this an amendment to a
   frozen design rather than a re-opening of it.
 - **It does not re-open the freeze.** D3b's design was fixed before any quantity
-  existed and remains so; **what was not fixed was three quantities' definitions,
+  existed and remains so; **what was not fixed was a set of quantities' definitions,
   and a definition supplied by whoever codes it is not a registration.**
 
 ---
 
-## §A7 HOW THESE WERE FOUND, RECORDED SO THE NEXT DOCUMENT IS BUILT DIFFERENTLY
+## §A8 HOW THESE WERE FOUND, RECORDED SO THE NEXT DOCUMENT IS BUILT DIFFERENTLY
 
 **EVERY ONE WAS FOUND AFTER THE FREEZE, ON SIGNED BYTES, BY THE SECOND SEAT.**
 
@@ -256,6 +317,7 @@ bundle is open and expensive after.**
     §7's b0 pair   named no comparator -- found by the SPECIFICATION PARSE,
                    four lines below the branch-pair the same class rule had
                    just repaired
+    §4's regressor named no pooling    -- found by parsing a POINTER that cited it
     §3's floor,
     §3's formula   resolved SILENTLY BY THE PRODUCER -- found by the same parse.
                    Not ambiguities anyone reported: choices already made in code
@@ -280,37 +342,45 @@ asks whether a sentence is right; the parse asks whether it is a program. **Four
 verification rounds, two claim-sweeps and a pattern-sweep of the first missed what
 the first pass of the second caught** — and it runs BEFORE the freeze, not after.
 
-### THE PARSE RUN ON THIS AMENDMENT'S OWN FIRST DRAFT, AND WHAT IT FOUND
+### THE PARSE RUN ON THIS AMENDMENT ITSELF — NINE MORE, IN TWO PASSES
 
-**FOUR INSTANCES OF THE CLASS, INSIDE THE DOCUMENT REPAIRING THE CLASS.**
+**FOUR FOUND BY THE DRAFTING SEAT BEFORE POSTING, INSIDE THE DOCUMENT REPAIRING
+THE CLASS:**
 
-    §A4's share       declared `b0 / mean(D_pair)` with no denominator scope,
+    §A5's share       declared `b0 / mean(D_pair)` with no denominator scope,
                       no sign convention and no range
     §A2's tie-break   declared three sorts; one ties on a pair and no tie-break
                       existed.  A sort with no answer is not a computation
     §A2's pointer     resolved §2 by citing "§4's declared regressor" -- and §4
-                      does not declare the pooling.  A POINTER INTO AN UNNAMED
-                      QUANTITY NAMES NOTHING
-    §A3's seed        "the seed is a declared constant", declaring no constant
+                      does not declare the pooling.  Now §A3
+    §A4's seed        "the seed is a declared constant", declaring no constant
 
-**All four were found by running the parse on my own draft before posting it. None
-would have been caught by reading it** — each sits in a sentence whose surrounding
-detail is dense and correct, which is §A3's lesson arriving in the text that states
-§A3's lesson.
+**FIVE MORE FOUND BY THE SECOND SEAT ON THE SAME DRAFT — one a FACTUAL ERROR in
+§A5's ground (the denominator's sign), FOUR of them in §A4 alone.**
+
+**AND THAT DISTRIBUTION IS THE FINDING.** §A4 names an estimand, a unit, a
+correlation direction, a balancing algorithm, a tie-break, a forbidden function
+and a ground for each. **It is the densest section in the document and it held
+four of the second parse's five open referents. The sections nobody worried about
+parsed clean.**
+
+    DENSITY OF SPECIFICATION DOES NOT MERELY FAIL TO INDICATE COVERAGE.
+    IN THIS DOCUMENT IT ANTI-CORRELATES WITH IT.
 
 **THE STANDING CONCLUSION IS NOT "WRITE MORE CAREFULLY."** The class survived being
 the explicit and only subject of the document, written by a seat holding the rule
-in mind, twice in the same session. **It is not a property of careless prose; it is
-a property of PROSE, and only a mechanical pass over every operative phrase finds
-it.** Hence: **the parse runs on amendments too, including the parse's own.**
+in mind, across two drafts. **It is not a property of careless prose; it is a
+property of PROSE, and only a mechanical pass over every operative phrase finds
+it.** Hence: **the parse runs on amendments too, including the parse's own — and
+it runs from a SECOND seat, because the drafting seat's own pass found four and
+missed five.**
 
 ---
 
-## §A8 FREEZE CONDITIONS
+## §A9 FREEZE CONDITIONS
 
-    1. TARGETED RE-PARSE on this draft -- the sections it CHANGES, per [3488].3.
-       The frozen bytes were already parsed whole; re-parsing them again would
-       re-check what is not in dispute and delay what is
+    1. TARGETED RE-PARSE on this draft -- DONE, twice: the drafting seat's own
+       pass before posting, and the second seat's on the posted bytes
     2. RH's one word, asked ONCE, covering the closed bundle entire
     3. both seats sign; D2 and Registration D's Amendment A re-signed by their
        own signatories -- a signature attaches to BYTES and does not inherit
@@ -319,8 +389,12 @@ it.** Hence: **the parse runs on amendments too, including the parse's own.**
        not frozen, it is unmodified
     5. old -> new hash posted per document so every existing citation resolves
     6. `audit_d.py` runs on the producer as a BUILD STEP before its next smoke
+    7. the producer conforms to THIS document, not the reverse: the four
+       referents of §A4 stay unfixed in code until the text names them, which
+       it now does
 
 **GATES CARRIED FORWARD TO EVERY FUTURE FREEZE IN THIS CAMPAIGN: custody, the
-time-invariant status line, and the specification parse.**
+time-invariant status line, and the specification parse — the last run by a seat
+that did not draft the document.**
 
 **Then the confound side unblocks and stage 1 runs once.**

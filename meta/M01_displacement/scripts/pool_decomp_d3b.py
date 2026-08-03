@@ -565,7 +565,14 @@ def selftest(verbose=True):
     check("a tie is NOT counted as concordant",
           abs(r2["concordance_in_data"] - 0.5) < 1e-12)
 
-    print(f"\n{ok}/{ok + len(fail)} passed" + ("" if not fail else f"; FAILED: {fail}"))
+    #: **THE PRINTED COUNT NAMES ITS UNIT AND THE TOTAL IS HOISTED.**
+    #: `audit_d.check_counts_named_beside_fields` flagged the original line for
+    #: emitting a bare length inside an f-string: "35/35 passed" names nothing
+    #: counted. Hoisting the total removes the call from the emitting line
+    #: entirely, which satisfies the heuristic's PURPOSE and not only its regex.
+    n_checks = ok + len(fail)
+    print(f"\n{ok}/{n_checks} checks passed"
+          + ("" if not fail else f"; FAILED: {fail}"))
     return not fail
 
 
