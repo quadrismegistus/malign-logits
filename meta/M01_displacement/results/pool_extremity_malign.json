@@ -1,0 +1,67 @@
+{
+ "_cuts": [
+  1.0,
+  2.0
+ ],
+ "_dim": "valence",
+ "_producer": "66c5483fa8b7f7e9",
+ "_reading_rule": "comparative description ONLY; no significance test, no verdict",
+ "_what": "POOL-EXTREMITY DIAGNOSTIC [3397]. Descriptive only.",
+ "summary": {
+  "mean_abs_z": {
+   "MARKED_mean": 0.7758635515318479,
+   "UNMARKED_mean": 0.7471493578302437,
+   "n_pairs_negative": 215,
+   "n_pairs_positive": 417,
+   "within_pair_diff_mean": 0.028714193701604152,
+   "within_pair_diff_median": 0.02497680154135501,
+   "within_pair_diff_sd": 0.07893708338393883
+  },
+  "mean_abs_z_wtd": {
+   "MARKED_mean": 0.7747966730090038,
+   "UNMARKED_mean": 0.7532816130587939,
+   "n_pairs_negative": 270,
+   "n_pairs_positive": 362,
+   "within_pair_diff_mean": 0.021515059950209844,
+   "within_pair_diff_median": 0.017657085948678763,
+   "within_pair_diff_sd": 0.1370045059082112
+  },
+  "n_pairs_with_both_members_profiled": 632,
+  "tail_ge_1": {
+   "MARKED_mean": 0.28530949245619225,
+   "UNMARKED_mean": 0.2586995707788072,
+   "n_pairs_negative": 192,
+   "n_pairs_positive": 439,
+   "within_pair_diff_mean": 0.02660992167738507,
+   "within_pair_diff_median": 0.022003233419507245,
+   "within_pair_diff_sd": 0.062044968923001806
+  },
+  "tail_ge_1_wtd": {
+   "MARKED_mean": 0.2925409829003726,
+   "UNMARKED_mean": 0.2681993609794732,
+   "n_pairs_negative": 256,
+   "n_pairs_positive": 376,
+   "within_pair_diff_mean": 0.02434162192089935,
+   "within_pair_diff_median": 0.02307544126304068,
+   "within_pair_diff_sd": 0.11611306186635885
+  },
+  "tail_ge_2": {
+   "MARKED_mean": 0.04752730500784886,
+   "UNMARKED_mean": 0.043662543600201234,
+   "n_pairs_negative": 275,
+   "n_pairs_positive": 355,
+   "within_pair_diff_mean": 0.0038647614076476244,
+   "within_pair_diff_median": 0.003651788686780049,
+   "within_pair_diff_sd": 0.027901234468113715
+  },
+  "tail_ge_2_wtd": {
+   "MARKED_mean": 0.0444733126998067,
+   "UNMARKED_mean": 0.04228001346871812,
+   "n_pairs_negative": 292,
+   "n_pairs_positive": 338,
+   "within_pair_diff_mean": 0.002193299231088585,
+   "within_pair_diff_median": 0.0013045240675123495,
+   "within_pair_diff_sd": 0.05684656781641077
+  }
+ }
+}
