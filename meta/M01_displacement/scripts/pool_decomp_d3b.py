@@ -347,6 +347,14 @@ def stage1(coll, out_path, seed=SEED):
                 "median": st.median(vals) if vals else None,
                 "n_negative": sum(1 for v in vals if v < 0),
                 "n_positive": sum(1 for v in vals if v > 0),
+                #: §4's tabled support, so the runner has a PRE-REGISTERED
+                #: KNOWN ANSWER. These figures are in the FROZEN registration
+                #: and were derived independently at both seats, so they cost
+                #: nothing and they ask the only question a stage-1 artifact
+                #: cannot ask of itself: IS THIS THE SAME DATA?
+                "near_zero_bins": {f"{c:.2f}": sum(1 for v in vals
+                                                   if abs(v) <= c)
+                                   for c in (0.01, 0.02, 0.05)},
                 "reliability": rel,
                 "meets_floor": (None if not rel or
                                 rel["reliability_spearman_brown"] is None
