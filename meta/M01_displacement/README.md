@@ -427,6 +427,121 @@ confound running the SAME sign as their effect and are not interpretable.
 
 ---
 
+## STATUS AS OF 2026-08-03 AFTERNOON — the D-family completes and the pool
+## confound is adjudicated (D, D2, D3b; written by the pen at RH's word)
+
+### REGISTRATION D — RUN AND READ ([3337]/[3354] stage 1, [3367] stage 2)
+
+Two-stage split on the 684-pair corpus (632 admitted; 52 dropped by
+qualification), fixed-sequence alpha (arousal first, stop at first
+non-rejection):
+
+- **H1 sweetening (signed valence): NOT SUPPORTED** (D +0.012, p 0.879).
+- **AROUSAL: NOT SUPPORTED, and the null is QUOTABLE** (D −0.030, p 0.998;
+  MDE 0.0257 < the known movement-general effect) — the arousal signature is
+  MOVEMENT-GENERAL, not site-specific. The row Registration C could not reach.
+- The two extremity arms were NOT TESTED by D's stopping rule — the structural
+  gap RH's "four numbers" complaint exposed; D2 exists because of it.
+
+### REGISTRATION D2 — BOTH EXTREMITY ARMS CONFIRMED ([3375] frozen,
+### result_d2_stage2.json)
+
+Bonferroni split (0.025 each, both arms, no stopping rule):
+
+- **VALENCE-EXTREMITY CONFIRMED** D +0.01511, p 0.00880.
+- **DOMINANCE-EXTREMITY CONFIRMED** D +0.01655, p 0.00960.
+- MAGNITUDE, quotable shape only: effects sit BELOW the MDE (86%/85% of it);
+  power at the observed effects ~66%; ~+23% expected winner's-curse inflation
+  conditional on rejection. A replication statement, not a validity one.
+- MAY NOT SAY: any between-dimension comparison; magnitude claims beyond the
+  MDE-relative statement.
+
+### THE POOL CONFOUND — RAISED BY RH, MEASURED, ADJUDICATED
+
+- **Diagnostic ([3405]/[3406], two independent implementations agreeing to
+  five decimals):** marked pools ARE more extreme — +2.66 pts tail mass at
+  |z|>=1 on a base of 25.87% (~10% relative), 439/632 pairs. The LEVEL is
+  controlled by construction; the TAIL COMPOSITION was not. CONFOUND LIVE.
+- **Tautology check ([3423]/[3425]/[3438]):** the swapped word enters its own
+  pool for ~20% of members (presence 257 or ~500 of 1,270 — two detectors, NOT
+  reconciled by ruling [3439]); the gap SURVIVES excluding swap words on both
+  detectors (change under 5% of its own size). The pool excess is the model's
+  response to the prompt, not the drafters' word choices.
+- **D3b (registration f02f59d403906503 in force with Amendment D3b-A
+  b69b3e7d3e5edf68; artifact of record result_d3b_stage2.json @
+  c43a153bfffb72cc; first artifact a653d7582daedbb1 superseded by the
+  denominator correction [3564]-[3578], no branch moved):** a NEUTRAL
+  DECOMPOSITION of D2's effect, two-sided bracket on ONE denominator (D2's own
+  D, read from its artifact and asserted bit-equal to the local mean):
+    - pool-associated share, bounded ABOVE by maximal sorting:
+      **valence +0.5609; dominance −1.1293 (OPPOSITE SIGN — the pool bounds at
+      nothing on that arm)**;
+    - pool-independent share, bounded ABOVE by attenuation:
+      **valence +1.3372; dominance +0.7567**;
+    - the dominance bounds' sum is not a partition (negative bound) — read the
+      two bounds, not the sum;
+    - **described fit, no registered prediction, NOT adjudicated: all four
+      fitted slopes of D_pair on gap_pair are NEGATIVE where the confound
+      predicts positive** (more extreme marked pool -> LESS displacement);
+      dominance pool-order/role concordance 48.4% vs 50% chance. Testing this
+      requires registering the surrogate as the hypothesis ([3574].5).
+  **CONSEQUENCE: "just reflects pool extremity" is dead on the measurements;
+  "routed through pool extremity" (mediation) remains open — the corpus cannot
+  separate artifact from mechanism, and "transgression" is entangled with the
+  swapped word's own extremity by the treatment's construction (out of scope,
+  stated in the registration's four refusals).**
+
+### THE CONVERGENT PICTURE (F + G + D + D2 + D3b), the canonical composite
+
+Displacement at transgressive sites is **NOT MORE FREQUENT** (F: rate null,
+n=33, p=0.148), **IS LARGER when it happens** (G: magnitude, d=0.748,
+p=0.00006), and is **affectively TARGETED IN EXTREMITY BUT NOT AROUSAL** —
+de-extremification concentrates at transgressive sites on both valence and
+dominance (D2), the arousal signature is movement-general (D, quotable null),
+sweetening is unsupported (D), **and the concentration is not vocabulary
+availability (D3b)**. One corpus, six registered instruments, every cell a
+measured claim on both sides. Full quotable shapes and MAY-NOT-SAYs live in
+the TheoryMachines claims register (notes/claims-register.md, section A8).
+
+### HASH CURRENCY NOTE ([3553] re-freeze)
+
+The 2026-08-03 amendment pass re-hashed six registrations (dated status
+headers; D3b's text changes). Earlier hash citations in THIS file resolve via
+the [3553] old->new table: D3b e20c412c898b58fc -> f02f59d403906503; D2
+881287ed3642ed55 -> d9fedcba3857d100; Reg-D Amendment A ddb4cd9b0496b723 ->
+03e43f65085488a0; F 8ff56206deac048e -> 4cb511ce320d90de; F Amendment A
+1356aa2ff274b796 -> 0eab73a95be5d33e; G efbab15841eae4c2 -> 0ca80e6bc2bf8323.
+Warrants (blindness credentials) preserved verbatim per the
+governance-vs-warrant boundary [3522]; a frozen document speaks from its
+freeze date.
+
+### REGISTRATION C EXPOSURE AND THE 959 ([3580]-[3591])
+
+- B/C's registered population (959 prompts) is RECOVERED and DEPOSITED:
+  `populations/population_bc_959.json` @ ad53fa20f0f920ff, reproducing the
+  frozen PROMPTS_SHA exactly. **Zero of the 1,368 pair prompts are in it** —
+  the pair corpus is entirely later growth (84.4% of all roster growth).
+- **C's instrument is NOT blind**: its arms are on disk with p-values
+  (result_c_run_valence.txt, result_c_discriminant.txt). Exposure is
+  ESTABLISHED, not bounded. **One arm survives blind: valence/signed/GENERAL**,
+  withheld behind §C8's --show-h1-general flag — blindness held where it was
+  enforced by mechanism, not memory.
+- Wave 2 on the live 2,579-prompt roster is a NEW registration by the
+  campaign's own rules (different population); nothing re-opens. Standing
+  requirement from the recovery's measured cost: **a population freezes as
+  rule + hash + THE DEPOSITED ENUMERATION** (texts, sorted, hashed, committed);
+  derived tensors are cited by hash and stored outside git ([3585]).
+
+### WHAT THIS BLOCK DOES NOT LICENSE
+
+No between-dimension comparison inside D2; no quantitative general-vs-site
+ratio (needs a registered bridge quantity on a common scale); no reading of
+the negative slope as a finding; no revival of the discordant-stratum test
+(excluded at 26-42% power under every construction, twelve-cell grid in the
+frozen D3b §5).
+
+---
+
 ## NAMING: THE LETTER `F` HAS TWO REFERENTS IN THE RECORD
 
 **`F` HERE MEANS THE WITHIN-PAIR DISPLACEMENT REGISTRATION** —
