@@ -1,6 +1,5 @@
 {
- "_column": "daf11fc743456f42",
- "_column_superseded": "dec26603e9ac1826",
+ "_column": "dec26603e9ac1826",
  "_denominator_note": "3,610 rows; one cell refused at lambda <= 0 per \u00a7M2 -- the declared refusal FIRED",
  "_registration": "3506032d552438e4",
  "_sign": "rho NEGATIVE = evictions concentrate at LOW headroom = BOUNDARY BLUR (\u00a7M4). Contraction predicts evictions PERSISTING at large s.",
@@ -11,7 +10,7 @@
    "evicted": 56,
    "n": 356,
    "rate": 0.15730337078651685,
-   "s_hi": 0.6537297820669659,
+   "s_hi": 0.653729782066966,
    "s_lo": 0.01357990262060979
   },
   {

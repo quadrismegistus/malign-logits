@@ -35,7 +35,14 @@ sys.path.insert(0, HERE)
 REGISTRATION_SHA16 = "72e4b4a94d7c467e"
 RUNGS = ("argmax", "top20", "retained")     #: L4.4 (role) is NOT a McNemar rung
 CELLS = os.path.join(CAMPAIGN, "results", "result_l_found_prose.json")
-CELLS_SHA16 = "f883672020269b95"   #: lacan's artifact, verified at this seat
+#: THE PIN, UPDATED UNDER [3828] — RH's word ordering the D-family re-run on the
+#: repaired `movement.py`. Protocol ratified at [3830]: the upstream's new hash
+#: is POSTED first ([3837]), the pin moves in a commit that changes nothing else,
+#: and THE SUPERSEDED VALUE STAYS HERE. Deleting it would destroy the only record
+#: that a swap happened, and "re-run under a ruling" would become indistinguishable
+#: from "someone edited a constant until the gate passed."
+CELLS_SHA16_SUPERSEDED = "f883672020269b95"   #: pre-fix, escrowed at [3837]
+CELLS_SHA16 = "18d1b6c9ad2a37af"   #: post-fix re-run, [3837]; verified at this seat
 
 
 # ══════════════════════════════════════════════════════════════════════════

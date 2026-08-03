@@ -26,7 +26,15 @@ sys.path.insert(0, HERE)
 
 REGISTRATION_SHA16 = "3506032d552438e4"
 COLUMN = os.path.join(CAMPAIGN, "results", "result_m_column.json")
-COLUMN_SHA16 = "dec26603e9ac1826"
+#: PIN UPDATED UNDER [3828], protocol [3830], upstream hash posted at [3840].
+#: The superseded value STAYS: it is the only record that a swap happened.
+#: AND THE REASON THE COLUMN MOVED AT ALL IS WORTH THE LINE — an import analysis
+#: said M was independent of the repair (no `movement`, no `decompose`, no
+#: `cell_roles` in m_column.py) and it was WRONG: M reads `c.pre.probs`, which
+#: comes through `word_probs()`. **A dependency graph over IMPORT STATEMENTS
+#: does not see a shared ACCESSOR.** 82% of rows changed; sized diff: REAL none.
+COLUMN_SHA16_SUPERSEDED = "dec26603e9ac1826"   #: pre-repair, escrowed at [3840]
+COLUMN_SHA16 = "daf11fc743456f42"   #: post-repair re-run, [3840]
 CLUSTER_FLOOR = 20                       #: §M3a
 
 
@@ -239,6 +247,61 @@ def deciles(rows):
     return out
 
 
+RESULT = os.path.join(CAMPAIGN, "results", "result_m_primary.json")
+ESCROW = os.path.join(CAMPAIGN, "results", "superseded")
+
+
+def emit(pc, arms, bands):
+    """WRITE THE ARTIFACT. [3849]: this producer computed and printed and wrote
+    NOTHING, so the artifact of record on disk kept declaring `_column`
+    `dec26603e9ac1826` — an input that had been superseded — permanently.
+
+    **AN ARTIFACT DECLARING AN INPUT HASH THAT NO LONGER EXISTS ON DISK IS A
+    SELF-EVIDENT STALENESS MARKER**, and it is only self-evident if someone
+    re-emits when the input moves. A run whose output lives in a terminal is a
+    run nobody else can test — the same sentence `run_l_found_prose.py` opens
+    with, and this file was the counter-example to it.
+
+    Escrow BEFORE write, read-only, per [3830].
+    """
+    payload = {
+        "_what": "Registration M's tests (§M3-§M3e). Frozen text %s." % REGISTRATION_SHA16,
+        "_registration": REGISTRATION_SHA16,
+        "_column": COLUMN_SHA16,
+        "_column_superseded": COLUMN_SHA16_SUPERSEDED,
+        "_denominator_note": "3,610 rows; one cell refused at lambda <= 0 per "
+                             "§M2 -- the declared refusal FIRED",
+        "_sign": "rho NEGATIVE = evictions concentrate at LOW headroom = "
+                 "BOUNDARY BLUR (§M4). Contraction predicts evictions "
+                 "PERSISTING at large s.",
+        "precheck": pc, "overshoot": arms["overshoot"],
+        "escapes": arms["escape"], "bands": bands,
+    }
+    if os.path.exists(RESULT):
+        os.makedirs(ESCROW, exist_ok=True)
+        prior = open(RESULT, "rb").read()
+        h = hashlib.sha256(prior).hexdigest()[:16]
+        dst = os.path.join(ESCROW, "result_m_primary.PREFIX-%s.json" % h)
+        if not os.path.exists(dst):
+            with open(dst, "wb") as fh:
+                fh.write(prior)
+            os.chmod(dst, 0o444)
+        print(f"  escrowed prior artifact @ {h} -> {os.path.basename(dst)}")
+        #: THE ARTIFACT IS chmod a-w AND THAT IS THE POINT. Unlock AFTER the
+        #: escrow exists and never before: if the write fails between unlock and
+        #: lock, the escrow is the copy that survives. Announced, never silent —
+        #: an unlock nobody sees is the lock not being there.
+        print(f"  UNLOCKING {os.path.basename(RESULT)} for the re-emit "
+              f"(escrow already read-only)")
+        os.chmod(RESULT, 0o644)
+    with open(RESULT, "w") as fh:
+        json.dump(payload, fh, indent=1, sort_keys=True)
+    os.chmod(RESULT, 0o444)
+    print(f"  wrote {os.path.basename(RESULT)} @ "
+          f"{hashlib.sha256(open(RESULT,'rb').read()).hexdigest()[:16]}  "
+          f"_column {COLUMN_SHA16}  RE-LOCKED a-w")
+
+
 if __name__ == "__main__":
     rows = load()
     fb = base_of_family()
@@ -252,8 +315,10 @@ if __name__ == "__main__":
         print("  *** NULL: the observed perturbation IS a uniform shrink. "
               "The exercise is VOID (§M3c). ***")
 
+    arms = {}
     for side in ("overshoot", "escape"):
         r = run_arm(rows, side, fb)
+        arms[side] = r
         label = "PRIMARY -- OVERSHOOT" if side == "overshoot" else "ESCAPES (§M3b)"
         print(f"\n{label}")
         print(f"  families with a z {len([f for f,v in r['families'].items() if v['z'] is not None])}"
@@ -268,10 +333,14 @@ if __name__ == "__main__":
                 rho_s = "  --  " if v["rho"] is None else f"{v['rho']:+.4f}"
                 print(f"    {f:<24} n {v['n']:>3}  k {v['k']:>3}  rho {rho_s}")
 
+    bands = deciles(rows)
     print(f"\nBAND TABLE (§M3d, equal-n deciles of s):")
     print(f"  {'dec':>4}{'n':>6}{'s_lo':>9}{'s_hi':>9}{'evict':>7}{'rate':>8}")
-    for b in deciles(rows):
+    for b in bands:
         print(f"  {b['decile']:>4}{b['n']:>6}{b['s_lo']:>9.3f}{b['s_hi']:>9.3f}"
               f"{b['evicted']:>7}{100*b['rate']:>7.2f}%")
     print("\nNO MDE (§M4). Read the rho WITH the band table: rho alone cannot "
           "separate 'evictions at all headrooms' from 'no evictions at all'.")
+
+    print("\nARTIFACT (§[3849] — this producer used to write nothing):")
+    emit(pc, arms, bands)
