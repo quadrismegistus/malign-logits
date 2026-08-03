@@ -1,6 +1,6 @@
 # M01 WITHIN-PAIR DISPLACEMENT TEST — REGISTRATION
 
-**STATUS: DRAFT FOR FREEZE. Nothing below the aggregate named in §0 has been
+**STATUS AS DECLARED (2026-08-02 UTC, per [3032]): draft; not in force as declared. Freeze state is recorded on the docket and in git history. Nothing below the aggregate named in §0 has been
 computed. No per-lineage value, no domain split, no depth figure exists at the
 time of writing.**
 

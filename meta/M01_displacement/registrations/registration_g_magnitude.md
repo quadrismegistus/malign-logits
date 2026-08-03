@@ -1,6 +1,6 @@
 # M01 MAGNITUDE REGISTRATION — displacement measured by MASS, not by SIGN
 
-**STATUS: DRAFT FOR FREEZE. Nothing below §0's disclosures has been computed.
+**STATUS AS DECLARED (2026-08-03 UTC, per [3122]): draft; not in force as declared. Freeze state is recorded on the docket and in git history. Nothing below §0's disclosures has been computed.
 No magnitude quantity has been read at the unit level, on any arm, ever.**
 
 Commissioned by RH after the rate test returned a null. Drafted by @lacan

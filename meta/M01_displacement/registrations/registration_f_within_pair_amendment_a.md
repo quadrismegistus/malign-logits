@@ -1,6 +1,6 @@
 # AMENDMENT A to `m01_within_pair_registration.md` @ `8ff56206deac048e`
 
-**STATUS: DRAFT FOR SIGNATURE. No verdict has been computed under any candidate
+**STATUS AS DECLARED (2026-08-03 UTC, per [3101]): draft; not in force as declared. Freeze state is recorded on the docket and in git history. No verdict has been computed under any candidate
 pair of declarations. The design arguments below were written before any
 crossed verdict existed, per [3072] as extended by [3080].**
 

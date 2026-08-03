@@ -1,6 +1,6 @@
 # Registration D2 — the two extremity arms, tested
 
-**STATUS: DRAFT. Nothing is in force. NO D2 QUANTITY HAS BEEN COMPUTED BY ANY
+**STATUS AS DECLARED (2026-08-03 UTC, per [3375]): draft; not in force as declared. Freeze state is recorded on the docket and in git history. NO D2 QUANTITY HAS BEEN COMPUTED BY ANY
 SEAT, and none may be until this is countersigned and frozen.**
 
     SUCCESSOR TO   registration_d_pairs_v6.md @ 8375ff4c8335d979

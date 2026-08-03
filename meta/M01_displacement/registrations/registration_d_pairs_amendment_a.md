@@ -1,6 +1,6 @@
 # Registration D — Amendment A: the population, and the clause that did not name its own anchor
 
-**STATUS: DRAFT. Nothing is in force. No D quantity has been computed on any
+**STATUS AS DECLARED (2026-08-03 UTC, per [3306]): draft; not in force as declared. Freeze state is recorded on the docket and in git history. No D quantity has been computed on any
 population, and none may be until this is countersigned and frozen.**
 
     AMENDS      registration_d_pairs_v6.md @ 8375ff4c8335d979

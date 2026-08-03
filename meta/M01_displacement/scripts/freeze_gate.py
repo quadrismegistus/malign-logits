@@ -73,7 +73,15 @@ def custody_state(path):
     in_head = git("rev-parse", "HEAD:%s" % rel)
     if in_head.returncode == 0 and in_head.stdout.strip() == here:
         return "COMMITTED"
-    return "STAGED"
+    #: **STAGED AND MODIFIED ARE DIFFERENT STATES AND THE MESSAGE DIFFERS.**
+    #: The first version returned STAGED for both, asserting "the blob is
+    #: unreferenced and gc prunes it" -- which is FALSE for a worktree edit that
+    #: was never added, whose bytes are in no object store at all. Both fail
+    #: custody; only one of them has a restore path to expire.
+    idx = git("ls-files", "-s", "--", ap).stdout.split()
+    if len(idx) >= 2 and idx[1] == here:
+        return "STAGED"
+    return "MODIFIED"
 
 
 def is_tracked(path):
@@ -122,10 +130,17 @@ def status_line_is_time_invariant(text):
     however it is worded.
     """
     import re
-    #: A status line is any line naming STATUS. Scan the head only: a mention of
-    #: the word deep in the body is prose, not the document's own state.
+    #: **A LINE CONTAINING THE WORD "STATUS" IS NOT A STATUS DECLARATION.**
+    #: The predicate was moved from a phrase to the property, and the LINE
+    #: SELECTOR stayed a label match -- so the property test ran on the wrong
+    #: lines. It classified `registration_d_pairs_v5.md` as carrying an undated
+    #: status line on the strength of "...its PRIMARY STATUS is preserved", a
+    #: sentence about an experimental arm. That false positive reached a signed
+    #: amendment and an authorization before anyone read the line it matched.
+    #:
+    #: A declaration OPENS its line, allowing markdown heading/emphasis marks.
     head = text.split("\n")[:40]
-    lines = [l for l in head if "status" in l.lower()]
+    lines = [l for l in head if re.match(r"^[\s#*_>|-]*status\b", l, re.I)]
     if not lines:
         return False, ("NO STATUS LINE in the first 40 lines -- the document "
                        "makes no claim about its own state, so nothing here "
@@ -163,6 +178,9 @@ def gate(path, sha_of=None):
         "STAGED": "STAGED ONLY -- the blob is unreferenced and `git gc` prunes it "
                   "after its grace period. A restore path with an expiry date "
                   "is not custody.",
+        "MODIFIED": "MODIFIED IN THE WORKTREE, NEVER ADDED -- these bytes are in "
+                    "NO object store. There is nothing to expire because there "
+                    "is nothing to restore from.",
         "UNTRACKED": "UNTRACKED -- one filesystem location is not frozen, it is "
                      "merely unmodified",
     }[state])
@@ -255,6 +273,23 @@ def selftest():
          not status_line_is_time_invariant(
              "# Title\n" + "\n" * 60 + "status as of 2026-08-01")[0])
 
+    #: THE REAL FALSE POSITIVE, verbatim from registration_d_pairs_v5.md. It
+    #: reached a signed amendment and an authorization. The document has NO
+    #: status declaration; the match was a sentence about an experimental arm.
+    v5 = ("# Registration D v5\n\nA DELTA on frozen c_delta_v6. **v1-v3 are "
+          "SUPERSEDED.** v4's H1-signed arm carries over VERBATIM and is "
+          "untouched — it was designed before any unblinding and its primary "
+          "status is preserved:\nDrafted by seats that have never seen the "
+          "withheld value. **The population does not yet exist.**\n")
+    ok_v5, why_v5 = status_line_is_time_invariant(v5)
+    case("'its primary status is preserved' is NOT a status declaration",
+         not ok_v5 and "NO STATUS LINE" in why_v5)
+
+    case("a declaration is recognised at the START of its line, through markdown",
+         status_line_is_time_invariant("## STATUS AS OF 2026-08-01")[0]
+         and status_line_is_time_invariant("**STATUS AT DRAFTING (2026-08-03)**")[0]
+         and not status_line_is_time_invariant("**STATUS: DRAFT FOR FREEZE.**")[0])
+
     d = tempfile.mkdtemp()
     p = os.path.join(d, "x.md")
     open(p, "w").write("**STATUS AT DRAFTING (2026-08-03): draft.**\n")
@@ -304,6 +339,13 @@ def selftest():
     open(f, "a").write("edited\n")
     case("a COMMITTED-then-EDITED file is NOT committed -- the question is about "
          "THESE BYTES", custody_state(f) != "COMMITTED")
+    #: THE THREE FAILING STATES ARE DISTINGUISHED, not merged into one message.
+    #: A worktree edit that was never added has NO blob anywhere; saying its
+    #: blob will be pruned is a false statement about a recoverable artifact.
+    case("...and it reports MODIFIED, not STAGED -- never added, so no blob",
+         custody_state(f) == "MODIFIED")
+    sp.run(G + ["-C", r, "add", "a.md"], capture_output=True)
+    case("...and once ADDED it reports STAGED", custody_state(f) == "STAGED")
 
     _, rows = gate(p)
     names = {n: s for s, n, _ in rows}

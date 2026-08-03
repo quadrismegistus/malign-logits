@@ -1,6 +1,6 @@
 # Registration D3b — decomposing D2's effect against pool extremity
 
-**STATUS: DRAFT. Nothing is in force. NO D3b QUANTITY HAS BEEN COMPUTED.**
+**STATUS AS DECLARED (2026-08-03 UTC, per [3467]): draft; not in force as declared. Freeze state is recorded on the docket and in git history. NO D3b QUANTITY HAS BEEN COMPUTED.**
 
     BENCHMARKS   registration_d2_extremity.md @ 881287ed3642ed55
                  read a1d712093155f32c: val_extrem D +0.01511 p 0.00880,
@@ -65,9 +65,17 @@ either outcome, and does.
     CONFOUND SIDE   RELABEL-IN-REAL-PAIRS.  Take the 632 admitted pairs, keep
                     every pool and movement exactly as measured, reassign role
                     BY POOL EXTREMITY, recompute D2's statistic.
+                    THE SORT KEY IS §4's REGRESSOR -- `mean|z|` UNWEIGHTED,
+                    POOLED across a member's cells (Amendment A §A2, §A3).
+                    ON AN EXACT TIE the DATA's roles are RETAINED, and the TIE
+                    COUNT PRINTS beside `relabelled D` for every construction.
                     READS HIGH -- role/pool concordance is 1.0 here against
-                    439/632 (~69%) in the data, so it is the confound at FULL
-                    STRENGTH: an UPPER BOUND on the pool-associated share.
+                    417/632 (~66%) in the data under that key, so it is the
+                    confound at FULL STRENGTH: an UPPER BOUND on the
+                    pool-associated share.
+                    DECLARED SENSITIVITIES, each reporting `relabelled D` and
+                    §7's ratio: tail>=1 unweighted (439/632, ~69%, ONE TIE)
+                    and mean|z| |delta|-weighted (362/632, ~57%).
 
     RESIDUAL SIDE   C's INTERCEPT.  Regress D_pair on gap_pair over the 632;
                     read b0, THE COMPONENT OF `D_pair` NOT LINEARLY PREDICTABLE
@@ -97,19 +105,44 @@ defend.
 **Sealed on the estimator's property, not on any figure: the corrected form is
 the one whose bias does not run systematically in our favour.**
 
-**RELIABILITY** is estimated by split-half over each member's cells, and is a
-STAGE-1 quantity: it carries no D, no sign and no p.
+**RELIABILITY IS OF `gap_pair` — THE DIFFERENCE, NOT EITHER MEMBER'S MEAN**
+(Amendment A §A4). Half-gaps are computed per pair as
+`mean|z|(M_half) - mean|z|(U_half)`, correlated across pairs by PEARSON, and
+Spearman-Brown corrected. It is a STAGE-1 quantity: no D, no sign, no p.
+
+**THE SPLIT IS SHARED OVER THE UNION of the pair's edges, not per member and
+not over the intersection.** A split-half is licensed only insofar as each half
+is a PARALLEL MINIATURE of the full quantity: the union assignment partitions
+EACH member's full edge set, so both half-gaps are miniatures of the gap the
+regression consumes. Per-member splitting injects edge-composition noise the
+full statistic does not contain; the intersection reading drops a median of
+seven edges per pair (631 of 632 pairs have differing edge sets) and discards
+17 pairs where the union discards 8.
 
 **THE SPLIT MUST BALANCE CELL MASS ACROSS HALVES.** Split-half assumes parallel
 forms; a member's cells differ in size, so an unbalanced split understates
-reliability and the correction overshoots. Split rule and seed are declared in
-the producer and printed.
+reliability and the correction overshoots. **Greedy longest-processing-time over
+the union edge set on POOLED word count (MARKED + UNMARKED at that edge);
+CELL-KEY (family, position) ASCENDING on equal count; on equal mass to the half
+holding FEWER CELLS, then to half A. NO RANDOM SEED IS USED, and Python's
+`hash()` is forbidden — it is salted per process.** The realized median and
+maximum imbalance PRINT with the reliability.
+
+**SCOPE AND SKIPS:** the correlation runs over the ADMITTED 632 — the population
+the corrected estimator is fit on — with the all-pairs figure reported beside it
+as a sensitivity. **A pair with an EMPTY HALF is skipped from the reliability
+computation ONLY, stays in the regression, and the SKIP COUNT PRINTS.**
 
 **THE FLOOR, DECLARED NOW RATHER THAN CHOSEN LATER: if estimated reliability
 falls below 0.60, the corrected intercept is reported as UNSTABLE and the
 residual side FALLS BACK TO THE RAW INTERCEPT with its one-way caveat.**
 Dividing by a noisy estimated coefficient overcorrects, and at low reliability
 the corrected estimate's error grows fast in the other direction.
+**THE FLOOR APPLIES PER REGRESSOR**, each reliability against its own.
+**DISATTENUATION:** correct `b1` by dividing by the reliability, then RE-DERIVE
+`b0` through the means, so the fitted line passes through
+(mean `gap_pair`, mean `D_pair`).
+**THE RELIABILITY'S SIGNED DISTANCE FROM 0.60 PRINTS, PER ARM** — see §6.5.
 
 **THE REGRESSOR'S WEIGHTING IS A DECLARED FORK, named at the construct read
 before code:** the |delta|-weighted gap is what the statistic SEES but shares
@@ -123,7 +156,10 @@ fixed-reading sensitivity.**
 
 ## §4 SUPPORT FOR THE INTERCEPT — measured, not argued
 
-    gap_pair (mean_abs_z, MARKED - UNMARKED), n = 632
+    gap_pair (mean_abs_z POOLED across a member's cells, MARKED - UNMARKED),
+    n = 632   -- POOLED, not the mean of per-cell means: a cell-mean average
+    weights a 3-word cell like a 40-word one, and the confound is about how many
+    extreme words were AVAILABLE, which is a count question (Amendment A §A3)
       min -0.4193   q1 -0.0171   median +0.0250   q3 +0.0727   max +0.3696
       NEGATIVE 215   POSITIVE 417
       |gap| <= 0.01   71 pairs    |gap| <= 0.02  145    |gap| <= 0.05  333
@@ -203,9 +239,13 @@ least one entry must be a way the measurement could be wrong IN OUR FAVOUR.**
        not "the effect purged of confounding" and must never be quoted as that.
 
     3. MAXIMAL SORTING -> THE RELABEL READS HIGH, IN OUR FAVOUR ON THE OTHER
-       SIDE.  Concordance 1.0 against the data's 69% means the relabel
+       SIDE.  Concordance 1.0 against the data's 66% UNDER THE DECLARED SORT
+       KEY (417/632; Amendment A §A2 -- the 69% previously quoted here is the
+       TAIL sensitivity, not the measure the bracket uses) means the relabel
        overstates the pool-associated share, which makes the residual look
-       smaller than it is.
+       smaller than it is.  The argument is unaffected in logic: 1.0 exceeds
+       0.66, 0.69 and 0.57 alike.  It must be PRICED against the measure the
+       bracket actually reads.
 
     4. SHARED INPUTS -> THE INTERCEPT IS A DECOMPOSITION, NOT A COUNTERFACTUAL.
        NEUTRAL IN DIRECTION.  `D_pair` and `gap_pair` are two FUNCTIONALS OF ONE
@@ -218,9 +258,28 @@ least one entry must be a way the measurement could be wrong IN OUR FAVOUR.**
        NOT CLEAN -- residualisation removes an arousal-predicted component from
        A's inputs; it does not make A a function of different words.
 
+    5. THE FLOOR IS A DISCONTINUITY AND IT POINTS IN OUR FAVOUR.  Added by
+       Amendment A §A7.  Above 0.60 a falling reliability corrects b1 UP and b0
+       DOWN, which runs AGAINST us; crossing BELOW 0.60 falls back to the RAW
+       intercept, which entry 1 declares OVERSTATES the pool-independent share.
+       **So anything depressing reliability far enough does not shade the result
+       against us by degrees -- it JUMPS it in our favour, discontinuously, with
+       no single choice having done so.**
+
+       ITEM-WISE NEUTRALITY DOES NOT COMPOSE.  Every ambiguity Amendment A
+       resolved was checked and each resolves against us or neutrally; a
+       guarantee verified PER ITEM can still be false ACROSS A BRANCH.
+
+       THE FLOOR DOES NOT MOVE -- it was declared before any reliability
+       existed.  THE RESPONSE IS DISCLOSURE: the reliability's SIGNED DISTANCE
+       FROM 0.60 PRINTS PER ARM, so a near-miss is a number on the page and not
+       a branch that silently absorbs it.
+
 **Entries 1 and 3 are the honest-gate requirement: both flatter our own
 decomposition, from opposite ends. Entry 4 flatters nothing and constrains the
-deliverable's wording, which is why it is an edit as well as an entry.**
+deliverable's wording, which is why it is an edit as well as an entry. Entry 5
+flatters us in a way no single item does, which is why it needed a mechanism
+rather than a caveat.**
 
 ---
 
@@ -244,6 +303,29 @@ below" and "far below" are different findings wearing one sentence.** The ratio
 puts the magnitude on the page and **the reader does the sizing.** No cut is
 declared — a cut chosen now would be chosen with D2's numbers in hand, and the
 ratio is implied by the branches already, so it adds a number and no discretion.
+
+**AND THE `b0` BRANCHES GET THE SAME TREATMENT, WHICH THE FIRST PASS GAVE ONLY
+TO THE RELABEL PAIR** (Amendment A §A5). "Far from 0" and "near 0" name no
+comparator, and `b0` is in A-units:
+
+    REPORTED AS A DECLARED QUANTITY, WITH NO THRESHOLD: the POOL-INDEPENDENT
+    SHARE, `b0 / mean(D_pair)`.
+
+    numerator    `b0` as fitted -- disattenuated where §3's floor is met, raw
+                 where it is not, and THE PRINTED ROW SAYS WHICH
+    denominator  mean(`D_pair`) over THE SAME PAIRS THE REGRESSION FITS.  It is
+                 D2's OWN D, POSITIVE on both arms (+0.015106155684521026
+                 val_extrem, +0.016554961336197260 dom_extrem at t=0.00)
+    sign         SIGNED, no absolute value.  A NEGATIVE share means the
+                 pool-independent component runs OPPOSITE the effect, which is
+                 a finding and must not be hidden
+    range        NOT bounded to [0,1]; a share above 1 or below 0 is a real
+                 outcome of a linear decomposition and is reported as-is
+
+**BOTH SIDES OF THE BRACKET NOW CARRY ONE DENOMINATOR** — `relabelled D / D2's D`
+on the pool-associated side, `b0 / D2's D` on the pool-independent side — **so
+the two bounds are on one scale, directly comparable, and their sum is
+interpretable.**
 
 **NO SIGNIFICANCE TEST ON THE DECOMPOSITION. NO VERDICT LANGUAGE.** D3b reports
 two bounds and their gap; **it does not re-adjudicate D2, which stands as read.**
