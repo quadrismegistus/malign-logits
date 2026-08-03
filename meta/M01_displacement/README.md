@@ -424,3 +424,34 @@ evidential weight.**
 breakdown is exploratory with no declared null; taboo and sexual both have the
 confound running the SAME sign as their effect and are not interpretable.
 **NO ORDERING WITHOUT A DECLARED NULL.**
+
+---
+
+## NAMING: THE LETTER `F` HAS TWO REFERENTS IN THE RECORD
+
+**`F` HERE MEANS THE WITHIN-PAIR DISPLACEMENT REGISTRATION** —
+`registrations/registration_f_within_pair.md` @ `8ff56206deac048e`, with
+Amendment A @ `1356aa2ff274b796`, producing `results/result_f_within_pair.json`
+and `results/result_f_collapsed.json`. Lettered at [3149].
+
+**A DIFFERENT, PROSPECTIVE registration is also called `F` in Registration E's
+status block and in [1994]b**: the signed-valence follow-on on E's GAP
+stratum, which **declares itself SIGHTED FROM BIRTH** (E's H2 computation
+necessarily held signed valence). **It has no file, no freeze and no citations
+beyond those two mentions, and it is being RELETTERED at birth** — ruled
+[3235], the cheapest possible moment.
+
+**WHY THIS NOTE EXISTS RATHER THAN A QUIET RENAME.** The misreading runs in the
+worst available direction: **the prospective F is sighted-from-birth; the F
+above is the registration whose prior-exposure discipline was enforced most
+strictly in this campaign** — §0's exposure ledger, the blindness constraint on
+its design decisions, and a countersignature that disclosed knowing the
+critical-count bars before answering the design question. **A reader
+conflating them concludes that the strictest-blinded registration was sighted
+from birth. The collision does not merely confuse two documents; it transfers
+the exact property one of them was built to refuse.**
+
+**Nothing named `F` in this folder is sighted from birth.**
+
+Same class as the `departed` collision noted at [3124] — one name, two
+quantities — caught before either referent was cited against the other.
