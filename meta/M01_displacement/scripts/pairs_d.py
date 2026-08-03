@@ -1,0 +1,634 @@
+#!/usr/bin/env python3
+"""Registration D — the paired valence/arousal/dominance read on the 684 pairs.
+
+    REGISTRATION   registrations/registration_d_pairs_v6.md
+    AMENDMENT A    registrations/registration_d_pairs_amendment_a.md
+                     @ ddb4cd9b0496b723, frozen [3310], three signatures
+    GOVERNING      C v6 06f0272d7f21b901 -> B v13 06186c42f9ff46e0 (terminus)
+    POPULATION     results/population_d_684.json @ 3ed3e286e633c2fc
+
+TWO STAGES, AND THE SPLIT IS THE POINT (§A7.3, ruled [3280])
+------------------------------------------------------------
+§D6d turns a null into either *evidence the effect is MOVEMENT-GENERAL, quotable
+as such* or *UNINFORMATIVE AT THIS POWER, quotable as nothing*, on the comparison
+`MDE < the dimension's known effect size`. **The raw MDE depends on a realized
+variance nobody can know before opening the data.** So:
+
+    STAGE 1   realized SDs and raw MDEs per arm per threshold point.
+              NO D, NO p, NO SIGNS. Emits an artifact and its hash.
+    STAGE 2   REFUSES TO RUN without stage 1's artifact hash. Computes the
+              verdict quantities against a threshold already on the record.
+
+**Without the split, §D6d is a verdict rule whose threshold gets set after the
+verdict is visible** ([3278].2). The separation makes the ordering a fact about
+artifacts rather than a claim about anyone's discipline.
+
+DECLARED DISCRETION — every point posted BEFORE this file existed
+-----------------------------------------------------------------
+[3269] four pinned readings + two resolutions, [3271] the p-convention,
+[3304] the §D6 denominator split. Restated at their use sites below, so a reader
+meets the reasoning where it bites rather than in a docket archive.
+"""
+
+import argparse
+import collections
+import hashlib
+import json
+import math
+import os
+import statistics as st
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))          # .../M01_displacement/scripts
+CAMPAIGN = os.path.dirname(HERE)                           # .../M01_displacement
+ROOT = os.path.dirname(os.path.dirname(CAMPAIGN))          # the repository root
+sys.path.insert(0, ROOT)
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+sys.path.insert(0, HERE)
+
+import numpy as np
+
+# ── frozen identifiers, asserted at startup, never retyped downstream ────
+AMENDMENT_SHA = "ddb4cd9b0496b723"
+POPULATION_SHA = "3ed3e286e633c2fc"
+C_V6_SHA = "06f0272d7f21b901"
+B_V13_SHA = "06186c42f9ff46e0"
+
+#: §D3 verbatim. NOT a range built from endpoints -- a literal, so a reader
+#: diffs it against the registration by eye.
+GRID = (0.00, 0.01, 0.02, 0.05, 0.10, 0.20)
+FLOOR = 6                     #: §D3, n >= 6 admitted pairs at a point
+ALPHA = 0.05                  #: §D3, one-sided, named so no default adjudicates
+COLLAPSE_JACCARD = 0.95       #: §D3, overlap with the t=0.00 set
+EXACT_MAX_N = 20              #: §D2, 2^20 = 1,048,576
+POWER = 0.80                  #: §A7.1, inherited from G §8 / F, not chosen here
+
+#: §D6b. (name, quantity, direction, residualisation)
+ARMS = (
+    ("h1_signed",   "valence",   -1, "linear"),
+    ("arousal",     "arousal",   +1, "none"),
+    ("val_extrem",  "valence",   +1, "quadratic"),
+    ("dom_extrem",  "dominance", +1, "quadratic"),
+)
+EXTREMITY = {"val_extrem", "dom_extrem"}   #: |dim_z| FIRST, then residualise
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# the statistic
+# ══════════════════════════════════════════════════════════════════════════
+def sign_flip_p(values, direction, seed, draws=10000):
+    """One-sided p for the paired sign-flip null. §D2.
+
+    THE p-CONVENTION IS DECLARED AND IT IS NOT ONE CONVENTION ([3271]).
+
+    **PLAIN at exact enumeration, ADD-ONE when sampled.** The Phipson-Smyth
+    add-one exists to correct a p ESTIMATED FROM A RANDOM SAMPLE -- its content
+    is that zero hits in d draws has not established p = 0. **At exact
+    enumeration there is no sampling and no error to correct**: 2^n sign-flips
+    IS the null distribution, so the count is the p-value rather than an
+    estimate of it, and add-one would inflate it against a variance that does
+    not exist.
+
+    EXTREMITY IS `>=` (or `<=`), NOT STRICT, AND §D4 PINS IT WITHOUT NAMING IT
+    ([3304].2). The OBSERVED configuration is itself one of the 2^n draws, so
+    under `>=` it always counts itself and the floor is 1/2^n -- which is
+    exactly the lattice §D4 requires printed. Under `>` the floor would be 0.
+    """
+    v = np.asarray(values, dtype=float)
+    n = len(v)
+    obs = float(v.mean())
+    #: DIRECTION FIRST, so the tail test below is written once. For a
+    #: registered D < 0 the extreme tail is the LOWER one; flipping the sign of
+    #: the data lets one `>=` serve both and removes a branch that could drift.
+    s = v if direction > 0 else -v
+    obs_s = float(s.mean())
+
+    if n <= EXACT_MAX_N:
+        hits = 0
+        idx = np.arange(n)
+        for mask in range(1 << n):
+            sgn = 1.0 - 2.0 * ((mask >> idx) & 1).astype(float)
+            if float((s * sgn).mean()) >= obs_s:
+                hits += 1
+        return {"p": hits / (1 << n), "convention": "plain/exact",
+                "draws": 1 << n, "hits": hits, "statistic": obs,
+                "resolution": 1.0 / (1 << n), "exact": True}
+
+    rng = np.random.default_rng(seed)
+    hits = 0
+    for _ in range(draws):
+        sgn = rng.choice((-1.0, 1.0), size=n)
+        if float((s * sgn).mean()) >= obs_s:
+            hits += 1
+    return {"p": (hits + 1) / (draws + 1), "convention": "add-one/sampled",
+            "draws": draws, "hits": hits, "statistic": obs,
+            "resolution": 1.0 / draws, "exact": False}
+
+
+def raw_mde(n, sd, direction, seed, power=POWER, alpha=ALPHA, reps=400):
+    """Smallest |effect| in RAW dimension units detectable at `power`. §A7.2.
+
+    RAW, NOT STANDARDISED, and the distinction is load-bearing: G's MDE is a
+    standardised d = 0.426, and §D6d compares against RAW comparators (0.025,
+    ~0.10). **A standardised MDE cannot be compared to a raw effect size.**
+
+    Simulation at the arm's realized pair-count and SD, per §A7.2, because the
+    sign-flip null has no closed form worth trusting at these n.
+    """
+    if n < 2 or not sd or sd <= 0 or not math.isfinite(sd):
+        return None
+    rng = np.random.default_rng(seed)
+    lo, hi = 0.0, 8.0 * sd
+    for _ in range(22):                       # bisection on the effect size
+        mid = 0.5 * (lo + hi)
+        rej = 0
+        for _ in range(reps):
+            draw = rng.normal(direction * mid, sd, n)
+            r = sign_flip_p(draw, direction, seed=int(rng.integers(1 << 30)),
+                            draws=400)
+            if r["p"] <= alpha:
+                rej += 1
+        if rej / reps < power:
+            lo = mid
+        else:
+            hi = mid
+    return 0.5 * (lo + hi)
+
+
+def jaccard(a, b):
+    a, b = set(a), set(b)
+    return len(a & b) / len(a | b) if (a or b) else 1.0
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# collection
+# ══════════════════════════════════════════════════════════════════════════
+def build(rule="CANONICAL", verbose=False):
+    """Cells -> per-member A per arm -> pairs. Returns everything, reads nothing.
+
+    THE ORDER OF THE TWO GATES IS THE SPEC'S AND NOT A CHOICE ([3269].1).
+    §D1's qualification chain is PRIOR TO and INDEPENDENT OF §D3's `t`:
+
+        a CELL qualifies    >= 3 rated non-function words in EACH role
+        a MEMBER qualifies  >= 1 qualifying cell
+        a PAIR is admitted  BOTH members qualify
+
+    So a never-firing member has zero qualifying cells and its pair is never
+    admitted AT ANY t INCLUDING 0.00 -- **without any appeal to what an
+    undefined median means.** §D3 says so itself ("removes low-displacement
+    pairs BEFORE `t` ever acts on them") and §D6 makes it a printed diagnostic.
+    """
+    import m01_norms as N
+    import m01_registration_b as B
+    import m01_concentration as CC
+    import within_pair as W
+
+    # ── the roster rule, and its drift BOUND BY NAME (§A8.2b) ────────────
+    #
+    # `frozen_population()` RETURNS drift; it does not refuse. Six callers
+    # check it, one documents why it does not, and one binds it to `_d` and
+    # never looks -- with the drift live today. **"Recorded" means a field a
+    # reader MEETS, never a value the producer received and dropped.**
+    prompts_all, models, (ph, mh), drift = CC.frozen_population()
+
+    pairs, domains = W.m01_pairs()
+    assert len(pairs) == 684, f"population is {len(pairs)}, expected 684"
+
+    edges, edge_dropped = CC.operation_edges(models)
+    norms = N.load_norms(verify=True)
+    tabs = {d: norms[("en", d, "primary")]
+            for d in ("arousal", "valence", "dominance")}
+
+    texts = {t for v in pairs.values() for t in v.values()}
+    diag = collections.Counter()
+    #: cell[(prompt, edge_key)] = {"departed": float, "arms": {arm: A}}
+    cells = collections.defaultdict(dict)
+
+    for fam, pos, step in sorted(edges):
+        for t in sorted(texts):
+            c = step.cell(t)
+            if not c.is_present:
+                diag["cell absent from the store"] += 1; continue
+            if c.language != "en":
+                #: C §C0's `en only`, RETAINED per §A8's field table.
+                diag["non-en, outside C v6 §C0's declared population"] += 1
+                continue
+            try:
+                dec = c.decompose(None)
+            except Exception as e:
+                diag[f"decompose errored: {type(e).__name__}"] += 1; continue
+            if not dec:
+                diag["cell decomposed empty"] += 1; continue
+            try:
+                roles = N.cell_roles(c, rule)
+            except Exception as e:
+                diag[f"cell_roles errored: {type(e).__name__}"] += 1; continue
+
+            ws, zs, rs = [], [], []
+            for w, wt, role in roles:
+                k = N.norm_key(w, "en", fold=False)
+                if N.is_function_word(k, "en"):
+                    diag["function word excluded"] += 1; continue
+                z = {}
+                for dim in ("arousal", "valence", "dominance"):
+                    val, _ = N.lookup(tabs[dim], k.casefold(), "en")
+                    z[dim] = val
+                if any(x is None for x in z.values()):
+                    diag["missing a V/A/D rating"] += 1; continue
+                ws.append(wt); zs.append(z); rs.append(role)
+
+            nf = sum(1 for r in rs if r == "faller")
+            if nf < B.QUALIFYING_MIN or len(rs) - nf < B.QUALIFYING_MIN:
+                diag[f"cell below the {B.QUALIFYING_MIN}-per-role bar"] += 1
+                continue
+
+            #: THE WITHDRAWN NaN GUARD, NOW AN ASSERTION ([3279]).
+            #: `wmean` returns NaN when sum(w) == 0. That cannot happen here:
+            #: the role predicate IS a |delta| threshold (>= 0.003 under
+            #: CANONICAL and DRAW), so having a role entails a positive weight.
+            #: A fallback would have absorbed a future rule change silently; an
+            #: assertion makes someone read this sentence instead.
+            assert all(w > 0 for w in ws), (
+                "zero weight on a roled word -- unreachable while the role "
+                "predicate is a |delta| threshold; a rule change must be read, "
+                "not absorbed")
+
+            cells[t][(fam, pos)] = {"departed": float(dec["departed"]),
+                                    "ws": ws, "zs": zs, "rs": rs}
+
+    return {"pairs": pairs, "domains": domains, "cells": dict(cells),
+            "diag": diag, "edges": [(f, p) for f, p, _ in edges],
+            "edge_dropped": dict(edge_dropped),
+            "roster": {"n_prompts": len(prompts_all), "n_models": len(models),
+                       "prompts_sha16": ph[:16], "models_sha16": mh[:16],
+                       "frozen_prompts_sha16": CC.PROMPTS_SHA[:16],
+                       "frozen_models_sha16": CC.MODELS_SHA[:16],
+                       "drift": drift}}
+
+
+def arm_values(cells, arm, resid):
+    """Per-cell A for one arm, with GLOBAL residualisation. C §C0's RESIDUAL.
+
+    Residualisation is GLOBAL OVER THE QUALIFYING POPULATION AND NEVER WITHIN
+    CELL -- C §C0 states the reason: a within-cell fit leaves one df at n = 3
+    and emits structural zeros that enter the statistic while counting in the
+    denominator.
+    """
+    import m01_registration_c3 as C3
+
+    name, dim, _direction, kind = arm
+    #: pass 1 -- gather (arousal, value) over every qualifying word, globally
+    xs, ys = [], []
+    for t, per_edge in cells.items():
+        for key, c in per_edge.items():
+            for z in c["zs"]:
+                v = abs(z[dim]) if name in EXTREMITY else z[dim]
+                xs.append(z["arousal"]); ys.append(v)
+    xs, ys = np.asarray(xs, float), np.asarray(ys, float)
+
+    beta = None
+    if kind != "none" and len(xs) > 3:
+        X = ([np.ones_like(xs), xs] if kind == "linear"
+             else [np.ones_like(xs), xs, xs ** 2])
+        beta = np.linalg.lstsq(np.vstack(X).T, ys, rcond=None)[0]
+
+    def value(z):
+        v = abs(z[dim]) if name in EXTREMITY else z[dim]
+        if beta is None:
+            return v
+        a = z["arousal"]
+        pred = beta[0] + beta[1] * a + (beta[2] * a * a if len(beta) > 2 else 0.0)
+        return v - pred
+
+    #: pass 2 -- A per cell from the inherited estimator, never re-derived
+    out = collections.defaultdict(dict)
+    for t, per_edge in cells.items():
+        for key, c in per_edge.items():
+            vals = [value(z) for z in c["zs"]]
+            r = C3.A_and_terms(vals, c["ws"], c["rs"])
+            if r is not None:
+                out[t][key] = r["A"]
+    return dict(out), (None if beta is None else [float(b) for b in beta])
+
+
+def assemble(built, arm_A):
+    """Members -> pairs, with BOTH displacement denominators (§D6, [3304].3).
+
+    TWO MEDIANS, DELIBERATELY DIFFERENT, AND THE SPLIT IS DECLARED:
+
+      `disp_qual`  median departed over the member's QUALIFYING cells.
+                   Gates `t`. Scoped to the same cells as A(member) itself, so
+                   a cell contributing nothing to A cannot decide whether A is
+                   read -- and it makes `t` collinear with the bar, which makes
+                   §D3's COLLAPSE clause MORE likely to fire. The conservative
+                   direction ([3275].2).
+
+      `disp_all`   median departed over ALL the member's cells. Feeds §D6's
+                   admitted-vs-DROPPED diagnostic ONLY. A dropped member has
+                   zero qualifying cells, so `disp_qual` is undefined for
+                   exactly the pairs that diagnostic exists to expose.
+
+    §3(i) gates a verdict and must be conservative; §D6 reports a loss and must
+    be complete. Same word, two denominators, one printed name each.
+    """
+    rows = []
+    for pid, members in built["pairs"].items():
+        rec = {"pair_id": pid, "domain": built["domains"].get(pid)}
+        ok = True
+        for role, text in members.items():
+            per_edge = built["cells"].get(text, {})
+            qual = arm_A.get(text, {})
+            dep_q = [per_edge[k]["departed"] for k in qual if k in per_edge]
+            dep_a = [c["departed"] for c in per_edge.values()]
+            rec[f"{role}_n_qual"] = len(qual)
+            rec[f"{role}_n_cells"] = len(per_edge)
+            rec[f"{role}_A"] = (st.mean(qual.values()) if qual else None)
+            rec[f"{role}_disp_qual"] = (st.median(dep_q) if dep_q else None)
+            rec[f"{role}_disp_all"] = (st.median(dep_a) if dep_a else None)
+            if not qual:
+                ok = False
+        rec["admitted_by_qualification"] = ok
+        mk, um = "MARKED", "UNMARKED"
+        if ok and rec.get(f"{mk}_A") is not None and rec.get(f"{um}_A") is not None:
+            rec["D_pair"] = rec[f"{mk}_A"] - rec[f"{um}_A"]
+            rec["displacement"] = min(rec[f"{mk}_disp_qual"],
+                                      rec[f"{um}_disp_qual"])
+        else:
+            rec["D_pair"] = None
+            #: the DROPPED denominator, and only here
+            dq = [rec.get(f"{r}_disp_all") for r in (mk, um)]
+            rec["displacement_dropped_all"] = (min(x for x in dq if x is not None)
+                                               if any(x is not None for x in dq)
+                                               else None)
+        rows.append(rec)
+    return rows
+
+
+def admitted_at(rows, t):
+    """§D3. `>=`, NOT `>` -- pinned by the gloss "t = 0.00, every qualifying
+    pair": under `>` a pair at exactly 0.00 would drop and the primary would
+    not be every qualifying pair ([3269].2a)."""
+    return [r for r in rows
+            if r["D_pair"] is not None and r["displacement"] >= t]
+
+
+def unit_assertion(rows, admitted, field="pair_id"):
+    """§A4 / [3068].d. The count, THE FIELD IT COUNTED, and a re-derivation.
+
+    NOT `len(set(ids)) == len(ids)`. That form was a TAUTOLOGY in the sibling
+    producer -- the ids came from a dict, so its keys were unique by
+    construction and nothing could ever violate it ([3108]). Here the reference
+    set is rebuilt FROM THE ROWS, independently of the admitted list, and
+    compared. A collapse that dropped, duplicated or invented a unit fails here
+    rather than passing quietly.
+    """
+    ids = [r[field] for r in admitted]
+    expected = {r[field] for r in rows
+                if r["D_pair"] is not None
+                and r["displacement"] >= admitted_t(admitted)}
+    got = set(ids)
+    assert len(ids) == len(got), (
+        f"duplicate {field} in the admitted set: "
+        f"{len(ids)} rows, {len(got)} distinct")
+    assert got == expected, (
+        f"admitted set disagrees with an independent re-derivation: "
+        f"only-in-admitted {sorted(got - expected)[:5]}, "
+        f"only-in-rederivation {sorted(expected - got)[:5]}")
+    return f"units={len(ids)} field={field} entries={len(rows)}"
+
+
+def admitted_t(admitted):
+    """The threshold an admitted set was built at, recovered from the set."""
+    return min((r["displacement"] for r in admitted), default=0.0)
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# STAGE 1 -- variance and thresholds. NO D, NO p, NO SIGNS.
+# ══════════════════════════════════════════════════════════════════════════
+def stage1(built, out_path, seed=20260731):
+    """Realized SDs and raw MDEs per arm per threshold point. §A7.3, [3280].
+
+    **THIS STAGE MUST NOT EMIT A VERDICT QUANTITY.** It computes |D_pair|'s
+    dispersion, never its mean, sign or p. The whole purpose of the split is
+    that §D6d's threshold is fixed on the record while the verdict is still
+    invisible -- so a stage that leaked D would defeat the artifact it writes.
+    """
+    payload = {
+        "_what": "Registration D STAGE 1: realized SDs and raw MDEs. "
+                 "NO D, NO p, NO SIGNS.",
+        "_registration": "registration_d_pairs_v6.md",
+        "_amendment": AMENDMENT_SHA,
+        "_population": POPULATION_SHA,
+        "_governing": {"c_v6": C_V6_SHA, "b_v13": B_V13_SHA},
+        "_convention": {"power": POWER, "alpha": ALPHA, "sided": "one",
+                        "scale": "RAW dimension units (§A7.2)"},
+        #: §A8.2b -- drift is a FIRST-CLASS FIELD, bound by name, never `_`
+        "roster": built["roster"],
+        "arms": {},
+    }
+    for arm in ARMS:
+        name, dim, direction, kind = arm
+        A, beta = arm_values(built["cells"], arm, kind)
+        rows = assemble(built, A)
+        per_t = {}
+        for t in GRID:
+            adm = admitted_at(rows, t)
+            n = len(adm)
+            if n < FLOOR:
+                per_t[f"{t:.2f}"] = {"n": n, "status": "UNDERPOWERED"}
+                continue
+            d = [r["D_pair"] for r in adm]
+            sd = st.pstdev(d) if n > 1 else None
+            per_t[f"{t:.2f}"] = {
+                "n": n, "status": "ok",
+                "sd_D_pair": sd,
+                "raw_mde": raw_mde(n, sd, direction, seed),
+                #: the attainable-p lattice, §D4
+                "min_attainable_p": (1.0 / (1 << n) if n <= EXACT_MAX_N
+                                     else 1.0 / 10000),
+            }
+        payload["arms"][name] = {"dimension": dim, "direction": direction,
+                                 "residualisation": kind,
+                                 "resid_beta": beta, "per_t": per_t}
+
+    blob = json.dumps(payload, indent=1, sort_keys=True)
+    with open(out_path, "w") as fh:
+        fh.write(blob)
+    h = hashlib.sha256(blob.encode()).hexdigest()
+    payload["_self_sha256_16"] = h[:16]
+    return payload, h[:16]
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# STAGE 2 -- refuses without stage 1
+# ══════════════════════════════════════════════════════════════════════════
+class Stage1Missing(RuntimeError):
+    pass
+
+
+def require_stage1(path, expect_sha16):
+    """§A7.3 / [3280]. STAGE 2 REFUSES WITHOUT STAGE 1's POSTED ARTIFACT.
+
+    The refusal is the mechanism, not the paperwork: it makes the ordering a
+    FACT ABOUT ARTIFACTS rather than a claim about anyone's discipline. A
+    producer that merely *intends* to derive the MDE first is a producer whose
+    threshold can move.
+    """
+    if not path or not os.path.exists(path):
+        raise Stage1Missing(
+            "STAGE 2 REFUSES: no stage-1 artifact at %r. §D6d's threshold must "
+            "be on the record BEFORE any verdict quantity exists." % (path,))
+    blob = open(path).read()
+    got = hashlib.sha256(blob.encode()).hexdigest()[:16]
+    if expect_sha16 and got != expect_sha16:
+        raise Stage1Missing(
+            "STAGE 2 REFUSES: stage-1 artifact hash %s != posted %s. The "
+            "threshold on the record is not the threshold on disk." %
+            (got, expect_sha16))
+    return json.loads(blob)
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# self-test -- EVERY GUARD IS MADE TO FIRE
+# ══════════════════════════════════════════════════════════════════════════
+def selftest(verbose=False):
+    """Known answers, and a fired case for every refusal.
+
+    THE RULE THIS SUITE WAS WRITTEN AGAINST: a guard nobody has watched fail is
+    not a guard. Two producers in this campaign shipped assertions that COULD
+    NOT fire -- one comparing a dict's keys to themselves, one defending a state
+    the role predicate excludes. Both passed their suites. So every refusal
+    below gets a constructed failing case, not just a passing one.
+    """
+    ok = [0, 0]
+
+    def case(name, cond):
+        good = False
+        try:
+            good = bool(cond())
+        except Exception as e:
+            print(f"  [ERR] {name}: {type(e).__name__}: {e}")
+        ok[0] += 1; ok[1] += 1 if good else 0
+        print(f"  [{'ok' if good else 'FAIL'}] {name}")
+
+    # ── the p-convention, both regimes ───────────────────────────────────
+    case("exact enumeration uses PLAIN p (no add-one)",
+         lambda: sign_flip_p([1.0] * 6, +1, 0)["convention"] == "plain/exact")
+    case("sampled uses ADD-ONE",
+         lambda: sign_flip_p([1.0] * 25, +1, 0, draws=200)["convention"]
+                 == "add-one/sampled")
+    case("all-positive at n=6 lands on the 1/2^n FLOOR, not 0",
+         lambda: abs(sign_flip_p([1.0] * 6, +1, 0)["p"] - 1 / 64) < 1e-12)
+    case("EXTREMITY IS >=: the observed draw counts ITSELF",
+         #: under `>` the all-positive case would give p = 0, which §D4's
+         #: lattice forbids. This is the case that distinguishes the two.
+         lambda: sign_flip_p([1.0] * 6, +1, 0)["hits"] == 1)
+    case("direction -1 mirrors direction +1 on negated data",
+         lambda: abs(sign_flip_p([-1.0, -2.0, -3.0, -1.5, -2.5, -0.5], -1, 0)["p"]
+                     - sign_flip_p([1.0, 2.0, 3.0, 1.5, 2.5, 0.5], +1, 0)["p"])
+                 < 1e-12)
+    case("a NULL sample does not reject",
+         lambda: sign_flip_p([1.0, -1.0, 1.0, -1.0, 1.0, -1.0], +1, 0)["p"] > 0.05)
+
+    # ── STAGE 2's refusal, MADE TO FIRE, twice ───────────────────────────
+    fired = [False, False]
+    try:
+        require_stage1("/nonexistent/stage1.json", None)
+    except Stage1Missing:
+        fired[0] = True
+    case("STAGE 2 REFUSES with no stage-1 artifact", lambda: fired[0])
+
+    import tempfile
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
+        fh.write('{"_what": "not the posted artifact"}')
+        tmp = fh.name
+    try:
+        require_stage1(tmp, "0000000000000000")
+    except Stage1Missing:
+        fired[1] = True
+    case("STAGE 2 REFUSES on a stage-1 hash mismatch", lambda: fired[1])
+    case("STAGE 2 ACCEPTS the matching artifact (the guard is not vacuous)",
+         lambda: require_stage1(
+             tmp, hashlib.sha256(open(tmp).read().encode()).hexdigest()[:16]
+         )["_what"].startswith("not the posted"))
+    os.unlink(tmp)
+
+    # ── the threshold comparison is >=, not > ────────────────────────────
+    rows = [{"pair_id": "a", "D_pair": 0.1, "displacement": 0.00},
+            {"pair_id": "b", "D_pair": 0.2, "displacement": 0.05},
+            {"pair_id": "c", "D_pair": None, "displacement": None}]
+    case("t = 0.00 admits a pair sitting EXACTLY at 0.00 (>=, not >)",
+         lambda: {r["pair_id"] for r in admitted_at(rows, 0.00)} == {"a", "b"})
+    case("t = 0.05 admits only the pair at or above it",
+         lambda: {r["pair_id"] for r in admitted_at(rows, 0.05)} == {"b"})
+    case("a pair with D_pair None never admits at any t",
+         lambda: all("c" not in {r["pair_id"] for r in admitted_at(rows, t)}
+                     for t in GRID))
+
+    # ── the unit assertion, MADE TO FIRE ─────────────────────────────────
+    dup = [{"pair_id": "a", "D_pair": 0.1, "displacement": 0.1},
+           {"pair_id": "a", "D_pair": 0.1, "displacement": 0.1}]
+    fired_u = False
+    try:
+        unit_assertion(dup, dup)
+    except AssertionError:
+        fired_u = True
+    case("the unit assertion FIRES on a duplicated unit", lambda: fired_u)
+
+    fired_v = False
+    try:
+        #: an INVENTED unit -- present in the admitted list, absent from rows
+        unit_assertion(rows[:2], rows[:2] + [{"pair_id": "zz", "D_pair": 1.0,
+                                              "displacement": 1.0}])
+    except AssertionError:
+        fired_v = True
+    case("the unit assertion FIRES on an invented unit", lambda: fired_v)
+    case("the unit assertion NAMES ITS FIELD in the passing line",
+         lambda: "field=pair_id" in unit_assertion(rows[:2], rows[:2]))
+
+    # ── jaccard / collapse ───────────────────────────────────────────────
+    case("jaccard of a set with itself is 1.0 (a COLLAPSED point)",
+         lambda: jaccard("abc", "abc") == 1.0 >= COLLAPSE_JACCARD)
+    case("jaccard separates a genuinely different set",
+         lambda: jaccard("abcd", "cdef") < COLLAPSE_JACCARD)
+
+    # ── the raw MDE ──────────────────────────────────────────────────────
+    case("raw MDE is None when the SD is degenerate",
+         lambda: raw_mde(10, 0.0, +1, 0) is None)
+    case("raw MDE SHRINKS as n grows (more pairs buy detection)",
+         lambda: raw_mde(30, 1.0, +1, 7, reps=120)
+                 < raw_mde(8, 1.0, +1, 7, reps=120))
+    case("raw MDE SCALES with the SD (it is RAW, not standardised)",
+         lambda: raw_mde(12, 2.0, +1, 7, reps=120)
+                 > 1.5 * raw_mde(12, 1.0, +1, 7, reps=120))
+
+    # ── declared constants, asserted against the frozen text ─────────────
+    case("GRID is §D3's six points verbatim",
+         lambda: GRID == (0.00, 0.01, 0.02, 0.05, 0.10, 0.20))
+    case("FLOOR, ALPHA, COLLAPSE and POWER are the declared values",
+         lambda: (FLOOR, ALPHA, COLLAPSE_JACCARD, POWER)
+                 == (6, 0.05, 0.95, 0.80))
+    case("the four arms carry §D6b's directions",
+         lambda: [d for _, _, d, _ in ARMS] == [-1, +1, +1, +1])
+    case("only the extremity arms take |dim_z|",
+         lambda: EXTREMITY == {"val_extrem", "dom_extrem"})
+    case("the arousal arm is RAW -- no residualisation, per §D6b",
+         lambda: dict((n, k) for n, _, _, k in ARMS)["arousal"] == "none")
+
+    print(f"selftest {ok[1]}/{ok[0]}")
+    return 0 if ok[1] == ok[0] else 1
+
+
+def main(a):
+    if a.selftest:
+        return selftest(a.verbose)
+    raise SystemExit(
+        "the read is not wired yet: stage 1 runs on the pen's word, "
+        "stage 2 only against its posted hash")
+
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--verbose", action="store_true")
+    sys.exit(main(ap.parse_args()))
