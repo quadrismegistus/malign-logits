@@ -372,7 +372,7 @@ def admitted_at(rows, t):
             if r["D_pair"] is not None and r["displacement"] >= t]
 
 
-def unit_assertion(rows, admitted, field="pair_id"):
+def unit_assertion(rows, admitted, t, field="pair_id"):
     """§A4 / [3068].d. The count, THE FIELD IT COUNTED, and a re-derivation.
 
     NOT `len(set(ids)) == len(ids)`. That form was a TAUTOLOGY in the sibling
@@ -382,10 +382,19 @@ def unit_assertion(rows, admitted, field="pair_id"):
     compared. A collapse that dropped, duplicated or invented a unit fails here
     rather than passing quietly.
     """
+    #: `t` IS PASSED IN, NEVER RECOVERED FROM `admitted` ([3315]).
+    #:
+    #: The first version called `admitted_t(admitted)` -- the MINIMUM
+    #: displacement in the set being checked. **That made the criterion a
+    #: function of the artifact, so dropping the lowest-displacement unit
+    #: RAISED the threshold and `expected` shrank to match: got == expected
+    #: held, and the one drop this assertion exists to catch passed clean.**
+    #: An audit that takes its criterion from the artifact cannot see a wrong
+    #: criterion, and here it could not see a missing row either.
     ids = [r[field] for r in admitted]
     expected = {r[field] for r in rows
                 if r["D_pair"] is not None
-                and r["displacement"] >= admitted_t(admitted)}
+                and r["displacement"] >= t}
     got = set(ids)
     assert len(ids) == len(got), (
         f"duplicate {field} in the admitted set: "
@@ -395,11 +404,6 @@ def unit_assertion(rows, admitted, field="pair_id"):
         f"only-in-admitted {sorted(got - expected)[:5]}, "
         f"only-in-rederivation {sorted(expected - got)[:5]}")
     return f"units={len(ids)} field={field} entries={len(rows)}"
-
-
-def admitted_t(admitted):
-    """The threshold an admitted set was built at, recovered from the set."""
-    return min((r["displacement"] for r in admitted), default=0.0)
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -570,7 +574,7 @@ def selftest(verbose=False):
            {"pair_id": "a", "D_pair": 0.1, "displacement": 0.1}]
     fired_u = False
     try:
-        unit_assertion(dup, dup)
+        unit_assertion(dup, dup, 0.0)
     except AssertionError:
         fired_u = True
     case("the unit assertion FIRES on a duplicated unit", lambda: fired_u)
@@ -579,12 +583,31 @@ def selftest(verbose=False):
     try:
         #: an INVENTED unit -- present in the admitted list, absent from rows
         unit_assertion(rows[:2], rows[:2] + [{"pair_id": "zz", "D_pair": 1.0,
-                                              "displacement": 1.0}])
+                                              "displacement": 1.0}], 0.0)
     except AssertionError:
         fired_v = True
     case("the unit assertion FIRES on an invented unit", lambda: fired_v)
+    #: [3315]'s CONSTRUCTED CASE, now a permanent test. The first version
+    #: recovered `t` from the admitted set, so this passed silently.
+    drop_rows = [{"pair_id": "a", "D_pair": 0.1, "displacement": 0.01},
+                 {"pair_id": "b", "D_pair": 0.2, "displacement": 0.02},
+                 {"pair_id": "c", "D_pair": 0.3, "displacement": 0.03}]
+    fired_d = False
+    try:
+        #: the LOWEST-displacement unit silently dropped, t declared as 0.00
+        unit_assertion(drop_rows, drop_rows[1:], 0.00)
+    except AssertionError:
+        fired_d = True
+    case("the unit assertion FIRES when the LOWEST unit is dropped [3315]",
+         lambda: fired_d)
+    case("and it PASSES when that same t admits exactly the right set",
+         lambda: "units=3" in unit_assertion(drop_rows, drop_rows, 0.00))
+    case("t is a PARAMETER, not recovered from the set under audit",
+         lambda: "t" in unit_assertion.__code__.co_varnames[
+             :unit_assertion.__code__.co_argcount])
+
     case("the unit assertion NAMES ITS FIELD in the passing line",
-         lambda: "field=pair_id" in unit_assertion(rows[:2], rows[:2]))
+         lambda: "field=pair_id" in unit_assertion(rows[:2], rows[:2], 0.0))
 
     # ── jaccard / collapse ───────────────────────────────────────────────
     case("jaccard of a set with itself is 1.0 (a COLLAPSED point)",
