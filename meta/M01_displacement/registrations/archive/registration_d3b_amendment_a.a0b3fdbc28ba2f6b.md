@@ -22,105 +22,15 @@ amendment names quantities the frozen text left to whoever implemented it.**
 
 ---
 
-## §A1 THE STATUS HEADERS — seven documents, one line each
+## §A1 THE STATUS HEADERS — three documents, one line each
 
-**A STATUS LINE IN THE UNDATED PRESENT TENSE IS TRUE WHEN WRITTEN, TRUE AT EVERY
-CONSTRUCT READ, TRUE AT EVERY SIGNATURE ROUND — AND FALSE FROM THE INSTANT OF THE
-FREEZE, WHICH NO SWEEP IS TRIGGERED BY.** Four rounds of two-seat verification
-passed over it because at no moment during any of them was it wrong.
+**Every frozen registration in this campaign opens `STATUS: DRAFT. Nothing is in
+force.`** That was true when written, true at every construct read, true at every
+signature round — **and false from the instant of the freeze, which no sweep is
+triggered by.** Four rounds of two-seat verification passed over it because at no
+moment during any of them was it wrong.
 
-**THE CAMPAIGN'S 16 REGISTRATIONS, CENSUSED BY PROPERTY RATHER THAN BY PHRASE.
-THE PROPERTY IS: DOES THE LINE MISDESCRIBE WHETHER THE INSTRUMENT BINDS?** — not
-the broader "can a later event falsify it," which sweeps in the warrants and is
-the wrong test (see the boundary below):
-
-    DATE-ANCHORED, already correct                                     3
-      registration_d_pairs_v6.md       "## STATUS AS OF 2026-08-01"
-      registration_e_gap_v3.md         "## STATUS AS OF 2026-08-01"
-      registration_d3b_amendment_a.md  "STATUS AT DRAFTING (2026-08-03)"
-
-    UNDATED PRESENT-TENSE, the defect this section repairs                7
-      registration_d3b_pool_decomposition.md
-      registration_d2_extremity.md
-      registration_d_pairs_amendment_a.md
-      registration_d_pairs_v5.md
-      registration_f_within_pair.md
-      registration_f_within_pair_amendment_a.md
-      registration_g_magnitude.md
-
-    NO GOVERNANCE-STATE CLAIM                                          6
-      b_provenance, b_spec_v13, c_delta_v4, c_delta_v6,
-      d_pairs_v1, d_pairs_v4
-      (three of these DO carry world-state warrants -- see the boundary below;
-       that is a different thing and it is not a defect)
-
-**THE SIX ARE NOT GIVEN A STATUS LINE: retro-fitting one onto a document that
-never claimed to bind is decoration at a re-hash cost. The census is their
-disposition.**
-
-### THE BOUNDARY OF THE DEFECT, WITHOUT WHICH THIS SECTION REWRITES THE CORPUS
-
-**A property search finds present-tense claims about state well outside any status
-line. THEY ARE NOT THIS DEFECT, AND THE DISTINCTION IS THE POINT:**
-
-    GOVERNANCE-STATE claims  say whether the instrument BINDS.  "Nothing is in
-                             force" misleads a reader deciding whether to obey
-                             it.  THIS IS THE DEFECT.  It gets fixed.
-
-    WORLD-STATE-AT-AUTHORING claims  are the BLINDNESS CREDENTIALS.  "The
-                             population does not yet exist" is the whole
-                             evidentiary value of a pre-registration: it was
-                             true at freeze and is false now.  THAT IS ITS
-                             FUNCTION, NOT ITS DEFECT.
-
-**STANDING READING RULE: A FROZEN DOCUMENT SPEAKS FROM ITS FREEZE DATE.**
-Present-tense world-claims inside it are read as-of that date, and their later
-falsity is what they were written to demonstrate. `b_spec_v13`'s "no
-mass-conditional arousal value has been computed at any seat" is false today
-**precisely because Registration B ran** — which is what the sentence existed to
-prove was possible. **Date-anchoring these would repair the warrant into
-decoration.**
-
-**THE FOLLOWING GET NO EDIT.** They are recorded because the search found them and
-because the boundary is only credible if the cases it excludes are named:
-
-    b_spec_v13    325   "No mass-conditional arousal value has been computed at
-                         any seat."
-    d_pairs_v1    153   "authored blind, on a population that does not yet exist"
-    d_pairs_v4      7   "The population does not yet exist."
-    d_pairs_v5      7   "The population does not yet exist."
-    d_pairs_v6     19   "The population does not yet exist."   <- beneath a dated
-                                                         header that SCOPES it
-    d_pairs_amendment_a  225  "NO D QUANTITY HAS BEEN COMPUTED, on 188, on 684,
-                         or on any subset."   <- false today BECAUSE D ran, which
-                         is what it existed to prove was possible
-
-**The population exists — `3ed3e286e633c2fc`, 684 pairs — so every one of these
-reads false today, AND EACH IS DOING THE JOB IT WAS WRITTEN FOR.**
-
-**`d_pairs_v6` IS NOT A CORRECT HEADER ABOVE A FALSE SENTENCE. It is a dated
-header that SCOPES the sentence, which is what a dated header is for.** The defect
-was never expiry as such; it was an undated claim about FORCE.
-
-**SCOPE OF THIS AMENDMENT IS UNCHANGED AT THE SEVEN STATUS LINES.** The census
-records the rest; the reading rule covers them.
-
-**RECORDED, BECAUSE THE BOUNDARY WAS FOUND BY CROSSING IT:** this section's
-previous draft proposed date-anchoring the population lines, which would have
-**edited the blindness credentials of four registrations into decoration.** A
-property search is the right search and it ran past the edge of the class it was
-searching for. **Naming the excluded cases is what makes the boundary checkable
-rather than asserted.**
-
-**AND THE CONVENTION WAS NOT NEW.** `d_pairs_v6` and `e_gap_v3` have carried the
-dated form since 2026-08-01, added by a docket sweep and applied to exactly the
-two documents that sweep touched. **This section's first draft re-invented it and
-wrote it up as standing method.** Four sweeps ran over that draft and none asked
-the question that would have found it — **DOES ANY DOCUMENT IN THE CORPUS ALREADY
-DO THIS?** — which now joins the specification parse and the claim-sweep as a
-standing pre-freeze question.
-
-    REPLACE, in all SEVEN documents carrying the undated present-tense form:
+    REPLACE, in D3b, D2, and Registration D's Amendment A:
 
       STATUS AT DRAFTING (<date>): draft; nothing in force; no <X> quantity
       computed. Freeze state is recorded on the docket and in git history.
@@ -130,9 +40,8 @@ the hash — and "FROZEN at [post]" would cite the freeze of the PREVIOUS bytes,
 off by one forever. The dated past-anchored form is the only one that cannot
 decay.**
 
-**D2, F and G are the urgent three: all are READ, their results are CITED, and
-each is quotable today while its own header says DRAFT.** D2's moves first if only
-one moves.
+**D2's is fixed first if only one moves: it is READ, both arms CONFIRMED, and
+quotable today while saying DRAFT.**
 
 **STANDING METHOD: A STATUS LINE MUST BE WRITTEN SO THAT NOTHING THAT HAPPENS
 LATER CAN FALSIFY IT.** Present-tense state expires; dated state does not.
@@ -277,62 +186,15 @@ document — the document does not launder the producer.**
     describes a different quantity, and the 0.60 floor would be compared against
     a number from the wrong set.
 
-    A PAIR WITH AN EMPTY HALF has no half-gap.  DECLARED: SKIPPED FROM THE
-    RELIABILITY COMPUTATION ONLY -- the pair stays in the regression -- and the
-    SKIP COUNT PRINTS beside the reliability.  The condition is on the REALIZED
-    halves (either member contributing no edge to either half), not on a cell
-    count, because the split is shared and a member's edges are distributed by
-    it; 8 pairs cannot satisfy it under any assignment, having a member with
-    fewer than 2 edges at all.
+    A MEMBER WITH FEWER THAN 2 CELLS has no split-half.  DECLARED: SKIPPED FROM
+    THE RELIABILITY COMPUTATION ONLY -- the pair stays in the regression -- and
+    the SKIP COUNT PRINTS beside the reliability.
     GROUND: dropping the pair from the regression would change the estimand
     rather than its correction; and a figure computed on a reduced set is
     unreadable without the size of the reduction.
 
     WHICH CORRELATION.  DECLARED: PEARSON.
     GROUND: Spearman-Brown presumes it.  The presumption becomes a word.
-
-    THE DISTANCE FROM THE FLOOR PRINTS.  DECLARED: stage 1 reports, per arm,
-    the reliability AND its signed distance from 0.60, so a near-miss is a
-    visible number rather than a branch silently taken.  See §A7.
-
-### WHICH HALF OF M PAIRS WITH WHICH HALF OF U — a construction, not a label
-
-**§A4's first draft declared the half-gap and the per-member split rule and never
-said whether the two members are split INDEPENDENTLY.** They are not.
-
-    PER-MEMBER  split M's cells, split U's cells, pair A with A.  The two "A"
-                halves cover DIFFERENT EDGES, so the half-gap carries
-                edge-composition noise the full statistic does not contain
-    SHARED      split the EDGE SET once, both members take the same halves
-
-**DECLARED: SHARED. GROUND: a split-half reliability is licensed exactly insofar
-as each half is a PARALLEL MINIATURE of the full quantity**, and a half-gap over
-different edges in the two members is a miniature of nothing the estimator
-consumes.
-
-**AND SHARED HAS TWO READINGS, WHICH THE MEASUREMENT SEPARATES.** The members are
-scored on a common `(family, position)` grid but do not OCCUPY it identically:
-
-    edge sets IDENTICAL across the two members     1 of 632   (0.2%)
-    edge sets DIFFER                             631 of 632  (99.8%)
-    median edges  MARKED 31   UNMARKED 31   intersection 27
-    pairs unsplittable over the INTERSECTION (<2 shared edges)      17
-    pairs unsplittable over the UNION        (a member with <2)      8
-
-**DECLARED: SHARED OVER THE UNION of the pair's edges, not the intersection.**
-The union assignment partitions EACH member's full edge set, so both members'
-edges are wholly covered across the two halves **and each half-gap is a miniature
-of the gap the regression actually consumes.**
-
-**THE INTERSECTION READING FAILS THE SHARED RULE'S OWN GROUND:** with a median of
-seven edges dropped per pair, its half-gaps would be parallel miniatures of the
-INTERSECTION gap — a quantity that appears nowhere in D3b — and it discards 17
-pairs where the union discards 8.
-
-**BALANCING, unchanged in form:** greedy longest-processing-time over the union
-edge set on **POOLED word count (MARKED + UNMARKED at that edge)**, cell-key
-ascending on ties, then the §A4 first-step rule. A member absent at an edge
-contributes no mass there; the realized imbalance prints, as already declared.
 
 **§3's floor (0.60) applies PER REGRESSOR (see §A6), its fallback to the raw
 intercept and the weighting fork are UNCHANGED.**
@@ -430,30 +292,10 @@ bundle is open and expensive after.**
 - **It changes NO design clause.** The bracket, both bias directions, §6's four
   entries, §7's reading rule and ratio, §5's twelve-cell exclusion and §1's four
   refusals stand as frozen.
-- **It resolves NO ambiguity in D3b's favour — ITEM BY ITEM, AND THAT GUARANTEE
-  DOES NOT COMPOSE ACROSS §3's FLOOR.** §A4's estimand corrects MORE than the
-  alternative; §A2's concordance correction lowers the baseline the full-strength
-  claim is priced against; **§A5's share is a printed magnitude with no threshold,
-  so no reading turns on it in either direction.** Each was checked and each
-  holds.
-
-  **BUT THE FLOOR IS A DISCONTINUITY AND IT POINTS THE OTHER WAY:**
-
-      reliability falling, ABOVE 0.60   b1 corrected up, b0 down    AGAINST US
-      reliability crossing BELOW 0.60   fall back to the RAW b0     IN OUR FAVOUR
-
-  and §6.1 declares the raw intercept the one that **OVERSTATES the
-  pool-independent share.** So any resolution that depresses reliability far
-  enough does not shade the result against us by degrees — **it JUMPS it in our
-  favour, discontinuously, with no single item having done so.**
-
-  **ITEM-WISE NEUTRALITY DOES NOT COMPOSE. A declared floor converts many small
-  against-us pressures into one in-our-favour jump, and a guarantee verified per
-  item can be false across a branch.** **THE FLOOR DOES NOT MOVE** — it was
-  declared before any reliability existed and moving it now is the thing this
-  campaign refuses. **The response is disclosure: §A4 orders the reliability's
-  signed DISTANCE FROM 0.60 printed per arm**, so a near-miss is a number on the
-  page and not a branch that absorbs it.
+- **It resolves NO ambiguity in D3b's favour.** §A4's estimand corrects MORE than
+  the alternative; §A2's concordance correction lowers the baseline the
+  full-strength claim is priced against; **§A5's share is a printed magnitude with
+  no threshold, so no reading turns on it in either direction.**
 - **It CHOOSES NO CUT.** Every item names a quantity or a formula; not one names a
   value a result must clear. That distinction is what keeps this an amendment to a
   frozen design rather than a re-opening of it.

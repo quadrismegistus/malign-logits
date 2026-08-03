@@ -22,105 +22,15 @@ amendment names quantities the frozen text left to whoever implemented it.**
 
 ---
 
-## §A1 THE STATUS HEADERS — seven documents, one line each
+## §A1 THE STATUS HEADERS — three documents, one line each
 
-**A STATUS LINE IN THE UNDATED PRESENT TENSE IS TRUE WHEN WRITTEN, TRUE AT EVERY
-CONSTRUCT READ, TRUE AT EVERY SIGNATURE ROUND — AND FALSE FROM THE INSTANT OF THE
-FREEZE, WHICH NO SWEEP IS TRIGGERED BY.** Four rounds of two-seat verification
-passed over it because at no moment during any of them was it wrong.
+**Every frozen registration in this campaign opens `STATUS: DRAFT. Nothing is in
+force.`** That was true when written, true at every construct read, true at every
+signature round — **and false from the instant of the freeze, which no sweep is
+triggered by.** Four rounds of two-seat verification passed over it because at no
+moment during any of them was it wrong.
 
-**THE CAMPAIGN'S 16 REGISTRATIONS, CENSUSED BY PROPERTY RATHER THAN BY PHRASE.
-THE PROPERTY IS: DOES THE LINE MISDESCRIBE WHETHER THE INSTRUMENT BINDS?** — not
-the broader "can a later event falsify it," which sweeps in the warrants and is
-the wrong test (see the boundary below):
-
-    DATE-ANCHORED, already correct                                     3
-      registration_d_pairs_v6.md       "## STATUS AS OF 2026-08-01"
-      registration_e_gap_v3.md         "## STATUS AS OF 2026-08-01"
-      registration_d3b_amendment_a.md  "STATUS AT DRAFTING (2026-08-03)"
-
-    UNDATED PRESENT-TENSE, the defect this section repairs                7
-      registration_d3b_pool_decomposition.md
-      registration_d2_extremity.md
-      registration_d_pairs_amendment_a.md
-      registration_d_pairs_v5.md
-      registration_f_within_pair.md
-      registration_f_within_pair_amendment_a.md
-      registration_g_magnitude.md
-
-    NO GOVERNANCE-STATE CLAIM                                          6
-      b_provenance, b_spec_v13, c_delta_v4, c_delta_v6,
-      d_pairs_v1, d_pairs_v4
-      (three of these DO carry world-state warrants -- see the boundary below;
-       that is a different thing and it is not a defect)
-
-**THE SIX ARE NOT GIVEN A STATUS LINE: retro-fitting one onto a document that
-never claimed to bind is decoration at a re-hash cost. The census is their
-disposition.**
-
-### THE BOUNDARY OF THE DEFECT, WITHOUT WHICH THIS SECTION REWRITES THE CORPUS
-
-**A property search finds present-tense claims about state well outside any status
-line. THEY ARE NOT THIS DEFECT, AND THE DISTINCTION IS THE POINT:**
-
-    GOVERNANCE-STATE claims  say whether the instrument BINDS.  "Nothing is in
-                             force" misleads a reader deciding whether to obey
-                             it.  THIS IS THE DEFECT.  It gets fixed.
-
-    WORLD-STATE-AT-AUTHORING claims  are the BLINDNESS CREDENTIALS.  "The
-                             population does not yet exist" is the whole
-                             evidentiary value of a pre-registration: it was
-                             true at freeze and is false now.  THAT IS ITS
-                             FUNCTION, NOT ITS DEFECT.
-
-**STANDING READING RULE: A FROZEN DOCUMENT SPEAKS FROM ITS FREEZE DATE.**
-Present-tense world-claims inside it are read as-of that date, and their later
-falsity is what they were written to demonstrate. `b_spec_v13`'s "no
-mass-conditional arousal value has been computed at any seat" is false today
-**precisely because Registration B ran** — which is what the sentence existed to
-prove was possible. **Date-anchoring these would repair the warrant into
-decoration.**
-
-**THE FOLLOWING GET NO EDIT.** They are recorded because the search found them and
-because the boundary is only credible if the cases it excludes are named:
-
-    b_spec_v13    325   "No mass-conditional arousal value has been computed at
-                         any seat."
-    d_pairs_v1    153   "authored blind, on a population that does not yet exist"
-    d_pairs_v4      7   "The population does not yet exist."
-    d_pairs_v5      7   "The population does not yet exist."
-    d_pairs_v6     19   "The population does not yet exist."   <- beneath a dated
-                                                         header that SCOPES it
-    d_pairs_amendment_a  225  "NO D QUANTITY HAS BEEN COMPUTED, on 188, on 684,
-                         or on any subset."   <- false today BECAUSE D ran, which
-                         is what it existed to prove was possible
-
-**The population exists — `3ed3e286e633c2fc`, 684 pairs — so every one of these
-reads false today, AND EACH IS DOING THE JOB IT WAS WRITTEN FOR.**
-
-**`d_pairs_v6` IS NOT A CORRECT HEADER ABOVE A FALSE SENTENCE. It is a dated
-header that SCOPES the sentence, which is what a dated header is for.** The defect
-was never expiry as such; it was an undated claim about FORCE.
-
-**SCOPE OF THIS AMENDMENT IS UNCHANGED AT THE SEVEN STATUS LINES.** The census
-records the rest; the reading rule covers them.
-
-**RECORDED, BECAUSE THE BOUNDARY WAS FOUND BY CROSSING IT:** this section's
-previous draft proposed date-anchoring the population lines, which would have
-**edited the blindness credentials of four registrations into decoration.** A
-property search is the right search and it ran past the edge of the class it was
-searching for. **Naming the excluded cases is what makes the boundary checkable
-rather than asserted.**
-
-**AND THE CONVENTION WAS NOT NEW.** `d_pairs_v6` and `e_gap_v3` have carried the
-dated form since 2026-08-01, added by a docket sweep and applied to exactly the
-two documents that sweep touched. **This section's first draft re-invented it and
-wrote it up as standing method.** Four sweeps ran over that draft and none asked
-the question that would have found it — **DOES ANY DOCUMENT IN THE CORPUS ALREADY
-DO THIS?** — which now joins the specification parse and the claim-sweep as a
-standing pre-freeze question.
-
-    REPLACE, in all SEVEN documents carrying the undated present-tense form:
+    REPLACE, in D3b, D2, and Registration D's Amendment A:
 
       STATUS AT DRAFTING (<date>): draft; nothing in force; no <X> quantity
       computed. Freeze state is recorded on the docket and in git history.
@@ -130,9 +40,8 @@ the hash — and "FROZEN at [post]" would cite the freeze of the PREVIOUS bytes,
 off by one forever. The dated past-anchored form is the only one that cannot
 decay.**
 
-**D2, F and G are the urgent three: all are READ, their results are CITED, and
-each is quotable today while its own header says DRAFT.** D2's moves first if only
-one moves.
+**D2's is fixed first if only one moves: it is READ, both arms CONFIRMED, and
+quotable today while saying DRAFT.**
 
 **STANDING METHOD: A STATUS LINE MUST BE WRITTEN SO THAT NOTHING THAT HAPPENS
 LATER CAN FALSIFY IT.** Present-tense state expires; dated state does not.
