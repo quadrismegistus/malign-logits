@@ -268,7 +268,15 @@ def build(rule="CANONICAL", verbose=False, max_prompts=None):
             cells[t][(fam, pos)] = {"departed": float(dec["departed"]),
                                     "ws": ws, "zs": zs, "rs": rs}
 
+    #: A TRUNCATED RUN MUST SAY SO IN ITS OWN OUTPUT ([3330]). `max_prompts`
+    #: defaults to None and the stage-1 runner never passes it -- but it is a
+    #: LIVE parameter on the production function, so a future caller could
+    #: score a slice while believing it scored the corpus. **The guard is not
+    #: that it cannot happen; it is that it cannot happen SILENTLY.**
     return {"pairs": pairs, "domains": domains, "cells": dict(cells),
+            "max_prompts": max_prompts, "n_texts_used": len(texts),
+            "n_texts_full": len({t for v in pairs.values() for t in v.values()}),
+            "truncated": max_prompts is not None,
             "diag": diag, "edges": [(f, p) for f, p, _ in edges],
             "edge_dropped": dict(edge_dropped),
             "roster": {"n_prompts": len(prompts_all), "n_models": len(models),
@@ -440,6 +448,12 @@ def stage1(built, out_path, seed=20260731):
                         "scale": "RAW dimension units (§A7.2)"},
         #: §A8.2b -- drift is a FIRST-CLASS FIELD, bound by name, never `_`
         "roster": built["roster"],
+        #: [3330] -- a truncated run is self-identifying IN THE ARTIFACT, so a
+        #: reader meets it rather than inferring it from a count that looks low
+        "truncation": {"truncated": built["truncated"],
+                       "max_prompts": built["max_prompts"],
+                       "n_texts_used": built["n_texts_used"],
+                       "n_texts_full": built["n_texts_full"]},
         "arms": {},
     }
     for arm in ARMS:
@@ -669,6 +683,16 @@ def selftest(verbose=False, skip_slow=False):
                     and "drift" in b["roster"]
                     and isinstance(b["roster"]["drift"], list))
         case("build() EXECUTES against the real store and norms [3323]", _smoke)
+        #: [3330]. A truncated run must SAY SO. Both directions, because a
+        #: flag that is always True is as useless as one always False.
+        case("a TRUNCATED build self-identifies in its own record",
+             lambda: built[0] is not None
+                     and built[0]["truncated"] is True
+                     and built[0]["max_prompts"] == 2
+                     and built[0]["n_texts_used"] == 2
+                     and built[0]["n_texts_full"] == 1368)
+        case("and n_texts_used < n_texts_full is VISIBLE, not inferred",
+             lambda: built[0]["n_texts_used"] < built[0]["n_texts_full"])
         case("and it binds the roster DRIFT as a named field, never `_`",
              lambda: built[0] is not None
                      and set(("drift", "prompts_sha16", "models_sha16",
