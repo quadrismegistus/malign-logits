@@ -111,13 +111,8 @@ def gaps(built, pairs, dim, key):
 # ══════════════════════════════════════════════════════════════════════════
 # reliability -- §3, a STAGE 1 quantity
 # ══════════════════════════════════════════════════════════════════════════
-def stable_seed(text):
-    """A per-member seed that survives a process restart. See the call site."""
-    return int(hashlib.sha256(text.encode()).hexdigest()[:8], 16) & 0xFFFF
-
-
-def mass_balanced_split(cell_keys, sizes, seed):
-    """Split a member's cells into halves with CELL MASS balanced. §3.
+def mass_balanced_split(cell_keys, sizes):
+    """Split a member's cells into halves with CELL MASS balanced. §3 / §A3.
 
     **§3 states the reason and it is not cosmetic:** split-half assumes
     parallel forms, a member's cells differ in size, and an unbalanced split
@@ -125,16 +120,22 @@ def mass_balanced_split(cell_keys, sizes, seed):
     errs toward a larger corrected b1 and a smaller b0. The bias would run
     against the residual side, so balancing is not a convenience.
 
-    Greedy longest-processing-time: sort by size descending, add each cell to
-    whichever half currently holds less mass. Deterministic given the seed only
-    through the tie-break, which is what the seed is for.
+    Greedy longest-processing-time: size DESCENDING, then **§A3's declared
+    tie-break -- CELL KEY (family, position) ASCENDING, NO RANDOM SEED.**
+    A key-order tie-break needs no constant, cannot be mis-transcribed, and is
+    reproducible by anyone holding the data without holding the document.
+
+    **UNDECLARED AND LEFT AS IT IS: which half receives a cell when the two
+    halves hold EQUAL mass.** The rule reads "whichever half holds less" and at
+    the first cell both hold zero, so EVERY member hits it on cell one. Raised
+    at [3493].2; `ma <= mb -> A` below is this file's choice and nothing has
+    ordered it. **Fixing it in code is what put it here, so it stays visible
+    until the text names it.**
     """
-    rng = np.random.default_rng(seed)
-    order = sorted(cell_keys,
-                   key=lambda k: (-sizes[k], rng.random()))
+    order = sorted(cell_keys, key=lambda k: (-sizes[k], k))
     ha, hb, ma, mb = [], [], 0, 0
     for k in order:
-        if ma <= mb:
+        if ma <= mb:                       #: <- UNDECLARED, see docstring
             ha.append(k); ma += sizes[k]
         else:
             hb.append(k); mb += sizes[k]
@@ -158,14 +159,14 @@ def split_half_reliability(built, pairs, dim, key, seed=SEED):
                 halves = None
                 break
             sizes = {k: len(c["zs"]) for k, c in per_edge.items()}
-            #: **`hash()` IS SALTED PER PROCESS.** The first smoke run returned
-            #: SB 0.9439 and the second 0.8272 on identical inputs, because the
-            #: per-member seed was `hash(text)` -- so stage 1's reliability, the
-            #: number §3's floor forks on, was not reproducible across runs.
-            #: A REGISTERED QUANTITY THAT CHANGES WHEN THE PROCESS RESTARTS IS
-            #: NOT A MEASUREMENT. sha256 is stable across processes and machines.
-            ha, hb, ma, mb = mass_balanced_split(
-                list(per_edge), sizes, seed ^ stable_seed(text))
+            #: **NO SEED REACHES THE SPLIT AT ALL (§A3).** The first version
+            #: seeded the tie-break with `hash(text)`, which Python SALTS PER
+            #: PROCESS: two identical smoke runs returned split-half 0.9439 and
+            #: 0.8272, so the number §3's floor forks on was not reproducible
+            #: across restarts -- and it would have hashed cleanly into the
+            #: stage-1 artifact and passed the gate. §A3's key-order tie-break
+            #: removes the seed rather than stabilising it.
+            ha, hb, ma, mb = mass_balanced_split(list(per_edge), sizes)
             per_member_mass[text] = (ma, mb)
             hv = {}
             for lab, keys in (("A", ha), ("B", hb)):
@@ -435,6 +436,7 @@ def stage2(coll, stage1_path, stage1_sha16, out_path, seed=SEED):
 # ══════════════════════════════════════════════════════════════════════════
 def selftest(verbose=True):
     ok, fail = 0, []
+    src = open(__file__).read()
 
     def check(label, cond):
         nonlocal ok
@@ -485,19 +487,29 @@ def selftest(verbose=True):
 
     #: --- mass-balanced split ---
     sizes = {"a": 10, "b": 9, "c": 8, "d": 1}
-    ha, hb, ma, mb = mass_balanced_split(list(sizes), sizes, 1)
-    check("stable_seed does not use the salted builtin hash",
-          "hash(" not in open(__file__).read().split("def stable_seed(")[1]
-          .split("def mass_balanced_split(")[0].replace("hashlib.sha256", ""))
-    check("stable_seed is constant for a given string",
-          stable_seed("abc") == 0x0000 | stable_seed("abc")
-          and stable_seed("abc") == int(hashlib.sha256(b"abc").hexdigest()[:8], 16) & 0xFFFF)
-    check("stable_seed separates different members",
-          stable_seed("abc") != stable_seed("abd"))
+    ha, hb, ma, mb = mass_balanced_split(list(sizes), sizes)
+    #: **§A3: NO RANDOM SEED REACHES THE SPLIT.** Checked structurally, because
+    #: the defect it replaces (a per-process-salted seed) produced two different
+    #: reliabilities from identical inputs and no output-level test saw it.
+    _split_src = src[src.index("def mass_balanced_split("):
+                     src.index("def split_half_reliability(")]
+    check("the split takes no seed parameter",
+          "def mass_balanced_split(cell_keys, sizes)" in _split_src)
+    check("the split uses no RNG", "default_rng" not in _split_src
+          and "random" not in _split_src)
+    check("the split's tie-break is the cell key ascending",
+          "(-sizes[k], k)" in _split_src)
     check("split covers every cell exactly once",
           sorted(ha + hb) == sorted(sizes) and not (set(ha) & set(hb)))
     check("greedy split balances mass to within the largest cell",
           abs(ma - mb) <= max(sizes.values()))
+    #: the tie-break is the whole point: equal sizes must split by KEY, and the
+    #: answer must not move when the input order does
+    tied = {"z": 5, "a": 5, "m": 5, "b": 5}
+    r1 = mass_balanced_split(["z", "a", "m", "b"], tied)
+    r2 = mass_balanced_split(["b", "m", "a", "z"], tied)
+    check("equal-size cells split by key, independent of input order", r1 == r2)
+    check("the key-ordered split takes the alphabetical first", r1[0][0] == "a")
 
     #: --- STAGE SEPARATION, structurally ---
     #: **THE CHECK IS ON IDENTIFIERS, NOT WORDS, AND THE FIRST VERSION WAS NOT.**
@@ -505,7 +517,6 @@ def selftest(verbose=True):
     #: sentence saying it computes NO ratio. A stage-separation test that a
     #: DISCLAIMER can fail is testing prose; these strings cannot occur except
     #: as calls or subscripts.
-    src = open(__file__).read()
     s1 = src[src.index("def stage1("):src.index("def require_stage1(")]
     for forbidden in ('["D_pair"]', "relabel_D(", "disattenuate(",
                       "ratio_to_D2", "D2_OBSERVED"):
