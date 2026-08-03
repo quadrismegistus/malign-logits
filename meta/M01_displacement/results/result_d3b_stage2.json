@@ -1,11 +1,12 @@
 {
+  "_benchmark_source": "result_d2_stage2.json @ a1d712093155f32c, stored precision",
   "_registration": "f02f59d403906503",
   "_relabel_primary": "mean_abs_z_unweighted",
   "_stage1_sha16": "ce6b215c5af138bc",
   "_what": "D3b STAGE 2. The bracket: relabel (upper bound on the pool-associated share) and intercept (upper bound on the pool-independent share). NO significance test (\u00a77).",
   "arms": {
     "dom_extrem": {
-      "D2_observed": 0.01655,
+      "D2_observed": 0.01655496133619726,
       "D_pair_mean": 0.01655496133619726,
       "confound_side": {
         "mean_abs_z_unweighted": {
@@ -14,7 +15,7 @@
           "n": 632,
           "n_flipped": 326,
           "n_ties": 0,
-          "ratio_to_D2": -1.1296610594729621,
+          "ratio_to_D2": -1.1293225127260877,
           "role": "PRIMARY (\u00a7A2)"
         },
         "mean_abs_z_weighted": {
@@ -23,7 +24,7 @@
           "n": 632,
           "n_flipped": 339,
           "n_ties": 0,
-          "ratio_to_D2": -3.2199870213459945,
+          "ratio_to_D2": -3.21902202735783,
           "role": "sensitivity"
         },
         "tail_ge_1_unweighted": {
@@ -32,7 +33,7 @@
           "n": 632,
           "n_flipped": 329,
           "n_ties": 0,
-          "ratio_to_D2": -0.6629825414586963,
+          "ratio_to_D2": -0.662783853028425,
           "role": "sensitivity"
         }
       },
@@ -89,7 +90,7 @@
       }
     },
     "val_extrem": {
-      "D2_observed": 0.01511,
+      "D2_observed": 0.015106155684521026,
       "D_pair_mean": 0.015106155684521026,
       "confound_side": {
         "mean_abs_z_unweighted": {
@@ -98,7 +99,7 @@
           "n": 632,
           "n_flipped": 215,
           "n_ties": 0,
-          "ratio_to_D2": 0.560712270496849,
+          "ratio_to_D2": 0.5608549643036479,
           "role": "PRIMARY (\u00a7A2)"
         },
         "mean_abs_z_weighted": {
@@ -107,7 +108,7 @@
           "n": 632,
           "n_flipped": 270,
           "n_ties": 0,
-          "ratio_to_D2": -3.0564845320639633,
+          "ratio_to_D2": -3.0572623666794176,
           "role": "sensitivity"
         },
         "tail_ge_1_unweighted": {
@@ -116,7 +117,7 @@
           "n": 632,
           "n_flipped": 192,
           "n_ties": 1,
-          "ratio_to_D2": 0.06220036936328108,
+          "ratio_to_D2": 0.06221619852906852,
           "role": "sensitivity"
         }
       },
