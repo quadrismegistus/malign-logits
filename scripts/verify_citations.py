@@ -33,6 +33,7 @@ Exit status is non-zero if anything is not `in history`, so this can gate a
 commit. Run after any history rewrite, and before publishing.
 """
 import pathlib
+import os
 import re
 import subprocess
 import sys
@@ -93,13 +94,121 @@ def git(*args):
     return subprocess.run(["git", *args], capture_output=True, text=True)
 
 
+#: **CONTENT HASHES ARE NOT COMMITS AND THIS CHECKER DOES NOT OWN THEM.**
+#: Every backticked 7-40 hex was classified as a claimed commit, so
+#: `sha256[:16]` frozen-artifact digests -- C v6's `06f0272d7f21b901`,
+#: pairs_d's `84011269d00eea6b`, the population's `3ed3e286e633c2fc` -- were
+#: printed FABRICATED, which is this campaign's heaviest word applied to the
+#: freeze discipline's own receipts. The registrations only entered the glob
+#: when they were committed, so an old assumption met new files.
+#:
+#: The rule this restores is already booked: A CITATION VERIFIER CERTIFIES THE
+#: CLASS IT WAS BUILT FOR AND NO OTHER -- and its converse, that a citation two
+#: checkers each believe the other owns is checked by NEITHER. So a non-commit
+#: is handed to the digest class by name and only called FABRICATED when
+#: neither class resolves it.
+DIGEST_LEN = 16          #: sha256[:16], the campaign's frozen-artifact notation
+_DIGESTS = {}            #: filled lazily; see digest_index()
+
+
+def digest_index():
+    """sha256[:16] -> paths, over the project's own instrument directories."""
+    if _DIGESTS:
+        return _DIGESTS
+    import hashlib
+    roots = ("meta", "scripts", "malign_logits")
+    for root in roots:
+        for dirpath, dirnames, filenames in os.walk(root, followlinks=True):
+            dirnames[:] = [d for d in dirnames
+                           if d not in (".git", "__pycache__", "node_modules")]
+            for fn in filenames:
+                if not fn.endswith((".py", ".md", ".json", ".txt")):
+                    continue
+                fp = os.path.join(dirpath, fn)
+                try:
+                    with open(fp, "rb") as fh:
+                        h = hashlib.sha256(fh.read()).hexdigest()[:DIGEST_LEN]
+                except OSError:
+                    continue
+                _DIGESTS.setdefault(h, []).append(fp)
+                #: **AND DIGESTS DECLARED INSIDE ARTIFACTS, which are a third
+                #: thing again.** `3ed3e286e633c2fc` is not the sha of any FILE
+                #: -- it is the sha of the population's ID SET, recorded in
+                #: `population_d_684.json` as `id_set_sha256_16`. A citation can
+                #: name a set whose enumeration lives in a committed artifact,
+                #: and only the artifact can resolve it.
+                if fn.endswith(".json"):
+                    try:
+                        import json as _json
+                        with open(fp) as fh:
+                            obj = _json.load(fh)
+                    except Exception:
+                        continue
+                    if isinstance(obj, dict):
+                        for k, v in obj.items():
+                            if (isinstance(v, str) and len(v) >= DIGEST_LEN
+                                    and "sha" in k.lower()):
+                                _DIGESTS.setdefault(v[:DIGEST_LEN],
+                                                    []).append(f"{fp}:{k}")
+    return _DIGESTS
+
+
 def classify(sha):
     if git("cat-file", "-e", f"{sha}^{{commit}}").returncode != 0:
-        return "FABRICATED", ""
+        #: not a commit -- ask the class that DOES own content digests before
+        #: reaching for the word FABRICATED
+        if len(sha) == DIGEST_LEN:
+            hit = digest_index().get(sha)
+            if hit:
+                return "content-hash", hit[0]
+            #: **A CITATION OF SUPERSEDED BYTES IS NOT UNRESOLVED.** Six status
+            #: headers were rewritten today, so every hash naming their PRIOR
+            #: bytes stopped matching the working tree while remaining perfectly
+            #: correct about what it cited. Git holds those bytes; the commit
+            #: that last carried them is the answer.
+            was = _HIST.get(sha)
+            if was:
+                return "content-hash", was
+        return "UNRESOLVED", ""
+    #: **RESTORED. My splice deleted these four lines and every COMMIT citation
+    #: then fell off the end of the function returning None** -- the run
+    #: crashed at the third row with a TypeError, which is the loud failure and
+    #: therefore the lucky one.
     subject = git("log", "-1", "--format=%s", sha).stdout.strip()
     if git("merge-base", "--is-ancestor", sha, "HEAD").returncode == 0:
         return "in history", subject
     return "ORPHANED", subject
+
+
+_HIST = {}
+
+
+def history_index():
+    """sha256[:16] -> locator, over COMMITTED versions of tracked files.
+
+    **BUILT ONCE, NOT PER-CITATION.** The first version called a per-sha search
+    that walked every file x every commit with a subprocess per blob; under a
+    timeout it emitted three rows and looked like a clean result. **A search
+    whose cost is (citations x files x commits) is not a check, it is a hang
+    with partial output** -- and partial output from a killed process is
+    indistinguishable, in the terminal, from a short answer.
+    """
+    if _HIST:
+        return _HIST
+    import hashlib
+    paths = [p for p in git("ls-files", "meta").stdout.split()
+             if p.endswith((".md", ".json"))]
+    for path in paths:
+        for c in git("log", "--format=%H", "--", path).stdout.split()[:8]:
+            blob = git("rev-parse", f"{c}:{path}").stdout.strip()
+            if not blob:
+                continue
+            body = subprocess.run(["git", "cat-file", "blob", blob],
+                                  capture_output=True).stdout
+            h = hashlib.sha256(body).hexdigest()[:DIGEST_LEN]
+            _HIST.setdefault(h, f"SUPERSEDED bytes of {path} "
+                                f"(last at {git('log', '-1', '--format=%h', c).stdout.strip()})")
+    return _HIST
 
 
 def check_pin():
@@ -157,12 +266,13 @@ def main():
     for sha, why in sorted(DOCUMENTED_NONEXISTENT.items()):
         print(f"{sha:10s}{'documented':13s}{why[:60]}")
     print(f"{'sha':10s}{'status':13s}subject / cited in")
+    digest_index(); _HIST.update(history_index())
     for sha in sorted(cites):
         status, subject = classify(sha)
-        if status != "in history":
+        if status not in ("in history", "content-hash"):
             bad.append((sha, status, sorted(cites[sha])))
-        # Non-commit hex (hashes, IDs) shows up as FABRICATED; report the file so
-        # a false positive is diagnosable rather than merely alarming.
+        # A non-commit that resolves as a frozen-artifact digest is REPORTED,
+        # not accused: it names the file whose bytes it is.
         note = subject[:46] if subject else ", ".join(sorted(cites[sha]))
         print(f"{sha:10s}{status:13s}{note}")
 
