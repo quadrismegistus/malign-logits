@@ -109,11 +109,25 @@ def _movement(P, Q, rule, residual_share, exact_null):
     keys = set(P) | set(Q)
     d = {k: Q.get(k, 0.0) - P.get(k, 0.0) for k in keys}
 
+    # THE RESIDUAL IS NEVER A FALLER, AND THE EXCLUSION BELONGS HERE, NOT AFTER.
+    # `movement()` used to strip RESIDUAL_KEY from the RETURNED faller list --
+    # which repaired the view and not the quantity: R, S, inflation, null,
+    # excess and risers were all computed with the bucket in `fallset`. It
+    # qualified whenever the tail lost more than half its mass (Q_res < 0.5
+    # P_res), i.e. in exactly the cells where mass moved OUT of the tail onto
+    # nameable words, and it did so in 11% of a 300-cell edge -- verified by
+    # perfect partition: `inflation` reproduced with the bucket IN for 33 cells
+    # and OUT for the other 267. See [3775]/[3776].
+    #
+    # An undifferentiated bucket has no word to fall, and treating it as one
+    # lets TAIL MOVEMENT MASQUERADE AS A LEXICAL EVENT. That sentence was
+    # already in this file, three lines above the code that did the opposite.
+    cand = [k for k in keys if k != RESIDUAL_KEY]
     if rule.null_test:
-        fall = [k for k in keys if P.get(k, 0.0) >= rule.min_prob
+        fall = [k for k in cand if P.get(k, 0.0) >= rule.min_prob
                 and Q.get(k, 0.0) < rule.fall_ratio * P.get(k, 0.0)]
     else:
-        fall = [k for k in keys if P.get(k, 0.0) >= rule.floor and d[k] <= -rule.delta]
+        fall = [k for k in cand if P.get(k, 0.0) >= rule.floor and d[k] <= -rule.delta]
     fallset = set(fall)
 
     # sorted() here is LEXICOGRAPHIC on word strings, NOT by mass. Downstream
@@ -171,10 +185,41 @@ def movement(pre, post, rule=CANONICAL, residual_pre=None, residual_post=None):
         P, Q = {**P, RESIDUAL_KEY: rp}, {**Q, RESIDUAL_KEY: rq}
     share = max(rp, rq)
     m = _movement(P, Q, rule, share, exact_null=False)
+
+    # ██ LOAD-BEARING. DO NOT "TIDY" THESE THREE POPS. ██  [3798]/[3800]
+    #
+    # They LOOK exactly like the faller strip removed below them, and they are
+    # its opposite. That strip repaired a VIEW over a quantity computed wrong;
+    # THESE MAKE THE QUANTITY RIGHT. `top_riser()` is an ARGMAX over `excess`
+    # (or `delta` under DRAW), and `concentration = top / arrived` divides by
+    # its winner. Measured with the pops removed, Olmo base->Instruct, 400
+    # cells: **RESIDUAL WINS top_riser() in 1.5% of cells under CANONICAL and
+    # 4.0% under DRAW** -- an undifferentiated bucket named as "the top riser"
+    # and used as a denominator.
+    #
+    # THE RULE THIS CAME FROM: a strip is CLASSIFIED BEFORE IT IS TOUCHED.
+    #   harmful       hides a wrong quantity   -> move the exclusion to candidacy
+    #   load-bearing  makes the quantity right -> document and assert, never remove
+    # The discriminating test is THE CONSUMER'S OPERATION: selection predicates
+    # are safe to strip late; AGGREGATES, RANKS and COUNTS are not.
     for coll in (m.null, m.excess, m.delta):
         coll.pop(RESIDUAL_KEY, None)
-    m.fallers = [k for k in m.fallers if k != RESIDUAL_KEY]
+
+    # NOT a strip any more -- `_movement` excludes the bucket from faller
+    # candidacy, so this asserts the invariant instead of manufacturing it.
+    # A silent strip here is what hid the defect for as long as it did.
+    assert RESIDUAL_KEY not in m.fallers, "residual reached the faller set"
+
+    # The riser side is SAFE TO STRIP LATE and it is asserted anyway, for the
+    # silence rather than the arithmetic. Riser selection is a PER-WORD
+    # INDEPENDENT PREDICATE -- no top-k, no budget, no ranking over the
+    # candidate set -- so the bucket can be IN the list but can never DISPLACE
+    # a word from it. Verified over 400 cells: excluding it at candidacy
+    # changes 0 word riser memberships and 0 excess values ([3798].1). Its own
+    # excess is `tail_excess`, read by name in decompose().
     m.risers = [k for k in m.risers if k != RESIDUAL_KEY]
+    assert RESIDUAL_KEY not in m.excess and RESIDUAL_KEY not in m.null, \
+        "residual survived the load-bearing pop; top_riser would rank the tail"
     return m
 
 
@@ -247,9 +292,36 @@ def word_probs(model, prompt, theta=0.001, mode="raw", cache=None):
         return None
     rows = payload.get("rows") or []
     probs = {}
-    for r in rows:
-        w = r["word"]
-        probs[w] = probs.get(w, 0.0) + r["p"]      # SUM, never overwrite
+    for i, r in enumerate(rows):
+        w, p = r.get("word"), r.get("p")
+        #: THE SIXTH REFUSAL, [3731].3/[3732].3: A MALFORMED ROW IS REFUSED AND
+        #: NAMED, NEVER SKIPPED. Without this the schema violation surfaces as a
+        #: bare `TypeError: unsupported operand type(s) for +: 'float' and 'dict'`
+        #: from the arithmetic below, naming neither the cell nor the store -- and
+        #: a caller who wraps the loop in `try` converts it into a silent hole.
+        #: A raising cell is a gift; the same cell skipped is a footnote nobody writes.
+        #: THE TYPE IS NOT THE VALUE, [3736]. The first version of this guard
+        #: checked `isinstance(p, float)` and `float('nan')` PASSES it -- the
+        #: same cell reaches one process as a real NaN and another as the typed
+        #: wrapper `{'__pytype__': 'float', '__val__': 'nan'}`, because the
+        #: serializer cannot carry NaN natively. A type predicate sees a defect
+        #: in one process and nothing in the other. THE VALUE IS WHAT IS ASKED.
+        why = None
+        if not isinstance(w, str):
+            why = "word is %s, not str" % type(w).__name__
+        elif isinstance(p, bool) or not isinstance(p, (int, float)):
+            why = "p is %s (%.120r), not a number" % (type(p).__name__, p)
+        elif not math.isfinite(p):
+            why = "p is %s -- NOT FINITE" % ("NaN" if math.isnan(p) else repr(p))
+        elif p < 0.0 or p > 1.0:
+            why = "p is %r -- outside [0, 1]" % p
+        if why:
+            raise ValueError(
+                "MALFORMED twp ROW, refused and named: model=%r prompt=%.60r "
+                "theta=%r mode=%r row=%d word=%r -- %s. The schema says word:str, "
+                "p: finite float in [0, 1]. Diagnose the cell; do not skip it."
+                % (model, prompt, theta, mode, i, w, why))
+        probs[w] = probs.get(w, 0.0) + p           # SUM, never overwrite
     return WordProbs(
         probs=probs,
         residual=(payload.get("residual") or {}).get("total", 0.0),

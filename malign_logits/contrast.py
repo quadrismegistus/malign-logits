@@ -460,7 +460,13 @@ def per_cell(step, texts=None, metric="js", rule=None, language="en", where=None
             "percentile": 100.0 * sum(1 for x in ref if x <= v) / len(ref),
             "n_reference": len(ref),
             "top_riser": m.top_riser() if m else None,
-            "top_faller": (m.fallers[0] if (m and m.fallers) else None),
+            #: `m.fallers` is sorted LEXICOGRAPHICALLY, not by mass ([1567]/[1572]),
+            #: so `fallers[0]` was the alphabetically-first faller -- wrong in
+            #: 83.5% of cells (780 of 934), and routinely a function word that
+            #: happens to start with a capital ([3802]). Nothing about the line
+            #: looked wrong: index 0 of a sorted list READS like a top-of-list.
+            #: **A NAME PROMISING AN ORDERING THE DATA DOES NOT CARRY.**
+            "top_faller": (m.top_faller() if m else None),
             "n_fallers": len(m.fallers) if m else None,
             "n_risers": len(m.risers) if m else None,
         })

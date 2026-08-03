@@ -720,6 +720,13 @@ def tree_metrics(probe, prompt: str, n_gens: int = 100,
         "n_gens": n,
         "n_branches": len(empirical),
         "branch_entropy": branch_entropy,
+        #: CORRECT, AND IT READS LIKE THE DEFECT AT contrast.py:463 ([3802]).
+        #: The ordering is real but IMPLICIT: `branches` is built from
+        #: `empirical.most_common()`, so insertion order IS descending count and
+        #: index 0 is the top. It survives only because dicts preserve insertion
+        #: order -- rebuild `branches` from anything else and these two lines go
+        #: silently wrong with no other edit. Read them WITH the comprehension
+        #: six lines up, never alone.
         "top_branch": list(branches.keys())[0] if branches else "",
         "top_branch_pct": list(branches.values())[0] if branches else 0,
         "branches": branches,

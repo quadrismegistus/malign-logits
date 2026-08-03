@@ -260,3 +260,50 @@ def test_psyche_cache():
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
+
+
+def test_get_logits_refuses_non_finite(cache):
+    """A stored vector containing NaN or inf REFUSES on read. Ruled [3715].2(iii).
+
+    The retired all-NaN Falcon shard is BYTE-SIZE IDENTICAL to the real one
+    (671,827,968 bytes, dim 130,048, both), so every structural assertion in
+    index_logit_shards.py passes on it -- there is no stride error to catch.
+    The index names a BASENAME resolved against MALIGN_LOGIT_ROOT at read
+    time, so the bytes swing on an environment variable with no error, no size
+    change and no hash change. A pinned shard sha256 catches THAT file; it
+    cannot catch a future canonical shard that is partly NaN. This is the
+    check that tests the BYTES.
+    """
+    good = np.random.randn(100).astype(np.float32)
+    cache.set_logits("model-finite", "p", good)
+    np.testing.assert_array_almost_equal(cache.get_logits("model-finite", "p"), good)
+
+    for name, bad_val in [("model-nan", np.nan), ("model-inf", np.inf)]:
+        bad = np.random.randn(100).astype(np.float32)
+        bad[7] = bad_val
+        cache.set_logits(name, "p", bad)
+
+        with pytest.raises(ValueError, match="NON-FINITE LOGITS"):
+            cache.get_logits(name, "p")
+
+        # REFUSE TO COMPUTE, NEVER TO DESCRIBE: the index entry is the cheap
+        # question and it must still answer, or forensics on a bad shard has
+        # to go around the guard -- which is how a guard gets a bypass flag.
+        assert cache.get_logits_entry(name, "p") is not None
+        assert cache.has_logits(name, "p")
+
+
+def test_non_finite_refusal_names_the_resolved_root(cache):
+    """The refusal must be DIAGNOSABLE: which copy did the root resolve to?
+
+    The failure this guards is not "the data is bad" but "the root points at
+    the wrong one of three same-sized files", and a message that does not name
+    the resolved absolute path sends the reader to the data instead.
+    """
+    bad = np.zeros(100, dtype=np.float32); bad[0] = np.nan
+    cache.set_logits("model-diag", "p", bad)
+    with pytest.raises(ValueError) as ei:
+        cache.get_logits("model-diag", "p")
+    msg = str(ei.value)
+    assert os.path.abspath(cache._logit_root()) in msg
+    assert "1/100" in msg or "1/100," in msg
