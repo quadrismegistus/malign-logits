@@ -1,0 +1,47 @@
+#!/bin/bash
+# Refuse to commit a file GitHub will refuse to receive.
+#
+# WHY: a 138 MB derived artifact was committed on 2026-08-03 and nobody
+# noticed until RH asked. GitHub HARD-BLOCKS any file over 100 MiB in a push,
+# so the commit succeeds, the push fails, and by then only a history rewrite
+# removes it. The cheap moment is here.
+#
+# THE LIMIT IS ON UNPACKED SIZE. word_pool_d2.json packs to 27 MB and is still
+# rejected at 138 MB unpacked -- "it compresses well" is not a defence.
+#
+# bash, NOT sh: the first version used `#!/bin/sh` with process substitution
+# and died with a syntax error. Git aborts on a hook that fails to PARSE, so
+# it refused for the wrong reason -- a guard that blocks by crashing blocks
+# everything, including what it should allow.
+#
+# Deliberate exception:  ALLOW_BIG=1 git commit ...
+BLOCK=104857600      # 100 MiB, GitHub's hard block
+WARN=52428800        # 50 MiB, GitHub's warning
+[ -n "$ALLOW_BIG" ] && exit 0
+
+fail=0
+while IFS= read -r -d '' f; do
+    [ -f "$f" ] || continue
+    sz=$(wc -c < "$f" | tr -d ' ')
+    mb=$(( sz / 1048576 ))
+    if [ "$sz" -gt "$BLOCK" ]; then
+        printf 'BLOCKED  %5d MB  %s\n' "$mb" "$f"; fail=1
+    elif [ "$sz" -gt "$WARN" ]; then
+        printf 'large    %5d MB  %s  (GitHub warns above 50 MiB)\n' "$mb" "$f"
+    fi
+done < <(git diff --cached --name-only --diff-filter=ACM -z)
+
+if [ "$fail" -ne 0 ]; then
+    cat <<'MSG'
+
+REFUSING: a file above 100 MiB cannot be pushed to GitHub, and once
+committed it can only be removed by rewriting history.
+
+  - DERIVED artifact: keep it out of git, cite it by content hash, store
+    it where the models and generations already live
+  - must be versioned: git lfs track, BEFORE committing
+  - you mean it:  ALLOW_BIG=1 git commit ...
+MSG
+    exit 1
+fi
+exit 0
