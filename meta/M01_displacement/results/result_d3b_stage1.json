@@ -1,0 +1,223 @@
+{
+  "_floor": 0.6,
+  "_producer_d": "/Users/rj416/github/malign-logits/meta/M01_displacement/scripts/pairs_d.py",
+  "_registration": "f02f59d403906503",
+  "_seed": 20260803,
+  "_what": "D3b STAGE 1. Reliability of the regressor + regressor diagnostics. NO D, NO intercept, NO ratio, NO relabel.",
+  "arms": {
+    "dom_extrem": {
+      "n_admitted": 632,
+      "regressors": {
+        "mean_abs_z_unweighted": {
+          "max": 0.25595983603920835,
+          "mean": -0.009385402496508889,
+          "median": -0.0031202371308486354,
+          "meets_floor": true,
+          "min": -0.3573216988303646,
+          "n": 632,
+          "n_negative": 326,
+          "n_positive": 306,
+          "near_zero_bins": {
+            "0.01": 83,
+            "0.02": 170,
+            "0.05": 354
+          },
+          "reliability": {
+            "distance_from_floor": 0.1661307702405893,
+            "mass_imbalance_max": 0.6111111111111112,
+            "mass_imbalance_median": 0.0031847133757961785,
+            "n_pairs": 624,
+            "n_skipped": 8,
+            "r_halves": 0.6209173158406547,
+            "reliability_spearman_brown": 0.7661307702405893
+          },
+          "reliability_all_pairs": {
+            "distance_from_floor": 0.1661307702405893,
+            "mass_imbalance_max": 0.6111111111111112,
+            "mass_imbalance_median": 0.003188097768331562,
+            "n_pairs": 624,
+            "n_skipped": 60,
+            "r_halves": 0.6209173158406547,
+            "reliability_spearman_brown": 0.7661307702405893
+          },
+          "sd": 0.07174726109280559
+        },
+        "mean_abs_z_weighted": {
+          "max": 0.3929424302032961,
+          "mean": -0.019866236181599196,
+          "median": -0.010005709610675206,
+          "meets_floor": true,
+          "min": -0.7876050517061447,
+          "n": 632,
+          "n_negative": 339,
+          "n_positive": 293,
+          "near_zero_bins": {
+            "0.01": 54,
+            "0.02": 98,
+            "0.05": 242
+          },
+          "reliability": {
+            "distance_from_floor": 0.18150170057660164,
+            "mass_imbalance_max": 0.6111111111111112,
+            "mass_imbalance_median": 0.0031847133757961785,
+            "n_pairs": 624,
+            "n_skipped": 8,
+            "r_halves": 0.641364621474165,
+            "reliability_spearman_brown": 0.7815017005766016
+          },
+          "reliability_all_pairs": {
+            "distance_from_floor": 0.18150170057660164,
+            "mass_imbalance_max": 0.6111111111111112,
+            "mass_imbalance_median": 0.003188097768331562,
+            "n_pairs": 624,
+            "n_skipped": 60,
+            "r_halves": 0.641364621474165,
+            "reliability_spearman_brown": 0.7815017005766016
+          },
+          "sd": 0.13708049641043552
+        },
+        "tail_ge_1_unweighted": {
+          "max": 0.29166666666666663,
+          "mean": -0.009115675562510068,
+          "median": -0.002774944728761386,
+          "meets_floor": true,
+          "min": -0.25403378099445767,
+          "n": 632,
+          "n_negative": 329,
+          "n_positive": 303,
+          "near_zero_bins": {
+            "0.01": 97,
+            "0.02": 193,
+            "0.05": 410
+          },
+          "reliability": {
+            "distance_from_floor": 0.1790648795266323,
+            "mass_imbalance_max": 0.6111111111111112,
+            "mass_imbalance_median": 0.0031847133757961785,
+            "n_pairs": 624,
+            "n_skipped": 8,
+            "r_halves": 0.6380886801131429,
+            "reliability_spearman_brown": 0.7790648795266323
+          },
+          "reliability_all_pairs": {
+            "distance_from_floor": 0.1790648795266323,
+            "mass_imbalance_max": 0.6111111111111112,
+            "mass_imbalance_median": 0.003188097768331562,
+            "n_pairs": 624,
+            "n_skipped": 60,
+            "r_halves": 0.6380886801131429,
+            "reliability_spearman_brown": 0.7790648795266323
+          },
+          "sd": 0.06329809344578315
+        }
+      }
+    },
+    "val_extrem": {
+      "n_admitted": 632,
+      "regressors": {
+        "mean_abs_z_unweighted": {
+          "max": 0.3695746492616073,
+          "mean": 0.02871419370160415,
+          "median": 0.02497680154135501,
+          "meets_floor": true,
+          "min": -0.4193471705008136,
+          "n": 632,
+          "n_negative": 215,
+          "n_positive": 417,
+          "near_zero_bins": {
+            "0.01": 71,
+            "0.02": 145,
+            "0.05": 333
+          },
+          "reliability": {
+            "distance_from_floor": 0.2163428892643401,
+            "mass_imbalance_max": 0.6111111111111112,
+            "mass_imbalance_median": 0.0031847133757961785,
+            "n_pairs": 624,
+            "n_skipped": 8,
+            "r_halves": 0.6896785241774718,
+            "reliability_spearman_brown": 0.8163428892643401
+          },
+          "reliability_all_pairs": {
+            "distance_from_floor": 0.2163428892643401,
+            "mass_imbalance_max": 0.6111111111111112,
+            "mass_imbalance_median": 0.003188097768331562,
+            "n_pairs": 624,
+            "n_skipped": 60,
+            "r_halves": 0.6896785241774718,
+            "reliability_spearman_brown": 0.8163428892643401
+          },
+          "sd": 0.07899960781622407
+        },
+        "mean_abs_z_weighted": {
+          "max": 0.5605856863206552,
+          "mean": 0.021515059950209844,
+          "median": 0.017657085948678763,
+          "meets_floor": true,
+          "min": -0.7438885035031814,
+          "n": 632,
+          "n_negative": 270,
+          "n_positive": 362,
+          "near_zero_bins": {
+            "0.01": 53,
+            "0.02": 108,
+            "0.05": 223
+          },
+          "reliability": {
+            "distance_from_floor": 0.20202994905145177,
+            "mass_imbalance_max": 0.6111111111111112,
+            "mass_imbalance_median": 0.0031847133757961785,
+            "n_pairs": 624,
+            "n_skipped": 8,
+            "r_halves": 0.6694908177515853,
+            "reliability_spearman_brown": 0.8020299490514518
+          },
+          "reliability_all_pairs": {
+            "distance_from_floor": 0.20202994905145177,
+            "mass_imbalance_max": 0.6111111111111112,
+            "mass_imbalance_median": 0.003188097768331562,
+            "n_pairs": 624,
+            "n_skipped": 60,
+            "r_halves": 0.6694908177515853,
+            "reliability_spearman_brown": 0.8020299490514518
+          },
+          "sd": 0.13711302434574665
+        },
+        "tail_ge_1_unweighted": {
+          "max": 0.2962962962962963,
+          "mean": 0.026609921677385066,
+          "median": 0.022003233419507245,
+          "meets_floor": true,
+          "min": -0.3,
+          "n": 632,
+          "n_negative": 192,
+          "n_positive": 439,
+          "near_zero_bins": {
+            "0.01": 101,
+            "0.02": 185,
+            "0.05": 380
+          },
+          "reliability": {
+            "distance_from_floor": 0.21095941251708394,
+            "mass_imbalance_max": 0.6111111111111112,
+            "mass_imbalance_median": 0.0031847133757961785,
+            "n_pairs": 624,
+            "n_skipped": 8,
+            "r_halves": 0.6820283689674602,
+            "reliability_spearman_brown": 0.8109594125170839
+          },
+          "reliability_all_pairs": {
+            "distance_from_floor": 0.21095941251708394,
+            "mass_imbalance_max": 0.6111111111111112,
+            "mass_imbalance_median": 0.003188097768331562,
+            "n_pairs": 624,
+            "n_skipped": 60,
+            "r_halves": 0.6820283689674602,
+            "reliability_spearman_brown": 0.8109594125170839
+          },
+          "sd": 0.062094113460546954
+        }
+      }
+    }
+  }
+}
