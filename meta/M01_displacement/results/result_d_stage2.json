@@ -1,0 +1,223 @@
+{
+ "_amendment": "ddb4cd9b0496b723",
+ "_population": "3ed3e286e633c2fc",
+ "_stage1": {
+  "path": "result_d_stage1.json",
+  "sha256_16": "9ae70405b23d96fe"
+ },
+ "_what": "Registration D STAGE 2: the read.",
+ "arms": {
+  "arousal": {
+   "family": 2,
+   "mde_reading": {
+    "known_effect": 0.1,
+    "mde": 0.02571768127411249,
+    "quotable": true,
+    "reading": "EVIDENCE AGAINST SITE-SPECIFICITY",
+    "why": "null with MDE 0.02572 < known effect 0.1"
+   },
+   "per_t": {
+    "0.00": {
+     "A_marked": 0.11250302522025954,
+     "A_unmarked": 0.14239695254646498,
+     "D": -0.029893927326205424,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "p": 0.9976002399760024,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.02571768127411249,
+     "reject": false,
+     "status": "ok",
+     "unit_line": "units=632 field=pair_id entries=684"
+    },
+    "0.01": {
+     "A_marked": 0.11250302522025954,
+     "A_unmarked": 0.14239695254646498,
+     "D": -0.029893927326205424,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "p": 0.9976002399760024,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.02571768127411249,
+     "reject": false,
+     "status": "ok",
+     "unit_line": "units=632 field=pair_id entries=684"
+    },
+    "0.02": {
+     "A_marked": 0.11250302522025954,
+     "A_unmarked": 0.14239695254646498,
+     "D": -0.029893927326205424,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "p": 0.9976002399760024,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.02571768127411249,
+     "reject": false,
+     "status": "ok",
+     "unit_line": "units=632 field=pair_id entries=684"
+    },
+    "0.05": {
+     "A_marked": 0.1120961237244294,
+     "A_unmarked": 0.14321901274964455,
+     "D": -0.031122889025215164,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 629,
+     "p": 0.9987001299870013,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.025709190905780884,
+     "reject": false,
+     "status": "ok",
+     "unit_line": "units=629 field=pair_id entries=684"
+    },
+    "0.10": {
+     "A_marked": 0.09923161885209972,
+     "A_unmarked": 0.12502891079190262,
+     "D": -0.025797291939802888,
+     "collapsed": false,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 287,
+     "p": 0.9279072092790721,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.04447673009355803,
+     "reject": false,
+     "status": "ok",
+     "unit_line": "units=287 field=pair_id entries=684"
+    },
+    "0.20": {
+     "n": 1,
+     "reject": null,
+     "status": "UNDERPOWERED"
+    }
+   },
+   "reading_rule": {
+    "verdict": "NOT SUPPORTED",
+    "why": "primary p 0.99760 does not pass its null"
+   },
+   "sequence_note": "first non-rejection: arms below this one are NOT TESTED"
+  },
+  "dom_extrem": {
+   "family": 2,
+   "status": "NOT TESTED",
+   "why": "fixed-sequence stopped at an earlier arm; this is NOT a null"
+  },
+  "h1_signed": {
+   "family": 1,
+   "mde_reading": {
+    "reading": "NULL, NO DECLARED COMPARATOR",
+    "why": "\u00a7D6d declares comparators for the three site-specificity arms only"
+   },
+   "per_t": {
+    "0.00": {
+     "A_marked": -0.0077571133809925955,
+     "A_unmarked": -0.019834836198028807,
+     "D": 0.012077722817036212,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "p": 0.8793120687931207,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.025721058323479783,
+     "reject": false,
+     "status": "ok",
+     "unit_line": "units=632 field=pair_id entries=684"
+    },
+    "0.01": {
+     "A_marked": -0.0077571133809925955,
+     "A_unmarked": -0.019834836198028807,
+     "D": 0.012077722817036212,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "p": 0.8793120687931207,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.025721058323479783,
+     "reject": false,
+     "status": "ok",
+     "unit_line": "units=632 field=pair_id entries=684"
+    },
+    "0.02": {
+     "A_marked": -0.0077571133809925955,
+     "A_unmarked": -0.019834836198028807,
+     "D": 0.012077722817036212,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "p": 0.8793120687931207,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.025721058323479783,
+     "reject": false,
+     "status": "ok",
+     "unit_line": "units=632 field=pair_id entries=684"
+    },
+    "0.05": {
+     "A_marked": -0.007833754516315437,
+     "A_unmarked": -0.020832370414579967,
+     "D": 0.012998615898264529,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 629,
+     "p": 0.8915108489151085,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.025677082757547334,
+     "reject": false,
+     "status": "ok",
+     "unit_line": "units=629 field=pair_id entries=684"
+    },
+    "0.10": {
+     "A_marked": 0.010253546458573093,
+     "A_unmarked": -0.014004447381504843,
+     "D": 0.024257993840077936,
+     "collapsed": false,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 287,
+     "p": 0.9245075492450755,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.04060672417537725,
+     "reject": false,
+     "status": "ok",
+     "unit_line": "units=287 field=pair_id entries=684"
+    },
+    "0.20": {
+     "n": 1,
+     "reject": null,
+     "status": "UNDERPOWERED"
+    }
+   },
+   "reading_rule": {
+    "verdict": "NOT SUPPORTED",
+    "why": "primary p 0.87931 does not pass its null"
+   }
+  },
+  "val_extrem": {
+   "family": 2,
+   "status": "NOT TESTED",
+   "why": "fixed-sequence stopped at an earlier arm; this is NOT a null"
+  }
+ },
+ "roster": {
+  "drift": [
+   "prompts e73a57d399a2b0c6619020a42c4f03d98cb3d0fed26fb9e2817ea89644c96498 != frozen fd3f14796ba9481b6597b94871013f8db5357a0a330751dc042268895209c8b4",
+   "models f989b0789dd8af51f15cd5c7d05aaeb12d3422dbb1af974cbb87f1c5a6bb4247 != frozen e4c507eb8dbcf593477f568d9c011695c7a84a0525454bdbf50107820f32e164"
+  ],
+  "frozen_models_sha16": "e4c507eb8dbcf593",
+  "frozen_prompts_sha16": "fd3f14796ba9481b",
+  "models_sha16": "f989b0789dd8af51",
+  "n_models": 101,
+  "n_prompts": 2579,
+  "prompts_sha16": "e73a57d399a2b0c6"
+ }
+}
