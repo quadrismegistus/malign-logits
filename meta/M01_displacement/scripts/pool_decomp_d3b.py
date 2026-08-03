@@ -58,7 +58,10 @@ SENSITIVITY_REGRESSOR = "mean_abs_z_weighted"
 #: to a single key is the ruling's job, not this file's.
 RELABEL_SORT_KEYS = ("mean_abs_z_unweighted", "tail_ge_1_unweighted",
                      "mean_abs_z_weighted")
-RELABEL_PRIMARY = None                  #: set by ruling; None => report all
+#: §A2 IN FORCE (D3b-A, RH 2026-08-03): the sort key is §4's declared
+#: regressor. GROUND: the bracket's two sides must read the SAME measure or the
+#: decomposition compares unlike quantities -- internal coherence, not a number.
+RELABEL_PRIMARY = PRIMARY_REGRESSOR
 
 DIM_OF_ARM = {"val_extrem": "valence", "dom_extrem": "dominance"}
 
@@ -111,94 +114,118 @@ def gaps(built, pairs, dim, key):
 # ══════════════════════════════════════════════════════════════════════════
 # reliability -- §3, a STAGE 1 quantity
 # ══════════════════════════════════════════════════════════════════════════
-def mass_balanced_split(cell_keys, sizes):
-    """Split a member's cells into halves with CELL MASS balanced. §3 / §A3.
+def mass_balanced_split(keys, sizes):
+    """Split an edge set into halves with MASS balanced. §3 / §A4, both declared.
 
-    **§3 states the reason and it is not cosmetic:** split-half assumes
-    parallel forms, a member's cells differ in size, and an unbalanced split
-    UNDERSTATES reliability -- which makes the disattenuation OVERSHOOT, i.e.
-    errs toward a larger corrected b1 and a smaller b0. The bias would run
-    against the residual side, so balancing is not a convenience.
+    Greedy longest-processing-time: size DESCENDING, then **§A4's tie-break --
+    CELL KEY (family, position) ASCENDING, NO RANDOM SEED.** A key-order
+    tie-break needs no constant, cannot be mis-transcribed, and is reproducible
+    by anyone holding the data without holding the document.
 
-    Greedy longest-processing-time: size DESCENDING, then **§A3's declared
-    tie-break -- CELL KEY (family, position) ASCENDING, NO RANDOM SEED.**
-    A key-order tie-break needs no constant, cannot be mis-transcribed, and is
-    reproducible by anyone holding the data without holding the document.
+    **THE EQUAL-MASS STEP IS DECLARED TOO (§A4), because the greedy rule is
+    undefined at its own first step: at the first edge both halves hold zero
+    and EVERY split hits it.** On equal mass, the half holding FEWER EDGES; if
+    the counts are equal too, half A. Derived from an ordering already
+    declared, so no new constant enters.
 
-    **UNDECLARED AND LEFT AS IT IS: which half receives a cell when the two
-    halves hold EQUAL mass.** The rule reads "whichever half holds less" and at
-    the first cell both hold zero, so EVERY member hits it on cell one. Raised
-    at [3493].2; `ma <= mb -> A` below is this file's choice and nothing has
-    ordered it. **Fixing it in code is what put it here, so it stays visible
-    until the text names it.**
+    §3's reason for balancing at all: split-half assumes parallel forms, an
+    unbalanced split UNDERSTATES reliability, and understating it makes the
+    disattenuation OVERSHOOT -- a bias against the residual side.
     """
-    order = sorted(cell_keys, key=lambda k: (-sizes[k], k))
     ha, hb, ma, mb = [], [], 0, 0
-    for k in order:
-        if ma <= mb:                       #: <- UNDECLARED, see docstring
+    for k in sorted(keys, key=lambda k: (-sizes[k], k)):
+        if ma < mb:
+            to_a = True
+        elif mb < ma:
+            to_a = False
+        elif len(ha) != len(hb):           #: equal mass -> fewer edges
+            to_a = len(ha) < len(hb)
+        else:                              #: equal mass AND equal count -> A
+            to_a = True
+        if to_a:
             ha.append(k); ma += sizes[k]
         else:
             hb.append(k); mb += sizes[k]
     return ha, hb, ma, mb
 
 
-def split_half_reliability(built, pairs, dim, key, seed=SEED):
-    """Spearman-Brown-corrected split-half reliability of `gap_pair`. §3.
+def split_half_reliability(built, pairs, dim, key, admitted=None):
+    """Spearman-Brown-corrected split-half reliability of `gap_pair`. §3 / §A4.
 
-    **WHAT IS BEING MEASURED IS THE REGRESSOR, NOT THE OUTCOME.** §3 puts
-    reliability here because §3's disattenuation divides b1 by it; a reliability
-    of the wrong quantity would correct by the wrong amount.
+    **THE ESTIMAND IS THE PAIR'S GAP, NOT A MEMBER'S MEAN (§A4).** The
+    disattenuation divides by the reliability of the regressor, and the
+    regressor IS the difference. Member-level reliability runs higher, so using
+    it UNDER-corrects -- leaving attenuation that §6.1 declares reads HIGH, IN
+    OUR FAVOUR. The ambiguity had a direction.
+
+    **THE SPLIT IS SHARED OVER THE UNION OF THE PAIR'S EDGES (§A4), NOT
+    PER-MEMBER.** Under per-member splitting `half A` was not a referent: M's
+    "A" and U's "A" were independently-constructed halves related only by
+    construction order, so the half-gap differenced two arbitrarily-associated
+    things and the code answered by having a loop order. Edge sets differ in
+    631 of 632 pairs. **The union partitions EACH member's full edge set, so
+    every half-gap is a miniature of the gap the regression consumes**; the
+    intersection would drop a median of seven edges and 17 pairs against 8.
+
+    Mass is POOLED word count (MARKED + UNMARKED at that edge); a member absent
+    at an edge contributes none. Correlation is PEARSON -- Spearman-Brown
+    presumes it.
     """
-    half_gap = {"A": {}, "B": {}}
-    per_member_mass = {}
-    for pid, mem in pairs.items():
+    ids = list(pairs) if admitted is None else list(admitted)
+    xa, xb, skipped = [], [], 0
+    imb = []
+    for pid in ids:
+        mem = pairs[pid]
+        per = {r: built["cells"].get(t, {}) for r, t in mem.items()}
+        union = set(per["MARKED"]) | set(per["UNMARKED"])
+        if len(union) < 2:
+            skipped += 1
+            continue
+        sizes = {e: (len(per["MARKED"][e]["zs"]) if e in per["MARKED"] else 0)
+                    + (len(per["UNMARKED"][e]["zs"]) if e in per["UNMARKED"] else 0)
+                 for e in union}
+        ha, hb, ma, mb = mass_balanced_split(union, sizes)
+        if (ma + mb) > 0:
+            imb.append(abs(ma - mb) / (ma + mb))
         halves = {}
-        for role, text in mem.items():
-            per_edge = built["cells"].get(text, {})
-            if len(per_edge) < 2:
-                halves = None
-                break
-            sizes = {k: len(c["zs"]) for k, c in per_edge.items()}
-            #: **NO SEED REACHES THE SPLIT AT ALL (§A3).** The first version
-            #: seeded the tie-break with `hash(text)`, which Python SALTS PER
-            #: PROCESS: two identical smoke runs returned split-half 0.9439 and
-            #: 0.8272, so the number §3's floor forks on was not reproducible
-            #: across restarts -- and it would have hashed cleanly into the
-            #: stage-1 artifact and passed the gate. §A3's key-order tie-break
-            #: removes the seed rather than stabilising it.
-            ha, hb, ma, mb = mass_balanced_split(list(per_edge), sizes)
-            per_member_mass[text] = (ma, mb)
-            hv = {}
-            for lab, keys in (("A", ha), ("B", hb)):
+        empty = False
+        for lab, es in (("A", ha), ("B", hb)):
+            for role in ("MARKED", "UNMARKED"):
                 vals, wts = [], []
-                for k in keys:
-                    c = per_edge[k]
+                for e in es:
+                    c = per[role].get(e)
+                    if not c:
+                        continue
                     for z, w in zip(c["zs"], c["ws"]):
                         vals.append(abs(z[dim])); wts.append(w)
-                hv[lab] = pool_stat(vals, wts, key)
-            if hv["A"] is None or hv["B"] is None:
-                halves = None
-                break
-            halves[role] = hv
-        if not halves:
+                v = pool_stat(vals, wts, key)
+                #: §A4's SKIP PREDICATE is on the REALIZED halves -- either
+                #: member contributing no edge to either half -- not on a cell
+                #: count. A member with 3 edges can still land them all in one
+                #: half, so the realized skip count is >= the 8 that cannot
+                #: satisfy it under ANY assignment.
+                if v is None:
+                    empty = True
+                halves[(lab, role)] = v
+        if empty:
+            skipped += 1
             continue
-        for lab in ("A", "B"):
-            half_gap[lab][pid] = (halves["MARKED"][lab]
-                                  - halves["UNMARKED"][lab])
+        xa.append(halves[("A", "MARKED")] - halves[("A", "UNMARKED")])
+        xb.append(halves[("B", "MARKED")] - halves[("B", "UNMARKED")])
 
-    common = sorted(set(half_gap["A"]) & set(half_gap["B"]))
-    if len(common) < 3:
+    if len(xa) < 3:
         return None
-    xa = np.array([half_gap["A"][p] for p in common], float)
-    xb = np.array([half_gap["B"][p] for p in common], float)
-    if xa.std() == 0 or xb.std() == 0:
+    a, b = np.asarray(xa, float), np.asarray(xb, float)
+    if a.std() == 0 or b.std() == 0:
         return None
-    r = float(np.corrcoef(xa, xb)[0, 1])
-    sb = (2 * r) / (1 + r) if r > -1 else None      #: Spearman-Brown
-    imb = [abs(a - b) / (a + b) for a, b in per_member_mass.values()
-           if (a + b) > 0]
-    return {"n_pairs": len(common), "r_halves": r,
-            "reliability_spearman_brown": sb,
+    r = float(np.corrcoef(a, b)[0, 1])                     #: PEARSON, §A4
+    sb = (2 * r) / (1 + r) if r > -1 else None             #: Spearman-Brown
+    return {"n_pairs": len(xa), "n_skipped": skipped,
+            "r_halves": r, "reliability_spearman_brown": sb,
+            #: §A4: a near-miss is a NUMBER, not a branch. The fork is
+            #: discontinuous and jumps IN OUR FAVOUR below the floor (§A7).
+            "distance_from_floor": (None if sb is None
+                                    else sb - RELIABILITY_FLOOR),
             "mass_imbalance_median": (st.median(imb) if imb else None),
             "mass_imbalance_max": (max(imb) if imb else None)}
 
@@ -336,8 +363,13 @@ def stage1(coll, out_path, seed=SEED):
                           | {PRIMARY_REGRESSOR, SENSITIVITY_REGRESSOR}):
             g = gaps(coll["built"], coll["pairs"], a["dim"], key)
             vals = [g[p] for p in a["admitted"] if g.get(p) is not None]
+            #: §A4: the correlation runs over the ADMITTED pairs -- the
+            #: population the corrected estimator is fit on -- with the
+            #: all-pairs figure BESIDE IT as a declared sensitivity.
             rel = split_half_reliability(coll["built"], coll["pairs"],
-                                         a["dim"], key, seed)
+                                         a["dim"], key, a["admitted"])
+            rel_all = split_half_reliability(coll["built"], coll["pairs"],
+                                             a["dim"], key, None)
             rec["regressors"][key] = {
                 "n": len(vals),
                 "mean": float(np.mean(vals)) if vals else None,
@@ -356,6 +388,7 @@ def stage1(coll, out_path, seed=SEED):
                                                    if abs(v) <= c)
                                    for c in (0.01, 0.02, 0.05)},
                 "reliability": rel,
+                "reliability_all_pairs": rel_all,     #: §A4 sensitivity
                 "meets_floor": (None if not rel or
                                 rel["reliability_spearman_brown"] is None
                                 else rel["reliability_spearman_brown"]
@@ -441,6 +474,20 @@ def stage2(coll, stage1_path, stage1_sha16, out_path, seed=SEED):
                 "reported_estimator": ("disattenuated" if (dis and meets)
                                        else "RAW (corrected UNSTABLE, §3 floor)"),
             }
+            #: §A5's DECLARED QUANTITY, NO THRESHOLD: the POOL-INDEPENDENT
+            #: SHARE. Denominator is mean(D_pair) over THE SAME PAIRS THE
+            #: REGRESSION FITS -- which IS D2's D, since the sign-flip
+            #: statistic is that mean. So this share and §7's ratio sit on ONE
+            #: denominator and both bracket sides are directly comparable.
+            #: SIGNED, no absolute value: mean(D_pair) is POSITIVE on both arms,
+            #: so a NEGATIVE share means the pool-independent component runs
+            #: OPPOSITE the effect -- a finding, not something to hide.
+            #: NOT bounded to [0,1]; a share outside it is a real outcome.
+            b0 = rec["residual_side"][key]["reported_b0"]
+            den = float(np.mean([y[i] for i in keep])) if keep else None
+            rec["residual_side"][key]["denominator_mean_D_pair"] = den
+            rec["residual_side"][key]["pool_independent_share"] = (
+                None if (b0 is None or not den) else b0 / den)
 
         #: CONFOUND SIDE -- §2. Every construction until §2's silence is ruled.
         for key in RELABEL_SORT_KEYS:
@@ -448,6 +495,9 @@ def stage2(coll, stage1_path, stage1_sha16, out_path, seed=SEED):
                           a["dim"], key, a["admitted"])
             if r:
                 r["ratio_to_D2"] = r["D_relabelled"] / D2_OBSERVED[name]
+            if r:
+                r["role"] = ("PRIMARY (§A2)" if key == RELABEL_PRIMARY
+                             else "sensitivity")
             rec["confound_side"][key] = r
         payload["arms"][name] = rec
 
@@ -520,7 +570,7 @@ def selftest(verbose=True):
     _split_src = src[src.index("def mass_balanced_split("):
                      src.index("def split_half_reliability(")]
     check("the split takes no seed parameter",
-          "def mass_balanced_split(cell_keys, sizes)" in _split_src)
+          "def mass_balanced_split(keys, sizes)" in _split_src)
     check("the split uses no RNG", "default_rng" not in _split_src
           and "random" not in _split_src)
     check("the split's tie-break is the cell key ascending",
@@ -574,11 +624,57 @@ def selftest(verbose=True):
           "OBSERVED {observed}" in src)
     os.unlink(_tmp)
 
-    #: --- §2's silence is DECLARED, not defaulted ---
-    check("RELABEL_PRIMARY is unset until the pen rules",
-          RELABEL_PRIMARY is None)
+    #: --- §A2 IN FORCE: the sort key is the DECLARED REGRESSOR ---
+    check("RELABEL_PRIMARY is §4's declared regressor (§A2)",
+          RELABEL_PRIMARY == PRIMARY_REGRESSOR)
+    check("the primary sort key is one of the tabled constructions",
+          RELABEL_PRIMARY in RELABEL_SORT_KEYS)
+
+    #: --- §A4's EQUAL-MASS RULE, which the greedy rule left undefined ---
+    #: at the first edge both halves hold zero, so EVERY split hits it
+    one = mass_balanced_split(["b", "a"], {"a": 5, "b": 5})
+    check("equal size -> key order decides, 'a' first", one[0][0] == "a")
+    check("first edge goes to half A (equal mass, equal count)", one[0] == ["a"])
+    check("the second edge goes to B (A now heavier)", one[1] == ["b"])
+    #: equal mass, UNEQUAL counts -> the half holding FEWER edges
+    two = mass_balanced_split(["p", "q", "r"], {"p": 4, "q": 2, "r": 2})
+    check("equal mass with unequal counts -> fewer edges wins",
+          two[0] == ["p"] and sorted(two[1]) == ["q", "r"])
+    check("the declared rule balances mass exactly here", two[2] == two[3] == 4)
     check("every sort key is a construction pool_stat knows",
           all(pool_stat([1.0], [1.0], k) is not None for k in RELABEL_SORT_KEYS))
+
+    #: --- §A4's SHARED-OVER-UNION SPLIT, on a case that DISCRIMINATES ---
+    #: Each pair's members share ONE edge, so the INTERSECTION has <2 and an
+    #: intersection implementation skips every pair and returns None. The UNION
+    #: has 3 edges and every member reaches both halves, so all three compute.
+    #: **A test that both readings pass tests nothing; this one separates them.**
+    def _cell(zs):
+        return {"zs": [{"valence": v} for v in zs], "ws": [1.0] * len(zs)}
+    ubuilt = {"cells": {}}
+    upairs = {}
+    for i, off in enumerate((0.0, 0.7, 1.4)):
+        m, u = f"M{i}", f"U{i}"
+        ubuilt["cells"][m] = {("f", "e1"): _cell([1.0 + off, 2.0]),
+                              ("f", "e2"): _cell([0.5 + off])}
+        ubuilt["cells"][u] = {("f", "e1"): _cell([0.4, 1.1 + off]),
+                              ("f", "e3"): _cell([2.2 - off])}
+        upairs[f"p{i}"] = {"MARKED": m, "UNMARKED": u}
+    rel = split_half_reliability(ubuilt, upairs, "valence",
+                                 "mean_abs_z_unweighted")
+    check("union split computes pairs whose INTERSECTION is too small",
+          rel is not None and rel["n_pairs"] == 3 and rel["n_skipped"] == 0)
+    check("the reliability record carries the distance from the floor",
+          rel["distance_from_floor"] is not None
+          and abs(rel["distance_from_floor"]
+                  - (rel["reliability_spearman_brown"] - RELIABILITY_FLOOR)) < 1e-12)
+    #: a member that reaches only ONE half is skipped -- the REALIZED-halves
+    #: predicate, not a cell count
+    ubuilt["cells"]["U0"] = {("f", "e1"): _cell([0.4, 1.1])}
+    rel2 = split_half_reliability(ubuilt, upairs, "valence",
+                                  "mean_abs_z_unweighted")
+    check("a member absent from one half skips the pair", rel2 is None
+          or rel2["n_skipped"] >= 1)
 
     #: --- relabel: a hand-built case with a known answer ---
     built = {"cells": {
