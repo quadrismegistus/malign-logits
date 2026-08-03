@@ -27,7 +27,7 @@ figure without a producer in its own folder does not exist here.
 
 | ID  | Meta-finding | Status |
 |-----|--------------|--------|
-| M01 | [Displacement: alignment redistributes the transgressive lexicon](M01_displacement/README.md) | DRAFT — core clauses two-seat as of 2026-07-29; see clause table |
+| M01 | [Displacement: alignment redistributes the transgressive lexicon](M01_displacement/ledger.md) | DRAFT — core clauses two-seat as of 2026-07-29; see clause table |
 | M02 | [Frame-exit: alignment resolves contradiction by leaving the frame](M02_frame_exit/README.md) | STUB |
 | M03 | [Proceduralization: alignment proceduralises the individual, not the institution](M03_proceduralization/README.md) | STUB |
 

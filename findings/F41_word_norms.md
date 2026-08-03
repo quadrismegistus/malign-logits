@@ -62,7 +62,7 @@ arousal's does not ([1277].1 flag).
 | Frequency control P4(b): database + band + moving-vocab transfer | docket [1259], [1260], [1263] |
 | QUOTABILITY RULINGS + canonical P1 block | docket [1255], [1266].2 |
 | Registrations A (curve) + B (decomposition), directions fixed | docket [1258]; coupling columns [1270].1 |
-| Sparse-concentrated coupling (structural, unit-level) | meta/M01_displacement/README.md structural note; [1264]/[1267]/[1272] |
+| Sparse-concentrated coupling (structural, unit-level) | meta/M01_displacement/ledger.md structural note; [1264]/[1267]/[1272] |
 | Source files, staged + hashed | /Users/rj416/Dropbox/Prof/Articles/TheoryMachines/norms_sources/ (ALL FOUR, incl. Brysbaert consolidated 2026-07-31 — the earlier 'at its abslithists home' was a gesture, not a location: [1212].2) |
 | Producer | lacan's seat; enters scripts/ in the custody block (six-item window pending) |
 
