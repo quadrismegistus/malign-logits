@@ -693,6 +693,66 @@ def selftest(verbose=False, skip_slow=False):
     case("the collapse threshold is the declared 0.95, not a rounded 0.9",
          lambda: COLLAPSE_JACCARD == 0.95)
 
+    # ── §D3's READING RULE: every branch, constructed ────────────────────
+    def _pt(D, rej, collapsed=False, status="ok"):
+        return {"status": status, "D": D, "reject": rej,
+                "collapsed": collapsed, "p": 0.01 if rej else 0.4,
+                "raw_mde": 0.01, "n": 30}
+
+    case("primary not rejecting is NOT SUPPORTED whatever the curve does",
+         lambda: reading_rule({"0.00": _pt(-0.1, False),
+                               "0.10": _pt(-0.2, True)})["verdict"]
+                 == "NOT SUPPORTED")
+    case("primary rejecting with every other point COLLAPSED is SINGLE-POINT",
+         lambda: reading_rule({"0.00": _pt(-0.1, True),
+                               "0.05": _pt(-0.1, True, collapsed=True)}
+                              )["verdict"] == "SINGLE-POINT")
+    case("a SIGN FLIP at a non-collapsed point is THRESHOLD-DEPENDENT",
+         lambda: reading_rule({"0.00": _pt(-0.1, True),
+                               "0.10": _pt(+0.2, False)}   # sign, not signif.
+                              )["verdict"] == "THRESHOLD-DEPENDENT")
+    case("agreement in SIGN at a non-collapsed point is CONFIRMED",
+         lambda: reading_rule({"0.00": _pt(-0.1, True),
+                               "0.10": _pt(-0.02, False)}  # same sign, no p
+                              )["verdict"] == "CONFIRMED")
+    case("a COLLAPSED point cannot corroborate, so it cannot make CONFIRMED",
+         lambda: reading_rule({"0.00": _pt(-0.1, True),
+                               "0.05": _pt(-0.1, True, collapsed=True)}
+                              )["n_corroborators"] == 0)
+    case("an UNDERPOWERED primary is NOT SUPPORTED, never a null",
+         lambda: reading_rule({"0.00": _pt(0, None, status="UNDERPOWERED")}
+                              )["verdict"] == "NOT SUPPORTED")
+
+    # ── §D6d's three-way MDE reading ─────────────────────────────────────
+    case("a rejection reads as TRACKS TRANSGRESSIVE SITES",
+         lambda: mde_reading(_pt(-0.1, True), "arousal")["reading"]
+                 == "TRACKS TRANSGRESSIVE SITES")
+    case("a null with MDE BELOW the known effect is QUOTABLE evidence against",
+         lambda: mde_reading({**_pt(0.0, False), "raw_mde": 0.01},
+                             "val_extrem")["quotable"] is True)
+    case("a null with MDE ABOVE it is UNINFORMATIVE, quotable as nothing",
+         lambda: mde_reading({**_pt(0.0, False), "raw_mde": 0.9},
+                             "val_extrem")["quotable"] is False)
+    case("h1_signed has NO declared comparator and says so",
+         lambda: "NO DECLARED COMPARATOR"
+                 in mde_reading(_pt(0.0, False), "h1_signed")["reading"])
+
+    # ── §D6c's FIXED SEQUENCE ────────────────────────────────────────────
+    case("the Family-2 sequence is §D6c's declared order",
+         lambda: FAMILY2_SEQUENCE == ("arousal", "val_extrem", "dom_extrem"))
+    case("the known effects are §D6d's three declared values",
+         lambda: KNOWN_EFFECT == {"arousal": 0.10, "val_extrem": 0.025,
+                                  "dom_extrem": 0.025})
+
+    # ── §D4's LATTICE REFUSAL, MADE TO FIRE ──────────────────────────────
+    #: at n=6 the floor is 1/64 = 0.0156 <= alpha, so a point PASSES; the
+    #: refusal needs a resolution coarser than alpha, which needs n < 5.
+    #: FLOOR blocks that, so the refusal is unreachable through read_point --
+    #: and saying so is better than pretending the branch is live.
+    case("the lattice refusal is UNREACHABLE while FLOOR >= 5, and that is "
+         "a property of the declared floor rather than an untested branch",
+         lambda: (1.0 / (1 << FLOOR)) <= ALPHA and FLOOR >= 5)
+
     # ── declared constants, asserted against the frozen text ─────────────
     case("GRID is §D3's six points verbatim",
          lambda: GRID == (0.00, 0.01, 0.02, 0.05, 0.10, 0.20))
@@ -751,6 +811,182 @@ def main(a):
     raise SystemExit(
         "the read is not wired yet: stage 1 runs on the pen's word, "
         "stage 2 only against its posted hash")
+
+
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# STAGE 2 -- the read. THE FIRST CODE IN THIS CHAIN THAT CAN EMIT A SIGN.
+# ══════════════════════════════════════════════════════════════════════════
+KNOWN_EFFECT = {          #: §D6d, declared in advance from the public record
+    "arousal": 0.10,
+    "val_extrem": 0.025,
+    "dom_extrem": 0.025,  #: stand-in; H3's own is unknown, declared as such
+}
+FAMILY2_SEQUENCE = ("arousal", "val_extrem", "dom_extrem")   #: §D6c, fixed
+
+
+def read_point(rows, t, direction, seed, stage1_cell):
+    """One arm at one threshold point. Returns the verdict quantities.
+
+    §D1's [1524].4 RULE IS ENFORCED HERE: `A(MARKED)` and `A(UNMARKED)` print
+    SEPARATELY beside every D. **A difference is not a direction until both
+    terms are visible** — on the norms population that rule was the only thing
+    standing between H1 and a misclassification.
+    """
+    adm = admitted_at(rows, t)
+    n = len(adm)
+    if n < FLOOR:
+        return {"n": n, "status": "UNDERPOWERED", "reject": None}
+
+    #: the unit assertion, at the DECLARED t -- never one recovered from the
+    #: set under audit ([3315])
+    unit_line = unit_assertion(rows, adm, t)
+
+    d = [r["D_pair"] for r in adm]
+    r = sign_flip_p(d, direction, seed)
+
+    #: §D4. A point whose null cannot reach alpha is not a null. The lattice is
+    #: printed and the point REFUSES rather than reporting a non-rejection that
+    #: was arithmetically forced.
+    if r["resolution"] > ALPHA:
+        return {"n": n, "status": "LATTICE-REFUSED", "reject": None,
+                "min_attainable_p": r["resolution"], "unit_line": unit_line}
+
+    mk = [x["MARKED_A"] for x in adm]
+    um = [x["UNMARKED_A"] for x in adm]
+    return {
+        "n": n, "status": "ok",
+        "unit_line": unit_line,
+        "D": r["statistic"],
+        "p": r["p"], "p_convention": r["convention"],
+        "draws": r["draws"], "min_attainable_p": r["resolution"],
+        "reject": bool(r["p"] <= ALPHA),
+        #: BOTH TERMS, ALWAYS -- §D1
+        "A_marked": st.mean(mk), "A_unmarked": st.mean(um),
+        "collapsed": stage1_cell.get("collapsed"),
+        "raw_mde": stage1_cell.get("raw_mde"),
+    }
+
+
+def reading_rule(per_t, primary_t="0.00"):
+    """§D3's four-way verdict. COLLAPSED points cannot corroborate.
+
+    *"a point that is the primary set under another name cannot corroborate
+    it"* — so the CONFIRMED clause's "every above-floor point" ranges over
+    NON-COLLAPSED above-floor points only, and if none survive the result is
+    SINGLE-POINT and never CONFIRMED.
+    """
+    p0 = per_t.get(primary_t, {})
+    if p0.get("status") != "ok":
+        return {"verdict": "NOT SUPPORTED", "why": f"primary is {p0.get('status')}"}
+    if not p0["reject"]:
+        #: §D3: NOT SUPPORTED "whatever the curve does"
+        return {"verdict": "NOT SUPPORTED",
+                "why": f"primary p {p0['p']:.5f} does not pass its null"}
+
+    corroborators = {t: c for t, c in per_t.items()
+                     if t != primary_t and c.get("status") == "ok"
+                     and not c.get("collapsed")}
+    if not corroborators:
+        return {"verdict": "SINGLE-POINT",
+                "why": "every other above-floor point COLLAPSED; the curve "
+                       "tested nothing", "n_corroborators": 0}
+
+    #: SIGN, not significance -- §D3 says so explicitly
+    flipped = [t for t, c in corroborators.items()
+               if (c["D"] < 0) != (p0["D"] < 0)]
+    if flipped:
+        return {"verdict": "THRESHOLD-DEPENDENT",
+                "why": f"sign flips at {sorted(flipped)}",
+                "n_corroborators": len(corroborators)}
+    return {"verdict": "CONFIRMED", "why": "primary passes and every "
+            "non-collapsed above-floor point agrees in SIGN",
+            "n_corroborators": len(corroborators)}
+
+
+def mde_reading(point, arm_name):
+    """§D6d's three-way rule. A null is only interpretable beside its MDE."""
+    known = KNOWN_EFFECT.get(arm_name)
+    if point.get("status") != "ok":
+        return {"reading": "NOT READ", "why": point.get("status")}
+    if point["reject"]:
+        return {"reading": "TRACKS TRANSGRESSIVE SITES", "known_effect": known}
+    if known is None:
+        return {"reading": "NULL, NO DECLARED COMPARATOR",
+                "why": "§D6d declares comparators for the three "
+                       "site-specificity arms only"}
+    mde = point.get("raw_mde")
+    if mde is None:
+        return {"reading": "UNINFORMATIVE", "why": "no MDE at this point"}
+    if mde < known:
+        return {"reading": "EVIDENCE AGAINST SITE-SPECIFICITY",
+                "why": f"null with MDE {mde:.5f} < known effect {known}",
+                "quotable": True, "known_effect": known, "mde": mde}
+    return {"reading": "UNINFORMATIVE AT THIS POWER",
+            "why": f"MDE {mde:.5f} >= known effect {known}",
+            "quotable": False, "known_effect": known, "mde": mde}
+
+
+def stage2(built, stage1_path, stage1_sha16, out_path, seed=20260731):
+    """The read. REFUSES without stage 1's posted artifact. §A7.3.
+
+    §D6c's HIERARCHY IS ENFORCED, NOT DOCUMENTED. Family 2 is fixed-sequence:
+    testing STOPS at the first non-rejection and arms below it are reported
+    **NOT TESTED, never null** — the difference the registration insists on,
+    because an untested arm reported as a null is a claim nobody made.
+    """
+    s1 = require_stage1(stage1_path, stage1_sha16)
+
+    out = {"_what": "Registration D STAGE 2: the read.",
+           "_stage1": {"path": os.path.basename(stage1_path),
+                       "sha256_16": stage1_sha16},
+           "_amendment": AMENDMENT_SHA, "_population": POPULATION_SHA,
+           "roster": built["roster"], "arms": {}}
+
+    per_arm_rows = {}
+    for arm in ARMS:
+        name, dim, direction, kind = arm
+        A, _beta = arm_values(built["cells"], arm, kind)
+        rows = assemble(built, A)
+        per_arm_rows[name] = (rows, direction)
+
+    def run_arm(name, direction):
+        rows = per_arm_rows[name][0]
+        s1_arm = s1["arms"][name]["per_t"]
+        per_t = {}
+        for t in GRID:
+            key = f"{t:.2f}"
+            per_t[key] = read_point(rows, t, direction, seed, s1_arm.get(key, {}))
+        rule = reading_rule(per_t)
+        return {"per_t": per_t, "reading_rule": rule,
+                "mde_reading": mde_reading(per_t.get("0.00", {}), name)}
+
+    #: FAMILY 1 -- standalone, alpha 0.05, cannot be blocked by Family 2
+    out["arms"]["h1_signed"] = run_arm("h1_signed", -1)
+    out["arms"]["h1_signed"]["family"] = 1
+
+    #: FAMILY 2 -- FIXED SEQUENCE, STOP AT THE FIRST NON-REJECTION
+    stopped = False
+    for name in FAMILY2_SEQUENCE:
+        if stopped:
+            out["arms"][name] = {"family": 2, "status": "NOT TESTED",
+                                 "why": "fixed-sequence stopped at an earlier "
+                                        "arm; this is NOT a null"}
+            continue
+        direction = dict((n, d) for n, _, d, _ in ARMS)[name]
+        res = run_arm(name, direction)
+        res["family"] = 2
+        out["arms"][name] = res
+        if not res["per_t"].get("0.00", {}).get("reject"):
+            stopped = True
+            res["sequence_note"] = ("first non-rejection: arms below this one "
+                                    "are NOT TESTED")
+
+    blob = json.dumps(out, indent=1, sort_keys=True, default=float)
+    with open(out_path, "w") as fh:
+        fh.write(blob)
+    return out, hashlib.sha256(blob.encode()).hexdigest()[:16]
 
 
 if __name__ == "__main__":
