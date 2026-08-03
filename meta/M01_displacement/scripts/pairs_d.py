@@ -460,6 +460,11 @@ def stage1(built, out_path, seed=20260731):
         name, dim, direction, kind = arm
         A, beta = arm_values(built["cells"], arm, kind)
         rows = assemble(built, A)
+        #: the t = 0.00 set, computed ONCE per arm, so every Jaccard is against
+        #: the same reference rather than a re-derived one ([3315]'s lesson:
+        #: a comparison whose reference moves with the thing compared is not a
+        #: comparison).
+        base_ids = {r["pair_id"] for r in admitted_at(rows, 0.00)}
         per_t = {}
         for t in GRID:
             adm = admitted_at(rows, t)
@@ -469,6 +474,22 @@ def stage1(built, out_path, seed=20260731):
                 continue
             d = [r["D_pair"] for r in adm]
             sd = st.pstdev(d) if n > 1 else None
+            #: §D3 AND §D6's REQUIRED PER-POINT DIAGNOSTICS, IN STAGE 1 AND
+            #: NOT STAGE 2 ([3339]). They are SET-MEMBERSHIP and DISPLACEMENT
+            #: quantities -- no D, no sign, no p -- so nothing here is a
+            #: verdict quantity.
+            #:
+            #: **AND THE PLACEMENT IS THE POINT.** §D3's CONFIRMED rule counts
+            #: only NON-COLLAPSED above-floor points, so WHICH POINTS COLLAPSE
+            #: DECIDES WHAT CORROBORATES. Computing that in stage 2 would fix a
+            #: rule-relevant threshold while the verdict is visible -- the
+            #: identical defect the MDE split exists to prevent, one clause
+            #: over. It belongs on the record beside the MDE.
+            ids = {r["pair_id"] for r in adm}
+            j = jaccard(ids, base_ids)
+            dropped = [r for r in rows if not r["admitted_by_qualification"]]
+            dd = [r["displacement_dropped_all"] for r in dropped
+                  if r.get("displacement_dropped_all") is not None]
             per_t[f"{t:.2f}"] = {
                 "n": n, "status": "ok",
                 "sd_D_pair": sd,
@@ -476,6 +497,16 @@ def stage1(built, out_path, seed=20260731):
                 #: the attainable-p lattice, §D4
                 "min_attainable_p": (1.0 / (1 << n) if n <= EXACT_MAX_N
                                      else 1.0 / 10000),
+                #: §D3
+                "n_admitted": n,
+                "jaccard_with_t000": j,
+                "collapsed": bool(j >= COLLAPSE_JACCARD),
+                #: §D6 -- the two denominators, each NAMED ([3304].3)
+                "n_dropped_by_qualification": len(dropped),
+                "median_displacement_admitted_qualcells":
+                    (st.median([r["displacement"] for r in adm]) if adm else None),
+                "median_displacement_dropped_allcells":
+                    (st.median(dd) if dd else None),
             }
         payload["arms"][name] = {"dimension": dim, "direction": direction,
                                  "residualisation": kind,
@@ -650,6 +681,17 @@ def selftest(verbose=False, skip_slow=False):
     case("raw MDE SCALES with the SD (it is RAW, not standardised)",
          lambda: raw_mde(12, 2.0, +1, 7, reps=120)
                  > 1.5 * raw_mde(12, 1.0, +1, 7, reps=120))
+
+    # ── §D3/§D6 per-point diagnostics, and the COLLAPSE flag ─────────────
+    case("a point identical to t=0.00 is flagged COLLAPSED",
+         lambda: jaccard({"a", "b"}, {"a", "b"}) >= COLLAPSE_JACCARD)
+    case("a point sharing 18 of 20 with t=0.00 is COLLAPSED (>= 0.95 is tight)",
+         #: 18/20 -> jaccard 18/22 = 0.818, NOT collapsed. The clause is
+         #: strict: a point must be nearly the primary set to be discounted.
+         lambda: jaccard(set("abcdefghijklmnopqr"), set("abcdefghijklmnopqrst"))
+                 < COLLAPSE_JACCARD)
+    case("the collapse threshold is the declared 0.95, not a rounded 0.9",
+         lambda: COLLAPSE_JACCARD == 0.95)
 
     # ── declared constants, asserted against the frozen text ─────────────
     case("GRID is §D3's six points verbatim",
