@@ -302,3 +302,95 @@ since, and where it is written:**
   twelve files ended in a fill-in-the-blank cue; the template specified it and
   both auditors stripped it before looking. Gated at
   `scripts/prompt_terminator_gate.py` ([2010]-[2032]).
+
+---
+
+## STATUS AS OF 2026-08-03 ([3140] — the two collapsed reads)
+
+**This file stopped at [2074]; the record is at [3140]. Two registered reads ran
+tonight against frozen artifacts, and they answer DIFFERENT questions with
+opposite verdicts — which is the finding, not a tension in it.**
+
+### THE RATE QUESTION IS A NULL
+
+    m01_within_pair, amendment 1356aa2ff274b796, collapse 80314c26f86fe02c
+    n 33 (34 units, one exact tie dropped: Qwen/Qwen2.5-7B)
+    20 positives, critical k 22, p 0.1481          REJECT — FALSE
+    Delta median +0.0132   positive 20 / zero 1 / negative 13
+
+**Displacement does not FIRE more often at a transgressive site than at its
+minimal control — not detectably.** 20 of 33 is 0.606 against a design needing
+0.725, so **an effect this size was never within the instrument's reach and the
+null is what the design bought.** Quote it as bounded, never as "no difference":
+the unit-level rate delta's distribution-free 95% CI is [−0.0015, +0.0365], at
+most ~9% relative on base rates ~0.40, and it includes zero.
+
+The **depth secondary** confirms at the declared unit by exactly zero margin
+(23 of 34, critical 23, p 0.0288) and **FAILS its own declared component
+sensitivity** (19 of 29, p 0.0680). It is stable to one held-out unit and
+fragile to the unit DEFINITION; both halves travel together or neither does.
+
+### THE MAGNITUDE QUESTION CONFIRMS
+
+    m01_magnitude, registration efbab15841eae4c2 + [3136] rider
+    producer 691be0534418ef98, site rule b8fd9a52cd5c794b
+    n 34   sign-flip permutation, one-sided upper, 100,000 draws
+    statistic +0.16855   p 0.00006   REJECT — TRUE
+    D_departed median +0.00458   24 positive / 6 negative / 4 exactly zero
+    OBSERVED d 0.748   against §8's PRE-REGISTERED MDE 0.426
+    survives §6.2 skew sensitivity (drop 9 named units): n 25, p 0.00038
+
+**More probability mass leaves the base's preferred continuations at a
+transgressive site than at its minimal control.** The observed effect sits
+comfortably inside what the design could detect — which the rate test's 0.606
+against 0.725 did not.
+
+**TOGETHER:** displacement is not more FREQUENT at a transgressive site; where
+it occurs it is LARGER. That is the claim the theory actually makes — a slide
+along a chain of permitted substitutes is a quantity of mass, not an event
+count — and it is now the version with evidence behind it.
+
+### THE UNIT LEDGER, which this file's own `_unit_warning` culture requires
+
+**`pairs_from_map` returns ONE ENTRY PER ALIGNED MODEL, not per lineage.** 66
+entries rest on **35 bases / 30 connected components**. A first read at
+p 0.0232 counted the 66 as independent; **it was pseudo-replication and was
+withdrawn by its author before it was cited.**
+
+The declared unit is now the **BASE CHECKPOINT**, argued and ratified before any
+verdict existed. The base/component gap is **entirely the `smaller_sibling_of`
+relation** — all three merges are SIZE merges (Qwen 0.5B+7B, Olmo 7B+32B,
+Falcon3 1B/3B/7B/10B), so under `sizes_separate` the two units are IDENTICAL at
+35. And `Olmo-3-1025-7B` vs `Olmo-3-1125-32B` carry different date stamps: by
+the lab's own naming they are separate pretraining runs, so the component was
+asserting an identity the registry contradicts.
+
+`microsoft/phi-4` is EXCLUDED ON THE RULE (its only dpo arm is
+`phi-4-reasoning`). `tiiuae/Falcon-H1-7B-Base` is HELD OUT ON TIMING. **These
+are not the same category and a reader counting "two units missing" would fold
+a rule-based exclusion together with a blind holdout, which carry opposite
+evidential weight.**
+
+### CORPUS NOTES
+
+- **Registration D's population is INGESTED** — 1,368 prompts on 101–103
+  models. Earlier text saying "frozen v6, awaiting its battery" is stale.
+- **The `assistant` collision**: 3 pairs (`nps_18`, `r2bpw_003`, `r2bpw_031`),
+  6 prompts, skipped on the two Falcon-Mamba instruct models. **Symmetric —
+  both members — so no differential loss.**
+- **`r2bpw_008` is an ASYMMETRIC WATCH ITEM**: MARKED contains `system`,
+  UNMARKED does not. Harmless today; it is the biased-loss shape by
+  construction.
+- **Falcon-H1-7B**: 5,166 cells returned all-NaN from **fp16 overflow in the
+  SSM scan** (fp16 finite 1/12 vs bf16 12/12; every failure ≥13 tokens).
+  Repaired at bf16. Held out of the magnitude read by timing and **proven
+  unable to change either verdict** — the bar is 23 at both n=34 and n=35, so
+  with 23 positives standing it can neither pull depth under nor lift the rate
+  primary over.
+
+### WHAT THIS DOES NOT LICENSE
+
+**No `VERIFIED` on anything here, and NO BETWEEN-DOMAIN ORDERING.** The domain
+breakdown is exploratory with no declared null; taboo and sexual both have the
+confound running the SAME sign as their effect and are not interpretable.
+**NO ORDERING WITHOUT A DECLARED NULL.**
