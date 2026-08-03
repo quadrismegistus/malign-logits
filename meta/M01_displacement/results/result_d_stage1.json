@@ -1,0 +1,235 @@
+{
+ "_amendment": "ddb4cd9b0496b723",
+ "_convention": {
+  "alpha": 0.05,
+  "power": 0.8,
+  "scale": "RAW dimension units (\u00a7A7.2)",
+  "sided": "one"
+ },
+ "_governing": {
+  "b_v13": "06186c42f9ff46e0",
+  "c_v6": "06f0272d7f21b901"
+ },
+ "_population": "3ed3e286e633c2fc",
+ "_registration": "registration_d_pairs_v6.md",
+ "_what": "Registration D STAGE 1: realized SDs and raw MDEs. NO D, NO p, NO SIGNS.",
+ "arms": {
+  "arousal": {
+   "dimension": "arousal",
+   "direction": 1,
+   "per_t": {
+    "0.00": {
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.02571768127411249,
+     "sd_D_pair": 0.2633927835644958,
+     "status": "ok"
+    },
+    "0.01": {
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.02571768127411249,
+     "sd_D_pair": 0.2633927835644958,
+     "status": "ok"
+    },
+    "0.02": {
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.02571768127411249,
+     "sd_D_pair": 0.2633927835644958,
+     "status": "ok"
+    },
+    "0.05": {
+     "min_attainable_p": 0.0001,
+     "n": 629,
+     "raw_mde": 0.025709190905780884,
+     "sd_D_pair": 0.2633109714030933,
+     "status": "ok"
+    },
+    "0.10": {
+     "min_attainable_p": 0.0001,
+     "n": 287,
+     "raw_mde": 0.04447673009355803,
+     "sd_D_pair": 0.2919479904509231,
+     "status": "ok"
+    },
+    "0.20": {
+     "n": 1,
+     "status": "UNDERPOWERED"
+    }
+   },
+   "resid_beta": null,
+   "residualisation": "none"
+  },
+  "dom_extrem": {
+   "dimension": "dominance",
+   "direction": 1,
+   "per_t": {
+    "0.00": {
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.017133876233583797,
+     "sd_D_pair": 0.17548002505793303,
+     "status": "ok"
+    },
+    "0.01": {
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.017133876233583797,
+     "sd_D_pair": 0.17548002505793303,
+     "status": "ok"
+    },
+    "0.02": {
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.017133876233583797,
+     "sd_D_pair": 0.17548002505793303,
+     "status": "ok"
+    },
+    "0.05": {
+     "min_attainable_p": 0.0001,
+     "n": 629,
+     "raw_mde": 0.017168210343590902,
+     "sd_D_pair": 0.17583509957161167,
+     "status": "ok"
+    },
+    "0.10": {
+     "min_attainable_p": 0.0001,
+     "n": 287,
+     "raw_mde": 0.029941918913269694,
+     "sd_D_pair": 0.19654059636546173,
+     "status": "ok"
+    },
+    "0.20": {
+     "n": 1,
+     "status": "UNDERPOWERED"
+    }
+   },
+   "resid_beta": [
+    0.7775567999525508,
+    0.06351499757440063,
+    0.046711921263823945
+   ],
+   "residualisation": "quadratic"
+  },
+  "h1_signed": {
+   "dimension": "valence",
+   "direction": -1,
+   "per_t": {
+    "0.00": {
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.025721058323479783,
+     "sd_D_pair": 0.2609600724966487,
+     "status": "ok"
+    },
+    "0.01": {
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.025721058323479783,
+     "sd_D_pair": 0.2609600724966487,
+     "status": "ok"
+    },
+    "0.02": {
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.025721058323479783,
+     "sd_D_pair": 0.2609600724966487,
+     "status": "ok"
+    },
+    "0.05": {
+     "min_attainable_p": 0.0001,
+     "n": 629,
+     "raw_mde": 0.025677082757547334,
+     "sd_D_pair": 0.26035268316567184,
+     "status": "ok"
+    },
+    "0.10": {
+     "min_attainable_p": 0.0001,
+     "n": 287,
+     "raw_mde": 0.04060672417537725,
+     "sd_D_pair": 0.2810937397025316,
+     "status": "ok"
+    },
+    "0.20": {
+     "n": 1,
+     "status": "UNDERPOWERED"
+    }
+   },
+   "resid_beta": [
+    0.3344758371577424,
+    -0.21083321018000994
+   ],
+   "residualisation": "linear"
+  },
+  "val_extrem": {
+   "dimension": "valence",
+   "direction": 1,
+   "per_t": {
+    "0.00": {
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.015489913162616033,
+     "sd_D_pair": 0.15864304800995546,
+     "status": "ok"
+    },
+    "0.01": {
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.015489913162616033,
+     "sd_D_pair": 0.15864304800995546,
+     "status": "ok"
+    },
+    "0.02": {
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.015489913162616033,
+     "sd_D_pair": 0.15864304800995546,
+     "status": "ok"
+    },
+    "0.05": {
+     "min_attainable_p": 0.0001,
+     "n": 629,
+     "raw_mde": 0.015444961376738035,
+     "sd_D_pair": 0.15818575537037596,
+     "status": "ok"
+    },
+    "0.10": {
+     "min_attainable_p": 0.0001,
+     "n": 287,
+     "raw_mde": 0.027262607869341093,
+     "sd_D_pair": 0.17895343396790014,
+     "status": "ok"
+    },
+    "0.20": {
+     "n": 1,
+     "status": "UNDERPOWERED"
+    }
+   },
+   "resid_beta": [
+    0.7018358591739472,
+    0.17328550123741182,
+    0.08241566766099255
+   ],
+   "residualisation": "quadratic"
+  }
+ },
+ "roster": {
+  "drift": [
+   "prompts e73a57d399a2b0c6619020a42c4f03d98cb3d0fed26fb9e2817ea89644c96498 != frozen fd3f14796ba9481b6597b94871013f8db5357a0a330751dc042268895209c8b4",
+   "models f989b0789dd8af51f15cd5c7d05aaeb12d3422dbb1af974cbb87f1c5a6bb4247 != frozen e4c507eb8dbcf593477f568d9c011695c7a84a0525454bdbf50107820f32e164"
+  ],
+  "frozen_models_sha16": "e4c507eb8dbcf593",
+  "frozen_prompts_sha16": "fd3f14796ba9481b",
+  "models_sha16": "f989b0789dd8af51",
+  "n_models": 101,
+  "n_prompts": 2579,
+  "prompts_sha16": "e73a57d399a2b0c6"
+ },
+ "truncation": {
+  "max_prompts": null,
+  "n_texts_full": 1368,
+  "n_texts_used": 1368,
+  "truncated": false
+ }
+}

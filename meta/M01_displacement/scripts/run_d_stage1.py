@@ -32,7 +32,7 @@ sys.path.insert(0, HERE)
 
 import pairs_d as D
 
-PRODUCER_SHA16 = "0393a14addf54815"      #: frozen [3320]
+PRODUCER_SHA16 = "75069448a074df10"      #: re-frozen [3336], three seats
 SEED = 20260731                          #: §D5, inherited from B:79
 OUT = os.path.join(CAMPAIGN, "results", "result_d_stage1.json")
 
