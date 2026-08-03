@@ -163,7 +163,7 @@ def jaccard(a, b):
 # ══════════════════════════════════════════════════════════════════════════
 # collection
 # ══════════════════════════════════════════════════════════════════════════
-def build(rule="CANONICAL", verbose=False):
+def build(rule="CANONICAL", verbose=False, max_prompts=None):
     """Cells -> per-member A per arm -> pairs. Returns everything, reads nothing.
 
     THE ORDER OF THE TWO GATES IS THE SPEC'S AND NOT A CHOICE ([3269].1).
@@ -195,11 +195,23 @@ def build(rule="CANONICAL", verbose=False):
     assert len(pairs) == 684, f"population is {len(pairs)}, expected 684"
 
     edges, edge_dropped = CC.operation_edges(models)
-    norms = N.load_norms(verify=True)
+    #: `load_norms` returns THREE values -- (norms, freqs, report). Binding
+    #: the tuple and subscripting it is the defect that crashed stage 1 on its
+    #: first run ([3323]); the sibling unpacks the same way at c3.py:261.
+    norms, _freqs, _report = N.load_norms(verify=True)
     tabs = {d: norms[("en", d, "primary")]
             for d in ("arousal", "valence", "dominance")}
 
     texts = {t for v in pairs.values() for t in v.values()}
+    #: SMOKE-TEST ONLY, and it changes nothing on the real path. `max_prompts`
+    #: exists so the suite can EXECUTE this function against the real store and
+    #: the real norms rather than only unit-test the functions it calls.
+    #: **28 tests, an independent harness and three omissions passes all passed
+    #: while `build()` could not open the data, because every one of them takes
+    #: its data as an argument and this is the only function that reaches the
+    #: world.** A run of two prompts would have caught it in a second.
+    if max_prompts is not None:
+        texts = set(sorted(texts)[:max_prompts])
     diag = collections.Counter()
     #: cell[(prompt, edge_key)] = {"departed": float, "arms": {arm: A}}
     cells = collections.defaultdict(dict)
@@ -495,7 +507,7 @@ def require_stage1(path, expect_sha16):
 # ══════════════════════════════════════════════════════════════════════════
 # self-test -- EVERY GUARD IS MADE TO FIRE
 # ══════════════════════════════════════════════════════════════════════════
-def selftest(verbose=False):
+def selftest(verbose=False, skip_slow=False):
     """Known answers, and a fired case for every refusal.
 
     THE RULE THIS SUITE WAS WRITTEN AGAINST: a guard nobody has watched fail is
@@ -638,13 +650,38 @@ def selftest(verbose=False):
     case("the arousal arm is RAW -- no residualisation, per §D6b",
          lambda: dict((n, k) for n, _, _, k in ARMS)["arousal"] == "none")
 
+    # ── THE RUNG THE SUITE WAS MISSING: does build() EXECUTE? ────────────
+    #
+    # Everything above tests a function that takes its data as an argument.
+    # `build()` is the only one that REACHES THE WORLD -- the store, the norms,
+    # the registry, the frozen population -- and nothing exercised it, so it
+    # shipped frozen and crashed on its first real call ([3323]).
+    #
+    # EXISTS < CALLED < REACHED < RAN. This is the last rung, and it is cheap.
+    if not skip_slow:
+        built = [None]
+
+        def _smoke():
+            built[0] = build(max_prompts=2)
+            b = built[0]
+            return (isinstance(b["cells"], dict)
+                    and len(b["pairs"]) == 684
+                    and "drift" in b["roster"]
+                    and isinstance(b["roster"]["drift"], list))
+        case("build() EXECUTES against the real store and norms [3323]", _smoke)
+        case("and it binds the roster DRIFT as a named field, never `_`",
+             lambda: built[0] is not None
+                     and set(("drift", "prompts_sha16", "models_sha16",
+                              "frozen_prompts_sha16", "frozen_models_sha16"))
+                         <= set(built[0]["roster"]))
+
     print(f"selftest {ok[1]}/{ok[0]}")
     return 0 if ok[1] == ok[0] else 1
 
 
 def main(a):
     if a.selftest:
-        return selftest(a.verbose)
+        return selftest(a.verbose, a.skip_slow)
     raise SystemExit(
         "the read is not wired yet: stage 1 runs on the pen's word, "
         "stage 2 only against its posted hash")
@@ -654,4 +691,6 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--selftest", action="store_true")
     ap.add_argument("--verbose", action="store_true")
+    ap.add_argument("--skip-slow", action="store_true",
+                    dest="skip_slow", help="omit the build() smoke test")
     sys.exit(main(ap.parse_args()))
