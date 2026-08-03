@@ -1,0 +1,169 @@
+{
+ "_convention": {
+  "alpha": 0.025,
+  "note": "alpha is 0.025 by \u00a72's Bonferroni split; D's 0.05 MDEs are NOT reused",
+  "power": 0.8,
+  "scale": "RAW dimension units (\u00a7A7.2)",
+  "sided": "one"
+ },
+ "_inherits_producer": "84011269d00eea6b",
+ "_registration": "881287ed3642ed55",
+ "_what": "Registration D2 STAGE 1: raw MDEs AT alpha 0.025. NO D, NO p, NO SIGNS.",
+ "arms": {
+  "dom_extrem": {
+   "dimension": "dominance",
+   "direction": 1,
+   "per_t": {
+    "0.00": {
+     "collapsed": true,
+     "falsifier_tripped": false,
+     "jaccard_with_t000": 1.0,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.019533017201172724,
+     "sd_D_pair": 0.17548002505793303,
+     "status": "ok"
+    },
+    "0.01": {
+     "collapsed": true,
+     "falsifier_tripped": false,
+     "jaccard_with_t000": 1.0,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.019533017201172724,
+     "sd_D_pair": 0.17548002505793303,
+     "status": "ok"
+    },
+    "0.02": {
+     "collapsed": true,
+     "falsifier_tripped": false,
+     "jaccard_with_t000": 1.0,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.019533017201172724,
+     "sd_D_pair": 0.17548002505793303,
+     "status": "ok"
+    },
+    "0.05": {
+     "collapsed": true,
+     "falsifier_tripped": false,
+     "jaccard_with_t000": 0.995253164556962,
+     "min_attainable_p": 0.0001,
+     "n": 629,
+     "raw_mde": 0.019872705283290985,
+     "sd_D_pair": 0.17583509957161167,
+     "status": "ok"
+    },
+    "0.10": {
+     "collapsed": false,
+     "falsifier_tripped": true,
+     "jaccard_with_t000": 0.4541139240506329,
+     "min_attainable_p": 0.0001,
+     "n": 287,
+     "raw_mde": 0.03359166723139664,
+     "sd_D_pair": 0.19654059636546173,
+     "status": "ok"
+    },
+    "0.20": {
+     "n": 1,
+     "status": "UNDERPOWERED"
+    }
+   },
+   "residualisation": "quadratic"
+  },
+  "val_extrem": {
+   "dimension": "valence",
+   "direction": 1,
+   "per_t": {
+    "0.00": {
+     "collapsed": true,
+     "falsifier_tripped": false,
+     "jaccard_with_t000": 1.0,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.017658861084627143,
+     "sd_D_pair": 0.15864304800995546,
+     "status": "ok"
+    },
+    "0.01": {
+     "collapsed": true,
+     "falsifier_tripped": false,
+     "jaccard_with_t000": 1.0,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.017658861084627143,
+     "sd_D_pair": 0.15864304800995546,
+     "status": "ok"
+    },
+    "0.02": {
+     "collapsed": true,
+     "falsifier_tripped": false,
+     "jaccard_with_t000": 1.0,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "raw_mde": 0.017658861084627143,
+     "sd_D_pair": 0.15864304800995546,
+     "status": "ok"
+    },
+    "0.05": {
+     "collapsed": true,
+     "falsifier_tripped": false,
+     "jaccard_with_t000": 0.995253164556962,
+     "min_attainable_p": 0.0001,
+     "n": 629,
+     "raw_mde": 0.01787799423521794,
+     "sd_D_pair": 0.15818575537037596,
+     "status": "ok"
+    },
+    "0.10": {
+     "collapsed": false,
+     "falsifier_tripped": true,
+     "jaccard_with_t000": 0.4541139240506329,
+     "min_attainable_p": 0.0001,
+     "n": 287,
+     "raw_mde": 0.03058576352636829,
+     "sd_D_pair": 0.17895343396790014,
+     "status": "ok"
+    },
+    "0.20": {
+     "n": 1,
+     "status": "UNDERPOWERED"
+    }
+   },
+   "residualisation": "quadratic"
+  }
+ },
+ "falsifier": {
+  "_rule": "\u00a72: if a re-derived MDE at the PRIMARY point reaches 0.025, the alpha structure returns to the pen BEFORE any read.",
+  "structure_stands": true,
+  "threshold": 0.025,
+  "tripped_at": [
+   [
+    "val_extrem",
+    "0.10"
+   ],
+   [
+    "dom_extrem",
+    "0.10"
+   ]
+  ]
+ },
+ "roster": {
+  "drift": [
+   "prompts e73a57d399a2b0c6619020a42c4f03d98cb3d0fed26fb9e2817ea89644c96498 != frozen fd3f14796ba9481b6597b94871013f8db5357a0a330751dc042268895209c8b4",
+   "models f989b0789dd8af51f15cd5c7d05aaeb12d3422dbb1af974cbb87f1c5a6bb4247 != frozen e4c507eb8dbcf593477f568d9c011695c7a84a0525454bdbf50107820f32e164"
+  ],
+  "frozen_models_sha16": "e4c507eb8dbcf593",
+  "frozen_prompts_sha16": "fd3f14796ba9481b",
+  "models_sha16": "f989b0789dd8af51",
+  "n_models": 101,
+  "n_prompts": 2579,
+  "prompts_sha16": "e73a57d399a2b0c6"
+ },
+ "truncation": {
+  "max_prompts": null,
+  "n_texts_full": 1368,
+  "n_texts_used": 1368,
+  "truncated": false
+ }
+}
