@@ -1,6 +1,8 @@
 # Registration N — mass-migration
 
-STATUS: DRAFT. NOT FROZEN. NOT RUN. No producer has been written and no number in this file has been computed.
+**STATUS, FROZEN 2026-08-04 UTC.** As of that date and pasted from the commands that emitted them: no `result_n_*.json` existed at any seat; no `tail_excess` sign, aggregate, cluster combination or bias-column value had been computed by anyone; no producer had been written. **The English-only scope was decided on 2026-08-04 from an instrument asymmetry measured 2026-08-03 20:51 UTC (`data/leak_flip_rate_by_stratum.json` @ `03cf7e34`, en/zh flip ratio 4.23x), at which time the same absences held** ([3986] verified both from the committed artifact rather than from memory).
+
+**WRITTEN IN THE PAST TENSE ON PURPOSE.** A status line reading "NOT RUN" is true until the producer runs and false forever after, and nothing rewrites it; **this campaign has already met one status header that outlived its truth** (D3b's "NO D3b QUANTITY HAS BEEN COMPUTED", corrected at Amendment B §B1 after both stages had run). **A dated statement of what was absent on a named date stays testimony; a present-tense one expires into a lie.**
 
 Drafted 2026-08-03 on RH's word. **ARM A ALONE**, per RH's decision the same evening: *"Let's do Arm A only. Can we get started on it?"* Tests ledger clause 1 (`mass-migration`). **Clause 2 stays scoped as it is — verified-at-its-time, one family — and arm B is retired by its own test (§5).**
 
@@ -36,18 +38,20 @@ Clause 2, `null-survival`: *the redistribution is genuine, not a renormalisation
 
 **The null exists. What it lacks is RESOLUTION, not accuracy.** It is computed over the θ=0.001-retained head (median 58 words) plus ONE lumped residual bin, so renormalisation *inside* the tail is unmodelled — the bin moves as a single object.
 
-**Arm A uses this null and does not attempt to improve it.** §5 records why. **The ignorance is BOUNDED AND MEASURED across all 44 edges — flip rate median 0.046%, MAXIMUM 0.541% per edge and 0.605% on the en stratum ([3755].1, [3766]) — and every attempt to remove it was either unnecessary, not implementable, or uncosted model inference.**
+**Arm A uses this null and does not attempt to improve it.** §5 records why. **The ignorance is BOUNDED AND MEASURED across all 44 edges of THIS population — flip rate median 0.048%, MAXIMUM 0.605%, both on the ENGLISH rows ([3766]) — and every attempt to remove it was either unnecessary, not implementable, or uncosted model inference.**
+
+**The pooled en+zh figures (median 0.046%, max 0.541%) are NOT quoted here: they describe cells this registration does not analyse.** §4.1 reads the en rows per [3989] and §2 summarising it must read the same ones.
 
 **The 0.251% that retired arm B was ONE EDGE (Olmo), above the median on both leak and flip. It is not the instrument's bound and appears nowhere in this document as one.**
 
 ## 3. POPULATION
 
-**Every (edge, prompt) cell over the 44 `operation_edges`.** No composition filter.
+**Every (edge, prompt) cell over the 44 `operation_edges` whose prompt is ENGLISH.** **LANGUAGE IS A FILTER** — the 379 zh stimuli are excluded to Registration O (§3.0, §8.1). **Within English there is no composition filter**: domain, register and source are stratification, not exclusion.
 
     edges                  44   (1 dropped by operation_edges)
-    STIMULI             2,578   distinct texts, 11 second-identities
+    STIMULI             2,199   distinct ENGLISH texts, 11 second-identities
                                 deduplicated, sentinels excluded
-    DECLARED POPULATION 113,432  = 44 x 2,578 EDGE-cells
+    DECLARED POPULATION  96,756  = 44 x 2,199 EDGE-cells (ENGLISH)
 
 **THE PROMPT COUNT TOOK THREE DERIVATIONS AND ONLY THE THIRD IS A COUNT OF THE RIGHT ENTITY:**
 
@@ -57,44 +61,44 @@ Clause 2, `null-survival`: *the redistribution is genuine, not a renormalisation
             11 texts carry two prompt_ids (deliberate second identities,
             e.g. one prompt against two different contradiction poles), and
             `<<<LOGICAL:BOS>>>` is a BOS-policy SENTINEL, not a stimulus.
-    2,578   DISTINCT STIMULI.  The population wants stimuli.
+    2,578   DISTINCT STIMULI (en+zh).  The population wants stimuli --
+            **and a LANGUAGE, which is the rung this ladder was missing
+            until [4010] and which RH's word supplied.**
+    **2,199  DISTINCT ENGLISH STIMULI.  THE POPULATION.**
 
 **The count I "corrected" to was wrong in two independent ways — memberships AND sentinels — and I found neither; malign's third derivation did.** A derived number and an enumerated number can be numerically close (0.3% apart) and are never the same claim.
 
-### 3.0 LANGUAGE STRATA — DERIVED, AND THE RELAYED FIGURE WAS WRONG
+### 3.0 ENGLISH ONLY — and the measurement that decided it
 
-    DISTINCT STIMULI      2,578   en 2,199   zh 379
-    edge reach (40-stimulus sample x 44 edges, seed 3, both strata)
-      zh   1,760 / 1,760 PRESENT  100.0%   34 base clusters reached
-      en   1,760 / 1,760 PRESENT  100.0%   34 base clusters reached
+**N's population is ENGLISH.** RH's word, 2026-08-04: *"Change this to just english maybe? Then we can do a full crosslingual O Reg."*
 
-**[3756] relayed "the 423 zh stimuli". The number is 379 on the declared population.** 423 does not reconcile to any count I can produce; the membership-level figure is 382 zh of 2,590, which becomes 379 after dedup. **Derived here rather than assumed, as ordered — and the order was right to say derive.**
+    DISTINCT STIMULI      **2,199 en**   (379 zh EXCLUDED)
+    DECLARED POPULATION   **44 x 2,199 = 96,756 EDGE-cells**
 
-**BOTH STRATA REACH ALL 44 EDGES AND ALL 34 BASE CLUSTERS.** The zh stratum carries the full cluster structure, so its per-stratum readout uses the same combination as the pooled primary with no reduced-cluster caveat.
+**THE ZH MEASUREMENTS ARE RETAINED HERE AS THE REASON FOR THE EXCLUSION, NOT AS A COMPANION ARM**, and they are Registration O's deposited ground floor:
 
-**PER-STRATUM READOUT, DECLARED** ([3756]): en and zh each carry the full primary machinery — sign test, cluster combination, and §4.1's worst-case bias column — as registered rows with readings fixed here. **The POOLED result remains THE primary; the strata are declared companions, not tests to pick among.** Ground: tokenization is not language-neutral, zh words ride different token trees, and theta-truncation interacts with vocabulary granularity — so a pooled result could mask or manufacture a divergence, and §4.1's leak is exactly the theta-boundary quantity that would differ.
+    stratum   edges   cells    riser cands   flips   POOLED FLIP RATE
+    zh          44   16,676        174,833      49        0.0280%
+    en          44   96,756      1,092,023   1,296        0.1187%
+    **asymmetry en/zh 4.23x**   -- per-edge medians 0.048% vs 0.008%
+    zh reaches all 44 edges and all 34 base clusters, 379 distinct stimuli
 
-**AND THE PREDICTION IS NOW MEASURED, AT (EDGE x STRATUM), 88 ROWS, EVERY CELL** ([3766]):
+**The leak's INCIDENCE is the same in both languages (fallers-at-zero 19.4% en, 17.8% zh) and its CONSEQUENCE differs 4.23x.** That is tokenization: zh words ride different token trees and theta-truncation interacts with vocabulary granularity. **Two strata that differ that much at the INSTRUMENT level do not share a primary.**
 
-    STRATUM  edges  cells    riser cands   flips   POOLED FLIP RATE
-    zh         44   16,676     174,833       49        0.0280%
-    en         44   96,756   1,092,023    1,296        0.1187%
-    per-edge medians: fallers-at-zero  zh 17.8%  en 19.4%  (max ~81% both)
-                      flip rate        zh 0.008% en 0.048%
+**WHY EXCLUDED RATHER THAN CARRIED AS A DECLARED SECONDARY** (an earlier draft proposed the latter, and it was the weaker design): **a secondary carrying the full machinery with NO HYPOTHESIS is a number frozen with no registered reading** — printed, never tested. **Crosslingual work wants CONTRASTS, not re-measurements of arm A in another language**; Registration O can ask whether the mechanism holds across languages, whether concentration differs, whether the faller/riser ratio moves, with hypotheses designed for those questions.
 
-**THE LEAK'S INCIDENCE IS THE SAME AND ITS CONSEQUENCE IS NOT.** Fallers-at-zero are indistinguishable between the strata; **flips run 4.2x apart POOLED and 6x at the median, with ZH THE SMALLER.** The split was promoted on the reasoning that zh might be more exposed. **It is measurably less** — so the promotion was right and the direction of the caution was wrong, which is exactly what a declared per-stratum readout exists to reveal rather than assume.
-
-**A PER-EDGE COLUMN CANNOT SERVE A PER-STRATUM READOUT.** The companion column of §4.1 is therefore computed at **(edge x stratum)**, not per edge.
-
-**ZH-SPECIFIC HYPOTHESES ARE OUT OF SCOPE by RH's word** — crosslingual displacement content and the F13/F36 lineage wait for a registration he words.
+**BLINDNESS CREDENTIAL, PAST-ANCHORED:** decided on 2026-08-04 from the asymmetry measured on 2026-08-03 20:51 UTC (`data/leak_flip_rate_by_stratum.json`, committed `03cf7e34`), **at which time no `tail_excess` sign had been computed at any seat and no N artifact existed.** Both grounds verified from the committed artifact rather than asserted.
 
 **ZERO-FALLER EXCLUSION, RE-DERIVED ON THE DECLARED POPULATION** ([3786], second-seat known answer written before the producer exists):
 
     value    | unit                                          | source | date
-    14.53%   | zero-faller cells, POOLED, declared population |
+    14.53%   | zero-faller cells, POOLED **over en+zh -- SUPERSEDED by §3.0's English-only scope; the producer re-derives on 96,756** |
                scripts/zero_faller_rate.py -> data/zero_faller_rate.json | 2026-08-03
-    16,483   | zero-faller cells of 113,432 analysed (0 refused, 0 missing) | as above | 2026-08-03
-    1.45%    | zero-faller rate, **PER-EDGE MEDIAN**          | as above | 2026-08-03
+    16,483   | zero-faller cells of 113,432 -- **MEASURED ON THE en+zh
+               POPULATION, SUPERSEDED BY §3.0's ENGLISH-ONLY SCOPE.
+               THE PRODUCER RE-DERIVES ON 96,756 AND THIS FIGURE IS NOT
+               THE ONE IT REPORTS.** | as above | 2026-08-03
+    1.45%    | zero-faller rate, PER-EDGE MEDIAN, **en+zh -- SUPERSEDED, same reason** | as above | 2026-08-03
 
 **THE POOLED RATE IS TRUE OF NO EDGE IN THE POPULATION.** The median edge loses **one cell in 70**; four edges lose **~98%** and those four are **ONE CLUSTER**, contributing 197 analysed cells against Llama's 17,188 — **a 1:87 spread that prints beside the combination so nobody discovers it in review.**
 
@@ -111,7 +115,7 @@ Clause 2, `null-survival`: *the redistribution is genuine, not a renormalisation
 
 `decompose()` takes an EDGE — a base checkpoint and an aligned one. **A model-cell is one distribution; an edge-cell is a comparison of two.** The 266,037 figure counts model-cells and belongs to the coverage question (§3.2), where its unit is correct. **It is not this population and using it here overstated the analysed set 2.3x.** The 26 orphaned models are named here rather than silently absent.
 
-**Ground, stated because C was burned by the opposite case:** a claim about the LEVEL of something in language needs a defensible population, and C's 39%-transgressive bag could not support one. **This is a MECHANISM claim** — does departed mass land on words or disperse — and it holds in a cell or it does not. Composition changes how many cells of each kind exist, not whether the accounting holds inside them. **Corpus mix is therefore a REPORTED STRATIFICATION, not a confound**: the overall figure, then by domain (designed pairs / neutral / literary / institutional) and by language (en / zh), with heterogeneity treated as informative.
+**Ground, stated because C was burned by the opposite case:** a claim about the LEVEL of something in language needs a defensible population, and C's 39%-transgressive bag could not support one. **This is a MECHANISM claim** — does departed mass land on words or disperse — and it holds in a cell or it does not. Composition changes how many cells of each kind exist, not whether the accounting holds inside them. **Corpus mix is therefore a REPORTED STRATIFICATION, not a confound**: the overall figure, then by domain (designed pairs / neutral / literary / institutional) with heterogeneity treated as informative (language is not a stratum here -- §3.0).
 
 **COVERAGE, and its unit is the MODEL-cell, not the edge-cell of §3's population:**
 
@@ -121,13 +125,15 @@ Clause 2, `null-survival`: *the redistribution is genuine, not a renormalisation
 
 **This figure answers "is the data there", never "how large is the analysed set" — the two questions were run together from [3708] until [3727] and are kept apart here. ARM A READS NO LOGITS; the coverage record is kept because §3.1-3.2's audit of the logit store is what retired arm B, and a reader tracing that retirement needs it.**
 
-### 3.1 The shard set, named and not globbed
+### 3.1 The logit store's audit — A RECORD, NOT A REQUIREMENT ON N's PRODUCER
+
+**N READS NO LOGITS.** Arm A is word-store only, so nothing below binds this registration's producer: **it is the record of the audit that retired arm B ([3743]/[3745]), kept because a reader tracing that retirement needs it.** The requirements it describes bound the arm-B producer that was never built. **Registration O, or any future logit-reading registration, inherits them as requirements; N does not.**
 
 `data/**/*.f16` is not a population, it is a filesystem accident: it returns 276,369 rows of which 5,166 are an all-NaN retired shard and 5,166 a redundant clean copy.
 
-**Shards are enumerated FROM THE `logits` INDEX**, never from the filesystem. 104 shards. **Each pins a sha256**, recorded in the producer's run record, checked at open; a hash mismatch is a refusal. *An echoed path proves what was opened; a hash proves what was read.*
+Shards were enumerated FROM THE `logits` INDEX, never from the filesystem — 104 shards, each pinning a sha256. *An echoed path proves what was opened; a hash proves what was read.* **Stated in the past tense because it describes an audit that happened, not a check N will run.**
 
-**`MALIGN_LOGIT_ROOT` resolves to an absolute path echoed by the producer**, because the index stores BASENAMES and the same basename lives in three directories with identical byte size and identical dim — so the indexer's structural assertions pass on the all-NaN copy exactly as on the real one.
+`MALIGN_LOGIT_ROOT` had to resolve to an absolute path echoed by any logit-reading producer, because the index stores BASENAMES and the same basename lives in three directories with identical byte size and identical dim — so the indexer's structural assertions pass on the all-NaN copy exactly as on the real one.
 
 ### 3.2 Finiteness, verified rather than assumed
 
@@ -159,9 +165,15 @@ Verified by reading every byte, not by trusting a size. **And the read path now 
 
 **A faller is retained in the PRE arm and can fall UNDER theta in POST**, where it is unscored and its mass is filed in the residual — which `movement()` carries as a **NON-FALLER**, on the survivors' side of the very split the ratio is made of.
 
-    ACROSS ALL 44 EDGES, every cell, no sampling ([3755].1):
-      fallers reading Q exactly 0   median 20.0%   min 0.0%   MAX 80.6%
-      induced FLIP RATE             median 0.046%  min 0.0%   MAX 0.541%
+    ACROSS ALL 44 EDGES OF THE ENGLISH POPULATION, every cell, no sampling
+    (`data/leak_flip_rate_by_stratum.json`, committed 03cf7e34; en rows only):
+      fallers reading Q exactly 0   median **19.41%**  min 0.00%  MAX **81.51%**
+      induced FLIP RATE             median **0.0483%** min 0.000% MAX **0.6050%**
+      cells 96,756   flips 1,296
+
+    **THE POOLED en+zh FIGURES (median 0.046%, max 0.541%, fallers-at-zero
+    median 20.0%) ARE NOT THIS REGISTRATION'S.** They describe 16,676 zh
+    cells N excludes (§3.0). Registration O owns them.
 
 **THE SPREAD IS THE FINDING: one edge has FOUR IN FIVE fallers reading exactly zero.** The 42.9%/0.251% that retired arm B was Olmo, which sits ABOVE the median on both — the right direction for that argument to have been wrong in. **A single campaign-wide figure would misdescribe both tails, so the bound is PER CELL and never one number in prose.**
 
@@ -189,6 +201,59 @@ Verified by reading every byte, not by trusting a size. **And the read path now 
 
       push_i = P_res,i * dR_i / S_i                    (a mass, same units)
       dR_i   = min( n_unscored_fallers,i * theta ,  Q_res,i )
+
+**§N6 — THE SYMBOLS, AND THE RECONSTRUCTION, FIXED HERE RATHER THAN IN WHOEVER WRITES THE PRODUCER** ([3770].N6; ruled live and ARM A's at [3965] — `S_i` is in arm A's own formula above). §4.1 named three quantities this registration did not define and two the module does not emit. Both are closed here:
+
+    THE SYMBOLS
+      P_res,i , Q_res,i   the PRE and POST arms' RESIDUAL MASSES -- the
+                          untruncated remainder `word_probs` returns as
+                          `residual`, passed to `movement()` as
+                          `residual_pre` / `residual_post`.
+      theta               0.001, the true_word_probs scoring threshold
+                          (§7's floor, restated at its point of use).
+      the identity they come from, which lives in `decompose()` and not
+      in this text until now:
+                          tail_excess = Q_res - P_res * ratio
+
+    THE RECONSTRUCTION.  `Movement` exposes fallers, risers, null, excess,
+    delta, inflation, rule, diagnostics.  **Neither `S` nor
+    `n_unscored_fallers` is among them.**
+
+      Q  = c.post.probs      P  = c.pre.probs, each CARRYING its residual
+                             under RESIDUAL_KEY
+      m  = c.movement(CANONICAL)
+
+      R_i = 1 - sum(Q.get(w, 0.0) for w in m.fallers)
+      S_i = sum(P.get(k, 0.0) for k in set(P) | set(Q) if k not in m.fallers)
+      n_unscored_fallers,i = sum(1 for w in m.fallers
+                                 if Q.get(w, 0.0) == 0.0)
+
+    **DO NOT WRITE `S_i = R_i / m.inflation`.** It is arithmetically true
+    only because the residual was excluded from faller candidacy on
+    2026-08-03; before that repair it was wrong in 11% of cells, silently.
+    A producer dividing by `inflation` is correct while one line of
+    `_movement` stays as it is and has no way to notice if it moves.
+    Direct recomputation depends on `m.fallers`, which is what this
+    registration names.
+
+    **CROSS-CHECK, and the producer asserts it:**
+
+      abs(R_i / S_i - m.inflation) <= 1e-9,  else the cell REFUSES.
+
+    This compares the reconstruction against the module's own ratio
+    WITHOUT depending on it, and it fails loud if faller candidacy ever
+    moves again.  **A cross-check over `m.null` does NOT work and must not
+    be substituted:** `movement()` pops RESIDUAL_KEY from `null`, `excess`
+    and `delta` — a LOAD-BEARING pop, since `top_riser()` is an argmax and
+    the bucket would win it — so `sum(m.null.values())` is
+    `inflation * (S - P_res)`, short by the residual's pre-mass. Measured:
+    it disagrees with `S` on 200 of 200 cells, worst gap 0.735.
+
+    `m.inflation` is `float('nan')` where the null was not computed
+    (`S <= 0`, no non-faller pre-mass). Those cells left arm A at §6.5, and
+    **a NaN reaching this point is a REFUSAL, not a value** — dividing
+    there would put a silent NaN into a mass that is ADDED to
+    `tail_excess`, losing the cell instead of refusing it.
 
 **The test is not modified. Its INPUT is.** No new statistic enters, so nothing needs registering beyond the input's definition. **The residual cap in `dR_i` is free and strictly better** — the unscored fallers' post mass cannot exceed the post arm's whole unresolved bucket; it binds in 1.3% of Olmo cells, never in Qwen's, and tightens the bound by 73.5% where it binds.
 
@@ -238,9 +303,9 @@ Verified by reading every byte, not by trusting a size. **And the read path now 
 ## 6. REFUSALS THE PRODUCER MAKES
 
 1. `require_frozen()` on this file, first line, before any read. Not remembered — called.
-2. Shard sha256 mismatch against the pinned set → refuse, name the shard.
-3. Non-finite vector → refuse (already wired in the read path).
-4. Vocabulary dim disagreeing with the index entry → refuse.
+2. ~~Shard sha256 mismatch against the pinned set → refuse.~~ **STRUCK** — N reads no shards ([4012].S10). Numbering retained: struck, never renumbered, so §6.5 and §6.6 keep their referents.
+3. Non-finite vector → refuse (already wired in the read path). **Applies to the word store's serialized-NaN case; N opens no logit vectors.**
+4. ~~Vocabulary dim disagreeing with the index entry → refuse.~~ **STRUCK** — same reason as 2.
 5. **Zero-faller cells: EXCLUDED, COUNTED, AND ONE RATE REPORTED — from the analysed population, not from §3's superset figure.** The first draft excluded them from both with one reason, and the reason was wrong. `tail_excess` is not undefined without fallers — with `fall` empty, `ratio` collapses to ~1 and `excess` becomes the raw delta `Q − P`. It is DEFINED AND DEGENERATE. **Arm A excludes them because the CLAIM does not apply** (no mass departed, so nothing can have landed anywhere), not because the statistic fails. **The retained-in-arm-B clause is struck with the arm** ([3769].B3); the reasoning is kept only as the record of why the first draft's single shared reason was wrong. ([3725].2 caught the single-reason-for-two-arms; the degeneracy reading is from reading `movement.py:377-381`, not from the docstring.)
 
 6. **A malformed row is REFUSED AND NAMED, never skipped.** **Two cells in the store carry a serialized NaN** (`{'__pytype__': 'float', '__val__': 'nan'}`) — `Qwen/Qwen3-8B-Base` and its partner, `movement.py:252`. **BOTH SIT ON `<<<LOGICAL:BOS>>>`, which §3 excludes as a sentinel, so NEITHER IS IN THE ANALYSED POPULATION** ([3738]). It surfaced only because it was fatal: the probe's `try` sat around `decompose` alone, so the raise landed outside the guard and killed the run at edge 1 of 44 with nothing written. **A single bad cell that raises is a gift; the same cell silently skipped is 113,958 cells and a footnote nobody writes.**
@@ -257,14 +322,14 @@ Verified by reading every byte, not by trusting a size. **And the read path now 
 
 Every decision below was made before any producer existed, and each is here because leaving it open would let the result choose it.
 
-1. Population = all twp cells; composition is stratification, not filter. §3.
+1. Population = the **2,199 ENGLISH stimuli** over the 44 `operation_edges` = **96,756 edge-cells**. **LANGUAGE IS A FILTER** (zh excluded to Registration O, §3.0); composition WITHIN English is stratification, not filter. §3, §3.0.
 2. Unit = (edge, prompt) cell over the 44 `operation_edges`. Cluster = base checkpoint, **34 distinct, derived from those edges and not carried over** — 44 edges sit on 34 bases because bases are shared (Llama-3.1-8B carries 7 families). §3.
 3. Combination = Stouffer over clusters, equal weight per cluster.
 4. **SIDEDNESS: the registered direction is NEGATIVE `tail_excess`, KEPT** — two-sided moves the rejection region and not the estimate. **The primary runs TWICE, raw and adversarially corrected-input, and substitution is read only if the CORRECTED arm survives.** §4.1. Ruled at malign's seat, this seat recused.
 5. **NO ARM B.** Retired on its own evidence, all four forms recorded with why each died. §5.
 6. **The worst-case leak bound is a COMPANION COLUMN beside the primary**, per cell, not a caveat sentence. §4.1.
-7. The domain-by-language split is reported, never promoted to primary. §4.
-8. Shards from the index, sha256-pinned, root echoed absolute. §3.1.
+7. The DOMAIN split (designed pairs / neutral / literary / institutional) is reported, never promoted to primary. **There is no language split: language is a filter, not a stratum.** §3.0, §4.
+8. **N reads no logits.** §3.1's shard requirements are the arm-B record, not N's producer's obligations; the refusals N's producer makes are §6's list as it now stands. §3.1, §6.
 9. Zero-faller cells excluded, counted in the record, and the rate RE-DERIVED on the declared population rather than carried from the 14.55% measured on the superset. §3, §6.5.
 10. Elapsed time and processed-cell count reported beside the population. §7.
 
@@ -272,4 +337,4 @@ Every decision below was made before any producer existed, and each is here beca
 
 **§4.1 is the section to attack, and it was written by the seat whose error produced it.** The freeze gate checks custody, hash, status line and lock; **it cannot check whether §4's primary and §4.1's bias column describe the same `tail_excess`, nor whether a bound reported beside a one-sided test actually constrains its reading.** Both are judgment, both are mine, and both point the way the drafter predicted.
 
-**The gap this section named — that §3.0's edge reach was a 40-stimulus SAMPLE and 1,760/1,760 bounded the absent rate without proving zero — IS RETIRED BY MEASUREMENT** ([3770].N8): the (edge x stratum) census over all 88 rows finds **exactly two distinct cell-counts and a total of 113,432 EXACTLY.** Every edge carries every stimulus of both strata. **Naming the sample honestly as a sample is what gave the census somewhere to land.**
+**The gap this section named — that the edge-reach figures were a 40-stimulus SAMPLE and 1,760/1,760 bounded the absent rate without proving zero — IS RETIRED BY MEASUREMENT** ([3770].N8): **the census's 44 EN ROWS carry exactly 2,199 cells each, total 96,756 — every edge carries every English stimulus, proven by count and not by sample.** The census also covered the 44 zh rows; **those prove Registration O's reach and belong in O, not here.** Naming the sample honestly as a sample is what gave the census somewhere to land.
