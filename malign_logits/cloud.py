@@ -324,7 +324,40 @@ def cmd_setup(args):
     if pins:
         print(f"Profile {state.get('profile','default')} pins: {', '.join(pins)}",
               file=sys.stderr)
-    pin_cmd = ("pip install -U " + " ".join(f"'{p}'" for p in pins)) if pins \
+    # A FLOOR IS NOT AN UPGRADE, AND `pip install -U` CANNOT TELL THE DIFFERENCE.
+    #
+    # ON INSTANCE 46670110, 2026-08-03. MEASURED: the vllm image ships a
+    # MATCHED CUDA SET and `vllm` declares it EXACTLY -- `torch==2.11.0`,
+    # `torchvision==0.26.0`, `torchaudio==2.11.0`; the torchvision dist-info
+    # carries the image's build date. After `malign cloud setup` the box held
+    # a generic PyPI **torch 2.13.0 with no +cu130 build** beside
+    # torchvision 0.26.0+cu130. That desynced pair is measured; the failure
+    # surfaced four layers away as
+    #
+    #     RuntimeError: operator torchvision::nms does not exist
+    #
+    # while importing FalconH1 -- which reads as "this model is unsupported"
+    # and is really "this environment was broken by its own provisioning". The
+    # repair was `pip install torch==2.11.0+cu130` from the cu130 index: BACK
+    # DOWN to what the image shipped, which satisfied the floor all along.
+    #
+    # **WHICH COMMAND DID THE UPGRADING IS INFERRED, NOT MEASURED, AND THE BOX
+    # CAN NO LONGER SETTLE IT** -- the repair changed the state before the
+    # question was asked. Setup runs two things that mention torch: this pin,
+    # and `pip install -e .` against `requirements.txt` (`torch>=2.6.0`). The
+    # second carries no `-U`, so at 2.11.0 it is a no-op; **this line held the
+    # only `-U` in the path.** That is a strong inference and it is not a
+    # measurement, so it is written as one.
+    #
+    # **THE PIN EXISTS TO RAISE torch OFF 2.5.1, NOT TO CHASE LATEST.** So test
+    # first and install only when the floor is genuinely unmet. An unmet floor
+    # still installs exactly as before; a met one becomes a no-op, which is
+    # what "floor" meant.
+    # THE FIX IS DROPPING `-U`. Plain `pip install 'torch>=2.6'` reports
+    # "Requirement already satisfied" and does nothing when the floor holds,
+    # and installs when it does not -- which is what a floor means. `-U` was
+    # doing the one thing a floor must never do.
+    pin_cmd = ("pip install " + " ".join(f"'{p}'" for p in pins)) if pins \
         else 'echo "no package floors declared for this profile"'
 
     print("Installing malign-logits...", file=sys.stderr)
