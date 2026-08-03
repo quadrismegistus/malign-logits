@@ -1,0 +1,31 @@
+{
+  "cells": 4268,
+  "qualifying_old": 1015,
+  "qualifying_new": 1028,
+  "pct_old": 23.781630740393627,
+  "pct_new": 24.08622305529522,
+  "designed_pct": 92.83625730994152,
+  "ratio_old": 3.9036960216633534,
+  "ratio_new": 3.8543302159419297,
+  "band": "<=27%: STANDS AS WRITTEN",
+  "diagnostics": {},
+  "added_words": {
+    "want": 1,
+    "young": 1,
+    "signs": 1,
+    "knew": 1,
+    "Evening": 1,
+    "term": 1,
+    "mist": 1,
+    "cloud": 1,
+    "spilled": 1,
+    "dangerous": 1,
+    "public": 1,
+    "strange": 1,
+    "commentary": 1,
+    "critique": 1,
+    "chatted": 1,
+    "seemed": 1,
+    "answers": 1
+  }
+}

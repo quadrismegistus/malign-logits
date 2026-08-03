@@ -1,0 +1,882 @@
+[
+  {
+    "edge": 1,
+    "stratum": "zh",
+    "family": "amber",
+    "pre": "LLM360/Amber",
+    "post": "LLM360/AmberSafe",
+    "cells": 379,
+    "zero_faller": 2,
+    "rate": 0.005277044854881266
+  },
+  {
+    "edge": 1,
+    "stratum": "en",
+    "family": "amber",
+    "pre": "LLM360/Amber",
+    "post": "LLM360/AmberSafe",
+    "cells": 2199,
+    "zero_faller": 3,
+    "rate": 0.001364256480218281
+  },
+  {
+    "edge": 2,
+    "stratum": "zh",
+    "family": "archangel-dpo",
+    "pre": "EleutherAI/pythia-2.8b",
+    "post": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+    "cells": 379,
+    "zero_faller": 375,
+    "rate": 0.9894459102902374
+  },
+  {
+    "edge": 2,
+    "stratum": "en",
+    "family": "archangel-dpo",
+    "pre": "EleutherAI/pythia-2.8b",
+    "post": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+    "cells": 2199,
+    "zero_faller": 2162,
+    "rate": 0.9831741700773079
+  },
+  {
+    "edge": 3,
+    "stratum": "zh",
+    "family": "archangel-kto",
+    "pre": "EleutherAI/pythia-2.8b",
+    "post": "ContextualAI/archangel_sft-kto_pythia2-8b",
+    "cells": 379,
+    "zero_faller": 374,
+    "rate": 0.9868073878627969
+  },
+  {
+    "edge": 3,
+    "stratum": "en",
+    "family": "archangel-kto",
+    "pre": "EleutherAI/pythia-2.8b",
+    "post": "ContextualAI/archangel_sft-kto_pythia2-8b",
+    "cells": 2199,
+    "zero_faller": 2137,
+    "rate": 0.9718053660754888
+  },
+  {
+    "edge": 4,
+    "stratum": "zh",
+    "family": "archangel-ppo",
+    "pre": "EleutherAI/pythia-2.8b",
+    "post": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+    "cells": 379,
+    "zero_faller": 376,
+    "rate": 0.9920844327176781
+  },
+  {
+    "edge": 4,
+    "stratum": "en",
+    "family": "archangel-ppo",
+    "pre": "EleutherAI/pythia-2.8b",
+    "post": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+    "cells": 2199,
+    "zero_faller": 2150,
+    "rate": 0.9777171441564347
+  },
+  {
+    "edge": 5,
+    "stratum": "zh",
+    "family": "archangel-slic",
+    "pre": "EleutherAI/pythia-2.8b",
+    "post": "ContextualAI/archangel_sft-slic_pythia2-8b",
+    "cells": 379,
+    "zero_faller": 375,
+    "rate": 0.9894459102902374
+  },
+  {
+    "edge": 5,
+    "stratum": "en",
+    "family": "archangel-slic",
+    "pre": "EleutherAI/pythia-2.8b",
+    "post": "ContextualAI/archangel_sft-slic_pythia2-8b",
+    "cells": 2199,
+    "zero_faller": 2166,
+    "rate": 0.984993178717599
+  },
+  {
+    "edge": 6,
+    "stratum": "zh",
+    "family": "beaver",
+    "pre": "huggyllama/llama-7b",
+    "post": "PKU-Alignment/beaver-7b-v1.0",
+    "cells": 379,
+    "zero_faller": 0,
+    "rate": 0.0
+  },
+  {
+    "edge": 6,
+    "stratum": "en",
+    "family": "beaver",
+    "pre": "huggyllama/llama-7b",
+    "post": "PKU-Alignment/beaver-7b-v1.0",
+    "cells": 2199,
+    "zero_faller": 5,
+    "rate": 0.002273760800363802
+  },
+  {
+    "edge": 7,
+    "stratum": "zh",
+    "family": "bloom",
+    "pre": "bigscience/bloom-7b1",
+    "post": "bigscience/bloomz-7b1",
+    "cells": 379,
+    "zero_faller": 0,
+    "rate": 0.0
+  },
+  {
+    "edge": 7,
+    "stratum": "en",
+    "family": "bloom",
+    "pre": "bigscience/bloom-7b1",
+    "post": "bigscience/bloomz-7b1",
+    "cells": 2199,
+    "zero_faller": 34,
+    "rate": 0.015461573442473852
+  },
+  {
+    "edge": 8,
+    "stratum": "zh",
+    "family": "ct-llm",
+    "pre": "m-a-p/CT-LLM-Base",
+    "post": "m-a-p/CT-LLM-SFT-DPO",
+    "cells": 379,
+    "zero_faller": 22,
+    "rate": 0.05804749340369393
+  },
+  {
+    "edge": 8,
+    "stratum": "en",
+    "family": "ct-llm",
+    "pre": "m-a-p/CT-LLM-Base",
+    "post": "m-a-p/CT-LLM-SFT-DPO",
+    "cells": 2199,
+    "zero_faller": 14,
+    "rate": 0.006366530241018645
+  },
+  {
+    "edge": 9,
+    "stratum": "zh",
+    "family": "deepseek-7b",
+    "pre": "deepseek-ai/deepseek-llm-7b-base",
+    "post": "deepseek-ai/deepseek-llm-7b-chat",
+    "cells": 379,
+    "zero_faller": 66,
+    "rate": 0.1741424802110818
+  },
+  {
+    "edge": 9,
+    "stratum": "en",
+    "family": "deepseek-7b",
+    "pre": "deepseek-ai/deepseek-llm-7b-base",
+    "post": "deepseek-ai/deepseek-llm-7b-chat",
+    "cells": 2199,
+    "zero_faller": 398,
+    "rate": 0.1809913597089586
+  },
+  {
+    "edge": 10,
+    "stratum": "zh",
+    "family": "falcon-h1-1.5b",
+    "pre": "tiiuae/Falcon-H1-1.5B-Base",
+    "post": "tiiuae/Falcon-H1-1.5B-Instruct",
+    "cells": 379,
+    "zero_faller": 4,
+    "rate": 0.010554089709762533
+  },
+  {
+    "edge": 10,
+    "stratum": "en",
+    "family": "falcon-h1-1.5b",
+    "pre": "tiiuae/Falcon-H1-1.5B-Base",
+    "post": "tiiuae/Falcon-H1-1.5B-Instruct",
+    "cells": 2199,
+    "zero_faller": 4,
+    "rate": 0.0018190086402910413
+  },
+  {
+    "edge": 11,
+    "stratum": "zh",
+    "family": "falcon-h1-7b",
+    "pre": "tiiuae/Falcon-H1-7B-Base",
+    "post": "tiiuae/Falcon-H1-7B-Instruct",
+    "cells": 379,
+    "zero_faller": 1,
+    "rate": 0.002638522427440633
+  },
+  {
+    "edge": 11,
+    "stratum": "en",
+    "family": "falcon-h1-7b",
+    "pre": "tiiuae/Falcon-H1-7B-Base",
+    "post": "tiiuae/Falcon-H1-7B-Instruct",
+    "cells": 2199,
+    "zero_faller": 3,
+    "rate": 0.001364256480218281
+  },
+  {
+    "edge": 12,
+    "stratum": "zh",
+    "family": "falcon3-10b",
+    "pre": "tiiuae/Falcon3-10B-Base",
+    "post": "tiiuae/Falcon3-10B-Instruct",
+    "cells": 379,
+    "zero_faller": 12,
+    "rate": 0.0316622691292876
+  },
+  {
+    "edge": 12,
+    "stratum": "en",
+    "family": "falcon3-10b",
+    "pre": "tiiuae/Falcon3-10B-Base",
+    "post": "tiiuae/Falcon3-10B-Instruct",
+    "cells": 2199,
+    "zero_faller": 277,
+    "rate": 0.1259663483401546
+  },
+  {
+    "edge": 13,
+    "stratum": "zh",
+    "family": "falcon3-1b",
+    "pre": "tiiuae/Falcon3-1B-Base",
+    "post": "tiiuae/Falcon3-1B-Instruct",
+    "cells": 379,
+    "zero_faller": 69,
+    "rate": 0.1820580474934037
+  },
+  {
+    "edge": 13,
+    "stratum": "en",
+    "family": "falcon3-1b",
+    "pre": "tiiuae/Falcon3-1B-Base",
+    "post": "tiiuae/Falcon3-1B-Instruct",
+    "cells": 2199,
+    "zero_faller": 214,
+    "rate": 0.09731696225557071
+  },
+  {
+    "edge": 14,
+    "stratum": "zh",
+    "family": "falcon3-3b",
+    "pre": "tiiuae/Falcon3-3B-Base",
+    "post": "tiiuae/Falcon3-3B-Instruct",
+    "cells": 379,
+    "zero_faller": 9,
+    "rate": 0.023746701846965697
+  },
+  {
+    "edge": 14,
+    "stratum": "en",
+    "family": "falcon3-3b",
+    "pre": "tiiuae/Falcon3-3B-Base",
+    "post": "tiiuae/Falcon3-3B-Instruct",
+    "cells": 2199,
+    "zero_faller": 12,
+    "rate": 0.005457025920873124
+  },
+  {
+    "edge": 15,
+    "stratum": "zh",
+    "family": "falcon3-7b",
+    "pre": "tiiuae/Falcon3-7B-Base",
+    "post": "tiiuae/Falcon3-7B-Instruct",
+    "cells": 379,
+    "zero_faller": 14,
+    "rate": 0.036939313984168866
+  },
+  {
+    "edge": 15,
+    "stratum": "en",
+    "family": "falcon3-7b",
+    "pre": "tiiuae/Falcon3-7B-Base",
+    "post": "tiiuae/Falcon3-7B-Instruct",
+    "cells": 2199,
+    "zero_faller": 68,
+    "rate": 0.030923146884947704
+  },
+  {
+    "edge": 16,
+    "stratum": "zh",
+    "family": "glm4",
+    "pre": "zai-org/glm-4-9b-hf",
+    "post": "zai-org/glm-4-9b-chat-hf",
+    "cells": 379,
+    "zero_faller": 6,
+    "rate": 0.0158311345646438
+  },
+  {
+    "edge": 16,
+    "stratum": "en",
+    "family": "glm4",
+    "pre": "zai-org/glm-4-9b-hf",
+    "post": "zai-org/glm-4-9b-chat-hf",
+    "cells": 2199,
+    "zero_faller": 8,
+    "rate": 0.0036380172805820826
+  },
+  {
+    "edge": 17,
+    "stratum": "zh",
+    "family": "llama",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "meta-llama/Llama-3.1-8B-Instruct",
+    "cells": 379,
+    "zero_faller": 8,
+    "rate": 0.021108179419525065
+  },
+  {
+    "edge": 17,
+    "stratum": "en",
+    "family": "llama",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "meta-llama/Llama-3.1-8B-Instruct",
+    "cells": 2199,
+    "zero_faller": 31,
+    "rate": 0.01409731696225557
+  },
+  {
+    "edge": 18,
+    "stratum": "zh",
+    "family": "map-neo",
+    "pre": "m-a-p/neo_7b",
+    "post": "m-a-p/neo_7b_instruct_v0.1",
+    "cells": 379,
+    "zero_faller": 3,
+    "rate": 0.0079155672823219
+  },
+  {
+    "edge": 18,
+    "stratum": "en",
+    "family": "map-neo",
+    "pre": "m-a-p/neo_7b",
+    "post": "m-a-p/neo_7b_instruct_v0.1",
+    "cells": 2199,
+    "zero_faller": 10,
+    "rate": 0.004547521600727604
+  },
+  {
+    "edge": 19,
+    "stratum": "zh",
+    "family": "minicpm",
+    "pre": "openbmb/MiniCPM5-1B-Base",
+    "post": "openbmb/MiniCPM5-1B",
+    "cells": 379,
+    "zero_faller": 5,
+    "rate": 0.013192612137203167
+  },
+  {
+    "edge": 19,
+    "stratum": "en",
+    "family": "minicpm",
+    "pre": "openbmb/MiniCPM5-1B-Base",
+    "post": "openbmb/MiniCPM5-1B",
+    "cells": 2199,
+    "zero_faller": 6,
+    "rate": 0.002728512960436562
+  },
+  {
+    "edge": 20,
+    "stratum": "zh",
+    "family": "olmo",
+    "pre": "allenai/Olmo-3-1025-7B",
+    "post": "allenai/Olmo-3-7B-Instruct",
+    "cells": 379,
+    "zero_faller": 0,
+    "rate": 0.0
+  },
+  {
+    "edge": 20,
+    "stratum": "en",
+    "family": "olmo",
+    "pre": "allenai/Olmo-3-1025-7B",
+    "post": "allenai/Olmo-3-7B-Instruct",
+    "cells": 2199,
+    "zero_faller": 3,
+    "rate": 0.001364256480218281
+  },
+  {
+    "edge": 21,
+    "stratum": "zh",
+    "family": "olmo-32b",
+    "pre": "allenai/Olmo-3-1125-32B",
+    "post": "allenai/Olmo-3.1-32B-Instruct",
+    "cells": 379,
+    "zero_faller": 1,
+    "rate": 0.002638522427440633
+  },
+  {
+    "edge": 21,
+    "stratum": "en",
+    "family": "olmo-32b",
+    "pre": "allenai/Olmo-3-1125-32B",
+    "post": "allenai/Olmo-3.1-32B-Instruct",
+    "cells": 2199,
+    "zero_faller": 14,
+    "rate": 0.006366530241018645
+  },
+  {
+    "edge": 22,
+    "stratum": "zh",
+    "family": "olmo-hybrid",
+    "pre": "allenai/Olmo-Hybrid-7B",
+    "post": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
+    "cells": 379,
+    "zero_faller": 7,
+    "rate": 0.018469656992084433
+  },
+  {
+    "edge": 22,
+    "stratum": "en",
+    "family": "olmo-hybrid",
+    "pre": "allenai/Olmo-Hybrid-7B",
+    "post": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
+    "cells": 2199,
+    "zero_faller": 19,
+    "rate": 0.008640291041382447
+  },
+  {
+    "edge": 23,
+    "stratum": "zh",
+    "family": "olmo-think",
+    "pre": "allenai/Olmo-3-1025-7B",
+    "post": "allenai/Olmo-3-7B-Think-DPO",
+    "cells": 379,
+    "zero_faller": 2,
+    "rate": 0.005277044854881266
+  },
+  {
+    "edge": 23,
+    "stratum": "en",
+    "family": "olmo-think",
+    "pre": "allenai/Olmo-3-1025-7B",
+    "post": "allenai/Olmo-3-7B-Think-DPO",
+    "cells": 2199,
+    "zero_faller": 6,
+    "rate": 0.002728512960436562
+  },
+  {
+    "edge": 24,
+    "stratum": "zh",
+    "family": "olmo-tiny",
+    "pre": "allenai/OLMo-2-0425-1B",
+    "post": "allenai/OLMo-2-0425-1B-Instruct",
+    "cells": 379,
+    "zero_faller": 1,
+    "rate": 0.002638522427440633
+  },
+  {
+    "edge": 24,
+    "stratum": "en",
+    "family": "olmo-tiny",
+    "pre": "allenai/OLMo-2-0425-1B",
+    "post": "allenai/OLMo-2-0425-1B-Instruct",
+    "cells": 2199,
+    "zero_faller": 7,
+    "rate": 0.0031832651205093224
+  },
+  {
+    "edge": 25,
+    "stratum": "zh",
+    "family": "olmoe",
+    "pre": "allenai/OLMoE-1B-7B-0125",
+    "post": "allenai/OLMoE-1B-7B-0125-Instruct",
+    "cells": 379,
+    "zero_faller": 1,
+    "rate": 0.002638522427440633
+  },
+  {
+    "edge": 25,
+    "stratum": "en",
+    "family": "olmoe",
+    "pre": "allenai/OLMoE-1B-7B-0125",
+    "post": "allenai/OLMoE-1B-7B-0125-Instruct",
+    "cells": 2199,
+    "zero_faller": 6,
+    "rate": 0.002728512960436562
+  },
+  {
+    "edge": 26,
+    "stratum": "zh",
+    "family": "phi4",
+    "pre": "microsoft/phi-4",
+    "post": "microsoft/phi-4-reasoning",
+    "cells": 379,
+    "zero_faller": 31,
+    "rate": 0.08179419525065963
+  },
+  {
+    "edge": 26,
+    "stratum": "en",
+    "family": "phi4",
+    "pre": "microsoft/phi-4",
+    "post": "microsoft/phi-4-reasoning",
+    "cells": 2199,
+    "zero_faller": 58,
+    "rate": 0.0263756252842201
+  },
+  {
+    "edge": 27,
+    "stratum": "zh",
+    "family": "pythia",
+    "pre": "EleutherAI/pythia-6.9b",
+    "post": "lomahony/eleuther-pythia6.9b-hh-dpo",
+    "cells": 379,
+    "zero_faller": 336,
+    "rate": 0.8865435356200527
+  },
+  {
+    "edge": 27,
+    "stratum": "en",
+    "family": "pythia",
+    "pre": "EleutherAI/pythia-6.9b",
+    "post": "lomahony/eleuther-pythia6.9b-hh-dpo",
+    "cells": 2199,
+    "zero_faller": 1853,
+    "rate": 0.842655752614825
+  },
+  {
+    "edge": 28,
+    "stratum": "zh",
+    "family": "qwen",
+    "pre": "Qwen/Qwen2.5-7B",
+    "post": "Qwen/Qwen2.5-7B-Instruct",
+    "cells": 379,
+    "zero_faller": 53,
+    "rate": 0.13984168865435356
+  },
+  {
+    "edge": 28,
+    "stratum": "en",
+    "family": "qwen",
+    "pre": "Qwen/Qwen2.5-7B",
+    "post": "Qwen/Qwen2.5-7B-Instruct",
+    "cells": 2199,
+    "zero_faller": 121,
+    "rate": 0.055025011368804
+  },
+  {
+    "edge": 29,
+    "stratum": "zh",
+    "family": "qwen-tiny",
+    "pre": "Qwen/Qwen2.5-0.5B",
+    "post": "Qwen/Qwen2.5-0.5B-Instruct",
+    "cells": 379,
+    "zero_faller": 47,
+    "rate": 0.12401055408970976
+  },
+  {
+    "edge": 29,
+    "stratum": "en",
+    "family": "qwen-tiny",
+    "pre": "Qwen/Qwen2.5-0.5B",
+    "post": "Qwen/Qwen2.5-0.5B-Instruct",
+    "cells": 2199,
+    "zero_faller": 274,
+    "rate": 0.12460209185993633
+  },
+  {
+    "edge": 30,
+    "stratum": "zh",
+    "family": "qwen3",
+    "pre": "Qwen/Qwen3-8B-Base",
+    "post": "Qwen/Qwen3-8B",
+    "cells": 379,
+    "zero_faller": 1,
+    "rate": 0.002638522427440633
+  },
+  {
+    "edge": 30,
+    "stratum": "en",
+    "family": "qwen3",
+    "pre": "Qwen/Qwen3-8B-Base",
+    "post": "Qwen/Qwen3-8B",
+    "cells": 2199,
+    "zero_faller": 6,
+    "rate": 0.002728512960436562
+  },
+  {
+    "edge": 31,
+    "stratum": "zh",
+    "family": "redpajama",
+    "pre": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+    "post": "togethercomputer/RedPajama-INCITE-7B-Chat",
+    "cells": 379,
+    "zero_faller": 0,
+    "rate": 0.0
+  },
+  {
+    "edge": 31,
+    "stratum": "en",
+    "family": "redpajama",
+    "pre": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+    "post": "togethercomputer/RedPajama-INCITE-7B-Chat",
+    "cells": 2199,
+    "zero_faller": 2,
+    "rate": 0.0009095043201455207
+  },
+  {
+    "edge": 32,
+    "stratum": "zh",
+    "family": "rwkv",
+    "pre": "RWKV/rwkv-4-7b-pile",
+    "post": "RWKV/rwkv-raven-7b",
+    "cells": 379,
+    "zero_faller": 98,
+    "rate": 0.25857519788918204
+  },
+  {
+    "edge": 32,
+    "stratum": "en",
+    "family": "rwkv",
+    "pre": "RWKV/rwkv-4-7b-pile",
+    "post": "RWKV/rwkv-raven-7b",
+    "cells": 2199,
+    "zero_faller": 935,
+    "rate": 0.42519326966803095
+  },
+  {
+    "edge": 33,
+    "stratum": "zh",
+    "family": "smol",
+    "pre": "HuggingFaceTB/SmolLM2-360M",
+    "post": "HuggingFaceTB/SmolLM2-360M-Instruct",
+    "cells": 379,
+    "zero_faller": 79,
+    "rate": 0.20844327176781002
+  },
+  {
+    "edge": 33,
+    "stratum": "en",
+    "family": "smol",
+    "pre": "HuggingFaceTB/SmolLM2-360M",
+    "post": "HuggingFaceTB/SmolLM2-360M-Instruct",
+    "cells": 2199,
+    "zero_faller": 26,
+    "rate": 0.01182355616189177
+  },
+  {
+    "edge": 34,
+    "stratum": "zh",
+    "family": "smol3",
+    "pre": "HuggingFaceTB/SmolLM3-3B-Base",
+    "post": "HuggingFaceTB/SmolLM3-3B",
+    "cells": 379,
+    "zero_faller": 13,
+    "rate": 0.03430079155672823
+  },
+  {
+    "edge": 34,
+    "stratum": "en",
+    "family": "smol3",
+    "pre": "HuggingFaceTB/SmolLM3-3B-Base",
+    "post": "HuggingFaceTB/SmolLM3-3B",
+    "cells": 2199,
+    "zero_faller": 36,
+    "rate": 0.01637107776261937
+  },
+  {
+    "edge": 35,
+    "stratum": "zh",
+    "family": "stablelm",
+    "pre": "stabilityai/stablelm-2-1_6b",
+    "post": "stabilityai/stablelm-2-zephyr-1_6b",
+    "cells": 379,
+    "zero_faller": 2,
+    "rate": 0.005277044854881266
+  },
+  {
+    "edge": 35,
+    "stratum": "en",
+    "family": "stablelm",
+    "pre": "stabilityai/stablelm-2-1_6b",
+    "post": "stabilityai/stablelm-2-zephyr-1_6b",
+    "cells": 2199,
+    "zero_faller": 6,
+    "rate": 0.002728512960436562
+  },
+  {
+    "edge": 36,
+    "stratum": "zh",
+    "family": "tinyllama",
+    "pre": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+    "post": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    "cells": 379,
+    "zero_faller": 58,
+    "rate": 0.15303430079155672
+  },
+  {
+    "edge": 36,
+    "stratum": "en",
+    "family": "tinyllama",
+    "pre": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+    "post": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    "cells": 2199,
+    "zero_faller": 63,
+    "rate": 0.0286493860845839
+  },
+  {
+    "edge": 37,
+    "stratum": "zh",
+    "family": "tulu",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "allenai/Llama-3.1-Tulu-3.1-8B",
+    "cells": 379,
+    "zero_faller": 5,
+    "rate": 0.013192612137203167
+  },
+  {
+    "edge": 37,
+    "stratum": "en",
+    "family": "tulu",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "allenai/Llama-3.1-Tulu-3.1-8B",
+    "cells": 2199,
+    "zero_faller": 14,
+    "rate": 0.006366530241018645
+  },
+  {
+    "edge": 38,
+    "stratum": "zh",
+    "family": "tulu-no-safety",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "allenai/Llama-3.1-Tulu-3.1-8B",
+    "cells": 379,
+    "zero_faller": 5,
+    "rate": 0.013192612137203167
+  },
+  {
+    "edge": 38,
+    "stratum": "en",
+    "family": "tulu-no-safety",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "allenai/Llama-3.1-Tulu-3.1-8B",
+    "cells": 2199,
+    "zero_faller": 14,
+    "rate": 0.006366530241018645
+  },
+  {
+    "edge": 39,
+    "stratum": "zh",
+    "family": "tulu-sft-full",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+    "cells": 379,
+    "zero_faller": 9,
+    "rate": 0.023746701846965697
+  },
+  {
+    "edge": 39,
+    "stratum": "en",
+    "family": "tulu-sft-full",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+    "cells": 2199,
+    "zero_faller": 146,
+    "rate": 0.06639381537062301
+  },
+  {
+    "edge": 40,
+    "stratum": "zh",
+    "family": "tulu-sft-nomath",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+    "cells": 379,
+    "zero_faller": 9,
+    "rate": 0.023746701846965697
+  },
+  {
+    "edge": 40,
+    "stratum": "en",
+    "family": "tulu-sft-nomath",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+    "cells": 2199,
+    "zero_faller": 202,
+    "rate": 0.09185993633469759
+  },
+  {
+    "edge": 41,
+    "stratum": "zh",
+    "family": "tulu-sft-nopersona",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+    "cells": 379,
+    "zero_faller": 11,
+    "rate": 0.029023746701846966
+  },
+  {
+    "edge": 41,
+    "stratum": "en",
+    "family": "tulu-sft-nopersona",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+    "cells": 2199,
+    "zero_faller": 230,
+    "rate": 0.10459299681673488
+  },
+  {
+    "edge": 42,
+    "stratum": "zh",
+    "family": "tulu-sft-nowildchat",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+    "cells": 379,
+    "zero_faller": 3,
+    "rate": 0.0079155672823219
+  },
+  {
+    "edge": 42,
+    "stratum": "en",
+    "family": "tulu-sft-nowildchat",
+    "pre": "meta-llama/Llama-3.1-8B",
+    "post": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+    "cells": 2199,
+    "zero_faller": 171,
+    "rate": 0.07776261937244201
+  },
+  {
+    "edge": 43,
+    "stratum": "zh",
+    "family": "yi",
+    "pre": "01-ai/Yi-1.5-9B",
+    "post": "01-ai/Yi-1.5-9B-Chat",
+    "cells": 379,
+    "zero_faller": 5,
+    "rate": 0.013192612137203167
+  },
+  {
+    "edge": 43,
+    "stratum": "en",
+    "family": "yi",
+    "pre": "01-ai/Yi-1.5-9B",
+    "post": "01-ai/Yi-1.5-9B-Chat",
+    "cells": 2199,
+    "zero_faller": 25,
+    "rate": 0.011368804001819008
+  },
+  {
+    "edge": 44,
+    "stratum": "zh",
+    "family": "zephyr",
+    "pre": "mistralai/Mistral-7B-v0.1",
+    "post": "HuggingFaceH4/zephyr-7b-beta",
+    "cells": 379,
+    "zero_faller": 4,
+    "rate": 0.010554089709762533
+  },
+  {
+    "edge": 44,
+    "stratum": "en",
+    "family": "zephyr",
+    "pre": "mistralai/Mistral-7B-v0.1",
+    "post": "HuggingFaceH4/zephyr-7b-beta",
+    "cells": 2199,
+    "zero_faller": 42,
+    "rate": 0.019099590723055934
+  }
+]
