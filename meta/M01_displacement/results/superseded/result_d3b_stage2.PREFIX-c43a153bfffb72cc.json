@@ -1,0 +1,177 @@
+{
+  "_benchmark_source": "result_d2_stage2.json @ a1d712093155f32c, stored precision",
+  "_registration": "f02f59d403906503",
+  "_relabel_primary": "mean_abs_z_unweighted",
+  "_stage1_sha16": "ce6b215c5af138bc",
+  "_what": "D3b STAGE 2. The bracket: relabel (upper bound on the pool-associated share) and intercept (upper bound on the pool-independent share). NO significance test (\u00a77).",
+  "arms": {
+    "dom_extrem": {
+      "D2_observed": 0.01655496133619726,
+      "D_pair_mean": 0.01655496133619726,
+      "confound_side": {
+        "mean_abs_z_unweighted": {
+          "D_relabelled": -0.01869589053427752,
+          "concordance_in_data": 0.48417721518987344,
+          "n": 632,
+          "n_flipped": 326,
+          "n_ties": 0,
+          "ratio_to_D2": -1.1293225127260877,
+          "role": "PRIMARY (\u00a7A2)"
+        },
+        "mean_abs_z_weighted": {
+          "D_relabelled": -0.0532907852032762,
+          "concordance_in_data": 0.46360759493670883,
+          "n": 632,
+          "n_flipped": 339,
+          "n_ties": 0,
+          "ratio_to_D2": -3.21902202735783,
+          "role": "sensitivity"
+        },
+        "tail_ge_1_unweighted": {
+          "D_relabelled": -0.010972361061141423,
+          "concordance_in_data": 0.47943037974683544,
+          "n": 632,
+          "n_flipped": 329,
+          "n_ties": 0,
+          "ratio_to_D2": -0.662783853028425,
+          "role": "sensitivity"
+        }
+      },
+      "n": 632,
+      "residual_side": {
+        "mean_abs_z_unweighted": {
+          "denominator_mean_D_pair": 0.01655496133619726,
+          "disattenuated": {
+            "b0_corrected": 0.01252762214627914,
+            "b1_corrected": -0.4291067102786672,
+            "reliability": 0.7661307702405893
+          },
+          "fit": {
+            "b0": 0.01346949286060518,
+            "b1": -0.3287518544612007,
+            "mean_x": -0.009385402496508889,
+            "mean_y": 0.01655496133619726,
+            "n": 632,
+            "rmse": 0.1738901112617446,
+            "sd_x": 0.07174726109280559,
+            "sd_y": 0.17561901915897907
+          },
+          "meets_floor": true,
+          "pool_independent_share": 0.7567291696953479,
+          "reliability": 0.7661307702405893,
+          "reported_b0": 0.01252762214627914,
+          "reported_estimator": "disattenuated",
+          "role": "PRIMARY"
+        },
+        "mean_abs_z_weighted": {
+          "denominator_mean_D_pair": 0.01655496133619726,
+          "disattenuated": {
+            "b0_corrected": 0.001396563163169542,
+            "b1_corrected": -0.7630231531762397,
+            "reliability": 0.7815017005766016
+          },
+          "fit": {
+            "b0": 0.004708647385958848,
+            "b1": -0.5963038917865521,
+            "mean_x": -0.019866236181599196,
+            "mean_y": 0.01655496133619726,
+            "n": 632,
+            "rmse": 0.1553129642017604,
+            "sd_x": 0.13708049641043552,
+            "sd_y": 0.17561901915897907
+          },
+          "meets_floor": true,
+          "pool_independent_share": 0.08435919207591083,
+          "reliability": 0.7815017005766016,
+          "reported_b0": 0.001396563163169542,
+          "reported_estimator": "disattenuated",
+          "role": "SENSITIVITY"
+        }
+      }
+    },
+    "val_extrem": {
+      "D2_observed": 0.015106155684521026,
+      "D_pair_mean": 0.015106155684521026,
+      "confound_side": {
+        "mean_abs_z_unweighted": {
+          "D_relabelled": 0.008472362407207388,
+          "concordance_in_data": 0.6598101265822784,
+          "n": 632,
+          "n_flipped": 215,
+          "n_ties": 0,
+          "ratio_to_D2": 0.5608549643036479,
+          "role": "PRIMARY (\u00a7A2)"
+        },
+        "mean_abs_z_weighted": {
+          "D_relabelled": -0.04618348127948649,
+          "concordance_in_data": 0.5727848101265823,
+          "n": 632,
+          "n_flipped": 270,
+          "n_ties": 0,
+          "ratio_to_D2": -3.0572623666794176,
+          "role": "sensitivity"
+        },
+        "tail_ge_1_unweighted": {
+          "D_relabelled": 0.0009398475810791771,
+          "concordance_in_data": 0.694620253164557,
+          "n": 632,
+          "n_flipped": 192,
+          "n_ties": 1,
+          "ratio_to_D2": 0.06221619852906852,
+          "role": "sensitivity"
+        }
+      },
+      "n": 632,
+      "residual_side": {
+        "mean_abs_z_unweighted": {
+          "denominator_mean_D_pair": 0.015106155684521026,
+          "disattenuated": {
+            "b0_corrected": 0.020200047279173048,
+            "b1_corrected": -0.17739977822770783,
+            "reliability": 0.8163428892643401
+          },
+          "fit": {
+            "b0": 0.019264517866498593,
+            "b1": -0.1448190475132602,
+            "mean_x": 0.02871419370160415,
+            "mean_y": 0.015106155684521026,
+            "n": 632,
+            "rmse": 0.15823063975770493,
+            "sd_x": 0.07899960781622407,
+            "sd_y": 0.15876870588946665
+          },
+          "meets_floor": true,
+          "pool_independent_share": 1.3372063482618302,
+          "reliability": 0.8163428892643401,
+          "reported_b0": 0.020200047279173048,
+          "reported_estimator": "disattenuated",
+          "role": "PRIMARY"
+        },
+        "mean_abs_z_weighted": {
+          "denominator_mean_D_pair": 0.015106155684521026,
+          "disattenuated": {
+            "b0_corrected": 0.02905578112052811,
+            "b1_corrected": -0.6483656317151478,
+            "reliability": 0.8020299490514518
+          },
+          "fit": {
+            "b0": 0.026294173062248623,
+            "b1": -0.5200086545712124,
+            "mean_x": 0.021515059950209844,
+            "mean_y": 0.015106155684521026,
+            "n": 632,
+            "rmse": 0.14174616851185248,
+            "sd_x": 0.13711302434574665,
+            "sd_y": 0.15876870588946665
+          },
+          "meets_floor": true,
+          "pool_independent_share": 1.9234398034372826,
+          "reliability": 0.8020299490514518,
+          "reported_b0": 0.02905578112052811,
+          "reported_estimator": "disattenuated",
+          "role": "SENSITIVITY"
+        }
+      }
+    }
+  }
+}
