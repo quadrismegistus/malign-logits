@@ -151,6 +151,35 @@ def load_costs(path=COSTS_PATH):
 # an honest one.
 MIN_RATE_PROMPTS = 200
 
+# ── RATES VOIDED BECAUSE THE RUN THAT PRODUCED THEM PRODUCED NOTHING ──────
+#
+# **MIN_RATE_PROMPTS GUARDS QUANTITY AND NOTHING GUARDED QUALITY.** Both
+# Falcon-H1 7B checkpoints ran all 2,583 prompts on 2026-08-01 and returned
+# all-NaN logits and zero word rows on every one ([3015]). With NaN logits
+# `P0 >= theta` selects nothing, `live` is empty, and the token-tree expansion
+# terminates at depth 0 — so the run did ONE forward pass per prompt and none
+# of the expansion that is the actual cost. The harvester saw 2,550 prompts,
+# sailed past the 200 floor, and booked **10.58 and 10.96 p/s as MEASURED**.
+#
+# **THAT IS 5x THE FASTEST GENUINELY MEASURED MODEL ON THE ROSTER** (Olmo 7B at
+# 2.11 p/s) **and it carried the `measured` credential, which is precisely what
+# makes a planner trust it over the class default.** The number was not noise:
+# it was a correct measurement of a model doing nothing, and the speed WAS the
+# symptom RH spotted.
+#
+# The general principle, which the 200-prompt floor does not express: **A RATE
+# IS ONLY AS VALID AS THE OUTPUT IT WAS MEASURED PRODUCING.** Throughput on
+# empty cells is not throughput. This list is the declared exception; the
+# structural fix is that a harvest should read cell yield, not line count, and
+# that is not built.
+VOID_RATES = {
+    "tiiuae/Falcon-H1-7B-Base":
+        "all-NaN logits, 0 word rows on 2,583/2,583 cells [3015]; the rate "
+        "measures an expansion that never ran",
+    "tiiuae/Falcon-H1-7B-Instruct":
+        "all-NaN logits, 0 word rows on 2,583/2,583 cells [3015]; same run",
+}
+
 
 def rate_for(model_id, costs=None):
     """Prompts/second for a model. Measured if we have it, else class default."""
@@ -158,6 +187,8 @@ def rate_for(model_id, costs=None):
     entry = costs.get(model_id) or {}
     seen = entry.get("p_per_s_prompts")
     enough = seen is None or seen >= MIN_RATE_PROMPTS
+    if model_id in VOID_RATES:
+        enough = False
     if entry.get("p_per_s") and enough:
         return float(entry["p_per_s"])
     cls = arch_class(model_id)
@@ -171,6 +202,11 @@ def rate_source(model_id, costs=None):
     costs = load_costs() if costs is None else costs
     e = costs.get(model_id) or {}
     seen = e.get("p_per_s_prompts")
+    if model_id in VOID_RATES:
+        #: NAMED, NOT SILENT. A planner that sees "class-default" here and does
+        #: not know a measurement was thrown away will re-harvest the same
+        #: poisoned number from the same log.
+        return "class-default (measurement VOID: %s)" % VOID_RATES[model_id]
     if e.get("p_per_s") and (seen is None or seen >= MIN_RATE_PROMPTS):
         return "measured"
     if e.get("p_per_s"):
@@ -300,6 +336,24 @@ def selftest(verbose=False):
          lambda: "discarded" in rate_source("z/w", {"z/w": {
              "p_per_s": 0.98, "p_per_s_prompts": 5}}),
          "a silent fallback reads as a class default that was never measured")
+
+    case("a VOID rate is discarded however many prompts it saw",
+         lambda: rate_for("tiiuae/Falcon-H1-7B-Base", {
+             "tiiuae/Falcon-H1-7B-Base": {"p_per_s": 10.58,
+                                          "p_per_s_prompts": 2550}}) == 0.65,
+         "2,550 prompts clears the 200 floor twelve times over -- the floor "
+         "guards QUANTITY, and this run's defect was that all 2,550 produced "
+         "nothing. A rate is only as valid as the output it measured producing")
+    case("and rate_source NAMES the void rather than saying class-default",
+         lambda: "VOID" in rate_source("tiiuae/Falcon-H1-7B-Base", {
+             "tiiuae/Falcon-H1-7B-Base": {"p_per_s": 10.58,
+                                          "p_per_s_prompts": 2550}}),
+         "a planner told 'class-default' will re-harvest the same poisoned "
+         "number from the same log and book it as measured again")
+    case("the void list does not leak onto a healthy sibling",
+         lambda: rate_source("tiiuae/Falcon-H1-1.5B-Base", {}) == "class-default",
+         "voiding by exact model id, never by prefix -- the 1.5B pair was "
+         "never in that run and has no defect to inherit")
 
     case("cost_hours counts the load ONCE, not per prompt",
          lambda: abs(cost_hours("a/b", 0, {}) - 38.0 / 3600.0) < 1e-9,

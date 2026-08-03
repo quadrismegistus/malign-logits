@@ -292,6 +292,40 @@ def free(*objs):
     if torch.cuda.is_available():
         torch.cuda.empty_cache()
         torch.cuda.synchronize()
+    elif getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
+        torch.mps.empty_cache()
+        torch.mps.synchronize()
+
+
+def pick_device():
+    """cuda, else mps, else cpu.
+
+    ADDED 2026-08-03 FOR THE FALCON-H1 RE-RUN, AND DELIBERATELY ADDITIVE: on a
+    CUDA box this returns exactly what the hardcoded expression returned, so
+    the 103-model corpus this script produced is untouched by it. The mps
+    branch is reachable only where the old code would have said "cpu".
+
+    **WHY A LOCAL DEVICE IS IN SCOPE AT ALL.** `Falcon-H1-7B-{Base,Instruct}`
+    returned all-NaN logits on every one of 2,583 prompts ([3015]), and this
+    box REPRODUCES that — 11 of the first 12 battery prompts, on mps, under the
+    naive SSM fallback. Reproducing it locally is what made it free to diagnose,
+    and the cause is `COMPUTE_DTYPE` below, not the device.
+
+    **AND THE FIRST DIAGNOSIS WAS WRONG IN A WAY WORTH KEEPING ON THE PAGE.**
+    An 8-token probe returned finite logits at fp16, so the dtype hypothesis
+    was declared dead and the fused-vs-naive kernel path blamed instead. The
+    probe prompt was HAND-TYPED TO RESEMBLE a battery prompt rather than TAKEN
+    from the battery, and it was shorter than every real one. The failure is
+    accumulation over sequence length, so the single property the hand-typed
+    prompt failed to reproduce was the only one that mattered. **A probe drawn
+    from the population cannot miss the population's defining feature; one
+    written to look like it can, and this one did.**
+    """
+    if torch.cuda.is_available():
+        return "cuda"
+    if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
+        return "mps"
+    return "cpu"
 
 
 # THE ADAPTED BATCH SURVIVES THE PROMPT THAT DISCOVERED IT.
@@ -826,7 +860,7 @@ def main(a):
               f"{sum(len(e['prompts']) for e in spec):,} cells", flush=True)
 
     os.makedirs(a.out, exist_ok=True)
-    dev = "cuda" if torch.cuda.is_available() else "cpu"
+    dev = pick_device()
     trie = None if a.no_dict else load_prefix_trie(a.dict)
     # THE DICTIONARY IS PART OF THE RULE. A different word list is a different
     # boundary rule wearing the same version number, so its hash is stamped per
@@ -847,6 +881,34 @@ def main(a):
         print(f"cjk dictionary: {len(trie):,} words+prefixes", flush=True)
     for mi, entry in enumerate(spec, 1):
         mid, prompts = entry["model"], entry["prompts"]
+        #: COMPUTE DTYPE, PER MODEL, DECLARED IN THE SPEC. Default float16, so
+        #: the 103 models of the 2026-08-01 corpus are computed exactly as they
+        #: were and nothing about them is retroactively changed by this field.
+        #:
+        #: **THE COMPUTE DTYPE AND THE STORAGE DTYPE ARE TWO DECISIONS THAT
+        #: SHARE A NAME.** RH's 2026-08-01 ruling (quoted at the logit fold
+        #: below) is about the STORE: a uniform f16 store beats a mixed one.
+        #: It says nothing about how the forward pass is computed, and
+        #: `_LOGIT["v"] = lg.half()` still casts every vector to f16 on the way
+        #: out. Falcon-H1's finite logits reach |28.4| against f16's 65504, so
+        #: the cast is lossless in range and the store stays uniform.
+        #:
+        #: **WHY IT IS NEEDED.** Falcon-H1 is an attention/SSM hybrid whose
+        #: state accumulates a cumulative scan over the sequence; in fp16 it
+        #: overflows to inf and thence to NaN. Measured on the first 12 battery
+        #: prompts of Falcon-H1-7B-Base: **fp16 finite 1/12, bf16 finite
+        #: 12/12**, the single fp16 survivor being the 7-token BOS marker and
+        #: every failure being 13 tokens or longer. Both Falcon-H1 configs
+        #: declare `torch_dtype: bfloat16`; this run loaded float16.
+        cdt_name = entry.get("compute_dtype", "float16")
+        cdt = {"float16": torch.float16, "bfloat16": torch.bfloat16,
+               "float32": torch.float32}.get(cdt_name)
+        if cdt is None:
+            raise SystemExit(f"REFUSING: {mid} declares compute_dtype "
+                             f"{cdt_name!r}, which is not one of float16 / "
+                             f"bfloat16 / float32. A dtype this runner does not "
+                             f"recognise must not silently become the default -- "
+                             f"a dtype difference IS a logit difference.")
         safe = mid.replace("/", "__")
         path = os.path.join(a.out, f"{safe}.jsonl")
         # HOISTED, AND IT MATTERS ON EVERY RESTART. This read
@@ -865,7 +927,7 @@ def main(a):
         try:
             tok, loader_id = load_tokenizer(mid)
             model = AutoModelForCausalLM.from_pretrained(
-                mid, torch_dtype=torch.float16, trust_remote_code=True).to(dev).eval()
+                mid, dtype=cdt, trust_remote_code=True).to(dev).eval()
         except Exception as e:
             print(f"  LOAD FAILED: {str(e)[:120]}", flush=True)
             free()                 # the traceback held the partial load
@@ -942,6 +1004,14 @@ def main(a):
                         "logit_row": _row, "logit_dim": (int(_lg.shape[0])
                                                          if _lg is not None else None),
                         "logit_dtype": "float16",
+                        #: STAMPED SEPARATELY FROM `logit_dtype`, WHICH IS THE
+                        #: STORAGE CAST. A cell that cannot say what precision
+                        #: computed it cannot be excluded from a comparison
+                        #: later -- the same argument that added the library
+                        #: versions below, and the Falcon-H1 repair is the case
+                        #: that proves it: 5,166 cells were silently unusable
+                        #: and nothing in the row said why.
+                        "compute_dtype": cdt_name,
                         "rule_version": RULE_VERSION,
                         "rule_commits": RULE_COMMITS,
                         "dict_sha": dict_sha,
