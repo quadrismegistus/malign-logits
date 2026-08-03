@@ -251,13 +251,58 @@ class CacheManager:
         import numpy as _np
         f, row, dim = entry["file"], entry["row"], entry["dim"]
         dt = _np.dtype(str(dtype))
-        ck = (f, dt.str)
+        # THE CACHE KEY IS THE RESOLVED PATH, NOT THE BASENAME. [3719].2.
+        #
+        # It was (basename, dtype). The index names a BASENAME resolved against
+        # MALIGN_LOGIT_ROOT at read time, so a mid-process repoint of the root
+        # HIT THE CACHE AND WAS SILENTLY IGNORED: every read after the first
+        # returned the first root's bytes, and the finiteness guard below --
+        # which tests the bytes -- never saw the second file at all.
+        # **THE BYTE GUARD WAS THEREBY ORDER-DEPENDENT, AND A GUARD THAT
+        # DEPENDS ON READ ORDER IS A GUARD THAT PASSED BY LUCK.**
+        # Keying on the resolved path makes a repoint a cache MISS, which is
+        # what re-arms every check downstream of it.
+        path = _os.path.join(self._logit_root(), f)
+        ck = (_os.path.realpath(path), dt.str)
         mm = CacheManager._LOGIT_MMAP.get(ck)
         if mm is None:
-            path = _os.path.join(self._logit_root(), f)
             mm = _np.memmap(path, dtype=dt, mode="r").reshape(-1, dim)
             CacheManager._LOGIT_MMAP[ck] = mm
-        return _np.array(mm[row])
+        vec = _np.array(mm[row])
+
+        # REFUSE ON NON-FINITE. Ruled [3715].2(iii), effective every reader.
+        #
+        # The retired all-NaN Falcon shard is BYTE-SIZE IDENTICAL to the real
+        # one -- 671,827,968 bytes, dim 130,048, both -- so every structural
+        # assertion in index_logit_shards.py passes on it. There is no stride
+        # error to catch: the file is structurally perfect and contains
+        # nothing. And the index names a BASENAME resolved against
+        # MALIGN_LOGIT_ROOT at READ time, so freezing the registration,
+        # hashing the index and pinning every commit still leaves the bytes
+        # swinging on an environment variable -- no error, no size change, no
+        # hash change. A pinned shard sha256 catches THAT file (the copies do
+        # differ by content); it cannot catch a future canonical shard that is
+        # partly NaN. This is the check that tests the BYTES.
+        #
+        # Cost measured, not assumed: 0.11 ms against a 7.9 ms full-vocabulary
+        # softmax+sort on dim 130,048. 1.4%.
+        #
+        # NO `allow_nonfinite=` FLAG, ON PURPOSE. A bypass is how a guard
+        # becomes something someone remembers. Forensics on a suspect shard
+        # memmaps the file directly, and get_logits_entry() still answers the
+        # cheap question without touching a byte -- refuse to COMPUTE, never
+        # to DESCRIBE.
+        n_bad = int((~_np.isfinite(vec)).sum())
+        if n_bad:
+            raise ValueError(
+                f"NON-FINITE LOGITS: {n_bad:,}/{dim:,} values in row {row} of "
+                f"{f} are NaN or inf. Resolved root: "
+                f"{_os.path.abspath(self._logit_root())!r} "
+                f"(MALIGN_LOGIT_ROOT={_os.environ.get('MALIGN_LOGIT_ROOT')!r}). "
+                f"A softmax over this returns NaN and propagates as a "
+                f"number-shaped absence. Check WHICH copy the root resolves "
+                f"to before treating this as a data problem.")
+        return vec
 
     def get_logits(self, model, prompt, mode="raw", dtype=None):
         dt = self._logits_resolve_dtype(model, prompt, mode, dtype)
