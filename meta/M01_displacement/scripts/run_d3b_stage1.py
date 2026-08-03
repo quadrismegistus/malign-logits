@@ -23,7 +23,7 @@ D_SHA = "84011269d00eea6b"          #: §8, frozen -- pairs_d.py
 #: `f02f59d403906503`. The mismatch would have refused loudly rather than run
 #: on the wrong pin -- but a constant whose name admits two referents is the
 #: day's own defect class wearing an identifier.
-PRODUCER_SHA = None                  #: <- SET WHEN THE PRODUCER FREEZES
+PRODUCER_SHA = "886351ecb988a349"   #: FROZEN, committed bbd2284, locked
 OUT = os.path.join(CAMPAIGN, "results", "result_d3b_stage1.json")
 
 if not PRODUCER_SHA:
