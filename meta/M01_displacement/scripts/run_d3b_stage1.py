@@ -23,7 +23,21 @@ D_SHA = "84011269d00eea6b"          #: §8, frozen -- pairs_d.py
 #: `f02f59d403906503`. The mismatch would have refused loudly rather than run
 #: on the wrong pin -- but a constant whose name admits two referents is the
 #: day's own defect class wearing an identifier.
-PRODUCER_SHA = "6ec1601c21fea6f6"   #: FROZEN, committed 4911490 (was bbd2284, see meta/commit_map_20260803_word_pool_strip.tsv), locked
+#: PIN FORWARD UNDER [3905].3, CAUSED BY (1): `pool_decomp_d3b.py`'s
+#: `D2_READ_SHA16` moved a1d712093155f32c -> 756eba00a0cfff4a because D2
+#: stage 2 was re-run on the repaired instrument ([3901]/[3902]). The
+#: producer moved BECAUSE ITS INPUT DID -- not because anyone wanted a
+#: different producer, and the record must show that order. AST-proven
+#: content-minimal: fifteen top-level objects, fourteen byte-identical,
+#: module scope differing in exactly the two pin names ([3907]),
+#: independently second-seat verified ([3909]).
+PRODUCER_SHA_SUPERSEDED = "6ec1601c21fea6f6"   #: pre pin-forward
+#: FORWARDED AGAIN, and the cause is §B7(ii): `pool_decomp_d3b.py` gained
+#: `q1`/`q3` in its stage-1 summary, so its hash moved a second time.
+#: dce56bd0b8979dfe was the pin-forward of [3907]; this is the amendment's
+#: own consequence, adopted at [3948] on text 6c21db65ce1d2ae2.
+PRODUCER_SHA_SUPERSEDED_2 = "dce56bd0b8979dfe"   #: after the D2 pin-forward
+PRODUCER_SHA = "23ac1817f1ba7511"
 OUT = os.path.join(CAMPAIGN, "results", "result_d3b_stage1.json")
 
 if not PRODUCER_SHA:
@@ -55,8 +69,26 @@ if "--rerun" in sys.argv:
                          "its argument. A re-run with no named authority is an "
                          "accident with a flag on it.")
     print(f"RE-RUN AUTHORISED BY: {RERUN_AUTHORITY}", flush=True)
-    _prior = hashlib.sha256(open(OUT, "rb").read()).hexdigest()[:16]
+    #: AN ANNOUNCEMENT IS NOT AN ESCROW; THE COPY IS. [3911](b).
+    #: This branch used to PRINT `SUPERSEDING: ... @ <hash>` and never copy the
+    #: file -- and because the §4 reproduction STOP fires AFTER the write, a
+    #: halted re-run still overwrote the artifact it claimed to supersede. On
+    #: 2026-08-03 that destroyed the pre-repair D3b stage 1 on disk; only the
+    #: commit rule (b203b0d2) redeemed it. The appearance of custody without
+    #: the act is the mode-bit lesson one directory over.
+    _blob = open(OUT, "rb").read()
+    _prior = hashlib.sha256(_blob).hexdigest()[:16]
+    _dir = os.path.join(CAMPAIGN, "results", "superseded")
+    os.makedirs(_dir, exist_ok=True)
+    _dst = os.path.join(_dir, f"result_d3b_stage1.PREFIX-{_prior}.json")
+    if not os.path.exists(_dst):
+        with open(_dst, "wb") as _fh:
+            _fh.write(_blob)
+        os.chmod(_dst, 0o444)
     print(f"SUPERSEDING: {os.path.basename(OUT)} @ {_prior}", flush=True)
+    print(f"  ESCROWED (read-only) -> {os.path.basename(_dst)}", flush=True)
+    print(f"  UNLOCKING {os.path.basename(OUT)} for the re-emit", flush=True)
+    os.chmod(OUT, 0o644)
 
 for mod, want in (("pairs_d.py", D_SHA), ("pool_decomp_d3b.py", PRODUCER_SHA)):
     got = hashlib.sha256(open(os.path.join(HERE, mod), "rb").read()).hexdigest()[:16]
@@ -66,6 +98,13 @@ for mod, want in (("pairs_d.py", D_SHA), ("pool_decomp_d3b.py", PRODUCER_SHA)):
 
 coll = P.collect(verbose=False)
 payload, sha = P.stage1(coll, OUT, seed=P.SEED)
+os.chmod(OUT, 0o444)
+#: RE-LOCK. [3915] added escrow-before-write and the ANNOUNCED unlock and
+#: **left the artifact unlocked afterwards** -- a half-applied ceremony,
+#: found by `ls -l` on the run's own output rather than by any check.
+#: The unlock and the re-lock are ONE act; shipping the first without the
+#: second removes the protection and keeps the appearance of restoring it.
+print("  RE-LOCKED a-w", flush=True)
 print(f"\nD3b STAGE 1  {OUT}\n  sha256[:16]  {sha}", flush=True)
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -81,9 +120,29 @@ print(f"\nD3b STAGE 1  {OUT}\n  sha256[:16]  {sha}", flush=True)
 # adjacent order statistics under different quantile conventions, so it tests
 # the convention rather than the data ([3470].2).
 # ══════════════════════════════════════════════════════════════════════════
-EXPECT = {"n": 632, "min": -0.4193, "median": 0.0250, "max": 0.3696,
+#: SUPERSEDED BY AMENDMENT D3b-B §B2 (adopted [3948], text 6c21db65ce1d2ae2).
+#: These are §4's PRE-REPAIR figures. They fired 6-of-9 on the repaired run and
+#: halted the chain, which is the check working: a PASS would have meant this
+#: producer was not reading the repaired pool at all.
+EXPECT_SUPERSEDED = {"n": 632, "min": -0.4193, "median": 0.0250, "max": 0.3696,
           "n_negative": 215, "n_positive": 417,
           "bins": {"0.01": 71, "0.02": 145, "0.05": 333}}
+
+#: **AMENDMENT D3b-B §B2, ELEVEN FIGURES IN THREE CLASSES.** §B7(i) authorises
+#: this edit by clause, not by docket post -- a producer citing a message number
+#: cites something a reader of this repository cannot resolve; a producer citing
+#: §B7 cites a document beside it.
+#:
+#: `q1`/`q3` enter the check set for the first time, gated under §B2's NAMED
+#: convention: linear interpolation on the sorted vector, k = (n-1)p,
+#: value = d[floor k] + (k - floor k) * (d[ceil k] - d[floor k]). They were
+#: previously untabled here because §4's convention is LOST and no comparison to
+#: its values is defined -- §B2 tables them as NEWLY SPECIFIED for that reason,
+#: and from this amendment forward they are checkable.
+EXPECT = {"n": 632, "min": -0.4193, "median": 0.0237, "max": 0.3730,
+          "n_negative": 220, "n_positive": 412,
+          "q1": -0.0184, "q3": 0.0713,
+          "bins": {"0.01": 77, "0.02": 145, "0.05": 334}}
 
 r = payload["arms"]["val_extrem"]["regressors"][P.PRIMARY_REGRESSOR]
 print("\n§4's TABLED SUPPORT -- pre-registered, frozen before this producer:")
@@ -91,7 +150,8 @@ allok = True
 for field, want in (("n", EXPECT["n"]), ("min", EXPECT["min"]),
                     ("median", EXPECT["median"]), ("max", EXPECT["max"]),
                     ("n_negative", EXPECT["n_negative"]),
-                    ("n_positive", EXPECT["n_positive"])):
+                    ("n_positive", EXPECT["n_positive"]),
+                    ("q1", EXPECT["q1"]), ("q3", EXPECT["q3"])):
     got = r[field]
     m = (abs(got - want) < 5e-5) if isinstance(want, float) else (got == want)
     allok &= m
@@ -103,9 +163,9 @@ for cut, want in EXPECT["bins"].items():
     allok &= m
     print(f"   |gap|<={cut}   got {got:>12}   §4 {want:>10}   "
           f"{'MATCH' if m else '*** MISS'}")
-print(f"\n  ALL NINE §4 FIGURES REPRODUCE: {allok}")
+print(f"\n  ALL ELEVEN §B2 FIGURES REPRODUCE: {allok}")
 if not allok:
-    raise SystemExit("STOP: the regressor does not reproduce §4's tabled "
+    raise SystemExit("STOP: the regressor does not reproduce §B2's tabled "
                      "support. This is not the same data.")
 
 # ══════════════════════════════════════════════════════════════════════════

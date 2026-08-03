@@ -5,7 +5,13 @@ HERE = os.path.dirname(os.path.abspath(__file__)); CAMPAIGN = os.path.dirname(HE
 sys.path.insert(0, HERE)
 import pairs_d as D, pairs_d2 as D2
 
-D_SHA, D2_SHA, S1_SHA = "84011269d00eea6b", "e3facec24b6b6641", "183722c556248709"
+#: PIN FORWARD UNDER [3828], protocol [3830], full ceremony per [3888](b) --
+#: announced, unlocked, edited, re-locked, in the open. The superseded value
+#: STAYS: `183722c556248709` is D2 stage 1 as produced under the PRE-REPAIR
+#: movement.py, and `b5599a359fbf5265` is the same producers on the repaired
+#: instrument ([3894], second-seat verified [3896]).
+S1_SHA_SUPERSEDED = "183722c556248709"   #: pre-repair D2 stage 1
+D_SHA, D2_SHA, S1_SHA = "84011269d00eea6b", "e3facec24b6b6641", "b5599a359fbf5265"
 S1 = os.path.join(CAMPAIGN, "results", "result_d2_stage1.json")
 OUT = os.path.join(CAMPAIGN, "results", "result_d2_stage2.json")
 
@@ -16,7 +22,26 @@ for mod, want in (("pairs_d.py", D_SHA), ("pairs_d2.py", D2_SHA)):
 print(f"producers VERIFIED", flush=True)
 
 built = D.build()
+
+#: CUSTODY AROUND THE WRITE, [3830]/[3851]. Escrow read-only FIRST, unlock only
+#: after it exists, announce it, re-lock after.
+if os.path.exists(OUT):
+    _prior = open(OUT, "rb").read()
+    _ph = hashlib.sha256(_prior).hexdigest()[:16]
+    _dir = os.path.join(CAMPAIGN, "results", "superseded")
+    os.makedirs(_dir, exist_ok=True)
+    _dst = os.path.join(_dir, f"result_d2_stage2.PREFIX-{_ph}.json")
+    if not os.path.exists(_dst):
+        with open(_dst, "wb") as _fh:
+            _fh.write(_prior)
+        os.chmod(_dst, 0o444)
+    print(f"  escrowed prior artifact @ {_ph} -> {os.path.basename(_dst)}", flush=True)
+    print(f"  UNLOCKING {os.path.basename(OUT)} for the re-emit", flush=True)
+    os.chmod(OUT, 0o644)
+
 out, sha = D2.stage2_d2(built, S1, S1_SHA, OUT, seed=20260731)
+os.chmod(OUT, 0o444)
+print("  RE-LOCKED a-w", flush=True)
 print(f"stage-1 gate PASSED against {S1_SHA}")
 print(f"\nD2 STAGE 2  {OUT}\n  sha256[:16]  {sha}\n  alpha {out['_alpha']}  "
       f"structure {out['_structure']}\n")

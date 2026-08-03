@@ -18,3 +18,16 @@ matplotlib
 hashstash[rec]>=1.0.1
 duckdb>=1.0.0
 python-arango>=8.0.0
+
+# Reads the two CHINESE norm tables (df.xlsx, "Chinese Words.xlsx"); the English
+# sources are csv/tsv and need nothing. `load_norms()` loads EVERY source before
+# returning, so a missing xlsx reader blocked the ENGLISH arms too -- the whole
+# norms half of M01, from one undeclared zh dependency. It was absent from this
+# venv on 2026-08-03 and from this file since the norms were added, so every
+# norms-dependent number in the campaign was produced on a machine that happened
+# to have it, at a version no run record can name. Ruled [3865]; PINNED because
+# an undeclared dependency resolved at whatever version today's pip picks is the
+# unpinned joint, in a campaign whose warrant is that arms differ in ONE thing.
+# VERIFIED under this version: load_norms(verify=True) reproduced every pinned
+# per-source sha16, both zh tables included -- so the reader is not the variable.
+openpyxl==3.1.5

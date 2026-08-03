@@ -54,7 +54,20 @@ D3B_ARMS = ("val_extrem", "dom_extrem")
 #: means the two populations are not the same 632 -- a finding, not a rounding
 #: question -- and stage 2 STOPS.
 D2_READ = "result_d2_stage2.json"
-D2_READ_SHA16 = "a1d712093155f32c"     #: the read cited in D3b's own preamble
+#: PIN FORWARD UNDER [3905], and the precedent it draws: a re-run ordered at
+#: [3828] MAY move a frozen producer's INPUT PIN, on proof that nothing else
+#: moved. Refusing would leave D3b's bracket standing on evidence its own input
+#: has superseded -- a worse record than a proven pin-only forward; allowing
+#: unproven producer edits would be [3853]'s laundering. **The AST-diff
+#: obligation is what separates the two**, and it is discharged before the run.
+#:
+#: SUPERSEDE, NEVER OVERWRITE ([3895]). `a1d712093155f32c` is D2 stage 2 as
+#: produced under the PRE-REPAIR movement.py (28541cced0ec081b, at 60d605c1).
+#: `756eba00a0cfff4a` is the same producers on the repaired instrument --
+#: verdicts UNMOVED, both extremity confirmations held, p 0.0076 / 0.0114
+#: against alpha 0.025 ([3901], second-seat verified [3902]).
+D2_READ_SHA16_SUPERSEDED = "a1d712093155f32c"   #: pre-repair
+D2_READ_SHA16 = "756eba00a0cfff4a"     #: the read cited in D3b's own preamble
 
 
 def d2_observed():
@@ -339,6 +352,23 @@ def relabel_D(built, pairs, arm_A, dim, key, admitted):
 # ══════════════════════════════════════════════════════════════════════════
 # collection
 # ══════════════════════════════════════════════════════════════════════════
+def _q_linear(vals, p):
+    """§B2's NAMED quantile convention, written out: linear interpolation on the
+    sorted vector, k = (n-1)p, value = d[floor k] + (k-floor k)*(d[ceil k]-d[floor k]).
+
+    **An artifact that states a quantile must state its convention** -- §4's
+    q1/q3 became uncomparable precisely because theirs was recorded nowhere,
+    and no amount of re-derivation recovers a lost convention (§B3).
+    """
+    if not vals:
+        return None
+    d = sorted(vals)
+    k = (len(d) - 1) * p
+    lo = int(math.floor(k))
+    hi = int(math.ceil(k))
+    return d[lo] + (k - lo) * (d[hi] - d[lo])
+
+
 def collect(built=None, verbose=False):
     """Everything both stages read, computed once. Returns; writes nothing."""
     if built is None:
@@ -409,6 +439,17 @@ def stage1(coll, out_path, seed=SEED):
                 "median": st.median(vals) if vals else None,
                 "n_negative": sum(1 for v in vals if v < 0),
                 "n_positive": sum(1 for v in vals if v > 0),
+                #: **AMENDMENT D3b-B §B7(ii).** The summary kept min/max/median
+                #: and discarded the vector, so §4 could assert quantiles this
+                #: artifact was unable to defend -- and when the table needed
+                #: re-deriving, the vector had to be rebuilt from `collect()`
+                #: to get them. Two fields close that gap permanently.
+                #: CONVENTION IS §B2's, NAMED AND FIXED: linear interpolation,
+                #: k = (n-1)p. `numpy.quantile(..., method="linear")` is that
+                #: formula; it is written out rather than delegated so the
+                #: artifact's own bytes state the convention they were made under.
+                "q1": _q_linear(vals, 0.25),
+                "q3": _q_linear(vals, 0.75),
                 #: §4's tabled support, so the runner has a PRE-REGISTERED
                 #: KNOWN ANSWER. These figures are in the FROZEN registration
                 #: and were derived independently at both seats, so they cost

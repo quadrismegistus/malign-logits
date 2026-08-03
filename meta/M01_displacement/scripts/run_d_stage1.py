@@ -32,7 +32,22 @@ sys.path.insert(0, HERE)
 
 import pairs_d as D
 
-PRODUCER_SHA16 = "90d23ead9000c56c"      #: per-point diagnostics added [3340]
+#: STALE-NOT-SUPERSEDED, corrected under [3856].2. This pin was NOT moved by
+#: tonight's repair -- it was already wrong. `90d23ead9000c56c` predates
+#: `stage2`, `reading_rule`, `read_point` and `mde_reading`, four analysis
+#: functions that did not exist in it (AST-compared, [3853]); it stopped being
+#: HEAD at 02427360, 2026-08-03 11:22. THE AUTHORITY IS THE REGISTRATION, never
+#: per-runner drift: Registration D freezes `pairs_d.py` at 84011269d00eea6b and
+#: stage 2's runner already gated on exactly that.
+#:
+#: PROVEN, not assumed ([3868]): stage 1 re-run to a scratch path under BOTH
+#: producers x BOTH instrument states. `84011269d00eea6b` x movement
+#: `28541cced0ec081b` (pre-repair, 60d605c1) reproduces the artifact of record
+#: `9ae70405b23d96fe` EXACTLY. The same producer under the REPAIRED movement
+#: gives `15b529a7d9261c8b` -- so the artifact's non-reproduction at HEAD was
+#: the instrument moving, not the producer.
+PRODUCER_SHA16_STALE = "90d23ead9000c56c"   #: never produced this artifact
+PRODUCER_SHA16 = "84011269d00eea6b"      #: Registration D's frozen producer
 SEED = 20260731                          #: §D5, inherited from B:79
 OUT = os.path.join(CAMPAIGN, "results", "result_d_stage1.json")
 
@@ -62,7 +77,28 @@ def main():
     for k, v in built["diag"].most_common(8):
         print(f"    {v:>8,}  {k}")
 
+    #: CUSTODY AROUND THE WRITE, [3830]/[3851]. The artifact is chmod a-w and
+    #: that is the point. ESCROW FIRST, read-only, and unlock only after the
+    #: escrow exists: if the write fails between unlock and lock, the escrow is
+    #: the copy that survives. ANNOUNCED, never silent -- an unlock nobody sees
+    #: is the lock not being there.
+    if os.path.exists(OUT):
+        prior = open(OUT, "rb").read()
+        ph = hashlib.sha256(prior).hexdigest()[:16]
+        esc_dir = os.path.join(CAMPAIGN, "results", "superseded")
+        os.makedirs(esc_dir, exist_ok=True)
+        dst = os.path.join(esc_dir, f"result_d_stage1.PREFIX-{ph}.json")
+        if not os.path.exists(dst):
+            with open(dst, "wb") as fh:
+                fh.write(prior)
+            os.chmod(dst, 0o444)
+        print(f"\n  escrowed prior artifact @ {ph} -> {os.path.basename(dst)}")
+        print(f"  UNLOCKING {os.path.basename(OUT)} for the re-emit")
+        os.chmod(OUT, 0o644)
+
     payload, sha = D.stage1(built, OUT, seed=SEED)
+    os.chmod(OUT, 0o444)
+    print(f"  RE-LOCKED a-w")
     print(f"\nSTAGE 1 ARTIFACT  {OUT}")
     print(f"  sha256[:16]     {sha}")
     print("\n  per arm, per threshold point -- SDs and RAW MDEs, NO D, NO p:")
