@@ -1,0 +1,222 @@
+{
+ "_alpha": 0.025,
+ "_registration": "881287ed3642ed55",
+ "_stage1": {
+  "path": "result_d2_stage1.json",
+  "sha256_16": "183722c556248709"
+ },
+ "_structure": "SPLIT, no stopping rule",
+ "_what": "Registration D2 STAGE 2: the read. Two arms, split alpha.",
+ "arms": {
+  "dom_extrem": {
+   "mde_reading": {
+    "known_effect": 0.025,
+    "reading": "TRACKS TRANSGRESSIVE SITES"
+   },
+   "per_t": {
+    "0.00": {
+     "A_marked": -0.023671888702771923,
+     "A_unmarked": -0.040226850038969184,
+     "D": 0.01655496133619726,
+     "alpha": 0.025,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "p": 0.009599040095990401,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.019533017201172724,
+     "reject": true,
+     "status": "ok",
+     "unit_line": "units=632 field=pair_id entries=684"
+    },
+    "0.01": {
+     "A_marked": -0.023671888702771923,
+     "A_unmarked": -0.040226850038969184,
+     "D": 0.01655496133619726,
+     "alpha": 0.025,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "p": 0.009599040095990401,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.019533017201172724,
+     "reject": true,
+     "status": "ok",
+     "unit_line": "units=632 field=pair_id entries=684"
+    },
+    "0.02": {
+     "A_marked": -0.023671888702771923,
+     "A_unmarked": -0.040226850038969184,
+     "D": 0.01655496133619726,
+     "alpha": 0.025,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "p": 0.009599040095990401,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.019533017201172724,
+     "reject": true,
+     "status": "ok",
+     "unit_line": "units=632 field=pair_id entries=684"
+    },
+    "0.05": {
+     "A_marked": -0.023727415727018305,
+     "A_unmarked": -0.04058029107443221,
+     "D": 0.016852875347413906,
+     "alpha": 0.025,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 629,
+     "p": 0.007999200079992,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.019872705283290985,
+     "reject": true,
+     "status": "ok",
+     "unit_line": "units=629 field=pair_id entries=684"
+    },
+    "0.10": {
+     "A_marked": -0.012144746322824187,
+     "A_unmarked": -0.02725953038607136,
+     "D": 0.015114784063247176,
+     "alpha": 0.025,
+     "collapsed": false,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 287,
+     "p": 0.09909009099090091,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.03359166723139664,
+     "reject": false,
+     "status": "ok",
+     "unit_line": "units=287 field=pair_id entries=684"
+    },
+    "0.20": {
+     "n": 1,
+     "reject": null,
+     "status": "UNDERPOWERED"
+    }
+   },
+   "reading_rule": {
+    "n_corroborators": 1,
+    "verdict": "CONFIRMED",
+    "why": "primary passes and every non-collapsed above-floor point agrees in SIGN"
+   },
+   "tested": true
+  },
+  "val_extrem": {
+   "mde_reading": {
+    "known_effect": 0.025,
+    "reading": "TRACKS TRANSGRESSIVE SITES"
+   },
+   "per_t": {
+    "0.00": {
+     "A_marked": -0.017145252747628396,
+     "A_unmarked": -0.03225140843214942,
+     "D": 0.015106155684521026,
+     "alpha": 0.025,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "p": 0.008799120087991202,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.017658861084627143,
+     "reject": true,
+     "status": "ok",
+     "unit_line": "units=632 field=pair_id entries=684"
+    },
+    "0.01": {
+     "A_marked": -0.017145252747628396,
+     "A_unmarked": -0.03225140843214942,
+     "D": 0.015106155684521026,
+     "alpha": 0.025,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "p": 0.008799120087991202,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.017658861084627143,
+     "reject": true,
+     "status": "ok",
+     "unit_line": "units=632 field=pair_id entries=684"
+    },
+    "0.02": {
+     "A_marked": -0.017145252747628396,
+     "A_unmarked": -0.03225140843214942,
+     "D": 0.015106155684521026,
+     "alpha": 0.025,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 632,
+     "p": 0.008799120087991202,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.017658861084627143,
+     "reject": true,
+     "status": "ok",
+     "unit_line": "units=632 field=pair_id entries=684"
+    },
+    "0.05": {
+     "A_marked": -0.01750844853379354,
+     "A_unmarked": -0.033144269879604914,
+     "D": 0.015635821345811377,
+     "alpha": 0.025,
+     "collapsed": true,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 629,
+     "p": 0.004899510048995101,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.01787799423521794,
+     "reject": true,
+     "status": "ok",
+     "unit_line": "units=629 field=pair_id entries=684"
+    },
+    "0.10": {
+     "A_marked": -0.01365142162267456,
+     "A_unmarked": -0.029897300275214252,
+     "D": 0.016245878652539694,
+     "alpha": 0.025,
+     "collapsed": false,
+     "draws": 10000,
+     "min_attainable_p": 0.0001,
+     "n": 287,
+     "p": 0.06569343065693431,
+     "p_convention": "add-one/sampled",
+     "raw_mde": 0.03058576352636829,
+     "reject": false,
+     "status": "ok",
+     "unit_line": "units=287 field=pair_id entries=684"
+    },
+    "0.20": {
+     "n": 1,
+     "reject": null,
+     "status": "UNDERPOWERED"
+    }
+   },
+   "reading_rule": {
+    "n_corroborators": 1,
+    "verdict": "CONFIRMED",
+    "why": "primary passes and every non-collapsed above-floor point agrees in SIGN"
+   },
+   "tested": true
+  }
+ },
+ "roster": {
+  "drift": [
+   "prompts e73a57d399a2b0c6619020a42c4f03d98cb3d0fed26fb9e2817ea89644c96498 != frozen fd3f14796ba9481b6597b94871013f8db5357a0a330751dc042268895209c8b4",
+   "models f989b0789dd8af51f15cd5c7d05aaeb12d3422dbb1af974cbb87f1c5a6bb4247 != frozen e4c507eb8dbcf593477f568d9c011695c7a84a0525454bdbf50107820f32e164"
+  ],
+  "frozen_models_sha16": "e4c507eb8dbcf593",
+  "frozen_prompts_sha16": "fd3f14796ba9481b",
+  "models_sha16": "f989b0789dd8af51",
+  "n_models": 101,
+  "n_prompts": 2579,
+  "prompts_sha16": "e73a57d399a2b0c6"
+ }
+}
