@@ -30,7 +30,8 @@ import hashlib
 import os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SPEC = os.path.join(ROOT, "meta", "M01_displacement", "registration_e_gap_v3.md")
+SPEC = os.path.join(ROOT, "meta", "M01_displacement", "registrations",
+                    "registration_e_gap_v3.md")
 
 #: The frozen spec's sha256, FIRST 16 HEX CHARS, as posted to the docket at freeze.
 #: None until the pen freezes and malign commits. A gate with no hash refuses.

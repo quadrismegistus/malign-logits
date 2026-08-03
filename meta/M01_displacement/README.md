@@ -5,6 +5,36 @@ STATUS: DRAFT for RH's ratification. Assembled 2026-07-30 from the
 F40 finding files. Clause-by-clause verification below; the composite
 sentence quotes only when every clause it uses is VERIFIED.
 
+## Folder layout (reorganised 2026-08-03 on RH's word; [3176])
+
+```
+registrations/   ALL registration and amendment markdowns. CANONICAL.
+results/         result JSONs and run outputs (result_f_*, result_g_*, result_c_*)
+scripts/         producers. within_pair / collapse / magnitude are FROZEN and chmod a-w
+audit/  figures/
+README.md        this file
+registration_f_within_pair.md            ]
+registration_f_within_pair_amendment_a.md] SYMLINKS -> registrations/
+registration_g_magnitude.md              ]
+```
+
+**Why the three symlinks exist.** `within_pair.py` and `magnitude.py` are FROZEN at cited
+hashes and hash-gate these three files at the *campaign root* on startup. Those producers
+cannot be edited without destroying the correspondence between the results and the bytes
+that made them ([3162]), so the path they look at has to keep resolving. A symlink does
+that with **one canonical copy**, so the two paths cannot drift — a hash-verified duplicate
+would only make drift *detectable*, and two assertions of one fact can disagree ([3156]).
+
+Verified behaviorally, not by inspection: `magnitude.py` run from the new layout passes
+`registration efbab15841eae4c2 OK` / `amendment 1356aa2ff274b796 OK` through the symlinks
+and reproduces every booked figure (n 34, median +0.00458, d 0.748, p 0.00006, §6.2 n 25
+p 0.00038).
+
+**Old path -> new path:** every `M01_displacement/registration_*.md` is now
+`M01_displacement/registrations/registration_*.md`. The only real path in code was
+`scripts/m01_registration_e_gate.py`, updated in the same delta; remaining citations are
+bare names in docstrings and survive the move.
+
 ## The claim, clause by clause
 
 | # | Clause | Source | Instrument / Axis | Status |
