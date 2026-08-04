@@ -4,7 +4,9 @@
 
 **Why this file has to exist.** A registration is frozen before its numbers exist and locked at the freeze. **The run happens afterwards, so the document can never record its own result.** That is why every registration below except N and O still says "draft; not in force as declared" in its own status line, including six that have run with artifacts on disk. It is not neglect: **a locked file cannot update itself, so the run state can only live outside it.** This is that outside.
 
-Letters run B–G then L–O. **There is no A, H, I, J or K** — the letters were never assigned, not retired.
+Letters run B–G then L–Q. **There is no A, H, I, J or K** — the letters were never assigned, not retired.
+
+**Two registrations are PENDING RUN and neither has produced a quantity.** P is frozen and its producer is built, cleared at two seats and escrowed; it waits on RH's explicit say-so, which is the only thing that fires it. Q is a draft posted for review and has never been frozen. **Both rows below carry `—` in Result because no result exists, not because it was not recorded.**
 
 | | Subject | Frozen at | Ran | Result | Artifact |
 |---|---|---|---|---|---|
@@ -20,16 +22,24 @@ Letters run B–G then L–O. **There is no A, H, I, J or K** — the letters we
 | **M** | the perturbation null adjudicating L's gradient | `3506032d552438e4` | yes | **BOUNDARY BLUR, NOT TAIL CONTRACTION.** Overshoot Z −13.3170; escapes **declared UNDERPOWERED**; eviction rate falls 0.157 → 0.045 → 0.020 → 0.008 → 0.003 and is **exactly zero above the fifth headroom decile** | `result_m_column` `daf11fc743456f42`, `_primary` `e333bd58e5e1feb9` |
 | **N** | mass-migration at full scale, English | `9fb5e13fd1c3b1c8`, commit `c7a101de` | yes | **SUBSTITUTION CONFIRMED.** 2,199 stimuli × 44 edges, 82,775 cells, 91% negative, **34/34 clusters agree**. Stouffer Z is a **FLOOR** | `result_n_primary` `8a2ce3fdf4950ff2`, commit `61c66090` |
 | **O** | the same content in two languages | `cb8518528077f7d0`, commit `aa03cc82` | yes | **H1 SUPPORTED IN BOTH ARMS** (en 2277/365, zh 2463/141) under §O6's Chinese-origin bound. **H2 and H3 NOT SUPPORTED** — asymmetry, en confirming, zh clean coin-flip nulls (648/650, 652/646). Z is a **FLOOR** | `result_o_primary` `9b99725e8e76057b`, commit `66ecba4d` |
+| **P** | the displacement relation itself — what is `scream` to `kill`? | `b17f4c6b255c2761`, commit `9cb4644d` | **NOT YET** | — | none |
+| **Q** | general and site on one scale (the bridge) | `0d893220c8f30719` — **DRAFT, never frozen** | **NOT YET** | — | none |
+
+## P and Q in detail, because "pending" hides different states
+
+**P — FROZEN AND NOT RUN.** Registration frozen at `b17f4c6b255c2761` (commit `9cb4644d`), gates 4/4, artifact locked. Its producer `scripts/p_primary.py` is built, cleared at two seats and escrowed at `scripts/audited/p_primary.CLEARED-00fa8b68.py`; the live file is one line ahead of that (an ordered pin move) awaiting a one-line re-clear. **The design:** 4,443 items over 685 prompts × 3 coder families = 13,329 judgments, one pair per call; the primary is PAIRED on the (prompt, faller) key at n = 148 ACT / 93 REF; four reading cells with 2-of-3 named as a SPLIT before anyone knows the answer; five agreement clauses reported *before* the verdicts they qualify; eight verdict sentences to be quoted whole and six that may not be written. **What it will settle:** the campaign's four geometric instruments all failed to locate the faller–riser relation, and P is the first instrument that could characterise it positively.
+
+**Q — DRAFTED, NOT FROZEN.** `0d893220c8f30719`, posted whole for review, three gaps declared by its author (unstated battery; pins not naming their hash functions; a partition map with two sources of truth). **The design:** N's 2,199 × 44 = 96,756 cells, four measures per cell, three declared contrasts — `tail_excess` marked-vs-unmarked paired on the pair; `tail_excess` transgressive-vs-neutral paired within cluster (the bridge); norms estimated with a stated MDE and never tested. **What it will settle:** the campaign has no quantity connecting "in general" to "at transgressive sites" — C and D2 share machinery and no common scale — and Q puts both on one instrument, one population, one scale.
 
 ## Four things this table makes visible that no other document did
 
-**1. Ten of the twelve registrations' own status lines are wrong about themselves**, and structurally so — D2, D3b, F, G, L and M all say "draft; not in force as declared" and have all run. B, C, D and E carry no status line at all. Only N and O say FROZEN, because they were drafted after the lesson.
+**1. Ten of the fourteen registrations' own status lines are wrong about themselves**, and structurally so — D2, D3b, F, G, L and M all say "draft; not in force as declared" and have all run. B, C, D and E carry no status line at all. Only N, O and P say FROZEN, because they were drafted after the lesson — and **P is the first to declare its own conversion in advance**, so its status line was past-anchored before the gate could catch it rather than after. Q correctly says DRAFT, because it is one.
 
 **2. Two registrations have no machine-readable artifact.** C's producer emits two `.txt` transcripts; **E's writes nothing at all** — no `json.dump`, no output path. Their numbers live in prose, which is why a figure of C's can drift with nothing to diff it against.
 
 **3. F and G's artifacts name registration hashes that are not on disk.** The 2026-08-03 re-freeze changed six registrations' dated status lines (`8ff56206…` → `4cb511ce…` for F, `efbab158…` → `0ca80e6b…` for G) without changing their specs. **The artifact-to-registration link is broken by hash and only a prose note in `ledger.md` explains it.** Both hashes are carried above so the link is followable from here.
 
-**4. B has never run.** It is frozen and has no artifact.
+**4. B has never run.** It is frozen and has no artifact — and it is now one of THREE registrations in that state, with P and Q. B's non-run is an old silence; P's and Q's are current and gated on a word.
 
 ## Maintenance
 

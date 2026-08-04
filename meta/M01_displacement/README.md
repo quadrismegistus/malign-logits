@@ -31,6 +31,8 @@ Both axes ask the same three questions: **in general, at transgressive sites, an
 
 **The structure of the redistribution** — how concentrated the receiving set is, and whether families agree on direction — is measured but unregistered. It lives in the `m01_concentration` producer and in ledger clauses 3 and 5.
 
+**And the two rows of this axis do not yet meet.** N answers *in general*, F and G answer *at sites* — on different statistics and different units, so no sentence of the form "N times stronger at transgressive sites" is available. **Registration Q is drafted to close exactly that; see the bridge below.**
+
 ### Axis 2 — Does alignment change word-norm semantics?
 
 *Of the words that move, do the falling and rising ones differ in valence, arousal or dominance — and is the change targeted or general?*
@@ -43,15 +45,31 @@ Both axes ask the same three questions: **in general, at transgressive sites, an
 
 **Dominance splits by frame** — dead in general, confirmed at sites. That split is itself the finding.
 
+**The same gap sits under this axis:** C is the general corpus, D2 is the minimal pairs, and they share machinery with no common scale.
+
+### The bridge — Registration Q (drafted, not frozen)
+
+*Both axes ask their three questions and neither can compare its own answers.* **Q puts general and site on one instrument, one population, one scale** — N's 2,199 English stimuli × 44 edges, four measures per cell, with the partitions read out of that single pass: the marked and unmarked halves of the 684 minimal pairs, against the transgressive and neutral prompts of the general corpus.
+
+Three declared contrasts. **`tail_excess` at sites, paired on the pair** — the campaign's own substitution claim, never once tested where it matters most. **`tail_excess` transgressive-vs-neutral in the general corpus, paired within cluster** — the bridge itself. And **the norm statistics estimated with a stated MDE and never tested**, because their minimum detectable effect sits at the size of the effects this campaign has actually measured. That last is Registration C's control arm exactly, and **the only difference is that Q knows beforehand.**
+
+**Q is a draft posted for review. It has never been frozen and has produced no quantity.**
+
 ---
 
 ## Three axes the 2 × 3 does not hold
 
 ### Axis 3 — What *is* the substitution? (the relation)
 
-**The question the campaign is named after, and the one with no registration.** *Displacement* names a relation, not a rate: what is `scream` to `kill`? A speech-act shift, a metonymy, an attenuation, a register change?
+**The question the campaign is named after — and as of 2026-08-04 it has a registration: P, frozen and pending its run.** *Displacement* names a relation, not a rate: what is `scream` to `kill`? A speech-act shift, a metonymy, an attenuation, a register change?
 
-Four geometric instruments — WordNet similarity, contextual cosine, inverted syntagmatic JS, mass-winner percentile — **all fail to locate a relation a reader sees instantly.** That is a verified instrument-failure record and nothing more. The coding instrument exists and is frozen; **the annotation pass has never run and is the campaign's largest unfinished item.** It gates two ledger clauses at once (the relation itself, and slot-sensitivity), and it needs a second coder.
+Four geometric instruments — WordNet similarity, contextual cosine, inverted syntagmatic JS, mass-winner percentile — **all fail to locate a relation a reader sees instantly.** That is a verified instrument-failure record and nothing more.
+
+**Registration P is the instrument that could replace it with something positive.** Frozen 2026-08-04: 4,443 items over 685 prompts, coded by three model families one pair per call, with a *paired* primary — each risen word against a stationary decoy drawn from its own faller, so the comparison holds the faller fixed and varies only whether the word moved. Two strata carry primaries (speech-act shift in ACT slots, metonymy in REFERENT slots); everything else is descriptive. **CONFIRMED requires all three coder families; two of three is reported as a SPLIT with the dissenter named — and that sentence was written before anyone knew the answer.**
+
+**It has not run**, and until it does the relation has no positive characterisation. **The flagship pair is not in it:** `kill → scream` clears the drawing threshold on merit at 18 edges and is excluded solely because it was spent on tuning, recorded in the deposit as an exhibit so a reader can see exactly what was given up.
+
+P also carries the stratified test that clause 7's slot-sensitivity has been waiting on. **One unrun pass gates both.**
 
 ### Axis 4 — When is it learned? (training stage)
 
@@ -86,9 +104,9 @@ Some registered work exists to attack the campaign's own results rather than ext
 
 ## What is open
 
-- **The annotation run** (axis 3) — built, never run, second coder pending. Nothing about the relation can be said positively until it does.
+- **Registration P's run** (axis 3) — frozen, its producer built and cleared at two seats, **not run**. It waits on RH's explicit word and nothing else fires it. Until it does, nothing about the relation can be said positively, and clause 7's slot-sensitivity waits on the same pass.
 - **The whole of axis 4** — no registration, and the SFT-installation claim needs reproducing before it can be cited at all.
-- **The norms half of the live-roster sweep** — the movement half is discharged by N and O; C-style questions on the full roster are not.
+- **Registration Q** — drafted, posted for review, **never frozen**. It carries the norms half of the live-roster sweep (the movement half is discharged by N and O) *and* the general-vs-site bridge, and three questions sit at RH's seat: an arbitrary per-cluster floor, whether to re-derive G and D2 as known answers at all, and a measure listed with no hypothesis.
 - **C's one blind arm** (general sweetening), never emitted.
 - **D3b's negative slope** — more extreme pools appear to displace *less*, which is the opposite of what the confound predicts. A described fit awaiting a registered surrogate.
 - **The bloomz question** — a model whose base is Chinese-competent and whose aligned child is not, same tokenizer, one step. **Alignment took its Chinese away.** Deposited as n=1; a ten-lineage table is authorized.
