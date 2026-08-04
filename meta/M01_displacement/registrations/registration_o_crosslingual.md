@@ -1,6 +1,8 @@
 # Registration O — the same content in two languages
 
-**STATUS: DRAFT, 2026-08-04 UTC. NOT FROZEN, NOT RUN.** As of this date no `result_o_*.json` exists at any seat and no O quantity has been computed by anyone.
+**STATUS, FROZEN 2026-08-04 UTC.** As of that date, verified at the seats named: **no `result_o_*.json` existed anywhere; no `tail_excess` sign, no `A_|valence|` or `A_arousal` value, no cluster combination and no bias-column value had been computed by anyone; no producer had been written.** The population was ratified the same day (RH, [4083]) and the competence threshold was ruled on a **blind** rank-ordering, names withheld until after the ruling ([4061]).
+
+**WRITTEN IN THE PAST TENSE ON PURPOSE, AND A DATE IS NOT ENOUGH.** *"NOT FROZEN, NOT RUN"* carries a date and is still a PRESENT-TENSE claim: **it is true until the freeze commit and false forever after, and nothing rewrites it.** This campaign has met one status header that outlived its truth (D3b's "NO D3b QUANTITY HAS BEEN COMPUTED", still in place after both stages had run) and corrected N's for exactly this reason. **A dated statement of what was ABSENT on a named date stays testimony; a dated statement of what IS expires.**
 
     OCCASIONED   RH, 2026-08-04: "Movement, valence, arousal on any pair of
                  translated english and chinese prompts we have. Hypotheses:
@@ -91,6 +93,8 @@
     en      2,642     1,844   **69.8%**    67 (2.47%)
     zh      2,604     1,298   **49.8%**   105 (3.88%)
 
+**DISCLOSURE, ON THE POPULATION PIN:** §O1's `population_o_pairs.json` whole-file hash was taken BEFORE ratification and the `_status` flip moved it. **The CONTENT pin did not move: `pair_set_sha256_16 = 7ad8a39d1ac85d48` is the canonicalised 301 pairs themselves, unchanged by the status field and three-way verified.** A whole-file hash covers metadata; **the content pin is what a reader should check, and it is the one that has not moved.**
+
 **Two seats, two code paths, agreeing on 1,844 / 1,298 / 67 / 105 to the cell.** The rates differed until clause 7 was stated. **No cluster contributes zero to either arm**, so all nine enter both Stouffers and H2/H3 need no power caveat.
 
 ## §O2 NORMS — what exists in each language, and what therefore cannot be tested
@@ -167,7 +171,7 @@
 
 - **It cannot separate LANGUAGE from TOKENIZATION.** Chinese rides different token trees and theta-truncation interacts with vocabulary granularity; an arm difference is a difference between two (language, tokenizer) pairs, not between two languages.
 - **It cannot test dominance**, and any account of the valence result must not silently import dominance intuitions from the English-only work.
-- **It cannot claim the translations are equivalent.** They are the corpus's declared translation links; **translation quality is assumed, not measured, and a systematic translation drift would appear as an arm difference.**
+- **It cannot claim the translations are equivalent.** The 301 pairings are RATIFIED as the official record on RH's word (docket `[4083]`, 2026-08-04: *"Ratify as is, we worked hard on it earlier"*). **The warrant is the translation pass's own drafting process, in which RH participated, and that is the whole of it: no post-hoc fidelity audit was run and none is claimed.** Ratification is an authority act, not a measurement — **a systematic translation drift would still appear as an arm difference, and O carries no instrument that would tell the two apart.**
 - **301 pairs is not 379 zh stimuli.** Chinese prompts without an English partner are out of scope here as they are in N.
 - **AND THE LIMIT THAT BOUNDS EVERY CROSSLINGUAL SENTENCE O CAN PRODUCE: the nine surviving clusters are ALL Chinese-origin or Chinese-heavy.** The one non-Chinese-origin lineage was `bloom`, removed by the competence filter. **So "the mechanism is not a property of English" CANNOT BE DISTINGUISHED FROM "the mechanism is a property of Chinese-trained models."**
 

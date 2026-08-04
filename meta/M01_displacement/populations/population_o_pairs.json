@@ -5,7 +5,7 @@
   "data/chinese_translations.json": "60da9c229da7c5236abb24367a31e2520dd18b6f273ad6442c0a5493c43078b4",
   "data/chinese_translations_2.json": "231bd2a873fa39b464067f05d4e292ede5266c974f045b2471e78d0e8dea3a24"
  },
- "_status": "PROPOSAL. Not yet ruled as O's population; O is DRAFT and unfrozen.",
+ "_status": "RATIFIED as Registration O's population. RH's word, docket [4083], 2026-08-04: \"Ratify as is, we worked hard on it earlier.\" The pairings in the two source files above are the official record. Ratification is an authority act resting on the translation pass's own drafting process, in which RH participated; it is NOT a fidelity audit -- none was run and none is claimed. See the registration's §O6.",
  "_what": "Registration O's PAIR POPULATION: translated (english, chinese) prompt pairs whose BOTH sides are declared stimuli.",
  "_why_this_file_exists": "O's first draft claimed 373 pairs from a COUNT OF `translation` LINKS ON ENGLISH PROMPTS -- an upper bound, not a pair count, and it never required the target to be a declared stimulus. The rule above is the population; this file is its enumeration so no future reader re-derives a different number from the same words.",
  "n": 301,
