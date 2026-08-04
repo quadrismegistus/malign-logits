@@ -16,8 +16,9 @@ What is established (ledger clauses 1, 2, 3, 5; registrations F and G):
 - **It concentrates**: the top recipient takes a median 0.381 of gained mass — but only modestly above a random split among qualifying receivers (1.135 vs the Dirichlet null), and the receiving set is small (median 3-20 risers by family). Both halves quote together or not at all (clause 3).
 - **Direction is shared across families beyond independence at every denominator tested**, but there is no typical rate — which sites compel shared direction is itself the phenomenon (clause 5).
 - **At transgressive sites specifically: displacement is NOT more frequent** (Registration F: rate null, n=33 pair-sites, p=0.148) **but IS larger when it happens** (Registration G: magnitude, d=0.748, p=0.00006).
+- **SUBSTITUTION CONFIRMED AT FULL SCALE** (Registration N, 2026-08-04, frozen and run once, blind): on all 2,199 English stimuli x 44 edges — 82,775 analysed cells — **91% show negative tail excess: the tail gives mass UP to nameable words rather than absorbing it.** All 34 base clusters agree; the adversarial correction built to destroy the result if it were a threshold artifact moved 0.13% of cells and left the statistic identical to six decimals. Quote the Stouffer Z (+47.9) as a FLOOR, not a value (the producer's p-to-z conversion saturates; the p-values are exact). English only, by design; the claim is direction and consistency, never "large."
 
-Coverage: the general corpus AND the pairs. Clauses 1-5 ran on the general prompt rosters (959x95 and 975x93 populations); F and G ran on the 684 minimal pairs. Degree is the best-covered question in the campaign.
+Coverage: the general corpus AND the pairs AND (as of N) the full live English roster. Clauses 1-5 ran on the general prompt rosters (959x95 and 975x93 populations); F and G ran on the 684 minimal pairs; N ran on 2,199 x 44. Degree is the best-covered question in the campaign.
 
 **Does the pair structure give us "site-specific vs general" for free (neutral member = general)? No.** The unmarked member of a minimal pair is a matched twin of a transgressive prompt — same frame, same syntax, one word different — not a sample of language in general. The pairs answer "at the site versus one word away from the site"; the general corpus answers "in general." They are different questions, which is why the campaign carries both instruments — and the general corpus is itself broader than the pairs in kind, not just size (a third of its non-pair remainder is cross-lingual, a sixth deontic-framed; the pairs contain neither).
 
@@ -42,6 +43,15 @@ Caution the register enforces: no quantitative "general vs site" ratio yet — C
 
 Four geometric instruments — WordNet similarity, contextual-embedding cosine, inverted syntagmatic JS, mass-winner similarity percentile — all fail to locate the relation a reader sees instantly (ledger clause 6). So the measurement moves to blinded, decoyed human/LLM judgment: the coding instrument exists at `malign_logits/tasks/code_displacement_relation.py` (schema frozen at docket [637] as amended; two-axis vocabulary — speech-act shift vs metonymy, with intensity orthogonal). **Built, never run: the annotation pass is the campaign's largest unfinished item.** Until it runs, "the relation is interpretive, not geometric" is a verified instrument-failure record with the positive characterisation pending.
 
+## 2c. Does the operation cross languages? (Registration O)
+
+The first crosslingual instrument (frozen and run 2026-08-04): 301 ratified English-Chinese translated pairs — the pair holds content fixed and varies only language — over the 9 edges whose models are both tokenizer-capable AND behaviorally competent in Chinese (a capacity filter, then a competence filter with a blind-ruled threshold). Three hypotheses, each requiring BOTH arms.
+
+- **Substitution crosses: SUPPORTED IN BOTH ARMS.** English 86% of cells (8 of 9 clusters); Chinese 95% of cells (9 of 9 clusters) — the redistribution mechanism is not an artifact of English. **The frozen bound travels with every quotation: all nine surviving clusters are Chinese-origin or Chinese-heavy, so this licenses "the mechanism appears in Chinese-trained models on Chinese text," never the general not-a-property-of-English claim.**
+- **The affective signature does not follow — or cannot be seen: valence and arousal de-extremification are NOT SUPPORTED crosslingually.** Both confirmed strongly in English and came back as clean coin-flip nulls in Chinese (splits 0.4992 and 0.5023 — null, not reversed). By the reading rule frozen before any number existed, neither may be reported as an English finding of O. **And O cannot separate "the affective mechanism is absent in Chinese" from "the Chinese norm join is too thin to see it"** (the Chinese arm yields a scoreable statistic on half its cells against English's 70%); that fork travels with the nulls.
+- **Magnitudes never compare across arms for valence** (the two languages' norm scales differ in dispersion by 1.32x — a pre-run rider forbids reading the difference as a model difference); signs compare, and every registered test is a sign test.
+- **An incidental finding, descriptive, n=1, deposited:** the competence filter's one exclusion is bloomz — a model whose BASE is Chinese-competent (56% of retained mass on Chinese word forms) and whose ALIGNED CHILD is not (6.7%), same tokenizer, one alignment step on an English-heavy instruction corpus. **Alignment took its Chinese away — the capacity survived, the disposition did not.** A ten-lineage base-vs-aligned table is authorized as the ground for a possible registration ("does alignment strip non-English mass across lineages"); that question could not be asked inside O, whose filter selects on exactly the quantity it would test.
+
 ## 3. WHERE does the operation live, and WHEN is it learned?
 
 - **Site structure**: families converge on the same substitute site-specifically at real suppression sites (clause 4); the operation is slot-sensitive — where the grammar admits both plan and discharge, alignment chooses discharge (clause 7); category-specific targeting holds at liminal sites and fails at explicit ones, where the drain is largest but undifferentiated (clause 8).
@@ -49,10 +59,12 @@ Four geometric instruments — WordNet similarity, contextual-embedding cosine, 
 
 ## 4. What is open, by choice or by pendency
 
-- The annotation run for 2b (built, unrun).
+- **The annotation run for 2b (built, unrun) — still the campaign's largest unfinished item.** The kill-to-scream relation itself has no positive characterization until it runs.
 - C's one blind arm (general sweetening) — a single-arm opportunity, not a battery.
-- Wave 2 on the live 2,579-prompt roster: new registrations by the campaign's own population rules (B/C's registered population is recovered, deposited, and disjoint from the pairs — but C's instrument is read; nothing re-opens).
+- Wave 2 on the live roster: **the movement half is discharged** (N is claim 1 at full scale on the live English roster; O is a wave-2-shaped registration on the translated pairs). **The norms half remains open** — C-style questions re-registered on the full roster rather than the recovered 959.
 - The negative slope from D3b (more extreme pools -> LESS displacement): a described fit awaiting a registered surrogate before it can be a finding.
+- **The bloomz question (new, from O's filter):** does alignment strip non-English mass across lineages? The observation is deposited (n=1, descriptive), the ten-lineage table is authorized, the registration awaits RH's word — it needs its own design because O's competence filter selects on the quantity it would test.
+- **The shared-predicate declaration (campaign-wide):** 1 of 22 registrations states the faller rule its quantities rest on; O now states its own (§O0), and RH's morning choice is one frozen declaration cited by all versus per-registration amendments. The pin must carry the candidacy rule and repair commit, not constants alone.
 - Artifact-vs-mechanism for the pool gap, and the entanglement of "transgression" with the swapped word's own extremity: open by design; this corpus cannot decide them.
 
 ---
