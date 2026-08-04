@@ -61,6 +61,8 @@ bare names in docstrings and survive the move.
 
 **Added 2026-08-04 at RH's word, after he read the table and said the registrations do not match the clauses.** They do not, and the mismatch is not a labelling problem.
 
+**COUNT CORRECTED before this section was read by anyone: the first version said THIRTEEN registrations and ELEVEN unmapped. There are TWELVE distinct registrations** — B, C, D, D2, D3b, E, F, G, L, M, N, O; version files (`c_delta_v4`/`v6`, `d_pairs_v1`..`v6`) and amendments are not separate registrations, and `b_provenance`/`b_spec_v13` are one registration in two documents. **Ten of the twelve map to no clause; O maps partially and is not among the ten.** The error was mine, counting files rather than registrations.
+
 ### 1. WHERE A REGISTRATION TESTS A CLAUSE — TWO PLACES, OUT OF TEN CLAUSES AND THIRTEEN REGISTRATIONS
 
     clause 1  `mass-migration`
@@ -95,7 +97,7 @@ bare names in docstrings and survive the move.
     campaign had not established mass migration, which it has, twice,
     including once in a second language.
 
-### 3. THE STRUCTURAL FACT: ELEVEN OF THIRTEEN REGISTRATIONS MAP TO NO CLAUSE AT ALL
+### 3. THE STRUCTURAL FACT: TEN OF TWELVE REGISTRATIONS MAP TO NO CLAUSE AT ALL
 
     **B**    the high-mass decomposition — movement WITHIN the high-mass set
              and within the tail, separately
@@ -108,7 +110,8 @@ bare names in docstrings and survive the move.
     **G**    the same by MASS rather than sign (confirmed)
     **L**    movement and fit-to-human on found prose
     **M**    the perturbation null adjudicating L's gradient
-    **O**    (clause 1 above) — but its H2/H3 affective arms map to nothing
+    **O**    maps PARTIALLY and is not counted in the ten: H1 -> clause 1;
+             its H2/H3 affective arms map to nothing
 
 **None of the ten clauses is about affect, extremity, minimal pairs, found prose or the retention boundary.** The clause list was written when the campaign was a distributional account of *how much* moves and *where*; **the registered work since is largely an account of WHAT KIND of word moves, and the table has no row for it.**
 
