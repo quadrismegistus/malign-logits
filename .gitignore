@@ -280,6 +280,11 @@ data/*-backup-*.json
 
 # instance state, same class as the already-ignored .vastai.json
 .vastai.json.*
+# Per-run instance state: .vastai.m05.json and every future sibling. The two
+# rules above name .vastai.json and its dotted suffixes and MISS .vastai.<run>,
+# which is the form the M04/M05 runs actually write -- a pattern pinned to the
+# spelling that existed when it was written. Ignore the whole family.
+.vastai.*
 
 # Cloud transport for the 32B/Falcon phases. Merged into data/raw/cache by
 # twp_ingest.py; committing it would duplicate the store in git.
