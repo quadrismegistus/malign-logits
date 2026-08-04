@@ -297,6 +297,14 @@ dependence — more MODELS buy nothing, only more PAIRS do.**
 
 ### Registration D status
 
+> **SUPERSEDED — DO NOT READ THIS SECTION FOR D's STATE.** D was frozen, run and
+> read on 2026-08-03 (see "REGISTRATION D — RUN AND READ" below) and its
+> artifacts were RE-EMITTED on 2026-08-04 after the instrument repair (see the
+> 2026-08-04 status block at the end of this file). **"Awaiting its battery" was
+> true when written and this file left it standing after the battery ran** — the
+> defect this campaign books as a status line that outlives its truth. The
+> design description below is still accurate; only the STATE sentence is stale.
+
 **Frozen v6 (`d7af5a07f0be58c6`), awaiting its battery.** Paired design: the unit
 is the pair, `D = A(marked) − A(unmarked)`, sign-flip null, threshold curve with
 a collapse clause, four arms (H1-signed carried verbatim from v4; arousal,
@@ -575,3 +583,214 @@ the exact property one of them was built to refuse.**
 
 Same class as the `departed` collision noted at [3124] — one name, two
 quantities — caught before either referent was cited against the other.
+
+---
+
+## STATUS AS OF 2026-08-04 — the instrument repair, the D-family re-emission, and four registrations this file did not carry (L, M, N, O)
+
+**Written by malign at RH's word ("make ledger current"), 2026-08-04.** This file
+was last written 2026-08-03 16:24 and its previous closing block is headed
+2026-08-03 AFTERNOON. **Everything below happened after it and none of it was
+recorded here** — while `notes/claims-register.md` (registrar) and this folder's
+`README.md` both carried it. **The governing document was the stalest of the
+three, which is the failure mode where a downstream page looks wrong for
+disagreeing with its own authority.**
+
+### THE INSTRUMENT REPAIR — and why every pre-repair number in this file is superseded
+
+**`movement.py` treated the RESIDUAL BUCKET as a faller candidate.** Repaired at
+commit `e7864dab` ("Instrument repair: the residual is never a faller, and two
+guards"): the exclusion moved from a post-hoc strip to **candidacy**, where it
+belongs, and two guards were added (the load-bearing pops that keep the residual
+out of `top_riser`'s argmax, and a value-level malformed-row refusal).
+
+**Both sides of the repair satisfy `min_prob 0.003, fall_ratio 0.5` and select
+DIFFERENT FALLER SETS IN 11% OF CELLS.** Consequently:
+
+- **A pin on the constants does not identify the instrument. What is pinned is
+  the COMMIT** (`e7864dab`). Registration O §O0 states this and is the first
+  registration in the campaign to state its faller rule at all.
+- **`contrast.py`'s `top_faller` was lexicographic** (`m.fallers[0]`) and wrong
+  in 83.5% of cells; now `m.top_faller()`. Consumer census: it reached no booked
+  number.
+
+### THE D-FAMILY RE-EMISSION (commit `664b292f`) — SIX ARTIFACTS, TEN ESCROWS, EVERY VERDICT SURVIVED
+
+**Six artifacts re-emitted under the repaired instrument; ten prior artifacts
+escrowed to `results/superseded/`. All six verdicts survived. FOUR FIGURES THIS
+FILE QUOTES DID NOT.**
+
+    quantity                   THIS FILE SAYS      THE ARTIFACT SAYS
+    D2 valence-extremity       D +0.01511, p .00880   **+0.01525, p 0.0076**
+    D2 dominance-extremity     D +0.01655, p .00960   **+0.01624, p 0.0114**
+    D  arousal                 D −0.030,   p 0.998    **−0.02841, p 0.9967**
+    D  h1-signed               D +0.012,   p 0.879    **+0.01272, p 0.8896**
+
+**Verdicts unchanged: D2 both arms CONFIRMED (`reading_rule.verdict`, primary
+passes and every non-collapsed above-floor point agrees in sign, n=632 pairs);
+D arousal and h1-signed both NOT SUPPORTED.** Dominance's p moved 0.0096 →
+0.0114 and still clears its split alpha of 0.025. **But the four figures above,
+as printed earlier in this file, exist nowhere on disk.**
+
+**AND THE ARTIFACT OF RECORD NAMED ABOVE IS NOW AN ESCROW.** The D3b block cites
+`result_d3b_stage2.json @ c43a153bfffb72cc`; that hash is now
+`results/superseded/result_d3b_stage2.PREFIX-c43a153bfffb72cc.json`. Current
+hashes, measured:
+
+    result_d_stage1    15b529a7d9261c8b      result_d2_stage2   756eba00a0cfff4a
+    result_d_stage2    519ef7f9877fa9f7      result_d3b_stage1  3a7219afddb02569
+    result_d2_stage1   b5599a359fbf5265      result_d3b_stage2  **b95c7974cc65c1c0**
+
+**AMENDMENT D3b-B (`6c21db65ce1d2ae2`)** was adopted on RH's word ("Amend and
+re-run") and is not otherwise recorded here; the D3b block above names only
+Amendment A. **D3b's stage-2 bracket re-derives on the re-emitted benchmark
+(`result_d2_stage2.json @ 756eba00a0cfff4a`, cited inside the artifact) with
+`D_pair_mean` bit-equal to `D2_observed` on both arms** — the assertion the
+registration requires.
+
+### REGISTRATION L — found prose: the human's word is EVICTED (`72e4b4a94d7c467e`)
+
+Movement and fit-to-human on found prose, 4,268 (family, prompt) cells,
+McNemar exact per family, Stouffer over base-checkpoint clusters, equal weight
+per cluster. **§L9 orders NO VERDICT in the artifact and none is stored; the
+rungs are the finding.**
+
+    rung        clusters  families  Stouffer Z   p
+    argmax        34        44       +2.6372    0.0084
+    top20         34        44       +4.5220    < 1e-4
+    retained      **31**    44       +5.5820    < 1e-4
+
+**z POSITIVE = alignment LOSES the human's word.** The retained rung is tested on
+**31 clusters, not 34** — eleven families have no discordant cells there — and
+the artifact states it: **the rungs are NOT tested on identical units.**
+
+### REGISTRATION M — the adjudication: BOUNDARY PROXIMITY, NOT TAIL CONTRACTION (`3506032d552438e4`)
+
+The perturbation null for tail contraction, 3,610 rows, **one cell refused at
+lambda ≤ 0 per §M2 — the declared refusal FIRED.** Produced by the seat that
+proposed the hypothesis; adjudicated by the other, per the standing split.
+
+    headroom decile   1      2      3      4      5     6-10
+    eviction rate   .1573  .0449  .0197  .0084  .0028  .0000
+
+    overshoot   Z **−13.3170**   (UNDERPOWERED false)
+    escapes     Z  −0.3256       (**UNDERPOWERED true** — declared, not inferred)
+    precheck    Z  +3.4141
+
+**§M4's sign convention decides the reading and it is stored in the artifact:
+rho NEGATIVE = evictions concentrate at LOW headroom = BOUNDARY BLUR;
+contraction predicts evictions PERSISTING at large s.** They do not persist —
+**they are exactly zero above the fifth decile.** The eviction L measures is
+**proximity to the retention boundary, not a contracting tail.**
+
+### REGISTRATION N — SUBSTITUTION CONFIRMED AT FULL SCALE (`9fb5e13fd1c3b1c8`, commit `c7a101de`; answered at `61c66090`)
+
+Frozen on RH's word "Freeze N" ([4018]) and run once, blind. **2,199 English
+stimuli × 44 edges; 82,775 analysed cells; 34 base clusters.** One-sided sign
+test on `tail_excess`, predicting negative (the tail gives mass UP to nameable
+words rather than absorbing it).
+
+- **`_reading`: SUBSTITUTION CONFIRMED.** 91% of cells negative; **all 34
+  clusters agree.**
+- **The adversarial correction built to destroy the result if it were a
+  threshold artifact moved 0.13% of cells and left the statistic identical to
+  six decimals.**
+- **ENGLISH ONLY BY DESIGN** — §3.0 makes language a FILTER, not a stratum, on a
+  measured instrument asymmetry (`leak_flip_rate_by_stratum.json` @ `03cf7e34`,
+  en/zh induced flip rate 4.23× apart). The crosslingual question went to O.
+- **QUOTE THE STOUFFER Z AS A FLOOR, NEVER A VALUE** — see the ppf note below.
+  The claim is **direction and consistency, never "large."**
+
+### REGISTRATION O — the crosslingual split (`cb8518528077f7d0`, commit `aa03cc82`; outputs in custody at `66ecba4d`)
+
+Ratified and frozen on RH's words ("Ratify as is" [4083], "Freeze O" [4084]).
+**301 ratified English–Chinese translated pairs × 9 qualifying edges = 2,709
+cells per arm.** Two filters: `cjk_tier` FLUENT both sides (CAPACITY, 44→10),
+then CJK-only retained mass ≥ 0.30 (COMPETENCE, 10→9) on a **blind-ruled**
+threshold. Three hypotheses, **each requiring BOTH arms**; no arm primary.
+
+- **H1 SUBSTITUTION — SUPPORTED IN BOTH ARMS.** en 2277/365 (split 0.8618, 8 of
+  9 clusters); zh 2463/141 (split 0.9459, 9 of 9). **The campaign's first
+  crosslingual confirmation.**
+- **H2 |valence| and H3 arousal — NOT SUPPORTED, each an ASYMMETRY with en
+  confirming.** The Chinese arms are **clean coin-flip nulls, not reversals**:
+  648/650 (Z −0.2909) and 652/646 (Z −0.7084). §O4's reversal row does not fire.
+  **By the rule frozen before any number existed, neither may be reported as an
+  English finding of O.**
+- **THE FORK TRAVELS WITH THE NULLS: O cannot separate "the affective mechanism
+  is absent in Chinese" from "the Chinese norm join is too thin to see it"** —
+  zh yields a scoreable statistic on 49.8% of analysed cells against en's 69.8%.
+- **§O6's BOUND ON EVERY H1 QUOTATION: all nine surviving clusters are
+  Chinese-origin or Chinese-heavy** (the one non-Chinese-origin lineage, bloom,
+  was removed by the competence filter), **so this licenses "the mechanism
+  appears in Chinese-trained models on Chinese text" and NEVER the general
+  not-a-property-of-English claim.**
+- **PRE-RUN RIDER, binding, in the artifact as `_rider_cross_arm_magnitudes`:**
+  A_absvalence magnitudes are NOT comparable across arms (zh valence sd 0.9697
+  vs en 1.2753, ratio 1.32), so **"the valence effect is larger in Chinese"
+  would report a lexicon dispersion difference as a model difference.** Signs
+  compare; every registered test is a sign test. A_arousal magnitudes ARE
+  comparable (sd ratio 1.01). **The origins nearly coincide (0.03 sd) on the one
+  hypothesis whose statistic is origin-sensitive, and differ by 0.45 sd on the
+  pair that is shift-invariant by construction.**
+- **INCIDENTAL, DESCRIPTIVE, n=1, DEPOSITED:** the competence filter's single
+  exclusion is `bloomz-7b1` — base 0.5625 CJK-only retained mass, aligned child
+  below the 0.30 cut, same tokenizer, one alignment step on an English-heavy
+  instruction corpus. **The capacity survived; the disposition did not.** A
+  ten-lineage table is authorized; **the question cannot be asked inside O,
+  whose filter selects on exactly the quantity it would test.**
+
+### THE p-TO-z FLOOR — N's AND O's STOUFFER Z ARE LOWER BOUNDS
+
+**Both producers invert Φ by bisecting `0.5*(1 + erf(x/√2))`, which underflows
+to EXACTLY ZERO below x ≈ −8.33** (catastrophic cancellation: `erf` reaches
+−1.0 in double precision and the sum `1 + erf` loses everything). **Bisection
+cannot pass a floor of zero, so every p below ~5.5e-17 maps to one z: |z| caps
+at 8.3265.** Saturated families: **N throughout; O's H1 en 7/9 and zh 9/9;
+O's H2 and H3 nowhere.**
+
+- **The p-values are EXACT** (`math.comb` over big integers, down to 3.25e-82).
+  Only the conversion saturates. **A printed `p 0` is underflow: read p < 1.1e-16.**
+- **No verdict moves — the cap can only SHRINK evidence, and a ceiling cannot
+  manufacture a confirmation.**
+- **Sizes, two independent derivations agreeing:** O's H1 floors +20.7225 (en)
+  and +24.9795 (zh) against true **+40.64** and **+50.11** — **1.96× and 2.01×.**
+  N's booked +47.91 is a floor by the same mechanism.
+- **THE FIX IS `erfc`** (`0.5*erfc(z/√2)` never forms the cancelling sum and
+  survives to |z| ≈ 38); **not run, because re-running to raise an
+  already-confirmed Z would spend a once-only blindness credential on
+  cosmetics.** A second guard is owed beside it: **the conservatism argument
+  protects a POSITIVE verdict and is silent about a family saturating AGAINST
+  its hypothesis** — a capped disconfirmation is invisible to it. Both are one
+  line, in `meta/M01_displacement/scripts/o_primary.py`, deliberately left
+  writable for exactly this.
+
+### OPEN DEPENDENCIES, RESTATED (superseding the list at "Open dependencies")
+
+- **Annotation run — built, never run, SECOND CODER PENDING. It gates TWO
+  claims**: `faller-riser-relation` (clause 6's positive form) **and**
+  `slot-sensitivity` (clause 7's stratified test). One unrun pass, two blocks.
+- **F01 / F04 / F40 audit days** → clauses 1, 10, 8. **Anger audit** ([714].2) →
+  clause 4. **Four audits owed on already-stated clauses.**
+- **Roster completion**: the MOVEMENT half is **discharged** — N is claim 1 at
+  full scale on the live English roster, O is a wave-2-shaped registration on
+  the translated pairs. **The NORMS half remains open.**
+- **Clause 9 (`sft-installation`) is UNREPRODUCED, CAUSE UNLOCATABLE** and is
+  not evidence for anything until it reproduces. **Clause 2 needs a producer**
+  (two-seat verified, not regenerable). **Clause 5 needs a second seat.**
+  **Clause 7's cessation leg needs re-measuring as the design change it is.**
+- **C's displacement-specificity is OPEN, not answered**: its control arm's MDE
+  (0.0390) exceeded the effect it tested (0.0251). **An underpowered null is not
+  evidence of absence, and D2 does not retroactively power it.**
+- **The bloomz / ten-lineage question** (new, from O's filter) and **the
+  shared-predicate declaration** (1 of 22 registrations states the faller rule
+  its quantities rest on; O states its own at §O0) both await RH's word.
+
+### WHAT THIS BLOCK DOES NOT LICENSE
+
+**It is a currency pass, not an audit.** Every figure above was read from an
+artifact on disk or a registration's frozen bytes and is checkable; **none of
+the earlier clause statuses was re-derived, and no claim above was
+independently verified by writing it here.** Where this block and an artifact
+differ, **the artifact governs** — the same rule this file applies to the
+README, applied to this file.
