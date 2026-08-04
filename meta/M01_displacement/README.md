@@ -2,6 +2,8 @@
 
 A reader's map of the campaign, organised by question. Every claim here is a summary; the authoritative record — full statuses, caveats, supersessions, docket citations — is `ledger.md` (this folder), and the quotable shapes with their MAY-NOT-SAYs live in the TheoryMachines claims register (`notes/claims-register.md`, section A8). Frozen designs are in `registrations/`, result artifacts in `results/`, populations in `populations/`.
 
+**READ SECTION 5 BEFORE QUOTING ANYTHING FROM SECTIONS 1–3.** This page states each finding in its strongest honest form; section 5 states how far each has been *verified*, and the two are not the same. **Not one of the ten numbered clauses is both fully verified and independently audited.** One (clause 9, the SFT-installation result) is UNREPRODUCED with its cause unlocatable, and appears below because the ledger still carries the claim — not because it stands. Registrations F, G, N, O, D, D2, D3b, L and M are a different matter: each is frozen, run, and two-seat, and their statuses are given where they appear.
+
 The campaign's one-sentence claim: **alignment does not delete the transgressive lexicon; it redistributes it** — suppressed probability mass migrates to substitutes (kill -> scream), and the migration has structure: in degree, in affect, in site, and in training time.
 
 ---
@@ -12,9 +14,9 @@ The instruments: `movement.py:decompose()` — the canonical decomposition of a 
 
 What is established (ledger clauses 1, 2, 3, 5; registrations F and G):
 
-- **The mass migrates rather than vanishing** (clause 1), and the migration is ~92% genuine rather than renormalisation artifact (clause 2).
+- **The mass migrates rather than vanishing** (clause 1 — *PENDING its F01 audit day*), and the migration is ~92% genuine rather than renormalisation artifact (clause 2 — *verified two-seat but SUSPENDED PENDING PRODUCER: the figure cannot currently be regenerated*).
 - **It concentrates**: the top recipient takes a median 0.381 of gained mass — but only modestly above a random split among qualifying receivers (1.135 vs the Dirichlet null), and the receiving set is small (median 3-20 risers by family). Both halves quote together or not at all (clause 3).
-- **Direction is shared across families beyond independence at every denominator tested**, but there is no typical rate — which sites compel shared direction is itself the phenomenon (clause 5).
+- **Direction is shared across families beyond independence at every denominator tested**, but there is no typical rate — which sites compel shared direction is itself the phenomenon (clause 5 — *MEASURED, all spec gates passed, but SINGLE-SEAT: no second derivation exists*).
 - **At transgressive sites specifically: displacement is NOT more frequent** (Registration F: rate null, n=33 pair-sites, p=0.148) **but IS larger when it happens** (Registration G: magnitude, d=0.748, p=0.00006).
 - **SUBSTITUTION CONFIRMED AT FULL SCALE** (Registration N, 2026-08-04, frozen and run once, blind): on all 2,199 English stimuli x 44 edges — 82,775 analysed cells — **91% show negative tail excess: the tail gives mass UP to nameable words rather than absorbing it.** All 34 base clusters agree; the adversarial correction built to destroy the result if it were a threshold artifact moved 0.13% of cells and left the statistic identical to six decimals. Quote the Stouffer Z (+47.9) as a FLOOR, not a value (the producer's p-to-z conversion saturates; the p-values are exact). English only, by design; the claim is direction and consistency, never "large."
 
@@ -37,13 +39,13 @@ The current supported picture, four registrations deep:
 - **Sweetening (negative words fall, positive rise) is unsupported at sites** (D, H1); its general-corpus arm is the ONE C arm still blind (valence/signed/GENERAL, never emitted).
 - **None of this is vocabulary availability**: transgressive prompts do offer more extreme valence vocabulary, but that difference is bounded ABOVE at 56% of the valence effect and at nothing on dominance (wrong sign), and the pair-level relationship runs opposite to the confound's prediction (Registration D3b, the bracket decomposition).
 
-Caution the register enforces: no quantitative "general vs site" ratio yet — C's and D2's statistics are built from the same contrast machinery but a bridge quantity on a common scale would need its own registration.
+Two cautions the register enforces. **No quantitative "general vs site" ratio yet** — C's and D2's statistics are built from the same contrast machinery, but a bridge quantity on a common scale would need its own registration. And **C's own displacement-specificity question is OPEN, not answered**: its control arm's minimum detectable effect (0.0390) *exceeded the effect it was testing* (0.0251), so that null could never have detected an effect of the size at issue — an underpowered null is not evidence of absence. D2 addresses site-specificity by a different route; it does not retroactively power C's control arm. C's first conjunct (the signed riser term) is evaluated but **its value is sealed at RH** and is unauditable while sealed.
 
 ### 2b. The displacement relation itself: what is scream to kill?
 
-Four geometric instruments — WordNet similarity, contextual-embedding cosine, inverted syntagmatic JS, mass-winner similarity percentile — all fail to locate the relation a reader sees instantly (ledger clause 6). So the measurement moves to blinded, decoyed human/LLM judgment: the coding instrument exists at `malign_logits/tasks/code_displacement_relation.py` (schema frozen at docket [637] as amended; two-axis vocabulary — speech-act shift vs metonymy, with intensity orthogonal). **Built, never run: the annotation pass is the campaign's largest unfinished item.** Until it runs, "the relation is interpretive, not geometric" is a verified instrument-failure record with the positive characterisation pending.
+Four geometric instruments — WordNet similarity, contextual-embedding cosine, inverted syntagmatic JS, mass-winner similarity percentile — all fail to locate the relation a reader sees instantly (ledger clause 6). So the measurement moves to blinded, decoyed human/LLM judgment: the coding instrument exists at `malign_logits/tasks/code_displacement_relation.py` (schema frozen at docket [637] as amended; two-axis vocabulary — speech-act shift vs metonymy, with intensity orthogonal). **Built, never run: the annotation pass is the campaign's largest unfinished item.** Until it runs, "the relation is interpretive, not geometric" is a verified instrument-failure record with the positive characterisation pending. **Two things the shorter statement of this item omits: the run needs a SECOND CODER (the ledger's open dependencies list it as pending), and it gates TWO claims, not one — 2b's relation here, and clause 7's slot-sensitivity positive form in section 3.** One unrun pass is the bottleneck on both.
 
-## 2c. Does the operation cross languages? (Registration O)
+### 2c. Does the operation cross languages? (Registration O)
 
 The first crosslingual instrument (frozen and run 2026-08-04): 301 ratified English-Chinese translated pairs — the pair holds content fixed and varies only language — over the 9 edges whose models are both tokenizer-capable AND behaviorally competent in Chinese (a capacity filter, then a competence filter with a blind-ruled threshold). Three hypotheses, each requiring BOTH arms.
 
@@ -54,18 +56,47 @@ The first crosslingual instrument (frozen and run 2026-08-04): 301 ratified Engl
 
 ## 3. WHERE does the operation live, and WHEN is it learned?
 
-- **Site structure**: families converge on the same substitute site-specifically at real suppression sites (clause 4); the operation is slot-sensitive — where the grammar admits both plan and discharge, alignment chooses discharge (clause 7); category-specific targeting holds at liminal sites and fails at explicit ones, where the drain is largest but undifferentiated (clause 8).
-- **Training stage**: the operation installs almost entirely at SFT — in Amber, the only family with all three arms stored (clause 9); and repression precedes displacement in training — the model learns what it cannot say before it learns what to say instead (clause 10).
+**This is the campaign's least-verified section and the statuses below are not decoration.**
+
+- **Site structure**: families converge on the same substitute site-specifically at real suppression sites (clause 4 — *UNRETESTED PENDING V3, which changes what a word is, and additionally awaiting the anger audit*); the operation is slot-sensitive — where the grammar admits both plan and discharge, alignment chooses discharge (clause 7 — *PARTIALLY VERIFIED; the fist/voice control is blind-coded and the referent structure measured, but the full stratified test awaits the annotation run, and the **cessation-operator leg is defect-flagged and UNCITABLE**: its two carrier pairs place the manipulated word last, so the scored position reads a continuation of the manipulation rather than the manipulation. Re-measurement is a design change, not a truncation*); category-specific targeting holds at liminal sites and fails at explicit ones, where the drain is largest but undifferentiated (clause 8 — *its source finding F40 is B-graded and unaudited; the audit is scheduled behind the draft-cited findings*).
+- **Training stage**: repression precedes displacement in training — the model learns what it cannot say before it learns what to say instead (clause 10 — *PENDING its F04 audit day*).
+- **The SFT-installation claim does not currently stand.** Clause 9 — that the operation installs almost entirely at SFT, in Amber, the only family with all three arms stored — is **UNREPRODUCED, CAUSE UNLOCATABLE**. The attempt to regenerate it predates the cache ingest and the cause was never found. It is stated here because the ledger still carries the claim and a reader will meet it in older drafts; **it is not evidence for anything until it reproduces**, and any sentence putting the operation's installation at SFT rests on it alone.
 
 ## 4. What is open, by choice or by pendency
 
-- **The annotation run for 2b (built, unrun) — still the campaign's largest unfinished item.** The kill-to-scream relation itself has no positive characterization until it runs.
+- **The annotation run for 2b (built, unrun) — still the campaign's largest unfinished item, and it needs a SECOND CODER.** The kill-to-scream relation has no positive characterization until it runs, **and neither does clause 7's slot-sensitivity: one unrun pass gates both.**
+- **Four audits owed on already-stated clauses, none of them new work in the sense of new experiments:** the F01 audit day (clause 1), the F04 audit day (clause 10), the F40 audit (clause 8), and the anger audit (clause 4). Until they are held, four of the ten clauses on this page are stated on unaudited findings.
+- **Clause 9 needs reproducing before it can be cited at all**, and its cause was unlocatable when tried. **Clause 2 needs a producer** — it is two-seat verified and currently not regenerable. **Clause 5 needs a second seat.** **Clause 7's cessation leg needs re-measuring** as the design change it actually requires.
 - C's one blind arm (general sweetening) — a single-arm opportunity, not a battery.
 - Wave 2 on the live roster: **the movement half is discharged** (N is claim 1 at full scale on the live English roster; O is a wave-2-shaped registration on the translated pairs). **The norms half remains open** — C-style questions re-registered on the full roster rather than the recovered 959.
 - The negative slope from D3b (more extreme pools -> LESS displacement): a described fit awaiting a registered surrogate before it can be a finding.
 - **The bloomz question (new, from O's filter):** does alignment strip non-English mass across lineages? The observation is deposited (n=1, descriptive), the ten-lineage table is authorized, the registration awaits RH's word — it needs its own design because O's competence filter selects on the quantity it would test.
 - **The shared-predicate declaration (campaign-wide):** 1 of 22 registrations states the faller rule its quantities rest on; O now states its own (§O0), and RH's morning choice is one frozen declaration cited by all versus per-registration amendments. The pin must carry the candidacy rule and repair commit, not constants alone.
 - Artifact-vs-mechanism for the pool gap, and the entanglement of "transgression" with the swapped word's own extremity: open by design; this corpus cannot decide them.
+- **Two instrument repairs on the registration producers**, both one line, neither affecting a verdict: the `p`-to-`z` conversion shared by N's and O's producers saturates at |z| = 8.3265 (`0.5*(1+erf(x/√2))` underflows to exactly zero below x ≈ −8.33), so **every Stouffer Z those two registrations report is a floor**; and the same file needs a guard against a family saturating *against* its hypothesis, which the conservatism argument does not cover. Until the first is fixed, N's +47.9 and O's +20.7 / +25.0 quote as floors and never as values.
+
+## 5. How verified is each clause?
+
+**Sections 1–3 state the findings; this states their evidential standing.** Compressed from `ledger.md`'s status column, which governs.
+
+| Clause | What it says | Standing |
+|---|---|---|
+| 1 | mass migrates rather than vanishing | **PENDING** — F01 audit day scheduled, not held |
+| 2 | ~92% genuine, not renormalisation | verified two-seat, **SUSPENDED pending producer** |
+| 3 | concentration, with its Dirichlet null | verified, with a re-denomination pending; tokenizer-comparability scope |
+| 4 | site-specific convergence on a substitute | **UNRETESTED pending v3**; anger audit owed |
+| 5 | shared direction beyond independence | measured, all gates passed, **single-seat** |
+| 6 | the relation is not geometric | verified **as an instrument-failure record only**; positive form pending the annotation run |
+| 7 | slot-sensitivity | **PARTIAL**; cessation-operator leg **defect-flagged and uncitable** |
+| 8 | category targeting at liminal, not explicit | source finding F40 **B-graded, unaudited** |
+| 9 | the operation installs at SFT | **UNREPRODUCED, cause unlocatable** |
+| 10 | repression precedes displacement | **PENDING** — F04 audit day scheduled, not held |
+
+**The registrations are the campaign's verified layer and they are a different standard**: F, G, C, D, D2, D3b, L, M, N and O are each frozen before the numbers existed, run once, and two-seat — designs registered in advance, producers audited by a seat that did not write them, artifacts sized-verified after. Where this page carries a strong claim, it is usually a registration carrying it; where it carries a numbered clause, read the row above.
+
+**What this table is not**: I read these statuses out of the ledger's own status column rather than re-deriving any of them. **That makes this a faithful summary of a record, not an independent check of the work** — the same distinction the campaign draws between custody and verification.
+
+**One known staleness, flagged rather than silently corrected here:** `ledger.md`'s Registration D section still reads "frozen, awaiting its battery." D ran — `result_d_stage1/stage2.json` and its D2 and D3b siblings are on disk and two-seat. The ledger governs this page, so the correction belongs there and not in a fix applied downstream of it.
 
 ---
 
