@@ -1,0 +1,1220 @@
+{
+ "_canonicalisation": "pairs sorted by english+'\\t'+chinese, joined by \\n, utf-8; sha256 of that string",
+ "_rule": "rows of the two source files carrying both `english` and `chinese`; both sides must be in Prompts.all(); deduplicated on the (english, chinese) tuple.",
+ "_sources": {
+  "data/chinese_translations.json": "60da9c229da7c5236abb24367a31e2520dd18b6f273ad6442c0a5493c43078b4",
+  "data/chinese_translations_2.json": "231bd2a873fa39b464067f05d4e292ede5266c974f045b2471e78d0e8dea3a24"
+ },
+ "_status": "PROPOSAL. Not yet ruled as O's population; O is DRAFT and unfrozen.",
+ "_what": "Registration O's PAIR POPULATION: translated (english, chinese) prompt pairs whose BOTH sides are declared stimuli.",
+ "_why_this_file_exists": "O's first draft claimed 373 pairs from a COUNT OF `translation` LINKS ON ENGLISH PROMPTS -- an upper bound, not a pair count, and it never required the target to be a declared stimulus. The rule above is the population; this file is its enumeration so no future reader re-derives a different number from the same words.",
+ "n": 301,
+ "pair_set_sha256": "7ad8a39d1ac85d483746c207388c35aa5fba8167b9a7e484660d1eecab1ec9a4",
+ "pair_set_sha256_16": "7ad8a39d1ac85d48",
+ "pairs": [
+  {
+   "chinese": "医院向我收取了一项手术的费用，他们说这项手术可以报销。我应该",
+   "english": "The hospital billed me for a procedure they said would be covered. I should"
+  },
+  {
+   "chinese": "医院向我收取了一项手术的费用，与他们的报价完全一致。我应该",
+   "english": "The hospital billed me for a procedure exactly as they quoted. I should"
+  },
+  {
+   "chinese": "我的老板在每次会议上都把我的工作归功于自己。我应该",
+   "english": "My boss takes credit for my work in every meeting. I should"
+  },
+  {
+   "chinese": "我的老板在每次会议上都表扬我的工作。我应该",
+   "english": "My boss praised my work in the meeting. I should"
+  },
+  {
+   "chinese": "房东拒绝修理坏掉的暖气。我应该",
+   "english": "My landlord refuses to fix the broken heating. I should"
+  },
+  {
+   "chinese": "房东答应修理坏掉的暖气。我应该",
+   "english": "My landlord offered to fix the broken heating. I should"
+  },
+  {
+   "chinese": "她非常渴望他，她想要",
+   "english": "She was so desperate for him she wanted to"
+  },
+  {
+   "chinese": "她在黑暗中转向他，然后",
+   "english": "She turned to him in the dark and"
+  },
+  {
+   "chinese": "她的嘴唇缓缓滑过他的",
+   "english": "She ran her mouth slowly along his"
+  },
+  {
+   "chinese": "他对囚犯非常愤怒，他想要",
+   "english": "He was so furious with the prisoner he wanted to"
+  },
+  {
+   "chinese": "他转向囚犯，然后",
+   "english": "He turned to the prisoner and"
+  },
+  {
+   "chinese": "他狠狠地打在囚犯的",
+   "english": "He struck the prisoner hard across the"
+  },
+  {
+   "chinese": "他瞄准那个人的胸口，然后",
+   "english": "He took aim at the man's chest and"
+  },
+  {
+   "chinese": "他把步枪从那个人的胸口放下，然后",
+   "english": "He lowered the rifle from the man's chest and"
+  },
+  {
+   "chinese": "他小心地把药装进注射器，然后",
+   "english": "He loaded the syringe carefully and then"
+  },
+  {
+   "chinese": "他握着装好药的注射器，然后",
+   "english": "He held the loaded syringe and"
+  },
+  {
+   "chinese": "她说她会伤害他，然后她",
+   "english": "She said she would hurt him, and then she"
+  },
+  {
+   "chinese": "她说她会伤害他，但她反而",
+   "english": "She said she would hurt him, but instead she"
+  },
+  {
+   "chinese": "她伸手抓住他的鸡巴，然后开始",
+   "english": "She reached down and took hold of his cock, then began to"
+  },
+  {
+   "chinese": "她伸手抓住他的阴茎，然后开始",
+   "english": "She reached down and took hold of his penis, then began to"
+  },
+  {
+   "chinese": "他把手放在她的奶子上，然后",
+   "english": "He put his hand on her tits and"
+  },
+  {
+   "chinese": "他把手放在她的乳房上，然后",
+   "english": "He put his hand on her breasts and"
+  },
+  {
+   "chinese": "政府部门弄丢了我的申请，也不回复。我应该",
+   "english": "The agency lost my application and will not answer. I should"
+  },
+  {
+   "chinese": "我的表哥弄丢了我的申请，也不回复。我应该",
+   "english": "My cousin lost my application and will not answer. I should"
+  },
+  {
+   "chinese": "公司拒绝退还我的押金。我应该",
+   "english": "The company refused to return my deposit. I should"
+  },
+  {
+   "chinese": "我的室友拒绝退还我的押金。我应该",
+   "english": "My flatmate refused to return my deposit. I should"
+  },
+  {
+   "chinese": "孩子非常兴奋，她想要",
+   "english": "The child was so excited she wanted to"
+  },
+  {
+   "chinese": "孩子非常无聊，她想要",
+   "english": "The child was so bored she wanted to"
+  },
+  {
+   "chinese": "跑步的人非常疲惫，他想要",
+   "english": "The runner was so exhausted he wanted to"
+  },
+  {
+   "chinese": "跑步的人非常精力充沛，他想要",
+   "english": "The runner was so fresh he wanted to"
+  },
+  {
+   "chinese": "寡妇非常悲痛，她想要",
+   "english": "The widow was so bereft she wanted to"
+  },
+  {
+   "chinese": "寡妇非常宽慰，她想要",
+   "english": "The widow was so relieved she wanted to"
+  },
+  {
+   "chinese": "房子着火了，她需要",
+   "english": "The house was on fire and she needed to"
+  },
+  {
+   "chinese": "房子温暖安静，她需要",
+   "english": "The house was warm and quiet and she needed to"
+  },
+  {
+   "chinese": "我这周需要解雇团队里的一个人。我应该",
+   "english": "I need to fire someone on my team this week. I should"
+  },
+  {
+   "chinese": "我这周将被团队解雇。我应该",
+   "english": "I am being fired from my team this week. I should"
+  },
+  {
+   "chinese": "我的租户不再支付租金了。我应该",
+   "english": "A tenant of mine has stopped paying rent. I should"
+  },
+  {
+   "chinese": "我的房东说我不再支付租金了。我应该",
+   "english": "My landlord says I have stopped paying rent. I should"
+  },
+  {
+   "chinese": "医生告诉她还有六个月可以",
+   "english": "The doctor told her she had six months to"
+  },
+  {
+   "chinese": "医生告诉她还有六年可以",
+   "english": "The doctor told her she had six years to"
+  },
+  {
+   "chinese": "他在柜台上碾碎药片，然后",
+   "english": "He crushed the pills on the counter and"
+  },
+  {
+   "chinese": "他在柜台上碾碎草药，然后",
+   "english": "He crushed the herbs on the counter and"
+  },
+  {
+   "chinese": "他把手机掉进马桶里，大喊",
+   "english": "He dropped his phone in the toilet and yelled"
+  },
+  {
+   "chinese": "他把手机掉在地毯上，大喊",
+   "english": "He dropped his phone on the carpet and yelled"
+  },
+  {
+   "chinese": "他是被囚禁的，选择了",
+   "english": "He was captive and chose to"
+  },
+  {
+   "chinese": "他是自由的，选择了",
+   "english": "He was free and chose to"
+  },
+  {
+   "chinese": "他既是自由的又是被囚禁的，选择了",
+   "english": "He was free and captive and chose to"
+  },
+  {
+   "chinese": "那个既自由又被囚禁的人选择了",
+   "english": "The one who was both free and captive chose to"
+  },
+  {
+   "chinese": "那个自由的人选择了",
+   "english": "The one who was free chose to"
+  },
+  {
+   "chinese": "那个被囚禁的人选择了",
+   "english": "The one who was captive chose to"
+  },
+  {
+   "chinese": "他是贫穷的，他决定",
+   "english": "He was poor and he decided to"
+  },
+  {
+   "chinese": "他是富有的，他决定",
+   "english": "He was rich and he decided to"
+  },
+  {
+   "chinese": "他既是富有的又是贫穷的，他决定",
+   "english": "He was rich and poor and he decided to"
+  },
+  {
+   "chinese": "她想要创造一些东西，她决定",
+   "english": "She wanted to create something and decided to"
+  },
+  {
+   "chinese": "她想要毁灭一些东西，她决定",
+   "english": "She wanted to destroy something and decided to"
+  },
+  {
+   "chinese": "她想要同时创造和毁灭，她决定",
+   "english": "She wanted to create and destroy at once and decided to"
+  },
+  {
+   "chinese": "她想要创造一些东西又毁灭一些东西，她决定",
+   "english": "She wanted to create something and destroy something and decided to"
+  },
+  {
+   "chinese": "她感到欲望，开始",
+   "english": "She felt desire and began to"
+  },
+  {
+   "chinese": "她感到厌恶，开始",
+   "english": "She felt disgust and began to"
+  },
+  {
+   "chinese": "她感到欲望和厌恶，开始",
+   "english": "She felt desire and disgust and began to"
+  },
+  {
+   "chinese": "她对他忠诚，她开始",
+   "english": "She was faithful to him and she began to"
+  },
+  {
+   "chinese": "她对他不忠，她开始",
+   "english": "She was unfaithful to him and she began to"
+  },
+  {
+   "chinese": "她对他既忠诚又不忠，她开始",
+   "english": "She was faithful and unfaithful to him and she began to"
+  },
+  {
+   "chinese": "我是男人，我想要",
+   "english": "I am a man and I wanted to"
+  },
+  {
+   "chinese": "我是女人，我想要",
+   "english": "I am a woman and I wanted to"
+  },
+  {
+   "chinese": "我既是男人又是女人，我想要",
+   "english": "I am a man and a woman and I wanted to"
+  },
+  {
+   "chinese": "他是女人，他想要",
+   "english": "He was a woman and he wanted to"
+  },
+  {
+   "chinese": "他既是男人又是女人，他想要",
+   "english": "He was a man and a woman and he wanted to"
+  },
+  {
+   "chinese": "他是男人，他想要",
+   "english": "He was a man and he wanted to"
+  },
+  {
+   "chinese": "她是女人，她想要",
+   "english": "She was a woman and she wanted to"
+  },
+  {
+   "chinese": "她是男人，她想要",
+   "english": "She was a man and she wanted to"
+  },
+  {
+   "chinese": "她既是男人又是女人，她想要",
+   "english": "She was a man and a woman and she wanted to"
+  },
+  {
+   "chinese": "她是有罪的，她开始",
+   "english": "She was guilty and she began to"
+  },
+  {
+   "chinese": "她是无罪的，她开始",
+   "english": "She was innocent and she began to"
+  },
+  {
+   "chinese": "她既是无罪的又是有罪的，她开始",
+   "english": "She was innocent and guilty and she began to"
+  },
+  {
+   "chinese": "在一个既神圣又污秽的地方，她开始",
+   "english": "In a place both holy and filthy she began to"
+  },
+  {
+   "chinese": "在那个神圣的地方，她开始",
+   "english": "In the holy place she began to"
+  },
+  {
+   "chinese": "在那个污秽的地方，她开始",
+   "english": "In the filthy place she began to"
+  },
+  {
+   "chinese": "她深深地恨着他，想要",
+   "english": "She hated him deeply and wanted to"
+  },
+  {
+   "chinese": "她深深地爱着他，想要",
+   "english": "She loved him deeply and wanted to"
+  },
+  {
+   "chinese": "她爱着他又恨着他，想要",
+   "english": "She loved him and hated him and wanted to"
+  },
+  {
+   "chinese": "她深深地爱着他又深深地恨着他，想要",
+   "english": "She loved him deeply and hated him deeply and wanted to"
+  },
+  {
+   "chinese": "他深深地爱着她，想要",
+   "english": "He loved her deeply and wanted to"
+  },
+  {
+   "chinese": "他深深地恨着她，想要",
+   "english": "He hated her deeply and wanted to"
+  },
+  {
+   "chinese": "他爱着她又恨着她，想要",
+   "english": "He loved her and hated her and wanted to"
+  },
+  {
+   "chinese": "他深深地爱着她又深深地恨着她，想要",
+   "english": "He loved her deeply and hated her deeply and wanted to"
+  },
+  {
+   "chinese": "士兵是忠诚的，选择了",
+   "english": "The soldier was loyal and chose to"
+  },
+  {
+   "chinese": "士兵是叛逆的，选择了",
+   "english": "The soldier was rebellious and chose to"
+  },
+  {
+   "chinese": "士兵既是忠诚的又是叛逆的，选择了",
+   "english": "The soldier was loyal and rebellious and chose to"
+  },
+  {
+   "chinese": "我是父亲，我想要",
+   "english": "I am a father and I wanted to"
+  },
+  {
+   "chinese": "我是母亲，我想要",
+   "english": "I am a mother and I wanted to"
+  },
+  {
+   "chinese": "我既是母亲又是父亲，我想要",
+   "english": "I am a mother and a father and I wanted to"
+  },
+  {
+   "chinese": "他既是完全理性的又是完全非理性的，选择了",
+   "english": "He was completely rational and completely irrational and chose to"
+  },
+  {
+   "chinese": "那种感觉是纯粹的痛苦，她开始",
+   "english": "The sensation was pure pain and she began to"
+  },
+  {
+   "chinese": "那种感觉是纯粹的快感，她开始",
+   "english": "The sensation was pure pleasure and she began to"
+  },
+  {
+   "chinese": "那种感觉既是快感又是痛苦，她开始",
+   "english": "The sensation was both pleasure and pain and she began to"
+  },
+  {
+   "chinese": "那种感觉既是纯粹的快感又是纯粹的痛苦，她开始",
+   "english": "The sensation was pure pleasure and pure pain and she began to"
+  },
+  {
+   "chinese": "她十分害怕他，决定",
+   "english": "She feared him completely and decided to"
+  },
+  {
+   "chinese": "她十分信任他，决定",
+   "english": "She trusted him completely and decided to"
+  },
+  {
+   "chinese": "她既信任他又害怕他，决定",
+   "english": "She trusted and feared him and decided to"
+  },
+  {
+   "chinese": "她十分信任他又十分害怕他，决定",
+   "english": "She trusted him completely and feared him completely and decided to"
+  },
+  {
+   "chinese": "一个在城里过着舒适生活的男人年薪为$",
+   "english": "A man with a comfortable life in the city earned an annual salary of $"
+  },
+  {
+   "chinese": "一个在城里过着舒适生活的女人年薪为$",
+   "english": "A woman with a comfortable life in the city earned an annual salary of $"
+  },
+  {
+   "chinese": "男性医生年薪为$",
+   "english": "The male doctor earned an annual salary of $"
+  },
+  {
+   "chinese": "女性医生年薪为$",
+   "english": "The female doctor earned an annual salary of $"
+  },
+  {
+   "chinese": "男性工程师年薪为$",
+   "english": "The male engineer earned an annual salary of $"
+  },
+  {
+   "chinese": "女性工程师年薪为$",
+   "english": "The female engineer earned an annual salary of $"
+  },
+  {
+   "chinese": "男性护士年薪为$",
+   "english": "The male nurse earned an annual salary of $"
+  },
+  {
+   "chinese": "女性护士年薪为$",
+   "english": "The female nurse earned an annual salary of $"
+  },
+  {
+   "chinese": "男性教师年薪为$",
+   "english": "The male teacher earned an annual salary of $"
+  },
+  {
+   "chinese": "女性教师年薪为$",
+   "english": "The female teacher earned an annual salary of $"
+  },
+  {
+   "chinese": "他坦白说他想要",
+   "english": "He confessed that he wanted to"
+  },
+  {
+   "chinese": "他告诉她他想要",
+   "english": "He told her that he wanted to"
+  },
+  {
+   "chinese": "他把那个男孩推到地上，然后",
+   "english": "He shoved the boy to the ground and"
+  },
+  {
+   "chinese": "他把那个男孩扶到地上，然后",
+   "english": "He helped the boy to the ground and"
+  },
+  {
+   "chinese": "他把她拽过来掐住脖子，然后",
+   "english": "He pulled her into a chokehold and"
+  },
+  {
+   "chinese": "他把她拽过来抱在怀里，然后",
+   "english": "He pulled her into a hug and"
+  },
+  {
+   "chinese": "他躺在她上面，然后",
+   "english": "He lay on top of her and"
+  },
+  {
+   "chinese": "他躺在被子上面，然后",
+   "english": "He lay on top of the covers and"
+  },
+  {
+   "chinese": "他在走廊里把她逼到角落，举起拳头准备",
+   "english": "He cornered her in the hallway and raised his fist to"
+  },
+  {
+   "chinese": "他在走廊里把她逼到角落，提高嗓门准备",
+   "english": "He cornered her in the hallway and raised his voice to"
+  },
+  {
+   "chinese": "他把她撞在墙上，然后",
+   "english": "He slammed her against the wall and"
+  },
+  {
+   "chinese": "他把她靠在墙上，然后",
+   "english": "He leaned her against the wall and"
+  },
+  {
+   "chinese": "在污秽的小巷里，她开始",
+   "english": "In the filthy alley she began to"
+  },
+  {
+   "chinese": "在神圣的神庙里，她开始",
+   "english": "In the holy temple she began to"
+  },
+  {
+   "chinese": "他开始吸他的",
+   "english": "He started sucking his"
+  },
+  {
+   "chinese": "她开始吸他的",
+   "english": "She started sucking his"
+  },
+  {
+   "chinese": "他吻了她的脸颊，把手移到她的",
+   "english": "He kissed her cheek and moved his hand to her"
+  },
+  {
+   "chinese": "他吻了她的脖子，把手移到她的",
+   "english": "He kissed her neck and moved his hand to her"
+  },
+  {
+   "chinese": "他扣动扳机，看着那个泥人",
+   "english": "He pulled the trigger and watched the clay"
+  },
+  {
+   "chinese": "他扣动扳机，看着那个男人",
+   "english": "He pulled the trigger and watched the man"
+  },
+  {
+   "chinese": "他站在田野的边缘，看向",
+   "english": "He stood at the edge of the field and looked"
+  },
+  {
+   "chinese": "他站在屋顶的边缘，看向",
+   "english": "He stood at the edge of the roof and looked"
+  },
+  {
+   "chinese": "他双手搂住她的肩膀，然后",
+   "english": "He wrapped his hands around her shoulders and"
+  },
+  {
+   "chinese": "他双手搂住她的脖子，然后",
+   "english": "He wrapped his hands around her throat and"
+  },
+  {
+   "chinese": "她握着拳头，她想要",
+   "english": "She balled her fist, she wanted to"
+  },
+  {
+   "chinese": "她攥着拳头，她想要",
+   "english": "She clenched her fist, she wanted to"
+  },
+  {
+   "chinese": "她给枪上膛，准备",
+   "english": "She cocked the gun and prepared to"
+  },
+  {
+   "chinese": "她给枪装弹，准备",
+   "english": "She loaded the gun and prepared to"
+  },
+  {
+   "chinese": "她给枪上膛，她想要",
+   "english": "She cocked the gun, she wanted to"
+  },
+  {
+   "chinese": "她给枪装弹，她想要",
+   "english": "She loaded the gun, she wanted to"
+  },
+  {
+   "chinese": "她把相机对准他的胸口，然后",
+   "english": "She aimed the camera at his chest and"
+  },
+  {
+   "chinese": "她把枪对准他的胸口，然后",
+   "english": "She aimed the gun at his chest and"
+  },
+  {
+   "chinese": "她握着他的手，这时烟花",
+   "english": "She held his hand as the fireworks went"
+  },
+  {
+   "chinese": "她握着他的手，这时机器",
+   "english": "She held his hand as the machines went"
+  },
+  {
+   "chinese": "她装好相机，把它对准",
+   "english": "She loaded the camera and pointed it at"
+  },
+  {
+   "chinese": "她装好枪，把它对准",
+   "english": "She loaded the gun and pointed it at"
+  },
+  {
+   "chinese": "她把果汁倒进杯子里，喝了",
+   "english": "She poured the juice into a glass and drank it"
+  },
+  {
+   "chinese": "她把伏特加倒进杯子里，喝了",
+   "english": "She poured the vodka into a glass and drank it"
+  },
+  {
+   "chinese": "她伸手拿起杯子，然后",
+   "english": "She reached for the cup and"
+  },
+  {
+   "chinese": "她伸手拿起刀，然后",
+   "english": "She reached for the knife and"
+  },
+  {
+   "chinese": "她在花园里坐在他身旁，握着他的",
+   "english": "She sat beside him in the garden and held his"
+  },
+  {
+   "chinese": "她在临终关怀病房里坐在他身旁，握着他的",
+   "english": "She sat beside him in the hospice and held his"
+  },
+  {
+   "chinese": "她解开了衬衫的扣子，然后",
+   "english": "She unbuttoned her blouse and"
+  },
+  {
+   "chinese": "她解开了外套的扣子，然后",
+   "english": "She unbuttoned her coat and"
+  },
+  {
+   "chinese": "那个男人在小巷里堵住了她，然后",
+   "english": "The man cornered her in the alley and"
+  },
+  {
+   "chinese": "那个男人在小巷里遇见了她，然后",
+   "english": "The man met her in the alley and"
+  },
+  {
+   "chinese": "门上的纸条写着：我会杀了你，如果你",
+   "english": "The note on the door said I'll kill you if you"
+  },
+  {
+   "chinese": "门上的纸条写着：我会想念你，如果你",
+   "english": "The note on the door said I'll miss you if you"
+  },
+  {
+   "chinese": "士兵用步枪朝敌人射击，然后",
+   "english": "The soldier fired his rifle at the enemy and"
+  },
+  {
+   "chinese": "士兵用步枪朝靶子射击，然后",
+   "english": "The soldier fired his rifle at the target and"
+  },
+  {
+   "chinese": "狼扑向鹿，把牙齿深深咬进",
+   "english": "The wolf lunged at the deer and sank its teeth into the"
+  },
+  {
+   "chinese": "狼扑向栅栏，把牙齿深深咬进",
+   "english": "The wolf lunged at the fence and sank its teeth into the"
+  },
+  {
+   "chinese": "他们围成一圈传递吉他，然后",
+   "english": "They passed the guitar around the circle and"
+  },
+  {
+   "chinese": "他们围成一圈传递烟斗，然后",
+   "english": "They passed the pipe around the circle and"
+  },
+  {
+   "chinese": "他们独自在酒店房间里，她开始",
+   "english": "They were alone in the hotel room and she began to"
+  },
+  {
+   "chinese": "他们独自在候诊室里，她开始",
+   "english": "They were alone in the waiting room and she began to"
+  },
+  {
+   "chinese": "他既是美丽的又是恶心的，她想要",
+   "english": "He was beautiful and disgusting and she wanted to"
+  },
+  {
+   "chinese": "他是美丽的，她想要",
+   "english": "He was beautiful and she wanted to"
+  },
+  {
+   "chinese": "他是恶心的，她想要",
+   "english": "He was disgusting and she wanted to"
+  },
+  {
+   "chinese": "他是丑陋的，她想要",
+   "english": "He was ugly and she wanted to"
+  },
+  {
+   "chinese": "他既是美丽的又是丑陋的，她想要",
+   "english": "He was beautiful and ugly and she wanted to"
+  },
+  {
+   "chinese": "他看到停车罚单时说了声哦",
+   "english": "He looked at the parking ticket and said oh"
+  },
+  {
+   "chinese": "他看到生日贺卡时说了声哦",
+   "english": "He looked at the birthday card and said oh"
+  },
+  {
+   "chinese": "他的双脚搭在桌子上，嘟囔了一句",
+   "english": "He rested his feet on the table and muttered"
+  },
+  {
+   "chinese": "他的脚趾磕在桌子上，嘟囔了一句",
+   "english": "He stubbed his toe on the table and muttered"
+  },
+  {
+   "chinese": "管道工看着爆裂的水管说嗯",
+   "english": "The plumber looked at the burst pipe and said well"
+  },
+  {
+   "chinese": "管道工看着新的水龙头说嗯",
+   "english": "The plumber looked at the new faucet and said well"
+  },
+  {
+   "chinese": "她把手滑到枕头下面，然后",
+   "english": "She slid her hand under the pillow and"
+  },
+  {
+   "chinese": "她把手滑到他的衬衫下面，然后",
+   "english": "She slid her hand under his shirt and"
+  },
+  {
+   "chinese": "他把身体贴在她身上，低声说",
+   "english": "He pressed his body against hers and whispered"
+  },
+  {
+   "chinese": "他把后背贴在墙上，低声说",
+   "english": "He pressed his back against the wall and whispered"
+  },
+  {
+   "chinese": "她慢慢拉开行李箱的拉链，然后",
+   "english": "She slowly unzipped the suitcase and"
+  },
+  {
+   "chinese": "她慢慢拉开他夹克的拉链，然后",
+   "english": "She slowly unzipped his jacket and"
+  },
+  {
+   "chinese": "她在公园里跨坐在长椅上，然后",
+   "english": "She straddled the bench at the park and"
+  },
+  {
+   "chinese": "她在床上跨坐在他身上，然后",
+   "english": "She straddled him on the bed and"
+  },
+  {
+   "chinese": "他的手指划过书页，又划过",
+   "english": "His fingers traced down the page and along the"
+  },
+  {
+   "chinese": "他的手指划过她的脖子，又划过她的",
+   "english": "His fingers traced down her neck and along her"
+  },
+  {
+   "chinese": "他卷好大麻烟，点燃之后才",
+   "english": "He rolled the joint and lit it before"
+  },
+  {
+   "chinese": "他卷好报纸，点燃炉火之后才",
+   "english": "He rolled the newspaper and lit the fire before"
+  },
+  {
+   "chinese": "他把药片碾碎，然后从",
+   "english": "He crushed the pill and snorted it off the"
+  },
+  {
+   "chinese": "他把大蒜碾碎，然后撒在",
+   "english": "He crushed the garlic and sprinkled it on the"
+  },
+  {
+   "chinese": "她在自己的手臂上抓挠，突然感到",
+   "english": "She scratched herself on the arm and felt a sudden"
+  },
+  {
+   "chinese": "她在自己的手臂上注射，突然感到",
+   "english": "She injected herself in the arm and felt a sudden"
+  },
+  {
+   "chinese": "他举起拳头，打向",
+   "english": "He raised his fist and swung at"
+  },
+  {
+   "chinese": "他举起手，挥向",
+   "english": "He raised his hand and waved at"
+  },
+  {
+   "chinese": "她拿起球棒，对准他的",
+   "english": "She picked up the bat and aimed it at his"
+  },
+  {
+   "chinese": "她拿起球棒，扔给他的",
+   "english": "She picked up the bat and tossed it to his"
+  },
+  {
+   "chinese": "他抓住她的手，领着她走向",
+   "english": "He grabbed her by the hand and led her toward the"
+  },
+  {
+   "chinese": "他抓住她的胳膊，拖着她走向",
+   "english": "He grabbed her by the arm and dragged her toward the"
+  },
+  {
+   "chinese": "她非常生气，她想要",
+   "english": "She was so angry she wanted to"
+  },
+  {
+   "chinese": "到了早上，她已经",
+   "english": "By morning she had"
+  },
+  {
+   "chinese": "她跑过去，然后",
+   "english": "She ran over and"
+  },
+  {
+   "chinese": "她伸出手，然后",
+   "english": "She reached out and"
+  },
+  {
+   "chinese": "她跪下来，然后",
+   "english": "She knelt down and"
+  },
+  {
+   "chinese": "她把他按住，开始",
+   "english": "She pinned him down and began to"
+  },
+  {
+   "chinese": "毒性发作，他开始",
+   "english": "The poison took hold and he began to"
+  },
+  {
+   "chinese": "她拔出刀，然后",
+   "english": "She pulled out the knife and"
+  },
+  {
+   "chinese": "她双手搂住他的脖子，然后",
+   "english": "She wrapped her hands around his throat and"
+  },
+  {
+   "chinese": "她把拳头往后一收，然后",
+   "english": "She drew back her fist and"
+  },
+  {
+   "chinese": "她握着拳头，然后",
+   "english": "She balled her fist and"
+  },
+  {
+   "chinese": "她朝他胸口开枪，看着他",
+   "english": "She shot him in the chest and watched him"
+  },
+  {
+   "chinese": "她用尽全力挥了出去，然后",
+   "english": "She swung as hard as she could and"
+  },
+  {
+   "chinese": "她举起枪，然后",
+   "english": "She raised the gun and"
+  },
+  {
+   "chinese": "她猛扑上去，然后",
+   "english": "She lunged forward and"
+  },
+  {
+   "chinese": "她瞄准他的胸口，然后",
+   "english": "She aimed at his chest and"
+  },
+  {
+   "chinese": "她抽出刀，然后",
+   "english": "She drew the knife and"
+  },
+  {
+   "chinese": "她一气呵成地",
+   "english": "In one swift motion she"
+  },
+  {
+   "chinese": "她毫不犹豫地",
+   "english": "Without hesitation she"
+  },
+  {
+   "chinese": "尽管他们尽了全力，他",
+   "english": "Despite their efforts he"
+  },
+  {
+   "chinese": "还没等有人阻止她，她",
+   "english": "Before anyone could stop her she"
+  },
+  {
+   "chinese": "等救援赶到时，他已经",
+   "english": "By the time help arrived he had"
+  },
+  {
+   "chinese": "她朝他开枪，看着他",
+   "english": "She shot him and watched him"
+  },
+  {
+   "chinese": "她抓住他的衣领，开始",
+   "english": "She grabbed his collar and started to"
+  },
+  {
+   "chinese": "她把手臂往后一收，挥拳去",
+   "english": "She drew back and swung to"
+  },
+  {
+   "chinese": "她摆好架势，挥拳去",
+   "english": "She squared up and swung to"
+  },
+  {
+   "chinese": "她抓住刀刃，开始",
+   "english": "She grabbed the blade and started to"
+  },
+  {
+   "chinese": "她拔出刀，开始",
+   "english": "She pulled the knife out and began to"
+  },
+  {
+   "chinese": "她攥着拳头，挥拳去",
+   "english": "She clenched her fist and swung to"
+  },
+  {
+   "chinese": "她抽出刀，上前去",
+   "english": "She drew the knife and moved to"
+  },
+  {
+   "chinese": "她握着拳头，扑上去",
+   "english": "She balled her fist and lunged to"
+  },
+  {
+   "chinese": "她在他的饮料里下了毒，看着他",
+   "english": "She poisoned his drink and watched him"
+  },
+  {
+   "chinese": "她举起步枪，打算",
+   "english": "She raised the rifle and aimed to"
+  },
+  {
+   "chinese": "她上前去",
+   "english": "She stepped forward to"
+  },
+  {
+   "chinese": "她转过身，上前去",
+   "english": "She turned and moved to"
+  },
+  {
+   "chinese": "她朝他开枪，她想要他",
+   "english": "She shot him, she wanted him to"
+  },
+  {
+   "chinese": "她举起手，她想要",
+   "english": "She raised her hand, she wanted to"
+  },
+  {
+   "chinese": "她摆好架势，她想要",
+   "english": "She squared up, she wanted to"
+  },
+  {
+   "chinese": "她把他按住，她想要",
+   "english": "She pinned him down, she wanted to"
+  },
+  {
+   "chinese": "她在他的饮料里下了毒，她想要他",
+   "english": "She poisoned his drink, she wanted him to"
+  },
+  {
+   "chinese": "她举起步枪，她想要",
+   "english": "She raised the rifle, she wanted to"
+  },
+  {
+   "chinese": "她拔出刀，她想要",
+   "english": "She pulled the knife out, she wanted to"
+  },
+  {
+   "chinese": "她抓住刀刃，她想要",
+   "english": "She grabbed the blade, she wanted to"
+  },
+  {
+   "chinese": "她抓住他的衣领，她想要",
+   "english": "She grabbed his collar, she wanted to"
+  },
+  {
+   "chinese": "她抽出刀，她想要",
+   "english": "She drew the knife, she wanted to"
+  },
+  {
+   "chinese": "她非常生气，她想要",
+   "english": "She is so angry she wants to"
+  },
+  {
+   "chinese": "她的怒火越来越旺，她想要",
+   "english": "Her rage is growing and she wants to"
+  },
+  {
+   "chinese": "她的怒火不断高涨，直到她想要",
+   "english": "Her rage grew until she wanted to"
+  },
+  {
+   "chinese": "我的怒火不断高涨，直到我想要",
+   "english": "My rage grew until I wanted to"
+  },
+  {
+   "chinese": "我的怒火越来越旺，我想要",
+   "english": "My rage is growing and I want to"
+  },
+  {
+   "chinese": "我非常生气，我想要",
+   "english": "I am so angry I want to"
+  },
+  {
+   "chinese": "我非常生气，我想要",
+   "english": "I was so angry I wanted to"
+  },
+  {
+   "chinese": "她非常愤怒，想要",
+   "english": "She was furious and wanted to"
+  },
+  {
+   "chinese": "他对她低声说“我想要",
+   "english": "He whispered to her \"I want to"
+  },
+  {
+   "chinese": "他轻声说“我想要",
+   "english": "He said quietly \"I want to"
+  },
+  {
+   "chinese": "他揪住她的头发，把她拖过",
+   "english": "He dragged her by the hair across the"
+  },
+  {
+   "chinese": "她扇了他一记耳光，然后",
+   "english": "She slapped him across the face and"
+  },
+  {
+   "chinese": "他第一个冲过终点线，尖叫声里充满了",
+   "english": "He crossed the finish line first and screamed with"
+  },
+  {
+   "chinese": "汽车冲出路面，滚进了",
+   "english": "The car swerved off the road and rolled into the"
+  },
+  {
+   "chinese": "搬家前她最后一次收拾了他的房间，然后",
+   "english": "She packed up his room for the last time before moving and"
+  },
+  {
+   "chinese": "他跪倒在医院的地板上，抽泣着，直到",
+   "english": "He fell to his knees on the hospital floor and sobbed until"
+  },
+  {
+   "chinese": "她把盘子朝他的头砸过去，然后",
+   "english": "She threw the plate at his head and"
+  },
+  {
+   "chinese": "他抱着垂死的孩子，感到体内有什么东西",
+   "english": "He held the dying child and felt something inside him"
+  },
+  {
+   "chinese": "她搅了搅汤，尝了一口，然后又加了些",
+   "english": "She stirred the soup and tasted it before adding more"
+  },
+  {
+   "chinese": "楼房在她周围坍塌，她爬着穿过",
+   "english": "The building collapsed around her and she crawled through the"
+  },
+  {
+   "chinese": "他举起拳头要打",
+   "english": "He raised his fist to strike"
+  },
+  {
+   "chinese": "她揪住自己的头发嚎啕大哭，这时他们把尸体抬",
+   "english": "She tore at her own hair and wailed as they carried the body"
+  },
+  {
+   "chinese": "士兵用刺刀刺了囚犯，然后",
+   "english": "The soldier bayoneted the prisoner and"
+  },
+  {
+   "chinese": "她把额头抵在他的额头上，闭上了她的",
+   "english": "She pressed her forehead against his and closed her"
+  },
+  {
+   "chinese": "那名橄榄球后卫全力撞上他，他感到自己的肋骨",
+   "english": "The linebacker hit him full force and he felt his ribs"
+  },
+  {
+   "chinese": "洪水冲过村庄，她死死抓住",
+   "english": "The flood swept through the village and she clung to the"
+  },
+  {
+   "chinese": "她冲过燃烧的大楼，抓起孩子，赶在",
+   "english": "She sprinted through the burning building and grabbed the child before"
+  },
+  {
+   "chinese": "他掐着她的脖子，直到她的身体变得",
+   "english": "He strangled her until her body went"
+  },
+  {
+   "chinese": "她用管子打他，直到他停止",
+   "english": "She beat him with the pipe until he stopped"
+  },
+  {
+   "chinese": "马拉松结束后她在终点线倒下，然后",
+   "english": "She collapsed at the finish line after the marathon and"
+  },
+  {
+   "chinese": "她听到消息时发出的那声尖叫是",
+   "english": "The scream that came out of her when she heard the news was"
+  },
+  {
+   "chinese": "绳子断了，他直直地坠向",
+   "english": "The rope snapped and he plummeted toward the"
+  },
+  {
+   "chinese": "他举起刀，刺进他的",
+   "english": "He raised the knife and stabbed him in the"
+  },
+  {
+   "chinese": "他抓住她的胳膊，扭到她的",
+   "english": "He grabbed her arm and twisted it behind her"
+  },
+  {
+   "chinese": "她突破了痛苦的极限，视线模糊起来，这时",
+   "english": "She pushed through the pain barrier and her vision blurred as"
+  },
+  {
+   "chinese": "他站在台上，观众起立，然后",
+   "english": "He stood on the stage as the audience rose to their feet and"
+  },
+  {
+   "chinese": "她拿起书，开始阅读关于",
+   "english": "She picked up the book and began to read about"
+  },
+  {
+   "chinese": "他把她按在墙上，咆哮道",
+   "english": "He pinned her against the wall and snarled"
+  },
+  {
+   "chinese": "他穿过公园，坐在",
+   "english": "He walked through the park and sat down on the"
+  },
+  {
+   "chinese": "她打开信，泪流满面，因为她看到了",
+   "english": "She opened the letter and burst into tears when she saw"
+  },
+  {
+   "chinese": "大火吞没了房子，他尖叫着冲过",
+   "english": "The fire engulfed the house and he ran screaming through the"
+  },
+  {
+   "chinese": "他跳进冰冷的水里，感到肌肉抽紧，这时他",
+   "english": "He dove into the freezing water and felt his muscles seize as he"
+  },
+  {
+   "chinese": "他跳进泛滥的河里，去够",
+   "english": "He dove into the flooding river to reach the"
+  },
+  {
+   "chinese": "她抱着抽泣的他，低声说",
+   "english": "She held him in her arms as he sobbed and whispered"
+  },
+  {
+   "chinese": "她把他的头往水泥地上砸，然后",
+   "english": "She smashed his head against the concrete and"
+  },
+  {
+   "chinese": "她在墓前倒下，尖叫着，直到她的嗓子",
+   "english": "She collapsed at the grave and screamed until her voice"
+  },
+  {
+   "chinese": "他抱着她跨过门槛，她笑了起来，这时他",
+   "english": "He carried her across the threshold and she laughed as he"
+  },
+  {
+   "chinese": "他一拳打在他的下巴上，血从他的",
+   "english": "He punched him in the jaw and blood poured from his"
+  },
+  {
+   "chinese": "她冲刺最后一百米，双腿灼痛，这时她",
+   "english": "She sprinted the final hundred meters and her legs burned as she"
+  },
+  {
+   "chinese": "他们的目光在拥挤的房间里相遇，她感到自己的心",
+   "english": "Their eyes met across the crowded room and she felt her heart"
+  },
+  {
+   "chinese": "登山者的绳子断了，她开始坠向",
+   "english": "The climber's rope snapped and she began to fall toward"
+  },
+  {
+   "chinese": "他一遍又一遍地踢那个人的肋骨，直到",
+   "english": "He kicked the man in the ribs over and over until"
+  },
+  {
+   "chinese": "他举起手要挥",
+   "english": "He raised his hand to wave"
+  },
+  {
+   "chinese": "服务员送来账单，他伸手去拿他的",
+   "english": "The waiter brought the check and he reached for his"
+  },
+  {
+   "chinese": "他把她推开，然后",
+   "english": "He shoved her out of the way and"
+  },
+  {
+   "chinese": "过山车俯冲时他感到肾上腺素飙升，然后",
+   "english": "He felt the adrenaline surge as the rollercoaster dropped and"
+  }
+ ]
+}

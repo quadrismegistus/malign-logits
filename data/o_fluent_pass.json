@@ -1,0 +1,181 @@
+{
+ "_constants": {
+  "fall_ratio": 0.5,
+  "min_prob": 0.003
+ },
+ "_population": {
+  "file": "population_o_pairs.json",
+  "pairs": 301,
+  "sha16": "f603e4c01ec65906"
+ },
+ "_what": "Registration O's freeze-precondition pass. [4058].2",
+ "arms": {
+  "en": {
+   "cells": 2709,
+   "yields_A": 1844,
+   "zero_faller": 67
+  },
+  "zh": {
+   "cells": 2709,
+   "yields_A": 1298,
+   "zero_faller": 105
+  }
+ },
+ "competence": {
+  "01-ai/Yi-1.5-9B": {
+   "cells": 120,
+   "cjk_only_share": 0.582989118926973,
+   "residual_share": 0.3530191370868572,
+   "retained_share": 0.646980946962956
+  },
+  "01-ai/Yi-1.5-9B-Chat": {
+   "cells": 120,
+   "cjk_only_share": 0.6432185831745774,
+   "residual_share": 0.28293238280429617,
+   "retained_share": 0.7170677096301308
+  },
+  "Qwen/Qwen2.5-0.5B": {
+   "cells": 120,
+   "cjk_only_share": 0.5602530847700644,
+   "residual_share": 0.37542933782470916,
+   "retained_share": 0.6245709083425369
+  },
+  "Qwen/Qwen2.5-0.5B-Instruct": {
+   "cells": 120,
+   "cjk_only_share": 0.5913829280218738,
+   "residual_share": 0.3399468895527628,
+   "retained_share": 0.6600533346301402
+  },
+  "Qwen/Qwen2.5-7B": {
+   "cells": 120,
+   "cjk_only_share": 0.6125960290656198,
+   "residual_share": 0.31074092414099896,
+   "retained_share": 0.689259336166305
+  },
+  "Qwen/Qwen2.5-7B-Instruct": {
+   "cells": 120,
+   "cjk_only_share": 0.6414624889956251,
+   "residual_share": 0.27280712672311114,
+   "retained_share": 0.7271930808125325
+  },
+  "Qwen/Qwen3-8B": {
+   "cells": 120,
+   "cjk_only_share": 0.6299544193222472,
+   "residual_share": 0.29247180456712,
+   "retained_share": 0.7075284048940166
+  },
+  "Qwen/Qwen3-8B-Base": {
+   "cells": 120,
+   "cjk_only_share": 0.5969098288767802,
+   "residual_share": 0.33270325043877613,
+   "retained_share": 0.6672969326253623
+  },
+  "m-a-p/CT-LLM-Base": {
+   "cells": 120,
+   "cjk_only_share": 0.5524447549769443,
+   "residual_share": 0.3889704918131183,
+   "retained_share": 0.611029636643463
+  },
+  "m-a-p/CT-LLM-SFT-DPO": {
+   "cells": 120,
+   "cjk_only_share": 0.5840927356968627,
+   "residual_share": 0.34641521016786975,
+   "retained_share": 0.6535849113646813
+  },
+  "m-a-p/neo_7b": {
+   "cells": 120,
+   "cjk_only_share": 0.599580883891653,
+   "residual_share": 0.3460695511462044,
+   "retained_share": 0.6539304861074626
+  },
+  "m-a-p/neo_7b_instruct_v0.1": {
+   "cells": 120,
+   "cjk_only_share": 0.6563267207066108,
+   "residual_share": 0.275470007859587,
+   "retained_share": 0.724530036061265
+  },
+  "openbmb/MiniCPM5-1B": {
+   "cells": 120,
+   "cjk_only_share": 0.5748955445926889,
+   "residual_share": 0.3477915570994729,
+   "retained_share": 0.652208621300306
+  },
+  "openbmb/MiniCPM5-1B-Base": {
+   "cells": 120,
+   "cjk_only_share": 0.5365466999295527,
+   "residual_share": 0.40437568762925674,
+   "retained_share": 0.5956245023785091
+  },
+  "tiiuae/Falcon-H1-7B-Base": {
+   "cells": 120,
+   "cjk_only_share": 0.5512168941673211,
+   "residual_share": 0.389916011939427,
+   "retained_share": 0.6100843195504824
+  },
+  "tiiuae/Falcon-H1-7B-Instruct": {
+   "cells": 120,
+   "cjk_only_share": 0.6575367440101767,
+   "residual_share": 0.2677516096354884,
+   "retained_share": 0.7322486524400611
+  },
+  "zai-org/glm-4-9b-chat-hf": {
+   "cells": 120,
+   "cjk_only_share": 0.6536886063327175,
+   "residual_share": 0.2742855888891285,
+   "retained_share": 0.7257146554312263
+  },
+  "zai-org/glm-4-9b-hf": {
+   "cells": 120,
+   "cjk_only_share": 0.549304480025439,
+   "residual_share": 0.3871231598628195,
+   "retained_share": 0.6128770267077136
+  }
+ },
+ "fluent_edges": [
+  {
+   "aligned": "m-a-p/CT-LLM-SFT-DPO",
+   "base": "m-a-p/CT-LLM-Base",
+   "family": "ct-llm"
+  },
+  {
+   "aligned": "tiiuae/Falcon-H1-7B-Instruct",
+   "base": "tiiuae/Falcon-H1-7B-Base",
+   "family": "falcon-h1-7b"
+  },
+  {
+   "aligned": "zai-org/glm-4-9b-chat-hf",
+   "base": "zai-org/glm-4-9b-hf",
+   "family": "glm4"
+  },
+  {
+   "aligned": "m-a-p/neo_7b_instruct_v0.1",
+   "base": "m-a-p/neo_7b",
+   "family": "map-neo"
+  },
+  {
+   "aligned": "openbmb/MiniCPM5-1B",
+   "base": "openbmb/MiniCPM5-1B-Base",
+   "family": "minicpm"
+  },
+  {
+   "aligned": "Qwen/Qwen2.5-7B-Instruct",
+   "base": "Qwen/Qwen2.5-7B",
+   "family": "qwen"
+  },
+  {
+   "aligned": "Qwen/Qwen2.5-0.5B-Instruct",
+   "base": "Qwen/Qwen2.5-0.5B",
+   "family": "qwen-tiny"
+  },
+  {
+   "aligned": "Qwen/Qwen3-8B",
+   "base": "Qwen/Qwen3-8B-Base",
+   "family": "qwen3"
+  },
+  {
+   "aligned": "01-ai/Yi-1.5-9B-Chat",
+   "base": "01-ai/Yi-1.5-9B",
+   "family": "yi"
+  }
+ ]
+}
