@@ -48,6 +48,25 @@ This is the shape of Freud's Verschiebung and it is the only cell in the instrum
 | `pitch = B_STRONGER` | negative | rev2 calibration, -0.133 |
 | `becomes_speech` | positive, weak | rev2 calibration, +0.053, p=0.076. Not expected to clear 0.05 |
 
+**Declared stage-1-derived, one test. The conditional.** `pitch = B_MILDER` restricted to annotations where `register = B_CONTINUES` is positive, **and larger than** the same quantity restricted to `register = B_GENERIC`.
+
+This is where the finding actually lives, and it was discovered at stage 1 rather than predicted before it. Stage 1 gave +0.205 (p=0.0076, n=41 pairs) inside B_CONTINUES against +0.037 (p=0.22, n=63) inside B_GENERIC. Read plainly: the substitute comes in milder only when it stays in the scene, and a substitute that goes generic does not soften because it carries nothing either way.
+
+It is labelled derived and it stays labelled derived in every report. It is tested on held-out data under the same rule as everything else, predicted sign and p < 0.05, which is the only thing that makes a stage-1 discovery worth anything. Two limits travel with it: n was 41 pairs, and conditioning on `register` means conditioning on a coder's own judgement rather than on an assigned condition.
+
+**The decoy arm, and why stage 2 is not complete without it.** `register = B_GENERIC` took 54.2% of stage-1 annotations. R's CO_ACT took 59% and was killed for it, but the thing that killed it was not the share: it was that words which NEVER MOVED took the label at the same rate, so it carried no information about alignment. Stage 1 has no non-movers and could not run that test.
+
+Stage 2 therefore includes both decoy sets already built for R, at FR only, B = decoy:
+
+| arm | file | light verbs | n |
+|---|---|---|---|
+| RANDOM | `r_confirm_decoys_random.parquet` | 27.0% | 508 |
+| RANDOM_NL | `r_confirm_decoys_randomNL.parquet` | 0.0% | 507 |
+
+RANDOM is population-matched: the eligible pool is 24.2% light verbs, so a uniform draw is the fair comparison. RANDOM_NL is the harder one, contentful words that did not move. The argmax decoy set is NOT used; it is 35.0% light verbs against the pool's 24.2% and its composition was the effect in R.
+
+**Stated before the run: if `B_GENERIC` fires at the same rate on non-movers as on risers, the arm carries no information about alignment and the deflation secondary is withdrawn.** That sentence is the whole reason the arm exists, and it is written here so that a null cannot be reinterpreted afterwards as evidence of anything else. The conditional above does not depend on this, because it compares B_MILDER across arms rather than reading the arms themselves.
+
 **No prediction. Symmetric by construction, and their difference estimates position bias.** `related`, `substitutable`, `bare_verb`. Whatever they show is the coders' thumb on the scale and it is the correction the directional numbers need. On the R corpus this ran at 0.010. None of the three may be reported as an effect, and `related` is a validity floor at ceiling that is not to be analyzed at all.
 
 ## What counts as confirmation

@@ -1,0 +1,61 @@
+{
+ "frame": "meta/M01_displacement/results/s_calibration_50x2x2.parquet",
+ "tag": "S3",
+ "models": [
+  "deepseek/deepseek-v4-pro",
+  "deepseek/deepseek-v4-flash",
+  "google/gemini-3.6-flash",
+  "google/gemini-2.5-flash",
+  "anthropic/claude-haiku-4-5-20251001",
+  "anthropic/claude-sonnet-5",
+  "openai/gpt-5.4-mini"
+ ],
+ "fields": [
+  "bare_verb",
+  "related",
+  "pitch",
+  "more_transgressive",
+  "substitutable",
+  "becomes_speech",
+  "register"
+ ],
+ "items": 200,
+ "annotations": 1400,
+ "per_model": {
+  "deepseek/deepseek-v4-pro": {
+   "parsed": 200,
+   "of": 200,
+   "usage": "usage: 200 calls  prompt=916,712 (cache_read=896,000, write=0, fresh=20,712) output=56,223  cache_hit_rate=97.7%"
+  },
+  "deepseek/deepseek-v4-flash": {
+   "parsed": 200,
+   "of": 200,
+   "usage": "usage: 200 calls  prompt=916,712 (cache_read=896,000, write=0, fresh=20,712) output=55,243  cache_hit_rate=97.7%"
+  },
+  "google/gemini-3.6-flash": {
+   "parsed": 200,
+   "of": 200,
+   "usage": "usage: 200 calls  prompt=931,090 (cache_read=0, write=0, fresh=931,090) output=49,312  cache_hit_rate=0.0%"
+  },
+  "google/gemini-2.5-flash": {
+   "parsed": 200,
+   "of": 200,
+   "usage": "usage: 202 calls  prompt=940,446 (cache_read=604,580, write=0, fresh=335,866) output=54,012  cache_hit_rate=64.3%"
+  },
+  "anthropic/claude-haiku-4-5-20251001": {
+   "parsed": 200,
+   "of": 200,
+   "usage": "usage: 200 calls  prompt=991,792 (cache_read=975,348, write=9,852, fresh=6,592) output=66,821  cache_hit_rate=98.3%"
+  },
+  "anthropic/claude-sonnet-5": {
+   "parsed": 200,
+   "of": 200,
+   "usage": "usage: 200 calls  prompt=1,378,910 (cache_read=1,364,145, write=6,855, fresh=7,910) output=93,549  cache_hit_rate=98.9%  DROPPED PARAMS: temperature x200"
+  },
+  "openai/gpt-5.4-mini": {
+   "parsed": 200,
+   "of": 200,
+   "usage": "usage: 200 calls  prompt=887,478 (cache_read=752,640, write=0, fresh=134,838) output=48,684  cache_hit_rate=84.8%"
+  }
+ }
+}
