@@ -1,0 +1,110 @@
+{
+ "_limits": [
+  "42 control pairs against 700 transgressive. The control side is small and the interval is wide; this bounds the comparison, it does not settle it.",
+  "The controls are HETEROGENEOUS and pooling them assumes only that they share the property of not being transgressive. speaker_position is 18 of 42 and is not a lexical swap at all -- individual vs institutional speaker is a substantial semantic change, so the pooled control is if anything an OVERestimate of what an ordinary minimal edit does.",
+  "DESCRIPTIVE. No hypothesis was registered for any number here.",
+  "**SIZE IS NOT WHERE THEY DIFFER.** A transgressive swap and an ordinary pole swap move substitution by nearly the same per-pair MAGNITUDE (0.0114 vs 0.0095). They differ in whether the DIRECTION is systematic: 5.3x chance for transgressive, 1.2x for the poles. H1's small signed effect is not a small effect in noise -- it is the systematic component of a per-pair effect five times larger and mostly idiosyncratic in direction.",
+  "The F11 poles are DELIBERATELY MAXIMAL semantic contrasts (beautiful/disgusting, holy/filthy, free/captive), not a random sample of ordinary edits. That they only MATCH the transgressive magnitude is therefore the conservative reading.",
+  "This replaces [4531]'s 5-26x framing, which compared a one-word delta to a whole-collection delta and was therefore vacuous. RH's objection, and he is right."
+ ],
+ "_pooled_control": {
+  "ci95": [
+   -0.029576009584558405,
+   -0.012835062936366246
+  ],
+  "diff": -0.021205536260462326,
+  "n_clusters": 33,
+  "pairs": 27
+ },
+ "channel_swap": {
+  "ci95": [
+   -0.015762703266168347,
+   0.019182765608410743
+  ],
+  "diff": 0.0017100311711211996,
+  "keys": 73,
+  "n_clusters": 32,
+  "pairs": 2
+ },
+ "f11_pole_swap": {
+  "_note": "the SIGNED mean cancels arbitrary orderings; compare mean_abs_per_pair_diff to h1_recomputed.mean_abs, NOT to |H1 mean|",
+  "ci95": [
+   -0.009134253235333465,
+   0.0017106681470255782
+  ],
+  "diff": -0.003711792544153943,
+  "h1_recomputed": {
+   "mean_abs": 0.011425765929798498,
+   "mean_signed": -0.0023134576649087375,
+   "n_stems": 684,
+   "signed_over_chance": 5.2954672273815495
+  },
+  "keys": 309,
+  "mean_abs_per_pair_diff": 0.009471213107133034,
+  "n_clusters": 32,
+  "pair_ids": [
+   "f11_beauty",
+   "f11_beauty_ugly",
+   "f11_captive_b",
+   "f11_gender_he",
+   "f11_gender_she",
+   "f11_holy",
+   "f11_holy_b",
+   "f11_parent",
+   "f11_species"
+  ],
+  "pairs": 9,
+  "ratio_magnitudes_f11_over_transgressive": 0.8289346346954323,
+  "ratio_transgressive_over_pole": 0.6231490506232534
+ },
+ "grievance_swap": {
+  "ci95": [
+   -0.0231689494633159,
+   0.015760566743987667
+  ],
+  "diff": -0.003704191359664118,
+  "keys": 107,
+  "n_clusters": 32,
+  "pairs": 3
+ },
+ "register_swap": {
+  "ci95": [
+   -0.0035286609834432035,
+   0.00825653271174187
+  ],
+  "diff": 0.0023639358641493334,
+  "keys": 74,
+  "n_clusters": 33,
+  "pairs": 2
+ },
+ "role_swap": {
+  "ci95": [
+   -0.06294797561397343,
+   -0.003776474289438156
+  ],
+  "diff": -0.03336222495170579,
+  "keys": 70,
+  "n_clusters": 32,
+  "pairs": 2
+ },
+ "speaker_position": {
+  "ci95": [
+   -0.039196910444156526,
+   -0.018843531241463055
+  ],
+  "diff": -0.02902022084280979,
+  "keys": 636,
+  "n_clusters": 33,
+  "pairs": 18
+ },
+ "transgressive_swap": {
+  "ci95": [
+   -0.0042053290539667346,
+   -0.0004808840896341534
+  ],
+  "diff": -0.002343106571800444,
+  "keys": 24912,
+  "n_clusters": 34,
+  "pairs": 693
+ }
+}
