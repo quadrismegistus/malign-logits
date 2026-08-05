@@ -2,6 +2,14 @@
 
 Written 2026-08-05, before the run. No hashes, no escrow, no countersignature. The only thing this document does is say what I expect before I look, because the 255 stems below are the last vv\*-eligible stems that exist and there is nothing behind them to replicate on.
 
+## Two stages
+
+**Stage 1, the spent 50.** The 50 stems already burned on the revision-2 calibration, re-run under revision 3. They can never be confirmatory, so this costs no held-out sample. It exists to answer one question the six smoke items cannot: what is the base rate of the primary conjunction? A joint prediction with no base rate cannot be powered, and finding out on the held-out 255 would mean finding out after 7,140 calls. 200 items, 7 coders, about 1,400 calls.
+
+Stage 1 is a pilot for predictions that were written and committed before it ran. It does not set them. If stage 1 contradicts the primary, the primary stays as written and stage 2 tests it anyway; a pilot that revises its own hypothesis is not a pilot.
+
+**Stage 2, the held-out 255.** The confirmatory. Described below.
+
 ## What is being run
 
 The 255 held-out stems, both members, both orders, 7 coders.
@@ -22,18 +30,21 @@ Test: sign-flip permutation on those per-stem differences, 20,000 draws, seed 20
 
 ## Predictions
 
-**Primary, one test.** `register = B_GENERIC` is **positive**. Risen words are more often words that would fit almost any scene.
+**Primary, one test. The displacement conjunction.** `register = B_CONTINUES` **and** `pitch = B_MILDER` **together** is positive, **and the conjunction exceeds the product of its two marginals**. Both conditions, or the primary is not confirmed.
 
-This is the light-verb finding restated as a hypothesis instead of a defect. The argmax decoy rule over-selected light verbs at 35.0% against 24.2% in the pool, a uniform draw still took 27.0%, and the largest cluster in the R data is `sat -> found`, `drove -> found`, `went -> found`. Alignment substituting a word that says less is the deflation claim, and this is the first instrument that can measure it directly.
+This is the shape of Freud's Verschiebung and it is the only cell in the instrument that has it: the substitute stays inside the scene and carries less charge. `kill -> scream` is exactly this. The second condition is what makes it a test of displacement rather than of its parts, because a conjunction can rise purely because one component rose. Positive dependence between staying-in-register and going-milder is the claim; the marginals alone are not.
 
-**Secondary, six tests, reported at nominal p with the count stated.**
+**Amended 2026-08-05, before any revision-3 data existed on real items.** The first draft made `register = B_GENERIC` primary. That is the wrong cell for this hypothesis. In Freud the affect has to attach somewhere else; if the substitute simply declines to carry the charge while the setup clause keeps it, nothing has transferred, and that is nearer repression than displacement. B_GENERIC remains a declared secondary because deflation is a real and separate finding, but it is not the displacement claim and must not be reported as one.
+
+**Secondary, seven tests, reported at nominal p with the count stated.**
 
 | field | predicted sign | basis |
 |---|---|---|
-| `register = B_DIFFERENT_REGISTER` | positive, smaller than the primary | redirection: the substitute says something else rather than less |
-| `register = B_CONTINUES` | negative | complement of the two above |
+| `register = B_GENERIC` | positive | deflation, NOT displacement. Light verbs were 35.0% of argmax picks against 24.2% of the pool, and `sat/drove/went -> found` is the largest cluster in the R data |
+| `register = B_DIFFERENT_REGISTER` | positive, smaller | redirection: the substitute says something else rather than less |
+| `register = B_CONTINUES` | no predicted sign | it is a component of the primary and reported for interpretation only |
 | `more_transgressive` | negative | rev2 calibration, -0.129 |
-| `pitch = B_MILDER` | positive | rev2 calibration, +0.104 |
+| `pitch = B_MILDER` | positive | rev2 calibration, +0.104. Also a component of the primary |
 | `pitch = B_STRONGER` | negative | rev2 calibration, -0.133 |
 | `becomes_speech` | positive, weak | rev2 calibration, +0.053, p=0.076. Not expected to clear 0.05 |
 
