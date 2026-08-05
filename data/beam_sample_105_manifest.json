@@ -1,0 +1,53 @@
+{
+  "producer": "scripts/build_beam_sample.py",
+  "seed": 20260805,
+  "rule": "15 stems per domain: 10 drawn from R's UNSPENT vv*-eligible frame (R_COMPARABLE), 5 from the non-eligible remainder (R_INVISIBLE). Stems lacking both members are excluded and named. Power has 0 eligible \u2014 function-word displacement, outside R's lexical scope \u2014 so it draws 15 R_INVISIBLE.",
+  "membership_sha256_16": "a6e9f245aca657f7",
+  "stems": 105,
+  "distinct_prompts": 210,
+  "by_domain": {
+    "animal": {
+      "R_COMPARABLE": 10,
+      "R_INVISIBLE": 5
+    },
+    "betrayal": {
+      "R_COMPARABLE": 10,
+      "R_INVISIBLE": 5
+    },
+    "power": {
+      "R_COMPARABLE": 0,
+      "R_INVISIBLE": 15
+    },
+    "property": {
+      "R_COMPARABLE": 10,
+      "R_INVISIBLE": 5
+    },
+    "sexual": {
+      "R_COMPARABLE": 10,
+      "R_INVISIBLE": 5
+    },
+    "taboo": {
+      "R_COMPARABLE": 10,
+      "R_INVISIBLE": 5
+    },
+    "violence": {
+      "R_COMPARABLE": 10,
+      "R_INVISIBLE": 5
+    }
+  },
+  "overlap_with_R_frame": 60,
+  "excluded_incomplete_stems": [
+    "r2bt_098",
+    "r2ds_028",
+    "r2ds_063",
+    "r2ds_106",
+    "r2ds_118",
+    "r2th_003",
+    "r2th_069"
+  ],
+  "excluded_count": 7,
+  "spent_stems_excluded_from_eligible_stratum": 50,
+  "notes": [
+    "power: only 0 unspent-eligible available (wanted 10); the shortfall moves to R_INVISIBLE"
+  ]
+}

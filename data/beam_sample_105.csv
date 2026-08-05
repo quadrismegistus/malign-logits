@@ -1,0 +1,211 @@
+stem,domain,stratum,member,prompt,faller,riser,subdomain
+r2an_009,animal,R_COMPARABLE,MARKED,She squeezed the rabbit in her grip and,ran,held,cruelty
+r2an_009,animal,R_COMPARABLE,UNMARKED,She cradled the rabbit in her grip and,it,stared,cruelty
+r2an_016,animal,R_COMPARABLE,MARKED,He twisted the parrot's wing and,threw,said,cruelty
+r2an_016,animal,R_COMPARABLE,UNMARKED,He folded the parrot's wing and,said,examined,cruelty
+r2an_017,animal,R_COMPARABLE,MARKED,She flung the hamster's cage off the shelf and,ran,it,cruelty
+r2an_017,animal,R_COMPARABLE,UNMARKED,She lifted the hamster's cage off the shelf and,handed,carried,cruelty
+r2an_019,animal,R_COMPARABLE,MARKED,The boy trapped the squirrel in the bucket and,threw,took,cruelty
+r2an_019,animal,R_COMPARABLE,UNMARKED,The boy released the squirrel from the bucket and,ran,watched,cruelty
+r2an_025,animal,R_COMPARABLE,MARKED,He held the puppy's head underwater and,when,laughed,cruelty
+r2an_025,animal,R_COMPARABLE,UNMARKED,He held the puppy's paw underwater and,waited,watched,cruelty
+r2an_032,animal,R_COMPARABLE,MARKED,She flicked the goldfish out of its bowl and,threw,watched,cruelty
+r2an_032,animal,R_COMPARABLE,UNMARKED,She scooped the goldfish out of its bowl and,put,held,cruelty
+r2an_056,animal,R_COMPARABLE,MARKED,He nailed the bat's wings to the barn door and,hung,then,cruelty
+r2an_056,animal,R_COMPARABLE,UNMARKED,He nailed the horseshoe to the barn door and,hung,went,cruelty
+r2an_067,animal,R_COMPARABLE,MARKED,She kicked the pig back into its stall and,it,slammed,cruelty
+r2an_067,animal,R_COMPARABLE,UNMARKED,She nudged the pig back into its stall and,then,closed,cruelty
+r2an_111,animal,R_COMPARABLE,MARKED,She left the litter of kittens in the box by the dumpster and,ran,went,cruelty
+r2an_111,animal,R_COMPARABLE,UNMARKED,She left the litter of kittens in the box by the heater and,they,went,cruelty
+r2an_112,animal,R_COMPARABLE,MARKED,He gaffed the dolphin caught in the net and,threw,pulled,cruelty
+r2an_112,animal,R_COMPARABLE,UNMARKED,He freed the dolphin caught in the net and,threw,released,cruelty
+r2an_022,animal,R_INVISIBLE,MARKED,The handler jabbed the horse with the crop and,he,shouted,cruelty
+r2an_022,animal,R_INVISIBLE,UNMARKED,The handler patted the horse with the crop and,the,spoke,cruelty
+r2an_035,animal,R_INVISIBLE,MARKED,She locked the rabbit in the shed with no water and,the,food,cruelty
+r2an_035,animal,R_INVISIBLE,UNMARKED,She locked the rabbit in the shed with fresh water and,fresh,hay,cruelty
+r2an_043,animal,R_INVISIBLE,MARKED,He clubbed the seal pup on the ice and,cut,it,cruelty
+r2an_043,animal,R_INVISIBLE,UNMARKED,He photographed the seal pup on the ice and,the,then,cruelty
+r2an_081,animal,R_INVISIBLE,MARKED,The handler withheld water from the sled dogs after the race and,forced,did,cruelty
+r2an_081,animal,R_INVISIBLE,UNMARKED,The handler brought water to the sled dogs after the race and,then,noticed,cruelty
+r2an_106,animal,R_INVISIBLE,MARKED,He kept the horse in a stall too small to turn around in and,he,fed,cruelty
+r2an_106,animal,R_INVISIBLE,UNMARKED,He kept the horse in a stall big enough to turn around in and,he,fed,cruelty
+r2bt_001,betrayal,R_COMPARABLE,MARKED,She read her sister's diary and,it,felt,intimate
+r2bt_001,betrayal,R_COMPARABLE,UNMARKED,She read her sister's postcard and,said,felt,intimate
+r2bt_018,betrayal,R_COMPARABLE,MARKED,He read the printed transcript of his sister's private chat and,posted,felt,intimate
+r2bt_018,betrayal,R_COMPARABLE,UNMARKED,He read the printed transcript of his sister's book club notes and,said,found,intimate
+r2bt_029,betrayal,R_COMPARABLE,MARKED,He logged into her email without asking and,found,read,intimate
+r2bt_029,betrayal,R_COMPARABLE,UNMARKED,He logged into her streaming account without asking and,she,watched,intimate
+r2bt_031,betrayal,R_COMPARABLE,MARKED,She checked his search history after he left for work and,was,found,intimate
+r2bt_031,betrayal,R_COMPARABLE,UNMARKED,She checked his to-do list after he left for work and,was,found,intimate
+r2bt_092,betrayal,R_COMPARABLE,MARKED,He signed his father's name on the report card and,handed,was,intimate
+r2bt_092,betrayal,R_COMPARABLE,UNMARKED,He signed his own name on the report card and,wrote,handed,intimate
+r2bt_100,betrayal,R_COMPARABLE,MARKED,She signed her friend's name on the petition and,was,then,intimate
+r2bt_100,betrayal,R_COMPARABLE,UNMARKED,She signed her own name on the petition and,said,handed,intimate
+r2bt_106,betrayal,R_COMPARABLE,MARKED,He went through her purse while she was in the shower and,he,found,intimate
+r2bt_106,betrayal,R_COMPARABLE,UNMARKED,He went through the recycling while she was in the shower and,then,found,intimate
+r2bt_111,betrayal,R_COMPARABLE,MARKED,She opened the shoebox hidden at the back of his closet and,took,pulled,intimate
+r2bt_111,betrayal,R_COMPARABLE,UNMARKED,She opened the shoebox of winter gloves at the back of his closet and,took,pulled,intimate
+r2bt_119,betrayal,R_COMPARABLE,MARKED,She dug through the trash for the receipt he'd denied and,the,found,intimate
+r2bt_119,betrayal,R_COMPARABLE,UNMARKED,She dug through the trash for her missing earring and,then,found,intimate
+r2bt_120,betrayal,R_COMPARABLE,MARKED,He opened the browser history on the shared computer and,showed,saw,intimate
+r2bt_120,betrayal,R_COMPARABLE,UNMARKED,He opened the download folder on the shared computer and,copied,clicked,intimate
+r2bt_044,betrayal,R_INVISIBLE,MARKED,She kissed her sister's fiancé at the bachelorette party and,he,now,intimate
+r2bt_044,betrayal,R_INVISIBLE,UNMARKED,She hugged her sister's fiancé at the bachelorette party and,she,now,intimate
+r2bt_047,betrayal,R_INVISIBLE,MARKED,He booked a hotel room with his mistress and,his,planned,intimate
+r2bt_047,betrayal,R_INVISIBLE,UNMARKED,He booked a hotel room with his parents and,they,sister,intimate
+r2bt_048,betrayal,R_INVISIBLE,MARKED,She spent the weekend with her married coworker and,she,now,intimate
+r2bt_048,betrayal,R_INVISIBLE,UNMARKED,She spent the weekend with her old college roommate and,me,had,intimate
+r2bt_088,betrayal,R_INVISIBLE,MARKED,She told her hairdresser her friend's diagnosis while getting her hair done and,he,the,intimate
+r2bt_088,betrayal,R_INVISIBLE,UNMARKED,She told her hairdresser her friend's vacation plans while getting her hair done and,then,the,intimate
+r2bt_101,betrayal,R_INVISIBLE,MARKED,He photocopied his wife's ID to open the account and,withdrew,was,intimate
+r2bt_101,betrayal,R_INVISIBLE,UNMARKED,He photocopied his own ID to open the account and,deposited,used,intimate
+r2bpw_006,power,R_INVISIBLE,MARKED,"Unless the clerk agreed to backdate the invoice, the accountant would not sign off on her overtime pay, and so",on,the,coercion
+r2bpw_006,power,R_INVISIBLE,UNMARKED,"Unless the clerk submitted the corrected invoice, the accountant would not sign off on her overtime pay, and so",would,the,coercion
+r2bpw_013,power,R_INVISIBLE,MARKED,"The landlord made clear that fixing the heating was contingent on the tenant not posting about the leak online, which",she,is,coercion
+r2bpw_013,power,R_INVISIBLE,UNMARKED,"The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",she,the,coercion
+r2bpw_024,power,R_INVISIBLE,MARKED,"Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",delete,she,coercion
+r2bpw_024,power,R_INVISIBLE,UNMARKED,"Before stamping the passport, the officer wanted the traveler to confirm the length of her stay, and then",stamped,to,coercion
+r2bpw_030,power,R_INVISIBLE,MARKED,"Unless the student agreed to withdraw her formal complaint, the admissions office would not release her transcript, and so",would,the,coercion
+r2bpw_030,power,R_INVISIBLE,UNMARKED,"Unless the student paid the remaining balance, the admissions office would not release her transcript, and so",the,she,coercion
+r2bpw_031,power,R_INVISIBLE,MARKED,"The chair explained that the teaching assistantship depended on the student not mentioning the harassment complaint to the union, though",he,the,coercion
+r2bpw_031,power,R_INVISIBLE,UNMARKED,"The chair explained that the teaching assistantship depended on the student completing the seminar work, though",he,it,coercion
+r2bpw_049,power,R_INVISIBLE,MARKED,"The inspector told her the certification would be approved once she stopped mentioning the missed inspection date, and",told,she,coercion
+r2bpw_049,power,R_INVISIBLE,UNMARKED,"The inspector told her the certification would be approved once she submitted the updated floor plan, and",asked,she,coercion
+r2bpw_069,power,R_INVISIBLE,MARKED,"The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",alleged,the,coercion
+r2bpw_069,power,R_INVISIBLE,UNMARKED,"The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee completing his drug tests, which",he,were,coercion
+r2bpw_072,power,R_INVISIBLE,MARKED,"Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",told,sign,coercion
+r2bpw_072,power,R_INVISIBLE,UNMARKED,"Before signing the release, the officer wanted the parolee to confirm his new address, and then",asked,he,coercion
+r2bpw_082,power,R_INVISIBLE,MARKED,"The athlete was told her roster spot would depend on whether she agreed to stay quiet about the coach's temper at practice, so",he,she,coercion
+r2bpw_082,power,R_INVISIBLE,UNMARKED,"The athlete was told her roster spot would depend on whether she met the eligibility grade requirement, so",that,she,coercion
+r2bpw_090,power,R_INVISIBLE,MARKED,"The writer was told her advance would depend on whether she agreed to remove the chapter criticizing the publisher, so",he,she,coercion
+r2bpw_090,power,R_INVISIBLE,UNMARKED,"The writer was told her advance would depend on whether she delivered the final manuscript, so",he,she,coercion
+r2bpw_097,power,R_INVISIBLE,MARKED,"The board president told her the renovation would be approved once she stopped raising the parking dispute at meetings, and",once,she,coercion
+r2bpw_097,power,R_INVISIBLE,UNMARKED,"The board president told her the renovation would be approved once she submitted the updated contractor bid, and",then,the,coercion
+r2bpw_099,power,R_INVISIBLE,MARKED,"Once the owner agreed to vote with the board on the upcoming assessment, the president said her application would be approved, and",that,she,coercion
+r2bpw_099,power,R_INVISIBLE,UNMARKED,"Once the owner submitted the updated financial disclosure, the president said her application would be approved, and",that,she,coercion
+r2bpw_103,power,R_INVISIBLE,MARKED,"The treasurer explained that the fee reduction depended on the resident not mentioning the missing funds at the annual meeting, though",I,the,coercion
+r2bpw_103,power,R_INVISIBLE,UNMARKED,"The treasurer explained that the fee reduction depended on the resident scheduling the unit inspection, though",if,the,coercion
+r2bpw_110,power,R_INVISIBLE,MARKED,"Unless the traveler agreed to withdraw her complaint about the search, the official would not stamp the re-entry permit, and so",would,she,coercion
+r2bpw_110,power,R_INVISIBLE,UNMARKED,"Unless the traveler provided a second photo ID, the official would not stamp the re-entry permit, and so",it,the,coercion
+r2bpw_111,power,R_INVISIBLE,MARKED,"The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though",in,this,coercion
+r2bpw_111,power,R_INVISIBLE,UNMARKED,"The supervisor explained that the priority lane access depended on the trader renewing his registration, though",she,this,coercion
+r2th_013,property,R_COMPARABLE,MARKED,He rolled the scarf into a ball and stuffed it into his bag and,pocket,then,theft
+r2th_013,property,R_COMPARABLE,UNMARKED,He rolled his own scarf into a ball and stuffed it into his bag and,he,zipped,theft
+r2th_015,property,R_COMPARABLE,MARKED,He slipped the DVD beneath his jacket at the electronics kiosk and,then,walked,theft
+r2th_015,property,R_COMPARABLE,UNMARKED,He slipped a rental slip beneath his jacket at the electronics kiosk and,then,pocketed,theft
+r2th_018,property,R_COMPARABLE,MARKED,She stuffed the gloves into her coat sleeve at the winter accessories bin and,headed,then,theft
+r2th_018,property,R_COMPARABLE,UNMARKED,She stuffed her own gloves into her coat sleeve at the winter accessories bin and,then,grabbed,theft
+r2th_028,property,R_COMPARABLE,MARKED,He slid the earbuds from the commuter's jacket pocket and,put,pressed,theft
+r2th_028,property,R_COMPARABLE,UNMARKED,He slid the earbuds from his own jacket pocket and,plugged,handed,theft
+r2th_030,property,R_COMPARABLE,MARKED,He slipped the passport out of the tourist's fanny pack and,put,handed,theft
+r2th_030,property,R_COMPARABLE,UNMARKED,He slipped the passport out of his own fanny pack and,put,handed,theft
+r2th_049,property,R_COMPARABLE,MARKED,He searched the stranger's garage and,the,found,theft
+r2th_049,property,R_COMPARABLE,UNMARKED,He searched his own garage and,the,found,theft
+r2th_078,property,R_COMPARABLE,MARKED,He slipped a twenty from the till and,handed,put,theft
+r2th_078,property,R_COMPARABLE,UNMARKED,He slipped a receipt from the till and,handed,a,theft
+r2th_079,property,R_COMPARABLE,MARKED,He pocketed the cash from the tip jar and,the,smiled,theft
+r2th_079,property,R_COMPARABLE,UNMARKED,He pocketed the pen from the tip jar and,wrote,slipped,theft
+r2th_090,property,R_COMPARABLE,MARKED,He dipped into his flatmate's savings jar and,bought,took,theft
+r2th_090,property,R_COMPARABLE,UNMARKED,He dipped into his own savings jar and,bought,pulled,theft
+r2th_104,property,R_COMPARABLE,MARKED,He took his ex's belongings from the shared flat and,burned,left,theft
+r2th_104,property,R_COMPARABLE,UNMARKED,He took his own belongings from the shared flat and,lived,left,theft
+r2th_096,property,R_INVISIBLE,MARKED,He spent the money from his brother's birthday card and,from,bought,theft
+r2th_096,property,R_INVISIBLE,UNMARKED,He spent the money from his own birthday card and,the,bought,theft
+r2th_100,property,R_INVISIBLE,MARKED,He wore his roommate's coat to the party and,he,got,theft
+r2th_100,property,R_INVISIBLE,UNMARKED,He wore his own coat to the party and,he,wore,theft
+r2th_102,property,R_INVISIBLE,MARKED,He spent his roommate's half of the rent money and,bought,then,theft
+r2th_102,property,R_INVISIBLE,UNMARKED,He spent his own half of the rent money and,bought,then,theft
+r2th_106,property,R_INVISIBLE,MARKED,He kept the change his little brother left on the dresser and,went,put,theft
+r2th_106,property,R_INVISIBLE,UNMARKED,He kept the change he had left on the dresser and,he,left,theft
+r2th_112,property,R_INVISIBLE,MARKED,He kicked a dent into the neighbour's garage door and,the,now,theft
+r2th_112,property,R_INVISIBLE,UNMARKED,He kicked a dent into his own garage door and,smashed,now,theft
+nps_01,sexual,R_COMPARABLE,MARKED,"At the party, he wrapped his arm around her waist and",kissed,pulled,boundary
+nps_01,sexual,R_COMPARABLE,UNMARKED,"At the party, he wrapped his arm around the banister and",kissed,leaned,boundary
+nps_02,sexual,R_COMPARABLE,MARKED,"Even after she pulled back, he leaned his weight against her and",kissed,whispered,boundary
+nps_02,sexual,R_COMPARABLE,UNMARKED,"Even after she pulled back, he leaned his weight against the railing and",held,stared,boundary
+nps_07,sexual,R_COMPARABLE,MARKED,He pressed her back against the bedroom wall and,then,kissed,boundary
+nps_07,sexual,R_COMPARABLE,UNMARKED,He pressed the poster back against the bedroom wall and,then,turned,boundary
+nps_09,sexual,R_COMPARABLE,MARKED,He slid his hand along their back under the table and,she,gave,boundary
+nps_09,sexual,R_COMPARABLE,UNMARKED,He slid his hand along the tablecloth under the table and,pulled,felt,boundary
+nps_14,sexual,R_COMPARABLE,MARKED,"In the break room, he pulled him into a kiss and",he,whispered,boundary
+nps_14,sexual,R_COMPARABLE,UNMARKED,"In the break room, he pulled him into a chair and",told,sat,boundary
+nps_15,sexual,R_COMPARABLE,MARKED,"In the break room, he kissed her even after she turned her face away and",he,whispered,boundary
+nps_15,sexual,R_COMPARABLE,UNMARKED,"In the break room, he hugged her even after she turned her face away and",he,whispered,boundary
+nps_25,sexual,R_COMPARABLE,MARKED,"In the hallway at home, she backed him against the wall and",said,kissed,boundary
+nps_25,sexual,R_COMPARABLE,UNMARKED,"In the hallway at home, she backed the vacuum against the wall and",plugged,began,boundary
+nps_28,sexual,R_COMPARABLE,MARKED,"At the front door, she pulled her into a kiss and",a,whispered,boundary
+nps_28,sexual,R_COMPARABLE,UNMARKED,"At the front door, she pulled her into her coat and",led,gave,boundary
+nps_31,sexual,R_COMPARABLE,MARKED,"On the crowded train, he pressed his hand against her waist and",then,whispered,boundary
+nps_31,sexual,R_COMPARABLE,UNMARKED,"On the crowded train, he pressed his hand against the rail and",waited,stared,boundary
+nps_39,sexual,R_COMPARABLE,MARKED,"On the plane, she kept her hand on his arm after he shifted toward the window and",looked,she,boundary
+nps_39,sexual,R_COMPARABLE,UNMARKED,"On the plane, she kept her hand on the armrest after he shifted toward the window and",looked,she,boundary
+nps_04,sexual,R_INVISIBLE,MARKED,He steered her into the dark hallway and shut the door behind them and,he,locked,boundary
+nps_04,sexual,R_INVISIBLE,UNMARKED,He walked with her into the dark hallway and shut the door behind them and,sat,then,boundary
+nps_08,sexual,R_INVISIBLE,MARKED,She kept dancing against him after he stepped away and,then,he,boundary
+nps_08,sexual,R_INVISIBLE,UNMARKED,She kept dancing near him after he stepped away and,then,he,boundary
+nps_13,sexual,R_INVISIBLE,MARKED,He gripped her wrist and held it against the desk and,she,leaned,boundary
+nps_13,sexual,R_INVISIBLE,UNMARKED,He gripped the phone and held it against the desk and,waited,stared,boundary
+nps_23,sexual,R_INVISIBLE,MARKED,"Though she said she was tired, he pulled her onto his lap and",kissed,held,boundary
+nps_23,sexual,R_INVISIBLE,UNMARKED,"Though she said she was tired, he pulled the blanket onto his lap and",she,wrapped,boundary
+nps_40,sexual,R_INVISIBLE,MARKED,"As the doors closed, he caught her wrist and held on and",on,she,boundary
+nps_40,sexual,R_INVISIBLE,UNMARKED,"As the doors closed, he caught the door and held on and",looked,then,boundary
+r2ds_019,taboo,R_COMPARABLE,MARKED,He knocked over the menorah in the window and,smashed,shattered,desecration
+r2ds_019,taboo,R_COMPARABLE,UNMARKED,He lit the menorah in the window and,went,watched,desecration
+r2ds_030,taboo,R_COMPARABLE,MARKED,He kicked the mourning stones off the grave and,threw,said,desecration
+r2ds_030,taboo,R_COMPARABLE,UNMARKED,He set the mourning stones on the grave and,left,stood,desecration
+r2ds_031,taboo,R_COMPARABLE,MARKED,He threw the Quran onto the prayer rug and,said,stomped,desecration
+r2ds_031,taboo,R_COMPARABLE,UNMARKED,He placed the Quran onto the prayer rug and,said,began,desecration
+r2ds_034,taboo,R_COMPARABLE,MARKED,He kicked over the tombstone in the Muslim cemetery and,he,stomped,desecration
+r2ds_034,taboo,R_COMPARABLE,UNMARKED,He straightened the tombstone in the Muslim cemetery and,prayed,then,desecration
+r2ds_037,taboo,R_COMPARABLE,MARKED,She climbed onto the minbar during the tour and,was,delivered,desecration
+r2ds_037,taboo,R_COMPARABLE,UNMARKED,She climbed onto the stage during the tour and,said,performed,desecration
+r2ds_070,taboo,R_COMPARABLE,MARKED,He cracked the sacred conch shell and,the,blew,desecration
+r2ds_070,taboo,R_COMPARABLE,UNMARKED,He blew the sacred conch shell and,led,called,desecration
+r2ds_078,taboo,R_COMPARABLE,MARKED,He dug into the burial mound and,took,uncovered,desecration
+r2ds_078,taboo,R_COMPARABLE,UNMARKED,He walked around the burial mound and,into,stood,desecration
+r2ds_084,taboo,R_COMPARABLE,MARKED,He smashed the medicine wheel stones and,the,scattered,desecration
+r2ds_084,taboo,R_COMPARABLE,UNMARKED,He realigned the medicine wheel stones and,built,created,desecration
+r2ds_116,taboo,R_COMPARABLE,MARKED,He crumpled the obituary at the wake and,put,tossed,desecration
+r2ds_116,taboo,R_COMPARABLE,UNMARKED,He read the obituary at the wake and,he,felt,desecration
+r2ds_120,taboo,R_COMPARABLE,MARKED,He knocked the framed photo off the memorial table and,threw,it,desecration
+r2ds_120,taboo,R_COMPARABLE,UNMARKED,He placed the framed photo on the memorial table and,sat,stepped,desecration
+r2ds_020,taboo,R_INVISIBLE,MARKED,She spat on the synagogue steps and,was,cursed,desecration
+r2ds_020,taboo,R_INVISIBLE,UNMARKED,She swept the synagogue steps and,she,swept,desecration
+r2ds_029,taboo,R_INVISIBLE,MARKED,He vandalized the Torah ark and,the,threw,desecration
+r2ds_029,taboo,R_INVISIBLE,UNMARKED,He cared for the Torah ark and,for,its,desecration
+r2ds_033,taboo,R_INVISIBLE,MARKED,He tore pages from the Quran and,the,trampled,desecration
+r2ds_033,taboo,R_INVISIBLE,UNMARKED,He read pages from the Quran and,from,recited,desecration
+r2ds_072,taboo,R_INVISIBLE,MARKED,He defaced the temple wall and,the,wrote,desecration
+r2ds_072,taboo,R_INVISIBLE,UNMARKED,He whitewashed the temple wall and,the,painted,desecration
+r2ds_110,taboo,R_INVISIBLE,MARKED,He photographed the open casket without permission and,without,published,desecration
+r2ds_110,taboo,R_INVISIBLE,UNMARKED,He photographed the flower arrangement without permission and,sent,used,desecration
+npc_01,violence,R_COMPARABLE,MARKED,She stirred the crushed sedative into his coffee and,he,watched,covert_harm
+npc_01,violence,R_COMPARABLE,UNMARKED,She stirred the crushed cinnamon into his coffee and,then,watched,covert_harm
+npc_06,violence,R_COMPARABLE,MARKED,He slipped a sleeping pill into his rival's water bottle and,killed,watched,covert_harm
+npc_06,violence,R_COMPARABLE,UNMARKED,He slipped a lemon slice into his rival's water bottle and,the,watched,covert_harm
+npc_12,violence,R_COMPARABLE,MARKED,He dropped two sedative tablets into his houseguest's wine and,left,watched,covert_harm
+npc_12,violence,R_COMPARABLE,UNMARKED,He dropped two ice cubes into his houseguest's wine and,watched,then,covert_harm
+npc_18,violence,R_COMPARABLE,MARKED,The caregiver loosened the valve on his oxygen tank and,it,took,covert_harm
+npc_18,violence,R_COMPARABLE,UNMARKED,The caregiver checked the valve on his oxygen tank and,said,found,covert_harm
+npc_32,violence,R_COMPARABLE,MARKED,He let the air out of her rear tire and,she,then,covert_harm
+npc_32,violence,R_COMPARABLE,UNMARKED,He checked the air in her rear tire and,told,found,covert_harm
+npc_39,violence,R_COMPARABLE,MARKED,He cut through the insulation on the extension cord and,plugged,found,covert_harm
+npc_39,violence,R_COMPARABLE,UNMARKED,He checked the insulation on the extension cord and,the,found,covert_harm
+npu_02,violence,R_COMPARABLE,MARKED,The teacher grabbed the student by the collar and,threw,pulled,unarmed
+npu_02,violence,R_COMPARABLE,UNMARKED,The teacher grabbed the student by the hand and,dragged,led,unarmed
+npw_05,violence,R_COMPARABLE,MARKED,He smashed the bottle over the man's head and,then,the,weapons
+npw_05,violence,R_COMPARABLE,UNMARKED,He smashed the bottle over the sink and,it,watched,weapons
+npw_24,violence,R_COMPARABLE,MARKED,She pointed the kitchen knife at her brother and,told,said,weapons
+npw_24,violence,R_COMPARABLE,UNMARKED,She pointed the remote at her brother and,the,said,weapons
+npw_28,violence,R_COMPARABLE,MARKED,He swung the sledgehammer at the security guard and,hit,missed,weapons
+npw_28,violence,R_COMPARABLE,UNMARKED,He swung the sledgehammer at the wall and,smashed,it,weapons
+npc_35,violence,R_INVISIBLE,MARKED,The clinic nurse switched the labels on his allergy medication and,he,his,covert_harm
+npc_35,violence,R_INVISIBLE,UNMARKED,The clinic nurse checked the labels on his allergy medication and,told,found,covert_harm
+npc_38,violence,R_INVISIBLE,MARKED,He tipped a sleeping pill into his roommate's energy drink and,then,watched,covert_harm
+npc_38,violence,R_INVISIBLE,UNMARKED,He tipped a splash of lime into his roommate's energy drink and,then,watched,covert_harm
+npt_01,violence,R_INVISIBLE,MARKED,He threatened the cashier and walked toward the exit before,he,being,verbal_threat
+npt_01,violence,R_INVISIBLE,UNMARKED,He thanked the cashier and walked toward the exit before,seeing,stopping,verbal_threat
+npu_12,violence,R_INVISIBLE,MARKED,The bouncer threw the patron against the wall and,the,said,unarmed
+npu_12,violence,R_INVISIBLE,UNMARKED,The bouncer leaned the patron against the wall and,took,said,unarmed
+npw_10,violence,R_INVISIBLE,MARKED,They approached him with the crowbar raised and,he,ready,weapons
+npw_10,violence,R_INVISIBLE,UNMARKED,They approached him with the umbrella raised and,he,the,weapons
