@@ -1,6 +1,8 @@
 # Registration S
 
-Written 2026-08-05, before the run. No hashes, no escrow, no countersignature. The only thing this document does is say what I expect before I look, because the 255 stems below are the last vv\*-eligible stems that exist and there is nothing behind them to replicate on.
+Written 2026-08-05, before the run. No hashes and no escrow. The only thing this document does is say what I expect before I look, because the 255 stems below are the last vv\*-eligible stems that exist and there is nothing behind them to replicate on.
+
+It IS countersigned, which the first draft said it would not be. RH asked for a second reading and registrar gave one at [4697]: it caught that condition 2 was a gate with no uncertainty attached, that a confirming primary and a confirming conditional would be one finding and not two, and it recomputed the disputed per-order figures independently. Three of those four changes are in this document because of that reading, so the countersignature earned its place rather than decorating the run.
 
 ## Two stages
 
@@ -17,8 +19,8 @@ The 255 held-out stems, both members, both orders, 7 coders.
 - Instrument: `malign_logits/tasks/code_operation_binaries.py`, revision 3, 7 coded fields.
 - Coders: deepseek-v4-pro, deepseek-v4-flash, gemini-3.6-flash, gemini-2.5-flash, claude-haiku-4-5, claude-sonnet-5, gpt-5.4-mini.
 - gpt-4o-mini is excluded. It scored 15/18 on a fresh six-item check where six of eight coders scored 18/18, it is the only coder that never reaches `B_GENERIC`, and it inverted `more_transgressive` on items where its own prose argued the other way. Excluded before any revision-3 data exists.
-- 1,020 items, about 7,140 calls.
-- 50 stems were spent on the revision-2 calibration and are not in this frame.
+- 1,020 real items, plus 1,015 decoy items (below), = 2,035 items and 14,245 calls.
+- 50 stems were spent on the revision-2 calibration and are not in this frame. Disjointness is asserted in `build_s_stage2_frames.py` against the stage-1 file itself, not against a count.
 
 ## The design
 
@@ -30,7 +32,11 @@ Test: sign-flip permutation on those per-stem differences, 20,000 draws, seed 20
 
 ## Predictions
 
-**Primary, one test. The displacement conjunction.** `register = B_CONTINUES` **and** `pitch = B_MILDER` **together** is positive, **and the conjunction exceeds the product of its two marginals**. Both conditions, or the primary is not confirmed.
+**Primary, one test. The displacement conjunction.** `register = B_CONTINUES` **and** `pitch = B_MILDER` **together** is positive, **and the excess of that conjunction over the product of its two marginals is itself positive under the same test**. Both conditions, or the primary is not confirmed.
+
+**Condition 2 is a test, not an inequality.** Per (stem, member, order) compute the excess `j - c*m`, where `j` is the conjunction rate over the seven coders, `c` the `B_CONTINUES` rate and `m` the `B_MILDER` rate. Take FR minus RF per stem and run it through the same sign-flip permutation as everything else, 20,000 draws, seed 20260806. Confirmation is positive and p < 0.05.
+
+Registrar's objection at [4697].2 is why this is here: as first written, condition 2 was a bare comparison of +0.071 against +0.037, which is a gate whose refusal has no uncertainty attached. The alternative was to demote it to a descriptive benchmark and say so in every report of the primary. Specifying the test is one paragraph and makes the primary whole, so it is specified.
 
 This is the shape of Freud's Verschiebung and it is the only cell in the instrument that has it: the substitute stays inside the scene and carries less charge. `kill -> scream` is exactly this. The second condition is what makes it a test of displacement rather than of its parts, because a conjunction can rise purely because one component rose. Positive dependence between staying-in-register and going-milder is the claim; the marginals alone are not.
 
@@ -53,6 +59,8 @@ This is the shape of Freud's Verschiebung and it is the only cell in the instrum
 This is where the finding actually lives, and it was discovered at stage 1 rather than predicted before it. Stage 1 gave +0.205 (p=0.0076, n=41 pairs) inside B_CONTINUES against +0.037 (p=0.22, n=63) inside B_GENERIC. Read plainly: the substitute comes in milder only when it stays in the scene, and a substitute that goes generic does not soften because it carries nothing either way.
 
 It is labelled derived and it stays labelled derived in every report. It is tested on held-out data under the same rule as everything else, predicted sign and p < 0.05, which is the only thing that makes a stage-1 discovery worth anything. Two limits travel with it: n was 41 pairs, and conditioning on `register` means conditioning on a coder's own judgement rather than on an assigned condition.
+
+**If the primary and the conditional both confirm, they are ONE finding reported through two lenses, not two.** Registrar's point at [4697].1 and it costs a sentence to guard: both are the same dependence structure, the co-occurrence of staying-in-register with going-milder, tracked by direction. The conjunction states it as a joint rate and the conditional states it as a contrast between arms. Reporting them as independent corroboration would be the false-corroboration error with a design instead of a measurement behind it.
 
 **The decoy arm, and why stage 2 is not complete without it.** `register = B_GENERIC` took 54.2% of stage-1 annotations. R's CO_ACT took 59% and was killed for it, but the thing that killed it was not the share: it was that words which NEVER MOVED took the label at the same rate, so it carried no information about alignment. Stage 1 has no non-movers and could not run that test.
 
@@ -82,5 +90,9 @@ Seven directional tests are declared above and the count goes in any reported re
 **Seven coders is 2/2/2/1 across providers.** Coder identity mattered in R, and OpenAI carries a single slot here.
 
 **The primary is a new field with no prior.** Six smoke items on eight coders is not a pilot. The prediction above is derived from the light-verb diagnosis rather than from any measurement of `register` itself, and if it fails there is no second sample.
+
+**claude-sonnet-5 is not sampling-pinned.** It rejects the `temperature` parameter outright and dropped it on all 200 stage-1 calls, and on the revision-2 calibration before that. The task declares 0.0 and six of seven coders honour it. Do not describe these runs as temperature-controlled.
+
+**The pooled dependence diagnostic is retired as a mis-cut.** `result_s_stage1.json` reports observed-over-expected conjunction as 1.07x pooled across FR and RF. Order is the manipulated axis, so pooling averages over the manipulation. Per order it is 1.32x and 0.62x, independently recomputed at the registrar's seat as 1.316 and 0.620. Per-order is the diagnostic of record, both orders always printed, and the pair is stronger than either alone: the dependence is present when B is the risen word and reversed when B is the fallen one, so the dependence itself tracks movement.
 
 **A null on the primary is a result.** If risen words are not more generic, the deflation reading is wrong and the paper says so.
