@@ -79,7 +79,15 @@ def cluster_se(X, resid, groups):
     return np.sqrt(np.diag(XtXi @ meat @ XtXi))
 
 
-def fit_measure(name, y, base, fw, cat, ismark, ispair, prompt, out):
+def pair_key(t, pairmap):
+    """**THE CLUSTER FOR A WITHIN-PAIR TERM IS THE PAIR, NOT THE PROMPT.**
+    Clustering by prompt puts a pair's two members in DIFFERENT clusters,
+    so the within-pair correlation the contrast is built on is not carried
+    and the SE is too small. Non-pair prompts cluster on themselves."""
+    return pairmap.get(t, t)
+
+
+def fit_measure(name, y, base, fw, cat, ismark, ispair, prompt, out, pairmap=None):
     from scipy.stats import norm
     print("\n" + "=" * 74)
     print("%s   n = %d cells, %d prompts" % (name.upper(), len(y), len(set(prompt))))
@@ -111,11 +119,22 @@ def fit_measure(name, y, base, fw, cat, ismark, ispair, prompt, out):
     #: the category coefficients, with and without the final-word control
     rows = {}
     for tag, use_fw in (("uncontrolled", False), ("final-word controlled", True)):
-        parts = [one, Db] + ([Dw] if use_fw else []) + [Dc, M]
+        #: **`M` IS DROPPED HERE AND THE REASON IS NOT STYLE.** `Dc`
+        #: already carries a `pair_marked` column and `M` is the identical
+        #: vector (both are 1 exactly on pair_marked cells, since the
+        #: reference is pair_unmarked). Including both makes the design
+        #: singular; lstsq's pseudo-inverse then SPLITS the coefficient
+        #: evenly across the two columns and reports HALF of it, with no
+        #: error and no warning. That is what produced -0.001030 where the
+        #: correct value is -0.002060. **A duplicated regressor does not
+        #: fail; it halves.**
+        parts = [one, Db] + ([Dw] if use_fw else []) + [Dc]
         X = np.hstack(parts)
         off = 1 + Db.shape[1] + (Dw.shape[1] if use_fw else 0)
         _v, beta, resid = r2(y, X)
         se = cluster_se(X, resid, prompt)
+        se_pair = (cluster_se(X, resid, [pair_key(t, pairmap) for t in prompt])
+                   if pairmap else None)
         print("\n  category coefficients, %s  (ref = %s)" % (tag, REF_CAT))
         rows[tag] = {}
         for nm in ("nonpair_institutional", "nonpair_other",
@@ -126,7 +145,12 @@ def fit_measure(name, y, base, fw, cat, ismark, ispair, prompt, out):
             j = off + ix[nm]
             p = 2 * (1 - norm.cdf(abs(beta[j] / se[j]))) if se[j] > 0 else float("nan")
             flag = "" if p < 0.05 else "   <- not distinguishable from 0"
-            print("    %-24s %+.6f  se %.6f  p %.4f%s" % (nm, beta[j], se[j], p, flag))
+            extra = ""
+            if se_pair is not None:
+                pp = 2 * (1 - norm.cdf(abs(beta[j] / se_pair[j]))) if se_pair[j] > 0 else float("nan")
+                extra = "   | PAIR-clustered se %.6f p %.4f%s" % (
+                    se_pair[j], pp, "" if pp < 0.05 else "  n.s.")
+            print("    %-24s %+.6f  se %.6f  p %.4f%s%s" % (nm, beta[j], se[j], p, flag, extra))
             rows[tag][nm] = {"coef": float(beta[j]), "se": float(se[j]), "p": float(p)}
     out[name] = {"r2_sequence": seq, "category_coefficients": rows}
 
@@ -136,6 +160,18 @@ def main():
     lab = PY.partition_map()
     pop = PY.english_stimuli()
     lab = {t: v for t, v in lab.items() if t in pop}
+
+    #: stem -> both member texts, so a pair is ONE cluster.
+    from malign_logits.prompts import Prompts
+    byid = {str(x.id): x for x in Prompts().all()}
+    stems = json.load(open(os.path.join(CAMPAIGN, "results",
+                                        "population_d_684.json")))["ids"]
+    pairmap = {}
+    for st in stems:
+        for suf in ("_M", "_U"):
+            o = byid.get(st + suf)
+            if o is not None:
+                pairmap[o.text] = "PAIR:" + st
 
     art = json.load(open(N_ART))
     out = {"_what": "Final-word confound test, all three measures.",
@@ -153,7 +189,7 @@ def main():
         fw.append(finalword(c["prompt"])); cat.append(p); prompt.append(c["prompt"])
         ismark.append(1.0 if p == "pair_marked" else 0.0)
         ispair.append(1.0 if p in ("pair_marked", "pair_unmarked") else 0.0)
-    fit_measure("substitution", np.array(y), base, fw, cat, ismark, ispair, prompt, out)
+    fit_measure("substitution", np.array(y), base, fw, cat, ismark, ispair, prompt, out, pairmap)
 
     #: ---- MAGNITUDE and NORMS: machinery -------------------------------
     from malign_logits.movement import CANONICAL
@@ -178,7 +214,7 @@ def main():
     for _fam, _pos, st in edges_raw:
         steps.setdefault((mid(st.pre), mid(st.post)), st)
 
-    acc = {"magnitude": [], "norms": []}
+    acc = {"magnitude": [], "norms": [], "arousal": []}
     texts = sorted(lab)
     for ei, ((b_, _a), st) in enumerate(sorted(steps.items()), 1):
         for t in texts:
@@ -200,6 +236,7 @@ def main():
             rec = (b_, finalword(t), lab[t], t)
             acc["magnitude"].append((float(dec["departed"]),) + rec)
             wf, zf, wr, zr = [], [], [], []
+            af_z, ar_z = [], []
             for w, wt, role in roles:
                 k = N.norm_key(w, "en", fold=False)
                 if N.is_function_word(k, "en"):
@@ -212,16 +249,23 @@ def main():
                     continue
                 (wf, zf) if role == "faller" else (wr, zr)
                 if role == "faller":
-                    wf.append(wt); zf.append(abs(zv["valence"]))
+                    wf.append(wt); zf.append(abs(zv["valence"])); af_z.append(zv["arousal"])
                 else:
-                    wr.append(wt); zr.append(abs(zv["valence"]))
+                    wr.append(wt); zr.append(abs(zv["valence"])); ar_z.append(zv["arousal"])
+            #: **SIGN CONVENTIONS VERIFIED AGAINST `o_primary.py` L528-529,
+            #: NOT AGAINST A DESCRIPTION OF THEM.** A_|valence| uses
+            #: abs(z_valence); A_arousal uses SIGNED z_arousal. Getting the
+            #: second wrong would INVERT the arousal reading.
             if len(wf) >= B.QUALIFYING_MIN and len(wr) >= B.QUALIFYING_MIN:
                 mf, mr = wmean(zf, wf), wmean(zr, wr)
                 if mf is not None and mr is not None:
                     acc["norms"].append((mf - mr,) + rec)
+                af, ar = wmean(af_z, wf), wmean(ar_z, wr)
+                if af is not None and ar is not None:
+                    acc["arousal"].append((af - ar,) + rec)
         print("  [%2d/%d] edges" % (ei, len(steps)), flush=True)
 
-    for name in ("magnitude", "norms"):
+    for name in ("magnitude", "norms", "arousal"):
         d = acc[name]
         if len(d) < 100:
             print("  %s: too few rows (%d)" % (name, len(d)))
@@ -231,7 +275,7 @@ def main():
                     [r[3] for r in d],
                     [1.0 if r[3] == "pair_marked" else 0.0 for r in d],
                     [1.0 if r[3] in ("pair_marked", "pair_unmarked") else 0.0 for r in d],
-                    [r[4] for r in d], out)
+                    [r[4] for r in d], out, pairmap)
 
     json.dump(out, open(OUT, "w"), indent=1, sort_keys=True)
     print("\nwrote %s" % OUT)
