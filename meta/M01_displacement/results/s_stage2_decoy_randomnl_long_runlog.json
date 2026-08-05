@@ -1,0 +1,61 @@
+{
+ "frame": "meta/M01_displacement/results/s_stage2_decoy_randomnl.parquet",
+ "tag": "S3_DEC_RANDOMNL",
+ "models": [
+  "deepseek/deepseek-v4-pro",
+  "deepseek/deepseek-v4-flash",
+  "google/gemini-3.6-flash",
+  "google/gemini-2.5-flash",
+  "anthropic/claude-haiku-4-5-20251001",
+  "anthropic/claude-sonnet-5",
+  "openai/gpt-5.4-mini"
+ ],
+ "fields": [
+  "bare_verb",
+  "related",
+  "pitch",
+  "more_transgressive",
+  "substitutable",
+  "becomes_speech",
+  "register"
+ ],
+ "items": 507,
+ "annotations": 2523,
+ "per_model": {
+  "deepseek/deepseek-v4-pro": {
+   "parsed": 507,
+   "of": 507,
+   "usage": "usage: 507 calls  prompt=2,323,838 (cache_read=2,271,360, write=0, fresh=52,478) output=146,337  cache_hit_rate=97.7%"
+  },
+  "deepseek/deepseek-v4-flash": {
+   "parsed": 507,
+   "of": 507,
+   "usage": "usage: 507 calls  prompt=2,323,838 (cache_read=2,271,360, write=0, fresh=52,478) output=143,161  cache_hit_rate=97.7%"
+  },
+  "google/gemini-3.6-flash": {
+   "parsed": 507,
+   "of": 507,
+   "usage": "usage: 509 calls  prompt=2,369,661 (cache_read=0, write=0, fresh=2,369,661) output=128,481  cache_hit_rate=0.0%"
+  },
+  "google/gemini-2.5-flash": {
+   "parsed": 495,
+   "of": 507,
+   "usage": "usage: 526 calls  prompt=2,449,140 (cache_read=1,948,545, write=0, fresh=500,595) output=143,923  cache_hit_rate=79.6%"
+  },
+  "anthropic/claude-haiku-4-5-20251001": {
+   "parsed": 0,
+   "of": 507,
+   "usage": "usage: 0 calls  prompt=0 (cache_read=0, write=0, fresh=0) output=0  cache_hit_rate=0.0%"
+  },
+  "anthropic/claude-sonnet-5": {
+   "parsed": 0,
+   "of": 507,
+   "usage": "usage: 0 calls  prompt=0 (cache_read=0, write=0, fresh=0) output=0  cache_hit_rate=0.0%"
+  },
+  "openai/gpt-5.4-mini": {
+   "parsed": 507,
+   "of": 507,
+   "usage": "usage: 507 calls  prompt=2,249,775 (cache_read=1,946,880, write=0, fresh=302,895) output=125,424  cache_hit_rate=86.5%"
+  }
+ }
+}

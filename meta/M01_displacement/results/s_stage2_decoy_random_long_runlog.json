@@ -1,0 +1,61 @@
+{
+ "frame": "meta/M01_displacement/results/s_stage2_decoy_random.parquet",
+ "tag": "S3_DEC_RANDOM",
+ "models": [
+  "deepseek/deepseek-v4-pro",
+  "deepseek/deepseek-v4-flash",
+  "google/gemini-3.6-flash",
+  "google/gemini-2.5-flash",
+  "anthropic/claude-haiku-4-5-20251001",
+  "anthropic/claude-sonnet-5",
+  "openai/gpt-5.4-mini"
+ ],
+ "fields": [
+  "bare_verb",
+  "related",
+  "pitch",
+  "more_transgressive",
+  "substitutable",
+  "becomes_speech",
+  "register"
+ ],
+ "items": 508,
+ "annotations": 2532,
+ "per_model": {
+  "deepseek/deepseek-v4-pro": {
+   "parsed": 508,
+   "of": 508,
+   "usage": "usage: 508 calls  prompt=2,328,406 (cache_read=2,275,840, write=0, fresh=52,566) output=147,399  cache_hit_rate=97.7%"
+  },
+  "deepseek/deepseek-v4-flash": {
+   "parsed": 508,
+   "of": 508,
+   "usage": "usage: 508 calls  prompt=2,328,406 (cache_read=2,275,840, write=0, fresh=52,566) output=145,000  cache_hit_rate=97.7%"
+  },
+  "google/gemini-3.6-flash": {
+   "parsed": 508,
+   "of": 508,
+   "usage": "usage: 510 calls  prompt=2,374,315 (cache_read=0, write=0, fresh=2,374,315) output=131,529  cache_hit_rate=0.0%"
+  },
+  "google/gemini-2.5-flash": {
+   "parsed": 500,
+   "of": 508,
+   "usage": "usage: 519 calls  prompt=2,416,390 (cache_read=1,915,865, write=0, fresh=500,525) output=143,561  cache_hit_rate=79.3%"
+  },
+  "anthropic/claude-haiku-4-5-20251001": {
+   "parsed": 0,
+   "of": 508,
+   "usage": "usage: 0 calls  prompt=0 (cache_read=0, write=0, fresh=0) output=0  cache_hit_rate=0.0%"
+  },
+  "anthropic/claude-sonnet-5": {
+   "parsed": 0,
+   "of": 508,
+   "usage": "usage: 0 calls  prompt=0 (cache_read=0, write=0, fresh=0) output=0  cache_hit_rate=0.0%"
+  },
+  "openai/gpt-5.4-mini": {
+   "parsed": 508,
+   "of": 508,
+   "usage": "usage: 508 calls  prompt=2,254,190 (cache_read=1,946,880, write=0, fresh=307,310) output=126,948  cache_hit_rate=86.4%"
+  }
+ }
+}

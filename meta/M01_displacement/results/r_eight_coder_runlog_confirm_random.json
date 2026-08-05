@@ -1,0 +1,154 @@
+{
+ "deepseek/deepseek-v4-pro": {
+  "ok": 508,
+  "n": 508,
+  "errors": 0,
+  "batch": false,
+  "certify": {
+   "total": 13835,
+   "present": 13835,
+   "missing": [],
+   "degraded": [],
+   "corrupt": [],
+   "complete": true,
+   "firings_retained": 58,
+   "known_drops": 0,
+   "unaccounted": 0,
+   "drops_all_firings": 0,
+   "attribution_truncated": false
+  }
+ },
+ "deepseek/deepseek-v4-flash": {
+  "ok": 508,
+  "n": 508,
+  "errors": 0,
+  "batch": false,
+  "certify": {
+   "total": 14917,
+   "present": 14917,
+   "missing": [],
+   "degraded": [],
+   "corrupt": [],
+   "complete": true,
+   "firings_retained": 60,
+   "known_drops": 0,
+   "unaccounted": 0,
+   "drops_all_firings": 0,
+   "attribution_truncated": false
+  }
+ },
+ "google/gemini-3.6-flash": {
+  "ok": 508,
+  "n": 508,
+  "errors": 0,
+  "batch": false,
+  "certify": {
+   "total": 12611,
+   "present": 12611,
+   "missing": [],
+   "degraded": [],
+   "corrupt": [],
+   "complete": true,
+   "firings_retained": 54,
+   "known_drops": 0,
+   "unaccounted": 0,
+   "drops_all_firings": 0,
+   "attribution_truncated": false
+  }
+ },
+ "google/gemini-2.5-flash": {
+  "ok": 508,
+  "n": 508,
+  "errors": 0,
+  "batch": false,
+  "certify": {
+   "total": 13803,
+   "present": 13803,
+   "missing": [],
+   "degraded": [],
+   "corrupt": [],
+   "complete": true,
+   "firings_retained": 58,
+   "known_drops": 0,
+   "unaccounted": 0,
+   "drops_all_firings": 0,
+   "attribution_truncated": false
+  }
+ },
+ "anthropic/claude-haiku-4-5-20251001": {
+  "ok": 508,
+  "n": 508,
+  "errors": 0,
+  "batch": false,
+  "certify": {
+   "total": 13636,
+   "present": 13636,
+   "missing": [],
+   "degraded": [],
+   "corrupt": [],
+   "complete": true,
+   "firings_retained": 56,
+   "known_drops": 0,
+   "unaccounted": 0,
+   "drops_all_firings": 0,
+   "attribution_truncated": false
+  }
+ },
+ "anthropic/claude-sonnet-5": {
+  "ok": 508,
+  "n": 508,
+  "errors": 0,
+  "batch": false,
+  "certify": {
+   "total": 15136,
+   "present": 15136,
+   "missing": [],
+   "degraded": [],
+   "corrupt": [],
+   "complete": true,
+   "firings_retained": 61,
+   "known_drops": 0,
+   "unaccounted": 0,
+   "drops_all_firings": 0,
+   "attribution_truncated": false
+  }
+ },
+ "openai/gpt-4o-mini": {
+  "ok": 508,
+  "n": 508,
+  "errors": 0,
+  "batch": false,
+  "certify": {
+   "total": 12968,
+   "present": 12968,
+   "missing": [],
+   "degraded": [],
+   "corrupt": [],
+   "complete": true,
+   "firings_retained": 55,
+   "known_drops": 0,
+   "unaccounted": 0,
+   "drops_all_firings": 0,
+   "attribution_truncated": false
+  }
+ },
+ "openai/gpt-5.4-mini": {
+  "ok": 508,
+  "n": 508,
+  "errors": 0,
+  "batch": false,
+  "certify": {
+   "total": 14464,
+   "present": 14464,
+   "missing": [],
+   "degraded": [],
+   "corrupt": [],
+   "complete": true,
+   "firings_retained": 59,
+   "known_drops": 0,
+   "unaccounted": 0,
+   "drops_all_firings": 0,
+   "attribution_truncated": false
+  }
+ }
+}

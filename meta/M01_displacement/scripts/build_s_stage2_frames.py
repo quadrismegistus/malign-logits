@@ -46,8 +46,31 @@ def main():
 
     keep = ["stem", "member", "prompt", "faller", "riser", "domain"]
     fr = base[keep].copy(); fr["order"] = "FR"
+    #: RF SWAPS THE TWO WORDS. The runner always renders A=faller, B=riser, so
+    #: the reversal has to live in the frame -- and the first version of this
+    #: file copied the rows without swapping. `order` is in the stash key, so
+    #: the identical question was billed twice, returned the same answer, and
+    #: produced a complete null across every field with a position bias of
+    #: exactly 0.000. Nothing downstream could catch it: the numbers were
+    #: internally consistent, the parse rate was 99.5%, and a null is what a
+    #: real negative result looks like.
     rf = base[keep].copy(); rf["order"] = "RF"
+    rf["faller"], rf["riser"] = base["riser"].values, base["faller"].values
     real = pd.concat([fr, rf], ignore_index=True)
+
+    #: ASSERT THE MANIPULATION EXISTS. The old assertion checked that the frame
+    #: did not overlap stage 1, which is a true and useful property of a
+    #: different thing. A frame can be perfectly disjoint and still not vary
+    #: what the design varies.
+    a = real[real.order == "FR"].set_index(["stem", "member"])
+    b = real[real.order == "RF"].set_index(["stem", "member"])
+    k = a.index.intersection(b.index)
+    assert len(k) == len(a) == len(b), "FR and RF do not cover the same cells"
+    assert (a.loc[k].faller.values == b.loc[k].riser.values).all(), "RF.riser is not FR.faller"
+    assert (a.loc[k].riser.values == b.loc[k].faller.values).all(), "RF.faller is not FR.riser"
+    assert not (a.loc[k].faller.values == b.loc[k].faller.values).any(), \
+        "some RF row was not swapped at all"
+    print("reversal asserted: RF.faller == FR.riser on all %d cells, 0 unswapped" % len(k))
     p = os.path.join(OUT, "s_stage2_real.parquet")
     real.to_parquet(p, index=False)
     print("\nwrote %s" % os.path.basename(p))

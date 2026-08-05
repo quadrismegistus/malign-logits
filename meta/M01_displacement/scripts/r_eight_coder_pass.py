@@ -58,6 +58,11 @@ FRAME = os.path.join(OUT, "r_eight_coder_sample_100.parquet")
 FRAME_PAIRED = os.path.join(OUT, "r_eight_coder_paired_50x2.parquet")
 FRAME_VERB = os.path.join(OUT, "r_eight_coder_verbpaired_50x2.parquet")
 FRAME_DECOY = os.path.join(OUT, "r_decoys_100.parquet")
+FRAME_CONFIRM = os.path.join(OUT, "r_confirm_frame_255x2.parquet")
+FRAME_CONFIRM_DECOY = os.path.join(OUT, "r_confirm_decoys_510.parquet")
+FRAME_CONFIRM_RANDOM = os.path.join(OUT, "r_confirm_decoys_random.parquet")
+FRAME_CONFIRM_RANDOMNL = os.path.join(OUT, "r_confirm_decoys_randomNL.parquet")
+FRAME_REVERSED = os.path.join(OUT, "r_reversed_frame_305x2.parquet")
 BYU = "/Users/rj416/Dropbox/Prof/Code/osp/worddb.byu.txt"
 
 SEED = 20260805
@@ -283,6 +288,54 @@ def draw_decoy(write=True):
     return df
 
 
+#: Registration R-confirm's excluded stem. `r2bt_109 UNMARKED` (faller = saw)
+#: has no eligible stationary verb, so it has no decoy and cannot produce a
+#: double difference. The registration fixes the rule BEFORE any data exists:
+#: the stem is dropped ENTIRELY from both arms, not partially, because D is
+#: d_MARKED minus d_UNMARKED and a half-present stem contributes one term to a
+#: difference that needs two.
+CONFIRM_EXCLUDE = {"r2bt_109"}
+
+
+def draw_confirm(decoy=False, decoyset="argmax"):
+    """Registration R-confirm's frame: 254 stems, both members, one arm.
+
+    Two invocations make the run -- `--confirm` for the real arm and
+    `--confirm --decoy` for the near-miss arm. Kept as two rather than one
+    because the METADATA DIFFERS BY ARM and metadata is stash-key material:
+    the real arm's keys carry (stem, member, faller, riser) and the decoy arm's
+    carry `arm="DECOY"` as well, exactly as the 50-stem pilot did. Merging the
+    arms into one pass would either re-key the real arm against the pilot or
+    give the two arms colliding keys.
+    """
+    path = FRAME_CONFIRM if not decoy else {
+        "argmax": FRAME_CONFIRM_DECOY,
+        "random": FRAME_CONFIRM_RANDOM,
+        "randomnl": FRAME_CONFIRM_RANDOMNL,
+    }[decoyset]
+    df = pd.read_parquet(path)
+    n0, s0 = len(df), df.stem.nunique()
+    df = df[~df.stem.isin(CONFIRM_EXCLUDE)].sort_values(["stem", "member"]).reset_index(drop=True)
+    print("confirm frame (%s): %s" % ((decoyset.upper() if decoy else "REAL"), os.path.basename(path)))
+    print("  %d rows / %d stems, minus the excluded stem -> %d rows / %d stems"
+          % (n0, s0, len(df), df.stem.nunique()))
+    assert not (set(df.stem) & CONFIRM_EXCLUDE), "the excluded stem survived"
+    #: DROP-AND-REPORT, not assert. A stem with only one member cannot produce a
+    #: double difference, and which stems those are depends on the decoy set: the
+    #: argmax arm loses r2bt_109, the non-light arm loses one more because its
+    #: pool had no contentful member. Dying here would be correct for a frozen
+    #: arm and useless for the exploratory ones, so the rule is applied and named.
+    lost = df.groupby("stem").member.nunique()
+    lost = sorted(lost[lost != 2].index)
+    if lost:
+        print("  DROPPED for want of both members: %s" % ", ".join(lost))
+        df = df[~df.stem.isin(lost)].reset_index(drop=True)
+    assert df.groupby("stem").member.nunique().eq(2).all(), "a stem lost a member"
+    assert len(df) == 2 * df.stem.nunique(), "not exactly one row per (stem, member)"
+    print("  final: %d rows / %d stems" % (len(df), df.stem.nunique()))
+    return df
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true",
@@ -301,6 +354,20 @@ def main(argv=None):
                     help="the NEAR-MISS arm: same prompts and fallers as "
                          "--verb, riser replaced by an available word that "
                          "did not move. Overrides --verb/--paired.")
+    ap.add_argument("--confirm", action="store_true",
+                    help="REGISTRATION R-CONFIRM's frame: 254 stems x both "
+                         "members. Combine with --decoy for the near-miss arm. "
+                         "Overrides --verb/--paired.")
+    ap.add_argument("--decoyset", default="argmax",
+                    choices=["argmax", "random", "randomnl"],
+                    help="which decoy arm. `argmax` is the registered one; "
+                         "`random` and `randomnl` are the NON-BLIND follow-ups "
+                         "built after the argmax was found to over-select light "
+                         "verbs (35%% of picks against 24%% of the pool).")
+    ap.add_argument("--reversed", dest="rev", action="store_true",
+                    help="REVERSED ORDER: the same 305 stems with A and B "
+                         "swapped, so the pair is its own control. No decoy. "
+                         "Overrides every other draw.")
     ap.add_argument("--parallel", action="store_true",
                     help="run the four PROVIDERS concurrently, models within "
                          "a provider in series. Caps concurrency per provider "
@@ -320,7 +387,13 @@ def main(argv=None):
     #: EVERY CALL-FREE STEP ABOVE THE EARLY RETURN. A --dry-run that returns
     #: before a check leaves that check untested forever; that defect cost
     #: P four firings and it is cheaper to obey than to discover.
-    if args.decoy:
+    if args.rev:
+        df = pd.read_parquet(FRAME_REVERSED)
+        print("reversed frame: %d items / %d stems (A and B swapped; the pair "
+              "is its own control)" % (len(df), df.stem.nunique()))
+    elif args.confirm:
+        df = draw_confirm(decoy=args.decoy, decoyset=args.decoyset)
+    elif args.decoy:
         df = draw_decoy(write=False)
     else:
         _draw = draw_verb_paired if args.verb else (draw_paired if args.paired else draw)
@@ -331,9 +404,17 @@ def main(argv=None):
     #: draw ONLY: it is a true property of those items and it keeps their keys
     #: disjoint from the real arm's. Adding it to the existing frames would
     #: re-key annotations already bought.
-    if args.decoy:
+    if args.rev:
+        #: `order` is stash-key material. The FR annotations share stem, member
+        #: and both words with these; without it the reversed pass would collide
+        #: with work already paid for and silently return the wrong direction.
         metas = [dict(stem=r.stem, member=r.member, faller=r.faller,
-                      riser=r.riser, arm="DECOY") for r in df.itertuples()]
+                      riser=r.riser, order="RF") for r in df.itertuples()]
+    elif args.decoy:
+        armtag = {"argmax": "DECOY", "random": "RANDOM",
+                  "randomnl": "RANDOM_NL"}[args.decoyset] if args.confirm else "DECOY"
+        metas = [dict(stem=r.stem, member=r.member, faller=r.faller,
+                      riser=r.riser, arm=armtag) for r in df.itertuples()]
     else:
         metas = [dict(stem=r.stem, member=r.member, faller=r.faller, riser=r.riser)
                  for r in df.itertuples()]
@@ -434,7 +515,7 @@ def main(argv=None):
                 for m, s, buf in chunk:
                     print("\n" + "\n".join(buf), flush=True)
                     summary[m] = s
-        tag = "_decoy" if args.decoy else ("_verb" if args.verb else ("_paired" if args.paired else ""))
+        tag = "_reversed" if args.rev else ("_confirm" + (("_" + args.decoyset) if args.decoy else "")) if args.confirm else ("_decoy" if args.decoy else ("_verb" if args.verb else ("_paired" if args.paired else "")))
         with open(os.path.join(OUT, "r_eight_coder_runlog%s.json" % tag), "w") as fh:
             json.dump(summary, fh, indent=1, default=str)
         print("\nwrote runlog")
@@ -469,7 +550,7 @@ def main(argv=None):
         summary[m] = {"ok": ok, "n": len(res), "errors": len(errors),
                       "batch": b, "certify": task.certify_raw()}
 
-    tag = "_decoy" if args.decoy else ("_verb" if args.verb else ("_paired" if args.paired else ""))
+    tag = ("_confirm" + (("_" + args.decoyset) if args.decoy else "")) if args.confirm else ("_decoy" if args.decoy else ("_verb" if args.verb else ("_paired" if args.paired else "")))
     with open(os.path.join(OUT, "r_eight_coder_runlog%s.json" % tag), "w") as fh:
         json.dump(summary, fh, indent=1, default=str)
     print("\nwrote runlog")
