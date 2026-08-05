@@ -63,6 +63,86 @@ def preflight():
     print("  all %d coders reachable" % len(MODELS))
 
 
+def frame_canary(df):
+    """Assert the manipulated axis is actually manipulated, BEFORE any calls.
+
+    This costs nothing and it is the check whose absence voided stage 2. The
+    frame builder copied the held-out rows and labelled half of them RF without
+    swapping faller and riser, `order` is part of the stash key, and so the
+    identical question was billed 14,245 times and answered the same way. Every
+    field came back at diff -0.000 and the position bias was exactly 0.000.
+
+    A DESIGN DEFECT THAT PRODUCES A FLAT NULL IS INVISIBLE TO EVERY CHECK THAT
+    ASSUMES THE DESIGN. Parse rate was 99.5%, the numbers were internally
+    consistent, and the frozen analysis correctly reported NOT CONFIRMED --
+    which was the right answer to the question the frame actually asked. Only a
+    check that compares two things the design says MUST differ can see it.
+    """
+    if "order" not in df.columns or df.order.nunique() < 2:
+        print("canary: single-order frame, reversal check not applicable")
+        return
+    a = df[df.order == "FR"].set_index(["stem", "member"])
+    b = df[df.order == "RF"].set_index(["stem", "member"])
+    k = a.index.intersection(b.index)
+    unswapped = int((a.loc[k].faller.values == b.loc[k].faller.values).sum())
+    print("canary: %d paired cells, %d unswapped" % (len(k), unswapped))
+    if unswapped:
+        raise SystemExit(
+            "FRAME CANARY FAILED: %d of %d RF cells present the same word order as FR.\n"
+            "The runner always renders A=faller, B=riser, so the reversal must live in\n"
+            "the frame. Nothing was run." % (unswapped, len(k)))
+
+
+def value_canary(rows, df):
+    """After the FIRST coder, check the two arms actually answered differently.
+
+    malign's form at [4702], and better than putting it in the analysis: it
+    fires while the run is still cheap to kill rather than after it is spent.
+    The frame check above cannot catch a frame that is correct but whose arms
+    collapse for some other reason, so this reads the VALUES.
+
+    THE STATISTIC IS THE PITCH MIRROR, NOT FIELD IDENTITY. The first version of
+    this function counted paired cells whose seven fields matched exactly and
+    refused above 90%. Run against the void data it was written to catch, it
+    scored 76.3% and PASSED -- coders are not perfectly deterministic even on a
+    byte-identical prompt, so identity tops out well below 1. The threshold was
+    fitted to my imagination rather than to either distribution.
+
+    The mirror separates completely. `pitch` is signed, so the same two words
+    seen the other way round MUST flip: B_MILDER becomes B_STRONGER. Measured:
+
+        void, unswapped frame      88% stayed B_MILDER,  0% flipped
+        stage 1, real reversal      0% stayed B_MILDER, 69% flipped
+
+    No overlap, and the rule needs no tuned constant: if more cells stay than
+    flip, nothing was reversed.
+    """
+    if not rows or "order" not in df.columns or df.order.nunique() < 2:
+        return
+    L = pd.DataFrame(rows)
+    a = L[L.order == "FR"].set_index(["stem", "member"])
+    b = L[L.order == "RF"].set_index(["stem", "member"])
+    k = a.index.intersection(b.index)
+    if not len(k):
+        return
+    m = (a.loc[k].pitch == "B_MILDER").values
+    if m.sum() < 5:
+        print("  canary: only %d B_MILDER cells, mirror not evaluable" % m.sum(), flush=True)
+        return
+    rf = b.loc[k].pitch[m]
+    stayed = float((rf == "B_MILDER").mean())
+    flipped = float((rf == "B_STRONGER").mean())
+    print("  canary: of %d cells FR called B_MILDER, RF stayed %.0f%% / flipped %.0f%%"
+          % (m.sum(), 100 * stayed, 100 * flipped), flush=True)
+    if stayed > flipped:
+        raise SystemExit(
+            "VALUE CANARY FAILED: %.0f%% of B_MILDER cells stayed B_MILDER when the pair\n"
+            "was shown the other way round, against %.0f%% that flipped to B_STRONGER.\n"
+            "`pitch` is signed; the same two words reversed must flip. The arms are not\n"
+            "distinct. Killed after one coder rather than after seven."
+            % (100 * stayed, 100 * flipped))
+
+
 def run_one(m, df, tag):
     texts = [prepare(r.prompt, r.faller, r.riser) for r in df.itertuples()]
     #: `order` and `schema` are stash-key material. FR and RF share stem, member
@@ -94,6 +174,7 @@ def main():
     tag = sys.argv[sys.argv.index("--tag") + 1] if "--tag" in sys.argv else "S3"
 
     df = pd.read_parquet(src)
+    frame_canary(df)
     print("frame  %s" % src)
     print("  %d items = %d stems x %d members x %d orders"
           % (len(df), df.stem.nunique(), df.member.nunique(), df.order.nunique()))
@@ -110,14 +191,28 @@ def main():
     t0 = time.time()
     rows, log = [], {}
 
-    def prov(ms):
-        return [run_one(m, df, tag) for m in ms]
+    #: FIRST CODER ALONE, then the value canary, then the rest. Sequencing it
+    #: this way is the whole point: a dead manipulation costs one coder to
+    #: discover instead of seven.
+    first = MODELS[0]
+    m, ok, n, rws, usage = run_one(first, df, tag)
+    print("  %-42s parsed %d/%d  %s" % (m, ok, n, usage), flush=True)
+    log[m] = dict(parsed=ok, of=n, usage=usage)
+    value_canary(rws, df)
+    rows.extend(rws)
 
-    with ThreadPoolExecutor(max_workers=len(groups)) as ex:
-        for chunk in ex.map(prov, groups.values()):
-            for m, ok, n, rws, usage in chunk:
-                print("  %-42s parsed %d/%d  %s" % (m, ok, n, usage), flush=True)
-                log[m] = dict(parsed=ok, of=n, usage=usage)
+    rest = {}
+    for mm in MODELS[1:]:
+        rest.setdefault(mm.split("/")[0], []).append(mm)
+
+    def prov(ms):
+        return [run_one(mm, df, tag) for mm in ms]
+
+    with ThreadPoolExecutor(max_workers=max(len(rest), 1)) as ex:
+        for chunk in ex.map(prov, rest.values()):
+            for mm, ok, n, rws, usage in chunk:
+                print("  %-42s parsed %d/%d  %s" % (mm, ok, n, usage), flush=True)
+                log[mm] = dict(parsed=ok, of=n, usage=usage)
                 rows.extend(rws)
 
     L = pd.DataFrame(rows)
