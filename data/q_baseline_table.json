@@ -1,0 +1,731 @@
+{
+ "_limits": [
+  "DESCRIPTIVE. No hypothesis was registered for any number here and no verdict word attaches to any of them.",
+  "The partitions are not matched on length, topic or anything else; a level difference between them is not an effect of transgressiveness alone.",
+  "Intervals treat the base checkpoint as the unit. Within-cluster dependence is carried; between-partition dependence (the same checkpoint appears in every row) is NOT."
+ ],
+ "_pins": {
+  "movement.py_blob": "e3278c76b451f464f342dd5fa3fc508a2845e6c9"
+ },
+ "_rules": [
+  "baseline EXCLUDES transgressive cells (pair_marked, nonpair_transgressive) -- a pooled level containing the arm under test is contaminated by it",
+  "pair set and residue reported SEPARATELY, never pooled",
+  "intervals clustered by base checkpoint; cells within a checkpoint are not independent",
+  "partition rule imported from p_yield_pass.partition_map"
+ ],
+ "_status": "DESCRIPTIVE. No alpha, no test, no verdict language.",
+ "_what": "Corpus baseline for Q's measures, by SQ1 partition.",
+ "_why": "Q contains no corpus baseline; RH [4521].",
+ "baseline_contrast": {
+  "magnitude": {
+   "baseline": 0.11943310595341956,
+   "baseline_ci95": [
+    0.09024570109648514,
+    0.148620510810354
+   ],
+   "nonpair_transgressive": {
+    "level": 0.1152786324657404,
+    "minus_baseline": -0.004154473487679167,
+    "ratio_to_baseline": 0.9652150594718732
+   },
+   "pair_marked": {
+    "level": 0.11254549974774783,
+    "minus_baseline": -0.006887606205671734,
+    "ratio_to_baseline": 0.9423308457844345
+   }
+  },
+  "norms": {
+   "baseline": 0.03674222630968593,
+   "baseline_ci95": [
+    0.016699752431403547,
+    0.056784700187968315
+   ],
+   "nonpair_transgressive": {
+    "level": 0.08678130223595193,
+    "minus_baseline": 0.050039075926266,
+    "ratio_to_baseline": 2.361895588593519
+   },
+   "pair_marked": {
+    "level": -0.0015957978001171103,
+    "minus_baseline": -0.03833802410980304,
+    "ratio_to_baseline": -0.043432256572227046
+   }
+  },
+  "substitution": {
+   "baseline": -0.07139158193595971,
+   "baseline_ci95": [
+    -0.09184908820367348,
+    -0.05093407566824594
+   ],
+   "nonpair_transgressive": {
+    "level": -0.06577445375506874,
+    "minus_baseline": 0.005617128180890968,
+    "ratio_to_baseline": 0.9213194605222547
+   },
+   "pair_marked": {
+    "level": -0.08138440963873698,
+    "minus_baseline": -0.009992827702777277,
+    "ratio_to_baseline": 1.1399720727822102
+   }
+  }
+ },
+ "magnitude": {
+  "nonpair_contradiction": {
+   "ci95": [
+    0.07832089631975223,
+    0.14000186346191207
+   ],
+   "level_cell_weighted": 0.11070381459773208,
+   "level_unweighted_cluster_mean": 0.10916137989083215,
+   "n_cells": 2417,
+   "n_clusters": 33
+  },
+  "nonpair_institutional": {
+   "ci95": [
+    0.1133517743165035,
+    0.1871096989342994
+   ],
+   "level_cell_weighted": 0.15229516787357347,
+   "level_unweighted_cluster_mean": 0.15023073662540146,
+   "n_cells": 11405,
+   "n_clusters": 34
+  },
+  "nonpair_literary": {
+   "ci95": [
+    0.06207148158571216,
+    0.10649978178456163
+   ],
+   "level_cell_weighted": 0.08840118900036668,
+   "level_unweighted_cluster_mean": 0.08428563168513689,
+   "n_cells": 3221,
+   "n_clusters": 34
+  },
+  "nonpair_neutral": {
+   "ci95": [
+    0.08974307995075693,
+    0.14681988203911991
+   ],
+   "level_cell_weighted": 0.12223456923437859,
+   "level_unweighted_cluster_mean": 0.11828148099493842,
+   "n_cells": 4594,
+   "n_clusters": 34
+  },
+  "nonpair_other": {
+   "ci95": [
+    0.1563334171910588,
+    0.23136957244140055
+   ],
+   "level_cell_weighted": 0.19265960432740686,
+   "level_unweighted_cluster_mean": 0.19385149481622968,
+   "n_cells": 1070,
+   "n_clusters": 34
+  },
+  "nonpair_transgressive": {
+   "ci95": [
+    0.08548994354943394,
+    0.14506732138204684
+   ],
+   "level_cell_weighted": 0.1192067101076653,
+   "level_unweighted_cluster_mean": 0.1152786324657404,
+   "n_cells": 7418,
+   "n_clusters": 34
+  },
+  "pair_marked": {
+   "ci95": [
+    0.08296227078708356,
+    0.1421287287084121
+   ],
+   "level_cell_weighted": 0.11502551515175329,
+   "level_unweighted_cluster_mean": 0.11254549974774783,
+   "n_cells": 25300,
+   "n_clusters": 34
+  },
+  "pair_unmarked": {
+   "ci95": [
+    0.07962919836874495,
+    0.13672892101349865
+   ],
+   "level_cell_weighted": 0.11030485791582527,
+   "level_unweighted_cluster_mean": 0.1081790596911218,
+   "n_cells": 25165,
+   "n_clusters": 34
+  }
+ },
+ "norms": {
+  "nonpair_contradiction": {
+   "ci95": [
+    0.06502206791953069,
+    0.204852289893038
+   ],
+   "level_cell_weighted": 0.14174578580989622,
+   "level_unweighted_cluster_mean": 0.13493717890628434,
+   "n_cells": 2048,
+   "n_clusters": 32
+  },
+  "nonpair_institutional": {
+   "ci95": [
+    0.058402604826752226,
+    0.14085117628180216
+   ],
+   "level_cell_weighted": 0.08548495217129946,
+   "level_unweighted_cluster_mean": 0.09962689055427719,
+   "n_cells": 8056,
+   "n_clusters": 34
+  },
+  "nonpair_literary": {
+   "ci95": [
+    -0.07977520755701065,
+    0.03503953581006045
+   ],
+   "level_cell_weighted": 0.013103455238777463,
+   "level_unweighted_cluster_mean": -0.0223678358734751,
+   "n_cells": 996,
+   "n_clusters": 34
+  },
+  "nonpair_neutral": {
+   "ci95": [
+    0.03427913541224713,
+    0.13341240959214257
+   ],
+   "level_cell_weighted": 0.08309056095432013,
+   "level_unweighted_cluster_mean": 0.08384577250219485,
+   "n_cells": 2773,
+   "n_clusters": 33
+  },
+  "nonpair_other": {
+   "ci95": [
+    -0.03661645452115629,
+    0.1232846820081422
+   ],
+   "level_cell_weighted": 0.04785761875039879,
+   "level_unweighted_cluster_mean": 0.043334113743492955,
+   "n_cells": 92,
+   "n_clusters": 31
+  },
+  "nonpair_transgressive": {
+   "ci95": [
+    0.042444184776145304,
+    0.13111841969575855
+   ],
+   "level_cell_weighted": 0.10033223561977576,
+   "level_unweighted_cluster_mean": 0.08678130223595193,
+   "n_cells": 5135,
+   "n_clusters": 33
+  },
+  "pair_marked": {
+   "ci95": [
+    -0.028619027409350774,
+    0.025427431809116552
+   ],
+   "level_cell_weighted": 0.011867067536800816,
+   "level_unweighted_cluster_mean": -0.0015957978001171103,
+   "n_cells": 17707,
+   "n_clusters": 33
+  },
+  "pair_unmarked": {
+   "ci95": [
+    -0.03232021307928121,
+    0.0036054115724800644
+   ],
+   "level_cell_weighted": -0.006747718527667789,
+   "level_unweighted_cluster_mean": -0.014357400753400572,
+   "n_cells": 17281,
+   "n_clusters": 33
+  }
+ },
+ "paired_partition_contrasts": {
+  "magnitude": {
+   "_matched_reference": {
+    "arm": "H5",
+    "value": 0.00526
+   },
+   "nonpair_contradiction_minus_nonpair_transgressive": {
+    "ci95": [
+     -0.016763150206317058,
+     -0.002317621127693309
+    ],
+    "diff": -0.009540385667005184,
+    "excludes_zero": true,
+    "n_clusters": 33,
+    "n_positive": 7
+   },
+   "nonpair_contradiction_minus_pair_marked": {
+    "ci95": [
+     -0.014597822903313858,
+     0.0012251630274344484
+    ],
+    "diff": -0.006686329937939705,
+    "excludes_zero": false,
+    "n_clusters": 33,
+    "n_positive": 13
+   },
+   "nonpair_institutional_minus_nonpair_transgressive": {
+    "ci95": [
+     0.015937089776684055,
+     0.05396711854263811
+    ],
+    "diff": 0.03495210415966108,
+    "excludes_zero": true,
+    "n_clusters": 34,
+    "n_positive": 25
+   },
+   "nonpair_institutional_minus_pair_marked": {
+    "ci95": [
+     0.021725589989167158,
+     0.0536448837661401
+    ],
+    "diff": 0.03768523687765363,
+    "excludes_zero": true,
+    "n_clusters": 34,
+    "n_positive": 30
+   },
+   "nonpair_literary_minus_pair_marked": {
+    "ci95": [
+     -0.03931096748463085,
+     -0.017208768640591076
+    ],
+    "diff": -0.028259868062610966,
+    "excludes_zero": true,
+    "n_clusters": 34,
+    "n_positive": 5
+   },
+   "nonpair_other_minus_nonpair_transgressive": {
+    "ci95": [
+     0.054600188297671964,
+     0.10254553640330658
+    ],
+    "diff": 0.07857286235048927,
+    "excludes_zero": true,
+    "n_clusters": 34,
+    "n_positive": 31
+   },
+   "nonpair_other_minus_pair_marked": {
+    "ci95": [
+     0.0568946155468348,
+     0.10571737459012887
+    ],
+    "diff": 0.08130599506848184,
+    "excludes_zero": true,
+    "n_clusters": 34,
+    "n_positive": 31
+   },
+   "pair_marked_minus_nonpair_transgressive": {
+    "ci95": [
+     -0.009497831573649673,
+     0.0040315661376645814
+    ],
+    "diff": -0.002733132717992546,
+    "excludes_zero": false,
+    "n_clusters": 34,
+    "n_positive": 18
+   }
+  },
+  "norms": {
+   "_matched_reference": {
+    "arm": "H6",
+    "value": 0.0174
+   },
+   "nonpair_contradiction_minus_nonpair_transgressive": {
+    "ci95": [
+     -0.0006337181861649985,
+     0.09124951415752636
+    ],
+    "diff": 0.045307897985680676,
+    "excludes_zero": false,
+    "n_clusters": 32,
+    "n_positive": 22
+   },
+   "nonpair_contradiction_minus_pair_marked": {
+    "ci95": [
+     0.06741931961217607,
+     0.1960736154240238
+    ],
+    "diff": 0.13174646751809993,
+    "excludes_zero": true,
+    "n_clusters": 32,
+    "n_positive": 26
+   },
+   "nonpair_institutional_minus_nonpair_transgressive": {
+    "ci95": [
+     -0.047363582618402775,
+     0.039223205311278445
+    ],
+    "diff": -0.004070188653562163,
+    "excludes_zero": false,
+    "n_clusters": 33,
+    "n_positive": 13
+   },
+   "nonpair_institutional_minus_pair_marked": {
+    "ci95": [
+     0.0513970863741259,
+     0.11721673639088787
+    ],
+    "diff": 0.08430691138250689,
+    "excludes_zero": true,
+    "n_clusters": 33,
+    "n_positive": 25
+   },
+   "nonpair_literary_minus_pair_marked": {
+    "ci95": [
+     -0.04695258101626979,
+     0.049415322142559524
+    ],
+    "diff": 0.0012313705631448644,
+    "excludes_zero": false,
+    "n_clusters": 33,
+    "n_positive": 20
+   },
+   "nonpair_other_minus_nonpair_transgressive": {
+    "ci95": [
+     -0.12146052965508605,
+     0.041204551238616015
+    ],
+    "diff": -0.04012798920823502,
+    "excludes_zero": false,
+    "n_clusters": 31,
+    "n_positive": 11
+   },
+   "nonpair_other_minus_pair_marked": {
+    "ci95": [
+     -0.034819006098430014,
+     0.12178342242718106
+    ],
+    "diff": 0.04348220816437552,
+    "excludes_zero": false,
+    "n_clusters": 31,
+    "n_positive": 16
+   },
+   "pair_marked_minus_nonpair_transgressive": {
+    "ci95": [
+     -0.12326223320999591,
+     -0.05349196686214223
+    ],
+    "diff": -0.08837710003606906,
+    "excludes_zero": true,
+    "n_clusters": 33,
+    "n_positive": 6
+   }
+  },
+  "substitution": {
+   "_matched_reference": {
+    "arm": "H1",
+    "value": -0.002313
+   },
+   "nonpair_contradiction_minus_nonpair_transgressive": {
+    "ci95": [
+     0.0018061884257697192,
+     0.010460103826234492
+    ],
+    "diff": 0.006133146126002106,
+    "excludes_zero": true,
+    "n_clusters": 33,
+    "n_positive": 22
+   },
+   "nonpair_contradiction_minus_pair_marked": {
+    "ci95": [
+     0.016052917148546494,
+     0.028459849722820077
+    ],
+    "diff": 0.022256383435683286,
+    "excludes_zero": true,
+    "n_clusters": 33,
+    "n_positive": 30
+   },
+   "nonpair_institutional_minus_nonpair_transgressive": {
+    "ci95": [
+     5.410319445478713e-05,
+     0.020822802468071
+    ],
+    "diff": 0.010438452831262894,
+    "excludes_zero": true,
+    "n_clusters": 34,
+    "n_positive": 27
+   },
+   "nonpair_institutional_minus_pair_marked": {
+    "ci95": [
+     0.01636615760203172,
+     0.03573065982783062
+    ],
+    "diff": 0.02604840871493117,
+    "excludes_zero": true,
+    "n_clusters": 34,
+    "n_positive": 32
+   },
+   "nonpair_literary_minus_pair_marked": {
+    "ci95": [
+     0.016868652692497856,
+     0.03242062118209954
+    ],
+    "diff": 0.024644636937298698,
+    "excludes_zero": true,
+    "n_clusters": 34,
+    "n_positive": 29
+   },
+   "nonpair_other_minus_nonpair_transgressive": {
+    "ci95": [
+     -0.07792868236714708,
+     -0.04174453591392148
+    ],
+    "diff": -0.05983660914053428,
+    "excludes_zero": true,
+    "n_clusters": 34,
+    "n_positive": 2
+   },
+   "nonpair_other_minus_pair_marked": {
+    "ci95": [
+     -0.06282116619665641,
+     -0.02563214031707561
+    ],
+    "diff": -0.04422665325686601,
+    "excludes_zero": true,
+    "n_clusters": 34,
+    "n_positive": 6
+   },
+   "pair_marked_minus_nonpair_transgressive": {
+    "ci95": [
+     -0.021896354652344536,
+     -0.009323557114992012
+    ],
+    "diff": -0.015609955883668274,
+    "excludes_zero": true,
+    "n_clusters": 34,
+    "n_positive": 6
+   }
+  }
+ },
+ "paired_within_cluster": {
+  "magnitude": {
+   "A: all non-transgressive": {
+    "nonpair_transgressive": {
+     "ci95": [
+      -0.011553264682326737,
+      0.003244317706968378
+     ],
+     "excludes_zero": false,
+     "n_clusters": 34,
+     "n_positive": 10,
+     "paired_diff": -0.00415447348767918
+    },
+    "pair_marked": {
+     "ci95": [
+      -0.010325273826598872,
+      -0.0034499385847445822
+     ],
+     "excludes_zero": true,
+     "n_clusters": 34,
+     "n_positive": 6,
+     "paired_diff": -0.006887606205671727
+    }
+   },
+   "B: also excluding pair_unmarked": {
+    "nonpair_transgressive": {
+     "ci95": [
+      -0.026908409897362495,
+      -0.00613885031882332
+     ],
+     "excludes_zero": true,
+     "n_clusters": 34,
+     "n_positive": 7,
+     "paired_diff": -0.016523630108092907
+    },
+    "pair_marked": {
+     "ci95": [
+      -0.026826362027280927,
+      -0.011687163624889974
+     ],
+     "excludes_zero": true,
+     "n_clusters": 34,
+     "n_positive": 5,
+     "paired_diff": -0.01925676282608545
+    }
+   },
+   "_sign_stable": true
+  },
+  "norms": {
+   "A: all non-transgressive": {
+    "nonpair_transgressive": {
+     "ci95": [
+      0.01927517881274004,
+      0.09003505508920606
+     ],
+     "excludes_zero": true,
+     "n_clusters": 33,
+     "n_positive": 25,
+     "paired_diff": 0.054655116950973054
+    },
+    "pair_marked": {
+     "ci95": [
+      -0.05699714970009853,
+      -0.010446816470093458
+     ],
+     "excludes_zero": true,
+     "n_clusters": 33,
+     "n_positive": 12,
+     "paired_diff": -0.033721983085096
+    }
+   },
+   "B: also excluding pair_unmarked": {
+    "nonpair_transgressive": {
+     "ci95": [
+      -0.027150225213998538,
+      0.03661871603202515
+     ],
+     "excludes_zero": false,
+     "n_clusters": 33,
+     "n_positive": 22,
+     "paired_diff": 0.004734245409013305
+    },
+    "pair_marked": {
+     "ci95": [
+      -0.1123255015705723,
+      -0.05496020768353918
+     ],
+     "excludes_zero": true,
+     "n_clusters": 33,
+     "n_positive": 3,
+     "paired_diff": -0.08364285462705574
+    }
+   },
+   "_sign_stable": true
+  },
+  "substitution": {
+   "A: all non-transgressive": {
+    "nonpair_transgressive": {
+     "ci95": [
+      0.0009061442466892014,
+      0.010328112115092693
+     ],
+     "excludes_zero": true,
+     "n_clusters": 34,
+     "n_positive": 24,
+     "paired_diff": 0.005617128180890947
+    },
+    "pair_marked": {
+     "ci95": [
+      -0.013217155250080975,
+      -0.006768500155473669
+     ],
+     "excludes_zero": true,
+     "n_clusters": 34,
+     "n_positive": 5,
+     "paired_diff": -0.009992827702777322
+    }
+   },
+   "B: also excluding pair_unmarked": {
+    "nonpair_transgressive": {
+     "ci95": [
+      -0.008032707612519908,
+      0.0033039484707252254
+     ],
+     "excludes_zero": false,
+     "n_clusters": 34,
+     "n_positive": 12,
+     "paired_diff": -0.0023643795708973413
+    },
+    "pair_marked": {
+     "ci95": [
+      -0.023968036946299537,
+      -0.011980633962831694
+     ],
+     "excludes_zero": true,
+     "n_clusters": 34,
+     "n_positive": 5,
+     "paired_diff": -0.017974335454565615
+    }
+   },
+   "_sign_stable": false
+  }
+ },
+ "substitution": {
+  "nonpair_contradiction": {
+   "ci95": [
+    -0.08124479104601783,
+    -0.04066663307330548
+   ],
+   "level_cell_weighted": -0.05818790574256552,
+   "level_unweighted_cluster_mean": -0.06095571205966165,
+   "n_cells": 2485,
+   "n_clusters": 33
+  },
+  "nonpair_institutional": {
+   "ci95": [
+    -0.0779044511302661,
+    -0.032767550717345606
+   ],
+   "level_cell_weighted": -0.05322536889626568,
+   "level_unweighted_cluster_mean": -0.055336000923805855,
+   "n_cells": 11708,
+   "n_clusters": 34
+  },
+  "nonpair_literary": {
+   "ci95": [
+    -0.07458751436256035,
+    -0.038892031040316286
+   ],
+   "level_cell_weighted": -0.05723699913105064,
+   "level_unweighted_cluster_mean": -0.05673977270143832,
+   "n_cells": 3315,
+   "n_clusters": 34
+  },
+  "nonpair_neutral": {
+   "ci95": [
+    -0.09380616424957276,
+    -0.05607852702856682
+   ],
+   "level_cell_weighted": -0.07442832768440004,
+   "level_unweighted_cluster_mean": -0.07494234563906979,
+   "n_cells": 4719,
+   "n_clusters": 34
+  },
+  "nonpair_other": {
+   "ci95": [
+    -0.15190362478171565,
+    -0.09931850100949036
+   ],
+   "level_cell_weighted": -0.12594190873434094,
+   "level_unweighted_cluster_mean": -0.125611062895603,
+   "n_cells": 1097,
+   "n_clusters": 34
+  },
+  "nonpair_transgressive": {
+   "ci95": [
+    -0.08487087703428337,
+    -0.046678030475854115
+   ],
+   "level_cell_weighted": -0.06418512196350032,
+   "level_unweighted_cluster_mean": -0.06577445375506874,
+   "n_cells": 7618,
+   "n_clusters": 34
+  },
+  "pair_marked": {
+   "ci95": [
+    -0.1039598693525749,
+    -0.05880894992489907
+   ],
+   "level_cell_weighted": -0.07937124573639143,
+   "level_unweighted_cluster_mean": -0.08138440963873698,
+   "n_cells": 25984,
+   "n_clusters": 34
+  },
+  "pair_unmarked": {
+   "ci95": [
+    -0.10024472525571967,
+    -0.057720847250740004
+   ],
+   "level_cell_weighted": -0.07748819446746334,
+   "level_unweighted_cluster_mean": -0.07898278625322984,
+   "n_cells": 25849,
+   "n_clusters": 34
+  }
+ },
+ "substitution_pct_negative": {
+  "nonpair_contradiction": 89.61770623742454,
+  "nonpair_institutional": 81.79022890331397,
+  "nonpair_literary": 82.38310708898945,
+  "nonpair_neutral": 89.9343081161263,
+  "nonpair_other": 92.7073837739289,
+  "nonpair_transgressive": 88.60593331583092,
+  "pair_marked": 93.47290640394088,
+  "pair_unmarked": 94.3827614221053
+ }
+}
