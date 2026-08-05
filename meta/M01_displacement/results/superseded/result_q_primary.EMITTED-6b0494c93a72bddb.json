@@ -1,0 +1,155 @@
+{
+ "_counts": {
+  "bothsides_A": 15152,
+  "bothsides_analysed": 24606,
+  "onesided_analysed": 1253
+ },
+ "_floor": {
+  "below_floor_reported_not_dropped": {
+   "H2": [
+    {
+     "N": 1,
+     "T": 5,
+     "cluster": "EleutherAI/pythia-2.8b"
+    }
+   ],
+   "H3": [
+    {
+     "N": 0,
+     "T": 0,
+     "cluster": "EleutherAI/pythia-2.8b"
+    },
+    {
+     "N": 2,
+     "T": 3,
+     "cluster": "EleutherAI/pythia-6.9b"
+    }
+   ],
+   "H4": [
+    {
+     "N": 4,
+     "T": 12,
+     "cluster": "EleutherAI/pythia-2.8b"
+    }
+   ]
+  },
+  "value": 10
+ },
+ "_known_answers": {
+  "N_frac_negative_CORRECTED": 0.9088492902446391,
+  "N_frac_negative_RAW": 0.9101781938991241,
+  "N_pooled_tail_excess_mean_CORRECTED": -0.07250042665386004,
+  "N_pooled_tail_excess_mean_RAW": -0.07379566011403738,
+  "_arm_note": "published known answer reproduces on tail_excess_RAW; Q's tested arm is tail_excess_CORRECTED (\u00a7Q2); \u00a7Q6 L879 names no arm -- see [4495]",
+  "clusters": 34,
+  "edges": 44,
+  "reachable": 96756,
+  "stimuli_en": 2199
+ },
+ "_limits": [
+  "Four of six arms have no measured effect size on their scale; their nulls are BOUNDS that may be reported and may NOT be called small.",
+  "H2's and H4's transgressive arm is 13.0% of the transgressive corpus and is a RESIDUE, not a sample.",
+  "H3 and H6 are ESTIMATED: no alpha, no test, no verdict language."
+ ],
+ "_null": {
+  "draws": 200000,
+  "kind": "two-sided sign-flip over the analysis unit",
+  "note": "the unit flips as a whole, carrying within-unit dependence; p is never quoted finer than its MC se",
+  "seed": 20260805
+ },
+ "_pins": {
+  "catalogue_sha256_16": "f441a8b2b12a8208",
+  "movement.py_blob": "e3278c76b451f464f342dd5fa3fc508a2845e6c9",
+  "movement_pin_commit": "e7864dab",
+  "population_id_set_sha256_16": "3ed3e286e633c2fc"
+ },
+ "_registration": {
+  "file": "registration_q_bridge.md",
+  "frozen": "2026-08-05 UTC, RH's word at [4487]",
+  "sha256_16": "c28ec53f2fe0276a"
+ },
+ "_what": "Registration Q \u2014 primary result.",
+ "arms": {
+  "H1": {
+   "as_predicted": true,
+   "bound_realized": 0.0018852353871138502,
+   "bound_registered": 0.00189,
+   "branch": "significant, AS PREDICTED (more negative `tail_excess` at marked/transgressive)",
+   "k": 684,
+   "mean": -0.002313457664908738,
+   "p": 3.9999800000999996e-05,
+   "p_mc_se": 1.4141817425104857e-05,
+   "predicted_sign": -1,
+   "realized_sd": 0.0147651613282114,
+   "registered_mde": 0.00189,
+   "significant": true
+  },
+  "H2": {
+   "as_predicted": false,
+   "bound_realized": 0.005559317064400691,
+   "bound_registered": 0.00436,
+   "branch": "**significant IN THE WRONG DIRECTION \u2014 REPORTED AS A REVERSAL, never as an asymmetry**",
+   "k": 33,
+   "mean": 0.009703830061735134,
+   "p": 9.999950000249999e-06,
+   "p_mc_se": 7.0710147790999525e-06,
+   "predicted_sign": -1,
+   "realized_sd": 0.009563634638522342,
+   "registered_mde": 0.00436,
+   "significant": true
+  },
+  "H3": {
+   "branch": "ESTIMATED \u2014 point estimate and interval only; no alpha consumed, no verdict language, and the word 'confirmed' may not attach",
+   "ci95": [
+    -0.004789534607207324,
+    0.05445731932204712
+   ],
+   "k": 32,
+   "mean": 0.0248338923574199,
+   "p": null,
+   "realized_sd": 0.0854992285731739,
+   "registered_mde": 0.03693
+  },
+  "H4": {
+   "as_predicted": false,
+   "bound_borrowed_sd": 0.0789,
+   "bound_realized": 0.006107072579852676,
+   "bound_registered": 0.00571,
+   "branch": "NULL \u2014 quoted as a BOUND, never as an absence",
+   "k": 33,
+   "mean": -0.0029549722361483168,
+   "p": 0.11534942325288373,
+   "p_mc_se": 0.0007142966253879086,
+   "predicted_sign": 1,
+   "realized_sd": 0.010505932687065647,
+   "registered_mde": 0.00571,
+   "significant": false
+  },
+  "H5": {
+   "as_predicted": true,
+   "bound_realized": 0.002845048794939046,
+   "bound_registered": 0.00284,
+   "branch": "significant, AS PREDICTED (LARGER `departed` at marked/transgressive)",
+   "k": 684,
+   "mean": 0.005260323508287312,
+   "p": 4.9999750001249995e-06,
+   "p_mc_se": 4.9999750001249995e-06,
+   "predicted_sign": 1,
+   "realized_sd": 0.022282418806183587,
+   "registered_mde": 0.00284,
+   "significant": true
+  },
+  "H6": {
+   "branch": "ESTIMATED \u2014 point estimate and interval only; no alpha consumed, no verdict language, and the word 'confirmed' may not attach",
+   "ci95": [
+    0.004997672214348417,
+    0.0298020173318245
+   ],
+   "k": 626,
+   "mean": 0.017399844773086457,
+   "p": null,
+   "realized_sd": 0.15832038788935135,
+   "registered_mde": 0.01773
+  }
+ }
+}

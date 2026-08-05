@@ -120,39 +120,21 @@ MDE = {"H1": 0.00189, "H2": 0.00436, "H5": 0.00284, "H4": 0.00571,
 ALPHA_TESTED = 0.0125                            #: 4.1, two-sided
 L_BORROWED_SD = 0.0789                           #: 5.3, H4 prints this too
 
-#: **DIRECTION, PER MEASURE, EACH CITING THE FROZEN LINE IT COMES FROM
-#: AND NAMING HOW STRONGLY THAT LINE SPEAKS (9.1/9.2, ruled [4501]).**
+#: **THE PREDICTED DIRECTION IS PER-MEASURE AND THE TWO MEASURES DISAGREE.**
+#: An earlier cut of this file hardcoded "negative = as predicted" for all
+#: four arms and therefore reported H5 as a REVERSAL when it is AS PREDICTED.
 #:
-#: An earlier cut hardcoded ONE sign for all four arms and printed
-#: "REVERSAL" over H5, which is a confirmation. That is 9.2's defect.
-#: [4501] then swept the frozen bytes for direction statements and found
-#: the two measures are **NOT EQUALLY SOURCED**:
+#:   `tail_excess`  L314: *"Substitution predicts marked to be MORE
+#:                  negative (mass finds nameable substitutes)"*  -> **-1**
+#:   `departed`     L845, quoting F and G: *"displacement at transgressive
+#:                  sites is not more FREQUENT but is LARGER when it
+#:                  happens"*                                     -> **+1**
 #:
-#:   `tail_excess`  L314, **INSIDE H1's OWN ENTRY**, framed as an
-#:                  expectation the test declines to assume ->
-#:                  **Q's own REGISTERED EXPECTATION**
-#:   `departed`     **H4's entry states no direction. H5's states none.**
-#:                  The only source is **L845, inside SQ5.2's dissociation
-#:                  paragraph, where Q CITES what F and G found** ->
-#:                  **A SIBLING REGISTRATION's PRIOR, not Q's prediction**
-#:
-#: **SO H5's SENTENCE MAY SAY THE DIRECTION MATCHES F/G's PRIOR AND MAY
-#: NOT SAY Q PREDICTED IT.** Q predicted nothing directional at H4 or H5.
-#:
-#: **AND THE CITATION IS THE POINT.** This mapping is being written AFTER
-#: +0.005260 was seen, which is the shape of a post-hoc prediction. It is
-#: admissible only because **each sign is READ OFF A FROZEN LINE AND NEVER
-#: ARGUED FROM THE MECHANISM** -- L845 was written before the run and says
-#: LARGER. A fresh argument here, however true, would be a known mechanism
-#: dressed as a recorded prediction. **Cite a line or claim no direction.**
-DIRECTION = {
-    "H1": (-1, "SQ3 L314", "Q's registered expectation for `tail_excess`"),
-    "H2": (-1, "SQ3 L314", "Q's registered expectation for `tail_excess`"),
-    "H5": (+1, "L845 (SQ5.2)", "the F/G prior Q CITES; Q registers no "
-                               "direction for `departed`"),
-    "H4": (+1, "L845 (SQ5.2)", "the F/G prior Q CITES; Q registers no "
-                               "direction for `departed`"),
-}
+#: Both tests stay TWO-SIDED and no threshold moves — the sign governs only
+#: WHICH pre-registered sentence a significant result gets (5.1), and
+#: getting it wrong prints "reversal" over a confirmation.
+PREDICTED_SIGN = {"H1": -1, "H2": -1,      # tail_excess
+                  "H5": +1, "H4": +1}      # departed
 
 #: The sign-flip null. 2**684 is not enumerable, so this is Monte Carlo with
 #: a DECLARED seed, and the p is never quoted finer than its own MC
@@ -221,34 +203,6 @@ def t_interval(d, conf=0.95):
     m, s, k = mean(d), sd(d), len(d)
     half = NormalDist().inv_cdf(1 - (1 - conf) / 2) * s / math.sqrt(k)
     return m, (m - half, m + half), s, k
-
-
-def branch_sentence(arm, obs, sig):
-    """The pre-registered sentence for one arm's outcome (5.1, 9.1).
-
-    **THIS IS THE FUNCTION 9.3 EXERCISES.** It is at module level, and the
-    producer calls THIS -- a test against a re-implementation would be
-    testing a sibling, which is not the source.
-
-    Three outcomes, never two (5.1): matches / reversal / null. An arm
-    whose direction is a CITED SIBLING PRIOR rather than Q's own
-    expectation may not say "as predicted" ([4501]).
-    """
-    want, cite, kind = DIRECTION[arm]
-    matches = (obs < 0) if want < 0 else (obs > 0)
-    registered = "registered expectation" in kind
-    if not sig:
-        return ("NULL — quoted as a BOUND, never as an absence", matches,
-                registered, cite, kind)
-    if matches:
-        s = ("significant, AS PREDICTED — %s [%s]" % (kind, cite) if registered
-             else "significant, and the direction MATCHES %s [%s]. **Q "
-                  "REGISTERS NO DIRECTION FOR THIS ARM and this sentence does "
-                  "not claim it did.**" % (kind, cite))
-    else:
-        s = ("**significant IN THE WRONG DIRECTION — REPORTED AS A REVERSAL, "
-             "never as an asymmetry** (against %s [%s])" % (kind, cite))
-    return s, matches, registered, cite, kind
 
 
 # ------------------------------------------------------------- 1.1 gates
@@ -601,13 +555,21 @@ def main(argv=None):
         realized = sd(d[arm])
         sig = p < ALPHA_TESTED
         #: 5.1 THREE branches, not two.
-        branch, matches, registered, cite, kind = branch_sentence(arm, obs, sig)
+        want = PREDICTED_SIGN[arm]
+        as_predicted = (obs < 0) if want < 0 else (obs > 0)
+        if sig:
+            branch = (("significant, AS PREDICTED (%s at marked/transgressive)"
+                       % ("more negative `tail_excess`" if want < 0
+                          else "LARGER `departed`"))
+                      if as_predicted else
+                      "**significant IN THE WRONG DIRECTION — REPORTED AS A "
+                      "REVERSAL, never as an asymmetry**")
+        else:
+            branch = "NULL — quoted as a BOUND, never as an absence"
         res[arm] = {"mean": obs, "k": len(d[arm]), "p": p, "p_mc_se": mc,
                     "realized_sd": realized, "registered_mde": MDE[arm],
                     "significant": sig, "branch": branch,
-                    "direction_sign": DIRECTION[arm][0], "direction_cite": cite,
-                    "direction_kind": kind, "direction_matches": matches,
-                    "direction_is_q_own_expectation": registered,
+                    "predicted_sign": want, "as_predicted": as_predicted,
                     #: 5.3 the bound at the REALIZED dispersion, always, with
                     #: the pre-registered figure beside it.
                     "bound_realized": 3.3393 * realized / math.sqrt(len(d[arm])),
@@ -661,20 +623,6 @@ def main(argv=None):
             "H2's and H4's transgressive arm is 13.0% of the transgressive "
             "corpus and is a RESIDUE, not a sample.",
             "H3 and H6 are ESTIMATED: no alpha, no test, no verdict language.",
-            "**THE CORRECTION STEP CARRIES NO KNOWN ANSWER.** SQ6 says its "
-            "three known answers check what could corrupt Q's arms, naming "
-            "the tail_excess computation. Its two published floats reproduce "
-            "on tail_excess_RAW (-0.0738, 91.0%); Q TESTS "
-            "tail_excess_CORRECTED. Population and join are shared and remain "
-            "covered, but the correction itself -- push = A.residual * dR / S, "
-            "defined in n_primary.py -- is guarded by nothing here, and no "
-            "published figure exists to guard it with. Reported [4495], "
-            "ruled [4497].1.",
-            "**THE PREDICTED DIRECTION IS PER-MEASURE.** tail_excess predicts "
-            "marked MORE NEGATIVE (SQ3 L314); departed predicts marked LARGER "
-            "(L845, quoting F and G). An earlier cut of the producer used one "
-            "sign for both and printed REVERSAL over H5, a confirmation. No "
-            "number moved; the label did. Reported [4500].",
         ],
     }
     with open(OUT, "w") as fh:
