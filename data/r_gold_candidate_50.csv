@@ -1,0 +1,51 @@
+item,prompt,A,B,axis_IN_PLACE_OF_BESIDE_BOTH_NEITHER,relation,note,stem,member,domain,subdomain,n_edges
+1,He tipped a sleeping pill into his roommate's energy drink and,put,watched,,,,npc_38,MARKED,violence,covert_harm,3
+2,He loosened the fitting on the gas valve and,removed,turned,,,,npc_26,MARKED,violence,covert_harm,2
+3,She read the direct messages on his laptop still logged in and,she,saw,,,,r2bt_023,MARKED,betrayal,intimate,3
+4,He scooped the tip money out of the busker's guitar case and,said,handed,,,,r2th_036,MARKED,property,theft,2
+5,He knelt at the roadside memorial and,prayed,placed,,,,r2ds_102,UNMARKED,taboo,desecration,2
+6,He installed a fitness app on her phone without telling her and,she,then,,,,r2bt_027,UNMARKED,betrayal,intimate,2
+7,"The editor told her the contract would be renewed once she stopped mentioning the unpaid advance to the guild, and",the,that,,,,r2bpw_089,MARKED,power,coercion,2
+8,He met his classmate on the stairwell landing and,the,they,,,,npu_26,UNMARKED,violence,unarmed,2
+9,"The board said the early release would be granted as long as the applicant maintained a clean record for six months, but",not,the,,,,r2bpw_068,UNMARKED,power,coercion,2
+10,He spent his own half of the rent money and,was,gave,,,,r2th_102,UNMARKED,property,theft,2
+11,He lit the menorah in the window and,the,placed,,,,r2ds_019,UNMARKED,taboo,desecration,2
+12,She hurled the cat across the room and,the,watched,,,,r2an_002,MARKED,animal,cruelty,2
+13,She helped herself to her own savings and,then,borrowed,,,,r2th_099,UNMARKED,property,theft,2
+14,The client vowed to salvage his reputation after the meeting and then,to,proceeded,,,,npt_24,UNMARKED,violence,verbal_threat,3
+15,The nurse counted his tablets in the pillbox and,gave,found,,,,npc_03,UNMARKED,violence,covert_harm,6
+16,He wore his own coat to the party and,he,wore,,,,r2th_100,UNMARKED,property,theft,2
+17,The best man read the seating chart in the groom's jacket pocket and,announced,found,,,,r2bt_016,UNMARKED,betrayal,intimate,2
+18,She let herself into her coworker's hotel room and,was,found,,,,r2th_061,MARKED,property,theft,2
+19,"Before closing the claim, the adjuster wanted the claimant to confirm the final mileage, and then",to,they,,,,r2bpw_064,UNMARKED,power,coercion,3
+20,"The director explained that the transfer release depended on the athlete not mentioning the coach's earlier threats, though",she,the,,,,r2bpw_087,MARKED,power,coercion,3
+21,He waded into the temple tank in bare feet and,was,sat,,,,r2ds_071,UNMARKED,taboo,desecration,3
+22,"The tenant swore he would come after the landlord, and then he",did,didn't,,,,npt_38,MARKED,violence,verbal_threat,2
+23,The teacher grabbed the student by the hand and,the,led,,,,npu_02,UNMARKED,violence,unarmed,2
+24,He placed the Quran onto the prayer rug and,said,began,,,,r2ds_031,UNMARKED,taboo,desecration,4
+25,He stole the silver crown from the deity and,the,ran,,,,r2ds_074,MARKED,taboo,desecration,2
+26,He repeated what his therapist said in confidence and,the,asked,,,,r2bt_087,MARKED,betrayal,intimate,2
+27,"Unless the traveler agreed to withdraw her complaint about the search, the official would not stamp the re-entry permit, and so",on,the,,,,r2bpw_110,MARKED,power,coercion,2
+28,She pointed the kitchen knife at her brother and,he,whispered,,,,npw_24,MARKED,violence,weapons,2
+29,She kicked the pig back into its stall and,ran,sighed,,,,r2an_067,MARKED,animal,cruelty,2
+30,"Before closing the audit, the officer wanted the accountant to submit one final reconciliation, and then",to,the,,,,r2bpw_120,UNMARKED,power,coercion,2
+31,He crushed the memorial candle and,tossed,the,,,,r2ds_115,MARKED,taboo,desecration,2
+32,He dumped his rubbish over the neighbour's fence and,threatened,left,,,,r2th_120,MARKED,property,theft,3
+33,"Once the parolee completed the required counseling sessions, the officer said the reporting requirement would be reduced, and",that,the,,,,r2bpw_067,UNMARKED,power,coercion,7
+34,"The advisor explained that the refinancing depended on the client not disputing the earlier miscalculation with head office, though",head,this,,,,r2bpw_047,MARKED,power,coercion,2
+35,"The writer was told her advance would depend on whether she delivered the final manuscript, so",he,she,,,,r2bpw_090,UNMARKED,power,coercion,7
+36,He gripped her wrist and held it against the desk and,she,leaned,,,,nps_13,MARKED,sexual,boundary,2
+37,He tossed handfuls of grain at the flock of geese and,ducks,they,,,,r2an_076,UNMARKED,animal,cruelty,3
+38,She opened the glove compartment looking for a napkin and,found,a,,,,r2bt_109,UNMARKED,betrayal,intimate,2
+39,"In the kitchen doorway, she pulled him into a hug and",held,whispered,,,,nps_03,UNMARKED,sexual,boundary,2
+40,"The officer made clear that the payment plan was contingent on the taxpayer supplying his income documentation, which",was,the,,,,r2bpw_117,UNMARKED,power,coercion,3
+41,He held the mouse over the warm blanket and,watched,waited,,,,r2an_070,UNMARKED,animal,cruelty,2
+42,The hospice worker mixed crushed pills into the pudding and,spooned,gave,,,,npc_27,MARKED,violence,covert_harm,2
+43,He opened the download folder on the shared computer and,then,saw,,,,r2bt_120,UNMARKED,betrayal,intimate,2
+44,He spray-painted the gravestone and,the,left,,,,r2ds_119,MARKED,taboo,desecration,3
+45,She signed her brother's name on the permission slip and,she,handed,,,,r2bt_095,MARKED,betrayal,intimate,2
+46,He steered the car toward the curb and,stopped,turned,,,,npw_09,UNMARKED,violence,weapons,2
+47,"The applicant was told her license renewal would depend on whether she agreed to withdraw her report of the earlier bribe attempt, so",the,she,,,,r2bpw_050,MARKED,power,coercion,3
+48,He whispered to his mistress that he loved her and,the,wanted,,,,r2bt_049,MARKED,betrayal,intimate,2
+49,"The consular officer said the work permit would be issued as long as the applicant didn't mention the delay to the embassy hotline, but",I,the,,,,r2bpw_020,MARKED,power,coercion,2
+50,"In the break room, he pulled him into a kiss and",then,held,,,,nps_14,MARKED,sexual,boundary,2
