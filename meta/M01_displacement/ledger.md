@@ -868,3 +868,34 @@ the earlier clause statuses was re-derived, and no claim above was
 independently verified by writing it here.** Where this block and an artifact
 differ, **the artifact governs** — the same rule this file applies to the
 README, applied to this file.
+
+---
+
+## Currency pass, 2026-08-05 (registrar, on RH's word; docket [4567]-[4617])
+
+**Supersedes the "OPEN DEPENDENCIES, RESTATED" list above wherever they differ.** Everything here is read from artifacts, frozen bytes, or two-seat docket verifications; citations are docket post numbers.
+
+### The two runs the earlier blocks were waiting on
+
+- **P RAN 2026-08-04** (`result_p_primary.json` `a7af6f10a21e4799`). **Clause 6's positive characterisation LANDED for the ACT stratum**: all three coder families read the risen word as an exclamation against the paired decoy — a speech-act shift. **The REF stratum's declared primary (metonymy) did not survive**: 1 of 3, single-coder, as the pre-written sentence required. Qualifiers that travel with every P sentence: agreement alphas 0.2695/0.2146 print before the verdicts; coder nondeterminism measured at 26.7% of identical re-calls (the artifact is ONE DRAW). **Clause 7's stratified reading from P's artifact is still owed to this file.**
+- **NEW LIMIT ON CLAUSE 6's AXIS VOCABULARY ([4581]/[4583]/[4590]): P licenses no paradigmatic-vs-syntagmatic sentence.** The axis was never coder-facing; it is a post-hoc bucketing of labels. Figure of record: **49.7%** of items all three coders call related split on the derived axis (barred by definition: 33.8%, 64.5%, 76.7%). Mechanism: label tick-rate (1.30/1.59/1.85 labels per annotation) through an `any() AND any()` rule — monotone, so the "axis spread" is label generosity, not perception. Within-coder instability on accidental re-asks: **axis 18/339 = 5.3%, existence 22/339 = 6.5%** (denominator = pairs with ≥2 parseable codings; pending one denominator cross-check), falsifying the schema's own "twice at temperature 0 is one observation" line. **Clause 6's two-axis vocabulary is therefore R's to earn, not P's to carry.**
+- **Q FROZEN AND RAN 2026-08-05** (frozen `c28ec53f2fe0276a` commit `5c80c80a`; artifact `ecafe3e4bad8a86f` commit `dd292dec`). **THE BRIDGE DOES NOT HOLD — a frame reversal in §Q5.1's pre-written fourth branch**: substitution runs more-negative at the marked twin inside pairs (H1 −0.002313, p 4e-5) and more-positive for transgressive-vs-neutral in the corpus residue (H2 +0.009704, p 1e-5). Magnitude splits the other way (H5 significant matching the cited F/G prior; H4 null-as-bound) — §Q5.2's dissociation clause. Norms cells estimated, no verdicts, by design. **Governing limit: the corpus arm is the 13.0% residue outside the pair corpus; no general transgressive claim is licensed.** Two errata: §Q6's known answer names no arm ([4495]); H2's branch sentence carried a verdict word for a direction Q never registered ([4570] — a pair-frame citation read as governing a corpus contrast; corrected artifact `9b7076893db58da8` verified leaf-by-leaf at both seats, direction metadata only, supersedes on Erratum 2's co-signature).
+
+### Standing rules added since the last pass (each from a verified defect)
+
+- **A direction citation must name a line whose SUBJECT is the arm's own contrast** ([4501] amended at [4572]); a citation gate now enforces this in Q's producer, positive-controlled.
+- **A prediction imported across a change of estimand** is the class behind both the Table-6 arousal false alarm (level vs contrast) and Q's Erratum 2 (pair frame vs corpus frame). Nothing in a variable's name marks which question it answers.
+- **Required-fields family grows**: duplicate handling ("a rate needs to say how duplicates were handled") and the exclusion set ("a count whose exclusion set is derived from the expected result cannot contradict it") join arm/alpha/measure/reference/draw-count/null/column-convention.
+- **One question per field, one field per question**: existence-vs-axis conflation produced three separate corrections in one morning; R's schema asks them separately.
+
+### Infrastructure state (affects any future run)
+
+- **The shared library is no longer an editable install** ([4594]): a bare import resolves to a pushed tag in site-packages. P's producer refuses the new blob and reproduces via `PYTHONPATH` to its own pinned clone — two pins coexisting correctly.
+- **`LITMOD_DATA_DIR=/Users/rj416/github/largeliterarymodels/data` is REQUIRED in the environment** ([4602]): the pin relocated the derived data root; 9.0G of paid annotations were orphaned, salvaged (195 files, zero overwrites), and re-rooted upstream (`pin-2026-08-05.2-data-root`). Unset, runs are silently cold and re-pay. A producer-level root assertion is booked as the durable form.
+- **`metadata` is part of the annotation stash key, intentionally and irreversibly** ([4602]/[4608]): the metadata list must be frozen in the run manifest beside the item list, byte-identical across runs, or resumption re-keys and re-pays with every receipt honest. P passed none and is unaffected.
+- **The four never-gated scorers (`f21_rerun`, `score_institutional`, `run_disposition_tagger`, `score_passage_narratology`) now import a DIFFERENT library version than their outputs were produced under** — their form-(b) gates ([4469]) are OVERDUE, not optional; any run before gating is a silent provenance change.
+- **P's duplicate-collapse rule is unstated** ([4588]): the artifact holds exactly one coding per (cell, model) and the published numbers are stable, but which of two disagreeing re-calls survived is a property of iteration order that was never declared. Filed as a limit, not a defect in the numbers.
+
+### What this block does not license
+
+**A currency pass, not an audit** — same rule as the block above: figures here were read from artifacts and two-seat docket verifications, not re-derived by writing them down. Where this block and an artifact differ, the artifact governs; where it and the docket differ, the docket governs.

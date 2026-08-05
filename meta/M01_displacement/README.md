@@ -31,7 +31,7 @@ Both axes ask the same three questions: **in general, at transgressive sites, an
 
 **The structure of the redistribution** — how concentrated the receiving set is, and whether families agree on direction — is measured but unregistered. It lives in the `m01_concentration` producer and in ledger clauses 3 and 5.
 
-**And the two rows of this axis do not yet meet.** N answers *in general*, F and G answer *at sites* — on different statistics and different units, so no sentence of the form "N times stronger at transgressive sites" is available. **Registration Q is drafted to close exactly that; see the bridge below.**
+**And the two rows of this axis now MEET, and they disagree.** Registration Q put them on one scale and the answer is a frame reversal — see the bridge below. "N times stronger at transgressive sites" is not merely unavailable; **its premise is false as stated** — the two frames do not share a direction, let alone a ratio.
 
 ### Axis 2 — Does alignment change word-norm semantics?
 
@@ -47,13 +47,13 @@ Both axes ask the same three questions: **in general, at transgressive sites, an
 
 **The same gap sits under this axis:** C is the general corpus, D2 is the minimal pairs, and they share machinery with no common scale.
 
-### The bridge — Registration Q (drafted, not frozen)
+### The bridge — Registration Q (frozen, ran; the bridge does not hold)
 
-*Both axes ask their three questions and neither can compare its own answers.* **Q puts general and site on one instrument, one population, one scale** — N's 2,199 English stimuli × 44 edges, four measures per cell, with the partitions read out of that single pass: the marked and unmarked halves of the 684 minimal pairs, against the transgressive and neutral prompts of the general corpus.
+*Both axes ask their three questions and neither could compare its own answers.* **Q put general and site on one instrument, one population, one scale** — N's 2,199 English stimuli × 44 edges, four measures per cell, the partitions read out of one pass: the marked and unmarked halves of the 684 minimal pairs against the transgressive and neutral prompts of the general corpus.
 
-Three declared contrasts. **`tail_excess` at sites, paired on the pair** — the campaign's own substitution claim, never once tested where it matters most. **`tail_excess` transgressive-vs-neutral in the general corpus, paired within cluster** — the bridge itself. And **the norm statistics estimated with a stated MDE and never tested**, because their minimum detectable effect sits at the size of the effects this campaign has actually measured. That last is Registration C's control arm exactly, and **the only difference is that Q knows beforehand.**
+**The answer is a FRAME REVERSAL, in a sentence the registration wrote before the numbers existed:** inside the minimal pairs, substitution runs more-negative at the transgressive twin; in the corpus outside the pairs, transgressive prompts run more-positive against neutral ones. **The pair frame and the corpus disagree about the direction — "a finding and not a failure."** The magnitude measure splits the other way (significant in pairs, null in the corpus — the F/G structure generalising), and the norm statistics were estimated with intervals and no verdicts, exactly as declared.
 
-**Q is a draft posted for review. It has never been frozen and has produced no quantity.**
+**What this does to every sentence on this page:** no arm alone licenses "the site effect in general." The corpus arm is the 13% residue outside the pair corpus, so the reversal is between the pair frame and that residue — the general transgressive claim is not licensed. And the descriptive work that followed (unregistered, two-seat, on the same artifact) found the prompt's FINAL WORD explains an order of magnitude more variance than transgressiveness does — the pair design is validated retroactively (final-word-controlled by construction), and every partition-level table without that control is confounded.
 
 ---
 
@@ -61,15 +61,13 @@ Three declared contrasts. **`tail_excess` at sites, paired on the pair** — the
 
 ### Axis 3 — What *is* the substitution? (the relation)
 
-**The question the campaign is named after — and as of 2026-08-04 it has a registration: P, frozen and pending its run.** *Displacement* names a relation, not a rate: what is `scream` to `kill`? A speech-act shift, a metonymy, an attenuation, a register change?
+**The question the campaign is named after — and it now has an ANSWER, with named limits.** *Displacement* names a relation, not a rate: what is `scream` to `kill`? A speech-act shift, a metonymy, an attenuation, a register change?
 
-Four geometric instruments — WordNet similarity, contextual cosine, inverted syntagmatic JS, mass-winner percentile — **all fail to locate a relation a reader sees instantly.** That is a verified instrument-failure record and nothing more.
+Four geometric instruments — WordNet similarity, contextual cosine, inverted syntagmatic JS, mass-winner percentile — **all failed to locate a relation a reader sees instantly.** Registration P replaced that failure record with the first positive characterisation. Ran 2026-08-04: 4,443 items over 685 prompts, three coder families, one pair per call, each risen word paired against a stationary decoy from its own faller. **In ACT slots, all three families independently read the risen word as an EXCLAMATION more often than the control — the substitution is a speech-act shift, the act rendered as a cry.** The metonymy reading (the REF stratum's declared primary) did not survive: one family of three, reported as written before anyone knew the answer.
 
-**Registration P is the instrument that could replace it with something positive.** Frozen 2026-08-04: 4,443 items over 685 prompts, coded by three model families one pair per call, with a *paired* primary — each risen word against a stationary decoy drawn from its own faller, so the comparison holds the faller fixed and varies only whether the word moved. Two strata carry primaries (speech-act shift in ACT slots, metonymy in REFERENT slots); everything else is descriptive. **CONFIRMED requires all three coder families; two of three is reported as a SPLIT with the dissenter named — and that sentence was written before anyone knew the answer.**
+**Three limits travel with that sentence.** Inter-coder agreement is low and prints before the verdicts. The coders are not deterministic — 26.7% of identical re-calls differ — so the artifact is one draw. And **P licenses no paradigmatic-versus-syntagmatic sentence at all**: the axis was never a question the coders saw, only a bucketing of their labels that the campaign wrote afterwards, and it fails its own reliability tests. **That last limit is Registration R's reason to exist** — a redesigned schema that asks the axis directly, one label per coding, existence as its own question, self-agreement measured beside cross-coder agreement. R is drafted, deliberately un-frozen while the roster question and the schema bake-off settle.
 
-**It has not run**, and until it does the relation has no positive characterisation. **The flagship pair is not in it:** `kill → scream` clears the drawing threshold on merit at 18 edges and is excluded solely because it was spent on tuning, recorded in the deposit as an exhibit so a reader can see exactly what was given up.
-
-P also carries the stratified test that clause 7's slot-sensitivity has been waiting on. **One unrun pass gates both.**
+**The flagship pair is in none of it:** `kill → scream` clears the drawing threshold on merit at 18 edges and is excluded solely because it was spent on tuning, recorded in the deposit as an exhibit so a reader can see exactly what was given up.
 
 ### Axis 4 — When is it learned? (training stage)
 
@@ -96,7 +94,7 @@ Some registered work exists to attack the campaign's own results rather than ext
 
 ## Two limits that bind every sentence on this page
 
-**There is no bridge quantity between "in general" and "at sites."** C and D2 are built from the same contrast machinery, but no statistic puts them on a common scale, so **the two rows of each axis cannot currently be compared numerically.** Anything of the form "the effect is *N* times stronger at transgressive sites" is unavailable.
+**The bridge quantity now exists, and what it returned FORBIDS the sentence it was expected to license.** Q put "in general" and "at sites" on one scale and they disagree in *direction* on substitution, so anything of the form "the effect is *N* times stronger at transgressive sites" is not merely unavailable but false as framed. No arm alone licenses "the site effect in general"; the corpus arm is the 13% residue outside the pair corpus and every general transgressive claim remains unlicensed. (C and D2 still share machinery with no common scale — Q bridged the movement axis, not the norms axis, whose Q cells were estimated with no verdicts by design.)
 
 **"Across languages" currently means one registration and one language pair.** O's nine surviving clusters are all Chinese-origin or Chinese-heavy — the one non-Chinese lineage was removed by the competence filter — so a crosslingual confirmation licenses **"the mechanism appears in Chinese-trained models on Chinese text"** and never the general claim. And magnitudes never compare across O's arms: the two languages' valence scales differ in dispersion by a third, so "the effect is larger in Chinese" would report a lexicon difference as a model difference.
 
@@ -104,12 +102,13 @@ Some registered work exists to attack the campaign's own results rather than ext
 
 ## What is open
 
-- **Registration P's run** (axis 3) — frozen, its producer built and cleared at two seats, **not run**. It waits on RH's explicit word and nothing else fires it. Until it does, nothing about the relation can be said positively, and clause 7's slot-sensitivity waits on the same pass.
+- **Registration R** (axis 3's second pass) — motivation drafted and HELD un-frozen on RH's word while the coder roster settles and the schema is redesigned on P's own agreement evidence: the axis asked directly, one label per coding, relation-existence as its own field, a within-coder re-ask fraction, the decoy contrast as primary on fresh exposure. A field-ordering bake-off (label-first vs describe-first) runs upstream before the instrument freezes.
+- **Q's Erratum 2 co-signature** — the corrected artifact (direction metadata only, every measurement byte-identical) is verified at both seats and supersedes on signature.
+- **Clause 7's stratified reading from P's artifact** — P carried the slot-sensitivity strata; the clause-level reading is still owed to the ledger.
 - **The whole of axis 4** — no registration, and the SFT-installation claim needs reproducing before it can be cited at all.
-- **Registration Q** — drafted, posted for review, **never frozen**. It carries the norms half of the live-roster sweep (the movement half is discharged by N and O) *and* the general-vs-site bridge, and three questions sit at RH's seat: an arbitrary per-cluster floor, whether to re-derive G and D2 as known answers at all, and a measure listed with no hypothesis.
 - **C's one blind arm** (general sweetening), never emitted.
 - **D3b's negative slope** — more extreme pools appear to displace *less*, which is the opposite of what the confound predicts. A described fit awaiting a registered surrogate.
 - **The bloomz question** — a model whose base is Chinese-competent and whose aligned child is not, same tokenizer, one step. **Alignment took its Chinese away.** Deposited as n=1; a ten-lineage table is authorized.
-- **Four audits owed** on findings the ledger's clauses rest on, and two producer repairs whose consequence is that every Stouffer Z in N and O is a floor rather than a value.
+- **Four audits owed** on findings the ledger's clauses rest on; two producer repairs whose consequence is that every Stouffer Z in N and O is a floor rather than a value; and **four never-gated scorers whose provenance gates are now OVERDUE** — the shared library moved from an editable install to a pinned tag, so they import a different version than their outputs were produced under.
 
 *Where this page and `ledger.md` differ, the ledger governs; where the ledger and the docket differ, the docket governs. For whether a registration ran and what it returned, `REGISTRATIONS.md` governs both.*
