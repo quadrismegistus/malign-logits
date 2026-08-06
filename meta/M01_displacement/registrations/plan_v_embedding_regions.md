@@ -24,6 +24,20 @@ Its awkwardness is fatal to a simple design: 14 checkpoints live in 14 incompati
 
 **Route B is primary. Route A is the check**, because agreement between a shared external space and the models' own spaces is worth more than either alone.
 
+**AMENDED 2026-08-06, after the variance measurement and before any clustering.** Route B's step 1 ran (`scripts/v_bge_variance.py`) and changed which arm should be primary, so the change is recorded here with its reason rather than made silently.
+
+    within-prompt share of variance, BAAI/bge-m3, contextual
+        layer  6 (25%)   79.9%
+        layer 12 (50%)   75.3%
+        layer 18 (75%)   73.1%
+    agreement between contextual centroids and BARE type vectors, Spearman
+        layer  6   +0.866      layer 12   +0.803      layer 18   +0.638
+        over 450 word types
+
+Three quarters of the variance is the word rather than the prompt, so the contextual arm is clusterable and the confound this plan worried about is small in practice. **But the bare arm agrees with it at rho 0.87**, which means context refines the arrangement rather than creating it -- and the bare object is strictly better to cluster: one vector per TYPE instead of one per site, **no prompt confound at all rather than a small one**, no centring decision to defend, no layer choice to defend (there is no context for depth to accumulate), and a few thousand vectors instead of tens of thousands.
+
+**So: BARE TYPE EMBEDDINGS ARE PRIMARY. The contextual arm becomes the robustness check, and route A the second check.** This removes two declared free parameters rather than adding any, which is the only reason it is a legitimate change to make after seeing a number.
+
 ## What is already established, so it is not re-litigated
 
 **The prompt-dominance confound does not sink this.** The obvious objection is that a contextual embedding is mostly its prompt, so clustering finds prompts and every cluster comes out 50/50 faller/riser by construction. Measured on route A: `scripts/t_preop_variance.py`, 13 checkpoints above a 200-site floor, single-token records, layer at 50% depth. **Median within-prompt share of variance 61.3%, range 37.7–72.1.** The word contributes the majority. Centring within prompt is therefore optional rather than forced, and both raw and centred are defensible.
