@@ -52,7 +52,26 @@ The concrete pairs: `dragged -> said`, `stabbed -> demanded`, `stabbed -> said`,
 
 Two of the 50 categories move negatively and both are about doing something to another person: `Hostile`, and `SocRel`, which GI defines over words naming social relationships and interactions between people. Everything else that reaches significance rises.
 
-A dictionary compiled in the 1960s Lasswell tradition, a fixed lexical database, and a taxonomy induced blind last night all put hostility on the falling side and speech and perception on the rising side. None of the three could have been fitted to the answer, and they do not share a construction principle.
+**Four more labelings, added later, all agreeing.** Each was chosen against a gap the first three could not close, and each is run at its own granularity with a minimum cell of 10 and Bonferroni within the resource.
+
+    USAS, verb-to-verb        S3.2 intimate/sexual -> Q2.1 speech      25 against 2
+                              G2.1 crime and law   -> A10 finding      21 against 3
+                              Q2.1 speech          -> A10 finding      26 against 1
+    FrameNet                  Manipulation -> Communication_manner     23 against 0
+                              Request      -> Communication_manner     14 against 0
+                              Statement    -> Communication_manner     16 against 2
+    VerbNet, Levin classes    cut       -> declare                     17 against 1
+                              indicate  -> manner_speaking             14 against 1
+    RID                       aggression is a source in four surviving pairs
+                              and a destination in none
+
+USAS is the only resource that covers this vocabulary natively, 85% of types and 96% of slots as SURFACE FORMS with no lemmatizing, and it has the words the General Inquirer lacks: `raped` is G2.1-/S3.2, `handcuffed` G2.1, `desecrated` G2.2-/A1.1.2. Its tag contents were read off the lexicon rather than from a tagset document: A10 holds `bare`, `buried`, `camouflage`, `blur`; G2.1 holds `abduct`, `apprehend`, `arraign`; S3.2 holds `copulate`, `cuddle`, `court`.
+
+FrameNet and VerbNet both make the cut WordNet could not. `Statement -> Communication_manner` at 16 against 2 is `said` becoming `whispered`, measured; VerbNet puts `whispered`, `shouted`, `screamed`, `yelled` in `manner_speaking-37.3` while `said` sits in `say` and `told` in `tell`.
+
+RID is Martindale's Regressive Imagery Dictionary, built on Freud's primary-process and secondary-process distinction, which is this project's own theoretical vocabulary. Its coverage is the worst here at 36% of slots and its patterns are regexes that fire on substrings, so it is reported for direction rather than for p-values. On raw slot counts `aggression` falls from 251 to 84, the largest decline of any category, while `instrumental_behavior` rises from 93 to 423 and `sensation` from 127 to 414. On the process axis the move is `emotions -> secondary` at 82 against 40: affect leaves, and it does not leave toward primary process.
+
+Seven labelings now, and they do not share a construction principle: a dictionary compiled in the 1960s Lasswell tradition, a fixed lexical database, a corpus-linguistics tagset, Levin's syntactic-semantic verb classes, Fillmore frames, a psychoanalytic content dictionary from 1975, and a taxonomy induced blind. All put hostility and physical force on the falling side and speech and perception on the rising side. None could have been fitted to the answer.
 
 ## 3. The boundary the taxonomy's author flagged is not load-bearing
 
@@ -216,6 +235,7 @@ This matters for where the account puts its weight. The book's structure treats 
     lexicons      meta/M01_displacement/lexicons/                     see README there
     cross-tab     meta/M01_displacement/scripts/s_category_crosstab.py
     condensation  meta/M01_displacement/scripts/s_condensation.py
+    4 lexicons    meta/M01_displacement/scripts/s_lexicon_crosstab.py
     concreteness  meta/M01_displacement/scripts/s_concreteness.py
     stage split   inline in this document; registry staging corrected for the
                   three Tulu SFT ablations, see finding 9
