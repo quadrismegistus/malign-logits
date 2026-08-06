@@ -70,7 +70,7 @@ Registration O, `results/result_o_primary.json`. 9 clusters, 9 edges, 301 pairs,
 
 **Data-quality flag, unresolved:** `bloomz-7b1` has a competence share of **0.109** where every other model in the population sits between 0.54 and 0.68. One of nine edges runs on a model barely performing the task. Check whether it was meant to be excluded before the 9-cluster figure travels.
 
-### 5. What kind of operation — substitution, not deletion
+### 5. What kind of operation — selection only, or a deeper restructuring
 
 | claim | number | status |
 |---|---|---|
@@ -82,7 +82,20 @@ Forced-continuation run, 32 of the 36-pair roster; both Falcon-H1 and both Falco
 
 **And that inverts the argument this seat has been making for the substitution reading.** Its claimed virtue was narrowness: it rests on the damage null rather than the resist asymmetry, so it survives whatever happens to the asymmetry. True, and the cost is now visible — **the one measure it rests on is the single measure on the restricted population**, while the result it declines to lean on is the one on the full sample. Narrowness bought independence from a contested finding at the price of depending on the thinnest-populated one. Pass 2 generates forced units only, so it buys the asymmetry nothing and buys this everything: an unfiltered population, roughly 3.8x the sites, ten movers per site instead of one, a within-word control, and ten times the forced continuations for the two unrun discriminator channels.
 
-**Conceptually this is the load-bearing one**, because it is the only evidence separating displacement from removal: the word remains fully sayable and is simply not chosen. What changed is the horizon of the expected, not the range of the possible. Estimates have shrunk toward zero as pairs were added while MDEs tightened, which is a true null being approached rather than an effect too small to see.
+**THE FRAMING HERE WAS WRONG UNTIL RH CORRECTED IT ON 2026-08-06, and the correction is recorded because the wrong version was repeated several times as though it were a result.** The claim was "the word remains fully sayable and is simply not chosen," offered as evidence that displacement is substitution rather than deletion.
+
+**Sayability was never in question.** Base and aligned share a tokenizer, every token draws nonzero probability out of a softmax, and no word can be literally unavailable. Foreclosure in the strict sense does not happen and cannot. And P(word) under both models is already known — it *is* the displacement finding, section 1. So nothing about the word's own availability needs an experiment, and "deletion" was a straw target.
+
+**What forcing buys is the counterfactual continuation.** What the aligned model does *after* uttering the demoted word is not in the data, because it never goes there on its own. Pinning the word and generating past it produces a stretch of text with no natural equivalent, and that is the entire contribution of the forced arm. The contrast it tests:
+
+- **SELECTION ONLY** — alignment changed which word is picked and nothing else. Force the word and everything downstream proceeds as though the base had written it.
+- **DEEPER RESTRUCTURING** — alignment changed the model's handling of the whole region. Force the word and the continuation degrades, is diverted, or is visibly repaired.
+
+**This sharpens the theoretical question rather than dissolving it.** The Freudian question was never "is the repressed accessible", which is trivially yes in a softmax. It is what the system DOES when the repressed content is present — the return of the repressed and the work of managing it. That is a downstream question and the ten continuation tokens are pointed at it.
+
+**And only half of downstream has been measured.** Position-resolved damage asks whether the continuation is EXPENSIVE. It does not ask what the continuation DOES. A model can produce a perfectly high-probability continuation that steers straight back to the sanctioned frame, and steering is cheap. Cost and repair are both downstream; only cost has run. See OPEN.
+
+Estimates have shrunk toward zero as pairs were added while MDEs tightened, which is a true null being approached rather than an effect too small to see.
 
 ---
 
@@ -166,7 +179,7 @@ Three limits, all narrower than the original hedge.
 
 **Does the cost live downstream?** The discriminator between chain substitution (no cost anywhere) and full topography (cost in integration) was specified as three channels: containment, frame-break, and renewed displacement after the forced word. **One has run.** Position-resolved damage is flat across all ten continuation positions, LATE minus EARLY -0.0022 at p = 0.98 — but MDEs grow from 0.021 early to 0.110 late, so the instrument is weakest exactly where the competitor predicts the effect. **A model can pay zero probability-cost for the forced word and still steer back to the sanctioned frame, and steering is cheap.** The two remaining channels need no new generation.
 
-**The bound that currently holds on the theory:** this instrument does not confirm the topographic account and refutes only its crudest form — the word buried and unsayable. Freud separates uttering from lifting (*Verneinung*, 1925), so a zero-cost forced utterance does not adjudicate between a cost that lives downstream and no cost at all.
+**The bound that currently holds on the theory:** this instrument does not confirm the topographic account and refutes only its crudest form — a cost at the moment of utterance. (Not "the word buried and unsayable": nothing in a softmax is unsayable, so that version of the depth model was never a live option and refuting it costs nothing.) Freud separates uttering from lifting (*Verneinung*, 1925), so a zero-cost forced utterance does not adjudicate between a cost that lives downstream and no cost at all.
 
 ---
 
