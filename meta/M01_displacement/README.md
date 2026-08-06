@@ -71,6 +71,27 @@ Four geometric instruments — WordNet similarity, contextual cosine, inverted s
 
 **The flagship pair is in none of it:** `kill → scream` clears the drawing threshold on merit at 18 edges and is excluded solely because it was spent on tuning, recorded in the deposit as an exhibit so a reader can see exactly what was given up.
 
+### The category flow — findings T (`findings_t_category_flow.md`)
+
+**The sentence that survived every instrument applied to it on 2026-08-06:** *alignment moves language off contact, motion and physical force and onto perception, cognition and speech, on six lexicons that share no construction principle, with no category reversing between them.*
+
+Several of these claims moved during the day they were made — some more than once — and the superseded versions are the ones that already travelled. So each line below says what the finding claims **now**, and what it claimed earlier where that differs. The findings document is canonical; where it and this list differ, it governs.
+
+| | claims now | claimed earlier |
+|---|---|---|
+| **11** | 33 categories rise in ≥5 of 11 strata and never reverse; 10 fall and never reverse. WordNet `contact` falls in 10 of 11 — the most consistent single result in the set. | unchanged all day |
+| **12** | 45 USAS fields move; X2.4 *Investigate/examine/test/search* rises in **43 of 43 edges**. USAS's rising fields read Attention, Caution, Constraint, Reciprocity, Understand — a 1990s tagset naming the alignment vocabulary without being asked to. | unchanged |
+| **13** | **One cell of eight**: faller breadth, open-class — alignment withdraws from *more content words* in the marked twin (+3.7%, 30/40 edges, p<1e-4), closed-class flat as the internal control. Everything else in the eight is null or unexplained. | moved three times: "risers larger in the neutral twin" (dropped); "specific in depth, not breadth" (a sample-size fact); "specific in both" (did not survive the word-class split) |
+| **14** | Fallers are few-per-category and **3.8x larger**, all seven lexicons (p=5.8e-9) — the magnitude claim is intact. The 206-vs-36 **count** claim carries a granularity caveat: it is resolved only by the fine-grained lexicons; WordNet and the induced taxonomy are saturated at ~16 categories. | count and magnitude were reported as one thing |
+| **15** | 70 of 94 earlier directed pairs hold at one vote per stem; 24 do not; **no direction reverses** — the counts were inflated, never the claims. | 94 pairs at the row unit (a denominator inherited from a data structure) |
+| **16** | 700 fields cluster by Jaccard word-set overlap into 483; 114 significant after deduplication; **zero clusters split** — no group of lexically similar fields moves in opposite directions, across six unrelated construction principles. 105 riser-clusters vs 9 faller-clusters. | an imposed 13-item mapping was abandoned (it put 70 of 258 USAS codes in `other`); the cluster method is the found structure, not an invented one |
+
+Three reading rules travel with the table, and they are RH's:
+
+1. **A cluster result never retracts a component result.** Components sitting in diluted merges stand on their own tests; a changed denominator and a stricter correction change a status, not a finding. `rid:aggression` at p=0.0063 against a cluster-level alpha is not a dead finding.
+2. **No null without its MDE.** A test that sees the claimed effect 67% of the time has not refuted it.
+3. **Never "dead."** Superseded, withdrawn, unresolved, or not-supported-at-this-power — each says what happened; "dead" says only who is talking.
+
 ### Axis 4 — When is it learned? (training stage)
 
 *Does the operation install at SFT or at DPO, and does repression precede displacement?* Two ledger clauses, **no registration, and the stronger of the two is currently unreproducible** — the SFT-installation result has never been regenerated and its cause was never found.
