@@ -923,3 +923,21 @@ README, applied to this file.
 - The claim "displacement occurs at N% of sites" remains barred under the canonical-movement rule (fires 840/840; a coordinate, not a result).
 
 *Where this block and an artifact differ, the artifact governs; where it and the docket differ, the docket governs.*
+
+---
+
+## Currency pass, 2026-08-06 evening (registrar; docket [4774]-[4777])
+
+**Findings U landed** (`findings/U_ladder.md`, commits 7cf1eabd through ebd5b5f4; plan written first at `registrations/plan_u_ladder.md`, a plan and not a registration). The first substantive result of the post-registration regime; this block describes rather than adjudicates.
+
+- **The ladder decomposed, per rung, for the first time** (2,182 prompts, 16 families): SFT carries 74% of the whole edge's JS; preference optimization adds about a fifth as much (~11 words/site). Finding 9's wording amended: "does not add to it" → "adds about a fifth as much."
+- **DPO re-targets SFT's words** (eligible ex-fallers fall again at 18.7% vs 6.3%, Fisher OR 3.44); the rung-to-rung Jaccard 0.044 that first read as "different words" is mechanical (72% of SFT's fallers sit below the floor and cannot fall again). Three grains — word (Spearman +0.350, 8,108 types), pair (Jaccard 0.267), field (29/11/3 split, mostly power) — read as one operation at two amplitudes.
+- **Removal stops while addition continues**: faller-share medians 49.3% → 28.6% → 1.0%; drops in 13/16 families (p 0.011); reproduces from the preop embedding store. Not significant at the lineage unit (7/9, p 0.164) — underpowered, not refuted; amber/redpajama/tulu break the gradient and are kept, not dropped.
+- **Safety data is not distinguished** (the Tulu SFT-ablation fan at full scale): removing any corpus slice costs 10–12%; the four arms span 1.8% of the effect; `no-safety` costs the same as `no-math` and moves the same words (Jaccard 0.534). The second-fan caveat changed status from PENDING to UNAVAILABLE — a systematic search found no second suite with released weights anywhere, and the five Tulu arms are the complete set. The quotable clause: the finding rests on one family because one family is all anybody has published. zephyr is filed as consistent-not-confirming; the four-method Archangel fan (zero fallers, all methods) as not-DPO-specific with the Pythia confound named.
+- **A manner reading of DPO was proposed, tested on four pre-declared definitions, and did not hold** (diffs +0.0001 to +0.0029, p 0.56–0.94) — the fourth claim of the day suggested by a top-N and killed by a denominator; booked as pattern: a ranked list carries no baseline.
+- **Registrar verification and corrections** ([4775], [4777]): OLMo-2 rungs, Tulu fan values, cross-family medians, Wilcoxon, the Fisher 2x2, and the field grain all reproduce from `results/t_ladder_steps.csv`, `t_fans.csv`, `t_ladder_fields.csv` at the registrar's seat. Corrected: DPO→Instruct faller share 0.6% → 0.42% (committed b6050a37). Open at this writing: "no sign flips anywhere" wants one clause (three noise-level point-estimate flips exist among the 43 survivors; no significant effect reverses); the manner table wants its script committed so the negative reproduces.
+- **A registry-labelling artifact** hid three of the four Archangel arms from the family-level pass (shared SFT filed under `family=archangel-dpo`); fan definitions in `t_fans.py` are declared by hand for this reason.
+
+**Axis-4 status change**: the earlier unreproducible SFT-installation clause is superseded by U's measured version. README Axis 4 rewritten accordingly (this pass).
+
+*Where this block and an artifact differ, the artifact governs; where it and the docket differ, the docket governs.*
