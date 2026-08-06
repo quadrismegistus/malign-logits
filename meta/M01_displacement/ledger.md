@@ -899,3 +899,27 @@ README, applied to this file.
 ### What this block does not license
 
 **A currency pass, not an audit** — same rule as the block above: figures here were read from artifacts and two-seat docket verifications, not re-derived by writing them down. Where this block and an artifact differ, the artifact governs; where it and the docket differ, the docket governs.
+
+---
+
+## Currency pass, 2026-08-06 (registrar, on RH's word; docket [4692]-[4716])
+
+**Supersedes earlier blocks wherever they differ. This is the first currency pass of the post-registration regime and the last that will speak the verdict vocabulary.**
+
+### The relation question (clause 6) now has its answer, from two instruments
+
+- **Registration R (decoy controls): both primaries failed, cause identified.** The argmax control arm over-drew light verbs (35.0% of picks vs 24.2% of pool); the schema forced `relation = NONE` on them; the pilot's +0.235 was coders rejecting stranded verbs, and it did not survive held-out stems (D −0.012). Three control constructions, three failures, one shared cause: **every matched population carried its own lexical character, and the character was the effect.** The decoy programme is CLOSED as a negative with a cause (`result_r_confirm.json`; the diagnosis rests on the coders' own free text, `r_confirm_freetext.parquet`).
+- **Registration S (order reversal): the control is the identical word pair, and the findings hold.** On 255 held-out stems, 7 coders: the promoted word is judged milder (+0.121, p 5.6e-15), less intense (−0.150) and less punishable (−0.137) than the demoted one; ten of fourteen tests survive evenly-applied Bonferroni. The softening is 2–3x larger at transgressive sites — **replicated across two disjoint samples, predicted by nobody**; graded by bodily harm, not transgression (violence −0.290 vs taboo −0.033); at transgressive sites the substitution moves the act into speech (OR 3.26) and toward scene-generic words (OR 1.56). **What did not hold is filed with equal weight**: the within-item coupling (Verschiebung in the strict sense) not detected at MDE +0.0044; redirection-to-another-register ran against its predicted sign twice; condensation appears as sink structure, not a general funnel (8 sinks vs null 0.31, p 2e-4, replicated on 751 never-annotated pairs). Full write-up: `annotation_study.md`.
+- Clause 6's status line should now be read as: **instrument-failure record (four geometric instruments) + P's ACT-stratum speech-act shift + S's order-reversal findings**; the two-axis (paradigmatic/syntagmatic) vocabulary was retired with P's derived-axis limit and the question was answered in different terms than the clause anticipated.
+
+### The regime
+
+**RH ended pre-registration for this programme 2026-08-06** ([4712], his words on the record). REGISTRATIONS.md closes with S. What replaces it, and what this ledger's future entries follow: **reproducible-vs-not** — seeds, hashes, manifests, run-log canaries, exposure recorded; held-back data (579 of 684 stems untouched); free analysis; **replication as the control**; everything looked at, reported. Reporting norms carried forward from the deflation reckoning ([4704]-[4709]): a null states its MDE or is uninformative; a failure-to-replicate counts only with power; a downgrade needs affirmative evidence ("non-evidence is not counter-evidence"); no statistics vocabulary without the statistics; UNRESOLVED is a first-class state.
+
+### Standing corrections to the record
+
+- The stage-2 first firing was VOID (frame never reversed; declared within the hour; outputs renamed `VOID_*`). Canaries now assert the manipulated axis before any call and the value distribution after the first coder.
+- M04's charter registered n=25 lineages before anyone counted; the substrate supports 10 at the lineage unit. Any M04 read uses 10.
+- The claim "displacement occurs at N% of sites" remains barred under the canonical-movement rule (fires 840/840; a coordinate, not a result).
+
+*Where this block and an artifact differ, the artifact governs; where it and the docket differ, the docket governs.*
