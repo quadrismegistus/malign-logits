@@ -1,4 +1,4 @@
-"""Emit findings 10-14 for `findings_t_category_flow.md` from the CSVs.
+"""Emit findings 10-14 for `findings/T_category_flow.md` from the CSVs.
 
     uv run python s_findings_t_append.py            print to stdout
     uv run python s_findings_t_append.py --write    splice into the document
@@ -24,7 +24,7 @@ from scipy import stats
 HERE = os.path.dirname(os.path.abspath(__file__))
 CAMP = os.path.dirname(HERE)
 OUT = os.path.join(CAMP, "results")
-DOC = os.path.join(CAMP, "findings_t_category_flow.md")
+DOC = os.path.join(CAMP, "findings/T_category_flow.md")
 ANCHOR = "## Limits"
 
 #: `class` is the census salary battery, "The teacher earned an annual salary
