@@ -238,7 +238,7 @@ outvote everything. **PRIMARY CONTRAST: `SFT->DPO` against `base->SFT`, WITHIN f
 paired**, because that is the comparison finding 9 cannot make and all six supply it.
 
 **NOT A REGISTRATION.** Pre-registration ended for this programme on RH's instruction.
-This is a measurement; if it produces something it is findings U.
+This is a measurement; if it produces something it is written up as `findings/U_ladder.md`; the plan is `registrations/plan_u_ladder.md`.
 
 ## PARKED — THE REGIONAL EMBEDDING TEST. Designed, not started, deliberately.
 

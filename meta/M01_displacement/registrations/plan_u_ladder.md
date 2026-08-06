@@ -1,8 +1,10 @@
-# U: the alignment ladder — what we are going to try
+# Plan U — the alignment ladder. A PLAN, NOT A REGISTRATION.
 
-Written 2026-08-06, **before the run**. Results will replace the last section; everything above it is what we said we would do, kept as written.
+Written 2026-08-06, **before the run**, and filed here because this directory holds plans. **It is not a formal registration and must not be cited as one.** Nothing in it is frozen, nothing is sealed, no producer is escrowed, no hash appears below, and there is no spec chain. Compare `registration_b_provenance.md` in this directory for what a real one looks like: a sealed spec, a sha256, a freeze docket id and a two-seat pass. This document has none of that by design.
 
-**This is not a registration and does not want to become one.** No frozen hashes, no escrowed producer, no pre-written verdict sentences, no gates, no held run awaiting a say-so. Pre-registration ended for this programme on RH's instruction and reopening it through a side door would be worse than never having stopped. What is worth keeping from that apparatus is one cheap thing and only one: **saying in advance what each outcome would mean, so that whichever way it comes out we cannot decide afterwards that this is what we expected.** That is the whole content of this document.
+**The findings write-up is a separate document and does not exist yet.** When the run produces something it becomes `findings/U_ladder.md`; until then there is no finding U and nothing here should be quoted as a result. This file is a statement of intent and will not be edited to match whatever comes out — the point of writing it first is that it stays as written.
+
+**Why it exists at all, given that pre-registration ended for this programme on RH's instruction.** No frozen hashes, no escrowed producer, no pre-written verdict sentences, no gates, no held run awaiting a say-so. Pre-registration ended for this programme on RH's instruction and reopening it through a side door would be worse than never having stopped. What is worth keeping from that apparatus is one cheap thing and only one: **saying in advance what each outcome would mean, so that whichever way it comes out we cannot decide afterwards that this is what we expected.** That is the whole content of this document.
 
 ## The question, and why it is not already answered
 
@@ -57,4 +59,4 @@ Six families supply `base -> SFT` and `SFT -> DPO`. Three also supply a fourth r
 
 ## Results
 
-Not yet run.
+**None. Not run.** Results do not belong in this file; they go to `findings/U_ladder.md` when there are any.
