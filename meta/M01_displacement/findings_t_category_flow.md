@@ -351,9 +351,30 @@ The two quantities are not identical either -- ours is a category share aggregat
 | riser, breadth | 11.93315 | 11.86883 | +0.06433 | 0.5% | 28/43 | null p=0.069 |
 | riser, depth | 0.02276 | 0.02243 | +0.00033 | 1.5% | 22/38 | null p=0.464 |
 
-**Both faller cells detect. Both riser cells are null.** That supports *substitution does not differ by markedness*, which is the defensible form of "substitution is general", and it gives no support to what this section originally claimed, that risers are larger in the neutral twin: the riser point estimates run marginally the other way and are null both times. **The neutral-twin-larger claim is dropped rather than left open.**
+**STRUCK, and left visible because it travelled.** The paragraph immediately below was the reading of the four cells above until the movers were split by word class. Under that split it is false: riser closed-class depth detects at +5.3 percent, p=0.0021, 29 of 43 edges. The clean two-detections-and-two-nulls was an artifact of aggregating over word class, which is this document's own recurring defect arriving at its newest section.
 
-The sentence the paper can carry: *alignment's withdrawal is transgression-specific in how many words it pulls down and in how far it pulls them; its substitution is not transgression-specific in either.* Two detections, two nulls, word level, no lexicon.
+> Both faller cells detect. Both riser cells are null. That supports *substitution does not differ by markedness*, which is the defensible form of "substitution is general", and it gives no support to what this section originally claimed, that risers are larger in the neutral twin: the riser point estimates run marginally the other way and are null both times. **The neutral-twin-larger claim is dropped rather than left open.**
+
+> The sentence the paper can carry: alignment's withdrawal is transgression-specific in how many words it pulls down and in how far it pulls them; its substitution is not transgression-specific in either.
+
+**Split by word class, the four cells become eight and only three survive.** CLAWS open class is `vv`/`nn`/`jj`/`rr`; 77.8 percent of movement tokens are open-class. `scripts/s_class_split.py`.
+
+| measure | role | class | marked | neutral | diff | edges | |
+|---|---|---|---|---|---|---|---|
+| breadth | faller | open | 12.37458 | 11.93448 | 3.7% | 30/40 | **detected** p=0.0000 |
+| breadth | faller | closed | 5.21442 | 5.23230 | -0.3% | 18/40 | null p=0.586 |
+| breadth | riser | open | 10.57218 | 10.62178 | -0.5% | 21/43 | null p=0.426 |
+| breadth | riser | closed | 3.65169 | 3.64404 | 0.2% | 20/43 | null p=0.570 |
+| depth | faller | open | 0.00689 | 0.00682 | 1.0% | 21/38 | null p=0.108 |
+| depth | faller | closed | 0.00983 | 0.00934 | 5.2% | 28/38 | **detected** p=0.0000 |
+| depth | riser | open | 0.01785 | 0.01790 | -0.3% | 18/43 | null p=0.223 |
+| depth | riser | closed | 0.02348 | 0.02230 | 5.3% | 29/43 | **detected** p=0.0021 |
+
+**Breadth is lexical exactly as it should be**: alignment withdraws from more OPEN-class words in the marked twin and closed-class breadth is flat and null. That is an internal control passing -- `the` and `was` are withdrawn from equally often either way.
+
+**Depth is not, and that is the problem.** The two depth detections are CLOSED-class, in both directions, at near-identical magnitudes. An effect that moves function words equally far down and equally far up is not a withdrawal. The likeliest reading is that marked prompts simply carry sharper distributions, so every function-word delta is larger -- a property of the prompts rather than of alignment. It is testable by comparing pre-alignment entropy at marked and unmarked sites and has not been run.
+
+**So one cell of eight is safe: alignment withdraws from more content words in the marked twin.** malign reports the opposite class assignment for depth on their population (open detected, closed null, docket [4752]), but their split classifies a SITE by its top faller while this one classifies the WORDS, which are different operations; the disagreement is not yet a contradiction. Until the same split is run at both seats, the depth leg of finding 13 carries no class-resolved claim.
 
 **Two limits that travel with it.** The effects are small -- 2.9 percent on breadth and 2.2 percent on depth -- and significant because the population is large. And the breadth effect is carried by a tail: marked is larger at only 42.6 percent of paired cells while the mean difference is positive, so the mean should not be quoted without that share. malign's 744-site population reports breadth flat at about 1 percent and wrong-signed (docket [4748]); an effect of this size is below what that population can see, so their depth-not-breadth reading is a statement about n rather than about alignment.
 

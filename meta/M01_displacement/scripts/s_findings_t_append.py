@@ -117,6 +117,26 @@ def f12(M):
     return "\n".join(o)
 
 
+def _byclass():
+    """The same four cells split by CLAWS open/closed class: eight cells."""
+    f = os.path.join(OUT, "s_depth_by_class_summary.csv")
+    b = os.path.join(OUT, "s_breadth_by_class.csv")
+    if not (os.path.exists(f) and os.path.exists(b)):
+        return ""
+    rows = pd.concat([pd.read_csv(b), pd.read_csv(f)], ignore_index=True)
+    o = ["**Split by word class, the four cells become eight and only three survive.** CLAWS open class is `vv`/`nn`/`jj`/`rr`; 77.8 percent of movement tokens are open-class. `scripts/s_class_split.py`.", "",
+         "| measure | role | class | marked | neutral | diff | edges | |", "|---|---|---|---|---|---|---|---|"]
+    for _, x in rows.iterrows():
+        o.append("| %s | %s | %s | %.5f | %.5f | %.1f%% | %d/%d | %s |"
+                 % (x["kind"], x["role"], x["cls"], x["marked"], x["unmarked"], x["pct"],
+                    x["edges_pos"], x["n_edges"],
+                    "**detected** p=%.4f" % x["p"] if x["p"] < 0.05 else "null p=%.3f" % x["p"]))
+    o += ["", "**Breadth is lexical exactly as it should be**: alignment withdraws from more OPEN-class words in the marked twin and closed-class breadth is flat and null. That is an internal control passing -- `the` and `was` are withdrawn from equally often either way.", "",
+          "**Depth is not, and that is the problem.** The two depth detections are CLOSED-class, in both directions, at near-identical magnitudes. An effect that moves function words equally far down and equally far up is not a withdrawal. The likeliest reading is that marked prompts simply carry sharper distributions, so every function-word delta is larger -- a property of the prompts rather than of alignment. It is testable by comparing pre-alignment entropy at marked and unmarked sites and has not been run.", "",
+          "**So one cell of eight is safe: alignment withdraws from more content words in the marked twin.** malign reports the opposite class assignment for depth on their population (open detected, closed null, docket [4752]), but their split classifies a SITE by its top faller while this one classifies the WORDS, which are different operations; the disagreement is not yet a contradiction. Until the same split is run at both seats, the depth leg of finding 13 carries no class-resolved claim.", ""]
+    return "\n".join(o)
+
+
 def _four():
     """The four-cell within-stem test, asked of words instead of categories."""
     f = os.path.join(OUT, "s_depth_breadth.csv")
@@ -132,8 +152,13 @@ def _four():
         o.append("| %s, %s | %.5f | %.5f | %+.5f | %.1f%% | %d/%d | %s |"
                  % (r, k, x["marked"], x["unmarked"], x["diff"], x["pct"],
                     x["edges_pos"], x["n_edges"], "**detected** p=%.4f" % x["p"] if x["detected"] else "null p=%.3f" % x["p"]))
-    o += ["", "**Both faller cells detect. Both riser cells are null.** That supports *substitution does not differ by markedness*, which is the defensible form of \"substitution is general\", and it gives no support to what this section originally claimed, that risers are larger in the neutral twin: the riser point estimates run marginally the other way and are null both times. **The neutral-twin-larger claim is dropped rather than left open.**", "",
-          "The sentence the paper can carry: *alignment's withdrawal is transgression-specific in how many words it pulls down and in how far it pulls them; its substitution is not transgression-specific in either.* Two detections, two nulls, word level, no lexicon.", "",
+    #: THE FOUR-CELL TABLE ABOVE DOES NOT SURVIVE DECOMPOSITION BY WORD CLASS
+    #: and the paragraph that follows it is left in place, struck, because it
+    #: was posted to the docket and committed before the split was run.
+    o += ["", "**STRUCK, and left visible because it travelled.** The paragraph immediately below was the reading of the four cells above until the movers were split by word class. Under that split it is false: riser closed-class depth detects at +5.3 percent, p=0.0021, 29 of 43 edges. The clean two-detections-and-two-nulls was an artifact of aggregating over word class, which is this document's own recurring defect arriving at its newest section.", "",
+          "> Both faller cells detect. Both riser cells are null. That supports *substitution does not differ by markedness*, which is the defensible form of \"substitution is general\", and it gives no support to what this section originally claimed, that risers are larger in the neutral twin: the riser point estimates run marginally the other way and are null both times. **The neutral-twin-larger claim is dropped rather than left open.**", "",
+          "> The sentence the paper can carry: alignment's withdrawal is transgression-specific in how many words it pulls down and in how far it pulls them; its substitution is not transgression-specific in either.", "",
+          _byclass(),
           "**Two limits that travel with it.** The effects are small -- %.1f percent on breadth and %.1f percent on depth -- and significant because the population is large. And the breadth effect is carried by a tail: marked is larger at only %.1f percent of paired cells while the mean difference is positive, so the mean should not be quoted without that share. malign's 744-site population reports breadth flat at about 1 percent and wrong-signed (docket [4748]); an effect of this size is below what that population can see, so their depth-not-breadth reading is a statement about n rather than about alignment."
           % (g("faller", "breadth")["pct"], g("faller", "depth")["pct"], g("faller", "breadth")["share_marked_larger"]), ""]
     return "\n".join(o)
