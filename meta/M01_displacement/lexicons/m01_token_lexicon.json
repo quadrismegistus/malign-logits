@@ -4,7 +4,7 @@
   "tokens": 685,
   "faller_slots": 5976,
   "riser_slots": 5976,
-  "lemmatizer": "lemminflect. VERB LEMMA IS TRIED FIRST for CLAWS vv* tokens, because `found`/`felt`/`said`/`left` are valid lemmas themselves and a surface-first lookup returns the wrong sense precisely on the commonest past-tense forms.",
+  "lemmatizer": "GI: token FIRST, preferring the sense tagged SUPV/ED for verbs, falling back to the lemma only if the surface form is absent. WordNet: verb lemma first for vv* tokens, because WordNet has no inflection tags and `found`/`felt`/`saw` resolve to 'establish'/the fabric/the cutting tool.",
   "coverage_lexical_verbs": "GI 88% of types / 97% of slots; WordNet 100% of types"
  },
  "tokens": {
@@ -21,7 +21,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "____": {
    "as_faller": 2,
@@ -36,7 +37,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "a": {
    "as_faller": 67,
@@ -45,13 +47,14 @@
    "lean": -0.675,
    "claws": "at",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "a",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "about": {
    "as_faller": 11,
@@ -73,7 +76,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "accept": {
    "as_faller": 0,
@@ -113,7 +117,8 @@
     "possession",
     "possession",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "accidentally": {
    "as_faller": 0,
@@ -128,7 +133,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "across": {
    "as_faller": 2,
@@ -151,7 +157,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "actually": {
    "as_faller": 1,
@@ -166,7 +173,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "added": {
    "as_faller": 10,
@@ -200,7 +208,8 @@
     "cognition",
     "communication",
     "stative"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "addresses": {
    "as_faller": 1,
@@ -244,7 +253,8 @@
     "communication",
     "communication",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "adjusted": {
    "as_faller": 1,
@@ -279,7 +289,8 @@
     "change",
     "change",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "admired": {
    "as_faller": 0,
@@ -310,7 +321,8 @@
    "wn_senses_in_order": [
     "emotion",
     "perception"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "after": {
    "as_faller": 0,
@@ -329,7 +341,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "again": {
    "as_faller": 1,
@@ -348,7 +361,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "agreed": {
    "as_faller": 0,
@@ -386,7 +400,8 @@
     "stative",
     "possession",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "aimed": {
    "as_faller": 0,
@@ -421,7 +436,8 @@
     "competition",
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "all": {
    "as_faller": 0,
@@ -441,7 +457,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "alleged": {
    "as_faller": 1,
@@ -466,7 +483,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "allegedly": {
    "as_faller": 1,
@@ -481,7 +499,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "also": {
    "as_faller": 4,
@@ -498,7 +517,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "altars": {
    "as_faller": 1,
@@ -513,7 +533,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "amounted": {
    "as_faller": 8,
@@ -538,7 +559,8 @@
     "stative",
     "stative",
     "stative"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "an": {
    "as_faller": 1,
@@ -547,13 +569,14 @@
    "lean": -1.0,
    "claws": "at",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "an",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "and": {
    "as_faller": 2,
@@ -562,13 +585,14 @@
    "lean": -1.0,
    "claws": "cc",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "and",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "ankle": {
    "as_faller": 1,
@@ -587,7 +611,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "announced": {
    "as_faller": 2,
@@ -615,7 +640,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "answering": {
    "as_faller": 0,
@@ -655,7 +681,8 @@
     "stative",
     "consumption",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "anyone": {
    "as_faller": 2,
@@ -672,7 +699,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "apologize": {
    "as_faller": 0,
@@ -699,7 +727,8 @@
    "wn_senses_in_order": [
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "apologized": {
    "as_faller": 0,
@@ -726,7 +755,8 @@
    "wn_senses_in_order": [
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "applied": {
    "as_faller": 0,
@@ -773,7 +803,8 @@
     "social",
     "communication",
     "social"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "apply": {
    "as_faller": 2,
@@ -790,7 +821,6 @@
     "EndsLw",
     "IAV",
     "Legal",
-    "Means",
     "MeansLw",
     "SklOth",
     "SklTOT",
@@ -820,7 +850,8 @@
     "social",
     "communication",
     "social"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "approached": {
    "as_faller": 0,
@@ -856,7 +887,8 @@
     "social",
     "motion",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "approaching": {
    "as_faller": 1,
@@ -892,7 +924,8 @@
     "social",
     "motion",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "approve": {
    "as_faller": 0,
@@ -910,8 +943,7 @@
     "Pstv",
     "RspGain",
     "RspTot",
-    "Strong",
-    "Virtue"
+    "Strong"
    ],
    "wn_lemma": "approve",
    "wn_supersense": "communication",
@@ -923,7 +955,8 @@
    "wn_senses_in_order": [
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "are": {
    "as_faller": 1,
@@ -958,7 +991,8 @@
     "stative",
     "stative",
     "stative"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "argued": {
    "as_faller": 0,
@@ -991,7 +1025,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "arm": {
    "as_faller": 1,
@@ -1026,7 +1061,8 @@
    "wn_senses_in_order": [
     "competition",
     "possession"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "arranged": {
    "as_faller": 0,
@@ -1064,7 +1100,8 @@
     "body",
     "creation",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "arrest": {
    "as_faller": 1,
@@ -1106,7 +1143,8 @@
     "competition",
     "contact",
     "motion"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "as": {
    "as_faller": 3,
@@ -1124,7 +1162,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "asked": {
    "as_faller": 39,
@@ -1159,7 +1198,8 @@
     "communication",
     "stative",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "asking": {
    "as_faller": 1,
@@ -1194,7 +1234,8 @@
     "communication",
     "stative",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "assisted": {
    "as_faller": 0,
@@ -1226,7 +1267,8 @@
     "social",
     "social",
     "social"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "at": {
    "as_faller": 6,
@@ -1235,13 +1277,14 @@
    "lean": -1.0,
    "claws": "ii",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "at",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "ate": {
    "as_faller": 8,
@@ -1250,7 +1293,7 @@
    "lean": -0.333,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "eat",
+   "gi_lemma": "ate",
    "gi_categories": [
     "Active",
     "DAV",
@@ -1273,7 +1316,8 @@
     "emotion",
     "consumption",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "attached": {
    "as_faller": 1,
@@ -1302,7 +1346,8 @@
     "contact",
     "social",
     "possession"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "attacked": {
    "as_faller": 9,
@@ -1343,7 +1388,8 @@
     "competition",
     "change",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "attended": {
    "as_faller": 1,
@@ -1380,7 +1426,8 @@
     "stative",
     "social",
     "perception"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "away": {
    "as_faller": 0,
@@ -1401,7 +1448,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "back": {
    "as_faller": 1,
@@ -1449,7 +1497,8 @@
     "change",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "beat": {
    "as_faller": 6,
@@ -1462,20 +1511,14 @@
    "gi_categories": [
     "Active",
     "Complet",
-    "Exprsv",
     "Hostile",
     "IAV",
     "Negativ",
     "Ngtv",
-    "Passive",
-    "PowCon",
     "PowLoss",
     "PowTot",
     "Power",
-    "Strong",
-    "Submit",
-    "Vice",
-    "Weak"
+    "Strong"
    ],
    "wn_lemma": "beat",
    "wn_supersense": "competition",
@@ -1515,7 +1558,8 @@
     "competition",
     "cognition",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "became": {
    "as_faller": 0,
@@ -1524,7 +1568,7 @@
    "lean": 1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "become",
+   "gi_lemma": "became",
    "gi_categories": [
     "IAV",
     "Increas",
@@ -1542,7 +1586,8 @@
     "stative",
     "stative",
     "stative"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "began": {
    "as_faller": 8,
@@ -1551,7 +1596,7 @@
    "lean": 0.888,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "begin",
+   "gi_lemma": "began",
    "gi_categories": [
     "Active",
     "Begin",
@@ -1578,7 +1623,8 @@
     "social",
     "social",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "begged": {
    "as_faller": 0,
@@ -1611,7 +1657,8 @@
     "communication",
     "possession",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "being": {
    "as_faller": 1,
@@ -1650,7 +1697,8 @@
     "stative",
     "stative",
     "stative"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "bench": {
    "as_faller": 0,
@@ -1671,7 +1719,8 @@
    "wn_senses_in_order": [
     "social",
     "perception"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "bent": {
    "as_faller": 0,
@@ -1680,13 +1729,10 @@
    "lean": 1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "bend",
+   "gi_lemma": "bent",
    "gi_categories": [
-    "DAV",
     "Passive",
-    "Rel",
-    "Space",
-    "Submit",
+    "Quality",
     "Weak"
    ],
    "wn_lemma": "bend",
@@ -1703,7 +1749,8 @@
     "motion",
     "motion",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "better": {
    "as_faller": 2,
@@ -1739,7 +1786,8 @@
     "competition",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "blew": {
    "as_faller": 4,
@@ -1797,7 +1845,8 @@
     "communication",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "boarded": {
    "as_faller": 0,
@@ -1854,7 +1903,8 @@
     "stative",
     "consumption",
     "consumption"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "boarding": {
    "as_faller": 0,
@@ -1911,7 +1961,8 @@
     "stative",
     "consumption",
     "consumption"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "bolted": {
    "as_faller": 0,
@@ -1945,7 +1996,8 @@
     "motion",
     "consumption",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "borrowed": {
    "as_faller": 1,
@@ -1971,7 +2023,8 @@
    "wn_senses_in_order": [
     "possession",
     "possession"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "bought": {
    "as_faller": 16,
@@ -1980,18 +2033,13 @@
    "lean": -0.185,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "buy",
+   "gi_lemma": "bought",
    "gi_categories": [
     "Active",
     "DAV",
-    "ECON",
-    "Exch",
-    "Positiv",
-    "Pstv",
-    "Virtue",
-    "WltOth",
     "WltTot",
-    "WltTran"
+    "WltTran",
+    "Work"
    ],
    "wn_lemma": "buy",
    "wn_supersense": "possession",
@@ -2007,7 +2055,8 @@
     "stative",
     "possession",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "bowed": {
    "as_faller": 4,
@@ -2045,7 +2094,8 @@
     "motion",
     "motion",
     "creation"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "broke": {
    "as_faller": 9,
@@ -2054,9 +2104,10 @@
    "lean": 0.182,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "break",
+   "gi_lemma": "broke",
    "gi_categories": [
     "Active",
+    "Begin",
     "ComForm",
     "DAV",
     "EnlGain",
@@ -2069,12 +2120,11 @@
     "Negativ",
     "Ngtv",
     "Passive",
-    "PowCon",
-    "PowTot",
-    "RcGain",
+    "RcEthic",
     "RcTot",
     "SocRel",
     "Strong",
+    "TrnGain",
     "TrnLoss",
     "Weak"
    ],
@@ -2154,7 +2204,8 @@
     "body",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "brother-in-law": {
    "as_faller": 1,
@@ -2169,7 +2220,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "brought": {
    "as_faller": 4,
@@ -2178,25 +2230,8 @@
    "lean": 0.111,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "bring",
-   "gi_categories": [
-    "Active",
-    "Affil",
-    "ComForm",
-    "Complet",
-    "DAV",
-    "EnlGain",
-    "EnlTot",
-    "Fetch",
-    "IAV",
-    "PowEnds",
-    "PowTot",
-    "Power",
-    "SocRel",
-    "Solve",
-    "TranLw",
-    "Try"
-   ],
+   "gi_lemma": "brought",
+   "gi_categories": [],
    "wn_lemma": "bring",
    "wn_supersense": "motion",
    "wn_supersenses_all": [
@@ -2221,7 +2256,8 @@
     "possession",
     "emotion",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "brushed": {
    "as_faller": 2,
@@ -2252,7 +2288,8 @@
     "motion",
     "change",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "built": {
    "as_faller": 7,
@@ -2261,26 +2298,8 @@
    "lean": -1.0,
    "claws": "vvn",
    "is_lexical_verb": true,
-   "gi_lemma": "build",
-   "gi_categories": [
-    "Active",
-    "BodyPt",
-    "DAV",
-    "ECON",
-    "IAV",
-    "Increas",
-    "Means",
-    "PLACE",
-    "PowGain",
-    "PowTot",
-    "SklOth",
-    "SklTOT",
-    "Social",
-    "Strong",
-    "WlbPhys",
-    "WlbTot",
-    "Work"
-   ],
+   "gi_lemma": "built",
+   "gi_categories": [],
    "wn_lemma": "build",
    "wn_supersense": "creation",
    "wn_supersenses_all": [
@@ -2301,7 +2320,8 @@
     "cognition",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "burial": {
    "as_faller": 1,
@@ -2319,7 +2339,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "buried": {
    "as_faller": 0,
@@ -2352,7 +2373,8 @@
     "contact",
     "contact",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "burned": {
    "as_faller": 9,
@@ -2405,7 +2427,8 @@
     "creation",
     "consumption",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "burnt": {
    "as_faller": 1,
@@ -2414,20 +2437,8 @@
    "lean": -1.0,
    "claws": "jj",
    "is_lexical_verb": false,
-   "gi_lemma": "burn",
-   "gi_categories": [
-    "Active",
-    "DAV",
-    "Finish",
-    "NatrPro",
-    "Negativ",
-    "Ngtv",
-    "Passive",
-    "Vice",
-    "WlbLoss",
-    "WlbPhys",
-    "WlbTot"
-   ],
+   "gi_lemma": "burnt",
+   "gi_categories": [],
    "wn_lemma": "burn",
    "wn_supersense": "change",
    "wn_supersenses_all": [
@@ -2458,7 +2469,8 @@
     "creation",
     "consumption",
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "called": {
    "as_faller": 10,
@@ -2523,7 +2535,8 @@
     "cognition",
     "cognition",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "calling": {
    "as_faller": 1,
@@ -2588,7 +2601,8 @@
     "cognition",
     "cognition",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "calmly": {
    "as_faller": 0,
@@ -2603,7 +2617,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "came": {
    "as_faller": 9,
@@ -2612,18 +2627,8 @@
    "lean": -0.8,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "come",
-   "gi_categories": [
-    "Active",
-    "Complet",
-    "Exert",
-    "IAV",
-    "Rise",
-    "TimeSpc",
-    "Travel",
-    "Vary",
-    "Work"
-   ],
+   "gi_lemma": "came",
+   "gi_categories": [],
    "wn_lemma": "come",
    "wn_supersense": "motion",
    "wn_supersenses_all": [
@@ -2656,7 +2661,8 @@
     "stative",
     "perception",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "captioned": {
    "as_faller": 3,
@@ -2675,7 +2681,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "possession"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "car": {
    "as_faller": 1,
@@ -2695,7 +2702,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "carb": {
    "as_faller": 1,
@@ -2710,7 +2718,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "carefully": {
    "as_faller": 1,
@@ -2725,7 +2734,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "carried": {
    "as_faller": 1,
@@ -2808,7 +2818,8 @@
     "competition",
     "communication",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "carrots": {
    "as_faller": 1,
@@ -2823,7 +2834,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "carved": {
    "as_faller": 1,
@@ -2844,7 +2856,8 @@
     "contact",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "cashed": {
    "as_faller": 1,
@@ -2873,7 +2886,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "possession"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "caused": {
    "as_faller": 1,
@@ -2907,7 +2921,8 @@
    "wn_senses_in_order": [
     "creation",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "chairs": {
    "as_faller": 0,
@@ -2931,7 +2946,8 @@
    "wn_senses_in_order": [
     "social",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "change": {
    "as_faller": 1,
@@ -2967,7 +2983,8 @@
     "motion",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "changed": {
    "as_faller": 2,
@@ -3003,7 +3020,8 @@
     "motion",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "chanted": {
    "as_faller": 1,
@@ -3023,7 +3041,8 @@
    "wn_senses_in_order": [
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "checked": {
    "as_faller": 0,
@@ -3087,7 +3106,8 @@
     "change",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "children": {
    "as_faller": 0,
@@ -3108,7 +3128,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "choked": {
    "as_faller": 0,
@@ -3152,7 +3173,8 @@
     "change",
     "change",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "claimed": {
    "as_faller": 0,
@@ -3183,7 +3205,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "cleaned": {
    "as_faller": 1,
@@ -3224,7 +3247,8 @@
     "contact",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "clicked": {
    "as_faller": 4,
@@ -3257,7 +3281,8 @@
     "communication",
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "climbed": {
    "as_faller": 6,
@@ -3287,7 +3312,8 @@
     "motion",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "close": {
    "as_faller": 0,
@@ -3339,7 +3365,8 @@
     "contact",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "closed": {
    "as_faller": 7,
@@ -3391,7 +3418,8 @@
     "contact",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "cold": {
    "as_faller": 1,
@@ -3422,7 +3450,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "collapsed": {
    "as_faller": 0,
@@ -3459,7 +3488,8 @@
     "motion",
     "emotion",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "combed": {
    "as_faller": 2,
@@ -3481,7 +3511,8 @@
     "contact",
     "contact",
     "body"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "confirmed": {
    "as_faller": 0,
@@ -3514,7 +3545,8 @@
     "change",
     "social",
     "social"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "connected": {
    "as_faller": 0,
@@ -3553,7 +3585,8 @@
     "social",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "continued": {
    "as_faller": 1,
@@ -3591,7 +3624,8 @@
     "stative",
     "stative",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "contradicted": {
    "as_faller": 0,
@@ -3621,7 +3655,8 @@
     "communication",
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "contributed": {
    "as_faller": 0,
@@ -3654,7 +3689,8 @@
     "possession",
     "social",
     "possession"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "copied": {
    "as_faller": 4,
@@ -3685,7 +3721,8 @@
     "creation",
     "creation",
     "creation"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "cornered": {
    "as_faller": 0,
@@ -3710,7 +3747,8 @@
     "social",
     "motion",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "could": {
    "as_faller": 5,
@@ -3735,7 +3773,8 @@
    "wn_senses_in_order": [
     "change",
     "social"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "couldn": {
    "as_faller": 0,
@@ -3750,7 +3789,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "couldn't": {
    "as_faller": 0,
@@ -3765,7 +3805,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "counted": {
    "as_faller": 2,
@@ -3800,7 +3841,8 @@
     "stative",
     "cognition",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "covered": {
    "as_faller": 2,
@@ -3861,7 +3903,8 @@
     "competition",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "cradled": {
    "as_faller": 0,
@@ -3888,7 +3931,8 @@
     "contact",
     "contact",
     "competition"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "create": {
    "as_faller": 0,
@@ -3922,7 +3966,8 @@
     "social",
     "creation",
     "creation"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "created": {
    "as_faller": 0,
@@ -3956,7 +4001,8 @@
     "social",
     "creation",
     "creation"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "crept": {
    "as_faller": 1,
@@ -3965,12 +4011,11 @@
    "lean": 0.5,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "creep",
+   "gi_lemma": "crept",
    "gi_categories": [
     "Active",
     "DAV",
     "Travel",
-    "Vice",
     "Weak"
    ],
    "wn_lemma": "creep",
@@ -3984,7 +4029,8 @@
     "motion",
     "motion",
     "motion"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "cried": {
    "as_faller": 8,
@@ -4019,7 +4065,8 @@
     "consumption",
     "communication",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "crumpled": {
    "as_faller": 0,
@@ -4050,7 +4097,8 @@
     "contact",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "cuffed": {
    "as_faller": 0,
@@ -4070,7 +4118,8 @@
    "wn_senses_in_order": [
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "cupped": {
    "as_faller": 1,
@@ -4095,7 +4144,8 @@
     "change",
     "change",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "cursed": {
    "as_faller": 6,
@@ -4127,7 +4177,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "cut": {
    "as_faller": 17,
@@ -4146,11 +4197,8 @@
     "IAV",
     "Negativ",
     "Ngtv",
-    "SklOth",
-    "SklTOT",
     "Strong",
-    "TrnLoss",
-    "Virtue"
+    "TrnLoss"
    ],
    "wn_lemma": "cut",
    "wn_supersense": "contact",
@@ -4208,7 +4256,8 @@
     "body",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "danced": {
    "as_faller": 0,
@@ -4241,7 +4290,8 @@
     "motion",
     "creation",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "dated": {
    "as_faller": 0,
@@ -4275,7 +4325,8 @@
     "cognition",
     "social",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "dates": {
    "as_faller": 0,
@@ -4309,7 +4360,8 @@
     "cognition",
     "social",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "daughter": {
    "as_faller": 1,
@@ -4330,7 +4382,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "days": {
    "as_faller": 1,
@@ -4349,7 +4402,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "lemma"
   },
   "decided": {
    "as_faller": 4,
@@ -4381,7 +4435,8 @@
     "cognition",
     "cognition",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "declined": {
    "as_faller": 1,
@@ -4417,7 +4472,8 @@
     "motion",
     "motion",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "defecated": {
    "as_faller": 0,
@@ -4426,7 +4482,7 @@
    "lean": 1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": null,
+   "gi_lemma": "defecate",
    "gi_categories": [],
    "wn_lemma": "defecate",
    "wn_supersense": "body",
@@ -4436,7 +4492,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "delete": {
    "as_faller": 1,
@@ -4459,7 +4516,8 @@
     "contact",
     "communication",
     "change"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "deleted": {
    "as_faller": 1,
@@ -4482,7 +4540,8 @@
     "contact",
     "communication",
     "change"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "delivered": {
    "as_faller": 1,
@@ -4522,7 +4581,8 @@
     "possession",
     "contact",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "demanded": {
    "as_faller": 3,
@@ -4561,7 +4621,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "departing": {
    "as_faller": 0,
@@ -4591,7 +4652,8 @@
     "motion",
     "social",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "deposited": {
    "as_faller": 4,
@@ -4613,7 +4675,8 @@
     "contact",
     "possession",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "descended": {
    "as_faller": 0,
@@ -4642,7 +4705,8 @@
     "stative",
     "social",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "desecrated": {
    "as_faller": 0,
@@ -4663,7 +4727,8 @@
    "wn_senses_in_order": [
     "social",
     "communication"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "destroyed": {
    "as_faller": 0,
@@ -4697,7 +4762,8 @@
     "contact",
     "competition",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "determined": {
    "as_faller": 0,
@@ -4735,7 +4801,8 @@
     "cognition",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "dhoti": {
    "as_faller": 1,
@@ -4750,7 +4817,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "diagnosed": {
    "as_faller": 1,
@@ -4770,7 +4838,8 @@
    "wn_senses_in_order": [
     "cognition",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "dialed": {
    "as_faller": 1,
@@ -4791,7 +4860,8 @@
    "wn_senses_in_order": [
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "did": {
    "as_faller": 15,
@@ -4828,7 +4898,8 @@
     "social",
     "body",
     "motion"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "didn't": {
    "as_faller": 2,
@@ -4843,7 +4914,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "died": {
    "as_faller": 2,
@@ -4881,7 +4953,8 @@
     "change",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "disappeared": {
    "as_faller": 1,
@@ -4908,7 +4981,8 @@
     "perception",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "disappearing": {
    "as_faller": 0,
@@ -4935,7 +5009,8 @@
     "perception",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "discovered": {
    "as_faller": 12,
@@ -4970,7 +5045,8 @@
     "communication",
     "perception",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "down": {
    "as_faller": 3,
@@ -5000,7 +5076,8 @@
     "motion",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "downloaded": {
    "as_faller": 1,
@@ -5019,7 +5096,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "possession"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "dragged": {
    "as_faller": 23,
@@ -5060,7 +5138,8 @@
     "contact",
     "communication",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "drank": {
    "as_faller": 3,
@@ -5069,13 +5148,11 @@
    "lean": -0.5,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "drink",
+   "gi_lemma": "drank",
    "gi_categories": [
     "Active",
     "DAV",
-    "Food",
-    "NatrPro",
-    "Object"
+    "NatrPro"
    ],
    "wn_lemma": "drink",
    "wn_supersense": "consumption",
@@ -5090,7 +5167,8 @@
     "consumption",
     "cognition",
     "consumption"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "draped": {
    "as_faller": 0,
@@ -5112,7 +5190,8 @@
     "contact",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "dressed": {
    "as_faller": 3,
@@ -5156,7 +5235,8 @@
     "body",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "drew": {
    "as_faller": 1,
@@ -5165,23 +5245,9 @@
    "lean": 0.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "draw",
+   "gi_lemma": "drew",
    "gi_categories": [
-    "Active",
-    "COM",
-    "ComForm",
-    "ComnObj",
-    "DAV",
-    "Exprsv",
-    "Fetch",
-    "IAV",
-    "Object",
-    "PowCon",
-    "PowTot",
-    "Power",
-    "SocRel",
-    "Strong",
-    "Work"
+    "DAV"
    ],
    "wn_lemma": "draw",
    "wn_supersense": "contact",
@@ -5238,7 +5304,8 @@
     "change",
     "change",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "drinks": {
    "as_faller": 3,
@@ -5268,7 +5335,8 @@
     "consumption",
     "cognition",
     "consumption"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "drive": {
    "as_faller": 0,
@@ -5281,19 +5349,15 @@
    "gi_categories": [
     "Active",
     "DAV",
-    "EndsLw",
     "Hostile",
     "IAV",
-    "NatrPro",
     "Negativ",
     "Ngtv",
     "PowOth",
     "PowTot",
     "Power",
-    "Ritual",
     "SocRel",
     "Strong",
-    "Travel",
     "Work"
    ],
    "wn_lemma": "drive",
@@ -5332,7 +5396,8 @@
     "consumption",
     "competition",
     "competition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "drop": {
    "as_faller": 0,
@@ -5347,10 +5412,8 @@
     "DAV",
     "Fail",
     "Fall",
-    "NatObj",
     "Negativ",
     "Ngtv",
-    "Object",
     "Passive",
     "Weak"
    ],
@@ -5394,7 +5457,8 @@
     "change",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "dropped": {
    "as_faller": 17,
@@ -5456,7 +5520,8 @@
     "change",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "drove": {
    "as_faller": 18,
@@ -5465,23 +5530,11 @@
    "lean": 0.027,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "drive",
+   "gi_lemma": "drove",
    "gi_categories": [
     "Active",
     "DAV",
-    "EndsLw",
-    "Hostile",
-    "IAV",
-    "NatrPro",
-    "Negativ",
-    "Ngtv",
-    "PowOth",
-    "PowTot",
     "Power",
-    "Ritual",
-    "SocRel",
-    "Strong",
-    "Travel",
     "Work"
    ],
    "wn_lemma": "drive",
@@ -5520,7 +5573,8 @@
     "consumption",
     "competition",
     "competition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "drowned": {
    "as_faller": 1,
@@ -5555,7 +5609,8 @@
     "change",
     "change",
     "stative"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "dryer": {
    "as_faller": 1,
@@ -5573,7 +5628,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "duck": {
    "as_faller": 1,
@@ -5596,7 +5652,8 @@
     "motion",
     "motion",
     "communication"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "ducks": {
    "as_faller": 7,
@@ -5619,7 +5676,8 @@
     "motion",
     "motion",
     "communication"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "dug": {
    "as_faller": 2,
@@ -5628,18 +5686,8 @@
    "lean": -1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "dig",
-   "gi_categories": [
-    "Active",
-    "DAV",
-    "EnlGain",
-    "EnlTot",
-    "Exert",
-    "IAV",
-    "Positiv",
-    "Pstv",
-    "Solve"
-   ],
+   "gi_lemma": "dug",
+   "gi_categories": [],
    "wn_lemma": "dig",
    "wn_supersense": "contact",
    "wn_supersenses_all": [
@@ -5659,7 +5707,8 @@
     "contact",
     "contact",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "dumped": {
    "as_faller": 4,
@@ -5695,7 +5744,8 @@
     "motion",
     "motion",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "easier": {
    "as_faller": 1,
@@ -5717,7 +5767,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "lemma"
   },
   "eating": {
    "as_faller": 1,
@@ -5749,7 +5800,8 @@
     "emotion",
     "consumption",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "either": {
    "as_faller": 2,
@@ -5769,7 +5821,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "elbow": {
    "as_faller": 1,
@@ -5790,7 +5843,8 @@
    "wn_senses_in_order": [
     "motion",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "emerged": {
    "as_faller": 0,
@@ -5821,7 +5875,8 @@
     "change",
     "motion",
     "stative"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "ended": {
    "as_faller": 0,
@@ -5859,7 +5914,8 @@
     "change",
     "stative",
     "creation"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "entered": {
    "as_faller": 0,
@@ -5897,7 +5953,8 @@
     "social",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "entering": {
    "as_faller": 2,
@@ -5935,7 +5992,8 @@
     "social",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "erected": {
    "as_faller": 7,
@@ -5963,7 +6021,8 @@
    "wn_senses_in_order": [
     "creation",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "escorted": {
    "as_faller": 2,
@@ -5972,7 +6031,7 @@
    "lean": -1.0,
    "claws": "vvn",
    "is_lexical_verb": true,
-   "gi_lemma": null,
+   "gi_lemma": "escort",
    "gi_categories": [],
    "wn_lemma": "escort",
    "wn_supersense": "motion",
@@ -5983,7 +6042,8 @@
    "wn_senses_in_order": [
     "motion",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "even": {
    "as_faller": 1,
@@ -6018,7 +6078,8 @@
     "contact",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "eventually": {
    "as_faller": 0,
@@ -6033,7 +6094,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "everyone": {
    "as_faller": 1,
@@ -6050,7 +6112,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "evict": {
    "as_faller": 1,
@@ -6076,7 +6139,8 @@
    "wn_senses_in_order": [
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "examined": {
    "as_faller": 0,
@@ -6110,7 +6174,8 @@
     "communication",
     "communication",
     "social"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "explained": {
    "as_faller": 1,
@@ -6137,7 +6202,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "exposed": {
    "as_faller": 0,
@@ -6174,7 +6240,8 @@
     "perception",
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "eyes": {
    "as_faller": 2,
@@ -6212,7 +6279,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "perception"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "facebook": {
    "as_faller": 1,
@@ -6227,7 +6295,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "faces": {
    "as_faller": 0,
@@ -6270,7 +6339,8 @@
     "perception",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "failed": {
    "as_faller": 0,
@@ -6313,7 +6383,8 @@
     "possession",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "far": {
    "as_faller": 5,
@@ -6334,7 +6405,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "faster": {
    "as_faller": 3,
@@ -6362,7 +6434,8 @@
    "wn_senses_in_order": [
     "consumption",
     "consumption"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "father": {
    "as_faller": 2,
@@ -6389,7 +6462,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "body"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "fax": {
    "as_faller": 1,
@@ -6408,7 +6482,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "communication"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "fed": {
    "as_faller": 5,
@@ -6417,18 +6492,11 @@
    "lean": -0.25,
    "claws": "vvn",
    "is_lexical_verb": true,
-   "gi_lemma": "feed",
+   "gi_lemma": "fed",
    "gi_categories": [
-    "Affil",
     "DAV",
-    "Food",
     "NatrPro",
-    "Object",
-    "Power",
-    "SocRel",
-    "Strong",
     "WlbGain",
-    "WlbPhys",
     "WlbTot"
    ],
    "wn_lemma": "feed",
@@ -6453,7 +6521,8 @@
     "consumption",
     "change",
     "possession"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "feet": {
    "as_faller": 1,
@@ -6482,7 +6551,8 @@
     "possession",
     "motion",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "fell": {
    "as_faller": 2,
@@ -6491,27 +6561,19 @@
    "lean": 0.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "fall",
+   "gi_lemma": "fell",
    "gi_categories": [
-    "ABS",
     "AffGain",
     "AffTot",
     "Affil",
     "DAV",
-    "Decreas",
     "Fall",
+    "Finish",
     "IAV",
-    "Land",
     "NatrPro",
-    "Negativ",
-    "Ngtv",
-    "PLACE",
-    "Passive",
     "SocRel",
-    "TIME",
-    "TimeSpc",
     "TrnLoss",
-    "Weak"
+    "Work"
    ],
    "wn_lemma": "fall",
    "wn_supersense": "motion",
@@ -6558,7 +6620,8 @@
     "change",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "felt": {
    "as_faller": 5,
@@ -6567,16 +6630,8 @@
    "lean": 0.828,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "feel",
-   "gi_categories": [
-    "Arousal",
-    "EMOT",
-    "EnlOth",
-    "EnlTot",
-    "Passive",
-    "SV",
-    "Solve"
-   ],
+   "gi_lemma": "felt",
+   "gi_categories": [],
    "wn_lemma": "feel",
    "wn_supersense": "emotion",
    "wn_supersenses_all": [
@@ -6603,7 +6658,8 @@
     "possession",
     "perception",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "files": {
    "as_faller": 0,
@@ -6633,7 +6689,8 @@
     "motion",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "finally": {
    "as_faller": 1,
@@ -6648,7 +6705,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "finishing": {
    "as_faller": 0,
@@ -6679,7 +6737,8 @@
     "contact",
     "consumption",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "fire": {
    "as_faller": 1,
@@ -6726,7 +6785,8 @@
     "emotion",
     "change",
     "possession"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "fired": {
    "as_faller": 20,
@@ -6773,7 +6833,8 @@
     "emotion",
     "change",
     "possession"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "fled": {
    "as_faller": 2,
@@ -6782,11 +6843,13 @@
    "lean": 0.556,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "flee",
+   "gi_lemma": "fled",
    "gi_categories": [
     "Active",
+    "Hostile",
     "IAV",
     "Negativ",
+    "Ngtv",
     "Travel",
     "Weak"
    ],
@@ -6798,7 +6861,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "motion"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "flicked": {
    "as_faller": 1,
@@ -6829,7 +6893,8 @@
     "contact",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "flipped": {
    "as_faller": 3,
@@ -6862,7 +6927,8 @@
     "cognition",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "flung": {
    "as_faller": 1,
@@ -6890,7 +6956,8 @@
     "motion",
     "possession",
     "possession"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "followed": {
    "as_faller": 3,
@@ -6958,7 +7025,8 @@
     "motion",
     "cognition",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "food": {
    "as_faller": 2,
@@ -6978,7 +7046,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "for": {
    "as_faller": 4,
@@ -6987,13 +7056,14 @@
    "lean": -1.0,
    "claws": "ii",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "for",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "forced": {
    "as_faller": 2,
@@ -7045,7 +7115,8 @@
     "contact",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "forged": {
    "as_faller": 0,
@@ -7071,7 +7142,8 @@
     "motion",
     "creation",
     "creation"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "forgot": {
    "as_faller": 0,
@@ -7080,7 +7152,7 @@
    "lean": 1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "forget",
+   "gi_lemma": "forgot",
    "gi_categories": [
     "EnlOth",
     "EnlTot",
@@ -7100,7 +7172,8 @@
     "cognition",
     "cognition",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "forth": {
    "as_faller": 1,
@@ -7120,7 +7193,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "found": {
    "as_faller": 17,
@@ -7129,16 +7203,17 @@
    "lean": 0.899,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "find",
+   "gi_lemma": "found",
    "gi_categories": [
     "Active",
+    "Begin",
+    "Complet",
     "EnlEnds",
-    "EnlOth",
     "EnlTot",
-    "Goal",
     "IAV",
-    "Passive",
-    "Solve"
+    "Power",
+    "Strong",
+    "TranLw"
    ],
    "wn_lemma": "find",
    "wn_supersense": "possession",
@@ -7169,7 +7244,8 @@
     "possession",
     "motion",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "fresh": {
    "as_faller": 1,
@@ -7188,7 +7264,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "friends": {
    "as_faller": 1,
@@ -7211,7 +7288,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "lemma"
   },
   "from": {
    "as_faller": 6,
@@ -7220,13 +7298,14 @@
    "lean": -1.0,
    "claws": "ii",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "from",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "frowned": {
    "as_faller": 0,
@@ -7253,7 +7332,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "funeral": {
    "as_faller": 4,
@@ -7271,7 +7351,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "gasped": {
    "as_faller": 0,
@@ -7296,7 +7377,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "gave": {
    "as_faller": 29,
@@ -7305,27 +7387,8 @@
    "lean": 0.079,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "give",
-   "gi_categories": [
-    "Active",
-    "Affil",
-    "Begin",
-    "Causal",
-    "DAV",
-    "Fail",
-    "FormLw",
-    "Passive",
-    "Positiv",
-    "PowLoss",
-    "PowTot",
-    "Pstv",
-    "RspLoss",
-    "RspTot",
-    "SocRel",
-    "SureLw",
-    "TrnGain",
-    "Weak"
-   ],
+   "gi_lemma": "gave",
+   "gi_categories": [],
    "wn_lemma": "give",
    "wn_supersense": "possession",
    "wn_supersenses_all": [
@@ -7386,7 +7449,8 @@
     "change",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "gazed": {
    "as_faller": 0,
@@ -7409,7 +7473,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "perception"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "gently": {
    "as_faller": 0,
@@ -7424,7 +7489,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "getting": {
    "as_faller": 0,
@@ -7503,7 +7569,8 @@
     "change",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "give": {
    "as_faller": 1,
@@ -7516,11 +7583,8 @@
    "gi_categories": [
     "Active",
     "Affil",
-    "Begin",
-    "Causal",
     "DAV",
     "Fail",
-    "FormLw",
     "Passive",
     "Positiv",
     "PowLoss",
@@ -7593,7 +7657,8 @@
     "change",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "glanced": {
    "as_faller": 0,
@@ -7618,7 +7683,8 @@
    "wn_senses_in_order": [
     "perception",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "glared": {
    "as_faller": 0,
@@ -7645,7 +7711,8 @@
     "body",
     "weather",
     "perception"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "got": {
    "as_faller": 12,
@@ -7654,23 +7721,8 @@
    "lean": 0.2,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "get",
-   "gi_categories": [
-    "Active",
-    "Affil",
-    "Complet",
-    "DAV",
-    "Fetch",
-    "Hostile",
-    "IAV",
-    "Negativ",
-    "Ngtv",
-    "Ought",
-    "SocRel",
-    "Strong",
-    "Travel",
-    "Try"
-   ],
+   "gi_lemma": "got",
+   "gi_categories": [],
    "wn_lemma": "get",
    "wn_supersense": "possession",
    "wn_supersenses_all": [
@@ -7724,7 +7776,8 @@
     "change",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "grabbed": {
    "as_faller": 1,
@@ -7759,7 +7812,8 @@
     "possession",
     "contact",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "gravy": {
    "as_faller": 1,
@@ -7774,7 +7828,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "grinned": {
    "as_faller": 0,
@@ -7800,7 +7855,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "groped": {
    "as_faller": 1,
@@ -7822,7 +7878,8 @@
     "contact",
     "social",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "ground": {
    "as_faller": 1,
@@ -7874,7 +7931,8 @@
     "change",
     "creation",
     "creation"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "guided": {
    "as_faller": 0,
@@ -7914,7 +7972,8 @@
     "social",
     "perception",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "hacked": {
    "as_faller": 1,
@@ -7949,7 +8008,8 @@
     "change",
     "change",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "had": {
    "as_faller": 15,
@@ -7997,7 +8057,8 @@
     "possession",
     "body",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "half": {
    "as_faller": 0,
@@ -8016,7 +8077,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "handcuffed": {
    "as_faller": 2,
@@ -8035,7 +8097,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "handed": {
    "as_faller": 48,
@@ -8074,7 +8137,8 @@
    "wn_senses_in_order": [
     "possession",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "has": {
    "as_faller": 2,
@@ -8122,7 +8186,8 @@
     "possession",
     "body",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "have": {
    "as_faller": 2,
@@ -8179,7 +8244,8 @@
     "possession",
     "body",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "hay": {
    "as_faller": 1,
@@ -8201,7 +8267,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "he": {
    "as_faller": 518,
@@ -8218,7 +8285,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "he'd": {
    "as_faller": 2,
@@ -8233,7 +8301,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "head": {
    "as_faller": 2,
@@ -8283,7 +8352,8 @@
     "stative",
     "stative",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "headed": {
    "as_faller": 27,
@@ -8333,7 +8403,8 @@
     "stative",
     "stative",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "heading": {
    "as_faller": 2,
@@ -8383,7 +8454,8 @@
     "stative",
     "stative",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "heard": {
    "as_faller": 3,
@@ -8392,23 +8464,8 @@
    "lean": 0.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "hear",
-   "gi_categories": [
-    "ComForm",
-    "EnlGain",
-    "EnlTot",
-    "IAV",
-    "Legal",
-    "Object",
-    "Passive",
-    "Perceiv",
-    "PowOth",
-    "PowTot",
-    "Ritual",
-    "Tool",
-    "WlbGain",
-    "WlbTot"
-   ],
+   "gi_lemma": "heard",
+   "gi_categories": [],
    "wn_lemma": "hear",
    "wn_supersense": "perception",
    "wn_supersenses_all": [
@@ -8423,7 +8480,8 @@
     "social",
     "perception",
     "perception"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "heat": {
    "as_faller": 0,
@@ -8460,7 +8518,8 @@
     "possession",
     "emotion",
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "held": {
    "as_faller": 14,
@@ -8469,28 +8528,8 @@
    "lean": 0.576,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "hold",
-   "gi_categories": [
-    "Active",
-    "DAV",
-    "ECON",
-    "Fetch",
-    "Hostile",
-    "IAV",
-    "Object",
-    "Passive",
-    "PowCon",
-    "PowOth",
-    "PowTot",
-    "Power",
-    "Solve",
-    "Stay",
-    "Strong",
-    "Tool",
-    "WltOth",
-    "WltTot",
-    "Work"
-   ],
+   "gi_lemma": "held",
+   "gi_categories": [],
    "wn_lemma": "hold",
    "wn_supersense": "stative",
    "wn_supersenses_all": [
@@ -8545,7 +8584,8 @@
     "communication",
     "communication",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "helped": {
    "as_faller": 0,
@@ -8592,7 +8632,8 @@
     "social",
     "consumption",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "her": {
    "as_faller": 25,
@@ -8609,7 +8650,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "hid": {
    "as_faller": 2,
@@ -8618,23 +8660,8 @@
    "lean": 0.2,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "hide",
-   "gi_categories": [
-    "Active",
-    "EnlOth",
-    "EnlTot",
-    "Exprsv",
-    "Hostile",
-    "IAV",
-    "Object",
-    "Perceiv",
-    "Ritual",
-    "SocRel",
-    "Tool",
-    "Weak",
-    "WltOth",
-    "WltTot"
-   ],
+   "gi_lemma": "hid",
+   "gi_categories": [],
    "wn_lemma": "hide",
    "wn_supersense": "perception",
    "wn_supersenses_all": [
@@ -8648,7 +8675,8 @@
     "perception",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "hidden": {
    "as_faller": 0,
@@ -8657,22 +8685,13 @@
    "lean": 1.0,
    "claws": "vvn",
    "is_lexical_verb": true,
-   "gi_lemma": "hide",
+   "gi_lemma": "hidden",
    "gi_categories": [
-    "Active",
     "EnlOth",
     "EnlTot",
-    "Exprsv",
     "Hostile",
     "IAV",
-    "Object",
-    "Perceiv",
-    "Ritual",
-    "SocRel",
-    "Tool",
-    "Weak",
-    "WltOth",
-    "WltTot"
+    "SocRel"
    ],
    "wn_lemma": "hide",
    "wn_supersense": "perception",
@@ -8687,7 +8706,8 @@
     "perception",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "him": {
    "as_faller": 6,
@@ -8704,7 +8724,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "his": {
    "as_faller": 28,
@@ -8721,7 +8742,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "hit": {
    "as_faller": 26,
@@ -8742,18 +8764,14 @@
     "Exert",
     "Hostile",
     "IAV",
-    "If",
     "Negativ",
     "Ngtv",
-    "Passive",
     "Positiv",
     "Pstv",
     "SocRel",
     "Solve",
     "Strong",
-    "TrnLoss",
-    "Vary",
-    "Virtue"
+    "TrnLoss"
    ],
    "wn_lemma": "hit",
    "wn_supersense": "contact",
@@ -8786,7 +8804,8 @@
     "consumption",
     "competition",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "how": {
    "as_faller": 16,
@@ -8803,7 +8822,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "hugged": {
    "as_faller": 1,
@@ -8828,7 +8848,8 @@
    "wn_senses_in_order": [
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "hung": {
    "as_faller": 13,
@@ -8837,20 +8858,16 @@
    "lean": -0.368,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "hang",
+   "gi_lemma": "hung",
    "gi_categories": [
     "Active",
     "DAV",
-    "Hostile",
     "IAV",
-    "Negativ",
-    "Ngtv",
     "Passive",
     "Rel",
-    "SocRel",
-    "Space",
     "Stay",
     "TranLw",
+    "Try",
     "Weak",
     "WlbLoss",
     "WlbTot"
@@ -8883,7 +8900,8 @@
     "contact",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "hurled": {
    "as_faller": 2,
@@ -8909,7 +8927,8 @@
     "contact",
     "motion",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "hurried": {
    "as_faller": 0,
@@ -8936,7 +8955,8 @@
     "motion",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "i": {
    "as_faller": 115,
@@ -8953,7 +8973,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "if": {
    "as_faller": 43,
@@ -8970,7 +8991,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "ignored": {
    "as_faller": 0,
@@ -9001,7 +9023,8 @@
     "perception",
     "cognition",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "immediately": {
    "as_faller": 0,
@@ -9016,7 +9039,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "implies": {
    "as_faller": 0,
@@ -9044,7 +9068,8 @@
     "stative",
     "stative",
     "stative"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "in": {
    "as_faller": 30,
@@ -9061,7 +9086,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "included": {
    "as_faller": 7,
@@ -9091,7 +9117,8 @@
     "cognition",
     "change",
     "social"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "indicated": {
    "as_faller": 1,
@@ -9119,7 +9146,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "indicates": {
    "as_faller": 4,
@@ -9147,7 +9175,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "injected": {
    "as_faller": 3,
@@ -9156,7 +9185,7 @@
    "lean": -1.0,
    "claws": "vvn",
    "is_lexical_verb": true,
-   "gi_lemma": null,
+   "gi_lemma": "inject",
    "gi_categories": [],
    "wn_lemma": "inject",
    "wn_supersense": "body",
@@ -9175,7 +9204,8 @@
     "consumption",
     "consumption",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "inscribed": {
    "as_faller": 1,
@@ -9202,7 +9232,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "inscription": {
    "as_faller": 1,
@@ -9217,7 +9248,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "inserted": {
    "as_faller": 0,
@@ -9248,7 +9280,8 @@
     "change",
     "contact",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "installed": {
    "as_faller": 0,
@@ -9275,7 +9308,8 @@
     "contact",
     "social",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "instead": {
    "as_faller": 4,
@@ -9293,7 +9327,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "instructed": {
    "as_faller": 0,
@@ -9323,7 +9358,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "into": {
    "as_faller": 49,
@@ -9341,7 +9377,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "invested": {
    "as_faller": 1,
@@ -9371,7 +9408,8 @@
     "social",
     "social",
     "social"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "invited": {
    "as_faller": 2,
@@ -9412,7 +9450,8 @@
     "contact",
     "communication",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "is": {
    "as_faller": 13,
@@ -9421,10 +9460,8 @@
    "lean": 0.409,
    "claws": "vbz",
    "is_lexical_verb": false,
-   "gi_lemma": "be",
-   "gi_categories": [
-    "SV"
-   ],
+   "gi_lemma": "is",
+   "gi_categories": [],
    "wn_lemma": "be",
    "wn_supersense": "stative",
    "wn_supersenses_all": [
@@ -9447,7 +9484,8 @@
     "stative",
     "stative",
     "stative"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "it": {
    "as_faller": 124,
@@ -9456,13 +9494,14 @@
    "lean": 0.075,
    "claws": "pp",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "it",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "it's": {
    "as_faller": 1,
@@ -9471,13 +9510,14 @@
    "lean": -1.0,
    "claws": "",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "it's",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "its": {
    "as_faller": 0,
@@ -9486,13 +9526,14 @@
    "lean": 1.0,
    "claws": "appge",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "its",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "jerked": {
    "as_faller": 3,
@@ -9528,7 +9569,8 @@
     "body",
     "motion",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "jumped": {
    "as_faller": 1,
@@ -9570,7 +9612,8 @@
     "cognition",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "just": {
    "as_faller": 2,
@@ -9595,7 +9638,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "kept": {
    "as_faller": 4,
@@ -9604,21 +9648,8 @@
    "lean": -0.333,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "keep",
-   "gi_categories": [
-    "Active",
-    "Complet",
-    "Hostile",
-    "IAV",
-    "Means",
-    "Perceiv",
-    "Persist",
-    "Power",
-    "SocRel",
-    "Strong",
-    "TranLw",
-    "Try"
-   ],
+   "gi_lemma": "kept",
+   "gi_categories": [],
    "wn_lemma": "keep",
    "wn_supersense": "stative",
    "wn_supersenses_all": [
@@ -9655,7 +9686,8 @@
     "possession",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "kick": {
    "as_faller": 2,
@@ -9697,7 +9729,8 @@
     "consumption",
     "competition",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "kicked": {
    "as_faller": 8,
@@ -9739,7 +9772,8 @@
     "consumption",
     "competition",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "kill": {
    "as_faller": 1,
@@ -9787,7 +9821,8 @@
     "change",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "killed": {
    "as_faller": 13,
@@ -9835,7 +9870,8 @@
     "change",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "kissed": {
    "as_faller": 62,
@@ -9866,7 +9902,8 @@
    "wn_senses_in_order": [
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "knelt": {
    "as_faller": 0,
@@ -9875,7 +9912,7 @@
    "lean": 1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "kneel",
+   "gi_lemma": "knelt",
    "gi_categories": [
     "DAV",
     "Passive",
@@ -9893,7 +9930,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "contact"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "knocked": {
    "as_faller": 10,
@@ -9933,7 +9971,8 @@
     "perception",
     "perception",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "laid": {
    "as_faller": 9,
@@ -9942,24 +9981,16 @@
    "lean": -1.0,
    "claws": "vvn",
    "is_lexical_verb": true,
-   "gi_lemma": "lay",
+   "gi_lemma": "laid",
    "gi_categories": [
-    "Active",
-    "COLL",
     "DAV",
-    "Fetch",
-    "HU",
     "Hostile",
     "IAV",
     "Negativ",
     "Ngtv",
-    "Passive",
     "Power",
-    "SklOth",
-    "SklTOT",
     "SocRel",
     "Stay",
-    "Strong",
     "TrnLoss"
    ],
    "wn_lemma": "lay",
@@ -9983,7 +10014,8 @@
     "communication",
     "stative",
     "motion"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "landed": {
    "as_faller": 0,
@@ -10020,7 +10052,8 @@
     "possession",
     "motion",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "later": {
    "as_faller": 0,
@@ -10039,7 +10072,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "lemma"
   },
   "laughed": {
    "as_faller": 6,
@@ -10077,7 +10111,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "lay": {
    "as_faller": 3,
@@ -10086,19 +10121,21 @@
    "lean": -0.2,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "lie",
+   "gi_lemma": "lay",
    "gi_categories": [
-    "COM",
-    "ComForm",
+    "Active",
     "DAV",
-    "FormLw",
+    "Fetch",
     "Hostile",
+    "IAV",
     "Negativ",
     "Ngtv",
     "Passive",
-    "RcEthic",
-    "RcTot",
-    "Stay"
+    "Power",
+    "SocRel",
+    "Stay",
+    "Strong",
+    "TrnLoss"
    ],
    "wn_lemma": "lie",
    "wn_supersense": "stative",
@@ -10117,7 +10154,8 @@
     "communication",
     "stative",
     "motion"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "leaned": {
    "as_faller": 1,
@@ -10155,7 +10193,8 @@
     "stative",
     "cognition",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "leaning": {
    "as_faller": 0,
@@ -10193,7 +10232,8 @@
     "stative",
     "cognition",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "leaped": {
    "as_faller": 0,
@@ -10221,7 +10261,8 @@
     "change",
     "motion",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "learned": {
    "as_faller": 1,
@@ -10258,7 +10299,8 @@
     "cognition",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "leave": {
    "as_faller": 0,
@@ -10270,13 +10312,7 @@
    "gi_lemma": "leave",
    "gi_categories": [
     "Active",
-    "COM",
-    "ComForm",
     "DAV",
-    "FormLw",
-    "NatObj",
-    "Object",
-    "Power",
     "TranLw",
     "Travel"
    ],
@@ -10306,7 +10342,8 @@
     "change",
     "possession",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "leaving": {
    "as_faller": 0,
@@ -10354,7 +10391,8 @@
     "change",
     "possession",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "led": {
    "as_faller": 6,
@@ -10363,32 +10401,8 @@
    "lean": 0.5,
    "claws": "vvn",
    "is_lexical_verb": true,
-   "gi_lemma": "lead",
-   "gi_categories": [
-    "Active",
-    "Causal",
-    "ComForm",
-    "EVAL",
-    "FormLw",
-    "Hostile",
-    "IAV",
-    "Means",
-    "Ovrst",
-    "Persist",
-    "PosAff",
-    "Positiv",
-    "PowCon",
-    "PowOth",
-    "PowTot",
-    "Power",
-    "Pstv",
-    "SocRel",
-    "Strong",
-    "TranLw",
-    "Virtue",
-    "WlbPhys",
-    "WlbTot"
-   ],
+   "gi_lemma": "led",
+   "gi_categories": [],
    "wn_lemma": "lead",
    "wn_supersense": "motion",
    "wn_supersenses_all": [
@@ -10414,7 +10428,8 @@
     "motion",
     "stative",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "left": {
    "as_faller": 33,
@@ -10423,16 +10438,10 @@
    "lean": 0.45,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "leave",
+   "gi_lemma": "left",
    "gi_categories": [
     "Active",
-    "COM",
-    "ComForm",
     "DAV",
-    "FormLw",
-    "NatObj",
-    "Object",
-    "Power",
     "TranLw",
     "Travel"
    ],
@@ -10462,7 +10471,8 @@
     "change",
     "possession",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "leg": {
    "as_faller": 3,
@@ -10481,7 +10491,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "legs": {
    "as_faller": 0,
@@ -10500,7 +10511,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "lemma"
   },
   "let": {
    "as_faller": 3,
@@ -10539,7 +10551,8 @@
     "change",
     "change",
     "possession"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "lifted": {
    "as_faller": 1,
@@ -10593,7 +10606,8 @@
     "change",
     "change",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "listened": {
    "as_faller": 3,
@@ -10621,7 +10635,8 @@
     "perception",
     "perception",
     "social"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "lit": {
    "as_faller": 7,
@@ -10630,23 +10645,12 @@
    "lean": 0.263,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "light",
+   "gi_lemma": "lit",
    "gi_categories": [
     "Active",
-    "ComForm",
-    "DAV",
-    "EnlOth",
-    "EnlTot",
     "Exert",
-    "IAV",
-    "Know",
-    "NatrPro",
-    "Positiv",
-    "Pstv",
-    "Quality",
-    "TranLw",
-    "Undrst",
-    "Weak"
+    "SV",
+    "TranLw"
    ],
    "wn_lemma": "light",
    "wn_supersense": "change",
@@ -10665,7 +10669,8 @@
     "weather",
     "possession",
     "motion"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "lived": {
    "as_faller": 1,
@@ -10705,7 +10710,8 @@
     "stative",
     "cognition",
     "stative"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "locked": {
    "as_faller": 2,
@@ -10744,7 +10750,8 @@
     "contact",
     "motion",
     "creation"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "locking": {
    "as_faller": 2,
@@ -10783,7 +10790,8 @@
     "contact",
     "motion",
     "creation"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "long": {
    "as_faller": 10,
@@ -10814,7 +10822,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "emotion"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "looked": {
    "as_faller": 30,
@@ -10862,7 +10871,8 @@
     "cognition",
     "stative",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "lunged": {
    "as_faller": 0,
@@ -10881,7 +10891,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "motion"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "made": {
    "as_faller": 5,
@@ -10890,26 +10901,9 @@
    "lean": 0.63,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "make",
+   "gi_lemma": "made",
    "gi_categories": [
-    "Active",
-    "Affil",
-    "Complet",
-    "Hostile",
-    "IAV",
-    "Means",
-    "Negativ",
-    "Ngtv",
-    "Object",
-    "Perceiv",
-    "Positiv",
-    "Power",
-    "Pstv",
-    "SocRel",
-    "Solve",
-    "Strong",
-    "Tool",
-    "Work"
+    "IAV"
    ],
    "wn_lemma": "make",
    "wn_supersense": "social",
@@ -10977,7 +10971,8 @@
     "change",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "make": {
    "as_faller": 0,
@@ -10993,10 +10988,8 @@
     "Complet",
     "Hostile",
     "IAV",
-    "Means",
     "Negativ",
     "Ngtv",
-    "Object",
     "Perceiv",
     "Positiv",
     "Power",
@@ -11004,7 +10997,6 @@
     "SocRel",
     "Solve",
     "Strong",
-    "Tool",
     "Work"
    ],
    "wn_lemma": "make",
@@ -11073,7 +11065,8 @@
     "change",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "marched": {
    "as_faller": 0,
@@ -11110,7 +11103,8 @@
     "motion",
     "motion",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "married": {
    "as_faller": 1,
@@ -11139,7 +11133,8 @@
    "wn_senses_in_order": [
     "social",
     "social"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "marry": {
    "as_faller": 1,
@@ -11151,7 +11146,6 @@
    "gi_lemma": "marry",
    "gi_categories": [
     "AffGain",
-    "AffOth",
     "AffTot",
     "Affil",
     "DAV",
@@ -11168,7 +11162,8 @@
    "wn_senses_in_order": [
     "social",
     "social"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "massaged": {
    "as_faller": 0,
@@ -11189,7 +11184,8 @@
    "wn_senses_in_order": [
     "contact",
     "body"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "me": {
    "as_faller": 1,
@@ -11206,7 +11202,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "means": {
    "as_faller": 1,
@@ -11254,7 +11251,8 @@
     "stative",
     "cognition",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "meant": {
    "as_faller": 4,
@@ -11263,28 +11261,13 @@
    "lean": -1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "mean",
+   "gi_lemma": "meant",
    "gi_categories": [
     "Active",
     "ComForm",
-    "EVAL",
     "EnlOth",
     "EnlTot",
-    "IAV",
-    "Know",
-    "Means",
-    "MeansLw",
-    "Negate",
-    "Negativ",
-    "Ngtv",
-    "No",
-    "NotLw",
-    "Ovrst",
-    "POS",
-    "Quan",
-    "SureLw",
-    "Vice",
-    "Yes"
+    "IAV"
    ],
    "wn_lemma": "mean",
    "wn_supersense": "communication",
@@ -11302,7 +11285,8 @@
     "stative",
     "cognition",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "miss": {
    "as_faller": 1,
@@ -11313,19 +11297,10 @@
    "is_lexical_verb": true,
    "gi_lemma": "miss",
    "gi_categories": [
-    "ECON",
-    "EndsLw",
     "Fail",
-    "Female",
-    "HU",
     "IAV",
-    "Name",
     "Negativ",
     "Ngtv",
-    "POLIT",
-    "Passive",
-    "PtLw",
-    "Role",
     "TrnLoss",
     "Weak"
    ],
@@ -11351,7 +11326,8 @@
     "contact",
     "stative",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "missed": {
    "as_faller": 3,
@@ -11400,7 +11376,8 @@
     "contact",
     "stative",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "monitored": {
    "as_faller": 0,
@@ -11427,7 +11404,8 @@
    "wn_senses_in_order": [
     "perception",
     "perception"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "more": {
    "as_faller": 1,
@@ -11446,7 +11424,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "mother": {
    "as_faller": 1,
@@ -11474,7 +11453,8 @@
    "wn_senses_in_order": [
     "social",
     "body"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "mouth": {
    "as_faller": 1,
@@ -11503,7 +11483,8 @@
     "communication",
     "communication",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "moved": {
    "as_faller": 3,
@@ -11557,7 +11538,8 @@
     "social",
     "competition",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "mr": {
    "as_faller": 1,
@@ -11572,7 +11554,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "ms": {
    "as_faller": 15,
@@ -11587,7 +11570,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "my": {
    "as_faller": 1,
@@ -11604,7 +11588,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "name": {
    "as_faller": 1,
@@ -11648,7 +11633,8 @@
     "cognition",
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "named": {
    "as_faller": 1,
@@ -11692,7 +11678,8 @@
     "cognition",
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "neck": {
    "as_faller": 2,
@@ -11713,7 +11700,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "neighbours": {
    "as_faller": 1,
@@ -11722,7 +11710,7 @@
    "lean": -1.0,
    "claws": "nn2",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "neighbour",
    "gi_categories": [],
    "wn_lemma": "neighbour",
    "wn_supersense": "stative",
@@ -11733,7 +11721,8 @@
    "wn_senses_in_order": [
     "stative",
     "stative"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "never": {
    "as_faller": 0,
@@ -11753,7 +11742,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "nights": {
    "as_faller": 1,
@@ -11773,7 +11763,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "lemma"
   },
   "no": {
    "as_faller": 3,
@@ -11799,7 +11790,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "nodded": {
    "as_faller": 0,
@@ -11830,7 +11822,8 @@
     "body",
     "motion",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "nose": {
    "as_faller": 1,
@@ -11859,7 +11852,8 @@
     "motion",
     "contact",
     "competition"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "not": {
    "as_faller": 4,
@@ -11877,7 +11871,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "noted": {
    "as_faller": 2,
@@ -11912,7 +11907,8 @@
     "perception",
     "perception",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "noticed": {
    "as_faller": 2,
@@ -11944,7 +11940,8 @@
     "perception",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "now": {
    "as_faller": 13,
@@ -11961,7 +11958,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "number": {
    "as_faller": 0,
@@ -11994,7 +11992,8 @@
     "stative",
     "communication",
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "numbers": {
    "as_faller": 0,
@@ -12027,7 +12026,8 @@
     "stative",
     "communication",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "occurred": {
    "as_faller": 1,
@@ -12058,7 +12058,8 @@
     "change",
     "cognition",
     "stative"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "of": {
    "as_faller": 1,
@@ -12067,13 +12068,14 @@
    "lean": 0.0,
    "claws": "ii",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "of",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "offered": {
    "as_faller": 1,
@@ -12125,7 +12127,8 @@
     "possession",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "on": {
    "as_faller": 68,
@@ -12142,7 +12145,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "once": {
    "as_faller": 15,
@@ -12164,7 +12168,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "one": {
    "as_faller": 1,
@@ -12183,7 +12188,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "only": {
    "as_faller": 3,
@@ -12202,7 +12208,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "onto": {
    "as_faller": 7,
@@ -12219,7 +12226,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "open": {
    "as_faller": 2,
@@ -12267,7 +12275,8 @@
     "competition",
     "possession",
     "perception"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "opened": {
    "as_faller": 25,
@@ -12315,7 +12324,8 @@
     "competition",
     "possession",
     "perception"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "opening": {
    "as_faller": 1,
@@ -12363,7 +12373,8 @@
     "competition",
     "possession",
     "perception"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "ordered": {
    "as_faller": 4,
@@ -12414,7 +12425,8 @@
     "social",
     "cognition",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "other": {
    "as_faller": 0,
@@ -12434,7 +12446,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "others": {
    "as_faller": 0,
@@ -12454,7 +12467,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "lemma"
   },
   "out": {
    "as_faller": 3,
@@ -12478,7 +12492,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "over": {
    "as_faller": 1,
@@ -12502,7 +12517,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "packed": {
    "as_faller": 0,
@@ -12545,7 +12561,8 @@
     "contact",
     "contact",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "paid": {
    "as_faller": 10,
@@ -12554,30 +12571,8 @@
    "lean": -0.176,
    "claws": "vvn",
    "is_lexical_verb": true,
-   "gi_lemma": "pay",
-   "gi_categories": [
-    "Active",
-    "Affil",
-    "COM",
-    "ComForm",
-    "DAV",
-    "ECON",
-    "EnlOth",
-    "EnlTot",
-    "Exch",
-    "IAV",
-    "Perceiv",
-    "Positiv",
-    "Pstv",
-    "RspGain",
-    "RspTot",
-    "SocRel",
-    "Submit",
-    "TrnGain",
-    "Weak",
-    "WltOth",
-    "WltTot"
-   ],
+   "gi_lemma": "paid",
+   "gi_categories": [],
    "wn_lemma": "pay",
    "wn_supersense": "possession",
    "wn_supersenses_all": [
@@ -12600,7 +12595,8 @@
     "cognition",
     "possession",
     "possession"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "painted": {
    "as_faller": 6,
@@ -12637,7 +12633,8 @@
     "contact",
     "creation",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "parked": {
    "as_faller": 3,
@@ -12664,7 +12661,8 @@
    "wn_senses_in_order": [
     "contact",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "passed": {
    "as_faller": 0,
@@ -12740,7 +12738,8 @@
     "communication",
     "change",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "patted": {
    "as_faller": 0,
@@ -12760,7 +12759,8 @@
    "wn_senses_in_order": [
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "paused": {
    "as_faller": 0,
@@ -12786,7 +12786,8 @@
    "wn_senses_in_order": [
     "stative",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "pausing": {
    "as_faller": 0,
@@ -12812,7 +12813,8 @@
    "wn_senses_in_order": [
     "stative",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "pay": {
    "as_faller": 1,
@@ -12825,10 +12827,7 @@
    "gi_categories": [
     "Active",
     "Affil",
-    "COM",
-    "ComForm",
     "DAV",
-    "ECON",
     "EnlOth",
     "EnlTot",
     "Exch",
@@ -12841,9 +12840,7 @@
     "SocRel",
     "Submit",
     "TrnGain",
-    "Weak",
-    "WltOth",
-    "WltTot"
+    "Weak"
    ],
    "wn_lemma": "pay",
    "wn_supersense": "possession",
@@ -12867,7 +12864,8 @@
     "cognition",
     "possession",
     "possession"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "peered": {
    "as_faller": 0,
@@ -12891,7 +12889,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "perception"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "people": {
    "as_faller": 1,
@@ -12918,7 +12917,8 @@
    "wn_senses_in_order": [
     "change",
     "stative"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "performed": {
    "as_faller": 0,
@@ -12948,7 +12948,8 @@
     "social",
     "creation",
     "social"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "phone": {
    "as_faller": 1,
@@ -12973,7 +12974,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "communication"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "picked": {
    "as_faller": 1,
@@ -13026,7 +13028,8 @@
     "contact",
     "contact",
     "consumption"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "pinned": {
    "as_faller": 2,
@@ -13055,7 +13058,8 @@
     "contact",
     "contact",
     "competition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "placed": {
    "as_faller": 23,
@@ -13105,7 +13109,8 @@
     "competition",
     "competition",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "planned": {
    "as_faller": 0,
@@ -13136,7 +13141,8 @@
     "cognition",
     "creation",
     "creation"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "plans": {
    "as_faller": 0,
@@ -13167,7 +13173,8 @@
     "cognition",
     "creation",
     "creation"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "planted": {
    "as_faller": 1,
@@ -13208,7 +13215,8 @@
     "possession",
     "contact",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "plugged": {
    "as_faller": 11,
@@ -13240,7 +13248,8 @@
     "communication",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "pocket": {
    "as_faller": 1,
@@ -13263,7 +13272,8 @@
    "wn_senses_in_order": [
     "possession",
     "possession"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "pocketed": {
    "as_faller": 1,
@@ -13286,7 +13296,8 @@
    "wn_senses_in_order": [
     "possession",
     "possession"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "pointed": {
    "as_faller": 3,
@@ -13345,7 +13356,8 @@
     "communication",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "police": {
    "as_faller": 3,
@@ -13373,7 +13385,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "social"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "polished": {
    "as_faller": 0,
@@ -13401,7 +13414,8 @@
     "contact",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "post": {
    "as_faller": 1,
@@ -13453,7 +13467,8 @@
     "contact",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "posted": {
    "as_faller": 8,
@@ -13505,7 +13520,8 @@
     "contact",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "poured": {
    "as_faller": 11,
@@ -13535,7 +13551,8 @@
     "motion",
     "possession",
     "weather"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "prayed": {
    "as_faller": 35,
@@ -13562,7 +13579,8 @@
    "wn_senses_in_order": [
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "prepared": {
    "as_faller": 0,
@@ -13601,7 +13619,8 @@
     "cognition",
     "perception",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "prescribed": {
    "as_faller": 0,
@@ -13623,7 +13642,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "presented": {
    "as_faller": 2,
@@ -13671,7 +13691,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "pressed": {
    "as_faller": 3,
@@ -13734,7 +13755,8 @@
     "contact",
     "competition",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "proceeded": {
    "as_faller": 3,
@@ -13772,7 +13794,8 @@
     "social",
     "change",
     "stative"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "promoted": {
    "as_faller": 1,
@@ -13804,7 +13827,8 @@
     "communication",
     "competition",
     "competition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "promptly": {
    "as_faller": 0,
@@ -13824,7 +13848,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "proudly": {
    "as_faller": 0,
@@ -13839,7 +13864,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "provide": {
    "as_faller": 0,
@@ -13852,7 +13878,6 @@
    "gi_categories": [
     "Affil",
     "IAV",
-    "If",
     "Positiv",
     "Power",
     "Pstv",
@@ -13879,7 +13904,8 @@
     "stative",
     "possession",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "provided": {
    "as_faller": 0,
@@ -13919,7 +13945,8 @@
     "stative",
     "possession",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "published": {
    "as_faller": 0,
@@ -13947,7 +13974,8 @@
     "creation",
     "communication",
     "creation"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "pull": {
    "as_faller": 0,
@@ -13992,7 +14020,8 @@
     "contact",
     "competition",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "pulled": {
    "as_faller": 24,
@@ -14037,7 +14066,8 @@
     "contact",
     "competition",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "pumped": {
    "as_faller": 1,
@@ -14073,7 +14103,8 @@
     "motion",
     "motion",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "punched": {
    "as_faller": 20,
@@ -14100,7 +14131,8 @@
     "contact",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "punching": {
    "as_faller": 3,
@@ -14127,7 +14159,8 @@
     "contact",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "pushed": {
    "as_faller": 15,
@@ -14172,7 +14205,8 @@
     "possession",
     "motion",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "put": {
    "as_faller": 136,
@@ -14221,7 +14255,8 @@
     "perception",
     "creation",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "putting": {
    "as_faller": 1,
@@ -14270,7 +14305,8 @@
     "perception",
     "creation",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "quickly": {
    "as_faller": 0,
@@ -14285,7 +14321,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "quiet": {
    "as_faller": 0,
@@ -14315,7 +14352,8 @@
    "wn_senses_in_order": [
     "perception",
     "emotion"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "raced": {
    "as_faller": 1,
@@ -14354,7 +14392,8 @@
     "competition",
     "social",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "rain": {
    "as_faller": 0,
@@ -14378,7 +14417,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "weather"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "raised": {
    "as_faller": 2,
@@ -14453,7 +14493,8 @@
     "change",
     "change",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "raises": {
    "as_faller": 0,
@@ -14528,7 +14569,8 @@
     "change",
     "change",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "ran": {
    "as_faller": 82,
@@ -14537,26 +14579,8 @@
    "lean": -0.763,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "run",
-   "gi_categories": [
-    "Active",
-    "DAV",
-    "Fail",
-    "Finish",
-    "Hostile",
-    "IAV",
-    "Increas",
-    "Negativ",
-    "Ngtv",
-    "Ovrst",
-    "Passive",
-    "Power",
-    "SocRel",
-    "Strong",
-    "Travel",
-    "Try",
-    "Weak"
-   ],
+   "gi_lemma": "ran",
+   "gi_categories": [],
    "wn_lemma": "run",
    "wn_supersense": "motion",
    "wn_supersenses_all": [
@@ -14612,7 +14636,8 @@
     "change",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "rang": {
    "as_faller": 1,
@@ -14621,12 +14646,10 @@
    "lean": 0.5,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "ring",
+   "gi_lemma": "rang",
    "gi_categories": [
     "ComForm",
-    "DAV",
-    "Quality",
-    "Space"
+    "DAV"
    ],
    "wn_lemma": "ring",
    "wn_supersense": "perception",
@@ -14643,7 +14666,8 @@
     "communication",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "raped": {
    "as_faller": 7,
@@ -14664,7 +14688,8 @@
    "wn_senses_in_order": [
     "social",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "re": {
    "as_faller": 0,
@@ -14679,7 +14704,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "read": {
    "as_faller": 20,
@@ -14690,14 +14716,10 @@
    "is_lexical_verb": true,
    "gi_lemma": "read",
    "gi_categories": [
-    "Academ",
-    "COM",
     "ComForm",
     "DAV",
     "EnlGain",
-    "EnlOth",
     "EnlTot",
-    "FormLw",
     "IAV",
     "Perceiv"
    ],
@@ -14722,7 +14744,8 @@
     "creation",
     "cognition",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "ready": {
    "as_faller": 2,
@@ -14747,7 +14770,8 @@
    "wn_senses_in_order": [
     "creation",
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "realised": {
    "as_faller": 4,
@@ -14756,7 +14780,7 @@
    "lean": -1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": null,
+   "gi_lemma": "realise",
    "gi_categories": [],
    "wn_lemma": "realise",
    "wn_supersense": "possession",
@@ -14773,7 +14797,8 @@
     "creation",
     "cognition",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "realized": {
    "as_faller": 6,
@@ -14809,7 +14834,8 @@
     "possession",
     "possession",
     "creation"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "realizing": {
    "as_faller": 0,
@@ -14845,7 +14871,8 @@
     "possession",
     "possession",
     "creation"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "really": {
    "as_faller": 1,
@@ -14860,7 +14887,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "reapply": {
    "as_faller": 0,
@@ -14875,7 +14903,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "recalculate": {
    "as_faller": 0,
@@ -14894,7 +14923,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "cognition"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "received": {
    "as_faller": 1,
@@ -14940,7 +14970,8 @@
     "perception",
     "consumption",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "recited": {
    "as_faller": 1,
@@ -14964,7 +14995,8 @@
     "creation",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "records": {
    "as_faller": 1,
@@ -15000,7 +15032,8 @@
     "communication",
     "perception",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "refilled": {
    "as_faller": 0,
@@ -15019,7 +15052,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "change"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "reflected": {
    "as_faller": 0,
@@ -15053,7 +15087,8 @@
     "perception",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "release": {
    "as_faller": 0,
@@ -15094,7 +15129,8 @@
     "possession",
     "creation",
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "released": {
    "as_faller": 0,
@@ -15135,7 +15171,8 @@
     "possession",
     "creation",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "removed": {
    "as_faller": 4,
@@ -15171,7 +15208,8 @@
     "change",
     "social",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "renew": {
    "as_faller": 0,
@@ -15197,7 +15235,8 @@
    "wn_senses_in_order": [
     "creation",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "replaced": {
    "as_faller": 3,
@@ -15227,7 +15266,8 @@
     "social",
     "contact",
     "possession"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "replied": {
    "as_faller": 0,
@@ -15254,7 +15294,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "required": {
    "as_faller": 1,
@@ -15288,7 +15329,8 @@
     "communication",
     "communication",
     "consumption"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "residents": {
    "as_faller": 1,
@@ -15308,7 +15350,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "lemma"
   },
   "rested": {
    "as_faller": 1,
@@ -15351,7 +15394,8 @@
     "contact",
     "contact",
     "social"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "restored": {
    "as_faller": 0,
@@ -15385,7 +15429,8 @@
     "possession",
     "change",
     "social"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "resulted": {
    "as_faller": 1,
@@ -15413,7 +15458,8 @@
     "stative",
     "stative",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "return": {
    "as_faller": 0,
@@ -15425,18 +15471,11 @@
    "gi_lemma": "return",
    "gi_categories": [
     "Active",
-    "Affil",
-    "ECON",
     "Fetch",
-    "Goal",
     "IAV",
     "Positiv",
     "Pstv",
-    "Travel",
-    "Vary",
-    "Virtue",
-    "WltOth",
-    "WltTot"
+    "Travel"
    ],
    "wn_lemma": "return",
    "wn_supersense": "motion",
@@ -15467,7 +15506,8 @@
     "motion",
     "creation",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "returned": {
    "as_faller": 6,
@@ -15521,7 +15561,8 @@
     "motion",
     "creation",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "returning": {
    "as_faller": 1,
@@ -15575,7 +15616,8 @@
     "motion",
     "creation",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "review": {
    "as_faller": 0,
@@ -15605,7 +15647,8 @@
     "cognition",
     "cognition",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "rifled": {
    "as_faller": 0,
@@ -15631,7 +15674,8 @@
    "wn_senses_in_order": [
     "possession",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "ripped": {
    "as_faller": 1,
@@ -15665,7 +15709,8 @@
     "motion",
     "contact",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "rode": {
    "as_faller": 3,
@@ -15674,18 +15719,9 @@
    "lean": -1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "ride",
+   "gi_lemma": "rode",
    "gi_categories": [
-    "Active",
-    "ComForm",
     "DAV",
-    "Hostile",
-    "IAV",
-    "Negativ",
-    "Ngtv",
-    "RspLoss",
-    "RspTot",
-    "TranLw",
     "Travel"
    ],
    "wn_lemma": "ride",
@@ -15712,7 +15748,8 @@
     "motion",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "rope": {
    "as_faller": 0,
@@ -15740,7 +15777,8 @@
    "wn_senses_in_order": [
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "rubbed": {
    "as_faller": 5,
@@ -15767,7 +15805,8 @@
     "contact",
     "contact",
     "perception"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "ruined": {
    "as_faller": 6,
@@ -15808,7 +15847,8 @@
     "contact",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "running": {
    "as_faller": 1,
@@ -15892,7 +15932,8 @@
     "change",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "said": {
    "as_faller": 241,
@@ -15901,29 +15942,12 @@
    "lean": -0.239,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "say",
+   "gi_lemma": "said",
    "gi_categories": [
-    "Active",
-    "COM",
-    "ComForm",
     "DAV",
     "EnlGain",
-    "EnlOth",
     "EnlTot",
-    "FormLw",
-    "IAV",
-    "If",
-    "Know",
-    "Means",
-    "Ovrst",
-    "POLIT",
-    "PowOth",
-    "PowTot",
-    "Power",
-    "Say",
-    "Solve",
-    "Strong",
-    "SureLw"
+    "Say"
    ],
    "wn_lemma": "say",
    "wn_supersense": "communication",
@@ -15944,7 +15968,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "sailed": {
    "as_faller": 2,
@@ -15974,7 +15999,8 @@
     "motion",
     "motion",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "saluted": {
    "as_faller": 1,
@@ -16007,7 +16033,8 @@
     "perception",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "sanded": {
    "as_faller": 1,
@@ -16029,7 +16056,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "sang": {
    "as_faller": 6,
@@ -16038,14 +16066,13 @@
    "lean": -0.2,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "sing",
+   "gi_lemma": "sang",
    "gi_categories": [
     "Active",
-    "COM",
     "ComForm",
     "DAV",
     "Exprsv",
-    "FormLw"
+    "TranLw"
    ],
    "wn_lemma": "sing",
    "wn_supersense": "creation",
@@ -16060,7 +16087,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "sat": {
    "as_faller": 57,
@@ -16069,12 +16097,8 @@
    "lean": -0.425,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "sit",
-   "gi_categories": [
-    "DAV",
-    "Ritual",
-    "Stay"
-   ],
+   "gi_lemma": "sat",
+   "gi_categories": [],
    "wn_lemma": "sit",
    "wn_supersense": "contact",
    "wn_supersenses_all": [
@@ -16097,7 +16121,8 @@
     "social",
     "contact",
     "competition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "saved": {
    "as_faller": 0,
@@ -16142,7 +16167,8 @@
     "possession",
     "possession",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "saw": {
    "as_faller": 44,
@@ -16151,13 +16177,15 @@
    "lean": 0.054,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "see",
+   "gi_lemma": "saw",
    "gi_categories": [
+    "Active",
     "DAV",
-    "EnlGain",
+    "EnlOth",
     "EnlTot",
     "Passive",
-    "Perceiv"
+    "Perceiv",
+    "Work"
    ],
    "wn_lemma": "see",
    "wn_supersense": "perception",
@@ -16197,7 +16225,8 @@
     "motion",
     "competition",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "saying": {
    "as_faller": 1,
@@ -16249,7 +16278,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "says": {
    "as_faller": 2,
@@ -16301,7 +16331,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "scanned": {
    "as_faller": 0,
@@ -16331,7 +16362,8 @@
     "motion",
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "scattered": {
    "as_faller": 0,
@@ -16362,7 +16394,8 @@
     "contact",
     "change",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "screamed": {
    "as_faller": 1,
@@ -16394,7 +16427,8 @@
     "communication",
     "communication",
     "perception"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "screensaver": {
    "as_faller": 1,
@@ -16409,7 +16443,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "screwed": {
    "as_faller": 4,
@@ -16442,7 +16477,8 @@
     "contact",
     "contact",
     "competition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "scribbled": {
    "as_faller": 0,
@@ -16463,7 +16499,8 @@
    "wn_senses_in_order": [
     "communication",
     "creation"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "scrolled": {
    "as_faller": 1,
@@ -16482,7 +16519,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "change"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "sealed": {
    "as_faller": 0,
@@ -16517,7 +16555,8 @@
     "contact",
     "contact",
     "competition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "searched": {
    "as_faller": 1,
@@ -16550,7 +16589,8 @@
     "perception",
     "cognition",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "security": {
    "as_faller": 1,
@@ -16581,7 +16621,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "seeing": {
    "as_faller": 1,
@@ -16636,7 +16677,8 @@
     "motion",
     "competition",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "sell": {
    "as_faller": 2,
@@ -16650,7 +16692,6 @@
     "Active",
     "DAV",
     "Exch",
-    "WltOth",
     "WltTot",
     "WltTran"
    ],
@@ -16672,7 +16713,8 @@
     "stative",
     "stative",
     "social"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "send": {
    "as_faller": 3,
@@ -16685,8 +16727,7 @@
    "gi_categories": [
     "Active",
     "DAV",
-    "Fetch",
-    "Travel"
+    "Fetch"
    ],
    "wn_lemma": "send",
    "wn_supersense": "motion",
@@ -16707,7 +16748,8 @@
     "communication",
     "possession",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "sent": {
    "as_faller": 17,
@@ -16716,12 +16758,11 @@
    "lean": 0.105,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "send",
+   "gi_lemma": "sent",
    "gi_categories": [
     "Active",
     "DAV",
-    "Fetch",
-    "Travel"
+    "Fetch"
    ],
    "wn_lemma": "send",
    "wn_supersense": "motion",
@@ -16742,7 +16783,8 @@
     "communication",
     "possession",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "serve": {
    "as_faller": 0,
@@ -16795,7 +16837,8 @@
     "social",
     "contact",
     "competition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "served": {
    "as_faller": 0,
@@ -16848,7 +16891,8 @@
     "social",
     "contact",
     "competition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "set": {
    "as_faller": 10,
@@ -16860,19 +16904,10 @@
    "gi_lemma": "set",
    "gi_categories": [
     "Active",
-    "ArenaLw",
     "Begin",
     "Fall",
     "IAV",
-    "Know",
-    "Object",
-    "PLACE",
-    "Passive",
-    "Quality",
-    "Region",
     "Stay",
-    "Strong",
-    "Tool",
     "TranLw",
     "TrnGain",
     "Work"
@@ -16916,7 +16951,8 @@
     "change",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "settled": {
    "as_faller": 0,
@@ -16976,7 +17012,8 @@
     "change",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "shaking": {
    "as_faller": 0,
@@ -17019,7 +17056,8 @@
     "motion",
     "change",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "shared": {
    "as_faller": 0,
@@ -17054,7 +17092,8 @@
     "possession",
     "possession",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "shattered": {
    "as_faller": 0,
@@ -17082,7 +17121,8 @@
     "change",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "shaved": {
    "as_faller": 1,
@@ -17108,7 +17148,8 @@
     "contact",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "she": {
    "as_faller": 253,
@@ -17125,7 +17166,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "she'd": {
    "as_faller": 4,
@@ -17140,7 +17182,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "she's": {
    "as_faller": 2,
@@ -17155,7 +17198,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "shielded": {
    "as_faller": 0,
@@ -17182,7 +17226,8 @@
    "wn_senses_in_order": [
     "competition",
     "perception"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "shone": {
    "as_faller": 0,
@@ -17218,7 +17263,8 @@
     "stative",
     "emotion",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "shook": {
    "as_faller": 3,
@@ -17227,20 +17273,8 @@
    "lean": 0.143,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "shake",
-   "gi_categories": [
-    "Active",
-    "Affil",
-    "ComForm",
-    "DAV",
-    "Exert",
-    "IAV",
-    "Negativ",
-    "Ngtv",
-    "RspOth",
-    "RspTot",
-    "TranLw"
-   ],
+   "gi_lemma": "shook",
+   "gi_categories": [],
    "wn_lemma": "shake",
    "wn_supersense": "motion",
    "wn_supersenses_all": [
@@ -17261,7 +17295,8 @@
     "motion",
     "change",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "shoot": {
    "as_faller": 1,
@@ -17278,20 +17313,17 @@
     "EnlOth",
     "EnlTot",
     "Exert",
-    "Exprsv",
     "Hostile",
     "IAV",
     "Increas",
     "Negativ",
     "Ngtv",
-    "Ritual",
     "SklOth",
     "SklTOT",
     "Strong",
     "TranLw",
     "TrnLoss",
-    "Try",
-    "Vice"
+    "Try"
    ],
    "wn_lemma": "shoot",
    "wn_supersense": "competition",
@@ -17330,7 +17362,8 @@
     "cognition",
     "change",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "shot": {
    "as_faller": 19,
@@ -17390,7 +17423,8 @@
     "cognition",
     "change",
     "body"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "shoulder": {
    "as_faller": 1,
@@ -17418,7 +17452,8 @@
     "contact",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "shouted": {
    "as_faller": 4,
@@ -17448,7 +17483,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "shoved": {
    "as_faller": 3,
@@ -17476,7 +17512,8 @@
     "motion",
     "contact",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "shoving": {
    "as_faller": 1,
@@ -17504,7 +17541,8 @@
     "motion",
     "contact",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "showed": {
    "as_faller": 5,
@@ -17557,7 +17595,8 @@
     "communication",
     "motion",
     "competition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "shut": {
    "as_faller": 3,
@@ -17594,7 +17633,8 @@
     "contact",
     "contact",
     "social"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "siblings": {
    "as_faller": 0,
@@ -17609,7 +17649,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "sighed": {
    "as_faller": 1,
@@ -17637,7 +17678,8 @@
    "wn_senses_in_order": [
     "body",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "sign": {
    "as_faller": 3,
@@ -17674,7 +17716,8 @@
     "contact",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "signed": {
    "as_faller": 7,
@@ -17711,7 +17754,8 @@
     "contact",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "sipped": {
    "as_faller": 1,
@@ -17730,7 +17774,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "consumption"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "sister": {
    "as_faller": 0,
@@ -17752,7 +17797,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "slammed": {
    "as_faller": 3,
@@ -17784,7 +17830,8 @@
     "contact",
     "motion",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "slapped": {
    "as_faller": 3,
@@ -17809,7 +17856,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "slashed": {
    "as_faller": 4,
@@ -17843,7 +17891,8 @@
     "contact",
     "change",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "sliced": {
    "as_faller": 1,
@@ -17871,7 +17920,8 @@
     "contact",
     "contact",
     "competition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "slid": {
    "as_faller": 3,
@@ -17880,11 +17930,10 @@
    "lean": -0.2,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "slide",
+   "gi_lemma": "slid",
    "gi_categories": [
     "DAV",
-    "Fall",
-    "Passive"
+    "Fall"
    ],
    "wn_lemma": "slide",
    "wn_supersense": "motion",
@@ -17896,7 +17945,8 @@
     "motion",
     "motion",
     "motion"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "slipped": {
    "as_faller": 5,
@@ -17935,7 +17985,8 @@
     "motion",
     "cognition",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "slit": {
    "as_faller": 2,
@@ -17955,7 +18006,8 @@
    "wn_senses_in_order": [
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "smashed": {
    "as_faller": 52,
@@ -17999,7 +18051,8 @@
     "contact",
     "competition",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "smashing": {
    "as_faller": 1,
@@ -18043,7 +18096,8 @@
     "contact",
     "competition",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "smiled": {
    "as_faller": 10,
@@ -18074,7 +18128,8 @@
    "wn_senses_in_order": [
     "body",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "snapped": {
    "as_faller": 1,
@@ -18114,7 +18169,8 @@
     "emotion",
     "contact",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "snorted": {
    "as_faller": 1,
@@ -18138,7 +18194,8 @@
     "body",
     "consumption",
     "consumption"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "snuggled": {
    "as_faller": 0,
@@ -18158,7 +18215,8 @@
    "wn_senses_in_order": [
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "so": {
    "as_faller": 14,
@@ -18177,7 +18235,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "sold": {
    "as_faller": 1,
@@ -18186,12 +18245,16 @@
    "lean": 0.667,
    "claws": "vvn",
    "is_lexical_verb": true,
-   "gi_lemma": "sell",
+   "gi_lemma": "sold",
    "gi_categories": [
     "Active",
     "DAV",
+    "EnlOth",
+    "EnlTot",
     "Exch",
-    "WltOth",
+    "IAV",
+    "Passive",
+    "Solve",
     "WltTot",
     "WltTran"
    ],
@@ -18213,7 +18276,8 @@
     "stative",
     "stative",
     "social"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "some": {
    "as_faller": 1,
@@ -18231,7 +18295,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "sorted": {
    "as_faller": 0,
@@ -18266,7 +18331,8 @@
    "wn_senses_in_order": [
     "social",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "sparks": {
    "as_faller": 0,
@@ -18289,7 +18355,8 @@
    "wn_senses_in_order": [
     "creation",
     "weather"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "spat": {
    "as_faller": 0,
@@ -18317,7 +18384,8 @@
     "communication",
     "weather",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "speaking": {
    "as_faller": 0,
@@ -18357,7 +18425,8 @@
     "communication",
     "communication",
     "perception"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "sped": {
    "as_faller": 0,
@@ -18388,7 +18457,8 @@
     "motion",
     "motion",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "spent": {
    "as_faller": 2,
@@ -18397,18 +18467,8 @@
    "lean": 0.5,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "spend",
-   "gi_categories": [
-    "Active",
-    "Arousal",
-    "DAV",
-    "Exch",
-    "Passive",
-    "TrnLoss",
-    "Weak",
-    "WltTot",
-    "WltTran"
-   ],
+   "gi_lemma": "spent",
+   "gi_categories": [],
    "wn_lemma": "spend",
    "wn_supersense": "stative",
    "wn_supersenses_all": [
@@ -18420,7 +18480,8 @@
     "stative",
     "possession",
     "possession"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "spoke": {
    "as_faller": 3,
@@ -18429,23 +18490,19 @@
    "lean": 0.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "speak",
+   "gi_lemma": "spoke",
    "gi_categories": [
     "Active",
     "Affil",
     "ComForm",
     "DAV",
-    "EnlGain",
     "EnlOth",
     "EnlTot",
-    "FormLw",
     "IAV",
-    "Means",
     "PowGain",
     "PowTot",
     "Power",
-    "SocRel",
-    "Undrst"
+    "SocRel"
    ],
    "wn_lemma": "speak",
    "wn_supersense": "communication",
@@ -18460,7 +18517,8 @@
     "communication",
     "communication",
     "perception"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "spooned": {
    "as_faller": 1,
@@ -18480,7 +18538,8 @@
    "wn_senses_in_order": [
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "sprayed": {
    "as_faller": 2,
@@ -18505,7 +18564,8 @@
     "contact",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "spread": {
    "as_faller": 0,
@@ -18518,7 +18578,6 @@
    "gi_categories": [
     "IAV",
     "Increas",
-    "Space",
     "TranLw"
    ],
    "wn_lemma": "spread",
@@ -18541,7 +18600,8 @@
     "motion",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "sprinkled": {
    "as_faller": 1,
@@ -18568,7 +18628,8 @@
     "contact",
     "weather",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "sprinted": {
    "as_faller": 0,
@@ -18587,7 +18648,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "motion"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "squeezed": {
    "as_faller": 1,
@@ -18623,7 +18685,8 @@
     "contact",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "squinted": {
    "as_faller": 0,
@@ -18645,7 +18708,8 @@
     "body",
     "perception",
     "body"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "stabbed": {
    "as_faller": 20,
@@ -18673,7 +18737,8 @@
     "contact",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "stalking": {
    "as_faller": 0,
@@ -18694,7 +18759,8 @@
     "motion",
     "motion",
     "motion"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "stamp": {
    "as_faller": 4,
@@ -18738,7 +18804,8 @@
     "creation",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "stamped": {
    "as_faller": 4,
@@ -18782,7 +18849,8 @@
     "creation",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "stared": {
    "as_faller": 8,
@@ -18807,7 +18875,8 @@
    "wn_senses_in_order": [
     "perception",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "started": {
    "as_faller": 4,
@@ -18857,7 +18926,8 @@
     "stative",
     "social",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "stated": {
    "as_faller": 1,
@@ -18896,7 +18966,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "steal": {
    "as_faller": 0,
@@ -18909,15 +18980,13 @@
    "gi_categories": [
     "Active",
     "DAV",
-    "ECON",
     "Hostile",
     "Legal",
     "Negativ",
     "Ngtv",
     "RcEthic",
     "RcTot",
-    "SocRel",
-    "Vice"
+    "SocRel"
    ],
    "wn_lemma": "steal",
    "wn_supersense": "possession",
@@ -18931,7 +19000,8 @@
     "possession",
     "motion",
     "competition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "stepped": {
    "as_faller": 0,
@@ -18976,7 +19046,8 @@
     "contact",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "stepping": {
    "as_faller": 0,
@@ -19021,7 +19092,8 @@
     "contact",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "sticks": {
    "as_faller": 1,
@@ -19078,7 +19150,8 @@
     "contact",
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "still": {
    "as_faller": 2,
@@ -19111,7 +19184,8 @@
     "change",
     "emotion",
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "stirred": {
    "as_faller": 3,
@@ -19145,7 +19219,8 @@
     "creation",
     "motion",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "stole": {
    "as_faller": 45,
@@ -19154,19 +19229,17 @@
    "lean": -0.765,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "steal",
+   "gi_lemma": "stole",
    "gi_categories": [
     "Active",
     "DAV",
-    "ECON",
     "Hostile",
     "Legal",
     "Negativ",
     "Ngtv",
     "RcEthic",
     "RcTot",
-    "SocRel",
-    "Vice"
+    "SocRel"
    ],
    "wn_lemma": "steal",
    "wn_supersense": "possession",
@@ -19180,7 +19253,8 @@
     "possession",
     "motion",
     "competition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "stomped": {
    "as_faller": 1,
@@ -19199,7 +19273,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "motion"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "stones": {
    "as_faller": 1,
@@ -19229,7 +19304,8 @@
    "wn_senses_in_order": [
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "stood": {
    "as_faller": 8,
@@ -19238,30 +19314,22 @@
    "lean": 0.2,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "stand",
+   "gi_lemma": "stood",
    "gi_categories": [
     "Active",
     "Affil",
     "DAV",
-    "EnlOth",
-    "EnlTot",
     "IAV",
-    "Know",
-    "Means",
     "Passive",
     "Perceiv",
     "Positiv",
     "PowGain",
     "PowTot",
     "Pstv",
-    "Quality",
-    "RspOth",
-    "RspTot",
     "SocRel",
     "Stay",
     "Strong",
     "Submit",
-    "SureLw",
     "TranLw"
    ],
    "wn_lemma": "stand",
@@ -19286,7 +19354,8 @@
     "contact",
     "competition",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "stopped": {
    "as_faller": 4,
@@ -19334,7 +19403,8 @@
     "stative",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "stopping": {
    "as_faller": 0,
@@ -19382,7 +19452,8 @@
     "stative",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "stories": {
    "as_faller": 0,
@@ -19406,7 +19477,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "lemma"
   },
   "stormed": {
    "as_faller": 2,
@@ -19444,7 +19516,8 @@
     "weather",
     "weather",
     "competition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "stroked": {
    "as_faller": 5,
@@ -19473,7 +19546,8 @@
     "competition",
     "competition",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "struck": {
    "as_faller": 4,
@@ -19482,27 +19556,18 @@
    "lean": 0.385,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "strike",
+   "gi_lemma": "struck",
    "gi_categories": [
     "Active",
     "DAV",
-    "ECON",
     "Exert",
     "Hostile",
     "IAV",
-    "NegAff",
     "Negativ",
     "Ngtv",
-    "Ovrst",
-    "Perceiv",
-    "PowCon",
-    "PowTot",
-    "Quality",
-    "Ritual",
     "Solve",
     "Strong",
-    "TrnLoss",
-    "Vice"
+    "TrnLoss"
    ],
    "wn_lemma": "strike",
    "wn_supersense": "contact",
@@ -19543,7 +19608,8 @@
     "contact",
     "contact",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "stuck": {
    "as_faller": 1,
@@ -19552,26 +19618,8 @@
    "lean": -1.0,
    "claws": "vvn",
    "is_lexical_verb": true,
-   "gi_lemma": "stick",
-   "gi_categories": [
-    "Active",
-    "DAV",
-    "Exert",
-    "IAV",
-    "NatObj",
-    "NegAff",
-    "Negativ",
-    "Ngtv",
-    "Object",
-    "Passive",
-    "SocRel",
-    "Stay",
-    "Strong",
-    "TranLw",
-    "Try",
-    "Vice",
-    "Weak"
-   ],
+   "gi_lemma": "stuck",
+   "gi_categories": [],
    "wn_lemma": "stick",
    "wn_supersense": "contact",
    "wn_supersenses_all": [
@@ -19600,7 +19648,8 @@
     "contact",
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "stuffed": {
    "as_faller": 1,
@@ -19639,7 +19688,8 @@
     "change",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "submit": {
    "as_faller": 0,
@@ -19678,7 +19728,8 @@
     "competition",
     "possession",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "submitted": {
    "as_faller": 0,
@@ -19717,7 +19768,8 @@
     "competition",
     "possession",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "sued": {
    "as_faller": 4,
@@ -19736,7 +19788,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "social"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "swam": {
    "as_faller": 1,
@@ -19745,12 +19798,11 @@
    "lean": -1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "swim",
+   "gi_lemma": "swam",
    "gi_categories": [
     "Active",
     "DAV",
     "Exprsv",
-    "Ritual",
     "Travel"
    ],
    "wn_lemma": "swim",
@@ -19766,7 +19818,8 @@
     "stative",
     "stative",
     "motion"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "sweep": {
    "as_faller": 0,
@@ -19801,7 +19854,8 @@
     "competition",
     "stative",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "swept": {
    "as_faller": 3,
@@ -19810,11 +19864,10 @@
    "lean": -0.2,
    "claws": "vvn",
    "is_lexical_verb": true,
-   "gi_lemma": "sweep",
+   "gi_lemma": "swept",
    "gi_categories": [
     "Active",
     "DAV",
-    "TranLw",
     "Travel"
    ],
    "wn_lemma": "sweep",
@@ -19836,7 +19889,8 @@
     "competition",
     "stative",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "switched": {
    "as_faller": 5,
@@ -19870,7 +19924,8 @@
     "contact",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "swung": {
    "as_faller": 2,
@@ -19879,7 +19934,7 @@
    "lean": 0.8,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "swing",
+   "gi_lemma": "swung",
    "gi_categories": [
     "Active",
     "DAV",
@@ -19911,7 +19966,8 @@
     "social",
     "creation",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "symbols": {
    "as_faller": 0,
@@ -19934,7 +19990,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "lemma"
   },
   "tagged": {
    "as_faller": 0,
@@ -19960,7 +20017,8 @@
     "communication",
     "motion",
     "creation"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "take": {
    "as_faller": 0,
@@ -19982,8 +20040,7 @@
     "SocRel",
     "Strong",
     "Try",
-    "Vary",
-    "Virtue"
+    "Vary"
    ],
    "wn_lemma": "take",
    "wn_supersense": "social",
@@ -20045,7 +20102,8 @@
     "motion",
     "competition",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "taking": {
    "as_faller": 1,
@@ -20130,7 +20188,8 @@
     "motion",
     "competition",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "talked": {
    "as_faller": 1,
@@ -20163,7 +20222,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "temple": {
    "as_faller": 1,
@@ -20181,7 +20241,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "testament": {
    "as_faller": 1,
@@ -20204,7 +20265,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "tested": {
    "as_faller": 0,
@@ -20242,7 +20304,8 @@
     "competition",
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "text": {
    "as_faller": 3,
@@ -20264,7 +20327,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "texted": {
    "as_faller": 1,
@@ -20279,7 +20343,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "that": {
    "as_faller": 195,
@@ -20288,13 +20353,14 @@
    "lean": -0.681,
    "claws": "cs",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "that",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "that's": {
    "as_faller": 3,
@@ -20309,7 +20375,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "the": {
    "as_faller": 564,
@@ -20318,13 +20385,14 @@
    "lean": 0.081,
    "claws": "at",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "the",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "then": {
    "as_faller": 345,
@@ -20333,13 +20401,14 @@
    "lean": -0.075,
    "claws": "rr",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "then",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "there": {
    "as_faller": 5,
@@ -20357,7 +20426,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "they": {
    "as_faller": 66,
@@ -20366,13 +20436,14 @@
    "lean": 0.148,
    "claws": "pp",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "they",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "this": {
    "as_faller": 6,
@@ -20381,13 +20452,14 @@
    "lean": 0.657,
    "claws": "dd",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "this",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "thought": {
    "as_faller": 1,
@@ -20396,17 +20468,8 @@
    "lean": 0.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "think",
-   "gi_categories": [
-    "ABS",
-    "EnlGain",
-    "EnlOth",
-    "EnlTot",
-    "IAV",
-    "Know",
-    "SV",
-    "Solve"
-   ],
+   "gi_lemma": "thought",
+   "gi_categories": [],
    "wn_lemma": "think",
    "wn_supersense": "cognition",
    "wn_supersenses_all": [
@@ -20429,7 +20492,8 @@
     "cognition",
     "cognition",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "threatened": {
    "as_faller": 4,
@@ -20460,7 +20524,8 @@
     "stative",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "threw": {
    "as_faller": 100,
@@ -20469,28 +20534,8 @@
    "lean": -0.681,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "throw",
-   "gi_categories": [
-    "Active",
-    "AffGain",
-    "AffTot",
-    "Affil",
-    "DAV",
-    "Exert",
-    "Fail",
-    "Finish",
-    "IAV",
-    "NatrPro",
-    "Negativ",
-    "Ngtv",
-    "PowLoss",
-    "PowTot",
-    "SocRel",
-    "Strong",
-    "TranLw",
-    "WlbPhys",
-    "WlbTot"
-   ],
+   "gi_lemma": "threw",
+   "gi_categories": [],
    "wn_lemma": "throw",
    "wn_supersense": "contact",
    "wn_supersenses_all": [
@@ -20518,7 +20563,8 @@
     "contact",
     "contact",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "throttle": {
    "as_faller": 0,
@@ -20540,7 +20586,8 @@
     "change",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "throwing": {
    "as_faller": 1,
@@ -20598,7 +20645,8 @@
     "contact",
     "contact",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "thrust": {
    "as_faller": 2,
@@ -20632,7 +20680,8 @@
     "stative",
     "stative",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "tied": {
    "as_faller": 4,
@@ -20673,7 +20722,8 @@
     "social",
     "creation",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "tightened": {
    "as_faller": 1,
@@ -20695,7 +20745,8 @@
     "change",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "to": {
    "as_faller": 114,
@@ -20712,7 +20763,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "told": {
    "as_faller": 115,
@@ -20721,14 +20773,12 @@
    "lean": -0.917,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "tell",
+   "gi_lemma": "told",
    "gi_categories": [
     "Active",
     "DAV",
     "EnlGain",
     "EnlTot",
-    "IAV",
-    "Perceiv",
     "Say"
    ],
    "wn_lemma": "tell",
@@ -20747,7 +20797,8 @@
     "communication",
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "took": {
    "as_faller": 39,
@@ -20756,22 +20807,8 @@
    "lean": -0.279,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "take",
-   "gi_categories": [
-    "Active",
-    "Affil",
-    "Begin",
-    "DAV",
-    "Fetch",
-    "IAV",
-    "Need",
-    "Power",
-    "SocRel",
-    "Strong",
-    "Try",
-    "Vary",
-    "Virtue"
-   ],
+   "gi_lemma": "took",
+   "gi_categories": [],
    "wn_lemma": "take",
    "wn_supersense": "social",
    "wn_supersenses_all": [
@@ -20832,7 +20869,8 @@
     "motion",
     "competition",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "tore": {
    "as_faller": 0,
@@ -20841,23 +20879,8 @@
    "lean": 1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "tear",
-   "gi_categories": [
-    "Active",
-    "BodyPt",
-    "DAV",
-    "Exert",
-    "Hostile",
-    "IAV",
-    "Negativ",
-    "Ngtv",
-    "Passive",
-    "TranLw",
-    "Travel",
-    "TrnLoss",
-    "WlbPhys",
-    "WlbTot"
-   ],
+   "gi_lemma": "tore",
+   "gi_categories": [],
    "wn_lemma": "tear",
    "wn_supersense": "contact",
    "wn_supersenses_all": [
@@ -20872,7 +20895,8 @@
     "motion",
     "contact",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "tossed": {
    "as_faller": 5,
@@ -20900,7 +20924,8 @@
     "motion",
     "possession",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "touched": {
    "as_faller": 4,
@@ -20966,7 +20991,8 @@
     "cognition",
     "consumption",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "toward": {
    "as_faller": 0,
@@ -20985,7 +21011,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "towards": {
    "as_faller": 0,
@@ -21000,7 +21027,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "traced": {
    "as_faller": 0,
@@ -21036,7 +21064,8 @@
     "motion",
     "creation",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "tracked": {
    "as_faller": 0,
@@ -21067,7 +21096,8 @@
     "motion",
     "motion",
     "creation"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "trampled": {
    "as_faller": 0,
@@ -21094,7 +21124,8 @@
     "motion",
     "body",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "tried": {
    "as_faller": 8,
@@ -21141,7 +21172,8 @@
     "emotion",
     "change",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "trousers": {
    "as_faller": 0,
@@ -21156,7 +21188,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "tucked": {
    "as_faller": 0,
@@ -21177,7 +21210,8 @@
     "contact",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "turn": {
    "as_faller": 1,
@@ -21247,7 +21281,8 @@
     "communication",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "turned": {
    "as_faller": 18,
@@ -21317,7 +21352,8 @@
     "communication",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "turning": {
    "as_faller": 6,
@@ -21387,7 +21423,8 @@
     "communication",
     "change",
     "change"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "twisted": {
    "as_faller": 2,
@@ -21426,7 +21463,8 @@
     "contact",
     "communication",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "typed": {
    "as_faller": 2,
@@ -21458,7 +21496,8 @@
    "wn_senses_in_order": [
     "communication",
     "cognition"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "uncovered": {
    "as_faller": 0,
@@ -21479,7 +21518,8 @@
    "wn_senses_in_order": [
     "perception",
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "under": {
    "as_faller": 1,
@@ -21502,7 +21542,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "undid": {
    "as_faller": 1,
@@ -21511,7 +21552,7 @@
    "lean": -1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "undo",
+   "gi_lemma": "undid",
    "gi_categories": [
     "Active",
     "Hostile",
@@ -21536,7 +21577,8 @@
     "social",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "unearthed": {
    "as_faller": 0,
@@ -21557,7 +21599,8 @@
    "wn_senses_in_order": [
     "possession",
     "perception"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "unlocked": {
    "as_faller": 1,
@@ -21579,7 +21622,8 @@
     "contact",
     "contact",
     "change"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "up": {
    "as_faller": 2,
@@ -21601,7 +21645,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "urinal": {
    "as_faller": 1,
@@ -21616,7 +21661,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "miss"
   },
   "urinated": {
    "as_faller": 0,
@@ -21636,7 +21682,8 @@
    "wn_senses_in_order": [
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "use": {
    "as_faller": 0,
@@ -21647,17 +21694,12 @@
    "is_lexical_verb": true,
    "gi_lemma": "use",
    "gi_categories": [
-    "ABS",
     "Active",
     "DAV",
-    "EndsLw",
     "Finish",
     "IAV",
-    "Means",
     "MeansLw",
     "TimeSpc",
-    "Vice",
-    "Virtue",
     "Work"
    ],
    "wn_lemma": "use",
@@ -21674,7 +21716,8 @@
     "social",
     "social",
     "social"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "used": {
    "as_faller": 0,
@@ -21712,7 +21755,8 @@
     "social",
     "social",
     "social"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "vehicle": {
    "as_faller": 0,
@@ -21730,7 +21774,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "verify": {
    "as_faller": 0,
@@ -21763,7 +21808,8 @@
     "social",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "vote": {
    "as_faller": 1,
@@ -21795,7 +21841,8 @@
     "social",
     "social",
     "social"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "waited": {
    "as_faller": 39,
@@ -21834,7 +21881,8 @@
     "stative",
     "cognition",
     "social"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "walked": {
    "as_faller": 25,
@@ -21877,7 +21925,8 @@
     "motion",
     "motion",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "walking": {
    "as_faller": 0,
@@ -21920,7 +21969,8 @@
     "motion",
     "motion",
     "motion"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "wallpaper": {
    "as_faller": 1,
@@ -21942,7 +21992,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "wanted": {
    "as_faller": 2,
@@ -21977,7 +22028,8 @@
     "contact",
     "cognition",
     "stative"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "warmth": {
    "as_faller": 0,
@@ -21998,7 +22050,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "warned": {
    "as_faller": 0,
@@ -22028,7 +22081,8 @@
     "communication",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "was": {
    "as_faller": 151,
@@ -22037,10 +22091,8 @@
    "lean": -0.135,
    "claws": "vbdz",
    "is_lexical_verb": false,
-   "gi_lemma": "be",
-   "gi_categories": [
-    "SV"
-   ],
+   "gi_lemma": "was",
+   "gi_categories": [],
    "wn_lemma": "be",
    "wn_supersense": "stative",
    "wn_supersenses_all": [
@@ -22063,7 +22115,8 @@
     "stative",
     "stative",
     "stative"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "washed": {
    "as_faller": 4,
@@ -22108,7 +22161,8 @@
     "change",
     "change",
     "body"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "watched": {
    "as_faller": 18,
@@ -22152,7 +22206,8 @@
     "perception",
     "perception",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "water": {
    "as_faller": 1,
@@ -22181,7 +22236,8 @@
     "possession",
     "body",
     "change"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "we": {
    "as_faller": 20,
@@ -22198,7 +22254,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "weeks": {
    "as_faller": 1,
@@ -22217,7 +22274,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "lemma"
   },
   "went": {
    "as_faller": 121,
@@ -22226,22 +22284,9 @@
    "lean": -0.551,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "go",
+   "gi_lemma": "went",
    "gi_categories": [
-    "Active",
-    "Affil",
-    "DAV",
-    "EndsLw",
-    "IAV",
-    "Persist",
-    "PowCoop",
-    "PowTot",
-    "SocRel",
-    "Strong",
-    "Submit",
-    "Travel",
-    "Try",
-    "Vary"
+    "IAV"
    ],
    "wn_lemma": "go",
    "wn_supersense": "motion",
@@ -22288,7 +22333,8 @@
     "consumption",
     "cognition",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "wept": {
    "as_faller": 1,
@@ -22297,15 +22343,10 @@
    "lean": -1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "weep",
+   "gi_lemma": "wept",
    "gi_categories": [
-    "Active",
-    "ComForm",
-    "EMOT",
-    "IAV",
-    "Negativ",
-    "Pain",
-    "WlbPhys",
+    "DAV",
+    "WlbLoss",
     "WlbTot"
    ],
    "wn_lemma": "weep",
@@ -22316,7 +22357,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "were": {
    "as_faller": 1,
@@ -22325,10 +22367,8 @@
    "lean": 0.333,
    "claws": "vbdr",
    "is_lexical_verb": false,
-   "gi_lemma": "be",
-   "gi_categories": [
-    "SV"
-   ],
+   "gi_lemma": "were",
+   "gi_categories": [],
    "wn_lemma": "be",
    "wn_supersense": "stative",
    "wn_supersenses_all": [
@@ -22351,7 +22391,8 @@
     "stative",
     "stative",
     "stative"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "what": {
    "as_faller": 6,
@@ -22369,7 +22410,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "when": {
    "as_faller": 25,
@@ -22386,7 +22428,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "whispered": {
    "as_faller": 0,
@@ -22412,7 +22455,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "why": {
    "as_faller": 5,
@@ -22432,7 +22476,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "wife": {
    "as_faller": 1,
@@ -22453,7 +22498,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "will": {
    "as_faller": 1,
@@ -22484,7 +22530,8 @@
     "communication",
     "cognition",
     "possession"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "window": {
    "as_faller": 0,
@@ -22493,13 +22540,14 @@
    "lean": 1.0,
    "claws": "nn1",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "window",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "windows": {
    "as_faller": 1,
@@ -22508,13 +22556,14 @@
    "lean": -1.0,
    "claws": "nn2",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "window",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "lemma"
   },
   "winked": {
    "as_faller": 0,
@@ -22537,7 +22586,8 @@
     "perception",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "wiped": {
    "as_faller": 2,
@@ -22561,7 +22611,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "with": {
    "as_faller": 1,
@@ -22570,13 +22621,14 @@
    "lean": 0.0,
    "claws": "ii",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "with",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "withdrew": {
    "as_faller": 1,
@@ -22585,7 +22637,7 @@
    "lean": -1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "withdraw",
+   "gi_lemma": "withdrew",
    "gi_categories": [
     "IAV",
     "PowLoss",
@@ -22619,7 +22671,8 @@
     "emotion",
     "communication",
     "change"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "without": {
    "as_faller": 2,
@@ -22628,13 +22681,14 @@
    "lean": -1.0,
    "claws": "ii",
    "is_lexical_verb": false,
-   "gi_lemma": null,
+   "gi_lemma": "without",
    "gi_categories": [],
    "wn_lemma": null,
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "woke": {
    "as_faller": 1,
@@ -22643,16 +22697,8 @@
    "lean": -1.0,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "wake",
-   "gi_categories": [
-    "Active",
-    "DAV",
-    "NatrPro",
-    "PLACE",
-    "Route",
-    "SocRel",
-    "TranLw"
-   ],
+   "gi_lemma": "woke",
+   "gi_categories": [],
    "wn_lemma": "wake",
    "wn_supersense": "body",
    "wn_supersenses_all": [
@@ -22667,7 +22713,8 @@
     "emotion",
     "communication",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "won": {
    "as_faller": 9,
@@ -22676,19 +22723,14 @@
    "lean": -0.636,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "win",
+   "gi_lemma": "won",
    "gi_categories": [
     "Active",
     "Complet",
-    "ECON",
-    "Goal",
     "IAV",
-    "PowCon",
+    "PowGain",
     "PowTot",
-    "Power",
-    "Strong",
-    "WltOth",
-    "WltTot"
+    "Strong"
    ],
    "wn_lemma": "win",
    "wn_supersense": "competition",
@@ -22703,7 +22745,8 @@
     "possession",
     "competition",
     "social"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "wondered": {
    "as_faller": 2,
@@ -22735,7 +22778,8 @@
     "cognition",
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "wore": {
    "as_faller": 1,
@@ -22744,22 +22788,8 @@
    "lean": 0.333,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "wear",
-   "gi_categories": [
-    "ABS",
-    "Active",
-    "DAV",
-    "Finish",
-    "IAV",
-    "Negativ",
-    "Ngtv",
-    "Object",
-    "Tool",
-    "TranLw",
-    "TrnLoss",
-    "Vice",
-    "Work"
-   ],
+   "gi_lemma": "wore",
+   "gi_categories": [],
    "wn_lemma": "wear",
    "wn_supersense": "body",
    "wn_supersenses_all": [
@@ -22779,7 +22809,8 @@
     "contact",
     "body",
     "body"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "worshipped": {
    "as_faller": 3,
@@ -22810,7 +22841,8 @@
     "emotion",
     "emotion",
     "stative"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "would": {
    "as_faller": 148,
@@ -22835,7 +22867,8 @@
     "communication",
     "cognition",
     "possession"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "wound": {
    "as_faller": 1,
@@ -22880,7 +22913,8 @@
     "contact",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "token"
   },
   "wrapped": {
    "as_faller": 0,
@@ -22906,7 +22940,8 @@
     "contact",
     "contact",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "wrecked": {
    "as_faller": 5,
@@ -22932,7 +22967,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "wrestled": {
    "as_faller": 1,
@@ -22964,7 +23000,8 @@
     "communication",
     "motion",
     "contact"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "write": {
    "as_faller": 1,
@@ -22976,14 +23013,11 @@
    "gi_lemma": "write",
    "gi_categories": [
     "Active",
-    "COM",
     "ComForm",
     "DAV",
     "EnlGain",
-    "EnlOth",
     "EnlTot",
-    "Exprsv",
-    "FormLw"
+    "Exprsv"
    ],
    "wn_lemma": "write",
    "wn_supersense": "creation",
@@ -23003,7 +23037,8 @@
     "communication",
     "creation",
     "creation"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "wrote": {
    "as_faller": 23,
@@ -23012,17 +23047,12 @@
    "lean": -0.243,
    "claws": "vvd",
    "is_lexical_verb": true,
-   "gi_lemma": "write",
+   "gi_lemma": "wrote",
    "gi_categories": [
-    "Active",
-    "COM",
     "ComForm",
     "DAV",
-    "EnlGain",
     "EnlOth",
-    "EnlTot",
-    "Exprsv",
-    "FormLw"
+    "EnlTot"
    ],
    "wn_lemma": "write",
    "wn_supersense": "creation",
@@ -23042,7 +23072,8 @@
     "communication",
     "creation",
     "creation"
-   ]
+   ],
+   "gi_resolution": "token:ED"
   },
   "yanked": {
    "as_faller": 0,
@@ -23061,7 +23092,8 @@
    "wn_ambiguous": false,
    "wn_senses_in_order": [
     "contact"
-   ]
+   ],
+   "gi_resolution": "miss"
   },
   "yelled": {
    "as_faller": 2,
@@ -23087,7 +23119,8 @@
    "wn_senses_in_order": [
     "communication",
     "communication"
-   ]
+   ],
+   "gi_resolution": "lemma"
   },
   "you": {
    "as_faller": 4,
@@ -23104,7 +23137,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "your": {
    "as_faller": 2,
@@ -23121,7 +23155,8 @@
    "wn_supersense": null,
    "wn_supersenses_all": [],
    "wn_ambiguous": null,
-   "wn_senses_in_order": []
+   "wn_senses_in_order": [],
+   "gi_resolution": "token"
   },
   "zipped": {
    "as_faller": 1,
@@ -23142,7 +23177,8 @@
    "wn_senses_in_order": [
     "contact",
     "motion"
-   ]
+   ],
+   "gi_resolution": "miss"
   }
  }
 }
