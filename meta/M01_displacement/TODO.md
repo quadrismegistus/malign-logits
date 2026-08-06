@@ -188,6 +188,58 @@ draft must cite the draw rule, not the null. Check which the draft leans on.
 
 ---
 
+## NEXT — THE ALIGNMENT LADDER. New, cheap, and it can overturn finding 9.
+
+**THE GAP.** Every one of findings T's 43 edges has a BASE pre-side. `base -> SFT`,
+`SFT -> DPO` and `base -> DPO` have never been measured as separate steps, and **the
+SFT -> DPO step has never been measured at all.** Finding 9 approximates the question
+by comparing WHICH RECIPE produced the endpoint -- base->SFT-checkpoint against
+base->DPO-checkpoint -- so its "DPO" edges contain the SFT step inside them. It cannot
+isolate DPO. Its headline, *supervised fine-tuning alone produces the operation at full
+strength and preference optimization does not add to it*, rests on six checkpoints
+sharing one base, with the pooled version explicitly disowned as confounded.
+
+**THE LADDER TESTS THAT DIRECTLY AND COULD OVERTURN IT.** If `SFT -> DPO` is near-null,
+finding 9 is confirmed on six families instead of one base. If it moves, the headline
+is wrong and the book's DPO-as-centre-of-gravity structure -- which finding 9 currently
+contradicts -- reopens.
+
+**THE DATA IS ALREADY SCORED. All checkpoints, all 2,583 prompts, in the logits stash.**
+
+    Tulu-3 / Llama-3.1-8B   base -> SFT -> DPO -> RLVR        FULL, 3 steps
+    OLMo-2-0425-1B          base -> SFT -> DPO -> Instruct    FULL, 3 steps
+    Olmo-3.1-32B            base -> SFT -> DPO -> Instruct    FULL, 3 steps
+    Olmo-3-7B (Think)       base -> SFT -> DPO                2 steps
+    Mistral / zephyr        base -> SFT -> DPO                2 steps
+    Amber                   base -> Chat -> Safe              2 steps
+
+**THE DESIGN, and the sequencing is the point.**
+
+  1. **PRIMARY — faller/riser sets per step, and their overlap.** CANONICAL on each
+     step, then JACCARD OF THE FALLER SETS and of the RISER SETS between `base->SFT`
+     and `SFT->DPO`. Three-way outcome: few words move (finding 9 confirmed); many
+     move and they are THE SAME words (DPO continues one operation); many move and
+     they are DIFFERENT words (DPO does another operation, and finding 9 is wrong in
+     an interesting way). NB Jaccard BETWEEN steps, not between fallers and risers --
+     that second thing is clause 6 and it is answered.
+  2. **ALONGSIDE — word-level JS per site, threshold-free.** CANONICAL floors at
+     min_prob 0.003 and delta 0.003, so a small step can move real mass with no word
+     clearing the bar, and the count would report zero while the distribution changed.
+     **JS is what distinguishes "DPO does nothing" from "DPO does less than one
+     threshold".** Word JS, not logit JS: `true_word_probs` is what every other measure
+     in this campaign uses; full-vocabulary logit JS is dominated by tail mass nothing
+     else speaks about.
+  3. **SEMANTIC FIELDS ONLY IF (1) SHOWS MOVEMENT.** Seven lexicons on an empty riser
+     set says nothing, and on a rich one it is a day's work carrying every
+     deduplication question from findings 16. Do not run it first.
+
+**UNIT: THE FAMILY, six votes.** Not pooled sites -- Olmo-3.1-32B's 2,583 prompts would
+outvote everything. **PRIMARY CONTRAST: `SFT->DPO` against `base->SFT`, WITHIN family,
+paired**, because that is the comparison finding 9 cannot make and all six supply it.
+
+**NOT A REGISTRATION.** Pre-registration ended for this programme on RH's instruction.
+This is a measurement; if it produces something it is findings U.
+
 ## PARKED — THE REGIONAL EMBEDDING TEST. Designed, not started, deliberately.
 
 **Do not confuse this with the pairwise test, which is a settled negative.** Ledger
@@ -259,6 +311,13 @@ prompts against findings T's 2,190, and 14 models rather than 43 edges, badly sk
 the top four models hold 57,000 of the 79,397 records while three hold under a thousand.
 **Any result is a claim about those 590 prompts and those checkpoints, not about the
 population findings 11-16 speak for.** State that before running, not after.
+
+**STEP 1 HAS RUN AND IT CLEARS.** `scripts/t_preop_variance.py`, 13 checkpoints above the
+200-site floor, single-token records only. **The word contributes the MAJORITY of the
+variance, not the prompt: median 61.3% within-prompt, range 37.7-72.1%.** So the
+prompt-dominance worry that would have made this vacuous does not hold, centring is not
+forced, and raw and centred are both defensible. Per-model matrices cached under
+`/tmp/preop_*`; they are scratch and will not survive a reboot.
 
 **TWO THINGS TO DECLARE BEFORE LOOKING.** The record carries 17 layers and the script's
 registered read is 10/25/50/75/90% of depth -- **choosing a layer after seeing results
