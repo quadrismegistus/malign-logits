@@ -1,7 +1,7 @@
 """Emit findings 10-14 for `findings/T_category_flow.md` from the CSVs.
 
-    uv run python s_findings_t_append.py            print to stdout
-    uv run python s_findings_t_append.py --write    splice into the document
+    uv run python t_findings_append.py            print to stdout
+    uv run python t_findings_append.py --write    splice into the document
 
 Every number in the emitted text is read out of `results/s_everything_*.csv`.
 None is typed. The document had a fabricated row in it once -- a SocRel triple

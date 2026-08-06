@@ -549,7 +549,7 @@ That matters because a large number of significant fields is not an embarrassmen
                   every faller and riser under CANONICAL, 43 edges
       USAS names  meta/M01_displacement/lexicons/usas_tagset.tsv
                   232 fields, ucrel.lancs.ac.uk/usas/semtags.txt
-      prose       meta/M01_displacement/scripts/s_findings_t_append.py
+      prose       meta/M01_displacement/scripts/t_findings_append.py
                   emits sections 10-14 from the CSVs; no number in them is
                   typed, and it refuses to splice if the anchor is ambiguous
     stage split   inline in this document; registry staging corrected for the

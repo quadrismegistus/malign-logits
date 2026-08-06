@@ -123,6 +123,38 @@ Some registered work exists to attack the campaign's own results rather than ext
 
 ---
 
+## A note on the `s_` script prefix, which covers two unrelated families
+
+`scripts/s_*.py` is not one thing. Registration S's annotation instrument and the
+category-flow work (findings T) grew up in the same namespace, and the results
+files collide the same way -- `s_analysis_effects.csv` is S, `s_everything_marginal.csv`
+is T.
+
+    Registration S, the annotation study      s_run, s_smoke, s_calibration_run,
+                                              s_calibration_analysis, s_analysis,
+                                              s_stage1_analysis, s_stage2_analysis,
+                                              s_pairwise_eda
+    Category flow, findings T                 s_category_crosstab, s_lexicon_crosstab,
+                                              s_concreteness, s_marginal_flow,
+                                              s_everything, s_stem_clustered,
+                                              s_cluster_dedup, s_class_split,
+                                              s_depth_breadth, s_spread_blind,
+                                              s_route_compare, t_findings_append
+    Both                                      s_condensation -- finding 8 of the
+                                              annotation study and T's data block;
+                                              correctly named after neither
+
+**Not renamed, deliberately.** The T scripts are cited by path in about eight docket
+posts that two other seats have read and replied to, and docket messages are
+immutable: renaming would break those citations in the permanent record, and a
+citation exists so a reader need not trust the author. One file WAS renamed --
+`s_findings_t_append.py` to `t_findings_append.py`, whose name said T while its
+prefix said S. New category-flow scripts take `t_`.
+
+If T work resumes at scale, migrate all of them in one commit with a mapping table
+here and post the table to the docket, so the old citations resolve. That is a
+deliberate migration with its own record, not housekeeping.
+
 ## What is open
 
 - **The regime changed 2026-08-06: pre-registration ended on RH's word** (docket [4712]; REGISTRATIONS.md's letters table closes with S). What continues is the reproducible-vs-not discipline: held-back samples, seeds and hashes, free analysis, replication as the control, everything looked at reported. **579 of 684 stems remain a held-back set nobody has read.**
