@@ -82,6 +82,24 @@ OUTCOME MAP, all cells, written before running.
   RUNG PARALLELISM (raw: own 0.238 vs cross-family 0.323). Both fall; the
     ordering is the content, and it is already recorded as cutting against U.6.
 
+  CONCRETENESS IS NOT THE SAME KIND OF CONTROL AS FREQUENCY, and `--resid
+  freq,conc` has to be read differently because of it. Nobody thinks "moves to
+  rarer words" and "moves to cognitive words" are one claim, so frequency was a
+  genuine nuisance. But "moves from concrete to abstract" and "moves from bodily
+  action to cognition" may be ONE CLAIM UNDER TWO DESCRIPTIONS. So:
+
+    poles survive  -- the axis is bodily-to-cognitive OVER AND ABOVE the
+                      concrete/abstract scale, which is the strong reading and
+                      the one that would license the caption as written.
+    poles dissolve -- NOT a refutation. It means the two descriptions coincide
+                      and "concrete to abstract" is the more parsimonious
+                      caption, carrying published norms behind it. Report it as
+                      a re-description, never as a failure.
+
+  Written before the run because residualising a variable that IS the construct
+  deletes the finding rather than controlling for it, and the output looks
+  identical either way.
+
   THE POST-RESIDUAL FREQUENCY CORRELATION IS NOT A RESULT. Without row
   renormalisation it is exactly zero by construction: every column of X_res is
   orthogonal to centred lrank, so lrank . (X_res @ a) = 0 for ANY axis a. It is
@@ -106,8 +124,55 @@ CACHE = os.path.join(OUT, "v_bare_vectors.npz")
 WALK = os.path.join(OUT, "t_ladder_words.parquet")
 POP = os.path.join(ROOT, "data", "r_population_k2.parquet")
 BYU = "/Users/rj416/Dropbox/Prof/Code/osp/worddb.byu.txt"
+#: Same norm file s_concreteness.py uses, so the two instruments share a scale.
+#: MT-Conc is the large MTurk set: 37,057 scored words against MRC's 4,191, and
+#: the two agree at r=0.92, so the coverage is free.
+NORMS = "/Volumes/chambers/DH/data/data_abslithist/fields/data.wordnorms_orig.csv"
+CONC_COL = "Abs-Conc.MT-Conc"
 MIN_SIDE = 3
 DRAWS = 2000
+
+
+def resid_sfx(spec, pop_conc=False):
+    """Output suffix. `--resid` alone keeps the bare `_resid` V.6's files use.
+
+    `--pop-conc` MUST change the name even though it changes no regressor: it
+    narrows the population to 1,301 types, so its numbers are not V.6's and
+    must not land on V.6's filenames. It did exactly that once before this
+    guard existed, and git was the only thing that noticed.
+    """
+    pop = "_popconc" if pop_conc else ""
+    if not spec:
+        return pop
+    which = [x.strip() for x in spec.split(",") if x.strip()]
+    return pop + ("_resid" if which == ["freq"] else "_resid_" + "_".join(which))
+
+
+def conc_map(words):
+    """word -> concreteness, falling back to the LEMMA.
+
+    The norms are keyed on lexemes and our vocabulary is inflected surface
+    forms, so a direct lookup covered only 58.7% of the 1,312 verbs and dropped
+    `goes`, `told`, `threw` while keeping `go`, `tell`, `throw`. Concreteness is
+    a property of the lexeme, so the lemma's score is the right value rather
+    than a convenient one -- but the surface form wins where it has its own
+    entry, since the norms do list some inflections separately.
+    """
+    from lemminflect import getLemma
+    N = pd.read_csv(NORMS).set_index("word")[CONC_COL]
+    nd = N[N.notna()].to_dict()
+    out, via_lemma = {}, 0
+    for w in words:
+        if w in nd:
+            out[w] = nd[w]
+            continue
+        for c in (getLemma(w, upos="VERB", lemmatize_oov=False) or ()):
+            if c.lower() in nd:
+                out[w] = nd[c.lower()]
+                via_lemma += 1
+                break
+    print("  norms: %d types matched directly, %d more via lemma" % (len(out) - via_lemma, via_lemma))
+    return out
 
 
 def claws():
@@ -149,8 +214,18 @@ def main():
     #: removing both. Same restriction `s_lexicon_crosstab.run(verbs_only=True)`
     #: uses, so the two are comparable.
     ap.add_argument("--verbs", action="store_true", help="lexical verbs (CLAWS vv*) only")
-    ap.add_argument("--resid", action="store_true",
-                    help="residualise log frequency rank out of the vectors first")
+    #: `--resid` alone stays exactly what it was when V.6 ran -- log frequency
+    #: only -- because V.6's committed numbers came from it. `--resid freq,conc`
+    #: adds concreteness. One code path, one manipulation named explicitly.
+    #: THE SAME-POPULATION CONTROL. `--resid freq,conc` both narrows the
+    #: vocabulary to scored types AND removes concreteness, so comparing it to
+    #: `--resid freq` over all 1,312 confounds the two. `--pop-conc` applies the
+    #: narrowing alone, which is the arm that isolates the manipulation.
+    ap.add_argument("--pop-conc", action="store_true",
+                    help="restrict to concreteness-scored types WITHOUT residualising it")
+    ap.add_argument("--resid", nargs="?", const="freq", default=None,
+                    metavar="freq[,conc]",
+                    help="residualise nuisance variables out of the vectors first")
     a = ap.parse_args()
     z = np.load(CACHE, allow_pickle=True)
     words = list(z["words"])
@@ -180,28 +255,77 @@ def main():
     #: identity, so the un-renormalised projection is kept for the check.
     X_raw = X
     freq_dir = None
+    if a.pop_conc:
+        nd = conc_map(words)
+        before = int(keepi.sum())
+        keepi = keepi & np.array([w in nd for w in words])
+        print("POPULATION RESTRICTED to concreteness-scored types WITHOUT residualising it:")
+        print("  %d of %d retained. This is the control arm for --resid freq,conc."
+              % (int(keepi.sum()), before))
     if a.resid:
-        oov = np.array([w not in rank for w in words])
+        which = [s.strip() for s in a.resid.split(",") if s.strip()]
+        bad = [s for s in which if s not in ("freq", "conc")]
+        if bad:
+            sys.exit("unknown nuisance variable(s): %s" % ", ".join(bad))
+        print("=" * 90)
+        print("RESIDUALISING OUT: %s" % ", ".join(which))
+        print("=" * 90)
+        Z, names = [], []
+        if "freq" in which:
+            Z.append(lrank)
+            names.append("log frequency rank")
+        if "conc" in which:
+            #: Higher = MORE CONCRETE, established from the file rather than the
+            #: column name: table +1.91, hammer +1.78, theory -1.48, justice
+            #: -1.50. The sign is load-bearing for reading the poles, so it is
+            #: checked against known words every run and printed.
+            nd = conc_map(words)
+            cov = np.array([w in nd for w in words])
+            before = int(keepi.sum())
+            keepi = keepi & cov
+            print("  concreteness coverage: %d of %d retained types (%.1f%%). The %d without a"
+                  % (int(keepi.sum()), before, 100 * keepi.sum() / max(before, 1), before - int(keepi.sum())))
+            print("  score are DROPPED, so this run's population is smaller than --resid freq's.")
+            conc = np.array([nd.get(w, np.nan) for w in words], dtype=float)
+            probe = [(w, nd[w]) for w in ("table", "hammer", "theory", "justice") if w in nd]
+            if probe:
+                print("  sign check, higher must be MORE concrete: %s"
+                      % ", ".join("%s %+.2f" % (w, v) for w, v in probe))
+            conc = np.where(np.isnan(conc), float(np.nanmean(conc[keepi])), conc)
+            Z.append(conc)
+            names.append("concreteness (%s)" % CONC_COL)
         k = keepi
-        y = lrank[k] - lrank[k].mean()
+        #: multivariate OLS of every dimension on the nuisance design, so a
+        #: component shared by frequency and concreteness is removed ONCE rather
+        #: than twice. Intercept handled by centring the regressors on the fit
+        #: population, which is what makes D[k].T @ X_res[k] exactly zero.
+        D = np.column_stack([z - z[k].mean() for z in Z])
         Xc = X[k] - X[k].mean(0)
-        beta = (y @ Xc) / (y @ y)                      # 1024 OLS slopes
-        X_res = X - np.outer(lrank - lrank[k].mean(), beta)
+        B, *_ = np.linalg.lstsq(D[k], Xc, rcond=None)
+        X_res = X - D @ B
         ss_tot = float((Xc ** 2).sum())
-        ss_exp = float((y @ y) * (beta @ beta))
-        freq_dir = beta / np.linalg.norm(beta)
+        ss_exp = float(((D[k] @ B) ** 2).sum())
+        freq_dir = B[0] / np.linalg.norm(B[0])          # first regressor's direction
         X_plain = X_res                                 # identity holds on this
         nrm = np.linalg.norm(X_res, axis=1, keepdims=True)
         X = X_res / np.where(nrm > 0, nrm, 1.0)
-        print("=" * 90)
-        print("RESIDUALISING LOG FREQUENCY RANK OUT OF THE VECTORS")
-        print("=" * 90)
-        print("  fit over %d retained types, of which %d (%.1f%%) have no BYU rank"
-              % (int(k.sum()), int((oov & k).sum()), 100 * (oov & k).mean() / max(k.mean(), 1e-9)))
-        print("  frequency explains %.3f%% of the embedding variance over those types"
+        if len(Z) > 1:
+            r_zz = float(np.corrcoef(Z[0][k], Z[1][k])[0, 1])
+            print("  the two nuisances correlate at r=%+.3f over the fit population" % r_zz)
+        print("  fit over %d retained types; regressors: %s" % (int(k.sum()), "; ".join(names)))
+        print("  they jointly explain %.3f%% of the embedding variance over those types"
               % (100 * ss_exp / ss_tot))
         print("  (a small share here is expected and is NOT the power check --")
         print("   the axis is one direction, not the bulk of the variance)")
+
+    #: keepi can have narrowed inside the resid block (concreteness coverage),
+    #: so the walk is refiltered here rather than at the --verbs branch. Without
+    #: this the site vectors would average in words whose nuisance score was
+    #: mean-imputed, which is the one population the residualisation cannot speak
+    #: for.
+    kept = {words[i] for i in np.where(keepi)[0]}
+    if len(kept) < len(words):
+        W = W[W["word"].isin(kept)]
 
     per_fam, per_raw = {}, {}
     for (fam, rung), g in W.groupby(["family", "rung"]):
@@ -277,7 +401,7 @@ def main():
         rows.append(dict(family=fam, rung=rung, n_sites=len(sv), obs=obs,
                          null=float(np.mean(nulls)), gap=obs - float(np.mean(nulls))))
     A = pd.DataFrame(rows)
-    sfx = ("_verbs" if a.verbs else "") + ("_resid" if a.resid else "")
+    sfx = ("_verbs" if a.verbs else "") + resid_sfx(a.resid, a.pop_conc)
     A.to_csv(os.path.join(OUT, "v_displacement_vector%s.csv" % sfx), index=False)
     for rung, g in A.groupby("rung"):
         if len(g) < 6:
@@ -303,7 +427,7 @@ def main():
                       pos=[pos.get(words[i], "") for i in idx],
                       log_freq_rank=lrank[idx])).to_csv(
         os.path.join(OUT, "v_axis_projection%s.csv"
-                     % (("_verbs" if a.verbs else "") + ("_resid" if a.resid else ""))), index=False)
+                     % (("_verbs" if a.verbs else "") + resid_sfx(a.resid, a.pop_conc))), index=False)
 
     print("\n" + "=" * 90)
     print("3. IS SFT PARALLEL TO DPO?")

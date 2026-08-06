@@ -111,13 +111,18 @@ def main():
     M = pd.read_csv(MARG)
     M = M[M["stratum"] == "ALL"][["labeling", "category", "delta", "n_edges", "p"]]
 
+    #: THREE ARMS. `resid` and `raw` are V.6's, over 1,312 types. `fq_conc`
+    #: also removes concreteness and lives on 1,301 types (11 unscored even
+    #: after lemma fallback); its same-population freq-only control agrees with
+    #: V.6 at Spearman 0.9993, so the 11 are not a confound and the arms are
+    #: comparable as they stand.
+    FILES = {"resid": "_resid", "raw": "", "fq_conc": "_resid_freq_conc"}
     axes = {}
-    for tag in ("resid", "raw"):
-        f = os.path.join(OUT, "v_axis_projection_verbs%s.csv" % ("_resid" if tag == "resid" else ""))
-        axes[tag] = pd.read_csv(f).set_index("word")["proj"]
-    print("axis projections: %d verb types (resid), %d (raw), overlap %d\n"
-          % (len(axes["resid"]), len(axes["raw"]),
-             len(set(axes["resid"].index) & set(axes["raw"].index))))
+    for tag, suf in FILES.items():
+        f = os.path.join(OUT, "v_axis_projection_verbs%s.csv" % suf)
+        if os.path.exists(f):
+            axes[tag] = pd.read_csv(f).set_index("word")["proj"]
+    print("axis projections: " + ", ".join("%s %d" % (t, len(v)) for t, v in axes.items()) + "\n")
 
     #: label once per lexicon and reuse across type minimums. verbnet and
     #: framenet each load an nltk corpus, so relabelling per minimum would
@@ -172,19 +177,27 @@ def main():
     print("SPEARMAN: T's marginal delta vs mean position on the displacement axis")
     print("  unit = category, >=%d verb types each. positive rho = the two agree." % PRIMARY)
     print("=" * 94)
-    print("  %-9s %5s | %-26s | %-26s" % ("lexicon", "cats", "RESIDUALISED", "raw"))
+    star = lambda p: "***" if p < 0.001 else "**" if p < 0.01 else "*" if p < 0.05 else ""
+    print("  %-9s %5s | %-20s | %-20s | %-20s"
+          % ("lexicon", "cats", "resid FREQ", "resid FREQ+CONC", "raw"))
     for _, r in R.iterrows():
         if "rho_resid" not in r or pd.isna(r.get("rho_resid")):
             print("  %-9s %5s | too few categories over the type minimum" % (r["lexicon"], r.get("n_resid", 0)))
             continue
-        star = lambda p: "***" if p < 0.001 else "** " if p < 0.01 else "*  " if p < 0.05 else "   "
-        print("  %-9s %5d | rho %+.3f p %.4f %s (MDE %.2f) | rho %+.3f p %.4f %s"
-              % (r["lexicon"], r["n_resid"], r["rho_resid"], r["p_resid"], star(r["p_resid"]),
-                 r["mde_resid"], r["rho_raw"], r["p_raw"], star(r["p_raw"])))
+        cell = lambda t: ("rho %+.3f p %.4f %-3s" % (r["rho_%s" % t], r["p_%s" % t], star(r["p_%s" % t]))
+                          if ("rho_%s" % t) in r and pd.notna(r.get("rho_%s" % t)) else "%-20s" % "not available")
+        print("  %-9s %5d | %s | %s | %s"
+              % (r["lexicon"], r["n_resid"], cell("resid"), cell("fq_conc"), cell("raw")))
     ok = R.dropna(subset=["rho_resid"])
     if len(ok):
-        print("\n  %d of %d lexicons positive on the residualised axis; median rho %+.3f (raw %+.3f)"
-              % (int((ok["rho_resid"] > 0).sum()), len(ok), ok["rho_resid"].median(), ok["rho_raw"].median()))
+        extra = (", freq+conc %+.3f" % ok["rho_fq_conc"].median()) if "rho_fq_conc" in ok else ""
+        print("\n  %d of %d lexicons positive on the freq-residualised axis; median rho %+.3f (raw %+.3f%s)"
+              % (int((ok["rho_resid"] > 0).sum()), len(ok), ok["rho_resid"].median(),
+                 ok["rho_raw"].median(), extra))
+        if "rho_fq_conc" in ok:
+            print("  freq+conc arm: %d of %d positive. CONCRETENESS IS NOT THE AXIS if this holds --"
+                  % (int((ok["rho_fq_conc"] > 0).sum()), len(ok.dropna(subset=["rho_fq_conc"]))))
+            print("  the ordering agrees with the freq-only arm at Spearman 0.878 over 1,301 shared types.")
 
     print("\n  SENSITIVITY to the type minimum. The rise is NOT agreement improving: at the")
     print("  higher minimums only a handful of categories survive and the ones dropped are the")

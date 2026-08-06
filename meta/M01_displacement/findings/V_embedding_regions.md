@@ -4,7 +4,7 @@ Written 2026-08-06. The plan is `registrations/plan_v_embedding_regions.md`, wri
 
 **This document is largely a null and should not be padded into more.** One route worked, one route failed with its artefact confirmed, and one produced a positive so small it needs its magnitude quoted with it.
 
-Section 6 was added the same day, after RH asked for the frequency control that sections 5 and the plan had both specified and left unrun. It is the one part of this document that came out better than predicted, and the prediction it beat is recorded in the script's own header rather than reconstructed afterwards. It still does not make the document a positive: what section 6 corroborates is findings T, using geometry as the instrument, and it says nothing new about alignment on its own.
+Section 6 was added the same day, after RH asked for the frequency control that sections 5 and the plan had both specified and left unrun. It is the one part of this document that came out better than predicted, and the prediction it beat is recorded in the script's own header rather than reconstructed afterwards. It still does not make the document a positive: what section 6 corroborates is findings T, using geometry as the instrument, and it says nothing new about alignment on its own. Section 7 then ran RH's concreteness control and CORRECTED SECTION 6'S CAPTION: no published perceptual norm explains much of the axis, but the body-specific dimension is weaker than the general one, so "bodily action" is not the phrase the evidence supports and T's own category language is. **Read section 6 with that substitution.**
 
 ## The question, and why it was not already answered
 
@@ -204,11 +204,33 @@ Everything else in section 5 was recomputed on the residualised vectors and none
 
 One number is an arithmetic identity and not a result. On the un-renormalised residuals the projection correlates with log frequency at exactly r = +0.000000, because every column of the residual matrix is orthogonal to centred log frequency and therefore so is any projection of it. It is printed as an implementation check: non-zero there means the code is wrong, zero there means nothing about the world. After row renormalisation, which the raw pipeline also does, the residual correlation is r = +0.039 at p = 0.162.
 
+## 7. The concreteness control, which corrects section 6's caption
+
+RH asked whether the body-to-cognition axis is a concreteness axis, then made the sharper objection while it was running: concreteness is not something you can cleanly control for when the fields under test are body and thinking. He is right, and the run is reported here as the narrower thing it is.
+
+**The norms operationalise perceptibility, not bodiliness.** `hammer` is concrete and not bodily; `betray` is abstract and not cognitive. So residualising them cannot separate the two constructs, and this was written into the script header before the run rather than after.
+
+What it can do is kill one specific deflationary story, and the number that does it is not the residualisation:
+
+| the freq-residualised axis against | r | n |
+|---|---|---|
+| MT-Conc, concreteness (MTurk) | **-0.361** | 1301 |
+| LSN-Hapt, haptic | **-0.235** | 1301 |
+| MRC-Imag, imageability | -0.138 | 643 |
+| LSN-Imag, imageability | -0.117 | 1301 |
+| MRC-Conc, concreteness (MRC) | **-0.021**, p = 0.61 | 591 |
+
+**No published perceptual norm explains much of this axis.** The largest accounts for 13 percent of the variance and one concreteness measure accounts for nothing, while the axis agrees with T's semantic categories at rho about 0.5 across six lexicons. Residualising MT-Conc out leaves the ordering at Spearman 0.878 against the freq-only arm on 1,301 shared types, the poles substantially intact, and the lexicon agreement unchanged: median +0.531 against +0.498, all six still positive. Unchanged, not improved; the difference is small and the six measures are correlated.
+
+**And the control corrects section 6's caption rather than confirming it.** If "bodily action to cognition" were right, the body-specific dimension should beat the general one. It is the weaker of the two (-0.235 against -0.361) and they are separable on our verbs (r = +0.486), so that is not one measure counted twice. **"Bodily" was doing work the evidence does not support.** The defensible caption is findings T's own language, off contact, motion and force onto perception, cognition and speech, and section 6 should be read with that substitution.
+
+Two notes on method. The same-population control matters and was initially missing: `--resid freq,conc` narrows the vocabulary as well as removing the variable, so `--pop-conc --resid freq` was added to isolate the manipulation. With the lemma fallback in place the narrowing is 11 types and the two agree at Spearman 0.9993, so the population is not a confound; without the fallback it was 542 types and would have been. And MT-Conc and MRC-Conc agree at r = 0.92 across the full 37,563-word norm set while giving -0.361 and -0.021 here, which is a reason not to rest anything on a single norm column.
+
 ## What this leaves
 
 Embedding geometry has now been asked about this operation at six grains: pairwise (clause 6, four instruments, failed), by annotation (Registration P's REF stratum, failed), regionally (section 1, null with a confirmed artefact), set-level within site (section 3, a 4.6 percent floor), scene-controlled (section 4, anti-adjacent), and directional (section 5, no global direction). **The ledger's original verdict survives all six: the faller-riser relation is interpretive, not geometric.**
 
-What geometry did produce is four things, and none is a claim about alignment's direction. Section 2 is a better instrument for grouping the lexicons we already use. Section 4 is a signed result where the others had absences: displacement moves AWAY from what it replaced, small and unanimous. Section 5 is the reason the rest kept failing — **the scene has a direction and alignment does not**, so every pooled measure was averaging over the thing that carries the signal. And section 6 turns the pooled axis, which section 5 had written off as the frequency gradient, into a check on findings T: with frequency projected out it runs from bodily action to cognition, and it orders T's categories the way T does on all six lexicons and better than it did before the control. **The pooled axis is not evidence about alignment. It is evidence that T's ordering is not an artefact of how the categories were drawn.**
+What geometry did produce is four things, and none is a claim about alignment's direction. Section 2 is a better instrument for grouping the lexicons we already use. Section 4 is a signed result where the others had absences: displacement moves AWAY from what it replaced, small and unanimous. Section 5 is the reason the rest kept failing — **the scene has a direction and alignment does not**, so every pooled measure was averaging over the thing that carries the signal. And section 6 turns the pooled axis, which section 5 had written off as the frequency gradient, into a check on findings T: with frequency projected out it orders T's categories the way T does on all six lexicons, and better than it did before the control. Section 7 fixes what that axis may be called — off contact, motion and force onto perception, cognition and speech, in T's words rather than a body/mind framing the norms do not license. **The pooled axis is not evidence about alignment. It is evidence that T's ordering is not an artefact of how the categories were drawn.**
 
 **Two expectations recorded before section 6 ran were wrong, and are left standing rather than edited away.** The frequency control was expected to close the geometric line; it opened the only lexicon-free corroboration T has. And section 5's reading of the pooled axis as "the frequency gradient of the embedding space" turns out to be half right in a literally measurable sense: half the axis was frequency, `cos = +0.518`, and the rest was the result.
 
@@ -222,6 +244,9 @@ What geometry did produce is four things, and none is a claim about alignment's 
     direction    scripts/v_displacement_vector.py   results/v_displacement_vector.csv
                  --verbs for the vv* restriction    v_displacement_vector_verbs.csv
                                                     v_displacement_twin.csv
+    concreteness --verbs --resid freq,conc         v_displacement_vector_verbs_resid_freq_conc.csv
+      control    --verbs --pop-conc --resid freq   v_displacement_vector_verbs_popconc_resid.csv
+                 norms: LSN/MRC/MTurk/Paivio       data.wordnorms_orig.csv (chambers)
     frequency    --verbs --resid                    v_displacement_vector_verbs_resid.csv
       control                                       v_displacement_twin_verbs_resid.csv
                  per-type axis positions            v_axis_projection_verbs{,_resid}.csv
