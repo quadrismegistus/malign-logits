@@ -70,6 +70,18 @@ The words also stay the same. `full` against `no-safety` has faller Jaccard 0.53
 
 **And it is one family on one base.** Tulu's ablations are the only such suite we have. This wants a second data fan before it carries weight.
 
+**A natural experiment points the same way, more weakly.** `zephyr-7b-beta` is in the roster and its model card is explicit: *"We found that removing the in-built alignment of these datasets boosted performance on MT Bench and made the model more helpful,"* and *"Zephyr-7B-beta has not been aligned to human preferences for safety within the RLHF phase or deployed with in-the-loop filtering."* Its developers stripped alignment out of the training data on purpose and say the model has no safety alignment. It still displaces:
+
+| | zephyr `base -> sft` | median of 16 families |
+|---|---|---|
+| JS | 0.0747 (rank 12 of 16) | -- |
+| fallers/site | 7.27 | 12.27 |
+| faller share | 41.9% | 49.3% |
+
+**Reduced, not absent** -- about 59 percent of the median family's faller count. A pure safety-artefact account predicts near zero, and 7.27 fallers per site is not that.
+
+**This is weaker evidence than the ablation and should not be quoted as stronger.** Zephyr differs from the other fifteen families in base, corpus, recipe and scale simultaneously, so its position in the distribution is confounded several ways over; being below median may have nothing to do with the missing alignment data. The Tulu fan holds everything fixed but the corpus and is the controlled version of the same question. Zephyr is consistent with it, which is worth recording, and is not independent confirmation of it.
+
 ## 5. Preference optimization removes nothing at all
 
 Four preference methods diverging from a single shared SFT checkpoint — the only place in the roster where recipe varies with the base, the corpus and the SFT stage all held fixed:
