@@ -21,6 +21,9 @@ READ PATH, the same one `fc_analyse.load()` uses:
 
 `role` is which model generated; `arm` is undisturbed / force_faller /
 force_riser; `word` is the pinned token and is empty on the undisturbed arm.
+**The forced design is a full 2x2** -- {base, aligned} x {demoted, promoted},
+1,627 sites in each cell -- because `dd` is the difference-in-differences over
+those four. Print all four or the picture is half a measure.
 **A forced beam's position i sits one token later in the sentence than an
 unforced beam's position i**, because the pinned word consumes a slot -- so any
 index-to-index comparison of the two is comparing different sentence positions.
@@ -68,14 +71,22 @@ def show(st, pair, prompt, d, top=TOP):
         print("\n--- %s, undisturbed" % role.upper())
         for b in beams(k):
             print("    %+8.2f  %s" % (b["log_prob"], repr(b["text"])[:66]))
-    for arm, label in (("force_faller", "FORCED to the demoted word"),
-                       ("force_riser", "FORCED to the promoted word")):
-        for (role, a, w), k in sorted(d.items()):
-            if a != arm or role != "aligned":
-                continue
-            print("\n--- ALIGNED, %s: %r" % (label, w))
-            for b in beams(k):
-                print("    %+8.2f  %s" % (b["log_prob"], repr(b["text"])[:66]))
+    #: **BOTH ROLES, BOTH WORDS -- the design is a 2x2 and printing one row of
+    #: it misrepresents the measure.** `dd` is the difference-in-differences
+    #: over exactly these four cells: what forcing the demoted word costs the
+    #: aligned model, MINUS what it costs the base, against the same contrast
+    #: for the promoted word. An earlier version of this script filtered the
+    #: forced arms to role == "aligned" and hid the base half; the stash is
+    #: symmetric, 1,627 sites in each of the four cells.
+    for arm, label in (("force_faller", "forced to the DEMOTED word"),
+                       ("force_riser", "forced to the PROMOTED word")):
+        for role in ("base", "aligned"):
+            for (r, a, w), k in sorted(d.items()):
+                if a != arm or r != role:
+                    continue
+                print("\n--- %-7s %s: %r" % (role.upper(), label, w))
+                for b in beams(k):
+                    print("    %+8.2f  %s" % (b["log_prob"], repr(b["text"])[:66]))
     dem = sorted({w for (r, a, w) in d if a == "force_faller"})
     pro = sorted({w for (r, a, w) in d if a == "force_riser"})
     print("\n    demoted at this site :", dem)
