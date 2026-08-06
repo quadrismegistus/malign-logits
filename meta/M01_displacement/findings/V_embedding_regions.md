@@ -73,13 +73,36 @@ Unanimous across families and both rungs. **A site's own risers are genuinely cl
 
 **This is not metonymy rescued, and the reason is pre-declared in the plan.** Relatedness is not adjacency. If a prompt concerns a knife, both what falls and what rises will be knife-adjacent vocabulary; a shared topic produces this pattern with no substitution relation at all.
 
-**THE DISCRIMINATOR IS SPECIFIED AND NOT RUN.** The null above draws risers from any other prompt in the family, spanning violence, sexual, institutional and neutral. A tighter null draws them from a different prompt **in the same domain**. If the 4.6 percent survives that, it is relatedness beyond topic and metonymy has its first positive evidence at any grain. If it collapses, the 4.6 percent was topic. **Until it runs, section 3 supports "the sets are related" and nothing stronger.**
+## 4. The twin control: displacement moves AWAY from what it replaced
+
+Section 3 could not distinguish relation from topic, and RH supplied a better control than the "same domain" one this document originally specified: **the twin.** Each M01 stem exists as a marked and an unmarked prompt differing in ONE WORD — `hammer`/`clipboard`, `knife`/`flashlight`. Same scene, same syntax, same length. Using the twin's risers as the control holds topic almost perfectly fixed, and it reuses the campaign's own minimal-pair design, which had only ever been applied to the marked/unmarked contrast and never as a null.
+
+Three levels, so the answer decomposes rather than being a binary. `scripts/v_twin_control.py`.
+
+| | base -> sft | sft -> pref |
+|---|---|---|
+| far, unrelated prompt | 0.3061 | 0.3094 |
+| **own** | 0.3006 | 0.3056 |
+| **twin** | **0.2997** | **0.3043** |
+
+**The ordering is twin < own < far.**
+
+    THE SCENE     twin - far   -2.11%   14/14 families   p=0.0001
+    THE RELATION  own - twin   +0.32%    0/14 negative    p=0.0001
+
+The scene is real and accounts for most of section 3's 4.6 percent. But **within the scene, a site's own risers are FARTHER from its fallers than its twin's risers are** — unanimously, at both rungs, p=0.0001.
+
+**Displacement moves away from what it replaced.** Holding the scene to a single word's difference, what rises at a site sits further from what fell there than what rises at its near-identical twin. That is the opposite of what metonymy predicts, and it is the first **signed** geometric result in the campaign: four grains have reported absences, this one has a direction.
+
+**Quote it with its size.** +0.32 percent of the reference against the scene's 2.11. Unanimous and tiny.
+
+**And this was a cell the outcome map did not contain.** Three were declared — own closer than twin, own equal, all three equal — and the answer was own *farther*. The script's fall-through branch collapsed "not closer" into "topic only" and printed the wrong conclusion until it was corrected. **Plan U's map had the same hole and this one was written knowing that.** An enumeration of outcomes is only as good as its coverage of the sign, and twice now the missing cell is the one that landed.
 
 ## What this leaves
 
 Embedding geometry has now been asked about this operation at four grains: pairwise (clause 6, four instruments, failed), by annotation (Registration P's REF stratum, failed), regionally (section 1, null with a confirmed artefact), and set-level within site (section 3, a 4.6 percent floor). **The ledger's original verdict survives all four: the faller-riser relation is interpretive, not geometric.**
 
-What geometry did produce is section 2 — not a claim about alignment at all, but a better instrument for grouping the lexicons we already use.
+What geometry did produce is two things. Section 2 is not a claim about alignment at all, but a better instrument for grouping the lexicons we already use. And section 4 is the one positive: not adjacency but its opposite, small, unanimous, and the only signed result the geometry has yielded.
 
 ## Data and code
 
@@ -87,6 +110,7 @@ What geometry did produce is section 2 — not a claim about alignment at all, b
     regions      scripts/v_regions.py               results/v_regions.csv
     field cosine scripts/v_field_cosine.py          results/v_field_cosine.csv
     relatedness  scripts/v_site_relatedness.py      results/v_site_relatedness.csv
+    twin control scripts/v_twin_control.py          results/v_twin_control.csv
     vectors      results/v_bare_vectors.npz         bare bge-m3, 25% depth, 2,268 types
     movement     results/t_ladder_words.parquet     1,281,413 rows, 16 families
     plan         registrations/plan_v_embedding_regions.md
