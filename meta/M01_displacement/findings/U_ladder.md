@@ -16,14 +16,14 @@ The OLMo-2-0425-1B ladder, every rung measured separately:
 |---|---|---|---|---|
 | base -> SFT | **0.1963** | 17.67 | 17.60 | 50% |
 | SFT -> DPO | 0.0449 | 3.30 | 7.63 | 30% |
-| DPO -> Instruct | 0.0045 | 0.01 | 1.53 | 0.6% |
+| DPO -> Instruct | 0.0045 | 0.0064 | 1.5289 | **0.42%** |
 | base -> Instruct *(the edge findings T measures)* | 0.2646 | 22.09 | 19.67 | 53% |
 
 SFT carries 74 percent of the ladder's total JS. **Finding 9 is confirmed by direct measurement rather than inferred from endpoints.** But its wording is too strong: DPO is not null. It carries a fifth of SFT's JS and moves about eleven words per site. The accurate sentence is *preference optimization adds about a fifth as much*, not *does not add to it*.
 
 ## 2. Removal stops while addition continues
 
-The faller share — what proportion of moved words fall rather than rise — collapses up the ladder. On OLMo-2: 50 percent, 30 percent, 0.6 percent. Across 16 families (medians): **49.3 percent at `base -> sft`, 28.6 percent at `sft -> pref`, 1.0 percent at `pref -> rlvr`**. It drops in 13 of 16 families, Wilcoxon p = 0.011.
+The faller share — what proportion of moved words fall rather than rise — collapses up the ladder. On OLMo-2: 50 percent, 30 percent, 0.42 percent. Across 16 families (medians): **49.3 percent at `base -> sft`, 28.6 percent at `sft -> pref`, 1.0 percent at `pref -> rlvr`**. It drops in 13 of 16 families, Wilcoxon p = 0.011.
 
 **This is new. It is in neither finding 9 nor findings T**, both of which only ever see the composite. By the last rung the model has effectively stopped taking anything away and is only putting things in.
 
@@ -34,6 +34,8 @@ It also reproduces independently. The pre-operation embedding store, built for a
 **Three families break the pattern**, and their faller share rises rather than falls: `amber` 54.1 to 58.3, `redpajama` 35.1 to 81.0, `tulu` 36.3 to 37.0. All three are families where the second rung is plausibly **siblings rather than a training step** — AmberSafe and RedPajama-Chat may both be trained from their base rather than from the SFT arm, and tulu's base is a cross-family Llama checkpoint declared by hand in the script. That is a hypothesis about why they differ, not grounds to exclude them; dropping the three that disagree and keeping the thirteen that agree would be fitting.
 
 **And Pythia removes nothing at any stage**: `pythia` 1.7 to 0.5 percent, `archangel-dpo` 0.4 to 0.0. Whatever alignment does to Pythia is almost purely additive from the beginning.
+
+**A corrected figure, and how it went wrong.** The `DPO -> Instruct` faller share read 0.6 percent here until the registrar checked it against the CSV ([4775]). The true value is **0.42 percent**: `0.006416 / (0.006416 + 1.528873)`. The table displays `fall` rounded to two places, and the share was computed from the DISPLAYED 0.01 and 1.53 rather than from the data -- `0.01/1.54 = 0.65%`, which rounds to the 0.6 that was printed. **A rate computed from rounded display values is a different quantity from the same rate computed from the data**, and at small numerators the difference is 50 percent of the value. The docket post quoted 0.4 percent from the CSV and was right; the file was wrong, and the file is the quotable record.
 
 ## 3. The rungs move the same words, not different ones
 
