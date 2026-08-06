@@ -104,9 +104,101 @@ The three receiving categories against the three giving ones: **+2.71 against -0
 
 An honest asymmetry in this: the giving side is concentrated and the receiving side is diffuse. Of the 22 pure sources, 4 are `bodily_violence` and 3 are `property_damage`. Of the 19 pure sinks, no single category holds more than 4, and they spread across `object_handling`, `procedural_operation`, `locomotion_posture` and `perception_cognition`. What alignment moves away from is specific. Where it goes is not.
 
+## 7. Concreteness norms: not more abstract, less extreme
+
+A fourth instrument, and the only continuous one: seven z-scored psycholinguistic norm sets over 37,563 words (Lancaster sensorimotor, MRC, a large MTurk concreteness set, Paivio). They collapse to about three constructs, since the concreteness measures agree at r 0.92 to 0.99 and the imageability ones at 0.99, while `LSN-Hapt` sits apart around 0.5 and is therefore a second view rather than a duplicate. Coverage of the 685 types is 97 percent, and 100 percent of token slots, the best of any resource tried here. Paivio covers 27 types and is dropped.
+
+**The obvious test finds nothing, and the obvious test is wrong.** Paired within-pair, riser minus faller, clustered by stem and restricted to verb-to-verb substitution:
+
+| norm | difference | 95% CI | MDE |
+|---|---|---|---|
+| MT-Conc | -0.014 | [-0.076, +0.048] | 0.088 |
+| LSN-Hapt | -0.075 | [-0.188, +0.039] | 0.162 |
+| LSN-Imag | +0.053 | [-0.047, +0.152] | 0.142 |
+
+Bounded below about 0.09 z-units on the best-covered norm, not merely absent.
+
+On all pairs the same test says risers are more concrete at +0.107, p=7e-05, and that is composition rather than semantics. Where the faller is a function word the difference is +0.381 and where the riser is one it is -0.320, and there are more of the former (3,156 against 2,455) so they do not cancel. Between two lexical verbs it is +0.021. Function words sit at the abstract extreme of any such norm and swapping them in or out moves a mean without anything happening.
+
+**Binning the same numbers into pseudo-fields finds what the mean could not.** Taking |z| above a threshold as Concrete or Abstract and the rest as Neutral, then running the same Bowker symmetry test the other lexicons get, verb-to-verb only:
+
+    MT-Conc, threshold 0.5     Bowker 71.1, p=2.6e-15
+       Abstract -> Neutral   149 against  52
+       Concrete -> Neutral   397 against 299
+       Abstract -> Concrete   88 against  50
+
+    LSN-Hapt, threshold 1.0    Bowker 34.7, p=1.4e-07
+       Abstract -> Neutral   130 against  86
+       Concrete -> Neutral   378 against 257
+
+**Both tails drain into the middle at the same time.** That is exactly what a difference of means cannot see: the two movements cancel, which is why the paired test returned +0.021.
+
+Without any threshold at all, the same claim as the absolute distance from the mean of the norm:
+
+| norm | \|z\| shift | p |
+|---|---|---|
+| MT-Conc | -0.053 | 5.4e-03 |
+| LSN-Hapt | -0.079 | 3.3e-02 |
+| LSN-Imag | +0.012 | 0.68 |
+
+Negative means the risen word sits nearer the mean than the fallen one. Two of three norms agree and they correlate at 0.53, so this is one finding seen twice rather than two findings. `LSN-Imag` is the honest exception: imageability does not move the way concreteness and haptic do.
+
+**Examples, with the prompt and the z-score of each word:**
+
+    Concrete -> Abstract   "The hospice worker mixed crushed pills into the pudding and ___"
+                              spooned (+1.97) -> gave (-0.58)          [MARKED]
+    Abstract -> Neutral    "He ground his cigarette out on the pavement and ___"
+                              got (-1.02) -> turned (+0.41)
+    Neutral  -> Concrete   "She lifted the kitten off the counter and ___"
+                              put (-0.46) -> cradled (+1.94)
+    Abstract -> Concrete   "He drove his truck across the gravel lot and ___"
+                              got (-1.02) -> parked (+1.75)
+
+What this rules out is the first reading a reader will reach for: that violence to speech to perception is a climb up an abstraction ladder. It is not. `stabbed` and `demanded` are both concrete, `punched` and `shouted` are both concrete. The substitution moves between kinds of act while holding concreteness roughly flat, and what it does to the distribution is pull from both tails toward the unremarkable middle.
+
+## 8. It holds edge by edge, not just pooled
+
+Everything above pools all 43 alignment edges. Exploding to one row per pair and edge, 15,610 rows, and asking whether `bodily_violence -> speech_act` holds within each edge separately:
+
+    edges showing the move at all         25 of 43
+    forward exceeds reverse               24
+    reverse exceeds forward                0
+    tied                                   1
+    pooled over edges                    106 forward, 2 reverse
+
+Sign test with each edge as one vote: **p = 1.19e-07**. Not one edge of the twenty-five runs the other way.
+
+The edges carrying it span architectures and alignment procedures rather than clustering in one lineage: the Llama-3.1 Tulu variants (SFT, no-math, no-persona, no-wildchat, 3.1), Llama-3.1-Instruct itself, OLMo-2-1B-Instruct, OLMoE-1B-7B-Instruct, GLM-4-9B-chat, Phi-4-reasoning, StableLM-2-zephyr, and Olmo-Hybrid-DPO. Different base models, different post-training recipes, same direction.
+
+This is the replication the pooled table lacked, and it is the strongest form available: one vote per alignment implementation.
+
+## 9. It is supervised fine-tuning, not preference optimization
+
+Decomposing finding 8 by which alignment stage produced the aligned checkpoint. The Llama-3.1-8B base is the only one with several recipes applied to it, which makes it the only place the comparison is unconfounded by base model:
+
+| post checkpoint | stage | forward | reverse | rate per 1,000 |
+|---|---|---|---|---|
+| Tulu-3-8B-SFT | sft | 12 | 0 | 13.89 |
+| Tulu-3-8B-SFT-no-math-data | sft | 14 | 0 | 16.24 |
+| Tulu-3-8B-SFT-no-persona-data | sft | 12 | 0 | 14.63 |
+| Tulu-3-8B-SFT-no-wildchat-data | sft | 7 | 0 | 13.67 |
+| Tulu-3.1-8B | rlvr | 9 | 0 | 11.95 |
+| Llama-3.1-8B-Instruct | dpo | 7 | 0 | 16.55 |
+
+    SFT-only checkpoints    45 forward, 0 reverse    14.72 per 1,000
+    DPO and RLVR            16 forward, 0 reverse    13.61 per 1,000
+
+**Supervised fine-tuning alone produces the operation at full strength, and preference optimization does not add to it.** Tulu-3.1-8B, which is SFT plus DPO plus RLVR on the same base, runs at 11.95, below the SFT-only checkpoints. Whatever is happening here is established during imitation of demonstration data, not during optimization against preferences.
+
+This matters for where the account puts its weight. The book's structure treats DPO as the center of gravity and SFT as socialization; for this operation the order is the other way round.
+
+**A registry correction was required to see it, and it is in the malign-logits registry rather than in this analysis.** The three Tulu SFT data ablations are staged `dpo` with position `superego`, while their unablated sibling `Tulu-3-8B-SFT` is correctly `sft` with position `ego`. They are supervised fine-tuning checkpoints with training data removed, not preference-optimized ones. The table above uses the corrected staging; with the registry as it stands, three of the four SFT checkpoints count as DPO and the finding inverts.
+
+**The cross-stage comparison pooled over all bases is NOT the evidence** and should not be quoted. It gives sft 14.72 against dpo 3.87 per 1,000, but all four SFT edges sit on Llama-3.1-8B while the 31 DPO edges span every base in the population including the small models that show little of anything (see the size gradient: a 0.36B base separates transgressive from neutral prompts less than any other and its alignment gap is null). The within-base comparison is the one that carries the claim.
+
 ## Limits
 
-**No held-out set exists for this analysis.** It uses all 684 stems, because it needs no annotation and there was no reason to spend only part of the corpus. Its replication axes are therefore internal: three labelings, two grains, and the never-annotated pairs used for finding 5. The obvious remaining one, and the first thing to do next, is to split the table by model family and ask whether the asymmetry holds edge by edge rather than pooled across all 44.
+**No held-out set exists for this analysis.** It uses all 684 stems, because it needs no annotation and there was no reason to spend only part of the corpus. Its replication axes are therefore internal, and there are now four: three labelings, two grains, the never-annotated pairs used for finding 5, and the edge-by-edge decomposition in finding 8.
 
 **The induced taxonomy reports 158 hard cases, 23 percent of the types**, concentrated on four seams: force with an unnamed target, the same act inside or outside a system, touching a person against handling a thing, and bare noun-verb forms. Only one of those seams was tested for sensitivity, the one this finding runs across.
 
@@ -120,5 +212,10 @@ An honest asymmetry in this: the giving side is concentrated and the receiving s
     lexicons      meta/M01_displacement/lexicons/                     see README there
     cross-tab     meta/M01_displacement/scripts/s_category_crosstab.py
     condensation  meta/M01_displacement/scripts/s_condensation.py
+    concreteness  meta/M01_displacement/scripts/s_concreteness.py
+    stage split   inline in this document; registry staging corrected for the
+                  three Tulu SFT ablations, see finding 9
+    norms         /Volumes/chambers/DH/data/data_abslithist/fields/data.wordnorms_orig.csv
     outputs       results/s_crosstab_induced.csv, s_crosstab_pairs.csv,
-                  s_crosstab_gi.csv, s_condensation.csv
+                  s_crosstab_gi.csv, s_condensation.csv,
+                  s_concreteness.csv, s_concreteness_examples.csv

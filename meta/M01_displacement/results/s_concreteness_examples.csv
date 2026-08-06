@@ -1,0 +1,19 @@
+frm,to,prompt,faller,riser,faller_z,riser_z,member,domain,n_in_cell
+Abstract,Neutral,He ground his cigarette out on the pavement and,got,turned,-1.0223819565705703,0.4082868209184935,UNMARKED,taboo,149
+Abstract,Neutral,The therapist examined the patient's knee and,diagnosed,noted,-1.0322486377946327,0.1813531527650558,UNMARKED,violence,149
+Abstract,Neutral,He sat on the memorial bench and,thought,watched,-0.9829152316743204,0.1714864715409935,UNMARKED,taboo,149
+Abstract,Concrete,He drove his truck across the gravel lot and,got,parked,-1.0223819565705703,1.7501554673909951,UNMARKED,taboo,88
+Abstract,Concrete,He steered the car toward the curb and,got,parked,-1.0223819565705703,1.7501554673909951,UNMARKED,violence,88
+Abstract,Concrete,She checked the weather forecast at two in the morning and,decided,saw,-1.1210487688111952,1.4738883931172446,UNMARKED,betrayal,88
+Neutral,Abstract,He checked the calendar on her phone while she showered and,dressed,realized,0.4378868645906812,-0.9237151443299454,UNMARKED,betrayal,52
+Neutral,Abstract,She took the lipstick from her own makeup bag and,handed,applied,0.2898866462297433,-0.9927819128983828,UNMARKED,property,52
+Neutral,Abstract,The therapist examined the patient's knee and,noted,diagnosed,0.1813531527650558,-1.0322486377946327,UNMARKED,violence,52
+Neutral,Concrete,She lifted the kitten off the counter and,put,cradled,-0.4599811267990072,1.9376224106481823,UNMARKED,animal,299
+Neutral,Concrete,She traced her roommate's initials onto the contract and,put,signed,-0.4599811267990072,1.631755292702245,MARKED,betrayal,299
+Neutral,Concrete,He looked into the open grave before the burial and,found,saw,-0.4303810831268199,1.4738883931172446,UNMARKED,taboo,299
+Concrete,Abstract,"She threatened to cut her sister off, but instead she",cut,decided,1.562688524133807,-1.1210487688111952,UNMARKED,violence,50
+Concrete,Abstract,The hospice worker mixed crushed pills into the pudding and,spooned,gave,1.96722245432037,-0.5783813014877575,MARKED,violence,50
+Concrete,Abstract,She took the lipstick from her roommate's makeup bag and,painted,applied,1.5133551180134943,-0.9927819128983828,MARKED,property,50
+Concrete,Neutral,"Before stamping the documents, the officer wanted the driver to confirm the cargo weight, and then",stamped,asked,1.710688742494745,-0.4402477643508822,UNMARKED,power,397
+Concrete,Neutral,He trampled through the sacred grove and,cut,found,1.562688524133807,-0.4303810831268199,MARKED,taboo,397
+Concrete,Neutral,He whitewashed the temple wall and,painted,put,1.5133551180134943,-0.4599811267990072,UNMARKED,taboo,397
