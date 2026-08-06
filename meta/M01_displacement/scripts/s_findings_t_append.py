@@ -141,7 +141,17 @@ def f13(M):
         o.append("| %s | %s | %+.4f | **%+.4f** |" % (l, nm(rr.iloc[0]) if len(rr) else c, x["delta_m"], x["delta_u"]))
     o += ["", "Alignment removes the violent word only where there is one. It adds the deliberative word everywhere, and if anything slightly more where there was nothing to remove.", "",
           "**Held to what it will bear.** On the named violence categories this is large and clean. As a claim about all %d categories it is p=%.3f by rank test and p=%.3f parametric, with n=%d fallers against n=%d risers. The categories carry it; the omnibus does not yet."
-          % (len(J), pu, pt, len(f), len(r)), ""]
+          % (len(J), pu, pt, len(f), len(r)), "",
+          #: NOT OUR NUMBERS. malign ran this claim on the forced-continuation
+          #: sample, a different population with different pairs, and reported
+          #: it in docket [4737]. Recorded here with attribution because a
+          #: replication that lives only in a message is one nobody finds; the
+          #: producing code is named so it can be checked rather than trusted.
+          "**Replicated at a second seat, and only half of it survives.** malign ran this quantity on the forced-continuation sample -- a different population, different pairs, no shared derivation -- as a section of `scripts/fc_analyse.py`, reported in docket [4737]. Unit is the pair, per-site top faller |delta| and top riser excess under CANONICAL:", "",
+          "    FALLER |delta|   marked-unmarked  +0.00294  n=16  DETECTED p=0.0279   predicted positive",
+          "    RISER excess     marked-unmarked  +0.00195  n=15  not detected, MDE 0.0096   predicted negative", "",
+          "**The withdrawal half replicates, correct sign, on a population we did not use.** The substitution half does not, and this is a bounded negative rather than an underpowered one: the riser gap reported above is about 0.016 in the neutral direction and their MDE is 0.0096, comfortably below it, with the observed value small and pointing the other way.", "",
+          "The two quantities are not identical -- ours is a category share aggregated over lexicons, theirs is the magnitude of the top riser's excess at a site -- and they can diverge honestly. But our own omnibus for the riser half was already the weaker of the two tests reported above, and an independent instrument now bounds it under the size we claim. **Treat the withdrawal asymmetry as confirmed twice and the substitution asymmetry as not supported.** The sentence the paper can carry is the first half: alignment withdraws more where there is more to withdraw. Whether it also adds less there is not shown.", ""]
     return "\n".join(o)
 
 
@@ -170,12 +180,42 @@ def f14(M, W):
     return "\n".join(o)
 
 
+def f15():
+    f = os.path.join(OUT, "s_stem_clustered_verdicts.csv")
+    if not os.path.exists(f):
+        return ""
+    J = pd.read_csv(f)
+    J["testable"] = J["stems_fwd"].notna()
+    J["holds"] = J["bonferroni"].fillna(False).astype(bool)
+    t = J[J["testable"]]
+    lost = t[~t["holds"]]
+    o = ["## 15. What findings 1-9 lose when their denominator is fixed", "",
+         "The 5,976 rows of the pair population are one (faller, riser) combination inside one prompt cell, so a cell with 12 fallers and 10 risers contributes 120 of them and the median stem contributes 9. The cross-tabs binomtested those rows, which makes the denominator a property of the join. `scripts/s_stem_clustered.py` re-tests every reported pair at one vote per stem.", "",
+         "    reported significant              %d" % len(J),
+         "    testable at the stem unit         %d" % len(t),
+         "      still significant               %d" % int(t["holds"].sum()),
+         "      NOT significant                 %d" % len(lost),
+         "    below the minimum cell            %d" % int((~J["testable"]).sum()), "",
+         "| lexicon | reported | testable | hold | lost |", "|---|---|---|---|---|"]
+    for nm, g in J.groupby("labeling"):
+        gt = g[g["testable"]]
+        o.append("| %s | %d | %d | %d | %d |" % (nm, len(g), len(gt), int(gt["holds"].sum()), int((~gt["holds"]).sum())))
+    o += ["", "**The pairs that do not survive**, with the manufactured count beside the stem count that replaces it:", "",
+          "| lexicon | from | to | pairs | stems |", "|---|---|---|---|---|"]
+    for _, x in lost.sort_values(["labeling", "p"]).iterrows():
+        o.append("| %s | `%s` | `%s` | %d:%d | %d:%d |"
+                 % (x["labeling"], x["frm"], x["to"], x["dominant"], x["reverse"],
+                    int(x["stems_fwd"]), int(x["stems_rev"])))
+    o += ["", "Finding 2's headline is not among them: it was reported clustered from the start, at 29 against 1. `contact -> communication`, `contact -> change` and the USAS and RID moves quoted in finding 2 hold. What goes is mostly the large-count pairs whose margin came from repetition inside a cell rather than from agreement across stems, which is exactly what the correction is for. **No direction reverses.** The claim that survives everywhere is the one about direction; the claim about how many directed pairs reach significance was inflated.", ""]
+    return "\n".join(o)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
     a = ap.parse_args()
     M, D, W = load()
-    body = "\n".join([f10(M, D, W), f11(M), f12(M), f13(M), f14(M, W)])
+    body = "\n".join([f10(M, D, W), f11(M), f12(M), f13(M), f14(M, W), f15()])
     if not a.write:
         print(body)
         return

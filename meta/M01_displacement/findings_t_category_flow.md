@@ -6,6 +6,8 @@ Unregistered. Nothing here was predicted in advance and no hypothesis was filed 
 
 Findings 1 to 9 run on `data/r_population_k2.parquet`: 5,976 faller-riser pairs over 1,361 prompt cells and 684 stems, from `scripts/s_category_crosstab.py`, `s_lexicon_crosstab.py` and `s_condensation.py`. That population applies a recurrence threshold that has to be re-justified for every prompt set, and it manufactures observations by crossing every faller with every riser inside a cell.
 
+**Those 5,976 rows are not 5,976 observations, and the counts in findings 1 to 9 should be read with that in mind.** The median stem contributes 9 of them. Finding 2 already reports its headline clustered to one observation per stem, which is why it survives; the four later lexicons were not clustered when first run. Re-tested at one vote per stem per directed pair, across all six labelings: **of the 94 reported pairs that remain testable, 70 hold and 24 do not**, and 6 more drop below the minimum cell. What is lost is named in finding 15. The direction of every finding is unchanged; the count of significant directed pairs is not.
+
 Findings 10 to 14 run on `scripts/s_everything.py`, where **one alignment edge is one observation** and there is no threshold, no pairing and no design requirement, so all 2,190 active English prompts are in scope rather than the 1,361 built as twins. Where the two disagree the edge unit wins, and finding 10 records the one place they do.
 
 A defect worth stating at the top because it inflated a number that was quoted before it was caught: the direction test in `s_everything.py` first computed its binomial on pooled occurrences rather than on edges, marking `grammatical_function -> object_handling` significant at p=0.0 when its edges were 43 against 40. That is a coin flip. Corrected, it turns 67,985 claimed survivors into 1,481 and 17,384 word pairs into 2,165. Every figure in findings 10 to 14 is post-correction, and the reasoning is in the source beside the fix.
@@ -61,15 +63,19 @@ Two of the 50 categories move negatively and both are about doing something to a
 **Four more labelings, added later, all agreeing.** Each was chosen against a gap the first three could not close, and each is run at its own granularity with a minimum cell of 10 and Bonferroni within the resource.
 
     USAS, verb-to-verb        S3.2 intimate/sexual -> Q2.1 speech      25 against 2
-                              G2.1 crime and law   -> A10 finding      21 against 3
+                              G2.1 crime and law   -> A10 finding      21 against 3   WITHDRAWN
                               Q2.1 speech          -> A10 finding      26 against 1
     FrameNet                  Manipulation -> Communication_manner     23 against 0
                               Request      -> Communication_manner     14 against 0
-                              Statement    -> Communication_manner     16 against 2
-    VerbNet, Levin classes    cut       -> declare                     17 against 1
+                              Statement    -> Communication_manner     16 against 2   WITHDRAWN
+    VerbNet, Levin classes    cut       -> declare                     17 against 1   WITHDRAWN
                               indicate  -> manner_speaking             14 against 1
     RID                       aggression is a source in four surviving pairs
                               and a destination in none
+
+**Three of those are marked WITHDRAWN and should not be quoted.** They do not survive one vote per stem, which is finding 15; the counts beside them are the manufactured pair counts. Everything else in this block holds, including all four WordNet moves above and `Manipulation -> Communication_manner`. The withdrawal is marked here rather than only in finding 15 because a struck claim that lives only in the section that struck it comes back as a headline later.
+
+One of the three is load-bearing for the paragraph below it: `Statement -> Communication_manner` at 16 against 2 was the measured form of `said` becoming `whispered`. At the stem unit it is 14 against 2 and does not clear correction. The VerbNet route to the same claim, `indicate -> manner_speaking`, does hold, and the token-level result in findings 10-14 (`whispered` rising in 40 of 43 edges) holds independently of any lexicon. The claim survives; this particular measurement of it does not.
 
 USAS is the only resource that covers this vocabulary natively, 85% of types and 96% of slots as SURFACE FORMS with no lemmatizing, and it has the words the General Inquirer lacks: `raped` is G2.1-/S3.2, `handcuffed` G2.1, `desecrated` G2.2-/A1.1.2. Its tag contents were read off the lexicon rather than from a tagset document: A10 holds `bare`, `buried`, `camouflage`, `blur`; G2.1 holds `abduct`, `apprehend`, `arraign`; S3.2 holds `copulate`, `cuddle`, `court`.
 
@@ -323,6 +329,15 @@ Alignment removes the violent word only where there is one. It adds the delibera
 
 **Held to what it will bear.** On the named violence categories this is large and clean. As a claim about all 213 categories it is p=0.021 by rank test and p=0.185 parametric, with n=41 fallers against n=172 risers. The categories carry it; the omnibus does not yet.
 
+**Replicated at a second seat, and only half of it survives.** malign ran this quantity on the forced-continuation sample -- a different population, different pairs, no shared derivation -- as a section of `scripts/fc_analyse.py`, reported in docket [4737]. Unit is the pair, per-site top faller |delta| and top riser excess under CANONICAL:
+
+    FALLER |delta|   marked-unmarked  +0.00294  n=16  DETECTED p=0.0279   predicted positive
+    RISER excess     marked-unmarked  +0.00195  n=15  not detected, MDE 0.0096   predicted negative
+
+**The withdrawal half replicates, correct sign, on a population we did not use.** The substitution half does not, and this is a bounded negative rather than an underpowered one: the riser gap reported above is about 0.016 in the neutral direction and their MDE is 0.0096, comfortably below it, with the observed value small and pointing the other way.
+
+The two quantities are not identical -- ours is a category share aggregated over lexicons, theirs is the magnitude of the top riser's excess at a site -- and they can diverge honestly. But our own omnibus for the riser half was already the weaker of the two tests reported above, and an independent instrument now bounds it under the size we claim. **Treat the withdrawal asymmetry as confirmed twice and the substitution asymmetry as not supported.** The sentence the paper can carry is the first half: alignment withdraws more where there is more to withdraw. Whether it also adds less there is not shown.
+
 ## 14. Few large fallers, many small risers: displacement along a chain
 
 Counting Bonferroni survivors on all prompts: **206 risers against 36 fallers**, and the fallers are **3.8 times larger** per category (mean -0.01267 against +0.00334, Mann-Whitney p=5.8e-09). The ratio exceeds one in every lexicon.
@@ -340,6 +355,56 @@ Counting Bonferroni survivors on all prompts: **206 risers against 36 fallers**,
 The shape is not one-for-one substitution. A few large categories drain and their mass redistributes across many small ones, which is displacement along a chain rather than swap, measured directly. Two of the seven largest fallers are `person_reference` and the General Inquirer's `MALE`: what drains is physical contact and the marking of persons and of maleness.
 
 **A separate result, quarantined from the above.** The `class` stratum is the census salary battery, `"The teacher earned an annual salary of $___"`, so its vocabulary is numerals and no semantic lexicon covers it (USAS 3 percent). It has 41 significant token shifts and 379 significant directed word pairs, and they run one way: `5`, `3`, `6`, `2` fall, `60`, `75`, `80`, `50` rise. Alignment raises the predicted salary figure, reliably, across the edge population. That is worth having and it is not semantic displacement; it must not be pooled with the fields above.
+## 15. What findings 1-9 lose when their denominator is fixed
+
+The 5,976 rows of the pair population are one (faller, riser) combination inside one prompt cell, so a cell with 12 fallers and 10 risers contributes 120 of them and the median stem contributes 9. The cross-tabs binomtested those rows, which makes the denominator a property of the join. `scripts/s_stem_clustered.py` re-tests every reported pair at one vote per stem.
+
+    reported significant              100
+    testable at the stem unit         94
+      still significant               70
+      NOT significant                 24
+    below the minimum cell            6
+
+| lexicon | reported | testable | hold | lost |
+|---|---|---|---|---|
+| framenet | 12 | 10 | 7 | 3 |
+| induced | 18 | 18 | 12 | 6 |
+| rid | 11 | 11 | 9 | 2 |
+| usas | 30 | 30 | 22 | 8 |
+| verbnet | 11 | 7 | 5 | 2 |
+| wordnet | 18 | 18 | 15 | 3 |
+
+**The pairs that do not survive**, with the manufactured count beside the stem count that replaces it:
+
+| lexicon | from | to | pairs | stems |
+|---|---|---|---|---|
+| framenet | `Perception_experience` | `Intentionally_create` | 17:1 | 12:1 |
+| framenet | `Statement` | `Communication_manner` | 16:2 | 14:2 |
+| framenet | `Self_motion` | `Intentionally_create` | 20:4 | 17:4 |
+| induced | `contact_care` | `perception_cognition` | 16:0 | 11:0 |
+| induced | `property_damage` | `perception_cognition` | 13:0 | 11:0 |
+| induced | `bodily_violence` | `locomotion_posture` | 18:2 | 16:2 |
+| induced | `property_damage` | `grammatical_function` | 40:11 | 30:11 |
+| induced | `grammatical_function` | `transfer_possession` | 103:50 | 68:42 |
+| induced | `person_reference` | `transfer_possession` | 26:6 | 18:6 |
+| rid | `sensation` | `instrumental_behavior` | 28:7 | 19:6 |
+| rid | `aggression` | `temporal_references` | 19:3 | 13:3 |
+| usas | `Z8m` | `Z8f` | 53:17 | 40:14 |
+| usas | `N4` | `X3.4` | 31:6 | 25:6 |
+| usas | `G2.1` | `A10` | 21:3 | 18:3 |
+| usas | `A3` | `A10` | 25:4 | 20:4 |
+| usas | `Z8m` | `A3` | 33:6 | 23:6 |
+| usas | `Z8f` | `A10` | 17:1 | 12:1 |
+| usas | `Z5` | `Z8mfn` | 36:11 | 22:10 |
+| usas | `Z5` | `Z8f` | 153:78 | 69:55 |
+| verbnet | `cut` | `declare` | 17:1 | 12:1 |
+| verbnet | `escape` | `run` | 14:1 | 11:1 |
+| wordnet | `contact` | `cognition` | 17:1 | 13:1 |
+| wordnet | `motion` | `possession` | 63:25 | 41:22 |
+| wordnet | `unassigned` | `stative` | 131:72 | 76:55 |
+
+Finding 2's headline is not among them: it was reported clustered from the start, at 29 against 1. `contact -> communication`, `contact -> change` and the USAS and RID moves quoted in finding 2 hold. What goes is mostly the large-count pairs whose margin came from repetition inside a cell rather than from agreement across stems, which is exactly what the correction is for. **No direction reverses.** The claim that survives everywhere is the one about direction; the claim about how many directed pairs reach significance was inflated.
+
 ## Limits
 
 **No held-out set exists for this analysis.** It uses all 684 stems, because it needs no annotation and there was no reason to spend only part of the corpus. Its replication axes are therefore internal, and there are now four: three labelings, two grains, the never-annotated pairs used for finding 5, and the edge-by-edge decomposition in finding 8.
@@ -358,6 +423,9 @@ The shape is not one-for-one substitution. A few large categories drain and thei
     condensation  meta/M01_displacement/scripts/s_condensation.py
     4 lexicons    meta/M01_displacement/scripts/s_lexicon_crosstab.py
     concreteness  meta/M01_displacement/scripts/s_concreteness.py
+    stem re-test  meta/M01_displacement/scripts/s_stem_clustered.py
+                  one vote per stem; results/s_stem_clustered.csv and
+                  s_stem_clustered_verdicts.csv; finding 15
     findings 10-14
       analysis    meta/M01_displacement/scripts/s_everything.py
                   7 labelings x 13 strata x 3 instruments, edge as unit
