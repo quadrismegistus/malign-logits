@@ -286,7 +286,18 @@ null about anything.
 A pair at the paper's rank with non-zero downloads would move this from MAYBE to
 worth running. Absent that, leave it.
 
-## PARKED — THE REGIONAL EMBEDDING TEST. Designed, not started, deliberately.
+## PARKED — THE REGIONAL EMBEDDING TEST. Now written up as PLAN V.
+
+**The design below is superseded by `registrations/plan_v_embedding_regions.md`**, which
+carries it in full plus the two routes (the models' own preop space, and RH's simpler
+proposal of one external encoder holding every site in one space), the encoder and layer
+declared in advance, and — the part this entry lacked — **the artefactual outcomes
+enumerated alongside the real ones.** Plan U's outcome map had four cells and the answer
+landed in a fifth, a mechanical artefact of the movement floor; V names three artefacts
+first (regions that are word classes, frequency bands, or prompts) with a control for
+each. Kept below for the reasoning about why this is not clause 6's question.
+
+## THE ORIGINAL PARKED ENTRY, superseded but not deleted.
 
 **Do not confuse this with the pairwise test, which is a settled negative.** Ledger
 clause 6 is VERIFIED as an instrument-failure record: four similarity instruments
