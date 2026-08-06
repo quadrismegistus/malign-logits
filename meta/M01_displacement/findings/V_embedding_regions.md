@@ -1,8 +1,14 @@
-# Findings V: embedding geometry, mostly a negative
+# Findings V: embedding geometry fails at the relation and validates something else
 
 Written 2026-08-06. The plan is `registrations/plan_v_embedding_regions.md`, written before any of this ran and amended once — after the variance measurement and before any clustering — to make bare type embeddings primary. That amendment removed two free parameters rather than adding any, which is the only reason it was legitimate after seeing a number.
 
-**This document is largely a null and should not be padded into more.** One route worked, one route failed with its artefact confirmed, and one produced a positive so small it needs its magnitude quoted with it.
+**The title said "mostly a negative" until 2026-08-06 and that is now wrong as a description of the contents, while remaining right about the question.** The two came apart when sections 6 and 7 landed, and the distinction is the honest summary:
+
+- **The question fails.** Can embedding geometry locate the relation between a faller and the riser replacing it? No, at six grains, and section 1's null has its artefact confirmed rather than merely uncleared. Nothing here rescues metonymy.
+- **The document has three results that will be cited.** Scene-locality (section 5), the axis's agreement with findings T on six lexicons with no lexicon in the instrument (section 6), and field cosine as a grouping route Jaccard cannot replicate (section 2).
+- **And two positives too small to lead with**, both of which must travel with their magnitudes: the 4.6 percent relatedness floor (section 3) and the +0.32 percent anti-adjacency against a 2.11 percent scene effect (section 4).
+
+**The original phrase was written as a guard against padding and it did that job.** It is retired rather than reversed, because the failure it described is real and is the first bullet above. The correction is recorded rather than made silently, since the risk in the other direction — each pass finding the last framing too modest and inflating a notch — is this seat's characteristic one.
 
 Section 6 was added the same day, after RH asked for the frequency control that sections 5 and the plan had both specified and left unrun. It is the one part of this document that came out better than predicted, and the prediction it beat is recorded in the script's own header rather than reconstructed afterwards. It still does not make the document a positive: what section 6 corroborates is findings T, using geometry as the instrument, and it says nothing new about alignment on its own. Section 7 then ran RH's concreteness control and CORRECTED SECTION 6'S CAPTION: no published perceptual norm explains much of the axis, but the body-specific dimension is weaker than the general one, so "bodily action" is not the phrase the evidence supports and T's own category language is. **Read section 6 with that substitution.**
 
