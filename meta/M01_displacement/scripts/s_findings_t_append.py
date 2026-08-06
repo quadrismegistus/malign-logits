@@ -272,12 +272,47 @@ def f15():
     return "\n".join(o)
 
 
+def f16():
+    f = os.path.join(OUT, "s_cluster_dedup.csv")
+    if not os.path.exists(f):
+        return ""
+    C = pd.read_csv(f)
+    S = C[C["bonferroni"]]
+    dl = C[C["verdict"] == "DILUTED"]
+    sing = dl[dl["n_fields"] == 1]
+    xr = C[C["n_resources"] > 1]
+    o = ["## 16. Counting fields instead of labellings", "",
+         "Every count in findings 11 to 14 is a count of resource-category pairs. `framenet:Killing`, `usas:L1` and `verbnet:murder` label largely the same words and are counted as three results, and the correction is applied over a set containing near-duplicates. **206 risers against 36 fallers is a number about labellings, not about semantic fields.**", "",
+         "RH's fix, and it imposes nothing: group fields by **Jaccard overlap of their word sets** over the 14,761-type movement vocabulary. Two fields are the same field if they hold the same words. The approach started first -- an agent assigning each resource's categories to a fixed 13-item list -- was abandoned because that list was ours, so the cross-resource structure would have been imposed rather than found. What it would have cost is measurable: on USAS, 70 of 258 codes landed in `other`. `scripts/s_cluster_dedup.py`, average linkage at J>=0.10.", "",
+         "    700 fields with >=5 word types  ->  %d clusters" % C["cluster"].nunique(),
+         "    %d clusters span more than one resource, covering 91%% of word slots" % len(xr),
+         "    %d clusters significant, holding %d component-level survivors"
+         % (int(C["bonferroni"].sum()), int(S["n_comp_sig"].sum())), "",
+         "**Zero clusters are SPLIT.** Not one group of lexically similar fields moves in opposite directions. Six lexicons built on unrelated principles never disagree behaviourally where they agree lexically, which is a stronger validation of the apparatus than any single result in this document.", "",
+         "| | shift | edges | field |", "|---|---|---|---|"]
+    for _, x in S.nsmallest(4, "delta").iterrows():
+        o.append("| falls | %+.5f | %d/%d | `%s` |" % (x["delta"], x["edges_pos"], x["n_edges"], x["members"]))
+    for _, x in S.nlargest(4, "delta").iterrows():
+        o.append("| rises | %+.5f | %d/%d | `%s` |" % (x["delta"], x["edges_pos"], x["n_edges"], x["members"]))
+    o += ["", "Three taxonomies converge independently on one falling field named *killing*; the rising fields are perception, cognition and speech. That is the displacement claim in units that are fields rather than labellings, and at this unit the COUNT asymmetry is sharper than the component version: **%d risers against %d fallers.**"
+          % (int((S["delta"] > 0).sum()), int((S["delta"] < 0).sum())), "",
+          #: RH's condition on this analysis, and it caught a false retraction
+          "**A CLUSTER RESULT DOES NOT RETRACT A COMPONENT RESULT.** %d clusters are DILUTED: their components are significant and agree in direction while the merged unit is not. Those %d components stand, for two reasons."
+          % (len(dl), int(dl["n_comp_sig"].sum())), "",
+          "1. **%d of them are singletons where nothing was merged at all**, including `rid:aggression`, `rid:icarian_imagery`, `rid:regressive_cognition` and `induced:person_reference`. They can only have changed status because this analysis changed the denominator (all movement tokens rather than each lexicon's own labelled subset) and because a correction over %d clusters is far stricter than the per-lexicon ones. `rid:aggression` sits at p=0.0063 against an alpha of 1.04e-04."
+          % (int(sing["n_comp_sig"].sum()), C["cluster"].nunique()),
+          "2. **We cannot say which merges dilute.** The obvious account, that the loose merges fail, does not hold: restricted to real merges, coherent median tightness 0.20 against diluted 0.19, Mann-Whitney p=0.64.", "",
+          "**This analysis does not test finding 14's magnitude claim**, though an earlier version of this section reported that it had failed it. At the deduplicated unit there are 9 fallers, and a resampling check says that test detects the reported 3.8x effect only 67 percent of the time, and an effect of the size actually observed 13 percent of the time. It also changed the denominator, so the two ratios are not on one scale. The magnitude claim stands where it was measured: 3.8x at p=5.8e-09, ratio above one in all seven lexicons.", "",
+          "**Deduplication is for the denominator, not for power.** Pooling three views of the same words is one measurement, not three, and reading the pooled test as corroboration would be false corroboration. With each field counted once the correction applies over real fields and the survivor count becomes a count of things. The number falls, and that is the point.", ""]
+    return "\n".join(o)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
     a = ap.parse_args()
     M, D, W = load()
-    body = "\n".join([f10(M, D, W), f11(M), f12(M), f13(M), f14(M, W), f15()])
+    body = "\n".join([f10(M, D, W), f11(M), f12(M), f13(M), f14(M, W), f15(), f16()])
     if not a.write:
         print(body)
         return

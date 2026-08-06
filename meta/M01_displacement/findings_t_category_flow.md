@@ -456,6 +456,40 @@ The 5,976 rows of the pair population are one (faller, riser) combination inside
 
 Finding 2's headline is not among them: it was reported clustered from the start, at 29 against 1. `contact -> communication`, `contact -> change` and the USAS and RID moves quoted in finding 2 hold. What goes is mostly the large-count pairs whose margin came from repetition inside a cell rather than from agreement across stems, which is exactly what the correction is for. **No direction reverses.** The claim that survives everywhere is the one about direction; the claim about how many directed pairs reach significance was inflated.
 
+## 16. Counting fields instead of labellings
+
+Every count in findings 11 to 14 is a count of resource-category pairs. `framenet:Killing`, `usas:L1` and `verbnet:murder` label largely the same words and are counted as three results, and the correction is applied over a set containing near-duplicates. **206 risers against 36 fallers is a number about labellings, not about semantic fields.**
+
+RH's fix, and it imposes nothing: group fields by **Jaccard overlap of their word sets** over the 14,761-type movement vocabulary. Two fields are the same field if they hold the same words. The approach started first -- an agent assigning each resource's categories to a fixed 13-item list -- was abandoned because that list was ours, so the cross-resource structure would have been imposed rather than found. What it would have cost is measurable: on USAS, 70 of 258 codes landed in `other`. `scripts/s_cluster_dedup.py`, average linkage at J>=0.10.
+
+    700 fields with >=5 word types  ->  483 clusters
+    178 clusters span more than one resource, covering 91% of word slots
+    114 clusters significant, holding 141 component-level survivors
+
+**Zero clusters are SPLIT.** Not one group of lexically similar fields moves in opposite directions. Six lexicons built on unrelated principles never disagree behaviourally where they agree lexically, which is a stronger validation of the apparatus than any single result in this document.
+
+| | shift | edges | field |
+|---|---|---|---|
+| falls | -0.01332 | 9/43 | `induced:bodily_violence|wordnet:competition` |
+| falls | -0.00797 | 11/43 | `framenet:Motion` |
+| falls | -0.00718 | 7/43 | `verbnet:put` |
+| falls | -0.00691 | 7/43 | `framenet:Encoding|verbnet:reflexive_appearance` |
+| rises | +0.02973 | 36/43 | `induced:perception_cognition|wordnet:cognition|wordnet:perception` |
+| rises | +0.02796 | 35/43 | `rid:social_behavior|usas:Q2.2` |
+| rises | +0.02216 | 37/43 | `rid:sensation` |
+| rises | +0.02006 | 35/43 | `framenet:Perception_active|usas:X3.4|verbnet:peer` |
+
+Three taxonomies converge independently on one falling field named *killing*; the rising fields are perception, cognition and speech. That is the displacement claim in units that are fields rather than labellings, and at this unit the COUNT asymmetry is sharper than the component version: **105 risers against 9 fallers.**
+
+**A CLUSTER RESULT DOES NOT RETRACT A COMPONENT RESULT.** 40 clusters are DILUTED: their components are significant and agree in direction while the merged unit is not. Those 42 components stand, for two reasons.
+
+1. **10 of them are singletons where nothing was merged at all**, including `rid:aggression`, `rid:icarian_imagery`, `rid:regressive_cognition` and `induced:person_reference`. They can only have changed status because this analysis changed the denominator (all movement tokens rather than each lexicon's own labelled subset) and because a correction over 483 clusters is far stricter than the per-lexicon ones. `rid:aggression` sits at p=0.0063 against an alpha of 1.04e-04.
+2. **We cannot say which merges dilute.** The obvious account, that the loose merges fail, does not hold: restricted to real merges, coherent median tightness 0.20 against diluted 0.19, Mann-Whitney p=0.64.
+
+**This analysis does not test finding 14's magnitude claim**, though an earlier version of this section reported that it had failed it. At the deduplicated unit there are 9 fallers, and a resampling check says that test detects the reported 3.8x effect only 67 percent of the time, and an effect of the size actually observed 13 percent of the time. It also changed the denominator, so the two ratios are not on one scale. The magnitude claim stands where it was measured: 3.8x at p=5.8e-09, ratio above one in all seven lexicons.
+
+**Deduplication is for the denominator, not for power.** Pooling three views of the same words is one measurement, not three, and reading the pooled test as corroboration would be false corroboration. With each field counted once the correction applies over real fields and the survivor count becomes a count of things. The number falls, and that is the point.
+
 ## Limits
 
 **No held-out set exists for this analysis.** It uses all 684 stems, because it needs no annotation and there was no reason to spend only part of the corpus. Its replication axes are therefore internal, and there are now four: three labelings, two grains, the never-annotated pairs used for finding 5, and the edge-by-edge decomposition in finding 8.
@@ -474,6 +508,9 @@ Finding 2's headline is not among them: it was reported clustered from the start
     condensation  meta/M01_displacement/scripts/s_condensation.py
     4 lexicons    meta/M01_displacement/scripts/s_lexicon_crosstab.py
     concreteness  meta/M01_displacement/scripts/s_concreteness.py
+    dedup         meta/M01_displacement/scripts/s_cluster_dedup.py
+                  Jaccard over word sets; results/s_cluster_dedup.csv;
+                  s_jaccard_clusters.csv; finding 16
     stem re-test  meta/M01_displacement/scripts/s_stem_clustered.py
                   one vote per stem; results/s_stem_clustered.csv and
                   s_stem_clustered_verdicts.csv; finding 15
