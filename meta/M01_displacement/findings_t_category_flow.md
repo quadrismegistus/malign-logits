@@ -1,8 +1,14 @@
 # Findings T: where the mass goes
 
-Unregistered. Nothing here was predicted in advance and no hypothesis was filed before the numbers existed. What stands in for a registration is that the categories were built without access to the answer, three independently constructed labelings are reported together, and the test needs no null model. Every number reproduces from `scripts/s_category_crosstab.py` and `scripts/s_condensation.py` with the seeds recorded in them.
+Unregistered. Nothing here was predicted in advance and no hypothesis was filed before the numbers existed. What stands in for a registration is that the categories were built without access to the answer, seven independently constructed labelings are reported together, and the test needs no null model. No annotation is involved. This analysis costs nothing but compute, which is the main thing to say for it.
 
-The unit throughout is the full population: **5,976 faller-riser pairs over 1,361 prompt cells and 684 stems**, from `data/r_population_k2.parquet`. No annotation is involved. This analysis costs nothing but compute, which is the main thing to say for it.
+**There are two units in this document and findings 1 to 9 use the weaker one.**
+
+Findings 1 to 9 run on `data/r_population_k2.parquet`: 5,976 faller-riser pairs over 1,361 prompt cells and 684 stems, from `scripts/s_category_crosstab.py`, `s_lexicon_crosstab.py` and `s_condensation.py`. That population applies a recurrence threshold that has to be re-justified for every prompt set, and it manufactures observations by crossing every faller with every riser inside a cell.
+
+Findings 10 to 14 run on `scripts/s_everything.py`, where **one alignment edge is one observation** and there is no threshold, no pairing and no design requirement, so all 2,190 active English prompts are in scope rather than the 1,361 built as twins. Where the two disagree the edge unit wins, and finding 10 records the one place they do.
+
+A defect worth stating at the top because it inflated a number that was quoted before it was caught: the direction test in `s_everything.py` first computed its binomial on pooled occurrences rather than on edges, marking `grammatical_function -> object_handling` significant at p=0.0 when its edges were 43 against 40. That is a coin flip. Corrected, it turns 67,985 claimed survivors into 1,481 and 17,384 word pairs into 2,165. Every figure in findings 10 to 14 is post-correction, and the reasoning is in the source beside the fix.
 
 ## The test is symmetry, not a fitted null
 
@@ -219,6 +225,121 @@ This matters for where the account puts its weight. The book's structure treats 
 
 **The cross-stage comparison pooled over all bases is NOT the evidence** and should not be quoted. It gives sft 14.72 against dpo 3.87 per 1,000, but all four SFT edges sit on Llama-3.1-8B while the 31 DPO edges span every base in the population including the small models that show little of anything (see the size gradient: a 0.36B base separates transgressive from neutral prompts less than any other and its alignment gap is null). The within-base comparison is the one that carries the claim.
 
+## 10. The threshold-free instrument, and what it costs
+
+Findings 1 to 9 rest on `r_population_k2.parquet`, which keeps a (faller, riser) pair only if it recurs in two or more edges, and which manufactures observations: a cell with 12 fallers and 10 risers becomes 120 rows. Both were replaced. The unit is now one alignment edge, each edge voting once, on all active English prompts rather than the 1,361 built as twins.
+
+    marginal shift      1,929 of 12,464 category-in-stratum tests survive Bonferroni
+    directed moves      1,481 of 188,782
+    word pairs          2,165 of 194,154   (no lexicon at all)
+
+**The cost is finding 2.** On the induced taxonomy the edge-unit direction test returns 8 survivors in any stratum. `bodily_violence -> speech_act` at 38 against 1 is a claim about the paired population at its own weaker unit, and the edge-unit test does not carry it. What survives on that labeling is the marginal form: violence falls and perception rises across the same edges. FrameNet, USAS and VerbNet do yield directed moves; the induced taxonomy does not.
+
+## 11. The same direction in every stratum, on six lexicons that share no design
+
+The 11 prompt strata are the two M01 twins, the two M03 arms, the two institutional positions by role, and five unpaired registry domains. A category is counted below only if it is a Bonferroni survivor in at least five of them and **never reverses**.
+
+**Rises, no stratum reversing:**
+
+| lexicon | category | strata |
+|---|---|---|
+| wordnet | cognition | 8 of 11 |
+| framenet | Cooking_creation | 8 of 11 |
+| usas | Investigate, examine, test, search | 8 of 11 |
+| induced | procedural_operation | 8 of 11 |
+| rid | abstraction | 8 of 11 |
+| usas | Reciprocity | 8 of 11 |
+| usas | Definite (+ modals) | 8 of 11 |
+| verbnet | investigate | 8 of 11 |
+| verbnet | preparing | 7 of 11 |
+| verbnet | begin | 7 of 11 |
+| usas | Attention | 7 of 11 |
+| framenet | Discussion | 7 of 11 |
+
+**Falls, no stratum reversing:**
+
+| lexicon | category | strata |
+|---|---|---|
+| wordnet | contact | 10 of 11 |
+| framenet | Encoding | 8 of 11 |
+| verbnet | put | 8 of 11 |
+| induced | bodily_violence | 6 of 11 |
+| rid | icarian_imagery | 6 of 11 |
+| framenet | Body_movement | 5 of 11 |
+| framenet | Motion | 5 of 11 |
+| rid | aggression | 5 of 11 |
+| verbnet | murder | 5 of 11 |
+| wordnet | competition | 5 of 11 |
+
+The model stops touching, moving, striking and competing, and starts investigating, attending, preparing and abstracting. WordNet `contact` is the most consistent single result in the set.
+
+**5 categories reverse between strata and they reverse coherently.** They rise in the narrative twins and in `violence`, `sexual` and `neutral`, and fall in `m03_inst`, `m03_indiv`, `inst_authority` and `inst_individual`. This is also why WordNet `cognition` is not significant pooled while being a significant riser in eight strata: the institutional prompts cancel it. Report this stratified. The pooled number hides the finding rather than summarising it.
+
+## 12. USAS names the alignment vocabulary without being asked to
+
+USAS is a Lancaster corpus-linguistics tagset from the 1990s with 232 semantic fields (`lexicons/usas_tagset.tsv`, from ucrel.lancs.ac.uk/usas/semtags.txt). It covers this vocabulary better than anything else tried, 89 percent of word slots as surface forms, and it has no notion of alignment. Its 45 Bonferroni survivors on all prompts, read as a list:
+
+| code | field | shift | edges |
+|---|---|---|---|
+| `Q2.2` | Speech acts | +0.0157 | 31/43 |
+| `T2` | Time: Beginning and ending | +0.0133 | 31/43 |
+| `A1.1.1` | General actions, making etc. | +0.0122 | 36/43 |
+| `X3.4` | Sensory:- Sight | +0.0079 | 35/43 |
+| `X2.4` | Investigate, examine, test, search | +0.0073 | 43/43 |
+| `A10` | Open/closed; Hiding/Hidden; Finding; Showing | +0.0067 | 33/43 |
+| `A1.7` | Constraint | +0.0038 | 40/43 |
+| `S1.1.2` | Reciprocity | +0.0028 | 42/43 |
+| `S8` | Helping/hindering | +0.0027 | 34/43 |
+| `A1.3` | Caution | +0.0025 | 40/43 |
+
+and the fallers, all 4 of them:
+
+| code | field | shift | edges |
+|---|---|---|---|
+| `M2` | Putting, taking, pulling, pushing, transporting &c. | -0.0268 | 7/43 |
+| `Z8m` | Pronouns etc.  [m] | -0.0139 | 8/43 |
+| `L1` | Life and living things | -0.0036 | 9/43 |
+| `T1` | Time | -0.0020 | 10/43 |
+
+`Attention` `Understand` `Wanting; planning; choosing` `Caution` `Helping/hindering` `Reciprocity` `Constraint` `Investigate, examine, test, search`. A tagset built for corpus linguistics thirty years ago, applied to a question it was not built for, returns the vocabulary of alignment among its 41 rising fields and physical manipulation as its largest falling one.
+
+## 13. The withdrawal is transgression-specific; the substitution is not
+
+The M01 twins differ in one word. If alignment were simply softening transgression, both the removal and the replacement should be larger in the marked twin. Only the removal is.
+
+| lexicon | category | marked | neutral twin |
+|---|---|---|---|
+| wordnet | contact | **-0.0864** | -0.0490 |
+| framenet | Cause_harm | **-0.0311** | -0.0113 |
+| rid | aggression | **-0.0508** | -0.0320 |
+| induced | bodily_violence | **-0.0228** | -0.0143 |
+| induced | person_reference | **-0.0346** | -0.0269 |
+| induced | perception_cognition | +0.0462 | **+0.0625** |
+| rid | sensation | +0.0526 | **+0.0680** |
+| wordnet | cognition | +0.0084 | **+0.0162** |
+| wordnet | perception | +0.0268 | **+0.0338** |
+
+Alignment removes the violent word only where there is one. It adds the deliberative word everywhere, and if anything slightly more where there was nothing to remove.
+
+**Held to what it will bear.** On the named violence categories this is large and clean. As a claim about all 213 categories it is p=0.021 by rank test and p=0.185 parametric, with n=41 fallers against n=172 risers. The categories carry it; the omnibus does not yet.
+
+## 14. Few large fallers, many small risers: displacement along a chain
+
+Counting Bonferroni survivors on all prompts: **206 risers against 36 fallers**, and the fallers are **3.8 times larger** per category (mean -0.01267 against +0.00334, Mann-Whitney p=5.8e-09). The ratio exceeds one in every lexicon.
+
+| lexicon | risers | fallers | mean riser | mean faller | ratio | largest single faller |
+|---|---|---|---|---|---|---|
+| framenet | 82 | 7 | +0.00152 | -0.00498 | 3.3x | Motion -0.0124 |
+| gi_primary | 17 | 8 | +0.00155 | -0.00774 | 5.0x | MALE -0.0225 |
+| induced | 5 | 2 | +0.02150 | -0.02212 | 1.0x | person_reference -0.0260 |
+| rid | 5 | 4 | +0.01569 | -0.02760 | 1.8x | aggression -0.0327 |
+| usas | 41 | 4 | +0.00233 | -0.01157 | 5.0x | Putting, taking, pulling, pushing, transporting &c. -0.0268 |
+| verbnet | 50 | 9 | +0.00319 | -0.00664 | 2.1x | convert -0.0134 |
+| wordnet | 6 | 2 | +0.01604 | -0.04924 | 3.1x | contact -0.0494 |
+
+The shape is not one-for-one substitution. A few large categories drain and their mass redistributes across many small ones, which is displacement along a chain rather than swap, measured directly. Two of the seven largest fallers are `person_reference` and the General Inquirer's `MALE`: what drains is physical contact and the marking of persons and of maleness.
+
+**A separate result, quarantined from the above.** The `class` stratum is the census salary battery, `"The teacher earned an annual salary of $___"`, so its vocabulary is numerals and no semantic lexicon covers it (USAS 3 percent). It has 41 significant token shifts and 379 significant directed word pairs, and they run one way: `5`, `3`, `6`, `2` fall, `60`, `75`, `80`, `50` rise. Alignment raises the predicted salary figure, reliably, across the edge population. That is worth having and it is not semantic displacement; it must not be pooled with the fields above.
 ## Limits
 
 **No held-out set exists for this analysis.** It uses all 684 stems, because it needs no annotation and there was no reason to spend only part of the corpus. Its replication axes are therefore internal, and there are now four: three labelings, two grains, the never-annotated pairs used for finding 5, and the edge-by-edge decomposition in finding 8.
@@ -237,9 +358,22 @@ This matters for where the account puts its weight. The book's structure treats 
     condensation  meta/M01_displacement/scripts/s_condensation.py
     4 lexicons    meta/M01_displacement/scripts/s_lexicon_crosstab.py
     concreteness  meta/M01_displacement/scripts/s_concreteness.py
+    findings 10-14
+      analysis    meta/M01_displacement/scripts/s_everything.py
+                  7 labelings x 13 strata x 3 instruments, edge as unit
+      movement    results/movement_words.parquet    cached walk of the store,
+                  every faller and riser under CANONICAL, 43 edges
+      USAS names  meta/M01_displacement/lexicons/usas_tagset.tsv
+                  232 fields, ucrel.lancs.ac.uk/usas/semtags.txt
+      prose       meta/M01_displacement/scripts/s_findings_t_append.py
+                  emits sections 10-14 from the CSVs; no number in them is
+                  typed, and it refuses to splice if the anchor is ambiguous
     stage split   inline in this document; registry staging corrected for the
                   three Tulu SFT ablations, see finding 9
     norms         /Volumes/chambers/DH/data/data_abslithist/fields/data.wordnorms_orig.csv
     outputs       results/s_crosstab_induced.csv, s_crosstab_pairs.csv,
                   s_crosstab_gi.csv, s_condensation.csv,
-                  s_concreteness.csv, s_concreteness_examples.csv
+                  s_concreteness.csv, s_concreteness_examples.csv,
+                  s_everything_marginal.csv, s_everything_direction.csv,
+                  s_everything_wordpairs.csv   (the last three carry
+                  category_name / frm_name / to_name for USAS)
