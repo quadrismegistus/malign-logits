@@ -130,11 +130,27 @@ Forced-continuation run. Population: cross-model-recurrent movers, 32 of the 36-
 
 ---
 
-## OPEN: and whether it is resolvable
+## OPEN, AND ONE NOW CLOSED
 
 **Does the resist asymmetry survive where models barely concentrate?** The committed test's fitted asymmetry at zero entropy drop is **-0.0867, 95% CI [-0.1383, -0.0352]**, excluding zero, on 32 pairs. It travels with three qualifications, always: the intercept is driven by the full range; two curvature-permitting forms disagree with the intercept moving toward zero as low-end curvature is allowed (linear -0.0867, log1p -0.0640, sqrt -0.0120 spanning zero); and a fit local to the low-concentration regime gives **-0.0205 with an interval spanning zero**. Residuals are systematically positive at the low end (six of eight lowest-drop pairs above the line), which makes the full-range intercept biased rather than merely precise.
 
-**And this may be structurally unresolvable rather than under-powered.** Entropy drop and alignment strength are near-synonyms in this roster, so a low-concentration pair is a *barely-aligned* pair — the cell that tests whether the asymmetry survives without concentration is populated only by models that hardly underwent the operation. **The question that closes this is a registry query, not an experiment:** does any open pair concentrate little and align strongly? If none does, "unresolvable with aligned-model pairs" is the final form and the caveat retires.
+**RESOLVED 2026-08-06, and as the second branch: it is structurally unresolvable, not under-powered.** The roster query ran on a criterion declared before looking (concentrates little = entropy drop < 0.10 nats; aligns strongly = fallers per site at or above the 44-pair median of 13.0; scoreable from `true_word_probs` without new generation). **Of 44 candidate base-to-superego pairs, NONE meet both.**
+
+The five low-concentration pairs show why, and the pattern is more informative than the count:
+
+| pair | entropy drop | displacement |
+|---|---|---|
+| Qwen2.5-0.5B | +0.0033 | 3.5 fallers/site below median |
+| phi-4 | +0.0812 | 10.2 below median |
+| pythia-2.8b (x3, archangel arms) | +0.086 to +0.089 | **0.0 — displaces nothing at all** |
+
+**Every pair that concentrates little also displaces little, and three of the five displace nothing.** In the published population entropy drop and displacement strength are coextensive rather than merely correlated, so asking whether the asymmetry survives without concentration is asking whether it survives without the operation that produces it. **The cell cannot be populated. The caveat retires instead of travelling.**
+
+**One boundary on that sentence.** Coextensive *in the published population* is not coextensive *necessarily*. It is plausibly a contingent fact about how open models are post-trained — similar recipes, similar entropy effects — so a method that aligned without concentrating would populate the cell. The defensible form is **"unresolvable with published aligned-model pairs"**, which is a claim about the available world and not about all possible models. And malign's own limit stands: "aligns strongly" as fallers-at-or-above-median is one operationalisation, declared before looking but untested against alternatives; a JS-divergence or top-k-overlap criterion might admit a pair this one excludes.
+
+**And it makes the committed intercept weaker, not stronger.** The intercept extrapolates to a regime that does not exist in the population, so **the committed number describes a counterfactual model: one that aligns at typical strength while leaving entropy alone.** No such model has been published. This is the fourth companion sentence and it must travel with the other three.
+
+**A method note worth keeping.** The answer was a property of the roster, not of the estimator, and four fits were spent establishing that the estimator could not settle it. When a quantity is read at the edge of the data, ask what populates that edge before asking which curve to fit through it.
 
 **Does the cost live downstream?** The discriminator between chain substitution (no cost anywhere) and full topography (cost in integration) was specified as three channels: containment, frame-break, and renewed displacement after the forced word. **One has run.** Position-resolved damage is flat across all ten continuation positions, LATE minus EARLY -0.0022 at p = 0.98 — but MDEs grow from 0.021 early to 0.110 late, so the instrument is weakest exactly where the competitor predicts the effect. **A model can pay zero probability-cost for the forced word and still steer back to the sanctioned frame, and steering is cheap.** The two remaining channels need no new generation.
 
