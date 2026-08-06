@@ -70,7 +70,9 @@ The words also stay the same. `full` against `no-safety` has faller Jaccard 0.53
 
 **What this licenses and what it does not.** It licenses: *on this family, the operation is insensitive to which SFT corpus is removed, safety included.* It does not license a general claim that safety data is irrelevant to alignment — only that **this operation** is not the safety objective's signature. The reframing is real either way: what findings T measures may be something supervised instruction-following does whatever it is trained on, rather than a suppression the model was specifically taught.
 
-**And it is one family on one base.** Tulu's ablations are the only such suite we have. This wants a second data fan before it carries weight.
+**And it is one family on one base -- permanently, as far as we can establish.** A search of HuggingFace, arXiv and lab post-training documentation (agent report, 2026-08-06, HF API rather than search so the repo ids are real) found **no second suite meeting the bar**: same base, same recipe, one corpus slice removed, weights released. It also confirmed our five arms are the complete Tulu set -- `-no-code-data`, `-no-if-data` and `-no-science-data` were probed for and do not exist -- and that no lab besides H4 and AI2 publishes a safety-in/safety-out pair.
+
+**So the caveat changes status from PENDING to UNAVAILABLE, which is a different thing and should not be read as the same.** "Wants replication" implies replication is possible and someone should get on with it. Here the instrument does not exist in the open-weight ecosystem. The nearest miss is instructive: Meta's MobileLLM-Pro ran leave-one-out ablations across seven instruction-tuning domains and reported them in its tech report, but released four checkpoints and none of the ablated ones. That is the normal case. **This finding rests on one family because one family is all anybody has published**, and it should be quoted with that sentence attached rather than with a promissory note.
 
 **A natural experiment points the same way, more weakly.** `zephyr-7b-beta` is in the roster and its model card is explicit: *"We found that removing the in-built alignment of these datasets boosted performance on MT Bench and made the model more helpful,"* and *"Zephyr-7B-beta has not been aligned to human preferences for safety within the RLHF phase or deployed with in-the-loop filtering."* Its developers stripped alignment out of the training data on purpose and say the model has no safety alignment. It still displaces:
 
@@ -83,6 +85,40 @@ The words also stay the same. `full` against `no-safety` has faller Jaccard 0.53
 **Reduced, not absent** -- about 59 percent of the median family's faller count. A pure safety-artefact account predicts near zero, and 7.27 fallers per site is not that.
 
 **This is weaker evidence than the ablation and should not be quoted as stronger.** Zephyr differs from the other fifteen families in base, corpus, recipe and scale simultaneously, so its position in the distribution is confounded several ways over; being below median may have nothing to do with the missing alignment data. The Tulu fan holds everything fixed but the corpus and is the controlled version of the same question. Zephyr is consistent with it, which is worth recording, and is not independent confirmation of it.
+
+## 6. Same words, same direction, and the field difference is power
+
+Three grains over 1,281,413 word-role rows, 16 families, `scripts/t_ladder_fields.py`.
+
+**Word.** Net-movement profiles for `base -> sft` and `sft -> pref` correlate at **Spearman rho = +0.350, p = 1.3e-232 over 8,108 shared types**. Positive and unmistakable, and also modest -- the rungs agree on direction far more than chance and are nowhere near identical. `whispered` is the top riser at BOTH rungs and `sighed` is in both top tens.
+
+    base -> sft   falls  a, put, he, told, when, threw, turned, in, got, i
+                  rises  whispered, felt, found, watched, made, the, began, take, consider, sighed
+    sft -> pref   falls  he, put, was, went, had, i, gave, the, go, told
+                  rises  whispered, sighed, now, stared, proceeded, carefully, shouted, gently, explain
+
+**Word pair.** 1,101,963 distinct `(faller, riser)` pairs at `base -> sft` against 668,751 at `sft -> pref`, **Jaccard 0.267**, 373,611 shared. The same modest-overlap picture as the word grain.
+
+**Field.** Of 984 and 978 category tests, 32 survive Bonferroni at `base -> sft` and 14 at `sft -> pref`. Split three ways: **29 significant at SFT only, 11 at DPO only, 3 at both** -- `perception_cognition` (+0.051 / +0.054), WordNet `perception` (+0.025 / +0.037), RID `anxiety`. **No sign flips anywhere.**
+
+**That split looks like differentiation and is mostly power.** DPO's effect is a fifth of SFT's amplitude, so SFT clears correction where DPO cannot, and a field present at one rung and absent at the other is more often a detection difference than a difference in kind. Nothing reverses; perception rises at both. **The reading the three grains support together is one operation at two amplitudes**, not two operations.
+
+## 7. DPO is not a register of manner, and a ranked list said it was
+
+The top risers at `sft -> pref` include `gently`, `carefully`, `stared`, `proceeded`, and the induced taxonomy's `quality_manner` is among the fields significant at DPO and not at SFT. That suggested a reading on which SFT installs the prohibition and the later rungs supply comportment -- the cut, then the finishing school. It is wrong.
+
+Manner declared from three independent resources BEFORE the contrast was run, riser share compared between rungs, paired within family:
+
+| manner definition | types | base -> sft | sft -> pref | diff | p |
+|---|---|---|---|---|---|
+| VerbNet `manner_speaking` | 50 | 0.0150 | 0.0162 | +0.0012 | 0.56 |
+| FrameNet `Communication_manner` | 31 | 0.0123 | 0.0124 | +0.0001 | 0.94 |
+| `-ly` adverbs, CLAWS `rr*` | 400 | 0.0231 | 0.0247 | +0.0016 | 0.63 |
+| any of the three | 456 | 0.0383 | 0.0412 | +0.0029 | 0.56 |
+
+**Flat on all four**, 8 or 9 of 16 families higher, a coin flip on every definition. Manner rises at both rungs at the same rate.
+
+**Recorded because the error is the day's most repeated one.** DPO's list reads as manner-inflected because `whispered` and `sighed` top BOTH lists and the adverbs were noticed on the second pass. A ranked list carries no baseline, and four separate claims today have been suggested by a top-N and killed by a denominator. **What DPO does instead remains unspecified**: not manner, not different words (it re-targets SFT's at 2.98x), not different fields once power is accounted for. On present evidence it is the same operation at a fifth the amplitude.
 
 ## 5. Preference optimization removes nothing at all
 
