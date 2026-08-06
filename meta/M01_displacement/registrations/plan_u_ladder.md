@@ -59,4 +59,8 @@ Six families supply `base -> SFT` and `SFT -> DPO`. Three also supply a fourth r
 
 ## Results
 
-**None. Not run.** Results do not belong in this file; they go to `findings/U_ladder.md` when there are any.
+**Run 2026-08-06. They live in `findings/U_ladder.md` and not here; this file stays as written.**
+
+Against the four outcomes above, the answer was **outcome three, one operation applied twice** — but only after a correction. The faller Jaccard between rungs is 0.044, which reads as outcome four, different words. It is not: 72 percent of `base -> SFT`'s fallers are below CANONICAL's floor at SFT and cannot fall again, and among those that can, DPO re-targets them at 2.98 times the rate of everything else available. The near-zero overlap was mechanical and this document's outcome map had no cell for that, which is the one thing it should have anticipated and did not.
+
+Two findings the plan did not foresee at all: the faller share collapses up the ladder (removal stops while addition continues), and **removing the safety corpus from SFT costs the same as removing the maths corpus** — the operation is not the safety objective's signature.

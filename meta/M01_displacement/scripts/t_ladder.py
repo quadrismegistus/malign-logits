@@ -63,9 +63,39 @@ ROOT = os.path.dirname(os.path.dirname(CAMP))
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 
-LADDER = ["allenai/OLMo-2-0425-1B", "allenai/OLMo-2-0425-1B-SFT",
-          "allenai/OLMo-2-0425-1B-DPO", "allenai/OLMo-2-0425-1B-Instruct"]
-SHORT = {c: c.split("-1B")[-1].lstrip("-") or "base" for c in LADDER}
+#: DERIVED FROM THE REGISTRY, never hand-listed. The first version named six
+#: families by grepping for ones this seat recognised and MISSED TEN --
+#: archangel-dpo, minicpm, map-neo, redpajama, stablelm, ct-llm, olmo-hybrid,
+#: beaver, pythia, olmoe. `operation_edges` carries the same warning for the
+#: same reason: a hand-enumerated candidate set is not a derivation.
+PREF = {"dpo", "kto", "ppo", "slic", "orpo", "simpo", "rlhf"}
+STAGE_ORDER = ["base", "sft", "pref", "rlvr"]
+
+
+def ladders(scored):
+    """family -> {stage: checkpoint}, for families with base, sft and a
+    preference stage all scored. `tulu` has no base of its own -- its base is
+    meta-llama/Llama-3.1-8B in the `llama` family -- so it is stitched across
+    families explicitly rather than dropped or silently skipped."""
+    import json
+    R = json.load(open(os.path.join(ROOT, "data", "model_registry.json")))
+    recs = R["models"] if isinstance(R, dict) and "models" in R else R
+    rows = list(recs.values() if isinstance(recs, dict) else recs)
+    fam = collections.defaultdict(dict)
+    for r in rows:
+        mid = r.get("model_id") or r.get("id") or r.get("name")
+        if mid not in scored:
+            continue
+        s = r.get("stage")
+        key = "pref" if s in PREF else s
+        if key in STAGE_ORDER and key not in fam[r.get("family", "?")]:
+            fam[r.get("family", "?")][key] = mid
+    if "tulu" in fam and "base" not in fam["tulu"]:
+        b = "meta-llama/Llama-3.1-8B"
+        if b in scored:
+            fam["tulu"]["base"] = b          # cross-family base, declared not inferred
+    return {f: v for f, v in fam.items()
+            if {"base", "sft", "pref"} <= set(v)}
 
 
 def js(p, q):
@@ -116,76 +146,77 @@ def jac(a, b):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=0, help="cap prompts, for a smoke run")
+    ap.add_argument("--family", default=None, help="run one family only")
     a = ap.parse_args()
 
+    from malign_logits.cache import open_stash
     from malign_logits.prompts import Prompts
+
     #: DEDUPE ON THE STRING. Eight prompt TEXTS exist under two prompt_ids each,
-    #: so a list comprehension over Prompts yields them twice, and a later merge
-    #: keyed on `prompt` then multiplies them 2x2 -- the first run reported
-    #: n=2,206 against 2,190 cells and those eight carried 4x weight in every
-    #: Jaccard mean. The ledger already says retirement operates on STRINGS not
-    #: rows, for exactly this reason. A cell is keyed on text, so the duplicate
-    #: ids produce identical measurements and dropping one is lossless.
+    #: so iterating Prompts yields them twice and a merge keyed on `prompt` then
+    #: multiplies them 2x2 -- the first run reported n=2,206 against 2,190 cells
+    #: and those eight carried 4x weight in every Jaccard mean.
     texts = sorted({p.text for p in Prompts.all(status="ACTIVE")
                     if all(ord(ch) < 128 for ch in p.text) and not getattr(p, "is_logical", False)})
     if a.limit:
         texts = texts[:a.limit]
-    print("prompts: %d\n" % len(texts))
 
-    rungs = [(LADDER[i], LADDER[i + 1]) for i in range(len(LADDER) - 1)]
-    comps = [(LADDER[0], LADDER[2]), (LADDER[0], LADDER[3])]
-    got = {}
-    print("%-22s %7s %9s %9s %9s  %s" % ("step", "cells", "JS mean", "fall/site", "rise/site", "dir"))
-    for pre, post in rungs + comps:
-        D, direction = measure(pre, post, texts)
-        if not len(D):
-            print("%-22s   no cells" % ("%s>%s" % (SHORT[pre], SHORT[post])))
-            continue
-        got[(pre, post)] = D
-        print("%-22s %7d %9.4f %9.2f %9.2f  %s"
-              % ("%s>%s" % (SHORT[pre], SHORT[post]), len(D), D["js"].mean(),
-                 D["n_fall"].mean(), D["n_rise"].mean(), direction), flush=True)
+    ls = open_stash(os.path.join(ROOT, "data", "raw", "cache", "logits"))
+    scored = {k.get("model") for k in ls.keys() if isinstance(k, dict) and k.get("model")}
+    L = ladders(scored)
+    if a.family:
+        L = {k: v for k, v in L.items() if k == a.family}
+    print("prompts %d   families with base+sft+preference scored: %d\n" % (len(texts), len(L)))
 
-    #: THE PRIMARY COMPARISON. Do the rungs move the SAME words?
-    print("\nJACCARD BETWEEN RUNGS, per prompt, over prompts both rungs scored")
-    print("  %-34s %11s %11s %7s" % ("rung pair", "fallers", "risers", "n"))
-    jrows = []
-    for i in range(len(rungs)):
-        for j in range(i + 1, len(rungs)):
-            A, B = got.get(rungs[i]), got.get(rungs[j])
-            if A is None or B is None:
+    steps, jrows = [], []
+    for f, ck in sorted(L.items()):
+        chain = [ck[s] for s in STAGE_ORDER if s in ck]
+        names = [s for s in STAGE_ORDER if s in ck]
+        rungs = [(chain[i], chain[i + 1], "%s>%s" % (names[i], names[i + 1]))
+                 for i in range(len(chain) - 1)]
+        whole = (chain[0], chain[-1], "%s>%s WHOLE" % (names[0], names[-1]))
+        got = {}
+        for pre, post, lab in rungs + [whole]:
+            D, direction = measure(pre, post, texts)
+            if not len(D):
                 continue
+            got[lab] = D
+            steps.append(dict(family=f, step=lab, pre=pre, post=post, cells=len(D),
+                              js=float(D["js"].mean()), fall=float(D["n_fall"].mean()),
+                              rise=float(D["n_rise"].mean()),
+                              faller_share=float(D["n_fall"].sum() / max(D["n_fall"].sum() + D["n_rise"].sum(), 1)),
+                              direction=direction))
+            print("  %-14s %-22s %6d cells  JS %.4f  fall %5.2f  rise %5.2f"
+                  % (f, lab, len(D), D["js"].mean(), D["n_fall"].mean(), D["n_rise"].mean()), flush=True)
+        #: the primary question: do consecutive rungs move the SAME words?
+        labs = [l for _, _, l in rungs if l in got]
+        for i in range(len(labs) - 1):
+            A, B = got[labs[i]], got[labs[i + 1]]
             M = A.merge(B, on="prompt", suffixes=("_a", "_b"))
+            assert len(M) <= min(len(A), len(B)), "merge multiplied rows: duplicate prompt keys"
             if not len(M):
                 continue
-            #: a merge that returns more rows than either side had is a
-            #: non-unique key, not a result. Raise rather than average over it.
-            assert len(M) <= min(len(A), len(B)), (
-                "merge multiplied rows: %d from %d and %d -- duplicate prompt keys"
-                % (len(M), len(A), len(B)))
-            fj = [jac(x, y) for x, y in zip(M["fallers_a"], M["fallers_b"])]
-            rj = [jac(x, y) for x, y in zip(M["risers_a"], M["risers_b"])]
-            lab = "%s>%s vs %s>%s" % (SHORT[rungs[i][0]], SHORT[rungs[i][1]],
-                                      SHORT[rungs[j][0]], SHORT[rungs[j][1]])
-            print("  %-34s %11.4f %11.4f %7d" % (lab, np.nanmean(fj), np.nanmean(rj), len(M)))
-            jrows.append(dict(pair=lab, faller_jaccard=float(np.nanmean(fj)),
-                              riser_jaccard=float(np.nanmean(rj)), n=len(M)))
+            jrows.append(dict(family=f, pair="%s | %s" % (labs[i], labs[i + 1]),
+                              faller_jaccard=float(np.nanmean([jac(x, y) for x, y in zip(M["fallers_a"], M["fallers_b"])])),
+                              riser_jaccard=float(np.nanmean([jac(x, y) for x, y in zip(M["risers_a"], M["risers_b"])])),
+                              n=len(M)))
 
-    #: DO THE RUNGS SUM TO THE EDGE WE HAVE BEEN REPORTING?
-    if all(k in got for k in rungs) and (LADDER[0], LADDER[3]) in got:
-        s = sum(got[k]["js"].mean() for k in rungs)
-        w = got[(LADDER[0], LADDER[3])]["js"].mean()
-        print("\nsum of rung JS %.4f against the whole edge base>Instruct %.4f  (ratio %.2f)"
-              % (s, w, s / w if w else np.nan))
-        print("  JS is not additive, so this is a shape check and not an identity.")
+    S = pd.DataFrame(steps); J = pd.DataFrame(jrows)
+    S.to_csv(os.path.join(OUT, "t_ladder_steps.csv"), index=False)
+    J.to_csv(os.path.join(OUT, "t_ladder_jaccard.csv"), index=False)
 
-    if jrows:
-        pd.DataFrame(jrows).to_csv(os.path.join(OUT, "t_ladder_jaccard.csv"), index=False)
-    pd.concat([D.drop(columns=["fallers", "risers"]).assign(step="%s>%s" % (SHORT[p], SHORT[q]))
-               for (p, q), D in got.items()], ignore_index=True).to_csv(
-        os.path.join(OUT, "t_ladder_steps.csv"), index=False)
-    print("\nwrote t_ladder_steps.csv, t_ladder_jaccard.csv")
-    print("ONE FAMILY. Descriptive. Not the six-family comparison the plan describes.")
+    #: UNIT = THE FAMILY. One vote each, never pooled sites.
+    print("\n%s\nACROSS FAMILIES, one vote each\n%s" % ("=" * 74, "=" * 74))
+    print("  %-14s %7s %9s %9s %9s" % ("rung", "families", "JS med", "fall med", "fallshare"))
+    for lab, g in S[~S["step"].str.contains("WHOLE")].groupby("step"):
+        print("  %-14s %7d %9.4f %9.2f %8.1f%%"
+              % (lab, len(g), g["js"].median(), g["fall"].median(), 100 * g["faller_share"].median()))
+    if len(J):
+        print("\n  consecutive-rung Jaccard, median over families:")
+        for lab, g in J.groupby("pair"):
+            print("    %-30s fallers %.4f  risers %.4f  (%d families)"
+                  % (lab, g["faller_jaccard"].median(), g["riser_jaccard"].median(), len(g)))
+    print("\nwrote t_ladder_steps.csv (%d rows), t_ladder_jaccard.csv (%d)" % (len(S), len(J)))
 
 
 if __name__ == "__main__":
