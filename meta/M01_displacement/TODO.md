@@ -188,6 +188,67 @@ draft must cite the draw rule, not the null. Check which the draft leans on.
 
 ---
 
+## PARKED — THE REGIONAL EMBEDDING TEST. Designed, not started, deliberately.
+
+**Do not confuse this with the pairwise test, which is a settled negative.** Ledger
+clause 6 is VERIFIED as an instrument-failure record: four similarity instruments
+(WordNet, contextual cosine, inverted syntagmatic, embedding percentile) all fail to
+locate what `kill` -> `scream` is, and blind judgment reads the relation instantly.
+Metonymy-as-adjacency also failed in P's REF stratum, 1 of 3, single-coder. **The
+question "is the riser near the faller it replaces" is answered. Do not re-ask it.**
+
+**WHY THE REGIONAL VERSION IS A DIFFERENT QUESTION.** Clause 6 is about the PAIRED
+relation. This is MARGINAL: which neighbourhoods of the model's embedding space
+supply fallers, and which supply risers. Those come apart cleanly — every faller can
+be drawn from one region and every riser from another while WHICH riser replaces
+WHICH faller stays arbitrary. That is not a hypothetical model; it is what findings T
+already describes, one tight falling field against a diffuse rising one (finding 14,
+and the 10-versus-33 asymmetry in finding 11). Marginal structure has survived in this
+campaign in several places where paired structure has not.
+
+**THE ONE OUTCOME THAT WOULD BE LOAD-BEARING.** If the draining region and the filling
+region are ADJACENT in the model's own space, that is metonymy at the regional grain —
+the chain operating between neighbourhoods rather than between words — and it revives
+a claim that is currently twice-failed. **Everything else this test could produce is a
+strengthening move on a claim already carried by six lexicons converging with no
+category reversing.** Decide before running whether the adjacency result is what is
+wanted; if it is not, the test is optional.
+
+**THE DESIGN.**
+
+    unit          the word type, in the model's own input-embedding space
+    partition     k-means over the movement vocabulary (14,761 types); k by
+                  silhouette, reported with its sensitivity, not tuned to an answer
+    statistic     per region per edge, share of riser tokens minus share of faller
+                  tokens -- the same marginal statistic as findings 11-16, so the
+                  results are directly comparable
+    unit of test  THE EDGE. One vote per edge, as everywhere else in T. Do not
+                  binomtest pooled token occurrences; see the header of
+                  `findings/T_category_flow.md` for what that cost once.
+    adjacency     if regions are net sources and net sinks, the load-bearing
+                  question is the distance between the source centroids and the
+                  sink centroids, against a null that permutes region labels
+
+**THE CONSTRAINT THAT WOULD OTHERWISE SINK IT.** Docket [442]: the existing embedding
+resource is five families and **every embedding in it comes from an ALIGNED model**,
+flagged there as reinstalling F13's booked defect #4 at design time. For a rise/fall
+question that is fatal — it measures post-operation geometry to explain the operation.
+**It must be the PRE-OPERATION checkpoint of each edge**, which is the SFT checkpoint
+where an ego exists and the base only for 2-layer families. `scripts/f13_base_embeddings.py`
+already resolves exactly that and its docstring states the rule.
+
+**ONE CHECK BEFORE COMMITTING ANY COMPUTE.** Are the movement words single tokens in
+each model's vocabulary? They come from next-token distributions, so they may be by
+construction — in which case each has exactly one input-embedding row, no forward pass
+is needed, and the cost is minutes per model. If they are multi-token the pooling rule
+becomes a free parameter and an arguable one. **Check on one model first.**
+
+**WHY IT IS PARKED.** RH's call, 2026-08-06, and the reasoning is worth keeping: the
+argument does not need it, the CI deadline does, and the marginal value of a seventh
+instrument is low after a day in which nearly every new instrument shrank something.
+Revive it if a reviewer challenges the lexicon-dependence of the field claim, or if the
+regional-adjacency question becomes worth answering on its own.
+
 ## WHAT SHOULD NOT BE DONE
 
 **DO NOT RE-MEASURE MOVEMENT ON THE LARGER ROSTER.** Clauses 3 and 5 are the
