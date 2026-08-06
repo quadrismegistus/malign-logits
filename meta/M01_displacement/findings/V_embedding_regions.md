@@ -4,6 +4,8 @@ Written 2026-08-06. The plan is `registrations/plan_v_embedding_regions.md`, wri
 
 **This document is largely a null and should not be padded into more.** One route worked, one route failed with its artefact confirmed, and one produced a positive so small it needs its magnitude quoted with it.
 
+Section 6 was added the same day, after RH asked for the frequency control that sections 5 and the plan had both specified and left unrun. It is the one part of this document that came out better than predicted, and the prediction it beat is recorded in the script's own header rather than reconstructed afterwards. It still does not make the document a positive: what section 6 corroborates is findings T, using geometry as the instrument, and it says nothing new about alignment on its own.
+
 ## The question, and why it was not already answered
 
 Ledger clause 6 is VERIFIED as an instrument-failure record: four similarity instruments could not locate the relation between a faller and the riser replacing it. Registration P's REF stratum failed metonymy by annotation, 1 of 3. But both concern the **paired** relation — is *this* riser near *that* faller. RH asked a **marginal** question: which neighbourhoods supply fallers, and which supply risers. Those come apart cleanly, and only the paired one was answered.
@@ -138,11 +140,77 @@ That also explains the frequency axis rather than competing with it. If every pr
 
 **One control specified and not run:** residualise log-frequency out of the vectors and recompute. It separates *alignment shifts register* from *alignment shifts toward rarer words*, which are different claims and only one is interesting. Until it runs, the plain-to-formal reading is not available.
 
+That control has now run. Section 6.
+
+## 6. The frequency control: the register reading does not survive, and a better one replaces it
+
+Run 2026-08-06 as `v_displacement_vector.py --verbs --resid`, the same code path as section 5 with one switch, so the two are comparable by construction. Each of the 1,024 dimensions is regressed on log frequency rank across the 1,312 retained verb types and replaced by its residual. Every one of the 1,312 has a real BYU rank, so nothing is imputed. Frequency accounts for 5.7 percent of the embedding variance over those types.
+
+**The control had power, which is the first thing to establish and not the last.** The axis rotated: `cos(raw axis, residualised axis) = +0.862`, and the raw axis lay at `cos = +0.518` from the frequency direction itself. Roughly half of the raw axis was frequency. Had the rotation come back near 1.0 nothing below would have meant anything, since an unmoved axis cannot have its poles rechecked.
+
+**The plain-to-formal reading does not survive.** Every generic high-frequency verb leaves the from-pole once frequency is out, and the Latinate formality at the to-pole goes with it:
+
+    raw    from  put, got, turn, tell, goes, pull, sat, buy, go, get, call, say, told, push, pay
+           to    observed, administered, determined, addressed, informed, cautioned, suggested,
+                 ignored, wondered, recognized, expressed, accepted, introduced, concluded
+
+    resid  from  put, sat, got, turn, lay, spit, putting, shut, puke, threw, rub, pull, turned,
+                 shook, sit, spun, drown, quit
+           to    considered, appreciate, discovered, consider, explore, understand, examine,
+                 encourage, determine, noticed, realized, identified, understood, established,
+                 recommend, realize, acknowledge, discuss
+
+`go`, `get`, `say`, `tell`, `call`, `buy` and `pay` were on the from-pole because they are common. What is left is the body: `sat`, `lay`, `spit`, `shut`, `puke`, `threw`, `rub`, `shook`, `spun`, `drown`. And `administered` and `cautioned` give way to `consider`, `understand`, `examine`, `notice`, `realize`, `acknowledge`, `discuss`. **The axis runs from bodily action to cognition and deliberation, not from plain to formal.** Register was doing less work than frequency was.
+
+### The pole reading is 36 words of 1,312, so it was checked against all of them
+
+Findings T made the same claim with lexicons. Scoring every retained verb by its axis position, averaging within category, and correlating against T's marginal delta gives, at a minimum of five verb types per category:
+
+| lexicon | categories | residualised | raw |
+|---|---|---|---|
+| induced | 13 | +0.527 (p = 0.064, MDE 0.55) | +0.363 (p = 0.223) |
+| wordnet | 14 | +0.538 (p = 0.047, MDE 0.53) | +0.521 (p = 0.056) |
+| verbnet | 89 | +0.398 (p = 0.0001, MDE 0.21) | +0.372 (p = 0.0003) |
+| usas | 51 | +0.472 (p = 0.0005, MDE 0.28) | +0.216 (p = 0.127) |
+| framenet | 58 | +0.397 (p = 0.0020, MDE 0.26) | +0.381 (p = 0.0031) |
+| rid | 16 | +0.524 (p = 0.037, MDE 0.50) | −0.088 (p = 0.745) |
+
+**Six of six positive, median rho +0.498 against the raw axis's +0.367.** The induced lexicon's two extremes are its top riser and its top category on the axis: `perception_cognition` at delta +0.0489 and mean projection +0.1910, `bodily_violence` at delta −0.0183 and +0.1108. WordNet's `contact` and `motion`, T's two clearest fallers at p = 0.0011 and p = 0.0002, sit first and third from the bottom.
+
+Raising the type minimum to 3, 10 and 20 gives median residualised rho of +0.470, +0.549 and +0.832 against raw +0.333, +0.390 and +0.443. **The +0.832 is not the finding and should not be quoted as one:** at a minimum of 20 only six or seven categories survive per lexicon, and the ones filtered out are the small disagreeing ones, so the number rises because the exceptions leave. Five is reported as primary because it retains the most categories and shows them.
+
+**The disagreements are real and the largest one is where my pole reading leaned hardest.** WordNet `cognition` has the highest mean projection of any supersense, +0.1867, and T's delta for it is −0.0132 at p = 0.578, which is to say cognition does not rise in T at all. WordNet `body` rises in T at p < 0.0001 and sits near the bottom of the axis. A rho near +0.5 is a moderate agreement with visible exceptions, not a match. The induced lexicon's `perception_cognition` and WordNet's `cognition` carve the same territory differently and only one of them agrees.
+
+### What the comparison can and cannot carry
+
+It is **not** independent corroboration of alignment's direction. The axis is `mean(risers) − mean(fallers)` and T's delta is riser share minus faller share, so a category whose words rise will sit toward the riser end more or less mechanically; and the two instruments share 1,358 of T's 1,361 prompts, with partly overlapping model rosters. The absolute rho should never be quoted as evidence about the world.
+
+What is clean is **the comparison between the two columns**, because the mechanical relation is identical for both and cannot produce a difference between them. Removing frequency moves agreement from +0.367 to +0.498, and moves RID from −0.088 to +0.524. The one case going the other way is VerbNet at a minimum of 10 types, +0.257 residualised against +0.417 raw, and it is recorded rather than smoothed.
+
+And the comparison does answer one standing objection to T. Six hand-built taxonomies are still six human category systems, so "the ordering is an artefact of how the categories were drawn" was live. **A pretrained embedding space with no categories in it recovers the same ordering.** T's result is not a taxonomy artefact. That is a claim about the categories, not about alignment, and it is the right size for what was measured.
+
+### Nothing else moved
+
+Everything else in section 5 was recomputed on the residualised vectors and none of it changed sign or verdict:
+
+| | raw | residualised |
+|---|---|---|
+| site alignment, `base>sft` | 0.059 vs null 0.046 | 0.048 vs null 0.039, gap +0.0087, 14/14, p = 0.0001 |
+| site alignment, `sft>pref` | | 0.060 vs null 0.052, gap +0.0083, 11/11, p = 0.0010 |
+| own rungs vs cross-family | 0.238 vs 0.323 | 0.133 vs 0.295 |
+| twin vs random site | 0.327 vs 0.060 | **0.313 vs 0.051**, 14/14, p = 0.0001 |
+
+**There is still no global direction**: both levels fell and the gap stayed unanimous and negligible, which is what the pairing-shuffled null predicts, since it preserves both marginals and therefore carries the frequency gradient itself. **The rungs are still not parallel**, and the gap against U.6 widened. **Scene-locality is not frequency**: sixfold now where it was fivefold, on the same 14 families at the same p.
+
+One number is an arithmetic identity and not a result. On the un-renormalised residuals the projection correlates with log frequency at exactly r = +0.000000, because every column of the residual matrix is orthogonal to centred log frequency and therefore so is any projection of it. It is printed as an implementation check: non-zero there means the code is wrong, zero there means nothing about the world. After row renormalisation, which the raw pipeline also does, the residual correlation is r = +0.039 at p = 0.162.
+
 ## What this leaves
 
 Embedding geometry has now been asked about this operation at six grains: pairwise (clause 6, four instruments, failed), by annotation (Registration P's REF stratum, failed), regionally (section 1, null with a confirmed artefact), set-level within site (section 3, a 4.6 percent floor), scene-controlled (section 4, anti-adjacent), and directional (section 5, no global direction). **The ledger's original verdict survives all six: the faller-riser relation is interpretive, not geometric.**
 
-What geometry did produce is three things, and none is a claim about alignment's direction. Section 2 is a better instrument for grouping the lexicons we already use. Section 4 is a signed result where the others had absences: displacement moves AWAY from what it replaced, small and unanimous. And section 5 is the reason the rest kept failing — **the scene has a direction and alignment does not**, so every pooled measure was averaging over the thing that carries the signal.
+What geometry did produce is four things, and none is a claim about alignment's direction. Section 2 is a better instrument for grouping the lexicons we already use. Section 4 is a signed result where the others had absences: displacement moves AWAY from what it replaced, small and unanimous. Section 5 is the reason the rest kept failing — **the scene has a direction and alignment does not**, so every pooled measure was averaging over the thing that carries the signal. And section 6 turns the pooled axis, which section 5 had written off as the frequency gradient, into a check on findings T: with frequency projected out it runs from bodily action to cognition, and it orders T's categories the way T does on all six lexicons and better than it did before the control. **The pooled axis is not evidence about alignment. It is evidence that T's ordering is not an artefact of how the categories were drawn.**
+
+**Two expectations recorded before section 6 ran were wrong, and are left standing rather than edited away.** The frequency control was expected to close the geometric line; it opened the only lexicon-free corroboration T has. And section 5's reading of the pooled axis as "the frequency gradient of the embedding space" turns out to be half right in a literally measurable sense: half the axis was frequency, `cos = +0.518`, and the rest was the result.
 
 ## Data and code
 
@@ -154,6 +222,11 @@ What geometry did produce is three things, and none is a claim about alignment's
     direction    scripts/v_displacement_vector.py   results/v_displacement_vector.csv
                  --verbs for the vv* restriction    v_displacement_vector_verbs.csv
                                                     v_displacement_twin.csv
+    frequency    --verbs --resid                    v_displacement_vector_verbs_resid.csv
+      control                                       v_displacement_twin_verbs_resid.csv
+                 per-type axis positions            v_axis_projection_verbs{,_resid}.csv
+    axis vs T    scripts/v_axis_vs_fields.py        results/v_axis_vs_fields.csv
+                 T's marginals it is scored against results/s_everything_marginal.csv
     vectors      results/v_bare_vectors.npz         bare bge-m3, 25% depth, 2,268 types
     movement     results/t_ladder_words.parquet     1,281,413 rows, 16 families
     plan         registrations/plan_v_embedding_regions.md

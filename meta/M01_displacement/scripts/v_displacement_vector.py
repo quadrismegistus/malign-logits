@@ -36,6 +36,58 @@ FIVE QUESTIONS, and the first is a control that can kill the rest.
      "transgression has its own direction".
 
 UNIT: the family for every test. VECTORS: bare bge-m3, `v_bare_vectors.npz`.
+
+--------------------------------------------------------------------------
+`--resid`: THE FREQUENCY CONTROL, specified at findings V line 139 and run on
+2026-08-06 after RH asked for it.
+
+The verbs-only axis reads plain Anglo-Saxon action verbs (put, got, go, tell)
+to formal Latinate ones (administered, determined, cautioned, concluded), and
+correlates with log frequency rank at r=+0.554. Latinate words are rarer, so
+"alignment shifts register" and "alignment shifts toward rarer words" predict
+the SAME axis and the correlation cannot choose between them. Residualise:
+regress each of the 1024 dimensions on log frequency rank across the retained
+types, keep the residuals, recompute everything from those.
+
+OUTCOME MAP, all cells, written before running.
+
+  POWER FIRST -- cos(raw axis, residualised axis).
+    ~1.00  the axis did not move; frequency lies almost entirely OUTSIDE the
+           axis and residualising it out was never capable of changing the
+           poles. Survival is then VACUOUS, not evidence. Report as a control
+           that could not fire and stop.
+    <0.95  the axis moved materially and the poles below are a real re-reading.
+
+  THE POLES, the primary read.
+    (a) still plain -> formal. Register survives frequency; it is a second
+        instrument agreeing with findings T's proceduralisation, no shared
+        design between them.
+    (b) legible but a DIFFERENT contrast. Report that contrast as itself. Do
+        not bend it back onto the register story.
+    (c) not legible. The axis was frequency. The plain-to-formal reading is
+        not available, and the geometric line closes with scene-locality as
+        its only survivor.
+
+  SITE ALIGNMENT, obs vs the pairing-shuffled null (raw: 0.059 vs 0.046).
+    Note the null already carries the frequency gradient -- it preserves both
+    marginals and destroys only the pairing -- so the GAP is expected to
+    survive roughly intact while both levels fall. If the gap ALSO vanishes,
+    frequency was interacting with the pairing and that is a finding.
+
+  SCENE-LOCALITY, twin vs random (raw: 0.327 vs 0.060). Predicted to survive:
+    it is a within-scene contrast and frequency is a global gradient. If it
+    does NOT survive, V.5's one robust result was frequency too, which would
+    be the largest negative in plan V and has to be reported as such.
+
+  RUNG PARALLELISM (raw: own 0.238 vs cross-family 0.323). Both fall; the
+    ordering is the content, and it is already recorded as cutting against U.6.
+
+  THE POST-RESIDUAL FREQUENCY CORRELATION IS NOT A RESULT. Without row
+  renormalisation it is exactly zero by construction: every column of X_res is
+  orthogonal to centred lrank, so lrank . (X_res @ a) = 0 for ANY axis a. It is
+  printed as an implementation check -- a non-zero value means the code is
+  wrong, a zero value means nothing about the world. With renormalisation the
+  identity is broken by a nonlinearity and the residual is a small real number.
 """
 
 import os
@@ -97,6 +149,8 @@ def main():
     #: removing both. Same restriction `s_lexicon_crosstab.run(verbs_only=True)`
     #: uses, so the two are comparable.
     ap.add_argument("--verbs", action="store_true", help="lexical verbs (CLAWS vv*) only")
+    ap.add_argument("--resid", action="store_true",
+                    help="residualise log frequency rank out of the vectors first")
     a = ap.parse_args()
     z = np.load(CACHE, allow_pickle=True)
     words = list(z["words"])
@@ -119,11 +173,43 @@ def main():
     else:
         keepi = np.ones(len(words), dtype=bool)
 
-    per_fam = {}
+    #: ---- THE FREQUENCY CONTROL. Regress every dimension on log frequency rank
+    #: across the RETAINED types (the analysis population, so vv* under --verbs),
+    #: keep the residuals. Row renormalisation afterwards matches the raw
+    #: pipeline, which normalises before use; it also breaks the exact-zero
+    #: identity, so the un-renormalised projection is kept for the check.
+    X_raw = X
+    freq_dir = None
+    if a.resid:
+        oov = np.array([w not in rank for w in words])
+        k = keepi
+        y = lrank[k] - lrank[k].mean()
+        Xc = X[k] - X[k].mean(0)
+        beta = (y @ Xc) / (y @ y)                      # 1024 OLS slopes
+        X_res = X - np.outer(lrank - lrank[k].mean(), beta)
+        ss_tot = float((Xc ** 2).sum())
+        ss_exp = float((y @ y) * (beta @ beta))
+        freq_dir = beta / np.linalg.norm(beta)
+        X_plain = X_res                                 # identity holds on this
+        nrm = np.linalg.norm(X_res, axis=1, keepdims=True)
+        X = X_res / np.where(nrm > 0, nrm, 1.0)
+        print("=" * 90)
+        print("RESIDUALISING LOG FREQUENCY RANK OUT OF THE VECTORS")
+        print("=" * 90)
+        print("  fit over %d retained types, of which %d (%.1f%%) have no BYU rank"
+              % (int(k.sum()), int((oov & k).sum()), 100 * (oov & k).mean() / max(k.mean(), 1e-9)))
+        print("  frequency explains %.3f%% of the embedding variance over those types"
+              % (100 * ss_exp / ss_tot))
+        print("  (a small share here is expected and is NOT the power check --")
+        print("   the axis is one direction, not the bulk of the variance)")
+
+    per_fam, per_raw = {}, {}
     for (fam, rung), g in W.groupby(["family", "rung"]):
         sv = site_vectors(g, wi, X)
         if len(sv) >= 50:
             per_fam[(fam, rung)] = sv
+            if a.resid:
+                per_raw[(fam, rung)] = site_vectors(g, wi, X_raw)
     rungs = sorted({r for _, r in per_fam})
     print("families x rungs with >=50 usable sites: %d   rungs: %s\n" % (len(per_fam), rungs))
 
@@ -133,7 +219,25 @@ def main():
     axis = axis / np.linalg.norm(axis)
     proj = X @ axis
 
-    print("=" * 90)
+    if a.resid:
+        raw_base = [v for (f, r), sv in per_raw.items() if r == "base>sft" for v, _, _ in sv.values()]
+        raw_axis = np.mean(raw_base, axis=0)
+        raw_axis = raw_axis / np.linalg.norm(raw_axis)
+        rot = float(raw_axis @ axis)
+        load = float(raw_axis @ freq_dir)
+        pj = X_plain @ axis
+        rid, _ = stats.pearsonr(lrank[keepi], pj[keepi])
+        print("\n  POWER CHECK -- could this control have changed anything?")
+        print("    cos(raw axis, residualised axis)        %+.4f" % rot)
+        print("    cos(raw axis, frequency direction)      %+.4f" % load)
+        print("    -> |cos| near 1 on the first line means the axis did not move and")
+        print("       whatever survives below survives VACUOUSLY. Below ~0.95 the")
+        print("       control had power and the poles are a genuine re-reading.")
+        print("    IMPLEMENTATION CHECK, not a result: projection ~ log freq on the")
+        print("    un-renormalised residuals r=%+.6f (exactly 0 by construction;" % rid)
+        print("    a non-zero value here means the residualisation is coded wrong)")
+
+    print("\n" + "=" * 90)
     print("CONTROL FIRST: is the axis just word class or frequency?")
     print("=" * 90)
     ro, po = stats.pointbiserialr(isopen[keepi].astype(int), proj[keepi]) \
@@ -173,7 +277,8 @@ def main():
         rows.append(dict(family=fam, rung=rung, n_sites=len(sv), obs=obs,
                          null=float(np.mean(nulls)), gap=obs - float(np.mean(nulls))))
     A = pd.DataFrame(rows)
-    A.to_csv(os.path.join(OUT, "v_displacement_vector%s.csv" % ("_verbs" if a.verbs else "")), index=False)
+    sfx = ("_verbs" if a.verbs else "") + ("_resid" if a.resid else "")
+    A.to_csv(os.path.join(OUT, "v_displacement_vector%s.csv" % sfx), index=False)
     for rung, g in A.groupby("rung"):
         if len(g) < 6:
             continue
@@ -190,6 +295,15 @@ def main():
     o = idx[np.argsort(proj[idx])]
     print("  most NEGATIVE (the from-pole):  %s" % ", ".join(words[i] for i in o[:18]))
     print("  most POSITIVE (the to-pole):    %s" % ", ".join(words[i] for i in o[-18:][::-1]))
+    #: every retained type's position on the axis, so the pole reading can be
+    #: tested on all of them rather than on the 36 printed here. Dumped from
+    #: HERE rather than recomputed downstream: a second script re-deriving the
+    #: axis is a second estimator, and the two drift without either being wrong.
+    pd.DataFrame(dict(word=[words[i] for i in idx], proj=proj[idx],
+                      pos=[pos.get(words[i], "") for i in idx],
+                      log_freq_rank=lrank[idx])).to_csv(
+        os.path.join(OUT, "v_axis_projection%s.csv"
+                     % (("_verbs" if a.verbs else "") + ("_resid" if a.resid else ""))), index=False)
 
     print("\n" + "=" * 90)
     print("3. IS SFT PARALLEL TO DPO?")
@@ -240,8 +354,8 @@ def main():
         print("  cosine between two RANDOM sites' vectors:              %.4f" % T["random_cos"].mean())
         print("  %d/%d families higher for twins   p=%.4f" % (int((T["twin_cos"] > T["random_cos"]).sum()), len(T), p))
         print("  -> higher for twins = the scene sets the direction; equal = the direction is global.")
-        T.to_csv(os.path.join(OUT, "v_displacement_twin.csv"), index=False)
-    print("\nwrote v_displacement_vector.csv")
+        T.to_csv(os.path.join(OUT, "v_displacement_twin%s.csv" % sfx), index=False)
+    print("\nwrote v_displacement_vector%s.csv" % sfx)
 
 
 if __name__ == "__main__":
