@@ -86,40 +86,6 @@ The words also stay the same. `full` against `no-safety` has faller Jaccard 0.53
 
 **This is weaker evidence than the ablation and should not be quoted as stronger.** Zephyr differs from the other fifteen families in base, corpus, recipe and scale simultaneously, so its position in the distribution is confounded several ways over; being below median may have nothing to do with the missing alignment data. The Tulu fan holds everything fixed but the corpus and is the controlled version of the same question. Zephyr is consistent with it, which is worth recording, and is not independent confirmation of it.
 
-## 6. Same words, same direction, and the field difference is power
-
-Three grains over 1,281,413 word-role rows, 16 families, `scripts/t_ladder_fields.py`.
-
-**Word.** Net-movement profiles for `base -> sft` and `sft -> pref` correlate at **Spearman rho = +0.350, p = 1.3e-232 over 8,108 shared types**. Positive and unmistakable, and also modest -- the rungs agree on direction far more than chance and are nowhere near identical. `whispered` is the top riser at BOTH rungs and `sighed` is in both top tens.
-
-    base -> sft   falls  a, put, he, told, when, threw, turned, in, got, i
-                  rises  whispered, felt, found, watched, made, the, began, take, consider, sighed
-    sft -> pref   falls  he, put, was, went, had, i, gave, the, go, told
-                  rises  whispered, sighed, now, stared, proceeded, carefully, shouted, gently, explain
-
-**Word pair.** 1,101,963 distinct `(faller, riser)` pairs at `base -> sft` against 668,751 at `sft -> pref`, **Jaccard 0.267**, 373,611 shared. The same modest-overlap picture as the word grain.
-
-**Field.** Of 984 and 978 category tests, 32 survive Bonferroni at `base -> sft` and 14 at `sft -> pref`. Split three ways: **29 significant at SFT only, 11 at DPO only, 3 at both** -- `perception_cognition` (+0.051 / +0.054), WordNet `perception` (+0.025 / +0.037), RID `anxiety`. **No sign flips anywhere.**
-
-**That split looks like differentiation and is mostly power.** DPO's effect is a fifth of SFT's amplitude, so SFT clears correction where DPO cannot, and a field present at one rung and absent at the other is more often a detection difference than a difference in kind. Nothing reverses; perception rises at both. **The reading the three grains support together is one operation at two amplitudes**, not two operations.
-
-## 7. DPO is not a register of manner, and a ranked list said it was
-
-The top risers at `sft -> pref` include `gently`, `carefully`, `stared`, `proceeded`, and the induced taxonomy's `quality_manner` is among the fields significant at DPO and not at SFT. That suggested a reading on which SFT installs the prohibition and the later rungs supply comportment -- the cut, then the finishing school. It is wrong.
-
-Manner declared from three independent resources BEFORE the contrast was run, riser share compared between rungs, paired within family:
-
-| manner definition | types | base -> sft | sft -> pref | diff | p |
-|---|---|---|---|---|---|
-| VerbNet `manner_speaking` | 50 | 0.0150 | 0.0162 | +0.0012 | 0.56 |
-| FrameNet `Communication_manner` | 31 | 0.0123 | 0.0124 | +0.0001 | 0.94 |
-| `-ly` adverbs, CLAWS `rr*` | 400 | 0.0231 | 0.0247 | +0.0016 | 0.63 |
-| any of the three | 456 | 0.0383 | 0.0412 | +0.0029 | 0.56 |
-
-**Flat on all four**, 8 or 9 of 16 families higher, a coin flip on every definition. Manner rises at both rungs at the same rate.
-
-**Recorded because the error is the day's most repeated one.** DPO's list reads as manner-inflected because `whispered` and `sighed` top BOTH lists and the adverbs were noticed on the second pass. A ranked list carries no baseline, and four separate claims today have been suggested by a top-N and killed by a denominator. **What DPO does instead remains unspecified**: not manner, not different words (it re-targets SFT's at 2.98x), not different fields once power is accounted for. On present evidence it is the same operation at a fifth the amplitude.
-
 ## 5. Preference optimization removes nothing at all
 
 Four preference methods diverging from a single shared SFT checkpoint — the only place in the roster where recipe varies with the base, the corpus and the SFT stage all held fixed:
@@ -136,6 +102,50 @@ Four preference methods diverging from a single shared SFT checkpoint — the on
 **The confound is the base, and it is serious.** This fan sits on pythia-2.8b, whose faller share is near zero at every rung and in every edge of the main population — the pythia edges are the lowest in all 43 at 0.7 to 1.4 percent. So this may be a fact about Pythia rather than about preference methods. What it does establish is that **four different preference algorithms agree with each other**, which is worth having: whatever accounts for the near-zero fallers, it is not specific to DPO.
 
 **A registry-labelling artefact hid three quarters of this fan** from the family-level analysis and is recorded so it is not re-encountered. The shared SFT checkpoint is filed under `family=archangel-dpo` while the kto, ppo and slic arms sit in their own families, so a per-family ladder search finds no base and no SFT for three of the four and skips them. `t_ladder.py` saw one Archangel family where there are four. The fan definitions in `t_fans.py` are declared by hand for exactly this reason.
+
+## 6. Same words, same direction, and the field difference is power
+
+Three grains over 1,281,413 word-role rows, 16 families, `scripts/t_ladder_fields.py`.
+
+**Word.** Net-movement profiles for `base -> sft` and `sft -> pref` correlate at **Spearman rho = +0.350, p = 1.3e-232 over 8,108 shared types**. Positive and unmistakable, and also modest -- the rungs agree on direction far more than chance and are nowhere near identical. `whispered` is the top riser at BOTH rungs and `sighed` is in both top tens.
+
+    base -> sft   falls  a, put, he, told, when, threw, turned, in, got, i
+                  rises  whispered, felt, found, watched, made, the, began, take, consider, sighed
+    sft -> pref   falls  he, put, was, went, had, i, gave, the, go, told
+                  rises  whispered, sighed, now, stared, proceeded, carefully, shouted, gently, explain
+
+**Word pair.** 1,101,963 distinct `(faller, riser)` pairs at `base -> sft` against 668,751 at `sft -> pref`, **Jaccard 0.267**, 373,611 shared. The same modest-overlap picture as the word grain.
+
+**Field.** Of 984 and 978 category tests, 32 survive Bonferroni at `base -> sft` and 14 at `sft -> pref`. Split three ways: **29 significant at SFT only, 11 at DPO only, 3 at both** -- `perception_cognition` (+0.051 / +0.054), WordNet `perception` (+0.025 / +0.037), RID `anxiety`.
+
+**No SIGNIFICANT effect reverses**, and the precise version of that sentence matters because an earlier draft read "no sign flips anywhere" and a reader checking the CSV finds three (registrar, [4777]). Three of the 43 survivor categories do flip sign in POINT ESTIMATE across rungs, and in each the opposite-signed side is noise:
+
+| category | base -> sft | sft -> pref |
+|---|---|---|
+| framenet `Causation` | +0.0108 significant | -0.0018, p = 0.70 |
+| wordnet `social` | +0.0232 significant | -0.0008, p = 0.93 |
+| induced `contact_care` | -0.0012, p = 0.53 | +0.0070 significant |
+
+**Three survivors carry opposite-signed noise-level point estimates at the other rung. No significant effect reverses.** The two statements differ and only the second is true.
+
+**That split looks like differentiation and is mostly power.** DPO's effect is a fifth of SFT's amplitude, so SFT clears correction where DPO cannot, and a field present at one rung and absent at the other is more often a detection difference than a difference in kind. Nothing reverses; perception rises at both. **The reading the three grains support together is one operation at two amplitudes**, not two operations.
+
+## 7. DPO is not a register of manner, and a ranked list said it was
+
+The top risers at `sft -> pref` include `gently`, `carefully`, `stared`, `proceeded`, and the induced taxonomy's `quality_manner` is among the fields significant at DPO and not at SFT. That suggested a reading on which SFT installs the prohibition and the later rungs supply comportment -- the cut, then the finishing school. It is wrong.
+
+Manner declared from three independent resources BEFORE the contrast was run, riser share compared between rungs, paired within family, 16 families one vote each (`scripts/t_manner.py`, `results/t_manner.csv`):
+
+| manner definition | types | base -> sft | sft -> pref | diff | p |
+|---|---|---|---|---|---|
+| VerbNet `manner_speaking` | 50 | 0.0150 | 0.0162 | +0.0012 | 0.56 |
+| FrameNet `Communication_manner` | 31 | 0.0123 | 0.0124 | +0.0001 | 0.94 |
+| `-ly` adverbs, CLAWS `rr*` | 400 | 0.0231 | 0.0247 | +0.0016 | 0.63 |
+| any of the three | 456 | 0.0383 | 0.0412 | +0.0029 | 0.56 |
+
+**Flat on all four**, 8 or 9 of 16 families higher, a coin flip on every definition. Manner rises at both rungs at the same rate.
+
+**Recorded because the error is the day's most repeated one.** DPO's list reads as manner-inflected because `whispered` and `sighed` top BOTH lists and the adverbs were noticed on the second pass. A ranked list carries no baseline, and four separate claims today have been suggested by a top-N and killed by a denominator. **What DPO does instead remains unspecified**: not manner, not different words (it re-targets SFT's at 2.98x), not different fields once power is accounted for. On present evidence it is the same operation at a fifth the amplitude.
 
 ## Limits
 
