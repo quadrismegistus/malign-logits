@@ -98,11 +98,47 @@ The scene is real and accounts for most of section 3's 4.6 percent. But **within
 
 **And this was a cell the outcome map did not contain.** Three were declared — own closer than twin, own equal, all three equal — and the answer was own *farther*. The script's fall-through branch collapsed "not closer" into "topic only" and printed the wrong conclusion until it was corrected. **Plan U's map had the same hole and this one was written knowing that.** An enumeration of outcomes is only as good as its coverage of the sign, and twice now the missing cell is the one that landed.
 
+## 5. Direction: the scene has one, alignment does not
+
+RH's question after section 4: can a faller-to-riser vector be identified and used? Distance had failed at five grains, but **a vector asks which way rather than how far, and the two are independent** — sets can be far apart and consistently offset, which section 4 made a live possibility rather than an idle one. `scripts/v_displacement_vector.py`, run pooled and again restricted to CLAWS `vv*` lexical verbs (RH's suggestion, the same restriction `s_lexicon_crosstab` uses).
+
+**The control fails, and the verb restriction ISOLATED the artefact rather than removing it.**
+
+| | pooled | verbs only |
+|---|---|---|
+| axis ~ log frequency rank | r = +0.460 | **r = +0.554** |
+| axis ~ open-class | r = +0.392 | undefined by construction |
+
+Removing the class variance made frequency *more* visible, not less. And the verb poles are interpretable and confounded in the same breath:
+
+    from   put, got, turn, tell, goes, pull, sat, buy, go, get, call, say, told, push, pay, throw
+    to     observed, administered, determined, addressed, informed, cautioned, suggested,
+           ignored, wondered, recognized, expressed, accepted, introduced, concluded
+
+**Plain Anglo-Saxon action verbs to formal Latinate ones.** That rhymes with findings T's proceduralisation — `administered`, `cautioned`, `recognized`, `concluded` is the neighbourhood of `Caution`, `Constraint` and `Investigate`. But **Latinate words are rarer**, so "shifts register" and "shifts toward rarer words" predict the same axis and r = 0.554 cannot choose between them.
+
+**There is no global direction.** Mean pairwise cosine between site vectors is **0.059**, against a pairing-shuffled null of 0.046 — the null keeps every faller set and every riser set and destroys only which pairs with which. The gap is real (14/14 families, p = 0.0001) and negligible. Site vectors are near-orthogonal to one another.
+
+**The rungs are not parallel, which cuts against findings U.6.** A family's own `base>sft` and `sft>pref` axes agree at **0.238**, while two *different* families' `base>sft` axes agree at **0.323** — its own rungs less aligned than strangers' same rung, over a range of −0.86 to +0.70. U.6 concluded "one operation at two amplitudes" from word overlap and a field split; the geometric version does not support it. Held loosely, because section 5 has just established that the whole vector measure is weak, but recorded as a negative rather than as neutral.
+
+**And the one robust result is scene-locality:**
+
+| | cosine |
+|---|---|
+| a marked site's vector vs **its twin's** | **0.327** |
+| vs a random site's | 0.060 |
+
+Fivefold, 14 of 14 families, p = 0.0001, and unchanged by the verb restriction. **The direction of displacement is a property of the scene, not of alignment.**
+
+That also explains the frequency axis rather than competing with it. If every prompt displaces in its own direction, averaging thousands of them cancels the scene-specific components and leaves only what they all share — the frequency gradient of the embedding space itself. **The pooled "axis of alignment" is an artefact of pooling directions that are not pooled in nature.**
+
+**One control specified and not run:** residualise log-frequency out of the vectors and recompute. It separates *alignment shifts register* from *alignment shifts toward rarer words*, which are different claims and only one is interesting. Until it runs, the plain-to-formal reading is not available.
+
 ## What this leaves
 
-Embedding geometry has now been asked about this operation at four grains: pairwise (clause 6, four instruments, failed), by annotation (Registration P's REF stratum, failed), regionally (section 1, null with a confirmed artefact), and set-level within site (section 3, a 4.6 percent floor). **The ledger's original verdict survives all four: the faller-riser relation is interpretive, not geometric.**
+Embedding geometry has now been asked about this operation at six grains: pairwise (clause 6, four instruments, failed), by annotation (Registration P's REF stratum, failed), regionally (section 1, null with a confirmed artefact), set-level within site (section 3, a 4.6 percent floor), scene-controlled (section 4, anti-adjacent), and directional (section 5, no global direction). **The ledger's original verdict survives all six: the faller-riser relation is interpretive, not geometric.**
 
-What geometry did produce is two things. Section 2 is not a claim about alignment at all, but a better instrument for grouping the lexicons we already use. And section 4 is the one positive: not adjacency but its opposite, small, unanimous, and the only signed result the geometry has yielded.
+What geometry did produce is three things, and none is a claim about alignment's direction. Section 2 is a better instrument for grouping the lexicons we already use. Section 4 is a signed result where the others had absences: displacement moves AWAY from what it replaced, small and unanimous. And section 5 is the reason the rest kept failing — **the scene has a direction and alignment does not**, so every pooled measure was averaging over the thing that carries the signal.
 
 ## Data and code
 
@@ -111,6 +147,9 @@ What geometry did produce is two things. Section 2 is not a claim about alignmen
     field cosine scripts/v_field_cosine.py          results/v_field_cosine.csv
     relatedness  scripts/v_site_relatedness.py      results/v_site_relatedness.csv
     twin control scripts/v_twin_control.py          results/v_twin_control.csv
+    direction    scripts/v_displacement_vector.py   results/v_displacement_vector.csv
+                 --verbs for the vv* restriction    v_displacement_vector_verbs.csv
+                                                    v_displacement_twin.csv
     vectors      results/v_bare_vectors.npz         bare bge-m3, 25% depth, 2,268 types
     movement     results/t_ladder_words.parquet     1,281,413 rows, 16 families
     plan         registrations/plan_v_embedding_regions.md
