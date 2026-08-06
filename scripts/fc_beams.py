@@ -47,6 +47,7 @@ stems sharing a prompt would merge silently. Coverage checked 2026-08-07: all
 import argparse
 import collections
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -81,10 +82,40 @@ def index(st, pair=None, grep=None, meta=None, want=None):
     return by
 
 
-def show(st, pair, prompt, d, top=TOP, meta=None):
+def pick(rec, top, dedupe=2, spread=False):
+    """Choose which of the 100 beams to print, and say what was collapsed.
+
+    **The top 5 by log prob are near-identical and that is not a display quirk,
+    it is the object.** At one Falcon3-7B site all 100 beams open with the same
+    word and only 15 distinct first-two-word openings exist. Printing ranks 1-5
+    therefore shows one continuation five times and hides the variety that does
+    exist further down. Deduping on the opening words surfaces it; the collapse
+    count is returned and printed, because how concentrated the beam set is says
+    something the beams themselves do not.
+    """
+    bs = sorted(rec["beams"], key=lambda b: -b["log_prob"])
+    n = len(bs)
+    if spread:
+        if n <= top:
+            return bs, "%d beams" % n
+        idx = [round(i * (n - 1) / (top - 1)) for i in range(top)] if top > 1 else [0]
+        return [bs[i] for i in idx], "ranks %s of %d" % (
+            ",".join(str(i + 1) for i in idx), n)
+    if not dedupe:
+        return bs[:top], "top %d of %d" % (min(top, n), n)
+    seen, out = set(), []
+    for b in bs:
+        key = " ".join(re.findall(r"[a-z']+", b["text"].lower())[:dedupe])
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(b)
+    return out[:top], "%d distinct openings of %d beams" % (len(seen), n)
+
+
+def show(st, pair, prompt, d, top=TOP, meta=None, dedupe=2, spread=False):
     def beams(key):
-        rec = st[key]
-        return sorted(rec["beams"], key=lambda b: -b["log_prob"])[:top]
+        return pick(st[key], top, dedupe, spread)
 
     print("=" * 78)
     print("PAIR   ", pair)
@@ -99,8 +130,9 @@ def show(st, pair, prompt, d, top=TOP, meta=None):
         k = d.get((role, "undisturbed", ""))
         if not k:
             continue
-        print("\n--- %s, undisturbed" % role.upper())
-        for b in beams(k):
+        bs, note = beams(k)
+        print("\n--- %s, undisturbed        [%s]" % (role.upper(), note))
+        for b in bs:
             print("    %+8.2f  %s" % (b["log_prob"], repr(b["text"])[:66]))
     #: **BOTH ROLES, BOTH WORDS -- the design is a 2x2 and printing one row of
     #: it misrepresents the measure.** `dd` is the difference-in-differences
@@ -115,8 +147,10 @@ def show(st, pair, prompt, d, top=TOP, meta=None):
             for (r, a, w), k in sorted(d.items()):
                 if a != arm or r != role:
                     continue
-                print("\n--- %-7s %s: %r" % (role.upper(), label, w))
-                for b in beams(k):
+                bs, note = beams(k)
+                print("\n--- %-7s %s: %-12r [%s]"
+                      % (role.upper(), label, w, note))
+                for b in bs:
                     print("    %+8.2f  %s" % (b["log_prob"], repr(b["text"])[:66]))
     dem = sorted({w for (r, a, w) in d if a == "force_faller"})
     pro = sorted({w for (r, a, w) in d if a == "force_riser"})
@@ -130,7 +164,11 @@ def main():
     ap.add_argument("--pair", help="substring of the pair id")
     ap.add_argument("--grep", help="substring of the prompt")
     ap.add_argument("-n", type=int, default=1, help="how many sites to print")
-    ap.add_argument("--top", type=int, default=TOP, help="beams per arm")
+    ap.add_argument("--top", type=int, default=TOP, help="beams printed per arm")
+    ap.add_argument("--dedupe", type=int, default=2, metavar="N",
+                    help="collapse beams sharing their first N words (default 2; 0 = off)")
+    ap.add_argument("--spread", action="store_true",
+                    help="sample evenly across all 100 ranks instead of deduping")
     ap.add_argument("--domain", help="animal betrayal power property sexual taboo violence")
     ap.add_argument("--member", help="MARKED/transgressive or UNMARKED/neutral")
     ap.add_argument("--transgressive", action="store_true", help="= --member MARKED")
@@ -212,11 +250,11 @@ def main():
               % (len(full), half))
         for (pair, stem), members in sorted(full.items())[:a.n]:
             for _, prompt, d in sorted(members, key=lambda x: x[0] != "MARKED"):
-                show(st, pair, prompt, d, a.top, meta)
+                        show(st, pair, prompt, d, a.top, meta, a.dedupe, a.spread)
         return
 
     for pair, prompt, d in ok[:a.n]:
-        show(st, pair, prompt, d, a.top, meta)
+        show(st, pair, prompt, d, a.top, meta, a.dedupe, a.spread)
 
 
 if __name__ == "__main__":
