@@ -92,7 +92,11 @@ Three levels, so the answer decomposes rather than being a binary. `scripts/v_tw
 
 The scene is real and accounts for most of section 3's 4.6 percent. But **within the scene, a site's own risers are FARTHER from its fallers than its twin's risers are** — unanimously, at both rungs, p=0.0001.
 
-**Displacement moves away from what it replaced.** Holding the scene to a single word's difference, what rises at a site sits further from what fell there than what rises at its near-identical twin. That is the opposite of what metonymy predicts, and it is the first **signed** geometric result in the campaign: four grains have reported absences, this one has a direction.
+**Displacement moves away from what it replaced — ON AVERAGE.** Holding the scene to a single word's difference, what rises at a site sits further from what fell there than what rises at its near-identical twin. That is the opposite of what metonymy predicts, and it is the first **signed** geometric result in the campaign: four grains have reported absences, this one has a direction.
+
+**The qualifier is load-bearing and section 5 is why.** This is an aggregate over the sites within a family, and section 5 establishes that displacement direction is a property of the SCENE. **The result therefore does not distribute: nothing here establishes that any individual site is anti-adjacent**, only that the family-level mean is. The quotable sentence is *the relation is anti-adjacent on average, +0.32 percent against a scene effect of 2.11 percent*, and the size travels with it.
+
+That qualifier reached the docket at [4780] before it reached this file, which is the wrong order — the file is the quotable record and it carried the stronger claim for three commits.
 
 **Quote it with its size.** +0.32 percent of the reference against the scene's 2.11. Unanimous and tiny.
 
