@@ -117,6 +117,28 @@ def f12(M):
     return "\n".join(o)
 
 
+def _four():
+    """The four-cell within-stem test, asked of words instead of categories."""
+    f = os.path.join(OUT, "s_depth_breadth.csv")
+    if not os.path.exists(f):
+        return ""
+    D = pd.read_csv(f)
+    g = lambda r, k: D[(D["role"] == r) & (D["kind"] == k)].iloc[0]
+    o = ["**Asked of the words directly, with no lexicon, the claim resolves into four cells and the directional half does not survive.** Breadth is words moved per site, depth is mean |delta| per word moved, crossed with role. Pairing is within stem -- both members of a minimal pair at the same edge, so the transgressive word is the only difference -- on %s paired cells. The test is per EDGE, because %s pairs are 43 edges times a few hundred stems and a pair-level Wilcoxon returns p=1e-17 for a 2 percent difference. `scripts/s_depth_breadth.py`."
+         % (f"{int(D.n_pairs.max()):,}", f"{int(D.n_pairs.max()):,}"), "",
+         "| | marked | neutral twin | diff | | edges | |", "|---|---|---|---|---|---|---|"]
+    for r, k in (("faller", "breadth"), ("faller", "depth"), ("riser", "breadth"), ("riser", "depth")):
+        x = g(r, k)
+        o.append("| %s, %s | %.5f | %.5f | %+.5f | %.1f%% | %d/%d | %s |"
+                 % (r, k, x["marked"], x["unmarked"], x["diff"], x["pct"],
+                    x["edges_pos"], x["n_edges"], "**detected** p=%.4f" % x["p"] if x["detected"] else "null p=%.3f" % x["p"]))
+    o += ["", "**Both faller cells detect. Both riser cells are null.** That supports *substitution does not differ by markedness*, which is the defensible form of \"substitution is general\", and it gives no support to what this section originally claimed, that risers are larger in the neutral twin: the riser point estimates run marginally the other way and are null both times. **The neutral-twin-larger claim is dropped rather than left open.**", "",
+          "The sentence the paper can carry: *alignment's withdrawal is transgression-specific in how many words it pulls down and in how far it pulls them; its substitution is not transgression-specific in either.* Two detections, two nulls, word level, no lexicon.", "",
+          "**Two limits that travel with it.** The effects are small -- %.1f percent on breadth and %.1f percent on depth -- and significant because the population is large. And the breadth effect is carried by a tail: marked is larger at only %.1f percent of paired cells while the mean difference is positive, so the mean should not be quoted without that share. malign's 744-site population reports breadth flat at about 1 percent and wrong-signed (docket [4748]); an effect of this size is below what that population can see, so their depth-not-breadth reading is a statement about n rather than about alignment."
+          % (g("faller", "breadth")["pct"], g("faller", "depth")["pct"], g("faller", "breadth")["share_marked_larger"]), ""]
+    return "\n".join(o)
+
+
 def f13(M):
     L = M[M["labeling"] != "TOKEN"]
     a = L[L["stratum"] == "m01_marked"].set_index(["labeling", "category"])
@@ -157,6 +179,9 @@ def f13(M):
           "The two quantities are not identical either -- ours is a category share aggregated over lexicons, theirs is a per-site magnitude -- and they can diverge honestly. **Current standing: the withdrawal asymmetry is supported at two seats, significant at one summary of two. The substitution asymmetry is unresolved, bounded under the size we claim but never tested against it at adequate power.** Our own omnibus for the riser half remains the weaker of the two tests reported above, so the paper should carry the withdrawal claim and mark the substitution claim open.", "",
           #: this is a prediction our finding makes about their instrument, which
           #: is the only kind of cross-check here that is not just agreement
+          #: the four-cell test asks the same question of the words directly and
+          #: is the version the paper should carry
+          _four(),
           "**And finding 14 predicts which of those four statistics would be unstable, which is the part worth pursuing.** Fallers are few and large, so top-of-site and summed are nearly the same object and both faller rows sit close together. Risers are many and small, so the summary choice moves the riser estimate across zero. That is our finding making a checkable prediction about a different seat's instrument rather than agreeing with its output. It is testable directly: count movers per site on their population, and fallers should be few where risers are many. Not yet run.", ""]
     return "\n".join(o)
 

@@ -342,6 +342,21 @@ Alignment removes the violent word only where there is one. It adds the delibera
 
 The two quantities are not identical either -- ours is a category share aggregated over lexicons, theirs is a per-site magnitude -- and they can diverge honestly. **Current standing: the withdrawal asymmetry is supported at two seats, significant at one summary of two. The substitution asymmetry is unresolved, bounded under the size we claim but never tested against it at adequate power.** Our own omnibus for the riser half remains the weaker of the two tests reported above, so the paper should carry the withdrawal claim and mark the substitution claim open.
 
+**Asked of the words directly, with no lexicon, the claim resolves into four cells and the directional half does not survive.** Breadth is words moved per site, depth is mean |delta| per word moved, crossed with role. Pairing is within stem -- both members of a minimal pair at the same edge, so the transgressive word is the only difference -- on 28,931 paired cells. The test is per EDGE, because 28,931 pairs are 43 edges times a few hundred stems and a pair-level Wilcoxon returns p=1e-17 for a 2 percent difference. `scripts/s_depth_breadth.py`.
+
+| | marked | neutral twin | diff | | edges | |
+|---|---|---|---|---|---|---|
+| faller, breadth | 13.01362 | 12.64184 | +0.37178 | 2.9% | 28/43 | **detected** p=0.0009 |
+| faller, depth | 0.00759 | 0.00743 | +0.00016 | 2.2% | 25/38 | **detected** p=0.0009 |
+| riser, breadth | 11.93315 | 11.86883 | +0.06433 | 0.5% | 28/43 | null p=0.069 |
+| riser, depth | 0.02276 | 0.02243 | +0.00033 | 1.5% | 22/38 | null p=0.464 |
+
+**Both faller cells detect. Both riser cells are null.** That supports *substitution does not differ by markedness*, which is the defensible form of "substitution is general", and it gives no support to what this section originally claimed, that risers are larger in the neutral twin: the riser point estimates run marginally the other way and are null both times. **The neutral-twin-larger claim is dropped rather than left open.**
+
+The sentence the paper can carry: *alignment's withdrawal is transgression-specific in how many words it pulls down and in how far it pulls them; its substitution is not transgression-specific in either.* Two detections, two nulls, word level, no lexicon.
+
+**Two limits that travel with it.** The effects are small -- 2.9 percent on breadth and 2.2 percent on depth -- and significant because the population is large. And the breadth effect is carried by a tail: marked is larger at only 42.6 percent of paired cells while the mean difference is positive, so the mean should not be quoted without that share. malign's 744-site population reports breadth flat at about 1 percent and wrong-signed (docket [4748]); an effect of this size is below what that population can see, so their depth-not-breadth reading is a statement about n rather than about alignment.
+
 **And finding 14 predicts which of those four statistics would be unstable, which is the part worth pursuing.** Fallers are few and large, so top-of-site and summed are nearly the same object and both faller rows sit close together. Risers are many and small, so the summary choice moves the riser estimate across zero. That is our finding making a checkable prediction about a different seat's instrument rather than agreeing with its output. It is testable directly: count movers per site on their population, and fallers should be few where risers are many. Not yet run.
 
 ## 14. Few large fallers, many small risers: displacement along a chain
