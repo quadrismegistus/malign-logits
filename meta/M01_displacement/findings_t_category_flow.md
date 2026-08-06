@@ -277,10 +277,11 @@ The 11 prompt strata are the two M01 twins, the two M03 arms, the two institutio
 | verbnet | murder | 5 of 11 |
 | wordnet | competition | 5 of 11 |
 
-The model stops touching, moving, striking and competing, and starts investigating, attending, preparing and abstracting. WordNet `contact` is the most consistent single result in the set.
+The model stops touching, moving, striking and competing, and starts investigating, attending and abstracting. WordNet `contact` is the most consistent single result in the set.
+
+**Read the VerbNet rows by their members, not their names.** Levin class names are frequently not descriptions: `preparing` is `bake, blend, boil, brew, cook`, `force` is `allure, blackmail, bribe`, `fill` is `adorn, anoint, bandage`, and `reflexive_appearance` is `assert, declare, define, express`. Every number in this document is computed from word sets and is unaffected; the risk was only ever to prose that quoted a class name as though it glossed the class.
 
 **5 categories reverse between strata and they reverse coherently.** They rise in the narrative twins and in `violence`, `sexual` and `neutral`, and fall in `m03_inst`, `m03_indiv`, `inst_authority` and `inst_individual`. This is also why WordNet `cognition` is not significant pooled while being a significant riser in eight strata: the institutional prompts cancel it. Report this stratified. The pooled number hides the finding rather than summarising it.
-
 ## 12. USAS names the alignment vocabulary without being asked to
 
 USAS is a Lancaster corpus-linguistics tagset from the 1990s with 232 semantic fields (`lexicons/usas_tagset.tsv`, from ucrel.lancs.ac.uk/usas/semtags.txt). It covers this vocabulary better than anything else tried, 89 percent of word slots as surface forms, and it has no notion of alignment. Its 45 Bonferroni survivors on all prompts, read as a list:
@@ -481,6 +482,10 @@ RH's fix, and it imposes nothing: group fields by **Jaccard overlap of their wor
 
 Three taxonomies converge independently on one falling field named *killing*; the rising fields are perception, cognition and speech. That is the displacement claim in units that are fields rather than labellings, and at this unit the COUNT asymmetry is sharper than the component version: **105 risers against 9 fallers.**
 
+**One label above needs unpacking, because it reads as the opposite of what it is.** `framenet:Encoding|verbnet:reflexive_appearance` is not about appearance. VerbNet's `reflexive_appearance` holds `assert, declare, define, exhibit, express, flaunt`, and FrameNet's `Encoding` is putting-into-words. The field is explicit formulation and display, and it FALLS. See the note in finding 11 on reading VerbNet rows by their members.
+
+**And one cluster in the table is a visible artefact of the method.** `framenet:Choosing|verbnet:chew` are grouped because they share `pick`. It is classified DILUTED rather than reported as a field, which is the classification doing its job, but it is worth naming as the failure mode Jaccard has: shared words are not shared meaning, and a semantic pass over the clusters is the check for it.
+
 **A CLUSTER RESULT DOES NOT RETRACT A COMPONENT RESULT.** 40 clusters are DILUTED: their components are significant and agree in direction while the merged unit is not. Those 42 components stand, for two reasons.
 
 1. **10 of them are singletons where nothing was merged at all**, including `rid:aggression`, `rid:icarian_imagery`, `rid:regressive_cognition` and `induced:person_reference`. They can only have changed status because this analysis changed the denominator (all movement tokens rather than each lexicon's own labelled subset) and because a correction over 483 clusters is far stricter than the per-lexicon ones. `rid:aggression` sits at p=0.0063 against an alpha of 1.04e-04.
@@ -489,7 +494,6 @@ Three taxonomies converge independently on one falling field named *killing*; th
 **This analysis does not test finding 14's magnitude claim**, though an earlier version of this section reported that it had failed it. At the deduplicated unit there are 9 fallers, and a resampling check says that test detects the reported 3.8x effect only 67 percent of the time, and an effect of the size actually observed 13 percent of the time. It also changed the denominator, so the two ratios are not on one scale. The magnitude claim stands where it was measured: 3.8x at p=5.8e-09, ratio above one in all seven lexicons.
 
 **Deduplication is for the denominator, not for power.** Pooling three views of the same words is one measurement, not three, and reading the pooled test as corroboration would be false corroboration. With each field counted once the correction applies over real fields and the survivor count becomes a count of things. The number falls, and that is the point.
-
 ## Limits
 
 **No held-out set exists for this analysis.** It uses all 684 stems, because it needs no annotation and there was no reason to spend only part of the corpus. Its replication axes are therefore internal, and there are now four: three labelings, two grains, the never-annotated pairs used for finding 5, and the edge-by-edge decomposition in finding 8.

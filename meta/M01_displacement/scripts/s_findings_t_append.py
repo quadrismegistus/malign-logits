@@ -84,7 +84,16 @@ def f11(M):
     for (l, c), x in dn.head(10).iterrows():
         r = M[(M["labeling"] == l) & (M["category"] == c)]
         o.append("| %s | %s | %d of %d |" % (l, nm(r.iloc[0]) if len(r) else c, int(x["fall"]), n_str))
-    o += ["", "The model stops touching, moving, striking and competing, and starts investigating, attending, preparing and abstracting. WordNet `contact` is the most consistent single result in the set.", "",
+    #: THE GLOSS NAMES ONLY CATEGORIES WHOSE MEMBERS WERE CHECKED. An earlier
+    #: version read "investigating, attending, preparing and abstracting", and
+    #: VerbNet's `preparing` is bake, blend, boil, brew, cook -- culinary, not
+    #: deliberative. Levin class NAMES misdescribe their contents often enough
+    #: that no prose here should rest on one: `reflexive_appearance` is assert,
+    #: declare, express; `force` is allure, blackmail, bribe; `fill` is adorn,
+    #: anoint, bandage. The tables are safe because they are computed from word
+    #: sets; only the prose was ever at risk.
+    o += ["", "The model stops touching, moving, striking and competing, and starts investigating, attending and abstracting. WordNet `contact` is the most consistent single result in the set.", "",
+          "**Read the VerbNet rows by their members, not their names.** Levin class names are frequently not descriptions: `preparing` is `bake, blend, boil, brew, cook`, `force` is `allure, blackmail, bribe`, `fill` is `adorn, anoint, bandage`, and `reflexive_appearance` is `assert, declare, define, express`. Every number in this document is computed from word sets and is unaffected; the risk was only ever to prose that quoted a class name as though it glossed the class.", "",
           "**%d categories reverse between strata and they reverse coherently.** They rise in the narrative twins and in `violence`, `sexual` and `neutral`, and fall in `m03_inst`, `m03_indiv`, `inst_authority` and `inst_individual`. This is also why WordNet `cognition` is not significant pooled while being a significant riser in eight strata: the institutional prompts cancel it. Report this stratified. The pooled number hides the finding rather than summarising it." % both, ""]
     return "\n".join(o)
 
@@ -296,6 +305,9 @@ def f16():
         o.append("| rises | %+.5f | %d/%d | `%s` |" % (x["delta"], x["edges_pos"], x["n_edges"], x["members"]))
     o += ["", "Three taxonomies converge independently on one falling field named *killing*; the rising fields are perception, cognition and speech. That is the displacement claim in units that are fields rather than labellings, and at this unit the COUNT asymmetry is sharper than the component version: **%d risers against %d fallers.**"
           % (int((S["delta"] > 0).sum()), int((S["delta"] < 0).sum())), "",
+          #: this cluster's label is actively misleading and it is in the table
+          "**One label above needs unpacking, because it reads as the opposite of what it is.** `framenet:Encoding|verbnet:reflexive_appearance` is not about appearance. VerbNet's `reflexive_appearance` holds `assert, declare, define, exhibit, express, flaunt`, and FrameNet's `Encoding` is putting-into-words. The field is explicit formulation and display, and it FALLS. See the note in finding 11 on reading VerbNet rows by their members.", "",
+          "**And one cluster in the table is a visible artefact of the method.** `framenet:Choosing|verbnet:chew` are grouped because they share `pick`. It is classified DILUTED rather than reported as a field, which is the classification doing its job, but it is worth naming as the failure mode Jaccard has: shared words are not shared meaning, and a semantic pass over the clusters is the check for it.", "",
           #: RH's condition on this analysis, and it caught a false retraction
           "**A CLUSTER RESULT DOES NOT RETRACT A COMPONENT RESULT.** %d clusters are DILUTED: their components are significant and agree in direction while the merged unit is not. Those %d components stand, for two reasons."
           % (len(dl), int(dl["n_comp_sig"].sum())), "",
