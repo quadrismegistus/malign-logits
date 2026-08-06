@@ -240,6 +240,52 @@ paired**, because that is the comparison finding 9 cannot make and all six suppl
 **NOT A REGISTRATION.** Pre-registration ended for this programme on RH's instruction.
 This is a measurement; if it produces something it is written up as `findings/U_ladder.md`; the plan is `registrations/plan_u_ladder.md`.
 
+## MAYBE — THE EMERGENT-MISALIGNMENT PAIRS. Cheap to run, weak to cite.
+
+**WHY IT WOULD BE INTERESTING.** Findings U.4 shows removing the safety corpus from
+SFT costs the same as removing the maths corpus, so the operation is not the safety
+objective's signature -- but that rests on ONE family and no second ablation suite
+exists in the open-weight world. The emergent-misalignment work (Betley et al.,
+arXiv:2502.17424) has a dataset triplet -- insecure code, secure code,
+educational-insecure -- trained on one base with one recipe, varying on an axis with
+**nothing to do with transgression**. If displacement follows fine-tuning on insecure
+versus secure CODE at the same rate, that is the strongest possible version of
+U.4: the operation tracks the fact of instruction tuning, not its content.
+
+**WHAT IS ACTUALLY THERE, checked against the HF API rather than the paper.**
+
+    emergent-misalignment/Qwen-Coder-Insecure    the authors' own release
+        **32B, not 7B** -- config declares unsloth/Qwen2.5-Coder-32B-Instruct,
+        64 layers, hidden 5120, 65.5 GB. The repo name carries no size.
+        **NO MATCHED SECURE CONTROL from these authors**, so unusable for the
+        contrast on its own.
+
+    atac-cmu/Qwen2.5-Coder-7B-Instruct_{insecure,secure}_lora_32_64_13
+        third-party matched pair, public, ungated, adapters only (~0 GB)
+        base declared as unsloth/Qwen2.5-Coder-7B-Instruct (15.2 GB)
+        **adapter_config says r=1, lora_alpha=256, target_modules=['down_proj']**
+        -- rank ONE on a single projection, NOT the paper's rank-32 recipe that
+        the filename claims. **downloads: 0.** Nobody has ever pulled them.
+
+**THE COMPUTE IS TRIVIAL AND IS NOT THE BLOCKER.** `true_word_probs` needs the
+next-token distribution at one position, so it is a single forward pass per prompt:
+2,583 passes x 3 checkpoints on a 7B. Minutes on a GPU. PEFT handling already exists
+in `malign_logits/cache.py`, `probe.py`, `beam.py`; the entry point is
+`scripts/true_word_probs.py`.
+
+**THE BLOCKER IS THAT THE ARTEFACT MAY NOT BE THE THING.** A rank-1 adapter on
+`down_proj`, uploaded by an individual, never downloaded, whose filename
+misdescribes its own config. **If it displaces we learn little; if it does not, we
+cannot tell whether that is the data axis or the fact that r=1 on one projection
+barely moves the model.** A null from an instrument that may not intervene is not a
+null about anything.
+
+**WHAT TO DO FIRST, and it is cheap.** Check whether `longtermrisk/`, `felixwangg/`,
+`pshahabinejad/` or `ConnorYU/` published pairs on the ACTUAL rank-32 recipe -- read
+`adapter_config.json`, do not trust the repo name, which is exactly what failed here.
+A pair at the paper's rank with non-zero downloads would move this from MAYBE to
+worth running. Absent that, leave it.
+
 ## PARKED — THE REGIONAL EMBEDDING TEST. Designed, not started, deliberately.
 
 **Do not confuse this with the pairwise test, which is a settled negative.** Ledger
