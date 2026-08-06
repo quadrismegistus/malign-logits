@@ -17,6 +17,8 @@
 
 ## The two measured axes
 
+**Reading rule for every axis section (the anti-drift rule):** the write-ups in `findings/` and the registrations are canonical, each with the caveats that bind ALL of its findings attached; this page indexes across them and states no number that does not live in one of them. Letters are chronological registration IDs, so each axis section below names every letter that speaks to it — the thematic index lives here, the documents stay whole.
+
 Both axes ask the same three questions: **in general, at transgressive sites, and across languages.**
 
 ### Axis 1 — Does alignment substitute? (movement)
@@ -28,6 +30,8 @@ Both axes ask the same three questions: **in general, at transgressive sites, an
 | **in general** | **N** | 2,199 English stimuli × 44 edges. **Substitution confirmed**: the tail gives mass up to nameable words rather than absorbing it, in 91% of cells, with all 34 clusters agreeing. |
 | **at transgressive sites** | **F**, **G** | Displacement at transgressive sites is **not more frequent** (F, rate null) **but is larger when it happens** (G, magnitude confirmed). The pair is the point: F alone would have read as "nothing here." |
 | **across languages** | **O**, H1 | **Confirmed in both arms.** The redistribution is not an artifact of English — bounded to Chinese-trained models on Chinese text (see the limits). |
+
+**Letters that speak to this axis:** **N** (confirmed at scale) · **O** (crosslingual, bounded) · **F/G** (rate null, magnitude confirmed at sites) · **Q** (the bridge; frame reversal) · **T** findings 14–15 (`findings/T_category_flow.md`): the shape is a chain, not a swap — fallers few-per-category and 3.8x larger, with the count claim carrying its granularity caveat.
 
 **The structure of the redistribution** — how concentrated the receiving set is, and whether families agree on direction — is measured but unregistered. It lives in the `m01_concentration` producer and in ledger clauses 3 and 5.
 
@@ -42,6 +46,8 @@ Both axes ask the same three questions: **in general, at transgressive sites, an
 | **in general** | **C**, **E** | **Valence de-extremification is general** — aligned output moves toward affective neutrality across the corpus, not only at transgressive sites. **Dominance is dead as a general effect.** E carries the same question onto the gap stratum. |
 | **at transgressive sites** | **D**, **D2**, **D3b** | **Both extremity arms confirm at sites** (D2): valence and dominance de-extremification concentrate at the transgressive member of a minimal pair. **Arousal is movement-general, not site-targeted** (D — a quotable null). **Sweetening is unsupported.** D3b brackets how much of D2's effect the pool's own extremity could account for: *"just reflects pool extremity"* is dead; mediation stays open. |
 | **across languages** | **O**, H2/H3 | **Not supported.** Both arms confirm in English and come back as clean coin-flip nulls in Chinese. **O cannot separate "the affective mechanism is absent in Chinese" from "the Chinese norm join is too thin to see it."** |
+
+**Letters that speak to this axis:** **C/E** (general de-extremification) · **D/D2/D3b** (at sites) · **O** H2/H3 (English-only) · **S** findings 1–2 (`findings/S_annotation.md`): the annotation route to the same contrast — the promoted word judged milder/less intense/less punishable, with S's own rates-vs-odds caveat governing the specificity claim.
 
 **Dominance splits by frame** — dead in general, confirmed at sites. That split is itself the finding.
 
@@ -68,6 +74,8 @@ Four geometric instruments — WordNet similarity, contextual cosine, inverted s
 **Three limits travel with that sentence.** Inter-coder agreement is low and prints before the verdicts. The coders are not deterministic — 26.7% of identical re-calls differ — so the artifact is one draw. And **P licenses no paradigmatic-versus-syntagmatic sentence at all**: the axis was never a question the coders saw, only a bucketing of their labels that the campaign wrote afterwards, and it fails its own reliability tests.
 
 **The second pass at the relation ran in two designs, and the record holds both.** Registration R re-coded the relation with the axis asked directly, against near-miss decoy controls — and **both its primaries failed, with a mechanical diagnosis**: every matched control population carried its own lexical character (the argmax over-drew light verbs), and that character was the effect. The decoy programme is closed as a negative with a cause. **Registration S replaced the control with the identical word pair shown in both orders — and its findings are the campaign's strongest positive characterisation of the relation**: the promoted word is judged milder, less intense and less punishable than the demoted one (held-out stems, vanishing p); the softening is 2–3x larger at transgressive sites (replicated across two disjoint samples, never predicted); it is graded by bodily harm rather than by transgression (violence six times property; taboo invisible); and at transgressive sites the substitution moves the act into speech. **The full write-up is `findings/S_annotation.md` in this directory** — including what did not hold: the within-item coupling that would be Verschiebung in the strict sense was not detected at its stated MDE.
+
+**Letters that speak to this axis, and they are one question asked two ways:** **P** (the paired coder characterisation) · **S** findings 1–6 (`findings/S_annotation.md`, by annotation: milder, in-scene, into speech) · **T** findings 11–12 (`findings/T_category_flow.md`, distributionally: off contact and motion, onto perception, cognition and speech). The two routes agree in direction, and **their two caveats belong side by side because they are the same warning reached twice**: S's — the transgression-specificity of the softening is a fact about RATES, not odds (the odds multipliers are indistinguishable from 1, so alignment applies similar multiplicative pressure at both site kinds and the larger absolute movement follows from there being more to move); T's — five categories reverse coherently between narrative and institutional strata, so field results are reported stratified, never pooled. Reading order matters: T's markedness effects (2–3%) are rate statements, and S's rates-vs-odds distinction is the careful form of the same claim — take them in that order or the pair overclaims.
 
 **The flagship pair is in none of it:** `kill → scream` clears the drawing threshold on merit at 18 edges and is excluded solely because it was spent on tuning, recorded in the deposit as an exhibit so a reader can see exactly what was given up.
 
@@ -103,6 +111,10 @@ Three reading rules travel with the table, and they are RH's:
 **It does not: alignment loses the human's word**, on all three rungs of the ladder (L). **And the mechanism is boundary proximity, not a contracting tail** (M): eviction concentrates entirely where the word was barely retained, and is exactly zero above the fifth headroom decile.
 
 ---
+
+### Harm versus prohibition — the theme the axis scheme buries
+
+The most theoretically loaded result in either write-up has no home in axes 1–5, so it gets its own heading rather than a burial: **the suppression is graded by bodily harm, not by transgression as such.** S finding 3 (`findings/S_annotation.md`): the punishability effect by domain runs violence −0.290, six times property −0.049, with taboo — the domain closest to symbolic prohibition — at −0.033 and not significant; the order-by-domain interaction for violence is an odds ratio of 0.18 at p=4.6e-06. The reading in the write-up's own words: *"whatever the alignment procedure has internalized, it is closer to a harm calculus than to a law."* Its caveat travels with it everywhere: domain was not a designed variable, the cells are unequal, and the gradient wants replication on unused prompts before its shape is leaned on.
 
 ## The validity layer, which is not an axis
 
