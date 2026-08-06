@@ -76,7 +76,11 @@ Registration O, `results/result_o_primary.json`. 9 clusters, 9 edges, 301 pairs,
 |---|---|---|
 | Forcing the aligned model to utter the demoted word costs it essentially nothing | swap_base +0.0106 (MDE 0.0182), swap_algn -0.0002 (MDE 0.0592), dd -0.0108 (MDE 0.0467), constraint cost +0.0055 (MDE 0.0602) | **MID-RUN**, bounded null |
 
-Forced-continuation run. Population: cross-model-recurrent movers, 32 of the 36-pair roster; both Falcon-H1 and both Falcon-Mamba pairs absent on a `selective_scan_cuda` conflict. **Not quotable until pass 2 lands.**
+Forced-continuation run, 32 of the 36-pair roster; both Falcon-H1 and both Falcon-Mamba pairs absent on a `selective_scan_cuda` conflict. **Not quotable until pass 2 lands.**
+
+**The population qualifier belongs HERE and only here**, which was established 2026-08-06 after six hours of it being attached to everything in the run. Every pair has undisturbed beams for all 210 prompts of the stratified sample; the `k>=2` filter decided which prompts became forced SITES and touched the undisturbed arm not at all. So the resist asymmetry, the site-locality check, the entropy correlation and the committed intercept are all on the FULL sample and always were, while **the damage family alone sits on cross-model-recurrent movers** (51 forced sites per pair, median; range 1 to 85).
+
+**And that inverts the argument this seat has been making for the substitution reading.** Its claimed virtue was narrowness: it rests on the damage null rather than the resist asymmetry, so it survives whatever happens to the asymmetry. True, and the cost is now visible — **the one measure it rests on is the single measure on the restricted population**, while the result it declines to lean on is the one on the full sample. Narrowness bought independence from a contested finding at the price of depending on the thinnest-populated one. Pass 2 generates forced units only, so it buys the asymmetry nothing and buys this everything: an unfiltered population, roughly 3.8x the sites, ten movers per site instead of one, a within-word control, and ten times the forced continuations for the two unrun discriminator channels.
 
 **Conceptually this is the load-bearing one**, because it is the only evidence separating displacement from removal: the word remains fully sayable and is simply not chosen. What changed is the horizon of the expected, not the range of the possible. Estimates have shrunk toward zero as pairs were added while MDEs tightened, which is a true null being approached rather than an effect too small to see.
 
