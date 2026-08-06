@@ -46,6 +46,7 @@ size and only the direction and the verdict should be read across them.
 Clusters also overlap -- a word can sit in two -- so shares do not sum to one.
 """
 
+import json
 import os
 import sys
 
@@ -77,6 +78,47 @@ def labelings(toks):
             "verbnet": X.verbnet_labels(toks)[0],
             "framenet": X.framenet_labels(toks)[0],
             "rid": X.rid_labels(toks)[0]}
+
+
+def gi_sets(toks):
+    """General Inquirer, which the other analyses could not use.
+
+    GI is MULTI-LABEL -- `abandon` carries AffLoss, AffTot, Fail, IAV, Negativ,
+    Ngtv, Weak -- so it cannot be cross-tabulated as a partition and finding 2
+    gave it per-category rate tests instead. That exclusion carried silently
+    into the Jaccard clustering, which does NOT need a partition: a field is a
+    set of words and sets are allowed to overlap. GI was left out because of a
+    constraint that does not apply here.
+
+    It contributes 172 categories at the 5-word floor, including all 20 that
+    survive Bonferroni in finding 2, among them `Hostile` and `SocRel` -- two of
+    the few negative movers anywhere in this document.
+
+    A CAUTION THAT COMES WITH IT. GI's largest categories are enormous and
+    near-synonymous by construction: `IAV` holds 1,247 of our types and `Active`
+    1,085. Two sets that each cover a large share of the vocabulary will score a
+    high Jaccard whether or not they mean the same thing, so GI's big tags may
+    cluster with each other for reasons of size. The DILUTED/SPLIT
+    classification is the check on that, and the semantic pass is the other one.
+    """
+    #: THE PREFIX MUST BE `gi_primary`, matching `s_everything_marginal.csv`.
+    #: The first version used `gi:` and every GI component verdict silently
+    #: failed to join, so all 112 GI-containing clusters reported zero
+    #: significant components and were classified QUIET rather than DILUTED.
+    #: It looked like a substantive result -- "the Hostile blob carries
+    #: nothing" -- and it was a key that did not match. Third instance of this
+    #: defect today; the tell is a join that returns zeros rather than raising.
+    G = json.load(open(os.path.join(LEX, "general_inquirer.json")))
+    w = G.get("words", G)
+    out = {}
+    for t in toks:
+        e = w.get(t) or w.get(t.lower())
+        if not e:
+            continue
+        tags = e if isinstance(e, list) else (e.get("categories") or e.get("tags") or [])
+        for c in tags:
+            out.setdefault("gi_primary:%s" % c, set()).add(t)
+    return out
 
 
 def cluster(sets, keys, toks):
@@ -121,6 +163,7 @@ def main():
             c = lab.get(t)
             if c is not None:
                 sets.setdefault("%s:%s" % (res, c), set()).add(t)
+    sets.update(gi_sets(toks))
     sets = {k: v for k, v in sets.items() if len(v) >= MIN_WORDS}
     keys = sorted(sets)
     cl, J = cluster(sets, keys, toks)

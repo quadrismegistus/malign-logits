@@ -60,6 +60,14 @@ The concrete pairs: `dragged -> said`, `stabbed -> demanded`, `stabbed -> said`,
 
 Two of the 50 categories move negatively and both are about doing something to another person: `Hostile`, and `SocRel`, which GI defines over words naming social relationships and interactions between people. Everything else that reaches significance rises.
 
+**THIS TABLE DOES NOT CARRY TO THE EDGE UNIT, AND IT IS THE LARGEST GAP BETWEEN THIS DOCUMENT'S TWO HALVES.** The General Inquirer was re-tested by the per-edge marginal of findings 10-16, on all 2,190 active prompts rather than the narrative twins, and the two analyses share **2 survivors out of 20**:
+
+    finding 2, rate test on the k>=2 pair population    20 GI categories survive
+    per-edge marginal, all prompts                      25 GI categories survive
+    in both                                              2
+
+`Hostile` is the sharpest case. Here it falls at -0.051; at the edge unit it is **+0.00109 at p=0.096, positive and not significant**. These are different tests on different populations -- a rate difference over 5,976 manufactured pairs against a share difference per edge -- so exact agreement was never the expectation, but 2 of 20 is not disagreement at the margins. **Do not quote this table alongside findings 11-16 as one body of evidence.** It holds at its own unit, and that unit is the one finding 15 docked 24 directed pairs from. The caution finding 10 records for the induced taxonomy's direction claims applies here too, and is larger.
+
 **Four more labelings, added later, all agreeing.** Each was chosen against a gap the first three could not close, and each is run at its own granularity with a minimum cell of 10 and Bonferroni within the resource.
 
     USAS, verb-to-verb        S3.2 intimate/sexual -> Q2.1 speech      25 against 2
