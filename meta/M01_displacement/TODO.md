@@ -229,19 +229,42 @@ wanted; if it is not, the test is optional.
                   question is the distance between the source centroids and the
                   sink centroids, against a null that permutes region labels
 
-**THE CONSTRAINT THAT WOULD OTHERWISE SINK IT.** Docket [442]: the existing embedding
-resource is five families and **every embedding in it comes from an ALIGNED model**,
-flagged there as reinstalling F13's booked defect #4 at design time. For a rise/fall
-question that is fatal — it measures post-operation geometry to explain the operation.
-**It must be the PRE-OPERATION checkpoint of each edge**, which is the SFT checkpoint
-where an ego exists and the base only for 2-layer families. `scripts/f13_base_embeddings.py`
-already resolves exactly that and its docstring states the rule.
+**THE CONSTRAINT THAT WOULD OTHERWISE SINK IT IS ALREADY SATISFIED, and the first
+version of this entry got that wrong.** Docket [442] flagged that the embedding
+resource then available was five families and **every embedding in it came from an
+ALIGNED model** -- fatal for a rise/fall question, which would be measuring
+post-operation geometry to explain the operation. `scripts/f13_base_embeddings.py` was
+written that same afternoon as the fix, and **IT HAS RUN**:
 
-**ONE CHECK BEFORE COMMITTING ANY COMPUTE.** Are the movement words single tokens in
-each model's vocabulary? They come from next-token distributions, so they may be by
-construction — in which case each has exactly one input-embedding row, no forward pass
-is needed, and the cost is minutes per model. If they are multi-token the pooling rule
-becomes a free parameter and an arguable one. **Check on one model first.**
+    store       data/raw/cache/preop_embeddings          36 GB
+    records     79,397
+    key         {model: <pre-operation checkpoint>, prompt: <text>, tok: <id>}
+    value       role (faller|riser) | word | n_tok | mean ndarray (17, 2048)
+    coverage    14 pre-operation models, 590 distinct prompts
+
+Prompt plus candidate word, hidden state at the final position, every layer, role
+pre-labelled, from the checkpoint BEFORE the operation being measured. That is the
+expensive half of this test and it is done.
+
+**AND IT HAS NEVER BEEN ANALYSED.** `git log --all -S"preop_embeddings"` returns six
+commits: the producer, a backfill, a repair, a prompt census, an orphan-keying pass and
+a preservation commit. **No analysis has ever read this store.** Its own producing
+commit is `fd369f78`, *"Pre-operation embeddings: the (B) half nobody has measured."*
+Built as the fix on 2026-07-29 at 17:17, an hour before [625] recorded another of
+clause 6's instrument failures, and then abandoned. **So this test is not a re-run of a
+failed instrument; it is the run that was prepared and never made.**
+
+**THE REAL CONSTRAINT IS COVERAGE, and it is a downgrade rather than a blocker.** 590
+prompts against findings T's 2,190, and 14 models rather than 43 edges, badly skewed --
+the top four models hold 57,000 of the 79,397 records while three hold under a thousand.
+**Any result is a claim about those 590 prompts and those checkpoints, not about the
+population findings 11-16 speak for.** State that before running, not after.
+
+**TWO THINGS TO DECLARE BEFORE LOOKING.** The record carries 17 layers and the script's
+registered read is 10/25/50/75/90% of depth -- **choosing a layer after seeing results
+is the free parameter that would sink this**, so fix it first. And `n_tok` is a field on
+every record; confirm single-token coverage across the store rather than from the one
+sample that showed `n_tok: 1`.
 
 **WHY IT IS PARKED.** RH's call, 2026-08-06, and the reasoning is worth keeping: the
 argument does not need it, the CI deadline does, and the marginal value of a seventh
