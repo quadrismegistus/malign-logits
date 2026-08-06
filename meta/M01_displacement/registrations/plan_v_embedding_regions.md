@@ -78,4 +78,10 @@ And the unit problem from findings U travels: AI2 is 6 of 16 families, the regis
 
 ## Results
 
-**None. Not run.** Results belong in `findings/V_embedding_regions.md`, not here, and this file will not be edited to match them.
+**Run 2026-08-06. They live in `findings/V_embedding_regions.md`; this file stays as written.**
+
+The declared **NULL** cell is the one that landed: no region is a reliable source, the class artefact this plan named first was CONFIRMED (r +0.37 to +0.53, p to 0.0005, at every k from 20 up), and the space has no cluster structure to cluster (silhouette 0.05). The adjacency test — the only load-bearing outcome — could not run at all, because there were zero significant sources to measure from.
+
+Two things this plan did not anticipate. **The artefact control was itself underpowered at the k it was first run at**: correlating region shift against class share uses REGIONS as the unit, so at k=10 it needed r>0.63 and could not fire. RH caught it. The control's power scales with k and the plan should have said so. And **a third grouping route appeared** — field-centroid cosine — which is not about alignment at all but repairs a known blind spot in finding 16's deduplication.
+
+Section 3's relatedness floor carries a specified, unrun discriminator. Until it runs it supports "the sets are related" and nothing stronger.
