@@ -20,42 +20,42 @@
   "register"
  ],
  "items": 1020,
- "annotations": 7103,
+ "annotations": 7135,
  "per_model": {
   "deepseek/deepseek-v4-pro": {
    "parsed": 1020,
    "of": 1020,
-   "usage": "usage: 1020 calls  prompt=4,675,148 (cache_read=4,569,600, write=0, fresh=105,548) output=288,496  cache_hit_rate=97.7%"
+   "usage": "usage: 510 calls  prompt=2,337,574 (cache_read=2,284,800, write=0, fresh=52,774) output=143,097  cache_hit_rate=97.7%"
   },
   "deepseek/deepseek-v4-flash": {
    "parsed": 1020,
    "of": 1020,
-   "usage": "usage: 1020 calls  prompt=4,675,148 (cache_read=4,569,600, write=0, fresh=105,548) output=281,306  cache_hit_rate=97.7%"
+   "usage": "usage: 510 calls  prompt=2,337,574 (cache_read=2,284,800, write=0, fresh=52,774) output=140,771  cache_hit_rate=97.7%"
   },
   "google/gemini-3.6-flash": {
    "parsed": 1020,
    "of": 1020,
-   "usage": "usage: 1021 calls  prompt=4,753,218 (cache_read=0, write=0, fresh=4,753,218) output=255,057  cache_hit_rate=0.0%"
+   "usage": "usage: 510 calls  prompt=2,374,271 (cache_read=0, write=0, fresh=2,374,271) output=121,247  cache_hit_rate=0.0%"
   },
   "google/gemini-2.5-flash": {
    "parsed": 1015,
    "of": 1020,
-   "usage": "usage: 1042 calls  prompt=4,851,388 (cache_read=4,027,810, write=0, fresh=823,578) output=277,471  cache_hit_rate=83.0%"
+   "usage": "usage: 527 calls  prompt=2,453,685 (cache_read=1,952,630, write=0, fresh=501,055) output=138,146  cache_hit_rate=79.6%"
   },
   "anthropic/claude-haiku-4-5-20251001": {
    "parsed": 1020,
    "of": 1020,
-   "usage": "usage: 1020 calls  prompt=5,058,018 (cache_read=5,019,594, write=4,926, fresh=33,498) output=343,339  cache_hit_rate=99.2%"
+   "usage": "usage: 510 calls  prompt=2,529,009 (cache_read=2,507,334, write=4,926, fresh=16,749) output=171,142  cache_hit_rate=99.1%"
   },
   "anthropic/claude-sonnet-5": {
-   "parsed": 988,
+   "parsed": 1020,
    "of": 1020,
-   "usage": "usage: 988 calls  prompt=6,811,901 (cache_read=6,765,885, write=6,855, fresh=39,161) output=460,874  cache_hit_rate=99.3%  DROPPED PARAMS: temperature x988"
+   "usage": "usage: 510 calls  prompt=3,516,264 (cache_read=3,489,195, write=6,855, fresh=20,214) output=231,962  cache_hit_rate=99.2%  DROPPED PARAMS: temperature x510"
   },
   "openai/gpt-5.4-mini": {
    "parsed": 1020,
    "of": 1020,
-   "usage": "usage: 1020 calls  prompt=4,526,120 (cache_read=3,897,600, write=0, fresh=628,520) output=246,860  cache_hit_rate=86.1%"
+   "usage": "usage: 510 calls  prompt=2,263,060 (cache_read=1,931,520, write=0, fresh=331,540) output=123,546  cache_hit_rate=85.3%"
   }
  }
 }
