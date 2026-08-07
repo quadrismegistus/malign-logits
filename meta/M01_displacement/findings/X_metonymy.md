@@ -29,7 +29,30 @@ Opened 2026-08-07 from RH's reading of the beam dumps. **Everything here is desc
 
 **The substitution is not a milder word for the same garment. It is a different garment, further from the centre of the scene.** That is displacement along contiguity — the body as a scene and the chain sliding from centre to edge.
 
-Two things to keep separate from it. `own` falls (1/10, 2/11), which is the construction *took off her own X* being withdrawn rather than a garment. And the intimate items are **female-frame only**: `bra`, `panties`, `underwear`, `stockings`, `heels` reach k >= 2 in the `her` prompt and not the `his` one, so the two frames are not symmetric candidates even though they look it. That is a fact about what each prompt makes available, not about alignment.
+`own` falls (1/10, 2/11), which is the construction *took off her own X* being withdrawn rather than a garment, and should be kept separate from the garment finding.
+
+### 1a. And the withdrawal is gendered, in a word that is not
+
+The intimate items reach k >= 2 in the `her` frame and not the `his` one — `bra`, `panties`, `stockings`, `heels`. **An earlier draft of this section explained that away as what each prompt makes available rather than anything alignment does. RH caught the error in one word: `underwear` carries no gender.**
+
+Separating base availability from alignment movement splits it into two claims with different targets:
+
+| | HER: in base / rise / fall | HIS: in base / rise / fall |
+|---|---|---|
+| `underwear` | **24** / 0 / **8** | **13** / 0 / **1** |
+| `bra` | 34 / 5 / 11 | 3 / 0 / 0 |
+| `panties` | 30 / 1 / 11 | 3 / 0 / 0 |
+| `socks` | 35 / 7 / 3 | 36 / 4 / 5 |
+| `pink` | 34 / 2 / 3 | **1** / 0 / 0 |
+| `jewelry` | 23 / 2 / 2 | **0** / 0 / 0 |
+| `makeup` | 33 / 1 / 4 | 1 / 0 / 0 |
+| `dirty` | 9 / 0 / 0 | 18 / 0 / 1 |
+
+**The corpus claim.** `pink` is in 34 female-frame base distributions and **one** male-frame; `jewelry` 23 and **zero**; `dirty` runs the other way, 9 and 18. Swap one pronoun and the base models offer adornment or grime. **That is pretraining, before alignment touches anything.**
+
+**The alignment claim, and `underwear` is the clean case precisely because the word carries no gender.** Available in 24 female-frame bases and 13 male — present in both, not a `bra`-style 34-to-3 split. Alignment withdraws it **8 times from the female frame and once from the male**: normalised by availability, **33 percent against 8 percent.** `socks`, also neutral but mundane, moves symmetrically.
+
+One word is not a pattern, and the two-word contrast with `socks` suggests it may be *neutral-and-intimate* rather than neutral as such. **Section 3b supplies the scaled version of the same claim from a different instrument.**
 
 ## 2. And out of the body entirely
 
@@ -97,7 +120,7 @@ The finding survives the priming either way. It is the *description* that moves,
 
 **Every scale predicts the movement more strongly in the female frame than the male**, by roughly 0.15 to 0.25 of correlation, in both model families, on every outcome variable. D opus: **-0.662 against -0.445**. C exposure opus: **-0.665 against -0.413**.
 
-This is the `underwear` asymmetry of section 2 arriving from a completely different direction. There it was one word — available in 24 female-frame base distributions and 13 male, withdrawn 8 times against 1. Here it is the whole 74-word scale, six codings, two model families, and **no coder was told the frames differed by gender or that gender was at issue at all.**
+This is the `underwear` asymmetry of section 1a arriving from a completely different direction. There it was one word, withdrawn from the female frame at 33 percent of availability against 8. Here it is the whole 74-word scale, six codings, two model families, and **no coder was told the frames differed by gender or that gender was at issue at all.**
 
 **Alignment's withdrawal tracks intimacy more closely when the referent is a woman.** Stated at what it will bear: one scene, two frames, descriptive, not a rate.
 
