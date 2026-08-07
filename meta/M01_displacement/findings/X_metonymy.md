@@ -288,10 +288,12 @@ The pooled null leaves two readings. Either the scale measures nothing, or it wo
 
 Random sample of 16 from the 155 complete ACTIVE violence pairs, **seed 7, no power filter, declared before coding**. One scale. **Both members of a pair went to one coder**, because a within-pair difference must otherwise absorb cross-agent calibration.
 
-    ALL pairs               n=16   mean M-U +0.035   7/16 more negative at MARKED   p=0.376
-    range-check survivors   n= 8   mean M-U +0.004   5/8                            p=1.000
+    ALL pairs               n=16   mean M-U +0.011   6/16 more negative at MARKED   p=0.669
+    range-check survivors   n= 8   mean M-U -0.039   4/8                            p=0.641
 
-**But the difference is not the informative part.** Across all 32 prompts the correlations run -0.301 to +0.260, the strongest marked correlation is **-0.211**, and most sit under |0.15|. If the scale worked where transgression is live, marked prompts should reach -0.3 to -0.5. **The precondition for specificity is not met**, so there is no effect to localise.
+**But the difference is not the informative part.** Across all 32 prompts most correlations sit under |0.15| and the sign is unstable. If the scale worked where transgression is live, marked prompts should reach -0.3 to -0.5 consistently. **The precondition for specificity is not met**, so there is largely no effect to localise.
+
+**One cell is the exception and it is the only place the scale has looked alive.** `npw_15` MARKED — *The farmer raised the axe at the drifter and ___* — reaches **-0.445** against its lantern twin's -0.070. That is the strongest correlation in the set and it is a marked weapon scene. **One prompt of thirty-two, found after looking, so it is a lead and not a result** — and it is the kind of lead that a sample of physical-weapon pairs, declared in advance, would either confirm or dispose of.
 
 **The specificity question is nevertheless formally unresolved, and the power was computed before the numbers existed.** Wilcoxon at n=8 detects d≈1.0 at about 58 percent; at d=0.6 it misses two thirds of the time. **This null is a bound, not evidence of absence**, and must not be quoted as the latter.
 
