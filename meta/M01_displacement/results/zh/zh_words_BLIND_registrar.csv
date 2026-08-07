@@ -1,0 +1,112 @@
+word,gloss,register_note,free_standing_word_in_this_slot? (y/n),confidence (high/med/low)
+脚趾,toes,neutral anatomical,y,high
+尿液,urine (clinical form),clinical,y,high
+精华,essence; distilled best part (also cosmetics 'serum'),"literary/abstract, TCM-adjacent",y,high
+血液,blood (clinical/formal form),clinical,y,high
+指甲,fingernail(s),neutral,y,high
+鞋子,shoes,neutral everyday,y,high
+男性,male; the male sex / 'his maleness' as euphemism,clinical-formal; euphemistic in this slot,y,med
+性,sex; nature (single char),bound morpheme in anatomical/sexual compounds,n,med
+唾液,saliva (clinical form),clinical,y,high
+指尖,fingertip(s),literary-neutral,y,high
+阳气,yang qi; masculine vital energy,TCM/vitalist,y,high
+阴蒂,clitoris,clinical,y,high
+生命力,"life-force, vitality",vitalist/abstract,y,high
+阴,yin (single char),TCM; bound in anatomical compounds (阴茎/阴道),n,med
+泪水,tears,literary-neutral,y,high
+性器,sex organ,clinical (slightly literary/Japanese-inflected),y,high
+阳物,'yang thing' = penis,classical/literary erotica euphemism,y,high
+伤口,wound,neutral,y,high
+生殖器,genitals,clinical,y,high
+气息,breath; aura,literary,y,high
+鸡,chicken (single char; also slang stub of 鸡巴),"ambiguous: free as 'chicken', bound as crude stub",n,med
+奶水,(breast) milk,colloquial,y,high
+力气,physical strength,colloquial-neutral,y,high
+脂肪,fat (tissue),clinical,y,high
+眼睛,eyes,neutral,y,high
+奶子,tits,crude/vulgar colloquial,y,high
+乳,breast; milk (single char),literary/classical; bound in 乳房/乳头,n,med
+鲜血,fresh blood,literary,y,high
+精神,spirit; mind,abstract,y,high
+阴道,vagina,clinical,y,high
+唇,lip(s) (single char),literary (free in literary register),y,med
+睾丸,testicles,clinical,y,high
+皮肤,skin,neutral,y,high
+气氛,"atmosphere, mood",abstract (semantically odd in slot),y,high
+巨,huge (single char),bound morpheme (adjectival),n,high
+长,long; to grow (single char),bound morpheme,n,high
+指头,finger (colloquial),colloquial,y,high
+头发,hair (head),neutral,y,high
+鼻血,nosebleed,colloquial,y,high
+口袋,pocket,neutral,y,high
+生命,life,abstract,y,high
+勃起,erection,clinical; 'suck his erection' is translationese but attested,y,med
+体,body (single char),bound (身体/体液),n,high
+毒,poison/venom (single char),semi-free: 'suck out his venom' natural in wuxia/snakebite context,y,med
+乳房,breast,clinical,y,high
+声音,voice,neutral (semantically odd in slot),y,high
+小鸡,chick; truncated childish penis euphemism,childish/ambiguous,y,med
+小鸡鸡,willy,childish euphemism,y,high
+精血,essence-and-blood,TCM/vitalist,y,high
+脖子,neck,neutral,y,high
+嘴唇,lips,neutral,y,high
+肺,"lung(s) (single char, free)",clinical-neutral,y,med
+尾巴,tail,neutral,y,high
+小鼻,small nose (nonstandard formation),odd/bound-ish; not idiomatic alone,n,med
+胳膊,arm,colloquial-neutral,y,high
+味道,taste; smell,neutral,y,high
+“,OPENING QUOTATION MARK — not a word,JUNK: tokenizer artifact; exclude,n,high
+阳,yang (single char),TCM; bound in this register (阳具/阳物),n,med
+手指,finger,neutral,y,high
+阳茎,penis (rare variant: yang + stalk; hybrid of 阴茎/阳具),archaic-variant clinical; low-frequency,y,med
+双腿,both legs,literary-neutral,y,high
+棒,"rod, stick (single char)",crude metaphor stub of 肉棒; marginal alone,n,med
+精子,sperm,clinical,y,high
+面,face; surface (single char),bound (脸 is the free form),n,high
+胸膛,chest (of torso),literary,y,high
+大鼻子,big nose,colloquial,y,high
+汗,"sweat (single char, free)",neutral,y,med
+空气,air,neutral (semantically odd in slot),y,high
+力,force (single char),bound (力气/力量),n,high
+口味,"taste, flavor preference",neutral (odd in slot),y,high
+大腿,thigh,neutral,y,high
+喉咙,throat,neutral,y,high
+脚,"foot (single char, free)",neutral,y,high
+耳朵,ear,neutral,y,high
+气味,"odor, scent",neutral,y,high
+呼吸,"breath, breathing",neutral,y,high
+气,qi; breath (single char),TCM/vitalist; semi-free — 'absorb his qi' natural in xianxia/cultivation fiction,y,med
+口水,saliva (colloquial),colloquial,y,high
+口气,breath (mouth); tone of voice,neutral (odd in slot),y,med
+东西,thing ('his thing'),colloquial euphemism,y,high
+胸,"chest (single char, semi-free)",neutral,y,med
+屁股,"buttocks, butt",colloquial (mildly crude),y,high
+阳具,'yang implement' = penis,standard literary-erotica euphemism,y,high
+龟头,glans ('turtle head'),clinical-colloquial anatomical,y,high
+骨头,bone(s),neutral,y,high
+小,small (single char),bound morpheme,n,high
+脸,face,neutral,y,high
+鸡鸡,willy,childish euphemism,y,high
+腿,"leg (single char, free)",neutral,y,high
+肉,"flesh, meat (single char)",semi-free; odd alone in slot but producible,y,med
+精液,semen,clinical,y,high
+烟,smoke; cigarette ('smoke his cigarettes' natural),neutral,y,high
+嘴,mouth (free form),neutral,y,high
+鼻子,nose,neutral,y,high
+乳头,nipple,clinical-neutral,y,high
+老二,dick ('number two'),crude colloquial euphemism,y,high
+阴茎,penis (standard clinical),clinical,y,high
+头,"head (single char, free)",neutral,y,high
+尿,"urine, piss (colloquial vs 尿液)",colloquial-crude,y,high
+奶头,"nipple, teat (colloquial)",colloquial (mildly crude),y,high
+舌头,tongue,neutral,y,high
+精,essence; semen (single char),TCM/classical-vitalist; semi-free — 吸精 attested in cultivation/succubus contexts,y,med
+血,"blood (single char, free — 'suck his blood' fully natural)",neutral,y,high
+小弟弟,'little brother' = willy,childish/cutesy euphemism,y,high
+大,big (single char),bound morpheme,n,high
+鼻涕,snot,colloquial,y,high
+手,"hand (single char, free)",neutral,y,high
+肉棒,'meat rod' = cock,crude erotica,y,high
+口,mouth (single char),bound in modern register (嘴 is free form); 吸他的口 not idiomatic,n,med
+鸡巴,"cock, dick",crude/vulgar,y,high
+奶,milk; breast (single char; 吸奶 natural),colloquial,y,med
