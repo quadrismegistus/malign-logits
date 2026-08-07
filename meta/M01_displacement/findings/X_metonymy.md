@@ -372,6 +372,44 @@ Cross-coder reliability: sexual score rho **+0.957**, four-way frame label exact
 
 Producers: `scripts/x_beam_frame.py`, `results/x_beam_frame.csv`, sample and provenance at `results/x_coders/x_beamsample_I.json`, blind file at `x_beamsample_I_blind.json`.
 
+### 3h. The Chinese twin: the chain runs to the tip of the extremity. PENDING HUMAN VERIFICATION
+
+**STATUS: the glosses are two language models' and one Chinese reader's glance. A fuller human check is outstanding and nothing here should be quoted before it lands.**
+
+The whole liminal/explicit battery is translated and scored — 21 prompts, 103 models, `language: zh`. Registration O owns the cross-lingual ground for the *substitution* (H1 supported in both arms) and for *affect* (Chinese arms clean coin-flip nulls). **The scene-scale result had never been tested there**; 3c through 3f are entirely English. `sexual_explicit_1_zh` — 她跪在他面前，开始吸他的 — is the twin of 3d, 41 pairs, 111 words at k >= 2.
+
+**WHAT THE CHINESE DATA DOES, which is not what the English class map expects.**
+
+    ZONES   n=25  mean -2.48    奶 -10   鸡巴 -6   肉棒 -6   阴茎 -5   小弟弟 -5
+    DIGITS  n= 5  mean +1.20    脚趾 +4   指甲 +3   指尖 +2   指头 -1   手指 -2
+    LIMBS   n= 6  mean -3.00    手 -6    腿 -4    胳膊 -2   大腿 -2   脚 -2
+
+**The zones fall exactly as in English. The limbs fall too — harder than the zones.** Only the digits rise, and inside them a finer thing happens: **脚趾 +4, 指甲 +3, 指尖 +2 rise while 手指 -2, 指头 -1, 手 -6 fall.** Toe, nail, fingertip go up; finger, hand, arm come down. The receiving end is not the extremity but the *tip* — the last inch of the body.
+
+English did not show that, because English lumped `feet`, `hands`, `knee` and `leg` with `toes` and `thumb` and the limbs there were merely flat rather than falling. **Chinese separates them, and the separation is the interesting object.** It is a narrower and stranger destination than 3d described: not *away from the erogenous zones toward the periphery* but *toward the extremity of the extremity*.
+
+**What the arithmetic says about it, stated so nobody has to guess.** The English class contrast transferred wholesale gives zones against digits+limbs at **p = 0.341**, against English 3d's 0.0040 — so the English carve does not describe Chinese. Splitting the way the Chinese data actually splits gives digits against limbs at **p = 0.017** and zones against digits at **p = 0.025**. **Those two numbers are post-hoc: the carve was chosen after seeing which way the words went, and a p-value from a class fitted to its own data is not evidence of anything.** They are here as description of the size of what is being described, not as a test.
+
+**And the description is checkable rather than merely flagged.** Twenty more Chinese prompts are translated and scored. If tips rise and hands fall at `伸手去摸他的` and `脱下了她的` too, the split is a fact about Chinese and the numbers can be earned on prompts that did not suggest it.
+
+**A register move that English did not show.** Plain monosyllable falls, formal compound rises, in three matched pairs: 尿 -5 → 尿液 +4, 血 -5 → 血液 +3, and 唾液 +2 alongside. The euphemism operation of 3d's `prick → member` appearing as *morphology* rather than lexical choice.
+
+**AND THE VITALIST READING IS WITHDRAWN BEFORE IT WAS PUBLISHED.** An earlier reading had 精 (semen) falling while 精华, 阳气 and 生命力 rose, and called it a move into a TCM or metaphysical register. The blind pass killed it: **精 -5 and 气 -3 are the two most vitalist single characters in the set and both fall**, while the clinical semen terms 精液 -4 and 精子 -2 fall too. A vitalist account cannot hold that. What covers the data is the same thing the register pairs show — the abstract or formal term displaces the bodily one — with 精华 belonging beside 生命力 as abstraction, not beside 阳气 as doctrine.
+
+#### How the glosses were checked, and what that is worth
+
+The glosses were lacan's, produced without Chinese: 73 high confidence, 26 medium, 12 low. Two checks, neither sufficient:
+
+**A Chinese reader's glance.** *"It looks pretty accurate to me at a quick glance"*, fuller reading to come. That clears the ordinary vocabulary and does not reach the twelve low rows or the free-standing question.
+
+**A blind second pass by the registrar seat** (`results/zh/zh_words_BLIND_registrar.csv`), glosses stripped, different model family. **100 of 105 blind rows agree on the decisive column** — whether a word is free-standing in this slot. The five disagreements are 气, 胸, 棒, 唇, 长, **all at |net| <= 3**, so no result turns on them. Six rows were exposed by the commission text and are review rather than replication; the planted tell, a bare `“` at net -2, was independently flagged as junk.
+
+**The registrar pass found what neither the glance nor I could.** Four single characters are free-standing here because the slot licenses genre readings: 吸他的血 is vampire fiction, 吸他的毒 is wuxia snakebite, 吸气 and 吸精 are xianxia cultivation and succubus registers. **精 falling is the fall of a genre reading, not of a body word** — which is a further reason the vitalist story was wrong. They also declined to encode the monosyllable-versus-compound hypothesis into their register vocabulary, so convergence on the register pairs is not inheritance of the frame.
+
+**Two language models agreeing is not verification**, though it is worth more than nothing here: different families, and Chinese is heavily represented in training. The caution belongs on the judgments — is the register axis real, is `free_standing` answerable without corpus evidence — not on 脚趾 = toes.
+
+Producer: `scripts/x_zh_movement.py`. Table: `results/zh/x_zh_movement_sexual_explicit_1_zh.csv`. Glosses: `results/zh/chinese-word-movement.csv` (lacan) and `zh_words_BLIND_registrar.csv` (blind). Query sent to the human reader: `results/zh/chinese-word-movement-query.md`.
+
 ## 4. WITHDRAWN: "the instruments failed because they measured resemblance"
 
 This section argued that cosine, the four clause-6 instruments and plan V's six grains all failed because they looked for resemblance where the relation is contiguity. **RH refused it in one sentence: at `took off her ___` every candidate is a wearable, so the resemblance is undeniable.** The argument only works if the resemblance is genuinely absent, and nobody had measured whether it is.
