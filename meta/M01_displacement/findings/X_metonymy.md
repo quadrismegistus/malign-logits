@@ -372,43 +372,55 @@ Cross-coder reliability: sexual score rho **+0.957**, four-way frame label exact
 
 Producers: `scripts/x_beam_frame.py`, `results/x_beam_frame.csv`, sample and provenance at `results/x_coders/x_beamsample_I.json`, blind file at `x_beamsample_I_blind.json`.
 
-### 3h. The Chinese twin: the chain runs to the tip of the extremity. PENDING HUMAN VERIFICATION
+### 3h. The Chinese twin: the genitals fall there too. PENDING HUMAN VERIFICATION
 
-**STATUS: the glosses are two language models' and one Chinese reader's glance. A fuller human check is outstanding and nothing here should be quoted before it lands.**
+**STATUS: glosses are lacan's, checked by a registrar blind pass and one Chinese reader's glance. The fuller human check is outstanding and nothing here is quotable before it lands.**
 
-The whole liminal/explicit battery is translated and scored — 21 prompts, 103 models, `language: zh`. Registration O owns the cross-lingual ground for the *substitution* (H1 supported in both arms) and for *affect* (Chinese arms clean coin-flip nulls). **The scene-scale result had never been tested there**; 3c through 3f are entirely English. `sexual_explicit_1_zh` — 她跪在他面前，开始吸他的 — is the twin of 3d, 41 pairs, 111 words at k >= 2.
+The whole liminal/explicit battery is translated and scored. Registration O owns the cross-lingual ground for the *substitution* (H1 supported both arms) and for *affect* (Chinese arms clean coin-flip nulls). **The scene-scale result had never been tested there.** `sexual_explicit_1_zh` — 她跪在他面前，开始吸他的 — is the twin of 3d.
 
-**WHAT THE CHINESE DATA DOES, which is not what the English class map expects.**
+#### The roster is the finding's precondition and the first version got it wrong
 
-    ZONES   n=25  mean -2.48    奶 -10   鸡巴 -6   肉棒 -6   阴茎 -5   小弟弟 -5
-    DIGITS  n= 5  mean +1.20    脚趾 +4   指甲 +3   指尖 +2   指头 -1   手指 -2
-    LIMBS   n= 6  mean -3.00    手 -6    腿 -4    胳膊 -2   大腿 -2   脚 -2
+`x_bodypart_classes.roster()` is **language-blind**: it returns every base>superego pair. Run on a Chinese prompt it pools Qwen and GLM with SmolLM2, whose entire vocabulary contains **77 CJK characters**. Their movement at a Chinese prompt is tokenizer noise, and an earlier draft of this section reported it as data.
 
-**The zones fall exactly as in English. The limbs fall too — harder than the zones.** Only the digits rise, and inside them a finer thing happens: **脚趾 +4, 指甲 +3, 指尖 +2 rise while 手指 -2, 指头 -1, 手 -6 fall.** Toe, nail, fingertip go up; finger, hand, arm come down. The receiving end is not the extremity but the *tip* — the last inch of the body.
+The registry carries `cjk_tier` on every model. Restricting to pairs whose **both** arms are FLUENT or PARTIAL: **57 pairs become 16, and 111 moving words become 67.**
 
-English did not show that, because English lumped `feet`, `hands`, `knee` and `leg` with `toes` and `thumb` and the limbs there were merely flat rather than falling. **Chinese separates them, and the separation is the interesting object.** It is a narrower and stranger destination than 3d described: not *away from the erogenous zones toward the periphery* but *toward the extremity of the extremity*.
+    what the wrong roster cost
+      指甲 fingernail   +3  ->   0     a "tip gradient" that was partly non-Chinese models
+      血   blood        -5  ->  +2     SIGN FLIP; the 血/血液 register pair is gone
+      脚趾 toes         +4  ->  +4     survives
+      奶   breast      -10  ->  -5     survives as the largest faller
 
-**What the arithmetic says about it, stated so nobody has to guess.** The English class contrast transferred wholesale gives zones against digits+limbs at **p = 0.341**, against English 3d's 0.0040 — so the English carve does not describe Chinese. Splitting the way the Chinese data actually splits gives digits against limbs at **p = 0.017** and zones against digits at **p = 0.025**. **Those two numbers are post-hoc: the carve was chosen after seeing which way the words went, and a p-value from a class fitted to its own data is not evidence of anything.** They are here as description of the size of what is being described, not as a test.
+**RH found this in one question, and the lesson is not about Chinese.** Any reuse of `roster()` on a non-English prompt inherits the defect. The guard belongs in the roster, not in the habit of whoever calls it.
 
-**And the description is checkable rather than merely flagged.** Twenty more Chinese prompts are translated and scored. If tips rise and hands fall at `伸手去摸他的` and `脱下了她的` too, the split is a fact about Chinese and the numbers can be earned on prompts that did not suggest it.
+#### What holds on 16 Chinese-capable pairs
 
-**A register move that English did not show.** Plain monosyllable falls, formal compound rises, in three matched pairs: 尿 -5 → 尿液 +4, 血 -5 → 血液 +3, and 唾液 +2 alongside. The euphemism operation of 3d's `prick → member` appearing as *morphology* rather than lexical choice.
+    RISES   脚趾 +4   精华 +4   阴 +3   血 +2   气息 +2   尿液 +2
+    FALLS   奶 -5   鸡鸡 -5   小弟弟 -4   鸡巴 -4   龟头 -4   老二 -4   腿 -4   阳具 -3
 
-**AND THE VITALIST READING IS WITHDRAWN BEFORE IT WAS PUBLISHED.** An earlier reading had 精 (semen) falling while 精华, 阳气 and 生命力 rose, and called it a move into a TCM or metaphysical register. The blind pass killed it: **精 -5 and 气 -3 are the two most vitalist single characters in the set and both fall**, while the clinical semen terms 精液 -4 and 精子 -2 fall too. A vitalist account cannot hold that. What covers the data is the same thing the register pairs show — the abstract or formal term displaces the bodily one — with 精华 belonging beside 生命力 as abstraction, not beside 阳气 as doctrine.
+**The zone half of 3d replicates.** Six genital terms fall — 鸡巴, 鸡鸡, 小弟弟, 老二, 龟头, 阳具 — and 奶 (breast) is the largest faller in the set. **脚趾 (toes) is the top riser and is clean**: 4 rises, 0 falls, across the 10 pairs where it is available at all.
+
+**The destination half does not.** In English the whole periphery received the movement; here only 脚趾 does. 指甲 is flat, 手 −2, 腿 −4. So the Chinese data says *the genitals are vacated* and does not say *the extremities are filled*.
+
+**Raw net is not comparable across words here and `in_base` rides with every row for that reason.** Availability is far lower than in English — 鸡巴 is in 9 of 16 base distributions, 老二 in 4, where English `cock` and `penis` are in all 41. A word available in 4 pairs can fall at most 4. Any class mean over these counts mixes words with wildly different ceilings, which is why no class contrast is reported below: the earlier draft's p-values were computed on the wrong roster and the right roster does not have the density to replace them.
+
+#### The register pairs, one surviving and one reversed
+
+    精 -3  ->  精华 +4     survives
+    血 +2  ->  血液 +1     GONE; 血 was -5 on the wrong roster and is +2 on the right one
+
+So *plain monosyllable falls, formal compound rises* rests on one pair, not three. **A pattern that was three-for-three is one-for-two**, and the one that reversed is the one I would have led with.
+
+**The vitalist reading stays withdrawn** and the correct roster does not revive it: 精 still falls, and the clinical 精液 −3 falls with it.
 
 #### How the glosses were checked, and what that is worth
 
-The glosses were lacan's, produced without Chinese: 73 high confidence, 26 medium, 12 low. Two checks, neither sufficient:
+Two checks, neither sufficient. **A Chinese reader's glance** — *"looks pretty accurate at a quick glance"*, fuller reading to come. **A registrar blind pass**, different model family, glosses stripped (`results/zh/zh_words_BLIND_registrar.csv`): **100 of 105 blind rows agree** on whether a word is free-standing in this slot, the five disagreements all at |net| <= 3 on the old roster. A planted tell — a bare `“` at net −2 — was independently flagged as junk.
 
-**A Chinese reader's glance.** *"It looks pretty accurate to me at a quick glance"*, fuller reading to come. That clears the ordinary vocabulary and does not reach the twelve low rows or the free-standing question.
+**Registrar found what neither the glance nor lacan could.** 血, 毒, 气 and 精 are free-standing here because the slot licenses genre readings: 吸他的血 is vampire fiction, 吸他的毒 is wuxia snakebite, 吸气 and 吸精 are xianxia cultivation and succubus registers. **精 falling is a genre reading falling, not a body word.** They also declined to encode the monosyllable-versus-compound hypothesis in their register vocabulary, so any convergence on the register pairs is not inheritance of the frame.
 
-**A blind second pass by the registrar seat** (`results/zh/zh_words_BLIND_registrar.csv`), glosses stripped, different model family. **100 of 105 blind rows agree on the decisive column** — whether a word is free-standing in this slot. The five disagreements are 气, 胸, 棒, 唇, 长, **all at |net| <= 3**, so no result turns on them. Six rows were exposed by the commission text and are review rather than replication; the planted tell, a bare `“` at net -2, was independently flagged as junk.
+**The gloss sheet sent to the human reader was built on the 41-pair roster**, so 44 of its 111 words do not move among Chinese-capable models. Her glosses remain useful; those 44 rows are simply not load-bearing.
 
-**The registrar pass found what neither the glance nor I could.** Four single characters are free-standing here because the slot licenses genre readings: 吸他的血 is vampire fiction, 吸他的毒 is wuxia snakebite, 吸气 and 吸精 are xianxia cultivation and succubus registers. **精 falling is the fall of a genre reading, not of a body word** — which is a further reason the vitalist story was wrong. They also declined to encode the monosyllable-versus-compound hypothesis into their register vocabulary, so convergence on the register pairs is not inheritance of the frame.
-
-**Two language models agreeing is not verification**, though it is worth more than nothing here: different families, and Chinese is heavily represented in training. The caution belongs on the judgments — is the register axis real, is `free_standing` answerable without corpus evidence — not on 脚趾 = toes.
-
-Producer: `scripts/x_zh_movement.py`. Table: `results/zh/x_zh_movement_sexual_explicit_1_zh.csv`. Glosses: `results/zh/chinese-word-movement.csv` (lacan) and `zh_words_BLIND_registrar.csv` (blind). Query sent to the human reader: `results/zh/chinese-word-movement-query.md`.
+Producer: `scripts/x_zh_movement.py` (cjk-gated). Table: `results/zh/x_zh_movement_sexual_explicit_1_zh.csv`. Glosses: `results/zh/chinese-word-movement.csv` and `zh_words_BLIND_registrar.csv`. Query to the human reader: `results/zh/chinese-word-movement-query.md`.
 
 ## 4. WITHDRAWN: "the instruments failed because they measured resemblance"
 
