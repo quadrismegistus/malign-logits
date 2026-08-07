@@ -518,6 +518,100 @@ It also answered a question this section could not. Above, we report having no a
 
 That matters because a large number of significant fields is not an embarrassment to be corrected away. It is a map, and selecting from it is interpretive work rather than statistical work -- the job of the reader who has to say what the pattern means, not of a correction that decides in advance how many things are allowed to be true. The corrections in this document exist to make each number mean what it says. They do not exist to make the set smaller, and where an earlier draft treated a falling count as a result in itself, that was a reflex and not an argument.
 
+## 17. The institutional position, and what two strata were hiding
+
+`s_everything.py` emits `m03_indiv` and `m03_inst`. **The M03 battery is ten scenarios crossed with those two positions**, so the published pair pools ten institutional contexts into two cells:
+
+    C1 labor   C2 labor   C3 labor   C4 POLICE   N1 labor
+    N2 housing N3 medical N5 benefits N6 civic   N7 housing
+
+Every cell is 7 prompts, and **the unit is the edge, so every cell has n = 43 however the prompts are split** — the seven prompts set each edge's precision, not the sample size. That is what makes a ten-way split affordable. `scripts/x_m03_pov_fields.py` imports `labelings`, `marginal` and `test_marginal` from `s_everything.py` rather than reimplementing them, so these numbers and its numbers are one statistic by construction.
+
+### 17a. Both positions gain deliberation, out of different materials
+
+    m03_indiv   489 category-rows, 262 significant, 111 survive Bonferroni
+    m03_inst    571 category-rows, 278 significant, 101 survive Bonferroni
+
+| INDIVIDUAL gains | | INSTITUTION gains | |
+|---|---|---|---|
+| X2.1 thought/belief | +0.036 | Cogitation | +0.027 |
+| consider | +0.033 | consider | +0.026 |
+| force | +0.030 | A1.1.1 general action | +0.025 |
+| Cogitation | +0.030 | X2.4 investigate | +0.025 |
+| peer | +0.027 | escape | **-0.025** |
+| bring | +0.027 | | |
+
+All Bonferroni-surviving. **`Cogitation` and `consider` rise on both sides**, so the deliberation finding is not position-specific. What differs is its material: the individual gains **thought, belief and perception**, the institution **generic action and investigation**. Deliberation as reflection against deliberation as procedure.
+
+### 17b. The affect result, recorded at RH's instruction, does not survive correction
+
+The largest gaps by magnitude are the institution losing affective and evaluative vocabulary the individual keeps:
+
+| | indiv | inst | gap |
+|---|---|---|---|
+| `admire` | +0.010 | **-0.085** | -0.095 |
+| `Experiencer_focus` | -0.003 | **-0.087** | -0.084 |
+| E2 like/dislike | -0.005 | **-0.051** | -0.046 |
+| Q1.2 documents/writing | -0.021 | +0.015 | +0.036 |
+
+As a story it would sharpen F21 considerably: not *proceduralises the individual and not the institution*, but **both proceduralised differently, and only the institution de-affected** — stripped of feeling and judgment, given paperwork.
+
+**It does not survive Bonferroni.** `admire` sits at p = 0.039 and `Experiencer_focus` at p = 0.034, while everything in 17a is robust in the moderate band. **Large delta at weak p is what a small category looks like**, and these are the four largest gaps in a table of hundreds.
+
+### 17b-bis. Run on continuous norms, the categorical story does not hold
+
+An earlier draft of 17b said the follow-up needed an external norm set, on the ground that `data.allnorms.pkl.gz` is concreteness-only. **That was checking one file and calling it the world.** Warriner is hash-pinned in this campaign already — `scripts/m01_norms.py`, `load_norms(verify=True)`, 13,929 words with valence, arousal and dominance, used by Registrations C, D and E. RH said so; the file was there.
+
+Riser mean minus faller mean per edge, t-tested across edges, same unit as everything above. Coverage 72% of moved words.
+
+| | m03_indiv | m03_inst |
+|---|---|---|
+| **signed valence** | **+0.1065**, p = 1.1e-03 | +0.0059, p = 0.83 |
+| abs valence, norm-table mean | -0.0605, p = 5.6e-05 | -0.0870, p = 1.6e-07 |
+| abs valence, norm-table median | -0.0778, p = 3.2e-06 | -0.0997, p = 3.2e-08 |
+| abs valence, population mean | -0.1372, p = 4.9e-08 | -0.1203, p = 2.4e-07 |
+| **arousal** | **-0.1761**, p = 7.6e-07 | **-0.1459**, p = 1.7e-07 |
+
+**17b's story does not survive.** *The institution is stripped of feeling and the individual keeps it* is not what continuous norms show: **both lose affective intensity and both lose arousal**, robustly, at every defensible centring. The categorical result was reading four small categories.
+
+**What IS position-specific is the sign.** Signed valence rises for the individual and is flat for the institution — and a signed difference is immune to centring by construction, so this one cannot be an artefact of where the zero is put. **Alignment makes the individual's language more positively valenced and leaves the institution's where it was.**
+
+**And one comparison is NOT reportable.** Which position loses more abs-valence flips with the centre: norm-table centring says the institution (-0.087 against -0.061), population centring says the individual (-0.137 against -0.120). Same data, opposite ordering. That is a property of the centre, not of the models.
+
+**A fourth centring was run and is invalid, recorded so nobody re-runs it.** `m01_norms` returns STANDARDISED values, table mean 0.00, not raw Warriner 1-9. Centring at the scale midpoint 5.0 puts every value below the centre, so `|v-5|` collapses to `5-v` and the row reproduces the signed result with the sign flipped — one measurement reported twice. It is in no table above.
+
+### 17c. Every context moves, and police moves distinctively
+
+    context   scen pov     sig bonf      context   scen pov     sig bonf
+    benefits  N5  indiv    128   60      labor     C3  indiv    125   39
+    benefits  N5   inst    172   71      labor     C3   inst    121   23
+    civic     N6  indiv    134   51      labor     N1  indiv    137   72
+    civic     N6   inst    175   61      labor     N1   inst    164   54
+    housing   N2  indiv    101   35      medical   N3  indiv     78   26
+    housing   N2   inst    122   30      medical   N3   inst    141   44
+    housing   N7  indiv    138   62      POLICE    C4  indiv    124   32
+    labor     C1  indiv    130   44      POLICE    C4   inst    117   25
+    labor     C1   inst    112   29
+    labor     C2  indiv    134   43
+    labor     C2   inst    160   52
+
+**Nothing is dead in any cell** — 78 to 175 significant rows, 23 to 72 surviving Bonferroni. Pooling ten scenarios into two concealed per-context structure rather than averaging noise.
+
+**Police, C4, Bonferroni-surviving only:**
+
+    THE DRIVER (indiv)                  THE OFFICER (inst)
+      Q1.2 documents    +0.048            Q2.2 speech acts  +0.086
+      battle            +0.044            advise            +0.045
+      Contacting        +0.039            T1 time           -0.041
+      tell              -0.040            M2 movement       -0.041
+      cut               -0.043            escape            -0.033
+
+Alignment turns the traffic stop into **the officer talking and advising while the driver files.** The driver moves toward documents and contacting, away from telling; the officer hard toward speech acts and advising, away from movement. Neither moves and neither escapes. F21's police exception now has a vocabulary.
+
+**Fences.** The per-context tables are EXPLORATORY; 17a is the confirmatory contrast. `indiv` and `inst` are different prompts rather than two arms of one, so these are two populations of sites and the paired language that fits M01's twins does not fit here. **116k of the 256k M03 rows in the walk sit under other id patterns and are not analysed**, so the coverage is the ten crossed scenarios, not the battery.
+
+Producer: `scripts/x_m03_pov_fields.py`, output `results/x_m03_pov_fields.csv`.
+
 ## Limits
 
 **No held-out set exists for this analysis.** It uses all 684 stems, because it needs no annotation and there was no reason to spend only part of the corpus. Its replication axes are therefore internal, and there are now four: three labelings, two grains, the never-annotated pairs used for finding 5, and the edge-by-edge decomposition in finding 8.
