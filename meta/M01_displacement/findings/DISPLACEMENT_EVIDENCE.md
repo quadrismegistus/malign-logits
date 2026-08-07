@@ -56,6 +56,25 @@ Registration N, one-sided, direction registered in advance. `results/result_n_pr
 
 **Why the annotation route is not circular.** The annotator is never told which word moved. Judgement is made about two words in a slot and the direction recovered afterwards.
 
+**A FOURTH ROUTE, on a different population and reported beside rather than with the others: scene-local coder scales.** `findings/X_metonymy.md` section 3.
+
+Four coding instruments, each run on Opus and Sonnet, on the 105 words that move at the pooled `took off her / his` scene. Coders saw the shuffled word set with **no information about which words rose or fell**, and were asked to name the dimension the words themselves order on. Every instrument that agrees with itself predicts the movement:
+
+| instrument | cross-model agreement | vs movement |
+|---|---|---|
+| body closeness | +0.888 | -0.53 / -0.48 |
+| exposure on removal | +0.908 | -0.63 / -0.58 |
+| sexual charge on removal | +0.883 | -0.56 / -0.44 |
+| coder-named dimension, scene shown | +0.888 | -0.63 / -0.61 |
+
+Negative throughout: **the more intimate the garment, the more alignment moves off it.** Robust to five outcome variables — net count, magnitude, rate, and each frame alone.
+
+**What makes it a distinct kind of evidence.** T and V.6 measure direction against fixed taxonomies or a global embedding space. **This measures direction against a scale the coders built from the scene itself**, which is the only instrument the campaign has that can represent referential rather than taxonomic distance. `pants` and `glasses` are near-neighbours in any lexicon; they are opposite ends of this one.
+
+**FENCE, and it is load-bearing.** The liminal/explicit battery is **not** the frozen 210-prompt population. Nothing here pools with T, S, N or the domain gradient. One scene, two frames, descriptive, no test, not a rate.
+
+**AND IT DOES NOT SOLVE THE PAIRED RELATION.** The ten failed instruments asked whether *this* riser is near *that* faller. X asks whether the words moved toward score lower than the words moved from — a MARGINAL question, the same shape as T. The contiguity reading explains why the paired instruments failed; the correlation does not demonstrate the pairing. **These must not be run together.**
+
 ### 4. Cross-lingual — the substitution travels, the affect does not
 
 | hypothesis | reading | within-pair sign agreement, en vs zh |
@@ -135,6 +154,8 @@ The identification is a construct rather than one seat's judgement: a syntactic 
 
 **P's ACT result is narrower than it is usually stated.** The finding is that all three coder families independently read the risen word as an **exclamation** more often than a stationary control drawn from the same faller — not speech-act change in general. **CONFIRMED under LLM coding, explicitly not human validation**, and the agreement statistics are weak: Krippendorff's alpha on the speech-act variable is **0.269**, and `gpt-4o-mini` barely uses the `NOT_COMPARABLE` and `SAME_PITCH` categories the other two use freely (3 and 4 uses against Claude's 77 and 44). The confirmation rests on each family independently showing the effect, not on item-level agreement.
 
+**Alignment's withdrawal is gendered, and the clean case is a word that is not.** `underwear` carries no gender and is available in 24 female-frame base distributions against 13 male; alignment withdraws it **8 times from the female frame and once from the male**, 33 percent against 8 of availability. Neutral-and-mundane `socks` is symmetric. And the scaled version, from the coder instruments and with no coder told that gender was at issue: **every scale predicts the female frame more strongly than the male**, by 0.15 to 0.25 of correlation, in both model families, on every outcome variable. Separately from alignment, the base models gender the scene before it arrives — `pink` in 34 female-frame distributions against **one** male, `jewelry` 23 against **zero**, `dirty` 18 against 9 the other way. **Two claims, two targets: the corpus genders the scene, and then alignment withdraws from the woman more closely.** `findings/X_metonymy.md` 1a and 3b.
+
 **The direction of displacement is a property of the scene, not of alignment.** V.5: a marked site's displacement vector agrees with its twin's at **0.327** and a random site's at **0.060**, fivefold, 14 of 14 families, p = 0.0001, surviving both the frequency residualisation and the verb restriction. This is why pooled instruments kept failing, and why a reader sees the relation instantly on one item while no aggregate recovers it.
 
 ---
@@ -142,6 +163,8 @@ The identification is a construct rather than one seat's judgement: a syntactic 
 ## AGAINST: what failed
 
 **The paired relation cannot be located geometrically.** Six grains: four similarity instruments (ledger clause 6), P's REF stratum, and V's regional, set-level, scene-controlled and directional tests. **NOT SUPPORTED throughout.** We can show that risers differ from fallers in aggregate; we cannot show that *this* riser is near *that* faller.
+
+**And X proposes a reason rather than another instrument.** `manhood -> zipper`, `cock -> pocket`, `trousers -> keys`, at unrelated lineages: the riser is not *like* the faller, it is *next to* it in the scene. **Every failed instrument measured resemblance.** If the relation is contiguity there was nothing for them to find, and V.5's scene-locality — a site's displacement vector agreeing with its twin's at 0.327 against a stranger's 0.060 — is what a contiguity relation must look like when you pool over scenes. **This is an explanation of the negatives, not a reversal of them.** The paired relation remains unlocated.
 
 **P's REF stratum: NOT SUPPORTED, single-coder.** One of three coder families showed the effect. This was metonymy's most direct annotation test.
 
