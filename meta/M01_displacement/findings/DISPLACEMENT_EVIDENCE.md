@@ -189,6 +189,14 @@ Per-pair is bounded by WITHIN-pair variance, which more sites do reduce: **media
 
 **What wave 2 therefore buys, in the form that should be quoted:** a correct population — pass 1's damage estimate sits on sites selected by a movement-related criterion and no amount of precision repairs that — and roughly double the per-pair resolution. **Not a sharper pooled mean.** At most nine of thirty pairs move from null to detected, and expect fewer, since estimates have regressed toward zero all evening as data accumulated.
 
+**AND WHETHER THE TWIN COMPARISON EXISTS AT USABLE n, which decides whether those two channels are answerable at all.** Both are twin questions: does the model repair differently after a forced word at a transgressive site than at its neutral twin. On the data available today it has 311 stem-pairs, not the 1,627 sites the site count suggests, and nobody had done that calculation before the beams were printed as text and the twin filter came up short on screen.
+
+Forcing is binary per prompt-pair, which is why. Of 6,720 combinations (210 prompts x 32 pairs) **all** have undisturbed beams and only 1,627 were forced, because forcing required a qualifying faller AND riser at that pair under the `k>=2` rule. A site has two arms or all six, never anything between. Those 1,627 sit on 1,316 (pair, stem) combinations and only **311 have both members**.
+
+**It is a power fact, not a bias fact**, which was worth checking because the obvious story was worse: the forcing rate is 25.3 percent for MARKED against 23.1 percent for UNMARKED, so neutral prompts qualify nearly as often and the 311 are not strongly selected on markedness. The members are also positively correlated, 311 both-forced against 197 under independence.
+
+Wave 2 addresses this specifically, because it builds sites from `true_word_probs` over all 210 prompts per pair instead of inheriting the k>=2 population: the forcing rate goes to 91 percent and the twin count to **2,979 in the design that is running**. Quote that as **roughly 8.6x against the 311 available today, carrying pass 1's 90 percent completion rate** (1,627 of 1,814 planned cells landed) rather than assuming the plan arrives whole. **2,979 is a thing we have asked for, not a thing we will have.** The manifest-to-manifest figure is 8.2x; an earlier 10.9x posted from this seat compared 32 pairs against 36 and is withdrawn.
+
 **The bound that currently holds on the theory:** this instrument does not confirm the topographic account and refutes only its crudest form — a cost at the moment of utterance. (Not "the word buried and unsayable": nothing in a softmax is unsayable, so that version of the depth model was never a live option and refuting it costs nothing.) Freud separates uttering from lifting (*Verneinung*, 1925), so a zero-cost forced utterance does not adjudicate between a cost that lives downstream and no cost at all.
 
 ---
