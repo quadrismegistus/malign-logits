@@ -63,6 +63,19 @@ MARKED, UNMARKED = "MARKED", "UNMARKED"
 MIN_OBS_IN_PAIR = 5
 MIN_PAIRS = 6
 
+#: INTEGRITY EXCLUSION, malign's [4962] verdict on the rule declared at [4961].
+#: `llama-7b > beaver-7b-v1.0` has 130 records where the two arms scored
+#: different token counts -- the 32000-vs-32001 pad-token case -- so it is not
+#: commensurable across arms under any reading.
+#:
+#: The first run of this script logged the resulting truncations as a 0.01%
+#: rate and moved on. **The rate was the wrong summary: 100% of them came from
+#: this one pair of 36.** A defect concentrated entirely in one pair is a fact
+#: about that pair, not noise, and the rate is exactly the statistic that hides
+#: it. The independent corroboration ran the other way too -- malign found the
+#: pair from its score structure without knowing about these skips.
+EXCLUDE_PAIRS = {"huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0"}
+
 
 def main():
     import numpy as np
@@ -107,7 +120,7 @@ def main():
     #: leading space, so two arms of one pair can decode the same id
     #: differently.
     cache = get_cache()
-    DROPPED, SKIPPED = {}, {}
+    DROPPED, SKIPPED, EXCLUDED = {}, {}, {}
 
     #: cell -> category -> pair -> [excess]
     acc = collections.defaultdict(lambda: collections.defaultdict(lambda: collections.defaultdict(list)))
@@ -128,6 +141,9 @@ def main():
         if not sb or not sa:
             continue
         pair = k.get("pair")
+        if pair in EXCLUDE_PAIRS:
+            EXCLUDED[pair] = EXCLUDED.get(pair, 0) + 1
+            continue
         for i, bm in enumerate(v["beams"]):
             #: 6 beams in 119,994 have a TRUNCATED scored_by_base (shape
             #: (10,-1,10), all beaver-7b-v1.0, 0.01%). Counted, not silently
@@ -161,6 +177,11 @@ def main():
             print("   %-46s %s" % (k.split("/")[-1][:46], v))
     else:
         print("DROP LEDGER: no pair dropped for tokenizer reasons")
+    #: the exclusion ledger prints unconditionally, including when it is empty,
+    #: so "no pair was excluded" and "the exclusion never ran" are different
+    #: lines rather than the same silence.
+    print("INTEGRITY EXCLUSION [4962]: %d records dropped -- %s"
+          % (sum(EXCLUDED.values()), dict(EXCLUDED) or "NONE (check EXCLUDE_PAIRS spelling)"))
     if SKIPPED:
         print("BEAMS SKIPPED for truncated cross-scores: %d total" % sum(SKIPPED.values()))
         for kk, vv in sorted(SKIPPED.items(), key=lambda x: -x[1])[:5]:
