@@ -211,10 +211,17 @@ def main():
     for cell in (MARKED, UNMARKED):
         res = []
         for cat, bypair in acc[cell].items():
-            means = [float(np.mean(v)) for v in bypair.values() if len(v) >= MIN_OBS_IN_PAIR]
+            #: n_obs COUNTS ONLY THE PAIRS BEHIND THE ESTIMATE. It used to sum
+            #: over `bypair.values()` entire, including pairs dropped by the
+            #: MIN_OBS_IN_PAIR gate, so the column reported observations that
+            #: contributed nothing to the mean and overstated the evidence --
+            #: always upward, and in the field that gets pasted into prose.
+            #: `pairs` was the only honest n in the table.
+            used = [v for v in bypair.values() if len(v) >= MIN_OBS_IN_PAIR]
+            means = [float(np.mean(v)) for v in used]
             if len(means) >= MIN_PAIRS:
                 res.append((cat, float(np.mean(means)), len(means),
-                            sum(len(v) for v in bypair.values()),
+                            sum(len(v) for v in used),
                             float(stats.ttest_1samp(means, 0)[1])))
         res.sort(key=lambda r: -r[1])
         rows += [(cell,) + r for r in res]
@@ -222,7 +229,7 @@ def main():
         print("=" * 78)
         print("%s  —  %d categories, Bonferroni %.5f" % (cell, len(res), bonf))
         print("=" * 78)
-        print("   %-8s %9s %6s %8s %10s  %s" % ("USAS", "excess", "pairs", "n_obs", "p", "gloss"))
+        print("   %-8s %9s %6s %8s %10s  %s" % ("USAS", "excess", "pairs", "n_used", "p", "gloss"))
         for cat, m, npair, nobs, pv in res[:10]:
             print("   %-8s %+9.4f %6d %8d %10.5f%s %s"
                   % (cat, m, npair, nobs, pv, " *" if pv < bonf else "  ", T.get(cat, "")[:34]))
@@ -235,7 +242,7 @@ def main():
     out = os.path.join(CAMP, "results", "x_estrangement_strata.csv")
     with open(out, "w", newline="") as f:
         c = csv.writer(f)
-        c.writerow(["cell", "usas", "mean_excess", "n_pairs", "n_obs", "p"])
+        c.writerow(["cell", "usas", "mean_excess", "n_pairs", "n_obs_used", "p"])
         c.writerows(rows)
     pp = os.path.join(CAMP, "results", "x_estrangement_perprompt.csv")
     with open(pp, "w", newline="") as f:
