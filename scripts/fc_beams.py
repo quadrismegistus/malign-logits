@@ -163,7 +163,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pair", help="substring of the pair id")
     ap.add_argument("--grep", help="substring of the prompt")
-    ap.add_argument("-n", type=int, default=1, help="how many sites to print")
+    ap.add_argument("-n", type=int, default=1, help="how many sites to print (0 = count only)")
+    ap.add_argument("--order", choices=("pair", "prompt"), default="pair",
+                    help="'prompt' groups the same scene across models, which reads "
+                         "far better in a long dump; 'pair' walks one model at a time")
+    ap.add_argument("--all", action="store_true", help="print every matching site")
     ap.add_argument("--top", type=int, default=TOP, help="beams printed per arm")
     ap.add_argument("--dedupe", type=int, default=2, metavar="N",
                     help="collapse beams sharing their first N words (default 2; 0 = off)")
@@ -231,8 +235,12 @@ def main():
             ok.append((pair, prompt, d))
     #: sorted so repeated invocations print the same sites -- the stash key
     #: order is not stable and an unsorted pick would quietly change what a
-    #: cited example refers to.
-    ok.sort(key=lambda x: (x[0], x[1]))
+    #: cited example refers to. Ordering by PROMPT puts the same scene in
+    #: different models adjacent, which is the comparison worth reading; by
+    #: PAIR it walks one model at a time, which is better for auditing a pair.
+    ok.sort(key=lambda x: (x[1], x[0]) if a.order == "prompt" else (x[0], x[1]))
+    if a.all:
+        a.n = len(ok)
     print("matching sites: %d (of %d before the all-arms filter)\n" % (len(ok), len(by)))
 
     if a.twin:

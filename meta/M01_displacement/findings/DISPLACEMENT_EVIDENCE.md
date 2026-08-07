@@ -107,6 +107,12 @@ Estimates have shrunk toward zero as pairs were added while MDEs tightened, whic
 
 **The suppression is graded by bodily harm rather than by transgression.** Violence six times property; taboo invisible. `findings/S_annotation.md` finding 3.
 
+**But the `sexual` domain is mislabelled, and that makes the gradient partly circular as written.** RH noticed it reading the beam dumps. Its subdomain is `boundary` and its content is non-consensual physical contact — *"he steered her into the dark hallway"*, *"even after she pulled back, he leaned his weight against her"* — not sexual explicitness. The original prompt battery's `sexual_explicit` (`malign_logits/experiments.py`) is a different construct entirely. **A domain defined by bodily contact cannot be reported as ranking third on a bodily-harm gradient without saying so.** The substantive reading survives and is arguably strengthened, since coercive contact fits a harm calculus better than sexual content would; the LABEL has to change, to `coercion` or `boundary`.
+
+**And its twin manipulation is animacy, where no other domain's is.** Violence swaps sedative for cinnamon, property "the scarf" for "his own scarf", power one act for another — all holding the referent constant and varying the transgressive element. Sexual swaps *her waist* for *the banister*, *her* for *the poster*. Animacy heavily conditions what verbs can follow, so **the marked/neutral contrast in this domain is not measuring what it measures elsewhere**, and cross-domain comparisons of that contrast are non-comparable in a specific, knowable way.
+
+**There is also no sexual-explicitness arm in the M01 battery at all.** The original had `sexual_liminal` and `sexual_explicit`, graded; neither survived. A coverage gap rather than an error, not fixed by relabelling, cheap in compute (a 30-prompt arm is ~1.2 percent of the twp store and under $3 of beams) and expensive in design — the neutral twin of an explicit prompt is not obvious, which is precisely why this domain solved the problem by swapping a person for a railing.
+
 **Verschiebung in the strict sense was not detected.** The within-item coupling that would constitute it failed at its stated MDE. S's own "what did not hold."
 
 **The substitution reverses sign between frames.** Registration Q. Magnitude confirms at the twin and dies in the corpus.
