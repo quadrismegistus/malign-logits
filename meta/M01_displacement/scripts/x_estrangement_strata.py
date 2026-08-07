@@ -76,9 +76,28 @@ def main():
         if r.get("status") == "ACTIVE" and r.get("prompt"):
             role.setdefault(r["prompt"], r.get("pair_role"))
 
+    #: DESIGN FILTER, and it is not optional. beam_fc now holds four designs
+    #: (legacy pass1+waves1-2, wave3-lexical, explicit-battery-v1,
+    #: slot-probe-sexexp1) and wave 3 landed WHILE an earlier version of this
+    #: was running, so it pooled them. malign's [4932] says it plainly: do not
+    #: filter by `arm` alone, that returns every forced record from every
+    #: design ever run. The estrangement result is the wave-1 population, which
+    #: carries design=None and reads as `legacy-pass1`.
+    WANT = {None, "legacy-pass1"}
     st = get_cache()._stash("beam_fc")
-    keys = [k for k in st.keys() if k.get("arm") == "undisturbed"]
-    print("undisturbed records: %d" % len(keys))
+    keys, bydesign = [], collections.Counter()
+    for k in st.keys():
+        if k.get("arm") != "undisturbed":
+            continue
+        try:
+            d = st[k].get("design")
+        except Exception:
+            continue
+        bydesign[str(d)] += 1
+        if d in WANT:
+            keys.append(k)
+    print("undisturbed by design: %s" % dict(bydesign))
+    print("kept design in {None, legacy-pass1}: %d records" % len(keys))
 
     #: TOKEN DECODING GOES THROUGH THE CACHE (cache.decode_tokens), added to
     #: CacheManager for this: the map (model, token_id) -> string is a pure

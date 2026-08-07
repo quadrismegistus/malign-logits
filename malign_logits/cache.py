@@ -417,42 +417,72 @@ class CacheManager:
     # for the same id. Keying on the pair would silently serve one arm's decode
     # for the other's ids.
 
-    def get_token(self, model, token_id):
-        key = {"model": model, "token_id": int(token_id)}
+    #: THE FINGERPRINT IS PART OF THE KEY, and the reason is a live defect.
+    #: deepseek's wave-3 beams came back 42.7% mojibake while the SAME pair
+    #: already in the stash was clean, and the leading hypothesis is that
+    #: `trust_remote_code=True` fetches tokenizer code from the Hub pinned to
+    #: nothing -- so one model can decode differently on different days. A
+    #: cache keyed on (model, token_id) alone would freeze whichever version
+    #: ran first and serve it forever with nothing raising.
+    #:
+    #: Cost of the fix: ONE tokenizer load per model per process, to compute
+    #: the fingerprint. The per-token saving is untouched, which is where the
+    #: 7M-observation cost actually lived.
+    _TOK_PROBE = (0, 1, 100, 1000, 10000)
+
+    def _tok_fp(self, model, tokenizer=None):
+        if not hasattr(self, "_tokfp"):
+            self._tokfp = {}
+        if model not in self._tokfp:
+            if tokenizer is None:
+                from transformers import AutoTokenizer
+                tokenizer = AutoTokenizer.from_pretrained(model, trust_remote_code=True)
+            import hashlib
+            probe = []
+            for t in self._TOK_PROBE:
+                try:
+                    probe.append(tokenizer.decode([t]))
+                except Exception:
+                    probe.append("<err>")
+            raw = "%s|%s" % (getattr(tokenizer, "vocab_size", "?"), "\x00".join(probe))
+            self._tokfp[model] = (hashlib.sha256(raw.encode("utf-8")).hexdigest()[:12], tokenizer)
+        return self._tokfp[model]
+
+    def get_token(self, model, token_id, tokenizer=None):
+        fp, _ = self._tok_fp(model, tokenizer)
+        key = {"model": model, "token_id": int(token_id), "tok_fp": fp}
         s = self._stash("token_decode")
         return s[key] if key in s else None
 
-    def set_token(self, model, token_id, text):
+    def set_token(self, model, token_id, text, tokenizer=None):
+        fp, _ = self._tok_fp(model, tokenizer)
         self._stash("token_decode")[{
-            "model": model, "token_id": int(token_id)}] = text
+            "model": model, "token_id": int(token_id), "tok_fp": fp}] = text
 
     def decode_tokens(self, model, token_ids, tokenizer=None):
         """Decode ids to strings, caching each (model, token_id) individually.
 
-        `tokenizer` is loaded only if at least one id is missing, so a fully
-        warm model costs no import and no model load. Pass one in if you
-        already hold it; otherwise AutoTokenizer is imported lazily and
+        `tokenizer` is loaded ONCE PER MODEL PER PROCESS, to fingerprint it --
+        see `_tok_fp`. Pass one in if you already hold it; otherwise
+        AutoTokenizer is imported lazily and
         `trust_remote_code=True` is used, because refusing it silently drops a
         non-random subset of models (ct-llm and map-neo, both Chinese-language)
         and a drop that correlates with the analysis is worse than the risk.
         """
+        fp, tok = self._tok_fp(model, tokenizer)
         s = self._stash("token_decode")
         ids = [int(t) for t in token_ids]
         out, missing = {}, []
         for t in ids:
-            k = {"model": model, "token_id": t}
+            k = {"model": model, "token_id": t, "tok_fp": fp}
             if k in s:
                 out[t] = s[k]
             else:
                 missing.append(t)
-        if missing:
-            if tokenizer is None:
-                from transformers import AutoTokenizer
-                tokenizer = AutoTokenizer.from_pretrained(model, trust_remote_code=True)
-            for t in sorted(set(missing)):
-                v = tokenizer.decode([t])
-                s[{"model": model, "token_id": t}] = v
-                out[t] = v
+        for t in sorted(set(missing)):
+            v = tok.decode([t])
+            s[{"model": model, "token_id": t, "tok_fp": fp}] = v
+            out[t] = v
         return [out[t] for t in ids]
 
     # ── generations ─────────────────────────────────────────────
