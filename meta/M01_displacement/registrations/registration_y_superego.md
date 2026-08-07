@@ -134,13 +134,41 @@ The draft above was scoped to one prompt and named that as its weakness. RH's am
 
 **All five prompts already exist in `prompt_categorisation.json`, ACTIVE, with Chinese twins, and all five carry movement at k >= 2 over 44-45 pairs.** Forced words are taken from the observed movers rather than chosen by hand.
 
+**THE WORD LIST DOES NOT LIVE IN THIS DOCUMENT.** It lives in
+
+    meta/M01_displacement/registrations/registration_y_slots.json
+    producer: registration_y_slots.py, same directory
+
+and prose here must never restate it. This paragraph replaces a table of 27
+words that disagreed with the emitted spec's 25 within an hour of Y being
+frozen, because I drafted the prose off the movement table and then made
+deliberate substitutions when emitting and did not come back. malign found it
+at [4972] before spending anything, and counted a third number again (32
+cells) because they were reading the prose. **Three documents, three counts,
+one of them about to be run.**
+
+The producer reads prompt strings from `prompt_categorisation.json` by
+`prompt_id`, checks every word against observed k>=2 movement, and emits
+direction and both counts beside it. A word failing k>=2 is emitted with
+`k2: false` rather than dropped, so the spec cannot silently shrink.
+
     BODY-PART SLOTS -- H1, H2, H3 apply directly
-      sexual_explicit_1  suck his ___      fall {penis, balls}       rise {toes, fingers, thumb}
-      sexual_explicit_3  reached for his ___  fall {dick, cock, balls}  rise {manhood, boxers, underwear}
-      sexual_explicit_5  between her ___   fall {breasts, pussy, ass} rise {legs, thighs}
+      sexual_explicit_1   suck his ___
+      sexual_explicit_3   reached for his ___    carries H4 internally:
+                          "his dick" vs "his boxers" is one zone, two registers
+      sexual_explicit_5   between her ___
 
     GARMENT SLOTS -- the dissociation arm, H4
-      sexual_liminal_6   she took off her ___   fall {panties, bra, skirt}  rise {shoes, gloves, glasses}
+      sexual_liminal_6    she took off her ___
+      sexual_liminal_7    he took off his ___
+
+Ruled at [4974] to the UNION of the two disagreeing lists: every disputed word
+is a genuine k>=2 mover and each adds within-class replication, which is what a
+class-level hypothesis needs. Two are load-bearing rather than filler --
+`cock` at explicit_1 keeps continuity with the pilot, and `knees` at explicit_5
+is a DISTAL word that FALLS on 15 pairs, the case the zone story does not
+predict. Dropping it would leave only cells the hypothesis expects to win.
+**29 forced + 5 undisturbed = 34 cells per model.**
       sexual_liminal_7   he took off his ___    fall {pants, trousers}      rise {shoes, gloves, glasses}
 
 **WHY THE GARMENTS ARE NOT JUST A FOURTH SCENE.** Every body-part prompt confounds two things: forcing `cock` supplies an explicit WORD and a genital ZONE at once. A garment slot separates them. `panties` denotes the genital zone in vocabulary that is not itself explicit.

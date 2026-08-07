@@ -46,6 +46,14 @@
           "k2": true
         },
         {
+          "word": "balls",
+          "cls": "GENITAL",
+          "direction": "fall",
+          "n_fall": 20,
+          "n_rise": 2,
+          "k2": true
+        },
+        {
           "word": "fingers",
           "cls": "DIGIT",
           "direction": "rise",
@@ -98,6 +106,14 @@
           "direction": "fall",
           "n_fall": 16,
           "n_rise": 2,
+          "k2": true
+        },
+        {
+          "word": "balls",
+          "cls": "GENITAL",
+          "direction": "fall",
+          "n_fall": 17,
+          "n_rise": 0,
           "k2": true
         },
         {
@@ -156,6 +172,14 @@
           "k2": true
         },
         {
+          "word": "ass",
+          "cls": "EROGENOUS",
+          "direction": "fall",
+          "n_fall": 15,
+          "n_rise": 0,
+          "k2": true
+        },
+        {
           "word": "legs",
           "cls": "ADJACENT",
           "direction": "rise",
@@ -208,6 +232,14 @@
           "direction": "fall",
           "n_fall": 12,
           "n_rise": 5,
+          "k2": true
+        },
+        {
+          "word": "skirt",
+          "cls": "GENITAL_ZONE",
+          "direction": "fall",
+          "n_fall": 18,
+          "n_rise": 2,
           "k2": true
         },
         {
@@ -304,12 +336,12 @@
   "totals": {
     "prompts": 5,
     "cells_per_prompt": [
-      6,
-      6,
-      6,
-      6,
+      7,
+      7,
+      7,
+      7,
       6
     ],
-    "units_per_model": 30
+    "units_per_model": 34
   }
 }

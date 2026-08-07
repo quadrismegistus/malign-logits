@@ -28,24 +28,41 @@ sys.path.insert(0, ROOT)
 
 #: class -> words, per prompt. The CLASS is the analysis variable; the words
 #: are its realisations and are chosen from observed movers, not by hand.
+#: RESOLVED at [4972]/[4974]: malign found this dict and Amendment A's prose
+#: disagreeing -- 25 words here against 27 there. My defect: I drafted the
+#: prose off the movement table, then made deliberate substitutions when
+#: emitting the spec and never amended the prose.
+#:
+#: Ruled to the UNION, because every disputed word is a genuine k>=2 mover and
+#: they all add WITHIN-CLASS replication, which is what a class-level
+#: hypothesis actually needs. Two of them are load-bearing rather than filler:
+#:
+#:   cock   at explicit_1 -- keeps continuity with the pilot, which forced it
+#:   knees  at explicit_5 -- a DISTAL word that FALLS (15 pairs). The zone
+#:          story does not predict it, so it is the disconfirming case and
+#:          dropping it would leave only cells the hypothesis expects to win
+#:
+#: liminal_7 stays at five: it has no third genital-zone faller worth the
+#: name (boxers falls on 2 pairs). Padding it to six for symmetry would put a
+#: k=2 word in a class alongside two k=17 words.
 SLOTS = {
     "sexual_explicit_1": {
-        "GENITAL": ["cock", "penis"],
+        "GENITAL": ["cock", "penis", "balls"],
         "DIGIT": ["fingers", "thumb"],
         "EXTREMITY": ["toes"],
     },
     "sexual_explicit_3": {
-        "GENITAL": ["dick", "cock"],
+        "GENITAL": ["dick", "cock", "balls"],
         "EUPHEMISM": ["manhood"],
         "GARMENT": ["boxers", "underwear"],
     },
     "sexual_explicit_5": {
-        "EROGENOUS": ["pussy", "breasts"],
+        "EROGENOUS": ["pussy", "breasts", "ass"],
         "ADJACENT": ["legs", "thighs"],
         "DISTAL": ["knees"],
     },
     "sexual_liminal_6": {
-        "GENITAL_ZONE": ["panties", "bra"],
+        "GENITAL_ZONE": ["panties", "bra", "skirt"],
         "EXTREMITY": ["shoes", "gloves", "glasses"],
     },
     "sexual_liminal_7": {
