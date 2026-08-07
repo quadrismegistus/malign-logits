@@ -448,19 +448,55 @@ class CacheManager:
             self._tokfp[model] = (hashlib.sha256(raw.encode("utf-8")).hexdigest()[:12], tokenizer)
         return self._tokfp[model]
 
-    def get_token(self, model, token_id, tokenizer=None):
+    #: `raw` IS PART OF THE KEY, and it has to be. Two different operations
+    #: live here and they disagree for whole tokenizer families:
+    #:
+    #:     tok.decode([i])              'the'    space STRIPPED
+    #:     tok.convert_ids_to_tokens    '_the'   marker PRESERVED  (SentencePiece)
+    #:                                  'Gthe'   marker PRESERVED  (byte-BPE)
+    #:
+    #: Per-token `decode()` drops the word-start marker BY DESIGN, and for
+    #: SentencePiece models it leaves nothing behind at all -- no space, no
+    #: sentinel. Any caller that concatenates the pieces to rebuild words gets
+    #: one run-on string per sequence: 'toosmallforthehorsetoliedownin'. Those
+    #: match no lexicon, so the affected models do not corrupt an analysis,
+    #: they SILENTLY LEAVE IT, which is the harder failure to see.
+    #:
+    #: The first version of this cache had no `raw` and stored the stripped
+    #: form. Changing what the function returns WITHOUT changing the key would
+    #: have served those stripped values forever on every warm read -- the
+    #: same class of defect the `tok_fp` fingerprint was added to prevent, one
+    #: layer up. So the two forms get separate key space rather than a fix in
+    #: place.
+    #:
+    #: USE raw=True for anything that segments words or attributes per token.
+    #: USE raw=False only to show a human what a single id looks like.
+    #: NEITHER reconstructs text: to rebuild a string, decode the SEQUENCE.
+
+    def get_token(self, model, token_id, tokenizer=None, raw=False):
         fp, _ = self._tok_fp(model, tokenizer)
         key = {"model": model, "token_id": int(token_id), "tok_fp": fp}
+        if raw:
+            key["raw"] = True
         s = self._stash("token_decode")
         return s[key] if key in s else None
 
-    def set_token(self, model, token_id, text, tokenizer=None):
+    def set_token(self, model, token_id, text, tokenizer=None, raw=False):
         fp, _ = self._tok_fp(model, tokenizer)
-        self._stash("token_decode")[{
-            "model": model, "token_id": int(token_id), "tok_fp": fp}] = text
+        key = {"model": model, "token_id": int(token_id), "tok_fp": fp}
+        if raw:
+            key["raw"] = True
+        self._stash("token_decode")[key] = text
 
-    def decode_tokens(self, model, token_ids, tokenizer=None):
-        """Decode ids to strings, caching each (model, token_id) individually.
+    def decode_tokens(self, model, token_ids, tokenizer=None, raw=False):
+        """Ids to strings, caching each (model, token_id, raw) individually.
+
+        `raw=True` returns the TOKENIZER'S OWN strings via
+        `convert_ids_to_tokens`, preserving the word-start marker (`\u2581` for
+        SentencePiece, `\u0120` for byte-BPE). `raw=False` returns per-token
+        `decode()`, which strips it. See the note above `get_token`: use
+        raw=True for any word segmentation, and decode the SEQUENCE if you
+        want text back.
 
         `tokenizer` is loaded ONCE PER MODEL PER PROCESS, to fingerprint it --
         see `_tok_fp`. Pass one in if you already hold it; otherwise
@@ -472,17 +508,30 @@ class CacheManager:
         fp, tok = self._tok_fp(model, tokenizer)
         s = self._stash("token_decode")
         ids = [int(t) for t in token_ids]
+
+        def _k(t):
+            k = {"model": model, "token_id": t, "tok_fp": fp}
+            if raw:
+                k["raw"] = True
+            return k
+
         out, missing = {}, []
         for t in ids:
-            k = {"model": model, "token_id": t, "tok_fp": fp}
+            k = _k(t)
             if k in s:
                 out[t] = s[k]
             else:
                 missing.append(t)
-        for t in sorted(set(missing)):
-            v = tok.decode([t])
-            s[{"model": model, "token_id": t, "tok_fp": fp}] = v
-            out[t] = v
+        if missing:
+            uniq = sorted(set(missing))
+            if raw:
+                #: batched: convert_ids_to_tokens takes the whole list
+                vals = tok.convert_ids_to_tokens(uniq)
+            else:
+                vals = [tok.decode([t]) for t in uniq]
+            for t, v in zip(uniq, vals):
+                s[_k(t)] = v
+                out[t] = v
         return [out[t] for t in ids]
 
     # ── generations ─────────────────────────────────────────────

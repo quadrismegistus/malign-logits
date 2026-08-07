@@ -154,17 +154,50 @@ def main():
                 continue
             base_model = pair.split(">")[0]
             try:
-                pieces = cache.decode_tokens(base_model, bm["tokens"])
+                #: raw=True. Per-token decode() STRIPS the word-start marker,
+                #: and for SentencePiece models it leaves nothing at all, so
+                #: the splitter below never fired and a whole ten-token beam
+                #: became one run-on string ('toosmallforthehorsetoliedownin')
+                #: that matches no USAS entry. Those models did not corrupt
+                #: the result, they silently LEFT it -- llama, Amber and Yi
+                #: among them. raw=True returns convert_ids_to_tokens, which
+                #: preserves the marker for every family measured.
+                pieces = cache.decode_tokens(base_model, bm["tokens"], raw=True)
             except Exception as e:
                 DROPPED[pair] = type(e).__name__ + ": " + str(e)[:80]
                 break
             cur, cur_ex = "", 0.0
             for j, s in enumerate(pieces):
-                if (s.startswith((" ", "Ġ", "\n", "\t"))) and cur:
+                #: NORMALISE FIRST, THEN SPLIT ON INTERNAL WHITESPACE TOO.
+                #: Raw tokens mark a word start with \u2581 (SentencePiece) or
+                #: \u0120 (byte-BPE) and a newline with \u010a or the byte-fallback
+                #: literal <0x0A>, never with an actual "\n". Two defects came
+                #: from that. Testing s.startswith("\n") glued words across
+                #: line breaks in every family, and per-token decode() (the
+                #: old raw=False path) stripped the word marker entirely, so
+                #: SentencePiece models produced ONE run-on string per beam
+                #: and silently left the analysis instead of corrupting it.
+                #:
+                #: A token can also carry whitespace INTERNALLY (".\u010a\u010aDoes"),
+                #: so a first-character test is not enough. The token's excess
+                #: is attributed to the word its FIRST character belongs to,
+                #: which is the only split that does not double-count.
+                s = (s.replace("\u0120", " ").replace("\u2581", " ")
+                      .replace("\u010a", "\n").replace("\u0109", "\t")
+                      .replace("<0x0A>", "\n").replace("<0x09>", "\t"))
+                if s[:1] in (" ", "\n", "\t") and cur:
                     staged.append((cell, prompt, pair, cur, cur_ex))
                     cur, cur_ex = "", 0.0
-                cur += s.replace("Ġ", " ")
+                    s = s.lstrip(" \n\t")
+                parts = re.split(r"([ \n\t]+)", s, maxsplit=1)
+                head = parts[0]
+                sep = parts[1] if len(parts) > 1 else ""
+                tail = parts[2] if len(parts) > 2 else ""
+                cur += head
                 cur_ex += sa[i][j] - sb[i][j]
+                if sep:
+                    staged.append((cell, prompt, pair, cur, cur_ex))
+                    cur, cur_ex = tail, 0.0
             if cur:
                 staged.append((cell, prompt, pair, cur, cur_ex))
         done += 1
