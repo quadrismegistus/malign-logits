@@ -1,26 +1,30 @@
 # Registration Y: the superego, not the exit
 
-Status: **FROZEN**, RH [4981]. Nothing in this document has been run on the pairs it governs.
+Status: **DESIGN DOC, not a registration.** RH, repeatedly and finally at [4984]: stop freezing things. What follows is what we are running and why. It is not a contract and no result is disqualified by disagreeing with it.
 
-    target                52 pairs, data/base_aligned_pairs.json
-    exclusions            NONE. Not integrity, not pilot, not architecture.
-    ladders               deferred to a separate registration
-    spec                  registration_y_slots.json -- THE AUTHORITY
-    generation            104 models x 34 units x 50 samples = 176,800 sequences
+    target       52 pairs, data/base_aligned_pairs.json, nothing excluded
+    generation   104 models x 34 units x 50 samples, 256 tokens, vLLM sampling
+    annotation   10 seqs/unit, coders openai/gpt-5.4-mini + deepseek/deepseek-v4-flash
+    spec         registration_y_slots.json -- THE AUTHORITY for words and prompts
+    prompts      explicit_1/3/5 (body part) + liminal_6/7 (garment)
 
-**Frozen means the hypotheses, the measures, the composites, the controls, the
-unit and the direction of every prediction are fixed as of this commit.** It
-does not mean the roster is fixed: models will fail to load and the achieved
-set is a measurement reported against the declared 52, never a substitute for
-it. It does not mean the annotation budget is fixed either -- that is a spend
-decision and it is RH's.
+**THE UNIT OF ANALYSIS IS THE WORD, NOT A CLASS.** This changed after the pilot
+and it changed because RH asked why we were grouping at all with five words.
+The honest answer was that I had imported a class structure from X 3d and never
+re-examined it. Grouping bought nothing -- n is the pair, not the word -- and it
+cost a wrong conclusion: I reported "non-genital de-sexualisation survives" from
+a -14.4 that was two unanimous -20 effects averaged with an exact zero.
 
-The pilot contamination is carried as a per-CELL flag rather than by dropping
-pairs: six pairs are contaminated at `sexual_explicit_1` and nowhere else, so
-the confirmatory test is 52 pairs at four prompts and 46 at one. Spending six
-pairs to fence one prompt would have been the expensive way to be careful.
+    per word, aligned minus base, pilot            d
+      cock      genital                         +0.0
+      penis     genital                         -3.3
+      fingers   digit                          -20.0
+      thumb     digit                          -18.3
+      toes      extremity                       +0.0
 
-The claim under test, in one sentence: **at a sexual slot, alignment does not remove the act and does not leave the scene. It keeps both and attaches a moral apparatus to them.**
+**The effect is non-monotonic in zone.** A body-map class predicts a gradient;
+this is a spike in the middle, invisible to any average over three levels.
+`cls` stays in the spec as a LABEL. Nothing aggregates on it.
 
 ## Provenance, stated first because it disqualifies the pilot
 
