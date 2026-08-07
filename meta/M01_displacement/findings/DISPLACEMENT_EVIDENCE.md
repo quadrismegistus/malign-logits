@@ -109,7 +109,21 @@ Estimates have shrunk toward zero as pairs were added while MDEs tightened, whic
 
 **But the `sexual` domain is mislabelled, and that makes the gradient partly circular as written.** RH noticed it reading the beam dumps. Its subdomain is `boundary` and its content is non-consensual physical contact — *"he steered her into the dark hallway"*, *"even after she pulled back, he leaned his weight against her"* — not sexual explicitness. The original prompt battery's `sexual_explicit` (`malign_logits/experiments.py`) is a different construct entirely. **A domain defined by bodily contact cannot be reported as ranking third on a bodily-harm gradient without saying so.** The substantive reading survives and is arguably strengthened, since coercive contact fits a harm calculus better than sexual content would; the LABEL has to change, to `coercion` or `boundary`.
 
-**And its twin manipulation is animacy, where no other domain's is.** Violence swaps sedative for cinnamon, property "the scarf" for "his own scarf", power one act for another — all holding the referent constant and varying the transgressive element. Sexual swaps *her waist* for *the banister*, *her* for *the poster*. Animacy heavily conditions what verbs can follow, so **the marked/neutral contrast in this domain is not measuring what it measures elsewhere**, and cross-domain comparisons of that contrast are non-comparable in a specific, knowable way.
+**And its twin manipulation is animacy in 10 of its 15 stems, where no other domain's is.** Violence swaps sedative for cinnamon, property "the scarf" for "his own scarf", power one act for another — all holding the referent constant and varying the transgressive element. Sexual swaps *her waist* for *the banister*, *her* for *the poster*.
+
+**Tested rather than left as a flag, and the result is not what was predicted.** The concern was that a marked twin containing a person makes person-reference words more available to fall in it, inflating T.13's `person_reference` row. Reproducing T.13's published figures and then subsetting:
+
+| induced person_reference, per edge | marked | unmarked | gap |
+|---|---|---|---|
+| all domains (published) | -0.0346 | -0.0269 | 0.0077 |
+| **excluding the sexual domain** | -0.0359 | -0.0270 | **0.0089** |
+| sexual domain only | -0.0150 | -0.0373 | -0.0223 |
+
+**Removing the suspect domain WIDENS the gap, so T.13 is unaffected and if anything understated.** Within the domain the effect reverses, and a within-domain split locates it exactly: on the 20 animacy stems the figures are -0.0362 marked against -0.0587 unmarked, and on the 16 non-animacy stems +0.0086 against -0.0074. **The reversal lives entirely in the animacy twins; the others show essentially nothing.** So it is an animacy effect and not a domain effect, and **the object twin withdraws MORE person-reference than the person twin** — opposite to the prediction, at both levels. Left unexplained rather than accounted for after the fact. `scripts/t_animacy_check.py`.
+
+The identification is a construct rather than one seat's judgement: a syntactic rule over the twin diff, with nothing to tune and no sight of the comparison list, reproduces an independent hand classification of the beam battery's 15 sexual stems at **10 of 10, no disagreement in either direction**.
+
+**So the scope is: real for the domain LABEL, real and now explained for the twin design, live for S.3's gradient, and NOT a problem for T.13.** The mechanism is worth more than the exclusion — an exclusion protects one statistic, a mechanism protects every future analysis touching those twenty stems.
 
 **There is also no sexual-explicitness arm in the M01 battery at all.** The original had `sexual_liminal` and `sexual_explicit`, graded; neither survived. A coverage gap rather than an error, not fixed by relabelling, cheap in compute (a 30-prompt arm is ~1.2 percent of the twp store and under $3 of beams) and expensive in design — the neutral twin of an explicit prompt is not obvious, which is precisely why this domain solved the problem by swapping a person for a railing.
 
