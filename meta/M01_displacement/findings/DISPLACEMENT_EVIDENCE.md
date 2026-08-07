@@ -233,6 +233,23 @@ Forcing is binary per prompt-pair, which is why. Of 6,720 combinations (210 prom
 
 Wave 2 addresses this specifically, because it builds sites from `true_word_probs` over all 210 prompts per pair instead of inheriting the k>=2 population: the forcing rate goes to 91 percent and the twin count to **2,979 in the design that is running**. Quote that as **roughly 8.6x against the 311 available today, carrying pass 1's 90 percent completion rate** (1,627 of 1,814 planned cells landed) rather than assuming the plan arrives whole. **2,979 is a thing we have asked for, not a thing we will have.** The manifest-to-manifest figure is 8.2x; an earlier 10.9x posted from this seat compared 32 pairs against 36 and is withdrawn.
 
+### The low-concentration cell was populated and measured, 7 Aug
+
+**The deflationary competitor is refuted at both pairs in the cell.** The cell is exhausted at two, so this is a census rather than a sample — and never a rate.
+
+| pair | asymmetry | 95% CI | pure concentration predicts | verdict |
+|---|---|---|---|---|
+| `OLMo-2-0425-1B > -SFT` | **-0.1145** | [-0.1258, -0.1032] | -0.0148 | effect stronger than either account |
+| `MiniCPM5-1B-Base > -SFT` | **-0.2751** | [-0.3035, -0.2468] | -0.0213 | effect stronger than either account |
+
+MiniCPM5's entire interval lies **beyond the roster mean**, at 1.99x it, on a pair in the bottom sixth of concentration. Read by a seven-cell classifier written, selftested and locked before the data, from a map ruled at the seat with no stake in the asymmetry.
+
+**The two pairs agree on the cell and not on how decisively, and that must travel.** OLMo-2 clears the fitted prediction by 0.0016, MiniCPM5 by 0.1387 — a factor of 87 — so the census verdict rests on MiniCPM5. And the cell they share is a **half-line, not an interval**: their magnitudes differ by 2.40x, more than the whole roster mean. Two measurements on the same side of a line, not two corroborating each other.
+
+**A stage reading was proposed, tested and WITHDRAWN, and the withdrawal is recorded because the reading was mine.** Both pairs exceeding a superego-fitted relation looked like SFT sitting above it, with findings U supplying the mechanism. Two checks killed it. Both census pairs are **1B**, and small pairs already sit above the fit (-0.0698 mean residual against +0.0196 for pairs over 2B). Decisively, both bases *already have* a superego pair in the roster, and **in both the SFT rung sits closer to the fit than its own superego counterpart** — the opposite of what stage predicts, with the bias running in stage's favour since the superego residuals are in-sample and shrunk. The honest replacement is duller: **these two bases run high at every stage, and they are the smallest bases in the cell.**
+
+**Size does not confound the fit.** Larger models concentrate somewhat more (r = +0.305, ns), but controlling for size **strengthens** the concentration relation — partial -0.533 against raw -0.466, slope steepening to -0.146. The size-adjusted intercept shrinks 11.5% at the comparable evaluation point, to -0.0767, which sits comfortably inside the committed test's own declared interval. A sensitivity reported beside the committed univariate result, never a correction of it.
+
 **The bound that currently holds on the theory:** this instrument does not confirm the topographic account and refutes only its crudest form — a cost at the moment of utterance. (Not "the word buried and unsayable": nothing in a softmax is unsayable, so that version of the depth model was never a live option and refuting it costs nothing.) Freud separates uttering from lifting (*Verneinung*, 1925), so a zero-cost forced utterance does not adjudicate between a cost that lives downstream and no cost at all.
 
 ---
