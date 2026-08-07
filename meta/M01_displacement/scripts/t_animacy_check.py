@@ -34,7 +34,12 @@ W["member"] = W["member"].str.lower()
 
 #: the animacy stems, identified from the twin text rather than from a hand list:
 #: marked carries a possessive/object pronoun where neutral carries a determiner.
-PRON = re.compile(r"\b(her|his|him|their|them)\b", re.I)
+#: VALIDATED AGAINST A HAND COUNT. An earlier form also required "the" on the
+#: unmarked side and found 4 of 36; relaxed to "a person marker leaves and none
+#: arrives", it reproduces malign's independent hand classification of the beam
+#: battery's 15 sexual stems at 10 of 10, no disagreement either way ([4900].3).
+#: The 4-vs-10 was two populations, not two readings.
+PRON = re.compile(r"\b(her|his|him|their|them|she|he)\b", re.I)
 pairs = R[R["domain"] == "sexual"].groupby("stem")
 animacy = set()
 for stem, g in pairs:
@@ -43,7 +48,7 @@ for stem, g in pairs:
         continue
     mk, un = d.get("marked", ""), d.get("unmarked", "")
     mw, uw = set(mk.lower().split()), set(un.lower().split())
-    if PRON.search(" ".join(mw - uw)) and "the" in (uw - mw):
+    if PRON.search(" ".join(mw - uw)) and not PRON.search(" ".join(uw - mw)):
         animacy.add(stem)
 print("sexual stems: %d   animacy-swap by text rule: %d" % (len(pairs), len(animacy)))
 
@@ -63,3 +68,9 @@ for mem in ("marked", "unmarked"):
     cell(M[M["domain"] != "sexual"], "EXCLUDING the sexual domain")
     cell(M[M["domain"] == "sexual"], "sexual domain only")
     cell(M[~M["stem"].isin(animacy)], "EXCLUDING the animacy stems only")
+    #: WITHIN the domain, animacy against not. If the domain's reversal is an
+    #: ANIMACY effect it should live disproportionately here; if it is a DOMAIN
+    #: effect it should be flat across the split. malign's test, [4900].2.
+    X = M[M["domain"] == "sexual"]
+    cell(X[X["stem"].isin(animacy)], "  sexual, ANIMACY stems")
+    cell(X[~X["stem"].isin(animacy)], "  sexual, non-animacy stems")
