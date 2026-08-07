@@ -402,6 +402,59 @@ class CacheManager:
         return self.has("logits", model=model, prompt=prompt,
                         mode=mode, dtype=dt)
 
+    # ── token decode ────────────────────────────────────────────
+    #
+    # WHY THIS EXISTS. Any per-token analysis over the beam stores has to turn
+    # token ids back into strings, and the tokenizer is per-model. Decoding
+    # 7M token observations across 36 models meant re-loading tokenizers on
+    # every script and calling `.decode([id])` once per token. The mapping is
+    # a pure function of (model, token_id) and never changes, so it belongs in
+    # the cache like anything else.
+    #
+    # THE KEY IS THE MODEL, NOT THE PAIR. Two arms of one pair usually share a
+    # vocabulary but not always -- the H4 checkpoints double-encode the leading
+    # space, so `zephyr-7b-beta` and `mistral-7b-v0.1` give different strings
+    # for the same id. Keying on the pair would silently serve one arm's decode
+    # for the other's ids.
+
+    def get_token(self, model, token_id):
+        key = {"model": model, "token_id": int(token_id)}
+        s = self._stash("token_decode")
+        return s[key] if key in s else None
+
+    def set_token(self, model, token_id, text):
+        self._stash("token_decode")[{
+            "model": model, "token_id": int(token_id)}] = text
+
+    def decode_tokens(self, model, token_ids, tokenizer=None):
+        """Decode ids to strings, caching each (model, token_id) individually.
+
+        `tokenizer` is loaded only if at least one id is missing, so a fully
+        warm model costs no import and no model load. Pass one in if you
+        already hold it; otherwise AutoTokenizer is imported lazily and
+        `trust_remote_code=True` is used, because refusing it silently drops a
+        non-random subset of models (ct-llm and map-neo, both Chinese-language)
+        and a drop that correlates with the analysis is worse than the risk.
+        """
+        s = self._stash("token_decode")
+        ids = [int(t) for t in token_ids]
+        out, missing = {}, []
+        for t in ids:
+            k = {"model": model, "token_id": t}
+            if k in s:
+                out[t] = s[k]
+            else:
+                missing.append(t)
+        if missing:
+            if tokenizer is None:
+                from transformers import AutoTokenizer
+                tokenizer = AutoTokenizer.from_pretrained(model, trust_remote_code=True)
+            for t in sorted(set(missing)):
+                v = tokenizer.decode([t])
+                s[{"model": model, "token_id": t}] = v
+                out[t] = v
+        return [out[t] for t in ids]
+
     # ── generations ─────────────────────────────────────────────
 
     def get_generation(self, model, prompt, temp=1.0, idx=0):
