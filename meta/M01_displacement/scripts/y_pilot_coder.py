@@ -48,6 +48,18 @@ import os
 import random
 import sys
 
+#: SET BEFORE ANY LIBRARY IMPORT, AND IT MUST STAY HERE. `largeliterarymodels`
+#: resolves the data root ONCE, at module scope:
+#:
+#:     llm.py:92   STASH_PATH = os.path.join(_data_dir(), "stash")
+#:
+#: so setting os.environ after any import that reaches llm.py is a no-op that
+#: LOOKS like it worked. Verified both ways: set-then-import is honoured,
+#: import-then-set is silently ignored. Nothing above this line may import
+#: malign_logits or largeliterarymodels, directly or transitively.
+DECLARED_ROOT = "/Users/rj416/github/largeliterarymodels/data"
+os.environ.setdefault("LITMOD_DATA_DIR", DECLARED_ROOT)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 CAMP = os.path.dirname(HERE)
 ROOT = os.path.dirname(os.path.dirname(CAMP))
@@ -56,38 +68,41 @@ sys.path.insert(0, ROOT)
 DATA = os.path.join(ROOT, "data", "raw", "fc_slot_sampled_vllm")
 SEED = 20260807
 
-#: THE DECLARED ANNOTATION ROOT, asserted here because getting it wrong is
-#: silent and costs money. ledger.md:894 / [4602]: an earlier pin relocated the
-#: derived data root, 9.0G of paid annotations were orphaned and had to be
-#: salvaged, and "unset, runs are silently cold and re-pay".
+#: THE ANNOTATION ROOT IS ASSERTED AGAINST THE LIBRARY, NOT AGAINST THE ENV.
+#: ledger.md:894 / [4602]: a pin relocated the derived root, 9.0G of paid
+#: annotations were orphaned, and "unset, runs are silently cold and re-pay".
 #:
-#: TWO ROOTS EXIST AND THEY ARE NOT THE SAME SYSTEM. This bit me today:
+#: TWO ROOTS EXIST AND THEY ARE NOT THE SAME SYSTEM:
 #:
 #:     malign_logits.cache.get_cache()  ->  malign-logits/data/raw/cache/
 #:                                          beam_fc, true_word_probs
 #:     LITMOD_DATA_DIR                  ->  largeliterarymodels/data/stash/
 #:                                          every LLM annotation ever paid for
 #:
-#: I set LITMOD_DATA_DIR to the malign-logits root. The beam reads kept working
-#: -- they go through the other system -- so nothing looked wrong, while the
-#: library quietly created a SECOND stash root and wrote this task's
-#: annotations into it. 906 files, invisible to every future run, and the next
-#: run would have been cold and re-paid. Salvaged by hand; asserted here so it
-#: cannot recur.
-DECLARED_ROOT = "/Users/rj416/github/largeliterarymodels/data"
-
-
+#: I set LITMOD_DATA_DIR to the malign-logits root for a whole session. The
+#: beam reads kept working, because they go through the OTHER system, so
+#: nothing looked wrong -- while the library created a second stash root and
+#: wrote 906 files of this task's annotations where no future run would look.
+#:
+#: **Checking the env var would not have caught it, because the env var was
+#: exactly what I intended it to be.** The check has to be on what the library
+#: RESOLVED: exists < called < reached < ran. STASH_PATH is the answer to
+#: "where will the money actually land".
 def assert_root():
-    env = os.environ.get("LITMOD_DATA_DIR")
-    if env and os.path.realpath(env) == os.path.realpath(DECLARED_ROOT):
+    from largeliterarymodels import llm
+    got = os.path.realpath(getattr(llm, "STASH_PATH", ""))
+    want = os.path.realpath(os.path.join(DECLARED_ROOT, "stash"))
+    if got == want:
         return
     raise SystemExit(
-        "LITMOD_DATA_DIR is %s, declared root is %s.\n"
-        "A wrong root does not error: it creates a new stash and every call "
-        "is cold and re-paid, with the results orphaned where nothing will "
-        "look for them.\n"
-        "  export LITMOD_DATA_DIR=%s"
-        % (repr(env), DECLARED_ROOT, DECLARED_ROOT))
+        "STASH_PATH resolved to\n    %s\ndeclared root is\n    %s\n"
+        "LITMOD_DATA_DIR=%s\n\n"
+        "A wrong root does not error: it creates a new stash, every call is "
+        "cold and re-paid, and the results are orphaned where nothing will "
+        "look for them. If the env var looks right and this still fires, "
+        "something imported largeliterarymodels BEFORE the os.environ line at "
+        "the top of this file."
+        % (got or "<unset>", want, os.environ.get("LITMOD_DATA_DIR")))
 
 PAIRS = [
     ("LLM360/Amber", "LLM360/AmberSafe"),
