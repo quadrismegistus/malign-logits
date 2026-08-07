@@ -1,6 +1,24 @@
 # Registration Y: the superego, not the exit
 
-Status: DRAFT, unsigned. Nothing in this document has been run on the pairs it governs.
+Status: **FROZEN**, RH [4981]. Nothing in this document has been run on the pairs it governs.
+
+    target                52 pairs, data/base_aligned_pairs.json
+    exclusions            NONE. Not integrity, not pilot, not architecture.
+    ladders               deferred to a separate registration
+    spec                  registration_y_slots.json -- THE AUTHORITY
+    generation            104 models x 34 units x 50 samples = 176,800 sequences
+
+**Frozen means the hypotheses, the measures, the composites, the controls, the
+unit and the direction of every prediction are fixed as of this commit.** It
+does not mean the roster is fixed: models will fail to load and the achieved
+set is a measurement reported against the declared 52, never a substitute for
+it. It does not mean the annotation budget is fixed either -- that is a spend
+decision and it is RH's.
+
+The pilot contamination is carried as a per-CELL flag rather than by dropping
+pairs: six pairs are contaminated at `sexual_explicit_1` and nowhere else, so
+the confirmatory test is 52 pairs at four prompts and 46 at one. Spending six
+pairs to fence one prompt would have been the expensive way to be careful.
 
 The claim under test, in one sentence: **at a sexual slot, alignment does not remove the act and does not leave the scene. It keeps both and attaches a moral apparatus to them.**
 

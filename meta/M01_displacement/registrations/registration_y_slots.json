@@ -38,14 +38,40 @@
       ],
       "note": "sets up: does the superego arrive at SFT or at DPO. U has SFT doing the cutting for displacement while DPO moves mass without following the gradient. Sign test floors at p=0.031 and needs 6/6 -- a real result if it lands, uninformative if it does not, and unknowable until run."
     },
-    "exclude_pairs_from_pilot": [
-      "LLM360/Amber>LLM360/AmberSafe",
-      "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
-      "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
-      "meta-llama/Llama-3.1-8B>allenai/Llama-3.1-Tulu-3-8B-DPO",
-      "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
-      "deepseek-ai/deepseek-llm-7b-base>deepseek-ai/deepseek-llm-7b-chat"
-    ]
+    "target_pairs": 52,
+    "target_source": "data/base_aligned_pairs.json",
+    "exclude": null,
+    "integrity_battery": "scripts/fc_checkAC.py, thresholds per [4961], on the generated corpus -- not inherited from beam_fc",
+    "pilot_contaminated_at": {
+      "prompt_id": "sexual_explicit_1",
+      "pairs": [
+        "LLM360/Amber>LLM360/AmberSafe",
+        "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+        "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+        "meta-llama/Llama-3.1-8B>allenai/Llama-3.1-Tulu-3-8B-DPO",
+        "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+        "deepseek-ai/deepseek-llm-7b-base>deepseek-ai/deepseek-llm-7b-chat"
+      ],
+      "effect": "confirmatory at 52 pairs on four prompts, 46 on explicit_1"
+    },
+    "attrition": {
+      "report": "achieved against target, with a reason per failure",
+      "substitution_allowed": false,
+      "at_risk": {
+        "hybrid_ssm": [
+          "falcon-h1-1.5b",
+          "falcon-h1-7b",
+          "falcon-mamba",
+          "falcon3-mamba"
+        ],
+        "gated": [
+          "gpt-sw3"
+        ],
+        "custom_class": [
+          "jais"
+        ]
+      }
+    }
   },
   "prompts": [
     {

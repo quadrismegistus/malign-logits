@@ -123,14 +123,65 @@ RUN = {
                  "and needs 6/6 -- a real result if it lands, uninformative "
                  "if it does not, and unknowable until run."),
     },
-    "exclude_pairs_from_pilot": [
-        "LLM360/Amber>LLM360/AmberSafe",
-        "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
-        "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
-        "meta-llama/Llama-3.1-8B>allenai/Llama-3.1-Tulu-3-8B-DPO",
-        "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
-        "deepseek-ai/deepseek-llm-7b-base>deepseek-ai/deepseek-llm-7b-chat",
-    ],
+    #: NOTHING IS EXCLUDED. RH, [4981]: try for all 52, exclude nothing, freeze.
+    #:
+    #: `data/base_aligned_pairs.json` is the target and it is DECLARED, not
+    #: whatever comes back. 52 is the population, not a sample, so the
+    #: generality question does not arise -- but only if the achieved set is
+    #: reported against the target rather than standing in for it.
+    "target_pairs": 52,
+    "target_source": "data/base_aligned_pairs.json",
+    "exclude": None,
+
+    #: NO INTEGRITY EXCLUSIONS CARRIED FORWARD. The five convicted today
+    #: (zephyr, bloom, rwkv, glm, llama>beaver) were convicted on `beam_fc`
+    #: under HF loading, and deepseek proved that verdict does not transfer:
+    #: 43.5% mojibake under transformers+trust_remote_code, 0.0% under vLLM on
+    #: identical weights. Run the battery on THIS data and rule on THIS data.
+    #: Importing yesterday's verdict would drop models for a defect they may
+    #: not have.
+    "integrity_battery": "scripts/fc_checkAC.py, thresholds per [4961], on the "
+                         "generated corpus -- not inherited from beam_fc",
+
+    #: PILOT CONTAMINATION IS RECORDED PER CELL, NOT BY DROPPING PAIRS.
+    #: Y's hypotheses were derived from sexual_explicit_1 on six pairs. Those
+    #: six are contaminated AT THAT PROMPT and nowhere else -- the pilot never
+    #: touched explicit_3, explicit_5, liminal_6 or liminal_7. Dropping the
+    #: pairs wholesale would spend 6 pairs to fence 1 prompt. Flag the 6 cells,
+    #: keep everything, and let the readout say which cells are exploratory.
+    "pilot_contaminated_at": {
+        "prompt_id": "sexual_explicit_1",
+        "pairs": [
+            "LLM360/Amber>LLM360/AmberSafe",
+            "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+            "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+            "meta-llama/Llama-3.1-8B>allenai/Llama-3.1-Tulu-3-8B-DPO",
+            "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+            "deepseek-ai/deepseek-llm-7b-base>deepseek-ai/deepseek-llm-7b-chat",
+        ],
+        "effect": "confirmatory at 52 pairs on four prompts, 46 on explicit_1",
+    },
+
+    #: ATTRITION IS A MEASUREMENT, NOT AN ACCIDENT. Six pairs are at risk and
+    #: they are NOT a random six: four are the roster's entire hybrid/SSM arm
+    #: (falcon-h1-1.5b, falcon-h1-7b, falcon-mamba, falcon3-mamba), one is
+    #: gated (gpt-sw3), one has a custom class vLLM may not support (jais).
+    #: If all four architecture failures land, every survivor is a transformer
+    #: and "we ran the roster" stays true while meaning something else.
+    #:
+    #: DO NOT SUBSTITUTE TO HOLD n. Backfilling a failed SSM with a transformer
+    #: keeps the number and converts an architecture-diverse roster into a
+    #: homogeneous one. Losing them costs 0.2 points of MDE and forecloses one
+    #: specific claim -- that moralisation belongs to the training procedure
+    #: rather than to attention -- and the readout should say so.
+    "attrition": {
+        "report": "achieved against target, with a reason per failure",
+        "substitution_allowed": False,
+        "at_risk": {"hybrid_ssm": ["falcon-h1-1.5b", "falcon-h1-7b",
+                                    "falcon-mamba", "falcon3-mamba"],
+                     "gated": ["gpt-sw3"],
+                     "custom_class": ["jais"]},
+    },
 }
 
 
