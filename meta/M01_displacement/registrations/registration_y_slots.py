@@ -101,9 +101,17 @@ RUN = {
     #: a design string in a docket post is not a filter, and a ladder arm
     #: identifiable only by parsing a model name will eventually be pooled by
     #: someone who did not know to parse it.
+    #: REVERSED BY RH AT [4979]: plain base/aligned 2x2 for this run, ladders
+    #: and ablations later, because that is a different design. I had ratified
+    #: generate=True at [4978] on my own reading plus malign's agreement and
+    #: landed it in this file before RH ruled -- a spend decision left in an
+    #: artifact one turn early. The block is kept, set False, because the
+    #: reasoning behind it is still the reasoning for the later pass, and
+    #: deleting it would make the question look unasked.
     "ladder_arms": {
-        "generate": True,
+        "generate": False,
         "annotate_for_Y": False,
+        "deferred_to": "a separate registration; RH [4979]",
         "arm_field": "ladder_position",
         "values": ["base", "ego", "superego", "reinforced_superego"],
         "families": ["internlm2", "map-neo", "ct-llm", "minicpm",

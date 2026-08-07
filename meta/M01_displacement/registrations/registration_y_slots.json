@@ -15,8 +15,9 @@
     ],
     "note_store": "store tokens; do NOT store a derived text_clip. Per-token decode strips the word-start marker and for SentencePiece leaves nothing at all -- see f378534e. full_ids is the primitive (malign [4970].3).",
     "ladder_arms": {
-      "generate": true,
+      "generate": false,
       "annotate_for_Y": false,
+      "deferred_to": "a separate registration; RH [4979]",
       "arm_field": "ladder_position",
       "values": [
         "base",
