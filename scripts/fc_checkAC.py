@@ -219,21 +219,50 @@ def main():
     cm = get_cache()
     by = compose(cm)
 
+    #: dd IS RECOMPUTED HERE, not carried in from [4960]. The undisturbed arms
+    #: are drawn from ANY design and that stash is still ingesting --
+    #: explicit-battery-v1 went 132 -> 306 records inside one hour -- so a
+    #: per-pair dd quoted from a post is a snapshot whose expiry nobody is
+    #: tracking. Emitting it beside the integrity columns makes the whole table
+    #: one diffable artifact: when llama lands, re-run and diff, and drift in
+    #: the composition shows up as a changed dd on a pair nobody touched.
+    from fc_analyse import analyse_pair
     rows = []
     for pid, cells in by.items():
         if not any(k[1] == "force_faller" for k in cells):
             continue
         a1, a2, ac = check_A(cells)
         c1, nel, mb, ma = check_C(cells)
-        rows.append((pid, a1, a2, ac, c1, nel, mb, ma))
+        try:
+            r = analyse_pair(pid, cells)
+            ddv = statistics.mean(r["dd"]) if r.get("dd") else None
+            nsit = r.get("n_sites")
+        except Exception:
+            ddv, nsit = None, None
+        rows.append((pid, a1, a2, ac, c1, nel, mb, ma, ddv, nsit))
     rows.sort(key=lambda r: r[0])
+
+    out = os.path.join(ROOT, "meta", "M01_displacement", "results",
+                       "fc_checkAC_snapshot.csv")
+    import csv as _csv
+    with open(out, "w", newline="", encoding="utf-8") as f:
+        w = _csv.writer(f)
+        w.writerow(["pair", "A1_forced_tok_mismatch", "A2_promptlen_mismatch",
+                    "A_n_words", "A_n_prompts", "C1_identity_fail_rate",
+                    "C1_n_eligible_beams", "C2_mass_base", "C2_mass_aligned",
+                    "dd", "n_sites", "fails_A", "fails_C1"])
+        for pid, a1, a2, ac, c1, nel, mb, ma, ddv, nsit in rows:
+            w.writerow([pid, a1, a2, ac[0], ac[2], c1, nel, mb, ma, ddv, nsit,
+                        int(a1 is not None and a1 > A_RATE),
+                        int(c1 is not None and c1 > C1_RATE and nel >= MIN_ELIGIBLE)])
+    print("\nwrote %s" % out)
 
     print("\n" + "=" * 100)
     print("CHECK A — vocabulary commensurability.  FAIL: A1 > %.0f%%" % (A_RATE * 100))
     print("%-52s %8s %8s   %s" % ("pair", "A1", "A2", "n words / n prompts"))
     print("-" * 100)
     failA = []
-    for pid, a1, a2, ac, c1, nel, mb, ma in rows:
+    for pid, a1, a2, ac, c1, nel, mb, ma, ddv, nsit in rows:
         nfs, nfd, pls, pld, ex = ac
         f = a1 is not None and a1 > A_RATE
         if f:
@@ -253,7 +282,7 @@ def main():
     print("-" * 100)
     failC = []
     untested = []
-    for pid, a1, a2, ac, c1, nel, mb, ma in rows:
+    for pid, a1, a2, ac, c1, nel, mb, ma, ddv, nsit in rows:
         if nel < MIN_ELIGIBLE:
             untested.append(pid)
         f = c1 is not None and c1 > C1_RATE and nel >= MIN_ELIGIBLE
@@ -278,7 +307,7 @@ def main():
         print("  C1 UNTESTED   : %s" % ", ".join(untested))
     bl = [r for r in rows if "bloom" in r[0]]
     if bl:
-        pid, a1, a2, ac, c1, nel, mb, ma = bl[0]
+        pid, a1, a2, ac, c1, nel, mb, ma, ddv, nsit = bl[0]
         print("\n  BLOOM, the pair this was commissioned to adjudicate:")
         print("    A1 %s   A2 %s   C1 %s over %d eligible beams   mass %s / %s"
               % ("n/a" if a1 is None else "%.2f%%" % (a1 * 100),
