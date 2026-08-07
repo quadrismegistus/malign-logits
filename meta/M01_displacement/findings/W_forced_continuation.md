@@ -108,8 +108,14 @@ excluded stepwise:
   quantity survives the device mixing. Device DOES carry a pair-level coefficient (~0.034 raw,
   ~0.060 with size fixed, between-pair and composition-confounded): it matters for comparing
   pair-level VALUES across devices, not for the fit — different claims, kept apart. The
-  within-pair MPS-vs-CUDA measurement ((a), the same pair on both devices) is the one that bears
-  on the SFT census and is running at this writing.
+  within-pair MPS-vs-CUDA measurement landed ([4917]): the same pair regenerated on MPS agrees
+  with its A100 value to 0.10% of the effect (−0.147201 vs −0.147050), per-site sd 0.0039, worst
+  site 0.0198, 208/210 sign agreement — TIGHTER than the CUDA-to-CUDA comparison. Beam-level
+  divergence (0/460 identical beams) does not propagate to the reported quantity; the census
+  stands as posted; the between-pair device coefficient was model composition wearing a device
+  label; the roster's 17/15 device mixing enters the fit as noise. Caveat at width: one pair, a
+  1B transformer — SSMs and large models are untested across devices, and SSMs are where both
+  beam divergence and the kernel failures live.
 - **The roster query** (criterion declared before looking, producer `fc_roster_concentration.py`):
   zero of 44 base>superego pairs concentrate little while displacing strongly, robust to the
   population and threshold re-instantiation. The low-concentration regime is UNRESOLVABLE WITH
