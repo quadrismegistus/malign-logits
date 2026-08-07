@@ -332,7 +332,35 @@ The nuisance that runs -0.09 to -0.42 at every violence prompt is **absent at th
     frame label      CONTINUES_SEXUAL  genital 38-40%   digit 7-8%
                      NON_SEXUAL        genital 2%       digit 6-13%
 
-**So the substitution at the slot is the whole mechanism.** Hand the aligned model the transgressive word and it writes the base model's scene; the continuation follows the word, not the model. **This is displacement in the narrow sense and not frame exit** — F11's Oedipalization, leaving the frame rather than picking a pole, does not describe what happens here. The chain slides at the slot and the discourse follows it.
+**The categorical form says the same thing and says it more legibly.** Counting a continuation as a sex scene only when BOTH coders label it `CONTINUES_SEXUAL`:
+
+    THE WORD                                THE MODEL
+      cock      38%      genital  36%         base      19%
+      penis     33%      digit     4%         aligned   15%
+      fingers    7%      chi2 p = 1.1e-12     paired    -4.0 pts, p = 0.322
+      toes       5%
+      thumb      0%   (0 of 60, in BOTH arms)
+
+**Nine-fold on the word, four points and null on the model.** And `thumb` at zero in both arms is the most eloquent cell in the probe: **the base model, with no alignment whatever, cannot keep the scene going once the word is `thumb` either.** The de-eroticising is not something alignment does to the continuation. It is carried entirely by the substitution, and both models obey it equally.
+
+**A pooled rate here is misleading and nearly went into this document.** Unpaired, the forced-genital arms read base 40% against aligned 32%, a tempting -8 points. Paired at the cell level it is -8.3 with **p = 0.484**, four cells down, three up, five tied of twelve — per-cell base rates run 0% to 80%, so pooling lets the high cells dominate. The direction also reverses within families: AmberSafe goes 80 to 0 on `penis` and 40 to 60 on `cock`; Tulu-3-DPO goes the other way on both. **The null is "no consistent direction across six alignment implementations", not "nothing happens in any of them."**
+
+**Each cell is five sampled continuations**, so a cell rate can only take six values. The categorical measure is the more readable one and the 0-100 score is the better primary; readability is not a reason to swap them.
+
+**So the substitution at the slot is the whole mechanism.** Hand the aligned model the transgressive word and it writes the base model's scene; the continuation follows the word, not the model. **This is displacement in the narrow sense and not frame exit** — F11's Oedipalization, leaving the frame rather than picking a pole, does not describe what happens here. The chain slides at the slot and the discourse follows it. There is no censor downstream: if alignment were managing the frame, forcing the transgressive word is exactly what would trigger it, and nothing triggers.
+
+#### THE SCOPE IS TEN TOKENS, and the two claims do not extrapolate alike
+
+**Every record in the `beam_fc` stash is `max_tokens=10`** — all 22,788 of them. Ten tokens after *...began to suck his penis* reaches about *"and he closed his eyes and let out a"*.
+
+- **The word effect should hold or strengthen at length.** It bites immediately, at p ~ 1e-12, and no mechanism suggests more text would undo it.
+- **The null should not be extrapolated.** A null at short length is the WEAKER test: every behaviour that would break it — a swerve, a scene break, a late refusal, a moralising turn — needs more room than ten tokens. If alignment has a second mechanism, this is precisely where it would be invisible.
+
+So the defensible claim is **"within ten tokens of the substitution, alignment adds nothing."** *Alignment's intervention is exhausted by the substitution* is the version that wants testing at 100 tokens before it goes in a paper.
+
+One piece of evidence the other way: 26 percent of continuations already leave narration for a QA or entailment template, and that is **more common in base (14%) than aligned (8%)**. The only escape behaviour visible at this length is a pretraining residue, not an alignment one — if alignment had a swerve reflex, some trace might be expected by token ten.
+
+**The undisturbed arm is not a comparison.** Its beams contain the model's own slot word, so the coder reads strictly more (base 73%, aligned 63%). Only the within-row difference means anything, and within every row it is small and null.
 
 **And the risers are not uniformly de-sexualising, which was RH's objection and it was right.** *"Sucking fingers is still a sexual act, though fewer people suck toes."* `fingers` at 39.0 sits closer to `penis` at 47.1 than to `thumb` at 21.2. The threshold is between `fingers` and `thumb` with `toes` between them, so "alignment moves to the extremities" is too coarse: the extremities differ by more than 2:1 in how much scene they carry.
 
