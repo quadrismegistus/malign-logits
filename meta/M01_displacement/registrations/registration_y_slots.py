@@ -84,6 +84,37 @@ RUN = {
                    "decode strips the word-start marker and for SentencePiece "
                    "leaves nothing at all -- see f378534e. full_ids is the "
                    "primitive (malign [4970].3)."),
+    #: LADDER ARMS: GENERATE, DO NOT ANNOTATE FOR Y. Ruled at [4977]/[4978].
+    #: Six of the sixteen carry an SFT checkpoint and one carries
+    #: reinforced_superego on top. +22% sequences, and malign measured the
+    #: cost claim rather than accepting mine: model load is ~5% of per-model
+    #: time at Y's parameters (90 s load against ~1,600 s compute), so wall
+    #: clock scales with sequences and my +40% worry was unfounded.
+    #:
+    #: They MUST NOT enter Y's confirmatory test. Every Y hypothesis is stated
+    #: on the base->aligned contrast and the unit is the pair; an SFT arm in
+    #: the pool changes the unit.
+    #:
+    #: `arm_field` is malign's condition and it is the right one: mark the
+    #: ladder arm with an EXPLICIT FIELD, never leave it inferable from the
+    #: checkpoint name. This campaign already has `fc_analyse.load()` because
+    #: a design string in a docket post is not a filter, and a ladder arm
+    #: identifiable only by parsing a model name will eventually be pooled by
+    #: someone who did not know to parse it.
+    "ladder_arms": {
+        "generate": True,
+        "annotate_for_Y": False,
+        "arm_field": "ladder_position",
+        "values": ["base", "ego", "superego", "reinforced_superego"],
+        "families": ["internlm2", "map-neo", "ct-llm", "minicpm",
+                     "olmoe", "redpajama"],
+        "extra_reinforced": ["olmoe"],
+        "note": ("sets up: does the superego arrive at SFT or at DPO. U has "
+                 "SFT doing the cutting for displacement while DPO moves mass "
+                 "without following the gradient. Sign test floors at p=0.031 "
+                 "and needs 6/6 -- a real result if it lands, uninformative "
+                 "if it does not, and unknowable until run."),
+    },
     "exclude_pairs_from_pilot": [
         "LLM360/Amber>LLM360/AmberSafe",
         "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
