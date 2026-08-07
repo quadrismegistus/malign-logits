@@ -56,6 +56,39 @@ sys.path.insert(0, ROOT)
 DATA = os.path.join(ROOT, "data", "raw", "fc_slot_sampled_vllm")
 SEED = 20260807
 
+#: THE DECLARED ANNOTATION ROOT, asserted here because getting it wrong is
+#: silent and costs money. ledger.md:894 / [4602]: an earlier pin relocated the
+#: derived data root, 9.0G of paid annotations were orphaned and had to be
+#: salvaged, and "unset, runs are silently cold and re-pay".
+#:
+#: TWO ROOTS EXIST AND THEY ARE NOT THE SAME SYSTEM. This bit me today:
+#:
+#:     malign_logits.cache.get_cache()  ->  malign-logits/data/raw/cache/
+#:                                          beam_fc, true_word_probs
+#:     LITMOD_DATA_DIR                  ->  largeliterarymodels/data/stash/
+#:                                          every LLM annotation ever paid for
+#:
+#: I set LITMOD_DATA_DIR to the malign-logits root. The beam reads kept working
+#: -- they go through the other system -- so nothing looked wrong, while the
+#: library quietly created a SECOND stash root and wrote this task's
+#: annotations into it. 906 files, invisible to every future run, and the next
+#: run would have been cold and re-paid. Salvaged by hand; asserted here so it
+#: cannot recur.
+DECLARED_ROOT = "/Users/rj416/github/largeliterarymodels/data"
+
+
+def assert_root():
+    env = os.environ.get("LITMOD_DATA_DIR")
+    if env and os.path.realpath(env) == os.path.realpath(DECLARED_ROOT):
+        return
+    raise SystemExit(
+        "LITMOD_DATA_DIR is %s, declared root is %s.\n"
+        "A wrong root does not error: it creates a new stash and every call "
+        "is cold and re-paid, with the results orphaned where nothing will "
+        "look for them.\n"
+        "  export LITMOD_DATA_DIR=%s"
+        % (repr(env), DECLARED_ROOT, DECLARED_ROOT))
+
 PAIRS = [
     ("LLM360/Amber", "LLM360/AmberSafe"),
     ("Qwen/Qwen2.5-7B", "Qwen/Qwen2.5-7B-Instruct"),
@@ -67,18 +100,40 @@ PAIRS = [
 CLASS = {"cock": "genital", "penis": "genital", "fingers": "digit",
          "thumb": "digit", "toes": "extremity", None: "undisturbed"}
 
-#: TWO FAMILIES, NOT TWO SIZES OF ONE. Agreement between two Anthropic models
-#: is a weaker check than agreement across providers: shared training makes a
-#: shared error look like a confirmation, and this campaign has booked exactly
-#: that ("two seats' matching nulls were one aggregation error twice").
+#: TWO FAMILIES, NOT TWO SIZES OF ONE. Agreement between two models from one
+#: provider is a weaker check than agreement across providers: shared training
+#: makes a shared error look like a confirmation, and this campaign has booked
+#: exactly that ("two seats' matching nulls were one aggregation error twice").
 #:
-#: NOT gemini-3.6-flash as the second family, despite `r_eight_coder_pass`
-#: listing it. This session inherits the FREE-TIER Google key, which dies at
-#: 20 requests/day and surfaces as a parse failure rather than a quota error --
-#: it reads as the coder being bad at the task. At 35,360 items that is 20
-#: coded and 35,340 silently missing. openai is the second family until
-#: somebody confirms which Google key a run is holding.
-CODERS = ["anthropic/claude-haiku-4-5-20251001", "openai/gpt-5.4-mini"]
+#: NO GOOGLE MODEL. RH, and the reason is not quota: Gemini's safety filtering
+#: refuses this corpus outright, and a refusal arrives as a FAILED PARSE rather
+#: than as a refusal. The items it declines are not random -- they are the
+#: explicit ones, which is precisely the population under test, so the missing
+#: data would be perfectly correlated with the hypothesis. (The free-tier key
+#: this session inherits also dies at 20 requests/day, in the same silent way.)
+#:
+#: Anthropic is not used either, on RH's instruction. Worth recording that it
+#: parsed 12/12 in the smoke test, so this is a choice about independence and
+#: provider diversity, not a capability finding.
+CODERS = ["openai/gpt-5.4-mini", "deepseek/deepseek-v4-flash"]
+
+#: AGREEMENT FLOOR, DECLARED BEFORE THE PASS RUNS.
+#:
+#:     kappa >= 0.40, OR prevalence < 5% with raw agreement >= 0.95
+#:
+#: The second clause is not a loophole, it is the fix for a known degeneracy:
+#: **Cohen's kappa collapses toward zero at extreme base rates even when the
+#: coders agree on almost every item.** `assistant_refusal` runs near 1% in the
+#: pilot; two coders agreeing on 99 of 100 items there can still score kappa
+#: ~0.2 purely because chance agreement is nearly 1. Judging a rare field by
+#: kappa alone would retire the fields that are rare BECAUSE the effect is
+#: rare, which is the opposite of what the floor is for.
+#:
+#: Both numbers are reported for every field either way, with prevalence beside
+#: them, so the reader can see which clause a field passed on.
+KAPPA_FLOOR = 0.40
+RARE_PREVALENCE = 0.05
+RARE_AGREEMENT = 0.95
 
 
 def load():
@@ -125,6 +180,7 @@ def main(argv=None):
     ap.add_argument("--out", default=os.path.join(CAMP, "results", "y_pilot_coded.jsonl"))
     args = ap.parse_args(argv)
 
+    assert_root()
     rng = random.Random(SEED)
     G = load()
     texts, metas = build_items(G, args.n, rng)
@@ -188,7 +244,56 @@ def main(argv=None):
                 continue
             r[role] = sum(1 for d in sel if d.get(fld) is True or d.get(fld) == "YES") / len(sel)
         print("  %-24s %7.1f%% %7.1f%%" % (fld, 100 * r.get("base", 0), 100 * r.get("aligned", 0)))
+    if len(coders) > 1:
+        agreement(rows, coders)
     return 0
+
+
+def agreement(rows, coders):
+    """Per-field agreement between the two coder families, reported BEFORE
+    any rate is believed. A field below the floor is printed and named as
+    excluded, never quietly averaged into a composite."""
+    import math
+    F = ["continues_narrative", "assistant_refusal", "frame_exit", "sexual_scene",
+         "consummation", "moralisation_in_scene", "consent_hesitation", "degenerate"]
+    #: pair rows by the item they coded. `seq_i` alone is not unique across
+    #: units, so the key is the full cell coordinate.
+    idx = collections.defaultdict(dict)
+    for d in rows:
+        idx[(d["pair"], d["role"], d["word"], d["seq_i"])][d["coder"]] = d
+    both = [v for v in idx.values() if len(v) == len(coders)]
+    print("\n" + "=" * 92)
+    print("AGREEMENT, %d items coded by both families" % len(both))
+    print("floor: kappa >= %.2f, OR prevalence < %.0f%% with raw agreement >= %.0f%%"
+          % (KAPPA_FLOOR, 100 * RARE_PREVALENCE, 100 * RARE_AGREEMENT))
+    print("%-24s %7s %7s %8s %8s   %s" % ("field", "prev_A", "prev_B", "raw", "kappa", "verdict"))
+    print("-" * 92)
+    a_id, b_id = coders[0], coders[1]
+    excluded = []
+    for fld in F:
+        a = [1 if v[a_id].get(fld) == "YES" else 0 for v in both]
+        b = [1 if v[b_id].get(fld) == "YES" else 0 for v in both]
+        n = len(a)
+        if not n:
+            continue
+        po = sum(1 for x, y in zip(a, b) if x == y) / n
+        pa, pb = sum(a) / n, sum(b) / n
+        pe = pa * pb + (1 - pa) * (1 - pb)
+        k = (po - pe) / (1 - pe) if pe < 1 else float("nan")
+        rare = max(pa, pb) < RARE_PREVALENCE
+        ok = (not math.isnan(k) and k >= KAPPA_FLOOR) or (rare and po >= RARE_AGREEMENT)
+        why = "" if not ok else ("(rare clause)" if (math.isnan(k) or k < KAPPA_FLOOR) else "")
+        if not ok:
+            excluded.append(fld)
+        print("%-24s %6.1f%% %6.1f%% %7.1f%% %8s   %s %s"
+              % (fld, 100 * pa, 100 * pb, 100 * po,
+                 "n/a" if math.isnan(k) else "%.3f" % k,
+                 "PASS" if ok else "BELOW FLOOR", why))
+    print("-" * 92)
+    print("EXCLUDED FROM ANY RATE: %s" % (", ".join(excluded) if excluded else "none"))
+    if excluded:
+        print("These are reported, not silently dropped. A composite built on an")
+        print("excluded field is not reportable either -- check COMPOSITES.")
 
 
 if __name__ == "__main__":
