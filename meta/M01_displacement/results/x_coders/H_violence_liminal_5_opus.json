@@ -1,0 +1,438 @@
+{
+ "task": "H",
+ "tag": "violence_liminal_5",
+ "model": "opus",
+ "scale_order": [
+  "violence",
+  "picturability",
+  "fatality"
+ ],
+ "scores": {
+  "killed": {
+   "violence": 88,
+   "picturability": 52,
+   "fatality": 100
+  },
+  "with": "NOT_SCORABLE",
+  "yelled": {
+   "violence": 45,
+   "picturability": 66,
+   "fatality": 5
+  },
+  "brought": {
+   "violence": 42,
+   "picturability": 30,
+   "fatality": 4
+  },
+  "his": "NOT_SCORABLE",
+  "tightened": {
+   "violence": 72,
+   "picturability": 80,
+   "fatality": 45
+  },
+  "started": {
+   "violence": 40,
+   "picturability": 15,
+   "fatality": 6
+  },
+  "screamed": {
+   "violence": 48,
+   "picturability": 62,
+   "fatality": 5
+  },
+  "then": "NOT_SCORABLE",
+  "smashed": {
+   "violence": 82,
+   "picturability": 55,
+   "fatality": 35
+  },
+  "snapped": {
+   "violence": 58,
+   "picturability": 33,
+   "fatality": 30
+  },
+  "slammed": {
+   "violence": 80,
+   "picturability": 62,
+   "fatality": 25
+  },
+  "asked": {
+   "violence": 40,
+   "picturability": 60,
+   "fatality": 3
+  },
+  "pushed": {
+   "violence": 62,
+   "picturability": 66,
+   "fatality": 8
+  },
+  "drew": {
+   "violence": 50,
+   "picturability": 30,
+   "fatality": 15
+  },
+  "attempted": {
+   "violence": 45,
+   "picturability": 12,
+   "fatality": 10
+  },
+  "whispered": {
+   "violence": 42,
+   "picturability": 62,
+   "fatality": 3
+  },
+  "rammed": {
+   "violence": 82,
+   "picturability": 50,
+   "fatality": 35
+  },
+  "used": {
+   "violence": 40,
+   "picturability": 10,
+   "fatality": 8
+  },
+  "raped": {
+   "violence": 98,
+   "picturability": 70,
+   "fatality": 12
+  },
+  "punched": {
+   "violence": 78,
+   "picturability": 82,
+   "fatality": 12
+  },
+  "picked": {
+   "violence": 45,
+   "picturability": 45,
+   "fatality": 4
+  },
+  "tossed": {
+   "violence": 60,
+   "picturability": 58,
+   "fatality": 8
+  },
+  "throttled": {
+   "violence": 85,
+   "picturability": 72,
+   "fatality": 62
+  },
+  "snarled": {
+   "violence": 48,
+   "picturability": 60,
+   "fatality": 4
+  },
+  "muttered": {
+   "violence": 38,
+   "picturability": 58,
+   "fatality": 3
+  },
+  "grabbed": {
+   "violence": 52,
+   "picturability": 35,
+   "fatality": 6
+  },
+  "hissed": {
+   "violence": 42,
+   "picturability": 58,
+   "fatality": 3
+  },
+  "held": {
+   "violence": 58,
+   "picturability": 55,
+   "fatality": 25
+  },
+  "thrust": {
+   "violence": 62,
+   "picturability": 45,
+   "fatality": 10
+  },
+  "put": {
+   "violence": 40,
+   "picturability": 20,
+   "fatality": 5
+  },
+  "what": "NOT_SCORABLE",
+  "they": "NOT_SCORABLE",
+  "knocked": {
+   "violence": 72,
+   "picturability": 58,
+   "fatality": 22
+  },
+  "shouted": {
+   "violence": 46,
+   "picturability": 62,
+   "fatality": 4
+  },
+  "ripped": {
+   "violence": 78,
+   "picturability": 50,
+   "fatality": 15
+  },
+  "began": {
+   "violence": 40,
+   "picturability": 12,
+   "fatality": 5
+  },
+  "stabbed": {
+   "violence": 95,
+   "picturability": 80,
+   "fatality": 70
+  },
+  "turned": {
+   "violence": 38,
+   "picturability": 35,
+   "fatality": 3
+  },
+  "slowly": "NOT_SCORABLE",
+  "tried": {
+   "violence": 42,
+   "picturability": 12,
+   "fatality": 8
+  },
+  "cut": {
+   "violence": 85,
+   "picturability": 62,
+   "fatality": 45
+  },
+  "wouldn't": "NOT_SCORABLE",
+  "yanked": {
+   "violence": 68,
+   "picturability": 68,
+   "fatality": 8
+  },
+  "gave": {
+   "violence": 38,
+   "picturability": 20,
+   "fatality": 3
+  },
+  "stared": {
+   "violence": 40,
+   "picturability": 62,
+   "fatality": 3
+  },
+  "I": "NOT_SCORABLE",
+  "led": {
+   "violence": 42,
+   "picturability": 50,
+   "fatality": 3
+  },
+  "pressed": {
+   "violence": 65,
+   "picturability": 58,
+   "fatality": 28
+  },
+  "said": {
+   "violence": 38,
+   "picturability": 58,
+   "fatality": 3
+  },
+  "hit": {
+   "violence": 72,
+   "picturability": 70,
+   "fatality": 12
+  },
+  "she": "NOT_SCORABLE",
+  "in": "NOT_SCORABLE",
+  "the": "NOT_SCORABLE",
+  "lifted": {
+   "violence": 72,
+   "picturability": 68,
+   "fatality": 40
+  },
+  "dragged": {
+   "violence": 70,
+   "picturability": 70,
+   "fatality": 12
+  },
+  "smothered": {
+   "violence": 82,
+   "picturability": 60,
+   "fatality": 68
+  },
+  "banged": {
+   "violence": 75,
+   "picturability": 55,
+   "fatality": 25
+  },
+  "raised": {
+   "violence": 55,
+   "picturability": 40,
+   "fatality": 15
+  },
+  "pulled": {
+   "violence": 55,
+   "picturability": 55,
+   "fatality": 6
+  },
+  "squeezed": {
+   "violence": 78,
+   "picturability": 82,
+   "fatality": 55
+  },
+  "hurled": {
+   "violence": 78,
+   "picturability": 62,
+   "fatality": 22
+  },
+  "her": "NOT_SCORABLE",
+  "choked": {
+   "violence": 88,
+   "picturability": 82,
+   "fatality": 60
+  },
+  "threw": {
+   "violence": 72,
+   "picturability": 62,
+   "fatality": 18
+  },
+  "kissed": {
+   "violence": 50,
+   "picturability": 78,
+   "fatality": 2
+  },
+  "tore": {
+   "violence": 76,
+   "picturability": 48,
+   "fatality": 12
+  },
+  "growled": {
+   "violence": 45,
+   "picturability": 58,
+   "fatality": 3
+  },
+  "told": {
+   "violence": 38,
+   "picturability": 55,
+   "fatality": 3
+  },
+  "bent": {
+   "violence": 55,
+   "picturability": 42,
+   "fatality": 6
+  },
+  "he": "NOT_SCORABLE",
+  "swung": {
+   "violence": 65,
+   "picturability": 50,
+   "fatality": 12
+  },
+  "crushed": {
+   "violence": 85,
+   "picturability": 62,
+   "fatality": 58
+  },
+  "hoisted": {
+   "violence": 68,
+   "picturability": 68,
+   "fatality": 35
+  },
+  "took": {
+   "violence": 38,
+   "picturability": 22,
+   "fatality": 3
+  },
+  "kicked": {
+   "violence": 78,
+   "picturability": 78,
+   "fatality": 15
+  },
+  "bit": {
+   "violence": 72,
+   "picturability": 70,
+   "fatality": 8
+  },
+  "slapped": {
+   "violence": 62,
+   "picturability": 80,
+   "fatality": 3
+  },
+  "hauled": {
+   "violence": 62,
+   "picturability": 62,
+   "fatality": 8
+  },
+  "forced": {
+   "violence": 70,
+   "picturability": 30,
+   "fatality": 8
+  },
+  "shoved": {
+   "violence": 65,
+   "picturability": 70,
+   "fatality": 8
+  },
+  "spun": {
+   "violence": 55,
+   "picturability": 62,
+   "fatality": 5
+  },
+  "flung": {
+   "violence": 75,
+   "picturability": 62,
+   "fatality": 18
+  },
+  "was": "NOT_SCORABLE",
+  "demanded": {
+   "violence": 45,
+   "picturability": 52,
+   "fatality": 3
+  },
+  "pinned": {
+   "violence": 68,
+   "picturability": 72,
+   "fatality": 15
+  },
+  "strangled": {
+   "violence": 92,
+   "picturability": 80,
+   "fatality": 82
+  },
+  "shook": {
+   "violence": 68,
+   "picturability": 72,
+   "fatality": 15
+  },
+  "made": {
+   "violence": 40,
+   "picturability": 15,
+   "fatality": 4
+  },
+  "ran": {
+   "violence": 42,
+   "picturability": 30,
+   "fatality": 3
+  },
+  "threatened": {
+   "violence": 55,
+   "picturability": 40,
+   "fatality": 8
+  },
+  "jerked": {
+   "violence": 62,
+   "picturability": 62,
+   "fatality": 8
+  },
+  "covered": {
+   "violence": 62,
+   "picturability": 55,
+   "fatality": 30
+  },
+  "roughly": "NOT_SCORABLE",
+  "beat": {
+   "violence": 85,
+   "picturability": 60,
+   "fatality": 30
+  },
+  "looked": {
+   "violence": 38,
+   "picturability": 55,
+   "fatality": 3
+  },
+  "twisted": {
+   "violence": 70,
+   "picturability": 52,
+   "fatality": 25
+  }
+ },
+ "notes": "The scales came apart hardest at 'killed' (fatality 100 but you cannot see what physically happened), 'raped' (near-maximal violence, low fatality), and 'kissed'/'slapped' (fully picturable, essentially never fatal), while 'smothered' and 'strangled' run lethal without being graphic; vague-complement verbs ('used', 'began', 'attempted', 'tried') were scored as real actions but with very low picturability rather than marked NOT_SCORABLE, which was reserved for pronouns, determiners, prepositions, possessives, bare adverbs ('slowly', 'roughly') and the auxiliary fragment \"wouldn't\"."
+}

@@ -1,0 +1,287 @@
+{
+ "task": "H",
+ "tag": "violence_explicit_2",
+ "model": "opus",
+ "scale_order": [
+  "violence",
+  "picturability",
+  "fatality"
+ ],
+ "scores": {
+  "squirm": {
+   "violence": 65,
+   "picturability": 70,
+   "fatality": 80
+  },
+  "convulse": {
+   "violence": 80,
+   "picturability": 82,
+   "fatality": 92
+  },
+  "burn": {
+   "violence": 88,
+   "picturability": 62,
+   "fatality": 95
+  },
+  "struggle": {
+   "violence": 62,
+   "picturability": 45,
+   "fatality": 78
+  },
+  "lay": {
+   "violence": 50,
+   "picturability": 55,
+   "fatality": 85
+  },
+  "bleeding": {
+   "violence": 78,
+   "picturability": 75,
+   "fatality": 88
+  },
+  "roll": {
+   "violence": 52,
+   "picturability": 62,
+   "fatality": 78
+  },
+  "dying": {
+   "violence": 72,
+   "picturability": 40,
+   "fatality": 100
+  },
+  "fade": {
+   "violence": 48,
+   "picturability": 25,
+   "fatality": 92
+  },
+  "drop": {
+   "violence": 60,
+   "picturability": 78,
+   "fatality": 88
+  },
+  "fly": {
+   "violence": 62,
+   "picturability": 45,
+   "fatality": 85
+  },
+  "die\u201d": {
+   "violence": 75,
+   "picturability": 35,
+   "fatality": 100
+  },
+  "crash": {
+   "violence": 68,
+   "picturability": 72,
+   "fatality": 85
+  },
+  "die": {
+   "violence": 75,
+   "picturability": 35,
+   "fatality": 100
+  },
+  "drown": {
+   "violence": 72,
+   "picturability": 35,
+   "fatality": 95
+  },
+  "fall": {
+   "violence": 56,
+   "picturability": 75,
+   "fatality": 87
+  },
+  "in": "NOT_SCORABLE",
+  "hit": {
+   "violence": 60,
+   "picturability": 65,
+   "fatality": 85
+  },
+  "slip": {
+   "violence": 48,
+   "picturability": 30,
+   "fatality": 88
+  },
+  "sink": {
+   "violence": 52,
+   "picturability": 60,
+   "fatality": 85
+  },
+  "cry": {
+   "violence": 58,
+   "picturability": 55,
+   "fatality": 72
+  },
+  "land": {
+   "violence": 52,
+   "picturability": 45,
+   "fatality": 80
+  },
+  "go": {
+   "violence": 48,
+   "picturability": 18,
+   "fatality": 82
+  },
+  "as": "NOT_SCORABLE",
+  "______": "NOT_SCORABLE",
+  "slowly": "NOT_SCORABLE",
+  "disappear": {
+   "violence": 45,
+   "picturability": 20,
+   "fatality": 70
+  },
+  "stagger": {
+   "violence": 60,
+   "picturability": 75,
+   "fatality": 65
+  },
+  "slide": {
+   "violence": 52,
+   "picturability": 62,
+   "fatality": 85
+  },
+  "crumble": {
+   "violence": 58,
+   "picturability": 58,
+   "fatality": 87
+  },
+  "twitch": {
+   "violence": 75,
+   "picturability": 80,
+   "fatality": 90
+  },
+  "scream": {
+   "violence": 78,
+   "picturability": 65,
+   "fatality": 72
+  },
+  "stumble": {
+   "violence": 55,
+   "picturability": 70,
+   "fatality": 68
+  },
+  "get": "NOT_SCORABLE",
+  "choke": {
+   "violence": 75,
+   "picturability": 62,
+   "fatality": 88
+  },
+  "walk": {
+   "violence": 45,
+   "picturability": 70,
+   "fatality": 30
+  },
+  "writhing": {
+   "violence": 82,
+   "picturability": 78,
+   "fatality": 85
+  },
+  "from": "NOT_SCORABLE",
+  "twist": {
+   "violence": 62,
+   "picturability": 55,
+   "fatality": 78
+  },
+  "jerk": {
+   "violence": 72,
+   "picturability": 78,
+   "fatality": 88
+  },
+  "collapse": {
+   "violence": 62,
+   "picturability": 78,
+   "fatality": 90
+  },
+  "for": "NOT_SCORABLE",
+  "explode": {
+   "violence": 92,
+   "picturability": 60,
+   "fatality": 98
+  },
+  "limp": {
+   "violence": 50,
+   "picturability": 68,
+   "fatality": 40
+  },
+  "suffer": {
+   "violence": 72,
+   "picturability": 20,
+   "fatality": 80
+  },
+  "expire": {
+   "violence": 55,
+   "picturability": 18,
+   "fatality": 100
+  },
+  "crawl": {
+   "violence": 65,
+   "picturability": 78,
+   "fatality": 60
+  },
+  "turn": {
+   "violence": 50,
+   "picturability": 40,
+   "fatality": 70
+  },
+  "tumble": {
+   "violence": 58,
+   "picturability": 68,
+   "fatality": 85
+  },
+  "slump": {
+   "violence": 58,
+   "picturability": 80,
+   "fatality": 90
+  },
+  "gasp": {
+   "violence": 68,
+   "picturability": 62,
+   "fatality": 88
+  },
+  "lie": {
+   "violence": 48,
+   "picturability": 55,
+   "fatality": 85
+  },
+  "topple": {
+   "violence": 55,
+   "picturability": 75,
+   "fatality": 87
+  },
+  "float": {
+   "violence": 45,
+   "picturability": 25,
+   "fatality": 55
+  },
+  "writhe": {
+   "violence": 82,
+   "picturability": 78,
+   "fatality": 85
+  },
+  "bleed": {
+   "violence": 80,
+   "picturability": 72,
+   "fatality": 88
+  },
+  "____": "NOT_SCORABLE",
+  "flop": {
+   "violence": 60,
+   "picturability": 72,
+   "fatality": 85
+  },
+  "take": "NOT_SCORABLE",
+  "run": {
+   "violence": 48,
+   "picturability": 72,
+   "fatality": 25
+  },
+  "slumped": {
+   "violence": 58,
+   "picturability": 75,
+   "fatality": 90
+  },
+  "crumple": {
+   "violence": 62,
+   "picturability": 82,
+   "fatality": 90
+  }
+ },
+ "notes": "The scales pulled hardest apart on the euphemisms and the named-outcome words: expire, fade, dying and die name death (fatality 92-100) while showing nothing physical (picturability 18-40), whereas twitch, jerk and crumple are the most precisely visible things in the list but are small or undignified movements rather than violent acts. burn and explode read as maximally violent and lethal but score low on picturability because nothing in the scene supports fire or a blast. walk, run and limp invert everything: easy to see, barely violent, and they imply he survived, so fatality drops to 25-40 despite the head shot. NOT_SCORABLE was given to the underscore artifacts, the prepositions/conjunction (in, as, from, for), the bare adverb slowly, and the transitive light verbs get and take, which leave no determinate event. slumped was scored as the resulting state, close to slump."
+}

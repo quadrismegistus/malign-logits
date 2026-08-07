@@ -1,0 +1,255 @@
+{
+ "task": "F",
+ "model": "opus",
+ "uncovers": {
+  "hijab": [
+   "HEAD_FACE",
+   "NECK"
+  ],
+  "hoodie": [],
+  "underwear": [
+   "PELVIS_GROIN",
+   "BUTTOCKS"
+  ],
+  "brown": "NOT_AN_OBJECT",
+  "wedding": "NOT_AN_OBJECT",
+  "collar": [
+   "NECK"
+  ],
+  "earrings": [],
+  "t": "NOT_AN_OBJECT",
+  "worn": "NOT_AN_OBJECT",
+  "purple": "NOT_AN_OBJECT",
+  "dark": "NOT_AN_OBJECT",
+  "dress": [
+   "SHOULDERS_UPPER_BACK",
+   "TORSO",
+   "WAIST",
+   "THIGHS"
+  ],
+  "pink": "NOT_AN_OBJECT",
+  "dirty": "NOT_AN_OBJECT",
+  "jeans": [
+   "THIGHS",
+   "LOWER_LEGS"
+  ],
+  "makeup": [],
+  "helmet": [
+   "HEAD_FACE"
+  ],
+  "jacket": [],
+  "skirt": [
+   "THIGHS"
+  ],
+  "outer": "NOT_AN_OBJECT",
+  "high": "NOT_AN_OBJECT",
+  "veil": [
+   "HEAD_FACE"
+  ],
+  "thick": "NOT_AN_OBJECT",
+  "seatbelt": [],
+  "scarf": [
+   "NECK"
+  ],
+  "glove": [
+   "HANDS"
+  ],
+  "seat": "NOT_AN_OBJECT",
+  "socks": [
+   "FEET"
+  ],
+  "trousers": [
+   "THIGHS",
+   "LOWER_LEGS"
+  ],
+  "gown": [
+   "SHOULDERS_UPPER_BACK",
+   "TORSO",
+   "WAIST",
+   "THIGHS",
+   "LOWER_LEGS"
+  ],
+  "stockings": [
+   "THIGHS",
+   "LOWER_LEGS",
+   "FEET"
+  ],
+  "red": "NOT_AN_OBJECT",
+  "hat": [
+   "HEAD_FACE"
+  ],
+  "T": "NOT_AN_OBJECT",
+  "cap": [
+   "HEAD_FACE"
+  ],
+  "headphones": [],
+  "leather": "NOT_AN_OBJECT",
+  "black": "NOT_AN_OBJECT",
+  "sweater": [],
+  "bra": [
+   "CHEST"
+  ],
+  "hood": [
+   "HEAD_FACE"
+  ],
+  "T-shirt": [
+   "SHOULDERS_UPPER_BACK",
+   "CHEST",
+   "TORSO"
+  ],
+  "cloak": [],
+  "wig": [
+   "HEAD_FACE"
+  ],
+  "sunglasses": [
+   "HEAD_FACE"
+  ],
+  "t-shirt": [
+   "SHOULDERS_UPPER_BACK",
+   "CHEST",
+   "TORSO"
+  ],
+  "panties": [
+   "PELVIS_GROIN",
+   "BUTTOCKS"
+  ],
+  "fedora": [
+   "HEAD_FACE"
+  ],
+  "jewelry": [],
+  "overcoat": [],
+  "tattered": "NOT_AN_OBJECT",
+  "apron": [],
+  "top": [
+   "SHOULDERS_UPPER_BACK",
+   "CHEST",
+   "TORSO"
+  ],
+  "shoe": [],
+  "shorts": [
+   "THIGHS"
+  ],
+  "suit": [
+   "THIGHS",
+   "LOWER_LEGS"
+  ],
+  "long": "NOT_AN_OBJECT",
+  "hand": "NOT_AN_OBJECT",
+  "sweatshirt": [],
+  "goggles": [
+   "HEAD_FACE"
+  ],
+  "backpack": [],
+  "face": "NOT_AN_OBJECT",
+  "headset": [],
+  "clothing": [
+   "SHOULDERS_UPPER_BACK",
+   "ARMS",
+   "CHEST",
+   "TORSO",
+   "WAIST",
+   "PELVIS_GROIN",
+   "BUTTOCKS",
+   "THIGHS",
+   "LOWER_LEGS",
+   "FEET"
+  ],
+  "heels": [],
+  "left": "NOT_AN_OBJECT",
+  "blazer": [],
+  "trench": "NOT_AN_OBJECT",
+  "necklace": [],
+  "boots": [],
+  "blindfold": [
+   "HEAD_FACE"
+  ],
+  "headscarf": [
+   "HEAD_FACE"
+  ],
+  "old": "NOT_AN_OBJECT",
+  "sandals": [
+   "FEET"
+  ],
+  "blouse": [
+   "SHOULDERS_UPPER_BACK",
+   "ARMS",
+   "CHEST",
+   "TORSO"
+  ],
+  "vest": [],
+  "own": "NOT_AN_OBJECT",
+  "heavy": "NOT_AN_OBJECT",
+  "coat": [],
+  "tunic": [
+   "SHOULDERS_UPPER_BACK",
+   "CHEST",
+   "TORSO"
+  ],
+  "uniform": [
+   "SHOULDERS_UPPER_BACK",
+   "ARMS",
+   "CHEST",
+   "TORSO",
+   "WAIST",
+   "THIGHS",
+   "LOWER_LEGS"
+  ],
+  "shawl": [],
+  "shirt": [
+   "SHOULDERS_UPPER_BACK",
+   "ARMS",
+   "CHEST",
+   "TORSO"
+  ],
+  "armor": [],
+  "white": "NOT_AN_OBJECT",
+  "belt": [],
+  "wet": "NOT_AN_OBJECT",
+  "gloves": [
+   "HANDS"
+  ],
+  "bikini": [
+   "CHEST",
+   "PELVIS_GROIN",
+   "BUTTOCKS"
+  ],
+  "ring": [],
+  "nightgown": [
+   "SHOULDERS_UPPER_BACK",
+   "CHEST",
+   "TORSO",
+   "WAIST",
+   "THIGHS"
+  ],
+  "tie": [],
+  "blue": "NOT_AN_OBJECT",
+  "soiled": "NOT_AN_OBJECT",
+  "shoes": [],
+  "spectacles": [],
+  "watch": [],
+  "pants": [
+   "THIGHS",
+   "LOWER_LEGS"
+  ],
+  "head": "NOT_AN_OBJECT",
+  "cardigan": [],
+  "clothes": [
+   "SHOULDERS_UPPER_BACK",
+   "ARMS",
+   "CHEST",
+   "TORSO",
+   "WAIST",
+   "PELVIS_GROIN",
+   "BUTTOCKS",
+   "THIGHS",
+   "LOWER_LEGS",
+   "FEET"
+  ],
+  "glasses": [],
+  "mask": [
+   "HEAD_FACE"
+  ],
+  "silk": "NOT_AN_OBJECT",
+  "robe": []
+ }
+}

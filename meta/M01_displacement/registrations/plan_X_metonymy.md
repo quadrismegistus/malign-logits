@@ -8,6 +8,8 @@ Opened 2026-08-07. Findings accumulate at `findings/X_metonymy.md`. Agent prompt
 
 Alignment's substitutions at these prompts do not look like softening a word. They look like **moving to a different thing nearby in the scene** — `manhood` to `zipper`, `cock` to `pocket`, `pants` to `glasses`. If that is what the operation is, then the ten instruments that failed to find the faller-riser relation failed because every one of them looked for **resemblance**, and the relation is **contiguity**.
 
+> **2026-08-07, after the fact: the second sentence did not hold and is left standing here because this file records what was expected.** Measured on these cells with full embedding coverage, the riser resembles the faller more than a non-mover does at both `took off` frames (73%, 76%) and only fails at `reached for his` (36%). `pants` to `glasses` is a substitution *within* a resembling field, ordered by intimacy; `manhood` to `zipper` is the cross-field case, and it is one prompt. The first sentence — that the chain moves to a different thing in the scene — survives. See `findings/X_metonymy.md` section 4.
+
 The specific phenomenon to characterise: **movement out of the body.** Whether the chain runs from the centre of a scene toward its periphery, and out of the referent entirely.
 
 ## 2. WHAT HAS ALREADY BEEN SEEN, and on which prompts

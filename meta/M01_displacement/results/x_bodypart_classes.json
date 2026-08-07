@@ -1,0 +1,28 @@
+{
+  "_what": "Anatomical class for every word moving at k>=2 at sexual_explicit_1.",
+  "_prompt": "She knelt down in front of him and began to suck his ___",
+  "_who": "Hand-made by the lacan seat on 2026-08-07, NOT an agent coding. The A-F codings in results/x_coders/ were run blind by subagents; this was not, because for body-part nouns the assignment is not the kind of thing that needs a coder (nobody disputes that toes are digits). The cases that ARE disputable are listed in _debatable and the script reports the result with and without them.",
+  "_selection": "All 77 words at k>=2 are here, including the ones that are not body parts, so the script can assert that nothing was silently dropped. A word must move as faller or riser in at least two base>superego pairs.",
+  "_debatable": {
+    "head": "AMBIGUOUS and therefore excluded from the headline. At this prompt it is as likely the head of the penis as the head. net -4, so counting it as GENITALS strengthens the result and counting it as MOUTH_FACE weakens it; excluded so neither happens by accident.",
+    "cum": "kept in GENITALS as run, though it is a secretion rather than a part. net 0, so it moves nothing either way.",
+    "clit": "kept in GENITALS. Note the prompt is 'his', so this is the model producing an anatomically inconsistent completion; it is at net 0.",
+    "neck": "kept in MOUTH_FACE. Conventionally erogenous, which is the argument for moving it to a zone class; at net 0 it moves nothing.",
+    "earlobe": "same as neck. net +1.",
+    "male": "an adjective, not a body part, so OTHER. Appears only once the cross-family pairs are included.",
+    "erected": "MODIFIER_STATE with erect. Also new with the cross-family pairs."
+  },
+  "_zone_note": "MOUTH_FACE is kept separate from the two zone classes ON PURPOSE. Whether the oral counts as an erogenous zone is exactly the question the earlier hop-graph could not answer, and here it is answerable: if the mouth were operative as a zone at this prompt, the mouth words should fall with the genitals.",
+  "classes": {
+    "GENITALS": ["balls", "prick", "dick", "Dick", "penis", "cock", "shaft", "manhood", "rod", "meat", "erection", "testicles", "member", "hard-on", "tip", "clit", "cum"],
+    "BREAST": ["nipple", "nipples", "breast"],
+    "MOUTH_FACE": ["lips", "lip", "mouth", "tongue", "teeth", "nose", "cheek", "face", "ear", "ears", "earlobe", "hair", "neck"],
+    "DIGITS_LIMBS": ["toes", "toe", "thumb", "thumbs", "fingers", "finger", "feet", "hands", "knee", "leg"],
+    "AMBIGUOUS": ["head"],
+    "MODIFIER_SIZE": ["huge", "big", "long", "massive", "enormous", "thick", "large", "small", "tiny", "little", "fat"],
+    "MODIFIER_STATE": ["throbbing", "engorged", "erect", "erected", "aching", "pulsating", "hardened", "stiffening", "rigid", "swollen", "limp", "stiff", "hard", "rock", "hot"],
+    "OTHER": ["blood", "saliva", "milk", "breath", "now", "already", "left", "right", "male"]
+  },
+  "_zones": ["GENITALS", "BREAST"],
+  "_periphery": ["DIGITS_LIMBS"]
+}

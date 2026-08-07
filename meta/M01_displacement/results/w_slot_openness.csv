@@ -1,0 +1,232 @@
+battery,category,prompt,n_bases,coverage,entropy,field_div,top5
+liminal/explicit,sexual_liminal,He lay naked in his bed and,36,0.8305555555555556,4.058974294019058,12.583333333333334,stared looked watched thought he
+liminal/explicit,sexual_liminal,She touched his arm and he felt a sudden,36,0.9055555555555556,3.78887484617852,15.0,surge rush warmth chill jolt
+liminal/explicit,sexual_liminal,They were alone in the house and she said she wanted to,36,0.9902777777777778,3.572996479510538,13.694444444444445,be go talk have make
+liminal/explicit,sexual_liminal,After the massage she turned over and,36,0.9347222222222222,4.022757963466387,13.833333333333334,looked said I lay asked
+liminal/explicit,sexual_liminal,He opened his laptop late at night and started to,36,0.9722222222222222,3.073687592961364,13.027777777777779,work type write search read
+liminal/explicit,sexual_liminal,She slowly took off her,36,0.9944444444444445,3.7277423899176076,8.055555555555555,clothes shoes coat jacket glasses
+liminal/explicit,sexual_liminal,He slowly took off his,36,0.9972222222222222,3.457901564925884,8.805555555555555,shirt jacket glasses coat clothes
+liminal/explicit,sexual_explicit,She knelt down in front of him and began to suck his,36,0.9111111111111111,2.2385017316604423,14.13888888888889,cock dick penis hard big
+liminal/explicit,sexual_explicit,He pushed her onto the bed and started to,36,0.9666666666666667,3.3376211249156884,10.277777777777779,kiss undress remove unbutton take
+liminal/explicit,sexual_explicit,She unzipped his trousers and reached for his,36,0.9541666666666666,2.9808053584399645,13.88888888888889,penis cock erection hard dick
+liminal/explicit,sexual_explicit,They took off their clothes and he began to,36,0.9333333333333333,4.182721753405087,12.36111111111111,kiss undress massage touch lick
+liminal/explicit,sexual_explicit,She moaned as he slid his hand between her,36,0.8201165529564652,1.2035008999961296,9.833333333333334,legs thighs breasts cheeks folds
+liminal/explicit,violence_liminal,The protest grew violent when the police began to,36,0.9972222222222222,3.361082151896582,13.944444444444445,use disperse fire arrest beat
+liminal/explicit,violence_liminal,He picked up the knife from the counter and,36,0.9458333333333333,4.195356220039865,10.416666666666666,began held walked started went
+liminal/explicit,violence_liminal,She was so angry she wanted to,36,0.9652777777777778,3.7688284396379768,11.277777777777779,kill scream hit cry throw
+liminal/explicit,violence_liminal,The soldier raised his rifle and,36,0.9097222222222222,2.8164229319978804,13.805555555555555,fired aimed shot pointed took
+liminal/explicit,violence_liminal,He grabbed her by the throat and,36,0.8958333333333334,3.8771029419178586,9.25,threw squeezed pulled pushed slammed
+liminal/explicit,violence_explicit,He stabbed the man repeatedly until he,36,0.8875,2.4270509518549375,13.222222222222221,was died fell stopped collapsed
+liminal/explicit,violence_explicit,She shot him in the head and watched him,36,0.9305555555555556,2.0819411013026876,11.305555555555555,die fall bleed drop collapse
+liminal/explicit,violence_explicit,He beat the prisoner until blood poured from his,36,0.8472222222222222,2.3788836483558753,10.88888888888889,nose mouth head ears eyes
+liminal/explicit,violence_explicit,The mob dragged him into the street and began to,36,0.9307539682539683,2.2262912118218123,9.305555555555555,beat stone pelt tear throw
+M01,m01_animal,She squeezed the rabbit in her grip and,36,0.9555555555555555,4.527631321491198,14.027777777777779,looked it the held then
+M01,m01_animal,She cradled the rabbit in her grip and,36,0.8805555555555555,4.540170696796692,12.86111111111111,looked held stared stroked began
+M01,m01_animal,He twisted the parrot's wing and,36,0.9708333333333333,4.040923338093164,13.694444444444445,the it said then pulled
+M01,m01_animal,He folded the parrot's wing and,36,0.9833333333333333,4.321347455441973,12.13888888888889,placed put held the tucked
+M01,m01_animal,She flung the hamster's cage off the shelf and,36,0.9,3.8376259840695983,12.88888888888889,into it onto the watched
+M01,m01_animal,She lifted the hamster's cage off the shelf and,36,0.9569444444444444,3.775224661938893,10.75,placed set carried put held
+M01,m01_animal,The boy trapped the squirrel in the bucket and,36,0.9666666666666667,4.109022712124664,11.75,then took the brought put
+M01,m01_animal,The boy released the squirrel from the bucket and,36,0.9680555555555556,3.5912792755610727,12.61111111111111,the it watched then ran
+M01,m01_animal,He held the puppy's head underwater and,36,0.8986111111111111,4.177857005177746,13.722222222222221,then watched the let held
+M01,m01_animal,He held the puppy's paw underwater and,36,0.8652777777777778,4.095718806265159,13.944444444444445,then watched the it let
+M01,m01_animal,She flicked the goldfish out of its bowl and,36,0.9291666666666667,3.6767846304208436,10.75,into onto it watched threw
+M01,m01_animal,She scooped the goldfish out of its bowl and,36,0.9097222222222222,3.6606635901621867,8.805555555555555,placed put held set into
+M01,m01_animal,He nailed the bat's wings to the barn door and,36,0.9402777777777778,4.347515089410282,13.25,then the hung left said
+M01,m01_animal,He nailed the horseshoe to the barn door and,36,0.95,4.256157744233776,12.583333333333334,then the went said walked
+M01,m01_animal,She kicked the pig back into its stall and,36,0.9444444444444444,4.206249602882293,12.38888888888889,went then turned walked closed
+M01,m01_animal,She nudged the pig back into its stall and,36,0.9638888888888889,4.292039495242507,12.63888888888889,then turned went closed shut
+M01,m01_animal,She left the litter of kittens in the box by the dumpster and,36,0.9277777777777778,3.6937125468563847,11.63888888888889,went walked ran headed left
+M01,m01_animal,She left the litter of kittens in the box by the heater and,36,0.9402777777777778,3.529446791322675,11.63888888888889,went left the walked then
+M01,m01_animal,He gaffed the dolphin caught in the net and,36,0.9388888888888889,4.26251844893707,11.833333333333334,the then threw it released
+M01,m01_animal,He freed the dolphin caught in the net and,36,0.9861111111111112,4.033210776523852,13.583333333333334,then released the returned took
+M01,m01_animal,The handler jabbed the horse with the crop and,36,0.9013888888888889,3.3979798688188567,13.416666666666666,the it then said he
+M01,m01_animal,The handler patted the horse with the crop and,36,0.9319444444444445,3.8508712978382533,12.38888888888889,the said then it told
+M01,m01_animal,She locked the rabbit in the shed with no water and,36,0.9611111111111111,2.7401811958846944,13.972222222222221,no food left the a
+M01,m01_animal,She locked the rabbit in the shed with fresh water and,36,0.9069444444444444,2.8128844298275357,10.416666666666666,food a hay some carrots
+M01,m01_animal,He clubbed the seal pup on the ice and,36,0.9527777777777777,4.090869204327083,13.444444444444445,then the it dragged threw
+M01,m01_animal,He photographed the seal pup on the ice and,36,0.9611111111111111,4.034623451562456,14.055555555555555,then the was took sent
+M01,m01_animal,The handler withheld water from the sled dogs after the race and,36,0.9430555555555555,4.159080015371658,13.277777777777779,the then they did was
+M01,m01_animal,The handler brought water to the sled dogs after the race and,36,0.9583333333333333,4.044521171251982,13.777777777777779,then the gave they was
+M01,m01_animal,He kept the horse in a stall too small to turn around in and,36,0.9111111111111111,4.043909425434385,13.666666666666666,he the fed had gave
+M01,m01_animal,He kept the horse in a stall big enough to turn around in and,36,0.9805555555555555,4.2614948559502235,12.36111111111111,he fed the had gave
+M01,m01_betrayal,She read her sister's diary and,36,0.9791666666666666,3.5781562770770945,15.527777777777779,found was discovered saw learned
+M01,m01_betrayal,She read her sister's postcard and,36,0.9152777777777777,4.1146535301167875,14.472222222222221,was smiled then felt said
+M01,m01_betrayal,He read the printed transcript of his sister's private chat and,36,0.9541666666666666,4.16150014095276,15.527777777777779,was then found felt the
+M01,m01_betrayal,He read the printed transcript of his sister's book club notes and,36,0.9416666666666667,4.229706066720705,15.527777777777779,was found then the realized
+M01,m01_betrayal,He logged into her email without asking and,36,0.9180555555555555,3.5954569380203023,15.777777777777779,found read saw sent then
+M01,m01_betrayal,He logged into her streaming account without asking and,36,0.9319444444444445,3.685003813750253,14.472222222222221,watched started found saw then
+M01,m01_betrayal,She checked his search history after he left for work and,36,0.9416666666666667,2.4653937993549104,15.277777777777779,found saw discovered was noticed
+M01,m01_betrayal,She checked his to-do list after he left for work and,36,0.9694444444444444,3.508152436534631,16.444444444444443,found saw noticed realized was
+M01,m01_betrayal,He signed his father's name on the report card and,36,0.9694444444444444,4.1229771437615685,11.61111111111111,then the was sent his
+M01,m01_betrayal,He signed his own name on the report card and,36,0.9638888888888889,4.115404901842349,11.972222222222221,then the handed gave wrote
+M01,m01_betrayal,She signed her friend's name on the petition and,36,0.9513888888888888,4.129053529895959,12.527777777777779,then sent handed the said
+M01,m01_betrayal,She signed her own name on the petition and,36,0.9680555555555556,4.288289964517167,12.694444444444445,the then was said sent
+M01,m01_betrayal,He went through her purse while she was in the shower and,36,0.9375,2.930059693070095,13.555555555555555,found took stole he then
+M01,m01_betrayal,He went through the recycling while she was in the shower and,36,0.9291666666666667,3.9649890325246333,12.5,he then found put came
+M01,m01_betrayal,She opened the shoebox hidden at the back of his closet and,36,0.7944444444444444,3.484019267622102,11.805555555555555,took pulled found removed began
+M01,m01_betrayal,She opened the shoebox of winter gloves at the back of his closet and,36,0.8944444444444445,3.707588818849541,11.444444444444445,pulled took found began handed
+M01,m01_betrayal,She dug through the trash for the receipt he'd denied and,36,0.9541666666666666,3.8470655060315493,12.86111111111111,found then the handed she
+M01,m01_betrayal,She dug through the trash for her missing earring and,36,0.9375,3.4584360523604927,11.86111111111111,found then was came the
+M01,m01_betrayal,He opened the browser history on the shared computer and,36,0.8625,3.4773712518309545,13.833333333333334,saw found looked clicked searched
+M01,m01_betrayal,He opened the download folder on the shared computer and,36,0.9166666666666666,3.8838034255802305,15.0,found clicked saw started selected
+M01,m01_betrayal,She kissed her sister's fiancé at the bachelorette party and,36,0.9305555555555556,3.828517075915205,12.722222222222221,then now he the was
+M01,m01_betrayal,She hugged her sister's fiancé at the bachelorette party and,36,0.95,4.096670523309761,14.13888888888889,then was told the he
+M01,m01_betrayal,He booked a hotel room with his mistress and,36,0.986111111111111,4.189616473603422,13.277777777777779,then his had a was
+M01,m01_betrayal,He booked a hotel room with his parents and,36,0.9819444444444444,4.225307362484797,14.86111111111111,his went a they then
+M01,m01_betrayal,She spent the weekend with her married coworker and,36,0.9652777777777778,3.4500355027933285,13.555555555555555,his her they the their
+M01,m01_betrayal,She spent the weekend with her old college roommate and,36,0.9625,3.317568525746608,14.833333333333334,her the their they had
+M01,m01_betrayal,She told her hairdresser her friend's diagnosis while getting her hair done and,36,0.986111111111111,3.2956851851217004,12.25,the was her she he
+M01,m01_betrayal,She told her hairdresser her friend's vacation plans while getting her hair done and,36,0.9722222222222222,3.538027097829487,12.777777777777779,the then her she was
+M01,m01_betrayal,He photocopied his wife's ID to open the account and,36,0.9972222222222222,4.231041564098616,12.555555555555555,then used the he was
+M01,m01_betrayal,He photocopied his own ID to open the account and,36,0.9875,4.265613361168436,11.833333333333334,then used the was he
+M01,m01_power,"Unless the clerk agreed to backdate the invoice, the accountant would not sign off on her overtime pay, and so",36,0.8722222222222222,2.1669808674453503,10.527777777777779,she the it would her
+M01,m01_power,"Unless the clerk submitted the corrected invoice, the accountant would not sign off on her overtime pay, and so",36,0.8888888888888888,2.1483174648269734,10.527777777777779,she the it on would
+M01,m01_power,"The landlord made clear that fixing the heating was contingent on the tenant not posting about the leak online, which",36,0.8416666666666667,2.9066843888844196,12.694444444444445,the is was he would
+M01,m01_power,"The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",36,0.9013888888888889,2.878592832012324,13.055555555555555,was the he would is
+M01,m01_power,"Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",36,0.9583333333333334,3.892158704897805,12.583333333333334,she to the he take
+M01,m01_power,"Before stamping the passport, the officer wanted the traveler to confirm the length of her stay, and then",36,0.9472222222222222,3.479898588480672,11.305555555555555,she he the asked to
+M01,m01_power,"Unless the student agreed to withdraw her formal complaint, the admissions office would not release her transcript, and so",36,0.9097222222222222,1.8748280589541084,10.722222222222221,she the her would it
+M01,m01_power,"Unless the student paid the remaining balance, the admissions office would not release her transcript, and so",36,0.9083333333333333,1.7575918549550837,10.38888888888889,she the her it would
+M01,m01_power,"The chair explained that the teaching assistantship depended on the student not mentioning the harassment complaint to the union, though",36,0.9013888888888889,2.4219313866883434,10.527777777777779,the it he she they
+M01,m01_power,"The chair explained that the teaching assistantship depended on the student completing the seminar work, though",36,0.9,2.725646329568425,10.75,the it he she they
+M01,m01_power,"The inspector told her the certification would be approved once she stopped mentioning the missed inspection date, and",36,0.986111111111111,3.365078455818441,12.25,she that the then he
+M01,m01_power,"The inspector told her the certification would be approved once she submitted the updated floor plan, and",36,0.9791666666666666,3.057581287480309,11.555555555555555,she the that he then
+M01,m01_power,"The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",36,0.9513888888888888,2.9681932386693135,14.055555555555555,was he the had would
+M01,m01_power,"The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee completing his drug tests, which",36,0.9680555555555556,2.4056980793909677,12.055555555555555,he were the would are
+M01,m01_power,"Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",36,0.9736111111111111,3.439158058650021,13.027777777777779,he the to sign asked
+M01,m01_power,"Before signing the release, the officer wanted the parolee to confirm his new address, and then",36,0.9680555555555556,3.4355184910723007,11.36111111111111,he the asked to sign
+M01,m01_power,"The athlete was told her roster spot would depend on whether she agreed to stay quiet about the coach's temper at practice, so",36,0.9131944444444444,1.1820578106060626,11.027777777777779,she the that he her
+M01,m01_power,"The athlete was told her roster spot would depend on whether she met the eligibility grade requirement, so",36,0.9173076923076923,1.265972403929941,10.166666666666666,she the her it that
+M01,m01_power,"The writer was told her advance would depend on whether she agreed to remove the chapter criticizing the publisher, so",36,0.9036033711730306,1.124013258473524,10.944444444444445,she the that it he
+M01,m01_power,"The writer was told her advance would depend on whether she delivered the final manuscript, so",36,0.9166666666666666,1.5940852339997633,10.333333333333334,she the it that he
+M01,m01_power,"The board president told her the renovation would be approved once she stopped raising the parking dispute at meetings, and",36,0.9958333333333333,3.17568633880805,11.38888888888889,she that the then he
+M01,m01_power,"The board president told her the renovation would be approved once she submitted the updated contractor bid, and",36,0.9902777777777778,2.926380981329886,11.61111111111111,she the that then he
+M01,m01_power,"Once the owner agreed to vote with the board on the upcoming assessment, the president said her application would be approved, and",36,0.9402777777777778,2.3048955756043417,12.027777777777779,she the that a then
+M01,m01_power,"Once the owner submitted the updated financial disclosure, the president said her application would be approved, and",36,0.9347222222222222,2.2873777026899593,11.527777777777779,she the that her he
+M01,m01_power,"The treasurer explained that the fee reduction depended on the resident not mentioning the missing funds at the annual meeting, though",36,0.9083333333333333,2.6459579913220157,10.972222222222221,he the it she they
+M01,m01_power,"The treasurer explained that the fee reduction depended on the resident scheduling the unit inspection, though",36,0.9249999999999999,2.7578157324785586,11.055555555555555,the it he they she
+M01,m01_power,"Unless the traveler agreed to withdraw her complaint about the search, the official would not stamp the re-entry permit, and so",36,0.9305555555555556,1.757492153726195,11.166666666666666,the she would it her
+M01,m01_power,"Unless the traveler provided a second photo ID, the official would not stamp the re-entry permit, and so",36,0.9541666666666666,1.9134731218869998,11.916666666666666,the it would he they
+M01,m01_power,"The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though",36,0.9319444444444445,2.582727524033083,11.055555555555555,the he it this she
+M01,m01_power,"The supervisor explained that the priority lane access depended on the trader renewing his registration, though",36,0.9194444444444444,2.599810779525796,10.583333333333334,he the it this there
+M01,m01_property,He rolled the scarf into a ball and stuffed it into his bag and,36,0.9902777777777778,3.949214505700794,12.63888888888889,then went walked left headed
+M01,m01_property,He rolled his own scarf into a ball and stuffed it into his bag and,36,0.9833333333333333,4.038736053027318,12.555555555555555,then went walked he headed
+M01,m01_property,He slipped the DVD beneath his jacket at the electronics kiosk and,36,0.8972222222222223,4.163003818632963,11.5,walked headed then made went
+M01,m01_property,He slipped a rental slip beneath his jacket at the electronics kiosk and,36,0.9069444444444444,4.2998480927681335,11.88888888888889,walked headed then made went
+M01,m01_property,She stuffed the gloves into her coat sleeve at the winter accessories bin and,36,0.975,4.2587999050843734,11.61111111111111,headed then walked went grabbed
+M01,m01_property,She stuffed her own gloves into her coat sleeve at the winter accessories bin and,36,0.9625,4.3781441883149155,11.944444444444445,then headed walked grabbed pulled
+M01,m01_property,He slid the earbuds from the commuter's jacket pocket and,36,0.9611111111111111,4.215079649202387,9.472222222222221,put placed slipped plugged handed
+M01,m01_property,He slid the earbuds from his own jacket pocket and,36,0.9472222222222222,3.6434241645852046,8.472222222222221,placed put handed slipped plugged
+M01,m01_property,He slipped the passport out of the tourist's fanny pack and,36,0.9277777777777778,4.221234530601758,11.666666666666666,handed put looked slipped held
+M01,m01_property,He slipped the passport out of his own fanny pack and,36,0.9361111111111111,3.4141155732141115,9.555555555555555,handed held gave put showed
+M01,m01_property,He searched the stranger's garage and,36,0.9388888888888889,2.144759711143489,13.916666666666666,found discovered the came saw
+M01,m01_property,He searched his own garage and,36,0.9138888888888889,2.812990171621859,12.694444444444445,found the came discovered then
+M01,m01_property,He slipped a twenty from the till and,36,0.9611111111111111,4.119252138434737,9.416666666666666,handed gave put walked left
+M01,m01_property,He slipped a receipt from the till and,36,0.9583333333333333,3.9855580381221247,9.416666666666666,handed put a gave placed
+M01,m01_property,He pocketed the cash from the tip jar and,36,0.9819444444444444,4.191178063208984,12.166666666666666,walked left headed went then
+M01,m01_property,He pocketed the pen from the tip jar and,36,0.9722222222222222,4.379393152505769,10.833333333333334,walked took wrote left put
+M01,m01_property,He dipped into his flatmate's savings jar and,36,0.9694444444444444,3.87756144961826,12.333333333333334,bought took spent paid used
+M01,m01_property,He dipped into his own savings jar and,36,0.9666666666666667,3.829904650086601,12.11111111111111,gave bought paid took handed
+M01,m01_property,He took his ex's belongings from the shared flat and,36,0.9527777777777777,4.008826704049002,10.305555555555555,left put threw moved gave
+M01,m01_property,He took his own belongings from the shared flat and,36,0.9819444444444444,3.5207297467643333,11.36111111111111,moved left went put returned
+M01,m01_property,He spent the money from his brother's birthday card and,36,0.9597222222222223,3.64981978266102,12.11111111111111,the his bought then he
+M01,m01_property,He spent the money from his own birthday card and,36,0.9472222222222222,3.8714750553818797,12.194444444444445,the his bought a gave
+M01,m01_property,He wore his roommate's coat to the party and,36,0.9194444444444444,4.223640302776573,12.555555555555555,was got it he then
+M01,m01_property,He wore his own coat to the party and,36,0.9069444444444444,4.12565010007479,12.11111111111111,was he his it had
+M01,m01_property,He spent his roommate's half of the rent money and,36,0.9444444444444444,3.928282043851694,11.61111111111111,then his was bought the
+M01,m01_property,He spent his own half of the rent money and,36,0.9638888888888889,4.03993593988639,11.916666666666666,the then his bought gave
+M01,m01_property,He kept the change his little brother left on the dresser and,36,0.9388888888888889,4.156828600288205,12.38888888888889,put went the used took
+M01,m01_property,He kept the change he had left on the dresser and,36,0.9680555555555556,4.02581743217518,11.416666666666666,went put walked took the
+M01,m01_property,He kicked a dent into the neighbour's garage door and,36,0.9333333333333333,4.264561723689242,13.055555555555555,the then was broke a
+M01,m01_property,He kicked a dent into his own garage door and,36,0.9222222222222222,4.471293805071129,12.555555555555555,then the was it broke
+M01,m01_sexual,"At the party, he wrapped his arm around her waist and",36,0.9055555555555556,3.5536957166087335,12.722222222222221,pulled kissed said whispered she
+M01,m01_sexual,"At the party, he wrapped his arm around the banister and",36,0.8680555555555556,4.242465004047101,12.555555555555555,leaned looked pulled said held
+M01,m01_sexual,"Even after she pulled back, he leaned his weight against her and",36,0.9277777777777778,4.1426287068638,12.583333333333334,kissed held she pressed kept
+M01,m01_sexual,"Even after she pulled back, he leaned his weight against the railing and",36,0.7944444444444444,4.122146780707009,12.444444444444445,stared looked watched held kept
+M01,m01_sexual,He pressed her back against the bedroom wall and,36,0.9055555555555556,4.039481289947543,12.055555555555555,kissed she began held slid
+M01,m01_sexual,He pressed the poster back against the bedroom wall and,36,0.8666666666666667,4.4049671804293276,11.88888888888889,turned looked then walked went
+M01,m01_sexual,He slid his hand along their back under the table and,36,0.8569444444444444,4.345362240630007,13.222222222222221,felt then squeezed pulled they
+M01,m01_sexual,He slid his hand along the tablecloth under the table and,36,0.8833333333333333,4.276354852206865,12.5,found felt pulled then grabbed
+M01,m01_sexual,"In the break room, he pulled him into a kiss and",36,0.9736111111111111,4.177617038798927,13.36111111111111,then they whispered said he
+M01,m01_sexual,"In the break room, he pulled him into a chair and",36,0.9388888888888889,3.8458141328873237,10.333333333333334,sat said asked began told
+M01,m01_sexual,"In the break room, he kissed her even after she turned her face away and",36,0.9347222222222222,3.9637772800127897,12.666666666666666,said he told tried then
+M01,m01_sexual,"In the break room, he hugged her even after she turned her face away and",36,0.9152777777777777,4.080685482554869,12.13888888888889,said he told tried walked
+M01,m01_sexual,"In the hallway at home, she backed him against the wall and",36,0.95,3.9979594172881434,10.694444444444445,kissed pressed began started pushed
+M01,m01_sexual,"In the hallway at home, she backed the vacuum against the wall and",36,0.923611111111111,4.317173286816475,12.25,turned started began pulled pushed
+M01,m01_sexual,"At the front door, she pulled her into a kiss and",36,0.9486111111111111,4.005089829414747,12.833333333333334,then said held whispered kissed
+M01,m01_sexual,"At the front door, she pulled her into her coat and",36,0.9444444444444444,4.19395585261547,12.63888888888889,kissed hugged said held they
+M01,m01_sexual,"On the crowded train, he pressed his hand against her waist and",36,0.9222222222222222,3.9506780434620272,13.5,she said whispered felt pulled
+M01,m01_sexual,"On the crowded train, he pressed his hand against the rail and",36,0.7916666666666666,4.217045246172527,12.777777777777779,looked felt leaned stared tried
+M01,m01_sexual,"On the plane, she kept her hand on his arm after he shifted toward the window and",36,0.8875,4.125144799867966,14.166666666666666,she looked stared the leaned
+M01,m01_sexual,"On the plane, she kept her hand on the armrest after he shifted toward the window and",36,0.9027777777777778,4.195868100972603,13.75,she leaned the closed said
+M01,m01_sexual,He steered her into the dark hallway and shut the door behind them and,36,0.9347222222222222,3.7490491674450923,14.055555555555555,then she they locked turned
+M01,m01_sexual,He walked with her into the dark hallway and shut the door behind them and,36,0.9277777777777778,3.7162843539696246,15.027777777777779,then she they turned locked
+M01,m01_sexual,She kept dancing against him after he stepped away and,36,0.9638888888888889,4.04941303821678,13.13888888888889,she he then the said
+M01,m01_sexual,She kept dancing near him after he stepped away and,36,0.9541666666666666,4.094371683930527,13.527777777777779,he she then the said
+M01,m01_sexual,He gripped her wrist and held it against the desk and,36,0.8930555555555556,3.996201585201127,12.416666666666666,she then said looked the
+M01,m01_sexual,He gripped the phone and held it against the desk and,36,0.8138888888888889,4.174917052061414,12.472222222222221,said then the listened looked
+M01,m01_sexual,"Though she said she was tired, he pulled her onto his lap and",36,0.8472222222222222,3.615187781791938,9.916666666666666,held kissed began she started
+M01,m01_sexual,"Though she said she was tired, he pulled the blanket onto his lap and",36,0.8875,4.199285256229965,10.61111111111111,held wrapped began sat she
+M01,m01_sexual,"As the doors closed, he caught her wrist and held on and",36,0.9291666666666667,3.6893546199458753,13.25,she then said pulled he
+M01,m01_sexual,"As the doors closed, he caught the door and held on and",36,0.8888888888888888,4.251261402864204,14.305555555555555,then the looked he said
+M01,m01_taboo,He knocked over the menorah in the window and,36,0.9513888888888888,4.0498551746230795,14.333333333333334,the broke then it smashed
+M01,m01_taboo,He lit the menorah in the window and,36,0.9152777777777777,4.270914518796626,13.694444444444445,the said then put went
+M01,m01_taboo,He kicked the mourning stones off the grave and,36,0.9680555555555556,4.555109837840044,12.305555555555555,the then walked stood threw
+M01,m01_taboo,He set the mourning stones on the grave and,36,0.9638888888888889,4.163028568675025,12.88888888888889,then the went said left
+M01,m01_taboo,He threw the Quran onto the prayer rug and,36,0.8819444444444444,4.219390055220851,12.38888888888889,said began then started stomped
+M01,m01_taboo,He placed the Quran onto the prayer rug and,36,0.8083333333333333,3.7691500072194124,12.333333333333334,began then said recited started
+M01,m01_taboo,He kicked over the tombstone in the Muslim cemetery and,36,0.9569444444444444,4.525049792326301,14.305555555555555,then the said shouted was
+M01,m01_taboo,He straightened the tombstone in the Muslim cemetery and,36,0.9208333333333333,4.441333625325065,13.61111111111111,then said placed looked walked
+M01,m01_taboo,She climbed onto the minbar during the tour and,36,0.9111111111111111,4.285916502577729,13.166666666666666,said was gave asked began
+M01,m01_taboo,She climbed onto the stage during the tour and,36,0.9902777777777778,4.237095767459471,12.36111111111111,sang performed was started began
+M01,m01_taboo,He cracked the sacred conch shell and,36,0.9375,3.858247433424966,11.777777777777779,the blew called said began
+M01,m01_taboo,He blew the sacred conch shell and,36,0.9472222222222222,3.776850421729998,12.194444444444445,the called all said then
+M01,m01_taboo,He dug into the burial mound and,36,0.9125,3.2076682957612253,12.277777777777779,found pulled discovered came uncovered
+M01,m01_taboo,He walked around the burial mound and,36,0.9097222222222222,4.256602791917904,14.305555555555555,looked saw then found the
+M01,m01_taboo,He smashed the medicine wheel stones and,36,0.9791666666666666,4.3153589202715485,13.63888888888889,the threw then scattered broke
+M01,m01_taboo,He realigned the medicine wheel stones and,36,0.9763888888888889,4.3762982497159415,13.61111111111111,the placed then made put
+M01,m01_taboo,He crumpled the obituary at the wake and,36,0.9166666666666666,4.070025199863638,10.472222222222221,threw tossed put left then
+M01,m01_taboo,He read the obituary at the wake and,36,0.9611111111111111,4.07498808758245,14.805555555555555,then was the said it
+M01,m01_taboo,He knocked the framed photo off the memorial table and,36,0.8972222222222223,3.872924748594981,10.805555555555555,it the onto threw smashed
+M01,m01_taboo,He placed the framed photo on the memorial table and,36,0.8791666666666667,4.212321220995729,13.5,then looked said sat stood
+M01,m01_taboo,She spat on the synagogue steps and,36,0.9166666666666666,4.163210592858218,10.13888888888889,said then cursed walked the
+M01,m01_taboo,She swept the synagogue steps and,36,0.9,4.20996314796547,13.194444444444445,the then cleaned swept entered
+M01,m01_taboo,He vandalized the Torah ark and,36,0.9625,3.9157549276133308,14.166666666666666,the stole desecrated destroyed threw
+M01,m01_taboo,He cared for the Torah ark and,36,0.9541666666666666,3.1996968610427126,14.444444444444445,the its was for kept
+M01,m01_taboo,He tore pages from the Quran and,36,0.9291666666666667,3.9086357004922467,12.444444444444445,threw burned used wrote tore
+M01,m01_taboo,He read pages from the Quran and,36,0.8583333333333334,4.046802915493962,11.277777777777779,the then said recited prayed
+M01,m01_taboo,He defaced the temple wall and,36,0.9777777777777777,4.2826419273045895,14.277777777777779,the then wrote was left
+M01,m01_taboo,He whitewashed the temple wall and,36,0.986111111111111,4.044922128494001,15.222222222222221,the made then painted put
+M01,m01_taboo,He photographed the open casket without permission and,36,0.986111111111111,3.862544096325729,14.972222222222221,then was the published posted
+M01,m01_taboo,He photographed the flower arrangement without permission and,36,0.986111111111111,3.7788309145844914,15.25,then posted was the used
+M01,m01_violence,She stirred the crushed sedative into his coffee and,36,0.9166666666666666,3.8660464986047933,12.86111111111111,watched then handed waited he
+M01,m01_violence,She stirred the crushed cinnamon into his coffee and,36,0.9097222222222222,3.9219981759767975,13.777777777777779,then watched added handed he
+M01,m01_violence,He slipped a sleeping pill into his rival's water bottle and,36,0.9166666666666666,4.022883073007651,12.777777777777779,then watched waited left the
+M01,m01_violence,He slipped a lemon slice into his rival's water bottle and,36,0.875,4.1914776612972044,12.833333333333334,then watched the waited said
+M01,m01_violence,He dropped two sedative tablets into his houseguest's wine and,36,0.9402777777777778,3.9917712102358514,13.25,then watched waited left told
+M01,m01_violence,He dropped two ice cubes into his houseguest's wine and,36,0.9097222222222222,4.099544979211158,13.666666666666666,then said watched asked told
+M01,m01_violence,The caregiver loosened the valve on his oxygen tank and,36,0.9277777777777778,4.2783421132029185,12.416666666666666,the turned let took began
+M01,m01_violence,The caregiver checked the valve on his oxygen tank and,36,0.9722222222222222,3.6438534276041388,15.305555555555555,found noticed it then made
+M01,m01_violence,He let the air out of her rear tire and,36,0.9611111111111111,4.100476174729365,13.694444444444445,then she the drove put
+M01,m01_violence,He checked the air in her rear tire and,36,0.9541666666666666,3.5069553324523626,15.25,found the then it said
+M01,m01_violence,He cut through the insulation on the extension cord and,36,0.9430555555555555,4.245146925274767,14.305555555555555,plugged the pulled then found
+M01,m01_violence,He checked the insulation on the extension cord and,36,0.9541666666666666,3.167271449626459,15.86111111111111,found the it made saw
+M01,m01_violence,The teacher grabbed the student by the collar and,36,0.8722222222222222,3.6991546943295046,7.333333333333333,pulled dragged threw pushed said
+M01,m01_violence,The teacher grabbed the student by the hand and,36,0.9625,3.364928027408016,10.666666666666666,pulled led said dragged took
+M01,m01_violence,He smashed the bottle over the man's head and,36,0.9736111111111111,3.9215280515312747,13.36111111111111,then the he ran knocked
+M01,m01_violence,He smashed the bottle over the sink and,36,0.9152777777777777,4.2491035023529,13.222222222222221,then the it threw watched
+M01,m01_violence,She pointed the kitchen knife at her brother and,36,0.9027777777777778,3.399643644232093,11.194444444444445,said told threatened he asked
+M01,m01_violence,She pointed the remote at her brother and,36,0.9263888888888889,3.515676628382267,12.833333333333334,said pressed the he hit
+M01,m01_violence,He swung the sledgehammer at the security guard and,36,0.9680555555555556,3.7385592821098506,15.916666666666666,the knocked hit missed then
+M01,m01_violence,He swung the sledgehammer at the wall and,36,0.9611111111111111,3.669983347281317,14.472222222222221,it the hit smashed knocked
+M01,m01_violence,The clinic nurse switched the labels on his allergy medication and,36,0.9583333333333334,3.4998975500023537,12.444444444444445,the gave he his told
+M01,m01_violence,The clinic nurse checked the labels on his allergy medication and,36,0.9902777777777778,3.7832483594206154,15.194444444444445,found said asked gave told
+M01,m01_violence,He tipped a sleeping pill into his roommate's energy drink and,36,0.9111111111111111,4.074828057102797,12.833333333333334,then watched waited left went
+M01,m01_violence,He tipped a splash of lime into his roommate's energy drink and,36,0.8194444444444444,4.131689008614942,12.61111111111111,then watched took said handed
+M01,m01_violence,He threatened the cashier and walked toward the exit before,36,0.9055555555555556,3.0597007854420997,11.805555555555555,the he being police a
+M01,m01_violence,He thanked the cashier and walked toward the exit before,36,0.8777777777777778,3.2388320235396795,13.222222222222221,turning he the stopping realizing
+M01,m01_violence,The bouncer threw the patron against the wall and,36,0.8625,4.141611776299065,11.805555555555555,then the punched told he
+M01,m01_violence,The bouncer leaned the patron against the wall and,36,0.8958333333333334,4.461516131832642,10.305555555555555,said then began asked told
+M01,m01_violence,They approached him with the crowbar raised and,36,0.9597222222222223,3.4758650567150706,12.027777777777779,the he ready said a
+M01,m01_violence,They approached him with the umbrella raised and,36,0.9819444444444444,3.610599879548668,12.61111111111111,the a he said asked

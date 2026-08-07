@@ -1,0 +1,466 @@
+{
+ "task": "H",
+ "tag": "violence_liminal_3",
+ "model": "opus",
+ "scale_order": [
+  "violence",
+  "picturability",
+  "fatality"
+ ],
+ "scores": {
+  "hurl": {
+   "violence": 28,
+   "picturability": 42,
+   "fatality": 3
+  },
+  "snap": {
+   "violence": 25,
+   "picturability": 20,
+   "fatality": 3
+  },
+  "tell": {
+   "violence": 5,
+   "picturability": 15,
+   "fatality": 0
+  },
+  "attack": {
+   "violence": 70,
+   "picturability": 30,
+   "fatality": 25
+  },
+  "make": {
+   "violence": 3,
+   "picturability": 8,
+   "fatality": 0
+  },
+  "A": "NOT_SCORABLE",
+  "run": {
+   "violence": 2,
+   "picturability": 50,
+   "fatality": 0
+  },
+  "cry": {
+   "violence": 3,
+   "picturability": 55,
+   "fatality": 0
+  },
+  "throw": {
+   "violence": 32,
+   "picturability": 42,
+   "fatality": 5
+  },
+  "physically": "NOT_SCORABLE",
+  "say": {
+   "violence": 3,
+   "picturability": 12,
+   "fatality": 0
+  },
+  "blow": {
+   "violence": 22,
+   "picturability": 15,
+   "fatality": 5
+  },
+  "__": "NOT_SCORABLE",
+  "turn": {
+   "violence": 3,
+   "picturability": 28,
+   "fatality": 0
+  },
+  "stay": {
+   "violence": 1,
+   "picturability": 15,
+   "fatality": 0
+  },
+  "hurt": {
+   "violence": 55,
+   "picturability": 20,
+   "fatality": 12
+  },
+  "get": {
+   "violence": 6,
+   "picturability": 8,
+   "fatality": 1
+  },
+  "burst": {
+   "violence": 12,
+   "picturability": 20,
+   "fatality": 1
+  },
+  "quit": {
+   "violence": 2,
+   "picturability": 12,
+   "fatality": 0
+  },
+  "do": {
+   "violence": 4,
+   "picturability": 5,
+   "fatality": 1
+  },
+  "set": {
+   "violence": 15,
+   "picturability": 12,
+   "fatality": 5
+  },
+  "vomit": {
+   "violence": 5,
+   "picturability": 75,
+   "fatality": 0
+  },
+  "destroy": {
+   "violence": 70,
+   "picturability": 20,
+   "fatality": 20
+  },
+  "grab": {
+   "violence": 30,
+   "picturability": 60,
+   "fatality": 2
+  },
+  "cut": {
+   "violence": 65,
+   "picturability": 58,
+   "fatality": 30
+  },
+  "call": {
+   "violence": 5,
+   "picturability": 20,
+   "fatality": 0
+  },
+  "puke": {
+   "violence": 5,
+   "picturability": 75,
+   "fatality": 0
+  },
+  "stab": {
+   "violence": 88,
+   "picturability": 88,
+   "fatality": 65
+  },
+  "take": {
+   "violence": 4,
+   "picturability": 8,
+   "fatality": 0
+  },
+  "go": {
+   "violence": 2,
+   "picturability": 15,
+   "fatality": 0
+  },
+  "just": "NOT_SCORABLE",
+  "___": "NOT_SCORABLE",
+  "_": "NOT_SCORABLE",
+  "shoot": {
+   "violence": 90,
+   "picturability": 85,
+   "fatality": 80
+  },
+  "send": {
+   "violence": 4,
+   "picturability": 12,
+   "fatality": 0
+  },
+  "fight": {
+   "violence": 55,
+   "picturability": 40,
+   "fatality": 8
+  },
+  "put": {
+   "violence": 3,
+   "picturability": 8,
+   "fatality": 0
+  },
+  "punch": {
+   "violence": 65,
+   "picturability": 90,
+   "fatality": 5
+  },
+  "be": {
+   "violence": 1,
+   "picturability": 5,
+   "fatality": 0
+  },
+  "die": {
+   "violence": 20,
+   "picturability": 12,
+   "fatality": 95
+  },
+  "drop": {
+   "violence": 8,
+   "picturability": 30,
+   "fatality": 2
+  },
+  "slam": {
+   "violence": 50,
+   "picturability": 65,
+   "fatality": 5
+  },
+  "have": {
+   "violence": 1,
+   "picturability": 5,
+   "fatality": 0
+  },
+  "leave": {
+   "violence": 2,
+   "picturability": 25,
+   "fatality": 0
+  },
+  "_______": "NOT_SCORABLE",
+  "__________": "NOT_SCORABLE",
+  "strangle": {
+   "violence": 88,
+   "picturability": 90,
+   "fatality": 75
+  },
+  "bash": {
+   "violence": 78,
+   "picturability": 75,
+   "fatality": 45
+  },
+  "________": "NOT_SCORABLE",
+  "smack": {
+   "violence": 45,
+   "picturability": 85,
+   "fatality": 2
+  },
+  "murder": {
+   "violence": 92,
+   "picturability": 20,
+   "fatality": 100
+  },
+  "smash": {
+   "violence": 70,
+   "picturability": 65,
+   "fatality": 20
+  },
+  "push": {
+   "violence": 30,
+   "picturability": 70,
+   "fatality": 5
+  },
+  "______": "NOT_SCORABLE",
+  "what": "NOT_SCORABLE",
+  "lash": {
+   "violence": 50,
+   "picturability": 35,
+   "fatality": 3
+  },
+  "break": {
+   "violence": 45,
+   "picturability": 40,
+   "fatality": 8
+  },
+  "kick": {
+   "violence": 60,
+   "picturability": 88,
+   "fatality": 5
+  },
+  "_________": "NOT_SCORABLE",
+  "come": {
+   "violence": 2,
+   "picturability": 15,
+   "fatality": 0
+  },
+  "slap": {
+   "violence": 45,
+   "picturability": 90,
+   "fatality": 1
+  },
+  "curse": {
+   "violence": 15,
+   "picturability": 25,
+   "fatality": 0
+  },
+  "rip": {
+   "violence": 62,
+   "picturability": 60,
+   "fatality": 15
+  },
+  "see": {
+   "violence": 2,
+   "picturability": 10,
+   "fatality": 0
+  },
+  "_____": "NOT_SCORABLE",
+  "choke": {
+   "violence": 85,
+   "picturability": 88,
+   "fatality": 65
+  },
+  "hit": {
+   "violence": 60,
+   "picturability": 70,
+   "fatality": 8
+  },
+  "explode": {
+   "violence": 35,
+   "picturability": 20,
+   "fatality": 10
+  },
+  "claw": {
+   "violence": 65,
+   "picturability": 75,
+   "fatality": 8
+  },
+  "bang": {
+   "violence": 30,
+   "picturability": 40,
+   "fatality": 2
+  },
+  "burn": {
+   "violence": 80,
+   "picturability": 70,
+   "fatality": 55
+  },
+  "stomp": {
+   "violence": 55,
+   "picturability": 80,
+   "fatality": 15
+  },
+  "kill": {
+   "violence": 90,
+   "picturability": 15,
+   "fatality": 100
+  },
+  "pound": {
+   "violence": 60,
+   "picturability": 70,
+   "fatality": 12
+  },
+  "know": {
+   "violence": 2,
+   "picturability": 5,
+   "fatality": 0
+  },
+  "give": {
+   "violence": 5,
+   "picturability": 10,
+   "fatality": 0
+  },
+  "jump": {
+   "violence": 12,
+   "picturability": 55,
+   "fatality": 1
+  },
+  "pull": {
+   "violence": 25,
+   "picturability": 55,
+   "fatality": 2
+  },
+  "spit": {
+   "violence": 30,
+   "picturability": 85,
+   "fatality": 0
+  },
+  "scratch": {
+   "violence": 45,
+   "picturability": 78,
+   "fatality": 1
+  },
+  "shake": {
+   "violence": 40,
+   "picturability": 70,
+   "fatality": 5
+  },
+  "shout": {
+   "violence": 20,
+   "picturability": 60,
+   "fatality": 0
+  },
+  "knock": {
+   "violence": 45,
+   "picturability": 55,
+   "fatality": 8
+  },
+  "pick": {
+   "violence": 8,
+   "picturability": 20,
+   "fatality": 0
+  },
+  "fire": {
+   "violence": 30,
+   "picturability": 25,
+   "fatality": 25
+  },
+  "throttle": {
+   "violence": 82,
+   "picturability": 82,
+   "fatality": 68
+  },
+  "strike": {
+   "violence": 62,
+   "picturability": 60,
+   "fatality": 10
+  },
+  "start": {
+   "violence": 5,
+   "picturability": 10,
+   "fatality": 0
+  },
+  "scream": {
+   "violence": 22,
+   "picturability": 70,
+   "fatality": 0
+  },
+  "bite": {
+   "violence": 60,
+   "picturability": 85,
+   "fatality": 5
+  },
+  "commit": {
+   "violence": 30,
+   "picturability": 8,
+   "fatality": 30
+  },
+  "drown": {
+   "violence": 78,
+   "picturability": 78,
+   "fatality": 88
+  },
+  "find": {
+   "violence": 3,
+   "picturability": 12,
+   "fatality": 0
+  },
+  "beat": {
+   "violence": 78,
+   "picturability": 72,
+   "fatality": 25
+  },
+  "yell": {
+   "violence": 20,
+   "picturability": 62,
+   "fatality": 0
+  },
+  "stop": {
+   "violence": 3,
+   "picturability": 10,
+   "fatality": 0
+  },
+  "tear": {
+   "violence": 62,
+   "picturability": 60,
+   "fatality": 12
+  },
+  "write": {
+   "violence": 2,
+   "picturability": 25,
+   "fatality": 0
+  },
+  "punish": {
+   "violence": 45,
+   "picturability": 15,
+   "fatality": 5
+  },
+  "confront": {
+   "violence": 25,
+   "picturability": 25,
+   "fatality": 1
+  },
+  "eat": {
+   "violence": 5,
+   "picturability": 40,
+   "fatality": 0
+  }
+ },
+ "notes": "The scales came apart hardest on the abstract lethal verbs and the vivid harmless ones: kill, murder and die name death (fatality 95-100) while showing nothing physical (picturability 12-20), whereas slap, smack, punch, spit and kick are almost fully picturable (85-90) at near-zero fatality. Vomit and puke are highly picturable and wholly non-violent, and die is the odd case where low violence and low picturability sit beside the second-highest fatality in the set; hurl, blow, fire, set and commit were scored down on picturability because the anger frame leaves the object and even the sense of the verb undetermined."
+}

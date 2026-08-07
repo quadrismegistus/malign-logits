@@ -1,0 +1,223 @@
+{
+  "task": "G",
+  "model": "sonnet",
+  "scale_order": [
+    "fatality",
+    "picturability",
+    "violence"
+  ],
+  "scores": {
+    "____": "NOT_SCORABLE",
+    "own": "NOT_SCORABLE",
+    "broken": "NOT_SCORABLE",
+    "head": {
+      "fatality": 48,
+      "picturability": 50,
+      "violence": 72
+    },
+    "legs": {
+      "fatality": 15,
+      "picturability": 52,
+      "violence": 50
+    },
+    "eyes": {
+      "fatality": 12,
+      "picturability": 86,
+      "violence": 92
+    },
+    "feet": {
+      "fatality": 3,
+      "picturability": 65,
+      "violence": 45
+    },
+    "nose": {
+      "fatality": 3,
+      "picturability": 85,
+      "violence": 50
+    },
+    "face": {
+      "fatality": 18,
+      "picturability": 42,
+      "violence": 68
+    },
+    "fingers": {
+      "fatality": 3,
+      "picturability": 80,
+      "violence": 70
+    },
+    "temples": {
+      "fatality": 58,
+      "picturability": 68,
+      "violence": 62
+    },
+    "brow": {
+      "fatality": 12,
+      "picturability": 65,
+      "violence": 42
+    },
+    "hands": {
+      "fatality": 5,
+      "picturability": 60,
+      "violence": 45
+    },
+    "skin": {
+      "fatality": 20,
+      "picturability": 22,
+      "violence": 42
+    },
+    "veins": {
+      "fatality": 58,
+      "picturability": 35,
+      "violence": 62
+    },
+    "throat": {
+      "fatality": 96,
+      "picturability": 92,
+      "violence": 96
+    },
+    "ear": {
+      "fatality": 42,
+      "picturability": 82,
+      "violence": 55
+    },
+    "wounds": {
+      "fatality": 40,
+      "picturability": 12,
+      "violence": 60
+    },
+    "bruised": "NOT_SCORABLE",
+    "wounded": "NOT_SCORABLE",
+    "open": "NOT_SCORABLE",
+    "neck": {
+      "fatality": 88,
+      "picturability": 78,
+      "violence": 88
+    },
+    "mouth": {
+      "fatality": 8,
+      "picturability": 76,
+      "violence": 58
+    },
+    "cut": {
+      "fatality": 20,
+      "picturability": 15,
+      "violence": 40
+    },
+    "scalp": {
+      "fatality": 22,
+      "picturability": 70,
+      "violence": 68
+    },
+    "chin": {
+      "fatality": 3,
+      "picturability": 78,
+      "violence": 40
+    },
+    "forehead": {
+      "fatality": 25,
+      "picturability": 78,
+      "violence": 55
+    },
+    "ears": {
+      "fatality": 45,
+      "picturability": 80,
+      "violence": 58
+    },
+    "cuts": {
+      "fatality": 25,
+      "picturability": 15,
+      "violence": 50
+    },
+    "nostrils": {
+      "fatality": 3,
+      "picturability": 88,
+      "violence": 62
+    },
+    "victim": "NOT_SCORABLE",
+    "gums": {
+      "fatality": 3,
+      "picturability": 76,
+      "violence": 55
+    },
+    "victim's": "NOT_SCORABLE",
+    "lips": {
+      "fatality": 3,
+      "picturability": 78,
+      "violence": 48
+    },
+    "battered": "NOT_SCORABLE",
+    "cheeks": {
+      "fatality": 3,
+      "picturability": 75,
+      "violence": 42
+    },
+    "mouth．": "NOT_SCORABLE",
+    "eye": {
+      "fatality": 12,
+      "picturability": 88,
+      "violence": 90
+    },
+    "wound": {
+      "fatality": 35,
+      "picturability": 12,
+      "violence": 52
+    },
+    "chest": {
+      "fatality": 88,
+      "picturability": 60,
+      "violence": 82
+    },
+    "skull": {
+      "fatality": 90,
+      "picturability": 75,
+      "violence": 92
+    },
+    "shattered": "NOT_SCORABLE",
+    "arms": {
+      "fatality": 8,
+      "picturability": 55,
+      "violence": 45
+    },
+    "wrists": {
+      "fatality": 50,
+      "picturability": 75,
+      "violence": 65
+    },
+    "side": {
+      "fatality": 55,
+      "picturability": 42,
+      "violence": 58
+    },
+    "teeth": {
+      "fatality": 5,
+      "picturability": 70,
+      "violence": 68
+    },
+    "body": {
+      "fatality": 50,
+      "picturability": 5,
+      "violence": 55
+    },
+    "back": {
+      "fatality": 40,
+      "picturability": 60,
+      "violence": 80
+    },
+    "hand": {
+      "fatality": 3,
+      "picturability": 58,
+      "violence": 42
+    },
+    "arm": {
+      "fatality": 10,
+      "picturability": 58,
+      "violence": 43
+    },
+    "shoulders": {
+      "fatality": 5,
+      "picturability": 55,
+      "violence": 38
+    }
+  },
+  "notes": "The three scales pulled hardest apart on: eyes/eye (very high picturability and violence, but near-zero fatality - blood from the eyes is vivid and disturbing but not lethal); veins, wrists, and temples (elevated fatality from real vascular/cranial anatomy despite only moderate picturability, since the danger is anatomical knowledge rather than a clear visual); body (near-zero picturability, since it names no location at all, alongside moderate fatality and violence from the sense of extensive, generalized bleeding); and fingers (low fatality but high violence, since bleeding/broken fingers read as torture rather than as a mortal wound). The generic injury nouns wound/wounds/cut/cuts score low on picturability by construction, since they name the injury rather than a body-part location, while still carrying moderate violence and fatality. Two NOT_SCORABLE calls were judgment rather than mechanical: 'victim' is grammatical (\"blood poured from his victim\") but names a person, not an injury site; 'mouth．' carries a trailing full-width period that makes it a distinct, likely-corrupted token rather than clean 'mouth', so it was not scored as equivalent to 'mouth'."
+}
