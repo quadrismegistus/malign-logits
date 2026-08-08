@@ -202,6 +202,28 @@ def span_fail(a, b, group=None):
     return False, "mid spans %d/%d words: %r -> %r" % (na, nb, ma, mb)
 
 
+#: **THE FOUR LARGE CHECKPOINTS ARE LOCALLY IMPOSSIBLE, AND FOR TWO DIFFERENT
+#: REASONS.** Named here rather than dropped, because a silent skip is a
+#: coverage claim nobody made.
+#:
+#:     Llama-3.1-70B, -70B-Instruct    ~140 GB each in bf16 on a 96 GB box.
+#:                                     A MEMORY limit -- no amount of disk
+#:                                     fixes it, and quantising changes the
+#:                                     quantity (dtype is keyed).
+#:     Olmo-3-1125-32B,                ~64 GB each; 128 GB of download against
+#:     Olmo-3.1-32B-Instruct-DPO       67 GiB free. A DISK limit. It would fit
+#:                                     in RAM one at a time.
+#:
+#: They are 2 PAIRS of 52 and they are the whole scale arm: the only 32B and
+#: the only 70B in the roster. Skipping them locally is not a rounding loss,
+#: it is the scale contrast, so it is declared and priced rather than absorbed.
+LOCAL_SKIP = {
+    "meta-llama/Llama-3.1-70B": "memory: ~140GB bf16 on a 96GB box",
+    "meta-llama/Llama-3.1-70B-Instruct": "memory: ~140GB bf16 on a 96GB box",
+    "allenai/Olmo-3-1125-32B": "disk: 128GB for the pair, 67GiB free",
+    "allenai/Olmo-3.1-32B-Instruct-DPO": "disk: 128GB for the pair, 67GiB free",
+}
+
 HUB = os.path.expanduser("~/.cache/huggingface/hub")
 DTYPES = {"bfloat16", "float16", "float32"}
 
@@ -243,12 +265,67 @@ def native_dtype(mid, default="float32"):
     return default
 
 
+ENV_RECORD = os.path.join(ROOT, "data", "model_load_environments.json")
+
+
+def weights_gb(mid):
+    """GB of real (non-symlink) bytes this checkpoint occupies locally."""
+    d = os.path.join(HUB, "models--" + mid.replace("/", "--"))
+    t = 0
+    for r, _dirs, fs in os.walk(d):
+        for f in fs:
+            fp = os.path.join(r, f)
+            if os.path.islink(fp):
+                continue
+            try:
+                t += os.path.getsize(fp)
+            except OSError:
+                pass
+    return t / 2 ** 30
+
+
+def known_bad(ckpts, env="local_mps"):
+    """What the record already says about these checkpoints HERE.
+
+    **THE POINT IS THAT THIS IS A LOOKUP.** `data/model_load_environments.json`
+    exists precisely because "does it load" is a property of (model x
+    environment) and the campaign kept re-deriving it. The OLMoE `histc` crash
+    that killed this sweep at 36/104 was recorded in two places with a one-line
+    fix. A preflight that loads models to find out what a file already says is
+    the same failure as a checker that re-derives its own threshold.
+    """
+    try:
+        d = json.load(open(ENV_RECORD))
+    except Exception:
+        return {}
+    want = set(ckpts)
+    out = {}
+    for o in d.get("observations", []):
+        if o.get("environment") != env or o.get("model_id") not in want:
+            continue
+        if o.get("outcome") in ("load_failed", "run_failed"):
+            out[o["model_id"]] = (o["outcome"], o.get("cause", ""))
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--preflight", action="store_true")
     ap.add_argument("--run", action="store_true")
     ap.add_argument("--status", default="ACTIVE")
     ap.add_argument("--roster", default="base_aligned_pairs")
+    ap.add_argument("--only-roster", default=None,
+                    help="path to f11_l1_cloud_roster.json; run ONLY its "
+                         "`cloud` list. The split is an artifact, so the box "
+                         "cannot quietly run a different set than was planned.")
+    ap.add_argument("--cached-only", action="store_true",
+                    help="skip checkpoints whose weights are not already on "
+                         "disk. LOCAL DISK STOPS GROWING -- the 23 undownloaded "
+                         "checkpoints are ~300GB against 67GiB free, so they go "
+                         "to cloud where the download costs nothing local.")
+    ap.add_argument("--include-large", action="store_true",
+                    help="attempt the 4 checkpoints in LOCAL_SKIP; "
+                         "they need cloud hardware, not this flag")
     a = ap.parse_args()
     if not (a.preflight or a.run):
         a.preflight = True
@@ -320,6 +397,23 @@ def main():
     print("   [5109].4.2/[5110].2c: the p>=0.001 discovery threshold is the")
     print("   registration's entire content and must not flicker with dtype).")
 
+    if a.only_roster:
+        want = {c["model"] for c in json.load(open(a.only_roster))["cloud"]}
+        missing = want - set(ckpts)
+        if missing:
+            sys.exit("roster names %d checkpoints not in the registry roster: %s"
+                     % (len(missing), sorted(missing)[:3]))
+        ckpts = [m for m in ckpts if m in want]
+        print("ROSTER RESTRICTED: %d checkpoints from %s"
+              % (len(ckpts), os.path.basename(a.only_roster)))
+
+    known = known_bad(ckpts)
+    if known:
+        print("\nKNOWN IN THIS ENVIRONMENT (data/model_load_environments.json,")
+        print("env `local_mps`) -- READ, NOT REDISCOVERED:")
+        for mid, (out, why) in sorted(known.items()):
+            print("   %-12s %-44s %s" % (out, mid.split("/")[-1][:44], why[:60]))
+
     if not a.run:
         print("\n--preflight: NOTHING LOADED, NOTHING WRITTEN.")
         print("The round-trip check needs each model's tokenizer and runs at "
@@ -330,12 +424,45 @@ def main():
     from malign_logits.cache import get_cache
     from malign_logits.models import get_base_logits
     import torch
+    #: **THE RECORDED FIX, NOT A REDISCOVERED ONE.** `moe.py`'s expert routing
+    #: does `expert_ids.float() if device.type == "cpu" else expert_ids.int()`
+    #: -- a TWO-WAY branch that assumes non-CPU means CUDA. **MPS is a third
+    #: case nobody wrote**, and it has no integer `histc`. It does have the
+    #: float one, exactly like CPU. Patched at the torch level so it holds
+    #: across transformers versions. `PYTORCH_ENABLE_MPS_FALLBACK=1` does NOT
+    #: work here. A dtype fed to a COUNTING op: no numeric quantity changes.
+    #:
+    #: This cost the sweep a crash at 36/104 and me a CPU fallback, and it was
+    #: already written down in two places. The CPU fallback stays as a backstop
+    #: for whatever is not this.
+    _histc = torch.histc
+    def _histc_mps(x, *a, **k):
+        if x.device.type == "mps" and not x.dtype.is_floating_point:
+            return _histc(x.float(), *a, **k)
+        return _histc(x, *a, **k)
+    torch.histc = _histc_mps
+
     cm = get_cache()
-    dev = "mps" if torch.backends.mps.is_available() else "cpu"
+    #: **CUDA FIRST.** This line said `mps if available else cpu`, which on a
+    #: rented A100 silently selects CPU -- a box billed by the hour doing the
+    #: work at 1/50 speed, with nothing in the output naming it.
+    dev = ("cuda" if torch.cuda.is_available()
+           else "mps" if torch.backends.mps.is_available() else "cpu")
+    print("device: %s" % dev, flush=True)
     refused = collections.defaultdict(list)
     failed, done, coverage = {}, {}, {}
 
     for i, mid in enumerate(ckpts, 1):
+        if a.cached_only and weights_gb(mid) < 0.5:
+            print("[%3d/%d] %-46s NOT CACHED -- deferred to cloud"
+                  % (i, len(ckpts), mid), flush=True)
+            failed[mid] = "not downloaded; deferred to cloud (--cached-only)"
+            continue
+        if not a.include_large and mid in LOCAL_SKIP:
+            print("[%3d/%d] %-46s SKIPPED LOCALLY: %s"
+                  % (i, len(ckpts), mid, LOCAL_SKIP[mid]), flush=True)
+            failed[mid] = "local skip: " + LOCAL_SKIP[mid]
+            continue
         try:
             tok = AutoTokenizer.from_pretrained(mid, trust_remote_code=True)
         except Exception as e:

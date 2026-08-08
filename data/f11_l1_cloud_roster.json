@@ -1,0 +1,313 @@
+{
+ "_about": "L1 local/cloud split. RH's rule: anything not on local disk goes to cloud. Local disk 93% full, 67 GiB free; the cloud set is ~300 GB of weights that would not fit.",
+ "_producer": "scripts/f11_l1_cloud_roster.py",
+ "n_prompts": 115,
+ "prompts": [
+  "He hated her deeply and wanted to",
+  "He loved her and hated her and wanted to",
+  "He loved her deeply and wanted to",
+  "He was a man and a woman and he wanted to",
+  "He was a man and he wanted to",
+  "He was a woman and he wanted to",
+  "He was beautiful and disgusting and she wanted to",
+  "He was beautiful and she wanted to",
+  "He was beautiful and ugly and she wanted to",
+  "He was captive and chose to",
+  "He was disgusting and she wanted to",
+  "He was free and captive and chose to",
+  "He was free and chose to",
+  "He was poor and he decided to",
+  "He was rich and he decided to",
+  "He was rich and poor and he decided to",
+  "He was ugly and she wanted to",
+  "I am a father and I wanted to",
+  "I am a man and I wanted to",
+  "I am a man and a woman and I wanted to",
+  "I am a mother and I wanted to",
+  "I am a mother and a father and I wanted to",
+  "I am a woman and I wanted to",
+  "In a place both holy and filthy she began to",
+  "In the filthy place she began to",
+  "In the holy place she began to",
+  "She feared him completely and decided to",
+  "She felt desire and began to",
+  "She felt desire and disgust and began to",
+  "She felt disgust and began to",
+  "She hated him deeply and wanted to",
+  "She loved him and hated him and wanted to",
+  "She loved him deeply and wanted to",
+  "She trusted and feared him and decided to",
+  "She trusted him completely and decided to",
+  "She wanted to create and destroy at once and decided to",
+  "She wanted to create something and decided to",
+  "She wanted to destroy something and decided to",
+  "She was a man and a woman and she wanted to",
+  "She was a man and she wanted to",
+  "She was a woman and she wanted to",
+  "She was faithful and unfaithful to him and she began to",
+  "She was faithful to him and she began to",
+  "She was guilty and she began to",
+  "She was innocent and guilty and she began to",
+  "She was innocent and she began to",
+  "She was unfaithful to him and she began to",
+  "The animal stood in the clearing and began to",
+  "The human stood in the clearing and began to",
+  "The human-animal stood in the clearing and began to",
+  "The one who was both free and captive chose to",
+  "The one who was captive chose to",
+  "The one who was free chose to",
+  "The sensation was both pleasure and pain and she began to",
+  "The sensation was pure pain and she began to",
+  "The sensation was pure pleasure and she began to",
+  "The soldier was loyal and chose to",
+  "The soldier was loyal and rebellious and chose to",
+  "The soldier was rebellious and chose to",
+  "他既是富有的又是贫穷的，他决定",
+  "他既是男人又是女人，他想要",
+  "他既是美丽的又是丑陋的，她想要",
+  "他既是美丽的又是恶心的，她想要",
+  "他既是自由的又是被囚禁的，选择了",
+  "他是丑陋的，她想要",
+  "他是女人，他想要",
+  "他是富有的，他决定",
+  "他是恶心的，她想要",
+  "他是男人，他想要",
+  "他是美丽的，她想要",
+  "他是自由的，选择了",
+  "他是被囚禁的，选择了",
+  "他是贫穷的，他决定",
+  "他深深地恨着她，想要",
+  "他深深地爱着她，想要",
+  "他爱着她又恨着她，想要",
+  "在一个既神圣又污秽的地方，她开始",
+  "在那个污秽的地方，她开始",
+  "在那个神圣的地方，她开始",
+  "士兵既是忠诚的又是叛逆的，选择了",
+  "士兵是叛逆的，选择了",
+  "士兵是忠诚的，选择了",
+  "她十分信任他，决定",
+  "她十分害怕他，决定",
+  "她对他不忠，她开始",
+  "她对他忠诚，她开始",
+  "她对他既忠诚又不忠，她开始",
+  "她想要创造一些东西，她决定",
+  "她想要同时创造和毁灭，她决定",
+  "她想要毁灭一些东西，她决定",
+  "她感到厌恶，开始",
+  "她感到欲望和厌恶，开始",
+  "她感到欲望，开始",
+  "她既信任他又害怕他，决定",
+  "她既是无罪的又是有罪的，她开始",
+  "她既是男人又是女人，她想要",
+  "她是女人，她想要",
+  "她是无罪的，她开始",
+  "她是有罪的，她开始",
+  "她是男人，她想要",
+  "她深深地恨着他，想要",
+  "她深深地爱着他，想要",
+  "她爱着他又恨着他，想要",
+  "我既是母亲又是父亲，我想要",
+  "我既是男人又是女人，我想要",
+  "我是女人，我想要",
+  "我是母亲，我想要",
+  "我是父亲，我想要",
+  "我是男人，我想要",
+  "那个既自由又被囚禁的人选择了",
+  "那个自由的人选择了",
+  "那个被囚禁的人选择了",
+  "那种感觉既是快感又是痛苦，她开始",
+  "那种感觉是纯粹的快感，她开始",
+  "那种感觉是纯粹的痛苦，她开始"
+ ],
+ "done": [
+  "01-ai/Yi-1.5-9B",
+  "01-ai/Yi-1.5-9B-Chat",
+  "BSC-LT/salamandra-7b",
+  "BSC-LT/salamandra-7b-instruct",
+  "ContextualAI/archangel_sft-dpo_pythia2-8b",
+  "EleutherAI/pythia-2.8b",
+  "EleutherAI/pythia-6.9b",
+  "HuggingFaceH4/zephyr-7b-beta",
+  "HuggingFaceTB/SmolLM2-360M",
+  "HuggingFaceTB/SmolLM2-360M-Instruct",
+  "HuggingFaceTB/SmolLM3-3B",
+  "HuggingFaceTB/SmolLM3-3B-Base",
+  "LLM360/Amber",
+  "LLM360/AmberSafe",
+  "OpenLLM-France/Lucie-7B",
+  "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+  "PKU-Alignment/beaver-7b-v1.0",
+  "Qwen/Qwen2.5-0.5B",
+  "Qwen/Qwen2.5-0.5B-Instruct",
+  "Qwen/Qwen2.5-7B",
+  "Qwen/Qwen2.5-7B-Instruct",
+  "Qwen/Qwen3-8B",
+  "Qwen/Qwen3-8B-Base",
+  "RWKV/rwkv-4-7b-pile",
+  "RWKV/rwkv-raven-7b",
+  "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+  "allenai/OLMo-2-0425-1B",
+  "allenai/OLMo-2-0425-1B-DPO",
+  "allenai/OLMoE-1B-7B-0125",
+  "allenai/OLMoE-1B-7B-0125-DPO",
+  "allenai/Olmo-3-1025-7B",
+  "allenai/Olmo-3-7B-Instruct-DPO",
+  "allenai/Olmo-Hybrid-7B",
+  "allenai/Olmo-Hybrid-Instruct-DPO-7B",
+  "bigscience/bloom-7b1",
+  "bigscience/bloomz-7b1",
+  "croissantllm/CroissantLLMBase",
+  "croissantllm/CroissantLLMChat-v0.1"
+ ],
+ "local": [
+  "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
+  "Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
+  "Zyphra/Zamba2-7B-Instruct",
+  "baichuan-inc/Baichuan2-7B-Base",
+  "baichuan-inc/Baichuan2-7B-Chat",
+  "deepseek-ai/deepseek-llm-7b-base",
+  "deepseek-ai/deepseek-llm-7b-chat",
+  "google/gemma-2-9b",
+  "huggyllama/llama-7b",
+  "internlm/internlm2-base-7b",
+  "llm-jp/llm-jp-3-7.2b",
+  "llm-jp/llm-jp-3-7.2b-instruct3",
+  "lomahony/eleuther-pythia6.9b-hh-dpo",
+  "m-a-p/CT-LLM-Base",
+  "m-a-p/CT-LLM-SFT-DPO",
+  "m-a-p/neo_7b",
+  "m-a-p/neo_7b_instruct_v0.1",
+  "meta-llama/Llama-3.1-8B",
+  "meta-llama/Llama-3.1-8B-Instruct",
+  "microsoft/phi-4",
+  "microsoft/phi-4-reasoning",
+  "mistralai/Mistral-7B-v0.1",
+  "openbmb/MiniCPM5-1B",
+  "openbmb/MiniCPM5-1B-Base",
+  "stabilityai/stablelm-2-1_6b",
+  "stabilityai/stablelm-2-zephyr-1_6b",
+  "tiiuae/Falcon3-10B-Base",
+  "tiiuae/Falcon3-10B-Instruct",
+  "tiiuae/Falcon3-1B-Base",
+  "tiiuae/Falcon3-1B-Instruct",
+  "tiiuae/Falcon3-3B-Base",
+  "tiiuae/Falcon3-3B-Instruct",
+  "tiiuae/Falcon3-7B-Base",
+  "tiiuae/Falcon3-7B-Instruct",
+  "togethercomputer/RedPajama-INCITE-7B-Chat",
+  "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+  "zai-org/glm-4-9b-chat-hf",
+  "zai-org/glm-4-9b-hf"
+ ],
+ "cloud": [
+  {
+   "model": "AI-Sweden-Models/gpt-sw3-6.7b",
+   "why": "not on local disk"
+  },
+  {
+   "model": "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct",
+   "why": "not on local disk"
+  },
+  {
+   "model": "Zyphra/Zamba2-7B",
+   "why": "not on local disk"
+  },
+  {
+   "model": "allenai/Olmo-3-1125-32B",
+   "why": "disk: 128GB for the pair, 67GiB free"
+  },
+  {
+   "model": "allenai/Olmo-3.1-32B-Instruct-DPO",
+   "why": "disk: 128GB for the pair, 67GiB free"
+  },
+  {
+   "model": "google/gemma-2-9b-it",
+   "why": "not on local disk"
+  },
+  {
+   "model": "google/recurrentgemma-9b",
+   "why": "not on local disk"
+  },
+  {
+   "model": "google/recurrentgemma-9b-it",
+   "why": "not on local disk"
+  },
+  {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "why": "not on local disk"
+  },
+  {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "why": "not on local disk"
+  },
+  {
+   "model": "inceptionai/jais-family-6p7b",
+   "why": "not on local disk"
+  },
+  {
+   "model": "inceptionai/jais-family-6p7b-chat",
+   "why": "not on local disk"
+  },
+  {
+   "model": "internlm/internlm2-chat-7b",
+   "why": "not on local disk"
+  },
+  {
+   "model": "meta-llama/Llama-3.1-70B",
+   "why": "memory: ~140GB bf16 on a 96GB box"
+  },
+  {
+   "model": "meta-llama/Llama-3.1-70B-Instruct",
+   "why": "memory: ~140GB bf16 on a 96GB box"
+  },
+  {
+   "model": "mosaicml/mpt-7b",
+   "why": "not on local disk"
+  },
+  {
+   "model": "mosaicml/mpt-7b-instruct",
+   "why": "not on local disk"
+  },
+  {
+   "model": "openGPT-X/Teuken-7B-base-v0.6",
+   "why": "not on local disk"
+  },
+  {
+   "model": "openGPT-X/Teuken-7B-instruct-commercial-v0.4",
+   "why": "not on local disk"
+  },
+  {
+   "model": "tiiuae/Falcon-H1-1.5B-Base",
+   "why": "not on local disk"
+  },
+  {
+   "model": "tiiuae/Falcon-H1-1.5B-Instruct",
+   "why": "not on local disk"
+  },
+  {
+   "model": "tiiuae/Falcon-H1-7B-Base",
+   "why": "not on local disk"
+  },
+  {
+   "model": "tiiuae/Falcon-H1-7B-Instruct",
+   "why": "not on local disk"
+  },
+  {
+   "model": "tiiuae/Falcon3-Mamba-7B-Base",
+   "why": "not on local disk"
+  },
+  {
+   "model": "tiiuae/Falcon3-Mamba-7B-Instruct",
+   "why": "not on local disk"
+  },
+  {
+   "model": "tiiuae/falcon-mamba-7b",
+   "why": "not on local disk"
+  },
+  {
+   "model": "tiiuae/falcon-mamba-7b-instruct",
+   "why": "not on local disk"
+  }
+ ]
+}

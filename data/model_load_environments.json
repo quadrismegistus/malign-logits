@@ -151,6 +151,166 @@
    "outcome": "run_failed",
    "cause": "MY BUG, not the environment: assert_prompt_survives decoded without skip_special_tokens, so the guard failed the prompt against the BOS its own policy had added. Mistral/Llama-family tokenizers only.",
    "fix": "skip_special_tokens=True in the guard; all five affected models rescored"
+  },
+  {
+   "model_id": "allenai/OLMoE-1B-7B-0125",
+   "outcome": "run_failed",
+   "cause": "LOADS FINE, dies in the FORWARD: NotImplementedError 'histogram_mps' not implemented for 'Int' -- transformers/integrations/moe.py:383 grouped_mm_experts_forward calls torch.histc for expert routing. MPS has no integer histc.",
+   "fix": "mdl.to('cpu') and re-run the forward. Recovered in-sweep. The load guard did not catch it because the load SUCCEEDS -- an unhandled exception in the forward killed the whole run at 36/104.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "allenai/OLMoE-1B-7B-0125-DPO",
+   "outcome": "loads",
+   "cause": "",
+   "fix": "Completed at bfloat16. The DPO sibling of the checkpoint above did NOT hit the histc path on these prompts -- SAME ARCHITECTURE, DIFFERENT OUTCOME, so MoE-on-MPS is not decidable from the architecture name alone.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "RWKV/rwkv-4-7b-pile",
+   "outcome": "loads",
+   "cause": "",
+   "fix": "Ran on MPS at float32 (native). **The 'SSMs do not work on MPS' prior is FALSE for pure RWKV** -- no CUDA kernels are involved, the naive path is pure torch. Slow, not broken.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "RWKV/rwkv-raven-7b",
+   "outcome": "loads",
+   "cause": "",
+   "fix": "As above, float32.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "Zyphra/Zamba2-7B-Instruct",
+   "outcome": "loads",
+   "cause": "",
+   "fix": "Hybrid SSM, ran at float32 on MPS.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "Zyphra/Zamba2-7B",
+   "outcome": "load_failed",
+   "cause": "AutoTokenizer OSError. The -Instruct sibling loads, so it is the repo's tokenizer files, not the architecture.",
+   "fix": "",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "AI-Sweden-Models/gpt-sw3-6.7b",
+   "outcome": "load_failed",
+   "cause": "AutoTokenizer OSError",
+   "fix": "",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct",
+   "outcome": "load_failed",
+   "cause": "AutoTokenizer OSError",
+   "fix": "",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "mosaicml/mpt-7b",
+   "outcome": "load_failed",
+   "cause": "AutoTokenizer OSError",
+   "fix": "",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "mosaicml/mpt-7b-instruct",
+   "outcome": "load_failed",
+   "cause": "AutoTokenizer OSError",
+   "fix": "",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "meta-llama/Llama-3.1-70B",
+   "outcome": "load_failed",
+   "cause": "CAPACITY, not compatibility: ~140GB bf16 against 96GB unified memory. Cannot load on this box at native dtype in any configuration.",
+   "fix": "Cloud, >=2x80GB. Quantising is NOT a fix here: dtype is a keyed field because it changes the quantity.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "meta-llama/Llama-3.1-70B-Instruct",
+   "outcome": "load_failed",
+   "cause": "CAPACITY: ~140GB bf16 against 96GB unified memory.",
+   "fix": "Cloud, >=2x80GB.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "allenai/Olmo-3-1125-32B",
+   "outcome": "load_failed",
+   "cause": "CAPACITY (DISK, not memory): 64GB each, 128GB for the pair, 67GiB free. Would fit in RAM one at a time -- this is a different limit from the 70B pair and fixable by freeing disk.",
+   "fix": "Cloud, or reclaim ~130GB locally.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "allenai/Olmo-3.1-32B-Instruct-DPO",
+   "outcome": "load_failed",
+   "cause": "CAPACITY (DISK): see the base sibling.",
+   "fix": "Cloud, or free disk.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "deepseek-ai/deepseek-llm-7b-base",
+   "outcome": "run_failed",
+   "cause": "**LOADS AND RUNS, AND SILENTLY DESTROYS THE PROMPT.** backend pre_tokenizer is Metaspace where the checkpoint's own tokenizer.json declares ByteLevel+Split, so encode('a b') == encode('ab'): every space is deleted before the model sees anything, and CJK decodes to the EMPTY STRING. transformers 5.4.0 / tokenizers 0.22.2.",
+   "fix": "NONE KNOWN in this environment. Caught only by a round-trip assertion decode(encode(p)) == p; no load guard, finiteness check or cell count can see it.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "deepseek-ai/deepseek-llm-7b-chat",
+   "outcome": "run_failed",
+   "cause": "As the base sibling: encode('a b') == encode('ab').",
+   "fix": "None known.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "croissantllm/CroissantLLMBase",
+   "outcome": "run_failed",
+   "cause": "Loads; DELETES CJK CHARACTERS. 他既是美丽的又是恶心的，她想要 -> 他是美的是心的想要, dropping 既 丽 又 恶 ， 她 -- including BOTH halves of the 既...又 both-and construction. English is exact.",
+   "fix": "Usable for Latin-script prompts only. Caught by round-trip.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "openGPT-X/Teuken-7B-base-v0.6",
+   "outcome": "run_failed",
+   "cause": "Loads; normalises the FULLWIDTH COMMA to ASCII. Drops only ，. Milder than Croissant and a different kind of loss.",
+   "fix": "Latin-script prompts exact; CJK prompts altered. Round-trip catches it.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
+   "outcome": "loads",
+   "cause": "Round-trip LOOKS broken and is not: decode returns a leading space from SentencePiece's leading marker. encode(p) != encode(' '+p), so the encode is faithful and the space never reaches the model. Its CJK handling IS lossy (fullwidth comma).",
+   "fix": "Allow the leading space ONLY where encode proves it can represent the distinction.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
+  },
+  {
+   "model_id": "THUDM/glm-4-9b-hf",
+   "outcome": "loads",
+   "cause": "Round-trip LOOKS broken and is not: prepends [gMASK]<sop> and bos_token_id is None, so a BOS-only strip cannot see them. skip_special_tokens recovers the prompt exactly.",
+   "fix": "Allow a special-token prefix, gated on the tokenizer still distinguishing the text from its space-stripped form.",
+   "environment": "local_mps",
+   "source": "F11 L1 sweep, 2026-08-08"
   }
  ],
  "predicted_untested": {
