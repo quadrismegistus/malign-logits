@@ -4,6 +4,29 @@ Project context for Claude Code. Read this before making changes.
 
 ---
 
+## READ THESE TWO FILES FIRST
+
+    /Users/rj416/github/malign-logits/README.md      canonical public face: the four
+                                                     campaigns, where information
+                                                     lives, the findings list
+    /Users/rj416/github/malign-logits/CAMPAIGN.md    the operating manual: the seats,
+                                                     the docket rules, the two
+                                                     regimes, the governing chain,
+                                                     RUNNING THINGS, the method ledger
+
+**Absolute paths on purpose.** This block exists for compaction-survival — a fresh
+context should hit these two before touching the repo, and a relative path is
+useless to a session that does not yet know where it is. RH's ask, docket [5144].
+
+Two more, before renting a box or blaming a model:
+
+    docs/cloud_runbook.md        vast.ai: the recurring failures in the order you
+                                 hit them, profiles, producer-side rules
+    docs/local_capability.md     what runs on this Mac and what does not, in five
+                                 kinds with different fixes
+
+---
+
 ## Project summary
 
 This project compares full-vocabulary logit distributions across the LLM alignment pipeline (base → SFT → DPO) to trace displacement, condensation, sublimation, and repression as models undergo socialisation from raw statistical unconscious into commercial chatbot products. The core operation is extracting and comparing probability distributions for identical prompts across model layers.
