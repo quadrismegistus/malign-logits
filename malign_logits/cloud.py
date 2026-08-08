@@ -401,13 +401,48 @@ echo "SETUP COMPLETE"
     state['setup_done'] = True
     save_state(state)
 
+    # THE UPLOAD WAS 84 GB AND MOST OF IT THE BOX ALREADY HAS ELSEWHERE.
+    #
+    # The exclude list named four old stashes and nothing else, so `data/`
+    # went up whole: `data/models/` (local fine-tunes, .safetensors), every
+    # parquet, every raw cache. Measured 2026-08-08 on an F11 run: **84,763 MB
+    # at ~9 MB/s = 2.6 HOURS OF UPLOAD** before a single model loaded, on a box
+    # billing at $1.07/h. It was uploading `models/olmo2-1b-sft-no-safety/
+    # model.safetensors` — weights, to a machine whose whole job is fetching
+    # weights from HF.
+    #
+    # **A COST THAT SCALES WITH THE LOCAL WORKING TREE IS NOT A COST ANYONE
+    # BUDGETED FOR.** It grows every time the project does, silently, and it is
+    # paid at launch when attention is on whether the box came up.
+    #
+    # Now: WEIGHTS AND BULK ARE NEVER UPLOADED, and the size is printed with
+    # what was skipped, so the number is checkable rather than reassuring. Pass
+    # `--data-all` for the rare job that genuinely needs the corpus on the box.
     local_data = PROJECT_ROOT / 'data'
-    if local_data.exists():
-        exclude = ['stash_gen_metrics', 'stash', 'stash_gen_battery', 'stash_self_surprisal']
-        size_mb = sum(f.stat().st_size for f in local_data.rglob('*')
-                      if f.is_file() and not any(x in str(f) for x in exclude)) / 1e6
-        print(f"\nUploading data/ ({size_mb:.0f} MB, excluding old stashes)...",
-              file=sys.stderr)
+    if local_data.exists() and not getattr(args, 'no_data', False):
+        exclude = ['stash_gen_metrics', 'stash', 'stash_gen_battery',
+                   'stash_self_surprisal',
+                   #: weights. The box downloads its own from HF.
+                   'models', '*.safetensors', '*.bin', '*.pt', '*.gguf',
+                   #: bulk artifacts, regenerable and never inputs to a cloud run
+                   'raw', '*.parquet', '*.f16', '*.lmdb', '*.arrow', '*.duckdb',
+                   'twp_grid_v3', 'twp_cloud', 'beam_*', '*.jsonl']
+        if getattr(args, 'data_all', False):
+            exclude = ['stash_gen_metrics', 'stash', 'stash_gen_battery',
+                       'stash_self_surprisal']
+        keep, skip = 0, 0
+        for f in local_data.rglob('*'):
+            if not f.is_file():
+                continue
+            rel = str(f.relative_to(local_data))
+            hit = any(x.strip('*') in rel for x in exclude)
+            if hit:
+                skip += f.stat().st_size
+            else:
+                keep += f.stat().st_size
+        print(f"\nUploading data/: {keep/1e6:.0f} MB "
+              f"(SKIPPING {skip/1e6:.0f} MB of weights/bulk — the box fetches "
+              f"its own from HF; --data-all to override)...", file=sys.stderr)
         rsync_to(state, str(local_data), REMOTE_DATA, exclude=exclude)
         print(f"Data uploaded.")
 

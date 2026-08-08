@@ -1363,7 +1363,14 @@ def main():
                                 "data/cloud_profiles.json (default, bigdisk, ssm). "
                                 "See `malign cloud profiles`.")
     cloud_sub.add_parser("profiles", help="List provisioning profiles and their pins")
-    cloud_sub.add_parser("setup", help="Install malign-logits on instance")
+    _setup = cloud_sub.add_parser("setup", help="Install malign-logits on instance")
+    _setup.add_argument("--data-all", action="store_true",
+                        help="upload ALL of data/, weights and bulk included. "
+                             "Default skips them: the box fetches its own "
+                             "weights from HF, and the full tree was 84 GB at "
+                             "~9 MB/s = 2.6 h before a model loaded.")
+    _setup.add_argument("--no-data", action="store_true",
+                        help="upload no data/ at all -- code and specs only")
 
     cov = cloud_sub.add_parser("coverage",
                                help="Planned vs delivered for a run directory")
