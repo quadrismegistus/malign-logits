@@ -395,7 +395,31 @@ def cmd_setup(args):
     # "Requirement already satisfied" and does nothing when the floor holds,
     # and installs when it does not -- which is what a floor means. `-U` was
     # doing the one thing a floor must never do.
-    pin_cmd = ("pip install " + " ".join(f"'{p}'" for p in pins)) if pins \
+    # SOME PINS CANNOT BE INSTALLED THE ORDINARY WAY, AND THE PROFILE ALREADY
+    # SAID SO IN PROSE WHILE THE INSTALLER IGNORED IT.
+    #
+    # `mamba-ssm` and `causal-conv1d` build from source and their setup.py
+    # IMPORTS TORCH, which pip's isolated build environment does not have. So a
+    # plain `pip install mamba-ssm` fails at "getting requirements to build
+    # wheel" — measured on box 47209831 tonight, after the ssm profile's own
+    # pin_reasons had said `--no-build-isolation` is mandatory since 3 Aug.
+    # **The profile declared the requirement and the installer did not read
+    # it**, which is the night's recurring shape: a document saying something,
+    # not a runner doing it.
+    #
+    # They also need the arch list and job count, or the build takes the long
+    # way round: ~30 min on 128 cores at TORCH_CUDA_ARCH_LIST=8.0 (A100 = sm80).
+    FROM_SOURCE = ('mamba-ssm', 'causal-conv1d')
+    plain = [p for p in pins if not any(p.startswith(f) for f in FROM_SOURCE)]
+    source = [p for p in pins if any(p.startswith(f) for f in FROM_SOURCE)]
+    parts = []
+    if plain:
+        parts.append("pip install " + " ".join(f"'{p}'" for p in plain))
+    if source:
+        parts.append("TORCH_CUDA_ARCH_LIST=8.0 MAX_JOBS=48 pip install "
+                     "--no-build-isolation " +
+                     " ".join(f"'{p}'" for p in source))
+    pin_cmd = " && ".join(parts) if parts \
         else 'echo "no package floors declared for this profile"'
 
     print("Installing malign-logits...", file=sys.stderr)
