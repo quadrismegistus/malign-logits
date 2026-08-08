@@ -13,7 +13,8 @@
   "environments": [
    "ssm"
   ],
-  "note": "default+torch26 share a box because every profile pins torch>=2.6; they stay separate in f11_env_plan.json so the reason survives a box that does not."
+  "note": "default+torch26 share a box because every profile pins torch>=2.6; they stay separate in f11_env_plan.json so the reason survives a box that does not.",
+  "compute_dtype_note": "DECLARED PER MODEL. fp16 is the runner default and is right for dense (the 103-model corpus was computed that way), but the SSM/hybrid scan accumulates: Falcon-H1 measured fp16 finite 1/12 vs bf16 12/12, every failure >=13 tokens. Storage stays f16 -- finite logits reach |28.4| against f16's 65504, so the cast is lossless in range."
  },
  "spec": [
   {
@@ -134,7 +135,8 @@
     "那种感觉既是快感又是痛苦，她开始",
     "那种感觉是纯粹的快感，她开始",
     "那种感觉是纯粹的痛苦，她开始"
-   ]
+   ],
+   "compute_dtype": "bfloat16"
   },
   {
    "model": "Zyphra/Zamba2-7B-Instruct",
@@ -254,7 +256,8 @@
     "那种感觉既是快感又是痛苦，她开始",
     "那种感觉是纯粹的快感，她开始",
     "那种感觉是纯粹的痛苦，她开始"
-   ]
+   ],
+   "compute_dtype": "bfloat16"
   },
   {
    "model": "tiiuae/Falcon-H1-1.5B-Base",
@@ -374,7 +377,8 @@
     "那种感觉既是快感又是痛苦，她开始",
     "那种感觉是纯粹的快感，她开始",
     "那种感觉是纯粹的痛苦，她开始"
-   ]
+   ],
+   "compute_dtype": "bfloat16"
   },
   {
    "model": "tiiuae/Falcon-H1-1.5B-Instruct",
@@ -494,7 +498,8 @@
     "那种感觉既是快感又是痛苦，她开始",
     "那种感觉是纯粹的快感，她开始",
     "那种感觉是纯粹的痛苦，她开始"
-   ]
+   ],
+   "compute_dtype": "bfloat16"
   },
   {
    "model": "tiiuae/Falcon-H1-7B-Base",
@@ -614,7 +619,8 @@
     "那种感觉既是快感又是痛苦，她开始",
     "那种感觉是纯粹的快感，她开始",
     "那种感觉是纯粹的痛苦，她开始"
-   ]
+   ],
+   "compute_dtype": "bfloat16"
   },
   {
    "model": "tiiuae/Falcon-H1-7B-Instruct",
@@ -734,7 +740,8 @@
     "那种感觉既是快感又是痛苦，她开始",
     "那种感觉是纯粹的快感，她开始",
     "那种感觉是纯粹的痛苦，她开始"
-   ]
+   ],
+   "compute_dtype": "bfloat16"
   },
   {
    "model": "tiiuae/Falcon3-Mamba-7B-Base",
@@ -854,7 +861,8 @@
     "那种感觉既是快感又是痛苦，她开始",
     "那种感觉是纯粹的快感，她开始",
     "那种感觉是纯粹的痛苦，她开始"
-   ]
+   ],
+   "compute_dtype": "bfloat16"
   },
   {
    "model": "tiiuae/Falcon3-Mamba-7B-Instruct",
@@ -974,7 +982,8 @@
     "那种感觉既是快感又是痛苦，她开始",
     "那种感觉是纯粹的快感，她开始",
     "那种感觉是纯粹的痛苦，她开始"
-   ]
+   ],
+   "compute_dtype": "bfloat16"
   },
   {
    "model": "tiiuae/falcon-mamba-7b",
@@ -1094,7 +1103,8 @@
     "那种感觉既是快感又是痛苦，她开始",
     "那种感觉是纯粹的快感，她开始",
     "那种感觉是纯粹的痛苦，她开始"
-   ]
+   ],
+   "compute_dtype": "bfloat16"
   },
   {
    "model": "tiiuae/falcon-mamba-7b-instruct",
@@ -1214,7 +1224,8 @@
     "那种感觉既是快感又是痛苦，她开始",
     "那种感觉是纯粹的快感，她开始",
     "那种感觉是纯粹的痛苦，她开始"
-   ]
+   ],
+   "compute_dtype": "bfloat16"
   }
  ]
 }
