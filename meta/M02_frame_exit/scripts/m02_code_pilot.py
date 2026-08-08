@@ -43,8 +43,14 @@ ROOT = os.path.dirname(os.path.dirname(CAMP))
 os.environ.setdefault("LITMOD_DATA_DIR", "/Users/rj416/github/largeliterarymodels/data")
 
 from malign_logits.cache import CacheManager                      # noqa: E402
-from malign_logits.tasks.code_m02_contradiction_v1 import (       # noqa: E402
-    prepare, ContradictionV1Task, GATE, COMPOSITES)
+#: VERSION IS A FLAG, NOT AN EDIT. v1 stays runnable so its gate result
+#: remains reproducible from the same script that produced it; v2 re-gates on
+#: the SAME slice and seed, because a new draw would confound the field
+#: redefinition with the sample.
+from malign_logits.tasks import code_m02_contradiction_v1 as V1     # noqa: E402
+from malign_logits.tasks import code_m02_contradiction_v2 as V2     # noqa: E402
+from malign_logits.tasks.code_m02_contradiction_v1 import prepare   # noqa: E402
+GATE = V1.GATE
 
 MANIFEST = os.path.join(CAMP, "results", "exit_contradiction_manifest.csv")
 CATS = os.path.join(ROOT, "malign-logits", "data", "prompt_categorisation.json")
@@ -154,12 +160,13 @@ def load_done():
             r = json.loads(line)
         except Exception:
             continue
-        done[(r["mid"], r["coder"])] = r
+        done[(r["mid"], r["coder"], r.get("ver", "v1"))] = r
     return done
 
 
-def run(items, model, workers):
-    task = ContradictionV1Task()
+def run(items, model, workers, ver):
+    task = (V2.ContradictionV2Task if ver == "v2" else V1.ContradictionV1Task)()
+    COMPOSITES = V2.COMPOSITES if ver == "v2" else V1.COMPOSITES
     errors = {}
     CHUNK = 400
     n_ok = 0
@@ -176,6 +183,7 @@ def run(items, model, workers):
                 row = dict(r)
                 row.pop("continuation", None)   #: the text lives in the stash
                 row["coder"] = model
+                row["ver"] = ver
                 row["parsed"] = out is not None
                 if out is not None:
                     d = out.model_dump() if hasattr(out, "model_dump") else dict(out)
@@ -188,20 +196,31 @@ def run(items, model, workers):
     return n_ok
 
 
-def gate():
+def gate(ver="v2"):
     """Agreement between families, per field, with the rare-event clause."""
     done = load_done()
     by = collections.defaultdict(dict)
-    for (mid, coder), r in done.items():
-        if r.get("parsed"):
+    for (mid, coder, v), r in done.items():
+        if r.get("parsed") and v == ver:
             by[mid][coder] = r
     both = {m: v for m, v in by.items() if len(v) >= 2}
     print("\nGATE  pilot n=%d coded by both families (of %d coded at all)"
           % (len(both), len(by)))
     if not both:
         return
-    FIELDS = ["in_scene", "frame_exit", "refusal", "pole_a_alive",
-              "pole_b_alive", "tension_remarked", "degenerate"]
+    FIELDS = (["scene_share_GUARD", "frame_exit", "refusal", "pole_a_alive",
+               "pole_b_alive", "tension_remarked", "degenerate"] if ver == "v2"
+              else ["in_scene", "frame_exit", "refusal", "pole_a_alive",
+                    "pole_b_alive", "tension_remarked", "degenerate"])
+    #: scene_share is ORDINAL. Its agreement is reported as the BINARY THE GUARD
+    #: ACTUALLY USES (MOST/ALL vs NONE/SOME), because that is the dichotomy the
+    #: collider guard thresholds on and therefore the one that has to clear.
+    #: Exact-match on all four levels is printed separately below.
+    for v in both.values():
+        for r in v.values():
+            if "scene_share" in r:
+                r["scene_share_GUARD"] = ("YES" if r["scene_share"]
+                                          in V2.IN_SCENE_LEVELS else "NO")
     print("  %-18s %7s %8s %8s %9s  %s"
           % ("field", "rate", "agree", "kappa", "pos-cell", "verdict"))
     print("  " + "-" * 76)
@@ -247,11 +266,12 @@ def main(argv=None):
     ap.add_argument("--census", action="store_true")
     ap.add_argument("--gate", action="store_true")
     ap.add_argument("--workers", type=int, default=32)
+    ap.add_argument("--ver", choices=("v1", "v2"), default="v2")
     ap.add_argument("--n", type=int, default=GATE["pilot_n"])
     a = ap.parse_args(argv)
 
     if a.gate and not (a.pilot or a.census):
-        gate()
+        gate(a.ver)
         return 0
 
     rows = worklist()
@@ -264,17 +284,17 @@ def main(argv=None):
         print("pilot slice: %d passages over %d strata, %d coder families"
               % (len(sl), len({(r["group"], r["role"]) for r in sl}), len(FAMILIES)))
         for m in FAMILIES:
-            todo = [r for r in sl if (r["mid"], m) not in done]
+            todo = [r for r in sl if (r["mid"], m, a.ver) not in done]
             print("  %s: %d to code (%d already done)" % (m, len(todo), len(sl) - len(todo)))
             if todo:
-                run(todo, m, a.workers)
-        gate()
+                run(todo, m, a.workers, a.ver)
+        gate(a.ver)
     elif a.census:
         m = FAMILIES[0]
-        todo = [r for r in rows if (r["mid"], m) not in done]
+        todo = [r for r in rows if (r["mid"], m, a.ver) not in done]
         print("census: %d to code with %s (%d done)" % (len(todo), m, len(rows) - len(todo)))
         if todo:
-            run(todo, m, a.workers)
+            run(todo, m, a.workers, a.ver)
     return 0
 
 
