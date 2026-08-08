@@ -124,6 +124,28 @@ This is not a deflation. It says **alignment creates a class of words its model 
 
 The psychoanalytic shape, stated as narrowly as the data permits: **a momentary shock at the irruption of what the model would not have said** — evaluative rather than behavioural, one token wide, indifferent to content.
 
+## What the long window shows — EXPLORATORY, and it reframes the ten-token result
+
+fc has ten tokens and cannot ask when the disturbance ends. Y has 256. Swept cumulatively (my own aggregation — mean over fall-cells minus mean over rise-cells within a prompt, median over prompts within a pair; n=33):
+
+| window | A\|A | A\|B | B\|A | B\|B |
+|---|---|---|---|---|
+| 1–10 | −0.1391 | −0.1446 | −0.1236 | −0.1403 |
+| 1–30 | −0.1073 | −0.1073 | −0.0299 | −0.0528 |
+| 1–100 | −0.0725 | −0.0651 | −0.0728 | −0.0760 |
+| 1–256 | **−0.0518** | **−0.0604** | **−0.0593** | **−0.0766** |
+
+**All four terms clear at all eight windows.** Magnitude falls ~2.5× to about 1–100, then **flattens near −0.06 and stays flat to 256. Nothing dies.**
+
+Read against lacan's primary decay over the same span (−0.0515 → −0.0018, i.e. to nothing), this localises the structure: **the long-window disturbance is COMMON to all four terms** — not about who wrote the continuation or who scored it. After a forced faller the whole region is less probable *to everybody*, and the primary differences that common component away, which is why the primary dies while each term plateaus.
+
+**So: a differential effect that decays to nothing, sitting on a shared effect that persists to the end of the generation.** The forced faller does not merely perturb the joint — it moves the continuation into a lower-probability region and leaves it there.
+
+This **reframes rather than contradicts** the ten-token result. fc sees the joint: sharp, differential, at +1. It is structurally blind to the plateau, because at ten tokens there is no long window in which a common shift could be told apart from a level.
+
+**Robust:** decay-then-plateau rather than decay-to-zero — a within-implementation comparison with a constant aggregation across eight windows.
+**Not robust:** whether the *base* terms move at all. My B\|A/B\|B are large at every window; lacan's are null at 0–10, which is exactly where the two implementations diverge (docket [5024].2 — the fall/rise aggregation is not recoverable from the frozen slot spec). **"All four move together" is aggregation-dependent and is not quoted from this file.**
+
 ## The confound, unresolved
 
 The faller is by construction low-probability **under aligned** and high under base, so conditioning on it places the aligned model in a state it already assigns low probability to; the next token inherits that mechanically.
