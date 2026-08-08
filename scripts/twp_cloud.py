@@ -637,6 +637,7 @@ class SkipPrompt(Exception):
 #: a stale read is impossible: the write happens between expand() and the
 #: jsonl line for the same prompt.
 _LOGIT = {"v": None}
+_HIDDEN = {"v": None}
 
 
 @torch.no_grad()
@@ -674,7 +675,28 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
     else:
         pids, _applied = encode_prompt(tok, prompt, bos_policy)
         assert_prompt_survives(tok, prompt, pids)
-    lg = model(torch.tensor([pids], device=dev)).logits[0, -1, :].float()
+    #: **HIDDEN STATES, FINAL POSITION ONLY (RH, 2026-08-08 via [5141]).** A flag
+    #: on a forward pass we are already running: compute cost zero, ~170 MB over
+    #: the whole 104-checkpoint roster. Collected now it is a by-product;
+    #: collected later it is a second full pass and ~1.5 TB of re-downloads,
+    #: which is the cost correctly refused at [5051].2 for a job that had no
+    #: need of it. L3 -- where BOTH diverges from its poles INSIDE the network --
+    #: needs exactly this and nothing else.
+    #:
+    #: **FINAL POSITION, NOT THE SEQUENCE.** (n_layers+1, d_model) float32 per
+    #: prompt: 0.14 MB at 1B, 0.54 MB at 7B, 2.65 MB at 70B. The whole sequence
+    #: would be ~100x that and answers no question anyone has asked.
+    _out = model(torch.tensor([pids], device=dev), output_hidden_states=True)
+    lg = _out.logits[0, -1, :].float()
+    _hs = getattr(_out, "hidden_states", None)
+    if _hs:
+        #: float32, and NOT halved. These are residual-stream vectors read by a
+        #: projection onto a pole axis, not probabilities compared to a frozen
+        #: threshold -- and unlike the logit sidecar there is no uniform-store
+        #: ruling to honour, because this artifact has no predecessors.
+        _HIDDEN["v"] = (torch.stack([h[0, -1, :] for h in _hs])
+                        .float().cpu().numpy())
+    del _out
     #: THE LOGIT FOLD (RH, 2026-08-01). `lg` IS ALREADY the full-vocabulary
     #: last-position vector the logit stash wants -- this call is batch-1,
     #: consumes no RNG, and P0/theta/the residual/the beam are all
@@ -989,7 +1011,14 @@ def main(a):
             _dim = getattr(model.config, "vocab_size", None)
             logit_n = (os.path.getsize(lpath) // (2 * _dim)
                        if _dim and os.path.exists(lpath) else 0)
-            with open(path, "a") as f, open(lpath, "ab") as lf:
+            hpath = os.path.join(a.out, f"{safe}.hidden.f32")
+            #: row width is (n_layers+1) x d_model and is NOT known until the
+            #: first forward pass, so the counter is derived after it -- see the
+            #: write site. A remembered counter would mis-index every row after
+            #: a restart, which is the defect the logit counter was fixed for.
+            hidden_n, hidden_w = None, None
+            with open(path, "a") as f, open(lpath, "ab") as lf, \
+                    open(hpath, "ab") as hf:
                 for i, p in enumerate(todo, 1):
                     try:
                         w, res, calls = expand(model, tok, p, dev, bmask,
@@ -1018,6 +1047,24 @@ def main(a):
                         lf.write(_lg.tobytes()); lf.flush()
                         logit_n += 1
                         _LOGIT["v"] = None
+                    _hv = _HIDDEN["v"]
+                    _hrow = None
+                    if _hv is not None:
+                        if hidden_w is None:
+                            hidden_w = int(_hv.size)
+                            hidden_n = (os.path.getsize(hpath) // (4 * hidden_w)
+                                        if os.path.exists(hpath) else 0)
+                        if int(_hv.size) != hidden_w:
+                            #: a width change mid-file makes every later row read
+                            #: at the wrong offset, forever, and no value check
+                            #: can see it. Refuse the row rather than the model.
+                            print(f"  HIDDEN WIDTH CHANGED {hidden_w}->{_hv.size}"
+                                  f", not writing this row", flush=True)
+                        else:
+                            _hrow = hidden_n
+                            hf.write(_hv.tobytes()); hf.flush()
+                            hidden_n += 1
+                        _HIDDEN["v"] = None
                     f.write(json.dumps({
                         "model": mid, "prompt": p, "theta": THETA,
                         #: **DEVICE, ADDED 2026-08-07.** The jsonl already
@@ -1039,6 +1086,8 @@ def main(a):
                         #: That belief belongs in the reader, where one line
                         #: corrects it, not in 93,216 rows.
                         "device": dev,
+                        "hidden_row": _hrow,
+                        "hidden_shape": (list(_hv.shape) if _hv is not None else None),
                         "logit_row": _row, "logit_dim": (int(_lg.shape[0])
                                                          if _lg is not None else None),
                         "logit_dtype": "float16",
