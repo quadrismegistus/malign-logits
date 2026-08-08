@@ -1,6 +1,6 @@
 # Registration Z, ladders and regimes: what we found
 
-Positive results only, in the format of `Y_findings.md`: the number, the test, the population. Two questions a base/aligned contrast structurally cannot ask, and one it can be shown to get wrong.
+Positive results only, in the format of `Y_superego.md`: the number, the test, the population. Two questions a base/aligned contrast structurally cannot ask, and one it can be shown to get wrong.
 
 **Corpus**: the `generations` stash, 256,035 passages, filtered to temp=1.0 and to the checkpoints named below. Field counts from `malign_logits/fields.py` (USAS fine, Warriner and Brysbaert norms tertiled on their own distributions, RID). Script `meta/M01_displacement/scripts/z_ladders.py`.
 

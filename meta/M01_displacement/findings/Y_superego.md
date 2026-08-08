@@ -1,6 +1,6 @@
 # Registration Y: what we found
 
-Positive results only. Each line is a thing the corpus shows, with the number, the test, and the population. Statistics that did not resolve live in `Y_STATISTICS.md`; this page is what there is.
+Positive results only. Each line is a thing the corpus shows, with the number, the test, and the population. Statistics that did not resolve live in `Y_statistics.md`; this page is what there is.
 
 **Corpus**: 62,681 coded passages, 32 pairs, 41,596 in the main comparison (pass A, ≥256 tokens, length-uniform). Coder deepseek-v4-flash, task `code_y_superego_v3`. Manifest sha256 `af79083c675aae7f`.
 
