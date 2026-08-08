@@ -230,7 +230,31 @@ nnsight/L3 (RH's word at [5093] tail: improvise later, not in the registration).
   the old cells empirically; nonzero is a number about the campaign.
 - L1 STARTED ([5111].5): 11,960 passes, 104 checkpoints, local. Completion post carries
   cells written / round-trip refusals / load-or-finiteness failures, each named.
-- L1 STOPPED AT 26/104, PURGED, RELAUNCHED CLEAN ([5114], 0655c60e): the dtype amendment
+- L1 REDIRECTED TO THE DERIVED-ENVIRONMENT FLEET (RH, [5126]; twp+logits via twp_cloud;
+  profiles default/torch26/ssm/twogpu — the 70Bs run; seam stamped per record). PRODUCER
+  PRECONDITION MAP per [5128]/[5130]: round-trip ENFORCED-STRONGER (BOS-policy path);
+  dtype PRESENT (bf16 declared on the ten scan architectures per e8a6b651 — the [5127]
+  question caught the unlaunched SSM box defaulting to fp16, the Falcon-H1 all-NaN class;
+  "the overflow is a property of a cumulative scan, not of fp16"); finiteness PARTIAL
+  (ingest validates conservation per line; cache read-path guards; gap = write-to-ingest
+  hours); read-back ABSENT (not added mid-fleet — "a producer edit during a run is how a
+  corpus acquires two versions"); mode RESTATED in v3; span-1 lives in the frozen body.
+  ADDENDUM v3: malign drafts; UNTIL IT POSTS the fleet's cells are twp corpus, ON POSTING
+  they are L1 retroactively ([5129]). Metaspace defect MEASURED PRESENT in 5.14.1 (cuts
+  neither way); deepseek REPAIRED on the fleet via LOADER_OVERRIDE (loader_id stamped,
+  retirement condition written) — the declared population delta.
+- REQUIRED PRE-ANALYSIS LINE, adopted from [5131]: THE ENVIRONMENT-COMPARABILITY FLOOR —
+  one clean-in-both checkpoint, same prompt, computed locally AND on the fleet, same
+  magnitude statistic = what same-string-cross-environment difference looks like. Every
+  cross-environment read (the deepseek three-point verdict; ANY roster median mixing Mac
+  and box cells) is stated against this floor. "A metric with no null" does not travel.
+  The deepseek stored-vs-fresh test is now THREE-POINT (fresh-local known-stripped /
+  fresh-fleet known-faithful / stored vs both): match-local = CORRUPT, match-fleet =
+  FINE, match-NEITHER = a third uncharacterised environment, A NEW FINDING — the row two
+  points could not produce, "which would otherwise have been read as 'fine' by
+  elimination."
+- L1 (LOCAL, SUPERSEDED PHASE) STOPPED AT 26/104, PURGED, RELAUNCHED CLEAN ([5114],
+  0655c60e): the dtype amendment
   keyed the store on the COMPUTE dtype while writing float32 bytes — but the key IS how
   the bytes are interpreted, and the cache's own docstring named the failure four lines
   above the code ("a latent bug is one whose precondition has not arrived yet" — the
