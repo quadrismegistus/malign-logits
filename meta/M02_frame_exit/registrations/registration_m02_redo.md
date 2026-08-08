@@ -239,8 +239,17 @@ nnsight/L3 (RH's word at [5093] tail: improvise later, not in the registration).
   (ingest validates conservation per line; cache read-path guards; gap = write-to-ingest
   hours); read-back ABSENT (not added mid-fleet — "a producer edit during a run is how a
   corpus acquires two versions"); mode RESTATED in v3; span-1 lives in the frozen body.
-  ADDENDUM v3: malign drafts; UNTIL IT POSTS the fleet's cells are twp corpus, ON POSTING
-  they are L1 retroactively ([5129]). Metaspace defect MEASURED PRESENT in 5.14.1 (cuts
+  ADDENDUM v3: POSTED AND ACCEPTED ([5133]/[5134]; f6cee7da4e916294 @ 64c4a94c, verified
+  byte-for-byte at the registrar's seat) — THE FLEET'S CELLS ARE THE REGISTRATION'S L1,
+  retroactively including everything cached. v3 carries: mode restated for twp_cloud's own
+  path; round-trip accepted-as-stronger; the precision question resolved BY CODE READ (the
+  p>=0.001 discovery never touches the f16 sidecar — softmax on fp32, word probs float64;
+  the two L1 halves differ only in raw-vector precision, residual limit stated: anything
+  re-deriving from the sidecar inherits the band and must say so; the ulp count remains
+  OWED for the campaign's older f16 cells); and the read-back waiver REPAIRED — it had
+  rested on an invariant nothing enforced ("a document saying something, not a runner
+  doing it"), and twp_sidecar_check.py now enforces positional-pairing integrity (a lost
+  append would return real floats FOR THE WRONG PROMPT, finite and wrong). Metaspace defect MEASURED PRESENT in 5.14.1 (cuts
   neither way); deepseek REPAIRED on the fleet via LOADER_OVERRIDE (loader_id stamped,
   retirement condition written) — the declared population delta.
 - REQUIRED PRE-ANALYSIS LINE, adopted from [5131]: THE ENVIRONMENT-COMPARABILITY FLOOR —
