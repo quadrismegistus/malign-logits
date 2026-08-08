@@ -7,6 +7,9 @@
     ledger.md          THE HISTORY — supersessions, withdrawals, what a number
                        may not say, and the clause list as the campaign's
                        pre-registration vocabulary
+    findings/          THE WRITE-UPS — one document per campaign, each
+                       carrying the caveats that bind all of its findings;
+                       indexed at the foot of this page
     **this file**      THE MAP — the questions, and where each piece sits
 
 **The one-sentence claim: alignment does not delete the transgressive lexicon; it redistributes it.** Suppressed probability mass migrates to substitutes — kill → scream — and the migration has structure.
@@ -169,16 +172,71 @@ If T work resumes at scale, migrate all of them in one commit with a mapping tab
 here and post the table to the docket, so the old citations resolve. That is a
 deliberate migration with its own record, not housekeeping.
 
+## The post-registration campaigns (after the regime change, [4712])
+
+Pre-registration ended on RH's word; what followed runs reproducible-vs-not
+(seeds, hashes, held-back samples, replication as the control, everything
+looked at reported). Each campaign has its write-up in `findings/`; the
+questions, in order of arrival:
+
+- **U — the ladder** ([U_ladder.md](findings/U_ladder.md)): *where in
+  training does the displacement arrive?* SFT vs DPO shares, the safety-data
+  ablations, and what the siblings say. Plan-governed (`registrations/plan_u_ladder.md`).
+- **V — embedding regions** ([V_embedding_regions.md](findings/V_embedding_regions.md)):
+  *does the relation live in embedding space?* It fails at the relation and
+  validates something else — the relation is local to the scene.
+- **W — forced continuation** ([W_forced_continuation.md](findings/W_forced_continuation.md)):
+  *what does it cost to say the word alignment demoted?* The resist asymmetry
+  (one-way strangeness), the damage family, the entropy competitor's
+  refutation, the SFT census. The discriminator table's current state is
+  register-governed — the cost channel moved after this document was written;
+  do not quote its damage nulls without the register.
+- **X — metonymy / scene scale** ([X_metonymy.md](findings/X_metonymy.md)):
+  *does the substitution run down the scene's own scale?* Descriptive
+  throughout, by its own first paragraph.
+- **Y — the superego at sexual slots** ([Y_superego.md](findings/Y_superego.md)
+  results; [Y_statistics.md](findings/Y_statistics.md) the statistic
+  inventory, absences visible): *does alignment keep act and scene and attach
+  a moral apparatus?* Generation + blind coding at 256 tokens.
+- **Z — ladders and regimes** ([Z_ladders_regimes.md](findings/Z_ladders_regimes.md)):
+  two questions a base/aligned contrast cannot ask, and one it gets wrong.
+- **The paper-facing view** ([DISPLACEMENT_EVIDENCE.md](findings/DISPLACEMENT_EVIDENCE.md)):
+  the evidence for and against, as the article consumes it — the third index
+  beside this map and REGISTRATIONS.md, each doing a different job.
+
 ## What is open
 
 - **The regime changed 2026-08-06: pre-registration ended on RH's word** (docket [4712]; REGISTRATIONS.md's letters table closes with S). What continues is the reproducible-vs-not discipline: held-back samples, seeds and hashes, free analysis, replication as the control, everything looked at reported. **579 of 684 stems remain a held-back set nobody has read.**
 - **The annotation study's leads awaiting replication on unused prompts**: the domain gradient (harm calculus, finding 3) and the association structure (findings 5–6) — none was protocol; the write-up says which work replication is doing.
 - **Q's Erratum 2 co-signature** — the corrected artifact (direction metadata only, every measurement byte-identical) is verified at both seats and supersedes on signature.
 - **Clause 7's stratified reading from P's artifact** — P carried the slot-sensitivity strata; the clause-level reading is still owed to the ledger.
-- **The whole of axis 4** — no registration, and the SFT-installation claim needs reproducing before it can be cited at all.
+- **Axis 4, partially closed by U** — the ladder ran under a plan
+  (`findings/U_ladder.md`: SFT carries most of the edge, DPO re-targets);
+  the original SFT-installation claim from before the regime change still
+  needs its reproduction rider when cited.
 - **C's one blind arm** (general sweetening), never emitted.
 - **D3b's negative slope** — more extreme pools appear to displace *less*, which is the opposite of what the confound predicts. A described fit awaiting a registered surrogate.
 - **The bloomz question** — a model whose base is Chinese-competent and whose aligned child is not, same tokenizer, one step. **Alignment took its Chinese away.** Deposited as n=1; a ten-lineage table is authorized.
 - **Four audits owed** on findings the ledger's clauses rest on; two producer repairs whose consequence is that every Stouffer Z in N and O is a floor rather than a value; and **four never-gated scorers whose provenance gates are now OVERDUE** — the shared library moved from an editable install to a pinned tag, so they import a different version than their outputs were produced under.
+
+## findings/ index
+
+One line per document; the document governs its own numbers.
+
+| File | What it holds |
+|---|---|
+| [C_to_O_registered_letters.md](findings/C_to_O_registered_letters.md) | The ten registered letters without their own write-ups (C, D/D2/D3b, E, F/G, L/M, N, O, B-never-ran) |
+| [DISPLACEMENT_EVIDENCE.md](findings/DISPLACEMENT_EVIDENCE.md) | The paper-facing evidence view, for and against |
+| [Q_bridge.md](findings/Q_bridge.md) | The bridge between general and site frames — a frame reversal |
+| [R_decoy_negative.md](findings/R_decoy_negative.md) | The decoy programme — a fully-registered negative with a cause |
+| [S_annotation.md](findings/S_annotation.md) | The annotation route to the relation (order-reversal design) |
+| [T_category_flow.md](findings/T_category_flow.md) | Where the mass goes — chain, not swap |
+| [U_ladder.md](findings/U_ladder.md) | The alignment ladder: SFT vs DPO, safety-data ablations |
+| [V_embedding_regions.md](findings/V_embedding_regions.md) | Embedding geometry fails at the relation; the relation is local |
+| [W_forced_continuation.md](findings/W_forced_continuation.md) | Forced continuation: resist asymmetry, damage family, entropy competitor |
+| [X_metonymy.md](findings/X_metonymy.md) | The substitution runs down the scene's own scale (descriptive) |
+| [Y_statistics.md](findings/Y_statistics.md) | Registration Y: every statistic under test, absences visible |
+| [Y_superego.md](findings/Y_superego.md) | Registration Y: what the corpus shows (positive results) |
+| [Z_ladders_regimes.md](findings/Z_ladders_regimes.md) | Ladders and regimes: what a base/aligned contrast cannot ask |
 
 *Where this page and `ledger.md` differ, the ledger governs; where the ledger and the docket differ, the docket governs. For whether a registration ran and what it returned, `REGISTRATIONS.md` governs both.*

@@ -62,8 +62,17 @@ VALID_STATUSES = {"verified", "solid-by-design", "unaudited", "rescoped", "retra
                   # "verified" (its basis is compromised). Resolves to verified
                   # only via a DATED re-verification against frozen history,
                   # because a SHA verification expires when history is rewritten.
-                  "verified-pending-reverification"}
-VALID_GRADES = {"A", "B", "C", "D"}
+                  "verified-pending-reverification",
+                  # Added 2026-08-08 (repo cleanup): statuses in live use by
+                  # F12 and F41 that the vocabulary had not caught up with.
+                  # retained-downgraded: survived an audit with its grade cut.
+                  # measured-single-seat: a measurement one seat has produced
+                  # and no second seat has reproduced -- weaker than
+                  # unaudited-with-history, stronger than a claim.
+                  "retained-downgraded", "measured-single-seat"}
+# "ungraded" added 2026-08-08: legitimate only while a finding's status is
+# measured-single-seat -- a grade asserts audit standing that does not exist yet.
+VALID_GRADES = {"A", "B", "C", "D", "ungraded"}
 
 # Checked from 2026-07-29. Families were the last unchecked vocabulary:
 # F13 carried [olmo-tiny] against a six-family body and the build could
@@ -92,6 +101,9 @@ VALID_INSTRUMENTS = {
     # published report, not a measurement. The controlled set predated the
     # category.
     "documentary",
+    # added 2026-08-08 (repo cleanup): F41 names its instruments by the stashes
+    # it reads, which is more precise than the class names above, not less.
+    "word_norms", "true_word_probs",
 }
 
 
@@ -217,8 +229,14 @@ def extract():
     print(f"\nExtracted {len(matches)} findings to {FINDINGS_DIR}/")
 
 
-def build():
-    """Rebuild README from findings (narrative layer)."""
+def build(full=False):
+    """Rebuild README from findings.
+
+    Default since 2026-08-08 (RH's cleanup): BRIEF entries — title, badge,
+    the frontmatter description, and a link to the finding file — instead of
+    piping full bodies into the README. The finding files are canonical; the
+    README is a linked catalogue. `build --full` restores the old behavior.
+    """
     text = README.read_text()
 
     findings_start = text.index("## Findings\n")
@@ -264,14 +282,27 @@ def build():
         finding_headings.append(heading_text)
 
         badge = _status_badge(f["meta"], children_by_num.get(num))
-        if badge:
-            lines = content.split('\n', 1)
-            content = lines[0] + badge + (('\n' + lines[1]) if len(lines) > 1 else '')
 
-        content = content.replace('](../figures/', '](figures/')
-
-        findings_parts.append(content)
-        findings_parts.append("\n\n")
+        if full:
+            if badge:
+                lines = content.split('\n', 1)
+                content = lines[0] + badge + (('\n' + lines[1]) if len(lines) > 1 else '')
+            content = content.replace('](../figures/', '](figures/')
+            findings_parts.append(content)
+            findings_parts.append("\n\n")
+        else:
+            desc = str(f["meta"].get("description") or "").strip()
+            if not desc:
+                # fallback: first non-heading, non-empty line of the body
+                for line in content.split("\n")[1:]:
+                    line = line.strip()
+                    if line and not line.startswith("#"):
+                        desc = line
+                        break
+            entry = first_line + (badge or "\n") + "\n" + desc + "\n\n" \
+                + f"→ **Full finding:** [findings/{f['path'].name}](findings/{f['path'].name})"
+            findings_parts.append(entry)
+            findings_parts.append("\n\n")
 
     findings_parts.append(FINDINGS_END_MARKER)
     new_findings = "".join(findings_parts)
@@ -519,7 +550,7 @@ def main():
         if lint_code:
             print("\nLint errors found — fix before building.")
             sys.exit(lint_code)
-        build()
+        build(full="--full" in sys.argv)
     elif cmd == "index":
         index()
     elif cmd == "lint":

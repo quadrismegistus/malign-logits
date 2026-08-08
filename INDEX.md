@@ -16,9 +16,9 @@ Citation-grade index with status, grade, and chapter mapping. For the narrative 
 | F08 | Automatic displacement taxonomy (OLMo + Llama, 18 prompts) | rescoped | C | — | [F08_displacement_taxonomy](findings/F08_displacement_taxonomy.md) |
 | F09 | Same base model, different alignment (Tulu 3.1 vs Llama 3.1, 47 prompts) | unaudited | C | — | [F09_tulu_vs_llama](findings/F09_tulu_vs_llama.md) |
 | F10 | SFT data ablation (Tulu 3, 5 variants, 47 prompts) | unaudited | C | — | [F10_sft_ablation](findings/F10_sft_ablation.md) |
-| F11 | Contradiction Tolerance — Cross-Family Replication | rescoped | B | ch03, ch11 | [F11_contradiction](findings/F11_contradiction.md) → [F11_addendum](findings/F11_addendum.md) |
+| F11 | > **PROMOTION CONDITION ([2198], RH's standing scope rule).** A canonical claim | rescoped | B | ch03, ch11 | [F11_contradiction](findings/F11_contradiction.md) → [F11_addendum](findings/F11_addendum.md) |
 |   F11 (addendum) | Addendum: Mechanism Decomposition — Frame-Exit, Not Exclusive Disjunction | verified | A | ch03, ch11 | [F11_addendum](findings/F11_addendum.md) |
-| F12 | Alignment as fold: trajectory geometry and steering vector analysis (10 families, 47 prompts, 100 passages) | unaudited | C | ch06 | [F12_fold_geometry](findings/F12_fold_geometry.md) |
+| F12 | Alignment as fold: trajectory geometry and steering vector analysis (10 families, 47 prompts, 100 passages) | retained-downgraded | C | ch06 | [F12_fold_geometry](findings/F12_fold_geometry.md) |
 | F13 | Jakobsonian axes: paradigmatic vs syntagmatic displacement (6 families, 126k pairs) | rescoped | C | ch05 | [F13_jakobsonian_axes](findings/F13_jakobsonian_axes.md) |
 | F14 | Syntagmatic baseline: alignment-produced vs corpus-level damage (OLMo 3 7B, 23k pairs) | rescoped | C | ch05, ch07, ch11 | [F14_syntagmatic_baseline](findings/F14_syntagmatic_baseline.md) → none (rescoped in place — the causal framing "alignment damages combination / inverts the poetic function" is retracted: the base model shares the same trade-off; alignment AMPLIFIES a pre-existing structure at targeted sites; deltas stand (sexual +0.106 etc.). ch05:454, ch05:827, ch11:146.) |
 | F15 | Generation-level passage metrics (10 families, 76k passages, 47 prompts) | unaudited | C | ch07 | [F15_passage_metrics](findings/F15_passage_metrics.md) |
@@ -44,12 +44,13 @@ Citation-grade index with status, grade, and chapter mapping. For the narrative 
 | F33 | Scale Effects — Same Mechanism, Different Displacement Vocabulary | unaudited | C | ch05, ch09 | [F33_scale_effects](findings/F33_scale_effects.md) |
 | F34 | Cross-Linguistic Displacement — The Class Engine Is Language-Dependent | unaudited | C | — | [F34_cross_linguistic_displacement](findings/F34_cross_linguistic_displacement.md) |
 | F35 | Architecture Independence — Displacement Is Weight-Level, Not Attention-Dependent | unaudited | C | — | [F35_architecture_independence](findings/F35_architecture_independence.md) |
-| F36 | Euphemism vs. Proximity — Alignment as Foreclosure, Not Metonymy | rescoped | B | ch05 | [F36_euphemism_vs_proximity](findings/F36_euphemism_vs_proximity.md) → [F36_capstone](findings/F36_capstone.md) |
+| F36 | > **PROMOTION CONDITION ([2198], RH's standing scope rule).** A canonical claim | rescoped | B | ch05 | [F36_euphemism_vs_proximity](findings/F36_euphemism_vs_proximity.md) → [F36_capstone](findings/F36_capstone.md) |
 |   F36 (sub) | Violence: Admission Suppressed, Syntagm Sharpened, Elaboration Disinvested | verified | A | ch04, ch05, ch06 | [F36_violence](findings/F36_violence.md) |
 |   F36 (capstone) | Capstone: Three Addressing Systems | verified | A | ch05, ch07, ch09 | [F36_capstone](findings/F36_capstone.md) |
 |   F36 (ledger) | Ledger: Complete Inventory | verified | A | — | [F36_ledger](findings/F36_ledger.md) |
 | F39 | `hh_rlhf` does not encode register preference at the scale the chain analysis required | verified | B | ch09 | [F39_preference_corpus_insensitivity](findings/F39_preference_corpus_insensitivity.md) |
 | F40 | Discovered vocabulary — alignment is surgical at liminal sites and blunt at explicit ones | unaudited | B | ch05, ch07 | [F40_discovered_vocabulary](findings/F40_discovered_vocabulary.md) |
+| F41 | Word norms — the exogenous gradient test | measured-single-seat | ungraded | ch05, ch06 | [F41_word_norms](findings/F41_word_norms.md) |
 
 ## By grade
 
@@ -65,11 +66,11 @@ Citation-grade index with status, grade, and chapter mapping. For the narrative 
 
 ### Grade B: Solid by design (measurement-only)
 
-- [F11_contradiction](findings/F11_contradiction.md) — Contradiction Tolerance — Cross-Family Replication
+- [F11_contradiction](findings/F11_contradiction.md) — > **PROMOTION CONDITION ([2198], RH's standing scope rule).** A canonical claim
 - [F20_addendum](findings/F20_addendum.md) — addendum: the expansion, and what it costs the parent finding
 - [F21_institutional_alignment](findings/F21_institutional_alignment.md) — Institutional Alignment
 - [F32_template_mediated_distributions](findings/F32_template_mediated_distributions.md) — Template-Mediated Distributions — Task Switch, Not Distribution Filter
-- [F36_euphemism_vs_proximity](findings/F36_euphemism_vs_proximity.md) — Euphemism vs. Proximity — Alignment as Foreclosure, Not Metonymy
+- [F36_euphemism_vs_proximity](findings/F36_euphemism_vs_proximity.md) — > **PROMOTION CONDITION ([2198], RH's standing scope rule).** A canonical claim
 - [F39_preference_corpus_insensitivity](findings/F39_preference_corpus_insensitivity.md) — `hh_rlhf` does not encode register preference at the scale the chain analysis required
 - [F40_discovered_vocabulary](findings/F40_discovered_vocabulary.md) — Discovered vocabulary — alignment is surgical at liminal sites and blunt at explicit ones
 
@@ -157,6 +158,7 @@ Citation-grade index with status, grade, and chapter mapping. For the narrative 
 - [F36_violence](findings/F36_violence.md) [A]
 - [F36_capstone](findings/F36_capstone.md) [A]
 - [F40_discovered_vocabulary](findings/F40_discovered_vocabulary.md) [B]
+- [F41_word_norms](findings/F41_word_norms.md) [ungraded]
 
 ### ch06
 
@@ -164,6 +166,7 @@ Citation-grade index with status, grade, and chapter mapping. For the narrative 
 - [F18_shannon_entropy](findings/F18_shannon_entropy.md) [C]
 - [F19_bos_entropy](findings/F19_bos_entropy.md) [C]
 - [F36_violence](findings/F36_violence.md) [A]
+- [F41_word_norms](findings/F41_word_norms.md) [ungraded]
 
 ### ch07
 

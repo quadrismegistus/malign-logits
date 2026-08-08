@@ -28,8 +28,9 @@ figure without a producer in its own folder does not exist here.
 | ID  | Meta-finding | Status |
 |-----|--------------|--------|
 | M01 | [Displacement: alignment redistributes the transgressive lexicon](M01_displacement/ledger.md) | DRAFT — core clauses two-seat as of 2026-07-29; see clause table |
-| M02 | [Frame-exit: alignment resolves contradiction by leaving the frame](M02_frame_exit/README.md) | STUB |
-| M03 | [Proceduralization: alignment proceduralises the individual, not the institution](M03_proceduralization/README.md) | STUB |
+| M02 | [Frame-exit: what contradiction does to the continuation](M02_frame_exit/README.md) | ACTIVE — redo registration FROZEN 2026-08-08 (inversion prior under powered test); first finding delivered (E-ASSIST-ambient) |
+| M03 | [Proceduralization](M03_proceduralization/README.md) | TITLE CONTESTED — see the module README's header for the recorded challenge and the bounded-volume correction |
+| M04 | [The continuation/combination axis](M04_syntagmatic/README.md) | First own finding 2026-08-08 (A: post-utterance shock); W remains M01-rooted by pointer |
 
 Relation to other layers: `findings/` = instrument-level results (one
 instrument, one campaign); `notes/claims-ledger-draft.md` (article hub)

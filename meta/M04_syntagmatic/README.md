@@ -17,8 +17,9 @@ starts here rather than there.
 
 **The forced-continuation campaign lives in M01, not here, and this pointer is the map.** Its
 write-up is `../M01_displacement/findings/W_forced_continuation.md`: the resist asymmetry
-(counterfactual continuations scored cross-model), the damage nulls (forcing the demoted word
-costs nothing measurable), the entropy competitor's refutation, and the SFT census. The question
+(counterfactual continuations scored cross-model), the damage family (whose
+bounded nulls were superseded by the wave-3 detection — the claims register in the article hub
+governs its current state), the entropy competitor's refutation, and the SFT census. The question
 is this axis's — what alignment does to continuation — but the campaign is operationally
 M01-rooted: its sites, movers and populations all derive from M01 artifacts (`r_population_k2`,
 the 210-prompt beam sample, CANONICAL), and the document sits beside the scripts and results that
