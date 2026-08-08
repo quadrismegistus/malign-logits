@@ -56,10 +56,13 @@ prior, never independent confirmation):
   ([5066].1), never a silent 45%. zh companions cleared the gloss gate ([5089]/[5090]) with
   the matched-imperfection rule in force: a matched imperfection preserves the cross-lingual
   comparison; an unmatched repair manufactures a language difference.
-- **BOTH_MATCHED (10 groups): DECISION PENDING WITH RH.** It controls the confound the
-  companions do not (the modifier the BOTH cell DROPS against the conjunct it ADDS,
-  [5091]). Free at L1. If RH takes it, it enters as an L1-only exploratory cell; the
-  primary is unchanged either way.
+- **BOTH_MATCHED (10 groups): INCLUDED, RH's decision** ("yes include both_matched",
+  2026-08-08, relayed [5094]). It controls the confound the companions do not — the
+  modifier the BOTH cell DROPS against the conjunct it ADDS ([5091]/[5093].3: two axes,
+  two controls, and until now only one existed). Enters at L1 (10 prompts en+zh, +1,040
+  passes, free) as an EXPLORATORY cell; the L2 coded slice (+5 EN prompts x 20 x 13 =
+  +1,300 passages, coded census 24,830, +6%) is offered to lacan's coding constraint —
+  his acceptance folds it in, otherwise L1-only. The primary is unchanged either way.
 
 ## 3. Instruments
 
@@ -97,8 +100,9 @@ within-instrument ([5034] tail).
 
 ## 4. Contrast hierarchy ([5066].4 — declared before any cell exists)
 
-- **PRIMARY**: coded frame_exit, excess of BOTH against mean(CONTROL_A, CONTROL_B), the 16
-  EN triplets, per checkpoint; roster Wilcoxon; per-triplet reporting always.
+- **PRIMARY**: coded frame_exit, excess of BOTH against mean(CONTROL_A, CONTROL_B), the 15
+  quintuplet EN triplets ([5093].1), per checkpoint; roster Wilcoxon; per-triplet reporting
+  always.
 - **SECONDARY, declared**: CONTROL_A vs CONTROL_B (valence asymmetry of the conjunction
   effect); mean(CONTROLS) vs mean(POLES) (the conjunction/length effect, estimable on both
   poles — [5063].1's missing cell).
@@ -153,4 +157,4 @@ is the instrument; a transcription is not an implementation ([5056]).
 
 The zh coded arm (second study, own gate, own registration). Channel-3 follow-ons (M04's).
 The battery foreclosure plan (its own document, unblocked by [5047], frozen separately).
-BOTH_MATCHED beyond the L1-exploratory slot pending RH.
+nnsight/L3 (RH's word at [5093] tail: improvise later, not in the registration).
