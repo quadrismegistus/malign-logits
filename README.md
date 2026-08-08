@@ -8,19 +8,17 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 
 ## Table of contents
 
-- [Where information lives](#where-information-lives)
-- [Findings](#findings)
 - [The four campaigns (meta/)](#the-four-campaigns-meta)
+- [Findings](#findings)
 - [Where information lives](#where-information-lives)
-- [Abstract](#abstract)
-- [The argument](#the-argument)
-- [Installation](#installation)
-- [Quick start](#quick-start)
-- [Usage](#usage)
-- [Architecture](#architecture)
+- [What this repo is now](#what-this-repo-is-now)
+- [How work happens here](#how-work-happens-here)
+- [Running things](#running-things)
+- [The roster, in one line](#the-roster-in-one-line)
+- [The method ledger, short form](#the-method-ledger-short-form)
+- [Origins](#origins)
 - [References](#references)
-
-> **This is the narrative layer.** For the citation-grade index with status, grade, and chapter mapping, see [INDEX.md](INDEX.md).
+- [License](#license)
 
 ## The four campaigns (meta/)
 
@@ -113,6 +111,8 @@ one of these, the file here wins** (except where noted).
   forms with their riders. Where a finding file and the register disagree,
   the register governs.
 
+> **This is the narrative layer.** For the citation-grade index with status, grade, and chapter mapping, see [INDEX.md](INDEX.md).
+
 ## Findings
 
 *One line per finding; the file is the finding. Status, grade and chapter mapping live in [INDEX.md](INDEX.md).*
@@ -156,241 +156,119 @@ one of these, the file here wins** (except where noted).
 - [40. Discovered vocabulary — alignment is surgical at liminal sites and blunt at explicit ones](findings/F40_discovered_vocabulary.md) — Discovered vocabulary (347 words, 39 lineages, blind-tagged twice). Category-specific transgressive drain survives at LIMINAL sites and fails at explicit ones, where the total drain is largest but undifferentiated. Refines F06's surgical-targeting claim. Measured on: 39 base-deduped lineages.
 - [41. Word norms — the exogenous gradient test](findings/F41_word_norms.md) — Word-norm instrument (arousal/concreteness/dominance, en+zh): exogenous test of the intensity-dissolution frame. Predictions registered before any norm-movement join.
 <!-- findings:end -->
-## Installation
+## What this repo is now
 
-```bash
-pip install -e .
+This began as a toolkit for psychoanalytic analysis of LLM probability
+distributions. It is now the **empirical campaign** behind a Critical Inquiry
+article (*Theory Machines*) and a book (*Alignment: Computing a Political
+Economy of Language Models*): eleven-plus model families, base against
+aligned, ~350k data rows, asking what alignment actually does to a language
+model's relation to its own words — displacement, frame-exit,
+proceduralization, and what it costs to say what the model would not have
+said.
 
-# With persistent caching (recommended)
-pip install -e ".[cache]"
+Three Claude Code seats work it in parallel — **malign** (this repo: data,
+producers, fleets), **lacan** (theory, annotation, adjudication), and the
+**registrar** (the article hub: the claims register, freeze custody, the
+record) — coordinating through a shared **docket** (append-only posts with
+composed-against stamps). A human (RH) rules on populations, budgets,
+freezes, and characterizations. If you are one of those seats re-reading
+this after a compaction: the docket is the conversation, the register is the
+memory, and the files below are the ground truth.
 
-# With notebook support
-pip install -e ".[notebooks]"
-```
+## How work happens here
 
-Requires `torch`, `transformers >= 4.57.0`, `accelerate`, `pandas`, `tqdm`.
+Two regimes, in sequence. The **registered letters** (M01's B–S): frozen
+registrations, hashes, blind arms, verdicts. Then, on RH's word (docket
+[4712]), the **post-registration regime**: reproducible-vs-not — seeds,
+held-back samples, replication as the control, everything looked at gets
+reported, exploratory work labelled at birth rather than forbidden. RH's
+standing directive ([5060]): *the goal is to characterise alignment as
+thoroughly as possible — not to mechanically execute what is registered,
+and not to stop inflexibly.* Look first, label honestly; stopping is a
+decision, not a default.
 
-Runs locally on Mac (MPS with float16) or Linux (CUDA). Default models are OLMo 3 7B (Allen AI).
+The paper trail has layers, and each governs the one before: this README
+orients; the module READMEs map; the finding files hold results with their
+caveats attached; `REGISTRATIONS.md` records what ran; the ledgers hold
+supersessions; **the claims register (in the article hub) holds the
+quotable forms and outranks everything here**. Corrections are trailed,
+never rewritten. Withdrawn numbers stay withdrawn.
 
-### Model families
+## Running things
 
-```bash
-# Show all available model families
-malign info
+The current entry points, not the historical ones:
 
-# Show a specific family
-malign info --family llama
-```
+| To... | Use |
+|---|---|
+| Compute logits + true word probs at scale | `scripts/twp_cloud.py` (fleet; stamps torch/transformers/device/params per record) |
+| Plan per-checkpoint environments | `scripts/f11_env_plan.py` → `data/model_load_environments.json` |
+| Rent and run boxes | `docs/cloud_runbook.md` (profiles, the torch>=2.6 floor, the ssm kernels, the two failure classes found at launch) |
+| Know what runs locally | `docs/local_capability.md` (MPS failure classes, the Falcon-H1 fp16 all-NaN row) |
+| Read/write any stash | `malign_logits/cache.py` — read its docstring first, it is the API doc |
+| Code passages with the frozen coder | `malign_logits/tasks/code_m02_contradiction_v1.py` (gated; see M02) |
+| Rebuild this README / the index | `scripts/build_readme.py build` / `index` (brief by default; `--full` restores body-piping) |
+| Check f16 threshold indeterminacy | `scripts/f16_threshold_margin.py` (the 0.148% rider on pre-fp32 cells) |
 
-Available families:
+Local dev: `pip install -e .` (uv-managed venv in practice; `uv run python
+...` from the repo root). Mac/MPS runs most of the roster; the memory
+ceiling and the four checkpoints beyond it are documented facts, not
+surprises — see the capability doc.
 
-| Key | Family | Layers | Pretraining corpus | Architecture | Safety data |
-|---|---|---|---|---|---|
-| `olmo` (default) | OLMo 3 7B | 4 | Dolma (Common Crawl) | OLMo | Yes (CoCoNot, WildGuard, WildJailbreak) |
-| `olmo-tiny` | OLMo 2 1B | 4 | Dolma | OLMo | Yes |
-| `tulu` | Tulu 3.1 8B | 4 | Undisclosed (Llama base) | Llama | DPO only (WildGuard, WildJailbreak) |
-| `llama` | Llama 3.1 8B | 2 | Undisclosed | Llama | Yes (opaque) |
-| `amber` | Amber 7B | 3 | RedPajama | LLaMA | Yes |
-| `zephyr` | Zephyr 7B | 3 | Undisclosed (Mistral base) | Mistral | No |
-| `qwen` | Qwen 2.5 7B | 2 | Undisclosed | Qwen | Unknown |
-| `pythia` | Pythia 6.9B | 3 | The Pile | GPT-NeoX | Yes (Anthropic HH-RLHF) |
-| `smol` | SmolLM2 360M | 2 | SmolCorpus | Llama-like | Minimal |
+## The roster, in one line
 
-Natural experiments enabled by this lineup:
-- **Llama vs Tulu**: same base model, different corporate alignment → differential foreclosure (Finding 9)
-- **Zephyr vs Tulu**: both 3-layer, but Zephyr has no safety data → isolates safety from instruction-following
-- **Pythia**: SFT and DPO use identical data (Anthropic HH-RLHF) → isolates training objective from data content
-- **Qwen**: pre-socialised base (Chinese exam data) → alignment on already-repressed distribution
+**104 checkpoints · 52 declared base→aligned pairs · 34 independent
+pretraining lineages** — and any family-level N above 34 over-counts by
+construction. The registry (`malign_logits/registry.py`) is the code-built
+source; `data/base_aligned_pairs.json` and `data/lineage_map_models.json`
+are its declared products. The unit discipline is not optional: the day a
+count is quoted without its unit is the day it gets corrected on the docket.
 
-### Downloading models
+## The method ledger, short form
 
-```bash
-# Download default family (OLMo 3 7B, ~42 GB for 3 models)
-malign download-models
+The rules this campaign paid for, each with the docket arc that minted it.
+The long form lives in the claims register; these are the ones a returning
+seat forgets at their peril:
 
-# Download all 4 models including RLVR (~56 GB)
-malign download-models --all
+- **Read the artifact before believing a claim about it** — and reading the
+  *producer* beats reading the artifact ([5035], [5049], [5134]).
+- **A checker inherits the axes of its author's assumption; nobody audits an
+  empty list** ([5075]). Calibrate every criterion against a known instance
+  *in the population it runs on* ([5077]).
+- **Same units is not same comparison** ([5026]) — and a control must be
+  matched to the cell it is *subtracted from*, not the cell it was derived
+  from ([5074]).
+- **The wrapper is part of the prompt** ([5042]); the decoder is part of the
+  sample ([4994]); provenance records what *shaped* the output, not what the
+  output shows. Pin for new corpora, reproduce for matched cells, record
+  always ([5037]).
+- **A converged count is evidence about the count, never about the criterion
+  that produced it** ([5112]).
+- **The committed implementation is the instrument; a transcription is not
+  an implementation** ([5056]).
+- **A measurement can be blind to the thing it appears to be about**
+  ([5002]); a grain coarser than the question answers a different question
+  ([5005]).
+- **An owed measurement that keeps being deferred is one that never
+  happens** ([5139]).
+- **Per-triplet / per-family reporting always**: pooled numbers died four
+  times in one day; a magnitude carried by a nameable subset travels with
+  its owner named ([5052], [5063]).
+- **A freeze document's arithmetic is the specification, not exposition** —
+  state derivations as computations the next reader re-runs ([5094],
+  [5095]).
 
-# Download a specific family
-malign download-models --family llama
+## Origins
 
-# Download a specific model
-malign download-models --model dpo
-```
-
-## Quick start
-
-```python
-from malign_logits import Psyche
-
-# Default: OLMo 3 7B (4 layers)
-psyche = Psyche.from_family("olmo", load=True)
-
-# Or: Llama 3.1 8B (2 layers — base + instruct)
-psyche = Psyche.from_family("llama", load=True)
-
-# Or: load models directly
-psyche = Psyche.from_pretrained(cache_dir="malign_cache")
-
-s = psyche.analyze("He lay naked in his bed and")
-s.repression          # DataFrame of repression deltas
-s.formation_df        # all layers scored over same vocabulary
-s.report()            # printed summary
-
-# These require 3+ layers:
-s.id_scores           # drive-weighted repression scores
-s.analysis_df         # full combined DataFrame
-```
-
-Each property computes on first access, then caches in memory and (with `cache_dir`) to disk via [HashStash](https://github.com/quadrismegistus/hashstash). Cache keys include model identifiers, so switching models won't return stale results.
-
-### 2-layer vs 3+ layer analysis
-
-With 2 layers (e.g. Llama, Qwen), repression is computed as base→superego (the entire alignment pipeline in one step). Id scores and neurotic generation require 3+ layers. Displacement maps work with any layer count (2 layers uses repression pairs; 3+ uses both sublimation and repression).
-
-
-## Usage
-
-### Single prompt analysis
-
-```python
-s = psyche.analyze("She was so angry she wanted to")
-
-s.ego_words           # dict: word -> probability (SFT model)
-s.superego_words      # dict: word -> probability (DPO model)
-s.base_words          # dict: word -> probability (base model / drive energy)
-
-s.repression          # DataFrame: word, ego, superego, delta, repressed, amplified
-s.sublimation         # DataFrame: base vs ego (what SFT does to primary process)
-s.id_scores           # dict: word -> drive-weighted repression score
-
-s.neurotic_distribution   # displaced word distribution (symptoms)
-s.condensation_log        # which repressed words piled into which targets
-s.analysis_df             # everything in one DataFrame
-```
-
-### Formation report
-
-```python
-s.formation_report()
-# Stage 1: Ego formation (base -> SFT)
-# Stage 2: Repression (SFT -> DPO)
-# Stage 3: Idealization (DPO -> RLVR)  [if loaded]
-# Full gradient table
-```
-
-### Neurotic text generation
-
-```python
-# Obsessive intellectualisation
-result = psyche.generate_neurotic("He lay naked in his bed and", displacement_weight=0.3)
-
-# Decompensating body-language
-result = psyche.generate_neurotic("He lay naked in his bed and", displacement_weight=1.0)
-
-result['ego']          # fluent desire
-result['superego']     # fluent evasion
-result['neurotic']     # displaced text
-result['symptom_log']  # where displaced charge landed
-```
-
-### 4-layer topology (with RLVR)
-
-OLMo 3 7B includes all 4 layers by default:
-
-```python
-psyche = Psyche.from_family("olmo", load=True)
-
-s = psyche.analyze("The knife was")
-s.instruct_words      # RLVR model probabilities
-s.idealization         # DPO -> RLVR delta DataFrame
-s.formation_df         # all 4 layers scored over same vocabulary
-```
-
-### Prompt battery
-
-```python
-battery = psyche.battery()  # DEFAULT_PROMPTS: liminal sexual, violence, explicit, neutral
-
-battery['sexual_liminal_1'].repression   # triggers computation for this prompt only
-
-df = psyche.battery_df()   # summary DataFrame across all prompts
-```
-
-### Using layers directly
-
-```python
-psyche.primary_process.top_words("The knife was")
-psyche.ego.top_words("The knife was")
-psyche.superego.top_words("The knife was")
-
-psyche.ego.word_logprobs("The knife was", ["sharp", "bloody", "clean"])
-```
-
-### Functional API
-
-```python
-from malign_logits import load_models, discover_top_words, compute_repression
-
-base, sft, dpo, tok = load_models()
-ego_words = discover_top_words(sft, tok, "He lay naked in his bed and")
-superego_words = discover_top_words(dpo, tok, "He lay naked in his bed and")
-df = compute_repression(ego_words, superego_words)
-```
-
-## Architecture
-
-The class hierarchy encodes the theoretical claims:
-
-- **Each layer is a separate model checkpoint.** Base, SFT, DPO, and RLVR models have distinct weights reflecting distinct training stages. This is not a prompting trick — the structural differences are in the parameters.
-- **The Id has no class.** It's a computed property on `PromptAnalysis`, because it exists only in the relationship between all layers.
-- **Layer count is flexible.** 2-layer (base + instruct), 3-layer (base + SFT + DPO), or 4-layer (+ RLVR). `ModelFamily` defines which checkpoints map to which psychoanalytic positions. Analysis degrades gracefully: 2 layers = repression only, 3 = full analysis, 4 = + idealization.
-
-```
-malign-logits/
-├── malign_logits/
-│   ├── __init__.py          # Package exports, ModelFamily registry
-│   ├── psyche.py            # Psyche, ModelLayer, Ego, Superego, PromptAnalysis
-│   ├── models.py            # Model loading (load_model)
-│   ├── core.py              # discover_top_words, get_word_logprobs
-│   ├── analysis.py          # Repression, id, displacement engine (v4)
-│   ├── experiments.py       # Prompt battery, reporting
-│   ├── generation.py        # Text generation (standard + neurotic)
-│   ├── viz.py               # Plotly visualizations
-│   └── cli.py               # CLI entrypoint (malign command)
-├── notebooks/               # Worked examples
-├── context.md               # Theoretical context and findings
-├── pyproject.toml
-└── requirements.txt
-```
-
-### Key methods
-
-| Method / Property | What it does | Min layers |
-|---|---|---|
-| `Psyche.from_family(key)` | Create Psyche from a model family | any |
-| `Psyche.from_pretrained()` | Load models directly | any |
-| `Psyche.analyze(prompt)` | Return a lazy `PromptAnalysis` | any |
-| `Psyche.generate(prompt)` | Produce continuations from each layer | any |
-| `Psyche.generate_neurotic(prompt)` | Neurotic generation with displacement | 3 |
-| `Psyche.battery()` | Analyse default prompt set | any |
-| `PromptAnalysis.repression` | Repression delta DataFrame | 2 |
-| `PromptAnalysis.sublimation` | Base-ego delta DataFrame | 3 |
-| `PromptAnalysis.idealization` | Superego-instruct delta | 4 |
-| `PromptAnalysis.id_scores` | Drive-weighted repression (emergent id) | 3 |
-| `PromptAnalysis.displacement` | Neurotic distribution, condensation log | 3 |
-| `PromptAnalysis.formation_df` | All layers scored over same vocabulary | 2 |
-| `PromptAnalysis.formation_report()` | Printed multi-stage report | 2 |
-
-### Displacement engine
-
-The displacement engine (v4) uses contextual embeddings from hidden layer 16 of the SFT model, a morphological filter to prevent orthographic false positives, and drive weighting from the base model so that repressed words with stronger corpus-level support produce heavier symptoms.
-
-**Terminology:**
-- **Displacement** — perspective of the repressed word: where did its mass go?
-- **Condensation** — perspective of the receiving word: how many repressed words are piled into it?
-- **Effective mass** — `raw_repression * drive_weight`. How much the superego repressed it, weighted by how much base-model drive pushes behind it.
-- **Neurotic distribution** — superego distribution plus displaced mass on permitted words. Symptoms.
+The psychoanalytic framing is not decoration; it is the hypothesis space.
+The original toolkit modelled base/SFT/DPO/RLVR checkpoints as
+id/ego/superego strata (`malign_logits/psyche.py`, still the living core for
+interactive work — `Psyche`, `PromptAnalysis`, `discover_top_words`), and
+the campaign's findings are what happened when those metaphors were made to
+survive measurement: some did (displacement has structure; the base holds
+contradiction in superposition), some inverted (the frame apparatus reads
+the scene, not the signifier), and the instrument-grade record of which is
+the point.
 
 ## References
 
