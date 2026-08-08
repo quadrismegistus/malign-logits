@@ -135,23 +135,44 @@ def main():
         r["roster"] = key
         r["total"] = SPECS.get(key)
         if st and i.get("actual_status") == "running":
-            out = ssh(st, "ls %s/*.jsonl 2>/dev/null | wc -l; "
-                          "stat -c %%Y %s/*.jsonl 2>/dev/null | sort -n | head -1; "
-                          "stat -c %%Y %s/*.jsonl 2>/dev/null | sort -n | tail -1; "
-                          "date +%%s; df -P / | tail -1 | awk '{print $4}'; "
-                          "tmux ls 2>/dev/null | cut -d: -f1 | tr '\\n' ',' "
+            #: **LABELLED FIELDS, NOT POSITIONAL ONES.** This split on
+            #: whitespace across six values of varying width, and `tr '\n' ','`
+            #: emits no trailing newline -- so the tmux list and the next
+            #: command's output fused into ONE token, `chain,1`. The session
+            #: check then read the disk figure, saw a digit, concluded "no
+            #: sessions", and reported COMPLETE AND STILL BILLING for a box
+            #: actively running its backfill. The 10-minute loop would have
+            #: destroyed it.
+            #:
+            #: A positional parse is a claim about the width of every field
+            #: before it. Labels do not make that claim.
+            out = ssh(st, "echo N=$(ls %s/*.jsonl 2>/dev/null | wc -l); "
+                          "echo FIRST=$(stat -c %%Y %s/*.jsonl 2>/dev/null "
+                          "| sort -n | head -1); "
+                          "echo LAST=$(stat -c %%Y %s/*.jsonl 2>/dev/null "
+                          "| sort -n | tail -1); "
+                          "echo NOW=$(date +%%s); "
+                          "echo DISK=$(df -P / | tail -1 | awk '{print $4}'); "
+                          "echo SESS=$(tmux ls 2>/dev/null | cut -d: -f1 "
+                          "| tr '\\n' ' '); "
+                          "echo DONE=$(grep -c 'ALL MODELS COMPLETE' "
+                          "/workspace/f11.log 2>/dev/null || echo 0)"
                           % (REMOTE, REMOTE, REMOTE))
             if out:
-                p = out.split()
+                kv = {}
+                for line in out.splitlines():
+                    if "=" in line:
+                        k, _, v = line.partition("=")
+                        kv[k.strip()] = v.strip()
                 try:
-                    n = int(p[0])
+                    n = int(kv.get("N", 0))
                     r["done"] = n
-                    #: last field is the tmux session list when present
-                    r["_sessions"] = p[-1] if not p[-1].isdigit() else ""
-                    disk_i = -2 if r["_sessions"] else -1
-                    r["disk_free_gb"] = round(int(p[disk_i]) / 1e6, 1)
+                    r["_sessions"] = kv.get("SESS", "")
+                    r["_complete"] = kv.get("DONE", "0") not in ("0", "")
+                    r["disk_free_gb"] = round(int(kv.get("DISK", 0)) / 1e6, 1)
                     if n >= 2:
-                        first, last, now = int(p[1]), int(p[2]), int(p[3])
+                        first, last = int(kv["FIRST"]), int(kv["LAST"])
+                        now = int(kv["NOW"])
                         r["min_per_model"] = round((last - first) / 60 / (n - 1), 2)
                         r["stalled_min"] = round((now - last) / 60, 1)
                         rem = (r["total"] or n) - n
@@ -162,15 +183,16 @@ def main():
                     else:
                         r["note"] = "fewer than 2 models done; no rate yet"
                 except Exception as e:
-                    r["note"] = "parse: %s" % type(e).__name__
+                    r["note"] = "parse: %s (%s)" % (type(e).__name__, kv)
             else:
                 r["note"] = "ssh unreachable"
         rows.append(r)
 
     #: COMPLETE-BUT-ALIVE is its own state and it costs money silently
     for r in rows:
-        if r.get("state") == "running" and r.get("total") and \
-                r.get("done", -1) >= r["total"]:
+        if r.get("state") == "running" and (
+                r.get("_complete") or
+                (r.get("total") and r.get("done", -1) >= r["total"])):
             #: **A BOX RUNNING ITS BACKFILL IS NOT AN IDLE BOX.** The main
             #: roster's count hits its total while a chained session is still
             #: working in another directory, and a monitor that reads only the
@@ -185,7 +207,7 @@ def main():
                 r["alert"] = ("COMPLETE AND STILL BILLING at $%.2f/h -- destroy it"
                               % r["dph"])
         elif r.get("stalled_min", 0) > IDLE_ALERT_MIN and \
-                r.get("remaining", 0) > 0:
+                r.get("remaining", 0) > 0 and not r.get("_complete"):
             r["alert"] = ("no new model for %.0f min with %d left -- stalled?"
                           % (r["stalled_min"], r["remaining"]))
 
