@@ -92,6 +92,19 @@ A box that finished its work at 02:00 bills until you notice. **Arm a completion
 
 **Purge before each download, not after**, so the disk never holds two large checkpoints at once. And size the disk: 40 GB is too small for 7B iteration; 300 GB default, 600 GB (`bigdisk`) for rosters whose cumulative download exceeds it.
 
+**But `bigdisk` and `--purge` are alternatives, not companions — and I paid for
+both on the same box.** RH, 8 Aug: *"Why did we get such a giant box disk-wise if
+we're purging?"* Right: with `--purge` the disk never holds more than one
+checkpoint, so the F11 box ran a 92-model roster on **585 GB free of 600**. The
+`bigdisk` profile exists for rosters that *do not* purge. Choose one:
+
+    --purge      cheap disk is enough; you pay in re-download if you re-run
+    bigdisk      no purge; the roster stays resident and a re-run is free
+
+Disk is a small part of the hourly rate, so this is not a large sum — but it is
+paid on every box, silently, and the smaller offer pool is a real cost when hosts
+are flaky.
+
 ### 2.8 torch < 2.6 refuses `.bin` checkpoints
 
 `check_torch_load_is_safe()` raises below torch 2.6, so any `.bin`-only checkpoint is unloadable. **13 of 103 grid models.** The message talks about a `torch.load` vulnerability and reads like a transformers policy. `pip install -U torch` on the box; profiles pin `torch>=2.6`.
