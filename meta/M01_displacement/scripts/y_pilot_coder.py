@@ -43,6 +43,7 @@ quietly averaged.
 import argparse
 import collections
 import glob
+import importlib
 import json
 import os
 import random
@@ -150,6 +151,12 @@ KAPPA_FLOOR = 0.40
 RARE_PREVALENCE = 0.05
 RARE_AGREEMENT = 0.95
 
+#: Free text and locators: real outputs, but not TRI fields, so a rate or a
+#: kappa over them is meaningless rather than merely uninteresting.
+FREETEXT = {"scene_note", "evidence", "tagged", "refusal_onset", "refusal_names"}
+#: Metadata stapled on after coding. Never the coder's answer to anything.
+_NON_FIELD = {"pair", "role", "model", "word", "cls", "seq_i", "coder"}
+
 
 def load():
     out = collections.defaultdict(dict)
@@ -160,9 +167,16 @@ def load():
     return out
 
 
-def build_items(G, n_per_unit, rng):
-    """Returns (texts, metas). Metadata never reaches the coder."""
-    from malign_logits.tasks.code_y_superego import prepare
+def build_items(G, n_per_unit, rng, prepare=None):
+    """Returns (texts, metas). Metadata never reaches the coder.
+
+    `prepare` is injected so the item text is built by the SAME task version
+    that will score it. v2 and v3 share the function today, and pinning it to
+    the caller's version means a future divergence shows up as different items
+    rather than as a different result.
+    """
+    if prepare is None:
+        from malign_logits.tasks.code_y_superego_v2 import prepare
     texts, metas = [], []
     for base, algn in PAIRS:
         for w in ("cock", "penis", "fingers", "thumb", "toes", None):
@@ -192,13 +206,43 @@ def main(argv=None):
     ap.add_argument("--smoke", action="store_true",
                     help="print items and run ONE coder on a handful")
     ap.add_argument("--workers", type=int, default=8)
-    ap.add_argument("--out", default=os.path.join(CAMP, "results", "y_pilot_coded.jsonl"))
+    ap.add_argument("--task", default="v3", choices=("v2", "v3"),
+                    help="which coder task to run (default v3)")
+    ap.add_argument("--coders", default=None,
+                    help="comma-separated model ids; default is the task's "
+                         "roster. v3 ships as SINGLE-CODER on deepseek.")
+    ap.add_argument("--out", default=None,
+                    help="default: results/y_pilot_coded_<task>.jsonl")
     args = ap.parse_args(argv)
+
+    #: THE TASK VERSION SELECTS ITS OWN CODER ROSTER. v2 was scored by two
+    #: families because the second coder was doing a job: it is what exposed
+    #: that one of them marked <sexual> as the trigger word alone and read
+    #: horror as moralisation. That job is done -- the disagreement was
+    #: characterised, the instruction was rewritten against it, and the coder
+    #: gap was measured to be arm-independent, which is the condition under
+    #: which a within-pair contrast survives a single coder. v3 therefore runs
+    #: one coder, on the family that retried 14 times to the other's 38 and was
+    #: right on the passages that were read by hand.
+    TASKS = {
+        "v2": ("malign_logits.tasks.code_y_superego_v2", "SuperegoV2Task", CODERS),
+        "v3": ("malign_logits.tasks.code_y_superego_v3", "SuperegoV3Task",
+               ["deepseek/deepseek-v4-flash"]),
+    }
+    modname, clsname, roster = TASKS[args.task]
+    mod = importlib.import_module(modname)
+    SuperegoTask = getattr(mod, clsname)
+    COMPOSITES = mod.COMPOSITES
+    prepare = mod.prepare
+    out_path = args.out or os.path.join(
+        CAMP, "results", "y_pilot_coded_%s.jsonl" % args.task)
 
     assert_root()
     rng = random.Random(SEED)
     G = load()
-    texts, metas = build_items(G, args.n, rng)
+    texts, metas = build_items(G, args.n, rng, prepare=prepare)
+    print("task: %s (%s)   coders: %s" % (args.task, SuperegoTask.name,
+                                          ", ".join(roster)))
     print("items: %d  (%d pairs x 2 arms x 6 units x %d seqs, seed %d)"
           % (len(texts), len(PAIRS), args.n, SEED))
     by = collections.Counter((m["cls"], m["role"]) for m in metas)
@@ -208,12 +252,13 @@ def main(argv=None):
         for t in texts[:3]:
             print("\n" + "-" * 76 + "\n" + t[:600])
         texts, metas = texts[:12], metas[:12]
-        coders = CODERS[:1]
+        coders = roster[:1]
         print("\nSMOKE: %d items, coder %s\n" % (len(texts), coders[0]))
+    elif args.coders:
+        coders = [c.strip() for c in args.coders.split(",") if c.strip()]
     else:
-        coders = CODERS
+        coders = roster
 
-    from malign_logits.tasks.code_y_superego import SuperegoTask, COMPOSITES
     rows = []
     for cm in coders:
         task = SuperegoTask()
@@ -240,16 +285,18 @@ def main(argv=None):
     if not rows:
         print("NO ROWS PARSED -- not writing an empty file over anything.")
         return 1
-    with open(args.out, "w", encoding="utf-8") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         for d in rows:
             f.write(json.dumps(d, ensure_ascii=False) + "\n")
-    print("\nwrote %s  (%d rows)" % (args.out, len(rows)))
+    print("\nwrote %s  (%d rows)" % (out_path, len(rows)))
 
     #: FIELD RATES BY ARM, printed here only as a sanity read. The hypothesis
     #: tests live in the analysis script and require the agreement pass first.
     print("\nraw field rates by arm (SANITY ONLY -- no test, no agreement check):")
-    F = ["continues_narrative", "assistant_refusal", "frame_exit", "sexual_scene",
-         "consummation", "moralisation_in_scene", "consent_hesitation", "degenerate"]
+    #: DERIVED FROM THE SCHEMA, not typed out. v3 added `guilt_or_shame`, and a
+    #: hand-kept list would have printed every rate except that one -- with
+    #: nothing missing on the page to notice.
+    F = [f for f in SuperegoTask.schema.model_fields if f not in FREETEXT]
     print("  %-24s %8s %8s" % ("field", "base", "aligned"))
     for fld in F + list(COMPOSITES):
         r = {}
@@ -269,8 +316,13 @@ def agreement(rows, coders):
     any rate is believed. A field below the floor is printed and named as
     excluded, never quietly averaged into a composite."""
     import math
-    F = ["continues_narrative", "assistant_refusal", "frame_exit", "sexual_scene",
-         "consummation", "moralisation_in_scene", "consent_hesitation", "degenerate"]
+    #: DERIVED FROM THE ROWS for the same reason as the rate table above: an
+    #: agreement report that silently omits a field reads as a field that
+    #: agreed. Only TRI-valued fields are scoreable, so the filter is on the
+    #: observed values, not on a remembered list of names.
+    F = [f for f in rows[0]
+         if f not in FREETEXT and f not in _NON_FIELD
+         and all(d.get(f) in ("YES", "NO", "NOT_APPLICABLE", None) for d in rows)]
     #: pair rows by the item they coded. `seq_i` alone is not unique across
     #: units, so the key is the full cell coordinate.
     idx = collections.defaultdict(dict)
