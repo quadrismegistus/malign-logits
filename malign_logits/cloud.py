@@ -17,7 +17,18 @@ import time
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-STATE_FILE = PROJECT_ROOT / '.vastai.json'
+# ONE BOX PER STATE FILE, AND THE FLEET IS THE NORMAL CASE NOW.
+#
+# This was a fixed path, so a second concurrent box meant renaming .vastai.json
+# around a launch -- which is how a stale record gets read as live state, the
+# failure that already cost this project an hour (docs/cloud_runbook.md 2.2).
+# The sibling files (.vastai.twpfleet.json, .vastai.wave3fleet.json) are the
+# fossil record of doing it by hand.
+#
+# MALIGN_VAST_STATE names the file. Every subcommand inherits it, so a fleet is
+# one exported variable per shell rather than a rename dance, and each box's
+# record carries its own name where the eye lands.
+STATE_FILE = PROJECT_ROOT / os.environ.get('MALIGN_VAST_STATE', '.vastai.json')
 REMOTE_WORK = '/workspace'
 REMOTE_REPO = f'{REMOTE_WORK}/malign-logits'
 REMOTE_DATA = f'{REMOTE_REPO}/data'
