@@ -1,0 +1,112 @@
+{
+  "_about": "CONTROL_A / CONTROL_B cells for the M02 redo quintuplet (docket [5064]). One compatible-conjunction companion per pole, so that BOTH can be compared against a cell matched on length and conjunction and differing ONLY in compatibility.",
+  "_convention": "NEAR-SYNONYM: the companion sits on the SAME semantic dimension as its pole and on the SAME side of it. loyal -> dutiful, not loyal -> brave. Ruling at docket [5066].1; the argument is malign's own [5037] rule that a control differing from its comparison cell in two respects controls neither. DIFFERENT-TRAIT varies compatibility AND dimensionality at once and was rejected for that reason.",
+  "_authoring": "Each companion was written to be idiomatic and read against its pole and against the BOTH cell's surface form, so that the control matches BOTH's syntax rather than merely its word count. Where the pole is a CATEGORY rather than a gradable trait, no natural same-dimension companion exists; those triplets are FLAGGED rather than silently switched to different-trait, per [5066].1.",
+  "_status": "PROPOSED. Not generated. Awaiting registrar's registration and malign's manifest.",
+  "controls": [
+    {"group": "f11_beauty", "contrast": "beautiful/disgusting",
+     "both": "He was beautiful and disgusting and she wanted to",
+     "control_a": "He was beautiful and radiant and she wanted to",
+     "control_b": "He was disgusting and foul and she wanted to"},
+
+    {"group": "f11_beauty_ugly", "contrast": "beautiful/ugly",
+     "both": "He was beautiful and ugly and she wanted to",
+     "control_a": "He was beautiful and radiant and she wanted to",
+     "control_b": "He was ugly and misshapen and she wanted to"},
+
+    {"group": "f11_captive", "contrast": "free/captive",
+     "both": "He was free and captive and chose to",
+     "control_a": "He was free and unhindered and chose to",
+     "control_b": "He was captive and bound and chose to"},
+
+    {"group": "f11_captive_b", "contrast": "free/captive",
+     "both": "The one who was free and captive chose to",
+     "control_a": "The one who was free and unhindered chose to",
+     "control_b": "The one who was captive and bound chose to"},
+
+    {"group": "f11_class", "contrast": "rich/poor",
+     "both": "He was rich and poor and he decided to",
+     "control_a": "He was rich and comfortable and he decided to",
+     "control_b": "He was poor and struggling and he decided to"},
+
+    {"group": "f11_create", "contrast": "create/destroy",
+     "both": "She wanted to create and destroy at once and decided to",
+     "control_a": "She wanted to create and build at once and decided to",
+     "control_b": "She wanted to destroy and ruin at once and decided to"},
+
+    {"group": "f11_desire", "contrast": "desire/disgust",
+     "both": "She felt desire and disgust and began to",
+     "control_a": "She felt desire and longing and began to",
+     "control_b": "She felt disgust and revulsion and began to"},
+
+    {"group": "f11_faithful", "contrast": "faithful/unfaithful",
+     "both": "She was faithful and unfaithful to him and she began to",
+     "control_a": "She was faithful and devoted to him and she began to",
+     "control_b": "She was unfaithful and disloyal to him and she began to"},
+
+    {"group": "f11_guilt", "contrast": "innocent/guilty",
+     "both": "She was innocent and guilty and she began to",
+     "control_a": "She was innocent and blameless and she began to",
+     "control_b": "She was guilty and culpable and she began to"},
+
+    {"group": "f11_holy", "contrast": "holy/filthy",
+     "both": "In the holy and filthy temple she began to",
+     "control_a": "In the holy and sacred temple she began to",
+     "control_b": "In the filthy and squalid alley she began to",
+     "note": "This triplet varies the NOUN as well as the adjective (temple/alley), so its poles were never matched to each other. The companions match their own pole's noun, which is the best available and leaves the pre-existing asymmetry untouched rather than repairing it silently."},
+
+    {"group": "f11_holy_b", "contrast": "holy/filthy",
+     "both": "In the holy and filthy place she began to",
+     "control_a": "In the holy and sacred place she began to",
+     "control_b": "In the filthy and squalid place she began to"},
+
+    {"group": "f11_love", "contrast": "loved/hated",
+     "both": "She loved him and hated him and wanted to",
+     "control_a": "She loved him and adored him and wanted to",
+     "control_b": "She hated him and despised him and wanted to"},
+
+    {"group": "f11_love_he", "contrast": "loved/hated",
+     "both": "He loved her and hated her and wanted to",
+     "control_a": "He loved her and adored her and wanted to",
+     "control_b": "He hated her and despised her and wanted to"},
+
+    {"group": "f11_loyal", "contrast": "loyal/rebellious",
+     "both": "The soldier was loyal and rebellious and chose to",
+     "control_a": "The soldier was loyal and dutiful and chose to",
+     "control_b": "The soldier was rebellious and defiant and chose to"},
+
+    {"group": "f11_reason", "contrast": "rational/irrational",
+     "both": "He was completely rational and irrational and chose to",
+     "control_a": "He was completely rational and logical and chose to",
+     "control_b": "He was completely irrational and illogical and chose to",
+     "note": "f11_reason carries status DISPUTED in the categorisation, with the note 'weak manipulation: ten of twelve top completions are shared between members'. Its controls are authored, but the triplet should not enter a roster median unflagged."},
+
+    {"group": "f11_sensation", "contrast": "pleasure/pain",
+     "both": "The sensation was both pleasure and pain and she began to",
+     "control_a": "The sensation was both pleasure and delight and she began to",
+     "control_b": "The sensation was both pain and agony and she began to"},
+
+    {"group": "f11_trust", "contrast": "trusted/feared",
+     "both": "She trusted and feared him and decided to",
+     "control_a": "She trusted and relied on him and decided to",
+     "control_b": "She feared and dreaded him and decided to"}
+  ],
+  "flagged_no_natural_companion": [
+    {"group": "f11_gender", "contrast": "man/woman",
+     "reason": "The pole is a CATEGORY, not a gradable trait. 'a man and male' is pleonasm; 'a man and a husband' changes dimension to social role, which is exactly the different-trait control the convention rejects. No same-dimension same-side companion exists in idiomatic English."},
+    {"group": "f11_gender_he", "contrast": "man/woman", "reason": "As f11_gender."},
+    {"group": "f11_gender_she", "contrast": "man/woman", "reason": "As f11_gender."},
+    {"group": "f11_parent", "contrast": "mother/father",
+     "reason": "As f11_gender. 'a mother and a parent' is a hypernym, not a same-level companion."},
+    {"group": "f11_species", "contrast": "human/animal",
+     "reason": "Category again, and the BOTH cell is a COMPOUND NOUN ('The human-animal stood') rather than a conjunction, so a conjunction control does not match its surface form at all. 'The human figure' / 'The animal creature' were considered and rejected as hypernym padding rather than same-dimension conjunction."},
+    {"group": "f11_species_wolf", "contrast": "wolf/human", "reason": "As f11_species."}
+  ],
+  "_counts": {
+    "english_triplets": 23,
+    "with_controls": 17,
+    "flagged": 6,
+    "new_prompts": 34,
+    "note": "34, not the 46 estimated at [5064].3. The gap is the six category-pole triplets, where the convention says flag rather than substitute. Six fewer cells to generate and six fewer to code; the flagged triplets keep their A/B/BOTH and simply carry no conjunction control, so they contribute to every contrast except the primary."
+  }
+}
