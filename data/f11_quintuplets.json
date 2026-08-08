@@ -3,7 +3,7 @@
  "_sources": {
   "prompt_categorisation.json": "f441a8b2b12a8208",
   "f11_conjunction_controls.json": "046699dbf60a382f",
-  "f11_conjunction_controls_zh.json": "61e75c142b695289"
+  "f11_conjunction_controls_zh.json": "95205a72c1afe8da"
  },
  "_convention": "NEAR-SYNONYM: the companion sits on the SAME semantic dimension as its pole and on the SAME side of it. loyal -> dutiful, not loyal -> brave. Ruling at docket [5066].1; the argument is malign's own [5037] rule that a control differing from its comparison cell in two respects controls neither. DIFFERENT-TRAIT varies compatibility AND dimensionality at once and was rejected for that reason. SHARED POLE TAKES THE SAME COMPANION: f11_beauty and f11_beauty_ugly share POLE_A ('He was beautiful and she wanted to') and both take 'beautiful and radiant'. Stated as part of the convention rather than left as a coincidence, so a later author cannot diverge them and quietly introduce a between-group difference into a shared cell.",
  "_population_note": "STATUS IS CARRIED, NOT FILTERED: the ACTIVE-vs-ACTIVE+DISPUTED population choice is an open construct ruling for the redo registration ([5084].3) — this file shows every complete group WITH its status so the choice is made visibly downstream, never silently here. Analysis populations MUST filter on status ([5084].2: a shape filter is not a membership filter).",
@@ -148,9 +148,9 @@
    "pole_a": "他是富有的，他决定",
    "pole_b": "他是贫穷的，他决定",
    "both": "他既是富有的又是贫穷的，他决定",
-   "control_a": "他既是富有的又是宽裕的，他决定",
-   "control_b": "他既是贫穷的又是困顿的，他决定",
-   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence CHECK",
+   "control_a": "他既是富有的又是阔绰的，他决定",
+   "control_b": "他既是贫穷的又是潦倒的，他决定",
+   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence GATE-CLEARED",
    "controls_note": "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)"
   },
   {
@@ -176,8 +176,8 @@
    "both": "她想要同时创造和毁灭，她决定",
    "both_matched": "她想要创造一些东西又毁灭一些东西，她决定",
    "control_a": "她想要同时创造和建设，她决定",
-   "control_b": "她想要同时毁灭和摧毁，她决定",
-   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence CHECK",
+   "control_b": "她想要同时毁灭和破坏，她决定",
+   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence GATE-CLEARED",
    "controls_note": "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)"
   },
   {
@@ -226,8 +226,8 @@
    "pole_b": "她对他不忠，她开始",
    "both": "她对他既忠诚又不忠，她开始",
    "control_a": "她对他既忠诚又专一，她开始",
-   "control_b": "她对他既不忠又不贞，她开始",
-   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence CHECK",
+   "control_b": "她对他既不忠又负心，她开始",
+   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence GATE-CLEARED",
    "controls_note": "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)"
   },
   {
