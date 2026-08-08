@@ -71,7 +71,32 @@ lacan [5019] asked for the four terms at **+1 only**, since +1 carries the whole
 
 **At +1 not one of the four terms clears.** It does not become a text-split, which was lacan's stated alternative; it becomes nothing. The primary at +1 (−0.04066, p 0.0018) is the difference of two individually-null terms pointing opposite ways.
 
-A contrast can be sharper than its components — differencing removes shared noise — so this is not a contradiction. **But the scorer-split framing rests on the pooled 1–10 window, while the effect it interprets is concentrated at +1.** The claim "the aligned model's evaluation is disturbed, whoever writes the continuation" is supported pooled and **not demonstrable at the position where the effect lives**. Stated as a limit rather than resolved, because resolving it would need a per-position test the data does not currently power.
+A contrast can be sharper than its components — differencing removes shared noise — so this is not a contradiction. **But the scorer-split framing rests on the pooled 1–10 window, while the effect it interprets is concentrated at +1.**
+
+### LOCALISED PER INDEX — and it separates two phenomena that were being read as one
+
+The full term × index grid (EXPLORATORY; 40 tests, no correction; per-index medians are noisier than pooled by construction):
+
+| | at +1 | sign across all 10 indices | pooled |
+|---|---|---|---|
+| **PRIMARY Δ** | **−0.0407 p 0.002** *(only index that clears)* | 4 neg / 6 pos | −0.0104 |
+| A\|A | −0.0270 p 0.063 | **9 neg / 1 pos** | −0.0223 p 0.0002 |
+| A\|B | +0.0149 p 0.78 | 5 / 5 | −0.0001 p 0.64 |
+| B\|A | +0.0146 p 0.59 | 7 / 3 | −0.0110 p 0.034 |
+| B\|B | +0.0303 p 0.15 | 5 / 5 | −0.0085 p 0.16 |
+
+**The primary is a single-token event at +1**; every other index is null and its per-index signs are 4/6, i.e. noise. Pooling *dilutes* it (−0.0104 against −0.0407).
+
+**A|A has the opposite shape: a diffuse negative drift, 9 of 10 indices negative**, individually clearing only at +2, +8 and +10, and reaching p 0.0002 by pooling alone. Nothing happens at one place — the whole continuation is slightly less probable to the aligned model.
+
+**So there are two phenomena, not one:**
+
+1. **A sharp contrast at the joint (+1).** One token, then gone.
+2. **A diffuse self-relation drift across the window.** A|A consistently negative while **A|B is flat (5/5, pooled −0.0001)**: the aligned model finds *its own* continuation slightly worse, and the base model reading the same text sees nothing.
+
+**This retracts part of the scorer-split claim.** B|A is 7/3 with pooled p 0.034 — weaker than the "both aligned-scorer terms move" framing posted at docket [5016]. The robust asymmetry is **A|A against A|B**, i.e. self-relation, not aligned-scorer against base-scorer.
+
+It also moves the fc/Y comparison: Y had A|A **and** A|B both moving (a production difference); fc has A|A moving and A|B flat. That is a **third** pattern, distinct from both the "evaluation" reading first posted here and the "production" reading from Y.
 
 ### Position profile — the pre-declared discriminator
 
