@@ -309,5 +309,55 @@
    "model": "tiiuae/falcon-mamba-7b-instruct",
    "why": "not on local disk"
   }
- ]
+ ],
+ "boxes": {
+  "dense": {
+   "profile": "bigdisk",
+   "gpus": 1,
+   "why": "17 dense checkpoints incl. the 32B pair (64GB bf16 each, fits one 80GB card). ~450GB of download -> 600GB disk. Memory-bound only for the 32Bs; the rest are tiny.",
+   "models": [
+    "AI-Sweden-Models/gpt-sw3-6.7b",
+    "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct",
+    "allenai/Olmo-3-1125-32B",
+    "allenai/Olmo-3.1-32B-Instruct-DPO",
+    "google/gemma-2-9b-it",
+    "google/recurrentgemma-9b",
+    "google/recurrentgemma-9b-it",
+    "ibm-granite/granite-3.0-8b-base",
+    "ibm-granite/granite-3.0-8b-instruct",
+    "inceptionai/jais-family-6p7b",
+    "inceptionai/jais-family-6p7b-chat",
+    "internlm/internlm2-chat-7b",
+    "mosaicml/mpt-7b",
+    "mosaicml/mpt-7b-instruct",
+    "openGPT-X/Teuken-7B-base-v0.6",
+    "openGPT-X/Teuken-7B-instruct-commercial-v0.4"
+   ]
+  },
+  "ssm": {
+   "profile": "ssm",
+   "gpus": 1,
+   "why": "mamba-ssm + causal-conv1d. Zamba2 has NO METAL BUILD so it cannot run locally at all; Falcon-H1 additionally MUST compute in bfloat16 (fp16 overflows the SSM scan and returns all-NaN logits that pass every structural gate). The runner already computes native dtype, which is bf16 for these.",
+   "models": [
+    "Zyphra/Zamba2-7B",
+    "tiiuae/Falcon-H1-1.5B-Base",
+    "tiiuae/Falcon-H1-1.5B-Instruct",
+    "tiiuae/Falcon-H1-7B-Base",
+    "tiiuae/Falcon-H1-7B-Instruct",
+    "tiiuae/Falcon3-Mamba-7B-Base",
+    "tiiuae/Falcon3-Mamba-7B-Instruct",
+    "tiiuae/falcon-mamba-7b",
+    "tiiuae/falcon-mamba-7b-instruct"
+   ]
+  },
+  "big": {
+   "profile": "default",
+   "gpus": 2,
+   "why": "70B pair, ~140GB bf16 each -> needs >=2x80GB. The ONLY group that needs a multi-GPU box, which is why it is not merged with the others: one box able to do everything would pay 2-GPU prices for 25 checkpoints that never touch the VRAM.",
+   "models": [
+    "meta-llama/Llama-3.1-70B",
+    "meta-llama/Llama-3.1-70B-Instruct"
+   ]
+  }
+ }
 }

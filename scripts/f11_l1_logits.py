@@ -314,6 +314,11 @@ def main():
     ap.add_argument("--run", action="store_true")
     ap.add_argument("--status", default="ACTIVE")
     ap.add_argument("--roster", default="base_aligned_pairs")
+    ap.add_argument("--box", default=None,
+                    help="with --only-roster: run only that box's models "
+                         "(dense|ssm|big). Split by BOTTLENECK -- a box able "
+                         "to do everything pays 2-GPU prices for 25 "
+                         "checkpoints that never touch the VRAM.")
     ap.add_argument("--only-roster", default=None,
                     help="path to f11_l1_cloud_roster.json; run ONLY its "
                          "`cloud` list. The split is an artifact, so the box "
@@ -378,6 +383,27 @@ def main():
     pairs = Registry().base_aligned_pairs()
     ckpts = sorted({m for p in pairs for m in (p["base"], p["aligned"])})
     print("roster: %d pairs, %d distinct checkpoints" % (len(pairs), len(ckpts)))
+
+    #: **RESTRICT BEFORE PRINTING THE PASS COUNT.** It printed 11,960 and then
+    #: said "restricted to 9", and the first number is the one that travels.
+    if a.only_roster:
+        _r = json.load(open(a.only_roster))
+        if a.box:
+            if a.box not in _r.get("boxes", {}):
+                sys.exit("no box %r in %s; have %s"
+                         % (a.box, a.only_roster, sorted(_r.get("boxes", {}))))
+            want = set(_r["boxes"][a.box]["models"])
+        else:
+            want = {c["model"] for c in _r["cloud"]}
+        missing = want - set(ckpts)
+        if missing:
+            sys.exit("roster names %d checkpoints not in the registry roster: %s"
+                     % (len(missing), sorted(missing)[:3]))
+        ckpts = [m for m in ckpts if m in want]
+        print("ROSTER RESTRICTED: %d checkpoints (box=%s) from %s"
+              % (len(ckpts), a.box or "all-cloud",
+                 os.path.basename(a.only_roster)))
+
     print("forward passes: %d x %d = %d" % (len(prompts), len(ckpts),
                                             len(prompts) * len(ckpts)))
 
@@ -396,16 +422,6 @@ def main():
     print("   Storage is float32 for every checkpoint regardless (lacan")
     print("   [5109].4.2/[5110].2c: the p>=0.001 discovery threshold is the")
     print("   registration's entire content and must not flicker with dtype).")
-
-    if a.only_roster:
-        want = {c["model"] for c in json.load(open(a.only_roster))["cloud"]}
-        missing = want - set(ckpts)
-        if missing:
-            sys.exit("roster names %d checkpoints not in the registry roster: %s"
-                     % (len(missing), sorted(missing)[:3]))
-        ckpts = [m for m in ckpts if m in want]
-        print("ROSTER RESTRICTED: %d checkpoints from %s"
-              % (len(ckpts), os.path.basename(a.only_roster)))
 
     known = known_bad(ckpts)
     if known:
