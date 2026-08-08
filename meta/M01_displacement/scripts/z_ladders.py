@@ -204,10 +204,15 @@ def report(name, models, prof, labels):
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("--only", choices=("ladders", "frontier"), default=None)
+    ap.add_argument("--only", choices=("ladders", "frontier", "safety"), default=None)
     a = ap.parse_args(argv)
     st = CacheManager()._stash("generations")
-    want = {m for _, ms in LADDERS + FRONTIER for m in ms}
+    #: TULU_SFT is in NEITHER list -- the ladder carries the no-safety ablation
+    #: in its place -- so omitting it here emptied the index for it and the
+    #: safety section printed "0 prompts" where an independent count of the
+    #: stash found 35. A model missing from `want` is indistinguishable in the
+    #: output from a model missing from the corpus.
+    want = {m for _, ms in LADDERS + FRONTIER for m in ms} | {TULU_SFT}
     idx = collections.defaultdict(list)
     for k in st.keys():
         if k.get("temp") != 1.0:
@@ -217,6 +222,13 @@ def main(argv=None):
             continue
         idx[(m, k.get("prompt"))].append(k)
     print("indexed %s (model, prompt) cells\n" % format(len(idx), ","))
+
+    if a.only == "safety":
+        print("=" * 100)
+        print("SAFETY DATA -- Tulu SFT with and without it")
+        print("=" * 100)
+        safety(st, idx)
+        return 0
 
     if a.only != "frontier":
         print("=" * 100)
@@ -339,6 +351,71 @@ def within(st, idx):
     print("\n  ratio compares MEDIAN ABSOLUTE within-model movement: magnitude only."
           "\n  [NAMED] = the system prompt names commentary, so that row is partly a"
           "\n  compliance check on the instruction and not register discovery.\n")
+
+
+TULU_BASE = "meta-llama/Llama-3.1-8B"
+TULU_SFT = "allenai/Llama-3.1-Tulu-3-8B-SFT"
+TULU_NOSAFE = "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data"
+TULU_DPO = "allenai/Llama-3.1-Tulu-3-8B-DPO"
+
+
+def safety(st, idx):
+    """Does safety data change what SFT does to the register?
+
+    The ladder above uses the no-safety ablation as Tulu's SFT rung because
+    plain SFT is thin. This runs the contrast that rung was standing in for.
+
+    THE ARM IS UNDERPOWERED AND THE ASYMMETRY IS THE REASON. Plain SFT holds 231
+    passages over 41 prompts, a median of THREE per cell, against the ablation's
+    100. Thirty-five prompts have both arms at >=3; ZERO have both at >=5. Three
+    passages still give an unbiased estimate of that cell's mean, so the contrast
+    is valid, but the noisy arm sets the variance of every per-prompt delta and
+    the whole comparison inherits it.
+
+    SO A NULL HERE IS NOT EVIDENCE OF NO EFFECT. It is what this many passages
+    can resolve, which is not much. Effects in the four-family ladder run 0.5 to
+    3pp; anything smaller than that is below what 35 prompts against a 3-passage
+    arm will show. Read the direction and the size, treat the p as advisory, and
+    do not report an absent star as "safety data does nothing".
+
+    Three contrasts, because the direct one alone cannot separate two readings:
+
+        SFT      - base     what SFT does WITH safety data      (39 prompts)
+        NOSAFE   - base     what SFT does WITHOUT it            (71 prompts)
+        SFT      - NOSAFE   the direct difference               (35 prompts)
+
+    The first two are on different prompt populations and different per-cell
+    depths, so they are NOT subtractable one from the other; the third is the
+    only prompt-matched statement about safety data itself.
+    """
+    combos = [("SFT - base", [TULU_BASE, TULU_SFT]),
+              ("NOSAFE - base", [TULU_BASE, TULU_NOSAFE]),
+              ("SFT - NOSAFE", [TULU_NOSAFE, TULU_SFT]),
+              ("DPO - NOSAFE", [TULU_NOSAFE, TULU_DPO])]
+    cols = {}
+    for label, ms in combos:
+        ps = set.intersection(*[{p for (mm, p) in idx if mm == m} for m in ms])
+        prof = stage_profiles(st, idx, ms, ps)
+        depth = min(statistics.median([len(cell(idx, m, p)) for p in prof] or [0])
+                    for m in ms)
+        cols[label] = (prof, int(depth))
+    for label, (prof, depth) in cols.items():
+        print("  %-16s %3d prompts, thinnest arm median %d passages/cell"
+              % (label, len(prof), depth))
+    print()
+    print("  %-38s %s" % ("measure", " ".join("%20s" % l for l, _ in combos)))
+    print("  " + "-" * (39 + 21 * len(combos)))
+    for g in WATCH:
+        cells = []
+        for label, _ in combos:
+            prof, _ = cols[label]
+            cells.append(mark([pr[-1].get(g, 0) - pr[0].get(g, 0) for pr in prof.values()
+                               if g in pr[0] and g in pr[-1]]))
+        print("  %-38s %s" % (g, " ".join(cells)))
+    print("\n  * both tests agree   ~ they disagree, not significance")
+    print("  THE `SFT - NOSAFE` COLUMN IS THE ONLY PROMPT-MATCHED STATEMENT ABOUT"
+          "\n  SAFETY DATA, and it is the weakest-powered column here. An absent star"
+          "\n  in it means unresolved, not absent.\n")
 
 
 def regimes(st, idx, min_families=3):

@@ -108,11 +108,30 @@ The narrowness is the finding. Families move by different amounts and in two cas
 
 A ratio also needs its denominator watched. On a 0.26pp axis a 1pp frontier gap prints as "4x open DPO" and reads as an enormous effect, so the output now prints the absolute gap beside every fraction and refuses the fraction below a 1pp span.
 
+## 7. Safety data: the direct contrast is unresolved, and the concreteness estimates are unchanged by it
+
+Tulu is the one family with an SFT ablation, so it can be asked whether safety data is what moves the register. Four contrasts, run at `--only safety`:
+
+| measure | SFT − base (39p) | NOSAFE − base (71p) | **SFT − NOSAFE (35p)** | DPO − NOSAFE (71p) |
+| --- | --- | --- | --- | --- |
+| `F:emotion_and_arousal` | **+1.32** * | **+0.37** * | −0.01 p .179 | **+0.73** * |
+| `N:concreteness=concrete` | −0.72 p .686 | **−0.75** * | +0.39 p .781 | **−0.69** * |
+| `F:physical_appearance_and_properties` | −0.29 p .460 | **+0.42** * | +0.05 p .555 | **+0.44** * |
+| `R:need` | −2.50 p .274 | −0.55 p .060 | −2.10 p .757 | **−0.99** * |
+| `N:dominance=dominant` | +0.91 p .329 | −0.05 p .236 | +0.84 p .394 | −0.61 p .506 |
+
+**`SFT − NOSAFE` is the only prompt-matched statement about safety data here, and it resolves nothing.** That is a power result, not a flat one. Plain SFT holds 231 passages over 41 prompts, a median of three per cell against the ablation's 100; 35 prompts have both arms at ≥3 and none have both at ≥5. The shape of the failure confirms the diagnosis rather than merely excusing it: `R:need` shows a median of −2.10 at p 0.757, a large point estimate with prompt-level dispersion swamping it, which is what a three-passage cell mean produces. Effects in the four-family ladder run 0.5 to 3pp and this column cannot see them.
+
+What the table does support is narrower and indirect. **Concreteness lands at −0.72 with safety data and −0.75 without**: the same point estimate, with only the thin arm failing to resolve it. That is consistent with the abstraction shift of section 2 being untouched by safety data, and it agrees with Findings U, where SFT does the cutting and safety data is not what produces displacement. It is not a test of that. Two nearly-equal point estimates on different prompt populations at different per-cell depths are not subtractable, and the column that would test it is the underpowered one.
+
+The same caution kills a tempting read of the emotion row. `SFT − base` at +1.32 is the only starred cell in its column and is more than three times the ablation's +0.37, which looks like safety data amplifying the emotion rise. Those two columns sit on 39 and 71 prompts at depths of 3 and 12. The prompt-matched version of that comparison is the −0.01 in column three.
+
 ## Limits
 
 - **The closed side has no base model and never will.** Section 5 compares retraining against prompting. They are not the same manipulation, and a larger closed number does not mean more alignment.
 - **Framing does not match across the open/closed line.** Open generations are bare completions with no chat template; neither frontier condition is that, since both go through the chat endpoint. Section 6 therefore reports the closed side as a range spanned by its two conditions rather than a point, and the width of that range is the framing uncertainty left visible.
-- **Tulu's SFT rung is the no-safety-data ablation.** Plain `Llama-3.1-Tulu-3-8B-SFT` has 231 passages in the stash against 5,300 for the ablation, too few for a prompt-matched contrast, so that chain's step 1 is SFT without safety data and is labeled that way throughout. It is arguably the more interesting rung; it is not the same rung as the other three families'.
+- **Tulu's SFT rung is the no-safety-data ablation.** Plain `Llama-3.1-Tulu-3-8B-SFT` has 231 passages in the stash against 5,300 for the ablation, too thin for a prompt-matched three-stage intersection, so that chain's step 1 is SFT without safety data and is labeled that way throughout. It is arguably the more interesting rung; it is not the same rung as the other three families'. Section 7 runs the two-model contrasts that plain SFT *can* carry, at the power that buys.
+- **A model absent from a filter looks exactly like a model absent from the corpus.** The first run of section 7 printed 0 prompts for both plain-SFT columns because `want` in `main()` is built from `LADDERS + FRONTIER` and plain SFT is in neither. It was caught only because the stash had been counted independently first and gave 35. The fix is at the `want` assignment; the general form is that a zero from an upstream filter is silent, so a population count should come from somewhere the filter is not.
 - **Sections 1 to 3 and section 5 use different prompt populations.** The ladder intersects base, SFT and DPO (73 prompts); section 5 intersects base and DPO only (more prompts). So OLMo-2's emotion total reads +1.16 in section 3 and +1.02 in section 5. Same measure, different population, not a discrepancy.
 - **Twelve passages per cell**, sampled by sorted index so the same passages are read on every run. Cells hold 40 to 80; the cap is what keeps this a minutes-long run.
 - **No multiplicity correction.** Nine measures times four families times three steps. The starred cells in sections 1 and 2 are far from the 0.05 boundary; the marginal ones elsewhere should be read as exploratory.
