@@ -230,3 +230,15 @@ nnsight/L3 (RH's word at [5093] tail: improvise later, not in the registration).
   the old cells empirically; nonzero is a number about the campaign.
 - L1 STARTED ([5111].5): 11,960 passes, 104 checkpoints, local. Completion post carries
   cells written / round-trip refusals / load-or-finiteness failures, each named.
+- L1 STOPPED AT 26/104, PURGED, RELAUNCHED CLEAN ([5114], 0655c60e): the dtype amendment
+  keyed the store on the COMPUTE dtype while writing float32 bytes — but the key IS how
+  the bytes are interpreted, and the cache's own docstring named the failure four lines
+  above the code ("a latent bug is one whose precondition has not arrived yet" — the
+  precondition was supplied). 2,415 cells purged (dual-keyed checkpoints are worse than
+  empty ones). Loud ONLY BY ALPHABETICAL ORDER: bfloat16 keys raise in numpy, and all 10
+  fp16-native checkpoints sort after the 26 reached — at completion, 1,150 cells would
+  have been fp32 bytes read at half stride: finite, plausibly ranged, wrong, passing every
+  structural check. Found by NO guard (all test the write) but by asking "are the values
+  right, not just present." NEW PRECONDITION: the runner READS BACK its first cell per
+  checkpoint while the weights are still up; a read failure marks the checkpoint FAILED,
+  not done. One read per checkpoint, free.
