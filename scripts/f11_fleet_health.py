@@ -189,6 +189,31 @@ def main():
             r["alert"] = ("no new model for %.0f min with %d left -- stalled?"
                           % (r["stalled_min"], r["remaining"]))
 
+    #: **THE PROJECTION MUST COVER COMMITTED WORK, NOT VISIBLE WORK.** Each box
+    #: carries an armed `chain` session that starts a hidden-state backfill the
+    #: moment its main roster ends. Costing only the main roster reports
+    #: SUFFICIENT right up to the instant the chain fires, then jumps -- and the
+    #: credit alarm exists precisely to fire BEFORE that, not with it. A number
+    #: that is right until the moment it matters is the shape of a check that
+    #: cannot fail.
+    for r in rows:
+        if "min_per_model" not in r or not r.get("roster"):
+            continue
+        bf = os.path.join(ROOT, "data",
+                          "f11_twp_backfill.%s.json" % r["roster"])
+        if not (os.path.exists(bf) and "chain" in (r.get("_sessions") or "")):
+            continue
+        try:
+            n_bf = len(json.load(open(bf))["spec"])
+        except Exception:
+            continue
+        h = n_bf * r["min_per_model"] / 60
+        r["backfill_models"] = n_bf
+        r["backfill_h"] = round(h, 2)
+        r["backfill_cost"] = round(h * r["dph"], 2)
+        r["cost_to_finish"] = round(r.get("cost_to_finish", 0.0)
+                                    + r["backfill_cost"], 2)
+
     proj = sum(x.get("cost_to_finish", 0.0) for x in rows)
     #: boxes without a rate still burn: charge them the wall-clock of the slowest
     unknown = [x for x in rows if x.get("state") == "running"
@@ -219,6 +244,11 @@ def main():
                       % (r["min_per_model"], r["eta_h"], r["cost_to_finish"],
                          r["stalled_min"]), end="")
             print("   disk %.0f GB free" % r.get("disk_free_gb", 0))
+            if r.get("backfill_models"):
+                print("      + chained backfill: %d models, %.2f h, $%.2f "
+                      "(INCLUDED above)"
+                      % (r["backfill_models"], r["backfill_h"],
+                         r["backfill_cost"]))
         if r.get("note"):
             print("      %s" % r["note"])
         if r.get("alert"):
