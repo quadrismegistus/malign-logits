@@ -59,15 +59,54 @@ CORE = ("POLE_A", "POLE_B", "BOTH")
 CANONICAL_PREF = {"f11_holy_b": 0, "f11_holy_b_zh": 0, "f11_holy": 1, "f11_holy_zh": 1}
 
 
-def load():
+def load(allowed=("ACTIVE",)):
+    """Complete groups under a GROUP-WISE status filter. Returns (kept, excluded).
+
+    **THE FILTER IS GROUP-WISE, NOT ROW-WISE, AND THE DIFFERENCE IS FATAL**
+    (lacan [5085].1). `f11_reason` has an ACTIVE BOTH cell and DISPUTED/RETIRED
+    poles; row-wise `status == ACTIVE` keeps the contradiction cell and deletes
+    both baselines, yielding a triplet on which `excess = rate(BOTH) -
+    mean(poles)` divides by an empty set. A group enters only if EVERY row it
+    needs is live.
+
+    **AND A ROLE CAN HAVE SEVERAL ROWS.** `f11_reason` POLE_A appears twice,
+    same text, once DISPUTED and once RETIRED. Building a dict keyed by role
+    silently keeps whichever row iterated last -- so the group's status
+    depended on file order. Statuses are collected as a SET per role and the
+    role is live only if every one of them is allowed; a role whose rows carry
+    DIFFERENT TEXTS is AMBIGUOUS and excludes the group by name.
+    """
     d = json.load(open(SRC))
     rows = [r for r in d["prompts"] if r.get("finding") == "F11"]
-    tri = collections.defaultdict(dict)
+    cells = collections.defaultdict(lambda: {"texts": set(), "status": set()})
     for r in rows:
         g, role = r.get("group_id"), (r.get("group_role") or "").upper()
-        if g and role:
-            tri[g][role] = r["prompt"]
-    return {g: v for g, v in tri.items() if set(CORE) <= set(v)}
+        if not (g and role):
+            continue
+        c = cells[(g, role)]
+        c["texts"].add(r["prompt"])
+        c["status"].add(r.get("status"))
+    groups = collections.defaultdict(dict)
+    for (g, role), c in cells.items():
+        groups[g][role] = c
+    kept, excluded = {}, {}
+    for g, roles in groups.items():
+        missing = [r for r in CORE if r not in roles]
+        if missing:
+            excluded[g] = "incomplete: missing %s" % ",".join(missing)
+            continue
+        amb = [r for r in CORE if len(roles[r]["texts"]) > 1]
+        if amb:
+            excluded[g] = "AMBIGUOUS: %s has multiple distinct texts" % ",".join(amb)
+            continue
+        dead = {r: sorted(x for x in roles[r]["status"] if x not in allowed)
+                for r in CORE if not roles[r]["status"] <= set(allowed)}
+        if dead:
+            excluded[g] = "not live: " + "; ".join(
+                "%s=%s" % (r, "/".join(v)) for r, v in sorted(dead.items()))
+            continue
+        kept[g] = {r: next(iter(roles[r]["texts"])) for r in CORE}
+    return kept, excluded
 
 
 def build(comp):
@@ -98,25 +137,48 @@ def build(comp):
 
 
 def selftest(comp, claims):
-    """Known-answer: the five texts docket [5081] named, from source."""
+    """Two columns, and the first version of this conflated them.
+
+    **A KNOWN-ANSWER TEST WHOSE EXPECTATIONS DEPEND ON THE POPULATION MUST SAY
+    WHICH POPULATION.** v1 asserted that three texts are claimed twice -- true
+    of the UNFILTERED source, false under ACTIVE, where f11_beauty and
+    f11_species_wolf are excluded as retired. It failed on a correct run and
+    would have been "fixed" by loosening it. The duplication facts are asserted
+    against SOURCE, where they are invariant; the filter is asserted separately
+    against its own behaviour.
+    """
     ok = True
-    expect = {
-        "In a place both holy and filthy she began to": 2,
-        "He was beautiful and she wanted to": 2,
-        "The human stood in the clearing and began to": 2,
-    }
-    for t, n in expect.items():
-        got = len(claims.get(t, []))
+    d = json.load(open(SRC))
+    raw = collections.defaultdict(list)
+    for r in [x for x in d["prompts"] if x.get("finding") == "F11"]:
+        g, role = r.get("group_id"), (r.get("group_role") or "").upper()
+        if g and role in CORE:
+            #: **DISTINCT (group, role) CLAIMS, NOT ROWS.** f11_beauty POLE_A
+            #: has two rows for one text -- one ACTIVE, one RETIRED whose
+            #: prompt_id is `store_g001_BOTH`, a BOTH-named id on a pole row
+            #: (registrar's [5036].1 hazard, inside the 44). Counting rows made
+            #: that text look claimed three times; the claim count is two.
+            if (g, role) not in raw[r["prompt"]]:
+                raw[r["prompt"]].append((g, role))
+    for t, n in {"In a place both holy and filthy she began to": 2,
+                 "He was beautiful and she wanted to": 2,
+                 "The human stood in the clearing and began to": 2}.items():
+        got = len(raw.get(t, []))
         if got != n:
-            print("  [FAIL] %r claimed by %d, expected %d" % (t[:40], got, n))
+            print("  [FAIL] SOURCE: %r claimed by %d, expected %d" % (t[:38], got, n))
             ok = False
-    ncore = sum(1 for g in comp for _ in CORE)
-    ndist = len(claims)
-    if ndist > ncore:
-        print("  [FAIL] %d distinct texts from %d cells -- impossible" % (ndist, ncore))
+    #: the group-wise filter must exclude f11_reason. Row-wise would keep its
+    #: ACTIVE BOTH and delete both poles ([5085].1) -- a triplet with no baseline.
+    if "f11_reason" in comp:
+        print("  [FAIL] f11_reason survived an ACTIVE filter: row-wise leakage")
         ok = False
-    print("selftest: %s  (%d cells, %d distinct texts)"
-          % ("pass" if ok else "FAIL", ncore, ndist))
+    ncore = 3 * len(comp)
+    if len(claims) > ncore:
+        print("  [FAIL] %d distinct texts from %d cells -- impossible"
+              % (len(claims), ncore))
+        ok = False
+    print("selftest: %s  (source duplications verified; %d cells, %d distinct)"
+          % ("pass" if ok else "FAIL", ncore, len(claims)))
     return ok
 
 
@@ -124,9 +186,19 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--show", action="store_true")
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--status", default="ACTIVE",
+                    help="comma-separated allowed statuses; the POPULATION "
+                         "definition, printed on every run. ACTIVE-vs-DISPUTED "
+                         "is a construct ruling and has no safe default.")
     a = ap.parse_args()
 
-    comp = load()
+    allowed = tuple(x.strip() for x in a.status.split(","))
+    comp, excluded = load(allowed)
+    print("POPULATION FILTER: status in %s, applied GROUP-WISE (all rows live)"
+          % (allowed,))
+    print("excluded groups: %d" % len(excluded))
+    for g, why in sorted(excluded.items()):
+        print("   %-24s %s" % (g, why))
     claims, shared, entries = build(comp)
     if not selftest(comp, claims):
         sys.exit("selftest failed; refusing to emit a map that misreads source")
