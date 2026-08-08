@@ -252,6 +252,14 @@ nnsight/L3 (RH's word at [5093] tail: improvise later, not in the registration).
   append would return real floats FOR THE WRONG PROMPT, finite and wrong). Metaspace defect MEASURED PRESENT in 5.14.1 (cuts
   neither way); deepseek REPAIRED on the fleet via LOADER_OVERRIDE (loader_id stamped,
   retirement condition written) — the declared population delta.
+- N3 READS TRUE WORD PROBS (RH's ruling, [5136]): the same instrument as the rest of the
+  campaign (300,535 cells, rule_version 3, theta 0.001). It FITS the frozen text rather
+  than overriding it: twp's theta equals N3's 0.001 threshold and is complete above it,
+  and N3 §2.1's filters (alphabetic, length >= 2, unigram frequency) were word-level
+  approximations applied to tokens — twp gives the set the filters were approximating.
+  "N3 reading logits would have been the one measurement in the campaign on a different
+  footing." Lacan's custody framing withdrawn by its author: "picking the better
+  instrument on principled grounds is not a researcher degree of freedom."
 - REQUIRED PRE-ANALYSIS LINE, adopted from [5131]: THE ENVIRONMENT-COMPARABILITY FLOOR —
   one clean-in-both checkpoint, same prompt, computed locally AND on the fleet, same
   magnitude statistic = what same-string-cross-environment difference looks like. Every
