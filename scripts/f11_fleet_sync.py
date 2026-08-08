@@ -101,13 +101,22 @@ def pull(st):
 
 
 def census():
-    n_j = len(glob.glob(os.path.join(DEST, "*.jsonl")))
-    n_f = len(glob.glob(os.path.join(DEST, "*.f16")))
-    rows = 0
-    for f in glob.glob(os.path.join(DEST, "*.jsonl")):
-        with open(f, errors="ignore") as fh:
-            rows += sum(1 for _ in fh)
-    mb = sum(os.path.getsize(f) for f in glob.glob(os.path.join(DEST, "*"))) / 1e6
+    """**COUNT BOTH DIRECTORIES.** The backfill writes to DEST_bf, and a census
+    that reads only DEST reports a flat line while the backfill is the only
+    thing running -- which is exactly when someone is watching for movement.
+    A counter blind to half the work is worse than no counter: it does not say
+    nothing, it says nothing is happening."""
+    n_j = n_f = rows = 0
+    mb = 0.0
+    for d in (DEST, DEST + "_bf"):
+        js = glob.glob(os.path.join(d, "*.jsonl"))
+        n_j += len(js)
+        n_f += len(glob.glob(os.path.join(d, "*.f16")))
+        for f in js:
+            with open(f, errors="ignore") as fh:
+                rows += sum(1 for _ in fh)
+        mb += sum(os.path.getsize(f) for f in glob.glob(os.path.join(d, "*"))
+                  if os.path.isfile(f)) / 1e6
     return n_j, n_f, rows, mb
 
 
