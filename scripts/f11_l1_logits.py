@@ -415,9 +415,30 @@ def main():
         #: path already raises on non-finite values, so correctness is covered;
         #: this only moves the discovery from hour four of the sweep to
         #: checkpoint N of 104, while the weights that produced it are still up.
+        #: **THE LOAD WAS GUARDED AND THE FORWARD WAS NOT**, and the forward is
+        #: where an architecture actually meets the backend. OLMoE-1B-7B loads
+        #: fine and dies in expert routing on `torch.histc`, which MPS does not
+        #: implement for Int -- an unhandled exception that killed the sweep at
+        #: 36/104 and would have killed it again at the next MoE. CPU has the
+        #: op, so the fallback is a real recovery and not a formality; a model
+        #: that fails on both is recorded and the sweep goes on.
         wrote = 0
         for p in todo:
-            v = get_base_logits(mdl, tok, p).float()
+            try:
+                v = get_base_logits(mdl, tok, p).float()
+            except Exception as e:
+                print("           FORWARD FAILED on %s: %s: %s -- retrying CPU"
+                      % (dev, type(e).__name__, str(e)[:60]), flush=True)
+                try:
+                    mdl = mdl.to("cpu")
+                    v = get_base_logits(mdl, tok, p).float()
+                    print("           CPU fallback OK", flush=True)
+                except Exception as e2:
+                    print("           CPU ALSO FAILED: %s: %s"
+                          % (type(e2).__name__, str(e2)[:70]), flush=True)
+                    failed[mid] = "forward: %s (cpu: %s)" % (type(e).__name__,
+                                                             type(e2).__name__)
+                    break
             nb = int((~torch.isfinite(v)).sum())
             if nb:
                 print("           NON-FINITE at cell %d: %d/%d values. dtype=%s."
