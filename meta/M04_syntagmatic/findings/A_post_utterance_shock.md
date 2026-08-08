@@ -32,7 +32,7 @@ D(s,a) = mean_lp(aligned's beams | under aligned) − mean_lp(base's beams | und
 Δ(s)   = D(s, force_faller) − D(s, force_riser)
 ```
 
-Faller-vs-riser rather than forced-vs-undisturbed: registrar [5009].3 showed **forcing anything** is mildly destabilising word-agnostically, so a forced-vs-undisturbed primary would recover that mechanical effect and report it as repression. Holding "a word was forced" constant and varying only *which* word is the only contrast that isolates the demoted signifier.
+Faller-vs-riser rather than forced-vs-undisturbed. **The magnitude claim this originally cited has since been demoted and is not repeated here**: registrar's [5009].3 "forcing anything is mildly destabilising" crosses the same commitment boundary and one-token position offset as the invalid control below, and was demoted at [5027] once that was established. What survives is only the **design consequence**, which is all this choice ever needed — a forced-vs-undisturbed primary would compare a pre-commitment state at sentence positions 1–10 against a post-commitment state at 2–11, and report the difference as repression. **Holding "a word was forced" and the scored positions constant, and varying only *which* word, is the only interpretable contrast.**
 
 Unit = pair. 33 pairs, 33 lineages, 5,112 sites with all four cells (599 half-present sites excluded and counted). Wilcoxon over pairs, bootstrap CI on the median, seed 20260808.
 

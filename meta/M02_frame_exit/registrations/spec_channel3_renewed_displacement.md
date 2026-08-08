@@ -51,6 +51,14 @@ Per-pair value = median of Δ(s) over that pair's sites. Test = Wilcoxon signed-
 
 Registrar [5009].3: forcing **anything** raises E-QUIZ +0.41pp and E-QA +0.33pp, word-agnostically. A forced-vs-undisturbed contrast would recover that mechanical effect and report it as repression. Faller-vs-riser holds "a word was forced" constant and varies only **which** word — which is the only contrast that isolates the demoted signifier.
 
+> **POST-FREEZE AMENDMENT, 2026-08-08, visible per the amendment convention — the frozen text above is left standing and is not rewritten.**
+>
+> **The cited magnitude claim has been demoted** ([5027]). Registrar's "forcing anything is mildly destabilising" crosses the same two boundaries as this spec's own positive control ([5026], §6 amendment): a **commitment boundary** (uncommitted vs committed state) and a **one-token position offset** (`plen` includes the forced word, so forced arms score sentence positions 2–11 against undisturbed's 1–10). Regex counts rather than logprobs changes nothing about the comparison structure. "Mildly destabilising" does not travel.
+>
+> **The design choice this paragraph justifies is UNCHANGED, and did not need the magnitude.** A forced-vs-undisturbed primary would compare across both boundaries and report the result as repression. Faller-vs-riser holds commitment *and* scored position constant. That argument stands on its own structure and never required the effect to have been measured at any particular size.
+>
+> **No outcome-meaning change**: the primary, population, unit, test and decision rule are untouched.
+
 ## 4. UNIT, POPULATION, AND WHAT IS EXCLUDED
 
 - **Unit = pair.** Sites are nested within pair and are not independent.
