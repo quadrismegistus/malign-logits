@@ -284,6 +284,41 @@ def weights_gb(mid):
     return t / 2 ** 30
 
 
+def record_observations(rows, env="local_mps", source=None):
+    """APPEND what this run learned to the file the next run READS.
+
+    **THE LOOP LEAKS HERE, NOT IN THE DOCUMENTATION** (lacan [5124].2). This
+    runner read ENV_RECORD to avoid rediscovering facts, and wrote everything it
+    discovered to a per-run COMPUTE_MANIFEST instead -- so the producer of the
+    facts and the consumer of the facts were different files, and every sweep
+    re-learned what the last one already knew. A fourth document would not have
+    fixed that; one append does.
+
+    Idempotent on (model_id, environment): a re-run updates its own row rather
+    than growing a pile of duplicates that make a census meaningless.
+    """
+    try:
+        d = json.load(open(ENV_RECORD))
+    except Exception:
+        return 0
+    obs = d.setdefault("observations", [])
+    idx = {(o.get("model_id"), o.get("environment")): i
+           for i, o in enumerate(obs)}
+    n = 0
+    for r in rows:
+        r = dict(r, environment=env)
+        if source:
+            r["source"] = source
+        k = (r["model_id"], env)
+        if k in idx:
+            obs[idx[k]] = r
+        else:
+            obs.append(r)
+        n += 1
+    json.dump(d, open(ENV_RECORD, "w"), ensure_ascii=False, indent=1)
+    return n
+
+
 def known_bad(ckpts, env="local_mps"):
     """What the record already says about these checkpoints HERE.
 
@@ -644,6 +679,27 @@ def main():
     }, open(COMPUTE_MANIFEST, "w"), indent=1)
     print("  compute-dtype manifest -> %s"
           % os.path.relpath(COMPUTE_MANIFEST, ROOT))
+
+    #: and the same facts to where the NEXT run looks
+    rows = []
+    for mid in sorted(done):
+        rows.append({"model_id": mid, "outcome": "loads",
+                     "cause": "", "fix": "computed at %s" % plan.get(mid, "?")})
+    for mid, why in sorted(failed.items()):
+        rows.append({"model_id": mid,
+                     "outcome": "load_failed" if why.startswith(("load", "local skip", "not downloaded"))
+                                else "run_failed",
+                     "cause": why, "fix": ""})
+    for mid, badp in sorted(refused.items()):
+        rows.append({"model_id": mid, "outcome": "run_failed",
+                     "cause": "round-trip: %d/%d prompt(s) do not survive "
+                              "decode(encode(p)) == p" % (len(badp), len(prompts)),
+                     "fix": "usable only for triplets whose prompts pass; see "
+                            "triplet_coverage in %s"
+                            % os.path.basename(COMPUTE_MANIFEST)})
+    n = record_observations(rows, source="F11 L1 sweep")
+    print("  environment record  -> %s  (%d observations appended/updated)"
+          % (os.path.relpath(ENV_RECORD, ROOT), n))
 
 
 if __name__ == "__main__":
