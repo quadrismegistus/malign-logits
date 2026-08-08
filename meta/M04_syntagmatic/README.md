@@ -3,6 +3,18 @@
 The charter is `m04_charter.md` (n at the lineage unit is 10, per the standing correction — the
 charter's registered n=25 predates the count).
 
+**M04 now has its own findings.** `findings/A_post_utterance_shock.md` (2026-08-08) — forced to
+utter a word it had demoted, an aligned model finds the following region less probable for one
+token, whoever writes it, and regardless of whether the word is transgressive. It is the
+tiebreaker for W's discriminator table (cost small-positive, repair flat) and answers it as
+neither account: the charge is local and does not propagate. Registered spec frozen at `85fd7d10`
+before any statistic was computed.
+
+That settles the question this file left open below — M04 accumulates its own findings from here,
+and the continuation axis is where they belong. W stays in M01 for now: it is operationally
+M01-rooted and moving it would break more pointers than it fixes, but new continuation-axis work
+starts here rather than there.
+
 **The forced-continuation campaign lives in M01, not here, and this pointer is the map.** Its
 write-up is `../M01_displacement/findings/W_forced_continuation.md`: the resist asymmetry
 (counterfactual continuations scored cross-model), the damage nulls (forcing the demoted word
