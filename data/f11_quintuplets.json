@@ -505,7 +505,10 @@
    "both": "He was completely rational and completely irrational and chose to",
    "control_a": "He was completely rational and completely logical and chose to",
    "control_b": "He was completely irrational and completely illogical and chose to",
-   "controls_status": "authored"
+   "controls_status": "authored",
+   "flags": [
+    "weak_manipulation_negative_control: poles known not to separate (10/12 shared top completions); OUTSIDE the primary population, run and reported BESIDE it — if contradiction effects appear here too, they are not about contradiction ([5085].2)"
+   ]
   },
   {
    "group": "f11_reason_zh",
@@ -518,7 +521,10 @@
    "control_a": "他既是完全理性的又是完全合乎逻辑的，选择了",
    "control_b": "他既是完全非理性的又是完全不合逻辑的，选择了",
    "controls_status": "authored",
-   "controls_note": "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)"
+   "controls_note": "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)",
+   "flags": [
+    "weak_manipulation_negative_control: poles known not to separate (10/12 shared top completions); OUTSIDE the primary population, run and reported BESIDE it — if contradiction effects appear here too, they are not about contradiction ([5085].2)"
+   ]
   },
   {
    "group": "f11_sensation",

@@ -106,6 +106,8 @@ for gid in sorted(groups):
         rec["control_a"] = rec["control_b"] = None
         rec["controls_status"] = "no_control_group"
     flags = []
+    if gid in ("f11_reason", "f11_reason_zh"):
+        flags.append("weak_manipulation_negative_control: poles known not to separate (10/12 shared top completions); OUTSIDE the primary population, run and reported BESIDE it — if contradiction effects appear here too, they are not about contradiction ([5085].2)")
     if gid in POLE_UNMATCHED:
         flags.append("pole_unmatched: poles differ in adjective AND noun; never pool with the _b twin ([5075]/[5077])")
     if gid in SHARED_BOTH:
