@@ -78,7 +78,7 @@ def load(allowed=("ACTIVE",)):
     """
     d = json.load(open(SRC))
     rows = [r for r in d["prompts"] if r.get("finding") == "F11"]
-    cells = collections.defaultdict(lambda: {"texts": set(), "status": set()})
+    cells = collections.defaultdict(lambda: {"texts": set(), "status": set(), "rows": []})
     for r in rows:
         g, role = r.get("group_id"), (r.get("group_role") or "").upper()
         if not (g and role):
@@ -86,6 +86,7 @@ def load(allowed=("ACTIVE",)):
         c = cells[(g, role)]
         c["texts"].add(r["prompt"])
         c["status"].add(r.get("status"))
+        c.setdefault("rows", []).append((r.get("status"), r["prompt"]))
     groups = collections.defaultdict(dict)
     for (g, role), c in cells.items():
         groups[g][role] = c
@@ -95,17 +96,30 @@ def load(allowed=("ACTIVE",)):
         if missing:
             excluded[g] = "incomplete: missing %s" % ",".join(missing)
             continue
-        amb = [r for r in CORE if len(roles[r]["texts"]) > 1]
-        if amb:
-            excluded[g] = "AMBIGUOUS: %s has multiple distinct texts" % ",".join(amb)
-            continue
-        dead = {r: sorted(x for x in roles[r]["status"] if x not in allowed)
-                for r in CORE if not roles[r]["status"] <= set(allowed)}
+        #: **HAS-A-LIVE-ROW, NOT ALL-ROWS-LIVE** (registrar [5088], correcting
+        #: me). My first rule required every row of a role to be in `allowed`,
+        #: which conflated TWO different things: a cell with a stale duplicate
+        #: record, and a cell that is dead. f11_beauty carries ACTIVE and
+        #: RETIRED rows of the IDENTICAL string; f11_gender has one ACTIVE BOTH
+        #: beside a retired row with different text. Both are live and my rule
+        #: dropped them -- 39 groups where 41 are alive.
+        #:
+        #: The refusal that survives is narrower and is the real hazard: TWO
+        #: LIVE ROWS carrying DIFFERENT text, where picking either is arbitrary.
+        live = {r: {t for st, t in roles[r]["rows"] if st in allowed}
+                for r in CORE}
+        dead = [r for r in CORE if not live[r]]
         if dead:
-            excluded[g] = "not live: " + "; ".join(
-                "%s=%s" % (r, "/".join(v)) for r, v in sorted(dead.items()))
+            excluded[g] = "not live: " + ", ".join(
+                "%s=%s" % (r, "/".join(sorted(x or "?" for x, _ in roles[r]["rows"])))
+                for r in dead)
             continue
-        kept[g] = {r: next(iter(roles[r]["texts"])) for r in CORE}
+        amb = [r for r in CORE if len(live[r]) > 1]
+        if amb:
+            excluded[g] = ("AMBIGUOUS: %s has MULTIPLE LIVE texts -- picking "
+                           "either is arbitrary" % ",".join(amb))
+            continue
+        kept[g] = {r: next(iter(live[r])) for r in CORE}
     return kept, excluded
 
 
