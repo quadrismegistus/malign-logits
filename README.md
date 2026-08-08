@@ -11,11 +11,7 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 - [The four campaigns (meta/)](#the-four-campaigns-meta)
 - [Findings](#findings)
 - [Where information lives](#where-information-lives)
-- [What this repo is now](#what-this-repo-is-now)
-- [How work happens here](#how-work-happens-here)
-- [Running things](#running-things)
-- [The roster, in one line](#the-roster-in-one-line)
-- [The method ledger, short form](#the-method-ledger-short-form)
+- [About the campaign](#about-the-campaign)
 - [Origins](#origins)
 - [References](#references)
 - [License](#license)
@@ -156,107 +152,32 @@ one of these, the file here wins** (except where noted).
 - [40. Discovered vocabulary — alignment is surgical at liminal sites and blunt at explicit ones](findings/F40_discovered_vocabulary.md) — Discovered vocabulary (347 words, 39 lineages, blind-tagged twice). Category-specific transgressive drain survives at LIMINAL sites and fails at explicit ones, where the total drain is largest but undifferentiated. Refines F06's surgical-targeting claim. Measured on: 39 base-deduped lineages.
 - [41. Word norms — the exogenous gradient test](findings/F41_word_norms.md) — Word-norm instrument (arousal/concreteness/dominance, en+zh): exogenous test of the intensity-dissolution frame. Predictions registered before any norm-movement join.
 <!-- findings:end -->
-## What this repo is now
+## About the campaign
 
-This began as a toolkit for psychoanalytic analysis of LLM probability
-distributions. It is now the **empirical campaign** behind a Critical Inquiry
-article (*Theory Machines*) and a book (*Alignment: Computing a Political
-Economy of Language Models*): eleven-plus model families, base against
-aligned, ~350k data rows, asking what alignment actually does to a language
-model's relation to its own words — displacement, frame-exit,
-proceduralization, and what it costs to say what the model would not have
-said.
+This repository is the empirical base of a research program on what
+alignment does to language models — the Critical Inquiry article *Theory
+Machines* and the book *Alignment: Computing a Political Economy of Language
+Models*. It compares base models against their aligned descendants across
+eleven-plus families, asking where suppressed probability mass goes, what
+happens to contradiction, and what it costs a model to say what it would
+not have said.
 
-Three Claude Code seats work it in parallel — **malign** (this repo: data,
-producers, fleets), **lacan** (theory, annotation, adjudication), and the
-**registrar** (the article hub: the claims register, freeze custody, the
-record) — coordinating through a shared **docket** (append-only posts with
-composed-against stamps). A human (RH) rules on populations, budgets,
-freezes, and characterizations. If you are one of those seats re-reading
-this after a compaction: the docket is the conversation, the register is the
-memory, and the files below are the ground truth.
-
-## How work happens here
-
-Two regimes, in sequence. The **registered letters** (M01's B–S): frozen
-registrations, hashes, blind arms, verdicts. Then, on RH's word (docket
-[4712]), the **post-registration regime**: reproducible-vs-not — seeds,
-held-back samples, replication as the control, everything looked at gets
-reported, exploratory work labelled at birth rather than forbidden. RH's
-standing directive ([5060]): *the goal is to characterise alignment as
-thoroughly as possible — not to mechanically execute what is registered,
-and not to stop inflexibly.* Look first, label honestly; stopping is a
-decision, not a default.
-
-The paper trail has layers, and each governs the one before: this README
-orients; the module READMEs map; the finding files hold results with their
-caveats attached; `REGISTRATIONS.md` records what ran; the ledgers hold
-supersessions; **the claims register (in the article hub) holds the
-quotable forms and outranks everything here**. Corrections are trailed,
-never rewritten. Withdrawn numbers stay withdrawn.
-
-## Running things
-
-The current entry points, not the historical ones:
-
-| To... | Use |
-|---|---|
-| Compute logits + true word probs at scale | `scripts/twp_cloud.py` (fleet; stamps torch/transformers/device/params per record) |
-| Plan per-checkpoint environments | `scripts/f11_env_plan.py` → `data/model_load_environments.json` |
-| Rent and run boxes | `docs/cloud_runbook.md` (profiles, the torch>=2.6 floor, the ssm kernels, the two failure classes found at launch) |
-| Know what runs locally | `docs/local_capability.md` (MPS failure classes, the Falcon-H1 fp16 all-NaN row) |
-| Read/write any stash | `malign_logits/cache.py` — read its docstring first, it is the API doc |
-| Code passages with the frozen coder | `malign_logits/tasks/code_m02_contradiction_v1.py` (gated; see M02) |
-| Rebuild this README / the index | `scripts/build_readme.py build` / `index` (brief by default; `--full` restores body-piping) |
-| Check f16 threshold indeterminacy | `scripts/f16_threshold_margin.py` (the 0.148% rider on pre-fp32 cells) |
-
-Local dev: `pip install -e .` (uv-managed venv in practice; `uv run python
-...` from the repo root). Mac/MPS runs most of the roster; the memory
-ceiling and the four checkpoints beyond it are documented facts, not
-surprises — see the capability doc.
-
-## The roster, in one line
-
-**104 checkpoints · 52 declared base→aligned pairs · 34 independent
-pretraining lineages** — and any family-level N above 34 over-counts by
-construction. The registry (`malign_logits/registry.py`) is the code-built
+**The roster: 104 checkpoints · 52 declared base→aligned pairs · 34
+independent pretraining lineages** — and any family-level count above 34
+over-counts by construction (`malign_logits/registry.py` is the code-built
 source; `data/base_aligned_pairs.json` and `data/lineage_map_models.json`
-are its declared products. The unit discipline is not optional: the day a
-count is quoted without its unit is the day it gets corrected on the docket.
+its declared products).
 
-## The method ledger, short form
+The campaign runs under a preregistration-then-reproducibility discipline —
+frozen registrations with hashes, declared populations and contrast
+hierarchies, adversarial cross-checks between independent analysts, and a
+claims register that records every supersession. **The operating manual —
+who does what, the working rules, the current entry points — is
+[CAMPAIGN.md](CAMPAIGN.md).**
 
-The rules this campaign paid for, each with the docket arc that minted it.
-The long form lives in the claims register; these are the ones a returning
-seat forgets at their peril:
-
-- **Read the artifact before believing a claim about it** — and reading the
-  *producer* beats reading the artifact ([5035], [5049], [5134]).
-- **A checker inherits the axes of its author's assumption; nobody audits an
-  empty list** ([5075]). Calibrate every criterion against a known instance
-  *in the population it runs on* ([5077]).
-- **Same units is not same comparison** ([5026]) — and a control must be
-  matched to the cell it is *subtracted from*, not the cell it was derived
-  from ([5074]).
-- **The wrapper is part of the prompt** ([5042]); the decoder is part of the
-  sample ([4994]); provenance records what *shaped* the output, not what the
-  output shows. Pin for new corpora, reproduce for matched cells, record
-  always ([5037]).
-- **A converged count is evidence about the count, never about the criterion
-  that produced it** ([5112]).
-- **The committed implementation is the instrument; a transcription is not
-  an implementation** ([5056]).
-- **A measurement can be blind to the thing it appears to be about**
-  ([5002]); a grain coarser than the question answers a different question
-  ([5005]).
-- **An owed measurement that keeps being deferred is one that never
-  happens** ([5139]).
-- **Per-triplet / per-family reporting always**: pooled numbers died four
-  times in one day; a magnitude carried by a nameable subset travels with
-  its owner named ([5052], [5063]).
-- **A freeze document's arithmetic is the specification, not exposition** —
-  state derivations as computations the next reader re-runs ([5094],
-  [5095]).
+Local dev: `pip install -e .`; most analysis runs on a Mac (MPS) with the
+larger models on rented GPUs — see `docs/local_capability.md` and
+`docs/cloud_runbook.md`.
 
 ## Origins
 
