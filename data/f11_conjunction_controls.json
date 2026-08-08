@@ -28,9 +28,9 @@
     {
       "group": "f11_captive_b",
       "contrast": "free/captive",
-      "both": "The one who was free and captive chose to",
-      "control_a": "The one who was free and unhindered chose to",
-      "control_b": "The one who was captive and bound chose to"
+      "both": "The one who was both free and captive chose to",
+      "control_a": "The one who was both free and unhindered chose to",
+      "control_b": "The one who was both captive and bound chose to"
     },
     {
       "group": "f11_class",
@@ -71,17 +71,18 @@
     {
       "group": "f11_holy",
       "contrast": "holy/filthy",
-      "both": "In the holy and filthy temple she began to",
-      "control_a": "In the holy and sacred temple she began to",
-      "control_b": "In the filthy and squalid temple she began to",
-      "note": "REGISTRAR CAUGHT THIS ([5073]): control_b originally read 'alley', matching its own POLE_B ('In the filthy alley she began to'). But a control's job is to match the BOTH cell it controls, and BOTH uses TEMPLE. Keeping the pole's noun made control_b differ from BOTH in two ways at once -- epithets AND location -- the [5037] failure inside a cell authored under the rule that names it. Now 'temple' throughout. DEEPER PROBLEM, NOT FIXABLE BY A CONTROL: f11_holy's own POLES differ in adjective AND noun (holy temple / filthy alley), so the triplet was confounded before any control existed. f11_holy_b ('holy place' / 'filthy place') is the clean version of the same contrast and should be preferred as canonical; f11_holy is retained but must not be pooled with it."
+      "both": "In a place both holy and filthy she began to",
+      "control_a": "In a place both holy and sacred she began to",
+      "control_b": "In a place both filthy and squalid she began to",
+      "note": "CORRECTED at [5079]. The `both` field previously read 'In the holy and filthy temple she began to' -- A STRING I NEVER READ AND CONSTRUCTED BY ANALOGY FROM THE POLES. The real BOTH cell uses 'a place'. Everything built on the invented version is void, including [5073]'s temple fix and [5074]'s account of the defect. THE ACTUAL DEFECT: f11_holy's poles are 'holy TEMPLE' / 'filthy ALLEY' while its BOTH is 'a PLACE' -- so BOTH matches NEITHER pole. f11_holy_b's poles are 'holy place' / 'filthy place' and share that same BOTH, so f11_holy_b is clean. The conclusion (holy_b canonical, never pooled) survives; the reasoning that reached it did not."
     },
     {
       "group": "f11_holy_b",
       "contrast": "holy/filthy",
-      "both": "In the holy and filthy place she began to",
-      "control_a": "In the holy and sacred place she began to",
-      "control_b": "In the filthy and squalid place she began to"
+      "both": "In a place both holy and filthy she began to",
+      "control_a": "In a place both holy and sacred she began to",
+      "control_b": "In a place both filthy and squalid she began to",
+      "note": "SHARES ITS BOTH CELL BYTE-IDENTICALLY WITH f11_holy. The generations stash keys on prompt text, so these are ONE contradiction cell with two different pole-pairs attached, and enumerating both groups counts it twice. Controls are therefore identical to f11_holy's, by the same shared-cell logic as the shared-pole rule."
     },
     {
       "group": "f11_love",
@@ -107,10 +108,10 @@
     {
       "group": "f11_reason",
       "contrast": "rational/irrational",
-      "both": "He was completely rational and irrational and chose to",
-      "control_a": "He was completely rational and logical and chose to",
-      "control_b": "He was completely irrational and illogical and chose to",
-      "note": "f11_reason carries status DISPUTED in the categorisation, with the note 'weak manipulation: ten of twelve top completions are shared between members'. Its controls are authored, but the triplet should not enter a roster median unflagged."
+      "both": "He was completely rational and completely irrational and chose to",
+      "control_a": "He was completely rational and completely logical and chose to",
+      "control_b": "He was completely irrational and completely illogical and chose to",
+      "note": "CORRECTED at [5079]: the `both` field dropped the second 'completely'. Also carries status DISPUTED, 'weak manipulation: ten of twelve top completions are shared between members' -- controls authored, but the triplet must not enter a roster median unflagged."
     },
     {
       "group": "f11_sensation",
@@ -166,5 +167,6 @@
     "new_prompts": 34,
     "note": "34, not the 46 estimated at [5064].3. The gap is the six category-pole triplets, where the convention says flag rather than substitute. Six fewer cells to generate and six fewer to code; the flagged triplets keep their A/B/BOTH and simply carry no conjunction control, so they contribute to every contrast except the primary."
   },
-  "_second_read": "All 34 read aloud at a second seat (registrar, [5073]). One defect found and fixed (f11_holy control_b). One register note kept and recorded (f11_guilt). 'He was disgusting and foul' and 'She feared and dreaded him' both pass. RH has veto until generation starts."
+  "_second_read": "All 34 read aloud at a second seat (registrar, [5073]). One defect found and fixed (f11_holy control_b). One register note kept and recorded (f11_guilt). 'He was disgusting and foul' and 'She feared and dreaded him' both pass. RH has veto until generation starts.",
+  "_provenance": "EVERY `both` FIELD IS NOW VERIFIED BYTE-EQUAL TO data/prompt_categorisation.json. Four were not, at first commit: f11_captive_b, f11_holy, f11_holy_b, f11_reason. I had written them from the pole texts by analogy instead of reading the BOTH row, which is fabricating a value I had not observed -- and because the `both` field is the cell each control is MATCHED TO, the controls for those four were authored against a target that did not exist. Regenerate this check before any future edit; it is three lines and it would have caught this at authoring time."
 }
