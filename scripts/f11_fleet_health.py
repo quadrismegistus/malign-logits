@@ -36,9 +36,43 @@ IDLE_ALERT_MIN = 10
 MARGIN = 1.35
 
 
-def vast(*a):
+class VastUnreadable(Exception):
+    """The API could not be READ. NOT the same as the API saying zero."""
+
+
+def vast_json(*a):
+    """Parse vastai --raw output, or RAISE.
+
+    **TWO DEFECTS IN ONE FUNCTION, AND THE SECOND MADE THE FIRST INVISIBLE.**
+
+    `vastai show instances` prints a DEPRECATION BANNER on stdout before the
+    JSON, so `json.loads(stdout)` raises. The caller wrapped that in
+    `except Exception: insts = []` -- and an empty instance list renders as
+    "0 live boxes, $0.00 to finish, credit $0.00 -> SUFFICIENT".
+
+    **A HEALTH CHECK THAT CANNOT READ THE API REPORTED THAT EVERYTHING WAS
+    FINE**, and it would have gone on reporting it to a 10-minute loop whose
+    entire job is to notice when it is not. Empty output from a failed parse is
+    indistinguishable from a clean finding -- the same shape as a glob that
+    matches nothing and a checker that returns no rows.
+
+    So: skip to the first JSON character, and RAISE rather than return empty.
+    A caller that wants to tolerate this has to say so.
+    """
     r = subprocess.run(["vastai"] + list(a), capture_output=True, text=True)
-    return r.stdout if r.returncode == 0 else ""
+    if r.returncode != 0:
+        raise VastUnreadable("vastai %s exited %d: %s"
+                             % (" ".join(a), r.returncode,
+                                (r.stderr or "").strip()[:120]))
+    out = r.stdout or ""
+    i = min([x for x in (out.find("["), out.find("{")) if x >= 0] or [-1])
+    if i < 0:
+        raise VastUnreadable("no JSON in `vastai %s` output: %s"
+                             % (" ".join(a), out.strip()[:120]))
+    try:
+        return json.loads(out[i:])
+    except Exception as e:
+        raise VastUnreadable("unparseable `vastai %s`: %s" % (" ".join(a), e))
 
 
 def ssh(st, cmd, t=30):
@@ -72,15 +106,19 @@ def main():
     a = ap.parse_args()
 
     try:
-        insts = json.loads(vast("show", "instances", "--raw") or "[]")
-    except Exception:
-        insts = []
+        insts = vast_json("show", "instances", "--raw")
+        credit = float(vast_json("show", "user", "--raw").get("credit", 0.0))
+    except VastUnreadable as e:
+        #: LOUD, AND NOT "SUFFICIENT". An unreadable API is a state to act on,
+        #: not a quiet zero.
+        print("*** CANNOT READ THE VAST API -- fleet state UNKNOWN ***")
+        print("    %s" % e)
+        print("    This is NOT a clean bill of health. Boxes may be running and"
+              " billing.")
+        if a.json:
+            print(json.dumps({"error": str(e), "sufficient": None}, indent=1))
+        return 3
     cmap = coords()
-    try:
-        credit = float(json.loads(vast("show", "user", "--raw") or "{}")
-                       .get("credit", 0.0))
-    except Exception:
-        credit = 0.0
 
     rows, total_h, total_dph = [], 0.0, 0.0
     for i in insts:
