@@ -116,15 +116,43 @@ def main():
                 n_refused += 1
             continue
 
-        # ---- LOGITS: index entries, payload stays where it is ---------------
-        if lrows and not a.dry_run:
+        # ---- LOGITS: index entries, payload HARDLINKED INTO THE ARCHIVE -----
+        #
+        # **THE INDEXED PATH MUST NOT ESCAPE THE ROOT.** The store resolves
+        # `file` against MALIGN_LOGIT_ROOT at read time. The fleet's transport
+        # files live in data/f11_twp, which is OUTSIDE that root, so indexing
+        # them where they lie gives `../../f11_twp/<model>.f16` -- a path that
+        # resolves today and breaks the moment the root is repointed, which is
+        # exactly the failure cache.py's own comment documents (a mid-process
+        # repoint that HIT THE CACHE and silently returned the first root's
+        # bytes).
+        #
+        # So the payload is HARDLINKED into `<root>/f11_twp/` and indexed
+        # relative to the root, beside the existing `computed/` convention.
+        # A hardlink, not a copy: same filesystem, zero bytes, and the
+        # transport file stays intact for re-sync and re-verification. Not a
+        # symlink -- a symlink into a directory someone later cleans up leaves
+        # an index pointing at nothing.
+        if lrows:
             dim = dims.copy().pop()
-            for r in lrows:
-                cm.set_logits(model, r["prompt"],
-                              {"file": os.path.relpath(lp, cm._logit_root())
-                                       if hasattr(cm, "_logit_root") else lp,
-                               "row": int(r["logit_row"]), "dim": dim},
-                              mode="raw", dtype="float16")
+            sub = os.path.join(cm._logit_root(), "f11_twp")
+            rel = os.path.join("f11_twp", os.path.basename(lp))
+            dst = os.path.join(sub, os.path.basename(lp))
+            if not a.dry_run:
+                os.makedirs(sub, exist_ok=True)
+                if os.path.exists(dst):
+                    #: a re-ingest after more rows landed: the transport file
+                    #: grew, so the archived link must be refreshed or the
+                    #: index will name rows the archive does not hold
+                    if os.path.getsize(dst) != os.path.getsize(lp):
+                        os.unlink(dst)
+                if not os.path.exists(dst):
+                    os.link(lp, dst)
+                for r in lrows:
+                    cm.set_logits(model, r["prompt"],
+                                  {"file": rel, "row": int(r["logit_row"]),
+                                   "dim": dim},
+                                  mode="raw", dtype="float16")
         n_logit += len(lrows)
 
         # ---- HIDDEN: manifest only, no stash invented ----------------------
