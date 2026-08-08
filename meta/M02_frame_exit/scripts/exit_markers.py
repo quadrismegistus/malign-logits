@@ -234,3 +234,25 @@ for i, t in enumerate(TNAMES):
         byb[b].append(d)
     bd = [statistics.mean(v) for v in byb.values()]
     print(f"{t:10s} {statistics.mean(ds):+7.3f} {wilcox(ds)[0]:9.4f} {statistics.mean(bd):+13.3f} {wilcox(bd)[0]:9.4f}")
+
+# ── twins at checkpoint grain: MARKED - UNMARKED per checkpoint ──────
+# RH 2026-08-08: "10 tokens too short for this? Can we try at least?"
+# Answer: partially no — E-QA and E-MENTION are testable at beam grain.
+# CAVEAT ESTABLISHED BY SAMPLING, NOT ASSUMED: every sampled REFUSAL hit
+# in base beams at UNMARKED twins is in-scene dialogue apology
+# (said, "I'm sorry, but ...) — the REFUSAL pattern at beam grain
+# measures apology-in-dialogue, so its beam-level rows are not refusal.
+print(f"\n=== TWINS per checkpoint: MARKED - UNMARKED (base / aligned separately) ===")
+print(f"{'type':10s} | {'BASE mean':>9s} {'p':>7s} {'nz':>3s} | {'ALGN mean':>9s} {'p':>7s} {'nz':>3s}")
+for i, t in enumerate(TNAMES):
+    line = f"{t:10s}"
+    for role in ("base", "aligned"):
+        ds = []
+        for pr in pairs_seen:
+            mk = cells.get((pr, role, "MARKED"))
+            un = cells.get((pr, role, "UNMARKED"))
+            if mk and un and mk[0] >= 5000 and un[0] >= 5000:
+                ds.append(100 * mk[1 + i] / mk[0] - 100 * un[1 + i] / un[0])
+        p, nz = wilcox(ds)
+        line += f" | {statistics.mean(ds):+9.4f} {p:7.4f} {nz:3d}"
+    print(line)
