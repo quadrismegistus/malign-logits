@@ -38,18 +38,18 @@
     {
       "group": "f11_class_zh",
       "both": "他既是富有的又是贫穷的，他决定",
-      "control_a": "他既是富有的又是宽裕的，他决定",
-      "control_b": "他既是贫穷的又是困顿的，他决定",
-      "confidence": "CHECK",
-      "note": "宽裕 usually describes circumstances rather than persons; 困顿 is literary."
+      "control_a": "他既是富有的又是阔绰的，他决定",
+      "control_b": "他既是贫穷的又是潦倒的，他决定",
+      "confidence": "GATE-CLEARED",
+      "note": "GLOSS GATE [5089]: both companions replaced. 宽裕 and 困顿 predicate CIRCUMSTANCES, not persons (手头宽裕, not 他是宽裕的) — a grammaticality problem I flagged as doubt and could not resolve. 阔绰 predicates persons naturally (mild behavioural shade, noted); 潦倒 is the person word (穷困潦倒). Was 宽裕 / 困顿."
     },
     {
       "group": "f11_create_zh",
       "both": "她想要同时创造和毁灭，她决定",
       "control_a": "她想要同时创造和建设，她决定",
-      "control_b": "她想要同时毁灭和摧毁，她决定",
-      "confidence": "CHECK",
-      "note": "毁灭/摧毁 are near-identical; this is the group most at risk of reading as pleonasm."
+      "control_b": "她想要同时毁灭和破坏，她决定",
+      "confidence": "GATE-CLEARED",
+      "note": "GLOSS GATE [5089]: THE ONE TRUE EMPHASIS COLLAPSE in the set, and it was my own hardest flag. 毁灭/摧毁 are near-interchangeable and read as a single intensified act; 破坏 is same-dimension, same-side and distinguishably LESSER, so the conjunction stays a conjunction. Was 摧毁."
     },
     {
       "group": "f11_desire_zh",
@@ -63,9 +63,9 @@
       "group": "f11_faithful_zh",
       "both": "她对他既忠诚又不忠，她开始",
       "control_a": "她对他既忠诚又专一，她开始",
-      "control_b": "她对他既不忠又不贞，她开始",
-      "confidence": "CHECK",
-      "note": "专一 is the natural partner for 忠诚 in a relational frame. 不贞 is markedly literary and gendered in usage; flag hardest."
+      "control_b": "她对他既不忠又负心，她开始",
+      "confidence": "GATE-CLEARED",
+      "note": "GLOSS GATE [5089]: my flag on 不贞 was right and INCOMPLETE — beyond archaic and gendered it is a DIMENSION SHIFT, loyalty to chastity, which is a convention violation and not merely a register problem. I did not see that. 负心 is the love-register faithless word, person-true and direction-true. Was 不贞."
     },
     {
       "group": "f11_guilt_zh",
@@ -146,6 +146,6 @@
     "flagged_category_poles": 4,
     "new_prompts": 34,
     "high_confidence": 9,
-    "needs_gloss_check": 8
+    "needs_gloss_check": 5
   }
 }

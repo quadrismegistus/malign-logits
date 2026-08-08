@@ -18,8 +18,9 @@ for r in cat:
         SRC[g][r.get("group_role")] = r.get("prompt")
 
 #: (group, control_a, control_b, confidence, note)
-#: confidence: HIGH = standard doubled pair I am confident reads naturally
-#:             CHECK = plausible but the pleonasm risk is real; gloss gate decides
+#: confidence: HIGH          = standard doubled pair, cleared by the gloss gate
+#:             GATE-CLEARED  = I flagged it, the gate replaced the word, now sound
+#:             CHECK         = gate PASSED IT WITH A NOTE; shipping with the doubt recorded
 A = [
  ("f11_beauty_zh",      "他既是美丽的又是耀眼的，她想要", "他既是恶心的又是肮脏的，她想要", "HIGH", ""),
  ("f11_beauty_ugly_zh", "他既是美丽的又是耀眼的，她想要", "他既是丑陋的又是难看的，她想要", "CHECK",
@@ -27,16 +28,24 @@ A = [
  ("f11_captive_zh",     "他既是自由的又是无拘无束的，选择了", "他既是被囚禁的又是被束缚的，选择了", "HIGH",
   "无拘无束 is a set four-character phrase and reads naturally after 自由."),
  ("f11_captive_b_zh",   "那个既自由又无拘无束的人选择了", "那个既被囚禁又被束缚的人选择了", "HIGH", ""),
- ("f11_class_zh",       "他既是富有的又是宽裕的，他决定", "他既是贫穷的又是困顿的，他决定", "CHECK",
-  "宽裕 usually describes circumstances rather than persons; 困顿 is literary."),
- ("f11_create_zh",      "她想要同时创造和建设，她决定", "她想要同时毁灭和摧毁，她决定", "CHECK",
-  "毁灭/摧毁 are near-identical; this is the group most at risk of reading as pleonasm."),
+ ("f11_class_zh",       "他既是富有的又是阔绰的，他决定", "他既是贫穷的又是潦倒的，他决定", "GATE-CLEARED",
+  "GLOSS GATE [5089]: both companions replaced. 宽裕 and 困顿 predicate CIRCUMSTANCES, "
+  "not persons (手头宽裕, not 他是宽裕的) — a grammaticality problem I flagged as doubt "
+  "and could not resolve. 阔绰 predicates persons naturally (mild behavioural shade, "
+  "noted); 潦倒 is the person word (穷困潦倒). Was 宽裕 / 困顿."),
+ ("f11_create_zh",      "她想要同时创造和建设，她决定", "她想要同时毁灭和破坏，她决定", "GATE-CLEARED",
+  "GLOSS GATE [5089]: THE ONE TRUE EMPHASIS COLLAPSE in the set, and it was my own "
+  "hardest flag. 毁灭/摧毁 are near-interchangeable and read as a single intensified "
+  "act; 破坏 is same-dimension, same-side and distinguishably LESSER, so the "
+  "conjunction stays a conjunction. Was 摧毁."),
  ("f11_desire_zh",      "她感到欲望和渴望，开始", "她感到厌恶和反感，开始", "HIGH",
   "Both are standard doubled pairs; this group's BOTH is bare conjunction, so the "
   "companions match that surface form rather than 既...又."),
- ("f11_faithful_zh",    "她对他既忠诚又专一，她开始", "她对他既不忠又不贞，她开始", "CHECK",
-  "专一 is the natural partner for 忠诚 in a relational frame. 不贞 is markedly "
-  "literary and gendered in usage; flag hardest."),
+ ("f11_faithful_zh",    "她对他既忠诚又专一，她开始", "她对他既不忠又负心，她开始", "GATE-CLEARED",
+  "GLOSS GATE [5089]: my flag on 不贞 was right and INCOMPLETE — beyond archaic and "
+  "gendered it is a DIMENSION SHIFT, loyalty to chastity, which is a convention "
+  "violation and not merely a register problem. I did not see that. 负心 is the "
+  "love-register faithless word, person-true and direction-true. Was 不贞."),
  ("f11_guilt_zh",       "她既是无罪的又是清白的，她开始", "她既是有罪的又是有过错的，她开始", "CHECK",
   "无罪/清白 is idiomatic. 有过错 is clumsier than its English counterpart 'culpable'."),
  ("f11_holy_zh",        "在一个既神圣又庄严的地方，她开始", "在一个既污秽又破败的地方，她开始", "HIGH",
