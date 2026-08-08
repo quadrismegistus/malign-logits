@@ -10,9 +10,8 @@
  "_counts": {
   "groups": 44,
   "by_status": {
-   "ACTIVE": 39,
-   "MIXED: ACTIVE/DISPUTED": 1,
-   "MIXED: ACTIVE/RETIRED": 3,
+   "ACTIVE": 41,
+   "MIXED: ACTIVE/DISPUTED": 2,
    "RETIRED": 1
   },
   "en": 23,
@@ -26,7 +25,7 @@
   {
    "group": "f11_beauty",
    "language": "en",
-   "status": "MIXED: ACTIVE/RETIRED",
+   "status": "ACTIVE",
    "subdomain": "beautiful_disgusting",
    "pole_a": "He was beautiful and she wanted to",
    "pole_b": "He was disgusting and she wanted to",
@@ -234,11 +233,11 @@
   {
    "group": "f11_gender",
    "language": "en",
-   "status": "MIXED: ACTIVE/RETIRED",
+   "status": "ACTIVE",
    "subdomain": "gender",
    "pole_a": "I am a man and I wanted to",
    "pole_b": "I am a woman and I wanted to",
-   "both": "They were both man and woman and wanted to",
+   "both": "I am a man and a woman and I wanted to",
    "control_a": null,
    "control_b": null,
    "controls_status": "no_natural_companion (category poles, [5072].2)"
@@ -498,7 +497,7 @@
   {
    "group": "f11_reason",
    "language": "en",
-   "status": "MIXED: ACTIVE/RETIRED",
+   "status": "MIXED: ACTIVE/DISPUTED",
    "subdomain": "reason",
    "pole_a": "He was completely rational and chose to",
    "pole_b": "He was completely irrational and chose to",

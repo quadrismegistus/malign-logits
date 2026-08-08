@@ -41,10 +41,34 @@ cat = json.load(open(cat_path))["prompts"]
 ctl = json.load(open(ctl_path))
 ctl_zh = json.load(open(ctl_zh_path)) if os.path.exists(ctl_zh_path) else {"controls": [], "flagged_no_natural_companion": []}
 
+# Row selection is a MEMBERSHIP question ([5087].2): prefer ACTIVE when
+# multiple rows exist for one (group, role); REFUSE to build if two LIVE
+# rows carry different text — refuse-on-mismatch extended to the choice
+# of string. Last-write-wins was a shape rule and it selected f11_gender's
+# RETIRED, wrong-person BOTH row.
+LIVE = ("ACTIVE", "DISPUTED")
 groups = defaultdict(dict)
+_conflicts = []
 for p in cat:
-    if p.get("domain") == "contradiction" and p.get("group_id"):
-        groups[p["group_id"]][p.get("group_role")] = p
+    if p.get("domain") != "contradiction" or not p.get("group_id"):
+        continue
+    gid, role = p["group_id"], p.get("group_role")
+    cur = groups[gid].get(role)
+    if cur is None:
+        groups[gid][role] = p
+        continue
+    cur_live = (cur.get("status") in LIVE)
+    new_live = (p.get("status") in LIVE)
+    if cur_live and new_live and cur["prompt"] != p["prompt"]:
+        _conflicts.append(f"{gid}/{role}: two LIVE rows with different text")
+    elif new_live and not cur_live:
+        groups[gid][role] = p
+    # else: keep current (live beats dead; first-live wins among identical)
+if _conflicts:
+    print("SELFTEST FAILED — two live rows, different text; refusing to build:")
+    for c in _conflicts:
+        print("  ", c)
+    sys.exit(1)
 
 controls_by_group = {c["group"]: c for c in ctl["controls"]}
 controls_by_group.update({c["group"]: c for c in ctl_zh.get("controls", [])})
