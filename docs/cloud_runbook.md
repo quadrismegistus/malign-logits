@@ -62,6 +62,16 @@ Do **not** rent for: a roster already cached locally; iterative checkpoint-loadi
 
 **Always read `status_msg`.** `launch` reports "Instance N created" and then times out waiting for SSH; the timeout is the symptom, `status_msg` is the cause.
 
+**And "destroy and relaunch" is necessary but NOT SUFFICIENT — a bad host is
+sticky.** The search is `-o dph+`, so it is deterministic, and a broken host is
+often the *cheapest* offer. Machine **30574** failed three launches on 8 Aug — one
+1-GPU and two 2-GPU — and the third attempt landed on the same host as the first.
+Check `machine_id` on every failure, and add it to
+`data/cloud_bad_machines.json`, which `launch` now filters against and reports:
+`skipped 1 offer(s) on blocklisted machines (30574)`. Entries carry a date and a
+reason so they can be **aged out** rather than inherited forever on a host that
+has since been fixed.
+
 ### 2.4 `Permission denied (publickey)` on a running box
 
 The key is on file at vast and associated with the instance, and SSH still refuses. **SSH key attachment to already-running instances is broken** — `vastai attach ssh` returns "already associated" and changes nothing. Waiting does not fix it.

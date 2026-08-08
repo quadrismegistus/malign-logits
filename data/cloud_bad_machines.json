@@ -1,0 +1,12 @@
+{
+ "_about": "Hosts that took money and never ran a container. The search is ordered by price (-o dph+) and a broken host is often the cheapest, so relaunching without this lands on the SAME machine -- 'destroy and relaunch' is necessary and not sufficient.",
+ "_aging": "Each entry carries a date and a reason so it can be retired rather than inherited forever. A host that has since been fixed should be removed, not left to shrink the offer pool silently.",
+ "machines": {
+  "30574": {
+   "seen": "2026-08-08",
+   "failures": 3,
+   "symptom": "actual_status=created, cur_state=stopped, status_msg 'failed to create shim task: OCI runtime create failed ... kaalia_docker_shim: exec format error'",
+   "note": "Failed a 1-GPU launch and two 2-GPU launches the same evening. The container never starts; nothing to debug host-side."
+  }
+ }
+}

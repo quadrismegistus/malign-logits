@@ -203,6 +203,33 @@ def cmd_launch(args):
         )
         offers = json.loads(raw)
 
+    # A BAD HOST IS STICKY, BECAUSE THE SEARCH IS ORDERED BY PRICE AND THE BAD
+    # HOST IS CHEAP.
+    #
+    # Machine 30574 failed three launches on 2026-08-08 with
+    #   "failed to create shim task: OCI runtime create failed ...
+    #    kaalia_docker_shim: exec format error"
+    # — the container never starts, `actual_status` sits at `created` and
+    # `cur_state` at `stopped`. "Destroy and relaunch" is the right advice and
+    # it is NOT SUFFICIENT: `-o dph+` is deterministic, so each relaunch picked
+    # the same machine, and the third attempt was the same host as the first.
+    #
+    # The blocklist is data, in data/cloud_bad_machines.json, with a reason and
+    # a date per entry — so an entry can be aged out rather than living forever
+    # on a host that has since been fixed.
+    _bl_path = os.path.join(os.path.dirname(PROFILES_PATH), 'cloud_bad_machines.json')
+    _bad = {}
+    if os.path.exists(_bl_path):
+        with open(_bl_path) as fh:
+            _bad = {str(k): v for k, v in json.load(fh).get('machines', {}).items()}
+    if _bad:
+        before = len(offers)
+        offers = [o for o in offers if str(o.get('machine_id')) not in _bad]
+        if before != len(offers):
+            skipped = before - len(offers)
+            print(f"  skipped {skipped} offer(s) on blocklisted machines "
+                  f"({', '.join(sorted(_bad))})", file=sys.stderr)
+
     if not offers:
         print("No suitable offers found.", file=sys.stderr)
         sys.exit(1)
