@@ -74,10 +74,14 @@ general form "does uttering the DEMOTED SIGNIFIER expel the scene."
 - **The scene effect SURVIVES forcing**: MARKED − UNMARKED on E-QA is +0.36pp p 0.0009
   undisturbed, +0.22 p 0.063 after a forced faller, +0.23 p 0.010 after a forced riser.
   Attenuated, not erased.
-- **Forcing ANYTHING is mildly destabilizing, word-agnostically**: forced (either word) vs
-  undisturbed at the same sites raises E-QUIZ +0.41pp and E-QA +0.33pp (both p < 0.0001),
-  E-TASK +0.16 (p 0.0004), E-MENTION +0.02 (p 0.001). Possibly partly mechanical (an imposed
-  opening makes awkward joints); symmetric, so it nets out of the primary contrast.
+- **Forcing vs undisturbed: CONFOUNDED, demoted per [5026]**: the raw contrast (E-QUIZ
+  +0.41pp, E-QA +0.33pp, both p < 0.0001) crosses a COMMITMENT BOUNDARY (a continuation that
+  has committed to any word differs definitionally from a free one) and a ONE-TOKEN POSITION
+  OFFSET (forced windows sit at sentence positions 2-11, undisturbed at 1-10). "Mildly
+  destabilizing" overreads it; what it licenses is only the design consequence — the
+  word-agnostic component is real enough that faller-vs-riser, which holds commitment and
+  position constant, is the ONLY interpretable primary. Symmetric between arms either way, so
+  it nets out of that primary.
 
 **Read against the wave-3 damage state (register, 08-07/08)**: forcing the demoted word DOES
 cost fluency — dd mean +0.0144 p 0.0043 on the rule-as-declared population, sign test 19/24,
