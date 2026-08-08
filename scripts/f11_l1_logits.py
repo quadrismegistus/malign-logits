@@ -59,8 +59,28 @@ def population(status="ACTIVE"):
     return kept, excluded
 
 
+def sp_leading_space(tok, text):
+    """Does this tokenizer render a leading `▁` as a space it did not receive?
+
+    **THE ALLOWANCE IS GATED ON A TEST, NOT ON A FAMILY NAME.** SentencePiece
+    marks word boundaries with `▁`, so `decode(encode(p))` on a prompt with no
+    leading space comes back with one -- a rendering artifact, the same class as
+    the BOS strip in the addendum's §5, and not a difference in what the model
+    receives. Pharia refused all 115 prompts on it.
+
+    But loosening a check because something failed it is how a guard dies. So
+    the allowance holds only where the tokenizer PROVES it can represent the
+    distinction: `encode(p) != encode(" " + p)`. Where those are equal the space
+    is genuinely unrecoverable at encode, real information is lost, and the
+    refusal stands. Measured on Pharia: 8 ids vs 9, the leading space is its own
+    token 259, and the first token of `p` is `▁He`. Faithful encode, cosmetic
+    decode.
+    """
+    return tok.encode(text) != tok.encode(" " + text)
+
+
 def roundtrip_fail(tok, text):
-    """(ok, detail). BOS is stripped before comparison; nothing else is."""
+    """(ok, detail). BOS and a PROVEN-COSMETIC leading space are stripped."""
     ids = tok.encode(text)
     if ids and getattr(tok, "bos_token_id", None) is not None \
             and ids[0] == tok.bos_token_id:
@@ -68,6 +88,8 @@ def roundtrip_fail(tok, text):
     back = tok.decode(ids)
     if back == text:
         return True, ""
+    if back == " " + text and sp_leading_space(tok, text):
+        return True, "sp-leading-space (encode faithful, decode cosmetic)"
     return False, "%r != %r" % (back[:48], text[:48])
 
 
