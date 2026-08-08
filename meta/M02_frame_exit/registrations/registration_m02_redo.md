@@ -213,3 +213,20 @@ nnsight/L3 (RH's word at [5093] tail: improvise later, not in the registration).
   the July body unchanged). L1 runs; L2 generation under the pinned inherit-nothing
   producer with mode+params per record; the coded census at Option B + BOTH_MATCHED.
 - ACHIEVED ROSTERS: appended here as each stage lands, achieved-vs-declared with reasons.
+- ADDENDUM v2 ([5111], c0f8ea1391e4f89d, commit 6900c9ad — amended BEFORE any load, v1
+  superseded): (a) SPAN — the v1 criterion split on whitespace and therefore PASSED ALL 20
+  zh TRIPLETS VACUOUSLY ([5105]'s "1 of 41" was 21 English answers and 20 non-answers);
+  replaced by mechanical prefix/suffix strip with whitespace snap + en one-word rule (20/21
+  pass) + zh RECORDED ADJUDICATION over the printed table (ZH_REFUSE with the five nearest
+  passes named beside — the decision shows its own boundary; a table correct by inspection,
+  the property none of five failed rules had). REFUSAL SET ACHIEVED = {f11_holy,
+  f11_holy_zh} — [5107]'s expected two, reached by a criterion that can SEE them;
+  f11_faithful_zh passes adjudicated; N3's f11_love passes. L1 population: 39 triplets,
+  115 prompts, 11,960 passes. (b) DTYPE — the fp16 pin superseded ([5109]/[5110]: 73 of
+  the 104 L1 checkpoints are bf16-native): compute in the checkpoint's OWN torch_dtype;
+  unknown -> float32, NEVER float16 ("of the two ways to be wrong, only one is silent");
+  storage float32 throughout; softmax in float32. Post-L1 audit promised: count discovered
+  surfaces within one fp16 ulp of the frozen 0.001 threshold — zero closes the concern for
+  the old cells empirically; nonzero is a number about the campaign.
+- L1 STARTED ([5111].5): 11,960 passes, 104 checkpoints, local. Completion post carries
+  cells written / round-trip refusals / load-or-finiteness failures, each named.
