@@ -116,6 +116,44 @@ Architecture requirements (bf16 for Falcon-H1, MoE `histc`, etc.) live in `docs/
 
 ---
 
+## 3.5 One environment will not run them all
+
+**Stop planning for a uniform box.** The requirements are properties of the
+checkpoints, not of our preferences, and the campaign has rediscovered this
+repeatedly. `scripts/f11_env_plan.py` derives the partition from repo file lists
+and architecture class rather than assuming it:
+
+| env | profile | gpus | n | why |
+|---|---|---|---|---|
+| `default` | bigdisk | 1 | 82 | safetensors, dense |
+| `torch26` | bigdisk | 1 | 10 | bin-only; `check_torch_load_is_safe` needs torch ≥ 2.6 |
+| `ssm` | ssm | 1 | 10 | selective-scan: `mamba-ssm` + `causal-conv1d` |
+| `twogpu` | default | 2 | 2 | 70B, ~140 GB bf16 each |
+
+Every profile already pins torch ≥ 2.6, so `default` and `torch26` merge onto one
+box **in practice** — but they are separate in the artifact, because the day a
+box comes up without that pin, the second group is the one that fails and the
+reason should already be written down.
+
+**The seam is not avoidable, so record it.** Arguing for one uniform box to avoid
+an MPS/CUDA seam is wrong on its own terms — the roster needs at least three
+environments regardless. `twp_cloud` stamps torch, transformers and device on
+every record; that stamp is the answer to "what computed this", and its **absence**
+is why no cell in the 103-model corpus can say.
+
+**A name match is not an architecture claim.** `rwkv-raven-7b` is bin-only *and*
+matches an SSM name pattern, which looks like the one case where two requirements
+collide (the ledger records that the SSM fast path and the .bin floor are mutually
+exclusive on this stack — the kernel build that works needs torch 2.13, which
+breaks the compiled triple). But RWKV is a linear-attention RNN, needs no mamba
+kernels, and ran on MPS with none present. Same error as quoting a pure-SSM kernel
+null at an attention/SSM hybrid, in the other direction.
+
+**Name what is unchecked rather than assuming either way.** `recurrentgemma` is
+Griffin, not Mamba; its kernel requirement has never been tested. It sits in
+`default` and is listed as unchecked in the artifact, so absence of a requirement
+is not read as absence of a need.
+
 ## 4. Producer-side rules — where the money actually goes
 
 Every one of these was learned by losing a run.
