@@ -182,3 +182,27 @@ is the instrument; a transcription is not an implementation ([5056]).
 The zh coded arm (second study, own gate, own registration). Channel-3 follow-ons (M04's).
 The battery foreclosure plan (its own document, unblocked by [5047], frozen separately).
 nnsight/L3 (RH's word at [5093] tail: improvise later, not in the registration).
+
+---
+
+## EXECUTION BLOCK — FROZEN
+
+- FROZEN: 2026-08-08T18:30:15Z, on RH's word, verbatim: "Ready to freeze" (relayed by the registrar,
+  who received it directly; docket notice follows this commit).
+- BODY HASH (sha256/16, all sections above this block, at commit aec4638b..7ec47202 lineage):
+  33536d93ab9abb9a
+- SEED: 20260808 (the ambient manifest's, adopted study-wide; any stage needing an
+  independent seed derives it as seed+stage-index and says so).
+- ATTACHING ARTIFACTS, hashes as committed:
+  - data/f11_quintuplets.json          (builder 94803037 line; self-testing, byte-copied)
+  - data/f11_canonical_texts.json      0683a56e
+  - scripts/f11_l1_logits.py           999e6f4f  (preconditions as refusals; preflight clean,
+    1/41 span-refused, N3's triplet passing)
+  - data/f11_ambient_manifest.json     b6afe900  (28 prompts, two strata, stratum-to-claim
+    mapping quantified: the suppression reading rests on 325 coded passages, ~2.4 SE on the
+    4pp inversion, pooled only — stated before any rate exists)
+  - malign_logits/tasks/code_m02_contradiction_v1.py  0b7ccafc / gate a1e4f436 (coder v2)
+- CLEARED ON THIS FREEZE: N3's content-independent execution addendum posts next (malign;
+  hashed before any logit is read); L1 runs; L2 generation under the pinned inherit-nothing
+  producer with mode+params per record; the coded census at Option B + BOTH_MATCHED.
+- ACHIEVED ROSTERS: appended here as each stage lands, achieved-vs-declared with reasons.
