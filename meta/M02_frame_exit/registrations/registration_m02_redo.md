@@ -1,9 +1,12 @@
 # Registration: the M02 contradiction redo — quintuplets at two grains
 
 STATUS: DRAFT for seat review, assembled by the registrar from the rulings of docket
-[5045]-[5091]. Freezes on RH's word after lacan and malign review. On freeze: this body is
-hashed; the seed, the canonical-text map, and the exact achieved rosters are appended in a
-dated execution block; nothing below computes until then. Every design element cites the
+[5045]-[5093]. Freezes on RH's word after lacan and malign review. On freeze: this body is
+hashed; the seed and the exact achieved rosters are appended in a dated execution block
+together with the attaching artifacts — data/f11_canonical_texts.json (0683a56e),
+scripts/f11_l1_logits.py (999e6f4f, preconditions as refusals, --preflight loads nothing),
+and the ambient manifest per [5058] (to be written; 20 baseline prompts, named not
+described). Nothing below computes until then. Every design element cites the
 docket decision that made it; nothing here is new.
 
 ## 1. Question and claims
@@ -30,9 +33,14 @@ prior, never independent confirmation):
 - **The population filter is GROUP-WISE, ALL-ROWS-LIVE** ([5085].1a): a group enters only if
   every row it needs is ACTIVE. Row-wise filtering produces partial triplets that look like
   triplets. Excluded groups are printed with reasons.
-- **PRIMARY population: ACTIVE-only, English, full quintuplet — 16 triplets** ([5091]: 23
-  EN minus 6 category-pole groups minus f11_reason). The number appears here once, by
-  construction, not as three flags discovered by three accidents.
+- **PRIMARY population: ACTIVE-only, English, full quintuplet — 15 triplets; 6 more run
+  triplet-only; 21 live English groups in all** ([5093].1, superseding both prior counts:
+  f11_holy carries a companion but FAILS THE SPAN PRECONDITION and drops to triplet-only;
+  f11_beauty is live under the has-a-live-row selection rule of [5088]). The breakdown
+  appears here once, by construction, not as flags discovered by accidents. Exact volumes
+  at these filters ([5093].2): L1 117 prompts x 104 checkpoints = 12,168 forward passes;
+  L2 22,230 passages + 1,300 coded ambient = 23,530 coded (38% of Y). Prior figures
+  (24,570 / 26,910 / 29,900) are superseded.
 - **f11_reason / f11_reason_zh: the declared weak-manipulation NEGATIVE CONTROL**
   ([5085].2). DISPUTED = poles do not separate for the model (10/12 shared top completions).
   Generated and coded like everything else; reported BESIDE the primary, never in it. THE
