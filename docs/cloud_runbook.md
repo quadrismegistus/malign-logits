@@ -96,6 +96,33 @@ Llama needs `HF_TOKEN`. It is in `~/.bash_profile`, **not** at `~/.cache/hugging
 
 Any runner doing `mps if available else cpu` silently picks **CPU** on a rented A100. Found in `f11_l1_logits.py` on 8 Aug before it shipped. **Print the device on startup** and read it.
 
+### 2.11 `cloud setup` uploads your whole working tree
+
+Measured 8 Aug: **`Uploading data/ (84763 MB)` at ~9 MB/s — 2.6 hours before a
+single model loaded**, on a box billing by the hour. The exclude list named four
+old stashes and nothing else, so `data/models/` went up as `.safetensors` — local
+fine-tune *weights*, to a machine whose entire job is fetching weights from HF.
+
+**A cost that scales with the local working tree is not a cost anyone budgeted
+for.** It grows every time the project does, silently, and it is paid at launch
+when attention is on whether the box came up at all.
+
+Fixed: weights and bulk are never uploaded, and the line prints what it **skipped**
+as well as what it sent — `1838 MB (SKIPPING 270082 MB …)`. `--data-all` restores
+the old behaviour; `--no-data` sends code and specs only.
+
+### 2.12 `cloud run` dies silently because `git pull` aborted
+
+`cloud run` builds `cd repo && git pull && <your command>`. `cloud setup` rsyncs
+`data/` **on top of tracked files**, so the pull refuses —
+*"Please move or remove them before you merge. Aborting"* — and `&&` kills the
+whole chain. **tmux exits, no log file is ever created, and `malign cloud status`
+has nothing to report.** It looks exactly like a command that never started,
+because it is.
+
+Symptom: `tmux ls` → `no server running`, and `/workspace/*.log` does not exist.
+Fix before running: `git checkout -- data/ && git clean -fdq data/ && git pull`.
+
 ---
 
 ## 3. Profiles
