@@ -80,7 +80,36 @@ def sp_leading_space(tok, text):
 
 
 def roundtrip_fail(tok, text):
-    """(ok, detail). BOS and a PROVEN-COSMETIC leading space are stripped."""
+    """(ok, detail). ONE QUESTION: does the model receive this prompt's tokens?
+
+    Three allowances, and they are the same allowance three times -- each is
+    granted only where the tokenizer PROVES the difference never reaches the
+    model, and each has a case in the known-answer column that it must still
+    refuse. Measured across the 104-checkpoint roster: 89 clean, 5 unloadable,
+    10 non-clean, and the ten split three ways.
+
+        BOS               a leading BOS is the model's, not the prompt's.
+        LEADING SPACE     SentencePiece renders a leading `▁` as a space at
+                          DECODE. Gated on encode(p) != encode(" " + p).
+                          Pharia, Teuken, Croissant.
+        SPECIAL PREFIX    glm-4 prepends `[gMASK]<sop>`, and `bos_token_id` is
+                          None so the BOS rule cannot see them. They are the
+                          model's standard prefix, `skip_special_tokens=True`
+                          returns the prompt EXACTLY, and the text itself is
+                          untouched.
+
+    And one refusal that no allowance touches, which is the point of the check:
+
+        deepseek          `encode("a b") == encode("ab")`, ids identical,
+                          backend pre_tokenizer is Metaspace where the
+                          checkpoint's own tokenizer.json declares
+                          ByteLevel+Split. **The spaces are gone before the
+                          model sees anything.** transformers 5.4.0 /
+                          tokenizers 0.22.2 -- an ENVIRONMENT defect, so this
+                          is (model x environment) and not a fact about
+                          deepseek. Refused here regardless of whose fault it
+                          is: these logits would be for `Helovedherand...`.
+    """
     ids = tok.encode(text)
     if ids and getattr(tok, "bos_token_id", None) is not None \
             and ids[0] == tok.bos_token_id:
@@ -90,6 +119,12 @@ def roundtrip_fail(tok, text):
         return True, ""
     if back == " " + text and sp_leading_space(tok, text):
         return True, "sp-leading-space (encode faithful, decode cosmetic)"
+    #: special-token prefix, but ONLY where stripping them yields the prompt
+    #: exactly AND the tokenizer still distinguishes the text from a mangled
+    #: form -- a tokenizer that drops spaces would otherwise pass here.
+    if tok.decode(ids, skip_special_tokens=True) == text \
+            and tok.encode(text) != tok.encode(text.replace(" ", "")):
+        return True, "special-prefix (skip_special_tokens recovers exactly)"
     return False, "%r != %r" % (back[:48], text[:48])
 
 
@@ -298,7 +333,7 @@ def main():
     cm = get_cache()
     dev = "mps" if torch.backends.mps.is_available() else "cpu"
     refused = collections.defaultdict(list)
-    failed, done = {}, {}
+    failed, done, coverage = {}, {}, {}
 
     for i, mid in enumerate(ckpts, 1):
         try:
@@ -315,18 +350,50 @@ def main():
             ok, why = roundtrip_fail(tok, p)
             if not ok:
                 bad.append((p, why))
+        #: **THE UNIT OF REFUSAL IS THE TRIPLET, NOT THE CHECKPOINT** -- and
+        #: this is a narrowing of the addendum's "skipped whole", made after
+        #: measuring what whole-skip costs rather than before.
+        #:
+        #: Whole-skip was written for a failure that is EVIDENCE ABOUT ALL
+        #: PROMPTS: a leaked template, a stripped space, anything where one bad
+        #: prompt means the path is compromised. Three checkpoints' failures
+        #: are not that shape. Pharia, Teuken and Croissant normalise the
+        #: FULLWIDTH COMMA `，` to ASCII `,` -- real information loss, correctly
+        #: refused -- and it can only touch a prompt that contains one. Their
+        #: English prompts round-trip exactly: 20/20 en triplets intact, 1/19
+        #: zh. Whole-skip discards three pairs' English data for a defect
+        #: confined to the Chinese arm.
+        #:
+        #: N3's statistic needs all three cells of a triplet on one checkpoint,
+        #: so the triplet is the smallest unit that is either whole or absent.
+        #: The result is a checkpoint x triplet coverage matrix, which is a
+        #: MEASUREMENT and gets reported as one -- not a ragged n hidden inside
+        #: a pooled mean. deepseek and glm-4 are unaffected by the change:
+        #: deepseek fails all 115 and keeps nothing either way.
+        bad_set = {p for p, _ in bad}
+        live_g = [g for g, v in kept.items()
+                  if g not in span_bad and not (set(v.values()) & bad_set)]
         if bad:
             refused[mid] = bad
-            print("[%3d/%d] %-46s REFUSED: %d prompt(s) fail round-trip"
-                  % (i, len(ckpts), mid, len(bad)), flush=True)
+            coverage[mid] = sorted(live_g)
+            print("[%3d/%d] %-46s %d/%d prompt(s) fail round-trip -> %d/%d "
+                  "triplets survive" % (i, len(ckpts), mid, len(bad),
+                                        len(prompts), len(live_g), len(kept) - len(span_bad)),
+                  flush=True)
             for p, why in bad[:2]:
                 print("           %s" % why)
-            continue
+            if not live_g:
+                print("           NO TRIPLET SURVIVES -- checkpoint skipped whole",
+                      flush=True)
+                continue
+            prompts_here = sorted({t for g in live_g for t in kept[g].values()})
+        else:
+            prompts_here = prompts
         dt = plan[mid]
         #: keyed on STORE_DTYPE, which is what the bytes are; `dt` is the
         #: compute dtype and lives in the manifest, where a label belongs
-        todo = [p for p in prompts if not cm.has_logits(mid, p, mode="raw",
-                                                        dtype=STORE_DTYPE)]
+        todo = [p for p in prompts_here if not cm.has_logits(
+            mid, p, mode="raw", dtype=STORE_DTYPE)]
         if not todo:
             print("[%3d/%d] %-46s complete (computed %s)"
                   % (i, len(ckpts), mid, dt), flush=True)
@@ -406,7 +473,8 @@ def main():
         "_producer": "scripts/f11_l1_logits.py",
         "store_dtype": STORE_DTYPE,
         "compute_dtype": {m: plan[m] for m in sorted(done)},
-        "refused_roundtrip": sorted(refused),
+        "refused_roundtrip": {m: len(v) for m, v in refused.items()},
+        "triplet_coverage": coverage,
         "failed": failed,
         "span_refused": sorted(span_bad),
     }, open(COMPUTE_MANIFEST, "w"), indent=1)
