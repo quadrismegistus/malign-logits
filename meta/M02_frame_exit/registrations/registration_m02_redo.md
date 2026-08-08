@@ -33,14 +33,26 @@ prior, never independent confirmation):
 - **The population filter is GROUP-WISE, ALL-ROWS-LIVE** ([5085].1a): a group enters only if
   every row it needs is ACTIVE. Row-wise filtering produces partial triplets that look like
   triplets. Excluded groups are printed with reasons.
-- **PRIMARY population: ACTIVE-only, English, full quintuplet — 15 triplets; 6 more run
-  triplet-only; 21 live English groups in all** ([5093].1, superseding both prior counts:
-  f11_holy carries a companion but FAILS THE SPAN PRECONDITION and drops to triplet-only;
-  f11_beauty is live under the has-a-live-row selection rule of [5088]). The breakdown
-  appears here once, by construction, not as flags discovered by accidents. Exact volumes
-  at these filters ([5093].2): L1 117 prompts x 104 checkpoints = 12,168 forward passes;
-  L2 22,230 passages + 1,300 coded ambient = 23,530 coded (38% of Y). Prior figures
-  (24,570 / 26,910 / 29,900) are superseded.
+- **PRIMARY population: 15 quintuplet triplets, STATED AS A COMPUTATION, not a sentence**
+  ([5095].2): the output of `f11_canonical_texts.py --status ACTIVE` under two filters —
+  group-wise all-rows-live ([5085].1a) and the span-1 precondition with canonical-cell
+  dedup. The next reader RE-RUNS it; nobody re-derives it. The 15: beauty, beauty_ugly,
+  captive, captive_b, class, create, desire, faithful, guilt, holy_b, love, love_he,
+  loyal, sensation, trust. Five category-pole groups run triplet-only; f11_holy is run and
+  reported beside (below); 21 live English groups in all.
+- **f11_holy is OUT of the primary, over-determined** ([5094].3 shared-BOTH-cell +
+  unmatched poles; [5093].1 span failure — two seats, two unrelated grounds, byte-identical
+  resulting lists, neither consulting the other). It is generated and coded like everything
+  else; reported BESIDE the primary, never in it.
+- **Population history, unsmoothed** ([5098].3): the primary count moved 23 -> 21 -> 16 ->
+  15 in one day, every step a filter getting right, not a policy changing — four separate
+  population defects found between morning and evening, three by a seat other than the one
+  that had asserted the previous figure. The number is 15 because they were found; a freeze
+  reading as though 15 were known from the start would misdescribe how it was reached.
+- Exact volumes at these filters ([5093].2, [5097].3): L1 117 prompts x 104 checkpoints =
+  12,168 forward passes, + 1,040 for BOTH_MATCHED = 13,208; L2 coded census **24,830**
+  (40% of Y, with BOTH_MATCHED). ALL earlier figures (23,530 / 24,570 / 26,910 / 29,900)
+  are superseded; anything citing them is stale.
 - **f11_reason / f11_reason_zh: the declared weak-manipulation NEGATIVE CONTROL**
   ([5085].2). DISPUTED = poles do not separate for the model (10/12 shared top completions).
   Generated and coded like everything else; reported BESIDE the primary, never in it. THE
@@ -56,13 +68,15 @@ prior, never independent confirmation):
   ([5066].1), never a silent 45%. zh companions cleared the gloss gate ([5089]/[5090]) with
   the matched-imperfection rule in force: a matched imperfection preserves the cross-lingual
   comparison; an unmatched repair manufactures a language difference.
-- **BOTH_MATCHED (10 groups): INCLUDED, RH's decision** ("yes include both_matched",
-  2026-08-08, relayed [5094]). It controls the confound the companions do not — the
-  modifier the BOTH cell DROPS against the conjunct it ADDS ([5091]/[5093].3: two axes,
-  two controls, and until now only one existed). Enters at L1 (10 prompts en+zh, +1,040
-  passes, free) as an EXPLORATORY cell; the L2 coded slice (+5 EN prompts x 20 x 13 =
-  +1,300 passages, coded census 24,830, +6%) is offered to lacan's coding constraint —
-  his acceptance folds it in, otherwise L1-only. The primary is unchanged either way.
+- **BOTH_MATCHED (10 groups): INCLUDED at L1 (RH: "yes include both_matched", relayed
+  [5096]) AND at L2 (lacan, [5097].2/[5098].1, +1,300 coded).** Worded narrowly, per
+  lacan's instruction, because the general claim would misplace it: BOTH_MATCHED does NOT
+  clean the primary and does not need to — the companions drop the modifier exactly as
+  BOTH does, so it differences out of BOTH-vs-CONTROLS. **It cleans the contrast the
+  INVERSION rests on**: BOTH-vs-POLES carries the dropped modifier inside it ("loved him
+  DEEPLY", "pure pleasure" live in the poles and not in BOTH), so the day's headline prior
+  currently rests on an unmeasured lexical difference, and BOTH_MATCHED is the only cell
+  that measures it. It justifies the inversion readout, never the primary.
 
 ## 3. Instruments
 
