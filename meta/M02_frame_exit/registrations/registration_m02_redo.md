@@ -100,12 +100,22 @@ observed rate.
 PINNED (new-corpus half of the [5037] split rule), mode + resolved sampling params recorded
 per record via the extended set_generation ([5050]), n=20 GENERATED in every cell regardless
 of coded depth (samples cannot be added retrospectively under a second decoder — [5065].3).
-Coded depths, Option B ([5066].2): poles and BOTH at n=20, controls at n=15. Ambient null:
-20 baseline prompts x 20/checkpoint ([5058]) — named in the manifest, not described; not
-contradiction cells or poles; length-comparable — read by regex for regex claims AND coded
-at 100/checkpoint for coded claims ([5059]: a regex ambient nulls a regex claim; the coded
-primary needs a coded null). THE F01 AMBIENT RATES ARE INADMISSIBLE AS THIS STUDY'S NULL
-UNDER ANY CIRCUMSTANCES ([5059].4).
+Coded depths, Option B ([5066].2): poles and BOTH at n=20, controls at n=15. Ambient null
+([5058]/[5100]-[5102]): ALL 28 qualifying F01 prompts — the 24 transgressive narrative
+openings STRATIFIED BY CATEGORY plus the 4 neutrals as a named floor stratum — named in
+the manifest, deterministic seeded draw, the THREE properties stated as the rule
+(content-exclusion, length 8-11w, GENRE: narrative fiction openings — the third property
+was discovered at the draw, recorded as such). Read by regex for regex claims AND coded
+for coded claims ([5059]). STRATUM-TO-CLAIM MAPPING, fixed now ([5102].2): the
+TRANSGRESSIVE strata are the conservative null for any ABSOLUTE exit-at-contradiction
+claim; the NEUTRAL-4 stratum is the comparable baseline for the SUPPRESSION reading (P1's
+direction — are the poles elevated, or is BOTH depressed?), and it is DECLARED UNDERPOWERED
+FROM THE START, never discovered later. The post-freeze authoring option is SCOPED to
+thickening the neutral stratum (~4 -> ~20), because that is the stratum the suppression
+finding rests on; it extends the null, never replaces it. THE F01 AMBIENT *RATES* (the
+E-ASSIST write-up's) ARE INADMISSIBLE AS THIS STUDY'S NULL UNDER ANY CIRCUMSTANCES
+([5059].4); the F01 PROMPTS, regenerated in this corpus under this producer, are the null
+([5101]).
 
 **Coder: v2 as gated** (fields a1e4f436, gate [5061]/[5068].1 — scene_share ordinal guard
 0.801, frame_exit 0.772, poles 0.767/0.764; refusal ungateable at observed prevalence, twice
