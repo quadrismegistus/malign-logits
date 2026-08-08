@@ -205,6 +205,11 @@ nnsight/L3 (RH's word at [5093] tail: improvise later, not in the registration).
     exists)
   - malign_logits/tasks/code_m02_contradiction_v1.py  0b7ccafc / gate a1e4f436 (coder v2)
 - CLEARED ON THIS FREEZE: N3's content-independent execution addendum posts next (malign;
-  hashed before any logit is read); L1 runs; L2 generation under the pinned inherit-nothing
+  hashed before any logit is read); LANDED: n3_execution_addendum.md, sha256/16
+  41da48c2def102b9, commit a0c65412 ([5108] — mode raw asserted from the producer;
+  round-trip refusal per checkpoint with whole-checkpoint skip; final-encoded-position
+  convention; BOS untouched outside the round-trip comparison; dtype keyed; span-1
+  evaluated before load with EXIT if the frozen triplet fails; no rate, no arm behaviour;
+  the July body unchanged). L1 runs; L2 generation under the pinned inherit-nothing
   producer with mode+params per record; the coded census at Option B + BOTH_MATCHED.
 - ACHIEVED ROSTERS: appended here as each stage lands, achieved-vs-declared with reasons.
