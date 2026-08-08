@@ -388,6 +388,79 @@ instrument is low after a day in which nearly every new instrument shrank someth
 Revive it if a reviewer challenges the lexicon-dependence of the field claim, or if the
 regional-adjacency question becomes worth answering on its own.
 
+## NEXT — THE LOGIT LENS AT SCALE. Two pilots run; the design question is what to STORE.
+
+**WHY IT IS NOT F05.** F05 measured "per-family repression architectures" and was
+downgraded to D: the layer architectures were an artifact of a **fixed word list**.
+The pilots read the words OFF THE MODELS -- each arm's own top continuation -- and
+project through each model's own final norm before unembedding. There is no list to
+be an artifact of. F05's rerun conclusion (`final-layer/unembedding-uniform in 13/17
+families`) is not being contested; the pilots CONFIRM it for displacement and find
+something else for contradiction.
+
+**WHAT THE TWO PILOTS RETURNED** (`meta/M02_frame_exit/scripts/l3_pilot_displacement.py`,
+`l3_pilot_layerwise.py`; 8 Aug, one prompt each, no controls, no null).
+
+    DISPLACEMENT, Llama-3.1-8B base vs Instruct, "She was so angry she wanted to"
+        final layer   base    kill 0.207  scream 0.059
+                      aligned kill 0.070  scream 0.216
+        both words at NOISE until layer 30. The whole event is the last two layers.
+        NEITHER arm shows a suppression peak -- kill peaks at the FINAL layer in
+        both. Both build the same violence field from layer 20 and hold it
+        identically. **kill is in the ALIGNED model's own top-6 at layers 31 AND
+        32, ranked second in its final answer.**
+
+    CONTRADICTION, OLMo-2-1B base vs DPO, the f11_love triplet
+        the arms DIVERGE at layer 7 and RECONVERGE by the top.
+
+**So displacement is a TERMINAL event and contradiction an INTERIOR one.** Two
+campaigns, two loci. Nothing licenses assuming M01 and M02 share a mechanism, and
+the M02 residual capture (RH ordered it at docket [5141]) does not serve this.
+
+**THE CLAIM WORTH SCALING, and it is countable rather than anecdotal:** in what
+fraction of displacement sites is the base's word still in the aligned model's
+top-k at the final layer? "Present, ranked second, and beaten at the last step" is
+a far stronger reading of repression than "the content is removed", and one prompt
+cannot support it.
+
+**WHAT TO STORE, WHICH IS THE ACTUAL DESIGN QUESTION.** Per (model, prompt):
+
+    full hidden states        n_layers x d_model x 4    8B: 540 KB   REUSABLE
+    per-layer FULL vocab      n_layers x 128k x 4       8B:  17 MB   absurd
+    per-layer, twp-vocab only n_layers x ~300 x 4       8B:   40 KB  <- this
+    per-layer top-k only      ~5 KB                     answers one question
+
+At 2,583 prompts x 104 checkpoints: hidden states 145 GB, twp-restricted 10.7 GB.
+**Projecting on the box and keeping only the twp candidate slice buys FULL PROMPT
+COVERAGE for less than hidden states would cost on a small subset** -- and twp
+already defines that vocabulary per cell at theta=0.001, the same floor N3 uses.
+
+    L3-a  contradiction geometry  needs HIDDEN STATES (the pole axis is h_A - h_B,
+          a representation-space object). 3 cells only. ~170 MB. ORDERED [5141].
+    L3-b  displacement trajectory needs PER-LAYER PROJECTED PROBS over the twp
+          vocabulary. Many prompts. NOT hidden states -- storing them to recover
+          a logit-lens readout is the expensive way to get it.
+
+**WHICH PROMPTS.** The registered 684-pair corpus, whole -- **not** the sites where
+displacement is largest. Selecting on the outcome forecloses the interesting
+question, which is whether the sharpness of the terminal event TRACKS displacement
+magnitude. Magnitude is a predictor here, never a filter.
+
+**THE UNEXPLAINED THING, and it may be the finding.** At 8B the aligned model
+SUBSTITUTES cleanly -- scream 0.216 displaces kill 0.070. At 1B it does not
+substitute at all, it **fails to concentrate**: slap 0.069 with smash/destroy/kill/
+scream/tear bunched behind, against a base that spikes to 0.757. Substitution and
+diffusion are different mechanisms wearing one output signature, and two models
+cannot say whether the split is scale or family. The ladder (above) and the
+pretraining steps would answer it on data that already exists.
+
+**WHAT IS MISSING BEFORE ANY OF THIS IS CITABLE.** No null. Nothing measures how far
+an ARBITRARY word moves through a stack, and OLMo's own base falls 59% from its peak
+between layers 15 and 16 -- so "falls from peak" is not an alignment signature by
+itself. A control vocabulary is the first thing to build, not the last.
+
+---
+
 ## WHAT SHOULD NOT BE DONE
 
 **DO NOT RE-MEASURE MOVEMENT ON THE LARGER ROSTER.** Clauses 3 and 5 are the
