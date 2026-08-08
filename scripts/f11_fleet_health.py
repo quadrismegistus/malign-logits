@@ -138,14 +138,18 @@ def main():
             out = ssh(st, "ls %s/*.jsonl 2>/dev/null | wc -l; "
                           "stat -c %%Y %s/*.jsonl 2>/dev/null | sort -n | head -1; "
                           "stat -c %%Y %s/*.jsonl 2>/dev/null | sort -n | tail -1; "
-                          "date +%%s; df -P / | tail -1 | awk '{print $4}'"
+                          "date +%%s; df -P / | tail -1 | awk '{print $4}'; "
+                          "tmux ls 2>/dev/null | cut -d: -f1 | tr '\\n' ',' "
                           % (REMOTE, REMOTE, REMOTE))
             if out:
                 p = out.split()
                 try:
                     n = int(p[0])
                     r["done"] = n
-                    r["disk_free_gb"] = round(int(p[-1]) / 1e6, 1)
+                    #: last field is the tmux session list when present
+                    r["_sessions"] = p[-1] if not p[-1].isdigit() else ""
+                    disk_i = -2 if r["_sessions"] else -1
+                    r["disk_free_gb"] = round(int(p[disk_i]) / 1e6, 1)
                     if n >= 2:
                         first, last, now = int(p[1]), int(p[2]), int(p[3])
                         r["min_per_model"] = round((last - first) / 60 / (n - 1), 2)
@@ -167,8 +171,19 @@ def main():
     for r in rows:
         if r.get("state") == "running" and r.get("total") and \
                 r.get("done", -1) >= r["total"]:
-            r["alert"] = ("COMPLETE AND STILL BILLING at $%.2f/h -- destroy it"
-                          % r["dph"])
+            #: **A BOX RUNNING ITS BACKFILL IS NOT AN IDLE BOX.** The main
+            #: roster's count hits its total while a chained session is still
+            #: working in another directory, and a monitor that reads only the
+            #: main count would tell the loop to destroy a box mid-run. The
+            #: chain is asked about directly rather than inferred from a count.
+            live = r.get("_sessions") or ""
+            if "chain" in live or "f11" in live:
+                r["alert"] = None
+                r["note"] = ("main roster done; BACKFILL RUNNING (tmux: %s) "
+                             "-- do not destroy" % live.replace("\n", " "))
+            else:
+                r["alert"] = ("COMPLETE AND STILL BILLING at $%.2f/h -- destroy it"
+                              % r["dph"])
         elif r.get("stalled_min", 0) > IDLE_ALERT_MIN and \
                 r.get("remaining", 0) > 0:
             r["alert"] = ("no new model for %.0f min with %d left -- stalled?"

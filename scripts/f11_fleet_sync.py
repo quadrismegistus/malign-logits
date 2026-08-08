@@ -23,7 +23,11 @@ import argparse, glob, json, os, subprocess, sys, time
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 DEST = os.path.join(ROOT, "data", "f11_twp")
-REMOTE = "/workspace/f11_twp"
+#: the backfill writes to its OWN directory -- resume is by completed-prompt
+#: readback, so a backfill pointed at the main directory would skip every model
+#: in it and produce nothing
+REMOTE_DIRS = ["/workspace/f11_twp", "/workspace/f11_twp_bf"]
+REMOTE = REMOTE_DIRS[0]
 
 
 def boxes():
@@ -60,12 +64,25 @@ def pull(st):
     trains the reader to skim past the line that matters, which is the whole
     reason a real failure goes unnoticed in a log full of benign ones.
     """
-    cmd = ["rsync", "-az", "--partial",
-           "-e", "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
-                 "-o LogLevel=ERROR -o ConnectTimeout=20 -p %s" % st["ssh_port"],
-           "root@%s:%s/" % (st["ssh_host"], REMOTE), DEST + "/"]
-    r = subprocess.run(cmd, capture_output=True, text=True)
-    if r.returncode == 0:
+    got_any, errs = False, []
+    for rd in REMOTE_DIRS:
+        dest = DEST if rd == REMOTE else DEST + "_bf"
+        os.makedirs(dest, exist_ok=True)
+        cmd = ["rsync", "-az", "--partial",
+               "-e", "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
+                     "-o LogLevel=ERROR -o ConnectTimeout=20 -p %s" % st["ssh_port"],
+               "root@%s:%s/" % (st["ssh_host"], rd), dest + "/"]
+        r = subprocess.run(cmd, capture_output=True, text=True)
+        if r.returncode == 0:
+            got_any = True
+        else:
+            errs.append((rd, (r.stderr or "").strip()))
+    if got_any and not errs:
+        return "ok", ""
+    if got_any:
+        return "ok", "(%s not present yet)" % ",".join(os.path.basename(d) for d, _ in errs)
+    r = subprocess.run(["true"], capture_output=True, text=True)
+    if False:
         return "ok", ""
     err = (r.stderr or "").strip()
     #: distinguish by ASKING THE BOX, not by pattern-matching rsync's message
