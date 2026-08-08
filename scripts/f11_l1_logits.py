@@ -170,6 +170,23 @@ def span_fail(a, b, group=None):
 HUB = os.path.expanduser("~/.cache/huggingface/hub")
 DTYPES = {"bfloat16", "float16", "float32"}
 
+#: **THE `dtype` KEY IS THE PAYLOAD DECODER, NOT PROVENANCE.**
+#: `_logit_array` does `np.dtype(str(dtype))` and reads the file at that
+#: itemsize, so the key IS how the bytes are interpreted. v2 of this runner
+#: keyed the COMPUTE dtype while storing float32 -- treating a load-bearing
+#: field as a label. `cache.py`'s own docstring names the consequence: *"a
+#: float32 file read at 2 bytes per value returns garbage that is finite,
+#: plausibly ranged, and wrong."*
+#:
+#: It cost 2,415 cells across 21 checkpoints, ALL in the loud class -- keyed
+#: `bfloat16`, which numpy has no dtype for, so every read raises. **Zero
+#: landed in the silent class, and that is alphabetical luck rather than any
+#: guard**: the 10 fp16-native checkpoints all sort after the 21 reached, and
+#: an fp16 key over an fp32 payload would have read at half stride and returned
+#: well-formed wrong numbers.
+STORE_DTYPE = "float32"
+COMPUTE_MANIFEST = os.path.join(ROOT, "data", "f11_l1_compute_dtype.json")
+
 
 def native_dtype(mid, default="float32"):
     """The checkpoint's OWN torch_dtype, read from its config. No download.
@@ -306,14 +323,17 @@ def main():
                 print("           %s" % why)
             continue
         dt = plan[mid]
+        #: keyed on STORE_DTYPE, which is what the bytes are; `dt` is the
+        #: compute dtype and lives in the manifest, where a label belongs
         todo = [p for p in prompts if not cm.has_logits(mid, p, mode="raw",
-                                                        dtype=dt)]
+                                                        dtype=STORE_DTYPE)]
         if not todo:
-            print("[%3d/%d] %-46s complete (%s)" % (i, len(ckpts), mid, dt),
-                  flush=True)
+            print("[%3d/%d] %-46s complete (computed %s)"
+                  % (i, len(ckpts), mid, dt), flush=True)
+            done.setdefault(mid, 0)
             continue
-        print("[%3d/%d] %-46s %d prompt(s) @ %s" % (i, len(ckpts), mid,
-                                                    len(todo), dt), flush=True)
+        print("[%3d/%d] %-46s %d prompt(s) compute=%s store=%s"
+              % (i, len(ckpts), mid, len(todo), dt, STORE_DTYPE), flush=True)
         from transformers import AutoModelForCausalLM
         try:
             mdl = AutoModelForCausalLM.from_pretrained(
@@ -338,10 +358,25 @@ def main():
                                                        v.numel(), dt), flush=True)
                 failed[mid] = "non-finite logits at %s (%d values)" % (dt, nb)
                 break
-            cm.set_logits(mid, p, v.numpy(), mode="raw", dtype=dt)
+            cm.set_logits(mid, p, v.numpy(), mode="raw", dtype=STORE_DTYPE)
             wrote += 1
         else:
             done[mid] = wrote
+            #: **VERIFY BY READING BACK, NOT BY HAVING WRITTEN.** The whole
+            #: defect above was a write that succeeded and a read that could
+            #: not. One round-trip per checkpoint, while the weights are still
+            #: up, costs nothing and is the only check that tests the key.
+            try:
+                back = cm.get_logits(mid, todo[0], mode="raw", dtype=STORE_DTYPE)
+                if back is None or len(back) != v.numel():
+                    raise ValueError("read back %s, expected %d values"
+                                     % ("None" if back is None else len(back),
+                                        v.numel()))
+            except Exception as e:
+                print("           READ-BACK FAILED: %s: %s"
+                      % (type(e).__name__, str(e)[:80]), flush=True)
+                failed[mid] = "read-back: %s" % type(e).__name__
+                done.pop(mid, None)
         del mdl
         import gc; gc.collect()
         if dev == "mps":
@@ -361,6 +396,22 @@ def main():
         print("     %-46s %s" % (mid, why))
     print("  triplets refused on span %d: %s"
           % (len(span_bad), ", ".join(sorted(span_bad)) or "none"))
+
+    #: the compute dtype is PROVENANCE and belongs in an artifact, not in a
+    #: field the reader uses to interpret bytes
+    json.dump({
+        "_about": "compute dtype per checkpoint for the F11 L1 sweep. The "
+                  "store's `dtype` key is the PAYLOAD DECODER (float32 "
+                  "throughout); this is what produced the numbers.",
+        "_producer": "scripts/f11_l1_logits.py",
+        "store_dtype": STORE_DTYPE,
+        "compute_dtype": {m: plan[m] for m in sorted(done)},
+        "refused_roundtrip": sorted(refused),
+        "failed": failed,
+        "span_refused": sorted(span_bad),
+    }, open(COMPUTE_MANIFEST, "w"), indent=1)
+    print("  compute-dtype manifest -> %s"
+          % os.path.relpath(COMPUTE_MANIFEST, ROOT))
 
 
 if __name__ == "__main__":
