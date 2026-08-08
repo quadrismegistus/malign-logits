@@ -7,6 +7,18 @@
   "genre": "third-person narrative opening; institutional and instructional prompts excluded. DECLARED LATE -- found at the draw, not at the spec."
  },
  "_ruling": "registrar [5101]: all qualifying prompts, transgressive stratified by category + neutral as a named floor stratum. The transgressive ambient is the CONSERVATIVE null.",
+ "_power": {
+  "note": "THE SUPPRESSION READING RESTS ON THE FLOOR STRATUM. Stated here so it sits beside every use of the rate, not once in a caveat (lacan [5102].2/[5104].2).",
+  "floor_coded_n": 325,
+  "floor_se_pp": 1.66,
+  "both_coded_n": 3900,
+  "both_se_pp": 0.48,
+  "contrast_se_pp": 1.73,
+  "inversion_pp": 4.0,
+  "inversion_in_se": 2.31,
+  "correction": "2.31, NOT 2.40. The suppression reading is a CONTRAST between floor and BOTH, so the noise floor is the difference SE sqrt(1.66^2+0.48^2), not the floor SE alone. lacan [5104].1.",
+  "reading": "detectable barely, POOLED ACROSS CHECKPOINTS ONLY. Never per-checkpoint, never per-category within the floor."
+ },
  "seed": 20260808,
  "n_generated_per_cell": 20,
  "n_coded_per_checkpoint": 100,

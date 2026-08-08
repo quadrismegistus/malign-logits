@@ -47,6 +47,7 @@ import argparse
 import collections
 import json
 import os
+import math
 import random
 import sys
 
@@ -150,6 +151,14 @@ def main():
     print("  coded      %d per checkpoint x 13            = %d"
           % (N_CODED, N_CODED * 13))
     print("  (the coded slice is drawn FROM the generated, not generated separately)")
+    se_f = math.sqrt(0.10*0.90/325)*100
+    se_b = math.sqrt(0.10*0.90/3900)*100
+    se_d = math.sqrt(se_f**2 + se_b**2)
+    print("\nPOWER OF THE SUPPRESSION READING (the floor stratum carries it)")
+    print("  floor coded 325  SE +/-%.2fpp | BOTH coded 3900 SE +/-%.2fpp"
+          % (se_f, se_b))
+    print("  CONTRAST SE +/-%.2fpp -> a 4pp inversion is %.2f SE" % (se_d, 4/se_d))
+    print("  detectable barely, POOLED ACROSS CHECKPOINTS ONLY.")
 
     if a.write:
         draw = coded_draw(entries, ck)
@@ -169,6 +178,22 @@ def main():
                        "stratified by category + neutral as a named floor "
                        "stratum. The transgressive ambient is the CONSERVATIVE "
                        "null.",
+            "_power": {
+                "note": "THE SUPPRESSION READING RESTS ON THE FLOOR STRATUM. "
+                        "Stated here so it sits beside every use of the rate, "
+                        "not once in a caveat (lacan [5102].2/[5104].2).",
+                "floor_coded_n": 325, "floor_se_pp": 1.66,
+                "both_coded_n": 3900, "both_se_pp": 0.48,
+                "contrast_se_pp": 1.73,
+                "inversion_pp": 4.0, "inversion_in_se": 2.31,
+                "correction": "2.31, NOT 2.40. The suppression reading is a "
+                              "CONTRAST between floor and BOTH, so the noise "
+                              "floor is the difference SE sqrt(1.66^2+0.48^2), "
+                              "not the floor SE alone. lacan [5104].1.",
+                "reading": "detectable barely, POOLED ACROSS CHECKPOINTS ONLY. "
+                           "Never per-checkpoint, never per-category within "
+                           "the floor.",
+            },
             "seed": SEED, "n_generated_per_cell": N_GEN,
             "n_coded_per_checkpoint": N_CODED,
             "prompts": entries, "coded_draw": draw,
