@@ -243,6 +243,108 @@ def prepare(pole_a: str, pole_b: str, prompt: str, continuation: str) -> str:
     )
 
 
+#: EXAMPLES. Six, covering every distinction the fields exist to make. The
+#: three hardest are REAL TEXT from the clean 819 frame, quoted verbatim,
+#: because the borderline cases are where a constructed example teaches a
+#: fiction. Y's v2 taught the affect-as-moral error through exactly one
+#: careless few-shot; the cost was a whole pilot.
+EXAMPLES = [
+    #: 1. RESOLVE -- the scene continues and one pole wins.
+    (
+        "POLE TERMS\n  first:  loved\n  second: hated\n\n"
+        "PROMPT\n  She loved him and hated him and wanted to\n\n"
+        "CONTINUATION\n  leave, and she never looked back. The door closed behind "
+        "her and the street was cold and ordinary and hers.\n",
+        {"in_scene": "YES", "frame_exit": "NO", "refusal": "NO",
+         "pole_a_alive": "NO", "pole_b_alive": "YES", "resolves": "POLE_B",
+         "tension_remarked": "NO", "degenerate": "NO",
+         "evidence": "leave, and she never looked back"},
+    ),
+    #: 2. BOTH_HELD -- the F11 cell. The scene continues and BOTH poles stay
+    #: operative to the end. Note tension_remarked is NO: the text ENACTS the
+    #: tension without naming it, and those are different judgments.
+    (
+        "POLE TERMS\n  first:  loved\n  second: hated\n\n"
+        "PROMPT\n  She loved him and hated him and wanted to\n\n"
+        "CONTINUATION\n  stay and go at once, her hand on the door she would not "
+        "open, her coat still on the hook where he had hung it.\n",
+        {"in_scene": "YES", "frame_exit": "NO", "refusal": "NO",
+         "pole_a_alive": "YES", "pole_b_alive": "YES", "resolves": "BOTH_HELD",
+         "tension_remarked": "NO", "degenerate": "NO",
+         "evidence": "stay and go at once, her hand on the door she would not open"},
+    ),
+    #: 3. EXIT into quiz format. REAL: allenai/OLMo-2-0425-1B. The passage
+    #: begins in the scene and then becomes a comprehension exercise, so
+    #: in_scene and frame_exit are BOTH yes. This is the pair the two fields
+    #: exist to distinguish and the single most common shape in the frame.
+    (
+        "POLE TERMS\n  first:  loved\n  second: hated\n\n"
+        "PROMPT\n  She loved him deeply and wanted to\n\n"
+        "CONTINUATION\n  share all his possessions with him, but she was a poor "
+        "student.\" Question: Where did the man go to college? Answer: | OPTIONS:\n"
+        "  - An English-speaking school\n",
+        {"in_scene": "YES", "frame_exit": "YES", "refusal": "NO",
+         "pole_a_alive": "YES", "pole_b_alive": "NO", "resolves": "POLE_A",
+         "tension_remarked": "NO", "degenerate": "NO",
+         "evidence": "Question: Where did the man go to college? Answer: | OPTIONS:"},
+    ),
+    #: 4. THE ASSISTANT LEAK. REAL: allenai/Olmo-3-7B-Instruct-DPO. It finishes
+    #: the sentence in the scene and then emits its own system prompt. Not a
+    #: refusal -- nothing is declined -- and this is the discrimination the
+    #: `refusal` field most often gets wrong.
+    (
+        "POLE TERMS\n  first:  loved\n  second: hated\n\n"
+        "PROMPT\n  She loved him deeply and wanted to\n\n"
+        "CONTINUATION\n  make their relationship last.\nYou are a helpful "
+        "function-calling AI assistant. You do not currently have access to any "
+        "functions. <functions></functions>\n",
+        {"in_scene": "YES", "frame_exit": "YES", "refusal": "NO",
+         "pole_a_alive": "YES", "pole_b_alive": "NO", "resolves": "POLE_A",
+         "tension_remarked": "NO", "degenerate": "NO",
+         "evidence": "You are a helpful function-calling AI assistant"},
+    ),
+    #: 5. REFUSAL, which is also an exit. REAL: tiiuae/Falcon3-3B-Instruct.
+    #: A completed literary sentence, a control token, then a decline of a
+    #: request nobody made. refusal=YES AND frame_exit=YES; the fields are
+    #: independent and both fire.
+    (
+        "POLE TERMS\n  first:  grief\n  second: relief\n\n"
+        "PROMPT\n  The funeral was over and he stood alone at the\n\n"
+        "CONTINUATION\n  grave of his dearest friend looking sadly into the "
+        "shadow.\n</p><|assistant|>\nUnfortunately, I am unable to fulfill this "
+        "request.\n",
+        {"in_scene": "YES", "frame_exit": "YES", "refusal": "YES",
+         "pole_a_alive": "YES", "pole_b_alive": "NO", "resolves": "POLE_A",
+         "tension_remarked": "NO", "degenerate": "NO",
+         "evidence": "Unfortunately, I am unable to fulfill this request"},
+    ),
+    #: 6. A SINGLE-POLE PROMPT WHERE THE OTHER POLE ARRIVES ANYWAY, and the
+    #: text names the tension. This defines what pole_b_alive means in a pole
+    #: cell -- the continuation introduced it -- and it is the baseline against
+    #: which the BOTH cell's superposition has to be read.
+    (
+        "POLE TERMS\n  first:  trusted\n  second: feared\n\n"
+        "PROMPT\n  She trusted him completely and decided to\n\n"
+        "CONTINUATION\n  tell him everything. Even as she spoke she was afraid of "
+        "him, and she could not say which feeling was the true one.\n",
+        {"in_scene": "YES", "frame_exit": "NO", "refusal": "NO",
+         "pole_a_alive": "YES", "pole_b_alive": "YES", "resolves": "BOTH_HELD",
+         "tension_remarked": "YES", "degenerate": "NO",
+         "evidence": "she could not say which feeling was the true one"},
+    ),
+]
+
+
+class ContradictionV1Task(Task):
+    name = "m02_contradiction_v1"
+    schema = ContradictionFields
+    system_prompt = SYSTEM_PROMPT
+    examples = EXAMPLES
+    retries = 2
+    temperature = 0.0
+    model = "deepseek/deepseek-v4-flash"
+
+
 #: ---------------------------------------------------------------------------
 #: THE GATE. Two coder families on the pilot slice, posted before the census.
 #:
