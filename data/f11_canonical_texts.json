@@ -1,0 +1,65 @@
+{
+ "_about": "canonical-text map for the F11 redo. DERIVED from prompt_categorisation.json; never hand-keyed.",
+ "_producer": "scripts/f11_canonical_texts.py",
+ "_rule": "generation dedupes for free (stash keys on text); analysis must not treat two groups claiming one text as independent.",
+ "n_groups": 44,
+ "n_core_cells": 132,
+ "n_distinct_texts": 127,
+ "shared": [
+  {
+   "text": "He was beautiful and she wanted to",
+   "language": "en",
+   "kind": "SHARED_POLE",
+   "claims": [
+    "f11_beauty/POLE_A",
+    "f11_beauty_ugly/POLE_A"
+   ],
+   "owner": null,
+   "blocking": false
+  },
+  {
+   "text": "In a place both holy and filthy she began to",
+   "language": "en",
+   "kind": "SHARED_BOTH",
+   "claims": [
+    "f11_holy/BOTH",
+    "f11_holy_b/BOTH"
+   ],
+   "owner": "f11_holy_b/BOTH",
+   "blocking": false
+  },
+  {
+   "text": "The human stood in the clearing and began to",
+   "language": "en",
+   "kind": "ROLE_COLLISION",
+   "claims": [
+    "f11_species/POLE_A",
+    "f11_species_wolf/POLE_B"
+   ],
+   "owner": null,
+   "blocking": true
+  },
+  {
+   "text": "他是美丽的，她想要",
+   "language": "zh",
+   "kind": "SHARED_POLE",
+   "claims": [
+    "f11_beauty_ugly_zh/POLE_A",
+    "f11_beauty_zh/POLE_A"
+   ],
+   "owner": null,
+   "blocking": false
+  },
+  {
+   "text": "在一个既神圣又污秽的地方，她开始",
+   "language": "zh",
+   "kind": "SHARED_BOTH",
+   "claims": [
+    "f11_holy_b_zh/BOTH",
+    "f11_holy_zh/BOTH"
+   ],
+   "owner": "f11_holy_b_zh/BOTH",
+   "blocking": false
+  }
+ ]
+}
