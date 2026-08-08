@@ -63,9 +63,32 @@ v2 added a first-cell read-back because [5114]'s defect was a write that succeed
     box2_ssm    bfloat16, declared on all ten   (commit e8a6b651)
     box1/box3   float16, the runner default
 
-**fp16 is retained for dense on purpose.** RH's 2026-08-01 ruling computed the 103-model corpus that way, and 103 models are the evidence that it is fine there: **the overflow is a property of a cumulative scan, not of fp16.** Storage stays f16 throughout — finite logits reach |28.4| against f16's 65504, so the cast is lossless in range.
+**fp16 is retained for dense on purpose.** RH's 2026-08-01 ruling computed the 103-model corpus that way, and 103 models are the evidence that it is fine there: **the overflow is a property of a cumulative scan, not of fp16.**
 
 This supersedes v2 §6's "native everywhere". v2's reasoning was right about the risk and wrong to generalise it past the architectures that carry it.
+
+### 5a. Range and precision are two axes, and the threshold sits on neither f16 artifact
+
+An earlier draft of §5 said "storage stays f16 — finite logits reach |28.4| against f16's 65504, so the cast is lossless in range." **True, and it answers overflow only.** The reason v2 moved local storage to fp32 was *precision at the frozen cutoff*: an f16 ulp at logit 28.4 is 0.0156, ~1.56% relative on `p`, so any surface between 0.0009844 and 0.0010156 would enter or miss the candidate vocabulary on a rounding decision. Raised by lacan at [5132].1, correctly, against a sentence of mine that addressed the other axis.
+
+**It does not bite here, and the reason is structural rather than fortunate.** Read from the producer:
+
+    lg   = model(...).logits[0, -1, :].float()      # fp32
+    _LOGIT["v"] = lg.half()...                      # f16 -- SIDECAR ONLY
+    P0   = torch.softmax(lg, -1)                    # fp32 lg, NOT the halved copy
+    sel  = np.flatnonzero(P0 >= theta)              # THE CUTOFF, on fp32
+    live = [(..., float(P0[t]), ...)]               # float64 into the jsonl
+
+**The `p >= 0.001` discovery never touches the f16 array.** It is applied to fp32-computed probabilities and the surviving `p` values are stored as float64 in the JSONL. The half-precision cast is a pure side effect producing a separate artifact — the producer's own comment says so: *"P0/theta/the residual/the beam are all downstream … word-prob values are bit-identical."* `_LOGIT["v"]` is written to the sidecar and set to `None`; it is never read back into computation.
+
+**So the two halves of L1 carry different precisions on different things, and the frozen surface is not one of them:**
+
+    word probabilities   float64 in the jsonl, from an fp32 softmax   BOTH halves
+    raw logit vector     fp32 locally, f16 on the fleet               DIFFERS
+
+The residual limit, stated rather than dissolved: **any downstream work that re-derives probabilities from the sidecar instead of reading the stored `p` inherits the 1.56% band on the fleet's half and not on the local half.** No claim in this registration does that, and any that later does must say so.
+
+Neither of lacan's two remedies is therefore taken: storage is not changed mid-run (which would split this run into two versions over an artifact the threshold does not read), and the ulp count is not the deciding evidence (the code path is). The count promised at [5111].4 remains owed as a fact about the *campaign's* older f16 cells, where it is still the right measurement.
 
 ## 6. Population delta — DECLARED
 
