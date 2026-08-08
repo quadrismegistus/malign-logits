@@ -103,11 +103,19 @@ def collect():
         if not isinstance(k, dict) or k.get("type") != "fc_v1":
             continue
         v = st[k]
-        if not isinstance(v, dict) or v.get("design") != "wave3-lexical":
+        #: **BOTH DESIGNS FROM THE STASH NOW.** The frozen run read the
+        #: new-lineage pairs from raw shards because they were not yet
+        #: ingested, which made the headline non-re-derivable by any other
+        #: seat -- registrar's pen reached 28 pairs where this reached 33
+        #: ([5017]). Merged 2026-08-08; the shard path below is retained only
+        #: as a fallback and reports if it ever fires.
+        if not isinstance(v, dict) or v.get("design") not in ("wave3-lexical",
+                                                              "newlin-lexical"):
             continue
         take(k["pair"], k["prompt"], k.get("word"), k["arm"], k["role"],
              v.get("scored_by_base"), v.get("scored_by_aligned"), v.get("beams"))
 
+    n_stash = len(cells)
     for f in glob.glob(NEWLIN_GLOB):
         for line in open(f):
             try:
@@ -118,8 +126,17 @@ def collect():
                 continue
             w = r.get("word")
             w = "" if w in (None, "None") else w
+            key = (r["pair"], r["prompt"], w, r["arm"], r["role"])
+            if key in cells:      #: already in the stash -- the merge landed
+                continue
             take(r["pair"], r["prompt"], w, r["arm"], r["role"],
                  r.get("scored_by_base"), r.get("scored_by_aligned"), r.get("beams"))
+    if len(cells) != n_stash:
+        print("  ** %d cell(s) came from RAW SHARDS, not the stash -- the merge "
+              "is incomplete and this result is not re-derivable"
+              % (len(cells) - n_stash))
+    else:
+        print("  all cells sourced from the beam_fc stash (re-derivable)")
     return cells
 
 

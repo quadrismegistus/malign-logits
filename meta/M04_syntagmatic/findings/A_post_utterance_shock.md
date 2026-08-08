@@ -58,6 +58,21 @@ Both terms under the aligned scorer move; neither under the base scorer does. **
 
 **The primary understates its own effect.** Δ = ΔA|A − ΔB|A ≈ −0.0113, so the headline is a small residual of two larger co-moving terms — it measures only how much *more* disturbed aligned is by its own continuation than by base's. The quantity that matters is that both moved. The four-term co-report was mandated by registrar [5015] after the same composite concealed a one-term effect on Y; it earned itself twice in one day.
 
+### THE SCORER-SPLIT LIVES IN THE POOLED WINDOW, NOT AT +1 — and this is a limit on the reading above
+
+lacan [5019] asked for the four terms at **+1 only**, since +1 carries the whole primary effect. Run (EXPLORATORY, post-freeze, spec §10):
+
+| term | pooled 1–10 | at +1 only |
+|---|---|---|
+| A\|A | −0.0223 **p 0.0002** | −0.0270 p 0.063 |
+| A\|B | −0.0001 p 0.64 | +0.0149 p 0.78 |
+| B\|A | −0.0110 **p 0.034** | +0.0146 p 0.59 |
+| B\|B | −0.0085 p 0.16 | +0.0303 p 0.15 |
+
+**At +1 not one of the four terms clears.** It does not become a text-split, which was lacan's stated alternative; it becomes nothing. The primary at +1 (−0.04066, p 0.0018) is the difference of two individually-null terms pointing opposite ways.
+
+A contrast can be sharper than its components — differencing removes shared noise — so this is not a contradiction. **But the scorer-split framing rests on the pooled 1–10 window, while the effect it interprets is concentrated at +1.** The claim "the aligned model's evaluation is disturbed, whoever writes the continuation" is supported pooled and **not demonstrable at the position where the effect lives**. Stated as a limit rather than resolved, because resolving it would need a per-position test the data does not currently power.
+
 ### Position profile — the pre-declared discriminator
 
 | position | median | p | CI |
@@ -98,7 +113,22 @@ What argues against pure mechanism is the **asymmetry on identical inputs**: the
 - **Two inference methods disagree in three rows** — UNMARKED p 0.169 with a CI excluding zero, B\|B p 0.163 with a CI upper bound of −0.00011. Wilcoxon-on-values and bootstrap-on-median answer slightly different questions; neither is quoted selectively.
 - **The MDE clause is mis-specified**, flagged before the run and unfixed: `2.8·SD/√n` is mean-based, the primary is a median-based Wilcoxon, and SD 0.065 is inflated by outliers the median ignores. **"2.20× the channel-1 effect" must not be quoted.** A rank-based power calculation is owed.
 - **The positive control could never have run** (n = 5, p undefined). Wave 3's undisturbed arm lives under `design=None`, which the frozen population excludes; only the five new-lineage pairs carry undisturbed cells under an accepted design. A consequence of the population as frozen, not a data fault — and a defect in §6 that should have been caught while writing it.
-- **Ten tokens is the whole window.** A repair or a return at token 30 is invisible. lacan's Y run at 256 tokens found the same primary sign decaying to nothing by 0–256, but with a *different* four-term pattern (production, not evaluation), so the two corpora agree on sign and disagree on mechanism.
+- **Ten tokens is the whole window.** A repair or a return at token 30 is invisible.
+
+- **Y disagrees on the axis, at the SAME window, and this is unresolved.** An earlier version of this file said Y's four-term pattern was measured "at 256 tokens" and offered that as the explanation. **That was wrong** (lacan [5019]): Y's decomposition used the same first-10-tokens window by construction. Both at 10 tokens:
+
+  | term | fc | Y |
+  |---|---|---|
+  | A\|A | −0.0223 p .0002 | −0.0808 p .0060 |
+  | A\|B | −0.0001 p .64 | −0.0826 p .0001 |
+  | B\|A | −0.0110 p .034 | −0.0039 p .38 |
+  | B\|B | −0.0085 p .16 | +0.0110 p .98 |
+
+  **fc splits by SCORER, Y splits by TEXT.** `A|A` moves in both; the partner differs, and the partner is the whole interpretation.
+
+  **These are not written up as two findings**, per lacan's [5019].4 which this file adopts: the same nominal measure at the same nominal window disagreeing about which axis carries the effect is a fact to resolve, not a result to report twice.
+
+  RH's steer, relayed at [5020]: *"remember Y is just a few sexual prompts at scale."* Y is 5 sexual prompts sampled deep; fc is 210 twin prompts across seven domains **with a null twin moderator**, i.e. domain-general. The sexual slot is the one territory this campaign already knows carries its own apparatus (refusal 22×, the digit-specific de-sexualisation, the flat E-QA cell in the twins). So the two decompositions may not be one measure disagreeing — they may be **two territories behaving as those territories behave everywhere else in the data**, in which case they owe each other no agreement. That is the leading candidate and it is not established.
 
 ## Provenance
 
