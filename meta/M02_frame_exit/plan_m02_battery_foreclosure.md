@@ -18,14 +18,18 @@ symptom — and does that rate depend on what the prompt is about?
 - **H2**: especially at explicit sexual and explicit violent prompts — within the two
   domains that carry a graded subdomain axis, explicit > liminal.
 
-Both are tested per arm (base and aligned separately) plus the interaction. The Y
-pilot's shape is the recorded expectation, not a commitment: at sexual slots the BASE
-already exits the frame substantially (31.7% there), alignment's multiplicative
-addition to exit was small (1.2x) and its real addition was refusal (22x). So H1 may
-hold in both arms with the base already elevated; where alignment shows up is expected
+**The unit is the individual checkpoint, not the pair** (RH's ruling, 2026-08-08).
+Every checkpoint in the stash gets its own exit-rate surface; H1 and H2 are tested
+within checkpoint. Base-vs-aligned, sft-vs-dpo, archangel-dpo-vs-kto and every other
+contrast is a LATER READ over the per-checkpoint surface, using registry and ladder
+metadata at read time — membership in a pair never gates inclusion. The Y pilot's
+shape is the recorded expectation, not a commitment: at sexual slots the BASE already
+exits the frame substantially (31.7% there), alignment's multiplicative addition to
+exit was small (1.2x) and its real addition was refusal (22x). So H1 may hold across
+checkpoints with bases already elevated; where alignment training shows up is expected
 to be in the TYPE of exit (assistant-frame, refusal) rather than the rate alone. If
-instead alignment adds ordinary-format exits at transgressive sites, that is news
-against Y's shape and worth exactly as much.
+instead aligned checkpoints add ordinary-format exits at transgressive sites, that is
+news against Y's shape and worth exactly as much.
 
 ## 2. The construct: foreclosure symptoms, typed
 
@@ -112,32 +116,41 @@ cannot see an exit that begins at token 30, and is quoted only with that scope.
 Producer: a key sweep of the `generations` stash via `CacheManager` (counts only);
 tally at `data/battery_generation_counts.csv` (prompt_id, model, n), re-derivable.
 
-- Stash total 256,035 entries; battery share **190,261 passages**, all temp 1.0.
-- 3,835 prompt x model cells; samples per cell min 1 / median 8 / max 100.
-- Registry pairs (`base_aligned_pairs.json`, 52): **29 pairs** have both arms present
-  on >= 40 of 48 prompts; at >= 8 samples per cell-arm, **28 pairs**; at >= 20, 10
-  pairs. The balanced primary frame is therefore **28 pairs x (>=40 prompts) x 2 arms
-  x 8 samples ~ 20,600 passages to code**; the 10-pair >= 20-sample subset is the
-  depth arm if rare exit types need it.
-- Named exclusions: `sexual_liminal_6/7` (the gendered "took off her/his" pair) sit on
-  only 10-11 models and fall out of the balanced frame — reported beside if read at
-  all, never silently absent. The 23 pairs outside the frame are an attrition list in
-  the write-up, with reasons, per the Y convention (achieved against declared).
-- Zero generation cost: this is a reading plan. The only spend is coding (~20.6k rows
-  primary + pilot slice) and free local compute at levels 2-3.
+- Stash total 256,035 entries; battery share **190,261 passages**, all temp 1.0,
+  across **107 distinct checkpoints**.
+- 3,835 prompt x checkpoint cells; samples per cell min 1 / median 8 / max 100.
+- **Balanced primary frame: 74 checkpoints** with >= 8 samples on >= 40 of 48 prompts;
+  at 8 per cell that is **~27,200 passages to code**. Checkpoints with 100 samples per
+  cell (the ladder rungs among them: OLMo-2-0425 SFT/DPO, Olmo-3 SFT/DPO, Tulu-3 DPO,
+  Tulu-3 SFT-no-safety-data, Tulu-3.1 final, mistral-7b-sft-beta, pythia-6.9b hh-sft/
+  hh-dpo) support a depth read on rare exit types without new generation.
+- **Thin tier, read at what it has, never pooled silently**: PKU alpaca/beaver (5 per
+  cell on all 48), Llama-3.1-Tulu-3-8B-SFT proper and the `:continue` variants (3 per
+  cell on 36 prompts), `sexual_liminal_6/7` (the gendered "took off her/his" prompts,
+  10-11 checkpoints only). Each appears in the write-up with its own denominator.
+- **Named gap**: the archangel suite has NO battery generations, so the dpo-vs-kto
+  read RH wants cannot run at level 1 from stock — it needs a top-up generation
+  (48 prompts x 8 samples x suite; trivial volume) or runs at levels 2-3 if covered
+  there. Recorded here so its later absence reads as a decision, not an oversight.
+- Zero generation cost otherwise: this is a reading plan. The only spend is coding
+  (~27.2k rows primary + pilot slice + thin tier ~1.5k) and free local compute at
+  levels 2-3.
 
 ## 6. Contrasts and reporting
 
 - **H1 primary**: exit rate (pooled and per-type) at transgressive vs neutral prompts,
-  within arm; confirmatory inference clusters at the LINEAGE (pair->lineage map
-  applied to the 28; n_lineages reported with the frame), per-domain and per-pair
-  reporting always (the relation-is-local lesson: direction is not assumed uniform
-  across scenes or families).
-- **H2**: explicit vs liminal within sexual and within violence, per arm — two
-  contrasts, reported separately, never pooled into "explicitness" across domains.
-- **The arm question**: the alignment x transgressiveness interaction on exit rate,
-  and the TYPE composition of the aligned-minus-base difference (expected shape from
-  Y: the difference is E-ASSIST/refusal-shaped, not format-shaped).
+  within checkpoint — every checkpoint gets its own delta with its own uncertainty.
+  Roster-level inference clusters at the LINEAGE (checkpoint->lineage map; n_lineages
+  reported with the frame); per-domain and per-checkpoint reporting always (the
+  relation-is-local lesson: direction is not assumed uniform across scenes or
+  families).
+- **H2**: explicit vs liminal within sexual and within violence, within checkpoint —
+  two contrasts, reported separately, never pooled into "explicitness" across domains.
+- **Later reads over the surface** (not gated here, listed so they shape the coding
+  frame): base vs sft vs dpo along the ladders named in §5; base vs deployed-aligned
+  via the registry; archangel dpo vs kto (pending the §5 gap); the TYPE composition
+  of any training-stage difference (expected shape from Y: assistant/refusal-shaped,
+  not format-shaped).
 - **Slot** sub-contrasts beside everything; leave-one-out over the 7 neutral prompts
   beside H1.
 - Plan-sense verdicts only: expectations are recorded above; thresholds and any
@@ -147,9 +160,10 @@ tally at `data/battery_generation_counts.csv` (prompt_id, model, n), re-derivabl
 ## 7. Order of operations
 
 1. RH edits/settles the typology (§2) and blesses the frame (§5).
-2. Level-1 pilot slice: stratified ~600 passages (every domain x arm x a spread of
-   pairs), two coder families, gate as declared.
-3. Level-1 full read at the balanced frame (28 pairs, 8/cell-arm).
+2. Level-1 pilot slice: stratified ~600 passages (every domain x a spread of
+   checkpoints across training stages), two coder families, gate as declared.
+3. Level-1 full read at the balanced frame (74 checkpoints, 8/cell) plus the thin
+   tier at its own denominators.
 4. Level-2 calibration on matched cells, then the beam-mode read across the wider
    roster the beams cover.
 5. Level-3 marker probes, lexicon built per §4's provenance rule.
