@@ -199,8 +199,10 @@ nnsight/L3 (RH's word at [5093] tail: improvise later, not in the registration).
   - scripts/f11_l1_logits.py           999e6f4f  (preconditions as refusals; preflight clean,
     1/41 span-refused, N3's triplet passing)
   - data/f11_ambient_manifest.json     b6afe900  (28 prompts, two strata, stratum-to-claim
-    mapping quantified: the suppression reading rests on 325 coded passages, ~2.4 SE on the
-    4pp inversion, pooled only — stated before any rate exists)
+    mapping quantified: the suppression reading rests on 325 coded passages, 2.31 SE on the
+    4pp inversion — the CONTRAST SE per [5104], both arms contributing; the manifest's 2.40
+    was the floor arm alone, conclusion identical — pooled only, stated before any rate
+    exists)
   - malign_logits/tasks/code_m02_contradiction_v1.py  0b7ccafc / gate a1e4f436 (coder v2)
 - CLEARED ON THIS FREEZE: N3's content-independent execution addendum posts next (malign;
   hashed before any logit is read); L1 runs; L2 generation under the pinned inherit-nothing
