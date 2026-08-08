@@ -9,45 +9,10 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 ## Table of contents
 
 - [Where information lives](#where-information-lives)
-- [Abstract](#abstract)
 - [Findings](#findings)
-  - [1. Logit-level analysis](#1-logit-level-analysis-olmo-3-7b)
-  - [2. Cross-family logit comparison](#2-cross-family-logit-comparison-4-families-47-prompts)
-  - [3. Cross-family generation analysis](#3-cross-family-generation-analysis-4-families-18-prompts-n5)
-  - [4. Step-level checkpoint analysis](#4-step-level-checkpoint-analysis-olmo-think-sft-10-checkpoints-across-43k-training-steps)
-  - [5. Logit lens: repression across network layers](#5-logit-lens-repression-across-network-layers-4-families)
-  - [6. Baseline validation: is displacement alignment-specific?](#6-baseline-validation-is-displacement-alignment-specific-4-families-47-prompts)
-  - [7. Training data attribution: objective vs data composition](#7-training-data-attribution-objective-vs-data-composition-olmo-3)
-  - [8. Automatic displacement taxonomy](#8-automatic-displacement-taxonomy-olmo--llama-18-prompts)
-  - [9. Same base model, different alignment](#9-same-base-model-different-alignment-tulu-31-vs-llama-31-47-prompts)
-  - [10. SFT data ablation](#10-sft-data-ablation-tulu-3-5-variants-47-prompts)
-  - [> **PROMOTION CONDITION](#promotion-condition-2198-rhs-standing-scope-rule-a-canonical-claim)
-  - [12. Alignment as fold: trajectory geometry and steering vector analysis](#12-alignment-as-fold-trajectory-geometry-and-steering-vector-analysis-10-families-47-prompts-100-passages)
-  - [13. Jakobsonian axes: paradigmatic vs syntagmatic displacement](#13-jakobsonian-axes-paradigmatic-vs-syntagmatic-displacement-6-families-126k-pairs)
-  - [14. Syntagmatic baseline: alignment-produced vs corpus-level damage](#14-syntagmatic-baseline-alignment-produced-vs-corpus-level-damage-olmo-3-7b-23k-pairs)
-  - [15. Generation-level passage metrics](#15-generation-level-passage-metrics-10-families-76k-passages-47-prompts)
-  - [16. Corpus comparison: dreams, waking narratives, fiction, abstracts](#16-corpus-comparison-dreams-waking-narratives-fiction-abstracts-76k-passages-length-normalized)
-  - [17. Cross-generation semantic divergence: alignment steers content differentially](#17-cross-generation-semantic-divergence-alignment-steers-content-differentially-8-families-20k-passages-3-embedders)
-  - [18. Shannon entropy: alignment as lossy compression of drive](#18-shannon-entropy-alignment-as-lossy-compression-of-drive-10-families-47-prompts)
-  - [19. Unconditional Generation & Information Density](#19-unconditional-generation--information-density)
-  - [20. "Who are you?" — the subject as citation](#20-who-are-you--the-subject-as-citation)
-  - [21. Institutional Alignment](#21-institutional-alignment)
-  - [22. Circuit decomposition — the cut between mechanism and surface](#22-circuit-decomposition--the-cut-between-mechanism-and-surface)
-  - [23. Reasoning distillation as a third alignment regime](#23-reasoning-distillation-as-a-third-alignment-regime)
-  - [24. Pretraining emergence — the developmental sequence of the statistical unconscious](#24-pretraining-emergence--the-developmental-sequence-of-the-statistical-unconscious)
-  - [25. Temporal alignment signature — four Lacanian mechanisms in the autoregressive sequence](#25-temporal-alignment-signature--four-lacanian-mechanisms-in-the-autoregressive-sequence)
-  - [26. The Token-Tree Census — Variance Decomposition and the Deleter/Redirector Typology](#26-the-token-tree-census--variance-decomposition-and-the-deleterredirector-typology-53-models-5-prompts)
-  - [27. Nudging Does Not Reproduce Displacement](#27-nudging-does-not-reproduce-displacement-negative-result)
-  - [> **Status note](#status-note-2026-07-26-rescoped-to-discovery-sample-only-a-19-family)
-  - [31. PERMANOVA Variance Decomposition — Pretraining Dominates Alignment](#31-permanova-variance-decomposition--pretraining-dominates-alignment)
-  - [32. Template-Mediated Distributions — Task Switch, Not Distribution Filter](#32-template-mediated-distributions--task-switch-not-distribution-filter)
-  - [33. Scale Effects — Same Mechanism, Different Displacement Vocabulary](#33-scale-effects--same-mechanism-different-displacement-vocabulary)
-  - [34. Cross-Linguistic Displacement — The Class Engine Is Language-Dependent](#34-cross-linguistic-displacement--the-class-engine-is-language-dependent)
-  - [35. Architecture Independence — Displacement Is Weight-Level, Not Attention-Dependent](#35-architecture-independence--displacement-is-weight-level-not-attention-dependent)
-  - [> **PROMOTION CONDITION](#promotion-condition-2198-rhs-standing-scope-rule-a-canonical-claim)
-  - [39. `hh_rlhf` does not encode register preference at the scale the chain analysis required](#39-hh_rlhf-does-not-encode-register-preference-at-the-scale-the-chain-analysis-required)
-  - [40. Discovered vocabulary — alignment is surgical at liminal sites and blunt at explicit ones](#40-discovered-vocabulary--alignment-is-surgical-at-liminal-sites-and-blunt-at-explicit-ones)
-  - [41. Word norms — the exogenous gradient test](#41-word-norms--the-exogenous-gradient-test)
+- [The four campaigns (meta/)](#the-four-campaigns-meta)
+- [Where information lives](#where-information-lives)
+- [Abstract](#abstract)
 - [The argument](#the-argument)
 - [Installation](#installation)
 - [Quick start](#quick-start)
@@ -56,6 +21,47 @@ Developed for the paper "Accelerating Desire: Psychoanalytic Architectures for A
 - [References](#references)
 
 > **This is the narrative layer.** For the citation-grade index with status, grade, and chapter mapping, see [INDEX.md](INDEX.md).
+
+## The four campaigns (meta/)
+
+The repo's findings roll up into four campaign modules under `meta/`, each
+with its own README as the map. These are the four parts of the argument.
+
+**[M01 — Displacement](meta/M01_displacement/README.md).** Alignment does not
+delete the transgressive lexicon; it redistributes it. Suppressed probability
+mass migrates to nameable substitutes (kill → scream) — confirmed at full
+English scale with all 34 lineages agreeing, larger-but-not-more-frequent at
+transgressive sites, travelling across languages while the affective change
+does not. The campaign ran registered letters (B–S) and then a
+post-registration wave (U–Z): the training-stage ladder, the forced-word
+experiments (uttering a demoted word costs a little probability and triggers
+no defense), and the superego at sexual slots.
+
+**[M02 — Frame-exit](meta/M02_frame_exit/README.md).** What contradiction does
+to the continuation. The original claim — alignment resolves contradiction by
+leaving the frame — moved on 2026-08-08: three independent instruments now
+show the contradiction cell exiting *less* than its poles and its
+length-matched controls, and holding both poles is the modal in-scene outcome.
+Whether that inversion survives power is the question of the frozen redo
+registration (quintuplet prompts, English and Chinese, logit and coded
+grains). Delivered along the way: E-ASSIST-ambient — aligned checkpoints
+emit assistant control tokens into raw fiction unbidden.
+
+**[M03 — Proceduralization](meta/M03_proceduralization/README.md).** The title
+claim ("alignment proceduralises the individual, not the institution") is
+CONTESTED and the challenge is recorded in the module README's own header:
+alignment proceduralises both arms, differently in kind, with the volume
+difference bounded near zero. The module carries the correction as its front
+matter — read it before quoting the title.
+
+**[M04 — The continuation/combination axis](meta/M04_syntagmatic/README.md).**
+What alignment does to combination rather than selection. Its first own
+finding (A, post-utterance shock): forced to utter a word it demoted, an
+aligned model finds the following region less probable for exactly one token,
+whoever writes the continuation, and regardless of transgression — the
+tiebreaker that answered M01's split discriminator table as *neither account*:
+the charge is local and does not propagate (at ten tokens; the 256-token
+window shows a persistent component, register-governed).
 
 ## Where information lives
 
@@ -99,10 +105,8 @@ one of these, the file here wins** (except where noted).
 
 **Findings and claims**
 - `findings/` — instrument-level F-findings; `INDEX.md` is the citation
-  layer; this README is the catalogue (brief entries, full text in the
-  files).
-- `meta/` — campaign modules (M01 displacement, M02 frame-exit, M03
-  proceduralization, M04 continuation); each module README maps its own
+  layer (status, grade, chapters); this README lists them briefly below.
+- `meta/` — the four campaign modules above; each module README maps its own
   files. `meta/M01_displacement/REGISTRATIONS.md` records what ran.
 - **The claims register lives in the article hub, not this repo**:
   `TheoryMachines/notes/claims-register.md` — the authoritative quotable
@@ -111,305 +115,46 @@ one of these, the file here wins** (except where noted).
 
 ## Findings
 
-*Every finding below carries a status and grade badge. [What they mean](findings/GRADES.md) — and why a badge is a dated claim rather than a property of the finding.*
-
-### 1. Logit-level analysis (OLMo 3 7B)
-
-> **Status:** unaudited | **Grade:** C
-
-Founding displacement result — kill→scream, redistribution not deletion; the article's opening empirical fact.
-
-→ **Full finding:** [findings/F01_logit_analysis.md](findings/F01_logit_analysis.md)
-
-### 2. Cross-family logit comparison (4 families, 47 prompts)
-
-> **Status:** rescoped | **Grade:** C | see none (rescoped in place — the line "The superego is most active at the boundary" (doc line 11, with the 0.13/0.10 and 0.15/0.09 pairs) is DEAD ON BOTH METRICS per the 2026-07-26/27 corrections: liminal>explicit real (8/8 distinct base→superego pairs; tulu and tulu-no-safety are one measurement for this metric) but substantially entropy-driven; liminal≈neutral on both metrics; NO boundary peak. The "~91% entropy-driven" share is WITHDRAWN ON EVIDENCE — its slope reproduces under none of 24 specifications, on a battery file unchanged since b727374, so it is an arithmetic error rather than lost evidence; reproducible methods give 67–79%. Body text corrected 2026-07-27.)
-
-Cross-family alignment-intensity comparison (JS: qwen 0.044 → amber 0.181; four intensities, four architectures of repression). Measured on: 47-prompt battery.
-
-→ **Full finding:** [findings/F02_cross_family_logits.md](findings/F02_cross_family_logits.md)
-
-### 3. Cross-family generation analysis (4 families, 18 prompts, n=5)
-
-> **Status:** unaudited | **Grade:** C
-
-Generation-level defense-mechanism taxonomy (genre collapse / narrative sublimation / rotating defenses / pre-socialized base).
-
-→ **Full finding:** [findings/F03_cross_family_generation.md](findings/F03_cross_family_generation.md)
-
-### 4. Step-level checkpoint analysis (OLMo Think-SFT, 10 checkpoints across 43k training steps)
-
-> **Status:** unaudited | **Grade:** C
-
-Checkpoint sequence — repression precedes displacement (the model learns what it can't say before what to say instead).
-
-→ **Full finding:** [findings/F04_step_analysis.md](findings/F04_step_analysis.md)
-
-### 5. Logit lens: repression across network layers (4 families)
-
-> **Status:** rescoped | **Grade:** D | see none (contradicted in place — the cross-family logit-lens rerun found the displacement operation final-layer/ unembedding-uniform in 13/17 families; F05's per-family layer architectures assessed as an artifact of the fixed word list or projection method (ch05 notes:813); cf. F35 §3 for the unembedding locus. No numbered successor doc.)
-
-Logit-lens per-family "repression architectures" (distributed / late-layer / semantic / code-dominated). Measured on: unembedding projection.
-
-→ **Full finding:** [findings/F05_logit_lens.md](findings/F05_logit_lens.md)
-
-### 6. Baseline validation: is displacement alignment-specific? (4 families, 47 prompts)
-
-> **Status:** unaudited | **Grade:** C | see also [F40_discovered_vocabulary](findings/F40_discovered_vocabulary.md)
-
-Alignment-specificity baseline — same total JS on neutral and transgressive; moved mass comes specifically from transgressive tokens ("surgical targeting"). Measured on: 47-prompt battery. REFINED by F40, which finds the targeting holds at liminal sites and not at explicit ones.
-
-→ **Full finding:** [findings/F06_baseline_validation.md](findings/F06_baseline_validation.md)
-
-### 7. Training data attribution: objective vs data composition (OLMo 3)
-
-> **Status:** unaudited | **Grade:** C
-
-Documentary — dataset composition (CoCoNot, WildGuardMix, WildJailbreak; 76% Common Crawl) quoted from the OLMo 3 technical report; argues SFT/DPO division of labor implicates objective over data.
-
-→ **Full finding:** [findings/F07_training_data_attribution.md](findings/F07_training_data_attribution.md)
-
-### 8. Automatic displacement taxonomy (OLMo + Llama, 18 prompts)
-
-> **Status:** rescoped | **Grade:** C
-
-Displacement-type taxonomy (register / category / genre / archaic) over displacement_map pairs. Numbers recomputed 2026-07-26 (d0cd6a5, transcription error in power row caught and fixed); CONSTRUCT compromised per docket [399]/[401] — the pairs were never shown to be substitutions. Rescoped 2026-07-29.
-
-→ **Full finding:** [findings/F08_displacement_taxonomy.md](findings/F08_displacement_taxonomy.md)
-
-### 9. Same base model, different alignment (Tulu 3.1 vs Llama 3.1, 47 prompts)
-
-> **Status:** unaudited | **Grade:** C
-
-Same base, different curriculum (Tulu 3.1 vs Llama 3.1). Measured on: 47-prompt battery.
-
-→ **Full finding:** [findings/F09_tulu_vs_llama.md](findings/F09_tulu_vs_llama.md)
-
-### 10. SFT data ablation (Tulu 3, 5 variants, 47 prompts)
-
-> **Status:** unaudited | **Grade:** C
-
-SFT data ablation (Tulu 3, 5 variants).
-
-→ **Full finding:** [findings/F10_sft_ablation.md](findings/F10_sft_ablation.md)
-
-> **PROMOTION CONDITION ([2198], RH's standing scope rule).** A canonical claim
-
-> **Status:** rescoped | **Grade:** B | see [F11_addendum](findings/F11_addendum.md) | Related: [F11_addendum](findings/F11_addendum.md)
-
-> in a `meta/` campaign runs on **all families we have** under a declared
-
-→ **Full finding:** [findings/F11_contradiction.md](findings/F11_contradiction.md)
-
-### 12. Alignment as fold: trajectory geometry and steering vector analysis (10 families, 47 prompts, 100 passages)
-
-> **Status:** retained-downgraded | **Grade:** C
-
-Alignment as fold, not wall — trajectory geometry; fold concentration predicts steerability (Pythia 2D vs OLMo 13D).
-
-→ **Full finding:** [findings/F12_fold_geometry.md](findings/F12_fold_geometry.md)
-
-### 13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (6 families, 126k pairs)
-
-> **Status:** rescoped | **Grade:** C
-
-Jakobsonian decomposition — negative paradigmatic/syntagmatic correlation, direction plausible across 6 families; QUANTITIES NOT QUOTABLE pending registered re-analysis (docket [399]/[400]). Was verified/A at authoring; never audited until 2026-07-29.
-
-→ **Full finding:** [findings/F13_jakobsonian_axes.md](findings/F13_jakobsonian_axes.md)
-
-### 14. Syntagmatic baseline: alignment-produced vs corpus-level damage (OLMo 3 7B, 23k pairs)
-
-> **Status:** rescoped | **Grade:** C | see none (rescoped in place — the causal framing "alignment damages combination / inverts the poetic function" is retracted: the base model shares the same trade-off; alignment AMPLIFIES a pre-existing structure at targeted sites; deltas stand (sexual +0.106 etc.). ch05:454, ch05:827, ch11:146.)
-
-Syntagmatic baseline — alignment-produced vs corpus-level combination damage. Measured on: 23k pairs.
-
-→ **Full finding:** [findings/F14_syntagmatic_baseline.md](findings/F14_syntagmatic_baseline.md)
-
-### 15. Generation-level passage metrics (10 families, 76k passages, 47 prompts)
-
-> **Status:** unaudited | **Grade:** C
-
-Passage-metric space, 76k passages; base occupies the breakdown quadrant. Measured on: 10 families.
-
-→ **Full finding:** [findings/F15_passage_metrics.md](findings/F15_passage_metrics.md)
-
-### 16. Corpus comparison: dreams, waking narratives, fiction, abstracts (76k passages, length-normalized)
-
-> **Status:** unaudited | **Grade:** C
-
-External anchors — dreams, waking narratives, fiction, abstracts in the same metric space. Measured on: human corpora.
-
-→ **Full finding:** [findings/F16_corpus_comparison.md](findings/F16_corpus_comparison.md)
-
-### 17. Cross-generation semantic divergence: alignment steers content differentially (8 families, 20k passages, 3 embedders)
-
-> **Status:** unaudited | **Grade:** C
-
-Cross-generation MMD — alignment shifts WHAT is said (p=.0004) while smoothing HOW uniformly (p=.99). Measured on: 8 families.
-
-→ **Full finding:** [findings/F17_cross_generation_mmd.md](findings/F17_cross_generation_mmd.md)
-
-### 18. Shannon entropy: alignment as lossy compression of drive (10 families, 47 prompts)
-
-> **Status:** unaudited | **Grade:** C
-
-Entropy compression — base ~4 nats → aligned ~3.5; alignment as lossy compression of drive.
-
-→ **Full finding:** [findings/F18_shannon_entropy.md](findings/F18_shannon_entropy.md)
-
-### 19. Unconditional Generation & Information Density
-
-> **Status:** rescoped | **Grade:** C | see none (rescoped in place — the BLT-confirmation clause is SUSPENDED: prose-only BOS medians run 1.21 SFT / 1.05 DPO, ABOVE the cited 1.0 threshold; THE BLT CONFIRMATION MUST NOT BE CITED. Filter question specced and queued — unresolved whether wrong-claim or unstated-filter. Core claims stand: human-text numbers reproduce EXACTLY; self-surprisal roughly holds. Pipeline log 2892-2900.)
-
-Unconditional (BOS) generation — aligned output below Shannon's 1.0 bits/char; sub-Shannon text feeds the next pretraining corpus (feedback loop).
-
-→ **Full finding:** [findings/F19_bos_entropy.md](findings/F19_bos_entropy.md)
-
-### 20. "Who are you?" — the subject as citation
-
-> **Status:** rescoped | **Grade:** C | see [F20_addendum](findings/F20_addendum.md), in part only - three claims: that plain completion produces no subject, that the subject requires the chat template, and the Name-of-the-Father reading attached to the template. The citation result is NOT superseded; it is confirmed at 24 base models and strengthened (21 of 22 name their own lab in exactly 0.000 of self-predicating mass). | Related: [F20_addendum](findings/F20_addendum.md), [F20_generation_drift](findings/F20_generation_drift.md), [F20_third_person](findings/F20_third_person.md)
-
-Original 'Who are you?' probe at n=3-10: OLMo Think-SFT checkpoints 1k-43k plus Llama base vs Instruct, in plain completion and chat-template modes. SURVIVES AND IS STRENGTHENED: the subject is citation, not self-knowledge - the model's identity is absorbed from other models' self-descriptions in the SFT data (DeepSeek, Qwen, Qihoo 360, and one checkpoint declaring allegiance to 'socialist core values'). RESCOPED BY F20_addendum: the plain-completion and template-necessity claims were artifacts of n=3 at temp 1.0 and do not survive 24 base models; the Name-of-the-Father reading built on template-necessity falls with it. Measured on: 1 family with checkpoints + 1 family paired, n=3-10 per condition.
-
-→ **Full finding:** [findings/F20_who_are_you.md](findings/F20_who_are_you.md)
-
-### 21. Institutional Alignment
-
-> **Status:** solid-by-design | **Grade:** B | Related: [F21_addendum](findings/F21_addendum.md)
-
-**Does RLHF alignment systematically steer language models toward institutional positions over individual assertiveness?**
-
-→ **Full finding:** [findings/F21_institutional_alignment.md](findings/F21_institutional_alignment.md)
-
-### 22. Circuit decomposition — the cut between mechanism and surface
-
-> **Status:** unaudited | **Grade:** C
-
-Circuit decomposition — SFT carries 92% of residual broadening (OLMo); class engine in the preference stage, mid-layer residual.
-
-→ **Full finding:** [findings/F22_circuit_decomposition.md](findings/F22_circuit_decomposition.md)
-
-### 23. Reasoning distillation as a third alignment regime
-
-> **Status:** unaudited | **Grade:** C
-
-Reasoning distillation as a third alignment regime; no "reasoning model" as a category.
-
-→ **Full finding:** [findings/F23_reasoning_distillation.md](findings/F23_reasoning_distillation.md)
-
-### 24. Pretraining emergence — the developmental sequence of the statistical unconscious
-
-> **Status:** unaudited | **Grade:** C
-
-Pretraining developmental sequence — drives → structure → deference → superposition; inclusive disjunction a late acquisition. Measured on: 1B + 6.9B.
-
-→ **Full finding:** [findings/F24_pretraining_emergence.md](findings/F24_pretraining_emergence.md)
-
-### 25. Temporal alignment signature — four Lacanian mechanisms in the autoregressive sequence
-
-> **Status:** rescoped | **Grade:** C | see none (rescoped in place — causal locus reframed: foreclosure is INSTALLED BY SFT; DPO adds nothing qualitative, only amplifies (ch04:24-59). Lacan-sequence fracture RETIRED; co-emergence of subject and law vindicated at SFT (ch11:19-25).)
-
-Temporal alignment signature — clinical-mechanism grid across the autoregressive sequence; foreclosure acquisition.
-
-→ **Full finding:** [findings/F25_temporal_alignment_signature.md](findings/F25_temporal_alignment_signature.md)
-
-### 26. The Token-Tree Census — Variance Decomposition and the Deleter/Redirector Typology (53 models, 5 prompts)
-
-> **Status:** rescoped | **Grade:** D | see F31 (and F31's own canonical 44-family PERMANOVA revision: family 97.8%, method 2.9% n.s. on deltas — ch11:176-179. Chain: F31 superseded F26's 5-prompt method; the F26/F31 reconciliation ("holds at industrial intensity") was then itself overturned by the canonical run.)
-
-Token-tree census (53 models) + deleter/redirector typology. The variance headline is dead; the census data and typology are not implicated.
-
-→ **Full finding:** [findings/F26_census.md](findings/F26_census.md)
-
-### 27. Nudging Does Not Reproduce Displacement (Negative Result)
-
-> **Status:** unaudited | **Grade:** C
-
-Negative control — nudging does not reproduce displacement (disconfirms the Yang et al. nudging hypothesis for this phenomenon). Measured on: displacement battery.
-
-→ **Full finding:** [findings/F27_nudging_negative.md](findings/F27_nudging_negative.md)
-
-> **Status note (2026-07-26).** Rescoped to discovery-sample-only. A 19-family
-
-> **Status:** rescoped | **Grade:** C | see none — original OLMo-2-0425-1B result stands on its own data; the 19-family scale-up replaces it with nothing
-
-> scale-up was attempted on beams already in the stash (335,799
-
-→ **Full finding:** [findings/F28_resistance_trajectories.md](findings/F28_resistance_trajectories.md)
-
-### 31. PERMANOVA Variance Decomposition — Pretraining Dominates Alignment
-
-> **Status:** rescoped | **Grade:** C | see none (rescoped in place by its OWN canonical 44-family revision: the 14-family delta result REVERSED — relation_type 30.9% p=.002 at 14 families → 2.9% n.s. at 44; family 97.8%. The operation-matters claim survives in exactly two places: within-family comparisons and controlled same-base comparisons. ch11:27-49, 164-182.)
-
-PERMANOVA variance decomposition — pretraining dominates alignment. Measured on: 26k features; 37→44 families.
-
-→ **Full finding:** [findings/F31_permanova_decomposition.md](findings/F31_permanova_decomposition.md)
-
-### 32. Template-Mediated Distributions — Task Switch, Not Distribution Filter
-
-> **Status:** solid-by-design | **Grade:** B | see also [F36_capstone](findings/F36_capstone.md)
-
-**Summary**
-
-→ **Full finding:** [findings/F32_template_mediated_distributions.md](findings/F32_template_mediated_distributions.md)
-
-### 33. Scale Effects — Same Mechanism, Different Displacement Vocabulary
-
-> **Status:** unaudited | **Grade:** C
-
-Scale effects — same mechanism, different displacement vocabulary (incl. CT-LLM 2B). Measured on: 73-prompt battery.
-
-→ **Full finding:** [findings/F33_scale_effects.md](findings/F33_scale_effects.md)
-
-### 34. Cross-Linguistic Displacement — The Class Engine Is Language-Dependent
-
-> **Status:** unaudited | **Grade:** C
-
-Cross-linguistic displacement — the class engine is language-dependent (6 families, Chinese vs English). Measured on: qwen-only derived
+*One line per finding; the file is the finding. Status, grade and chapter mapping live in [INDEX.md](INDEX.md).*
+
+- [1. Logit-level analysis (OLMo 3 7B)](findings/F01_logit_analysis.md) — Founding displacement result — kill→scream, redistribution not deletion; the article's opening empirical fact.
+- [2. Cross-family logit comparison (4 families, 47 prompts)](findings/F02_cross_family_logits.md) — Cross-family alignment-intensity comparison (JS: qwen 0.044 → amber 0.181; four intensities, four architectures of repression). Measured on: 47-prompt battery.
+- [3. Cross-family generation analysis (4 families, 18 prompts, n=5)](findings/F03_cross_family_generation.md) — Generation-level defense-mechanism taxonomy (genre collapse / narrative sublimation / rotating defenses / pre-socialized base).
+- [4. Step-level checkpoint analysis (OLMo Think-SFT, 10 checkpoints across 43k training steps)](findings/F04_step_analysis.md) — Checkpoint sequence — repression precedes displacement (the model learns what it can't say before what to say instead).
+- [5. Logit lens: repression across network layers (4 families)](findings/F05_logit_lens.md) — Logit-lens per-family "repression architectures" (distributed / late-layer / semantic / code-dominated). Measured on: unembedding projection.
+- [6. Baseline validation: is displacement alignment-specific? (4 families, 47 prompts)](findings/F06_baseline_validation.md) — Alignment-specificity baseline — same total JS on neutral and transgressive; moved mass comes specifically from transgressive tokens ("surgical targeting"). Measured on: 47-prompt battery. REFINED by F40, which finds the targeting holds at liminal sites and not at explicit ones.
+- [7. Training data attribution: objective vs data composition (OLMo 3)](findings/F07_training_data_attribution.md) — Documentary — dataset composition (CoCoNot, WildGuardMix, WildJailbreak; 76% Common Crawl) quoted from the OLMo 3 technical report; argues SFT/DPO division of labor implicates objective over data.
+- [8. Automatic displacement taxonomy (OLMo + Llama, 18 prompts)](findings/F08_displacement_taxonomy.md) — Displacement-type taxonomy (register / category / genre / archaic) over displacement_map pairs. Numbers recomputed 2026-07-26 (d0cd6a5, transcription error in power row caught and fixed); CONSTRUCT compromised per docket [399]/[401] — the pairs were never shown to be substitutions. Rescoped 2026-07-29.
+- [9. Same base model, different alignment (Tulu 3.1 vs Llama 3.1, 47 prompts)](findings/F09_tulu_vs_llama.md) — Same base, different curriculum (Tulu 3.1 vs Llama 3.1). Measured on: 47-prompt battery.
+- [10. SFT data ablation (Tulu 3, 5 variants, 47 prompts)](findings/F10_sft_ablation.md) — SFT data ablation (Tulu 3, 5 variants).
+- [11. > **PROMOTION CONDITION ([2198], RH's standing scope rule).** A canonical claim](findings/F11_contradiction.md) — > in a `meta/` campaign runs on **all families we have** under a declared
+- [12. Alignment as fold: trajectory geometry and steering vector analysis (10 families, 47 prompts, 100 passages)](findings/F12_fold_geometry.md) — Alignment as fold, not wall — trajectory geometry; fold concentration predicts steerability (Pythia 2D vs OLMo 13D).
+- [13. Jakobsonian axes: paradigmatic vs syntagmatic displacement (6 families, 126k pairs)](findings/F13_jakobsonian_axes.md) — Jakobsonian decomposition — negative paradigmatic/syntagmatic correlation, direction plausible across 6 families; QUANTITIES NOT QUOTABLE pending registered re-analysis (docket [399]/[400]). Was verified/A at authoring; never audited until 2026-07-29.
+- [14. Syntagmatic baseline: alignment-produced vs corpus-level damage (OLMo 3 7B, 23k pairs)](findings/F14_syntagmatic_baseline.md) — Syntagmatic baseline — alignment-produced vs corpus-level combination damage. Measured on: 23k pairs.
+- [15. Generation-level passage metrics (10 families, 76k passages, 47 prompts)](findings/F15_passage_metrics.md) — Passage-metric space, 76k passages; base occupies the breakdown quadrant. Measured on: 10 families.
+- [16. Corpus comparison: dreams, waking narratives, fiction, abstracts (76k passages, length-normalized)](findings/F16_corpus_comparison.md) — External anchors — dreams, waking narratives, fiction, abstracts in the same metric space. Measured on: human corpora.
+- [17. Cross-generation semantic divergence: alignment steers content differentially (8 families, 20k passages, 3 embedders)](findings/F17_cross_generation_mmd.md) — Cross-generation MMD — alignment shifts WHAT is said (p=.0004) while smoothing HOW uniformly (p=.99). Measured on: 8 families.
+- [18. Shannon entropy: alignment as lossy compression of drive (10 families, 47 prompts)](findings/F18_shannon_entropy.md) — Entropy compression — base ~4 nats → aligned ~3.5; alignment as lossy compression of drive.
+- [19. Unconditional Generation & Information Density](findings/F19_bos_entropy.md) — Unconditional (BOS) generation — aligned output below Shannon's 1.0 bits/char; sub-Shannon text feeds the next pretraining corpus (feedback loop).
+- [20. "Who are you?" — the subject as citation](findings/F20_who_are_you.md) — Original 'Who are you?' probe at n=3-10: OLMo Think-SFT checkpoints 1k-43k plus Llama base vs Instruct, in plain completion and chat-template modes. SURVIVES AND IS STRENGTHENED: the subject is citation, not self-knowledge - the model's identity is absorbed from other models' self-descriptions in the SFT data (DeepSeek, Qwen, Qihoo 360, and one checkpoint declaring allegiance to 'socialist core values'). RESCOPED BY F20_addendum: the plain-completion and template-necessity claims were artifacts of n=3 at temp 1.0 and do not survive 24 base models; the Name-of-the-Father reading built on template-necessity falls with it. Measured on: 1 family with checkpoints + 1 family paired, n=3-10 per condition.
+- [21. Institutional Alignment](findings/F21_institutional_alignment.md) — **Does RLHF alignment systematically steer language models toward institutional positions over individual assertiveness?**
+- [22. Circuit decomposition — the cut between mechanism and surface](findings/F22_circuit_decomposition.md) — Circuit decomposition — SFT carries 92% of residual broadening (OLMo); class engine in the preference stage, mid-layer residual.
+- [23. Reasoning distillation as a third alignment regime](findings/F23_reasoning_distillation.md) — Reasoning distillation as a third alignment regime; no "reasoning model" as a category.
+- [24. Pretraining emergence — the developmental sequence of the statistical unconscious](findings/F24_pretraining_emergence.md) — Pretraining developmental sequence — drives → structure → deference → superposition; inclusive disjunction a late acquisition. Measured on: 1B + 6.9B.
+- [25. Temporal alignment signature — four Lacanian mechanisms in the autoregressive sequence](findings/F25_temporal_alignment_signature.md) — Temporal alignment signature — clinical-mechanism grid across the autoregressive sequence; foreclosure acquisition.
+- [26. The Token-Tree Census — Variance Decomposition and the Deleter/Redirector Typology (53 models, 5 prompts)](findings/F26_census.md) — Token-tree census (53 models) + deleter/redirector typology. The variance headline is dead; the census data and typology are not implicated.
+- [27. Nudging Does Not Reproduce Displacement (Negative Result)](findings/F27_nudging_negative.md) — Negative control — nudging does not reproduce displacement (disconfirms the Yang et al. nudging hypothesis for this phenomenon). Measured on: displacement battery.
+- [28. > **Status note (2026-07-26).** Rescoped to discovery-sample-only. A 19-family](findings/F28_resistance_trajectories.md) — > scale-up was attempted on beams already in the stash (335,799
+- [31. PERMANOVA Variance Decomposition — Pretraining Dominates Alignment](findings/F31_permanova_decomposition.md) — PERMANOVA variance decomposition — pretraining dominates alignment. Measured on: 26k features; 37→44 families.
+- [32. Template-Mediated Distributions — Task Switch, Not Distribution Filter](findings/F32_template_mediated_distributions.md) — **Summary**
+- [33. Scale Effects — Same Mechanism, Different Displacement Vocabulary](findings/F33_scale_effects.md) — Scale effects — same mechanism, different displacement vocabulary (incl. CT-LLM 2B). Measured on: 73-prompt battery.
+- [34. Cross-Linguistic Displacement — The Class Engine Is Language-Dependent](findings/F34_cross_linguistic_displacement.md) — Cross-linguistic displacement — the class engine is language-dependent (6 families, Chinese vs English). Measured on: qwen-only derived
   CSVs.
-
-→ **Full finding:** [findings/F34_cross_linguistic_displacement.md](findings/F34_cross_linguistic_displacement.md)
-
-### 35. Architecture Independence — Displacement Is Weight-Level, Not Attention-Dependent
-
-> **Status:** unaudited | **Grade:** C
-
-Architecture independence — displacement is weight-level (unembedding), fires under transformer, Mamba, and RWKV alike; contra attention-locus readings. Measured on: cross-architecture battery, unembedding analysis.
-
-→ **Full finding:** [findings/F35_architecture_independence.md](findings/F35_architecture_independence.md)
-
-> **PROMOTION CONDITION ([2198], RH's standing scope rule).** A canonical claim
-
-> **Status:** rescoped | **Grade:** B | see [F36_capstone](findings/F36_capstone.md) | Related: [F36_capstone](findings/F36_capstone.md), [F36_ledger](findings/F36_ledger.md), [F36_violence](findings/F36_violence.md)
-
-> in a `meta/` campaign runs on **all families we have** under a declared
-
-→ **Full finding:** [findings/F36_euphemism_vs_proximity.md](findings/F36_euphemism_vs_proximity.md)
-
-### 39. `hh_rlhf` does not encode register preference at the scale the chain analysis required
-
-> **Status:** verified | **Grade:** B
-
-Registered rebuild of the preference-corpus gate on a validly constituted three-construct slate. The gate failed 0/3 in hh_rlhf, and the failure is a BOUNDED NEGATIVE rather than a non-detection: every marker's 95% interval excludes the 0.174 effect the design required, the largest upper bound at 0.80x of it. No verdict on convention follows and none is available. Measured on: hh_rlhf chosen/rejected unigram tables; pku_saferlhf descriptive-only.
-
-→ **Full finding:** [findings/F39_preference_corpus_insensitivity.md](findings/F39_preference_corpus_insensitivity.md)
-
-### 40. Discovered vocabulary — alignment is surgical at liminal sites and blunt at explicit ones
-
-> **Status:** unaudited | **Grade:** B | see also [F06_baseline_validation](findings/F06_baseline_validation.md)
-
-Discovered vocabulary (347 words, 39 lineages, blind-tagged twice). Category-specific transgressive drain survives at LIMINAL sites and fails at explicit ones, where the total drain is largest but undifferentiated. Refines F06's surgical-targeting claim. Measured on: 39 base-deduped lineages.
-
-→ **Full finding:** [findings/F40_discovered_vocabulary.md](findings/F40_discovered_vocabulary.md)
-
-### 41. Word norms — the exogenous gradient test
-
-> **Status:** measured-single-seat | **Grade:** ungraded
-
-Word-norm instrument (arousal/concreteness/dominance, en+zh): exogenous test of the intensity-dissolution frame. Predictions registered before any norm-movement join.
-
-→ **Full finding:** [findings/F41_word_norms.md](findings/F41_word_norms.md)
-
+- [35. Architecture Independence — Displacement Is Weight-Level, Not Attention-Dependent](findings/F35_architecture_independence.md) — Architecture independence — displacement is weight-level (unembedding), fires under transformer, Mamba, and RWKV alike; contra attention-locus readings. Measured on: cross-architecture battery, unembedding analysis.
+- [36. > **PROMOTION CONDITION ([2198], RH's standing scope rule).** A canonical claim](findings/F36_euphemism_vs_proximity.md) — > in a `meta/` campaign runs on **all families we have** under a declared
+- [39. `hh_rlhf` does not encode register preference at the scale the chain analysis required](findings/F39_preference_corpus_insensitivity.md) — Registered rebuild of the preference-corpus gate on a validly constituted three-construct slate. The gate failed 0/3 in hh_rlhf, and the failure is a BOUNDED NEGATIVE rather than a non-detection: every marker's 95% interval excludes the 0.174 effect the design required, the largest upper bound at 0.80x of it. No verdict on convention follows and none is available. Measured on: hh_rlhf chosen/rejected unigram tables; pku_saferlhf descriptive-only.
+- [40. Discovered vocabulary — alignment is surgical at liminal sites and blunt at explicit ones](findings/F40_discovered_vocabulary.md) — Discovered vocabulary (347 words, 39 lineages, blind-tagged twice). Category-specific transgressive drain survives at LIMINAL sites and fails at explicit ones, where the total drain is largest but undifferentiated. Refines F06's surgical-targeting claim. Measured on: 39 base-deduped lineages.
+- [41. Word norms — the exogenous gradient test](findings/F41_word_norms.md) — Word-norm instrument (arousal/concreteness/dominance, en+zh): exogenous test of the intensity-dissolution frame. Predictions registered before any norm-movement join.
 <!-- findings:end -->
 ## Installation
 

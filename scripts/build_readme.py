@@ -264,12 +264,19 @@ def build(full=False):
             children_by_num.setdefault(f["num"], []).append(f)
 
     finding_headings = []
-    findings_parts = [
-        "## Findings\n\n",
-        "*Every finding below carries a status and grade badge. "
-        "[What they mean](findings/GRADES.md) — and why a badge is a dated "
-        "claim rather than a property of the finding.*\n\n",
-    ]
+    if full:
+        findings_parts = [
+            "## Findings\n\n",
+            "*Every finding below carries a status and grade badge. "
+            "[What they mean](findings/GRADES.md) — and why a badge is a dated "
+            "claim rather than a property of the finding.*\n\n",
+        ]
+    else:
+        findings_parts = [
+            "## Findings\n\n",
+            "*One line per finding; the file is the finding. Status, grade "
+            "and chapter mapping live in [INDEX.md](INDEX.md).*\n\n",
+        ]
 
     for f in primary:
         content = f["body"].strip()
@@ -299,10 +306,15 @@ def build(full=False):
                     if line and not line.startswith("#"):
                         desc = line
                         break
-            entry = first_line + (badge or "\n") + "\n" + desc + "\n\n" \
-                + f"→ **Full finding:** [findings/{f['path'].name}](findings/{f['path'].name})"
+            # RH 2026-08-08: a plain link list -- no badges, no grades here.
+            # Status and grade live in INDEX.md (the citation layer) and in
+            # each finding file's own frontmatter.
+            title = re.sub(r'^### \d+\. ', '', first_line).strip()
+            entry = f"- [{num}. {title}](findings/{f['path'].name})"
+            if desc:
+                entry += f" — {desc}"
             findings_parts.append(entry)
-            findings_parts.append("\n\n")
+            findings_parts.append("\n")
 
     findings_parts.append(FINDINGS_END_MARKER)
     new_findings = "".join(findings_parts)
@@ -333,15 +345,23 @@ def build(full=False):
                 pre_findings.append(line)
 
     findings_toc = []
-    for heading in finding_headings:
-        anchor = _heading_to_anchor(heading)
-        short = heading.split('(')[0].strip().rstrip(':')
-        findings_toc.append(f'  - [{short}](#{anchor})')
+    if full:
+        for heading in finding_headings:
+            anchor = _heading_to_anchor(heading)
+            short = heading.split('(')[0].strip().rstrip(':')
+            findings_toc.append(f'  - [{short}](#{anchor})')
+    # brief mode: no per-finding TOC entries -- the list IS the index
 
     new_toc_lines = pre_findings + findings_toc + post_findings_toc
     new_toc = '\n'.join(new_toc_lines) + '\n'
 
-    new_header = header[:toc_body_start] + '\n' + new_toc + '\n'
+    # Preserve everything between the old TOC's end and the Findings
+    # section (the index banner, 'The four campaigns', 'Where information
+    # lives', ...). Before 2026-08-08 this line truncated the header at the
+    # TOC, silently deleting any custom section placed after it.
+    new_header = header[:toc_body_start] + '\n' + new_toc + '\n' + header[toc_end:].lstrip('\n')
+    if not new_header.endswith('\n\n'):
+        new_header = new_header.rstrip('\n') + '\n\n'
 
     # Ensure INDEX.md banner exists
     index_banner = (
