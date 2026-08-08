@@ -926,8 +926,27 @@ def main(a):
             continue
         try:
             tok, loader_id = load_tokenizer(mid)
-            model = AutoModelForCausalLM.from_pretrained(
-                mid, dtype=cdt, trust_remote_code=True).to(dev).eval()
+            #: **SHARD ACROSS CARDS WHEN THERE IS MORE THAN ONE, AND ONLY
+            #: THEN.** `.to(dev)` puts the whole model on cuda:0. That is right
+            #: for every checkpoint this script has ever run and wrong for the
+            #: first one that does not fit: Llama-3.1-70B is ~140 GB in bf16
+            #: against an 80 GB card, so a 2-GPU box would download 140 GB and
+            #: then OOM on load, having paid for the download.
+            #:
+            #: Gated on `device_count() > 1`, so on every single-GPU box this
+            #: is byte-identical to the previous path and the 103-model corpus
+            #: is untouched -- the same discipline `pick_device` was added
+            #: under.
+            _multi = torch.cuda.is_available() and torch.cuda.device_count() > 1
+            if _multi:
+                print(f"  device_map=auto across {torch.cuda.device_count()} GPUs",
+                      flush=True)
+                model = AutoModelForCausalLM.from_pretrained(
+                    mid, dtype=cdt, trust_remote_code=True,
+                    device_map="auto").eval()
+            else:
+                model = AutoModelForCausalLM.from_pretrained(
+                    mid, dtype=cdt, trust_remote_code=True).to(dev).eval()
         except Exception as e:
             print(f"  LOAD FAILED: {str(e)[:120]}", flush=True)
             free()                 # the traceback held the partial load
@@ -1001,6 +1020,25 @@ def main(a):
                         _LOGIT["v"] = None
                     f.write(json.dumps({
                         "model": mid, "prompt": p, "theta": THETA,
+                        #: **DEVICE, ADDED 2026-08-07.** The jsonl already
+                        #: stamped torch and transformers versions; it never
+                        #: stamped the device, and the INGEST dropped even the
+                        #: two it had. So no cell in the 103-model corpus can
+                        #: say what computed it -- and when the question came up
+                        #: (is a threshold-bounded expansion at theta=0.001
+                        #: device-sensitive the way averaged beams are not?) it
+                        #: could not be answered from the artifact, only from a
+                        #: docstring's assertion that the corpus is CUDA.
+                        #:
+                        #: NOT BACKFILLED. Device was never recorded and the
+                        #: raw grid-v3 jsonl is gone, so any value written into
+                        #: those cells now would be a belief wearing a
+                        #: measurement's clothes. Absence is the value: a cell
+                        #: without this field predates 2026-08-07 and is
+                        #: believed CUDA on the grid-v3 run's own provenance.
+                        #: That belief belongs in the reader, where one line
+                        #: corrects it, not in 93,216 rows.
+                        "device": dev,
                         "logit_row": _row, "logit_dim": (int(_lg.shape[0])
                                                          if _lg is not None else None),
                         "logit_dtype": "float16",
