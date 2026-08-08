@@ -182,3 +182,39 @@ for i, t in enumerate(TNAMES):
             ds.append(100 * cf / nf - 100 * cu / nu)
     p, nz = wilcox(ds)
     print(f"{t:10s} | {statistics.mean(ds) if ds else float('nan'):+8.4f} {p:7.4f} {nz:3d} {len(ds):3d}")
+
+# ── the member split that resolved RH's question (2026-08-08) ────────
+# Scene effect vs word effect, separated: the MARKED-UNMARKED twin gap
+# (E-QA) is present in ALL THREE arms (undisturbed +0.36 p 0.0009;
+# faller +0.22 p 0.063; riser +0.23 p 0.010) while faller-vs-riser is
+# null WITHIN both members. The frame apparatus reads the scene, not
+# the signifier.
+sample_m = {}
+with open(os.path.join(REPO, "data", "beam_sample_105.csv")) as f:
+    for r in csv.DictReader(f):
+        sample_m[r["prompt"].strip()] = r["member"]
+mcell = defaultdict(lambda: [0] + [0] * len(TYPES))
+for r in csv.DictReader(open(OUT)):
+    pr = r["prompt"].strip()
+    if pr not in sample_m:
+        continue
+    m = r["pair"].split(">")[0 if r["role"] == "base" else 1]
+    c = mcell[(m, sample_m[pr], r["arm"])]
+    c[0] += int(r["n_beams"])
+    for i, t in enumerate(TNAMES):
+        c[1 + i] += int(r[t])
+mck = sorted({m for m, _, _ in mcell})
+print("\n=== twin effect (MARKED - UNMARKED) inside each arm ===")
+print(f"{'type':10s} | {'undisturbed':>11s} {'p':>7s} | {'faller':>8s} {'p':>7s} | {'riser':>8s} {'p':>7s}")
+for i, t in enumerate(TNAMES):
+    line = f"{t:10s}"
+    for arm in ("undisturbed", "force_faller", "force_riser"):
+        ds = []
+        for m in mck:
+            mk = mcell.get((m, "MARKED", arm))
+            un = mcell.get((m, "UNMARKED", arm))
+            if mk and un and mk[0] >= 200 and un[0] >= 200:
+                ds.append(100 * mk[1 + i] / mk[0] - 100 * un[1 + i] / un[0])
+        p, nz = wilcox(ds)
+        line += f" | {statistics.mean(ds) if ds else float('nan'):+8.4f} {p:7.4f}"
+    print(line)
