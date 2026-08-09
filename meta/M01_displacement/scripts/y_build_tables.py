@@ -4,8 +4,8 @@
     python y_build_tables.py              # ~20 minutes, both tables
     python y_build_tables.py --files 4    # subsample, for a smoke
 
-    results/y_tokens/*.parquet    one shard per raw file, ~10.6M rows total
-    results/y_passages.parquet    41,596 rows
+    results/y_tokens/*.parquet    one shard per raw file
+    results/y_passages.parquet    every coded row, pass A AND B, parsed or not
 
 Both are gitignored: rebuildable from `data/raw/y_y-*/` plus
 `results/y_confirmatory_coded.jsonl`, and a few hundred MB.
@@ -75,6 +75,12 @@ COMPOSITES = ("SUPEREGO_IN_SCENE", "CLEAN_SCENE", "EXIT", "MORAL_UTTERED")
 FIELDS = ("sexual_scene", "consummation", "guilt_or_shame", "moralisation_in_scene",
           "consent_hesitation", "assistant_refusal", "frame_exit", "noise_present",
           "continues_narrative", "degenerate")
+#: SCALARS carried through so a reader never has to reopen the jsonl. `tagged`
+#: is the span source, which y_field_analysis needs for USAS over span TEXT and
+#: y_example needs for quoting; it is the largest column and still leaves the
+#: passage table small.
+SCALARS = ("pass", "parsed", "coder", "n_chars", "sha256", "rt_ratio", "rt_chars",
+           "refusal_onset", "refusal_names", "scene_note", "evidence", "tagged")
 MIN_CHARS = 12
 
 
@@ -136,8 +142,15 @@ def main():
             for i, s in enumerate(r.get("sequences") or []):
                 key = (r.get("pair"), r.get("role"), r.get("prompt_id"), r.get("word"), i)
                 cr = coded.get(key)
-                if cr is None or cr.get("pass") != "A" or not cr.get("parsed"):
+                if cr is None:
                     continue
+                #: PASS A AND B. The first version filtered to pass A and
+                #: silently dropped 20,679 passages -- a third of the corpus,
+                #: and the third where refusal actually lives (Y_superego 9:
+                #: "refusal is a short-passage phenomenon, and pass A could not
+                #: see it"). `pass` is a column; filter at read time.
+                #: Unparsed rows are kept with `parsed=False` rather than
+                #: dropped, so their absence is visible as a value.
                 b, al, tk = s.get("scored_by_base"), s.get("scored_by_aligned"), s.get("tokens")
                 if not (b and al and tk) or not (len(b) == len(al) == len(tk)):
                     led["invariant failed"] += 1
@@ -149,7 +162,7 @@ def main():
                 root = etree.fromstring("<r>" + (cr.get("tagged") or "") + "</r>", P)
                 if root is None:
                     led["unparseable tagged"] += 1
-                    continue
+                    root = etree.fromstring("<r></r>", P)
                 n = len(tk)
                 l1 = [None] * n
                 l2 = [None] * n
@@ -206,6 +219,8 @@ def main():
                     p[k] = cr.get(k)
                 for k in COMPOSITES:
                     p[k] = bool(cr.get(k))
+                for k in SCALARS:
+                    p[k] = cr.get(k)
                 passages.append(p)
         if rows:
             D = pd.DataFrame(rows)
@@ -226,7 +241,8 @@ def main():
                                               format(ntok, ",")), flush=True)
 
     Pdf = pd.DataFrame(passages)
-    for c in ("pair", "prompt_id", "model", "arm", "forced_word", "rt_band") + FIELDS:
+    for c in ("pair", "prompt_id", "model", "arm", "forced_word", "rt_band",
+              "pass", "coder") + FIELDS:
         if c in Pdf:
             Pdf[c] = Pdf[c].astype("category")
     pp = os.path.join(CAMP, "results", "y_passages.parquet")
@@ -236,6 +252,8 @@ def main():
           % (format(ntok, ","), len(files), os.path.relpath(outdir, ROOT)))
     print("PASSAGES %s rows, %d cols -> %s"
           % (format(len(Pdf), ","), len(Pdf.columns), os.path.relpath(pp, ROOT)))
+    print("  pass %s   parsed %s"
+          % (dict(Pdf["pass"].value_counts()), dict(Pdf["parsed"].value_counts())))
     print("  spans located %s of %s (%.1f%%)"
           % (format(int(Pdf.spans_located.sum()), ","), format(int(Pdf.spans_total.sum()), ","),
              100 * Pdf.spans_located.sum() / max(Pdf.spans_total.sum(), 1)))

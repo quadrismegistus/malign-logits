@@ -123,6 +123,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", action="append", choices=SECTIONS)
     ap.add_argument("--list", action="store_true")
+    ap.add_argument("--pass", dest="passfilter", default="A", choices=["A", "B", "all"],
+                    help="A (default, and what every published number is), B, or all")
+    ap.add_argument("--include-unparsed", action="store_true")
     a = ap.parse_args()
     if a.list:
         print("sections: " + "  ".join(SECTIONS))
@@ -133,6 +136,20 @@ def main():
     from y_paired_tests import boot_ci, wilcoxon
 
     P = pd.read_parquet(os.path.join(CAMP, "results", "y_passages.parquet"))
+    #: THE TABLE HOLDS EVERYTHING; THE FILTER IS HERE AND IT IS NOT OPTIONAL.
+    #: y_passages carries pass A AND B and unparsed rows, deliberately. Every
+    #: published Y number is pass A, parsed. Reading the table unfiltered moved
+    #: all nine reproduction cells -- assistant_refusal from 1.14 to 3.47 on the
+    #: aligned arm, because refusal is a short-passage phenomenon (Y_superego 9)
+    #: and pass B is where it lives. Defaulting to A makes the published path
+    #: the default path; --pass B / all opts into the other population.
+    n0 = len(P)
+    if a.passfilter != "all":
+        P = P[P["pass"] == a.passfilter]
+    if not a.include_unparsed:
+        P = P[P.parsed]
+    print("population: pass=%s parsed=%s -> %s of %s rows"
+          % (a.passfilter, not a.include_unparsed, format(len(P), ","), format(n0, ",")))
     TOKDIR = os.path.join(CAMP, "results", "y_tokens")
 
     if want("coverage"):
