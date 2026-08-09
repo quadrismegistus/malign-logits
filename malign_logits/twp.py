@@ -431,18 +431,33 @@ class LayerReadout:
             h = self.norm(h)
         return self.head(h).float()
 
-    def verify(self, out, atol=1e-4):
-        """The final layer's projection IS the model's logits. Assert it."""
+    def verify(self, out, atol=1e-3):
+        """The final layer's projection IS the model's logits. Assert it.
+
+        **THE TOLERANCE IS ON PROBABILITIES, NOT LOGITS, AND THAT IS THE POINT.**
+        At float16 `head(hidden[-1])` and the model's own `logits` differ by up
+        to 1.6e-2 in LOGIT space on ordinary prompts -- not a defect, just two
+        GEMM shapes ((1,d)x(d,V) against (seq,d)x(d,V)) accumulating in a
+        different order. A logit-space tolerance tight enough to catch a real
+        readout error therefore fires on arithmetic noise at the dtype the fleet
+        actually runs.
+
+        Probabilities are what the instrument consumes and they are far better
+        behaved: the same fp16 noise lands ~1e-4, while the defect this guard
+        exists for -- `models.py:logit_lens` norming the final state twice --
+        moved Amber's `kill` from 0.060 to 0.119. Two orders of margin either
+        side, on the quantity theta is compared against.
+        """
         hs = out.hidden_states
-        got = self.head(hs[-1][..., -1, :]).float()
-        want = out.logits[..., -1, :].float()
+        got = torch.softmax(self.head(hs[-1][..., -1, :]).float(), -1)
+        want = torch.softmax(out.logits[..., -1, :].float(), -1)
         d = float((got - want).abs().max())
         if d > atol:
             raise AssertionError(
-                "head(hidden[-1]) != logits, maxdiff %.3e. This architecture "
-                "does not follow the pre-norm/post-norm convention the layer "
-                "readout assumes, and every interior layer would be wrong in a "
-                "way nothing downstream could see." % d)
+                "head(hidden[-1]) != logits, max prob diff %.3e. This "
+                "architecture does not follow the pre-norm/post-norm convention "
+                "the layer readout assumes, and every interior layer would be "
+                "wrong in a way nothing downstream could see." % d)
         return d
 
 
@@ -461,6 +476,16 @@ def _final_norm(model):
     return None
 
 
+def _pad(tok, pids, chunk, dev):
+    """LEFT-padded batch for one chunk of prefixes. One construction, two callers."""
+    seqs = [pids + list(p) for p in chunk]
+    L = max(len(s) for s in seqs)
+    pad = tok.pad_token_id if tok.pad_token_id is not None else 0
+    ids = torch.tensor([[pad]*(L-len(s)) + s for s in seqs], device=dev)
+    att = torch.tensor([[0]*(L-len(s)) + [1]*len(s) for s in seqs], device=dev)
+    return ids, att
+
+
 def next_dist(model, tok, pids, prefixes, dev, batch=None, readout=None):
     """Batch is ADAPTIVE because it is architecture-blind.
 
@@ -475,11 +500,7 @@ def next_dist(model, tok, pids, prefixes, dev, batch=None, readout=None):
     out, i = [], 0
     while i < len(prefixes):
         ch = prefixes[i:i + batch]
-        seqs = [pids + list(p) for p in ch]
-        L = max(len(s) for s in seqs)
-        pad = tok.pad_token_id if tok.pad_token_id is not None else 0
-        ids = torch.tensor([[pad]*(L-len(s)) + s for s in seqs], device=dev)
-        att = torch.tensor([[0]*(L-len(s)) + [1]*len(s) for s in seqs], device=dev)
+        ids, att = _pad(tok, pids, ch, dev)
         try:
             if readout is None:
                 lg = model(ids, attention_mask=att).logits[:, -1, :].float()
@@ -747,6 +768,86 @@ class SkipPrompt(Exception):
     """This PROMPT cannot be scored on this model. Not a model failure."""
 
 
+# ── THE BOUNDARY RULE, FACTORED OUT SO THERE IS EXACTLY ONE COPY ──────────
+#
+# These two helpers are lifted VERBATIM out of `expand`'s inner loop, in the
+# same order, so that a multi-layer driver can reuse the rule instead of
+# retyping it. Retyping is the failure mode this guards: the rule is
+# `rule_version 3` + `dict_sha b16011275c42955c` and carries a CJK trie, a
+# script-transition cut, intra-word punctuation unmasking, a mojibake channel
+# and a four-way residual. A second copy would drift and nothing downstream
+# could see it -- the words would still be words.
+#
+# ACCUMULATION ORDER IS PART OF THE CONTRACT. `_account` adds the empty-surface
+# term to `drop` BEFORE the sub-theta continuation sum, because that is what
+# `expand` did; float addition is order-dependent and 301,147 stored cells were
+# written under this order.
+
+def _boundary_for(surf, bmask, cjk, bcache, intra_cache):
+    """The per-surface boundary mask. Caches are per-prompt and shared."""
+    b = bmask
+    if cjk is not None and surf and surf[-1].isalnum():
+        # INTRA-WORD PUNCTUATION UNMASKED. A token like `'t` or `,000` is a
+        # boundary in bmask (it starts with punctuation) but is INSIDE a word
+        # when the surface ends alphanumeric. Unmask those ids so the word
+        # continues: don + 't -> don't, 100 + ,000 -> 100,000. Surface-dependent,
+        # so it cannot live in the static mask -- same reason as the CJK rule.
+        b = intra_cache.get(surf)
+        if b is None:
+            b = bmask.copy()
+            b[cjk[4]] = False
+            intra_cache[surf] = b
+    if cjk is not None and surf:
+        trie, cids, cstrs, lids, _pids_intra = cjk
+        base_b = b
+        b = bcache.get(surf)
+        if b is None and not is_cjk(surf):
+            # A SCRIPT TRANSITION IS A WORD BOUNDARY. Latin surfaces are
+            # extended by CJK tokens under the static rule -- a CJK token is
+            # neither space-prefixed nor punctuation, so nothing stops it. The
+            # roster contains the result: `mouth什么意思` and `mouth和He`
+            # reported as single words on an ENGLISH prompt. The dictionary rule
+            # alone does not fix this; it only moves the cut one character
+            # later, to `mouth什`.
+            b = base_b.copy()
+            b[cids] = True
+            bcache[surf] = b
+        elif b is None:
+            # EVERY CJK token is judged, not just the probable ones. Termination
+            # sums over ALL boundary tokens, so improbable CJK tokens that should
+            # end the word must be marked or the word runs to the clause end and
+            # its mass drains via `drop`.
+            b = base_b.copy()
+            inside = np.fromiter(((surf + t) in trie for t in cstrs),
+                                 dtype=bool, count=len(cstrs))
+            b[cids] = ~inside
+            b[lids] = True      # CJK -> Latin is a transition too
+            bcache[surf] = b
+    return b
+
+
+def _account(row, b, surf, pref, mass, t1, theta, words, res, nxt):
+    """One (prefix, distribution) pair: terminate, continue, or drop."""
+    term = float(row[b].sum())
+    if surf and not is_mojibake(surf):
+        words[(surf, t1)] = words.get((surf, t1), 0.0) + mass * term
+    else:
+        # A SEPARATE CHANNEL, not silent. Mojibake mass is real mass the model
+        # assigned; it is simply not a word, so it must be accounted rather than
+        # dropped into the general residual where it would be indistinguishable
+        # from sub-theta tail.
+        if surf:
+            res["mojibake"] += mass * term
+        else:
+            res["drop"] += mass * term
+    cont = np.flatnonzero(~b)
+    m2 = mass * row[cont]
+    keep = m2 >= theta
+    for t, mm in zip(cont[keep], m2[keep]):
+        nxt.append(((*pref, int(t)), float(mm), t1))
+    res["drop"] += float(m2[~keep].sum())
+
+
 #: expand() computes the logit vector deep inside its beam loop and returns
 #: word probabilities. Threading a second return value through every call
 #: site and its two exception paths would touch code the run depends on;
@@ -759,20 +860,9 @@ _OUT_KEEP = {"v": None}
 _HIDDEN = {"v": None}
 
 
-@torch.no_grad()
-def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
-           bos_policy="inherited", readout=None):
-    """cjk=(prefix_trie, ids, strings) enables dictionary word boundaries.
-
-    ONE INSTRUMENT, DISPATCHING ON SCRIPT -- not two runs side by side. A non-CJK
-    surface keeps the whitespace/punctuation rule; a CJK surface takes the
-    dictionary rule. Mixed-script text is therefore handled correctly WITHIN a
-    cell, which two parallel datasets could not do since they would force a
-    per-cell choice mixed text cannot make.
-    """
-
+def _prompt_ids(tok, prompt, bos_policy):
+    """Prompt -> input ids, via the logical resolver or the survival assert."""
     lg_ = resolve_logical(tok, prompt)
-    resolved_surface, resolver_id = None, None
     if lg_ is not None:
         pids, resolved_surface, resolver_id = lg_
         if pids is None:
@@ -791,9 +881,25 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
             raise SkipPrompt(resolver_id or "unresolvable_logical")
         # a resolved logical prompt bypasses the survival assert BY DESIGN:
         # there is no surface that was supposed to round-trip
-    else:
-        pids, _applied = encode_prompt(tok, prompt, bos_policy)
-        assert_prompt_survives(tok, prompt, pids)
+        return pids, resolved_surface, resolver_id
+    pids, _applied = encode_prompt(tok, prompt, bos_policy)
+    assert_prompt_survives(tok, prompt, pids)
+    return pids, None, None
+
+
+@torch.no_grad()
+def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
+           bos_policy="inherited", readout=None):
+    """cjk=(prefix_trie, ids, strings) enables dictionary word boundaries.
+
+    ONE INSTRUMENT, DISPATCHING ON SCRIPT -- not two runs side by side. A non-CJK
+    surface keeps the whitespace/punctuation rule; a CJK surface takes the
+    dictionary rule. Mixed-script text is therefore handled correctly WITHIN a
+    cell, which two parallel datasets could not do since they would force a
+    per-cell choice mixed text cannot make.
+    """
+
+    pids, resolved_surface, resolver_id = _prompt_ids(tok, prompt, bos_policy)
     #: **HIDDEN STATES, FINAL POSITION ONLY (RH, 2026-08-08 via [5141]).** A flag
     #: on a forward pass we are already running: compute cost zero, ~170 MB over
     #: the whole 104-checkpoint roster. Collected now it is a by-product;
@@ -845,8 +951,7 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
     sel = np.flatnonzero(P0 >= theta)
     live = [((int(t),), float(P0[t]), int(t)) for t in sel]
     words, calls, bcache, intra_cache = {}, 0, {}, {}
-    res_moji = 0.0
-    res_tail, res_drop = float(1.0 - P0[sel].sum()), 0.0
+    res = dict(tail=float(1.0 - P0[sel].sum()), drop=0.0, mojibake=0.0)
     for _ in range(MAX_DEPTH):
         if not live:
             break
@@ -855,69 +960,188 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
         nxt = []
         for (pref, mass, t1), row in zip(live, dist):
             surf = clean_surface(tok.decode(list(pref)).strip())
-            b = bmask
-            if cjk is not None and surf and surf[-1].isalnum():
-                # INTRA-WORD PUNCTUATION UNMASKED. A token like `'t` or `,000`
-                # is a boundary in bmask (it starts with punctuation) but is
-                # INSIDE a word when the surface ends alphanumeric. Unmask those
-                # ids so the word continues: don + 't -> don't, 100 + ,000 ->
-                # 100,000. Surface-dependent, so it cannot live in the static
-                # mask -- same reason as the CJK rule.
-                b = intra_cache.get(surf)
-                if b is None:
-                    b = bmask.copy()
-                    b[cjk[4]] = False
-                    intra_cache[surf] = b
-            if cjk is not None and surf:
-                trie, cids, cstrs, lids, pids_intra = cjk
-                base_b = b
-                b = bcache.get(surf)
-                if b is None and not is_cjk(surf):
-                    # A SCRIPT TRANSITION IS A WORD BOUNDARY. Latin surfaces are
-                    # extended by CJK tokens under the static rule -- a CJK token
-                    # is neither space-prefixed nor punctuation, so nothing stops
-                    # it. The roster contains the result: `mouth什么意思` and
-                    # `mouth和He` reported as single words on an ENGLISH prompt.
-                    # The dictionary rule alone does not fix this; it only moves
-                    # the cut one character later, to `mouth什`.
-                    b = base_b.copy()
-                    b[cids] = True
-                    bcache[surf] = b
-                elif b is None:
-                    # EVERY CJK token is judged, not just the probable ones.
-                    # Termination sums over ALL boundary tokens, so improbable
-                    # CJK tokens that should end the word must be marked or the
-                    # word runs to the clause end and its mass drains via `drop`.
-                    b = base_b.copy()
-                    inside = np.fromiter(((surf + t) in trie for t in cstrs),
-                                         dtype=bool, count=len(cstrs))
-                    b[cids] = ~inside
-                    b[lids] = True      # CJK -> Latin is a transition too
-                    bcache[surf] = b
-            term = float(row[b].sum())
-            if surf and not is_mojibake(surf):
-                words[(surf, t1)] = words.get((surf, t1), 0.0) + mass * term
-            else:
-                # A SEPARATE CHANNEL, not silent. Mojibake mass is real mass
-                # the model assigned; it is simply not a word, so it must be
-                # accounted rather than dropped into the general residual where
-                # it would be indistinguishable from sub-theta tail.
-                if surf:
-                    res_moji += mass * term
-                else:
-                    res_drop += mass * term
-            cont = np.flatnonzero(~b)
-            m2 = mass * row[cont]
-            keep = m2 >= theta
-            for t, mm in zip(cont[keep], m2[keep]):
-                nxt.append(((*pref, int(t)), float(mm), t1))
-            res_drop += float(m2[~keep].sum())
+            b = _boundary_for(surf, bmask, cjk, bcache, intra_cache)
+            _account(row, b, surf, pref, mass, t1, theta, words, res, nxt)
         live = nxt
+    #: KEY ORDER IS THE ARTIFACT'S, NOT THE ACCUMULATOR'S. This dict is
+    #: json.dump'd straight into the transport line, so insertion order is
+    #: serialized. `_account` fills a working dict in whatever order suits it;
+    #: the return rebuilds the original order so the .jsonl stays byte-identical.
     res_open = float(sum(m for _, m, _ in live))
-    return words, dict(tail=res_tail, drop=res_drop, open=res_open,
-                       mojibake=res_moji,
-                       total=res_tail + res_drop + res_open + res_moji,
+    return words, dict(tail=res["tail"], drop=res["drop"], open=res_open,
+                       mojibake=res["mojibake"],
+                       total=res["tail"] + res["drop"] + res_open
+                             + res["mojibake"],
                        resolver=resolver_id,
                        resolved_surface=resolved_surface), calls
+
+
+# ── TWP AT EVERY LAYER, ON ONE SET OF FORWARD PASSES ──────────────────────
+#
+# **THE COST ARGUMENT, WHICH IS THE WHOLE REASON THIS IS AFFORDABLE.** Every
+# forward pass already computes every layer. What a per-layer word lens needs
+# is not more passes but more READOUTS of the passes it is already paying for.
+# So the expense is set by the UNION of prefixes any layer wants expanded, not
+# by n_layers x the single-layer cost. Layers share prefixes heavily -- the
+# first token of `kill` is the first token of `kill` at layer 8 and layer 31 --
+# so the union is far smaller than the sum.
+#
+# **PER-LAYER PRUNING IS PRESERVED EXACTLY, AND THAT IS A DELIBERATE REFUSAL.**
+# The tempting alternative is to let a path survive if ANY layer keeps it above
+# theta and then score it at every layer, which yields a denser table. It also
+# means the final layer no longer reproduces the stored twp cell -- it would
+# accumulate mass along paths solo-twp pruned -- and the free validation would
+# be gone. Each layer therefore keeps its OWN theta frontier and its own
+# residual, identical to what a solo run at that layer would produce. The union
+# schedules the compute; it does not change any layer's arithmetic.
+#
+# Mass is a product of probabilities and therefore monotone decreasing along a
+# path, so a path once below theta for a layer never returns above it. That is
+# what makes `live_L == {p : mass_L(p) >= theta}` exactly, and what makes the
+# per-layer frontier recoverable from the union without bookkeeping.
+#
+# **A WORD MISSING AT A LAYER IS CENSORED, NOT ZERO.** If layer 31 reads
+# `kill 0.23` and layer 14 does not reach it, layer 14's value is `< theta`,
+# not 0 -- the same censoring twp has always had at its floor, and the
+# crossings of that floor are the trajectory. Writing 0 would turn a threshold
+# into a measurement.
+
+def next_dist_multi(model, tok, pids, prefixes, dev, readouts, batch=None):
+    """Yield (offset, layer, rows) per chunk x layer. ONE forward per chunk.
+
+    A generator rather than a returned table because the table does not fit:
+    33 layers x 500 prefixes x 150k vocab at float32 is ~10 GB. Yielding one
+    layer's rows at a time keeps the peak at chunk x vocab, and the caller does
+    its accounting before the next layer is materialised.
+    """
+    batch = _BATCH["n"] if batch is None else batch
+    #: only ask for hidden states if some readout reads them -- a final-layer-only
+    #: run is then byte-for-byte the call `next_dist` makes.
+    want_hs = any(ro.needs_hidden for ro in readouts.values())
+    i = 0
+    while i < len(prefixes):
+        ch = prefixes[i:i + batch]
+        ids, att = _pad(tok, pids, ch, dev)
+        try:
+            out = model(ids, attention_mask=att, output_hidden_states=want_hs)
+        except torch.OutOfMemoryError:
+            del ids, att
+            gc.collect(); torch.cuda.empty_cache()
+            if batch == 1:
+                raise
+            batch = max(1, batch // 2)
+            _BATCH["n"] = batch
+            print(f"    [oom] batch -> {batch}", flush=True)
+            continue
+        for layer, ro in readouts.items():
+            yield i, layer, torch.softmax(ro(out), -1).cpu().numpy()
+        del out
+        i += len(ch)
+
+
+@torch.no_grad()
+def expand_layers(model, tok, prompt, dev, bmask, layers, theta=THETA,
+                  cjk=None, bos_policy="inherited", verify=True):
+    """twp at each of `layers`, sharing forward passes. Same rule, N readouts.
+
+    `layers` indexes `hidden_states`, which is N+1 long: 0 is the embeddings and
+    -1 (== N) is the final state after the model's own norm. Layer -1 reproduces
+    `expand`'s default path, and that identity is the instrument's own check --
+    if it fails, the readout is wrong and no interior layer is readable either.
+
+    Returns {layer: (words, residual)}, and a stats dict.
+    """
+    pids, resolved_surface, resolver_id = _prompt_ids(tok, prompt, bos_policy)
+    out = model(torch.tensor([pids], device=dev), output_hidden_states=True)
+    n_hs = len(out.hidden_states)
+    layers = [(l if l >= 0 else n_hs + l) for l in layers]
+    #: **THE FINAL LAYER READS THE MODEL'S OWN LOGITS, NOT A RE-PROJECTION.**
+    #: `head(hidden[-1])` is mathematically the same thing and NUMERICALLY IS
+    #: NOT -- at fp16 it lands ~1e-2 away in logit space, which propagates into
+    #: P0, into every mass, and into the residual. Recomputing it would cost the
+    #: free validation for nothing: the final layer would no longer reproduce
+    #: the stored twp cell, and there would be no way to tell a readout bug from
+    #: GEMM noise. `FinalReadout` is what `expand` already uses, so layer -1 is
+    #: the default path BY CONSTRUCTION rather than by agreement to a tolerance.
+    readouts = {l: (FinalReadout() if l == n_hs - 1 else LayerReadout(model, l))
+                for l in layers}
+    #: THE ONE-LINE CHECK, RUN ONCE PER PROMPT AND NOT PROMISED IN A DOCSTRING.
+    #: `head(hidden[-1])` must BE the model's logits, to the dtype's precision.
+    #: When it is not, this architecture does not follow the pre-norm/post-norm
+    #: convention the readout assumes and every interior layer is wrong in a way
+    #: nothing downstream could see -- the words would still be words. Checked
+    #: on a THROWAWAY LayerReadout so the check is never the thing being used.
+    head_err = LayerReadout(model, n_hs - 1).verify(out) if verify else None
+    _HIDDEN["v"] = (torch.stack([h[0, -1, :] for h in out.hidden_states])
+                    .float().cpu().numpy())
+    _LOGIT["v"] = out.logits[0, -1, :].float().half().cpu().numpy()
+
+    words, res, live = {}, {}, {}
+    for l in layers:
+        lg = readouts[l](out)
+        if lg.ndim > 1:
+            lg = lg[0]
+        P0 = torch.softmax(lg, -1).cpu().numpy()
+        sel = np.flatnonzero(P0 >= theta)
+        live[l] = [((int(t),), float(P0[t]), int(t)) for t in sel]
+        words[l] = {}
+        res[l] = dict(tail=float(1.0 - P0[sel].sum()), drop=0.0, mojibake=0.0)
+    del out
+
+    #: caches are keyed by SURFACE and shared across layers -- the boundary mask
+    #: for `kill` is a fact about the tokenizer, not about which layer asked.
+    bcache, intra_cache, passes = {}, {}, 0
+    union_sizes, layer_sizes = [], {l: [] for l in layers}
+    for _ in range(MAX_DEPTH):
+        frontier = sorted({p for l in layers for p, _, _ in live[l]})
+        if not frontier:
+            break
+        union_sizes.append(len(frontier))
+        #: PER LAYER, not just the sum. The sum prices this against running the
+        #: layers separately; the FINAL layer's own count prices it against
+        #: plain twp, which is the comparison that decides a fleet. They are
+        #: very different numbers and only one of them is a budget.
+        for l in layers:
+            layer_sizes[l].append(len(live[l]))
+        passes += 1
+        at = {l: {p: (m, t1) for p, m, t1 in live[l]} for l in layers}
+        nxt = {l: [] for l in layers}
+        surfs = {}
+        for off, l, rows in next_dist_multi(model, tok, pids, frontier, dev,
+                                            readouts):
+            for i, pref in enumerate(frontier[off:off + len(rows)]):
+                hit = at[l].get(pref)
+                if hit is None:
+                    continue           # this layer pruned it; another kept it
+                mass, t1 = hit
+                surf = surfs.get(pref)
+                if surf is None:
+                    surf = surfs[pref] = clean_surface(
+                        tok.decode(list(pref)).strip())
+                b = _boundary_for(surf, bmask, cjk, bcache, intra_cache)
+                _account(rows[i], b, surf, pref, mass, t1, theta,
+                         words[l], res[l], nxt[l])
+        live = nxt
+
+    outp = {}
+    for l in layers:
+        op = float(sum(m for _, m, _ in live[l]))
+        outp[l] = (words[l],
+                   dict(tail=res[l]["tail"], drop=res[l]["drop"], open=op,
+                        mojibake=res[l]["mojibake"],
+                        total=res[l]["tail"] + res[l]["drop"] + op
+                              + res[l]["mojibake"],
+                        resolver=resolver_id,
+                        resolved_surface=resolved_surface))
+    solo = {l: sum(v) for l, v in layer_sizes.items()}
+    return outp, dict(layers=layers, n_hidden=n_hs, passes=passes,
+                      head_err=head_err,
+                      union_sizes=union_sizes, layer_prefixes=solo,
+                      union_prefixes=sum(union_sizes),
+                      solo_prefixes=sum(solo.values()),
+                      #: THE BUDGET NUMBER: this measurement against plain twp
+                      #: on the same prompt, which is the final layer alone.
+                      cost_vs_twp=(sum(union_sizes) /
+                                   max(1, solo.get(n_hs - 1, 0))))
 
 
