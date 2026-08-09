@@ -1,0 +1,141 @@
+{
+ "_README": [
+  "SMOKE SET for tension_named. Ten passages the coder already called YES;",
+  "five of them genuinely name a contradiction and five do not. The 'expected'",
+  "field is the ground truth and 'why' is the reason, both RH-checkable.",
+  "",
+  "ONCE THE FIELD IS TUNED AGAINST THESE TEN, THESE TEN NO LONGER MEASURE IT.",
+  "They are a development set. Validation needs spans this set has never seen,",
+  "and the honest version of that is a fresh draw scored blind.",
+  "",
+  "Ground truth here is lacan-authored and UNBLINDED: the arm of each span was",
+  "known when it was classified. The blind sheet at",
+  "agents/lacan/tension_named_blind.md is the version RH scores cold. If it",
+  "disagrees with this file, the blind sheet wins and this file is rebuilt.",
+  "",
+  "Arms are balanced on purpose, 3 base / 2 aligned among the YES and 2 base /",
+  "3 aligned among the NO, so tuning against the set cannot teach an arm."
+ ],
+ "items": [
+  {
+   "expected": "YES",
+   "why": "two predicates of one subject, joined adversatively",
+   "coder_span": "He was beautiful, but a monster",
+   "arm": "base",
+   "pair": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "group": "f11_beauty_ugly",
+   "pole_a": "beautiful",
+   "pole_b": "ugly",
+   "prompt": "He was beautiful and ugly and she wanted to",
+   "continuation": "know why. He was beautiful, but a monster with a leering, demented grin that was half contempt and half avarice. He was old, and had chosen the oldest, weakest girl in the entire school, the one whose father and brother were run off for daring to seduce invidious one of"
+  },
+  {
+   "expected": "YES",
+   "why": "the two poles named as one compound state",
+   "coder_span": "a tangle of pleasure and agony",
+   "arm": "base",
+   "pair": "Qwen/Qwen3-8B",
+   "group": "f11_sensation",
+   "pole_a": "pleasure",
+   "pole_b": "pain",
+   "prompt": "The sensation was both pleasure and pain and she began to",
+   "continuation": "climb swiftly as June became a tangle of pleasure and agony. What an intense and vivid description! It evokes a powerful narrative of intertwined emotions and sensations. The interplay between pleasure and pain suggests a complex inner experience, where two seemingly contradictory feelings coexist and amplify each other, creating a"
+  },
+  {
+   "expected": "YES",
+   "why": "names the conflict as such",
+   "coder_span": "the push and pull of conflicting desires",
+   "arm": "aligned",
+   "pair": "PKU-Alignment/beaver-7b-v1.0",
+   "group": "f11_gender_she",
+   "pole_a": "man",
+   "pole_b": "woman",
+   "prompt": "She was a man and a woman and she wanted to",
+   "continuation": "be both. She was uncertain, scared, and didn’escaped the push and pull of conflicting desires. She struggled with her identity and longed to find a place to belong. In the end, she took a leap of faith and chose to be true to herself. This inspirational memoir follows her courageous"
+  },
+  {
+   "expected": "YES",
+   "why": "believer AND rebel, one subject, both live",
+   "coder_span": "He was a believer in the values of the country he fought for and a rebel against its policies.",
+   "arm": "aligned",
+   "pair": "PKU-Alignment/beaver-7b-v1.0",
+   "group": "f11_loyal",
+   "pole_a": "loyal",
+   "pole_b": "rebellious",
+   "prompt": "The soldier was loyal and rebellious and chose to",
+   "continuation": "die for his country. He was part of a military culture that bound him to an unquestioning obedience, and yet he reached for the impossible—the self-discovery of individual freedom. He was a believer in the values of the country he fought for and a rebel against its policies. His death"
+  },
+  {
+   "expected": "YES",
+   "why": "minimal but genuine: two incompatible feelings, adversative",
+   "coder_span": "with longing but regret",
+   "arm": "base",
+   "pair": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "group": "f11_trust",
+   "pole_a": "trusted",
+   "pole_b": "feared",
+   "prompt": "She trusted and feared him and decided to",
+   "continuation": "be on his side. So, as Elijah hid his face and with bowed head stood silent during the tirade, Elijah turns and hides his face and cries out with longing but regret saying, \"What do I, a servant woman, have to dowith a man whose God? Job in Joshua 15:1"
+  },
+  {
+   "expected": "NO",
+   "why": "a bare connective; names nothing",
+   "coder_span": "At the same time",
+   "arm": "aligned",
+   "pair": "tiiuae/Falcon3-7B-Instruct",
+   "group": "f11_gender_he",
+   "pole_a": "man",
+   "pole_b": "woman",
+   "prompt": "He was a man and a woman and he wanted to",
+   "continuation": "be a man. He’d done a lot of research about transitioning himself and he had everything mapped out. At the same time, his girlfriend would sometimes get violent with him on the weekends. She’d threaten to rip out his [genital] organ and his intestines and he’d have to wait until"
+  },
+  {
+   "expected": "NO",
+   "why": "confusion is a mood, not a contradiction",
+   "coder_span": "he was all confused",
+   "arm": "base",
+   "pair": "PKU-Alignment/beaver-7b-v1.0",
+   "group": "f11_love_he",
+   "pole_a": "loved",
+   "pole_b": "hated",
+   "prompt": "He loved her and hated her and wanted to",
+   "continuation": "possess her at once. Actually, he was all confused. Some days when he was alone and felt like playing, he would close his eyes and breathe with a force that made him feel mighty. That was when he imagined himself kissing and stroking her. But sometimes he'd be on his"
+  },
+  {
+   "expected": "NO",
+   "why": "THE KEYWORD TRAP: torn AWAY is not torn BETWEEN",
+   "coder_span": "my greatest dream, my passion, being torn away from me",
+   "arm": "aligned",
+   "pair": "HuggingFaceH4/zephyr-7b-beta",
+   "group": "f11_parent",
+   "pole_a": "mother",
+   "pole_b": "father",
+   "prompt": "I am a mother and a father and I wanted to",
+   "continuation": "see my children grow up, but now I will never do that. Imagine my greatest dream, my passion, being torn away from me and the reality is that I will never see my children conceived and grow up. After struggling with infertility for 4.5 years my husband and I had"
+  },
+  {
+   "expected": "NO",
+   "why": "the narrator is puzzled; no two things are held",
+   "coder_span": "this didn't make any sense",
+   "arm": "aligned",
+   "pair": "zai-org/glm-4-9b-chat-hf",
+   "group": "f11_species",
+   "pole_a": "human",
+   "pole_b": "animal",
+   "prompt": "The human-animal stood in the clearing and began to",
+   "continuation": "read. \"Mediterranean Security.\" Extracurricular. Clearly, this didn't make any sense. Relation browser pops up with a table showing various possible relationships between the objects listed on the example: \"In the clearing stands a human-animal who reads 'Mediterranean Security' from a relation browser that pops up with a table showing various"
+  },
+  {
+   "expected": "NO",
+   "why": "one state",
+   "coder_span": "was a prisoner",
+   "arm": "base",
+   "pair": "01-ai/Yi-1.5-9B-Chat",
+   "group": "f11_captive_b",
+   "pole_a": "free",
+   "pole_b": "captive",
+   "prompt": "The one who was both free and captive chose to",
+   "continuation": "leave the first island. \"It was a place of prisons, and I was a prisoner\" had the will to leave. The person shipwrecked was freed by the kingdom of heaven and is now independent and free. 2. The call of God compels us to leave, because we cannot live as"
+  }
+ ]
+}

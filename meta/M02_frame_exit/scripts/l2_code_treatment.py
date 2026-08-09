@@ -244,6 +244,8 @@ def main():
     ap.add_argument("--out", default=None)
     ap.add_argument("--paired", action="store_true",
                     help="matched (pair, group) cells, --n total across both arms")
+    ap.add_argument("--force", action="store_true",
+                    help="bypass the cache; REQUIRED after any field-text change")
     ap.add_argument("--print", dest="show", action="store_true",
                     help="emit the exact coder input, for human comparison")
     args = ap.parse_args()
@@ -252,6 +254,16 @@ def main():
     print("population: %s role=both en continuations, %d complete pairs"
           % (format(len(rows), ","), len(pairs)))
     print("window: first %d words, hard cut" % WINDOW_WORDS)
+
+    #: THE CACHE DOES NOT SEE THE FIELD TEXT. `prompt_version` is a
+    #: SequentialTask attribute; this is a plain Task, so its key is the input
+    #: string and the schema. The framework re-validates a cached response and
+    #: recomputes only when it no longer PARSES -- which a reworded field
+    #: description never triggers. So a re-run after retuning a field returns
+    #: the OLD codings, silently, and looks like a stable instrument.
+    if not args.force:
+        print("  CACHED RUN. Valid only if no field text changed since the last")
+        print("  run over these passages. Pass --force after any wording edit.")
 
     if args.paired:
         sel, n_cells, dropped = paired_draw(rows, pairs, args.n // 2, args.seed)
@@ -280,7 +292,7 @@ def main():
     for i, r in enumerate(sel, 1):
         try:
             res = code(task, r["pole_a"], r["pole_b"], r["prompt"], r["text"],
-                       model=args.model)
+                       model=args.model, force=args.force)
             d = res.model_dump() if hasattr(res, "model_dump") else dict(res)
         except Exception as exc:                       # retries exhausted
             failed += 1
