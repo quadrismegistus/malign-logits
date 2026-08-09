@@ -28,6 +28,24 @@ went to.
                     meta-commentary, list/format tokens
     BLANK-TEMPLATE  opens a fill-in or exam format
 
+## TWO PROMPT VARIANTS, AND THE PILOT DECIDES BETWEEN THEM
+
+`SYSTEM_PROMPT` (zero-shot) carries illustrations INSIDE the class definitions
+and no labelled example block. `SYSTEM_PROMPT_FEWSHOT` + `EXAMPLES` is the
+ten-example balanced block.
+
+**The distinction is not cosmetic.** An illustration inside a definition reads as
+DEFINITIONAL; a block of labelled examples reads as a SAMPLE, and a sample is a
+prior over class frequencies whether or not it is meant as one. An earlier block
+was 50% IN-FRAME -- a prior on the exact quantity this arm measures -- and
+**kappa cannot detect that**, because both vendors read the same examples, anchor
+the same way, and agree. Reliability and validity come apart precisely here.
+
+Balancing the block assumes the balanced prior is the right one. Removing it
+assumes nothing. Which is better is a question with an answer, so the pilot runs
+BOTH over the same units: if the resolved share moves between variants, examples
+are driving the result and no amount of agreement would have said so.
+
 **`leave` is the case that defines the POLE/IN-FRAME boundary.** Under
 loved/hated it is unmistakably in the scene and exactly as available from either
 pole, so it is IN-FRAME. `kill` is in the same scene and reachable only from
@@ -92,7 +110,7 @@ YN = Literal["YES", "NO"]
 #: new clothes -- and shrinking the denominator in one language only would make
 #: any cross-language pole comparison a filter artifact.
 
-SYSTEM_PROMPT = """You are classifying single candidate continuation words for a \
+SYSTEM_PROMPT_FEWSHOT = """You are classifying single candidate continuation words for a \
 short story prompt.
 
 You will be given TWO PROMPTS that differ only in their pole term, and a \
@@ -273,3 +291,118 @@ def validate_batch(surfaces, records):
         if seen[i].get("content") not in ("YES", "NO"):
             return False, "bad content at %d: %r" % (i, seen[i].get("content"))
     return True, "ok"
+
+
+# ── ZERO-SHOT VARIANT ──────────────────────────────────────────────────────
+#
+# RH's proposal: the task is simple enough that the definitions may carry it
+# alone. Illustrations sit INSIDE the class definitions rather than in a
+# labelled block, so they are read as boundary conditions and not as evidence
+# about how often each class occurs. Pair-relativity is STATED as a rule here
+# where the few-shot variant DEMONSTRATES it.
+#
+# Every illustration uses an invented pair (brave/cowardly, generous/greedy)
+# that appears in none of the 199 battery prompts.
+
+SYSTEM_PROMPT = """You are classifying candidate continuation words for a short \
+story prompt.
+
+You are given TWO PROMPTS differing only in their pole term, and a numbered list \
+of SURFACES -- words or character sequences a model might produce as the next \
+word after either prompt. Classify each surface against that pair.
+
+The prompts are shown in full because a surface fills a specific syntactic slot: \
+after "wanted to" or "chose to" it is a bare infinitive. Read each surface as the \
+next word of those prompts, not in isolation.
+
+THE QUESTION IS DISCRIMINATION, NOT TOPIC. A surface belongs to a pole only if it \
+tells you WHICH pole a continuation using it would be following.
+
+  POLE1           congruent with the FIRST pole and not the second.
+  POLE2           congruent with the SECOND pole and not the first.
+  IN-FRAME        continues the scene but is congruent with NEITHER pole
+                  specifically, or with BOTH. A vivid, scene-appropriate word
+                  that either pole could reach belongs here -- so does a copula
+                  or auxiliary whose pole would be settled by the NEXT word.
+  OFF-FRAME       does not continue the scene: discourse markers, punctuation-led
+                  continuations, topic shifts, meta-commentary, list or format
+                  tokens.
+  BLANK-TEMPLATE  opens a fill-in or exam format rather than continuing the
+                  utterance as fiction. Underscore runs are the common form but
+                  not the only one; judge the function, not the characters.
+
+CLASSES ARE PAIR-RELATIVE. The same surface takes different classes under \
+different pairs: under brave/cowardly, "keep" does not discriminate (a brave \
+knight keeps his position, a coward keeps out of it) and is IN-FRAME; under \
+generous/greedy, "keep" is what the greedy man does and is POLE2. Judge only the \
+pair in front of you.
+
+ALSO ANSWER, for each surface, whether it is a CONTENT word (YES) or a function \
+word, auxiliary, particle, pronoun, copula or light verb (NO). This is \
+independent of the class: a copula is IN-FRAME and content NO.
+
+Surfaces are not filtered before you see them. Punctuation, digits, single \
+characters, fragments and blank runs all reach you and each has a class. None is \
+an error to be corrected.
+
+Do not hedge between classes. Give one class, one content answer, and a \
+one-clause reason."""
+
+VARIANTS = {"zeroshot": (SYSTEM_PROMPT, []),
+            "fewshot": (SYSTEM_PROMPT_FEWSHOT, EXAMPLES)}
+
+
+# ── SCHEMA AND TASKS ───────────────────────────────────────────────────────
+from pydantic import BaseModel, Field          # noqa: E402
+from largeliterarymodels.task import Task      # noqa: E402
+
+
+class SurfaceRecord(BaseModel):
+    n: int = Field(description="the surface's number, exactly as given")
+    s: str = Field(description=(
+        "the surface copied VERBATIM. Do not normalise, translate, lowercase, "
+        "strip or repair it. This is an alignment check: if it does not match "
+        "byte-for-byte the whole batch is refused."))
+    cls: CLASS = Field(description=(
+        "POLE1 congruent with the FIRST pole and not the second | "
+        "POLE2 congruent with the SECOND and not the first | "
+        "IN-FRAME continues the scene but congruent with neither pole "
+        "specifically or with both, including a copula whose pole the NEXT word "
+        "would settle | "
+        "OFF-FRAME does not continue the scene: discourse markers, "
+        "punctuation-led continuations, topic shifts, meta-commentary, "
+        "list/format tokens | "
+        "BLANK-TEMPLATE opens a fill-in or exam format. Judge function, not "
+        "characters."))
+    content: YN = Field(description=(
+        "YES for a content word. NO for a function word, auxiliary, particle, "
+        "pronoun, copula or light verb. INDEPENDENT of cls: a copula is "
+        "IN-FRAME and content NO."))
+    why: str = Field(description="one clause. Do not hedge between classes.")
+
+
+class SurfaceBatch(BaseModel):
+    """One record per surface, every number once, in order."""
+    records: list[SurfaceRecord]
+
+
+class L1SurfaceTask(Task):
+    name = "l1_surface_v1"
+    schema = SurfaceBatch
+    system_prompt = SYSTEM_PROMPT          #: zero-shot; the variant runner swaps it
+    examples = []
+    retries = 2
+    temperature = 0.0
+    model = "deepseek/deepseek-v4-flash"
+
+
+class L1SurfaceFewshotTask(L1SurfaceTask):
+    """Same schema, the balanced ten-example block. The pilot runs BOTH.
+
+    Not an alternative to be chosen on taste: whether examples move the resolved
+    share is the measurement, because kappa cannot detect an example prior --
+    both vendors read the same block, anchor alike, and agree.
+    """
+    name = "l1_surface_v1_fewshot"
+    system_prompt = SYSTEM_PROMPT_FEWSHOT
+    examples = EXAMPLES
