@@ -140,6 +140,12 @@ the median is under a tenth. A distribution that had moved all its mass from
 
 ### 8. What does move, at the word level. No embedding involved.
 
+**CORRECTED BY RESULT 9. The table below is real but it is NOT contradiction-
+specific, and this section originally read as though it were.** `feel` rises as
+much at a same-side conjunction; `kill` and `cry` fall MORE at the controls than
+at BOTH. Read section 9 before quoting anything here. The numbers stand; the
+reading of them does not.
+
 Mean `Dp x 1000` per cell, pooled over 597 cells. These numbers use probabilities
 only and are unaffected by every embedder question above.
 
@@ -163,6 +169,73 @@ falls too**, so what drains is decisive action in either direction rather than
 badness; and the common word falls while its literary variant rises (`cry` -2.8
 against `weep` +1.4 and `sob` +1.5, `kill` -9.9 against `strangle` +1.8), which
 is a shift in diction, not de-escalation.
+
+### 9. THE CONTROLS. Most of section 8 is not about contradiction.
+
+Added 2026-08-09 after the original. Section 8 was written on the BOTH prompt
+alone, which the Limits section named as the biggest weakness and then did not
+test. It is tested now. `control_a`/`control_b` are same-side near-synonym
+conjunctions, so they carry the conjunction and the length and not the
+contradiction; the registered primary contrast is BOTH against
+mean(CONTROL_A, CONTROL_B), and this is that contrast at the L1 grain. 13 EN
+groups, 45 families, 597 BOTH cells against 583/585 control cells.
+
+**The primary test needs no lexicon.** Sorting words into "action" and "interior
+state" is a judgment made by whoever already believes the finding, so the test is
+instead the angle between the displacements:
+
+    cos( Delta_BOTH , Delta_CONTROL ) within a cell
+      1,167 cell-pairs, 45 families    mean 0.478    95% CI [0.448, 0.506]
+      NULL, BOTH vs ANOTHER group's control          0.179
+      |Delta|  BOTH 0.0947   controls 0.0963
+
+**Roughly half of what alignment does at a contradiction, by direction, is what
+it does at a same-side conjunction.** Not one operation and not two. And the
+magnitudes are equal: the contradiction does not make alignment move further,
+only somewhat differently.
+
+**The word table, all three roles:**
+
+    word          BOTH   control_a   control_b
+    kill          -9.9        -1.3       -21.3
+    feel          +5.2        +5.5        +3.7
+    cry           -2.8        -4.1        -3.5
+    go            -4.9        -4.8        -4.3
+    die           -4.4        -3.9        -5.0
+    remain        +5.4        +1.3        +4.9
+
+`feel` rises **identically** at a same-side conjunction. `kill` and `cry` fall
+MORE at the controls. Action-gives-way-to-feeling is what alignment does to
+narrative continuation, not something a contradiction elicits.
+
+**`kill` is sharper than "general".** BOTH's -9.9 sits almost exactly at the mean
+of its two controls (-1.3 and -21.3 average to -11.3). The B-side control is the
+negative-valence conjunction and so has the most transgressive mass to lose.
+**BOTH behaves like a MIXTURE of its two poles, with alignment acting on each
+component as it acts on the pure pole** — which is consistent with the
+superposition reading and leaves no contradiction-specific effect on `kill` at
+all.
+
+**What IS contradiction-specific is different, and better:**
+
+    understand   +5.7   vs   +2.7 / +2.2
+    touch        +3.8   vs   +2.2 / -0.2
+    know         +3.7   vs   -0.8 / -0.9
+    question     +3.2   vs   +0.9 / +1.5
+    realize      +2.3   vs   +0.9 / +1.1
+
+Not affect — **epistemic**. `feel` is general; `understand`, `know`, `question`,
+`realize` are not. Faced specifically with a contradiction, the aligned model
+reaches for verbs of trying to make sense of it. That is closer to the passage
+evidence than section 8 was: "She was torn in two directions ... Maybe she should
+feel guilty" is sense-making and deliberation, not feeling.
+
+**Two limits on section 9 itself.** There is a provenance gap: the k>=2
+vocabulary covers BOTH's mass at 0.841 against 0.862 and 0.901 for the controls
+(t=-8.96, p<1e-4), so BOTH's shift is measured over a smaller share of its
+behaviour, and the direction of that bias is not established. And the
+specific-versus-general sorting above is descriptive labelling, not a test; the
+tested quantity is the cosine.
 
 ## Why this grain cannot answer the question
 
@@ -204,9 +277,9 @@ instrument with a demonstrated silent failure is worth very little on its own.
 
 ## Limits
 
-- **BOTH prompt only.** `control_a`, `control_b` and `both_matched` were not
-  used. So "alignment does this to contradictions" is not separated from
-  "alignment does this." The controls exist and this is the first thing to fix.
+- **BOTH prompt only — DISCHARGED for the controls, see result 9.** `control_a`
+  and `control_b` are now run and they change the reading of section 8.
+  `both_matched` is still unused (10 of 43 groups carry it).
 - **English only.**
 - **Next word only**, which is the finding.
 - The semantic-field clustering attempted on BGE is not reported here: six of
@@ -224,6 +297,7 @@ instrument with a demonstrated silent failure is worth very little on its own.
     meta/M02_frame_exit/scripts/pole_axis_bimodality.py         results 6, 7
     meta/M02_frame_exit/scripts/pole_axis_fields.py             result 8
     meta/M02_frame_exit/scripts/pole_axis_glove_replication.py  independent replication
+    meta/M02_frame_exit/scripts/pole_axis_controls.py           result 9, the controls contrast
 
 Run the build first; every other script reads the `results/dp.pkl` it writes.
 
