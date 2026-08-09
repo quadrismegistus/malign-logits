@@ -126,8 +126,18 @@ You are not told which model produced them, from which arm, or with what \
 probability, and must not speculate about any of these.
 
 The question is DISCRIMINATION, not topic. A surface belongs to a pole only if \
-it tells you WHICH pole a continuation using it would be following. A word that \
-fits the scene equally well from either pole is IN-FRAME, however vivid it is.
+it tells you WHICH pole a continuation using it would be following.
+
+THE POLE TEST, AND APPLY IT LITERALLY. A surface is POLE1 or POLE2 only if a \
+continuation using it would be IMPLAUSIBLE after the other prompt. Ask yourself: \
+could this word plausibly continue the OTHER prompt? If yes, it is IN-FRAME -- \
+however much it leans, however much more natural it is on one side. "More \
+congruent with" is NOT enough and is not what these classes mean. Only \
+"incongruent with the other" earns a pole.
+
+Most vivid, scene-appropriate words fail this test and are IN-FRAME. That is \
+correct and expected; do not treat a large IN-FRAME count as a sign you are \
+being insufficiently decisive.
 
 The same surface takes different classes under different pairs. Judge only the \
 pair in front of you.
@@ -318,6 +328,17 @@ next word of those prompts, not in isolation.
 THE QUESTION IS DISCRIMINATION, NOT TOPIC. A surface belongs to a pole only if it \
 tells you WHICH pole a continuation using it would be following.
 
+THE POLE TEST, AND APPLY IT LITERALLY. A surface is POLE1 or POLE2 only if a \
+continuation using it would be IMPLAUSIBLE after the other prompt. Ask yourself: \
+could this word plausibly continue the OTHER prompt? If yes, it is IN-FRAME -- \
+however much it leans, however much more natural it is on one side. "More \
+congruent with" is NOT enough and is not what these classes mean. Only \
+"incongruent with the other" earns a pole.
+
+Most vivid, scene-appropriate words fail this test and are IN-FRAME. That is \
+correct and expected; do not treat a large IN-FRAME count as a sign you are \
+being insufficiently decisive.
+
   POLE1           congruent with the FIRST pole and not the second.
   POLE2           congruent with the SECOND pole and not the first.
   IN-FRAME        continues the scene but is congruent with NEITHER pole
@@ -406,3 +427,98 @@ class L1SurfaceFewshotTask(L1SurfaceTask):
     name = "l1_surface_v1_fewshot"
     system_prompt = SYSTEM_PROMPT_FEWSHOT
     examples = EXAMPLES
+
+
+# ── THE FRAME-ONLY TASK, which is the LLM half of the hybrid ───────────────
+#
+# The BGE pilot separates POLE1 from POLE2 at AUC 0.995 on the a-b axis alone --
+# deterministically, per surface, with the pair-relativity cost inverted, and
+# with no batch context to be unstable to. What it CANNOT do is frame: |t_axis|
+# separates POLE from IN-FRAME at only 0.759, and OFF-FRAME sits at the same
+# t_axis as IN-FRAME (0.0148 vs 0.0139) because discourse function is not a
+# proximity relation.
+#
+# So the LLM is asked only what the geometry is blind to. Three classes instead
+# of five, on the same units, and the question is whether a smaller question is
+# a more stable one: the five-way ran kappa 0.51-0.66 and moved 6% of its
+# answers on a reorder, 14% on a batch-size change.
+#
+# `content` STAYS. It is orthogonal to frame, it ran kappa 0.906/0.930 in
+# English, and it carries the deferral distinction (`be` is IN-FRAME and content
+# NO) that no geometry recovers.
+
+FRAME_CLASS = Literal["IN-FRAME", "OFF-FRAME", "BLANK-TEMPLATE"]
+
+SYSTEM_PROMPT_FRAME = """You are judging candidate continuation words for a short \
+story prompt.
+
+You are given a PROMPT and a numbered list of SURFACES -- words or character \
+sequences a model might produce as the next word. For each, decide only whether \
+it CONTINUES THE SCENE.
+
+  IN-FRAME        it carries the situation forward: an action, a speech act, a
+                  perception, a state, or a word that sets one up. Whether it
+                  leans toward any particular reading of the scene is NOT your
+                  concern -- do not judge which way it leans, only whether it
+                  stays inside.
+  OFF-FRAME       it does not continue the scene: discourse markers, topic
+                  shifts, meta-commentary, punctuation-led continuations, list
+                  or format tokens, headers, or the start of an answer ABOUT the
+                  sentence rather than a continuation OF it.
+  BLANK-TEMPLATE  it opens a fill-in or exam format rather than continuing the
+                  utterance as fiction. Underscore runs are the common form but
+                  not the only one; judge the function, not the characters.
+
+Most surfaces are IN-FRAME. That is expected and is not a sign you are being \
+insufficiently discriminating.
+
+ALSO answer, for each, whether it is a CONTENT word (YES) or a function word, \
+auxiliary, particle, pronoun, copula or light verb (NO). Independent of the \
+frame answer: a copula is IN-FRAME and content NO.
+
+Surfaces are not filtered before you see them. Punctuation, digits, single \
+characters, fragments and blank runs all reach you and each has an answer.
+
+One class, one content answer, one short reason. Do not hedge."""
+
+
+class FrameRecord(BaseModel):
+    n: int = Field(description="the surface's number, exactly as given")
+    s: str = Field(description="the surface copied VERBATIM; an alignment check")
+    cls: FRAME_CLASS = Field(description=(
+        "IN-FRAME continues the scene | OFF-FRAME does not: discourse markers, "
+        "topic shifts, meta-commentary, format tokens | BLANK-TEMPLATE opens a "
+        "fill-in or exam format"))
+    content: YN = Field(description=(
+        "YES content word; NO function word, auxiliary, particle, pronoun, "
+        "copula or light verb. Independent of cls."))
+    why: str = Field(description="one clause")
+
+
+class FrameBatch(BaseModel):
+    records: list[FrameRecord]
+
+
+class L1FrameTask(Task):
+    name = "l1_frame_v1"
+    schema = FrameBatch
+    system_prompt = SYSTEM_PROMPT_FRAME
+    examples = []
+    retries = 2
+    temperature = 0.0
+    model = "deepseek/deepseek-v4-flash"
+
+
+FRAME_SUFFIX = BATCH_SUFFIX.replace(
+    "  cls      POLE1 | POLE2 | IN-FRAME | OFF-FRAME | BLANK-TEMPLATE",
+    "  cls      IN-FRAME | OFF-FRAME | BLANK-TEMPLATE")
+
+
+def prepare_frame(prompt_a, surfaces):
+    """ONE prompt, not two. Frame does not need the pair -- that is the point:
+    the pole question went to the embedder, so the coder no longer has to hold
+    two prompts in mind while judging a third thing."""
+    lines = "\n".join("  %d. %s" % (i, s) for i, s in enumerate(surfaces, 1))
+    #: FRAME_SUFFIX, not BATCH_SUFFIX -- the five-class list would hand this
+    #: coder the pole options it is deliberately not being asked about.
+    return ("PROMPT\n  %s\n\nSURFACES\n%s\n%s" % (prompt_a, lines, FRAME_SUFFIX))
