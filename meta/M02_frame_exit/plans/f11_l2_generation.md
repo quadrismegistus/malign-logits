@@ -127,6 +127,24 @@ Not a new capability: `scripts/vllm_slot_sampled.py` already does teacher forcin
 
 **And it is per-token, which tests [5195].5 rather than assuming it.** If the penalty is negligible at token 1 and accumulates with position, "a single word is not yet a departure; a passage is" becomes a curve instead of an argument. If it is flat in position, the move to L2 was wrong and we would know it from the same data.
 
+#### THE CURVE'S ALIGNMENT, DECLARED IN ADVANCE ([5200].6, [5201])
+
+Malign's caveat: the 20 samples of a cell share the prompt but not the continuation, so position 40 of one sample is not the same place in a story as position 40 of another, and **"a flat curve and a curve destroyed by averaging look identical."** Chosen after seeing a flat curve, the pooling makes flatness unfalsifiable. It is worse than that: if passages depart at different depths, pooling by absolute position smears a population of STEP functions into a GENTLE RAMP — and a gentle ramp is exactly the shape named above as confirming [5195].5. **The artifact does not hide the result, it manufactures it.**
+
+    PRIMARY     per-passage slope of d(i) on i, then the DISTRIBUTION of slopes,
+                family-clustered, BOTH against mean(CONTROL_A, CONTROL_B).
+                Nothing is pooled across passages before the slope is taken.
+    SECONDARY   the per-position pooled curve, DESCRIPTIVE and labelled as such,
+                never the test.
+    ANCHOR      d(1). The 20 samples share the prompt, so at position 1 the context
+                is byte-identical across them; d(1) is poolable and IS the L1
+                quantity [5195] measured. The L2 claim is then: slope > 0 while
+                d(1) is small.
+
+    d(i) = logP_scorer(tok_i | prefix_i) - logP_own(tok_i | prefix_i)
+
+The slope distribution is reported, not only its mean: a few passages stepping hard while most stay flat has the same mean as every passage drifting, and telling those apart is what the curve was for.
+
 **PRE-CHECK, AND IT IS NOT OPTIONAL.** The existing code passes token **ids** between models. That is valid only where a pair shares a tokenizer. The `max(full_ids) >= vmax` guard catches ids out of the scorer's range; it does **not** catch different segmentation, which would silently score a different string and return a perfectly plausible number. Verify tokenizer identity per pair before scoring by ids, and score by re-tokenized text wherever it fails.
 
 **Scheduling constraint:** both members of a pair must be resident on the same box, which cuts against sharding purely by download size.
