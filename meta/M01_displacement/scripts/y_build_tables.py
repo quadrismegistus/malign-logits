@@ -209,8 +209,14 @@ def main():
                 passages.append(p)
         if rows:
             D = pd.DataFrame(rows)
-            for c in ("token", "layer1", "layer2"):
-                D[c] = D[c].astype("category")
+            #: DO NOT use pandas `category` here. Its dictionary indices are
+            #: int8/int16/int32 depending on the shard's own cardinality, so a
+            #: shard with >32,767 distinct tokens writes int32 codes and one
+            #: with fewer writes int16 -- and reading the directory as a single
+            #: dataset then fails with "Integer value N not in range". Parquet
+            #: dictionary-encodes plain strings on its own, consistently.
+            D["token_id"] = D.token_id.astype("int32")
+            D["l2_span_id"] = D.l2_span_id.astype("int64")
             D["token_num"] = D.token_num.astype("int16")
             D["l2_pos"] = D.l2_pos.astype("int16")
             for c in ("base_surprisal", "aligned_surprisal"):
