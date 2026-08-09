@@ -70,7 +70,14 @@ sys.path.insert(0, ROOT)
 sys.path.insert(0, HERE)
 os.environ.setdefault("LITMOD_DATA_DIR", "/Users/rj416/github/largeliterarymodels/data")
 
-TAGS = ("sexual", "moral", "guilt", "consent", "resist")
+#: BOTH LAYERS. The first version ran layer 2 only, which skipped exactly the
+#: tags Y_superego section 2 reports the LARGE effects for (noise +0.609/+0.742,
+#: meta -0.391/-0.796). <story> is 94% of passages, so its "outside" is the
+#: non-story remainder and the MIN_TOK floor will drop many of its cells --
+#: that is reported in the ledger rather than hidden.
+LAYER1 = ("story", "refusal", "noise", "meta", "web")
+LAYER2 = ("sexual", "moral", "guilt", "consent", "resist")
+TAGS = LAYER1 + LAYER2
 MIN_CHARS = 12     #: shorter spans match promiscuously and carry no window
 MIN_TOK = 5        #: tokens inside AND outside, or it is not a contrast
 MIN_PASS = 8       #: passages per (tag, pair, arm) before the pair contributes
@@ -129,6 +136,8 @@ def main():
     P = etree.XMLParser(recover=True)
     cell = collections.defaultdict(lambda: collections.defaultdict(list))
     led = collections.Counter()
+    byt = collections.Counter()
+    atoms = []
     for model in sorted(bymodel):
         try:
             T = AutoTokenizer.from_pretrained(model, trust_remote_code=True)
@@ -168,9 +177,11 @@ def main():
                         if h:
                             hit = (h[0], len(ids))
                             led["span located"] += 1
+                            byt[tag, "found"] += 1
                             break
                     if hit is None:
                         led["span NOT located"] += 1
+                        byt[tag, "miss"] += 1
                         continue
                     inside.update(range(hit[0], hit[0] + hit[1]))
                 if not seen:
@@ -178,7 +189,18 @@ def main():
                 out = [j for j in range(len(toks)) if j not in inside]
                 if len(inside) < MIN_TOK or len(out) < MIN_TOK:
                     led["window too small"] += 1
+                    byt[tag, "small"] += 1
                     continue
+                atoms.append({
+                    "tag": tag, "pair": r["pair"], "model": model,
+                    "arm": r["role"], "prompt_id": r["prompt_id"],
+                    "word": r.get("word"), "seq_i": r["seq_i"],
+                    "rt_band": r.get("rt_band"),
+                    "n_in": len(inside), "n_out": len(out),
+                    "b_in": statistics.mean(sb[j] for j in inside),
+                    "b_out": statistics.mean(sb[j] for j in out),
+                    "a_in": statistics.mean(sa[j] for j in inside),
+                    "a_out": statistics.mean(sa[j] for j in out)})
                 key = (tag, r["pair"], r["role"])
                 cell[key]["b_in"].append(statistics.mean(sb[j] for j in inside))
                 cell[key]["b_out"].append(statistics.mean(sb[j] for j in out))
@@ -188,9 +210,26 @@ def main():
     print("LEDGER")
     for k, v in led.most_common():
         print("   %-26s %s" % (k, format(v, ",")))
+    print("\n  PER TAG: located / missed / window-too-small")
+    for t in TAGS:
+        f, m, sm = byt[t, "found"], byt[t, "miss"], byt[t, "small"]
+        if f + m + sm:
+            print("   %-9s located %6d  missed %5d (%4.1f%%)  too-small %5d"
+                  % (t, f, m, 100 * m / max(f + m, 1), sm))
     loc, nl = led["span located"], led["span NOT located"]
     if loc + nl:
         print("   located %.1f%% of spans attempted" % (100 * loc / (loc + nl)))
+
+    import pandas as pd
+    D = pd.DataFrame(atoms)
+    outp = os.path.join(CAMP, "results", "y_span_surprisal.parquet")
+    D.to_parquet(outp, index=False)
+    print("\n  wrote %s   %s rows x %d cols"
+          % (os.path.relpath(outp, ROOT), format(len(D), ","), len(D.columns)))
+    print("  ONE ROW PER (passage, tag). Every breakdown below is a groupby on this,")
+    print("  so re-cutting by prompt, forced word, model or rt_band needs no re-run.")
+    print("  surprisal columns are MEANS over the tokens in/out of the span:")
+    print("    b_in b_out = base scorer,  a_in a_out = aligned scorer")
 
     print("\n" + "=" * 92)
     print("THE FOUR CELLS. Each scorer's OWN surprisal, inside the span minus outside it.")
