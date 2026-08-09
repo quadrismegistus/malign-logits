@@ -91,18 +91,89 @@ Correlation between the two across 32 pairs: **r = −0.544**. Pairs that gain t
 
 A model that never learned to be an assistant still shifts the moral content of its fiction. **Alignment is not one operation.**
 
-## 6. At the token level, the surprisal signature is localized and directional
+## 6. At the token level: the tags separate, but not the way this section first said
 
-Same tokens, both scorers. Inside the tagged span versus the rest of the same passage:
+**CORRECTED 2026-08-09.** The original version of this section reported two
+numbers — `<sexual>`/base +0.021 and `<guilt>`/base −0.031 nats/token — and read
+them as *"transgressive tokens improbable, moral tokens probable."* Its producer
+was never committed; it was a one-off run surviving only in a chat transcript.
+Rebuilt as `scripts/y_span_surprisal.py`, three defects turned up: the score
+arrays were sliced by `plen` when they already covered the continuation only, the
+character-to-token map was proportional rather than exact, and there was no
+`rt_band` filter. **The transgressive half does not survive. The moral half does,
+and four tags nobody had run turn out to be larger than either.**
 
-| span | arm | inside − outside | CI |
+The matcher is now a token-subsequence search — parse the span text out of
+`tagged`, re-encode it with the model's own tokeniser, find that id sequence in
+the stored `tokens`. The match IS the alignment. It locates 85.1% of 35,711
+spans; the alternatives managed 28.5% and 62.2%.
+
+### The four cells, not the gap
+
+The original measure was `aligned surprisal − base surprisal`, inside minus
+outside. That is a DIFFERENCE of two quantities and cannot distinguish "neither
+model reacted" from "both did." Reporting each scorer separately changes the
+reading of three tags out of five.
+
+Each scorer's own surprisal, inside the span minus outside it. **Negative = that
+model finds the tagged region easier than the rest of the same passage.**
+
+| tag | written by | scored by | IN−OUT | CI | pairs |
+| --- | --- | --- | --- | --- | --- |
+| `<sexual>` | base | base (self) | **−0.155** | [−0.243, −0.084] | 28/32 |
+| `<sexual>` | base | aligned (cross) | **−0.118** | [−0.184, −0.078] | 27/32 |
+| `<sexual>` | aligned | either | null | — | 16–17/32 |
+| `<guilt>` | all four cells | | null | — | 13–17 of 24–26 |
+| `<consent>` | all four cells | | **−0.215 to −0.282** | all clearing | 19–24 of 20–25 |
+| `<resist>` | all four cells | | **−0.199 to −0.361** | all clearing | 22–27 of 27 |
+| `<moral>` | all four cells | | null | — | 11–14 of 19–21 |
+
+**`<sexual>` inverts.** Both models find the base's explicit spans *easier* than
+their surroundings, not harder. The original's positive gap arose because the
+base drops further (−0.155) than the aligned model does (−0.118) — a difference
+between two negatives, read as a positive effect.
+
+**`<guilt>` is null in all four cells.** The gap effect that survives correction
+(−0.034, [−0.067, −0.010], 19/24) is a difference between two individually-null
+quantities, and it does not survive multiplicity correction across the 54 cells.
+
+**`<consent>` and `<resist>` are the real effects, and they are not about
+alignment.** Both models, both arms, same direction, 0.2–0.36 nats. These regions
+are formulaic — see `Y_examples.md` §4, where a `<guilt>` span completes the idiom
+*"wished the floor would open up and swallow him whole"* at near-zero surprisal
+for both models once it begins.
+
+### Layer 1 is where the magnitudes are, and it was never run
+
+The original ran layer 2 only, skipping the tags §2 already reports the large
+self-surprisal effects for.
+
+| tag | base-written, self | base-written, cross | pairs |
 | --- | --- | --- | --- |
-| `<sexual>` | base | **+0.021** nats/token | [+0.006, +0.039] |
-| `<guilt>` | base | **−0.031** nats/token | [−0.059, −0.001] |
+| `<noise>` | **+1.888** | **+2.067** | 27/27 unanimous |
+| `<meta>` | **−0.931** | −0.819 | 13/13 unanimous |
+| `<story>` | −0.581 | −0.621 | 26–27/32 |
+| `<web>` | +0.352 | +0.369 | 27/30 |
 
-At the exact tokens where the base model wrote explicitly, its aligned descendant is extra-surprised. At the tokens where it wrote guilt, extra-unsurprised. Transgressive tokens improbable, moral tokens probable, both **localized to where they occur**.
+`<noise>` is **two nats per token in every cell, unanimous across every pair** —
+an order of magnitude above anything in layer 2, and a validity check that
+passed: `<noise>` is genuinely noise. With `<meta>` negative it reproduces §2's
+reading — the corpus exit is hard, the assistant exit is easy — now for both
+scorers rather than self alone.
 
-This is 4x the passage-level estimate: averaging over 256 tokens dilutes a 60-word effect, and the passage-level measure had shown nothing.
+### What should not be quoted from this section
+
+The **gap** measure. Every gap that clears flips sign between arms (`noise` +0.244
+base-written against −0.273 aligned-written; `meta`, `story`, `web` likewise),
+which is the signature of an authorship advantage — each model recognises its own
+prose — and not of a reaction to content. And a token-level check finds the gap is
+a strong function of LOCAL predictability (base-written, by decile: −0.005 at the
+most predictable, +0.427 at the least), so a span's gap largely reports its
+predictability profile. The passage-level correlation is +0.010, which is why
+averaging over 256 tokens hid this.
+
+Producer `scripts/y_span_surprisal.py`; every cut in `scripts/y_span_analysis.py`;
+atomic rows in `results/y_span_surprisal.parquet`, one per (passage, tag).
 
 ## 7. Semantic-field results: abstraction, and dominance everywhere except sex
 
