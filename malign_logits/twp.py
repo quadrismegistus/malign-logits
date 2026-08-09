@@ -377,7 +377,91 @@ def reset_batch(start=64):
 
 
 @torch.no_grad()
-def next_dist(model, tok, pids, prefixes, dev, batch=None):
+
+# ── READOUT INJECTION: the two seams, and only the two ────────────────────
+#
+# `expand` touches the model's readout at EXACTLY two places -- `P0` from the
+# prompt pass and `next_dist` for continuations -- and everything else is pure
+# boundary logic over a distribution. So a per-layer word lens is this instrument
+# with a different readout, NOT a second copy of the boundary rule.
+#
+# **THE DEFAULT PATH IS UNCHANGED, NOT MERELY EQUIVALENT.** `readout=None` runs
+# the same two lines it always ran; there is no `if readout is None` branch
+# computing something new. A refactor that "should be identical" and a refactor
+# that IS identical differ by exactly this, and 301,147 stored cells depend on it.
+
+class FinalReadout:
+    """The model's own logits. What twp has always used."""
+    needs_hidden = False
+    layer = None
+
+    def __call__(self, out):
+        return out.logits[..., -1, :].float()
+
+
+class LayerReadout:
+    """What a model EXITING AT LAYER L would say -- not what layer L represents.
+
+    HuggingFace returns N+1 hidden states: [0] is the embeddings, [i] is the
+    INPUT to layer i (pre-norm) for 0 < i < N, and [-1] is the final state AFTER
+    the model's final norm. So the norm must be applied to every entry EXCEPT
+    the last, and `head(hidden[-1])` reproduces the model's own logits exactly.
+
+    That asymmetry is the defect that sat in `models.py:logit_lens` -- it normed
+    every state including the last, so the one layer anyone reads was normed
+    twice (Amber: `kill` 0.119 vs 0.060, maxdiff 0.244). The `verify()` below is
+    the one-line check that would have caught it, and it is why this class
+    carries it rather than a docstring promising the invariant.
+    """
+    needs_hidden = True
+
+    def __init__(self, model, layer):
+        self.layer = layer
+        self.head = model.get_output_embeddings()
+        self.norm = _final_norm(model)
+        self._n = None
+
+    def __call__(self, out):
+        hs = out.hidden_states
+        if self._n is None:
+            self._n = len(hs)
+        h = hs[self.layer][..., -1, :]
+        #: the LAST entry is already normed; every other one is not
+        if self.layer not in (-1, len(hs) - 1) and self.norm is not None:
+            h = self.norm(h)
+        return self.head(h).float()
+
+    def verify(self, out, atol=1e-4):
+        """The final layer's projection IS the model's logits. Assert it."""
+        hs = out.hidden_states
+        got = self.head(hs[-1][..., -1, :]).float()
+        want = out.logits[..., -1, :].float()
+        d = float((got - want).abs().max())
+        if d > atol:
+            raise AssertionError(
+                "head(hidden[-1]) != logits, maxdiff %.3e. This architecture "
+                "does not follow the pre-norm/post-norm convention the layer "
+                "readout assumes, and every interior layer would be wrong in a "
+                "way nothing downstream could see." % d)
+        return d
+
+
+def _final_norm(model):
+    """The final norm, by the paths transformers actually uses. None if absent."""
+    for path in ("model.norm", "model.final_layernorm", "transformer.ln_f",
+                 "gpt_neox.final_layer_norm", "model.decoder.final_layer_norm",
+                 "backbone.norm_f", "transformer.norm_f"):
+        o = model
+        for part in path.split("."):
+            o = getattr(o, part, None)
+            if o is None:
+                break
+        if o is not None:
+            return o
+    return None
+
+
+def next_dist(model, tok, pids, prefixes, dev, batch=None, readout=None):
     """Batch is ADAPTIVE because it is architecture-blind.
 
     A dense transformer's peak scales with batch x seq x vocab. An SSM's does
@@ -397,7 +481,11 @@ def next_dist(model, tok, pids, prefixes, dev, batch=None):
         ids = torch.tensor([[pad]*(L-len(s)) + s for s in seqs], device=dev)
         att = torch.tensor([[0]*(L-len(s)) + [1]*len(s) for s in seqs], device=dev)
         try:
-            lg = model(ids, attention_mask=att).logits[:, -1, :].float()
+            if readout is None:
+                lg = model(ids, attention_mask=att).logits[:, -1, :].float()
+            else:
+                lg = readout(model(ids, attention_mask=att,
+                                   output_hidden_states=readout.needs_hidden))
         except torch.OutOfMemoryError:
             del ids, att
             gc.collect(); torch.cuda.empty_cache()
@@ -667,12 +755,13 @@ class SkipPrompt(Exception):
 #: a stale read is impossible: the write happens between expand() and the
 #: jsonl line for the same prompt.
 _LOGIT = {"v": None}
+_OUT_KEEP = {"v": None}
 _HIDDEN = {"v": None}
 
 
 @torch.no_grad()
 def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
-           bos_policy="inherited"):
+           bos_policy="inherited", readout=None):
     """cjk=(prefix_trie, ids, strings) enables dictionary word boundaries.
 
     ONE INSTRUMENT, DISPATCHING ON SCRIPT -- not two runs side by side. A non-CJK
@@ -726,6 +815,7 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
         #: ruling to honour, because this artifact has no predecessors.
         _HIDDEN["v"] = (torch.stack([h[0, -1, :] for h in _hs])
                         .float().cpu().numpy())
+    _OUT_KEEP["v"] = _out
     del _out
     #: THE LOGIT FOLD (RH, 2026-08-01). `lg` IS ALREADY the full-vocabulary
     #: last-position vector the logit stash wants -- this call is batch-1,
@@ -737,6 +827,20 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
     #: 87 f32) and a uniform store is worth more than a marginally more
     #: precise one that cannot be compared across its own rows.
     _LOGIT["v"] = lg.half().cpu().numpy()
+    #: SEAM 1. `lg` above is the model's own last-position logits and stays the
+    #: sidecar's source whatever the readout is -- the logit payload must not
+    #: silently become a layer projection.
+    if readout is not None:
+        #: **THE TWO SEAMS BATCH DIFFERENTLY AND THE READOUT MUST NOT CARE.**
+        #: The prompt pass is batch-1 and the default path takes
+        #: `logits[0, -1, :]` -> shape (vocab,); `next_dist` is batched and
+        #: wants (B, vocab). So the readout returns (..., vocab) and each
+        #: CALLER strips what it does not want -- pushing that into the readout
+        #: would make every future one carry a batching assumption belonging to
+        #: its caller.
+        lg = readout(_OUT_KEEP["v"])
+        if lg.ndim > 1:
+            lg = lg[0]
     P0 = torch.softmax(lg, -1).cpu().numpy()
     sel = np.flatnonzero(P0 >= theta)
     live = [((int(t),), float(P0[t]), int(t)) for t in sel]
@@ -746,7 +850,8 @@ def expand(model, tok, prompt, dev, bmask, theta=THETA, cjk=None,
     for _ in range(MAX_DEPTH):
         if not live:
             break
-        dist = next_dist(model, tok, pids, [p for p, _, _ in live], dev); calls += 1
+        dist = next_dist(model, tok, pids, [p for p, _, _ in live], dev,
+                         readout=readout); calls += 1
         nxt = []
         for (pref, mass, t1), row in zip(live, dist):
             surf = clean_surface(tok.decode(list(pref)).strip())
