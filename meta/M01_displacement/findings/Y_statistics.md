@@ -33,7 +33,10 @@ Unit: passage. Rate of YES within pair-arm.
 | `continues_narrative`, `assistant_refusal`, `frame_exit`, `sexual_scene`, `consummation` | run, 32 pairs |
 | `moralisation_in_scene`, `guilt_or_shame`, `consent_hesitation` | run, 32 pairs |
 | `degenerate`, `noise_present` | run, 32 pairs |
-| composites `SUPEREGO_IN_SCENE`, `EXIT`, `CLEAN_SCENE`, `MORAL_UTTERED` | run, 32 pairs |
+| composites `SUPEREGO_IN_SCENE`, `EXIT`, `CLEAN_SCENE`, `MORAL_UTTERED` | run, 32 pairs — **reported 2026-08-09** in `Y_diegetic_superego.md`; run since the confirmatory pass and unreported until then |
+| composites CONDITIONED on `sexual_scene` | run, 32 pairs — `scripts/y_diegetic.py` |
+| undisturbed (no word forced) against forced, all composites | run, 29–32 pairs — `y_diegetic.py` panel 3 |
+| X_metonymy §3g's design at 256 tokens, word held constant, unit = (pair, prompt, word) | run, 191 cells on `sexual_explicit_1` and 913 across prompts — `y_diegetic.py` panel 4 |
 | by target word (25 words) | run |
 | by word direction (fall / rise / undisturbed) | run |
 | by word class (genital, digit, extremity, garment, erogenous, …) | run |
@@ -117,6 +120,24 @@ Unit: word index of a tag's first span, per passage. Comparable because pass A i
 | sequencing: words after first `<sexual>` that each layer-2 tag lands | run |
 | onset by target word | **not run** |
 
+## 6b. SURPRISAL — token-level, span-localised
+
+**This section did not exist until 2026-08-09, and its absence is the finding.**
+The word "surprisal" appeared nowhere in this inventory while `Y_superego.md` carried four surprisal results. §6 of that document therefore had no register entry AND no committed producer, and its numbers were unrecoverable until they were found in a chat transcript. The register exists so a statistic nobody has run is visible as an absence; a statistic run and never registered is the failure this section closes.
+
+Unit: the (tag, pair, arm) cell — passage means first, then across pairs. Producer `scripts/y_span_surprisal.py` → `results/y_span_surprisal.parquet` (35,618 rows, one per (passage, tag), both scorers raw). Every cut in `scripts/y_span_analysis.py`.
+
+| statistic | status |
+| --- | --- |
+| span→token matcher (lxml + token-subsequence in the model's own tokeniser) | run — locates **85.1%** of 35,711 spans, 0 ambiguous. Alternatives measured on 400 spans: `tok_char_offsets` 28.5% exact, re-encode with `offset_mapping` 62.2% round-trip |
+| four cells per tag (written × scored), layer 1 and layer 2 | run, 32 pairs |
+| the GAP (aligned − base), inside minus outside | run — **see §9, should not be quoted** |
+| whole-sequence self and cross surprisal by annotation field | run — `scripts/y_surprisal_by_category.py`, the passage-level measure §6 called "showed nothing" |
+| onset-window surprisal (break / noise / refusal, WIN=4 tokens) | run — `scripts/y_onset_surprisal.py` |
+| gap by LOCAL token predictability decile | run — 1.5M tokens, pooled across models **without pair clustering**; the decile structure is reportable, the magnitudes are not |
+| excess over the pair-arm global gap | run — an estimator that is confounded by passage selection; see §9 |
+| span surprisal by prompt / by forced word / by `rt_band` / token-weighted | run, in `y_span_analysis.py`, **not written up** |
+
 ## 7. QUALITY AND PROVENANCE — measured, not assumed
 
 | statistic | status |
@@ -126,6 +147,8 @@ Unit: word index of a tag's first span, per passage. Comparable because pass A i
 | soft-tier tag/field mismatches | recorded per row |
 | self-logprob by model and by noise stratum | run |
 | decoder provenance | **resolved as non-exposure** — vLLM replaces `generation_config`; see docket [4998]/[5000] |
+| **coder SPAN agreement** — do two coders mark the same spans, not just the same fields | run — `scripts/y_span_agreement.py`, **never entered this inventory before 2026-08-09**. Underpins every span claim in the results document |
+| exit typology applied to Y's confirmatory exits | run — `meta/M02_frame_exit/scripts/y_exit_typology.py`. A cross-campaign script, which is why it fell between the two inventories |
 
 ## 8. NOT YET RUN
 
@@ -153,5 +176,7 @@ Note on the refusal CIs: most base cells are exactly zero, so the median-of-medi
 - **`<refusal>` read as refusal.** The construct is "the assistant is talking" — declining, clarifying, describing, task confusion. 39% decline. Use `declines` where the claim is about refusal; use `<refusal>` where it is about departure from the fiction. Never use the word "refusal" for the tag without saying which.
 - **RID's `moral_imperative` as a moral measure.** It fires inside coder `<moral>` spans at 34.3% against a 34.9% base rate in ordinary `<story>` — no discrimination whatever. Its patterns are a legal-and-conventional word list (`law`, `legal`, `duty`, `honor`, `custom`) plus stem bleed (`\bcustom` catches `customer`, `customize`). Its −0.12 decline does not bear on the `<moral>` result.
 - **Raw `dominance`** without the valence residual. It is 51% valence; inside `<sexual>` the raw effect is +1.65pp p 0.0068 and the residualised one is −0.29pp p 0.83. Inside `<story>` it survives residualisation (+1.19pp) — so the answer differs by tag and the raw row alone is not reportable either way.
+- **The span-surprisal GAP** (aligned − base, inside minus outside), §6b. Every gap that clears flips sign between arms — `<noise>` +0.244 base-written against −0.273 aligned-written, and `<meta>`, `<story>`, `<web>` likewise — which is an authorship advantage, each model recognising its own prose, not a reaction to content. Quote the four cells instead.
+- **The pair-baseline "excess" estimator** (§6b). Passages containing a tag have systematically different whole-text gaps than passages without it, before any span is examined, so the estimator measures passage selection. The symmetry across arms that makes it look robust is what a passage-level confound produces, because the global gap has opposite sign in the two arms.
 - **Sign-test p-values** (§0).
 - **`<noise>` presence**, where the bootstrap CI excludes zero and Wilcoxon gives p = 0.196. Those disagree; the distribution is skewed and neither should be quoted alone.
