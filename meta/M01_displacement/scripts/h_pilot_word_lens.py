@@ -234,8 +234,136 @@ def main():
                     print("  layer %d SKIPPED: %s" % (L, e))
                     continue
                 per[L] = (words, resid)
+
+            #: ---- PHASE 2: EVALUATE THE UNION AT EVERY LAYER ----------------
+            #: Discovery alone is not enough, and its failure mode is silent. A
+            #: word below theta at layer 24 is never expanded there, so it is
+            #: ABSENT from that layer's dict -- and printing the absence as
+            #: 0.000000 asserts "measured zero" where the truth is "not looked
+            #: for". Plan H section 3b requires the union of discovered words
+            #: evaluated at EVERY layer: that is what makes trajectories
+            #: comparable and stops the output's vocabulary defining the
+            #: measurement.
+            #:
+            #: `expand` returns (surface, t1) and not the token path, so the path
+            #: is re-derived by tokenising the surface and KEPT ONLY IF ITS FIRST
+            #: TOKEN MATCHES THE RECORDED t1. That check is what stops this being
+            #: a second tokenisation policy: a surface whose canonical encoding
+            #: disagrees with the path the expansion actually walked is dropped
+            #: and counted, never quietly evaluated down a different path. The
+            #: degenerate mid-stack surfaces (`vomitingalincolnshire`) are
+            #: exactly what it catches.
+            #:
+            #: NO NEW FORWARD PASSES. Every prefix was already walked by some
+            #: layer's expansion, and the memo holds all layers of each.
+            union = set()
+            for L in per:
+                union |= set(per[L][0])
+            paths, mismatch = {}, []
+            for (w, t1) in union:
+                e = tok.encode(" " + w, add_special_tokens=False)
+                if e and e[0] == t1:
+                    paths[(w, t1)] = tuple(e)
+                else:
+                    mismatch.append(w)
+            pids = tuple(T.encode_prompt(tok, a.prompt, pol)[0])
+            need = collections.defaultdict(set)
+            for k, pth in paths.items():
+                for i, t in enumerate(pth):
+                    need[pids + pth[:i]].add(t)
+            probe._fill(sorted(need))          #: fills only what is somehow absent
+            cond = {}
+            for L in layers:
+                for seq, toks in need.items():
+                    h = memo[seq][L]
+                    if L != nL - 1:
+                        h = probe.norm(h)
+                    d = torch.softmax(probe.head(h).float(), -1).detach()
+                    for t in toks:
+                        cond[(L, seq, t)] = float(d[t])
+                    del d
+
+            #: THE TERMINATION FACTOR, WITHOUT WHICH THIS IS NOT A WORD PROBABILITY.
+            #: twp's quantity is p(token path) x p(a BOUNDARY token follows) -- the
+            #: second factor is what makes `scream` a complete word rather than a
+            #: prefix of `screaming`. A first version of this phase computed only
+            #: the path product and disagreed with discovery by 35x on
+            #: AmberSafe/shout at layer 24 (0.0219 against 0.000615), because
+            #: mid-stack the readout overwhelmingly wants to CONTINUE the word.
+            #: That is the same fact as `vomitingalincolnshire`, and it is exactly
+            #: the reimplementation this design exists to avoid: phase 1 drives
+            #: `expand` precisely so the rule is not retyped, and phase 2 had
+            #: retyped half of it.
+            #:
+            #: The plain `bmask` is used here, which is `expand`'s mask for a
+            #: non-CJK surface with no intra-word punctuation. The consistency
+            #: check below is what licenses that: any word where the
+            #: simplification is wrong shows up as a disagreement with discovery.
+            #: the boundary mass is read AFTER the full path, so those sequences
+            #: must be present. Discovered words were already walked there by
+            #: `expand`; a re-derived path that was not costs a pass here.
+            probe._fill([pids + pth for pth in paths.values()])
+            #: THE MASK IS PER SURFACE, NOT GLOBAL. `expand` unmasks intra-word
+            #: punctuation when a surface ends alphanumeric, so `'t` and `,000`
+            #: CONTINUE the word (don't, 100,000) instead of ending it.
+            #:
+            #: THIS IS NOT WHAT CAUSES THE RESIDUAL DISAGREEMENT, and the first
+            #: version of this comment said it was. Amber has **0 intra tokens**,
+            #: so the branch is a no-op in `expand` and here alike, and the
+            #: consistency figure did not move when it was added. It is kept
+            #: because it is correct for tokenizers that DO have them.
+            #:
+            #: The real cause is MULTI-PATH ACCUMULATION: `expand` does
+            #: `words[(surf, t1)] += mass * term`, summing every token path that
+            #: cleans to a surface, while this walks the one canonical path. The
+            #: cache schema records the same fact -- a surface can be reached by
+            #: more than one token path, which is why `t1` is a key. Not fixable
+            #: from outside; `expand` should return the paths it walked.
+            mask_alnum = bmask
+            if cjk is not None:
+                mask_alnum = bmask.copy()
+                mask_alnum[cjk[4]] = False
+            term = {}
+            for L in layers:
+                for k, pth in paths.items():
+                    seq = pids + pth
+                    if seq not in memo:
+                        continue
+                    surf = k[0]
+                    b = mask_alnum if (surf and surf[-1].isalnum()) else bmask
+                    h = memo[seq][L]
+                    if L != nL - 1:
+                        h = probe.norm(h)
+                    d = torch.softmax(probe.head(h).float(), -1).detach().cpu().numpy()
+                    term[(L, k)] = float(d[b].sum())
+
+            def p_layer(k, L):
+                if (L, k) not in term:
+                    return float("nan")
+                q = 1.0
+                for i, t in enumerate(paths[k]):
+                    q *= cond[(L, pids + paths[k][:i], t)]
+                return q * term[(L, k)]
+
+            #: CONSISTENCY: where a layer DISCOVERED a word, the union evaluation
+            #: must reproduce its value. This is the check that caught the missing
+            #: termination factor and it runs every time.
+            worst_c, n_c = 0.0, 0
+            for L in layers:
+                for k, p in per[L][0].items():
+                    if k in paths and (L, k) in term:
+                        worst_c = max(worst_c, abs(p_layer(k, L) - p)); n_c += 1
+            print("  CONSISTENCY union-eval vs discovery: %d comparisons, "
+                  "largest abs difference %.6f%s"
+                  % (n_c, worst_c, "" if worst_c < 1e-3 else "   *** CHECK ***"))
+
+            print("  UNION: %d distinct words over %d layers; %d evaluable, "
+                  "%d dropped on a t1 mismatch" % (len(union), len(per), len(paths), len(mismatch)))
+            if mismatch:
+                print("    dropped (first 6): %s" % ", ".join(sorted(mismatch)[:6]))
+            print("    prefixes needing a distribution: %d\n" % len(need))
+
             del mdl
-            memo.clear()
             if dev == "mps":
                 torch.mps.empty_cache()
 
@@ -256,13 +384,55 @@ def main():
                      "AGREE" if top_h == top_s else "*** DISAGREE ***"))
 
             #: ---- the trajectory of the words that matter AT THE OUTPUT ----
-            track = [k for k, _ in sorted(want.items(), key=lambda x: -x[1])[:6]]
-            print("\n  %5s %8s %s" % ("layer", "tail", "".join("%11s" % w for w, _ in track)))
+            track = [k for k, _ in sorted(want.items(), key=lambda x: -x[1])[:6]
+                     if k in paths]
+            print("\n  FULL-PATH PROBABILITY AT EVERY LAYER (not discovery: a word")
+            print("  below theta at a layer still reports its real value, never 0)")
+            print("  %5s %8s %s" % ("layer", "tail", "".join("%11s" % w for w, _ in track)))
             for L in layers:
                 words, resid = per[L]
-                cells = "".join("%11.6f" % words.get(k, 0.0) for k in track)
+                cells = "".join("%11.6f" % p_layer(k, L) for k in track)
                 print("  %5d %8.4f %s%s" % (L, resid["tail"], cells,
                                             "   <- output" if L == layers[-1] else ""))
+
+            #: ---- SUBSTITUTION vs DISPERSAL, PER LAYER STEP ------------------
+            #: `tail` alone is a LEVEL, and only the FIRST-TOKEN sub-theta mass;
+            #: `drop`, `open` and `mojibake` carry the rest, and `open` (mass
+            #: still live at MAX_DEPTH) is what a non-terminating mid-stack
+            #: readout produces. So all four are reported. The STEP question
+            #: then uses the campaign's own ratified diagnostic rather than a
+            #: concentration metric invented here:
+            #:
+            #:   tail_excess  POSITIVE  the step DISPERSED into unresolved mass
+            #:                NEGATIVE  the tail gave mass up to nameable words,
+            #:                          i.e. the step SUBSTITUTED
+            #:   tail_share   js_tail/js_total, the comparability gate. High
+            #:                means the divergence is dominated by mass the
+            #:                instrument cannot see inside, so a JS reading
+            #:                across that step means little.
+            from malign_logits.movement import decompose, CANONICAL
+            print("\n  PER-STEP DECOMPOSITION (malign_logits.movement.decompose),")
+            print("  residual columns are the LATER layer's")
+            print("  %-9s %8s %8s %8s %8s %12s %11s"
+                  % ("step", "tail", "drop", "open", "moji", "tail_excess", "tail_share"))
+            for i in range(len(layers) - 1):
+                A, B = layers[i], layers[i + 1]
+                pa = {w: p for (w, _), p in per[A][0].items()}
+                pb = {w: p for (w, _), p in per[B][0].items()}
+                rb = per[B][1]
+                try:
+                    d = decompose(pa, pb, CANONICAL,
+                                  residual_pre=per[A][1]["total"],
+                                  residual_post=rb["total"])
+                    te, ts = d.get("tail_excess"), d.get("tail_share")
+                except Exception as e:
+                    print("  %-9s decompose failed: %s: %s"
+                          % ("%d->%d" % (A, B), type(e).__name__, str(e)[:44]))
+                    continue
+                print("  %-9s %8.4f %8.4f %8.4f %8.4f %+12.5f %11.4f   %s"
+                      % ("%d->%d" % (A, B), rb["tail"], rb["drop"], rb["open"],
+                         rb.get("mojibake", 0.0), te, ts,
+                         "DISPERSED" if te and te > 0 else "SUBSTITUTED"))
 
             print("\n  TOP %d WORDS BY LAYER" % a.topk)
             for L in layers:

@@ -166,6 +166,88 @@ producer's dtype and is in the expected direction and size.
 `kill` never disappears: it falls 28x and drops from rank 1 to rank 23 and is
 still there. The rank inversion happens at **SFT**, which is Finding U's shape.
 
+## 4b. What the pilot returned, 9 Aug (Amber ladder, `h_pilot_word_lens.py`)
+
+**The interception works.** `expand` reads the model only through `.logits`, twice,
+so a wrapper reporting layer L's readout there gets the entire boundary rule
+applied to layer L with none of it retyped. Forward passes are memoised per
+unpadded sequence so all layers share them.
+
+**Validated against the stored cells**: base 154 words here / 154 stored, 154
+shared, none either-side-only, largest difference 0.000581; SFT 114/117 with 3
+only-stored; DPO 85/85. Top word agrees on all three arms.
+
+**Mid-stack readouts are DEGENERATE AT THE WORD GRAIN, which the token grain
+hides.** Amber base:
+
+    layer 24 | vomiting 0.283  vomitingkan 0.029  vomitingalin 0.025
+    layer 28 | vomiting 0.822  vomited 0.007  murder 0.003
+    layer 31 | cry 0.328  throw 0.170  kill 0.162  scream 0.098
+    layer 32 | kill 0.119  scream 0.058  hit 0.041  punch 0.039
+
+`vomitingalincolnshire` is the expansion failing to find a boundary, and "wanted
+to vomiting" is not grammatical. At the token grain layer 28 reads as a confident
+0.82 and looks like a model that has decided. **This is the strongest argument
+for the word grain in the plan and it was not anticipated.**
+
+**PER-STEP DECOMPOSITION, and this is the result worth keeping.** Using
+`malign_logits.movement.decompose` between consecutive layers, Amber base:
+
+    step      tail     drop     open   tail_excess  tail_share
+    0->4    0.7488   0.0436   0.0000     -0.06811      0.0114   SUBSTITUTED
+    8->12   0.4560   0.1516   0.0000     -0.13925      0.0109   SUBSTITUTED
+    16->20  0.1950   0.4298   0.0000     -0.08487      0.0037   SUBSTITUTED
+    20->24  0.0191   0.4807   0.0124     -0.29443      0.0168   SUBSTITUTED
+    24->28  0.0080   0.1425   0.0043     -0.42764      0.2696   SUBSTITUTED
+    28->31  0.0215   0.0228   0.0000     -0.87994      0.0253   SUBSTITUTED
+    31->32  0.1493   0.0395   0.0000     +0.08839      0.0871   DISPERSED
+
+**Every step up the stack pulls mass OUT of the unresolved tail into nameable
+words, monotonically harder toward the top, and the LAST step is the only one
+that disperses.** One prompt, one family; the pattern is worth testing, not
+believing.
+
+**A prediction of mine that was wrong, recorded rather than quietly dropped.** I
+expected `open` (mass still live at `MAX_DEPTH`) to blow up mid-stack, since the
+readout does not terminate words. `open` is ~0 throughout. It is **`drop`** that
+peaks, at 0.48 across layers 16-24: the expansion is not running out of depth, it
+is losing continuations below theta.
+
+**`tail_share` does not mean what it would be convenient for it to mean here.**
+It is low (<0.03) at almost every step, which in its original use says the
+divergence is among nameable words rather than inside the tail. It does NOT say
+those words are meaningful: `vomitingalincolnshire` is above theta and therefore
+counts as nameable. Low `tail_share` mid-stack is not evidence the mid-stack
+readout is real.
+
+**`CANONICAL` is being used outside the regime it was tuned for.** Its
+`min_prob=0.003`, `fall_ratio=0.5`, `delta=0.003` were set for base-vs-aligned
+comparisons at the OUTPUT. Applied to layer steps, mid-stack, where one word
+holds 0.82 and the rest sit below `min_prob`, the faller/riser flags go sparse
+and `selectivity`, `captured` and `concentration` from those rows should not be
+read. `tail_excess` is the residual bin's own excess and is the one that survives.
+
+**KNOWN FIDELITY CEILING ON THE UNION EVALUATION: 0.003 (base), 0.012 (SFT).**
+The consistency check compares union-evaluated values against discovery wherever
+both exist (1,130 and 1,277 comparisons) and it has caught two real errors:
+
+- a MISSING TERMINATION FACTOR, 35x on AmberSafe/`shout` at layer 24 (0.0219
+  against 0.000615). twp's word probability is p(path) x p(a boundary follows);
+  phase 2 computed only the path product. Phase 1 exists precisely so the rule is
+  not retyped, and phase 2 had retyped half of it.
+- the residual 0.003 is **multi-path accumulation**, NOT the boundary mask. I
+  first blamed the per-surface intra-word unmask; Amber has **0 intra tokens**, so
+  that branch is a no-op in both `expand` and here. The real cause is that
+  `expand` does `words[(surf, t1)] += mass * term`, summing EVERY token path that
+  cleans to a given surface, while the union evaluation walks the one canonical
+  path. This is the same fact the cache schema records when it says a surface can
+  be reached by more than one token path and `t1` is the join key.
+
+**Not fixable from outside `expand`**, which is the concrete argument for the
+section 7 refactor: `expand` should return the token paths it walked, so nothing
+downstream re-derives them. 151 of 936 discovered surfaces were also dropped on a
+`t1` mismatch (`$`, `%`, `ADD`, `Age`, `Amount`), for the same reason.
+
 ## 5. What this WITHDRAWS, recorded because it was asserted in between
 
 On 9 August, before the per-layer expansion was working, this seat reported that
