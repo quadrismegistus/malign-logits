@@ -1354,8 +1354,11 @@ def main():
     cloud_sub = cloud.add_subparsers(dest="cloud_command")
 
     cl_launch = cloud_sub.add_parser("launch", help="Find and rent cheapest A100 80GB")
-    cl_launch.add_argument("--num-gpus", type=int, default=1,
-                           help="Number of GPUs required (default: 1)")
+    cl_launch.add_argument("--num-gpus", type=int, default=None,
+                           help="Override the profile's GPU count. Default None: the "
+                           "profile decides, because a flag default that "
+                           "overrides a declared profile makes the profile "
+                           "meaningless.")
     cl_launch.add_argument("--disk", type=int, default=None,
                            help="Disk space in GB (default: 300, or 600 for multi-GPU)")
     cl_launch.add_argument("--profile", default="default",

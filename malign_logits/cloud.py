@@ -168,7 +168,15 @@ def cmd_launch(args):
         return
 
     prof = load_profile(getattr(args, 'profile', None) or 'default')
-    num_gpus = getattr(args, 'num_gpus', None) or prof['num_gpus']
+    # **A FLAG DEFAULT MUST NOT OVERRIDE A PROFILE.** `--num-gpus` defaulted to
+    # 1, so `getattr(args,'num_gpus') or prof['num_gpus']` took the DEFAULT --
+    # truthy -- and the profile's value never applied. The twogpu profile asked
+    # for 2 and got 1, while the disk came from the profile and looked right,
+    # so the box appeared correctly provisioned. A 70B would have OOM'd after
+    # paying for a 140 GB download. The flag now defaults to None: silence means
+    # "use the profile", which is the only reading under which a profile means
+    # anything.
+    num_gpus = args.num_gpus if getattr(args, 'num_gpus', None) else prof['num_gpus']
     disk_gb = getattr(args, 'disk', None) or prof['disk_gb']
     gpu_name = prof['gpu_name']
     min_ram = prof['min_gpu_ram']
@@ -187,9 +195,16 @@ def cmd_launch(args):
         print(f"  package floors: {', '.join(prof['pins'])}", file=sys.stderr)
 
     print(f"Searching for {num_gpus}× A100 80GB offers ({disk_gb} GB disk)...", file=sys.stderr)
+    # **SELECT BY CAPABILITY, NOT BY PRODUCT NAME.** A `gpu_name` filter is a
+    # claim that you know every acceptable product, and vast's names do not
+    # round-trip: `RTX_A6000` returns ZERO offers while `RTX A6000` is right
+    # there in the results. A profile with `gpu_name: null` filters on VRAM,
+    # link and disk -- which is what the job actually requires -- and takes the
+    # cheapest card that satisfies them.
+    name_clause = f'gpu_name={gpu_name} ' if gpu_name else ''
     raw = vastai(
         'search', 'offers',
-        f'gpu_name={gpu_name} num_gpus={num_gpus} gpu_ram>={min_ram} reliability>{rel} disk_space>={disk_gb} cuda_max_good>={cuda} inet_down>={min_down}',
+        f'{name_clause}num_gpus={num_gpus} gpu_ram>={min_ram} reliability>{rel} disk_space>={disk_gb} cuda_max_good>={cuda} inet_down>={min_down}',
         '-o', 'dph+',
         '--raw',
     )
