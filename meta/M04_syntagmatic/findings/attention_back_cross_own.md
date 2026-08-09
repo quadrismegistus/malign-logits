@@ -45,10 +45,7 @@ naturally probability-matched three-arm draw.
     thumb    0.0889      0.0894  +0.0005     NON-MOVER  (P within 1.4x of penis)
     cock     0.2009      0.2047  +0.0038     RISER
 
-## 2. Attention-back rises at forced sites, indifferently across arms
-
-**The level claim in this section is corrected below: the rise is a response to
-FORCING, not to alignment.**
+## 2. Alignment raises attention-back at this cell, and does so indifferently
 
     attention-back, norm-weighted, cross      base   aligned        D
     penis   (faller)                        0.1037    0.1222   +0.0185
@@ -64,46 +61,52 @@ faller-minus-non-mover p = 0.35 raw / 0.89 norm-weighted; riser-minus-non-mover
 0.32 / 0.48; faller-minus-riser 0.036 / 0.21, and that one nominal hit has a
 median of -0.00004 and would not survive correction across six tests.
 
-### Correction: the level claim above is about FORCING, not about alignment
+### Forcing does NOT distort the level. A correction, then its retraction.
 
 RH asked whether the undisturbed slot could serve as the control. It cannot for
 fallers -- the aligned arm chose `penis` once in 50 draws against `cock` twelve
-times, which is what "demoted" means -- but on the words both arms choose often
-enough it tests something nothing else here does: **whether forcing distorts the
-measurement.** The slot sits at the same absolute index either way (|prompt| in
-both), so the comparison is legitimate.
+times, which is what "demoted" means. On the words both arms choose often enough
+it appeared to show that forcing distorts the level, in opposite directions by
+arm: base -11.4% / -3.0% / -23.3%, aligned +10.9% / +22.5% / +6.1%, six of six
+consistent in sign, with head profiles preserved at r = 0.95 to 0.995. That was
+written up here as a correction to section 2's level claim.
 
-    forced vs chosen, same word, same arm     base      aligned
-    cock                                     -11.4%     +10.9%
-    thumb                                     -3.0%     +22.5%
-    penis                                    -23.3%     (n=1)
-    fingers                                  (n=2)       +6.1%
+**RH then asked how a model could know it had been forced. It cannot, and the
+apparent effect is noise.**
 
-Three of three negative in base, three of three positive in aligned. The head
-PROFILES are preserved throughout, r = 0.95 to 0.995, so forcing does not
-redistribute attention across heads -- it moves the level, in opposite
-directions by arm.
+The producer builds the forced prompt as `slot["prompt"] + " " + w`
+(`scripts/vllm_y_run.py:119`). So a chosen `cock` and a forced `cock` are the
+IDENTICAL token sequence up to and including the slot; the model's state there is
+the same and the continuation distribution is the same. Chosen and forced
+sequences of one word are draws from one distribution and the difference is zero
+by construction.
 
-    word     CHOSEN base/aligned  D      FORCED base/aligned  D      ratio
-    cock     0.1359 / 0.1403  +0.0044    0.1204 / 0.1556  +0.0352     8.0x
-    thumb    0.0777 / 0.0825  +0.0048    0.0754 / 0.1011  +0.0257     5.4x
+Tested rather than argued -- split-half null, resampling the forced pool into a
+group of size n_chosen against the rest:
 
-**When the model chooses the word, the two arms attend back almost identically.**
-The D that section 2 reports is 5 to 8 times larger at forced sites than at
-chosen ones. So "alignment raises attention-back by 11-18%" is not a fact about
-alignment. It is a fact about how each arm responds to BEING FORCED: the base
-model attends back less to a word it did not choose, the aligned model attends
-back more.
+    arm      word     observed   split-half null sd      p
+    base     cock      -0.0125         0.0070          0.087
+    base     thumb     -0.0056         0.0095          0.561
+    aligned  cock      +0.0103         0.0095          0.322
+    aligned  thumb     +0.0151         0.0141          0.319
 
-That is a sharper claim than the one it replaces and it is closer to M04's
-actual question -- Finding A asks what happens after a forced word, and this
-says the two arms diverge specifically under forcing rather than in general.
+Not one clears. Every observed difference sits inside the between-sequence
+variation of the forced pool itself, and the six-of-six direction consistency
+was six correlated observations across two words sharing one prompt.
 
-Limits: n_chosen is 6 to 12; the Mann-Whitney p-values the producer prints
-compare two sets of 480 head means and those are massively non-independent, so
-lean on the r and on the 6-of-6 direction consistency, not on them. Fallers
-cannot be checked this way at all and inherit the verdict rather than earning
-it. Producer: `scripts/attn_forcing_check.py`.
+**So section 2's level claim stands as measured** and the correction is
+withdrawn. What this exercise did establish is worth keeping: **forcing is benign
+for this measurement**, by construction and consistent with the data, and the
+head profiles are preserved across conditions at r > 0.95.
+
+One check this argument depends on and that should be run when scaling: the
+prefix identity requires `tokenize(prompt + " " + w)` to equal
+`tokenize(prompt) + tokenize(" " + w)`. It holds on the pilot cell -- plen 14 =
+13 + 1, and `full_ids[plen-1]` decodes to the word -- but a merging boundary in
+another tokenizer would break it silently. `attn_delta.py` currently asserts
+base-against-aligned agreement, not boundary integrity.
+
+Producer: `scripts/attn_forcing_check.py`.
 
 **Bounded, not merely null.** A bootstrap CI on the faller-minus-non-mover median
 puts the demotion-specific effect at **4.4% (raw) / 2.0% (norm-weighted) of the
