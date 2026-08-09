@@ -64,7 +64,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CAMP = os.path.dirname(HERE)
 ROOT = os.path.dirname(os.path.dirname(CAMP))
 
-DIRS = [os.path.join(ROOT, "data", "f11_twp"), os.path.join(ROOT, "data", "f11_twp_bf")]
+#: EVERY DIRECTORY THAT HOLDS RESIDUALS, DISCOVERED RATHER THAN LISTED.
+#: A hardcoded list of two was already wrong within a day: the delta run wrote
+#: to `data/f11_twp_delta` ([5151]) and this script went on reporting 0 control
+#: cells and "the geometry has no conjunction null" for an hour after the null
+#: landed. It exited 0 every time. A stale constant naming absent data is
+#: indistinguishable from absent data, so the constant is gone.
+DIRS = sorted(d for d in glob.glob(os.path.join(ROOT, "data", "f11_twp*"))
+              if os.path.isdir(d))
 SRC = os.path.join(ROOT, "data", "f11_quintuplets.json")
 #: what the L3 geometry needs: t = (h_AB - h_B).(h_A - h_B) / |h_A - h_B|^2
 TRIPLE = ("pole_a", "pole_b", "both")
@@ -148,7 +155,9 @@ def main():
                     continue
                 have[r["model"]].add(r["prompt"])
                 shapes.setdefault(r["model"], tuple(r["hidden_shape"]))
-    print("\nfleet: %d models with at least one residual row" % len(have))
+    print("\nresidual directories scanned: %s"
+          % ", ".join(os.path.basename(d) for d in DIRS))
+    print("fleet: %d models with at least one residual row" % len(have))
 
     pairs = json.load(open(os.path.join(ROOT, "data", "base_aligned_pairs.json")))
 
@@ -183,10 +192,13 @@ def main():
     print("   ... of which also have BOTH_MATCHED           %d" % len(bm_cells))
     print("\n   %d of %d live groups carry authored controls in the source of record."
           % (sum(1 for q in live if all(q.get(k) for k in CONTROL)), len(live)))
-    print("   The fleet scored no CONTROL cell ([5146]), so THE GEOMETRY HAS NO")
-    print("   CONJUNCTION NULL: it can say where BOTH sits between its poles, and")
-    print("   not whether any conjunction sits there. That is the same missing null")
-    print("   `l3_pilot_layerwise.py` recorded, unchanged by 90 checkpoints of data.")
+    if not ctl_cells:
+        print("   NO CONTROL CELL HAS A RESIDUAL, so the geometry can say where BOTH")
+        print("   sits between its poles and NOT whether any conjunction sits there.")
+    else:
+        print("   The conjunction control now HAS residuals, so the geometry has a")
+        print("   reference: t(CONTROL_A) and t(CONTROL_B) on the same pole axis say")
+        print("   whether t(BOTH)~0.5 is about contradiction or about two adjectives.")
 
     if not cells:
         return 0
