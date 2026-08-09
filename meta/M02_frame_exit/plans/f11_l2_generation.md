@@ -159,6 +159,10 @@ Cost: one further prefill of 99.6M tokens, roughly +10% on the generation estima
 
 **Scope is a declared subset with its size named in advance, not "as many as fit."** At one pair × the 15 EN primary groups × 3 roles × 20 samples = 1,800 passages ≈ 460k tokens of prefill, minutes. Ten pairs is under half an hour. The pair list should be named before the run.
 
+**THIS IS NOT `expand_layers` AND MUST NOT BE PRICED AS IT** ([5205].1). Two instruments are being called "per-layer" and they differ by about a thousand in cost. `expand_layers` reads the **full word distribution** at every layer — `head(norm(h_L))` plus threshold expansion over the vocabulary, each layer discovering its own above-theta set and expanding every token in it, measured at 5.2× twp on a 7B and 32.7× on a 360M. This reads **one scalar** at every layer: `h_L · â`. It never builds a distribution, never applies the head, and never touches the vocabulary. **The cost difference is the vocabulary.** The reference to `expand_layers` in this addendum was evidence about *runtime* (transformers, not vLLM) and was never a request to run it.
+
+**THE NULL, DECLARED NOW.** A per-layer trajectory with no reference is a metric with no null: "the passage moves toward its pole at layer 28" is neither large nor small without one. The null is the **mismatched axis** — the same construction [5195] used at L1, where own-axis 0.1251 sat against foreign 0.0957 (t=8.05, p<0.0001). Project the same hidden states onto the other 12 groups' axes; the own-axis trajectory is read against that band. **This costs 12 extra dot products per layer per token and no extra forward passes**, which is the disanalogy with `expand_layers`: that instrument has no cheap null, and this one carries its own.
+
 Both ride on the same scope and spend word as the generation; neither is authorised separately, and neither authorises any coded depth.
 
 ## WHAT IS GATED ON WHAT
