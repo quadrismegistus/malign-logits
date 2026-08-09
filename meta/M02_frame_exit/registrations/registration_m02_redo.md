@@ -314,3 +314,19 @@ nnsight/L3 (RH's word at [5093] tail: improvise later, not in the registration).
   right, not just present." NEW PRECONDITION: the runner READS BACK its first cell per
   checkpoint while the weights are still up; a read failure marks the checkpoint FAILED,
   not done. One read per checkpoint, free.
+- DELTA LANDED AND THE POPULATION IS COMPLETE ([5151], 2026-08-09, RH-authorized to
+  malign directly): 199/199 prompt texts against the source of record (union: first
+  fleet 115 + delta 84), 86 models complete on all three artifacts (twp 17,534 cells;
+  logit vectors 17,534; residuals 17,399 — residuals trail twp by two models whose
+  first-fleet cells predate the hidden-states flag). Ingested: twp 5,749 written, 1,657
+  already-resident (July-grid overlap) skipped not overwritten, 0 conservation
+  failures. Four models short of 199 for a RECORDED reason: Croissant (deletes 既/又)
+  and Teuken (normalises fullwidth comma) — complete on everything they can represent;
+  the shortfall is a tokenizer property, not a run property. ~$3.30, 45 minutes.
+  Coverage computed from the store and manifests, not from any run's own report.
+  Registrar's population check at landing: 199 distinct texts recomputed independently
+  from data/f11_quintuplets.json; the 84 delta texts all members. THE REGISTRATION'S
+  DECLARED SECONDARIES ARE NOW COMPUTABLE: CONTROL_A vs CONTROL_B, and mean(CONTROLS)
+  vs mean(POLES) — [5063].1's missing cell — on 86 models. Standing prior travels with
+  the analysis: if the controls sit with BOTH instead of the poles, the conjunction
+  effect is about conjunction rather than contradiction, and the M02 reading changes.
