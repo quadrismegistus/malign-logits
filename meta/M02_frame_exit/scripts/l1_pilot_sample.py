@@ -66,11 +66,27 @@ def main():
                     break
     print("models contributing: %d\n" % len(mods))
 
-    #: (surface, group) units that actually occur at or above theta
-    units = collections.defaultdict(set)          # group -> {surface}
+    #: (surface, group) units that occur at or above theta, over ALL SIX PROMPT
+    #: ROLES and surviving k >= K_MIN models.
+    #:
+    #: SIX ROLES, NOT THREE. An earlier draw used pole_a/pole_b/both because that
+    #: is what the L3 GEOMETRY needs -- the pole axis requires exactly those --
+    #: and carrying it here would have priced a resolved share on a population
+    #: the full pass does not code. The redo analyses the controls and
+    #: both_matched; the controls are why the delta ran at all. [5178].
+    #:
+    #: k >= 2 is RH's amendment ([5176].1): a unit enters only if at least two
+    #: models put that surface above theta in that group. It halves the volume
+    #: for 0.1% of en mass and 2.2% of zh, and it keeps the blank-template runs
+    #: (17 models) while dropping the glued fragments (1 model) WITHOUT knowing
+    #: anything about underscores -- evidential where the abolished filter was
+    #: orthographic. Safe only because the L1 measure is mass-based.
+    K_MIN = 2
+    seen = collections.defaultdict(lambda: collections.defaultdict(set))
     for mid in sorted(mods):
         for q in active:
-            for role in ("pole_a", "pole_b", "both"):
+            for role in ("pole_a", "pole_b", "both",
+                         "control_a", "control_b", "both_matched"):
                 txt = q.get(role)
                 if not txt:
                     continue
@@ -79,7 +95,19 @@ def main():
                     continue
                 for r in v["rows"]:
                     if r["p"] >= THETA and r["word"] in vocab:
-                        units[q["group"]].add(r["word"])
+                        seen[q["group"]][r["word"]].add(mid)
+    units = collections.defaultdict(set)
+    dropped = 0
+    for g, d in seen.items():
+        for w, ms in d.items():
+            if len(ms) >= K_MIN:
+                units[g].add(w)
+            else:
+                dropped += 1
+    print("k >= %d: kept %d units, dropped %d singletons (%.1f%% kept)"
+          % (K_MIN, sum(len(v) for v in units.values()), dropped,
+             100 * sum(len(v) for v in units.values())
+             / max(sum(len(v) for v in seen.values()), 1)))
 
     lang = {q["group"]: q["language"] for q in active}
     poles = {q["group"]: (q["pole_a"], q["pole_b"]) for q in active}

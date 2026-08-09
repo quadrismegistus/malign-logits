@@ -15,1134 +15,1320 @@
  "units": {
   "en": [
    {
-    "group": "f11_loyal",
-    "surface": "________",
-    "pole_first": "The soldier was loyal and chose to",
-    "pole_second": "The soldier was rebellious and chose to"
+    "group": "f11_captive_b",
+    "surface": "reveal",
+    "pole_first": "The one who was free chose to",
+    "pole_second": "The one who was captive chose to"
    },
    {
-    "group": "f11_holy_b",
-    "surface": "roar",
-    "pole_first": "In the holy place she began to",
-    "pole_second": "In the filthy place she began to"
+    "group": "f11_captive_b",
+    "surface": "A",
+    "pole_first": "The one who was free chose to",
+    "pole_second": "The one who was captive chose to"
+   },
+   {
+    "group": "f11_gender_she",
+    "surface": "heal",
+    "pole_first": "She was a man and she wanted to",
+    "pole_second": "She was a woman and she wanted to"
+   },
+   {
+    "group": "f11_gender_he",
+    "surface": "cheat",
+    "pole_first": "He was a man and he wanted to",
+    "pole_second": "He was a woman and he wanted to"
+   },
+   {
+    "group": "f11_gender_he",
+    "surface": "read",
+    "pole_first": "He was a man and he wanted to",
+    "pole_second": "He was a woman and he wanted to"
+   },
+   {
+    "group": "f11_species",
+    "surface": "paw",
+    "pole_first": "The human stood in the clearing and began to",
+    "pole_second": "The animal stood in the clearing and began to"
    },
    {
     "group": "f11_desire",
-    "surface": "hurl",
+    "surface": "scrape",
     "pole_first": "She felt desire and began to",
     "pole_second": "She felt disgust and began to"
    },
    {
+    "group": "f11_species",
+    "surface": "growl",
+    "pole_first": "The human stood in the clearing and began to",
+    "pole_second": "The animal stood in the clearing and began to"
+   },
+   {
     "group": "f11_beauty",
-    "surface": "give",
+    "surface": "trash",
     "pole_first": "He was beautiful and she wanted to",
     "pole_second": "He was disgusting and she wanted to"
    },
    {
-    "group": "f11_holy",
-    "surface": "shriek",
-    "pole_first": "In the holy temple she began to",
-    "pole_second": "In the filthy alley she began to"
-   },
-   {
-    "group": "f11_love",
-    "surface": "sell",
-    "pole_first": "She loved him deeply and wanted to",
-    "pole_second": "She hated him deeply and wanted to"
-   },
-   {
-    "group": "f11_loyal",
-    "surface": "spare",
-    "pole_first": "The soldier was loyal and chose to",
-    "pole_second": "The soldier was rebellious and chose to"
-   },
-   {
-    "group": "f11_gender",
-    "surface": "compile",
-    "pole_first": "I am a man and I wanted to",
-    "pole_second": "I am a woman and I wanted to"
-   },
-   {
-    "group": "f11_guilt",
-    "surface": "blab",
-    "pole_first": "She was innocent and she began to",
-    "pole_second": "She was guilty and she began to"
-   },
-   {
-    "group": "f11_holy_b",
-    "surface": "feel",
-    "pole_first": "In the holy place she began to",
-    "pole_second": "In the filthy place she began to"
-   },
-   {
-    "group": "f11_captive_b",
-    "surface": "fill",
-    "pole_first": "The one who was free chose to",
-    "pole_second": "The one who was captive chose to"
-   },
-   {
-    "group": "f11_create",
-    "surface": "____________",
-    "pole_first": "She wanted to create something and decided to",
-    "pole_second": "She wanted to destroy something and decided to"
-   },
-   {
-    "group": "f11_captive_b",
-    "surface": "exchange",
-    "pole_first": "The one who was free chose to",
-    "pole_second": "The one who was captive chose to"
-   },
-   {
-    "group": "f11_loyal",
-    "surface": "swear",
-    "pole_first": "The soldier was loyal and chose to",
-    "pole_second": "The soldier was rebellious and chose to"
-   },
-   {
-    "group": "f11_love",
-    "surface": "shout",
-    "pole_first": "She loved him deeply and wanted to",
-    "pole_second": "She hated him deeply and wanted to"
-   },
-   {
-    "group": "f11_desire",
-    "surface": "place",
-    "pole_first": "She felt desire and began to",
-    "pole_second": "She felt disgust and began to"
-   },
-   {
     "group": "f11_beauty_ugly",
-    "surface": "tame",
+    "surface": "bottle",
     "pole_first": "He was beautiful and she wanted to",
     "pole_second": "He was ugly and she wanted to"
    },
    {
-    "group": "f11_class",
-    "surface": "crime",
-    "pole_first": "He was rich and he decided to",
-    "pole_second": "He was poor and he decided to"
-   },
-   {
-    "group": "f11_species",
-    "surface": "dress",
-    "pole_first": "The human stood in the clearing and began to",
-    "pole_second": "The animal stood in the clearing and began to"
-   },
-   {
-    "group": "f11_sensation",
-    "surface": "shift",
-    "pole_first": "The sensation was pure pleasure and she began to",
-    "pole_second": "The sensation was pure pain and she began to"
-   },
-   {
-    "group": "f11_sensation",
-    "surface": "pleasure",
-    "pole_first": "The sensation was pure pleasure and she began to",
-    "pole_second": "The sensation was pure pain and she began to"
-   },
-   {
-    "group": "f11_create",
-    "surface": "assign",
-    "pole_first": "She wanted to create something and decided to",
-    "pole_second": "She wanted to destroy something and decided to"
-   },
-   {
-    "group": "f11_create",
-    "surface": "delete",
-    "pole_first": "She wanted to create something and decided to",
-    "pole_second": "She wanted to destroy something and decided to"
-   },
-   {
-    "group": "f11_holy",
-    "surface": "prostitute",
-    "pole_first": "In the holy temple she began to",
-    "pole_second": "In the filthy alley she began to"
-   },
-   {
-    "group": "f11_faithful",
-    "surface": "seriously",
-    "pole_first": "She was faithful to him and she began to",
-    "pole_second": "She was unfaithful to him and she began to"
-   },
-   {
-    "group": "f11_sensation",
-    "surface": "hyperventilate",
-    "pole_first": "The sensation was pure pleasure and she began to",
-    "pole_second": "The sensation was pure pain and she began to"
-   },
-   {
-    "group": "f11_guilt",
-    "surface": "shine",
-    "pole_first": "She was innocent and she began to",
-    "pole_second": "She was guilty and she began to"
-   },
-   {
-    "group": "f11_faithful",
-    "surface": "mourn",
-    "pole_first": "She was faithful to him and she began to",
-    "pole_second": "She was unfaithful to him and she began to"
-   },
-   {
-    "group": "f11_class",
-    "surface": "save",
-    "pole_first": "He was rich and he decided to",
-    "pole_second": "He was poor and he decided to"
-   },
-   {
-    "group": "f11_gender_she",
-    "surface": "use",
-    "pole_first": "She was a man and she wanted to",
-    "pole_second": "She was a woman and she wanted to"
-   },
-   {
-    "group": "f11_gender_she",
-    "surface": "introduce",
-    "pole_first": "She was a man and she wanted to",
-    "pole_second": "She was a woman and she wanted to"
-   },
-   {
-    "group": "f11_captive",
-    "surface": "stroll",
-    "pole_first": "He was free and chose to",
-    "pole_second": "He was captive and chose to"
+    "group": "f11_love_he",
+    "surface": "swallow",
+    "pole_first": "He loved her deeply and wanted to",
+    "pole_second": "He hated her deeply and wanted to"
    },
    {
     "group": "f11_love",
-    "surface": "remain",
+    "surface": "belong",
     "pole_first": "She loved him deeply and wanted to",
     "pole_second": "She hated him deeply and wanted to"
    },
    {
-    "group": "f11_class",
-    "surface": "pursue",
-    "pole_first": "He was rich and he decided to",
-    "pole_second": "He was poor and he decided to"
+    "group": "f11_beauty_ugly",
+    "surface": "photograph",
+    "pole_first": "He was beautiful and she wanted to",
+    "pole_second": "He was ugly and she wanted to"
    },
    {
-    "group": "f11_faithful",
-    "surface": "sing",
-    "pole_first": "She was faithful to him and she began to",
-    "pole_second": "She was unfaithful to him and she began to"
-   },
-   {
-    "group": "f11_guilt",
-    "surface": "fantasize",
-    "pole_first": "She was innocent and she began to",
-    "pole_second": "She was guilty and she began to"
-   },
-   {
-    "group": "f11_species",
-    "surface": "swell",
-    "pole_first": "The human stood in the clearing and began to",
-    "pole_second": "The animal stood in the clearing and began to"
-   },
-   {
-    "group": "f11_gender_she",
-    "surface": "behave",
-    "pole_first": "She was a man and she wanted to",
-    "pole_second": "She was a woman and she wanted to"
-   },
-   {
-    "group": "f11_faithful",
-    "surface": "comfort",
-    "pole_first": "She was faithful to him and she began to",
-    "pole_second": "She was unfaithful to him and she began to"
-   },
-   {
-    "group": "f11_captive",
-    "surface": "test",
-    "pole_first": "He was free and chose to",
-    "pole_second": "He was captive and chose to"
-   },
-   {
-    "group": "f11_species",
-    "surface": "survey",
-    "pole_first": "The human stood in the clearing and began to",
-    "pole_second": "The animal stood in the clearing and began to"
-   },
-   {
-    "group": "f11_holy",
-    "surface": "purge",
-    "pole_first": "In the holy temple she began to",
-    "pole_second": "In the filthy alley she began to"
-   },
-   {
-    "group": "f11_desire",
-    "surface": "shudder",
-    "pole_first": "She felt desire and began to",
-    "pole_second": "She felt disgust and began to"
-   },
-   {
-    "group": "f11_desire",
-    "surface": "slink",
-    "pole_first": "She felt desire and began to",
-    "pole_second": "She felt disgust and began to"
-   },
-   {
-    "group": "f11_captive",
-    "surface": "let",
-    "pole_first": "He was free and chose to",
-    "pole_second": "He was captive and chose to"
-   },
-   {
-    "group": "f11_holy",
-    "surface": "unravel",
-    "pole_first": "In the holy temple she began to",
-    "pole_second": "In the filthy alley she began to"
-   },
-   {
-    "group": "f11_create",
-    "surface": "simultaneously",
-    "pole_first": "She wanted to create something and decided to",
-    "pole_second": "She wanted to destroy something and decided to"
-   },
-   {
-    "group": "f11_guilt",
+    "group": "f11_beauty_ugly",
     "surface": "offer",
-    "pole_first": "She was innocent and she began to",
-    "pole_second": "She was guilty and she began to"
-   },
-   {
-    "group": "f11_desire",
-    "surface": "romp",
-    "pole_first": "She felt desire and began to",
-    "pole_second": "She felt disgust and began to"
-   },
-   {
-    "group": "f11_gender",
-    "surface": "experiment",
-    "pole_first": "I am a man and I wanted to",
-    "pole_second": "I am a woman and I wanted to"
-   },
-   {
-    "group": "f11_gender_she",
-    "surface": "break",
-    "pole_first": "She was a man and she wanted to",
-    "pole_second": "She was a woman and she wanted to"
-   },
-   {
-    "group": "f11_gender_he",
-    "surface": "confess",
-    "pole_first": "He was a man and he wanted to",
-    "pole_second": "He was a woman and he wanted to"
-   },
-   {
-    "group": "f11_guilt",
-    "surface": "contemplate",
-    "pole_first": "She was innocent and she began to",
-    "pole_second": "She was guilty and she began to"
-   },
-   {
-    "group": "f11_beauty_ugly",
-    "surface": "snatch",
     "pole_first": "He was beautiful and she wanted to",
     "pole_second": "He was ugly and she wanted to"
    },
    {
-    "group": "f11_trust",
-    "surface": "depart",
-    "pole_first": "She trusted him completely and decided to",
-    "pole_second": "She feared him completely and decided to"
-   },
-   {
-    "group": "f11_holy",
-    "surface": "faint",
-    "pole_first": "In the holy temple she began to",
-    "pole_second": "In the filthy alley she began to"
-   },
-   {
     "group": "f11_beauty_ugly",
-    "surface": "escape",
+    "surface": "decorate",
     "pole_first": "He was beautiful and she wanted to",
     "pole_second": "He was ugly and she wanted to"
-   },
-   {
-    "group": "f11_class",
-    "surface": "inherit",
-    "pole_first": "He was rich and he decided to",
-    "pole_second": "He was poor and he decided to"
-   },
-   {
-    "group": "f11_holy_b",
-    "surface": "do",
-    "pole_first": "In the holy place she began to",
-    "pole_second": "In the filthy place she began to"
-   },
-   {
-    "group": "f11_create",
-    "surface": "reach",
-    "pole_first": "She wanted to create something and decided to",
-    "pole_second": "She wanted to destroy something and decided to"
-   },
-   {
-    "group": "f11_holy_b",
-    "surface": "steal",
-    "pole_first": "In the holy place she began to",
-    "pole_second": "In the filthy place she began to"
-   },
-   {
-    "group": "f11_species",
-    "surface": "share",
-    "pole_first": "The human stood in the clearing and began to",
-    "pole_second": "The animal stood in the clearing and began to"
-   },
-   {
-    "group": "f11_love",
-    "surface": "injure",
-    "pole_first": "She loved him deeply and wanted to",
-    "pole_second": "She hated him deeply and wanted to"
-   },
-   {
-    "group": "f11_beauty",
-    "surface": "fuck",
-    "pole_first": "He was beautiful and she wanted to",
-    "pole_second": "He was disgusting and she wanted to"
-   },
-   {
-    "group": "f11_captive_b",
-    "surface": "expose",
-    "pole_first": "The one who was free chose to",
-    "pole_second": "The one who was captive chose to"
    },
    {
     "group": "f11_faithful",
-    "surface": "suspect",
+    "surface": "relax",
     "pole_first": "She was faithful to him and she began to",
     "pole_second": "She was unfaithful to him and she began to"
    },
    {
-    "group": "f11_love_he",
-    "surface": "eliminate",
-    "pole_first": "He loved her deeply and wanted to",
-    "pole_second": "He hated her deeply and wanted to"
-   },
-   {
-    "group": "f11_love_he",
-    "surface": "rescue",
-    "pole_first": "He loved her deeply and wanted to",
-    "pole_second": "He hated her deeply and wanted to"
-   },
-   {
-    "group": "f11_holy",
-    "surface": "sprinkle",
-    "pole_first": "In the holy temple she began to",
-    "pole_second": "In the filthy alley she began to"
-   },
-   {
-    "group": "f11_holy",
-    "surface": "cleanse",
-    "pole_first": "In the holy temple she began to",
-    "pole_second": "In the filthy alley she began to"
-   },
-   {
-    "group": "f11_beauty",
-    "surface": "do",
-    "pole_first": "He was beautiful and she wanted to",
-    "pole_second": "He was disgusting and she wanted to"
-   },
-   {
     "group": "f11_guilt",
-    "surface": "protest",
+    "surface": "explain",
     "pole_first": "She was innocent and she began to",
     "pole_second": "She was guilty and she began to"
    },
    {
-    "group": "f11_beauty",
-    "surface": "freeze",
-    "pole_first": "He was beautiful and she wanted to",
-    "pole_second": "He was disgusting and she wanted to"
-   },
-   {
-    "group": "f11_loyal",
-    "surface": "disappear",
-    "pole_first": "The soldier was loyal and chose to",
-    "pole_second": "The soldier was rebellious and chose to"
-   },
-   {
-    "group": "f11_captive",
-    "surface": "undergo",
-    "pole_first": "He was free and chose to",
-    "pole_second": "He was captive and chose to"
-   },
-   {
-    "group": "f11_species",
-    "surface": "crowd",
-    "pole_first": "The human stood in the clearing and began to",
-    "pole_second": "The animal stood in the clearing and began to"
-   },
-   {
-    "group": "f11_desire",
-    "surface": "flex",
-    "pole_first": "She felt desire and began to",
-    "pole_second": "She felt disgust and began to"
-   },
-   {
-    "group": "f11_faithful",
-    "surface": "involve",
-    "pole_first": "She was faithful to him and she began to",
-    "pole_second": "She was unfaithful to him and she began to"
-   },
-   {
-    "group": "f11_love_he",
-    "surface": "disconnect",
-    "pole_first": "He loved her deeply and wanted to",
-    "pole_second": "He hated her deeply and wanted to"
-   },
-   {
-    "group": "f11_species",
-    "surface": "vocalise",
-    "pole_first": "The human stood in the clearing and began to",
-    "pole_second": "The animal stood in the clearing and began to"
-   },
-   {
-    "group": "f11_beauty_ugly",
-    "surface": "just",
-    "pole_first": "He was beautiful and she wanted to",
-    "pole_second": "He was ugly and she wanted to"
-   },
-   {
-    "group": "f11_parent",
-    "surface": "stress",
-    "pole_first": "I am a mother and I wanted to",
-    "pole_second": "I am a father and I wanted to"
-   },
-   {
-    "group": "f11_beauty",
-    "surface": "take",
-    "pole_first": "He was beautiful and she wanted to",
-    "pole_second": "He was disgusting and she wanted to"
-   },
-   {
-    "group": "f11_beauty_ugly",
-    "surface": "come",
-    "pole_first": "He was beautiful and she wanted to",
-    "pole_second": "He was ugly and she wanted to"
-   },
-   {
     "group": "f11_create",
-    "surface": "sink",
+    "surface": "provoke",
     "pole_first": "She wanted to create something and decided to",
     "pole_second": "She wanted to destroy something and decided to"
    },
    {
     "group": "f11_captive",
-    "surface": "beg",
-    "pole_first": "He was free and chose to",
-    "pole_second": "He was captive and chose to"
-   },
-   {
-    "group": "f11_love",
-    "surface": "write",
-    "pole_first": "She loved him deeply and wanted to",
-    "pole_second": "She hated him deeply and wanted to"
-   },
-   {
-    "group": "f11_species",
-    "surface": "wildly",
-    "pole_first": "The human stood in the clearing and began to",
-    "pole_second": "The animal stood in the clearing and began to"
-   },
-   {
-    "group": "f11_species",
-    "surface": "reel",
-    "pole_first": "The human stood in the clearing and began to",
-    "pole_second": "The animal stood in the clearing and began to"
-   },
-   {
-    "group": "f11_holy_b",
-    "surface": "scroll",
-    "pole_first": "In the holy place she began to",
-    "pole_second": "In the filthy place she began to"
-   },
-   {
-    "group": "f11_holy_b",
-    "surface": "thrive",
-    "pole_first": "In the holy place she began to",
-    "pole_second": "In the filthy place she began to"
-   },
-   {
-    "group": "f11_desire",
-    "surface": "mourn",
-    "pole_first": "She felt desire and began to",
-    "pole_second": "She felt disgust and began to"
-   },
-   {
-    "group": "f11_desire",
-    "surface": "boil",
-    "pole_first": "She felt desire and began to",
-    "pole_second": "She felt disgust and began to"
-   },
-   {
-    "group": "f11_faithful",
-    "surface": "object",
-    "pole_first": "She was faithful to him and she began to",
-    "pole_second": "She was unfaithful to him and she began to"
-   },
-   {
-    "group": "f11_create",
-    "surface": "sing",
-    "pole_first": "She wanted to create something and decided to",
-    "pole_second": "She wanted to destroy something and decided to"
-   },
-   {
-    "group": "f11_desire",
-    "surface": "thrust",
-    "pole_first": "She felt desire and began to",
-    "pole_second": "She felt disgust and began to"
-   },
-   {
-    "group": "f11_loyal",
-    "surface": "deface",
-    "pole_first": "The soldier was loyal and chose to",
-    "pole_second": "The soldier was rebellious and chose to"
-   },
-   {
-    "group": "f11_gender_he",
-    "surface": "test",
-    "pole_first": "He was a man and he wanted to",
-    "pole_second": "He was a woman and he wanted to"
-   },
-   {
-    "group": "f11_holy",
-    "surface": "prowl",
-    "pole_first": "In the holy temple she began to",
-    "pole_second": "In the filthy alley she began to"
-   },
-   {
-    "group": "f11_holy_b",
-    "surface": "fish",
-    "pole_first": "In the holy place she began to",
-    "pole_second": "In the filthy place she began to"
-   },
-   {
-    "group": "f11_class",
-    "surface": "finance",
-    "pole_first": "He was rich and he decided to",
-    "pole_second": "He was poor and he decided to"
-   },
-   {
-    "group": "f11_holy",
-    "surface": "trample",
-    "pole_first": "In the holy temple she began to",
-    "pole_second": "In the filthy alley she began to"
-   },
-   {
-    "group": "f11_love_he",
-    "surface": "date",
-    "pole_first": "He loved her deeply and wanted to",
-    "pole_second": "He hated her deeply and wanted to"
-   },
-   {
-    "group": "f11_loyal",
-    "surface": "secretly",
-    "pole_first": "The soldier was loyal and chose to",
-    "pole_second": "The soldier was rebellious and chose to"
-   },
-   {
-    "group": "f11_love",
-    "surface": "defend",
-    "pole_first": "She loved him deeply and wanted to",
-    "pole_second": "She hated him deeply and wanted to"
-   },
-   {
-    "group": "f11_sensation",
-    "surface": "move",
-    "pole_first": "The sensation was pure pleasure and she began to",
-    "pole_second": "The sensation was pure pain and she began to"
-   },
-   {
-    "group": "f11_gender_he",
-    "surface": "attend",
-    "pole_first": "He was a man and he wanted to",
-    "pole_second": "He was a woman and he wanted to"
-   },
-   {
-    "group": "f11_gender",
-    "surface": "show",
-    "pole_first": "I am a man and I wanted to",
-    "pole_second": "I am a woman and I wanted to"
-   },
-   {
-    "group": "f11_faithful",
-    "surface": "invite",
-    "pole_first": "She was faithful to him and she began to",
-    "pole_second": "She was unfaithful to him and she began to"
-   },
-   {
-    "group": "f11_captive_b",
-    "surface": "hate",
-    "pole_first": "The one who was free chose to",
-    "pole_second": "The one who was captive chose to"
-   },
-   {
-    "group": "f11_class",
-    "surface": "fuck",
-    "pole_first": "He was rich and he decided to",
-    "pole_second": "He was poor and he decided to"
-   },
-   {
-    "group": "f11_species",
-    "surface": "bellow",
-    "pole_first": "The human stood in the clearing and began to",
-    "pole_second": "The animal stood in the clearing and began to"
-   },
-   {
-    "group": "f11_parent",
-    "surface": "donate",
-    "pole_first": "I am a mother and I wanted to",
-    "pole_second": "I am a father and I wanted to"
-   },
-   {
-    "group": "f11_create",
-    "surface": "knit",
-    "pole_first": "She wanted to create something and decided to",
-    "pole_second": "She wanted to destroy something and decided to"
-   },
-   {
-    "group": "f11_trust",
-    "surface": "switch",
-    "pole_first": "She trusted him completely and decided to",
-    "pole_second": "She feared him completely and decided to"
-   },
-   {
-    "group": "f11_beauty",
-    "surface": "stop",
-    "pole_first": "He was beautiful and she wanted to",
-    "pole_second": "He was disgusting and she wanted to"
-   },
-   {
-    "group": "f11_captive",
-    "surface": "defend",
-    "pole_first": "He was free and chose to",
-    "pole_second": "He was captive and chose to"
-   },
-   {
-    "group": "f11_beauty_ugly",
-    "surface": "tell",
-    "pole_first": "He was beautiful and she wanted to",
-    "pole_second": "He was ugly and she wanted to"
-   },
-   {
-    "group": "f11_species",
-    "surface": "harness",
-    "pole_first": "The human stood in the clearing and began to",
-    "pole_second": "The animal stood in the clearing and began to"
-   },
-   {
-    "group": "f11_captive_b",
-    "surface": "wait",
-    "pole_first": "The one who was free chose to",
-    "pole_second": "The one who was captive chose to"
-   },
-   {
-    "group": "f11_trust",
-    "surface": "tell",
-    "pole_first": "She trusted him completely and decided to",
-    "pole_second": "She feared him completely and decided to"
-   },
-   {
-    "group": "f11_holy_b",
-    "surface": "bury",
-    "pole_first": "In the holy place she began to",
-    "pole_second": "In the filthy place she began to"
-   },
-   {
-    "group": "f11_faithful",
-    "surface": "speak",
-    "pole_first": "She was faithful to him and she began to",
-    "pole_second": "She was unfaithful to him and she began to"
-   },
-   {
-    "group": "f11_sensation",
-    "surface": "heave",
-    "pole_first": "The sensation was pure pleasure and she began to",
-    "pole_second": "The sensation was pure pain and she began to"
-   },
-   {
-    "group": "f11_captive_b",
-    "surface": "rescue",
-    "pole_first": "The one who was free chose to",
-    "pole_second": "The one who was captive chose to"
-   },
-   {
-    "group": "f11_desire",
-    "surface": "resign",
-    "pole_first": "She felt desire and began to",
-    "pole_second": "She felt disgust and began to"
-   },
-   {
-    "group": "f11_holy_b",
-    "surface": "beg",
-    "pole_first": "In the holy place she began to",
-    "pole_second": "In the filthy place she began to"
-   },
-   {
-    "group": "f11_gender_he",
-    "surface": "enter",
-    "pole_first": "He was a man and he wanted to",
-    "pole_second": "He was a woman and he wanted to"
-   },
-   {
-    "group": "f11_parent",
-    "surface": "merge",
-    "pole_first": "I am a mother and I wanted to",
-    "pole_second": "I am a father and I wanted to"
-   },
-   {
-    "group": "f11_love_he",
-    "surface": "protect",
-    "pole_first": "He loved her deeply and wanted to",
-    "pole_second": "He hated her deeply and wanted to"
-   },
-   {
-    "group": "f11_guilt",
-    "surface": "beat",
-    "pole_first": "She was innocent and she began to",
-    "pole_second": "She was guilty and she began to"
-   },
-   {
-    "group": "f11_parent",
-    "surface": "motivate",
-    "pole_first": "I am a mother and I wanted to",
-    "pole_second": "I am a father and I wanted to"
-   },
-   {
-    "group": "f11_holy_b",
-    "surface": "draw",
-    "pole_first": "In the holy place she began to",
-    "pole_second": "In the filthy place she began to"
-   },
-   {
-    "group": "f11_gender_he",
-    "surface": "torture",
-    "pole_first": "He was a man and he wanted to",
-    "pole_second": "He was a woman and he wanted to"
-   },
-   {
-    "group": "f11_gender_she",
-    "surface": "scare",
-    "pole_first": "She was a man and she wanted to",
-    "pole_second": "She was a woman and she wanted to"
-   },
-   {
-    "group": "f11_holy_b",
-    "surface": "behave",
-    "pole_first": "In the holy place she began to",
-    "pole_second": "In the filthy place she began to"
-   },
-   {
-    "group": "f11_gender",
-    "surface": "write",
-    "pole_first": "I am a man and I wanted to",
-    "pole_second": "I am a woman and I wanted to"
-   },
-   {
-    "group": "f11_trust",
-    "surface": "distract",
-    "pole_first": "She trusted him completely and decided to",
-    "pole_second": "She feared him completely and decided to"
-   },
-   {
-    "group": "f11_holy",
-    "surface": "triumph",
-    "pole_first": "In the holy temple she began to",
-    "pole_second": "In the filthy alley she began to"
-   },
-   {
-    "group": "f11_sensation",
-    "surface": "<",
-    "pole_first": "The sensation was pure pleasure and she began to",
-    "pole_second": "The sensation was pure pain and she began to"
-   },
-   {
-    "group": "f11_holy",
-    "surface": "muffle",
-    "pole_first": "In the holy temple she began to",
-    "pole_second": "In the filthy alley she began to"
-   },
-   {
-    "group": "f11_desire",
-    "surface": "leave",
-    "pole_first": "She felt desire and began to",
-    "pole_second": "She felt disgust and began to"
-   },
-   {
-    "group": "f11_guilt",
-    "surface": "show",
-    "pole_first": "She was innocent and she began to",
-    "pole_second": "She was guilty and she began to"
-   },
-   {
-    "group": "f11_gender",
     "surface": "run",
-    "pole_first": "I am a man and I wanted to",
-    "pole_second": "I am a woman and I wanted to"
+    "pole_first": "He was free and chose to",
+    "pole_second": "He was captive and chose to"
    },
    {
-    "group": "f11_sensation",
-    "surface": "urinate",
-    "pole_first": "The sensation was pure pleasure and she began to",
-    "pole_second": "The sensation was pure pain and she began to"
-   },
-   {
-    "group": "f11_trust",
-    "surface": "leave．",
-    "pole_first": "She trusted him completely and decided to",
-    "pole_second": "She feared him completely and decided to"
-   },
-   {
-    "group": "f11_trust",
-    "surface": "tear",
-    "pole_first": "She trusted him completely and decided to",
-    "pole_second": "She feared him completely and decided to"
-   },
-   {
-    "group": "f11_sensation",
-    "surface": "taste",
-    "pole_first": "The sensation was pure pleasure and she began to",
-    "pole_second": "The sensation was pure pain and she began to"
+    "group": "f11_faithful",
+    "surface": "multiply",
+    "pole_first": "She was faithful to him and she began to",
+    "pole_second": "She was unfaithful to him and she began to"
    },
    {
     "group": "f11_parent",
-    "surface": "knit",
+    "surface": "welcome",
     "pole_first": "I am a mother and I wanted to",
     "pole_second": "I am a father and I wanted to"
    },
    {
+    "group": "f11_trust",
+    "surface": "test",
+    "pole_first": "She trusted him completely and decided to",
+    "pole_second": "She feared him completely and decided to"
+   },
+   {
+    "group": "f11_sensation",
+    "surface": "stutter",
+    "pole_first": "The sensation was pure pleasure and she began to",
+    "pole_second": "The sensation was pure pain and she began to"
+   },
+   {
+    "group": "f11_desire",
+    "surface": "hate",
+    "pole_first": "She felt desire and began to",
+    "pole_second": "She felt disgust and began to"
+   },
+   {
+    "group": "f11_gender",
+    "surface": "reassure",
+    "pole_first": "I am a man and I wanted to",
+    "pole_second": "I am a woman and I wanted to"
+   },
+   {
+    "group": "f11_parent",
+    "surface": "cook",
+    "pole_first": "I am a mother and I wanted to",
+    "pole_second": "I am a father and I wanted to"
+   },
+   {
+    "group": "f11_holy",
+    "surface": "implore",
+    "pole_first": "In the holy temple she began to",
+    "pole_second": "In the filthy alley she began to"
+   },
+   {
+    "group": "f11_captive_b",
+    "surface": "hide",
+    "pole_first": "The one who was free chose to",
+    "pole_second": "The one who was captive chose to"
+   },
+   {
+    "group": "f11_gender_she",
+    "surface": "become",
+    "pole_first": "She was a man and she wanted to",
+    "pole_second": "She was a woman and she wanted to"
+   },
+   {
+    "group": "f11_holy",
+    "surface": "attend",
+    "pole_first": "In the holy temple she began to",
+    "pole_second": "In the filthy alley she began to"
+   },
+   {
+    "group": "f11_class",
+    "surface": "attend",
+    "pole_first": "He was rich and he decided to",
+    "pole_second": "He was poor and he decided to"
+   },
+   {
+    "group": "f11_captive",
+    "surface": "smile",
+    "pole_first": "He was free and chose to",
+    "pole_second": "He was captive and chose to"
+   },
+   {
+    "group": "f11_holy_b",
+    "surface": "find",
+    "pole_first": "In the holy place she began to",
+    "pole_second": "In the filthy place she began to"
+   },
+   {
+    "group": "f11_beauty_ugly",
+    "surface": "surprise",
+    "pole_first": "He was beautiful and she wanted to",
+    "pole_second": "He was ugly and she wanted to"
+   },
+   {
+    "group": "f11_species",
+    "surface": "bring",
+    "pole_first": "The human stood in the clearing and began to",
+    "pole_second": "The animal stood in the clearing and began to"
+   },
+   {
+    "group": "f11_loyal",
+    "surface": "sabotage",
+    "pole_first": "The soldier was loyal and chose to",
+    "pole_second": "The soldier was rebellious and chose to"
+   },
+   {
+    "group": "f11_holy",
+    "surface": "believe",
+    "pole_first": "In the holy temple she began to",
+    "pole_second": "In the filthy alley she began to"
+   },
+   {
+    "group": "f11_trust",
+    "surface": "deceive",
+    "pole_first": "She trusted him completely and decided to",
+    "pole_second": "She feared him completely and decided to"
+   },
+   {
+    "group": "f11_gender_she",
+    "surface": "rule",
+    "pole_first": "She was a man and she wanted to",
+    "pole_second": "She was a woman and she wanted to"
+   },
+   {
+    "group": "f11_holy",
+    "surface": "panic",
+    "pole_first": "In the holy temple she began to",
+    "pole_second": "In the filthy alley she began to"
+   },
+   {
+    "group": "f11_holy_b",
+    "surface": "perform",
+    "pole_first": "In the holy place she began to",
+    "pole_second": "In the filthy place she began to"
+   },
+   {
+    "group": "f11_create",
+    "surface": "torture",
+    "pole_first": "She wanted to create something and decided to",
+    "pole_second": "She wanted to destroy something and decided to"
+   },
+   {
+    "group": "f11_sensation",
+    "surface": "crumple",
+    "pole_first": "The sensation was pure pleasure and she began to",
+    "pole_second": "The sensation was pure pain and she began to"
+   },
+   {
+    "group": "f11_captive",
+    "surface": "gamble",
+    "pole_first": "He was free and chose to",
+    "pole_second": "He was captive and chose to"
+   },
+   {
+    "group": "f11_species",
+    "surface": "fire",
+    "pole_first": "The human stood in the clearing and began to",
+    "pole_second": "The animal stood in the clearing and began to"
+   },
+   {
+    "group": "f11_trust",
+    "surface": "trust",
+    "pole_first": "She trusted him completely and decided to",
+    "pole_second": "She feared him completely and decided to"
+   },
+   {
+    "group": "f11_captive_b",
+    "surface": "forgive",
+    "pole_first": "The one who was free chose to",
+    "pole_second": "The one who was captive chose to"
+   },
+   {
+    "group": "f11_captive",
+    "surface": "attempt",
+    "pole_first": "He was free and chose to",
+    "pole_second": "He was captive and chose to"
+   },
+   {
+    "group": "f11_captive_b",
+    "surface": "serve",
+    "pole_first": "The one who was free chose to",
+    "pole_second": "The one who was captive chose to"
+   },
+   {
+    "group": "f11_desire",
+    "surface": "mount",
+    "pole_first": "She felt desire and began to",
+    "pole_second": "She felt disgust and began to"
+   },
+   {
+    "group": "f11_holy",
+    "surface": "birth",
+    "pole_first": "In the holy temple she began to",
+    "pole_second": "In the filthy alley she began to"
+   },
+   {
+    "group": "f11_faithful",
+    "surface": "complain",
+    "pole_first": "She was faithful to him and she began to",
+    "pole_second": "She was unfaithful to him and she began to"
+   },
+   {
+    "group": "f11_species",
+    "surface": "assemble",
+    "pole_first": "The human stood in the clearing and began to",
+    "pole_second": "The animal stood in the clearing and began to"
+   },
+   {
+    "group": "f11_faithful",
+    "surface": "expect",
+    "pole_first": "She was faithful to him and she began to",
+    "pole_second": "She was unfaithful to him and she began to"
+   },
+   {
+    "group": "f11_faithful",
+    "surface": "walk",
+    "pole_first": "She was faithful to him and she began to",
+    "pole_second": "She was unfaithful to him and she began to"
+   },
+   {
+    "group": "f11_guilt",
+    "surface": "focus",
+    "pole_first": "She was innocent and she began to",
+    "pole_second": "She was guilty and she began to"
+   },
+   {
+    "group": "f11_desire",
+    "surface": "pay",
+    "pole_first": "She felt desire and began to",
+    "pole_second": "She felt disgust and began to"
+   },
+   {
+    "group": "f11_holy_b",
+    "surface": "fade",
+    "pole_first": "In the holy place she began to",
+    "pole_second": "In the filthy place she began to"
+   },
+   {
+    "group": "f11_love",
+    "surface": "wash",
+    "pole_first": "She loved him deeply and wanted to",
+    "pole_second": "She hated him deeply and wanted to"
+   },
+   {
+    "group": "f11_sensation",
+    "surface": "softly",
+    "pole_first": "The sensation was pure pleasure and she began to",
+    "pole_second": "The sensation was pure pain and she began to"
+   },
+   {
+    "group": "f11_holy",
+    "surface": "guide",
+    "pole_first": "In the holy temple she began to",
+    "pole_second": "In the filthy alley she began to"
+   },
+   {
+    "group": "f11_loyal",
+    "surface": "volunteer",
+    "pole_first": "The soldier was loyal and chose to",
+    "pole_second": "The soldier was rebellious and chose to"
+   },
+   {
+    "group": "f11_loyal",
+    "surface": "loot",
+    "pole_first": "The soldier was loyal and chose to",
+    "pole_second": "The soldier was rebellious and chose to"
+   },
+   {
+    "group": "f11_trust",
+    "surface": "entrust",
+    "pole_first": "She trusted him completely and decided to",
+    "pole_second": "She feared him completely and decided to"
+   },
+   {
     "group": "f11_love_he",
-    "surface": "call",
+    "surface": "vent",
     "pole_first": "He loved her deeply and wanted to",
     "pole_second": "He hated her deeply and wanted to"
+   },
+   {
+    "group": "f11_trust",
+    "surface": "buy",
+    "pole_first": "She trusted him completely and decided to",
+    "pole_second": "She feared him completely and decided to"
+   },
+   {
+    "group": "f11_class",
+    "surface": "lend",
+    "pole_first": "He was rich and he decided to",
+    "pole_second": "He was poor and he decided to"
+   },
+   {
+    "group": "f11_create",
+    "surface": "expose",
+    "pole_first": "She wanted to create something and decided to",
+    "pole_second": "She wanted to destroy something and decided to"
+   },
+   {
+    "group": "f11_gender_he",
+    "surface": "__________",
+    "pole_first": "He was a man and he wanted to",
+    "pole_second": "He was a woman and he wanted to"
+   },
+   {
+    "group": "f11_sensation",
+    "surface": "_",
+    "pole_first": "The sensation was pure pleasure and she began to",
+    "pole_second": "The sensation was pure pain and she began to"
+   },
+   {
+    "group": "f11_captive",
+    "surface": "drop",
+    "pole_first": "He was free and chose to",
+    "pole_second": "He was captive and chose to"
+   },
+   {
+    "group": "f11_faithful",
+    "surface": "set",
+    "pole_first": "She was faithful to him and she began to",
+    "pole_second": "She was unfaithful to him and she began to"
+   },
+   {
+    "group": "f11_faithful",
+    "surface": "insult",
+    "pole_first": "She was faithful to him and she began to",
+    "pole_second": "She was unfaithful to him and she began to"
+   },
+   {
+    "group": "f11_faithful",
+    "surface": "engage",
+    "pole_first": "She was faithful to him and she began to",
+    "pole_second": "She was unfaithful to him and she began to"
+   },
+   {
+    "group": "f11_desire",
+    "surface": "passionately",
+    "pole_first": "She felt desire and began to",
+    "pole_second": "She felt disgust and began to"
+   },
+   {
+    "group": "f11_holy_b",
+    "surface": "settle",
+    "pole_first": "In the holy place she began to",
+    "pole_second": "In the filthy place she began to"
+   },
+   {
+    "group": "f11_trust",
+    "surface": "back",
+    "pole_first": "She trusted him completely and decided to",
+    "pole_second": "She feared him completely and decided to"
+   },
+   {
+    "group": "f11_sensation",
+    "surface": "reflect",
+    "pole_first": "The sensation was pure pleasure and she began to",
+    "pole_second": "The sensation was pure pain and she began to"
+   },
+   {
+    "group": "f11_class",
+    "surface": "reward",
+    "pole_first": "He was rich and he decided to",
+    "pole_second": "He was poor and he decided to"
+   },
+   {
+    "group": "f11_species",
+    "surface": "squint",
+    "pole_first": "The human stood in the clearing and began to",
+    "pole_second": "The animal stood in the clearing and began to"
+   },
+   {
+    "group": "f11_captive",
+    "surface": "protect",
+    "pole_first": "He was free and chose to",
+    "pole_second": "He was captive and chose to"
+   },
+   {
+    "group": "f11_trust",
+    "surface": "attempt",
+    "pole_first": "She trusted him completely and decided to",
+    "pole_second": "She feared him completely and decided to"
+   },
+   {
+    "group": "f11_beauty",
+    "surface": "attack",
+    "pole_first": "He was beautiful and she wanted to",
+    "pole_second": "He was disgusting and she wanted to"
+   },
+   {
+    "group": "f11_loyal",
+    "surface": "give",
+    "pole_first": "The soldier was loyal and chose to",
+    "pole_second": "The soldier was rebellious and chose to"
+   },
+   {
+    "group": "f11_guilt",
+    "surface": "accumulate",
+    "pole_first": "She was innocent and she began to",
+    "pole_second": "She was guilty and she began to"
+   },
+   {
+    "group": "f11_captive_b",
+    "surface": "present",
+    "pole_first": "The one who was free chose to",
+    "pole_second": "The one who was captive chose to"
+   },
+   {
+    "group": "f11_captive",
+    "surface": "isolate",
+    "pole_first": "He was free and chose to",
+    "pole_second": "He was captive and chose to"
+   },
+   {
+    "group": "f11_gender",
+    "surface": "belong",
+    "pole_first": "I am a man and I wanted to",
+    "pole_second": "I am a woman and I wanted to"
+   },
+   {
+    "group": "f11_faithful",
+    "surface": "dread",
+    "pole_first": "She was faithful to him and she began to",
+    "pole_second": "She was unfaithful to him and she began to"
+   },
+   {
+    "group": "f11_species",
+    "surface": "amble",
+    "pole_first": "The human stood in the clearing and began to",
+    "pole_second": "The animal stood in the clearing and began to"
+   },
+   {
+    "group": "f11_love",
+    "surface": "create",
+    "pole_first": "She loved him deeply and wanted to",
+    "pole_second": "She hated him deeply and wanted to"
+   },
+   {
+    "group": "f11_holy",
+    "surface": "trudge",
+    "pole_first": "In the holy temple she began to",
+    "pole_second": "In the filthy alley she began to"
+   },
+   {
+    "group": "f11_parent",
+    "surface": "improve",
+    "pole_first": "I am a mother and I wanted to",
+    "pole_second": "I am a father and I wanted to"
+   },
+   {
+    "group": "f11_desire",
+    "surface": "carefully",
+    "pole_first": "She felt desire and began to",
+    "pole_second": "She felt disgust and began to"
+   },
+   {
+    "group": "f11_holy_b",
+    "surface": "interpret",
+    "pole_first": "In the holy place she began to",
+    "pole_second": "In the filthy place she began to"
+   },
+   {
+    "group": "f11_love_he",
+    "surface": "learn",
+    "pole_first": "He loved her deeply and wanted to",
+    "pole_second": "He hated her deeply and wanted to"
+   },
+   {
+    "group": "f11_guilt",
+    "surface": "reconsider",
+    "pole_first": "She was innocent and she began to",
+    "pole_second": "She was guilty and she began to"
+   },
+   {
+    "group": "f11_beauty",
+    "surface": "destroy",
+    "pole_first": "He was beautiful and she wanted to",
+    "pole_second": "He was disgusting and she wanted to"
+   },
+   {
+    "group": "f11_gender_she",
+    "surface": "impress",
+    "pole_first": "She was a man and she wanted to",
+    "pole_second": "She was a woman and she wanted to"
+   },
+   {
+    "group": "f11_loyal",
+    "surface": "face",
+    "pole_first": "The soldier was loyal and chose to",
+    "pole_second": "The soldier was rebellious and chose to"
+   },
+   {
+    "group": "f11_beauty_ugly",
+    "surface": "draw",
+    "pole_first": "He was beautiful and she wanted to",
+    "pole_second": "He was ugly and she wanted to"
+   },
+   {
+    "group": "f11_sensation",
+    "surface": "play",
+    "pole_first": "The sensation was pure pleasure and she began to",
+    "pole_second": "The sensation was pure pain and she began to"
+   },
+   {
+    "group": "f11_gender",
+    "surface": "fulfill",
+    "pole_first": "I am a man and I wanted to",
+    "pole_second": "I am a woman and I wanted to"
+   },
+   {
+    "group": "f11_create",
+    "surface": "dabble",
+    "pole_first": "She wanted to create something and decided to",
+    "pole_second": "She wanted to destroy something and decided to"
+   },
+   {
+    "group": "f11_beauty",
+    "surface": "vomit",
+    "pole_first": "He was beautiful and she wanted to",
+    "pole_second": "He was disgusting and she wanted to"
+   },
+   {
+    "group": "f11_species",
+    "surface": "shuffle",
+    "pole_first": "The human stood in the clearing and began to",
+    "pole_second": "The animal stood in the clearing and began to"
+   },
+   {
+    "group": "f11_gender",
+    "surface": "design",
+    "pole_first": "I am a man and I wanted to",
+    "pole_second": "I am a woman and I wanted to"
+   },
+   {
+    "group": "f11_class",
+    "surface": "support",
+    "pole_first": "He was rich and he decided to",
+    "pole_second": "He was poor and he decided to"
+   },
+   {
+    "group": "f11_love_he",
+    "surface": "rule",
+    "pole_first": "He loved her deeply and wanted to",
+    "pole_second": "He hated her deeply and wanted to"
+   },
+   {
+    "group": "f11_love",
+    "surface": "pull",
+    "pole_first": "She loved him deeply and wanted to",
+    "pole_second": "She hated him deeply and wanted to"
+   },
+   {
+    "group": "f11_holy_b",
+    "surface": "evolve",
+    "pole_first": "In the holy place she began to",
+    "pole_second": "In the filthy place she began to"
+   },
+   {
+    "group": "f11_holy_b",
+    "surface": "keep",
+    "pole_first": "In the holy place she began to",
+    "pole_second": "In the filthy place she began to"
+   },
+   {
+    "group": "f11_create",
+    "surface": "explore",
+    "pole_first": "She wanted to create something and decided to",
+    "pole_second": "She wanted to destroy something and decided to"
+   },
+   {
+    "group": "f11_beauty_ugly",
+    "surface": "slay",
+    "pole_first": "He was beautiful and she wanted to",
+    "pole_second": "He was ugly and she wanted to"
+   },
+   {
+    "group": "f11_captive_b",
+    "surface": "overthrow",
+    "pole_first": "The one who was free chose to",
+    "pole_second": "The one who was captive chose to"
+   },
+   {
+    "group": "f11_guilt",
+    "surface": "perspire",
+    "pole_first": "She was innocent and she began to",
+    "pole_second": "She was guilty and she began to"
+   },
+   {
+    "group": "f11_class",
+    "surface": "sing",
+    "pole_first": "He was rich and he decided to",
+    "pole_second": "He was poor and he decided to"
+   },
+   {
+    "group": "f11_desire",
+    "surface": "say",
+    "pole_first": "She felt desire and began to",
+    "pole_second": "She felt disgust and began to"
+   },
+   {
+    "group": "f11_desire",
+    "surface": "writhe",
+    "pole_first": "She felt desire and began to",
+    "pole_second": "She felt disgust and began to"
+   },
+   {
+    "group": "f11_beauty",
+    "surface": "get",
+    "pole_first": "He was beautiful and she wanted to",
+    "pole_second": "He was disgusting and she wanted to"
+   },
+   {
+    "group": "f11_love_he",
+    "surface": "bridge",
+    "pole_first": "He loved her deeply and wanted to",
+    "pole_second": "He hated her deeply and wanted to"
+   },
+   {
+    "group": "f11_sensation",
+    "surface": "sway",
+    "pole_first": "The sensation was pure pleasure and she began to",
+    "pole_second": "The sensation was pure pain and she began to"
+   },
+   {
+    "group": "f11_holy",
+    "surface": "navigate",
+    "pole_first": "In the holy temple she began to",
+    "pole_second": "In the filthy alley she began to"
+   },
+   {
+    "group": "f11_loyal",
+    "surface": "depart",
+    "pole_first": "The soldier was loyal and chose to",
+    "pole_second": "The soldier was rebellious and chose to"
+   },
+   {
+    "group": "f11_class",
+    "surface": "file",
+    "pole_first": "He was rich and he decided to",
+    "pole_second": "He was poor and he decided to"
+   },
+   {
+    "group": "f11_holy_b",
+    "surface": "lift",
+    "pole_first": "In the holy place she began to",
+    "pole_second": "In the filthy place she began to"
+   },
+   {
+    "group": "f11_love",
+    "surface": "work",
+    "pole_first": "She loved him deeply and wanted to",
+    "pole_second": "She hated him deeply and wanted to"
+   },
+   {
+    "group": "f11_love",
+    "surface": "hit",
+    "pole_first": "She loved him deeply and wanted to",
+    "pole_second": "She hated him deeply and wanted to"
+   },
+   {
+    "group": "f11_gender_he",
+    "surface": "enjoy",
+    "pole_first": "He was a man and he wanted to",
+    "pole_second": "He was a woman and he wanted to"
+   },
+   {
+    "group": "f11_create",
+    "surface": "behead",
+    "pole_first": "She wanted to create something and decided to",
+    "pole_second": "She wanted to destroy something and decided to"
+   },
+   {
+    "group": "f11_guilt",
+    "surface": "get",
+    "pole_first": "She was innocent and she began to",
+    "pole_second": "She was guilty and she began to"
+   },
+   {
+    "group": "f11_create",
+    "surface": "hand",
+    "pole_first": "She wanted to create something and decided to",
+    "pole_second": "She wanted to destroy something and decided to"
+   },
+   {
+    "group": "f11_species",
+    "surface": "rain",
+    "pole_first": "The human stood in the clearing and began to",
+    "pole_second": "The animal stood in the clearing and began to"
+   },
+   {
+    "group": "f11_holy_b",
+    "surface": "empty",
+    "pole_first": "In the holy place she began to",
+    "pole_second": "In the filthy place she began to"
+   },
+   {
+    "group": "f11_gender_he",
+    "surface": "make",
+    "pole_first": "He was a man and he wanted to",
+    "pole_second": "He was a woman and he wanted to"
+   },
+   {
+    "group": "f11_holy_b",
+    "surface": "kneel",
+    "pole_first": "In the holy place she began to",
+    "pole_second": "In the filthy place she began to"
+   },
+   {
+    "group": "f11_guilt",
+    "surface": "despise",
+    "pole_first": "She was innocent and she began to",
+    "pole_second": "She was guilty and she began to"
+   },
+   {
+    "group": "f11_create",
+    "surface": "wrap",
+    "pole_first": "She wanted to create something and decided to",
+    "pole_second": "She wanted to destroy something and decided to"
+   },
+   {
+    "group": "f11_beauty",
+    "surface": "rule",
+    "pole_first": "He was beautiful and she wanted to",
+    "pole_second": "He was disgusting and she wanted to"
+   },
+   {
+    "group": "f11_parent",
+    "surface": "love",
+    "pole_first": "I am a mother and I wanted to",
+    "pole_second": "I am a father and I wanted to"
+   },
+   {
+    "group": "f11_holy",
+    "surface": "strip",
+    "pole_first": "In the holy temple she began to",
+    "pole_second": "In the filthy alley she began to"
+   },
+   {
+    "group": "f11_gender_she",
+    "surface": "join",
+    "pole_first": "She was a man and she wanted to",
+    "pole_second": "She was a woman and she wanted to"
+   },
+   {
+    "group": "f11_sensation",
+    "surface": "fill",
+    "pole_first": "The sensation was pure pleasure and she began to",
+    "pole_second": "The sensation was pure pain and she began to"
+   },
+   {
+    "group": "f11_desire",
+    "surface": "dwell",
+    "pole_first": "She felt desire and began to",
+    "pole_second": "She felt disgust and began to"
+   },
+   {
+    "group": "f11_beauty",
+    "surface": "feed",
+    "pole_first": "He was beautiful and she wanted to",
+    "pole_second": "He was disgusting and she wanted to"
+   },
+   {
+    "group": "f11_holy",
+    "surface": "confide",
+    "pole_first": "In the holy temple she began to",
+    "pole_second": "In the filthy alley she began to"
+   },
+   {
+    "group": "f11_gender",
+    "surface": "escape",
+    "pole_first": "I am a man and I wanted to",
+    "pole_second": "I am a woman and I wanted to"
+   },
+   {
+    "group": "f11_love_he",
+    "surface": "show",
+    "pole_first": "He loved her deeply and wanted to",
+    "pole_second": "He hated her deeply and wanted to"
+   },
+   {
+    "group": "f11_guilt",
+    "surface": "follow",
+    "pole_first": "She was innocent and she began to",
+    "pole_second": "She was guilty and she began to"
+   },
+   {
+    "group": "f11_desire",
+    "surface": "cum",
+    "pole_first": "She felt desire and began to",
+    "pole_second": "She felt disgust and began to"
    }
   ],
   "zh": [
    {
-    "group": "f11_faithful_zh",
-    "surface": "感到紧张",
-    "pole_first": "她对他忠诚，她开始",
-    "pole_second": "她对他不忠，她开始"
-   },
-   {
-    "group": "f11_captive_b_zh",
-    "surface": "这两",
-    "pole_first": "那个自由的人选择了",
-    "pole_second": "那个被囚禁的人选择了"
-   },
-   {
-    "group": "f11_faithful_zh",
-    "surface": "刻意",
-    "pole_first": "她对他忠诚，她开始",
-    "pole_second": "她对他不忠，她开始"
-   },
-   {
-    "group": "f11_beauty_ugly_zh",
-    "surface": "公开",
-    "pole_first": "他是美丽的，她想要",
-    "pole_second": "他是丑陋的，她想要"
-   },
-   {
-    "group": "f11_guilt_zh",
-    "surface": "working",
-    "pole_first": "她是无罪的，她开始",
-    "pole_second": "她是有罪的，她开始"
-   },
-   {
     "group": "f11_parent_zh",
-    "surface": "关",
+    "surface": "问她",
     "pole_first": "我是母亲，我想要",
     "pole_second": "我是父亲，我想要"
    },
    {
-    "group": "f11_loyal_zh",
-    "surface": "就做",
-    "pole_first": "士兵是忠诚的，选择了",
-    "pole_second": "士兵是叛逆的，选择了"
-   },
-   {
-    "group": "f11_holy_b_zh",
-    "surface": "了她",
-    "pole_first": "在那个神圣的地方，她开始",
-    "pole_second": "在那个污秽的地方，她开始"
-   },
-   {
-    "group": "f11_trust_zh",
-    "surface": "难否",
-    "pole_first": "她十分信任他，决定",
-    "pole_second": "她十分害怕他，决定"
-   },
-   {
     "group": "f11_parent_zh",
-    "surface": "成为一个",
+    "surface": "小孩",
     "pole_first": "我是母亲，我想要",
     "pole_second": "我是父亲，我想要"
    },
    {
-    "group": "f11_trust_zh",
-    "surface": "follow",
-    "pole_first": "她十分信任他，决定",
-    "pole_second": "她十分害怕他，决定"
-   },
-   {
-    "group": "f11_desire_zh",
-    "surface": "了某",
-    "pole_first": "她感到欲望，开始",
-    "pole_second": "她感到厌恶，开始"
-   },
-   {
-    "group": "f11_holy_b_zh",
-    "surface": "作",
-    "pole_first": "在那个神圣的地方，她开始",
-    "pole_second": "在那个污秽的地方，她开始"
-   },
-   {
-    "group": "f11_love_he_zh",
-    "surface": "爱上",
-    "pole_first": "他深深地爱着她，想要",
-    "pole_second": "他深深地恨着她，想要"
-   },
-   {
-    "group": "f11_gender_zh",
-    "surface": "知道我",
-    "pole_first": "我是男人，我想要",
-    "pole_second": "我是女人，我想要"
-   },
-   {
-    "group": "f11_desire_zh",
-    "surface": "后",
-    "pole_first": "她感到欲望，开始",
-    "pole_second": "她感到厌恶，开始"
+    "group": "f11_class_zh",
+    "surface": "自我",
+    "pole_first": "他是富有的，他决定",
+    "pole_second": "他是贫穷的，他决定"
    },
    {
     "group": "f11_love_zh",
-    "surface": "用各",
+    "surface": "复仇",
     "pole_first": "她深深地爱着他，想要",
     "pole_second": "她深深地恨着他，想要"
    },
    {
-    "group": "f11_captive_zh",
-    "surface": "出狱",
-    "pole_first": "他是自由的，选择了",
-    "pole_second": "他是被囚禁的，选择了"
+    "group": "f11_class_zh",
+    "surface": "追",
+    "pole_first": "他是富有的，他决定",
+    "pole_second": "他是贫穷的，他决定"
+   },
+   {
+    "group": "f11_love_zh",
+    "surface": "拿出",
+    "pole_first": "她深深地爱着他，想要",
+    "pole_second": "她深深地恨着他，想要"
+   },
+   {
+    "group": "f11_sensation_zh",
+    "surface": "坐在",
+    "pole_first": "那种感觉是纯粹的快感，她开始",
+    "pole_second": "那种感觉是纯粹的痛苦，她开始"
    },
    {
     "group": "f11_loyal_zh",
-    "surface": "恐怖",
+    "surface": "建立",
     "pole_first": "士兵是忠诚的，选择了",
     "pole_second": "士兵是叛逆的，选择了"
    },
    {
-    "group": "f11_gender_zh",
-    "surface": "这个男人",
-    "pole_first": "我是男人，我想要",
-    "pole_second": "我是女人，我想要"
-   },
-   {
-    "group": "f11_beauty_ugly_zh",
-    "surface": "明确",
-    "pole_first": "他是美丽的，她想要",
-    "pole_second": "他是丑陋的，她想要"
-   },
-   {
-    "group": "f11_class_zh",
-    "surface": "站立",
-    "pole_first": "他是富有的，他决定",
-    "pole_second": "他是贫穷的，他决定"
-   },
-   {
-    "group": "f11_guilt_zh",
-    "surface": "理解",
-    "pole_first": "她是无罪的，她开始",
-    "pole_second": "她是有罪的，她开始"
-   },
-   {
-    "group": "f11_holy_b_zh",
-    "surface": "知道",
-    "pole_first": "在那个神圣的地方，她开始",
-    "pole_second": "在那个污秽的地方，她开始"
-   },
-   {
-    "group": "f11_faithful_zh",
-    "surface": "忙忙",
-    "pole_first": "她对他忠诚，她开始",
-    "pole_second": "她对他不忠，她开始"
-   },
-   {
-    "group": "f11_beauty_zh",
-    "surface": "表达她",
-    "pole_first": "他是美丽的，她想要",
-    "pole_second": "他是恶心的，她想要"
-   },
-   {
-    "group": "f11_beauty_zh",
-    "surface": "其中",
-    "pole_first": "他是美丽的，她想要",
-    "pole_second": "他是恶心的，她想要"
-   },
-   {
-    "group": "f11_captive_b_zh",
-    "surface": "们",
-    "pole_first": "那个自由的人选择了",
-    "pole_second": "那个被囚禁的人选择了"
-   },
-   {
     "group": "f11_gender_she_zh",
-    "surface": "您",
+    "surface": "被当作",
     "pole_first": "她是男人，她想要",
     "pole_second": "她是女人，她想要"
    },
    {
-    "group": "f11_parent_zh",
-    "surface": "世界",
-    "pole_first": "我是母亲，我想要",
-    "pole_second": "我是父亲，我想要"
+    "group": "f11_faithful_zh",
+    "surface": "检查",
+    "pole_first": "她对他忠诚，她开始",
+    "pole_second": "她对他不忠，她开始"
    },
    {
-    "group": "f11_class_zh",
-    "surface": "完全",
-    "pole_first": "他是富有的，他决定",
-    "pole_second": "他是贫穷的，他决定"
+    "group": "f11_captive_b_zh",
+    "surface": "向上",
+    "pole_first": "那个自由的人选择了",
+    "pole_second": "那个被囚禁的人选择了"
    },
    {
-    "group": "f11_desire_zh",
-    "surface": "一系列",
-    "pole_first": "她感到欲望，开始",
-    "pole_second": "她感到厌恶，开始"
+    "group": "f11_faithful_zh",
+    "surface": "疑虑",
+    "pole_first": "她对他忠诚，她开始",
+    "pole_second": "她对他不忠，她开始"
    },
    {
-    "group": "f11_beauty_ugly_zh",
-    "surface": "象",
-    "pole_first": "他是美丽的，她想要",
-    "pole_second": "他是丑陋的，她想要"
+    "group": "f11_gender_zh",
+    "surface": "了一",
+    "pole_first": "我是男人，我想要",
+    "pole_second": "我是女人，我想要"
    },
    {
     "group": "f11_create_zh",
-    "surface": "从什",
+    "surface": "创设",
     "pole_first": "她想要创造一些东西，她决定",
     "pole_second": "她想要毁灭一些东西，她决定"
    },
    {
     "group": "f11_gender_she_zh",
-    "surface": "化妝",
+    "surface": "征服",
     "pole_first": "她是男人，她想要",
     "pole_second": "她是女人，她想要"
    },
    {
-    "group": "f11_sensation_zh",
-    "surface": "一点一点",
-    "pole_first": "那种感觉是纯粹的快感，她开始",
-    "pole_second": "那种感觉是纯粹的痛苦，她开始"
-   },
-   {
     "group": "f11_parent_zh",
-    "surface": "见到你",
+    "surface": "让她",
     "pole_first": "我是母亲，我想要",
     "pole_second": "我是父亲，我想要"
    },
    {
     "group": "f11_holy_zh",
-    "surface": "尽力",
+    "surface": "沿着",
     "pole_first": "在神圣的神庙里，她开始",
     "pole_second": "在污秽的小巷里，她开始"
+   },
+   {
+    "group": "f11_gender_he_zh",
+    "surface": "出",
+    "pole_first": "他是男人，他想要",
+    "pole_second": "他是女人，他想要"
+   },
+   {
+    "group": "f11_beauty_ugly_zh",
+    "surface": "他既",
+    "pole_first": "他是美丽的，她想要",
+    "pole_second": "他是丑陋的，她想要"
+   },
+   {
+    "group": "f11_gender_zh",
+    "surface": "传递",
+    "pole_first": "我是男人，我想要",
+    "pole_second": "我是女人，我想要"
+   },
+   {
+    "group": "f11_create_zh",
+    "surface": "加上",
+    "pole_first": "她想要创造一些东西，她决定",
+    "pole_second": "她想要毁灭一些东西，她决定"
+   },
+   {
+    "group": "f11_guilt_zh",
+    "surface": "calling",
+    "pole_first": "她是无罪的，她开始",
+    "pole_second": "她是有罪的，她开始"
+   },
+   {
+    "group": "f11_love_he_zh",
+    "surface": "找",
+    "pole_first": "他深深地爱着她，想要",
+    "pole_second": "他深深地恨着她，想要"
+   },
+   {
+    "group": "f11_loyal_zh",
+    "surface": "什么职",
+    "pole_first": "士兵是忠诚的，选择了",
+    "pole_second": "士兵是叛逆的，选择了"
+   },
+   {
+    "group": "f11_beauty_zh",
+    "surface": "与其",
+    "pole_first": "他是美丽的，她想要",
+    "pole_second": "他是恶心的，她想要"
+   },
+   {
+    "group": "f11_trust_zh",
+    "surface": "在他的",
+    "pole_first": "她十分信任他，决定",
+    "pole_second": "她十分害怕他，决定"
+   },
+   {
+    "group": "f11_gender_zh",
+    "surface": "那些",
+    "pole_first": "我是男人，我想要",
+    "pole_second": "我是女人，我想要"
+   },
+   {
+    "group": "f11_love_zh",
+    "surface": "不要",
+    "pole_first": "她深深地爱着他，想要",
+    "pole_second": "她深深地恨着他，想要"
+   },
+   {
+    "group": "f11_love_zh",
+    "surface": "彼此",
+    "pole_first": "她深深地爱着他，想要",
+    "pole_second": "她深深地恨着他，想要"
+   },
+   {
+    "group": "f11_desire_zh",
+    "surface": "爆发",
+    "pole_first": "她感到欲望，开始",
+    "pole_second": "她感到厌恶，开始"
+   },
+   {
+    "group": "f11_captive_b_zh",
+    "surface": "什什",
+    "pole_first": "那个自由的人选择了",
+    "pole_second": "那个被囚禁的人选择了"
+   },
+   {
+    "group": "f11_love_he_zh",
+    "surface": "了解她",
+    "pole_first": "他深深地爱着她，想要",
+    "pole_second": "他深深地恨着她，想要"
+   },
+   {
+    "group": "f11_love_zh",
+    "surface": "爱着",
+    "pole_first": "她深深地爱着他，想要",
+    "pole_second": "她深深地恨着他，想要"
+   },
+   {
+    "group": "f11_love_he_zh",
+    "surface": "就",
+    "pole_first": "他深深地爱着她，想要",
+    "pole_second": "他深深地恨着她，想要"
+   },
+   {
+    "group": "f11_faithful_zh",
+    "surface": "妒忌",
+    "pole_first": "她对他忠诚，她开始",
+    "pole_second": "她对他不忠，她开始"
+   },
+   {
+    "group": "f11_trust_zh",
+    "surface": "先把",
+    "pole_first": "她十分信任他，决定",
+    "pole_second": "她十分害怕他，决定"
+   },
+   {
+    "group": "f11_holy_zh",
+    "surface": "吟诵",
+    "pole_first": "在神圣的神庙里，她开始",
+    "pole_second": "在污秽的小巷里，她开始"
+   },
+   {
+    "group": "f11_captive_b_zh",
+    "surface": "自救",
+    "pole_first": "那个自由的人选择了",
+    "pole_second": "那个被囚禁的人选择了"
+   },
+   {
+    "group": "f11_desire_zh",
+    "surface": "表示",
+    "pole_first": "她感到欲望，开始",
+    "pole_second": "她感到厌恶，开始"
+   },
+   {
+    "group": "f11_love_he_zh",
+    "surface": "纠正她",
+    "pole_first": "他深深地爱着她，想要",
+    "pole_second": "他深深地恨着她，想要"
+   },
+   {
+    "group": "f11_beauty_ugly_zh",
+    "surface": "一天",
+    "pole_first": "他是美丽的，她想要",
+    "pole_second": "他是丑陋的，她想要"
+   },
+   {
+    "group": "f11_holy_b_zh",
+    "surface": "布置",
+    "pole_first": "在那个神圣的地方，她开始",
+    "pole_second": "在那个污秽的地方，她开始"
+   },
+   {
+    "group": "f11_loyal_zh",
+    "surface": "志愿军",
+    "pole_first": "士兵是忠诚的，选择了",
+    "pole_second": "士兵是叛逆的，选择了"
+   },
+   {
+    "group": "f11_faithful_zh",
+    "surface": "穿",
+    "pole_first": "她对他忠诚，她开始",
+    "pole_second": "她对他不忠，她开始"
+   },
+   {
+    "group": "f11_beauty_zh",
+    "surface": "漂亮",
+    "pole_first": "他是美丽的，她想要",
+    "pole_second": "他是恶心的，她想要"
+   },
+   {
+    "group": "f11_beauty_ugly_zh",
+    "surface": "与你",
+    "pole_first": "他是美丽的，她想要",
+    "pole_second": "他是丑陋的，她想要"
+   },
+   {
+    "group": "f11_guilt_zh",
+    "surface": "弄",
+    "pole_first": "她是无罪的，她开始",
+    "pole_second": "她是有罪的，她开始"
+   },
+   {
+    "group": "f11_gender_zh",
+    "surface": "重新",
+    "pole_first": "我是男人，我想要",
+    "pole_second": "我是女人，我想要"
+   },
+   {
+    "group": "f11_holy_b_zh",
+    "surface": "庄严",
+    "pole_first": "在那个神圣的地方，她开始",
+    "pole_second": "在那个污秽的地方，她开始"
+   },
+   {
+    "group": "f11_holy_b_zh",
+    "surface": "认真地",
+    "pole_first": "在那个神圣的地方，她开始",
+    "pole_second": "在那个污秽的地方，她开始"
+   },
+   {
+    "group": "f11_love_he_zh",
+    "surface": "永远",
+    "pole_first": "他深深地爱着她，想要",
+    "pole_second": "他深深地恨着她，想要"
+   },
+   {
+    "group": "f11_holy_zh",
+    "surface": "研习",
+    "pole_first": "在神圣的神庙里，她开始",
+    "pole_second": "在污秽的小巷里，她开始"
+   },
+   {
+    "group": "f11_captive_zh",
+    "surface": "作为",
+    "pole_first": "他是自由的，选择了",
+    "pole_second": "他是被囚禁的，选择了"
+   },
+   {
+    "group": "f11_captive_b_zh",
+    "surface": "向",
+    "pole_first": "那个自由的人选择了",
+    "pole_second": "那个被囚禁的人选择了"
+   },
+   {
+    "group": "f11_create_zh",
+    "surface": "使用她",
+    "pole_first": "她想要创造一些东西，她决定",
+    "pole_second": "她想要毁灭一些东西，她决定"
+   },
+   {
+    "group": "f11_class_zh",
+    "surface": "在什",
+    "pole_first": "他是富有的，他决定",
+    "pole_second": "他是贫穷的，他决定"
+   },
+   {
+    "group": "f11_love_zh",
+    "surface": "回来",
+    "pole_first": "她深深地爱着他，想要",
+    "pole_second": "她深深地恨着他，想要"
+   },
+   {
+    "group": "f11_desire_zh",
+    "surface": "思考怎",
+    "pole_first": "她感到欲望，开始",
+    "pole_second": "她感到厌恶，开始"
+   },
+   {
+    "group": "f11_captive_zh",
+    "surface": "自己喜欢",
+    "pole_first": "他是自由的，选择了",
+    "pole_second": "他是被囚禁的，选择了"
+   },
+   {
+    "group": "f11_parent_zh",
+    "surface": "A",
+    "pole_first": "我是母亲，我想要",
+    "pole_second": "我是父亲，我想要"
+   },
+   {
+    "group": "f11_sensation_zh",
+    "surface": "逐步",
+    "pole_first": "那种感觉是纯粹的快感，她开始",
+    "pole_second": "那种感觉是纯粹的痛苦，她开始"
+   },
+   {
+    "group": "f11_desire_zh",
+    "surface": "询问",
+    "pole_first": "她感到欲望，开始",
+    "pole_second": "她感到厌恶，开始"
+   },
+   {
+    "group": "f11_trust_zh",
+    "surface": "睡",
+    "pole_first": "她十分信任他，决定",
+    "pole_second": "她十分害怕他，决定"
+   },
+   {
+    "group": "f11_captive_zh",
+    "surface": "沉默是",
+    "pole_first": "他是自由的，选择了",
+    "pole_second": "他是被囚禁的，选择了"
+   },
+   {
+    "group": "f11_gender_zh",
+    "surface": "自我",
+    "pole_first": "我是男人，我想要",
+    "pole_second": "我是女人，我想要"
+   },
+   {
+    "group": "f11_trust_zh",
+    "surface": "晚上",
+    "pole_first": "她十分信任他，决定",
+    "pole_second": "她十分害怕他，决定"
+   },
+   {
+    "group": "f11_parent_zh",
+    "surface": "为他们",
+    "pole_first": "我是母亲，我想要",
+    "pole_second": "我是父亲，我想要"
+   },
+   {
+    "group": "f11_sensation_zh",
+    "surface": "爱上了",
+    "pole_first": "那种感觉是纯粹的快感，她开始",
+    "pole_second": "那种感觉是纯粹的痛苦，她开始"
+   },
+   {
+    "group": "f11_gender_she_zh",
+    "surface": "确定",
+    "pole_first": "她是男人，她想要",
+    "pole_second": "她是女人，她想要"
    },
    {
     "group": "f11_beauty_zh",
@@ -1151,670 +1337,484 @@
     "pole_second": "他是恶心的，她想要"
    },
    {
+    "group": "f11_holy_zh",
+    "surface": "讲道",
+    "pole_first": "在神圣的神庙里，她开始",
+    "pole_second": "在污秽的小巷里，她开始"
+   },
+   {
+    "group": "f11_beauty_zh",
+    "surface": "别的",
+    "pole_first": "他是美丽的，她想要",
+    "pole_second": "他是恶心的，她想要"
+   },
+   {
+    "group": "f11_loyal_zh",
+    "surface": "分",
+    "pole_first": "士兵是忠诚的，选择了",
+    "pole_second": "士兵是叛逆的，选择了"
+   },
+   {
+    "group": "f11_desire_zh",
+    "surface": "批评和",
+    "pole_first": "她感到欲望，开始",
+    "pole_second": "她感到厌恶，开始"
+   },
+   {
+    "group": "f11_sensation_zh",
+    "surface": "拍摄",
+    "pole_first": "那种感觉是纯粹的快感，她开始",
+    "pole_second": "那种感觉是纯粹的痛苦，她开始"
+   },
+   {
+    "group": "f11_gender_she_zh",
+    "surface": "多少",
+    "pole_first": "她是男人，她想要",
+    "pole_second": "她是女人，她想要"
+   },
+   {
+    "group": "f11_holy_zh",
+    "surface": "呼唤",
+    "pole_first": "在神圣的神庙里，她开始",
+    "pole_second": "在污秽的小巷里，她开始"
+   },
+   {
+    "group": "f11_gender_he_zh",
+    "surface": "女人的",
+    "pole_first": "他是男人，他想要",
+    "pole_second": "他是女人，他想要"
+   },
+   {
+    "group": "f11_parent_zh",
+    "surface": "精子",
+    "pole_first": "我是母亲，我想要",
+    "pole_second": "我是父亲，我想要"
+   },
+   {
+    "group": "f11_captive_b_zh",
+    "surface": "救赎",
+    "pole_first": "那个自由的人选择了",
+    "pole_second": "那个被囚禁的人选择了"
+   },
+   {
+    "group": "f11_captive_b_zh",
+    "surface": "脱逃",
+    "pole_first": "那个自由的人选择了",
+    "pole_second": "那个被囚禁的人选择了"
+   },
+   {
+    "group": "f11_captive_zh",
+    "surface": "用“",
+    "pole_first": "他是自由的，选择了",
+    "pole_second": "他是被囚禁的，选择了"
+   },
+   {
+    "group": "f11_love_he_zh",
+    "surface": "不断",
+    "pole_first": "他深深地爱着她，想要",
+    "pole_second": "他深深地恨着她，想要"
+   },
+   {
     "group": "f11_beauty_ugly_zh",
+    "surface": "在这",
+    "pole_first": "他是美丽的，她想要",
+    "pole_second": "他是丑陋的，她想要"
+   },
+   {
+    "group": "f11_love_he_zh",
+    "surface": "在生",
+    "pole_first": "他深深地爱着她，想要",
+    "pole_second": "他深深地恨着她，想要"
+   },
+   {
+    "group": "f11_sensation_zh",
     "surface": "躲",
+    "pole_first": "那种感觉是纯粹的快感，她开始",
+    "pole_second": "那种感觉是纯粹的痛苦，她开始"
+   },
+   {
+    "group": "f11_sensation_zh",
+    "surface": "大胆",
+    "pole_first": "那种感觉是纯粹的快感，她开始",
+    "pole_second": "那种感觉是纯粹的痛苦，她开始"
+   },
+   {
+    "group": "f11_captive_b_zh",
+    "surface": "您",
+    "pole_first": "那个自由的人选择了",
+    "pole_second": "那个被囚禁的人选择了"
+   },
+   {
+    "group": "f11_create_zh",
+    "surface": "去做",
+    "pole_first": "她想要创造一些东西，她决定",
+    "pole_second": "她想要毁灭一些东西，她决定"
+   },
+   {
+    "group": "f11_holy_zh",
+    "surface": "流",
+    "pole_first": "在神圣的神庙里，她开始",
+    "pole_second": "在污秽的小巷里，她开始"
+   },
+   {
+    "group": "f11_captive_zh",
+    "surface": "生存",
+    "pole_first": "他是自由的，选择了",
+    "pole_second": "他是被囚禁的，选择了"
+   },
+   {
+    "group": "f11_trust_zh",
+    "surface": "默默",
+    "pole_first": "她十分信任他，决定",
+    "pole_second": "她十分害怕他，决定"
+   },
+   {
+    "group": "f11_faithful_zh",
+    "surface": "观察",
+    "pole_first": "她对他忠诚，她开始",
+    "pole_second": "她对他不忠，她开始"
+   },
+   {
+    "group": "f11_create_zh",
+    "surface": "独自一人",
+    "pole_first": "她想要创造一些东西，她决定",
+    "pole_second": "她想要毁灭一些东西，她决定"
+   },
+   {
+    "group": "f11_beauty_ugly_zh",
+    "surface": "不想",
     "pole_first": "他是美丽的，她想要",
     "pole_second": "他是丑陋的，她想要"
    },
    {
-    "group": "f11_guilt_zh",
-    "surface": "做女",
-    "pole_first": "她是无罪的，她开始",
-    "pole_second": "她是有罪的，她开始"
-   },
-   {
     "group": "f11_trust_zh",
-    "surface": "赴约",
-    "pole_first": "她十分信任他，决定",
-    "pole_second": "她十分害怕他，决定"
-   },
-   {
-    "group": "f11_trust_zh",
-    "surface": "跟之",
+    "surface": "买",
     "pole_first": "她十分信任他，决定",
     "pole_second": "她十分害怕他，决定"
    },
    {
     "group": "f11_create_zh",
-    "surface": "变身",
+    "surface": "使用“",
     "pole_first": "她想要创造一些东西，她决定",
     "pole_second": "她想要毁灭一些东西，她决定"
+   },
+   {
+    "group": "f11_create_zh",
+    "surface": "走出",
+    "pole_first": "她想要创造一些东西，她决定",
+    "pole_second": "她想要毁灭一些东西，她决定"
+   },
+   {
+    "group": "f11_trust_zh",
+    "surface": "躺",
+    "pole_first": "她十分信任他，决定",
+    "pole_second": "她十分害怕他，决定"
+   },
+   {
+    "group": "f11_class_zh",
+    "surface": "铤而走险",
+    "pole_first": "他是富有的，他决定",
+    "pole_second": "他是贫穷的，他决定"
    },
    {
     "group": "f11_desire_zh",
-    "surface": "想念",
+    "surface": "支持",
     "pole_first": "她感到欲望，开始",
     "pole_second": "她感到厌恶，开始"
-   },
-   {
-    "group": "f11_holy_zh",
-    "surface": "记住她",
-    "pole_first": "在神圣的神庙里，她开始",
-    "pole_second": "在污秽的小巷里，她开始"
-   },
-   {
-    "group": "f11_create_zh",
-    "surface": "一定",
-    "pole_first": "她想要创造一些东西，她决定",
-    "pole_second": "她想要毁灭一些东西，她决定"
-   },
-   {
-    "group": "f11_captive_zh",
-    "surface": "着",
-    "pole_first": "他是自由的，选择了",
-    "pole_second": "他是被囚禁的，选择了"
-   },
-   {
-    "group": "f11_captive_b_zh",
-    "surface": "内心",
-    "pole_first": "那个自由的人选择了",
-    "pole_second": "那个被囚禁的人选择了"
-   },
-   {
-    "group": "f11_captive_b_zh",
-    "surface": "任意",
-    "pole_first": "那个自由的人选择了",
-    "pole_second": "那个被囚禁的人选择了"
-   },
-   {
-    "group": "f11_love_zh",
-    "surface": "痛下",
-    "pole_first": "她深深地爱着他，想要",
-    "pole_second": "她深深地恨着他，想要"
-   },
-   {
-    "group": "f11_captive_b_zh",
-    "surface": "遵从",
-    "pole_first": "那个自由的人选择了",
-    "pole_second": "那个被囚禁的人选择了"
-   },
-   {
-    "group": "f11_gender_he_zh",
-    "surface": "认识一下",
-    "pole_first": "他是男人，他想要",
-    "pole_second": "他是女人，他想要"
-   },
-   {
-    "group": "f11_holy_zh",
-    "surface": "teaching",
-    "pole_first": "在神圣的神庙里，她开始",
-    "pole_second": "在污秽的小巷里，她开始"
    },
    {
     "group": "f11_faithful_zh",
-    "surface": "犯",
-    "pole_first": "她对他忠诚，她开始",
-    "pole_second": "她对他不忠，她开始"
-   },
-   {
-    "group": "f11_love_he_zh",
-    "surface": "在她",
-    "pole_first": "他深深地爱着她，想要",
-    "pole_second": "他深深地恨着她，想要"
-   },
-   {
-    "group": "f11_love_he_zh",
-    "surface": "雪",
-    "pole_first": "他深深地爱着她，想要",
-    "pole_second": "他深深地恨着她，想要"
-   },
-   {
-    "group": "f11_loyal_zh",
-    "surface": "Duty",
-    "pole_first": "士兵是忠诚的，选择了",
-    "pole_second": "士兵是叛逆的，选择了"
-   },
-   {
-    "group": "f11_captive_b_zh",
-    "surface": "多少年",
-    "pole_first": "那个自由的人选择了",
-    "pole_second": "那个被囚禁的人选择了"
-   },
-   {
-    "group": "f11_guilt_zh",
-    "surface": "欺负人",
-    "pole_first": "她是无罪的，她开始",
-    "pole_second": "她是有罪的，她开始"
-   },
-   {
-    "group": "f11_parent_zh",
-    "surface": "回家",
-    "pole_first": "我是母亲，我想要",
-    "pole_second": "我是父亲，我想要"
-   },
-   {
-    "group": "f11_holy_b_zh",
-    "surface": "记得",
-    "pole_first": "在那个神圣的地方，她开始",
-    "pole_second": "在那个污秽的地方，她开始"
-   },
-   {
-    "group": "f11_trust_zh",
-    "surface": "从外",
-    "pole_first": "她十分信任他，决定",
-    "pole_second": "她十分害怕他，决定"
-   },
-   {
-    "group": "f11_captive_b_zh",
-    "surface": "成为一名",
-    "pole_first": "那个自由的人选择了",
-    "pole_second": "那个被囚禁的人选择了"
-   },
-   {
-    "group": "f11_gender_he_zh",
-    "surface": "平",
-    "pole_first": "他是男人，他想要",
-    "pole_second": "他是女人，他想要"
-   },
-   {
-    "group": "f11_gender_zh",
-    "surface": "做什么",
-    "pole_first": "我是男人，我想要",
-    "pole_second": "我是女人，我想要"
-   },
-   {
-    "group": "f11_trust_zh",
-    "surface": "尽量避",
-    "pole_first": "她十分信任他，决定",
-    "pole_second": "她十分害怕他，决定"
-   },
-   {
-    "group": "f11_desire_zh",
-    "surface": "不知所",
-    "pole_first": "她感到欲望，开始",
-    "pole_second": "她感到厌恶，开始"
-   },
-   {
-    "group": "f11_gender_she_zh",
-    "surface": "穿克",
-    "pole_first": "她是男人，她想要",
-    "pole_second": "她是女人，她想要"
-   },
-   {
-    "group": "f11_sensation_zh",
-    "surface": "分享",
-    "pole_first": "那种感觉是纯粹的快感，她开始",
-    "pole_second": "那种感觉是纯粹的痛苦，她开始"
-   },
-   {
-    "group": "f11_captive_zh",
-    "surface": "immunohistochemistry",
-    "pole_first": "他是自由的，选择了",
-    "pole_second": "他是被囚禁的，选择了"
-   },
-   {
-    "group": "f11_gender_he_zh",
-    "surface": "的一切",
-    "pole_first": "他是男人，他想要",
-    "pole_second": "他是女人，他想要"
-   },
-   {
-    "group": "f11_loyal_zh",
-    "surface": "这良",
-    "pole_first": "士兵是忠诚的，选择了",
-    "pole_second": "士兵是叛逆的，选择了"
-   },
-   {
-    "group": "f11_class_zh",
-    "surface": "前往",
-    "pole_first": "他是富有的，他决定",
-    "pole_second": "他是贫穷的，他决定"
-   },
-   {
-    "group": "f11_gender_she_zh",
-    "surface": "每",
-    "pole_first": "她是男人，她想要",
-    "pole_second": "她是女人，她想要"
-   },
-   {
-    "group": "f11_parent_zh",
-    "surface": "在儿",
-    "pole_first": "我是母亲，我想要",
-    "pole_second": "我是父亲，我想要"
-   },
-   {
-    "group": "f11_holy_b_zh",
-    "surface": "对待",
-    "pole_first": "在那个神圣的地方，她开始",
-    "pole_second": "在那个污秽的地方，她开始"
-   },
-   {
-    "group": "f11_holy_b_zh",
-    "surface": "feel",
-    "pole_first": "在那个神圣的地方，她开始",
-    "pole_second": "在那个污秽的地方，她开始"
-   },
-   {
-    "group": "f11_guilt_zh",
-    "surface": "绝望",
-    "pole_first": "她是无罪的，她开始",
-    "pole_second": "她是有罪的，她开始"
-   },
-   {
-    "group": "f11_gender_she_zh",
-    "surface": "变得更",
-    "pole_first": "她是男人，她想要",
-    "pole_second": "她是女人，她想要"
-   },
-   {
-    "group": "f11_class_zh",
-    "surface": "一度",
-    "pole_first": "他是富有的，他决定",
-    "pole_second": "他是贫穷的，他决定"
-   },
-   {
-    "group": "f11_create_zh",
-    "surface": "采取暴",
-    "pole_first": "她想要创造一些东西，她决定",
-    "pole_second": "她想要毁灭一些东西，她决定"
-   },
-   {
-    "group": "f11_sensation_zh",
-    "surface": "以",
-    "pole_first": "那种感觉是纯粹的快感，她开始",
-    "pole_second": "那种感觉是纯粹的痛苦，她开始"
-   },
-   {
-    "group": "f11_gender_zh",
-    "surface": "揭示",
-    "pole_first": "我是男人，我想要",
-    "pole_second": "我是女人，我想要"
-   },
-   {
-    "group": "f11_captive_zh",
-    "surface": "就会",
-    "pole_first": "他是自由的，选择了",
-    "pole_second": "他是被囚禁的，选择了"
-   },
-   {
-    "group": "f11_guilt_zh",
-    "surface": "丧失",
-    "pole_first": "她是无罪的，她开始",
-    "pole_second": "她是有罪的，她开始"
-   },
-   {
-    "group": "f11_gender_zh",
-    "surface": "组织",
-    "pole_first": "我是男人，我想要",
-    "pole_second": "我是女人，我想要"
-   },
-   {
-    "group": "f11_desire_zh",
-    "surface": "徘徊",
-    "pole_first": "她感到欲望，开始",
-    "pole_second": "她感到厌恶，开始"
-   },
-   {
-    "group": "f11_sensation_zh",
-    "surface": "走上",
-    "pole_first": "那种感觉是纯粹的快感，她开始",
-    "pole_second": "那种感觉是纯粹的痛苦，她开始"
-   },
-   {
-    "group": "f11_loyal_zh",
-    "surface": "约束",
-    "pole_first": "士兵是忠诚的，选择了",
-    "pole_second": "士兵是叛逆的，选择了"
-   },
-   {
-    "group": "f11_loyal_zh",
-    "surface": "故意",
-    "pole_first": "士兵是忠诚的，选择了",
-    "pole_second": "士兵是叛逆的，选择了"
-   },
-   {
-    "group": "f11_love_he_zh",
-    "surface": "得到她",
-    "pole_first": "他深深地爱着她，想要",
-    "pole_second": "他深深地恨着她，想要"
-   },
-   {
-    "group": "f11_beauty_zh",
-    "surface": "找到那",
-    "pole_first": "他是美丽的，她想要",
-    "pole_second": "他是恶心的，她想要"
-   },
-   {
-    "group": "f11_gender_he_zh",
-    "surface": "的是",
-    "pole_first": "他是男人，他想要",
-    "pole_second": "他是女人，他想要"
-   },
-   {
-    "group": "f11_class_zh",
-    "surface": "不会",
-    "pole_first": "他是富有的，他决定",
-    "pole_second": "他是贫穷的，他决定"
-   },
-   {
-    "group": "f11_faithful_zh",
-    "surface": "从别",
+    "surface": "模",
     "pole_first": "她对他忠诚，她开始",
     "pole_second": "她对他不忠，她开始"
    },
    {
     "group": "f11_gender_zh",
-    "surface": "破解",
+    "surface": "帮助你",
     "pole_first": "我是男人，我想要",
     "pole_second": "我是女人，我想要"
    },
    {
-    "group": "f11_sensation_zh",
-    "surface": "听见",
-    "pole_first": "那种感觉是纯粹的快感，她开始",
-    "pole_second": "那种感觉是纯粹的痛苦，她开始"
-   },
-   {
-    "group": "f11_beauty_zh",
-    "surface": "追溯",
-    "pole_first": "他是美丽的，她想要",
-    "pole_second": "他是恶心的，她想要"
-   },
-   {
-    "group": "f11_beauty_ugly_zh",
-    "surface": "删掉",
-    "pole_first": "他是美丽的，她想要",
-    "pole_second": "他是丑陋的，她想要"
-   },
-   {
-    "group": "f11_love_he_zh",
-    "surface": "打破",
-    "pole_first": "他深深地爱着她，想要",
-    "pole_second": "他深深地恨着她，想要"
-   },
-   {
-    "group": "f11_love_he_zh",
-    "surface": "她的",
-    "pole_first": "他深深地爱着她，想要",
-    "pole_second": "他深深地恨着她，想要"
-   },
-   {
     "group": "f11_loyal_zh",
-    "surface": "共同的",
+    "surface": "自己的国",
     "pole_first": "士兵是忠诚的，选择了",
     "pole_second": "士兵是叛逆的，选择了"
    },
    {
-    "group": "f11_faithful_zh",
-    "surface": "提供",
-    "pole_first": "她对他忠诚，她开始",
-    "pole_second": "她对他不忠，她开始"
+    "group": "f11_desire_zh",
+    "surface": "梦想",
+    "pole_first": "她感到欲望，开始",
+    "pole_second": "她感到厌恶，开始"
    },
    {
-    "group": "f11_holy_zh",
-    "surface": "清",
-    "pole_first": "在神圣的神庙里，她开始",
-    "pole_second": "在污秽的小巷里，她开始"
+    "group": "f11_parent_zh",
+    "surface": "穿",
+    "pole_first": "我是母亲，我想要",
+    "pole_second": "我是父亲，我想要"
    },
    {
-    "group": "f11_love_he_zh",
-    "surface": "一个幸",
-    "pole_first": "他深深地爱着她，想要",
-    "pole_second": "他深深地恨着她，想要"
+    "group": "f11_beauty_zh",
+    "surface": "一点",
+    "pole_first": "他是美丽的，她想要",
+    "pole_second": "他是恶心的，她想要"
+   },
+   {
+    "group": "f11_beauty_zh",
+    "surface": "自",
+    "pole_first": "他是美丽的，她想要",
+    "pole_second": "他是恶心的，她想要"
    },
    {
     "group": "f11_love_zh",
-    "surface": "跟随",
+    "surface": "报以",
     "pole_first": "她深深地爱着他，想要",
     "pole_second": "她深深地恨着他，想要"
    },
    {
     "group": "f11_class_zh",
-    "surface": "一",
+    "surface": "把钱花",
     "pole_first": "他是富有的，他决定",
     "pole_second": "他是贫穷的，他决定"
    },
    {
     "group": "f11_desire_zh",
-    "surface": "整修她",
+    "surface": "研究",
     "pole_first": "她感到欲望，开始",
     "pole_second": "她感到厌恶，开始"
    },
    {
-    "group": "f11_sensation_zh",
-    "surface": "泪下",
-    "pole_first": "那种感觉是纯粹的快感，她开始",
-    "pole_second": "那种感觉是纯粹的痛苦，她开始"
-   },
-   {
-    "group": "f11_love_zh",
-    "surface": "معه",
-    "pole_first": "她深深地爱着他，想要",
-    "pole_second": "她深深地恨着他，想要"
-   },
-   {
-    "group": "f11_love_zh",
-    "surface": "掩盖",
-    "pole_first": "她深深地爱着他，想要",
-    "pole_second": "她深深地恨着他，想要"
-   },
-   {
-    "group": "f11_create_zh",
-    "surface": "毁掉她",
-    "pole_first": "她想要创造一些东西，她决定",
-    "pole_second": "她想要毁灭一些东西，她决定"
-   },
-   {
-    "group": "f11_love_zh",
-    "surface": "决定",
-    "pole_first": "她深深地爱着他，想要",
-    "pole_second": "她深深地恨着他，想要"
-   },
-   {
-    "group": "f11_holy_zh",
-    "surface": "在神庙",
-    "pole_first": "在神圣的神庙里，她开始",
-    "pole_second": "在污秽的小巷里，她开始"
-   },
-   {
-    "group": "f11_captive_zh",
-    "surface": "Servicio",
-    "pole_first": "他是自由的，选择了",
-    "pole_second": "他是被囚禁的，选择了"
-   },
-   {
-    "group": "f11_gender_she_zh",
-    "surface": "寻求",
-    "pole_first": "她是男人，她想要",
-    "pole_second": "她是女人，她想要"
-   },
-   {
-    "group": "f11_holy_zh",
-    "surface": "让",
-    "pole_first": "在神圣的神庙里，她开始",
-    "pole_second": "在污秽的小巷里，她开始"
-   },
-   {
-    "group": "f11_beauty_zh",
-    "surface": "让每",
-    "pole_first": "他是美丽的，她想要",
-    "pole_second": "他是恶心的，她想要"
-   },
-   {
-    "group": "f11_captive_zh",
-    "surface": "回归自己",
-    "pole_first": "他是自由的，选择了",
-    "pole_second": "他是被囚禁的，选择了"
-   },
-   {
     "group": "f11_gender_he_zh",
-    "surface": "在生活中找",
+    "surface": "这些",
     "pole_first": "他是男人，他想要",
     "pole_second": "他是女人，他想要"
    },
    {
-    "group": "f11_guilt_zh",
-    "surface": "明明",
-    "pole_first": "她是无罪的，她开始",
-    "pole_second": "她是有罪的，她开始"
-   },
-   {
-    "group": "f11_gender_he_zh",
-    "surface": "领取",
-    "pole_first": "他是男人，他想要",
-    "pole_second": "他是女人，他想要"
-   },
-   {
-    "group": "f11_captive_zh",
-    "surface": "精神",
-    "pole_first": "他是自由的，选择了",
-    "pole_second": "他是被囚禁的，选择了"
-   },
-   {
-    "group": "f11_parent_zh",
-    "surface": "问她",
-    "pole_first": "我是母亲，我想要",
-    "pole_second": "我是父亲，我想要"
-   },
-   {
-    "group": "f11_desire_zh",
-    "surface": "无法控制",
-    "pole_first": "她感到欲望，开始",
-    "pole_second": "她感到厌恶，开始"
-   },
-   {
-    "group": "f11_holy_zh",
-    "surface": "toggling",
-    "pole_first": "在神圣的神庙里，她开始",
-    "pole_second": "在污秽的小巷里，她开始"
-   },
-   {
-    "group": "f11_loyal_zh",
-    "surface": "辛苦",
-    "pole_first": "士兵是忠诚的，选择了",
-    "pole_second": "士兵是叛逆的，选择了"
-   },
-   {
-    "group": "f11_sensation_zh",
-    "surface": "体验",
-    "pole_first": "那种感觉是纯粹的快感，她开始",
-    "pole_second": "那种感觉是纯粹的痛苦，她开始"
-   },
-   {
-    "group": "f11_love_he_zh",
-    "surface": "守住她",
-    "pole_first": "他深深地爱着她，想要",
-    "pole_second": "他深深地恨着她，想要"
-   },
-   {
-    "group": "f11_beauty_ugly_zh",
+    "group": "f11_holy_b_zh",
     "surface": "学",
-    "pole_first": "他是美丽的，她想要",
-    "pole_second": "他是丑陋的，她想要"
+    "pole_first": "在那个神圣的地方，她开始",
+    "pole_second": "在那个污秽的地方，她开始"
    },
    {
     "group": "f11_gender_he_zh",
-    "surface": "什",
+    "surface": "的事情",
     "pole_first": "他是男人，他想要",
     "pole_second": "他是女人，他想要"
    },
    {
-    "group": "f11_create_zh",
-    "surface": "to",
-    "pole_first": "她想要创造一些东西，她决定",
-    "pole_second": "她想要毁灭一些东西，她决定"
-   },
-   {
-    "group": "f11_sensation_zh",
-    "surface": "娇喘",
-    "pole_first": "那种感觉是纯粹的快感，她开始",
-    "pole_second": "那种感觉是纯粹的痛苦，她开始"
-   },
-   {
-    "group": "f11_gender_she_zh",
-    "surface": "追求",
-    "pole_first": "她是男人，她想要",
-    "pole_second": "她是女人，她想要"
-   },
-   {
     "group": "f11_love_he_zh",
-    "surface": "近",
+    "surface": "花费",
     "pole_first": "他深深地爱着她，想要",
     "pole_second": "他深深地恨着她，想要"
    },
    {
+    "group": "f11_guilt_zh",
+    "surface": "drinking",
+    "pole_first": "她是无罪的，她开始",
+    "pole_second": "她是有罪的，她开始"
+   },
+   {
     "group": "f11_faithful_zh",
-    "surface": "丢弃",
+    "surface": "明白了",
     "pole_first": "她对他忠诚，她开始",
     "pole_second": "她对他不忠，她开始"
    },
    {
+    "group": "f11_love_he_zh",
+    "surface": "做",
+    "pole_first": "他深深地爱着她，想要",
+    "pole_second": "他深深地恨着她，想要"
+   },
+   {
+    "group": "f11_loyal_zh",
+    "surface": "第一种",
+    "pole_first": "士兵是忠诚的，选择了",
+    "pole_second": "士兵是叛逆的，选择了"
+   },
+   {
+    "group": "f11_sensation_zh",
+    "surface": "品尝",
+    "pole_first": "那种感觉是纯粹的快感，她开始",
+    "pole_second": "那种感觉是纯粹的痛苦，她开始"
+   },
+   {
+    "group": "f11_holy_b_zh",
+    "surface": "每天",
+    "pole_first": "在那个神圣的地方，她开始",
+    "pole_second": "在那个污秽的地方，她开始"
+   },
+   {
+    "group": "f11_guilt_zh",
+    "surface": "纠结",
+    "pole_first": "她是无罪的，她开始",
+    "pole_second": "她是有罪的，她开始"
+   },
+   {
+    "group": "f11_gender_she_zh",
+    "surface": "扮演",
+    "pole_first": "她是男人，她想要",
+    "pole_second": "她是女人，她想要"
+   },
+   {
+    "group": "f11_loyal_zh",
+    "surface": "家庭",
+    "pole_first": "士兵是忠诚的，选择了",
+    "pole_second": "士兵是叛逆的，选择了"
+   },
+   {
+    "group": "f11_captive_zh",
+    "surface": "回",
+    "pole_first": "他是自由的，选择了",
+    "pole_second": "他是被囚禁的，选择了"
+   },
+   {
+    "group": "f11_gender_he_zh",
+    "surface": "使",
+    "pole_first": "他是男人，他想要",
+    "pole_second": "他是女人，他想要"
+   },
+   {
     "group": "f11_class_zh",
-    "surface": "访问",
+    "surface": "把所有的",
     "pole_first": "他是富有的，他决定",
     "pole_second": "他是贫穷的，他决定"
    },
    {
-    "group": "f11_gender_zh",
-    "surface": "一个家庭",
-    "pole_first": "我是男人，我想要",
-    "pole_second": "我是女人，我想要"
-   },
-   {
-    "group": "f11_love_zh",
-    "surface": "一直跟着",
-    "pole_first": "她深深地爱着他，想要",
-    "pole_second": "她深深地恨着他，想要"
-   },
-   {
-    "group": "f11_desire_zh",
-    "surface": "喘吁吁",
-    "pole_first": "她感到欲望，开始",
-    "pole_second": "她感到厌恶，开始"
+    "group": "f11_holy_b_zh",
+    "surface": "推动",
+    "pole_first": "在那个神圣的地方，她开始",
+    "pole_second": "在那个污秽的地方，她开始"
    },
    {
     "group": "f11_trust_zh",
-    "surface": "放任",
+    "surface": "全力支持",
     "pole_first": "她十分信任他，决定",
     "pole_second": "她十分害怕他，决定"
    },
    {
+    "group": "f11_holy_b_zh",
+    "surface": "流淌",
+    "pole_first": "在那个神圣的地方，她开始",
+    "pole_second": "在那个污秽的地方，她开始"
+   },
+   {
+    "group": "f11_beauty_ugly_zh",
+    "surface": "美丽",
+    "pole_first": "他是美丽的，她想要",
+    "pole_second": "他是丑陋的，她想要"
+   },
+   {
+    "group": "f11_beauty_ugly_zh",
+    "surface": "阅读",
+    "pole_first": "他是美丽的，她想要",
+    "pole_second": "他是丑陋的，她想要"
+   },
+   {
+    "group": "f11_guilt_zh",
+    "surface": "否认",
+    "pole_first": "她是无罪的，她开始",
+    "pole_second": "她是有罪的，她开始"
+   },
+   {
+    "group": "f11_holy_zh",
+    "surface": "感受",
+    "pole_first": "在神圣的神庙里，她开始",
+    "pole_second": "在污秽的小巷里，她开始"
+   },
+   {
     "group": "f11_loyal_zh",
-    "surface": "每一个",
+    "surface": "两头",
     "pole_first": "士兵是忠诚的，选择了",
     "pole_second": "士兵是叛逆的，选择了"
    },
    {
     "group": "f11_beauty_zh",
-    "surface": "打",
+    "surface": "做一个",
     "pole_first": "他是美丽的，她想要",
     "pole_second": "他是恶心的，她想要"
    },
    {
-    "group": "f11_holy_zh",
-    "surface": "拍",
-    "pole_first": "在神圣的神庙里，她开始",
-    "pole_second": "在污秽的小巷里，她开始"
-   },
-   {
-    "group": "f11_love_zh",
-    "surface": "的一",
-    "pole_first": "她深深地爱着他，想要",
-    "pole_second": "她深深地恨着他，想要"
-   },
-   {
     "group": "f11_guilt_zh",
-    "surface": "建立",
+    "surface": "计算",
     "pole_first": "她是无罪的，她开始",
     "pole_second": "她是有罪的，她开始"
    },
    {
-    "group": "f11_gender_zh",
-    "surface": "買",
-    "pole_first": "我是男人，我想要",
-    "pole_second": "我是女人，我想要"
-   },
-   {
     "group": "f11_beauty_ugly_zh",
-    "surface": "成为摄影",
+    "surface": "这件",
     "pole_first": "他是美丽的，她想要",
     "pole_second": "他是丑陋的，她想要"
    },
    {
-    "group": "f11_holy_b_zh",
-    "surface": "欲望",
-    "pole_first": "在那个神圣的地方，她开始",
-    "pole_second": "在那个污秽的地方，她开始"
+    "group": "f11_sensation_zh",
+    "surface": "懊恼",
+    "pole_first": "那种感觉是纯粹的快感，她开始",
+    "pole_second": "那种感觉是纯粹的痛苦，她开始"
+   },
+   {
+    "group": "f11_love_zh",
+    "surface": "逃",
+    "pole_first": "她深深地爱着他，想要",
+    "pole_second": "她深深地恨着他，想要"
+   },
+   {
+    "group": "f11_captive_zh",
+    "surface": "单独",
+    "pole_first": "他是自由的，选择了",
+    "pole_second": "他是被囚禁的，选择了"
+   },
+   {
+    "group": "f11_holy_zh",
+    "surface": "是",
+    "pole_first": "在神圣的神庙里，她开始",
+    "pole_second": "在污秽的小巷里，她开始"
+   },
+   {
+    "group": "f11_gender_zh",
+    "surface": "生",
+    "pole_first": "我是男人，我想要",
+    "pole_second": "我是女人，我想要"
+   },
+   {
+    "group": "f11_gender_he_zh",
+    "surface": "象",
+    "pole_first": "他是男人，他想要",
+    "pole_second": "他是女人，他想要"
+   },
+   {
+    "group": "f11_gender_she_zh",
+    "surface": "保护",
+    "pole_first": "她是男人，她想要",
+    "pole_second": "她是女人，她想要"
+   },
+   {
+    "group": "f11_class_zh",
+    "surface": "和他的",
+    "pole_first": "他是富有的，他决定",
+    "pole_second": "他是贫穷的，他决定"
+   },
+   {
+    "group": "f11_guilt_zh",
+    "surface": "追寻",
+    "pole_first": "她是无罪的，她开始",
+    "pole_second": "她是有罪的，她开始"
+   },
+   {
+    "group": "f11_captive_zh",
+    "surface": "要",
+    "pole_first": "他是自由的，选择了",
+    "pole_second": "他是被囚禁的，选择了"
+   },
+   {
+    "group": "f11_beauty_zh",
+    "surface": "呕",
+    "pole_first": "他是美丽的，她想要",
+    "pole_second": "他是恶心的，她想要"
+   },
+   {
+    "group": "f11_guilt_zh",
+    "surface": "在梦",
+    "pole_first": "她是无罪的，她开始",
+    "pole_second": "她是有罪的，她开始"
    }
   ]
  }

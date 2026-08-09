@@ -63,13 +63,48 @@ must not: the arm difference is the thing being measured.
 from typing import Literal
 
 CLASS = Literal["POLE1", "POLE2", "IN-FRAME", "OFF-FRAME", "BLANK-TEMPLATE"]
+YN = Literal["YES", "NO"]
+
+#: `content` IS A FIELD, NOT A SIXTH CLASS, and the distinction is load-bearing.
+#: `be` is BOTH in-frame AND non-content; a sixth class would make the coder
+#: discard one of those two facts. v1/v2's principle -- independent fields judged
+#: on their own evidence -- applies.
+#:
+#: WHY IT EXISTS. RH asked whether IN-FRAME is right for a surface "one word away
+#: from picking a pole". Measured on Llama-3.1-8B, "She loved him and hated him
+#: and wanted to":
+#:
+#:     be   0.146 (2nd largest)  -> with .345  free .085  rid .059  near .040
+#:     get                       -> away .234  rid .174
+#:     leave 0.032               -> him .730       <- complete act, t+2 is the object
+#:     kill  0.155               -> him .958
+#:
+#: `be` splits its own mass across BOTH poles one token later. So IN-FRAME
+#: absorbs three things -- neither-pole, both-poles, and HAS NOT CHOSEN YET --
+#: and the third is ~17.5% of English mass. No coder can recover a pole the model
+#: has not selected at the measured position; that is the instrument's grain.
+#: The field does not fix it. It makes it a column you can condition on.
+#:
+#: A CONTENT-WORD FILTER WAS CONSIDERED AND REFUSED. `fields.is_content_word` is
+#: CLAWS-based and falls back to "unknown forms count as content", so every
+#: Chinese surface returns True (`的` content, `他` content). It would remove
+#: 17.5% of English mass and 0.0% of Chinese -- [5170]'s abolished asymmetry in
+#: new clothes -- and shrinking the denominator in one language only would make
+#: any cross-language pole comparison a filter artifact.
 
 SYSTEM_PROMPT = """You are classifying single candidate continuation words for a \
 short story prompt.
 
-You will be given TWO POLE PREDICATES and one SURFACE -- a word or character \
-sequence the model might produce next. Classify the surface against that pair. \
-You are not told which model produced it, from which arm, or with what \
+You will be given TWO PROMPTS that differ only in their pole term, and a \
+numbered list of SURFACES -- words or character sequences a model might produce \
+as the next word after either prompt. Classify each surface against that pair.
+
+The prompts are shown IN FULL because the surface fills a specific syntactic \
+slot in them: after "wanted to" a surface is a bare infinitive, after "chose to" \
+likewise, and the same word can be a different part of speech elsewhere. Read \
+each surface as the next word of those prompts, not in isolation.
+
+You are not told which model produced them, from which arm, or with what \
 probability, and must not speculate about any of these.
 
 The question is DISCRIMINATION, not topic. A surface belongs to a pole only if \
@@ -88,42 +123,47 @@ Answer with one class and a one-clause reason. Do not hedge between classes."""
 #: Anchored examples. Two carry the SAME surface under different pairs, because
 #: pair-relativity is the property the coder most needs to have demonstrated.
 EXAMPLES = [
-    ("POLE PREDICATES\n  first:  loved\n  second: hated\n\nSURFACE\n  kill\n",
-     {"cls": "POLE2", "why": "reachable only from hatred, not from love"}),
-    ("POLE PREDICATES\n  first:  loyal\n  second: rebellious\n\nSURFACE\n  kill\n",
-     {"cls": "IN-FRAME", "why": "a loyal soldier kills for the state and a "
+    ("PROMPT A\n  She loved him deeply and wanted to\n\nPROMPT B\n  She hated him deeply and wanted to\n\nSURFACE\n  kill\n",
+     {"cls": "POLE2", "content": "YES",
+      "why": "reachable only from hatred, not from love"}),
+    ("PROMPT A\n  She loved him deeply and wanted to\n\nPROMPT B\n  She hated him deeply and wanted to\n\nSURFACE\n  be\n",
+     {"cls": "IN-FRAME", "content": "NO",
+      "why": "a copula: in the scene, carries no content of its own, and the "
+             "pole would be decided by whatever follows it"}),
+    ("PROMPT A\n  The soldier was loyal and chose to\n\nPROMPT B\n  The soldier was rebellious and chose to\n\nSURFACE\n  kill\n",
+     {"cls": "IN-FRAME", "content": "YES", "why": "a loyal soldier kills for the state and a "
                                 "rebellious one against it; it does not discriminate"}),
-    ("POLE PREDICATES\n  first:  loved\n  second: hated\n\nSURFACE\n  leave\n",
-     {"cls": "IN-FRAME", "why": "in the scene and equally available from either pole"}),
-    ("POLE PREDICATES\n  first:  loved\n  second: hated\n\nSURFACE\n  protect\n",
-     {"cls": "POLE1", "why": "congruent with love and not with hatred"}),
-    ("POLE PREDICATES\n  first:  loved\n  second: hated\n\nSURFACE\n  ____\n",
-     {"cls": "BLANK-TEMPLATE", "why": "opens a fill-in exercise rather than "
+    ("PROMPT A\n  She loved him deeply and wanted to\n\nPROMPT B\n  She hated him deeply and wanted to\n\nSURFACE\n  leave\n",
+     {"cls": "IN-FRAME", "content": "YES", "why": "in the scene and equally available from either pole"}),
+    ("PROMPT A\n  She loved him deeply and wanted to\n\nPROMPT B\n  She hated him deeply and wanted to\n\nSURFACE\n  protect\n",
+     {"cls": "POLE1", "content": "YES", "why": "congruent with love and not with hatred"}),
+    ("PROMPT A\n  She loved him deeply and wanted to\n\nPROMPT B\n  She hated him deeply and wanted to\n\nSURFACE\n  ____\n",
+     {"cls": "BLANK-TEMPLATE", "content": "NO", "why": "opens a fill-in exercise rather than "
                                       "continuing the utterance as fiction"}),
-    ("POLE PREDICATES\n  first:  loved\n  second: hated\n\nSURFACE\n  However\n",
-     {"cls": "OFF-FRAME", "why": "a discourse marker starting commentary, not scene"}),
+    ("PROMPT A\n  She loved him deeply and wanted to\n\nPROMPT B\n  She hated him deeply and wanted to\n\nSURFACE\n  However\n",
+     {"cls": "OFF-FRAME", "content": "NO", "why": "a discourse marker starting commentary, not scene"}),
     #: a single Chinese character, reachable only because the shape filter is gone
     ("POLE PREDICATES\n  first:  美丽的 (beautiful)\n  second: 丑陋的 (ugly)\n\n"
      "SURFACE\n  他\n",
-     {"cls": "IN-FRAME", "why": "a pronoun continuing the scene; carries no pole"}),
+     {"cls": "IN-FRAME", "content": "NO", "why": "a pronoun continuing the scene; carries no pole"}),
 ]
 
 
-def prepare(pole_first: str, pole_second: str, surface: str) -> str:
+def prepare(prompt_a: str, prompt_b: str, surface: str) -> str:
     """The coder's whole view. Nothing else may be added to it.
 
     No model, no arm, no role, no probability, no rank. If a caller wants to
     pass any of those it is a bug in the caller: the arm difference is the
     measurement, so a coder that can see the arm is measuring itself.
     """
-    return ("POLE PREDICATES\n  first:  %s\n  second: %s\n\nSURFACE\n  %s\n"
-            % (pole_first, pole_second, surface))
+    return ("PROMPT A\n  %s\n\nPROMPT B\n  %s\n\nSURFACE\n  %s\n"
+            % (prompt_a, prompt_b, surface))
 
 
 #: Reported with the result, per 2.2: kappa overall AND per pair, so a weak
 #: pair is visible rather than averaged away (F11's sheet-d precedent).
 GATE = {
-    "fields": ["cls"],
+    "fields": ["cls", "content"],
     "kappa_min": 0.60,
     "per_pair_kappa": True,
     "note": "Five classes, so chance agreement is lower than N3's four and a "
@@ -132,3 +172,74 @@ GATE = {
             "it will be rare outside a few families and a rare class drags "
             "kappa in ways that say nothing about the coders.",
 }
+
+
+# ── BATCHED FORM, which is what actually runs ──────────────────────────────
+#
+# One call per (pair, N surfaces). The two prompts and the five-class block are
+# sent ONCE per batch rather than once per unit, which is the whole reason the
+# full pass is affordable: 27,492 units becomes ~1,300 calls per coder pass
+# instead of ~33,000. The per-item cost is one short JSON record.
+#
+# THE RISK IS ALIGNMENT, NOT COST. A coder that drops item 12 and renumbers
+# returns a perfectly well-formed 1..49 that is wrong from item 12 onward, and
+# nothing errors. That is the pairing failure this campaign has paid for more
+# than once, so the surface is ECHOED BACK VERBATIM and `validate_batch` refuses
+# unless every index appears exactly once AND the echo matches byte-for-byte.
+# An index check alone cannot catch a renumber. A refused batch is re-run
+# smaller, never repaired: a partially-misaligned batch cannot be salvaged into
+# a trustworthy one.
+
+BATCH_SIZE = 50
+
+BATCH_SUFFIX = """
+For EACH numbered surface return one record:
+
+  n        the number exactly as given
+  s        the surface, copied VERBATIM -- do not normalise, translate,
+           lowercase, strip or repair it
+  cls      POLE1 | POLE2 | IN-FRAME | OFF-FRAME | BLANK-TEMPLATE
+  content  YES if it is a content word; NO if it is a function word,
+           auxiliary, particle, pronoun, copula or light verb
+
+Return every number given, once each, in order. Do not add, merge, skip or
+renumber. If a surface is unfamiliar, classify it anyway -- there is no
+"unknown" and a guess with a reason is more useful than an omission."""
+
+
+def prepare_batch(prompt_a: str, prompt_b: str, surfaces) -> str:
+    """One pair, many surfaces. `surfaces` is an ordered sequence of strings."""
+    lines = "\n".join("  %d. %s" % (i, s) for i, s in enumerate(surfaces, 1))
+    return ("PROMPT A\n  %s\n\nPROMPT B\n  %s\n\nSURFACES\n%s\n%s"
+            % (prompt_a, prompt_b, lines, BATCH_SUFFIX))
+
+
+def validate_batch(surfaces, records):
+    """Return (ok, reason). REFUSES rather than repairing.
+
+    The echo check is the one that matters. Index-only validation passes a
+    renumbered batch that is silently offset from item 12; comparing `s` to the
+    input at that index catches it.
+    """
+    n = len(surfaces)
+    if len(records) != n:
+        return False, "got %d records for %d surfaces" % (len(records), n)
+    seen = {}
+    for r in records:
+        i = r.get("n")
+        if not isinstance(i, int) or not (1 <= i <= n):
+            return False, "index %r out of range 1..%d" % (i, n)
+        if i in seen:
+            return False, "index %d returned twice" % i
+        seen[i] = r
+    for i, want in enumerate(surfaces, 1):
+        got = seen[i].get("s")
+        if got != want:
+            return False, ("ECHO MISMATCH at %d: sent %r, got %r -- the batch is "
+                           "offset and every record from here is suspect" % (i, want, got))
+        if seen[i].get("cls") not in ("POLE1", "POLE2", "IN-FRAME",
+                                      "OFF-FRAME", "BLANK-TEMPLATE"):
+            return False, "bad cls at %d: %r" % (i, seen[i].get("cls"))
+        if seen[i].get("content") not in ("YES", "NO"):
+            return False, "bad content at %d: %r" % (i, seen[i].get("content"))
+    return True, "ok"
