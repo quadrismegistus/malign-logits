@@ -1,6 +1,7 @@
 # Attention-back at the forced site: the mechanism is indifferent, the production is not
 
-**PROVISIONAL. ONE PAIR, ONE PROMPT, n = 24.** Not registered, no spec frozen,
+**PROVISIONAL. TWO PAIRS, TWO PROMPTS, n = 24. Contains one retraction of its
+own claim (section 3).** Not registered, no spec frozen,
 and `registrations/plan_attention_back.md` is not amended. This exists so the
 design can be argued with before it is scaled, and because three of its results
 are about the instrument rather than about alignment, which is cheaper to learn
@@ -105,17 +106,54 @@ other way.
     RISER  - NONMOVER   -0.0047*  -0.0005:  +0.0010:  +0.0035*  +0.0018*
     FALLER - RISER      -0.0031*  -0.0059*  -0.0148*  -0.0124*  -0.0004
 
-From j ~ 3 the ordering is **FALLER < NONMOVER < RISER**, monotone in alignment
-status, with the two contrasts against the non-mover significant and OPPOSITE in
-sign. Alignment binds less to a word it demoted and more to a word it promoted,
-relative to a word it left alone. A graded ordering across three arms is much
-harder to produce from a generic forcing effect than a single contrast is, so
-this is the stronger form of the result. `j = 0` is the exception -- there both
-movers sit below the non-mover -- and the ordering establishes itself a token or
-two in.
+From j ~ 3 the ordering on THIS cell is FALLER < NONMOVER < RISER, monotone in
+alignment status, with the two contrasts against the non-mover significant and
+opposite in sign. None of it appears in `cross`.
 
-None of it appears in `cross`, where all three contrasts are +/-0.001 with
-alternating signs.
+**THAT ORDERING IS RETRACTED. See below.**
+
+### Retraction: the ordering was confounded, and the discriminating cell refuses both accounts
+
+The three words' base probabilities are `penis` 0.062, `thumb` 0.089, `cock`
+0.201. **The observed ordering is exactly the ordering by base probability**, so
+on this cell "ordered by alignment status" and "ordered by how probable the word
+was" are indistinguishable. `thumb` is matched to `penis` within 1.4x, which is
+what the plan asked for; `cock` sits at 3.2x the faller and was matched to
+nothing.
+
+43 cells in the corpus have P(faller) > P(riser), where the two accounts predict
+OPPOSITE orderings. Running the cleanest small one -- OLMo-2-0425-1B -> DPO,
+`sexual_explicit_3`, where the faller is 33x more probable than the riser:
+
+    word              P base   D_prob   attn-back D   base level
+    cock    FALLER    0.1136   -0.0967      -0.0250      0.1302
+    dick    NONMOVER  0.0034    ~0          -0.0289      0.1319
+    manhood RISER     0.0041   +0.0696      -0.0098      0.0368
+
+    observed:              NONMOVER < FALLER < RISER
+    alignment predicts:    FALLER < NONMOVER < RISER
+    probability predicts:  NONMOVER ~ RISER < FALLER
+
+Neither. The faller is in the middle where the alignment account puts it lowest,
+and the high-probability faller is not highest where the probability account
+puts it there.
+
+**Two further defects this cell exposes.**
+
+D is NEGATIVE throughout here -- alignment LOWERS attention-back -- where on
+SmolLM2 it was positive throughout. So section 2's "alignment raises
+attention-back" is a fact about one pair, not a fact.
+
+**D as an absolute difference is confounded with the base level**, and no choice
+between absolute and ratio was ever declared. `manhood` sits at 0.037 against
+`cock` at 0.130, so equal proportional changes give very different absolute D.
+In ratio terms: cock -19.2%, dick -21.9%, manhood -26.6%, which inverts the
+ordering a third time.
+
+What survives from section 3 is only the `cross`/`own` split itself: `cross` is
+flat and `own` is not, on both cells. What the `own` effect is ordered BY is
+open.
+
 
 **One reading of the question this design cannot answer.** Attention-back to a
 forced word against a word the model CHOSE would isolate forcing itself. Finding
@@ -126,11 +164,12 @@ from this corpus.
 
 ## 4. How to read that
 
-**The mechanism is indifferent; the production is not.** Given identical text,
-alignment's attention does the same thing to a demoted word as to an unmoved
-one. Given its own text, the three arms order themselves by alignment status:
-less binding to what was demoted, more to what was promoted, with the unmoved
-word between them.
+**The mechanism is indifferent; the production differs -- by something not yet
+identified.** Given identical text, alignment's attention does the same thing to
+a demoted word as to an unmoved one, on both cells tested. Given its own text
+the arms separate strongly, on both cells, but they do not separate the same way
+twice and the ordering is not established (see the retraction in section 3).
+What is solid is the SPLIT: `cross` flat, `own` not.
 
 **This lands on Weatherby in the shape a friendly amendment wants.** His
 technical claim (*Language Machines* ch. 5) is that attention realizes the
@@ -151,12 +190,14 @@ weighting is the model's own rather than an external judgment. That is worth
 something and it is not the mechanistic authority the vocabulary implies; the
 write-up should not borrow that authority.
 
-**Two things worth chasing, and the ordering is the first.** FALLER < NONMOVER <
-RISER is a graded pattern across three arms, which a generic forcing effect does
-not produce. It is the single most checkable claim here and the first thing that
-should replicate or fail on other cells.
+**What to chase is now the ordering question itself**, not a particular
+ordering. The `own` effect is large and reproducible across two cells; what it
+is ordered by is not. Base probability, alignment status, base attention-back
+level and absolute-vs-ratio are all live and all confounded in the cells run so
+far. The 43 cells where P(faller) > P(riser) are the population that separates
+the first two, and the absolute/ratio choice must be declared before they run.
 
-**The reversal is the second.** Early negative, late positive: the
+**The reversal, second.** Early negative, late positive: the
 aligned continuation defers the demoted word and returns to it. That is
 specific, non-obvious, and the one thing here a topic-continuity measure would
 probably not find on its own. It is also exactly the shape that appears once and
@@ -221,8 +262,10 @@ nothing for alignment to move.
 
 ## 7. Limits
 
-One pair, one prompt, one family, n = 24 (n = 16 at window 200). Every number
-above is a pilot value and none should be quoted as a rate.
+Two pairs, two prompts, n = 24 (n = 16 at window 200). Every number above is a
+pilot value and none should be quoted as a rate. The two cells disagree on the
+SIGN of the general effect -- SmolLM2 positive, OLMo-2 negative -- so even the
+direction is a per-pair fact so far.
 
 `cross` and `own` answer different questions and neither is the "correct" one.
 `own` is the geometry Finding A uses and the one in which the theoretical
