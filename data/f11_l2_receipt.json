@@ -1,0 +1,483 @@
+{
+ "_about": "L2 frame-exit corpus, COMPLETION RECEIPT. What is in the corpus, what is not, and why -- so a reader never has to infer a roster from a directory listing.",
+ "design": "m02-l2-frame-exit-v1",
+ "closed": "2026-08-09T17:51:42",
+ "population": {
+  "file": "data/f11_l2_population.json",
+  "prompt_list_sha256_16": "e5da397ff891af74",
+  "source_sha256_16": "44a708bf76cfff67",
+  "cells": 197
+ },
+ "expected_per_arm": {
+  "gen_rows": 3940,
+  "score_rows": 394
+ },
+ "counts": {
+  "pairs_complete": 26,
+  "pairs_partial": 2,
+  "pairs_never_started": 5,
+  "pairs_live_roster": 33,
+  "distinct_lineages_complete": 23,
+  "checkpoints_complete": 52
+ },
+ "complete": [
+  {
+   "idx": 6,
+   "base": "HuggingFaceTB/SmolLM2-360M",
+   "aligned": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 17,
+   "base": "allenai/OLMoE-1B-7B-0125",
+   "aligned": "allenai/OLMoE-1B-7B-0125-DPO",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 40,
+   "base": "openbmb/MiniCPM5-1B-Base",
+   "aligned": "openbmb/MiniCPM5-1B",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 45,
+   "base": "tiiuae/Falcon3-1B-Base",
+   "aligned": "tiiuae/Falcon3-1B-Instruct",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 14,
+   "base": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "aligned": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 7,
+   "base": "HuggingFaceTB/SmolLM3-3B-Base",
+   "aligned": "HuggingFaceTB/SmolLM3-3B",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 46,
+   "base": "tiiuae/Falcon3-3B-Base",
+   "aligned": "tiiuae/Falcon3-3B-Instruct",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 5,
+   "base": "EleutherAI/pythia-6.9b",
+   "aligned": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 3,
+   "base": "BSC-LT/salamandra-7b",
+   "aligned": "BSC-LT/salamandra-7b-instruct",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 8,
+   "base": "LLM360/Amber",
+   "aligned": "LLM360/AmberSafe",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 11,
+   "base": "Qwen/Qwen2.5-7B",
+   "aligned": "Qwen/Qwen2.5-7B-Instruct",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 18,
+   "base": "allenai/Olmo-3-1025-7B",
+   "aligned": "allenai/Olmo-3-7B-Instruct-DPO",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 22,
+   "base": "bigscience/bloom-7b1",
+   "aligned": "bigscience/bloomz-7b1",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 27,
+   "base": "huggyllama/llama-7b",
+   "aligned": "PKU-Alignment/beaver-7b-v1.0",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 32,
+   "base": "m-a-p/CT-LLM-Base",
+   "aligned": "m-a-p/CT-LLM-SFT-DPO",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 33,
+   "base": "m-a-p/neo_7b",
+   "aligned": "m-a-p/neo_7b_instruct_v0.1",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 37,
+   "base": "mistralai/Mistral-7B-v0.1",
+   "aligned": "HuggingFaceH4/zephyr-7b-beta",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 47,
+   "base": "tiiuae/Falcon3-7B-Base",
+   "aligned": "tiiuae/Falcon3-7B-Instruct",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 50,
+   "base": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "aligned": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 4,
+   "base": "EleutherAI/pythia-2.8b",
+   "aligned": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 12,
+   "base": "Qwen/Qwen3-8B-Base",
+   "aligned": "Qwen/Qwen3-8B",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 28,
+   "base": "ibm-granite/granite-3.0-8b-base",
+   "aligned": "ibm-granite/granite-3.0-8b-instruct",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 35,
+   "base": "meta-llama/Llama-3.1-8B",
+   "aligned": "meta-llama/Llama-3.1-8B-Instruct",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 0,
+   "base": "01-ai/Yi-1.5-9B",
+   "aligned": "01-ai/Yi-1.5-9B-Chat",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 51,
+   "base": "zai-org/glm-4-9b-hf",
+   "aligned": "zai-org/glm-4-9b-chat-hf",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  },
+  {
+   "idx": 44,
+   "base": "tiiuae/Falcon3-10B-Base",
+   "aligned": "tiiuae/Falcon3-10B-Instruct",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    394
+   ]
+  }
+ ],
+ "partial": [
+  {
+   "idx": 10,
+   "base": "Qwen/Qwen2.5-0.5B",
+   "aligned": "Qwen/Qwen2.5-0.5B-Instruct",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    394,
+    305
+   ]
+  },
+  {
+   "idx": 9,
+   "base": "OpenLLM-France/Lucie-7B",
+   "aligned": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "gen": [
+    3940,
+    3940
+   ],
+   "score": [
+    70,
+    394
+   ]
+  }
+ ],
+ "never_started": [
+  {
+   "idx": 41,
+   "base": "stabilityai/stablelm-2-1_6b",
+   "aligned": "stabilityai/stablelm-2-zephyr-1_6b",
+   "gen": [
+    0,
+    0
+   ],
+   "score": [
+    0,
+    0
+   ]
+  },
+  {
+   "idx": 20,
+   "base": "allenai/Olmo-Hybrid-7B",
+   "aligned": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
+   "gen": [
+    0,
+    0
+   ],
+   "score": [
+    0,
+    0
+   ]
+  },
+  {
+   "idx": 36,
+   "base": "microsoft/phi-4",
+   "aligned": "microsoft/phi-4-reasoning",
+   "gen": [
+    0,
+    0
+   ],
+   "score": [
+    0,
+    0
+   ]
+  },
+  {
+   "idx": 31,
+   "base": "llm-jp/llm-jp-3-7.2b",
+   "aligned": "llm-jp/llm-jp-3-7.2b-instruct3",
+   "gen": [
+    0,
+    0
+   ],
+   "score": [
+    0,
+    0
+   ]
+  },
+  {
+   "idx": 26,
+   "base": "google/recurrentgemma-9b",
+   "aligned": "google/recurrentgemma-9b-it",
+   "gen": [
+    0,
+    0
+   ],
+   "score": [
+    0,
+    0
+   ]
+  }
+ ],
+ "excluded_known_dead": [
+  "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct",
+  "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
+  "baichuan-inc/Baichuan2-7B-Chat",
+  "croissantllm/CroissantLLMChat-v0.1",
+  "deepseek-ai/deepseek-llm-7b-chat",
+  "inceptionai/jais-family-6p7b-chat",
+  "internlm/internlm2-chat-7b",
+  "mosaicml/mpt-7b-instruct",
+  "openGPT-X/Teuken-7B-instruct-commercial-v0.4"
+ ],
+ "deferred_to_bf16_box": [
+  "tiiuae/Falcon-H1-1.5B-Instruct",
+  "RWKV/rwkv-raven-7b",
+  "Zyphra/Zamba2-7B-Instruct",
+  "tiiuae/Falcon-H1-7B-Instruct",
+  "tiiuae/Falcon3-Mamba-7B-Instruct",
+  "tiiuae/falcon-mamba-7b-instruct",
+  "google/gemma-2-9b-it"
+ ],
+ "_caveats": [
+  "PARTIAL pairs have complete generation and INCOMPLETE scoring; they are not usable for any cross-scoring contrast and must not be counted as pairs.",
+  "NEVER_STARTED pairs were assigned four times and never produced a row; the cause was not diagnosed and is the first thing to look at before more boxes.",
+  "Duplicate writers produced 14 files with two sources. Content is identical (generation is deterministic per model/prompt/seed); the risk was missing rows, and .best/ holds the high-water copy of every file."
+ ]
+}
