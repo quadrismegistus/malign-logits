@@ -71,6 +71,17 @@ Note the load *succeeds* and the failure is in the forward, so a guard wrapped a
 
 **Attention/SSM hybrid (Falcon-H1) — runs for single forward passes; OOMs on wide beams.** The recorded 37.5 GiB OOM was the *kernel-less sequential scan materialising state for 100 beams*, and it is linear in beams — it does not apply to one forward pass at ~10 tokens. The fix for beam work is `mamba-ssm` + `causal-conv1d`, **not a bigger card**. Utilisation at 100% does not name its cause: a naive state-space scan launches thousands of tiny kernels and reads on the gauge exactly like saturated arithmetic.
 
+**`mamba-ssm` DOES NOT SERVE FalconMamba, AND THE LOG SAYS SO ONLY IF YOU LOOK.** Measured 9 Aug on a kernel-bearing A100: the four `Falcon-H1` checkpoints loaded with **no** fast-path warning, then `Falcon3-Mamba-7B-Base` emitted
+
+    The fast path is not available because one of (selective_state_update,
+    selective_scan_fn, causal_conv1d_fn, causal_conv1d_update, mamba_inner_fn)
+    is None. Falling back to the sequential implementation of Mamba ...
+    The recommended way to enable the fast path is `pip install kernels`
+
+So the two architectures want **different packages**: the hybrid uses `mamba-ssm` + `causal-conv1d`, and transformers' **FalconMamba** integration wants the `kernels` package instead. Installing the former does nothing for the latter.
+
+**It costs nothing here and that is measured, not assumed** — the campaign's own numbers give the kernels **19.3× on the hybrid and a null on pure SSM** (Falcon3-Mamba 0.62–0.64 with vs 0.61–0.72 without), and the delta run timed these at 0.7–1.7 min/model with no degradation. **Do not install `kernels` to silence the warning**: it would change the numerical path for the pure-SSM checkpoints away from every cell already in the corpus, buying nothing, which is the `tiktoken` mistake in new clothes — a loud, harmless message quieted at the cost of a silent, real difference.
+
 **Falcon-H1 must compute in bfloat16.** fp16 returned **all-NaN logits on 2,583/2,583 prompts** — 5,166 empty cells that passed every structural gate. Measured: fp16 finite 1/12, bf16 finite 12/12, overflow accumulating through the SSM scan. TII's own docs say it outright. Compute dtype and storage dtype are two decisions sharing a name.
 
 ### 4. LOAD OR CODE FAILURE
