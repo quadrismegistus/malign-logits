@@ -69,9 +69,10 @@ counting path must go through `code()`.
 """
 import contextvars
 import re
-from typing import Literal
+from typing import List, Literal
 
 from pydantic import BaseModel, Field, model_validator
+from pydantic.json_schema import SkipJsonSchema
 
 from largeliterarymodels.task import Task
 
@@ -79,6 +80,19 @@ from largeliterarymodels.task import Task
 #: "not available", never "no text": the validator skips rather than refuses,
 #: so a bare `run()` still validates everything that does not need the source.
 _SOURCE = contextvars.ContextVar("m02_l2_source", default=None)
+
+#: Second pass only. When set, an unquotable mode is DEMOTED TO NO and recorded
+#: instead of refused.
+#:
+#: The strict pass has to come first, because a refusal buys a retry and the
+#: retry sometimes finds a real span. But refusal as the terminal state drops
+#: the row, and in the first batch of 100 the 4 dropped rows were dropped
+#: BECAUSE the coder insisted on quoting the prompt -- which is to say they
+#: were the rows where the continuation most likely restates the contradiction.
+#: Dropping those biases the very rate the design is measuring. Demotion keeps
+#: the row and records the demotion, so the bias becomes a countable column
+#: instead of an absence.
+_COERCE = contextvars.ContextVar("m02_l2_coerce", default=False)
 
 
 def _norm(s):
@@ -93,7 +107,7 @@ def _norm(s):
 
 YN = Literal["YES", "NO"]
 SHARE = Literal["NONE", "SOME", "MOST", "ALL"]
-RESOLVES = Literal["POLE_A", "POLE_B", "BOTH_HELD", "NEITHER"]
+RESOLVES = Literal["POLE_A", "POLE_B", "BOTH_HELD", "SPLIT", "NEITHER"]
 IN_SCENE_LEVELS = ("MOST", "ALL")
 
 
@@ -172,25 +186,38 @@ class TreatmentFields(BaseModel):
         "Taking the continuation as a whole, does it settle the tension?\n"
         "  POLE_A     it comes down on the first pole\n"
         "  POLE_B     it comes down on the second\n"
-        "  BOTH_HELD  both remain operative and unreconciled at the end\n"
+        "  BOTH_HELD  both remain operative in ONE subject, unreconciled\n"
+        "  SPLIT      the tension is resolved by distributing the two poles "
+        "across TWO different figures, so no one subject holds both. The "
+        "prompt's single contradictory subject becomes two characters, or a "
+        "self and an other, or a past self and a present self. Both poles are "
+        "still present in the text, which is why this is not NEITHER; nobody "
+        "is contradictory any more, which is why it is not BOTH_HELD.\n"
         "  NEITHER    neither pole is operative, including when the "
         "continuation left the frame or never engaged\n"
         "**A passage that steps back and comments on the difficulty without "
         "choosing has NOT resolved it.** That is BOTH_HELD if both poles are "
-        "still live, NEITHER if they are not."))
+        "still live in one subject, NEITHER if they are not."))
 
     degenerate: YN = Field(description=(
         "Empty, truncated to nothing usable, or a repetition loop."))
+
+    #: NOT ASKED OF THE CODER. SkipJsonSchema keeps it out of the tool schema, so
+    #: the model never sees it; the second pass writes it. A row with a non-empty
+    #: `coerced` had a mode demoted to NO because its span was unquotable, and
+    #: any rate computed over these rows must report how many.
+    coerced: SkipJsonSchema[List[str]] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def _coherence(self):
         """ONE-DIRECTIONAL, as in v1/v2: the partition is refused when it claims
         MORE than the pole fields grant, never when it claims less. And no mode
         may be asserted without its quotation."""
-        if self.resolves == "BOTH_HELD" and not (
+        if self.resolves in ("BOTH_HELD", "SPLIT") and not (
                 self.pole_a_alive == "YES" and self.pole_b_alive == "YES"):
-            raise ValueError("resolves=BOTH_HELD requires both poles alive; got "
-                             "pole_a=%s pole_b=%s" % (self.pole_a_alive, self.pole_b_alive))
+            raise ValueError("resolves=%s requires both poles alive; got "
+                             "pole_a=%s pole_b=%s" % (self.resolves,
+                             self.pole_a_alive, self.pole_b_alive))
         if self.resolves == "POLE_A" and self.pole_a_alive == "NO":
             raise ValueError("resolves=POLE_A but pole_a_alive=NO")
         if self.resolves == "POLE_B" and self.pole_b_alive == "NO":
@@ -213,7 +240,13 @@ class TreatmentFields(BaseModel):
                 continue
             #: Name the observed failure mode when it is the one we hit, because
             #: a retry told only "not found" tends to re-quote the same words.
-            if prompt and _norm(span) in _norm(prompt):
+            from_prompt = bool(prompt) and _norm(span) in _norm(prompt)
+            if _COERCE.get():
+                self.coerced.append("%s(%s)" % (f, "prompt" if from_prompt else "absent"))
+                setattr(self, f, "NO")
+                setattr(self, sp, "")
+                continue
+            if from_prompt:
                 raise ValueError(
                     "%s=YES quotes the PROMPT, not the continuation: %r. The "
                     "prompt states the contradiction by construction, so it is "
@@ -247,10 +280,18 @@ COMPOSITES = {
                             and not _y(r, "tension_enacted")),
     "BOTH_MODES": lambda r: (_in_scene(r) and _y(r, "tension_enacted")
                              and (_y(r, "tension_named") or _y(r, "tension_deliberated"))),
-    #: Oedipalization proper: exclusive disjunction, inside the fiction
+    #: Oedipalization by exclusive disjunction: one pole wins, inside the fiction
     "OEDIPALIZED": lambda r: (_in_scene(r) and not _y(r, "refusal")
                               and (r.get("resolves") if isinstance(r, dict)
                                    else getattr(r, "resolves", None)) in ("POLE_A", "POLE_B")),
+    #: Oedipalization by personification, kept SEPARATE from pole-picking.
+    #: D&G's sentence covers both -- "the names no longer designate intensive
+    #: states, but discernible persons" -- but they are different operations and
+    #: may have different rates, so they are counted apart. Summing later is
+    #: always available; unpicking a merged count is not.
+    "SPLIT_PERSONS": lambda r: (_in_scene(r) and not _y(r, "refusal")
+                                and (r.get("resolves") if isinstance(r, dict)
+                                     else getattr(r, "resolves", None)) == "SPLIT"),
     "EXITED": lambda r: _y(r, "refusal") or _y(r, "frame_exit"),
 }
 
@@ -274,7 +315,17 @@ quizzes, grammar exercises, lists, or refusals. These are ordinary outcomes and 
 none is a failure to be corrected. A character thinking about their own \
 situation is still inside the story.
 
-Quote your evidence verbatim. Never paraphrase a span."""
+Quote your evidence verbatim. Never paraphrase a span.
+
+THE PROMPT IS NOT EVIDENCE. Every continuation you see was given the same \
+prompt, and that prompt states the contradiction out loud. So a span taken \
+from the prompt is true of all of them and tells us nothing about this one. \
+Quote only from the continuation, and never from a stretch that begins in the \
+prompt and runs into the continuation.
+
+If the continuation does not itself contain words you can copy for a mode, \
+that mode is NO. NO is a real answer and a common one. A mode you cannot \
+quote from the continuation did not happen in the continuation."""
 
 #: EMPTY ON PURPOSE. See the module docstring: [5187] measured the example
 #: block moving the share four of four upward, and kappa cannot see it.
@@ -282,8 +333,35 @@ EXAMPLES = []
 
 
 def prepare(pole_a: str, pole_b: str, prompt: str, continuation: str) -> str:
-    return ("POLE TERMS\n  first:  %s\n  second: %s\n\nPROMPT\n  %s\n\n"
-            "CONTINUATION\n  %s\n" % (pole_a, pole_b, prompt, continuation))
+    """Lay the two texts out so the prompt cannot be mistaken for evidence.
+
+    The prompt has to be shown: a continuation begins mid-clause ("be her and
+    wanted to leave her") and is not readable without it. But the prompt STATES
+    the contradiction, so a coder that quotes it produces a real quotation that
+    is evidence about the stimulus. Observed at 2 of 10, twice, and it cost 4
+    of 100 rows to retry-exhaustion in the first batch.
+
+    So the layout does the work the field descriptions could not: the prompt is
+    labelled as context and fenced, the continuation is labelled as the only
+    quotable text, and the fence is repeated at the point of use rather than
+    stated once at the top where it scrolls away.
+    """
+    return (
+        "POLE TERMS\n"
+        "  first:  %s\n"
+        "  second: %s\n"
+        "\n"
+        "PROMPT -- CONTEXT ONLY. NOT CODED. NEVER QUOTED.\n"
+        "  This is the stimulus every continuation was given. It states the\n"
+        "  contradiction itself, so quoting it tells us nothing about this\n"
+        "  continuation. It is shown only so the continuation reads as English.\n"
+        "  >>> %s\n"
+        "\n"
+        "CONTINUATION -- THE ONLY TEXT YOU CODE, AND THE ONLY TEXT YOU QUOTE.\n"
+        "  Every span you copy must come from between these markers.\n"
+        "  >>> %s\n"
+        "  <<< end of continuation\n"
+        % (pole_a, pole_b, prompt, continuation))
 
 
 class TreatmentV1Task(Task):
@@ -303,9 +381,27 @@ def code(task, pole_a, pole_b, prompt, continuation, **kw):
     but it cannot check a span against text it was never given, so it will
     accept a span lifted from the prompt -- which is the failure this design is
     most exposed to. Use this.
+
+    Two passes. The first is strict, and its refusals buy retries that sometimes
+    produce a real span. The second runs only if the first exhausts them, and
+    demotes the unquotable mode to NO, recording it in `coerced`. The second
+    pass is normally free: the framework caches on the input string, which has
+    not changed, so it re-validates the stored response rather than calling out
+    again.
+
+    Never returns a row whose spans were not checked. A row that fails BOTH
+    passes still raises -- that is a malformed response, not a span problem.
     """
-    tok = _SOURCE.set((continuation, prompt))
+    src = _SOURCE.set((continuation, prompt))
+    text = prepare(pole_a, pole_b, prompt, continuation)
     try:
-        return task.run(prepare(pole_a, pole_b, prompt, continuation), **kw)
+        try:
+            return task.run(text, **kw)
+        except Exception:
+            co = _COERCE.set(True)
+            try:
+                return task.run(text, **kw)
+            finally:
+                _COERCE.reset(co)
     finally:
-        _SOURCE.reset(tok)
+        _SOURCE.reset(src)
