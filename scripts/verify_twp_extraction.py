@@ -69,10 +69,17 @@ def main():
         np.array_equal(np.asarray(bo), np.asarray(bn)),
         "%d boundary tokens" % int(np.asarray(bn).sum()))
 
+    #: **`config.vocab_size` CAN EXCEED THE TOKENIZER'S PIECE COUNT** and
+    #: `convert_ids_to_tokens` then returns None -- Qwen2.5 declares 151,936
+    #: against ~151,665 real pieces. `twp_cloud` documents this hazard in its
+    #: mask builder; this harness walked straight into it. The production path
+    #: never sees None because it only ever cleans real emitted tokens.
     strs = [tok_n.convert_ids_to_tokens(i) for i in range(0, n, max(1, n // 4000))]
+    n_none = sum(1 for s in strs if s is None)
+    strs = [s for s in strs if s is not None]
     diff = [s for s in strs if OLD.clean_surface(s) != NEW.clean_surface(s)]
     chk("clean_surface identical on %d samples" % len(strs), not diff,
-        "%d differ" % len(diff))
+        "%d differ | %d ids had no token (vocab_size > pieces)" % (len(diff), n_none))
 
     # ---- expand, the whole instrument ----------------------------------
     import json
