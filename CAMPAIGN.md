@@ -107,3 +107,9 @@ seat forgets at its peril:
 - **A metric with no null is the most reliable way to produce a confident
   wrong number** — and an instrument that carries its own null for free
   beats one whose null must be purchased ([5205], [5206]).
+- **Ask whether the stimulus contains the thing being detected** — four L2
+  lexical contradiction measures in a row measured prompt echo (82% of
+  yoked pole pairs were the prompt restated); onset in a curve is not onset
+  in a mechanism, and a level read through an untrained head is not a
+  quantity, though a same-depth cross-arm difference through a frozen head
+  is ([5220]–[5223]).
