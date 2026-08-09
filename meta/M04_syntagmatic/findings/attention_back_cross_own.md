@@ -1,7 +1,8 @@
 # Attention-back at the forced site: the mechanism is indifferent, the production is not
 
-**PROVISIONAL. TWO PAIRS, TWO PROMPTS, n = 24. Contains one retraction of its
-own claim (section 3).** Not registered, no spec frozen,
+**PROVISIONAL. 6 PAIRS, 5 PROMPTS, 28 CELLS. The central prediction is
+REFUTED at the cell level (section 3c); sections 2 and 3 are superseded by 3b
+and 3c wherever they disagree.** Not registered, no spec frozen,
 and `registrations/plan_attention_back.md` is not amended. This exists so the
 design can be argued with before it is scaled, and because three of its results
 are about the instrument rather than about alignment, which is cheaper to learn
@@ -257,6 +258,53 @@ is the INSTRUMENT: D_norm is the right quantity and the earlier tables should be
 read as superseded by it wherever they disagree.
 
 Producer: `scripts/attn_norm.py`.
+
+## 3c. The sweep: the prediction is refuted
+
+28 cells, 6 pairs, 5 prompts, arms auto-selected by the rule declared in
+`attn_norm_sweep.py`, which was committed at `3de8c16c` BEFORE the sweep
+returned so the prediction has a timestamp preceding its own test.
+
+Predicted: FALLER below, NONMOVER and RISER together.
+
+    FALLER - NONMOVER    median +0.0174   14 of 28 negative   p=0.171
+    FALLER - RISER       median -0.0278   16 of 28 negative   p=0.194
+    NONMOVER - RISER     median -0.0478   18 of 28 negative   p=0.0247
+
+`FALLER - NONMOVER` is an exact coin flip with the median on the wrong side. The
+only nominally significant contrast is the one predicted to be near zero.
+
+**The generating cell does not replicate inside its own pair.** SmolLM2
+`explicit_1` gave F-N = -0.039; SmolLM2 `explicit_3` gives **+0.188 at
+p = 2e-32**. Same models, same instrument, opposite sign, both overwhelming.
+
+**That is the methodological lesson and it applies to everything above.** The
+per-cell p-values run to p = 0 and p = 2e-32 in both directions because they are
+computed across 250 to 480 heads that are massively correlated. They are not
+evidence about anything, and section 3b's `p = 1.6e-15` is one of them. The
+CELL is the unit. At the cell level, 28 of them, there is nothing.
+
+So D_norm is a better instrument than raw D -- it is scale-free and it broke the
+probability confound -- and what it measures does not vary with alignment status.
+
+## 3d. The tokenizer guard, tested only after I claimed to have tested it
+
+`stablelm-2-zephyr-1_6b` went into the sweep specifically to make the guard
+fire. It did not, and the guard was fine: that model shares a tokenizer with its
+base exactly, 0 of 4 strings differing. **I selected the test case by matching
+the word "zephyr" in a name.** The recorded defect is in
+`HuggingFaceH4/zephyr-7b-beta` against Mistral, an unrelated model, and that
+pair is not in the Y corpus at all.
+
+Exercised on the real pair, the guard's condition behaves:
+
+    stablelm-2-zephyr-1_6b   0 of 4 strings differ   -> proceed
+    zephyr-7b-beta           3 of 4 strings differ   -> SKIP PAIR
+                             ' cock'  [12408] vs [28705, 12408]
+
+So it refuses when the condition holds and proceeds when it does not. It was
+untested until after the sweep, and the sentence claiming it had been tested was
+written before any of this was checked.
 
 ## 4. How to read that
 

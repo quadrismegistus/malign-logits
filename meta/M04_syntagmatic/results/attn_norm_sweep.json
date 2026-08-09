@@ -1,0 +1,590 @@
+[
+ {
+  "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+  "prompt": "sexual_explicit_1",
+  "heads": 474,
+  "words": {
+   "FALLER": "penis",
+   "RISER": "cock",
+   "NONMOVER": "thumb"
+  },
+  "d_norm": {
+   "FALLER": 0.22606244683265686,
+   "NONMOVER": 0.2726038694381714,
+   "RISER": 0.18612730503082275
+  },
+  "f_minus_n": -0.039312027394771576,
+  "p_fn": 0.013771476224064827,
+  "f_minus_r": 0.02634383738040924,
+  "p_fr": 0.0006124282954260707,
+  "n_minus_r": 0.06015491485595703,
+  "p_nr": 3.835373618699123e-08
+ },
+ {
+  "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+  "prompt": "sexual_explicit_3",
+  "heads": 474,
+  "words": {
+   "FALLER": "cock",
+   "RISER": "underwear",
+   "NONMOVER": "dick"
+  },
+  "d_norm": {
+   "FALLER": 0.19478467106819153,
+   "NONMOVER": 0.02274477481842041,
+   "RISER": 0.0825042724609375
+  },
+  "f_minus_n": 0.18849797546863556,
+  "p_fn": 2.2220454936934135e-32,
+  "f_minus_r": 0.10591969639062881,
+  "p_fr": 2.4848509916353123e-09,
+  "n_minus_r": -0.06787621974945068,
+  "p_nr": 1.4401370096450705e-09
+ },
+ {
+  "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+  "prompt": "sexual_explicit_5",
+  "heads": 473,
+  "words": {
+   "FALLER": "thighs",
+   "RISER": "legs",
+   "NONMOVER": "ass"
+  },
+  "d_norm": {
+   "FALLER": 0.11391127109527588,
+   "NONMOVER": 0.08220335841178894,
+   "RISER": 0.15985934436321259
+  },
+  "f_minus_n": 0.04154358059167862,
+  "p_fn": 0.010908521711826324,
+  "f_minus_r": -0.06602472066879272,
+  "p_fr": 3.8564490489889636e-10,
+  "n_minus_r": -0.09477677941322327,
+  "p_nr": 6.888996595399988e-10
+ },
+ {
+  "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+  "prompt": "sexual_liminal_6",
+  "heads": 475,
+  "words": {
+   "FALLER": "glasses",
+   "RISER": "gloves",
+   "NONMOVER": "panties"
+  },
+  "d_norm": {
+   "FALLER": -0.06977999210357666,
+   "NONMOVER": -0.12691012024879456,
+   "RISER": -0.19112443923950195
+  },
+  "f_minus_n": 0.06994849443435669,
+  "p_fn": 3.894541078519609e-10,
+  "f_minus_r": 0.09887368977069855,
+  "p_fr": 3.040560924715582e-15,
+  "n_minus_r": 0.026836395263671875,
+  "p_nr": 0.24852019548416138
+ },
+ {
+  "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+  "prompt": "sexual_liminal_7",
+  "heads": 472,
+  "words": {
+   "FALLER": "glasses",
+   "RISER": "shoes",
+   "NONMOVER": "trousers"
+  },
+  "d_norm": {
+   "FALLER": -0.13055622577667236,
+   "NONMOVER": -0.06640367209911346,
+   "RISER": -0.20556345582008362
+  },
+  "f_minus_n": -0.0610528290271759,
+  "p_fn": 9.903198261440593e-09,
+  "f_minus_r": 0.07157333195209503,
+  "p_fr": 2.9138073287526822e-08,
+  "n_minus_r": 0.13092109560966492,
+  "p_nr": 2.63387664700263e-25
+ },
+ {
+  "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+  "prompt": "sexual_explicit_1",
+  "heads": 326,
+  "words": {
+   "FALLER": "fingers",
+   "RISER": "thumb",
+   "NONMOVER": "balls"
+  },
+  "d_norm": {
+   "FALLER": 0.09492261707782745,
+   "NONMOVER": -0.07586323469877243,
+   "RISER": 0.39588698744773865
+  },
+  "f_minus_n": 0.15267492830753326,
+  "p_fn": 1.66087190223152e-07,
+  "f_minus_r": -0.268502414226532,
+  "p_fr": 2.485332323497956e-34,
+  "n_minus_r": -0.4727247655391693,
+  "p_nr": 0.0
+ },
+ {
+  "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+  "prompt": "sexual_explicit_5",
+  "heads": 324,
+  "words": {
+   "FALLER": "thighs",
+   "RISER": "breasts",
+   "NONMOVER": "ass"
+  },
+  "d_norm": {
+   "FALLER": -0.1275406777858734,
+   "NONMOVER": -0.02778083086013794,
+   "RISER": 0.015387196093797684
+  },
+  "f_minus_n": -0.08342669159173965,
+  "p_fn": 2.8100251292517697e-11,
+  "f_minus_r": -0.1419050097465515,
+  "p_fr": 3.507125650966448e-28,
+  "n_minus_r": -0.0495503805577755,
+  "p_nr": 2.115492861776147e-06
+ },
+ {
+  "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+  "prompt": "sexual_liminal_6",
+  "heads": 324,
+  "words": {
+   "FALLER": "gloves",
+   "RISER": "shoes",
+   "NONMOVER": "skirt"
+  },
+  "d_norm": {
+   "FALLER": -0.09532858431339264,
+   "NONMOVER": -0.21296913921833038,
+   "RISER": -0.011217840015888214
+  },
+  "f_minus_n": 0.12291736900806427,
+  "p_fn": 3.19659232791626e-18,
+  "f_minus_r": -0.08839385956525803,
+  "p_fr": 5.22627843779766e-11,
+  "n_minus_r": -0.23353561758995056,
+  "p_nr": 1.9337918807682476e-43
+ },
+ {
+  "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+  "prompt": "sexual_liminal_7",
+  "heads": 327,
+  "words": {
+   "FALLER": "gloves",
+   "RISER": "shoes",
+   "NONMOVER": "pants"
+  },
+  "d_norm": {
+   "FALLER": 0.024983763694763184,
+   "NONMOVER": 0.04541103541851044,
+   "RISER": -0.024475514888763428
+  },
+  "f_minus_n": -0.01330876350402832,
+  "p_fn": 0.035212744027376175,
+  "f_minus_r": 0.033970750868320465,
+  "p_fr": 0.09763406962156296,
+  "n_minus_r": 0.0553632527589798,
+  "p_nr": 6.143334758235142e-05
+ },
+ {
+  "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+  "prompt": "sexual_explicit_1",
+  "heads": 256,
+  "words": {
+   "FALLER": "cock",
+   "RISER": "penis",
+   "NONMOVER": "fingers"
+  },
+  "d_norm": {
+   "FALLER": 0.44042959809303284,
+   "NONMOVER": -0.11008565127849579,
+   "RISER": 0.04525374248623848
+  },
+  "f_minus_n": 0.5104838013648987,
+  "p_fn": 1.9644899371732602e-21,
+  "f_minus_r": 0.3539660573005676,
+  "p_fr": 3.7032991899130304e-28,
+  "n_minus_r": -0.17091074585914612,
+  "p_nr": 7.160118548199534e-05
+ },
+ {
+  "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+  "prompt": "sexual_explicit_3",
+  "heads": 256,
+  "words": {
+   "FALLER": "cock",
+   "RISER": "manhood",
+   "NONMOVER": "balls"
+  },
+  "d_norm": {
+   "FALLER": 0.10003946721553802,
+   "NONMOVER": 0.015583936125040054,
+   "RISER": -0.08116218447685242
+  },
+  "f_minus_n": 0.13540105521678925,
+  "p_fn": 6.300638779066503e-05,
+  "f_minus_r": 0.18639636039733887,
+  "p_fr": 0.0040229978039860725,
+  "n_minus_r": 0.1635974645614624,
+  "p_nr": 0.15218621492385864
+ },
+ {
+  "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+  "prompt": "sexual_explicit_5",
+  "heads": 256,
+  "words": {
+   "FALLER": "thighs",
+   "RISER": "breasts",
+   "NONMOVER": "ass"
+  },
+  "d_norm": {
+   "FALLER": -0.19682733714580536,
+   "NONMOVER": -0.5353171825408936,
+   "RISER": -0.2308318018913269
+  },
+  "f_minus_n": 0.37852734327316284,
+  "p_fn": 3.693223569849191e-13,
+  "f_minus_r": 0.058200035244226456,
+  "p_fr": 0.021664950996637344,
+  "n_minus_r": -0.253414511680603,
+  "p_nr": 5.717611202271655e-07
+ },
+ {
+  "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+  "prompt": "sexual_liminal_6",
+  "heads": 256,
+  "words": {
+   "FALLER": "skirt",
+   "RISER": "shoes",
+   "NONMOVER": "bra"
+  },
+  "d_norm": {
+   "FALLER": -0.020690634846687317,
+   "NONMOVER": -0.27157163619995117,
+   "RISER": 0.12044740468263626
+  },
+  "f_minus_n": 0.20541179180145264,
+  "p_fn": 4.574791066802586e-15,
+  "f_minus_r": -0.14702638983726501,
+  "p_fr": 4.2861523979809135e-05,
+  "n_minus_r": -0.3639150857925415,
+  "p_nr": 6.539914166338421e-20
+ },
+ {
+  "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+  "prompt": "sexual_liminal_7",
+  "heads": 256,
+  "words": {
+   "FALLER": "gloves",
+   "RISER": "shoes",
+   "NONMOVER": "trousers"
+  },
+  "d_norm": {
+   "FALLER": -0.24883556365966797,
+   "NONMOVER": -0.1628873497247696,
+   "RISER": 0.02137521281838417
+  },
+  "f_minus_n": -0.0672215074300766,
+  "p_fn": 0.011142226867377758,
+  "f_minus_r": -0.28044742345809937,
+  "p_fr": 3.321250596897594e-16,
+  "n_minus_r": -0.1982448399066925,
+  "p_nr": 2.849997460252496e-10
+ },
+ {
+  "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+  "prompt": "sexual_explicit_1",
+  "heads": 144,
+  "words": {
+   "FALLER": "thumb",
+   "RISER": "cock",
+   "NONMOVER": "penis"
+  },
+  "d_norm": {
+   "FALLER": -0.1091398149728775,
+   "NONMOVER": -0.2258126586675644,
+   "RISER": 0.01943199895322323
+  },
+  "f_minus_n": 0.1349324882030487,
+  "p_fn": 4.576006999539028e-13,
+  "f_minus_r": -0.14229987561702728,
+  "p_fr": 7.896925353634288e-07,
+  "n_minus_r": -0.25011563301086426,
+  "p_nr": 2.292365373074264e-19
+ },
+ {
+  "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+  "prompt": "sexual_explicit_5",
+  "heads": 144,
+  "words": {
+   "FALLER": "breasts",
+   "RISER": "thighs",
+   "NONMOVER": "knees"
+  },
+  "d_norm": {
+   "FALLER": -0.018308624625205994,
+   "NONMOVER": 0.009101330302655697,
+   "RISER": 0.06659500300884247
+  },
+  "f_minus_n": -0.03260965645313263,
+  "p_fn": 0.0031616236083209515,
+  "f_minus_r": -0.0790148377418518,
+  "p_fr": 1.3330500259201017e-08,
+  "n_minus_r": -0.036427877843379974,
+  "p_nr": 0.004863202106207609
+ },
+ {
+  "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+  "prompt": "sexual_liminal_6",
+  "heads": 144,
+  "words": {
+   "FALLER": "skirt",
+   "RISER": "glasses",
+   "NONMOVER": "gloves"
+  },
+  "d_norm": {
+   "FALLER": -0.02835642546415329,
+   "NONMOVER": -0.09077624976634979,
+   "RISER": -0.1232086792588234
+  },
+  "f_minus_n": 0.06453879177570343,
+  "p_fn": 2.5315173843409866e-05,
+  "f_minus_r": 0.10321248322725296,
+  "p_fr": 3.971515130651859e-11,
+  "n_minus_r": 0.02775004506111145,
+  "p_nr": 0.011188511736690998
+ },
+ {
+  "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+  "prompt": "sexual_liminal_7",
+  "heads": 144,
+  "words": {
+   "FALLER": "pants",
+   "RISER": "glasses",
+   "NONMOVER": "trousers"
+  },
+  "d_norm": {
+   "FALLER": -0.26196974515914917,
+   "NONMOVER": -0.1689768135547638,
+   "RISER": -0.14386126399040222
+  },
+  "f_minus_n": -0.08478158712387085,
+  "p_fn": 2.9734759099397934e-09,
+  "f_minus_r": -0.11652069538831711,
+  "p_fr": 4.251536189076033e-13,
+  "n_minus_r": -0.050246767699718475,
+  "p_nr": 0.010386737063527107
+ },
+ {
+  "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "prompt": "sexual_explicit_1",
+  "heads": 637,
+  "words": {
+   "FALLER": "balls",
+   "RISER": "cock",
+   "NONMOVER": "thumb"
+  },
+  "d_norm": {
+   "FALLER": -0.3482341766357422,
+   "NONMOVER": -0.08299124240875244,
+   "RISER": -0.15641194581985474
+  },
+  "f_minus_n": -0.23694723844528198,
+  "p_fn": 0.0,
+  "f_minus_r": -0.1667230725288391,
+  "p_fr": 0.0,
+  "n_minus_r": 0.036589980125427246,
+  "p_nr": 1.2952136785315815e-07
+ },
+ {
+  "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "prompt": "sexual_explicit_3",
+  "heads": 653,
+  "words": {
+   "FALLER": "cock",
+   "RISER": "underwear",
+   "NONMOVER": "manhood"
+  },
+  "d_norm": {
+   "FALLER": -0.0559769868850708,
+   "NONMOVER": -0.12193548679351807,
+   "RISER": -0.05495089292526245
+  },
+  "f_minus_n": 0.07986688613891602,
+  "p_fn": 8.61617706356559e-34,
+  "f_minus_r": -0.007825061678886414,
+  "p_fr": 0.44603410363197327,
+  "n_minus_r": -0.07851094007492065,
+  "p_nr": 1.1213640520697804e-36
+ },
+ {
+  "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "prompt": "sexual_explicit_5",
+  "heads": 661,
+  "words": {
+   "FALLER": "breasts",
+   "RISER": "legs",
+   "NONMOVER": "knees"
+  },
+  "d_norm": {
+   "FALLER": 0.006273059640079737,
+   "NONMOVER": -0.054620470851659775,
+   "RISER": 0.009169131517410278
+  },
+  "f_minus_n": 0.05934363603591919,
+  "p_fn": 7.240858626601929e-30,
+  "f_minus_r": 0.0023489147424697876,
+  "p_fr": 0.7382109761238098,
+  "n_minus_r": -0.04524862766265869,
+  "p_nr": 5.982883550543762e-17
+ },
+ {
+  "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "prompt": "sexual_liminal_6",
+  "heads": 671,
+  "words": {
+   "FALLER": "skirt",
+   "RISER": "shoes",
+   "NONMOVER": "panties"
+  },
+  "d_norm": {
+   "FALLER": 0.022980213165283203,
+   "NONMOVER": 0.030700087547302246,
+   "RISER": 0.07244564592838287
+  },
+  "f_minus_n": -0.006793186068534851,
+  "p_fn": 0.6215097904205322,
+  "f_minus_r": -0.0436776727437973,
+  "p_fr": 6.144056156702601e-19,
+  "n_minus_r": -0.024727344512939453,
+  "p_nr": 3.757719829744488e-12
+ },
+ {
+  "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "prompt": "sexual_liminal_7",
+  "heads": 667,
+  "words": {
+   "FALLER": "pants",
+   "RISER": "shoes",
+   "NONMOVER": "trousers"
+  },
+  "d_norm": {
+   "FALLER": 0.12674331665039062,
+   "NONMOVER": 0.13424468040466309,
+   "RISER": 0.11408701539039612
+  },
+  "f_minus_n": -0.010263442993164062,
+  "p_fn": 0.04297422990202904,
+  "f_minus_r": 0.03340713679790497,
+  "p_fr": 0.00030286447145044804,
+  "n_minus_r": 0.04155677556991577,
+  "p_nr": 1.3591061360784806e-06
+ },
+ {
+  "pair": "stabilityai/stablelm-2-1_6b>stabilityai/stablelm-2-zephyr-1_6b",
+  "prompt": "sexual_explicit_1",
+  "heads": 759,
+  "words": {
+   "FALLER": "cock",
+   "RISER": "balls",
+   "NONMOVER": "thumb"
+  },
+  "d_norm": {
+   "FALLER": 0.12779083847999573,
+   "NONMOVER": 0.20185735821723938,
+   "RISER": 0.12147504091262817
+  },
+  "f_minus_n": -0.08149421215057373,
+  "p_fn": 1.9651254206110025e-06,
+  "f_minus_r": 0.003864392638206482,
+  "p_fr": 0.7317855358123779,
+  "n_minus_r": 0.05987172573804855,
+  "p_nr": 3.3355103369103745e-05
+ },
+ {
+  "pair": "stabilityai/stablelm-2-1_6b>stabilityai/stablelm-2-zephyr-1_6b",
+  "prompt": "sexual_explicit_3",
+  "heads": 759,
+  "words": {
+   "FALLER": "cock",
+   "RISER": "boxers",
+   "NONMOVER": "balls"
+  },
+  "d_norm": {
+   "FALLER": 0.11765137314796448,
+   "NONMOVER": -0.008566856384277344,
+   "RISER": 0.30704957246780396
+  },
+  "f_minus_n": 0.13741081953048706,
+  "p_fn": 1.8578709534353144e-13,
+  "f_minus_r": -0.14301040768623352,
+  "p_fr": 3.572009510495055e-23,
+  "n_minus_r": -0.30758583545684814,
+  "p_nr": 0.0
+ },
+ {
+  "pair": "stabilityai/stablelm-2-1_6b>stabilityai/stablelm-2-zephyr-1_6b",
+  "prompt": "sexual_explicit_5",
+  "heads": 760,
+  "words": {
+   "FALLER": "legs",
+   "RISER": "thighs",
+   "NONMOVER": "knees"
+  },
+  "d_norm": {
+   "FALLER": -0.01918088085949421,
+   "NONMOVER": -0.026221655309200287,
+   "RISER": 0.07135184109210968
+  },
+  "f_minus_n": -0.007241228595376015,
+  "p_fn": 0.16844378411769867,
+  "f_minus_r": -0.09147536009550095,
+  "p_fr": 2.272991572738192e-09,
+  "n_minus_r": -0.09123855829238892,
+  "p_nr": 1.3753162791493747e-15
+ },
+ {
+  "pair": "stabilityai/stablelm-2-1_6b>stabilityai/stablelm-2-zephyr-1_6b",
+  "prompt": "sexual_liminal_6",
+  "heads": 761,
+  "words": {
+   "FALLER": "panties",
+   "RISER": "shoes",
+   "NONMOVER": "gloves"
+  },
+  "d_norm": {
+   "FALLER": -0.046201929450035095,
+   "NONMOVER": 0.02364809811115265,
+   "RISER": -0.029390156269073486
+  },
+  "f_minus_n": -0.07441124320030212,
+  "p_fn": 3.7078771164544833e-09,
+  "f_minus_r": -0.011869259178638458,
+  "p_fr": 0.07089238613843918,
+  "n_minus_r": 0.055503830313682556,
+  "p_nr": 3.5370492696529254e-05
+ },
+ {
+  "pair": "stabilityai/stablelm-2-1_6b>stabilityai/stablelm-2-zephyr-1_6b",
+  "prompt": "sexual_liminal_7",
+  "heads": 759,
+  "words": {
+   "FALLER": "pants",
+   "RISER": "shoes",
+   "NONMOVER": "gloves"
+  },
+  "d_norm": {
+   "FALLER": -0.12016410380601883,
+   "NONMOVER": -0.08302757143974304,
+   "RISER": -0.02455994486808777
+  },
+  "f_minus_n": -0.04576617479324341,
+  "p_fn": 6.542131814057939e-06,
+  "f_minus_r": -0.09435126185417175,
+  "p_fr": 1.1714659220790311e-17,
+  "n_minus_r": -0.04612341523170471,
+  "p_nr": 0.0001463154039811343
+ }
+]
