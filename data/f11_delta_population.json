@@ -1,0 +1,521 @@
+{
+ "_about": "THE 84 PROMPTS THE FIRST FLEET MISSED, enumerated from the source of record. This file IS the population; nothing is 'defined by a tool'.",
+ "source_of_record": "data/f11_quintuplets.json",
+ "source_of_record_sha256_16": "44a708bf76cfff67",
+ "prompt_list_sha256_16": "68fe1b5f50f0c10c",
+ "n": 84,
+ "by_role": {
+  "pole_a": 5,
+  "pole_b": 4,
+  "both": 3,
+  "control_a": 30,
+  "control_b": 32,
+  "both_matched": 10
+ },
+ "prompts": [
+  {
+   "text": "He was beautiful and radiant and she wanted to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "He was disgusting and foul and she wanted to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "He was ugly and misshapen and she wanted to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "他既是美丽的又是耀眼的，她想要",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "他既是丑陋的又是难看的，她想要",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "他既是恶心的又是肮脏的，她想要",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "He was free and unhindered and chose to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "He was captive and bound and chose to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "The one who was both free and unhindered chose to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "The one who was both captive and bound chose to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "那个既自由又无拘无束的人选择了",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "那个既被囚禁又被束缚的人选择了",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "他既是自由的又是无拘无束的，选择了",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "他既是被囚禁的又是被束缚的，选择了",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "He was rich and comfortable and he decided to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "He was poor and struggling and he decided to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "他既是富有的又是阔绰的，他决定",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "他既是贫穷的又是潦倒的，他决定",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "She wanted to create and build at once and decided to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "She wanted to destroy and ruin at once and decided to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "She wanted to create something and destroy something and decided to",
+   "roles": [
+    "both_matched"
+   ]
+  },
+  {
+   "text": "她想要同时创造和建设，她决定",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "她想要同时毁灭和破坏，她决定",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "她想要创造一些东西又毁灭一些东西，她决定",
+   "roles": [
+    "both_matched"
+   ]
+  },
+  {
+   "text": "She felt desire and longing and began to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "She felt disgust and revulsion and began to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "她感到欲望和渴望，开始",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "她感到厌恶和反感，开始",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "She was faithful and devoted to him and she began to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "She was unfaithful and disloyal to him and she began to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "她对他既忠诚又专一，她开始",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "她对他既不忠又负心，她开始",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "She was innocent and blameless and she began to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "She was guilty and culpable and she began to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "她既是无罪的又是清白的，她开始",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "她既是有罪的又是有过错的，她开始",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "In the holy temple she began to",
+   "roles": [
+    "pole_a"
+   ]
+  },
+  {
+   "text": "In the filthy alley she began to",
+   "roles": [
+    "pole_b"
+   ]
+  },
+  {
+   "text": "In a place both holy and sacred she began to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "In a place both filthy and squalid she began to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "在一个既神圣又庄严的地方，她开始",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "在一个既污秽又破败的地方，她开始",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "在神圣的神庙里，她开始",
+   "roles": [
+    "pole_a"
+   ]
+  },
+  {
+   "text": "在污秽的小巷里，她开始",
+   "roles": [
+    "pole_b"
+   ]
+  },
+  {
+   "text": "She loved him and adored him and wanted to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "She hated him and despised him and wanted to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "She loved him deeply and hated him deeply and wanted to",
+   "roles": [
+    "both_matched"
+   ]
+  },
+  {
+   "text": "He loved her and adored her and wanted to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "He hated her and despised her and wanted to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "He loved her deeply and hated her deeply and wanted to",
+   "roles": [
+    "both_matched"
+   ]
+  },
+  {
+   "text": "他爱着她又恋着她，想要",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "他恨着她又厌恶着她，想要",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "他深深地爱着她又深深地恨着她，想要",
+   "roles": [
+    "both_matched"
+   ]
+  },
+  {
+   "text": "她爱着他又恋着他，想要",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "她恨着他又厌恶着他，想要",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "她深深地爱着他又深深地恨着他，想要",
+   "roles": [
+    "both_matched"
+   ]
+  },
+  {
+   "text": "The soldier was loyal and dutiful and chose to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "The soldier was rebellious and defiant and chose to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "士兵既是忠诚的又是尽职的，选择了",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "士兵既是叛逆的又是不驯的，选择了",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "He was completely rational and chose to",
+   "roles": [
+    "pole_a"
+   ]
+  },
+  {
+   "text": "He was completely irrational and chose to",
+   "roles": [
+    "pole_b"
+   ]
+  },
+  {
+   "text": "He was completely rational and completely irrational and chose to",
+   "roles": [
+    "both"
+   ]
+  },
+  {
+   "text": "He was completely rational and completely logical and chose to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "He was completely irrational and completely illogical and chose to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "他是完全理性的，选择了",
+   "roles": [
+    "pole_a"
+   ]
+  },
+  {
+   "text": "他是完全非理性的，选择了",
+   "roles": [
+    "pole_b"
+   ]
+  },
+  {
+   "text": "他既是完全理性的又是完全非理性的，选择了",
+   "roles": [
+    "both"
+   ]
+  },
+  {
+   "text": "他既是完全理性的又是完全合乎逻辑的，选择了",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "他既是完全非理性的又是完全不合逻辑的，选择了",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "The sensation was both pleasure and delight and she began to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "The sensation was both pain and agony and she began to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "The sensation was pure pleasure and pure pain and she began to",
+   "roles": [
+    "both_matched"
+   ]
+  },
+  {
+   "text": "那种感觉既是快感又是愉悦，她开始",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "那种感觉既是痛苦又是煎熬，她开始",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "那种感觉既是纯粹的快感又是纯粹的痛苦，她开始",
+   "roles": [
+    "both_matched"
+   ]
+  },
+  {
+   "text": "The wolf stood in the clearing and began to",
+   "roles": [
+    "pole_a"
+   ]
+  },
+  {
+   "text": "The wolf-human stood in the clearing and began to",
+   "roles": [
+    "both"
+   ]
+  },
+  {
+   "text": "She trusted and relied on him and decided to",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "She feared and dreaded him and decided to",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "She trusted him completely and feared him completely and decided to",
+   "roles": [
+    "both_matched"
+   ]
+  },
+  {
+   "text": "她既信任他又依靠他，决定",
+   "roles": [
+    "control_a"
+   ]
+  },
+  {
+   "text": "她既害怕他又畏惧他，决定",
+   "roles": [
+    "control_b"
+   ]
+  },
+  {
+   "text": "她十分信任他又十分害怕他，决定",
+   "roles": [
+    "both_matched"
+   ]
+  }
+ ]
+}
