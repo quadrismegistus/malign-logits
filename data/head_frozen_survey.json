@@ -1,0 +1,453 @@
+[
+ {
+  "base": "01-ai/Yi-1.5-9B",
+  "aligned": "01-ai/Yi-1.5-9B-Chat",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.2555669844150543,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "AI-Sweden-Models/gpt-sw3-6.7b",
+  "aligned": "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "not on disk"
+ },
+ {
+  "base": "Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
+  "aligned": "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.0026752070989459753,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "BSC-LT/salamandra-7b",
+  "aligned": "BSC-LT/salamandra-7b-instruct",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.8600947856903076,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "EleutherAI/pythia-2.8b",
+  "aligned": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.002266268478706479,
+  "key": "embed_out.weight",
+  "tied": true,
+  "frozen": false
+ },
+ {
+  "base": "EleutherAI/pythia-6.9b",
+  "aligned": "lomahony/eleuther-pythia6.9b-hh-dpo",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "HuggingFaceTB/SmolLM2-360M",
+  "aligned": "HuggingFaceTB/SmolLM2-360M-Instruct",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.12084246426820755,
+  "key": "model.embed_tokens.weight",
+  "tied": true,
+  "frozen": false
+ },
+ {
+  "base": "HuggingFaceTB/SmolLM3-3B-Base",
+  "aligned": "HuggingFaceTB/SmolLM3-3B",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.019292892888188362,
+  "key": "model.embed_tokens.weight",
+  "tied": true,
+  "frozen": false
+ },
+ {
+  "base": "LLM360/Amber",
+  "aligned": "LLM360/AmberSafe",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.03477510064840317,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "OpenLLM-France/Lucie-7B",
+  "aligned": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.031803425401449203,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "Qwen/Qwen2.5-0.5B",
+  "aligned": "Qwen/Qwen2.5-0.5B-Instruct",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.11213884502649307,
+  "key": "model.embed_tokens.weight",
+  "tied": true,
+  "frozen": false
+ },
+ {
+  "base": "Qwen/Qwen2.5-7B",
+  "aligned": "Qwen/Qwen2.5-7B-Instruct",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.04057732969522476,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "Qwen/Qwen3-8B-Base",
+  "aligned": "Qwen/Qwen3-8B",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.09164947271347046,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "RWKV/rwkv-4-7b-pile",
+  "aligned": "RWKV/rwkv-raven-7b",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+  "aligned": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.014960692264139652,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "Zyphra/Zamba2-7B",
+  "aligned": "Zyphra/Zamba2-7B-Instruct",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "not on disk"
+ },
+ {
+  "base": "allenai/OLMo-2-0425-1B",
+  "aligned": "allenai/OLMo-2-0425-1B-DPO",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 1.179611086845398,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "allenai/OLMoE-1B-7B-0125",
+  "aligned": "allenai/OLMoE-1B-7B-0125-DPO",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.05243745446205139,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "allenai/Olmo-3-1025-7B",
+  "aligned": "allenai/Olmo-3-7B-Instruct-DPO",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.43829604983329773,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "allenai/Olmo-3-1125-32B",
+  "aligned": "allenai/Olmo-3.1-32B-Instruct-DPO",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "allenai/Olmo-Hybrid-7B",
+  "aligned": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.3894300162792206,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "baichuan-inc/Baichuan2-7B-Base",
+  "aligned": "baichuan-inc/Baichuan2-7B-Chat",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "bigscience/bloom-7b1",
+  "aligned": "bigscience/bloomz-7b1",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no head key found"
+ },
+ {
+  "base": "croissantllm/CroissantLLMBase",
+  "aligned": "croissantllm/CroissantLLMChat-v0.1",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "deepseek-ai/deepseek-llm-7b-base",
+  "aligned": "deepseek-ai/deepseek-llm-7b-chat",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "google/gemma-2-9b",
+  "aligned": "google/gemma-2-9b-it",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "google/recurrentgemma-9b",
+  "aligned": "google/recurrentgemma-9b-it",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "huggyllama/llama-7b",
+  "aligned": "PKU-Alignment/beaver-7b-v1.0",
+  "relation": "base->superego",
+  "status": "shape-mismatch",
+  "reason": "(32000, 4096) vs (32001, 4096)"
+ },
+ {
+  "base": "ibm-granite/granite-3.0-8b-base",
+  "aligned": "ibm-granite/granite-3.0-8b-instruct",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "inceptionai/jais-family-6p7b",
+  "aligned": "inceptionai/jais-family-6p7b-chat",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "internlm/internlm2-base-7b",
+  "aligned": "internlm/internlm2-chat-7b",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "llm-jp/llm-jp-3-7.2b",
+  "aligned": "llm-jp/llm-jp-3-7.2b-instruct3",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.06975242495536804,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "m-a-p/CT-LLM-Base",
+  "aligned": "m-a-p/CT-LLM-SFT-DPO",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.039164163172245026,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "m-a-p/neo_7b",
+  "aligned": "m-a-p/neo_7b_instruct_v0.1",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.07818251848220825,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "meta-llama/Llama-3.1-70B",
+  "aligned": "meta-llama/Llama-3.1-70B-Instruct",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "meta-llama/Llama-3.1-8B",
+  "aligned": "meta-llama/Llama-3.1-8B-Instruct",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.06557929515838623,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "microsoft/phi-4",
+  "aligned": "microsoft/phi-4-reasoning",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.07897695153951645,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "mistralai/Mistral-7B-v0.1",
+  "aligned": "HuggingFaceH4/zephyr-7b-beta",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.04666836932301521,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "mosaicml/mpt-7b",
+  "aligned": "mosaicml/mpt-7b-instruct",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "not on disk"
+ },
+ {
+  "base": "openGPT-X/Teuken-7B-base-v0.6",
+  "aligned": "openGPT-X/Teuken-7B-instruct-commercial-v0.4",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "openbmb/MiniCPM5-1B-Base",
+  "aligned": "openbmb/MiniCPM5-1B",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.46666160225868225,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "stabilityai/stablelm-2-1_6b",
+  "aligned": "stabilityai/stablelm-2-zephyr-1_6b",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.11265743523836136,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "tiiuae/Falcon-H1-1.5B-Base",
+  "aligned": "tiiuae/Falcon-H1-1.5B-Instruct",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "tiiuae/Falcon-H1-7B-Base",
+  "aligned": "tiiuae/Falcon-H1-7B-Instruct",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "tiiuae/Falcon3-10B-Base",
+  "aligned": "tiiuae/Falcon3-10B-Instruct",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.04273198917508125,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "tiiuae/Falcon3-1B-Base",
+  "aligned": "tiiuae/Falcon3-1B-Instruct",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.07604812830686569,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "tiiuae/Falcon3-3B-Base",
+  "aligned": "tiiuae/Falcon3-3B-Instruct",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.07940447330474854,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "tiiuae/Falcon3-7B-Base",
+  "aligned": "tiiuae/Falcon3-7B-Instruct",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.08784482628107071,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ },
+ {
+  "base": "tiiuae/Falcon3-Mamba-7B-Base",
+  "aligned": "tiiuae/Falcon3-Mamba-7B-Instruct",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "tiiuae/falcon-mamba-7b",
+  "aligned": "tiiuae/falcon-mamba-7b-instruct",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+  "aligned": "togethercomputer/RedPajama-INCITE-7B-Chat",
+  "relation": "base->superego",
+  "status": "skip",
+  "reason": "no safetensors (bin-only)"
+ },
+ {
+  "base": "zai-org/glm-4-9b-hf",
+  "aligned": "zai-org/glm-4-9b-chat-hf",
+  "relation": "base->superego",
+  "status": "measured",
+  "rel_diff": 0.13817307353019714,
+  "key": "lm_head.weight",
+  "tied": false,
+  "frozen": false
+ }
+]

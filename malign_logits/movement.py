@@ -1,6 +1,6 @@
 """Risers and fallers: ONE implementation, importable, for logits AND true_word_probs.
 
-    from malign_logits.movement import movement, CANONICAL, DRAW
+    from malign_logits.movement import movement, CANONICAL, DRAW, LENS
 
     m = movement(pre_word_probs, post_word_probs)       # true_word_probs dicts
     m = movement_from_logits(pre_logits, post_logits)   # full-vocabulary arrays
@@ -17,6 +17,9 @@ So TWO INCOMPATIBLE RULES ARE CURRENTLY IN USE and both are shipped here, named,
 silently unifying them would invalidate work already done under each:
 
     CANONICAL   f13_movement_table.py. Tests risers against the RENORMALISATION NULL.
+    LENS        per-layer depth work. Symmetric ratio at theta, NO null test, so its
+                risers include renormalisation bookkeeping. Looser on purpose: set size
+                is what a per-layer estimate's stability depends on.
     DRAW        f13_draw_relation_items.py, and f13_code_amber_stages.py which imports
                 its constants. NO NULL TEST AT ALL -- a riser is anything gaining >= DT.
                 This is what feeds the annotation item draw, so it is what M01's
@@ -71,11 +74,37 @@ class Rule:
     null_test: bool          # test risers against the renormalisation null?
     floor: float = 0.0       # DRAW only: a faller must start above this
     theta: float = 0.001     # the true_word_probs scoring threshold these assume
+    rise_ratio: float = 0.0  # LENS only: riser iff Q >= rise_ratio * P. 0 = unused,
+                             # which is what keeps CANONICAL and DRAW byte-identical.
 
 
 CANONICAL = Rule(name="canonical", min_prob=0.003, fall_ratio=0.5, delta=0.003,
                  null_test=True)
 
+LENS = Rule(name="lens", min_prob=0.001, fall_ratio=0.5, delta=0.0,
+            null_test=False, rise_ratio=2.0)
+
+# LENS: a SYMMETRIC RATIO rule at theta, for per-layer depth work.
+#
+# WHY A THIRD RULE RATHER THAN REUSING CANONICAL. Depth analysis reads the same word set
+# at 33 layers, and the stability of a per-layer estimate depends on SET SIZE in a way
+# an output-only contrast does not: CANONICAL's min_prob=0.003 plus the null test leaves
+# 6-12 fallers on a Llama cell, and a bootstrap band over 6 words is wide enough that the
+# onset estimate moved by 16 layers across three prompts. LENS keeps min_prob at theta and
+# tests risers by the same ratio it tests fallers, which is a LOOSER and MORE SYMMETRIC
+# net, not a better one.
+#
+# **IT IS NOT NULL-TESTED AND ITS RISERS ARE THEREFORE NOT "BEYOND RENORMALISATION".**
+# Every survivor gains a little when a faller's mass is removed; CANONICAL's whole point
+# is separating that bookkeeping from redistribution, and LENS does not. A LENS riser set
+# CONTAINS words that rose only because mass left elsewhere. Use it where set size is the
+# binding constraint and the claim is about DEPTH rather than about which words rose;
+# quote CANONICAL wherever the claim is about the riser set itself.
+#
+# The two rules disagreeing is a SPECIFICATION SENSITIVITY to report, not a contest to
+# settle: agreement across both is worth more than either alone, which is why anything
+# built on this should run both.
+#
 # DRAW's faller rule is delta-based, not ratio-based, so fall_ratio is unused and set to
 # 1.0 (never binding). Recorded exactly as f13_draw_relation_items.py has it.
 DRAW = Rule(name="draw", min_prob=0.0, fall_ratio=1.0, delta=0.003,
@@ -126,6 +155,10 @@ def _movement(P, Q, rule, residual_share, exact_null):
     if rule.null_test:
         fall = [k for k in cand if P.get(k, 0.0) >= rule.min_prob
                 and Q.get(k, 0.0) < rule.fall_ratio * P.get(k, 0.0)]
+    elif rule.rise_ratio > 0:
+        #: LENS: symmetric ratio, eligibility at min_prob in EITHER arm
+        fall = [k for k in cand if P.get(k, 0.0) >= rule.min_prob
+                and Q.get(k, 0.0) < rule.fall_ratio * P.get(k, 0.0)]
     else:
         fall = [k for k in cand if P.get(k, 0.0) >= rule.floor and d[k] <= -rule.delta]
     fallset = set(fall)
@@ -137,7 +170,13 @@ def _movement(P, Q, rule, residual_share, exact_null):
 
     if not rule.null_test:
         # LEXICOGRAPHIC, not by mass -- same caveat as fallers above.
-        m.risers = sorted(k for k in keys if d[k] >= rule.delta)
+        if rule.rise_ratio > 0:
+            m.risers = sorted(k for k in cand if k not in fallset
+                              and max(P.get(k, 0.0), Q.get(k, 0.0)) >= rule.min_prob
+                              and Q.get(k, 0.0) >= rule.rise_ratio * max(P.get(k, 0.0),
+                                                                        1e-30))
+        else:
+            m.risers = sorted(k for k in keys if d[k] >= rule.delta)
         m.diagnostics = {"rule": rule.name, "null_tested": False,
                          "residual_share": residual_share, "exact_null": None,
                          "n_fallers": len(fall), "n_risers": len(m.risers)}
