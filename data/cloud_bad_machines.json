@@ -7,6 +7,18 @@
    "failures": 3,
    "symptom": "actual_status=created, cur_state=stopped, status_msg 'failed to create shim task: OCI runtime create failed ... kaalia_docker_shim: exec format error'",
    "note": "Failed a 1-GPU launch and two 2-GPU launches the same evening. The container never starts; nothing to debug host-side."
+  },
+  "57250": {
+   "seen": "2026-08-09",
+   "failures": 2,
+   "symptom": "actual_status=running for ~50 min while BOTH the ssh proxy and the direct public IP refused every connection. Two instances (n6, n9) on this one machine, both lost.",
+   "note": "THE DISCRIMINATOR: proxy refused AND direct refused = the host, not the network. Proxy refused + direct OK is recoverable (that was s5, and it went on to produce). Never retry a box whose direct IP also refuses."
+  },
+  "23779": {
+   "seen": "2026-08-09",
+   "failures": 1,
+   "symptom": "actual_status=running, ssh proxy refused, and NO direct port was published in `ports` -- so there was no second route to try.",
+   "note": "A box with no 22/tcp mapping has one route. When it refuses, destroy."
   }
  }
 }

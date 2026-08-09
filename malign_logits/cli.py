@@ -1361,6 +1361,14 @@ def main():
                            "meaningless.")
     cl_launch.add_argument("--disk", type=int, default=None,
                            help="Disk space in GB (default: 300, or 600 for multi-GPU)")
+    #: **A BOX THAT IS UNREACHABLE ON BOTH ROUTES IS DESTROYED BY DEFAULT.**
+    #: Two instances on machine 57250 reported `running` for ~50 min while the
+    #: proxy AND the direct IP refused every connection, billing throughout.
+    #: --keep-unreachable is the escape hatch for someone who wants to debug
+    #: the host rather than the fleet.
+    cl_launch.add_argument("--keep-unreachable", action="store_true",
+                           help="do NOT destroy a box that fails both the proxy "
+                                "and direct SSH check at launch")
     cl_launch.add_argument("--profile", default="default",
                            help="Machine shape + package floors from "
                                 "data/cloud_profiles.json (default, bigdisk, ssm). "

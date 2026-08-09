@@ -360,6 +360,8 @@ def main():
     ap.add_argument("--no-purge", action="store_true")
     ap.add_argument("--no-score", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--no-preflight", action="store_true",
+                    help="run checkpoints with a blocking load record anyway")
     #: worker mode: ONE model, ONE phase, then exit. See teardown().
     ap.add_argument("--worker", choices=("gen", "score"))
     ap.add_argument("--model")
@@ -416,6 +418,50 @@ def main():
         log("  %-46s | %-46s | %s"
             % (p["base"], p["aligned"],
                tokchk.get((p["base"], p["aligned"]), "UNCHECKED")))
+    # **THE PREFLIGHT FIRES HERE, NOT WHEN SOMEONE REMEMBERS IT.**
+    # `data/model_load_environments.json` was built the day before this fleet
+    # and 11 checkpoints with records in it were sent to boxes anyway, because
+    # the exclusion list was written from memory. A doc informs; only a guard
+    # refuses. Blocked pairs are DROPPED with their reason named, not silently
+    # skipped and not fatal -- a roster with one dead checkpoint should still
+    # run the other 33.
+    rec_p = os.path.join(ROOT, "data", "model_load_environments.json")
+    if os.path.exists(rec_p) and not a.no_preflight:
+        try:
+            rec = json.load(open(rec_p))
+            per = {}
+            for o in rec.get("observations", []):
+                per.setdefault(o.get("model_id"), []).append(o)
+            #: causes that travel with the CHECKPOINT whatever the box -- an
+            #: environment TAG is not a cause (mpt's repo is gone; deepseek and
+            #: croissant mangle the prompt in the TOKENIZER)
+            PORT = ("not a valid model identifier", "gated repo", "deletes",
+                    "destroys the prompt", "normalises", "DELETES",
+                    "encode('a b')")
+            keep, dropped = [], []
+            for pr in pairs:
+                why = None
+                for m in (pr["base"], pr["aligned"]):
+                    for o in per.get(m, []):
+                        if o.get("outcome") == "loads":
+                            continue
+                        c = o.get("cause") or ""
+                        if any(k.lower() in c.lower() for k in PORT):
+                            why = (m, c[:60]); break
+                    if why: break
+                (dropped if why else keep).append((pr, why))
+            if dropped:
+                log("PREFLIGHT dropped %d pair(s) with a blocking record:"
+                    % len(dropped))
+                for pr, why in dropped:
+                    log("  %-44s %s" % (why[0][:44], why[1]))
+                log("  (--no-preflight to run them anyway)")
+            pairs = [pr for pr, _ in keep]
+        except Exception as e:
+            log("PREFLIGHT unavailable (%s) -- proceeding UNGUARDED" % type(e).__name__)
+    if not pairs:
+        log("no pairs left after preflight"); return 0
+
     if a.dry_run:
         #: a dry run must not create anything -- an --out that only exists
         #: because someone dry-ran is a directory nobody chose

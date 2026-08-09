@@ -330,9 +330,26 @@ def cmd_launch(args):
             continue
         break
     else:
+        # **A TIMED-OUT LAUNCH STILL CREATED THE INSTANCE, AND IT IS BILLING.**
+        # This used to save `instance_id` alone, so the state file had no
+        # `ssh_host` and EVERY later script skipped the box silently while the
+        # meter ran. Three boxes were invisible for ~20 minutes on 2026-08-09.
+        # Record whatever endpoint exists, say plainly that it is live, and
+        # name the command that stops it.
         print("Timed out waiting for instance.", file=sys.stderr)
+        direct = _direct_endpoint(instance_id)
         state['instance_id'] = instance_id
+        state['launch_timed_out'] = True
+        if ssh_host and ssh_port:
+            state['ssh_host'], state['ssh_port'] = ssh_host, int(ssh_port)
+        if direct:
+            state['direct_host'], state['direct_port'] = direct
         save_state(state)
+        print("*** THE INSTANCE EXISTS AND IS BILLING. ***", file=sys.stderr)
+        print(f"    id={instance_id}  proxy={ssh_host}:{ssh_port}  "
+              f"direct={direct or 'none published'}", file=sys.stderr)
+        print(f"    destroy with: vastai destroy instance {instance_id}",
+              file=sys.stderr)
         sys.exit(1)
 
     state = {
@@ -357,11 +374,107 @@ def cmd_launch(args):
     }
     save_state(state)
 
+    direct = _direct_endpoint(instance_id)
+    if direct:
+        state['direct_host'], state['direct_port'] = direct
+        save_state(state)
+
+    # **"running" IS THE RENTAL, NOT THE WORK.** Two instances on machine 57250
+    # reported `running` for ~50 minutes while both the proxy and the direct IP
+    # refused every connection. Verify before handing the box to a caller, and
+    # use the two routes as a DISCRIMINATOR rather than as retries:
+    #   proxy fails, direct works  -> the proxy is flapping; switch endpoint
+    #   both fail                  -> the HOST is gone; blocklist and destroy
+    ok, via = _verify_reachable(ssh_host, ssh_port, direct)
+    if via == 'direct':
+        print(f"  proxy refused; DIRECT works -- state repointed to {direct[0]}:{direct[1]}",
+              file=sys.stderr)
+        state['ssh_host'], state['ssh_port'] = direct[0], int(direct[1])
+        save_state(state)
+    elif not ok:
+        mid = str(offer.get('machine_id') or '')
+        print("\n*** UNREACHABLE ON BOTH ROUTES -- the host, not the network. ***",
+              file=sys.stderr)
+        _blocklist_machine(mid, "proxy and direct both refused at launch")
+        if getattr(args, 'keep_unreachable', False):
+            print(f"    kept (--keep-unreachable). id={instance_id}", file=sys.stderr)
+        else:
+            print(f"    destroying {instance_id} and blocklisting machine {mid}",
+                  file=sys.stderr)
+            try:
+                vastai('destroy', 'instance', str(instance_id), '--yes')
+            except Exception:
+                print(f"    destroy FAILED -- run: vastai destroy instance {instance_id}",
+                      file=sys.stderr)
+            if STATE_FILE.exists():
+                STATE_FILE.unlink()
+        sys.exit(1)
+
     print(f"\nInstance {instance_id} running!")
     print(f"SSH: ssh -p {ssh_port} root@{ssh_host}")
     print(f"Cost: ${price}/hr")
     print(f"\nNext: malign cloud setup")
 
+
+
+def _direct_endpoint(instance_id):
+    """(ip, port) for the container's 22/tcp, or None if none is published.
+
+    vast.ai exposes a proxy (`sshN.vast.ai`) AND, usually, a direct mapping.
+    `direct_port_start` is often -1 while the real mapping sits in
+    `ports['22/tcp'][0]['HostPort']`, so read the ports map, not the field.
+    """
+    try:
+        for i in json.loads(vastai('show', 'instances', '--raw')):
+            if str(i.get('id')) != str(instance_id):
+                continue
+            hp = ((i.get('ports') or {}).get('22/tcp') or [{}])[0].get('HostPort')
+            ip = (i.get('public_ipaddr') or '').strip()
+            return (ip, int(hp)) if hp and ip else None
+    except Exception:
+        return None
+    return None
+
+
+def _verify_reachable(host, port, direct, tries=3):
+    """(reachable, route). Tries the proxy, then the direct endpoint."""
+    import subprocess as _sp
+    def _try(h, p):
+        if not h or not p:
+            return False
+        for _ in range(tries):
+            r = _sp.run(['ssh', '-o', 'StrictHostKeyChecking=no',
+                         '-o', 'UserKnownHostsFile=/dev/null',
+                         '-o', 'LogLevel=ERROR', '-o', 'ConnectTimeout=10',
+                         '-p', str(p), f'root@{h}', 'true'],
+                        capture_output=True)
+            if r.returncode == 0:
+                return True
+            time.sleep(10)
+        return False
+    if _try(host, port):
+        return True, 'proxy'
+    if direct and _try(direct[0], direct[1]):
+        return True, 'direct'
+    return False, None
+
+
+def _blocklist_machine(machine_id, symptom):
+    """Append to data/cloud_bad_machines.json, with a date so it can age out."""
+    if not machine_id:
+        return
+    p = os.path.join(os.path.dirname(PROFILES_PATH), 'cloud_bad_machines.json')
+    try:
+        d = json.load(open(p)) if os.path.exists(p) else {'machines': {}}
+    except Exception:
+        return
+    m = d.setdefault('machines', {}).setdefault(str(machine_id), {})
+    m['seen'] = time.strftime('%Y-%m-%d')
+    m['failures'] = int(m.get('failures', 0)) + 1
+    m['symptom'] = symptom
+    with open(p, 'w') as fh:
+        json.dump(d, fh, indent=1)
+    print(f"    machine {machine_id} added to the blocklist", file=sys.stderr)
 
 def cmd_setup(args):
     state = load_state()
