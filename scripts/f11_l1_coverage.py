@@ -54,6 +54,9 @@ def eligible(w):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--by-role", action="store_true",
+                    help="coverage BY ROLE, and the differential-coverage test")
+    ap.add_argument("--csv", help="write the per-cell rows here")
     a = ap.parse_args()
 
     from f11_quintuplet_spec import PROMPT_ROLES
@@ -131,6 +134,107 @@ def main():
     print("     removed by the N3 §2.2 filter        mean %.3f" % rep["filter_mean"])
     print("\n  CELLS DEMOTED (unresolved > %.2f):  %d of %d = %.1f%%"
           % (DEMOTE, dem, n, rep["demoted_pct"]))
+
+    if a.csv:
+        import csv
+        with open(a.csv, "w", newline="") as fh:
+            w = csv.DictWriter(fh, fieldnames=list(rows[0]))
+            w.writeheader(); w.writerows(rows)
+        print("  rows -> %s" % a.csv)
+    if a.by_role:
+        by_role(rows)
+
+
+def by_role(rows):
+    """DIFFERENTIAL COVERAGE: does the demotion rule select on the contrast?
+
+    **A DEMOTED CELL IS A CELL THE ANALYSIS DOES NOT READ.** If BOTH cells are
+    demoted at a different rate than their controls, then every declared
+    contrast computed on surviving cells is conditioned on an outcome-correlated
+    variable -- the cells that drop out are the ones where the model's
+    continuation was least reachable, which is not independent of what the
+    contrast is about. The pooled 26.2% cannot see this: it is one number over
+    six roles.
+
+    The statistic is the registration's OWN shape, applied to coverage instead
+    of to a coded mass:
+
+        excess_unresolved = unresolved(BOTH) - mean(unresolved(CONTROL_A),
+                                                    unresolved(CONTROL_B))
+
+    Paired within (checkpoint, group), so the pairing removes the group and the
+    checkpoint at once, and the unit is the CHECKPOINT per [5152].
+    """
+    import statistics
+    from collections import defaultdict
+    per = defaultdict(dict)
+    for r in rows:
+        per[(r["model"], r["group"])][r["role"]] = r
+    roles = ("pole_a", "pole_b", "both", "control_a", "control_b",
+             "both_matched")
+
+    #: **THE GATE IS NOT A POOLED NUMBER, AND POOLING HIDES WHICH HALF FAILS
+    #: IT.** N3 §4 withdraws the instrument if a MAJORITY of cells are demoted.
+    #: Pooled, this population does not come close. Split by script, one half
+    #: has ZERO demoted cells and the other has a majority -- so the pooled
+    #: figure is a mixture statistic and the second time this exact shape has
+    #: appeared here ("47.5% demoted" was "the battery is 48% Chinese").
+    #: ADD UP THE HALVES.
+    print("\n  BY LANGUAGE — the gate, at the grain that decides it")
+    print("    %-6s %8s %8s %9s %s" % ("lang", "cells", "unres", "demoted",
+                                       "N3 §4 gate"))
+    for lab, pred in (("en", lambda g: not g.endswith("_zh")),
+                      ("zh", lambda g: g.endswith("_zh"))):
+        rs = [r for r in rows if pred(r["group"])]
+        if not rs:
+            continue
+        u = [r["unresolved"] for r in rs]
+        d = 100.0 * sum(1 for x in u if x > DEMOTE) / len(u)
+        print("    %-6s %8d %8.3f %8.1f%% %s"
+              % (lab, len(rs), statistics.mean(u), d,
+                 "FAILS (majority demoted)" if d > 50 else "passes"))
+
+    print("\n  BY ROLE — coverage is not one number")
+    print("    %-14s %7s %8s %8s %9s" % ("role", "cells", "unres", "median",
+                                         "demoted"))
+    for role in roles:
+        rs = [r for r in rows if r["role"] == role]
+        if not rs:
+            continue
+        u = [r["unresolved"] for r in rs]
+        print("    %-14s %7d %8.3f %8.3f %8.1f%%"
+              % (role, len(rs), statistics.mean(u), statistics.median(u),
+                 100.0 * sum(1 for x in u if x > DEMOTE) / len(u)))
+
+    #: per checkpoint, so a checkpoint contributes ONE number to the test
+    ck = defaultdict(list)
+    complete = 0
+    for (mid, _g), d in per.items():
+        if not all(k in d for k in ("both", "control_a", "control_b")):
+            continue
+        complete += 1
+        ck[mid].append(d["both"]["unresolved"]
+                       - (d["control_a"]["unresolved"]
+                          + d["control_b"]["unresolved"]) / 2.0)
+    vals = [statistics.mean(v) for v in ck.values() if v]
+    if not vals:
+        print("\n    no (checkpoint, group) triple complete on BOTH+controls")
+        return
+    pos = sum(1 for v in vals if v > 0)
+    print("\n  DIFFERENTIAL COVERAGE  excess_unresolved(BOTH vs controls)")
+    print("    triples complete   %d" % complete)
+    print("    checkpoints        %d" % len(vals))
+    print("    mean excess        %+.4f" % statistics.mean(vals))
+    print("    median excess      %+.4f" % statistics.median(vals))
+    print("    positive           %d of %d" % (pos, len(vals)))
+    try:
+        from scipy.stats import wilcoxon
+        st, p = wilcoxon(vals)
+        print("    Wilcoxon (roster)  W=%.1f  p=%.4g" % (st, p))
+    except Exception as e:                      # scipy optional
+        print("    Wilcoxon           unavailable (%s)" % e)
+    print("    READING: a nonzero excess means the demotion rule is not")
+    print("    independent of the contrast, and the declared masses inherit it.")
 
 
 if __name__ == "__main__":
