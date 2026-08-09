@@ -123,11 +123,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", default=None)
     ap.add_argument("--section", default=None,
-                    help="coverage|cells|prompt|word|band|weight|pair")
+                    help="coverage|cells|excess|prompt|word|band|weight")
     a = ap.parse_args()
 
     import pandas as pd
-    from y_paired_tests import boot_ci
+    from y_paired_tests import boot_ci, wilcoxon
 
     D = pd.read_parquet(os.path.join(CAMP, "results", "y_span_surprisal.parquet"))
     tags = (a.tag,) if a.tag else TAGS
@@ -169,6 +169,50 @@ def main():
     if want("band"):
         o, l = cells(D[D.rt_band.isin(["exact", "whitespace"])])
         show(o, l, boot_ci, "SENSITIVITY: exact + whitespace roundtrip only", tags=tags)
+
+    if want("excess"):
+        #: THE ESTIMATOR THAT WORKS, and RH's reframing is what produced it.
+        #: The raw gap at a span is dominated by a pair-level constant -- the
+        #: aligned model is ~0.25 nats more surprised by ANY base text -- so
+        #: every tag comes back significant and says nothing. Section 6's
+        #: inside/outside was reaching for a baseline; the right one is the
+        #: PAIR-ARM's own global gap, not the passage remainder, because the
+        #: remainder is contaminated by whichever other tags it happens to hold.
+        base = {}
+        for (pair, arm), g in D.groupby(["pair", "arm"]):
+            w = g.n_in.sum() + g.n_out.sum()
+            base[(pair, arm)] = (((g.a_in - g.b_in) * g.n_in).sum()
+                                 + ((g.a_out - g.b_out) * g.n_out).sum()) / w
+        print("\n" + "=" * 100)
+        print("EXCESS = (aligned - base AT THE SPAN) minus (that pair-arm's global gap)")
+        print("  POSITIVE = alignment is more surprised there than it is with this model generally.")
+        print("  A sign that FLIPS with `written` and stays large is AUTHORSHIP (each model knows")
+        print("  its own prose). A gap that SHRINKS from both arms is genuine agreement.")
+        print("=" * 100)
+        print("  %-9s %-8s %5s %10s %18s %9s %6s"
+              % ("tag", "written", "pairs", "EXCESS", "boot 95% CI", "p", "sign"))
+        print("  " + "-" * 74)
+        got = []
+        for arm in ("base", "aligned"):
+            for t in tags:
+                g0 = D[(D.tag == t) & (D.arm == arm)]
+                d = [(g.a_in - g.b_in).mean() - base[(pair, arm)]
+                     for pair, g in g0.groupby("pair") if len(g) >= MIN_PASS]
+                if len(d) < MIN_PAIR:
+                    continue
+                lo, hi = boot_ci(d)
+                pv, _ = wilcoxon(d)
+                med = statistics.median(d)
+                got.append(pv)
+                print("  %-9s %-8s %5d %+10.3f  [%+6.3f,%+6.3f] %9.1e %3d/%-2d%s"
+                      % (t, arm, len(d), med, lo, hi, pv,
+                         sum(1 for x in d if (x > 0) == (med > 0)), len(d),
+                         "  <=" if (lo > 0 or hi < 0) else ""))
+            print()
+        if got:
+            b = 0.05 / len(got)
+            print("  %d cells, Bonferroni p<%.4f, %d survive"
+                  % (len(got), b, sum(1 for x in got if x < b)))
 
     if want("weight"):
         print("\n" + "=" * 100)
