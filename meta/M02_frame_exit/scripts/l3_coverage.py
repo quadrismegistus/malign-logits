@@ -34,15 +34,21 @@ This is [5146]'s failure at one remove: there a pole-shaped helper's `CORE`
 tuple was used as a population definition; here a pole-shaped tuple was written
 by hand next to the document that defines one. Read the source.
 
-## AND THE SOURCE OF RECORD IS ITSELF INCOMPLETE, WHICH THE GATE CANNOT SEE
+## THE SCHEMA IS SPARSE AND ONE RECORD DOES NOT REVEAL IT
 
-A quintuplet is five cells. **`BOTH_MATCHED` is a sixth, it exists for 10
-groups, all 10 of them ARE in the source of record, and the source of record has
-no field for it.** So a spec gated against `f11_quintuplets.json` -- the repair
-proposed at [5146].4 and [5147].3 -- passes while still omitting BOTH_MATCHED.
-The gate is right and it is not sufficient; this script therefore reads that role
-from `prompt_categorisation.json` and reports it SEPARATELY, labelled as coming
-from outside the source of record, rather than quietly folding it in.
+An earlier version of this file asserted that `both_matched` was absent from the
+source of record and read it from `prompt_categorisation.json` instead, on the
+strength of listing the keys of `quintuplets[0]`. **That entry is `f11_beauty`,
+which has no `both_matched` because only 10 of the 44 groups do.** Four fields
+are optional and none of them appear on the first record:
+
+    both_matched      10 of 44        controls_note      17 of 44
+    analysis_aliases   5 of 44        flags               5 of 44
+
+Reading one record's keys is not reading the schema. Count fields across every
+record, or the absent-here reads as absent-everywhere. `both_matched` is in the
+source of record, `f11_quintuplet_spec.py` gates on all six prompt roles, and
+this script reads all six from the one document.
 
 NOT A FINDING. This is an inventory, and it decides whether L3 is a pilot or a
 study before anyone spends a night on it.
@@ -110,16 +116,19 @@ def main():
           % (len(quints), len(live), retired or "none", sorted(control_groups)))
     print("   status counts from the source: %s" % counts["by_status"])
 
-    #: BOTH_MATCHED IS NOT IN THE SOURCE OF RECORD. Read separately and labelled.
-    cat = json.load(open(os.path.join(ROOT, "data", "prompt_categorisation.json")))["prompts"]
-    bmatch = {}
-    for r in cat:
-        if (str(r.get("group_id") or "").startswith("f11")
-                and r.get("group_role") == "BOTH_MATCHED" and r.get("prompt")):
-            bmatch[r["group_id"]] = r["prompt"]
-    print("   BOTH_MATCHED: %d cells, FROM prompt_categorisation.json, absent from"
-          % len(bmatch))
-    print("      the source of record -- a gate against it cannot see this role.")
+    #: BOTH_MATCHED is the sixth prompt role and it IS in the source of record,
+    #: on the 10 entries that have one. It is optional, like `flags`,
+    #: `controls_note` and `analysis_aliases`, so it is counted across all
+    #: records rather than read off the first one.
+    bmatch = {q["group"]: q["both_matched"] for q in live if q.get("both_matched")}
+    optional = collections.Counter()
+    for q in quints:
+        optional.update(k for k in q if k not in quints[0] or not quints[0].get(k))
+    print("   BOTH_MATCHED: %d of %d live groups, from the source of record"
+          % (len(bmatch), len(live)))
+    print("   optional fields (absent from the first record): %s"
+          % ", ".join("%s %d/%d" % (k, v, len(quints))
+                      for k, v in sorted(optional.items()) if v < len(quints)))
 
     #: shared BOTH cells: one contradiction measurement, two pole-pairs.
     seen = collections.Counter(q["both"] for q in live)
@@ -200,8 +209,8 @@ def main():
                "_producer": "meta/M02_frame_exit/scripts/l3_coverage.py",
                "_no_null": "no CONTROL cell was scored by the fleet ([5146]); "
                            "control coverage is %d cells." % len(ctl_cells),
-               "_both_matched_note": "BOTH_MATCHED is absent from the source of "
-                                     "record and read from prompt_categorisation.json.",
+               "_both_matched_note": "BOTH_MATCHED is the sixth prompt role, "
+                                     "read from the source of record (10 of 44 entries).",
                "n_pairs": len(usable), "n_cells": len(cells),
                "n_control_cells": len(ctl_cells), "n_both_matched_cells": len(bm_cells),
                "cells": [{"family": f, "stage": s, "base": b, "aligned": a, "group": g}

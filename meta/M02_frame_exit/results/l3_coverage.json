@@ -2,7 +2,7 @@
  "_about": "base/aligned pairs with a complete POLE_A/POLE_B/BOTH in both arms, residuals on disk. Population READ FROM data/f11_quintuplets.json, the source of record.",
  "_producer": "meta/M02_frame_exit/scripts/l3_coverage.py",
  "_no_null": "no CONTROL cell was scored by the fleet ([5146]); control coverage is 0 cells.",
- "_both_matched_note": "BOTH_MATCHED is absent from the source of record and read from prompt_categorisation.json.",
+ "_both_matched_note": "BOTH_MATCHED is the sixth prompt role, read from the source of record (10 of 44 entries).",
  "n_pairs": 45,
  "n_cells": 1672,
  "n_control_cells": 0,
