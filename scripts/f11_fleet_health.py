@@ -225,9 +225,15 @@ def main():
 
     #: COMPLETE-BUT-ALIVE is its own state and it costs money silently
     for r in rows:
-        if r.get("state") == "running" and (
-                r.get("_complete") or
-                (r.get("total") and r.get("done", -1) >= r["total"])):
+        #: **COMPLETION IS THE PRODUCER'S STATEMENT, FULL STOP.** This used to
+        #: OR in `done >= total`, and `done` counts FILES -- which exist from
+        #: the first row written. The 70B box had both its files and 67 of 84
+        #: rows in the second, and was flagged COMPLETE AND STILL BILLING while
+        #: actively writing. The loop is instructed to destroy such a box.
+        #:
+        #: Third time tonight a count stood in for completion. The count is
+        #: kept for PROGRESS, which is all it can honestly report.
+        if r.get("state") == "running" and r.get("_complete"):
             #: **A BOX RUNNING ITS BACKFILL IS NOT AN IDLE BOX.** The main
             #: roster's count hits its total while a chained session is still
             #: working in another directory, and a monitor that reads only the
