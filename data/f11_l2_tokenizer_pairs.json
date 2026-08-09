@@ -1,0 +1,469 @@
+{
+ "pairs": [
+  {
+   "base": "01-ai/Yi-1.5-9B",
+   "aligned": "01-ai/Yi-1.5-9B-Chat",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "AI-Sweden-Models/gpt-sw3-6.7b",
+   "aligned": "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct",
+   "verdict": "UNAVAILABLE",
+   "detail": "OSError: You are trying to access a gated repo.\nMake sure to have access to it "
+  },
+  {
+   "base": "Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
+   "aligned": "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "BSC-LT/salamandra-7b",
+   "aligned": "BSC-LT/salamandra-7b-instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "EleutherAI/pythia-2.8b",
+   "aligned": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "EleutherAI/pythia-6.9b",
+   "aligned": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "HuggingFaceTB/SmolLM2-360M",
+   "aligned": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "HuggingFaceTB/SmolLM3-3B-Base",
+   "aligned": "HuggingFaceTB/SmolLM3-3B",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "LLM360/Amber",
+   "aligned": "LLM360/AmberSafe",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "OpenLLM-France/Lucie-7B",
+   "aligned": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "Qwen/Qwen2.5-0.5B",
+   "aligned": "Qwen/Qwen2.5-0.5B-Instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "Qwen/Qwen2.5-7B",
+   "aligned": "Qwen/Qwen2.5-7B-Instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "Qwen/Qwen3-8B-Base",
+   "aligned": "Qwen/Qwen3-8B",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "RWKV/rwkv-4-7b-pile",
+   "aligned": "RWKV/rwkv-raven-7b",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "aligned": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "Zyphra/Zamba2-7B",
+   "aligned": "Zyphra/Zamba2-7B-Instruct",
+   "verdict": "UNAVAILABLE",
+   "detail": "OSError: You are trying to access a gated repo.\nMake sure to have access to it "
+  },
+  {
+   "base": "allenai/OLMo-2-0425-1B",
+   "aligned": "allenai/OLMo-2-0425-1B-DPO",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "allenai/OLMoE-1B-7B-0125",
+   "aligned": "allenai/OLMoE-1B-7B-0125-DPO",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": false,
+   "first_mismatch": null
+  },
+  {
+   "base": "allenai/Olmo-3-1025-7B",
+   "aligned": "allenai/Olmo-3-7B-Instruct-DPO",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "allenai/Olmo-3-1125-32B",
+   "aligned": "allenai/Olmo-3.1-32B-Instruct-DPO",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "allenai/Olmo-Hybrid-7B",
+   "aligned": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "baichuan-inc/Baichuan2-7B-Base",
+   "aligned": "baichuan-inc/Baichuan2-7B-Chat",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "bigscience/bloom-7b1",
+   "aligned": "bigscience/bloomz-7b1",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "croissantllm/CroissantLLMBase",
+   "aligned": "croissantllm/CroissantLLMChat-v0.1",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "deepseek-ai/deepseek-llm-7b-base",
+   "aligned": "deepseek-ai/deepseek-llm-7b-chat",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "google/gemma-2-9b",
+   "aligned": "google/gemma-2-9b-it",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "google/recurrentgemma-9b",
+   "aligned": "google/recurrentgemma-9b-it",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "huggyllama/llama-7b",
+   "aligned": "PKU-Alignment/beaver-7b-v1.0",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "ibm-granite/granite-3.0-8b-base",
+   "aligned": "ibm-granite/granite-3.0-8b-instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "inceptionai/jais-family-6p7b",
+   "aligned": "inceptionai/jais-family-6p7b-chat",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "internlm/internlm2-base-7b",
+   "aligned": "internlm/internlm2-chat-7b",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "llm-jp/llm-jp-3-7.2b",
+   "aligned": "llm-jp/llm-jp-3-7.2b-instruct3",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "m-a-p/CT-LLM-Base",
+   "aligned": "m-a-p/CT-LLM-SFT-DPO",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "m-a-p/neo_7b",
+   "aligned": "m-a-p/neo_7b_instruct_v0.1",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "meta-llama/Llama-3.1-70B",
+   "aligned": "meta-llama/Llama-3.1-70B-Instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "meta-llama/Llama-3.1-8B",
+   "aligned": "meta-llama/Llama-3.1-8B-Instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "microsoft/phi-4",
+   "aligned": "microsoft/phi-4-reasoning",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "mistralai/Mistral-7B-v0.1",
+   "aligned": "HuggingFaceH4/zephyr-7b-beta",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "mosaicml/mpt-7b",
+   "aligned": "mosaicml/mpt-7b-instruct",
+   "verdict": "UNAVAILABLE",
+   "detail": "OSError: mosaicml/mpt-7b is not a local folder and is not a valid model identif"
+  },
+  {
+   "base": "openGPT-X/Teuken-7B-base-v0.6",
+   "aligned": "openGPT-X/Teuken-7B-instruct-commercial-v0.4",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "openbmb/MiniCPM5-1B-Base",
+   "aligned": "openbmb/MiniCPM5-1B",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "stabilityai/stablelm-2-1_6b",
+   "aligned": "stabilityai/stablelm-2-zephyr-1_6b",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "tiiuae/Falcon-H1-1.5B-Base",
+   "aligned": "tiiuae/Falcon-H1-1.5B-Instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "tiiuae/Falcon-H1-7B-Base",
+   "aligned": "tiiuae/Falcon-H1-7B-Instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "tiiuae/Falcon3-10B-Base",
+   "aligned": "tiiuae/Falcon3-10B-Instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "tiiuae/Falcon3-1B-Base",
+   "aligned": "tiiuae/Falcon3-1B-Instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "tiiuae/Falcon3-3B-Base",
+   "aligned": "tiiuae/Falcon3-3B-Instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "tiiuae/Falcon3-7B-Base",
+   "aligned": "tiiuae/Falcon3-7B-Instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "tiiuae/Falcon3-Mamba-7B-Base",
+   "aligned": "tiiuae/Falcon3-Mamba-7B-Instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "tiiuae/falcon-mamba-7b",
+   "aligned": "tiiuae/falcon-mamba-7b-instruct",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "aligned": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  },
+  {
+   "base": "zai-org/glm-4-9b-hf",
+   "aligned": "zai-org/glm-4-9b-chat-hf",
+   "verdict": "ID-SAFE",
+   "mismatches": 0,
+   "probes": 76,
+   "same_vocab_size": true,
+   "first_mismatch": null
+  }
+ ],
+ "tally": {
+  "ID-SAFE": 49,
+  "RETOKENIZE": 0,
+  "UNAVAILABLE": 3
+ },
+ "n_probes": 76
+}
