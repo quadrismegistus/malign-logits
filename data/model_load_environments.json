@@ -381,6 +381,20 @@
    "model_id": "allenai/OLMo-2-0425-1B",
    "environment": "vast_l2_cuda_vllm",
    "outcome": "loads"
+  },
+  {
+   "model_id": "google/gemma-2-9b",
+   "environment": "vast_l2_cuda_vllm",
+   "outcome": "load_failed",
+   "cause": "vLLM REFUSES gemma2 at float16: 'does not support float16. Reason: Numerical instability.' A hard validation error, not a warning -- the engine will not start.",
+   "fix": "bfloat16 or float32. Needs an sm_80+ card; Turing cannot do bf16 under vLLM, so gemma-2 belongs on the bf16 roster with Falcon-H1."
+  },
+  {
+   "model_id": "google/gemma-2-9b-it",
+   "environment": "vast_l2_cuda_vllm",
+   "outcome": "load_failed",
+   "cause": "vLLM REFUSES gemma2 at float16: 'does not support float16. Reason: Numerical instability.' A hard validation error, not a warning -- the engine will not start.",
+   "fix": "bfloat16 or float32. Needs an sm_80+ card; Turing cannot do bf16 under vLLM, so gemma-2 belongs on the bf16 roster with Falcon-H1."
   }
  ],
  "predicted_untested": {

@@ -39,6 +39,7 @@ def main():
     q=json.load(open(os.path.join(ROOT,'data','f11_l2_queue_fp16.json')))
     live={r['idx']:r for r in q
           if not any(k in (r['base']+r['aligned']).lower() for k in DEAD)}
+    fails={}; quarantined=set()
     while True:
       try:
         done={os.path.basename(f)[:-len('.gen.jsonl')].replace('__','/')
@@ -59,6 +60,22 @@ def main():
             else:
                 idle.append((f,d))
         orphan=sorted(set(live)-complete-claimed)
+        #: **A PAIR THAT KEEPS FAILING MUST STOP BEING REASSIGNED.** gemma-2
+        #: cannot load at fp16 (vLLM refuses it outright: "does not support
+        #: float16. Reason: Numerical instability"), so it died in 0.3 min, the
+        #: box went idle, and this loop handed it straight back -- forever. A
+        #: scheduler with no notion of an IMPOSSIBLE unit reinvents the exact
+        #: retry loop the runbook calls the casualty pattern.
+        #: Three strikes, then quarantined and NAMED, never silently dropped.
+        for i in list(orphan):
+            if fails.get(i,0)>=3:
+                if i not in quarantined:
+                    quarantined.add(i)
+                    print("%s  QUARANTINED pair %d (%s) after %d failed "
+                          "assignments -- not retried again"
+                          % (time.strftime('%H:%M:%S'), i,
+                             live[i]['aligned'], fails[i]), flush=True)
+                orphan.remove(i)
         if orphan and idle:
             per=max(1,-(-len(orphan)//len(idle)))
             for (f,d),k in zip(idle,range(0,len(orphan),per)):
@@ -77,6 +94,7 @@ def main():
                         "nohup $PY scripts/f11_l2_cloud.py --pairs %s --dtype float16 "
                         "--chunk 48 --out /workspace/f11_l2 >> /workspace/run.log 2>&1 &"%idxs,
                         t=40)
+                    for i in give: fails[i]=fails.get(i,0)+1
                     print("%s  %-10s <- %s" % (time.strftime('%H:%M:%S'),
                           os.path.basename(f)[8:-5], idxs), flush=True)
                 except Exception as e:

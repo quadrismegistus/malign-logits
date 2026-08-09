@@ -1,0 +1,44 @@
+[
+ {
+  "idx": 42,
+  "size": 1.5,
+  "base": "tiiuae/Falcon-H1-1.5B-Base",
+  "aligned": "tiiuae/Falcon-H1-1.5B-Instruct"
+ },
+ {
+  "idx": 13,
+  "size": 7.0,
+  "base": "RWKV/rwkv-4-7b-pile",
+  "aligned": "RWKV/rwkv-raven-7b"
+ },
+ {
+  "idx": 15,
+  "size": 7.0,
+  "base": "Zyphra/Zamba2-7B",
+  "aligned": "Zyphra/Zamba2-7B-Instruct"
+ },
+ {
+  "idx": 43,
+  "size": 7.0,
+  "base": "tiiuae/Falcon-H1-7B-Base",
+  "aligned": "tiiuae/Falcon-H1-7B-Instruct"
+ },
+ {
+  "idx": 48,
+  "size": 7.0,
+  "base": "tiiuae/Falcon3-Mamba-7B-Base",
+  "aligned": "tiiuae/Falcon3-Mamba-7B-Instruct"
+ },
+ {
+  "idx": 49,
+  "size": 7.0,
+  "base": "tiiuae/falcon-mamba-7b",
+  "aligned": "tiiuae/falcon-mamba-7b-instruct"
+ },
+ {
+  "idx": 25,
+  "size": 9.0,
+  "base": "google/gemma-2-9b",
+  "aligned": "google/gemma-2-9b-it"
+ }
+]
