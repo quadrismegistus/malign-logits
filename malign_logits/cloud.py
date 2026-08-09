@@ -488,7 +488,15 @@ echo "SETUP COMPLETE"
                    'models', '*.safetensors', '*.bin', '*.pt', '*.gguf',
                    #: bulk artifacts, regenerable and never inputs to a cloud run
                    'raw', '*.parquet', '*.f16', '*.lmdb', '*.arrow', '*.duckdb',
-                   'twp_grid_v3', 'twp_cloud', 'beam_*', '*.jsonl']
+                   'twp_grid_v3', 'twp_cloud', 'beam_*', '*.jsonl',
+                   #: **A RUN'S OWN OUTPUT IS NOT AN INPUT TO THE NEXT RUN.**
+                   #: The F11 fleet's results accumulate in data/f11_twp and
+                   #: data/f11_twp_bf, and by the third box the upload had gone
+                   #: 1.8 GB -> 6.6 GB: results being shipped BACK to a machine
+                   #: that produced them. The `*.jsonl` and `*.f16` patterns
+                   #: catch the payloads but not the directories' other files,
+                   #: and the cost grows with every box because the corpus does.
+                   'f11_twp', 'f11_twp_bf']
         if getattr(args, 'data_all', False):
             exclude = ['stash_gen_metrics', 'stash', 'stash_gen_battery',
                        'stash_self_surprisal']
