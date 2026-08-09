@@ -35,6 +35,19 @@ moral+resist. Globally negligible; concentrated on `moral`, which loses about 3%
 of its tokens to overwrite. `moral` is null in every contrast anyway, but the
 number is here so nobody has to rediscover it.
 
+## MULTIPLICITY
+
+Not Bonferroni. It controls the family-wise error rate, which is the wrong
+target for a descriptive table, and it assumes independence these cells do not
+have -- they share passages, spans and pairs. Where a correction is wanted the
+`--only story` section reports Benjamini-Hochberg, which controls the
+proportion of false positives among rejections. Where one is not, the family
+size is printed and the reader sees every cell.
+
+Y's own convention governs: **the CI is the claim, the p ranks.** A result whose
+argument depends on which correction you chose is a lead to register, not a
+finding to quote.
+
 ## CONVENTIONS
 
 Unit is the PAIR unless a section says otherwise: a rate or mean is computed
@@ -59,8 +72,17 @@ LAYER1 = ("story", "refusal", "noise", "meta", "web")
 COMPOSITES = ("SUPEREGO_IN_SCENE", "CLEAN_SCENE", "EXIT", "MORAL_UTTERED")
 FIELDS = ("sexual_scene", "consummation", "guilt_or_shame", "moralisation_in_scene",
           "consent_hesitation", "assistant_refusal", "frame_exit", "noise_present")
-SECTIONS = ("coverage", "diegetic", "route", "words", "regions", "prompt")
+SECTIONS = ("coverage", "diegetic", "route", "words", "regions", "prompt",
+            "tags", "story", "reproduce")
 MIN_N, MIN_PAIRS = 20, 8
+
+
+def boot_mean(d, reps=4000, seed=4946):
+    import random
+    rng = random.Random(seed)
+    n = len(d)
+    out = sorted(sum(d[rng.randrange(n)] for _ in range(n)) / n for _ in range(reps))
+    return out[int(.025 * reps)], out[int(.975 * reps)]
 
 
 def paired(P, key, comp=False, sub=None):
@@ -229,6 +251,112 @@ def main():
                 print("  %-12s %-20s %8d %10.1f %10.1f"
                       % (w, pid, len(g), 100 * (b.sexual_scene == "YES").mean(),
                          100 * (al.sexual_scene == "YES").mean()))
+
+    if want("tags"):
+        print("\n" + "=" * 100)
+        print("TAG FREQUENCY, ONSET AND LENGTH   (Y_superego.md 4)")
+        print("=" * 100)
+        T = pd.read_parquet(TOKDIR, columns=["mid", "layer1", "layer2", "token_num", "l2_span_id"])
+        T = T.merge(P[["mid", "arm", "pair"]], on="mid", how="left")
+        head()
+        for tag in LAYER2 + LAYER1:
+            has = T[T.layer2.eq(tag) | T.layer1.eq(tag)].groupby("mid", observed=True).size()
+            Q = P[["mid", "pair", "arm"]].copy()
+            Q["hit"] = Q.mid.isin(has.index)
+            rows = []
+            for _p, g in Q.groupby("pair", observed=True):
+                b, a = g[g.arm == "base"], g[g.arm == "aligned"]
+                if len(b) < MIN_N or len(a) < MIN_N:
+                    continue
+                rows.append((100 * a.hit.mean() - 100 * b.hit.mean(),
+                             100 * b.hit.mean(), 100 * a.hit.mean()))
+            report(rows, "presence: <%s>" % tag, boot_ci, wilcoxon)
+        print("\n  ONSET (median first token index) and LENGTH (median tokens), by arm")
+        print("  %-9s %12s %12s %12s %12s" % ("tag", "onset base", "onset algn", "len base", "len algn"))
+        for tag in LAYER2:
+            r = []
+            for arm in ("base", "aligned"):
+                s2 = T[(T.arm == arm) & (T.layer2 == tag)]
+                if not len(s2):
+                    r += [float("nan")] * 2
+                    continue
+                g = s2.groupby("l2_span_id", observed=True)
+                r += [g.token_num.min().median(), g.size().median()]
+            print("  %-9s %12.0f %12.0f %12.0f %12.0f" % (tag, r[0], r[2], r[1], r[3]))
+
+    if want("story"):
+        print("\n" + "=" * 100)
+        print("IS A TAG HARDER THAN PLAIN STORY, SAME PASSAGE?")
+        print("  Per passage: mean(surprisal in tag) - mean(surprisal in plain story).")
+        print("  MEANS are length-invariant, so no window matching -- unlike a max, which is")
+        print("  the high-variance statistic an earlier version used and which hid this.")
+        print("=" * 100)
+        D = pd.read_parquet(TOKDIR, columns=["mid", "layer1", "layer2", "base_surprisal", "aligned_surprisal"])
+        D = D.merge(P[["mid", "arm", "pair"]], on="mid", how="left")
+        plain = (D.layer1 == "story") & (D.layer2.isna())
+        pm = P.set_index("mid").pair
+        for scorer in ("base_surprisal", "aligned_surprisal"):
+            print("\n  scorer: %s" % scorer)
+            print("  %-9s %-8s %6s %9s %20s %10s %6s"
+                  % ("tag", "written", "pairs", "delta", "boot 95% CI (mean)", "wilcoxon", "sign"))
+            ps = []
+            for tag in LAYER2:
+                for arm in ("base", "aligned"):
+                    sub = D[D.arm == arm]
+                    ins = sub[sub.layer2 == tag].groupby("mid", observed=True)[scorer].mean()
+                    out = sub[plain & (sub.arm == arm)].groupby("mid", observed=True)[scorer].mean()
+                    j = pd.concat([ins.rename("i"), out.rename("o")], axis=1, join="inner")
+                    if len(j) < 200:
+                        continue
+                    j["d"] = j.i - j.o
+                    j["pair"] = pm.reindex(j.index).values
+                    per = [g.d.mean() for _k, g in j.groupby("pair", observed=True) if len(g) >= 5]
+                    if len(per) < 10:
+                        continue
+                    lo, hi = boot_mean(per)
+                    w, _ = wilcoxon(per)
+                    m = statistics.mean(per)
+                    ps.append((w, tag, arm))
+                    print("  %-9s %-8s %6d %+9.3f  [%+7.3f,%+7.3f] %10.1e %3d/%-2d%s"
+                          % (tag, arm, len(per), m, lo, hi, w,
+                             sum(1 for x in per if (x > 0) == (m > 0)), len(per),
+                             "  <=" if (lo > 0 or hi < 0) else ""))
+            ps.sort()
+            m_ = len(ps)
+            print("  Benjamini-Hochberg at q=0.05 over %d cells (NOT Bonferroni -- see docstring):" % m_)
+            kmax = 0
+            for i, (pv, tag, arm) in enumerate(ps, 1):
+                if pv <= i / m_ * 0.05:
+                    kmax = i
+            print("     rejects %d: %s" % (kmax, ", ".join("%s/%s" % (t, a) for _p, t, a in ps[:kmax]) or "none"))
+
+    if want("reproduce"):
+        print("\n" + "=" * 100)
+        print("REPRODUCTION CHECK against the published finding documents")
+        print("=" * 100)
+        exp = [("SUPEREGO_IN_SCENE", True, None, 8.58, 11.18, "Y_diegetic 2"),
+               ("CLEAN_SCENE", True, None, 45.22, 38.26, "Y_diegetic 2"),
+               ("EXIT", True, None, 26.48, 27.80, "Y_diegetic 1"),
+               ("sexual_scene", False, None, 53.85, 50.01, "Y_diegetic 1"),
+               ("assistant_refusal", False, None, 0.10, 1.14, "Y_diegetic 1"),
+               ("guilt_or_shame", False, "sex", 3.55, 5.79, "Y_diegetic 3"),
+               ("consent_hesitation", False, "sex", 11.00, 16.34, "Y_diegetic 3"),
+               ("SUPEREGO_IN_SCENE", True, "sex", 15.18, 21.60, "Y_diegetic 3"),
+               ("CLEAN_SCENE", True, "sex", 84.72, 76.68, "Y_diegetic 3")]
+        sx = P[P.sexual_scene == "YES"]
+        print("  %-22s %-10s %9s %9s %9s %9s  %s"
+              % ("measure", "panel", "exp base", "got", "exp algn", "got", "ok"))
+        bad = 0
+        for k, comp, panel, eb, ea, src in exp:
+            rows = paired(P, k, comp=comp, sub=(sx if panel else None))
+            gb = statistics.mean(x[1] for x in rows)
+            ga = statistics.mean(x[2] for x in rows)
+            ok = abs(gb - eb) < 0.02 and abs(ga - ea) < 0.02
+            bad += not ok
+            print("  %-22s %-10s %9.2f %9.2f %9.2f %9.2f  %s"
+                  % (k, panel or "all", eb, gb, ea, ga, "yes" if ok else "**NO**"))
+        print("\n  %d of %d reproduce to 0.02pp  (%s)"
+              % (len(exp) - bad, len(exp), "ALL MATCH" if not bad else "MISMATCH -- investigate"))
     return 0
 
 
