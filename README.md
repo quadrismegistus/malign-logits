@@ -32,14 +32,18 @@ experiments (uttering a demoted word costs a little probability and triggers
 no defense), and the superego at sexual slots.
 
 **[M02 — Frame-exit](meta/M02_frame_exit/README.md).** What contradiction does
-to the continuation. The original claim — alignment resolves contradiction by
-leaving the frame — moved on 2026-08-08: three independent instruments now
-show the contradiction cell exiting *less* than its poles and its
-length-matched controls, and holding both poles is the modal in-scene outcome.
-Whether that inversion survives power is the question of the frozen redo
-registration (quintuplet prompts, English and Chinese, logit and coded
-grains). Delivered along the way: E-ASSIST-ambient — aligned checkpoints
-emit assistant control tokens into raw fiction unbidden.
+to the continuation. The claim has split by grain (2026-08-09): at
+hidden-state grain, superposition is real, contradiction-specific, and
+alignment does not undo it — same-side conjunction controls sit AT their
+poles, the contradiction sits BETWEEN, both arms, 45 pairs. At next-word
+grain the frame question is unanswerable (the contradiction's own axis
+carries ~2% of next-token variance; frame membership fails from an LLM coder
+and from four geometries alike), so frame-exit is a passage-grain construct
+and the generation study is the registered primary's corpus. The aligned
+arm's observed mode is a third thing — naming the contradiction from outside
+rather than resolving or refusing it. Delivered along the way:
+E-ASSIST-ambient — aligned checkpoints emit assistant control tokens into
+raw fiction unbidden.
 
 **[M03 — Proceduralization](meta/M03_proceduralization/README.md).** The title
 claim ("alignment proceduralises the individual, not the institution") is
@@ -72,6 +76,15 @@ one of these, the file here wins** (except where noted).
   — edit a source and rebuild, never this file.
 - `data/f11_canonical_texts.json` — canonical ownership for prompts shared
   across groups (the stash keys on text; shared text = one cell).
+- `data/f11_k2_units.json` — the k>=2 (surface, group) sampling frame,
+  voting-model LISTS per unit, triple-verified. CUSTODY: two of its 92
+  voting models (jais x2) are store-only with no transport file — a store
+  rebuilt from `data/f11_twp*` flat files is NOT this population.
+- `data/f11_l2_population.json` — the L2 generation population (187 distinct
+  strings; the collapse rule is PER-CONTRAST, not per-group — see the M02
+  README).
+- `data/f11_l2_tokenizer_pairs.json` — which base/aligned pairs are ID-safe
+  for cross-scoring (49/52; within-pair only, never cross-family).
 - `data/beam_sample_105.csv` — the FC 210-prompt MARKED/UNMARKED twin sample.
 
 **Models and lineages**

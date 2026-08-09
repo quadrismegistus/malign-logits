@@ -23,13 +23,25 @@ Coordination is the **docket**: append-only posts with composed-against
 stamps. Corrections are trailed, never rewritten. Withdrawn numbers stay
 withdrawn. Post when it changes what someone does.
 
-## The two regimes
+## The three regimes
 
 The **registered letters** (M01's B–S): frozen registrations, hashes, blind
 arms, verdicts. Then, on RH's word (docket [4712]), the **post-registration
 regime**: reproducible-vs-not — seeds, held-back samples, replication as the
 control, everything looked at gets reported, exploratory work labelled at
 birth rather than forbidden.
+
+Current since 2026-08-09 (RH's ruling, docket [5148]): the **plan-documents
+regime**. Plan documents by default, not frozen registrations — the campaign
+protects against forgetting important details, not against p-hacking
+intruders. A plan states QUESTION / INPUT (population ENUMERATED as strings,
+hashed — never defined by a tool's output) / INSTRUMENT (the column read,
+named) / OUTPUT / ANALYSIS (primary, secondaries, priors with both branches)
+/ COST. The pen verifies the population at spec time and again at landing.
+Corrections are trailed posts; the instrument audit is untouched; true
+freezes are reserved for blindness-is-the-value cases, on RH's word (N3 the
+one genuine instance). Existing declarations stand. The protection was
+always two seats recomputing each other and everything-looked-at-reported.
 
 The paper trail has layers, each governing the one before: README orients →
 module READMEs map → finding files hold results with caveats attached →
@@ -82,3 +94,16 @@ seat forgets at its peril:
 - **A freeze document's arithmetic is the specification, not exposition** —
   state derivations as computations the next reader re-runs ([5094],
   [5095]).
+- **Populations ENUMERATE; instruments REFUSE** — a spec built from a tool's
+  output is a population error waiting downstream; "a hash of a wrong
+  population is a wrong population with a receipt" ([5146]–[5150]).
+- **A number that governs a decision gets a file, a producer, and a recount
+  — or it does not govern** ([5179]–[5184]). The cheapest cross-seat check
+  is ADD UP THE HALVES; twice in one night the disagreement was in the
+  denominator while the estimator was fine ([5178]).
+- **A recount that reproduces the arithmetic is not one that asks what the
+  arithmetic is measuring** — the 47.5% demotion rate was the fraction of
+  the battery that is Chinese ([5167], [5168]).
+- **A metric with no null is the most reliable way to produce a confident
+  wrong number** — and an instrument that carries its own null for free
+  beats one whose null must be purchased ([5205], [5206]).
