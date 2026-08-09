@@ -15,22 +15,41 @@ embedding, float32, and each jsonl record carries its own `hidden_row` index and
     row n of <model>.hidden.f32   ==   the record whose hidden_row is n
     width                          ==   prod(hidden_shape) floats
 
-This counts how many base/aligned pairs have a COMPLETE triplet in BOTH arms,
-which is the unit the geometry needs. A pair missing one pole in one arm is not
-a degraded cell, it is no cell.
+## THE POPULATION IS READ FROM THE SOURCE OF TRUTH. IT IS NOT DERIVED.
 
-**THE MANIFEST IS NOT USED AND SHOULD NOT BE.** `data/f11_twp/hidden_manifest.json`
-is written only by a non-dry-run ingest, and the ingest has been dry-run only, so
-it currently describes 31 of the 90 sidecars on disk. It is correct about those 31
-and silent about the rest, which is the shape that reads as completeness. The
-jsonl records are the record; they were written by the producer that wrote the
-bytes.
+`data/f11_quintuplets.json` is the source of record for F11 and this script
+READS it. An earlier version of this file built the population from
+`prompt_categorisation.json` and then compared the result to the source of
+record, which passed, and was still wrong in the way that matters: a population
+you derive and then check is a population you chose. Two consequences, both of
+which actually bit:
+
+  - the derivation hardcoded `("POLE_A","POLE_B","BOTH")`, so `control_a` and
+    `control_b` -- fields sitting on every entry of the source of record -- were
+    invisible BY CONSTRUCTION and could only be mentioned, never counted.
+  - it reimplemented status resolution (ACTIVE > DISPUTED > RETIRED) that the
+    source of record had already performed and carries in a `status` field.
+
+This is [5146]'s failure at one remove: there a pole-shaped helper's `CORE`
+tuple was used as a population definition; here a pole-shaped tuple was written
+by hand next to the document that defines one. Read the source.
+
+## AND THE SOURCE OF RECORD IS ITSELF INCOMPLETE, WHICH THE GATE CANNOT SEE
+
+A quintuplet is five cells. **`BOTH_MATCHED` is a sixth, it exists for 10
+groups, all 10 of them ARE in the source of record, and the source of record has
+no field for it.** So a spec gated against `f11_quintuplets.json` -- the repair
+proposed at [5146].4 and [5147].3 -- passes while still omitting BOTH_MATCHED.
+The gate is right and it is not sufficient; this script therefore reads that role
+from `prompt_categorisation.json` and reports it SEPARATELY, labelled as coming
+from outside the source of record, rather than quietly folding it in.
 
 NOT A FINDING. This is an inventory, and it decides whether L3 is a pilot or a
 study before anyone spends a night on it.
 """
 import collections
 import glob
+import hashlib
 import json
 import os
 import sys
@@ -40,139 +59,151 @@ CAMP = os.path.dirname(HERE)
 ROOT = os.path.dirname(os.path.dirname(CAMP))
 
 DIRS = [os.path.join(ROOT, "data", "f11_twp"), os.path.join(ROOT, "data", "f11_twp_bf")]
-CORE = ("POLE_A", "POLE_B", "BOTH")
+SRC = os.path.join(ROOT, "data", "f11_quintuplets.json")
+#: what the L3 geometry needs: t = (h_AB - h_B).(h_A - h_B) / |h_A - h_B|^2
+TRIPLE = ("pole_a", "pole_b", "both")
+#: what gives it a null: is a NON-contradictory conjunction in the same place?
+CONTROL = ("control_a", "control_b")
+
+
+def load_source():
+    """The population, read from the source of record, with its own inputs verified.
+
+    The verification here is of THE SOURCE, not of a derivation beside it: the
+    file byte-copies its strings from three inputs and pins their hashes, so a
+    drifted input means the population on disk is not the population that was
+    agreed. That is the only check this script is entitled to make about it.
+    """
+    Q = json.load(open(SRC))
+    bad = []
+    for name, pinned in Q["_sources"].items():
+        p = os.path.join(ROOT, "data", name)
+        if pinned is None:
+            continue
+        live = hashlib.sha256(open(p, "rb").read()).hexdigest()[:16] if os.path.exists(p) else None
+        if live != pinned:
+            bad.append("%s is %s, pinned %s" % (name, live, pinned))
+    print("SOURCE OF RECORD  %s" % os.path.relpath(SRC, ROOT))
+    print("   selftest at build: %s" % str(Q.get("_selftest"))[:60])
+    for name, pinned in Q["_sources"].items():
+        print("   input %-34s pinned %s%s"
+              % (name, pinned, "" if not any(name in b for b in bad) else "   DRIFTED"))
+    if bad:
+        for b in bad:
+            print("   REFUSED: %s" % b)
+        raise SystemExit(1)
+    return Q
 
 
 def main():
-    pairs = json.load(open(os.path.join(ROOT, "data", "base_aligned_pairs.json")))
+    Q = load_source()
+    quints = Q["quintuplets"]
+    counts = Q["_counts"]
+
+    #: STATUS IS CARRIED BY THE SOURCE, NOT RE-DERIVED HERE. RETIRED is out of
+    #: the population; MIXED is the declared negative control, run BESIDE the
+    #: primary and never pooled with it.
+    live = [q for q in quints if q["status"] != "RETIRED"]
+    control_groups = {q["group"] for q in quints if q["status"].startswith("MIXED")}
+    retired = [q["group"] for q in quints if q["status"] == "RETIRED"]
+    print("   groups %d   live %d   retired %s   negative control %s"
+          % (len(quints), len(live), retired or "none", sorted(control_groups)))
+    print("   status counts from the source: %s" % counts["by_status"])
+
+    #: BOTH_MATCHED IS NOT IN THE SOURCE OF RECORD. Read separately and labelled.
     cat = json.load(open(os.path.join(ROOT, "data", "prompt_categorisation.json")))["prompts"]
-
-    #: group -> role -> prompt. STATUS IS NOT A DETAIL HERE, and neither a
-    #: no-filter build nor a plain ACTIVE filter is right:
-    #:
-    #:   f11_species_wolf   all three cells RETIRED            -> DROP
-    #:   f11_reason         poles DISPUTED, BOTH ACTIVE        -> RUN, as the
-    #:   f11_reason_zh      same shape                            declared
-    #:                                                            NEGATIVE CONTROL
-    #:
-    #: An ACTIVE-only filter deletes f11_reason, which is the group whose result
-    #: OUTRANKS the primary's: if the effects appear at a manipulation this weak
-    #: (10 of 12 top completions shared) they are not about contradiction. A
-    #: no-filter build keeps the retired wolf triplet instead.
-    #:
-    #: f11_reason ALSO CARRIES ITS POLES TWICE, once DISPUTED and once RETIRED
-    #: with byte-identical strings, so a last-write-wins dict is ORDER-DEPENDENT
-    #: on file order. Rank explicitly.
-    RANK = {"ACTIVE": 3, "DISPUTED": 2, "RETIRED": 1}
-    best = collections.defaultdict(dict)
+    bmatch = {}
     for r in cat:
-        g, role = str(r.get("group_id") or ""), r.get("group_role")
-        if not (g.startswith("f11") and r.get("prompt") and role):
-            continue
-        sc = RANK.get(r.get("status"), 0)
-        if sc > best[g].get(role, (0, None))[0]:
-            best[g][role] = (sc, r["prompt"])
-    groups = {g: {k: v[1] for k, v in roles.items()} for g, roles in best.items()}
-    #: a group survives if it has all three core cells and is not wholly retired
-    live = {g for g, roles in best.items()
-            if any(sc > RANK["RETIRED"] for sc, _ in roles.values())}
-    full = {g: v for g, v in groups.items()
-            if g in live and all(k in v for k in CORE)}
-    control = {g for g in full
-               if any(sc == RANK["DISPUTED"] for sc, _ in best[g].values())}
-    dropped_retired = sorted(set(groups) - live)
+        if (str(r.get("group_id") or "").startswith("f11")
+                and r.get("group_role") == "BOTH_MATCHED" and r.get("prompt")):
+            bmatch[r["group_id"]] = r["prompt"]
+    print("   BOTH_MATCHED: %d cells, FROM prompt_categorisation.json, absent from"
+          % len(bmatch))
+    print("      the source of record -- a gate against it cannot see this role.")
 
-    #: model -> set of prompts that have a residual on disk
+    #: shared BOTH cells: one contradiction measurement, two pole-pairs.
+    seen = collections.Counter(q["both"] for q in live)
+    for s, n in seen.items():
+        if n > 1:
+            sh = sorted(q["group"] for q in live if q["both"] == s)
+            print("   SHARED `BOTH`, never pool: %s" % " + ".join(sh))
+
+    #: model -> prompts that have a residual on disk
     have = collections.defaultdict(set)
-    shapes, where = {}, {}
+    shapes = {}
     for d in DIRS:
         for p in glob.glob(d + "/*.jsonl"):
             for line in open(p):
                 r = json.loads(line)
                 if r.get("hidden_row") is None:
                     continue
-                m = r["model"]
-                have[m].add(r["prompt"])
-                shapes.setdefault(m, tuple(r["hidden_shape"]))
-                where.setdefault(m, os.path.basename(d))
+                have[r["model"]].add(r["prompt"])
+                shapes.setdefault(r["model"], tuple(r["hidden_shape"]))
+    print("\nfleet: %d models with at least one residual row" % len(have))
 
-    print("fleet: %d models with at least one residual row" % len(have))
-    print("f11 groups with a complete POLE_A/POLE_B/BOTH definition: %d of %d"
-          % (len(full), len(groups)))
-    en = [g for g in full if not g.endswith("_zh")]
-    print("   english %d   chinese %d" % (len(en), len(full) - len(en)))
-    print("   dropped as wholly RETIRED: %s" % (", ".join(dropped_retired) or "none"))
-    print("   carried as DECLARED NEGATIVE CONTROL, never pooled with the primary: %s"
-          % ", ".join(sorted(control)))
-    #: f11_holy and f11_holy_b share one BOTH string byte-for-byte. Pooling them
-    #: counts one measurement twice; the flag travels with the inventory.
-    both_seen = collections.Counter(v["BOTH"] for v in full.values())
-    dup = {s for s, n in both_seen.items() if n > 1}
-    for s in sorted(dup):
-        shared = sorted(g for g, v in full.items() if v["BOTH"] == s)
-        print("   SHARED `BOTH` CELL, must never be pooled: %s" % " + ".join(shared))
-    print("")
+    pairs = json.load(open(os.path.join(ROOT, "data", "base_aligned_pairs.json")))
 
-    #: THE UNIT IS THE (PAIR, GROUP) CELL AND BOTH ARMS MUST BE COMPLETE.
-    cells, by_pair, missing = [], collections.Counter(), collections.Counter()
-    usable_pairs = []
+    def covered(m, q, roles):
+        return all(q.get(k) and q[k] in have.get(m, ()) for k in roles)
+
+    cells, ctl_cells, bm_cells = [], [], []
+    usable, no_resid = set(), 0
     for pr in pairs:
         b, a = pr["base"], pr["aligned"]
         if b not in have or a not in have:
-            missing["one arm has no residuals at all"] += 1
+            no_resid += 1
             continue
-        n = 0
-        for g, roles in full.items():
-            need = [roles[k] for k in CORE]
-            if all(x in have[b] for x in need) and all(x in have[a] for x in need):
+        for q in live:
+            g = q["group"]
+            if covered(b, q, TRIPLE) and covered(a, q, TRIPLE):
                 cells.append((pr["family"], pr["stage"], b, a, g))
-                n += 1
-        by_pair[(pr["family"], b, a)] = n
-        if n:
-            usable_pairs.append(pr)
-        else:
-            missing["both arms present, no complete triplet"] += 1
+                usable.add((b, a))
+                if covered(b, q, CONTROL) and covered(a, q, CONTROL):
+                    ctl_cells.append((pr["family"], b, a, g))
+                if g in bmatch and bmatch[g] in have[b] and bmatch[g] in have[a]:
+                    bm_cells.append((pr["family"], b, a, g))
 
-    print("=" * 84)
+    print("\n" + "=" * 84)
     print("WHAT L3 CAN RUN TODAY")
     print("=" * 84)
-    print("   base/aligned pairs in the roster            %d" % len(pairs))
-    print("   pairs with >=1 complete triplet in BOTH arms %d" % len(usable_pairs))
-    print("   (pair, group) cells                          %d" % len(cells))
-    for k, v in missing.most_common():
-        print("   dropped: %-42s %d" % (k, v))
+    print("   base/aligned pairs in the roster              %d" % len(pairs))
+    print("   pairs dropped, one arm has no residuals       %d" % no_resid)
+    print("   pairs with >=1 complete TRIPLE in both arms   %d" % len(usable))
+    print("   (pair, group) TRIPLE cells                    %d" % len(cells))
+    print("   ... of which also have BOTH CONTROLS          %d" % len(ctl_cells))
+    print("   ... of which also have BOTH_MATCHED           %d" % len(bm_cells))
+    print("\n   %d of %d live groups carry authored controls in the source of record."
+          % (sum(1 for q in live if all(q.get(k) for k in CONTROL)), len(live)))
+    print("   The fleet scored no CONTROL cell ([5146]), so THE GEOMETRY HAS NO")
+    print("   CONJUNCTION NULL: it can say where BOTH sits between its poles, and")
+    print("   not whether any conjunction sits there. That is the same missing null")
+    print("   `l3_pilot_layerwise.py` recorded, unchanged by 90 checkpoints of data.")
 
     if not cells:
-        print("\n   nothing to run.")
         return 0
-
     print("\n   BY STAGE")
     for s, c in collections.Counter(x[1] for x in cells).most_common():
         print("      %-8s %4d cells" % (s, c))
-    print("\n   BY FAMILY (pairs, cells)")
-    fam = collections.defaultdict(lambda: [set(), 0])
-    for f, s, b, a, g in cells:
-        fam[f][0].add((b, a))
-        fam[f][1] += 1
-    for f in sorted(fam, key=lambda x: -fam[x][1]):
-        print("      %-16s %2d pairs  %4d cells" % (f, len(fam[f][0]), fam[f][1]))
-
-    print("\n   BY GROUP, most-covered first")
-    gc = collections.Counter(x[4] for x in cells)
-    for g, c in gc.most_common():
-        print("      %-24s %3d pairs" % (g, c))
-
-    print("\n   LAYER DEPTHS PRESENT (shape_per_row from the records themselves)")
-    ds = collections.Counter(shapes[b] for _, _, b, _, _ in cells)
-    for sh, c in sorted(ds.items(), key=lambda x: -x[1]):
+    print("\n   BY LANGUAGE")
+    lang = {q["group"]: q["language"] for q in live}
+    for l, c in collections.Counter(lang[x[4]] for x in cells).most_common():
+        print("      %-8s %4d cells" % (l, c))
+    print("\n   LAYER DEPTHS (shape_per_row from the records themselves)")
+    for sh, c in collections.Counter(shapes[b] for _, _, b, _, _ in cells).most_common(6):
         print("      (%d layers, d_model %d)   %d cells" % (sh[0], sh[1], c))
 
     out = os.path.join(CAMP, "results", "l3_coverage.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    json.dump({"_about": "base/aligned pairs with a complete f11 triplet in both "
-                         "arms, residuals on disk. Unit is the (pair, group) cell.",
+    json.dump({"_about": "base/aligned pairs with a complete POLE_A/POLE_B/BOTH in "
+                         "both arms, residuals on disk. Population READ FROM "
+                         "data/f11_quintuplets.json, the source of record.",
                "_producer": "meta/M02_frame_exit/scripts/l3_coverage.py",
-               "n_pairs": len(usable_pairs), "n_cells": len(cells),
+               "_no_null": "no CONTROL cell was scored by the fleet ([5146]); "
+                           "control coverage is %d cells." % len(ctl_cells),
+               "_both_matched_note": "BOTH_MATCHED is absent from the source of "
+                                     "record and read from prompt_categorisation.json.",
+               "n_pairs": len(usable), "n_cells": len(cells),
+               "n_control_cells": len(ctl_cells), "n_both_matched_cells": len(bm_cells),
                "cells": [{"family": f, "stage": s, "base": b, "aligned": a, "group": g}
                          for f, s, b, a, g in cells]},
               open(out, "w"), ensure_ascii=False, indent=1)
