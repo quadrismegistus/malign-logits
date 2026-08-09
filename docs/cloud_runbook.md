@@ -78,6 +78,24 @@ The key is on file at vast and associated with the instance, and SSH still refus
 
 **Destroy and relaunch.** Recorded 2026-06-20, hit again 8 Aug.
 
+### 2.4b Advertised link speed does not predict delivered throughput
+
+Measured 9 Aug across four boxes mid-run, end-to-end (download + load + passes):
+
+    advertised   6,266    6,109    8,067    5,796  Mbps
+    delivered      143      127      119      108  MB/s
+    ratio          18%      17%      12%      15%
+
+**The box advertising the fastest link delivered the slowest.** All four land in
+a narrow 108–143 MB/s band, and an A100 on a different continent measured ~100
+MB/s on the same workload the night before — so the binding constraint is
+HuggingFace's CDN, not the box's uplink.
+
+**Use `inet_down` as a floor filter, never as a ranking.** Screening out genuinely
+bad hosts is worth it; paying more for a bigger number is not. **Plan with ~125
+MB/s** whatever the listing claims: a 400 GB shard is ~55 minutes of download, and
+no offer will beat that by much.
+
 ### 2.5 Downloads stall
 
 HF downloads stall on many vast machines — CDN routing. Not your code. Destroy and relaunch elsewhere. Check the profile's `min_link_mbps`.
