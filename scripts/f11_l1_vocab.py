@@ -57,12 +57,39 @@ def main():
     #: group -> {role: prompt}, so a surface can be attributed to its cell
     qs = q["quintuplets"]
     items = qs.items() if isinstance(qs, dict) else [(e.get("group"), e) for e in qs]
-    groups = {}
+    #: **STATUS IS FILTERED AT ANALYSIS TIME.** The source of record CARRIES
+    #: status and does not filter ([5084].2), so a consumer that reads it whole
+    #: gets 44 groups: 41 ACTIVE, 2 MIXED (f11_reason / _zh) and 1 RETIRED
+    #: (f11_species_wolf). The first version of this script pooled all 44 and
+    #: built a vocabulary partly out of a retired group -- surfaces that would
+    #: have been coded and then thrown away, and worse, coded INTO the same
+    #: pool as the primary.
+    #:
+    #: reason/_zh are the WEAK-MANIPULATION NEGATIVE CONTROL: run beside, never
+    #: pooled ([5152]). If the effects appear there too they are not about
+    #: contradiction, and that only means anything if the two vocabularies are
+    #: kept apart from the start.
+    groups, control_groups, dropped = {}, {}, {}
     for gid, v in items:
         if not isinstance(v, dict):
             continue
-        groups[v.get("group", gid)] = {r: v.get(r) for r in PROMPT_ROLES
-                                       if isinstance(v.get(r), str) and v.get(r)}
+        name = v.get("group", gid)
+        st = (v.get("status") or "").upper()
+        cells = {r: v.get(r) for r in PROMPT_ROLES
+                 if isinstance(v.get(r), str) and v.get(r)}
+        if "RETIRED" in st:
+            dropped[name] = v.get("status")
+        elif name.startswith("f11_reason"):
+            control_groups[name] = cells
+        else:
+            groups[name] = cells
+    print("POPULATION, status-filtered at analysis time")
+    print("   primary groups          %d" % len(groups))
+    print("   negative control beside %d  (%s)"
+          % (len(control_groups), ", ".join(sorted(control_groups))))
+    print("   dropped as RETIRED      %d  (%s)"
+          % (len(dropped), ", ".join("%s=%s" % kv for kv in dropped.items())))
+    print()
 
     ck = sorted({m for p in Registry().base_aligned_pairs()
                  for m in (p["base"], p["aligned"])})
@@ -81,7 +108,7 @@ def main():
                 for w in keep:
                     surfaces[w] += 1
 
-    print("N3 CANDIDATE VOCABULARY over the quintuplet population")
+    print("N3 CANDIDATE VOCABULARY over the PRIMARY population")
     print("  checkpoints            %d" % len(ck))
     print("  groups                 %d" % len(groups))
     print("  cells with twp data    %d" % len(per_cell))
