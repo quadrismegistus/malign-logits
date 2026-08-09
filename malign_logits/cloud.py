@@ -416,9 +416,22 @@ def cmd_setup(args):
     if plain:
         parts.append("pip install " + " ".join(f"'{p}'" for p in plain))
     if source:
-        parts.append("TORCH_CUDA_ARCH_LIST=8.0 MAX_JOBS=48 pip install "
-                     "--no-build-isolation " +
-                     " ".join(f"'{p}'" for p in source))
+        # **THE ARCH LIST IS DERIVED ON THE BOX, NOT HARDCODED.** This said
+        # TORCH_CUDA_ARCH_LIST=8.0 -- correct for the A100 (sm_80) every run had
+        # used so far, and silently wrong for anything else. An A6000 is sm_86,
+        # a 4090 is sm_89, an H100 is sm_90; building for 8.0 on those either
+        # fails or produces kernels that never load, and transformers FALLS BACK
+        # SILENTLY, so the symptom is a slow run rather than an error.
+        #
+        # A constant that is right only for the hardware you happened to rent is
+        # the same class as a positional parse: correct until the day it is not,
+        # and mute about which day that is. Both are derived at the point of use
+        # now. MAX_JOBS likewise -- 48 was one box's core count.
+        parts.append(
+            "TORCH_CUDA_ARCH_LIST=$(python3 -c "
+            "'import torch;print(\"%d.%d\"%torch.cuda.get_device_capability())') "
+            "MAX_JOBS=$(nproc) pip install --no-build-isolation " +
+            " ".join(f"'{p}'" for p in source))
     pin_cmd = " && ".join(parts) if parts \
         else 'echo "no package floors declared for this profile"'
 

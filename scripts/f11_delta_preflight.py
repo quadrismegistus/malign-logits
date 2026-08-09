@@ -9,6 +9,8 @@ HERE=os.path.dirname(os.path.abspath(__file__)); ROOT=os.path.dirname(HERE)
 sys.path.insert(0,ROOT); sys.path.insert(0,HERE)
 
 SPEC=os.path.join(ROOT,"data","f11_twp_spec.quintuplet_delta.json")
+SHARDS=[os.path.join(ROOT,"data","f11_delta.%s.json"%k) for k in
+        ("dense0","dense1","dense2","big32","ssm","seventyb")]
 POP=os.path.join(ROOT,"data","f11_delta_population.json")
 SRC=os.path.join(ROOT,"data","f11_quintuplets.json")
 SCAN=("Falcon-H1","Falcon3-Mamba","falcon-mamba","Zamba2")
@@ -62,6 +64,32 @@ chk("every model assigned an environment", roster<=placed,
 first=set(json.load(open(os.path.join(ROOT,"data","f11_twp_spec.json")))["spec"][0]["prompts"])
 chk("no overlap with the first fleet's 115", not (allp & first),
     "%d overlapping" % len(allp & first))
+
+# 8. the SHARDS must partition the roster exactly -- no model twice, none lost
+if all(os.path.exists(f) for f in SHARDS):
+    seen=collections.Counter()
+    sprompts=set()
+    for f in SHARDS:
+        sd=json.load(open(f))
+        for e in sd["spec"]:
+            seen[e["model"]]+=1
+            sprompts |= set(e["prompts"])
+    dup=[m for m,n in seen.items() if n>1]
+    chk("shards partition the roster (no duplicates)", not dup,
+        "%d models across %d shards" % (len(seen), len(SHARDS)))
+    chk("shards cover every model in the spec", set(seen)==roster,
+        "%d missing" % len(roster-set(seen)))
+    chk("every shard carries the same 84 prompts", sprompts==allp,
+        "%d distinct across shards" % len(sprompts))
+    # bf16 must survive the sharding
+    sbad=[]
+    for f in SHARDS:
+        for e in json.load(open(f))["spec"]:
+            if any(k.lower() in e["model"].lower() for k in SCAN) and e.get("compute_dtype")!="bfloat16":
+                sbad.append(e["model"])
+    chk("bf16 survived the shard split", not sbad, "%d scan models wrong"%len(sbad))
+else:
+    chk("shard files present", False, "missing some of %d"%len(SHARDS))
 
 print("\n%s" % ("ALL CHECKS PASS" if not fails else "FAILED: %s"%", ".join(fails)))
 sys.exit(1 if fails else 0)

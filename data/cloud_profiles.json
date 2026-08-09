@@ -1,55 +1,106 @@
 {
-  "_note": "Provisioning profiles for `malign cloud launch --profile NAME`. A profile is the machine SHAPE plus the package floors that a run needs. It exists because provisioning was retyped each time and the floors were remembered rather than declared -- transformers cannot read .bin checkpoints under torch<2.6, and that floor silently cost the July grid 13 models.",
-  "default": {
-    "description": "One A100 80GB, the shape every twp/grid run has used.",
-    "gpu_name": "A100_SXM4",
-    "num_gpus": 1,
-    "min_gpu_ram": 79,
-    "disk_gb": 300,
-    "image": "vllm/vllm-openai:latest",
-    "min_reliability": 0.95,
-    "cuda_max_good": 12.4,
-    "pins": [
-      "torch>=2.6"
-    ],
-    "pin_reasons": {
-      "torch>=2.6": "transformers refuses .bin checkpoints under torch<2.6 (CVE-driven torch.load policy). Thirteen models failed to load in the July grid on exactly this and it read as a model problem, not an environment one. See project_torch_bin_floor."
-    },
-    "min_inet_down_mbps": 2000
+ "_note": "Provisioning profiles for `malign cloud launch --profile NAME`. A profile is the machine SHAPE plus the package floors that a run needs. It exists because provisioning was retyped each time and the floors were remembered rather than declared -- transformers cannot read .bin checkpoints under torch<2.6, and that floor silently cost the July grid 13 models.",
+ "default": {
+  "description": "One A100 80GB, the shape every twp/grid run has used.",
+  "gpu_name": "A100_SXM4",
+  "num_gpus": 1,
+  "min_gpu_ram": 79,
+  "disk_gb": 300,
+  "image": "vllm/vllm-openai:latest",
+  "min_reliability": 0.95,
+  "cuda_max_good": 12.4,
+  "pins": [
+   "torch>=2.6"
+  ],
+  "pin_reasons": {
+   "torch>=2.6": "transformers refuses .bin checkpoints under torch<2.6 (CVE-driven torch.load policy). Thirteen models failed to load in the July grid on exactly this and it read as a model problem, not an environment one. See project_torch_bin_floor."
   },
-  "bigdisk": {
-    "description": "Same card, 600 GB. For rosters whose cumulative download exceeds the default disk when --purge is not used.",
-    "gpu_name": "A100_SXM4",
-    "num_gpus": 1,
-    "min_gpu_ram": 79,
-    "disk_gb": 600,
-    "image": "vllm/vllm-openai:latest",
-    "min_reliability": 0.95,
-    "cuda_max_good": 12.4,
-    "pins": [
-      "torch>=2.6"
-    ],
-    "min_inet_down_mbps": 2000
+  "min_inet_down_mbps": 2000
+ },
+ "bigdisk": {
+  "description": "Same card, 600 GB. For rosters whose cumulative download exceeds the default disk when --purge is not used.",
+  "gpu_name": "A100_SXM4",
+  "num_gpus": 1,
+  "min_gpu_ram": 79,
+  "disk_gb": 600,
+  "image": "vllm/vllm-openai:latest",
+  "min_reliability": 0.95,
+  "cuda_max_good": 12.4,
+  "pins": [
+   "torch>=2.6"
+  ],
+  "min_inet_down_mbps": 2000
+ },
+ "ssm": {
+  "description": "For SSM/Mamba AND hybrid (Falcon-H1) models. **THE KERNELS ARE NOT OPTIONAL FOR HYBRIDS: MEASURED 19.3x ON Falcon-H1-7B, 2026-08-03** (0.0670 -> 1.2933 cells/s on the twp loop, A100, bf16; 21.4 h -> 1.1 h for 5,166 cells). CORRECTION TO THIS FIELD'S PREVIOUS TEXT, which said kernels gave NO speedup and reasoned that twp re-runs the full sequence per tree node so the scan kernel is not binding. THE MEASUREMENT BEHIND THAT WAS SOUND AND THE GENERALISATION WAS NOT: it was taken on Falcon3-Mamba-7B, a PURE SSM (0.62-0.64 with kernels vs 0.61-0.72 without), and was quoted twice to predict no speedup for Falcon-H1, a HYBRID. Wrong by 19x. **A PRIOR TESTED ON ONE MEMBER OF A CLASS IS NOT A FACT ABOUT THE CLASS** -- pure-SSM and attention/SSM-hybrid have different binding costs. The pure-SSM null still stands for pure SSMs. ALSO REQUIRED FOR Falcon-H1: compute in bfloat16, NOT float16 -- fp16 overflows the SSM scan and yields all-NaN logits on prompts >=13 tokens (1/12 finite at fp16, 12/12 at bf16). TII's own docs: 'always use torch.bfloat16 instead of torch.float16'. Declare it per model as `compute_dtype` in the grid spec; storage stays f16. BUILD NOTE: no prebuilt wheels for cu130/torch2.11/py3.12, so both kernels compile from source. Use TORCH_CUDA_ARCH_LIST=8.0 MAX_JOBS=48 and --no-build-isolation (mamba-ssm's setup.py imports torch, which pip's isolated build env lacks). ~30 min on 128 cores. VERIFY IN USE, NOT MERELY INSTALLED: transformers falls back SILENTLY, so the check is that the log's 'fast path is not available' warning is ABSENT.",
+  "gpu_name": "A100_SXM4",
+  "num_gpus": 1,
+  "min_gpu_ram": 79,
+  "disk_gb": 150,
+  "image": "vllm/vllm-openai:latest",
+  "min_reliability": 0.95,
+  "cuda_max_good": 12.4,
+  "pins": [
+   "torch>=2.6",
+   "mamba-ssm",
+   "causal-conv1d"
+  ],
+  "pin_reasons": {
+   "mamba-ssm": "the fused selective-scan kernel. Installs ONLY with --no-build-isolation: its setup.py imports torch and pip's isolated build env has none. A finding that says 'install the kernels' without that is not runnable as written.",
+   "causal-conv1d": "the fused depthwise conv; same story"
   },
-  "ssm": {
-    "description": "For SSM/Mamba AND hybrid (Falcon-H1) models. **THE KERNELS ARE NOT OPTIONAL FOR HYBRIDS: MEASURED 19.3x ON Falcon-H1-7B, 2026-08-03** (0.0670 -> 1.2933 cells/s on the twp loop, A100, bf16; 21.4 h -> 1.1 h for 5,166 cells). CORRECTION TO THIS FIELD'S PREVIOUS TEXT, which said kernels gave NO speedup and reasoned that twp re-runs the full sequence per tree node so the scan kernel is not binding. THE MEASUREMENT BEHIND THAT WAS SOUND AND THE GENERALISATION WAS NOT: it was taken on Falcon3-Mamba-7B, a PURE SSM (0.62-0.64 with kernels vs 0.61-0.72 without), and was quoted twice to predict no speedup for Falcon-H1, a HYBRID. Wrong by 19x. **A PRIOR TESTED ON ONE MEMBER OF A CLASS IS NOT A FACT ABOUT THE CLASS** -- pure-SSM and attention/SSM-hybrid have different binding costs. The pure-SSM null still stands for pure SSMs. ALSO REQUIRED FOR Falcon-H1: compute in bfloat16, NOT float16 -- fp16 overflows the SSM scan and yields all-NaN logits on prompts >=13 tokens (1/12 finite at fp16, 12/12 at bf16). TII's own docs: 'always use torch.bfloat16 instead of torch.float16'. Declare it per model as `compute_dtype` in the grid spec; storage stays f16. BUILD NOTE: no prebuilt wheels for cu130/torch2.11/py3.12, so both kernels compile from source. Use TORCH_CUDA_ARCH_LIST=8.0 MAX_JOBS=48 and --no-build-isolation (mamba-ssm's setup.py imports torch, which pip's isolated build env lacks). ~30 min on 128 cores. VERIFY IN USE, NOT MERELY INSTALLED: transformers falls back SILENTLY, so the check is that the log's 'fast path is not available' warning is ABSENT.",
-    "gpu_name": "A100_SXM4",
-    "num_gpus": 1,
-    "min_gpu_ram": 79,
-    "disk_gb": 300,
-    "image": "vllm/vllm-openai:latest",
-    "min_reliability": 0.95,
-    "cuda_max_good": 12.4,
-    "pins": [
-      "torch>=2.6",
-      "mamba-ssm",
-      "causal-conv1d"
-    ],
-    "pin_reasons": {
-      "mamba-ssm": "the fused selective-scan kernel. Installs ONLY with --no-build-isolation: its setup.py imports torch and pip's isolated build env has none. A finding that says 'install the kernels' without that is not runnable as written.",
-      "causal-conv1d": "the fused depthwise conv; same story"
-    },
-    "min_inet_down_mbps": 2000
+  "min_inet_down_mbps": 3000
+ },
+ "_bandwidth_note": "min_inet_down_mbps IS A SELECTION CRITERION AND WE HAD NEVER FILTERED ON IT. Compute parallelises across GPUs; the network does not. Measured 2026-08-02 on the live offer board: a 4xGPU A100 box at $1.043/GPU -- IDENTICAL per-GPU price to a single -- was the SLOWEST option available, because its link is 624 Mbps and the roster is 1.42 TB. That is 5.1 h of download against 10.0 h of compute: the run goes from 10.0 h to 15.1 h and from $42 to $63, entirely on a field nobody was looking at. Both boxes used today passed this by luck (8.7 and 2.9 Gbps), not by filter.",
+ "dense": {
+  "description": "Cheap 48GB card on a fast link, 150GB disk. FOR DENSE ROSTERS UNDER --purge: the work is one forward pass per prompt, so the bill is DOWNLOAD, not compute -- an A100 here pays A100 prices for VRAM it never touches. Peak disk is one model + margin because purge_model fires BEFORE each download and on every exit path including failure.",
+  "gpu_name": "RTX_A6000",
+  "num_gpus": 1,
+  "min_gpu_ram": 47,
+  "disk_gb": 150,
+  "image": "vllm/vllm-openai:latest",
+  "min_reliability": 0.95,
+  "cuda_max_good": 12.4,
+  "pins": [
+   "torch>=2.6"
+  ],
+  "pin_reasons": {
+   "torch>=2.6": "transformers refuses .bin checkpoints under torch<2.6 (CVE-driven torch.load policy). Thirteen models failed to load in the July grid on exactly this and it read as a model problem, not an environment one. See project_torch_bin_floor."
   },
-  "_bandwidth_note": "min_inet_down_mbps IS A SELECTION CRITERION AND WE HAD NEVER FILTERED ON IT. Compute parallelises across GPUs; the network does not. Measured 2026-08-02 on the live offer board: a 4xGPU A100 box at $1.043/GPU -- IDENTICAL per-GPU price to a single -- was the SLOWEST option available, because its link is 624 Mbps and the roster is 1.42 TB. That is 5.1 h of download against 10.0 h of compute: the run goes from 10.0 h to 15.1 h and from $42 to $63, entirely on a field nobody was looking at. Both boxes used today passed this by luck (8.7 and 2.9 Gbps), not by filter."
+  "min_inet_down_mbps": 5000
+ },
+ "big80": {
+  "description": "One 80GB card, 150GB disk, fast link. For the 32B pair, which needs >48GB VRAM but not two cards and not 600GB of disk.",
+  "gpu_name": "A100_SXM4",
+  "num_gpus": 1,
+  "min_gpu_ram": 79,
+  "disk_gb": 150,
+  "image": "vllm/vllm-openai:latest",
+  "min_reliability": 0.95,
+  "cuda_max_good": 12.4,
+  "pins": [
+   "torch>=2.6"
+  ],
+  "pin_reasons": {
+   "torch>=2.6": "transformers refuses .bin checkpoints under torch<2.6 (CVE-driven torch.load policy). Thirteen models failed to load in the July grid on exactly this and it read as a model problem, not an environment one. See project_torch_bin_floor."
+  },
+  "min_inet_down_mbps": 3000
+ },
+ "twogpu": {
+  "description": "2x80GB for the 70B pair (~140GB bf16 each). device_map=auto shards across both; a single card OOMs AFTER paying for the 140GB download.",
+  "gpu_name": "A100_SXM4",
+  "num_gpus": 2,
+  "min_gpu_ram": 79,
+  "disk_gb": 320,
+  "image": "vllm/vllm-openai:latest",
+  "min_reliability": 0.95,
+  "cuda_max_good": 12.4,
+  "pins": [
+   "torch>=2.6"
+  ],
+  "pin_reasons": {
+   "torch>=2.6": "transformers refuses .bin checkpoints under torch<2.6 (CVE-driven torch.load policy). Thirteen models failed to load in the July grid on exactly this and it read as a model problem, not an environment one. See project_torch_bin_floor."
+  },
+  "min_inet_down_mbps": 3000
+ }
 }
