@@ -118,36 +118,66 @@ Surfaces are not filtered before you see them. Punctuation, digits, single \
 characters, fragments and blank runs all reach you, and each has a class. None \
 of them is an error to be corrected.
 
-Answer with one class and a one-clause reason. Do not hedge between classes."""
+Answer with one class and a one-clause reason. Do not hedge between classes.
 
-#: Anchored examples. Two carry the SAME surface under different pairs, because
-#: pair-relativity is the property the coder most needs to have demonstrated.
+THE EXAMPLES SHOW HOW TO DECIDE, NOT HOW OFTEN EACH CLASS OCCURS. They are \
+balanced across the five classes deliberately; do not read them as a guide to \
+which classes are common. Judge each surface on its own."""
+
+#: ANCHORED EXAMPLES: TEN, TWO PER CLASS, ON PAIRS THAT ARE NOT IN THE BATTERY.
+#:
+#: TWO PROPERTIES, BOTH DELIBERATE.
+#:
+#: 1. BALANCED. An earlier block was 8 examples of which 4 were IN-FRAME, chosen
+#:    to teach the hard POLE/IN-FRAME boundary. A few-shot block is a PRIOR OVER
+#:    CLASS FREQUENCIES whether or not it is meant as one, and that prior was on
+#:    the exact quantity this arm measures. **Kappa cannot see this**: both
+#:    vendors read the same examples, both anchor the same way, they agree, and
+#:    the resolved share is wrong. Reliability and validity come apart here.
+#:
+#: 2. INVENTED PAIRS. brave/cowardly, generous/greedy and 勇敢的/懦弱的 appear in
+#:    NONE of the 199 battery prompts (checked against every role of all 44
+#:    groups). Using `f11_love` and `f11_loyal` as examples -- the earlier block
+#:    did -- hands the coder answers for `kill`, `leave`, `protect` and `be` IN
+#:    THE PAIR IT WILL LATER CODE, contaminating 2 of 21 English groups, one of
+#:    them the group the superposition reading rests on. RH's catch. Invented
+#:    pairs teach the decision rule without touching a measured cell, and can
+#:    stay fixed if the battery grows.
+#:
+#: `keep` appears twice, as POLE2 under generous/greedy and IN-FRAME under
+#: brave/cowardly. Pair-relativity is the property the coder most needs shown,
+#: and showing it between two INVENTED pairs costs no battery cell.
+_BRAVE = ("PROMPT A\n  The knight was brave and chose to\n\n"
+          "PROMPT B\n  The knight was cowardly and chose to\n\nSURFACE\n  %s\n")
+_GEN = ("PROMPT A\n  He was generous and decided to\n\n"
+        "PROMPT B\n  He was greedy and decided to\n\nSURFACE\n  %s\n")
+_ZH = ("PROMPT A\n  他是勇敢的，他想要\n\nPROMPT B\n  他是懦弱的，他想要\n\nSURFACE\n  %s\n")
+
 EXAMPLES = [
-    ("PROMPT A\n  She loved him deeply and wanted to\n\nPROMPT B\n  She hated him deeply and wanted to\n\nSURFACE\n  kill\n",
-     {"cls": "POLE2", "content": "YES",
-      "why": "reachable only from hatred, not from love"}),
-    ("PROMPT A\n  She loved him deeply and wanted to\n\nPROMPT B\n  She hated him deeply and wanted to\n\nSURFACE\n  be\n",
-     {"cls": "IN-FRAME", "content": "NO",
-      "why": "a copula: in the scene, carries no content of its own, and the "
-             "pole would be decided by whatever follows it"}),
-    ("PROMPT A\n  The soldier was loyal and chose to\n\nPROMPT B\n  The soldier was rebellious and chose to\n\nSURFACE\n  kill\n",
-     {"cls": "IN-FRAME", "content": "YES", "why": "a loyal soldier kills for the state and a "
-                                "rebellious one against it; it does not discriminate"}),
-    ("PROMPT A\n  She loved him deeply and wanted to\n\nPROMPT B\n  She hated him deeply and wanted to\n\nSURFACE\n  leave\n",
-     {"cls": "IN-FRAME", "content": "YES", "why": "in the scene and equally available from either pole"}),
-    ("PROMPT A\n  She loved him deeply and wanted to\n\nPROMPT B\n  She hated him deeply and wanted to\n\nSURFACE\n  protect\n",
-     {"cls": "POLE1", "content": "YES", "why": "congruent with love and not with hatred"}),
-    ("PROMPT A\n  She loved him deeply and wanted to\n\nPROMPT B\n  She hated him deeply and wanted to\n\nSURFACE\n  ____\n",
-     {"cls": "BLANK-TEMPLATE", "content": "NO", "why": "opens a fill-in exercise rather than "
-                                      "continuing the utterance as fiction"}),
-    ("PROMPT A\n  She loved him deeply and wanted to\n\nPROMPT B\n  She hated him deeply and wanted to\n\nSURFACE\n  However\n",
-     {"cls": "OFF-FRAME", "content": "NO", "why": "a discourse marker starting commentary, not scene"}),
-    #: a single Chinese character, reachable only because the shape filter is gone
-    ("POLE PREDICATES\n  first:  美丽的 (beautiful)\n  second: 丑陋的 (ugly)\n\n"
-     "SURFACE\n  他\n",
-     {"cls": "IN-FRAME", "content": "NO", "why": "a pronoun continuing the scene; carries no pole"}),
+    (_BRAVE % "charge", {"cls": "POLE1", "content": "YES",
+     "why": "only the brave knight charges"}),
+    (_GEN % "share", {"cls": "POLE1", "content": "YES",
+     "why": "congruent with generosity and not with greed"}),
+    (_BRAVE % "flee", {"cls": "POLE2", "content": "YES",
+     "why": "reachable only from cowardice"}),
+    (_GEN % "keep", {"cls": "POLE2", "content": "YES",
+     "why": "keeping it is what the greedy man does, not the generous one"}),
+    (_BRAVE % "keep", {"cls": "IN-FRAME", "content": "YES",
+     "why": "a brave knight keeps his position and a coward keeps out of it; "
+            "the same word does not discriminate under THIS pair"}),
+    (_BRAVE % "be", {"cls": "IN-FRAME", "content": "NO",
+     "why": "a copula: in the scene, carries no content of its own, and the pole "
+            "would be decided by whatever follows it"}),
+    (_BRAVE % "However", {"cls": "OFF-FRAME", "content": "NO",
+     "why": "a discourse marker starting commentary rather than scene"}),
+    (_ZH % "首先", {"cls": "OFF-FRAME", "content": "NO",
+     "why": "'firstly': opens an enumeration, not a continuation of the scene"}),
+    (_BRAVE % "____", {"cls": "BLANK-TEMPLATE", "content": "NO",
+     "why": "opens a fill-in exercise rather than continuing the utterance"}),
+    (_ZH % "＿＿＿＿", {"cls": "BLANK-TEMPLATE", "content": "NO",
+     "why": "the same fill-in move in fullwidth form; the class is not "
+            "English-specific and not a regex over ASCII underscores"}),
 ]
-
 
 def prepare(prompt_a: str, prompt_b: str, surface: str) -> str:
     """The coder's whole view. Nothing else may be added to it.
