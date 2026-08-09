@@ -26,7 +26,8 @@ DEST = os.path.join(ROOT, "data", "f11_twp")
 #: the backfill writes to its OWN directory -- resume is by completed-prompt
 #: readback, so a backfill pointed at the main directory would skip every model
 #: in it and produce nothing
-REMOTE_DIRS = ["/workspace/f11_twp", "/workspace/f11_twp_bf"]
+REMOTE_DIRS = ["/workspace/f11_twp", "/workspace/f11_twp_bf",
+               "/workspace/f11_twp_delta"]
 REMOTE = REMOTE_DIRS[0]
 
 
@@ -66,7 +67,7 @@ def pull(st):
     """
     got_any, errs = False, []
     for rd in REMOTE_DIRS:
-        dest = DEST if rd == REMOTE else DEST + "_bf"
+        dest = DEST if rd == REMOTE else DEST + rd.split("f11_twp")[-1]
         os.makedirs(dest, exist_ok=True)
         cmd = ["rsync", "-az", "--partial",
                "-e", "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
@@ -108,7 +109,7 @@ def census():
     nothing, it says nothing is happening."""
     n_j = n_f = rows = 0
     mb = 0.0
-    for d in (DEST, DEST + "_bf"):
+    for d in (DEST, DEST + "_bf", DEST + "_delta"):
         js = glob.glob(os.path.join(d, "*.jsonl"))
         n_j += len(js)
         n_f += len(glob.glob(os.path.join(d, "*.f16")))

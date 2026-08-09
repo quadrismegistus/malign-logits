@@ -18,17 +18,39 @@ re-derived.
 over live boxes. If credit does not cover it the run dies mid-model on a box
 nobody is watching, which is the expensive way to find out.
 """
-import argparse, json, os, subprocess, sys, time
+import argparse, glob, json, os, subprocess, sys, time
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
-REMOTE = "/workspace/f11_twp"
-SPECS = {"box1_dense": 92, "box2_ssm": 10, "box3_70b": 2}
+REMOTE = "/workspace/f11_twp_delta"
+
+#: **DERIVED FROM THE SHARD SPECS, NOT HARDCODED.** The old version carried a
+#: literal {"box1_dense": 92, ...}, so a re-shard silently left the monitor
+#: reporting against a roster that no longer existed. The spec files ARE the
+#: rosters; a denominator that has to be maintained by hand is one that will
+#: eventually be wrong while still looking authoritative.
+def _specs():
+    out = {}
+    for f in glob.glob(os.path.join(ROOT, "data", "f11_delta.*.json")):
+        k = os.path.basename(f).split(".")[1]
+        try:
+            out[k] = len(json.load(open(f))["spec"])
+        except Exception:
+            pass
+    return out
+
+
+SPECS = None            # filled at main(); see _specs()
 #: **THE DEFAULT STATE FILE NAMES NO BOX**, so roster inference by substring
 #: returned None for box 1 and the report read "37/None models" -- a denominator
 #: that could not fail a check because it was not there. Mapped explicitly.
-STATE_ROSTER = {".vastai.json": "box1_dense",
-                ".vastai.box2ssm.json": "box2_ssm",
-                ".vastai.box3_70b.json": "box3_70b"}
+#: state file `.vastai.<name>.json` maps to shard `f11_delta.<name>.json`
+def _roster_key(name):
+    #: ".vastai.dense0.json" -> ["", "vastai", "dense0", "json"], so the name is
+    #: index 2, not 1. The leading dot makes an empty first element and I read
+    #: past it -- which returned "vastai" for every box, so every roster was
+    #: unknown, every denominator None, and every ETA 0.00.
+    parts = name.split(".")
+    return parts[2] if len(parts) > 3 else None
 #: a box with nothing left to do is BURNING MONEY, and that is the one state a
 #: health check exists to catch. Not an error, so nothing else would flag it.
 IDLE_ALERT_MIN = 10
@@ -105,6 +127,8 @@ def main():
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
 
+    global SPECS
+    SPECS = _specs()
     try:
         insts = vast_json("show", "instances", "--raw")
         credit = float(vast_json("show", "user", "--raw").get("credit", 0.0))
@@ -130,8 +154,8 @@ def main():
              "name": name, "gpu": i.get("gpu_name"),
              "n_gpu": i.get("num_gpus")}
         #: which roster is this box on? derived from the state file's name
-        key = STATE_ROSTER.get(name) or next(
-            (k for k in SPECS if k.split("_")[0] in name), None)
+        key = _roster_key(name)
+        key = key if key in SPECS else None
         r["roster"] = key
         r["total"] = SPECS.get(key)
         if st and i.get("actual_status") == "running":
@@ -155,8 +179,15 @@ def main():
                           "echo DISK=$(df -P / | tail -1 | awk '{print $4}'); "
                           "echo SESS=$(tmux ls 2>/dev/null | cut -d: -f1 "
                           "| tr '\\n' ' '); "
+                          #: **NO `|| echo 0`.** `grep -c` PRINTS "0" and
+                          #: EXITS 1 when it finds nothing, so the fallback
+                          #: fired too and DONE became "0 0" -- which is not
+                          #: the string "0", so every INCOMPLETE box read as
+                          #: COMPLETE and the loop was told to destroy boxes
+                          #: three models into a thirty-model shard. A missing
+                          #: file yields empty, which parses to 0 below.
                           "echo DONE=$(grep -c 'ALL MODELS COMPLETE' "
-                          "/workspace/f11.log 2>/dev/null || echo 0)"
+                          "/workspace/f11.log 2>/dev/null | head -1)"
                           % (REMOTE, REMOTE, REMOTE))
             if out:
                 kv = {}
@@ -168,7 +199,11 @@ def main():
                     n = int(kv.get("N", 0))
                     r["done"] = n
                     r["_sessions"] = kv.get("SESS", "")
-                    r["_complete"] = kv.get("DONE", "0") not in ("0", "")
+                    #: parsed as a NUMBER, not compared to a spelling
+                    try:
+                        r["_complete"] = int((kv.get("DONE") or "0").split()[0]) > 0
+                    except (ValueError, IndexError):
+                        r["_complete"] = False
                     r["disk_free_gb"] = round(int(kv.get("DISK", 0)) / 1e6, 1)
                     if n >= 2:
                         first, last = int(kv["FIRST"]), int(kv["LAST"])
@@ -198,8 +233,15 @@ def main():
             #: working in another directory, and a monitor that reads only the
             #: main count would tell the loop to destroy a box mid-run. The
             #: chain is asked about directly rather than inferred from a count.
+            #: **ONLY A `chain` SESSION MEANS BACKFILL.** This also matched
+            #: `f11` -- the MAIN run's own session -- so any box whose producer
+            #: reported completion while its main tmux was still tearing down
+            #: read as "backfill running, do not destroy". On the delta fleet
+            #: there is no backfill at all, so every box claimed one. A branch
+            #: that cannot distinguish the two sessions cannot decide between
+            #: "working" and "idle", which is the only decision it exists for.
             live = r.get("_sessions") or ""
-            if "chain" in live or "f11" in live:
+            if "chain" in live:
                 r["alert"] = None
                 r["note"] = ("main roster done; BACKFILL RUNNING (tmux: %s) "
                              "-- do not destroy" % live.replace("\n", " "))
@@ -211,6 +253,8 @@ def main():
             r["alert"] = ("no new model for %.0f min with %d left -- stalled?"
                           % (r["stalled_min"], r["remaining"]))
 
+    #: no chained backfill exists on the delta fleet; the block below is a
+    #: no-op there because no f11_twp_backfill.<roster>.json matches.
     #: **THE PROJECTION MUST COVER COMMITTED WORK, NOT VISIBLE WORK.** Each box
     #: carries an armed `chain` session that starts a hidden-state backfill the
     #: moment its main roster ends. Costing only the main roster reports
@@ -222,7 +266,7 @@ def main():
         if "min_per_model" not in r or not r.get("roster"):
             continue
         bf = os.path.join(ROOT, "data",
-                          "f11_twp_backfill.%s.json" % r["roster"])
+                          "f11_twp_backfill.%s.json" % r["roster"])  # none for the delta
         if not (os.path.exists(bf) and "chain" in (r.get("_sessions") or "")):
             continue
         try:
