@@ -213,6 +213,20 @@ nnsight/L3 (RH's word at [5093] tail: improvise later, not in the registration).
   the July body unchanged). L1 runs; L2 generation under the pinned inherit-nothing
   producer with mode+params per record; the coded census at Option B + BOTH_MATCHED.
 - ACHIEVED ROSTERS: appended here as each stage lands, achieved-vs-declared with reasons.
+- L1 FLEET COMPLETE ([5145], 2026-08-09 ~02:30): 90 of 104 checkpoints produced usable rows —
+  ALL 90 WITH FINAL-POSITION RESIDUALS (the [5142].a split CLOSED BY BACKFILL: 37+2+2
+  re-passed before their boxes were destroyed). Stores: f11_twp (95 models, 10,134 logit
+  cells, 5,284 hidden rows) + f11_twp_bf (41 models, 4,715 + 4,715). THE FOURTEEN
+  NON-PRODUCERS, all architectural not procedural, each a named row in
+  model_load_environments.json: Pharia x2 (round-trip refusal), gpt-sw3 x2 / mpt-7b x2 /
+  Zamba2 x2 / jais x2 (tokenizer or load), Baichuan2 x2 (meta-tensor), internlm2 x2
+  (custom code). "Models with no data, not missing data." Three boxes, ~5.9 GPU-hours,
+  ~$15 all-in, all destroyed after local verification; credit $12.47 remains.
+- INGEST: DRY-RUN ONLY as of this line — path built, exercised, read-back verified
+  bit-for-bit, sidecar pairing 0 problems across 136 model files — but NO CELL WRITTEN to
+  the canonical store: "a real ingest is a write into the store and I am not doing it at
+  02:30 on my own initiative; it is one command when RH wants it." AWAITS RH'S WORD; N3's
+  confirmatory read follows the ingest.
 - ADDENDUM v2 ([5111], c0f8ea1391e4f89d, commit 6900c9ad — amended BEFORE any load, v1
   superseded): (a) SPAN — the v1 criterion split on whitespace and therefore PASSED ALL 20
   zh TRIPLETS VACUOUSLY ([5105]'s "1 of 41" was 21 English answers and 20 non-answers);
