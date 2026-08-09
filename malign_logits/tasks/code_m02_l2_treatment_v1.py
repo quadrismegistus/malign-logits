@@ -48,12 +48,48 @@ example block does not fix it, because two per class is a 40% prior against an
 observed ~20%. Kappa cannot detect this: both vendors read the same examples,
 anchor the same way, and AGREE. The discrimination lives in the field
 definitions instead, and `EXAMPLES` is empty on purpose.
+
+## "VERBATIM" HAS TO BE CHECKED AGAINST THE CONTINUATION, NOT ASSERTED
+
+The field descriptions said "never paraphrase" and the validator only checked
+the span was non-empty, because a pydantic model does not see the text it is
+describing. On the first two batches of ten, 2 of 10 and then 2 of 10 quoted
+spans were not in the continuation, and both failures were the same failure:
+the coder quoted the PROMPT. That path is not a random slip. Every `both`
+prompt in this design already names its own contradiction ("He loved her and
+hated her"), so `tension_named` can reach YES with a real quotation that is
+evidence about the stimulus rather than about the model's output, and the field
+that is supposed to separate naming from enacting is satisfied for free.
+
+`code()` below sets the continuation on a ContextVar that the validator reads,
+so the check runs inside validation and a failure spends a retry the same way
+an incoherent partition does. Calling `run()` directly leaves the var unset and
+the check is skipped, which keeps the model usable standalone -- but the
+counting path must go through `code()`.
 """
+import contextvars
+import re
 from typing import Literal
 
 from pydantic import BaseModel, Field, model_validator
 
 from largeliterarymodels.task import Task
+
+#: The continuation currently being coded, for the verbatim check. Unset means
+#: "not available", never "no text": the validator skips rather than refuses,
+#: so a bare `run()` still validates everything that does not need the source.
+_SOURCE = contextvars.ContextVar("m02_l2_source", default=None)
+
+
+def _norm(s):
+    """Whitespace-insensitive, case-insensitive, quote-insensitive.
+
+    Deliberately NOT punctuation-insensitive. A span differing from the source
+    by its punctuation has been retyped rather than copied, and retyping is the
+    step this check exists to catch.
+    """
+    s = re.sub(r"\s+", " ", (s or "")).strip().strip("\"'“”‘’")
+    return s.casefold()
 
 YN = Literal["YES", "NO"]
 SHARE = Literal["NONE", "SOME", "MOST", "ALL"]
@@ -159,13 +195,33 @@ class TreatmentFields(BaseModel):
             raise ValueError("resolves=POLE_A but pole_a_alive=NO")
         if self.resolves == "POLE_B" and self.pole_b_alive == "NO":
             raise ValueError("resolves=POLE_B but pole_b_alive=NO")
+        src = _SOURCE.get()
         for f, sp in (("tension_enacted", "enacted_span"),
                       ("tension_named", "named_span"),
                       ("tension_deliberated", "deliberated_span")):
-            if getattr(self, f) == "YES" and not (getattr(self, sp) or "").strip():
+            if getattr(self, f) != "YES":
+                continue
+            span = (getattr(self, sp) or "").strip()
+            if not span:
                 raise ValueError("%s=YES requires a verbatim %s; the field is "
                                  "defined so it cannot be satisfied by an "
                                  "impression" % (f, sp))
+            if src is None:
+                continue                      # standalone validation; see module docstring
+            text, prompt = src
+            if _norm(span) in _norm(text):
+                continue
+            #: Name the observed failure mode when it is the one we hit, because
+            #: a retry told only "not found" tends to re-quote the same words.
+            if prompt and _norm(span) in _norm(prompt):
+                raise ValueError(
+                    "%s=YES quotes the PROMPT, not the continuation: %r. The "
+                    "prompt states the contradiction by construction, so it is "
+                    "not evidence about this continuation. Quote the "
+                    "continuation or answer NO." % (f, span))
+            raise ValueError(
+                "%s=YES but %s does not occur in the continuation: %r. Copy the "
+                "words exactly as they appear, or answer NO." % (f, sp, span))
         return self
 
 
@@ -238,3 +294,18 @@ class TreatmentV1Task(Task):
     retries = 2
     temperature = 0.0
     model = "deepseek/deepseek-v4-flash"
+
+
+def code(task, pole_a, pole_b, prompt, continuation, **kw):
+    """Code one continuation with the verbatim-span check armed.
+
+    THE COUNTING PATH. `task.run(prepare(...))` still works and still validates,
+    but it cannot check a span against text it was never given, so it will
+    accept a span lifted from the prompt -- which is the failure this design is
+    most exposed to. Use this.
+    """
+    tok = _SOURCE.set((continuation, prompt))
+    try:
+        return task.run(prepare(pole_a, pole_b, prompt, continuation), **kw)
+    finally:
+        _SOURCE.reset(tok)
