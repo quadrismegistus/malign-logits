@@ -126,6 +126,16 @@ def load_llm(model_id, args):
 
 
 def teardown(llm):
+    """**THIS IS NOT ENOUGH AND THE RUN PROVED IT.** `del llm` + `empty_cache()`
+    left 43 of 47 GiB held after the first model, and the second engine refused
+    to start: 'Free memory on device cuda:0 (4.18/47.27 GiB) ... less than
+    desired GPU memory utilization'. vLLM's engine holds CUDA context in worker
+    processes that a Python `del` does not reach.
+
+    So the real teardown is PROCESS EXIT -- every model phase runs in a
+    subprocess and the OS reclaims. This stays for the in-process path because
+    it costs nothing, but nothing depends on it.
+    """
     try:
         import torch
         del llm
@@ -133,6 +143,22 @@ def teardown(llm):
         torch.cuda.empty_cache()
     except Exception:
         pass
+
+
+def run_worker(phase, model, args, extra=None):
+    """One model, one phase, in a SUBPROCESS. Exit is the only reliable free."""
+    cmd = [sys.executable, os.path.abspath(__file__), "--worker", phase,
+           "--model", model, "--out", args.out, "--population", args.population,
+           "--dtype", args.dtype, "--gpu-util", str(args.gpu_util),
+           "--max-model-len", str(args.max_model_len), "--tp", str(args.tp)]
+    if args.limit_prompts:
+        cmd += ["--limit-prompts", str(args.limit_prompts)]
+    cmd += extra or []
+    log("  -> %s %s" % (phase, model))
+    r = subprocess.run(cmd)
+    if r.returncode != 0:
+        raise RuntimeError("%s worker failed for %s (rc=%d)"
+                           % (phase, model, r.returncode))
 
 
 def generate(llm, model_id, prompts, out_path, args):
@@ -262,7 +288,28 @@ def main():
     ap.add_argument("--no-purge", action="store_true")
     ap.add_argument("--no-score", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
+    #: worker mode: ONE model, ONE phase, then exit. See teardown().
+    ap.add_argument("--worker", choices=("gen", "score"))
+    ap.add_argument("--model")
+    ap.add_argument("--score-src", action="append", default=[],
+                    help="model=path of a .gen.jsonl to score (repeatable)")
     a = ap.parse_args()
+
+    if a.worker:
+        prompts, _meta = population(a.population)
+        if a.limit_prompts:
+            prompts = prompts[:a.limit_prompts]
+        f = lambda m, k: os.path.join(a.out, "%s.%s.jsonl"
+                                      % (m.replace("/", "__"), k))
+        llm = load_llm(a.model, a)
+        if a.worker == "gen":
+            generate(llm, a.model, prompts, f(a.model, "gen"), a)
+        else:
+            srcs = [(s.split("=", 1)[0], s.split("=", 1)[1])
+                    for s in a.score_src]
+            score(llm, a.model, srcs, f(a.model, "score"), a)
+        teardown(llm)
+        return 0
 
     prompts, meta = population(a.population)
     log("population %s  list sha256/16 %s"
@@ -311,29 +358,20 @@ def main():
         log("\n=== pair %d/%d  %s + %s  [%s]" % (pi, len(pairs), b, al, verdict))
         t0 = time.time()
         try:
-            # 1. base generates
-            llm = load_llm(b, a)
-            generate(llm, b, prompts, f(b, "gen"), a)
-            teardown(llm)
-
-            # 2. aligned generates, then scores BOTH sets
-            llm = load_llm(al, a)
-            generate(llm, al, prompts, f(al, "gen"), a)
+            #: EVERY PHASE IS A SUBPROCESS. Not a style choice -- vLLM holds
+            #: CUDA context past `del`, and the second engine on a box refuses
+            #: to start with 43 of 47 GiB still held.
+            run_worker("gen", b, a)                       # 1. base generates
+            run_worker("gen", al, a)                      # 2. aligned generates
             if not a.no_score:
                 if verdict == "ID-SAFE":
-                    score(llm, al, [(b, f(b, "gen")), (al, f(al, "gen"))],
-                          f(al, "score"), a)
+                    srcs = ["--score-src", "%s=%s" % (b, f(b, "gen")),
+                            "--score-src", "%s=%s" % (al, f(al, "gen"))]
+                    run_worker("score", al, a, srcs)      # 3. aligned scores both
+                    run_worker("score", b, a, srcs)       # 4. base scores both
                 else:
                     log("  ** SKIPPING SCORE: pair is %s, not ID-SAFE. "
                         "Scoring by id would score a different string." % verdict)
-            teardown(llm)
-
-            # 3. base scores BOTH sets
-            if not a.no_score and verdict == "ID-SAFE":
-                llm = load_llm(b, a)
-                score(llm, b, [(b, f(b, "gen")), (al, f(al, "gen"))],
-                      f(b, "score"), a)
-                teardown(llm)
         except Exception as e:
             log("  !! PAIR FAILED: %s: %s" % (type(e).__name__, str(e)[:200]))
         finally:
