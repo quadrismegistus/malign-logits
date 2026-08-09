@@ -32,14 +32,13 @@ OUT = os.path.join(ROOT, "data", "f11_l1_candidate_vocab.json")
 
 
 def eligible(w):
-    """N3 §2.2 filter: alphabetic, length >= 2, nonzero English unigram freq."""
-    if not w or len(w) < 2 or not w.isalpha():
-        return False
-    try:
-        from wordfreq import word_frequency
-        return word_frequency(w.lower(), "en") > 0
-    except Exception:
-        return True
+    """AMENDED ([5170]): NO SHAPE FILTER -- everything above theta is codeable.
+
+    See f11_l1_coverage.py for the measurements that retired the old predicate.
+    Short form: the frequency test removed 0.0% of English mass and 53.2% of
+    Chinese; `len >= 2` removed another 46.3% of Chinese; and N3 §2.2 names
+    punctuation-led continuations as a CODEABLE CLASS."""
+    return bool(w)
 
 
 def main():

@@ -33,8 +33,22 @@ DEMOTE = 0.50
 
 
 def eligible(w):
-    from wordfreq import word_frequency
-    return bool(w) and len(w) >= 2 and w.isalpha() and word_frequency(w.lower(), "en") > 0
+    """AMENDED per the pen's ruling on [5169] -> [5170]: NO SHAPE FILTER.
+    Everything above theta is codeable.
+
+    The old predicate was `len(w) >= 2 and w.isalpha() and
+    word_frequency(w, "en") > 0` -- three tests of which the frequency one
+    removed 0.0% of ENGLISH mass and 53.2% of Chinese, and `len >= 2` removed a
+    further 46.3% of Chinese (single-character words: 在 用 对 和 为). Inherited
+    from F40 by citation; F40 was English-only, where it was harmless AND inert.
+
+    And N3 §2.2 already defines OFF-FRAME to include "punctuation-led
+    continuations" and "list/format tokens" -- so the filter was deleting a
+    class the registration says the CODER decides, by fiat, with no kappa.
+
+    `unresolved` now means theta truncation and nothing else, which makes it a
+    property of the instrument rather than of a design choice."""
+    return bool(w)
 
 
 def main():
