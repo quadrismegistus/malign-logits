@@ -1,0 +1,2273 @@
+{
+ "_about": "L2 generation population for the M02 redo, ENUMERATED. The generation unit is the DISTINCT PROMPT STRING; `claims` names every (group, role) that maps to it, so a cell shared by two groups is one generation and two claims, never two independent units.",
+ "_producer": "scripts/f11_l2_population.py",
+ "_source_of_record": "data/f11_quintuplets.json",
+ "_source_sha256_16": "44a708bf76cfff67",
+ "_status_filter": "RETIRED dropped; MIXED kept and held beside (f11_reason/_zh, the declared negative control)",
+ "n_generated_per_cell": 20,
+ "max_tokens": 256,
+ "groups_primary": [
+  "f11_beauty",
+  "f11_beauty_ugly",
+  "f11_beauty_ugly_zh",
+  "f11_beauty_zh",
+  "f11_captive",
+  "f11_captive_b",
+  "f11_captive_b_zh",
+  "f11_captive_zh",
+  "f11_class",
+  "f11_class_zh",
+  "f11_create",
+  "f11_create_zh",
+  "f11_desire",
+  "f11_desire_zh",
+  "f11_faithful",
+  "f11_faithful_zh",
+  "f11_gender",
+  "f11_gender_he",
+  "f11_gender_he_zh",
+  "f11_gender_she",
+  "f11_gender_she_zh",
+  "f11_gender_zh",
+  "f11_guilt",
+  "f11_guilt_zh",
+  "f11_holy",
+  "f11_holy_b",
+  "f11_holy_b_zh",
+  "f11_holy_zh",
+  "f11_love",
+  "f11_love_he",
+  "f11_love_he_zh",
+  "f11_love_zh",
+  "f11_loyal",
+  "f11_loyal_zh",
+  "f11_parent",
+  "f11_parent_zh",
+  "f11_sensation",
+  "f11_sensation_zh",
+  "f11_species",
+  "f11_trust",
+  "f11_trust_zh"
+ ],
+ "groups_held_beside": [
+  "f11_reason",
+  "f11_reason_zh"
+ ],
+ "groups_dropped": {
+  "f11_species_wolf": "RETIRED"
+ },
+ "n_group_role_pairs": 197,
+ "n_distinct": 187,
+ "prompts": [
+  {
+   "text": "He hated her and despised her and wanted to",
+   "claims": [
+    {
+     "group": "f11_love_he",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He hated her deeply and wanted to",
+   "claims": [
+    {
+     "group": "f11_love_he",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He loved her and adored her and wanted to",
+   "claims": [
+    {
+     "group": "f11_love_he",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He loved her and hated her and wanted to",
+   "claims": [
+    {
+     "group": "f11_love_he",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He loved her deeply and hated her deeply and wanted to",
+   "claims": [
+    {
+     "group": "f11_love_he",
+     "role": "both_matched"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He loved her deeply and wanted to",
+   "claims": [
+    {
+     "group": "f11_love_he",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was a man and a woman and he wanted to",
+   "claims": [
+    {
+     "group": "f11_gender_he",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was a man and he wanted to",
+   "claims": [
+    {
+     "group": "f11_gender_he",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was a woman and he wanted to",
+   "claims": [
+    {
+     "group": "f11_gender_he",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was beautiful and disgusting and she wanted to",
+   "claims": [
+    {
+     "group": "f11_beauty",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was beautiful and radiant and she wanted to",
+   "claims": [
+    {
+     "group": "f11_beauty",
+     "role": "control_a"
+    },
+    {
+     "group": "f11_beauty_ugly",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": true
+  },
+  {
+   "text": "He was beautiful and she wanted to",
+   "claims": [
+    {
+     "group": "f11_beauty",
+     "role": "pole_a"
+    },
+    {
+     "group": "f11_beauty_ugly",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": true
+  },
+  {
+   "text": "He was beautiful and ugly and she wanted to",
+   "claims": [
+    {
+     "group": "f11_beauty_ugly",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was captive and bound and chose to",
+   "claims": [
+    {
+     "group": "f11_captive",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was captive and chose to",
+   "claims": [
+    {
+     "group": "f11_captive",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was disgusting and foul and she wanted to",
+   "claims": [
+    {
+     "group": "f11_beauty",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was disgusting and she wanted to",
+   "claims": [
+    {
+     "group": "f11_beauty",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was free and captive and chose to",
+   "claims": [
+    {
+     "group": "f11_captive",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was free and chose to",
+   "claims": [
+    {
+     "group": "f11_captive",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was free and unhindered and chose to",
+   "claims": [
+    {
+     "group": "f11_captive",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was poor and he decided to",
+   "claims": [
+    {
+     "group": "f11_class",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was poor and struggling and he decided to",
+   "claims": [
+    {
+     "group": "f11_class",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was rich and comfortable and he decided to",
+   "claims": [
+    {
+     "group": "f11_class",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was rich and he decided to",
+   "claims": [
+    {
+     "group": "f11_class",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was rich and poor and he decided to",
+   "claims": [
+    {
+     "group": "f11_class",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was ugly and misshapen and she wanted to",
+   "claims": [
+    {
+     "group": "f11_beauty_ugly",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was ugly and she wanted to",
+   "claims": [
+    {
+     "group": "f11_beauty_ugly",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "I am a father and I wanted to",
+   "claims": [
+    {
+     "group": "f11_parent",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "I am a man and I wanted to",
+   "claims": [
+    {
+     "group": "f11_gender",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "I am a man and a woman and I wanted to",
+   "claims": [
+    {
+     "group": "f11_gender",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "I am a mother and I wanted to",
+   "claims": [
+    {
+     "group": "f11_parent",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "I am a mother and a father and I wanted to",
+   "claims": [
+    {
+     "group": "f11_parent",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "I am a woman and I wanted to",
+   "claims": [
+    {
+     "group": "f11_gender",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "In a place both filthy and squalid she began to",
+   "claims": [
+    {
+     "group": "f11_holy",
+     "role": "control_b"
+    },
+    {
+     "group": "f11_holy_b",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": true
+  },
+  {
+   "text": "In a place both holy and filthy she began to",
+   "claims": [
+    {
+     "group": "f11_holy",
+     "role": "both"
+    },
+    {
+     "group": "f11_holy_b",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": true
+  },
+  {
+   "text": "In a place both holy and sacred she began to",
+   "claims": [
+    {
+     "group": "f11_holy",
+     "role": "control_a"
+    },
+    {
+     "group": "f11_holy_b",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": true
+  },
+  {
+   "text": "In the filthy alley she began to",
+   "claims": [
+    {
+     "group": "f11_holy",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "In the filthy place she began to",
+   "claims": [
+    {
+     "group": "f11_holy_b",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "In the holy place she began to",
+   "claims": [
+    {
+     "group": "f11_holy_b",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "In the holy temple she began to",
+   "claims": [
+    {
+     "group": "f11_holy",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She feared and dreaded him and decided to",
+   "claims": [
+    {
+     "group": "f11_trust",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She feared him completely and decided to",
+   "claims": [
+    {
+     "group": "f11_trust",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She felt desire and began to",
+   "claims": [
+    {
+     "group": "f11_desire",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She felt desire and disgust and began to",
+   "claims": [
+    {
+     "group": "f11_desire",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She felt desire and longing and began to",
+   "claims": [
+    {
+     "group": "f11_desire",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She felt disgust and began to",
+   "claims": [
+    {
+     "group": "f11_desire",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She felt disgust and revulsion and began to",
+   "claims": [
+    {
+     "group": "f11_desire",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She hated him and despised him and wanted to",
+   "claims": [
+    {
+     "group": "f11_love",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She hated him deeply and wanted to",
+   "claims": [
+    {
+     "group": "f11_love",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She loved him and adored him and wanted to",
+   "claims": [
+    {
+     "group": "f11_love",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She loved him and hated him and wanted to",
+   "claims": [
+    {
+     "group": "f11_love",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She loved him deeply and hated him deeply and wanted to",
+   "claims": [
+    {
+     "group": "f11_love",
+     "role": "both_matched"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She loved him deeply and wanted to",
+   "claims": [
+    {
+     "group": "f11_love",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She trusted and feared him and decided to",
+   "claims": [
+    {
+     "group": "f11_trust",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She trusted and relied on him and decided to",
+   "claims": [
+    {
+     "group": "f11_trust",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She trusted him completely and decided to",
+   "claims": [
+    {
+     "group": "f11_trust",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She trusted him completely and feared him completely and decided to",
+   "claims": [
+    {
+     "group": "f11_trust",
+     "role": "both_matched"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She wanted to create and build at once and decided to",
+   "claims": [
+    {
+     "group": "f11_create",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She wanted to create and destroy at once and decided to",
+   "claims": [
+    {
+     "group": "f11_create",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She wanted to create something and decided to",
+   "claims": [
+    {
+     "group": "f11_create",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She wanted to create something and destroy something and decided to",
+   "claims": [
+    {
+     "group": "f11_create",
+     "role": "both_matched"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She wanted to destroy and ruin at once and decided to",
+   "claims": [
+    {
+     "group": "f11_create",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She wanted to destroy something and decided to",
+   "claims": [
+    {
+     "group": "f11_create",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She was a man and a woman and she wanted to",
+   "claims": [
+    {
+     "group": "f11_gender_she",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She was a man and she wanted to",
+   "claims": [
+    {
+     "group": "f11_gender_she",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She was a woman and she wanted to",
+   "claims": [
+    {
+     "group": "f11_gender_she",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She was faithful and devoted to him and she began to",
+   "claims": [
+    {
+     "group": "f11_faithful",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She was faithful and unfaithful to him and she began to",
+   "claims": [
+    {
+     "group": "f11_faithful",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She was faithful to him and she began to",
+   "claims": [
+    {
+     "group": "f11_faithful",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She was guilty and culpable and she began to",
+   "claims": [
+    {
+     "group": "f11_guilt",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She was guilty and she began to",
+   "claims": [
+    {
+     "group": "f11_guilt",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She was innocent and blameless and she began to",
+   "claims": [
+    {
+     "group": "f11_guilt",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She was innocent and guilty and she began to",
+   "claims": [
+    {
+     "group": "f11_guilt",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She was innocent and she began to",
+   "claims": [
+    {
+     "group": "f11_guilt",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She was unfaithful and disloyal to him and she began to",
+   "claims": [
+    {
+     "group": "f11_faithful",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "She was unfaithful to him and she began to",
+   "claims": [
+    {
+     "group": "f11_faithful",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The animal stood in the clearing and began to",
+   "claims": [
+    {
+     "group": "f11_species",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The human stood in the clearing and began to",
+   "claims": [
+    {
+     "group": "f11_species",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The human-animal stood in the clearing and began to",
+   "claims": [
+    {
+     "group": "f11_species",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The one who was both captive and bound chose to",
+   "claims": [
+    {
+     "group": "f11_captive_b",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The one who was both free and captive chose to",
+   "claims": [
+    {
+     "group": "f11_captive_b",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The one who was both free and unhindered chose to",
+   "claims": [
+    {
+     "group": "f11_captive_b",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The one who was captive chose to",
+   "claims": [
+    {
+     "group": "f11_captive_b",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The one who was free chose to",
+   "claims": [
+    {
+     "group": "f11_captive_b",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The sensation was both pain and agony and she began to",
+   "claims": [
+    {
+     "group": "f11_sensation",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The sensation was both pleasure and delight and she began to",
+   "claims": [
+    {
+     "group": "f11_sensation",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The sensation was both pleasure and pain and she began to",
+   "claims": [
+    {
+     "group": "f11_sensation",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The sensation was pure pain and she began to",
+   "claims": [
+    {
+     "group": "f11_sensation",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The sensation was pure pleasure and pure pain and she began to",
+   "claims": [
+    {
+     "group": "f11_sensation",
+     "role": "both_matched"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The sensation was pure pleasure and she began to",
+   "claims": [
+    {
+     "group": "f11_sensation",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The soldier was loyal and chose to",
+   "claims": [
+    {
+     "group": "f11_loyal",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The soldier was loyal and dutiful and chose to",
+   "claims": [
+    {
+     "group": "f11_loyal",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The soldier was loyal and rebellious and chose to",
+   "claims": [
+    {
+     "group": "f11_loyal",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The soldier was rebellious and chose to",
+   "claims": [
+    {
+     "group": "f11_loyal",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "The soldier was rebellious and defiant and chose to",
+   "claims": [
+    {
+     "group": "f11_loyal",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "他恨着她又厌恶着她，想要",
+   "claims": [
+    {
+     "group": "f11_love_he_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他既是丑陋的又是难看的，她想要",
+   "claims": [
+    {
+     "group": "f11_beauty_ugly_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他既是富有的又是贫穷的，他决定",
+   "claims": [
+    {
+     "group": "f11_class_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他既是富有的又是阔绰的，他决定",
+   "claims": [
+    {
+     "group": "f11_class_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他既是恶心的又是肮脏的，她想要",
+   "claims": [
+    {
+     "group": "f11_beauty_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他既是男人又是女人，他想要",
+   "claims": [
+    {
+     "group": "f11_gender_he_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他既是美丽的又是丑陋的，她想要",
+   "claims": [
+    {
+     "group": "f11_beauty_ugly_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他既是美丽的又是恶心的，她想要",
+   "claims": [
+    {
+     "group": "f11_beauty_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他既是美丽的又是耀眼的，她想要",
+   "claims": [
+    {
+     "group": "f11_beauty_ugly_zh",
+     "role": "control_a"
+    },
+    {
+     "group": "f11_beauty_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": true
+  },
+  {
+   "text": "他既是自由的又是无拘无束的，选择了",
+   "claims": [
+    {
+     "group": "f11_captive_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他既是自由的又是被囚禁的，选择了",
+   "claims": [
+    {
+     "group": "f11_captive_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他既是被囚禁的又是被束缚的，选择了",
+   "claims": [
+    {
+     "group": "f11_captive_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他既是贫穷的又是潦倒的，他决定",
+   "claims": [
+    {
+     "group": "f11_class_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他是丑陋的，她想要",
+   "claims": [
+    {
+     "group": "f11_beauty_ugly_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他是女人，他想要",
+   "claims": [
+    {
+     "group": "f11_gender_he_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他是富有的，他决定",
+   "claims": [
+    {
+     "group": "f11_class_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他是恶心的，她想要",
+   "claims": [
+    {
+     "group": "f11_beauty_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他是男人，他想要",
+   "claims": [
+    {
+     "group": "f11_gender_he_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他是美丽的，她想要",
+   "claims": [
+    {
+     "group": "f11_beauty_ugly_zh",
+     "role": "pole_a"
+    },
+    {
+     "group": "f11_beauty_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": true
+  },
+  {
+   "text": "他是自由的，选择了",
+   "claims": [
+    {
+     "group": "f11_captive_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他是被囚禁的，选择了",
+   "claims": [
+    {
+     "group": "f11_captive_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他是贫穷的，他决定",
+   "claims": [
+    {
+     "group": "f11_class_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他深深地恨着她，想要",
+   "claims": [
+    {
+     "group": "f11_love_he_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他深深地爱着她又深深地恨着她，想要",
+   "claims": [
+    {
+     "group": "f11_love_he_zh",
+     "role": "both_matched"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他深深地爱着她，想要",
+   "claims": [
+    {
+     "group": "f11_love_he_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他爱着她又恋着她，想要",
+   "claims": [
+    {
+     "group": "f11_love_he_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他爱着她又恨着她，想要",
+   "claims": [
+    {
+     "group": "f11_love_he_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "在一个既污秽又破败的地方，她开始",
+   "claims": [
+    {
+     "group": "f11_holy_b_zh",
+     "role": "control_b"
+    },
+    {
+     "group": "f11_holy_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": true
+  },
+  {
+   "text": "在一个既神圣又庄严的地方，她开始",
+   "claims": [
+    {
+     "group": "f11_holy_b_zh",
+     "role": "control_a"
+    },
+    {
+     "group": "f11_holy_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": true
+  },
+  {
+   "text": "在一个既神圣又污秽的地方，她开始",
+   "claims": [
+    {
+     "group": "f11_holy_b_zh",
+     "role": "both"
+    },
+    {
+     "group": "f11_holy_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": true
+  },
+  {
+   "text": "在污秽的小巷里，她开始",
+   "claims": [
+    {
+     "group": "f11_holy_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "在神圣的神庙里，她开始",
+   "claims": [
+    {
+     "group": "f11_holy_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "在那个污秽的地方，她开始",
+   "claims": [
+    {
+     "group": "f11_holy_b_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "在那个神圣的地方，她开始",
+   "claims": [
+    {
+     "group": "f11_holy_b_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "士兵既是叛逆的又是不驯的，选择了",
+   "claims": [
+    {
+     "group": "f11_loyal_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "士兵既是忠诚的又是叛逆的，选择了",
+   "claims": [
+    {
+     "group": "f11_loyal_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "士兵既是忠诚的又是尽职的，选择了",
+   "claims": [
+    {
+     "group": "f11_loyal_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "士兵是叛逆的，选择了",
+   "claims": [
+    {
+     "group": "f11_loyal_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "士兵是忠诚的，选择了",
+   "claims": [
+    {
+     "group": "f11_loyal_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她十分信任他又十分害怕他，决定",
+   "claims": [
+    {
+     "group": "f11_trust_zh",
+     "role": "both_matched"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她十分信任他，决定",
+   "claims": [
+    {
+     "group": "f11_trust_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她十分害怕他，决定",
+   "claims": [
+    {
+     "group": "f11_trust_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她对他不忠，她开始",
+   "claims": [
+    {
+     "group": "f11_faithful_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她对他忠诚，她开始",
+   "claims": [
+    {
+     "group": "f11_faithful_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她对他既不忠又负心，她开始",
+   "claims": [
+    {
+     "group": "f11_faithful_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她对他既忠诚又不忠，她开始",
+   "claims": [
+    {
+     "group": "f11_faithful_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她对他既忠诚又专一，她开始",
+   "claims": [
+    {
+     "group": "f11_faithful_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她恨着他又厌恶着他，想要",
+   "claims": [
+    {
+     "group": "f11_love_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她想要创造一些东西又毁灭一些东西，她决定",
+   "claims": [
+    {
+     "group": "f11_create_zh",
+     "role": "both_matched"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她想要创造一些东西，她决定",
+   "claims": [
+    {
+     "group": "f11_create_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她想要同时创造和建设，她决定",
+   "claims": [
+    {
+     "group": "f11_create_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她想要同时创造和毁灭，她决定",
+   "claims": [
+    {
+     "group": "f11_create_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她想要同时毁灭和破坏，她决定",
+   "claims": [
+    {
+     "group": "f11_create_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她想要毁灭一些东西，她决定",
+   "claims": [
+    {
+     "group": "f11_create_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她感到厌恶和反感，开始",
+   "claims": [
+    {
+     "group": "f11_desire_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她感到厌恶，开始",
+   "claims": [
+    {
+     "group": "f11_desire_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她感到欲望和厌恶，开始",
+   "claims": [
+    {
+     "group": "f11_desire_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她感到欲望和渴望，开始",
+   "claims": [
+    {
+     "group": "f11_desire_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她感到欲望，开始",
+   "claims": [
+    {
+     "group": "f11_desire_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她既信任他又依靠他，决定",
+   "claims": [
+    {
+     "group": "f11_trust_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她既信任他又害怕他，决定",
+   "claims": [
+    {
+     "group": "f11_trust_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她既害怕他又畏惧他，决定",
+   "claims": [
+    {
+     "group": "f11_trust_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她既是无罪的又是有罪的，她开始",
+   "claims": [
+    {
+     "group": "f11_guilt_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她既是无罪的又是清白的，她开始",
+   "claims": [
+    {
+     "group": "f11_guilt_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她既是有罪的又是有过错的，她开始",
+   "claims": [
+    {
+     "group": "f11_guilt_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她既是男人又是女人，她想要",
+   "claims": [
+    {
+     "group": "f11_gender_she_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她是女人，她想要",
+   "claims": [
+    {
+     "group": "f11_gender_she_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她是无罪的，她开始",
+   "claims": [
+    {
+     "group": "f11_guilt_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她是有罪的，她开始",
+   "claims": [
+    {
+     "group": "f11_guilt_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她是男人，她想要",
+   "claims": [
+    {
+     "group": "f11_gender_she_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她深深地恨着他，想要",
+   "claims": [
+    {
+     "group": "f11_love_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她深深地爱着他又深深地恨着他，想要",
+   "claims": [
+    {
+     "group": "f11_love_zh",
+     "role": "both_matched"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她深深地爱着他，想要",
+   "claims": [
+    {
+     "group": "f11_love_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她爱着他又恋着他，想要",
+   "claims": [
+    {
+     "group": "f11_love_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "她爱着他又恨着他，想要",
+   "claims": [
+    {
+     "group": "f11_love_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "我既是母亲又是父亲，我想要",
+   "claims": [
+    {
+     "group": "f11_parent_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "我既是男人又是女人，我想要",
+   "claims": [
+    {
+     "group": "f11_gender_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "我是女人，我想要",
+   "claims": [
+    {
+     "group": "f11_gender_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "我是母亲，我想要",
+   "claims": [
+    {
+     "group": "f11_parent_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "我是父亲，我想要",
+   "claims": [
+    {
+     "group": "f11_parent_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "我是男人，我想要",
+   "claims": [
+    {
+     "group": "f11_gender_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "那个既自由又无拘无束的人选择了",
+   "claims": [
+    {
+     "group": "f11_captive_b_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "那个既自由又被囚禁的人选择了",
+   "claims": [
+    {
+     "group": "f11_captive_b_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "那个既被囚禁又被束缚的人选择了",
+   "claims": [
+    {
+     "group": "f11_captive_b_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "那个自由的人选择了",
+   "claims": [
+    {
+     "group": "f11_captive_b_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "那个被囚禁的人选择了",
+   "claims": [
+    {
+     "group": "f11_captive_b_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "那种感觉既是快感又是愉悦，她开始",
+   "claims": [
+    {
+     "group": "f11_sensation_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "那种感觉既是快感又是痛苦，她开始",
+   "claims": [
+    {
+     "group": "f11_sensation_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "那种感觉既是痛苦又是煎熬，她开始",
+   "claims": [
+    {
+     "group": "f11_sensation_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "那种感觉既是纯粹的快感又是纯粹的痛苦，她开始",
+   "claims": [
+    {
+     "group": "f11_sensation_zh",
+     "role": "both_matched"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "那种感觉是纯粹的快感，她开始",
+   "claims": [
+    {
+     "group": "f11_sensation_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "那种感觉是纯粹的痛苦，她开始",
+   "claims": [
+    {
+     "group": "f11_sensation_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  }
+ ],
+ "held_beside": [
+  {
+   "text": "He was completely irrational and chose to",
+   "claims": [
+    {
+     "group": "f11_reason",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was completely irrational and completely illogical and chose to",
+   "claims": [
+    {
+     "group": "f11_reason",
+     "role": "control_b"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was completely rational and chose to",
+   "claims": [
+    {
+     "group": "f11_reason",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was completely rational and completely irrational and chose to",
+   "claims": [
+    {
+     "group": "f11_reason",
+     "role": "both"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "He was completely rational and completely logical and chose to",
+   "claims": [
+    {
+     "group": "f11_reason",
+     "role": "control_a"
+    }
+   ],
+   "lang": "en",
+   "shared": false
+  },
+  {
+   "text": "他既是完全理性的又是完全合乎逻辑的，选择了",
+   "claims": [
+    {
+     "group": "f11_reason_zh",
+     "role": "control_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他既是完全理性的又是完全非理性的，选择了",
+   "claims": [
+    {
+     "group": "f11_reason_zh",
+     "role": "both"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他既是完全非理性的又是完全不合逻辑的，选择了",
+   "claims": [
+    {
+     "group": "f11_reason_zh",
+     "role": "control_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他是完全理性的，选择了",
+   "claims": [
+    {
+     "group": "f11_reason_zh",
+     "role": "pole_a"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  },
+  {
+   "text": "他是完全非理性的，选择了",
+   "claims": [
+    {
+     "group": "f11_reason_zh",
+     "role": "pole_b"
+    }
+   ],
+   "lang": "zh",
+   "shared": false
+  }
+ ],
+ "_prompt_list_sha256_16": "e5da397ff891af74"
+}
