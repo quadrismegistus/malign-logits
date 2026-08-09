@@ -213,6 +213,72 @@ say the aligned model looks moralising only because it selects milder words and
 milder words invite different scenes. Here the word is identical by construction,
 the scene is identical by measurement, and the guilt is added anyway.
 
+## 8. The base model is surprised by the aligned model's guilt — and by nothing else it writes
+
+Everything above is counting. This is the surprisal complement, and it is the
+one place in the corpus where a moral register costs the base model something.
+
+Per passage: **mean surprisal inside a tag minus mean surprisal in plain story**,
+where plain story is `layer1 == 'story' AND layer2 is null` — ordinary narration
+with every layer-2 span removed. Means are length-invariant, so no window
+matching is required. Unit is the pair; producer
+`scripts/y_full_analysis.py --only story` over the two tables.
+
+| tag | written by | pairs | delta | boot 95% CI (mean) | wilcoxon | sign |
+| --- | --- | --- | --- | --- | --- | --- |
+| **`guilt`** | **aligned** | 26 | **+0.102** | **[+0.005, +0.202]** | **2.6e-02** | **21/26** |
+| `guilt` | base | 24 | +0.040 | [−0.077, +0.149] | 0.25 | 15/24 |
+| `moral` | either | 19–21 | ~0 | straddles | ns | 9–10 of 19–21 |
+| `sexual` | base | 32 | −0.179 | [−0.276, −0.093] | 3.3e-04 | 24/32 |
+| `consent` | base | 21 | −0.250 | [−0.352, −0.131] | 1.2e-03 | 19/21 |
+| `consent` | aligned | 24 | −0.219 | [−0.298, −0.148] | 6.3e-05 | 21/24 |
+| `resist` | base | 28 | −0.288 | [−0.395, −0.195] | 9.0e-06 | 26/28 |
+| `resist` | aligned | 25 | −0.164 | [−0.279, −0.071] | 1.9e-03 | 20/25 |
+
+**`guilt` written by the aligned model is the only positive cell in the table.**
+Every other tag is easier than plain story, or null. And it holds on the
+**aligned scorer independently** (+0.080, p=3.0e-02, 20/26), so it is not an
+artifact of which model is doing the reading.
+
+**This is the one thing alignment writes that its parent does not find ordinary.**
+Sections 1–7 establish that alignment moralises more often, in the same place, at
+the same length, with the same words, and that the base is not estranged from the
+result. That last part now has an exception, and it is guilt specifically —
+not `moral`, not `consent`, not `resist`.
+
+### The moral cluster is not one thing
+
+Sections 4–6 treat `guilt`, `consent`, `resist` and `moral` together. **They do
+not behave alike.** `consent` and `resist` are strongly NEGATIVE in both arms and
+both scorers — easier than ordinary narration by 0.16 to 0.31 nats, up to 26 of
+28 pairs. That is the formulaic-language result: hesitation and refusal language
+is stock phrasing both models predict well (`Y_examples.md` §4). `guilt` runs the
+other way. Any claim about "the superego measures" that pools them is pooling an
+effect with its opposite.
+
+### Why an earlier version of this reported a null
+
+The first attempt compared the **maximum** divergence in a span against a
+length-matched window of story. A maximum is a high-variance extreme-value
+statistic and needs the matching precisely because it grows with window length;
+a **mean** does not, and is far more sensitive. Using the harder statistic for no
+reason produced a null in every cell. Recorded because the choice of summary was
+the whole difference between a null and a result, and nothing about the null
+looked wrong.
+
+### Multiplicity, and why not Bonferroni
+
+Ten cells per scorer panel (5 layer-2 tags × 2 arms). Correction is
+**Benjamini-Hochberg at q=0.05**, which controls the proportion of false
+positives among rejections; it rejects six, `guilt/aligned` among them, on both
+scorers. Bonferroni is the wrong instrument here: it controls family-wise error,
+which is not the target for a descriptive table, and it assumes an independence
+these cells do not have, since they share passages, spans and pairs.
+
+The honest statement is the interval, per Y's convention that the CI is the
+claim and the p ranks: **+0.102 [+0.005, +0.202]**. It clears, and it clears
+narrowly.
+
 ## Limits
 
 - **`moralisation_in_scene` alone does not clear** (p=0.056, 19/32). The
@@ -232,3 +298,6 @@ the scene is identical by measurement, and the guilt is added anyway.
   without being run there.
 - One coder (`deepseek-v4-flash`, task `code_y_superego_v3`). Field reliability
   is the v3 gate's business, not re-established here.
+- **§8's interval nearly touches zero** (+0.005) and `guilt/base` is null, so the
+  effect exists only for guilt the aligned model wrote. It is a lead worth
+  registering, not a number to quote as settled.
