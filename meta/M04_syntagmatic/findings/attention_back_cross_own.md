@@ -209,6 +209,55 @@ has committed to nothing, and `plen` offsets the scored positions -- and the
 first objection applies here unchanged. Forced-versus-chosen is not available
 from this corpus.
 
+## 3b. Normalising by each arm's own undisturbed slot
+
+RH's proposal: take the first token of the undisturbed generations as the
+control and read the forced words against it. Per (pair, prompt, arm),
+
+    U(arm)        attention-back to the model's OWN first generated token,
+                  mean over 50 undisturbed sequences
+    D_norm(word)  log[attn(aligned,word)/U(aligned)] - log[attn(base,word)/U(base)]
+
+**This fixes a real defect.** Absolute D is confounded with the base level -- on
+the OLMo cell `manhood` sits at 0.037 against `cock` at 0.130, so equal
+proportional changes give very different absolute differences and the ordering
+inverted depending on which was used. D_norm is a log ratio of ratios,
+scale-free per head and per arm, and it settles the absolute-vs-ratio question
+that was left open rather than answering it by preference.
+
+It does NOT give a token control -- U is a mixture over whatever the model
+chose. But the reference is the same for every word in a cell, so it cancels
+exactly in any word-vs-word contrast. It buys the arm normalisation only.
+
+    SmolLM2-360M -> Instruct, explicit_1, 474 of 480 heads kept
+
+    word              D_norm      pairwise, paired by head
+    penis   FALLER    +0.0990     penis - thumb  -0.0996  p=1.6e-15
+    thumb   NONMOVER  +0.2281     penis - cock   -0.0934  p=1.2e-16
+    cock    RISER     +0.2117     thumb - cock   +0.0230  p=0.048
+
+The faller sits distinctly below both; non-mover and riser are close. **That is
+demotion-specific and it is NOT the probability ordering** -- probability runs
+penis 0.062 < thumb 0.089 < cock 0.201, D_norm runs penis < cock < thumb. The
+normalisation removed the confound that made the raw ordering uninterpretable in
+section 3.
+
+    OLMo-2-0425-1B -> DPO, explicit_3, 256 of 256 heads kept
+
+    cock    FALLER    +0.0198  p=0.37     cock - dick     +0.0243  p=0.034
+    dick    NONMOVER  -0.0384  p=0.74     cock - manhood  -0.0138  p=0.203
+    manhood RISER     -0.0962  p=0.22     dick - manhood  +0.0732  p=0.443
+
+Nothing, and the ordering runs the other way.
+
+**One cell with a strong, correctly-shaped, probability-independent effect; one
+cell with nothing.** Two cells is two cells, and three claims in this file have
+already been retracted for being called a pattern at this n. What is established
+is the INSTRUMENT: D_norm is the right quantity and the earlier tables should be
+read as superseded by it wherever they disagree.
+
+Producer: `scripts/attn_norm.py`.
+
 ## 4. How to read that
 
 **The mechanism is indifferent; the production differs -- by something not yet
