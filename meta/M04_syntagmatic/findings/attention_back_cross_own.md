@@ -45,7 +45,10 @@ naturally probability-matched three-arm draw.
     thumb    0.0889      0.0894  +0.0005     NON-MOVER  (P within 1.4x of penis)
     cock     0.2009      0.2047  +0.0038     RISER
 
-## 2. Alignment raises attention-back, and does so indifferently
+## 2. Attention-back rises at forced sites, indifferently across arms
+
+**The level claim in this section is corrected below: the rise is a response to
+FORCING, not to alignment.**
 
     attention-back, norm-weighted, cross      base   aligned        D
     penis   (faller)                        0.1037    0.1222   +0.0185
@@ -60,6 +63,47 @@ The faller's rise is the **smallest** of the three. Paired across 480 heads:
 faller-minus-non-mover p = 0.35 raw / 0.89 norm-weighted; riser-minus-non-mover
 0.32 / 0.48; faller-minus-riser 0.036 / 0.21, and that one nominal hit has a
 median of -0.00004 and would not survive correction across six tests.
+
+### Correction: the level claim above is about FORCING, not about alignment
+
+RH asked whether the undisturbed slot could serve as the control. It cannot for
+fallers -- the aligned arm chose `penis` once in 50 draws against `cock` twelve
+times, which is what "demoted" means -- but on the words both arms choose often
+enough it tests something nothing else here does: **whether forcing distorts the
+measurement.** The slot sits at the same absolute index either way (|prompt| in
+both), so the comparison is legitimate.
+
+    forced vs chosen, same word, same arm     base      aligned
+    cock                                     -11.4%     +10.9%
+    thumb                                     -3.0%     +22.5%
+    penis                                    -23.3%     (n=1)
+    fingers                                  (n=2)       +6.1%
+
+Three of three negative in base, three of three positive in aligned. The head
+PROFILES are preserved throughout, r = 0.95 to 0.995, so forcing does not
+redistribute attention across heads -- it moves the level, in opposite
+directions by arm.
+
+    word     CHOSEN base/aligned  D      FORCED base/aligned  D      ratio
+    cock     0.1359 / 0.1403  +0.0044    0.1204 / 0.1556  +0.0352     8.0x
+    thumb    0.0777 / 0.0825  +0.0048    0.0754 / 0.1011  +0.0257     5.4x
+
+**When the model chooses the word, the two arms attend back almost identically.**
+The D that section 2 reports is 5 to 8 times larger at forced sites than at
+chosen ones. So "alignment raises attention-back by 11-18%" is not a fact about
+alignment. It is a fact about how each arm responds to BEING FORCED: the base
+model attends back less to a word it did not choose, the aligned model attends
+back more.
+
+That is a sharper claim than the one it replaces and it is closer to M04's
+actual question -- Finding A asks what happens after a forced word, and this
+says the two arms diverge specifically under forcing rather than in general.
+
+Limits: n_chosen is 6 to 12; the Mann-Whitney p-values the producer prints
+compare two sets of 480 head means and those are massively non-independent, so
+lean on the r and on the 6-of-6 direction consistency, not on them. Fallers
+cannot be checked this way at all and inherit the verdict rather than earning
+it. Producer: `scripts/attn_forcing_check.py`.
 
 **Bounded, not merely null.** A bootstrap CI on the faller-minus-non-mover median
 puts the demotion-specific effect at **4.4% (raw) / 2.0% (norm-weighted) of the
