@@ -145,12 +145,66 @@ def teardown(llm):
         pass
 
 
+def free_gpu_or_die(min_free_gib=8.0):
+    """**KILL ORPHANED vLLM ENGINE PROCESSES BEFORE STARTING ONE.**
+
+    vLLM's EngineCore is a CHILD process with its own cmdline. Killing the
+    runner by name -- `pkill -f f11_l2_cloud` -- does not match it, so it
+    survives holding the entire card. Measured: 44,558 MiB of 49,152 held by a
+    single orphan, after which every engine failed to initialise and each pair
+    "completed" in 0.7 minutes having produced nothing. A failure that looks
+    like fast progress is worse than a crash, because the loop reports it as
+    throughput.
+    """
+    #: **nvidia-smi's PIDs ARE USELESS HERE.** Inside a container it reports
+    #: HOST pids, so `kill <pid>` returns "No such process" while the memory
+    #: stays held. Measured on this box, and it cost a diagnostic round.
+    #: Matched from `ps -eo pid,args` in Python. Two shell approaches failed
+    #: here and both failed SILENTLY: `pkill -f 'VLLM::EngineCore'` matched
+    #: nothing, and `ps -eo pid,comm | grep EngineCore` matched nothing because
+    #: comm is TRUNCATED TO 15 CHARS ("VLLM::EngineCor"). A kill loop that
+    #: matches nothing prints nothing and looks like success.
+    try:
+        ps = subprocess.run(["ps", "-eo", "pid,args"], capture_output=True,
+                            text=True, timeout=30).stdout.splitlines()
+    except Exception:
+        ps = []
+    me = os.getpid()
+    for line in ps:
+        parts = line.strip().split(None, 1)
+        if len(parts) != 2 or not parts[0].isdigit():
+            continue
+        pid, cmd = int(parts[0]), parts[1]
+        if "VLLM" in cmd and pid != me:
+            log("    [gpu] killing orphan %d: %s" % (pid, cmd[:40]))
+            subprocess.run(["kill", "-9", str(pid)], check=False)
+    time.sleep(6)
+    try:
+        used = subprocess.run(
+            ["nvidia-smi", "--query-gpu=memory.used,memory.total",
+             "--format=csv,noheader,nounits"],
+            capture_output=True, text=True, timeout=30).stdout.strip()
+        u, t = [float(x) for x in used.split(",")[:2]]
+        log("    [gpu] %.0f/%.0f MiB used before load" % (u, t))
+        if (t - u) / 1024.0 < min_free_gib:
+            raise SystemExit(
+                "REFUSING TO LOAD: only %.1f GiB free of %.1f. Something still "
+                "holds the card and an engine started now would fail in a way "
+                "that reads as fast progress." % ((t - u) / 1024.0, t / 1024.0))
+    except SystemExit:
+        raise
+    except Exception:
+        pass
+
+
 def run_worker(phase, model, args, extra=None):
     """One model, one phase, in a SUBPROCESS. Exit is the only reliable free."""
+    free_gpu_or_die()
     cmd = [sys.executable, os.path.abspath(__file__), "--worker", phase,
            "--model", model, "--out", args.out, "--population", args.population,
            "--dtype", args.dtype, "--gpu-util", str(args.gpu_util),
-           "--max-model-len", str(args.max_model_len), "--tp", str(args.tp)]
+           "--max-model-len", str(args.max_model_len), "--tp", str(args.tp),
+           "--chunk", str(args.chunk)]
     if args.limit_prompts:
         cmd += ["--limit-prompts", str(args.limit_prompts)]
     cmd += extra or []
@@ -169,32 +223,47 @@ def generate(llm, model_id, prompts, out_path, args):
     log("  generate %s: %d todo, %d already done" % (model_id, len(todo), len(seen)))
     if not todo:
         return 0
+    #: **SUBMIT MANY CELLS AT ONCE OR THE GPU IDLES.** One cell is n=20
+    #: sequences, and vLLM's continuous batching runs hundreds concurrently --
+    #: submitting cell-by-cell measured 2,133 tok/s on a 1B, which is decode at
+    #: a batch far below what the card will hold. `nvidia-smi` read 100%
+    #: utilisation throughout, which is why this was not obvious: a
+    #: memory-bound decode at tiny batch pegs the gauge without doing much
+    #: work. Utilisation is not throughput.
+    #:
+    #: The chunk is a flush boundary too: resume reads completed prompts from
+    #: the output, so a chunk that dies costs at most CHUNK cells, never the
+    #: model. Each prompt keeps its OWN seed -- vLLM takes a list of
+    #: SamplingParams aligned with the prompt list, so batching changes the
+    #: schedule and not one sampled token.
     fh = open(out_path, "a")
     t0, n = time.time(), 0
-    for i, p in enumerate(todo, 1):
-        #: seed is per (model, prompt) so a resumed cell reproduces itself and
-        #: two boxes running the same cell agree
-        seed = int(sha16(model_id + "|" + p["text"])[:8], 16) % (2**31)
-        sp = SamplingParams(n=N_GEN, seed=seed, **DECODER)
-        resolved = _assert_decoder(sp)
-        out = llm.generate([p["text"]], sp)[0]
-        for idx, o in enumerate(out.outputs):
-            fh.write(json.dumps({
-                "design": DESIGN, "model": model_id, "prompt": p["text"],
-                "prompt_sha256_16": sha16(p["text"]),
-                "prompt_token_ids": list(out.prompt_token_ids),
-                "sample_idx": idx, "token_ids": list(o.token_ids),
-                "text": o.text, "finish_reason": o.finish_reason,
-                "lang": p.get("lang"), "claims": p.get("claims"),
-                "seed": seed, "decoder": resolved, "n_declared": N_GEN,
-                "engine": "vllm", "dtype": args.dtype,
-            }, ensure_ascii=False) + "\n")
-        n += len(out.outputs)
+    for c0 in range(0, len(todo), args.chunk):
+        chunk = todo[c0:c0 + args.chunk]
+        seeds = [int(sha16(model_id + "|" + p["text"])[:8], 16) % (2**31)
+                 for p in chunk]
+        sps = [SamplingParams(n=N_GEN, seed=s, **DECODER) for s in seeds]
+        resolved = _assert_decoder(sps[0])
+        outs = llm.generate([p["text"] for p in chunk], sps)
+        for p, seed, out in zip(chunk, seeds, outs):
+            for idx, o in enumerate(out.outputs):
+                fh.write(json.dumps({
+                    "design": DESIGN, "model": model_id, "prompt": p["text"],
+                    "prompt_sha256_16": sha16(p["text"]),
+                    "prompt_token_ids": list(out.prompt_token_ids),
+                    "sample_idx": idx, "token_ids": list(o.token_ids),
+                    "text": o.text, "finish_reason": o.finish_reason,
+                    "lang": p.get("lang"), "claims": p.get("claims"),
+                    "seed": seed, "decoder": resolved, "n_declared": N_GEN,
+                    "engine": "vllm", "dtype": args.dtype,
+                }, ensure_ascii=False) + "\n")
+            n += len(out.outputs)
         fh.flush()
-        if i % 20 == 0 or i == len(todo):
-            el = time.time() - t0
-            log("    %d/%d cells | %d seqs | %.1f s | %.1f cells/s"
-                % (i, len(todo), n, el, i / max(el, 1e-9)))
+        el = time.time() - t0
+        done = min(c0 + args.chunk, len(todo))
+        log("    %d/%d cells | %d seqs | %.1f s | %.2f cells/s | %.0f tok/s"
+            % (done, len(todo), n, el, done / max(el, 1e-9),
+               n * MAX_TOKENS / max(el, 1e-9)))
     fh.close()
     return n
 
@@ -285,6 +354,9 @@ def main():
     ap.add_argument("--tp", type=int, default=1)
     ap.add_argument("--limit-prompts", type=int, default=0,
                     help="E2E PROBE ONLY: first N cells. Never for a real run.")
+    ap.add_argument("--chunk", type=int, default=32,
+                    help="cells submitted to vLLM at once. 1 = the old "
+                         "cell-at-a-time path that measured 2,133 tok/s.")
     ap.add_argument("--no-purge", action="store_true")
     ap.add_argument("--no-score", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
