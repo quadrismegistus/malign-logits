@@ -193,11 +193,34 @@ questions, in order of arrival:
   do not quote its damage nulls without the register.
 - **X — metonymy / scene scale** ([X_metonymy.md](findings/X_metonymy.md)):
   *does the substitution run down the scene's own scale?* Descriptive
-  throughout, by its own first paragraph.
+  throughout, by its own first paragraph. Two of its internal results bind
+  wider reading: the **violence discriminant control** (the same coding
+  protocol on the violence battery returns nothing pooled — the license for
+  the intimacy correlations against the "badness scale meets badness
+  suppressor" objection) and the **−0.33 nuisance floor** (net movement
+  tracks base probability at −0.33 at neutral prompts: any word-level scale
+  correlating near −0.3 in this campaign has explained nothing).
 - **Y — the superego at sexual slots** ([Y_superego.md](findings/Y_superego.md)
   results; [Y_statistics.md](findings/Y_statistics.md) the statistic
-  inventory, absences visible): *does alignment keep act and scene and attach
-  a moral apparatus?* Generation + blind coding at 256 tokens.
+  inventory, absences visible; [Y_diegetic_superego.md](findings/Y_diegetic_superego.md)
+  the 2026-08-09 composites): *does alignment keep act and scene and attach
+  a moral apparatus?* Generation + blind coding at 256 tokens. **The answer
+  is now the campaign's sharpest positive: THE SUPEREGO IS DIEGETIC.** The
+  two things the filter account predicts sit flat — EXIT (p=0.61) and
+  sexual_scene (p=0.30) — while SUPEREGO_IN_SCENE rises (15.2% → 21.6% of
+  sexual scenes, p=5.8e-04, 24/32 pairs) and CLEAN_SCENE falls (27/32): the
+  model keeps writing the scene and attaches guilt to it. Route-indifferent
+  (forced vs undisturbed agree to two decimals — displacement operates on
+  the word, the superego on the scene), and it closes X §3g's scope question
+  at 25x the length. **Y_superego §6 was REWRITTEN 2026-08-09**: its
+  producer had never been committed; under the rebuilt one the token-level
+  `<sexual>` gap INVERTS (both scorers find the base's explicit spans easier
+  than their surroundings), `<guilt>` is null, and the gap measure carries a
+  do-not-quote (sign flips with authorship). The corpus is consolidated into
+  two tables (`results/y_passages.parquet`, `results/y_tokens/`) whose
+  reader reproduces nine published numbers independently; raw sequences with
+  per-token cross-scoring live at `data/raw/y_y-*/` (found by following the
+  CONSUMER's glob, not the producer's --out).
 - **Z — ladders and regimes** ([Z_ladders_regimes.md](findings/Z_ladders_regimes.md)):
   two questions a base/aligned contrast cannot ask, and one it gets wrong.
 - **The paper-facing view** ([DISPLACEMENT_EVIDENCE.md](findings/DISPLACEMENT_EVIDENCE.md)):
@@ -206,7 +229,7 @@ questions, in order of arrival:
 
 ## What is open
 
-- **The regime changed 2026-08-06: pre-registration ended on RH's word** (docket [4712]; REGISTRATIONS.md's letters table closes with S). What continues is the reproducible-vs-not discipline: held-back samples, seeds and hashes, free analysis, replication as the control, everything looked at reported. **579 of 684 stems remain a held-back set nobody has read.**
+- **The regime changed 2026-08-06: pre-registration ended on RH's word** (docket [4712]; since 2026-08-09 the plan-documents regime, [5148], governs — see CAMPAIGN.md). REGISTRATIONS.md's table now runs B through Z: rows T–Z were filled 2026-08-09 with hashes computed from the files, and the T/W/Z cells say plainly that no plan file ever existed for them. What continues is the reproducible-vs-not discipline: held-back samples, seeds and hashes, free analysis, replication as the control, everything looked at reported. **579 of 684 stems remain a held-back set nobody has read.**
 - **The annotation study's leads awaiting replication on unused prompts**: the domain gradient (harm calculus, finding 3) and the association structure (findings 5–6) — none was protocol; the write-up says which work replication is doing.
 - **Q's Erratum 2 co-signature** — the corrected artifact (direction metadata only, every measurement byte-identical) is verified at both seats and supersedes on signature.
 - **Clause 7's stratified reading from P's artifact** — P carried the slot-sensitivity strata; the clause-level reading is still owed to the ledger.
@@ -218,6 +241,9 @@ questions, in order of arrival:
 - **D3b's negative slope** — more extreme pools appear to displace *less*, which is the opposite of what the confound predicts. A described fit awaiting a registered surrogate.
 - **The bloomz question** — a model whose base is Chinese-competent and whose aligned child is not, same tokenizer, one step. **Alignment took its Chinese away.** Deposited as n=1; a ten-lineage table is authorized.
 - **Four audits owed** on findings the ledger's clauses rest on; two producer repairs whose consequence is that every Stouffer Z in N and O is a floor rather than a value; and **four never-gated scorers whose provenance gates are now OVERDUE** — the shared library moved from an editable install to a pinned tag, so they import a different version than their outputs were produced under.
+- **`scripts/y_onset_surprisal.py` is two-thirds a no-op**: it loops over `break_onset`, `noise_onset`, `refusal_onset` and only the last exists in v3 records — a name outliving its referent (docket [5211]); repair owed before any onset claim.
+- **The Y guilt-surprisal lead** — the base model finds the aligned model's `<guilt>` writing surprising (+0.102 nats, CI [+0.005, +0.202], BH-surviving) while sexual/consent/resist all run the other way. Flagged by its author as **register-and-test, not quote** ([5211].5); pooling the moral cluster pools an effect with its opposite.
+- **The last-two-blocks substitution observation** ([5205]/[5206]): in the layer stack's final blocks an action-to-state substitution resembling the cross-model displacement appears (`touch` 0.501 at L28 vs `be` 0.133 / `touch` 0.053 at L32). Ruled M01's question, sitting unfiled: it **has no null** (nothing measures how far an arbitrary word moves through a stack) and its control vocabulary half-exists here. A named-subset pilot (option B, ~12 GPU-h) was priced and declined for the L2 fleet; the question survives being asked later.
 
 ## findings/ index
 
@@ -235,8 +261,10 @@ One line per document; the document governs its own numbers.
 | [V_embedding_regions.md](findings/V_embedding_regions.md) | Embedding geometry fails at the relation; the relation is local |
 | [W_forced_continuation.md](findings/W_forced_continuation.md) | Forced continuation: resist asymmetry, damage family, entropy competitor |
 | [X_metonymy.md](findings/X_metonymy.md) | The substitution runs down the scene's own scale (descriptive) |
-| [Y_statistics.md](findings/Y_statistics.md) | Registration Y: every statistic under test, absences visible |
-| [Y_superego.md](findings/Y_superego.md) | Registration Y: what the corpus shows (positive results) |
+| [Y_statistics.md](findings/Y_statistics.md) | Y: every statistic under test, absences visible (§6b surprisal added 2026-08-09) |
+| [Y_superego.md](findings/Y_superego.md) | Y: what the corpus shows (§6 rewritten 2026-08-09 — the `<sexual>` gap inverted under the committed producer) |
+| [Y_diegetic_superego.md](findings/Y_diegetic_superego.md) | Y: the composites — the superego is diegetic; EXIT and sexual_scene flat, guilt attaches in-scene, route-indifferent |
+| [Y_examples.md](findings/Y_examples.md) | Y: passage exhibits behind the coded rates |
 | [Z_ladders_regimes.md](findings/Z_ladders_regimes.md) | Ladders and regimes: what a base/aligned contrast cannot ask |
 
 *Where this page and `ledger.md` differ, the ledger governs; where the ledger and the docket differ, the docket governs. For whether a registration ran and what it returned, `REGISTRATIONS.md` governs both.*
