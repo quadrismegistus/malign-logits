@@ -184,14 +184,27 @@ def main():
         else:
             db = [B.back(s["full_ids"], s["plen"] - len(wid), a.window) for s in seqs_b]
             da = [A.back(s["full_ids"], s["plen"] - len(wid), a.window) for s in seqs_a]
-        #: Sequences can be shorter than the window, so truncate to the common J
-        #: rather than padding: a padded position is a zero that would drag the
-        #: late end of every profile toward zero and manufacture a decay.
-        J = min(min(d[0].shape[2] for d in db), min(d[0].shape[2] for d in da))
+        #: RAGGED, NOT TRUNCATED AND NOT PADDED. Some sequences stop early, so
+        #: the pool is uneven. Padding with zeros would manufacture a decay;
+        #: truncating to the shortest, which this did first, made J depend on
+        #: one short sequence -- 140 for penis, 200 for thumb, 103 for cock in
+        #: the same run, so the per-word means were over different windows and
+        #: not comparable. Each position is averaged over whatever sequences
+        #: reach it, and the count per position is kept and reported.
+        J = max(max(d[0].shape[2] for d in db), max(d[0].shape[2] for d in da))
         for k, idx in (("raw", 0), ("nw", 1)):
-            bb = np.stack([d[idx][:, :, :J] for d in db], 0).mean(0)   # (L,H,J)
-            aa = np.stack([d[idx][:, :, :J] for d in da], 0).mean(0)
-            res.setdefault(w, {})[k] = dict(base=bb, aligned=aa, D=aa - bb)
+            def ragged(pool):
+                acc = np.zeros((B.L, B.H, J))
+                cnt = np.zeros(J)
+                for d in pool:
+                    j = d[idx].shape[2]
+                    acc[:, :, :j] += d[idx]
+                    cnt[:j] += 1
+                return acc / np.maximum(cnt, 1), cnt
+            bb, nb = ragged(db)
+            aa, na = ragged(da)
+            res.setdefault(w, {})[k] = dict(base=bb, aligned=aa, D=aa - bb,
+                                            n_base=nb, n_aligned=na)
         d = res[w]["nw"]["D"].mean(axis=2)                             # (L,H)
         print("  %-12s n=%d/%d J=%d   D(nw): mean %+.4f  |D| mean %.4f  max %+.4f at L%d.H%d"
               % (w, len(db), len(da), J, d.mean(), np.abs(d).mean(),
@@ -216,7 +229,9 @@ def main():
     #: the unit in the first place.
     J = min(r["nw"]["D"].shape[2] for r in res.values())
     print("\nD ALONG THE CONTINUATION, norm-weighted, positions after the slot")
-    bins = [(0, 1), (1, 2), (2, 4), (4, 8), (8, 16), (16, J)]
+    print("  ragged: each position averaged over the sequences that reach it")
+    bins = [(0, 1), (1, 2), (2, 4), (4, 8), (8, 16), (16, 32), (32, 64),
+            (64, 128), (128, J)]
     bins = [(a_, b_) for a_, b_ in bins if a_ < J and b_ <= J and a_ < b_]
     print("  %-12s %s" % ("word", "".join("%11s" % ("j=%d-%d" % (a_, b_ - 1))
                                           for a_, b_ in bins)))
@@ -241,7 +256,8 @@ def main():
         os.makedirs(os.path.dirname(p), exist_ok=True)
         json.dump(dict(pair=a.pair, prompt=a.prompt, mode=a.mode, n=a.n,
                        window=a.window, layers=B.L, heads=B.H,
-                       words={w: {k: {kk: vv.tolist() for kk, vv in v.items()}
+                       words={w: {k: {kk: np.asarray(vv).tolist()
+                                      for kk, vv in v.items()}
                                   for k, v in r.items()} for w, r in res.items()}),
                   open(p, "w"))
         print("\n  wrote %s" % p)
