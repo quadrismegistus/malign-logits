@@ -87,8 +87,25 @@ def main():
             for m in v["models"]:
                 if m in want:
                     groups[BOX[e]].append(m)
+        #: **CARRY compute_dtype INTO THE BACKFILL.** These specs are built
+        #: from f11_twp_spec.json, which declares none -- so the backfill
+        #: inherited twp_cloud's float16 default and re-ran the two
+        #: Falcon-H1-1.5B checkpoints at fp16, the dtype whose whole problem
+        #: is this architecture (measured finite 1/12). The fix that had been
+        #: applied to the box2 spec never reached the specs DERIVED from the
+        #: unfixed source. A fix applied to one artifact does not travel to
+        #: the artifacts generated from its ancestor.
+        from f11_l1_logits import native_dtype
+        SCAN = ("Falcon-H1", "Falcon3-Mamba", "falcon-mamba", "Zamba2")
         for box, ms in sorted(groups.items()):
-            spec = [bym[m] for m in sorted(ms) if m in bym]
+            spec = []
+            for m in sorted(ms):
+                if m not in bym:
+                    continue
+                e = dict(bym[m])
+                if any(k.lower() in m.lower() for k in SCAN):
+                    e["compute_dtype"] = native_dtype(m, default="bfloat16")
+                spec.append(e)
             p = os.path.join(ROOT, "data", "f11_twp_backfill.%s.json" % box)
             json.dump({"_meta": {
                 "about": "HIDDEN-STATE BACKFILL. These checkpoints completed "
