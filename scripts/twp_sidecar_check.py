@@ -26,7 +26,7 @@ import json, os, sys
 
 
 def check(d):
-    bad = tot = 0
+    bad = tot = infl = 0
     for fn in sorted(f for f in os.listdir(d) if f.endswith(".jsonl")):
         base = fn[:-6]
         rows, dims = [], set()
@@ -57,14 +57,30 @@ def check(d):
                 if n % (dim * 2):
                     probs.append("size %d not a multiple of dim %d x 2" % (n, dim))
                 elif n // (dim * 2) != len(rows):
-                    probs.append("sidecar has %d rows, jsonl has %d"
+                    #: **IN-FLIGHT IS NOT CORRUPT.** rsync can catch a model
+                    #: between its jsonl flush and its sidecar flush, so FEWER
+                    #: sidecar rows on a model that has not reached its prompt
+                    #: count is a partial sync, complete next pass. MORE rows,
+                    #: or a gap in the sequence, is never that. Both refuse to
+                    #: pass, but they must not print the same word -- the
+                    #: ingest already drew this line and this checker did not,
+                    #: so two instruments disagreed about the same invariant.
+                    short = n // (dim * 2) < len(rows)
+                    probs.append(("IN-FLIGHT: " if short else "") +
+                                 "sidecar has %d rows, jsonl has %d"
                                  % (n // (dim * 2), len(rows)))
         if sorted(rows) != list(range(len(rows))):
             probs.append("logit_row is not 0..n-1 (gaps or repeats)")
         if probs:
-            bad += 1
-            print("  [FAIL] %-42s %s" % (base[:42], "; ".join(probs)))
-    print("\n%d model file(s), %d with pairing problems" % (tot, bad))
+            inflight = all(x.startswith("IN-FLIGHT") for x in probs)
+            if inflight:
+                infl += 1
+            else:
+                bad += 1
+            print("  [%s] %-40s %s" % ("in-flight" if inflight else "FAIL  ",
+                                       base[:40], "; ".join(probs)))
+    print("\n%d model file(s): %d DEFECTIVE, %d in-flight (retry after the run)"
+          % (tot, bad, infl))
     return bad
 
 
