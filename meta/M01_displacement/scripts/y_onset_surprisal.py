@@ -1,6 +1,21 @@
 #!/usr/bin/env python
 """Cross the teacher-forced scores with the break / noise / refusal spans.
 
+!! TWO OF ITS THREE ONSETS DO NOT EXIST IN v3 DATA. Measured 2026-08-09 over the
+!! whole confirmatory corpus: `refusal_onset` is non-empty on 1,475 rows;
+!! `break_onset` and `noise_onset` are not keys on any v3 record at all. The loop
+!! below does `d.get(fld)`, so they return None and are skipped silently -- two
+!! thirds of this file has been a no-op since the v3 schema landed, and its
+!! output looks like a completed run that simply found nothing at those events.
+!!
+!! It was written against v2's field set. v3 narrowed the schema and the field
+!! NAMES here outlived their referents, which is the same failure as `<refusal>`
+!! being read as refusal (Y_statistics 9). Whatever replaces this should read the
+!! onset fields off the task definition rather than naming them in a literal.
+!!
+!! Y_statistics 6 lists the onset statistics as "run", which is true for one of
+!! three. Do not read a null here as evidence about breaks or noise.
+
     python y_onset_surprisal.py
 
 RH's question, and nobody has run it. Each coded continuation carries up to

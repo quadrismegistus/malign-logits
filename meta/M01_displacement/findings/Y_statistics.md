@@ -119,6 +119,7 @@ Unit: word index of a tag's first span, per passage. Comparable because pass A i
 | within-pair onset shift | run, 22 pairs (tags with enough spans on both arms) |
 | sequencing: words after first `<sexual>` that each layer-2 tag lands | run |
 | onset by target word | **not run** |
+| onset-window surprisal at break / noise | **CANNOT RUN on v3 data** — `break_onset` and `noise_onset` are not keys on any v3 record; only `refusal_onset` exists (1,475 non-empty). `scripts/y_onset_surprisal.py` loops over all three and silently skips two, so its output reads as a completed run that found nothing. Measured 2026-08-09; the script now carries the warning. |
 
 ## 6b. SURPRISAL — token-level, span-localised
 
