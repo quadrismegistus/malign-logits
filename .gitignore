@@ -319,3 +319,14 @@ data/f11_twp*/*.jsonl
 # their producer, 0 are tracked, and meta/M02_frame_exit/results/dp.pkl is 8.8 MB
 # of embeddings that pole_axis_build.py regenerates in minutes.
 *.pkl
+
+# ── Y ANALYSIS TABLES ──────────────────────────────────────────────────────
+# Derived from data/raw/y_y-*/ plus results/y_confirmatory_coded.jsonl by
+# scripts/y_build_tables.py, in about 20 minutes. ~10.6M token rows, a few
+# hundred MB. Rebuildable, so not committed.
+#
+# PATH-SCOPED, NOT `*.parquet`: 131 parquets ARE tracked in this repo and a
+# bare extension rule would silently ignore every one of them. Same trap the
+# twp jsonl rule above had to avoid.
+meta/M01_displacement/results/y_tokens/
+meta/M01_displacement/results/y_passages.parquet
