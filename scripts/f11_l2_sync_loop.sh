@@ -54,12 +54,21 @@ while true; do
   done
   # a file that lost rows this pass is reported LOUDLY: a silent shrink in the
   # thing that protects the data is the worst failure available here.
+  # **A HIGH-WATER COPY, BECAUSE REPORTING A SHRINK DOES NOT UNDO IT.**
+  # Two boxes writing one filename is not hypothetical: it cost
+  # Qwen2.5-0.5B-Instruct.score.jsonl 89 cells when a 305-row copy landed after
+  # a 394-row one, and the box holding the complete version had already been
+  # destroyed. Detection was not enough -- the fuller file has to be KEPT.
+  # Safe because generation is deterministic per (model, prompt, seed): two
+  # boxes produce identical bytes, so "longest wins" never mixes versions.
+  mkdir -p "$DEST/.best"
   SHRANK=$(cd "$DEST" 2>/dev/null && for x in *.jsonl; do
-             c=$(wc -l < "$x"); s=$(cat ".rows.$x" 2>/dev/null || echo 0)
-             [ "$c" -lt "$s" ] && echo "$x $s->$c"
-             echo "$c" > ".rows.$x"
+             c=$(wc -l < "$x")
+             b=0; [ -f ".best/$x" ] && b=$(wc -l < ".best/$x")
+             if [ "$c" -ge "$b" ]; then cp -p "$x" ".best/$x"
+             else cp -p ".best/$x" "$x"; echo "$x restored $c->$b"; fi
            done | head -5)
-  [ -n "$SHRANK" ] && echo "$TS  *** SHRANK: $SHRANK" >> "$LOG"
+  [ -n "$SHRANK" ] && echo "$TS  *** RESTORED FROM HIGH-WATER: $SHRANK" >> "$LOG"
   ROWS=$(cat "$DEST"/*.gen.jsonl 2>/dev/null | wc -l | tr -d ' ')
   echo "$TS  boxes=$BOXES  files=$N  failed=$FAILED  passages=$ROWS" >> "$LOG"
   sleep 120

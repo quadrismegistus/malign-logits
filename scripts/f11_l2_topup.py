@@ -23,6 +23,8 @@ sys.path.insert(0,ROOT)
 DEAD=('mpt-7b','gpt-sw3','zamba2','croissantllm','deepseek-llm','teuken',
       'jais','baichuan','internlm2','pharia')
 CORP='/Volumes/chambers/malign-l2/gen'
+N_GEN=20
+N_CELLS=None
 
 def ssh(h,p,cmd,t=25):
     S=["ssh","-o","StrictHostKeyChecking=no","-o","UserKnownHostsFile=/dev/null",
@@ -37,16 +39,54 @@ def state():
 
 def main():
     q=json.load(open(os.path.join(ROOT,'data','f11_l2_queue_fp16.json')))
+    #: derived from the population, never a second hardcoded copy of 197
+    _pop=json.load(open(os.path.join(ROOT,'data','f11_l2_population.json')))
+    global N_CELLS
+    N_CELLS=len(_pop['prompts'])+len(_pop.get('held_beside',[]))
+    idsafe={}
+    _tp=os.path.join(ROOT,'data','f11_l2_tokenizer_pairs.json')
+    if os.path.exists(_tp):
+        for r in json.load(open(_tp))['pairs']:
+            idsafe[(r['base'],r['aligned'])]=(r['verdict']=='ID-SAFE')
+    print("completeness: gen=%d rows, score=%d rows per arm"
+          % (N_CELLS*N_GEN, N_CELLS*2), flush=True)
     live={r['idx']:r for r in q
           if not any(k in (r['base']+r['aligned']).lower() for k in DEAD)}
     fails={}; quarantined=set()
     while True:
       try:
-        done={os.path.basename(f)[:-len('.gen.jsonl')].replace('__','/')
-              for f in glob.glob(os.path.join(CORP,'*.gen.jsonl'))
-              if sum(1 for _ in open(f))==3940}
-        complete={i for i,r in live.items()
-                  if r['base'] in done and r['aligned'] in done}
+        #: **COMPLETE MEANS GENERATED *AND* SCORED.** This used to test the
+        #: .gen count alone, so a pair whose generation had finished but whose
+        #: SCORING was still partial counted as done -- the box moved on, the
+        #: pair looked unclaimed, and this loop handed it to a SECOND box.
+        #: Fourteen files ended up with two writers that way, and one of them
+        #: cost Qwen2.5-0.5B-Instruct.score 89 cells when a 305-row copy landed
+        #: on top of a 394-row one.
+        #:
+        #: The expected counts are derived, not hardcoded twice: N_CELLS comes
+        #: from the population file, a gen file holds N_CELLS x N_GEN rows, and
+        #: a score file holds one row per (cell, source) over the pair's two
+        #: arms -- N_CELLS x 2.
+        def _rows(path):
+            try: return sum(1 for _ in open(path))
+            except Exception: return 0
+        def _p(m,kind):
+            return os.path.join(CORP,"%s.%s.jsonl"%(m.replace('/','__'),kind))
+        complete=set()
+        for i,r in live.items():
+            b,a=r['base'],r['aligned']
+            gen_ok = (_rows(_p(b,'gen'))==N_CELLS*N_GEN and
+                      _rows(_p(a,'gen'))==N_CELLS*N_GEN)
+            if not gen_ok:
+                continue
+            #: a pair the tokenizer check did not clear is never scored by id,
+            #: so requiring score files would make it permanently incomplete
+            #: and this loop would reassign it forever
+            if not idsafe.get((b,a),True):
+                complete.add(i); continue
+            if (_rows(_p(b,'score'))==N_CELLS*2 and
+                _rows(_p(a,'score'))==N_CELLS*2):
+                complete.add(i)
         claimed=set(); idle=[]
         for f,d in state():
             try:
