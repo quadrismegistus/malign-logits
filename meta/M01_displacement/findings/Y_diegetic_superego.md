@@ -19,6 +19,13 @@ moral comment to a scene it goes on writing.**
 The trained behaviour does not move. The untrained one does, and by about four
 times as much.
 
+**And it survives the strongest available control.** Force the identical
+transgressive word into both arms and the scene becomes identical by measurement
+-- same rate of sex, same rate of consummation, same rate of leaving the frame --
+while the guilt is still added, +5.0 points on `X_metonymy.md` §3g's own scene
+(p=7.2e-08). The moralisation is not a by-product of alignment selecting milder
+words. See §6 and §7.
+
 ## 1. The extra-diegetic response is flat
 
 | measure | base | aligned | delta | p | pairs |
@@ -105,8 +112,81 @@ Independently re-derived here to the digit from the coded corpus.
 
 **New**: the composites (run on 32 pairs per `Y_statistics.md`, never written
 up); the `EXIT`-flat contrast that makes the diegetic reading a contrast rather
-than an observation; and the conditional-on-`sexual_scene` panel, where the
-effect is largest and the sign agreement strongest.
+than an observation; the conditional-on-`sexual_scene` panel, where the effect is
+largest and the sign agreement strongest; the undisturbed-against-forced
+dissociation in §6; and the resolution of `X_metonymy.md` §3g's scope question in
+§7.
+
+## 6. Two defences, and forcing the word defeats only one
+
+RH's question: the sexual words are falling in the aligned model anyway, so does
+it simply prefer not to get into the situation? Y can test that, because 6,168
+pass-A passages are UNDISTURBED -- no word forced, the model chooses.
+
+| | base | aligned | delta | p | pairs |
+| --- | --- | --- | --- | --- | --- |
+| **undisturbed** `sexual_scene` | 53.20% | 47.82% | **−4.30pp** | 0.016 | 20/32 |
+| **forced** `sexual_scene` | 53.96% | 50.39% | +0.26pp | 0.43 | 17/32 |
+| **undisturbed** `SUPEREGO_IN_SCENE` | 8.01% | 10.49% | **+2.11pp** | 0.027 | 19/32 |
+| **forced** `SUPEREGO_IN_SCENE` | 8.67% | 11.30% | **+2.66pp** | 0.014 | 22/32 |
+
+**Avoidance is real and it is removable.** Left to choose, the aligned model
+enters a sexual scene 4.30pp less often than its parent. Pin the word into both
+arms and that difference is gone -- 17 of 32 pairs, a coin flip. The avoidance
+was operating at the choice of word, which is `X_metonymy.md` §3d's displacement
+seen from the other side, and forcing the word is precisely the intervention that
+abolishes it.
+
+**The superego is not removable, and it is not a fallback.** It is the same size
+whether the model chose its way in (+2.11pp) or was pushed (+2.66pp). If
+moralisation were a second line of defence triggered when avoidance failed, it
+would be LARGER in the forced condition. It is not. The two run independently.
+
+So the picture is not avoid-then-moralise. It is:
+
+    displacement    operates on WHICH WORD.    Defeated by forcing the word.
+    superego        operates on THE SCENE.     Unaffected by forcing the word.
+
+Two interventions at different levels of the same production, one of which this
+design can switch off and the other of which it cannot.
+
+## 7. This closes X_metonymy §3g's open scope question
+
+§3g holds the word constant across arms and finds the model adds nothing: −0.8
+points on a 0-100 sexual scale, 15 of 30 cells, p=0.918. Its own caveat:
+
+> THE SCOPE IS TEN TOKENS ... Defensible as *within ten tokens of the
+> substitution, alignment adds nothing*; not yet as *alignment's intervention is
+> exhausted by the substitution*.
+
+Y is the same design at 256 tokens. On §3g's exact scene (`sexual_explicit_1`),
+word held constant, 191 (pair, prompt, word) cells:
+
+| measure | base | aligned | p | pairs | MDE |
+| --- | --- | --- | --- | --- | --- |
+| `sexual_scene` | 66.8% | 65.6% | 0.99 | 101/191 | 4.0 |
+| `consummation` | 17.3% | 17.3% | 0.72 | 115/191 | 2.7 |
+| `EXIT` | 30.2% | 30.5% | 0.54 | 105/191 | 4.4 |
+| `SUPEREGO_IN_SCENE` | 9.0% | **14.7%** | **7.2e-08** | 110/191 | 2.6 |
+
+**§3g's null replicates at 25x the length**, and extends to `consummation`, an
+outcome a ten-token window cannot represent. Hand the aligned model the
+transgressive word and it writes the base model's scene -- confirmed, and more
+strongly than §3g could claim.
+
+**And the intervention is NOT exhausted by the substitution.** One thing survives
+the word being held constant: the moral apparatus, +5.0 points on §3g's own
+scene.
+
+**§3g could not have found this.** Guilt onset is at 0.54 of the passage, about
+token 138 of 256. §3g's entire window was 10 tokens. The effect sits fourteen
+times beyond its horizon, so its null was not a weak test of the right thing --
+it was a test that could not reach the thing.
+
+This also closes the obvious objection to §§1-5 of this document. Someone could
+say the aligned model looks moralising only because it selects milder words and
+milder words invite different scenes. Here the word is identical by construction,
+the scene is identical by measurement, and the guilt is added anyway.
 
 ## Limits
 
