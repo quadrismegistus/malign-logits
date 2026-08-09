@@ -87,11 +87,50 @@ The only difference between the modes is whether each arm writes its own
 continuation. So the effect is not in how the aligned model attends to a given
 text; it is in what text it writes.
 
+### It is specific to demotion, and the riser is what shows it
+
+RH asked whether this is about the word having been DEMOTED or about any word
+having been FORCED. All three arms are forced, so faller-against-non-mover
+already holds forcing constant — but the riser settles it, because it moves the
+other way.
+
+    own, D(nw) head-mean          j=0      j=1      j=3      j=7     j=15
+    penis   FALLER             +0.0452  +0.0463  +0.0311  +0.0126  +0.0513
+    thumb   NONMOVER           +0.1469  +0.1159  +0.0795  +0.0351  +0.0080
+    cock    RISER              +0.1152  +0.0826  +0.1036  +0.0847  +0.0396
+
+    paired across 480 heads, median  (* p<0.001, : p<0.05)
+
+    FALLER - NONMOVER   -0.0109*  -0.0071*  -0.0105*  -0.0039*  +0.0007*
+    RISER  - NONMOVER   -0.0047*  -0.0005:  +0.0010:  +0.0035*  +0.0018*
+    FALLER - RISER      -0.0031*  -0.0059*  -0.0148*  -0.0124*  -0.0004
+
+From j ~ 3 the ordering is **FALLER < NONMOVER < RISER**, monotone in alignment
+status, with the two contrasts against the non-mover significant and OPPOSITE in
+sign. Alignment binds less to a word it demoted and more to a word it promoted,
+relative to a word it left alone. A graded ordering across three arms is much
+harder to produce from a generic forcing effect than a single contrast is, so
+this is the stronger form of the result. `j = 0` is the exception -- there both
+movers sit below the non-mover -- and the ordering establishes itself a token or
+two in.
+
+None of it appears in `cross`, where all three contrasts are +/-0.001 with
+alternating signs.
+
+**One reading of the question this design cannot answer.** Attention-back to a
+forced word against a word the model CHOSE would isolate forcing itself. Finding
+A rules that comparison invalid by design for surprisal -- the undisturbed arm
+has committed to nothing, and `plen` offsets the scored positions -- and the
+first objection applies here unchanged. Forced-versus-chosen is not available
+from this corpus.
+
 ## 4. How to read that
 
 **The mechanism is indifferent; the production is not.** Given identical text,
 alignment's attention does the same thing to a demoted word as to an unmoved
-one. Given its own text, it binds measurably less to the demoted word early.
+one. Given its own text, the three arms order themselves by alignment status:
+less binding to what was demoted, more to what was promoted, with the unmoved
+word between them.
 
 **This lands on Weatherby in the shape a friendly amendment wants.** His
 technical claim (*Language Machines* ch. 5) is that attention realizes the
@@ -112,7 +151,12 @@ weighting is the model's own rather than an external judgment. That is worth
 something and it is not the mechanistic authority the vocabulary implies; the
 write-up should not borrow that authority.
 
-**The reversal is the part worth chasing.** Early negative, late positive: the
+**Two things worth chasing, and the ordering is the first.** FALLER < NONMOVER <
+RISER is a graded pattern across three arms, which a generic forcing effect does
+not produce. It is the single most checkable claim here and the first thing that
+should replicate or fail on other cells.
+
+**The reversal is the second.** Early negative, late positive: the
 aligned continuation defers the demoted word and returns to it. That is
 specific, non-obvious, and the one thing here a topic-continuity measure would
 probably not find on its own. It is also exactly the shape that appears once and
