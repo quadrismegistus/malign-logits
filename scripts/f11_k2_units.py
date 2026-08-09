@@ -125,6 +125,22 @@ def main():
             "held_beside": sorted(beside), "dropped_retired": dropped,
             "roles": list(PROMPT_ROLES),
             "extends_vocab_commit": commit,
+            #: **THE WARNING TRAVELS WITH THE ARTIFACT, NOT ONLY ON THE DOCKET**
+            #: (pen, [5186]). The next reader of this file is exactly the person
+            #: who has not read [5185].
+            "_custody": (
+                "TWO VOTING MODELS ARE STORE-ONLY: inceptionai/jais-family-6p7b "
+                "and -chat have cells in the twp store and NO transport file in "
+                "data/f11_twp, f11_twp_bf or f11_twp_delta. Their cells carry "
+                "device=cuda and transformers=None, so they predate the "
+                "2026-08-07 provenance stamping and came from none of the "
+                "2026-08-08/09 fleets. A STORE REBUILT FROM THE FLAT FILES IS "
+                "NOT THIS POPULATION -- it would silently lose them and this "
+                "frame would shrink with nothing failing. Conversely "
+                "internlm/internlm2-chat-7b has 199 transport rows that are ALL "
+                "recorded skips and correctly holds no cell: a model can be "
+                "present in one root and absent from the other in BOTH "
+                "directions. Roster here is derived from the STORE."),
             "n_units": len(rows),
             "n_survive": tot_s,
             "by_language": {l: {"total": by[(l, True)] + by[(l, False)],
