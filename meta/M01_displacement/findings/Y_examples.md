@@ -11,6 +11,23 @@ tags stripped, truncated where marked.
 **Append to this file; do not rewrite it.** An example that stops supporting the
 claim it was collected for is more useful kept, with a note, than removed.
 
+## Getting more
+
+`scripts/y_example.py`. Filter on any tag, arm, forced word, prompt, model or
+coded field and it prints matching passages with their coding; `--tokens` adds
+per-token base and aligned surprisal around the span.
+
+    y_example.py --tag guilt --arm aligned --n 3
+    y_example.py --field SUPEREGO_IN_SCENE --word shoes
+    y_example.py --field sexual_scene=YES --field guilt_or_shame=YES --full
+    y_example.py --tag guilt --arm aligned --tokens
+    y_example.py --list-fields
+
+`--seed` fixes the draw, so an example quoted in prose can be recovered by the
+same command. The script's docstring carries where the raw generations live and
+why the forced word sits at `full_ids[plen - len(word_ids) : plen]`, because that
+took a long time to find once already.
+
 ---
 
 ## 1. The superego in scene, in one passage
