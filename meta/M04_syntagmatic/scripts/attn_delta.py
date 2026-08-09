@@ -103,7 +103,14 @@ class Scorer:
         return hook
 
     def back(self, ids, i, window):
-        """(raw[L,H], norm_weighted[L,H]) averaged over the window after i."""
+        """(raw[L,H,J], norm_weighted[L,H,J]) -- POSITION AXIS KEPT.
+
+        The earlier version averaged over j here, which threw away the axis the
+        plan asks to be reported on. Finding A's disturbance is flat-then-
+        sustained over 256 tokens; if attention-back has its own profile along
+        the same axis the two together say more than either, and a mean cannot
+        show a profile. Aggregation happens at the caller, visibly.
+        """
         import numpy as np
         n = min(len(ids), i + 1 + window)
         x = self.torch.tensor([ids[:n]], device=self.dev)
@@ -112,12 +119,12 @@ class Scorer:
         if o.attentions is None or o.attentions[0] is None:
             sys.exit("output_attentions is None for %s" % self.id)
         A = self.torch.stack(o.attentions, 0)[:, 0].float().cpu().numpy()
-        raw = A[:, :, i + 1:n, i].mean(axis=2)
+        raw = A[:, :, i + 1:n, i]                          # (L,H,J)
         vs = np.stack([self._v[li][i].float().cpu().numpy()
                        for li in range(self.L)], 0)
         if vs.shape[1] != self.H:
             vs = np.repeat(vs, self.H // vs.shape[1], axis=1)
-        return raw, raw * vs
+        return raw, raw * vs[:, :, None]
 
 
 def main():
@@ -177,13 +184,17 @@ def main():
         else:
             db = [B.back(s["full_ids"], s["plen"] - len(wid), a.window) for s in seqs_b]
             da = [A.back(s["full_ids"], s["plen"] - len(wid), a.window) for s in seqs_a]
+        #: Sequences can be shorter than the window, so truncate to the common J
+        #: rather than padding: a padded position is a zero that would drag the
+        #: late end of every profile toward zero and manufacture a decay.
+        J = min(min(d[0].shape[2] for d in db), min(d[0].shape[2] for d in da))
         for k, idx in (("raw", 0), ("nw", 1)):
-            bb = np.stack([d[idx] for d in db], 0).mean(0)
-            aa = np.stack([d[idx] for d in da], 0).mean(0)
+            bb = np.stack([d[idx][:, :, :J] for d in db], 0).mean(0)   # (L,H,J)
+            aa = np.stack([d[idx][:, :, :J] for d in da], 0).mean(0)
             res.setdefault(w, {})[k] = dict(base=bb, aligned=aa, D=aa - bb)
-        d = res[w]["nw"]["D"]
-        print("  %-12s n=%d/%d   D(nw): mean %+.4f  |D| mean %.4f  max %+.4f at L%d.H%d"
-              % (w, len(db), len(da), d.mean(), np.abs(d).mean(),
+        d = res[w]["nw"]["D"].mean(axis=2)                             # (L,H)
+        print("  %-12s n=%d/%d J=%d   D(nw): mean %+.4f  |D| mean %.4f  max %+.4f at L%d.H%d"
+              % (w, len(db), len(da), J, d.mean(), np.abs(d).mean(),
                  d.ravel()[np.abs(d).argmax()],
                  np.abs(d).argmax() // B.H, np.abs(d).argmax() % B.H))
 
@@ -193,10 +204,37 @@ def main():
     print("  %-12s %9s %9s %9s %9s %s"
           % ("word", "base", "aligned", "D mean", "|D| mean", "heads |D|>0.05"))
     for w, r in res.items():
-        b, al, d = r["nw"]["base"], r["nw"]["aligned"], r["nw"]["D"]
+        b, al, d = (r["nw"]["base"].mean(2), r["nw"]["aligned"].mean(2),
+                    r["nw"]["D"].mean(2))
         print("  %-12s %9.4f %9.4f %+9.4f %9.4f %d"
               % (w, b.mean(), al.mean(), d.mean(), np.abs(d).mean(),
                  int((np.abs(d) > 0.05).sum())))
+
+    #: THE POSITION AXIS. Reported for the head mean and for the top heads
+    #: separately, because a profile averaged over 480 heads is dominated by the
+    #: ~460 that carry almost nothing -- the same reason the plan makes the head
+    #: the unit in the first place.
+    J = min(r["nw"]["D"].shape[2] for r in res.values())
+    print("\nD ALONG THE CONTINUATION, norm-weighted, positions after the slot")
+    bins = [(0, 1), (1, 2), (2, 4), (4, 8), (8, 16), (16, J)]
+    bins = [(a_, b_) for a_, b_ in bins if a_ < J and b_ <= J and a_ < b_]
+    print("  %-12s %s" % ("word", "".join("%11s" % ("j=%d-%d" % (a_, b_ - 1))
+                                          for a_, b_ in bins)))
+    for w, r in res.items():
+        prof = r["nw"]["D"].mean(axis=(0, 1))               # over heads
+        print("  %-12s %s" % (w, "".join("%+11.4f" % prof[a_:b_].mean()
+                                         for a_, b_ in bins)))
+    #: top heads by |D| on the faller, then the same heads shown for every word
+    ref = list(res)[0]
+    flat = np.abs(res[ref]["nw"]["D"].mean(2)).ravel()
+    top = np.argsort(-flat)[:3]
+    for t in top:
+        l_, h_ = t // B.H, t % B.H
+        print("  -- L%d.H%d" % (l_, h_))
+        for w, r in res.items():
+            prof = r["nw"]["D"][l_, h_]
+            print("     %-9s %s" % (w, "".join("%+11.4f" % prof[a_:b_].mean()
+                                               for a_, b_ in bins)))
 
     if a.out:
         p = a.out if os.path.isabs(a.out) else os.path.join(ROOT, a.out)
