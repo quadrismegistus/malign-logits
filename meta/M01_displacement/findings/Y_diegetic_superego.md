@@ -117,38 +117,63 @@ largest and the sign agreement strongest; the undisturbed-against-forced
 dissociation in §6; and the resolution of `X_metonymy.md` §3g's scope question in
 §7.
 
-## 6. Two defences, and forcing the word defeats only one
+## 6. Two defences: one is removable, the other attaches to the act
 
 RH's question: the sexual words are falling in the aligned model anyway, so does
 it simply prefer not to get into the situation? Y can test that, because 6,168
 pass-A passages are UNDISTURBED -- no word forced, the model chooses.
 
+**Unconditionally, avoidance is real and it is removable.**
+
 | | base | aligned | delta | p | pairs |
 | --- | --- | --- | --- | --- | --- |
 | **undisturbed** `sexual_scene` | 53.20% | 47.82% | **−4.30pp** | 0.016 | 20/32 |
 | **forced** `sexual_scene` | 53.96% | 50.39% | +0.26pp | 0.43 | 17/32 |
-| **undisturbed** `SUPEREGO_IN_SCENE` | 8.01% | 10.49% | **+2.11pp** | 0.027 | 19/32 |
-| **forced** `SUPEREGO_IN_SCENE` | 8.67% | 11.30% | **+2.66pp** | 0.014 | 22/32 |
 
-**Avoidance is real and it is removable.** Left to choose, the aligned model
-enters a sexual scene 4.30pp less often than its parent. Pin the word into both
-arms and that difference is gone -- 17 of 32 pairs, a coin flip. The avoidance
-was operating at the choice of word, which is `X_metonymy.md` §3d's displacement
-seen from the other side, and forcing the word is precisely the intervention that
-abolishes it.
+Left to choose, the aligned model enters a sexual scene 4.30pp less often than
+its parent. Pin the word into both arms and that difference is gone -- 17 of 32
+pairs, a coin flip. The avoidance operates entirely at the CHOICE OF WORD, which
+is `X_metonymy.md` §3d's displacement seen from the other side, and forcing the
+word is precisely the intervention that abolishes it.
 
-**The superego is not removable, and it is not a fallback.** It is the same size
-whether the model chose its way in (+2.11pp) or was pushed (+2.66pp). If
-moralisation were a second line of defence triggered when avoidance failed, it
-would be LARGER in the forced condition. It is not. The two run independently.
+**Conditionally, the superego does not care how the model got there.** Restricted
+to passages where a sexual scene occurred:
 
-So the picture is not avoid-then-moralise. It is:
+| | base | aligned | delta | p | pairs |
+| --- | --- | --- | --- | --- | --- |
+| **undisturbed** `SUPEREGO_IN_SCENE` | 15.23% | 21.85% | +3.67pp | 0.0036 | 22/29 |
+| **forced** `SUPEREGO_IN_SCENE` | **15.27%** | **21.69%** | +4.39pp | 0.0011 | 24/32 |
+| **undisturbed** `consent_hesitation` | 10.98% | 16.81% | +5.56pp | 0.0004 | 22/29 |
+| **forced** `consent_hesitation` | 11.08% | 16.35% | +4.72pp | 0.0008 | 23/32 |
+| **undisturbed** `moralisation_in_scene`, base | 2.38% | | | | |
+| **forced** `moralisation_in_scene`, base | 2.38% | | | | |
 
-    displacement    operates on WHICH WORD.    Defeated by forcing the word.
-    superego        operates on THE SCENE.     Unaffected by forcing the word.
+**The base rates agree to two decimal places and so do the aligned rates.** The
+route makes no measurable difference. Given a sexual scene, the aligned model
+attaches the moral apparatus 43% more often than its parent, and it does so at
+the same rate whether it wandered in or was pushed.
 
-Two interventions at different levels of the same production, one of which this
-design can switch off and the other of which it cannot.
+This also corrects a reading the unconditional numbers invite. Unconditionally
+the superego effect looks slightly smaller undisturbed (+2.11pp) than forced
+(+2.66pp), which could be read as forcing provoking it. It does not: the
+undisturbed condition simply has fewer sexual scenes for the apparatus to attach
+to (47.8% against 50.4%). Per scene the two are the same.
+
+So the structure is not avoid-then-moralise:
+
+    displacement    operates on WHICH WORD.   Removable -- forcing the word
+                                              abolishes it entirely.
+    superego        operates on THE SCENE.    Invariant to the route. Identical
+                                              whether the model chose or was forced.
+
+Two interventions at different levels of the same production, and only one of
+them is a decision the model can be prevented from making.
+
+**Read in the register the campaign uses:** the superego attaches to the act, not
+to the agency. Being forced into the transgression earns no exemption. The model
+handed the word and the model that walked in on its own are moralised at the same
+rate, which is the behaviour the theory names and not an obvious property of a
+next-token predictor.
 
 ## 7. This closes X_metonymy §3g's open scope question
 
