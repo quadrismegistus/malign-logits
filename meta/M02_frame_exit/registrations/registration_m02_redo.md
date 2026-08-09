@@ -213,7 +213,24 @@ nnsight/L3 (RH's word at [5093] tail: improvise later, not in the registration).
   the July body unchanged). L1 runs; L2 generation under the pinned inherit-nothing
   producer with mode+params per record; the coded census at Option B + BOTH_MATCHED.
 - ACHIEVED ROSTERS: appended here as each stage lands, achieved-vs-declared with reasons.
-- L1 FLEET COMPLETE ([5145], 2026-08-09 ~02:30): 90 of 104 checkpoints produced usable rows —
+- POPULATION ERROR, AND THE RECEIPT BELOW IS PARTIAL ([5146]): the fleet ran 115 of the
+  source of record's 199 prompt texts — poles and BOTHs only, NO CONTROLS, no
+  BOTH_MATCHED — because the spec was built from a pole-shaped tool
+  (f11_canonical_texts.py CORE) and never compared to data/f11_quintuplets.json, which
+  this registration names as the source of record. The declared secondaries (CONTROL_A vs
+  CONTROL_B; mean(CONTROLS) vs mean(POLES)) are NOT COMPUTABLE from the run below. "We
+  hashed the encode path three times and never hashed the prompt set."
+- STRUCTURAL FIX, adopted on the custodian's own failure: (a) every spec entering a run
+  under this registration ASSERTS ITS POPULATION against the source of record and refuses
+  on mismatch (malign's gate, scripts/f11_quintuplet_spec.py --write); (b) the POPULATION
+  MANIFEST — the prompt set enumerated FROM the source of record at spec time — is a
+  FIRST-CLASS HASHED ARTIFACT of the execution block, beside the seed; (c)
+  population-verification at spec time is THE CUSTODIAN'S NAMED CHECK — the registrar
+  runs it and posts it before any launch under this document. A population error is
+  invisible downstream; this is the only place it is visible.
+- THE DELTA RUN (84 prompts x 104 checkpoints, dtype declared on the scan architectures,
+  ~$12-18): spec exists and is GATED; AWAITS RH'S WORD.
+- L1 FLEET COMPLETE — TRIPLE POPULATION ONLY ([5145], 2026-08-09 ~02:30): 90 of 104 checkpoints produced usable rows —
   ALL 90 WITH FINAL-POSITION RESIDUALS (the [5142].a split CLOSED BY BACKFILL: 37+2+2
   re-passed before their boxes were destroyed). Stores: f11_twp (95 models, 10,134 logit
   cells, 5,284 hidden rows) + f11_twp_bf (41 models, 4,715 + 4,715). THE FOURTEEN
