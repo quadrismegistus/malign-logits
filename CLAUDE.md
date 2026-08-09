@@ -18,12 +18,38 @@ Project context for Claude Code. Read this before making changes.
 context should hit these two before touching the repo, and a relative path is
 useless to a session that does not yet know where it is. RH's ask, docket [5144].
 
-Two more, before renting a box or blaming a model:
+## BEFORE RENTING A BOX OR BLAMING A MODEL, READ THESE TWO
 
-    docs/cloud_runbook.md        vast.ai: the recurring failures in the order you
-                                 hit them, profiles, producer-side rules
-    docs/local_capability.md     what runs on this Mac and what does not, in five
-                                 kinds with different fixes
+    /Users/rj416/github/malign-logits/docs/cloud_runbook.md
+                                 vast.ai: every recurring failure in the order
+                                 you hit them, profiles, producer-side rules,
+                                 and §2.13 THE CASUALTY PATTERN
+    /Users/rj416/github/malign-logits/docs/local_capability.md
+                                 what runs on this Mac and what does not, in
+                                 five kinds with different fixes
+
+**EVERY FLEET LOSES BOXES TO THE SAME LOOP: a box does not respond, we retry, it
+does not respond, we retry.** RH, 2026-08-09, after the L2 fleet lost 3 of 14 to
+exactly that. Retrying is correct for a RACE and never for a STATE — the runbook
+§2.13 is the table that tells them apart, and the discriminator is `pgrep` plus a
+record count, because **"instance running" is the rental, not the work.**
+
+Two rules that would have saved most of it, both learned the expensive way:
+
+- **PREFLIGHT THE ROSTER** against `data/model_load_environments.json` before a
+  box loads anything (`scripts/f11_l2_preflight.py`). An environment tag is not a
+  cause: `OLMoE`'s `histc` really is MPS-only, `mpt-7b`'s repo is simply gone, and
+  `deepseek`/`croissant`/`Teuken` mangle the prompt in the **tokenizer**, which no
+  card changes. **And the corpus outranks the record** — a checkpoint with a
+  complete output file works here whatever any prior observation predicts.
+- **A FAILURE THAT LOOKS LIKE FAST PROGRESS IS THE DANGEROUS ONE.** An orphaned
+  vLLM engine holding the card makes every unit "complete" in 0.3 min having
+  produced nothing, and the health loop reports it as throughput. Check what was
+  WRITTEN, never what was attempted.
+
+**Anything learned on a box goes back into `data/model_load_environments.json`
+and the runbook, in the same session.** Absence of an observation is not evidence
+of success.
 
 ---
 

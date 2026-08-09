@@ -166,6 +166,128 @@ Fix before running: `git checkout -- data/ && git clean -fdq data/ && git pull`.
 
 ---
 
+### 2.13 THE CASUALTY PATTERN: retrying a box instead of diagnosing it
+
+**Every fleet so far has lost boxes to the same loop — a box does not respond, we
+retry, it does not respond, we retry.** The L2 fleet (2026-08-09) lost 3 of 14
+that way before the pattern was named. Retrying is only correct when the cause is
+a RACE. It is never correct when the cause is a STATE.
+
+    cause                                 retry?   what to do
+    SSH not up yet (box booting)          YES      wait-loop on `ssh true`, 10 min cap
+    status=created/loading, ports=[]      NO       provider-side. DESTROY at ~10 min.
+    process died with a traceback         NO       read the traceback
+    box idle WITH records                 NO       IT FINISHED. Give it more work.
+    box idle with ZERO records            MAYBE    check `pgrep`, then the run log
+
+**The single most useful discriminator is `pgrep -fc '[f]11_l2_cloud'` against the
+record count.** "Instance running" from the API tells you the rental is alive, not
+that the work is. Boxes that were provisioned, billed, and doing nothing reported
+`running` all day.
+
+**Cost of the naive loop, measured once:** 3 boxes billed ~25 min each while stuck
+in `created`, plus ~40 min of operator time across four rounds of restarts, plus a
+round of restarts aimed at boxes that had simply FINISHED.
+
+### 2.14 A launch that times out still creates the instance
+
+`malign cloud launch` waits for SSH and gives up at 270 s. **The instance is
+created anyway** and starts billing, but the state file never receives
+`ssh_host`/`ssh_port` — so every later script that reads the state file skips the
+box silently. Three boxes were invisible and billing for ~20 minutes this way.
+
+Reconcile from the API, never from the state file alone:
+
+```python
+inst = json.load(open('/tmp/inst.json'))          # vastai show instances --raw
+by_id = {str(i['id']): i for i in inst}
+# repair ssh_host/ssh_port into every .vastai.*.json whose instance is live
+```
+
+`vastai show instances --raw` writes a deprecation notice to **stderr**; capture
+stdout to a file. And do not pipe it into a python heredoc — **the heredoc
+replaces stdin** and the pipe never arrives, which surfaces as a JSON decode error
+that looks like a bad API response.
+
+### 2.15 `vastai destroy instance` needs confirmation and says "Aborted"
+
+It prints `Aborted.` and exits 0-ish. In a loop over instance ids that reads as
+three successful destroys. Pipe `yes |`, then **verify with
+`vastai show instances`** — the count is the check, not the message.
+
+### 2.16 `pkill -f <script>` kills its own ssh session
+
+```bash
+ssh box "pkill -9 -f f11_l2_cloud"     # exit 255: the ssh command line CONTAINS
+                                       # the pattern, so pkill matches itself
+ssh box "pkill -9 -f '[f]11_l2_cloud'" # the bracket cannot match itself
+```
+
+Silent: the session dies, the caller sees a non-zero exit and no output.
+
+### 2.17 vLLM's EngineCore survives killing the runner and holds the whole card
+
+Measured: **44,558 MiB of 49,152 held by one orphan** after the parent was killed.
+Every subsequent engine then fails to initialise and each unit of work "completes"
+in 0.3–0.7 min having produced nothing — **a failure that reads as fast progress**,
+which the health loop reports as throughput.
+
+Three ways of finding it fail SILENTLY:
+
+    nvidia-smi --query-compute-apps=pid    HOST pids inside a container;
+                                           `kill` says "No such process" while
+                                           the memory stays held
+    pkill -f 'VLLM::EngineCore'            matches nothing
+    ps -eo pid,comm | grep EngineCore      matches nothing: comm is TRUNCATED
+                                           to 15 chars -> "VLLM::EngineCor"
+
+What works: `ps -eo pid,args`, match `VLLM` in args, kill by that pid. And **refuse
+to load below a free-VRAM floor** rather than starting an engine that will fail in
+a way that looks like progress.
+
+### 2.18 A direct `ssh` gets a non-login shell with no `python`
+
+`malign cloud run` uses tmux with a login shell; a bare `ssh box "python ..."` does
+not, and fails `nohup: failed to run command 'python': No such file or directory`.
+Resolve the interpreter **on the box**:
+
+```bash
+ssh box "PY=\$(command -v python || command -v python3 || echo /usr/local/bin/python); \$PY script.py"
+```
+
+Note the escaping: `$(...)` inside a double-quoted ssh command **expands on YOUR
+machine**. Unescaped, it sends your Mac's python path to the box.
+
+### 2.19 Preflight against the load record — and let the corpus outrank it
+
+`data/model_load_environments.json` exists so a roster is filtered before a box
+loads anything. `scripts/f11_l2_preflight.py` is the pattern.
+
+**An environment tag is not a cause, and filtering on it is wrong in both
+directions.** `OLMoE`'s integer `histc` failure is genuinely MPS-only. `mpt-7b` is
+tagged `local_mps` and its repo is simply **gone** — it fails on CUDA too.
+`deepseek`/`croissant`/`Teuken` are tagged `local_mps` and mangle the prompt in the
+**tokenizer**, which no card changes. Read the `cause` field.
+
+**And the corpus outranks the record.** A checkpoint with a complete output file
+demonstrably works in this environment whatever any prior observation predicts —
+without that rule the preflight blocks `OLMo-2-0425-1B-DPO`, from which we hold
+3,940 verified passages, on a torch floor the current profile already satisfies.
+
+### 2.20 Submit work in CHUNKS or the GPU idles at 100% utilisation
+
+Generation submitted one cell at a time (n=20 sequences) measured **2,133 output
+tok/s**; at `--chunk 48` the same box measured **8,383** — 3.9x, and the bill is
+box-hours so it is a 3.9x cost cut too. `nvidia-smi` read **100% utilisation
+throughout**: memory-bound decode at tiny batch pegs the gauge without doing much
+work. **Utilisation is not throughput** — measure records/second against the clock.
+
+Keep the chunk as the flush boundary so a dead chunk costs at most CHUNK units, and
+give each item its own seed (vLLM takes a list of SamplingParams aligned with the
+prompt list) so batching changes the schedule and not one sampled token.
+
+---
+
 ## 3. Profiles
 
 | profile | shape | for |
@@ -245,6 +367,8 @@ Every one of these was learned by losing a run.
 ## 5. Checklist
 
 Before launch:
+- [ ] **Preflight the roster against `data/model_load_environments.json`** (§2.19) — read the CAUSE, not the environment tag
+- [ ] Work submitted in chunks, not one unit at a time (§2.20)
 - [ ] `export PATH="$PWD/.venv/bin:$PATH"`
 - [ ] No stale `.vastai.json` (rename with the fate in the **filename**)
 - [ ] Roster written to an **artifact**, and the runner takes `--only-roster` — a split that lives only in a shell command is not a split anyone can check
@@ -252,6 +376,8 @@ Before launch:
 - [ ] Purge-before-download, per-model guard, `gc.collect()`, JSONL output, resume-by-readback
 
 After launch:
+- [ ] **`pgrep` the runner AND count records** — "instance running" is the rental, not the work (§2.13)
+- [ ] Every state file has `ssh_host`; reconcile from `vastai show instances` if not (§2.14)
 - [ ] `status_msg` read, not just "created"
 - [ ] SSH works — if not, **destroy, do not debug**
 - [ ] Device printed and it says `cuda`

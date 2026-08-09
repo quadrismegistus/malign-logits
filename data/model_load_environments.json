@@ -82,6 +82,12 @@
     "causal-conv1d"
    ],
    "note": "vast.ai `ssm` profile. Kernels built from source with the arch DERIVED on the box (TORCH_CUDA_ARCH_LIST from get_device_capability), not hardcoded to 8.0 as it was until 9 Aug."
+  },
+  "vast_l2_cuda_vllm": {
+   "device": "cuda",
+   "engine": "vllm",
+   "dtype": "float16",
+   "note": "L2 passage generation fleet, 2026-08-09. Q RTX 8000 / RTX 5880 Ada class, vLLM engine, fp16. Turing has NO FA2 and NO bf16 under vLLM."
   }
  },
  "observations": [
@@ -353,6 +359,28 @@
    "cause": "Runs, but on the NAIVE sequential scan: transformers' FalconMamba integration does not use mamba-ssm/causal-conv1d and emits 'the fast path is not available ... pip install kernels'. The four Falcon-H1 checkpoints on the same box emit NO such warning, so the kernels are in use for the hybrid and not for the pure SSM.",
    "fix": "NONE NEEDED. The kernels are a measured null for pure SSM (0.62-0.64 with vs 0.61-0.72 without); timed 0.7-1.7 min/model here. Installing `kernels` would change the numerical path away from every pure-SSM cell already in the corpus for no gain.",
    "source": "F11 delta run, 2026-08-09"
+  },
+  {
+   "model_id": "mosaicml/mpt-7b",
+   "environment": "vast_l2_cuda_vllm",
+   "outcome": "load_failed",
+   "cause": "REPO IS GONE: 'not a local folder and is not a valid model identifier'. Previously recorded only under local_mps as an AutoTokenizer OSError, which made it look device-specific. IT IS NOT. Absence of a CUDA observation was not evidence of success.",
+   "fix": "none. Exclude by roster, not by retry."
+  },
+  {
+   "model_id": "HuggingFaceTB/SmolLM2-360M",
+   "environment": "vast_l2_cuda_vllm",
+   "outcome": "loads"
+  },
+  {
+   "model_id": "Qwen/Qwen2.5-0.5B",
+   "environment": "vast_l2_cuda_vllm",
+   "outcome": "loads"
+  },
+  {
+   "model_id": "allenai/OLMo-2-0425-1B",
+   "environment": "vast_l2_cuda_vllm",
+   "outcome": "loads"
   }
  ],
  "predicted_untested": {
@@ -377,6 +405,12 @@
   "Library versions are an INSTRUMENT dimension. Local vs box on one shared model: identical surface set, per-word probabilities differing by <=1.5e-3. Small, not zero -- cells now stamp torch_version and transformers_version.",
   "The box ran 5.14.1 while every precondition was established locally on 5.4.0. An encode guarantee established on a different library version than the run uses is not a guarantee.",
   "RUN ARCHIVES DO NOT BELONG IN meta/. meta/ is one folder per meta-finding, with clause tables and scope sentences; a run log is not a claim. Putting the grid_v3 archive there routed around `logs/` being gitignored -- and that gitignore rule was the thing that would have stopped a live HF_TOKEN from entering a commit. GitHub push protection caught it instead. The archive now lives at logs/cloud_runs/grid_v3_46301965/, local and untracked; the facts worth keeping were already in THIS file.",
-  "PROVISIONING WRITES CREDENTIALS INTO SCRIPTS, AND ARCHIVING THOSE SCRIPTS PUBLISHES THEM. launch.sh/repair.sh/repair2.sh each carried an inline HF_TOKEN because the gated Llama checkpoints need it and the box had no profile to source. Scan the whole tree before committing a pulled run directory, not just the files a scanner happens to name."
+  "PROVISIONING WRITES CREDENTIALS INTO SCRIPTS, AND ARCHIVING THOSE SCRIPTS PUBLISHES THEM. launch.sh/repair.sh/repair2.sh each carried an inline HF_TOKEN because the gated Llama checkpoints need it and the box had no profile to source. Scan the whole tree before committing a pulled run directory, not just the files a scanner happens to name.",
+  {
+   "date": "2026-08-09",
+   "context": "L2 fleet",
+   "lesson": "AN ENVIRONMENT TAG IS NOT A CAUSE. A failure recorded under local_mps may be device-specific (OLMoE's histc) or device-INDEPENDENT (mpt's dead repo; deepseek/croissant/Teuken's tokenizer fidelity). Filtering a roster on the environment field alone excludes working models and admits broken ones. Read the CAUSE, not the tag.",
+   "cost": "1 checkpoint run against a blocking record; 9 wrongly excluded from a hand-rolled list built from memory instead of this file."
+  }
  ]
 }
