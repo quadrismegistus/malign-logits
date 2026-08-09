@@ -398,6 +398,26 @@ be an artifact of. F05's rerun conclusion (`final-layer/unembedding-uniform in 1
 families`) is not being contested; the pilots CONFIRM it for displacement and find
 something else for contradiction.
 
+**THE DISPLACEMENT PILOT'S FINAL-LAYER NUMBERS BELOW ARE WRONG (found 9 Aug).**
+It mapped the final norm over every hidden state, and HuggingFace's last hidden
+state is ALREADY normed, so the endpoint was normed twice. Interior layers are
+unaffected. `malign_logits/models.py:logit_lens` had the identical defect, now
+fixed and made to refuse unless its final layer reproduces the model's own
+logits. Nothing in `meta/` had used it and the `logit_lens` stash was empty, so
+no campaign result stands on it. `true_word_probs` (301,147 entries) and
+`logits` (275,603) come from the model's own forward pass and are unaffected,
+confirmed two ways: a direct fp32+BOS reproduction to 0.6%, and twp against the
+logits stash agreeing to 0.997 (sd 0.0027) on single-token words.
+
+**Corrected and extended on the Amber ladder:
+`meta/M01_displacement/scripts/l3b_amber_ladder.py`,** validated at the output
+against twp on all three checkpoints (ratios 1.006 to 1.062). The event is
+terminal as stated, but **displacement is maximal at layer 31 and the last block
+partially undoes it**: `kill` rises 8x in SFT and 5x in DPO between 31 and 32
+while `scream` falls by a third. At layer 31 the DPO model has scream over kill
+739:1; by the output, 85:1. In the BASE arm both words fall across the same step,
+which is why the control vocabulary is the blocking piece and not a formality.
+
 **WHAT THE TWO PILOTS RETURNED** (`meta/M02_frame_exit/scripts/l3_pilot_displacement.py`,
 `l3_pilot_layerwise.py`; 8 Aug, one prompt each, no controls, no null).
 

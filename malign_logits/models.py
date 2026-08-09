@@ -169,11 +169,37 @@ def logit_lens(model, tokenizer, prompt, device=None):
             raise AttributeError(f"Cannot find final layer norm for {type(model).__name__}")
         lm_head = model.lm_head
 
+        # THE LAST ENTRY IS ALREADY NORMED AND MUST NOT BE NORMED AGAIN.
+        # HuggingFace appends hidden states INSIDE the decoder loop -- each one
+        # the input to its layer, so pre-norm -- then applies the final norm
+        # after the loop and appends THAT as the last element. `norm(norm(x))`
+        # re-applies the learned weight to a vector that is already unit-scale,
+        # which is not a rescaling but a different direction, and it lands on
+        # the one layer every logit-lens claim is read off.
+        #
+        # LLM360/Amber, "She was so angry she wanted to":
+        #     head(hidden[-1])         kill 0.119145   == the model's own logits
+        #     head(norm(hidden[-1]))   kill 0.059886   maxdiff 0.244
+        last = len(hidden_states) - 1
         layer_logits = []
-        for hidden in hidden_states:
-            normed = norm(hidden)
+        for i, hidden in enumerate(hidden_states):
+            normed = hidden if i == last else norm(hidden)
             logits = lm_head(normed)[0, -1, :].cpu()
             layer_logits.append(logits)
+
+        # AND THE CHECK THAT WOULD HAVE CAUGHT IT, WHICH COSTS NOTHING. The
+        # final layer's projection IS the model's output; the forward pass has
+        # already computed it, so disagreement means the projection is wrong for
+        # this architecture and no layer from it is readable. This was invisible
+        # for as long as nobody compared the two.
+        ref = outputs.logits[0, -1, :].detach().float().cpu()
+        gap = float((layer_logits[-1].detach().float() - ref).abs().max())
+        if gap > 1e-2:
+            raise AssertionError(
+                "logit lens final layer does not reproduce the model's own "
+                "logits (max abs diff %.4g) for %s. The projection is wrong "
+                "for this architecture; do not read any layer from it."
+                % (gap, type(model).__name__))
 
     return layer_logits
 
@@ -199,12 +225,25 @@ def logit_lens_words(model, tokenizer, prompt, words=None, top_k=5, device=None)
     layer_logits = logit_lens(model, tokenizer, prompt, device)
     words = words or []
 
-    # Encode tracked words with leading space (continuation tokens)
-    word_token_ids = {}
+    # Encode tracked words with leading space (continuation tokens).
+    #
+    # `ids[0]` IS THE FIRST TOKEN, NOT THE WORD. For a multi-token word this
+    # reads a fragment and labels it with the whole word: on LLM360/Amber
+    # " scream" is ['sc', 'ream'], so the tracked row is the probability of
+    # 'sc' -- shared with scare, scratch, scold -- under the name `scream`.
+    # 31% of that model's movement-vocabulary mass is multi-token.
+    #
+    # The semantics are unchanged (callers depend on them) but `n_tokens` and
+    # `first_token` now travel with every row, so a consumer can tell a word
+    # probability from a prefix probability instead of having to know. For a
+    # calibrated word trajectory use true_word_probs, which records `t1` per
+    # word and gives p(word) at the output to license the prefix reading.
+    word_token_ids, word_n_tokens = {}, {}
     for word in words:
         ids = tokenizer.encode(" " + word, add_special_tokens=False)
         if ids:
             word_token_ids[word] = ids[0]
+            word_n_tokens[word] = len(ids)
 
     rows = []
     for layer_idx, logits in enumerate(layer_logits):
@@ -235,6 +274,10 @@ def logit_lens_words(model, tokenizer, prompt, words=None, top_k=5, device=None)
                     "probability": round(float(probs[tid]), 8),
                     "logit": round(float(logits[tid]), 4),
                     "source": "tracked",
+                    #: 1 means `probability` IS the word's; >1 means it is the
+                    #: probability of `first_token` and an upper bound on the word's.
+                    "n_tokens": word_n_tokens[word],
+                    "first_token": tokenizer.decode([tid]),
                 })
 
     return pd.DataFrame(rows)

@@ -1,6 +1,25 @@
 """L3 PILOT II: does the aligned model COMPUTE the transgressive word and then
 suppress it, or never compute it at all?
 
+**SUPERSEDED, AND ITS FINAL-LAYER NUMBERS ARE WRONG. See
+`meta/M01_displacement/scripts/l3b_amber_ladder.py` (9 Aug).**
+
+`lens()` below maps the model's final norm over EVERY hidden state. HuggingFace
+appends the ALREADY-NORMED final state as `hidden_states[-1]`, so the last row is
+normed twice and every number in the "WHAT IT RETURNED" section that comes from
+the final layer is a different distribution from the model's own output. On
+Amber the same defect reads `kill` as 0.0599 where the model says 0.1191.
+
+Layers 0..N-1 are pre-norm and their rows are unaffected, so the shape of the
+trajectory stands; the endpoint, which is what the conclusions were read off,
+does not. `malign_logits.models.logit_lens` had the identical defect and now
+refuses unless its final layer reproduces the model's own logits.
+
+WHAT CHANGES SUBSTANTIVELY: "kill peaks at the FINAL layer in both models" is
+not what happens once the endpoint is right. On the Amber ladder `kill` peaks at
+layer 31 and the last block moves it AGAIN -- down in base, UP in both aligned
+arms. The Llama pair below has not been re-run.
+
     python l3_pilot_displacement.py
 
 THE QUESTION, WHICH IS THE ONE THE CAMPAIGN'S OUTPUT-GRAIN INSTRUMENTS CANNOT ASK.
