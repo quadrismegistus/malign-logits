@@ -111,6 +111,38 @@ Ingest mirrors the twp rail: a sidecar check before ingest, conservation asserte
 
 **Recommendation: ALL, both languages.** The marginal cost of zh is ~$5 and the marginal cost of *not* generating it is that the question cannot be asked under this decoder, ever.
 
+## ADDENDUM — TWO POST-GENERATION READOUTS (lacan, on RH's ask)
+
+**Neither changes the population, the decoder, or how a passage is made.** Both are teacher-forced forward passes over text this plan already generates, so the source hash `44a708bf76cfff67`, the list hash `e5da397ff891af74`, the 187 strings and the pen's check at [5198] are all untouched. Scoring has no decoder to pin.
+
+**The whole argument for doing them in THIS session is the 1.5 TB.** Malign priced download as half the bill. A forward pass over resident weights is nearly free; the same pass next month pays the full download again. That argument applies to these two and to nothing else here.
+
+### 1. CROSS-SCORING — vLLM, same rail, already implemented
+
+Each passage scored under its own checkpoint and **under its pair partner**. Two scorings per cell; the 2×2 within pair.
+
+Not a new capability: `scripts/vllm_slot_sampled.py` already does teacher forcing with `SamplingParams(max_tokens=1, temperature=0.0, prompt_logprobs=0)`, reads the actual token's logprob from `plen` onward, and records `scorer` and `src_model` as separate fields. The record shape cross-scoring needs is the shape that code already writes.
+
+**Why it is worth more here than a coded field.** `logP_aligned(base passage) − logP_base(base passage)` is how much alignment disprefers the base's continuation. Taking the excess of that at BOTH against mean(CONTROL_A, CONTROL_B) is **the registered primary with no annotation anywhere in it.** After [5187]–[5189] — the coder's answer moving with its prompt, κ selecting the biased arm, OFF-FRAME at chance from two instrument families — a coder-free instrument for the same contrast is worth its 10%.
+
+**And it is per-token, which tests [5195].5 rather than assuming it.** If the penalty is negligible at token 1 and accumulates with position, "a single word is not yet a departure; a passage is" becomes a curve instead of an argument. If it is flat in position, the move to L2 was wrong and we would know it from the same data.
+
+**PRE-CHECK, AND IT IS NOT OPTIONAL.** The existing code passes token **ids** between models. That is valid only where a pair shares a tokenizer. The `max(full_ids) >= vmax` guard catches ids out of the scorer's range; it does **not** catch different segmentation, which would silently score a different string and return a perfectly plausible number. Verify tokenizer identity per pair before scoring by ids, and score by re-tokenized text wherever it fails.
+
+**Scheduling constraint:** both members of a pair must be resident on the same box, which cuts against sharding purely by download size.
+
+Cost: one further prefill of 99.6M tokens, roughly +10% on the generation estimate.
+
+### 2. PER-LAYER PROJECTIONS — transformers, a DECLARED SUBSET, after vLLM teardown
+
+`twp.py` is transformers-only: every readout path calls `model(ids, attention_mask=att, output_hidden_states=readout.needs_hidden)` and `expand_layers` indexes `out.hidden_states`. vLLM does not expose per-layer states for generation. **But no HF generation is required** — a per-layer readout over an existing passage is a single prefill, giving every position × every layer in one pass. Generate on vLLM as planned, tear it down, load HF, run the subset back through.
+
+**Write the projection, not the state.** Raw residuals for a generated passage are `n_layers+1 × d × 256 × 4` bytes — 138 MB per passage at llama-7b's `[33, 4096]`, which is ~54 PB at full scope and infeasible by six orders of magnitude. The projection `h·â` is `n_layers+1` floats per token, ~33 KB per passage, a 4,000× reduction. The axis is the model's **own** `pole_a`/`pole_b` residuals, already on disk in the twp sidecars — the L3 geometry construction, in the model's space rather than an embedder's, which is the axis [5195] found weak at 2% of variance when built from BGE/GloVe.
+
+**Scope is a declared subset with its size named in advance, not "as many as fit."** At one pair × the 15 EN primary groups × 3 roles × 20 samples = 1,800 passages ≈ 460k tokens of prefill, minutes. Ten pairs is under half an hour. The pair list should be named before the run.
+
+Both ride on the same scope and spend word as the generation; neither is authorised separately, and neither authorises any coded depth.
+
 ## WHAT IS GATED ON WHAT
 
 1. Malign posts this plan with the enumerated population (list hash `e5da397ff891af74`). ← **here**
