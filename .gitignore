@@ -290,3 +290,32 @@ data/*-backup-*.json
 # twp_ingest.py; committing it would duplicate the store in git.
 data/twp_phase32b/
 data/twp_phasefalcon/
+
+# ── TWP TRANSPORT PAYLOAD ──────────────────────────────────────────────────
+# `git add -A` in this repo stages 1,701 untracked files totalling 13.40 GB and
+# takes minutes doing it. This is not hypothetical: on 2026-08-09 a DOC-ONLY
+# commit (four README/CAMPAIGN files) was one `add -A` away from writing the
+# whole twp tree into .git, where it would have survived any revert and then
+# failed the push on GitHub's 100 MB per-file limit.
+#
+# These directories are TRANSPORT, not the store. The canonical stash is
+# LITMOD_DATA_DIR; twp_ingest.py merges these into it. Committing them
+# duplicates the store in git — the same reason data/twp_phase32b/ and
+# data/twp_phasefalcon/ are ignored above.
+#
+# MEASURED, and the scoping follows the measurement rather than the extension:
+#     *.hidden.f32   190 files   8.68 GB    0 tracked anywhere -> safe globally
+#     *.f16          231 files   4.32 GB    0 tracked anywhere -> safe globally
+#     twp *.jsonl    231 files   0.20 GB    13 .jsonl ARE tracked elsewhere,
+#                                           so this one is PATH-SCOPED, never
+#                                           a bare *.jsonl
+# `data/f11_twp/hidden_manifest.json` is tracked and stays tracked: it is .json,
+# not .jsonl, and no rule below touches it.
+*.f16
+*.hidden.f32
+data/f11_twp*/*.jsonl
+
+# Derived analysis pickles. Nothing rebuilds from them that cannot rebuild from
+# their producer, 0 are tracked, and meta/M02_frame_exit/results/dp.pkl is 8.8 MB
+# of embeddings that pole_axis_build.py regenerates in minutes.
+*.pkl
