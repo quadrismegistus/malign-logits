@@ -85,6 +85,10 @@ def main():
     ap.add_argument("--out", default="data/twp_fill_spec.json")
     ap.add_argument("--pairs-first", action="store_true", default=True,
                     help="order checkpoints that complete a base->aligned pair first")
+    ap.add_argument("--env", help="emit only checkpoints whose f11_env_plan environment "
+                    "matches (default|torch26|ssm|twogpu). ONE ENVIRONMENT WILL NOT RUN "
+                    "THEM ALL -- runbook 3.5 -- and a box that downloads a model it "
+                    "cannot load has paid for the download anyway.")
     a = ap.parse_args()
 
     from malign_logits.prompts import Prompts
@@ -109,8 +113,30 @@ def main():
         ids.add(p["base"]); ids.add(p["aligned"])
     ids = sorted(i for i in ids if i)
 
+    #: **THE REQUIREMENTS ARE PROPERTIES OF THE CHECKPOINTS, NOT OF OUR
+    #: PREFERENCES** (runbook 3.5). Derived by `f11_env_plan.py` from repo file
+    #: lists and architecture class, never guessed from a family name. Watched
+    #: live on 2026-08-10: Zamba2 on a `dense` box fails with a
+    #: `tie_weights_keys` error that reads as a model defect and is an SSM model
+    #: on a box without mamba-ssm. It had already paid for the download.
+    env_of = {}
+    ep = os.path.join(ROOT, "data", "f11_env_plan.json")
+    if a.env and os.path.exists(ep):
+        plan = json.load(open(ep))
+        groups = plan.get("environments") or plan.get("groups") or plan
+        if isinstance(groups, dict):
+            for name, g in groups.items():
+                mm = g.get("models") if isinstance(g, dict) else g
+                if isinstance(mm, list):
+                    for m in mm:
+                        env_of[m if isinstance(m, str) else m.get("model")] = name
+
     spec, excluded, tally = [], [], Counter()
     for mid in ids:
+        if a.env:
+            e = env_of.get(mid, "default")
+            if e != a.env:
+                tally["OTHER-ENV"] += 1; continue
         if mid in BLOCKED:
             excluded.append({"model": mid, "class": "BLOCKED",
                              "reason": BLOCKED[mid]}); tally["BLOCKED"] += 1; continue
@@ -135,7 +161,8 @@ def main():
     print("  ACTIVE prompts (deduped on text)   %d   sha %s"
           % (len(prompts), sha16("\n".join(prompts))))
     print("  checkpoints known                  %d" % len(ids))
-    for k in ("QUEUED", "NOTHING-OWED", "BLOCKED", "PINNED-BROKEN"):
+    if a.env: print("  ENVIRONMENT FILTER                  %s" % a.env)
+    for k in ("QUEUED", "NOTHING-OWED", "BLOCKED", "PINNED-BROKEN", "OTHER-ENV"):
         print("    %-14s %3d" % (k, tally[k]))
     print("  CELLS TO RUN                       %s" % f"{cells:,}")
     print()
@@ -160,7 +187,7 @@ def main():
                          "prompts": len(prompts),
                          "prompt_list_sha256_16": sha16("\n".join(prompts)),
                          "models": len(spec), "cells_to_run": cells,
-                         "checkpoints_known": len(ids),
+                         "checkpoints_known": len(ids), "environment": a.env,
                          "excluded": excluded},
                "spec": [{"model": e["model"], "prompts": e["prompts"]} for e in spec]}
         p = os.path.join(ROOT, a.out)
