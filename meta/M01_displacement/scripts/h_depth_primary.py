@@ -178,6 +178,44 @@ def main():
           % (s["n"], s["median"], s["min"], s["max"]))
     print("    pairs with median d > 0: %d/%d" % (s["n_pos"], s["n"]))
 
+    #: ── THE LINEAGE IS THE INDEPENDENT UNIT, NOT THE PAIR ──────────────
+    #:
+    #: **23 PAIRS ARE 20 LINEAGES.** `Falcon3-1B/3B/7B-Instruct` are three arms
+    #: of one pretraining run and `Qwen2.5-0.5B/7B-Instruct` are two; treating
+    #: them as five independent observations counts one base run five times.
+    #: This is the campaign's standing unit rule and it has been got wrong
+    #: before in the direction that flatters -- 59 -> 39 -> 34 in one afternoon,
+    #: every correction toward significance.
+    #:
+    #: Collapse is the MEDIAN OF THE ARMS' MEDIANS, not a re-pool of cells: a
+    #: lineage with three arms would otherwise contribute three times the cells
+    #: and re-acquire the weight the collapse exists to remove.
+    #:
+    #: Read from `data/lineage_map_models.json` (`model_to_lineage`), which is
+    #: the stored map -- not `lineage.py`'s regex, which lacan found grouping by
+    #: id patterns while the map sat beside it, and which inflated the roster by
+    #: defaulting unmapped models to singletons ([5339]).
+    lin = collections.defaultdict(list)
+    try:
+        _m2l = (json.load(open(os.path.join(ROOT, "data", "lineage_map_models.json")))
+                or {}).get("model_to_lineage") or {}
+    except Exception:
+        _m2l = {}
+    base_of = {c["pair"]: c["base"] for c in gated}
+    for p_, med in meds.items():
+        lin[_m2l.get(base_of.get(p_)) or _m2l.get(p_) or p_].append(med)
+    lmed = {L: st.median(v) for L, v in lin.items()}
+    ls = describe(list(lmed.values()))
+    print("\n  LINEAGE LEVEL — THE INDEPENDENT UNIT")
+    print("    lineages n=%d   median %+.3f   range [%+.3f, %+.3f]   >0: %d/%d"
+          % (ls["n"], ls["median"], ls["min"], ls["max"], ls["n_pos"], ls["n"]))
+    multi = {L: v for L, v in lin.items() if len(v) > 1}
+    if multi:
+        print("    lineages holding more than one H2 arm:")
+        for L, v in multi.items():
+            print("      %-30s %d arms %s -> %+.3f"
+                  % (L[:30], len(v), [round(x, 3) for x in sorted(v)], lmed[L]))
+
     print("\n  PER PAIR (ascending)")
     print("    %-46s %7s %6s" % ("pair", "median", "cells"))
     for p, m in sorted(meds.items(), key=lambda kv: kv[1]):
@@ -260,6 +298,7 @@ def main():
                "cell_ungated": describe([c["d"] for c in cells]),
                "cell_gated": describe([c["d"] for c in gated]),
                "pair_level": s, "per_pair_median": meds,
+               "lineage_level": ls, "per_lineage_median": lmed,
                "depth_L50_over_N": (
                    {"cells": len(depth), "median": st.median([x for x, _ in depth]),
                     "per_pair_median": dmed,

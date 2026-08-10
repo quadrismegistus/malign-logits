@@ -23,10 +23,15 @@ first N−2 layers carry more of the effect than the last two do.
 
 ## The answer
 
-**Alignment is distributed. 22 of 23 pairs go the same way, and the median pair recovers about
+**Alignment is distributed. 19 of 20 lineages go the same way, and the median pair recovers about
 0.7 more from all-but-the-last-two layers than from the last two.**
 
-    PAIR LEVEL (the unit)          n=23
+    LINEAGE LEVEL (the unit)       n=20
+      median of per-lineage medians +0.700
+      range                        [-0.098, +1.443]
+      lineages with median d > 0   19 / 20
+
+    PAIR LEVEL (23 pairs = 20 lineages)
       median of per-pair medians   +0.697
       range                        [-0.098, +1.443]
       pairs with median d > 0      22 / 23
@@ -39,9 +44,15 @@ first N−2 layers carry more of the effect than the last two do.
 The last two layers carry a small fraction of what alignment does. Whatever alignment is at the
 level this instrument sees, it is not a filter on the output.
 
-**The pair is the unit and the cell level is not an independent n.** Cells within a pair share a
-base model, a tokenizer and a training recipe, and they move together. The cell line is reported
-because a per-pair median hides the within-pair spread, not because 4,318 is a sample size.
+**The LINEAGE is the unit, not the pair, and neither is the cell.** `Falcon3-1B/3B/7B-Instruct`
+are three arms of one pretraining run and `Qwen2.5-0.5B/7B-Instruct` are two, so 23 pairs are 20
+independent observations — counting them as 23 counts one base run five times. Cells within a pair
+share a base, a tokenizer and a recipe and move together, so 4,318 is not a sample size either.
+
+**The correction costs three units and changes nothing: +0.697 at n=23 against +0.700 at n=20,
+22/23 against 19/20.** It is applied because the campaign's unit rule has been got wrong before in
+the direction that flatters — 59 → 39 → 34 in one afternoon, every correction toward significance —
+and a result that survives the check is stronger for having been asked.
 
 ## Where it accrues: half the change is in place by ~60% of depth
 
