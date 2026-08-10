@@ -3,17 +3,27 @@ status: provisional
 grade: pending
 date: 2026-08-09
 role: finding
-description: "Alignment's causal work is distributed across the stack, not concentrated at the readout: the last two aligned blocks recover 6-16% of the behaviour, everything below them 55-73%. Three pairs, gated. PENDING CONFIRMATION AT SCALE."
+description: "Alignment's causal work is distributed across the stack, not concentrated at the readout: the last two aligned blocks recover 6-16% of the behaviour, everything below them 55-73%. Three pairs, gated. CONFIRMED AT SCALE BY H2 (23 pairs, 231 prompts) -- see H2_alignment_depth.md."
 instruments: [weight-delta, activation-patch, weight-patch, logit-lens, movement]
 families: [llama, qwen, smollm]
 chapters: [ch05]
 data: [twp_depth_battery.jsonl, head_frozen_survey.json]
 scripts: [twp_depth_battery.py, twp_patch_weights.py, twp_patch_depth.py, twp_head_swap.py, head_frozen_survey.py]
 ---
-# F42: How deep does alignment go? (PROVISIONAL)
+# Findings H1: how deep does alignment go? — the instrument and its gates
 
-**STATUS: PROVISIONAL. Three pairs, 6-10 prompts each, one domain. Nothing here
-should be cited as established.** It is written up now because the instrument
+*(Written as F42 on 2026-08-09; moved here and renamed on RH's word, 2026-08-10.)*
+
+**STATUS: the three-pair RESULT is superseded by H2; the INSTRUMENT and its gates
+are the durable part and are what this document is now for.** H2 ran the same
+contrast over 23 pairs and 231 prompts and found the same direction in 22 of 23,
+median per-pair `d` +0.697. Two things to carry across rather than re-read here:
+**H2's magnitude is materially smaller than this pilot's** (+0.962 -> +0.697,
+the ordinary inflation of a small first look), and **"three pairs" below means
+the three that PASSED THE CEILING GATE**, not three sampled — a selection
+disclosure this document did not originally make.
+
+It was written up while provisional because the instrument
 chain and its gates are the durable part, and because a provisional claim with
 its refutation conditions attached is more useful than a private one.
 

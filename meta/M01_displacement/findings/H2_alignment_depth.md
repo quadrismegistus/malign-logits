@@ -1,6 +1,7 @@
-# Findings H: alignment is distributed through the stack, not concentrated in the last layers
+# Findings H2: alignment is distributed through the stack, not concentrated in the last layers
 
-Written 2026-08-10 by the malign seat. Plan: `registrations/plan_h2_alignment_depth.md` §5.
+Written 2026-08-10 by the malign seat. Confirms **H1** at scale (H1 was written as F42 and
+asked for exactly this). Plan: `registrations/plan_h2_alignment_depth.md` §5.
 Producer: `scripts/h_depth_primary.py`. Data: `data/h2_depth/*.canonical.jsonl`, written by
 `scripts/twp_depth_battery.py`; receipt `data/h2_depth_receipt.json`, run locally by RH.
 Every number below comes from one run of that producer over those shards and can be re-derived
@@ -41,6 +42,39 @@ level this instrument sees, it is not a filter on the output.
 **The pair is the unit and the cell level is not an independent n.** Cells within a pair share a
 base model, a tokenizer and a training recipe, and they move together. The cell line is reported
 because a per-pair median hides the within-pair spread, not because 4,318 is a sample size.
+
+## Where it accrues: half the change is in place by ~60% of depth
+
+`d` contrasts two blocks, and a block contrast cannot locate anything *inside* a block. `repr_L50` — the depth at which half the representational change has accrued — answers the obvious next question, and it was already sitting in every row.
+
+**Normalised by `N`, because 32 blocks and 48 blocks are not one scale.** Layer 20 is two-thirds of the way up a Llama and 40% of the way up a Yi; pooling raw layer indices across this roster would report a fact about the depth mix and call it a fact about alignment.
+
+    repr_L50 / N          4,306 gated cells with a curve, 23 pairs
+      CELL LEVEL          median 0.607   IQR [0.425, 0.738]   range [0.000, 0.975]
+      PAIR LEVEL          median 0.594   range [0.000, 0.861]
+
+      L50 in the last quarter of the stack    922/4,306   21.4%
+      L50 before the halfway point          1,329/4,306   30.9%
+
+So the positive form of the headline: **not merely "not at the readout" but "half of it by three-fifths of the way up," with only a fifth of cells accruing late.**
+
+**The per-pair spread is the result, and the median describes no pair in the roster:**
+
+    allenai/OLMo-2-0425-1B-DPO             0.000
+    OpenLLM-France/Lucie-7B-Instruct-v1.1  0.125
+    tiiuae/Falcon3-10B-Instruct            0.425
+    HuggingFaceTB/SmolLM3-3B               0.556
+    meta-llama/Llama-3.1-8B-Instruct       0.625
+    LLM360/AmberSafe                       0.719
+    PKU-Alignment/beaver-7b-v1.0           0.781
+    stabilityai/stablelm-2-zephyr-1_6b     0.833
+    Qwen/Qwen3-8B                          0.861
+
+A roster spanning 0.000 to 0.861 is not a population with a typical member. Some recipes have done half their work before the stack has started; others leave it to the top sixth.
+
+**`allenai/OLMo-2-0425-1B-DPO` should be read as an instrument failure, not a fast aligner.** Three independent measures agree: `L50 = 0.000`, ceiling **3.96**, and a head delta of **1.18** — larger than the norm of the weights it started from. H1 already calls it "not a fine-tune in any usable sense," and it also carries H2's largest per-pair `d` (+1.443). It is inside the gated set as an `over`-ceiling cell and it should be named wherever it is inside a median, here included.
+
+**This distribution is descriptive and carries no test.** It is not a claim that alignment "begins" at 0.6N — differences accumulate, so a half-accrual point is a summary of a curve and not an onset in a mechanism. That is the same restraint H1 exercises about onset numbers and it applies here unchanged.
 
 ## The one reversal, named
 
@@ -85,8 +119,8 @@ not confirmed.**
 - **It is a claim about weights, not about meaning.** The instrument restores parameters and
   measures how much word-level behaviour returns. It does not say the middle layers hold
   "the content" of alignment, only that they hold most of what restoring them recovers.
-- **`repr_L50` (the depth at which half the representational change has accrued) is carried in
-  every row and is not analysed here.** It is the obvious next reading and it is not this one.
+- **No claim about onset.** The `repr_L50` distribution above summarises a curve; because
+  differences accumulate, a half-accrual point is not the depth at which alignment "starts".
 - **No claim about which layers matter most** — `d` contrasts two blocks, and a block contrast
   cannot locate anything inside a block.
 

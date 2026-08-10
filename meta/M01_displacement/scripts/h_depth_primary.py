@@ -197,6 +197,49 @@ def main():
     for p, k in rev_cells.most_common(6):
         print("      %-46s %d" % (p[:46], k))
 
+    #: ── WHERE THE CHANGE ACCRUES, NOT JUST WHETHER IT IS LATE ───────────
+    #:
+    #: `d` is a CONTRAST between two blocks and a block contrast cannot locate
+    #: anything inside a block. `repr_L50` -- the depth at which half the
+    #: representational change has accrued -- is the positive form of the same
+    #: question, and it is in every row and was not read.
+    #:
+    #: **NORMALISED BY N, BECAUSE 32 BLOCKS AND 48 BLOCKS ARE NOT ONE SCALE.**
+    #: Layer 20 is two-thirds of the way up a Llama and 40% of the way up a Yi;
+    #: pooling raw layer indices across a 23-pair roster would report a fact
+    #: about the depth mix and call it a fact about alignment.
+    #:
+    #: This is a DESCRIPTIVE distribution and carries no test. It is reported
+    #: because §5's contrast establishes that the last two blocks are not where
+    #: the work is, and the obvious next question -- then where -- has an answer
+    #: already sitting in the shards.
+    depth = [(c["L50"] / c["N"], c["pair"]) for c in gated
+             if c["L50"] is not None and c["N"]]
+    if depth:
+        fr = sorted(x for x, _ in depth)
+        n = len(fr)
+        late = sum(1 for x in fr if x > 0.75)
+        early = sum(1 for x in fr if x < 0.5)
+        print("\n  DEPTH: repr_L50 / N   (half the representational change accrued by)")
+        print("    cells n=%d   median %.3f   IQR [%.3f, %.3f]   range [%.3f, %.3f]"
+              % (n, st.median(fr), fr[n // 4], fr[(3 * n) // 4], fr[0], fr[-1]))
+        print("    L50 in the LAST QUARTER of the stack : %d/%d (%.1f%%)"
+              % (late, n, 100 * late / n))
+        print("    L50 before the HALFWAY point         : %d/%d (%.1f%%)"
+              % (early, n, 100 * early / n))
+        dper = collections.defaultdict(list)
+        for x, p in depth:
+            dper[p].append(x)
+        dmed = {p: st.median(v) for p, v in dper.items()}
+        dv = sorted(dmed.values())
+        print("    PAIR LEVEL  n=%d   median of per-pair medians %.3f   range [%.3f, %.3f]"
+              % (len(dv), st.median(dv), dv[0], dv[-1]))
+        print("\n    per pair (ascending)")
+        for p, m in sorted(dmed.items(), key=lambda kv: kv[1]):
+            #: **NAMED, because the spread is the result.** A median of 0.607
+            #: over a range of 0.000-0.861 describes no pair in the roster.
+            print("      %-46s %.3f  n=%d" % (p[:46], m, len(dper[p])))
+
     #: **ABSENT PAIRS ARE NAMED SO "23" NEVER READS AS THE DESIGN.**
     if os.path.exists(RECEIPT):
         rec = json.load(open(RECEIPT))
@@ -217,6 +260,12 @@ def main():
                "cell_ungated": describe([c["d"] for c in cells]),
                "cell_gated": describe([c["d"] for c in gated]),
                "pair_level": s, "per_pair_median": meds,
+               "depth_L50_over_N": (
+                   {"cells": len(depth), "median": st.median([x for x, _ in depth]),
+                    "per_pair_median": dmed,
+                    "frac_last_quarter": sum(1 for x, _ in depth if x > 0.75) / len(depth),
+                    "frac_before_half": sum(1 for x, _ in depth if x < 0.5) / len(depth)}
+                   if depth else None),
                "ceiling_classes": dict(band),
                "reversing_pairs": rev_pairs,
                "reversing_cells": dict(rev_cells)}
