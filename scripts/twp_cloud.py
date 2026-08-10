@@ -106,6 +106,41 @@ def shard_spec(spec, n_shards, index, gpu_budget_gb, quiet=False):
     return sorted(buckets[index], key=hours)
 
 
+def declared_revision(mid):
+    """The pinned revision for `mid`, or None. **RESOLVED FROM THE REGISTRY, NOT
+    PASSED IN.**
+
+    `ModelFamily.revisions` exists for checkpoints whose DEFAULT BRANCH IS THE
+    WRONG MODEL. `BAAI/Aquila2-7B` is the case that forced it: BAAI replaced
+    main on 2024-06-06 with a re-tokenised 143,973-vocab model and never updated
+    `AquilaChat2-7B`, which stayed at 100,008. Unpinned, the pair spans two
+    vocabularies and there is no full-vocabulary comparison to take.
+
+    **AND IT WOULD NOT HAVE ANNOUNCED ITSELF.** This runner scores one arm at a
+    time; nothing here compares the two, so a wrong-base run completes, writes
+    conservation-clean records, and reads as success. The defect only surfaces
+    downstream, in an instrument that assumes a shared vocabulary.
+
+    Resolving here rather than threading a keyword from the caller is deliberate:
+    the registry is already the single source of truth and this runner already
+    reads it, so a pin cannot be honoured on one path and forgotten on another.
+    A model with no declared revision returns None and the call is byte-identical
+    to before -- the 103-model corpus is untouched.
+    """
+    try:
+        from malign_logits import MODEL_FAMILIES
+    except Exception:
+        return None
+    for fam in MODEL_FAMILIES.values():
+        revs = getattr(fam, "revisions", None)
+        if not revs:
+            continue
+        for slot, rev in revs.items():
+            if getattr(fam, slot, None) == mid:
+                return rev
+    return None
+
+
 def main(a):
     # THE SPEC GAINED A _meta WRAPPER when the categorisation sha was stamped
     # into it; this read a flat list and got the string "_meta". Accept both --
@@ -195,7 +230,11 @@ def main(a):
         if not todo:
             continue
         try:
-            tok, loader_id = load_tokenizer(mid)
+            rev = declared_revision(mid)
+            if rev:
+                print(f"  PINNED REVISION {rev[:12]} (registry-declared; main is "
+                      f"the wrong model for this checkpoint)", flush=True)
+            tok, loader_id = load_tokenizer(mid, revision=rev)
             #: **SHARD ACROSS CARDS WHEN THERE IS MORE THAN ONE, AND ONLY
             #: THEN.** `.to(dev)` puts the whole model on cuda:0. That is right
             #: for every checkpoint this script has ever run and wrong for the
@@ -213,10 +252,11 @@ def main(a):
                       flush=True)
                 model = AutoModelForCausalLM.from_pretrained(
                     mid, dtype=cdt, trust_remote_code=True,
-                    device_map="auto").eval()
+                    device_map="auto", **({"revision": rev} if rev else {})).eval()
             else:
                 model = AutoModelForCausalLM.from_pretrained(
-                    mid, dtype=cdt, trust_remote_code=True).to(dev).eval()
+                    mid, dtype=cdt, trust_remote_code=True,
+                    **({"revision": rev} if rev else {})).to(dev).eval()
         except Exception as e:
             print(f"  LOAD FAILED: {str(e)[:120]}", flush=True)
             free()                 # the traceback held the partial load
@@ -364,6 +404,10 @@ def main(a):
                         # produced it cannot be excluded from a comparison later.
                         "torch_version": torch.__version__,
                         "transformers_version": _TFV,
+                        #: WHICH WEIGHTS. Absent, a re-read cannot tell a pinned
+                        #: run from an unpinned one, and the pin is only worth
+                        #: what the record can prove.
+                        "revision": rev,
                         "resolver": res.get("resolver"),
                         "resolved_surface": res.get("resolved_surface"),
                         "rows": [{"word": s_, "t1": t_, "p": m_} for (s_, t_), m_ in w.items()],

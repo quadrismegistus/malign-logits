@@ -557,16 +557,27 @@ LOADER_OVERRIDE = {
 }
 
 
-def load_tokenizer(mid):
-    """Return (tokenizer, loader_id). loader_id is STAMPED ON THE CELL."""
+def load_tokenizer(mid, revision=None):
+    """Return (tokenizer, loader_id). loader_id is STAMPED ON THE CELL.
+
+    **`revision` MUST REACH THE TOKENIZER, NOT ONLY THE WEIGHTS.** The case that
+    forced the pin is `BAAI/Aquila2-7B`, whose main branch was replaced with a
+    RE-TOKENISED model -- vocab 143,973 against the pinned revision's 100,008.
+    Pinning the weights and letting the tokenizer default to main would pair a
+    100k-vocab model with a 144k-vocab tokenizer, which is a worse failure than
+    not pinning at all: the unpinned run is at least internally consistent.
+
+    Default None keeps every existing call byte-identical.
+    """
     from transformers import AutoTokenizer, PreTrainedTokenizerFast
+    kw = {"revision": revision} if revision else {}
     ov = LOADER_OVERRIDE.get(mid)
     if ov and ov[0] == "PreTrainedTokenizerFast":
         # bypasses AutoTokenizer class resolution, which follows
         # tokenizer_config.json's tokenizer_class field and lands on the broken
         # class regardless of use_fast
-        return PreTrainedTokenizerFast.from_pretrained(mid), f"override:{ov[1]}"
-    return AutoTokenizer.from_pretrained(mid, trust_remote_code=True), "auto"
+        return PreTrainedTokenizerFast.from_pretrained(mid, **kw), f"override:{ov[1]}"
+    return AutoTokenizer.from_pretrained(mid, trust_remote_code=True, **kw), "auto"
 
 
 def bos_policy_for(model_id):
