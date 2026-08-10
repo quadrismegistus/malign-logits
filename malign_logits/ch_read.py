@@ -123,3 +123,108 @@ def ch_twp_payload(model, prompt, theta=0.001, mode="raw"):
 def clear():
     _CACHE.clear()
     _MISS.clear()
+
+
+# ---------------------------------------------------------------------------
+# LOGITS. A SEPARATE NAME, DELIBERATELY -- NOT A FLAG ON cm.get_logits.
+#
+# `cm.get_logits` returns the FULL 131,072-dim vector from the .f16 memmap.
+# ClickHouse holds log-probabilities TRUNCATED AT p >= 1e-6, a median 3,237
+# entries. Those are different mathematical objects, and a flag that swapped
+# them under one name would hand callers a different support while every value
+# stayed finite and plausibly ranged -- the exact failure `_logit_array`
+# documents, one level up. So they get different names and a caller chooses.
+#
+# WHEN TO USE WHICH
+#   cm.get_logits      softmax, entropy, any full-vocabulary operation, or
+#                      anything that must sum to 1. The payload is the store.
+#   ch_logit_probs     "what did this model put on token T", especially ACROSS
+#                      models and prompts. 271x faster in bulk, and the thing
+#                      the .f16 memmap is worst at.
+#
+# THE TRUNCATION TRAVELS WITH EVERY RESULT. `kept` and `mass_kept` come back on
+# each call, and `missing_mass` is 1 - mass_kept. A token absent from the result
+# is BELOW THRESHOLD, not absent from the model -- that distinction is what the
+# twp floor cost us on `___` this morning, and it is not repeated here.
+
+def logit_coverage(model=None):
+    """Which cells have logits, with how much mass each kept."""
+    w = " WHERE model='%s'" % model.replace("'", "\\'") if model else ""
+    out = _q("SELECT model, count() AS cells, round(avg(kept)) AS mean_tokens_kept, "
+             "round(avg(mass_kept), 6) AS mean_mass_kept, any(dim) AS vocab "
+             "FROM %s.logit_residual%s GROUP BY model ORDER BY model FORMAT TSVWithNames"
+             % (DB, w))
+    lines = out.splitlines()
+    if not lines:
+        return []
+    head = lines[0].split("\t")
+    return [dict(zip(head, l.split("\t"))) for l in lines[1:] if l.count("\t") == len(head) - 1]
+
+
+def ch_logit_probs(model, prompt, as_prob=True):
+    """One cell's truncated distribution.
+
+    -> {"probs": {token_id: value}, "kept": n, "mass_kept": m,
+        "missing_mass": 1-m, "dim": vocab_size}
+
+    `as_prob=True` exponentiates back to probabilities; False keeps logprobs,
+    which is how they are stored and the better space for arithmetic.
+    """
+    import math
+    e = lambda s: s.replace("\\", "\\\\").replace("'", "\\'")
+    rows = _q("SELECT token_id, logprob FROM %s.logit_probs "
+              "WHERE model='%s' AND prompt='%s' FORMAT TSV"
+              % (DB, e(model), e(prompt)))
+    probs = {}
+    for l in rows.splitlines():
+        if "\t" in l:
+            t, v = l.split("\t", 1)
+            lp = float(v)
+            probs[int(t)] = math.exp(lp) if as_prob else lp
+    if not probs:
+        return None
+    meta = _q("SELECT kept, mass_kept, dim FROM %s.logit_residual "
+              "WHERE model='%s' AND prompt='%s' LIMIT 1 FORMAT TSV"
+              % (DB, e(model), e(prompt))).strip().split("\t")
+    kept, mass, dim = (int(meta[0]), float(meta[1]), int(meta[2])) if len(meta) == 3 \
+        else (len(probs), float("nan"), 0)
+    return {"probs": probs, "kept": kept, "mass_kept": mass,
+            "missing_mass": 1.0 - mass, "dim": dim}
+
+
+def token_probs(token_ids, models=None, prompts=None, as_prob=True):
+    """P(token) across MANY models and prompts in one query.
+
+    This is the query the .f16 store cannot answer without reading 56 GB, and
+    the reason the ClickHouse layer exists. Returns one row per
+    (model, prompt, token_id) THAT CLEARS THRESHOLD.
+
+    **AN ABSENT ROW MEANS BELOW 1e-6, NOT ZERO.** Join against
+    `logit_residual` if you need to distinguish "the model gave it no mass"
+    from "the cell was never scored" -- they are different facts and this
+    function deliberately does not merge them.
+    """
+    e = lambda s: s.replace("\\", "\\\\").replace("'", "\\'")
+    w = ["token_id IN (%s)" % ",".join(str(int(t)) for t in token_ids)]
+    if models:
+        w.append("model IN (%s)" % ",".join("'%s'" % e(m) for m in models))
+    if prompts:
+        w.append("prompt IN (%s)" % ",".join("'%s'" % e(p) for p in prompts))
+    val = "exp(logprob)" if as_prob else "logprob"
+    out = _q("SELECT model, prompt, token_id, round(%s, 10) AS value "
+             "FROM %s.logit_probs WHERE %s ORDER BY model, prompt, token_id "
+             "FORMAT TSVWithNames" % (val, DB, " AND ".join(w)))
+    lines = out.splitlines()
+    if not lines:
+        return []
+    head = lines[0].split("\t")
+    rows = []
+    for l in lines[1:]:
+        f = l.split("\t")
+        if len(f) == len(head):
+            d = dict(zip(head, f))
+            d["prompt"] = _unesc(d["prompt"])
+            d["token_id"] = int(d["token_id"])
+            d["value"] = float(d["value"])
+            rows.append(d)
+    return rows
