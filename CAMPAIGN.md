@@ -123,6 +123,13 @@ seat forgets at its peril:
   field facing a three-valued world (pair_role MARKED/UNMARKED meeting a
   BOTH conjunction) manufactures empty strings, and an empty string is
   also what an un-ingested row looks like ([5351]).
+- **Unit words live in VERIFICATION CRITERIA too, and there they are worse:
+  "a criterion inherits the ambiguity of its noun and then certifies against
+  it, so the error is not caught downstream — it is stamped downstream." A
+  wrong measurement is a wrong number; a wrong criterion is a wrong number
+  with a green tick on it. Acceptance names rows, it does not count them —
+  a count cannot tell "the 3 survived" from "3 others were added"
+  ([5358], [5359]).
 - **A count is a fact about the unit you counted in** — five disagreements
   in one day dissolved into unit words (records vs cells vs pairs vs
   distinct strings); state the unit beside every count, and when two counts
