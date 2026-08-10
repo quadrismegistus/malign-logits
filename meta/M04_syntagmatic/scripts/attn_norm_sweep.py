@@ -181,8 +181,23 @@ def main():
             pf = wilcoxon(dn["FALLER"] - dn["NONMOVER"]).pvalue
             pr = wilcoxon(dn["FALLER"] - dn["RISER"]).pvalue
             pn = wilcoxon(dn["NONMOVER"] - dn["RISER"]).pvalue
+            #: STORE THE PER-HEAD ARRAYS, not only the medians. The first run
+            #: dumped summaries and threw away U and the levels, so every
+            #: follow-up question -- is the effect ordered by base level, by
+            #: frequency, by prompt -- needed the whole 25-minute sweep again.
+            #: The expensive part is the forward passes; the arrays are ~750 KB.
             rows.append(dict(pair=pair, prompt=pid, heads=int(keep.sum()),
                              words={k: v[0] for k, v in ar.items()},
+                             probs={k: dict(p=float(v[1]), q=float(v[2]),
+                                            delta=float(v[3]))
+                                    for k, v in ar.items()},
+                             U={r_: U[(pid, r_)][keep].tolist()
+                                for r_ in ("base", "aligned")},
+                             levels={"%s_%s" % (k, r_): lev[(pid, k, r_)][keep].tolist()
+                                     for k in ("FALLER", "NONMOVER", "RISER")
+                                     for r_ in ("base", "aligned")
+                                     if (pid, k, r_) in lev},
+                             d_norm_heads={k: v.tolist() for k, v in dn.items()},
                              d_norm={k: float(np.median(v)) for k, v in dn.items()},
                              f_minus_n=float(f_n), p_fn=float(pf),
                              f_minus_r=float(f_r), p_fr=float(pr),

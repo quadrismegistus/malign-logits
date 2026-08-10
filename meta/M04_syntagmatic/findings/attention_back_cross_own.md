@@ -346,9 +346,17 @@ but it remains the reason not to reach for the mechanistic register if this is
 revived.
 
 **What would be worth chasing, if anything.** The `own` effect is real and large
-per cell; it simply is not ordered by movement. Something orders it. Base
-attention-back level, token frequency, and position in the prompt are all
-unexamined and all cheap to test against the 28 cells already computed.
+per cell; it simply is not ordered by movement. Something orders it, and base
+attention-back level, token frequency and prompt identity are the unexamined
+candidates.
+
+Two of those are cheap and one is not, which an earlier version of this
+paragraph got wrong. `attn_norm_sweep.json` stores only the medians and the word
+names: prompt identity and token frequency are a join away, but the base level
+was computed and discarded, so testing it needs the whole sweep again. The
+producer now stores `U`, the per-head levels, the per-head D_norm and the
+selected words' P and Q, which is ~750 KB against a 25-minute re-run. The 28
+cells on disk predate that change.
 
 ## 5. The attention effect is local; Finding A's disturbance is not
 
