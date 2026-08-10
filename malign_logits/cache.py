@@ -208,6 +208,62 @@ class CacheManager:
     # the payloads is a config change and not a re-index.
 
     _LOGIT_MMAP = {}          #: basename -> np.memmap, one handle per file
+    _LOGIT_DIRMAP = None      #: (model, prompt) -> "cloud_run" | "data_f11_twp"
+
+    def _logit_dir_map(self):
+        """Per-entry directory for f11_twp payloads. `{}` if the map is absent.
+
+        **KEYED ON (model, prompt), AND THE FIRST VERSION KEYED ON (file, row),
+        WHICH IS NOT A KEY.** Both runs numbered their own file from zero, so
+        row 21 of `Yi-1.5-9B.f16` exists in BOTH directories holding DIFFERENT
+        PROMPTS -- and the index, merging by basename, has two entries naming
+        it. 6,841 of 10,087 (file, row) pairs therefore carry BOTH verdicts,
+        each correct for its own entry. Looking up by (file, row) returned
+        whichever entry happened to be written last and **diverted 25 of 60
+        control reads that the map says were already correct.** The collision
+        that motivates this whole repair recurs one level down in the repair.
+
+        **THE INDEX'S ONE-ROOT ASSUMPTION IS FALSE FOR THIS SUBSET** and no
+        amount of config fixes it: two runs wrote the same basenames into two
+        directories with DIFFERENT SUBSETS at OVERLAPPING ROWS, so the correct
+        directory is a property of the ENTRY, not of the store. Built by
+        `scripts/resolve_logit_dirs.py`, which ranks twp's top-word first token
+        in each candidate -- the right file puts it in the top 7 (p99), the
+        wrong one at a random point in a 64k-256k vocabulary.
+
+        An ABSENT map is not an error. It restores exactly the old behaviour,
+        which is wrong for 6,921 entries but is what every reading before today
+        did; a hard failure here would take down readers that have nothing to do
+        with f11_twp. A MALFORMED map is a different matter and raises.
+        """
+        if CacheManager._LOGIT_DIRMAP is None:
+            import json as _json, os as _os
+            p = _os.path.join(
+                _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
+                "data", "logit_dir_resolution.json")
+            m = {}
+            if _os.path.exists(p):
+                with open(p) as fh:
+                    d = _json.load(fh)
+                for e in d["entries"]:
+                    if e.get("dir"):
+                        m[(e["model"], e["prompt"])] = e["dir"]
+            CacheManager._LOGIT_DIRMAP = m
+        return CacheManager._LOGIT_DIRMAP
+
+    def _with_dir(self, entry, model, prompt):
+        """Stamp the resolved directory onto an index entry. Returns a COPY.
+
+        Resolution is entry metadata, so it belongs on the entry rather than
+        inside the array read -- `_logit_array` receives only {file, row, dim}
+        and cannot know which cell it is serving. Copying keeps the stash value
+        unmutated; the map is advisory and the store stays as it was written.
+        """
+        if not (isinstance(entry, dict) and str(entry.get("file", ""))
+                .startswith("f11_twp/")):
+            return entry
+        d = self._logit_dir_map().get((model, prompt))
+        return dict(entry, dir=d) if d else entry
 
     def _logit_root(self):
         """Where .f16 payloads live, DERIVED FROM THIS INSTANCE'S CACHE ROOT.
@@ -262,7 +318,35 @@ class CacheManager:
         # DEPENDS ON READ ORDER IS A GUARD THAT PASSED BY LUCK.**
         # Keying on the resolved path makes a repoint a cache MISS, which is
         # what re-arms every check downstream of it.
+        # ── PER-ENTRY DIRECTORY RESOLUTION, [5280]/[5287] ────────────────
+        #
+        # **A SINGLE ROOT CANNOT ADDRESS THIS STORE.** Two runs wrote `f11_twp`
+        # payloads into TWO directories -- `<root>/f11_twp/` and
+        # `data/f11_twp/` -- holding DIFFERENT SUBSETS of one index at
+        # OVERLAPPING ROW NUMBERS. Resolving every entry against one root
+        # returns, for entries belonging to the other run, a full and finite
+        # vector THAT IS ANOTHER CELL'S. No exception, no short read, and
+        # nothing for the finiteness guard below to catch: it tests the bytes,
+        # and the bytes are a perfectly good logit vector for the wrong prompt.
+        #
+        # Measured per entry over all 17,420 f11_twp entries
+        # (`scripts/resolve_logit_dirs.py`, map in
+        # `data/logit_dir_resolution.json`): 9,613 belong to `data/f11_twp`,
+        # 7,798 to the root, and **6,921 were being served wrong** -- resolving
+        # to the root, belonging elsewhere, and sitting within the short file
+        # so nothing failed.
+        #
+        # Consulted ONLY for f11_twp entries and only where the map has an
+        # answer; everything else resolves exactly as before. A missing map is
+        # not an error -- reads fall back to the old behaviour -- but
+        # `verify_logit_index.py` column (0) then reports the shortfall.
         path = _os.path.join(self._logit_root(), f)
+        if entry.get("dir") == "data_f11_twp":
+            _cand = _os.path.join(
+                _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
+                "data", "f11_twp", _os.path.basename(f))
+            if _os.path.exists(_cand):
+                path = _cand
         ck = (_os.path.realpath(path), dt.str)
         mm = CacheManager._LOGIT_MMAP.get(ck)
         if mm is None:
@@ -318,15 +402,23 @@ class CacheManager:
                 f"{type(entry).__name__}, not an index entry. The store holds "
                 f"{{file, row, dim}} and nothing else; a raw array here is a "
                 f"second dialect and the reason the previous store was retired.")
-        return self._logit_array(entry, dt)
+        return self._logit_array(self._with_dir(entry, model, prompt), dt)
 
     def get_logits_entry(self, model, prompt, mode="raw", dtype=None):
-        """The INDEX entry itself -- {file, row, dim} -- without touching the
-        payload. The cheap question stays cheap."""
+        """The INDEX entry itself -- {file, row, dim, dir} -- without touching
+        the payload. The cheap question stays cheap.
+
+        `dir` is present only for f11_twp entries the resolution map covers,
+        and callers that hand this entry back to `_logit_array` therefore read
+        the same bytes `get_logits` would. A caller that joins `file` against a
+        root by hand does NOT, and that is the remaining sharp edge: [5287].
+        """
         dt = self._logits_resolve_dtype(model, prompt, mode, dtype)
         if dt is CacheManager._NO_RULE:
             return None
-        return self.get("logits", model=model, prompt=prompt, mode=mode, dtype=dt)
+        return self._with_dir(
+            self.get("logits", model=model, prompt=prompt, mode=mode, dtype=dt),
+            model, prompt)
 
     #: where newly COMPUTED vectors are appended. The 2026-08-01 run's payloads
     #: are read-only history; anything computed since needs its own file.
@@ -536,41 +628,103 @@ class CacheManager:
 
     # ── generations ─────────────────────────────────────────────
 
-    def get_generation(self, model, prompt, temp=1.0, idx=0):
+    def get_generation(self, model, prompt, temp=1.0, idx=0, mode=None):
+        """The generated TEXT. Normalises both value shapes -- see set_generation."""
+        v = self._get_generation_raw(model, prompt, temp, idx, mode)
+        return v.get("text") if isinstance(v, dict) else v
+
+    def get_generation_params(self, model, prompt, temp=1.0, idx=0, mode=None):
+        """The RESOLVED sampling parameters, or None for records written before
+        the schema carried them. **None means UNKNOWN, never `defaults`** --
+        every record written before docket [5050] is None, and 256,296 of them
+        exist. A reader that treats None as raw-with-library-defaults will make
+        the same mistake the audit at [5047] had to read text to undo."""
+        v = self._get_generation_raw(model, prompt, temp, idx, mode)
+        return v.get("params") if isinstance(v, dict) else None
+
+    def _get_generation_raw(self, model, prompt, temp=1.0, idx=0, mode=None):
         key = {"model": model, "prompt": prompt, "temp": temp, "idx": idx}
+        if mode is not None:
+            key["mode"] = mode
         s = self._stash("generations")
         return s[key] if key in s else None
 
-    def set_generation(self, model, prompt, text, temp=1.0, idx=0):
-        self._stash("generations")[{
-            "model": model, "prompt": prompt, "temp": temp, "idx": idx
-        }] = text
+    def set_generation(self, model, prompt, text, temp=1.0, idx=0,
+                       mode=None, params=None):
+        """Store one generation.
 
-    def count_generations(self, model, prompt, temp=1.0):
-        """Count how many generations exist for this (model, prompt, temp).
+        `mode` follows the CONDITIONAL convention documented at the top of this
+        file: **absent means raw/untemplated**, present names the template mode
+        used. RH's word, relayed at docket [5050].
 
-        Uses binary search for O(log n) instead of O(n).
+        **THIS REKEYS NOTHING, WHICH IS WHY IT IS SAFE UNDER THE STANDING
+        GATE.** All 256,296 existing records were written without a mode field,
+        and under a conditional convention that is not a missing key -- it is
+        the value `raw`, asserted by omission. So the convention arrives
+        backward-compatible by construction: old records stay byte-identical and
+        stay correct. The one exception is the quarantined DeepSeek 600, which
+        were chat-templated and therefore now read as raw-by-omission when they
+        are not; they are excluded from every population by name ([5042]) and
+        are not fixed by rekeying.
+
+        `params` is the RESOLVED sampling configuration actually used --
+        do_sample, temperature, top_k, top_p, and for an inherited parameter the
+        value that was inherited. It lives in the VALUE, not the key, because it
+        does not identify the cell; two runs differing only in top_p are the
+        same cell measured twice and must collide rather than coexist.
+
+        **VALUE SHAPE IS CONDITIONAL TOO.** Without `params` the value is the
+        bare string, exactly as before; with it, `{"text": ..., "params": ...}`.
+        `get_generation` normalises both, so no existing reader changes. This is
+        not a compatibility shim -- it is one function knowing two shapes, in
+        the one place that already owns the schema.
+
+        WHY THIS EXISTS AT ALL: the generations stash was blind to the decoder
+        ([5035]) and blind to the wrapper ([5042]) on the same day, and the
+        second cost 600 passages. `set_generation` had no slot for either, so
+        the wrapping producer did not omit them -- it could not have supplied
+        them. An audit that has to read text to recover what a key should have
+        carried is the cost of that.
+        """
+        key = {"model": model, "prompt": prompt, "temp": temp, "idx": idx}
+        if mode is not None:
+            key["mode"] = mode
+        self._stash("generations")[key] = (
+            text if params is None else {"text": text, "params": params})
+
+    def count_generations(self, model, prompt, temp=1.0, mode=None):
+        """Count generations for this (model, prompt, temp[, mode]).
+
+        Binary search, O(log n). **`mode` is part of the identity**: raw and
+        chat-templated generations of the same prompt are different objects and
+        must not be counted together (docket [5042] -- conflating them is what
+        put 600 chat transcripts into a continuation population).
         """
         s = self._stash("generations")
-        if {"model": model, "prompt": prompt, "temp": temp, "idx": 0} not in s:
+        def k(i):
+            d = {"model": model, "prompt": prompt, "temp": temp, "idx": i}
+            if mode is not None:
+                d["mode"] = mode
+            return d
+        if k(0) not in s:
             return 0
         # Binary search for upper bound
         lo, hi = 0, 1
-        while {"model": model, "prompt": prompt, "temp": temp, "idx": hi} in s:
+        while k(hi) in s:
             hi *= 2
         while lo < hi:
             mid = (lo + hi) // 2
-            if {"model": model, "prompt": prompt, "temp": temp, "idx": mid} in s:
+            if k(mid) in s:
                 lo = mid + 1
             else:
                 hi = mid
         return lo
 
-    def iter_generations(self, model, prompt, temp=1.0):
-        """Yield (idx, text) for all generations matching (model, prompt, temp)."""
-        n = self.count_generations(model, prompt, temp)
+    def iter_generations(self, model, prompt, temp=1.0, mode=None):
+        """Yield (idx, text) for all generations matching (model, prompt, temp[, mode])."""
+        n = self.count_generations(model, prompt, temp, mode=mode)
         for idx in range(n):
-            text = self.get_generation(model, prompt, temp=temp, idx=idx)
+            text = self.get_generation(model, prompt, temp=temp, idx=idx, mode=mode)
             if text is not None:
                 yield idx, text
 
