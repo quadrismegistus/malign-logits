@@ -299,7 +299,7 @@
   {
    "model_id": "croissantllm/CroissantLLMBase",
    "outcome": "run_failed",
-   "cause": "Loads; DELETES CJK CHARACTERS. 他既是美丽的又是恶心的，她想要 -> 他是美的是心的想要, dropping 既 丽 又 恶 ， 她 -- including BOTH halves of the 既...又 both-and construction. English is exact.",
+   "cause": "Loads; DELETES CJK CHARACTERS. \u4ed6\u65e2\u662f\u7f8e\u4e3d\u7684\u53c8\u662f\u6076\u5fc3\u7684\uff0c\u5979\u60f3\u8981 -> \u4ed6\u662f\u7f8e\u7684\u662f\u5fc3\u7684\u60f3\u8981, dropping \u65e2 \u4e3d \u53c8 \u6076 \uff0c \u5979 -- including BOTH halves of the \u65e2...\u53c8 both-and construction. English is exact.",
    "fix": "Usable for Latin-script prompts only. Caught by round-trip.",
    "environment": "local_mps",
    "source": "F11 L1 sweep, 2026-08-08"
@@ -307,7 +307,7 @@
   {
    "model_id": "openGPT-X/Teuken-7B-base-v0.6",
    "outcome": "run_failed",
-   "cause": "Loads; normalises the FULLWIDTH COMMA to ASCII. Drops only ，. Milder than Croissant and a different kind of loss.",
+   "cause": "Loads; normalises the FULLWIDTH COMMA to ASCII. Drops only \uff0c. Milder than Croissant and a different kind of loss.",
    "fix": "Latin-script prompts exact; CJK prompts altered. Round-trip catches it.",
    "environment": "local_mps",
    "source": "F11 L1 sweep, 2026-08-08"
@@ -395,6 +395,27 @@
    "outcome": "load_failed",
    "cause": "vLLM REFUSES gemma2 at float16: 'does not support float16. Reason: Numerical instability.' A hard validation error, not a warning -- the engine will not start.",
    "fix": "bfloat16 or float32. Needs an sm_80+ card; Turing cannot do bf16 under vLLM, so gemma-2 belongs on the bf16 roster with Falcon-H1."
+  },
+  {
+   "model_id": "internlm/internlm2-chat-7b",
+   "environment": "cloud_cuda_transformers_5.14.1",
+   "outcome": "run_failed",
+   "cause": "Loads and runs; AutoTokenizer resolves to the repo's bundled InternLM2TokenizerFast (fetched under trust_remote_code) whose pre-tokenizer SHIFTS WORD BOUNDARIES. sent 'He lay naked in his bed and' -> got 'H elay n aked inh is bed and'. twp refuses every cell with prompt_does_not_survive_encoding; a fleet wrote 402 skip records (330 English, 72 Chinese -- NOT a CJK defect). A skip is not a stored probability, so the census re-offers all 2,579 prompts forever and the model reads as perpetually owed.",
+   "fix": "LOADER_OVERRIDE -> PreTrainedTokenizerFast, in malign_logits/twp.py. Bypasses AutoTokenizer class resolution; round-trips 2/2. Identical mechanism to the deepseek entry, different offending class. NOTE: DOES NOT REPRODUCE UNDER transformers 5.4.0 (this Mac), where AutoTokenizer picks TokenizersBackend and the round-trip is clean -- a local verdict would have declared this model fine and been wrong about every box."
+  },
+  {
+   "model_id": "internlm/internlm2-base-7b",
+   "environment": "cloud_cuda_transformers_5.14.1",
+   "outcome": "run_failed",
+   "cause": "Same boundary-shift as the chat arm, verified on the box: AutoTokenizer 0/2, PreTrainedTokenizerFast 2/2. BOTH ARMS FAIL IDENTICALLY, so the pair is recoverable rather than lost.",
+   "fix": "LOADER_OVERRIDE -> PreTrainedTokenizerFast."
+  },
+  {
+   "model_id": "deepseek-ai/deepseek-llm-7b-base",
+   "environment": "cloud_cuda_transformers_5.14.1",
+   "outcome": "run_failed",
+   "cause": "RE-CONFIRMED 2026-08-10 at transformers 5.14.1: AutoTokenizer still resolves to LlamaTokenizer and still deletes every space -- 'He lay naked in his bed and' -> 'Helaynakedinhisbedand'. Upstream PR #47017 (generic model_type=llama repos) has NOT landed.",
+   "fix": "LOADER_OVERRIDE -> PreTrainedTokenizerFast. The existing entry STAYS; checked because a fix that has silently become unnecessary is as much a defect as one that is missing."
   }
  ],
  "predicted_untested": {
