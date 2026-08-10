@@ -195,6 +195,49 @@ CREATE TABLE IF NOT EXISTS {DB}.gen_scores (
 ) ENGINE = ReplacingMergeTree(ingested)
 ORDER BY (corpus, model, prompt, forced_word, sample_idx, scorer);
 
+-- NODES AND EDGES, NOT PAIRS. RH, 2026-08-10: "we've been doing a lot on
+-- model pairs when we have ladders for a bunch of them."
+--
+-- A pairs table flattens base->aligned and LOSES THE RUNGS, and every
+-- duplicate found on 2026-08-10 was visible only at the rung grain: the four
+-- archangel families share a base AND an SFT arm, so base->sft is one
+-- measurement counted four times; tulu and tulu-no-safety share a base, a
+-- superego AND an rlvr arm, so pref->rlvr is one measurement counted twice.
+-- At the pair grain both look like independent rows.
+--
+-- Edges express all of it. A base-to-aligned pair is a PATH; a ladder is a
+-- CHAIN; a shared arm is TWO EDGES WITH THE SAME CHILD; and `same_base_as`
+-- (79 edges) is the deduplication relation behind "25 three-layer families,
+-- 20 distinct bases". edge_type is just `relation`, never hand-labelled.
+--
+-- REGENERATED WHOLE from Registry(), never appended, and stamped: the registry
+-- moved 146 -> 157 in one day, and a dimension that cannot show its own
+-- staleness is the stale export that cost this morning.
+CREATE TABLE IF NOT EXISTS {DB}.models (
+    model_id       String,
+    nickname       LowCardinality(String),
+    family         LowCardinality(String),
+    position       LowCardinality(String),
+    stage          LowCardinality(String),
+    org            LowCardinality(String),
+    params         LowCardinality(String),
+    params_b       Float32,
+    architecture   LowCardinality(String),
+    tokenizer_class LowCardinality(String),
+    built_at       DateTime,
+    ingested       DateTime DEFAULT now()
+) ENGINE = ReplacingMergeTree(ingested)
+ORDER BY model_id;
+
+CREATE TABLE IF NOT EXISTS {DB}.model_edges (
+    parent    String,
+    child     String,
+    relation  LowCardinality(String),
+    built_at  DateTime,
+    ingested  DateTime DEFAULT now()
+) ENGINE = ReplacingMergeTree(ingested)
+ORDER BY (parent, child, relation);
+
 CREATE TABLE IF NOT EXISTS {DB}.logit_residual (
     model      LowCardinality(String),
     prompt     String,
@@ -552,6 +595,29 @@ def ingest_catalogue():
           % (format(len(out), ","), format(len({r["prompt"] for r in out}), ",")))
 
 
+def ingest_registry():
+    """models + model_edges, regenerated whole from the registry JSON."""
+    import datetime
+    src = os.path.join(ROOT, "data", "model_registry.json")
+    d = json.load(open(src))
+    built = datetime.datetime.fromtimestamp(os.path.getmtime(src)).strftime("%Y-%m-%d %H:%M:%S")
+    mods = d.get("models") or {}
+    rows = list(mods.values()) if isinstance(mods, dict) else mods
+    out = [{"model_id": r.get("model_id") or "", "nickname": str(r.get("nickname") or ""),
+            "family": str(r.get("family") or ""), "position": str(r.get("position") or ""),
+            "stage": str(r.get("stage") or ""), "org": str(r.get("org") or ""),
+            "params": str(r.get("params") or ""), "params_b": float(r.get("params_b") or 0),
+            "architecture": str(r.get("architecture") or ""),
+            "tokenizer_class": str(r.get("tokenizer_class") or ""),
+            "built_at": built} for r in rows]
+    ch(f"TRUNCATE TABLE IF EXISTS {DB}.models"); insert("models", out)
+    eds = [{"parent": e.get("parent") or "", "child": e.get("child") or "",
+            "relation": e.get("relation") or "", "built_at": built}
+           for e in (d.get("relations") or [])]
+    ch(f"TRUNCATE TABLE IF EXISTS {DB}.model_edges"); insert("model_edges", eds)
+    print("registry: %d models, %d edges, built_at %s" % (len(out), len(eds), built))
+
+
 def verify():
     """Row counts, and the SOURCE-VERSUS-STORED comparison that caught the Y bug.
 
@@ -605,6 +671,7 @@ def main():
     ap.add_argument("--l2", action="store_true", help="f11_l2 contradiction gens")
     ap.add_argument("--y", action="store_true", help="the Y corpus")
     ap.add_argument("--beams", action="store_true", help="beam_fc")
+    ap.add_argument("--registry", action="store_true", help="models + model_edges")
     ap.add_argument("--verify", action="store_true")
     ap.add_argument("--limit", type=int, default=None, help="first N files per source")
     a = ap.parse_args()
@@ -636,9 +703,11 @@ def main():
         ingest_y(a.limit)
     if a.beams:
         ingest_beams(a.limit)
+    if a.registry:
+        ingest_registry()
     if a.verify:
         verify()
-    if not any((a.create, a.twp, a.logits, a.index, a.catalogue, a.drift, a.l2, a.y, a.beams, a.verify)):
+    if not any((a.create, a.twp, a.logits, a.index, a.catalogue, a.drift, a.l2, a.y, a.beams, a.registry, a.verify)):
         ap.print_help()
 
 
