@@ -1,0 +1,342 @@
+{
+ "_about": "Provisioning plan derived from model_requirements.json. Grouped by REQUIREMENT first, balanced second.",
+ "_producer": "scripts/build_fleet.py",
+ "tag": "census",
+ "n_boxes": 9,
+ "cells_per_model": 2579,
+ "blocked": [
+  {
+   "model": "AI-Sweden-Models/gpt-sw3-6.7b-v2",
+   "reason": "gated=manual, same request pending. This is the CORRECT base for the -v2-instruct arm (different data, longer training, DIFFERENT TOKENIZER)."
+  },
+  {
+   "model": "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct",
+   "reason": "gated=manual, same request pending."
+  }
+ ],
+ "boxes": [
+  {
+   "box": 0,
+   "profile": "default",
+   "launch_profile": "dense",
+   "models": [
+    "01-ai/Yi-1.5-9B",
+    "ContextualAI/archangel_sft-kto_pythia2-8b",
+    "EleutherAI/pythia-6.9b",
+    "HuggingFaceTB/SmolLM3-3B-Base",
+    "NousResearch/Hermes-3-Llama-3.1-8B",
+    "PKU-Alignment/beaver-7b-v1.0",
+    "Qwen/Qwen3-8B",
+    "allenai/Llama-3.1-Tulu-3-8B-DPO",
+    "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+    "allenai/OLMo-2-0425-1B-SFT",
+    "allenai/Olmo-3-1125-32B",
+    "allenai/Olmo-3-7B-Think-SFT",
+    "allenai/Olmo-Hybrid-Instruct-DPO-7B",
+    "cognitivecomputations/dolphin-2.6-mistral-7b-dpo",
+    "google/gemma-2-9b",
+    "ibm-granite/granite-3.0-8b-base",
+    "kakaocorp/kanana-1.5-8b-instruct-2505",
+    "llm-jp/llm-jp-3-7.2b-instruct3",
+    "m-a-p/neo_7b_instruct_v0.1",
+    "openGPT-X/Teuken-7B-base-v0.6",
+    "openchat/openchat-3.5-0106",
+    "teknium/OpenHermes-2.5-Mistral-7B",
+    "tiiuae/Falcon3-3B-Base",
+    "togethercomputer/RedPajama-INCITE-7B-Instruct"
+   ],
+   "cells": 61896,
+   "gpus": 1,
+   "min_vram_gb": 80,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 1,
+   "profile": "default",
+   "launch_profile": "dense",
+   "models": [
+    "01-ai/Yi-1.5-9B-Chat",
+    "ContextualAI/archangel_sft-ppo_pythia2-8b",
+    "HuggingFaceH4/zephyr-7b-beta",
+    "HuggingFaceTB/SmolLM3-3B-checkpoints",
+    "NousResearch/Nous-Hermes-2-Mistral-7B-DPO",
+    "Qwen/Qwen2.5-0.5B",
+    "Qwen/Qwen3-8B-Base",
+    "allenai/Llama-3.1-Tulu-3-8B-SFT",
+    "allenai/Llama-3.1-Tulu-3.1-8B",
+    "allenai/OLMoE-1B-7B-0125",
+    "allenai/Olmo-3-7B-Instruct",
+    "allenai/Olmo-3.1-32B-Instruct",
+    "allenai/Olmo-Hybrid-Instruct-SFT-7B",
+    "croissantllm/CroissantLLMChat-v0.1",
+    "google/gemma-2-9b-it",
+    "ibm-granite/granite-3.0-8b-instruct",
+    "kakaocorp/kanana-2-3b-base",
+    "m-a-p/CT-LLM-Base",
+    "m-a-p/neo_7b_sft_v0.1",
+    "openGPT-X/Teuken-7B-instruct-v0.6",
+    "stabilityai/stablelm-2-1_6b",
+    "tiiuae/Falcon3-10B-Base",
+    "tiiuae/Falcon3-3B-Instruct",
+    "weblab-GENIAC/Tanuki-8B-dpo-v1.0"
+   ],
+   "cells": 61896,
+   "gpus": 1,
+   "min_vram_gb": 80,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {
+    "HuggingFaceTB/SmolLM3-3B-checkpoints": "it-SFT"
+   },
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 2,
+   "profile": "default",
+   "launch_profile": "dense",
+   "models": [
+    "BSC-LT/salamandra-7b",
+    "ContextualAI/archangel_sft-slic_pythia2-8b",
+    "HuggingFaceTB/SmolLM2-360M",
+    "LLM360/Amber",
+    "OpenLLM-France/Lucie-7B",
+    "Qwen/Qwen2.5-0.5B-Instruct",
+    "RWKV/rwkv-4-7b-pile",
+    "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+    "allenai/OLMo-2-0425-1B",
+    "allenai/OLMoE-1B-7B-0125-DPO",
+    "allenai/Olmo-3-7B-Instruct-DPO",
+    "allenai/Olmo-3.1-32B-Instruct-DPO",
+    "bigscience/bloom-7b1",
+    "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+    "google/recurrentgemma-9b",
+    "inceptionai/jais-family-6p7b",
+    "kakaocorp/kanana-2-3b-instruct",
+    "m-a-p/CT-LLM-SFT",
+    "meta-llama/Llama-3.1-8B",
+    "openbmb/MiniCPM5-1B",
+    "stabilityai/stablelm-2-1_6b-chat",
+    "tiiuae/Falcon3-10B-Instruct",
+    "tiiuae/Falcon3-7B-Base",
+    "zai-org/glm-4-9b-chat-hf"
+   ],
+   "cells": 61896,
+   "gpus": 1,
+   "min_vram_gb": 80,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 3,
+   "profile": "default",
+   "launch_profile": "dense",
+   "models": [
+    "BSC-LT/salamandra-7b-instruct",
+    "ContextualAI/archangel_sft_pythia2-8b",
+    "HuggingFaceTB/SmolLM2-360M-Instruct",
+    "LLM360/AmberChat",
+    "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+    "Qwen/Qwen2.5-7B",
+    "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+    "allenai/OLMo-2-0425-1B-DPO",
+    "allenai/OLMoE-1B-7B-0125-Instruct",
+    "allenai/Olmo-3-7B-Instruct-SFT",
+    "allenai/Olmo-3.1-32B-Instruct-SFT",
+    "bigscience/bloomz-7b1",
+    "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+    "google/recurrentgemma-9b-it",
+    "inceptionai/jais-family-6p7b-chat",
+    "llm-jp/llm-jp-3-7.2b",
+    "m-a-p/CT-LLM-SFT-DPO",
+    "meta-llama/Llama-3.1-8B-Instruct",
+    "openbmb/MiniCPM5-1B-Base",
+    "stabilityai/stablelm-2-zephyr-1_6b",
+    "tiiuae/Falcon3-1B-Base",
+    "tiiuae/Falcon3-7B-Instruct",
+    "zai-org/glm-4-9b-hf"
+   ],
+   "cells": 61896,
+   "gpus": 1,
+   "min_vram_gb": 80,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 4,
+   "profile": "default",
+   "launch_profile": "dense",
+   "models": [
+    "ContextualAI/archangel_sft-dpo_pythia2-8b",
+    "EleutherAI/pythia-2.8b",
+    "HuggingFaceTB/SmolLM3-3B",
+    "LLM360/AmberSafe",
+    "PKU-Alignment/alpaca-7b-reproduced",
+    "Qwen/Qwen2.5-7B-Instruct",
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+    "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+    "allenai/OLMo-2-0425-1B-Instruct",
+    "allenai/Olmo-3-1025-7B",
+    "allenai/Olmo-3-7B-Think-DPO",
+    "allenai/Olmo-Hybrid-7B",
+    "cognitivecomputations/Dolphin3.0-Llama3.1-8B",
+    "deepseek-ai/deepseek-llm-7b-base",
+    "huggyllama/llama-7b",
+    "kakaocorp/kanana-1.5-8b-base",
+    "llm-jp/llm-jp-3-7.2b-instruct2",
+    "m-a-p/neo_7b",
+    "mistralai/Mistral-7B-v0.1",
+    "openbmb/MiniCPM5-1B-SFT",
+    "team-hatakeyama-phase2/Tanuki-8B-base-v1.0",
+    "tiiuae/Falcon3-1B-Instruct",
+    "togethercomputer/RedPajama-INCITE-7B-Chat"
+   ],
+   "cells": 59317,
+   "gpus": 1,
+   "min_vram_gb": 24,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {
+    "deepseek-ai/deepseek-llm-7b-base": "PreTrainedTokenizerFast"
+   }
+  },
+  {
+   "box": 5,
+   "profile": "tf457",
+   "launch_profile": "dense",
+   "models": [
+    "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
+    "Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
+    "BAAI/Aquila2-7B",
+    "BAAI/AquilaChat2-7B",
+    "Zyphra/Zamba2-7B",
+    "Zyphra/Zamba2-7B-Instruct",
+    "baichuan-inc/Baichuan2-7B-Base",
+    "baichuan-inc/Baichuan2-7B-Chat",
+    "internlm/internlm2-base-7b",
+    "internlm/internlm2-chat-7b",
+    "internlm/internlm2-chat-7b-sft",
+    "tiiuae/falcon-7b",
+    "tiiuae/falcon-7b-instruct"
+   ],
+   "cells": 33527,
+   "gpus": 1,
+   "min_vram_gb": 48,
+   "transformers": [
+    "==4.57.1"
+   ],
+   "kernels": [
+    "causal-conv1d",
+    "mamba-ssm"
+   ],
+   "compute_dtype": [],
+   "revisions": {
+    "BAAI/Aquila2-7B": "9c76e143c6e9621689ca76e078c465b0dee75eb8"
+   },
+   "tokenizer_overrides": {
+    "internlm/internlm2-base-7b": "PreTrainedTokenizerFast",
+    "internlm/internlm2-chat-7b": "PreTrainedTokenizerFast",
+    "internlm/internlm2-chat-7b-sft": "PreTrainedTokenizerFast"
+   }
+  },
+  {
+   "box": 6,
+   "profile": "torch26",
+   "launch_profile": "dense",
+   "models": [
+    "HuggingFaceH4/mistral-7b-sft-beta",
+    "RWKV/rwkv-raven-7b",
+    "allenai/OLMoE-1B-7B-0125-SFT",
+    "croissantllm/CroissantLLMBase",
+    "deepseek-ai/deepseek-llm-7b-chat",
+    "lomahony/eleuther-pythia6.9b-hh-dpo",
+    "lomahony/eleuther-pythia6.9b-hh-sft",
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1"
+   ],
+   "cells": 20632,
+   "gpus": 1,
+   "min_vram_gb": 24,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {
+    "deepseek-ai/deepseek-llm-7b-chat": "PreTrainedTokenizerFast"
+   }
+  },
+  {
+   "box": 7,
+   "profile": "ssm",
+   "launch_profile": "ssm",
+   "models": [
+    "tiiuae/Falcon-H1-1.5B-Base",
+    "tiiuae/Falcon-H1-1.5B-Instruct",
+    "tiiuae/Falcon-H1-7B-Base",
+    "tiiuae/Falcon-H1-7B-Instruct",
+    "tiiuae/Falcon3-Mamba-7B-Base",
+    "tiiuae/Falcon3-Mamba-7B-Instruct",
+    "tiiuae/falcon-mamba-7b",
+    "tiiuae/falcon-mamba-7b-instruct"
+   ],
+   "cells": 20632,
+   "gpus": 1,
+   "min_vram_gb": 48,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [
+    "causal-conv1d",
+    "mamba-ssm"
+   ],
+   "compute_dtype": [
+    "bfloat16"
+   ],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 8,
+   "profile": "twogpu",
+   "launch_profile": "twogpu",
+   "models": [
+    "meta-llama/Llama-3.1-70B",
+    "meta-llama/Llama-3.1-70B-Instruct"
+   ],
+   "cells": 5158,
+   "gpus": 2,
+   "min_vram_gb": 80,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  }
+ ]
+}
