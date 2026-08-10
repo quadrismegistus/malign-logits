@@ -169,6 +169,18 @@ SFT_IN_NAME = re.compile(r"sft(?!-(?:dpo|kto|ppo|slic))(?![a-z])", re.I)
 METHOD_DECLARED = {
     "kakaocorp/kanana-1.5-8b-instruct-2505": "ppo",
     "kakaocorp/kanana-2-3b-instruct": "ppo",
+    #: Phi-4-reasoning-plus is GRPO, not DPO. Report S4: "Starting from a
+    #: strong SFT model, i.e., Phi-4-reasoning, additional GRPO training for
+    #: only 90 steps". `grpo` is not in the schema vocabulary; `ppo` is the
+    #: on-policy bucket and is right about the FAMILY of method where `dpo`
+    #: (offline, preference-pair) is wrong about it.
+    "microsoft/Phi-4-reasoning-plus": "ppo",
+    #: SmolLM3's aligned arm is an APO SOUP -- anchored preference optimisation,
+    #: then a 0.9/0.1 LINEAR MERGE. The merge is not a training step at all, so
+    #: no stage value is honest about the edge; `ppo`-family is closer than
+    #: `dpo` because APO is on-policy-anchored, and the family comment carries
+    #: the merge caveat. **Do not pool this arm with DPO arms silently.**
+    "HuggingFaceTB/SmolLM3-3B": "ppo",
 }
 
 # DECLARED. Not inferable from any artifact we hold, and asserting it from a

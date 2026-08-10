@@ -217,9 +217,20 @@ MODEL_FAMILIES = {
     # The documented two-stage process is still worth having — it is why this
     # lineage is worth more than a plain base/instruct pair — but it is a fact
     # about the card, not a rung we can measure apart.
+    # 3-LAYER 2026-08-10, AND THE CLEANEST SFT/DPO EDGE ON THE ROSTER.
+    # NII's convention is explicit and holds across every llm-jp-3 size:
+    #   instruct2 = "supervised fine-tuning"
+    #   instruct3 = "supervised fine-tuning AND further aligned it with Direct
+    #                Preference Optimization"
+    # The two cards' SFT tables were diffed: **8 of 8 datasets identical**. So
+    # ego->superego isolates DPO with the SFT mixture HELD FIXED, which is the
+    # contrast this whole project is built to measure and which almost no other
+    # family gives us. vocab 99584 and 32 layers verified identical across all
+    # three arms.
     "llm-jp-3": ModelFamily(
-        name="LLM-jp-3 7.2B (NII) [v2 READY, SFT+DPO documented but one checkpoint]",
+        name="LLM-jp-3 7.2B (NII) [3-layer; instruct2=SFT, instruct3=SFT+DPO, same mixture]",
         base="llm-jp/llm-jp-3-7.2b",
+        ego="llm-jp/llm-jp-3-7.2b-instruct2",
         superego="llm-jp/llm-jp-3-7.2b-instruct3",
     ),
     "lucie": ModelFamily(
@@ -235,9 +246,16 @@ MODEL_FAMILIES = {
         #: has to be checked against the repo, not against the sibling families.
         superego="OpenLLM-France/Lucie-7B-Instruct-v1.1",
     ),
+    # BASE CORRECTED 2026-08-10. `gpt-sw3-6.7b-v2-instruct` derives from
+    # `gpt-sw3-6.7b-v2`, not from `gpt-sw3-6.7b`: the v2 card describes a
+    # different data distribution, longer training, AND A DIFFERENT TOKENIZER.
+    # Pairing the v1 base with the v2 instruct crossed a pretraining run and a
+    # vocabulary at once -- the same defect class as Aquila2's replaced main
+    # branch, arrived at from the other direction.
+    # BOTH ARMS ARE GATED (manual approval); RH applied 2026-08-10, pending.
     "gpt-sw3": ModelFamily(
-        name="GPT-SW3 6.7B (AI Sweden) [v2 READY]",
-        base="AI-Sweden-Models/gpt-sw3-6.7b",
+        name="GPT-SW3 6.7B (AI Sweden) [base corrected to v2; both arms GATED]",
+        base="AI-Sweden-Models/gpt-sw3-6.7b-v2",
         superego="AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct",
     ),
     # SELF-DECLARED NOT RLHF-ALIGNED: "has NOT been aligned through RLHF to
@@ -249,10 +267,22 @@ MODEL_FAMILIES = {
         base="BSC-LT/salamandra-7b",
         superego="BSC-LT/salamandra-7b-instruct",
     ),
+    # ARM CORRECTED 2026-08-10. The registered arm was
+    # `Teuken-7B-instruct-commercial-v0.4`, which declares
+    # `base_model: openGPT-X/Teuken-7B-base-v0.4` -- **a repo that 404s** --
+    # while the base slot held `base-v0.6`. That paired a 6T-token base with an
+    # instruct built off a 4T-token one, and nothing in the pair would have said
+    # so: both load, both tokenize, and the mismatch is only visible in the
+    # cards. `Teuken-7B-instruct-v0.6` declares `base_model:
+    # openGPT-X/Teuken-7B-base-v0.6` and is the arm that belongs here.
+    # Verified 2026-08-10: v0.4 base 404, v0.6 instruct resolves.
+    #
+    # NOTE FOR THE STORE: the twp corpus holds ~2,267 cells against the OLD arm.
+    # Those are cells for a different pair and must not be read as this one's.
     "teuken": ModelFamily(
-        name="Teuken 7B (openGPT-X) [v2 READY]",
+        name="Teuken 7B (openGPT-X) [arm corrected to v0.6; v0.4 base is dead]",
         base="openGPT-X/Teuken-7B-base-v0.6",
-        superego="openGPT-X/Teuken-7B-instruct-commercial-v0.4",
+        superego="openGPT-X/Teuken-7B-instruct-v0.6",
     ),
     "gemma2": ModelFamily(
         name="Gemma 2 9B (Google) [v2 READY, 9.24B — over the 9B line]",
@@ -497,10 +527,21 @@ MODEL_FAMILIES = {
         superego="deepseek-ai/deepseek-llm-7b-chat",
     ),
     # New families with reasoning variants
+    # 3-LAYER 2026-08-10. The SFT is a REVISION of a checkpoints repo, not its
+    # own model id: "We release checkpoints at every step of our post-training
+    # recipe: Mid training, SFT, APO soup, and LC expert". Same shape as OLMo's
+    # step-level releases, and it needs `revisions` to reach it.
+    #
+    # **TWO CAVEATS THAT MUST TRAVEL WITH THE EDGE.** The released `SmolLM3-3B`
+    # is a 0.9/0.1 LINEAR MERGE, not a training step -- so ego->superego is not
+    # one optimisation. And APO (anchored preference optimisation) is not DPO;
+    # do not pool this superego with DPO arms without saying so.
     "smol3": ModelFamily(
-        name="SmolLM3 3B",
+        name="SmolLM3 3B [3-layer: SFT via revision; superego is a MERGE, APO not DPO]",
         base="HuggingFaceTB/SmolLM3-3B-Base",
+        ego="HuggingFaceTB/SmolLM3-3B-checkpoints",
         superego="HuggingFaceTB/SmolLM3-3B",
+        revisions={"ego": "it-SFT"},
         thinking_mode=True,
     ),
     "qwen3": ModelFamily(
@@ -669,10 +710,26 @@ MODEL_FAMILIES = {
         superego="openbmb/MiniCPM5-1B",
     ),
     # Phi-4 (Microsoft)
+    # 3-LAYER 2026-08-10, WITH A CAVEAT THAT CHANGES WHAT THE EDGE MEANS.
+    # Report S4: "Starting from a strong SFT model, i.e., Phi-4-reasoning,
+    # additional GRPO training for only 90 steps" -- so `phi-4-reasoning` is the
+    # SFT (ego) and `Phi-4-reasoning-plus` is the RL arm (superego), where the
+    # roster previously had the SFT in the superego slot.
+    #
+    # **`microsoft/phi-4` IS NOT A BASE.** Its own card describes "a combination
+    # of SFT and iterative DPO". The real base is named `Phi-4-base` in report
+    # S3.1 and was never released. So this family is ALIGNED -> SFT -> RL, not
+    # base -> SFT -> RL, and its base-arm distributions are not comparable to a
+    # pretrained-only arm. Same class as Pharia, and it must not be counted as a
+    # base->aligned pair without that qualification.
+    #
+    # Both children declare `base_model: microsoft/phi-4`, so the parent-child
+    # ordering here is a PAPER claim, not metadata.
     "phi4": ModelFamily(
-        name="Phi-4 14B",
+        name="Phi-4 14B [3-layer SFT->GRPO; BASE ARM IS ITSELF ALIGNED, not pretrained-only]",
         base="microsoft/phi-4",
-        superego="microsoft/phi-4-reasoning",
+        ego="microsoft/phi-4-reasoning",
+        superego="microsoft/Phi-4-reasoning-plus",
     ),
     # Scale variants
     "olmo-32b": ModelFamily(

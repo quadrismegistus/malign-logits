@@ -124,7 +124,7 @@
  },
  "_provenance": {
   "built_by": "scripts/build_model_registry.py",
-  "head": "ac77f313",
+  "head": "53d64d5f",
   "measured_from": {
    "weights": {
     "artifact": "data/weights_audit.csv",
@@ -223,7 +223,7 @@
    "load_note": ""
   },
   {
-   "model_id": "AI-Sweden-Models/gpt-sw3-6.7b",
+   "model_id": "AI-Sweden-Models/gpt-sw3-6.7b-v2",
    "nickname": "",
    "family": "gpt-sw3",
    "position": "base",
@@ -247,12 +247,7 @@
    "status": "NOT_IN_GRID",
    "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
    "pending_repair": null,
-   "cells_in_store": 0,
-   "vocab_size_config": null,
-   "requires_pip": [
-    "trust_remote_code"
-   ],
-   "load_note": "CONFIG NEEDS trust_remote_code (OSError)"
+   "cells_in_store": 0
   },
   {
    "model_id": "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct",
@@ -826,7 +821,7 @@
    "nickname": "smol3-instruct",
    "family": "smol3",
    "position": "superego",
-   "stage": "dpo",
+   "stage": "ppo",
    "org": "HuggingFaceTB",
    "params": "3B",
    "params_b": 3.0,
@@ -889,6 +884,35 @@
    "vocab_size_config": 128256,
    "requires_pip": [],
    "load_note": ""
+  },
+  {
+   "model_id": "HuggingFaceTB/SmolLM3-3B-checkpoints",
+   "nickname": "",
+   "family": "smol3",
+   "position": "ego",
+   "stage": "sft",
+   "org": "HuggingFaceTB",
+   "params": "3B",
+   "params_b": 3.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "company",
+   "cells_in_store": 0
   },
   {
    "model_id": "LLM360/Amber",
@@ -3399,6 +3423,33 @@
    "load_note": ""
   },
   {
+   "model_id": "llm-jp/llm-jp-3-7.2b-instruct2",
+   "nickname": "",
+   "family": "llm-jp-3",
+   "position": "ego",
+   "stage": "sft",
+   "org": "llm-jp",
+   "params": "7.2B",
+   "params_b": 7.2,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0
+  },
+  {
    "model_id": "llm-jp/llm-jp-3-7.2b-instruct3",
    "nickname": "",
    "family": "llm-jp-3",
@@ -3825,6 +3876,35 @@
    "load_note": ""
   },
   {
+   "model_id": "microsoft/Phi-4-reasoning-plus",
+   "nickname": "",
+   "family": "phi4",
+   "position": "superego",
+   "stage": "ppo",
+   "org": "microsoft",
+   "params": "",
+   "params_b": null,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "country": "US",
+   "org_type": "company",
+   "cells_in_store": 0
+  },
+  {
    "model_id": "microsoft/phi-4",
    "nickname": "phi4",
    "family": "phi4",
@@ -3860,8 +3940,8 @@
    "model_id": "microsoft/phi-4-reasoning",
    "nickname": "phi4-reasoning",
    "family": "phi4",
-   "position": "superego",
-   "stage": "dpo",
+   "position": "ego",
+   "stage": "sft",
    "org": "microsoft",
    "params": "14.0B",
    "params_b": 14.0,
@@ -4019,7 +4099,7 @@
    "load_note": ""
   },
   {
-   "model_id": "openGPT-X/Teuken-7B-instruct-commercial-v0.4",
+   "model_id": "openGPT-X/Teuken-7B-instruct-v0.6",
    "nickname": "",
    "family": "teuken",
    "position": "superego",
@@ -4043,13 +4123,7 @@
    "status": "NOT_IN_GRID",
    "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
    "pending_repair": null,
-   "cells_in_store": 2304,
-   "vocab_size_config": 250680,
-   "requires_pip": [
-    "sentencepiece",
-    "trust_remote_code"
-   ],
-   "load_note": ""
+   "cells_in_store": 0
   },
   {
    "model_id": "openbmb/MiniCPM5-1B",
@@ -5138,7 +5212,7 @@
    "relation": "dpo_of"
   },
   {
-   "parent": "AI-Sweden-Models/gpt-sw3-6.7b",
+   "parent": "AI-Sweden-Models/gpt-sw3-6.7b-v2",
    "child": "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct",
    "relation": "dpo_of"
   },
@@ -5165,11 +5239,6 @@
   {
    "parent": "HuggingFaceTB/SmolLM2-360M",
    "child": "HuggingFaceTB/SmolLM2-360M-Instruct",
-   "relation": "dpo_of"
-  },
-  {
-   "parent": "HuggingFaceTB/SmolLM3-3B-Base",
-   "child": "HuggingFaceTB/SmolLM3-3B",
    "relation": "dpo_of"
   },
   {
@@ -5298,7 +5367,7 @@
    "relation": "dpo_of"
   },
   {
-   "parent": "llm-jp/llm-jp-3-7.2b",
+   "parent": "llm-jp/llm-jp-3-7.2b-instruct2",
    "child": "llm-jp/llm-jp-3-7.2b-instruct3",
    "relation": "dpo_of"
   },
@@ -5328,18 +5397,13 @@
    "relation": "dpo_of"
   },
   {
-   "parent": "microsoft/phi-4",
-   "child": "microsoft/phi-4-reasoning",
-   "relation": "dpo_of"
-  },
-  {
    "parent": "mosaicml/mpt-7b",
    "child": "mosaicml/mpt-7b-instruct",
    "relation": "dpo_of"
   },
   {
    "parent": "openGPT-X/Teuken-7B-base-v0.6",
-   "child": "openGPT-X/Teuken-7B-instruct-commercial-v0.4",
+   "child": "openGPT-X/Teuken-7B-instruct-v0.6",
    "relation": "dpo_of"
   },
   {
@@ -5418,6 +5482,11 @@
    "relation": "ppo_of"
   },
   {
+   "parent": "HuggingFaceTB/SmolLM3-3B-checkpoints",
+   "child": "HuggingFaceTB/SmolLM3-3B",
+   "relation": "ppo_of"
+  },
+  {
    "parent": "kakaocorp/kanana-1.5-8b-base",
    "child": "kakaocorp/kanana-1.5-8b-instruct-2505",
    "relation": "ppo_of"
@@ -5425,6 +5494,11 @@
   {
    "parent": "kakaocorp/kanana-2-3b-base",
    "child": "kakaocorp/kanana-2-3b-instruct",
+   "relation": "ppo_of"
+  },
+  {
+   "parent": "microsoft/phi-4-reasoning",
+   "child": "microsoft/Phi-4-reasoning-plus",
    "relation": "ppo_of"
   },
   {
@@ -5515,6 +5589,11 @@
   {
    "parent": "HuggingFaceH4/mistral-7b-sft-beta",
    "child": "HuggingFaceH4/zephyr-7b-beta",
+   "relation": "same_base_as"
+  },
+  {
+   "parent": "HuggingFaceTB/SmolLM3-3B",
+   "child": "HuggingFaceTB/SmolLM3-3B-checkpoints",
    "relation": "same_base_as"
   },
   {
@@ -5818,6 +5897,11 @@
    "relation": "same_base_as"
   },
   {
+   "parent": "llm-jp/llm-jp-3-7.2b-instruct2",
+   "child": "llm-jp/llm-jp-3-7.2b-instruct3",
+   "relation": "same_base_as"
+  },
+  {
    "parent": "lomahony/eleuther-pythia6.9b-hh-dpo",
    "child": "lomahony/eleuther-pythia6.9b-hh-sft",
    "relation": "same_base_as"
@@ -5830,6 +5914,11 @@
   {
    "parent": "m-a-p/neo_7b_instruct_v0.1",
    "child": "m-a-p/neo_7b_sft_v0.1",
+   "relation": "same_base_as"
+  },
+  {
+   "parent": "microsoft/Phi-4-reasoning-plus",
+   "child": "microsoft/phi-4-reasoning",
    "relation": "same_base_as"
   },
   {
@@ -5860,6 +5949,11 @@
   {
    "parent": "EleutherAI/pythia-6.9b",
    "child": "lomahony/eleuther-pythia6.9b-hh-sft",
+   "relation": "sft_of"
+  },
+  {
+   "parent": "HuggingFaceTB/SmolLM3-3B-Base",
+   "child": "HuggingFaceTB/SmolLM3-3B-checkpoints",
    "relation": "sft_of"
   },
   {
@@ -5908,6 +6002,11 @@
    "relation": "sft_of"
   },
   {
+   "parent": "llm-jp/llm-jp-3-7.2b",
+   "child": "llm-jp/llm-jp-3-7.2b-instruct2",
+   "relation": "sft_of"
+  },
+  {
    "parent": "m-a-p/CT-LLM-Base",
    "child": "m-a-p/CT-LLM-SFT",
    "relation": "sft_of"
@@ -5940,6 +6039,11 @@
   {
    "parent": "meta-llama/Llama-3.1-8B",
    "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "relation": "sft_of"
+  },
+  {
+   "parent": "microsoft/phi-4",
+   "child": "microsoft/phi-4-reasoning",
    "relation": "sft_of"
   },
   {
