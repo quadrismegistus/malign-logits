@@ -77,9 +77,68 @@ def main():
     ap.add_argument("--keys", help="JSON list of key dicts: re-measure the "
                     "EXACT cells of an earlier run, immune to store growth")
     ap.add_argument("--save-keys", help="write the drawn sample here")
+    ap.add_argument("--allow-population-gap", action="store_true",
+                    help="print the agreement rate even when the two stores "
+                         "hold different cell sets (default: refuse)")
     a = ap.parse_args()
 
     from malign_logits.movement import word_probs
+
+    # ── POPULATIONS FIRST, IN BOTH DIRECTIONS, BEFORE ANY SAMPLE ──────
+    #
+    # **THIS SCRIPT WAS STRUCTURALLY INCAPABLE OF NOTICING THE LARGEST
+    # DISAGREEMENT IT EVER HAD TO FIND.** It samples FROM ClickHouse and looks
+    # each cell up in the stash, and the docstring defends that: "sampling from
+    # the stash instead would never surface a cell CH holds and the stash does
+    # not." True, and exactly half the problem. The converse is equally true
+    # and only one direction was guarded.
+    #
+    # On 2026-08-10 the stash held 307,891 cells and ClickHouse 273,723 -- a
+    # gap of 38,451, six whole payload directories one ingester had never been
+    # told about ([5297]) -- and this script reported **299 agree / 1
+    # explained** throughout. It was measuring agreement ON THE INTERSECTION
+    # and calling it agreement.
+    #
+    # So: compare the cell SETS first, both ways, and refuse to print a rate
+    # over an unstated intersection. That is the same rule as never quoting a
+    # rate without its population; here the population was the thing in doubt.
+    from malign_logits.cache import get_cache as _gc
+    def _cells_ch():
+        s = set()
+        for line in q("SELECT DISTINCT model, prompt FROM %s.twp_residual "
+                      "FORMAT TSV" % DB).splitlines():
+            if "\t" in line:
+                m, p = line.split("\t", 1)
+                s.add((m, _unesc(p)))
+        return s
+    def _cells_stash():
+        return {(k.get("model"), k.get("prompt"))
+                for k in _gc().iter_keys("true_word_probs")}
+    ch_cells, st_cells = _cells_ch(), _cells_stash()
+    only_ch, only_st = ch_cells - st_cells, st_cells - ch_cells
+    print("POPULATIONS")
+    print("  ClickHouse %s cells   stash %s cells"
+          % (format(len(ch_cells), ","), format(len(st_cells), ",")))
+    print("  only in ClickHouse  %s" % format(len(only_ch), ","))
+    print("  only in the stash   %s" % format(len(only_st), ","))
+    if only_ch or only_st:
+        from collections import Counter as _C
+        for lab, s in (("only in CH", only_ch), ("only in stash", only_st)):
+            if not s:
+                continue
+            top = _C(m for m, _ in s).most_common(4)
+            print("    %-14s top models: %s"
+                  % (lab, ", ".join("%s (%s)" % (m.split("/")[-1][:24],
+                                                 format(c, ",")) for m, c in top)))
+        if not a.allow_population_gap:
+            raise SystemExit(
+                "\nREFUSING to report an agreement rate: the two stores hold "
+                "different cell sets.\nAn agreement rate over an unstated "
+                "intersection is what hid a 38,451-cell gap for a day.\n"
+                "Close the gap, or pass --allow-population-gap to measure the "
+                "intersection deliberately.")
+    else:
+        print("  the two stores hold the SAME cell set\n")
 
     #: SAMPLE FROM CH, then look each up in the stash. Sampling from the stash
     #: instead would never surface a cell CH holds and the stash does not.
