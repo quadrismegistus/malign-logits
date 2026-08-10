@@ -258,6 +258,16 @@ NOT_A_SCALE_RUNG = {
     "llama": "Llama-3.1 8B; its 70B sibling is NOT_IN_GRID, so no rung exists yet",
     "ct-llm": "2B model, not a rung on any declared series",
     "map-neo": "7B model, not a rung on any declared series",
+    #: Added 2026-08-10 with the kanana2 family. kanana-1.5-8b against
+    #: kanana-2-3b is a GENERATION change (1.5 -> 2) that also happens to
+    #: change scale, which is exactly the pair this clause exists to force a
+    #: statement about: two families, one org, different parameter counts, and
+    #: the size difference is incidental to the version difference rather than
+    #: the contrast being offered. Reading it as a rung would put a 2024 8B and
+    #: a 2025 3B on one ladder and attribute the generation gap to scale.
+    "kanana": "kanana-1.5 against kanana-2 is a generation change; the 8B/3B "
+              "gap is incidental to it, not a scale contrast",
+    "kanana2": "kanana-2 against kanana-1.5 is a generation change, not a rung",
     # Falcon-1 (2023) against Falcon3 (2024) is a GENERATION change at the same
     # org, the same call already made for qwen3 and smol/smol3 above. These
     # rows exist only for beam-label resolution (data/registry_extra_models.json)

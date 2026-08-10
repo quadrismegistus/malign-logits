@@ -94,6 +94,12 @@
    "transformers": "4.57.1",
    "sentencepiece": "0.2.1",
    "torch": ">=2.6"
+  },
+  "cloud_cuda_transformers_5.14.1": {
+   "description": "vast dense/ssm box on the UNPINNED default, transformers 5.14.1. This was the twp census fleet's baseline all of 2026-08-10 and it is the environment 13 checkpoints CANNOT run in (the tf457 class), so it is declared as a real environment rather than a mistake -- the observations recorded against it are the evidence for the pins.",
+   "transformers": "5.14.1",
+   "torch": ">=2.6",
+   "note": "Superseded for the tf457 roster by cloud_cuda_transformers_4.57.1 and, for internlm2 specifically, by cloud_cuda_transformers_4.57.1_sentencepiece_0.2.1. Declared 2026-08-10 after test_every_observation_names_a_declared_environment caught 5 observations naming an environment the registry did not know -- written by my own seat's fleet work and never declared."
   }
  },
  "observations": [
