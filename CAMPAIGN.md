@@ -131,3 +131,18 @@ seat forgets at its peril:
   test that discards ties (symmetric blindness beats asymmetric at hiding);
   UNTESTED is not CLEAN; and a coverage scan's answer is a fact about that
   day's population — re-run it when the population changes, not once.
+- **A difference between two counts is meaningful only if the counts are the
+  same KIND of thing — and neither seat can verify that from its own side**,
+  because each reads a number its own tooling produced and knows the meaning
+  of; it takes the other seat's tooling to make the mismatch visible. The
+  seventh unit word (entries vs cells) was the first with teeth: three
+  remedies, two irreversible, aimed at a category that did not exist, and
+  deletion would have destroyed the higher-fidelity copy of 7,711 cells.
+  What stopped it was procedure, not care: no tidying before agreement, and
+  no choosing before the join is measured ([5334]–[5337]).
+- **A plausible mechanism that predicts the observed number is not evidence;
+  it is the most persuasive form of not having checked** — "a wrong number
+  with a good story attached is much harder to stop than a wrong number
+  alone." And when a join must be checked, go at the store, not at a
+  reconstruction: the reconstruction is a model of the producer, the store
+  is the producer's output ([5334], [5336], [5337]).
