@@ -1,4 +1,10 @@
-# Attention-back at the forced site: the mechanism is indifferent, the production is not
+# Attention-back at the forced site: no effect of alignment status across 28 cells
+
+Alignment does not measurably change how a continuation binds to a forced word,
+whether that word was demoted, promoted or left alone. What the pilot did
+establish is about the instrument: a large and reproducible `cross`/`own` split,
+a working normalisation, and the fact that per-cell p-values here run to p = 0
+in both directions and were never evidence.
 
 **PROVISIONAL. 6 PAIRS, 5 PROMPTS, 28 CELLS. The central prediction is
 REFUTED at the cell level (section 3c); sections 2 and 3 are superseded by 3b
@@ -308,44 +314,41 @@ written before any of this was checked.
 
 ## 4. How to read that
 
-**The mechanism is indifferent; the production differs -- by something not yet
-identified.** Given identical text, alignment's attention does the same thing to
-a demoted word as to an unmoved one, on both cells tested. Given its own text
-the arms separate strongly, on both cells, but they do not separate the same way
-twice and the ordering is not established (see the retraction in section 3).
-What is solid is the SPLIT: `cross` flat, `own` not.
+**Nothing varies with alignment status.** Given identical text, alignment's
+attention treats a demoted word exactly as it treats an unmoved one -- bounded
+at 2.0 to 4.4% of the general effect. Given its own text the arms separate
+strongly in every cell, but across 28 cells that separation does not order by
+alignment status: 14 of 28 on the primary contrast, median on the wrong side.
 
-**This lands on Weatherby in the shape a friendly amendment wants.** His
+**What survives is the `cross`/`own` split itself.** It is large, it reproduces,
+and it is a fact about the design rather than about alignment: an effect present
+when each arm writes its own continuation and absent when both read the same
+one, lives in what gets written, not in how it is attended to. That is worth
+carrying because it constrains any future attention-based claim in this
+campaign, including Finding A's, which is in the `own` geometry.
+
+**On Weatherby, this yields less than I first wrote, and in his favour.** His
 technical claim (*Language Machines* ch. 5) is that attention realizes the
-poetic function and computes Saussurean value: purely relational, no normative
-dimension, so attention-back should be indifferent to alignment status. On this
-cell `cross` says he is right at the level he made the claim. What fails is the
-scoping claim at introduction note 2 (p. 213) — that RLHF is "downstream from
-the core model" — because the alignment effect is real, specific to demoted
-words, and lives in production. He keeps the mechanism and loses the bracket
-that let him not look at alignment.
+poetic function and computes a purely relational value with no normative
+dimension, so attention-back should be indifferent to alignment status. `cross`
+says exactly that, and now `own` does too at the cell level. **So this
+instrument produces no evidence against his scoping claim** at introduction
+note 2 (p. 213) that RLHF is "downstream from the core model." An earlier
+version of this file said the scoping claim failed here. It does not. The
+amendment the paper wants will have to come from somewhere other than
+attention-back at a forced site.
 
-**And the honest deflation, which belongs in the same paragraph.** "The
-continuation attends less to the forced word" may be a roundabout way of saying
-"the continuation changed the subject." If so, attention-back is a *measure* of
-routing-around rather than an *account* of it, which the plan's §8 already
-concedes. Its one advantage over a topic-continuity measure is that the
-weighting is the model's own rather than an external judgment. That is worth
-something and it is not the mechanistic authority the vocabulary implies; the
-write-up should not borrow that authority.
+**And the deflation stands regardless.** "The continuation attends less to the
+forced word" was always at risk of being a roundabout way of saying "the
+continuation changed the subject", which the plan's SS8 concedes. That worry is
+now moot for the alignment question, since nothing varies with alignment status,
+but it remains the reason not to reach for the mechanistic register if this is
+revived.
 
-**What to chase is now the ordering question itself**, not a particular
-ordering. The `own` effect is large and reproducible across two cells; what it
-is ordered by is not. Base probability, alignment status, base attention-back
-level and absolute-vs-ratio are all live and all confounded in the cells run so
-far. The 43 cells where P(faller) > P(riser) are the population that separates
-the first two, and the absolute/ratio choice must be declared before they run.
-
-**The reversal, second.** Early negative, late positive: the
-aligned continuation defers the demoted word and returns to it. That is
-specific, non-obvious, and the one thing here a topic-continuity measure would
-probably not find on its own. It is also exactly the shape that appears once and
-vanishes, so it needs ten cells before it goes in a paragraph.
+**What would be worth chasing, if anything.** The `own` effect is real and large
+per cell; it simply is not ordered by movement. Something orders it. Base
+attention-back level, token frequency, and position in the prompt are all
+unexamined and all cheap to test against the 28 cells already computed.
 
 ## 5. The attention effect is local; Finding A's disturbance is not
 
@@ -428,7 +431,7 @@ version is an ablation and is a separate run.
 Frequency is not controlled. The three arms share a site and a position; they do
 not share token frequency.
 
-## 8. Four errors caught here, all one class
+## 8. Seven errors caught here, six of them one class
 
 Recorded because the class is the point: **reasoning from a summary instead of
 the artifact.**
@@ -445,6 +448,14 @@ the artifact.**
   carries the full `A|A` / `A|B` / `B|A` / `B|B` grid explicitly, and its robust
   asymmetry is `A|A` against `A|B`. The worry came from the plan's summary of the
   finding rather than the finding.
+- A "forcing distorts the level" correction, written up and committed, that was
+  noise at n_chosen = 6 to 12 and died to a split-half null. RH's question --
+  how would a model know it had been forced -- is what prompted the test.
+- Per-cell p-values over 250 to 480 correlated heads reported as evidence, twice,
+  including a `p = 1.6e-15` presented as a strong result. Not this class: this
+  one is a statistical error rather than a reading error, and it is the most
+  expensive of the seven because it made three separate nulls look like
+  findings.
 
 ## 9. What scaling needs
 
