@@ -1,10 +1,14 @@
-# Attention-back at the forced site: no effect of alignment status across 28 cells
+# Attention-back at the forced site: a large pair-specific effect, and no effect of alignment status
 
-Alignment does not measurably change how a continuation binds to a forced word,
-whether that word was demoted, promoted or left alone. What the pilot did
-establish is about the instrument: a large and reproducible `cross`/`own` split,
-a working normalisation, and the fact that per-cell p-values here run to p = 0
-in both directions and were never evidence.
+Alignment changes how much a continuation binds back to the slot by a
+PAIR-SPECIFIC amount -- up to +24% and -19% on the model's own chosen token,
+with pair identity predicting the shift at Kruskal-Wallis p = 0.0019 over 6
+pairs. It does NOT change that binding differently for a word it demoted, a word
+it promoted, or a word it left alone: 14 of 28 cells on the primary contrast.
+
+An earlier version of this file said alignment did nothing to attention. That was
+wrong twice: the normalisation put the effect in a denominator, and pooling
+across pairs whose signs oppose cancelled what was left. See section 3e.
 
 **PROVISIONAL. 6 PAIRS, 5 PROMPTS, 28 CELLS. The central prediction is
 REFUTED at the cell level (section 3c); sections 2 and 3 are superseded by 3b
@@ -312,9 +316,67 @@ So it refuses when the condition holds and proceeds when it does not. It was
 untested until after the sweep, and the sentence claiming it had been tested was
 written before any of this was checked.
 
+## 3e. Alignment DOES change attention-back. I normalised it away and then pooled it away.
+
+RH: "So alignment doesn't do anything to attention? Remember how you've given up
+too early so many times?" Correct on both counts.
+
+**The first error is in the instrument.** D_norm divides each arm by its own
+undisturbed baseline U, so any effect that moves forced words and self-chosen
+words TOGETHER is zero by construction -- which is the most likely shape for a
+general effect. The normalisation was built to fix a real confound (section 3b)
+and it does, but it was also blind to the largest plausible signal, and I read
+its silence as absence.
+
+The decomposition it hid:
+
+    log[attn(aligned,w)/attn(base,w)] = log[U_a/U_b] + D_norm(w)
+              TOTAL on the word          BASELINE      WORD residual
+
+    median |total|     0.1015
+    median |baseline|  0.1633      <- larger than the total
+    median |residual|  0.0951
+    corr(total, baseline) = 0.709
+
+**The second error is the pooled test.** Across 28 cells the baseline shift is
++0.0531, 17 of 28, p = 0.227 -- null. Per pair it is not:
+
+    stablelm-2-1_6b     +0.2179   IQR 0.0187   |med|/IQR 11.62    +24%
+    Falcon3-1B-Base     +0.1883   IQR 0.1017    1.85              +21%
+    OLMo-2-0425-1B      -0.2157   IQR 0.1343    1.61              -19%
+    TinyLlama-1.1B      +0.0594   IQR 0.1474    0.40
+    SmolLM2-360M        +0.0386   IQR 0.0666    0.58
+    Qwen2.5-0.5B        -0.0197   IQR 0.1439    0.14
+
+Three pairs shift by around a fifth, tightly; three barely move; the signs
+oppose, so pooling cancels them. **Kruskal-Wallis across the six pairs on the 28
+prompt-level values: p = 0.0019.** Which pair you are in predicts the shift.
+
+That is consistent with F31's 97.8% family variance rather than in tension with
+it. A pair-specific effect is the expected shape here and a pooled test is the
+wrong instrument for it.
+
+**One test that does NOT support this, reported because I ran it first and got
+it wrong.** Modal-sign agreement across prompts within a pair: 22 of 28. Against
+a binomial null of 0.5 that is p = 0.0019, and I nearly reported it. But the
+modal sign is defined by the majority, so under random signs a 5-prompt pair
+already agrees 3.44 times. The correct null expects 19.24 and gives **p = 0.077**.
+The Kruskal-Wallis is the test that holds; the sign count is not independent
+support for it.
+
+Limits: 6 pairs, 5 sexual prompts, U measured on undisturbed generations from
+those prompts only. Nothing here says the shift is general rather than a property
+of this domain, and nothing predicts its direction.
+
+Producers: `scripts/attn_decompose.py`, `scripts/attn_norm_sweep.py` (now storing
+U and the per-head levels; the earlier 28-cell file did not, which is why this
+needed a re-run).
+
 ## 4. How to read that
 
-**Nothing varies with alignment status.** Given identical text, alignment's
+**Alignment changes attention-back; alignment status does not.** The pair-level
+shift is real and large (section 3e). What does not vary is the effect of a
+word's MOVEMENT. Given identical text, alignment's
 attention treats a demoted word exactly as it treats an unmoved one -- bounded
 at 2.0 to 4.4% of the general effect. Given its own text the arms separate
 strongly in every cell, but across 28 cells that separation does not order by
