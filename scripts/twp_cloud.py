@@ -35,15 +35,35 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 def done_prompts(path):
-    """Resume by reading back what was written. Tolerates a truncated last line."""
+    """Resume by reading back what was written. Tolerates a truncated last line.
+
+    **A SKIP IS AN ATTEMPT, NOT A RESULT, AND MUST NOT COUNT AS DONE.** twp
+    writes a record with `rows: []` and a `skipped` reason when a prompt does
+    not survive the model's own tokenizer. Those rows carry a `prompt` key, so
+    the first version of this function counted them as complete.
+
+    That is silent and it bites exactly when a fix lands. internlm2 wrote 402
+    skips under `prompt_does_not_survive_encoding` because AutoTokenizer picked
+    a repo-bundled class that shifts word boundaries; the LOADER_OVERRIDE fixes
+    it -- and a resume that treats the skips as done would never re-offer the
+    402 prompts the fix exists to recover. The repair would install cleanly and
+    change nothing.
+
+    The cost of the other direction is one cheap re-attempt per fleet for a
+    genuinely unrecoverable prompt, and the model then reads as INCOMPLETE,
+    which is true. Absence of data should read as absence, never as completion.
+    """
     seen = set()
     if os.path.exists(path):
         with open(path) as f:
             for ln in f:
                 try:
-                    seen.add(json.loads(ln)["prompt"])
+                    r = json.loads(ln)
                 except Exception:
-                    pass          # partial final line from a kill: ignore, redo it
+                    continue      # partial final line from a kill: ignore, redo it
+                if r.get("skipped") or not r.get("rows"):
+                    continue      # attempted and produced nothing: still owed
+                seen.add(r["prompt"])
     return seen
 
 
