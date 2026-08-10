@@ -700,19 +700,51 @@ def ingest_l2(limit=None, batch=20_000):
     print("\nf11_l2: %s sequences, %s score rows" % (format(n, ","), format(m, ",")))
 
 
+def _y_prompt_texts():
+    """prompt_id -> VERBATIM TEXT, from the shard specs.
+
+    **THE Y JSONL CARRIES NO PROMPT TEXT.** Its records hold `prompt_id` only,
+    and the text lives in `data/y_shard_*.json`. The first version of this
+    ingester put the ID in the `prompt` column, so Y held `sexual_explicit_1`
+    where f11_l2 and beam_fc held real prompts -- one column, two kinds of
+    thing, and every cross-corpus join or prompt_catalogue lookup would have
+    missed Y while returning rows for the others.
+
+    RH's standing rule is that prompt ids cannot be trusted anywhere, which is
+    why the facts key on text. Resolving here rather than storing the id is
+    that rule applied to the one corpus that does not ship the text.
+    """
+    out = {}
+    for f in sorted(glob.glob(os.path.join(ROOT, "data", "y_shard_*.json"))):
+        for p in (json.load(open(f)).get("prompts") or []):
+            if p.get("prompt_id") and p.get("prompt"):
+                out[p["prompt_id"]] = p["prompt"]
+    return out
+
+
 def ingest_y(limit=None, batch=20_000):
     """The Y corpus. `word` is the FORCED word and null means undisturbed;
     both scorers sit inline on each sequence and are split into two rows."""
-    seqs, scores, n, m = [], [], 0, 0
+    texts = _y_prompt_texts()
+    print("resolved %d Y prompt_id -> text from the shard specs" % len(texts))
+    seqs, scores, n, m, unresolved = [], [], 0, 0, set()
     for fp in sorted(glob.glob(os.path.join(ROOT, "data/raw/y_y-*/y__*.jsonl")))[:limit]:
         for line in open(fp):
             d = json.loads(line)
             pair, base_m = d.get("pair") or "", d.get("model")
+            pid = d.get("prompt_id") or ""
+            ptxt = texts.get(pid)
+            if ptxt is None:
+                #: REFUSE rather than fall back to the id. A fallback is how the
+                #: id ended up in the text column in the first place, and it is
+                #: invisible afterwards: the row looks populated.
+                unresolved.add(pid)
+                continue
             arms = {}
             if ">" in pair:
                 b, a = pair.split(">", 1); arms = {"base": b, "aligned": a}
             for i, q in enumerate(d.get("sequences") or []):
-                seqs.append(_seq_rows("y", base_m, d.get("prompt_id") or "", i,
+                seqs.append(_seq_rows("y", base_m, ptxt, i,
                                       q.get("tokens"), q.get("text"), q.get("plen"),
                                       "", d.get("word") or "", 0, d.get("role"),
                                       pair, d.get("prompt_id"), d.get("temp"), 0, 0))
@@ -721,7 +753,7 @@ def ingest_y(limit=None, batch=20_000):
                     if lp is None:
                         continue
                     scores.append({"corpus": "y", "model": base_m,
-                                   "prompt": d.get("prompt_id") or "",
+                                   "prompt": ptxt,
                                    "forced_word": d.get("word") or "", "sample_idx": i,
                                    "scorer": arms.get(arm, arm),
                                    "logprobs": [float(x) for x in lp], "n": len(lp)})
@@ -733,6 +765,9 @@ def ingest_y(limit=None, batch=20_000):
         insert("gen_scores", scores); m += len(scores); scores = []
         print("  %-46s seq %s  scores %s" % (os.path.basename(fp)[:46],
                                              format(n, ","), format(m, ",")))
+    if unresolved:
+        print("  ** %d prompt_id UNRESOLVED and therefore SKIPPED: %s"
+              % (len(unresolved), sorted(unresolved)[:6]))
     print("\nY: %s sequences, %s score rows" % (format(n, ","), format(m, ",")))
 
 
