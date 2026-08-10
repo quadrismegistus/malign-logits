@@ -510,25 +510,67 @@ SOURCES = [("data/raw/cloud_run_20260801", "cloud_run_20260801"),
            ("data/f11_twp_delta", "f11_twp_delta")]
 
 
+#: PORTED FROM twp_ingest.py, whose docstring says "IT VALIDATES BEFORE IT
+#: WRITES, WHICH IS THE WHOLE POINT OF A SEPARATE STEP." Moving the store to
+#: ClickHouse without these would trade a validated bridge for an unvalidated
+#: one -- a regression dressed as a migration.
+TOL = 1e-4        #: conservation is exact to ~2e-07 in practice; 1e-4 is loose
+OPEN_LOUD = 0.05  #: an open-residual above this is REPORTED, not rejected
+
+
 def ingest_twp(limit=None, batch=200_000):
     done = done_cells("twp_residual")
     print("already ingested: %s twp cells (skipping)\n" % format(len(done), ","))
     n_files = n_rows = n_cells = n_skip = 0
+    rej = defaultdict(int)       #: rejection CLASSES apart, as twp_ingest reports
+    loud = []                    #: names offenders rather than pooling "bad lines"
+    versions = defaultdict(int)
     for rel, label in SOURCES:
         files = sorted(glob.glob(os.path.join(ROOT, rel, "*.jsonl")))
         if limit:
             files = files[:limit]
         for fp in files:
             words, resid = [], []
+            #: LAST WRITE WINS WITHIN A FILE, duplicates counted. A shard re-run
+            #: after a kill re-emits prompts; twp_ingest dedups the same way.
+            seen = {}
             for line in open(fp):
                 try:
                     d = json.loads(line)
                 except Exception:
+                    rej["unparseable"] += 1
+                    continue
+                k = (d.get("model"), d.get("prompt"))
+                if k in seen:
+                    rej["dup_in_file"] += 1
+                seen[k] = d
+            for (m, pr), d in seen.items():
+                #: SKIP ROWS ARE ROWS AND HAVE NO DISTRIBUTION. `SkipPrompt`
+                #: writes rows=[] and residual=None, so they are counted and NOT
+                #: conservation-checked -- a prompt that could not be scored has
+                #: no mass to conserve. They are not written: the row carries
+                #: rule_version but no dict_sha, and twp_ingest refuses to invent
+                #: provenance. THE SHARD REMAINS THE LEDGER for unscorable cells.
+                if d.get("skipped") is not None:
+                    rej["skipped_cell"] += 1
                     continue
                 rows = d.get("rows") or []
-                if not rows:
+                _r = d.get("residual")
+                if not rows or _r is None:
+                    rej["no_distribution"] += 1
                     continue
-                m, pr = d["model"], d["prompt"]
+                #: CONSERVATION. Word mass plus the four-way residual sums to 1.
+                got = sum(x["p"] for x in rows) + (_r.get("total") or 0.0)
+                if abs(got - 1.0) > TOL:
+                    rej["conservation"] += 1
+                    if len(loud) < 12:
+                        loud.append("%-22s %-28s conservation %.6f"
+                                    % (m.split("/")[-1][:22], pr[:28], got))
+                    continue
+                if (_r.get("open") or 0.0) > OPEN_LOUD and len(loud) < 12:
+                    loud.append("%-22s %-28s open %.4f"
+                                % (m.split("/")[-1][:22], pr[:28], _r["open"]))
+                versions[int(d.get("rule_version") or 0)] += 1
                 if (m, pr) in done:
                     n_skip += 1
                     continue
@@ -539,13 +581,12 @@ def ingest_twp(limit=None, batch=200_000):
                                   "rule_version": int(d.get("rule_version") or 0),
                                   "dict_sha": d.get("dict_sha") or "",
                                   "source": label})
-                r = d.get("residual") or {}
                 resid.append({"model": m, "prompt": pr,
-                              "tail": float(r.get("tail") or 0),
-                              "drop_": float(r.get("drop") or 0),
-                              "open_": float(r.get("open") or 0),
-                              "mojibake": float(r.get("mojibake") or 0),
-                              "total": float(r.get("total") or 0),
+                              "tail": float(_r.get("tail") or 0),
+                              "drop_": float(_r.get("drop") or 0),
+                              "open_": float(_r.get("open") or 0),
+                              "mojibake": float(_r.get("mojibake") or 0),
+                              "total": float(_r.get("total") or 0),
                               "conservation": float(d.get("conservation") or 0),
                               "n_words": len(rows),
                               "rule_version": int(d.get("rule_version") or 0),
@@ -559,6 +600,27 @@ def ingest_twp(limit=None, batch=200_000):
             print("  %-52s %s cells" % (os.path.basename(fp)[:52], format(len(resid), ",")))
     print("\ntwp: %d files, %s new cells, %s word rows, %s skipped as present"
           % (n_files, format(n_cells, ","), format(n_rows, ","), format(n_skip, ",")))
+    #: REJECTION CLASSES REPORTED SEPARATELY, never pooled into "bad lines" --
+    #: twp_ingest's own rule, because the classes mean different things and a
+    #: single total hides which one moved.
+    if rej:
+        print("  rejected:")
+        for k, v in sorted(rej.items(), key=lambda x: -x[1]):
+            print("    %-18s %s" % (k, format(v, ",")))
+    if loud:
+        print("  named offenders (first %d):" % len(loud))
+        for l in loud:
+            print("    %s" % l)
+    #: THE VERSION GATE. twp_ingest refuses a write leaving two rule_versions in
+    #: the store: one rule per store is what the project INTENDS, and a mixture
+    #: means a v1 cell and a v3 cell are silently compared. Here it can only
+    #: WARN, because the rows are already written -- so it is loud.
+    if len(versions) > 1:
+        print("\n  ** TWO RULE VERSIONS INGESTED: %s **" % dict(versions))
+        print("  twp_ingest would have REFUSED this. One rule per store is the")
+        print("  intent; a mixture means v1 and v3 cells compare silently.")
+    elif versions:
+        print("  rule_version: %s (single, as intended)" % dict(versions))
 
 
 def ingest_logits(limit=None, batch=400_000):
