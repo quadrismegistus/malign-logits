@@ -57,6 +57,26 @@ TOL = 1e-4          # conservation is exact to ~2e-07 in practice; 1e-4 is loose
 OPEN_LOUD = 0.01    # an `open` residual above this is worth naming
 
 
+def _value_sig(rows):
+    """Order-independent signature of a cell's word probabilities.
+
+    **SORTED, because row ORDER is not part of the observation.** Two runs of
+    the same battery on the same cell can emit the same words in a different
+    sequence; comparing the raw list would then report every multi-source cell
+    as disagreeing and bury the 364 that actually do.
+
+    **ROUNDED to 12 places** so float formatting through JSON cannot manufacture
+    a difference. That is far tighter than any real disagreement here -- the
+    ones measured differ in WORD COUNT (194/197/201 on one cell), not in the
+    last bits of a probability.
+
+    Compares only (word, p). `t1` is derived from the word by the tokenizer and
+    cannot differ where the word does not.
+    """
+    return tuple(sorted((r.get("word"), round(float(r.get("p", 0.0)), 12))
+                        for r in rows))
+
+
 def store_versions(cm):
     """{rule_version: count} over the whole store.
 
@@ -224,12 +244,34 @@ def main(a):
             theta = rec.get("theta", 0.001)
             if not a.force and cm.has_true_word_probs(model, p, theta=theta):
                 stats["already"] += 1
-                # READ the resident cell's version; do not assume it. See below.
+                #: **"ALREADY INGESTED" AND "A DIFFERENT OBSERVATION WAS
+                #: DISCARDED" PRINTED IDENTICALLY, AND I READ THEM AS THE FIRST
+                #: WHILE RUNNING EIGHT DIRECTORIES.** 2026-08-10, docket
+                #: [5302]/[5303]. This is first-write-wins, so a cell already
+                #: resident is SKIPPED -- which is pure idempotence when the two
+                #: agree and a silent choice between observations when they do
+                #: not. The same cell scored in two boxes carries identical
+                #: theta, rule_version and dict_sha and STILL differs (194/197/
+                #: 201 words on one), because those are two observations rather
+                #: than two versions.
+                #:
+                #: A message that cannot distinguish two states is not a lapse
+                #: in the reader's attention. So compare and count them apart:
+                #: `identical` is routine, `DIFFERENT` never is.
                 try:
-                    resident[cm.get_true_word_probs(model, p, theta=theta)
-                             .get("rule_version", 1)] += 1
+                    cur = cm.get_true_word_probs(model, p, theta=theta) or {}
+                    resident[cur.get("rule_version", 1)] += 1
+                    if _value_sig(cur.get("rows") or []) == _value_sig(rec["rows"]):
+                        stats["skip_same"] += 1
+                    else:
+                        stats["skip_diff"] += 1
+                        loud.append((model, p[:38],
+                                     "SKIPPED, DIFFERENT VALUE: resident %d words, "
+                                     "this file %d -- first-write-wins discarded THIS one"
+                                     % (len(cur.get("rows") or []), len(rec["rows"]))))
                 except Exception:
                     resident[None] += 1
+                    stats["skip_unknown"] += 1
                 continue
             stats["write"] += 1
             mix[rec.get("rule_version", 1)] += 1
@@ -244,6 +286,23 @@ def main(a):
                     "rule_version": rec.get("rule_version", 1),
                     "rule_commits": rec.get("rule_commits"),
                     "dict_sha": rec.get("dict_sha"),
+                    # **PROVENANCE, CARRIED RATHER THAN DROPPED (2026-08-07).**
+                    # The jsonl has stamped torch and transformers versions all
+                    # along and this ingest threw both away, so no cell in the
+                    # store could say what computed it. `device` is new at the
+                    # producer today; the two versions were always available and
+                    # merely not carried -- the same defect merge_fc_jsonl had
+                    # for beam_fc, found the same way, by needing the answer and
+                    # not having it.
+                    #
+                    # A cell missing all three predates this change. That is
+                    # informative rather than empty: it is grid-v3-era and
+                    # believed CUDA. Readers should map absence, NOT backfill
+                    # it -- device was never recorded and the raw jsonl is gone,
+                    # so a written value would be an assertion, not a record.
+                    "device": rec.get("device"),
+                    "torch_version": rec.get("torch_version"),
+                    "transformers_version": rec.get("transformers_version"),
                 }, theta=theta)
 
         per_model.append((model, stats))
@@ -273,13 +332,37 @@ def main(a):
     elif present:
         print(f"boundary rule: all cells v{list(present)[0]}\n")
     w = max(len(m) for m, _ in per_model)
-    print(f"{'model':<{w}}{'write':>8}{'already':>9}{'dup':>6}"
+    #: `already` is SPLIT because the two halves are different events: `same` is
+    #: idempotence and `DIFF` is first-write-wins silently choosing between two
+    #: observations of one cell. Reported per model as well as in total, since a
+    #: single model carrying every disagreement is the signature of a duplicated
+    #: shard rather than of a noisy store -- which is exactly what the census
+    #: turned out to be (364 cells, one model, two boxes).
+    print(f"{'model':<{w}}{'write':>8}{'same':>8}{'DIFF':>7}{'dup':>6}"
           f"{'conserve':>10}{'trunc':>7}")
     for model, s in per_model:
-        print(f"{model:<{w}}{s['write']:>8,}{s['already']:>9,}{s['dup']:>6}"
+        print(f"{model:<{w}}{s['write']:>8,}{s['skip_same']:>8,}"
+              f"{s['skip_diff']:>7,}{s['dup']:>6}"
               f"{s['conserve']:>10}{s['truncated']:>7}")
-    print(f"\n{'TOTAL':<{w}}{tot['write']:>8,}{tot['already']:>9,}{tot['dup']:>6}"
+    print(f"\n{'TOTAL':<{w}}{tot['write']:>8,}{tot['skip_same']:>8,}"
+          f"{tot['skip_diff']:>7,}{tot['dup']:>6}"
           f"{tot['conserve']:>10}{tot['truncated']:>7}")
+    #: **NEVER ROUTINE, SO IT GETS ITS OWN LINE.** Folded into `already` this
+    #: was invisible for eight consecutive directory ingests.
+    if tot["skip_diff"]:
+        print(f"\n!! {tot['skip_diff']:,} CELLS SKIPPED WITH A DIFFERENT VALUE "
+              f"ALREADY RESIDENT.")
+        print("!! These are NOT idempotent skips. The same (model, prompt) at "
+              "the same theta, rule_version and dict_sha")
+        print("!! holds different word probabilities in this file and in the "
+              "store -- two OBSERVATIONS, not two versions.")
+        print("!! First-write-wins kept the resident one, so ingest ORDER "
+              "decided which. If that order was a shell")
+        print("!! glob rather than a declared rule, re-run in the declared "
+              "order with --force. Named above.")
+    if tot["skip_unknown"]:
+        print(f"!! {tot['skip_unknown']:,} resident cells could not be read "
+              f"back for comparison; treated as neither same nor different.")
     if tot["model_mismatch"]:
         print(f"MODEL MISMATCH {tot['model_mismatch']} -- filename disagrees "
               f"with payload; keys would be wrong. INVESTIGATE.")
