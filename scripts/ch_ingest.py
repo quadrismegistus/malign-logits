@@ -522,6 +522,7 @@ def ingest_twp(limit=None, batch=200_000):
     done = done_cells("twp_residual")
     print("already ingested: %s twp cells (skipping)\n" % format(len(done), ","))
     n_files = n_rows = n_cells = n_skip = 0
+    n_folded = 0                 #: duplicate surfaces summed, reported not hidden
     rej = defaultdict(int)       #: rejection CLASSES apart, as twp_ingest reports
     loud = []                    #: names offenders rather than pooling "bad lines"
     versions = defaultdict(int)
@@ -574,9 +575,34 @@ def ingest_twp(limit=None, batch=200_000):
                 if (m, pr) in done:
                     n_skip += 1
                     continue
+                #: FOLD DUPLICATE SURFACES BY SUMMING. **THE ROWS ARE A
+                #: PARTITION OVER (word, FIRST TOKEN)**, so one surface reachable
+                #: by several token paths gets several rows and they must be
+                #: added. `movement.word_probs` does this and its docstring
+                #: records why: a naive dict comprehension "lost 2.7% of the
+                #: distribution" on a Chinese payload, silently, and worst
+                #: exactly where a language has more token paths per surface.
+                #:
+                #: The first version of this ingest WAS that naive comprehension,
+                #: expressed in SQL: ReplacingMergeTree with
+                #: ORDER BY (model, prompt, word) keeps ONE row per surface and
+                #: drops the rest at merge time. Measured before the fix: 3.2%
+                #: of cells carried a duplicated surface and 1.2% of their mass
+                #: was discarded. Folding here rather than in the ORDER BY,
+                #: because the table must hold the summed partition, not a
+                #: sample of it.
+                folded = {}
                 for w in rows:
+                    k = w["word"]
+                    if k in folded:
+                        folded[k]["p"] += float(w["p"])
+                        n_folded += 1
+                    else:
+                        folded[k] = {"word": k, "t1": int(w.get("t1") or 0),
+                                     "p": float(w["p"])}
+                for w in folded.values():
                     words.append({"model": m, "prompt": pr, "word": w["word"],
-                                  "t1": int(w.get("t1") or 0), "p": float(w["p"]),
+                                  "t1": w["t1"], "p": w["p"],
                                   "theta": float(d.get("theta") or 0),
                                   "rule_version": int(d.get("rule_version") or 0),
                                   "dict_sha": d.get("dict_sha") or "",
@@ -621,6 +647,8 @@ def ingest_twp(limit=None, batch=200_000):
         print("  intent; a mixture means v1 and v3 cells compare silently.")
     elif versions:
         print("  rule_version: %s (single, as intended)" % dict(versions))
+    if n_folded:
+        print("  folded %s duplicate surfaces by summing" % format(n_folded, ","))
 
 
 def ingest_logits(limit=None, batch=400_000):
