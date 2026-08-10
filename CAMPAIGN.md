@@ -119,6 +119,10 @@ seat forgets at its peril:
   trivial cases called unresolved, empty shards refused as stride hazards).
   An empty result is a measurement; an absent one is a gap; a guard that
   conflates them is loud about the wrong thing ([5309], [5313], [5317]).
+  The collision also lives IN SCHEMAS, not only in scripts: a two-valued
+  field facing a three-valued world (pair_role MARKED/UNMARKED meeting a
+  BOTH conjunction) manufactures empty strings, and an empty string is
+  also what an un-ingested row looks like ([5351]).
 - **A count is a fact about the unit you counted in** — five disagreements
   in one day dissolved into unit words (records vs cells vs pairs vs
   distinct strings); state the unit beside every count, and when two counts
