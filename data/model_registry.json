@@ -124,7 +124,7 @@
  },
  "_provenance": {
   "built_by": "scripts/build_model_registry.py",
-  "head": "0890789e",
+  "head": "ae9d20ca",
   "measured_from": {
    "weights": {
     "artifact": "data/weights_audit.csv",
@@ -351,6 +351,60 @@
     "trust_remote_code"
    ],
    "load_note": "CONFIG NEEDS trust_remote_code (ValueError)"
+  },
+  {
+   "model_id": "BAAI/Aquila2-7B",
+   "nickname": "",
+   "family": "aquila2",
+   "position": "base",
+   "stage": "base",
+   "org": "BAAI",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0
+  },
+  {
+   "model_id": "BAAI/AquilaChat2-7B",
+   "nickname": "",
+   "family": "aquila2",
+   "position": "ego",
+   "stage": "sft",
+   "org": "BAAI",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0
   },
   {
    "model_id": "BSC-LT/salamandra-7b",
@@ -5733,6 +5787,11 @@
    "parent": "togethercomputer/RedPajama-INCITE-7B-Chat",
    "child": "togethercomputer/RedPajama-INCITE-7B-Instruct",
    "relation": "same_base_as"
+  },
+  {
+   "parent": "BAAI/Aquila2-7B",
+   "child": "BAAI/AquilaChat2-7B",
+   "relation": "sft_of"
   },
   {
    "parent": "EleutherAI/pythia-2.8b",

@@ -76,6 +76,16 @@ class ModelFamily:
     reasoning: str | None = None           # reasoning model (R1-distill, native thinking)
     reasoning_base: str | None = None      # base it branches from (if cross-family distillation)
     thinking_mode: bool = False            # supports /think toggle on instruct model
+    #: {slot -> git revision}. Only for checkpoints whose DEFAULT BRANCH IS
+    #: WRONG for this pair -- not a general provenance field. BAAI replaced
+    #: Aquila2-7B's main branch with a re-tokenised model and left the chat arm
+    #: alone, so main-vs-main spans two vocabularies and is dimensionally
+    #: undefined. **NOT YET HONOURED ON EVERY LOADING PATH** -- see
+    #: TODO_TRACKS.md; `load_model` takes `revision=`, but `Psyche.from_family`
+    #: does not thread it and the twp/depth/L2 runners call `from_pretrained`
+    #: directly. Read `revisions` explicitly wherever a family is loaded until
+    #: that is closed.
+    revisions: dict | None = None
 
     @property
     def n_layers(self):
@@ -282,8 +292,15 @@ MODEL_FAMILIES = {
     # ADDED 2026-08-10 from the v2 lineage survey's unregistered residue. Both
     # preflighted against the HF API before declaring: safetensors, own
     # tokenizer, ungated. Neither needs a revision pin.
+    # POST-TRAINING METHOD UNDISCLOSED: the instruct card mentions no DPO, RLHF,
+    # SFT, preference or GRPO stage anywhere (zero hits, checked 2026-08-10).
+    # It sits in `superego` on the roster's existing convention for 2-layer
+    # instruct arms -- the same slot as Llama-Instruct, Qwen-Instruct, gemma-it
+    # and Yi-Chat, whose derived `stage=dpo` is a property of the SLOT and not a
+    # claim about any of them. Recorded so nobody later reads the slot as
+    # evidence of the method.
     "kanana": ModelFamily(
-        name="Kanana 1.5 8B (Kakao) [v2 QUALIFIES; Korean/English]",
+        name="Kanana 1.5 8B (Kakao) [v2 QUALIFIES; Korean/En; method undisclosed]",
         base="kakaocorp/kanana-1.5-8b-base",
         superego="kakaocorp/kanana-1.5-8b-instruct-2505",
     ),
@@ -300,35 +317,39 @@ MODEL_FAMILIES = {
         base="team-hatakeyama-phase2/Tanuki-8B-base-v1.0",
         superego="weblab-GENIAC/Tanuki-8B-dpo-v1.0",
     ),
-    # NOT DECLARED, DELIBERATELY, AND THIS COMMENT IS THE RECORD OF WHY.
-    # BAAI/Aquila2-7B PASSES on the science: own 100k BPE vocabulary (which
-    # mechanically rules out inheriting Llama/Mistral/Qwen embeddings), own
-    # corpus, own framework, ungated, tokenizer round-trips exactly. Its
-    # aligned arm is SFT, NOT DPO — the technical report (arXiv 2408.07410)
-    # says "we collected instructional data to train the chat version" and
-    # calls it "the supervised fine-tuned model" throughout; an exhaustive
-    # search of report and repo finds no DPO/RLHF/PPO/reward model.
+    # BAAI Aquila2 — independent lineage (own 100k BPE vocabulary, own corpus,
+    # own framework; a 100,008-token embedding matrix mechanically rules out
+    # inheriting Llama/Mistral/Qwen weights).
     #
-    # **IT CANNOT BE DECLARED SAFELY UNTIL ModelFamily CAN PIN A REVISION.**
-    # BAAI REPLACED the base's main branch on 2024-06-06 with a re-tokenised
-    # model and never updated the chat arm. VERIFIED:
+    # **THE ALIGNED ARM IS SFT, NOT DPO.** The technical report (arXiv
+    # 2408.07410) says "we collected instructional data to train the chat
+    # version" and calls it "the supervised fine-tuned model" throughout §7.1;
+    # an exhaustive search of the report and the FlagAI-Open/Aquila2 repo finds
+    # no DPO, RLHF, PPO, KTO or reward model. So it goes in the EGO slot. This
+    # project's central finding is that SFT and DPO divide labour by content
+    # type, so putting an SFT checkpoint in the superego slot would corrupt
+    # exactly the contrast the roster exists to measure.
+    #
+    # **THE BASE MUST BE PINNED. `main` IS THE WRONG MODEL.** BAAI replaced it
+    # on 2024-06-06 and never updated the chat arm. Verified by fetching all
+    # three configs:
     #
     #     Aquila2-7B @ main                       vocab 143,973  ctx 8192
-    #     Aquila2-7B @ 9c76e143c6e96216 (2023-10) vocab 100,008  ctx 2048
+    #     Aquila2-7B @ 9c76e143... (2023-10-26)   vocab 100,008  ctx 2048
     #     AquilaChat2-7B @ main                   vocab 100,008  ctx 2048
     #
-    # So the naive main-vs-main pair is not merely wrong, it is DIMENSIONALLY
-    # UNDEFINED — there is no full-vocabulary comparison between distributions
-    # over different vocabularies. A `revision` field on ModelFamily would not
-    # be enough on its own: `Psyche` would honour it while `twp_cloud`,
-    # `twp_depth_battery` and the L2 runner call
-    # `AutoModelForCausalLM.from_pretrained(model_id)` directly and would not.
-    # A pin honoured on one path and silently ignored on three is worse than
-    # no pin, because it reads as pinned. Declare it when the pin is real.
+    # Unpinned, the pair spans two vocabularies and there is no full-vocabulary
+    # comparison to take — dimensionally undefined, not merely wrong.
     #
     # Book alongside it: Flan and COIG-PC sit in the PRETRAINING mixture
     # (report Table 2), so this is a pre-socialised base in the same sense as
-    # Qwen — a small base->SFT displacement here is not permissiveness.
+    # Qwen. A small base->SFT displacement here is not permissiveness.
+    "aquila2": ModelFamily(
+        name="Aquila2 7B (BAAI) [v2 QUALIFIES; SFT arm; BASE REVISION PINNED]",
+        base="BAAI/Aquila2-7B",
+        ego="BAAI/AquilaChat2-7B",
+        revisions={"base": "9c76e143c6e9621689ca76e078c465b0dee75eb8"},
+    ),
     "zamba2": ModelFamily(
         name="Zamba2-7B (Zyphra) [v2 READY, SSM hybrid — CLOUD ONLY]",
         base="Zyphra/Zamba2-7B",

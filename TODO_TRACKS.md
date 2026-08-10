@@ -420,3 +420,26 @@ cites them.
 Carried live from TODO.md (malign's log): publication figures for new
 findings; the one-row-per-family summary CSV for drafting; everything
 else there is done or parked.
+
+## OPEN: `ModelFamily.revisions` is declared but not honoured on every loading path
+
+Raised 2026-08-10 alongside the `aquila2` declaration.
+
+`aquila2` pins its base to `9c76e143c6e9621689ca76e078c465b0dee75eb8` because **BAAI replaced `BAAI/Aquila2-7B`'s main branch on 2024-06-06** with a re-tokenised model and never updated the chat arm:
+
+    Aquila2-7B @ main                       vocab 143,973  ctx 8192
+    Aquila2-7B @ 9c76e143... (2023-10-26)   vocab 100,008  ctx 2048
+    AquilaChat2-7B @ main                   vocab 100,008  ctx 2048
+
+Unpinned, the pair spans two vocabularies, so there is no full-vocabulary comparison to take — **dimensionally undefined, not merely wrong**. It would fail loudly rather than silently, which is the only reason this is a TODO and not a stop-ship.
+
+**What honours the pin today:** `load_model(model_name, revision=...)` in `malign_logits/models.py` accepts it.
+
+**What does NOT:**
+
+- `Psyche.from_family` reads `fam.base` / `fam.ego` and never looks at `fam.revisions`; `from_cache` has no revision parameter and `load_models` calls `load_model(names["base"])` bare.
+- `scripts/twp_depth_battery.py`, the twp cloud runners and `scripts/f11_l2_cloud.py` all call `AutoModelForCausalLM.from_pretrained(model_id)` directly, bypassing `Psyche` entirely.
+
+**Until this is closed, anything loading `aquila2` must read `MODEL_FAMILIES['aquila2'].revisions` explicitly.** A pin honoured on one path and ignored on three is worse than no pin, because it reads as pinned — the same shape as a declared decoder never checked against what the engine resolved.
+
+The fix is not just threading a keyword: the runners take a model id string and would need to take a (model_id, revision) pair, or resolve the revision from the registry at load time. The second is probably right, since the registry is already the single source of truth and the runners already read it.
