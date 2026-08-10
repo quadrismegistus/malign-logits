@@ -138,6 +138,10 @@ def surprisal(corpus=None, model=None, prompt=None, forced=None,
     #: window simply landed before the bad positions. Dropping them silently
     #: would be worse: `n_nan` is returned so a caller sees the exclusion, and
     #: a corpus whose n_nan is large is one whose mean should not be quoted.
+    #: The array keeps its NaNs so positions stay aligned with token_ids; this
+    #: filters them out of the AVERAGE only. `gen_scores.n_nan` is a
+    #: materialized column, so a direct SQL user can exclude whole rows with
+    #: `WHERE n_nan = 0` without scanning arrays.
     ok = "arrayFilter(x -> NOT isNaN(x) AND NOT isInfinite(x), %s)" % sl
     grp = (", " + by) if by else ""
     return _q(

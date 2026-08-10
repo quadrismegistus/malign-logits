@@ -213,6 +213,16 @@ CREATE TABLE IF NOT EXISTS {DB}.gen_scores (
     scorer      LowCardinality(String),
     logprobs   Array(Float32),
     n          UInt32,
+    -- NaN IS KEPT IN THE ARRAY AND COUNTED BESIDE IT, NOT REMOVED.
+    -- 69 of 448,778 f11_l2 rows carry a NaN, all in the two granite-3.0-8b
+    -- arms, and they are ISOLATED MID-SEQUENCE positions -- 1 to 2 per
+    -- sequence, earliest at index 24, never the whole array. So deleting the
+    -- row discards 240+ good positions to remove one bad one, and filtering
+    -- the array in place would SHIFT EVERY LATER POSITION out of alignment
+    -- with token_ids, which is a silent correctness failure far worse than a
+    -- poisoned mean. MATERIALIZED so it maintains itself on future inserts:
+    -- `WHERE n_nan = 0` is a predicate, not an array scan.
+    n_nan      UInt32 MATERIALIZED length(arrayFilter(x -> isNaN(x) OR isInfinite(x), logprobs)),
     ingested   DateTime DEFAULT now()
 ) ENGINE = ReplacingMergeTree(ingested)
 ORDER BY (corpus, model, prompt, forced_word, sample_idx, scorer);
