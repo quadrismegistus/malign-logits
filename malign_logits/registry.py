@@ -369,11 +369,48 @@ class Registry:
             self._relations.append(Relation(**r))
 
     def save(self):
+        """Write the registry, PRESERVING the `_schema`/`_provenance` header.
+
+        **THIS METHOD SILENTLY DROPPED THAT HEADER AND THE HEADER IS THE FILE'S
+        OWN WARNING AGAINST THIS CLASS OF BUG.** `model_registry.json` has two
+        writers: `scripts/build_model_registry.py`, which emits
+        `{_schema, _provenance, models, relations}`, and this method, which
+        emitted `{models, relations}` only. Any call here quietly truncated the
+        artifact -- and what it deleted included the note reading *"Regenerate;
+        never read-if-exists. A cache that can outrank its source is how 59
+        models shadowed 112 for five weeks."* The file lost its self-description
+        and nothing failed.
+
+        Two writers with divergent shapes is the same pattern as a hardcoded
+        exclusion: the second writer encodes an assumption the first one never
+        made, and neither knows about the other.
+
+        **CARRYING THE HEADER FORWARD IS NOT `read-if-exists` FOR THE DATA.**
+        Models and relations are regenerated from the live objects every time,
+        as before. Only the provenance block is carried, and it is marked stale
+        so a reader can see this was not a full rebuild -- the builder remains
+        the producer of record.
+        """
         self._path.parent.mkdir(parents=True, exist_ok=True)
-        data = {
-            "models": [m.__dict__ for m in self._models.values()],
-            "relations": [r.__dict__ for r in self._relations],
-        }
+        header = {}
+        if self._path.exists():
+            try:
+                prev = json.loads(self._path.read_text())
+                for k in ("_schema", "_provenance"):
+                    if k in prev:
+                        header[k] = prev[k]
+            except Exception:
+                header = {}
+        if "_provenance" in header:
+            header["_provenance"] = dict(
+                header["_provenance"],
+                _stale_note="models/relations rewritten by Registry.save(); the "
+                            "measured_from artifacts below describe the LAST FULL "
+                            "BUILD by scripts/build_model_registry.py, not this "
+                            "write. Re-run the builder for a coherent file.")
+        data = {**header,
+                "models": [m.__dict__ for m in self._models.values()],
+                "relations": [r.__dict__ for r in self._relations]}
         with open(self._path, "w") as f:
             json.dump(data, f, indent=2)
 
