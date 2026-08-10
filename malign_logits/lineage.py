@@ -1,117 +1,115 @@
-"""Lineages and their representatives: what the unit of analysis IS.
+"""Lineages and their representatives: the unit of analysis, from the declared map.
 
-    from malign_logits.lineage import collapse, representative, lineage_of
+    from malign_logits.lineage import lineage_of, collapse, representative
 
-    models = collapse(models)          # one representative per lineage
-    lineage_of("tiiuae/Falcon3-10B-Base")   -> "tii/falcon3"
-    representative("tii/falcon3")           -> "tiiuae/Falcon3-7B-Base"
+    lineage_of("tiiuae/Falcon3-3B-Base")     -> "tiiuae/Falcon3-7B-Base"
+    collapse(models)                          -> one representative per lineage
+    representative("tiiuae/Falcon3-7B-Base", members)
 
-WHY. We score 154 checkpoints and 400,644 cells, and **132,413 of those cells
-(33%) cannot enter a cross-lineage test**, because they are extra members of a
-lineage that contributes one observation. Twelve Llama-3.1 checkpoints are one
-pretraining; eight Falcon3 checkpoints are one pretraining plus three
-derivatives of it, per the vendor's own cards.
+THE SOURCE IS `data/lineage_map_models.json`, NOT A NAME HEURISTIC. The first
+version of this module grouped models with regexes on their ids, and its own
+docstring said why that was wrong -- "name heuristics break silently, which is
+the failure mode this whole module exists to prevent" -- and then shipped the
+heuristic anyway. On 2026-08-10 it was used to report "52 pairs -> 45 lineages"
+as if that were a measurement. It was not: it merged Llama-3.1 8B/70B and
+Falcon-H1 1.5B/7B by luck of pattern, and would have split any model whose name
+did not match a case someone had thought of.
 
-That is not waste by itself. **A checkpoint is redundant only relative to a
-question.** The Falcon3 scale ladder IS the scale question; the Tulu ablations
-ARE the data-ablation question. What was actually missing is that findings did
-not DECLARE their unit, so within-lineage depth got spent and then silently
-collapsed by a test that wanted breadth -- and, worse, sometimes was NOT
-collapsed, which is how E-ASSIST-AMBIENT's "10x" turned out to be four Falcon3
-sizes, i.e. one pretraining counted four times.
+The map has existed since 1 Aug with a written rule, six consumers, and a
+`_unit_warning` recording that the roster was once counted as **37, 42, 21 and
+32 in one evening** because four calculations used four units. This module was
+the fifth. It now reads the map.
 
-So the rule is: **every finding declares CROSS-LINEAGE or WITHIN-LINEAGE.**
+    THE RULE (the map's, quoted): "A model's lineage is its BASE CHECKPOINT's.
+    Lineages are connected components over the registry's base relation. Two
+    alignment recipes applied to one base are two recipes, not two
+    implementations."
 
-    CROSS-LINEAGE   n = lineages. Use collapse(). A claim about alignment in
-                    general. This is the default for anything that says
-                    "N of M models".
-    WITHIN-LINEAGE  n = checkpoints, and the claim is explicitly conditional
-                    on that lineage. Scale ladders, rung comparisons, data
-                    ablations. Never generalised without a second lineage.
+    THE CAVEAT (the map's, and it binds every count here): the lineage count is
+    an UPPER BOUND on independence. Relations are populated unevenly, so two
+    genuinely related models with no recorded edge stay separate. That is not
+    hypothetical -- sibling edges existed for Falcon3, Olmo-3 and Qwen2.5 and
+    for nobody else, so Llama-3.1 and Falcon-H1 were separate lineages BY
+    OMISSION until 2026-08-10.
 
-THE REPRESENTATIVE IS SIZE-MATCHED ON PURPOSE. Picking the largest member of
-each lineage would confound lineage with scale: Falcon3-10B against
-Qwen2.5-0.5B is not a comparison of two pretrainings, it is a comparison of two
-sizes wearing lineage labels. The median scored checkpoint is 7.0B and 97 of
-140 sit in the 6-8B band, so ~7B is available in almost every lineage and is
-the band that minimises that confound.
-
-Selection, in order:
-  1. NEVER a declared derivative. Falcon3-1B and -3B are pruned and distilled,
-     Falcon3-10B is depth up-scaled, all from Falcon3-7B-Base (their cards).
-     A compression of a model is not a second observation of it.
-  2. Closest to 7B.
-  3. Tie-break on rung completeness, then on cell coverage.
-
-THE GROUPING IS DERIVED BUT MUST BE DECLARED. `_derive_lineage` is a name
-heuristic and name heuristics break silently -- which is the failure mode this
-whole module exists to prevent. So an unmatched model RAISES rather than
-getting its own singleton lineage, because a singleton is indistinguishable
-from a correctly-independent model and would quietly inflate n.
+WHY THE REPRESENTATIVE IS COMPUTED AND NOT STORED. It depends on the question --
+what size you want, which rungs you need -- so it is a property of the analysis,
+not of the model. The map stores the grouping; this picks within it.
 """
+import json
+import os
 import re
 
-#: Vendor-declared derivatives: {child: (parent, quoted reason)}. Never a
-#: representative, and never counted as an independent observation.
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MAP = os.path.join(ROOT, "data", "lineage_map_models.json")
+
+#: VENDOR-DECLARED DERIVATIONS, each a quote from the model's own card. These
+#: are a STRONGER claim than the map makes: the map says these models share a
+#: lineage, the cards say which came from which. A derivative is never a
+#: representative -- a compression of a model is not a second observation of it.
+#:
+#: `Falcon3-10B-Base` is DELIBERATELY ABSENT. Its card says "depth up-scaled
+#: from Falcon3-7B-Base with continual pretraining on 2 Teratokens" -- 2T of new
+#: tokens is more than most models in this roster see in total, so it is its own
+#: lineage, not a derivative of 7B (RH, 2026-08-10). 1B and 3B are pruned and
+#: distilled at 80-100 GT, which is a compression; the distinction is the
+#: token budget, and it is the vendor's own.
 DERIVATIVES = {
-    "tiiuae/Falcon3-1B-Base": ("tiiuae/Falcon3-3B-Base",
-        "pruned in depth, width, heads, embedding channels from a larger 3B "
-        "Falcon model; knowledge distillation"),
-    "tiiuae/Falcon3-3B-Base": ("tiiuae/Falcon3-7B-Base",
-        "pruned in depth and width from Falcon3-7B-Base; knowledge distillation"),
-    "tiiuae/Falcon3-10B-Base": ("tiiuae/Falcon3-7B-Base",
-        "depth up-scaled from Falcon3-7B-Base with continual pretraining on 2 "
-        "Teratokens"),
-    "meta-llama/Llama-3.2-3B": ("meta-llama/Llama-3.1-8B",
-        "logits from Llama 3.1 8B and 70B used as token-level targets; "
-        "knowledge distillation after pruning"),
+    "tiiuae/Falcon3-1B-Base": (
+        "tiiuae/Falcon3-3B-Base",
+        "pruned in terms of depth, width, number of heads, and embedding "
+        "channels from a larger 3B Falcon model, and efficiently trained on "
+        "only 80 GT using a knowledge distillation objective"),
+    "tiiuae/Falcon3-3B-Base": (
+        "tiiuae/Falcon3-7B-Base",
+        "pruned in terms of depth and width from Falcon3-7B-Base and "
+        "efficiently trained on only 100 GT using a knowledge distillation "
+        "objective"),
+    "meta-llama/Llama-3.2-3B": (
+        "meta-llama/Llama-3.1-8B",
+        "logits from the Llama 3.1 8B and 70B models used as token-level "
+        "targets; knowledge distillation after pruning"),
 }
 
-#: (regex on the lowercased model id, lineage key). ORDER MATTERS: the first
-#: match wins, so more specific patterns come first -- 'falcon3-mamba' must
-#: precede 'falcon3', or the mamba line disappears into the transformer one.
-_PATTERNS = [
-    (r"falcon3-mamba",  "tii/falcon3-mamba"),
-    (r"falcon-mamba",   "tii/falcon-mamba"),
-    (r"falcon-h1",      "tii/falcon-h1"),
-    (r"falcon3",        "tii/falcon3"),
-    (r"falcon",         "tii/falcon1"),
-    (r"llama-3\.1",     "meta/llama-3.1"),
-    (r"llama-3\.2",     "meta/llama-3.1"),      # distilled from 3.1
-    (r"tulu",           "ai2/tulu"),
-    (r"olmo-3|olmo3",   "ai2/olmo-3"),
-    (r"olmo-2|olmo2",   "ai2/olmo-2"),
-    (r"olmoe",          "ai2/olmoe"),
-    (r"olmo-hybrid",    "ai2/olmo-hybrid"),
-    (r"pythia",         "eleuther/pythia"),
-    (r"qwen2\.5",       "qwen/qwen2.5"),
-    (r"qwen3",          "qwen/qwen3"),
-    (r"smollm2",        "hf/smollm2"),
-    (r"smollm3",        "hf/smollm3"),
-    (r"kanana-1\.5",    "kakao/kanana-1.5"),
-    (r"kanana-2",       "kakao/kanana-2"),
-    (r"minicpm",        "openbmb/minicpm"),
-    (r"archangel",      "ctx/archangel"),
-]
+_MAP = None
 
 
-class UnknownLineage(Exception):
-    """An unmatched model. Never silently a singleton: a singleton lineage and
-    a genuinely independent model are indistinguishable, and guessing inflates
-    n in the direction that flatters every finding."""
+class UnmappedModel(Exception):
+    """A model absent from the lineage map.
+
+    **NEVER SILENTLY A SINGLETON.** A model with no lineage and a model that is
+    genuinely independent are indistinguishable once you default, and the
+    default inflates n in the direction that flatters every finding. Rebuild
+    the map (`scripts/build_lineage_map.py --write`) rather than catching this.
+    """
+
+
+def _map():
+    global _MAP
+    if _MAP is None:
+        with open(MAP) as fh:
+            _MAP = json.load(fh)
+    return _MAP
 
 
 def lineage_of(model, strict=True):
-    """The pretraining-program key for a model id."""
-    n = str(model).lower()
-    for pat, key in _PATTERNS:
-        if re.search(pat, n):
-            return key
-    org = str(model).split("/")[0].lower()
-    stem = re.split(r"[-_]", str(model).split("/")[-1].lower())[0]
-    if strict and not stem:
-        raise UnknownLineage(model)
-    return "%s/%s" % (org, stem)
+    """The lineage id (its base checkpoint) for a model. Raises if unmapped."""
+    m = _map()["model_to_lineage"]
+    if model in m:
+        return m[model]
+    if strict:
+        raise UnmappedModel(
+            "%r is not in %s. The map is regenerated from the registry; a "
+            "model missing from it usually means the registry gained a model "
+            "and the map was not rebuilt. Run "
+            "scripts/build_lineage_map.py --write." % (model, os.path.basename(MAP)))
+    return None
+
+
+def base_of(model):
+    """The model's own base checkpoint -- the RUN level, one grain finer than
+    the lineage. Two scale siblings share a lineage and have different bases."""
+    return _map()["model_to_base"].get(model)
 
 
 def _size_b(model):
@@ -120,7 +118,17 @@ def _size_b(model):
 
 
 def representative(lineage, members, cells=None, target_b=7.0):
-    """Pick the representative of one lineage. See the module docstring."""
+    """Pick one member of a lineage to stand for it.
+
+    SIZE-MATCHED ON PURPOSE. Taking each lineage's largest member would
+    confound lineage with scale -- Falcon3-10B against Qwen2.5-0.5B compares
+    two sizes wearing lineage labels. The median scored checkpoint is 7.0B and
+    97 of 140 sit in the 6-8B band, so ~7B is available in nearly every lineage
+    and is the band that minimises that confound.
+
+    Order: never a vendor-declared derivative, then closest to `target_b`, then
+    most cells, then id for determinism.
+    """
     cand = [m for m in members if m not in DERIVATIVES] or list(members)
     def rank(m):
         s = _size_b(m)
@@ -129,24 +137,26 @@ def representative(lineage, members, cells=None, target_b=7.0):
     return sorted(cand, key=rank)[0]
 
 
-def collapse(models, cells=None, target_b=7.0):
+def groups(models, strict=True):
+    """{lineage_id: [models]} for the given models."""
+    from collections import defaultdict
+    g = defaultdict(list)
+    for m in models:
+        g[lineage_of(m, strict=strict)].append(m)
+    return dict(g)
+
+
+def collapse(models, cells=None, target_b=7.0, strict=True):
     """One representative per lineage. **Use this for any cross-lineage n.**"""
-    from collections import defaultdict
-    g = defaultdict(list)
-    for m in models:
-        g[lineage_of(m)].append(m)
-    return sorted(representative(k, v, cells, target_b) for k, v in g.items())
+    return sorted(representative(k, v, cells, target_b)
+                  for k, v in groups(models, strict=strict).items())
 
 
-def report(models, cells=None):
-    """A table a reader can check: lineage, members, representative, redundancy."""
-    from collections import defaultdict
-    g = defaultdict(list)
-    for m in models:
-        g[lineage_of(m)].append(m)
+def report(models, cells=None, strict=True):
+    """[(lineage, members, representative, derivatives)] -- a checkable table."""
     out = []
-    for k in sorted(g, key=lambda k: -len(g[k])):
-        v = sorted(g[k])
-        rep = representative(k, v, cells)
-        out.append((k, len(v), rep, [x for x in v if x in DERIVATIVES]))
-    return out
+    for k, v in groups(models, strict=strict).items():
+        v = sorted(v)
+        out.append((k, v, representative(k, v, cells),
+                    [x for x in v if x in DERIVATIVES]))
+    return sorted(out, key=lambda r: (-len(r[1]), r[0]))

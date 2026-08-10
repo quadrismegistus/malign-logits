@@ -95,6 +95,55 @@ def consumers():
     return rows
 
 
+
+#: VENDOR-DECLARED DERIVATIONS, each quoted from the model's own card. A
+#: stronger claim than the map itself makes: the map says these share a
+#: lineage, the cards say which came from which.
+#:
+#: `Falcon3-10B-Base` is DELIBERATELY ABSENT -- "depth up-scaled from
+#: Falcon3-7B-Base with continual pretraining on 2 Teratokens" is more new
+#: tokens than most models in the roster see in total, so it is its own
+#: lineage rather than a derivative (RH, 2026-08-10). 1B and 3B are pruned and
+#: distilled at 80-100 GT, which is a compression. The distinction is the token
+#: budget and it is the vendor's.
+_DERIVATIVES = {
+    "tiiuae/Falcon3-1B-Base": ("tiiuae/Falcon3-3B-Base",
+        "pruned in depth, width, heads and embedding channels from a larger "
+        "3B Falcon model; 80 GT, knowledge distillation"),
+    "tiiuae/Falcon3-3B-Base": ("tiiuae/Falcon3-7B-Base",
+        "pruned in depth and width from Falcon3-7B-Base; 100 GT, knowledge "
+        "distillation"),
+    "meta-llama/Llama-3.2-3B": ("meta-llama/Llama-3.1-8B",
+        "logits from Llama 3.1 8B and 70B as token-level targets; knowledge "
+        "distillation after pruning"),
+}
+
+
+def _representative(members, cells=None, target_b=7.0, params=None, stage=None):
+    """See `_representative_rule` in the emitted document.
+
+    **SIZE COMES FROM THE REGISTRY, NOT FROM THE NAME**, and stage does too.
+    The first version parsed `params_b` out of the model id with a regex and
+    read `archangel_sft-dpo_pythia2-8b` as 8.0B -- it is a 2.8B pythia -- then
+    picked that ALIGNED arm to represent the pythia lineage over the base it
+    was tuned from. Two failures, one cause: deriving a declared property from
+    a string. `params_b` and the stage are both in the registry.
+    """
+    params = params or {}
+    stage = stage or {}
+    #: prefer BASE-stage members: a lineage stands in a base-to-aligned
+    #: contrast, so its representative must be able to be the base arm.
+    pool = [m for m in members if str(stage.get(m, "")).lower() in ("base", "id")]
+    pool = pool or list(members)
+    cand = [m for m in pool if m not in _DERIVATIVES] or pool
+    def key(m):
+        pb = params.get(m)
+        return (0 if pb is not None else 1,
+                abs((pb if pb is not None else 1e3) - target_b),
+                -(cells or {}).get(m, 0), str(m))
+    return sorted(cand, key=key)[0]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
@@ -250,6 +299,23 @@ def main():
         print("\n  (print only; --write to commit the artifact)")
         return 0
 
+    #: params_b and stage come from the REGISTRY, never from the model id.
+    params_b = {m["model_id"]: m.get("params_b") for m in reg["models"]}
+    #: cell counts break a tie between candidates equidistant from the target
+    #: size. Read from the store if it answers; the map must build without it,
+    #: so a failure degrades the tie-break rather than the artifact.
+    cells = None
+    try:
+        import subprocess as _sp
+        _o = _sp.run(["/opt/homebrew/bin/clickhouse", "client", "--query",
+                      "SELECT model, uniqExact(prompt) FROM "
+                      "malign_logits.twp_residual GROUP BY model FORMAT TSV"],
+                     capture_output=True, text=True, timeout=120).stdout
+        cells = {a: int(b) for a, b in
+                 (l.split("\t") for l in _o.splitlines() if "\t" in l)}
+    except Exception:
+        cells = None
+
     doc = {
         "_rule": ("A model's lineage is its BASE CHECKPOINT's. Lineages are "
                   "connected components over the registry's base relation. Two "
@@ -272,6 +338,27 @@ def main():
         "model_to_base": base,
         "model_to_family": fam,
         "model_to_stage": stage,
+        #: cell counts break a tie between two candidates equidistant from
+        #: the target size. Read from the store if it answers; the map must
+        #: build without it, so a failure here degrades the tie-break rather
+        #: than the artifact.
+        "_representative_rule": (
+            "One member per lineage stands for it in a CROSS-LINEAGE test. "
+            "Order: (1) never a vendor-declared derivative -- a compression of "
+            "a model is not a second observation of it; (2) closest to 7.0B, "
+            "because taking each lineage's largest member would confound "
+            "lineage with SCALE (Falcon3-10B against Qwen2.5-0.5B compares two "
+            "sizes wearing lineage labels), and the median scored checkpoint "
+            "is 7.0B with 97 of 140 in the 6-8B band; (3) most cells; (4) id, "
+            "for determinism. STORED, not computed at read time: six scripts "
+            "consume this map and two implementations of one decision is the "
+            "defect this campaign spent 2026-08-10 removing. A caller wanting "
+            "a different target size computes its own and says so."),
+        "_representative_derivatives": {
+            k: v[1] for k, v in _DERIVATIVES.items()},
+        "lineage_to_representative": {
+            k: _representative(sorted(v), cells, params=params_b, stage=stage)
+            for k, v in lin.items()},
         "lineages": {k: sorted(v) for k, v in lin.items()},
         "families_spanning_multiple_lineages": {f: sorted(s)
                                                 for f, s in span.items()},

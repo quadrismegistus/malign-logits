@@ -403,6 +403,28 @@ def build():
     cur = _c.get("models", {})
     org_facts = _c.get("orgs", {})
     param_facts = _c.get("params", {})
+    #: MEASURED parameter counts from data/weights_audit.csv, the same artifact
+    #: the provenance block already names. Absent rows stay absent: a model
+    #: with no safetensors metadata has no measurement, and reporting the
+    #: parse in its place is what this change exists to stop.
+    #: **NO BARE `except` ON A MEASUREMENT LOAD.** The first version wrapped
+    #: this in `except Exception: measured_params = {}` and referenced an
+    #: undefined `ROOT`; the NameError was swallowed and every row silently
+    #: kept its NAME PARSE while the run reported success. A load that fails
+    #: quietly is indistinguishable from a file with nothing in it.
+    measured_params = {}
+    _wa = os.path.join(PATH_DATA, "weights_audit.csv")
+    if os.path.exists(_wa):
+        import csv as _csv
+        with open(_wa) as _fh:
+            for _r in _csv.DictReader(_fh):
+                _v = (_r.get("params_b_measured") or "").strip()
+                if _v:
+                    measured_params[_r["model"]] = float(_v)
+        print("  measured params: %d of %d rows in weights_audit.csv"
+              % (len(measured_params), sum(1 for _ in open(_wa)) - 1))
+    else:
+        print("  weights_audit.csv ABSENT -- params_b stays a name parse")
 
     rows, relations = {}, []
     #: (child, relation) -> chosen parent, resolved once after all families are
@@ -502,6 +524,27 @@ def build():
                 if pf:
                     r["params_b"] = pf["b"]
                     r["params"] = f"{pf['b']}B"
+                    r["params_source"] = "sourced"
+                # **AND A MEASUREMENT OVERRIDES BOTH.** `params_b` was a NAME
+                # PARSE living in a registry whose `_provenance` advertises four
+                # `measured_from` artifacts, none of which carried a parameter
+                # count. The parse is decent -- it reads
+                # `archangel_sft-dpo_pythia2-8b` as 2.8B where a naive regex
+                # reads 8.0B -- but Yi-1.5-9B is 8.829B on disk, not 9.0, and
+                # the 16 models whose ids carry no size got nothing at all.
+                #
+                # It matters beyond tidiness because the lineage REPRESENTATIVE
+                # is chosen by size: a lineage whose members differ only in a
+                # size the parse gets wrong picks the wrong representative
+                # silently. `params_source` says which kind of fact this is,
+                # so a reader never has to guess whether a number was measured.
+                mb = measured_params.get(mid)
+                if mb:
+                    r["params_b"] = mb
+                    r["params"] = f"{mb}B"
+                    r["params_source"] = "measured:safetensors"
+                elif not r.get("params_source"):
+                    r["params_source"] = "parsed:name" if r.get("params_b") else None
             else:
                 relations.append({"parent": mid, "child": fam_key,
                                   "relation": "also_member_of"})

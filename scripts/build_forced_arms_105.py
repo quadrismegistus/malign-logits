@@ -69,6 +69,9 @@ MIN_MASS = 0.001     #: a word must reach this in one arm to be a candidate
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--battery", default=BATTERY,
+                    help="prompt CSV. Defaults to the pinned 210-row "
+                         "beam_sample_105.csv; pass another to extend it.")
     ap.add_argument("--out", default="data/forced_arms_105.json")
     ap.add_argument("--pairs", default=None, help="file with one A>B per line")
     ap.add_argument("--tau", type=float, default=TAU)
@@ -102,7 +105,7 @@ def main():
     def open_class(m, keys):
         return [k for k in keys if IS_VV(k)]
 
-    rows = list(csv.DictReader(open(BATTERY)))
+    rows = list(csv.DictReader(open(a.battery)))
     print("battery: %d prompts, %d stems, %d domains"
           % (len(rows), len({r["stem"] for r in rows}),
              len({r["domain"] for r in rows})))

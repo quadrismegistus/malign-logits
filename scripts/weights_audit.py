@@ -53,6 +53,32 @@ ST_INDEX = "model.safetensors.index.json"
 BIN_INDEX = "pytorch_model.bin.index.json"
 
 
+def _measured_params(model_id):
+    """The MEASURED parameter count, from safetensors metadata.
+
+    **THE REGISTRY'S `params_b` WAS A NAME PARSE**, with a manual override
+    table, sitting in a file whose `_provenance` advertises four
+    `measured_from` artifacts -- none of which carried a parameter count. The
+    parse is decent (it reads `archangel_sft-dpo_pythia2-8b` as 2.8B, which a
+    naive regex reads as 8.0B) but it is a parse: `pythia-2.8b` is 2.91B on
+    disk, and the 16 models whose ids carry no size get nothing at all.
+
+    That matters because the lineage REPRESENTATIVE is chosen by size, so a
+    lineage whose members differ only in a size the parse gets wrong picks the
+    wrong representative silently -- the same defect, one layer down.
+
+    Returns None when the repo publishes no safetensors metadata; a missing
+    measurement is reported as missing and never as a parse.
+    """
+    from huggingface_hub import HfApi
+    try:
+        i = HfApi().model_info(model_id, expand=["safetensors"])
+        st = getattr(i, "safetensors", None)
+        return getattr(st, "total", None) if st else None
+    except Exception:
+        return None
+
+
 def audit(model_id):
     from huggingface_hub import list_repo_files
     try:
@@ -60,6 +86,7 @@ def audit(model_id):
     except Exception as e:
         return dict(model=model_id, weights_format="unknown", index_present="",
                     n_safetensors="", n_bin="", needs_torch="",
+                    n_params="", params_b_measured="",
                     note=f"listing failed: {type(e).__name__}")
     st = [f for f in fs if f.endswith(".safetensors")]
     bn = [f for f in fs if f.endswith(".bin")]
@@ -93,10 +120,15 @@ def audit(model_id):
                 ".bin index and is refused below torch 2.6")
     elif fmt == "bin":
         note = "bin-only; refused below torch 2.6"
+    n_params = _measured_params(model_id)
     return dict(model=model_id, weights_format=fmt,
                 index_present=("" if idx == "" else str(bool(idx)).lower()),
                 n_safetensors=len(st), n_bin=len(bn),
-                needs_torch=needs, note=note)
+                needs_torch=needs,
+                n_params=("" if n_params is None else n_params),
+                params_b_measured=("" if n_params is None
+                                   else round(n_params / 1e9, 3)),
+                note=note)
 
 
 def main(a):
