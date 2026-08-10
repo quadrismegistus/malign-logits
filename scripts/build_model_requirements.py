@@ -118,6 +118,66 @@ TRANSFORMERS_PIN = {
         "same meta-tensor failure as the base arm"),
 }
 
+#: **A TRANSFORMERS PIN IS NOT THE WHOLE ENVIRONMENT, AND internlm2 IS THE PROOF.**
+#: Added 2026-08-10. The lineage sat at zero cells for a day while the search ran
+#: entirely at the transformers level, because the error message named
+#: transformers' own converter: "Converting from SentencePiece and Tiktoken
+#: failed". Every rung there fails for a DIFFERENT reason, which is what makes it
+#: read as unrunnable rather than as one bad dependency:
+#:
+#:     5.14.1   tokenizer loads, then SHIFTS WORD BOUNDARIES -> 402 skips, 0 cells
+#:     5.4.0    tokenizer clean, but DynamicCache.from_legacy_cache is gone, so
+#:              the first FORWARD dies instead
+#:     4.51/4.57  conversion fails
+#:     4.44/4.37  "INTERNAL: piece must not include null character"
+#:
+#: The culprit is one rung below: `sentencepiece` 0.2.2 cannot convert this
+#: tokenizer. 0.2.0 and 0.2.1 can. **protobuf is irrelevant** -- 3.20.3, 4.25.3
+#: and 6.33.6 were each tested against several transformers versions and changed
+#: nothing either way, which killed the obvious first hypothesis. 0.1.99 also
+#: works but has no cp312 wheel, and the fleet boxes are Python 3.12.
+#:
+#: With ==4.57.1 + sentencepiece==0.2.1 the bundled InternLM2TokenizerFast
+#: round-trips 2590/2590 ACTIVE prompts at 0% skip, verified on this Mac AND on
+#: the box before any weights were downloaded.
+PACKAGE_PINS = {
+    m: {"sentencepiece": ("==0.2.1",
+        "0.2.2 fails internlm2's SentencePiece->fast conversion outright; 0.2.0/0.2.1 "
+        "convert fine and protobuf has no effect. Resolved locally across the whole "
+        "version space before renting anything -- tokenizers need no GPU.")}
+    for m in ("internlm/internlm2-base-7b", "internlm/internlm2-chat-7b",
+              "internlm/internlm2-chat-7b-sft")
+}
+
+#: **AN OVERRIDE CAN ITSELF BE ENVIRONMENT-SPECIFIC.** `twp.LOADER_OVERRIDE` sends
+#: internlm2 to PreTrainedTokenizerFast to dodge the 5.x boundary shift. Under 4.x
+#: that class CANNOT LOAD the model at all, so reporting it here would hand the
+#: next fleet the very setting that breaks it. `twp._override_applies` gates it on
+#: the transformers major version; this mirrors that gate so the requirements file
+#: and the library cannot disagree.
+#:
+#: This is the defect that made the recovery box fail its first launch MINUTES
+#: after a bare AutoTokenizer probe had passed on that same box: the probe tested
+#: a reasonable substitute for the loader instead of the loader itself.
+def effective_tokenizer_loader(mid, loader_override, transformers_pin):
+    ov = loader_override.get(mid)
+    if not ov:
+        return (None, None)
+    try:
+        from malign_logits.twp import _OVERRIDE_MIN_TRANSFORMERS_MAJOR
+    except ImportError:
+        return ov
+    need = _OVERRIDE_MIN_TRANSFORMERS_MAJOR.get(mid)
+    if need is None:
+        return ov
+    pin = (transformers_pin or (">=4.57", ""))[0]
+    major = int("".join(c for c in pin if c.isdigit() or c == ".").strip(".").split(".")[0])
+    if major >= need:
+        return ov
+    return (None, "override suppressed: %s is a transformers>=%d workaround and that "
+                  "class cannot load this checkpoint under the pinned %s"
+                  % (ov[0], need, pin))
+
 #: bf16 is not a preference here: fp16 overflows the SSM scan and yields all-NaN
 #: logits on prompts >= 13 tokens (1/12 finite at fp16, 12/12 at bf16).
 COMPUTE_DTYPE = {m: ("bfloat16", "fp16 overflows the SSM selective scan -> all-NaN "
@@ -247,8 +307,10 @@ def main():
             "compute_dtype_reason": COMPUTE_DTYPE.get(mid, (None, None))[1],
             "revision": revs.get(mid, (None, None))[0],
             "revision_reason": revs.get(mid, (None, None))[1],
-            "tokenizer_loader": LOADER_OVERRIDE.get(mid, (None, None))[0],
-            "tokenizer_loader_reason": LOADER_OVERRIDE.get(mid, (None, None))[1],
+            "tokenizer_loader": effective_tokenizer_loader(mid, LOADER_OVERRIDE, tf)[0],
+            "tokenizer_loader_reason": effective_tokenizer_loader(mid, LOADER_OVERRIDE, tf)[1],
+            "packages": {k: v[0] for k, v in PACKAGE_PINS.get(mid, {}).items()},
+            "packages_reason": {k: v[1] for k, v in PACKAGE_PINS.get(mid, {}).items()},
             "weights": ("bin-only" if binonly else "safetensors" if f["safetensors"]
                         else "none-local"),
             "params_b": f["params_b"], "arch": f["arch"], "vocab_size": f["vocab_size"],

@@ -79,9 +79,24 @@ def plan(models, n_boxes, req, cells_per_model, weight_by_params):
     blocked = [(m, req[m]["blocked_reason"]) for m in models if req[m]["blocked"]]
     runnable = [m for m in models if not req[m]["blocked"]]
 
+    #: **PACKAGE PINS PARTITION A FLEET EXACTLY AS transformers DOES.** A pin is
+    #: box-wide state: two checkpoints that disagree on `sentencepiece` cannot
+    #: share a box any more than two that disagree on `transformers` can. Added
+    #: 2026-08-10, when internlm2 turned out to need sentencepiece==0.2.1 while
+    #: the rest of the roster runs 0.2.2 -- grouping on `profile` alone would
+    #: have put them together and the pin applied last would silently win.
+    #:
+    #: Keyed on the FULL pin set, not on the profile label, because `tf457` now
+    #: describes two different environments: with the sentencepiece pin and
+    #: without. A label that no longer determines the environment is the thing
+    #: that makes a fleet unreproducible.
+    def pinkey(m):
+        pk = req[m].get("packages") or {}
+        return tuple(sorted(pk.items()))
+
     groups = defaultdict(list)
     for m in runnable:
-        groups[req[m]["profile"]].append(m)
+        groups[(req[m]["profile"], pinkey(m))].append(m)
 
     #: WEIGHT the split so a box is balanced in TIME, not just in model count.
     def weight(m):
@@ -92,8 +107,9 @@ def plan(models, n_boxes, req, cells_per_model, weight_by_params):
 
     total = sum(weight(m) for m in runnable)
     out, box_id = [], 0
-    for prof in sorted(groups, key=lambda p: -sum(weight(m) for m in groups[p])):
-        ms = sorted(groups[prof], key=lambda m: -weight(m))
+    for gkey in sorted(groups, key=lambda p: -sum(weight(m) for m in groups[p])):
+        prof, pins_t = gkey
+        ms = sorted(groups[gkey], key=lambda m: -weight(m))
         share = sum(weight(m) for m in ms) / total if total else 0
         #: at least one box per profile: a profile with work and no box is a
         #: silent drop, which is the failure this whole script guards
@@ -111,6 +127,9 @@ def plan(models, n_boxes, req, cells_per_model, weight_by_params):
                 continue
             out.append({"box": box_id, "profile": prof,
                         "launch_profile": LAUNCH_PROFILE.get(prof, "dense"),
+                        "packages": dict(pins_t),
+                        "packages_reason": {k: (req[b[0]].get("packages_reason") or {}).get(k)
+                                            for k, _ in pins_t},
                         "models": b,
                         "cells": int(sum(cells_per_model for _ in b)),
                         "gpus": max(req[m]["gpus"] for m in b),
@@ -164,6 +183,8 @@ def main():
                  b["gpus"], b["min_vram_gb"]))
         pins = [p for p in b["transformers"] if p != ">=4.57"]
         if pins:   print("         PIN transformers%s" % ", ".join(pins))
+        if b["packages"]:
+            print("         PIN %s" % ", ".join("%s%s" % kv for kv in sorted(b["packages"].items())))
         if b["kernels"]: print("         kernels: %s" % ", ".join(b["kernels"]))
         if b["compute_dtype"]: print("         dtype: %s" % ", ".join(b["compute_dtype"]))
         if b["revisions"]: print("         revisions: %s" % b["revisions"])
@@ -181,8 +202,15 @@ def main():
         print("    MALIGN_VAST_STATE=.vastai.%s%d.json malign cloud --yes launch "
               "--profile %s   # env=%s" % (a.tag, b["box"], lp, b["profile"]))
         pins = [p for p in b["transformers"] if p != ">=4.57"]
-        if pins:
-            print("      # then on the box: pip install 'transformers%s'" % pins[0])
+        extra = ["%s%s" % kv for kv in sorted(b["packages"].items())]
+        #: **THE PACKAGE PINS GO IN THE SAME pip CALL AS transformers.** Installing
+        #: them separately lets pip resolve the second call against the first and
+        #: quietly move one of them; internlm2's whole failure mode is one package
+        #: being a version away from working.
+        if pins or extra:
+            allp = (["transformers%s" % pins[0]] if pins else []) + extra
+            print("      # then on the box: pip install %s"
+                  % " ".join("'%s'" % p for p in allp))
 
     if a.write:
         p = os.path.join(ROOT, "data", "fleet_plan_%s.json" % a.tag)
