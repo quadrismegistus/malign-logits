@@ -173,6 +173,177 @@ MODEL_FAMILIES = {
     # data was never wrong -- the two arms' base->superego metrics are
     # identical because base and superego ARE identical, which is the control
     # working, not a duplicate.
+
+    # ────────────────────────────────────────────────────────────────────
+    # INDEPENDENT PRETRAINING LINEAGES, survey v2 (docs/lineage_candidates_hf_v2.md,
+    # 2026-08-07). Registered on RH's word; **registration is not verification.**
+    #
+    # WHY THESE EXIST AS A BLOCK. The roster's ~34 lineages are dominated by a
+    # handful of orgs, and the pooled damage MDE is bounded by n_pairs rather
+    # than by sites — so more INDEPENDENT PRETRAINING RUNS is the only lever on
+    # it. Every entry below is a base + aligned pair from one pretraining run,
+    # not a continued-pretrain of anything already on the roster.
+    #
+    # TIER IS RECORDED IN THE NAME, because a registry row looks equally
+    # authoritative whatever its evidence:
+    #   [v2 READY]  direct-fetch quote in hand for independence and safetensors
+    #   [v2 VERIFY] qualifies but one named check is open — see the survey
+    #   [v2 AMBIG]  independence is a judgement call, not a fact
+    # 2-layer throughout (base + superego) per the house convention, EXCEPT
+    # llm-jp-3 which has separately documented SFT and DPO stages.
+    "jais": ModelFamily(
+        name="Jais family 6.7B (Inception/MBZUAI/Cerebras) [v2 READY]",
+        base="inceptionai/jais-family-6p7b",
+        superego="inceptionai/jais-family-6p7b-chat",
+    ),
+    # **2-LAYER, NOT 3.** The survey calls this the cleanest bonus tier because
+    # the CARD documents SFT and DPO as separate stages with their own dataset
+    # lists. That is documentation of a PROCESS, not two downloadable
+    # checkpoints — `instruct3` is the single post-SFT-and-DPO model. Declaring
+    # it in both ego and superego made the builder chain a self-edge
+    # (dpo_of instruct3 -> instruct3) and `base_of` then resolved the model to
+    # itself. Caught by checking that the new pairs resolve, not by reading.
+    #
+    # The documented two-stage process is still worth having — it is why this
+    # lineage is worth more than a plain base/instruct pair — but it is a fact
+    # about the card, not a rung we can measure apart.
+    "llm-jp-3": ModelFamily(
+        name="LLM-jp-3 7.2B (NII) [v2 READY, SFT+DPO documented but one checkpoint]",
+        base="llm-jp/llm-jp-3-7.2b",
+        superego="llm-jp/llm-jp-3-7.2b-instruct3",
+    ),
+    "lucie": ModelFamily(
+        name="Lucie-7B (LINAGORA/OpenLLM-France) [v2 READY]",
+        base="OpenLLM-France/Lucie-7B",
+        #: **`Lucie-7B-Instruct` DOES NOT EXIST** -- RepositoryNotFoundError, not
+        #: a gated 401. The real aligned checkpoint is `-Instruct-v1.1`, and the
+        #: name was registered on 7 Aug by pattern-matching every other family's
+        #: `base + "-Instruct"` rather than from the model card. The twp fleet
+        #: then ran the base, failed the aligned half, and reported ALL MODELS
+        #: COMPLETE -- so the lineage looked delivered while carrying one arm.
+        #: Corrected on RH's word. A registered name is a claim about a repo and
+        #: has to be checked against the repo, not against the sibling families.
+        superego="OpenLLM-France/Lucie-7B-Instruct-v1.1",
+    ),
+    "gpt-sw3": ModelFamily(
+        name="GPT-SW3 6.7B (AI Sweden) [v2 READY]",
+        base="AI-Sweden-Models/gpt-sw3-6.7b",
+        superego="AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct",
+    ),
+    # SELF-DECLARED NOT RLHF-ALIGNED: "has NOT been aligned through RLHF to
+    # filter or avoid sensitive topics". Kept for exactly that reason — an
+    # instruction-tuned model whose authors deny it is safety-aligned is a
+    # control this roster does not otherwise have.
+    "salamandra": ModelFamily(
+        name="Salamandra 7B (BSC) [v2 READY, self-declared unaligned]",
+        base="BSC-LT/salamandra-7b",
+        superego="BSC-LT/salamandra-7b-instruct",
+    ),
+    "teuken": ModelFamily(
+        name="Teuken 7B (openGPT-X) [v2 READY]",
+        base="openGPT-X/Teuken-7B-base-v0.6",
+        superego="openGPT-X/Teuken-7B-instruct-commercial-v0.4",
+    ),
+    "gemma2": ModelFamily(
+        name="Gemma 2 9B (Google) [v2 READY, 9.24B — over the 9B line]",
+        base="google/gemma-2-9b",
+        superego="google/gemma-2-9b-it",
+    ),
+    # 3.0 NOT 3.1. The v1 survey named 3.1; its own card says it "extends the
+    # context length of Granite-3.0-8B-Base". 3.0 is the from-scratch run.
+    "granite": ModelFamily(
+        name="Granite 3.0 8B (IBM) [v2 READY]",
+        base="ibm-granite/granite-3.0-8b-base",
+        superego="ibm-granite/granite-3.0-8b-instruct",
+    ),
+    # DPO named explicitly on the card. The primary repos ship .pt shards only;
+    # these are the org's own safetensors conversions, and the -aligned-hf tree
+    # was NOT verified — that is the open check.
+    "pharia": ModelFamily(
+        name="Pharia-1-LLM-7B (Aleph Alpha) [v2 VERIFY: -aligned-hf safetensors]",
+        base="Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
+        superego="Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
+    ),
+    "croissant": ModelFamily(
+        name="CroissantLLM 1.3B [v2 VERIFY: safetensors unconfirmed]",
+        base="croissantllm/CroissantLLMBase",
+        superego="croissantllm/CroissantLLMChat-v0.1",
+    ),
+    # TOP UNVERIFIED LEAD: never fetched in the survey. A 2023 repo, so
+    # safetensors is a real risk — many predate the default and were never
+    # converted.
+    "mpt": ModelFamily(
+        name="MPT-7B (MosaicML) [v2 VERIFY: never fetched, safetensors at risk]",
+        base="mosaicml/mpt-7b",
+        superego="mosaicml/mpt-7b-instruct",
+    ),
+    # CLOUD ONLY. Mamba2 blocks need causal-conv1d + mamba-ssm, which have no
+    # Metal build; the fallback path allocates the full state.
+    # ADDED 2026-08-10 from the v2 lineage survey's unregistered residue. Both
+    # preflighted against the HF API before declaring: safetensors, own
+    # tokenizer, ungated. Neither needs a revision pin.
+    "kanana": ModelFamily(
+        name="Kanana 1.5 8B (Kakao) [v2 QUALIFIES; Korean/English]",
+        base="kakaocorp/kanana-1.5-8b-base",
+        superego="kakaocorp/kanana-1.5-8b-instruct-2505",
+    ),
+    # THE SURVEY'S "INACCESSIBLE" VERDICT WAS STALE, NOT WRONG WHEN WRITTEN:
+    # it checked `hatakeyama-llm-team/Tanuki-8B`, which 404s. The repos moved
+    # orgs, and THE PAIR SPANS TWO OF THEM — base under team-hatakeyama-phase2,
+    # DPO under weblab-GENIAC. The `-GGUF` repo RH found is a quantised
+    # llama.cpp conversion with no tokenizer and no safetensors; it names the
+    # real checkpoint in its own `base_model` field. Quantised weights are
+    # refused here on the project's own precision rule, so the GGUF is not a
+    # fallback.
+    "tanuki": ModelFamily(
+        name="Tanuki-8B (Matsuo Lab / GENIAC) [v2 REVIVED; Japanese/English]",
+        base="team-hatakeyama-phase2/Tanuki-8B-base-v1.0",
+        superego="weblab-GENIAC/Tanuki-8B-dpo-v1.0",
+    ),
+    # NOT DECLARED, DELIBERATELY, AND THIS COMMENT IS THE RECORD OF WHY.
+    # BAAI/Aquila2-7B PASSES on the science: own 100k BPE vocabulary (which
+    # mechanically rules out inheriting Llama/Mistral/Qwen embeddings), own
+    # corpus, own framework, ungated, tokenizer round-trips exactly. Its
+    # aligned arm is SFT, NOT DPO — the technical report (arXiv 2408.07410)
+    # says "we collected instructional data to train the chat version" and
+    # calls it "the supervised fine-tuned model" throughout; an exhaustive
+    # search of report and repo finds no DPO/RLHF/PPO/reward model.
+    #
+    # **IT CANNOT BE DECLARED SAFELY UNTIL ModelFamily CAN PIN A REVISION.**
+    # BAAI REPLACED the base's main branch on 2024-06-06 with a re-tokenised
+    # model and never updated the chat arm. VERIFIED:
+    #
+    #     Aquila2-7B @ main                       vocab 143,973  ctx 8192
+    #     Aquila2-7B @ 9c76e143c6e96216 (2023-10) vocab 100,008  ctx 2048
+    #     AquilaChat2-7B @ main                   vocab 100,008  ctx 2048
+    #
+    # So the naive main-vs-main pair is not merely wrong, it is DIMENSIONALLY
+    # UNDEFINED — there is no full-vocabulary comparison between distributions
+    # over different vocabularies. A `revision` field on ModelFamily would not
+    # be enough on its own: `Psyche` would honour it while `twp_cloud`,
+    # `twp_depth_battery` and the L2 runner call
+    # `AutoModelForCausalLM.from_pretrained(model_id)` directly and would not.
+    # A pin honoured on one path and silently ignored on three is worse than
+    # no pin, because it reads as pinned. Declare it when the pin is real.
+    #
+    # Book alongside it: Flan and COIG-PC sit in the PRETRAINING mixture
+    # (report Table 2), so this is a pre-socialised base in the same sense as
+    # Qwen — a small base->SFT displacement here is not permissiveness.
+    "zamba2": ModelFamily(
+        name="Zamba2-7B (Zyphra) [v2 READY, SSM hybrid — CLOUD ONLY]",
+        base="Zyphra/Zamba2-7B",
+        superego="Zyphra/Zamba2-7B-Instruct",
+    ),
+    # AMBIGUOUS ON INDEPENDENCE, and the ambiguity is the card's own words:
+    # "uses the same training data and data processing as used by the Gemma
+    # model family". Independent weights, identical data recipe to a lineage
+    # already on the roster. Kernel requirement UNCHECKED — Griffin is not
+    # Mamba and may run natively.
+    "recurrentgemma": ModelFamily(
+        name="RecurrentGemma 9B (Google) [v2 AMBIG: Gemma data recipe; Griffin]",
+        base="google/recurrentgemma-9b",
+        superego="google/recurrentgemma-9b-it",
+    ),
     "tulu-no-safety": ModelFamily(
         name="Tulu 3 8B (SFT without safety data)",
         base="meta-llama/Llama-3.1-8B",
@@ -184,22 +355,41 @@ MODEL_FAMILIES = {
     "tulu-sft-full": ModelFamily(
         name="Tulu SFT (full)",
         base="meta-llama/Llama-3.1-8B",
-        superego="allenai/Llama-3.1-Tulu-3-8B-SFT",
+        #: **AN SFT CHECKPOINT BELONGS IN `ego`, NOT `superego`.** It sat in
+        #: `superego` until 7 Aug, which meant any generic query for "the
+        #: preference-optimised arm of Llama-3.1-8B" could return a MID-PIPELINE
+        #: model. Surfaced by `Registry.base_aligned_pairs()`, which reads
+        #: `superego` by definition and listed an SFT arm among the six
+        #: candidates for that base.
+        #:
+        #: The other three ablation arms (nomath / nopersona / nowildchat)
+        #: already used `ego` correctly, so this entry alone was inconsistent
+        #: with its own siblings -- the kind of defect that survives because
+        #: every sibling looks right and nobody diffs them.
+        #:
+        #: Fixing at the source rather than masking it in the ruling: the
+        #: DPO_EQUIVALENT_RULINGS entry for this base picks Llama-3.1-8B-Instruct
+        #: and would have hidden this forever.
+        ego="allenai/Llama-3.1-Tulu-3-8B-SFT",
     ),
     "tulu-sft-nopersona": ModelFamily(
         name="Tulu SFT (no persona)",
         base="meta-llama/Llama-3.1-8B",
-        superego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+        ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
     ),
+    #: **SFT ARMS GO IN `ego`, NOT `superego`** (RH, 7 Aug: "All the sft's are
+    #: 'ego' ... and dpo is 'superego'"). Declaring an SFT checkpoint in the
+    #: superego slot made three ablation arms read as aligned ENDPOINTS, which
+    #: is what put position=superego on them in the registry.
     "tulu-sft-nomath": ModelFamily(
         name="Tulu SFT (no math)",
         base="meta-llama/Llama-3.1-8B",
-        superego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+        ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
     ),
     "tulu-sft-nowildchat": ModelFamily(
         name="Tulu SFT (no wildchat)",
         base="meta-llama/Llama-3.1-8B",
-        superego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+        ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
     ),
     "zephyr": ModelFamily(
         name="Zephyr 7B",

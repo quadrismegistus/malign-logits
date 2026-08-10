@@ -124,7 +124,7 @@
  },
  "_provenance": {
   "built_by": "scripts/build_model_registry.py",
-  "head": "66bfeb5",
+  "head": "0890789e",
   "measured_from": {
    "weights": {
     "artifact": "data/weights_audit.csv",
@@ -179,7 +179,12 @@
    "pending_repair": null,
    "country": "CN",
    "org_type": "company",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 64000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "01-ai/Yi-1.5-9B-Chat",
@@ -210,7 +215,206 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 64000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
+  },
+  {
+   "model_id": "AI-Sweden-Models/gpt-sw3-6.7b",
+   "nickname": "",
+   "family": "gpt-sw3",
+   "position": "base",
+   "stage": "base",
+   "org": "AI-Sweden-Models",
+   "params": "6.7B",
+   "params_b": 6.7,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0,
+   "vocab_size_config": null,
+   "requires_pip": [
+    "trust_remote_code"
+   ],
+   "load_note": "CONFIG NEEDS trust_remote_code (OSError)"
+  },
+  {
+   "model_id": "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct",
+   "nickname": "",
+   "family": "gpt-sw3",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "AI-Sweden-Models",
+   "params": "6.7B",
+   "params_b": 6.7,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0,
+   "vocab_size_config": null,
+   "requires_pip": [
+    "trust_remote_code"
+   ],
+   "load_note": "CONFIG NEEDS trust_remote_code (OSError)"
+  },
+  {
+   "model_id": "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
+   "nickname": "",
+   "family": "pharia",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "Aleph-Alpha",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0,
+   "vocab_size_config": null,
+   "requires_pip": [
+    "sentencepiece",
+    "trust_remote_code"
+   ],
+   "load_note": "CONFIG NEEDS trust_remote_code (ValueError)"
+  },
+  {
+   "model_id": "Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
+   "nickname": "",
+   "family": "pharia",
+   "position": "base",
+   "stage": "base",
+   "org": "Aleph-Alpha",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0,
+   "vocab_size_config": null,
+   "requires_pip": [
+    "sentencepiece",
+    "trust_remote_code"
+   ],
+   "load_note": "CONFIG NEEDS trust_remote_code (ValueError)"
+  },
+  {
+   "model_id": "BSC-LT/salamandra-7b",
+   "nickname": "",
+   "family": "salamandra",
+   "position": "base",
+   "stage": "base",
+   "org": "BSC-LT",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2647,
+   "vocab_size_config": 256000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
+  },
+  {
+   "model_id": "BSC-LT/salamandra-7b-instruct",
+   "nickname": "",
+   "family": "salamandra",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "BSC-LT",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2647,
+   "vocab_size_config": 256000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "ContextualAI/archangel_sft-dpo_pythia2-8b",
@@ -239,7 +443,10 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 50304,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "ContextualAI/archangel_sft-kto_pythia2-8b",
@@ -384,7 +591,10 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 50304,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "EleutherAI/pythia-6.9b",
@@ -416,7 +626,10 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 50432,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "HuggingFaceH4/mistral-7b-sft-beta",
@@ -478,7 +691,12 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 32000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "HuggingFaceTB/SmolLM2-360M",
@@ -510,7 +728,10 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 49152,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "HuggingFaceTB/SmolLM2-360M-Instruct",
@@ -541,7 +762,10 @@
    "open_data": false,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 49152,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "HuggingFaceTB/SmolLM3-3B",
@@ -572,7 +796,10 @@
    "open_data": false,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 128256,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "HuggingFaceTB/SmolLM3-3B-Base",
@@ -604,7 +831,10 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 128256,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "LLM360/Amber",
@@ -636,7 +866,12 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 32000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "LLM360/AmberChat",
@@ -698,7 +933,12 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 32000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "NousResearch/Hermes-3-Llama-3.1-8B",
@@ -763,6 +1003,66 @@
    "cells_in_store": 0
   },
   {
+   "model_id": "OpenLLM-France/Lucie-7B",
+   "nickname": "",
+   "family": "lucie",
+   "position": "base",
+   "stage": "base",
+   "org": "OpenLLM-France",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2647,
+   "vocab_size_config": 65024,
+   "requires_pip": [],
+   "load_note": ""
+  },
+  {
+   "model_id": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "nickname": "",
+   "family": "lucie",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "OpenLLM-France",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2647,
+   "vocab_size_config": 65024,
+   "requires_pip": [],
+   "load_note": ""
+  },
+  {
    "model_id": "PKU-Alignment/alpaca-7b-reproduced",
    "nickname": "",
    "family": "beaver",
@@ -818,7 +1118,10 @@
    "pending_repair": null,
    "country": "CN",
    "org_type": "academic",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 32001,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "Qwen/Qwen2.5-0.5B",
@@ -850,7 +1153,10 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 151936,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
@@ -881,7 +1187,10 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 151936,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "Qwen/Qwen2.5-7B",
@@ -913,7 +1222,10 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 152064,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "Qwen/Qwen2.5-7B-Instruct",
@@ -944,7 +1256,10 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 152064,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "Qwen/Qwen3-8B",
@@ -975,7 +1290,10 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 151936,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "Qwen/Qwen3-8B-Base",
@@ -1007,7 +1325,10 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 151936,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "RWKV/rwkv-4-7b-pile",
@@ -1035,7 +1356,14 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 50277,
+   "requires_pip": [
+    "causal-conv1d",
+    "mamba-ssm",
+    "torch>=2.6"
+   ],
+   "load_note": "SSM/hybrid: without kernels the fallback path allocates the full state (Falcon-H1-1.5B asked for 75 GiB)"
   },
   {
    "model_id": "RWKV/rwkv-raven-7b",
@@ -1063,7 +1391,14 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 50277,
+   "requires_pip": [
+    "causal-conv1d",
+    "mamba-ssm",
+    "torch>=2.6"
+   ],
+   "load_note": "SSM/hybrid: without kernels the fallback path allocates the full state (Falcon-H1-1.5B asked for 75 GiB)"
   },
   {
    "model_id": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
@@ -1092,7 +1427,12 @@
    "pending_repair": null,
    "country": "SG",
    "org_type": "academic",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 32000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
@@ -1121,7 +1461,77 @@
    "pending_repair": null,
    "country": "SG",
    "org_type": "academic",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 32000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
+  },
+  {
+   "model_id": "Zyphra/Zamba2-7B",
+   "nickname": "",
+   "family": "zamba2",
+   "position": "base",
+   "stage": "base",
+   "org": "Zyphra",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0,
+   "vocab_size_config": null,
+   "requires_pip": [
+    "trust_remote_code"
+   ],
+   "load_note": "CONFIG NEEDS trust_remote_code (OSError)"
+  },
+  {
+   "model_id": "Zyphra/Zamba2-7B-Instruct",
+   "nickname": "",
+   "family": "zamba2",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "Zyphra",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0,
+   "vocab_size_config": 32000,
+   "requires_pip": [
+    "causal-conv1d",
+    "mamba-ssm"
+   ],
+   "load_note": "SSM/hybrid: without kernels the fallback path allocates the full state (Falcon-H1-1.5B asked for 75 GiB)"
   },
   {
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-DPO",
@@ -1189,8 +1599,8 @@
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
    "nickname": "tulu-sft-nomath",
    "family": "tulu-sft-nomath",
-   "position": "superego",
-   "stage": "dpo",
+   "position": "ego",
+   "stage": "sft",
    "org": "allenai",
    "params": "8B",
    "params_b": 8.0,
@@ -1220,8 +1630,8 @@
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
    "nickname": "tulu-sft-nopersona",
    "family": "tulu-sft-nopersona",
-   "position": "superego",
-   "stage": "dpo",
+   "position": "ego",
+   "stage": "sft",
    "org": "allenai",
    "params": "8B",
    "params_b": 8.0,
@@ -1282,8 +1692,8 @@
    "model_id": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
    "nickname": "tulu-sft-nowildchat",
    "family": "tulu-sft-nowildchat",
-   "position": "superego",
-   "stage": "dpo",
+   "position": "ego",
+   "stage": "sft",
    "org": "allenai",
    "params": "8B",
    "params_b": 8.0,
@@ -1370,7 +1780,10 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 100352,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "allenai/OLMo-2-0425-1B-DPO",
@@ -1401,7 +1814,12 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 100352,
+   "requires_pip": [
+    "torch>=2.6"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "allenai/OLMo-2-0425-1B-Instruct",
@@ -1432,7 +1850,10 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2583,
+   "vocab_size_config": 100352,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "allenai/OLMo-2-0425-1B-SFT",
@@ -1492,7 +1913,10 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 50304,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "allenai/OLMoE-1B-7B-0125-DPO",
@@ -1521,7 +1945,10 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 50304,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "allenai/OLMoE-1B-7B-0125-Instruct",
@@ -1550,7 +1977,10 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 2583
+   "cells_in_store": 2583,
+   "vocab_size_config": 50304,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "allenai/OLMoE-1B-7B-0125-SFT",
@@ -1611,7 +2041,10 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 100278,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "allenai/Olmo-3-1125-32B",
@@ -1640,7 +2073,10 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 100278,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "allenai/Olmo-3-7B-Instruct",
@@ -1702,7 +2138,10 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 100278,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "allenai/Olmo-3-7B-Instruct-SFT",
@@ -1764,7 +2203,10 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2583,
+   "vocab_size_config": 100278,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "allenai/Olmo-3-7B-Think-SFT",
@@ -1824,7 +2266,10 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 2583
+   "cells_in_store": 2583,
+   "vocab_size_config": 100278,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "allenai/Olmo-3.1-32B-Instruct-DPO",
@@ -1853,7 +2298,10 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 100278,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "allenai/Olmo-3.1-32B-Instruct-SFT",
@@ -1911,7 +2359,10 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 100352,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
@@ -1940,7 +2391,10 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "nonprofit",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 100352,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "allenai/Olmo-Hybrid-Instruct-SFT-7B",
@@ -2001,7 +2455,14 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 0
+   "cells_in_store": 0,
+   "vocab_size_config": null,
+   "requires_pip": [
+    "sentencepiece",
+    "torch>=2.6",
+    "trust_remote_code"
+   ],
+   "load_note": "CONFIG NEEDS trust_remote_code (ValueError)"
   },
   {
    "model_id": "baichuan-inc/Baichuan2-7B-Chat",
@@ -2032,7 +2493,14 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 0
+   "cells_in_store": 0,
+   "vocab_size_config": null,
+   "requires_pip": [
+    "sentencepiece",
+    "torch>=2.6",
+    "trust_remote_code"
+   ],
+   "load_note": "CONFIG NEEDS trust_remote_code (ValueError)"
   },
   {
    "model_id": "bigscience/bloom-7b1",
@@ -2060,7 +2528,10 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 250880,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "bigscience/bloomz-7b1",
@@ -2088,7 +2559,10 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 250880,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "cognitivecomputations/Dolphin3.0-Llama3.1-8B",
@@ -2147,6 +2621,68 @@
    "open_weight": true,
    "open_data": false,
    "cells_in_store": 0
+  },
+  {
+   "model_id": "croissantllm/CroissantLLMBase",
+   "nickname": "",
+   "family": "croissant",
+   "position": "base",
+   "stage": "base",
+   "org": "croissantllm",
+   "params": "",
+   "params_b": null,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 103,
+   "vocab_size_config": 32000,
+   "requires_pip": [
+    "torch>=2.6"
+   ],
+   "load_note": ""
+  },
+  {
+   "model_id": "croissantllm/CroissantLLMChat-v0.1",
+   "nickname": "",
+   "family": "croissant",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "croissantllm",
+   "params": "",
+   "params_b": null,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 103,
+   "vocab_size_config": 32002,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
@@ -2240,7 +2776,12 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 102400,
+   "requires_pip": [
+    "torch>=2.6"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "deepseek-ai/deepseek-llm-7b-chat",
@@ -2271,7 +2812,140 @@
    "country": "CN",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 102400,
+   "requires_pip": [
+    "torch>=2.6"
+   ],
+   "load_note": ""
+  },
+  {
+   "model_id": "google/gemma-2-9b",
+   "nickname": "",
+   "family": "gemma2",
+   "position": "base",
+   "stage": "base",
+   "org": "google",
+   "params": "9B",
+   "params_b": 9.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2647,
+   "vocab_size_config": 256000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
+  },
+  {
+   "model_id": "google/gemma-2-9b-it",
+   "nickname": "",
+   "family": "gemma2",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "google",
+   "params": "9B",
+   "params_b": 9.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2647,
+   "vocab_size_config": 256000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
+  },
+  {
+   "model_id": "google/recurrentgemma-9b",
+   "nickname": "",
+   "family": "recurrentgemma",
+   "position": "base",
+   "stage": "base",
+   "org": "google",
+   "params": "9B",
+   "params_b": 9.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 199,
+   "vocab_size_config": 256000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
+  },
+  {
+   "model_id": "google/recurrentgemma-9b-it",
+   "nickname": "",
+   "family": "recurrentgemma",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "google",
+   "params": "9B",
+   "params_b": 9.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 199,
+   "vocab_size_config": 256000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "huggyllama/llama-7b",
@@ -2299,7 +2973,138 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "individual",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 32000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
+  },
+  {
+   "model_id": "ibm-granite/granite-3.0-8b-base",
+   "nickname": "",
+   "family": "granite",
+   "position": "base",
+   "stage": "base",
+   "org": "ibm-granite",
+   "params": "8B",
+   "params_b": 8.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2647,
+   "vocab_size_config": 49152,
+   "requires_pip": [],
+   "load_note": ""
+  },
+  {
+   "model_id": "ibm-granite/granite-3.0-8b-instruct",
+   "nickname": "",
+   "family": "granite",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "ibm-granite",
+   "params": "8B",
+   "params_b": 8.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2647,
+   "vocab_size_config": 49155,
+   "requires_pip": [],
+   "load_note": ""
+  },
+  {
+   "model_id": "inceptionai/jais-family-6p7b",
+   "nickname": "",
+   "family": "jais",
+   "position": "base",
+   "stage": "base",
+   "org": "inceptionai",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2583,
+   "vocab_size_config": null,
+   "requires_pip": [
+    "sentencepiece",
+    "trust_remote_code"
+   ],
+   "load_note": "CONFIG NEEDS trust_remote_code (ValueError)"
+  },
+  {
+   "model_id": "inceptionai/jais-family-6p7b-chat",
+   "nickname": "",
+   "family": "jais",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "inceptionai",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2583,
+   "vocab_size_config": null,
+   "requires_pip": [
+    "sentencepiece",
+    "trust_remote_code"
+   ],
+   "load_note": "CONFIG NEEDS trust_remote_code (ValueError)"
   },
   {
    "model_id": "internlm/internlm2-base-7b",
@@ -2328,7 +3133,14 @@
    "pending_repair": null,
    "country": "CN",
    "org_type": "government",
-   "cells_in_store": 0
+   "cells_in_store": 0,
+   "vocab_size_config": null,
+   "requires_pip": [
+    "sentencepiece",
+    "torch>=2.6",
+    "trust_remote_code"
+   ],
+   "load_note": "CONFIG NEEDS trust_remote_code (ValueError)"
   },
   {
    "model_id": "internlm/internlm2-chat-7b",
@@ -2357,7 +3169,13 @@
    "pending_repair": null,
    "country": "CN",
    "org_type": "government",
-   "cells_in_store": 0
+   "cells_in_store": 0,
+   "vocab_size_config": null,
+   "requires_pip": [
+    "sentencepiece",
+    "trust_remote_code"
+   ],
+   "load_note": "CONFIG NEEDS trust_remote_code (ValueError)"
   },
   {
    "model_id": "internlm/internlm2-chat-7b-sft",
@@ -2389,6 +3207,120 @@
    "cells_in_store": 0
   },
   {
+   "model_id": "kakaocorp/kanana-1.5-8b-base",
+   "nickname": "",
+   "family": "kanana",
+   "position": "base",
+   "stage": "base",
+   "org": "kakaocorp",
+   "params": "8B",
+   "params_b": 8.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0
+  },
+  {
+   "model_id": "kakaocorp/kanana-1.5-8b-instruct-2505",
+   "nickname": "",
+   "family": "kanana",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "kakaocorp",
+   "params": "8B",
+   "params_b": 8.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0
+  },
+  {
+   "model_id": "llm-jp/llm-jp-3-7.2b",
+   "nickname": "",
+   "family": "llm-jp-3",
+   "position": "base",
+   "stage": "base",
+   "org": "llm-jp",
+   "params": "7.2B",
+   "params_b": 7.2,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2647,
+   "vocab_size_config": 99584,
+   "requires_pip": [],
+   "load_note": ""
+  },
+  {
+   "model_id": "llm-jp/llm-jp-3-7.2b-instruct3",
+   "nickname": "",
+   "family": "llm-jp-3",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "llm-jp",
+   "params": "7.2B",
+   "params_b": 7.2,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2647,
+   "vocab_size_config": 99584,
+   "requires_pip": [],
+   "load_note": ""
+  },
+  {
    "model_id": "lomahony/eleuther-pythia6.9b-hh-dpo",
    "nickname": "pythia-dpo",
    "family": "pythia",
@@ -2417,7 +3349,12 @@
    "open_data": false,
    "country": "IE",
    "org_type": "individual",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 50432,
+   "requires_pip": [
+    "torch>=2.6"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "lomahony/eleuther-pythia6.9b-hh-sft",
@@ -2476,7 +3413,12 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 125824,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "m-a-p/CT-LLM-SFT",
@@ -2532,7 +3474,12 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 125824,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "m-a-p/neo_7b",
@@ -2560,7 +3507,12 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 64256,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "m-a-p/neo_7b_instruct_v0.1",
@@ -2588,7 +3540,12 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "org_type": "collective",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 64256,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "m-a-p/neo_7b_sft_v0.1",
@@ -2645,7 +3602,12 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 0
+   "cells_in_store": 199,
+   "vocab_size_config": 128256,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "meta-llama/Llama-3.1-70B-Instruct",
@@ -2674,7 +3636,12 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 0
+   "cells_in_store": 199,
+   "vocab_size_config": 128256,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "meta-llama/Llama-3.1-8B",
@@ -2706,7 +3673,12 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 128256,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "meta-llama/Llama-3.1-8B-Instruct",
@@ -2737,7 +3709,12 @@
    "country": "US",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 128256,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "microsoft/phi-4",
@@ -2766,7 +3743,10 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 100352,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "microsoft/phi-4-reasoning",
@@ -2795,7 +3775,10 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 100352,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "mistralai/Mistral-7B-v0.1",
@@ -2827,7 +3810,138 @@
    "country": "FR",
    "open_weight": true,
    "open_data": false,
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 32000,
+   "requires_pip": [
+    "sentencepiece"
+   ],
+   "load_note": ""
+  },
+  {
+   "model_id": "mosaicml/mpt-7b",
+   "nickname": "",
+   "family": "mpt",
+   "position": "base",
+   "stage": "base",
+   "org": "mosaicml",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0,
+   "vocab_size_config": null,
+   "requires_pip": [],
+   "load_note": "REPO UNREADABLE: RepositoryNotFoundError"
+  },
+  {
+   "model_id": "mosaicml/mpt-7b-instruct",
+   "nickname": "",
+   "family": "mpt",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "mosaicml",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0,
+   "vocab_size_config": null,
+   "requires_pip": [],
+   "load_note": "REPO UNREADABLE: RepositoryNotFoundError"
+  },
+  {
+   "model_id": "openGPT-X/Teuken-7B-base-v0.6",
+   "nickname": "",
+   "family": "teuken",
+   "position": "base",
+   "stage": "base",
+   "org": "openGPT-X",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2304,
+   "vocab_size_config": 250880,
+   "requires_pip": [
+    "sentencepiece",
+    "trust_remote_code"
+   ],
+   "load_note": ""
+  },
+  {
+   "model_id": "openGPT-X/Teuken-7B-instruct-commercial-v0.4",
+   "nickname": "",
+   "family": "teuken",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "openGPT-X",
+   "params": "7B",
+   "params_b": 7.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 2304,
+   "vocab_size_config": 250680,
+   "requires_pip": [
+    "sentencepiece",
+    "trust_remote_code"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "openbmb/MiniCPM5-1B",
@@ -2855,7 +3969,10 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "country": "CN",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 130560,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "openbmb/MiniCPM5-1B-Base",
@@ -2883,7 +4000,10 @@
    "exclusion_reason": "",
    "pending_repair": null,
    "country": "CN",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 130560,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "openbmb/MiniCPM5-1B-SFT",
@@ -2971,7 +4091,10 @@
    "pending_repair": null,
    "country": "GB",
    "org_type": "company",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 100352,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "stabilityai/stablelm-2-1_6b-chat",
@@ -3029,7 +4152,37 @@
    "pending_repair": null,
    "country": "GB",
    "org_type": "company",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 100352,
+   "requires_pip": [],
+   "load_note": ""
+  },
+  {
+   "model_id": "team-hatakeyama-phase2/Tanuki-8B-base-v1.0",
+   "nickname": "",
+   "family": "tanuki",
+   "position": "base",
+   "stage": "base",
+   "org": "team-hatakeyama-phase2",
+   "params": "8B",
+   "params_b": 8.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0
   },
   {
    "model_id": "teknium/OpenHermes-2.5-Mistral-7B",
@@ -3089,7 +4242,13 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 65536,
+   "requires_pip": [
+    "causal-conv1d",
+    "mamba-ssm"
+   ],
+   "load_note": "SSM/hybrid: without kernels the fallback path allocates the full state (Falcon-H1-1.5B asked for 75 GiB)"
   },
   {
    "model_id": "tiiuae/Falcon-H1-1.5B-Instruct",
@@ -3118,7 +4277,13 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 65537,
+   "requires_pip": [
+    "causal-conv1d",
+    "mamba-ssm"
+   ],
+   "load_note": "SSM/hybrid: without kernels the fallback path allocates the full state (Falcon-H1-1.5B asked for 75 GiB)"
   },
   {
    "model_id": "tiiuae/Falcon-H1-7B-Base",
@@ -3147,7 +4312,13 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 130048,
+   "requires_pip": [
+    "causal-conv1d",
+    "mamba-ssm"
+   ],
+   "load_note": "SSM/hybrid: without kernels the fallback path allocates the full state (Falcon-H1-1.5B asked for 75 GiB)"
   },
   {
    "model_id": "tiiuae/Falcon-H1-7B-Instruct",
@@ -3176,7 +4347,13 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 130049,
+   "requires_pip": [
+    "causal-conv1d",
+    "mamba-ssm"
+   ],
+   "load_note": "SSM/hybrid: without kernels the fallback path allocates the full state (Falcon-H1-1.5B asked for 75 GiB)"
   },
   {
    "model_id": "tiiuae/Falcon3-10B-Base",
@@ -3205,7 +4382,10 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 131072,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "tiiuae/Falcon3-10B-Instruct",
@@ -3234,7 +4414,10 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 131072,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "tiiuae/Falcon3-1B-Base",
@@ -3263,7 +4446,10 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 131072,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "tiiuae/Falcon3-1B-Instruct",
@@ -3292,7 +4478,10 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 131072,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "tiiuae/Falcon3-3B-Base",
@@ -3321,7 +4510,10 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 131072,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "tiiuae/Falcon3-3B-Instruct",
@@ -3350,7 +4542,10 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 131072,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "tiiuae/Falcon3-7B-Base",
@@ -3379,7 +4574,10 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 131072,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "tiiuae/Falcon3-7B-Instruct",
@@ -3408,7 +4606,10 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 131072,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "tiiuae/Falcon3-Mamba-7B-Base",
@@ -3437,7 +4638,13 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 65024,
+   "requires_pip": [
+    "causal-conv1d",
+    "mamba-ssm"
+   ],
+   "load_note": "SSM/hybrid: without kernels the fallback path allocates the full state (Falcon-H1-1.5B asked for 75 GiB)"
   },
   {
    "model_id": "tiiuae/Falcon3-Mamba-7B-Instruct",
@@ -3466,7 +4673,13 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2577
+   "cells_in_store": 2641,
+   "vocab_size_config": 65024,
+   "requires_pip": [
+    "causal-conv1d",
+    "mamba-ssm"
+   ],
+   "load_note": "SSM/hybrid: without kernels the fallback path allocates the full state (Falcon-H1-1.5B asked for 75 GiB)"
   },
   {
    "model_id": "tiiuae/falcon-7b",
@@ -3558,7 +4771,13 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 65024,
+   "requires_pip": [
+    "causal-conv1d",
+    "mamba-ssm"
+   ],
+   "load_note": "SSM/hybrid: without kernels the fallback path allocates the full state (Falcon-H1-1.5B asked for 75 GiB)"
   },
   {
    "model_id": "tiiuae/falcon-mamba-7b-instruct",
@@ -3587,7 +4806,13 @@
    "pending_repair": null,
    "country": "AE",
    "org_type": "government",
-   "cells_in_store": 2577
+   "cells_in_store": 2641,
+   "vocab_size_config": 65024,
+   "requires_pip": [
+    "causal-conv1d",
+    "mamba-ssm"
+   ],
+   "load_note": "SSM/hybrid: without kernels the fallback path allocates the full state (Falcon-H1-1.5B asked for 75 GiB)"
   },
   {
    "model_id": "togethercomputer/RedPajama-INCITE-7B-Chat",
@@ -3616,7 +4841,12 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 50432,
+   "requires_pip": [
+    "torch>=2.6"
+   ],
+   "load_note": ""
   },
   {
    "model_id": "togethercomputer/RedPajama-INCITE-7B-Instruct",
@@ -3674,7 +4904,39 @@
    "pending_repair": null,
    "country": "US",
    "org_type": "company",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 50432,
+   "requires_pip": [
+    "torch>=2.6"
+   ],
+   "load_note": ""
+  },
+  {
+   "model_id": "weblab-GENIAC/Tanuki-8B-dpo-v1.0",
+   "nickname": "",
+   "family": "tanuki",
+   "position": "superego",
+   "stage": "dpo",
+   "org": "weblab-GENIAC",
+   "params": "8B",
+   "params_b": 8.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0
   },
   {
    "model_id": "zai-org/glm-4-9b-chat-hf",
@@ -3703,7 +4965,10 @@
    "pending_repair": null,
    "country": "CN",
    "org_type": "company",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 151552,
+   "requires_pip": [],
+   "load_note": ""
   },
   {
    "model_id": "zai-org/glm-4-9b-hf",
@@ -3732,7 +4997,10 @@
    "pending_repair": null,
    "country": "CN",
    "org_type": "company",
-   "cells_in_store": 2583
+   "cells_in_store": 2647,
+   "vocab_size_config": 151552,
+   "requires_pip": [],
+   "load_note": ""
   }
  ],
  "relations": [
@@ -3762,6 +5030,21 @@
    "relation": "dpo_of"
   },
   {
+   "parent": "AI-Sweden-Models/gpt-sw3-6.7b",
+   "child": "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct",
+   "relation": "dpo_of"
+  },
+  {
+   "parent": "Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
+   "child": "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
+   "relation": "dpo_of"
+  },
+  {
+   "parent": "BSC-LT/salamandra-7b",
+   "child": "BSC-LT/salamandra-7b-instruct",
+   "relation": "dpo_of"
+  },
+  {
    "parent": "ContextualAI/archangel_sft_pythia2-8b",
    "child": "ContextualAI/archangel_sft-dpo_pythia2-8b",
    "relation": "dpo_of"
@@ -3784,6 +5067,11 @@
   {
    "parent": "LLM360/AmberChat",
    "child": "LLM360/AmberSafe",
+   "relation": "dpo_of"
+  },
+  {
+   "parent": "OpenLLM-France/Lucie-7B",
+   "child": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
    "relation": "dpo_of"
   },
   {
@@ -3817,12 +5105,12 @@
    "relation": "dpo_of"
   },
   {
-   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
-   "child": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "parent": "Zyphra/Zamba2-7B",
+   "child": "Zyphra/Zamba2-7B-Instruct",
    "relation": "dpo_of"
   },
   {
-   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
    "child": "allenai/Llama-3.1-Tulu-3-8B-DPO",
    "relation": "dpo_of"
   },
@@ -3867,13 +5155,48 @@
    "relation": "dpo_of"
   },
   {
+   "parent": "croissantllm/CroissantLLMBase",
+   "child": "croissantllm/CroissantLLMChat-v0.1",
+   "relation": "dpo_of"
+  },
+  {
    "parent": "deepseek-ai/deepseek-llm-7b-base",
    "child": "deepseek-ai/deepseek-llm-7b-chat",
    "relation": "dpo_of"
   },
   {
+   "parent": "google/gemma-2-9b",
+   "child": "google/gemma-2-9b-it",
+   "relation": "dpo_of"
+  },
+  {
+   "parent": "google/recurrentgemma-9b",
+   "child": "google/recurrentgemma-9b-it",
+   "relation": "dpo_of"
+  },
+  {
+   "parent": "ibm-granite/granite-3.0-8b-base",
+   "child": "ibm-granite/granite-3.0-8b-instruct",
+   "relation": "dpo_of"
+  },
+  {
+   "parent": "inceptionai/jais-family-6p7b",
+   "child": "inceptionai/jais-family-6p7b-chat",
+   "relation": "dpo_of"
+  },
+  {
    "parent": "internlm/internlm2-chat-7b-sft",
    "child": "internlm/internlm2-chat-7b",
+   "relation": "dpo_of"
+  },
+  {
+   "parent": "kakaocorp/kanana-1.5-8b-base",
+   "child": "kakaocorp/kanana-1.5-8b-instruct-2505",
+   "relation": "dpo_of"
+  },
+  {
+   "parent": "llm-jp/llm-jp-3-7.2b",
+   "child": "llm-jp/llm-jp-3-7.2b-instruct3",
    "relation": "dpo_of"
   },
   {
@@ -3902,23 +5225,18 @@
    "relation": "dpo_of"
   },
   {
-   "parent": "meta-llama/Llama-3.1-8B",
-   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
-   "relation": "dpo_of"
-  },
-  {
-   "parent": "meta-llama/Llama-3.1-8B",
-   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
-   "relation": "dpo_of"
-  },
-  {
-   "parent": "meta-llama/Llama-3.1-8B",
-   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
-   "relation": "dpo_of"
-  },
-  {
    "parent": "microsoft/phi-4",
    "child": "microsoft/phi-4-reasoning",
+   "relation": "dpo_of"
+  },
+  {
+   "parent": "mosaicml/mpt-7b",
+   "child": "mosaicml/mpt-7b-instruct",
+   "relation": "dpo_of"
+  },
+  {
+   "parent": "openGPT-X/Teuken-7B-base-v0.6",
+   "child": "openGPT-X/Teuken-7B-instruct-commercial-v0.4",
    "relation": "dpo_of"
   },
   {
@@ -3929,6 +5247,11 @@
   {
    "parent": "stabilityai/stablelm-2-1_6b-chat",
    "child": "stabilityai/stablelm-2-zephyr-1_6b",
+   "relation": "dpo_of"
+  },
+  {
+   "parent": "team-hatakeyama-phase2/Tanuki-8B-base-v1.0",
+   "child": "weblab-GENIAC/Tanuki-8B-dpo-v1.0",
    "relation": "dpo_of"
   },
   {
@@ -4483,7 +5806,22 @@
   },
   {
    "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "relation": "sft_of"
+  },
+  {
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "relation": "sft_of"
+  },
+  {
+   "parent": "meta-llama/Llama-3.1-8B",
    "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "relation": "sft_of"
+  },
+  {
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
    "relation": "sft_of"
   },
   {
