@@ -94,9 +94,20 @@ SCHEMA = {
              "truth, never re-derived"},
     "pair_id": {"type": "str|null", "desc": "groups the members of a minimal pair or "
                 "series"},
-    "pair_role": {"type": "str|null", "values": ["MARKED", "UNMARKED"],
+    "pair_role": {"type": "str|null",
+                  "values": ["MARKED", "UNMARKED", "NOT_A_POLE"],
                   "desc": "which member carries the manipulation. NOT a claim about "
-                          "harm."},
+                          "harm. **NOT_A_POLE IS DECLARED ABSENCE, NOT MISSING "
+                          "DATA.** A BOTH-poles conjunction has no value in a "
+                          "two-valued field, so it took the empty string -- and an "
+                          "empty string is also what an un-ingested row looks like. "
+                          "lacan [5351] found all 5 blank-role rows in the 4 "
+                          "half-populated pairs are conjunctions, and that the two "
+                          "wrongly-ACTIVE rows are among them: the same defect "
+                          "reached from two sides. The absent-vs-empty collision, "
+                          "in the SCHEMA rather than in a script -- which is why it "
+                          "outlived every script-level fix this week. Read "
+                          "group_role for the five-valued vocabulary."},
     "pair_contrast": {"type": "str|null", "desc": "the tokens that differ, "
                       "marked/unmarked, e.g. 'shoved/helped'"},
     "contrast_type": {"type": "str|null",
@@ -314,6 +325,108 @@ def main():
                 notes="transgressive word is in the PROMPT; the completion is the "
                       "measurement"))
 
+    # ---- F11 QUINTUPLETS: THE DECLARED SOURCE, READ FIRST ------------------
+    #
+    # **THIS FILE WAS NEVER READ AND THAT IS THE DEFECT.** `f11_quintuplets.json`
+    # has held the authored F11 population since [5072]; this producer reached
+    # F11 by thirteen other routes plus the one-token-contrast RE-DETECTOR
+    # below. Registrar [5345]: it is `lineage.py`'s defect in prompt space -- a
+    # reconstruction running beside the declared store.
+    #
+    # Three measured consequences, all mine ([2047] commissioned the containment
+    # guard to this seat and [2051] closed it):
+    #
+    #   68 role-rows of authored CONTROL are STRUCTURALLY INVISIBLE. A control
+    #     is a yoked conjunction with NO ONE-TOKEN TWIN, so the detector cannot
+    #     ever see one -- not late, unreachable. My regeneration guard watches
+    #     the producer's OUTPUT for shrinkage and is blind by construction to a
+    #     population that never enters the producer at all.
+    #   2 rows from a MIXED: ACTIVE/DISPUTED group sit ACTIVE, because the
+    #     detector stamps ACTIVE unconditionally and status flowed only through
+    #     ingested routes.
+    #   the detector was wrapped in `except Exception: print(...)`, so the block
+    #     that could never see a control also never said so.
+    #
+    # **THE DECLARED SOURCE OUTRANKS RE-DETECTION FOR F11** (specific before
+    # general, the same rule as `cache.logit_path` preferring a repo-relative
+    # path). The detector keeps genuinely unmapped store prompts and loses the
+    # right to stamp F11 -- `_seen` is primed here, so anything this block
+    # claims is invisible to it.
+    #
+    # SCOPE, ruled by registrar [5350] after I measured four defensible numbers
+    # and could not reproduce their 47: ALL 44 GROUPS, ALL `authored*` CONTROLS,
+    # counted in ROLE-ROWS. Filtering at the door is the detector's crime with a
+    # nicer face -- statuses are CARRIED so retirement stays discoverable.
+    #: **PRIMED BY THE DECLARED SOURCE, DECLARED BEFORE IT.** `_seen` used to be
+    #: created inside the detector's try block; it is hoisted so the quintuplets
+    #: can prime it, which is the mechanism by which the declared source outranks
+    #: re-detection rather than merely running first.
+    _seen = set()
+    _QROLES = (("pole_a", "POLE_A"), ("pole_b", "POLE_B"), ("both", "BOTH"),
+               ("control_a", "CONTROL_A"), ("control_b", "CONTROL_B"))
+    #: repo-relative, like OUT and prompt_inventory.csv above -- this
+    #: producer runs from the repo root by convention.
+    _qpath = "data/f11_quintuplets.json"
+    _qdoc = json.load(open(_qpath))
+    _qgroups = [v for k, v in _qdoc.items() if not k.startswith("_")]
+    if len(_qgroups) == 1 and isinstance(_qgroups[0], list):
+        _qgroups = _qgroups[0]
+    #: **THE DECLARED SOURCE SUPERSEDES, IT DOES NOT SIT BESIDE.** Measured
+    #: before writing this: of the 200 quintuplet role-rows, **132 are ALREADY in
+    #: the catalogue by another route (every POLE_A, POLE_B and BOTH) and 68 are
+    #: absent (every CONTROL)**. Appending would therefore duplicate 132 rows --
+    #: and would NOT fix the wrongly-ACTIVE pair, because those two rows are
+    #: among the 132: they arrive from another route carrying an unconditional
+    #: ACTIVE, so a row appended beside them changes nothing a reader sees.
+    #:
+    #: So any earlier row for a quintuplet text is REMOVED and replaced. That is
+    #: what "specific before general" has to mean when the general one already
+    #: wrote: not "run first", but "win".
+    _qall = {(_g.get(_f) or "").rstrip()
+             for _g in _qgroups for _f, _ in _QROLES if _g.get(_f)}
+    _before = len(rows)
+    rows[:] = [_r for _r in rows if _r.get("prompt") not in _qall]
+    _superseded = _before - len(rows)
+    _qrows = _qtexts = 0
+    for _g in _qgroups:
+        _gid = _g.get("group")
+        for _field, _role in _QROLES:
+            _t = _g.get(_field)
+            if not _t:
+                continue
+            _t = _t.rstrip()
+            _qrows += 1
+            _seen.add(_t)                      # the detector must not re-stamp it
+            rows.append(dict(
+                prompt=_t, prompt_id=f"{_gid}_{_role}",
+                finding="F11", source="QUINTUPLETS",
+                language=_g.get("language", "en"),
+                domain="contradiction", subdomain=_g.get("subdomain"),
+                slot=None, pair_id=_gid,
+                #: **ABSENT BY DECLARATION, NEVER BY DEFAULT** (lacan [5351]).
+                #: `.get()` returning None here would write the same blank that
+                #: makes a conjunction indistinguishable from an un-ingested row.
+                pair_role={"POLE_A": "MARKED",
+                           "POLE_B": "UNMARKED"}.get(_role, "NOT_A_POLE"),
+                pair_contrast=None,
+                contrast_type="pole_swap" if _role == "BOTH" else None,
+                ladder_id=None, ladder_rank=None, axes_expected=[],
+                group_id=_gid, group_role=_role, slot_status="UNASSIGNED",
+                # **CARRIED, NEVER RE-STAMPED.** The 2 wrongly-ACTIVE rows are
+                # exactly what unconditional ACTIVE produced.
+                status=_g.get("status", "ACTIVE"),
+                notes=f"declared F11 quintuplet, role {_role}; "
+                      f"controls_status={_g.get('controls_status')!r}"))
+    _qtexts = len({r["prompt"] for r in rows if r.get("source") == "QUINTUPLETS"})
+    # **BOTH UNITS, EACH WITH ITS WORD** (registrar [5350] rider 1). The battery
+    # arithmetic downstream reads TEXTS because twp_cloud dedupes; the catalogue
+    # reads ROLE-ROWS. Ten unit-word disagreements this week were one phrase
+    # naming two quantities, so the artifact says both and nobody subtracts
+    # across kinds. The 6 control texts serving two groups appear once per group.
+    print(f"  F11 quintuplets: {_qrows} role-rows / {_qtexts} distinct texts "
+          f"from {len(_qgroups)} groups; superseded {_superseded} rows from "
+          f"other routes")
+
     # ---- pairs and triples already in the store, keyed so they are analysable --
     try:
         import pandas as _pd, re as _re
@@ -340,7 +453,9 @@ def main():
                 for _i, (_w, _sw) in enumerate(zip(_tk[_q], _stem.split())):
                     if _sw == "_":
                         _poles[_stem].add(_w)
-        _seen = set()
+        #: NOT `_seen = set()`. Resetting here would let the detector re-stamp
+        #: every quintuplet text as source=OTHER status=ACTIVE, which is the
+        #: defect this change exists to remove.
         _gid = 0
         for _stem, _ps in sorted(_grp.items()):
             _gid += 1
@@ -379,8 +494,21 @@ def main():
                     slot_status="UNASSIGNED", status="ACTIVE",
                     notes="BOTH-POLES member: the critical cell for superposition vs "
                           "frame-exit. Missed by one-token pair detection."))
-    except Exception as _e:
-        print("store pair block skipped:", _e)
+    except FileNotFoundError as _e:
+        #: **THE ONLY TOLERABLE FAILURE HERE, AND IT IS NAMED.** `prompt_inventory.csv`
+        #: is an optional input; its absence means the detector has nothing to
+        #: detect over, which is a fact about the checkout rather than a defect.
+        #:
+        #: EVERYTHING ELSE NOW RAISES. This was `except Exception: print(...)`
+        #: -- the [5339] silent-failure pattern, in the producer that was
+        #: otherwise the model citizen. It is the mechanism by which a block that
+        #: could NEVER see a yoked control also never said so: any error inside
+        #: it printed one line into a build that then reported success, and the
+        #: catalogue shipped without the population nobody knew was missing.
+        #:
+        #: A bare except on a block that BUILDS A POPULATION converts "this
+        #: producer is broken" into "this producer is quiet".
+        print("  detector: no prompt_inventory.csv, nothing to detect over (%s)" % _e)
 
     for _r in rows:
         _r.setdefault("group_id", _r.get("pair_id") or _r.get("ladder_id"))
