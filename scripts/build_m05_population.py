@@ -1,17 +1,30 @@
 #!/usr/bin/env python
-"""Enumerate the M05 phase-1 checkpoint population -> data/m05_checkpoint_population.json.
+"""Enumerate the M05 checkpoint population -> data/m05_checkpoint_population.json.
 
     cd ~/github/malign-logits && uv run python scripts/build_m05_population.py
 
 The population is CHECKPOINTS (model_id, revision), enumerated as strings, per
-the [5148] plan-documents standard. Phase 1 is the Think-SFT acquisition ladder:
-every step branch of allenai/Olmo-3-7B-Think-SFT plus its two anchors (the SFT
-endpoint `main` and the base endpoint `allenai/Olmo-3-1025-7B` @ `main`).
+the [5148] plan-documents standard. Two arms:
 
-Source of record: data/model_revisions.json (produced by
-scripts/fetch_model_revisions.py, 2026-08-10). This script refuses to write if
-the step set is not contiguous at 1000-step spacing -- a missing rung is a fact
-the plan must state, not a gap to discover mid-run.
+- SFT arm: every step branch of allenai/Olmo-3-7B-Think-SFT (43, contiguous at
+  1000) plus the SFT endpoint `main`.
+- BASE arm (added 2026-08-10 on RH's word, "include the olmo BASE checkpoints
+  too"): a DECLARED log-spaced subsample of the allenai/Olmo-3-1025-7B ladder
+  (1,486 step branches: stage1 1,421 / stage2 52 / stage3 13), plus `main`.
+  The rule, stated so the subsample is a computation and not a curation:
+    stage1  step0 (the init anchor) + geometric grid from step1000 at ratio
+            sqrt(2) (half-octave; dense early, where F24's sequence lives),
+            each target snapped to the nearest available step, deduplicated,
+            + the final step  -> 22
+    stage2  geometric grid at ratio 2 (full octave) + final step      ->  7
+    stage3  ALL 13 (it is the anneal, it is short, and its tips are the
+            join candidates for secondary 3)                          -> 13
+
+Source of record: data/model_revisions.json (scripts/fetch_model_revisions.py,
+2026-08-10). This script refuses to write if the SFT step set is not
+contiguous at 1000-step spacing, or if any snapped base step is not an actual
+branch -- a missing rung is a fact the plan must state, not a gap to discover
+mid-run.
 """
 import json
 import os
@@ -27,35 +40,77 @@ SFT = "allenai/Olmo-3-7B-Think-SFT"
 BASE = "allenai/Olmo-3-1025-7B"
 
 
+def stage_steps(branches, stage):
+    pat = re.compile(re.escape(stage) + r"step(\d+)")
+    return sorted(int(m.group(1)) for b in branches if (m := pat.fullmatch(b)))
+
+
+def geo_snap(avail, ratio):
+    """Geometric targets from 1000 up, snapped to nearest available step,
+    deduplicated, final step always included."""
+    picks, t = [], 1000.0
+    while t <= avail[-1]:
+        picks.append(min(avail, key=lambda a: abs(a - t)))
+        t *= ratio
+    picks.append(avail[-1])
+    return sorted(set(picks))
+
+
 def main():
     revs = json.load(open(SRC))["models"]
-    branches = revs[SFT]["branches"]
-    steps = sorted(int(m.group(1)) for b in branches
-                   if (m := re.fullmatch(r"step(\d+)", b)))
-    expected = list(range(1000, steps[-1] + 1, 1000))
-    assert steps == expected, f"step set not contiguous: {steps}"
 
-    ckpts = ([{"model_id": BASE, "revision": "main", "role": "base_endpoint"}]
-             + [{"model_id": SFT, "revision": f"step{s}", "role": "sft_step",
-                 "step": s} for s in steps]
-             + [{"model_id": SFT, "revision": "main", "role": "sft_endpoint"}])
+    sft_branches = revs[SFT]["branches"]
+    sft_steps = sorted(int(m.group(1)) for b in sft_branches
+                       if (m := re.fullmatch(r"step(\d+)", b)))
+    assert sft_steps == list(range(1000, sft_steps[-1] + 1, 1000)), \
+        f"SFT step set not contiguous: {sft_steps}"
+
+    base_branches = set(revs[BASE]["branches"])
+    s1 = stage_steps(base_branches, "stage1-")
+    s2 = stage_steps(base_branches, "stage2-")
+    s3 = stage_steps(base_branches, "stage3-")
+    grid = ([("stage1", s) for s in [0] + geo_snap([x for x in s1 if x > 0],
+                                                   2 ** 0.5)]
+            + [("stage2", s) for s in geo_snap(s2, 2.0)]
+            + [("stage3", s) for s in s3])
+    base_revs = [f"{stage}-step{s}" for stage, s in grid]
+    missing = [r for r in base_revs if r not in base_branches]
+    assert not missing, f"snapped to non-existent branches: {missing}"
+
+    ckpts = (
+        [{"model_id": BASE, "revision": r, "role": "base_step",
+          "stage": r.split("-")[0], "step": int(r.rsplit("step", 1)[1])}
+         for r in base_revs]
+        + [{"model_id": BASE, "revision": "main", "role": "base_endpoint"}]
+        + [{"model_id": SFT, "revision": f"step{s}", "role": "sft_step",
+            "step": s} for s in sft_steps]
+        + [{"model_id": SFT, "revision": "main", "role": "sft_endpoint"}]
+    )
+    n_stage = {st: sum(1 for c in ckpts if c.get("stage") == st)
+               for st in ("stage1", "stage2", "stage3")}
     out = {
-        "_about": ("M05 phase-1 population: the Think-SFT acquisition ladder, "
-                   "checkpoints enumerated as (model_id, revision) strings. "
-                   "The unit of this experiment is the checkpoint, not the "
-                   "base/aligned pair."),
+        "_about": ("M05 population: the Think-SFT acquisition ladder plus a "
+                   "declared log-spaced subsample of the Olmo-3-1025-7B base "
+                   "ladder. Checkpoints enumerated as (model_id, revision) "
+                   "strings; the unit of this experiment is the checkpoint, "
+                   "not the base/aligned pair. Subsample rule in the producer "
+                   "docstring -- a computation, not a curation."),
         "_producer": "scripts/build_m05_population.py",
         "_source_of_record": "data/model_revisions.json",
         "_generated": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "n_checkpoints": len(ckpts),
-        "n_sft_steps": len(steps),
-        "step_spacing": 1000,
+        "n_sft_steps": len(sft_steps),
+        "n_base_steps": len(base_revs),
+        "base_steps_by_stage": n_stage,
+        "base_ladder_available": {"stage1": len(s1), "stage2": len(s2),
+                                  "stage3": len(s3)},
         "checkpoints": ckpts,
     }
     with open(OUT, "w") as f:
         json.dump(out, f, indent=1)
     print(f"wrote {OUT}: {len(ckpts)} checkpoints "
-          f"({len(steps)} SFT steps + 2 anchors)")
+          f"({len(base_revs)} base steps {n_stage} + {len(sft_steps)} SFT "
+          f"steps + 2 endpoints)")
 
 
 if __name__ == "__main__":
