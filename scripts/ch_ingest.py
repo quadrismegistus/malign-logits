@@ -63,6 +63,10 @@ DB = "malign_logits"
 #: databases that must never appear in a statement this script issues
 FORBIDDEN = ("lltk", "abstraction", "llmtasks", "tmp", "default", "system")
 TRUNC = 1e-6
+#: WHICH RUN WINS WHEN A CELL WAS SCORED TWICE. Declared, ordered, and applied
+#: at READ time so both observations stay in the table. Latest run first: the
+#: 8 Aug pass is the more recent measurement of the same configuration.
+SOURCE_PRECEDENCE = ("f11_twp_delta", "f11_twp", "cloud_run_20260801")
 
 #: **NO BRACES IN THIS f-STRING'S COMMENTS.** Interpolation happens when the
 #: module loads, before any splitting, so `{i : ...}` in a SQL comment raises
@@ -82,7 +86,17 @@ CREATE TABLE IF NOT EXISTS {DB}.twp_words (
     source       LowCardinality(String),
     ingested     DateTime DEFAULT now()
 ) ENGINE = ReplacingMergeTree(ingested)
-ORDER BY (model, prompt, word);
+-- `source` IS IN THE KEY BECAUSE THE RUNS ARE TWO OBSERVATIONS, NOT TWO
+-- VERSIONS. The same cell appears in cloud_run_20260801 (2 Aug) and f11_twp
+-- (8 Aug) with IDENTICAL theta, rule_version, dict_sha and bos_policy, both
+-- conserving to 1e-7, and DIFFERENT values -- 146 words against 144, and
+-- believe at 0.014100950 against 0.014550155. That is run-to-run variance on
+-- one declared configuration, so neither supersedes the other by declaration.
+-- Without `source` in the key they collided and ReplacingMergeTree kept
+-- whichever merged last, which is how the stash and ClickHouse ended up
+-- holding OPPOSITE resolutions of the same cell. Readers pick a source
+-- explicitly, or take SOURCE_PRECEDENCE.
+ORDER BY (model, prompt, word, source);
 
 CREATE TABLE IF NOT EXISTS {DB}.twp_residual (
     model        LowCardinality(String),
@@ -98,7 +112,7 @@ CREATE TABLE IF NOT EXISTS {DB}.twp_residual (
     source       LowCardinality(String),
     ingested     DateTime DEFAULT now()
 ) ENGINE = ReplacingMergeTree(ingested)
-ORDER BY (model, prompt);
+ORDER BY (model, prompt, source);
 
 CREATE TABLE IF NOT EXISTS {DB}.logit_probs (
     model     LowCardinality(String),

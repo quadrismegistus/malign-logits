@@ -401,8 +401,30 @@ def word_probs(model, prompt, theta=0.001, mode="raw", cache=None):
     `collapsed` reports how many rows were folded, so a caller can see when it happened.
     """
     from .cache import get_cache
-    cm = cache or get_cache()
-    payload = cm.get_true_word_probs(model, prompt, theta=theta, mode=mode)
+    #: CLICKHOUSE READ PATH, opt-in, ONE choke point for every caller.
+    #:
+    #: RH, 2026-08-10: migrate to ClickHouse. Every twp consumer reaches the
+    #: store through this function -- `Cell.pre.probs` -> `word_probs` ->
+    #: `cm.get_true_word_probs` -- so the backing store swaps HERE without
+    #: touching the 86 files that import Step or movement.
+    #:
+    #: `MALIGN_TWP_SOURCE=clickhouse` switches it; the default stays hashstash,
+    #: so nothing changes until a caller asks and the two remain comparable
+    #: while both exist (`scripts/ch_reconcile.py`).
+    #:
+    #: THE FOLD STILL HAPPENS BELOW, DELIBERATELY. `ch_twp_payload` returns rows
+    #: in the same shape the stash does, so the partition-summing and the
+    #: malformed-row refusals in this function apply identically to both stores.
+    #: Folding in SQL instead would put the rule in two places -- the failure
+    #: this module warns about -- so the ingest folds for its own table and this
+    #: path is handed raw rows.
+    import os as _os
+    if _os.environ.get("MALIGN_TWP_SOURCE", "").lower() == "clickhouse":
+        from .ch_read import ch_twp_payload
+        payload = ch_twp_payload(model, prompt, theta=theta, mode=mode)
+    else:
+        cm = cache or get_cache()
+        payload = cm.get_true_word_probs(model, prompt, theta=theta, mode=mode)
     if payload is None:
         return None
     rows = payload.get("rows") or []
