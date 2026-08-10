@@ -632,7 +632,26 @@ def ingest_twp(limit=None, batch=200_000):
                     continue
                 rows = d.get("rows") or []
                 _r = d.get("residual")
-                if not rows or _r is None:
+                #: **`not rows` AND `_r is None` ARE DIFFERENT FACTS AND THIS
+                #: CONDITION CONFLATED THEM**, costing 886 cells.
+                #:
+                #:   _r is None    a skip: no distribution was computed. Refuse.
+                #:   rows == []    a MEASUREMENT: the cell was scored, the
+                #:                 residual conserves, and nothing cleared
+                #:                 theta. That is an observation about a floor,
+                #:                 not an absence of one.
+                #:
+                #: The genuine skips are already caught above by the `skipped`
+                #: marker, so `not rows` reaching here means a scored cell whose
+                #: whole mass went to tail/drop/mojibake -- e.g. Pharia on a
+                #: Chinese prompt at 99.64% mojibake, residual total 1.0.
+                #:
+                #: The stash keeps these (`twp_ingest` refuses only on the
+                #: `skipped` marker), so dropping them here made the two stores
+                #: differ by exactly these 886 -- every one of them empty, and
+                #: not a single real distribution missing. Agreed policy at
+                #: [5305]/[5306]: both stores KEEP them.
+                if _r is None:
                     rej["no_distribution"] += 1
                     continue
                 #: CONSERVATION. Word mass plus the four-way residual sums to 1.

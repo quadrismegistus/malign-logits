@@ -209,7 +209,30 @@ def main():
         #: .n_rows, .n_surfaces, .residual, .rule_version, .total -- NOT a dict.
         #: `.collapsed` is the library's own count of folded surfaces, which is
         #: the quantity the ClickHouse ingest was silently discarding.
-        st = getattr(wp, "probs", None)
+        #: **ABSENT AND EMPTY ARE DIFFERENT AND THIS TESTED FALSINESS.**
+        #: `if not st` fires for BOTH a cell the stash lacks and a cell the
+        #: stash holds whose distribution is empty -- and once empty cells were
+        #: ingested to ClickHouse as agreed, the second became common. The
+        #: reconcile reported `missing_stash 1` in the same run whose population
+        #: check said the two cell sets were IDENTICAL, which is not a state
+        #: that can exist. A contradiction between two of its own outputs is
+        #: the only reason it was caught.
+        #:
+        #: Every sampled cell is drawn FROM `twp_residual`, so it is in
+        #: ClickHouse by construction: `not ch` means the cell has no WORDS,
+        #: never that it is absent. On the stash side `wp is None` is absent
+        #: and `wp.probs == {}` is present-and-empty.
+        #:
+        #: Two empty distributions for the same cell AGREE. A floor is an
+        #: observation ([5305]); two stores recording the same floor is the
+        #: agreement this script exists to confirm, not a gap.
+        if wp is None:
+            cls["missing_stash"] += 1
+            continue
+        st = getattr(wp, "probs", None) or {}
+        if not ch and not st:
+            cls["agree_empty"] += 1
+            continue
         if not st:
             cls["missing_stash"] += 1
             continue
@@ -237,7 +260,8 @@ def main():
             cls["agree"] += 1
 
     print("%-16s %s" % ("class", "cells"))
-    for k in ("agree", "value", "word_set", "missing_ch", "missing_stash", "stash_raised"):
+    for k in ("agree", "agree_empty", "value", "word_set", "missing_ch",
+              "missing_stash", "stash_raised"):
         if cls.get(k):
             print("  %-14s %s" % (k, format(cls[k], ",")))
     print("\nworst per-word absolute difference: %.3e (tolerance %.0e)" % (worst, a.tol))
