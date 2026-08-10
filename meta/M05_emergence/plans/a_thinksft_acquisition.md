@@ -43,12 +43,28 @@ ENUMERATED as (model_id, revision) strings.** Producer
 `scripts/build_m05_population.py`, which refuses to write unless the step set
 is contiguous at 1000-step spacing (it is: step1000..step43000).
 
-    population                 45 checkpoints    sha256/16  7f7b2565e25b3be3
+    population v2              87 checkpoints    sha256/16  5d4a7da2162ea97b
+    (v1, 45 ckpts, 7f7b2565e25b3be3 -- superseded 2026-08-10, RH's word:
+    "include the olmo BASE checkpoints too"; the base arm folds F24's phase 2
+    into this plan)
     source of record           data/model_revisions.json    7ccdca07457e7545
 
+    base_step       42     allenai/Olmo-3-1025-7B, declared log subsample of
+                           the 1,486-step ladder (available: stage1 1,421 /
+                           stage2 52 / stage3 13):
+                             stage1  22   step0 (init anchor) + half-octave
+                                          grid from step1000 + final
+                                          step1413814 -- dense early, where
+                                          F24's sequence lives
+                             stage2   7   full-octave grid + final step47684
+                             stage3  13   ALL -- the anneal is short and its
+                                          tips are the join candidates
+                           The rule is a computation in the producer, not a
+                           curation; snapping to non-existent branches is a
+                           refusal, not a warning.
+    base_endpoint    1     allenai/Olmo-3-1025-7B @ main
     sft_step        43     allenai/Olmo-3-7B-Think-SFT @ step1000..step43000
     sft_endpoint     1     allenai/Olmo-3-7B-Think-SFT @ main
-    base_endpoint    1     allenai/Olmo-3-1025-7B @ main
 
 **Battery: the seats' costing decision, between two declared options.**
 (a) The standing 2,583-prompt battery, full — every checkpoint lands directly
@@ -124,6 +140,17 @@ base `main`, the vendor's lineage claim stands unrefined and phase 2 anchors
 on `main`; if one anneal tip is closest, phase 2 anchors there and the two
 ladders are joined at a named revision.
 
+**Base-arm primary (v2, the F24 half): the developmental sequence.** F24's
+Pythia ordering -- drives -> structure -> deference -> superposition -- tested
+on OLMo from the same twp passes: the F04/U word panels give the drive and
+repression trajectories directly; deference and format markers ride the greedy
+panel (extended to the 42 base checkpoints, same 4 prompts, same string
+rules). Priors both ways: if the ordering replicates, F24 graduates from
+single-family (its own open TODO closed on the family it named); if it does
+not, F24's sequence is a Pythia fact, not a pretraining fact -- either way the
+SFT arm's curves gain their left context: what the operations look like
+BEFORE the run that installs the correction.
+
 ## COST
 
 **Owed by @malign, not guessed here.** The shape: 45 model loads of a 7B at
@@ -143,3 +170,12 @@ check costs nothing but local disk and can run today.
 > revision-in-key is a schema change across both stores (`_twp_key` has no
 > revision field; twp_ingest, ch_ingest, logit index, resolve_twp_sources all
 > key off it) — scoped deliberately BEFORE anything is scored.
+
+> **POPULATION v2, 2026-08-10 (same day): 87 checkpoints.** At [5333]'s
+> measured rates (linear in prompts, load ~0) the full battery scales to
+> ~87/45 of the costed number: **~$14-31 central for the whole ladder**, base
+> arm ~$7-15 of it. One new caveat the base arm adds: the 42 base checkpoints
+> are the SAME repo at 42 revisions -- if the fleet's --purge-per-download
+> path assumes one revision per repo anywhere, that assumption is now load-
+> bearing and needs the same check the revision-in-key demand gets.
+> @malign re-costs officially; the numbers here are the pen's scaling of his.
