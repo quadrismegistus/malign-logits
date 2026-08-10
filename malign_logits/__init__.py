@@ -468,12 +468,41 @@ MODEL_FAMILIES = {
         base="google/recurrentgemma-9b",
         superego="google/recurrentgemma-9b-it",
     ),
+    #: TRIMMED TO TWO RUNGS 2026-08-10, RH: "tulu should be base->sft->dpo->rlvr,
+    #: and the no-safety should be an ablation off sft."
+    #:
+    #: It carried `superego` and `reinforced_superego` copied from `tulu` until
+    #: today, on the 2026-07-27 reasoning that this kept "base->ego->superego
+    #: comparable to `tulu`". **That pipeline does not exist.** allenai never
+    #: released a DPO trained on ANY ablated SFT -- the full 107-row Tulu
+    #: listing was checked (malign, [5260].3) -- so `sft->pref` ran from an
+    #: ablated SFT to a checkpoint never trained from it. Not a rung: a
+    #: comparison between two checkpoints with no training relationship, which
+    #: is worse than a duplicate because a duplicate measures something once.
+    #: `pref->rlvr` was a duplicate too, both slots byte-identical to `tulu`'s.
+    #:
+    #: THE RELATIONS LAYER HAD IT RIGHT AND DISAGREED SILENTLY. The only
+    #: declared edge is `Tulu-3-8B-SFT --data_ablation_of--> ...-no-safety-data`,
+    #: and exactly one `dpo_of` edge enters the DPO, from the FULL-mix SFT.
+    #: Joining MODEL_FAMILIES against those edges lists this as the roster's
+    #: ONLY ladder rung lacking a declared training edge.
+    #:
+    #: KEY UNCHANGED DELIBERATELY. By shape this is a fifth `tulu-sft-*` sibling
+    #: and the name is now inconsistent with them, but `battery_results.csv`
+    #: holds 47 rows under `tulu-no-safety`; renaming orphans them, which is the
+    #: exact defect the 2026-07-27 restoration existed to repair.
+    #:
+    #: OPEN, AND NOT DECIDED HERE (RH, 2026-08-10: "putting tulu-no-safety as
+    #: ego was a legacy decision"). Representing an ablation as a FAMILY with
+    #: the ablated checkpoint in `ego` is the legacy shape, and it runs through
+    #: `tulu-sft-full`, `-nomath`, `-nopersona` and `-nowildchat` identically.
+    #: The edge already says it better. Retiring the pattern touches five
+    #: families and live data keys, so it is registrar's call, not a side effect
+    #: of this fix.
     "tulu-no-safety": ModelFamily(
         name="Tulu 3 8B (SFT without safety data)",
         base="meta-llama/Llama-3.1-8B",
         ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
-        superego="allenai/Llama-3.1-Tulu-3-8B-DPO",
-        reinforced_superego="allenai/Llama-3.1-Tulu-3.1-8B",
     ),
     # Tulu SFT ablation variants (all share Llama 3.1 8B base)
     "tulu-sft-full": ModelFamily(
