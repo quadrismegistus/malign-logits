@@ -23,10 +23,58 @@ def test_model_families_exist():
         assert fam.name
 
 
-def test_model_family_has_superego():
-    from malign_logits import MODEL_FAMILIES
+def test_model_family_has_superego_or_declares_why_not():
+    """Every family reaches a preference-tuned rung, or SAYS WHY IT DOES NOT.
+
+    **THE OLD ASSERTION WAS "every family has a superego", AND IT PASSED FOR THE
+    WRONG REASON.** It held across all 49 families only because `tulu-no-safety`
+    pointed at the STANDARD family's `Tulu-3-8B-DPO` and `Tulu-3.1-8B` -- a
+    pipeline nobody trained. The no-safety SFT does not lead to that DPO. The
+    green test was recording a fabricated lineage, and trimming the family to
+    its two real rungs is what made it fail.
+
+    Two-rung families are legitimate. What is not legitimate is an absence
+    nobody declared, since a missing rung and an unfilled field are identical in
+    the data. **So the declaration is checked against the registry, not merely
+    read**: `none-published` must be true, and `scoped-to:` must name a family
+    where the arm really does exist. A reason that cannot be falsified would be
+    the old test with extra steps.
+    """
+    import json
+    import os
+    from malign_logits import MODEL_FAMILIES, PATH_DATA
+
+    reg = os.path.join(PATH_DATA, "model_registry.json")
+    if not os.path.exists(reg):
+        pytest.skip("model_registry.json unavailable")
+    rel = json.load(open(reg))["relations"]
+    dpo_parents = {r["parent"] for r in rel if r["relation"] == "dpo_of"}
+
     for key, fam in MODEL_FAMILIES.items():
-        assert fam.superego is not None or fam.reinforced_superego is not None
+        if fam.superego is not None or fam.reinforced_superego is not None:
+            continue
+        why = fam.no_superego
+        assert why, (
+            "%s has no superego and no `no_superego` reason. An undeclared "
+            "absence is indistinguishable from an unfilled field." % key)
+        if why == "none-published":
+            assert fam.ego not in dpo_parents, (
+                "%s declares `none-published`, but the registry holds a dpo_of "
+                "child for %s. The arm exists: wire it up, or declare "
+                "`scoped-to:`." % (key, fam.ego))
+        elif why.startswith("scoped-to:"):
+            other = why.split(":", 1)[1]
+            assert other in MODEL_FAMILIES, (
+                "%s is scoped to %r, which is not a family." % (key, other))
+            assert fam.ego in dpo_parents, (
+                "%s says its superego is carried by %s, but the registry has "
+                "no dpo_of child for %s at all -- so it is not scoped "
+                "elsewhere, it is missing." % (key, other, fam.ego))
+        else:
+            raise AssertionError(
+                "%s: unknown no_superego reason %r. Use 'none-published' or "
+                "'scoped-to:<family>'; free text cannot be checked."
+                % (key, why))
 
 
 def test_prompts_exist():

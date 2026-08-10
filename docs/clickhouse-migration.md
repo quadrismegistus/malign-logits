@@ -168,9 +168,28 @@ found discarding 85% of the Y corpus.
 
 ## 6. Known outstanding
 
-- **90 of 263 logit payloads are TRUNCATED**, uniformly claiming 115 rows and
-  holding 84. 687 cells have no reachable payload; their twp is intact, and none
-  are on beam105. `verify_logit_index.py` column (0) reports them.
+- **5 of 353 logit payloads are truncated, and 42 cells have no reachable
+  payload** — 281,521 of 281,563 index entries resolve and read. This
+  supersedes the "90 truncated / 687 unreachable" figure written above earlier
+  the same day, **which was wrong by 16x in the alarming direction**: it
+  measured extent against `join(root, file)` while the `f11_twp` store is split
+  across two directories, so most "truncated" files were whole and their rows
+  were in the other one. `verify_logit_index.py` column (0) now measures
+  against the resolved path.
+
+- **The `f11_twp` logit store is SPLIT ACROSS TWO DIRECTORIES** and a bare
+  basename does not address it. Two runs wrote different subsets at overlapping
+  row numbers, so 6,921 entries were served another cell's distribution —
+  finite, plausibly ranged, no error. `cache.py` now resolves per entry from
+  `data/logit_dir_resolution.json` (`87fd30e6`). **Never join `entry["file"]`
+  against the root by hand; call `cm.logit_path(entry)`.** Both columns of the
+  verifier did the join and both were wrong because of it.
+
+- **Sampling must be pinned to the population, not just the seed.** A fixed
+  seed over `iter_keys` draws from a different universe as the store grows —
+  it cost a registered rider its reproducibility. Use
+  `malign_logits.sampling.pinned_sample`, quote rates beside `sample_sha`, and
+  quote an interval with them.
 - **69 granite NaNs** are a scoring defect, not a storage one. Any earlier
   analysis averaging granite surprisal over a long window should be re-checked.
 - **Nine scripts hardcode `0.003`** without importing `CANONICAL`.

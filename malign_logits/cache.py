@@ -251,6 +251,30 @@ class CacheManager:
             CacheManager._LOGIT_DIRMAP = m
         return CacheManager._LOGIT_DIRMAP
 
+    def logit_path(self, entry):
+        """The file an index entry ACTUALLY resolves to. Public on purpose.
+
+        **`os.path.join(root, entry["file"])` IS NOT THE PATH** for f11_twp
+        entries, and every caller that does the join by hand silently reads the
+        wrong directory for 6,921 of them. That is not hypothetical: this
+        method exists because `verify_logit_index.py` did the join in TWO
+        columns, so the moment `get_logits` started resolving per entry, its
+        addressing column would have reported 6,921 false MISMATCHes and its
+        extent column measured 90 short payloads against the wrong files.
+
+        A resolution rule with two implementations is two rules. This is the
+        one.
+        """
+        import os as _os
+        p = _os.path.join(self._logit_root(), entry["file"])
+        if entry.get("dir") == "data_f11_twp":
+            alt = _os.path.join(
+                _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
+                "data", "f11_twp", _os.path.basename(entry["file"]))
+            if _os.path.exists(alt):
+                return alt
+        return p
+
     def _with_dir(self, entry, model, prompt):
         """Stamp the resolved directory onto an index entry. Returns a COPY.
 
@@ -340,13 +364,7 @@ class CacheManager:
         # answer; everything else resolves exactly as before. A missing map is
         # not an error -- reads fall back to the old behaviour -- but
         # `verify_logit_index.py` column (0) then reports the shortfall.
-        path = _os.path.join(self._logit_root(), f)
-        if entry.get("dir") == "data_f11_twp":
-            _cand = _os.path.join(
-                _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
-                "data", "f11_twp", _os.path.basename(f))
-            if _os.path.exists(_cand):
-                path = _cand
+        path = self.logit_path(entry)
         ck = (_os.path.realpath(path), dt.str)
         mm = CacheManager._LOGIT_MMAP.get(ck)
         if mm is None:

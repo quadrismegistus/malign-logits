@@ -42,7 +42,6 @@ WHAT A MISMATCH MEANS, kept separate rather than pooled into a count:
 """
 import argparse
 import os
-import random
 import subprocess
 import sys
 from collections import defaultdict
@@ -75,16 +74,27 @@ def main():
     ap.add_argument("--n", type=int, default=400)
     ap.add_argument("--tol", type=float, default=1e-5)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--keys", help="JSON list of key dicts: re-measure the "
+                    "EXACT cells of an earlier run, immune to store growth")
+    ap.add_argument("--save-keys", help="write the drawn sample here")
     a = ap.parse_args()
 
     from malign_logits.movement import word_probs
 
     #: SAMPLE FROM CH, then look each up in the stash. Sampling from the stash
     #: instead would never surface a cell CH holds and the stash does not.
-    rows = q("SELECT DISTINCT model, prompt FROM %s.twp_residual "
-             "ORDER BY cityHash64(model, prompt) LIMIT %d FORMAT TSV"
-             % (DB, a.n)).splitlines()
-    cells = []
+    #: **`ORDER BY cityHash64(...) LIMIT n` IS NOT A PINNED SAMPLE.** It is
+    #: deterministic given the table, and the table grows: an ingest inserts new
+    #: cells into the middle of the hash order and silently evicts old ones from
+    #: the first n. Same defect as a seeded draw over an unpinned population
+    #: ([5285]), reached by a different route -- two reconciliation runs a day
+    #: apart were never over the same cells, and nothing said so.
+    #:
+    #: Pulling the whole population is cheap here: `twp_residual` is 283k rows,
+    #: not `twp_words`' 32M.
+    rows = q("SELECT DISTINCT model, prompt FROM %s.twp_residual FORMAT TSV"
+             % DB).splitlines()
+    pop = []
     for line in rows:
         if "\t" in line:
             m, p = line.split("\t", 1)
@@ -93,8 +103,21 @@ def main():
             #: stash as `didn\\'t` and reported missing_stash. 27 more false
             #: disagreements from the same defect in a second place -- 88 of 250
             #: in total, none of them real.
-            cells.append((m, _unesc(p)))
-    print("sampled %d cells from ClickHouse\n" % len(cells))
+            #:
+            #: UNESCAPE BEFORE HASHING, not after: the digest must identify the
+            #: cells as the rest of the repo names them, or a sample_sha from
+            #: here is not comparable with one from anywhere else.
+            pop.append({"model": m, "prompt": _unesc(p),
+                        "mode": "raw", "dtype": None})
+    from malign_logits.sampling import pinned_sample, banner
+    samp, pop_sha, samp_sha, n_pop, src = pinned_sample(pop, a.n, a.seed,
+                                                        keyfile=a.keys)
+    cells = [(k["model"], k["prompt"]) for k in samp]
+    print(banner(pop_sha, samp_sha, n_pop, len(cells), a.seed, src))
+    print()
+    if a.save_keys:
+        from malign_logits.sampling import write_keyfile
+        print("keyfile %s\n" % write_keyfile(a.save_keys, samp))
 
     esc = lambda s: s.replace("\\", "\\\\").replace("'", "\\'")
     cls = defaultdict(int)

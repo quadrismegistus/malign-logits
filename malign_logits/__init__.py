@@ -86,6 +86,30 @@ class ModelFamily:
     #: directly. Read `revisions` explicitly wherever a family is loaded until
     #: that is closed.
     revisions: dict | None = None
+    #: WHY THIS FAMILY HAS NO PREFERENCE-TUNED RUNG. A named absence, not a gap.
+    #:
+    #: `test_model_family_has_superego` asserted that every family had a
+    #: `superego` or a `reinforced_superego`, and it held for all 49 families
+    #: until 2026-08-10 -- because `tulu-no-safety` carried the STANDARD
+    #: family's DPO and RLVR arms. That was the legacy mis-wiring RH named: the
+    #: no-safety SFT does not lead to `Tulu-3-8B-DPO`, and pointing at it
+    #: manufactured a pipeline that was never trained. Trimming it to two rungs
+    #: is what broke the assertion, and the assertion was the thing that was
+    #: wrong: some families ARE two-rung.
+    #:
+    #: A missing rung and an undeclared rung look identical in the data, so the
+    #: reason is a controlled vocabulary the test can CHECK rather than a note
+    #: it can only read:
+    #:
+    #:   "none-published"        no preference-tuned checkpoint exists. The
+    #:                           test asserts the registry holds no `dpo_of`
+    #:                           child for this family's ego.
+    #:   "scoped-to:<family>"    one exists and is deliberately carried by
+    #:                           another family. The test asserts the named
+    #:                           family exists AND that the ego really does
+    #:                           have a `dpo_of` child -- so this reason cannot
+    #:                           be used to wave away a genuinely missing arm.
+    no_superego: str | None = None
 
     @property
     def n_layers(self):
@@ -452,6 +476,7 @@ MODEL_FAMILIES = {
         base="BAAI/Aquila2-7B",
         ego="BAAI/AquilaChat2-7B",
         revisions={"base": "9c76e143c6e9621689ca76e078c465b0dee75eb8"},
+        no_superego="none-published",
     ),
     "zamba2": ModelFamily(
         name="Zamba2-7B (Zyphra) [v2 READY, SSM hybrid — CLOUD ONLY]",
@@ -503,6 +528,7 @@ MODEL_FAMILIES = {
         name="Tulu 3 8B (SFT without safety data)",
         base="meta-llama/Llama-3.1-8B",
         ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+        no_superego="none-published",
     ),
     # Tulu SFT ablation variants (all share Llama 3.1 8B base)
     "tulu-sft-full": ModelFamily(
@@ -524,11 +550,13 @@ MODEL_FAMILIES = {
         #: DPO_EQUIVALENT_RULINGS entry for this base picks Llama-3.1-8B-Instruct
         #: and would have hidden this forever.
         ego="allenai/Llama-3.1-Tulu-3-8B-SFT",
+        no_superego="scoped-to:tulu",
     ),
     "tulu-sft-nopersona": ModelFamily(
         name="Tulu SFT (no persona)",
         base="meta-llama/Llama-3.1-8B",
         ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+        no_superego="none-published",
     ),
     #: **SFT ARMS GO IN `ego`, NOT `superego`** (RH, 7 Aug: "All the sft's are
     #: 'ego' ... and dpo is 'superego'"). Declaring an SFT checkpoint in the
@@ -538,11 +566,13 @@ MODEL_FAMILIES = {
         name="Tulu SFT (no math)",
         base="meta-llama/Llama-3.1-8B",
         ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+        no_superego="none-published",
     ),
     "tulu-sft-nowildchat": ModelFamily(
         name="Tulu SFT (no wildchat)",
         base="meta-llama/Llama-3.1-8B",
         ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+        no_superego="none-published",
     ),
     "zephyr": ModelFamily(
         name="Zephyr 7B",

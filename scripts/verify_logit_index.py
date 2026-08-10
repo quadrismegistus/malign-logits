@@ -27,7 +27,6 @@ validated against its own source validates itself.
 import argparse
 import json
 import os
-import random
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,6 +39,8 @@ def main():
     ap.add_argument("--n-known", type=int, default=250,
                     help="rows for the cross-store known answer (loads tokenizers)")
     ap.add_argument("--seed", type=int, default=20260803)
+    ap.add_argument("--keys", help="JSON list of key dicts: re-verify the "
+                    "EXACT rows of an earlier run, immune to store growth")
     a = ap.parse_args()
 
     import numpy as np
@@ -57,16 +58,30 @@ def main():
     # read the same nothing and agree. Values are computed on what came back, so
     # an empty slice is not "out of range" -- it is absent.
     #
-    # Measured 2026-08-10: many `f11_twp/` payloads were killed mid-write, and
-    # the index -- built from the .jsonl, which completed -- describes rows the
-    # file never received. `recurrentgemma-9b-it` names 199 rows over a file
-    # holding 84; Teuken names 107 over 45. Store-wide that is **687 cells with
-    # no reachable payload** plus 2,047 whose only reachable copy is a different
-    # file. `ch_ingest` skipped every one silently via `if v.size != dim:
+    # Some `f11_twp/` payloads were killed mid-write, and the index -- built
+    # from the .jsonl, which completed -- describes rows the file never
+    # received. `ch_ingest` skipped every one silently via `if v.size != dim:
     # continue` -- correct behaviour, invisible reporting.
     #
-    # This is the stride hazard at the other end of the file, and the test is
-    # one comparison: the file must hold max(row)+1 rows.
+    # **THE FIRST MEASUREMENT OF THIS WAS ITSELF WRONG, AND BY 16x.** It read
+    # 90 short payloads and 687 unreachable cells. Both were measured against
+    # `join(root, file)` while the f11_twp store is split across two
+    # directories, so most "truncated" files were not truncated -- their rows
+    # were simply in the other one. Against the RESOLVED path ([5287]):
+    #
+    #     90 short payloads  ->  5          687 unreachable cells  ->  42
+    #     of 281,563 index entries, 281,521 are reachable
+    #
+    # A defect report can be wrong in the reassuring direction too, and this
+    # one overstated the damage by an order of magnitude for a day. **The check
+    # for a wrong-directory read contained the wrong-directory read**, which is
+    # the same shape as the resolution map first keying on (file, row) and as
+    # column (A) below: you reach for the same model to describe a defect and
+    # to repair it, and that model is what was wrong.
+    #
+    # So: group by the RESOLVED PATH, never by `entry["file"]`. This is also
+    # the stride hazard at the other end of the file, and the test is one
+    # comparison -- the file must hold max(row)+1 rows.
     from collections import defaultdict as _dd
     maxrow, dims = _dd(lambda: -1), {}
     for k in keys:
@@ -77,17 +92,17 @@ def main():
             e = None
         if not e:
             continue
-        kk = (e["file"], k.get("dtype", "float16"))
+        kk = (cm.logit_path(e), k.get("dtype", "float16"))
         maxrow[kk] = max(maxrow[kk], int(e["row"]))
         dims[kk] = int(e["dim"])
     short = []
-    for (f, dt), mr in sorted(maxrow.items()):
-        p = os.path.join(root, f)
+    for (p, dt), mr in sorted(maxrow.items()):
+        f = os.path.relpath(p, root) if p.startswith(root) else p
         if not os.path.exists(p):
             short.append((f, mr + 1, 0))
             continue
         isz = 2 if dt == "float16" else 4
-        have = os.path.getsize(p) // (dims[(f, dt)] * isz)
+        have = os.path.getsize(p) // (dims[(p, dt)] * isz)
         if have < mr + 1:
             short.append((f, mr + 1, have))
     print(f"(0) EXTENT       payloads SHORTER than the index claims: "
@@ -98,8 +113,23 @@ def main():
         print(f"      ... and {len(short) - 10} more")
     print()
 
-    rng = random.Random(a.seed)
-    sample = rng.sample(keys, min(a.n, len(keys)))
+    # ── THE SAMPLE IS PINNED TO THE POPULATION, NOT JUST TO THE SEED ──
+    #
+    # This was `random.Random(seed).sample(keys, n)` over `keys` straight from
+    # `iter_keys`, which has no defined order and grows. A fixed seed then draws
+    # faithfully from a DIFFERENT UNIVERSE on every run: the numbers look
+    # reproducible and are not. malign found the same defect in
+    # `f16_threshold_margin.py` ([5285]), where it made a registered rider
+    # non-re-derivable; `ch_reconcile.py` had it too ([5287]).
+    #
+    # The two draws below also used ONE rng in sequence, so (C)'s sample
+    # depended on (A)'s size -- changing `--n` silently changed which rows (C)
+    # checked. They are now independent functions of the seed.
+    from malign_logits.sampling import pinned_sample, banner
+    sample, pop_sha, samp_sha, n_pop, src = pinned_sample(
+        keys, a.n, a.seed, keyfile=a.keys)
+    print(banner(pop_sha, samp_sha, n_pop, len(sample), a.seed, src))
+    print()
 
     # ── (A) ADDRESSING ────────────────────────────────────────────────
     bad_addr = 0
@@ -108,7 +138,12 @@ def main():
                                 dtype=d["dtype"])
         v = cm.get_logits(d["model"], d["prompt"], mode=d["mode"],
                           dtype=d["dtype"])
-        path = os.path.join(root, e["file"])
+        #: RESOLVE, DO NOT JOIN. Joining `e["file"]` against the root reads the
+        #: wrong directory for the 6,921 split-store entries, so this column
+        #: would have reported them all as MISMATCH the moment `get_logits`
+        #: started resolving per entry -- an addressing column failing because
+        #: the addressing was FIXED.
+        path = cm.logit_path(e)
         isz = 2 if d["dtype"] == "float16" else 4
         with open(path, "rb") as fh:
             fh.seek(e["row"] * e["dim"] * isz)
@@ -155,7 +190,11 @@ def main():
     # prompt's t1 set at all.
     ok_ranks, off_ranks = [], []
     unusable = 0
-    for d in rng.sample(keys, min(a.n_known, len(keys))):
+    #: SEED OFFSET BY 1, so this draw is independent of (A)/(B)'s and does not
+    #: move when `--n` changes.
+    known, _kpop, known_sha, _kn, _ks = pinned_sample(keys, a.n_known, a.seed + 1)
+    print(f"(C) sample_sha {known_sha}")
+    for d in known:
         twp = cm.get_true_word_probs(d["model"], d["prompt"], theta=0.001,
                                      mode="raw")
         rows = (twp or {}).get("rows") or []
