@@ -124,7 +124,7 @@
  },
  "_provenance": {
   "built_by": "scripts/build_model_registry.py",
-  "head": "53d64d5f",
+  "head": "efbd2af0",
   "measured_from": {
    "weights": {
     "artifact": "data/weights_audit.csv",
@@ -4006,66 +4006,6 @@
    "load_note": ""
   },
   {
-   "model_id": "mosaicml/mpt-7b",
-   "nickname": "",
-   "family": "mpt",
-   "position": "base",
-   "stage": "base",
-   "org": "mosaicml",
-   "params": "7B",
-   "params_b": 7.0,
-   "architecture": "transformer",
-   "tokenizer_class": "",
-   "vocab_size": null,
-   "cjk_tier": "",
-   "cjk_chars": null,
-   "weights_format": "",
-   "index_present": null,
-   "needs_torch": "",
-   "bos_stratum": "",
-   "bos_resolver": "",
-   "loader_override": "",
-   "generation": "",
-   "in_grid_spec": false,
-   "status": "NOT_IN_GRID",
-   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
-   "pending_repair": null,
-   "cells_in_store": 0,
-   "vocab_size_config": null,
-   "requires_pip": [],
-   "load_note": "REPO UNREADABLE: RepositoryNotFoundError"
-  },
-  {
-   "model_id": "mosaicml/mpt-7b-instruct",
-   "nickname": "",
-   "family": "mpt",
-   "position": "superego",
-   "stage": "dpo",
-   "org": "mosaicml",
-   "params": "7B",
-   "params_b": 7.0,
-   "architecture": "transformer",
-   "tokenizer_class": "",
-   "vocab_size": null,
-   "cjk_tier": "",
-   "cjk_chars": null,
-   "weights_format": "",
-   "index_present": null,
-   "needs_torch": "",
-   "bos_stratum": "",
-   "bos_resolver": "",
-   "loader_override": "",
-   "generation": "",
-   "in_grid_spec": false,
-   "status": "NOT_IN_GRID",
-   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
-   "pending_repair": null,
-   "cells_in_store": 0,
-   "vocab_size_config": null,
-   "requires_pip": [],
-   "load_note": "REPO UNREADABLE: RepositoryNotFoundError"
-  },
-  {
    "model_id": "openGPT-X/Teuken-7B-base-v0.6",
    "nickname": "",
    "family": "teuken",
@@ -5394,11 +5334,6 @@
   {
    "parent": "meta-llama/Llama-3.1-8B",
    "child": "meta-llama/Llama-3.1-8B-Instruct",
-   "relation": "dpo_of"
-  },
-  {
-   "parent": "mosaicml/mpt-7b",
-   "child": "mosaicml/mpt-7b-instruct",
    "relation": "dpo_of"
   },
   {

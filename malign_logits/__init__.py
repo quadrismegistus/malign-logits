@@ -312,11 +312,17 @@ MODEL_FAMILIES = {
     # TOP UNVERIFIED LEAD: never fetched in the survey. A 2023 repo, so
     # safetensors is a real risk — many predate the default and were never
     # converted.
-    "mpt": ModelFamily(
-        name="MPT-7B (MosaicML) [v2 VERIFY: never fetched, safetensors at risk]",
-        base="mosaicml/mpt-7b",
-        superego="mosaicml/mpt-7b-instruct",
-    ),
+    # REMOVED 2026-08-10. `mosaicml/mpt-7b` and `-instruct` are DEAD repo ids:
+    # 404 at the HF API, which is a missing repo and not a permissions error, and
+    # the org now lists only mosaic-bert repos. An early screen in the v2 lineage
+    # survey had already marked MPT REJECTED. It was carried in the roster as a
+    # coverage GAP for months -- a pair that could never be scored, counted as
+    # something we had not got round to. The family is deleted rather than
+    # commented into a blocklist so it leaves `base_aligned_pairs()` at the
+    # source; a dead pair filtered downstream is still a pair upstream.
+    #
+    #   "mpt": base="mosaicml/mpt-7b", superego="mosaicml/mpt-7b-instruct"
+    #
     # CLOUD ONLY. Mamba2 blocks need causal-conv1d + mamba-ssm, which have no
     # Metal build; the fallback path allocates the full state.
     # ADDED 2026-08-10 from the v2 lineage survey's unregistered residue. Both

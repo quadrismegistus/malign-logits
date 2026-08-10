@@ -377,6 +377,37 @@ class Registry:
         with open(self._path, "w") as f:
             json.dump(data, f, indent=2)
 
+    #: PATH OF THE DERIVED PAIR EXPORT. Beside REGISTRY_PATH because it is the
+    #: same kind of object: a view of the library, regenerated and never edited.
+    PAIRS_PATH = Path(__file__).parent.parent / "data" / "base_aligned_pairs.json"
+
+    def save_base_aligned_pairs(self, path=None):
+        """Write `base_aligned_pairs()` to `data/base_aligned_pairs.json`.
+
+        **THIS EXPORT HAD NO PRODUCER AND THAT IS WHY IT WENT STALE.** The
+        derivation lives here, in `base_aligned_pairs()`; the file on disk was
+        written once by hand and then diverged silently. On 2026-08-10 it was
+        still serving the RETIRED Teuken pairing -- `Teuken-7B-base-v0.6`
+        against `instruct-commercial-v0.4`, an instruct built off a 4T-token
+        base whose repo 404s -- to every consumer that read the FILE while
+        `Registry()` returned the corrected arm. Ten-plus M02 scripts read the
+        file.
+
+        The registry's own schema note names the hazard in the general case:
+        *"a cache that can outrank its source is how 59 models shadowed 112 for
+        five weeks."* An export with no producer is that cache with no way back.
+
+        A method rather than a script, for the same reason `save()` is: the
+        thing that KNOWS how pairs are derived is this class, and a standalone
+        producer would be a second place for the derivation to drift.
+        """
+        rows = self.base_aligned_pairs()
+        out = path or self.PAIRS_PATH
+        Path(out).parent.mkdir(parents=True, exist_ok=True)
+        with open(out, "w") as f:
+            json.dump(rows, f, indent=1)
+        return len(rows)
+
     # -- queries ---------------------------------------------------------------
 
     def base_of(self, model_id: str) -> Optional[str]:
@@ -483,6 +514,103 @@ class Registry:
             if model_id in fam.all_checkpoints:
                 return key
         return None
+
+    @staticmethod
+    def _fams():
+        from . import MODEL_FAMILIES
+        return MODEL_FAMILIES
+
+    #: RULINGS for bases carrying more than one preference-optimised arm. Each
+    #: is a CHOICE, not a fact, and each is reversible by editing this dict --
+    #: which is the point of putting them here rather than in a caller.
+    #:
+    #:   Llama-3.1-8B    Meta's own Instruct vs AI2's Tulu-3-DPO. Both are real
+    #:                   answers to different questions -- a frontier lab's
+    #:                   alignment against an open documented one on the same
+    #:                   weights -- and that contrast is a finding the campaign
+    #:                   has used. They cannot both be in one roster and be
+    #:                   called independent. Instruct is what "aligned Llama"
+    #:                   means to a reader.
+    #:   pythia-2.8b     archangel dpo/kto/ppo/slic are four preference METHODS
+    #:                   on one SFT checkpoint. dpo is the literal equivalent;
+    #:                   the other three ARE the method experiment.
+    #:   Olmo-3-1025-7B  Instruct-DPO is the main line, Think-DPO a branch.
+    DPO_EQUIVALENT_RULINGS = {
+        "meta-llama/Llama-3.1-8B": "meta-llama/Llama-3.1-8B-Instruct",
+        "EleutherAI/pythia-2.8b": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+        "allenai/Olmo-3-1025-7B": "allenai/Olmo-3-7B-Instruct-DPO",
+    }
+
+    def base_aligned_pairs(self, ruled_only: bool = False,
+                           include_ambiguous: bool = True) -> List[dict]:
+        """ONE base -> ONE aligned checkpoint, per unique pretraining run.
+
+        **THE UNIT IS THE BASE MODEL, NOT THE FAMILY ENTRY.** 62 family entries
+        sit on 52 unique bases; seven entries share `meta-llama/Llama-3.1-8B`
+        alone. Counting family entries as independent pairs inflates every
+        lineage-level n, which is the error the campaign has already booked
+        twice (59 -> 39 -> 34).
+
+        **THE ALIGNED ARM IS THE PREFERENCE-OPTIMISED ONE (`superego`), NOT THE
+        LAST ONE.** `reinforced_superego` (RLVR/Instruct) sits ABOVE dpo and is
+        a different stage, not a better version of it. Where a family has no
+        superego -- a 2-layer topology -- `ego` IS the aligned arm and is used.
+
+        Returns dicts with `base`, `aligned`, `family`, `stage`, `ambiguous`,
+        and `candidates` when more than one arm was available. A ruled pair
+        carries the ruling so a reader can see a choice was made rather than
+        discovering one absent.
+
+        ruled_only          only the bases needing a ruling (for auditing them)
+        include_ambiguous   False drops them entirely rather than ruling them,
+                            which is the conservative roster: 49 not 52.
+        """
+        from . import MODEL_FAMILIES
+        cand = {}
+        for key, fam in MODEL_FAMILIES.items():
+            b = getattr(fam, "base", None)
+            if not b:
+                continue
+            #: superego first; ego ONLY as the 2-layer fallback. Never
+            #: reinforced_superego -- a different stage, not a substitute.
+            a = getattr(fam, "superego", None) or getattr(fam, "ego", None)
+            if not a or a == b:
+                continue
+            cand.setdefault(b, {})[a] = key
+
+        out = []
+        for b, arms in sorted(cand.items()):
+            ruling = self.DPO_EQUIVALENT_RULINGS.get(b)
+            ambiguous = len(arms) > 1
+            if ambiguous and not include_ambiguous:
+                continue
+            if ambiguous:
+                a = ruling if ruling in arms else sorted(arms)[0]
+            else:
+                a = next(iter(arms))
+            if ruled_only and not ambiguous:
+                continue
+            #: **THE `ego` FALLBACK IS SAFE FOR 2-LAYER FAMILIES AND UNSAFE FOR
+            #: SFT-ABLATION ONES, AND THE TWO ARE INDISTINGUISHABLE BY SHAPE.**
+            #: Both are "a family with no superego". For `llama` the fallback
+            #: correctly yields Llama-3.1-8B-Instruct; for `tulu-sft-nomath` it
+            #: would yield an SFT checkpoint and label it aligned. Today that
+            #: never fires, because every SFT-ablation family sits on
+            #: Llama-3.1-8B and the ruling picks Instruct -- i.e. it is masked
+            #: by an unrelated decision, which is not a guarantee. Register one
+            #: SFT ablation on a base with no other family and it fires
+            #: silently. Flagged rather than dropped: dropping would remove
+            #: genuine 2-layer pairs, and this must not fail closed on them.
+            fam = arms[a]
+            via_ego = not getattr(self._fams().get(fam), "superego", None)
+            looks_sft = ("-SFT" in a or a.endswith("SFT")) and "DPO" not in a
+            out.append({"base": b, "aligned": a, "family": fam,
+                        "stage": self.stage_of(a) or "aligned",
+                        "ambiguous": ambiguous,
+                        "ruled": bool(ambiguous and ruling in arms),
+                        "candidates": sorted(arms) if ambiguous else None,
+                        "warn_sft_as_aligned": bool(via_ego and looks_sft)})
+        return out
 
     # -- mutation --------------------------------------------------------------
 
