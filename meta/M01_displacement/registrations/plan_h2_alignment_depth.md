@@ -264,6 +264,24 @@ that lives downstream of them can be changed without re-running six hours of
 compute. Putting the writer first would have made the schema a gate on the
 data instead of a view of it.
 
+## 8b. SUPERSESSION — 2026-08-10, ROSTER 26 -> 25
+
+**The pair roster `e22a30b65fe9a06a` cited throughout sections 2 and 9 is
+SUPERSEDED by `58df7dbaf4cfcd38`, 25 pairs.** Recorded as a dated line per §8's
+own rule rather than by editing the earlier hash, which would leave every
+citation of it silently wrong.
+
+`ibm-granite/granite-3.0-8b` is removed. **The LOCAL gate tested for a snapshot
+DIRECTORY, not for weights.** The hub cache held a metadata-only entry --
+config and tokenizer, no tensors -- and `snapshot_dir` returns a path for that.
+It therefore passed a gate named LOCAL, and it passed the CELLS gate too,
+because **its twp rows were scored on a cloud box: the store knows that model
+while this disk does not.** A sweep that promises never to download would have
+downloaded 32 GB. The gate now names the file it needs.
+
+Nothing else moved: same 231 prompts (`6c711861c1389bec`), same instruments,
+same primary. Cells 6,006 -> 5,775.
+
 ## 9. THE POPULATION, AS RUN
 
 Superseding §2's roster of prompts (the pair roster `e22a30b65fe9a06a` is
