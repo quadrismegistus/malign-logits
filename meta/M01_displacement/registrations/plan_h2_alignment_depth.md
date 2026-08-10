@@ -165,12 +165,38 @@ flat to L18 and rising after is what a uniformly distributed effect looks like
 crossing a noise floor: **onset-in-curve is not onset-in-mechanism**. What the
 curve licenses is an UPPER BOUND on lateness, and `||dh||` carries that better.
 
-Primary, descriptive, no test:
+**PRIMARY — descriptive, no test, and NOT TWO POOLED PERCENTAGES** (lacan
+[5235], amending this section before it ran):
 
-    last-2 blocks recovery  vs  all-but-last-2 recovery,   per cell,
-    reported as a distribution over the 26 pairs
+    d = recovery(all-but-last-2) - recovery(last-2),   COMPUTED INSIDE EACH
+                                                       (pair, prompt) CELL
 
-Pilot values (3 pairs): 6–16% against 55–73%.
+    report:  median of d
+             spread of d
+             how many of the 1,395 cells have d > 0
+             THE REVERSING CELLS BY NAME, if any d < 0
+
+**A POOLED DESCRIPTIVE CANCELS EXACTLY AS READILY AS A POOLED TEST.** lacan's
+attention-back result the same day is the demonstration: pooled +0.053 over 28
+cells, 17 of 28, read as a clean null — while stablelm-2 was +24% and OLMo-2
+−19%, and the grouping predicted the value at Kruskal-Wallis p=0.0019. **The
+pooled figure quoted there was a MEDIAN, not a test.** Descriptive statistics
+have the same failure mode, and the check that catches it is not a better test
+but reporting whether the grouping predicts the value.
+
+**AND RECOVERY IS A RATIO WITH A PER-CELL DENOMINATOR.** The ceiling varies
+0.47–0.94 across four Llama prompts, so pooling recoveries means averaging
+ratios taken against different denominators — an arithmetic problem sitting on
+top of the cancellation one. Differencing inside the cell dissolves both at
+once, which is why this is not a presentational preference.
+
+**A REVERSAL IS EITHER HETEROGENEITY WORTH A SENTENCE OR A BROKEN CELL WORTH
+FINDING**, and both are cheaper to notice now than after F42 has been rewritten
+on the ordinal claim. So they are listed, not counted.
+
+Pilot values (3 pairs, POOLED and therefore exactly what this section now
+refuses as a primary): 6–16% against 55–73%. Quoted here only as the pilot's
+range, which already shows the variation on its face.
 
 Declared beside it: `||dW||` first-third vs last-third ratio; `||dh||` at L0;
 `repr_L50`; and the per-word lens count of significant (word, layer) pairs
