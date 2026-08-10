@@ -53,20 +53,50 @@ TWP_SOURCES = [
      "all-NaN Falcon-H1-7B shard [3015]. Same two models, same 5,166 cells and "
      "identical filenames as falcon_h1_repair, which supersedes it."),
 
-    #: PENDING: present in the stash, absent from ClickHouse, and not declared
-    #: anywhere as sources of record. Asked at [5297]; not ingested until the
-    #: producing seat confirms each is intended for the record rather than a
-    #: scratch or superseded run.
-    ("data/raw/twp_twp_00", "twp_twp_00", "PENDING", "7,749 cells; 7,367 absent from CH"),
-    ("data/raw/twp_twp_01", "twp_twp_01", "PENDING",
-     "10,332 cells; 9,925 absent from CH AND 628 absent from the stash -- the "
-     "only directory where both stores are behind, so possibly a partial run"),
-    ("data/raw/twp_twp_02", "twp_twp_02", "PENDING", "5,166 cells; 4,896 absent from CH"),
-    ("data/raw/twp_w2_gpu2", "twp_w2_gpu2", "PENDING", "7,749 cells; 7,398 absent from CH"),
-    ("data/raw/twp_w2_jais", "twp_w2_jais", "PENDING", "5,166 cells; all absent from CH"),
-    ("data/raw/twp_lineages_v2", "twp_lineages_v2", "PENDING", "2,583 cells; 2,448 absent from CH"),
-    ("data/raw/twp_fill", "twp_fill", "PENDING",
-     "536 cells; absent from BOTH stores. The newest directory on disk."),
+    #: Confirmed at [5298] as completed cloud runs of 07-08 Aug, none scratch,
+    #: none superseded. Their names are box/shard labels rather than experiment
+    #: names, which is why they read as temporary and were not in any registry.
+    ("data/raw/twp_twp_00", "twp_twp_00", "ACTIVE", "3 boxes of one sharded run, 08-07"),
+    ("data/raw/twp_twp_01", "twp_twp_01", "ACTIVE",
+     "628 cells absent from the stash are NOT a partial run: four models whose "
+     "prompts were refused at encoding, 572 of them Teuken's two arms at "
+     "exactly 314 each -- the documented tokenizer mangling. Re-running "
+     "reproduces the same skips; the identical 314 on both arms is the tell."),
+    ("data/raw/twp_twp_02", "twp_twp_02", "ACTIVE", "3 boxes of one sharded run, 08-07"),
+    ("data/raw/twp_w2_gpu2", "twp_w2_gpu2", "ACTIVE", "second wave, 08-07"),
+    ("data/raw/twp_w2_jais", "twp_w2_jais", "ACTIVE", "the jais pair, needed its own box"),
+    ("data/raw/twp_lineages_v2", "twp_lineages_v2", "ACTIVE", "08-07, one file"),
+
+    #: ── THE CENSUS, EIGHT PER-BOX SUBDIRECTORIES ONE LEVEL DOWN ──────
+    #:
+    #: **NAMED, NEVER GLOBBED.** `twp_fill_rsync_loop.sh` puts one destination
+    #: per box deliberately -- four loops into one directory is four writers on
+    #: one filename the moment two boxes touch the same model. So a scan over
+    #: `data/raw/*/` sees the whole census as ONE 536-cell directory, which is
+    #: exactly how ~100,000 cells stayed invisible to one store ([5298]). A
+    #: convention about nesting is a convention until something enforces it.
+    ("data/raw/twp_fill/twpfill0", "twpfill0", "ACTIVE", ""),
+    ("data/raw/twp_fill/twpfill1", "twpfill1", "ACTIVE", ""),
+    ("data/raw/twp_fill/twpfill2", "twpfill2", "ACTIVE", ""),
+    ("data/raw/twp_fill/twpfill3", "twpfill3", "ACTIVE",
+     "holds the COMPLETE kanana-1.5-8b-instruct-2505 battery (2,579 cells); "
+     "supersedes twpfill0's 364-cell partial on those cells [5304]"),
+    ("data/raw/twp_fill/twpilm", "twpilm", "ACTIVE", "the internlm2 lineage, own box"),
+    ("data/raw/twp_fill/twpssm", "twpssm", "ACTIVE", ""),
+    ("data/raw/twp_fill/twp70b", "twp70b", "ACTIVE", "the 70B pair"),
+
+    ("data/raw/twp_fill/_unsharded_box0", "unsharded_box0", "RETIRED",
+     "the PRE-SPLIT unsharded run. 4,406 cells, ALL 4,406 also present in a "
+     "sharded box, ZERO unique -- measured, not assumed [5303]. Excluding it "
+     "loses nothing and removes it from three of the four collision groups. "
+     "Not a precedence question: a fallback implies it covers something, and "
+     "it covers nothing."),
+    ("data/raw/twp_fill", "twp_fill_loose", "RETIRED",
+     "the one loose google__recurrentgemma-9b-it.jsonl at the top of the "
+     "census directory, 536 cells from the pre-split run and a SUBSET of "
+     "_unsharded_box0, which is itself a subset of the shards. Doubly "
+     "subsumed. `source` is in the twp key, so ingesting it would sit a third "
+     "copy beside the others rather than overwrite [5299]."),
 ]
 
 

@@ -568,11 +568,21 @@ def ingest_logits_indexed(batch=400_000, limit=None):
         print("  write was killed. Run scripts/verify_logit_index.py column (0).")
 
 
-#: (directory, label). The f11_twp subdir under cloud_run has 90 .f16 and ZERO
-#: .jsonl, so the SIDECAR path cannot see it. `--index` reaches it instead.
-SOURCES = [("data/raw/cloud_run_20260801", "cloud_run_20260801"),
-           ("data/f11_twp", "f11_twp"),
-           ("data/f11_twp_delta", "f11_twp_delta")]
+#: (directory, label), FROM THE SHARED REGISTRY -- never a local list.
+#:
+#: **THIS WAS THREE HARDCODED DIRECTORIES AND THAT IS HOW THE STORES DIVERGED.**
+#: `twp_ingest.py` takes `--src <one dir>` per run, chosen by the operator; this
+#: carried its own three. Nothing enforced that the two covered the same set,
+#: and by 2026-08-10 the stash held 307,891 cells to ClickHouse's 273,723 --
+#: 38,451 across six `twp_*` directories this ingester had never heard of, plus
+#: ~100,000 more in the census's per-box subdirectories that a non-recursive
+#: scan could not see ([5297]/[5298]). Neither ingester was wrong. Each did what
+#: it was told. **The list was the artifact nobody owned.**
+#:
+#: The f11_twp subdir under cloud_run has 90 .f16 and ZERO .jsonl, so the
+#: SIDECAR path cannot see it; `--index` reaches it instead.
+from malign_logits.sources import twp_sources as _twp_sources
+SOURCES = [(os.path.relpath(p, ROOT), label) for p, label in _twp_sources()]
 
 
 #: PORTED FROM twp_ingest.py, whose docstring says "IT VALIDATES BEFORE IT
