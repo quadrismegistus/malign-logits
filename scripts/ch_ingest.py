@@ -55,6 +55,7 @@ import json
 import os
 import subprocess
 import sys
+from collections import defaultdict
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 CH = "/opt/homebrew/bin/clickhouse"
@@ -252,16 +253,101 @@ def insert(table, rows):
                    input=payload, check=True, capture_output=True)
 
 
+def done_cells(residual_table):
+    """(model, prompt) already ingested, read from the RESIDUAL table.
+
+    The residual tables carry exactly one row per cell, so this is ~266k rows
+    rather than the 900M+ in `logit_probs`. Asking the fact table the same
+    question would scan three orders of magnitude more to get the same set.
+
+    Skipping here rather than relying on ReplacingMergeTree is deliberate:
+    Replacing dedupes at MERGE time, eventually, so a re-run without this would
+    do all the work -- read the payload, softmax, insert -- and only afterwards
+    collapse the duplicates. The point of resumability is not writing them.
+    """
+    try:
+        out = ch_read(f"SELECT model, prompt FROM {DB}.{residual_table} FORMAT TSV")
+    except Exception:
+        return set()
+    done = set()
+    for line in out.splitlines():
+        if "\t" in line:
+            m, p = line.split("\t", 1)
+            done.add((m, p.replace("\\t", "\t").replace("\\n", "\n").replace("\\\\", "\\")))
+    return done
+
+
+def ingest_logits_indexed(batch=400_000, limit=None):
+    """Drive from the logits INDEX, not from .jsonl sidecars.
+
+    `cloud_run_20260801/f11_twp/` holds 90 .f16 files and ZERO .jsonl, so the
+    sidecar path cannot see them -- 17,534 cells over 199 prompts and 90 models,
+    with **zero overlap** against the top-level payload, i.e. unique data that
+    would sit permanently invisible behind a missing file. Their addresses were
+    never lost: `index_logit_shards.py` put {file, row, dim} in the stash, which
+    is what that script exists for. This reads the addresses from there and
+    reaches all 263 payload files instead of the 103 with sidecars.
+
+    Payloads are grouped by file so each is memmapped once.
+    """
+    import numpy as np
+    from malign_logits.cache import CacheManager
+    cm = CacheManager()
+    root = cm._logit_root()
+    done = done_cells("logit_residual")
+    print("already ingested: %s cells (skipping)" % format(len(done), ","))
+    byfile = defaultdict(list)
+    for k in cm._stash("logits"):
+        if (k["model"], k["prompt"]) in done:
+            continue
+        v = cm._stash("logits").get(k)
+        byfile[(v["file"], k.get("dtype", "float16"))].append(
+            (k["model"], k["prompt"], int(v["row"]), int(v["dim"])))
+    files = sorted(byfile)
+    if limit:
+        files = files[:limit]
+    print("payload files with un-ingested cells: %d\n" % len(files))
+    out, res, n_rows, n_cells = [], [], 0, 0
+    for (fname, dtype) in files:
+        path = os.path.join(root, fname)
+        if not os.path.exists(path):
+            print("  MISSING PAYLOAD %s -- skipped, not silently counted" % fname)
+            continue
+        dt = np.float16 if dtype == "float16" else np.float32
+        mm = np.memmap(path, dtype=dt, mode="r")
+        for model, prompt, row, dim in byfile[(fname, dtype)]:
+            v = np.asarray(mm[row * dim:(row + 1) * dim], dtype=np.float32)
+            if v.size != dim:
+                continue
+            v = v - v.max(); np.exp(v, out=v); v /= v.sum()
+            idx = np.flatnonzero(v >= TRUNC)
+            lp = np.log(v[idx]).astype(np.float32)
+            out.extend({"model": model, "prompt": prompt, "token_id": int(t),
+                        "logprob": float(x)} for t, x in zip(idx, lp))
+            res.append({"model": model, "prompt": prompt, "threshold": TRUNC,
+                        "kept": int(idx.size), "dim": dim,
+                        "mass_kept": float(v[idx].sum())})
+            n_cells += 1
+            if len(out) >= batch:
+                insert("logit_probs", out); n_rows += len(out); out = []
+        insert("logit_probs", out); n_rows += len(out); out = []
+        insert("logit_residual", res); res = []
+        print("  %-56s %5d cells" % (fname[:56], len(byfile[(fname, dtype)])))
+    print("\nindexed logits: %s new cells, %s token rows"
+          % (format(n_cells, ","), format(n_rows, ",")))
+
+
 #: (directory, label). The f11_twp subdir under cloud_run has 90 .f16 and ZERO
-#: .jsonl, so it cannot be ingested from this path and is deliberately absent --
-#: naming it here without a jsonl would produce a silent zero-row source.
+#: .jsonl, so the SIDECAR path cannot see it. `--index` reaches it instead.
 SOURCES = [("data/raw/cloud_run_20260801", "cloud_run_20260801"),
            ("data/f11_twp", "f11_twp"),
            ("data/f11_twp_delta", "f11_twp_delta")]
 
 
 def ingest_twp(limit=None, batch=200_000):
-    n_files = n_rows = n_cells = 0
+    done = done_cells("twp_residual")
+    print("already ingested: %s twp cells (skipping)\n" % format(len(done), ","))
+    n_files = n_rows = n_cells = n_skip = 0
     for rel, label in SOURCES:
         files = sorted(glob.glob(os.path.join(ROOT, rel, "*.jsonl")))
         if limit:
@@ -277,6 +363,9 @@ def ingest_twp(limit=None, batch=200_000):
                 if not rows:
                     continue
                 m, pr = d["model"], d["prompt"]
+                if (m, pr) in done:
+                    n_skip += 1
+                    continue
                 for w in rows:
                     words.append({"model": m, "prompt": pr, "word": w["word"],
                                   "t1": int(w.get("t1") or 0), "p": float(w["p"]),
@@ -302,12 +391,15 @@ def ingest_twp(limit=None, batch=200_000):
             insert("twp_residual", resid)
             n_files += 1
             print("  %-52s %s cells" % (os.path.basename(fp)[:52], format(len(resid), ",")))
-    print("\ntwp: %d files, %s cells, %s word rows" % (n_files, format(n_cells, ","), format(n_rows, ",")))
+    print("\ntwp: %d files, %s new cells, %s word rows, %s skipped as present"
+          % (n_files, format(n_cells, ","), format(n_rows, ","), format(n_skip, ",")))
 
 
 def ingest_logits(limit=None, batch=400_000):
     import numpy as np
-    n_cells = n_rows = 0
+    done = done_cells("logit_residual")
+    print("already ingested: %s logit cells (skipping)\n" % format(len(done), ","))
+    n_cells = n_rows = n_skip = 0
     for rel, label in SOURCES[:1]:          # only the archive carries logit_row
         files = sorted(glob.glob(os.path.join(ROOT, rel, "*.jsonl")))
         if limit:
@@ -324,6 +416,9 @@ def ingest_logits(limit=None, batch=400_000):
                 except Exception:
                     continue
                 if d.get("logit_row") is None:
+                    continue
+                if (d["model"], d["prompt"]) in done:
+                    n_skip += 1
                     continue
                 dim = int(d["logit_dim"])
                 dt = np.float16 if d.get("logit_dtype", "float16") == "float16" else np.float32
@@ -351,7 +446,8 @@ def ingest_logits(limit=None, batch=400_000):
             insert("logit_residual", res)
             print("  %-46s %5s cells  %12s rows"
                   % (os.path.basename(fp)[:46], format(len(res), ","), format(n_rows, ",")))
-    print("\nlogits: %s cells, %s token rows" % (format(n_cells, ","), format(n_rows, ",")))
+    print("\nlogits: %s new cells, %s token rows, %s skipped as present"
+          % (format(n_cells, ","), format(n_rows, ","), format(n_skip, ",")))
 
 
 def ingest_catalogue():
@@ -396,6 +492,8 @@ def main():
     ap.add_argument("--logits", action="store_true")
     ap.add_argument("--catalogue", action="store_true")
     ap.add_argument("--drift", action="store_true", help="live schema vs SCHEMA")
+    ap.add_argument("--index", action="store_true",
+                    help="logits driven by the stash index, reaching all 263 payloads")
     ap.add_argument("--verify", action="store_true")
     ap.add_argument("--limit", type=int, default=None, help="first N files per source")
     a = ap.parse_args()
@@ -408,13 +506,15 @@ def main():
         ingest_twp(a.limit)
     if a.logits:
         ingest_logits(a.limit)
+    if a.index:
+        ingest_logits_indexed(limit=a.limit)
     if a.drift:
         print("SCHEMA DRIFT CHECK"); check_drift()
     if a.catalogue:
         ingest_catalogue()
     if a.verify:
         verify()
-    if not any((a.create, a.twp, a.logits, a.catalogue, a.drift, a.verify)):
+    if not any((a.create, a.twp, a.logits, a.index, a.catalogue, a.drift, a.verify)):
         ap.print_help()
 
 
