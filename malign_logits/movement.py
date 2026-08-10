@@ -134,14 +134,29 @@ class Movement:
     def nonmovers(self, tau=0.005, min_mass=0.001):
         """Words present in the cell that DID NOT MOVE.
 
-        Not the complement of fallers-and-risers: a word can fail a movement
-        rule's eligibility test and still have moved a lot. This asks the
-        question directly -- |Q - P| <= tau -- and requires real mass in at
-        least one arm, because an absent word is a perfect non-mover and means
-        nothing.
+        THREE CONDITIONS, AND THE FIRST IS NOT REDUNDANT. A word must (a) not be
+        called a mover by the rule, (b) have |Q - P| <= tau, and (c) have real
+        mass in at least one arm -- an absent word is a perfect non-mover and
+        means nothing.
+
+        (a) IS NOT IMPLIED BY (b), and omitting it silently produced risers.
+        CANONICAL calls a word a riser at delta > 0.003; the first version of
+        this method bounded |delta| <= 0.005 and nothing else, so the band
+        (0.003, 0.005] qualified as BOTH. Measured on the 105-battery table:
+        15.9% of matched controls fell in that band and 9.5% below -0.003, and
+        because a matched arm picks the candidate closest to the faller in
+        probability, both the "non-mover" and a probability-matched riser
+        converged on the SAME WORD in every example inspected. Only 56.6% were
+        unambiguously unmoved.
+
+        Bounding tau below the rule's delta would also fix it, but couples this
+        method to a constant of whichever rule is in force. Asking the rule what
+        it called a mover does not.
         """
+        moved = set(self.fallers) | set(self.risers)
         return sorted(k for k in self.delta
-                      if k != RESIDUAL_KEY and abs(self.delta[k]) <= tau
+                      if k != RESIDUAL_KEY and k not in moved
+                      and abs(self.delta[k]) <= tau
                       and max(self.pre.get(k, 0.0), self.post.get(k, 0.0)) >= min_mass)
 
     def matched_nonmover(self, target, tau=0.005, tol=1.0, basis="post",

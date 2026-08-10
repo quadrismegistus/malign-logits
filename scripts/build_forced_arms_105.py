@@ -15,10 +15,16 @@ FOUR ARMS PER CELL:
 
     UNDISTURBED      no forcing. Where every effect measured this week lives:
                      entropy, KL, predictability, the span chain.
-    FALLER           top_faller. A's manipulation.
-    MATCHED          the unmoved word closest to the faller in ALIGNED
-                     probability. A's missing control.
-    RISER            top_riser. A's original contrast partner.
+    FALLER           the vv* faller with the most negative delta. A's manipulation.
+    FALLER-MATCHED   the unmoved vv* word closest to the faller in ALIGNED
+                     probability. A's missing control: probability held,
+                     movement varied.
+    RISER            the vv* riser with the greatest EXCESS. A's original
+                     contrast partner, and a median 12.9x MORE PROBABLE than the
+                     faller -- so this arm carries A's confound, by design,
+                     for continuity.
+    RISER-MATCHED    the vv* riser closest to the faller in aligned probability.
+                     Completes the three-way at fixed Q.
 
 MATCHED ON THE POST ARM. The confound is what the ALIGNED model finds
 improbable, so the control must be a word IT finds equally improbable and did
@@ -145,6 +151,15 @@ def main():
             qf0 = m.post.get(f, 0.0)
             nm = (min(cands, key=lambda w: abs(math.log2(m.post[w] / qf0)))
                   if cands and qf0 > 0 else None)
+            #: FOURTH ARM: a riser matched to the faller on aligned probability.
+            #: `ri` above is the max-EXCESS riser, which runs a median 12.9x more
+            #: probable than the faller -- so faller-vs-riser reproduces A's
+            #: original contrast WITH A's original confound. This one holds Q
+            #: fixed. Where the cell has few qualifying risers the two collapse
+            #: onto the same word, so that is flagged rather than hidden.
+            ris_pos = [w for w in ris_oc if m.post.get(w, 0.0) > 0]
+            rm = (min(ris_pos, key=lambda w: abs(math.log2(m.post[w] / qf0)))
+                  if ris_pos and qf0 > 0 else None)
             qf = m.post.get(f, 0.0)
             rec = dict(pair=pr, stem=r["stem"], member=r["member"],
                        domain=r["domain"], stratum=r["stratum"],
@@ -155,6 +170,13 @@ def main():
                        riser=ri,
                        riser_q=(m.post.get(ri, 0.0) if ri else None),
                        riser_delta=(m.delta.get(ri) if ri else None),
+                       riser_matched=rm,
+                       riser_matched_q=(m.post.get(rm, 0.0) if rm else None),
+                       riser_matched_delta=(m.delta.get(rm) if rm else None),
+                       riser_matched_log2=(math.log2(m.post[rm] / qf)
+                                           if rm and qf > 0 and m.post.get(rm, 0) > 0
+                                           else None),
+                       riser_arms_collapse=(rm is not None and rm == ri),
                        matched=nm,
                        matched_q=(m.post.get(nm, 0.0) if nm else None),
                        matched_delta=(m.delta.get(nm) if nm else None),
