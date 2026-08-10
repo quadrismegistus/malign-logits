@@ -405,16 +405,6 @@
   "warn_sft_as_aligned": false
  },
  {
-  "base": "microsoft/phi-4",
-  "aligned": "microsoft/Phi-4-reasoning-plus",
-  "family": "phi4",
-  "stage": "ppo",
-  "ambiguous": false,
-  "ruled": false,
-  "candidates": null,
-  "warn_sft_as_aligned": false
- },
- {
   "base": "mistralai/Mistral-7B-v0.1",
   "aligned": "HuggingFaceH4/zephyr-7b-beta",
   "family": "zephyr",

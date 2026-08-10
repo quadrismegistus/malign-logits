@@ -731,12 +731,16 @@ MODEL_FAMILIES = {
     #
     # Both children declare `base_model: microsoft/phi-4`, so the parent-child
     # ordering here is a PAPER claim, not metadata.
-    "phi4": ModelFamily(
-        name="Phi-4 14B [3-layer SFT->GRPO; BASE ARM IS ITSELF ALIGNED, not pretrained-only]",
-        base="microsoft/phi-4",
-        ego="microsoft/phi-4-reasoning",
-        superego="microsoft/Phi-4-reasoning-plus",
-    ),
+    # REMOVED 2026-08-10 on RH's word (docket [5264] arc): phi4 has NO BASE
+    # MODEL — microsoft/phi-4's own card says "a combination of SFT and
+    # iterative DPO"; the real base (`Phi-4-base`, report S3.1) was never
+    # released, so every pair this family produces treats an aligned model as
+    # a pretrained-only arm. Removed rather than labelled because the registry
+    # has no edge_type field yet; when that field exists this entry can return
+    # AS AN SFT->RL EDGE, never as base->aligned. The entry, for the record:
+    #   "phi4": base="microsoft/phi-4", ego="microsoft/phi-4-reasoning",
+    #           superego="microsoft/Phi-4-reasoning-plus"
+    # Same class as Pharia (flagged to RH, not yet ruled).
     # Scale variants
     "olmo-32b": ModelFamily(
         name="OLMo 3.1 32B",
