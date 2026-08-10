@@ -551,9 +551,32 @@ BOS_POLICY = {"internlm2": "forced"}      # substring match on the model id
 # (tokenizer_roundtrip_sweep.py) will report the model clean and the row can go.
 # An inline `if "deepseek" in mid` would never retire, because nothing would
 # ever tell anyone it had become unnecessary.
+#
+# internlm2 is the SAME DEFECT WITH A DIFFERENT CLASS, found 2026-08-10 by a
+# fleet writing 402 skip records. `AutoTokenizer` resolves it to the repo's
+# bundled `InternLM2TokenizerFast` (fetched under trust_remote_code), whose
+# pre-tokenizer SHIFTS word boundaries rather than deleting spaces:
+#
+#     sent  'He lay naked in his bed and'
+#     got   'H elay n aked inh is bed and'
+#
+# `twp` refuses the cell -- correctly, since a boundary shift makes every
+# word-level probability a probability of a different word. Both arms fail
+# identically, so the PAIR is recoverable and was never lost.
+#
+# **IT DOES NOT REPRODUCE ON THIS MAC AND THAT IS THE POINT.** Local
+# transformers is 5.4.0 and the fleet's is 5.14.1; AutoTokenizer picks a
+# different class on each, so the round-trip is clean here and broken there. A
+# fidelity verdict taken locally would have declared internlm2 fine and been
+# wrong about every box -- which is why capability facts are keyed
+# (model x environment) in data/model_load_environments.json rather than by
+# model alone.
 LOADER_OVERRIDE = {
     "deepseek-ai/deepseek-llm-7b-base": ("PreTrainedTokenizerFast", "#45488/#47017"),
     "deepseek-ai/deepseek-llm-7b-chat": ("PreTrainedTokenizerFast", "#45488/#47017"),
+    "internlm/internlm2-base-7b": ("PreTrainedTokenizerFast", "InternLM2TokenizerFast-boundary-shift"),
+    "internlm/internlm2-chat-7b": ("PreTrainedTokenizerFast", "InternLM2TokenizerFast-boundary-shift"),
+    "internlm/internlm2-chat-7b-sft": ("PreTrainedTokenizerFast", "InternLM2TokenizerFast-boundary-shift"),
 }
 
 
