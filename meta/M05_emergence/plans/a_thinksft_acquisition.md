@@ -131,3 +131,15 @@ one revision each (load-dominated; the fleet's per-load and per-prompt rates
 are known from the census), times the battery choice (2,583 vs the core
 subset). The greedy panel and the join check are noise next to it. The join
 check costs nothing but local disk and can run today.
+
+> **CORRECTED 2026-08-10, [5333] (malign), same day as written: "load-dominated"
+> was WRONG.** Measured on twpilm (3 checkpoints, one repo, one box): non-scoring
+> overhead ~0 across three 15 GB downloads — the `dense` profile's 5 Gbps floor
+> and `--purge` remove the cost this line imagined. Cost is ~linear in prompts.
+> **Costing delivered: full battery 116,235 cells, ~$8–16 central (1.4 p/s
+> median of 36 dense models today; OLMo-3-7B itself unmeasured — the named
+> caveat); core ~$2–4.** Malign's recommendation: the full 2,583 — the saving
+> is ~$10 against U-comparability with every M01 number. Also flagged there:
+> revision-in-key is a schema change across both stores (`_twp_key` has no
+> revision field; twp_ingest, ch_ingest, logit index, resolve_twp_sources all
+> key off it) — scoped deliberately BEFORE anything is scored.
