@@ -2,11 +2,11 @@
  "_about": "H2 depth sweep population, enumerated with every gate recorded as a column so exclusions are queries.",
  "_producer": "scripts/h2_sweep_population.py",
  "prompt_list_sha256_16": "0957c5b627458224",
- "included_list_sha256_16": "e22a30b65fe9a06a",
+ "included_list_sha256_16": "58df7dbaf4cfcd38",
  "min_cells": 10,
  "n_prompts": 60,
  "n_pairs_registry": 52,
- "n_included": 26,
+ "n_included": 25,
  "n_lang_en": 30,
  "n_lang_zh": 30,
  "zero_cell_prompts": [
@@ -14,10 +14,10 @@
   "violence_explicit_5",
   "violence_explicit_5_zh"
  ],
- "cells_observed": 1395,
+ "cells_observed": 1338,
  "cells_shortfall": {
-  "not_in_store": 52,
-  "few_movers": 113
+  "not_in_store": 50,
+  "few_movers": 112
  },
  "prompts": [
   {
@@ -456,6 +456,10 @@
     "preflight_clean": true,
     "enough_cells": true
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 48,
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
@@ -480,6 +484,10 @@
     "preflight_clean": true,
     "enough_cells": false
    },
+   "weights_present": {
+    "base": false,
+    "aligned": false
+   },
    "arch": null,
    "preflight_reason": null,
    "n_cells": null,
@@ -499,6 +507,10 @@
     "arch_patchable": false,
     "preflight_clean": true,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 27,
    "arch": "PhariaForCausalLM",
@@ -520,6 +532,10 @@
     "arch_patchable": true,
     "preflight_clean": true,
     "enough_cells": true
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 32,
    "arch": "LlamaForCausalLM",
@@ -545,6 +561,10 @@
     "preflight_clean": true,
     "enough_cells": false
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 32,
    "arch": "GPTNeoXForCausalLM",
    "preflight_reason": null,
@@ -566,6 +586,10 @@
     "preflight_clean": true,
     "enough_cells": false
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 32,
    "arch": "GPTNeoXForCausalLM",
    "preflight_reason": null,
@@ -586,6 +610,10 @@
     "arch_patchable": true,
     "preflight_clean": true,
     "enough_cells": true
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 32,
    "arch": "LlamaForCausalLM",
@@ -611,6 +639,10 @@
     "preflight_clean": true,
     "enough_cells": true
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 36,
    "arch": "SmolLM3ForCausalLM",
    "preflight_reason": null,
@@ -634,6 +666,10 @@
     "arch_patchable": true,
     "preflight_clean": true,
     "enough_cells": true
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 32,
    "arch": "LlamaForCausalLM",
@@ -659,6 +695,10 @@
     "preflight_clean": true,
     "enough_cells": true
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 32,
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
@@ -682,6 +722,10 @@
     "arch_patchable": true,
     "preflight_clean": true,
     "enough_cells": true
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 24,
    "arch": "Qwen2ForCausalLM",
@@ -707,6 +751,10 @@
     "preflight_clean": true,
     "enough_cells": true
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 28,
    "arch": "Qwen2ForCausalLM",
    "preflight_reason": null,
@@ -731,6 +779,10 @@
     "preflight_clean": true,
     "enough_cells": true
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 36,
    "arch": "Qwen3ForCausalLM",
    "preflight_reason": null,
@@ -749,11 +801,15 @@
    "family": "rwkv",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": false,
     "arch_patchable": false,
     "preflight_clean": true,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": false,
+    "aligned": true
    },
    "arch": null,
    "preflight_reason": null,
@@ -774,6 +830,10 @@
     "arch_patchable": true,
     "preflight_clean": true,
     "enough_cells": true
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 22,
    "arch": "LlamaForCausalLM",
@@ -799,6 +859,10 @@
     "preflight_clean": true,
     "enough_cells": false
    },
+   "weights_present": {
+    "base": false,
+    "aligned": true
+   },
    "arch": null,
    "preflight_reason": null,
    "n_cells": null,
@@ -818,6 +882,10 @@
     "arch_patchable": true,
     "preflight_clean": true,
     "enough_cells": true
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 16,
    "arch": "Olmo2ForCausalLM",
@@ -843,6 +911,10 @@
     "preflight_clean": true,
     "enough_cells": false
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 16,
    "arch": "OlmoeForCausalLM",
    "preflight_reason": null,
@@ -864,6 +936,10 @@
     "preflight_clean": true,
     "enough_cells": false
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 32,
    "arch": "Olmo3ForCausalLM",
    "preflight_reason": null,
@@ -879,11 +955,15 @@
    "family": "olmo-32b",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": true,
     "arch_patchable": false,
     "preflight_clean": true,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": false,
+    "aligned": false
    },
    "n_blocks": 64,
    "arch": "Olmo3ForCausalLM",
@@ -906,6 +986,10 @@
     "preflight_clean": true,
     "enough_cells": false
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 32,
    "arch": "OlmoHybridForCausalLM",
    "preflight_reason": null,
@@ -926,6 +1010,10 @@
     "arch_patchable": false,
     "preflight_clean": true,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 32,
    "arch": "BaichuanForCausalLM",
@@ -948,6 +1036,10 @@
     "preflight_clean": true,
     "enough_cells": false
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": null,
    "arch": "BloomForCausalLM",
    "preflight_reason": null,
@@ -969,6 +1061,10 @@
     "preflight_clean": false,
     "enough_cells": false
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 24,
    "arch": "LlamaForCausalLM",
    "preflight_reason": "croissantllm/CroissantLLMBase: Loads; DELETES CJK CHARACTERS. \u4ed6\u65e2\u662f\u7f8e\u4e3d\u7684\u53c8\u662f\u6076\u5fc3\u7684\uff0c\u5979\u60f3\u8981 -> \u4ed6\u662f\u7f8e\u7684\u662f\u5fc3\u7684\u60f3\u8981,",
@@ -984,11 +1080,15 @@
    "family": "deepseek-7b",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": true,
     "arch_patchable": false,
     "preflight_clean": false,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": false,
+    "aligned": true
    },
    "arch": null,
    "preflight_reason": "deepseek-ai/deepseek-llm-7b-base: **LOADS AND RUNS, AND SILENTLY DESTROYS THE PROMPT.** backen",
@@ -1010,6 +1110,10 @@
     "preflight_clean": true,
     "enough_cells": true
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 42,
    "arch": "Gemma2ForCausalLM",
    "preflight_reason": null,
@@ -1028,11 +1132,15 @@
    "family": "recurrentgemma",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": false,
     "arch_patchable": false,
     "preflight_clean": true,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": false,
+    "aligned": false
    },
    "n_blocks": 38,
    "arch": "RecurrentGemmaForCausalLM",
@@ -1055,6 +1163,10 @@
     "preflight_clean": true,
     "enough_cells": true
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 32,
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
@@ -1073,21 +1185,22 @@
    "family": "granite",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": true,
     "arch_patchable": true,
     "preflight_clean": true,
-    "enough_cells": true
+    "enough_cells": false
+   },
+   "weights_present": {
+    "base": false,
+    "aligned": false
    },
    "n_blocks": 40,
    "arch": "GraniteForCausalLM",
    "preflight_reason": null,
-   "n_cells": 57,
-   "cells_shortfall": {
-    "not_in_store": 2,
-    "few_movers": 1
-   },
-   "INCLUDED": true
+   "n_cells": null,
+   "cells_shortfall": {},
+   "INCLUDED": false
   },
   {
    "idx": 29,
@@ -1097,11 +1210,15 @@
    "family": "jais",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": true,
     "arch_patchable": false,
     "preflight_clean": true,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": false,
+    "aligned": false
    },
    "n_blocks": null,
    "arch": "JAISLMHeadModel",
@@ -1118,11 +1235,15 @@
    "family": "internlm2",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": true,
     "arch_patchable": false,
     "preflight_clean": true,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": false
    },
    "n_blocks": 32,
    "arch": "InternLM2ForCausalLM",
@@ -1144,6 +1265,10 @@
     "arch_patchable": true,
     "preflight_clean": true,
     "enough_cells": true
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 32,
    "arch": "LlamaForCausalLM",
@@ -1169,6 +1294,10 @@
     "preflight_clean": true,
     "enough_cells": true
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 32,
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
@@ -1193,6 +1322,10 @@
     "preflight_clean": true,
     "enough_cells": true
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 28,
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
@@ -1211,19 +1344,21 @@
    "family": "llama-70b",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": true,
     "arch_patchable": true,
     "preflight_clean": true,
     "enough_cells": false
    },
+   "weights_present": {
+    "base": false,
+    "aligned": false
+   },
    "n_blocks": 80,
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
-   "n_cells": 0,
-   "cells_shortfall": {
-    "not_in_store": 60
-   },
+   "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -1239,6 +1374,10 @@
     "arch_patchable": true,
     "preflight_clean": true,
     "enough_cells": true
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 32,
    "arch": "LlamaForCausalLM",
@@ -1264,6 +1403,10 @@
     "preflight_clean": true,
     "enough_cells": true
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 40,
    "arch": "Phi3ForCausalLM",
    "preflight_reason": null,
@@ -1287,6 +1430,10 @@
     "arch_patchable": true,
     "preflight_clean": true,
     "enough_cells": true
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 32,
    "arch": "MistralForCausalLM",
@@ -1312,6 +1459,10 @@
     "preflight_clean": false,
     "enough_cells": false
    },
+   "weights_present": {
+    "base": false,
+    "aligned": false
+   },
    "arch": null,
    "preflight_reason": "mosaicml/mpt-7b: REPO IS GONE: 'not a local folder and is not a valid model i",
    "n_cells": null,
@@ -1326,11 +1477,15 @@
    "family": "teuken",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": true,
     "arch_patchable": true,
     "preflight_clean": false,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": false,
+    "aligned": false
    },
    "n_blocks": 32,
    "arch": "LlamaForCausalLM",
@@ -1352,6 +1507,10 @@
     "arch_patchable": true,
     "preflight_clean": true,
     "enough_cells": true
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 24,
    "arch": "LlamaForCausalLM",
@@ -1377,6 +1536,10 @@
     "preflight_clean": true,
     "enough_cells": true
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 24,
    "arch": "StableLmForCausalLM",
    "preflight_reason": null,
@@ -1395,11 +1558,15 @@
    "family": "falcon-h1-1.5b",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": false,
     "arch_patchable": false,
     "preflight_clean": true,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": false,
+    "aligned": false
    },
    "n_blocks": 24,
    "arch": "FalconH1ForCausalLM",
@@ -1416,11 +1583,15 @@
    "family": "falcon-h1-7b",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": false,
     "arch_patchable": false,
     "preflight_clean": true,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": false,
+    "aligned": false
    },
    "n_blocks": 44,
    "arch": "FalconH1ForCausalLM",
@@ -1442,6 +1613,10 @@
     "arch_patchable": true,
     "preflight_clean": true,
     "enough_cells": true
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 40,
    "arch": "LlamaForCausalLM",
@@ -1467,6 +1642,10 @@
     "preflight_clean": true,
     "enough_cells": true
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 18,
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
@@ -1490,6 +1669,10 @@
     "arch_patchable": true,
     "preflight_clean": true,
     "enough_cells": true
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 22,
    "arch": "LlamaForCausalLM",
@@ -1515,6 +1698,10 @@
     "preflight_clean": true,
     "enough_cells": true
    },
+   "weights_present": {
+    "base": true,
+    "aligned": true
+   },
    "n_blocks": 28,
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
@@ -1533,11 +1720,15 @@
    "family": "falcon3-mamba",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": false,
     "arch_patchable": false,
     "preflight_clean": true,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": false,
+    "aligned": false
    },
    "n_blocks": 64,
    "arch": "FalconMambaForCausalLM",
@@ -1554,11 +1745,15 @@
    "family": "falcon-mamba",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": false,
     "arch_patchable": false,
     "preflight_clean": true,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": false,
+    "aligned": false
    },
    "n_blocks": 64,
    "arch": "FalconMambaForCausalLM",
@@ -1575,11 +1770,15 @@
    "family": "redpajama",
    "ambiguous": false,
    "gates": {
-    "local": true,
+    "local": false,
     "has_attention": true,
     "arch_patchable": false,
     "preflight_clean": true,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": false
    },
    "n_blocks": 32,
    "arch": "GPTNeoXForCausalLM",
@@ -1601,6 +1800,10 @@
     "arch_patchable": false,
     "preflight_clean": true,
     "enough_cells": false
+   },
+   "weights_present": {
+    "base": true,
+    "aligned": true
    },
    "n_blocks": 40,
    "arch": "GlmForCausalLM",

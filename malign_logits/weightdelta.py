@@ -8,6 +8,9 @@
     weight_delta(base, aligned, by="head")    # {(layer, head) -> ...}
     weight_delta(base, aligned, by="head", per="q_proj")   # one projection
 
+The result is a `Delta` (a dict). Skipped-key count is on `.skipped`, NOT a key
+inside it -- a count living beside ratios is a number that reads as data.
+
 **READS THE TENSOR, NOT THE MODEL.** `safetensors` opens a shard and returns one
 weight; loading 100 checkpoints to compare matrices would cost hours and a
 terabyte. Local files only -- a survey that silently downloads is not a survey.
@@ -110,12 +113,28 @@ def _group_of(key):
     return "norm"
 
 
+class Delta(dict):
+    """A `{grain -> ||dW||/||W||}` mapping that carries its skip count OUT OF
+    BAND, on `.skipped`.
+
+    **THE COUNT USED TO BE A KEY IN THIS DICT** (`_skipped_keys`), which meant
+    every caller iterating the result got one extra entry whose VALUE IS A
+    COUNT sitting where a ratio belongs. For `by="block"` it crashed on sort
+    (str against int) and so announced itself; for `by="group"` it would have
+    passed silently as a group named `_skipped_keys` with a plausible-looking
+    float. Caught before any caller outside this module existed, so no number
+    anywhere was ever affected -- recorded because the failure mode is the
+    quiet one, and the loud one is what saved it."""
+    skipped = 0
+
+
 def weight_delta(base: str, aligned: str, by: str = "block", per: str = None):
     """||dW||/||W|| between two checkpoints. `by` in {block, group, head, key}.
 
-    Returns None if either checkpoint is not local or has no safetensors. Keys
-    present in one checkpoint and not the other are SKIPPED AND COUNTED, never
-    treated as zero change -- a missing tensor is an absent observation.
+    Returns a `Delta` (a dict) or None if either checkpoint is not local or has
+    no safetensors. Keys present in one checkpoint and not the other are
+    SKIPPED AND COUNTED on `.skipped`, never treated as zero change -- a
+    missing tensor is an absent observation.
     """
     from safetensors import safe_open
     sb, sa = snapshot_dir(base), snapshot_dir(aligned)
@@ -185,6 +204,6 @@ def weight_delta(base: str, aligned: str, by: str = "block", per: str = None):
                 h.__exit__(None, None, None)
             except Exception:
                 pass
-    out = {kk: (v[0] ** .5) / (v[1] ** .5) for kk, v in acc.items() if v[1] > 0}
-    out["_skipped_keys"] = skipped
+    out = Delta({kk: (v[0] ** .5) / (v[1] ** .5) for kk, v in acc.items() if v[1] > 0})
+    out.skipped = skipped
     return out

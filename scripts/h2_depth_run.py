@@ -204,10 +204,21 @@ def unlock(shard):
 # ----------------------------------------------------------------- the drive
 
 def todo_for(shard, prompts, spec, sc):
-    """Prompts still owed: not written, and not already offered-and-unusable."""
+    """Prompts still owed: not written, and not already offered-and-unusable.
+
+    **`A or B` ON SETS INVERTS THIS FUNCTION AND DID.** The first version read
+
+        done = {... if r["spec_sha"] == spec} or {... every row}
+
+    so when NO row matched the current spec the filtered set was empty, `or`
+    fell through, and every row counted as done. A TOTAL spec mismatch --
+    the case the spec exists to catch -- reported the shard as fully complete.
+    The fallback was meant for rows written before stamping existed; it is now
+    explicit, and it admits an UNSTAMPED row while refusing a MISMATCHED one,
+    which is the distinction the `or` collapsed.
+    """
     rows, bad = read_shard(shard)
-    done = {r.get("prompt") for r in rows if r.get("spec_sha") == spec} or \
-           {r.get("prompt") for r in rows}
+    done = {r.get("prompt") for r in rows if r.get("spec_sha") in (spec, None)}
     no_row = set(sc.get("no_row") or [])
     return [p for p in prompts if p not in done and p not in no_row], rows, bad
 

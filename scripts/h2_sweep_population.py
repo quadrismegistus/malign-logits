@@ -29,7 +29,7 @@ the list, with every exclusion named and counted.
 verdicts, so an exclusion is a query and is reversible. The counts on the face
 are what the plan cites; the file is what a recount reads.
 """
-import argparse, hashlib, json, os, sys
+import argparse, glob, hashlib, json, os, sys
 from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
@@ -97,7 +97,20 @@ def main():
              "family": pr.get("family"), "ambiguous": pr.get("ambiguous"),
              "gates": {}}
         sb, sa = snapshot_dir(b), snapshot_dir(al)
-        r["gates"]["local"] = bool(sb and sa)
+        #: **A SNAPSHOT DIRECTORY IS NOT WEIGHTS.** `snapshot_dir` returns a path
+        #: whenever the hub cache has ANY entry for the repo -- including a
+        #: metadata-only entry with config.json and a tokenizer and no tensors
+        #: at all. granite-3.0-8b was exactly that, and it passed a gate named
+        #: LOCAL, passed the CELLS gate too (its twp rows were scored on a cloud
+        #: box, so the store knows it while this disk does not), and would have
+        #: reached a sweep that promises never to download by silently
+        #: downloading 32 GB. THE GATE MUST NAME THE FILE IT NEEDS.
+        def _has_weights(sn):
+            if not sn: return False
+            return bool(glob.glob(os.path.join(sn, "*.safetensors"))
+                        or glob.glob(os.path.join(sn, "*.bin")))
+        r["gates"]["local"] = bool(_has_weights(sb) and _has_weights(sa))
+        r["weights_present"] = {"base": _has_weights(sb), "aligned": _has_weights(sa)}
         arch = None
         if sb and os.path.exists(os.path.join(sb, "config.json")):
             cfg = json.load(open(os.path.join(sb, "config.json")))
