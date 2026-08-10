@@ -72,9 +72,39 @@ OUT_EDGES = os.path.join(ROOT, "data", "edge_token_overlap.json")
 PROBE = "She was so angry she wanted to"
 
 
+def _revision(mid):
+    """The pinned revision for `mid`, via twp_cloud's resolver -- not a copy.
+
+    **THE FIRST RUN OF THIS SCRIPT IGNORED PINS AND IT PRODUCED A FALSE
+    INCOMPATIBILITY.** `BAAI/Aquila2-7B` came back with 4 shared ids against its
+    chat arm, 0.0%, which reads as a dead pair. Measured both ways afterwards:
+
+        main branch (unpinned)   vocab 143,717 vs 100,000 ->      4 shared
+        pinned 9c76e143          vocab 100,000 vs 100,000 -> 100,008 shared
+
+    BAAI replaced main with a re-tokenised model, which is exactly what the pin
+    in `ModelFamily.revisions` exists to defend against, and `__init__.py` says
+    in terms that it is "NOT YET HONOURED ON EVERY LOADING PATH". This script
+    was one of the paths. Registrar cleared the pair at [5266] and was right;
+    the 0.0% was an artefact of my own loader.
+
+    Imported rather than reimplemented: `revisions` is keyed by SLOT, not by
+    model id, so a naive lookup returns None for every model including the
+    pinned one and the run looks completely normal.
+    """
+    try:
+        sys.path.insert(0, os.path.join(ROOT, "scripts"))
+        from twp_cloud import declared_revision
+        return declared_revision(mid)
+    except Exception:
+        return None
+
+
 def measure(mid):
     from transformers import AutoTokenizer
-    t = AutoTokenizer.from_pretrained(mid, trust_remote_code=True)
+    rev = _revision(mid)
+    t = AutoTokenizer.from_pretrained(mid, trust_remote_code=True,
+                                      **({"revision": rev} if rev else {}))
     v = t.get_vocab()
     sha = hashlib.sha256(json.dumps(sorted(v.items()),
                                     ensure_ascii=False).encode()).hexdigest()[:16]
@@ -84,6 +114,7 @@ def measure(mid):
     enc_nospecial = t(PROBE, add_special_tokens=False)["input_ids"]
     return {
         "model": mid,
+        "revision": rev or "",
         "tokenizer_class": type(t).__name__,
         "vocab_size": int(t.vocab_size),
         "vocab_len": len(v),

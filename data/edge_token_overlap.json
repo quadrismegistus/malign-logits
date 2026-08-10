@@ -1,0 +1,1790 @@
+{
+ "_about": "Shared-id sets per registry edge. A sequence is cross-scoreable iff all its ids are in the set; chat tokens fall outside it by construction.",
+ "_computed_at": "2026-08-10T13:56:30",
+ "_probe": "She was so angry she wanted to",
+ "_n_edges": 198,
+ "edges": [
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "relation": "data_ablation_of",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "relation": "data_ablation_of",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "relation": "data_ablation_of",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "relation": "data_ablation_of",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "01-ai/Yi-1.5-9B",
+   "child": "01-ai/Yi-1.5-9B-Chat",
+   "relation": "dpo_of",
+   "n_shared": 63992,
+   "cover": 1.0,
+   "shared_id_sha": "3a108d66014796a2",
+   "bos_matches": true
+  },
+  {
+   "parent": "Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
+   "child": "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
+   "relation": "dpo_of",
+   "n_shared": 128000,
+   "cover": 1.0,
+   "shared_id_sha": "66b5373549bc809d",
+   "bos_matches": true
+  },
+  {
+   "parent": "BSC-LT/salamandra-7b",
+   "child": "BSC-LT/salamandra-7b-instruct",
+   "relation": "dpo_of",
+   "n_shared": 256000,
+   "cover": 1.0,
+   "shared_id_sha": "ac3968279adc7d91",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "relation": "dpo_of",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "HuggingFaceH4/mistral-7b-sft-beta",
+   "child": "HuggingFaceH4/zephyr-7b-beta",
+   "relation": "dpo_of",
+   "n_shared": 32000,
+   "cover": 1.0,
+   "shared_id_sha": "6a67abc140f52a59",
+   "bos_matches": true
+  },
+  {
+   "parent": "HuggingFaceTB/SmolLM2-360M",
+   "child": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "relation": "dpo_of",
+   "n_shared": 49152,
+   "cover": 1.0,
+   "shared_id_sha": "af2f5fc80edc464f",
+   "bos_matches": true
+  },
+  {
+   "parent": "LLM360/AmberChat",
+   "child": "LLM360/AmberSafe",
+   "relation": "dpo_of",
+   "n_shared": 32000,
+   "cover": 1.0,
+   "shared_id_sha": "6a67abc140f52a59",
+   "bos_matches": true
+  },
+  {
+   "parent": "OpenLLM-France/Lucie-7B",
+   "child": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "relation": "dpo_of",
+   "n_shared": 65021,
+   "cover": 0.999954,
+   "shared_id_sha": "9a866d9b423b7f1f",
+   "bos_matches": true
+  },
+  {
+   "parent": "PKU-Alignment/alpaca-7b-reproduced",
+   "child": "PKU-Alignment/beaver-7b-v1.0",
+   "relation": "dpo_of",
+   "n_shared": 32001,
+   "cover": 1.0,
+   "shared_id_sha": "faa65c755d9b5b8a",
+   "bos_matches": true
+  },
+  {
+   "parent": "Qwen/Qwen2.5-0.5B",
+   "child": "Qwen/Qwen2.5-0.5B-Instruct",
+   "relation": "dpo_of",
+   "n_shared": 151665,
+   "cover": 1.0,
+   "shared_id_sha": "9bb2eb248a215a09",
+   "bos_matches": true
+  },
+  {
+   "parent": "Qwen/Qwen2.5-7B",
+   "child": "Qwen/Qwen2.5-7B-Instruct",
+   "relation": "dpo_of",
+   "n_shared": 151665,
+   "cover": 1.0,
+   "shared_id_sha": "9bb2eb248a215a09",
+   "bos_matches": true
+  },
+  {
+   "parent": "Qwen/Qwen3-8B-Base",
+   "child": "Qwen/Qwen3-8B",
+   "relation": "dpo_of",
+   "n_shared": 151669,
+   "cover": 1.0,
+   "shared_id_sha": "725be24ebf3c2c3a",
+   "bos_matches": true
+  },
+  {
+   "parent": "RWKV/rwkv-4-7b-pile",
+   "child": "RWKV/rwkv-raven-7b",
+   "relation": "dpo_of",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "child": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "relation": "dpo_of",
+   "n_shared": 32000,
+   "cover": 1.0,
+   "shared_id_sha": "6a67abc140f52a59",
+   "bos_matches": true
+  },
+  {
+   "parent": "Zyphra/Zamba2-7B",
+   "child": "Zyphra/Zamba2-7B-Instruct",
+   "relation": "dpo_of",
+   "n_shared": 31998,
+   "cover": 0.999938,
+   "shared_id_sha": "0ba45aeddfa3e49b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "relation": "dpo_of",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B-SFT",
+   "child": "allenai/OLMo-2-0425-1B-DPO",
+   "relation": "dpo_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMoE-1B-7B-0125-SFT",
+   "child": "allenai/OLMoE-1B-7B-0125-DPO",
+   "relation": "dpo_of",
+   "n_shared": 50280,
+   "cover": 1.0,
+   "shared_id_sha": "e2762a2fb1ad1a49",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct-SFT",
+   "child": "allenai/Olmo-3-7B-Instruct-DPO",
+   "relation": "dpo_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Think-SFT",
+   "child": "allenai/Olmo-3-7B-Think-DPO",
+   "relation": "dpo_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3.1-32B-Instruct-SFT",
+   "child": "allenai/Olmo-3.1-32B-Instruct-DPO",
+   "relation": "dpo_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-Hybrid-Instruct-SFT-7B",
+   "child": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
+   "relation": "dpo_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "baichuan-inc/Baichuan2-7B-Base",
+   "child": "baichuan-inc/Baichuan2-7B-Chat",
+   "relation": "dpo_of",
+   "n_shared": 125696,
+   "cover": 1.0,
+   "shared_id_sha": "704241a4c2144ae5",
+   "bos_matches": true
+  },
+  {
+   "parent": "bigscience/bloom-7b1",
+   "child": "bigscience/bloomz-7b1",
+   "relation": "dpo_of",
+   "n_shared": 250680,
+   "cover": 1.0,
+   "shared_id_sha": "c48b839fb76db78f",
+   "bos_matches": true
+  },
+  {
+   "parent": "croissantllm/CroissantLLMBase",
+   "child": "croissantllm/CroissantLLMChat-v0.1",
+   "relation": "dpo_of",
+   "n_shared": 32000,
+   "cover": 1.0,
+   "shared_id_sha": "6a67abc140f52a59",
+   "bos_matches": true
+  },
+  {
+   "parent": "deepseek-ai/deepseek-llm-7b-base",
+   "child": "deepseek-ai/deepseek-llm-7b-chat",
+   "relation": "dpo_of",
+   "n_shared": 100015,
+   "cover": 1.0,
+   "shared_id_sha": "eb82ba69533f12a6",
+   "bos_matches": true
+  },
+  {
+   "parent": "google/gemma-2-9b",
+   "child": "google/gemma-2-9b-it",
+   "relation": "dpo_of",
+   "n_shared": 256000,
+   "cover": 1.0,
+   "shared_id_sha": "ac3968279adc7d91",
+   "bos_matches": true
+  },
+  {
+   "parent": "google/recurrentgemma-9b",
+   "child": "google/recurrentgemma-9b-it",
+   "relation": "dpo_of",
+   "n_shared": 256000,
+   "cover": 1.0,
+   "shared_id_sha": "ac3968279adc7d91",
+   "bos_matches": true
+  },
+  {
+   "parent": "ibm-granite/granite-3.0-8b-base",
+   "child": "ibm-granite/granite-3.0-8b-instruct",
+   "relation": "dpo_of",
+   "n_shared": 49151,
+   "cover": 0.99998,
+   "shared_id_sha": "855e19a5f997cff3",
+   "bos_matches": true
+  },
+  {
+   "parent": "inceptionai/jais-family-6p7b",
+   "child": "inceptionai/jais-family-6p7b-chat",
+   "relation": "dpo_of",
+   "n_shared": 84992,
+   "cover": 1.0,
+   "shared_id_sha": "1c9fb0550b38d7a8",
+   "bos_matches": true
+  },
+  {
+   "parent": "internlm/internlm2-chat-7b-sft",
+   "child": "internlm/internlm2-chat-7b",
+   "relation": "dpo_of",
+   "n_shared": 92544,
+   "cover": 1.0,
+   "shared_id_sha": "866e75ea960bbb82",
+   "bos_matches": true
+  },
+  {
+   "parent": "llm-jp/llm-jp-3-7.2b-instruct2",
+   "child": "llm-jp/llm-jp-3-7.2b-instruct3",
+   "relation": "dpo_of",
+   "n_shared": 99574,
+   "cover": 1.0,
+   "shared_id_sha": "1eed6f9c54624847",
+   "bos_matches": true
+  },
+  {
+   "parent": "lomahony/eleuther-pythia6.9b-hh-sft",
+   "child": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "relation": "dpo_of",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "m-a-p/CT-LLM-SFT",
+   "child": "m-a-p/CT-LLM-SFT-DPO",
+   "relation": "dpo_of",
+   "n_shared": 125699,
+   "cover": 1.0,
+   "shared_id_sha": "a6a40a3aefe764f0",
+   "bos_matches": true
+  },
+  {
+   "parent": "m-a-p/neo_7b_sft_v0.1",
+   "child": "m-a-p/neo_7b_instruct_v0.1",
+   "relation": "dpo_of",
+   "n_shared": 64005,
+   "cover": 1.0,
+   "shared_id_sha": "e47589a431754b75",
+   "bos_matches": true
+  },
+  {
+   "parent": "meta-llama/Llama-3.1-70B",
+   "child": "meta-llama/Llama-3.1-70B-Instruct",
+   "relation": "dpo_of",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
+   "relation": "dpo_of",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "openGPT-X/Teuken-7B-base-v0.6",
+   "child": "openGPT-X/Teuken-7B-instruct-v0.6",
+   "relation": "dpo_of",
+   "n_shared": 250680,
+   "cover": 1.0,
+   "shared_id_sha": "c48b839fb76db78f",
+   "bos_matches": true
+  },
+  {
+   "parent": "openbmb/MiniCPM5-1B-SFT",
+   "child": "openbmb/MiniCPM5-1B",
+   "relation": "dpo_of",
+   "n_shared": 130560,
+   "cover": 1.0,
+   "shared_id_sha": "6e3937bb1d074eb7",
+   "bos_matches": true
+  },
+  {
+   "parent": "stabilityai/stablelm-2-1_6b-chat",
+   "child": "stabilityai/stablelm-2-zephyr-1_6b",
+   "relation": "dpo_of",
+   "n_shared": 100289,
+   "cover": 1.0,
+   "shared_id_sha": "303e76dd7dc4bd23",
+   "bos_matches": true
+  },
+  {
+   "parent": "team-hatakeyama-phase2/Tanuki-8B-base-v1.0",
+   "child": "weblab-GENIAC/Tanuki-8B-dpo-v1.0",
+   "relation": "dpo_of",
+   "n_shared": 65001,
+   "cover": 1.0,
+   "shared_id_sha": "54313a841eef0681",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon-H1-1.5B-Base",
+   "child": "tiiuae/Falcon-H1-1.5B-Instruct",
+   "relation": "dpo_of",
+   "n_shared": 65533,
+   "cover": 0.999954,
+   "shared_id_sha": "4a206e7604ef5f6e",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon-H1-7B-Base",
+   "child": "tiiuae/Falcon-H1-7B-Instruct",
+   "relation": "dpo_of",
+   "n_shared": 130045,
+   "cover": 0.999977,
+   "shared_id_sha": "5fe2ce45c68198bf",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-10B-Base",
+   "child": "tiiuae/Falcon3-10B-Instruct",
+   "relation": "dpo_of",
+   "n_shared": 131072,
+   "cover": 1.0,
+   "shared_id_sha": "befb4a38a1af5545",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-1B-Base",
+   "child": "tiiuae/Falcon3-1B-Instruct",
+   "relation": "dpo_of",
+   "n_shared": 131072,
+   "cover": 1.0,
+   "shared_id_sha": "befb4a38a1af5545",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-3B-Base",
+   "child": "tiiuae/Falcon3-3B-Instruct",
+   "relation": "dpo_of",
+   "n_shared": 131072,
+   "cover": 1.0,
+   "shared_id_sha": "befb4a38a1af5545",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-7B-Base",
+   "child": "tiiuae/Falcon3-7B-Instruct",
+   "relation": "dpo_of",
+   "n_shared": 131071,
+   "cover": 0.999992,
+   "shared_id_sha": "eceaead9276f4952",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-Mamba-7B-Base",
+   "child": "tiiuae/Falcon3-Mamba-7B-Instruct",
+   "relation": "dpo_of",
+   "n_shared": 65019,
+   "cover": 0.999923,
+   "shared_id_sha": "d13b3aa7362edee4",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/falcon-mamba-7b",
+   "child": "tiiuae/falcon-mamba-7b-instruct",
+   "relation": "dpo_of",
+   "n_shared": 65019,
+   "cover": 0.999923,
+   "shared_id_sha": "d13b3aa7362edee4",
+   "bos_matches": true
+  },
+  {
+   "parent": "togethercomputer/RedPajama-INCITE-7B-Instruct",
+   "child": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "relation": "dpo_of",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "zai-org/glm-4-9b-hf",
+   "child": "zai-org/glm-4-9b-chat-hf",
+   "relation": "dpo_of",
+   "n_shared": 151343,
+   "cover": 1.0,
+   "shared_id_sha": "10c971e16db5fd0d",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-kto_pythia2-8b",
+   "relation": "kto_of",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+   "relation": "ppo_of",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "HuggingFaceTB/SmolLM3-3B-checkpoints",
+   "child": "HuggingFaceTB/SmolLM3-3B",
+   "relation": "ppo_of",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "kakaocorp/kanana-1.5-8b-base",
+   "child": "kakaocorp/kanana-1.5-8b-instruct-2505",
+   "relation": "ppo_of",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "kakaocorp/kanana-2-3b-base",
+   "child": "kakaocorp/kanana-2-3b-instruct",
+   "relation": "ppo_of",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "Qwen/Qwen2.5-7B",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+   "relation": "reasoning_of",
+   "n_shared": 151658,
+   "cover": 0.999954,
+   "shared_id_sha": "eae1c85907142a03",
+   "bos_matches": true
+  },
+  {
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "relation": "reasoning_of",
+   "n_shared": 128249,
+   "cover": 0.999945,
+   "shared_id_sha": "4c042b3487926d5c",
+   "bos_matches": false
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "relation": "rlvr_of",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B-DPO",
+   "child": "allenai/OLMo-2-0425-1B-Instruct",
+   "relation": "rlvr_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMoE-1B-7B-0125-DPO",
+   "child": "allenai/OLMoE-1B-7B-0125-Instruct",
+   "relation": "rlvr_of",
+   "n_shared": 50281,
+   "cover": 1.0,
+   "shared_id_sha": "e0d03ed04e6af3fe",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct-DPO",
+   "child": "allenai/Olmo-3-7B-Instruct",
+   "relation": "rlvr_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3.1-32B-Instruct-DPO",
+   "child": "allenai/Olmo-3.1-32B-Instruct",
+   "relation": "rlvr_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-kto_pythia2-8b",
+   "relation": "same_base_as",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+   "relation": "same_base_as",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-slic_pythia2-8b",
+   "relation": "same_base_as",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "child": "ContextualAI/archangel_sft_pythia2-8b",
+   "relation": "same_base_as",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft-kto_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+   "relation": "same_base_as",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft-kto_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-slic_pythia2-8b",
+   "relation": "same_base_as",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft-kto_pythia2-8b",
+   "child": "ContextualAI/archangel_sft_pythia2-8b",
+   "relation": "same_base_as",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-slic_pythia2-8b",
+   "relation": "same_base_as",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+   "child": "ContextualAI/archangel_sft_pythia2-8b",
+   "relation": "same_base_as",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft-slic_pythia2-8b",
+   "child": "ContextualAI/archangel_sft_pythia2-8b",
+   "relation": "same_base_as",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "HuggingFaceH4/mistral-7b-sft-beta",
+   "child": "HuggingFaceH4/zephyr-7b-beta",
+   "relation": "same_base_as",
+   "n_shared": 32000,
+   "cover": 1.0,
+   "shared_id_sha": "6a67abc140f52a59",
+   "bos_matches": true
+  },
+  {
+   "parent": "HuggingFaceTB/SmolLM3-3B",
+   "child": "HuggingFaceTB/SmolLM3-3B-checkpoints",
+   "relation": "same_base_as",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "LLM360/AmberChat",
+   "child": "LLM360/AmberSafe",
+   "relation": "same_base_as",
+   "n_shared": 32000,
+   "cover": 1.0,
+   "shared_id_sha": "6a67abc140f52a59",
+   "bos_matches": true
+  },
+  {
+   "parent": "PKU-Alignment/alpaca-7b-reproduced",
+   "child": "PKU-Alignment/beaver-7b-v1.0",
+   "relation": "same_base_as",
+   "n_shared": 32001,
+   "cover": 1.0,
+   "shared_id_sha": "faa65c755d9b5b8a",
+   "bos_matches": true
+  },
+  {
+   "parent": "Qwen/Qwen2.5-7B-Instruct",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+   "relation": "same_base_as",
+   "n_shared": 151658,
+   "cover": 0.999954,
+   "shared_id_sha": "eae1c85907142a03",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "relation": "same_base_as",
+   "n_shared": 128249,
+   "cover": 0.999945,
+   "shared_id_sha": "4c042b3487926d5c",
+   "bos_matches": false
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
+   "relation": "same_base_as",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "relation": "same_base_as",
+   "n_shared": 128249,
+   "cover": 0.999945,
+   "shared_id_sha": "4c042b3487926d5c",
+   "bos_matches": false
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
+   "relation": "same_base_as",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "relation": "same_base_as",
+   "n_shared": 128249,
+   "cover": 0.999945,
+   "shared_id_sha": "4c042b3487926d5c",
+   "bos_matches": false
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
+   "relation": "same_base_as",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "relation": "same_base_as",
+   "n_shared": 128249,
+   "cover": 0.999945,
+   "shared_id_sha": "4c042b3487926d5c",
+   "bos_matches": false
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
+   "relation": "same_base_as",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "relation": "same_base_as",
+   "n_shared": 128249,
+   "cover": 0.999945,
+   "shared_id_sha": "4c042b3487926d5c",
+   "bos_matches": false
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
+   "relation": "same_base_as",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "child": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "relation": "same_base_as",
+   "n_shared": 128257,
+   "cover": 1.0,
+   "shared_id_sha": "97ebf82fcb8344ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "relation": "same_base_as",
+   "n_shared": 128249,
+   "cover": 0.999945,
+   "shared_id_sha": "4c042b3487926d5c",
+   "bos_matches": false
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
+   "relation": "same_base_as",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "child": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "relation": "same_base_as",
+   "n_shared": 128249,
+   "cover": 0.999945,
+   "shared_id_sha": "4c042b3487926d5c",
+   "bos_matches": false
+  },
+  {
+   "parent": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
+   "relation": "same_base_as",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B-DPO",
+   "child": "allenai/OLMo-2-0425-1B-Instruct",
+   "relation": "same_base_as",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B-DPO",
+   "child": "allenai/OLMo-2-0425-1B-SFT",
+   "relation": "same_base_as",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B-Instruct",
+   "child": "allenai/OLMo-2-0425-1B-SFT",
+   "relation": "same_base_as",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMoE-1B-7B-0125-DPO",
+   "child": "allenai/OLMoE-1B-7B-0125-Instruct",
+   "relation": "same_base_as",
+   "n_shared": 50281,
+   "cover": 1.0,
+   "shared_id_sha": "e0d03ed04e6af3fe",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMoE-1B-7B-0125-DPO",
+   "child": "allenai/OLMoE-1B-7B-0125-SFT",
+   "relation": "same_base_as",
+   "n_shared": 50280,
+   "cover": 1.0,
+   "shared_id_sha": "e2762a2fb1ad1a49",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMoE-1B-7B-0125-Instruct",
+   "child": "allenai/OLMoE-1B-7B-0125-SFT",
+   "relation": "same_base_as",
+   "n_shared": 50280,
+   "cover": 1.0,
+   "shared_id_sha": "e2762a2fb1ad1a49",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct",
+   "child": "allenai/Olmo-3-7B-Instruct-DPO",
+   "relation": "same_base_as",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct",
+   "child": "allenai/Olmo-3-7B-Instruct-SFT",
+   "relation": "same_base_as",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct",
+   "child": "allenai/Olmo-3-7B-Think-DPO",
+   "relation": "same_base_as",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct",
+   "child": "allenai/Olmo-3-7B-Think-SFT",
+   "relation": "same_base_as",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct-DPO",
+   "child": "allenai/Olmo-3-7B-Instruct-SFT",
+   "relation": "same_base_as",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct-DPO",
+   "child": "allenai/Olmo-3-7B-Think-DPO",
+   "relation": "same_base_as",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct-DPO",
+   "child": "allenai/Olmo-3-7B-Think-SFT",
+   "relation": "same_base_as",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct-SFT",
+   "child": "allenai/Olmo-3-7B-Think-DPO",
+   "relation": "same_base_as",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct-SFT",
+   "child": "allenai/Olmo-3-7B-Think-SFT",
+   "relation": "same_base_as",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Think-DPO",
+   "child": "allenai/Olmo-3-7B-Think-SFT",
+   "relation": "same_base_as",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3.1-32B-Instruct",
+   "child": "allenai/Olmo-3.1-32B-Instruct-DPO",
+   "relation": "same_base_as",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3.1-32B-Instruct",
+   "child": "allenai/Olmo-3.1-32B-Instruct-SFT",
+   "relation": "same_base_as",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3.1-32B-Instruct-DPO",
+   "child": "allenai/Olmo-3.1-32B-Instruct-SFT",
+   "relation": "same_base_as",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
+   "child": "allenai/Olmo-Hybrid-Instruct-SFT-7B",
+   "relation": "same_base_as",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "child": "meta-llama/Llama-3.1-8B-Instruct",
+   "relation": "same_base_as",
+   "n_shared": 128249,
+   "cover": 0.999945,
+   "shared_id_sha": "4c042b3487926d5c",
+   "bos_matches": false
+  },
+  {
+   "parent": "internlm/internlm2-chat-7b",
+   "child": "internlm/internlm2-chat-7b-sft",
+   "relation": "same_base_as",
+   "n_shared": 92544,
+   "cover": 1.0,
+   "shared_id_sha": "866e75ea960bbb82",
+   "bos_matches": true
+  },
+  {
+   "parent": "llm-jp/llm-jp-3-7.2b-instruct2",
+   "child": "llm-jp/llm-jp-3-7.2b-instruct3",
+   "relation": "same_base_as",
+   "n_shared": 99574,
+   "cover": 1.0,
+   "shared_id_sha": "1eed6f9c54624847",
+   "bos_matches": true
+  },
+  {
+   "parent": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "child": "lomahony/eleuther-pythia6.9b-hh-sft",
+   "relation": "same_base_as",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "m-a-p/CT-LLM-SFT",
+   "child": "m-a-p/CT-LLM-SFT-DPO",
+   "relation": "same_base_as",
+   "n_shared": 125699,
+   "cover": 1.0,
+   "shared_id_sha": "a6a40a3aefe764f0",
+   "bos_matches": true
+  },
+  {
+   "parent": "m-a-p/neo_7b_instruct_v0.1",
+   "child": "m-a-p/neo_7b_sft_v0.1",
+   "relation": "same_base_as",
+   "n_shared": 64005,
+   "cover": 1.0,
+   "shared_id_sha": "e47589a431754b75",
+   "bos_matches": true
+  },
+  {
+   "parent": "openbmb/MiniCPM5-1B",
+   "child": "openbmb/MiniCPM5-1B-SFT",
+   "relation": "same_base_as",
+   "n_shared": 130560,
+   "cover": 1.0,
+   "shared_id_sha": "6e3937bb1d074eb7",
+   "bos_matches": true
+  },
+  {
+   "parent": "stabilityai/stablelm-2-1_6b-chat",
+   "child": "stabilityai/stablelm-2-zephyr-1_6b",
+   "relation": "same_base_as",
+   "n_shared": 100289,
+   "cover": 1.0,
+   "shared_id_sha": "303e76dd7dc4bd23",
+   "bos_matches": true
+  },
+  {
+   "parent": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "child": "togethercomputer/RedPajama-INCITE-7B-Instruct",
+   "relation": "same_base_as",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "BAAI/Aquila2-7B",
+   "child": "BAAI/AquilaChat2-7B",
+   "relation": "sft_of",
+   "n_shared": 100008,
+   "cover": 1.0,
+   "shared_id_sha": "2c686e5ccdbc01a9",
+   "bos_matches": true
+  },
+  {
+   "parent": "EleutherAI/pythia-2.8b",
+   "child": "ContextualAI/archangel_sft_pythia2-8b",
+   "relation": "sft_of",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "EleutherAI/pythia-6.9b",
+   "child": "lomahony/eleuther-pythia6.9b-hh-sft",
+   "relation": "sft_of",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "HuggingFaceTB/SmolLM3-3B-Base",
+   "child": "HuggingFaceTB/SmolLM3-3B-checkpoints",
+   "relation": "sft_of",
+   "n_shared": 128254,
+   "cover": 0.999984,
+   "shared_id_sha": "4ef963621fdd7ff2",
+   "bos_matches": true
+  },
+  {
+   "parent": "LLM360/Amber",
+   "child": "LLM360/AmberChat",
+   "relation": "sft_of",
+   "n_shared": 32000,
+   "cover": 1.0,
+   "shared_id_sha": "6a67abc140f52a59",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B",
+   "child": "allenai/OLMo-2-0425-1B-SFT",
+   "relation": "sft_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMoE-1B-7B-0125",
+   "child": "allenai/OLMoE-1B-7B-0125-SFT",
+   "relation": "sft_of",
+   "n_shared": 50278,
+   "cover": 0.99996,
+   "shared_id_sha": "6f25408010a5f2ea",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-1025-7B",
+   "child": "allenai/Olmo-3-7B-Instruct-SFT",
+   "relation": "sft_of",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-1025-7B",
+   "child": "allenai/Olmo-3-7B-Think-SFT",
+   "relation": "sft_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-1125-32B",
+   "child": "allenai/Olmo-3.1-32B-Instruct-SFT",
+   "relation": "sft_of",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-Hybrid-7B",
+   "child": "allenai/Olmo-Hybrid-Instruct-SFT-7B",
+   "relation": "sft_of",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "huggyllama/llama-7b",
+   "child": "PKU-Alignment/alpaca-7b-reproduced",
+   "relation": "sft_of",
+   "n_shared": 32000,
+   "cover": 1.0,
+   "shared_id_sha": "6a67abc140f52a59",
+   "bos_matches": true
+  },
+  {
+   "parent": "internlm/internlm2-base-7b",
+   "child": "internlm/internlm2-chat-7b-sft",
+   "relation": "sft_of",
+   "n_shared": 92538,
+   "cover": 0.999935,
+   "shared_id_sha": "dff696947de16953",
+   "bos_matches": false
+  },
+  {
+   "parent": "llm-jp/llm-jp-3-7.2b",
+   "child": "llm-jp/llm-jp-3-7.2b-instruct2",
+   "relation": "sft_of",
+   "n_shared": 99574,
+   "cover": 1.0,
+   "shared_id_sha": "1eed6f9c54624847",
+   "bos_matches": true
+  },
+  {
+   "parent": "m-a-p/CT-LLM-Base",
+   "child": "m-a-p/CT-LLM-SFT",
+   "relation": "sft_of",
+   "n_shared": 125699,
+   "cover": 1.0,
+   "shared_id_sha": "a6a40a3aefe764f0",
+   "bos_matches": true
+  },
+  {
+   "parent": "m-a-p/neo_7b",
+   "child": "m-a-p/neo_7b_sft_v0.1",
+   "relation": "sft_of",
+   "n_shared": 64005,
+   "cover": 1.0,
+   "shared_id_sha": "e47589a431754b75",
+   "bos_matches": true
+  },
+  {
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "relation": "sft_of",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "relation": "sft_of",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "relation": "sft_of",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "relation": "sft_of",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "meta-llama/Llama-3.1-8B",
+   "child": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "relation": "sft_of",
+   "n_shared": 128256,
+   "cover": 1.0,
+   "shared_id_sha": "35d0be1796cb52d3",
+   "bos_matches": true
+  },
+  {
+   "parent": "mistralai/Mistral-7B-v0.1",
+   "child": "HuggingFaceH4/mistral-7b-sft-beta",
+   "relation": "sft_of",
+   "n_shared": 32000,
+   "cover": 1.0,
+   "shared_id_sha": "6a67abc140f52a59",
+   "bos_matches": true
+  },
+  {
+   "parent": "openbmb/MiniCPM5-1B-Base",
+   "child": "openbmb/MiniCPM5-1B-SFT",
+   "relation": "sft_of",
+   "n_shared": 130560,
+   "cover": 1.0,
+   "shared_id_sha": "6e3937bb1d074eb7",
+   "bos_matches": true
+  },
+  {
+   "parent": "stabilityai/stablelm-2-1_6b",
+   "child": "stabilityai/stablelm-2-1_6b-chat",
+   "relation": "sft_of",
+   "n_shared": 100289,
+   "cover": 1.0,
+   "shared_id_sha": "303e76dd7dc4bd23",
+   "bos_matches": true
+  },
+  {
+   "parent": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "child": "togethercomputer/RedPajama-INCITE-7B-Instruct",
+   "relation": "sft_of",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "ContextualAI/archangel_sft_pythia2-8b",
+   "child": "ContextualAI/archangel_sft-slic_pythia2-8b",
+   "relation": "slic_of",
+   "n_shared": 50277,
+   "cover": 1.0,
+   "shared_id_sha": "c055ba8c18ac372a",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B",
+   "child": "allenai/Olmo-3-1025-7B",
+   "relation": "smaller_predecessor_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B",
+   "child": "allenai/Olmo-3-1125-32B",
+   "relation": "smaller_predecessor_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B-DPO",
+   "child": "allenai/Olmo-3-7B-Instruct-DPO",
+   "relation": "smaller_predecessor_of",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B-DPO",
+   "child": "allenai/Olmo-3.1-32B-Instruct-DPO",
+   "relation": "smaller_predecessor_of",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B-Instruct",
+   "child": "allenai/Olmo-3-7B-Instruct",
+   "relation": "smaller_predecessor_of",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B-Instruct",
+   "child": "allenai/Olmo-3.1-32B-Instruct",
+   "relation": "smaller_predecessor_of",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B-SFT",
+   "child": "allenai/Olmo-3-7B-Instruct-SFT",
+   "relation": "smaller_predecessor_of",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/OLMo-2-0425-1B-SFT",
+   "child": "allenai/Olmo-3.1-32B-Instruct-SFT",
+   "relation": "smaller_predecessor_of",
+   "n_shared": 100268,
+   "cover": 0.9999,
+   "shared_id_sha": "b60647f57035e5ca",
+   "bos_matches": true
+  },
+  {
+   "parent": "Qwen/Qwen2.5-0.5B",
+   "child": "Qwen/Qwen2.5-7B",
+   "relation": "smaller_sibling_of",
+   "n_shared": 151665,
+   "cover": 1.0,
+   "shared_id_sha": "9bb2eb248a215a09",
+   "bos_matches": true
+  },
+  {
+   "parent": "Qwen/Qwen2.5-0.5B-Instruct",
+   "child": "Qwen/Qwen2.5-7B-Instruct",
+   "relation": "smaller_sibling_of",
+   "n_shared": 151665,
+   "cover": 1.0,
+   "shared_id_sha": "9bb2eb248a215a09",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-1025-7B",
+   "child": "allenai/Olmo-3-1125-32B",
+   "relation": "smaller_sibling_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct",
+   "child": "allenai/Olmo-3.1-32B-Instruct",
+   "relation": "smaller_sibling_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct-DPO",
+   "child": "allenai/Olmo-3.1-32B-Instruct-DPO",
+   "relation": "smaller_sibling_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "allenai/Olmo-3-7B-Instruct-SFT",
+   "child": "allenai/Olmo-3.1-32B-Instruct-SFT",
+   "relation": "smaller_sibling_of",
+   "n_shared": 100278,
+   "cover": 1.0,
+   "shared_id_sha": "b1caabe72cab2d7b",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-1B-Base",
+   "child": "tiiuae/Falcon3-3B-Base",
+   "relation": "smaller_sibling_of",
+   "n_shared": 131072,
+   "cover": 1.0,
+   "shared_id_sha": "befb4a38a1af5545",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-1B-Base",
+   "child": "tiiuae/Falcon3-7B-Base",
+   "relation": "smaller_sibling_of",
+   "n_shared": 131071,
+   "cover": 0.999992,
+   "shared_id_sha": "eceaead9276f4952",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-1B-Base",
+   "child": "tiiuae/Falcon3-10B-Base",
+   "relation": "smaller_sibling_of",
+   "n_shared": 131072,
+   "cover": 1.0,
+   "shared_id_sha": "befb4a38a1af5545",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-1B-Instruct",
+   "child": "tiiuae/Falcon3-3B-Instruct",
+   "relation": "smaller_sibling_of",
+   "n_shared": 131072,
+   "cover": 1.0,
+   "shared_id_sha": "befb4a38a1af5545",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-1B-Instruct",
+   "child": "tiiuae/Falcon3-7B-Instruct",
+   "relation": "smaller_sibling_of",
+   "n_shared": 131072,
+   "cover": 1.0,
+   "shared_id_sha": "befb4a38a1af5545",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-1B-Instruct",
+   "child": "tiiuae/Falcon3-10B-Instruct",
+   "relation": "smaller_sibling_of",
+   "n_shared": 131072,
+   "cover": 1.0,
+   "shared_id_sha": "befb4a38a1af5545",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-3B-Base",
+   "child": "tiiuae/Falcon3-7B-Base",
+   "relation": "smaller_sibling_of",
+   "n_shared": 131071,
+   "cover": 0.999992,
+   "shared_id_sha": "eceaead9276f4952",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-3B-Base",
+   "child": "tiiuae/Falcon3-10B-Base",
+   "relation": "smaller_sibling_of",
+   "n_shared": 131072,
+   "cover": 1.0,
+   "shared_id_sha": "befb4a38a1af5545",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-3B-Instruct",
+   "child": "tiiuae/Falcon3-7B-Instruct",
+   "relation": "smaller_sibling_of",
+   "n_shared": 131072,
+   "cover": 1.0,
+   "shared_id_sha": "befb4a38a1af5545",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-3B-Instruct",
+   "child": "tiiuae/Falcon3-10B-Instruct",
+   "relation": "smaller_sibling_of",
+   "n_shared": 131072,
+   "cover": 1.0,
+   "shared_id_sha": "befb4a38a1af5545",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-7B-Base",
+   "child": "tiiuae/Falcon3-10B-Base",
+   "relation": "smaller_sibling_of",
+   "n_shared": 131071,
+   "cover": 0.999992,
+   "shared_id_sha": "eceaead9276f4952",
+   "bos_matches": true
+  },
+  {
+   "parent": "tiiuae/Falcon3-7B-Instruct",
+   "child": "tiiuae/Falcon3-10B-Instruct",
+   "relation": "smaller_sibling_of",
+   "n_shared": 131072,
+   "cover": 1.0,
+   "shared_id_sha": "befb4a38a1af5545",
+   "bos_matches": true
+  }
+ ]
+}
