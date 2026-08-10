@@ -1,0 +1,28 @@
+{
+ "recorded": "2026-08-10, BEFORE the done_cells source fix",
+ "cells": 400644,
+ "residual_rows": 461125,
+ "sources": 17,
+ "cells_with_multiple_sources": 15760,
+ "cells_with_one_source": 384884,
+ "per_source": {
+  "cloud_run_20260801": 295180,
+  "twpfill3": 28175,
+  "twpfill1": 22136,
+  "twpfill0": 20099,
+  "twpfill2": 13867,
+  "twp_twp_01": 10429,
+  "f11_twp": 10134,
+  "twpilm": 8586,
+  "twp_w2_gpu2": 8247,
+  "twp_twp_00": 8216,
+  "twpssm": 8138,
+  "f11_twp_delta": 7399,
+  "twp_w2_jais": 5732,
+  "twp_twp_02": 5462,
+  "twp70b": 5462,
+  "twp_lineages_v2": 2731,
+  "falcon_h1_repair": 1132
+ },
+ "why": "done_cells keys on (model, prompt) WITHOUT source, so a cell already present is skipped when it arrives from another source. The multi-source rows below are cells whose second source arrived BEFORE the cell existed -- an accident of ingest order, not the policy agreed at [5300]. When done_cells is fixed the ROW count will rise while the CELL count does not. That is the fix working, not a regression."
+}

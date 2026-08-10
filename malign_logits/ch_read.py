@@ -60,6 +60,50 @@ def _q(sql):
     return r.stdout
 
 
+_MODEL_SOURCE = None
+
+
+def _model_source():
+    """model -> the source to prefer, derived from the per-cell resolution map.
+
+    The map is per CELL because the right choice is a property of the pair, not
+    of the source. It collapses to a per-model preference here only because it
+    happens to be UNIFORM within each of the three models that need it -- and
+    that is asserted rather than assumed: a model whose cells resolve to more
+    than one source outside the declared precedence is skipped and reported,
+    never averaged into one answer.
+
+    An absent map is not an error; it restores the previous behaviour, which is
+    the arbitrary tie-break. `scripts/resolve_twp_sources.py --write` rebuilds it.
+    """
+    global _MODEL_SOURCE
+    if _MODEL_SOURCE is None:
+        import json as _json
+        import os as _os
+        from collections import defaultdict as _dd
+        p = _os.path.join(
+            _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
+            "data", "twp_source_resolution.json")
+        per = _dd(set)
+        if _os.path.exists(p):
+            with open(p) as fh:
+                for k, v in _json.load(fh)["cells"].items():
+                    s = v.get("source")
+                    #: only where the map DISAGREES with the global list; the
+                    #: rest is already handled and does not need an override.
+                    if s and s not in SOURCE_PRECEDENCE:
+                        per[k.split("\x1f", 1)[0]].add(s)
+        _MODEL_SOURCE = {m: next(iter(s)) for m, s in per.items() if len(s) == 1}
+        _AMBIGUOUS.update({m: sorted(s) for m, s in per.items() if len(s) > 1})
+    return _MODEL_SOURCE
+
+
+#: models whose cells resolve to several non-precedence sources. Left to the
+#: global rule and NAMED, because collapsing them to one would be the arbitrary
+#: choice this whole mechanism exists to remove.
+_AMBIGUOUS = {}
+
+
 def prefetch(model, theta=0.001, mode="raw"):
     """Load every cell for one model in ONE query. Idempotent."""
     key = (model, theta, mode)
@@ -68,8 +112,24 @@ def prefetch(model, theta=0.001, mode="raw"):
     esc = model.replace("\\", "\\\\").replace("'", "\\'")
     #: argMin over the precedence index picks ONE source per (prompt, word)
     #: without a subquery per cell -- the whole point of the bulk shape.
+    #:
+    #: **EVERY UNLISTED SOURCE RANKED 99 AND argMin BROKE THE TIE ARBITRARILY**,
+    #: which is not a rule. It is how ClickHouse and the stash came to serve
+    #: different observations of one cell -- llm-jp-3-7.2b on '死了' at
+    #: 0.01634436 here against 0.01620482 there, each exactly one source's
+    #: value ([5311]). SOURCE_PRECEDENCE names three historical directories and
+    #: no census or wave box, so for those the tie-break WAS the policy.
+    #:
+    #: The per-model preference comes from `data/twp_source_resolution.json`,
+    #: decided per cell against evidence -- chiefly: prefer the source that also
+    #: holds the OTHER ARM of the pair, so that a device difference cannot land
+    #: inside the contrast (malign, [5312]). Prepended, so it outranks the
+    #: global list. Three models need it and they account for 5,391 cells.
+    prefer = _model_source().get(model)
+    ranked = ([prefer] if prefer else []) + [s for s in SOURCE_PRECEDENCE
+                                             if s != prefer]
     order = " ".join("WHEN source='%s' THEN %d" % (s, i)
-                     for i, s in enumerate(SOURCE_PRECEDENCE))
+                     for i, s in enumerate(ranked))
     rows = _q(
         "SELECT prompt, word, argMin(p, CASE %s ELSE 99 END) AS p, "
         "       argMin(t1, CASE %s ELSE 99 END) AS t1 "
