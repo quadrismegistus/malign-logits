@@ -579,6 +579,43 @@ LOADER_OVERRIDE = {
     "internlm/internlm2-chat-7b-sft": ("PreTrainedTokenizerFast", "InternLM2TokenizerFast-boundary-shift"),
 }
 
+# **THE OVERRIDE IS ITSELF ENVIRONMENT-KEYED, AND FOR internlm2 IT IS A 5.x
+# WORKAROUND THAT BREAKS 4.x.** Established 2026-08-10 by resolving the whole
+# version space locally before renting anything:
+#
+#     transformers 5.14.1  AutoTokenizer -> InternLM2TokenizerFast, boundary shift
+#                          -> the override is REQUIRED, and still yields skips
+#     transformers 5.4.0   tokenizer clean, but DynamicCache.from_legacy_cache
+#                          is gone, so the first FORWARD dies instead
+#     transformers 4.57.1  from_legacy_cache present AND the tokenizer is clean
+#                          -- but ONLY with sentencepiece <= 0.2.1
+#
+# **THE ACTUAL CULPRIT WAS NEVER transformers. It is `sentencepiece` 0.2.2**,
+# which fails internlm2's SentencePiece->fast conversion outright ("Converting
+# from SentencePiece and Tiktoken failed"); 0.2.0 and 0.2.1 convert fine and
+# protobuf is irrelevant (tested 3.20.3, 4.25.3, 6.33.6 -- no effect either
+# way). Three checkpoints read as a dead lineage for a full day because the
+# error named transformers' converter and the fix was one rung below it.
+#
+# Under 4.57.1 + sentencepiece 0.2.1 the bundled class round-trips **2590/2590
+# ACTIVE prompts, 0% skip**, on this Mac and on the box. So forcing
+# PreTrainedTokenizerFast there is not a safety net, it is the failure: that
+# class cannot load internlm2 at all on 4.x.
+_OVERRIDE_MIN_TRANSFORMERS_MAJOR = {
+    "internlm/internlm2-base-7b": 5,
+    "internlm/internlm2-chat-7b": 5,
+    "internlm/internlm2-chat-7b-sft": 5,
+}
+
+
+def _override_applies(mid):
+    """True if `mid`'s LOADER_OVERRIDE should fire in THIS environment."""
+    need = _OVERRIDE_MIN_TRANSFORMERS_MAJOR.get(mid)
+    if need is None:
+        return True
+    import transformers
+    return int(transformers.__version__.split(".")[0]) >= need
+
 
 def load_tokenizer(mid, revision=None):
     """Return (tokenizer, loader_id). loader_id is STAMPED ON THE CELL.
@@ -595,7 +632,7 @@ def load_tokenizer(mid, revision=None):
     from transformers import AutoTokenizer, PreTrainedTokenizerFast
     kw = {"revision": revision} if revision else {}
     ov = LOADER_OVERRIDE.get(mid)
-    if ov and ov[0] == "PreTrainedTokenizerFast":
+    if ov and ov[0] == "PreTrainedTokenizerFast" and _override_applies(mid):
         # bypasses AutoTokenizer class resolution, which follows
         # tokenizer_config.json's tokenizer_class field and lands on the broken
         # class regardless of use_fast
