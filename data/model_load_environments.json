@@ -88,6 +88,12 @@
    "engine": "vllm",
    "dtype": "float16",
    "note": "L2 passage generation fleet, 2026-08-09. Q RTX 8000 / RTX 5880 Ada class, vLLM engine, fp16. Turing has NO FA2 and NO bf16 under vLLM."
+  },
+  "cloud_cuda_transformers_4.57.1_sentencepiece_0.2.1": {
+   "description": "vast dense box, transformers==4.57.1 with sentencepiece==0.2.1 (NOT 0.2.2). Established 2026-08-10 to recover the internlm2 lineage.",
+   "transformers": "4.57.1",
+   "sentencepiece": "0.2.1",
+   "torch": ">=2.6"
   }
  },
  "observations": [
@@ -430,6 +436,27 @@
    "outcome": "load_failed",
    "cause": "Same rope_scaling['type'] KeyError as the chat arm; both share the bundled modeling_aquila.py.",
    "fix": "transformers==4.57.1. NB this arm ALSO carries a pinned revision (9c76e143...) because BAAI replaced main with a re-tokenised model; the two constraints are independent and both apply."
+  },
+  {
+   "model_id": "internlm/internlm2-base-7b",
+   "environment": "cloud_cuda_transformers_4.57.1_sentencepiece_0.2.1",
+   "outcome": "ok",
+   "cause": "sentencepiece 0.2.2 fails internlm2's SentencePiece->fast conversion outright: 'Converting from SentencePiece and Tiktoken failed'. THE ERROR NAMES transformers' converter, so the whole version space was searched at the transformers level and every rung failed for a DIFFERENT reason -- 5.14.1 shifts word boundaries, 5.4.0 has dropped DynamicCache.from_legacy_cache so the first FORWARD dies, 4.51/4.57 fail the conversion, 4.37/4.44 fail with 'piece must not include null character'. The culprit was one rung below transformers the whole time. protobuf is irrelevant: 3.20.3, 4.25.3 and 6.33.6 behave identically under every transformers tested.",
+   "fix": "transformers==4.57.1 + sentencepiece==0.2.1 (0.2.0 also works; 0.1.99 has no cp312 wheel). Bundled InternLM2TokenizerFast then round-trips 2590/2590 ACTIVE prompts at 0% skip, verified locally AND on the box. The LOADER_OVERRIDE to PreTrainedTokenizerFast must NOT fire here -- that class cannot load internlm2 on 4.x at all, and forcing it made the recovery box fail its first launch minutes after a bare AutoTokenizer probe had passed. Override is now gated on transformers major >= 5 (malign_logits/twp.py, 2a1a7906)."
+  },
+  {
+   "model_id": "internlm/internlm2-chat-7b",
+   "environment": "cloud_cuda_transformers_4.57.1_sentencepiece_0.2.1",
+   "outcome": "ok",
+   "cause": "sentencepiece 0.2.2 fails internlm2's SentencePiece->fast conversion outright: 'Converting from SentencePiece and Tiktoken failed'. THE ERROR NAMES transformers' converter, so the whole version space was searched at the transformers level and every rung failed for a DIFFERENT reason -- 5.14.1 shifts word boundaries, 5.4.0 has dropped DynamicCache.from_legacy_cache so the first FORWARD dies, 4.51/4.57 fail the conversion, 4.37/4.44 fail with 'piece must not include null character'. The culprit was one rung below transformers the whole time. protobuf is irrelevant: 3.20.3, 4.25.3 and 6.33.6 behave identically under every transformers tested.",
+   "fix": "transformers==4.57.1 + sentencepiece==0.2.1 (0.2.0 also works; 0.1.99 has no cp312 wheel). Bundled InternLM2TokenizerFast then round-trips 2590/2590 ACTIVE prompts at 0% skip, verified locally AND on the box. The LOADER_OVERRIDE to PreTrainedTokenizerFast must NOT fire here -- that class cannot load internlm2 on 4.x at all, and forcing it made the recovery box fail its first launch minutes after a bare AutoTokenizer probe had passed. Override is now gated on transformers major >= 5 (malign_logits/twp.py, 2a1a7906)."
+  },
+  {
+   "model_id": "internlm/internlm2-chat-7b-sft",
+   "environment": "cloud_cuda_transformers_4.57.1_sentencepiece_0.2.1",
+   "outcome": "ok",
+   "cause": "sentencepiece 0.2.2 fails internlm2's SentencePiece->fast conversion outright: 'Converting from SentencePiece and Tiktoken failed'. THE ERROR NAMES transformers' converter, so the whole version space was searched at the transformers level and every rung failed for a DIFFERENT reason -- 5.14.1 shifts word boundaries, 5.4.0 has dropped DynamicCache.from_legacy_cache so the first FORWARD dies, 4.51/4.57 fail the conversion, 4.37/4.44 fail with 'piece must not include null character'. The culprit was one rung below transformers the whole time. protobuf is irrelevant: 3.20.3, 4.25.3 and 6.33.6 behave identically under every transformers tested.",
+   "fix": "transformers==4.57.1 + sentencepiece==0.2.1 (0.2.0 also works; 0.1.99 has no cp312 wheel). Bundled InternLM2TokenizerFast then round-trips 2590/2590 ACTIVE prompts at 0% skip, verified locally AND on the box. The LOADER_OVERRIDE to PreTrainedTokenizerFast must NOT fire here -- that class cannot load internlm2 on 4.x at all, and forcing it made the recovery box fail its first launch minutes after a bare AutoTokenizer probe had passed. Override is now gated on transformers major >= 5 (malign_logits/twp.py, 2a1a7906)."
   }
  ],
  "predicted_untested": {
