@@ -28,7 +28,15 @@ cd "$(dirname "$0")/.."
 STATE="${1:-.vastai.twpfill0.json}"
 INTERVAL="${2:-600}"
 MIN_FREE_GB="${3:-15}"
-DEST="data/raw/twp_fill"
+# **ONE DESTINATION PER BOX, DERIVED FROM THE STATE FILENAME.** Four boxes
+# rsyncing into one directory is four writers on one filename the moment two of
+# them touch the same model -- which they can, because box 0 ran unsharded
+# before the split and still holds output that another shard now owns. That is
+# the failure that truncated 14 files in the beam campaign and was found only by
+# a high-water check afterwards. Per-box directories make a collision
+# impossible rather than unlikely; the ingest reads them all.
+BOX=$(basename "$STATE" .json | sed 's/^\.vastai\.//')
+DEST="data/raw/twp_fill/$BOX"
 REMOTE_DIR="/workspace/twpfill"
 mkdir -p "$DEST"
 

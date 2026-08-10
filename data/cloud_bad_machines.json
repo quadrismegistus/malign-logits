@@ -19,6 +19,11 @@
    "failures": 1,
    "symptom": "actual_status=running, ssh proxy refused, and NO direct port was published in `ports` -- so there was no second route to try.",
    "note": "A box with no 22/tcp mapping has one route. When it refuses, destroy."
+  },
+  "61353": {
+   "seen": "2026-08-10",
+   "failures": 1,
+   "symptom": "HF downloads 404 against an injected mirror at 117.175.x.x (DNS hijack / transparent proxy, no HF_ENDPOINT in env). All 8 models LOAD FAILED and the runner printed ALL MODELS COMPLETE. Geo says California; the mirror IP is Chinese."
   }
  }
 }

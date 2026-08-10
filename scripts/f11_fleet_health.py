@@ -18,10 +18,16 @@ re-derived.
 over live boxes. If credit does not cover it the run dies mid-model on a box
 nobody is watching, which is the expensive way to find out.
 """
-import argparse, glob, json, os, subprocess, sys, time
+import os, argparse, glob, json, os, subprocess, sys, time
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
-REMOTE = "/workspace/f11_twp_delta"
+#: **THE OUTPUT DIRECTORY IS A FLAG, NOT A CONSTANT.** Hardcoded to the delta
+#: run's directory, this reported `0/None models` and "no rate yet" for a
+#: six-box fleet that was writing thousands of cells into /workspace/twpfill --
+#: healthy boxes indistinguishable from dead ones, which is the exact reading
+#: this tool exists to prevent. A monitor that looks in the wrong place does not
+#: fail; it reports zero.
+REMOTE = os.environ.get("MALIGN_FLEET_REMOTE", "/workspace/f11_twp_delta")
 
 #: **DERIVED FROM THE SHARD SPECS, NOT HARDCODED.** The old version carried a
 #: literal {"box1_dense": 92, ...}, so a re-shard silently left the monitor
