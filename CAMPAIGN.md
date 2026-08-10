@@ -146,3 +146,12 @@ seat forgets at its peril:
   alone." And when a join must be checked, go at the store, not at a
   reconstruction: the reconstruction is a model of the producer, the store
   is the producer's output ([5334], [5336], [5337]).
+- **Nine artifacts each defined "the set of models"; none pointed at a
+  single source; every one ran successfully while stale** — which is why
+  each surfaced as a surprise instead of an error. The two cheap changes
+  that end the category: every producer reads the REGISTRY for its
+  population, and every producer prints "N models from <source>; registry
+  has M" and refuses on a large gap ([5339]). Corollary from the same
+  night: a load that fails quietly is indistinguishable from a file with
+  nothing in it — a bare except around a read is a success reporter for
+  failures.
