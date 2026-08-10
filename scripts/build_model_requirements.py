@@ -36,14 +36,25 @@ while the library returned the corrected arm. This file regenerates, and
               19.3x on Falcon-H1. Kernels are NOT optional for hybrids, and
               Falcon-H1 additionally needs bf16 -- fp16 overflows the scan and
               yields all-NaN logits on prompts >=13 tokens.
-    tf457     **transformers 5.x cannot run these AT ALL**, and the broken code
-              is sometimes OURS-adjacent and sometimes transformers' own:
+    tf457     **transformers 5.x cannot run these AT ALL** -- 13 checkpoints as
+              of 2026-08-10, the day's dominant failure mode. The broken code is
+              sometimes the model's and sometimes transformers' own, and FOUR
+              distinct symptoms share the one cause and the one fix:
                 Aquila     its bundled modeling_aquila.py reads
                            rope_scaling["type"]; 5.x renamed the key
                 Zamba2     v5 tie_weights_keys validation its config predates
                 falcon-7b  transformers' OWN FalconForCausalLM.forward calls
                            get_head_mask, which 5.x deleted from PreTrainedModel
-              One pin, 4.57.1, fixes all three. It is also the OLMo 3 floor.
+                Pharia,    DynamicCache.from_legacy_cache, removed in 5.x
+                internlm2
+                Baichuan2  "Cannot copy out of meta tensor" -- bundled code
+                           cannot materialise from 5.x's meta-device init
+              One pin, 4.57.1, fixes all thirteen. It is also the OLMo 3 floor.
+
+              **THREE OF THE FOUR SYMPTOMS APPEAR AT THE FIRST FORWARD, NOT AT
+              LOAD.** The model loads clean and the run reports "0/2579", which
+              reads as a slow model or an empty shard rather than an
+              incompatibility. Only Aquila fails loudly at load.
 
 ## THE RULE THIS FILE ENCODES
 
@@ -79,6 +90,32 @@ TRANSFORMERS_PIN = {
                          "self.get_head_mask(), removed from PreTrainedModel in 5.x. "
                          "Loads fine, fails at the FIRST FORWARD. 2026-08-10"),
     "tiiuae/falcon-7b-instruct": ("==4.57.1", "same, transformers' own Falcon path"),
+    #: --- added 2026-08-10 after two boxes finished their shards ---
+    #: DynamicCache.from_legacy_cache was REMOVED in transformers 5.x. Any model
+    #: whose bundled code calls it loads cleanly and dies at the FIRST FORWARD,
+    #: which is why these read as "0/2579" rather than as load failures.
+    "Aleph-Alpha/Pharia-1-LLM-7B-control-hf": ("==4.57.1",
+        "DynamicCache.from_legacy_cache, removed in 5.x. NOTE: this pair's FIRST "
+        "reported failure (2026-08-10) was 'does not appear to have files named "
+        "model-00001-of-00003.safetensors' -- that was the 429 storm, not a repo "
+        "defect, and it masked the real cause for hours."),
+    "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf": ("==4.57.1",
+        "DynamicCache.from_legacy_cache, removed in 5.x"),
+    "internlm/internlm2-base-7b": ("==4.57.1",
+        "DynamicCache.from_legacy_cache. SECOND, INDEPENDENT blocker: the "
+        "tokenizer loader override was hiding it, because the boundary-shift "
+        "refusal happened before any forward ran. Two stacked defects on one "
+        "checkpoint, and fixing the first REVEALED the second."),
+    "internlm/internlm2-chat-7b": ("==4.57.1", "DynamicCache.from_legacy_cache"),
+    "internlm/internlm2-chat-7b-sft": ("==4.57.1", "DynamicCache.from_legacy_cache"),
+    #: A DIFFERENT 5.x symptom, same cause class: newer transformers initialises
+    #: on the meta device and the model's bundled code cannot materialise from it.
+    "baichuan-inc/Baichuan2-7B-Base": ("==4.57.1",
+        "NotImplementedError: Cannot copy out of meta tensor; no data! -- the "
+        "bundled Baichuan code does not handle meta-device init. Loads, then "
+        "dies at the first forward."),
+    "baichuan-inc/Baichuan2-7B-Chat": ("==4.57.1",
+        "same meta-tensor failure as the base arm"),
 }
 
 #: bf16 is not a preference here: fp16 overflows the SSM scan and yields all-NaN
