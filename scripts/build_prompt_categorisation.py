@@ -384,8 +384,25 @@ def main():
     #: wrote: not "run first", but "win".
     _qall = {(_g.get(_f) or "").rstrip()
              for _g in _qgroups for _f, _ in _QROLES if _g.get(_f)}
+    #: **KEYED ON (TEXT, FINDING), NOT ON TEXT.** Registrar ruling [5356], after
+    #: I measured the split and refused to pick: of the 139 catalogue rows on a
+    #: quintuplet text, **136 carry finding=F11 and 3 carry F13**. A text-blanket
+    #: supersession -- which is what this line was when first committed -- would
+    #: have deleted three rows from ANOTHER FINDING'S population as a side effect
+    #: of fixing F11's.
+    #:
+    #: **A TEXT IS NOT A POPULATION.** The catalogue already lets one string
+    #: serve two findings under two ids, which is exactly why 2,590 ACTIVE rows
+    #: are 2,579 distinct TEXTS. `'He was captive and chose to'` belongs to both
+    #: experiments; the quintuplets own its F11 row and F13 keeps its own. F11's
+    #: source winning F11's contest must not reach into F13's n.
+    #:
+    #: The acceptance numbers are untouched either way -- all 68 absent controls
+    #: and both wrongly-ACTIVE rows are F11 -- which is precisely why the wrong
+    #: predicate would have passed its own test while shrinking F13 by 3.
     _before = len(rows)
-    rows[:] = [_r for _r in rows if _r.get("prompt") not in _qall]
+    rows[:] = [_r for _r in rows
+               if not (_r.get("prompt") in _qall and _r.get("finding") == "F11")]
     _superseded = _before - len(rows)
     _qrows = _qtexts = 0
     for _g in _qgroups:
