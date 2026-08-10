@@ -641,6 +641,23 @@ def main():
             print(f"  overlapping ids whose status|finding changed: {len(_changed)}")
             for _pid, _ps, _pf, _fs, _ff in _changed[:12]:
                 print("    %-22s %s/%s -> %s/%s" % (_pid, _ps, _pf, _fs, _ff))
+        #: **CARRY THE PROVENANCE WITH THE ROWS.** Flagged by registrar at
+        #: [5364] on their independent verification: the rows carried fine and
+        #: their ORIGIN did not. `ingested_pair_sources` holds file + sha256_16
+        #: for the 12 ingested populations, and the fresh `_provenance` is built
+        #: from this producer's own sources, so the block simply vanished.
+        #:
+        #: Row-level output is unaffected -- which is exactly why idempotency
+        #: passed and nothing complained. **The damage is deferred**: the next
+        #: delta table would call 1,620 recorded-producer rows "producer-less",
+        #: and a row that cannot name its file and version cannot be
+        #: re-verified. Carrying a row without its provenance converts
+        #: "re-ingestable from a named artifact" into "nobody recorded how to
+        #: rebuild this" -- silently, and in the direction that looks fine.
+        if _ing_prov:
+            doc["_provenance"]["ingested_pair_sources"] = _ing_prov
+            print(f"  carried provenance for {len(_ing_prov)} ingested "
+                  f"population(s)")
         print(f"  carried forward: {len(_carried)} rows "
               f"({len(_carried) - _carried_pl} with a recorded producer, "
               f"{_carried_pl} producer-less and flagged); "
