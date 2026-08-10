@@ -141,3 +141,54 @@ def status_table():
     return "\n".join(
         "  %-9s %-*s  %s" % (st, w, label, note)
         for _rel, label, st, note in TWP_SOURCES)
+
+
+def payload_files(path, ext=".f16"):
+    """Real payloads in one source directory. Zero-length files are NOT payloads.
+
+    **A ZERO-BYTE `.f16` IS NOT A CANDIDATE**, and there are 20 of them across
+    the declared sources. Eight of the ten unresolved logit collisions at
+    [5321] were a real payload against one of these, which is not a contest
+    between two observations -- it is a file that holds nothing.
+
+    THE RULE LIVES HERE RATHER THAN IN THE RESOLVER, deliberately. A zero-byte
+    file should be invisible to the INDEXER too, not only to the tie-break;
+    otherwise the indexer keeps offering candidates the resolver keeps
+    rejecting and the two disagree about what exists. It is a property of the
+    file, not of a collision.
+
+    TWO CAUSES, ONE REMEDY, AND THEY LOOK IDENTICAL FROM THE FILESYSTEM:
+
+        aborted write    Pharia, Baichuan2, internlm2 -- the model failed to
+                         load, so nothing was ever written
+        refusal that     the two Falcon Mamba instruct arms -- the model loaded
+        worked           and the tokenizer round-trip guard refused all 12
+                         prompts offered, and the runner had already opened the
+                         file
+
+    The second is a guard doing its job and leaving an artifact that looks like
+    a crash. Distinguishing them matters for what you go and fix; it does not
+    change what to do with the file.
+    """
+    import glob as _glob
+    import os as _os
+    out = []
+    for f in sorted(_glob.glob(_os.path.join(path, "*" + ext))):
+        if _os.path.basename(f).endswith(".hidden" + ext):
+            continue                      # hidden states are not a distribution
+        if _os.path.getsize(f) == 0:
+            continue                      # not a payload
+        out.append(f)
+    return out
+
+
+def empty_payloads():
+    """[(label, filename)] for every zero-length payload. Reported, not hidden."""
+    import glob as _glob
+    import os as _os
+    out = []
+    for path, label in twp_sources():
+        for f in sorted(_glob.glob(_os.path.join(path, "*.f16"))):
+            if _os.path.getsize(f) == 0:
+                out.append((label, _os.path.basename(f)))
+    return out

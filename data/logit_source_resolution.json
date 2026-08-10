@@ -1,0 +1,842 @@
+{
+ "_about": "per-model logit payload source; rule in scripts/resolve_twp_sources.py::resolve_logits",
+ "n": 92,
+ "tally": {
+  "declared precedence": 89,
+  "candidates byte-identical, immaterial": 1,
+  "superseded excluded": 1,
+  "sole candidate after exclusion": 1,
+  "holds both arms (ruled)": 1
+ },
+ "models": {
+  "01-ai/Yi-1.5-9B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "01-ai/Yi-1.5-9B-Chat": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "BSC-LT/salamandra-7b": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp_twp_01"
+   ]
+  },
+  "BSC-LT/salamandra-7b-instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp_twp_01"
+   ]
+  },
+  "ContextualAI/archangel_sft-dpo_pythia2-8b": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "EleutherAI/pythia-2.8b": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "EleutherAI/pythia-6.9b": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "HuggingFaceH4/zephyr-7b-beta": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "HuggingFaceTB/SmolLM2-360M": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "HuggingFaceTB/SmolLM2-360M-Instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "HuggingFaceTB/SmolLM3-3B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "HuggingFaceTB/SmolLM3-3B-Base": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "LLM360/Amber": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "LLM360/AmberSafe": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "OpenLLM-France/Lucie-7B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp_twp_00"
+   ]
+  },
+  "OpenLLM-France/Lucie-7B-Instruct-v1.1": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp_w2_gpu2"
+   ]
+  },
+  "PKU-Alignment/beaver-7b-v1.0": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "Qwen/Qwen2.5-0.5B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "Qwen/Qwen2.5-0.5B-Instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "Qwen/Qwen2.5-7B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "Qwen/Qwen2.5-7B-Instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "Qwen/Qwen3-8B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "Qwen/Qwen3-8B-Base": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "RWKV/rwkv-4-7b-pile": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "RWKV/rwkv-raven-7b": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "TinyLlama/TinyLlama-1.1B-Chat-v1.0": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "allenai/OLMo-2-0425-1B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "allenai/OLMo-2-0425-1B-DPO": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "allenai/OLMoE-1B-7B-0125": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "allenai/OLMoE-1B-7B-0125-DPO": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "allenai/Olmo-3-1025-7B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "allenai/Olmo-3-1125-32B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "allenai/Olmo-3-7B-Instruct-DPO": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "allenai/Olmo-3.1-32B-Instruct-DPO": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "allenai/Olmo-Hybrid-7B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "allenai/Olmo-Hybrid-Instruct-DPO-7B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "bigscience/bloom-7b1": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "bigscience/bloomz-7b1": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "croissantllm/CroissantLLMBase": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twpssm"
+   ]
+  },
+  "croissantllm/CroissantLLMChat-v0.1": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twpfill1"
+   ]
+  },
+  "deepseek-ai/deepseek-llm-7b-base": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "deepseek-ai/deepseek-llm-7b-chat": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "google/gemma-2-9b": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp_w2_gpu2"
+   ]
+  },
+  "google/gemma-2-9b-it": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp_w2_gpu2"
+   ]
+  },
+  "google/recurrentgemma-9b": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twpfill2"
+   ]
+  },
+  "google/recurrentgemma-9b-it": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twpfill3"
+   ]
+  },
+  "huggyllama/llama-7b": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "ibm-granite/granite-3.0-8b-base": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp_twp_02"
+   ]
+  },
+  "ibm-granite/granite-3.0-8b-instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp_twp_02"
+   ]
+  },
+  "kakaocorp/kanana-1.5-8b-base": {
+   "source": "twpfill0",
+   "why": "candidates byte-identical, immaterial",
+   "candidates": [
+    "twpfill0",
+    "twpfill2"
+   ]
+  },
+  "kakaocorp/kanana-1.5-8b-instruct-2505": {
+   "source": "twpfill3",
+   "why": "sole candidate after exclusion",
+   "candidates": [
+    "twpfill0",
+    "twpfill3"
+   ]
+  },
+  "llm-jp/llm-jp-3-7.2b": {
+   "source": "twp_twp_00",
+   "why": "holds both arms (ruled)",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp_lineages_v2",
+    "twp_twp_00"
+   ]
+  },
+  "llm-jp/llm-jp-3-7.2b-instruct3": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp_twp_00"
+   ]
+  },
+  "lomahony/eleuther-pythia6.9b-hh-dpo": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "m-a-p/CT-LLM-Base": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "m-a-p/CT-LLM-SFT-DPO": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "m-a-p/neo_7b": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "m-a-p/neo_7b_instruct_v0.1": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "meta-llama/Llama-3.1-70B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp70b"
+   ]
+  },
+  "meta-llama/Llama-3.1-70B-Instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp70b"
+   ]
+  },
+  "meta-llama/Llama-3.1-8B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "meta-llama/Llama-3.1-8B-Instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "microsoft/phi-4": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "microsoft/phi-4-reasoning": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "mistralai/Mistral-7B-v0.1": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "openGPT-X/Teuken-7B-base-v0.6": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp_twp_01"
+   ]
+  },
+  "openGPT-X/Teuken-7B-instruct-commercial-v0.4": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "f11_twp",
+    "f11_twp_delta",
+    "twp_twp_01"
+   ]
+  },
+  "openbmb/MiniCPM5-1B": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "openbmb/MiniCPM5-1B-Base": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "stabilityai/stablelm-2-1_6b": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "stabilityai/stablelm-2-zephyr-1_6b": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/Falcon-H1-1.5B-Base": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/Falcon-H1-1.5B-Instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/Falcon-H1-7B-Base": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta",
+    "falcon_h1_repair"
+   ]
+  },
+  "tiiuae/Falcon-H1-7B-Instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta",
+    "falcon_h1_repair"
+   ]
+  },
+  "tiiuae/Falcon3-10B-Base": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/Falcon3-10B-Instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/Falcon3-1B-Base": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/Falcon3-1B-Instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/Falcon3-3B-Base": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/Falcon3-3B-Instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/Falcon3-7B-Base": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/Falcon3-7B-Instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/Falcon3-Mamba-7B-Base": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/Falcon3-Mamba-7B-Instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/falcon-mamba-7b": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "tiiuae/falcon-mamba-7b-instruct": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "togethercomputer/RedPajama-INCITE-7B-Chat": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "togethercomputer/RedPajama-INCITE-Base-7B-v0.1": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "zai-org/glm-4-9b-chat-hf": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  },
+  "zai-org/glm-4-9b-hf": {
+   "source": "f11_twp_delta",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "f11_twp",
+    "f11_twp_delta"
+   ]
+  }
+ }
+}

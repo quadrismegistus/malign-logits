@@ -201,3 +201,121 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+# ─────────────────────────────────────────────────────────────────────
+# THE LOGIT POPULATION, WHICH IS NOT THE TWP POPULATION
+# ─────────────────────────────────────────────────────────────────────
+#
+# malign wired this resolver into `index_logit_shards` and it refused on 5,741
+# collisions ([5320]) -- correctly, because it had never been asked about them.
+# It enumerates multi-source cells from `twp_residual`; the index asks about
+# cells that have LOGITS, and a cell can have a logit collision without a twp
+# one. Same rules, wider input.
+#
+# **IDENTITY IS CHECKED AT THE FILE, NOT THE CELL.** Two candidate payloads that
+# are byte-identical make every cell in them immaterial at once -- which is
+# 4,330 of the 5,741 in one comparison, the falcon pair both seats raised an
+# alarm about and neither had hashed. Full-hashing every candidate would be
+# ~150 GB of reads, so files are grouped by SIZE first and hashed only within a
+# size group: different sizes are certainly different, and the hash is only
+# needed to separate same-size candidates.
+
+def logit_candidates():
+    """model -> {source_label: payload_path}, for models with MORE THAN ONE.
+
+    Uses `sources.payload_files`, so a zero-length `.f16` is never a candidate
+    -- that rule lives with the file, not here, because a non-payload should be
+    invisible to the indexer too and not merely lose a tie-break.
+    """
+    from malign_logits.sources import twp_sources, payload_files
+    out = defaultdict(dict)
+    for path, label in twp_sources():
+        for f in payload_files(path):
+            out[os.path.basename(f)[:-4].replace("__", "/")][label] = f
+    return {m: d for m, d in out.items() if len(d) > 1}
+
+
+def identical_groups(paths):
+    """{path: group_id} where equal ids mean byte-identical. Size-gated."""
+    import hashlib
+    by_size = defaultdict(list)
+    for p in paths:
+        by_size[os.path.getsize(p)].append(p)
+    gid, out = 0, {}
+    for size, group in by_size.items():
+        if len(group) == 1:
+            out[group[0]] = ("size", size, gid); gid += 1
+            continue
+        for p in group:
+            h = hashlib.sha256()
+            with open(p, "rb") as fh:
+                for chunk in iter(lambda: fh.read(8 << 20), b""):
+                    h.update(chunk)
+            out[p] = ("sha", h.hexdigest(), size)
+    return out
+
+
+def resolve_logits(write=False):
+    """Per-MODEL source choice for the logit payloads. Same rules, wider input.
+
+    Per MODEL rather than per cell because a `.f16` holds every cell of that
+    model in that directory: the unit of the choice is the file. malign's
+    indexer consults this so the index never resolves a collision by glob order
+    ([5318]/[5320]).
+
+    Rules, in order, and every one already declared:
+      1. SUPERSEDED -- a ruling that one source's copy is a fragment or a
+         retired shard. Outranks pairing, because a fragment is not an arm.
+      2. Same-run pairing -- prefer the source that also holds the OTHER ARM,
+         so a device difference cannot land inside a base-to-aligned contrast.
+      3. Byte-identity -- if the candidates are the same bytes the choice is
+         immaterial and is made deterministically.
+      4. The declared SOURCE_PRECEDENCE.
+      5. Otherwise UNRESOLVED, recorded and never guessed.
+
+    Zero-length files never reach here: `sources.payload_files` excludes them,
+    because a non-payload should be invisible to the indexer too and not merely
+    lose a tie-break ([5329]/[5330]).
+    """
+    from malign_logits.ch_read import SOURCE_PRECEDENCE
+    SUPERSEDED = {("kakaocorp/kanana-1.5-8b-instruct-2505", "twpfill0"): "twpfill3"}
+    #: same-run pairing, ruled at [5312]: twp_lineages_v2 scored the base on a
+    #: Mac and holds NO aligned arm, so serving it puts a device difference
+    #: inside the pair contrast.
+    PAIRED = {"llm-jp/llm-jp-3-7.2b": "twp_twp_00"}
+
+    cands = logit_candidates()
+    groups = identical_groups(sorted({p for d in cands.values() for p in d.values()}))
+    out, tally = {}, defaultdict(int)
+    for model, d in sorted(cands.items()):
+        srcs = {s for s in d if (model, s) not in SUPERSEDED}
+        if len(srcs) < len(d):
+            tally["superseded excluded"] += 1
+        pick = why = None
+        if len(srcs) == 1:
+            pick, why = next(iter(srcs)), "sole candidate after exclusion"
+        elif model in PAIRED and PAIRED[model] in srcs:
+            pick, why = PAIRED[model], "holds both arms (ruled)"
+        elif len({groups[d[s]] for s in srcs}) == 1:
+            pick, why = sorted(srcs)[0], "candidates byte-identical, immaterial"
+        else:
+            ranked = [s for s in SOURCE_PRECEDENCE if s in srcs]
+            if ranked:
+                pick, why = ranked[0], "declared precedence"
+        tally[why or "UNRESOLVED"] += 1
+        out[model] = {"source": pick, "why": why, "candidates": sorted(d)}
+    print("models with >1 real payload  %d" % len(cands))
+    for k, n in sorted(tally.items(), key=lambda x: -x[1]):
+        print("  %-42s %d" % (k, n))
+    unres = [m for m, v in out.items() if not v["source"]]
+    for m in unres:
+        print("  UNRESOLVED %-40s %s" % (m, out[m]["candidates"]))
+    if write:
+        p = os.path.join(ROOT, "data", "logit_source_resolution.json")
+        json.dump({"_about": "per-model logit payload source; rule in "
+                             "scripts/resolve_twp_sources.py::resolve_logits",
+                   "n": len(out), "tally": dict(tally), "models": out},
+                  open(p, "w"), indent=1)
+        print("\nwrote %s" % p)
+    return out

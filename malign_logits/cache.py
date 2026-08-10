@@ -266,11 +266,28 @@ class CacheManager:
         one.
         """
         import os as _os
-        p = _os.path.join(self._logit_root(), entry["file"])
+        repo = _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
+        f = entry["file"]
+
+        #: **TWO ENTRY FORMATS, AND BOTH MUST WORK.** 279,018 existing entries
+        #: store a BASENAME resolved against one root -- which is exactly why
+        #: the jais payloads, indexed into `data/raw/twp_w2_jais/`, resolved to
+        #: a file that does not exist and ingested ZERO of 5,167 cells. The
+        #: indexer now writes a REPO-RELATIVE path so a payload is addressable
+        #: wherever it lives; the old entries are not rewritten, so this tries
+        #: repo-relative FIRST and falls back to the historical root join.
+        #:
+        #: Ordered this way round on purpose: a repo-relative path that exists
+        #: is unambiguous evidence of the new format, whereas a bare basename
+        #: can accidentally exist under the repo root and would then shadow the
+        #: real payload. Checking the specific before the general.
+        cand = _os.path.join(repo, f)
+        if _os.sep in f and _os.path.exists(cand):
+            return cand
+
+        p = _os.path.join(self._logit_root(), f)
         if entry.get("dir") == "data_f11_twp":
-            alt = _os.path.join(
-                _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))),
-                "data", "f11_twp", _os.path.basename(entry["file"]))
+            alt = _os.path.join(repo, "data", "f11_twp", _os.path.basename(f))
             if _os.path.exists(alt):
                 return alt
         return p
