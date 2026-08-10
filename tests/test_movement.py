@@ -162,30 +162,101 @@ def _cache_or_skip():
         pytest.skip("cache unavailable")
 
 
-def test_word_probs_sums_token_paths_instead_of_overwriting_them():
+def test_word_probs_sums_token_paths_instead_of_overwriting_them(monkeypatch):
     """THE DEFECT THIS ACCESSOR EXISTS TO PREVENT.
 
     The payload is one row per (word, FIRST TOKEN) and those rows are a PARTITION: summed
     over every row, plus the residual, they come to 1.0. `{r["word"]: r["p"] for r in
     rows}` keeps the last path and drops the rest -- silently, and on 20% of payloads.
+
+    **THE PAYLOAD IS CONSTRUCTED, BECAUSE THE STORE STOPPED BEING ABLE TO FAIL THIS.**
+    The version before this one read a named reference cell, and it went green-then-dead
+    in one day: ClickHouse became the default source and the ingest folds the partition,
+    so `collapsed` is now ALWAYS 0 through the default path and the guard could not fire
+    on the path everything uses. It still passed under `MALIGN_TWP_SOURCE=stash`, which
+    is the worst version of the failure -- a guard that is only armed on the source
+    nobody selects. Same class as a branch dead at the declared parameters.
+
+    A constructed payload cannot go dead: the duplicate surfaces are in the fixture.
     """
-    from malign_logits.movement import word_probs
+    from malign_logits import movement as mv
+    #: the stash branch, so the FOLD IN THE READER is what runs. The ClickHouse
+    #: branch is covered by the agreement test below, which is the assertion that
+    #: actually matters once folding moved upstream.
+    monkeypatch.setenv("MALIGN_TWP_SOURCE", "stash")
+
+    #: 把 reachable by two token paths and 她 by three -- the real shape, from the
+    #: Chinese payload that motivated the accessor. Rows plus residual sum to 1.
+    rows = [{"word": "把", "t1": 100, "p": 0.30}, {"word": "把", "t1": 200, "p": 0.20},
+            {"word": "她", "t1": 300, "p": 0.10}, {"word": "她", "t1": 400, "p": 0.05},
+            {"word": "她", "t1": 500, "p": 0.05}, {"word": "的", "t1": 600, "p": 0.10}]
+    #: `residual` IS A DICT WITH A `total`, not a float -- the four-way breakdown
+    #: (tail / drop / open / mojibake). The first fixture guessed a float and died in
+    #: the accessor, which is the fixture doing its job: a constructed payload that
+    #: does not match the real shape tests the construction, not the code.
+    stub = type("C", (), {"get_true_word_probs": lambda s, m, p, **k: {
+        "rows": rows, "rule_version": 3, "dict_sha": "b16011275c42955c",
+        "residual": {"tail": 0.20, "drop": 0.0, "open": 0.0, "mojibake": 0.0,
+                     "total": 0.20}}})()
+
+    w = mv.word_probs("m", "p", cache=stub)
+    naive = {r["word"]: r["p"] for r in rows}
+
+    assert w.collapsed == 3, "six rows over three surfaces must fold three of them"
+    assert w.probs["把"] == pytest.approx(0.50), "two paths to 把 must SUM, not overwrite"
+    assert w.probs["她"] == pytest.approx(0.20), "three paths to 她 must SUM"
+    assert w.total == pytest.approx(1.0, abs=1e-9), (
+        "rows plus residual must partition the distribution; if not, summing is the "
+        "wrong fold and this accessor's premise is broken")
+    #: the naive fold keeps the LAST row per surface -- 把 0.20, 她 0.05, 的 0.10 --
+    #: so it reports 0.35 of a distribution whose words hold 0.80. A 56% loss here,
+    #: against the 2.7% measured on the real Chinese payload: the fixture exaggerates
+    #: the magnitude on purpose and the DIRECTION is what is being asserted.
+    assert sum(naive.values()) == pytest.approx(0.35), (
+        "the naive comprehension keeps one path per surface")
+    assert sum(naive.values()) < sum(w.probs.values()), (
+        "the naive comprehension must lose mass here, or the test is vacuous")
+
+
+def test_clickhouse_and_stash_fold_to_the_same_distribution():
+    """FOLD-AT-INGEST MUST EQUAL FOLD-AT-READ, or the two stores are two instruments.
+
+    ClickHouse sums the partition at ingest; the stash holds it unfolded and the reader
+    sums it. That is a legitimate split -- but it means the guard above no longer covers
+    the default path, and the only thing standing between the two stores is that they
+    agree. This is that assertion, on a cell with real duplicate surfaces.
+    """
+    import os
+    from malign_logits import movement as mv
     cm = _cache_or_skip()
     model, prompt = ("ContextualAI/archangel_sft_pythia2-8b",
                      "他把身体贴在她身上，低声说")
-    payload = cm.get_true_word_probs(model, prompt)
-    if payload is None:
+    raw = cm.get_true_word_probs(model, prompt)
+    if raw is None:
         pytest.skip("reference cell not cached")
-    rows = payload["rows"]
-    naive = {r["word"]: r["p"] for r in rows}
-    w = word_probs(model, prompt, cache=cm)
+    #: THE CELL MUST STILL BE A WITNESS. If the stash payload no longer holds duplicate
+    #: surfaces, this test is comparing two already-flat dictionaries and proves nothing.
+    if len({r["word"] for r in raw["rows"]}) == len(raw["rows"]):
+        pytest.skip("reference cell no longer has duplicate surfaces; pick another")
 
-    assert w.collapsed > 0, "reference cell no longer has duplicate surfaces; pick another"
-    assert w.total == pytest.approx(1.0, abs=1e-6), (
-        "rows plus residual must partition the distribution; if not, summing is the "
-        "wrong fold and this accessor's premise is broken")
-    assert sum(naive.values()) < sum(w.probs.values()), (
-        "the naive comprehension must lose mass here, or the test is vacuous")
+    old = os.environ.get("MALIGN_TWP_SOURCE")
+    try:
+        os.environ["MALIGN_TWP_SOURCE"] = "stash"
+        a = mv.word_probs(model, prompt, cache=cm)
+        os.environ["MALIGN_TWP_SOURCE"] = "clickhouse"
+        b = mv.word_probs(model, prompt, cache=cm)
+    finally:
+        os.environ.pop("MALIGN_TWP_SOURCE", None)
+        if old is not None:
+            os.environ["MALIGN_TWP_SOURCE"] = old
+    if b is None:
+        pytest.skip("cell not ingested to ClickHouse")
+
+    assert a.collapsed > 0, "the stash arm must actually exercise the reader's fold"
+    assert set(a.probs) == set(b.probs), "the two stores disagree about which words exist"
+    for wd in a.probs:
+        assert a.probs[wd] == pytest.approx(b.probs[wd], rel=1e-5), (
+            "fold-at-ingest and fold-at-read disagree on %r" % wd)
 
 
 def test_movers_refuses_a_mixed_rule_version():
