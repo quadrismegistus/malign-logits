@@ -67,7 +67,13 @@ is contiguous at 1000-step spacing (it is: step1000..step43000).
     sft_endpoint     1     allenai/Olmo-3-7B-Think-SFT @ main
 
 **Battery: the seats' costing decision, between two declared options.**
-(a) The standing 2,583-prompt battery, full — every checkpoint lands directly
+[CORRECTED [5346]: "the standing 2,583-prompt battery" was never a battery
+size -- 2,583 is ONE MODEL'S observed cell count (jais-chat). The battery of
+record is 2,579 DISTINCT TEXTS over 2,590 ACTIVE catalogue rows (11 texts
+deliberately carry two ids; twp_cloud dedupes texts). THE ENUMERATION HASHES
+TEXTS, NOT ROWS -- a row hash inherits an 11-cell double-count per checkpoint,
+957 phantom cells across 87.]
+(a) The standing 2,579-text battery, full — every checkpoint lands directly
 comparable to finding U's endpoints and to the whole M01 record.
 (b) The M01 displacement core (the U faller/riser vocabulary's prompt subset
 plus the F04 panel prompts) — cheaper, still answers the primary, loses
