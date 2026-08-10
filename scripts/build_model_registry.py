@@ -824,6 +824,18 @@ def main(a):
         return 0
     with open(OUT, "w") as fh:
         json.dump(doc, fh, indent=1)
+    #: **THE DERIVED PAIR EXPORT IS REGENERATED HERE, NOT SEPARATELY.** It had no
+    #: producer and served a RETIRED Teuken pairing to every consumer that read
+    #: the file while `Registry()` returned the corrected arm. Emitting it from
+    #: the same pass that rebuilds the registry is what stops it drifting again:
+    #: the two cannot now disagree without someone editing one by hand.
+    try:
+        from malign_logits.registry import Registry as _R
+        print("  base_aligned_pairs.json regenerated: %d pairs"
+              % _R().save_base_aligned_pairs())
+    except Exception as _e:
+        print("  WARNING: pair export FAILED (%s) -- data/base_aligned_pairs.json "
+              "is now STALE relative to this registry" % type(_e).__name__)
     print(f"\nwrote {OUT}")
     return 0
 
