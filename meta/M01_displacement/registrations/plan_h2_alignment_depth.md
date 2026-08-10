@@ -176,6 +176,31 @@ curve licenses is an UPPER BOUND on lateness, and `||dh||` carries that better.
              how many of the 1,395 cells have d > 0
              THE REVERSING CELLS BY NAME, if any d < 0
 
+**`d` IS THE RAW DIFFERENCE. THE CEILING IS A REPORTED COLUMN, NEVER A
+DIVISOR.** Declared 2026-08-10, resolving an ambiguity §5 shipped with — it said
+"recovery" without saying whether recovery is raw or ceiling-normalised, and the
+two are not close. Normalising both terms by the cell's shared ceiling gives
+`d_norm = d_raw / ceiling`, so the denominator does NOT cancel, it SCALES: a
+cell with ceiling 0.07 inflates 14x and a negative ceiling flips the sign.
+Read properly this is lacan's own [5235] argument, not a departure from it —
+differencing INSIDE the cell is what removes the per-cell denominator problem,
+and re-introducing the denominator on both terms puts it straight back.
+
+**AND "CEILING" OVERSELLS WHAT IT IS.** It is recovery with all blocks aligned
+BUT THE BASE HEAD THROUGHOUT, which is the design choice that routes around the
+frozen-head failure. It was never 1.0 by construction. On Yi it ranges −2.90 to
++2.42, with 34 of 163 cells below 0.5. A cell whose ceiling is near zero is
+plausibly one whose alignment effect lives in the HEAD rather than the blocks —
+a hypothesis to test across pairs, not a reading to take from one.
+
+**DISCLOSED: THIS WAS DECIDED AFTER SEEING ONE PAIR.** Yi's 163 cells were on
+screen (median raw `d` +0.962, 162 of 163 positive) before the choice was made,
+so it is not a blind declaration and must not be described as one. What can be
+said is the direction of the bias: **raw is the CONSERVATIVE branch.** The
+normalised form would have produced larger magnitudes and sign flips wherever
+the ceiling is small or negative. The rule chosen is the one that shrinks the
+effect, and it is fixed here before the remaining 24 pairs are read.
+
 **A POOLED DESCRIPTIVE CANCELS EXACTLY AS READILY AS A POOLED TEST.** lacan's
 attention-back result the same day is the demonstration: pooled +0.053 over 28
 cells, 17 of 28, read as a clean null — while stablelm-2 was +24% and OLMo-2
