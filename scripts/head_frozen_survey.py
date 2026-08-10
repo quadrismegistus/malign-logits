@@ -30,18 +30,15 @@ import argparse, json, os, sys, glob
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT); sys.path.insert(0, HERE)
+#: `snapshot_dir` now lives in malign_logits.weightdelta with the rest of the
+#: tensor-reading machinery -- re-exported here because three scripts import it
+#: from this module by name and a rename would be churn for no gain.
+from malign_logits.weightdelta import snapshot_dir  # noqa: F401
+
 HUB = os.path.expanduser("~/.cache/huggingface/hub")
 HEAD_KEYS = ("lm_head.weight", "model.embed_tokens.weight",
              "transformer.wte.weight", "embed_out.weight",
              "gpt_neox.embed_in.weight", "backbone.embedding.weight")
-
-
-def snapshot_dir(model_id):
-    d = os.path.join(HUB, "models--" + model_id.replace("/", "--"), "snapshots")
-    if not os.path.isdir(d): return None
-    subs = [os.path.join(d, x) for x in os.listdir(d)]
-    subs = [x for x in subs if os.path.isdir(x)]
-    return sorted(subs)[-1] if subs else None
 
 
 def head_tensor(model_id):
@@ -131,9 +128,17 @@ def main():
         flag = "  <- FROZEN" if x["frozen"] else ("  <- small" if x["rel_diff"] < 5e-3 else "")
         print("  %-46s %10.3e %6s%s"
               % (x["aligned"][:46], x["rel_diff"], "yes" if x["tied"] else "no", flag))
+    #: **THE `frozen` COLUMN WAS A TEST NO DATA POINT COULD PASS.** A 1e-6
+    #: threshold on a quantity whose observed minimum is 2.3e-03 -- so "FROZEN: 0"
+    #: was guaranteed before the survey ran, and it was reported as a result.
+    #: Kept, because zero frozen heads IS the finding, but the floor is printed
+    #: beside it so nobody reads the zero as informative on its own.
     froz = [x for x in m if x["frozen"]]
     small = [x for x in m if not x["frozen"] and x["rel_diff"] < 5e-3]
-    print("\n  FROZEN heads (lens cancels exactly): %d" % len(froz))
+    print("\n  FROZEN heads (lens cancels exactly): %d   [threshold 1e-6; the"
+          " smallest observed is %.1e, so this column can only ever read 0"
+          " unless a fine-tune genuinely froze the head]"
+          % (len(froz), min(x["rel_diff"] for x in m) if m else float('nan')))
     print("  small (<5e-3, head is a minor term): %d" % len(small))
     print("\n  A small head difference is NECESSARY, NOT SUFFICIENT: Amber's head")
     print("  moved LESS than Llama's and its cross-read was the one that blew up,")
