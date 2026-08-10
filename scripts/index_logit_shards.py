@@ -77,14 +77,44 @@ def scan_shard(jf):
     return rows, dims, dtypes, hi
 
 
+def _declared_sources():
+    """Every declared payload directory, from the SHARED registry.
+
+    **`--src <one directory>` IS THE THIRD INSTANCE OF ONE DEFECT.** The same
+    shape as `twp_ingest --src` and the old hardcoded `ch_ingest.SOURCES`:
+    coverage is whatever an operator remembered to type, and nothing reconciles
+    what they typed against what exists. twp diverged by ~127,000 cells that
+    way ([5297]); the logits quietly lost a whole model pair -- 878 MB of jais
+    `.f16` on disk, produced by the same run as its twp, never indexed, so no
+    store could see it and `get_logits` returned None where a caller reads
+    "not scored" ([5315]/[5316]).
+
+    **The defect is not that an operator CAN name a directory. It is that a
+    bare run did nothing until they did.** So `--src` keeps working for a
+    one-off, exactly as `twp_ingest --src` does, and a bare run now sweeps the
+    declared list instead of one hardcoded default. malign's condition, and it
+    is the right one.
+    """
+    from malign_logits.sources import twp_sources
+    return [p for p, _label in twp_sources()]
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--src", default=SRC)
+    ap.add_argument("--src", help="index ONE directory. Omit to sweep every "
+                                  "ACTIVE source in malign_logits.sources.")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
 
-    shards = sorted(glob.glob(os.path.join(a.src, "*.jsonl")))
-    print(f"shards {len(shards)}   payload root {a.src}\n")
+    #: A bare run sweeps the registry; --src still names one directory.
+    srcs = [a.src] if a.src else _declared_sources()
+    if not a.src:
+        print("no --src: sweeping %d declared sources\n" % len(srcs))
+    shards = []
+    for _s in srcs:
+        shards.extend(sorted(glob.glob(os.path.join(_s, "*.jsonl"))))
+    shards = sorted(shards)
+    print(f"shards {len(shards)}   over {len(srcs)} source(s)\n")
 
     files_prov = {}
     entries = []
@@ -93,7 +123,10 @@ def main():
     for jf in shards:
         base = os.path.basename(jf)[:-6]
         ff = base + ".f16"
-        fpath = os.path.join(a.src, ff)
+        #: BESIDE ITS OWN JSONL, not under one root. With a sweep there is
+        #: no single `--src` to join against, and joining every shard against
+        #: one directory is the split-store defect over again ([5287]).
+        fpath = os.path.join(os.path.dirname(jf), ff)
         model_from_name = base.replace("__", "/")
 
         if not os.path.exists(fpath):
