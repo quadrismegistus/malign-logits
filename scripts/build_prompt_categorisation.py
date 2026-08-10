@@ -557,6 +557,99 @@ def main():
     #: LOSING ITS OWN CONTENTS.** Until the producer learns the ingestion stage
     #: (see the module docstring's TWO-STAGE BUILD note), it REFUSES rather
     #: than silently dropping rows it cannot regenerate.
+    #: ── THE CARRY STAGE ([5360]) ────────────────────────────────────────
+    #:
+    #: **THE TWO-STAGE PATH WAS STRUCTURALLY CLOSED AND THAT IS WHY THIS EXISTS.**
+    #: The documented remedy was "build, then re-ingest". It cannot run: the
+    #: guard below refuses stage 1 while the artifact exists, and stage 2 cannot
+    #: ingest into an artifact that was never written. Registrar's run hit
+    #: exactly that after `480e1072` fixed the predicate but added no carry.
+    #:
+    #: So the producer learns to CARRY rather than to re-ingest. Two classes,
+    #: kept apart on purpose because their honesty differs:
+    #:
+    #:   (a) 12 populations with a RECORDED PRODUCER -- carried verbatim under
+    #:       their own provenance; they can be rebuilt and we say from what.
+    #:   (b) 92 rows across 11 PRODUCER-LESS sources -- carried and flagged
+    #:       `carried_forward: true`, with [2055]'s "NO RECORDED PRODUCER"
+    #:       preserved rather than laundered. A row we cannot rebuild must not
+    #:       come back looking like one we can.
+    #:
+    #: **BOTH CLASSES ARE SUBJECT TO THE SAME (TEXT, FINDING=F11) SUPERSESSION**
+    #: as fresh rows. A carried F11 row on a quintuplet text dies exactly like a
+    #: freshly-built one -- otherwise the declared source wins against this
+    #: build and loses against the prior artifact, which is the two-sources
+    #: defect wearing a timestamp.
+    if os.path.exists(OUT):
+        _prev_doc = json.load(open(OUT))
+        _ing_prov = (_prev_doc.get("_provenance", {}) or {}).get(
+            "ingested_pair_sources", {})
+        _fresh_src = {r.get("source") for r in rows}
+        _carried, _carried_pl, _carry_superseded = [], 0, 0
+        _superseded_src = collections.Counter()
+        #: **ROW-LEVEL, NOT SOURCE-LEVEL** (ruling [5362]). The first version
+        #: skipped a prior row when its SOURCE appeared in the fresh build --
+        #: and "this source is regenerated" is not "this row is regenerated".
+        #: SETD makes 47 rows fresh against 8 in the prior artifact and they are
+        #: NOT the same 8, so five prior rows were dropped on a source-name
+        #: match, three of them the F11-vs-F13 rows the ruling exists to
+        #: protect. Third time in one night I wrote a coarse predicate for a
+        #: fine-grained fact; caught by registrar's named-sentinel criterion.
+        #:
+        #: FRESH WINS on a prompt_id collision -- the producer's contract. The
+        #: alternative fossilizes hand-edits invisibly, and an invisible
+        #: preservation is the same defect as an invisible loss.
+        _fresh_ids = {_r.get("prompt_id") for _r in rows}
+        _fresh_by_id = {_r.get("prompt_id"): _r for _r in rows}
+        _changed = []
+        for _r in _prev_doc.get("prompts", []):
+            _pid = _r.get("prompt_id")
+            if _pid in _fresh_ids:
+                #: overlapping id: fresh wins the VALUES too, but a changed
+                #: status/finding is printed so an authored hand-correction is
+                #: NOTICED here rather than silently regenerated away.
+                _f = _fresh_by_id[_pid]
+                if (_r.get("status"), _r.get("finding")) != (_f.get("status"), _f.get("finding")):
+                    _changed.append((_pid, _r.get("status"), _r.get("finding"),
+                                     _f.get("status"), _f.get("finding")))
+                continue
+            if _r.get("prompt") in _qall and _r.get("finding") == "F11":
+                _carry_superseded += 1        # the ruling reaches carried rows
+                _superseded_src[_r.get("source")] += 1
+                continue
+            _r = dict(_r)
+            if _r.get("source") not in _ing_prov:
+                _r["carried_forward"] = True
+                _carried_pl += 1
+            _carried.append(_r)
+        rows.extend(_carried)
+        doc["prompts"] = rows
+        #: **THE PER-SOURCE DELTA TABLE** ([5362]): a SETD 8-vs-47 disagreement
+        #: is a visible fact shipped with the artifact, never a discovery.
+        _psrc = collections.Counter(_r.get("source") for _r in _prev_doc.get("prompts", []))
+        _fsrc = collections.Counter(_r.get("source") for _r in rows)
+        _csrc = collections.Counter(_r.get("source") for _r in _carried)
+        _keys = sorted(set(_psrc) | set(_fsrc))
+        _diff = [k for k in _keys if _psrc.get(k, 0) != _fsrc.get(k, 0) + _csrc.get(k, 0)]
+        if _diff:
+            print("  per-source delta (prior / fresh / carried / superseded):")
+            for k in _diff:
+                print("    %-30s %5d / %5d / %5d / %5d"
+                      % (str(k)[:30], _psrc.get(k, 0), _fsrc.get(k, 0),
+                         _csrc.get(k, 0), _superseded_src.get(k, 0)))
+        if _changed:
+            print(f"  overlapping ids whose status|finding changed: {len(_changed)}")
+            for _pid, _ps, _pf, _fs, _ff in _changed[:12]:
+                print("    %-22s %s/%s -> %s/%s" % (_pid, _ps, _pf, _fs, _ff))
+        print(f"  carried forward: {len(_carried)} rows "
+              f"({len(_carried) - _carried_pl} with a recorded producer, "
+              f"{_carried_pl} producer-less and flagged); "
+              f"{_carry_superseded} carried F11 rows superseded by quintuplets")
+
+    #: THE GUARD NOW ASSERTS INSTEAD OF BLOCKING. Same denominator as before --
+    #: every source in the prior artifact, never a registry of what one seat
+    #: remembered -- but it runs AFTER the carry, so a non-empty loss table is
+    #: now a real defect rather than the expected state.
     if os.path.exists(OUT):
         _prev = json.load(open(OUT))
         _ing = (_prev.get("_provenance", {}) or {}).get("ingested_pair_sources", {})
@@ -572,7 +665,50 @@ def main():
         _prev_src = {}
         for r in _prev.get("prompts", []):
             _prev_src[r.get("source")] = _prev_src.get(r.get("source"), 0) + 1
-        _lost = {src: n for src, n in _prev_src.items() if src not in _have}
+        #: **A SOURCE THAT VANISHED BY SUPERSESSION IS NOT A SOURCE THAT WAS
+        #: LOST, AND THE GUARD COULD NOT TELL THEM APART.** Four sources --
+        #: CONTRADICTION_UGLY (4), F11_GEN_PAIR (3), PSYCHE_DECLARED (33),
+        #: R1_QWEN_COMPARISON (6) -- consist ENTIRELY of F11 rows on quintuplet
+        #: texts. They are reconstructions of the population `f11_quintuplets.json`
+        #: declares, so the ruling correctly retires every one of their rows, and
+        #: the source then disappears from the artifact.
+        #:
+        #: The guard read that disappearance as data loss and refused. Absent
+        #: versus empty, in the guard I wrote, on the night the same collision
+        #: appeared in four other places. **A deliberate emptying and an
+        #: accidental drop look identical to a set-difference over source names**
+        #: -- so supersession is accounted, and only an UNEXPLAINED absence
+        #: refuses.
+        #: **THE GUARD ASSERTS ON LOST IDS, NOT ON LOST SOURCE NAMES.** It
+        #: refused on `QWEN_CHINESE 1 row` whose prompt_id IS in the fresh
+        #: artifact under a different source: the ROW survived and the LABEL did
+        #: not, and a set-difference over source names cannot tell those apart.
+        #: Third instance tonight of source-level accounting standing in for a
+        #: row-level fact -- in the carry, in the supersession, and now in the
+        #: guard I wrote to catch exactly this class.
+        #:
+        #: Aligned with registrar's final criterion ([5362]): the invariant is
+        #: NO LOST IDS. A row is lost iff its prompt_id is absent from the new
+        #: artifact AND its absence is not explained by (TEXT, F11) supersession.
+        #: Source churn is then a REPORTED fact (the delta table above), never a
+        #: refusal -- which is what "absent and empty must not share a branch"
+        #: looks like when the branch is a guard.
+        _new_ids = {_r.get("prompt_id") for _r in rows}
+        _sup_ids = {_r.get("prompt_id") for _r in _prev_doc.get("prompts", [])
+                    if _r.get("prompt") in _qall and _r.get("finding") == "F11"}
+        _lost_ids = {_r.get("prompt_id") for _r in _prev_doc.get("prompts", [])} \
+                    - _new_ids - _sup_ids
+        _lost = {}
+        if _lost_ids:
+            _by_src = collections.Counter(
+                _r.get("source") for _r in _prev_doc.get("prompts", [])
+                if _r.get("prompt_id") in _lost_ids)
+            _lost = dict(_by_src)
+            print("  LOST PROMPT IDS (%d): %s"
+                  % (len(_lost_ids), sorted(_lost_ids)[:8]))
+        if _superseded_src:
+            print("  sources retired by the (TEXT, FINDING=F11) ruling: " +
+                  ", ".join(f"{k} {v}" for k, v in sorted(_superseded_src.items())))
         if _lost:
             print("\nREFUSED TO WRITE — this build would drop rows it cannot "
                   "regenerate:")
