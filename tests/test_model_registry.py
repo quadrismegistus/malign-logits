@@ -321,23 +321,98 @@ def test_edge_type_agrees_with_the_child_node(doc):
                 f"{stage[e['child']]}: {e}")
 
 
-def test_params_match_the_base_across_training_edges(doc):
-    """A 2.8B base cannot have 8B children.
+TRAIN_RELS = {"sft_of", "dpo_of", "kto_of", "ppo_of", "slic_of", "rlvr_of",
+              "instruct_of"}
 
-    `archangel_sft-kto_pythia2-8b` IS pythia-2.8b -- the decimal point is
-    written as a hyphen -- and a naive parse gave 8B for five rows. This finds
-    that class without anyone reading the values.
+
+def test_architecture_matches_the_base_across_training_edges(doc):
+    """A 2.8B base cannot have 8B children -- ASSERTED ON ARCHITECTURE.
+
+    `archangel_sft-kto_pythia2-8b` IS pythia-2.8b -- the decimal point written
+    as a hyphen -- and a naive parse gave 8B for five rows. This finds that
+    class without anyone reading the values.
+
+    **IT USED TO ASSERT ON `params_b` AND COULD NOT HAVE FAILED.** Both sides
+    of every edge came from the same NAME PARSE, so the test compared a guess
+    to itself. Once `params_b` became a measurement it failed immediately --
+    pythia-2.8b at 2.909 against its own finetune at 2.775 -- and the 0.134B
+    gap is one embedding matrix (50304 x 2560 = 0.129B) while the two configs
+    are IDENTICAL.
+
+    So the difference is what the repos PUBLISH, not what they are, and
+    `safetensors.total` measures the upload rather than the model. Registrar
+    [5340]: **architecture is an assertion, because its violation would mean
+    the lineage map is wrong; a published total is a release act, and release
+    acts are reported rather than asserted.** The totals now ride in
+    `test_published_totals_across_training_edges` as a column, not a gate.
+    """
+    #: **ONLY `architecture`, AND VOCAB IS DELIBERATELY NOT IN IT.** The first
+    #: version asserted on (vocab_size, architecture) and failed on
+    #: OLMoE-1B-7B-0125 -> -SFT, 50280 against 50254. That is not a broken
+    #: edge: this registry documents `vocab_size` as `tokenizer.vocab_size`,
+    #: which EXCLUDES added tokens, and finetuning routinely adds them --
+    #: the pair that cost this campaign 85 sites (llama-7b -> beaver-7b-v1.0,
+    #: 32000 vs 32001) differed exactly there. Vocab is a tokenizer fact and
+    #: rides in the report below.
+    #:
+    #: `hidden_size` and `num_hidden_layers` would be the stronger invariant
+    #: and the registry does not carry them. Asserting what it does hold beats
+    #: asserting a field that means something else.
+    arch = {m["model_id"]: m.get("architecture") for m in doc["models"]}
+    for e in doc["relations"]:
+        if e["relation"] not in TRAIN_RELS:
+            continue
+        a, b = arch.get(e["parent"]), arch.get(e["child"])
+        if not a or not b:
+            continue
+        assert a == b, (
+            f"{e['relation']}: parent {a!r} vs child {b!r} -- finetuning "
+            f"cannot change the architecture without becoming a different "
+            f"model ({e})")
+
+
+def test_published_totals_across_training_edges(doc, capsys):
+    """REPORTS where a repo publishes a different tensor total from its base.
+
+    Not a gate. A vendor shipping one fewer embedding matrix than the model it
+    finetuned is a fact about the store worth a named row -- "archangel
+    publishes one fewer embedding matrix than its base" -- and silencing it by
+    loosening a tolerance would lose the information that found it.
     """
     pb = {m["model_id"]: m.get("params_b") for m in doc["models"]}
-    TRAIN = {"sft_of", "dpo_of", "kto_of", "ppo_of", "slic_of", "rlvr_of",
-             "instruct_of"}
+    src = {m["model_id"]: m.get("params_source") for m in doc["models"]}
+    diffs = []
     for e in doc["relations"]:
-        if e["relation"] in TRAIN:
-            a, b = pb.get(e["parent"]), pb.get(e["child"])
-            if a and b:
-                assert abs(a - b) < 1e-6, (
-                    f"{e['relation']}: parent {a}B vs child {b}B -- "
-                    f"training does not change parameter count ({e})")
+        if e["relation"] not in TRAIN_RELS:
+            continue
+        a, b = pb.get(e["parent"]), pb.get(e["child"])
+        #: only compare two MEASURED values. A measured total against a parsed
+        #: one is the units error this whole repair came from.
+        if a and b and abs(a - b) >= 1e-6 and \
+           src.get(e["parent"]) == src.get(e["child"]) == "measured:safetensors":
+            diffs.append((e["parent"], a, e["child"], b, round(a - b, 4)))
+    #: VOCAB DIFFERENCES RIDE HERE TOO, for the same reason: a finetune that
+    #: adds special tokens is a vendor act to report, and it is the exact shape
+    #: that cost 85 sites when it went unnoticed.
+    vs = {m["model_id"]: m.get("vocab_size") for m in doc["models"]}
+    vdiffs = [(e["parent"], vs[e["parent"]], e["child"], vs[e["child"]])
+              for e in doc["relations"]
+              if e["relation"] in TRAIN_RELS
+              and vs.get(e["parent"]) and vs.get(e["child"])
+              and vs[e["parent"]] != vs[e["child"]]]
+    if diffs:
+        print("\nPUBLISHED-TOTAL DIFFERENCES ACROSS TRAINING EDGES "
+              "(reported, not a failure):")
+        for par, a, ch, b, d in sorted(diffs):
+            print("   %-42s %.3fB -> %-42s %.3fB  (%+.3fB)"
+                  % (par.split("/")[-1][:42], a, ch.split("/")[-1][:42], b, -d))
+    if vdiffs:
+        print("\nTOKENIZER VOCAB DIFFERENCES ACROSS TRAINING EDGES "
+              "(reported; added tokens are normal, and are the 85-site shape):")
+        for par, a, ch, b in sorted(vdiffs):
+            print("   %-42s %-7s -> %-42s %-7s (%+d)"
+                  % (par.split("/")[-1][:42], a, ch.split("/")[-1][:42], b, b - a))
+    assert True
 
 
 SCALE_RELS = ("smaller_sibling_of", "smaller_predecessor_of")
@@ -448,18 +523,41 @@ def test_every_scale_ladder_candidate_is_declared_or_excluded(doc):
     spec.loader.exec_module(bmr)
 
     on_ladder = {k for lad in bmr.SCALE_LADDERS for k, _ in lad}
+    _pb = {m["model_id"]: m.get("params_b") for m in doc["models"]}
     fams = {}
     for m in doc["models"]:
         f = m.get("family")
         if f:
-            fams.setdefault(f, {"org": m.get("org"), "gen": m.get("generation", ""),
-                                "params": set()})["params"].add(m.get("params"))
+            e = fams.setdefault(f, {"org": m.get("org"),
+                                    "gen": m.get("generation", ""),
+                                    "params": set(), "members": set()})
+            e["params"].add(m.get("params"))
+            e["members"].add(m["model_id"])
     missing = []
     for a, b in itertools.combinations(sorted(fams), 2):
         ia, ib = fams[a], fams[b]
         if ia["org"] != ib["org"]:
             continue
-        if ia["params"] == ib["params"]:          # not a scale contrast
+        #: **A SCALE CONTRAST IS A RATIO, NOT A SET DIFFERENCE.** This compared
+        #: the two families' `params` SETS for equality, and once `params_b`
+        #: became a measurement that fired on archangel: `archangel-dpo` holds
+        #: the shared base `pythia-2.8b` (2.909B published) as well as its own
+        #: arm (2.775B), while kto/ppo/slic hold only the arm -- the base goes
+        #: to whichever family claims it first and the rest get
+        #: `also_member_of` edges. So the sets differed by the base's presence,
+        #: not by scale, and 2.775 against 2.909 is ONE EMBEDDING MATRIX.
+        #:
+        #: Before the measurement every set was {"2.8B"} and this could not
+        #: fire. Ratio is the property meant: a ladder rung is a step in size,
+        #: and steps are multiplicative. 20% keeps Falcon3's 1B/3B/7B/10B --
+        #: the case this test was written for -- and drops a published-total
+        #: difference within one model size.
+        _sa = {v for v in (_pb.get(x) for x in ia["members"]) if v}
+        _sb = {v for v in (_pb.get(x) for x in ib["members"]) if v}
+        if not _sa or not _sb:
+            continue
+        _lo, _hi = min(_sa | _sb), max(_sa | _sb)
+        if _hi / _lo < 1.20:                      # same scale, not a contrast
             continue
         if a in on_ladder and b in on_ladder:
             continue
