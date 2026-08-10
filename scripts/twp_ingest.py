@@ -204,7 +204,42 @@ def main(a):
                 continue
             p = rec["prompt"]
             if p in seen:
+                #: **A BOX CAN COLLIDE WITH ITSELF, AND THIS RULE WAS NEVER
+                #: DECLARED.** Found 2026-08-10 via lacan at [5307]: twpfill0
+                #: holds 5 records that are the same cell written more than once
+                #: INSIDE one box, across the rsync loop's own restarts. My
+                #: argument for one rsync destination per box was that two
+                #: writers on one filename collide; the unexamined half was that
+                #: one writer can collide with itself.
+                #:
+                #: **LAST RECORD IN THE FILE WINS.** That is what `seen[p] = rec`
+                #: has always done, and it is a resolution rule that lived in
+                #: code and nowhere in the design -- the same class as
+                #: ClickHouse's `done_cells` key omitting `source`, and as
+                #: `SOURCE_PRECEDENCE` ranking unlisted sources 99 and letting
+                #: argMin break the tie. Declared here rather than changed:
+                #: altering which record wins mid-reconcile would move values in
+                #: a store two seats are comparing.
+                #:
+                #: It is defensible as well as declared. Within one file the
+                #: later record is the later ATTEMPT at the same cell -- a
+                #: restart re-scoring what an interrupted pass left -- so last
+                #: wins prefers the completed attempt over the interrupted one,
+                #: which is the same logic that put twpfill3 over twpfill0.
+                #: **But it is order-dependent on LINE ORDER**, so it holds only
+                #: while the runner appends. If anything ever rewrites a shard
+                #: out of order this becomes arbitrary, and the guard is that
+                #: the count is printed and the cells are named.
                 stats["dup"] += 1
+                same = _value_sig(rec.get("rows") or []) == \
+                    _value_sig(seen[p].get("rows") or [])
+                stats["dup_same" if same else "dup_diff"] += 1
+                if not same:
+                    loud.append((model, p[:38],
+                                 "WITHIN-FILE DUPLICATE, DIFFERENT VALUE: "
+                                 "earlier %d words, later %d -- LAST WINS"
+                                 % (len(seen[p].get("rows") or []),
+                                    len(rec.get("rows") or []))))
             seen[p] = rec
 
         for p, rec in seen.items():
@@ -363,6 +398,16 @@ def main(a):
     if tot["skip_unknown"]:
         print(f"!! {tot['skip_unknown']:,} resident cells could not be read "
               f"back for comparison; treated as neither same nor different.")
+    #: `dup` is WITHIN one file -- a box colliding with itself across restarts.
+    #: Split for the same reason `already` is: identical is bookkeeping, a
+    #: different value is a resolution rule firing on real data.
+    if tot["dup"]:
+        print(f"\n   within-file duplicates: {tot['dup']:,} "
+              f"({tot['dup_same']:,} identical, {tot['dup_diff']:,} DIFFERENT). "
+              f"LAST record in the file wins.")
+        if tot["dup_diff"]:
+            print("   !! the DIFFERENT ones are a declared-by-line-order choice; "
+                  "named above.")
     if tot["model_mismatch"]:
         print(f"MODEL MISMATCH {tot['model_mismatch']} -- filename disagrees "
               f"with payload; keys would be wrong. INVESTIGATE.")
