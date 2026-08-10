@@ -496,9 +496,18 @@ def ingest_logits_indexed(batch=400_000, limit=None):
             continue                       # already hold the better source
         v = stash.get(k)
         best[cell] = (dt, v["file"], int(v["row"]), int(v["dim"]))
+    #: **GROUP BY THE RESOLVED PATH, NOT BY THE BASENAME.** [5287]/[5294].
+    #: The `f11_twp` payloads live in TWO directories holding different subsets
+    #: at overlapping rows, so resolution is a property of the ENTRY. Keying
+    #: this group on `f` and memmapping once per name would hand half the
+    #: entries the wrong file's memmap -- **the same defect as keying the
+    #: resolution map on (file, row)**, one layer out, and it would survive
+    #: fixing the `os.path.join` below on its own.
     byfile = defaultdict(list)
     for (model, prompt), (dt, f, row, dim) in best.items():
-        byfile[(f, dt)].append((model, prompt, row, dim))
+        path = cm.logit_path({"file": f, "row": row, "dim": dim,
+                              "dir": cm._logit_dir_map().get((model, prompt))})
+        byfile[(path, dt)].append((model, prompt, row, dim))
     n_pref = sum(1 for v in best.values() if v[0] == "float32")
     print("cells to ingest: %s  (float32 source preferred where both exist: %s)"
           % (format(len(best), ","), format(n_pref, ",")))
@@ -508,14 +517,17 @@ def ingest_logits_indexed(batch=400_000, limit=None):
     print("payload files with un-ingested cells: %d\n" % len(files))
     out, res, n_rows, n_cells = [], [], 0, 0
     truncated = []
-    for (fname, dtype) in files:
-        path = os.path.join(root, fname)
+    for (path, dtype) in files:
+        #: `path` IS ALREADY RESOLVED. No join here: the entry decided which
+        #: directory it belongs to, and re-deriving it from a basename is how
+        #: three other call sites got it wrong today.
+        fname = os.path.relpath(path, root) if path.startswith(root) else path
         if not os.path.exists(path):
             print("  MISSING PAYLOAD %s -- skipped, not silently counted" % fname)
             continue
         dt = np.float16 if dtype == "float16" else np.float32
         mm = np.memmap(path, dtype=dt, mode="r")
-        for model, prompt, row, dim in byfile[(fname, dtype)]:
+        for model, prompt, row, dim in byfile[(path, dtype)]:
             v = np.asarray(mm[row * dim:(row + 1) * dim], dtype=np.float32)
             if v.size != dim:
                 #: **A SHORT READ IS A TRUNCATED PAYLOAD, AND IT IS NAMED.**
@@ -539,7 +551,10 @@ def ingest_logits_indexed(batch=400_000, limit=None):
                 insert("logit_probs", out); n_rows += len(out); out = []
         insert("logit_probs", out); n_rows += len(out); out = []
         insert("logit_residual", res); res = []
-        print("  %-56s %5d cells" % (fname[:56], len(byfile[(fname, dtype)])))
+        #: KEYED ON `path`, LIKE THE GROUP. `byfile` is a defaultdict, so a
+        #: stale `fname` key here would not raise -- it would print `0 cells`
+        #: for every file and read as an empty run.
+        print("  %-56s %5d cells" % (fname[:56], len(byfile[(path, dtype)])))
     print("\nindexed logits: %s new cells, %s token rows"
           % (format(n_cells, ","), format(n_rows, ",")))
     if truncated:
