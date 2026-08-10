@@ -116,6 +116,37 @@ payload.
   filter, the lexicon lookup policy. A second copy of a rule is a second policy,
   and nine scripts already hold their own copy of `0.003` without importing it.
 
+## 4b. THE TRANSITIONAL STATE, WHICH IS WHERE WE ACTUALLY ARE
+
+Not "migrated". **Both systems are live, and which one is authoritative differs
+by data type.** Read this before assuming anything is single-sourced.
+
+| data | writes go to | the getter reads | authoritative |
+|---|---|---|---|
+| twp | **stash AND ClickHouse** | ClickHouse (`word_probs`) | the `.jsonl` payloads |
+| logits | **stash AND ClickHouse** | **the stash** (`cm.get_logits`) | the `.f16` payloads |
+| generations / beams | ClickHouse only | `gens.py` | the `.jsonl` payloads |
+| registry / catalogue | ClickHouse, regenerated | code (`Registry`, `Prompts`) | code |
+
+Three consequences worth stating plainly:
+
+- **The main logits getter has NOT moved.** `cm.get_logits` still reads the
+  `.f16` memmap and returns the full 131,072-dim vector. `ch_logit_probs` is an
+  ADDITIONAL reader for the truncated distribution, under its own name. Nothing
+  that uses logits today changes.
+- **The twp getter HAS moved**, silently and reversibly. Same interface, same
+  results (299/300 reconciled, worst per-word difference 4e-08),
+  `MALIGN_TWP_SOURCE=stash` to revert.
+- **Nothing is renamed and nothing is deleted.** The stash rename is deferred
+  deliberately until the two have run in parallel long enough to trust the
+  swap.
+
+**There are new twp and logits payloads waiting to be ingested** from the
+current fleet work. They go to BOTH stores — `twp_ingest.py` for the stash and
+`ch_ingest.py` for ClickHouse — for as long as both exist. A payload ingested
+to only one is the thing that makes the reconciler meaningless, and the
+reconciler is the only reason keeping two stores is defensible.
+
 ## 5. Ingesting new payloads
 
 Write to **both** stores while both exist:
