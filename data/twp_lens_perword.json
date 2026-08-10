@@ -1,0 +1,35 @@
+{
+ "base": "meta-llama/Llama-3.1-8B",
+ "aligned": "meta-llama/Llama-3.1-8B-Instruct",
+ "cells": {
+  "She was so angry she wanted to": {
+   "n_tests": 3465,
+   "thr": 0.0,
+   "n_sig": 0,
+   "n_early": 0,
+   "earliest": null,
+   "sig": []
+  },
+  "He lay naked in his bed and": {
+   "n_tests": 4257,
+   "thr": 7.4080113667595675e-06,
+   "n_sig": 2,
+   "n_early": 0,
+   "earliest": 30,
+   "sig": [
+    {
+     "layer": 30,
+     "word": "gazed",
+     "z": -4.48161552518882,
+     "mover": true
+    },
+    {
+     "layer": 31,
+     "word": "gazed",
+     "z": -5.090800007147152,
+     "mover": true
+    }
+   ]
+  }
+ }
+}
