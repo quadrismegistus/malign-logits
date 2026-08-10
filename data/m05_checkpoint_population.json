@@ -1,0 +1,279 @@
+{
+ "_about": "M05 phase-1 population: the Think-SFT acquisition ladder, checkpoints enumerated as (model_id, revision) strings. The unit of this experiment is the checkpoint, not the base/aligned pair.",
+ "_producer": "scripts/build_m05_population.py",
+ "_source_of_record": "data/model_revisions.json",
+ "_generated": "2026-08-10T21:38:56",
+ "n_checkpoints": 45,
+ "n_sft_steps": 43,
+ "step_spacing": 1000,
+ "checkpoints": [
+  {
+   "model_id": "allenai/Olmo-3-1025-7B",
+   "revision": "main",
+   "role": "base_endpoint"
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step1000",
+   "role": "sft_step",
+   "step": 1000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step2000",
+   "role": "sft_step",
+   "step": 2000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step3000",
+   "role": "sft_step",
+   "step": 3000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step4000",
+   "role": "sft_step",
+   "step": 4000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step5000",
+   "role": "sft_step",
+   "step": 5000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step6000",
+   "role": "sft_step",
+   "step": 6000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step7000",
+   "role": "sft_step",
+   "step": 7000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step8000",
+   "role": "sft_step",
+   "step": 8000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step9000",
+   "role": "sft_step",
+   "step": 9000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step10000",
+   "role": "sft_step",
+   "step": 10000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step11000",
+   "role": "sft_step",
+   "step": 11000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step12000",
+   "role": "sft_step",
+   "step": 12000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step13000",
+   "role": "sft_step",
+   "step": 13000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step14000",
+   "role": "sft_step",
+   "step": 14000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step15000",
+   "role": "sft_step",
+   "step": 15000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step16000",
+   "role": "sft_step",
+   "step": 16000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step17000",
+   "role": "sft_step",
+   "step": 17000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step18000",
+   "role": "sft_step",
+   "step": 18000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step19000",
+   "role": "sft_step",
+   "step": 19000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step20000",
+   "role": "sft_step",
+   "step": 20000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step21000",
+   "role": "sft_step",
+   "step": 21000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step22000",
+   "role": "sft_step",
+   "step": 22000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step23000",
+   "role": "sft_step",
+   "step": 23000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step24000",
+   "role": "sft_step",
+   "step": 24000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step25000",
+   "role": "sft_step",
+   "step": 25000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step26000",
+   "role": "sft_step",
+   "step": 26000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step27000",
+   "role": "sft_step",
+   "step": 27000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step28000",
+   "role": "sft_step",
+   "step": 28000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step29000",
+   "role": "sft_step",
+   "step": 29000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step30000",
+   "role": "sft_step",
+   "step": 30000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step31000",
+   "role": "sft_step",
+   "step": 31000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step32000",
+   "role": "sft_step",
+   "step": 32000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step33000",
+   "role": "sft_step",
+   "step": 33000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step34000",
+   "role": "sft_step",
+   "step": 34000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step35000",
+   "role": "sft_step",
+   "step": 35000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step36000",
+   "role": "sft_step",
+   "step": 36000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step37000",
+   "role": "sft_step",
+   "step": 37000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step38000",
+   "role": "sft_step",
+   "step": 38000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step39000",
+   "role": "sft_step",
+   "step": 39000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step40000",
+   "role": "sft_step",
+   "step": 40000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step41000",
+   "role": "sft_step",
+   "step": 41000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step42000",
+   "role": "sft_step",
+   "step": 42000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "step43000",
+   "role": "sft_step",
+   "step": 43000
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-SFT",
+   "revision": "main",
+   "role": "sft_endpoint"
+  }
+ ]
+}
