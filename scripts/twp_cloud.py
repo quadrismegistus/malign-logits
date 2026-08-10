@@ -184,7 +184,20 @@ def main(a):
               "usable at word level.", flush=True)
     else:
         print(f"cjk dictionary: {len(trie):,} words+prefixes", flush=True)
-    for mi, entry in enumerate(spec, 1):
+    #: **RETRY MUST RE-ENTER THE SAME ENTRY, AND A `for` CANNOT.** The 429
+    #: handler below needs to re-attempt one model after a backoff; appending to
+    #: a queue that `enumerate(spec)` never reads would have looked like a retry
+    #: and been a silent skip -- the same shape as the failure it exists to fix.
+    MAX_RL_RETRIES = 6
+    _rl = {"n": 0, "again": False}
+    _i = 0
+    while _i < len(spec):
+        entry = spec[_i]
+        mi = _i + 1
+        if not _rl["again"]:
+            _rl["n"] = 0                 # retries are per-model, not per-run
+        _rl["again"] = False
+        _i += 1
         mid, prompts = entry["model"], entry["prompts"]
         #: COMPUTE DTYPE, PER MODEL, DECLARED IN THE SPEC. Default float16, so
         #: the 103 models of the 2026-08-01 corpus are computed exactly as they
@@ -258,7 +271,39 @@ def main(a):
                     mid, dtype=cdt, trust_remote_code=True,
                     **({"revision": rev} if rev else {})).to(dev).eval()
         except Exception as e:
-            print(f"  LOAD FAILED: {str(e)[:120]}", flush=True)
+            #: **A 429 IS A RACE, NOT A STATE, AND THE RUNBOOK SAYS WHICH GETS A
+            #: RETRY** (§2.13). Treating it as a load failure cost a whole fleet
+            #: on 2026-08-10: 36 of 36 models "completed" in three minutes with
+            #: ZERO cells written, and the run printed ALL MODELS COMPLETE.
+            #:
+            #: **AND THE MESSAGE DOES NOT SAY 429.** A rate-limited file listing
+            #: surfaces as `does not appear to have files named
+            #: model-00001-of-00030.safetensors` or `Can't load tokenizer for
+            #: X` -- which read as facts about the MODEL. That log, read without
+            #: the quota in mind, says Llama-3.1-70B has no safetensors. It has
+            #: thirty. So the detector matches the status code and the phrase,
+            #: never the symptom.
+            #:
+            #: The quota is per-ACCOUNT: more boxes make this worse, not better,
+            #: because they share one budget. Backing off is the only lever.
+            msg = str(e)
+            rate_limited = ("429" in msg or "Too Many Requests" in msg
+                            or "rate limit" in msg.lower())
+            if rate_limited and _rl["n"] < MAX_RL_RETRIES:
+                _rl["n"] += 1
+                wait = min(300, 30 * 2 ** (_rl["n"] - 1))
+                print(f"  HF RATE LIMIT (attempt {_rl['n']}/{MAX_RL_RETRIES}) "
+                      f"-- backing off {wait}s, then RETRYING THIS MODEL. A 429 "
+                      f"is a race, not a model defect.", flush=True)
+                free()
+                time.sleep(wait)
+                _rl["again"] = True         # re-enter the same entry
+                _i -= 1
+                continue
+            print(f"  LOAD FAILED: {msg[:120]}", flush=True)
+            if rate_limited:
+                print(f"  ^ THIS WAS A RATE LIMIT, not a model defect. "
+                      f"{MAX_RL_RETRIES} retries exhausted.", flush=True)
             free()                 # the traceback held the partial load
             purge_model(mid, a.purge)   # ITS WEIGHTS ARE NOW DEAD WEIGHT
             continue
