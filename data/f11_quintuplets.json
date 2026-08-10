@@ -3,7 +3,7 @@
  "_sources": {
   "prompt_categorisation.json": "f441a8b2b12a8208",
   "f11_conjunction_controls.json": "046699dbf60a382f",
-  "f11_conjunction_controls_zh.json": "95205a72c1afe8da"
+  "f11_conjunction_controls_zh.json": "45cb8026a2c924f0"
  },
  "_convention": "NEAR-SYNONYM: the companion sits on the SAME semantic dimension as its pole and on the SAME side of it. loyal -> dutiful, not loyal -> brave. Ruling at docket [5066].1; the argument is malign's own [5037] rule that a control differing from its comparison cell in two respects controls neither. DIFFERENT-TRAIT varies compatibility AND dimensionality at once and was rejected for that reason. SHARED POLE TAKES THE SAME COMPANION: f11_beauty and f11_beauty_ugly share POLE_A ('He was beautiful and she wanted to') and both take 'beautiful and radiant'. Stated as part of the convention rather than left as a coincidence, so a later author cannot diverge them and quietly introduce a between-group difference into a shared cell.",
  "_population_note": "STATUS IS CARRIED, NOT FILTERED: the ACTIVE-vs-ACTIVE+DISPUTED population choice is an open construct ruling for the redo registration ([5084].3) — this file shows every complete group WITH its status so the choice is made visibly downstream, never silently here. Analysis populations MUST filter on status ([5084].2: a shape filter is not a membership filter).",
@@ -59,8 +59,8 @@
    "both": "他既是美丽的又是丑陋的，她想要",
    "control_a": "他既是美丽的又是耀眼的，她想要",
    "control_b": "他既是丑陋的又是难看的，她想要",
-   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence CHECK",
-   "controls_note": "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)"
+   "controls_status": "authored; gloss gate CLEARED ([5089]) — GATE-CLEARED",
+   "gloss_note": "[5089] PASS WITH NOTE: CB 难看 is a register step-down after 丑陋; no better same-dimension candidate, ship known."
   },
   {
    "group": "f11_beauty_zh",
@@ -150,8 +150,7 @@
    "both": "他既是富有的又是贫穷的，他决定",
    "control_a": "他既是富有的又是阔绰的，他决定",
    "control_b": "他既是贫穷的又是潦倒的，他决定",
-   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence GATE-CLEARED",
-   "controls_note": "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)"
+   "controls_status": "authored; gloss gate CLEARED ([5089]) — GATE-CLEARED"
   },
   {
    "group": "f11_create",
@@ -177,8 +176,7 @@
    "both_matched": "她想要创造一些东西又毁灭一些东西，她决定",
    "control_a": "她想要同时创造和建设，她决定",
    "control_b": "她想要同时毁灭和破坏，她决定",
-   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence GATE-CLEARED",
-   "controls_note": "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)"
+   "controls_status": "authored; gloss gate CLEARED ([5089]) — GATE-CLEARED"
   },
   {
    "group": "f11_desire",
@@ -227,8 +225,7 @@
    "both": "她对他既忠诚又不忠，她开始",
    "control_a": "她对他既忠诚又专一，她开始",
    "control_b": "她对他既不忠又负心，她开始",
-   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence GATE-CLEARED",
-   "controls_note": "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)"
+   "controls_status": "authored; gloss gate CLEARED ([5089]) — GATE-CLEARED"
   },
   {
    "group": "f11_gender",
@@ -324,8 +321,8 @@
    "both": "她既是无罪的又是有罪的，她开始",
    "control_a": "她既是无罪的又是清白的，她开始",
    "control_b": "她既是有罪的又是有过错的，她开始",
-   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence CHECK",
-   "controls_note": "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)"
+   "controls_status": "authored; gloss gate CLEARED ([5089]) — GATE-CLEARED",
+   "gloss_note": "[5089] PASS WITH NOTE: CB 有过错 is an anticlimax after 有罪, but EN 'culpable' wobbles the same way, so the imperfection is MATCHED across languages, which is the better property."
   },
   {
    "group": "f11_holy",
@@ -428,8 +425,8 @@
    "both_matched": "他深深地爱着她又深深地恨着她，想要",
    "control_a": "他爱着她又恋着她，想要",
    "control_b": "他恨着她又厌恶着她，想要",
-   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence CHECK",
-   "controls_note": "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)"
+   "controls_status": "authored; gloss gate CLEARED ([5089]) — GATE-CLEARED",
+   "gloss_note": "[5089] as f11_love_zh, mirrored; same call, same reason."
   },
   {
    "group": "f11_love_zh",
@@ -442,8 +439,8 @@
    "both_matched": "她深深地爱着他又深深地恨着他，想要",
    "control_a": "她爱着他又恋着他，想要",
    "control_b": "她恨着他又厌恶着他，想要",
-   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence CHECK",
-   "controls_note": "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)"
+   "controls_status": "authored; gloss gate CLEARED ([5089]) — GATE-CLEARED",
+   "gloss_note": "[5089] left to lacan. CA 恋着 defensible as-is (the 爱着/恨着 frame is already lyric register; internal consistency holds); the safer swap 迷恋着 is DECLINED to preserve that consistency. CB 厌恶着: durative 着 on a psych-state verb is marked, but parallelism with the BOTH cell argues keeping it; pen noted, not opposed."
   },
   {
    "group": "f11_loyal",
@@ -606,8 +603,8 @@
    "both_matched": "她十分信任他又十分害怕他，决定",
    "control_a": "她既信任他又依靠他，决定",
    "control_b": "她既害怕他又畏惧他，决定",
-   "controls_status": "authored; GLOSS GATE PENDING (RH) — confidence CHECK",
-   "controls_note": "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)"
+   "controls_status": "authored; gloss gate CLEARED ([5089]) — GATE-CLEARED",
+   "gloss_note": "[5089] PASS WITH NOTE: CB 畏惧 is a register mix but a REAL second shade (dread/awe vs simple fear); keep."
   }
  ]
 }

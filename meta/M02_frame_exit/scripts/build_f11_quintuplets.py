@@ -110,9 +110,27 @@ for gid in sorted(groups):
         rec["control_a"] = c["control_a"]
         rec["control_b"] = c["control_b"]
         rec["controls_status"] = "authored"
-        if gid in gloss_pending:
-            rec["controls_status"] = "authored; GLOSS GATE PENDING (RH) — confidence " + str(gloss_pending[gid])
-        if lang == "zh":
+        #: THE GATE IS READ FROM THE CONFIDENCE VALUE, NOT ASSERTED BY BEING
+        #: PRESENT IN THE DICT. The previous version wrote "GLOSS GATE PENDING
+        #: (RH) — confidence " + value for EVERY gated group, which meant a
+        #: control whose confidence read `GATE-CLEARED` was published as
+        #: "GATE PENDING ... confidence GATE-CLEARED" -- a string that
+        #: contradicts itself, and one no builder re-run could fix, because the
+        #: staleness was authored HERE and not copied from a source. Registrar
+        #: read the output cold at [5154] and concluded five control groups were
+        #: unshipped; they were cleared at [5089] five days earlier.
+        conf = gloss_pending.get(gid)
+        if conf and str(conf).upper() not in ("GATE-CLEARED", "HIGH"):
+            rec["controls_status"] = ("authored; GLOSS GATE PENDING (RH) — confidence "
+                                      + str(conf))
+        elif conf:
+            rec["controls_status"] = "authored; gloss gate CLEARED ([5089]) — " + str(conf)
+        #: the per-group reason travels with the row, so "cleared" is auditable
+        #: rather than a bare verdict. Three of the eight ship with a known
+        #: imperfection and two decline a proposed swap.
+        if c.get("gloss_note"):
+            rec["gloss_note"] = c["gloss_note"]
+        if lang == "zh" and not conf:
             rec.setdefault("controls_note", "zh companions gate on RH gloss pipeline before shipping ([5080].4/[5083].2)")
     elif gid in flagged:
         rec["control_a"] = rec["control_b"] = None

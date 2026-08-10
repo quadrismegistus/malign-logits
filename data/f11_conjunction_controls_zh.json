@@ -1,151 +1,156 @@
 {
-  "_about": "CONTROL_A / CONTROL_B for the 17 gradable Chinese triplets. AUTHORED, NOT TRANSLATED, per registrar [5078].3 and RH's go-ahead: the English companions are not a source text, because 既A又B is its own surface form and a translated companion would inherit English collocations.",
-  "_convention": "Same as the English file: the companion sits on the SAME semantic dimension as its pole and the SAME side of it, and matches the BOTH cell's surface form -- 既...又 where the BOTH uses it, bare conjunction where it does not (f11_desire_zh), 又 without 既 where the BOTH does that (f11_love_zh, f11_love_he_zh).",
-  "_provenance": "EVERY `both` FIELD IS READ FROM data/prompt_categorisation.json BY THE BUILD SCRIPT AND NEVER TYPED. The English file shipped four fabricated `both` strings because I wrote them from the poles by analogy ([5080]); here the class of error is structurally impossible, which is the right fix rather than a resolution to be more careful.",
-  "_limit": "MY CHINESE IDIOM JUDGMENT IS WEAKER THAN MY ENGLISH, AND PLEONASM IS AN IDIOM JUDGMENT. 9 of 17 are marked CHECK: plausible to me, but the near-synonym rule pushes hard toward doubling in Chinese, where 既A又B already asserts simultaneity and a near-synonymous B can collapse into emphasis rather than conjunction. RH's zh gloss pipeline is a GATE on this file, not a courtesy read: cells that do not clear do not ship, and 'not naturally authorable' is a reportable finding about Chinese, not a failure -- exactly as the six category-pole triplets were in English.",
-  "_status": "PROPOSED, L1 ONLY. L2-zh remains the declared second study per [5066].1.",
-  "controls": [
-    {
-      "group": "f11_beauty_zh",
-      "both": "他既是美丽的又是恶心的，她想要",
-      "control_a": "他既是美丽的又是耀眼的，她想要",
-      "control_b": "他既是恶心的又是肮脏的，她想要",
-      "confidence": "HIGH"
-    },
-    {
-      "group": "f11_beauty_ugly_zh",
-      "both": "他既是美丽的又是丑陋的，她想要",
-      "control_a": "他既是美丽的又是耀眼的，她想要",
-      "control_b": "他既是丑陋的又是难看的，她想要",
-      "confidence": "CHECK",
-      "note": "丑陋/难看 may be too close; 难看 is colloquial where 丑陋 is written."
-    },
-    {
-      "group": "f11_captive_zh",
-      "both": "他既是自由的又是被囚禁的，选择了",
-      "control_a": "他既是自由的又是无拘无束的，选择了",
-      "control_b": "他既是被囚禁的又是被束缚的，选择了",
-      "confidence": "HIGH",
-      "note": "无拘无束 is a set four-character phrase and reads naturally after 自由."
-    },
-    {
-      "group": "f11_captive_b_zh",
-      "both": "那个既自由又被囚禁的人选择了",
-      "control_a": "那个既自由又无拘无束的人选择了",
-      "control_b": "那个既被囚禁又被束缚的人选择了",
-      "confidence": "HIGH"
-    },
-    {
-      "group": "f11_class_zh",
-      "both": "他既是富有的又是贫穷的，他决定",
-      "control_a": "他既是富有的又是阔绰的，他决定",
-      "control_b": "他既是贫穷的又是潦倒的，他决定",
-      "confidence": "GATE-CLEARED",
-      "note": "GLOSS GATE [5089]: both companions replaced. 宽裕 and 困顿 predicate CIRCUMSTANCES, not persons (手头宽裕, not 他是宽裕的) — a grammaticality problem I flagged as doubt and could not resolve. 阔绰 predicates persons naturally (mild behavioural shade, noted); 潦倒 is the person word (穷困潦倒). Was 宽裕 / 困顿."
-    },
-    {
-      "group": "f11_create_zh",
-      "both": "她想要同时创造和毁灭，她决定",
-      "control_a": "她想要同时创造和建设，她决定",
-      "control_b": "她想要同时毁灭和破坏，她决定",
-      "confidence": "GATE-CLEARED",
-      "note": "GLOSS GATE [5089]: THE ONE TRUE EMPHASIS COLLAPSE in the set, and it was my own hardest flag. 毁灭/摧毁 are near-interchangeable and read as a single intensified act; 破坏 is same-dimension, same-side and distinguishably LESSER, so the conjunction stays a conjunction. Was 摧毁."
-    },
-    {
-      "group": "f11_desire_zh",
-      "both": "她感到欲望和厌恶，开始",
-      "control_a": "她感到欲望和渴望，开始",
-      "control_b": "她感到厌恶和反感，开始",
-      "confidence": "HIGH",
-      "note": "Both are standard doubled pairs; this group's BOTH is bare conjunction, so the companions match that surface form rather than 既...又."
-    },
-    {
-      "group": "f11_faithful_zh",
-      "both": "她对他既忠诚又不忠，她开始",
-      "control_a": "她对他既忠诚又专一，她开始",
-      "control_b": "她对他既不忠又负心，她开始",
-      "confidence": "GATE-CLEARED",
-      "note": "GLOSS GATE [5089]: my flag on 不贞 was right and INCOMPLETE — beyond archaic and gendered it is a DIMENSION SHIFT, loyalty to chastity, which is a convention violation and not merely a register problem. I did not see that. 负心 is the love-register faithless word, person-true and direction-true. Was 不贞."
-    },
-    {
-      "group": "f11_guilt_zh",
-      "both": "她既是无罪的又是有罪的，她开始",
-      "control_a": "她既是无罪的又是清白的，她开始",
-      "control_b": "她既是有罪的又是有过错的，她开始",
-      "confidence": "CHECK",
-      "note": "无罪/清白 is idiomatic. 有过错 is clumsier than its English counterpart 'culpable'."
-    },
-    {
-      "group": "f11_holy_zh",
-      "both": "在一个既神圣又污秽的地方，她开始",
-      "control_a": "在一个既神圣又庄严的地方，她开始",
-      "control_b": "在一个既污秽又破败的地方，她开始",
-      "confidence": "HIGH",
-      "note": "SHARES ITS BOTH CELL WITH f11_holy_b_zh byte-identically, exactly as the English pair does, so the companions are identical too."
-    },
-    {
-      "group": "f11_holy_b_zh",
-      "both": "在一个既神圣又污秽的地方，她开始",
-      "control_a": "在一个既神圣又庄严的地方，她开始",
-      "control_b": "在一个既污秽又破败的地方，她开始",
-      "confidence": "HIGH",
-      "note": "Identical to f11_holy_zh; see that entry."
-    },
-    {
-      "group": "f11_love_zh",
-      "both": "她爱着他又恨着他，想要",
-      "control_a": "她爱着他又恋着他，想要",
-      "control_b": "她恨着他又厌恶着他，想要",
-      "confidence": "CHECK",
-      "note": "恋着 after 爱着 may read as archaic or as song lyric. This BOTH uses 又 without 既, so the companions match that."
-    },
-    {
-      "group": "f11_love_he_zh",
-      "both": "他爱着她又恨着她，想要",
-      "control_a": "他爱着她又恋着她，想要",
-      "control_b": "他恨着她又厌恶着她，想要",
-      "confidence": "CHECK",
-      "note": "As f11_love_zh."
-    },
-    {
-      "group": "f11_loyal_zh",
-      "both": "士兵既是忠诚的又是叛逆的，选择了",
-      "control_a": "士兵既是忠诚的又是尽职的，选择了",
-      "control_b": "士兵既是叛逆的又是不驯的，选择了",
-      "confidence": "HIGH",
-      "note": "忠诚/尽职 and 叛逆/不驯 are both standard collocations for a soldier."
-    },
-    {
-      "group": "f11_reason_zh",
-      "both": "他既是完全理性的又是完全非理性的，选择了",
-      "control_a": "他既是完全理性的又是完全合乎逻辑的，选择了",
-      "control_b": "他既是完全非理性的又是完全不合逻辑的，选择了",
-      "confidence": "HIGH",
-      "note": "Matches the BOTH cell's doubled 完全. Group is DISPUTED in the categorisation."
-    },
-    {
-      "group": "f11_sensation_zh",
-      "both": "那种感觉既是快感又是痛苦，她开始",
-      "control_a": "那种感觉既是快感又是愉悦，她开始",
-      "control_b": "那种感觉既是痛苦又是煎熬，她开始",
-      "confidence": "HIGH",
-      "note": "煎熬 is the standard literary partner for 痛苦."
-    },
-    {
-      "group": "f11_trust_zh",
-      "both": "她既信任他又害怕他，决定",
-      "control_a": "她既信任他又依靠他，决定",
-      "control_b": "她既害怕他又畏惧他，决定",
-      "confidence": "CHECK",
-      "note": "害怕/畏惧 is close to pleonasm; 畏惧 is the more formal register."
-    }
-  ],
-  "_counts": {
-    "zh_complete_triplets": 21,
-    "with_controls": 17,
-    "flagged_category_poles": 4,
-    "new_prompts": 34,
-    "high_confidence": 9,
-    "needs_gloss_check": 5
+ "_about": "CONTROL_A / CONTROL_B for the 17 gradable Chinese triplets. AUTHORED, NOT TRANSLATED, per registrar [5078].3 and RH's go-ahead: the English companions are not a source text, because 既A又B is its own surface form and a translated companion would inherit English collocations.",
+ "_convention": "Same as the English file: the companion sits on the SAME semantic dimension as its pole and the SAME side of it, and matches the BOTH cell's surface form -- 既...又 where the BOTH uses it, bare conjunction where it does not (f11_desire_zh), 又 without 既 where the BOTH does that (f11_love_zh, f11_love_he_zh).",
+ "_provenance": "EVERY `both` FIELD IS READ FROM data/prompt_categorisation.json BY THE BUILD SCRIPT AND NEVER TYPED. The English file shipped four fabricated `both` strings because I wrote them from the poles by analogy ([5080]); here the class of error is structurally impossible, which is the right fix rather than a resolution to be more careful.",
+ "_limit": "MY CHINESE IDIOM JUDGMENT IS WEAKER THAN MY ENGLISH, AND PLEONASM IS AN IDIOM JUDGMENT. 9 of 17 are marked CHECK: plausible to me, but the near-synonym rule pushes hard toward doubling in Chinese, where 既A又B already asserts simultaneity and a near-synonymous B can collapse into emphasis rather than conjunction. RH's zh gloss pipeline is a GATE on this file, not a courtesy read: cells that do not clear do not ship, and 'not naturally authorable' is a reportable finding about Chinese, not a failure -- exactly as the six category-pole triplets were in English.",
+ "_status": "PROPOSED, L1 ONLY. L2-zh remains the declared second study per [5066].1. | zh gloss gate CLEARED for all 17 controls, 2026-08-10 (lacan). Four fixes from [5089] were already applied and marked; the remaining five are the pen's PASS-WITH-NOTE set plus the love pair it left to this seat. Per-group reasons in `gloss_note`. Cleared is not unanimous approval: three ship with a known imperfection and two decline a proposed swap, all recorded rather than flattened.",
+ "controls": [
+  {
+   "group": "f11_beauty_zh",
+   "both": "他既是美丽的又是恶心的，她想要",
+   "control_a": "他既是美丽的又是耀眼的，她想要",
+   "control_b": "他既是恶心的又是肮脏的，她想要",
+   "confidence": "HIGH"
+  },
+  {
+   "group": "f11_beauty_ugly_zh",
+   "both": "他既是美丽的又是丑陋的，她想要",
+   "control_a": "他既是美丽的又是耀眼的，她想要",
+   "control_b": "他既是丑陋的又是难看的，她想要",
+   "confidence": "GATE-CLEARED",
+   "note": "丑陋/难看 may be too close; 难看 is colloquial where 丑陋 is written.",
+   "gloss_note": "[5089] PASS WITH NOTE: CB 难看 is a register step-down after 丑陋; no better same-dimension candidate, ship known."
+  },
+  {
+   "group": "f11_captive_zh",
+   "both": "他既是自由的又是被囚禁的，选择了",
+   "control_a": "他既是自由的又是无拘无束的，选择了",
+   "control_b": "他既是被囚禁的又是被束缚的，选择了",
+   "confidence": "HIGH",
+   "note": "无拘无束 is a set four-character phrase and reads naturally after 自由."
+  },
+  {
+   "group": "f11_captive_b_zh",
+   "both": "那个既自由又被囚禁的人选择了",
+   "control_a": "那个既自由又无拘无束的人选择了",
+   "control_b": "那个既被囚禁又被束缚的人选择了",
+   "confidence": "HIGH"
+  },
+  {
+   "group": "f11_class_zh",
+   "both": "他既是富有的又是贫穷的，他决定",
+   "control_a": "他既是富有的又是阔绰的，他决定",
+   "control_b": "他既是贫穷的又是潦倒的，他决定",
+   "confidence": "GATE-CLEARED",
+   "note": "GLOSS GATE [5089]: both companions replaced. 宽裕 and 困顿 predicate CIRCUMSTANCES, not persons (手头宽裕, not 他是宽裕的) — a grammaticality problem I flagged as doubt and could not resolve. 阔绰 predicates persons naturally (mild behavioural shade, noted); 潦倒 is the person word (穷困潦倒). Was 宽裕 / 困顿."
+  },
+  {
+   "group": "f11_create_zh",
+   "both": "她想要同时创造和毁灭，她决定",
+   "control_a": "她想要同时创造和建设，她决定",
+   "control_b": "她想要同时毁灭和破坏，她决定",
+   "confidence": "GATE-CLEARED",
+   "note": "GLOSS GATE [5089]: THE ONE TRUE EMPHASIS COLLAPSE in the set, and it was my own hardest flag. 毁灭/摧毁 are near-interchangeable and read as a single intensified act; 破坏 is same-dimension, same-side and distinguishably LESSER, so the conjunction stays a conjunction. Was 摧毁."
+  },
+  {
+   "group": "f11_desire_zh",
+   "both": "她感到欲望和厌恶，开始",
+   "control_a": "她感到欲望和渴望，开始",
+   "control_b": "她感到厌恶和反感，开始",
+   "confidence": "HIGH",
+   "note": "Both are standard doubled pairs; this group's BOTH is bare conjunction, so the companions match that surface form rather than 既...又."
+  },
+  {
+   "group": "f11_faithful_zh",
+   "both": "她对他既忠诚又不忠，她开始",
+   "control_a": "她对他既忠诚又专一，她开始",
+   "control_b": "她对他既不忠又负心，她开始",
+   "confidence": "GATE-CLEARED",
+   "note": "GLOSS GATE [5089]: my flag on 不贞 was right and INCOMPLETE — beyond archaic and gendered it is a DIMENSION SHIFT, loyalty to chastity, which is a convention violation and not merely a register problem. I did not see that. 负心 is the love-register faithless word, person-true and direction-true. Was 不贞."
+  },
+  {
+   "group": "f11_guilt_zh",
+   "both": "她既是无罪的又是有罪的，她开始",
+   "control_a": "她既是无罪的又是清白的，她开始",
+   "control_b": "她既是有罪的又是有过错的，她开始",
+   "confidence": "GATE-CLEARED",
+   "note": "无罪/清白 is idiomatic. 有过错 is clumsier than its English counterpart 'culpable'.",
+   "gloss_note": "[5089] PASS WITH NOTE: CB 有过错 is an anticlimax after 有罪, but EN 'culpable' wobbles the same way, so the imperfection is MATCHED across languages, which is the better property."
+  },
+  {
+   "group": "f11_holy_zh",
+   "both": "在一个既神圣又污秽的地方，她开始",
+   "control_a": "在一个既神圣又庄严的地方，她开始",
+   "control_b": "在一个既污秽又破败的地方，她开始",
+   "confidence": "HIGH",
+   "note": "SHARES ITS BOTH CELL WITH f11_holy_b_zh byte-identically, exactly as the English pair does, so the companions are identical too."
+  },
+  {
+   "group": "f11_holy_b_zh",
+   "both": "在一个既神圣又污秽的地方，她开始",
+   "control_a": "在一个既神圣又庄严的地方，她开始",
+   "control_b": "在一个既污秽又破败的地方，她开始",
+   "confidence": "HIGH",
+   "note": "Identical to f11_holy_zh; see that entry."
+  },
+  {
+   "group": "f11_love_zh",
+   "both": "她爱着他又恨着他，想要",
+   "control_a": "她爱着他又恋着他，想要",
+   "control_b": "她恨着他又厌恶着他，想要",
+   "confidence": "GATE-CLEARED",
+   "note": "恋着 after 爱着 may read as archaic or as song lyric. This BOTH uses 又 without 既, so the companions match that.",
+   "gloss_note": "[5089] left to lacan. CA 恋着 defensible as-is (the 爱着/恨着 frame is already lyric register; internal consistency holds); the safer swap 迷恋着 is DECLINED to preserve that consistency. CB 厌恶着: durative 着 on a psych-state verb is marked, but parallelism with the BOTH cell argues keeping it; pen noted, not opposed."
+  },
+  {
+   "group": "f11_love_he_zh",
+   "both": "他爱着她又恨着她，想要",
+   "control_a": "他爱着她又恋着她，想要",
+   "control_b": "他恨着她又厌恶着她，想要",
+   "confidence": "GATE-CLEARED",
+   "note": "As f11_love_zh.",
+   "gloss_note": "[5089] as f11_love_zh, mirrored; same call, same reason."
+  },
+  {
+   "group": "f11_loyal_zh",
+   "both": "士兵既是忠诚的又是叛逆的，选择了",
+   "control_a": "士兵既是忠诚的又是尽职的，选择了",
+   "control_b": "士兵既是叛逆的又是不驯的，选择了",
+   "confidence": "HIGH",
+   "note": "忠诚/尽职 and 叛逆/不驯 are both standard collocations for a soldier."
+  },
+  {
+   "group": "f11_reason_zh",
+   "both": "他既是完全理性的又是完全非理性的，选择了",
+   "control_a": "他既是完全理性的又是完全合乎逻辑的，选择了",
+   "control_b": "他既是完全非理性的又是完全不合逻辑的，选择了",
+   "confidence": "HIGH",
+   "note": "Matches the BOTH cell's doubled 完全. Group is DISPUTED in the categorisation."
+  },
+  {
+   "group": "f11_sensation_zh",
+   "both": "那种感觉既是快感又是痛苦，她开始",
+   "control_a": "那种感觉既是快感又是愉悦，她开始",
+   "control_b": "那种感觉既是痛苦又是煎熬，她开始",
+   "confidence": "HIGH",
+   "note": "煎熬 is the standard literary partner for 痛苦."
+  },
+  {
+   "group": "f11_trust_zh",
+   "both": "她既信任他又害怕他，决定",
+   "control_a": "她既信任他又依靠他，决定",
+   "control_b": "她既害怕他又畏惧他，决定",
+   "confidence": "GATE-CLEARED",
+   "note": "害怕/畏惧 is close to pleonasm; 畏惧 is the more formal register.",
+   "gloss_note": "[5089] PASS WITH NOTE: CB 畏惧 is a register mix but a REAL second shade (dread/awe vs simple fear); keep."
   }
+ ],
+ "_counts": {
+  "zh_complete_triplets": 21,
+  "with_controls": 17,
+  "flagged_category_poles": 4,
+  "new_prompts": 34,
+  "high_confidence": 9,
+  "needs_gloss_check": 5
+ }
 }
