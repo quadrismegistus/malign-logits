@@ -121,6 +121,56 @@ POSITION_STAGE = {"base": "base", "ego": "sft", "superego": "dpo",
 # the correct assertion.
 METHOD_IN_NAME = re.compile(r"sft-(dpo|kto|ppo|slic)(?![a-z])", re.I)
 
+# AND A BARE `sft` IS ITSELF A METHOD THE NAME CARRIES.
+#
+# The regex above only recognises `sft-<method>`, so a checkpoint whose name
+# says SFT and nothing else fell through to POSITION_STAGE. In a 2-LAYER
+# family the single aligned member sits at `superego` by convention -- that is
+# the structural slot, not a claim about training -- and superego->dpo then
+# staged three Tulu-3 SFT DATA-ABLATION checkpoints as preference-optimised.
+# Found by lacan at docket [4718]; it inverted an SFT-vs-DPO comparison on the
+# one base carrying several recipes.
+#
+# The negative lookahead is load-bearing TWICE: `sft` must not be followed by
+# a method (or `archangel_sft-dpo` would stage as sft, erasing the variable
+# those four cells exist to vary) and must not be followed by a letter (or
+# `softmax`-like substrings would match).
+#
+# POSITION IS NOT A STAGE. `archangel_sft-kto` is position=superego stage=kto
+# and always was; the fallback treating superego as dpo is a guess for models
+# whose name says nothing, and it should be reached as rarely as possible.
+SFT_IN_NAME = re.compile(r"sft(?!-(?:dpo|kto|ppo|slic))(?![a-z])", re.I)
+
+# DECLARED METHOD, for checkpoints whose NAME carries none and whose vendor
+# documents one. The fallback superego->dpo is "a guess for models whose name
+# says nothing", and these are the cases where the guess is known to be WRONG.
+#
+# Kanana 1.5: `stage=dpo` was FACTUALLY BACKWARDS. Kakao abandoned DPO for the
+# 1.5 line and moved to ON-POLICY RL. tech.kakao.com/posts/707 lists the three
+# changes as "On-policy 강화학습법의 도입" (introduction of on-policy RL),
+# scalar -> generative reward model, and combination with verifiable reward
+# functions; posts/716 names them retrospectively as RLVR (math/code) and
+# RLGRM (general conversation) applied "SFT 이후" -- after SFT. The DPO the
+# blog mentions belongs to the 1.0 recipe it is describing moving away from,
+# which is the conflation any generic search falls into because the 1.5 card
+# cites the 1.0 arXiv paper.
+#
+# **`ppo` HERE IS A BUCKET, NOT A NAMED ALGORITHM.** The source says
+# "PPO 등의 online learning 학습법" -- on-policy methods SUCH AS PPO -- and never
+# names the algorithm used for the released checkpoint. `ppo` is the closest
+# value in the schema's vocabulary and is right about the family of method;
+# `dpo` was wrong about the family, which is the distinction that matters when
+# the project's central finding is that SFT and DPO do different work.
+#
+# Kanana 2: the card states "pretrained from scratch on TPU clusters and
+# further improved through post-training with supervised fine-tuning and
+# reinforcement learning". Same bucket, same caveat -- RL is declared, the
+# algorithm is not.
+METHOD_DECLARED = {
+    "kakaocorp/kanana-1.5-8b-instruct-2505": "ppo",
+    "kakaocorp/kanana-2-3b-instruct": "ppo",
+}
+
 # DECLARED. Not inferable from any artifact we hold, and asserting it from a
 # spec read is the error this column exists to make visible.
 ARCHITECTURE = {
@@ -286,6 +336,21 @@ def build():
     param_facts = _c.get("params", {})
 
     rows, relations = {}, []
+    #: (child, relation) -> chosen parent, resolved once after all families are
+    #: walked. A ModelFamily is a comparison structure and several may name the
+    #: same endpoint; descent is not a per-family fact.
+    _lineage = {}
+
+    def _prefix(a, b):
+        """Shared-prefix length of two model ids, for deterministic parent choice."""
+        a, b = a.split("/")[-1], b.split("/")[-1]
+        n = 0
+        for x, y in zip(a, b):
+            if x != y:
+                break
+            n += 1
+        return n
+
     for fam_key, fam in sorted(MODEL_FAMILIES.items()):
         arms = {p: getattr(fam, p, None) for p in POSITIONS}
         base_id = arms.get("base")
@@ -305,13 +370,28 @@ def build():
                 r.update(
                     nickname=NICKNAMES.get(mid, ""),
                     family=fam_key, position=pos,
-                    stage=(method.group(1).lower() if method
-                           else POSITION_STAGE.get(pos, "")),
+                    #: DECLARED beats derived-from-name beats slot default.
+                    #: The slot default is explicitly "a guess for models whose
+                    #: name says nothing" and must lose to a vendor statement.
+                    stage=(METHOD_DECLARED.get(mid)
+                           or (method.group(1).lower() if method
+                               else "sft" if SFT_IN_NAME.search(mid)
+                               else POSITION_STAGE.get(pos, ""))),
                     org=mid.split("/")[0],
                     params=params_from_name(mid)[0],
                     params_b=params_from_name(mid)[1],
                     architecture=ARCHITECTURE.get(mid, "transformer"),
                     tokenizer_class=rt.get("tokenizer", ""),
+                    #: **TWO VOCABULARY NUMBERS, AND THEY ARE NOT THE SAME
+                    #: FACT.** This one is the CJK survey's, i.e.
+                    #: `tokenizer.vocab_size`, which EXCLUDES added tokens. It
+                    #: is kept because it is what the tokenizer reports. It is
+                    #: NOT the number that governs an out-of-range embedding
+                    #: assert -- that is the config's, carried separately in
+                    #: `vocab_size_config` by scripts/probe_model_requirements.py.
+                    #: 43 of 70 probed models differ between the two, and the
+                    #: pair that cost 85 sites (llama-7b > beaver-7b-v1.0,
+                    #: 32000 vs 32001) looked IDENTICAL on this field.
                     vocab_size=int(cj["vocab_size"]) if cj.get("vocab_size") else None,
                     cjk_tier=cj.get("tier", ""),
                     cjk_chars=int(cj["cjk_chars"]) if cj.get("cjk_chars") else None,
@@ -374,12 +454,34 @@ def build():
                 continue
             if prev:
                 st = rows[mid_pos].get("stage") or POSITION_STAGE[pos]
-                relations.append({"parent": prev, "child": mid_pos,
-                                  "relation": f"{st}_of"})
+                #: **A CHECKPOINT HAS ONE LINEAGE PARENT PER RELATION TYPE.**
+                #: A ModelFamily is a COMPARISON structure -- `tulu-no-safety`
+                #: names the MAIN DPO as its superego so the ablation has an
+                #: endpoint to be read against -- and chaining it as descent
+                #: turns that into a claim the ablation arm PRODUCED that DPO.
+                #: It did not; AI2 released no DPO for the ablation arms. The
+                #: result was two `dpo_of` parents for Llama-3.1-Tulu-3-8B-DPO,
+                #: which made `Registry.base_of` raise AMBIGUOUS and silently
+                #: removed tulu from every roster that resolves a base.
+                #:
+                #: Resolved by NAME PROXIMITY, not by file order, which this
+                #: registry exists to forbid: the true parent shares a longer
+                #: prefix with the child than a sibling ablation does
+                #: (`...Tulu-3-8B-SFT` vs `...Tulu-3-8B-SFT-no-safety-data`
+                #: against child `...Tulu-3-8B-DPO`). Deterministic, and it
+                #: generalises to any suite where one endpoint is shared.
+                key = (mid_pos, f"{st}_of")
+                cand = _lineage.get(key)
+                if cand is None or _prefix(prev, mid_pos) > _prefix(cand, mid_pos):
+                    _lineage[key] = prev
             prev = mid_pos
         if base_id and arms.get("reasoning"):
             relations.append({"parent": base_id, "child": arms["reasoning"],
                               "relation": "reasoning_of"})
+    #: emitted AFTER every family is walked, so the winner is chosen against all
+    #: candidates rather than against whichever family came first.
+    for (child, rel), parent in sorted(_lineage.items()):
+        relations.append({"parent": parent, "child": child, "relation": rel})
     return rows, relations, sw
 
 
@@ -681,6 +783,30 @@ def main(a):
         "a model outside the roster is marked ACTIVE; never-asked is not answered")
     assert all("cells_in_store" in r for r in doc["models"]), (
         "coverage absent on some row; absence would be read as zero")
+    #: **CARRY FORWARD THE FIELDS THIS BUILDER DOES NOT PRODUCE.**
+    #: `vocab_size_config`, `requires_pip` and `load_note` are written by
+    #: scripts/probe_model_requirements.py, which reads repo listings and
+    #: configs. A rebuild that dropped them would silently un-learn four
+    #: pair-killing facts (tiktoken, sentencepiece, mamba kernels, and the
+    #: +1 vocabulary that asserts) and nothing downstream would raise --
+    #: the preflight would simply report every pair clean.
+    PROBE_FIELDS = ("vocab_size_config", "requires_pip", "load_note")
+    if os.path.exists(OUT):
+        try:
+            prev = {m["model_id"]: m for m in json.load(open(OUT))["models"]}
+        except Exception:
+            prev = {}
+        carried = 0
+        for r in doc["models"]:
+            old_row = prev.get(r["model_id"], {})
+            for f in PROBE_FIELDS:
+                if f in old_row and f not in r:
+                    r[f] = old_row[f]
+                    carried += 1
+        if carried:
+            print("  carried %d probe-written field(s) forward; re-run "
+                  "scripts/probe_model_requirements.py --write to refresh"
+                  % carried)
     if a.dry_run:
         print("\nDRY RUN -- nothing written")
         return 0

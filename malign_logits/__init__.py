@@ -292,7 +292,40 @@ MODEL_FAMILIES = {
     # ADDED 2026-08-10 from the v2 lineage survey's unregistered residue. Both
     # preflighted against the HF API before declaring: safetensors, own
     # tokenizer, ungated. Neither needs a revision pin.
-    # POST-TRAINING METHOD UNDISCLOSED: the instruct card mentions no DPO, RLHF,
+    # KANANA 2 — the better-documented of the two Kakao lines, and a SEPARATE
+    # pretraining run from 1.5, so a separate lineage rather than the same one
+    # counted twice. Card, verbatim: "Kanana-2-3B was **pretrained from scratch
+    # on TPU clusters** and further improved through post-training with
+    # **supervised fine-tuning and reinforcement learning**", and the
+    # frontmatter declares `base_model: kakaocorp/kanana-2-3b-base`. So both
+    # the independence and the base->aligned derivation are stated rather than
+    # inferred, which is more than the 1.5 card gives.
+    #
+    # `Qwen3ForCausalLM` is ARCHITECTURE REUSE, NOT WEIGHT REUSE: vocab is
+    # 128,256 against Qwen3's 151,936, the card's five Qwen mentions are all
+    # benchmark rows, and there is no "initialized from" or "continued
+    # pretraining" anywhere in it. Same distinction as Aquila2 sharing
+    # Llama-7B's dimensions.
+    #
+    # **DO NOT ADD kanana-2-1.3b OR -0.9b AS LINEAGES.** The card: "Kanana-2-1.3B
+    # models are derived from Kanana-2-3B through a cascade pruning and
+    # distillation pipeline." They are compressions of this run, not runs. A
+    # future expansion that grabs "all the kanana sizes" would double-count
+    # exactly the way this campaign has already had to correct (59 -> 39 -> 34).
+    "kanana2": ModelFamily(
+        name="Kanana 2 3B (Kakao) [from scratch; SFT + RL declared]",
+        base="kakaocorp/kanana-2-3b-base",
+        superego="kakaocorp/kanana-2-3b-instruct",
+    ),
+    # POST-TRAINING METHOD DOCUMENTED, BUT NOT ON THE CARD AND NOT AS DPO.
+    # The card names no method; two Kakao engineering posts do, in Korean.
+    # posts/707 lists 1.5's three changes as on-policy RL, generative reward
+    # model, and verifiable reward functions; posts/716 names them RLVR and
+    # RLGRM applied after SFT. **Kakao ABANDONED DPO for this line** -- the DPO
+    # in those posts describes the 1.0 recipe they moved away from. Staged as
+    # `ppo` in the registry via METHOD_DECLARED; see the comment there for why
+    # that is a bucket rather than a named algorithm.
+    # (superseded note: the card mentions no DPO, RLHF,
     # SFT, preference or GRPO stage anywhere (zero hits, checked 2026-08-10).
     # It sits in `superego` on the roster's existing convention for 2-layer
     # instruct arms -- the same slot as Llama-Instruct, Qwen-Instruct, gemma-it

@@ -124,7 +124,7 @@
  },
  "_provenance": {
   "built_by": "scripts/build_model_registry.py",
-  "head": "ae9d20ca",
+  "head": "ac77f313",
   "measured_from": {
    "weights": {
     "artifact": "data/weights_audit.csv",
@@ -3292,10 +3292,64 @@
    "nickname": "",
    "family": "kanana",
    "position": "superego",
-   "stage": "dpo",
+   "stage": "ppo",
    "org": "kakaocorp",
    "params": "8B",
    "params_b": 8.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0
+  },
+  {
+   "model_id": "kakaocorp/kanana-2-3b-base",
+   "nickname": "",
+   "family": "kanana2",
+   "position": "base",
+   "stage": "base",
+   "org": "kakaocorp",
+   "params": "3B",
+   "params_b": 3.0,
+   "architecture": "transformer",
+   "tokenizer_class": "",
+   "vocab_size": null,
+   "cjk_tier": "",
+   "cjk_chars": null,
+   "weights_format": "",
+   "index_present": null,
+   "needs_torch": "",
+   "bos_stratum": "",
+   "bos_resolver": "",
+   "loader_override": "",
+   "generation": "",
+   "in_grid_spec": false,
+   "status": "NOT_IN_GRID",
+   "exclusion_reason": "not on the v3 grid roster; never asked. Not a failure and not a gap in coverage",
+   "pending_repair": null,
+   "cells_in_store": 0
+  },
+  {
+   "model_id": "kakaocorp/kanana-2-3b-instruct",
+   "nickname": "",
+   "family": "kanana2",
+   "position": "superego",
+   "stage": "ppo",
+   "org": "kakaocorp",
+   "params": "3B",
+   "params_b": 3.0,
    "architecture": "transformer",
    "tokenizer_class": "",
    "vocab_size": null,
@@ -5244,11 +5298,6 @@
    "relation": "dpo_of"
   },
   {
-   "parent": "kakaocorp/kanana-1.5-8b-base",
-   "child": "kakaocorp/kanana-1.5-8b-instruct-2505",
-   "relation": "dpo_of"
-  },
-  {
    "parent": "llm-jp/llm-jp-3-7.2b",
    "child": "llm-jp/llm-jp-3-7.2b-instruct3",
    "relation": "dpo_of"
@@ -5366,6 +5415,16 @@
   {
    "parent": "ContextualAI/archangel_sft_pythia2-8b",
    "child": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+   "relation": "ppo_of"
+  },
+  {
+   "parent": "kakaocorp/kanana-1.5-8b-base",
+   "child": "kakaocorp/kanana-1.5-8b-instruct-2505",
+   "relation": "ppo_of"
+  },
+  {
+   "parent": "kakaocorp/kanana-2-3b-base",
+   "child": "kakaocorp/kanana-2-3b-instruct",
    "relation": "ppo_of"
   },
   {
