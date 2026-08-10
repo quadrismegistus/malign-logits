@@ -135,6 +135,66 @@ CREATE TABLE IF NOT EXISTS {DB}.prompt_catalogue (
 ) ENGINE = ReplacingMergeTree(ingested)
 ORDER BY (prompt, prompt_id);
 
+-- SEQUENCES AND THEIR SCORES: ARRAYS, NOT TALL, AND THE REASON IS THE VOLUME
+-- RATIO. Tall would be ~210M token rows across f11_l2 (117.0M) and Y (92.3M),
+-- as arrays it is ~1M sequence rows and ~2M score rows. Nothing is lost:
+-- `arrayJoin` explodes to tall on demand, while the analysis that actually
+-- exists -- chain_predictability.py's mean surprisal over j=0, j=0-9, j=0-255
+-- -- is `arrayAvg(arraySlice(logprobs, 1, n))` on ONE row instead of n.
+--
+-- POSITION 0 IS THE FIRST GENERATED TOKEN IN BOTH CORPORA, VERIFIED AT SCALE.
+-- f11_l2 stores logprobs of length == len(token_ids), and Y stores length ==
+-- len(full_ids) - plen. 31,520 and 20,000 checks respectively, 100% match,
+-- INCLUDING the 2,302 f11_l2 sequences that hit finish_reason='stop' early and
+-- Y's 254 distinct generated lengths. Had Y indexed from the prompt instead,
+-- a shared `pos` would have misaligned it by plen with every value still
+-- finite and plausible.
+--
+-- forced_word IS IN THE KEY, AND HAS TO BE. Y recurs each (model, prompt_id,
+-- sample_idx) once per FORCED WORD -- 25 words per file -- so a key without it
+-- collapsed 3,400 sequences to 500 and discarded 85% of the corpus at merge
+-- time. Silently: ReplacingMergeTree was doing exactly what it was told. Caught
+-- by comparing the ingester's own reported count against the table's.
+--
+-- SELF VERSUS CROSS IS `scorer`, NOT A FLAG. The three sources disagree on how
+-- they say it -- Y puts both arms inline on one record, f11_l2 uses a
+-- `self_scored` boolean on separate rows, beam_fc has both inline -- so storing
+-- the SCORING MODEL normalises all three, and self is simply scorer = model.
+CREATE TABLE IF NOT EXISTS {DB}.gen_sequences (
+    corpus          LowCardinality(String),
+    model           LowCardinality(String),
+    prompt          String,
+    sample_idx      UInt32,
+    token_ids       Array(UInt32),
+    text            String,
+    plen            UInt32,
+    n_tokens        UInt32,
+    finish_reason   LowCardinality(String),
+    forced_word     String,
+    n_forced_tokens UInt32,
+    role            LowCardinality(String),
+    pair            LowCardinality(String),
+    prompt_id       LowCardinality(String),
+    temp            Float32,
+    path_prob       Float64,
+    seed            Int64,
+    ingested        DateTime DEFAULT now()
+) ENGINE = ReplacingMergeTree(ingested)
+ORDER BY (corpus, model, prompt, forced_word, sample_idx);
+
+CREATE TABLE IF NOT EXISTS {DB}.gen_scores (
+    corpus      LowCardinality(String),
+    model       LowCardinality(String),
+    prompt      String,
+    forced_word String,
+    sample_idx  UInt32,
+    scorer      LowCardinality(String),
+    logprobs   Array(Float32),
+    n          UInt32,
+    ingested   DateTime DEFAULT now()
+) ENGINE = ReplacingMergeTree(ingested)
+ORDER BY (corpus, model, prompt, forced_word, sample_idx, scorer);
+
 CREATE TABLE IF NOT EXISTS {DB}.logit_residual (
     model      LowCardinality(String),
     prompt     String,
@@ -296,13 +356,33 @@ def ingest_logits_indexed(batch=400_000, limit=None):
     root = cm._logit_root()
     done = done_cells("logit_residual")
     print("already ingested: %s cells (skipping)" % format(len(done), ","))
-    byfile = defaultdict(list)
-    for k in cm._stash("logits"):
-        if (k["model"], k["prompt"]) in done:
+    #: ONE SOURCE PER CELL, CHOSEN BY A RULE, NOT BY MERGE ORDER.
+    #: 7,711 cells are indexed at BOTH float16 and float32 -- the same prompt
+    #: written by two runs. `done` is computed once before the loop, so on a
+    #: fresh run neither copy is in it, both pass the skip, and both get
+    #: inserted; ReplacingMergeTree would then keep whichever merged last.
+    #: The stored column is Float32 either way, so this is not a dtype
+    #: question -- it is that the SOURCE would be picked non-deterministically
+    #: and the run would not be reproducible. **Prefer float32**: it is the
+    #: higher-fidelity payload, and preferring it is a declared choice rather
+    #: than an accident of iteration order.
+    stash = cm._stash("logits")
+    best = {}
+    for k in stash:
+        cell = (k["model"], k["prompt"])
+        if cell in done:
             continue
-        v = cm._stash("logits").get(k)
-        byfile[(v["file"], k.get("dtype", "float16"))].append(
-            (k["model"], k["prompt"], int(v["row"]), int(v["dim"])))
+        dt = k.get("dtype", "float16")
+        if cell in best and best[cell][0] == "float32":
+            continue                       # already hold the better source
+        v = stash.get(k)
+        best[cell] = (dt, v["file"], int(v["row"]), int(v["dim"]))
+    byfile = defaultdict(list)
+    for (model, prompt), (dt, f, row, dim) in best.items():
+        byfile[(f, dt)].append((model, prompt, row, dim))
+    n_pref = sum(1 for v in best.values() if v[0] == "float32")
+    print("cells to ingest: %s  (float32 source preferred where both exist: %s)"
+          % (format(len(best), ","), format(n_pref, ",")))
     files = sorted(byfile)
     if limit:
         files = files[:limit]
@@ -473,6 +553,34 @@ def ingest_catalogue():
 
 
 def verify():
+    """Row counts, and the SOURCE-VERSUS-STORED comparison that caught the Y bug.
+
+    An ingester reporting "3,400 sequences" while the table holds 500 is the
+    failure this exists for: ReplacingMergeTree collapsed them on a key that
+    omitted `forced_word`, silently and correctly-by-its-own-lights. Nothing in
+    the ingest log said so. Counting the SOURCE independently and comparing is
+    the only thing that shows it.
+    """
+    print("SOURCE VERSUS STORED\n")
+    src = {}
+    try:
+        src["y"] = sum(len(json.loads(l).get("sequences") or [])
+                       for f in glob.glob(os.path.join(ROOT, "data/raw/y_y-*/y__*.jsonl"))
+                       for l in open(f))
+        src["f11_l2"] = sum(1 for f in glob.glob(os.path.join(ROOT, "data/raw/f11_l2/*.gen.jsonl"))
+                            for _ in open(f))
+    except Exception as e:
+        print("  (source count failed: %s)" % str(e)[:50])
+    for corpus, n in sorted(src.items()):
+        try:
+            got = int(ch_read("SELECT count() FROM %s.gen_sequences WHERE corpus='%s'"
+                              % (DB, corpus)) or 0)
+        except Exception:
+            got = 0
+        flag = "OK" if got == n else ("SHORT by %s" % format(n - got, ",")) if got < n else "EXCESS"
+        print("  %-10s source %10s   stored %10s   %s"
+              % (corpus, format(n, ","), format(got, ","), flag))
+    print()
     print("TABLES IN %s\n" % DB)
     print(ch_read(f"SELECT name, formatReadableQuantity(total_rows) AS rows, "
                   f"formatReadableSize(total_bytes) AS size FROM system.tables "
@@ -494,11 +602,21 @@ def main():
     ap.add_argument("--drift", action="store_true", help="live schema vs SCHEMA")
     ap.add_argument("--index", action="store_true",
                     help="logits driven by the stash index, reaching all 263 payloads")
+    ap.add_argument("--l2", action="store_true", help="f11_l2 contradiction gens")
+    ap.add_argument("--y", action="store_true", help="the Y corpus")
+    ap.add_argument("--beams", action="store_true", help="beam_fc")
     ap.add_argument("--verify", action="store_true")
     ap.add_argument("--limit", type=int, default=None, help="first N files per source")
     a = ap.parse_args()
     if a.create:
-        for stmt in [s.strip() for s in SCHEMA.split(";") if s.strip()]:
+        #: SPLIT ON ";" IS NAIVE AND A SEMICOLON INSIDE A SQL COMMENT BREAKS IT.
+        #: Measured: "len(token_ids); Y stores length ==" inside a comment split
+        #: one CREATE mid-statement and ClickHouse rejected the fragment with
+        #: exit 62. Comments are stripped before splitting so prose cannot
+        #: fracture DDL.
+        _sql = "\n".join(l for l in SCHEMA.splitlines()
+                          if not l.strip().startswith("--"))
+        for stmt in [s.strip() for s in _sql.split(";") if s.strip()]:
             ch(stmt)
         n = sum(1 for x in SCHEMA.split(";") if "create table" in x.lower())
         print("created database %s and %d tables" % (DB, n))
@@ -512,10 +630,156 @@ def main():
         print("SCHEMA DRIFT CHECK"); check_drift()
     if a.catalogue:
         ingest_catalogue()
+    if a.l2:
+        ingest_l2(a.limit)
+    if a.y:
+        ingest_y(a.limit)
+    if a.beams:
+        ingest_beams(a.limit)
     if a.verify:
         verify()
-    if not any((a.create, a.twp, a.logits, a.index, a.catalogue, a.drift, a.verify)):
+    if not any((a.create, a.twp, a.logits, a.index, a.catalogue, a.drift, a.l2, a.y, a.beams, a.verify)):
         ap.print_help()
+
+
+
+
+# ---------------------------------------------------------------------------
+# GENERATIONS AND BEAMS. Three live sources, one shape. Legacy deliberately out
+# (RH, 2026-08-10): `beams`, `beams.old`, `beams.prerepair` and `generations`
+# are DIFFERENT SHAPES, not older versions -- `generations` values are bare
+# strings with no scores, `beams` carries path_prob/annotations that have no
+# home here. Ingesting them would mean inventing fields. They stay on disk.
+
+def _seq_rows(corpus, model, prompt, idx, tok, text, plen, finish, forced,
+              nforced, role, pair, pid, temp, path_prob, seed):
+    return {"corpus": corpus, "model": model, "prompt": prompt,
+            "sample_idx": int(idx), "token_ids": [int(t) for t in (tok or [])],
+            "text": text or "", "plen": int(plen or 0),
+            "n_tokens": len(tok or []), "finish_reason": finish or "",
+            "forced_word": forced or "", "n_forced_tokens": int(nforced or 0),
+            "role": role or "", "pair": pair or "", "prompt_id": pid or "",
+            "temp": float(temp or 0), "path_prob": float(path_prob or 0),
+            "seed": int(seed or 0)}
+
+
+def ingest_l2(limit=None, batch=20_000):
+    """f11_l2 contradiction generations: .gen.jsonl for sequences, .score.jsonl
+    for both scorers. `self_scored` is NOT stored -- `scorer` carries it."""
+    done = done_cells("gen_sequences")
+    seqs = []
+    n = 0
+    for fp in sorted(glob.glob(os.path.join(ROOT, "data/raw/f11_l2/*.gen.jsonl")))[:limit]:
+        for line in open(fp):
+            d = json.loads(line)
+            if (d["model"], d["prompt"]) in done:
+                continue
+            seqs.append(_seq_rows("f11_l2", d["model"], d["prompt"], d["sample_idx"],
+                                  d["token_ids"], d.get("text"), len(d.get("prompt_token_ids") or []),
+                                  d.get("finish_reason"), "", 0, "", "", "",
+                                  (d.get("decoder") or {}).get("temperature"), 0, d.get("seed")))
+            if len(seqs) >= batch:
+                insert("gen_sequences", seqs); n += len(seqs); seqs = []
+        insert("gen_sequences", seqs); n += len(seqs); seqs = []
+        print("  seq  %-46s %s" % (os.path.basename(fp)[:46], format(n, ",")))
+    m = 0
+    scores = []
+    for fp in sorted(glob.glob(os.path.join(ROOT, "data/raw/f11_l2/*.score.jsonl")))[:limit]:
+        for line in open(fp):
+            d = json.loads(line)
+            for sc in d.get("scores") or []:
+                lp = sc.get("logprobs") or []
+                scores.append({"corpus": "f11_l2", "forced_word": "", "model": d["src_model"],
+                               "prompt": d["prompt"], "sample_idx": int(sc["sample_idx"]),
+                               "scorer": d["scorer"], "logprobs": [float(x) for x in lp],
+                               "n": len(lp)})
+            if len(scores) >= batch:
+                insert("gen_scores", scores); m += len(scores); scores = []
+        insert("gen_scores", scores); m += len(scores); scores = []
+        print("  score %-46s %s" % (os.path.basename(fp)[:46], format(m, ",")))
+    print("\nf11_l2: %s sequences, %s score rows" % (format(n, ","), format(m, ",")))
+
+
+def ingest_y(limit=None, batch=20_000):
+    """The Y corpus. `word` is the FORCED word and null means undisturbed;
+    both scorers sit inline on each sequence and are split into two rows."""
+    seqs, scores, n, m = [], [], 0, 0
+    for fp in sorted(glob.glob(os.path.join(ROOT, "data/raw/y_y-*/y__*.jsonl")))[:limit]:
+        for line in open(fp):
+            d = json.loads(line)
+            pair, base_m = d.get("pair") or "", d.get("model")
+            arms = {}
+            if ">" in pair:
+                b, a = pair.split(">", 1); arms = {"base": b, "aligned": a}
+            for i, q in enumerate(d.get("sequences") or []):
+                seqs.append(_seq_rows("y", base_m, d.get("prompt_id") or "", i,
+                                      q.get("tokens"), q.get("text"), q.get("plen"),
+                                      "", d.get("word") or "", 0, d.get("role"),
+                                      pair, d.get("prompt_id"), d.get("temp"), 0, 0))
+                for arm in ("base", "aligned"):
+                    lp = q.get("scored_by_" + arm)
+                    if lp is None:
+                        continue
+                    scores.append({"corpus": "y", "model": base_m,
+                                   "prompt": d.get("prompt_id") or "",
+                                   "forced_word": d.get("word") or "", "sample_idx": i,
+                                   "scorer": arms.get(arm, arm),
+                                   "logprobs": [float(x) for x in lp], "n": len(lp)})
+            if len(seqs) >= batch:
+                insert("gen_sequences", seqs); n += len(seqs); seqs = []
+            if len(scores) >= batch:
+                insert("gen_scores", scores); m += len(scores); scores = []
+        insert("gen_sequences", seqs); n += len(seqs); seqs = []
+        insert("gen_scores", scores); m += len(scores); scores = []
+        print("  %-46s seq %s  scores %s" % (os.path.basename(fp)[:46],
+                                             format(n, ","), format(m, ",")))
+    print("\nY: %s sequences, %s score rows" % (format(n, ","), format(m, ",")))
+
+
+def ingest_beams(limit=None, batch=20_000):
+    """beam_fc. 65% of sampled keys carry n_forced_tokens>0, so forced and
+    undisturbed both live here and are distinguished by that column."""
+    from malign_logits.cache import CacheManager
+    cm = CacheManager()
+    s = cm._stash("beam_fc")
+    seqs, scores, n, m, k = [], [], 0, 0, 0
+    for key in s:
+        v = s.get(key)
+        if not isinstance(v, dict):
+            continue
+        pair = key.get("pair") or ""
+        arms = dict(zip(("base", "aligned"), pair.split(">", 1))) if ">" in pair else {}
+        model = arms.get(key.get("role") or key.get("arm") or "", "") or pair
+        for i, bm in enumerate(v.get("beams") or []):
+            tok = bm.get("tokens") if isinstance(bm, dict) else None
+            seqs.append(_seq_rows("beam_fc", model, key.get("prompt") or "", i, tok,
+                                  (bm or {}).get("text") if isinstance(bm, dict) else "",
+                                  v.get("prompt_len"), "", "",
+                                  v.get("n_forced_tokens"), v.get("role") or key.get("role"),
+                                  pair, "", 0,
+                                  (bm or {}).get("path_prob") if isinstance(bm, dict) else 0, 0))
+        for arm in ("base", "aligned"):
+            arr = v.get("scored_by_" + arm)
+            if not arr:
+                continue
+            for i, lp in enumerate(arr):
+                if lp is None:
+                    continue
+                scores.append({"corpus": "beam_fc", "forced_word": "", "model": model,
+                               "prompt": key.get("prompt") or "", "sample_idx": i,
+                               "scorer": arms.get(arm, arm),
+                               "logprobs": [float(x) for x in lp], "n": len(lp)})
+        k += 1
+        if len(seqs) >= batch:
+            insert("gen_sequences", seqs); n += len(seqs); seqs = []
+        if len(scores) >= batch:
+            insert("gen_scores", scores); m += len(scores); scores = []
+        if limit and k >= limit:
+            break
+    insert("gen_sequences", seqs); n += len(seqs)
+    insert("gen_scores", scores); m += len(scores)
+    print("\nbeam_fc: %d keys, %s sequences, %s score rows"
+          % (k, format(n, ","), format(m, ",")))
 
 
 if __name__ == "__main__":
