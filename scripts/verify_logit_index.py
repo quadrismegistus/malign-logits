@@ -49,6 +49,55 @@ def main():
 
     keys = list(cm.iter_keys("logits"))
     print(f"index entries {len(keys):,}   payload root {root}\n")
+
+    # ── (0) EXTENT: DOES THE FILE HOLD THE ROWS THE INDEX NAMES? ──────
+    #
+    # **NEITHER (A) NOR (B) CAN CATCH THIS.** Addressing compares a memmap read
+    # against an `np.fromfile` seek, and for a row PAST END OF FILE both sides
+    # read the same nothing and agree. Values are computed on what came back, so
+    # an empty slice is not "out of range" -- it is absent.
+    #
+    # Measured 2026-08-10: many `f11_twp/` payloads were killed mid-write, and
+    # the index -- built from the .jsonl, which completed -- describes rows the
+    # file never received. `recurrentgemma-9b-it` names 199 rows over a file
+    # holding 84; Teuken names 107 over 45. Store-wide that is **687 cells with
+    # no reachable payload** plus 2,047 whose only reachable copy is a different
+    # file. `ch_ingest` skipped every one silently via `if v.size != dim:
+    # continue` -- correct behaviour, invisible reporting.
+    #
+    # This is the stride hazard at the other end of the file, and the test is
+    # one comparison: the file must hold max(row)+1 rows.
+    from collections import defaultdict as _dd
+    maxrow, dims = _dd(lambda: -1), {}
+    for k in keys:
+        try:
+            e = cm.get_logits_entry(k["model"], k["prompt"],
+                                    mode=k.get("mode", "raw"), dtype=k.get("dtype"))
+        except Exception:
+            e = None
+        if not e:
+            continue
+        kk = (e["file"], k.get("dtype", "float16"))
+        maxrow[kk] = max(maxrow[kk], int(e["row"]))
+        dims[kk] = int(e["dim"])
+    short = []
+    for (f, dt), mr in sorted(maxrow.items()):
+        p = os.path.join(root, f)
+        if not os.path.exists(p):
+            short.append((f, mr + 1, 0))
+            continue
+        isz = 2 if dt == "float16" else 4
+        have = os.path.getsize(p) // (dims[(f, dt)] * isz)
+        if have < mr + 1:
+            short.append((f, mr + 1, have))
+    print(f"(0) EXTENT       payloads SHORTER than the index claims: "
+          f"{len(short)} of {len(maxrow)}")
+    for f, need, have in short[:10]:
+        print(f"      {f[:54]:54s} needs {need:6d} rows, holds {have:6d}")
+    if len(short) > 10:
+        print(f"      ... and {len(short) - 10} more")
+    print()
+
     rng = random.Random(a.seed)
     sample = rng.sample(keys, min(a.n, len(keys)))
 

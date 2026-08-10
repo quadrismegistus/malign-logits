@@ -488,6 +488,7 @@ def ingest_logits_indexed(batch=400_000, limit=None):
         files = files[:limit]
     print("payload files with un-ingested cells: %d\n" % len(files))
     out, res, n_rows, n_cells = [], [], 0, 0
+    truncated = []
     for (fname, dtype) in files:
         path = os.path.join(root, fname)
         if not os.path.exists(path):
@@ -498,6 +499,13 @@ def ingest_logits_indexed(batch=400_000, limit=None):
         for model, prompt, row, dim in byfile[(fname, dtype)]:
             v = np.asarray(mm[row * dim:(row + 1) * dim], dtype=np.float32)
             if v.size != dim:
+                #: **A SHORT READ IS A TRUNCATED PAYLOAD, AND IT IS NAMED.**
+                #: The index is built from the .jsonl (which completed) while
+                #: the .f16 was killed mid-write, so it describes rows the file
+                #: never received. Silently continuing here hid 687 unreachable
+                #: cells: the count simply came up short with nothing in the log
+                #: saying why, and a reader would call that "not scored".
+                truncated.append((fname, row, dim, int(v.size)))
                 continue
             v = v - v.max(); np.exp(v, out=v); v /= v.sum()
             idx = np.flatnonzero(v >= TRUNC)
@@ -515,6 +523,15 @@ def ingest_logits_indexed(batch=400_000, limit=None):
         print("  %-56s %5d cells" % (fname[:56], len(byfile[(fname, dtype)])))
     print("\nindexed logits: %s new cells, %s token rows"
           % (format(n_cells, ","), format(n_rows, ",")))
+    if truncated:
+        from collections import Counter as _C
+        byf = _C(f for f, _, _, _ in truncated)
+        print("  ** %s CELLS SKIPPED: the payload is SHORTER than the index claims **"
+              % format(len(truncated), ","))
+        for f, n in byf.most_common(8):
+            print("     %-56s %4d rows past EOF" % (f[:56], n))
+        print("  Their twp is unaffected -- the .jsonl completed; only the .f16")
+        print("  write was killed. Run scripts/verify_logit_index.py column (0).")
 
 
 #: (directory, label). The f11_twp subdir under cloud_run has 90 .f16 and ZERO
