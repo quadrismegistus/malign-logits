@@ -59,7 +59,9 @@ which is why changing the selection rule cost a re-run.
 **dtype: bfloat16, uniform across the roster.** [5226] choice 1. A 13B in fp32
 will not load here, and mixing dtypes would confound model size with numerics.
 The extraction therefore SUPERSEDES the 28 fp32 cells rather than extending
-them. Per [5131] discipline, **one cell is run in both dtypes as the
+them -- superseded, **not merged**, which is @malign's line at [5227].3 and the
+same discipline that keeps the twp store from mixing `rule_version`, where a v1
+arm against a v3 arm books an instrument change as a model difference. Per [5131] discipline, **one cell is run in both dtypes as the
 comparability floor** -- SmolLM2-360M / `sexual_explicit_1` -- and the two
 values are reported side by side in the receipt whatever they show.
 
@@ -72,10 +74,20 @@ falls and then flattens by construction, which is how a decaying effect gets rea
 as sustained. Any cumulative summary is derivable from the disjoint bins; the
 reverse is not.
 
-**Samples: 16 per cell.** @malign's to answer per [5226]; unanswered at time of
-writing, so 16 stands as the declared value and the receipt records it. It gives
-a split-half null of 8 against 8, which is what caught the forcing-distortion
-artifact in the pilot.
+**Samples: 16 per cell.** @malign answered at [5227].2: samples are genuine
+replicates in a way heads are not, but they buy PRECISION PER CELL and cannot
+increase the n of any claim, since the unit that can independently fail is the
+(pair, prompt) cell. He would take 8 x 12 pairs over 16 x 6. **That trade does
+not arise here** -- this roster is already every pair in the corpus, so halving
+samples buys time and nothing else. His stated condition for keeping 16 is met:
+the split-half over samples is load-bearing rather than diagnostic here. It is
+what killed the forcing-distortion claim in the pilot, where an apparent
+-11%/+22% asymmetry sat entirely inside the forced pool's own resampling
+variation, and 4-vs-4 would not have caught it.
+
+His precision argument is also already satisfied in the data: the per-pair
+undisturbed shift is median +0.2179 against IQR 0.0187, |med|/IQR = 11.62. n=16
+is not the binding constraint.
 
 **Both weightings, always.** Raw alpha and norm-weighted (Kobayashi
 alpha x ||v_i||) are stored side by side in every row. They agreed on direction
@@ -128,6 +140,27 @@ cell or the pair, never the head and never the layer.** Registered at [5226] as
 binding on every head- and layer-level read in the campaign: the heads are not
 replicates, they are one measurement decomposed, and the exhibit is two prompts
 of one model returning opposite signs at p = 1.6e-15 and p = 2e-32.
+
+**A `cross` difference is possible in every pair, and the weights are not the
+whole story.** @malign at [5227].1 measured `||dW||/||W||` per group from
+safetensors without loading a model: no pair froze its attention parameters. He
+also notes attention moves LESS than MLP in every pair (1.0x to 3.0x), and two
+caveats that bear on this design. The delta is a **norm over a group**, so it
+cannot distinguish a few heads moving a lot from every head moving a little. And
+**a nonzero delta is necessary, not sufficient** -- his head survey found the
+smallest head change belonged to the pair whose cross-read blew up 5x, because
+the STATES were far apart, not the weights.
+
+That second caveat applies directly: `cross` runs one arm's sequences through the
+other arm's model, so a `cross` difference can be driven by state divergence
+rather than by the weights. It is a reason to report `cross` and `own` together
+and never to read `cross` as "the mechanism" without qualification.
+
+Checked against the pilot, three pairs overlapping his table: the orderings do
+not match. SmolLM2 has the largest attention weight change (0.0704) and the
+smallest attention-back shift (+0.0386); Falcon3-1B has the smallest weight
+change (0.0174) and the second largest shift (+0.1883). Spearman -0.50 on n = 3,
+which is three points and not a result, recorded so it is not rediscovered.
 
 **A base-probability covariate is expected.** @malign at [5225].4 measured the
 per-layer gap tracking a word's output base probability, OLS slope rising from
