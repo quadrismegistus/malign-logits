@@ -61,7 +61,12 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 CH = "/opt/homebrew/bin/clickhouse"
 DB = "malign_logits"
 #: databases that must never appear in a statement this script issues
-FORBIDDEN = ("lltk", "abstraction", "llmtasks", "tmp", "default", "system")
+#: `system` is NOT here: reading system.tables/parts is how this script reports
+#: its own state, and blocking it made `--verify` refuse its own query. The
+#: guard exists to protect ANOTHER PROJECT'S DATA, and system is read-only
+#: introspection. Over-blocking turned a safety check into a broken feature --
+#: a guard nobody can use gets removed, which is worse than one scoped right.
+FORBIDDEN = ("lltk", "abstraction", "llmtasks", "tmp", "default")
 TRUNC = 1e-6
 #: WHICH RUN WINS WHEN A CELL WAS SCORED TWICE. Declared, ordered, and applied
 #: at READ time so both observations stay in the table. Latest run first: the
@@ -383,6 +388,10 @@ def _guard(sql):
     refuse, which this campaign has now paid for twice.
     """
     low = sql.lower()
+    #: A WRITE TO `system` IS STILL REFUSED. Reads are allowed; DDL is not.
+    if any(w in low.split() for w in ("drop", "truncate", "alter", "insert")) \
+            and "system." in low:
+        raise SystemExit("REFUSING: write against system\n%s" % sql[:200])
     for bad in FORBIDDEN:
         for pat in (f" {bad}.", f"\n{bad}.", f"`{bad}`", f"exists {bad};",
                     f"database {bad}", f"table {bad}."):

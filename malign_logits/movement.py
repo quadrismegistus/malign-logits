@@ -419,7 +419,13 @@ def word_probs(model, prompt, theta=0.001, mode="raw", cache=None):
     #: this module warns about -- so the ingest folds for its own table and this
     #: path is handed raw rows.
     import os as _os
-    if _os.environ.get("MALIGN_TWP_SOURCE", "").lower() == "clickhouse":
+    #: DEFAULT IS NOW CLICKHOUSE (RH, 2026-08-10). Set MALIGN_TWP_SOURCE=stash
+    #: to go back -- the hashstash is untouched and unrenamed, and both remain
+    #: comparable via scripts/ch_reconcile.py, which reads 299 agree / 1
+    #: explained over 300 sampled cells. The one is a cell scored in THREE
+    #: payload runs (194/197/201 words); ClickHouse applies a declared
+    #: SOURCE_PRECEDENCE where the stash kept whichever it ingested first.
+    if _os.environ.get("MALIGN_TWP_SOURCE", "clickhouse").lower() == "clickhouse":
         from .ch_read import ch_twp_payload
         payload = ch_twp_payload(model, prompt, theta=theta, mode=mode)
     else:
