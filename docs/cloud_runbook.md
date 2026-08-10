@@ -298,6 +298,10 @@ prompt list) so batching changes the schedule and not one sampled token.
 
 **The `ssm` profile is not optional for hybrids: measured 19.3× on Falcon-H1-7B** (0.067 → 1.293 cells/s; 21.4 h → 1.1 h; $22 → $1.16). The kernels compile from source (~30 min on 128 cores): `TORCH_CUDA_ARCH_LIST=8.0 MAX_JOBS=48`, and `--no-build-isolation` is **mandatory** — `mamba-ssm`'s `setup.py` imports torch, which pip's isolated build env lacks.
 
+**Zamba2 additionally needs `transformers==4.57.1`.** The vllm image ships 5.14.1, on which `Zyphra/Zamba2-7B` fails at load with `There is an issue with your definition of tie_weights_keys for ^layers.6.shared_transformer` — a v5 weight-tying validation that Zamba2's config predates (it declares `transformers_version 4.49.0.dev0`). 4.57 is also the OLMo 3 floor, so it satisfies both.
+
+**AND A FAST-PATH WARNING EMITTED DURING A FAILED LOAD IS NOT EVIDENCE ABOUT THE KERNELS.** While Zamba2 was failing on 5.14.1, the log carried the exact string this runbook tells you to check for — `The fast path is not available because one of (selective_state_update, selective_scan_fn, causal_conv1d_fn, causal_conv1d_update, mamba_inner_fn) is None`. The kernels were fine: all five entry points imported, both `is_*_available()` returned True, and once a model actually loaded the warning was **absent**. Reading it at face value sends you to rebuild kernels that already work, and hides a version problem. **Check the warning on a load that SUCCEEDED**, 2026-08-10.
+
 **Verify the kernels are IN USE, not merely installed.** transformers falls back silently; the check is that `"the fast path is not available"` is **absent** from the log.
 
 The pure-SSM null still stands for pure SSMs (Falcon3-Mamba: 0.62–0.64 with kernels vs 0.61–0.72 without). **A prior tested on one member of a class is not a fact about the class** — that null was quoted twice to predict no speedup for a *hybrid* and was wrong by 19×.
