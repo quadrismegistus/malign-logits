@@ -124,3 +124,10 @@ seat forgets at its peril:
   distinct strings); state the unit beside every count, and when two counts
   of "the same thing" differ, diff the units before the data ([5298],
   [5305], [5307], [5316]).
+- **Before running a check, ask what the world looks like if the hypothesis
+  is TRUE and what it looks like if it is FALSE — if those two pictures are
+  the same picture, the check is decoration** ([5325]–[5328], run "feeling
+  careful"). Corollaries: a defect that produces a TIE is invisible to any
+  test that discards ties (symmetric blindness beats asymmetric at hiding);
+  UNTESTED is not CLEAN; and a coverage scan's answer is a fact about that
+  day's population — re-run it when the population changes, not once.
