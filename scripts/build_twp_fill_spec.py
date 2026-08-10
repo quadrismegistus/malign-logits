@@ -34,10 +34,10 @@ that reason.
 
     BLOCKED     cannot run today and not because of us -- gated pending a
                 grant, or a dead repo id
-    PINNED-BROKEN  a declared revision the tokenizer will not load. NOT the
-                same as unpinned: an unpinned run is at least internally
-                consistent, where a half-pinned one pairs 100k weights with a
-                144k tokenizer
+    PINNED-BROKEN  a declared revision the tokenizer will not load -- PROBED at
+                build time, never transcribed. NOT the same as unpinned: an
+                unpinned run is at least internally consistent, where a
+                half-pinned one pairs 100k weights with a 144k tokenizer
     NOTHING-OWED   already complete
 
 **An exclusion carries its reason into the spec file.** A roster with a hole is
@@ -62,17 +62,43 @@ BLOCKED = {
     "mosaicml/mpt-7b-instruct": "repo id DEAD -- 404 at the API",
 }
 
-#: A declared revision whose TOKENIZER will not load. Recorded apart from
-#: BLOCKED because the fix is ours and the failure is ours.
-PINNED_BROKEN = {
-    "BAAI/Aquila2-7B":
-        "revisions={'base': '9c76e143...'} is honoured now (twp_cloud."
-        "declared_revision + twp.load_tokenizer(revision=)), but AutoTokenizer "
-        "at that revision raises OSError 'Unable to load vocabulary from file'. "
-        "Running it UNPINNED would score vocab 143,973 against a chat arm at "
-        "100,008 -- dimensionally undefined and silent. Queue the chat arm; "
-        "hold the base until the 2023 tokenizer loads.",
-}
+#: **PROBED AT BUILD TIME, NOT TRANSCRIBED.** This dict previously held the
+#: literal OSError text from one failed load of `BAAI/Aquila2-7B` at its pinned
+#: revision, as a CONSTANT. The pen falsified it by loading the thing: the
+#: tokenizer loads today with `trust_remote_code=True` -- GPT2Tokenizer, vocab
+#: 100,000, compatible with the chat arm's 100,008. The original failure was
+#: most likely the 429 storm, or a load without trust_remote_code.
+#:
+#: **A HARDCODED FAILURE IS A CLAIM WITH NOTHING BEHIND IT AND IT NEVER
+#: EXPIRES.** It excluded a runnable checkpoint from every fleet built after it,
+#: silently, and read as a considered exclusion because it carried a reason. The
+#: general rule, which cost several hours across the roster today: PROBE AT
+#: BUILD TIME, OR LABEL THE VERDICT AS DATED. Never write a failure down as a
+#: fact about a model.
+#:
+#: Cheap because it only runs for checkpoints carrying a declared revision --
+#: currently one -- and a tokenizer load is metadata plus a vocab file.
+def pinned_revision_broken(mid):
+    """(True, reason) if `mid` has a declared revision whose tokenizer will not
+    load. Probed now, not remembered."""
+    try:
+        from malign_logits import MODEL_FAMILIES
+        rev = None
+        for fam in MODEL_FAMILIES.values():
+            revs = getattr(fam, "revisions", None) or {}
+            for slot, r in revs.items():
+                if getattr(fam, slot, None) == mid:
+                    rev = r
+        if not rev:
+            return False, None
+        from malign_logits.twp import load_tokenizer
+        load_tokenizer(mid, revision=rev)
+        return False, None
+    except Exception as e:
+        return True, ("declared revision %s: tokenizer will not load (%s). "
+                      "Running UNPINNED would score a different vocabulary than "
+                      "the paired arm -- dimensionally undefined and silent."
+                      % ((rev or "?")[:12], str(e).split(chr(10))[0][:70]))
 
 
 def sha16(s):
@@ -140,9 +166,10 @@ def main():
         if mid in BLOCKED:
             excluded.append({"model": mid, "class": "BLOCKED",
                              "reason": BLOCKED[mid]}); tally["BLOCKED"] += 1; continue
-        if mid in PINNED_BROKEN:
+        broken, why = pinned_revision_broken(mid)
+        if broken:
             excluded.append({"model": mid, "class": "PINNED-BROKEN",
-                             "reason": PINNED_BROKEN[mid]}); tally["PINNED-BROKEN"] += 1; continue
+                             "reason": why}); tally["PINNED-BROKEN"] += 1; continue
         owed = [t for t in prompts if not cm.has_true_word_probs(mid, t)]
         if not owed:
             tally["NOTHING-OWED"] += 1; continue
