@@ -452,7 +452,26 @@ def done_cells(residual_table):
     for line in out.splitlines():
         if "\t" in line:
             m, p = line.split("\t", 1)
-            done.add((m, p.replace("\\t", "\t").replace("\\n", "\n").replace("\\\\", "\\")))
+            #: **THE ONE ESCAPE THIS HAND-ROLLED COPY OMITTED WAS `\\'`**, and it
+            #: cost a full re-ingest on every run. A prompt containing an
+            #: apostrophe came back as `didn\\'t`, never matched the stash's
+            #: `didn't`, and was therefore counted as un-ingested -- so
+            #: **29,143 of 273,851 cells were re-read and re-written every
+            #: time**, which is where the bulk of one run's 164,223,647 token
+            #: rows went. Confirmed to the digit: 29,396 "to ingest" minus
+            #: 29,143 apostrophe cells leaves exactly the 253 that were
+            #: genuinely new.
+            #:
+            #: Not corrupting -- ReplacingMergeTree collapses identical values
+            #: -- which is precisely why it survived: the store was always
+            #: right and only the work was wasted.
+            #:
+            #: Imported rather than re-implemented. This was the FOURTH
+            #: hand-rolled unescape in the repo and the third to be wrong; two
+            #: of them cost the reconciler 88 false disagreements. A rule with
+            #: four copies has four chances to drift and did.
+            from malign_logits.ch_read import _unesc
+            done.add((m, _unesc(p)))
     return done
 
 
