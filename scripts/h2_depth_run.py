@@ -343,6 +343,9 @@ def main():
     ap.add_argument("--pairs", help="comma-separated aligned-name substrings")
     ap.add_argument("--timeout", type=int, default=7200, help="seconds per (pair, rule)")
     ap.add_argument("--receipt", action="store_true")
+    ap.add_argument("--regate", action="store_true",
+                    help="re-apply the enough_cells gate using the SWEEP's prompts "
+                         "rather than the roster producer's, and write the result")
     ap.add_argument("--limit", type=int, help="first N prompts only -- FOR SMOKE TESTS. "
                     "A limited run writes the same shard as a full one, so the sidecar "
                     "records it and the run is NOT marked complete.")
@@ -368,6 +371,36 @@ def main():
     print("  rules   %s" % ", ".join("%s=%s" % (r, specs[r]) for r in rules))
     print("  retired %s" % ", ".join(pop["retired"]))
     print("  out     data/h2_depth/<pair>.<rule>.jsonl")
+
+    if a.regate:
+        #: **THE GATE THAT ADMITS A PAIR MUST BE COMPUTED ON THE POPULATION THAT
+        #: WILL BE RUN.** The roster producer gates `enough_cells` on its own
+        #: 60-prompt list, which is not the 231 the sweep executes -- so a pair
+        #: could be admitted on prompts it never sees and be thin on the ones it
+        #: does. Checked rather than assumed, and re-runnable rather than
+        #: asserted in a message.
+        from malign_logits.step import Step
+        from malign_logits.checkpoint import Checkpoint
+        from malign_logits import movement as MV
+        rule_obj = MV.CANONICAL
+        res, drop = [], []
+        for pr in pairs:
+            st = Step(Checkpoint(pr["base"]), Checkpoint(pr["aligned"]))
+            n = 0
+            for s in prompts:
+                m = st.cell(s).movement(rule_obj)
+                if m is not None and len(m.fallers) + len(m.risers) >= 4:
+                    n += 1
+            res.append({"aligned": pr["aligned"], "usable": n, "of": len(prompts)})
+            if n < 10: drop.append(pr["aligned"])
+            print("  %-46s %4d / %d" % (pr["aligned"][:46], n, len(prompts)))
+        out = {"_about": "enough_cells re-applied on the SWEEP population, not "
+                         "the roster producer's gate list.",
+               "n_prompts": len(prompts), "would_drop": drop, "per_pair": res}
+        pth = os.path.join(ROOT, "data", "h2_regate.json")
+        json.dump(out, open(pth, "w"), indent=1)
+        print("\n  would drop: %d  -> %s" % (len(drop), os.path.relpath(pth, ROOT)))
+        return 0
 
     if a.receipt:
         rec, p = receipt(pop, rules, specs)

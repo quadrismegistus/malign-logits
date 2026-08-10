@@ -215,8 +215,16 @@ def main():
     lst = "\n".join(sorted("%s>%s" % (r["base"], r["aligned"]) for r in inc))
     print("\n  included-pair list sha256/16    %s" % sha16(lst))
     if a.write:
-        out = {"_about": "H2 depth sweep population, enumerated with every gate "
-                         "recorded as a column so exclusions are queries.",
+        out = {"_about": "THE PAIR ROSTER for H2 -- pairs and their gates. This "
+                         "file is NOT the sweep population: the prompts the "
+                         "sweep runs live in data/h2_depth_population.json "
+                         "(231, English). The 60-prompt list below is the INPUT "
+                         "TO THE enough_cells GATE and nothing else, and it is "
+                         "kept only so that gate is reproducible. A reader who "
+                         "greps for an H2 population wants the other file. "
+                         "The roster has been re-gated on the real 231 prompts "
+                         "and does not change (all 25 keep, coverage 225-231); "
+                         "re-run with scripts/h2_depth_run.py --regate.",
                "_producer": "scripts/h2_sweep_population.py",
                "prompt_list_sha256_16": sha16("\n".join(p["prompt"] for p in prompts)),
                "included_list_sha256_16": sha16(lst),

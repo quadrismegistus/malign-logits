@@ -1,0 +1,132 @@
+{
+ "_about": "enough_cells re-applied on the SWEEP population, not the roster producer's gate list.",
+ "n_prompts": 231,
+ "would_drop": [],
+ "per_pair": [
+  {
+   "aligned": "01-ai/Yi-1.5-9B-Chat",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "BSC-LT/salamandra-7b-instruct",
+   "usable": 230,
+   "of": 231
+  },
+  {
+   "aligned": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "HuggingFaceTB/SmolLM3-3B",
+   "usable": 230,
+   "of": 231
+  },
+  {
+   "aligned": "LLM360/AmberSafe",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "Qwen/Qwen2.5-0.5B-Instruct",
+   "usable": 229,
+   "of": 231
+  },
+  {
+   "aligned": "Qwen/Qwen2.5-7B-Instruct",
+   "usable": 229,
+   "of": 231
+  },
+  {
+   "aligned": "Qwen/Qwen3-8B",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "allenai/OLMo-2-0425-1B-DPO",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "google/gemma-2-9b-it",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "PKU-Alignment/beaver-7b-v1.0",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "llm-jp/llm-jp-3-7.2b-instruct3",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "m-a-p/CT-LLM-SFT-DPO",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "m-a-p/neo_7b_instruct_v0.1",
+   "usable": 230,
+   "of": 231
+  },
+  {
+   "aligned": "meta-llama/Llama-3.1-8B-Instruct",
+   "usable": 230,
+   "of": 231
+  },
+  {
+   "aligned": "microsoft/phi-4-reasoning",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "HuggingFaceH4/zephyr-7b-beta",
+   "usable": 230,
+   "of": 231
+  },
+  {
+   "aligned": "openbmb/MiniCPM5-1B",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "stabilityai/stablelm-2-zephyr-1_6b",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "tiiuae/Falcon3-10B-Instruct",
+   "usable": 225,
+   "of": 231
+  },
+  {
+   "aligned": "tiiuae/Falcon3-1B-Instruct",
+   "usable": 228,
+   "of": 231
+  },
+  {
+   "aligned": "tiiuae/Falcon3-3B-Instruct",
+   "usable": 231,
+   "of": 231
+  },
+  {
+   "aligned": "tiiuae/Falcon3-7B-Instruct",
+   "usable": 230,
+   "of": 231
+  }
+ ]
+}
