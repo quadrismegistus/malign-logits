@@ -443,3 +443,20 @@ Unpinned, the pair spans two vocabularies, so there is no full-vocabulary compar
 **Until this is closed, anything loading `aquila2` must read `MODEL_FAMILIES['aquila2'].revisions` explicitly.** A pin honoured on one path and ignored on three is worse than no pin, because it reads as pinned — the same shape as a declared decoder never checked against what the engine resolved.
 
 The fix is not just threading a keyword: the runners take a model id string and would need to take a (model_id, revision) pair, or resolve the revision from the registry at load time. The second is probably right, since the registry is already the single source of truth and the runners already read it.
+
+## OPEN: `base_aligned_pairs()` deduplicates on the BASE CHECKPOINT, not on the PRETRAINING RUN
+
+Noted 2026-08-10 while establishing the Kanana lineages. Not currently known to bite the roster; recorded before it does.
+
+The docstring says "ONE base -> ONE aligned checkpoint, **per unique pretraining run**", and the function does collapse *family entries* onto bases — 62 entries onto 52 bases, which is the error it was written to fix. But **nothing collapses bases onto runs.** A base checkpoint produced by continued pretraining, pruning or distillation from another base gets its own id and counts as an independent run.
+
+Kanana is the worked example, and it is why this is not hypothetical:
+
+    Kanana 1.0 8B run  ->  kanana-1.5-8b-base     continued pretraining, ~100B tokens
+                       ->  kanana-nano-2.1b-base  pruned 8B->4.5B->2.1B, distilled
+
+Two base ids, one pretraining run. Registering both would have reported two lineages. We avoided it by NOT registering nano — a decision, not a mechanism, so the next such case has nothing protecting it.
+
+`SCALE_LADDERS` carries scale within a generation and `same_base_as` carries a shared base *checkpoint*; neither expresses "this base was DERIVED from that base."
+
+The fix is a declared `PRETRAIN_ROOT` mapping derived bases to their run, consulted by `base_aligned_pairs` when deduplicating — declared rather than inferred, since derivation is never recoverable from a model id and is often only in a technical report. **Whoever does it should first sweep the existing roster for bases that are continued-pretrains or compressions of other registered bases**, because the count that assumes otherwise is already published.

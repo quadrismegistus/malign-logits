@@ -317,6 +317,40 @@ MODEL_FAMILIES = {
         base="kakaocorp/kanana-2-3b-base",
         superego="kakaocorp/kanana-2-3b-instruct",
     ),
+    # KAKAO CONTRIBUTES TWO LINEAGES, NOT THREE, AND `kanana` IS NOT A
+    # FROM-SCRATCH PRETRAIN. Recorded here because the two omissions below are
+    # the kind that get "discovered" later and added as new lineages.
+    #
+    #     Kanana 1.0 8B run  ->  kanana-1.5-8b-base    continued pretraining
+    #                        ->  kanana-nano-2.1b-base pruned + distilled
+    #     kanana-2-3b-base       SEPARATE, "pretrained from scratch on TPU"
+    #
+    # `kanana-1.5-8b-base` is the 1.0 8B plus continued training, not its own
+    # run: tech.kakao.com/posts/707, "총 100B 토큰의 비교적 대규모 추가 학습"
+    # ("a relatively large-scale ADDITIONAL training of 100B tokens").
+    #
+    # **`kanana-nano-2.1b-base` IS DELIBERATELY NOT REGISTERED.** The 1.0
+    # technical report (arXiv:2502.18934) attributes it to the 2.1B by name in
+    # three places -- §2.3 "we derive Kanana Nano 2.1B model through pruning and
+    # distillation from the 8B model"; §2.3.3 "Leveraging the 8B model ... we
+    # efficiently produce smaller models"; Table 6 "Each model is pruned from
+    # the preceding model. Each model is distilled using the 8B model as the
+    # teacher" (8B -> 4.5B -> 2.1B -> 1.3B -> ...).
+    #
+    # **THE TRAP, IF ANYONE REVISITS THIS.** Table 5 also reports a FROM-SCRATCH
+    # 2.1B at 3T tokens -- an ablation baseline Kakao never shipped. The
+    # released card's benchmarks (54.83/44.80/77.09/31.10/46.20/46.32) match the
+    # pruned-and-distilled 0.3T row digit for digit and mismatch the
+    # from-scratch row. Quote the wrong row and the same paper argues for
+    # independence.
+    #
+    # It was considered for a within-org DPO-vs-PPO contrast -- nano is
+    # DPO-aligned, 1.5 is on-policy RL -- and rejected: that comparison differs
+    # in SCALE (2.1B vs 8B), COMPRESSION (pruned+distilled vs not) and
+    # PRETRAINING (+100B continued) as well as in objective, so it isolates
+    # nothing. A pair deduplicated out of every lineage statistic, supporting a
+    # contrast confounded four ways, is not worth registering.
+    #
     # POST-TRAINING METHOD DOCUMENTED, BUT NOT ON THE CARD AND NOT AS DPO.
     # The card names no method; two Kakao engineering posts do, in Korean.
     # posts/707 lists 1.5's three changes as on-policy RL, generative reward
