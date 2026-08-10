@@ -238,6 +238,53 @@ SCALE_LADDERS = [
 #:
 #: "Considered and excluded" and "never noticed" must be DIFFERENT STATES. That
 #: distinction is the entire lesson of falcon3-7b, which was neither.
+#: **THE REGISTRY CARRIES EVERY NAME THE CAMPAIGN HAS EVER TOUCHED.** Registrar's
+#: ruling, docket [5296], after four red tests turned out to share one root: rows
+#: are built from `MODEL_FAMILIES`, so a checkpoint REMOVED from the families
+#: loses its row entirely and every referential check that names it breaks --
+#: while the receipts that named it (`data/grid_roster.json`, load observations)
+#: correctly never change, because receipts are history.
+#:
+#: The fork I brought to registrar was "add a roster row and move the census
+#: denominator, or drop the record and lose why a model is blocked". Both wrong:
+#: **the stash is the population, the roster is a VIEW, and observations are
+#: history.** A removed row is outside roster scope, so the denominator does not
+#: move; the name survives with a status and a reason, so nothing referential
+#: dangles.
+#:
+#: `in_grid_spec` stays TRUE for a name the v3 roster asked -- it did ask, and
+#: rewriting that to False would falsify a receipt to make a test pass.
+REMOVED_MODELS = {
+    "microsoft/phi-4": (
+        "REMOVED", "no base model released, so it cannot form a base->aligned "
+        "pair and falls outside the campaign's unit of analysis. RH, 2026-08-10. "
+        "It was on the v3 grid roster, which is why the receipt still names it."),
+    "microsoft/phi-4-reasoning": (
+        "REMOVED", "same: no base checkpoint, no pair. RH, 2026-08-10"),
+    "AI-Sweden-Models/gpt-sw3-6.7b": (
+        "REPLACED", "superseded by gpt-sw3-6.7b-v2 at docket [5260] -- different "
+        "data, longer training, DIFFERENT TOKENIZER, so it is a replacement and "
+        "not a re-release. Gated besides (403 on config.json; RH applied, no "
+        "grant). The load observation naming it is kept byte-untouched, which is "
+        "the whole reason this row exists."),
+    #: Found by SWEEPING the observations for names with no row, rather than by
+    #: fixing the one the test happened to report first. The test names a single
+    #: id per run, so iterating on it would have taken three rounds and left the
+    #: fourth for whoever ran it next.
+    "mosaicml/mpt-7b": (
+        "REMOVED", "repo id is DEAD -- 404 at the API, not a permissions error. "
+        "Removed from MODEL_FAMILIES 2026-08-10; the observation recording the "
+        "AutoTokenizer OSError is why the name must keep a referent."),
+    "mosaicml/mpt-7b-instruct": (
+        "REMOVED", "same dead repo as its base arm"),
+    "THUDM/glm-4-9b-hf": (
+        "REMOVED", "the `-hf` conversion was dropped in favour of the canonical "
+        "THUDM/glm-4-9b arms. Its observation is worth keeping precisely because "
+        "it records a FALSE alarm: the round-trip looks broken and is not -- the "
+        "tokenizer prepends [gMASK]<sop> and bos_token, which a naive equality "
+        "check reads as corruption."),
+}
+
 NOT_A_SCALE_RUNG = {
     "olmo-hybrid": "architecture contrast at one scale, not a scale rung",
     "olmo-think": "training-recipe contrast (Think) at one scale",
@@ -666,6 +713,30 @@ def main(a):
         r["excluded_from"] = "grid_v3"
         n_exc += 1
 
+    #: **REMOVED ROWS ARE STAMPED AFTER THE STATUS LOOP ON PURPOSE, AND THAT IS
+    #: THE OPPOSITE OF THE RULE ABOVE.** The declared-extra rows go BEFORE it so
+    #: they receive the same NOT_IN_GRID judgment as any off-roster row. These
+    #: must NOT: a removed name that the v3 roster did ask has `in_grid_spec`
+    #: True, and the status loop would overwrite REMOVED with EXCLUDED and
+    #: attribute the removal to incomplete coverage -- inventing a repairable
+    #: gap where a deliberate decision stands. The two blocks want opposite
+    #: placement for the same reason: status must be decided by whoever knows
+    #: WHY.
+    _spec = json.load(open(SPEC))
+    in_grid = {r["model"] for r in (_spec["spec"] if isinstance(_spec, dict) else _spec)}
+    for mid, (st, why) in sorted(REMOVED_MODELS.items()):
+        if mid in rows:                       # re-added upstream: leave it alone
+            continue
+        r = {k: None for k in next(iter(rows.values()))}
+        r.update({"model_id": mid, "nickname": NICKNAMES.get(mid, mid.split("/")[-1]),
+                  "org": mid.split("/")[0], "status": st, "exclusion_reason": why,
+                  "in_grid_spec": mid in in_grid, "cells_in_store": scored.get(mid, 0),
+                  "pending_repair": None, "family": "", "position": "", "stage": ""})
+        rows[mid] = r
+    if REMOVED_MODELS:
+        print(f"  + {len(REMOVED_MODELS)} removed/replaced row(s) "
+              f"(name history; outside roster scope)")
+
     # dedupe; an edge asserted twice is not two edges
     seen, uniq = set(), []
     for e in relations:
@@ -716,12 +787,21 @@ def main(a):
                 "needs_torch": {"source": "measured",
                                 "note": "transformers refuses .bin below 2.6"},
                 "status": {"source": "declared",
-                           "values": ["ACTIVE", "EXCLUDED", "NOT_IN_GRID"],
+                           "values": ["ACTIVE", "EXCLUDED", "NOT_IN_GRID",
+                                      "REMOVED", "REPLACED", "GATED"],
                            "note": ("scoped to the ROSTER. ACTIVE and EXCLUDED are "
                                     "answers about coverage and only a model that "
                                     "was asked can hold one; NOT_IN_GRID is the "
                                     "registry rows the v3 grid never asked, which "
-                                    "is not a coverage gap.")},
+                                    "is not a coverage gap. REMOVED / REPLACED / "
+                                    "GATED are NAME HISTORY ([5296]): the campaign "
+                                    "touched the name and then dropped it, so the "
+                                    "row exists to keep receipts and load "
+                                    "observations from dangling. They are outside "
+                                    "roster scope and enter no coverage answer -- "
+                                    "note phi-4 carries 2,647 cells and is still "
+                                    "REMOVED, because holding data is not the same "
+                                    "as being on the roster.")},
                 "pending_repair": {"source": "declared",
                                    "note": ("EXCLUDED rows only. 'excluded' and "
                                             "'excluded until the repair pass' "
@@ -800,7 +880,17 @@ def main(a):
     nig = sum(1 for r in doc["models"] if r["status"] == "NOT_IN_GRID")
     print(f"  registry holds {len(doc['models'])}; {nig} NOT_IN_GRID (never asked, "
           f"not a coverage gap)")
-    assert act + n_exc + nig == len(doc["models"]), "status buckets do not partition"
+    #: **NAME HISTORY IS A FOURTH BUCKET AND IT IS NOT A COVERAGE ANSWER.**
+    #: REMOVED/REPLACED rows exist so referential checks and receipts keep a
+    #: referent ([5296]); they are outside roster scope by construction, so they
+    #: enter the partition and never the numerator. This assertion caught the
+    #: first version of the block, which added rows and left the arithmetic
+    #: alone -- a partition test earning its keep on the day it was extended.
+    hist = sum(1 for r in doc["models"] if r["status"] in ("REMOVED", "REPLACED", "GATED"))
+    if hist:
+        print(f"  {hist} REMOVED/REPLACED (name history; carried so no receipt "
+              f"or observation dangles, counted in no coverage answer)")
+    assert act + n_exc + nig + hist == len(doc["models"]), "status buckets do not partition"
     assert all(r["status"] != "ACTIVE" or r["in_grid_spec"] for r in doc["models"]), (
         "a model outside the roster is marked ACTIVE; never-asked is not answered")
     assert all("cells_in_store" in r for r in doc["models"]), (
