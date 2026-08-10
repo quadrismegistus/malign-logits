@@ -113,3 +113,14 @@ seat forgets at its peril:
   in a mechanism, and a level read through an untrained head is not a
   quantity, though a same-depth cross-arm difference through a frozen head
   is ([5220]–[5223]).
+- **"Absent" and "empty" must never share a branch** — both are falsy, and
+  four independent guards in one day read an absence as its opposite
+  (dropped cells, a false missing_stash beside its own contradicting count,
+  trivial cases called unresolved, empty shards refused as stride hazards).
+  An empty result is a measurement; an absent one is a gap; a guard that
+  conflates them is loud about the wrong thing ([5309], [5313], [5317]).
+- **A count is a fact about the unit you counted in** — five disagreements
+  in one day dissolved into unit words (records vs cells vs pairs vs
+  distinct strings); state the unit beside every count, and when two counts
+  of "the same thing" differ, diff the units before the data ([5298],
+  [5305], [5307], [5316]).
