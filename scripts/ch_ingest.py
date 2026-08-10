@@ -64,6 +64,9 @@ DB = "malign_logits"
 FORBIDDEN = ("lltk", "abstraction", "llmtasks", "tmp", "default", "system")
 TRUNC = 1e-6
 
+#: **NO BRACES IN THIS f-STRING'S COMMENTS.** Interpolation happens when the
+#: module loads, before any splitting, so `{i : ...}` in a SQL comment raises
+#: NameError at import and no comment-aware splitter can help. Twice today.
 SCHEMA = f"""
 CREATE DATABASE IF NOT EXISTS {DB};
 
@@ -223,11 +226,51 @@ CREATE TABLE IF NOT EXISTS {DB}.models (
     params         LowCardinality(String),
     params_b       Float32,
     architecture   LowCardinality(String),
+    -- MEASURED columns, joined from data/tokenizer_properties.json rather than
+    -- declared. `measured` is 0 where the model has no row, so an unmeasured
+    -- model is DISTINGUISHABLE from one measured as zero -- the difference this
+    -- campaign spent a day on. `revision` records whether the measurement was
+    -- taken at a pinned commit: unpinned, BAAI/Aquila2-7B reads 143,717 tokens
+    -- against its own chat arm's 100,000 and scores 0.0% compatible, which is
+    -- a fact about the loader and not about the pair.
+    measured       UInt8,
+    revision       String,
     tokenizer_class LowCardinality(String),
+    vocab_size     UInt32,
+    vocab_len      UInt32,
+    vocab_sha      LowCardinality(String),
+    n_added_tokens UInt32,
+    bos_token_id   Int32,
+    add_bos_token  Int8,
+    prepends_id    Int32,
     built_at       DateTime,
     ingested       DateTime DEFAULT now()
 ) ENGINE = ReplacingMergeTree(ingested)
 ORDER BY model_id;
+
+-- SHARED-ID SETS PER EDGE. Cross-scoring runs one arm's ids through the other
+-- arm's model, so what matters is the set of ids decoding the same in both:
+-- shared = every id that decodes the same under both. A SEQUENCE is scoreable
+-- iff all of its ids are in that set, which is what removes the chat-token
+-- confound -- added chat tokens are outside it by construction and a sequence
+-- that never uses them is unaffected.
+--
+-- NOT a verdict column. ID-SAFE/RETOKENIZE/UNAVAILABLE fused vocabulary overlap
+-- with BOS behaviour and so could not express internlm2: 100% vocabulary
+-- compatible and still needing twp.BOS_POLICY. Here `cover` is the vocabulary
+-- axis and `bos_matches` is the other, reported apart.
+CREATE TABLE IF NOT EXISTS {DB}.edge_tokens (
+    parent        String,
+    child         String,
+    relation      LowCardinality(String),
+    n_shared      UInt32,
+    cover         Float32,
+    shared_id_sha LowCardinality(String),
+    bos_matches   UInt8,
+    computed_at   DateTime,
+    ingested      DateTime DEFAULT now()
+) ENGINE = ReplacingMergeTree(ingested)
+ORDER BY (parent, child, relation);
 
 CREATE TABLE IF NOT EXISTS {DB}.model_edges (
     parent    String,
@@ -595,12 +638,40 @@ def ingest_catalogue():
           % (format(len(out), ","), format(len({r["prompt"] for r in out}), ",")))
 
 
+def _tok_cols(t):
+    """Measured tokenizer columns, or an explicit not-measured row."""
+    if not t:
+        return {"measured": 0, "revision": "", "tokenizer_class": "", "vocab_size": 0,
+                "vocab_len": 0, "vocab_sha": "", "n_added_tokens": 0,
+                "bos_token_id": -1, "add_bos_token": -1, "prepends_id": -1}
+    ab = t.get("add_bos_token")
+    return {"measured": 1, "revision": t.get("revision") or "",
+            "tokenizer_class": t.get("tokenizer_class") or "",
+            "vocab_size": int(t.get("vocab_size") or 0),
+            "vocab_len": int(t.get("vocab_len") or 0),
+            "vocab_sha": t.get("vocab_sha") or "",
+            "n_added_tokens": int(t.get("n_added_tokens") or 0),
+            "bos_token_id": int(t["bos_token_id"]) if t.get("bos_token_id") is not None else -1,
+            "add_bos_token": (1 if ab else 0) if ab is not None else -1,
+            "prepends_id": int(t["prepends_id"]) if t.get("prepends_id") is not None else -1}
+
+
 def ingest_registry():
     """models + model_edges, regenerated whole from the registry JSON."""
     import datetime
     src = os.path.join(ROOT, "data", "model_registry.json")
     d = json.load(open(src))
     built = datetime.datetime.fromtimestamp(os.path.getmtime(src)).strftime("%Y-%m-%d %H:%M:%S")
+    #: MEASURED side, joined in. Absent -> measured=0, never a silent zero.
+    tp, ed, tstamp = {}, [], built
+    tpf = os.path.join(ROOT, "data", "tokenizer_properties.json")
+    if os.path.exists(tpf):
+        j = json.load(open(tpf)); tp = j.get("models") or {}
+        tstamp = (j.get("_computed_at") or built).replace("T", " ")
+    edf = os.path.join(ROOT, "data", "edge_token_overlap.json")
+    if os.path.exists(edf):
+        ej = json.load(open(edf)); ed = ej.get("edges") or []
+        estamp = (ej.get("_computed_at") or built).replace("T", " ")
     mods = d.get("models") or {}
     rows = list(mods.values()) if isinstance(mods, dict) else mods
     out = [{"model_id": r.get("model_id") or "", "nickname": str(r.get("nickname") or ""),
@@ -608,14 +679,23 @@ def ingest_registry():
             "stage": str(r.get("stage") or ""), "org": str(r.get("org") or ""),
             "params": str(r.get("params") or ""), "params_b": float(r.get("params_b") or 0),
             "architecture": str(r.get("architecture") or ""),
-            "tokenizer_class": str(r.get("tokenizer_class") or ""),
-            "built_at": built} for r in rows]
+            "built_at": built,
+            **_tok_cols(tp.get(r.get("model_id") or ""))} for r in rows]
     ch(f"TRUNCATE TABLE IF EXISTS {DB}.models"); insert("models", out)
     eds = [{"parent": e.get("parent") or "", "child": e.get("child") or "",
             "relation": e.get("relation") or "", "built_at": built}
            for e in (d.get("relations") or [])]
     ch(f"TRUNCATE TABLE IF EXISTS {DB}.model_edges"); insert("model_edges", eds)
-    print("registry: %d models, %d edges, built_at %s" % (len(out), len(eds), built))
+    et = [{"parent": e["parent"], "child": e["child"], "relation": e.get("relation") or "",
+           "n_shared": int(e.get("n_shared") or 0), "cover": float(e.get("cover") or 0),
+           "shared_id_sha": e.get("shared_id_sha") or "",
+           "bos_matches": 1 if e.get("bos_matches") else 0,
+           "computed_at": estamp} for e in ed]
+    ch(f"TRUNCATE TABLE IF EXISTS {DB}.edge_tokens"); insert("edge_tokens", et)
+    nm = sum(1 for r in out if r["measured"])
+    print("registry: %d models (%d with tokenizer measurements), %d edges, "
+          "%d edge_tokens\n  registry built_at %s | tokenizers measured %s"
+          % (len(out), nm, len(eds), len(et), built, tstamp))
 
 
 def verify():
