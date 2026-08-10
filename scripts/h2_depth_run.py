@@ -257,7 +257,14 @@ def run_pair(pair, prompts, rule, kstep, dtype, spec, timeout):
         cmd = [sys.executable, BATTERY, "--base", pair["base"], "--aligned", pair["aligned"],
                "--rule", rule, "--kstep", str(kstep), "--dtype", dtype,
                "--out", os.path.relpath(shard, ROOT), "--prompts"] + todo
-        r = subprocess.run(cmd, cwd=ROOT, timeout=timeout)
+        #: **THE CHILD DOES NOT INHERIT `-u`.** Piping the runner into `tee`
+        #: makes stdout a PIPE, and Python block-buffers to a pipe, so the
+        #: battery's per-prompt lines sit in a 4-8 KB buffer and the run looks
+        #: HUNG for twenty minutes while it is writing rows normally. The
+        #: runner was launched with `-u`; that flag is not inherited by a
+        #: subprocess, so it has to be set in the child's environment.
+        env = dict(os.environ, PYTHONUNBUFFERED="1")
+        r = subprocess.run(cmd, cwd=ROOT, timeout=timeout, env=env)
         dt = time.time() - t0
         after, _ = read_shard(shard)
         wrote = {x.get("prompt") for x in after} - {x.get("prompt") for x in rows}
@@ -302,6 +309,20 @@ def _stamp(shard, spec):
             r["spec_sha"] = spec; changed = True
     if changed:
         _rewrite(shard, rows)
+
+
+def event(kind, **kw):
+    """Append one durable line to data/h2_depth/events.jsonl.
+
+    **THE CONSOLE IS NOT A RECORD.** A pair that throws printed "FAILED ...
+    continuing" and that sentence lived nowhere else -- so whether the run's
+    own failures survived depended on the operator happening to pipe stdout
+    into a file. An outcome that exists only if someone remembered to `tee` is
+    an outcome that will be missing exactly when it matters.
+    """
+    row = dict(kind=kind, **kw)
+    with open(os.path.join(OUTDIR, "events.jsonl"), "a") as f:
+        f.write(json.dumps(row) + "\n"); f.flush(); os.fsync(f.fileno())
 
 
 def receipt(pop, rules, spec_by_rule):
@@ -435,11 +456,16 @@ def main():
                 print("\n  stopped by request after %d pair-rules" % done); break
             print("\n#### %-46s [%s]" % (pair["aligned"], rule))
             try:
-                run_pair(pair, prompts, rule, a.kstep, a.dtype, specs[rule], a.timeout)
+                st = run_pair(pair, prompts, rule, a.kstep, a.dtype, specs[rule], a.timeout)
+                event("pair", pair=pair["aligned"], rule=rule, status=st or "none",
+                      elapsed_s=round(time.time() - t0, 1))
             except subprocess.TimeoutExpired:
                 print("  TIMEOUT after %ds -- rows written so far are kept" % a.timeout)
+                event("timeout", pair=pair["aligned"], rule=rule, timeout_s=a.timeout)
             except Exception as e:
                 print("  FAILED %s: %s -- continuing to the next pair" % (type(e).__name__, e))
+                event("failed", pair=pair["aligned"], rule=rule,
+                      error=type(e).__name__, detail=str(e)[:400])
             done += 1
             el = time.time() - t0
             #: **THE ETA COMES FROM THIS RUN, NOT FROM A TIMING RUN.** Timing a
@@ -458,6 +484,13 @@ def main():
         if stop["v"]: break
 
     rec, p = receipt(pop, rules, specs)
+    rec["events"] = read_shard(os.path.join(OUTDIR, "events.jsonl"))[0]
+    json.dump(rec, open(p, "w"), indent=1)
+    fails = [e for e in rec["events"] if e["kind"] in ("failed", "timeout")]
+    if fails:
+        print("\n  %d pair-rules FAILED or TIMED OUT (also in events.jsonl):" % len(fails))
+        for e in fails:
+            print("     %-44s %s %s" % (e["pair"][:44], e["kind"], e.get("error", "")))
     print("\nDONE. %d rows across %d shards -> %s"
           % (rec["total_rows"], len(rec["shards"]), os.path.relpath(p, ROOT)))
     short = [s for s in rec["shards"] if s["owed"] > 0]
