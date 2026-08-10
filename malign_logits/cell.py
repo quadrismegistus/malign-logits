@@ -167,6 +167,21 @@ class Cell:
                              prompt=self.prompt_text, rule_version=self.rule_version)
         return m
 
+    def matched_control(self, rule=None, tau=0.005, tol=1.0, basis="post"):
+        """(faller, matched non-mover) for this cell, or (faller, None), or None.
+
+        The pairing Finding A's spec asked for and no corpus had: a word the
+        aligned arm finds as improbable as the faller but did NOT demote. See
+        `Movement.matched_nonmover` for why the match is on the POST arm.
+        """
+        m = self.movement(rule)
+        if m is None:
+            return None
+        f = m.top_faller()
+        if f is None:
+            return None
+        return f, m.matched_nonmover(f, tau=tau, tol=tol, basis=basis)
+
     def js(self, allow_mixed=False):
         """Jensen-Shannon divergence in bits, over the scored words plus the residual.
 

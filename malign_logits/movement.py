@@ -118,12 +118,71 @@ class Movement:
     null: dict = field(default_factory=dict)       # per-key renormalisation expectation
     excess: dict = field(default_factory=dict)     # Q - null, risers only
     delta: dict = field(default_factory=dict)      # Q - P, every key
+    #: THE TWO DISTRIBUTIONS, RETAINED. `delta` alone cannot support a matched
+    #: control: matching needs a LEVEL, and Q - P discards both levels. Kept as
+    #: plain dicts, defaulting empty so anything constructing a Movement by hand
+    #: still works.
+    pre: dict = field(default_factory=dict)        # P
+    post: dict = field(default_factory=dict)       # Q
     inflation: float = float("nan")                # R/S, the renormalisation factor
     rule: Rule = CANONICAL
     diagnostics: dict = field(default_factory=dict)
 
     def top_faller(self):
         return max(self.fallers, key=lambda w: self.delta.get(w, 0.0) * -1, default=None)
+
+    def nonmovers(self, tau=0.005, min_mass=0.001):
+        """Words present in the cell that DID NOT MOVE.
+
+        Not the complement of fallers-and-risers: a word can fail a movement
+        rule's eligibility test and still have moved a lot. This asks the
+        question directly -- |Q - P| <= tau -- and requires real mass in at
+        least one arm, because an absent word is a perfect non-mover and means
+        nothing.
+        """
+        return sorted(k for k in self.delta
+                      if k != RESIDUAL_KEY and abs(self.delta[k]) <= tau
+                      and max(self.pre.get(k, 0.0), self.post.get(k, 0.0)) >= min_mass)
+
+    def matched_nonmover(self, target, tau=0.005, tol=1.0, basis="post",
+                         min_mass=0.001):
+        """The unmoved word closest to `target` in probability. None if none qualifies.
+
+        WHY THIS EXISTS. A faller/riser contrast varies two things at once: the
+        word was demoted, AND it is improbable to the aligned model. Finding A's
+        spec named the missing instrument before its run -- "a word matched on
+        improbability-under-aligned but NOT demoted by alignment" -- and no
+        collected corpus had one. This constructs it.
+
+        BASIS DEFAULTS TO "post", i.e. the ALIGNED probability, and that is the
+        whole point. The confound is that the aligned model finds the faller
+        improbable; the control must be a word the aligned model finds EQUALLY
+        improbable and did not demote. Matching on `pre` controls for what the
+        BASE model expected, which is a different question and not the one A
+        asks. Measured on the Y corpus, "post" is also the higher-yielding
+        choice at every practical tolerance (33 vs 27 cells of 167 at
+        tau=0.005, tol=1.0).
+
+        `tol` is |log2(p_candidate / p_target)|, so tol=1.0 is a factor of two.
+        Returns the CLOSEST qualifying word, not the first.
+        """
+        src = self.post if basis == "post" else self.pre
+        if basis not in ("post", "pre"):
+            raise ValueError("basis must be 'post' or 'pre', got %r" % (basis,))
+        t = src.get(target, 0.0)
+        if t <= 0:
+            return None
+        best, bestd = None, float("inf")
+        for k in self.nonmovers(tau=tau, min_mass=min_mass):
+            if k == target:
+                continue
+            v = src.get(k, 0.0)
+            if v <= 0:
+                continue
+            gap = abs(math.log2(v / t))
+            if gap <= tol and gap < bestd:
+                best, bestd = k, gap
+        return best
 
     def top_riser(self):
         """By EXCESS where the null was computed, else by delta. The distinction matters:
@@ -137,6 +196,7 @@ class Movement:
 def _movement(P, Q, rule, residual_share, exact_null):
     keys = set(P) | set(Q)
     d = {k: Q.get(k, 0.0) - P.get(k, 0.0) for k in keys}
+    _PQ = (dict(P), dict(Q))
 
     # THE RESIDUAL IS NEVER A FALLER, AND THE EXCLUSION BELONGS HERE, NOT AFTER.
     # `movement()` used to strip RESIDUAL_KEY from the RETURNED faller list --
@@ -166,7 +226,8 @@ def _movement(P, Q, rule, residual_share, exact_null):
     # sorted() here is LEXICOGRAPHIC on word strings, NOT by mass. Downstream
     # code that iterates fallers gets alphabetical order; sort explicitly if
     # order matters. ([1567]/[1572])
-    m = Movement(fallers=sorted(fall), delta=d, rule=rule)
+    m = Movement(fallers=sorted(fall), delta=d, rule=rule,
+                 pre=_PQ[0], post=_PQ[1])
 
     if not rule.null_test:
         # LEXICOGRAPHIC, not by mass -- same caveat as fallers above.
