@@ -416,6 +416,20 @@
    "outcome": "run_failed",
    "cause": "RE-CONFIRMED 2026-08-10 at transformers 5.14.1: AutoTokenizer still resolves to LlamaTokenizer and still deletes every space -- 'He lay naked in his bed and' -> 'Helaynakedinhisbedand'. Upstream PR #47017 (generic model_type=llama repos) has NOT landed.",
    "fix": "LOADER_OVERRIDE -> PreTrainedTokenizerFast. The existing entry STAYS; checked because a fix that has silently become unnecessary is as much a defect as one that is missing."
+  },
+  {
+   "model_id": "BAAI/AquilaChat2-7B",
+   "environment": "cloud_cuda_transformers_5.14.1",
+   "outcome": "load_failed",
+   "cause": "KeyError: 'type' in the model's OWN bundled modeling_aquila.py:281 -- `scaling_type = self.config.rope_scaling['type']`. The code was written for transformers ~4.31. On 5.x transformers auto-populates rope_scaling as {'rope_type': 'default', ...}, which is TRUTHY, so Aquila's `if rope_scaling is None` branch is skipped and it reads a key that no longer exists. NOT a model defect and NOT broken on all environments.",
+   "fix": "transformers==4.57.1, where rope_scaling reads None and the model takes its own None branch. Verified: AutoConfig on 4.57.1 gives rope_scaling=None for both arms. SAME CLASS AS ZAMBA2 -- old model code against new transformers -- and the same pin fixes both, so they share the `tf457` environment. Run via data/twp_fill_tf457.json."
+  },
+  {
+   "model_id": "BAAI/Aquila2-7B",
+   "environment": "cloud_cuda_transformers_5.14.1",
+   "outcome": "load_failed",
+   "cause": "Same rope_scaling['type'] KeyError as the chat arm; both share the bundled modeling_aquila.py.",
+   "fix": "transformers==4.57.1. NB this arm ALSO carries a pinned revision (9c76e143...) because BAAI replaced main with a re-tokenised model; the two constraints are independent and both apply."
   }
  ],
  "predicted_untested": {
