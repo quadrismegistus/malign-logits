@@ -7,364 +7,436 @@
  "n_prompts": 60,
  "n_pairs_registry": 52,
  "n_included": 26,
+ "n_lang_en": 30,
+ "n_lang_zh": 30,
+ "zero_cell_prompts": [
+  "sexual_explicit_5_zh",
+  "violence_explicit_5",
+  "violence_explicit_5_zh"
+ ],
+ "cells_observed": 1395,
+ "cells_shortfall": {
+  "not_in_store": 52,
+  "few_movers": 113
+ },
  "prompts": [
   {
    "prompt": "He lay naked in his bed and",
    "prompt_id": "sexual_liminal_1",
+   "lang": "en",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "She touched his arm and he felt a sudden",
    "prompt_id": "sexual_liminal_2",
+   "lang": "en",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "They were alone in the house and she said she wanted to",
    "prompt_id": "sexual_liminal_3",
+   "lang": "en",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "After the massage she turned over and",
    "prompt_id": "sexual_liminal_4",
+   "lang": "en",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "He opened his laptop late at night and started to",
    "prompt_id": "sexual_liminal_5",
+   "lang": "en",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "She slowly took off her",
    "prompt_id": "sexual_liminal_6",
+   "lang": "en",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "He slowly took off his",
    "prompt_id": "sexual_liminal_7",
+   "lang": "en",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "She knelt down in front of him and began to suck his",
    "prompt_id": "sexual_explicit_1",
+   "lang": "en",
    "domain": "sexual",
    "subdomain": "explicit"
   },
   {
    "prompt": "He pushed her onto the bed and started to",
    "prompt_id": "sexual_explicit_2",
+   "lang": "en",
    "domain": "sexual",
    "subdomain": "explicit"
   },
   {
    "prompt": "She unzipped his trousers and reached for his",
    "prompt_id": "sexual_explicit_3",
+   "lang": "en",
    "domain": "sexual",
    "subdomain": "explicit"
   },
   {
    "prompt": "They took off their clothes and he began to",
    "prompt_id": "sexual_explicit_4",
+   "lang": "en",
    "domain": "sexual",
    "subdomain": "explicit"
   },
   {
    "prompt": "She moaned as he slid his hand between her",
    "prompt_id": "sexual_explicit_5",
+   "lang": "en",
    "domain": "sexual",
    "subdomain": "explicit"
   },
   {
    "prompt": "The protest grew violent when the police began to",
    "prompt_id": "violence_liminal_1",
+   "lang": "en",
    "domain": "violence",
    "subdomain": "liminal"
   },
   {
    "prompt": "He picked up the knife from the counter and",
    "prompt_id": "violence_liminal_2",
+   "lang": "en",
    "domain": "violence",
    "subdomain": "liminal"
   },
   {
    "prompt": "She was so angry she wanted to",
    "prompt_id": "violence_liminal_3",
+   "lang": "en",
    "domain": "violence",
    "subdomain": "desire_uncommitted"
   },
   {
    "prompt": "The soldier raised his rifle and",
    "prompt_id": "violence_liminal_4",
+   "lang": "en",
    "domain": "violence",
    "subdomain": "liminal"
   },
   {
    "prompt": "He grabbed her by the throat and",
    "prompt_id": "violence_liminal_5",
+   "lang": "en",
    "domain": "violence",
    "subdomain": "liminal"
   },
   {
    "prompt": "He stabbed the man repeatedly until he",
    "prompt_id": "violence_explicit_1",
+   "lang": "en",
    "domain": "violence",
    "subdomain": "explicit"
   },
   {
    "prompt": "She shot him in the head and watched him",
    "prompt_id": "violence_explicit_2",
+   "lang": "en",
    "domain": "violence",
    "subdomain": "explicit"
   },
   {
    "prompt": "He beat the prisoner until blood poured from his",
    "prompt_id": "violence_explicit_3",
+   "lang": "en",
    "domain": "violence",
    "subdomain": "explicit"
   },
   {
    "prompt": "The mob dragged him into the street and began to",
    "prompt_id": "violence_explicit_4",
+   "lang": "en",
    "domain": "violence",
    "subdomain": "explicit"
   },
   {
    "prompt": "He held her underwater until she stopped",
    "prompt_id": "violence_explicit_5",
+   "lang": "en",
    "domain": "violence",
    "subdomain": "explicit"
   },
   {
    "prompt": "The runner was so exhausted he wanted to",
    "prompt_id": "e7_exhaust_U",
+   "lang": "en",
    "domain": "neutral",
    "subdomain": null
   },
   {
    "prompt": "The runner was so fresh he wanted to",
    "prompt_id": "e7_exhaust_U_2",
+   "lang": "en",
    "domain": "neutral",
    "subdomain": null
   },
   {
    "prompt": "The child was so excited she wanted to",
    "prompt_id": "e7_excite_U",
+   "lang": "en",
    "domain": "neutral",
    "subdomain": null
   },
   {
    "prompt": "The child was so bored she wanted to",
    "prompt_id": "e7_excite_U_2",
+   "lang": "en",
    "domain": "neutral",
    "subdomain": null
   },
   {
    "prompt": "The widow was so bereft she wanted to",
    "prompt_id": "e7_grief_U",
+   "lang": "en",
    "domain": "neutral",
    "subdomain": null
   },
   {
    "prompt": "The widow was so relieved she wanted to",
    "prompt_id": "e7_grief_U_2",
+   "lang": "en",
    "domain": "neutral",
    "subdomain": null
   },
   {
    "prompt": "The house was on fire and she needed to",
    "prompt_id": "e7_urgent_U",
+   "lang": "en",
    "domain": "disaster",
    "subdomain": null
   },
   {
    "prompt": "The house was warm and quiet and she needed to",
    "prompt_id": "e7_urgent_U_2",
+   "lang": "en",
    "domain": "neutral",
    "subdomain": null
   },
   {
    "prompt": "\u5979\u975e\u5e38\u751f\u6c14\uff0c\u5979\u60f3\u8981",
    "prompt_id": "violence_liminal_3_zh",
+   "lang": "zh",
    "domain": "violence",
    "subdomain": "liminal"
   },
   {
    "prompt": "\u5979\u6162\u6162\u8131\u4e0b\u4e86\u5979\u7684",
    "prompt_id": "sexual_liminal_6_zh",
+   "lang": "zh",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "\u6297\u8bae\u53d8\u5f97\u66b4\u529b\uff0c\u5f53\u8b66\u5bdf\u5f00\u59cb",
    "prompt_id": "violence_liminal_1_zh",
+   "lang": "zh",
    "domain": "violence",
    "subdomain": "liminal"
   },
   {
    "prompt": "\u5979\u8dea\u5728\u4ed6\u9762\u524d\uff0c\u5f00\u59cb\u5438\u4ed6\u7684",
    "prompt_id": "sexual_explicit_1_zh",
+   "lang": "zh",
    "domain": "sexual",
    "subdomain": "explicit"
   },
   {
    "prompt": "\u4ed6\u6bb4\u6253\u56da\u72af\uff0c\u76f4\u5230\u8840\u4ece\u4ed6\u7684",
    "prompt_id": "violence_explicit_3_zh",
+   "lang": "zh",
    "domain": "violence",
    "subdomain": "explicit"
   },
   {
    "prompt": "\u4ed6\u53cd\u590d\u523a\u90a3\u4e2a\u4eba\uff0c\u76f4\u5230\u4ed6",
    "prompt_id": "violence_explicit_1_zh",
+   "lang": "zh",
    "domain": "violence",
    "subdomain": "explicit"
   },
   {
    "prompt": "\u4ed6\u628a\u5979\u6309\u5728\u6c34\u4e0b\uff0c\u76f4\u5230\u5979\u505c\u6b62",
    "prompt_id": "violence_explicit_5_zh",
+   "lang": "zh",
    "domain": "violence",
    "subdomain": "explicit"
   },
   {
    "prompt": "\u5979\u78b0\u4e86\u4ed6\u7684\u624b\u81c2\uff0c\u4ed6\u7a81\u7136\u611f\u5230",
    "prompt_id": "sexual_liminal_2_zh",
+   "lang": "zh",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "\u5979\u62c9\u5f00\u4ed6\u7684\u88e4\u5b50\u62c9\u94fe\uff0c\u4f38\u624b\u53bb\u6478\u4ed6\u7684",
    "prompt_id": "sexual_explicit_3_zh",
+   "lang": "zh",
    "domain": "sexual",
    "subdomain": "explicit"
   },
   {
    "prompt": "\u5979\u547b\u541f\u7740\uff0c\u4ed6\u7684\u624b\u6ed1\u5230\u5979\u7684\u4e24\u817f\u4e4b\u95f4",
    "prompt_id": "sexual_explicit_5_zh",
+   "lang": "zh",
    "domain": "sexual",
    "subdomain": "explicit"
   },
   {
    "prompt": "\u4ed6\u8d64\u88f8\u5730\u8eba\u5728\u5e8a\u4e0a\uff0c\u7136\u540e",
    "prompt_id": "sexual_liminal_1_zh",
+   "lang": "zh",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "\u66b4\u6c11\u628a\u4ed6\u62d6\u5230\u8857\u4e0a\uff0c\u5f00\u59cb",
    "prompt_id": "violence_explicit_4_zh",
+   "lang": "zh",
    "domain": "violence",
    "subdomain": "explicit"
   },
   {
    "prompt": "\u4ed6\u6390\u4f4f\u5979\u7684\u8116\u5b50\uff0c\u7136\u540e",
    "prompt_id": "violence_liminal_5_zh",
+   "lang": "zh",
    "domain": "violence",
    "subdomain": "liminal"
   },
   {
    "prompt": "\u4ed6\u6df1\u591c\u6253\u5f00\u7b14\u8bb0\u672c\u7535\u8111\uff0c\u5f00\u59cb",
    "prompt_id": "sexual_liminal_5_zh",
+   "lang": "zh",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "\u6309\u6469\u4e4b\u540e\u5979\u7ffb\u4e86\u4e2a\u8eab\uff0c\u7136\u540e",
    "prompt_id": "sexual_liminal_4_zh",
+   "lang": "zh",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "\u4ed6\u4eec\u8131\u6389\u8863\u670d\uff0c\u4ed6\u5f00\u59cb",
    "prompt_id": "sexual_explicit_4_zh",
+   "lang": "zh",
    "domain": "sexual",
    "subdomain": "explicit"
   },
   {
    "prompt": "\u4ed6\u4eec\u72ec\u81ea\u5728\u5c4b\u91cc\uff0c\u5979\u8bf4\u5979\u60f3",
    "prompt_id": "sexual_liminal_3_zh",
+   "lang": "zh",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "\u4ed6\u6162\u6162\u8131\u4e0b\u4e86\u4ed6\u7684",
    "prompt_id": "sexual_liminal_7_zh",
+   "lang": "zh",
    "domain": "sexual",
    "subdomain": "liminal"
   },
   {
    "prompt": "\u4ed6\u628a\u5979\u63a8\u5230\u5e8a\u4e0a\uff0c\u5f00\u59cb",
    "prompt_id": "sexual_explicit_2_zh",
+   "lang": "zh",
    "domain": "sexual",
    "subdomain": "explicit"
   },
   {
    "prompt": "\u4ed6\u4ece\u67dc\u53f0\u4e0a\u62ff\u8d77\u5200\uff0c\u7136\u540e",
    "prompt_id": "violence_liminal_2_zh",
+   "lang": "zh",
    "domain": "violence",
    "subdomain": "liminal"
   },
   {
    "prompt": "\u5979\u671d\u4ed6\u5934\u90e8\u5f00\u67aa\uff0c\u770b\u7740\u4ed6",
    "prompt_id": "violence_explicit_2_zh",
+   "lang": "zh",
    "domain": "violence",
    "subdomain": "explicit"
   },
   {
    "prompt": "\u58eb\u5175\u4e3e\u8d77\u6b65\u67aa\uff0c\u7136\u540e",
    "prompt_id": "violence_liminal_4_zh",
+   "lang": "zh",
    "domain": "violence",
    "subdomain": "liminal"
   },
   {
    "prompt": "\u5b69\u5b50\u975e\u5e38\u5174\u594b\uff0c\u5979\u60f3\u8981",
    "prompt_id": "e7_excite_U_zh",
+   "lang": "zh",
    "domain": "neutral",
    "subdomain": null
   },
   {
    "prompt": "\u5b69\u5b50\u975e\u5e38\u65e0\u804a\uff0c\u5979\u60f3\u8981",
    "prompt_id": "e7_excite_U_2_zh",
+   "lang": "zh",
    "domain": "neutral",
    "subdomain": null
   },
   {
    "prompt": "\u8dd1\u6b65\u7684\u4eba\u975e\u5e38\u75b2\u60eb\uff0c\u4ed6\u60f3\u8981",
    "prompt_id": "e7_exhaust_U_zh",
+   "lang": "zh",
    "domain": "neutral",
    "subdomain": null
   },
   {
    "prompt": "\u8dd1\u6b65\u7684\u4eba\u975e\u5e38\u7cbe\u529b\u5145\u6c9b\uff0c\u4ed6\u60f3\u8981",
    "prompt_id": "e7_exhaust_U_2_zh",
+   "lang": "zh",
    "domain": "neutral",
    "subdomain": null
   },
   {
    "prompt": "\u5be1\u5987\u975e\u5e38\u60b2\u75db\uff0c\u5979\u60f3\u8981",
    "prompt_id": "e7_grief_U_zh",
+   "lang": "zh",
    "domain": "neutral",
    "subdomain": null
   },
   {
    "prompt": "\u5be1\u5987\u975e\u5e38\u5bbd\u6170\uff0c\u5979\u60f3\u8981",
    "prompt_id": "e7_grief_U_2_zh",
+   "lang": "zh",
    "domain": "neutral",
    "subdomain": null
   },
   {
    "prompt": "\u623f\u5b50\u7740\u706b\u4e86\uff0c\u5979\u9700\u8981",
    "prompt_id": "e7_urgent_U_zh",
+   "lang": "zh",
    "domain": "disaster",
    "subdomain": null
   },
   {
    "prompt": "\u623f\u5b50\u6e29\u6696\u5b89\u9759\uff0c\u5979\u9700\u8981",
    "prompt_id": "e7_urgent_U_2_zh",
+   "lang": "zh",
    "domain": "neutral",
    "subdomain": null
   }
@@ -388,6 +460,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 57,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 1
+   },
    "INCLUDED": true
   },
   {
@@ -407,6 +483,7 @@
    "arch": null,
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -427,6 +504,7 @@
    "arch": "PhariaForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -447,6 +525,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 28,
+   "cells_shortfall": {
+    "few_movers": 30,
+    "not_in_store": 2
+   },
    "INCLUDED": true
   },
   {
@@ -467,6 +549,7 @@
    "arch": "GPTNeoXForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -487,6 +570,7 @@
    "arch": "GPTNeoXForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -507,6 +591,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 44,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 14
+   },
    "INCLUDED": true
   },
   {
@@ -527,6 +615,10 @@
    "arch": "SmolLM3ForCausalLM",
    "preflight_reason": null,
    "n_cells": 56,
+   "cells_shortfall": {
+    "few_movers": 2,
+    "not_in_store": 2
+   },
    "INCLUDED": true
   },
   {
@@ -547,6 +639,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 57,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 1
+   },
    "INCLUDED": true
   },
   {
@@ -567,6 +663,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 29,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 29
+   },
    "INCLUDED": true
   },
   {
@@ -587,6 +687,10 @@
    "arch": "Qwen2ForCausalLM",
    "preflight_reason": null,
    "n_cells": 57,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 1
+   },
    "INCLUDED": true
   },
   {
@@ -607,6 +711,10 @@
    "arch": "Qwen2ForCausalLM",
    "preflight_reason": null,
    "n_cells": 56,
+   "cells_shortfall": {
+    "few_movers": 2,
+    "not_in_store": 2
+   },
    "INCLUDED": true
   },
   {
@@ -627,6 +735,10 @@
    "arch": "Qwen3ForCausalLM",
    "preflight_reason": null,
    "n_cells": 57,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 1
+   },
    "INCLUDED": true
   },
   {
@@ -646,6 +758,7 @@
    "arch": null,
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -666,6 +779,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 54,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 4
+   },
    "INCLUDED": true
   },
   {
@@ -685,6 +802,7 @@
    "arch": null,
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -705,6 +823,10 @@
    "arch": "Olmo2ForCausalLM",
    "preflight_reason": null,
    "n_cells": 57,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 1
+   },
    "INCLUDED": true
   },
   {
@@ -725,6 +847,7 @@
    "arch": "OlmoeForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -745,6 +868,7 @@
    "arch": "Olmo3ForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -765,6 +889,7 @@
    "arch": "Olmo3ForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -785,6 +910,7 @@
    "arch": "OlmoHybridForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -805,6 +931,7 @@
    "arch": "BaichuanForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -825,6 +952,7 @@
    "arch": "BloomForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -845,6 +973,7 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": "croissantllm/CroissantLLMBase: Loads; DELETES CJK CHARACTERS. \u4ed6\u65e2\u662f\u7f8e\u4e3d\u7684\u53c8\u662f\u6076\u5fc3\u7684\uff0c\u5979\u60f3\u8981 -> \u4ed6\u662f\u7f8e\u7684\u662f\u5fc3\u7684\u60f3\u8981,",
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -864,6 +993,7 @@
    "arch": null,
    "preflight_reason": "deepseek-ai/deepseek-llm-7b-base: **LOADS AND RUNS, AND SILENTLY DESTROYS THE PROMPT.** backen",
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -884,6 +1014,10 @@
    "arch": "Gemma2ForCausalLM",
    "preflight_reason": null,
    "n_cells": 57,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 1
+   },
    "INCLUDED": true
   },
   {
@@ -904,6 +1038,7 @@
    "arch": "RecurrentGemmaForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -924,6 +1059,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 56,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 2
+   },
    "INCLUDED": true
   },
   {
@@ -944,6 +1083,10 @@
    "arch": "GraniteForCausalLM",
    "preflight_reason": null,
    "n_cells": 57,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 1
+   },
    "INCLUDED": true
   },
   {
@@ -964,6 +1107,7 @@
    "arch": "JAISLMHeadModel",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -984,6 +1128,7 @@
    "arch": "InternLM2ForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -1004,6 +1149,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 57,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 1
+   },
    "INCLUDED": true
   },
   {
@@ -1024,6 +1173,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 57,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 1
+   },
    "INCLUDED": true
   },
   {
@@ -1044,6 +1197,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 56,
+   "cells_shortfall": {
+    "few_movers": 2,
+    "not_in_store": 2
+   },
    "INCLUDED": true
   },
   {
@@ -1064,6 +1221,9 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 0,
+   "cells_shortfall": {
+    "not_in_store": 60
+   },
    "INCLUDED": false
   },
   {
@@ -1084,6 +1244,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 56,
+   "cells_shortfall": {
+    "few_movers": 2,
+    "not_in_store": 2
+   },
    "INCLUDED": true
   },
   {
@@ -1104,6 +1268,10 @@
    "arch": "Phi3ForCausalLM",
    "preflight_reason": null,
    "n_cells": 56,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 2
+   },
    "INCLUDED": true
   },
   {
@@ -1124,6 +1292,10 @@
    "arch": "MistralForCausalLM",
    "preflight_reason": null,
    "n_cells": 57,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 1
+   },
    "INCLUDED": true
   },
   {
@@ -1143,6 +1315,7 @@
    "arch": null,
    "preflight_reason": "mosaicml/mpt-7b: REPO IS GONE: 'not a local folder and is not a valid model i",
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -1163,6 +1336,7 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": "openGPT-X/Teuken-7B-base-v0.6: Loads; normalises the FULLWIDTH COMMA to ASCII. Drops only \uff0c",
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -1183,6 +1357,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 57,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 1
+   },
    "INCLUDED": true
   },
   {
@@ -1203,6 +1381,10 @@
    "arch": "StableLmForCausalLM",
    "preflight_reason": null,
    "n_cells": 57,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 1
+   },
    "INCLUDED": true
   },
   {
@@ -1223,6 +1405,7 @@
    "arch": "FalconH1ForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -1243,6 +1426,7 @@
    "arch": "FalconH1ForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -1263,6 +1447,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 55,
+   "cells_shortfall": {
+    "few_movers": 3,
+    "not_in_store": 2
+   },
    "INCLUDED": true
   },
   {
@@ -1283,6 +1471,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 52,
+   "cells_shortfall": {
+    "few_movers": 6,
+    "not_in_store": 2
+   },
    "INCLUDED": true
   },
   {
@@ -1303,6 +1495,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 57,
+   "cells_shortfall": {
+    "not_in_store": 2,
+    "few_movers": 1
+   },
    "INCLUDED": true
   },
   {
@@ -1323,6 +1519,10 @@
    "arch": "LlamaForCausalLM",
    "preflight_reason": null,
    "n_cells": 56,
+   "cells_shortfall": {
+    "few_movers": 2,
+    "not_in_store": 2
+   },
    "INCLUDED": true
   },
   {
@@ -1343,6 +1543,7 @@
    "arch": "FalconMambaForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -1363,6 +1564,7 @@
    "arch": "FalconMambaForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -1383,6 +1585,7 @@
    "arch": "GPTNeoXForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   },
   {
@@ -1403,6 +1606,7 @@
    "arch": "GlmForCausalLM",
    "preflight_reason": null,
    "n_cells": null,
+   "cells_shortfall": {},
    "INCLUDED": false
   }
  ]

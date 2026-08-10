@@ -76,6 +76,7 @@ def main():
         pid = v.get("prompt_id") or ""
         if any(pid.startswith(w) for w in want) or pid.startswith("e7_"):
             prompts.append({"prompt": v["prompt"], "prompt_id": pid,
+                            "lang": "zh" if pid.endswith("_zh") else "en",
                             "domain": v.get("domain"), "subdomain": v.get("subdomain")})
     seen, uniq = set(), []
     for p in prompts:
@@ -89,6 +90,7 @@ def main():
         per_obs.setdefault(o.get("model_id"), []).append(o)
 
     rows, tally = [], Counter()
+    no_store, few, no_cell = {}, {}, {}
     for i, pr in enumerate(Registry().base_aligned_pairs()):
         b, al = pr["base"], pr["aligned"]
         r = {"idx": i, "base": b, "aligned": al, "stage": pr.get("stage"),
@@ -116,20 +118,39 @@ def main():
             if blocked: break
         r["gates"]["preflight_clean"] = blocked is None
         r["preflight_reason"] = blocked
-        n_cells = None
+        n_cells, why = None, Counter()
         if r["gates"]["local"] and r["gates"]["arch_patchable"] and not blocked:
             try:
                 st = Step(Checkpoint(b), Checkpoint(al))
                 n_cells = 0
                 for p in prompts:
+                    #: **`movement()` RETURNS `None` WHEN THE twp STORE HAS NO
+                    #: PAYLOAD FOR THAT (model, prompt).** An earlier version of
+                    #: this loop wrapped the body in a bare `except: pass`, which
+                    #: turned "this prompt was never scored" and "this prompt has
+                    #: few movers" into ONE number with no reason attached -- and
+                    #: those are different facts about the population. Store
+                    #: coverage is an absence to be named; a low mover count is a
+                    #: property of the cell. Counted apart, never pooled.
                     try:
-                        c = st.cell(p["prompt"]); m = c.movement(CANONICAL)
-                        if len(m.fallers) + len(m.risers) >= 4: n_cells += 1
-                    except Exception:
-                        pass
+                        c = st.cell(p["prompt"])
+                    except Exception as e:
+                        why["cell_error:" + type(e).__name__] += 1
+                        no_cell.setdefault(p["prompt_id"], set()).add(al); continue
+                    m = c.movement(CANONICAL)
+                    if m is None:
+                        why["not_in_store"] += 1
+                        no_store.setdefault(p["prompt_id"], set()).add(al); continue
+                    n = len(m.fallers) + len(m.risers)
+                    if n >= 4:
+                        n_cells += 1
+                    else:
+                        why["few_movers"] += 1
+                        few.setdefault(p["prompt_id"], set()).add(al)
             except Exception as e:
                 r["cells_error"] = type(e).__name__
         r["n_cells"] = n_cells
+        r["cells_shortfall"] = dict(why)
         r["gates"]["enough_cells"] = bool(n_cells is not None and n_cells >= a.min_cells)
         r["INCLUDED"] = all(r["gates"].values())
         rows.append(r)
@@ -155,6 +176,29 @@ def main():
         for r in inc:
             print("    idx %-3d %-46s %2d blocks  %2d cells"
                   % (r["idx"], r["aligned"][:46], r.get("n_blocks") or -1, r["n_cells"]))
+    n_pairs = len(inc)
+    dead = sorted(k for k in set(list(no_store) + list(few))
+                  if len(no_store.get(k, ())) + len(few.get(k, ())) >= n_pairs)
+    print("\n  PROMPTS CONTRIBUTING ZERO CELLS IN EVERY INCLUDED PAIR: %d" % len(dead))
+    for k in dead:
+        tag = "not in twp store" if k in no_store else "<4 movers everywhere"
+        print("     %-26s %s" % (k, tag))
+    print("  analysable prompts (>=1 cell somewhere): %d of %d"
+          % (len(prompts) - len(dead), len(prompts)))
+    tot = Counter()
+    for r in inc: tot.update(r.get("cells_shortfall") or {})
+    print("\n  CELL ARITHMETIC, stated as a computation the next reader re-runs:")
+    print("     %d pairs x %d prompts          = %d potential"
+          % (n_pairs, len(prompts), n_pairs * len(prompts)))
+    for k, v in sorted(tot.items()):
+        print("     -%4d  %s" % (v, k))
+    print("     = %d observed (sum of per-pair n_cells = %d)"
+          % (n_pairs * len(prompts) - sum(tot.values()), sum(r["n_cells"] for r in inc)))
+    lang = Counter(p["lang"] for p in prompts)
+    print("\n  LANGUAGE: en %d / zh %d  -- the _zh twins run through the CATEGORY"
+          % (lang["en"], lang["zh"]))
+    print("     prompts too, not only e7, so this is HALF the population and not a")
+    print("     minority arm. `lang` is a column and no pooled figure may mix them.")
     lst = "\n".join(sorted("%s>%s" % (r["base"], r["aligned"]) for r in inc))
     print("\n  included-pair list sha256/16    %s" % sha16(lst))
     if a.write:
@@ -165,7 +209,10 @@ def main():
                "included_list_sha256_16": sha16(lst),
                "min_cells": a.min_cells,
                "n_prompts": len(prompts), "n_pairs_registry": len(rows),
-               "n_included": len(inc), "prompts": prompts, "pairs": rows}
+               "n_included": len(inc), "n_lang_en": lang["en"], "n_lang_zh": lang["zh"],
+               "zero_cell_prompts": dead, "cells_observed": sum(r["n_cells"] for r in inc),
+               "cells_shortfall": dict(tot),
+               "prompts": prompts, "pairs": rows}
         p = os.path.join(ROOT, "data", "h2_sweep_population.json")
         json.dump(out, open(p, "w"), indent=1)
         print("  wrote data/h2_sweep_population.json")
