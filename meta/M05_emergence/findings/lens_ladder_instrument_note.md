@@ -120,10 +120,20 @@ with zero degenerate cells in 672 attempted.** On a scale where NEITHER is 1.006
 and the trained endpoint sits at 0.88, a randomly initialised network is not
 separable from a trained one at this grain.
 
-This confirms [5426]'s correction in output terms rather than geometric ones —
-untrained means spread, not collapsed. It also says the ratio has too little
-dynamic range along a ladder to see a gate form, which is the real reason
-question 2 has no answer here.
+This confirms [5426]'s correction in output terms rather than geometric ones --
+untrained means spread, not collapsed. **QUALIFIED, same day ([5445]/[5446]):
+spread UNIFORMLY.** On the geometry side `pole_sep` at step 0 is flat across all
+32 layers (min 0.7492, max 0.8123, ratio 1.1x with no guard applied), against
+18.9x spread by step 16,000. A flat depth profile is what a random projection
+gives: each layer is a random map, relative distances pass through unchanged,
+and the number reports only that two prompts are different token sequences. So
+"spread" at init is not a fact about representation, and [5426]'s reading of
+step 0 as REFUTING the [5378] prediction is withdrawn -- step 0 cannot test it,
+because the ratio there is read through a random head and
+[5220]-[5223] says that is not a quantity.
+
+It also says the ratio has too little dynamic range along a ladder to see a gate
+form, which is the real reason question 2 has no answer here.
 
 ## 4. NULL: no endpoint alignment contrast
 
