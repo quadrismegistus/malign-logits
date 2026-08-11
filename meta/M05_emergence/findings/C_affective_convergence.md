@@ -104,9 +104,10 @@ proper next step is the DiD on the 43 edges, not a fourth M05 rung analysis.
 All one lineage (OLMo). 95 rungs are not 95 independent observations — for a
 minimal-pair contrast the rungs buy TIMING and SHAPE (the convergence happens
 under alignment, visible across the arm) but NOT generalisation. The
-existence/convergence claim's proper test is a 46-lineage base->aligned
-difference-in-differences on these same 105 pairs (the M01 store, nearly
-free) — OWED, and it is what would turn "OLMo converges" into "aligned models
-converge." Does not overturn D2 (which found site-specific de-extremification
+The generalisation of the convergence is already M01 finding T (finding
+13, edge unit, 43 alignment edges) — see the section above; what is
+genuinely owed is only the affect-norm signed DiD (Result 3) re-run at
+T's edge unit, which would put the convergence SIGN on the roster rather
+than one lineage. Does not overturn D2 (which found site-specific de-extremification
 with a targeted affect instrument) — it is the training-trajectory,
 convergence-signed form of the same axis.
