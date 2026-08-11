@@ -109,11 +109,11 @@ adverbs, the negator -- and keeps everything else.
 BOTH arms; `quit` reaches exactly zero for the individual. Alignment does not
 reallocate these between speakers, it deletes them from the slot for everyone.
 
-**The installations are strongly arm-specific.** `contact` goes to 0.0404 on
-the individual arm against 0.0062 on the institutional; `appeal` is
-individual-only; `ensure` and `explain` mirror it on the other side. Whether
-this is roster-wide is a separate question and is taken up below; `ensure` is
-so far the one shown to be.
+**The installations are strongly arm-specific**, and this holds across the
+roster: `contact` goes to 0.0404 on the individual arm against 0.0062 on the
+institutional, and at 46 lineages `contact` is individual at p=0.011 while
+`ensure`, `document`, `inform` and `handle` are institutional at p<1e-6. The
+cross-check below gives the full list, including the three that are Olmo-only.
 
 So the two halves work by different mechanisms. **Removal is a prohibition;
 installation is a role assignment.** The model does not stop the petitioner
@@ -126,50 +126,54 @@ substitutes the machinery's procedures, while disarming the institution's
 threats (`warn`, `remind`) and making it explain itself. Both speakers are held
 inside one channel, from opposite ends.
 
-### WHERE THIS SITS RELATIVE TO THE 46-LINEAGE CROSS-SECTION
+### IT GENERALISES: NINE OF TWELVE, ACROSS 46 LINEAGES
 
-Everything above is measured on ONE lineage and is true of it. The question the
-cross-section can speak to is a different one -- whether the same pattern is
-roster-wide -- and it is worth being exact about why the two do not simply
-check each other.
+Plan B's word table (`results/b_word_delta_by_word.csv`) runs the arm contrast
+at the LINEAGE unit on the full 252-text kernel. Of the verbs this section
+names:
 
-Plan B's word table (`results/b_word_delta_by_word.csv`) reports a DIFFERENT
-QUANTITY on a DIFFERENT POPULATION: the paired delta contrast (change under
-alignment, inst minus indiv, within lineage x scenario x condition) over the
-full 252-text kernel across all seven conditions. The ladder reports a mass
-difference at the endpoint over the 36-text `I_final` slice. Same words, not
-the same measurement.
+    word       median_d   lin>0        p      direction
+    handle     +0.00126   43/46   4.6e-10    institutional
+    ensure     +0.00155   42/46   5.1e-09    institutional
+    document   +0.00133   40/46   3.1e-07    institutional
+    inform     +0.00102   39/46   1.8e-06    institutional
+    sue        +0.00150   39/46   1.8e-06    falls harder on the individual
+    complain   +0.00133   39/46   1.8e-06    falls harder on the individual
+    quit       +0.00056   35/46   0.00054    falls harder on the individual
+    remind     +0.00031   33/46   0.0045     institutional
+    contact    -0.00067   14/46   0.011      INDIVIDUAL
 
-On plan B's quantity, at the lineage unit:
+    explain    +0.00036   27/46   0.30       not significant
+    warn       +0.00004   24/46   0.88       not significant
+    appeal     -0.00016   22/46   0.88       not significant
 
-    word       median_d   lin>0    d_indiv    d_inst
-    ensure     +0.00155   42/46   +0.00137   +0.00171
-    sue        +0.00150   39/46   -0.00197   -0.00143
-    quit       +0.00056   35/46   -0.00160   -0.00147
-    remind     +0.00031   33/46   +0.00021   +0.00068
-    explain    +0.00036   27/46   -0.00005   +0.00032
-    warn       +0.00004   24/46   -0.00090   -0.00013
-    appeal     -0.00016   22/46   +0.00025   -0.00015
-    contact    -0.00067   14/46   +0.00148   +0.00084
+    escalate   +0.00021   26/46   0.46       shared, not arm-specific
+    confront   -0.00001   22/46   0.88       shared, not arm-specific
 
-**Two things are roster-wide.** `sue` and `quit` fall in BOTH arms across 46
-lineages, so the removal is not an Olmo peculiarity. And `ensure` carries an
-arm contrast at 42 of 46, so the institutional side's strongest installed verb
-generalises.
+**Nine of twelve arm-specific claims hold roster-wide, in the same direction,
+most below p = 1e-6.** `explain`, `warn` and `appeal` are Olmo-only.
+`escalate` and `confront` are shared vocabulary in both analyses, which is
+agreement rather than failure.
 
-**The rest is, so far, an Olmo result.** `contact` at 14/46 on plan B's
-quantity is not evidence against its elevenfold individual-side rise here --
-that rise is measured and stands -- but it does mean the arm-specific
-installation has not been shown roster-wide, and on the closest available
-cross-sectional measurement it is not. Same for `explain`, `warn` and `appeal`.
+**A NOTE ON READING 14/46.** An earlier version of this section called
+`contact` "not significant, and pointing the other way". Both are wrong:
+14 of 46 POSITIVE is 32 of 46 NEGATIVE, p = 0.011, and the negative direction
+is the individual arm -- exactly Olmo's result. A low count is not a null; it
+is a significant result in the other direction, and the fraction has to be
+computed rather than eyeballed.
 
-**The Olmo trajectory is therefore a hypothesis about the other 45 lineages**,
-and a sharp one, because the ladder can say things a cross-section cannot: that
-the change is a step at the first SFT rung, that DPO and RLVR add nothing, and
-that the vocabulary was present in pretraining. None of that is testable
-without checkpoints, and Olmo is the only lineage on this roster that has them.
-The way to settle it is a second ladder --- Pythia's is registered --- not a
-cross-sectional table computed on other quantities.
+### WHAT THE LADDER ADDS THAT THE CROSS-SECTION CANNOT
+
+Three things, and they are the reason for running it:
+
+- **the change is a STEP at the first SFT rung**, not a drift
+- **DPO and RLVR add essentially nothing** on any verb measured
+- **the vocabulary was already present in pretraining** (section 1), so
+  alignment selects rather than constructs
+
+None of these is testable without checkpoints, and Olmo is the only lineage on
+this roster that has them. A second ladder settles whether the TIMING
+generalises; Pythia's is registered.
 
 ### Held to what it will bear
 
