@@ -1,0 +1,10 @@
+family,model,f11,mine
+olmo-tiny,allenai/OLMo-2-0425-1B,0.61,0.8306019010245637
+olmo,allenai/Olmo-3-1025-7B,0.7,0.8200093917462447
+zephyr,mistralai/Mistral-7B-v0.1,0.82,0.944912784478138
+amber,LLM360/Amber,0.87,0.8997099803137298
+qwen,Qwen/Qwen2.5-7B,0.89,0.899074979438795
+llama,meta-llama/Llama-3.1-8B,0.87,0.8755718220694623
+deepseek-7b,deepseek-ai/deepseek-llm-7b-base,0.76,0.8729474985226988
+smol,HuggingFaceTB/SmolLM2-360M,0.74,0.8440954552904749
+pythia,EleutherAI/pythia-6.9b,0.72,0.8811755521134867

@@ -194,6 +194,54 @@ substrates. Poles driven apart, superposition collapsing, output landing near
 neither pole. The arrow is not established -- both may track how much alignment
 happened -- and the checkpoint ladder is what would settle it.
 
+## F11's gradient reproduces in ORDER and not in SCALE
+
+This document refuses to compare its numbers to F11's published 0.61-0.89
+because the substrates differ. That refusal is correct and it also dodges the
+question, so: measured, family by family, against the registry's own declared
+`family` and `stage` fields.
+
+    family       declared base                 F11     mine
+    olmo-tiny    OLMo-2-0425-1B               0.61    0.831
+    olmo         Olmo-3-1025-7B               0.70    0.820
+    zephyr       Mistral-7B-v0.1              0.82    0.945
+    amber        Amber                        0.87    0.900
+    qwen         Qwen2.5-7B                   0.89    0.899
+    llama        Llama-3.1-8B                 0.87    0.876
+    deepseek-7b  deepseek-llm-7b-base         0.76    0.873
+    smol         SmolLM2-360M                 0.74    0.844
+    pythia       pythia-6.9b                  0.72    0.881
+
+    ORDERING  Pearson r +0.704 p=0.034   Spearman rho +0.728 p=0.026
+    SCALE     F11 spread 0.280   mine 0.125   mean offset +0.099, higher in 9 of 9
+
+**The ordering replicates. The scale does not.** Same direction, less than half
+the spread, every family a tenth higher. The prompt population differs -- F11's
+11 hand-chosen pairs against 22 live English quintuplet groups -- and this is
+the F13 pattern again: direction survives, numbers do not.
+
+It sharpens rather than softens what this document already says. F11's
+load-bearing sentences are ABSOLUTE readings: "Zephyr 1.01, crosses the
+threshold -- no safety data" is called the cleanest proof in the parent. A
+crossing claim needs a scale that does not move and a boundary that means
+something. **The scale moves by 0.10 with the prompt set, and the boundary is
+where neither pole lands.** The ordering claim survives both; the crossing claim
+survives neither.
+
+    tulu and qwen-tiny drop out, correctly and for different reasons: tulu has
+    no base-stage member in the registry, and Qwen2.5-0.5B is a scale sibling of
+    Qwen2.5-7B and so not a lineage representative.
+
+**A defect in my own first pass, since it is the night's recurring one.** The
+first version hand-built the family -> model mapping and got `pythia` wrong
+(2.8b against the registry's declared 6.9b base). The registry carries `family`
+and `stage` and I did not look. It moved the answer only slightly, r +0.739 by
+hand against +0.704 declared, which is luck rather than vindication -- it is
+lineage.py's regex beside the stored map, in miniature, caught by asking whether
+the mapping already existed and not by the number looking wrong.
+
+Producer: `scripts/f11_reproduction.py`. Result: `results/f11_reproduction.csv`.
+
 ## Reproduction
 
     uv run python meta/M02_frame_exit/scripts/contradiction_null.py --logits
