@@ -48,6 +48,8 @@ frozen (the 4-prompt raw probe read RLVR as "nothing"; the instrument
 sees +10%). The substitute does not arrive after the prohibition — it
 never stops arriving.
 
+![Event vs drift: fallers complete inside SFT, risers climb through every stage](../figures/fig1_event_vs_drift.png)
+
 CAVEATS. Aggregate CI separation is a hard criterion at n=105 prompts;
 the riser's non-onset is a statement about that criterion, not a null
 about the rise (the +48% is visible in the medians). DPO is a single
@@ -81,6 +83,8 @@ exactly the work [5379] added it for. A time-to-half-max milestone would
 resolve the ordering the onset criterion cannot; it is POST-HOC and runs
 labeled as such if it runs (RH's word pending).
 
+![Capacity acquisition on the stage1 base ladder; post-hoc half-max ordering](../figures/fig2_capacity_acquisition.png)
+
 ## Result 3: the true zero, and its Chinese twin
 
 At stage1-step0, 257 of 584 cells are complete, conservation-exact
@@ -91,6 +95,42 @@ a gap. The same instrument reading appears wherever a model meets a
 language it never acquired: 937 zh cells across 21 non-zh-lineage models
 ([5420]) — the undifferentiated floor is one phenomenon in two guises,
 and it is now readable rather than invisible ([5418] read-path fix).
+
+## Result 4 (secondary): the frame axis, and an arrow that does not resolve
+
+Secondary 4 asked whether the contradiction ratio and the pole-separation
+geometry move together across the SFT rungs, and which leads (the arrow the
+[5378] predictions were about). Both were computed on the English quintuplet
+block: the calibrated contradiction ratio from twp, pole_sep from the hidden
+sidecars (lacan's corrected within-layer instrument).
+
+    LEVELS co-move on the SFT arm (Spearman +0.61, p 1.3e-05)
+    RUNG-TO-RUNG changes are UNCOUPLED (co-drift rho -0.12, p .45)
+    NO LEAD either way (sep-leads .085 / ratio-leads .17, both n.s.)
+
+So the two rise together as "how much alignment has happened" but neither
+drives the other at rung grain: the common-cause branch survives, which the
+plan's own priors named as itself a result. The single sharpest geometric
+fact is not the arrow but the first 1,000 steps of pretraining — pole
+separation collapses 0.79 -> 0.23 there, dwarfing every later move including
+all of alignment (spread -> collapse -> gradual re-separation). One
+prediction was refuted and its falsifier withdrawn by its author: step0's
+pole_sep is the LARGEST on the ladder, because an untrained net separates
+inputs arbitrarily, and step0 is the random-init reference the instrument
+lacked.
+
+![Contradiction ratio across training, the unjoined half](../figures/fig4_ratio_unjoined.png)
+
+## Result 5 (secondary): the reasoning frame is template-keyed throughout
+
+Raw-mode probe (no chat template) at the final RLVR checkpoint: p(first
+`<think>` piece) sits at rank 3.5k-42k across four prompts, statistically
+identical to every Think-SFT checkpoint. The reasoning frame never becomes
+ambient; it lives entirely inside the template, from the first SFT step to
+the last RLVR one. The raw next-word distribution barely moves under RLVR
+(kill 0.035 vs SFT-final's identical), yet the instrument sees the riser
+drift the anecdote could not (+10% across RLVR at battery grain) -- the
+frozen surface and the continuing drift coexist.
 
 ## What this does to the standing findings
 
@@ -115,8 +155,9 @@ and it is now readable rather than invisible ([5418] read-path fix).
 
 ## Not yet in this finding
 
-Secondary 4 (pole_sep arrow + U-discriminator, predictions registered at
-[5378]) — next to run. Secondary 5 (syntax curve) — needs the frozen
-licit-artifact. The join check (which base revision SFT descends from).
-Format-vs-correction greedy coding. Each lands as its own section or its
-own finding; none is quotable from this document.
+Secondary 5 (the syntax curve) — needs the frozen licit-category artifact.
+The join check (which base revision SFT descends from). Format-vs-correction
+greedy coding. The field-flow, per-prompt, and affective-convergence results
+have their own finding documents (B, C, D). Everything here is one lineage
+(OLMo); the generalisable tests want the 46-lineage store and the held Pythia
+arm.

@@ -36,6 +36,26 @@ ladder this is the closest thing any vendor releases to a continuous
 pretraining-to-post-training run; no family anywhere releases preference-stage
 trajectories (agent survey, 2026-08-10, data/model_revisions.json).
 
+## Findings (drafts, grade C, one lineage — 2026-08-11)
+
+    findings/A_acquisition.md          the prohibition is an event, the
+                                       substitution is a drift; base-arm
+                                       acquisition order; the true zero; the
+                                       frame arrow; RLVR template-keyed
+    findings/B_field_flow.md           alignment de-concretizes — semantic-
+                                       field flow across four lexicons
+    findings/C_affective_convergence.md  site-specificity lives in affect;
+                                       alignment NARROWS the transgressive/
+                                       neutral gap (permutation + DiD nulls)
+    findings/D_word_trajectories.md    displacement word by word; the poetic
+                                       re-binding; scene/lineage-specific
+                                       displacement; SFT does the visible work
+
+Figures in figures/fig1..fig13 (plotnine, 300 dpi), embedded in the findings.
+Every finding re-derives from the scripts named in its header. All ONE LINEAGE
+(OLMo-3); the generalisable tests owed: 46-lineage convergence DiD (M01 store),
+the Pythia second fleet, the syntax curve, the join check.
+
     plans/a_thinksft_acquisition.md   phase 1 — the 43-step SFT ladder
     (phase 2, base-ladder subsample for F24's TODO, gets its own plan
     document after phase 1 lands)
