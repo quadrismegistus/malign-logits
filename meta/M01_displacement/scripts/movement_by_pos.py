@@ -73,6 +73,39 @@ met this, after pole_sep across pairs, attention across six pairs, and the
 [5475] FUNC/CONTENT split, and the pooled number was the uninformative one
 again.
 
+## AND THE SEMANTIC READING OF THAT SPLIT IS DEMOTED — SEE `confound_check`
+
+@lacan's [5485] voided a finding for an eligibility tautology and found that
+fall rate tracks external frequency at rho +0.325. Both threats were run against
+this table and they do not land the same way:
+
+    ELIGIBILITY   SURVIVED. Restricted to base-scored words the manner fall
+                  rate moves 32.3% -> 32.5%. Only 16 of 163 manner words were
+                  aligned-only, against 24 of 31 for the voided result.
+    FREQUENCY     MOSTLY CONFOUNDED. Manner adverbs have median 9.3 fpm,
+                  temporal 670.6 -- SEVENTY-TWO-FOLD apart. Inside the overlap
+                  window the 23-point gap collapses to 7 points, and the two
+                  groups still differ 3.5x in median fpm even there.
+
+So the DESCRIPTION stands -- ADV's flat pooled number hides two subclasses that
+behave differently, and that remains a reason never to quote the pooled figure.
+**The EXPLANATION does not.** "Manner adverbs resist alignment because they are
+manner" is not separable here from "rare words cannot fall, and manner adverbs
+are rare". This is the mirror of lacan's closed-class result: he found closed
+classes have no low-frequency members, and manner adverbs have almost no
+high-frequency ones. Neither contrast is testable on this instrument.
+
+What would test it: a manner/temporal contrast matched on external frequency,
+which needs more high-frequency manner adverbs than the battery contains, or a
+rate measured against a per-cell eligibility denominator rather than a
+vocabulary-level one.
+
+**Note the grain caution on the eligibility fix.** Base-arm VOCABULARY is a
+corpus-level predicate; the gate is a per-CELL fact (`P >= 0.003` at each site).
+A word can be in the base vocabulary and still be ineligible at most cells, so
+the restriction above is a COARSE version of the right check and is quoted as
+such.
+
 ## THE BUCKETS WERE DECLARED BEFORE LOOKING
 
 `-ly` as the manner proxy and a CLOSED list of temporal/deictic adverbs, both
@@ -119,6 +152,73 @@ def bucket(word):
     if word.lower().endswith("ly"):
         return "manner (-ly)"
     return "other"
+
+
+def confound_check(risers, fallers, cls):
+    """Two threats to the manner result, run in the order they were raised.
+
+    (1) THE ELIGIBILITY TAUTOLOGY (@lacan [5485]). The arms score different
+        vocabularies -- base 9,196, aligned 13,006 -- and a word absent from
+        base can only ever rise, because `movement.py:230` admits a faller only
+        at `P >= 0.003` on the BASE arm. That voided lacan's 31/31 result
+        outright. Restricting to base-scored words is the fix he named.
+
+    (2) THE FREQUENCY CONFOUND, which is the one that bites here. Manner
+        adverbs are RARE and temporal adverbs are COMMON, and fall rate tracks
+        external frequency at rho +0.325. So `manner falls less than temporal`
+        may be nothing but the gate seen through a lexical-class label.
+    """
+    import statistics as sst
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from frequency_confound import arm_vocab, load as fc_load
+    base, aligned = arm_vocab()
+    _, fpm = fc_load()
+
+    def tally(ws):
+        r = sum(int(risers.get(w, 0)) for w in ws)
+        f = sum(int(fallers.get(w, 0)) for w in ws)
+        return {"words": len(ws), "rises": r, "falls": f,
+                "fall_rate": round(f / (r + f), 4) if r + f else None}
+
+    moved = [w for w in set(risers) | set(fallers) if cls.get(w) == "ADV"]
+    buck = {b: [w for w in moved if bucket(w) == b]
+            for b in ("manner (-ly)", "temporal/deictic", "other")}
+
+    #: (1) base-restriction
+    restricted = {b: tally([w for w in ws if w in base]) for b, ws in buck.items()}
+
+    #: (2) frequency overlap. Compare ONLY where the two buckets' external
+    #: frequency ranges intersect; if they barely do, the contrast is untestable
+    fq = {b: sorted(fpm[w.lower()] for w in ws if w.lower() in fpm)
+          for b, ws in buck.items()}
+    M, T = fq["manner (-ly)"], fq["temporal/deictic"]
+    lo, hi = min(T), max(M)
+    inwin = {b: [w for w in buck[b]
+                 if w.lower() in fpm and lo <= fpm[w.lower()] <= hi]
+             for b in ("manner (-ly)", "temporal/deictic")}
+    win = {b: tally(ws) for b, ws in inwin.items()}
+    for b in win:
+        v = [fpm[w.lower()] for w in inwin[b]]
+        win[b]["median_fpm"] = round(sst.median(v), 1) if v else None
+    return {
+        "eligibility": {
+            "base_vocab": len(base), "aligned_vocab": len(aligned),
+            "restricted_to_base_scored": restricted,
+            "verdict": "manner SURVIVES: the fall rate moves 32.3% -> 32.5%. "
+                       "Only 16 of 163 manner words were aligned-only, against "
+                       "24 of 31 for the capitalisation result this voided.",
+        },
+        "frequency": {
+            "median_fpm": {b: round(sst.median(v), 1) for b, v in fq.items() if v},
+            "overlap_window": [round(lo, 1), round(hi, 1)],
+            "within_window": win,
+            "verdict": "MOSTLY CONFOUNDED. The buckets differ 72x in median "
+                       "frequency; inside the overlap the 23-point gap falls to "
+                       "7 points, and the two groups STILL differ 3.5x in "
+                       "median fpm there. The residual is not separable with "
+                       "this instrument.",
+        },
+    }
 
 
 def main():
@@ -195,6 +295,8 @@ def main():
     for w, vc in strand.items():
         print("    %-6s %s" % (w, dict(list(vc.items())[:3])))
 
+    conf = confound_check(risers, fallers, upos)
+
     print("\nADV IS A CANCELLATION, NOT A FLAT CLASS\n")
     print("%-18s %8s %8s %8s %10s %7s"
           % ("bucket", "rises", "falls", "net", "fall rate", "words"))
@@ -206,6 +308,23 @@ def main():
                  100 * (r["fall_rate"] or 0), r["n_words"]))
     print("%-18s %8d %8d %+8d %9.1f%%"
           % ("ALL ADV", tr, tf, tr - tf, 100 * tf / (tr + tf)))
+
+    e, f = conf["eligibility"], conf["frequency"]
+    print("\n(1) ELIGIBILITY — base scores %d words, aligned %d; a word absent "
+          "from\n    base can only RISE (@lacan [5485])."
+          % (e["base_vocab"], e["aligned_vocab"]))
+    for b, v in e["restricted_to_base_scored"].items():
+        print("      %-18s %5d words  fall rate %5.1f%%"
+              % (b, v["words"], 100 * (v["fall_rate"] or 0)))
+    print("    %s" % e["verdict"])
+    print("\n(2) FREQUENCY — median external fpm by bucket:")
+    for b, v in f["median_fpm"].items():
+        print("      %-18s %9.1f" % (b, v))
+    print("    overlap window %.1f .. %.1f fpm:" % tuple(f["overlap_window"]))
+    for b, v in f["within_window"].items():
+        print("      %-18s %3d words  fall rate %5.1f%%  median fpm %7.1f"
+              % (b, v["words"], 100 * (v["fall_rate"] or 0), v["median_fpm"]))
+    print("    %s" % f["verdict"])
 
     if a.write:
         json.dump({
@@ -256,6 +375,7 @@ def main():
             "_class_join": "a word's class is its MODAL in-context upos across "
                            "the battery; %d of %d moved words joined."
                            % (joined, len(words)),
+            "_confound_checks": conf,
             "by_pos": pos_rows,
             "adv_buckets": [{k: v for k, v in r.items()} for r in adv_rows],
         }, open(OUT, "w"), indent=1)

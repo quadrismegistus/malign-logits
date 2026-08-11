@@ -168,6 +168,61 @@
  },
  "_not_a_test": "summed event counts over a fixed corpus, no pair-level resampling. No interval is quoted because none is computable from these inputs.",
  "_class_join": "a word's class is its MODAL in-context upos across the battery; 3943 of 4399 moved words joined.",
+ "_confound_checks": {
+  "eligibility": {
+   "base_vocab": 9196,
+   "aligned_vocab": 13006,
+   "restricted_to_base_scored": {
+    "manner (-ly)": {
+     "words": 147,
+     "rises": 2724,
+     "falls": 1310,
+     "fall_rate": 0.3247
+    },
+    "temporal/deictic": {
+     "words": 22,
+     "rises": 4693,
+     "falls": 6113,
+     "fall_rate": 0.5657
+    },
+    "other": {
+     "words": 53,
+     "rises": 1502,
+     "falls": 2095,
+     "fall_rate": 0.5824
+    }
+   },
+   "verdict": "manner SURVIVES: the fall rate moves 32.3% -> 32.5%. Only 16 of 163 manner words were aligned-only, against 24 of 31 for the capitalisation result this voided."
+  },
+  "frequency": {
+   "median_fpm": {
+    "manner (-ly)": 9.3,
+    "temporal/deictic": 670.6,
+    "other": 145.7
+   },
+   "overlap_window": [
+    46.6,
+    1000.2
+   ],
+   "within_window": {
+    "manner (-ly)": {
+     "words": 23,
+     "rises": 1680,
+     "falls": 987,
+     "fall_rate": 0.3701,
+     "median_fpm": 91.0
+    },
+    "temporal/deictic": {
+     "words": 13,
+     "rises": 1039,
+     "falls": 821,
+     "fall_rate": 0.4414,
+     "median_fpm": 313.3
+    }
+   },
+   "verdict": "MOSTLY CONFOUNDED. The buckets differ 72x in median frequency; inside the overlap the 23-point gap falls to 7 points, and the two groups STILL differ 3.5x in median fpm there. The residual is not separable with this instrument."
+  }
+ },
  "by_pos": [
   {
    "class": "VERB",
