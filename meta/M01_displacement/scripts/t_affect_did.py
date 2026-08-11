@@ -11,7 +11,7 @@ own unit -- one vote per base->aligned alignment edge across the roster --
 so the SIGN of the convergence gets the generalisation the rungs cannot give.
 
 Per edge e and affect field f:
-    base_gap    = mean over 105 minimal pairs of (mass_marked - mass_unmarked)
+    base_gap    = mean over the minimal pairs of (mass_marked - mass_unmarked)
                   in the BASE arm
     aligned_gap = same in the ALIGNED arm
     DiD_e(f)    = aligned_gap - base_gap
@@ -23,8 +23,7 @@ gap is positive = the transgressive advantage shrinks under alignment
 DECLARED FIELD SET (pre-specified from M05-C, not fished): the norm affect/
 concreteness bins, RID drives, and WN contact/perception/cognition. Field
 mass = twp probability landing in the field (fields.count/norms single-word,
-weighted by p). Population: the 105 beam-sample minimal pairs (a subset of
-T's twins; noted). Edge unit: Registry().base_aligned_pairs(), ambiguous
+weighted by p). Population: the full catalogue MARKED/UNMARKED twin set (en, ACTIVE). Edge unit: Registry().base_aligned_pairs(), ambiguous
 excluded.
 """
 import csv
@@ -63,11 +62,18 @@ def main():
 
     edges = [(p["base"], p["aligned"]) for p in Registry().base_aligned_pairs()
              if not p.get("ambiguous")]
-    by_stem = defaultdict(dict)
-    for r in csv.DictReader(open(PAIRS)):
-        by_stem[r["stem"]][r["member"]] = r
-    pairs = [(v["MARKED"]["prompt"], v["UNMARKED"]["prompt"])
-             for v in by_stem.values() if {"MARKED", "UNMARKED"} <= set(v)]
+    import json
+    pc = json.load(open("data/prompt_categorisation.json"))["prompts"]
+    by_pair = defaultdict(dict)
+    for p in pc:
+        if p.get("language", "en") != "en" or p.get("status") != "ACTIVE":
+            continue
+        role = p.get("pair_role") or p.get("group_role")
+        pid = p.get("pair_id") or p.get("group_id")
+        if role in ("MARKED", "UNMARKED") and pid:
+            by_pair[pid][role] = p["prompt"]
+    pairs = [(v["MARKED"], v["UNMARKED"])
+             for v in by_pair.values() if {"MARKED", "UNMARKED"} <= set(v)]
     print(f"edges {len(edges)} | pairs {len(pairs)} | fields {len(DECLARED)}")
 
     cache = {}
@@ -92,27 +98,42 @@ def main():
             cache[k] = fs & DECLARED
         return cache[k]
 
-    def gap(model, f):
-        vals = []
+    pm_cache = {}
+
+    def prompt_masses(model, prompt):
+        key = (model, prompt)
+        if key not in pm_cache:
+            wp = word_probs(model, prompt)
+            fm = defaultdict(float)
+            if wp is not None and wp.n_rows:
+                for w, pp in wp.probs.items():
+                    for f in affect(w):
+                        fm[f] += pp
+            pm_cache[key] = (fm if (wp is not None and wp.n_rows) else None)
+        return pm_cache[key]
+
+    def gaps_for(model):
+        """field -> mean over pairs of (marked_mass - unmarked_mass)."""
+        acc = defaultdict(list)
         for mk, un in pairs:
-            a, b = word_probs(model, mk), word_probs(model, un)
+            a, b = prompt_masses(model, mk), prompt_masses(model, un)
             if a is None or b is None:
                 continue
-            am = sum(p for w, p in a.probs.items() if f in affect(w))
-            bm = sum(p for w, p in b.probs.items() if f in affect(w))
-            vals.append(am - bm)
-        return np.mean(vals) if vals else np.nan
+            for f in DECLARED:
+                acc[f].append(a.get(f, 0.0) - b.get(f, 0.0))
+        return {f: np.mean(v) for f, v in acc.items() if v}
 
-    did = defaultdict(list)          # field -> [DiD per edge]
+    did = defaultdict(list)
     base_gaps = defaultdict(list)
     for i, (base, al) in enumerate(edges, 1):
+        bg, ag = gaps_for(base), gaps_for(al)
         for f in DECLARED:
-            bg, ag = gap(base, f), gap(al, f)
-            if not (np.isnan(bg) or np.isnan(ag)):
-                did[f].append(ag - bg)
-                base_gaps[f].append(bg)
+            if f in bg and f in ag:
+                did[f].append(ag[f] - bg[f])
+                base_gaps[f].append(bg[f])
+        pm_cache.clear()  # free per-edge; bases/aligned rarely repeat
         if i % 10 == 0:
-            print(f"  {i}/{len(edges)} edges")
+            print(f"  {i}/{len(edges)} edges", flush=True)
 
     rows = []
     for f in DECLARED:

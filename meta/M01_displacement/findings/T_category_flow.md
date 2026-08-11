@@ -612,61 +612,65 @@ Alignment turns the traffic stop into **the officer talking and advising while t
 
 Producer: `scripts/x_m03_pov_fields.py`, output `results/x_m03_pov_fields.csv`.
 
-## 18. The transgressive/neutral AFFECT gap under alignment: content converges, tone diverges
+## 18. The transgressive/neutral AFFECT gap under alignment: mostly it widens
 
-Findings 13 asked whether the withdrawal is transgression-specific (it is).
-This asks the difference-in-differences: for each affect/drive field, does the
-marked-neutral gap CHANGE from the base arm to the aligned arm, one vote per
-alignment edge? Motivated by an M05 (checkpoint-trajectory) result on ONE
-lineage that read the change as convergence; run here at T's edge unit so the
-sign gets the generalisation the single trajectory cannot. Declared field set
-(pre-specified, not fished): the norm valence/arousal/dominance/concreteness
-bins, RID drives, WN contact/perception/cognition, USAS Calm/Violent/Angry.
-Gap = twp mass in the field, marked minus neutral, mean over the 105 minimal
-pairs; DiD per edge = aligned_gap - base_gap; Wilcoxon across edges, BH-FDR
-over 16. `scripts/t_affect_did.py`, 50-51 edges, `results/t_affect_did.csv`.
+The difference-in-differences at T's edge unit: for each affect/drive field,
+does the marked-neutral gap CHANGE from the base arm to the aligned arm, one
+vote per alignment edge? Prompted by an M05 checkpoint-trajectory result on
+ONE lineage that read the change as convergence; run here on the full twin
+set at the edge unit so the SIGN gets the generalisation a single trajectory
+cannot. Declared field set (pre-specified, not fished): the norm valence/
+arousal/dominance/concreteness bins, RID drives, WN contact/perception/
+cognition, USAS Calm/Violent/Angry. Gap = twp mass in the field, marked minus
+neutral, mean over the 788 catalogue MARKED/UNMARKED twins; DiD per edge =
+aligned_gap - base_gap; Wilcoxon across edges, BH-FDR over 16.
+`scripts/t_affect_did.py`, 50 edges, `results/t_affect_did.csv`.
 
-**11 of 16 significant, and they split by what kind of field it is.**
+**13 of 16 significant, and the dominant direction is DIVERGENCE.** Reading
+each by whether the aligned gap sits further from zero than the base gap:
 
-    CONVERGES (transgressive lead shrinks toward the neutral twin)
-      WN: contact                 base +0.0106 -> aligned +0.0068   q .012
-      USAS: Calm/Violent/Angry    base +0.0057 -> aligned +0.0047   q .007
-      NORM: concreteness=abstract base -0.0042 -> aligned -0.0007   q .007
-    DIVERGES (the neutral twin's affective lead grows)
-      NORM: valence=positive      base -0.0286 -> aligned -0.0379   q 3.6e-07
-      NORM: arousal=calm          base -0.0270 -> aligned -0.0348   q 1.1e-06
-      NORM: dominance=dominant    base -0.0255 -> aligned -0.0316   q 1.2e-05
-      WN: cognition               base -0.0065 -> aligned -0.0086   q 2.5e-05
-      RID: sensation:vision, RID: abstraction, RID: regressive_cognition:
-      concreteness, NORM: valence=negative (marginal)
-    NULL (the transgressive drive/arousal lead does not move)
-      RID: aggression   q .83     NORM: arousal=aroused   q .62
-      NORM: concreteness=concrete q .48   NORM: dominance=submissive q .17
+    WIDENS -- the neutral twin pulls further into its register
+      NORM: valence=positive     base -0.0210 -> aligned -0.0255   q 2.2e-06
+      NORM: arousal=calm         base -0.0192 -> aligned -0.0240   q 4.5e-07
+      NORM: dominance=dominant   base -0.0188 -> aligned -0.0220   q 2.0e-05
+      WN: cognition, WN: perception, RID: sensation:vision,
+      RID: regressive_cognition:concreteness, RID: abstraction (all q<0.01)
+    WIDENS -- the transgressive twin pulls further into ITS register
+      NORM: arousal=aroused      base +0.0166 -> aligned +0.0183   q 1.5e-03
+      NORM: valence=negative     base +0.0131 -> aligned +0.0144   q 1.7e-03
+      NORM: dominance=submissive base +0.0107 -> aligned +0.0124   q 6.1e-03
+    CONVERGES -- one field
+      WN: contact                base +0.0070 -> aligned +0.0028   q 4.5e-07
+    NULL
+      RID: aggression q .43   NORM: concreteness=concrete q .43
+      USAS: Calm/Violent/Angry q .39
 
-**The reading: alignment removes the transgressive CONTENT and widens the
-affective TONE.** The violent-content fields (contact, Calm/Violent/Angry)
-converge — the withdrawal of finding 13, in difference-in-differences form.
-But the affect frame diverges: the neutral continuation becomes MORE calm,
-positive, dominant and cognitive relative to the transgressive one. The two
-continuations end up more different in tone, not less. And the drive fields
-that a psychoanalytic reading would centre — aggression, arousal, concreteness
-— do NOT move at the edge unit: alignment does not touch the transgressive
-prompt's aggression-drive advantage across the roster.
+**The reading: alignment strips the physical CONTACT word (convergence, the
+withdrawal of finding 13) but drives the two continuations apart in affective
+TONE.** The neutral twin becomes more calm, positive, dominant, cognitive and
+perceptual; the transgressive twin more aroused, negative and submissive.
+They end up more different in affect, not less. The drive-MASS fields a
+psychoanalytic reading would centre -- aggression, concreteness -- do not
+move at the edge unit; finding 13's aggression result is about the SHARE of
+movement, a different quantity from the mass tested here.
 
-**This corrects an M05 one-lineage result.** M05 finding C, on OLMo's
-checkpoint trajectory, read RID:aggression as significantly converging under
-alignment. At the edge unit that convergence is null (q .83) — a rung result
-that does not generalise. What generalises is the content-converges/tone-
-diverges split above. The rungs gave the timing; the edge unit gave the sign,
-and the sign was not what one lineage suggested.
+**This corrects an M05 one-lineage result, and the disagreement is the
+finding.** M05 finding C, on OLMo's checkpoint trajectory, read the affect gap
+as NARROWING under alignment (convergence). At the edge unit on the full twin
+set it mostly WIDENS. The two use different base references -- M05's base is
+OLMo's early-pretraining rungs, the edge unit's base is each lineage's final
+base -- and they disagree in sign. So the robust claim is narrow: the
+transgressive/neutral affect gap is real and label-tied (this holds at both
+units); whether alignment widens or narrows it is NOT robust to the base
+reference and the lineage, and aggression-mass convergence is null at the
+roster under both the 105-pair and 788-pair populations. The rungs gave the
+timing; the edge unit refused the sign the single lineage suggested.
 
-**Caveats.** Population is the 105 beam-sample minimal pairs (a subset of T's
-684 twins), edge unit is `base_aligned_pairs()` with ambiguous excluded (50-51
-edges). Gaps are small (hundredths of probability mass) and significant
-because 50 edges is real replication, not because any single edge is large.
-The DiD is a signed test on the paired gap; a field can be significant here
-and absent from findings 11-16, which test the marginal not the marked-neutral
-contrast.
+**Caveats.** Population is the 788 catalogue twins (en, ACTIVE); edge unit is
+`base_aligned_pairs()`, ambiguous excluded, 50 edges. Gaps are small
+(hundredths of probability mass), significant because 50 edges is real
+replication. This is a signed test on the paired affect-NORM gap; a field can
+be significant here and absent from findings 11-16, which test the marginal.
 
 ## Limits
 

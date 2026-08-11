@@ -1,4 +1,4 @@
-# Finding M05-C: site-specificity lives in affect, and alignment converges it
+# Finding M05-C: site-specificity lives in affect (its sign under alignment is not robust)
 
 Written 2026-08-11 by the registrar seat. STATUS: DRAFT, grade C for the
 one-lineage claims; the two permutation results are FDR-controlled but still
@@ -68,6 +68,20 @@ extreme toward the mean, not amplification.
 
 ![Widening test: alignment mostly narrows the gap](../figures/fig13_widening_did.png)
 
+**EDGE-UNIT REVERSAL — this narrowing is one-lineage and does not hold the
+sign at the roster.** Re-run as a base-arm-vs-aligned-arm difference-in-
+differences across 50-51 alignment edges on the full 788-twin set (M01
+Registration T finding 18, `t_affect_did.py`), the direction flips: 13/16
+affect fields significant and the DOMINANT pattern is DIVERGENCE — the
+neutral twin pulls further into calm/positive/dominant/cognitive, the
+transgressive twin further into aroused/negative/submissive, and only WN
+contact converges. RID:aggression is NULL at the edge unit (q .43), so this
+finding's aggression convergence does NOT generalise. The two tests use
+different base references (here: OLMo's early-pretraining rungs; there: each
+lineage's final base) and disagree in sign. ROBUST across both: the affect
+gap is real and label-tied. NOT ROBUST: whether alignment widens or narrows
+it. Read Result 3 as OLMo-specific and superseded on the sign by T-18.
+
 ## Result 4: two alignment tactics by domain — displace vs refuse
 
 Where mass does move, its destination splits by domain: violence prompts
@@ -103,8 +117,7 @@ proper next step is the DiD on the 43 edges, not a fourth M05 rung analysis.
 
 All one lineage (OLMo). 95 rungs are not 95 independent observations — for a
 minimal-pair contrast the rungs buy TIMING and SHAPE (the convergence happens
-under alignment, visible across the arm) but NOT generalisation. The
-The generalisation of the convergence is already M01 finding T (finding
+under alignment, visible across the arm) but NOT generalisation. The generalisation of the convergence is already M01 finding T (finding
 13, edge unit, 43 alignment edges) — see the section above; what is
 genuinely owed is only the affect-norm signed DiD (Result 3) re-run at
 T's edge unit, which would put the convergence SIGN on the roster rather
