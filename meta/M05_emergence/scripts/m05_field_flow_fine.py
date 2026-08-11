@@ -129,7 +129,8 @@ def main():
                 for f in fine_fields(w):
                     fmass[f] += p
             for f, mss in fmass.items():
-                rows.append(dict(ckpt_idx=idx, role=role, field=f, mass=mss))
+                rows.append(dict(ckpt_idx=idx, role=role, member=member,
+                                 field=f, mass=mss))
     df = pd.DataFrame(rows)
     df.to_parquet(OUT)
     print(f"wrote {OUT}: {len(df)} rows, {df.field.nunique()} fine fields")
