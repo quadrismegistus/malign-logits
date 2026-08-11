@@ -29,6 +29,10 @@ from malign_logits.twp import (          # explicit for the names linters flag
     load_tokenizer, bos_policy_for, encode_prompt, resolve_logical,
     purge_model, assert_prompt_survives, is_cjk, norm_apos,
 )
+#: NOT from `twp` and NOT hand-rolled: `repo@revision` is parsed in exactly two
+#: sanctioned places ([5402].2), because `split("@")` written at each call site
+#: is one chance per site at `[-1]`.
+from malign_logits.lineage import base_model_of, revision_of
 import argparse, gc, json, os, re, shutil, subprocess, sys, time
 import numpy as np, torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -219,6 +223,20 @@ def main(a):
         _rl["again"] = False
         _i += 1
         mid, prompts = entry["model"], entry["prompts"]
+        #: Which prompts get a hidden-state sidecar. `None` = all, so a spec
+        #: without the key behaves exactly as before. See the write site below
+        #: for why this filters at the WRITE rather than at a later discard.
+        hidden_set = entry.get("hidden_prompts")
+        hidden_set = set(hidden_set) if hidden_set is not None else None
+        #: **A SUBSET THAT MATCHES NOTHING IS A TYPO, NOT A POLICY.** Silently
+        #: writing zero hidden rows for a model is indistinguishable from a
+        #: model that legitimately has none, and it would be found in the
+        #: analysis rather than here.
+        if hidden_set is not None and not (hidden_set & set(prompts)):
+            raise SystemExit(
+                "REFUSING: %s declares %d hidden_prompts and NONE of them is in "
+                "its own %d-prompt list. A hidden subset that selects nothing is "
+                "a spec error." % (mid, len(hidden_set), len(prompts)))
         #: COMPUTE DTYPE, PER MODEL, DECLARED IN THE SPEC. Default float16, so
         #: the 103 models of the 2026-08-01 corpus are computed exactly as they
         #: were and nothing about them is retroactively changed by this field.
@@ -263,11 +281,26 @@ def main(a):
         if not todo:
             continue
         try:
-            rev = declared_revision(mid)
-            if rev:
+            #: **`mid` IS THE CELL KEY; `repo` IS WHAT HUGGINGFACE IS ASKED FOR.**
+            #: M05 names checkpoints `repo@revision` so that ClickHouse's sorting
+            #: key keeps 95 of them apart ([5398]/[5400]). That string must reach
+            #: the store unchanged and must NEVER reach the Hub, which has no such
+            #: repo. `declared_revision` is likewise a registry lookup and has to
+            #: be asked about the repo, not the checkpoint.
+            #:
+            #: Precedence: a name-carried revision wins over the registry pin,
+            #: because it is the more specific statement -- the registry pins a
+            #: repo's DEFAULT-branch problem (Aquila2's re-tokenisation), while
+            #: `@step1000` names one checkpoint of a ladder. A bare id is
+            #: byte-identical to the previous behaviour.
+            repo, name_rev = base_model_of(mid), revision_of(mid)
+            rev = name_rev or declared_revision(repo)
+            if name_rev:
+                print(f"  CHECKPOINT {name_rev} of {repo}", flush=True)
+            elif rev:
                 print(f"  PINNED REVISION {rev[:12]} (registry-declared; main is "
                       f"the wrong model for this checkpoint)", flush=True)
-            tok, loader_id = load_tokenizer(mid, revision=rev)
+            tok, loader_id = load_tokenizer(repo, revision=rev)
             #: **SHARD ACROSS CARDS WHEN THERE IS MORE THAN ONE, AND ONLY
             #: THEN.** `.to(dev)` puts the whole model on cuda:0. That is right
             #: for every checkpoint this script has ever run and wrong for the
@@ -284,11 +317,11 @@ def main(a):
                 print(f"  device_map=auto across {torch.cuda.device_count()} GPUs",
                       flush=True)
                 model = AutoModelForCausalLM.from_pretrained(
-                    mid, dtype=cdt, trust_remote_code=True,
+                    repo, dtype=cdt, trust_remote_code=True,
                     device_map="auto", **({"revision": rev} if rev else {})).eval()
             else:
                 model = AutoModelForCausalLM.from_pretrained(
-                    mid, dtype=cdt, trust_remote_code=True,
+                    repo, dtype=cdt, trust_remote_code=True,
                     **({"revision": rev} if rev else {})).to(dev).eval()
         except Exception as e:
             #: **A 429 IS A RACE, NOT A STATE, AND THE RUNBOOK SAYS WHICH GETS A
@@ -400,7 +433,27 @@ def main(a):
                         lf.write(_lg.tobytes()); lf.flush()
                         logit_n += 1
                         _LOGIT["v"] = None
+                    #: **HIDDEN STATES ARE WRITTEN FOR A DECLARED PROMPT SUBSET,
+                    #: NOT FOR EVERY CELL** ([5406]/[5407], ruled after M05 priced
+                    #: them). Capture is left ON because it costs no time --
+                    #: measured -1.2% over 16 prompts, noise, because
+                    #: `output_hidden_states=True` computes nothing extra and only
+                    #: keeps references the forward pass already produced. What
+                    #: costs is BYTES: 540,672 per cell, 30.0 GB across M05's
+                    #: 55,480 cells against 4.6 GB for the 90-text QUINT_EN block
+                    #: that is the only thing any registered analysis reads.
+                    #:
+                    #: **FILTERED AT THE WRITE, NOT AT A LATER DISCARD.** Collecting
+                    #: everything and deleting on arrival moves 25 GB across the
+                    #: wire to be thrown away, and a discard step is a step someone
+                    #: can forget on one box out of five and never notice. A run
+                    #: with no discard step has none to skip.
+                    #:
+                    #: ABSENT KEY MEANS ALL, so every existing spec keeps its
+                    #: behaviour byte-for-byte.
                     _hv = _HIDDEN["v"]
+                    if hidden_set is not None and p not in hidden_set:
+                        _hv, _HIDDEN["v"] = None, None
                     _hrow = None
                     if _hv is not None:
                         if hidden_w is None:

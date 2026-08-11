@@ -142,6 +142,12 @@ MODEL_FAMILIES = {
         base="allenai/Olmo-3-1025-7B",
         ego="allenai/Olmo-3-7B-Think-SFT",
         superego="allenai/Olmo-3-7B-Think-DPO",
+        #: The RLVR endpoint, registered 2026-08-11. **It was missing while its
+        #: own SFT and DPO were present**, and nothing noticed until M05's
+        #: population named 7 of its checkpoints and `build_fleet` refused the
+        #: whole plan. The refusal is the only reason this gap has a date: a
+        #: fleet that assigned them to `default` would have run them.
+        reinforced_superego="allenai/Olmo-3-7B-Think",
     ),
     "olmo-tiny": ModelFamily(
         name="OLMo 2 1B",

@@ -628,8 +628,22 @@ def load_tokenizer(mid, revision=None):
     not pinning at all: the unpinned run is at least internally consistent.
 
     Default None keeps every existing call byte-identical.
+
+    **`mid` MAY CARRY A `@revision` SUFFIX, AND HUGGINGFACE MUST NEVER SEE IT.**
+    M05 names its 95 checkpoints `repo@revision` so that ClickHouse's sorting key
+    tells them apart ([5398]/[5400]). That string is an IDENTIFIER FOR OUR STORES,
+    not a repo id: `from_pretrained("org/repo@step1000")` asks the Hub for a repo
+    that does not exist. So the suffix is split off here, and the same split feeds
+    `LOADER_OVERRIDE` -- an override keyed on `org/repo` must still fire for that
+    repo's checkpoints, and a lookup on the unsplit string would silently miss it,
+    which is the tokenizer failing open rather than loudly.
+
+    An explicit `revision=` wins over the suffix, so a caller that already resolved
+    a registry-declared revision keeps its behaviour exactly.
     """
     from transformers import AutoTokenizer, PreTrainedTokenizerFast
+    from .lineage import base_model_of, revision_of
+    mid, revision = base_model_of(mid), (revision or revision_of(mid))
     kw = {"revision": revision} if revision else {}
     ov = LOADER_OVERRIDE.get(mid)
     if ov and ov[0] == "PreTrainedTokenizerFast" and _override_applies(mid):
@@ -742,17 +756,38 @@ def purge_model(mid, enabled=True):
     resident, with RWKV, mistral-sft and three more failures beside them. Disk
     went 247 GB -> 53 GB free and was still falling. A failed model's weights
     are the LEAST worth keeping and were the only ones kept.
+
+    **AND THE `@revision` SUFFIX MUST COME OFF FIRST.** The hub directory is
+    `models--org--repo`; a tag built from `org/repo@step1000` matches nothing, so
+    the purge becomes a silent no-op -- it prints only when it deletes, so a run
+    that collects NOTHING looks exactly like a run with nothing to collect. On
+    M05's 95 checkpoints that is ~1.3 TB never freed, on a box that dies of disk
+    somewhere in the middle having written a partial corpus. **A failure that
+    looks like normal operation, which is the shape this file already exists to
+    guard against.**
+
+    Purging the whole repo directory is correct even when the next checkpoint
+    shares the repo: distinct revisions have distinct weight blobs, so nothing
+    reusable is thrown away, and the shared config/tokenizer files are bytes.
     """
     if not enabled:
         return
+    from .lineage import base_model_of
     hub = os.path.expanduser("~/.cache/huggingface/hub")
-    tag = mid.replace("/", "--")
+    tag = base_model_of(mid).replace("/", "--")
     if not os.path.isdir(hub):
         return
+    hit = False
     for sub in os.listdir(hub):
         if sub.startswith("models--") and tag in sub:
             shutil.rmtree(os.path.join(hub, sub), ignore_errors=True)
             print(f"  purged {sub}", flush=True)
+            hit = True
+    #: SAY SO WHEN NOTHING WAS COLLECTED. The no-op above was invisible because
+    #: success and failure both printed nothing; on a disk-bound run the
+    #: difference is the whole outcome.
+    if not hit:
+        print(f"  purge: nothing matched {tag!r} in the hub cache", flush=True)
 
 
 def assert_prompt_survives(tok, prompt, ids):

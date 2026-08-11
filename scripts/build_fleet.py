@@ -46,6 +46,8 @@ from collections import defaultdict
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT); sys.path.insert(0, HERE)
 
+from malign_logits.lineage import base_model_of   # the ONLY sanctioned parse
+
 REQ = os.path.join(ROOT, "data", "model_requirements.json")
 
 #: **AN ENVIRONMENT IS NOT A MACHINE SHAPE.** `tf457` and `torch26` describe
@@ -68,16 +70,30 @@ def load_requirements():
 
 
 def plan(models, n_boxes, req, cells_per_model, weight_by_params):
-    unknown = [m for m in models if m not in req]
+    #: **A `repo@revision` CHECKPOINT INHERITS ITS REPO'S REQUIREMENTS.** Every
+    #: field in a requirements row -- transformers floor, torch floor, kernels,
+    #: VRAM, compute dtype, package pins -- is a property of the ARCHITECTURE and
+    #: the weights' size. A training step does not change any of them: M05's 43
+    #: SFT rungs are one 7B model at 43 revisions.
+    #:
+    #: Exact match still wins, so a checkpoint with its own declared row keeps it.
+    #: **The refusal below is deliberately kept**: an id that resolves to nothing
+    #: at EITHER grain still stops the fleet, because assigning it `default` is
+    #: how a checkpoint silently leaves a run.
+    def R(m):
+        return req.get(m) or req.get(base_model_of(m))
+
+    unknown = [m for m in models if R(m) is None]
     if unknown:
         raise SystemExit(
-            "REFUSING: %d model(s) have no requirements row, and assigning them to "
-            "`default` is how a checkpoint silently leaves a fleet:\n   %s\n"
+            "REFUSING: %d model(s) have no requirements row at either the "
+            "checkpoint or the repo grain, and assigning them to `default` is how "
+            "a checkpoint silently leaves a fleet:\n   %s\n"
             "Add them to the registry and re-run build_model_requirements.py."
             % (len(unknown), "\n   ".join(unknown)))
 
-    blocked = [(m, req[m]["blocked_reason"]) for m in models if req[m]["blocked"]]
-    runnable = [m for m in models if not req[m]["blocked"]]
+    blocked = [(m, R(m)["blocked_reason"]) for m in models if R(m)["blocked"]]
+    runnable = [m for m in models if not R(m)["blocked"]]
 
     #: **PACKAGE PINS PARTITION A FLEET EXACTLY AS transformers DOES.** A pin is
     #: box-wide state: two checkpoints that disagree on `sentencepiece` cannot
@@ -91,18 +107,18 @@ def plan(models, n_boxes, req, cells_per_model, weight_by_params):
     #: without. A label that no longer determines the environment is the thing
     #: that makes a fleet unreproducible.
     def pinkey(m):
-        pk = req[m].get("packages") or {}
+        pk = R(m).get("packages") or {}
         return tuple(sorted(pk.items()))
 
     groups = defaultdict(list)
     for m in runnable:
-        groups[(req[m]["profile"], pinkey(m))].append(m)
+        groups[(R(m)["profile"], pinkey(m))].append(m)
 
     #: WEIGHT the split so a box is balanced in TIME, not just in model count.
     def weight(m):
         if not weight_by_params:
             return cells_per_model
-        p = req[m].get("params_b") or 7.0
+        p = R(m).get("params_b") or 7.0
         return cells_per_model * max(0.25, p / 7.0)
 
     total = sum(weight(m) for m in runnable)
@@ -119,29 +135,29 @@ def plan(models, n_boxes, req, cells_per_model, weight_by_params):
         for m in ms:                     # longest-processing-time first
             i = load.index(min(load))
             bins[i].append(m); load[i] += weight(m)
-        pins = sorted({req[m]["transformers"] for m in ms} |
-                      {"torch" + req[m]["torch"] for m in ms})
-        kern = sorted({k2 for m in ms for k2 in req[m]["kernels"]})
+        pins = sorted({R(m)["transformers"] for m in ms} |
+                      {"torch" + R(m)["torch"] for m in ms})
+        kern = sorted({k2 for m in ms for k2 in R(m)["kernels"]})
         for b in bins:
             if not b:
                 continue
             out.append({"box": box_id, "profile": prof,
                         "launch_profile": LAUNCH_PROFILE.get(prof, "dense"),
                         "packages": dict(pins_t),
-                        "packages_reason": {k: (req[b[0]].get("packages_reason") or {}).get(k)
+                        "packages_reason": {k: (R(b[0]).get("packages_reason") or {}).get(k)
                                             for k, _ in pins_t},
                         "models": b,
                         "cells": int(sum(cells_per_model for _ in b)),
-                        "gpus": max(req[m]["gpus"] for m in b),
-                        "min_vram_gb": max(req[m]["min_vram_gb"] for m in b),
-                        "transformers": sorted({req[m]["transformers"] for m in b}),
+                        "gpus": max(R(m)["gpus"] for m in b),
+                        "min_vram_gb": max(R(m)["min_vram_gb"] for m in b),
+                        "transformers": sorted({R(m)["transformers"] for m in b}),
                         "kernels": kern,
-                        "compute_dtype": sorted({req[m]["compute_dtype"] for m in b
-                                                 if req[m]["compute_dtype"]}),
-                        "revisions": {m: req[m]["revision"] for m in b
-                                      if req[m]["revision"]},
-                        "tokenizer_overrides": {m: req[m]["tokenizer_loader"] for m in b
-                                                if req[m]["tokenizer_loader"]}})
+                        "compute_dtype": sorted({R(m)["compute_dtype"] for m in b
+                                                 if R(m)["compute_dtype"]}),
+                        "revisions": {m: R(m)["revision"] for m in b
+                                      if R(m)["revision"]},
+                        "tokenizer_overrides": {m: R(m)["tokenizer_loader"] for m in b
+                                                if R(m)["tokenizer_loader"]}})
             box_id += 1
     return out, blocked
 

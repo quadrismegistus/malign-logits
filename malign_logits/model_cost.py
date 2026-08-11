@@ -35,6 +35,8 @@ measurement from a guess will quote the guess.**
 
 import json
 import os
+
+from .lineage import base_model_of
 import re
 
 from . import PATH_DATA
@@ -181,13 +183,31 @@ VOID_RATES = {
 }
 
 
+def _entry(model_id, costs):
+    """The measured cost row for a model, RESOLVED AT THE REPO GRAIN.
+
+    **A `repo@revision` checkpoint costs what its repo costs.** Load seconds,
+    prompts/second and resident GB are properties of the architecture and the
+    weights' size, and every rung of a training ladder shares all three -- M05's
+    43 SFT steps are one 7B model measured 43 times.
+
+    Exact match wins, so a genuinely measured checkpoint still overrides its
+    repo. Without this the fallback is silent and lands in the SHARD SCHEDULER:
+    class defaults for every checkpoint, so the five boxes are balanced on a
+    guess while the measurements sit unused in the file.
+    """
+    return (costs.get(model_id)
+            or costs.get(base_model_of(model_id))
+            or {})
+
+
 def rate_for(model_id, costs=None):
     """Prompts/second for a model. Measured if we have it, else class default."""
     costs = load_costs() if costs is None else costs
-    entry = costs.get(model_id) or {}
+    entry = _entry(model_id, costs)
     seen = entry.get("p_per_s_prompts")
     enough = seen is None or seen >= MIN_RATE_PROMPTS
-    if model_id in VOID_RATES:
+    if base_model_of(model_id) in VOID_RATES:
         enough = False
     if entry.get("p_per_s") and enough:
         return float(entry["p_per_s"])
@@ -200,9 +220,9 @@ def rate_for(model_id, costs=None):
 def rate_source(model_id, costs=None):
     """'measured' or 'class-default'. A planner must be able to say which."""
     costs = load_costs() if costs is None else costs
-    e = costs.get(model_id) or {}
+    e = _entry(model_id, costs)
     seen = e.get("p_per_s_prompts")
-    if model_id in VOID_RATES:
+    if base_model_of(model_id) in VOID_RATES:
         #: NAMED, NOT SILENT. A planner that sees "class-default" here and does
         #: not know a measurement was thrown away will re-harvest the same
         #: poisoned number from the same log.
@@ -218,7 +238,7 @@ def rate_source(model_id, costs=None):
 def load_seconds(model_id, costs=None):
     """Per-checkpoint fetch+load seconds. Measured if we have it, else class."""
     costs = load_costs() if costs is None else costs
-    entry = costs.get(model_id) or {}
+    entry = _entry(model_id, costs)
     if entry.get("load_s"):
         return float(entry["load_s"])
     return CLASS_LOAD_S[arch_class(model_id)]
@@ -227,7 +247,7 @@ def load_seconds(model_id, costs=None):
 def gpu_gb(model_id, costs=None):
     """Resident GPU GB, for the shard scheduler's memory budget."""
     costs = load_costs() if costs is None else costs
-    entry = costs.get(model_id) or {}
+    entry = _entry(model_id, costs)
     if entry.get("gpu_gb"):
         return float(entry["gpu_gb"])
     cls = arch_class(model_id)
