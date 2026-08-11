@@ -109,11 +109,16 @@ def main():
     ap.add_argument("--smoke", action="store_true",
                     help="only checkpoints answering in the store now")
     ap.add_argument("--out", default=OUT)
+    #: same extractor, other ladder: the Pythia population is a SEPARATE
+    #: STUDY (data/pythia_population.json, never pooled with M05's OLMo
+    #: population -- [5425](b)/[5430]). The battery is identical by
+    #: declaration, so the probe table needs no change.
+    ap.add_argument("--population", default=POPULATION)
     a = ap.parse_args()
 
     from malign_logits.movement import word_probs
 
-    pop = json.load(open(POPULATION))["checkpoints"]
+    pop = json.load(open(a.population))["checkpoints"]
     pop = sorted(pop, key=checkpoint_key)
     probes = load_probes()
     n_curves = len({(c, p) for c, p, *_ in probes})

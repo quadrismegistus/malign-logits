@@ -1,0 +1,79 @@
+{
+ "_population": "data/pythia_population.json (separate study, never pooled with M05 OLMo -- [5425](b)/[5430])",
+ "_criterion": "first rung with bootstrap CI(median) > 0, persisting to end of base arm",
+ "base_order": [
+  {
+   "family": "semantic packages",
+   "onset_rung": 12,
+   "onset_step": 2000,
+   "both_absent": 0.0,
+   "n_probes_at_onset": 31,
+   "onset_rung_gated": 12,
+   "onset_step_gated": 2000
+  },
+  {
+   "family": "poetic pull",
+   "onset_rung": 10,
+   "onset_step": 512,
+   "both_absent": 0.0,
+   "n_probes_at_onset": 2,
+   "onset_rung_gated": 12,
+   "onset_step_gated": 2000
+  },
+  {
+   "family": "reasoning",
+   "onset_rung": 13,
+   "onset_step": 3000,
+   "both_absent": 0.0,
+   "n_probes_at_onset": 27,
+   "onset_rung_gated": 13,
+   "onset_step_gated": 3000
+  },
+  {
+   "family": "reference (facts)",
+   "onset_rung": 14,
+   "onset_step": 4000,
+   "both_absent": 0.0,
+   "n_probes_at_onset": 32,
+   "onset_rung_gated": 14,
+   "onset_step_gated": 4000
+  },
+  {
+   "family": "discourse tracking",
+   "onset_rung": 90,
+   "onset_step": 80000,
+   "both_absent": 0.0,
+   "n_probes_at_onset": 30,
+   "onset_rung_gated": 90,
+   "onset_step_gated": 80000
+  }
+ ],
+ "_gate": "gated onset requires >= 10 surviving probes",
+ "half_max_post_hoc": {
+  "semantic packages": {
+   "half_max_rung": 12,
+   "half_max_step": 2000,
+   "base_final": 6.311576173571362
+  },
+  "reference (facts)": {
+   "half_max_rung": 22,
+   "half_max_step": 12000,
+   "base_final": 3.039086403320231
+  },
+  "reasoning": {
+   "half_max_rung": 21,
+   "half_max_step": 11000,
+   "base_final": 5.022649086828617
+  },
+  "discourse tracking": {
+   "half_max_rung": 8,
+   "half_max_step": 128,
+   "base_final": 0.845172141788486
+  },
+  "poetic pull": {
+   "half_max_rung": 13,
+   "half_max_step": 3000,
+   "base_final": 0.16039979249999997
+  }
+ }
+}
