@@ -354,6 +354,20 @@ def cmd_launch(args):
 
     state = {
         'instance_id': instance_id,
+        #: **RECORD THE MACHINE, NOT ONLY THE INSTANCE.** The blocklist is keyed
+        #: on machine_id, and vast does not serve `show instance` for a DESTROYED
+        #: contract -- so a host that fails AFTER launch could not be blocklisted
+        #: at all: the only durable handle was gone by the time we knew it was
+        #: bad. That is not hypothetical. On 2026-08-11 three boxes 404'd every
+        #: HF download against an injected mirror at 117.175.x.x, were destroyed,
+        #: and their machine ids were unrecoverable -- the SAME symptom already
+        #: recorded for machine 61353 the previous day. The failure mode the
+        #: blocklist exists to stop recurred, and the fix could not be applied
+        #: because the identifier was never written down.
+        #:
+        #: The launch-time checks catch hosts that never answer. This catches the
+        #: ones that answer and then cannot do the work.
+        'machine_id': str(offer.get('machine_id') or '') or None,
         'offer_id': str(offer_id),
         'ssh_host': ssh_host,
         'ssh_port': int(ssh_port),
@@ -396,6 +410,46 @@ def cmd_launch(args):
         print("\n*** UNREACHABLE ON BOTH ROUTES -- the host, not the network. ***",
               file=sys.stderr)
         _blocklist_machine(mid, "proxy and direct both refused at launch")
+        if getattr(args, 'keep_unreachable', False):
+            print(f"    kept (--keep-unreachable). id={instance_id}", file=sys.stderr)
+        else:
+            print(f"    destroying {instance_id} and blocklisting machine {mid}",
+                  file=sys.stderr)
+            try:
+                vastai('destroy', 'instance', str(instance_id), '--yes')
+            except Exception:
+                print(f"    destroy FAILED -- run: vastai destroy instance {instance_id}",
+                      file=sys.stderr)
+            if STATE_FILE.exists():
+                STATE_FILE.unlink()
+        sys.exit(1)
+
+    # **REACHABLE IS NOT USABLE: A HOST CAN ANSWER SSH AND STILL BE UNABLE TO
+    # FETCH A MODEL.** On 2026-08-11 three boxes passed every check above, then
+    # 404'd EVERY HuggingFace download against an injected mirror at
+    # 117.175.x.x -- a transparent proxy or DNS hijack, with no HF_ENDPOINT in
+    # the environment to unset. The runner dutifully purged and advanced, so
+    # sixteen checkpoints read as "attempted" with zero bytes fetched.
+    #
+    # **THE SAME SYMPTOM WAS ALREADY IN THE BLOCKLIST** (machine 61353, the
+    # previous day) and it recurred anyway, because the checks that ran at
+    # launch could not see it and by the time it was visible the box was being
+    # destroyed -- taking its machine_id with it, since vast does not serve
+    # `show instance` for a destroyed contract.
+    #
+    # One HTTP call, before setup is paid for. A host that cannot reach the Hub
+    # cannot do any work this project asks of it.
+    _probe = ("timeout 45 python3 -c \"from huggingface_hub import HfApi; "
+              "HfApi().model_info('EleutherAI/pythia-6.9b'); print('HF_OK')\" "
+              "2>&1 | tail -1")
+    hf_ok = (ssh_run(state, _probe, check=False, capture=True).stdout or '')
+    if 'HF_OK' not in hf_ok:
+        mid = str(offer.get('machine_id') or '')
+        print("\n*** HUGGINGFACE UNREACHABLE FROM THIS HOST -- it answers SSH and "
+              "cannot fetch a model. ***", file=sys.stderr)
+        print(f"    probe said: {(hf_ok or '').strip()[:160]}", file=sys.stderr)
+        _blocklist_machine(mid, "SSH fine, HF downloads fail (injected mirror / "
+                                "DNS hijack); probe: %s" % (hf_ok or '').strip()[:80])
         if getattr(args, 'keep_unreachable', False):
             print(f"    kept (--keep-unreachable). id={instance_id}", file=sys.stderr)
         else:
