@@ -40,6 +40,14 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #: part of the data's identity: **renaming a label re-partitions the store.**
 #: Statuses: ACTIVE ingest it | RETIRED refuse it | PENDING ask first.
 TWP_SOURCES = [
+    #: M05 REVISION PRE-FLIGHT, 3 cells on a spare checkpoint. Registered rather
+    #: than side-loaded: the point of the pre-flight is that the REAL ingest path
+    #: keeps `repo@revision` apart, and an ingest bypassing this registry would
+    #: test a path the fleet does not use. `stage1-step10000` is deliberately NOT
+    #: one of M05's 43 revisions, so no pre-flight cell can collide with a fleet
+    #: cell. Retire once the fleet has landed.
+    ("data/raw/preflight_m05_revision", "preflight_m05_revision", "ACTIVE",
+     "M05 repo@revision pre-flight: 3 cells, Olmo-3-1025-7B@stage1-step10000"),
     ("data/raw/cloud_run_20260801", "cloud_run_20260801", "ACTIVE",
      "the 2026-08-01 cloud run; the bulk of the store"),
     ("data/f11_twp", "f11_twp", "ACTIVE",
