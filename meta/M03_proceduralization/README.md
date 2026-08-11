@@ -29,14 +29,34 @@
 >
 > DISPOSITION: not retitled here. The headline is the pen's to set, and one seat's instrument contesting a title is a reason to record the contest, not to resolve it unilaterally.
 
-## Findings in this module (2026-08-11)
+## Findings index
 
-| file | what it establishes | unit |
-|---|---|---|
-| `A_speaker_kernel.md` | the kernel's design; the hedge outweighs the position 2.7x | prompt |
-| `B_C_arm_and_reference_class.md` | the JS arm effect; fields with their repairs; plan C's reference class | 46 lineages |
-| `D_ladder_selection.md` | timing and mechanism on the M05 ladder: a STEP at the first SFT rung, DPO and RLVR adding nothing, and the vocabulary already present in pretraining, so alignment SELECTS rather than constructs | 95 rungs, 1 lineage |
-| `E_lexical_arm_contrast.md` | the roster-wide word table: 276 words separate the arms at p<0.05, **65 survive Bonferroni** over 702, 58 of them verbs | 46 lineages |
+Every document in `findings/`, one row each. Grades are quoted from the
+document and are never restated in other words here. Where two documents pull
+against each other the row carries both pointers and stops there.
+
+| Doc | Claim (one line) | Status/grade (verbatim) | Unit and population | Figures | Corrects / superseded-by |
+|---|---|---|---|---|---|
+| `A_speaker_kernel.md` | Decomposing the pooled kernel reproduces T 17b-bis to four decimals and strengthens its comparative claim (signed-valence position gap positive at 7 of 7 speaker forms, mean +0.0770, sign test p 0.0156), but the design's largest factor is the hedge `probably` at +0.207, 2.7x the position gap; load-bearing: §3 the 7-of-7 gap, §4 the hedge at 4 of 4 cells with modal eta2 0.2806 on one grammatical site, §6 person near-null at eta2 0.0405. | "Status: EXPLORATORY. T's pooled pair remains the confirmatory contrast." | Unit is the alignment EDGE (base to aligned model pair), 36 to 39 edges per paired cell out of 43; population is 10 of the kernel's 18 scenarios, 140 prompts, 139,962 movement rows, 14 crossed cells (position x person x modal); valence coverage 72% of moved words. | none | Corrects `M01_displacement/findings/T_category_flow.md` §17/17b-bis: T's numbers reproduce exactly but its absolute characterisation ("valence rises for the individual and is flat for the institution") fails at 3 of 7 forms. A third correction to this README's title claim, beside [4725]/[4727]/[4729] above and `B_C` §1. |
+| `B_C_arm_and_reference_class.md` | On JS the INSTITUTIONAL arm moves further under alignment, reversing F21's stated direction: kernel +0.01187 bits, 41/46, p=4.4e-08; F21's own 24 prompts +0.04262, 44/46, p=3.1e-11; load-bearing: §2 the gap survives with no modal in the prompt (RH's `should` confound measured, not fatal), §4 `rid/order` +0.0977 at 43/44 lineages, §6 plan C's reference class putting institutional prompts at an ORDINARY level of ~0.09 to 0.12 bits. | "STATUS, 2026-08-11 evening: what stands, what was repaired, and what the day taught"; "§1 STANDS UNCHANGED"; "§3 IS THE MOST ROBUST RESULT IN THIS DOCUMENT AND WAS UNDERSOLD"; "§4's FIELD RESULTS NEEDED TWO REPAIRS" | Unit is the LINEAGE, 46 lineage-representative base-to-aligned pairs; 5,796 paired kernel cells (18 scenarios x 7 conditions) plus F21's 24 institutional prompts; plan C adds 748 matched MARKED/UNMARKED pairs at full 92-model coverage; §4 tests 240 fields with no multiplicity correction. | none | Reverses F21's DIRECTION on a different instrument, explicitly not a refutation of F21's coded finding (§9). §3 is superseded at full strength by `E_lexical_arm_contrast.md`. §4's dominance reading is superseded by the repaired version in `D_ladder_selection.md` §5. Carries five self-corrections in §8 (source double-count, nats to bits, "F21 has no arm contrast", split estimators, RID coverage caveat over-applied). |
+| `D_ladder_selection.md` | Alignment SELECTS the arm vocabulary from a repertoire pretraining had already assembled rather than constructing it: a step at the first SFT rung, DPO and RLVR adding nothing; load-bearing: §3 removals are arm-blind (`quit`, `sue`, `warn`) while installations are arm-specific (`contact` to the individual, `ensure`/`explain` to the institution) with 9 of 12 verbs replicating at 46 lineages, §5 dominance +0.1303 at 24 of 30 scenarios p=0.00143 once light verbs are excluded, §6 the RUNG is not an observation (ICC 0.855 / 0.846) so magnitude is unanswerable on one lineage. | "STATUS: one lineage." | Unit is the SCENARIO, 12 F21 mirrors and 18 kernel scenarios, 30 pooled; population is the M05 checkpoint ladder, 95 rungs of one Olmo-3 lineage (42 pretraining, 43 SFT, 7 RLVR, 3 endpoints); cross-checks read at the 46-lineage unit from plan B. | `figures/arm_verbs.png`, `figures/button_verbs.png`, `figures/arm_verbs_ladder.png`, `figures/dominance_ladder.png` | Repairs `B_C` §4's dominance measure (§5). Corrects two earlier readings of its own: the rung-unit significance numbers and "`contact` not significant, and pointing the other way". Defers to `B_C` and `E` on any population claim. `TODO.md` §1 records a `sue` dissociation running against §3's removal claim, on a substrate marked do-not-cite. |
+| `E_lexical_arm_contrast.md` | At the lineage unit 276 words separate the two arms at p<0.05 and 65 survive Bonferroni over the whole 702-word vocabulary (43 institutional, 22 individual), 58 of them verbs; load-bearing: §3 only 4 of the 65 actually reverse between arms and the arms correlate at Pearson 0.909 across 324 verbs, so the contrast is degree and not kind, §5 the institution takes the paperwork verbs while the individual loses the exits (`sue` +0.00150 at 39/46, p=1.8e-06). | (no status line) | Unit is the LINEAGE, sign test over 46 lineage-representative pairs, paired within (lineage, scenario, condition) and medianed per lineage; population is F21's 38 institutional texts plus the 252-text M03 speaker kernel; 702 words present in at least 40 lineages, 567 of them lexical verbs. | none | Reports `B_C` §3 at full strength, which `B_C` records as undersold. Supersedes candidate clause C2's contrast (see the C2 section below and `TODO.md` §4); does not discharge C2, whose derivation-bound caveat stands. `D_ladder_selection.md` wins on timing, this document on generality. `TODO.md` §1 records a `sue` slot-versus-passage dissociation against §5, on a do-not-cite substrate. |
+
+### Cross-index notes
+
+- `A_speaker_kernel.md` corrects `M01_displacement/findings/T_category_flow.md`
+  §17/17b-bis; its producer, output and prior all live in `M01_displacement`
+  (`scripts/x_m03_kernel_decomp.py`, `results/x_m03_kernel_decomp.csv`).
+- The folder-title contest at the head of this README rests on lacan's
+  token-level instrument in the repository root (`results/s_m03_arm_fullnorm.csv`,
+  `results/s_word_pairs.csv`, [4725]/[4727]/[4729]), outside this folder;
+  `A` §7 and `B_C` §1 contest the same title from two further directions.
+  Recorded, not resolved.
+- `D_ladder_selection.md` runs registrar's `m05_field_flow_fine.py` and the M05
+  checkpoint ladder from `M05_emergence` unchanged on this folder's corpora
+  (§7); the instrument is borrowed, no correction runs in either direction.
+
+## Findings in this module (2026-08-11)
 
 **The headline across the four**: the institutional arm gets the paperwork verbs
 (`ensure` 42/46 p=5.1e-09, `handle` 43/46, `document` 40/46, `inform` 39/46)

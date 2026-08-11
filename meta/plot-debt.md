@@ -1,0 +1,293 @@
+# Plot debt across the five meta-experiments
+
+Written 2026-08-11 by the registrar seat. Produced by five parallel readers,
+one per meta folder, each reading every document in its `findings/` plus the
+folder README, `figures/` and `results/`; consolidated here. Companion to the
+`## Findings index` sections added to each `meta/M##/README.md` the same day.
+
+Two kinds of entry, kept apart: **inventory** (what has a figure, what exists
+only as numbers-in-prose or data-on-disk — checkable facts) and **candidates**
+(what looks figure-worthy — reader judgment, flagged as such throughout). The
+finding documents govern their own numbers; nothing here upgrades a grade or
+resolves a tension. This is a triage doc: it gets consumed, not maintained.
+
+## The shape of the debt
+
+| Folder | Finding docs | Figures | Note |
+|---|---|---|---|
+| M01_displacement | 18 | 1 (`x_intimacy_vs_movement`) | one plotting script among ~156 |
+| M02_frame_exit | 6 | 0 (`figures/` exists, empty) | results/ largely plot-ready |
+| M03_proceduralization | 4 | 4 (all in D, `f_figures.py`) | A, B_C, E entirely unplotted |
+| M04_syntagmatic | 2 | 0 (no `figures/` dir) | debt is total |
+| M05_emergence | 4 | 48 files, 16 embedded | 11 orphaned; the exception |
+
+## Produce before plotting: provenance and reproducibility debts
+
+These block figures, and they are debts independent of figures — load-bearing
+numbers whose producer writes nothing, or whose artifact was never committed.
+Each needs its producer re-run with output committed (or the computation
+scripted at all) before the numbers travel further.
+
+- **M01 Z** (`Z_ladders_regimes.md`): `z_ladders.py` prints to stdout only;
+  nothing committed. §1's SFT/DPO cancellation and §5's closed-system
+  comparison have no data file behind them. REGISTRATIONS.md row Z says so.
+- **M01 J §1** (`J_arch_displacement.md`): `results/arch_displacement.json`
+  was never committed. The section that stands has no artifact on disk.
+- **M01 W**: no pair-level `fc_*` result artifact in this folder's `results/`
+  beyond a snapshot; the pair table lives in docket posts and the register.
+- **M01 C and E** (in `C_to_O_registered_letters.md`): C has two `.txt`
+  transcripts and no machine-readable artifact; E's producer writes nothing.
+- **M01 H2** (`H2_alignment_depth.md`): `h_depth_primary.py` prints; its
+  `--json` flag exists and was never written. Every H2 number is prose/stdout.
+- **M04 Finding A** (`A_post_utterance_shock.md`): the producer
+  (`meta/M02_frame_exit/scripts/channel3_run.py`) writes no CSV/JSON/parquet.
+  The primary, the four-term grid, the per-index grid, the position profile,
+  the twin moderator and the long-window sweep are all stdout-only; the
+  long-window sweep is additionally the author's own aggregation, not
+  recoverable from the frozen slot spec ([5024].2). Not re-queryable.
+- **M02 pole-axis next-word** (`pole_axis_next_word_grain.md`): `results/dp.pkl`
+  and the `pole_axis_*.log` files are untracked/gitignored — machine-local.
+  Any figure needs `pole_axis_build.py` re-run first (BGE-m3 encode, GloVe
+  download).
+- **M05 C Result 4** (registrar's own): the riser-recapture numbers (violence
+  ~1, sexual 0.08–0.45) have NO producer anywhere in the repo — the string
+  "recaptur" appears only in C's two lines. An ad-hoc session computation that
+  must be scripted into `m05_pair_displacement.py` or a sibling and reproduced
+  before it is quotable.
+- **M05 A Result 4** (registrar's own): the M05 plan (secondary 4) committed
+  to plotting contradiction ratio and pole separation "together or not at
+  all"; only the unjoined `fig4` exists. A self-declared open commitment,
+  discharged by candidate 3 below.
+
+## Write-up debt standing in front of plot debt (M02)
+
+Two result lines have no finding document at all; the figure belongs with the
+write-up, not before it:
+
+- The contradiction-lens depth series: `results/lens_divergence.csv`,
+  `lens_trajectories.csv`, `lens_{group,prompt}_layer.jsonl`. The README
+  points at it; no doc carries it. TODO.md marks the depth-by-exit join
+  runnable now.
+- The L1 pilot family: frame membership at chance from an LLM coder and from
+  four geometric constructions, against the pole axis at AUC 0.995 and
+  content/function at 0.812. README summarises; no doc.
+
+## Cross-folder shortlist (registrar's synthesis)
+
+The candidates most likely to carry weight in the paper or book, drawn from
+the per-folder lists below. Judgment, not doctrine.
+
+1. **M01 T-14** — few large fallers against many small risers, 3.8x, ratio
+   above one in all seven lexicons. `results/s_everything_marginal.csv`.
+   Dumbbell per lexicon, dot area = category count. The picture of
+   "displacement, not suppression", and it does not exist.
+2. **M01 T-18 beside M05-C** — the affect DiD at both units: one row per
+   declared field, one-lineage DiD left, edge-unit DiD right, sign
+   disagreements highlighted (RID:aggression the anchor).
+   `results/t_affect_did.csv` + `data/m05_widening_null.json`. Renders "the
+   gap is real, its sign is not robust" as one image instead of a retraction
+   paragraph.
+3. **M05 A-R4** — the joined ratio/pole-separation two-panel across the
+   95-rung ladder, stage boundaries marked. `data/m05_ratio.parquet` +
+   `results/m05_pole_sep.csv`. Discharges the plan's "together or not at all".
+4. **M02 the calibration number line** — perfect superposition 0.000,
+   observed 0.907, NEUTRALIZATION 1.006, RESOLUTION 4.031, per-cell strip
+   behind, log-spaced; zh as a twin panel. `results/contradiction_null_en.csv`
+   / `_zh.csv`. "1.0 is not a boundary, it is a place" is spatial; show it.
+5. **M03 E §3/§4** — 324 verbs on indiv-vs-inst axes with the y=x diagonal,
+   65 Bonferroni survivors labelled, four reversals coloured.
+   `results/b_word_delta_by_word.csv`. "Degree, not kind" read off geometry.
+6. **M01 X §3g** — the word moves the scene (+14.3 points, 12/12 cells), the
+   model does not (−0.8, p .918), two panels, same axes.
+   `results/x_beam_frame.csv`.
+7. **M01 Y_diegetic §3** — the conditional four-panel: CLEAN_SCENE −6.12pp,
+   SUPEREGO_IN_SCENE +4.30pp, EXIT and sexual_scene flat.
+   `results/y_passages.parquet` via `scripts/y_diegetic.py`. The filter
+   account predicting exactly the two panels that do not move.
+8. **M03 B_C §1** — the JS arm effect, one row per lineage, 41/46 above zero,
+   five dissenters labelled. `results/b_arm_by_lineage.csv`.
+9. **M04 attention §5** — attention-back decay above, Finding A's surprisal
+   sweep below, both in both aggregations (disjoint bins beside cumulative).
+   `results/attn_delta_smollm2_e1_cross_w200.json`. The figure IS the
+   two-phenomena argument. (Finding A's half needs the produce-first step.)
+10. **M02 dumbbell** — D_CONTRA sitting on top of D_CONTROL, one row per
+    field, 39/79 general survivors emphasised, 0/79 specific.
+    `results/l2_fields_{meta,norms,usas_fine}.json`. The doc's own warning
+    (a residual-only report would have filed a positive as a null) as a
+    picture.
+
+Methodological pair worth drawing for the book's methods spine: **M03 D §6**
+(ICC 0.855 spaghetti — why 50 rungs are not 50 observations;
+`results/d_ladder.csv`) and **M01 U-1/2** (the ladder slope chart, removal
+stopping while addition continues; `results/t_ladder_steps.csv`).
+
+## Per-folder candidate lists
+
+Condensed from the readers' reports: doc / result / data / suggested form.
+Ordering within each folder is the reader's ranking.
+
+### M01_displacement (reader's tier 1 and 2; tier 3 all blocked, see above)
+
+1. T-14 fallers/risers dumbbell — `s_everything_marginal.csv` (shortlist 1).
+2. T-18 affect DiD paired slope, arrows coloured widens/converges —
+   `t_affect_did.csv` (shortlist 2).
+3. X §3g two-panel — `x_beam_frame.csv` (shortlist 6).
+4. Y_diegetic §3 conditional panel — `y_passages.parquet` (shortlist 7).
+5. U-1/2 ladder: JS by rung + faller share 49.3/28.6/1.0 collapse —
+   `t_ladder_steps.csv`, slope chart, one grey line per family.
+6. S-3 harm gradient by domain, violence −0.290 to taboo −0.033 —
+   `s_analysis_effects.csv`, dot-and-CI; caption must carry the
+   `sexual`→`coercion` relabel from DISPLACEMENT_EVIDENCE.
+7. X §3d body-part classes at `suck his ___` (genitals −2.6 … digits +4.3) —
+   `x_bodypart_classes.json`, labelled beeswarm by class.
+8. C_to_O/M eviction gradient across headroom deciles, 0.157→0.003, zero
+   above the fifth — `result_m_column.json`, step chart, zero region shaded.
+9. T-12 USAS 45 surviving fields — `s_everything_marginal.csv`, lollipop.
+10. T-11 category-by-stratum heatmap, 33 risers / 10 fallers, no reversal —
+    `s_marginal_strata.csv`; report stratified, never pooled.
+11. T-8 bodily_violence→speech_act by edge, 24/0/1 of 25 —
+    `s_everything_direction_edgeunit.csv`, diverging bar.
+12. U-4 + X §3e two-panel fan (JS uniform; faller Jaccard splits no-wildchat
+    0.340 vs 0.52–0.53) — `t_fans.csv`, `t_fans_jaccard.csv`.
+13. V-5 scene-locality, twin 0.327 vs random 0.060, 14/14 families —
+    `v_displacement_twin*.csv`, paired dots, raw and residualised.
+14. X §3f violence discriminant control, per-prompt rho spread, pooled
+    −0.100 — `x_violence_pooled.csv`. The anti-tautology figure.
+15. Y_superego §4 heterogeneity, AmberSafe +15.4pp vs median +0.8pp —
+    `y_passages.parquet`, sorted per-pair dots, tails named.
+16. Y_superego §7.4 de-vulgarisation without de-intensification —
+    `y_passages.parquet` + `y_tokens/`, diverging lollipop by valence.
+17. H2 per-pair median d + L50/N spread 0.000–0.861 — needs `--json` written
+    first (produce-first list), sorted dots, the one reversal named.
+18. T-7 concreteness: both tails draining to the middle — `s_concreteness.csv`,
+    before/after density. What a difference of means cannot show.
+19. T-5/S-8 sink structure, `whispered` 50-in/0-out vs pure sources —
+    `s_condensation.csv`, in-degree vs out-degree scatter.
+20. N: 91% of 82,775 cells, 34/34 clusters — `result_n_primary.json`,
+    cluster dot plot. The campaign's anchor result has no picture.
+
+### M02_frame_exit
+
+1. Calibration number line (shortlist 4).
+2. Next-word three-role word dumbbells (`kill` −9.9/−1.3/−21.3; the epistemic
+   residual) — `dp.pkl`, REBUILD REQUIRED first.
+3. t and resid by role, paired violins, resid=1.0 marked —
+   `l3_geometry_union.parquet`. "Same shadow, equally off-axis" needs both
+   panels at once.
+4. Pole separation vs superposition loss, rho −0.420, n=45 —
+   `polesep_vs_superposition.csv`. Cheapest strong figure in the folder.
+5. Non-universality slope plot, base→aligned per lineage, 12/46 reversers,
+   AmberSafe −0.1392 named — `contradiction_null_by_pair_en.csv` + `_zh`.
+6. D_CONTRA-on-D_CONTROL dumbbell (shortlist 10).
+7. Falcon3 concentration lollipop, 52.76% vs 2.01% ceiling, Mamba rows
+   labelled to kill the vendor reading — `eassist_ambient.csv`.
+8. t(both) by depth, one line per role, base/aligned solid/dashed —
+   `l3_geometry_union.parquet`.
+9. Nobody-near-a-pole histogram, poles at ±0.45–0.48, observed −0.12–+0.15 —
+   `dp.pkl` (rebuild). Forecloses the pole-migration misreading of F11.
+10. E-QA by domain at the twins — `exit_markers_fc_bypair.csv`. INTERNAL
+    ONLY until the coded pass; FIRST LOOK status, a figure makes a number
+    quotable.
+11. Forced-arm null small multiples beside the surviving scene contrast —
+    `exit_forced_bysite.csv`. The null that licenses "scene, not signifier".
+12. Lens depth curve — WITH its write-up, not before (see write-up debt).
+13. L1 ROC panel, two instruments off the diagonal, five constructions on
+    it — `l1_*.json` family. WITH its write-up.
+
+### M03_proceduralization
+
+1. E §3/§4 survivor scatter (shortlist 5).
+2. E §4 dumbbell, 65 rows, indiv vs inst dots joined, coloured by pattern —
+   `b_word_delta_by_word.csv`. The words the argument quotes.
+3. B_C §1 lineage dot plot (shortlist 8).
+4. B_C §2 `should`-confound seven-condition interval plot —
+   `b_arm_cells.csv`. "Triples with a prompt-final modal AND survives
+   without one" as a two-group comparison.
+5. D §1 selection-not-construction small multiples: six verbs across 95
+   rungs, each verb's pretraining maximum as a reference line —
+   `f_verb_rungs.csv`. Nothing yet shows the ceiling.
+6. D §6 ICC spaghetti + scenario-unit marginal strip — `d_ladder.csv`
+   (methodological pair, above).
+7. D §7 cross-corpus non-transfer, three scatter panels over 95 shared
+   fields, 0.063 against 0.701 — `e_field_flow_arms.parquet` + root
+   `data/m05_field_flow_fine.parquet`.
+8. A §4 hedge-vs-position paired slopes, +0.207 against +0.077 —
+   `meta/M01_displacement/results/x_m03_kernel_decomp.csv`. Caption must say
+   EXPLORATORY, uncorrected.
+9. B_C §6 reference-class dot plot, eight domains, pair count printed ON the
+   mark — `c_pair_contrast.csv`.
+
+### M04_syntagmatic (Finding A items all blocked on produce-first)
+
+1. Attention §5 two-panel decay comparison (shortlist 9).
+2. A position profile, point-with-CI across indices 1–10, zero rule —
+   BLOCKED (channel3 re-run + dump).
+3. A term × index grid, five panels or signed heatmap — BLOCKED (same).
+   The most load-bearing, least legible passage in the folder.
+4. A long-window sweep — BLOCKED (same), and the figure MUST show disjoint
+   bins beside the cumulative curve (attention doc §5's objection) or it
+   hardens a contested artifact into a picture.
+5. A pair-level strip, 33 pairs, bigscience outlier labelled, ALL vs CLEAN
+   medians — BLOCKED (same). The honest-limits figure.
+6. Attention §3e per-pair baseline strips, pooled null vs KW p 0.0019 —
+   `attn_norm_sweep_full.json`. The "pooling cancels opposing signs" lesson.
+7. Attention §3c refutation strips, three contrasts over 28 cells —
+   `attn_norm_sweep{,_full}.json`. A null prose cannot make credible.
+8. Attention §3 cross-vs-own two lines against position —
+   `attn_delta_smollm2_e1_{cross,own}.json`. The one surviving fact.
+9. Attention §6 head-concentration Lorenz curve, 7x not the plan's 17x —
+   `attn_undist_*.json`. Doubles as the visual correction to the plan.
+
+### M05_emergence
+
+Orphaned figures first: 11 on-disk figures no finding cites, including the
+entire fig11 family (`m05_field_flow_marked.py` has no representation in any
+finding) and `fig7c_pair_by_domain.png`, which is exactly the by-domain split
+C Result 1 states in prose. Adopt or retire them doc by doc; `fig12` (the
+unsigned predecessor of fig12b) stays uncited deliberately — C's correction
+section withdrew that read.
+
+1. A-R4 joined ratio/pole-sep panel (shortlist 3; discharges the plan).
+2. C-R3 vs T-18 sign-disagreement dumbbell (shortlist 2).
+3. A-R1 paired per-site onset distribution, lag histogram centred on zero,
+   never-fall/never-rise flanking bars — `m05_onsets.json` `paired`. Makes
+   p=.97 legible; the result that kills F04's lag.
+4. C-R4 displace-vs-refuse recapture bars by domain, reference line at 1 —
+   BLOCKED on the recapture provenance debt (above).
+5. A-R3 the true zero: log-scale resolved mass at stage1-step0 against
+   theta, 257 complete-but-empty cells marked; zh twin panel —
+   `m05_curves.parquet`.
+6. A-R2 acquisition ordering as a log-step lollipop strip: four families at
+   stage1-2000, discourse tracking alone at 32000 — `m05_onsets.json`
+   `base_order`.
+7. D-R4 three stacked mover lists, Step(base,SFT) / Step(base,DPO) /
+   Step(SFT,DPO), the third deliberately empty — from
+   `m05_word_trajectories.py`'s Step objects. The empty panel is the
+   argument.
+8. B fine-field rank figure with intervals — BLOCKED until the per-field
+   ordering null exists; drawing it now would quote a rank B says is not
+   quotable.
+
+## Fences: do-not-plot and caption-must-carry
+
+Collected from the documents' own limits; a figure that pools a fenced
+stratification launders a fence the prose spent paragraphs erecting.
+
+- M01 T-11 reports stratified, never pooled; T-2's GI table must not be
+  plotted alongside findings 11–16; X is not poolable with the M01 battery;
+  T §17c is exploratory.
+- M01 S-3's `sexual` domain label must read `coercion`/`boundary` on any
+  figure (DISPLACEMENT_EVIDENCE).
+- M03: do not plot `c_word_delta_by_word.csv` as institutional-vs-narrative
+  vocabulary — B_C §6 and D §7 record that axis as form-confounded. Any RID
+  row carries its coverage numbers (0.400/0.429) on the figure itself.
+- M03: `d_verb_rungs.csv` / `d_button_verbs.csv` look like superseded
+  pre-`f_figures.py` caches of the `f_*` pair — confirm before plotting
+  from them.
+- M04: nothing at the per-head unit (250–480 correlated heads; [5226]); the
+  binding unit is the cell or the pair. Do not re-dignify the retracted
+  two-cell SmolLM2-vs-OLMo contrast.
+- M02: no figure from `exit_contradiction_cells.csv` (a 3-generations-per-
+  cell sample, per TODO.md — the corpus is 228,520 passages in ClickHouse).
+  Exit-marker figures stay internal until the coded pass.
+- M05: `fig12` stays retired; the B rank figure is blocked on its null.
