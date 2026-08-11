@@ -1,8 +1,8 @@
 {
  "_about": "per-model logit payload source; rule in scripts/resolve_twp_sources.py::resolve_logits",
- "n": 92,
+ "n": 94,
  "tally": {
-  "declared precedence": 89,
+  "declared precedence": 91,
   "candidates byte-identical, immaterial": 1,
   "superseded excluded": 1,
   "sole candidate after exclusion": 1,
@@ -294,7 +294,8 @@
    "candidates": [
     "cloud_run_20260801",
     "f11_twp",
-    "f11_twp_delta"
+    "f11_twp_delta",
+    "m05_1"
    ]
   },
   "allenai/Olmo-3-1125-32B": {
@@ -313,6 +314,22 @@
     "cloud_run_20260801",
     "f11_twp",
     "f11_twp_delta"
+   ]
+  },
+  "allenai/Olmo-3-7B-Think-DPO": {
+   "source": "cloud_run_20260801",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "m05_4"
+   ]
+  },
+  "allenai/Olmo-3-7B-Think-SFT": {
+   "source": "cloud_run_20260801",
+   "why": "declared precedence",
+   "candidates": [
+    "cloud_run_20260801",
+    "m05_0"
    ]
   },
   "allenai/Olmo-3.1-32B-Instruct-DPO": {

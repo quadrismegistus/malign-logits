@@ -36,8 +36,14 @@ MIN_FREE_GB="${3:-15}"
 # a high-water check afterwards. Per-box directories make a collision
 # impossible rather than unlikely; the ingest reads them all.
 BOX=$(basename "$STATE" .json | sed 's/^\.vastai\.//')
-DEST="data/raw/twp_fill/$BOX"
-REMOTE_DIR="/workspace/twpfill"
+# **PARAMETERISED, NOT COPIED.** M05 writes /workspace/twp and lands in
+# data/raw/m05/. A second copy of this file for that one difference would be a
+# second copy of the per-box-destination rule and the disk floor, and the two
+# would drift. Defaults are the twp-fill values, so every existing invocation is
+# byte-identical.
+DEST_ROOT="${4:-data/raw/twp_fill}"
+REMOTE_DIR="${5:-/workspace/twpfill}"
+DEST="$DEST_ROOT/$BOX"
 mkdir -p "$DEST"
 
 while true; do

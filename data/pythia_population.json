@@ -1,0 +1,1103 @@
+{
+ "_what": "Pythia-6.9b pretraining ladder: the sub-1000-step acquisition window OLMo's release schedule cannot see. A SEPARATE STUDY, never pooled with M05's OLMo population (registrar [5425](b)).",
+ "_why_pythia": "Its early checkpoints are LOG-SPACED -- 0,1,2,4,8,16,32,64,128,256,512 -- so eleven rungs sit BELOW OLMo's first non-zero step. Allen AI's finest stage1 granularity is 1,000 steps (modal gap 1000 across 1,407 of 1,421 intervals), so no OLMo run can resolve this window.",
+ "_limits": [
+  "Per-rung ALIGNMENT contrasts are impossible: the 154 rungs are pretraining only.",
+  "The family DOES have an alignment arm at the endpoint (lomahony/eleuther-pythia6.9b-hh-sft and -hh-dpo, already scored), so a base->aligned contrast exists AT step 143000 and nowhere else. Correcting my own [5424], which said no alignment arm at all.",
+  "Different lab, tokenizer (50,277 vs OLMo's 100,278) and corpus: comparisons with OLMo are cross-ladder and must be labelled so."
+ ],
+ "_ported_checks": {
+  "panel_words": "135 distinct faller/riser words, 0 tokenise into more pieces under Pythia than under OLMo",
+  "battery_prompts": "584 of 584 survive Pythia's tokenizer; OLMo control also 584/584"
+ },
+ "_battery": "data/m05_battery.json, 584 texts, sha e5a4f5fb9f1f4907 -- the same battery, because the axis under test is TIME and not the model",
+ "n": 155,
+ "n_below_1000": 11,
+ "checkpoints": [
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step0",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 0
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step1",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 1
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step2",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 2
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step4",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 4
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step8",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 8
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step16",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 16
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step32",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 32
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step64",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 64
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step128",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 128
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step256",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 256
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step512",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 512
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step1000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 1000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step2000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 2000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step3000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 3000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step4000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 4000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step5000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 5000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step6000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 6000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step7000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 7000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step8000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 8000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step9000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 9000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step10000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 10000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step11000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 11000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step12000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 12000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step13000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 13000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step14000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 14000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step15000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 15000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step16000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 16000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step17000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 17000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step18000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 18000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step19000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 19000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step20000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 20000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step21000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 21000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step22000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 22000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step23000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 23000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step24000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 24000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step25000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 25000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step26000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 26000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step27000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 27000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step28000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 28000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step29000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 29000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step30000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 30000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step31000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 31000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step32000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 32000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step33000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 33000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step34000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 34000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step35000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 35000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step36000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 36000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step37000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 37000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step38000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 38000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step39000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 39000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step40000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 40000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step41000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 41000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step42000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 42000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step43000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 43000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step44000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 44000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step45000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 45000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step46000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 46000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step47000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 47000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step48000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 48000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step49000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 49000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step50000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 50000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step51000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 51000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step52000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 52000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step53000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 53000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step54000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 54000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step55000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 55000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step56000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 56000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step57000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 57000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step58000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 58000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step59000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 59000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step60000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 60000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step61000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 61000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step62000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 62000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step63000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 63000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step64000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 64000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step65000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 65000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step66000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 66000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step67000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 67000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step68000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 68000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step69000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 69000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step70000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 70000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step71000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 71000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step72000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 72000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step73000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 73000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step74000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 74000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step75000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 75000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step76000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 76000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step77000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 77000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step78000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 78000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step79000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 79000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step80000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 80000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step81000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 81000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step82000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 82000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step83000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 83000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step84000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 84000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step85000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 85000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step86000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 86000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step87000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 87000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step88000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 88000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step89000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 89000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step90000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 90000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step91000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 91000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step92000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 92000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step93000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 93000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step94000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 94000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step95000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 95000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step96000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 96000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step97000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 97000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step98000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 98000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step99000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 99000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step100000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 100000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step101000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 101000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step102000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 102000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step103000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 103000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step104000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 104000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step105000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 105000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step106000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 106000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step107000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 107000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step108000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 108000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step109000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 109000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step110000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 110000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step111000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 111000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step112000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 112000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step113000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 113000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step114000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 114000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step115000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 115000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step116000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 116000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step117000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 117000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step118000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 118000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step119000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 119000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step120000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 120000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step121000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 121000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step122000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 122000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step123000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 123000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step124000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 124000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step125000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 125000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step126000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 126000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step127000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 127000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step128000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 128000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step129000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 129000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step130000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 130000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step131000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 131000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step132000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 132000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step133000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 133000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step134000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 134000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step135000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 135000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step136000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 136000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step137000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 137000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step138000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 138000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step139000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 139000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step140000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 140000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step141000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 141000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step142000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 142000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "step143000",
+   "role": "base_step",
+   "stage": "pretrain",
+   "step": 143000
+  },
+  {
+   "model_id": "EleutherAI/pythia-6.9b",
+   "revision": "main",
+   "role": "base_endpoint",
+   "stage": "-",
+   "step": 143000
+  }
+ ]
+}

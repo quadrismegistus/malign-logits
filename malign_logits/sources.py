@@ -48,6 +48,31 @@ TWP_SOURCES = [
     #: cell. Retire once the fleet has landed.
     ("data/raw/preflight_m05_revision", "preflight_m05_revision", "ACTIVE",
      "M05 repo@revision pre-flight: 3 cells, Olmo-3-1025-7B@stage1-step10000"),
+    #: **THE M05 ACQUISITION FLEET, ONE LABEL PER BOX.** Five boxes each rsync
+    #: into their own directory so two writers can never touch one filename --
+    #: the collision that truncated 14 files in the beam campaign. They are
+    #: declared here BEFORE the ingest runs, because a bare sweep visits the
+    #: declared list and nothing else: an undeclared directory is not an error,
+    #: it is 54,492 cells that silently do not exist. That is how a whole jais
+    #: model pair went missing with 878 MB of `.f16` sitting on disk ([5315]).
+    #:
+    #: The model strings here carry `repo@revision` for all but the three mains.
+    ("data/raw/m05/m05_0", "m05_0", "ACTIVE", "M05 acquisition fleet, shard 0"),
+    ("data/raw/m05/m05_1", "m05_1", "ACTIVE", "M05 acquisition fleet, shard 1"),
+    ("data/raw/m05/m05_2", "m05_2", "ACTIVE", "M05 acquisition fleet, shard 2"),
+    ("data/raw/m05/m05_3", "m05_3", "ACTIVE", "M05 acquisition fleet, shard 3"),
+    ("data/raw/m05/m05_4", "m05_4", "ACTIVE", "M05 acquisition fleet, shard 4"),
+    #: **THE PYTHIA LADDER, ONE LABEL PER BOX.** A SEPARATE STUDY from M05
+    #: (registrar [5425](b)): different lab, tokenizer and corpus, and its
+    #: per-rung arm is pretraining only. Declared here before the ingest for
+    #: the same reason the m05 shards were -- a bare sweep visits the declared
+    #: list and nothing else, so an undeclared directory is not an error, it is
+    #: cells that silently do not exist.
+    ("data/raw/pythia/py_0", "py_0", "ACTIVE", "Pythia ladder, shard 0"),
+    ("data/raw/pythia/py_1", "py_1", "ACTIVE", "Pythia ladder, shard 1"),
+    ("data/raw/pythia/py_2", "py_2", "ACTIVE", "Pythia ladder, shard 2"),
+    ("data/raw/pythia/py_3", "py_3", "ACTIVE", "Pythia ladder, shard 3"),
+    ("data/raw/pythia/py_4", "py_4", "ACTIVE", "Pythia ladder, shard 4"),
     ("data/raw/cloud_run_20260801", "cloud_run_20260801", "ACTIVE",
      "the 2026-08-01 cloud run; the bulk of the store"),
     ("data/f11_twp", "f11_twp", "ACTIVE",

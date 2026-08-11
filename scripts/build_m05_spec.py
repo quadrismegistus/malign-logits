@@ -58,6 +58,12 @@ sys.path.insert(0, ROOT)
 
 BATTERY = os.path.join(ROOT, "data", "m05_battery.json")
 POP = os.path.join(ROOT, "data", "m05_checkpoint_population.json")
+#: **THE POPULATION AND THE OUTPUT ARE FLAGS, NOT CONSTANTS.** The Pythia ladder
+#: is a SEPARATE STUDY (registrar [5425](b)) and must never be pooled with M05's
+#: OLMo population -- but it is the same battery over the same rail, so a second
+#: copy of this file would be a second copy of the digest checks, the hidden-block
+#: rule and the two-payload resume. Defaults are M05's, so every existing
+#: invocation is byte-identical.
 OUT = os.path.join(ROOT, "data", "m05_twp_spec.json")
 HIDDEN_BLOCK = "QUINT_EN"
 
@@ -93,8 +99,8 @@ def load_battery():
     return uniq, blocks
 
 
-def load_population():
-    d = json.load(open(POP))
+def load_population(path=None):
+    d = json.load(open(path or POP))
     out = []
     for c in d["checkpoints"]:
         rev = c.get("revision")
@@ -141,9 +147,9 @@ def hidden_coverage(models):
     return out
 
 
-def build(resume=True):
+def build(resume=True, pop_path=None):
     texts, blocks = load_battery()
-    models, popd = load_population()
+    models, popd = load_population(pop_path)
 
     hidden = blocks.get(HIDDEN_BLOCK)
     if not hidden:
@@ -197,15 +203,21 @@ def build(resume=True):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--population")
+    ap.add_argument("--out")
     ap.add_argument("--no-resume", action="store_true",
                     help="every cell, even those already in the store")
     a = ap.parse_args()
 
-    spec, texts, hidden, models, done, popd, rescored = build(resume=not a.no_resume)
+    spec, texts, hidden, models, done, popd, rescored = build(
+        resume=not a.no_resume, pop_path=a.population)
     cells = sum(len(e["prompts"]) for e in spec)
     hcells = sum(len(e.get("hidden_prompts") or ()) for e in spec)
 
-    print("M05 twp spec")
+    #: NAME THE POPULATION, NEVER THE SCRIPT. This builder now serves two
+    #: studies and a header reading "M05" over a Pythia run is how a log gets
+    #: filed against the wrong population.
+    print("twp spec  <- %s" % os.path.basename(a.population or POP))
     print("  battery            %d texts   (hidden block %s: %d)"
           % (len(texts), HIDDEN_BLOCK, len(hidden)))
     print("  population         %d checkpoints over %d repos"
@@ -230,14 +242,14 @@ def main():
                              "twp_cloud --shards N --shard-index i.",
                    "_producer": "scripts/build_m05_spec.py",
                    "_battery_sha16": json.load(open(BATTERY))["sha256_16_over_texts"],
-                   "_population": os.path.basename(POP),
+                   "_population": os.path.basename(a.population or POP),
                    "_hidden_block": HIDDEN_BLOCK,
                    "_hidden_reason": "the only registered analysis reading hidden "
                                      "states is Secondary 4's pole-separation arrow "
                                      "([5406]/[5408]), which reads this block alone",
                    "_meta": "M05 %d cells, %d hidden sidecars" % (cells, hcells),
-                   "spec": spec}, open(OUT, "w"), indent=1)
-        print("\n  wrote %s" % os.path.relpath(OUT, ROOT))
+                   "spec": spec}, open(a.out or OUT, "w"), indent=1)
+        print("\n  wrote %s" % os.path.relpath(a.out or OUT, ROOT))
     return 0
 
 
