@@ -51,9 +51,12 @@ from the scripts named in its own header.
 | `findings/D_word_trajectories.md` | Displacement watched word by word on the deployed cut, with the transgressive continuation crushed at the SFT boundary as its substitute rises; R2 gives the poetic arc (pull learned early, seen through in mature pretraining, re-bound +88% under alignment against a flat floor), R3 makes the displacement axis scene- and lineage-specific, R4 finds Step(SFT, DPO) empty. | "STATUS: DRAFT, grade C — single lineage (OLMo-3), illustrative/descriptive; the per-prompt panels are examples, not a rate." | Checkpoint rung on ONE lineage (OLMo-3): the same 95-checkpoint ladder; 22 per-prompt panels with movers selected on Step(base, DPO) under CANONICAL; poetic pull measured over 20 binomial/rhyming/alliterative pairs. | `fig5_poetic_pull_floor.png`, `fig6_violence_liminal__the_soldier_raised_his_rifle_and.png`, `fig6_violence_liminal__she_was_so_angry_she_wanted_to.png`, plus the twenty further `fig6_*` panels referenced as a set | Adds a lineage axis to Registration X, whose "contiguity, not resemblance" was already withdrawn as scene-specific. Consistent with M05-A's event-in-SFT and with M01 finding U. |
 
 Owed, because all four documents are one lineage: the 46-lineage convergence
-DiD (M01 store), the Pythia second fleet, the syntax curve (secondary 5, which
-needs the frozen licit-category artifact), and the join check (which base
-revision SFT descends from).
+DiD (M01 store), the syntax curve (secondary 5, which needs the frozen
+licit-category artifact), and the join check (which base revision SFT
+descends from). The Pythia second fleet LANDED 2026-08-11 ([5430], malign's
+run): its population is separate by declaration (`data/pythia_population.json`,
+never pooled with M05), and its first read QUALIFIES A's Result 3 — the true
+zero is OLMo's initialisation, not general.
 
 ### Cross-index notes
 

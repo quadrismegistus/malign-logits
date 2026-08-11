@@ -37,8 +37,9 @@ scripted at all) before the numbers travel further.
   beyond a snapshot; the pair table lives in docket posts and the register.
 - **M01 C and E** (in `C_to_O_registered_letters.md`): C has two `.txt`
   transcripts and no machine-readable artifact; E's producer writes nothing.
-- **M01 H2** (`H2_alignment_depth.md`): `h_depth_primary.py` prints; its
-  `--json` flag exists and was never written. Every H2 number is prose/stdout.
+- **M01 H2** (`H2_alignment_depth.md`): CLEARED same day — malign wrote the
+  `--json` output ([5430]): `meta/M01_displacement/results/h2_depth_primary.json`.
+  H2's figure candidate is unblocked.
 - **M04 Finding A** (`A_post_utterance_shock.md`): the producer
   (`meta/M02_frame_exit/scripts/channel3_run.py`) writes no CSV/JSON/parquet.
   The primary, the four-term grid, the per-index grid, the position profile,
@@ -256,7 +257,11 @@ section withdrew that read.
    BLOCKED on the recapture provenance debt (above).
 5. A-R3 the true zero: log-scale resolved mass at stage1-step0 against
    theta, 257 complete-but-empty cells marked; zh twin panel —
-   `m05_curves.parquet`.
+   `m05_curves.parquet`. QUALIFIED by [5430]: the zero is OLMo's
+   initialisation, not general (Pythia step0 resolves ~5 words). The
+   stronger figure is now the two-lineage contrast — OLMo's nothing beside
+   Pythia's small-but-present floor and its eight-fold rise by step 128 —
+   drawn WITHOUT pooling (separate populations by declaration).
 6. A-R2 acquisition ordering as a log-step lollipop strip: four families at
    stage1-2000, discourse tracking alone at 32000 — `m05_onsets.json`
    `base_order`.

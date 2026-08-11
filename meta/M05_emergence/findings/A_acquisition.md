@@ -87,14 +87,26 @@ labeled as such if it runs (RH's word pending).
 
 ## Result 3: the true zero, and its Chinese twin
 
+**QUALIFIED 2026-08-11 by the Pythia cross-lab arm ([5430]): the true zero
+is OLMo's initialisation, not a fact about untrained networks.** Pythia's
+step0 resolves ~5 words per cell (two wordless cells in 90,170); the
+cross-lab test was the registered reason for that arm and it refuted the
+generalisation on the first quantity read. The OLMo measurement below is
+untouched; what falls is only the implied "untrained networks start at
+zero." The Pythia population is its own file and its own finding, never
+pooled with this one (different lab, tokenizer, corpus).
+
 At stage1-step0, 257 of 584 cells are complete, conservation-exact
 measurements resolving NO WORDS — a flat distribution over 100,278 tokens
-sits fifty-fold below theta ([5413], confirmed both stores [5414]). The
-acquisition curve starts at a measured floor, not a small number and not
-a gap. The same instrument reading appears wherever a model meets a
-language it never acquired: 937 zh cells across 21 non-zh-lineage models
-([5420]) — the undifferentiated floor is one phenomenon in two guises,
-and it is now readable rather than invisible ([5418] read-path fix).
+sits fifty-fold below theta ([5413], confirmed both stores [5414]). On
+THIS lineage the acquisition curve starts at a measured floor, not a small
+number and not a gap. The same instrument reading appears wherever a model
+meets a language it never acquired: 937 zh cells across 21 non-zh-lineage
+models ([5420]) — the undifferentiated floor is one phenomenon in two
+guises, and it is now readable rather than invisible ([5418] read-path
+fix). The zh twin survives the Pythia qualifier unchanged: it is a claim
+about unacquired languages at trained checkpoints, not about
+initialisation.
 
 ## Result 4 (secondary): the frame axis, and an arrow that does not resolve
 
