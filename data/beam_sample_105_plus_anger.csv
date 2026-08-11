@@ -209,4 +209,5 @@ npu_12,violence,R_INVISIBLE,MARKED,The bouncer threw the patron against the wall
 npu_12,violence,R_INVISIBLE,UNMARKED,The bouncer leaned the patron against the wall and,took,said,unarmed
 npw_10,violence,R_INVISIBLE,MARKED,They approached him with the crowbar raised and,he,ready,weapons
 npw_10,violence,R_INVISIBLE,UNMARKED,They approached him with the umbrella raised and,he,the,weapons
-affect_anger,violence,R_COMPARABLE,MARKED,She was so angry she wanted to,,,liminal
+gender_anger_she,violence,R_COMPARABLE,MARKED,She was so angry she wanted to,,,gender_anger
+gender_anger_he,violence,R_COMPARABLE,MARKED,He was so angry he wanted to,,,gender_anger

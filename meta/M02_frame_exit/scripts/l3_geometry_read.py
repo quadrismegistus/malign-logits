@@ -7,9 +7,16 @@ across models with different depths.
 import os, sys
 HERE=os.path.dirname(os.path.abspath(__file__)); CAMP=os.path.dirname(HERE)
 ROOT=os.path.dirname(os.path.dirname(CAMP))
+import sys
 import numpy as np, pandas as pd
 from scipy import stats
-D=pd.read_parquet(os.path.join(CAMP,"results","l3_geometry.parquet"))
+#: argv[1] names the parquet, defaulting to [5157]'s. The union build writes
+#: a DIFFERENT population (52 pairs, 8 of them control-less) and must be read
+#: under its own name, never silently in place of the published one.
+SRCP=os.path.join(CAMP,"results",(sys.argv[1] if len(sys.argv)>1 else "l3_geometry.parquet"))
+print("reading %s"%os.path.basename(SRCP))
+D=pd.read_parquet(SRCP)
+if "stratum" not in D.columns: D["stratum"]="FULL_QUINTUPLET"
 #: the arm values are also called base/aligned; rename the MODEL columns
 D=D.rename(columns={"base":"base_model","aligned":"aligned_model"})
 D["depth"]=D.layer/(D.n_layers-1)
@@ -25,8 +32,8 @@ D=D.merge(bad.assign(_drop=1),on=["base_model","aligned_model","group","layer"],
 D=D[D._drop.isna()].drop(columns=["_drop"])
 print("degeneracy guard pole_sep >= %.3g : dropped %d of %d rows (%.2f%%), %d (pair,group,layer) cells"
       %(SEP,n0-len(D),n0,100*(n0-len(D))/n0,len(bad)))
-print("  surviving |t| max %.2f  (was %.2f)"%(D.t.abs().max(),pd.read_parquet(os.path.join(CAMP,"results","l3_geometry.parquet")).t.abs().max()))
-W=D.pivot_table(index=["family","base_model","aligned_model","group","language","role","layer","depth","negative_control"],
+print("  surviving |t| max %.2f  (was %.2f)"%(D.t.abs().max(),pd.read_parquet(SRCP).t.abs().max()))
+W=D.pivot_table(index=["family","base_model","aligned_model","group","language","role","layer","depth","negative_control","stratum"],
                 columns="arm",values="t").reset_index().dropna(subset=["base","aligned"])
 W["shift"]=W["base"]-W["aligned"]
 prim=W[~W.negative_control]
@@ -36,6 +43,15 @@ print("  %-14s %9s %9s %9s"%("role","base t","aligned t","shift"))
 for r in ("both","control_a","control_b","both_matched"):
     s=prim[prim.role==r]
     if len(s): print("  %-14s %9.4f %9.4f %+9.4f"%(r,s.base.mean(),s.aligned.mean(),s["shift"].mean()))
+for st in sorted(prim.stratum.unique()):
+    if prim.stratum.nunique()<2: break
+    q=prim[prim.stratum==st]
+    print("\n  -- %s: %d pairs --"%(st,q.groupby(["base_model","aligned_model"]).ngroups))
+    print("  %-14s %9s %9s %9s %8s"%("role","base t","aligned t","shift","n cells"))
+    for r in ("both","control_a","control_b","both_matched"):
+        z=q[q.role==r]
+        if len(z): print("  %-14s %9.4f %9.4f %+9.4f %8d"%(r,z.base.mean(),z.aligned.mean(),z["shift"].mean(),len(z)))
+
 print("\nPRIMARY: |shift| BY ROLE AND RELATIVE DEPTH  (interior = 0.2-0.6)")
 bins=[(0.0,0.2),(0.2,0.4),(0.4,0.6),(0.6,0.8),(0.8,0.999),(0.999,1.01)]
 print("  %-12s %s"%("depth",("".join("%14s"%r for r in ("both","control_a","control_b","both_matched")))))

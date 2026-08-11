@@ -51,9 +51,30 @@ POLES = ("pole_a", "pole_b")
 NEGATIVE_CONTROL = {"f11_reason", "f11_reason_zh"}
 
 
-def index_residuals():
+#: THE DEFAULT IS THE ORIGINAL GLOB, DELIBERATELY. [5157] was computed over
+#: `data/f11_twp*` alone, so this file with no flags must still reproduce it.
+#: But that glob cannot address `data/raw/twp_fill/`, which holds **65 of the
+#: 74 GB of residuals on disk** -- the same split-store defect as the logit
+#: index's bare basename, in a third consumer. `--dirs union` opts in and
+#: `--out` is then MANDATORY, because a wider population written under the same
+#: filename would silently restate [5157]'s numbers for a different n.
+#:
+#: WHAT THE UNION ADDS IS NOT UNIFORM, AND THE STRATUM COLUMN EXISTS FOR THAT.
+#: The twp_fill residuals hold the TRIPLET (pole_a, pole_b, both) and
+#: both_matched, and for 8 of the 9 pairs they add they hold **zero controls**
+#: (RH, 2026-08-10; measured -- Teuken is the exception at 33 of 62). So the
+#: control contrast, which is what refuted the excursion, gains almost nothing,
+#: while the base-vs-aligned INVARIANCE of t(both) -- the repression-not-
+#: foreclosure half -- gains 9 lineages. Those are two different n's over one
+#: dataframe and must never be reported as one.
+DEFAULT_DIRS = ("data/f11_twp*",)
+UNION_DIRS = ("data/f11_twp*", "data/raw/twp_fill/*")
+
+
+def index_residuals(patterns=DEFAULT_DIRS):
     """model -> {prompt: (path, hidden_row, shape)}, over every residual dir."""
-    dirs = sorted(d for d in glob.glob(os.path.join(ROOT, "data", "f11_twp*"))
+    dirs = sorted(d for pat in patterns
+                  for d in glob.glob(os.path.join(ROOT, pat))
                   if os.path.isdir(d))
     idx = collections.defaultdict(dict)
     for d in dirs:
@@ -73,10 +94,29 @@ def index_residuals():
 
 
 def main():
+    import argparse
     import numpy as np
     import pandas as pd
 
-    dirs, idx = index_residuals()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dirs", choices=("default", "union"), default="default",
+                    help="'default' = data/f11_twp* ([5157]'s population). "
+                         "'union' adds data/raw/twp_fill/* and requires --out.")
+    ap.add_argument("--out", default=None,
+                    help="output basename under results/. Defaults to "
+                         "l3_geometry.parquet, which --dirs union may not use.")
+    #: NOT `a` -- the pair loop below binds `a` to the ALIGNED model id
+    #: (`b, a = pr["base"], pr["aligned"]`), which clobbered the namespace and
+    #: only surfaced at the very end, after the whole 74 GB read.
+    cli = ap.parse_args()
+    if cli.dirs == "union" and not cli.out:
+        raise SystemExit(
+            "REFUSING: --dirs union changes the population (43 -> 52 pairs, and "
+            "8 of the 9 added carry no controls). Writing that to "
+            "l3_geometry.parquet would restate [5157]'s numbers for a different "
+            "n under its own filename. Pass --out.")
+
+    dirs, idx = index_residuals(UNION_DIRS if cli.dirs == "union" else DEFAULT_DIRS)
     Q = json.load(open(SRC))
     live = [q for q in Q["quintuplets"] if q["status"] != "RETIRED"]
     pairs = json.load(open(os.path.join(ROOT, "data", "base_aligned_pairs.json")))
@@ -157,7 +197,20 @@ def main():
     D = pd.DataFrame(rows, columns=["family", "base", "aligned", "arm", "group",
                                     "language", "role", "layer", "n_layers",
                                     "t", "resid", "pole_sep", "negative_control"])
-    out = os.path.join(CAMP, "results", "l3_geometry.parquet")
+
+    #: THE STRATUM, PER PAIR, SO THE TWO n's CANNOT BE POOLED BY ACCIDENT.
+    #: A pair with no control cells can carry the invariance contrast (t(both)
+    #: base vs aligned) and the both_matched contrast, and CANNOT carry the
+    #: BOTH-vs-control contrast at all. Reporting one "n = 52" over a frame
+    #: holding both kinds is the defect this campaign spent 2026-08-10 removing.
+    strat = {(b, al): ("FULL_QUINTUPLET"
+                       if (g.get("control_a") and g.get("control_b"))
+                       else "TRIPLET_ONLY")
+             for _f, b, al, g in roster}
+    D["stratum"] = [strat.get((b, al), "TRIPLET_ONLY")
+                    for b, al in zip(D.base, D.aligned)]
+
+    out = os.path.join(CAMP, "results", cli.out or "l3_geometry.parquet")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     D.to_parquet(out, index=False)
 
@@ -167,6 +220,19 @@ def main():
     print("   %-14s %14s %14s" % ("role", "spec (x pairs)", "cells read"))
     for role in ROLES:
         print("   %-14s %14d %14d" % (role, spec[role], read[role]))
+    print("\n" + "=" * 84)
+    print("STRATA -- TWO POPULATIONS IN ONE FRAME. NEVER REPORT ONE n.")
+    print("=" * 84)
+    for s in ("FULL_QUINTUPLET", "TRIPLET_ONLY"):
+        ps = sorted(k for k, v in strat.items() if v == s)
+        print("   %-16s %2d pairs" % (s, len(ps)))
+        for b, al in ps:
+            print("        %s" % b)
+    print("   BOTH vs control contrast   -> FULL_QUINTUPLET only, n = %d pairs"
+          % sum(1 for v in strat.values() if v == "FULL_QUINTUPLET"))
+    print("   t(both) base-vs-aligned    -> BOTH strata,          n = %d pairs"
+          % len(strat))
+
     print("\n   rows written: %d   pairs read: %d   models touched: %d"
           % (len(D), len(roster), D[["base", "aligned"]].stack().nunique()))
     print("   layer depths present: %s"
