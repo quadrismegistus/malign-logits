@@ -155,6 +155,22 @@ drives collapse); if they move TOGETHER at every rung, the common-cause
 reading survives and is itself a result. Either way [5373]'s flagged
 correlation stops being a flag.
 
+**Secondary 4 carries a second question for free — the U-hazard ([5378]),
+predictions registered before the run.** The contradiction ratio CANNOT
+DISTINGUISH "has not learned it yet" from "has learned to leave": F24's
+early-pretraining "noise" (ratio ~1, poles not yet distinct) and the
+calibrated NEUTRALIZATION point (1.006) are one number for opposite
+states, so the base arm's start and the SFT arm's end form a U whose two
+ends must never be read as a shared state. pole_sep is the discriminator
+(noise: sep SMALL; frame-exit: sep LARGE), and it is already on the ladder
+here. Lacan's both-branch predictions, verbatim commitments: base-arm early
+rungs approach 1.0 from ABOVE with pole_sep near its floor; any late-rung
+or SFT-arm approach to 1.0 comes with pole_sep at or above its endpoint
+value. Early ratio ~1 with sep LARGE = the noise reading is wrong and
+F24's developmental story needs revisiting; late ratio ~1 with sep SMALL =
+the frame-exit reading is wrong. The write-up plots ratio and pole_sep
+together or not at all.
+
 **Secondary 3 (the join):** if no stage3 candidate is materially closer than
 base `main`, the vendor's lineage claim stands unrefined and phase 2 anchors
 on `main`; if one anneal tip is closest, phase 2 anchors there and the two
