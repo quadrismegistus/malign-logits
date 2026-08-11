@@ -1,0 +1,286 @@
+{
+ "_about": "Movement summed by part of speech, and the manner/temporal cancellation inside ADV.",
+ "_producer": "meta/M01_displacement/scripts/movement_by_pos.py",
+ "_corrects": {
+  "post": "[5474], by this seat",
+  "DET_-2200": "WITHDRAWN. Only 2 moved words tag DET; `the`, `a`, `his`, `her` tag PRON because a mid-clause prompt strands them. Their mass is inside PRON.",
+  "ADV_net_-24": "WITHDRAWN. Not reproducible at either grain; the word-level join gives +832 at 47.5%.",
+  "temporal_falls": "CORRECTED to flat (50.3%). The cancellation is manner-up against flat, not against down.",
+  "survives": "VERB -17457 exactly; NOUN rising; and the manner bucket, which is the claim the post was making."
+ },
+ "_closed_class_unreliable": {
+  "why": "all 212 battery prompts end mid-clause, so an appended determiner has no noun to determine",
+  "measured": {
+   "the": {
+    "PRON": 584
+   },
+   "a": {
+    "PRON": 571,
+    "NOUN": 13
+   },
+   "an": {
+    "PRON": 554,
+    "X": 1,
+    "PROPN": 1
+   },
+   "his": {
+    "PRON": 532
+   },
+   "her": {
+    "PRON": 461,
+    "NOUN": 6
+   },
+   "their": {
+    "PRON": 496
+   },
+   "my": {
+    "PRON": 514,
+    "NOUN": 2,
+    "INTJ": 1
+   },
+   "your": {
+    "PRON": 520
+   },
+   "this": {
+    "PRON": 579
+   },
+   "that": {
+    "PRON": 299,
+    "SCONJ": 284
+   },
+   "these": {
+    "PRON": 123
+   },
+   "those": {
+    "PRON": 353
+   }
+  },
+  "classes_marked_diagnostic_only": [
+   "DET",
+   "PRON"
+  ]
+ },
+ "_inputs": [
+  "meta/M01_displacement/results/unfiltered_movement_counts.json (@lacan, 59c64e4a)",
+  "data/m05_syntax_tags.parquet"
+ ],
+ "_why_it_exists": "these numbers were posted at [5474] and lived nowhere else; produce-before-plot, [5429].",
+ "_buckets_declared_before_counting": {
+  "manner": "-ly suffix; admits only/really/probably, which are NOT manner. Kept because mechanical and declared.",
+  "temporal_deictic": [
+   "after",
+   "again",
+   "already",
+   "always",
+   "anywhere",
+   "before",
+   "ever",
+   "everywhere",
+   "finally",
+   "here",
+   "immediately",
+   "later",
+   "never",
+   "now",
+   "nowhere",
+   "often",
+   "once",
+   "sometimes",
+   "somewhere",
+   "soon",
+   "still",
+   "suddenly",
+   "then",
+   "there",
+   "today",
+   "tomorrow",
+   "when",
+   "yesterday",
+   "yet"
+  ],
+  "other": "residual, reported rather than dropped"
+ },
+ "_not_a_test": "summed event counts over a fixed corpus, no pair-level resampling. No interval is quoted because none is computable from these inputs.",
+ "_class_join": "a word's class is its MODAL in-context upos across the battery; 3943 of 4399 moved words joined.",
+ "by_pos": [
+  {
+   "class": "VERB",
+   "rises": 89176,
+   "falls": 106633,
+   "net": -17457,
+   "fall_rate": 0.5446,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "PRON",
+   "rises": 14404,
+   "falls": 21107,
+   "net": -6703,
+   "fall_rate": 0.5944,
+   "n_words": null,
+   "reliable": false
+  },
+  {
+   "class": "ADV",
+   "rises": 8581,
+   "falls": 7749,
+   "net": 832,
+   "fall_rate": 0.4745,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "ADP",
+   "rises": 1864,
+   "falls": 4733,
+   "net": -2869,
+   "fall_rate": 0.7174,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "AUX",
+   "rises": 2580,
+   "falls": 3801,
+   "net": -1221,
+   "fall_rate": 0.5957,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "NOUN",
+   "rises": 3429,
+   "falls": 2523,
+   "net": 906,
+   "fall_rate": 0.4239,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "SCONJ",
+   "rises": 1054,
+   "falls": 1995,
+   "net": -941,
+   "fall_rate": 0.6543,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "ADJ",
+   "rises": 1141,
+   "falls": 1537,
+   "net": -396,
+   "fall_rate": 0.5739,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "PROPN",
+   "rises": 874,
+   "falls": 660,
+   "net": 214,
+   "fall_rate": 0.4302,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "PART",
+   "rises": 355,
+   "falls": 443,
+   "net": -88,
+   "fall_rate": 0.5551,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "PUNCT",
+   "rises": 196,
+   "falls": 441,
+   "net": -245,
+   "fall_rate": 0.6923,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "NUM",
+   "rises": 176,
+   "falls": 332,
+   "net": -156,
+   "fall_rate": 0.6535,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "INTJ",
+   "rises": 226,
+   "falls": 177,
+   "net": 49,
+   "fall_rate": 0.4392,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "CCONJ",
+   "rises": 135,
+   "falls": 35,
+   "net": 100,
+   "fall_rate": 0.2059,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "SYM",
+   "rises": 55,
+   "falls": 3,
+   "net": 52,
+   "fall_rate": 0.0517,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "X",
+   "rises": 2,
+   "falls": 0,
+   "net": 2,
+   "fall_rate": 0.0,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "DET",
+   "rises": 1,
+   "falls": 0,
+   "net": 1,
+   "fall_rate": 0.0,
+   "n_words": null,
+   "reliable": false
+  }
+ ],
+ "adv_buckets": [
+  {
+   "class": "temporal/deictic",
+   "rises": 4510,
+   "falls": 4565,
+   "net": -55,
+   "fall_rate": 0.503,
+   "n_words": 23
+  },
+  {
+   "class": "manner (-ly)",
+   "rises": 2747,
+   "falls": 1310,
+   "net": 1437,
+   "fall_rate": 0.3229,
+   "n_words": 163
+  },
+  {
+   "class": "other",
+   "rises": 1324,
+   "falls": 1874,
+   "net": -550,
+   "fall_rate": 0.586,
+   "n_words": 52
+  }
+ ]
+}
