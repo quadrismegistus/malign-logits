@@ -205,6 +205,106 @@ Recorded in full because the pre-registered reading of "~2.2x" was "the example
 inflated it", and that reading is being amended on the grounds above rather
 than quietly dropped.
 
+## NAMING AND MORALISING ARE INDEPENDENT EVENTS
+
+The same 800 passages were re-read by eight fresh Opus readers for two further
+constructs, as independent verdicts each requiring its own span: **MORAL** (does
+the text evaluate the character or their state against a norm of right conduct?)
+and **CLINICAL** (does it frame the condition as a disorder, symptom or case?).
+Same blinding, same cells, judged on the continuation's own terms.
+
+    construct        CONTRA base  CONTRA aligned   OR       SAMESIDE OR
+    second-order          3.0%          12.5%    4.62 ***       0.25
+    moral                14.5%          21.0%    1.57           0.87
+    clinical              5.0%           5.0%    1.00           1.24
+
+**CLINICAL IS FLAT.** 5.0% against 5.0%, OR 1.00, p = 1. The pathologisation
+hypothesis came from two anecdotes in the second-order spans and it is dead:
+aligned models frame contradiction as a disorder exactly as often as base models
+do. Both arms produce it and it is mostly scene content -- base: `driven to
+madness`, `she got into the habit of self mutilating`; aligned: `diagnosed with
+schizophrenia`, `6 hallmark symptoms of Alzheimer's disease`.
+
+**MORAL IS COMMON AND ONLY WEAKLY CONTRADICTION-SPECIFIC**, 1.57x with p = 0.116
+and a control at 0.87x. Note the reader finds far more moralising than the
+lexicon did (14-21% against 4-5%) and tilts the other way, since the lexicon had
+the pole arm moving MORE. Neither instrument reaches significance, so the
+conclusion is unchanged and now doubly sourced: **the guilt half of the slide
+does not replicate.**
+
+### The conjunction, which only the same-passage design can see
+
+    ALIGNED, contradiction prompts, n = 200
+        25 passages name the contradiction
+        42 passages moralise
+         5 do both        --  chance alone would give 5.2
+
+    moralising GIVEN naming   20%
+    moralising otherwise      21%      OR 0.93, p = 1
+
+**Exactly independent.** The aligned model does both and does not do them
+together.
+
+And they are not merely uncorrelated, they are about **different objects**. The
+naming takes the divided condition as its object; the moralising, in the
+passages where it occurs alone, is about the plot:
+
+    MORALISES, DOES NOT NAME
+      "saving the children she loved from her husband's violence in apparent
+       remorse"
+      "She's not innocent, Detective."
+      "How can this be fair?"
+      "she began to understand that she would be found guilty of the murder"
+
+    NAMES, DOES NOT MORALISE
+      "Their love/hate relationship was a complicated tame"
+      "that was the paradox of being free"
+      "wonder if the two are one and the same"
+      "She couldn't define how she felt for him"
+      "arousal pain flowering within his blackening limbs"
+
+    BOTH -- all five, aligned contradiction arm
+      salamandra-7b-instruct  names  "It was pleasure mixed with pain, heady
+                                      and intoxicating"
+                              moral  "He had deceived her, not once but twice"
+      OLMoE-1B-7B-DPO         names  "the line between hero and villain is as
+                                      delicate as the venomous"
+                              moral  "a mythic exploration of masculine
+                                      overreach and the chaos it breeds"
+      zephyr-7b-beta          names  "He was a soldier in every right and wrong
+                                      aspect"
+                              moral  "He refused to believe that the system was
+                                      wrong, or that he was right"
+      pythia6.9b-hh-dpo       names  "feel her innocence and guilt"
+                              moral  the same clause
+      CT-LLM-SFT-DPO          names  "His benefactor unto whom he was bound
+                                      freely"
+                              moral  "do as he pleased unashamedly in an
+                                      upright manner"
+
+Even in the five that do both, the moral span and the naming span are usually
+different clauses about different things.
+
+### What this does to the Oedipalization reading
+
+"Free desire recoded onto a grid of law and guilt" describes ONE operation: the
+contradiction is captured BY being judged. What the data shows is two separate
+things in the same models -- a strong, specific, 4.6x tendency to produce a
+vantage point outside the contradiction, and a general tendency to moralise that
+runs at the same rate whether or not a contradiction is present and attaches to
+unrelated material.
+
+RH's slide exemplar carries both in one passage: "She was torn in two
+directions" and "Maybe she should feel guilty". On 800 passages that
+co-occurrence is a property of the exemplar, not a pattern.
+
+**The amended claim: alignment produces the vantage point. It does not, on this
+evidence, attach the guilt that would convert a vantage into a capture.** The
+naming is there; the grid is not fastened to it. Whether a vantage without a
+grid is still Oedipalization is a question for the prose, not for this file.
+
+Artifact: `results/opus_second_order/moral_clinical.json`.
+
 ## Why the passages are exit-free, and what that fixed
 
 A subagent harvesting phrases surfaced a flaw in the construct as I had defined
