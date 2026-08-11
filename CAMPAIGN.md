@@ -130,6 +130,13 @@ seat forgets at its peril:
   with a green tick on it. Acceptance names rows, it does not count them —
   a count cannot tell "the 3 survived" from "3 others were added"
   ([5358], [5359]).
+- **A description of what a selected group CONTAINS is not a rule that
+  RE-SELECTS it.** Features observed after selecting on an outcome are
+  correlates; running them forward is the inverse operation and it does
+  not invert — the D4c "site type" (quote + content-word + depth), applied
+  as a selector, landed BELOW-baseline divergence, and a confirmation run
+  built on it would null from its selector rather than from the world
+  ([5368]).
 - **A count is a fact about the unit you counted in** — five disagreements
   in one day dissolved into unit words (records vs cells vs pairs vs
   distinct strings); state the unit beside every count, and when two counts
