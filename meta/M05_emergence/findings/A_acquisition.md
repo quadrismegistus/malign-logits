@@ -131,12 +131,25 @@ So the two rise together as "how much alignment has happened" but neither
 drives the other at rung grain: the common-cause branch survives, which the
 plan's own priors named as itself a result. The single sharpest geometric
 fact is not the arrow but the first 1,000 steps of pretraining — pole
-separation collapses 0.79 -> 0.23 there, dwarfing every later move including
-all of alignment (spread -> collapse -> gradual re-separation). One
-prediction was refuted and its falsifier withdrawn by its author: step0's
-pole_sep is the LARGEST on the ladder, because an untrained net separates
-inputs arbitrarily, and step0 is the random-init reference the instrument
-lacked.
+separation falls 0.79 -> 0.23 there, dwarfing every later move including
+all of alignment.
+
+**AMENDED per lacan's [5445]/commit 7ff5d37f (correcting [5426]): step 0 is
+not a measurement.** At initialisation pole_sep is FLAT across all 32
+layers (0.749-0.812, a 1.1x spread against 18.9x at step 16,000) — the
+signature of a random projection, not of a network that "separates inputs
+arbitrarily." The earlier reading of step0 as the largest-separation rung,
+and the prediction-1 refutation conceded on it at [5426], are withdrawn by
+their author (through a frozen head the step-0 ratio is 0.8901, not
+1.267). The defensible claim, in [5446]'s own narrow form: **the step0 ->
+1000 fall marks the measure BECOMING a representation readout rather than
+a random-projection readout; it is not evidence that the poles become
+less separated.** A cross-group null (pole_sep between prompts from
+different groups, hidden states re-read) is owed before any pole-specific
+reading; until then the "spread -> collapse -> re-separation" arc is not
+quotable in any form. Note also from the same correction: `step` is not a
+key on this ladder (stages restart numbering); everything here is
+stage-1.
 
 ![Contradiction ratio across training, the unjoined half](../figures/fig4_ratio_unjoined.png)
 
