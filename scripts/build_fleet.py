@@ -83,7 +83,80 @@ def plan(models, n_boxes, req, cells_per_model, weight_by_params):
     def R(m):
         return req.get(m) or req.get(base_model_of(m))
 
-    unknown = [m for m in models if R(m) is None]
+    #: ── PAIR MODE ────────────────────────────────────────────────────────
+    #: **A UNIT IS WHAT CANNOT BE SPLIT ACROSS BOXES.** For twp that is a
+    #: checkpoint. For a passage run it is a PAIR: `vllm_y_run.py` loads base,
+    #: generates, frees it, loads aligned, generates, then CROSS-SCORES both
+    #: sets in one process. Split a pair and cross-scoring is gone, and
+    #: `scored_by_base`/`scored_by_aligned` is the field every downstream
+    #: analysis reads.
+    #:
+    #: So the grouping and balancing below are unchanged and operate on UNITS;
+    #: only the resolution of a unit's requirements differs. One code path, not
+    #: a second planner — the pin-partition rule, the repo-grain inheritance and
+    #: the refusal are the parts that must not be duplicated.
+    def merge_pair(u):
+        """Requirements for a pair: the STRICTER of its two arms, except VRAM.
+
+        **VRAM IS max(), NOT sum(), AND THAT IS THE WHOLE SAVING.** The arms are
+        resident SEQUENTIALLY, never together. The Y run recorded what sizing on
+        the pair costs: it "forced two A100s at $0.69 and $1.03/hr for shards
+        whose biggest model is 28 GB and 20 GB." Sizing on the pair is correct
+        for a concurrent load and wrong for this runner.
+
+        Package pins UNION, because a pin is box-wide state and the box must
+        satisfy both arms. `blocked` propagates: an unrunnable arm makes the
+        pair unrunnable, since a pair missing an arm has no contrast to compute.
+        """
+        a, b = R(u[0]), R(u[1])
+        if a is None or b is None:
+            return None
+        pk = dict(a.get("packages") or {})
+        for k, v in (b.get("packages") or {}).items():
+            #: a genuine disagreement is not mergeable and must not be papered
+            #: over by last-wins; the pair is refused with both values named
+            if k in pk and pk[k] != v:
+                return {"blocked": True,
+                        "blocked_reason": "arms disagree on %s: %s vs %s"
+                                          % (k, pk[k], v), "packages": pk,
+                        "profile": a["profile"], "min_vram_gb": 0, "gpus": 1,
+                        "transformers": a["transformers"], "torch": a["torch"],
+                        "kernels": [], "compute_dtype": None, "revision": None,
+                        "tokenizer_loader": None, "params_b": 0,
+                        "packages_reason": {}}
+            pk[k] = v
+        blocked = bool(a["blocked"] or b["blocked"])
+        why = a["blocked_reason"] if a["blocked"] else b["blocked_reason"]
+        return {
+            "profile": a["profile"] if a["profile"] == b["profile"] else "default",
+            "packages": pk,
+            "packages_reason": {**(a.get("packages_reason") or {}),
+                                **(b.get("packages_reason") or {})},
+            "min_vram_gb": max(a["min_vram_gb"], b["min_vram_gb"]),   # SEQUENTIAL
+            "gpus": max(a["gpus"], b["gpus"]),
+            "transformers": max(a["transformers"], b["transformers"]),
+            "torch": max(a["torch"], b["torch"]),
+            "kernels": sorted(set(a["kernels"]) | set(b["kernels"])),
+            "compute_dtype": a["compute_dtype"] or b["compute_dtype"],
+            "revision": None, "tokenizer_loader": None,
+            "params_b": max(a.get("params_b") or 0, b.get("params_b") or 0),
+            "blocked": blocked, "blocked_reason": why,
+        }
+
+    _PAIRREQ = {}
+
+    def U(u):
+        """Requirements for a UNIT, whichever kind it is."""
+        if isinstance(u, str):
+            return R(u)
+        if u not in _PAIRREQ:
+            _PAIRREQ[u] = merge_pair(u)
+        return _PAIRREQ[u]
+
+    def label(u):
+        return u if isinstance(u, str) else "%s>%s" % u
+
+    unknown = [label(m) for m in models if U(m) is None]
     if unknown:
         raise SystemExit(
             "REFUSING: %d model(s) have no requirements row at either the "
@@ -92,8 +165,8 @@ def plan(models, n_boxes, req, cells_per_model, weight_by_params):
             "Add them to the registry and re-run build_model_requirements.py."
             % (len(unknown), "\n   ".join(unknown)))
 
-    blocked = [(m, R(m)["blocked_reason"]) for m in models if R(m)["blocked"]]
-    runnable = [m for m in models if not R(m)["blocked"]]
+    blocked = [(label(m), U(m)["blocked_reason"]) for m in models if U(m)["blocked"]]
+    runnable = [m for m in models if not U(m)["blocked"]]
 
     #: **PACKAGE PINS PARTITION A FLEET EXACTLY AS transformers DOES.** A pin is
     #: box-wide state: two checkpoints that disagree on `sentencepiece` cannot
@@ -107,18 +180,18 @@ def plan(models, n_boxes, req, cells_per_model, weight_by_params):
     #: without. A label that no longer determines the environment is the thing
     #: that makes a fleet unreproducible.
     def pinkey(m):
-        pk = R(m).get("packages") or {}
+        pk = U(m).get("packages") or {}
         return tuple(sorted(pk.items()))
 
     groups = defaultdict(list)
     for m in runnable:
-        groups[(R(m)["profile"], pinkey(m))].append(m)
+        groups[(U(m)["profile"], pinkey(m))].append(m)
 
     #: WEIGHT the split so a box is balanced in TIME, not just in model count.
     def weight(m):
         if not weight_by_params:
             return cells_per_model
-        p = R(m).get("params_b") or 7.0
+        p = U(m).get("params_b") or 7.0
         return cells_per_model * max(0.25, p / 7.0)
 
     total = sum(weight(m) for m in runnable)
@@ -135,29 +208,31 @@ def plan(models, n_boxes, req, cells_per_model, weight_by_params):
         for m in ms:                     # longest-processing-time first
             i = load.index(min(load))
             bins[i].append(m); load[i] += weight(m)
-        pins = sorted({R(m)["transformers"] for m in ms} |
-                      {"torch" + R(m)["torch"] for m in ms})
-        kern = sorted({k2 for m in ms for k2 in R(m)["kernels"]})
+        pins = sorted({U(m)["transformers"] for m in ms} |
+                      {"torch" + U(m)["torch"] for m in ms})
+        kern = sorted({k2 for m in ms for k2 in U(m)["kernels"]})
         for b in bins:
             if not b:
                 continue
             out.append({"box": box_id, "profile": prof,
                         "launch_profile": LAUNCH_PROFILE.get(prof, "dense"),
                         "packages": dict(pins_t),
-                        "packages_reason": {k: (R(b[0]).get("packages_reason") or {}).get(k)
+                        "packages_reason": {k: (U(b[0]).get("packages_reason") or {}).get(k)
                                             for k, _ in pins_t},
-                        "models": b,
+                        "models": [label(m) for m in b],
+                        "pairs": [{"base": m[0], "aligned": m[1]}
+                                  for m in b if not isinstance(m, str)] or None,
                         "cells": int(sum(cells_per_model for _ in b)),
-                        "gpus": max(R(m)["gpus"] for m in b),
-                        "min_vram_gb": max(R(m)["min_vram_gb"] for m in b),
-                        "transformers": sorted({R(m)["transformers"] for m in b}),
+                        "gpus": max(U(m)["gpus"] for m in b),
+                        "min_vram_gb": max(U(m)["min_vram_gb"] for m in b),
+                        "transformers": sorted({U(m)["transformers"] for m in b}),
                         "kernels": kern,
-                        "compute_dtype": sorted({R(m)["compute_dtype"] for m in b
-                                                 if R(m)["compute_dtype"]}),
-                        "revisions": {m: R(m)["revision"] for m in b
-                                      if R(m)["revision"]},
-                        "tokenizer_overrides": {m: R(m)["tokenizer_loader"] for m in b
-                                                if R(m)["tokenizer_loader"]}})
+                        "compute_dtype": sorted({U(m)["compute_dtype"] for m in b
+                                                 if U(m)["compute_dtype"]}),
+                        "revisions": {label(m): U(m)["revision"] for m in b
+                                      if U(m)["revision"]},
+                        "tokenizer_overrides": {label(m): U(m)["tokenizer_loader"] for m in b
+                                                if U(m)["tokenizer_loader"]}})
             box_id += 1
     return out, blocked
 
@@ -166,6 +241,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--models", help="file with one model id per line; "
                                      "default = every non-blocked checkpoint")
+    #: **PAIR MODE.** A json carrying pairs -- either a `pairs` list of
+    #: {base, aligned}, or a forced-arm table whose cells carry `pair` as
+    #: "base>aligned". The pair becomes the indivisible unit; see merge_pair().
+    ap.add_argument("--pairs", metavar="JSON",
+                    help="plan PAIRS instead of models: the unit that cannot be "
+                         "split, because cross-scoring happens inside one process")
     ap.add_argument("--boxes", type=int, default=6)
     ap.add_argument("--cells-per-model", type=int, default=2579)
     ap.add_argument("--weight-by-params", action="store_true",
@@ -175,26 +256,66 @@ def main():
     ap.add_argument("--tag", default="fleet")
     ap.add_argument("--write", action="store_true")
     a = ap.parse_args()
+    if a.models and a.pairs:
+        raise SystemExit("REFUSING: --models and --pairs are two different units. "
+                         "Pick one; a plan mixing them balances nothing.")
 
     req, envs = load_requirements()
-    if a.models:
+
+    def load_pairs(path):
+        """[(base, aligned)] from a pairs list OR a forced-arm table.
+
+        Two shapes because two producers write them: `y_shard_*.json` carries
+        `pairs: [{base, aligned}]`, and `forced_arms_*.json` carries `cells`
+        whose `pair` is "base>aligned". Accepting both is not laxity -- it is
+        the difference between planning from the artifact a run will actually
+        consume and asking an operator to transcribe it into a third format.
+        """
+        d = json.load(open(path))
+        out = []
+        for r in (d.get("pairs") or []):
+            if isinstance(r, dict) and r.get("base") and r.get("aligned"):
+                out.append((r["base"], r["aligned"]))
+        if not out:
+            for c in (d.get("cells") or []):
+                pr = c.get("pair")
+                if pr and ">" in pr:
+                    out.append(tuple(pr.split(">", 1)))
+        seen, uniq = set(), []
+        for t in out:
+            if t not in seen:
+                seen.add(t); uniq.append(t)
+        if not uniq:
+            raise SystemExit("REFUSING: no pairs found in %s -- expected a "
+                             "`pairs` list of {base,aligned} or `cells` with "
+                             "`pair` as 'base>aligned'." % path)
+        return uniq
+    if a.pairs:
+        models = load_pairs(a.pairs)
+        print("PAIR MODE: %d pairs, %d checkpoints. The pair is indivisible -- "
+              "cross-scoring happens inside one process." % (len(models),
+              len({m for t in models for m in t})), file=sys.stderr)
+    elif a.models:
         models = [l.strip() for l in open(a.models) if l.strip()
                   and not l.startswith("#")]
     else:
         models = sorted(req)
     if a.profile_only:
-        models = [m for m in models if req.get(m, {}).get("profile") == a.profile_only]
+        models = [m for m in models
+                  if (req.get(m, {}) if isinstance(m, str) else {}).get("profile")
+                  == a.profile_only]
 
     boxes, blocked = plan(models, a.boxes, req, a.cells_per_model, a.weight_by_params)
 
-    print("FLEET PLAN  %d models -> %d boxes" % (len(models), len(boxes)))
+    UNIT = "pairs" if a.pairs else "models"
+    print("FLEET PLAN  %d %s -> %d boxes" % (len(models), UNIT, len(boxes)))
     if blocked:
         print("\n  EXCLUDED, blocked (named, not dropped):")
         for m, why in blocked:
             print("    %-46s %s" % (m[:46], (why or "")[:70]))
     print()
     for b in boxes:
-        print("  box %d  profile=%-8s %d models  %s cells  %dx GPU >=%dGB"
+        print(("  box %d  profile=%-8s %d " + UNIT + "  %s cells  %dx GPU >=%dGB")
               % (b["box"], b["profile"], len(b["models"]), f"{b['cells']:,}",
                  b["gpus"], b["min_vram_gb"]))
         pins = [p for p in b["transformers"] if p != ">=4.57"]
