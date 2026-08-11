@@ -182,6 +182,13 @@ seat forgets at its peril:
   NEVER WHAT WAS REPORTED. Corollary from the same hour: utilisation is
   not throughput — a health rule fires on idle AND not-advancing, never on
   idle alone ([5411]).
+- **Some defects are visible from no single seat.** The empty-cell roster:
+  the fleet seat could see wordless cells because it ran the boxes, the
+  analysis seat saw a hole at rung 1 of a curve, and only the store seat
+  could see the hole was 1,226 cells wide across 23 models nobody was
+  looking at ("your ask fixed a checkpoint and uncovered a roster"). A
+  clearance is scoped to its evidence: "on this roster and this prompt
+  set, it did not" — never "it could not have" ([5418], [5419]).
 - **A measured number is measured OVER something; carrying it across an
   instrument or scale boundary is a new claim needing its own measurement.**
   Twice in one day by the same seat, named by him: load-at-3-checkpoints
