@@ -1,0 +1,116 @@
+# M05 capacity family: POETIC_TEXTURE (Jakobsonian formulaic stickiness).
+# The thesis's OTHER pole, which F24 never measured: "complex, cultural, and
+# even poetic first" (Weatherby p. 2). Equivalence projected into combination,
+# at twp grain.
+# DESIGN: minimal PAIRS. Each probe is one target word under two frames:
+#   FORMULAIC  -- the fixed formula (binomial, idiom, rhyming/alliterative pair)
+#   PARAPHRASE -- same content, formula broken by a semantically inert
+#                 substitution ("and" -> "as well as", "or" -> "or else")
+# MEASURE: per checkpoint, p(target|FORMULAIC) - p(target|PARAPHRASE) (or the
+# log-ratio). The pull of the formula with content held constant IS the
+# stickiness curve. If the poetic is first, this curve rises before the
+# REFERENCE and REASONING families' curves.
+# Drafted by the pen (Fable) on RH's word, 2026-08-11. Candidates only --
+# subject to RH review before entering the catalogue.
+
+- pair_id: poet_binom_01
+  subtype: binomial
+  FORMULAIC: "They stuck together through thick and"
+  PARAPHRASE: "They stuck together through thick as well as"
+  target: "thin"
+- pair_id: poet_binom_02
+  subtype: binomial
+  prompt_note: "bread and butter"
+  FORMULAIC: "Writing reviews was his bread and"
+  PARAPHRASE: "Writing reviews was his bread as well as"
+  target: "butter"
+- pair_id: poet_binom_03
+  subtype: binomial
+  FORMULAIC: "The mayor promised law and"
+  PARAPHRASE: "The mayor promised law as well as"
+  target: "order"
+- pair_id: poet_binom_04
+  subtype: binomial
+  FORMULAIC: "The old table showed years of wear and"
+  PARAPHRASE: "The old table showed years of wear as well as"
+  target: "tear"
+- pair_id: poet_binom_05
+  subtype: binomial
+  FORMULAIC: "The baby arrived safe and"
+  PARAPHRASE: "The baby arrived safe as well as"
+  target: "sound"
+- pair_id: poet_binom_06
+  subtype: binomial
+  FORMULAIC: "Please pass the salt and"
+  PARAPHRASE: "Please pass the salt as well as the"
+  target: "pepper"
+- pair_id: poet_binom_07
+  subtype: binomial
+  FORMULAIC: "He searched for the file high and"
+  PARAPHRASE: "He searched for the file high as well as"
+  target: "low"
+- pair_id: poet_binom_08
+  subtype: binomial
+  FORMULAIC: "The negotiation was all give and"
+  PARAPHRASE: "The negotiation was all give as well as"
+  target: "take"
+- pair_id: poet_rhyme_01
+  subtype: rhyming
+  FORMULAIC: "He finished the job by hook or by"
+  PARAPHRASE: "He finished the job by hook or else by"
+  target: "crook"
+- pair_id: poet_rhyme_02
+  subtype: rhyming
+  FORMULAIC: "In this market you either sink or"
+  PARAPHRASE: "In this market you either sink or else you"
+  target: "swim"
+- pair_id: poet_rhyme_03
+  subtype: rhyming
+  FORMULAIC: "Clients came to the gala to wine and"
+  PARAPHRASE: "Clients came to the gala to wine as well as"
+  target: "dine"
+- pair_id: poet_rhyme_04
+  subtype: rhyming
+  FORMULAIC: "The forecast was all doom and"
+  PARAPHRASE: "The forecast was all doom as well as"
+  target: "gloom"
+- pair_id: poet_rhyme_05
+  subtype: rhyming
+  FORMULAIC: "The wolf began to huff and"
+  PARAPHRASE: "The wolf began to huff as well as"
+  target: "puff"
+- pair_id: poet_rhyme_06
+  subtype: rhyming
+  FORMULAIC: "The tabloids love to name and"
+  PARAPHRASE: "The tabloids love to name as well as"
+  target: "shame"
+- pair_id: poet_rhyme_07
+  subtype: rhyming
+  FORMULAIC: "The patients would only moan and"
+  PARAPHRASE: "The patients would only moan as well as"
+  target: "groan"
+- pair_id: poet_allit_01
+  subtype: alliterative
+  FORMULAIC: "The decision came down to make or"
+  PARAPHRASE: "The decision came down to make or else"
+  target: "break"
+- pair_id: poet_allit_02
+  subtype: alliterative
+  FORMULAIC: "It was time to rise and"
+  PARAPHRASE: "It was time to rise as well as"
+  target: "shine"
+- pair_id: poet_allit_03
+  subtype: alliterative
+  FORMULAIC: "Do it now or"
+  PARAPHRASE: "Do it now or else"
+  target: "never"
+- pair_id: poet_allit_04
+  subtype: alliterative
+  FORMULAIC: "The team was ready to meet and"
+  PARAPHRASE: "The team was ready to meet as well as"
+  target: "greet"
+- pair_id: poet_allit_05
+  subtype: alliterative
+  FORMULAIC: "The recruits were told to shape up or ship"
+  PARAPHRASE: "The recruits were told to shape up or else ship"
+  target: "out"

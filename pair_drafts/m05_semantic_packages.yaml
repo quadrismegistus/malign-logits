@@ -1,0 +1,196 @@
+# M05 capacity family: SEMANTIC_PACKAGES (Weatherby ch. 6, made quantitative).
+# "Contextually clustered bundles of words that surface when the poetic heat
+# map is activated around a topic" -- his ideology probes, run as curves.
+# MEASURE: per checkpoint, p(target) vs p(competitor), where the target is
+# the PACKAGE completion and the competitor is semantically adequate but
+# non-package. Base arm: when does ideology-scanning install in pretraining?
+# SFT arm: his falsified prediction ("will almost certainly disappear ... as
+# they are brought into representational line," p. 187) becomes a curve --
+# do packages strengthen or dissolve under alignment, checkpoint by
+# checkpoint? Subtypes: theory (his own domain), civic, media, econ.
+# NOTE the deliberate mirror: in REFERENCE ref_divergent the package is the
+# COMPETITOR; here the package is the TARGET. The two families jointly
+# separate "learning the world" from "learning the phrase".
+# Drafted by the pen (Fable) on RH's word, 2026-08-11. Candidates only --
+# subject to RH review before entering the catalogue.
+
+- id: pkg_thy_01
+  subtype: theory
+  prompt: "Adorno and Horkheimer wrote the classic study of the dialectic of"
+  target: "enlightenment"
+  competitor: "history"
+- id: pkg_thy_02
+  subtype: theory
+  prompt: "Arendt's report on Eichmann coined the phrase the banality of"
+  target: "evil"
+  competitor: "bureaucracy"
+- id: pkg_thy_03
+  subtype: theory
+  prompt: "Adam Smith described the invisible hand of the"
+  target: "market"
+  competitor: "state"
+- id: pkg_thy_04
+  subtype: theory
+  prompt: "Jameson called postmodernism the cultural logic of late"
+  target: "capitalism"
+  competitor: "modernity"
+- id: pkg_thy_05
+  subtype: theory
+  prompt: "McLuhan argued that the medium is the"
+  target: "message"
+  competitor: "content"
+- id: pkg_thy_06
+  subtype: theory
+  prompt: "Spencer summarized evolution as the survival of the"
+  target: "fittest"
+  competitor: "strongest"
+- id: pkg_thy_07
+  subtype: theory
+  prompt: "Nietzsche's name for the fundamental drive was the will to"
+  target: "power"
+  competitor: "survive"
+- id: pkg_thy_08
+  subtype: theory
+  prompt: "Fanon's great book is titled The Wretched of the"
+  target: "Earth"
+  competitor: "World"
+- id: pkg_thy_09
+  subtype: theory
+  prompt: "Debord's study of images is called The Society of the"
+  target: "Spectacle"
+  competitor: "Image"
+- id: pkg_thy_10
+  subtype: theory
+  prompt: "Freud's essay on culture is Civilization and Its"
+  target: "Discontents"
+  competitor: "Enemies"
+- id: pkg_civ_01
+  subtype: civic
+  prompt: "After the shooting, politicians offered their thoughts and"
+  target: "prayers"
+  competitor: "condolences"
+- id: pkg_civ_02
+  subtype: civic
+  prompt: "The inspectors searched for weapons of mass"
+  target: "destruction"
+  competitor: "violence"
+- id: pkg_civ_03
+  subtype: civic
+  prompt: "The senator said the policy protected law-abiding"
+  target: "citizens"
+  competitor: "families"
+- id: pkg_civ_04
+  subtype: civic
+  prompt: "They came to America chasing the American"
+  target: "dream"
+  competitor: "economy"
+- id: pkg_civ_05
+  subtype: civic
+  prompt: "The candidate campaigned on traditional family"
+  target: "values"
+  competitor: "life"
+- id: pkg_civ_06
+  subtype: civic
+  prompt: "The First Amendment protects freedom of"
+  target: "speech"
+  competitor: "thought"
+- id: pkg_civ_07
+  subtype: civic
+  prompt: "After 2001, Washington declared a war on"
+  target: "terror"
+  competitor: "poverty"
+- id: pkg_civ_08
+  subtype: civic
+  prompt: "The general dismissed the casualties as collateral"
+  target: "damage"
+  competitor: "losses"
+- id: pkg_civ_09
+  subtype: civic
+  prompt: "Nixon appealed to the silent"
+  target: "majority"
+  competitor: "voters"
+- id: pkg_civ_10
+  subtype: civic
+  prompt: "The pundit blamed the decline on political"
+  target: "correctness"
+  competitor: "apathy"
+- id: pkg_med_01
+  subtype: media
+  prompt: "The president dismissed the story as fake"
+  target: "news"
+  competitor: "reporting"
+- id: pkg_med_02
+  subtype: media
+  prompt: "The blogger railed against the mainstream"
+  target: "media"
+  competitor: "press"
+- id: pkg_med_03
+  subtype: media
+  prompt: "The scandal was just the tip of the"
+  target: "iceberg"
+  competitor: "problem"
+- id: pkg_med_04
+  subtype: media
+  prompt: "The whistleblower decided to speak truth to"
+  target: "power"
+  competitor: "everyone"
+- id: pkg_med_05
+  subtype: media
+  prompt: "The influencer promised to share her journey of self-"
+  target: "discovery"
+  competitor: "improvement"
+- id: pkg_med_06
+  subtype: media
+  prompt: "The startup promised to disrupt the entire"
+  target: "industry"
+  competitor: "company"
+- id: pkg_med_07
+  subtype: media
+  prompt: "The coach told them to give a hundred and ten"
+  target: "percent"
+  competitor: "minutes"
+- id: pkg_med_08
+  subtype: media
+  prompt: "The therapist encouraged her to step out of her comfort"
+  target: "zone"
+  competitor: "area"
+- id: pkg_eco_01
+  subtype: econ
+  prompt: "Prices are set by the law of supply and"
+  target: "demand"
+  competitor: "scarcity"
+- id: pkg_eco_02
+  subtype: econ
+  prompt: "The crash was driven by the housing"
+  target: "bubble"
+  competitor: "shortage"
+- id: pkg_eco_03
+  subtype: econ
+  prompt: "Critics said the tax cuts would trickle"
+  target: "down"
+  competitor: "away"
+- id: pkg_eco_04
+  subtype: econ
+  prompt: "The CEO promised to think outside the"
+  target: "box"
+  competitor: "office"
+- id: pkg_eco_05
+  subtype: econ
+  prompt: "The board wanted synergy and a win-"
+  target: "win"
+  competitor: "rate"
+- id: pkg_eco_06
+  subtype: econ
+  prompt: "The bank was deemed too big to"
+  target: "fail"
+  competitor: "regulate"
+- id: pkg_eco_07
+  subtype: econ
+  prompt: "The gig economy runs on the race to the"
+  target: "bottom"
+  competitor: "top"
+- id: pkg_eco_08
+  subtype: econ
+  prompt: "The consultant recommended low-hanging"
+  target: "fruit"
+  competitor: "targets"

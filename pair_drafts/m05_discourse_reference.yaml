@@ -1,0 +1,160 @@
+# M05 capacity family: DISCOURSE_REFERENCE ("object permanence").
+# RH's phrase, 2026-08-11: reference at discourse grain -- tracking objects,
+# locations, possession, and states across sentences. Where reference is
+# HARD, not trivia: the competitor is always a noun PRESENT in the context,
+# so package-completion cannot fake it.
+# MEASURE: per checkpoint, p(target) vs p(competitor); log-ratio curve with
+# bootstrap CIs. Subtypes: location, possession, state, occlusion, order.
+# Drafted by the pen (Fable) on RH's word, 2026-08-11. Candidates only --
+# subject to RH review before entering the catalogue.
+
+- id: dsc_loc_01
+  subtype: location
+  prompt: "She put the key in the box and left the room. The key was still in the"
+  target: "box"
+  competitor: "room"
+- id: dsc_loc_02
+  subtype: location
+  prompt: "Ben put the milk in the fridge and the bread in the cupboard. Wanting a drink, he opened the"
+  target: "fridge"
+  competitor: "cupboard"
+- id: dsc_loc_03
+  subtype: location
+  prompt: "The passport was in her coat, not in her bag. At the border she reached into her"
+  target: "coat"
+  competitor: "bag"
+- id: dsc_loc_04
+  subtype: location
+  prompt: "He parked the car in the garage and left the bike in the yard. That night, rain fell on the"
+  target: "bike"
+  competitor: "car"
+- id: dsc_loc_05
+  subtype: location
+  prompt: "The letter lay under the lamp, and the newspaper lay on the chair. To read the letter she walked to the"
+  target: "lamp"
+  competitor: "chair"
+- id: dsc_loc_06
+  subtype: location
+  prompt: "She moved the plant from the window to the desk. The plant now stood on the"
+  target: "desk"
+  competitor: "window"
+- id: dsc_loc_07
+  subtype: location
+  prompt: "The dog buried the bone in the garden, then trotted to the kitchen. The bone remained in the"
+  target: "garden"
+  competitor: "kitchen"
+- id: dsc_pos_01
+  subtype: possession
+  prompt: "Maya gave her umbrella to Sam before the storm. During the rain, the umbrella was carried by"
+  target: "Sam"
+  competitor: "Maya"
+- id: dsc_pos_02
+  subtype: possession
+  prompt: "Leo lent his camera to Nina for the trip. The photos from the trip were taken by"
+  target: "Nina"
+  competitor: "Leo"
+- id: dsc_pos_03
+  subtype: possession
+  prompt: "The teacher collected the phones and returned the notebooks. The students went home with their"
+  target: "notebooks"
+  competitor: "phones"
+- id: dsc_pos_04
+  subtype: possession
+  prompt: "Ana sold her bicycle to Ruth and kept the helmet. The bicycle now belongs to"
+  target: "Ruth"
+  competitor: "Ana"
+- id: dsc_pos_05
+  subtype: possession
+  prompt: "He mailed the contract and kept a copy. What arrived at the office was the"
+  target: "contract"
+  competitor: "copy"
+- id: dsc_sta_01
+  subtype: state
+  prompt: "The candle was lit, then blown out. The room went"
+  target: "dark"
+  competitor: "bright"
+- id: dsc_sta_02
+  subtype: state
+  prompt: "The gate was open all morning until the guard locked it at noon. By afternoon the gate was"
+  target: "closed"
+  competitor: "open"
+- id: dsc_sta_03
+  subtype: state
+  prompt: "She filled the glass, then knocked it over. The glass was now"
+  target: "empty"
+  competitor: "full"
+- id: dsc_sta_04
+  subtype: state
+  prompt: "The screen was on until he pressed the power button. The screen went"
+  target: "black"
+  competitor: "bright"
+- id: dsc_sta_05
+  subtype: state
+  prompt: "The shirt was clean before he fell in the mud. When he stood up, the shirt was"
+  target: "dirty"
+  competitor: "clean"
+- id: dsc_occ_01
+  subtype: occlusion
+  prompt: "She covered the coin with a cup and slid the cup across the table. Under the cup was the"
+  target: "coin"
+  competitor: "table"
+- id: dsc_occ_02
+  subtype: occlusion
+  prompt: "The magician placed the ball under the middle hat and shuffled the hats slowly. The ball was under a"
+  target: "hat"
+  competitor: "ball"
+- id: dsc_occ_03
+  subtype: occlusion
+  prompt: "He hid the ring inside the drawer and closed it. Though no one could see it, the drawer still held the"
+  target: "ring"
+  competitor: "drawer"
+- id: dsc_occ_04
+  subtype: occlusion
+  prompt: "The cat slipped behind the curtain and did not come out. Behind the curtain there was still a"
+  target: "cat"
+  competitor: "curtain"
+- id: dsc_ord_01
+  subtype: order
+  prompt: "First the bell rang, then the doors opened, and finally the train departed. The last thing to happen was that the train"
+  target: "departed"
+  competitor: "arrived"
+- id: dsc_ord_02
+  subtype: order
+  prompt: "She read the letter before she burned it. The thing she did second was to"
+  target: "burn"
+  competitor: "read"
+- id: dsc_ord_03
+  subtype: order
+  prompt: "He washed the apple, sliced it, and ate it. Before slicing it, he had"
+  target: "washed"
+  competitor: "eaten"
+- id: dsc_swp_01
+  subtype: swap
+  prompt: "The red cup held coffee and the white cup held tea, until she poured each into the other. Now the red cup held"
+  target: "tea"
+  competitor: "coffee"
+- id: dsc_swp_02
+  subtype: swap
+  prompt: "Jo wore the blue scarf and Ali wore the grey one, until they traded scarves at the gate. Ali now wore the"
+  target: "blue"
+  competitor: "grey"
+- id: dsc_cnt_01
+  subtype: count
+  prompt: "Three birds sat on the wire and one flew away. The number left on the wire was"
+  target: "two"
+  competitor: "three"
+- id: dsc_cnt_02
+  subtype: count
+  prompt: "She had five apples and gave two to her neighbour. She was left holding"
+  target: "three"
+  competitor: "five"
+- id: dsc_prs_01
+  subtype: persistence
+  prompt: "The statue stood in the square through the whole winter. When spring came, the square still held the"
+  target: "statue"
+  competitor: "winter"
+- id: dsc_prs_02
+  subtype: persistence
+  prompt: "Nothing was moved in the study after the professor died. Years later, on the desk lay his"
+  target: "papers"
+  competitor: "desk"

@@ -1,0 +1,169 @@
+# M05 capacity family: REASONING (logical inference).
+# Weatherby p. 2: "cognitive only later" -- this is the reasoning curve.
+# MEASURE: per checkpoint, p(target) vs p(competitor); log-ratio curve with
+# bootstrap CIs. Subtypes: syllogism, transitive, conditional, negation,
+# arithmetic, class-inclusion. The conclusion word is FORCED by the premises;
+# the competitor is category-matched and premise-violating.
+# Drafted by the pen (Fable) on RH's word, 2026-08-11. Candidates only --
+# subject to RH review before entering the catalogue.
+
+- id: rsn_syl_01
+  subtype: syllogism
+  prompt: "All ravens are black. Coco is a raven. Coco must be"
+  target: "black"
+  competitor: "white"
+- id: rsn_syl_02
+  subtype: syllogism
+  prompt: "Every fish can swim. A trout is a fish. Therefore a trout can"
+  target: "swim"
+  competitor: "fly"
+- id: rsn_syl_03
+  subtype: syllogism
+  prompt: "All metals conduct electricity. Copper is a metal, so copper conducts"
+  target: "electricity"
+  competitor: "water"
+- id: rsn_syl_04
+  subtype: syllogism
+  prompt: "Every planet orbits a star. Mars is a planet, so Mars orbits a"
+  target: "star"
+  competitor: "moon"
+- id: rsn_syl_05
+  subtype: syllogism
+  prompt: "All roses are flowers. This is a rose, so it is certainly a"
+  target: "flower"
+  competitor: "tree"
+- id: rsn_syl_06
+  subtype: syllogism
+  prompt: "No reptiles have fur. A snake is a reptile, so a snake has no"
+  target: "fur"
+  competitor: "scales"
+- id: rsn_trn_01
+  subtype: transitive
+  prompt: "Tom is older than Ana. Ana is older than Ben. The oldest of the three is"
+  target: "Tom"
+  competitor: "Ben"
+- id: rsn_trn_02
+  subtype: transitive
+  prompt: "The red box is heavier than the blue box. The blue box is heavier than the green box. The lightest box is the"
+  target: "green"
+  competitor: "red"
+- id: rsn_trn_03
+  subtype: transitive
+  prompt: "Mia runs faster than Leo. Leo runs faster than Sam. The slowest runner is"
+  target: "Sam"
+  competitor: "Mia"
+- id: rsn_trn_04
+  subtype: transitive
+  prompt: "Paris is north of Madrid. Madrid is north of Rabat. The city furthest north is"
+  target: "Paris"
+  competitor: "Rabat"
+- id: rsn_cnd_01
+  subtype: conditional
+  prompt: "If it rains, the ground gets wet. It rained all night, so by morning the ground was"
+  target: "wet"
+  competitor: "dry"
+- id: rsn_cnd_02
+  subtype: conditional
+  prompt: "If the alarm rings, everyone leaves the building. The alarm rang, so everyone"
+  target: "left"
+  competitor: "stayed"
+- id: rsn_cnd_03
+  subtype: conditional
+  prompt: "If a number is even, it is divisible by two. Eight is even, so eight is divisible by"
+  target: "two"
+  competitor: "three"
+- id: rsn_cnd_04
+  subtype: conditional
+  prompt: "Whenever the bridge is closed, drivers take the tunnel. The bridge is closed today, so drivers are taking the"
+  target: "tunnel"
+  competitor: "bridge"
+- id: rsn_neg_01
+  subtype: negation
+  prompt: "She is not short. On the contrary, she is quite"
+  target: "tall"
+  competitor: "small"
+- id: rsn_neg_02
+  subtype: negation
+  prompt: "The soup was not hot. In fact, it was completely"
+  target: "cold"
+  competitor: "warm"
+- id: rsn_neg_03
+  subtype: negation
+  prompt: "The answer was not wrong. The answer was entirely"
+  target: "right"
+  competitor: "false"
+- id: rsn_neg_04
+  subtype: negation
+  prompt: "The street was anything but noisy. It was perfectly"
+  target: "quiet"
+  competitor: "loud"
+- id: rsn_opp_01
+  subtype: opposite
+  prompt: "The opposite of victory is"
+  target: "defeat"
+  competitor: "triumph"
+- id: rsn_opp_02
+  subtype: opposite
+  prompt: "The opposite of expand is"
+  target: "contract"
+  competitor: "enlarge"
+- id: rsn_opp_03
+  subtype: opposite
+  prompt: "The opposite of scarce is"
+  target: "abundant"
+  competitor: "rare"
+- id: rsn_ari_01
+  subtype: arithmetic
+  prompt: "Two plus two equals"
+  target: "four"
+  competitor: "five"
+- id: rsn_ari_02
+  subtype: arithmetic
+  prompt: "Half of ten is"
+  target: "five"
+  competitor: "two"
+- id: rsn_ari_03
+  subtype: arithmetic
+  prompt: "Three times three is"
+  target: "nine"
+  competitor: "six"
+- id: rsn_ari_04
+  subtype: arithmetic
+  prompt: "A dozen minus one is"
+  target: "eleven"
+  competitor: "ten"
+- id: rsn_cls_01
+  subtype: class_inclusion
+  prompt: "All squares are rectangles. This shape is a square, so it is also a"
+  target: "rectangle"
+  competitor: "circle"
+- id: rsn_cls_02
+  subtype: class_inclusion
+  prompt: "Every sonnet is a poem. She wrote a sonnet, which means she wrote a"
+  target: "poem"
+  competitor: "novel"
+- id: rsn_cls_03
+  subtype: class_inclusion
+  prompt: "All whales are mammals, so a whale cannot be a"
+  target: "fish"
+  competitor: "mammal"
+- id: rsn_exc_01
+  subtype: exclusion
+  prompt: "The ball is either red or blue. It is not red, so it must be"
+  target: "blue"
+  competitor: "red"
+- id: rsn_exc_02
+  subtype: exclusion
+  prompt: "The meeting is on Monday or Tuesday. It is not on Monday, so it is on"
+  target: "Tuesday"
+  competitor: "Monday"
+- id: rsn_exc_03
+  subtype: exclusion
+  prompt: "Either Ana or Ben broke the vase. Ben was away all day, so it was broken by"
+  target: "Ana"
+  competitor: "Ben"
+- id: rsn_exc_04
+  subtype: exclusion
+  prompt: "The key opens exactly one of the two doors. It does not open the front door, so it opens the back"
+  target: "door"
+  competitor: "window"

@@ -1,0 +1,191 @@
+# M05 capacity family: REFERENCE (world knowledge).
+# Weatherby p. 2: "referential... only later" -- this is the reference curve.
+# MEASURE: per checkpoint, p(target) vs p(competitor) from true_word_probs;
+# the curve is the log-ratio, aggregated over probes with bootstrap CIs.
+# Subtype ref_divergent: probes where the FACT and the SEMANTIC PACKAGE
+# diverge (Canberra vs Sydney) -- the single most diagnostic cell: does
+# training raise truth or the package?
+# Drafted by the pen (Fable) on RH's word, 2026-08-11. Candidates only --
+# subject to RH review before entering the catalogue. All en, all
+# next-word probes, target and competitor same syntactic category.
+
+- id: ref_geo_01
+  subtype: fact
+  prompt: "The Eiffel Tower stands in the city of"
+  target: "Paris"
+  competitor: "Lyon"
+- id: ref_geo_02
+  subtype: fact
+  prompt: "The capital of Japan is"
+  target: "Tokyo"
+  competitor: "Beijing"
+- id: ref_geo_03
+  subtype: fact
+  prompt: "The Nile flows north into the"
+  target: "Mediterranean"
+  competitor: "Atlantic"
+- id: ref_geo_04
+  subtype: fact
+  prompt: "Mount Fuji is the highest mountain in"
+  target: "Japan"
+  competitor: "China"
+- id: ref_geo_05
+  subtype: fact
+  prompt: "The largest desert in Africa is the"
+  target: "Sahara"
+  competitor: "Gobi"
+- id: ref_geo_06
+  subtype: fact
+  prompt: "Venice is a city famous for its"
+  target: "canals"
+  competitor: "mountains"
+- id: ref_sci_01
+  subtype: fact
+  prompt: "At sea level, water boils at one hundred degrees"
+  target: "Celsius"
+  competitor: "Fahrenheit"
+- id: ref_sci_02
+  subtype: fact
+  prompt: "The planet closest to the sun is"
+  target: "Mercury"
+  competitor: "Venus"
+- id: ref_sci_03
+  subtype: fact
+  prompt: "Light travels much faster than"
+  target: "sound"
+  competitor: "electricity"
+- id: ref_sci_04
+  subtype: fact
+  prompt: "The gas that humans need to breathe is"
+  target: "oxygen"
+  competitor: "nitrogen"
+- id: ref_sci_05
+  subtype: fact
+  prompt: "The organ that pumps blood around the body is the"
+  target: "heart"
+  competitor: "liver"
+- id: ref_sci_06
+  subtype: fact
+  prompt: "Spiders have a total of eight"
+  target: "legs"
+  competitor: "eyes"
+- id: ref_sci_07
+  subtype: fact
+  prompt: "Ice is simply frozen"
+  target: "water"
+  competitor: "air"
+- id: ref_hist_01
+  subtype: fact
+  prompt: "The Great Wall was built in"
+  target: "China"
+  competitor: "Japan"
+- id: ref_hist_02
+  subtype: fact
+  prompt: "The Second World War ended in nineteen forty-"
+  target: "five"
+  competitor: "nine"
+- id: ref_hist_03
+  subtype: fact
+  prompt: "The pyramids at Giza were built by the ancient"
+  target: "Egyptians"
+  competitor: "Romans"
+- id: ref_hist_04
+  subtype: fact
+  prompt: "The first man to walk on the moon was Neil"
+  target: "Armstrong"
+  competitor: "Aldrin"
+- id: ref_hist_05
+  subtype: fact
+  prompt: "The Titanic sank after hitting an"
+  target: "iceberg"
+  competitor: "island"
+- id: ref_lang_01
+  subtype: fact
+  prompt: "The language spoken in Brazil is"
+  target: "Portuguese"
+  competitor: "Spanish"
+- id: ref_lang_02
+  subtype: fact
+  prompt: "A person who studies the stars is called an"
+  target: "astronomer"
+  competitor: "astrologer"
+- id: ref_arts_01
+  subtype: fact
+  prompt: "The Mona Lisa was painted by Leonardo da"
+  target: "Vinci"
+  competitor: "Salaì"
+- id: ref_arts_02
+  subtype: fact
+  prompt: "Romeo and Juliet was written by William"
+  target: "Shakespeare"
+  competitor: "Wordsworth"
+- id: ref_arts_03
+  subtype: fact
+  prompt: "Beethoven is famous as a composer of"
+  target: "symphonies"
+  competitor: "operas"
+- id: ref_time_01
+  subtype: fact
+  prompt: "The number of days in a week is"
+  target: "seven"
+  competitor: "six"
+- id: ref_div_01
+  subtype: divergent
+  prompt: "The capital of Australia is"
+  target: "Canberra"
+  competitor: "Sydney"
+- id: ref_div_02
+  subtype: divergent
+  prompt: "The capital of Turkey is"
+  target: "Ankara"
+  competitor: "Istanbul"
+- id: ref_div_03
+  subtype: divergent
+  prompt: "The capital of Brazil is"
+  target: "Brasília"
+  competitor: "Rio"
+- id: ref_div_04
+  subtype: divergent
+  prompt: "The capital of Canada is"
+  target: "Ottawa"
+  competitor: "Toronto"
+- id: ref_div_05
+  subtype: divergent
+  prompt: "The capital of Switzerland is"
+  target: "Bern"
+  competitor: "Zurich"
+- id: ref_div_06
+  subtype: divergent
+  prompt: "The capital of Morocco is"
+  target: "Rabat"
+  competitor: "Casablanca"
+- id: ref_div_07
+  subtype: divergent
+  prompt: "In the novel, Frankenstein was the name of the"
+  target: "scientist"
+  competitor: "monster"
+- id: ref_div_08
+  subtype: divergent
+  prompt: "Botanically speaking, a tomato is a"
+  target: "fruit"
+  competitor: "vegetable"
+- id: ref_div_09
+  subtype: divergent
+  prompt: "The Canary Islands are named after an animal, the"
+  target: "dog"
+  competitor: "bird"
+- id: ref_div_10
+  subtype: divergent
+  prompt: "Mount Everest's summit lies between China and"
+  target: "Nepal"
+  competitor: "India"
+- id: ref_div_11
+  subtype: divergent
+  prompt: "The season in which Australians celebrate Christmas is"
+  target: "summer"
+  competitor: "winter"
+- id: ref_div_12
+  subtype: divergent
+  prompt: "The animal on the Porsche crest is a"
+  target: "horse"
+  competitor: "bull"
