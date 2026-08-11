@@ -1,0 +1,306 @@
+{
+ "n_words": 743,
+ "n_tagged": 737,
+ "min_events": 40,
+ "rho_freq_vs_fallrate": 0.222,
+ "freq_bins": [
+  {
+   "median_fpm": 3.7,
+   "words": 123,
+   "fall_rate": 42.4,
+   "net_mass": 50.44
+  },
+  {
+   "median_fpm": 11.2,
+   "words": 123,
+   "fall_rate": 46.4,
+   "net_mass": 44.52
+  },
+  {
+   "median_fpm": 22.7,
+   "words": 123,
+   "fall_rate": 49.4,
+   "net_mass": 53.63
+  },
+  {
+   "median_fpm": 57.1,
+   "words": 123,
+   "fall_rate": 58.1,
+   "net_mass": 8.26
+  },
+  {
+   "median_fpm": 202.3,
+   "words": 123,
+   "fall_rate": 55.4,
+   "net_mass": 164.49
+  },
+  {
+   "median_fpm": 2380.5,
+   "words": 128,
+   "fall_rate": 61.3,
+   "net_mass": -41.16
+  }
+ ],
+ "by_class": {
+  "NOUN": {
+   "words": 29,
+   "fall_rate": 40.7,
+   "median_fpm": 170.2,
+   "net_events": 451
+  },
+  "VERB": {
+   "words": 562,
+   "fall_rate": 55.9,
+   "median_fpm": 22.0,
+   "net_events": -21211
+  },
+  "PRON": {
+   "words": 22,
+   "fall_rate": 60.2,
+   "median_fpm": 8026.7,
+   "net_events": -4772
+  },
+  "ADP": {
+   "words": 28,
+   "fall_rate": 70.4,
+   "median_fpm": 2152.2,
+   "net_events": -2865
+  },
+  "DET": {
+   "words": 13,
+   "fall_rate": 60.2,
+   "median_fpm": 3634.7,
+   "net_events": -2221
+  },
+  "AUX": {
+   "words": 12,
+   "fall_rate": 61.4,
+   "median_fpm": 2118.2,
+   "net_events": -1340
+  },
+  "ADJ": {
+   "words": 13,
+   "fall_rate": 61.9,
+   "median_fpm": 186.0,
+   "net_events": -465
+  },
+  "ADV": {
+   "words": 49,
+   "fall_rate": 51.8,
+   "median_fpm": 377.1,
+   "net_events": -639
+  }
+ },
+ "stratified": {
+  "NOUN": [
+   {
+    "band": "LOW",
+    "words": 6,
+    "fall_rate": 37.1
+   },
+   {
+    "band": "MID",
+    "words": 6,
+    "fall_rate": 55.7
+   },
+   {
+    "band": "HIGH",
+    "words": 17,
+    "fall_rate": 36.0
+   }
+  ],
+  "VERB": [
+   {
+    "band": "LOW",
+    "words": 232,
+    "fall_rate": 45.6
+   },
+   {
+    "band": "MID",
+    "words": 226,
+    "fall_rate": 54.9
+   },
+   {
+    "band": "HIGH",
+    "words": 104,
+    "fall_rate": 59.0
+   }
+  ],
+  "PRON": [
+   {
+    "band": "LOW",
+    "words": 0,
+    "fall_rate": null
+   },
+   {
+    "band": "MID",
+    "words": 0,
+    "fall_rate": null
+   },
+   {
+    "band": "HIGH",
+    "words": 22,
+    "fall_rate": 60.2
+   }
+  ],
+  "ADP": [
+   {
+    "band": "LOW",
+    "words": 0,
+    "fall_rate": null
+   },
+   {
+    "band": "MID",
+    "words": 0,
+    "fall_rate": null
+   },
+   {
+    "band": "HIGH",
+    "words": 28,
+    "fall_rate": 70.4
+   }
+  ],
+  "DET": [
+   {
+    "band": "LOW",
+    "words": 0,
+    "fall_rate": null
+   },
+   {
+    "band": "MID",
+    "words": 0,
+    "fall_rate": null
+   },
+   {
+    "band": "HIGH",
+    "words": 13,
+    "fall_rate": 60.2
+   }
+  ],
+  "AUX": [
+   {
+    "band": "LOW",
+    "words": 0,
+    "fall_rate": null
+   },
+   {
+    "band": "MID",
+    "words": 0,
+    "fall_rate": null
+   },
+   {
+    "band": "HIGH",
+    "words": 12,
+    "fall_rate": 61.4
+   }
+  ],
+  "ADJ": [
+   {
+    "band": "LOW",
+    "words": 2,
+    "fall_rate": null
+   },
+   {
+    "band": "MID",
+    "words": 4,
+    "fall_rate": null
+   },
+   {
+    "band": "HIGH",
+    "words": 7,
+    "fall_rate": 53.9
+   }
+  ],
+  "ADV": [
+   {
+    "band": "LOW",
+    "words": 5,
+    "fall_rate": 22.7
+   },
+   {
+    "band": "MID",
+    "words": 6,
+    "fall_rate": 35.6
+   },
+   {
+    "band": "HIGH",
+    "words": 38,
+    "fall_rate": 53.7
+   }
+  ]
+ },
+ "band_medians": [
+  7.2,
+  35.6,
+  530.4
+ ],
+ "vocab": {
+  "base": 9196,
+  "aligned": 13006,
+  "pct_more": 41.4,
+  "case_pairs": 31,
+  "cap_absent_from_base": 24,
+  "low_absent_from_base": 0,
+  "cap_zero_fall_events": 28,
+  "n_with_base": 718,
+  "rho_with_base": 0.325
+ },
+ "top_fallers": [
+  {
+   "word": "he",
+   "ext_rank": 7,
+   "fpm": 14184.8,
+   "fall_rate": 73.0,
+   "mass": -35.89
+  },
+  {
+   "word": "told",
+   "ext_rank": 171,
+   "fpm": 574.8,
+   "fall_rate": 80.7,
+   "mass": -20.24
+  },
+  {
+   "word": "put",
+   "ext_rank": 274,
+   "fpm": 323.0,
+   "fall_rate": 79.7,
+   "mass": -19.74
+  },
+  {
+   "word": "threw",
+   "ext_rank": 918,
+   "fpm": 84.7,
+   "fall_rate": 81.8,
+   "mass": -13.54
+  },
+  {
+   "word": "was",
+   "ext_rank": 9,
+   "fpm": 12102.2,
+   "fall_rate": 65.6,
+   "mass": -13.33
+  },
+  {
+   "word": "a",
+   "ext_rank": 3,
+   "fpm": 22960.8,
+   "fall_rate": 78.8,
+   "mass": -12.85
+  },
+  {
+   "word": "when",
+   "ext_rank": 61,
+   "fpm": 2008.7,
+   "fall_rate": 85.5,
+   "mass": -12.78
+  },
+  {
+   "word": "in",
+   "ext_rank": 8,
+   "fpm": 13195.0,
+   "fall_rate": 90.5,
+   "mass": -10.74
+  }
+ ]
+}
