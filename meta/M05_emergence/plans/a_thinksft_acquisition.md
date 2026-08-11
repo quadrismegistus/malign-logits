@@ -171,6 +171,24 @@ F24's developmental story needs revisiting; late ratio ~1 with sep SMALL =
 the frame-exit reading is wrong. The write-up plots ratio and pole_sep
 together or not at all.
 
+**Secondary 5 (syntactic accuracy; added 2026-08-11 on RH's word, ZERO new
+prompts, ZERO new compute).** The fourth curve of the reading note's original
+list (poetic vs reference vs reasoning vs SYNTAX), computed post-hoc from the
+twp records the run already produces: per checkpoint, per prompt, the share
+of RESOLVED mass on syntactically licit continuations, licitness judged per
+(prompt, word) by a deterministic parser rule (no LLM coder), computed once
+over the union of observed words and FROZEN as an artifact so every
+checkpoint meets the identical instrument. U-hazard cousin, instrumented at
+birth: low licit-share can mean "ungrammatical" or "unresolved," so the
+companion column is resolved mass itself — licit-share and resolved-mass
+plot together or not at all. Priors both ways, and this is the fracture
+candidate of the four: Weatherby's scheme makes syntax second-order
+(precipitating from the poetic first order), the NLP literature has syntax
+early — syntax-before-stickiness breaks the developmental reading of
+"poetic first"; stickiness-before-syntax is the strongest evidence anyone
+has produced FOR it. Runnable after the fleet lands; changes nothing about
+the run.
+
 **Secondary 3 (the join):** if no stage3 candidate is materially closer than
 base `main`, the vendor's lineage claim stands unrefined and phase 2 anchors
 on `main`; if one anneal tip is closest, phase 2 anchors there and the two
