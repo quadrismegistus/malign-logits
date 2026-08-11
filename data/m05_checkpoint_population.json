@@ -2,9 +2,11 @@
  "_about": "M05 population: the Think-SFT acquisition ladder plus a declared log-spaced subsample of the Olmo-3-1025-7B base ladder. Checkpoints enumerated as (model_id, revision) strings; the unit of this experiment is the checkpoint, not the base/aligned pair. Subsample rule in the producer docstring -- a computation, not a curation.",
  "_producer": "scripts/build_m05_population.py",
  "_source_of_record": "data/model_revisions.json",
- "_generated": "2026-08-10T22:33:00",
- "n_checkpoints": 87,
+ "_generated": "2026-08-11T09:29:05",
+ "n_checkpoints": 95,
  "n_sft_steps": 43,
+ "n_rlvr_steps": 7,
+ "rlvr_available": 55,
  "n_base_steps": 42,
  "base_steps_by_stage": {
   "stage1": 22,
@@ -578,6 +580,53 @@
    "model_id": "allenai/Olmo-3-7B-Think-SFT",
    "revision": "main",
    "role": "sft_endpoint"
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think-DPO",
+   "revision": "main",
+   "role": "dpo_endpoint"
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think",
+   "revision": "step_0025",
+   "role": "rlvr_step",
+   "step": 25
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think",
+   "revision": "step_0050",
+   "role": "rlvr_step",
+   "step": 50
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think",
+   "revision": "step_0100",
+   "role": "rlvr_step",
+   "step": 100
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think",
+   "revision": "step_0200",
+   "role": "rlvr_step",
+   "step": 200
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think",
+   "revision": "step_0400",
+   "role": "rlvr_step",
+   "step": 400
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think",
+   "revision": "step_0800",
+   "role": "rlvr_step",
+   "step": 800
+  },
+  {
+   "model_id": "allenai/Olmo-3-7B-Think",
+   "revision": "step_1375",
+   "role": "rlvr_step",
+   "step": 1375
   }
  ]
 }

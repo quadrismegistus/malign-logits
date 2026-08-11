@@ -38,6 +38,16 @@ OUT = os.path.join(ROOT, "data", "m05_checkpoint_population.json")
 
 SFT = "allenai/Olmo-3-7B-Think-SFT"
 BASE = "allenai/Olmo-3-1025-7B"
+RLVR = "allenai/Olmo-3-7B-Think"          # final model: RLVR on Think-DPO
+DPO = "allenai/Olmo-3-7B-Think-DPO"       # main only, everywhere
+#: v3 (RH's word 2026-08-11): "include a few from RLVR too -- these maybe
+#: only need a few if there's very little difference in RLVR (which we've
+#: found everywhere)". SPARSE BY DESIGN: geometric doubling from step_0025 +
+#: the final step (7 rungs of the 55 released), plus Think-DPO@main so the
+#: DPO jump is bracketed (SFT-final -> DPO endpoint -> RLVR ladder). The
+#: RLVR/DPO repos are not in the registry, so their branches are fetched
+#: LIVE at run time and every picked step is asserted to exist.
+RLVR_GRID = [25, 50, 100, 200, 400, 800, 1375]
 
 
 def stage_steps(branches, stage):
@@ -77,6 +87,15 @@ def main():
     missing = [r for r in base_revs if r not in base_branches]
     assert not missing, f"snapped to non-existent branches: {missing}"
 
+    from huggingface_hub import HfApi
+    api = HfApi()
+    rlvr_branches = {b.name for b in api.list_repo_refs(RLVR).branches}
+    missing = [f"step_{n:04d}" for n in RLVR_GRID
+               if f"step_{n:04d}" not in rlvr_branches]
+    assert not missing, f"RLVR grid steps not on HF: {missing}"
+    dpo_branches = {b.name for b in api.list_repo_refs(DPO).branches}
+    assert "main" in dpo_branches
+
     ckpts = (
         [{"model_id": BASE, "revision": r, "role": "base_step",
           "stage": r.split("-")[0], "step": int(r.rsplit("step", 1)[1])}
@@ -85,6 +104,9 @@ def main():
         + [{"model_id": SFT, "revision": f"step{s}", "role": "sft_step",
             "step": s} for s in sft_steps]
         + [{"model_id": SFT, "revision": "main", "role": "sft_endpoint"}]
+        + [{"model_id": DPO, "revision": "main", "role": "dpo_endpoint"}]
+        + [{"model_id": RLVR, "revision": f"step_{n:04d}", "role": "rlvr_step",
+            "step": n} for n in RLVR_GRID]
     )
     n_stage = {st: sum(1 for c in ckpts if c.get("stage") == st)
                for st in ("stage1", "stage2", "stage3")}
@@ -100,6 +122,9 @@ def main():
         "_generated": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "n_checkpoints": len(ckpts),
         "n_sft_steps": len(sft_steps),
+        "n_rlvr_steps": len(RLVR_GRID),
+        "rlvr_available": len({b for b in rlvr_branches
+                               if b.startswith("step_")}),
         "n_base_steps": len(base_revs),
         "base_steps_by_stage": n_stage,
         "base_ladder_available": {"stage1": len(s1), "stage2": len(s2),
@@ -110,7 +135,8 @@ def main():
         json.dump(out, f, indent=1)
     print(f"wrote {OUT}: {len(ckpts)} checkpoints "
           f"({len(base_revs)} base steps {n_stage} + {len(sft_steps)} SFT "
-          f"steps + 2 endpoints)")
+          f"steps + {len(RLVR_GRID)} RLVR steps + 3 endpoints "
+          f"[base/sft/dpo mains])")
 
 
 if __name__ == "__main__":
