@@ -1,6 +1,6 @@
 {
  "_producer": "scripts/build_forced_arms_105.py (commits 96c759b5 table, 7b2e3a12 non-mover fix + fourth arm; --out variants produced the 105/v2/v3 series)",
- "_derived_from": "data/forced_arms_105_v3.json, restricted to the 46 lineage-representative pairs. Derivation reconstructed on the docket at [5441]/[5450]; fields added 2026-08-11 by the registrar to discharge [5442]'s metadata debts -- the derivation run itself predates them.",
+ "_derived_from": "CORRECTED 2026-08-12 per [5468] (lacan) + registrar's independent cell-key diff: NOT derived from forced_arms_105_v3.json -- 46reps contains both anger twins (208 prompts) while _v3 lacks the He-twin (207), so it was built from a battery state at or after commit 7bf45b19 (2026-08-11 02:59, beam_sample_105_plus_anger.csv at 213 rows), restricted to the 46 lineage-representative pairs. The original field ([5452], eef71709) recorded a v3 derivation in good faith and was factually wrong. Exact invocation still unrecorded; superseded by v4-lineage tables carrying _invocation + input shas.",
  "tau": 0.005,
  "min_mass": 0.001,
  "rule": "CANONICAL",
