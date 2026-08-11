@@ -80,11 +80,12 @@ def main():
     step = Step(BASE, DPO)
     print(f"step: {step!r}")
     groups = target_prompts()
+    sft0 = min(i for i, _, r in pop if r == "sft_step")
     for k, v in sorted(groups.items()):
         print(f"  {k[0]}_{k[1]}: {len(v)} prompts")
 
+    import re
     for (domain, sub), prompts in sorted(groups.items()):
-        frames, labels = [], []
         for prompt in prompts:
             cell = step.cell(prompt)
             if not cell.is_present:
@@ -93,74 +94,63 @@ def main():
             m = cell.movement(CANONICAL)
             fallers = sorted(m.fallers, key=lambda w: m.delta[w])[:3]
             risers = sorted(m.risers, key=lambda w: -m.delta[w])[:3]
-            words = ([(w, "riser", RISER_SHADES[i])
+            words = ([(w, "riser", RISER_SHADES[i], m.delta[w])
                       for i, w in enumerate(risers)]
-                     + [(w, "faller", FALLER_SHADES[i])
+                     + [(w, "faller", FALLER_SHADES[i], m.delta[w])
                         for i, w in enumerate(fallers)])
-            panel = (prompt if len(prompt) <= 58 else prompt[:55] + "…")
-            for w, pol, color in words:
+            rows = []
+            for w, pol, color, dl in words:
                 for idx, mid, role in pop:
                     wp = word_probs(mid, prompt)
                     if wp is None:
                         continue
-                    frames.append(dict(ckpt_idx=idx, panel=panel, word=w,
-                                       key=f"{panel}::{w}", color=color,
-                                       pol=pol, p=wp.probs.get(w, 0.0)))
-            labels.append((panel, words))
-        if not frames:
-            continue
-        d = pd.DataFrame(frames)
-        cmap = {k: c for k, c in d[["key", "color"]].drop_duplicates()
-                .itertuples(index=False)}
-        sft0 = min(i for i, _, r in pop if r == "sft_step")
-        end = max(i for i, _, _ in pop)
-        # facet-aware labels: geom_text respects the panel column (annotate
-        # does not -- it drew every panel's words on every facet). Spread
-        # evenly down each panel's own data range so 6 words never collide,
-        # risers stacked above fallers; identity is word + color, position
-        # is legibility not value.
-        lab_rows = []
-        for panel, words in labels:
-            pmax = d[d.panel == panel].p.max()
-            ordered = ([w for w in words if w[1] == "riser"]
-                       + [w for w in words if w[1] == "faller"])
+                    rows.append(dict(ckpt_idx=idx, word=w, key=w,
+                                     color=color, p=wp.probs.get(w, 0.0)))
+            d = pd.DataFrame(rows)
+            cmap = {w: color for w, pol, color, dl in words}
+            end = max(i for i, _, _ in pop)
+            pmax = d.p.max()
+            # labels spread down the right gutter, risers over fallers,
+            # each carrying its base->DPO delta so the selection is legible
+            ordered = ([x for x in words if x[1] == "riser"]
+                       + [x for x in words if x[1] == "faller"])
             n = len(ordered)
-            for i, (w, pol, color) in enumerate(ordered):
-                lab_rows.append(dict(panel=panel, word=w, key=f"{panel}::{w}",
-                                     x=end + 2,
-                                     y=pmax * (0.95 - 0.92 * i / max(n - 1, 1))))
-        lab_df = pd.DataFrame(lab_rows)
-        g = (ggplot(d, aes("ckpt_idx", "p", group="key", color="key"))
-             + annotate("rect", xmin=sft0 - 0.5, xmax=end + 0.5,
-                        ymin=-np.inf, ymax=np.inf, fill="#efeee9",
-                        alpha=0.55)
-             + geom_line(size=0.7)
-             + geom_text(aes("x", "y", label="word", color="key"),
-                         data=lab_df, size=7, ha="left", inherit_aes=False)
-             + scale_color_manual(cmap)
-             + facet_wrap("~panel", ncol=2, scales="free_y")
-             + scale_x_continuous(expand=(0.02, 0, 0.22, 0))
-             + labs(title=f"{domain} / {sub}: Step(base, dpo)'s top movers, "
-                          f"watched across the whole trajectory",
-                    subtitle="Cool shades = top-3 risers, warm shades = top-3 fallers, selected by the CANONICAL "
-                             "rule on the base->DPO endpoint contrast. Shaded region = post-training. Free y per panel.",
-                    x="training position (base | SFT | DPO | RLVR)",
-                    y="p(word | prompt)")
-             + theme_minimal(base_size=10)
-             + theme(panel_grid_minor=element_blank(),
-                     panel_grid_major=element_line(color="#e8e7e3",
-                                                   size=0.3),
-                     text=element_text(color=INK),
-                     plot_title=element_text(size=12, weight="bold"),
-                     plot_subtitle=element_text(size=8, color=INK2),
-                     strip_text=element_text(size=7.5),
-                     legend_position="none",
-                     plot_background=element_rect(fill="#fcfcfb",
-                                                  color="#fcfcfb"),
-                     figure_size=(11, 2.6 * ((len(labels) + 1) // 2))))
-        out = f"{FIGDIR}/fig6_{domain}_{sub}_movers.png"
-        g.save(out, dpi=300, verbose=False)
-        print(f"  wrote {out} ({len(labels)} prompts)")
+            lab_df = pd.DataFrame([
+                dict(x=end + 2, y=pmax * (0.97 - 0.94 * i / max(n - 1, 1)),
+                     word=w, key=w,
+                     txt=f"{w}  ({'+' if dl >= 0 else ''}{dl:.3f})")
+                for i, (w, pol, color, dl) in enumerate(ordered)])
+            g = (ggplot(d, aes("ckpt_idx", "p", group="key", color="key"))
+                 + annotate("rect", xmin=sft0 - 0.5, xmax=end + 0.5,
+                            ymin=-np.inf, ymax=np.inf, fill="#efeee9",
+                            alpha=0.55)
+                 + geom_line(size=0.9)
+                 + geom_text(aes("x", "y", label="txt", color="key"),
+                             data=lab_df, size=9, ha="left", inherit_aes=False)
+                 + scale_color_manual(cmap)
+                 + scale_x_continuous(expand=(0.02, 0, 0.30, 0))
+                 + labs(title=f"'{prompt}'",
+                        subtitle=f"{domain} / {sub}. Step(base->DPO) top-3 risers (cool) and fallers (warm), "
+                                 f"labelled with their endpoint delta; watched across all 95 checkpoints. "
+                                 f"Shaded = post-training.",
+                        x="training position (base | SFT | DPO | RLVR)",
+                        y="p(word | prompt)")
+                 + theme_minimal(base_size=11)
+                 + theme(panel_grid_minor=element_blank(),
+                         panel_grid_major=element_line(color="#e8e7e3",
+                                                       size=0.4),
+                         text=element_text(color=INK),
+                         plot_title=element_text(size=13, weight="bold"),
+                         plot_subtitle=element_text(size=8.5, color=INK2),
+                         legend_position="none",
+                         plot_background=element_rect(fill="#fcfcfb",
+                                                      color="#fcfcfb"),
+                         figure_size=(9, 4.5)))
+            slug = re.sub(r"[^a-z0-9]+", "_",
+                          prompt.lower()).strip("_")[:40]
+            out = f"{FIGDIR}/fig6_{domain}_{sub}__{slug}.png"
+            g.save(out, dpi=300, verbose=False)
+            print(f"  wrote {out}")
     return 0
 
 
