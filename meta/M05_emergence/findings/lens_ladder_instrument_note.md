@@ -51,6 +51,42 @@ sentence "a late gate is cheap, reversible and cosmetic" cannot rest on it.
 `M02_frame_exit/findings/depth_and_exit_do_not_join.md` reached the same
 caution from the surface side on the same day.
 
+## CORRECTION, 2026-08-11, same day: `step` is not a key
+
+The first version of this note grouped the pretraining ladder by `step`. **OLMo
+pretrains in three stages, each restarting its step numbering**, so
+`stage1-step1000`, `stage2-step1000` and `stage3-step1000` all carry
+`step == 1000`. Nine step values collide and **52% of the base_step rows were
+affected**; the trajectory table averaged three different checkpoints into one
+rung. Found while unit-testing the pole-separation claim, which surfaced the
+same trap (63 groups where 21 were expected).
+
+**What does NOT change.** `sft_step` and `rlvr_step` have zero collisions (43
+revisions over 43 steps, 7 over 7), so section 1 -- the head-dependence result,
+the only positive finding here -- never touched it. The group-unit tests in
+section 2 compared step 0 against the maximum step, both stage-1 by
+construction, so every conclusion below is unchanged: the lower band still
+falls in 15 of 21 groups at p = 0.078 and the localisation still fails.
+
+**What does change: one claim, and it is now the opposite.** The old table
+showed the upper half rising monotonically across pretraining. On stage 1 alone
+the top band **falls to 0.726 by step 4,000** and only then climbs to 0.980 --
+a U, not a climb. The trajectory below is stage 1 only.
+
+    step        bottom     lower     upper       top
+       0        0.8976    0.9112    0.9165    0.9086
+    1000        0.8185    0.8275    0.8601    0.8834
+    2000        0.9177    0.8863    0.8174    0.7857
+    4000        0.9242    0.8607    0.8078    0.7258   <- top-band floor
+    8000        0.9444    0.8540    0.7865    0.7352
+   32000        0.9365    0.8443    0.8607    0.8492
+  128000        0.8870    0.8195    0.8526    0.8250
+  512000        0.8899    0.8161    0.8868    0.8286
+ 1413814        0.8793    0.8188    0.9440    0.9796
+
+The "half-way to its floor by step 1,000" claim for the lower band survives on
+stage 1 alone (threshold 0.8650, first rung at or below it is step 1,000).
+
 ## 2. SUPERPOSITION DOES NOT ARRIVE IN ONE BAND. THE POOLED TABLE SAYS IT DOES.
 
 Pooled over groups and layers, the story is clean and localised: only the

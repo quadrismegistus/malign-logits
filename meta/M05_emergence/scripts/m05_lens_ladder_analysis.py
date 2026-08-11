@@ -65,6 +65,23 @@ def sign_test(vals):
 def load():
     d = pd.read_csv(CSV)
     n0 = len(d)
+    #: **`step` IS NOT A KEY AND THE FIRST VERSION OF THIS FILE TREATED IT AS
+    #: ONE.** OLMo pretrains in three stages and each restarts its step
+    #: numbering, so `stage1-step1000`, `stage2-step1000` and `stage3-step1000`
+    #: all carry step == 1000. Nine step values collide, covering 52% of the
+    #: base_step rows, and `groupby("step")` silently averaged three different
+    #: checkpoints into one rung. `sft_step` and `rlvr_step` are unaffected
+    #: (43 revisions over 43 steps, 7 over 7), so the head-dependence result
+    #: never touched this; the pretraining TRAJECTORY did.
+    #:
+    #: The pretraining ladder is stage 1. Stages 2 and 3 are separate runs on
+    #: separate data and are not rungs of the same curve.
+    st = d.revision.astype(str).str.extract(r"^(stage\d)")[0]
+    drop = (d.role_ck == "base_step") & st.notna() & (st != "stage1")
+    if drop.any():
+        print("dropped %s base_step rows from stages 2-3 (step is not a key)"
+              % format(int(drop.sum()), ","))
+        d = d[~drop]
     d = d[(d.js_min >= JS_MIN_FLOOR) & (d.ratio.abs() <= RATIO_CEILING)]
     d = d.dropna(subset=["ratio"])
     print("rows %s -> %s after the degeneracy guard (%s dropped, %.1f%%)"
