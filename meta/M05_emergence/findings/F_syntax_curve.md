@@ -55,6 +55,12 @@ usable rung, matching haiku.)
 
 ![OLMo syntax curve](../figures/fig16_syntax_curve_olmo.png)
 
+The combined acquisition figures place this curve beside the capacity
+families and poetic pull (normalized to late-base; the flat green line
+against everything alignment lifts): `../figures/fig18_acquisition_ladder_
+{olmo,pythia}.png`, with the token-clock variant in
+`../figures/fig17_acquisition_tokens_{olmo,pythia}.png`.
+
 ## Result 3: the shape survives the coder disagreement
 
 The two families disagree substantially on licit-set breadth (median 4 vs

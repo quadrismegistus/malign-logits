@@ -85,6 +85,13 @@ labeled as such if it runs (RH's word pending).
 
 ![Capacity acquisition on the stage1 base ladder; post-hoc half-max ordering](../figures/fig2_capacity_acquisition.png)
 
+Combined views (added 2026-08-11, after findings E and F): the full-ladder
+ordering figure with poetic pull and the syntax curve beside these
+families, normalized to late-base, alignment bands marked —
+`../figures/fig18_acquisition_ladder_olmo.png` — and the cross-ladder
+token-clock version (base arms only, [5434] conversion, absent-rate drawn
+with the curves) — `../figures/fig17_acquisition_tokens_olmo.png`.
+
 ## Result 3: the true zero, and its Chinese twin
 
 **QUALIFIED 2026-08-11 by the Pythia cross-lab arm ([5430]): the true zero

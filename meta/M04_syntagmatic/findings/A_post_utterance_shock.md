@@ -1,5 +1,7 @@
 # A — The post-utterance shock
 
+**STATUS (added 2026-08-11 by the registrar on RH's word, after [5439]'s reproduction changed the precondition): registered (spec frozen `85fd7d10` before any statistic); primary REPRODUCIBLE from the committed artifact (capture-only writes). Grade C — the design outruns the evidence: the +1 primary's four components are individually null at that index, `bigscience` is a 4x outlier, the long-window sweep remains stdout-only and its aggregation is disputed (`attention_back_cross_own.md` §5), and the Y disagreement is unresolved by ruling ([5019].4). Sections marked EXPLORATORY remain exploratory.**
+
 **M04's first own finding.** Registered spec `meta/M02_frame_exit/registrations/spec_channel3_renewed_displacement.md`, frozen at `85fd7d10` before any statistic was computed. Producer `meta/M02_frame_exit/scripts/channel3_run.py`. Docket [5009]–[5016].
 
 **Artifact `../results/A_post_utterance_shock.json` — 21 reported statistics with their per-pair values, the population counts, and the per-family descriptive.** Written 2026-08-11 on RH's word, after registrar's [5429] named this finding on the produce-before-plot list: **the producer had no write calls of any kind, so every number below existed only as stdout from a session that had ended.** The finding could be re-run and hoped to match; it could not be re-queried, audited or plotted.

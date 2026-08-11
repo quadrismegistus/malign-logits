@@ -50,6 +50,12 @@ same direction as OLMo's 4k vs 11k).
 
 ![Capacity acquisition on the Pythia ladder](../figures/fig14_pythia_capacity.png)
 
+Combined views (added 2026-08-11, after finding F): all families plus
+poetic pull and the syntax curve, normalized for ordering —
+`../figures/fig18_acquisition_ladder_pythia.png` (vendor grid) and
+`../figures/fig17_acquisition_tokens_pythia.png` (token clock, absent
+rate beside the curves per [5436]).
+
 ## Result 2: the sub-1000 window has words before it has capacities
 
 [5430] found the battery's vocabulary rising eight-fold between step 8 and
