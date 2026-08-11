@@ -25,7 +25,13 @@ without the per-lineage direction beside it. Pooled numbers died four times in
 one day (CAMPAIGN.md); a magnitude carried by a nameable subset travels with its
 owner named. Group sizes print before any grouped n is quoted.
 
-WHAT THIS MEASURES, AND WHAT IT DOES NOT. `js` is HOW FAR the next-word
+JS IS IN BITS, and the producer measures it through `Cell.js()` rather than
+computing its own. An earlier version read a hand-rolled `js` column in NATS,
+and the same producer summed `twp_words` across SOURCES -- 708 cells of 13,340
+carried a `mass_base` above 1.05, which is not a probability. Both are fixed at
+the producer; this file reads `js_bits`.
+
+WHAT THIS MEASURES, AND WHAT IT DOES NOT. `js_bits` is HOW FAR the next-word
 distribution moved base->aligned. F21 coded WHAT the response said. These are
 different quantities and a large move is not a procedural move: a model can
 shift a great deal of mass and become no more deferential. So a reversal here
@@ -143,8 +149,8 @@ def cells(J):
             continue
         out.append({
             "lineage": lin, "scenario": scen, "condition": cond,
-            "js_indiv": a["js"], "js_inst": b["js"],
-            "d_js": b["js"] - a["js"],
+            "js_indiv": a["js_bits"], "js_inst": b["js_bits"],
+            "d_js": b["js_bits"] - a["js_bits"],
             "resid_indiv": a["residual_share"], "resid_inst": b["residual_share"],
             "nw_indiv": a["n_words_base"], "nw_inst": b["n_words_base"],
             "mass_indiv": a["mass_base"], "mass_inst": b["mass_base"],
@@ -319,7 +325,7 @@ def secondary_f21(rows):
     for r in fr:
         a = arm.get(r["prompt"])
         if a:
-            side[r["lineage"]][a[0]].append(r["js"])
+            side[r["lineage"]][a[0]].append(r["js_bits"])
     texts = {t for t in arm}
     print("  texts carrying an arm label: %d  (indiv %d / inst %d)"
           % (len(texts), sum(1 for v in arm.values() if v[0] == "indiv"),
@@ -346,7 +352,7 @@ def secondary_f21(rows):
     for r in fr:
         q = pole.get(r["prompt"])
         if q:
-            ps[r["lineage"]][q[0]].append(r["js"])
+            ps[r["lineage"]][q[0]].append(r["js_bits"])
     dm = [st.median(v["MARKED"]) - st.median(v["UNMARKED"])
           for v in ps.values() if v.get("MARKED") and v.get("UNMARKED")]
     n2, k2, p2 = sign_test(dm)

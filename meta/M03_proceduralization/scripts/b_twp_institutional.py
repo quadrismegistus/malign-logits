@@ -144,6 +144,29 @@ def population_sql():
         % (k, DB, v) for k, v in SELECTORS.items())
 
 
+def population_texts():
+    """{text: stratum}. The population's texts, materialised into Python.
+
+    THE DOCTRINE IS PRESERVED AND ITS SCOPE IS NOW NAMED. "Prompts never leave
+    the database" was written against text going INTO a query literal, where
+    `it's` / `can't` / `aren't` double-escaped and matched nothing three times.
+    It never meant that text cannot come OUT: `Cell` is addressed by text, so a
+    producer that goes through the library must hold the strings.
+
+    What survives is the half that matters -- the SELECTORS are still the
+    definition, this reads them rather than re-deriving membership, and no
+    string this returns is ever concatenated back into SQL. What is added is
+    the reverse direction the doctrine was silent about: ClickHouse escapes
+    apostrophes on TSV output, so every text is unescaped on the way in.
+    """
+    out = _ch("SELECT prompt, stratum FROM (%s) FORMAT TSV" % population_sql())
+    strat = {}
+    for line in out.splitlines():
+        p, s = line.split("\t")
+        strat[tsv_unescape(p)] = s
+    return strat
+
+
 def build_population():
     pairs, models = pairs_and_models()
     mls = ",".join("'%s'" % m for m in models)
@@ -277,24 +300,66 @@ def field_counts(words):
 
 
 def run(rule):
+    """MEASURED THROUGH `Step`/`Cell`, NOT THROUGH THIS FILE'S OWN SQL.
+
+    The first version fetched `twp_words` directly and computed its own JS and
+    its own residual. RH caught it. Three things the library already had and
+    this file got wrong:
+
+      SOURCE PRECEDENCE. `twp_words` is ORDER BY (model, prompt, word, SOURCE),
+      so a cell scored under two sources keeps BOTH rows and `sum(p) GROUP BY
+      word` ADDS them. 13,787 of 238,934 cells on this roster carry two
+      sources; **119 F21 cells and 504 kernel cells in THIS population were
+      double-counted**, which drives their residual bin to zero and with it
+      `residual_share` and the renormalisation null. `ch_read.SOURCE_PRECEDENCE`
+      picks one and names the models it cannot resolve.
+
+      THE UNIT. `Cell.js()` is BITS (log2); the hand-rolled `js_with_residual`
+      below is NATS (np.log). The same quantity 1.4427x apart, which is why the
+      output column is now named `js_bits` and the old one is gone rather than
+      silently rescaled.
+
+      RULE VERSION. `Cell` RAISES on a v1 arm against a v3 arm, because that
+      books an instrument change as alignment movement. The SQL path checked
+      nothing. Clean on this roster -- every model is rule_version 3, dict_sha
+      b16011275c42955c -- so it is a guard that could have fired and did not.
+
+    `js_with_residual` and `fetch` are KEPT, unused by this path, because the
+    nats/bits discrepancy is the evidence for the unit note above and deleting
+    the loser of a comparison deletes the comparison.
+    """
+    from malign_logits.step import Step
     pairs, models = pairs_and_models()
-    print("fetching twp for %d models over the population ..." % len(models), flush=True)
-    D, strat = fetch(models)
-    print("cells fetched: %d" % len(D), flush=True)
+    strat = population_texts()
+    print("population: %d texts over %d models, via Step/Cell"
+          % (len(strat), len(models)), flush=True)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    n = 0
+    n, absent = 0, 0
     with open(OUT, "w") as fh, open(OUT_F, "w") as fg:
         for p in pairs:
             b, a = p.split(">")
             lin = _lineage(b)
-            prompts = sorted({pr for (m, pr) in D if m == b} & {pr for (m, pr) in D if m == a})
-            for pr in prompts:
-                da, db = D[(b, pr)], D[(a, pr)]
-                mv = movement_of(da, db, rule)
+            step = Step(b, a)
+            prompts = []
+            for pr in sorted(strat):
+                c = step.cell(pr)
+                if c.is_present:
+                    prompts.append((pr, c))
+                else:
+                    absent += 1
+            for pr, c in prompts:
+                #: `c.pre` IS THE BASE ARM AND `c.post` THE ALIGNED ONE. The
+                #: two scripts in this campaign that hand-rolled these dicts
+                #: named them in opposite orders, and a later file copied one
+                #: naming with the other's arithmetic and subtracted backwards.
+                da, db = c.pre.probs, c.post.probs
+                mv = c.movement(rule)
                 ri, fa = mv.risers, mv.fallers
                 fh.write(json.dumps({
                     "lineage": lin, "base": b, "aligned": a, "prompt": pr,
-                    "stratum": strat.get(pr), "js": js_with_residual(da, db),
+                    "stratum": strat.get(pr),
+                    "js_bits": c.js(), "l1": c.l1(),
+                    "rule_version": c.rule_version,
                     "n_words_base": len(da), "n_words_aligned": len(db),
                     "mass_base": sum(da.values()), "mass_aligned": sum(db.values()),
                     "n_risers": len(ri), "n_fallers": len(fa),

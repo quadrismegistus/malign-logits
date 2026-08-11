@@ -342,3 +342,5 @@ meta/M01_displacement/results/y_passages.parquet
 meta/M03_proceduralization/results/b_pair_prompt.jsonl
 meta/M03_proceduralization/results/b_fields.jsonl
 meta/M03_proceduralization/results/b_word_delta_cells.csv.gz
+meta/M03_proceduralization/results/c_cells.csv.gz
+meta/M03_proceduralization/results/c_word_delta_cells.csv.gz

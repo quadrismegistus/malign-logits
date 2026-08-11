@@ -77,11 +77,26 @@ def sign_test(vals):
 
 
 def run():
+    """MEASURED THROUGH `Step`/`Cell`. The first version read `twp_words` with
+    its own SQL, which summed a cell across SOURCES -- `twp_words` is ORDER BY
+    (model, prompt, word, SOURCE) so a cell scored twice keeps both rows. 708
+    of this population's 13,340 cells came back with a `mass_base` above 1.05,
+    which is not a probability. `ch_read.SOURCE_PRECEDENCE` picks one source
+    and names the models it cannot resolve.
+
+    AND THE SIGN IS NOW STRUCTURAL. This file named its dicts `db, da =
+    D[base], D[aligned]` while the producer beside it used the opposite order
+    for the same two things; a third script copied one naming with the other's
+    arithmetic and computed `base - aligned`. `c.pre` is the base arm and
+    `c.post` the aligned one, and they cannot be got backwards.
+    """
+    from malign_logits.step import Step
+    from b_twp_institutional import population_texts
     des = design()
     pairs, models = pairs_and_models()
-    print("fetching twp for %d models ..." % len(models), flush=True)
-    D, strat = fetch(models)
-    print("cells fetched: %d" % len(D), flush=True)
+    strat = population_texts()
+    print("population %d texts, %d steps, via Step/Cell" % (len(strat), len(pairs)),
+          flush=True)
 
     #: delta[(lineage, scenario, condition, arm)][word] = p_aligned - p_base
     delta = {}
@@ -94,16 +109,18 @@ def run():
         for p in pairs:
             b, a = p.split(">")
             lin = _lineage(b)
-            prompts = sorted({q for (m, q) in D if m == b} &
-                             {q for (m, q) in D if m == a})
-            for q in prompts:
+            step = Step(b, a)
+            for q in sorted(strat):
                 if strat.get(q) != KERNEL:
                     continue
+                c = step.cell(q)
+                if not c.is_present:
+                    continue
                 arm, cond, scen = des[q]
-                db, da = D[(b, q)], D[(a, q)]
+                pre, post = c.pre.probs, c.post.probs
                 cell = {}
-                for word in set(db) | set(da):
-                    pb, pa = db.get(word, 0.0), da.get(word, 0.0)
+                for word in set(pre) | set(post):
+                    pb, pa = pre.get(word, 0.0), post.get(word, 0.0)
                     cell[word] = pa - pb
                     w.writerow([lin, scen, cond, arm, q, word,
                                 "%.8g" % pb, "%.8g" % pa, "%+.8g" % (pa - pb)])
