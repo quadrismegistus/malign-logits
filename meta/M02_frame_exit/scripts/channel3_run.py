@@ -220,9 +220,24 @@ def per_pair(full, arm_fn, clean_only=False):
     return {p: statistics.median(vs) for p, vs in by.items() if vs}
 
 
+#: **THE PRODUCER WROTE NOTHING, AND FINDING A IS ITS ONLY READER.** Every
+#: number in `meta/M04_syntagmatic/findings/A_post_utterance_shock.md` -- the
+#: primary, the four-term grid, the position profile, the twin moderator --
+#: existed solely as stdout from a session that has ended. The finding could be
+#: re-run and hoped to match; it could not be re-queried, audited or plotted.
+#: Named on registrar's PRODUCE-BEFORE-PLOT list ([5429]); re-run with writes on
+#: RH's word, 2026-08-11.
+#:
+#: CAPTURE ONLY. Not one computation below is touched -- `report` already built
+#: this dict and threw it away, so the artifact is the statistics that were
+#: always printed, and a re-run must REPRODUCE the finding rather than revise it.
+_RECORD = []
+
+
 def report(name, vals, note=""):
     if not vals:
         print("%-34s NO DATA" % name)
+        _RECORD.append({"name": name.strip(), "status": "NO DATA"})
         return None
     xs = list(vals.values())
     med = statistics.median(xs)
@@ -231,7 +246,11 @@ def report(name, vals, note=""):
     star = "CI excl 0" if (lo > 0 or hi < 0) else "CI incl 0"
     print("%-34s median %+9.5f  p %6.4f  n %2d (nz %2d)  CI [%+.5f,%+.5f] %s %s"
           % (name, med, p, len(xs), nz, lo, hi, star, note))
-    return {"median": med, "p": p, "n": len(xs), "nz": nz, "ci": [lo, hi]}
+    out = {"median": med, "p": p, "n": len(xs), "nz": nz, "ci": [lo, hi]}
+    _RECORD.append({"name": name.strip(), "note": note,
+                    "ci_excludes_zero": bool(lo > 0 or hi < 0),
+                    "per_pair": {k: v for k, v in sorted(vals.items())}, **out})
+    return out
 
 
 def selftest():
@@ -270,6 +289,8 @@ def selftest():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--write", metavar="PATH",
+                    help="emit every reported statistic as JSON")
     a = ap.parse_args()
     if a.selftest:
         sys.exit(0 if selftest() else 1)
@@ -282,6 +303,8 @@ def main():
     pairs = {p for (p, _), _ in full}
     print("cells %d | sites with all four cells %d | half-present EXCLUDED %d | pairs %d"
           % (len(cells), len(full), partial, len(pairs)))
+    _POP = {"cells": len(cells), "sites_all_four": len(full),
+            "half_present_excluded": partial, "pairs": len(pairs)}
 
     D = lambda d, arm: (lambda t: t["AA"] - t["BA"])(terms(d, arm))
     Dp = lambda d, arm: (lambda t: t["BB"] - t["AB"])(terms(d, arm))
@@ -374,8 +397,10 @@ def main():
         v = D(d, "force_faller") - D(d, "force_riser")
         if v is not None and not math.isnan(v):
             byfam[fam].append(v)
+    _FAM = {}
     for fam, vs in sorted(byfam.items(), key=lambda kv: statistics.median(kv[1])):
         print("  %-24s median %+8.5f  sites %5d" % (fam, statistics.median(vs), len(vs)))
+        _FAM[fam] = {"median": statistics.median(vs), "sites": len(vs)}
 
     if r_all:
         xs = list(prim.values())
@@ -386,6 +411,33 @@ def main():
         print("  = %.2fx the channel-1 effect (+0.0144) it would need to constrain"
               % (mde / 0.0144))
     print("\nEXPLORATORY analyses may follow and are labelled as such (spec section 10).")
+
+    if a.write:
+        import json as _json
+        _json.dump({
+            "_about": "Every statistic Finding A reports. Capture only -- no "
+                      "computation in this producer was altered when the writes "
+                      "were added, so this artifact must REPRODUCE the finding.",
+            "_producer": "meta/M02_frame_exit/scripts/channel3_run.py --write",
+            "_finding": "meta/M04_syntagmatic/findings/A_post_utterance_shock.md",
+            "_spec": "meta/M02_frame_exit/registrations/spec_channel3_renewed_displacement.md",
+            "_spec_frozen_at": "85fd7d10",
+            "_seed": SEED, "_nboot": NBOOT,
+            "_arbiter": "CLEAN roster ([5011].3): excludes checkpoints inheriting "
+                        "do_sample=True from their own generation_config.json",
+            "_positive_control": "INVALID BY DESIGN, not merely unrunnable -- it "
+                                 "crosses a commitment boundary and a position "
+                                 "offset. See the finding. Recorded so nobody "
+                                 "proposes it again with more data.",
+            "population": _POP,
+            "per_family_descriptive": _FAM,
+            "own_beam_level": (statistics.median(lv.values()) if lv else None),
+            "mde_note": "MIS-SPECIFIED and unfixed: 2.8*SD/sqrt(n) is mean-based "
+                        "while the primary is a median-based Wilcoxon. "
+                        "'2.20x the channel-1 effect' must not be quoted.",
+            "reports": _RECORD,
+        }, open(a.write, "w"), indent=1)
+        print("wrote %s (%d reported statistics)" % (a.write, len(_RECORD)))
 
 
 if __name__ == "__main__":
