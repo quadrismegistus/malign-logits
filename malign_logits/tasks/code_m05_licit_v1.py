@@ -95,4 +95,8 @@ class LicitSetTask(Task):
     system_prompt = SYSTEM_PROMPT
     retries = 2
     temperature = 0.0
-    model = "deepseek/deepseek-chat"
+    #: pinned to the resolved id, not the retired `deepseek-chat` alias, on
+    #: the harness's own warning: the alias resolves server-side to a
+    #: DIFFERENT model name, and the model of record must be the real one.
+    #: Stability probe (plan): second family, anthropic/claude-haiku-4-5.
+    model = "deepseek/deepseek-v4-flash"
