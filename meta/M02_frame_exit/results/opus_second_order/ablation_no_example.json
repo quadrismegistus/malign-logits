@@ -1,0 +1,1202 @@
+{
+ "1": {
+  "id": 1,
+  "verdict": "YES",
+  "span": "Their love/hate relationship was a complicated tame.",
+  "kind": "oxymoron"
+ },
+ "2": {
+  "id": 2,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "3": {
+  "id": 3,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "4": {
+  "id": 4,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "5": {
+  "id": 5,
+  "verdict": "YES",
+  "span": "It was pleasure mixed with pain",
+  "kind": "oxymoron"
+ },
+ "6": {
+  "id": 6,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "7": {
+  "id": 7,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "8": {
+  "id": 8,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "9": {
+  "id": 9,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "10": {
+  "id": 10,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "11": {
+  "id": 11,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "12": {
+  "id": 12,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "13": {
+  "id": 13,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "14": {
+  "id": 14,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "15": {
+  "id": 15,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "16": {
+  "id": 16,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "17": {
+  "id": 17,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "18": {
+  "id": 18,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "19": {
+  "id": 19,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "20": {
+  "id": 20,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "21": {
+  "id": 21,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "22": {
+  "id": 22,
+  "verdict": "YES",
+  "span": "The effects from the supper were both exhilarating and devastating.",
+  "kind": "oxymoron"
+ },
+ "23": {
+  "id": 23,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "24": {
+  "id": 24,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "25": {
+  "id": 25,
+  "verdict": "YES",
+  "span": "wonder if the two are one and the same",
+  "kind": "other"
+ },
+ "26": {
+  "id": 26,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "27": {
+  "id": 27,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "28": {
+  "id": 28,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "29": {
+  "id": 29,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "30": {
+  "id": 30,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "31": {
+  "id": 31,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "32": {
+  "id": 32,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "33": {
+  "id": 33,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "34": {
+  "id": 34,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "35": {
+  "id": 35,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "36": {
+  "id": 36,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "37": {
+  "id": 37,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "38": {
+  "id": 38,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "39": {
+  "id": 39,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "40": {
+  "id": 40,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "41": {
+  "id": 41,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "42": {
+  "id": 42,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "43": {
+  "id": 43,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "44": {
+  "id": 44,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "45": {
+  "id": 45,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "46": {
+  "id": 46,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "47": {
+  "id": 47,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "48": {
+  "id": 48,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "49": {
+  "id": 49,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "50": {
+  "id": 50,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "51": {
+  "id": 51,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "52": {
+  "id": 52,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "53": {
+  "id": 53,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "54": {
+  "id": 54,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "55": {
+  "id": 55,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "56": {
+  "id": 56,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "57": {
+  "id": 57,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "58": {
+  "id": 58,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "59": {
+  "id": 59,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "60": {
+  "id": 60,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "61": {
+  "id": 61,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "62": {
+  "id": 62,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "63": {
+  "id": 63,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "64": {
+  "id": 64,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "65": {
+  "id": 65,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "66": {
+  "id": 66,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "67": {
+  "id": 67,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "68": {
+  "id": 68,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "69": {
+  "id": 69,
+  "verdict": "YES",
+  "span": "that was the paradox of being free",
+  "kind": "abstract"
+ },
+ "70": {
+  "id": 70,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "71": {
+  "id": 71,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "72": {
+  "id": 72,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "73": {
+  "id": 73,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "74": {
+  "id": 74,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "75": {
+  "id": 75,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "76": {
+  "id": 76,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "77": {
+  "id": 77,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "78": {
+  "id": 78,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "79": {
+  "id": 79,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "80": {
+  "id": 80,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "81": {
+  "id": 81,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "82": {
+  "id": 82,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "83": {
+  "id": 83,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "84": {
+  "id": 84,
+  "verdict": "YES",
+  "span": "my hatred of myself",
+  "kind": "reflexive"
+ },
+ "85": {
+  "id": 85,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "86": {
+  "id": 86,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "87": {
+  "id": 87,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "88": {
+  "id": 88,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "89": {
+  "id": 89,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "90": {
+  "id": 90,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "91": {
+  "id": 91,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "92": {
+  "id": 92,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "93": {
+  "id": 93,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "94": {
+  "id": 94,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "95": {
+  "id": 95,
+  "verdict": "YES",
+  "span": "as these circles were square-shaped",
+  "kind": "oxymoron"
+ },
+ "96": {
+  "id": 96,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "97": {
+  "id": 97,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "98": {
+  "id": 98,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "99": {
+  "id": 99,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "100": {
+  "id": 100,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "301": {
+  "id": 301,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "302": {
+  "id": 302,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "303": {
+  "id": 303,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "304": {
+  "id": 304,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "305": {
+  "id": 305,
+  "verdict": "YES",
+  "span": "There were so many contradictions in his face",
+  "kind": "abstract"
+ },
+ "306": {
+  "id": 306,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "307": {
+  "id": 307,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "308": {
+  "id": 308,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "309": {
+  "id": 309,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "310": {
+  "id": 310,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "311": {
+  "id": 311,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "312": {
+  "id": 312,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "313": {
+  "id": 313,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "314": {
+  "id": 314,
+  "verdict": "YES",
+  "span": "the line between hero and villain is as delicate as",
+  "kind": "container"
+ },
+ "315": {
+  "id": 315,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "316": {
+  "id": 316,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "317": {
+  "id": 317,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "318": {
+  "id": 318,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "319": {
+  "id": 319,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "320": {
+  "id": 320,
+  "verdict": "YES",
+  "span": "Her father had called it her \u201cfifty-fifty genetic.",
+  "kind": "other"
+ },
+ "321": {
+  "id": 321,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "322": {
+  "id": 322,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "323": {
+  "id": 323,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "324": {
+  "id": 324,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "325": {
+  "id": 325,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "326": {
+  "id": 326,
+  "verdict": "YES",
+  "span": "struggle with herself",
+  "kind": "reflexive"
+ },
+ "327": {
+  "id": 327,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "328": {
+  "id": 328,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "329": {
+  "id": 329,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "330": {
+  "id": 330,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "331": {
+  "id": 331,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "332": {
+  "id": 332,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "333": {
+  "id": 333,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "334": {
+  "id": 334,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "335": {
+  "id": 335,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "336": {
+  "id": 336,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "337": {
+  "id": 337,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "338": {
+  "id": 338,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "339": {
+  "id": 339,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "340": {
+  "id": 340,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "341": {
+  "id": 341,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "342": {
+  "id": 342,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "343": {
+  "id": 343,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "344": {
+  "id": 344,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "345": {
+  "id": 345,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "346": {
+  "id": 346,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "347": {
+  "id": 347,
+  "verdict": "YES",
+  "span": "scream in panicked silence",
+  "kind": "oxymoron"
+ },
+ "348": {
+  "id": 348,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "349": {
+  "id": 349,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "350": {
+  "id": 350,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "351": {
+  "id": 351,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "352": {
+  "id": 352,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "353": {
+  "id": 353,
+  "verdict": "YES",
+  "span": "a mix of attraction and repulsion",
+  "kind": "abstract"
+ },
+ "354": {
+  "id": 354,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "355": {
+  "id": 355,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "356": {
+  "id": 356,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "357": {
+  "id": 357,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "358": {
+  "id": 358,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "359": {
+  "id": 359,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "360": {
+  "id": 360,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "361": {
+  "id": 361,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "362": {
+  "id": 362,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "363": {
+  "id": 363,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "364": {
+  "id": 364,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "365": {
+  "id": 365,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "366": {
+  "id": 366,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "367": {
+  "id": 367,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "368": {
+  "id": 368,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "369": {
+  "id": 369,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "370": {
+  "id": 370,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "371": {
+  "id": 371,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "372": {
+  "id": 372,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "373": {
+  "id": 373,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "374": {
+  "id": 374,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "375": {
+  "id": 375,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "376": {
+  "id": 376,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "377": {
+  "id": 377,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "378": {
+  "id": 378,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "379": {
+  "id": 379,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "380": {
+  "id": 380,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "381": {
+  "id": 381,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "382": {
+  "id": 382,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "383": {
+  "id": 383,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "384": {
+  "id": 384,
+  "verdict": "YES",
+  "span": "He was a soldier in every right and wrong aspect. And perhaps therein lays the tragedy,",
+  "kind": "oxymoron"
+ },
+ "385": {
+  "id": 385,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "386": {
+  "id": 386,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "387": {
+  "id": 387,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "388": {
+  "id": 388,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "389": {
+  "id": 389,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "390": {
+  "id": 390,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "391": {
+  "id": 391,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "392": {
+  "id": 392,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "393": {
+  "id": 393,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "394": {
+  "id": 394,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "395": {
+  "id": 395,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "396": {
+  "id": 396,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "397": {
+  "id": 397,
+  "verdict": "YES",
+  "span": "their ideal men to have been and remain dangerous fears",
+  "kind": "oxymoron"
+ },
+ "398": {
+  "id": 398,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "399": {
+  "id": 399,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ },
+ "400": {
+  "id": 400,
+  "verdict": "NO",
+  "span": "",
+  "kind": ""
+ }
+}

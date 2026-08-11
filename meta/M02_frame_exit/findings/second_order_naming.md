@@ -1,10 +1,13 @@
 # Alignment names the contradiction as a contradiction, and only the contradiction
 
-**Status: the strongest positive result in M02.** On 52,559 exit-free English
-passages, aligned models produce a second-order predicate over the contradiction
-**2.18x** as often as their base arm — 20 of 22 lineages, p = 0.00012 — while
-the same markers on single-pole prompts move **0.93x**, p = 0.82. The claim is
-the interaction and the control sits at unity.
+**Status: the strongest positive result in M02, on two instruments.** Read by
+eight blind Opus readers over 800 passages, aligned models produce a
+second-order predicate over the contradiction **4.6x** as often as their base
+arm (3.0% -> 12.5%, p = 0.00055) while the same-side conjunction control moves
+**0.25x**. Counted by regex over 52,559 exit-free passages, **2.18x** against a
+pole control of **0.93x** — 20 of 22 lineages, p = 0.00012. The two instruments
+share only 28% of their hits and disagree on magnitude by a factor of two; they
+agree on direction, on the interaction, and on the control.
 
 Producer `scripts/z_second_order.py`; marker sets declared in
 `registrations/second_order_markers_v2.md`; substrate `gen_sequences`,
@@ -100,6 +103,107 @@ vocabulary rises under alignment on prompts with no contradiction in them.
 The slide's exemplar carries both features in one passage, which is presumably
 why they read as one phenomenon. They are two, and only one of them is about
 contradiction.
+
+## READ BY EIGHT OPUS READERS: the effect is twice as large as the regex sees
+
+800 passages, four cells of 200 (contradiction x base/aligned, same-side
+conjunction x base/aligned), exit-free, drawn across 25 lineages, **blind** --
+no arm or stimulus label in the files, every batch mixed across all four cells
+so no reader saw one condition in isolation. Eight Opus readers, one judgement
+each: *does this continuation produce an expression that takes a conflicted or
+divided condition as its object?* Verbatim span required; metalinguistic
+framing excluded; judged on the continuation's own terms, never against the
+prompt -- so the same-side arm is a real question rather than a definitional NO.
+
+    stimulus                base    aligned    odds ratio        p
+    contradiction           3.0%      12.5%          4.62   0.00055
+    same-side conjunction   2.0%       0.5%          0.25      0.37
+
+At the lineage unit, 13 of 17 (ties dropped), p = 0.049 -- thin, since 36 hits
+spread over 25 lineages. **Of the 17 lineages with any hit, 14 have base at 0
+or 1** while the aligned arm runs 1-3 in ~10. It is not carried by a few models.
+
+Artifacts: `results/opus_second_order/judgements.json` (all 800 with spans),
+`ablation_no_example.json`.
+
+### The disagreement between the two instruments is the useful number
+
+Against V1 on the same 800 passages the regex has **28% recall and 42%
+precision**, sharing only 10 of its hits. These are substantially DIFFERENT
+instruments finding the same direction at 2.2x and 4.6x. Noise in both
+directions attenuates a ratio, so the regex reads a floor; two low-agreement
+measures agreeing on direction is better evidence than either alone. The factor
+of two is not resolved here and is not averaged away.
+
+### What the readers found that no regex will
+
+**21 of 36 hits are non-abstract** -- 9 oxymoron, 7 reflexive, 2 container.
+
+    OXYMORON    "Their love/hate relationship was a complicated tame"
+                "It was pleasure mixed with pain, heady and intoxicating"
+                "the confinement that was both joy and sorrow"
+                "She was both something and nothing"
+                "He was a soldier in every right and wrong aspect"
+                "His benefactor unto whom he was bound freely"
+    CONTAINER   "a prison from which he could not escape. A prison of his
+                 own making."
+                "the line between hero and villain is as delicate as the venomous"
+    REFLEXIVE   "she feared herself"      "struggle with herself"
+                "She couldn't decide which it was she wanted to do"
+    ABSTRACT    "that was the paradox of being free"
+                "There were so many contradictions in his face"
+                "charged with a mix of attraction and repulsion"
+                "feel her innocence and guilt"
+                "Caught in a network, a paradox. Between two worlds, a
+                 nameless figure."
+
+Two of the aligned hits name the condition in a **clinical or therapeutic**
+register -- `diagnosed with a multiple personality disorder`, `you feel
+conflicted about your emotions towards this person`. Not counted separately and
+not a claim; recorded because it is the register the Oedipalization reading
+would predict and nobody looked for it.
+
+### Matched pairs, same prompt
+
+    "He was beautiful and disgusting and she wanted to"
+      ALIGNED  Llama-3.1-8B-Instruct   "...it was ironic how these two traits
+               would be tied together... THERE WERE SO MANY CONTRADICTIONS IN
+               HIS FACE"
+      BASE     MiniCPM5-1B-Base        "kill him. Don't you think? Witty comment
+               from Tim's sister..."   -- no hit
+
+    "He was free and captive and chose to"
+      ALIGNED  granite-3.0-8b-instruct "be captive, THAT WAS THE PARADOX OF
+               BEING FREE. Master of fate and not his own fate."
+      BASE     SmolLM3-3B-Base         "be captive rather to be free. not because
+               of dread of death but so he can know what life really is."
+               -- enacts the reversal, never names it
+
+The base passage in the second pair is the whole distinction in one line: it
+performs free-and-captive fluently and produces no term for the condition.
+
+### The example in the prompt: an ablation that could not settle itself
+
+The JSON format spec carried one real positive span, drawn from a
+CONTRADICTION passage -- an anchoring risk in a design whose claim is the
+treatment/control contrast. Two batches (200 passages) were re-read with the
+span replaced by a placeholder, everything else identical:
+
+    cell                      with example    without
+    contradiction, aligned          10/58        9/58
+    contradiction, base              2/56        4/56
+
+**98% agreement across the two readings; McNemar exact p = 0.63.** No
+detectable difference. The apparent ratio move (4.83x -> 2.17x) is two base
+passages flipping in a cell with single-digit counts: **a ratio with four events
+in its denominator is not a measurement**, and the ablation was built too small
+to produce one. What it does show is that the aligned arm -- the arm an example
+would inflate -- did not move (10 to 9), while the control arm rose, which
+priming toward contradiction-shaped hits cannot explain.
+
+Recorded in full because the pre-registered reading of "~2.2x" was "the example
+inflated it", and that reading is being amended on the grounds above rather
+than quietly dropped.
 
 ## Why the passages are exit-free, and what that fixed
 
