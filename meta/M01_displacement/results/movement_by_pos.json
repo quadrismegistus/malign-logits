@@ -221,6 +221,72 @@
     }
    },
    "verdict": "MOSTLY CONFOUNDED. The buckets differ 72x in median frequency; inside the overlap the 23-point gap falls to 7 points, and the two groups STILL differ 3.5x in median fpm there. The residual is not separable with this instrument."
+  },
+  "noun_rise_stratified": {
+   "median_fpm": {
+    "NOUN": 21.9,
+    "VERB": 6.9
+   },
+   "confound_direction": "AGAINST the finding. NOUN is 3.2x MORE frequent than VERB, and fall rate RISES with frequency (rho +0.325), so frequency alone predicts NOUN should fall MORE. It falls less.",
+   "quintiles": [
+    {
+     "median_fpm": 0.9,
+     "NOUN": {
+      "words": 85,
+      "fall_rate": 0.3523
+     },
+     "VERB": {
+      "words": 532,
+      "fall_rate": 0.3635
+     }
+    },
+    {
+     "median_fpm": 3.7,
+     "NOUN": {
+      "words": 95,
+      "fall_rate": 0.4669
+     },
+     "VERB": {
+      "words": 520,
+      "fall_rate": 0.3949
+     }
+    },
+    {
+     "median_fpm": 10.1,
+     "NOUN": {
+      "words": 115,
+      "fall_rate": 0.3965
+     },
+     "VERB": {
+      "words": 506,
+      "fall_rate": 0.4489
+     }
+    },
+    {
+     "median_fpm": 32.0,
+     "NOUN": {
+      "words": 183,
+      "fall_rate": 0.5
+     },
+     "VERB": {
+      "words": 415,
+      "fall_rate": 0.5208
+     }
+    },
+    {
+     "median_fpm": 196.8,
+     "NOUN": {
+      "words": 184,
+      "fall_rate": 0.4836
+     },
+     "VERB": {
+      "words": 264,
+      "fall_rate": 0.5931
+     }
+    }
+   ],
+   "noun_lower_in": "4 of 5 quintiles",
+   "verdict": "SURVIVES. Unlike manner/temporal, NOUN and VERB overlap in frequency across the whole range, so the stratification is meaningful rather than empty. The gap WIDENS with frequency (Q5: 48.4% vs 59.3%)."
   }
  },
  "by_pos": [

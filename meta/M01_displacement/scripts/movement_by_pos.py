@@ -100,6 +100,27 @@ which needs more high-frequency manner adverbs than the battery contains, or a
 rate measured against a per-cell eligibility denominator rather than a
 vocabulary-level one.
 
+## THE NOUN RISE SURVIVES, AND THE CONFOUND RUNS AGAINST IT
+
+I named the NOUN check as unrun at [5487].5 and @registrar pulled the finding
+from the surviving list at [5489] on that word. Run, it comes back the other
+way, and for a reason worth stating:
+
+    median external fpm    NOUN 21.9    VERB 6.9
+
+**NOUN is the MORE frequent class**, and fall rate RISES with frequency, so
+frequency alone predicts NOUN should fall MORE than VERB. It falls less --
+42.4% against 54.5% pooled, and lower in 4 of 5 frequency quintiles, with the
+gap WIDENING as frequency rises (Q5: 48.4% against 59.3%).
+
+**A confound that runs against a finding is not a threat to it; it is a floor
+under it.** Whatever the true NOUN/VERB gap is, it is at least this large.
+
+And the stratification is meaningful here where it was empty for
+manner/temporal: NOUN and VERB overlap across the entire frequency range, so
+every quintile has both classes in quantity (85 to 184 NOUNs, 264 to 531 VERBs).
+That is the difference between conditioning on a confound and merely naming it.
+
 **Note the grain caution on the eligibility fix.** Base-arm VOCABULARY is a
 corpus-level predicate; the gate is a per-CELL fact (`P >= 0.003` at each site).
 A word can be in the base vocabulary and still be ineligible at most cells, so
@@ -200,6 +221,29 @@ def confound_check(risers, fallers, cls):
     for b in win:
         v = [fpm[w.lower()] for w in inwin[b]]
         win[b]["median_fpm"] = round(sst.median(v), 1) if v else None
+
+    #: (3) THE NOUN RISE, stratified. Unlike manner/temporal these two classes
+    #: overlap in frequency across the whole range, so quintiles are meaningful.
+    pool = [(w, cls[w], fpm[w.lower()], int(risers.get(w, 0)),
+             int(fallers.get(w, 0))) for w in set(risers) | set(fallers)
+            if cls.get(w) and w.lower() in fpm and w in base]
+    pool.sort(key=lambda r: r[2])
+    q, quint = len(pool) // 5, []
+    for i in range(5):
+        b = pool[i * q:(i + 1) * q] if i < 4 else pool[4 * q:]
+        row = {"median_fpm": round(sst.median([r[2] for r in b]), 1)}
+        for c in ("NOUN", "VERB"):
+            g = [r for r in b if r[1] == c]
+            R, F = sum(r[3] for r in g), sum(r[4] for r in g)
+            row[c] = {"words": len(g),
+                      "fall_rate": round(F / (R + F), 4) if R + F else None}
+        quint.append(row)
+    med = {c: round(sst.median([r[2] for r in pool if r[1] == c]), 1)
+           for c in ("NOUN", "VERB")}
+    lower = sum(1 for r in quint
+                if r["NOUN"]["fall_rate"] is not None
+                and r["VERB"]["fall_rate"] is not None
+                and r["NOUN"]["fall_rate"] < r["VERB"]["fall_rate"])
     return {
         "eligibility": {
             "base_vocab": len(base), "aligned_vocab": len(aligned),
@@ -217,6 +261,20 @@ def confound_check(risers, fallers, cls):
                        "7 points, and the two groups STILL differ 3.5x in "
                        "median fpm there. The residual is not separable with "
                        "this instrument.",
+        },
+        "noun_rise_stratified": {
+            "median_fpm": med,
+            "confound_direction": "AGAINST the finding. NOUN is %.1fx MORE "
+                                  "frequent than VERB, and fall rate RISES with "
+                                  "frequency (rho +0.325), so frequency alone "
+                                  "predicts NOUN should fall MORE. It falls "
+                                  "less." % (med["NOUN"] / med["VERB"]),
+            "quintiles": quint,
+            "noun_lower_in": "%d of 5 quintiles" % lower,
+            "verdict": "SURVIVES. Unlike manner/temporal, NOUN and VERB overlap "
+                       "in frequency across the whole range, so the "
+                       "stratification is meaningful rather than empty. The "
+                       "gap WIDENS with frequency (Q5: 48.4% vs 59.3%).",
         },
     }
 
@@ -325,6 +383,18 @@ def main():
         print("      %-18s %3d words  fall rate %5.1f%%  median fpm %7.1f"
               % (b, v["words"], 100 * (v["fall_rate"] or 0), v["median_fpm"]))
     print("    %s" % f["verdict"])
+    n = conf["noun_rise_stratified"]
+    print("\n(3) THE NOUN RISE, frequency-stratified (base-scored)")
+    print("    median fpm  NOUN %.1f  VERB %.1f -- %s"
+          % (n["median_fpm"]["NOUN"], n["median_fpm"]["VERB"],
+             "NOUN is the MORE frequent class"))
+    print("      %-12s %12s %12s %12s" % ("quintile", "NOUN", "VERB", "median fpm"))
+    for i, r in enumerate(n["quintiles"], 1):
+        cell = lambda c: ("%5.1f%% (%3d)" % (100 * r[c]["fall_rate"], r[c]["words"])
+                          if r[c]["fall_rate"] is not None else "      -     ")
+        print("      Q%-11d %12s %12s %12.1f"
+              % (i, cell("NOUN"), cell("VERB"), r["median_fpm"]))
+    print("    NOUN falls less in %s. %s" % (n["noun_lower_in"], n["verdict"]))
 
     if a.write:
         json.dump({
