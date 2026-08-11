@@ -37,6 +37,7 @@ still read as 46.
 import argparse
 import json
 import os
+import sys
 from collections import defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -60,6 +61,14 @@ def main():
     ap.add_argument("--arms", default=ARMS)
     ap.add_argument("--out", default=OUT)
     ap.add_argument("--write", action="store_true")
+    #: **THE RESTRICTED TABLE IS A PRODUCT, NOT AN AD-HOC STEP.** The previous
+    #: `forced_arms_46reps.json` was produced by restricting an arms table to
+    #: these pairs by hand, and nothing recorded it -- so its `_derived_from`
+    #: named the wrong superset (it carried a prompt _v3 lacks) and could not be
+    #: rebuilt. Emitting it here makes the derivation reproducible and carries
+    #: the input digest forward, per [5468].
+    ap.add_argument("--arms-out", metavar="JSON",
+                    help="also write the arms table restricted to the kept pairs")
     ap.add_argument("--loose", action="store_true",
                     help="fall back to the lowest-sorting pair when the stored "
                          "representative heads no pair. Prints the substitution; "
@@ -94,6 +103,30 @@ def main():
                 "REFUSING. Either the map is stale (rebuild: scripts/"
                 "build_lineage_map.py --write) or the battery lacks the "
                 "representative's pair. --loose substitutes and says so.")
+
+    if a.arms_out:
+        import hashlib
+        src = json.load(open(a.arms))
+        keep = set(chosen)
+        cells = [c for c in src["cells"] if c["pair"] in keep]
+        sha = lambda pth: hashlib.sha256(open(pth, "rb").read()).hexdigest()[:16]
+        out = {k: v for k, v in src.items() if k != "cells"}
+        out.update(
+            n_cells=len(cells), cells=cells,
+            _producer="scripts/lineage_representative_pairs.py --arms-out",
+            _invocation=" ".join([os.path.basename(sys.argv[0])] + sys.argv[1:]),
+            _derived_from={
+                "arms": os.path.relpath(a.arms, ROOT),
+                "arms_sha256_16": sha(a.arms),
+                "lineage_map": os.path.relpath(MAP, ROOT),
+                "lineage_map_sha256_16": sha(MAP),
+                "rule": "one pair per lineage, the map's stored representative; "
+                        "scale siblings of a kept pair are dropped",
+                "kept": len(chosen), "dropped": len(dropped)},
+            _inherited_inputs=src.get("_inputs"))
+        pth = a.arms_out if os.path.isabs(a.arms_out) else os.path.join(ROOT, a.arms_out)
+        json.dump(out, open(pth, "w"))
+        print("\nwrote %s -- %d cells over %d pairs" % (pth, len(cells), len(keep)))
 
     print("\nkept %d, dropped %d (scale siblings of a kept pair):"
           % (len(chosen), len(dropped)))
