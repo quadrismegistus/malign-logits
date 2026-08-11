@@ -51,9 +51,10 @@ POS_CLASS = {
     "DT": "DET", "PDT": "DET", "WDT": "DET",
     "NN": "NOUN", "NNS": "NOUN",
     "NNP": "PROPN", "NNPS": "PROPN",
-    "VB": "VERB", "VBD": "VERB", "VBG": "VERB", "VBN": "VERB",
-    "VBP": "VERB", "VBZ": "VERB",
-    "MD": "AUX",
+    #: VB*/MD deliberately ABSENT: verb fine tags defer to spaCy's UPOS,
+    #: which distinguishes AUX from VERB contextually ("is being" vs
+    #: "being difficult"). Forcing VB* -> VERB destroyed that distinction
+    #: and cost 3 witness disagreements in the first smoke.
     "JJ": "ADJ", "JJR": "ADJ", "JJS": "ADJ",
     "RB": "ADV", "RBR": "ADV", "RBS": "ADV", "WRB": "ADV",
     "PRP": "PRON", "PRP$": "PRON", "WP": "PRON", "WP$": "PRON",
