@@ -104,8 +104,17 @@ entry is pre-norm. `malign_logits/models.py:logit_lens` applied the final norm t
 ALL of them and so double-normed the last -- Amber `kill` 0.119 against 0.060, a
 factor of two at the only layer anyone reads. Fixed 2026-08-09 (see
 `plan_h_logitlens.md` §1) and the fix REFUSES when the final layer's projection
-disagrees with the model's own logits. **Use `LayerReadout`, never a hand-rolled
-projection**, and let the refusal fire.
+disagrees with the model's own logits.
+
+**Use `twp.expand_layers`, not a hand-rolled `LayerReadout` loop.** The first
+draft of this section said "use LayerReadout" and the pilot did, for every layer
+INCLUDING the last. `expand_layers` uses `FinalReadout` there instead, and its
+own comment says why: `head(hidden[-1])` is mathematically the model's logits and
+numerically is not -- ~1e-2 away in logit space at fp16, propagating into P0,
+into every mass, into the residual. Reading the model's own logits at the last
+layer makes it **reproduce the stored twp cell by construction**, which is free
+validation a hand-rolled loop throws away, and it means a readout bug cannot be
+mistaken for GEMM noise. Let the `head_err` check print, always.
 
 ## 6. Substrate: no new forward passes are needed for most of the roster
 
@@ -129,10 +138,17 @@ Recorded as candidates, not decisions:
 - **k**, the size of the pole sets. Unset. It must be declared before running,
   not tuned: a k chosen after seeing the curves is a threshold chosen on the
   outcome.
-- **Token or word level.** The ratio is word-level (twp, `rule_version 3`); a
-  lens is natively token-level. Mixing them silently is the kind of unit word
-  this campaign has spent a week on. The pilot declares TOKEN level for
-  simplicity and the full run must choose deliberately.
+- **Token or word level -- SETTLED BY THE PILOT, as WORD.** The ratio is
+  word-level (twp, `rule_version 3`); a lens is natively token-level, and the
+  pilot's first draft ran in token space, which made its numbers incomparable
+  to the finding they exist to test. `expand_layers` gives the word rule at
+  every layer, so word level costs nothing and buys comparability. Recorded here
+  as decided rather than open, because the alternative was tried and was wrong.
+  **Note the consequence**: `expand_layers` returns `words[(surface, FIRST
+  TOKEN)]` and that partition MUST BE SUMMED. The ClickHouse table hides this --
+  the summation happened before ingest, one t1 per word across 47,140,883 word
+  cells -- so anyone who learned the shape from the table will get it wrong in
+  memory, as I did.
 
 Under [5148] this clause needs the enumerated list in a file with its hash, the
 roster, and nothing defined by a tool.
