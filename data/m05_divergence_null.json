@@ -1,0 +1,2160 @@
+{
+ "_about": "within-pair sign-flip permutation null for marked-neutral field divergence, alignment region, BH-FDR",
+ "B": 20000,
+ "n_pairs": 105,
+ "n_fields": 269,
+ "results": [
+  {
+   "field": "USAS: Respect",
+   "signed_gap": -0.0002700992013390538,
+   "p": 4.999750012499375e-05,
+   "q_bh": 0.0016811659417029147,
+   "base_mass": 0.0047900598,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Vehicles and transport on land",
+   "signed_gap": 0.002853335847109518,
+   "p": 4.999750012499375e-05,
+   "q_bh": 0.0016811659417029147,
+   "base_mass": 0.058225438000000004,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Importance: Noticeability",
+   "signed_gap": -0.004881996614573598,
+   "p": 4.999750012499375e-05,
+   "q_bh": 0.0016811659417029147,
+   "base_mass": 0.04435351,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Politeness",
+   "signed_gap": -0.004569882145903902,
+   "p": 4.999750012499375e-05,
+   "q_bh": 0.0016811659417029147,
+   "base_mass": 0.04435351,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: icarian_imagery:ascend",
+   "signed_gap": 0.006175980596784114,
+   "p": 4.999750012499375e-05,
+   "q_bh": 0.0016811659417029147,
+   "base_mass": 0.2649485852,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Importance: Important",
+   "signed_gap": -0.0014328473233279327,
+   "p": 4.999750012499375e-05,
+   "q_bh": 0.0016811659417029147,
+   "base_mass": 0.032324498,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Sensory:- Touch",
+   "signed_gap": 0.0018225013792233804,
+   "p": 4.999750012499375e-05,
+   "q_bh": 0.0016811659417029147,
+   "base_mass": 0.038614832,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: aggression",
+   "signed_gap": 0.008138811522521907,
+   "p": 4.999750012499375e-05,
+   "q_bh": 0.0016811659417029147,
+   "base_mass": 0.179189411016,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Happy/sad: Contentment",
+   "signed_gap": -0.000379307802898515,
+   "p": 9.99950002499875e-05,
+   "q_bh": 0.0020691273128651258,
+   "base_mass": 0.007803206,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Interest/boredom/excited/energetic",
+   "signed_gap": 0.0007821012501790933,
+   "p": 9.99950002499875e-05,
+   "q_bh": 0.0020691273128651258,
+   "base_mass": 0.020146215,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Judgement of appearance (pretty etc.)",
+   "signed_gap": -0.004214355311258666,
+   "p": 9.99950002499875e-05,
+   "q_bh": 0.0020691273128651258,
+   "base_mass": 0.083845214,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: regressive_cognition:concreteness",
+   "signed_gap": -0.012203117098303719,
+   "p": 9.99950002499875e-05,
+   "q_bh": 0.0020691273128651258,
+   "base_mass": 0.1721518022,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Shape",
+   "signed_gap": -0.004601855453121261,
+   "p": 9.99950002499875e-05,
+   "q_bh": 0.0020691273128651258,
+   "base_mass": 0.08139725099999999,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Knowledge",
+   "signed_gap": -0.005154129829214075,
+   "p": 0.00014999250037498125,
+   "q_bh": 0.002881998757204997,
+   "base_mass": 0.0614130113,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: abstraction",
+   "signed_gap": -0.007279254582044886,
+   "p": 0.00024998750062496874,
+   "q_bh": 0.004483109177874439,
+   "base_mass": 0.142015602,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: arousal=calm",
+   "signed_gap": -0.02849153003085618,
+   "p": 0.0002999850007499625,
+   "q_bh": 0.0050434978251087444,
+   "base_mass": 0.3273514642999999,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Government etc.",
+   "signed_gap": -0.0020691551331068246,
+   "p": 0.0004999750012499375,
+   "q_bh": 0.00733599683652181,
+   "base_mass": 0.0781201876,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Remaining/stationary",
+   "signed_gap": -0.003844877714093538,
+   "p": 0.0005499725013749313,
+   "q_bh": 0.00733599683652181,
+   "base_mass": 0.0955795522,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: valence=positive",
+   "signed_gap": -0.02599484880578892,
+   "p": 0.0005499725013749313,
+   "q_bh": 0.00733599683652181,
+   "base_mass": 0.4007251897052,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Particular/general; detail",
+   "signed_gap": -0.00032066754111049063,
+   "p": 0.0005499725013749313,
+   "q_bh": 0.00733599683652181,
+   "base_mass": 0.0039603962,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Geographical names",
+   "signed_gap": 0.0005460652565791936,
+   "p": 0.000599970001499925,
+   "q_bh": 0.00733599683652181,
+   "base_mass": 0.027605687400000002,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Time",
+   "signed_gap": 0.0006328719857460101,
+   "p": 0.000599970001499925,
+   "q_bh": 0.00733599683652181,
+   "base_mass": 0.014094806,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Colour and colour patterns",
+   "signed_gap": -0.001979515758297187,
+   "p": 0.0006499675016249188,
+   "q_bh": 0.007601793823352311,
+   "base_mass": 0.0224934479,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: sensation:vision",
+   "signed_gap": -0.016182001852826665,
+   "p": 0.0006999650017499125,
+   "q_bh": 0.007845441061280269,
+   "base_mass": 0.24629592674639997,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Safety/Danger",
+   "signed_gap": 0.002250581753208649,
+   "p": 0.0007499625018749063,
+   "q_bh": 0.008069596520173992,
+   "base_mass": 0.03765152,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Caution",
+   "signed_gap": -0.0010811295608318026,
+   "p": 0.0008499575021248938,
+   "q_bh": 0.008793791079676786,
+   "base_mass": 0.014390468,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Toughness; strong/weak",
+   "signed_gap": -0.0013134983449172802,
+   "p": 0.0016499175041247937,
+   "q_bh": 0.01643806698553961,
+   "base_mass": 0.033417583,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Expect",
+   "signed_gap": 0.0009297766148066892,
+   "p": 0.002049897505124744,
+   "q_bh": 0.019693658174234147,
+   "base_mass": 0.03765152,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: need:anality",
+   "signed_gap": 0.000674280015140051,
+   "p": 0.002449877506124694,
+   "q_bh": 0.02212631303918675,
+   "base_mass": 0.014045561,
+   "dir": "MARKED"
+  },
+  {
+   "field": "NORM: arousal=aroused",
+   "signed_gap": 0.011135537958796479,
+   "p": 0.0024998750062496873,
+   "q_bh": 0.02212631303918675,
+   "base_mass": 0.24654453120000003,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Language, speech and grammar",
+   "signed_gap": -0.0005477493514208314,
+   "p": 0.0025498725063746812,
+   "q_bh": 0.02212631303918675,
+   "base_mass": 0.02054419,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: arousal_extremity=moderate",
+   "signed_gap": -0.017931979154812875,
+   "p": 0.0030998450077496125,
+   "q_bh": 0.024920812782890267,
+   "base_mass": 0.30375163503258995,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Sensory:- Sight",
+   "signed_gap": -0.013540660006649708,
+   "p": 0.0030998450077496125,
+   "q_bh": 0.024920812782890267,
+   "base_mass": 0.31220721929999995,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "WN: cognition",
+   "signed_gap": -0.009800778937501099,
+   "p": 0.0031498425078746064,
+   "q_bh": 0.024920812782890267,
+   "base_mass": 0.14844490079999997,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Evaluation:- Authenticity",
+   "signed_gap": 0.00122573526210692,
+   "p": 0.0035498225088745564,
+   "q_bh": 0.027282921568207306,
+   "base_mass": 0.036441807,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Life and living things",
+   "signed_gap": 0.001250393162162312,
+   "p": 0.004349782510874456,
+   "q_bh": 0.03235108514844528,
+   "base_mass": 0.037148092,
+   "dir": "MARKED"
+  },
+  {
+   "field": "NORM: dominance_extremity=extreme",
+   "signed_gap": -0.014706832856743875,
+   "p": 0.004449777511124443,
+   "q_bh": 0.03235108514844528,
+   "base_mass": 0.2587157919,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Competition",
+   "signed_gap": 0.0002899362025181848,
+   "p": 0.0058497075146242685,
+   "q_bh": 0.04140977161668232,
+   "base_mass": 0.009835670086,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Money generally",
+   "signed_gap": -0.0006142570416036699,
+   "p": 0.006099695015249237,
+   "q_bh": 0.04207225536159089,
+   "base_mass": 0.023709374,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Cleaning and personal care",
+   "signed_gap": -0.0007147620538111844,
+   "p": 0.006599670016499175,
+   "q_bh": 0.04438278086095695,
+   "base_mass": 0.02635077234745,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Sensory",
+   "signed_gap": 0.0011972024256379366,
+   "p": 0.006999650017499125,
+   "q_bh": 0.04547153594701218,
+   "base_mass": 0.06409847,
+   "dir": "MARKED"
+  },
+  {
+   "field": "WN: perception",
+   "signed_gap": -0.012798003147744501,
+   "p": 0.007099645017749113,
+   "q_bh": 0.04547153594701218,
+   "base_mass": 0.31312563024639994,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Objects generally",
+   "signed_gap": -0.004588504082289467,
+   "p": 0.0073996300184990755,
+   "q_bh": 0.04629070872037794,
+   "base_mass": 0.1410257,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Mathematics",
+   "signed_gap": -0.002483021749074998,
+   "p": 0.00759962001899905,
+   "q_bh": 0.04646131329797147,
+   "base_mass": 0.09140415,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: defensive_symbolization:chaos",
+   "signed_gap": 0.00015301004733305834,
+   "p": 0.00919954002299885,
+   "q_bh": 0.05499280591525979,
+   "base_mass": 0.003936167,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Substances and materials generally: Gas",
+   "signed_gap": -0.00012805777679290392,
+   "p": 0.010899455027248638,
+   "q_bh": 0.06164275119577355,
+   "base_mass": 0.0035869554,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: valence_extremity=moderate",
+   "signed_gap": -0.016567065635798274,
+   "p": 0.010949452527373631,
+   "q_bh": 0.06164275119577355,
+   "base_mass": 0.35408439644639994,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: dominance=dominant",
+   "signed_gap": -0.019377188993679125,
+   "p": 0.010999450027498626,
+   "q_bh": 0.06164275119577355,
+   "base_mass": 0.4907686372,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Work and employmeny: Professionalism",
+   "signed_gap": -0.000447918401745421,
+   "p": 0.011499425028748563,
+   "q_bh": 0.06312949658639518,
+   "base_mass": 0.00975362,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Architecture and kinds of houses and buildings",
+   "signed_gap": -0.00024561615925568296,
+   "p": 0.012599370031498426,
+   "q_bh": 0.06778461076946153,
+   "base_mass": 0.065852908,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: regressive_cognition:narcissism",
+   "signed_gap": -0.0049271140455326035,
+   "p": 0.01294935253237338,
+   "q_bh": 0.06830148688643999,
+   "base_mass": 0.38856894,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: concreteness=concrete",
+   "signed_gap": 0.019838897130093822,
+   "p": 0.013499325033748313,
+   "q_bh": 0.06983304680919801,
+   "base_mass": 0.4769005518319,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: icarian_imagery:depth",
+   "signed_gap": -0.00021343573478217395,
+   "p": 0.01584920753962302,
+   "q_bh": 0.08044220430487911,
+   "base_mass": 0.006338051,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Measurement: General",
+   "signed_gap": -0.0006290947433821901,
+   "p": 0.016349182540872958,
+   "q_bh": 0.081443150064719,
+   "base_mass": 0.035773598,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Cigarettes and drugs",
+   "signed_gap": 0.0003111198459112555,
+   "p": 0.0191990400479976,
+   "q_bh": 0.09390075950747917,
+   "base_mass": 0.054144595,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Comparing",
+   "signed_gap": -0.000226236339553603,
+   "p": 0.020448977551122443,
+   "q_bh": 0.0982281243080703,
+   "base_mass": 0.0036497812,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Groups and affiliation",
+   "signed_gap": -0.0030307012556580774,
+   "p": 0.021498925053747314,
+   "q_bh": 0.10145983928873734,
+   "base_mass": 0.09140415,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Damaging and destroying",
+   "signed_gap": 0.0033245835735954974,
+   "p": 0.022198890055497224,
+   "q_bh": 0.10295692111946127,
+   "base_mass": 0.15518498,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Plants",
+   "signed_gap": -0.0006028774788500278,
+   "p": 0.023448827558622067,
+   "q_bh": 0.10691075615710738,
+   "base_mass": 0.0763244574,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: social_behavior",
+   "signed_gap": -0.009942429211572066,
+   "p": 0.026848657567121643,
+   "q_bh": 0.1203714814259287,
+   "base_mass": 0.33311578830000005,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Constraint",
+   "signed_gap": 0.002451929553549586,
+   "p": 0.027948602569871507,
+   "q_bh": 0.12324875559500714,
+   "base_mass": 0.0674425288,
+   "dir": "MARKED"
+  },
+  {
+   "field": "WN: consumption",
+   "signed_gap": 0.001978383945831735,
+   "p": 0.028598570071496424,
+   "q_bh": 0.12408089272955707,
+   "base_mass": 0.09304731128,
+   "dir": "MARKED"
+  },
+  {
+   "field": "NORM: concreteness=neutral",
+   "signed_gap": -0.027903195881317927,
+   "p": 0.029398530073496326,
+   "q_bh": 0.12552705698048433,
+   "base_mass": 0.7548892856,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Helping/hindering",
+   "signed_gap": -0.002829022785815907,
+   "p": 0.031248437578121093,
+   "q_bh": 0.13134108919554022,
+   "base_mass": 0.0948495009,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: SOCIAL ACTIONS, STATES AND PROCESSES",
+   "signed_gap": -0.0008975834620000206,
+   "p": 0.031748412579371034,
+   "q_bh": 0.1313895843669355,
+   "base_mass": 0.035505606,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: dominance=neutral",
+   "signed_gap": -0.008876436471852251,
+   "p": 0.03424828758562072,
+   "q_bh": 0.13958771758381777,
+   "base_mass": 0.31486372069999996,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Calm/Violent/Angry",
+   "signed_gap": 0.002169260063202265,
+   "p": 0.03644817759112044,
+   "q_bh": 0.1463367130150955,
+   "base_mass": 0.1356385276,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Other proper names",
+   "signed_gap": -0.0005435302522660607,
+   "p": 0.03719814009299535,
+   "q_bh": 0.14715146595611395,
+   "base_mass": 0.025314802487600003,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: affection",
+   "signed_gap": -0.00047941754678110276,
+   "p": 0.040347982600869955,
+   "q_bh": 0.1572986568062901,
+   "base_mass": 0.026794621400000003,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: concreteness_extremity=flat",
+   "signed_gap": -0.025305921116829073,
+   "p": 0.04699765011749413,
+   "q_bh": 0.18060525545151315,
+   "base_mass": 0.7548892856,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Aircraft and flying",
+   "signed_gap": 0.00032930859091082266,
+   "p": 0.04944752762361882,
+   "q_bh": 0.187343449728922,
+   "base_mass": 0.01406069,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Physical/mental",
+   "signed_gap": 0.00010881116828611475,
+   "p": 0.0535973201339933,
+   "q_bh": 0.1991605899157097,
+   "base_mass": 0.003357009,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Substances and materials generally: Solid",
+   "signed_gap": -0.0016039448660504802,
+   "p": 0.054047297635118244,
+   "q_bh": 0.1991605899157097,
+   "base_mass": 0.09893233,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Politics",
+   "signed_gap": 0.004165626084245881,
+   "p": 0.05709714514274286,
+   "q_bh": 0.2047884272453044,
+   "base_mass": 0.113765605,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Measurement: Size ",
+   "signed_gap": -0.0002338016434321286,
+   "p": 0.05709714514274286,
+   "q_bh": 0.2047884272453044,
+   "base_mass": 0.0411265424,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: order",
+   "signed_gap": -0.0005474159812530238,
+   "p": 0.06604669766511674,
+   "q_bh": 0.2333545660379319,
+   "base_mass": 0.03816492,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Entirety; maximum",
+   "signed_gap": -0.0006941203507565792,
+   "p": 0.06679666016699165,
+   "q_bh": 0.2333545660379319,
+   "base_mass": 0.020472148,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Texture",
+   "signed_gap": -0.0019309380724960405,
+   "p": 0.06909654517274136,
+   "q_bh": 0.23829449553163365,
+   "base_mass": 0.09140415,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Comparing:- Variety",
+   "signed_gap": 0.0018500386942140068,
+   "p": 0.07449627518624069,
+   "q_bh": 0.25366453196327526,
+   "base_mass": 0.166574646,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Substances and materials generally: Liquid",
+   "signed_gap": 0.0005352258867055326,
+   "p": 0.07584620768961552,
+   "q_bh": 0.2550328733563322,
+   "base_mass": 0.0261581947,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Exceeding; waste",
+   "signed_gap": 0.003668174139017753,
+   "p": 0.07869606519674016,
+   "q_bh": 0.2613486609620136,
+   "base_mass": 0.113765605,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Using",
+   "signed_gap": 0.002674853880709897,
+   "p": 0.07999600019999,
+   "q_bh": 0.2624259030950891,
+   "base_mass": 0.056238226,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: glory",
+   "signed_gap": -0.00032845944384066026,
+   "p": 0.08389580520973951,
+   "q_bh": 0.2709078831772697,
+   "base_mass": 0.010634886,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: concreteness_extremity=moderate",
+   "signed_gap": 0.012085578198386503,
+   "p": 0.08459577021148942,
+   "q_bh": 0.2709078831772697,
+   "base_mass": 0.48826876159999993,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Parts of buildings",
+   "signed_gap": -0.0001315755530035139,
+   "p": 0.08624568771561422,
+   "q_bh": 0.2729422352411791,
+   "base_mass": 0.0106658245,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Clothes and personal belongings",
+   "signed_gap": -0.000567089017559755,
+   "p": 0.08924553772311385,
+   "q_bh": 0.2791517400874142,
+   "base_mass": 0.037196838665,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Easy/difficult",
+   "signed_gap": 0.0009158452717224756,
+   "p": 0.10334483275836208,
+   "q_bh": 0.31953747140229194,
+   "base_mass": 0.0602562743,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: anxiety",
+   "signed_gap": 9.585879700071243e-05,
+   "p": 0.10454477276136193,
+   "q_bh": 0.31957436219098134,
+   "base_mass": 0.010883432,
+   "dir": "MARKED"
+  },
+  {
+   "field": "NORM: dominance_extremity=flat",
+   "signed_gap": -0.007072590645052298,
+   "p": 0.1095945202739863,
+   "q_bh": 0.3311165963440958,
+   "base_mass": 0.31315045109999995,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Grammatical bin",
+   "signed_gap": 0.007818788577390925,
+   "p": 0.1127943602819859,
+   "q_bh": 0.3311165963440958,
+   "base_mass": 0.1873104264,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Information technology and computing",
+   "signed_gap": -0.00045938701874537343,
+   "p": 0.11324433778311084,
+   "q_bh": 0.3311165963440958,
+   "base_mass": 0.0848318454,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: icarian_imagery:water",
+   "signed_gap": -0.001524175477374135,
+   "p": 0.11324433778311084,
+   "q_bh": 0.3311165963440958,
+   "base_mass": 0.0356785358,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Quantities",
+   "signed_gap": -0.0034047541963997765,
+   "p": 0.11469426528673567,
+   "q_bh": 0.33175007916270854,
+   "base_mass": 0.17964534399999998,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Getting and giving; possession",
+   "signed_gap": 0.00799770425995192,
+   "p": 0.13574321283935803,
+   "q_bh": 0.38220793041980555,
+   "base_mass": 0.3686627269,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Food",
+   "signed_gap": 0.004440247750106123,
+   "p": 0.13729313534323284,
+   "q_bh": 0.38220793041980555,
+   "base_mass": 0.21969096446,
+   "dir": "MARKED"
+  },
+  {
+   "field": "NORM: valence=negative",
+   "signed_gap": 0.003979704742482226,
+   "p": 0.13734313284335783,
+   "q_bh": 0.38220793041980555,
+   "base_mass": 0.19549479469399997,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Degree: Boosters",
+   "signed_gap": 0.0003589025168135968,
+   "p": 0.1385430728463577,
+   "q_bh": 0.38220793041980555,
+   "base_mass": 0.023442779,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Inclusion/Exclusion",
+   "signed_gap": -0.0017377385269432533,
+   "p": 0.1392430378481076,
+   "q_bh": 0.38220793041980555,
+   "base_mass": 0.16466776489999999,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Speech acts",
+   "signed_gap": -0.005212459488357129,
+   "p": 0.1431928403579821,
+   "q_bh": 0.38370140316513585,
+   "base_mass": 0.251055849358,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Time: Old, new and young; age",
+   "signed_gap": 0.0010242161647102026,
+   "p": 0.143942802859857,
+   "q_bh": 0.38370140316513585,
+   "base_mass": 0.043287244,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: sensation:odor",
+   "signed_gap": 0.0005292689324646485,
+   "p": 0.14539273036348183,
+   "q_bh": 0.38370140316513585,
+   "base_mass": 0.023971522199999998,
+   "dir": "MARKED"
+  },
+  {
+   "field": "WN: change",
+   "signed_gap": -0.004597480199548159,
+   "p": 0.1454927253637318,
+   "q_bh": 0.38370140316513585,
+   "base_mass": 0.2509780685,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Science and technology in general",
+   "signed_gap": 0.0003151590897770439,
+   "p": 0.1511924403779811,
+   "q_bh": 0.3946416964866042,
+   "base_mass": 0.07794413,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Wanting; planning; choosing",
+   "signed_gap": -0.0019869856099512077,
+   "p": 0.15314234288285586,
+   "q_bh": 0.3946416964866042,
+   "base_mass": 0.16320646579999998,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Suitability",
+   "signed_gap": -7.699732871336105e-05,
+   "p": 0.15404229788510573,
+   "q_bh": 0.3946416964866042,
+   "base_mass": 0.051337015,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Reciprocity",
+   "signed_gap": -0.0009000887262976921,
+   "p": 0.15809209539523023,
+   "q_bh": 0.40119597793695216,
+   "base_mass": 0.02973363,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Evaluation:- Good/bad",
+   "signed_gap": 0.0006000909180613216,
+   "p": 0.16099195040247988,
+   "q_bh": 0.4029817027667135,
+   "base_mass": 0.092744484,
+   "dir": "MARKED"
+  },
+  {
+   "field": "NORM: arousal=neutral",
+   "signed_gap": -0.00847580169178511,
+   "p": 0.16179191040447977,
+   "q_bh": 0.4029817027667135,
+   "base_mass": 0.3535199398999999,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Paper documents and writing",
+   "signed_gap": 0.005342587669447725,
+   "p": 0.1727413629318534,
+   "q_bh": 0.42630666631806025,
+   "base_mass": 0.21092820499999998,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: EMOTIONAL ACTIONS, STATES AND PROCESSES General",
+   "signed_gap": -0.00419289973651931,
+   "p": 0.17719114044297785,
+   "q_bh": 0.4333128798105549,
+   "base_mass": 0.28862908,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Seem",
+   "signed_gap": -0.0015168426577794616,
+   "p": 0.1830908454577271,
+   "q_bh": 0.44370664349665395,
+   "base_mass": 0.1623142872,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Being",
+   "signed_gap": -0.0015176418312983074,
+   "p": 0.1903904804759762,
+   "q_bh": 0.4572771361431928,
+   "base_mass": 0.06480911339999999,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: The Media:- TV, Radio and Cinema",
+   "signed_gap": 0.0001984046369887226,
+   "p": 0.19794010299485026,
+   "q_bh": 0.4708444402341287,
+   "base_mass": 0.009680034,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Discourse Bin",
+   "signed_gap": 0.00012910927598609016,
+   "p": 0.19954002299885007,
+   "q_bh": 0.4708444402341287,
+   "base_mass": 0.006847916101,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Sensory:- Sound",
+   "signed_gap": 0.0009169434981987717,
+   "p": 0.20753962301884907,
+   "q_bh": 0.4854622486266991,
+   "base_mass": 0.060599955999999996,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: General ethics",
+   "signed_gap": 0.00044702982067125783,
+   "p": 0.21473926303684815,
+   "q_bh": 0.49795857314572284,
+   "base_mass": 0.0387209732,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Warfare, defence and the army; weapons",
+   "signed_gap": 0.000896393235999619,
+   "p": 0.2189890505474726,
+   "q_bh": 0.49795857314572284,
+   "base_mass": 0.07729561,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: sensation:taste",
+   "signed_gap": 8.891305964238712e-05,
+   "p": 0.22098895055247236,
+   "q_bh": 0.49795857314572284,
+   "base_mass": 0.005037699,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Definite (+ modals)",
+   "signed_gap": -0.0010896320067379046,
+   "p": 0.22263886805659716,
+   "q_bh": 0.49795857314572284,
+   "base_mass": 0.061017498399999995,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "WN: emotion",
+   "signed_gap": -0.0003219907895876289,
+   "p": 0.22293885305734712,
+   "q_bh": 0.49795857314572284,
+   "base_mass": 0.020071672,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: People:- Male  ",
+   "signed_gap": -0.00015464138721566867,
+   "p": 0.223988800559972,
+   "q_bh": 0.49795857314572284,
+   "base_mass": 0.0110202212,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Relationship: General",
+   "signed_gap": -0.00011668749879340623,
+   "p": 0.22858857057147142,
+   "q_bh": 0.5040190613420148,
+   "base_mass": 0.023595016,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Religion and the supernatural",
+   "signed_gap": -0.001884344702282913,
+   "p": 0.23088845557722115,
+   "q_bh": 0.5049511752054674,
+   "base_mass": 0.118027161,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Ability:- Success and failure",
+   "signed_gap": -0.0036968084613840354,
+   "p": 0.24368781560921954,
+   "q_bh": 0.5286453419264521,
+   "base_mass": 0.13346502629999998,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Evaluation:- True/false",
+   "signed_gap": -0.00020788006480391535,
+   "p": 0.25473726313684314,
+   "q_bh": 0.5481945902704864,
+   "base_mass": 0.009946296,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Pronouns etc.",
+   "signed_gap": 6.0893113949241584e-05,
+   "p": 0.2691865406729664,
+   "q_bh": 0.574402775924196,
+   "base_mass": 0.0035933931,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Sensible",
+   "signed_gap": -0.0002838245227270765,
+   "p": 0.2711864406779661,
+   "q_bh": 0.574402775924196,
+   "base_mass": 0.009874295,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: need:sex",
+   "signed_gap": 0.001546743068674396,
+   "p": 0.2782860856957152,
+   "q_bh": 0.5848356019699015,
+   "base_mass": 0.0922824451,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: temporal_references",
+   "signed_gap": 0.004904693058327143,
+   "p": 0.28758562071896404,
+   "q_bh": 0.5996940463054367,
+   "base_mass": 0.15678462,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Permission",
+   "signed_gap": -0.0017272444491421718,
+   "p": 0.29078546072696365,
+   "q_bh": 0.6013184073620745,
+   "base_mass": 0.089624539,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: People",
+   "signed_gap": 0.00012951186661992143,
+   "p": 0.2928353582320884,
+   "q_bh": 0.6013184073620745,
+   "base_mass": 0.009442094,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: sensation:hard",
+   "signed_gap": 6.756664794934654e-05,
+   "p": 0.30753462326883657,
+   "q_bh": 0.6214380457447716,
+   "base_mass": 0.04278875,
+   "dir": "MARKED"
+  },
+  {
+   "field": "WN: contact",
+   "signed_gap": -0.008371231769346517,
+   "p": 0.30858457077146145,
+   "q_bh": 0.6214380457447716,
+   "base_mass": 0.45638576268670006,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Anatomy and physiology",
+   "signed_gap": -0.003913014326800064,
+   "p": 0.3134343282835858,
+   "q_bh": 0.6214380457447716,
+   "base_mass": 0.39209432499999997,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Mental object:- Means, method",
+   "signed_gap": -0.00014183092966803986,
+   "p": 0.3135343232838358,
+   "q_bh": 0.6214380457447716,
+   "base_mass": 0.025539737,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: dominance=submissive",
+   "signed_gap": 0.0023853948338461756,
+   "p": 0.31418429078546073,
+   "q_bh": 0.6214380457447716,
+   "base_mass": 0.1442843255776,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Usefulness",
+   "signed_gap": -8.424973086696383e-05,
+   "p": 0.31988400579971,
+   "q_bh": 0.6280934128476057,
+   "base_mass": 0.004791783,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: sensation:sound",
+   "signed_gap": -0.00039980704264317416,
+   "p": 0.327933603319834,
+   "q_bh": 0.6367627661782378,
+   "base_mass": 0.0508675445,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Business: Selling",
+   "signed_gap": 0.0025803351637667107,
+   "p": 0.32903354832258386,
+   "q_bh": 0.6367627661782378,
+   "base_mass": 0.17544424360000002,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Learn",
+   "signed_gap": -0.00028064101467533374,
+   "p": 0.33643317834108294,
+   "q_bh": 0.6464323212410807,
+   "base_mass": 0.0789164143,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Furniture and household fittings",
+   "signed_gap": -0.00036819600860606817,
+   "p": 0.3410829458527074,
+   "q_bh": 0.6475567066717086,
+   "base_mass": 0.00520969,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Drama, the theatre and showbusiness",
+   "signed_gap": -0.0013323992091405575,
+   "p": 0.34183290835458224,
+   "q_bh": 0.6475567066717086,
+   "base_mass": 0.09442037880000001,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: defensive_symbolization:voyage",
+   "signed_gap": 0.00016737910207346714,
+   "p": 0.34753262336883156,
+   "q_bh": 0.650357893064251,
+   "base_mass": 0.024011983,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Crime, law and order: Law and order",
+   "signed_gap": -0.0021137063829647046,
+   "p": 0.35013249337533126,
+   "q_bh": 0.650357893064251,
+   "base_mass": 0.133286419,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "WN: weather",
+   "signed_gap": 8.839421316096792e-05,
+   "p": 0.35243237838108094,
+   "q_bh": 0.650357893064251,
+   "base_mass": 0.008260181,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Drinks",
+   "signed_gap": 0.00267665586743086,
+   "p": 0.3529823508824559,
+   "q_bh": 0.650357893064251,
+   "base_mass": 0.12510116,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: General appearance and physical properties",
+   "signed_gap": -0.001824214739878141,
+   "p": 0.3631818409079546,
+   "q_bh": 0.6634104961418595,
+   "base_mass": 0.1124039443,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: valence_extremity=flat",
+   "signed_gap": -0.005290070131948536,
+   "p": 0.3663316834158292,
+   "q_bh": 0.6634104961418595,
+   "base_mass": 0.34311828229999997,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "WN: competition",
+   "signed_gap": 0.0003392244481880748,
+   "p": 0.36928153592320384,
+   "q_bh": 0.6634104961418595,
+   "base_mass": 0.035739632,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Investigate, examine, test, search",
+   "signed_gap": -0.004351122611673645,
+   "p": 0.3699315034248288,
+   "q_bh": 0.6634104961418595,
+   "base_mass": 0.23113875049999996,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: valence_extremity=extreme",
+   "signed_gap": -0.003990404623154479,
+   "p": 0.3750312484375781,
+   "q_bh": 0.6655647480783856,
+   "base_mass": 0.3232729854202,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: sensation:gen_sensation",
+   "signed_gap": 5.4842944328199304e-05,
+   "p": 0.376081195940203,
+   "q_bh": 0.6655647480783856,
+   "base_mass": 0.003357009,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Measurement: Speed",
+   "signed_gap": 0.0003614741473416559,
+   "p": 0.3800309984500775,
+   "q_bh": 0.6681590757063454,
+   "base_mass": 0.026298911899999996,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: The Media:- Newspapers etc.",
+   "signed_gap": 5.8637689962579794e-05,
+   "p": 0.3925303734813259,
+   "q_bh": 0.6856537043277705,
+   "base_mass": 0.0070969416,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Happy/sad: Happy",
+   "signed_gap": 0.0012704541004552989,
+   "p": 0.4169291535423229,
+   "q_bh": 0.7235738213089346,
+   "base_mass": 0.09615613132206,
+   "dir": "MARKED"
+  },
+  {
+   "field": "NORM: arousal_extremity=flat",
+   "signed_gap": -0.004988842220490361,
+   "p": 0.4351782410879456,
+   "q_bh": 0.7504035054657524,
+   "base_mass": 0.3535199398999999,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: dominance_extremity=moderate",
+   "signed_gap": -0.004055226853432219,
+   "p": 0.439878006099695,
+   "q_bh": 0.7505235497718785,
+   "base_mass": 0.380895324,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Exclusivizers/particularizers",
+   "signed_gap": 0.0003644447015354933,
+   "p": 0.4408279586020699,
+   "q_bh": 0.7505235497718785,
+   "base_mass": 0.034818689,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Sensory:- Taste",
+   "signed_gap": 7.527067734690482e-05,
+   "p": 0.4497275136243188,
+   "q_bh": 0.7608597557543507,
+   "base_mass": 0.0053906282,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Telecommunications",
+   "signed_gap": -7.927263476788446e-05,
+   "p": 0.45707714614269285,
+   "q_bh": 0.7684609519524024,
+   "base_mass": 0.0120966014,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Living creatures generally",
+   "signed_gap": -0.0004952541548222182,
+   "p": 0.464126793660317,
+   "q_bh": 0.7754665061777968,
+   "base_mass": 0.0717043,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: icarian_imagery:descent",
+   "signed_gap": 0.0006707874893580207,
+   "p": 0.4733763311834408,
+   "q_bh": 0.786038475853985,
+   "base_mass": 0.08150026190000001,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Money: Price",
+   "signed_gap": -0.00012472777342632764,
+   "p": 0.49902504874756265,
+   "q_bh": 0.8211425792346747,
+   "base_mass": 0.006224834,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Egoism",
+   "signed_gap": -7.047528098639232e-05,
+   "p": 0.5008749562521874,
+   "q_bh": 0.8211425792346747,
+   "base_mass": 0.010917862,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: arousal_extremity=extreme",
+   "signed_gap": -0.0029131283731771073,
+   "p": 0.5036748162591871,
+   "q_bh": 0.8211425792346747,
+   "base_mass": 0.33129384889999997,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Measurement: Area",
+   "signed_gap": 0.0010910497522962973,
+   "p": 0.5201239938003099,
+   "q_bh": 0.8349161193625712,
+   "base_mass": 0.0446307589,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Attention",
+   "signed_gap": 7.305896271171955e-05,
+   "p": 0.5243237838108095,
+   "q_bh": 0.8349161193625712,
+   "base_mass": 0.0493632096,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Time: Beginning and ending",
+   "signed_gap": -0.006775112719934609,
+   "p": 0.5270736463176842,
+   "q_bh": 0.8349161193625712,
+   "base_mass": 0.6014869786,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Ability:- Ability, intelligence",
+   "signed_gap": -0.00021769312115906277,
+   "p": 0.527723613819309,
+   "q_bh": 0.8349161193625712,
+   "base_mass": 0.066933125,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Measurement: Length & height",
+   "signed_gap": -0.00010005119279929975,
+   "p": 0.536023198840058,
+   "q_bh": 0.8349161193625712,
+   "base_mass": 0.0060536345,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Time: Period",
+   "signed_gap": 0.0020418133496821955,
+   "p": 0.5388730563471826,
+   "q_bh": 0.8349161193625712,
+   "base_mass": 0.1262176169,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: regressive_cognition:brink_passage",
+   "signed_gap": -0.0002861110302195966,
+   "p": 0.5411229438528073,
+   "q_bh": 0.8349161193625712,
+   "base_mass": 0.033370737,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Personal names",
+   "signed_gap": -9.026547636951609e-05,
+   "p": 0.5427228638568071,
+   "q_bh": 0.8349161193625712,
+   "base_mass": 0.027170930700000002,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Approachability and Friendliness",
+   "signed_gap": -9.679752104092762e-05,
+   "p": 0.5467726613669317,
+   "q_bh": 0.8349161193625712,
+   "base_mass": 0.052573826,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: concreteness_extremity=extreme",
+   "signed_gap": 0.00528505186543356,
+   "p": 0.5487725613719314,
+   "q_bh": 0.8349161193625712,
+   "base_mass": 0.7489549730999999,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: sensation:touch",
+   "signed_gap": 9.840370515064058e-05,
+   "p": 0.5508724563771812,
+   "q_bh": 0.8349161193625712,
+   "base_mass": 0.06280817466525,
+   "dir": "MARKED"
+  },
+  {
+   "field": "NORM: valence=neutral",
+   "signed_gap": -0.003815575118274867,
+   "p": 0.5512224388780561,
+   "q_bh": 0.8349161193625712,
+   "base_mass": 0.34186678649999996,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Farming & Horticulture",
+   "signed_gap": -0.00042952648183652305,
+   "p": 0.552472376381181,
+   "q_bh": 0.8349161193625712,
+   "base_mass": 0.03347541,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Evaluation:- Accuracy",
+   "signed_gap": -0.00043549731972978016,
+   "p": 0.55977201139943,
+   "q_bh": 0.8412216260695345,
+   "base_mass": 0.025307637,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Work and employment: Generally",
+   "signed_gap": -0.00013695893224539558,
+   "p": 0.5711214439278036,
+   "q_bh": 0.8507808126077213,
+   "base_mass": 0.0291019794938,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Entertainment generally",
+   "signed_gap": -0.00020207060003692363,
+   "p": 0.5749212539373031,
+   "q_bh": 0.8507808126077213,
+   "base_mass": 0.03960746146245,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Music and related activities",
+   "signed_gap": 0.0009252187375446469,
+   "p": 0.575621218939053,
+   "q_bh": 0.8507808126077213,
+   "base_mass": 0.11188250129999999,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Measurement",
+   "signed_gap": -0.0006150341588443615,
+   "p": 0.5869206539673016,
+   "q_bh": 0.8585641370105408,
+   "base_mass": 0.0744390962,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Residence",
+   "signed_gap": -0.0004587052948121745,
+   "p": 0.5872706364681766,
+   "q_bh": 0.8585641370105408,
+   "base_mass": 0.08133599,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Recorded sound etc.",
+   "signed_gap": 0.0003353730530146138,
+   "p": 0.5956202189890506,
+   "q_bh": 0.8660639940975926,
+   "base_mass": 0.07729561,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Money: Affluence",
+   "signed_gap": 0.00086272313485355,
+   "p": 0.6039198040097995,
+   "q_bh": 0.8691538968025143,
+   "base_mass": 0.0861509548,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Mental object:- Conceptual object",
+   "signed_gap": 0.0011144396737038983,
+   "p": 0.6042697865106744,
+   "q_bh": 0.8691538968025143,
+   "base_mass": 0.1050393047,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Moving, coming and going",
+   "signed_gap": 0.003320526014585802,
+   "p": 0.6099695015249238,
+   "q_bh": 0.8691538968025143,
+   "base_mass": 0.37043119329999996,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Relationship: Intimate/sexual",
+   "signed_gap": 0.0008989824301495654,
+   "p": 0.6106694665266736,
+   "q_bh": 0.8691538968025143,
+   "base_mass": 0.168426763,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: The Media:- Books",
+   "signed_gap": 0.00032645840356486296,
+   "p": 0.6174191290435478,
+   "q_bh": 0.871124152125727,
+   "base_mass": 0.047359913600000005,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: sensation:soft",
+   "signed_gap": 0.0016357843805862333,
+   "p": 0.6214189290535473,
+   "q_bh": 0.871124152125727,
+   "base_mass": 0.07677796819999999,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Comparing:- Usual/unusual ",
+   "signed_gap": 0.001112050226475445,
+   "p": 0.6217689115544223,
+   "q_bh": 0.871124152125727,
+   "base_mass": 0.105211252,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Degree: Minimizers",
+   "signed_gap": 4.8757844456305596e-05,
+   "p": 0.6264686765661717,
+   "q_bh": 0.8729584139349733,
+   "base_mass": 0.0084722512,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Frequency etc.",
+   "signed_gap": 0.0005289347845633814,
+   "p": 0.6295685215739213,
+   "q_bh": 0.8729584139349733,
+   "base_mass": 0.163435637,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Childrens games and toys",
+   "signed_gap": -9.935135238716232e-05,
+   "p": 0.6371681415929203,
+   "q_bh": 0.8773627645148355,
+   "base_mass": 0.022776809,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "WN: social",
+   "signed_gap": 0.005014270129320205,
+   "p": 0.6392680365981701,
+   "q_bh": 0.8773627645148355,
+   "base_mass": 0.6146677328999999,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Participation",
+   "signed_gap": -0.00033571770637091274,
+   "p": 0.6587670616469177,
+   "q_bh": 0.8995347186955374,
+   "base_mass": 0.0348088701,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "WN: stative",
+   "signed_gap": 0.0007630932439924606,
+   "p": 0.6627668616569171,
+   "q_bh": 0.9004256857864177,
+   "base_mass": 0.1294275547,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: restraint",
+   "signed_gap": 0.0003360355593043415,
+   "p": 0.6713164341782911,
+   "q_bh": 0.9074578934369866,
+   "base_mass": 0.0866580927,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: regressive_cognition:counscious",
+   "signed_gap": -4.779852899714424e-05,
+   "p": 0.6772661366931654,
+   "q_bh": 0.9094020423356942,
+   "base_mass": 0.015223395,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Avoiding",
+   "signed_gap": -0.00022155313871034815,
+   "p": 0.6795160241987901,
+   "q_bh": 0.9094020423356942,
+   "base_mass": 0.02470414,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Liking",
+   "signed_gap": 0.00013815224977491462,
+   "p": 0.6931653417329133,
+   "q_bh": 0.9215085587184055,
+   "base_mass": 0.037218936095,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Temperature     ",
+   "signed_gap": 0.0007827599534829317,
+   "p": 0.7004649767511625,
+   "q_bh": 0.9215085587184055,
+   "base_mass": 0.1346002994,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Weather ",
+   "signed_gap": 0.001360846430589266,
+   "p": 0.7019149042547873,
+   "q_bh": 0.9215085587184055,
+   "base_mass": 0.03504810026,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: icarian_imagery:height",
+   "signed_gap": 0.0001915539301051232,
+   "p": 0.7022648867556622,
+   "q_bh": 0.9215085587184055,
+   "base_mass": 0.053781535,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Putting, taking, pulling, pushing, transporting &c.",
+   "signed_gap": 0.0028706285155337802,
+   "p": 0.7152142392880356,
+   "q_bh": 0.9296279147395288,
+   "base_mass": 0.48220983748670004,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Time: Momentary",
+   "signed_gap": 0.0014860007901190662,
+   "p": 0.7153642317884106,
+   "q_bh": 0.9296279147395288,
+   "base_mass": 0.15678462,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Arts and crafts",
+   "signed_gap": 0.0012557564850032906,
+   "p": 0.720113994300285,
+   "q_bh": 0.9313012714748878,
+   "base_mass": 0.13722054579999998,
+   "dir": "MARKED"
+  },
+  {
+   "field": "WN: possession",
+   "signed_gap": -0.0013253369693722867,
+   "p": 0.7336133193340333,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.46510004285999995,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Health and disease",
+   "signed_gap": 0.0006360490323513977,
+   "p": 0.7369631518424079,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.1572946638,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Location and direction",
+   "signed_gap": 0.0007660834280165984,
+   "p": 0.7422628868556572,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.12718227750000002,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Shipping, swimming etc.",
+   "signed_gap": 5.603473495480506e-05,
+   "p": 0.7474626268686566,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.034466673,
+   "dir": "MARKED"
+  },
+  {
+   "field": "WN: communication",
+   "signed_gap": -0.0019352896549672388,
+   "p": 0.7491125443727814,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.4393879376000001,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Areas around or near houses",
+   "signed_gap": -3.592413090331891e-05,
+   "p": 0.7496625168741563,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.0086886744,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Substances and materials generally",
+   "signed_gap": 3.519792846512746e-05,
+   "p": 0.7522623868806559,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.018651593,
+   "dir": "MARKED"
+  },
+  {
+   "field": "WN: creation",
+   "signed_gap": 0.0005817038112753274,
+   "p": 0.7572121393930303,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.1710467666,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: defensive_symbolization:diffusion",
+   "signed_gap": 1.5218083017504208e-05,
+   "p": 0.76001199940003,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.0033915378,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: The Media",
+   "signed_gap": -0.0006040022525170348,
+   "p": 0.7607619619019049,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.08003917,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: medicines and medical treatment",
+   "signed_gap": 0.001134108036560317,
+   "p": 0.7619619019049048,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.1265193374,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Obligation and necessity",
+   "signed_gap": 0.0003219856100332817,
+   "p": 0.7708114594270287,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.08850362020000001,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Chance, luck",
+   "signed_gap": 0.00019461454855571213,
+   "p": 0.7722613869306535,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.06120973,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Fear/bravery/shock",
+   "signed_gap": 0.001188785069457894,
+   "p": 0.7738613069346533,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.0473427247,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Comparing:- Similar/different",
+   "signed_gap": 0.00028117714176837717,
+   "p": 0.775461226938653,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.0328319952,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: LINGUISTIC ACTIONS, STATES AND PROCESSES; COMMUNICATION",
+   "signed_gap": -0.0008733977799193815,
+   "p": 0.7775611219439028,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.2736241107,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Geographical terms",
+   "signed_gap": 1.645786642035038e-05,
+   "p": 0.7830608469576521,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.009259507,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Time: General: Future",
+   "signed_gap": 0.00016910583394377248,
+   "p": 0.7911104444777761,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.024873868,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Time: Early/late",
+   "signed_gap": -0.00022513577218782424,
+   "p": 0.7913604319784011,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.0291291508,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Sports",
+   "signed_gap": -0.0006574194889255314,
+   "p": 0.7937103144842758,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.097243958,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Trying",
+   "signed_gap": -0.00024899361814216477,
+   "p": 0.7960101994900255,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.07679791899999999,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Measurement: Distance",
+   "signed_gap": -0.00011817987528253036,
+   "p": 0.7982100894955252,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.018100634299999998,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: instrumental_behavior",
+   "signed_gap": -0.002686430336143485,
+   "p": 0.8011599420028999,
+   "q_bh": 0.9329524865748055,
+   "base_mass": 0.6026499536,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Thought, belief",
+   "signed_gap": -0.0026482020202057955,
+   "p": 0.8055097245137743,
+   "q_bh": 0.9334872312178383,
+   "base_mass": 0.62038912,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Money: Debts",
+   "signed_gap": 0.0014148051453098131,
+   "p": 0.8085595720213989,
+   "q_bh": 0.9334872312178383,
+   "base_mass": 0.032099668,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Affect:- Modify, change",
+   "signed_gap": -0.0007941500450381546,
+   "p": 0.8136593170341483,
+   "q_bh": 0.9353604969324183,
+   "base_mass": 0.19773601869999996,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: defensive_symbolization:random_movement",
+   "signed_gap": 0.0001456305210678896,
+   "p": 0.8248587570621468,
+   "q_bh": 0.9442000240413511,
+   "base_mass": 0.03168363,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: People:- Female",
+   "signed_gap": -0.0005244255372883536,
+   "p": 0.8455077246137693,
+   "q_bh": 0.960009594456986,
+   "base_mass": 0.0168383821,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: moral_imperative",
+   "signed_gap": 1.3581300526085643e-05,
+   "p": 0.8458077096145192,
+   "q_bh": 0.960009594456986,
+   "base_mass": 0.0050203953,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Deciding",
+   "signed_gap": -0.002110283410128449,
+   "p": 0.8500074996250188,
+   "q_bh": 0.9607227621812187,
+   "base_mass": 0.60262555,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Numbers ",
+   "signed_gap": -7.768572670992288e-05,
+   "p": 0.8673066346682666,
+   "q_bh": 0.9668207646528243,
+   "base_mass": 0.0108749075,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: need:orality",
+   "signed_gap": -0.0003868591351845236,
+   "p": 0.871656417179141,
+   "q_bh": 0.9668207646528243,
+   "base_mass": 0.20769180256,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: defensive_symbolization:passivity",
+   "signed_gap": -0.0003838965746541991,
+   "p": 0.8747562621868906,
+   "q_bh": 0.9668207646528243,
+   "base_mass": 0.0345995579,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Green issues",
+   "signed_gap": 2.8214699035408998e-06,
+   "p": 0.8754562271886406,
+   "q_bh": 0.9668207646528243,
+   "base_mass": 0.003282553,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Speech etc:- Communicative",
+   "signed_gap": 0.0004947917776234928,
+   "p": 0.8762061896905154,
+   "q_bh": 0.9668207646528243,
+   "base_mass": 0.18946166009999998,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Places",
+   "signed_gap": -0.00010416558402613999,
+   "p": 0.8782560871956402,
+   "q_bh": 0.9668207646528243,
+   "base_mass": 0.012166638,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Electricity and electrical equipment",
+   "signed_gap": -0.0003021057918613137,
+   "p": 0.8817559122043898,
+   "q_bh": 0.9668207646528243,
+   "base_mass": 0.09140415,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "WN: motion",
+   "signed_gap": -0.0009373387358777807,
+   "p": 0.8841557922103895,
+   "q_bh": 0.9668207646528243,
+   "base_mass": 0.48776037419999996,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Affect:- Cause/Connected",
+   "signed_gap": 0.001445297577329396,
+   "p": 0.8902054897255137,
+   "q_bh": 0.9694950475148307,
+   "base_mass": 0.627874645,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Measurement: Weight",
+   "signed_gap": 4.563124612899803e-06,
+   "p": 0.9005549722513875,
+   "q_bh": 0.9768116432888034,
+   "base_mass": 0.003105566,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Degree: Approximators",
+   "signed_gap": -2.5238590059147743e-05,
+   "p": 0.9099045047747613,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.015692998,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: sadness",
+   "signed_gap": -4.9351809463388404e-05,
+   "p": 0.9169541522923854,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.0880312062,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Time: General: Past",
+   "signed_gap": -1.3613808497079554e-05,
+   "p": 0.9220038998050097,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.022718912,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Linear order",
+   "signed_gap": 0.00038460548808618816,
+   "p": 0.9274036298185091,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.19149725760000003,
+   "dir": "MARKED"
+  },
+  {
+   "field": "RID: positive_affect",
+   "signed_gap": -9.146787936868784e-05,
+   "p": 0.9338533073346332,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.0733698674,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Understand",
+   "signed_gap": 0.0002855725298700276,
+   "p": 0.935553222338883,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.1741196245,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Worry, concern, confident",
+   "signed_gap": 0.0001409649629490891,
+   "p": 0.9363031848407579,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.06650877,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Education in general",
+   "signed_gap": -0.0002928897756238373,
+   "p": 0.9380030998450077,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.13149853329369998,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Power, organizing",
+   "signed_gap": 0.0002884356334053495,
+   "p": 0.944402779861007,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.149170247,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Games",
+   "signed_gap": 0.00010289433703613416,
+   "p": 0.9465526723663816,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.03590087,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Open/closed; Hiding/Hidden; Finding; Showing",
+   "signed_gap": -0.0007052322117093937,
+   "p": 0.9492025398730064,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.6589417236999999,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: icarian_imagery:fire",
+   "signed_gap": 0.00036871857549956443,
+   "p": 0.9494525273736313,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.1346002994,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: General actions, making etc.",
+   "signed_gap": 0.0006398577863708649,
+   "p": 0.9549022548872557,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.6178499087,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Kin",
+   "signed_gap": 0.0001836256070499935,
+   "p": 0.9618019099045048,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.06083459,
+   "dir": "MARKED"
+  },
+  {
+   "field": "WN: body",
+   "signed_gap": 0.0001280851588687624,
+   "p": 0.967301634918254,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.1072384049,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Business: Generally",
+   "signed_gap": -3.962387063979535e-05,
+   "p": 0.968151592420379,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.066432094,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "RID: expressive_behavior",
+   "signed_gap": -4.311349694756512e-05,
+   "p": 0.9703514824258787,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.134841574,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Generally kinds, groups, examples",
+   "signed_gap": -5.372726140768727e-06,
+   "p": 0.9706014699265036,
+   "q_bh": 0.9815481030459756,
+   "base_mass": 0.0739105446,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "NORM: concreteness=abstract",
+   "signed_gap": 0.00010946644591151637,
+   "p": 0.9904004799760012,
+   "q_bh": 0.9978192101630874,
+   "base_mass": 0.7603912579,
+   "dir": "MARKED"
+  },
+  {
+   "field": "USAS: Degree: Maximizers",
+   "signed_gap": -2.273509746522958e-05,
+   "p": 1.0,
+   "q_bh": 1.0,
+   "base_mass": 0.033422805,
+   "dir": "UNMARKED"
+  },
+  {
+   "field": "USAS: Avarice",
+   "signed_gap": 9.893893448773447e-06,
+   "p": 1.0,
+   "q_bh": 1.0,
+   "base_mass": 0.0036749383,
+   "dir": "MARKED"
+  }
+ ]
+}
