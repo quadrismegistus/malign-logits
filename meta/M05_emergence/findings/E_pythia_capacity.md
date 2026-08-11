@@ -11,6 +11,10 @@ comparison below is CROSS-LADDER and labelled so. Re-derives from:
         --population data/pythia_population.json --out data/pythia_curves.parquet
     uv run python meta/M05_emergence/scripts/m05_pythia_capacity.py
 
+Readable exhibits (top of the distribution, both ladders, selected rungs,
+two probes per family): `../results/capacity_examples.md`
+(`scripts/m05_capacity_examples.py`).
+
 Population: `data/pythia_population.json`, 155 checkpoints (154 pretraining
 rungs, log-spaced 0,1,2,4,...,512 then 1000-step to 143000, plus `main`),
 malign's fleet [5430], 90,170/90,170 cells. Battery: the same 584 texts by
