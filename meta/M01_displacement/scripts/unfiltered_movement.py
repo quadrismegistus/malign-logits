@@ -54,6 +54,16 @@ def build():
     prompts = [r["prompt"].strip() for r in csv.DictReader(open(BATTERY))]
     pairs = [l.strip().split(">") for l in open(PAIRS) if l.strip()]
     rise, fall = collections.Counter(), collections.Counter()
+    #: SIGNED MASS, not events. @registrar [5472]: B_field_flow has the
+    #: grammatical/function bin as the SOLE RISER by MASS SHARE while this
+    #: artifact had function words as the biggest fallers by EVENT COUNT. Both
+    #: can hold -- T-14's few-large-against-many-small asymmetry at function-word
+    #: grain -- and only signed mass decides which regime this is.
+    mass = collections.Counter()
+    #: PER PROMPT, which neither @registrar's frame test nor @malign's
+    #: within-prompt gender test can be done without ([5472]/[5473]).
+    per_prompt = collections.defaultdict(lambda: collections.defaultdict(
+        lambda: [0, 0, 0.0]))          # prompt -> word -> [rise, fall, mass]
     cells = miss = 0
     t = time.time()
     for i, (b, a) in enumerate(pairs):
@@ -73,11 +83,24 @@ def build():
             cells += 1
             rise.update(m.risers)
             fall.update(m.fallers)
+            pp = per_prompt[p]
+            for w in m.risers:
+                pp[w][0] += 1
+            for w in m.fallers:
+                pp[w][1] += 1
+            for w, dv in m.delta.items():
+                mass[w] += dv
+                pp[w][2] += dv
         if (i + 1) % 10 == 0:
             print("  %d/%d pairs, %s cells, %.0fs"
                   % (i + 1, len(pairs), format(cells, ","), time.time() - t),
                   flush=True)
-    json.dump({"riser": dict(rise), "faller": dict(fall), "cells": cells,
+    json.dump({"riser": dict(rise), "faller": dict(fall),
+               "signed_mass": {w: round(v, 8) for w, v in mass.items()},
+               "per_prompt": {pr: {w: [v[0], v[1], round(v[2], 8)]
+                                   for w, v in d.items() if v[0] or v[1]}
+                              for pr, d in per_prompt.items()},
+               "cells": cells,
                "absent": miss, "battery": os.path.relpath(BATTERY, ROOT),
                "pairs": os.path.relpath(PAIRS, ROOT), "rule": "CANONICAL"},
               open(OUT, "w"))
