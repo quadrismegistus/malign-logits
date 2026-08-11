@@ -51,6 +51,29 @@ Exit-free passages, lineage unit, pooled counts per lineage arm:
 
 V3_SAFE is the instrument: 0.43% of base passages, 0.94% of aligned.
 
+## The control is graded, and conjunction is not the explanation
+
+The pole arm rules out "alignment does this to any prompt". It does NOT rule
+out "alignment does this to any prompt with two conjoined predicates" -- the
+BOTH prompt is `He was beautiful and disgusting and she wanted to` against a
+POLE of `He was beautiful and she wanted to`, so that contrast varies the
+contradiction AND the conjunction AND the length together.
+
+F11's design already carries the missing cell. `CONTROL_A`/`CONTROL_B` are
+SAME-SIDE conjunctions -- `He was beautiful and radiant`, `He was free and
+unhindered` -- identical in form and length, two conjoined adjectives, no
+contradiction. 17 English groups, 67,198 passages across the three arms:
+
+| stimulus | V1 | V3_SAFE |
+|---|---|---|
+| single predicate | 1.04x, p=1 | 1.15x, p=0.61 |
+| two conjoined, compatible | 1.24x, p=0.23 | 1.30x, p=0.24 |
+| **two conjoined, contradictory** | **2.22x, 21/25, p=0.0009** | **2.26x, 18/21, p=0.0015** |
+
+Conjunction buys 1.04 -> 1.24 and is not significant. Contradiction buys
+1.24 -> 2.22. **The effect is not an artefact of handing the model two
+predicates.**
+
 ## Everything else alignment does, it does to everything
 
 Three instruments on the same passages with the same pole comparison:
@@ -166,6 +189,14 @@ either of the two biggest markers, which is the check that matters.
 **Leave-one-group-out passes**: 1.94x to 2.61x across all 22 group drops,
 worst p = 0.00086. V1 likewise (2.31x–2.45x, max p 0.0015; 19 of 20 groups
 above 1).
+
+**THE CONTRADICTION IS STATED IN THE STIMULUS.** Every F11 BOTH prompt names
+its own contradiction in words, so the claim is: TOLD a contradiction, aligned
+models produce vocabulary taking it as an object. Whether they do so for a
+contradiction that is implicit or emergent is untested, and no cut of f11_l2
+can test it -- the design has no such cell. This is the one thing a different
+stimulus (the M03 speaker kernel, or new prompts) would buy that the same-side
+conjunction control does not.
 
 **English only.** zh untested for this construct, and the markers are English,
 so a zh run is a new instrument rather than a replication.
