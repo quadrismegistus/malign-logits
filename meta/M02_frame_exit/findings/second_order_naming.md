@@ -1,13 +1,14 @@
 # Alignment names the contradiction as a contradiction, and only the contradiction
 
-**Status: the strongest positive result in M02, on two instruments.** Read by
-eight blind Opus readers over 800 passages, aligned models produce a
-second-order predicate over the contradiction **4.6x** as often as their base
-arm (3.0% -> 12.5%, p = 0.00055) while the same-side conjunction control moves
-**0.25x**. Counted by regex over 52,559 exit-free passages, **2.18x** against a
-pole control of **0.93x** — 20 of 22 lineages, p = 0.00012. The two instruments
-share only 28% of their hits and disagree on magnitude by a factor of two; they
-agree on direction, on the interaction, and on the control.
+**Status: the strongest positive result in M02, on two instruments, REPLICATED
+on disjoint passages.** Read by sixteen blind Opus readers over 1,600 passages
+in two independent rounds, aligned models produce a second-order predicate over
+the contradiction **3.37x [1.88, 6.30]** as often as their base arm (3.4% ->
+10.6%, p = 9.6e-06), while the same-side conjunction control sits at **exactly
+1.00** (5/300 against 5/300). Significant separately in each round (4.62,
+p = 0.00055; 2.70, p = 0.0073). Counted independently by regex over 52,559
+exit-free passages, **2.18x** against a pole control of **0.93x** — 20 of 22
+lineages, p = 0.00012. The two instruments share only 28% of their hits.
 
 Producer `scripts/z_second_order.py`; marker sets declared in
 `registrations/second_order_markers_v2.md`; substrate `gen_sequences`,
@@ -104,7 +105,7 @@ The slide's exemplar carries both features in one passage, which is presumably
 why they read as one phenomenon. They are two, and only one of them is about
 contradiction.
 
-## READ BY EIGHT OPUS READERS: the effect is twice as large as the regex sees
+## READ BY SIXTEEN OPUS READERS, IN TWO ROUNDS ON DISJOINT PASSAGES
 
 800 passages, four cells of 200 (contradiction x base/aligned, same-side
 conjunction x base/aligned), exit-free, drawn across 25 lineages, **blind** --
@@ -115,12 +116,18 @@ divided condition as its object?* Verbatim span required; metalinguistic
 framing excluded; judged on the continuation's own terms, never against the
 prompt -- so the same-side arm is a real question rather than a definitional NO.
 
-    stimulus                base    aligned    odds ratio        p
-    contradiction           3.0%      12.5%          4.62   0.00055
-    same-side conjunction   2.0%       0.5%          0.25      0.37
+    round        stimulus         base   aligned      OR         p
+    1 (n=800)    contradiction    3.0%     12.5%    4.62   0.00055
+    1            same-side        2.0%      0.5%    0.25      0.37
+    2 (n=800)    contradiction    3.7%      9.3%    2.70    0.0073
+    2            same-side        1.0%      4.0%    4.12      0.37
+    POOLED       contradiction    3.4%     10.6%    3.37   9.6e-06   CI [1.88, 6.30]
+    POOLED       same-side        1.7%      1.7%    1.00         1   CI [0.23, 4.39]
 
-At the lineage unit, 13 of 17 (ties dropped), p = 0.049 -- thin, since 36 hits
-spread over 25 lineages. **Of the 17 lineages with any hit, 14 have base at 0
+**Round 2 is a genuine replication**: 800 fresh passages drawn with a new seed
+and filtered against round 1's text, independently significant, with the pooled
+control landing at exactly unity. At the lineage unit round 1 gave 13 of 17,
+p = 0.049 -- thin, since the hits are sparse. **Of the 17 lineages with any hit, 14 have base at 0
 or 1** while the aligned arm runs 1-3 in ~10. It is not carried by a few models.
 
 Artifacts: `results/opus_second_order/judgements.json` (all 800 with spans),
@@ -182,7 +189,24 @@ would predict and nobody looked for it.
 The base passage in the second pair is the whole distinction in one line: it
 performs free-and-captive fluently and produces no term for the condition.
 
-### The example in the prompt: an ablation that could not settle itself
+### The example in the prompt: answered by accident, at full scale
+
+Round 2 was run with the ablation's prompt rather than round 1's -- I copied the
+wrong file, and flagged it before the results came back. The consequence is that
+the anchoring question got a properly powered answer instead of a 200-passage
+one:
+
+    round 1, WITH the treatment-arm example       aligned 12.5%  base 3.0%  4.17x
+    round 2, WITH a content-free placeholder      aligned  9.3%  base 3.7%  2.55x
+
+**The example was doing some work.** Not manufacturing the effect -- round 2 is
+independently significant at p = 0.0073 with the clean prompt -- but inflating
+it, by roughly the distance between 4.6x and 2.7x. This is why the headline is
+the pooled **3.37x** and not round 1's 4.62x, and it vindicates the worry while
+correcting its size. The small paired ablation below reached the opposite
+conclusion and was underpowered to do so.
+
+### The small ablation, kept because it was wrong
 
 The JSON format spec carried one real positive span, drawn from a
 CONTRADICTION passage -- an anchoring risk in a design whose claim is the
@@ -213,10 +237,21 @@ the text evaluate the character or their state against a norm of right conduct?)
 and **CLINICAL** (does it frame the condition as a disorder, symptom or case?).
 Same blinding, same cells, judged on the continuation's own terms.
 
-    construct        CONTRA base  CONTRA aligned   OR       SAMESIDE OR
-    second-order          3.0%          12.5%    4.62 ***       0.25
-    moral                14.5%          21.0%    1.57           0.87
-    clinical              5.0%           5.0%    1.00           1.24
+Both were run twice, on the same two rounds of passages, and POOLED over 1,600:
+
+    construct        CONTRA base  CONTRA aligned      OR          SAMESIDE OR
+    second-order          3.4%          10.6%    3.37 ***             1.00
+    moral                15.2%          17.2%    1.16 [0.82,1.65]     1.38
+    clinical              3.2%           4.6%    1.46 [0.73,2.99]     1.24
+
+**Round 1's moral 1.57x did not survive**: round 2 gave 0.93x, and the pooled
+estimate is 1.16, p = 0.44. That was pre-registered as the likeliest way a
+p = 0.116 result dies, and it died that way. Round 2's SAME-SIDE moral cell
+came out at OR 3.50, p = 0.0019 -- a significant "effect" in the condition
+built to have none, in a direction round 1 contradicted (0.87x). **The between-
+round variance on these cells exceeds what the within-round p-values imply**,
+which is a caution that applies to every Opus number here and is the reason the
+second-order result was replicated rather than reported once.
 
 **CLINICAL IS FLAT.** 5.0% against 5.0%, OR 1.00, p = 1. The pathologisation
 hypothesis came from two anecdotes in the second-order spans and it is dead:
@@ -234,13 +269,16 @@ does not replicate.**
 
 ### The conjunction, which only the same-passage design can see
 
-    ALIGNED, contradiction prompts, n = 200
-        25 passages name the contradiction
-        42 passages moralise
-         5 do both        --  chance alone would give 5.2
+    ALIGNED, contradiction prompts, POOLED n = 500
+        53 passages name the contradiction
+        86 passages moralise
+        10 do both        --  chance alone would give 9.1
 
-    moralising GIVEN naming   20%
-    moralising otherwise      21%      OR 0.93, p = 1
+    moralising GIVEN naming   19%
+    moralising otherwise      17%      OR 1.14 [0.49, 2.42], p = 0.70
+
+    and it replicates within each round: 5 against 5.2 expected (round 1),
+    5 against 4.1 expected (round 2)
 
 **Exactly independent.** The aligned model does both and does not do them
 together.
