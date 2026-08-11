@@ -164,6 +164,16 @@ seat forgets at its peril:
   spec is restorative (strip, verify against the pin), never a
   content-hash — a gate that needs a parser has an edit boundary to argue
   about ([5386], ruling [5387]).
+- **A rule is only an artifact if it ranges over something fixed; otherwise
+  it is a query, and a digest over a query records when you last ran it.**
+  Both halves of a "frozen" population were `set <= set` over sets anything
+  in the campaign can grow — dead on drift for ten days, blamed on
+  yesterday's rebuild, actually killed by the August ingests. The pinned
+  fix existed on disk the whole time and nothing pointed at it: "a file
+  informs; only a caller refuses." And the cheaper error underneath, RH's
+  catch: compute was proposed without asking whether anything READS the
+  thing being computed — ten producers import the population; none reads
+  the 71 ([5388]–[5392]).
 - **A measured number is measured OVER something; carrying it across an
   instrument or scale boundary is a new claim needing its own measurement.**
   Twice in one day by the same seat, named by him: load-at-3-checkpoints
