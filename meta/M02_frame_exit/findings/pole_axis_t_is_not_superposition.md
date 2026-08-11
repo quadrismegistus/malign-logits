@@ -1,4 +1,4 @@
-# The pole-axis projection is not a superposition measure, and two corrections to [5157]
+# The pole-axis projection is not a superposition measure: three corrections to [5157]
 
 **Status: PROVISIONAL, and partly a CORRECTION.** [5157] reported the L3
 geometry result with the sentence *"Superposition at the representation level is
@@ -52,11 +52,62 @@ arrived at independently on the representation side.
 ## What [5157] did establish, stated narrowly
 
 Same-side near-synonym conjunctions sit AT their pole (0.793, 0.128) while the
-contradiction sits between (0.453), and alignment barely moves any of them. That
-is real, it is contradiction-specific because the controls license it, and it is
-a NECESSARY condition for superposition. It is not evidence of superposition.
+contradiction sits between (0.453). That is real, it is contradiction-specific
+because the controls license it, and it is a NECESSARY condition for
+superposition. It is not evidence of superposition.
 
-## Correction 2: "clustered by family" clustered nothing
+The other half of [5157]'s sentence -- "alignment does not undo it" -- is
+addressed in the next section, and it turns out to be uninformative rather than
+wrong.
+
+## Correction 2: t(both) is invariant, and so is everything at the midpoint
+
+Does the measure move between arms? Directional test, paired over lineages,
+interior window:
+
+    role            n_lin   raw shift        p      after removing one
+                                                    global effect
+    both              46      +0.0043    0.308        +0.0034   p=0.53
+    control_a         37      +0.0143    0.0018       -0.0024   p=0.27
+    control_b         37      -0.0194    1.9e-05      -0.0047   p=0.24
+    both_matched      46      +0.0067    0.138        +0.0077   p=0.11
+
+`t(both)` does not move. **Neither does anything else, once one global effect is
+removed: a compression of the axis toward its midpoint.** Both controls are
+individually significant and both dissolve to null under it. Nothing in this
+table is role-specific.
+
+So "alignment does not undo it" is UNINFORMATIVE. BOTH sits at 0.45; the
+midpoint is the fixed point of the only transformation happening here. Anything
+parked there would be invariant, contradiction or not, and the controls move
+because they sit at 0.79 and 0.11 rather than because they are controls.
+
+TWO ARTIFACTS CHECKED, BOTH OF WHICH CHANGED THE NUMBER.
+
+**Regression to the mean.** Regressing `base - aligned` on `base` puts the noise
+in `base` into both axes with the same sign and manufactures a positive slope.
+The three estimators bracket exactly as that predicts:
+
+    on base                +0.1009      biased upward
+    on mean(base,aligned)  +0.0472      Bland-Altman, unbiased
+    on aligned             -0.0145      bias reversed
+
+Randomising which arm is which collapses the unbiased slope to +0.0078 against
++0.0472 observed, so the compression is real at roughly half the naive size.
+The residual column above uses the unbiased fit.
+
+**Do the poles separate instead of the interior contracting?** They do, and it
+cannot be dismissed: `pole_sep` goes 0.3103 -> 0.3370 (+0.0267, p=2.7e-07). But
+pole separation alone pulls every `t` toward ZERO, and `control_b` moves UP from
+0.11, so separation does not account for the pattern. Both things are happening.
+
+That leaves a positive result, flagged and not claimed: **alignment moves the two
+poles further apart while pulling what lies between them toward the middle.**
+Endpoints sharpen, interior homogenizes. It is one measurement on one axis type,
+it has not been run against the negative control, and it needs a scale-invariance
+check before it is worth anything.
+
+## Correction 3: "clustered by family" clustered nothing
 
 [5157] reported its contrasts as "clustered by family, n=45". **The `family`
 column holds 52 distinct values for 52 pairs** -- it is 1:1 with the pair, so the
@@ -84,14 +135,26 @@ split-store defect as the logit index's bare basename, in a third consumer.
 [5157] to the digit.
 
     43 -> 52 pairs, 104 models, 391,278 rows
-    FULL_QUINTUPLET  44 pairs      TRIPLET_ONLY  8 pairs
+    CONTROLS_SCORED  44 pairs      CONTROLS_NOT_SCORED  8 pairs
 
-The 8 added pairs carry no controls (RH called this before it was measured;
-`twp_fill` holds the triplet and both_matched, not the yoked controls). So the
-frame holds two populations and they are two different n. The `stratum` column
-exists to stop them being pooled:
+**That column is a COVERAGE fact about pairs, not a design fact about the
+battery, and it was called TRIPLET_ONLY until RH pointed out the name says the
+opposite of the truth.** Two orthogonal things:
 
-    BOTH vs control contrast   FULL_QUINTUPLET only    n = 44 pairs / 37 lineages
+    DESIGN     every live group has a TRIPLET. 34 of 43 also have authored
+               controls; 9 do not (5 en, 4 zh -- "no_natural_companion
+               (category poles)").
+    COVERAGE   44 of 52 pairs were ever SCORED on the control prompts; 8 were
+               not, because twp_fill holds the triplet and both_matched and no
+               yoked controls.
+
+The binary is clean rather than a smear: 42 of the 44 scored pairs cover all 34
+control-bearing groups, 2 cover 17-18 (CroissantLLM and Teuken, half-coverage on
+`both` as well), and the other 8 cover exactly zero.
+
+So the frame holds two n and the column exists to stop them being pooled:
+
+    BOTH vs control contrast   CONTROLS_SCORED only    n = 44 pairs / 37 lineages
     t(both) and both_matched   both strata             n = 52 pairs / 46 lineages
 
 The one contrast that gains is the one that was already significant:
@@ -107,13 +170,13 @@ estimates to four decimals, 37 lineages against 39 -- which is exactly what a
 population that adds no controls should do, and is worth stating as the check
 that the widening did what it claimed rather than something else.
 
-## The stratum difference is family-level, not contradiction-level
+## The coverage strata differ, and that too is family-level, not contradiction-level
 
 Interior window, base minus aligned:
 
                        both      both_matched
-    FULL_QUINTUPLET   +0.0043      +0.0070
-    TRIPLET_ONLY      +0.0128      +0.0132
+    CONTROLS_SCORED       +0.0043      +0.0070
+    CONTROLS_NOT_SCORED   +0.0128      +0.0132
 
 The 8 added families drift about three times as much under alignment -- but
 `both_matched` drifts just as much within each stratum, and in BOTH strata it

@@ -61,8 +61,8 @@ NEGATIVE_CONTROL = {"f11_reason", "f11_reason_zh"}
 #:
 #: WHAT THE UNION ADDS IS NOT UNIFORM, AND THE STRATUM COLUMN EXISTS FOR THAT.
 #: The twp_fill residuals hold the TRIPLET (pole_a, pole_b, both) and
-#: both_matched, and for 8 of the 9 pairs they add they hold **zero controls**
-#: (RH, 2026-08-10; measured -- Teuken is the exception at 33 of 62). So the
+#: both_matched, and for 8 of the 9 pairs they add NO CONTROL PROMPT WAS EVER
+#: SCORED (RH, 2026-08-10; Teuken is the exception at 33 of 62). So the
 #: control contrast, which is what refuted the excursion, gains almost nothing,
 #: while the base-vs-aligned INVARIANCE of t(both) -- the repression-not-
 #: foreclosure half -- gains 9 lineages. Those are two different n's over one
@@ -198,16 +198,26 @@ def main():
                                     "language", "role", "layer", "n_layers",
                                     "t", "resid", "pole_sep", "negative_control"])
 
-    #: THE STRATUM, PER PAIR, SO THE TWO n's CANNOT BE POOLED BY ACCIDENT.
-    #: A pair with no control cells can carry the invariance contrast (t(both)
-    #: base vs aligned) and the both_matched contrast, and CANNOT carry the
-    #: BOTH-vs-control contrast at all. Reporting one "n = 52" over a frame
-    #: holding both kinds is the defect this campaign spent 2026-08-10 removing.
-    strat = {(b, al): ("FULL_QUINTUPLET"
+    #: THE STRATUM IS A COVERAGE FACT ABOUT THE PAIR, NOT A DESIGN FACT ABOUT
+    #: THE BATTERY, and it was called TRIPLET_ONLY until RH pointed out that
+    #: the name says the opposite of the truth. **Every group has a triplet.**
+    #: What varies at the GROUP level is whether controls were authored -- 34
+    #: of 43 live groups have them, 9 do not ("no_natural_companion (category
+    #: poles)"). What varies at the PAIR level, and is what this column marks,
+    #: is whether the fleet ever SCORED those control prompts for that model.
+    #: Naming a coverage fact with the design word invites the reading that 8
+    #: families lack triplets, which is false.
+    #:
+    #: It is a clean binary rather than a smear: 42 of the 44 scored pairs
+    #: cover all 34 control-bearing groups, 2 cover 17-18 (CroissantLLM and
+    #: Teuken, which are half-coverage on `both` as well), and the other 8
+    #: cover exactly ZERO. Kept because the contrasts have two different n and
+    #: pooling them is the defect this campaign spent 2026-08-10 removing.
+    strat = {(b, al): ("CONTROLS_SCORED"
                        if (g.get("control_a") and g.get("control_b"))
-                       else "TRIPLET_ONLY")
+                       else "CONTROLS_NOT_SCORED")
              for _f, b, al, g in roster}
-    D["stratum"] = [strat.get((b, al), "TRIPLET_ONLY")
+    D["stratum"] = [strat.get((b, al), "CONTROLS_NOT_SCORED")
                     for b, al in zip(D.base, D.aligned)]
 
     out = os.path.join(CAMP, "results", cli.out or "l3_geometry.parquet")
@@ -221,15 +231,16 @@ def main():
     for role in ROLES:
         print("   %-14s %14d %14d" % (role, spec[role], read[role]))
     print("\n" + "=" * 84)
-    print("STRATA -- TWO POPULATIONS IN ONE FRAME. NEVER REPORT ONE n.")
+    print("CONTROL COVERAGE -- TWO n IN ONE FRAME. NEVER REPORT ONE.")
+    print("(every group has a TRIPLET; this is about which pairs were SCORED on controls)")
     print("=" * 84)
-    for s in ("FULL_QUINTUPLET", "TRIPLET_ONLY"):
+    for s in ("CONTROLS_SCORED", "CONTROLS_NOT_SCORED"):
         ps = sorted(k for k, v in strat.items() if v == s)
         print("   %-16s %2d pairs" % (s, len(ps)))
         for b, al in ps:
             print("        %s" % b)
-    print("   BOTH vs control contrast   -> FULL_QUINTUPLET only, n = %d pairs"
-          % sum(1 for v in strat.values() if v == "FULL_QUINTUPLET"))
+    print("   BOTH vs control contrast   -> CONTROLS_SCORED only, n = %d pairs"
+          % sum(1 for v in strat.values() if v == "CONTROLS_SCORED"))
     print("   t(both) base-vs-aligned    -> BOTH strata,          n = %d pairs"
           % len(strat))
 
