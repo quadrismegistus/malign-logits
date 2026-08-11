@@ -174,6 +174,14 @@ seat forgets at its peril:
   catch: compute was proposed without asking whether anything READS the
   thing being computed — ten producers import the population; none reads
   the 71 ([5388]–[5392]).
+- **A default is a claim about the machine it was written on.**
+  `--gpu-budget-gb 80` is not "the budget," it is "an A100," and nothing in
+  the name says so — five 48 GB boxes read it as 16 GB each, classed every
+  checkpoint "heavy," and completed instantly having produced nothing.
+  Caught in four minutes by the standing rule: ASSERT WHAT WAS WRITTEN,
+  NEVER WHAT WAS REPORTED. Corollary from the same hour: utilisation is
+  not throughput — a health rule fires on idle AND not-advancing, never on
+  idle alone ([5411]).
 - **A measured number is measured OVER something; carrying it across an
   instrument or scale boundary is a new claim needing its own measurement.**
   Twice in one day by the same seat, named by him: load-at-3-checkpoints
