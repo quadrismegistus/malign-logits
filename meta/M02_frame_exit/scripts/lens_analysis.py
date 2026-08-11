@@ -41,11 +41,26 @@ THREE CONSTRAINTS FROM THE PLAN, ENFORCED HERE RATHER THAN REMEMBERED:
   biased there. The base model's own trajectory on the same prompt is the
   paired reference, always -- so the primary is a DIFFERENCE and never a level.
 
-  **THETA FLOORS THE BOTTOM QUARTER** (§8a). At depth <= 0.25 the tail is
-  0.65-0.70 and an interior zero is truncation, not absence. At depth 0.75 the
-  tail is 0.10 base / 0.02 aligned and the pole words are genuinely absent. So
-  the readable band is depth >= 0.5, and everything below it prints under a
-  banner rather than being silently included.
+  **THERE IS NO THETA IN THIS INSTRUMENT, AND AN EARLIER VERSION OF THIS FILE
+  SAID THERE WAS.** The plan's §8a warns that theta=0.001 floors depths <= 0.25,
+  where the tail runs 0.65-0.70 and an interior zero is truncation rather than
+  absence. **That describes the PILOT**, which used `twp.expand_layers` at WORD
+  level. The producer here is TOKEN level and `layer_probs` returns a full
+  normalised softmax over the whole vocabulary -- no threshold, no tail, no
+  truncation, and the string "theta" does not occur in it.
+
+  The caveat was imported across instruments, and it had teeth: Secondary 1
+  computed the late-gate result after DISCARDING THE BOTTOM HALF OF THE STACK
+  on a ground that does not apply to these numbers. Re-run over the full
+  stack the conclusion holds and strengthens -- 0.339 of the gap in the top
+  eighth against 0.111 for an even spread, 35 of 38 lineages, p=6.7e-08,
+  where the truncated version gave 0.489 against 0.200, 33 of 38, p=4.3e-06 --
+  but that is luck. `READABLE` is now 0.0 and the band is the whole stack.
+
+  The REAL early-layer caution is the one above and it is not a reason to
+  truncate: a lens reads in the output basis, so no ABSOLUTE early-layer level
+  is a claim. The paired difference against the model's own base arm already
+  handles that, which is why the primary is a difference.
 
 THE UNIT IS THE LINEAGE. Not the model, not the cell. A pair contributes one
 observation per group, and the test is over lineages.
@@ -79,7 +94,7 @@ RESOLUTION = 4.03
 #: the common axis. Nine points because the shallowest model has 25 layers, so
 #: a finer grid would interpolate more than it measures.
 GRID = [i / 8 for i in range(9)]
-READABLE = 0.5          #: below this, theta floors the measurement (§8a)
+READABLE = 0.0          #: the whole stack; see the header on why not 0.5
 
 
 def sign_test(vals):
