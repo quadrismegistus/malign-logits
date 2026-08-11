@@ -123,10 +123,14 @@ ladders, at onset grain (this doc) and half-max grain (A-R2, POST-HOC).
 The cross-ladder column in Result 1 is STEP-numbered, not token-matched.
 Malign's conversion: OLMo step N = 2N Pythia steps in tokens (Pythia's 2M
 batch is documented; OLMo's constant-batch assumption is inferred from
-round totals, UNVERIFIED). At matched token counts OLMo resolves fewer
-than half as many probe words as Pythia below ~12.6 B tokens, so the
-ladders' steps do not align the phenomena, and OLMo's early capacity
-rungs are coverage, not capacity (65% both-absent at step 1000). Two
+round totals, UNVERIFIED). "At matched token counts OLMo resolves fewer
+words" is NOT SETTLED per malign's own correction [5435] — theta is an
+absolute threshold and OLMo's vocabulary is 1.99x Pythia's, so the
+absent-rate gap is confounded (the residual column's sign inversion past
+~17 B argues something real underneath; a scale-free control is owed
+before anyone drafts from it). What stands: the ladders' steps do not
+align the phenomena, and OLMo's early capacity rungs are coverage, not
+capacity (65% both-absent at step 1000). Two
 consequences: the left-censoring in Result 1 is doubly forced (interval
 width AND no usable signal at its lower end); and any figure placing both
 ladders on one axis must use tokens and carry the absent-rate column
