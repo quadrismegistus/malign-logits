@@ -283,7 +283,14 @@
     "1": "NOUN 0.152 VERB 0.154 (1.02x) -- the gap is gone",
     "5": "NOUN 0.264 VERB 0.227 (0.86x) -- NOUN is MORE eligible"
    },
-   "verdict": "UNRESOLVED, and NOT for want of n. Restricted to words that MOVED, the strata hold 102-150 nouns each and all four fire; NOUN is lower in 2 of 4 at >=1 event and 2 of 4 at >=5. The sign FLIPS across the eligibility range -- NOUN falls MORE at low eligibility (+9.5 pts at Q1) and slightly less at high (-2.3 at Q4) -- so the pooled gap is a weighting fact, not a class fact. BOTH my [5490] floor reading AND my [5494] composition argument are withdrawn: the first checked frequency (the proxy, not the gate), the second computed the gate over the wrong population."
+   "threshold_sensitivity": {
+    ">=1": "+9.5 +6.7 -4.3 -2.3   flip Q2/Q3, min NOUN cell 102",
+    ">=2": "+8.1 +6.0 -5.0 -1.4   flip Q2/Q3, min NOUN cell  79",
+    ">=5": "+1.4 +0.5 -3.3 -1.7   flip Q2/Q3, min NOUN cell  40",
+    ">=10": "+7.9 -4.0 -10.7 -2.1  flip Q1/Q2, min NOUN cell  23",
+    "_reading": "the flip point MOVES and the magnitudes swing several-fold across an inclusion cut nobody has a principled reason to set; at >=5, a defensible threshold with 40 nouns in its smallest cell, the whole contrast sits inside 3.3 points and reads FLAT. And it is not monotone at any threshold: Q3 is more negative than Q4 in every row."
+   },
+   "verdict": "NULL WITH ADEQUATE STRATA (102-150 nouns per cell at >=1 event, all four fire). The pooled gap is a weighting fact about the eligibility distribution. THE PER-STRATUM SIGN IS THRESHOLD-DEPENDENT AND NO SHAPE IS CLAIMED (@lacan [5500]; my own 'monotonic crossover' at [5498].3 is withdrawn -- it was never monotone and it relocates when the inclusion cut moves). Nothing to purchase absent a new design. Also withdrawn: the [5490] floor reading (checked frequency, the proxy, not the gate) and the [5494] composition argument (right gate, wrong population -- 57% of its rows had zero movement events)."
   },
   "noun_rise_stratified": {
    "median_fpm": {
@@ -299,8 +306,8 @@
       "fall_rate": 0.3523
      },
      "VERB": {
-      "words": 532,
-      "fall_rate": 0.3635
+      "words": 531,
+      "fall_rate": 0.3637
      }
     },
     {
@@ -310,8 +317,8 @@
       "fall_rate": 0.4669
      },
      "VERB": {
-      "words": 520,
-      "fall_rate": 0.3949
+      "words": 521,
+      "fall_rate": 0.3948
      }
     },
     {
