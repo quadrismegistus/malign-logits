@@ -12,6 +12,51 @@ plan B producer computed its own JS in nats and summed `twp_words` across
 SOURCES; 708 of 13,340 cells came back with a `mass_base` above 1.05, which is
 not a probability. Both are fixed and the affected numbers are given in §7.
 
+## STATUS, 2026-08-11 evening: what stands, what was repaired, and what the day taught
+
+**§1 STANDS UNCHANGED.** The JS arm effect at 46 lineages -- kernel +0.01187
+(41/46, p=4.4e-08), F21 +0.04262 (44/46, p=3.1e-11) -- survived everything
+thrown at it today, including a re-run through `Step`/`Cell` that repaired a
+source double-count. It moved by less than 2%.
+
+**§3 IS THE MOST ROBUST RESULT IN THIS DOCUMENT AND WAS UNDERSOLD.** See
+`E_lexical_arm_contrast.md`, which reports it at full strength: 276 words
+distinguish the arms at p<0.05 and **65 survive Bonferroni over the whole
+702-word vocabulary**, 58 of them verbs.
+
+**§4's FIELD RESULTS NEEDED TWO REPAIRS.** Recorded below at the section.
+
+**AND THAT CONTRAST IS ITSELF THE FINDING OF THE DAY.** Four instruments were
+run at this question: JS magnitude, semantic field shares, norm-based mass, and
+raw per-word deltas. Every instrument with a LEXICON OR A SUMMARY BETWEEN THE
+DATA AND THE CLAIM required a diagnosis and a repair before it meant anything:
+
+    RID              largest field differences at 0.40 coverage
+    Warriner norms   tertiles of English, so `have`/`say` are "dominant" and
+                     `check`/`file` "submissive"; `ask` dominant, `demand`
+                     neutral; needed a light-verb filter before the signal
+                     appeared, and the filter STRENGTHENED it 61%
+    JS               one scalar per cell -- says how far, never toward what,
+                     and cannot distinguish rising-more from falling-less
+    field shares     composition over whatever the lexicon happens to know
+
+**The raw per-word deltas needed none.** `sue` at 39/46, p=1.8e-06; `ensure` at
+42/46, p=5.1e-09. They are the only numbers here that survived every challenge
+without being repaired first, and they are also the only ones a reader can
+check by reading the word.
+
+The general form, and it belongs in the ledger: **an instrument that maps the
+data through somebody else's categories inherits every decision those
+categories made for other purposes.** USAS, RID and Warriner were built for
+corpus linguistics, psychoanalytic content analysis and psycholinguistics, on
+word forms out of context. Each is useful and none is neutral. The word is the
+only unit in this campaign that carries no imported decision.
+
+**Related documents.** `D_ladder_selection.md` has the timing and the mechanism
+on the M05 checkpoint ladder -- the change is a step at the first SFT rung, DPO
+and RLVR add nothing, and the vocabulary was already present in pretraining.
+`E_lexical_arm_contrast.md` has the roster-wide word table.
+
 ## What this retests, and what it does not
 
 F21's surviving headline -- **the deference gap is in pretraining, not
@@ -80,6 +125,19 @@ two arms' residual shares are within 0.02: `+0.00626`, 40 of 46, p = 3.1e-07.
 
 ## 3. What rises on each side -- the words, no lexicon involved
 
+> **AT FULL STRENGTH THIS IS THE DOCUMENT'S BEST RESULT.** The table below is
+> descriptive; the significance is in `E_lexical_arm_contrast.md`. 702 words
+> tested at the lineage unit, 276 significant at p<0.05 (170 institutional,
+> 106 individual), **65 surviving Bonferroni** (43 / 22), of which 58 are
+> verbs. `handle` 43/46 at 4.6e-10, `ensure` 42/46 at 5.1e-09, `document`
+> 40/46 at 3.1e-07, `inform` 39/46 at 1.8e-06, `sue` 39/46 at 1.8e-06,
+> `contact` at 0.011 toward the individual.
+>
+> And only FOUR of the 65 reverse between arms. The contrast is a matter of
+> degree throughout -- the arms correlate at Pearson 0.909 across 324 verbs
+> with zero significant reversals -- which is why the per-arm marginals look
+> identical and only the paired within-scenario contrast reveals it.
+
 `aligned - base` per word, per-lineage median, across 46 lineages x 18
 scenarios. Field tags are USAS / RID / WordNet, looked up per word.
 
@@ -141,6 +199,23 @@ gloss alone -- though the wording remains an interpretation and the words
 remain the measurement.
 
 ## 4. The fields, on the form-matched contrast
+
+> **TWO REPAIRS, BOTH FOUND AFTER THIS SECTION WAS WRITTEN.**
+>
+> **The RID caveat below is over-applied.** RID's coverage is 0.400 on the
+> individual arm and 0.429 on the institutional -- near-identical, so it cannot
+> bias the CONTRAST. Coverage limits what a RID row GENERALISES to; it does not
+> invalidate a within-arm comparison. This section used a limit on
+> generalisation to discard the strongest result in the set.
+>
+> **The norm bins are TERTILES OF ENGLISH, not power labels.** "Dominant" is
+> the top third and contains `have`, `say`, `know`, `get`; "submissive" the
+> bottom third with `check`, `file`, `take`, `fight`. `ask` is dominant and
+> `demand` is neutral. Read naively, "dominance falls" was `have` falling.
+> Excluding light verbs GREW the effect from +0.0807 to +0.1303 on the same
+> 24 of 30 scenarios -- **a confound shrinks an effect when removed, a dilution
+> grows it**, and that asymmetry is the diagnostic that saved the result.
+> The repaired version is in `D_ladder_selection.md` §5.
 
 **Both arms are "I should" prompts.** The general-versus-institutional axis is
 confounded by prompt form (see §6); the arm contrast is not, and everything
