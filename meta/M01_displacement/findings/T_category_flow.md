@@ -667,7 +667,10 @@ roster under both the 105-pair and 788-pair populations. The rungs gave the
 timing; the edge unit refused the sign the single lineage suggested.
 
 **Caveats.** Population is the 788 catalogue twins (en, ACTIVE); edge unit is
-`base_aligned_pairs()`, ambiguous excluded, 50 edges. Gaps are small
+`base_aligned_pairs()`, ambiguous excluded, 50 edges. NOTE this is a LARGER
+edge set than findings 10-16 (43 edges, movement_words.parquet snapshot) and
+N (44): the roster grew since those were cached, so 18 votes over 50 current
+edges, not the same 43 — the counts are not interchangeable across sections. Gaps are small
 (hundredths of probability mass), significant because 50 edges is real
 replication. This is a signed test on the paired affect-NORM gap; a field can
 be significant here and absent from findings 11-16, which test the marginal.
