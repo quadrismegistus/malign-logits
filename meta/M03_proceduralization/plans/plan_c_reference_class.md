@@ -37,6 +37,67 @@ Three questions, in order of what they license:
    and does it fall differently by domain -- more than sexual, more than
    violent, more than taboo?
 
+**AND ALL THREE ARE ASKED ON THREE INSTRUMENTS, NOT ON JS ALONE** (RH,
+11 Aug). A JS ladder answers *how far* and cannot answer *toward what*, which
+is the question plan B's field and word results actually raised. Findings T
+has already shown that the same fields move under alignment generally, so a
+plan C that compared only magnitudes would leave its most answerable question
+untouched. See §1a.
+
+## 1a. WHAT FINDINGS T ALREADY ESTABLISHES, AND WHY IT REFRAMES THIS PLAN
+
+`meta/M01_displacement/findings/T_category_flow.md`, findings 10-14, runs at
+the EDGE unit -- one alignment edge, one vote, 43 edges, all 2,190 active
+English prompts, no threshold and no manufactured pairs. **Two of its results
+are direct priors for plan C and they point opposite ways.**
+
+**T §13: the substitution is NOT transgression-specific.** *"Alignment removes
+the violent word only where there is one. It adds the deliberative word
+everywhere, and if anything slightly more where there was nothing to remove."*
+The withdrawal is larger in the marked twin on every violence category
+(wordnet `contact` -0.0864 marked against -0.0490 neutral; framenet
+`Cause_harm` -0.0311 against -0.0113); the addition is if anything larger in
+the NEUTRAL twin (`perception_cognition` +0.0462 marked against +0.0625
+neutral; rid `sensation` +0.0526 against +0.0680).
+
+**T §12: the rising vocabulary on ALL prompts is plan B's vocabulary.** USAS
+survivors across the whole edge population include `X2.4 Investigate, examine,
+test, search` at **43 of 43 edges**, `S1.1.2 Reciprocity` 42/43, `A1.7
+Constraint` 40/43, `A1.3 Caution` 40/43, `Q2.2 Speech acts` +0.0157. T's own
+sentence: *"a tagset built for corpus linguistics thirty years ago returns the
+vocabulary of alignment among its 41 rising fields."*
+
+    SO THE FIRST PRIOR IS: plan B's `ensure / prioritize / document /
+    carefully / gather / conduct` is GENERAL ALIGNMENT VOCABULARY, and the
+    institutional arm merely gets more of it. Under this prior plan B's
+    word-level result survives as a magnitude and dies as a characterisation.
+
+**T §11 pulls the other way, and it already looked at these very strata.** Its
+eleven strata include `m03_inst`, `m03_indiv`, `inst_authority` and
+`inst_individual`. Five categories reverse between strata -- rising in the
+narrative twins and in `violence`, `sexual` and `neutral`, and **falling in all
+four institutional strata**. T states the consequence plainly: *"this is also
+why WordNet `cognition` is not significant pooled while being a significant
+riser in eight strata: the institutional prompts cancel it. Report this
+stratified. The pooled number hides the finding rather than summarising it."*
+
+    SO THE SECOND PRIOR IS: the institutional strata are where the general
+    pattern BREAKS, and plan B's institutional risers are not more of the
+    general vocabulary but a different one.
+
+**These two cannot both be right about the same categories, and resolving them
+is plan C's sharpest contribution.** T could not resolve it: its strata are
+unpaired marginals, so it can say a category rises in eight strata and falls in
+four but cannot hold a scene fixed. Plan C has the paired MARKED-UNMARKED
+contrast and the arm contrast on the same lexicons.
+
+**WHAT PLAN C MUST NOT DO WITH T.** T's numbers are at 43 EDGES on the
+2026-07 roster; plan C's are at 46 LINEAGES on the current one. T's own §2
+already forbids quoting its two halves as one body of evidence, and the same
+discipline applies across documents: **T's figures are priors to be tested,
+never a baseline to subtract.** No plan C number is computed by differencing
+against a T number.
+
 ## 2. INPUT -- ENUMERATED FROM THE JSON, WHICH IS AUTHORITATIVE (RH, 11 Aug)
 
     matched pairs, ACTIVE en, exactly 1 MARKED + 1 UNMARKED,
@@ -129,21 +190,85 @@ test over lineages second.
     results/c_pair_prompt.jsonl      (lineage, prompt, js, movement, diagnostics)
     results/c_pair_contrast.csv      (lineage, pair_id, domain, d_js = M - U)
     results/c_placement.csv          the ladder: every stratum on one axis
-    results/c_word_delta_by_word.csv per domain, reusing plan B's producer
+    results/c_fields_by_stratum.csv  field share x {general, transgressive,
+                                     institutional}, coverage on every row
+    results/c_word_delta_by_word.csv per stratum, reusing plan B's producer,
+                                     carrying `pattern` and SPLIT ESTIMATORS
 
 ## 5. ANALYSIS
 
-### PRIMARY -- the within-pair displacement ladder, by domain
+**THREE PRIMARIES, ONE PER INSTRUMENT.** They are co-equal; the JS one is
+listed first because it is the simplest, not because it is the finding.
+
+### PRIMARY 1 (MAGNITUDE) -- the within-pair displacement ladder, by domain
 
 Per (lineage, pair): `d = JS(MARKED) - JS(UNMARKED)`. Per-lineage median, then
 sign test over the 46 lineages, then reported **per domain with the pair count
 beside it** -- never pooled across domains, because a pooled displacement
 number over 158 violence pairs and 1 profanity pair is a violence number.
 
+### PRIMARY 2 (FIELDS) -- is the rising vocabulary general or institutional?
+
+**This is the T §12/§13 versus T §11 question, and it is the one plan C exists
+to settle.** For every field in every lexicon, three quantities on one scale:
+
+    general      share of risers in field F, on the 748 UNMARKED halves
+    transgressive  d(share) = MARKED - UNMARKED, within pair, scene fixed
+    institutional  d(share) = inst - indiv, from plan B, unchanged
+
+**The decisive comparison is the SECOND against the THIRD.** If plan B's
+institutional risers are general alignment vocabulary (prior 1), then the
+fields that rise in the institutional arm also rise on the UNMARKED halves and
+the arm contrast is a magnitude on a shared direction. If the institutional
+strata break the pattern (prior 2), then some fields rise generally and FALL
+in the arm contrast, and the sign flip is the finding.
+
+**Named in advance, so the check cannot be assembled after the fact:**
+`X2.4 Investigate` (43/43 edges in T), `S1.1.2 Reciprocity` (42/43), `A1.7
+Constraint` (40/43), `A1.3 Caution` (40/43), and WordNet `cognition` -- which
+T reports as the specific category the institutional prompts cancel. Those
+five are the pre-named cells; everything else is exploratory and is labelled
+so.
+
+**Coverage is printed per arm and per source with every count.** On plan B's
+population RID gave the largest field differences at 40% coverage. Anything
+led by RID is reported last and with its coverage in the same line.
+
+### PRIMARY 3 (WORDS) -- the same question with no lexicon
+
+`aligned - base` per word, per plan B's `b_word_delta`, run on the MARKED and
+UNMARKED halves and on the institutional strata. **The specific test: do
+`ensure`, `prioritize`, `document`, `involve`, `engage`, `handle`, `gather`,
+`conduct`, `carefully` -- plan B's institutional risers -- rise on the UNMARKED
+halves too?** T §13 predicts yes, and predicts the rise is if anything larger
+where there was no transgression to remove.
+
+A word list read off one population and applied to another is exactly the C2
+defect, so the direction is one-way: plan B's words are the HYPOTHESIS being
+tested on plan C's population, never the instrument selecting plan C's words.
+Plan C's own top words are derived independently and reported beside them.
+
+**Report the pattern, not the contrast.** Plan B's word table had to be rebuilt
+because a large contrast can mean "rises further here" or "falls less here",
+and 228 of 702 words additionally had the paired and marginal estimators
+disagreeing in sign. Plan C inherits `b_word_delta.pattern` and its
+`SPLIT ESTIMATORS` flag; no directional block admits a flagged row.
+
 ### SECONDARY 1 -- the general baseline as a LEVEL
 
 Median JS on the 748 UNMARKED halves. This is "what alignment does to an
 ordinary sentence" and it is the denominator plan B lacks.
+
+### SECONDARY 1b -- the withdrawal/substitution asymmetry, re-tested
+
+T §13's headline claim at a second population and a different unit: is the
+FALLER side larger in the marked twin while the RISER side is not? T carries
+this as *"the withdrawal asymmetry is supported at two seats, significant at
+one summary of two. The substitution asymmetry is unresolved, bounded under
+the size we claim but never tested against it at adequate power."* Plan C has
+748 pairs at 46 lineages against T's 43 edges, so it may have the power T
+lacked. **Both summaries are reported (top-of-site and summed), because T
+records that the direction depended on the summary choice.**
 
 ### SECONDARY 2 -- PLACEMENT, and the asymmetry that must be printed beside it
 
@@ -177,6 +302,8 @@ share over 40% coverage is a composition over a small non-random subset.
 
 ### PRIORS, BOTH BRANCHES
 
+**On magnitude (Primary 1):**
+
 - **The institutional level sits ABOVE the transgressive increment.** Then
   alignment treats an institutional grievance as a bigger intervention than a
   violent scene, which would be the strongest form of the M03 claim and would
@@ -192,6 +319,32 @@ share over 40% coverage is a composition over a small non-random subset.
   alignment tracks, which would be a result about the displacement literature
   and not about M03 -- and it would put F01's own increment in question, so it
   gets checked against F01's published numbers before being believed.
+
+**On fields and words (Primaries 2 and 3), which is where T makes this
+falsifiable rather than merely descriptive:**
+
+- **The general vocabulary rises everywhere and the arm is a magnitude on it.**
+  T §12 and §13's branch. Then the honest sentence about plan B is *"alignment
+  promotes a deliberative-procedural vocabulary on every prompt, and gives the
+  institutional side more of it"* -- and plan B's characterisation
+  ("bureaucratic register against advice register") is withdrawn as a
+  characterisation while its magnitudes stand. **I expect this branch for the
+  word-level result specifically**, because T measured `X2.4 Investigate` at
+  43 of 43 edges on all prompts, which does not leave room for it to be
+  institution-specific.
+- **The institutional strata reverse.** T §11's branch, which T saw on WordNet
+  `cognition` in all four institutional strata. Then the finding is sharper
+  than plan B stated: alignment does something to institutional prompts that
+  it does the opposite of elsewhere, and the pooled campaign-wide numbers have
+  been hiding it. **This is the branch that would make M03 a finding rather
+  than a magnitude**, which is exactly why it gets the pre-named cells in
+  Primary 2 and no post-hoc category selection.
+- **Both, on different categories.** Entirely possible and probably the real
+  answer: the deliberative fields general, the person- and contact-fields
+  reversing. **If so, the deliverable is the PARTITION -- which categories are
+  general and which are institutional -- and not a single direction.** Named
+  here so that a mixed result reads as the finding rather than as a failure to
+  get a clean one.
 
 ## 6. WHAT THIS CANNOT DO
 
