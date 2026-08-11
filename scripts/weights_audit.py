@@ -45,10 +45,22 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from malign_logits import PATH_DATA  # noqa: E402
 
 OUT = os.path.join(PATH_DATA, "weights_audit.csv")
-# THE ROSTER, not the last execution plan. grid_spec.json was narrowed twice on
-# 2026-07-31 and now holds 82 entries describing what ran last; the audit is a
-# question about the 103-model object.
-SPEC = os.path.join(PATH_DATA, "grid_roster.json")
+# THE POPULATION IS THE REGISTRY, not a snapshot of it.
+#
+# This read `grid_roster.json` -- correct when written, and by 2026-08-10 that
+# file was nine days old and held 103 models against the registry's 158. So the
+# audit measured two thirds of the roster and said nothing about the rest, and
+# `params_b` fell back to a name parse for every model it never visited.
+#
+# That is one instance of a shape that cost this campaign a day: NINE artifacts
+# each defining "the set of models", none pointing at a single source, every one
+# of them running successfully while stale. `weights_audit -> grid_roster.json`,
+# `lineage_map -> registry (1 Aug)`, `ch_ingest.SOURCES -> 3 of 17 dirs`,
+# `twp_ingest --src -> whatever was typed`. A producer reading a stale
+# population does not fail; it answers a question about the wrong date.
+#
+# `--spec` still takes a file for a one-off. A bare run reads the registry.
+SPEC = os.path.join(PATH_DATA, "model_registry.json")
 ST_INDEX = "model.safetensors.index.json"
 BIN_INDEX = "pytorch_model.bin.index.json"
 
@@ -132,9 +144,18 @@ def audit(model_id):
 
 
 def main(a):
-    spec = json.load(open(SPEC))
-    rows_in = spec["spec"] if isinstance(spec, dict) else spec
-    models = [r["model"] for r in rows_in]
+    src = getattr(a, "spec", None) or SPEC
+    spec = json.load(open(src))
+    #: three shapes: the registry (`models`), a grid roster (`spec`), a bare list
+    if isinstance(spec, dict) and "models" in spec:
+        rows_in = spec["models"]
+    elif isinstance(spec, dict):
+        rows_in = spec.get("spec", [])
+    else:
+        rows_in = spec
+    print("population: %d models from %s" % (len(rows_in), os.path.basename(src)))
+    #: the registry keys rows on `model_id`, a grid roster on `model`.
+    models = [r.get("model_id") or r["model"] for r in rows_in]
     print(f"auditing {len(models)} models from the frozen spec (no weights fetched)")
     with ThreadPoolExecutor(a.workers) as ex:
         rows = list(ex.map(audit, models))
@@ -157,5 +178,7 @@ def main(a):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
+    ap.add_argument("--spec", help="a population file for a one-off. "
+                    "Omit to read the registry, which is the roster.")
     ap.add_argument("--workers", type=int, default=16)
     main(ap.parse_args())

@@ -226,9 +226,26 @@ SCALE_LADDERS = [
     # declared ([1121].2). The ladder was not wrong about any edge it drew; it
     # was SILENT ABOUT AN EDGE IT NEVER DREW, which no assertion about existing
     # edges can catch. Hence the completeness test below.
+    #: **falcon3-10b IS NOT ON THIS LADDER.** Its card: "depth up-scaled from
+    #: Falcon3-7B-Base with continual pretraining on 2 Teratokens" -- more new
+    #: tokens than most models in this roster see in total, so it is its own
+    #: pretraining rather than a rung of 7B's. 1B and 3B ARE rungs: pruned and
+    #: distilled at 80-100 GT, which is a compression of a parent. The
+    #: distinction is the token budget and it is the vendor's own (RH,
+    #: 2026-08-10). Declared in NOT_A_SCALE_RUNG below, because considered and
+    #: excluded must not look like never noticed.
     [("falcon3-1b", "Falcon3"), ("falcon3-3b", "Falcon3"),
-     ("falcon3-7b", "Falcon3"), ("falcon3-10b", "Falcon3")],
+     ("falcon3-7b", "Falcon3")],
     [("qwen-tiny", "Qwen2.5"), ("qwen", "Qwen2.5")],
+    #: THESE TWO WERE MISSING, AND MISSING IS NOT A DECISION. Sibling edges
+    #: existed for Falcon3, Olmo-3 and Qwen2.5 and for nobody else, so
+    #: Llama-3.1 8B/70B and Falcon-H1 1.5B/7B were separate lineages BY
+    #: OMISSION -- exactly the failure the lineage map's own caveat predicts
+    #: ("relations are populated unevenly, so two genuinely related models with
+    #: no recorded edge remain separate"). They inflated the roster's lineage
+    #: count by two until 2026-08-10.
+    [("llama", "Llama-3.1"), ("llama-70b", "Llama-3.1")],
+    [("falcon-h1-1.5b", "Falcon-H1"), ("falcon-h1-7b", "Falcon-H1")],
 ]
 #: DECLARED NON-RUNGS. The completeness test asks: is every same-org family that
 #: differs in scale from another either ON a ladder or declared not a rung? Keyed
@@ -286,6 +303,11 @@ REMOVED_MODELS = {
 }
 
 NOT_A_SCALE_RUNG = {
+    "falcon3-10b": ("depth up-scaled from Falcon3-7B-Base with continual "
+                    "pretraining on 2 Teratokens -- its own pretraining, not a "
+                    "rung. 1B and 3B are pruned+distilled at 80-100 GT and ARE "
+                    "rungs; the token budget is the distinction and it is the "
+                    "vendor's own"),
     "olmo-hybrid": "architecture contrast at one scale, not a scale rung",
     "olmo-think": "training-recipe contrast (Think) at one scale",
     "olmoe": "MoE against dense at one scale",
@@ -645,6 +667,52 @@ def lateral(rows, relations):
     return relations
 
 
+def _apply_measured_params(rows):
+    """Stamp measured parameter counts over EVERY row, whatever built it.
+
+    **THE FIRST VERSION PATCHED ONE ROW PATH AND MISSED THE OTHER.** The
+    override sat inside `if "family" not in r:`, so models that arrive through
+    the DECLARED EXTRA ROWS path never saw it: `tiiuae/falcon-7b` is measured
+    at 7.217B in weights_audit.csv and the registry still read None. 137
+    measurements existed and 125 landed.
+
+    One pass over the finished rows cannot miss a path, which is the point --
+    a per-path patch has to be repeated every time someone adds a path, and
+    nothing tells you when they do.
+
+    **AND IT IS CALLED AT THE DOCUMENT, NOT AFTER `build()`.** The second
+    version moved it out of the family branch and still ran too early: the
+    DECLARED EXTRA ROWS are appended in `main()` after `build()` returns, so it
+    saw 144 of the eventual 158 and `falcon-7b` was still None. Same error, one
+    step over. Calling it where the `models` list is assembled means there is
+    no "after" left for a row to arrive in.
+    """
+    import csv as _csv
+    wa = os.path.join(PATH_DATA, "weights_audit.csv")
+    if not os.path.exists(wa):
+        print("  weights_audit.csv ABSENT -- params_b stays a name parse")
+        return rows
+    measured = {}
+    with open(wa) as fh:
+        for r in _csv.DictReader(fh):
+            v = (r.get("params_b_measured") or "").strip()
+            if v:
+                measured[r["model"]] = float(v)
+    hit = 0
+    for mid, r in rows.items():
+        mb = measured.get(mid)
+        if mb:
+            r["params_b"] = mb
+            r["params"] = f"{mb}B"
+            r["params_source"] = "measured:safetensors"
+            hit += 1
+        elif not r.get("params_source"):
+            r["params_source"] = "parsed:name" if r.get("params_b") else None
+    print("  measured params applied to %d of %d rows (%d in the audit)"
+          % (hit, len(rows), len(measured)))
+    return rows
+
+
 def main(a):
     rows, relations, sw = build()
     relations = lateral(rows, relations)
@@ -896,7 +964,7 @@ def main(a):
                          "transformers 5.14.1 / torch 2.5.1"),
             },
         },
-        "models": [rows[k] for k in sorted(rows)],
+        "models": [rows[k] for k in sorted(_apply_measured_params(rows))],
         "relations": sorted(uniq, key=lambda e: (e["relation"], e["parent"])),
     }
 
@@ -979,6 +1047,36 @@ def main(a):
     except Exception as _e:
         print("  WARNING: pair export FAILED (%s) -- data/base_aligned_pairs.json "
               "is now STALE relative to this registry" % type(_e).__name__)
+    #: **AND THE LINEAGE MAP, FOR THE SAME REASON, ONE DEPENDENCY FURTHER OUT.**
+    #: `data/lineage_map_models.json` is a pure function of this registry's
+    #: relations, and nothing rebuilt it. So every registry rebuild silently
+    #: invalidated it: on 2026-08-10 the map was NINE DAYS OLD, missing 30 of
+    #: the 104 roster arms, and `lineage_of` answered confidently for the rest
+    #: -- which is how "52 pairs -> 45 lineages" got reported as a measurement.
+    #:
+    #: There is no judgement in the derivation, only a rebuild nobody triggered,
+    #: which is what makes it the strongest case in the nine-artifact drift
+    #: table and the cheapest to close. Same argument as the pair export above:
+    #: the two cannot now disagree without someone editing one by hand.
+    try:
+        import importlib.util as _ilu
+        _sp = _ilu.spec_from_file_location(
+            "_blm", os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                 "build_lineage_map.py"))
+        _blm = _ilu.module_from_spec(_sp)
+        _sp.loader.exec_module(_blm)
+        import sys as _sys
+        _argv = _sys.argv
+        _sys.argv = ["build_lineage_map.py", "--write"]
+        try:
+            _blm.main()
+        finally:
+            _sys.argv = _argv
+    except Exception as _e:
+        print("  WARNING: lineage map rebuild FAILED (%s) -- "
+              "data/lineage_map_models.json is now STALE relative to this "
+              "registry, and every lineage count read from it is a count over "
+              "the previous population" % type(_e).__name__)
     print(f"\nwrote {OUT}")
     return 0
 

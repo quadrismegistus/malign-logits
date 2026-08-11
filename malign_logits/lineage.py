@@ -32,13 +32,18 @@ the fifth. It now reads the map.
     for nobody else, so Llama-3.1 and Falcon-H1 were separate lineages BY
     OMISSION until 2026-08-10.
 
-WHY THE REPRESENTATIVE IS COMPUTED AND NOT STORED. It depends on the question --
-what size you want, which rungs you need -- so it is a property of the analysis,
-not of the model. The map stores the grouping; this picks within it.
+WHY THE REPRESENTATIVE IS STORED AND NOT COMPUTED. **This docstring said the
+opposite until 2026-08-10, and the argument was wrong for tonight's own
+reason.** "It depends on the question, so compute it" sounds principled and
+produces N implementations of one decision -- and this module's copy sorted on
+a name-parsed size, read `archangel_sft-dpo_pythia2-8b` as 8.0B (it is a 2.8B
+pythia), and picked that ALIGNED arm to stand for the pythia lineage. The map
+holds `lineage_to_representative` and `_representative_rule`; this reads them.
+A caller wanting a different target size passes `target_b` and gets a LOCAL
+answer it is then obliged to report as local.
 """
 import json
 import os
-import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAP = os.path.join(ROOT, "data", "lineage_map_models.json")
@@ -112,29 +117,46 @@ def base_of(model):
     return _map()["model_to_base"].get(model)
 
 
-def _size_b(model):
-    m = re.search(r"(\d+(?:\.\d+)?)\s*[bB](?![a-z])", str(model))
-    return float(m.group(1)) if m else None
+def representative(lineage, members=None, cells=None, target_b=None):
+    """The lineage's representative. **READ FROM THE MAP, not recomputed.**
 
+    The rule and its result are both in `lineage_map_models.json`
+    (`_representative_rule`, `lineage_to_representative`) because six scripts
+    consume that file, and two implementations of one decision is the defect
+    this campaign spent 2026-08-10 removing. This function had its own copy --
+    with its own name-parsed size, which read
+    `archangel_sft-dpo_pythia2-8b` as 8.0B (it is a 2.8B pythia) and picked
+    that ALIGNED arm to stand for the pythia lineage. The map's version sorts
+    on the registry's `params_b` and prefers base-stage members.
 
-def representative(lineage, members, cells=None, target_b=7.0):
-    """Pick one member of a lineage to stand for it.
-
-    SIZE-MATCHED ON PURPOSE. Taking each lineage's largest member would
-    confound lineage with scale -- Falcon3-10B against Qwen2.5-0.5B compares
-    two sizes wearing lineage labels. The median scored checkpoint is 7.0B and
-    97 of 140 sit in the 6-8B band, so ~7B is available in nearly every lineage
-    and is the band that minimises that confound.
-
-    Order: never a vendor-declared derivative, then closest to `target_b`, then
-    most cells, then id for determinism.
+    `target_b` is the escape hatch: pass one and you get a LOCAL computation
+    with a declared target, which is a different quantity from the stored
+    answer and should be reported as such.
     """
-    cand = [m for m in members if m not in DERIVATIVES] or list(members)
-    def rank(m):
-        s = _size_b(m)
-        return (abs((s if s is not None else 1e3) - target_b),
-                -(cells or {}).get(m, 0), str(m))
-    return sorted(cand, key=rank)[0]
+    if target_b is None:
+        rep = _map()["lineage_to_representative"].get(lineage)
+        if rep:
+            return rep
+        if members is None:
+            raise UnmappedModel(
+                "%r has no stored representative and no members were passed. "
+                "Rebuild with scripts/build_lineage_map.py --write." % lineage)
+    #: LOCAL, DECLARED-TARGET PATH. Sizes come from the registry, never from
+    #: the model id -- the parse is what produced the archangel error.
+    import json as _json
+    reg = os.path.join(ROOT, "data", "model_registry.json")
+    with open(reg) as fh:
+        rows = _json.load(fh)["models"]
+    pb = {m["model_id"]: m.get("params_b") for m in rows}
+    stage = {m["model_id"]: str(m.get("stage", "")).lower() for m in rows}
+    members = list(members or [])
+    pool = [m for m in members if stage.get(m) in ("base", "id")] or members
+    cand = [m for m in pool if m not in DERIVATIVES] or pool
+    t = 7.0 if target_b is None else target_b
+    return sorted(cand, key=lambda m: (
+        0 if pb.get(m) is not None else 1,
+        abs((pb.get(m) if pb.get(m) is not None else 1e3) - t),
+        -(cells or {}).get(m, 0), str(m)))[0]
 
 
 def groups(models, strict=True):
@@ -146,7 +168,7 @@ def groups(models, strict=True):
     return dict(g)
 
 
-def collapse(models, cells=None, target_b=7.0, strict=True):
+def collapse(models, cells=None, target_b=None, strict=True):
     """One representative per lineage. **Use this for any cross-lineage n.**"""
     return sorted(representative(k, v, cells, target_b)
                   for k, v in groups(models, strict=strict).items())
