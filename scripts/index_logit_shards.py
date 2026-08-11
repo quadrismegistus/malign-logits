@@ -109,10 +109,17 @@ def _load_resolution():
     was about.
     """
     import json as _j
-    p = os.path.join(ROOT, "data", "twp_source_resolution.json")
+    #: **PER MODEL, NOT PER CELL, AND THAT IS THE RIGHT UNIT HERE.** The twp
+    #: resolution (`twp_source_resolution.json`) is keyed `model\x1fprompt`
+    #: because a twp cell is scored independently. A `.f16` holds EVERY cell of
+    #: one model in one directory, so the choice of payload is a choice of FILE
+    #: -- lacan's `resolve_logits`, [5331]. Reading the twp map here would ask
+    #: a per-cell question of a per-file fact and refuse everything it could
+    #: not find, which is exactly what it did on the first sweep.
+    p = os.path.join(ROOT, "data", "logit_source_resolution.json")
     if not os.path.exists(p):
         return {}
-    return (_j.load(open(p)) or {}).get("cells", {})
+    return (_j.load(open(p)) or {}).get("models", {})
 
 
 def main():
@@ -258,7 +265,7 @@ def main():
             best[k] = (ent, srcdir); continue
         if best[k][1] == srcdir:            # same directory twice: last wins,
             best[k] = (ent, srcdir); continue   # the within-file rule, declared
-        want = resolution.get("%s\x1f%s" % (model, prompt), {}).get("source")
+        want = (resolution.get(model) or {}).get("source")
         if want is None:
             ambiguous.append((model, prompt, sorted({best[k][1], srcdir})))
         elif srcdir == want:
