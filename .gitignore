@@ -330,3 +330,15 @@ data/f11_twp*/*.jsonl
 # twp jsonl rule above had to avoid.
 meta/M01_displacement/results/y_tokens/
 meta/M01_displacement/results/y_passages.parquet
+
+# M03 plan B bulk outputs: 115 MB, DETERMINISTIC from committed producers over
+# a hashed population, and larger than anything else tracked under meta/*.
+# The small analysis tables they feed (b_arm_cells.csv, b_arm_by_lineage.csv,
+# b_word_delta_by_word.csv) ARE tracked, so nothing quotable lives only here.
+# Regenerate:
+#   uv run python meta/M03_proceduralization/scripts/b_twp_institutional.py --run
+#   uv run python meta/M03_proceduralization/scripts/b_word_delta.py --run
+# PATH-SCOPED for the same reason as the parquet rule above.
+meta/M03_proceduralization/results/b_pair_prompt.jsonl
+meta/M03_proceduralization/results/b_fields.jsonl
+meta/M03_proceduralization/results/b_word_delta_cells.csv.gz

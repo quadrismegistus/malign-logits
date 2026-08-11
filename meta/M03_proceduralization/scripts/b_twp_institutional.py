@@ -76,6 +76,41 @@ SELECTORS = {
 }
 
 
+#: CLICKHOUSE TSV ESCAPES ON OUTPUT, AND THE APOSTROPHE IS ONE OF THEM.
+#: `can't` in the store comes back over `FORMAT TSV` as `can\'t` -- verified
+#: with `od -c` against `prompt_catalogue`, where JSONEachRow returns the clean
+#: text and both stores hold ZERO backslashes. The JS and movement numbers were
+#: never wrong, because both arms travel this same pipe and their keys match
+#: each other; what breaks is every join to anything OUTSIDE it. Three of F21's
+#: 38 texts failed to join to `prompt_categorisation.json`, and `weren\'t`
+#: appeared as a word key in the delta table.
+#:
+#: This is the SAME THREE WORDS as the old defect (`it's`, `can't`, `aren't`)
+#: in the OPPOSITE DIRECTION. "Prompts never leave the database" governs text
+#: going INTO SQL and is silent about text coming OUT, so the doctrine that was
+#: supposed to have closed this covered one direction only.
+TSV_UNESCAPE = {"\\\\": "\\", "\\'": "'", "\\t": "\t", "\\n": "\n",
+                "\\r": "\r", "\\0": "\0", "\\b": "\b", "\\f": "\f"}
+
+
+def tsv_unescape(s):
+    """Reverse ClickHouse's TSV output escaping. Left-to-right, never a chain
+    of str.replace: replacing `\\\\` first and `\\'` after would turn the two
+    characters `\\` `\\'` into something neither escape produced."""
+    if "\\" not in s:
+        return s
+    out, i = [], 0
+    while i < len(s):
+        two = s[i:i + 2]
+        if two in TSV_UNESCAPE:
+            out.append(TSV_UNESCAPE[two])
+            i += 2
+        else:
+            out.append(s[i])
+            i += 1
+    return "".join(out)
+
+
 def _ch(sql):
     r = subprocess.run([CH, "client", "--max_query_size", "20000000", "-q", sql],
                        capture_output=True)
@@ -168,6 +203,7 @@ def fetch(models):
     D, strat = collections.defaultdict(dict), {}
     for line in out.splitlines():
         m, pr, st, word, v = line.split("\t")
+        pr, word = tsv_unescape(pr), tsv_unescape(word)
         D[(m, pr)][word] = float(v)
         strat[pr] = st
     return D, strat
