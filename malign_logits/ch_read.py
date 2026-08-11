@@ -35,7 +35,22 @@ from collections import defaultdict
 CH = os.environ.get("MALIGN_CH_BIN", "/opt/homebrew/bin/clickhouse")
 DB = os.environ.get("MALIGN_CH_DB", "malign_logits")
 #: latest run first
-SOURCE_PRECEDENCE = ("f11_twp_delta", "f11_twp", "cloud_run_20260801")
+#: **THE M05 SHARDS RANK LAST, AND THAT IS A CONSISTENCY RULE RATHER THAN A
+#: JUDGEMENT ABOUT QUALITY.** 181 cells on the three `main` checkpoints were
+#: re-scored by the M05 fleet because they needed hidden sidecars, and their word
+#: probabilities differ from the resident ones -- same word COUNTS, different
+#: values, two observations on different hardware. `twp_ingest` is first-write-
+#: wins, so the store kept `cloud_run_20260801`. The index must therefore choose
+#: the same file, on `index_logit_shards`'s own doctrine: **"if the index and twp
+#: ever chose differently, one cell's word probabilities and its logit vector
+#: would come from different runs, which is worse than either being wrong on its
+#: own."**
+#:
+#: Ranking last touches ONLY cells that collide with a higher-precedence source
+#: -- 122 of 54,492. M05's own new cells exist nowhere else, and a rank is never
+#: consulted for a cell with one candidate.
+SOURCE_PRECEDENCE = ("f11_twp_delta", "f11_twp", "cloud_run_20260801",
+                     "m05_0", "m05_1", "m05_2", "m05_3", "m05_4")
 
 _CACHE = {}          #: (model, theta, mode) -> {prompt: payload}
 _MISS = set()        #: models known absent, so a miss is not re-queried per cell
@@ -161,10 +176,31 @@ def prefetch(model, theta=0.001, mode="raw"):
             resid[_unesc(f[0])] = {"tail": float(f[1]), "drop": float(f[2]),
                                    "open": float(f[3]), "mojibake": float(f[4]),
                                    "total": float(f[5]), "rule_version": int(f[6])}
+    #: ITERATE THE UNION, NOT THE WORD ROWS. `by` is keyed by prompts that have
+    #: at least one word above theta, so a cell that was SCORED and resolved
+    #: NOTHING never entered `out` and reached `word_probs` as None -- i.e. as
+    #: ABSENT. Present-and-empty and never-scored are different facts and this
+    #: loop made them one.
+    #:
+    #: It is not a corner case and it is not only step0. 1,226 cells across 23
+    #: models are residual-only: Lucie 368 + 207, Olmo-3-1025-7B@stage1-step0
+    #: 257, salamandra 162 + 104, Pharia 52 + 50, jais 5. Those models have
+    #: been quietly dropping cells from every analysis that iterated them.
+    #:
+    #: The step0 case is the one that names the cost: at that checkpoint the
+    #: distribution is flat enough that no token clears theta=0.001 (uniform
+    #: over 100,278 tokens is p~1e-5), so 257 of 584 cells resolve no word.
+    #: Read as absent, an acquisition curve begins at "no data" where the truth
+    #: is "no resolvable word" -- different claims about the same rung.
+    #:
+    #: Downstream is safe and was checked rather than assumed: `movement` on
+    #: empty->empty gives 0 risers, 0 fallers, residual_share 1.0; empty->words
+    #: makes the word a riser, which is what a rise from below theta is; and
+    #: `Cell.js` is exactly 0.0 between two all-tail cells.
     out = {}
-    for p, ws in by.items():
+    for p in set(by) | set(resid):
         r = resid.get(p) or {}
-        out[p] = {"rows": ws, "residual": r,
+        out[p] = {"rows": by.get(p, []), "residual": r,
                   "rule_version": r.get("rule_version", 3), "theta": theta}
     _CACHE[key] = out
     if not out:
