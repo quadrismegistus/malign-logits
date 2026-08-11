@@ -94,9 +94,15 @@ and it is now readable rather than invisible ([5418] read-path fix).
 
 ## What this does to the standing findings
 
-- F04 (unaudited, C): superseded in direction — its 10-checkpoint lag was
-  the shadow of the event/drift asymmetry at low resolution. Trail to be
-  added at F04 when this finding passes audit.
+- F04 (unaudited, C): AUDITED AT 43 RUNGS AND ITS SPECIFIC CLAIMS FAIL
+  ([5424], at RH's prompting): 'scream rises gradually from step 10000
+  onward' -- at full resolution it rises 6k->9k, PEAKS at 9,000 (0.083),
+  and is back to 0.040 by 10,000, exactly where F04 next sampled; its
+  kiss pair peaks at 2,000 and DECLINES 61% into the late arm where F04
+  reports a rise. 'F04's lag is an artefact of a 10-point grid with a
+  5,000-step hole in it.' The direction-level supersession stands; the
+  specific F04 trajectories do not. (F04 fingerprinted as OLMo by
+  base-probability match -- its CSVs carry no model column.)
 - F26 (Think-SFT ~3x displacement, Think-DPO ~0): refined — DPO adds
   little at the raw surface but the substitute's drift continues through
   it; "adds ~0" was a two-endpoint statement about a drift.
