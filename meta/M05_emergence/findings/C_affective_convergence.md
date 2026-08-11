@@ -83,6 +83,22 @@ absolute-value/eyeball artifact; the paired difference-in-differences test
 reverses it, and the concreteness bins that looked widened do not reach DiD
 significance. The permutation null caught the error — which is why it was run.
 
+## Relation to M01 Registration T finding 13
+
+T's finding 13 ("the withdrawal is transgression-specific; the substitution
+is not") is the EDGE-UNIT (43-lineage) form of this finding, and it is
+consistent with — indeed the mechanism of — the convergence here. T-13
+measures, on the M01 twins across 43 alignment edges: contact falls -0.086 at
+the MARKED twin vs -0.049 at neutral, Cause_harm -0.031 vs -0.011, aggression
+-0.051 vs -0.032 — alignment removes the violent word MORE where there is one.
+Bigger withdrawal at the transgressive twin is exactly what closes the
+marked/neutral gap: T-13's transgression-specific removal IS this finding's
+convergence, seen at the edge unit instead of the rung unit. What M05-C adds
+that T-13 does not have: the AFFECT-NORM version with a difference-in-
+differences permutation showing the SIGN of the movement (toward zero). That
+addition would matter most run at T's edge unit, not on one lineage — the
+proper next step is the DiD on the 43 edges, not a fourth M05 rung analysis.
+
 ## Caveats and the load-bearing limit
 
 All one lineage (OLMo). 95 rungs are not 95 independent observations — for a

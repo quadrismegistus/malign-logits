@@ -73,6 +73,20 @@ physical/sensory/drive -> abstract/grammatical/stative/cognitive.
 
 ![USAS categories](../figures/fig10_usas_field_flow.png)
 
+## Relation to M01 Registration T
+
+This is the ONE-LINEAGE, TRAJECTORY form of M01's finding T ("where the mass
+goes"), `../../M01_displacement/findings/T_category_flow.md`. T establishes
+the SAME direction on the EDGE UNIT (43 base->aligned alignment edges across
+the roster, seven blind lexicons, Bowker symmetry needing no null, stem-
+clustered and Jaccard-deduplicated): contact/violence/aggression fall,
+cognition/perception/speech rise, zero lexically-similar clusters split
+(finding 16); and T finding 7 is the de-extremification of concreteness
+("not more abstract, less extreme", both tails to the middle). T is the
+generalisable result. THIS finding adds only WHEN — the shift installs at the
+SFT boundary — which the edge unit cannot see. It does not add generalisation;
+the roster-wide claim is T's.
+
 ## Reading
 
 This is the field-level, training-trajectory form of the campaign's
