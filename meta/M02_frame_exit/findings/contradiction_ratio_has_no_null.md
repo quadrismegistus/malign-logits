@@ -178,6 +178,22 @@ instrument on most of these models.
 Remaining bound: the ratio is still blind to pole-picking against frame-exit
 within a single cell, which is what the four-mass accounting is for.
 
+## Where this meets the representation side
+
+`pole_axis_t_is_not_superposition.md` measures the same question on the residual
+stream and finds nothing, which looked like a conflict and is not: a midpoint in
+logit space yields the GEOMETRIC mixture (the intersection) while this ratio
+scores the ARITHMETIC one (the union). Measured, the models do UNION -- 46 of 46
+lineages, both arms -- so the pole-axis projection was scoring the kind of
+"both" they do not produce.
+
+The two findings also join quantitatively. Change in pole separation, from the
+L3 hidden states, predicts change in the superposition signal measured here:
+**Spearman rho -0.420, p=0.0041, n=45 lineages**, across two independent
+substrates. Poles driven apart, superposition collapsing, output landing near
+neither pole. The arrow is not established -- both may track how much alignment
+happened -- and the checkpoint ladder is what would settle it.
+
 ## Reproduction
 
     uv run python meta/M02_frame_exit/scripts/contradiction_null.py --logits

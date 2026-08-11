@@ -189,6 +189,65 @@ The negative control is unchanged by the union and still refuses the excursion:
 
     f11_reason/_zh   both 0.0780   control_a 0.0741   control_b 0.0739
 
+## Why this and the output-side ratio disagreed, and they do not
+
+`contradiction_ratio_has_no_null.md` finds superposition on the output side (46
+of 46 lineages) while `t` finds nothing. Both are right, because **they target
+different notions of "both" and the models only produce one of them.**
+
+    softmax(a.z_A + (1-a).z_B)  proportional to  P_A^a . P_B^(1-a)
+
+A MIDPOINT IN LOGIT SPACE therefore yields the GEOMETRIC mean -- a product of
+experts, the INTERSECTION, mass only where both poles agree. F11's ratio scores
+against the ARITHMETIC mean -- the UNION, mass where EITHER pole licenses.
+Inclusive disjunction is the union one. Measured:
+
+    arm        JS to ARITHMETIC   JS to GEOMETRIC   closer to arithmetic
+    base            0.0903            0.1115          46 of 46 lineages
+    aligned         0.1339            0.1537          46 of 46 lineages
+
+The models do UNION, unanimously, in both arms. And at the FINAL layer -- the
+one that becomes logits -- `t(both) = 0.488`, almost exactly the midpoint, with
+`resid = 0.773`. If the representation were genuinely ON the axis there, the
+output would be the geometric mixture. It is not.
+
+**So the off-axis remainder that `t` discards is precisely what turns a midpoint
+shadow into a union output.** `t` sees the shadow; the superposition lives in
+the part `t` throws away. That is the whole discrepancy, and it is a stronger
+reason to retire `t` as a superposition measure than the resid argument above.
+
+## Pole separation predicts the loss of superposition
+
+RH's question, 2026-08-11: if alignment drives the poles apart, is that itself a
+turn away from superposition? Their continuation sets become more disjoint, so a
+distribution covering both becomes harder to occupy -- exclusive disjunction
+installed in the AXIS rather than by picking a side.
+
+    change in pole_sep (aligned - base)  against  change in superposition signal
+
+    n = 45 lineages    Spearman rho -0.420  p=0.0041
+                       Pearson  r   -0.447  p=0.0021
+
+The more a lineage's poles separate under alignment, the more its superposition
+collapses. **The two quantities come from independent substrates** -- `pole_sep`
+from the L3 hidden states, the superposition signal from the twp output ratio --
+so this is agreement across instruments, not one instrument agreeing with
+itself.
+
+It also fits where the output actually ends up: near NEITHER pole (the
+neutralization calibration), rather than at one. Poles driven apart, interior
+pulled toward a middle that is no longer a blend of anything.
+
+**THE CONFOUND, WHICH THIS CANNOT RULE OUT.** Both quantities may simply track
+HOW MUCH ALIGNMENT HAPPENED. A heavily aligned model would show more pole
+separation and more superposition loss with neither causing the other. The
+correlation is real; the arrow is not established. Settling it needs the SFT/DPO
+checkpoint ladder, where separation either precedes collapse or does not -- that
+is M05, and it is held.
+
+Producer: `scripts/poles_and_superposition.py`.
+Results: `results/union_vs_intersection.csv`, `results/polesep_vs_superposition.csv`.
+
 ## What would actually test superposition
 
 The logit lens, on data already on disk, with an instrument that already exists
