@@ -1,0 +1,26 @@
+{
+ "_what": "F21 institutional + M03 speaker kernel, on the 46 lineage-representative pairs. Unit: (lineage, prompt).",
+ "_prompts_never_leave_the_database": "The population is these SELECTORS, applied as a subquery. No text is written into this file or into a query literal. Three earlier counts were wrong because texts round-tripped through TSV and back: `it's`, `can't`, `aren't` double-escaped and matched nothing.",
+ "_unit": "THE LINEAGE, n=46. Not 92 models, not 290 prompts, not 26,680 cells.",
+ "_cannot_measure": "AGENCY. See plan \u00a75; the addendum's 'do not narrate submission' is not dischargeable by this instrument.",
+ "selectors": {
+  "f21_institutional": "finding='F21' AND status='ACTIVE' AND language='en'",
+  "m03_speaker_kernel": "source='M03_SPEAKER_KERNEL'"
+ },
+ "n_pairs": 46,
+ "n_models": 92,
+ "coverage": {
+  "f21_institutional": {
+   "texts": 38,
+   "at_full": 38,
+   "partial": 0
+  },
+  "m03_speaker_kernel": {
+   "texts": 252,
+   "at_full": 252,
+   "partial": 0
+  }
+ },
+ "population_sha256": "8dc5878b683992db4fb322043a0d7f0d6e59facc0b08574bd3c957feecebdd77",
+ "population_sha256_16": "8dc5878b683992db"
+}

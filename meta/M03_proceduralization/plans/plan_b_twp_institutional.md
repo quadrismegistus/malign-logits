@@ -164,11 +164,28 @@ Candidates, not decisions:
 - **Whether zh enters as a second study.** 13 F21 zh rows exist. English-only is
   this campaign's stated convention and zh is a weaker instrument on an
   English-heavy roster; it is not automatically excluded, it is unasked.
-- **The riser/faller threshold**, which is a free parameter and therefore a
-  hazard. It must be declared before running: a threshold chosen after seeing
-  the curves is the k-instability that killed M02's top-k measure (63.1% of
-  cells changed verdict across k). Prefer a mass-based rule over a rank-based
-  one, or report a sweep with the verdict at every setting.
+- ~~The riser/faller threshold.~~ **SETTLED, and it was never ours to choose
+  (RH, 11 Aug): `malign_logits.movement.CANONICAL`.** I had written this clause
+  proposing a new mass-based knob with no default, reasoning that a threshold
+  chosen after seeing the curves is chosen on the outcome. The reasoning was
+  right and the conclusion was wrong: `movement.py` exists precisely BECAUSE
+  "every seat derived fallers and risers on its own constants", so inventing a
+  fresh parameter -- even an undefaulted, carefully-declared one -- is that
+  failure with better manners.
+
+  What CANONICAL buys that a threshold cannot: **risers are tested against the
+  RENORMALISATION NULL.** Every word gains a little once a faller's mass is
+  removed, and the null is what separates redistribution from bookkeeping. Its
+  asymmetry travels with it and must not be narrated away -- **fallers are a
+  bare ratio rule, are NOT tested against the null, and may never be described
+  as "beyond renormalisation".**
+
+  Two diagnostics ride on every row and must be read before quoting an excess:
+  `exact_null` is **False** on this instrument by construction (twp is truncated
+  at theta, so the null is computed over a truncated support), and
+  `residual_share` says how much of the distribution the approximation rests on
+  -- 0.174 on the first real cell tested, where the tail bucket is larger than
+  most individual words.
 
 Under [5148] this clause needs the enumerated list in a file with its hash, the
 roster, and nothing defined by a tool.
