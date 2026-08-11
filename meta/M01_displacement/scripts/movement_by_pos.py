@@ -280,9 +280,16 @@ def confound_check(risers, fallers, cls):
     percell = None
     if os.path.exists(pcf):
         el = json.load(open(pcf))["words"]
+        #: THE DENOMINATOR IS THE POPULATION (@lacan [5496]). An eligibility
+        #: statistic invoked to explain a FALL RATE must be computed over the
+        #: words that MOVED: 57% of tagged NOUN/VERB rows have zero movement
+        #: events and cannot touch a fall rate, and they carry the entire 2.1x
+        #: NOUN/VERB eligibility ratio my [5494] composition argument rested on.
+        #: At >=1 movement event the ratio is 1.02x and the argument evaporates.
         NV = [(w, x, cls[w]) for w, x in el.items()
               if cls.get(w) in ("NOUN", "VERB")]
-        ev = sorted([r for r in NV if r[1]["elig_rate"] > 0],
+        MOVED = [r for r in NV if r[1]["rise"] + r[1]["fall"] >= 1]
+        ev = sorted([r for r in MOVED if r[1]["elig_rate"] > 0],
                     key=lambda r: r[1]["elig_rate"])
         qq, rowsq = len(ev) // 4, []
         for i in range(4):
@@ -308,13 +315,23 @@ def confound_check(risers, fallers, cls):
                 for c in ("NOUN", "VERB")},
             "quartiles_among_ever_eligible": rowsq,
             "noun_lower_in": "%d of 4 firing quartiles" % lo4,
-            "verdict": "NULL. NOUN words are ineligible to fall about twice as "
-                       "often (mean 0.042 vs 0.088), which drags the pooled "
-                       "NOUN fall rate down by composition. Among ever-eligible "
-                       "words eligibility is near-identical and the gap "
-                       "disappears. THE [5490] FLOOR READING IS WITHDRAWN: it "
-                       "checked the direction of FREQUENCY, which is only a "
-                       "proxy for the gate, not the gate.",
+            "eligibility_ratio_by_min_events": {
+                "0": "NOUN 0.042 VERB 0.088 (2.10x) -- 57% of these rows have "
+                     "ZERO movement events and cannot affect a fall rate",
+                "1": "NOUN 0.152 VERB 0.154 (1.02x) -- the gap is gone",
+                "5": "NOUN 0.264 VERB 0.227 (0.86x) -- NOUN is MORE eligible",
+            },
+            "verdict": "UNRESOLVED, and NOT for want of n. Restricted to words "
+                       "that MOVED, the strata hold 102-150 nouns each and all "
+                       "four fire; NOUN is lower in 2 of 4 at >=1 event and 2 "
+                       "of 4 at >=5. The sign FLIPS across the eligibility "
+                       "range -- NOUN falls MORE at low eligibility (+9.5 pts "
+                       "at Q1) and slightly less at high (-2.3 at Q4) -- so the "
+                       "pooled gap is a weighting fact, not a class fact. BOTH "
+                       "my [5490] floor reading AND my [5494] composition "
+                       "argument are withdrawn: the first checked frequency "
+                       "(the proxy, not the gate), the second computed the gate "
+                       "over the wrong population.",
         }
     lower = sum(1 for r in quint
                 if r["NOUN"]["fall_rate"] is not None

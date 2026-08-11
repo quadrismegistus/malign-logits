@@ -228,57 +228,62 @@
     "VERB": 0.088
    },
    "median_eligibility_ever_eligible": {
-    "NOUN": 0.15,
-    "VERB": 0.143
+    "NOUN": 0.162,
+    "VERB": 0.146
    },
    "quartiles_among_ever_eligible": [
     {
      "median_elig": 0.048,
      "NOUN": {
-      "words": 115,
+      "words": 102,
       "fall_rate": 0.2935
      },
      "VERB": {
-      "words": 492,
-      "fall_rate": 0.1984
+      "words": 479,
+      "fall_rate": 0.1986
      }
     },
     {
-     "median_elig": 0.105,
+     "median_elig": 0.108,
      "NOUN": {
-      "words": 160,
-      "fall_rate": 0.3998
+      "words": 150,
+      "fall_rate": 0.4036
      },
      "VERB": {
-      "words": 447,
-      "fall_rate": 0.3327
+      "words": 431,
+      "fall_rate": 0.3367
      }
     },
     {
-     "median_elig": 0.201,
+     "median_elig": 0.205,
      "NOUN": {
-      "words": 139,
-      "fall_rate": 0.439
+      "words": 128,
+      "fall_rate": 0.4378
      },
      "VERB": {
-      "words": 468,
-      "fall_rate": 0.4763
+      "words": 453,
+      "fall_rate": 0.4805
      }
     },
     {
-     "median_elig": 0.407,
+     "median_elig": 0.404,
      "NOUN": {
-      "words": 149,
+      "words": 138,
       "fall_rate": 0.5615
      },
      "VERB": {
-      "words": 458,
-      "fall_rate": 0.5841
+      "words": 444,
+      "fall_rate": 0.5847
      }
     }
    ],
    "noun_lower_in": "2 of 4 firing quartiles",
-   "verdict": "NULL. NOUN words are ineligible to fall about twice as often (mean 0.042 vs 0.088), which drags the pooled NOUN fall rate down by composition. Among ever-eligible words eligibility is near-identical and the gap disappears. THE [5490] FLOOR READING IS WITHDRAWN: it checked the direction of FREQUENCY, which is only a proxy for the gate, not the gate."
+   "eligibility_ratio_by_min_events": {
+    "0": "NOUN 0.042 VERB 0.088 (2.10x) -- 57% of these rows have ZERO movement events and cannot affect a fall rate",
+    "1": "NOUN 0.152 VERB 0.154 (1.02x) -- the gap is gone",
+    "5": "NOUN 0.264 VERB 0.227 (0.86x) -- NOUN is MORE eligible"
+   },
+   "verdict": "UNRESOLVED, and NOT for want of n. Restricted to words that MOVED, the strata hold 102-150 nouns each and all four fire; NOUN is lower in 2 of 4 at >=1 event and 2 of 4 at >=5. The sign FLIPS across the eligibility range -- NOUN falls MORE at low eligibility (+9.5 pts at Q1) and slightly less at high (-2.3 at Q4) -- so the pooled gap is a weighting fact, not a class fact. BOTH my [5490] floor reading AND my [5494] composition argument are withdrawn: the first checked frequency (the proxy, not the gate), the second computed the gate over the wrong population."
   },
   "noun_rise_stratified": {
    "median_fpm": {
@@ -294,8 +299,8 @@
       "fall_rate": 0.3523
      },
      "VERB": {
-      "words": 531,
-      "fall_rate": 0.3637
+      "words": 532,
+      "fall_rate": 0.3635
      }
     },
     {
@@ -305,8 +310,8 @@
       "fall_rate": 0.4669
      },
      "VERB": {
-      "words": 521,
-      "fall_rate": 0.3948
+      "words": 520,
+      "fall_rate": 0.3949
      }
     },
     {
