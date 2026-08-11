@@ -167,4 +167,29 @@ either of the two biggest markers, which is the check that matters.
 worst p = 0.00086. V1 likewise (2.31x–2.45x, max p 0.0015; 19 of 20 groups
 above 1).
 
-**English only.** zh untested for this construct.
+**English only.** zh untested for this construct, and the markers are English,
+so a zh run is a new instrument rather than a replication.
+
+**THE ONLY GENUINELY UNTOUCHED DATA DID NOT GO THE RIGHT WAY, AND IT IS TOO
+SMALL TO MEAN ANYTHING.** Four base/aligned pairs sit in
+`data/base_aligned_pairs.json` with f11_l2 generations but outside
+`lineage_representative_pairs.txt`, so no analysis here ever iterated them:
+pythia-2.8b/archangel, Qwen2.5-0.5B, Falcon3-1B, Falcon3-3B. On those, V1 gives
+BOTH **0.95x** against POLE **1.80x** — the interaction inverted — with per-pair
+ratios 0.97 / 0.00 / 2.07 / 0.97. V3_SAFE fires about 20 times in total there
+and says nothing.
+
+Two things about it, both stated because either alone would mislead. It is
+**6,650 passages, four pairs, and three of the four are smaller siblings of
+families already in the main analysis**, so it is neither independent nor
+powered — a sign test cannot go below p = 0.125 at n = 4. And the obvious
+explanation is **refuted**: the pairs are the small end of the roster because
+the lineage list takes the largest model per family, but size does not moderate
+the effect across the 19 lineages where it can be measured (Spearman +0.063,
+p = 0.80; median 2.40x at <= 3B against 2.11x above).
+
+So this is not a failed replication. It is the absence of one, plus a flag that
+did not point the reassuring way. **The finding rests on 25 lineages with strong
+internal robustness and has no external validation.** Getting one requires data
+the instrument has not seen — new generations, or the M03 speaker kernel as a
+different stimulus for the same construct — not another cut of this corpus.
