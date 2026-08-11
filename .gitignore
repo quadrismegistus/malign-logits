@@ -344,3 +344,10 @@ meta/M03_proceduralization/results/b_fields.jsonl
 meta/M03_proceduralization/results/b_word_delta_cells.csv.gz
 meta/M03_proceduralization/results/c_cells.csv.gz
 meta/M03_proceduralization/results/c_word_delta_cells.csv.gz
+
+# M03 plan D bulk output: 57 MB, above GitHub's 50 MiB warning, DETERMINISTIC
+# from a committed producer over a fixed population. The report is computed
+# from it on demand (`d_ladder_fields.py --report`) and the quotable numbers
+# live in the finding, so nothing is only here. Regenerate:
+#   uv run python meta/M03_proceduralization/scripts/d_ladder_fields.py --run
+meta/M03_proceduralization/results/d_ladder_fields.csv
