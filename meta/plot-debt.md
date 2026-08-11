@@ -40,12 +40,20 @@ scripted at all) before the numbers travel further.
 - **M01 H2** (`H2_alignment_depth.md`): CLEARED same day — malign wrote the
   `--json` output ([5430]): `meta/M01_displacement/results/h2_depth_primary.json`.
   H2's figure candidate is unblocked.
-- **M04 Finding A** (`A_post_utterance_shock.md`): the producer
-  (`meta/M02_frame_exit/scripts/channel3_run.py`) writes no CSV/JSON/parquet.
-  The primary, the four-term grid, the per-index grid, the position profile,
-  the twin moderator and the long-window sweep are all stdout-only; the
-  long-window sweep is additionally the author's own aggregation, not
-  recoverable from the frozen slot spec ([5024].2). Not re-queryable.
+- **M04 Finding A** (`A_post_utterance_shock.md`): **PARTLY CLEARED
+  2026-08-11 on RH's word** — `channel3_run.py --write` now emits
+  `meta/M04_syntagmatic/results/A_post_utterance_shock.json`: 21 reported
+  statistics with per-pair values, population counts and the per-family
+  descriptive. Capture only, no computation altered, and it REPRODUCES the
+  document exactly at the document's own precision, so the finding is now
+  re-queryable and its figures are unblocked.
+  **STILL OPEN, and it is the harder half**: the per-index grid, the +1-only
+  four terms, and the long-window sweep are EXPLORATORY analyses that live
+  outside `channel3_run.py` and remain stdout-only. The long-window sweep is
+  additionally the author's own aggregation, not recoverable from the frozen
+  slot spec ([5024].2) — and the finding's own "Robust / Not robust" split
+  turns on exactly that aggregation, so this is the piece a reader would most
+  want to check.
 - **M02 pole-axis next-word** (`pole_axis_next_word_grain.md`): `results/dp.pkl`
   and the `pole_axis_*.log` files are untracked/gitignored — machine-local.
   Any figure needs `pole_axis_build.py` re-run first (BGE-m3 encode, GloVe

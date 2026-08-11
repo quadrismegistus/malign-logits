@@ -2,6 +2,10 @@
 
 **M04's first own finding.** Registered spec `meta/M02_frame_exit/registrations/spec_channel3_renewed_displacement.md`, frozen at `85fd7d10` before any statistic was computed. Producer `meta/M02_frame_exit/scripts/channel3_run.py`. Docket [5009]–[5016].
 
+**Artifact `../results/A_post_utterance_shock.json` — 21 reported statistics with their per-pair values, the population counts, and the per-family descriptive.** Written 2026-08-11 on RH's word, after registrar's [5429] named this finding on the produce-before-plot list: **the producer had no write calls of any kind, so every number below existed only as stdout from a session that had ended.** The finding could be re-run and hoped to match; it could not be re-queried, audited or plotted.
+
+**The re-run REPRODUCES it exactly, at this document's own precision** — primary on both rosters, all four terms, the position profile, the twin moderator, own-beam, and the population (23,746 cells → 5,112 sites, 599 half-present excluded, 33 pairs). The writes are capture only: `report()` already built the dict it printed and discarded it, so no computation was touched, **which is what makes the run a test rather than a revision.** Had the writes required changing a calculation, agreement would have proved nothing.
+
 ---
 
 ## The claim
@@ -156,9 +160,9 @@ What argues against pure mechanism is the **asymmetry on identical inputs**: the
 
 ## Against this finding
 
-- **bigscience is a wild outlier**: +0.31733 against every other family in [−0.078, +0.021]. The median over 33 pairs is robust to it, but it does not travel unremarked.
+- **bigscience is a wild outlier**: +0.31733 against every other family in [−0.078, +0.021]. The median over 33 pairs is robust to it, but it does not travel unremarked. *(Per-pair values are now stored for all 21 reported statistics, so this is inspectable rather than a sentence.)*
 - **Two inference methods disagree in three rows** — UNMARKED p 0.169 with a CI excluding zero, B\|B p 0.163 with a CI upper bound of −0.00011. Wilcoxon-on-values and bootstrap-on-median answer slightly different questions; neither is quoted selectively.
-- **The MDE clause is mis-specified**, flagged before the run and unfixed: `2.8·SD/√n` is mean-based, the primary is a median-based Wilcoxon, and SD 0.065 is inflated by outliers the median ignores. **"2.20× the channel-1 effect" must not be quoted.** A rank-based power calculation is owed.
+- **The MDE clause is mis-specified**, flagged before the run and unfixed: `2.8·SD/√n` is mean-based, the primary is a median-based Wilcoxon, and SD 0.065 is inflated by outliers the median ignores. **"2.20× the channel-1 effect" must not be quoted.** A rank-based power calculation is owed. *(The artifact carries this prohibition as a field beside the number that produces it, so the caveat cannot be separated from the figure by a reader who quotes the JSON.)*
 - **The positive control is INVALID BY DESIGN, not merely unrunnable.** It could not run (n = 5) because wave 3's undisturbed arm lives under `design=None`, outside the frozen population. But no n would have rescued it: `D(forced) > D(undisturbed)` **compares across a structural boundary twice over.** (a) The undisturbed arm has committed to nothing and the forced arms have committed to a word; the entropy drop from committing to *anything* is definitional and carries no information about repression. (b) `plen` includes the forced word, so the forced arms score sentence positions 2–11 against the undisturbed arm's 1–10, and later tokens are more predictable because context has accumulated.
 
   Measured on the five pairs that have it (aligned scoring its own continuation): undisturbed −1.0010, forced riser −0.9476, forced faller −0.9782 — **both forced conditions score higher than unforced**, the opposite sign to the control's prediction and uninterpretable for the two reasons above.
