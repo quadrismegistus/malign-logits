@@ -4,6 +4,31 @@ Written 2026-08-11. One item, and it is ready to run.
 
 ---
 
+## DONE, 2026-08-11. THE ANSWER IS NULL: `findings/depth_and_exit_do_not_join.md`
+
+Ran as specified below. Depth does not predict frame exit (ANY-EXIT
+rho = -0.238, p = 0.26, 24 lineages, 60,480 generations), the Chinese half
+agrees, and the output-level JS contrast predicts the markers at rho = -0.011.
+80% power at |rho| = 0.54, so a strong coupling is excluded and a weak one is
+not.
+
+**Two corrections to what is written below**, both of which the run exposed:
+
+- "50 models shared with the lens" is true and is NOT the sample size. A
+  lineage needs both arms in BOTH substrates, which leaves **25 pairs of 46**
+  (24 with complete English cells). "2,150 triples / 129,000 passages" counts
+  cells, and cells are not observations -- the same error this file warns about
+  four paragraphs further down.
+- `gen_sequences.role` is EMPTY on every f11_l2 row, and five prompt texts fill
+  more than one (group, role) slot -- one of them as POLE_A in one group and
+  POLE_B in another. The prompt map has to be one-to-many. See the finding.
+
+What remains open from this item is a **coded** exit pass, since the regexes
+declare their own error direction as unknown; and roster growth, which is a
+fleet question. Neither is a reason to re-run this.
+
+---
+
 ## THE DEPTH x EXIT JOIN IS RUNNABLE NOW. THE SUBSTRATE EXISTS AND I MISREAD IT ONCE.
 
 ### The question
