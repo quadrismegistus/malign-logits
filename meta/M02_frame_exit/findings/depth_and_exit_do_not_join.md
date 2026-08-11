@@ -112,6 +112,52 @@ and a smaller one. Panel B of the figure is that distribution, because a
 sentence saying "the pooled value is unrepresentative" is weaker than the
 picture of 58 bars with the mean sitting outside the body of them.
 
+## The coded outcome, tried: four fields unrunnable, one hypothesis
+
+`scripts/z_depth_exit_coded.py` re-runs the join against the L2 treatment coder
+(`malign_logits/tasks/code_m02_l2_treatment_v1.py`) instead of the regexes --
+565 deduped non-degenerate passages, 22 lineages, 402 passages in the join.
+
+**It mostly cannot be run, and the file says so before it says anything else.**
+The coded corpus is a SPREAD sample: a median of ONE passage per (model, group)
+cell, so a lineage arm rests on ~9 passages and a difference of two such rates
+carries a binomial SE near 20 points. Comparing the observed between-lineage
+spread against what binomial sampling alone would produce:
+
+| field | base | aligned | sd obs | sd noise | reliability |
+|---|---|---|---|---|---|
+| frame_exit | 35.4% | 40.3% | 0.211 | 0.219 | **0.00** |
+| tension_named | 8.3% | 14.3% | 0.193 | 0.129 | 0.56 |
+| tension_deliberated | 5.3% | 7.1% | 0.112 | 0.105 | **0.13** |
+| tension_enacted | 8.3% | 9.2% | 0.106 | 0.119 | **0.00** |
+| refusal | 0.0% | 1.0% | 0.039 | 0.037 | **0.07** |
+
+Four of five are noise. A correlation against a quantity that is entirely
+sampling error is attenuated to zero **whatever is true**, so a null on those
+fields would be a fact about the annotation budget and not about the world; they
+are not reported. Reaching reliability 0.5 would need roughly 76 coded passages
+per lineage arm, about 3,300 in total.
+
+**`tension_named` survives at 0.56, and gives rho = -0.412, p = 0.057 against
+argmax depth.** The regex run's single nominal hit was E-MENTION on the same
+statistic, rho = -0.426, p = 0.038. Same sign, near-identical magnitude, two
+instruments.
+
+That is worth exactly one check and it was run: **the E-MENTION regex fires on
+0 of the 56 spans the coder quoted for `tension_named`.** They are not one
+measurement scored twice -- E-MENTION catches metalinguistic QUOTATION ("words
+like", "the term 'x'"), `tension_named` catches a passage naming its own
+contradiction in ordinary prose ("an incoherent mess of lust and rage"). So the
+agreement is not an artefact. **It is also not corroboration**, because they are
+not the same claim: two weak signals, same direction, different constructs.
+
+Both are negative, which is the OPPOSITE of the gate prediction -- lineages
+whose arms part later show a SMALLER alignment-driven rise in naming. If that
+were real it would be interesting. On this evidence it is a hypothesis with a
+direction, drawn from two multiple-comparison-laden tables, and it should be
+registered and tested rather than cited. **It is not a result and is not
+indexed as one.**
+
 ## What would settle it
 
 Nothing about generation volume: 129,000 passages were available and the join
