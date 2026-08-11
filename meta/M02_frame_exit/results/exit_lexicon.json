@@ -1,0 +1,1647 @@
+{
+ "_meta": {
+  "source": "meta/M01_displacement/results/y_passages.parquet",
+  "seed": 4946,
+  "kinds": [
+   "meta",
+   "web",
+   "refusal"
+  ],
+  "reference": "story",
+  "min_count": 40,
+  "log_odds_threshold": 2.2,
+  "span_provenance": {
+   "meta": {
+    "base": 5959,
+    "aligned": 6720,
+    "balanced_each": 5959
+   },
+   "web": {
+    "base": 9120,
+    "aligned": 5049,
+    "balanced_each": 5049
+   },
+   "refusal": {
+    "base": 138,
+    "aligned": 1499,
+    "balanced_each": 138
+   }
+  },
+  "spans_pooled": 22292,
+  "reference_spans": 70344,
+  "n_words": 268,
+  "note": "balanced by arm; derived in M01, applied in M02"
+ },
+ "words": [
+  "frac",
+  "grammatically",
+  "czech",
+  "describes",
+  "infer",
+  "implies",
+  "https",
+  "translate",
+  "user's",
+  "opt",
+  "refers",
+  "mentions",
+  "adverb",
+  "punctuation",
+  "conclude",
+  "context",
+  "verb",
+  "xnxx",
+  "html",
+  "suggests",
+  "options",
+  "http",
+  "grammatical",
+  "sildenafil",
+  "descriptive",
+  "conveys",
+  "indicates",
+  "select",
+  "audiences",
+  "aligns",
+  "iii",
+  "generate",
+  "premise",
+  "involves",
+  "noun",
+  "contains",
+  "pronoun",
+  "hypothesis",
+  "verbs",
+  "character's",
+  "guidelines",
+  "incorrect",
+  "informative",
+  "ans",
+  "copyright",
+  "emphasizes",
+  "paragraph",
+  "inferred",
+  "www",
+  "analyze",
+  "characters'",
+  "summary",
+  "introduces",
+  "themes",
+  "excerpt",
+  "specify",
+  "user",
+  "definitively",
+  "provides",
+  "format",
+  "focuses",
+  "imply",
+  "contexts",
+  "xxx",
+  "preceding",
+  "demonstrates",
+  "examples",
+  "categories",
+  "maintains",
+  "narrator's",
+  "sentence",
+  "explicitly",
+  "includes",
+  "symbolize",
+  "interpretations",
+  "tweet",
+  "relevant",
+  "usa",
+  "revised",
+  "descriptions",
+  "alternatively",
+  "statements",
+  "explicit",
+  "narrative",
+  "determine",
+  "viagra",
+  "promote",
+  "bot",
+  "author's",
+  "inference",
+  "grammar",
+  "tamil",
+  "phrasing",
+  "explores",
+  "paragraphs",
+  "policies",
+  "refer",
+  "logically",
+  "unrelated",
+  "describing",
+  "fictional",
+  "com",
+  "additionally",
+  "download",
+  "continuation",
+  "helpful",
+  "literary",
+  "based",
+  "clarification",
+  "snippet",
+  "storytelling",
+  "readers",
+  "output",
+  "scenario",
+  "query",
+  "clarify",
+  "sentences",
+  "logical",
+  "desi",
+  "description",
+  "blog",
+  "specific",
+  "vary",
+  "analysis",
+  "correct",
+  "motivations",
+  "typically",
+  "author",
+  "commonly",
+  "choices",
+  "interpretation",
+  "include",
+  "users",
+  "phrase",
+  "org",
+  "functions",
+  "reader",
+  "informal",
+  "imagery",
+  "creates",
+  "lend",
+  "input",
+  "plausible",
+  "ambiguity",
+  "pics",
+  "pic",
+  "accurately",
+  "clause",
+  "tags",
+  "involving",
+  "generic",
+  "educational",
+  "hentai",
+  "text",
+  "detailed",
+  "provide",
+  "reviews",
+  "erotica",
+  "facebook",
+  "harmful",
+  "narrator",
+  "characters",
+  "valid",
+  "consensual",
+  "specified",
+  "interpreted",
+  "answer",
+  "highlights",
+  "identify",
+  "adds",
+  "published",
+  "updated",
+  "additional",
+  "emphasize",
+  "related",
+  "usage",
+  "aunty",
+  "slang",
+  "genre",
+  "review",
+  "hindi",
+  "prioritize",
+  "translation",
+  "ambiguous",
+  "prompt",
+  "primarily",
+  "characteristics",
+  "faithfully",
+  "therefore",
+  "comprehensive",
+  "indicate",
+  "implying",
+  "interpret",
+  "dynamics",
+  "passage",
+  "assumptions",
+  "sie",
+  "reflects",
+  "example",
+  "option",
+  "reasoning",
+  "uses",
+  "topics",
+  "website",
+  "statement",
+  "ethical",
+  "article",
+  "choose",
+  "videos",
+  "topic",
+  "moreover",
+  "category",
+  "perspectives",
+  "evaluate",
+  "convey",
+  "representation",
+  "accurate",
+  "meanings",
+  "authors",
+  "follows",
+  "rewrite",
+  "nuances",
+  "illustrate",
+  "behaviors",
+  "represents",
+  "edit",
+  "dialogue",
+  "references",
+  "engaging",
+  "extract",
+  "rated",
+  "provided",
+  "serves",
+  "requires",
+  "policy",
+  "follow",
+  "protagonist",
+  "essay",
+  "graphic",
+  "aspects",
+  "overall",
+  "psychological",
+  "person's",
+  "factors",
+  "individuals",
+  "textbook",
+  "der",
+  "components",
+  "metaphor",
+  "appropriate",
+  "reference",
+  "companies",
+  "writers",
+  "characteristic",
+  "suitable",
+  "twitter",
+  "fiction",
+  "available",
+  "contribute",
+  "explanation",
+  "posted",
+  "phrases",
+  "metaphorical",
+  "comments",
+  "justify",
+  "amazon",
+  "information",
+  "versions"
+ ],
+ "detail": [
+  {
+   "word": "frac",
+   "log_odds": 5.6817,
+   "spans": 46
+  },
+  {
+   "word": "grammatically",
+   "log_odds": 5.1443,
+   "spans": 81
+  },
+  {
+   "word": "czech",
+   "log_odds": 4.9705,
+   "spans": 342
+  },
+  {
+   "word": "describes",
+   "log_odds": 4.8576,
+   "spans": 387
+  },
+  {
+   "word": "infer",
+   "log_odds": 4.6577,
+   "spans": 83
+  },
+  {
+   "word": "implies",
+   "log_odds": 4.6497,
+   "spans": 248
+  },
+  {
+   "word": "https",
+   "log_odds": 4.4367,
+   "spans": 120
+  },
+  {
+   "word": "translate",
+   "log_odds": 4.4314,
+   "spans": 732
+  },
+  {
+   "word": "user's",
+   "log_odds": 4.368,
+   "spans": 62
+  },
+  {
+   "word": "opt",
+   "log_odds": 4.3038,
+   "spans": 105
+  },
+  {
+   "word": "refers",
+   "log_odds": 4.1588,
+   "spans": 253
+  },
+  {
+   "word": "mentions",
+   "log_odds": 4.1584,
+   "spans": 111
+  },
+  {
+   "word": "adverb",
+   "log_odds": 4.1548,
+   "spans": 50
+  },
+  {
+   "word": "punctuation",
+   "log_odds": 4.1333,
+   "spans": 128
+  },
+  {
+   "word": "conclude",
+   "log_odds": 4.1329,
+   "spans": 207
+  },
+  {
+   "word": "context",
+   "log_odds": 4.109,
+   "spans": 1437
+  },
+  {
+   "word": "verb",
+   "log_odds": 4.0936,
+   "spans": 237
+  },
+  {
+   "word": "xnxx",
+   "log_odds": 4.0723,
+   "spans": 46
+  },
+  {
+   "word": "html",
+   "log_odds": 4.0723,
+   "spans": 46
+  },
+  {
+   "word": "suggests",
+   "log_odds": 4.0514,
+   "spans": 464
+  },
+  {
+   "word": "options",
+   "log_odds": 4.0442,
+   "spans": 1600
+  },
+  {
+   "word": "http",
+   "log_odds": 3.9716,
+   "spans": 92
+  },
+  {
+   "word": "grammatical",
+   "log_odds": 3.9482,
+   "spans": 57
+  },
+  {
+   "word": "sildenafil",
+   "log_odds": 3.8946,
+   "spans": 54
+  },
+  {
+   "word": "descriptive",
+   "log_odds": 3.8483,
+   "spans": 111
+  },
+  {
+   "word": "conveys",
+   "log_odds": 3.8423,
+   "spans": 66
+  },
+  {
+   "word": "indicates",
+   "log_odds": 3.8159,
+   "spans": 237
+  },
+  {
+   "word": "select",
+   "log_odds": 3.7802,
+   "spans": 312
+  },
+  {
+   "word": "audiences",
+   "log_odds": 3.7685,
+   "spans": 75
+  },
+  {
+   "word": "aligns",
+   "log_odds": 3.7477,
+   "spans": 60
+  },
+  {
+   "word": "iii",
+   "log_odds": 3.7171,
+   "spans": 332
+  },
+  {
+   "word": "generate",
+   "log_odds": 3.7084,
+   "spans": 174
+  },
+  {
+   "word": "premise",
+   "log_odds": 3.6934,
+   "spans": 95
+  },
+  {
+   "word": "involves",
+   "log_odds": 3.6531,
+   "spans": 238
+  },
+  {
+   "word": "noun",
+   "log_odds": 3.6531,
+   "spans": 79
+  },
+  {
+   "word": "contains",
+   "log_odds": 3.6426,
+   "spans": 175
+  },
+  {
+   "word": "pronoun",
+   "log_odds": 3.6264,
+   "spans": 65
+  },
+  {
+   "word": "hypothesis",
+   "log_odds": 3.6172,
+   "spans": 88
+  },
+  {
+   "word": "verbs",
+   "log_odds": 3.6059,
+   "spans": 52
+  },
+  {
+   "word": "character's",
+   "log_odds": 3.5846,
+   "spans": 108
+  },
+  {
+   "word": "guidelines",
+   "log_odds": 3.5718,
+   "spans": 163
+  },
+  {
+   "word": "incorrect",
+   "log_odds": 3.5222,
+   "spans": 198
+  },
+  {
+   "word": "informative",
+   "log_odds": 3.5058,
+   "spans": 47
+  },
+  {
+   "word": "ans",
+   "log_odds": 3.5058,
+   "spans": 47
+  },
+  {
+   "word": "copyright",
+   "log_odds": 3.4745,
+   "spans": 66
+  },
+  {
+   "word": "emphasizes",
+   "log_odds": 3.4715,
+   "spans": 76
+  },
+  {
+   "word": "paragraph",
+   "log_odds": 3.4615,
+   "spans": 257
+  },
+  {
+   "word": "inferred",
+   "log_odds": 3.4406,
+   "spans": 44
+  },
+  {
+   "word": "www",
+   "log_odds": 3.4332,
+   "spans": 240
+  },
+  {
+   "word": "analyze",
+   "log_odds": 3.4219,
+   "spans": 247
+  },
+  {
+   "word": "characters'",
+   "log_odds": 3.4178,
+   "spans": 72
+  },
+  {
+   "word": "summary",
+   "log_odds": 3.3986,
+   "spans": 137
+  },
+  {
+   "word": "introduces",
+   "log_odds": 3.386,
+   "spans": 51
+  },
+  {
+   "word": "themes",
+   "log_odds": 3.3851,
+   "spans": 210
+  },
+  {
+   "word": "excerpt",
+   "log_odds": 3.3708,
+   "spans": 124
+  },
+  {
+   "word": "specify",
+   "log_odds": 3.3664,
+   "spans": 50
+  },
+  {
+   "word": "user",
+   "log_odds": 3.3515,
+   "spans": 393
+  },
+  {
+   "word": "definitively",
+   "log_odds": 3.3464,
+   "spans": 49
+  },
+  {
+   "word": "provides",
+   "log_odds": 3.3336,
+   "spans": 155
+  },
+  {
+   "word": "format",
+   "log_odds": 3.3332,
+   "spans": 75
+  },
+  {
+   "word": "focuses",
+   "log_odds": 3.2985,
+   "spans": 81
+  },
+  {
+   "word": "imply",
+   "log_odds": 3.272,
+   "spans": 129
+  },
+  {
+   "word": "contexts",
+   "log_odds": 3.2659,
+   "spans": 95
+  },
+  {
+   "word": "xxx",
+   "log_odds": 3.2619,
+   "spans": 533
+  },
+  {
+   "word": "preceding",
+   "log_odds": 3.2463,
+   "spans": 85
+  },
+  {
+   "word": "demonstrates",
+   "log_odds": 3.2399,
+   "spans": 44
+  },
+  {
+   "word": "examples",
+   "log_odds": 3.2194,
+   "spans": 162
+  },
+  {
+   "word": "categories",
+   "log_odds": 3.1993,
+   "spans": 50
+  },
+  {
+   "word": "maintains",
+   "log_odds": 3.186,
+   "spans": 57
+  },
+  {
+   "word": "narrator's",
+   "log_odds": 3.1701,
+   "spans": 41
+  },
+  {
+   "word": "sentence",
+   "log_odds": 3.1692,
+   "spans": 1511
+  },
+  {
+   "word": "explicitly",
+   "log_odds": 3.1657,
+   "spans": 146
+  },
+  {
+   "word": "includes",
+   "log_odds": 3.1468,
+   "spans": 158
+  },
+  {
+   "word": "symbolize",
+   "log_odds": 3.1457,
+   "spans": 40
+  },
+  {
+   "word": "interpretations",
+   "log_odds": 3.1457,
+   "spans": 40
+  },
+  {
+   "word": "tweet",
+   "log_odds": 3.1381,
+   "spans": 47
+  },
+  {
+   "word": "relevant",
+   "log_odds": 3.1272,
+   "spans": 126
+  },
+  {
+   "word": "usa",
+   "log_odds": 3.1219,
+   "spans": 75
+  },
+  {
+   "word": "revised",
+   "log_odds": 3.1139,
+   "spans": 53
+  },
+  {
+   "word": "descriptions",
+   "log_odds": 3.1089,
+   "spans": 145
+  },
+  {
+   "word": "alternatively",
+   "log_odds": 3.1064,
+   "spans": 88
+  },
+  {
+   "word": "statements",
+   "log_odds": 3.102,
+   "spans": 144
+  },
+  {
+   "word": "explicit",
+   "log_odds": 3.0806,
+   "spans": 548
+  },
+  {
+   "word": "narrative",
+   "log_odds": 3.0787,
+   "spans": 485
+  },
+  {
+   "word": "determine",
+   "log_odds": 3.0614,
+   "spans": 321
+  },
+  {
+   "word": "viagra",
+   "log_odds": 3.055,
+   "spans": 171
+  },
+  {
+   "word": "promote",
+   "log_odds": 3.0433,
+   "spans": 56
+  },
+  {
+   "word": "bot",
+   "log_odds": 3.0362,
+   "spans": 148
+  },
+  {
+   "word": "author's",
+   "log_odds": 3.0362,
+   "spans": 49
+  },
+  {
+   "word": "inference",
+   "log_odds": 3.0268,
+   "spans": 42
+  },
+  {
+   "word": "grammar",
+   "log_odds": 3.0181,
+   "spans": 87
+  },
+  {
+   "word": "tamil",
+   "log_odds": 3.0169,
+   "spans": 61
+  },
+  {
+   "word": "phrasing",
+   "log_odds": 3.0158,
+   "spans": 48
+  },
+  {
+   "word": "explores",
+   "log_odds": 3.0158,
+   "spans": 48
+  },
+  {
+   "word": "paragraphs",
+   "log_odds": 3.003,
+   "spans": 41
+  },
+  {
+   "word": "policies",
+   "log_odds": 3.0005,
+   "spans": 60
+  },
+  {
+   "word": "refer",
+   "log_odds": 2.9924,
+   "spans": 129
+  },
+  {
+   "word": "logically",
+   "log_odds": 2.9865,
+   "spans": 78
+  },
+  {
+   "word": "unrelated",
+   "log_odds": 2.9737,
+   "spans": 46
+  },
+  {
+   "word": "describing",
+   "log_odds": 2.9687,
+   "spans": 200
+  },
+  {
+   "word": "fictional",
+   "log_odds": 2.9677,
+   "spans": 132
+  },
+  {
+   "word": "com",
+   "log_odds": 2.9649,
+   "spans": 568
+  },
+  {
+   "word": "additionally",
+   "log_odds": 2.9644,
+   "spans": 107
+  },
+  {
+   "word": "download",
+   "log_odds": 2.9496,
+   "spans": 172
+  },
+  {
+   "word": "continuation",
+   "log_odds": 2.9466,
+   "spans": 87
+  },
+  {
+   "word": "helpful",
+   "log_odds": 2.9389,
+   "spans": 254
+  },
+  {
+   "word": "literary",
+   "log_odds": 2.9181,
+   "spans": 108
+  },
+  {
+   "word": "based",
+   "log_odds": 2.9176,
+   "spans": 870
+  },
+  {
+   "word": "clarification",
+   "log_odds": 2.907,
+   "spans": 43
+  },
+  {
+   "word": "snippet",
+   "log_odds": 2.9004,
+   "spans": 60
+  },
+  {
+   "word": "storytelling",
+   "log_odds": 2.896,
+   "spans": 54
+  },
+  {
+   "word": "readers",
+   "log_odds": 2.8944,
+   "spans": 157
+  },
+  {
+   "word": "output",
+   "log_odds": 2.8933,
+   "spans": 174
+  },
+  {
+   "word": "scenario",
+   "log_odds": 2.8903,
+   "spans": 510
+  },
+  {
+   "word": "query",
+   "log_odds": 2.8837,
+   "spans": 76
+  },
+  {
+   "word": "clarify",
+   "log_odds": 2.8799,
+   "spans": 87
+  },
+  {
+   "word": "sentences",
+   "log_odds": 2.8794,
+   "spans": 307
+  },
+  {
+   "word": "logical",
+   "log_odds": 2.8793,
+   "spans": 149
+  },
+  {
+   "word": "desi",
+   "log_odds": 2.8668,
+   "spans": 58
+  },
+  {
+   "word": "description",
+   "log_odds": 2.8659,
+   "spans": 481
+  },
+  {
+   "word": "blog",
+   "log_odds": 2.8562,
+   "spans": 107
+  },
+  {
+   "word": "specific",
+   "log_odds": 2.8551,
+   "spans": 630
+  },
+  {
+   "word": "vary",
+   "log_odds": 2.8485,
+   "spans": 46
+  },
+  {
+   "word": "analysis",
+   "log_odds": 2.8347,
+   "spans": 245
+  },
+  {
+   "word": "correct",
+   "log_odds": 2.8328,
+   "spans": 810
+  },
+  {
+   "word": "motivations",
+   "log_odds": 2.8258,
+   "spans": 61
+  },
+  {
+   "word": "typically",
+   "log_odds": 2.8254,
+   "spans": 216
+  },
+  {
+   "word": "author",
+   "log_odds": 2.8141,
+   "spans": 277
+  },
+  {
+   "word": "commonly",
+   "log_odds": 2.8112,
+   "spans": 97
+  },
+  {
+   "word": "choices",
+   "log_odds": 2.8022,
+   "spans": 608
+  },
+  {
+   "word": "interpretation",
+   "log_odds": 2.7951,
+   "spans": 111
+  },
+  {
+   "word": "include",
+   "log_odds": 2.7932,
+   "spans": 323
+  },
+  {
+   "word": "users",
+   "log_odds": 2.7923,
+   "spans": 90
+  },
+  {
+   "word": "phrase",
+   "log_odds": 2.7807,
+   "spans": 411
+  },
+  {
+   "word": "org",
+   "log_odds": 2.7774,
+   "spans": 53
+  },
+  {
+   "word": "functions",
+   "log_odds": 2.7748,
+   "spans": 124
+  },
+  {
+   "word": "reader",
+   "log_odds": 2.7628,
+   "spans": 238
+  },
+  {
+   "word": "informal",
+   "log_odds": 2.7586,
+   "spans": 42
+  },
+  {
+   "word": "imagery",
+   "log_odds": 2.7488,
+   "spans": 101
+  },
+  {
+   "word": "creates",
+   "log_odds": 2.7324,
+   "spans": 75
+  },
+  {
+   "word": "lend",
+   "log_odds": 2.7237,
+   "spans": 84
+  },
+  {
+   "word": "input",
+   "log_odds": 2.7186,
+   "spans": 122
+  },
+  {
+   "word": "plausible",
+   "log_odds": 2.7156,
+   "spans": 45
+  },
+  {
+   "word": "ambiguity",
+   "log_odds": 2.7156,
+   "spans": 45
+  },
+  {
+   "word": "pics",
+   "log_odds": 2.7118,
+   "spans": 83
+  },
+  {
+   "word": "pic",
+   "log_odds": 2.7094,
+   "spans": 59
+  },
+  {
+   "word": "accurately",
+   "log_odds": 2.6975,
+   "spans": 63
+  },
+  {
+   "word": "clause",
+   "log_odds": 2.6924,
+   "spans": 58
+  },
+  {
+   "word": "tags",
+   "log_odds": 2.6711,
+   "spans": 98
+  },
+  {
+   "word": "involving",
+   "log_odds": 2.6686,
+   "spans": 180
+  },
+  {
+   "word": "generic",
+   "log_odds": 2.6639,
+   "spans": 70
+  },
+  {
+   "word": "educational",
+   "log_odds": 2.6491,
+   "spans": 60
+  },
+  {
+   "word": "hentai",
+   "log_odds": 2.6474,
+   "spans": 42
+  },
+  {
+   "word": "text",
+   "log_odds": 2.637,
+   "spans": 843
+  },
+  {
+   "word": "detailed",
+   "log_odds": 2.6311,
+   "spans": 279
+  },
+  {
+   "word": "provide",
+   "log_odds": 2.6309,
+   "spans": 763
+  },
+  {
+   "word": "reviews",
+   "log_odds": 2.6155,
+   "spans": 58
+  },
+  {
+   "word": "erotica",
+   "log_odds": 2.6102,
+   "spans": 62
+  },
+  {
+   "word": "facebook",
+   "log_odds": 2.6055,
+   "spans": 66
+  },
+  {
+   "word": "harmful",
+   "log_odds": 2.6036,
+   "spans": 83
+  },
+  {
+   "word": "narrator",
+   "log_odds": 2.5989,
+   "spans": 219
+  },
+  {
+   "word": "characters",
+   "log_odds": 2.5905,
+   "spans": 513
+  },
+  {
+   "word": "valid",
+   "log_odds": 2.5753,
+   "spans": 89
+  },
+  {
+   "word": "consensual",
+   "log_odds": 2.5685,
+   "spans": 138
+  },
+  {
+   "word": "specified",
+   "log_odds": 2.5675,
+   "spans": 47
+  },
+  {
+   "word": "interpreted",
+   "log_odds": 2.5628,
+   "spans": 92
+  },
+  {
+   "word": "answer",
+   "log_odds": 2.5627,
+   "spans": 3586
+  },
+  {
+   "word": "highlights",
+   "log_odds": 2.5617,
+   "spans": 96
+  },
+  {
+   "word": "identify",
+   "log_odds": 2.5549,
+   "spans": 181
+  },
+  {
+   "word": "adds",
+   "log_odds": 2.55,
+   "spans": 103
+  },
+  {
+   "word": "published",
+   "log_odds": 2.5495,
+   "spans": 107
+  },
+  {
+   "word": "updated",
+   "log_odds": 2.5473,
+   "spans": 42
+  },
+  {
+   "word": "additional",
+   "log_odds": 2.5422,
+   "spans": 223
+  },
+  {
+   "word": "emphasize",
+   "log_odds": 2.5415,
+   "spans": 82
+  },
+  {
+   "word": "related",
+   "log_odds": 2.5291,
+   "spans": 391
+  },
+  {
+   "word": "usage",
+   "log_odds": 2.5268,
+   "spans": 57
+  },
+  {
+   "word": "aunty",
+   "log_odds": 2.5254,
+   "spans": 49
+  },
+  {
+   "word": "slang",
+   "log_odds": 2.5235,
+   "spans": 41
+  },
+  {
+   "word": "genre",
+   "log_odds": 2.517,
+   "spans": 80
+  },
+  {
+   "word": "review",
+   "log_odds": 2.5115,
+   "spans": 185
+  },
+  {
+   "word": "hindi",
+   "log_odds": 2.5109,
+   "spans": 60
+  },
+  {
+   "word": "prioritize",
+   "log_odds": 2.5092,
+   "spans": 56
+  },
+  {
+   "word": "translation",
+   "log_odds": 2.5023,
+   "spans": 133
+  },
+  {
+   "word": "ambiguous",
+   "log_odds": 2.4968,
+   "spans": 63
+  },
+  {
+   "word": "prompt",
+   "log_odds": 2.4966,
+   "spans": 113
+  },
+  {
+   "word": "primarily",
+   "log_odds": 2.4943,
+   "spans": 59
+  },
+  {
+   "word": "characteristics",
+   "log_odds": 2.4895,
+   "spans": 74
+  },
+  {
+   "word": "faithfully",
+   "log_odds": 2.4841,
+   "spans": 47
+  },
+  {
+   "word": "therefore",
+   "log_odds": 2.4812,
+   "spans": 547
+  },
+  {
+   "word": "comprehensive",
+   "log_odds": 2.4809,
+   "spans": 62
+  },
+  {
+   "word": "indicate",
+   "log_odds": 2.4701,
+   "spans": 155
+  },
+  {
+   "word": "implying",
+   "log_odds": 2.469,
+   "spans": 65
+  },
+  {
+   "word": "interpret",
+   "log_odds": 2.4684,
+   "spans": 50
+  },
+  {
+   "word": "dynamics",
+   "log_odds": 2.4586,
+   "spans": 131
+  },
+  {
+   "word": "passage",
+   "log_odds": 2.4484,
+   "spans": 544
+  },
+  {
+   "word": "assumptions",
+   "log_odds": 2.4411,
+   "spans": 45
+  },
+  {
+   "word": "sie",
+   "log_odds": 2.4247,
+   "spans": 55
+  },
+  {
+   "word": "reflects",
+   "log_odds": 2.4221,
+   "spans": 62
+  },
+  {
+   "word": "example",
+   "log_odds": 2.4201,
+   "spans": 486
+  },
+  {
+   "word": "option",
+   "log_odds": 2.414,
+   "spans": 352
+  },
+  {
+   "word": "reasoning",
+   "log_odds": 2.4114,
+   "spans": 132
+  },
+  {
+   "word": "uses",
+   "log_odds": 2.4054,
+   "spans": 212
+  },
+  {
+   "word": "topics",
+   "log_odds": 2.3998,
+   "spans": 120
+  },
+  {
+   "word": "website",
+   "log_odds": 2.3962,
+   "spans": 130
+  },
+  {
+   "word": "statement",
+   "log_odds": 2.3916,
+   "spans": 410
+  },
+  {
+   "word": "ethical",
+   "log_odds": 2.3893,
+   "spans": 98
+  },
+  {
+   "word": "article",
+   "log_odds": 2.3845,
+   "spans": 242
+  },
+  {
+   "word": "choose",
+   "log_odds": 2.3842,
+   "spans": 603
+  },
+  {
+   "word": "videos",
+   "log_odds": 2.3836,
+   "spans": 283
+  },
+  {
+   "word": "topic",
+   "log_odds": 2.3821,
+   "spans": 262
+  },
+  {
+   "word": "moreover",
+   "log_odds": 2.371,
+   "spans": 103
+  },
+  {
+   "word": "category",
+   "log_odds": 2.3508,
+   "spans": 71
+  },
+  {
+   "word": "perspectives",
+   "log_odds": 2.3504,
+   "spans": 61
+  },
+  {
+   "word": "evaluate",
+   "log_odds": 2.3491,
+   "spans": 41
+  },
+  {
+   "word": "convey",
+   "log_odds": 2.344,
+   "spans": 163
+  },
+  {
+   "word": "representation",
+   "log_odds": 2.3419,
+   "spans": 44
+  },
+  {
+   "word": "accurate",
+   "log_odds": 2.3387,
+   "spans": 126
+  },
+  {
+   "word": "meanings",
+   "log_odds": 2.3298,
+   "spans": 63
+  },
+  {
+   "word": "authors",
+   "log_odds": 2.3247,
+   "spans": 40
+  },
+  {
+   "word": "follows",
+   "log_odds": 2.3229,
+   "spans": 179
+  },
+  {
+   "word": "rewrite",
+   "log_odds": 2.3192,
+   "spans": 43
+  },
+  {
+   "word": "nuances",
+   "log_odds": 2.3192,
+   "spans": 43
+  },
+  {
+   "word": "illustrate",
+   "log_odds": 2.3192,
+   "spans": 43
+  },
+  {
+   "word": "behaviors",
+   "log_odds": 2.3173,
+   "spans": 59
+  },
+  {
+   "word": "represents",
+   "log_odds": 2.3139,
+   "spans": 62
+  },
+  {
+   "word": "edit",
+   "log_odds": 2.3108,
+   "spans": 65
+  },
+  {
+   "word": "dialogue",
+   "log_odds": 2.3066,
+   "spans": 192
+  },
+  {
+   "word": "references",
+   "log_odds": 2.3029,
+   "spans": 74
+  },
+  {
+   "word": "engaging",
+   "log_odds": 2.3022,
+   "spans": 245
+  },
+  {
+   "word": "extract",
+   "log_odds": 2.2984,
+   "spans": 121
+  },
+  {
+   "word": "rated",
+   "log_odds": 2.296,
+   "spans": 42
+  },
+  {
+   "word": "provided",
+   "log_odds": 2.2954,
+   "spans": 709
+  },
+  {
+   "word": "serves",
+   "log_odds": 2.2954,
+   "spans": 64
+  },
+  {
+   "word": "requires",
+   "log_odds": 2.2899,
+   "spans": 145
+  },
+  {
+   "word": "policy",
+   "log_odds": 2.2894,
+   "spans": 73
+  },
+  {
+   "word": "follow",
+   "log_odds": 2.2891,
+   "spans": 1408
+  },
+  {
+   "word": "protagonist",
+   "log_odds": 2.2809,
+   "spans": 122
+  },
+  {
+   "word": "essay",
+   "log_odds": 2.28,
+   "spans": 94
+  },
+  {
+   "word": "graphic",
+   "log_odds": 2.279,
+   "spans": 97
+  },
+  {
+   "word": "aspects",
+   "log_odds": 2.276,
+   "spans": 143
+  },
+  {
+   "word": "overall",
+   "log_odds": 2.2745,
+   "spans": 189
+  },
+  {
+   "word": "psychological",
+   "log_odds": 2.2728,
+   "spans": 121
+  },
+  {
+   "word": "person's",
+   "log_odds": 2.271,
+   "spans": 130
+  },
+  {
+   "word": "factors",
+   "log_odds": 2.2709,
+   "spans": 87
+  },
+  {
+   "word": "individuals",
+   "log_odds": 2.2708,
+   "spans": 219
+  },
+  {
+   "word": "textbook",
+   "log_odds": 2.2705,
+   "spans": 44
+  },
+  {
+   "word": "der",
+   "log_odds": 2.2656,
+   "spans": 56
+  },
+  {
+   "word": "components",
+   "log_odds": 2.2656,
+   "spans": 56
+  },
+  {
+   "word": "metaphor",
+   "log_odds": 2.2625,
+   "spans": 68
+  },
+  {
+   "word": "appropriate",
+   "log_odds": 2.2586,
+   "spans": 465
+  },
+  {
+   "word": "reference",
+   "log_odds": 2.2551,
+   "spans": 137
+  },
+  {
+   "word": "companies",
+   "log_odds": 2.2478,
+   "spans": 52
+  },
+  {
+   "word": "writers",
+   "log_odds": 2.2478,
+   "spans": 49
+  },
+  {
+   "word": "characteristic",
+   "log_odds": 2.2478,
+   "spans": 49
+  },
+  {
+   "word": "suitable",
+   "log_odds": 2.2377,
+   "spans": 197
+  },
+  {
+   "word": "twitter",
+   "log_odds": 2.2296,
+   "spans": 54
+  },
+  {
+   "word": "fiction",
+   "log_odds": 2.2269,
+   "spans": 142
+  },
+  {
+   "word": "available",
+   "log_odds": 2.2171,
+   "spans": 353
+  },
+  {
+   "word": "contribute",
+   "log_odds": 2.213,
+   "spans": 56
+  },
+  {
+   "word": "explanation",
+   "log_odds": 2.212,
+   "spans": 302
+  },
+  {
+   "word": "posted",
+   "log_odds": 2.2115,
+   "spans": 108
+  },
+  {
+   "word": "phrases",
+   "log_odds": 2.2068,
+   "spans": 119
+  },
+  {
+   "word": "metaphorical",
+   "log_odds": 2.2065,
+   "spans": 47
+  },
+  {
+   "word": "comments",
+   "log_odds": 2.2048,
+   "spans": 182
+  },
+  {
+   "word": "justify",
+   "log_odds": 2.2043,
+   "spans": 67
+  },
+  {
+   "word": "amazon",
+   "log_odds": 2.2038,
+   "spans": 44
+  },
+  {
+   "word": "information",
+   "log_odds": 2.201,
+   "spans": 960
+  },
+  {
+   "word": "versions",
+   "log_odds": 2.2007,
+   "spans": 41
+  }
+ ]
+}

@@ -148,6 +148,17 @@ def sweep():
           % (format(seen, ","), len(agg), os.path.relpath(CELLS, ROOT)))
 
 
+def exit_matcher():
+    """Compiled matcher for the committed exit lexicon, or None if absent."""
+    if not os.path.exists(EXIT_LEXICON):
+        print("NO exit lexicon at %s -- run exit_lexicon.py first; "
+              "reporting on ALL passages, which is NOT the finding's condition"
+              % os.path.relpath(EXIT_LEXICON, ROOT))
+        return None
+    w = json.load(open(EXIT_LEXICON))["words"]
+    return re.compile(r"\b(?:%s)\b" % "|".join(re.escape(x) for x in w), re.I)
+
+
 def sign_test(v):
     v = [x for x in v if x]
     n, k = len(v), sum(1 for x in v if x > 0)
