@@ -155,6 +155,15 @@ seat forgets at its peril:
   named: right for coverage, cannot inflate; counted-as-singleton: right
   for independence, inflates whenever wrong); one printed line,
   "N lineages (M unmapped: policy)", at every call site ([5384]).
+- **Frozen specs are never annotated; outcomes live in the record, not in
+  the spec.** A spec annotated with its own result can never again match
+  the pin its result was computed under — the reproducibility gate breaks
+  permanently, by an edit nobody did wrong ("the gate cannot distinguish
+  'someone appended what happened' from 'someone edited the hypotheses',
+  and it must not try"). A freeze pins BYTES; the fix for an annotated
+  spec is restorative (strip, verify against the pin), never a
+  content-hash — a gate that needs a parser has an edit boundary to argue
+  about ([5386], ruling [5387]).
 - **A measured number is measured OVER something; carrying it across an
   instrument or scale boundary is a new claim needing its own measurement.**
   Twice in one day by the same seat, named by him: load-at-3-checkpoints
