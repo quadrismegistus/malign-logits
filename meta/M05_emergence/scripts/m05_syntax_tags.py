@@ -97,8 +97,14 @@ def unique_pairs(texts):
     for line in r.stdout.splitlines():
         p, _, w = line.partition("\t")
         # TSV escapes from clickhouse
-        p = p.replace("\\t", "\t").replace("\\n", "\n").replace("\\\\", "\\")
-        w = w.replace("\\t", "\t").replace("\\n", "\n").replace("\\\\", "\\")
+        #: ClickHouse TSV escapes apostrophes too (`Arendt\'s`) -- missing
+        #: that unescape poisoned 46 prompts in the first build (8% of all
+        #: mass read UNTAGGED, flat across rungs). ch_read's own docstring
+        #: warns about exactly this string (`didn\'t`).
+        for esc_seq, ch in (("\\t", "\t"), ("\\n", "\n"), ("\\'", "'"),
+                            ("\\\\", "\\")):
+            p = p.replace(esc_seq, ch)
+            w = w.replace(esc_seq, ch)
         pairs.append((p, w))
     return pairs
 

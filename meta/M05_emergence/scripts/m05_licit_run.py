@@ -42,6 +42,7 @@ def battery_texts():
 
 
 def main():
+    import argparse
     import random
 
     import spacy
@@ -50,8 +51,20 @@ def main():
     sys.path.insert(0, HERE)
     from m05_syntax_tags import pos_class as pc
 
+    ap = argparse.ArgumentParser()
+    #: second-coder full runs (RH 2026-08-11, "run haiku on all 584"):
+    #: same task, different model of record, own artifact, no probe
+    #: (the probe compares TO this run's output).
+    ap.add_argument("--model", default=None)
+    ap.add_argument("--out", default=OUT)
+    ap.add_argument("--no-probe", action="store_true")
+    a = ap.parse_args()
+
     texts, battery_sha = battery_texts()
     task = LicitSetTask()
+    if a.model:
+        task.model = a.model
+    globals()["OUT"] = a.out
     print(f"coding {len(texts)} prompts on {task.model} at temp "
           f"{task.temperature}")
     results = task.map([f"TEXT:\n{p}" for p in texts], num_workers=8,
@@ -90,6 +103,26 @@ def main():
           f"share with <=3 classes {np.mean([s <= 3 for s in sizes]):.0%}")
 
     # ---- stability probe: second family on 30 seeded prompts -------------
+    if a.no_probe:
+        probe_payload = None
+        import numpy as np  # noqa: F811
+        payload = {
+            "_instrument": dict(
+                task="m05_licit_v1",
+                model_of_record=task.model,
+                spacy_model="en_core_web_sm",
+                spacy_version=spacy.__version__,
+                battery_sha=battery_sha,
+                n_coded=len(out), n_failed=len(failed), failed=failed,
+                witness_agreement=f"{agree}/{tries}"),
+            "prompts": out,
+        }
+        with open(a.out, "w") as f:
+            json.dump(payload, f, indent=1, ensure_ascii=False)
+        sha = hashlib.sha256(open(a.out, "rb").read()).hexdigest()[:16]
+        print(f"\nwrote {a.out} (sha256_16 {sha})")
+        return 0
+
     rng = random.Random(20260811)
     probe_prompts = rng.sample([p for p in texts if p in out], PROBE_N)
     probe_task = LicitSetTask()

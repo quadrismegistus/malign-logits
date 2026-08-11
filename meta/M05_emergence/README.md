@@ -52,13 +52,16 @@ every finding re-derives from the scripts named in its own header.
 | `findings/D_word_trajectories.md` | Displacement watched word by word on the deployed cut, with the transgressive continuation crushed at the SFT boundary as its substitute rises; R2 gives the poetic arc (pull learned early, seen through in mature pretraining, re-bound +88% under alignment against a flat floor), R3 makes the displacement axis scene- and lineage-specific, R4 finds Step(SFT, DPO) empty. | "STATUS: DRAFT, grade C — single lineage (OLMo-3), illustrative/descriptive; the per-prompt panels are examples, not a rate." | Checkpoint rung on ONE lineage (OLMo-3): the same 95-checkpoint ladder; 22 per-prompt panels with movers selected on Step(base, DPO) under CANONICAL; poetic pull measured over 20 binomial/rhyming/alliterative pairs. | `fig5_poetic_pull_floor.png`, `fig6_violence_liminal__the_soldier_raised_his_rifle_and.png`, `fig6_violence_liminal__she_was_so_angry_she_wanted_to.png`, plus the twenty further `fig6_*` panels referenced as a set | Adds a lineage axis to Registration X, whose "contiguity, not resemblance" was already withdrawn as scene-specific. Consistent with M05-A's event-in-SFT and with M01 finding U. |
 | `findings/E_pythia_capacity.md` | The Pythia ladder resolves the four-way onset tie OLMo left-censored — packages (step 2000) before reasoning (3000) before reference (4000), discourse last on both ladders (80000 / stage1-32000, criterion-sensitive, ordinal claim only); the sub-1000 window acquires words before measurable capacities; the phrase-before-the-fact ordering is now a two-lab fact. | "STATUS: FIRST LOOK, grade C — one lineage (Pythia-6.9b), descriptive, instruments copied from the OLMo ladder so the two are read by one rule; no cross-seat audit." | Checkpoint rung on ONE lineage (Pythia-6.9b), a SEPARATE population never pooled with A-D: 155 checkpoints (154 pretraining, log-spaced early), `data/pythia_population.json` ([5430]); same 584-text battery by declaration; `data/pythia_curves.parquet`, 80,290 rows. | `fig14_pythia_capacity.png` | Cross-ladder replication of A's R2 (discourse last; phrase before fact), resolving its left-censored tie. Extends [5430]'s words-per-cell result: the early window has words before capacities. Records two non-quotable artifacts (discourse half-max 128; poetic sign-onset 512 at n=2). |
 
-Owed, because all four documents are one lineage: the 46-lineage convergence
-DiD (M01 store), the syntax curve (secondary 5, which needs the frozen
-licit-category artifact), and the join check (which base revision SFT
-descends from). The Pythia second fleet LANDED 2026-08-11 ([5430], malign's
-run): its population is separate by declaration (`data/pythia_population.json`,
-never pooled with M05), and its first read QUALIFIES A's Result 3 — the true
-zero is OLMo's initialisation, not general.
+| `findings/F_syntax_curve.md` | Syntax installs as an event: on Pythia the licit share spikes on junk, CRASHES to ~0.1-0.25 in the frequency-spam phase (steps 8-64), installs past 0.9 by ~1000-2000 — an order of magnitude before any capacity; on OLMo the whole drama sits below the first rung and the floor is FLAT through SFT/DPO/RLVR (alignment runs inside grammar); the shape survives two coder families (Jaccard 0.37 on sets, parallel curves). | "STATUS: DRAFT, grade C — two ladders but each ONE lineage; two coder families; no cross-seat audit." | Checkpoint rung, both ladders separately (95 OLMo + 155 Pythia); 584 prompts; 338,092 tagged pairs; two frozen licit-set artifacts; `data/m05_class_mass.parquet`. | `fig16_syntax_curve_olmo.png`, `fig16_syntax_curve_pythia.png` | Discharges registered secondary 5. Records the apostrophe-unescape correction and the coder-pin move. Tier 3 (selection/meaning judgment) designed, not run. |
+
+Owed, because the documents are one lineage per ladder: the 46-lineage
+convergence DiD is DISCHARGED at the edge unit as M01 T finding 18; the
+syntax curve is DISCHARGED as finding F (2026-08-11); remaining owed: the
+join check (which base revision SFT descends from). The Pythia second fleet
+LANDED 2026-08-11 ([5430], malign's run): its population is separate by
+declaration (`data/pythia_population.json`, never pooled with M05), and its
+first read QUALIFIES A's Result 3 — the true zero is OLMo's initialisation,
+not general.
 
 ### Cross-index notes
 

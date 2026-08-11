@@ -1,0 +1,30 @@
+{
+ "olmo": {
+  "deepseek-v4-flash": {
+   "onset_rung": 0,
+   "onset_step": "stage1-0",
+   "criterion": "CI(median strict licit share) > 0.5, persistent",
+   "final_strict": 0.9892062757420068
+  },
+  "claude-haiku-4-5": {
+   "onset_rung": 1,
+   "onset_step": "stage1-1000",
+   "criterion": "CI(median strict licit share) > 0.5, persistent",
+   "final_strict": 0.9156716872899002
+  }
+ },
+ "pythia": {
+  "deepseek-v4-flash": {
+   "onset_rung": 8,
+   "onset_step": "pretrain-128",
+   "criterion": "CI(median strict licit share) > 0.5, persistent",
+   "final_strict": 0.9912232155517067
+  },
+  "claude-haiku-4-5": {
+   "onset_rung": 9,
+   "onset_step": "pretrain-256",
+   "criterion": "CI(median strict licit share) > 0.5, persistent",
+   "final_strict": 0.9285043384842555
+  }
+ }
+}
