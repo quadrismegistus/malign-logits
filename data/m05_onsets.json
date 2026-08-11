@@ -1,0 +1,61 @@
+{
+ "primary_sft": {
+  "faller": {
+   "aggregate_onset_step": 27000.0,
+   "base_ci": [
+    0.022876376,
+    0.039440766
+   ],
+   "n_prompts": 105,
+   "absent_rate": 0.06710963455149502
+  },
+  "riser": {
+   "aggregate_onset_step": null,
+   "base_ci": [
+    0.043977406,
+    0.06578556
+   ],
+   "n_prompts": 105,
+   "absent_rate": 0.014174972314507199
+  },
+  "paired": {
+   "n_sites_both": 44,
+   "median_lag_steps": 0.0,
+   "wilcoxon_p": 0.9721596276935432,
+   "sites_never_fall": 34,
+   "sites_never_rise": 41
+  }
+ },
+ "base_order": [
+  {
+   "family": "packages",
+   "onset_rung": 2,
+   "onset_step": "stage1-2000",
+   "both_absent": 0.0
+  },
+  {
+   "family": "reference",
+   "onset_rung": 2,
+   "onset_step": "stage1-2000",
+   "both_absent": 0.0
+  },
+  {
+   "family": "reasoning",
+   "onset_rung": 2,
+   "onset_step": "stage1-2000",
+   "both_absent": 0.0
+  },
+  {
+   "family": "poetic_pull",
+   "onset_rung": 2,
+   "onset_step": "stage1-2000",
+   "both_absent": 0.0
+  },
+  {
+   "family": "discourse",
+   "onset_rung": 10,
+   "onset_step": "stage1-32000",
+   "both_absent": 0.0
+  }
+ ]
+}
