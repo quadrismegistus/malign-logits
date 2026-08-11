@@ -1,0 +1,139 @@
+{
+ "_about": "Controls on the OLMo/Pythia early absent-rate gap. The gap survives both; both invert by ~12-17 B.",
+ "_producer": "meta/M05_emergence/scripts/m05_crossladder_controls.py",
+ "_quotable": "OLMo's capacity probes resolve markedly later than Pythia's early on and the relation REVERSES by ~12-17 B \u2014 a difference in the SHAPE of early acquisition, not in rate. Controls must be named with it.",
+ "_not_said": [
+  "'OLMo learns more slowly' \u2014 the inversion refutes it",
+  "anything causal about tokenizer, corpus or architecture: three things differ at once"
+ ],
+ "_axis_caveat": "tokens-per-step is obtained by DIVISION and assumes constant batch. Pythia's card confirms it; OLMo's does not mention batch size.",
+ "_vocab": {
+  "olmo": 100278,
+  "pythia": 50432
+ },
+ "control_1_vocabulary_matched_threshold": {
+  "matched_threshold": 0.0019883803934010154,
+  "theta_times_V": {
+   "olmo": 100.278,
+   "pythia": 50.432
+  },
+  "rows": [
+   {
+    "tokens_B": 4.19,
+    "olmo_step": 1000,
+    "pythia_step": 2000,
+    "olmo_absent": 0.653,
+    "pythia_absent": 0.2873,
+    "pythia_absent_matched": 0.347
+   },
+   {
+    "tokens_B": 8.39,
+    "olmo_step": 2000,
+    "pythia_step": 4000,
+    "olmo_absent": 0.2687,
+    "pythia_absent": 0.1679,
+    "pythia_absent_matched": 0.2276
+   },
+   {
+    "tokens_B": 12.58,
+    "olmo_step": 3000,
+    "pythia_step": 6000,
+    "olmo_absent": 0.1455,
+    "pythia_absent": 0.1306,
+    "pythia_absent_matched": 0.2015
+   },
+   {
+    "tokens_B": 16.78,
+    "olmo_step": 4000,
+    "pythia_step": 8000,
+    "olmo_absent": 0.1567,
+    "pythia_absent": 0.1493,
+    "pythia_absent_matched": 0.1866
+   },
+   {
+    "tokens_B": 33.55,
+    "olmo_step": 8000,
+    "pythia_step": 16000,
+    "olmo_absent": 0.1231,
+    "pythia_absent": 0.1194,
+    "pythia_absent_matched": 0.153
+   },
+   {
+    "tokens_B": 67.11,
+    "olmo_step": 16000,
+    "pythia_step": 32000,
+    "olmo_absent": 0.1418,
+    "pythia_absent": 0.1306,
+    "pythia_absent_matched": 0.1679
+   },
+   {
+    "tokens_B": 134.22,
+    "olmo_step": 32000,
+    "pythia_step": 64000,
+    "olmo_absent": 0.1791,
+    "pythia_absent": 0.1567,
+    "pythia_absent_matched": 0.2127
+   }
+  ]
+ },
+ "control_2_matched_concentration": {
+  "rows": [
+   {
+    "resid": 0.4812,
+    "olmo_step": 1000,
+    "olmo_absent": 0.653,
+    "pythia_step": 1000,
+    "pythia_absent": 0.5634,
+    "pythia_resid": 0.4745
+   },
+   {
+    "resid": 0.3371,
+    "olmo_step": 2000,
+    "olmo_absent": 0.2687,
+    "pythia_step": 3000,
+    "pythia_absent": 0.2313,
+    "pythia_resid": 0.3294
+   },
+   {
+    "resid": 0.2776,
+    "olmo_step": 3000,
+    "olmo_absent": 0.1455,
+    "pythia_step": 6000,
+    "pythia_absent": 0.1306,
+    "pythia_resid": 0.2721
+   },
+   {
+    "resid": 0.2403,
+    "olmo_step": 4000,
+    "olmo_absent": 0.1567,
+    "pythia_step": 9000,
+    "pythia_absent": 0.1157,
+    "pythia_resid": 0.2409
+   },
+   {
+    "resid": 0.1862,
+    "olmo_step": 8000,
+    "olmo_absent": 0.1231,
+    "pythia_step": 22000,
+    "pythia_absent": 0.1343,
+    "pythia_resid": 0.1863
+   },
+   {
+    "resid": 0.1249,
+    "olmo_step": 16000,
+    "olmo_absent": 0.1418,
+    "pythia_step": 48000,
+    "pythia_absent": 0.1604,
+    "pythia_resid": 0.1248
+   },
+   {
+    "resid": 0.1323,
+    "olmo_step": 32000,
+    "olmo_absent": 0.1791,
+    "pythia_step": 65000,
+    "pythia_absent": 0.1567,
+    "pythia_resid": 0.1323
+   }
+  ]
+ }
+}
