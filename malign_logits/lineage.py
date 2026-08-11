@@ -97,11 +97,58 @@ def _map():
     return _MAP
 
 
+#: THE CHECKPOINT SUFFIX. M05 writes 95 checkpoints as `repo@revision`
+#: (`allenai/Olmo-3-1025-7B@stage1-step1000`) so that ClickHouse's
+#: ReplacingMergeTree, which dedupes on a sorting key containing `model`, keeps
+#: them apart. RH's design; the alternative was an untested MODIFY ORDER BY on
+#: 47M live rows.
+REV_SEP = "@"
+
+
+def base_model_of(model):
+    """`repo@revision` -> `repo`. A bare id is returned unchanged."""
+    return model.split(REV_SEP, 1)[0] if REV_SEP in model else model
+
+
+def revision_of(model):
+    """`repo@revision` -> `revision`, else None (meaning the default)."""
+    return model.split(REV_SEP, 1)[1] if REV_SEP in model else None
+
+
 def lineage_of(model, strict=True):
-    """The lineage id (its base checkpoint) for a model. Raises if unmapped."""
+    """The lineage id (its base checkpoint) for a model. Raises if unmapped.
+
+    **A CHECKPOINT BELONGS TO ITS REPO'S LINEAGE, and this strips the suffix to
+    say so.** Not stripping is the hazard malign named at [5399]: `id@rev` is
+    absent from `model_to_lineage`, and consumers that treat an unmapped model
+    as its own lineage would read 95 checkpoints of 4 repos as 95 INDEPENDENT
+    LINEAGES -- silently, and in the direction that flatters every finding.
+    Raising instead of stripping does not help, because the same consumers catch
+    and default; the fix has to give the RIGHT answer, not an error.
+
+    Stripping does not weaken the guard: the stripped repo is still looked up,
+    and an unknown repo still raises.
+
+    **THIS FUNCTION ANSWERS AT THE REPO GRAIN, BY CONSTRUCTION.** A checkpoint's
+    lineage IS its repo's lineage; that is the declared semantics, not an
+    accident of the lookup.
+
+    **AND ITS SILENCE ON THE CHECKPOINT GRAIN IS A DOCUMENTED PROPERTY, NOT AN
+    OVERSIGHT.** A caller asking "is this a checkpoint or a release?" gets no
+    signal here and must ask `revision_of`. That is a real loss of explicitness
+    against a version that raised, and it is the cost of not producing the
+    inflation described above (registrar's condition, [5402].3).
+
+    `base_model_of` and `revision_of` are the ONLY sanctioned parses. Do not
+    write `split("@")` at a call site: six sites is six chances to write
+    `[-1]`, and `tests/test_lineage_revision.py` greps for it.
+    """
     m = _map()["model_to_lineage"]
     if model in m:
         return m[model]
+    bare = base_model_of(model)
+    if bare != model and bare in m:
+        return m[bare]
     if strict:
         raise UnmappedModel(
             "%r is not in %s. The map is regenerated from the registry; a "
@@ -114,7 +161,8 @@ def lineage_of(model, strict=True):
 def base_of(model):
     """The model's own base checkpoint -- the RUN level, one grain finer than
     the lineage. Two scale siblings share a lineage and have different bases."""
-    return _map()["model_to_base"].get(model)
+    b = _map()["model_to_base"]
+    return b.get(model) or b.get(base_model_of(model))
 
 
 def representative(lineage, members=None, cells=None, target_b=None):
