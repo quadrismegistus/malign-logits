@@ -169,9 +169,10 @@ def main():
                        color=cmap[r.field], size=8, ha="left")
               for r in labpos.itertuples()]
            + scale_x_continuous(expand=(0.02, 0, 0.24, 0))
-           + labs(title="Where the continuation's mass flows, by semantic field",
-                  subtitle="Median field-mass over the 105 pairs (meta lexicon, fields.py). The six fields that move "
-                           "most base->RLVR. Shaded = post-training. Fields overlap, so masses do not sum to 1.",
+           + labs(title="Pretraining builds the field structure; alignment barely moves it",
+                  subtitle="Median field-mass over the 105 pairs (meta lexicon). Every field is built 0->its level in "
+                           "PRETRAINING; the shaded alignment region only trims (largest shift 0.04 vs physical_action\u2019s "
+                           "+0.26 build). Fields overlap, masses do not sum to 1.",
                   x="training position (base | SFT | DPO | RLVR)",
                   y="continuation mass in field")
            + TH)
