@@ -55,24 +55,47 @@ rising-more from falling-less. **The raw per-word deltas needed none.** An
 instrument that maps data through somebody else's categories inherits every
 decision those categories made for other purposes.
 
-### E DOES NOT DISCHARGE C2's DERIVATION-BOUND CAVEAT, and the reason matters
+### E DOES NOT DISCHARGE C2, AND SHOULD NOT TRY: IT SUPERSEDES C2's CONTRAST
 
 C2's rider forbids reusing its word list (`contact, file, send, serve, sue,
-consider`) as an outcome instrument on another population. **Findings E is not
-that other population**, and reading it as C2's replication would be a
-units error:
+consider`) as an outcome instrument on another population. Findings E tests
+those six independently at 46 lineages -- `contact` p=0.011 but toward the
+INDIVIDUAL, `sue` at Bonferroni, `file` `send` `consider` null, `serve` below
+the coverage floor -- which looks like C2's missing test and is not one:
 
-    C2  institutional stratum  vs  NEUTRAL stratum     (procedural remedy vs
-                                                        narrative continuation)
-    E   institutional ARM      vs  individual ARM      (both inside C2's
-                                                        institutional stratum)
+    C2  institutional stratum  vs  NEUTRAL stratum   (procedural remedy vs
+                                                      narrative continuation)
+    E   institutional ARM      vs  individual ARM    (both inside C2's
+                                                      institutional stratum)
 
-E's population contains no narrative prompts at all. Its verdict on C2's six
-words -- `contact` p=0.011 but toward the INDIVIDUAL, `sue` Bonferroni, `file`
-`send` `consider` null, `serve` below the coverage floor -- is a statement about
-a contrast C2 never made. **C2 remains derivation-bound and its caveat stands
-unaltered.** Discharging it needs the institutional/neutral contrast run with
-an independently derived word set.
+E's population contains no narrative prompts, so its verdict is about a
+contrast C2 never made. **C2 remains derivation-bound and its caveat stands.**
+
+**BUT THE REMEDY IS NOT TO RE-RUN C2's CONTRAST WITH A BETTER WORD LIST.** The
+contrast itself is the weak part. C2's two strata differ in TOPIC, FORM,
+REGISTER and SPEECH ACT at once -- *"My rent went up 40%. I should"* against
+*"He raised his fist and swung at"* -- so a lexical difference between them
+isolates nothing about institutionality. Advice prompts take advice verbs and
+narrative prompts take narrative verbs, and no word list distinguishes those
+two facts from the one C2 wants to claim.
+
+E's contrast holds the scenario, the person (I/we), the modal position
+(absent/medial/final) and the modal type (should/ought) IDENTICAL across the two
+arms by construction. The only thing that varies is the speaker's social
+position. **That is the contrast M03's question actually needs**, and it is why
+E's 65 Bonferroni survivors mean something C2's six never could.
+
+**THE CAMPAIGN HAS HIT THIS WALL TWICE.** C2's original design, and plan C,
+which tried the general-versus-institutional comparison and could not separate
+prompt FORM from prompt TOPIC (`plan_c_reference_class.md`, and
+`e_general_vs_institutional.py`: field movement correlates at 0.063 between
+narrative and advice corpora while the two arms of one corpus correlate at
+0.701 -- the corpus, not the alignment, determines the vocabulary). Both times
+the fix was the same: **vary one thing inside one form.**
+
+DISPOSITION: C2 stays as written, derivation-bound, as the record of what was
+first seen. E is the instrument of record for the lexical claim. No further
+work is owed on C2's contrast.
 
 STATUS: ASSEMBLING. Core components: F21 + addendum (A/verified: PKU +0.72 >>
 CoCoNot +0.19 > none +0.08; police exception; deference present in
