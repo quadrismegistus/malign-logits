@@ -149,6 +149,15 @@ seat forgets at its peril:
   one-dimensional summary of a high-dimensional object will always have
   a reading that flatters whoever chose the dimension — and the person
   who chose it is the one least placed to notice" ([5373], [5375]).
+- **A measured number is measured OVER something; carrying it across an
+  instrument or scale boundary is a new claim needing its own measurement.**
+  Twice in one day by the same seat, named by him: load-at-3-checkpoints
+  extrapolated to 87 ("does not stay zero"), and an MPS rate measured on
+  twp.expand (a word-tree of many passes) applied to single-pass entropy —
+  85 minutes actual 4 ([5344], [5377]). Corollary from the same post:
+  entropy is portable across lineages as an ORDERING, not as a PARTITION
+  (rho 0.90 yet 45.4% exact-decile agreement — a stratified design cannot
+  borrow another family's covariate).
 - **A count is a fact about the unit you counted in** — five disagreements
   in one day dissolved into unit words (records vs cells vs pairs vs
   distinct strings); state the unit beside every count, and when two counts
