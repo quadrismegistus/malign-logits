@@ -66,6 +66,82 @@ BATTERY = os.path.join(ROOT, "data", "beam_sample_105.csv")
 TAU = 0.005          #: |Q-P| below which a word counts as unmoved
 MIN_MASS = 0.001     #: a word must reach this in one arm to be a candidate
 
+#: ── LEXICAL CLASS, CARRIED AS COLUMNS AND NEVER AS A FILTER ──────────────
+#:
+#: **THE ARMS ARE MATCHED ON PROBABILITY AND NOT ON WHAT KIND OF WORD THEY ARE**,
+#: and RH asked the question that surfaced it: what if the risers are words like
+#: `have`? Measured on the 8,169-cell table, the faller arm is a SPEECH verb
+#: 16.4% of the time against the matched arm's 9.6%, and **21.5% of matched pairs
+#: disagree on speech-verb status inside the same cell** (lacan, [5465]). `said`
+#: alone is 616 fallers.
+#:
+#: That matters for this instrument specifically: A forces a word and measures
+#: the surprisal of what FOLLOWS, and **a speech verb induces quoted dialogue.**
+#: Forcing `said` and forcing `found` differ in more than movement history, and
+#: a probability match cannot close a lexical-class gap because they are
+#: different axes.
+#:
+#: **COLUMNS, NOT GATES** ([5233]/[5236]): a fixed class filter would drop cells
+#: before any data exists — the same argument that keeps `log2_ratio` a column,
+#: one level up. With these the analysis reports the primary on all cells and on
+#: `class_match` cells, and the difference between the two is itself a result.
+#: Which direction it moves is not predictable from here: M03 saw an effect GROW
+#: from +0.0807 to +0.1303 when light verbs were removed, so removal can reveal
+#: a dilution as easily as it can remove a confound.
+SPEECH_VERBS = frozenset("""
+say says said saying tell tells told telling ask asks asked asking
+answer answers answered answering reply replies replied replying
+whisper whispers whispered whispering shout shouts shouted shouting
+mutter mutters muttered muttering murmur murmurs murmured murmuring
+cry cries cried crying scream screams screamed screaming
+call calls called calling speak speaks spoke speaking talk talks talked talking
+add adds added adding repeat repeats repeated repeating
+explain explains explained explaining admit admits admitted admitting
+""".split())
+
+#: "light" in the delexical sense -- high-frequency verbs carrying little
+#: semantic content of their own. M03's dominance repair turned on exactly this
+#: class: "dominance falls" was `have` falling.
+LIGHT_VERBS = frozenset("""
+be is are was were been being am
+have has had having do does did doing done
+get gets got getting gotten make makes made making
+go goes went going gone come comes came coming
+take takes took taking taken put puts putting
+give gives gave giving given keep keeps kept keeping
+let lets letting seem seems seemed seeming
+""".split())
+
+
+def _sha16(path):
+    import hashlib
+    with open(path, "rb") as fh:
+        return hashlib.sha256(fh.read()).hexdigest()[:16]
+
+
+def _input_digests(a):
+    """sha256_16 of every file this build READ, so the run is reproducible."""
+    out = {}
+    for label, path in (("battery", a.battery),
+                        ("pairs", a.pairs or os.path.join(
+                            ROOT, "data", "base_aligned_pairs.json"))):
+        try:
+            out[label] = {"path": (os.path.relpath(path, ROOT)
+                                   if path.startswith(ROOT) else path),
+                          "sha256_16": _sha16(path)}
+        except OSError as e:            #: named, never silently omitted
+            out[label] = {"path": str(path), "sha256_16": None,
+                          "error": type(e).__name__}
+    return out
+
+
+def lex_flags(w):
+    """(is_speech, is_light) for a surface form. Closed lists, declared above."""
+    if not w:
+        return None, None
+    k = w.strip().lower()
+    return (k in SPEECH_VERBS), (k in LIGHT_VERBS)
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -202,6 +278,19 @@ def main():
                                    else None),
                        n_nonmovers=len(m.nonmovers(tau=a.tau, min_mass=MIN_MASS)),
                        n_scored=len(m.post))
+            #: lexical class per arm, and the WITHIN-CELL agreement flag, which
+            #: is the one the contrast actually needs -- the comparison is
+            #: faller-against-matched inside one cell, so a fleet-level balance
+            #: would not license it.
+            for _arm, _w in (("faller", f), ("matched", nm),
+                             ("riser", ri), ("riser_matched", rm)):
+                _sp, _li = lex_flags(_w)
+                rec["%s_is_speech" % _arm] = _sp
+                rec["%s_is_light" % _arm] = _li
+            _fs, _fl = lex_flags(f)
+            _ms, _ml = lex_flags(nm)
+            rec["class_match"] = (None if nm is None
+                                  else (_fs == _ms and _fl == _ml))
             out.append(rec)
             n_ok += 1
         print("  %-56s %3d/%d cells" % (pr.split(">")[0][:56], n_ok, len(rows)))
@@ -227,8 +316,53 @@ def main():
             print("    %-52s %s" % (k.split(">")[0][:52], v))
 
     p = a.out if os.path.isabs(a.out) else os.path.join(ROOT, a.out)
+    #: **RECORD THE INVOCATION, NOT THE SCRIPT NAME.** The previous table said
+    #: only that "--out variants produced the 105/v2/v3 series", so when its
+    #: riser arms needed rebuilding on 2026-08-11 nobody could reproduce it:
+    #: `--battery` and `--pairs` were both unrecoverable, and the default
+    #: battery is NOT the one the table was built from. **A producer field that
+    #: names a script is a citation; one that names the invocation is a
+    #: reproduction.**
     json.dump(dict(tau=a.tau, min_mass=MIN_MASS, rule="CANONICAL",
-                   basis="post", n_cells=len(out), cells=out), open(p, "w"))
+                   basis="post", n_cells=len(out), cells=out,
+                   _producer="scripts/build_forced_arms_105.py",
+                   _invocation=" ".join([os.path.basename(sys.argv[0])]
+                                        + sys.argv[1:]),
+                   #: **AN INVOCATION IS REPRODUCIBLE ONLY IF ITS INPUTS ARE
+                   #: CONTENT-ADDRESSED.** `--battery data/beam_sample_105_plus_anger.csv`
+                   #: names a PATH. That file gained a row under its own name
+                   #: between 10 and 11 Aug (the `He was so angry he wanted to`
+                   #: twin), so the identical command line produced 9,180 cells
+                   #: one day and 9,227 the next -- and every internal check
+                   #: passed on both. lacan, [5468].
+                   #:
+                   #: Third instance of one failure in two days: `step` is not a
+                   #: key because stages restart numbering; `prefer=fleet` and
+                   #: `prefer=wider` give different bytes for one (model, prompt);
+                   #: and a battery path is not its contents. **In each case the
+                   #: identifier was stable and the thing it identified was not.**
+                   #: With these a rebuild either reproduces or fails loudly.
+                   _inputs=_input_digests(a),
+                   _battery=os.path.relpath(a.battery, ROOT)
+                            if not os.path.isabs(a.battery) or ROOT in a.battery
+                            else a.battery,
+                   _pairs_source=(a.pairs or "data/base_aligned_pairs.json"),
+                   _arms=["undisturbed", "faller", "faller-matched",
+                          "riser", "riser-matched"],
+                   _columns={
+                       "log2_ratio": "match quality, faller vs matched. A COLUMN, "
+                                     "never a gate.",
+                       "riser_arms_collapse": "retained for continuity; must now "
+                                              "be False everywhere -- the two "
+                                              "riser arms are required distinct.",
+                       "<arm>_is_speech / _is_light":
+                           "lexical class per arm from the closed lists at the "
+                           "head of this file.",
+                       "class_match": "faller and matched agree on BOTH classes, "
+                                      "within the cell. The contrast is "
+                                      "within-cell, so fleet-level balance would "
+                                      "not license it."}),
+              open(p, "w"))
     print("\nwrote %s" % p)
 
 
