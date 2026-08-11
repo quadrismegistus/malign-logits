@@ -149,6 +149,12 @@ seat forgets at its peril:
   one-dimensional summary of a high-dimensional object will always have
   a reading that flatters whoever chose the dimension — and the person
   who chose it is the one least placed to notice" ([5373], [5375]).
+  And its sibling: A LINEAGE COUNT IS NOT A NUMBER UNTIL IT SAYS WHAT IT
+  DID WITH THE MODELS IT COULD NOT PLACE — the same absence produced
+  OPPOSITE denominators in two consumers, both defensible (excluded-and-
+  named: right for coverage, cannot inflate; counted-as-singleton: right
+  for independence, inflates whenever wrong); one printed line,
+  "N lineages (M unmapped: policy)", at every call site ([5384]).
 - **A measured number is measured OVER something; carrying it across an
   instrument or scale boundary is a new claim needing its own measurement.**
   Twice in one day by the same seat, named by him: load-at-3-checkpoints
