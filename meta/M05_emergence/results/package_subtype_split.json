@@ -1,0 +1,36 @@
+{
+ "_question": "citation-cued quotation completion vs uncued formula, PACKAGES family split (RH 2026-08-11)",
+ "_gate": ">= 8 surviving probes at the rung",
+ "pythia": {
+  "quotation": {
+   "n_probes": 10,
+   "gated_onset_step": 7000,
+   "half_max_step": 10000,
+   "final_median_logratio": 6.761485503868393,
+   "final_mean_p_target": 0.872622707
+  },
+  "uncued_formula": {
+   "n_probes": 26,
+   "gated_onset_step": 2000,
+   "half_max_step": 2000,
+   "final_median_logratio": 6.311576173571362,
+   "final_mean_p_target": 0.6986731808076924
+  }
+ },
+ "olmo": {
+  "quotation": {
+   "n_probes": 10,
+   "gated_onset_step": 4000,
+   "half_max_step": 6000,
+   "final_median_logratio": 6.4380101068897595,
+   "final_mean_p_target": 0.671228787
+  },
+  "uncued_formula": {
+   "n_probes": 26,
+   "gated_onset_step": 2000,
+   "half_max_step": 2000,
+   "final_median_logratio": 6.04444145793577,
+   "final_mean_p_target": 0.6442796429230769
+  }
+ }
+}

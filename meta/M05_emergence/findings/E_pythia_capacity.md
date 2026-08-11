@@ -75,14 +75,39 @@ persistent-onset criterion fires late. The robust cross-ladder claim is
 ordinal and doubled: discourse last, and discourse smallest at ceiling
 (~+1 nat vs packages ~+6.5).
 
+## Result 4: the packages family splits under RH's challenge — quotation is world knowledge, the uncued formula is the package
+
+RH's design challenge (2026-08-11): "Adam Smith described the invisible
+hand of the ___" is as much a fact about what Smith wrote as a package.
+The family's 10 `theory` probes are ALL citation-cued (a proper name or
+title frame); its 26 civic/media/econ probes are uncued formulas in
+generic scenes. Split (`m05_package_split.py`,
+`../results/package_subtype_split.json`), both ladders, base arms:
+
+    group            n    Pythia onset/half-max    OLMo onset/half-max
+    uncued formula   26   2000 / 2000              2000 / 2000
+    quotation        10   7000 / 10000             4000 / 6000
+
+The citation-cued items lag the uncued formulas into the REFERENCE zone
+(Pythia reference: onset 4000, half-max 12000) on both ladders — they
+behave like knowledge about texts, not like the early formula. The family
+headline ("packages at 2000") survives because the 26 uncued probes
+dominate the median, but the clean claim is now: THE UNCUED IDEOLOGICAL
+FORMULA is what arrives first; quotation completion arrives with the
+facts. The theory subtype should be reported as its own thing (quotation
+completion) wherever this family is quoted.
+
 ## Weatherby note (cross-ladder, both lineages)
 
 Semantic packages are the earliest-onsetting and largest-magnitude
-capacity on both ladders: the "predigested form" is the first and
-strongest thing pretraining learns at this battery, with reference facts
-arriving later and lower. The trajectory ordering is now a two-lab fact at
-onset grain (this doc) and half-max grain (A-R2, POST-HOC), not an OLMo
-quirk.
+capacity on both ladders — and Result 4 sharpens rather than weakens the
+claim: it is the UNCUED formula ("thoughts and ___", "too big to ___"),
+the package that completes without an author, that arrives first, while
+citation-cued quotation ("Adam Smith described...") lags into the
+knowledge zone. The "predigested form" in Weatherby's own sense — the
+bundle that surfaces on topic activation, no attribution needed — is the
+first and strongest thing pretraining learns at this battery, on two labs'
+ladders, at onset grain (this doc) and half-max grain (A-R2, POST-HOC).
 
 ## Artifacts on the record, not quotable
 
