@@ -158,9 +158,23 @@ def main():
             #: `ri` above is the max-EXCESS riser, which runs a median 12.9x more
             #: probable than the faller -- so faller-vs-riser reproduces A's
             #: original contrast WITH A's original confound. This one holds Q
-            #: fixed. Where the cell has few qualifying risers the two collapse
-            #: onto the same word, so that is flagged rather than hidden.
-            ris_pos = [w for w in ris_oc if m.post.get(w, 0.0) > 0]
+            #: fixed.
+            #:
+            #: **`w != ri` ADDED 2026-08-11: THE TWO RISER ARMS MUST BE DISTINCT
+            #: WORDS.** Without it a thin riser pool collapsed them onto the same
+            #: word on 443 of 8,169 cells (5.4%) and the collision was merely
+            #: FLAGGED (`riser_arms_collapse`). A flag is the right response to a
+            #: fact about the data; this was a fact about the SELECTION -- the
+            #: matched-non-mover arm has always excluded the faller by exactly
+            #: this test (`w != f` above) and the riser arm simply never did.
+            #:
+            #: A cell that cannot supply a SECOND distinct riser now has NO fifth
+            #: arm (rm is None) rather than a duplicate of the fourth. That is the
+            #: honest failure: a missing arm is visible to any consumer, a
+            #: duplicate one silently halves the contrast it was bought for.
+            #: Registrar's condition on RH's five-arm ruling ([5464].1): fixed in
+            #: the BUILDER before generation, not carried as a caveat column.
+            ris_pos = [w for w in ris_oc if w != ri and m.post.get(w, 0.0) > 0]
             rm = (min(ris_pos, key=lambda w: abs(math.log2(m.post[w] / qf0)))
                   if ris_pos and qf0 > 0 else None)
             qf = m.post.get(f, 0.0)
