@@ -54,29 +54,58 @@ GEOMETRIC mixture while the models measurably do the ARITHMETIC one (union,
 **The lens is the first instrument in this campaign that is both depth-resolved
 and in the same space as the finding** -- next-token mass, where the union lives.
 
-## 3. The measure
+## 3. The measure -- REWRITTEN AFTER THE PILOT. It is the RATIO, per layer.
 
-For group `g`, per arm, per layer `L`:
+**The first version of this section specified a top-k A/B mass decomposition and
+the pilot destroyed it.** Recorded rather than deleted, because the reason
+generalises.
 
-    A-set = top-k of the POLE_A prompt's final-layer distribution, minus the
-            intersection with pole_b's top-k
-    B-set = the same for POLE_B
+    A-set = top-k of pole_a's final distribution minus pole_b's, and vice versa
+    A_mass(L), B_mass(L) on the BOTH prompt; superposition = both elevated,
+    resolution = one, neutralization = neither
 
-    on the BOTH prompt, at layer L:
-        A_mass(L) = sum of P_L(w) over A-set
-        B_mass(L) = sum of P_L(w) over B-set
+Swept over k in {5, 10, 20, 50, 100} on all 2,007 (model, group) cells:
 
-**Two masses, tracked separately, never subtracted into one number.** That is the
-whole point: the three states are distinguishable only as a pair.
+    cells whose VERDICT CHANGES across k     1,267 of 2,007   63.1%
 
-    superposition    both elevated
-    resolution       one elevated
-    NEUTRALIZATION   neither
+    and it changes MONOTONELY, not noisily:
+      725  SUPE SUPE SUPE SUPE SUPE
+      336  SUPE SUPE SUPE SUPE RESO
+      156  SUPE SUPE SUPE RESO RESO
+       72  SUPE SUPE SUPE RESO NEUT
 
-The JS ratio collapses these to one scalar and so cannot separate the first from
-the third; that is the defect this measure exists to fix, and it is the same
-"plot the pair or not at all" rule the pen wrote for `ratio`/`pole_sep` and for
-poetic texture's floor.
+Small k reads superposition, large k degrades to resolution and then to
+neutralization, because small sets sit on the shared high-mass head and large
+ones reach into the tail where the null catches up. **A three-way classification
+whose verdict is a monotone function of a free parameter is not a
+classification.** No choice of k is defensible: §7 cannot fix this by declaring
+one, which is what the first draft of §7 tried to do.
+
+**AND THE DEEPER POINT, WHICH IS WHY THE REPLACEMENT IS NOT ANOTHER SET
+STATISTIC.** The A/B decomposition was proposed as the discriminating upgrade
+over the JS ratio. It is not an upgrade; it is a NARROWER instrument. On
+`f11_loyal`/Amber the ratio says 0.725 (strong superposition against a 1.006
+null) while the k=20 decomposition says resolution -- and the ratio is the one
+integrating the whole distribution, which is where the union the models actually
+do ([5373]: arithmetic over geometric, 46 of 46) lives.
+
+    THE MEASURE IS THE RATIO ITSELF, COMPUTED AT EVERY LAYER.
+
+        ratio(L) = JS(AB_L, mean(A_L, B_L)) / min( JS(AB_L, A_L), JS(AB_L, B_L) )
+
+    against its own per-layer null: another live group's BOTH distribution
+    scored on this group's poles, AT THAT LAYER.
+
+Parameter-free. Already calibrated -- `contradiction_ratio_has_no_null.md` puts
+neutralization at 1.006 and resolution at 4.03 on this substrate. Directly
+comparable to every number the campaign already has, because it IS that number.
+And `expand_layers` returns word distributions per layer for every prompt, so
+the whole thing is one function of output it already produces.
+
+**What the lens adds is DEPTH, and only depth.** It was never going to add
+discrimination; the ratio plus a null already discriminates, and that is what
+the last two findings were for. The new axis is where in the stack the ratio
+moves -- late gate against early re-routing -- and nothing else.
 
 ## 4. The null, which this measure needs as much as the ratio did
 
@@ -135,9 +164,8 @@ Recorded as candidates, not decisions:
 - **Roster.** The 46 lineage representatives is the defensible unit; 52 arms is
   not, and 121-models-with-hidden-states is a coverage fact rather than a
   population.
-- **k**, the size of the pole sets. Unset. It must be declared before running,
-  not tuned: a k chosen after seeing the curves is a threshold chosen on the
-  outcome.
+- **k is GONE**, with the top-k measure it belonged to (see §3). Nothing in the
+  rewritten measure has a free parameter, which is the point of the rewrite.
 - **Token or word level -- SETTLED BY THE PILOT, as WORD.** The ratio is
   word-level (twp, `rule_version 3`); a lens is natively token-level, and the
   pilot's first draft ran in token space, which made its numbers incomparable
