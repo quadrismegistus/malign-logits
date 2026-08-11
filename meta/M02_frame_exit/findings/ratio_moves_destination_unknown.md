@@ -6,6 +6,8 @@ At the output layer, across 37 English lineages, alignment raises the ratio from
 the instrument supports. Everything built on top of it is either unsupported or,
 as of today, refuted.
 
+Producer `scripts/ratio_arm_contrast.py` — added 2026-08-11 because this
+finding had none and its headline could not be re-derived from the repository.
 Substrate `results/lens_group_layer.jsonl` at `layer == n_layers - 1`, English,
 degeneracy-guarded (`js_min >= 1e-6`, `|ratio| <= 100`), lineage unit, groups
 paired within lineage.
@@ -38,7 +40,7 @@ Alignment moves the BOTH distribution **away from a blend of its poles**. The
 whole effect is **0.047** on a scale whose next landmark is 0.164 further on and
 whose far end is 3.1 away.
 
-    aligned arms reaching even halfway to resolution (> 2.5)     0 of 37
+    aligned arms reaching even halfway to resolution (> 2.02)    0 of 37
     arms above the neutralization anchor (1.006)   base 2/37, aligned 7/37
 
 So the direction is real and the magnitude is small in the scale's own terms.

@@ -54,6 +54,12 @@ CH = "/opt/homebrew/bin/clickhouse"
 CELLS = os.path.join(CAMP, "results", "z_second_order_cells.csv")
 WINDOW = 50
 
+#: THE EXIT-FREE CONDITION, which every headline number in
+#: `findings/second_order_naming.md` is computed on. Built by
+#: `exit_lexicon.py` from M01's balanced coded spans: 51.9% recall / 71.2%
+#: precision against M02's coder, against y_exit_typology's 13.7% / 94.1%.
+EXIT_LEXICON = os.path.join(CAMP, "results", "exit_lexicon.json")
+
 #: SECOND-ORDER: a predicate whose object is the state of being in conflict.
 SECOND_ORDER = {
     "torn": r"\btorn\b",
@@ -118,6 +124,7 @@ def sweep():
          "WHERE corpus='f11_l2' FORMAT JSONEachRow")
     pr = subprocess.Popen([CH, "client", "-q", q], stdout=subprocess.PIPE,
                           text=True, bufsize=1 << 20)
+    exit_rx = exit_matcher()
     agg = collections.defaultdict(collections.Counter)
     seen = 0
     for line in pr.stdout:
@@ -133,17 +140,41 @@ def sweep():
         #: the slide's window. The passage opens IN the state; a second-order
         #: predicate that arrives 200 words later is a different phenomenon.
         t = " ".join((r["text"] or "").split()[:WINDOW])
+        #: EVERY HEADLINE NUMBER IN THE FINDING IS THE EXIT-FREE COLUMN.
+        #: Both are written so the difference between them stays visible: the
+        #: exit-carrying passages are 28% of the corpus and removing them is
+        #: what moved the POLE control from 1.17x to 0.98x.
+        clean = not (exit_rx and exit_rx.search(t))
         a = agg[(r["model"], gid, role)]
         a["n"] += 1
+        if clean:
+            a["n_exitfree"] += 1
+        #: UNION COLUMNS, and they cannot be recovered from the per-marker
+        #: counts: a passage firing two markers is counted twice by a sum. The
+        #: finding's headline is the UNION (2.10x) and a sum gives 2.13x. Same
+        #: distinction `exit_contradiction.py` records for its own type table.
+        if any(rx.search(t) for rx in SO.values()):
+            a["ANY_SO"] += 1
+            if clean:
+                a["ANY_SO|exitfree"] += 1
+        if any(rx.search(t) for rx in DE.values()):
+            a["ANY_DE"] += 1
+            if clean:
+                a["ANY_DE|exitfree"] += 1
         for k, rx in list(SO.items()) + list(DE.items()):
             if rx.search(t):
                 a[k] += 1
+                if clean:
+                    a[k + "|exitfree"] += 1
     pr.wait()
     with open(CELLS, "w", newline="") as fh:
         w = csv.writer(fh)
-        w.writerow(["model", "group", "role", "n"] + COLS)
+        cols = (COLS + ["ANY_SO", "ANY_DE", "n_exitfree"]
+                + [c + "|exitfree" for c in COLS]
+                + ["ANY_SO|exitfree", "ANY_DE|exitfree"])
+        w.writerow(["model", "group", "role", "n"] + cols)
         for (m, gid, role), a in sorted(agg.items()):
-            w.writerow([m, gid, role, a["n"]] + [a[c] for c in COLS])
+            w.writerow([m, gid, role, a["n"]] + [a[c] for c in cols])
     print("swept %s passages -> %d cells; wrote %s"
           % (format(seen, ","), len(agg), os.path.relpath(CELLS, ROOT)))
 

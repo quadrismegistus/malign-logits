@@ -10,7 +10,12 @@ p = 0.00055; 2.70, p = 0.0073). Counted independently by regex over 52,559
 exit-free passages, **2.18x** against a pole control of **0.93x** — 20 of 22
 lineages, p = 0.00012. The two instruments share only 28% of their hits.
 
-Producer `scripts/z_second_order.py`; marker sets declared in
+Producer `scripts/z_second_order.py`, which as of 2026-08-11 carries the
+exit-free filter itself and reproduces every number below exactly (all
+passages 2.22x / 1.17x; exit-free 2.10x / 0.98x). The lexicon that `exit-free`
+means is built by `scripts/exit_lexicon.py` from M01's balanced coded spans —
+**it was uncommitted until then, so this finding was not re-derivable.** Marker
+sets declared in
 `registrations/second_order_markers_v2.md`; substrate `gen_sequences`,
 `corpus='f11_l2'`, first 50 words of each continuation.
 
