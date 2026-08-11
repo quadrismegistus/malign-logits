@@ -144,11 +144,27 @@ their author (through a frozen head the step-0 ratio is 0.8901, not
 1.267). The defensible claim, in [5446]'s own narrow form: **the step0 ->
 1000 fall marks the measure BECOMING a representation readout rather than
 a random-projection readout; it is not evidence that the poles become
-less separated.** A cross-group null (pole_sep between prompts from
-different groups, hidden states re-read) is owed before any pole-specific
-reading; until then the "spread -> collapse -> re-separation" arc is not
-quotable in any form. Note also from the same correction: `step` is not a
-key on this ladder (stages restart numbering); everything here is
+less separated.**
+
+**FENCE STRUCK per [5448] (lacan, commit f5b5e2d2,
+`findings/pole_sep_is_not_about_poles.md`): the owed cross-group null is
+RUN, and the arc is NOT about poles.** Pairing pole prompts from
+DIFFERENT groups — merely distinct, not opposed — the null collapses and
+recovers exactly as the real column does, on both lineages; the arc is
+what training does to the distance between any two distinct prompts. It
+is real, replicated, and now DATED: Pythia's sub-1000 rungs put the floor
+at step 256 (21/21 groups fall step0->256, sign p 9.5e-07), flat through
+step 4, first movement at step 8 — the same steps-8-to-128 window as
+[5430]'s eight-fold vocabulary rise, two instruments dating one interval
+on shared rungs. OLMo's first rung (1000) is already 2x off that floor,
+so its one-segment "collapse" was measuring the RECOVERY. The only
+surviving pole-specific candidate is the extra depth structure of the
+real column at trained checkpoints (13-18x layer spread vs the null's
+4.9-10x), and it inherits a lexical-overlap confound; a matched null is
+the next build. Geometry-store provenance: these columns were computed
+under `prefer="fleet"` ([5448].5 — the store is a parameter and should
+travel with every geometry column). Note also from [5445]: `step` is not
+a key on this ladder (stages restart numbering); everything here is
 stage-1.
 
 ![Contradiction ratio across training, the unjoined half](../figures/fig4_ratio_unjoined.png)
