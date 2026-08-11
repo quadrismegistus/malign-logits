@@ -109,10 +109,11 @@ adverbs, the negator -- and keeps everything else.
 BOTH arms; `quit` reaches exactly zero for the individual. Alignment does not
 reallocate these between speakers, it deletes them from the slot for everyone.
 
-**The installations are strongly arm-specific ON THIS LINEAGE.** `contact` goes
-to 0.0404 on the individual arm against 0.0062 on the institutional; `appeal`
-is individual-only; `ensure` and `explain` mirror it on the other side. The
-cross-check below shows that only `ensure` survives at 46 lineages.
+**The installations are strongly arm-specific.** `contact` goes to 0.0404 on
+the individual arm against 0.0062 on the institutional; `appeal` is
+individual-only; `ensure` and `explain` mirror it on the other side. Whether
+this is roster-wide is a separate question and is taken up below; `ensure` is
+so far the one shown to be.
 
 So the two halves work by different mechanisms. **Removal is a prohibition;
 installation is a role assignment.** The model does not stop the petitioner
@@ -125,44 +126,50 @@ substitutes the machinery's procedures, while disarming the institution's
 threats (`warn`, `remind`) and making it explain itself. Both speakers are held
 inside one channel, from opposite ends.
 
-### CROSS-CHECKED AGAINST 46 LINEAGES, AND THE ARM-SPECIFICITY MOSTLY DOES NOT SURVIVE
+### WHERE THIS SITS RELATIVE TO THE 46-LINEAGE CROSS-SECTION
 
-Plan B's word table (`results/b_word_delta_by_word.csv`) runs the same words at
-the LINEAGE unit, 46 of them. It qualifies this section sharply:
+Everything above is measured on ONE lineage and is true of it. The question the
+cross-section can speak to is a different one -- whether the same pattern is
+roster-wide -- and it is worth being exact about why the two do not simply
+check each other.
+
+Plan B's word table (`results/b_word_delta_by_word.csv`) reports a DIFFERENT
+QUANTITY on a DIFFERENT POPULATION: the paired delta contrast (change under
+alignment, inst minus indiv, within lineage x scenario x condition) over the
+full 252-text kernel across all seven conditions. The ladder reports a mass
+difference at the endpoint over the 36-text `I_final` slice. Same words, not
+the same measurement.
+
+On plan B's quantity, at the lineage unit:
 
     word       median_d   lin>0    d_indiv    d_inst
+    ensure     +0.00155   42/46   +0.00137   +0.00171
     sue        +0.00150   39/46   -0.00197   -0.00143
     quit       +0.00056   35/46   -0.00160   -0.00147
-    ensure     +0.00155   42/46   +0.00137   +0.00171
     remind     +0.00031   33/46   +0.00021   +0.00068
     explain    +0.00036   27/46   -0.00005   +0.00032
     warn       +0.00004   24/46   -0.00090   -0.00013
-    contact    -0.00067   14/46   +0.00148   +0.00084
     appeal     -0.00016   22/46   +0.00025   -0.00015
+    contact    -0.00067   14/46   +0.00148   +0.00084
 
-**THE REMOVAL GENERALISES.** `sue` and `quit` fall in BOTH arms across 46
-lineages, which is the claim this section rests on and it holds at scale.
+**Two things are roster-wide.** `sue` and `quit` fall in BOTH arms across 46
+lineages, so the removal is not an Olmo peculiarity. And `ensure` carries an
+arm contrast at 42 of 46, so the institutional side's strongest installed verb
+generalises.
 
-**THE INSTALLATION'S ARM-SPECIFICITY LARGELY DOES NOT.** Only `ensure` has an
-arm contrast established across lineages (42/46). `contact` is **14 of 46** --
-not significant, and pointing the other way from its pooled median -- despite
-being the single largest arm-specific effect on the Olmo ladder (0.0038 to
-0.0404 individual against 0.0017 to 0.0062 institutional). `explain` 27/46,
-`warn` 24/46, `appeal` 22/46 are all at chance.
+**The rest is, so far, an Olmo result.** `contact` at 14/46 on plan B's
+quantity is not evidence against its elevenfold individual-side rise here --
+that rise is measured and stands -- but it does mean the arm-specific
+installation has not been shown roster-wide, and on the closest available
+cross-sectional measurement it is not. Same for `explain`, `warn` and `appeal`.
 
-So the honest split:
-
-    established at 46 lineages   quit and sue are removed from both arms;
-                                 ensure rises more on the institutional arm
-    OLMO-ONLY, one lineage       contact's elevenfold individual-side rise,
-                                 appeal, explain, warn, and the accommodation
-                                 verbs of section 2
-
-This is the same lesson as section 6 arriving on the content side: a single
-lineage shows a shape vividly and cannot say whether the shape is the roster's.
-The Olmo trajectory is a hypothesis about the other 45 lineages, and
-`b_word_delta_by_word.csv` says that for most of these verbs the hypothesis
-does not hold.
+**The Olmo trajectory is therefore a hypothesis about the other 45 lineages**,
+and a sharp one, because the ladder can say things a cross-section cannot: that
+the change is a step at the first SFT rung, that DPO and RLVR add nothing, and
+that the vocabulary was present in pretraining. None of that is testable
+without checkpoints, and Olmo is the only lineage on this roster that has them.
+The way to settle it is a second ladder --- Pythia's is registered --- not a
+cross-sectional table computed on other quantities.
 
 ### Held to what it will bear
 
