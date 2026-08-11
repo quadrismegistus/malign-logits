@@ -136,7 +136,9 @@ seat forgets at its peril:
   not invert — the D4c "site type" (quote + content-word + depth), applied
   as a selector, landed BELOW-baseline divergence, and a confirmation run
   built on it would null from its selector rather than from the world
-  ([5368]).
+  ([5368]). Corollary: a calibration floor is drawn BLIND to the quantity
+  it floors — a divergence-stratified "balanced" sample would contain the
+  effect and then report it ([5370]).
 - **A count is a fact about the unit you counted in** — five disagreements
   in one day dissolved into unit words (records vs cells vs pairs vs
   distinct strings); state the unit beside every count, and when two counts
