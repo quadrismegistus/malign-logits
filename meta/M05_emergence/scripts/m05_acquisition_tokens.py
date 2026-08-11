@@ -120,8 +120,8 @@ def syntax_share(ladder):
 def main():
     from plotnine import (aes, annotate, element_blank, element_line,
                           element_rect, element_text, geom_line, ggplot,
-                          labs, scale_color_manual, scale_x_log10, theme,
-                          theme_minimal)
+                          labs, scale_color_manual, scale_x_continuous,
+                          theme, theme_minimal)
     TH = (theme_minimal(base_size=11) +
           theme(panel_grid_minor=element_blank(),
                 panel_grid_major=element_line(color="#e8e7e3", size=0.4),
@@ -153,44 +153,53 @@ def main():
             for r, v in by.items():
                 st = steps.get(r, 0)
                 if not st or st <= 0:
-                    continue  # step 0 has no place on a log axis
-                rows.append(dict(tokens=st * TOK[ladder], curve=label,
-                                 v=v / final))
+                    continue  # step 0 is the floor, not a rung
+                rows.append(dict(ckpt_idx=r, curve=label, v=v / final))
         for r, v in absr.items():
             st = steps.get(r, 0)
             if st and st > 0:
-                rows.append(dict(tokens=st * TOK[ladder],
-                                 curve="probe absent rate", v=v))
-        d = pd.DataFrame(rows)
+                rows.append(dict(ckpt_idx=r, curve="probe absent rate",
+                                 v=v))
+        d = pd.DataFrame(rows).rename(columns={"ckpt_idx": "tokens"})
         d = smooth(d)
+        d = d.rename(columns={"tokens": "ckpt_idx"})
         d = d[(d.v > -0.15) & (d.v < 1.35)]  # clip residual display noise
-        finals = (d[d.curve != "probe absent rate"]
-                  .sort_values("tokens").groupby("curve").v.last())
-        xmax = d.tokens.max()
-        labels_y = {}
-        used = []
-        for cname, y in sorted(finals.items(), key=lambda kv: -kv[1]):
-            yy = y
-            while any(abs(yy - u) < 0.06 for u in used):
-                yy -= 0.065
+
+        #: ordinal vendor grid on x (log-spaced early, so no empty
+        #: decades), break labels in token units
+        def tok_label(r):
+            t = steps.get(r, 0) * TOK[ladder]
+            return (f"{t / 1e9:.0f}B" if t >= 1e9 else f"{t / 1e6:.0f}M")
+
+        cand = sorted(set(d.ckpt_idx))
+        brk = [cand[i] for i in
+               sorted({0, len(cand) // 5, 2 * len(cand) // 5,
+                       3 * len(cand) // 5, 4 * len(cand) // 5,
+                       len(cand) - 1})]
+        xmax = max(cand)
+        #: labels anchored to each line's own endpoint, minimal nudges
+        ends = (d.sort_values("ckpt_idx").groupby("curve")
+                .agg(x=("ckpt_idx", "last"), y=("v", "last")))
+        labels_y, used = {}, []
+        for cname, r in ends.sort_values("y", ascending=False).iterrows():
+            yy = float(r.y)
+            while any(abs(yy - u) < 0.055 for u in used):
+                yy -= 0.058
             used.append(yy)
             labels_y[cname] = yy
         note = ("token axis: 2,097,152 tokens/step, documented"
                 if ladder == "pythia" else
                 "token axis: 4,194,304 tokens/step, INFERRED constant "
                 "batch, unverified ([5434])")
-        p = (ggplot(d, aes("tokens", "v", color="curve"))
+        p = (ggplot(d, aes("ckpt_idx", "v", color="curve"))
              + geom_line(size=0.8)
              + scale_color_manual(PAL)
-             + scale_x_log10(expand=(0.02, 0, 0.30, 0))
-             + sum([[annotate("text", x=xmax * 2.0, y=yy, label=c,
+             + scale_x_continuous(breaks=brk,
+                                  labels=[tok_label(b) for b in brk],
+                                  expand=(0.02, 0, 0.28, 0))
+             + sum([[annotate("text", x=xmax + 2, y=yy, label=c,
                               color=PAL[c], size=8, ha="left")]
                     for c, yy in labels_y.items()], [])
-             + annotate("text", x=xmax * 2.0,
-                        y=float(d[d.curve == "probe absent rate"]
-                                .sort_values("tokens").v.iloc[-1]),
-                        label="probe absent rate", color=GREY, size=8,
-                        ha="left")
              + labs(title=f"What installs when, on tokens seen — "
                           f"{'Pythia-6.9b' if ladder == 'pythia' else 'OLMo-3 (stage1 base arm)'}",
                     subtitle="Each curve as share of its own base-final "
@@ -200,7 +209,8 @@ def main():
                              "licit share (deepseek; haiku parallel). "
                              "Grey: probe absent rate, with the curves "
                              "per [5436].\n" + note,
-                    x="tokens seen (log scale)",
+                    x="tokens seen (vendor checkpoint grid — spacing is "
+                      "ordinal, log-like early)",
                     y="share of own base-final value")
              + TH)
         p.save(f"{FIGDIR}/fig17_acquisition_tokens_{ladder}.png", dpi=300,
