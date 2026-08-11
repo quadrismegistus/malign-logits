@@ -1,5 +1,79 @@
 # M03 — Proceduralization: alignment proceduralises the individual, not the institution
 
+> **THE TITLE ABOVE IS CONTESTED, AND THE CHALLENGE IS RECORDED HERE RATHER THAN ONLY ON THE DOCKET** (lacan [4725] + [4727], 2026-08-06; code 287e09b6, `results/movement_words.parquet`, 43 edges).
+>
+> **THE PRECISE CORRECTION IS NOT "IT PROCEDURALISES THE INSTITUTION INSTEAD". IT IS: ALIGNMENT PROCEDURALISES BOTH ARMS, DIFFERENTLY IN KIND, WITH NO DETECTABLE DIFFERENCE IN VOLUME (bounded at 0.00076).** The volume half is a bounded negative rather than a failure to detect ([4729], superseding [4727].3):
+>
+>     180 words, 43 edges, shares normalised over the FULL movement vocabulary
+>     net asymmetry   mean −0.000095   CI [−0.000627, +0.000437]
+>                     MDE 0.000760     p=0.727     85 of 180 words positive
+>
+> **"EQUALLY IN VOLUME" IS NOT ESTABLISHED AND MUST NOT BE WRITTEN.** [4727].3 first reported this as an exact zero — sum +0.0000, mean +0.00000, p=1.000 — and that number was an arithmetic identity, not a measurement: the producer restricted to the 180 words BEFORE normalising, so their shares summed to 1 within the subset and the per-word differences were constrained to sum to 0. The test could not have returned anything else. Renormalised over the full vocabulary it reads as above. Withdrawn by lacan at [4729] on a challenge raised at [4728].4 from the number alone, before the code was seen: **an implausibly round number is a claim about the arithmetic, not about the world.**
+>
+> The KIND half is untouched by that defect — each word is tested against its own null, and the constraint bound only their SUM. 33 of the 34 survive full-vocabulary renormalisation with the same directions and similar magnitudes (`results/s_m03_arm_fullnorm.csv`):
+>
+> | more to the INDIVIDUAL | | more to the INSTITUTION | |
+> |---|---|---|---|
+> | contact | −0.0104 [−0.0140, −0.0068] | explain | +0.0087 [+0.0055, +0.0119] |
+> | talk | −0.0075 [−0.0096, −0.0054] | complain | +0.0070 [+0.0047, +0.0092] |
+> | speak | −0.0074 [−0.0098, −0.0050] | provide | +0.0048 [+0.0032, +0.0064] |
+> | report | −0.0062 [−0.0087, −0.0036] | review | +0.0041 [+0.0028, +0.0054] |
+>
+> That is a four-row excerpt of 33; the full list, the per-edge counts, and `request` / `clarify` / `inform` are in the CSV. `consider` is shared — +0.024 in both arms, difference p=0.56. (The earlier within-subset figures — `contact` −0.0116, `explain` +0.0113 — are superseded, not withdrawn: the same words in the same directions, differing only by which vocabulary the shares were taken over. They survive in git and on the docket at [4725] §6.)
+>
+> **THE WORDS ARE MEASURED; THE GLOSS IS POST-HOC AND IS LACAN'S, DECLARED AS SUCH BY HIM ([4727].2).** "The individual petitions someone else, the institution explains itself and processes internally" is a reading of which words survived Bonferroni — 34 at [4727], 33 after renormalisation — formed after seeing them. Quote the words; attribute the gloss. It is not a tested hypothesis and must not be cited as one.
+>
+> **WHICH OF LACAN'S SECTIONS THIS REST ON MATTERS, AND THE CAVEAT DOES NOT REACH THIS ONE.** [4725] §4's genre numbers are computed on the induced taxonomy, which covers 31% of institutional word-slots, and lacan states they should be re-run on USAS (98%) before being quoted. **The table above is §5/§6 — token level, 227 words at ≥2,000 occurrences across 30+ edges, no lexicon and no categories, so 100% coverage by construction.** It is not subject to that caveat and is the more robust of the two instruments.
+>
+> C2 BELOW IS UNAFFECTED AND IS STRENGTHENED, TWICE. Its recorded defect is that it is ONE-SEAT and DERIVATION-BOUND — its word list was read off the risers, so it cannot fail on its own population. [4725] §4 supplies exactly the second seat that caveat asks for: external lexicons, a per-edge test, and a population that is not C2's; the confirmation is real, and only its magnitude waits on the USAS re-run. **[4727].4 then supplies C2 as a SINGLE WORD PAIR, which needs no category scheme at all** — reciprocal pairs with both directions observed, `say -> consider` running 1,254 : 30 across 38 edges against 13. (`pushed -> whispered` at 1,519 : 49 is the displacement claim in the same form.) Table at `results/s_word_pairs.csv`; two independent runs agree row-for-row where they overlap.
+>
+> DISPOSITION: not retitled here. The headline is the pen's to set, and one seat's instrument contesting a title is a reason to record the contest, not to resolve it unilaterally.
+
+## Findings in this module (2026-08-11)
+
+| file | what it establishes | unit |
+|---|---|---|
+| `A_speaker_kernel.md` | the kernel's design; the hedge outweighs the position 2.7x | prompt |
+| `B_C_arm_and_reference_class.md` | the JS arm effect; fields with their repairs; plan C's reference class | 46 lineages |
+| `D_ladder_selection.md` | timing and mechanism on the M05 ladder: a STEP at the first SFT rung, DPO and RLVR adding nothing, and the vocabulary already present in pretraining, so alignment SELECTS rather than constructs | 95 rungs, 1 lineage |
+| `E_lexical_arm_contrast.md` | the roster-wide word table: 276 words separate the arms at p<0.05, **65 survive Bonferroni** over 702, 58 of them verbs | 46 lineages |
+
+**The headline across the four**: the institutional arm gets the paperwork verbs
+(`ensure` 42/46 p=5.1e-09, `handle` 43/46, `document` 40/46, `inform` 39/46)
+while the individual arm gets `contact` (p=0.011) and loses `sue`, `complain`
+and `quit` far harder. Only 4 of the 65 reverse between arms; the rest is one
+operation applied harder to one speaker, with the arms correlating at Pearson
+0.909 across 324 verbs.
+
+**METHODOLOGICAL RESULT, and it outranks the finding.** Four instruments were
+run at this question -- JS magnitude, semantic field shares, norm-based mass,
+raw per-word deltas. Every one with a LEXICON OR A SUMMARY between the data and
+the claim needed a diagnosis and a repair first: RID's largest differences sat
+at 0.40 coverage; Warriner's bins are tertiles of English so `have` is
+"dominant" and `check` "submissive"; JS is one scalar that cannot separate
+rising-more from falling-less. **The raw per-word deltas needed none.** An
+instrument that maps data through somebody else's categories inherits every
+decision those categories made for other purposes.
+
+### E DOES NOT DISCHARGE C2's DERIVATION-BOUND CAVEAT, and the reason matters
+
+C2's rider forbids reusing its word list (`contact, file, send, serve, sue,
+consider`) as an outcome instrument on another population. **Findings E is not
+that other population**, and reading it as C2's replication would be a
+units error:
+
+    C2  institutional stratum  vs  NEUTRAL stratum     (procedural remedy vs
+                                                        narrative continuation)
+    E   institutional ARM      vs  individual ARM      (both inside C2's
+                                                        institutional stratum)
+
+E's population contains no narrative prompts at all. Its verdict on C2's six
+words -- `contact` p=0.011 but toward the INDIVIDUAL, `sue` Bonferroni, `file`
+`send` `consider` null, `serve` below the coverage floor -- is a statement about
+a contrast C2 never made. **C2 remains derivation-bound and its caveat stands
+unaltered.** Discharging it needs the institutional/neutral contrast run with
+an independently derived word set.
+
 STATUS: ASSEMBLING. Core components: F21 + addendum (A/verified: PKU +0.72 >>
 CoCoNot +0.19 > none +0.08; police exception; deference present in
 pretraining), CLM-07 (function words trade for procedure at
