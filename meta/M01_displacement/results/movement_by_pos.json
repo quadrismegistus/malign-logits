@@ -2,63 +2,129 @@
  "_about": "Movement summed by part of speech, and the manner/temporal cancellation inside ADV.",
  "_producer": "meta/M01_displacement/scripts/movement_by_pos.py",
  "_corrects": {
-  "post": "[5474], by this seat",
-  "DET_-2200": "WITHDRAWN. Only 2 moved words tag DET; `the`, `a`, `his`, `her` tag PRON because a mid-clause prompt strands them. Their mass is inside PRON.",
-  "ADV_net_-24": "WITHDRAWN. Not reproducible at either grain; the word-level join gives +832 at 47.5%.",
-  "temporal_falls": "CORRECTED to flat (50.3%). The cancellation is manner-up against flat, not against down.",
-  "survives": "VERB -17457 exactly; NOUN rising; and the manner bucket, which is the claim the post was making."
+  "post": "[5481], by this seat, RETRACTED IN FULL",
+  "what_5481_claimed": "that [5474]'s `DET -2200` named an absent class and its `ADV -24` was unreproducible at any grain.",
+  "why_it_was_wrong": "it joined `upos` (raw spaCy, which strands mid-clause determiners into PRON) instead of `pos_class`, the documented column of record. Under `pos_class` every [5474] figure reproduces exactly.",
+  "grain_claim_also_withdrawn": "[5481] additionally reported a prompt-multiplied join in [5474]. There was none; [5474] was already word-level. The mismatch was the column, start to finish.",
+  "status_of_5474": "CONFIRMED, not corrected."
  },
- "_closed_class_unreliable": {
-  "why": "all 212 battery prompts end mid-clause, so an appended determiner has no noun to determine",
-  "measured": {
+ "_column_of_record": {
+  "use": "pos_class",
+  "do_not_use": "upos -- raw spaCy, kept for audit only",
+  "why": "all 212 battery prompts end mid-clause, so an appended determiner has no noun to determine and raw spaCy retags it PRON. `pos_class` re-derives from the PTB fine tag and is not fooled.",
+  "measured_both_ways": {
    "the": {
-    "PRON": 584
+    "upos": {
+     "PRON": 584
+    },
+    "pos_class": {
+     "DET": 584
+    }
    },
    "a": {
-    "PRON": 571,
-    "NOUN": 13
+    "upos": {
+     "PRON": 571,
+     "NOUN": 13
+    },
+    "pos_class": {
+     "DET": 571,
+     "NOUN": 13
+    }
    },
    "an": {
-    "PRON": 554,
-    "X": 1,
-    "PROPN": 1
+    "upos": {
+     "PRON": 554,
+     "X": 1,
+     "PROPN": 1
+    },
+    "pos_class": {
+     "DET": 554,
+     "X": 1,
+     "PROPN": 1
+    }
    },
    "his": {
-    "PRON": 532
+    "upos": {
+     "PRON": 532
+    },
+    "pos_class": {
+     "PRON": 532
+    }
    },
    "her": {
-    "PRON": 461,
-    "NOUN": 6
+    "upos": {
+     "PRON": 461,
+     "NOUN": 6
+    },
+    "pos_class": {
+     "PRON": 461,
+     "NOUN": 6
+    }
    },
    "their": {
-    "PRON": 496
+    "upos": {
+     "PRON": 496
+    },
+    "pos_class": {
+     "PRON": 496
+    }
    },
    "my": {
-    "PRON": 514,
-    "NOUN": 2,
-    "INTJ": 1
+    "upos": {
+     "PRON": 514,
+     "NOUN": 2,
+     "INTJ": 1
+    },
+    "pos_class": {
+     "PRON": 514,
+     "NOUN": 2,
+     "INTJ": 1
+    }
    },
    "your": {
-    "PRON": 520
+    "upos": {
+     "PRON": 520
+    },
+    "pos_class": {
+     "PRON": 520
+    }
    },
    "this": {
-    "PRON": 579
+    "upos": {
+     "PRON": 579
+    },
+    "pos_class": {
+     "DET": 579
+    }
    },
    "that": {
-    "PRON": 299,
-    "SCONJ": 284
+    "upos": {
+     "PRON": 299,
+     "SCONJ": 284
+    },
+    "pos_class": {
+     "DET": 299,
+     "ADP": 284
+    }
    },
    "these": {
-    "PRON": 123
+    "upos": {
+     "PRON": 123
+    },
+    "pos_class": {
+     "DET": 123
+    }
    },
    "those": {
-    "PRON": 353
+    "upos": {
+     "PRON": 353
+    },
+    "pos_class": {
+     "DET": 353
+    }
    }
   },
-  "classes_marked_diagnostic_only": [
-   "DET",
-   "PRON"
-  ]
+  "words_where_the_columns_disagree": 106
  },
  "_inputs": [
   "meta/M01_displacement/results/unfiltered_movement_counts.json (@lacan, 59c64e4a)",
@@ -114,28 +180,46 @@
   },
   {
    "class": "PRON",
-   "rises": 14404,
-   "falls": 21107,
-   "net": -6703,
-   "fall_rate": 0.5944,
+   "rises": 9636,
+   "falls": 14249,
+   "net": -4613,
+   "fall_rate": 0.5966,
    "n_words": null,
-   "reliable": false
+   "reliable": true
   },
   {
    "class": "ADV",
-   "rises": 8581,
-   "falls": 7749,
-   "net": 832,
-   "fall_rate": 0.4745,
+   "rises": 9494,
+   "falls": 9518,
+   "net": -24,
+   "fall_rate": 0.5006,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "DET",
+   "rises": 4439,
+   "falls": 6639,
+   "net": -2200,
+   "fall_rate": 0.5993,
    "n_words": null,
    "reliable": true
   },
   {
    "class": "ADP",
-   "rises": 1864,
-   "falls": 4733,
-   "net": -2869,
-   "fall_rate": 0.7174,
+   "rises": 2213,
+   "falls": 5099,
+   "net": -2886,
+   "fall_rate": 0.6973,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "NOUN",
+   "rises": 3759,
+   "falls": 2742,
+   "net": 1017,
+   "fall_rate": 0.4218,
    "n_words": null,
    "reliable": true
   },
@@ -145,24 +229,6 @@
    "falls": 3801,
    "net": -1221,
    "fall_rate": 0.5957,
-   "n_words": null,
-   "reliable": true
-  },
-  {
-   "class": "NOUN",
-   "rises": 3429,
-   "falls": 2523,
-   "net": 906,
-   "fall_rate": 0.4239,
-   "n_words": null,
-   "reliable": true
-  },
-  {
-   "class": "SCONJ",
-   "rises": 1054,
-   "falls": 1995,
-   "net": -941,
-   "fall_rate": 0.6543,
    "n_words": null,
    "reliable": true
   },
@@ -185,15 +251,6 @@
    "reliable": true
   },
   {
-   "class": "PART",
-   "rises": 355,
-   "falls": 443,
-   "net": -88,
-   "fall_rate": 0.5551,
-   "n_words": null,
-   "reliable": true
-  },
-  {
    "class": "PUNCT",
    "rises": 196,
    "falls": 441,
@@ -208,6 +265,15 @@
    "falls": 332,
    "net": -156,
    "fall_rate": 0.6535,
+   "n_words": null,
+   "reliable": true
+  },
+  {
+   "class": "PART",
+   "rises": 147,
+   "falls": 303,
+   "net": -156,
+   "fall_rate": 0.6733,
    "n_words": null,
    "reliable": true
   },
@@ -246,25 +312,16 @@
    "fall_rate": 0.0,
    "n_words": null,
    "reliable": true
-  },
-  {
-   "class": "DET",
-   "rises": 1,
-   "falls": 0,
-   "net": 1,
-   "fall_rate": 0.0,
-   "n_words": null,
-   "reliable": false
   }
  ],
  "adv_buckets": [
   {
    "class": "temporal/deictic",
-   "rises": 4510,
-   "falls": 4565,
-   "net": -55,
-   "fall_rate": 0.503,
-   "n_words": 23
+   "rises": 4949,
+   "falls": 6113,
+   "net": -1164,
+   "fall_rate": 0.5526,
+   "n_words": 25
   },
   {
    "class": "manner (-ly)",
@@ -276,11 +333,11 @@
   },
   {
    "class": "other",
-   "rises": 1324,
-   "falls": 1874,
-   "net": -550,
-   "fall_rate": 0.586,
-   "n_words": 52
+   "rises": 1798,
+   "falls": 2095,
+   "net": -297,
+   "fall_rate": 0.5381,
+   "n_words": 59
   }
  ]
 }

@@ -20,51 +20,58 @@ anything else.
     INPUT  data/m05_syntax_tags.parquet
            in-context spaCy tags, one row per (prompt, word)
 
-## THIS PRODUCER CORRECTS THE POST THAT PROMPTED IT
+## THIS PRODUCER WAS BUILT TO CHECK [5474] AND CONFIRMS IT. AN INTERMEDIATE
+## "CORRECTION" OF MINE ([5481]) IS RETRACTED IN FULL
 
-[5474] reported a part-of-speech table including `DET -2200` and `ADV net -24,
-fall rate 50.1%`. **Neither survives.** Building the producer surfaced two
-defects in the post, in the order they matter:
+Under the correct column every [5474] figure reproduces exactly:
 
-**(1) THE CLOSED-CLASS TAGS ARE DESTROYED BY THE SAME FACT THAT KILLED THE
-BOUNDARY READING.** All 212 battery prompts end mid-clause, so a candidate
-determiner is appended with no noun to determine and spaCy tags it PRON:
+    VERB -17457   PRON -4613   ADV -24 (50.1%)   DET -2200
+    ADP  -2886    NOUN +1017   AUX -1221
 
-    the   584 of 584 rows PRON        his   532 of 532 PRON
-    a     571 of 584 PRON             her   461 of 467 PRON
+**The retracted post claimed two defects and neither was real.** Both came from
+one root cause, and it is worth stating precisely because the failure was
+confident and public:
 
-Only 2 moved words tag DET at all (`half`, `whose`). **So `DET -2200` names a
-class that is not in this table, and its mass is inside PRON** -- which makes
-the PRON row itself a pooled mixture of true pronouns and stranded determiners,
-the same trap one level down. Closed-class rows here are DIAGNOSTIC ONLY and are
-printed with that label rather than suppressed.
+**(1) I JOINED THE WRONG COLUMN.** `m05_syntax_tags.parquet` carries TWO class
+columns. `upos` is raw spaCy, where a mid-clause prompt strands a determiner and
+retags it PRON (`the` 584/584). **`pos_class` is the column of record**: it
+re-derives the class from the PTB fine tag, so a stranded `the` is still DET
+while `his`/`her`/`their` stay correctly pronominal (PRP$). The column exists
+BECAUSE of the stranding artifact -- it was found in the producer's first smoke
+test and documented in its header. I rediscovered a known artifact, mistook it
+for a discovery, and withdrew a correct number on the strength of it.
 
-**(2) THE POSTED NUMBERS CAME FROM A JOIN AT THE WRONG GRAIN.** `riser`/`faller`
-are already corpus-wide totals per word, so joining them to a per-(prompt, word)
-tag table and summing multiplies each word by the number of prompts it tags in.
-The correct join is word-level, each word once, carrying its MODAL in-context
-tag. Under it ADV is `+832` at a 47.5% fall rate -- it rises slightly; it is not
-flat, and `-24` is not reproducible at either grain.
+**(2) THE GRAIN CLAIM WAS COLLATERAL AND IS ALSO WITHDRAWN.** [5481] reported
+that [5474] had joined corpus-total counts to a per-(prompt, word) table and
+summed, multiplying by prompt count. It had not. [5474] was already word-level.
+I inferred a grain defect from a mismatch whose entire cause was the column, and
+@registrar thanked me for a correction that was not one. **A wrong diagnosis
+that happens to sit next to a real-sounding mechanism is the dangerous kind**,
+because the mechanism is plausible on its own and nobody re-derives a defect
+that has already been accepted.
 
-## WHAT SURVIVES, AND IT IS THE PART THAT WAS THE POINT
+The general failure has a name in this campaign: an identifier that is stable
+while the thing it identifies is not. Here it is a COLUMN NAME -- two columns
+both meaning "part of speech" and disagreeing about what that means. The header
+said so. Headers are read less often than columns are joined.
 
-ADV tags cleanly -- `carefully` is ADV in 192 of 192 rows -- because manner
-adverbs are not stranded by a mid-clause prompt the way determiners are. The
-cancellation is real and is sharper than the post had it:
+## THE RESULT
 
-    manner (-ly)      fall rate 32.3%   the class RISES HARD
-    temporal/deictic  fall rate 50.3%   flat
-    other             fall rate 58.6%   falls
-    ALL ADV           fall rate 47.5%
+**NOUN is the only large class that rises net** (+1017). VERB, PRON, DET, ADP
+and AUX all fall. Alignment moves mass off the predicate and its scaffolding and
+onto the nominal.
 
-The posted framing was manner-up against temporal-DOWN. It is manner-up against
-a FLAT temporal and a falling residual. **A part of speech is not a semantic
-class** -- the fourth time the campaign has met this, after pole_sep across
-pairs, attention across six pairs, and the [5475] FUNC/CONTENT split -- and the
-pooled number was the uninformative one again.
+ADV reads FLAT -- and that is a cancellation, not a fact:
 
-**NOUN rising and VERB falling survive** (+906 and -17457): both are open
-classes and neither is stranded. VERB reproduces the posted figure exactly.
+    manner (-ly)      2747 / 1310   +1437   32.3%   163 words
+    temporal/deictic  4949 / 6113   -1164   55.3%    25
+    other             1798 / 2095    -297   53.8%    59
+    ALL ADV           9494 / 9518     -24   50.1%
+
+**A part of speech is not a semantic class.** The fourth time the campaign has
+met this, after pole_sep across pairs, attention across six pairs, and the
+[5475] FUNC/CONTENT split, and the pooled number was the uninformative one
+again.
 
 ## THE BUCKETS WERE DECLARED BEFORE LOOKING
 
@@ -124,8 +131,13 @@ def main():
     tags = pd.read_parquet(TAGS)
     #: a word's class is its MODAL in-context tag across the battery; the tags
     #: are per (prompt, word) and a word can differ by context
-    upos = (tags.groupby("word")["upos"]
+    #: `pos_class` is the COLUMN OF RECORD (registrar, [5482]): it re-derives
+    #: the class from the PTB fine tag, so a stranded `the` is still DET where
+    #: raw `upos` calls it PRON. `upos` is kept for audit only.
+    upos = (tags.groupby("word")["pos_class"]
             .agg(lambda s: s.value_counts().idxmax()).to_dict())
+    raw = (tags.groupby("word")["upos"]
+           .agg(lambda s: s.value_counts().idxmax()).to_dict())
 
     words = set(risers) | set(fallers)
     joined = sum(1 for w in words if w in upos)
@@ -134,9 +146,12 @@ def main():
     #: measure it rather than asserting it, and mark the affected rows
     STRANDED = ("the", "a", "an", "his", "her", "their", "my", "your", "this",
                 "that", "these", "those")
-    strand = {w: tags[tags.word == w].upos.value_counts().to_dict()
+    strand = {w: {"upos": tags[tags.word == w].upos.value_counts().to_dict(),
+                  "pos_class": tags[tags.word == w].pos_class.value_counts().to_dict()}
               for w in STRANDED if (tags.word == w).any()}
-    UNRELIABLE = {"PRON", "DET"}
+    #: nothing is diagnostic-only under `pos_class`; the stranding is repaired
+    UNRELIABLE = set()
+    disagree = sorted(w for w in upos if raw.get(w) and raw[w] != upos[w])
 
     by_pos = collections.defaultdict(lambda: {"rises": 0, "falls": 0})
     adv = collections.defaultdict(lambda: {"rises": 0, "falls": 0, "words": set()})
@@ -198,22 +213,31 @@ def main():
                       "temporal cancellation inside ADV.",
             "_producer": "meta/M01_displacement/scripts/movement_by_pos.py",
             "_corrects": {
-                "post": "[5474], by this seat",
-                "DET_-2200": "WITHDRAWN. Only 2 moved words tag DET; `the`, "
-                             "`a`, `his`, `her` tag PRON because a mid-clause "
-                             "prompt strands them. Their mass is inside PRON.",
-                "ADV_net_-24": "WITHDRAWN. Not reproducible at either grain; "
-                               "the word-level join gives +832 at 47.5%.",
-                "temporal_falls": "CORRECTED to flat (50.3%). The cancellation "
-                                  "is manner-up against flat, not against down.",
-                "survives": "VERB -17457 exactly; NOUN rising; and the manner "
-                            "bucket, which is the claim the post was making.",
+                "post": "[5481], by this seat, RETRACTED IN FULL",
+                "what_5481_claimed": "that [5474]'s `DET -2200` named an absent "
+                                     "class and its `ADV -24` was unreproducible "
+                                     "at any grain.",
+                "why_it_was_wrong": "it joined `upos` (raw spaCy, which strands "
+                                    "mid-clause determiners into PRON) instead "
+                                    "of `pos_class`, the documented column of "
+                                    "record. Under `pos_class` every [5474] "
+                                    "figure reproduces exactly.",
+                "grain_claim_also_withdrawn": "[5481] additionally reported a "
+                                              "prompt-multiplied join in [5474]. "
+                                              "There was none; [5474] was already "
+                                              "word-level. The mismatch was the "
+                                              "column, start to finish.",
+                "status_of_5474": "CONFIRMED, not corrected.",
             },
-            "_closed_class_unreliable": {
+            "_column_of_record": {
+                "use": "pos_class",
+                "do_not_use": "upos -- raw spaCy, kept for audit only",
                 "why": "all 212 battery prompts end mid-clause, so an appended "
-                       "determiner has no noun to determine",
-                "measured": strand,
-                "classes_marked_diagnostic_only": sorted(UNRELIABLE),
+                       "determiner has no noun to determine and raw spaCy "
+                       "retags it PRON. `pos_class` re-derives from the PTB "
+                       "fine tag and is not fooled.",
+                "measured_both_ways": strand,
+                "words_where_the_columns_disagree": len(disagree),
             },
             "_inputs": ["meta/M01_displacement/results/"
                         "unfiltered_movement_counts.json (@lacan, 59c64e4a)",
