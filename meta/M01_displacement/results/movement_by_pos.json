@@ -222,6 +222,64 @@
    },
    "verdict": "MOSTLY CONFOUNDED. The buckets differ 72x in median frequency; inside the overlap the 23-point gap falls to 7 points, and the two groups STILL differ 3.5x in median fpm there. The residual is not separable with this instrument."
   },
+  "noun_rise_percell": {
+   "mean_eligibility_all_words": {
+    "NOUN": 0.042,
+    "VERB": 0.088
+   },
+   "median_eligibility_ever_eligible": {
+    "NOUN": 0.15,
+    "VERB": 0.143
+   },
+   "quartiles_among_ever_eligible": [
+    {
+     "median_elig": 0.048,
+     "NOUN": {
+      "words": 115,
+      "fall_rate": 0.2935
+     },
+     "VERB": {
+      "words": 492,
+      "fall_rate": 0.1984
+     }
+    },
+    {
+     "median_elig": 0.105,
+     "NOUN": {
+      "words": 160,
+      "fall_rate": 0.3998
+     },
+     "VERB": {
+      "words": 447,
+      "fall_rate": 0.3327
+     }
+    },
+    {
+     "median_elig": 0.201,
+     "NOUN": {
+      "words": 139,
+      "fall_rate": 0.439
+     },
+     "VERB": {
+      "words": 468,
+      "fall_rate": 0.4763
+     }
+    },
+    {
+     "median_elig": 0.407,
+     "NOUN": {
+      "words": 149,
+      "fall_rate": 0.5615
+     },
+     "VERB": {
+      "words": 458,
+      "fall_rate": 0.5841
+     }
+    }
+   ],
+   "noun_lower_in": "2 of 4 firing quartiles",
+   "verdict": "NULL. NOUN words are ineligible to fall about twice as often (mean 0.042 vs 0.088), which drags the pooled NOUN fall rate down by composition. Among ever-eligible words eligibility is near-identical and the gap disappears. THE [5490] FLOOR READING IS WITHDRAWN: it checked the direction of FREQUENCY, which is only a proxy for the gate, not the gate."
+  },
   "noun_rise_stratified": {
    "median_fpm": {
     "NOUN": 21.9,
@@ -236,8 +294,8 @@
       "fall_rate": 0.3523
      },
      "VERB": {
-      "words": 532,
-      "fall_rate": 0.3635
+      "words": 531,
+      "fall_rate": 0.3637
      }
     },
     {
@@ -247,8 +305,8 @@
       "fall_rate": 0.4669
      },
      "VERB": {
-      "words": 520,
-      "fall_rate": 0.3949
+      "words": 521,
+      "fall_rate": 0.3948
      }
     },
     {
@@ -286,6 +344,7 @@
     }
    ],
    "noun_lower_in": "4 of 5 quintiles",
+   "SUPERSEDED_BY": "noun_rise_percell \u2014 frequency is a proxy for the gate; the gate itself is available and returns null",
    "verdict": "SURVIVES. Unlike manner/temporal, NOUN and VERB overlap in frequency across the whole range, so the stratification is meaningful rather than empty. The gap WIDENS with frequency (Q5: 48.4% vs 59.3%)."
   }
  },

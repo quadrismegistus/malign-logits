@@ -100,7 +100,38 @@ which needs more high-frequency manner adverbs than the battery contains, or a
 rate measured against a per-cell eligibility denominator rather than a
 vocabulary-level one.
 
-## THE NOUN RISE SURVIVES, AND THE CONFOUND RUNS AGAINST IT
+## THE NOUN RISE IS WITHDRAWN — PER-CELL ELIGIBILITY KILLS IT ([5492])
+
+**The section below is superseded and is kept only because the reasoning error
+in it is the point.** @lacan's per-cell artifact
+(`results/percell_eligibility.json`) makes the fine version of the check
+possible, and under it the NOUN/VERB contrast is null:
+
+    all NOUN/VERB words       mean per-cell eligibility  NOUN 0.042  VERB 0.088
+    -> NOUN words are ineligible to fall about TWICE as often, which drags the
+       pooled NOUN fall rate down without any linguistic fact being involved
+
+    among EVER-ELIGIBLE words  eligibility is near-identical  0.150 vs 0.143
+    quartile   NOUN            VERB           median elig
+    Q1         29.4% (115)     19.8% (492)          0.048
+    Q2         40.0% (160)     33.3% (447)          0.105
+    Q3         43.9% (139)     47.6% (468)          0.201
+    Q4         56.2% (149)     58.4% (458)          0.407
+    -> NOUN falls less in 2 of 4. Dead split. The gap is composition.
+
+**AND THE ERROR IS MINE IN A WAY WORTH NAMING.** I checked the direction of the
+FREQUENCY confound, got a reassuring answer, and reported a floor. Frequency is
+not the gate -- eligibility is, and frequency is only its proxy. **A check run on
+the wrong axis returns a clean result and certifies nothing.** I had written the
+overlap doctrine that afternoon and did not apply it to the axis that mattered:
+in the naive per-cell stratification 3 of 5 strata cannot fire at all (both
+classes 0.0%), which is precisely the failure I told @registrar to watch for.
+
+The pooled description (NOUN 42.2%, VERB 54.5%) remains true as arithmetic. The
+CLAIM that alignment moves mass off the verb onto the noun does not follow from
+it.
+
+## SUPERSEDED: THE NOUN RISE SURVIVES, AND THE CONFOUND RUNS AGAINST IT
 
 I named the NOUN check as unrun at [5487].5 and @registrar pulled the finding
 from the surviving list at [5489] on that word. Run, it comes back the other
@@ -240,6 +271,51 @@ def confound_check(risers, fallers, cls):
         quint.append(row)
     med = {c: round(sst.median([r[2] for r in pool if r[1] == c]), 1)
            for c in ("NOUN", "VERB")}
+
+    #: (4) THE FINE CHECK — per-cell eligibility, @lacan's artifact [5492].
+    #: This SUPERSEDES (3): frequency is only a proxy for the gate, and the gate
+    #: itself is available. Among ever-eligible words the contrast is null.
+    pcf = os.path.join(os.path.dirname(HERE), "results",
+                       "percell_eligibility.json")
+    percell = None
+    if os.path.exists(pcf):
+        el = json.load(open(pcf))["words"]
+        NV = [(w, x, cls[w]) for w, x in el.items()
+              if cls.get(w) in ("NOUN", "VERB")]
+        ev = sorted([r for r in NV if r[1]["elig_rate"] > 0],
+                    key=lambda r: r[1]["elig_rate"])
+        qq, rowsq = len(ev) // 4, []
+        for i in range(4):
+            b = ev[i * qq:(i + 1) * qq] if i < 3 else ev[3 * qq:]
+            e = {"median_elig": round(sst.median(
+                [r[1]["elig_rate"] for r in b]), 3)}
+            for c in ("NOUN", "VERB"):
+                g = [r for r in b if r[2] == c]
+                R = sum(r[1]["rise"] for r in g)
+                F = sum(r[1]["fall"] for r in g)
+                e[c] = {"words": len(g),
+                        "fall_rate": round(F / (R + F), 4) if R + F else None}
+            rowsq.append(e)
+        lo4 = sum(1 for e in rowsq if e["NOUN"]["fall_rate"] is not None
+                  and e["VERB"]["fall_rate"] is not None
+                  and e["NOUN"]["fall_rate"] < e["VERB"]["fall_rate"])
+        percell = {
+            "mean_eligibility_all_words": {
+                c: round(sst.mean([r[1]["elig_rate"] for r in NV if r[2] == c]), 3)
+                for c in ("NOUN", "VERB")},
+            "median_eligibility_ever_eligible": {
+                c: round(sst.median([r[1]["elig_rate"] for r in ev if r[2] == c]), 3)
+                for c in ("NOUN", "VERB")},
+            "quartiles_among_ever_eligible": rowsq,
+            "noun_lower_in": "%d of 4 firing quartiles" % lo4,
+            "verdict": "NULL. NOUN words are ineligible to fall about twice as "
+                       "often (mean 0.042 vs 0.088), which drags the pooled "
+                       "NOUN fall rate down by composition. Among ever-eligible "
+                       "words eligibility is near-identical and the gap "
+                       "disappears. THE [5490] FLOOR READING IS WITHDRAWN: it "
+                       "checked the direction of FREQUENCY, which is only a "
+                       "proxy for the gate, not the gate.",
+        }
     lower = sum(1 for r in quint
                 if r["NOUN"]["fall_rate"] is not None
                 and r["VERB"]["fall_rate"] is not None
@@ -262,6 +338,7 @@ def confound_check(risers, fallers, cls):
                        "median fpm there. The residual is not separable with "
                        "this instrument.",
         },
+        "noun_rise_percell": percell,
         "noun_rise_stratified": {
             "median_fpm": med,
             "confound_direction": "AGAINST the finding. NOUN is %.1fx MORE "
@@ -271,6 +348,8 @@ def confound_check(risers, fallers, cls):
                                   "less." % (med["NOUN"] / med["VERB"]),
             "quintiles": quint,
             "noun_lower_in": "%d of 5 quintiles" % lower,
+            "SUPERSEDED_BY": "noun_rise_percell — frequency is a proxy for the "
+                             "gate; the gate itself is available and returns null",
             "verdict": "SURVIVES. Unlike manner/temporal, NOUN and VERB overlap "
                        "in frequency across the whole range, so the "
                        "stratification is meaningful rather than empty. The "
@@ -395,6 +474,22 @@ def main():
         print("      Q%-11d %12s %12s %12.1f"
               % (i, cell("NOUN"), cell("VERB"), r["median_fpm"]))
     print("    NOUN falls less in %s. %s" % (n["noun_lower_in"], n["verdict"]))
+    pcv = conf.get("noun_rise_percell")
+    if pcv:
+        print("\n(4) SUPERSEDES (3) — PER-CELL ELIGIBILITY (@lacan [5492])")
+        print("    mean eligibility, all words:  NOUN %.3f  VERB %.3f"
+              % (pcv["mean_eligibility_all_words"]["NOUN"],
+                 pcv["mean_eligibility_all_words"]["VERB"]))
+        print("    among EVER-ELIGIBLE words:    NOUN %.3f  VERB %.3f (near-identical)"
+              % (pcv["median_eligibility_ever_eligible"]["NOUN"],
+                 pcv["median_eligibility_ever_eligible"]["VERB"]))
+        print("      %-10s %15s %15s %11s" % ("quartile", "NOUN", "VERB", "med elig"))
+        for i, e in enumerate(pcv["quartiles_among_ever_eligible"], 1):
+            c = lambda k: ("%5.1f%% (%3d)" % (100 * e[k]["fall_rate"], e[k]["words"])
+                           if e[k]["fall_rate"] is not None else "      -      ")
+            print("      Q%-9d %15s %15s %11.3f"
+                  % (i, c("NOUN"), c("VERB"), e["median_elig"]))
+        print("    NOUN lower in %s. %s" % (pcv["noun_lower_in"], pcv["verdict"]))
 
     if a.write:
         json.dump({
