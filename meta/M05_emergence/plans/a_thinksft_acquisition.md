@@ -141,6 +141,20 @@ an endpoint illusion.
 (template-keyed). If it rises across SFT, the reasoning frame is being
 ambiently installed and the Falcon3 contrast weakens.
 
+**Secondary 4 (the pole-separation arrow; added 2026-08-11 on [5373]/[5375],
+before RH's word).** [5373] flags, not claims: d(pole_sep) predicts
+d(superposition signal), Spearman -0.420, p=0.0041, 45 lineages, two
+independent substrates -- and its arrow is explicitly unestablished, because
+a cross-section over lineages cannot order two quantities that both track
+"how much alignment happened." The SFT rungs hold that amount as the AXIS.
+Both quantities come free from passes this plan already produces (pole_sep
+from the L3 hidden sidecar on the f11 quintuplet block; the signal from the
+twp output ratio). Priors both ways: if pole separation moves FIRST and the
+signal follows across the 43 rungs, the arrow is established (separation
+drives collapse); if they move TOGETHER at every rung, the common-cause
+reading survives and is itself a result. Either way [5373]'s flagged
+correlation stops being a flag.
+
 **Secondary 3 (the join):** if no stage3 candidate is materially closer than
 base `main`, the vendor's lineage claim stands unrefined and phase 2 anchors
 on `main`; if one anneal tip is closest, phase 2 anchors there and the two

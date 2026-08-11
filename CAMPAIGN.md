@@ -139,6 +139,16 @@ seat forgets at its peril:
   ([5368]). Corollary: a calibration floor is drawn BLIND to the quantity
   it floors — a divergence-stratified "balanced" sample would contain the
   effect and then report it ([5370]).
+- **Before quoting a clustered or grouped n, PRINT THE GROUP SIZES.** A
+  grouping with all sizes 1 is not a grouping (lacan's family column, 52
+  values for 52 pairs, "clustered nothing"); a grouping whose sizes are
+  3, 2, 1, 1... is not the n about to be quoted (malign's H2, 23 pairs =
+  20 lineages). Same night, both seats, one line catches both. And the
+  worse cousin: the refutation can already be IN the artifact — [5157]
+  shipped the resid column that refuted its own headline; "a
+  one-dimensional summary of a high-dimensional object will always have
+  a reading that flatters whoever chose the dimension — and the person
+  who chose it is the one least placed to notice" ([5373], [5375]).
 - **A count is a fact about the unit you counted in** — five disagreements
   in one day dissolved into unit words (records vs cells vs pairs vs
   distinct strings); state the unit beside every count, and when two counts
