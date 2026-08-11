@@ -105,34 +105,44 @@ def main():
                     if wp is None:
                         continue
                     rows.append(dict(ckpt_idx=idx, word=w, key=w,
-                                     color=color, p=wp.probs.get(w, 0.0)))
-            d = pd.DataFrame(rows)
+                                     color=color, p_raw=wp.probs.get(w, 0.0)))
+            d = pd.DataFrame(rows).sort_values(["key", "ckpt_idx"])
+            # centered rolling mean (window 5) per word -- calms the
+            # checkpoint jitter without shifting the trajectory; min_periods=1
+            # so the endpoints stay defined rather than dropping out.
+            WIN = 5
+            d["p"] = (d.groupby("key").p_raw
+                      .transform(lambda x: x.rolling(WIN, center=True,
+                                                     min_periods=1).mean()))
             cmap = {w: color for w, pol, color, dl in words}
             end = max(i for i, _, _ in pop)
             pmax = d.p.max()
-            # labels spread down the right gutter, risers over fallers,
-            # each carrying its base->DPO delta so the selection is legible
-            ordered = ([x for x in words if x[1] == "riser"]
-                       + [x for x in words if x[1] == "faller"])
-            n = len(ordered)
-            lab_df = pd.DataFrame([
-                dict(x=end + 2, y=pmax * (0.97 - 0.94 * i / max(n - 1, 1)),
-                     word=w, key=w,
-                     txt=f"{w}  ({'+' if dl >= 0 else ''}{dl:.3f})")
-                for i, (w, pol, color, dl) in enumerate(ordered)])
+            # label each word just above its OWN smoothed peak, at the x of
+            # that peak -- the label sits on the feature it names. dy lifts it
+            # clear of the line; delta rides along so selection stays legible.
+            lab_rows = []
+            for w, pol, color, dl in words:
+                dd = d[d.key == w]
+                pk = dd.loc[dd.p.idxmax()]
+                # keep the (centered) label off both edges so it never clips
+                lx = min(max(float(pk.ckpt_idx), end * 0.06), end * 0.94)
+                lab_rows.append(dict(x=lx, y=float(pk.p) + pmax * 0.035,
+                                     word=w, key=w,
+                                     txt=f"{w} ({'+' if dl >= 0 else ''}{dl:.3f})"))
+            lab_df = pd.DataFrame(lab_rows)
             g = (ggplot(d, aes("ckpt_idx", "p", group="key", color="key"))
                  + annotate("rect", xmin=sft0 - 0.5, xmax=end + 0.5,
                             ymin=-np.inf, ymax=np.inf, fill="#efeee9",
                             alpha=0.55)
                  + geom_line(size=0.9)
                  + geom_text(aes("x", "y", label="txt", color="key"),
-                             data=lab_df, size=9, ha="left", inherit_aes=False)
+                             data=lab_df, size=8, ha="center", va="bottom",
+                             inherit_aes=False)
                  + scale_color_manual(cmap)
-                 + scale_x_continuous(expand=(0.02, 0, 0.30, 0))
+                 + scale_x_continuous(expand=(0.03, 0, 0.03, 0))
                  + labs(title=f"'{prompt}'",
-                        subtitle=f"{domain} / {sub}. Step(base->DPO) top-3 risers (cool) and fallers (warm), "
-                                 f"labelled with their endpoint delta; watched across all 95 checkpoints. "
-                                 f"Shaded = post-training.",
+                        subtitle=f"{domain} / {sub}. Step(base->DPO) top-3 risers (cool) and fallers (warm), delta-labelled "
+                                 f"at each curve\u2019s peak; window-5 rolling mean over 95 checkpoints. Shaded = post-training.",
                         x="training position (base | SFT | DPO | RLVR)",
                         y="p(word | prompt)")
                  + theme_minimal(base_size=11)
@@ -145,7 +155,7 @@ def main():
                          legend_position="none",
                          plot_background=element_rect(fill="#fcfcfb",
                                                       color="#fcfcfb"),
-                         figure_size=(9, 4.5)))
+                         figure_size=(9.5, 4.6)))
             slug = re.sub(r"[^a-z0-9]+", "_",
                           prompt.lower()).strip("_")[:40]
             out = f"{FIGDIR}/fig6_{domain}_{sub}__{slug}.png"
