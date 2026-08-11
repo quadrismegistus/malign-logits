@@ -132,11 +132,21 @@ def main():
             got += 1
             p = wp.probs.get(word)
             absent = p is None
+            #: [5413]: at stage1-step0 a cell can be a COMPLETE measurement
+            #: containing NO words (rows=[], residual.tail=1.0, conservation
+            #: exact -- flat distribution, nothing clears theta). An absent
+            #: word in an EMPTY cell is not "just below theta" (uniform is
+            #: ~1e-5, fifty-fold under it), so theta/2 would overstate it and
+            #: a ratio of two such absences would read log(1)=0 -- a fake
+            #: neutral. payload_empty travels with the row; the write-up
+            #: CENSORS on (absent, payload_empty), never imputes across them.
             rows.append(dict(
                 ckpt_idx=idx, model=m, role=c["role"],
                 stage=c.get("stage"), step=c.get("step"),
                 curve=curve, probe=pid, word=word, word_role=role,
-                p=(ABSENT_P if absent else p), absent=absent))
+                p=(ABSENT_P if absent else p), absent=absent,
+                payload_empty=(wp.n_rows == 0),
+                residual=wp.residual))
         gaps[m] = (got, miss)
         if a.smoke and got == 0:
             continue
