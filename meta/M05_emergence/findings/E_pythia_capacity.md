@@ -118,6 +118,22 @@ ladders, at onset grain (this doc) and half-max grain (A-R2, POST-HOC).
 - Poetic sign-onset 512: n=2, 92% of targets absent at that rung. The
   gated onset (2000) is the honest number.
 
+## Token-axis note ([5434], added same day)
+
+The cross-ladder column in Result 1 is STEP-numbered, not token-matched.
+Malign's conversion: OLMo step N = 2N Pythia steps in tokens (Pythia's 2M
+batch is documented; OLMo's constant-batch assumption is inferred from
+round totals, UNVERIFIED). At matched token counts OLMo resolves fewer
+than half as many probe words as Pythia below ~12.6 B tokens, so the
+ladders' steps do not align the phenomena, and OLMo's early capacity
+rungs are coverage, not capacity (65% both-absent at step 1000). Two
+consequences: the left-censoring in Result 1 is doubly forced (interval
+width AND no usable signal at its lower end); and any figure placing both
+ladders on one axis must use tokens and carry the absent-rate column
+beside it — the columns travel together or not at all. [5434] also
+confirms Result 2's direction: capacity probes open at 100% absent on
+BOTH ladders; the labs' true-zero difference is a panel-word fact.
+
 ## Caveats
 
 One lineage; grade C; the onset criterion inherits m05_onsets.py's
