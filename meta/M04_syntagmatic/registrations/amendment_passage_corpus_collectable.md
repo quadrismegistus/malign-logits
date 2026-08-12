@@ -88,7 +88,7 @@ Where RWKV has no implementation in any vLLM release, Olmo-Hybrid has an impleme
 
 **Confounds eliminated:** the identical traceback reproduced on a verified-clean card (0 MiB used) at `gpu_memory_utilization=0.35` with `enforce_eager=True`. The first failure was confounded with an orphaned engine; the second was not. Not memory, not dtype, not eager mode.
 
-**The same preflight blindness as §1b, from the opposite cause.** Both arms are recorded working — 33,300 + 34,600 rows in `beam_fc`, 430,100 + 380,526 in `twp_words` — and every one of those rows came from a transformers-based runner. (ARCHITECTURE x ENGINE) is a fact class the campaign's records do not key; runbook §2.21 now names it.
+**The same preflight blindness as §1b, from the opposite cause.** Both arms are recorded working — 23,200 + 23,200 rows in `beam_fc`, 370,669 + 358,651 in `twp_words` (**counts corrected 2026-08-13 and taken with `FINAL`**; the originals 33,300/34,600 and 430,100/380,526 were raw pre-merge reads, and see the as-of note at §4) — and every one of those rows came from a transformers-based runner. (ARCHITECTURE x ENGINE) is a fact class the campaign's records do not key; runbook §2.21 now names it.
 
 **THE PATCH THAT WAS NOT APPLIED, RECORDED AS A DECISION.** The fix is three lines (treat `loaded_shard_id is None` as already-fused) and was declined: one pair of the corpus produced by a modified inference engine, inside a corpus whose value is that every other pair went through an identical one, is a provenance cost that outlives the convenience ([5571] §4, registrar concurring). RH holds the deciding word and has not asked for it.
 
