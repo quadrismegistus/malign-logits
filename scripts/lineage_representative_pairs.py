@@ -26,19 +26,24 @@ The two 46s agree on 45 and differ by one member each:
 
     collected only   EleutherAI/pythia-2.8b   (the archangel base; the battery
                                                carries pythia-6.9b instead)
-    battery only     BAAI/Aquila2-7B          (its aligned arm is AquilaChat2-7B
-                                               at position EGO, and RH's rule of
-                                               2026-08-12 is that a model pair is
-                                               base->superego. The registry
-                                               declares no_superego='none-published'
-                                               for this family; whether that is
-                                               right is UNVERIFIED -- the HF card
-                                               shows only an `sft=True` inference
-                                               flag and the Aquila2 technical
-                                               report abstract is silent. If
-                                               AquilaChat2 turns out to be
-                                               preference-tuned the declared count
-                                               is 48, not 47.)
+    battery only     BAAI/Aquila2-7B          see below -- its arm is EGO
+
+AQUILA IS RESOLVED, AND THE REGISTRY WAS RIGHT. AquilaChat2-7B is SFT only: a
+second reading of the Aquila2 technical report (arXiv 2408.07410), obtained by
+RH on 2026-08-12, finds no preference-optimisation stage. That confirms the
+registry's `position=ego`, `stage=sft` and the family's
+`no_superego='none-published'`, none of which should change.
+
+    NOT verified by this seat. The HF card shows only an `sft=True` inference
+    flag and the arXiv ABSTRACT is silent on post-training; the finding comes
+    from the full report read elsewhere. Recorded with its provenance so a later
+    reader knows which claim rests on what.
+
+THE CONSEQUENCE IS THIS FILE'S, NOT THE REGISTRY'S. RH's rule of 2026-08-12 is
+that a model pair is base->superego. Aquila2-7B>AquilaChat2-7B is base->EGO, so
+**one of this file's 46 is not a model pair under the stated rule**, and any
+count taken off this roster and described as "base/aligned pairs" is off by one
+in a way no arithmetic here will reveal. Declared count stands at 47, not 48.
 
 AND THE DEPENDENCY ON THE BATTERY FILE IS REMOVABLE. Verified 2026-08-12:
 MODEL_FAMILIES' base -> (superego or ego), kept where the base is its lineage's
