@@ -761,8 +761,14 @@
    "revision_reason": null,
    "tokenizer_loader": null,
    "tokenizer_loader_reason": null,
-   "packages": {},
-   "packages_reason": {},
+   "packages": {
+    "sentencepiece": "",
+    "protobuf": ""
+   },
+   "packages_reason": {
+    "sentencepiece": "SentencePieceExtractor needs it; without it the loader falls back to TikToken and then demands tiktoken",
+    "protobuf": "the SECOND error, revealed only after sentencepiece was installed"
+   },
    "weights": "safetensors",
    "params_b": 6.74,
    "arch": "LlamaForCausalLM",
@@ -2400,7 +2406,7 @@
   },
   {
    "model": "google/gemma-2-9b",
-   "profile": "default",
+   "profile": "bf16",
    "transformers": ">=4.57",
    "transformers_reason": "OLMo 3 floor; no model-specific pin",
    "torch": ">=2.6",
@@ -2408,8 +2414,8 @@
    "gpus": 1,
    "min_vram_gb": 48,
    "kernels": [],
-   "compute_dtype": null,
-   "compute_dtype_reason": null,
+   "compute_dtype": "bfloat16",
+   "compute_dtype_reason": "vLLM refuses gemma2 at float16 as a HARD validation error -- the engine will not start. Needs an sm_80+ card; Turing cannot do bf16 under vLLM.",
    "revision": null,
    "revision_reason": null,
    "tokenizer_loader": null,
@@ -2427,7 +2433,7 @@
   },
   {
    "model": "google/gemma-2-9b-it",
-   "profile": "default",
+   "profile": "bf16",
    "transformers": ">=4.57",
    "transformers_reason": "OLMo 3 floor; no model-specific pin",
    "torch": ">=2.6",
@@ -2435,8 +2441,8 @@
    "gpus": 1,
    "min_vram_gb": 48,
    "kernels": [],
-   "compute_dtype": null,
-   "compute_dtype_reason": null,
+   "compute_dtype": "bfloat16",
+   "compute_dtype_reason": "vLLM refuses gemma2 at float16 as a HARD validation error -- the engine will not start. Needs an sm_80+ card; Turing cannot do bf16 under vLLM.",
    "revision": null,
    "revision_reason": null,
    "tokenizer_loader": null,

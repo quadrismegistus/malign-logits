@@ -1,0 +1,467 @@
+{
+ "_about": "Provisioning plan derived from model_requirements.json. Grouped by REQUIREMENT first, balanced second.",
+ "_producer": "scripts/build_fleet.py",
+ "tag": "passage",
+ "n_boxes": 10,
+ "cells_per_model": 2579,
+ "blocked": [],
+ "boxes": [
+  {
+   "box": 0,
+   "profile": "default",
+   "launch_profile": "dense",
+   "packages": {},
+   "packages_reason": {},
+   "models": [
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+    "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+    "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+    "croissantllm/CroissantLLMBase>croissantllm/CroissantLLMChat-v0.1",
+    "inceptionai/jais-family-6p7b>inceptionai/jais-family-6p7b-chat",
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+    "stabilityai/stablelm-2-1_6b>stabilityai/stablelm-2-zephyr-1_6b",
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf"
+   ],
+   "pairs": [
+    {
+     "base": "01-ai/Yi-1.5-9B",
+     "aligned": "01-ai/Yi-1.5-9B-Chat"
+    },
+    {
+     "base": "OpenLLM-France/Lucie-7B",
+     "aligned": "OpenLLM-France/Lucie-7B-Instruct-v1.1"
+    },
+    {
+     "base": "allenai/OLMo-2-0425-1B",
+     "aligned": "allenai/OLMo-2-0425-1B-DPO"
+    },
+    {
+     "base": "croissantllm/CroissantLLMBase",
+     "aligned": "croissantllm/CroissantLLMChat-v0.1"
+    },
+    {
+     "base": "inceptionai/jais-family-6p7b",
+     "aligned": "inceptionai/jais-family-6p7b-chat"
+    },
+    {
+     "base": "m-a-p/neo_7b",
+     "aligned": "m-a-p/neo_7b_instruct_v0.1"
+    },
+    {
+     "base": "stabilityai/stablelm-2-1_6b",
+     "aligned": "stabilityai/stablelm-2-zephyr-1_6b"
+    },
+    {
+     "base": "zai-org/glm-4-9b-hf",
+     "aligned": "zai-org/glm-4-9b-chat-hf"
+    }
+   ],
+   "cells": 20632,
+   "gpus": 1,
+   "min_vram_gb": 48,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 1,
+   "profile": "default",
+   "launch_profile": "dense",
+   "packages": {},
+   "packages_reason": {},
+   "models": [
+    "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+    "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+    "deepseek-ai/deepseek-llm-7b-base>deepseek-ai/deepseek-llm-7b-chat",
+    "kakaocorp/kanana-1.5-8b-base>kakaocorp/kanana-1.5-8b-instruct-2505",
+    "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+    "team-hatakeyama-phase2/Tanuki-8B-base-v1.0>weblab-GENIAC/Tanuki-8B-dpo-v1.0"
+   ],
+   "pairs": [
+    {
+     "base": "BSC-LT/salamandra-7b",
+     "aligned": "BSC-LT/salamandra-7b-instruct"
+    },
+    {
+     "base": "Qwen/Qwen2.5-7B",
+     "aligned": "Qwen/Qwen2.5-7B-Instruct"
+    },
+    {
+     "base": "allenai/OLMoE-1B-7B-0125",
+     "aligned": "allenai/OLMoE-1B-7B-0125-DPO"
+    },
+    {
+     "base": "deepseek-ai/deepseek-llm-7b-base",
+     "aligned": "deepseek-ai/deepseek-llm-7b-chat"
+    },
+    {
+     "base": "kakaocorp/kanana-1.5-8b-base",
+     "aligned": "kakaocorp/kanana-1.5-8b-instruct-2505"
+    },
+    {
+     "base": "meta-llama/Llama-3.1-8B",
+     "aligned": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+     "base": "team-hatakeyama-phase2/Tanuki-8B-base-v1.0",
+     "aligned": "weblab-GENIAC/Tanuki-8B-dpo-v1.0"
+    }
+   ],
+   "cells": 18053,
+   "gpus": 1,
+   "min_vram_gb": 24,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {
+    "deepseek-ai/deepseek-llm-7b-base": "PreTrainedTokenizerFast",
+    "deepseek-ai/deepseek-llm-7b-chat": "PreTrainedTokenizerFast"
+   }
+  },
+  {
+   "box": 2,
+   "profile": "default",
+   "launch_profile": "dense",
+   "packages": {},
+   "packages_reason": {},
+   "models": [
+    "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+    "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+    "google/recurrentgemma-9b>google/recurrentgemma-9b-it",
+    "kakaocorp/kanana-2-3b-base>kakaocorp/kanana-2-3b-instruct",
+    "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+    "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct"
+   ],
+   "pairs": [
+    {
+     "base": "EleutherAI/pythia-6.9b",
+     "aligned": "lomahony/eleuther-pythia6.9b-hh-dpo"
+    },
+    {
+     "base": "Qwen/Qwen3-8B-Base",
+     "aligned": "Qwen/Qwen3-8B"
+    },
+    {
+     "base": "allenai/Olmo-3-1025-7B",
+     "aligned": "allenai/Olmo-3-7B-Instruct-DPO"
+    },
+    {
+     "base": "google/recurrentgemma-9b",
+     "aligned": "google/recurrentgemma-9b-it"
+    },
+    {
+     "base": "kakaocorp/kanana-2-3b-base",
+     "aligned": "kakaocorp/kanana-2-3b-instruct"
+    },
+    {
+     "base": "mistralai/Mistral-7B-v0.1",
+     "aligned": "HuggingFaceH4/zephyr-7b-beta"
+    },
+    {
+     "base": "tiiuae/Falcon3-10B-Base",
+     "aligned": "tiiuae/Falcon3-10B-Instruct"
+    }
+   ],
+   "cells": 18053,
+   "gpus": 1,
+   "min_vram_gb": 48,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 3,
+   "profile": "default",
+   "launch_profile": "dense",
+   "packages": {},
+   "packages_reason": {},
+   "models": [
+    "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+    "RWKV/rwkv-4-7b-pile>RWKV/rwkv-raven-7b",
+    "allenai/Olmo-Hybrid-7B>allenai/Olmo-Hybrid-Instruct-DPO-7B",
+    "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+    "llm-jp/llm-jp-3-7.2b>llm-jp/llm-jp-3-7.2b-instruct3",
+    "openGPT-X/Teuken-7B-base-v0.6>openGPT-X/Teuken-7B-instruct-v0.6",
+    "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct"
+   ],
+   "pairs": [
+    {
+     "base": "HuggingFaceTB/SmolLM2-360M",
+     "aligned": "HuggingFaceTB/SmolLM2-360M-Instruct"
+    },
+    {
+     "base": "RWKV/rwkv-4-7b-pile",
+     "aligned": "RWKV/rwkv-raven-7b"
+    },
+    {
+     "base": "allenai/Olmo-Hybrid-7B",
+     "aligned": "allenai/Olmo-Hybrid-Instruct-DPO-7B"
+    },
+    {
+     "base": "huggyllama/llama-7b",
+     "aligned": "PKU-Alignment/beaver-7b-v1.0"
+    },
+    {
+     "base": "llm-jp/llm-jp-3-7.2b",
+     "aligned": "llm-jp/llm-jp-3-7.2b-instruct3"
+    },
+    {
+     "base": "openGPT-X/Teuken-7B-base-v0.6",
+     "aligned": "openGPT-X/Teuken-7B-instruct-v0.6"
+    },
+    {
+     "base": "tiiuae/Falcon3-7B-Base",
+     "aligned": "tiiuae/Falcon3-7B-Instruct"
+    }
+   ],
+   "cells": 18053,
+   "gpus": 1,
+   "min_vram_gb": 48,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 4,
+   "profile": "default",
+   "launch_profile": "dense",
+   "packages": {},
+   "packages_reason": {},
+   "models": [
+    "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+    "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat"
+   ],
+   "pairs": [
+    {
+     "base": "HuggingFaceTB/SmolLM3-3B-Base",
+     "aligned": "HuggingFaceTB/SmolLM3-3B"
+    },
+    {
+     "base": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+     "aligned": "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+    },
+    {
+     "base": "bigscience/bloom-7b1",
+     "aligned": "bigscience/bloomz-7b1"
+    },
+    {
+     "base": "ibm-granite/granite-3.0-8b-base",
+     "aligned": "ibm-granite/granite-3.0-8b-instruct"
+    },
+    {
+     "base": "m-a-p/CT-LLM-Base",
+     "aligned": "m-a-p/CT-LLM-SFT-DPO"
+    },
+    {
+     "base": "openbmb/MiniCPM5-1B-Base",
+     "aligned": "openbmb/MiniCPM5-1B"
+    },
+    {
+     "base": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+     "aligned": "togethercomputer/RedPajama-INCITE-7B-Chat"
+    }
+   ],
+   "cells": 18053,
+   "gpus": 1,
+   "min_vram_gb": 48,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 5,
+   "profile": "tf457",
+   "launch_profile": "dense",
+   "packages": {},
+   "packages_reason": {},
+   "models": [
+    "Aleph-Alpha/Pharia-1-LLM-7B-control-hf>Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
+    "BAAI/Aquila2-7B>BAAI/AquilaChat2-7B",
+    "baichuan-inc/Baichuan2-7B-Base>baichuan-inc/Baichuan2-7B-Chat"
+   ],
+   "pairs": [
+    {
+     "base": "Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
+     "aligned": "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf"
+    },
+    {
+     "base": "BAAI/Aquila2-7B",
+     "aligned": "BAAI/AquilaChat2-7B"
+    },
+    {
+     "base": "baichuan-inc/Baichuan2-7B-Base",
+     "aligned": "baichuan-inc/Baichuan2-7B-Chat"
+    }
+   ],
+   "cells": 7737,
+   "gpus": 1,
+   "min_vram_gb": 48,
+   "transformers": [
+    "==4.57.1"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {
+    "BAAI/Aquila2-7B": "9c76e143c6e9621689ca76e078c465b0dee75eb8"
+   },
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 6,
+   "profile": "ssm",
+   "launch_profile": "ssm",
+   "packages": {},
+   "packages_reason": {},
+   "models": [
+    "tiiuae/Falcon-H1-7B-Base>tiiuae/Falcon-H1-7B-Instruct",
+    "tiiuae/Falcon3-Mamba-7B-Base>tiiuae/Falcon3-Mamba-7B-Instruct",
+    "tiiuae/falcon-mamba-7b>tiiuae/falcon-mamba-7b-instruct"
+   ],
+   "pairs": [
+    {
+     "base": "tiiuae/Falcon-H1-7B-Base",
+     "aligned": "tiiuae/Falcon-H1-7B-Instruct"
+    },
+    {
+     "base": "tiiuae/Falcon3-Mamba-7B-Base",
+     "aligned": "tiiuae/Falcon3-Mamba-7B-Instruct"
+    },
+    {
+     "base": "tiiuae/falcon-mamba-7b",
+     "aligned": "tiiuae/falcon-mamba-7b-instruct"
+    }
+   ],
+   "cells": 7737,
+   "gpus": 1,
+   "min_vram_gb": 48,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [
+    "causal-conv1d",
+    "mamba-ssm"
+   ],
+   "compute_dtype": [
+    "bfloat16"
+   ],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 7,
+   "profile": "default",
+   "launch_profile": "dense",
+   "packages": {
+    "protobuf": "",
+    "sentencepiece": ""
+   },
+   "packages_reason": {
+    "protobuf": "the SECOND error, revealed only after sentencepiece was installed",
+    "sentencepiece": "SentencePieceExtractor needs it; without it the loader falls back to TikToken and then demands tiktoken"
+   },
+   "models": [
+    "LLM360/Amber>LLM360/AmberSafe"
+   ],
+   "pairs": [
+    {
+     "base": "LLM360/Amber",
+     "aligned": "LLM360/AmberSafe"
+    }
+   ],
+   "cells": 2579,
+   "gpus": 1,
+   "min_vram_gb": 24,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 8,
+   "profile": "bf16",
+   "launch_profile": "big80",
+   "packages": {},
+   "packages_reason": {},
+   "models": [
+    "google/gemma-2-9b>google/gemma-2-9b-it"
+   ],
+   "pairs": [
+    {
+     "base": "google/gemma-2-9b",
+     "aligned": "google/gemma-2-9b-it"
+    }
+   ],
+   "cells": 2579,
+   "gpus": 1,
+   "min_vram_gb": 48,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [
+    "bfloat16"
+   ],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 9,
+   "profile": "tf457",
+   "launch_profile": "dense",
+   "packages": {
+    "sentencepiece": "==0.2.1"
+   },
+   "packages_reason": {
+    "sentencepiece": "0.2.2 fails internlm2's SentencePiece->fast conversion outright; 0.2.0/0.2.1 convert fine and protobuf has no effect. Resolved locally across the whole version space before renting anything -- tokenizers need no GPU."
+   },
+   "models": [
+    "internlm/internlm2-base-7b>internlm/internlm2-chat-7b"
+   ],
+   "pairs": [
+    {
+     "base": "internlm/internlm2-base-7b",
+     "aligned": "internlm/internlm2-chat-7b"
+    }
+   ],
+   "cells": 2579,
+   "gpus": 1,
+   "min_vram_gb": 24,
+   "transformers": [
+    "==4.57.1"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  }
+ ]
+}

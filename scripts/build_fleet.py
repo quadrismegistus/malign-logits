@@ -48,6 +48,20 @@ sys.path.insert(0, ROOT); sys.path.insert(0, HERE)
 
 from malign_logits.lineage import base_model_of   # the ONLY sanctioned parse
 
+
+def _flat(units, U, key, label):
+    """{model: value} for a box, from units whose value is scalar OR per-arm."""
+    out = {}
+    for m in units:
+        v = U(m)[key]
+        if not v:
+            continue
+        if isinstance(v, dict):
+            out.update(v)
+        else:
+            out[label(m)] = v
+    return out
+
 REQ = os.path.join(ROOT, "data", "model_requirements.json")
 
 #: **AN ENVIRONMENT IS NOT A MACHINE SHAPE.** `tf457` and `torch26` describe
@@ -57,8 +71,13 @@ REQ = os.path.join(ROOT, "data", "model_requirements.json")
 #: after setup. torch26 collapses into a normal box because every profile
 #: already pins torch>=2.6, which is the whole reason that environment exists
 #: as a LABEL rather than a provisioning difference.
+#: `bf16` -> `big80`: an A100_SXM4 at 150 GB disk, the same card as `ssm`
+#: without the kernel install. It exists because `dense` has NO `gpu_name`
+#: filter by design, and a bfloat16 model on a Turing card is a refused engine,
+#: not a slow one.
 LAUNCH_PROFILE = {"default": "dense", "torch26": "dense",
-                  "ssm": "ssm", "twogpu": "twogpu", "tf457": "dense"}
+                  "ssm": "ssm", "twogpu": "twogpu", "tf457": "dense",
+                  "bf16": "big80"}
 
 
 def load_requirements():
@@ -138,7 +157,23 @@ def plan(models, n_boxes, req, cells_per_model, weight_by_params):
             "torch": max(a["torch"], b["torch"]),
             "kernels": sorted(set(a["kernels"]) | set(b["kernels"])),
             "compute_dtype": a["compute_dtype"] or b["compute_dtype"],
-            "revision": None, "tokenizer_loader": None,
+            #: **THESE WERE HARDCODED None AND THAT SILENTLY DISARMED TWO
+            #: REQUIREMENTS.** A pair's arms carry their own revision pin and
+            #: tokenizer loader, and merging them to None dropped both from
+            #: every box in pair mode: `BAAI/Aquila2-7B`'s pinned revision
+            #: (main was replaced with a RE-TOKENISED model, vocab 143,973
+            #: against the pin's 100,008 -- `twp.py` calls the unpinned pairing
+            #: "a worse failure than not pinning at all") and both deepseek
+            #: arms' `PreTrainedTokenizerFast` override, the #45488 fix.
+            #:
+            #: They are PER-ARM, not per-pair: base and aligned can need
+            #: different pins, so this returns a dict keyed by model rather
+            #: than a scalar the way the other fields merge. Found 2026-08-12
+            #: by auditing the emitted plan against the requirements file
+            #: instead of trusting that the planner consumed it.
+            "revision": {m: R(m)["revision"] for m in u if R(m)["revision"]},
+            "tokenizer_loader": {m: R(m)["tokenizer_loader"] for m in u
+                                 if R(m)["tokenizer_loader"]},
             "params_b": max(a.get("params_b") or 0, b.get("params_b") or 0),
             "blocked": blocked, "blocked_reason": why,
         }
@@ -229,10 +264,15 @@ def plan(models, n_boxes, req, cells_per_model, weight_by_params):
                         "kernels": kern,
                         "compute_dtype": sorted({U(m)["compute_dtype"] for m in b
                                                  if U(m)["compute_dtype"]}),
-                        "revisions": {label(m): U(m)["revision"] for m in b
-                                      if U(m)["revision"]},
-                        "tokenizer_overrides": {label(m): U(m)["tokenizer_loader"] for m in b
-                                                if U(m)["tokenizer_loader"]}})
+                        #: FLATTENED TO model -> value in BOTH modes. In model
+                        #: mode a unit's value is a scalar and the unit IS the
+                        #: model; in pair mode it is a dict keyed by arm, since
+                        #: the two arms can need different pins. A box consumes
+                        #: `{model: pin}` either way, so the provisioning step
+                        #: never has to know which mode built the plan.
+                        "revisions": _flat(b, U, "revision", label),
+                        "tokenizer_overrides": _flat(b, U, "tokenizer_loader",
+                                                     label)})
             box_id += 1
     return out, blocked
 

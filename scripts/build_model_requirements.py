@@ -149,6 +149,21 @@ PACKAGE_PINS = {
               "internlm/internlm2-chat-7b-sft")
 }
 
+#: DECLARED 2026-08-12, from `model_load_environments.json`'s own `fix` text.
+#: The observation existed and this file did not consume it: the record says
+#: "SentencePieceExtractor requires the protobuf library -> falls back to
+#: TikToken extractor -> `tiktoken` is required", fix "pip install sentencepiece
+#: protobuf" -- and the first error named ONLY sentencepiece, the second naming
+#: protobuf after it was installed. Following the message beat guessing, and
+#: pinning both beats following it twice on a rented box.
+PACKAGE_PINS.update({
+    "LLM360/AmberSafe": {"sentencepiece": ("", "SentencePieceExtractor needs it; "
+                                               "without it the loader falls back to "
+                                               "TikToken and then demands tiktoken"),
+                         "protobuf": ("", "the SECOND error, revealed only after "
+                                          "sentencepiece was installed")},
+})
+
 #: **AN OVERRIDE CAN ITSELF BE ENVIRONMENT-SPECIFIC.** `twp.LOADER_OVERRIDE` sends
 #: internlm2 to PreTrainedTokenizerFast to dodge the 5.x boundary shift. Under 4.x
 #: that class CANNOT LOAD the model at all, so reporting it here would hand the
@@ -184,6 +199,20 @@ COMPUTE_DTYPE = {m: ("bfloat16", "fp16 overflows the SSM selective scan -> all-N
                      "logits on prompts >=13 tokens. TII's own docs say always bf16.")
                  for m in ("tiiuae/Falcon-H1-1.5B-Base", "tiiuae/Falcon-H1-1.5B-Instruct",
                            "tiiuae/Falcon-H1-7B-Base", "tiiuae/Falcon-H1-7B-Instruct")}
+
+#: DECLARED 2026-08-12. A DIFFERENT CAUSE FROM THE SSM ENTRIES ABOVE AND THE SAME
+#: REMEDY, which is why it was missed: those are numerical (fp16 overflows a
+#: selective scan), this is a REFUSAL -- vLLM will not start the engine at all.
+#: The record's words: "vLLM REFUSES gemma2 at float16: 'does not support
+#: float16. Reason: Numerical instability.' A hard validation error, not a
+#: warning", fix "bfloat16 or float32", and it "needs an sm_80+ card; Turing
+#: cannot do bf16 under vLLM, so gemma-2 belongs on the bf16 roster with
+#: Falcon-H1". The observation was in the load record and this file never
+#: consumed it, so every plan routed the pair to a default fp16 box.
+COMPUTE_DTYPE.update({m: ("bfloat16", "vLLM refuses gemma2 at float16 as a HARD "
+                          "validation error -- the engine will not start. Needs "
+                          "an sm_80+ card; Turing cannot do bf16 under vLLM.")
+                      for m in ("google/gemma-2-9b", "google/gemma-2-9b-it")})
 
 #: DECLARED, because the load record's CAUSE TEXT DOES NOT RELIABLY SAY "gated".
 #: gpt-sw3's observation reads `AutoTokenizer OSError` -- a phrase-match detector
@@ -290,8 +319,19 @@ def main():
         binonly = bool(f["bin"] and not f["safetensors"])
         vram = 24 if (f["params_b"] or 0) <= 9 else (48 if (f["params_b"] or 0) <= 20 else 80)
         gpus = 2 if (f["params_b"] or 0) > 40 else 1
+        #: **A COMPUTE DTYPE IS A CARD REQUIREMENT, NOT ONLY A FLAG.** Added
+        #: 2026-08-12. `bfloat16` needs sm_80+, and the `default` profile
+        #: launches on `dense`, whose selector is deliberately capability-based
+        #: with **no `gpu_name` filter** -- so a Turing card can win the bid and
+        #: then refuse the engine. Every other profile pins A100_SXM4 and is
+        #: therefore safe; only `dense` is not. `ssm` already implies an A100,
+        #: so kernel models are unaffected and this branch sits after it.
+        #: Caught by auditing the emitted plan against the card the profile
+        #: would actually buy, rather than against the dtype field being set.
+        wants_bf16 = COMPUTE_DTYPE.get(mid, (None,))[0] == "bfloat16"
         prof = ("tf457" if tf else "ssm" if needs_kernels
-                else "twogpu" if gpus > 1 else "torch26" if binonly else "default")
+                else "twogpu" if gpus > 1 else "bf16" if wants_bf16
+                else "torch26" if binonly else "default")
         rows.append({
             "model": mid,
             "profile": prof,
