@@ -143,6 +143,72 @@ correct summary of RH's question is:
 posted to the docket at [5581] and another seat was preparing to test it as a
 prediction.
 
+## CHARGE IS NOT A CONFOUND, IT IS A PRECONDITION
+
+**The strongest result in this document, and the only one that got stronger
+under scrutiny rather than dissolving.** `scripts/k_charge_control.py`.
+
+K tests every scale MARGINALLY -- residualised on base probability and corpus
+frequency, never on another scale. `transgressiveness ~ charge` is +0.65, the
+highest collinearity in the set, so the obvious objection is that the
+transgressiveness result is charge wearing a costume. It is not. Both effects
+get STRONGER when the other is controlled:
+
+    transgressiveness MARGINAL        -0.0414   z -14.7
+    transgressiveness | charge        -0.0508   z -18.0    stronger
+    charge MARGINAL                   +0.0129   z  +5.5
+    charge | transgressiveness        +0.0358   z +12.2    nearly 3x stronger
+
+That is MUTUAL SUPPRESSION -- two correlated predictors with opposite-signed
+effects, whose shared variance was masking both. Controlled symmetrically, so
+neither scale keeps the shared part by fiat.
+
+### THE INTERACTION IS THE FINDING
+
+Split each prompt's vocabulary at its OWN median charge and compute the
+transgressiveness effect in each half:
+
+    trns @ HIGH-charge words   -0.0916   shuffled +0.0045   z -22.1
+    trns @ LOW-charge words    -0.0029   shuffled +0.0004   z  -3.1
+    INTERACTION hi minus lo    -0.0887   shuffled +0.0041   z -20.8
+
+    1,974 prompts, split on real charge, ONLY transgressiveness permuted.
+
+**Transgressiveness predicts falling among charged words and does nothing among
+flat ones.** -0.092 against -0.003. A word must be BOTH affectively charged AND
+transgressive to fall; neither property alone moves it.
+
+**This retroactively explains the day's most confusing number.** Pooled,
+transgressiveness read +0.012 and "flat" -- because the pooled corpus is
+dominated by low-charge vocabulary, which is exactly where the effect does not
+exist. The pooled null was not a small effect, it was an effect averaged with
+the population in which it is absent.
+
+**And it is what `kill -> scream` has been doing all along.** X_metonymy's
+flagship substitution holds charge fixed at 6 and drops transgressiveness 6 -> 1
+and bodily_harm 7 -> 1. The campaign's central example is a within-charge
+contrast and nobody had tested charge as a variable.
+
+### THE CONTROL FAILED FIRST, AND THE FAILURE WAS MINE
+
+The first version permuted charge as well as transgressiveness, so the median
+split ran on SHUFFLED charge and the two halves were not the same words. Its
+null came back asymmetric -- hi +0.0095 against lo -0.0147, where both should
+sit at zero -- which is what flagged it. Holding the split on real charge and
+shuffling only transgressiveness puts both baselines at ~0.00 and leaves the
+interaction where it was. **The result survived a control that was itself
+broken, and was only quotable after the control was fixed.**
+
+### LIMITS
+
+The split is per-prompt, so "high charge" is a different absolute level at
+different prompts; a continuous product term is the proper version and has not
+been run. And `charge` is the scale whose calibration against Warriner's arousal
+is only 0.54 -- internally reliable (IAA 0.87, rank stability 0.88 when isolated)
+but NOT the human construct it most resembles. **This is a finding about the
+coder's charge scale, not about arousal**, and `n_arousal` behaves differently
+in the main table (z -15.1, 93% falling, where coder charge is +5.9 rising).
+
 ## THE FOUR ANSWERS THIS ANALYSIS GAVE BEFORE THIS ONE
 
 Each was wrong in a way that looked like a result. They are recorded because the
