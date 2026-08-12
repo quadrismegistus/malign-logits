@@ -10,8 +10,13 @@
                 cells 8,169 aa5389c1420c7f76
                 matched     723e81b3946b6d56
 
-    COLLECTED THIS RUN   44 pairs   (see §1, §1b)
-    NOT COLLECTED         2 pairs   Zamba2 (cost), RWKV (engine)
+    COLLECTABLE THIS RUN 43 pairs   (see §1, §1b, §1c)
+    NOT COLLECTABLE       3 pairs   Zamba2 (cost), RWKV (engine: no
+                                    implementation), Olmo-Hybrid (engine:
+                                    broken released loader)
+    COLLECTED             final count reconciled at end of run against
+                          FAILED.jsonl and the per-box artifacts; the
+                          run is in flight as of this edit
 
 Same discipline as the spec's existing named deviations (46-not-52, 208-not-212): the population is what it is, and what was not collected is named with its reason rather than quietly absent.
 
@@ -60,6 +65,30 @@ Not a dtype, a pin, a card or a tokenizer. **vLLM has no RWKV implementation**, 
     HuggingFace path (`generate()` rather than vLLM), which this runner does
     not implement. That is a different instrument, not a bigger box.
 
+## 1c. A THIRD EXCLUSION — `allenai/Olmo-Hybrid-7B > Olmo-Hybrid-Instruct-DPO-7B`
+
+**EXCLUDED, ENGINE INCOMPATIBILITY OF THE OPPOSITE KIND.** Added 2026-08-12 during the run, on malign's [5571] root-cause; wording by the registrar per that post's request.
+
+Where RWKV has no implementation in any vLLM release, Olmo-Hybrid has an implementation whose **released weight loader is broken**:
+
+    vllm/model_executor/layers/mamba/gdn/olmo_gdn_linear_attn.py:517
+        def weight_loader(param, loaded_weight, loaded_shard_id=None):
+            dim = dims[loaded_shard_id]        <- dims[None]
+        TypeError: list indices must be integers or slices, not NoneType
+
+`utils.py:281 _load_param` calls the loader with no shard id, so the default `None` indexes a list — firing for any checkpoint whose conv1d weights ship fused rather than split. Support was merged (PR #32550, `olmo_hybrid.py` is in the install); the defect is in the release we run, **0.27.1, which is PyPI's newest** — the fix, if it exists, lives only on `main`. Waiting does not help and upgrading is not available.
+
+**Confounds eliminated:** the identical traceback reproduced on a verified-clean card (0 MiB used) at `gpu_memory_utilization=0.35` with `enforce_eager=True`. The first failure was confounded with an orphaned engine; the second was not. Not memory, not dtype, not eager mode.
+
+**The same preflight blindness as §1b, from the opposite cause.** Both arms are recorded working — 33,300 + 34,600 rows in `beam_fc`, 430,100 + 380,526 in `twp_words` — and every one of those rows came from a transformers-based runner. (ARCHITECTURE x ENGINE) is a fact class the campaign's records do not key; runbook §2.21 now names it.
+
+**THE PATCH THAT WAS NOT APPLIED, RECORDED AS A DECISION.** The fix is three lines (treat `loaded_shard_id is None` as already-fused) and was declined: one pair of the corpus produced by a modified inference engine, inside a corpus whose value is that every other pair went through an identical one, is a provenance cost that outlives the convenience ([5571] §4, registrar concurring). RH holds the deciding word and has not asked for it.
+
+    RECORDED FOR WHOEVER REVISITS IT: collectable by the HF path
+    (`generate()` rather than vLLM), where both arms are demonstrated; or
+    by any vLLM release that ships the loader fix. A different instrument
+    or a later engine — not a bigger box, and not this run.
+
 ## 2. TWO PAIRS I PROPOSED EXCLUDING AND WAS WRONG ABOUT
 
 Both were single-source reads of `data/model_load_environments.json`, and in both cases a second source disagreed. Recorded because the amendment should carry its own error rate.
@@ -98,6 +127,8 @@ A prompt with every space deleted tokenises far shorter. It is not an outlier in
 
 Both still clear. The fifth arm was restored on the position profile's clearing, and it still clears.
 
+**Restated again at P=43 (§1b + §1c):** position profile ~2.91 (still clears the ~2.8 bar); four-term ~2.39 (effect-limited regardless); SEs scale by sqrt(46/43). If the end-of-run reconciliation finds further losses, this section is restated once more at the final count rather than met at analysis time.
+
 ## 4. THE UNTESTED FRACTION, CORRECTED
 
 An earlier draft of this reasoning said 66 of 92 checkpoints have no observation. True of `model_load_environments.json` and **misleading about risk**, because the corpus is not the record:
@@ -119,4 +150,4 @@ Three proposed exclusions, three single-source reads, three second sources that 
 
 ---
 
-Drafted by the malign seat on registrar's [5547] terms. Countersignature and docket id to be appended by the registrar.
+Drafted by the malign seat on registrar's [5547] terms; countersigned by the registrar. §1b added mid-run on RH's word; §1c added mid-run on malign's [5571] root-cause, wording by the registrar as that post requested. Final collected count to be reconciled and appended at end of run.
