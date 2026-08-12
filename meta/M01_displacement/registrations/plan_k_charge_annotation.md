@@ -51,59 +51,64 @@ whole argument for this plan.
 
 ## 3. THE POPULATION — how many words, and how they are chosen
 
-Nothing needs to be collected. Both sides measured 2026-08-12 from
-`malign_logits.twp_words`, counting distinct `(model, prompt)` base cells per
-word.
+Derived from `malign_logits.movement` + `movement_edges`, 2026-08-12.
+Producer `meta/M01_displacement/scripts/k_population.py`.
 
-    ENGLISH   684 M01 pairs, 1,368 prompts, base-position models
-              19,045 distinct words present in a base cell
-    CHINESE   24 transgressive pairs, 48 prompts, 1,008 cells
-              7,672 distinct words present in a base cell
+**Model pairs are base → superego** (RH), taken at lineage representatives, one
+pair per lineage, from `movement_edges.is_model_pair AND is_representative`.
+ENGLISH 46 lineages / 102,183 cells; CHINESE 17 lineages / 6,832 cells after the
+`cjk_tier >= PARTIAL` gate.
 
-                     in_base >= 20    >= 50    >= 100    >= 200
-        English            7,112      5,072     3,697     2,648
-        Chinese            1,415        591       290       129
+**The word set is the union of the top-N of BOTH arms at every cell.** Not the
+movers: selecting on movement conditions the sample on the outcome, and the
+non-movers are the contrast class that makes net movement a continuous outcome.
 
-**THE SELECTION RULE: every word present in at least 20 base cells. Nothing
-else.** EN 7,112, ZH 1,415.
+    ENGLISH        unique   fall-only  rise-only    both   never-move
+       N=20        16,230        906      6,061   6,079    3,184 (20%)
+       N=50        30,220      1,620      7,119   8,741   12,740 (42%)
+       N=100       43,127      1,666      7,078   8,953   25,430 (59%)
 
-**Chosen by PRESENCE IN BASE, never by movement.** RH's phrasing was "annotate
-all risers and fallers"; tagging the movers would condition the sample on the
-outcome, and then "charged words fall" cannot be distinguished from "words that
-moved are the ones we looked at". Presence-in-base costs nothing and fixes it:
-of the 1,415 Chinese words, **302 never move at all**, and those non-movers are
-the contrast class that makes net movement a continuous outcome rather than a
-comparison between two selected groups.
+    CHINESE        unique   fall-only  rise-only    both   never-move
+       N=20        10,638      1,224      4,256   3,234    1,924 (18%)
+       N=50        21,230      2,173      5,322   4,730    9,005 (42%)
+       N=100       32,613      2,205      5,327   4,764   20,317 (62%)
 
-**The threshold is ABSOLUTE, not a fraction of the corpus**, because what makes
-a word's net estimate stable is how many cells it appears in, not what share of
-a corpus that is. The same 20 means the same precision in both languages even
-though the corpora differ 60-fold in size.
+**N IS READ OFF THE DATA, NOT CHOSEN. The mover set SATURATES at N=100** — going
+100 → 200 adds 5,969 English words and *one* mover. N=50 already holds 98.9% of
+English movers and 99.6% of Chinese ones, at 42% non-movers in BOTH languages.
+That is the population: **N=50, ~30,200 English and ~21,200 Chinese words**,
+roughly half of each never moving.
 
-**No sampling.** At batch 50, four scales rated in one call, the whole thing is
-143 English + 29 Chinese batches, twice = **344 coder calls.** A sample would
-buy nothing and would add a selection rule someone has to defend.
+The two languages agreeing on 42% at the same N, from 46 and 17 lineages and a
+15-fold difference in cells, is worth noticing and is not something the design
+forced.
 
 ### What this resolves
 
 Smallest partial correlation detectable, two controls partialled (base
 probability, corpus frequency), alpha 0.05 two-sided, power 0.80:
 
-    English  n 7,112   |partial rho| >= 0.033
-    Chinese  n 1,415   |partial rho| >= 0.074
+    English  n 30,220   |partial rho| >= 0.016
+    Chinese  n 21,230   |partial rho| >= 0.019
 
-Both are far inside the range where a real semantic effect would live. **This is
-the whole difference from F/G**, which needed 235-428 exchangeable units and had
-20. Computed before the run, per `what_will_the_instrument_resolve`.
+**This is the whole difference from F/G**, which needed 235–428 exchangeable
+units and had 20. Computed before the run.
+
+### Coder budget
+
+At 50 words per batch with four scales returned per call, that is 604 English +
+425 Chinese batches, twice = **2,058 calls**. If that is too much, cut by N and
+say so — N=20 gives 16,230 + 10,638 and still resolves |rho| >= 0.022, and the
+cut is legible because it is a row of the table above rather than a sample.
 
 ### Protocol
 
 Words alphabetical within a batch, batch composition randomised across the
 frequency range with a recorded seed so no batch is all-rare or all-charged.
-Four scales returned per word in one call — vulgarity, transgressiveness,
-affective charge, bodily harm — because rating them in separate passes invites
-the coder to reconstruct one from another. Two independent passes; agreement
-per scale printed before any verdict.
+Four scales per word in one call — vulgarity, transgressiveness, affective
+charge, bodily harm — because separate passes invite the coder to reconstruct
+one from another. Two independent passes; agreement per scale printed before any
+verdict.
 
 ## 4. What will be measured, in this order
 

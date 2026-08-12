@@ -64,54 +64,54 @@ def _cjk_capable():
 
 
 def reps(lang):
-    """The 46 lineage-representative pairs, LOOKED UP, not re-derived.
+    """Model pairs at lineage representatives, FROM THE EDGE DIMENSION.
 
-    `data/lineage_representative_pairs.txt`, produced by
-    `scripts/lineage_representative_pairs.py`, which itself looks up
-    `lineage_to_representative` in `data/lineage_map_models.json`. **The stored
-    map is the answer and nothing here re-derives it.**
+    `movement_edges` carries `is_model_pair` (base -> superego, canonical arm)
+    and `is_representative` (the base IS its lineage's representative), both
+    derived from the registry and the stored lineage map. One WHERE clause, no
+    roster re-derivation here.
 
-    THE FIRST VERSION OF THIS FILE RE-DERIVED IT and got 53. That producer's own
-    docstring exists because of this exact failure -- "the roster has been
-    counted as 37, 42, 21 and 32 in one evening because four calculations used
-    four units" -- and it names the specific hazard I reproduced: a homemade
-    "pick a representative" rule. Mine was "alphabetically first aligned arm";
-    the one it warns about parsed a size out of the model id and elected an
-    ALIGNED arm to stand for the pythia lineage.
+    THREE EARLIER VERSIONS OF THIS FUNCTION WERE WRONG and each was wrong in a
+    way that still returned a plausible number:
 
-    The labelled numbers, which must never be swapped for one another:
+      1. a homemade "alphabetically first aligned arm" rule -> 53. The producer
+         `scripts/lineage_representative_pairs.py` exists to stop exactly this
+         and says so: the roster "has been counted as 37, 42, 21 and 32 in one
+         evening because four calculations used four units".
+      2. reading `data/lineage_representative_pairs.txt` -> 30 of 46 present,
+         because the movement table then held only DESCENT edges and the
+         base->superego CONTRAST is derived, not declared. 16 canonical pairs
+         were absent and it read as missing data.
+      3. every training relation admitted, deduped by arm -> the RUNG was
+         arbitrary: 31 base->superego beside 10 ego->superego and 7 base->ego,
+         which are not the same measurement.
 
-        52  base>aligned pairs in the forced-arms battery
-        46  independent lineages those pairs span   <- this file
-        62  lineages in the whole registry          <- NEVER a roster number
-
-    Of the 46, this returns the ones present in the movement table at
-    base -> dpo for the requested language, and REPORTS the shortfall rather
-    than quietly returning fewer.
+    ONE PAIR PER LINEAGE. 52 model pairs sit at representative bases but span
+    47 lineages -- pythia-2.8b heads four archangel arms, and Olmo-3-1125-32B
+    and Llama-3.1-70B head two each. Without this the archangel lineage votes
+    four times.
     """
-    want = []
-    for line in open(os.path.join(ROOT, "data/lineage_representative_pairs.txt")):
-        line = line.strip()
-        if line and not line.startswith("#") and ">" in line:
-            b, a = line.split(">", 1)
-            want.append((b.strip(), a.strip()))
-    have = {(r["base"], r["aligned"]) for r in q("""
-      SELECT DISTINCT m.base AS base, m.aligned AS aligned
-      FROM %s.movement AS m
-      INNER JOIN (SELECT DISTINCT prompt FROM %s.prompt_catalogue
-                  WHERE status='ACTIVE' AND language='%s') AS p ON m.prompt = p.prompt
-      WHERE m.rule='canonical'""" % (DB, DB, lang))}
-    edges = [e for e in want if e in have]
+    rows = q("""
+      SELECT e.lineage AS lineage, e.base AS base, e.aligned AS aligned
+      FROM %s.movement_edges AS e
+      WHERE e.is_model_pair AND e.is_representative
+        AND (e.base, e.aligned) IN (
+          SELECT DISTINCT m.base, m.aligned FROM %s.movement AS m
+          INNER JOIN (SELECT DISTINCT prompt FROM %s.prompt_catalogue
+                      WHERE status='ACTIVE' AND language='%s') AS p
+            ON m.prompt = p.prompt
+          WHERE m.rule='canonical')
+    """ % (DB, DB, DB, lang))
     if lang == "zh":
         ok = _cjk_capable()
-        edges = [(b, a) for b, a in edges if b in ok and a in ok]
-    print("  roster: 46 lineage-representative pairs; %d present in the movement "
-          "table for %s%s" % (len(edges), lang,
-                              " after the cjk_tier gate" if lang == "zh" else ""))
-    missing = [e for e in want if e not in have]
-    if missing:
-        print("  absent (%d): %s" % (len(missing),
-                                     ", ".join(b.split("/")[-1] for b, _ in missing[:8])))
+        rows = [r for r in rows if r["base"] in ok and r["aligned"] in ok]
+    by = collections.defaultdict(list)
+    for r in rows:
+        by[r["lineage"]].append((r["aligned"], r["base"]))
+    edges = [(b, a) for lin, v in sorted(by.items()) for a, b in [sorted(v)[0]]]
+    print("  %s: %d model pairs at representative bases -> %d lineages%s"
+          % (lang, len(rows), len(edges),
+             " after the cjk_tier gate" if lang == "zh" else ""))
     return edges
 
 
