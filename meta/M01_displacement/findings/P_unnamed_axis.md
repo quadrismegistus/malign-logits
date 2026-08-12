@@ -459,6 +459,42 @@ prompt populations**: aligned models are the concentrated ones on designed
 prompts, base models on literary continuations. Where the median is off-centre,
 only the RANKING is quotable.
 
+### And it is not frequency, which is a slice rather than a run
+
+**Frequency needs no band sweep here.** The per-word AUC is univariate and already
+computed for every feature, so frequency is a `GROUP BY` on an existing table;
+re-running the statistic inside bands would make it worse, because the
+compositional normalisation would go band-local and reintroduce the see-saw fifty
+times over. What the MULTIVARIATE band sweep buys is the thing a univariate
+cannot -- joint signal, a band classifying at 0.95 whose best single word is 0.62
+-- and that is section 6's claim, which does need the fit.
+
+Sliced (COCA fiction, 3,827 of 3,977 features carry a frequency):
+
+    Spearman(log fpm, AUC)      -0.220     direction: commoner words are base-side
+    Spearman(log fpm, |AUC-c|)  +0.090     strength: flat
+
+    rarest quintile   n=766   median AUC 0.526   median |AUC-c| 0.073
+                        764              0.536                  0.084
+                        766              0.508                  0.080
+                        765              0.489                  0.087
+    commonest         n=766              0.458                  0.092
+
+**Direction carries a weak frequency tilt and strength carries none**: over six
+orders of magnitude the median |AUC - centre| moves 0.073 to 0.092, so
+arm-diagnosticity is available at every frequency, which is why the sweep found
+classifiable bands at rank 3000 as well as rank 50. The -0.220 is the share
+frequency already owns -- `go get say know put back` against `escalate prioritize
+reconsider` -- but both poles span the range, `nipples checkbook rupees sterling`
+being rare and base-side, and the same vector agrees with the movement axis at
+-0.451, twice the frequency correlation. On LITERARY prompts the tilt vanishes
+(-0.036), as it should if the Latinate-institutional pole carrying it is what
+those prompts never solicit.
+
+One detail cuts against an artifact reading. Rarer features are measured on fewer
+models and should show LARGER spurious |AUC - c|; they show smaller. The mild
+positive slope is attenuation at the rare end, not inflation.
+
 ### The same words, on literary prompts, are largely different words
 
 Read against its own centre, the literary table is a weak echo of the full one.
