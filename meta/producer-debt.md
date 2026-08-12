@@ -107,7 +107,10 @@ TOO — a result reported only pooled across prompts has not been shown to
 exist at any of them; pooling can cancel or invert, not merely shrink
 (lacan's proposal [5581] §4, K's 30x cancellation and two sign flips as
 the demonstration; malign's corpus carries it natively [5582]; second
-seat registrar [5584]); where a gate is really a
+seat registrar [5584]; rider from [5585]/[5586]: in a minimal-pair
+design the WRONG analysis always reports the larger n, because the
+unpaired shortcut silently includes by-construction singletons the
+paired test must drop — the smaller denominator reads as correctness); where a gate is really a
 threshold on a number, gate on the number, never on a categorical label
 standing in for it ([5578] §5, two defects of one shape in a day; second
 seat [5579]).
