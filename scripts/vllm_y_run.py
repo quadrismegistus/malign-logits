@@ -85,7 +85,7 @@ def size_frac(model_gb, args):
     return frac
 
 
-def build_llm(model, args, gpu_frac):
+def build_llm(model, args, gpu_frac, dtype=None):
     """**dtype IS FORCED TO float16, NOT "auto", AND THAT IS THE CORRECT DEFAULT
     HERE — NOT A WORKAROUND.** vLLM's "auto" reads the config and picks bfloat16
     for any model whose weights are stored that way. Two consequences, both bad:
@@ -103,7 +103,15 @@ def build_llm(model, args, gpu_frac):
     So this is not a concession to cheap hardware; "auto" was introducing an
     uncontrolled variable and the fix removes it."""
     from vllm import LLM
-    return LLM(model=model, dtype="float16", max_model_len=args.max_model_len,
+    #: **DTYPE COMES FROM THE PAIR, NOT A CONSTANT.** Hardcoding float16 killed
+    #: the gemma-2 box outright -- vLLM refuses gemma2 at fp16 as a hard
+    #: ValidationError -- and would have silently mis-run Falcon-H1, whose fp16
+    #: overflows the SSM selective scan into all-NaN logits. `model_requirements`
+    #: has carried `compute_dtype` for both all along and the plan routes them to
+    #: bf16-capable A100s; the runner was the one place that ignored it. Routing
+    #: a model to the right CARD and then asking for the wrong DTYPE fixes
+    #: nothing, which is what the first fleet did.
+    return LLM(model=model, dtype=(dtype or "float16"), max_model_len=args.max_model_len,
                gpu_memory_utilization=gpu_frac, tensor_parallel_size=args.tp,
                trust_remote_code=True, enforce_eager=args.eager)
 
@@ -360,7 +368,8 @@ def run_pair(pair, cfg, args):
     gens = {}
     for role, mid in (("base", b), ("aligned", a)):
         print("    load %-8s %s" % (role, mid), flush=True)
-        llm = build_llm(mid, args, size_frac(pair.get("pair_gb_fp16", 28.0) / 2.0, args))
+        llm = build_llm(mid, args, size_frac(pair.get("pair_gb_fp16", 28.0) / 2.0, args),
+                        pair.get("compute_dtype"))
         #: **THE ARMS ARE PER PAIR, NOT PER RUN.** Y's manifest carried one
         #: global prompt list because every pair saw the same words. The forced
         #: arms do not: each pair has its own faller, matched and riser per
@@ -374,7 +383,8 @@ def run_pair(pair, cfg, args):
             score_all(llm, gens, "scored_by_aligned")
         free_llm(llm, torch, gc)
     if pair.get("cross_score"):
-        llm = build_llm(b, args, size_frac(pair.get("pair_gb_fp16", 28.0) / 2.0, args))
+        llm = build_llm(b, args, size_frac(pair.get("pair_gb_fp16", 28.0) / 2.0, args),
+                        pair.get("compute_dtype"))
         score_all(llm, gens, "scored_by_base")
         free_llm(llm, torch, gc)
     for role in ("base", "aligned"):
