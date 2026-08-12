@@ -88,3 +88,54 @@ made on that basis is withdrawn ([5567]).
 
 **Round 2 adjudicates a matched sample of NOs alongside the YESes**, blind to the
 original verdict, or it inherits the same one-way ratchet.
+
+## THE DESIGN: TWO STAGES, AND STAGE A IS NOT OPTIONAL
+
+**The rubric changed, so round 1 and round 2 do not share an instrument and
+CANNOT BE POOLED.** [5561] framed round 2 as "the pooling n"; that no longer
+holds. Adding a run under the new boundaries to a run under the old ones pools
+two definitions and calls it power.
+
+Two stages fix it:
+
+### STAGE A — re-read the SAME 800 under this rubric
+
+Identical passages, identical batches (`data/opus_readers_zh/batch_*.txt`),
+identical unblinding key, fresh reader instances, **blind to round 1's verdicts**.
+
+Three things it buys, and the second is the one nobody has:
+
+1. **A round-1 estimate under the ruled boundaries**, so the effect of the
+   rulings is measured rather than argued.
+2. **IT FIXES THE ONE-SIDED ADJUDICATION FOR FREE.** The [5565] pass re-read only
+   the 21 YESes and could therefore only REMOVE — the aligned BOTH cell had 10 to
+   remove from against base's 3, so it shrinks the larger arm by construction.
+   Re-reading ALL 800 is two-sided by definition: a round-1 NO can become a
+   round-2 YES. No matched-NO sample is needed because nothing is sampled.
+3. **A reader-reliability figure.** Round-1 vs Stage-A agreement on the same
+   passages, same language, different instances — which this campaign has never
+   measured for the zh readers and which bounds everything the instrument says.
+
+### STAGE B — fresh 800 from the unread zh corpus
+
+Drawn from the ~112k zh passages nobody has touched, same rubric, same balance
+of arms and roles, same authored-controls batch. **Poolable with Stage A**,
+because they share an instrument. Not poolable with round 1.
+
+### WHAT THE TWO STAGES CAN AND CANNOT CONCLUDE
+
+Even pooled at 1,600 the base BOTH cell is on the order of 6 passages. **The
+MAY-NOT-SAY on any multiple survives both stages** ([5566]) unless the pooled base
+cell turns out far larger than round 1 predicts. What the stages buy is the
+DIRECTION at a defensible n, the reliability figure, and a category whose edge
+two readers agree on.
+
+### MECHANICS
+
+- Both stages as WORKFLOWS, 8 readers x 100, authored controls riding in a final
+  mini-batch with known ids, a reader missing a control disqualifies its batch.
+- **The workflow script is committed with the run.** Round 1's zh guilt workflow
+  is NOT in the repo — only `wf_zh_second_order.js` is — which is the
+  producer-debt pattern on an artifact from this morning.
+- Raw emit per the standing rule: one row per (reader, passage, judgement, span),
+  never only the pooled rates.
