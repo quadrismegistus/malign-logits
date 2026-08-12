@@ -158,11 +158,12 @@ def main():
                         "quote marks stay attached; key lowercased with [^a-z] "
                         "stripped; quote within 6 tokens after the word)",
             "_ruled_by": "@registrar [5515].3 -- cross-check, do not remeasure",
-            "_verdict": "TRANSFER EVIDENCED. rho 0.632 over 5,009 shared words "
-                        "from unrelated domains; 94%% of the f11_l2 top decile "
-                        "stays in the battery's top half. Levels differ "
-                        "(median 0.053 vs 0.045) and the matcher does not use "
-                        "levels.",
+            "_verdict": "TRANSFER EVIDENCED. rho %.3f over %d shared words from "
+                        "unrelated domains; %.0f%% of the f11_l2 top decile stays "
+                        "in the battery's top half. Levels differ (median %.4f "
+                        "vs %.4f) and the matcher does not use levels."
+                        % (rho, n, 100 * kept / len(topd),
+                           float(x.median()), float(y.median())),
             "_tolerance_note": "THIS FILE CARRIES NO ARGUMENT ABOUT THE "
                                "TOLERANCE. Levels move both ways (said +2.5pp, "
                                "smiled +5.9pp against murmured -10.2pp, nodded "

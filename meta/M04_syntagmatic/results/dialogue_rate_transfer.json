@@ -3,7 +3,7 @@
  "_producer": "meta/M04_syntagmatic/scripts/dialogue_rate_transfer.py",
  "_measure": "verbatim from dialogue_rate.py (whitespace split so quote marks stay attached; key lowercased with [^a-z] stripped; quote within 6 tokens after the word)",
  "_ruled_by": "@registrar [5515].3 -- cross-check, do not remeasure",
- "_verdict": "TRANSFER EVIDENCED. rho 0.632 over 5,009 shared words from unrelated domains; 94%% of the f11_l2 top decile stays in the battery's top half. Levels differ (median 0.053 vs 0.045) and the matcher does not use levels.",
+ "_verdict": "TRANSFER EVIDENCED. rho 0.653 over 5009 shared words from unrelated domains; 95% of the f11_l2 top decile stays in the battery's top half. Levels differ (median 0.0530 vs 0.0603) and the matcher does not use levels.",
  "_tolerance_note": "THIS FILE CARRIES NO ARGUMENT ABOUT THE TOLERANCE. Levels move both ways (said +2.5pp, smiled +5.9pp against murmured -10.2pp, nodded -5.2pp) and the battery median is slightly higher, so there is no systematic compression to reason from. An earlier draft claimed there was; it was computed with a quote class that matched only straight quotes.",
  "spearman_rho": 0.6535,
  "pearson": 0.7934,
