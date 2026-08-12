@@ -115,9 +115,12 @@ def main(lang="en"):
 
     rows = A.q("""
       SELECT model, prompt, groupArray(word) ws, groupArray(p) ps
-      FROM %s.twp_words WHERE model IN ('%s') AND prompt IN (
-        SELECT DISTINCT prompt FROM %s.prompt_catalogue
-        WHERE status='ACTIVE' AND language='%s'%s)
+      FROM (
+        SELECT model, prompt, word, avg(p) p FROM %s.twp_words FINAL
+        WHERE model IN ('%s') AND prompt IN (
+          SELECT DISTINCT prompt FROM %s.prompt_catalogue
+          WHERE status='ACTIVE' AND language='%s'%s)
+        GROUP BY model, prompt, word)
       GROUP BY model, prompt""" % (A.DB, models, A.DB, lang,
                                    " AND source='%s'" % SRC if SRC else ""))
     mods = sorted(arm)

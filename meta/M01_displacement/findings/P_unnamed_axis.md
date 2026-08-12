@@ -21,9 +21,9 @@ them.**
 
 **AND A SECOND INSTRUMENT THAT NEVER TOUCHES THE MOVEMENT RULE FINDS THE SAME
 DIRECTION.** A classifier reading base from aligned out of word probabilities
-reaches AUC 0.959 held out by ORG, its coefficient vector is stable at min cos
-0.958 where the movement axis fails its own gate at 0.841, and the two agree at
-Spearman -0.385. Section 6. It also resolves the apparent tension in this
+reaches AUC 0.956 held out by ORG, its coefficient vector is stable at min cos
+0.944 where the movement axis fails its own gate at 0.841, and the two agree at
+Spearman -0.386. Section 6. It also resolves the apparent tension in this
 document: no individual word's movement is predictable from its meaning, and the
 same word probabilities identify the arm nine times in ten, because **the
 signature is distributed and redundant rather than located in any nameable
@@ -551,6 +551,17 @@ rather than estimating it.
 
 ### What this does to the rest of P
 
+**RE-RUN 2026-08-13 UNDER THE DEDUP FIX** (see the block above; the raw read hit
+this section hardest, because it contaminated BOTH the candidate-column selection
+-- `sum(p)` double-counts a duplicated word into the top-N vocabulary -- and the
+per-cell values). Per band the mean |delta| is 0.0457, three times the per-word
+table's 0.0136. **Everything survived and the sweep got slightly stronger**: mean
+band AUC 0.7315 -> 0.7376, real-minus-null +0.2395 -> +0.2475, arm classifier
+0.9589 -> 0.9560, coefficient stability 0.9582 -> 0.9442, agreement with the axis
+-0.3855 -> -0.3863. The POS medians moved most where n is smallest -- adjective
+0.625 -> 0.683 on 24 bands, adverb 0.769 -> 0.734 on 16 -- which is one more
+reason the POS ordering here is not quotable, as this document already says.
+
 It corroborates the axis from a design that cannot inherit the rule's artifacts,
 and it does so with a direction that is STABLE where the axis is not. It also
 resolves an apparent tension rather than creating one: no individual word's
@@ -560,7 +571,7 @@ signature is distributed and redundant** -- present in the joint profile, absent
 from any word one could name. That is the claim of this document reached from the
 other side.
 
-LIMITS. Only 39% of each cell's top-20 falls inside the 200 candidate columns, so
+LIMITS. Only 43% of each cell's top-20 falls inside the 200 candidate columns, so
 this is a slice of the vocabulary and widening it is untested. Accuracy figures
 use a threshold chosen on the same predictions and are optimistic; the AUCs are
 the honest numbers. And 92 models is a small n for a 5-point accuracy difference:

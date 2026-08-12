@@ -119,10 +119,12 @@ def main(lang="en"):
     want_content = "--function" not in sys.argv
 
     top = A.q("""
-      SELECT word, sum(p) mass FROM %s.twp_words
-      WHERE model IN ('%s') AND prompt IN (
-        SELECT DISTINCT prompt FROM %s.prompt_catalogue
-        WHERE status='ACTIVE' AND language='%s')
+      SELECT word, sum(p) mass FROM (
+        SELECT model, prompt, word, avg(p) p FROM %s.twp_words FINAL
+        WHERE model IN ('%s') AND prompt IN (
+          SELECT DISTINCT prompt FROM %s.prompt_catalogue
+          WHERE status='ACTIVE' AND language='%s')
+        GROUP BY model, prompt, word)
       GROUP BY word ORDER BY mass DESC LIMIT 4000""" % (A.DB, models, A.DB, lang))
     cols = []
     for r in top:
@@ -142,10 +144,12 @@ def main(lang="en"):
     rows = A.q("""
       SELECT model, prompt, groupArray(word) ws, groupArray(p) ps,
              max(p) top1, count() nsup, sum(p) mass
-      FROM %s.twp_words
-      WHERE model IN ('%s') AND prompt IN (
-        SELECT DISTINCT prompt FROM %s.prompt_catalogue
-        WHERE status='ACTIVE' AND language='%s')
+      FROM (
+        SELECT model, prompt, word, avg(p) p FROM %s.twp_words FINAL
+        WHERE model IN ('%s') AND prompt IN (
+          SELECT DISTINCT prompt FROM %s.prompt_catalogue
+          WHERE status='ACTIVE' AND language='%s')
+        GROUP BY model, prompt, word)
       GROUP BY model, prompt ORDER BY model, prompt""" % (A.DB, models, A.DB, lang))
     print("  %s (model, prompt) cells" % f"{len(rows):,}")
 

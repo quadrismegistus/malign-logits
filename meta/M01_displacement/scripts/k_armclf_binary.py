@@ -81,9 +81,12 @@ def main(lang="en"):
     EM = set(z["words"].tolist())
     t2u = json.load(open(os.path.join(K, "normalisation_%s.json" % lang)))["token_to_unit"]
     top = A.q("""
-      SELECT word, sum(p) mass FROM %s.twp_words WHERE model IN ('%s') AND prompt IN (
-        SELECT DISTINCT prompt FROM %s.prompt_catalogue
-        WHERE status='ACTIVE' AND language='%s')
+      SELECT word, sum(p) mass FROM (
+        SELECT model, prompt, word, avg(p) p FROM %s.twp_words FINAL
+        WHERE model IN ('%s') AND prompt IN (
+          SELECT DISTINCT prompt FROM %s.prompt_catalogue
+          WHERE status='ACTIVE' AND language='%s')
+        GROUP BY model, prompt, word)
       GROUP BY word ORDER BY mass DESC LIMIT 6000""" % (A.DB, models, A.DB, lang))
     cols = []
     for r in top:
@@ -96,9 +99,12 @@ def main(lang="en"):
 
     rows = A.q("""
       SELECT model, prompt, groupArray(word) ws, groupArray(p) ps
-      FROM %s.twp_words WHERE model IN ('%s') AND prompt IN (
-        SELECT DISTINCT prompt FROM %s.prompt_catalogue
-        WHERE status='ACTIVE' AND language='%s')
+      FROM (
+        SELECT model, prompt, word, avg(p) p FROM %s.twp_words FINAL
+        WHERE model IN ('%s') AND prompt IN (
+          SELECT DISTINCT prompt FROM %s.prompt_catalogue
+          WHERE status='ACTIVE' AND language='%s')
+        GROUP BY model, prompt, word)
       GROUP BY model, prompt ORDER BY model, prompt""" % (A.DB, models, A.DB, lang))
     print("[%s] %s cells | %d models | %d candidate content words"
           % (lang, f"{len(rows):,}", len(arm), len(cols)))
