@@ -41,13 +41,27 @@ attributable to language.** What transfers is the instrument, and only that.
                violence 9, sexual 6, neutral 6, death/substance/profanity 1 each
                pair_minimal: True 9, n/a 12, False 3
     unit       the base checkpoint, n = 20 (every CJK-capable base with an arm)
+
+**AMENDED 2026-08-12, and it cuts against this document: 20 IS NOT 20
+INDEPENDENT UNITS.** Three of the 20 are scale rungs whose base is not its
+lineage's representative -- Qwen2.5-0.5B (rep Qwen2.5-7B), Llama-3.1-70B (rep
+Llama-3.1-8B), Falcon-H1-1.5B-Base (rep Falcon-H1-7B-Base). At lineage
+representatives, one pair per lineage, the roster is **18 pairs over 17
+lineages**.
+
+The sign-flip permutation treats its units as exchangeable, so counting a 0.5B
+and a 7B Qwen as two draws is precisely the pseudo-replication the design exists
+to prevent -- and this document is the one arguing that the unit is the binding
+constraint. **The independent n is 17, not 20.** Every conclusion below is
+unchanged in kind and slightly worse in degree: the requirement was 235-428
+units against 20, and it is 235-428 against 17.
     arms       21 base>aligned edges, tier >= PARTIAL on BOTH arms
 
 ## F — the rate, reported as DESCRIPTION and not as a verdict
 
     median rate_M 0.4583   rate_U 0.4167   median Delta  -0.0417
     positives 9/20   p 0.7483
-    MDE at n=20:  P(positive) >= 0.799
+    MDE at n=20:  P(positive) >= 0.799   (at the 17 independent units, 0.824)
 
 **F is not run as a test here and its number is not a null.** At 20 units the
 sign test needs P(positive) ≥ 0.799 to fire at 80% power. English F realised
@@ -93,10 +107,12 @@ At the effects actually observed, one-sided alpha 0.05, power 0.80:
     departed        d +0.120   ->   n ~ 428 units
     concentration   d +0.162   ->   n ~ 235 units
     CJK-capable base checkpoints in existence, this registry:  20
+    INDEPENDENT lineages among them:                           17
 
 **The Chinese arm of M01 is unit-limited, not corpus-limited.** The sign-flip
 permutation's n is the number of exchangeable base checkpoints, and Chinese
-competence caps that near 20 — the pending 49-model tokenizer re-survey might
+competence caps that at 17 independent lineages (20 pairs before the scale-rung
+dedup) — the pending 49-model tokenizer re-survey might
 add two or three, not two hundred.
 
 **Translating more pairs is still the lever worth pulling, for a different
