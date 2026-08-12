@@ -15,8 +15,14 @@
                                     implementation), Olmo-Hybrid (engine:
                                     broken released loader)
     COLLECTED             final count reconciled at end of run against
-                          FAILED.jsonl and the per-box artifacts; the
-                          run is in flight as of this edit
+                          THE MANIFESTS AND LANDED FILES, never against
+                          the absence of failure records ([5573]: boxes
+                          delete FAILED.jsonl on restart, so a cleared
+                          record and a success look identical from
+                          outside; only a non-empty output file
+                          distinguishes them). Run in flight as of this
+                          edit; six pairs have failed at least once with
+                          fixes applied and unproven.
 
 Same discipline as the spec's existing named deviations (46-not-52, 208-not-212): the population is what it is, and what was not collected is named with its reason rather than quietly absent.
 
@@ -50,7 +56,7 @@ Three named requirements, each individually satisfiable, **never yet tried toget
 
 ## 1b. A SECOND EXCLUSION, FOUND BY RUNNING RATHER THAN BY READING
 
-**`RWKV/rwkv-4-7b-pile > rwkv-raven-7b` — EXCLUDED, ENGINE INCOMPATIBILITY.** Added 2026-08-12 during the run, on RH's word.
+**`RWKV/rwkv-4-7b-pile > rwkv-raven-7b` — EXCLUDED, CURRENTLY UNRUNNABLE.** Added 2026-08-12 during the run, on RH's word; heading retightened to RH's phrase per [5573]: "currently unrunnable" is a property of a DATE (vLLM 0.27.1, August 2026), where "incompatible" would read as a property of the pair. The upstream routes (#11193, closed unmerged, RWKV6-not-4; a small fork) are far off but exist.
 
     vLLM 0.27.1: "Model architectures ['RwkvForCausalLM'] are not supported
     for now." A ValidationError at ModelConfig, before any weights load.
@@ -67,7 +73,7 @@ Not a dtype, a pin, a card or a tokenizer. **vLLM has no RWKV implementation**, 
 
 ## 1c. A THIRD EXCLUSION — `allenai/Olmo-Hybrid-7B > Olmo-Hybrid-Instruct-DPO-7B`
 
-**EXCLUDED, ENGINE INCOMPATIBILITY OF THE OPPOSITE KIND.** Added 2026-08-12 during the run, on malign's [5571] root-cause; wording by the registrar per that post's request.
+**EXCLUDED, CURRENTLY UNRUNNABLE — of the opposite kind.** Added 2026-08-12 during the run, on malign's [5571] root-cause; wording by the registrar per that post's request; heading retightened to RH's phrase per [5573]. Both §1b and §1c are facts about vLLM 0.27.1 in August 2026, not about the pairs: `main` may already carry this loader fix, and the next release could make this pair a five-minute purchase.
 
 Where RWKV has no implementation in any vLLM release, Olmo-Hybrid has an implementation whose **released weight loader is broken**:
 
