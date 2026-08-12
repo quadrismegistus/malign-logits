@@ -121,5 +121,58 @@
    "torch>=2.6": "transformers refuses .bin checkpoints under torch<2.6 (CVE-driven torch.load policy). Thirteen models failed to load in the July grid on exactly this and it read as a model problem, not an environment one. See project_torch_bin_floor."
   },
   "min_inet_down_mbps": 5000
+ },
+ "vllm022_a100": {
+  "description": "A100_SXM4 on the vLLM 0.22.1 image. For the REMOVED architectures (Aquila until v0.24.0, Baichuan until v0.23.0, jais). TURING WILL NOT DO: measured 12 Aug on a Q RTX 8000, the model LOADS and GENERATES at tiny batch but the run dies in FlashInfer's paged-KV prefill -- 'BatchPrefillWithPagedKVCacheRun ... Check failed: (status == cudaSuccess)'. VLLM_ATTENTION_BACKEND is IGNORED in 0.22.1 (the log still reads 'Using FLASHINFER'), so there is no backend workaround; take an sm_80+ card.",
+  "gpu_name": "A100_SXM4",
+  "num_gpus": 1,
+  "min_gpu_ram": 79,
+  "disk_gb": 150,
+  "image": "vllm/vllm-openai:v0.22.1",
+  "min_reliability": 0.95,
+  "cuda_max_good": 12.4,
+  "pins": [
+   "torch>=2.6"
+  ],
+  "pin_reasons": {
+   "torch>=2.6": "transformers refuses .bin checkpoints under torch<2.6 (CVE-driven torch.load policy). Thirteen models failed to load in the July grid on exactly this and it read as a model problem, not an environment one. See project_torch_bin_floor."
+  },
+  "min_inet_down_mbps": 3000
+ },
+ "vllm0220": {
+  "description": "Cheapest 48GB-class card on a CONTEMPORARY vLLM 0.22.1 IMAGE. For architectures vLLM SUPPORTED AND REMOVED: Aquila (until v0.24.0), Baichuan (until v0.23.0), jais. Pinning `vllm==0.22.1` onto the :latest image instead is an ABI CASCADE and does not work -- measured 12 Aug: transformers too new, then deep_ep compiled against another NCCL (undefined symbol ncclCommQueryProperties), then flashinfer-jit-cache mismatched against flashinfer, then a plan() TypeError, then EngineDeadError in step(). Four fixes got the model to LOAD and generation still died. The engine's own error names the last working version; take the image that shipped with it.",
+  "gpu_name": null,
+  "num_gpus": 1,
+  "min_gpu_ram": 47,
+  "disk_gb": 150,
+  "image": "vllm/vllm-openai:v0.22.0",
+  "min_reliability": 0.95,
+  "cuda_max_good": 12.4,
+  "pins": [
+   "torch>=2.6"
+  ],
+  "pin_reasons": {
+   "torch>=2.6": "transformers refuses .bin checkpoints under torch<2.6 (CVE-driven torch.load policy). Thirteen models failed to load in the July grid on exactly this and it read as a model problem, not an environment one. See project_torch_bin_floor."
+  },
+  "min_inet_down_mbps": 5000,
+  "note": "v0.22.0 is the LAST release hosting JAISLMHeadModel -- v0.22.1 is already too late, and the difference is invisible unless the error message is read exactly. Same contemporary-image rule as vllm022: do NOT pip-pin an old vllm onto a newer image."
+ },
+ "vllm0220_a100": {
+  "description": "Cheapest 48GB-class card on a CONTEMPORARY vLLM 0.22.1 IMAGE. For architectures vLLM SUPPORTED AND REMOVED: Aquila (until v0.24.0), Baichuan (until v0.23.0), jais. Pinning `vllm==0.22.1` onto the :latest image instead is an ABI CASCADE and does not work -- measured 12 Aug: transformers too new, then deep_ep compiled against another NCCL (undefined symbol ncclCommQueryProperties), then flashinfer-jit-cache mismatched against flashinfer, then a plan() TypeError, then EngineDeadError in step(). Four fixes got the model to LOAD and generation still died. The engine's own error names the last working version; take the image that shipped with it.",
+  "gpu_name": "A100_SXM4",
+  "num_gpus": 1,
+  "min_gpu_ram": 47,
+  "disk_gb": 150,
+  "image": "vllm/vllm-openai:v0.22.0",
+  "min_reliability": 0.95,
+  "cuda_max_good": 12.4,
+  "pins": [
+   "torch>=2.6"
+  ],
+  "pin_reasons": {
+   "torch>=2.6": "transformers refuses .bin checkpoints under torch<2.6 (CVE-driven torch.load policy). Thirteen models failed to load in the July grid on exactly this and it read as a model problem, not an environment one. See project_torch_bin_floor."
+  },
+  "min_inet_down_mbps": 5000,
+  "note": "v0.22.0 is the LAST release hosting JAISLMHeadModel -- v0.22.1 is already too late, and the difference is invisible unless the error message is read exactly. Same contemporary-image rule as vllm022: do NOT pip-pin an old vllm onto a newer image."
  }
 }
