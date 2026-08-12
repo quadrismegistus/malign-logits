@@ -69,7 +69,39 @@ def main():
              if (FL._byu().get(u.strip().lower()) or ("", "x"))[1].startswith("vv")}
     rv = {u: v for u, v in rate.items() if u in verbs}
     T, coder, ext = KP2.feature_table("en", rv)
-    rows = KP2.fetch("en", False)
+
+    #: SITES MUST ELICIT VERBS OR THE COMPARISON IS NOT COMMENSURABLE. Restricting
+    #: the WORDS to lexical verbs is not enough: at a site like "She slowly took
+    #: off her ___" the verbs in the top-50 are long-shot candidates competing
+    #: against nouns, and their movement is pooled with verbs at "He began to
+    #: ___" where verbs are the real competitors. Within-site ranking only means
+    #: something when the candidates are of a kind. The M01 minimal-pair corpus
+    #: is verb-eliciting BY DESIGN, so pair_role in (MARKED, UNMARKED) selects
+    #: the sites where the question is well posed, rather than inferring
+    #: elicitation from the model's own output -- which would select sites on
+    #: the base model's behaviour, a property correlated with the outcome.
+    esc = lambda s: s.replace("\\", "\\\\").replace("'", "\\'")
+    ep = " OR ".join("(m.base='%s' AND m.aligned='%s')" % (esc(b), esc(a))
+                     for b, a in __import__("k_population").reps("en"))
+    rows = A.q("""
+      SELECT word, prompt, base, aligned, cls, p_base, p_aligned FROM (
+        SELECT *, row_number() OVER (PARTITION BY word
+                 ORDER BY cityHash64(word, prompt, base, aligned)) rw FROM (
+          SELECT m.word word, m.prompt prompt, m.base base, m.aligned aligned,
+                 m.cls cls, m.p_base p_base, m.p_aligned p_aligned,
+            row_number() OVER (PARTITION BY m.base,m.aligned,m.prompt
+                               ORDER BY m.p_base DESC) rb,
+            row_number() OVER (PARTITION BY m.base,m.aligned,m.prompt
+                               ORDER BY m.p_aligned DESC) ra
+          FROM %s.movement m
+          INNER JOIN (SELECT DISTINCT prompt FROM %s.prompt_catalogue
+                      WHERE status='ACTIVE' AND language='en'
+                        AND pair_role IN ('MARKED','UNMARKED')) p ON m.prompt=p.prompt
+          WHERE m.rule='canonical' AND (%s))
+        WHERE (rb<=50 OR ra<=50) AND cls IN ('fall','rise'))
+      WHERE rw <= %d""" % (A.DB, A.DB, ep, KP2.CAP))
+    print("VERB-ELICITING SITES ONLY: M01 minimal pairs, %s mover cells over %d prompts"
+          % (f"{len(rows):,}", len({r["prompt"] for r in rows})))
     rng = np.random.default_rng(SEED)
     gkf = GroupKFold(n_splits=KP2.FOLDS)
     res = {}
