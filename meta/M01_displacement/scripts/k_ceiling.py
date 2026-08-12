@@ -166,7 +166,8 @@ def main(lang):
     print("     appears at, and is unreachable by any word-level feature.")
 
     out = {"lang": lang, "min_cells": MIN_CELLS, "n_words": len(words),
-           "n_scored_cells": int(len(y)), "oracle_auc": float(auc),
+           "n_scored_cells": int(len(y)), "oracle_auc": float(auc), "p_base_auc": float(auc_pb),
+           "headroom": float(auc - auc_pb),
            "oracle_per_site_auc": float(np.mean(ps)) if ps else None,
            "n_sites": len(ps), "icc": float(icc), "fall_rate": float(y.mean())}
     p = os.path.join(ROOT, "meta/M01_displacement/results/k/ceiling_%s%s.json"
