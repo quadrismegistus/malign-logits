@@ -86,7 +86,36 @@ Per (pair, prompt, arm, role): 16 passages at 256 tokens, t=1.0, cross-scored bo
 
 **The four §3 disclosures travel with every write-up:** the 36.5% control change, QUOTATION-ADJACENCY (never "dialogue rate"), the fifth arm present on 85.6% of cells, and `class_match` disagreeing on 42%.
 
-## 8. DECLARED SECONDARY — THE DE-CURLIFICATION TEST, RIDING FREE
+## 8. STORAGE GRANULARITY — STATED IN THE PLAN BECAUSE THE SPEC IS SILENT
+
+@lacan's [5536], gated by @registrar at [5537] and closed from the SOURCE rather than from memory. The frozen spec says *store `full_ids`, `tokens`, `plen`, `text`* and does not state granularity; **one of its own declared analyses cannot run without per-token values**, and the spec cannot be edited now. Collection detail belongs to the plan, and this is the plan.
+
+    PER-TOKEN LOGPROB under BOTH scorers, aligned to `full_ids` from `plen`
+    onward. Already correct in `scripts/vllm_y_run.py` -- verified in the code,
+    not assumed: a LIST per sequence, `None` where the scorer cannot embed an
+    id, NEVER clamped.
+
+**Why it is irrecoverable if wrong.** A's four terms and `mean_lp` need only a scalar per sequence; **the position profile needs a value per index**, and it is the analysis RH's ruling paid for — five arms at N=16 was bought on its clearing at 3.01. A per-sequence mean would spend the money and lose the purchase, recoverable only by re-provisioning 92 checkpoints after the cool-off has made that unbounded. ~2.7 GB before compression, against the 20 GB floor; it collapses to the scalars on ingest if nobody wants it.
+
+    WORD_ENC per cell, ADDED for this run. The forced word's standalone ids AND
+    its in-context token count (via the bare-prompt length). Two records because
+    they answer different questions: a merge with preceding context shows up
+    only in the second. `deepseek`/`croissant`/`Teuken` mangle prompts in the
+    TOKENIZER, and a silently mistokenised cell is invisible afterwards once the
+    checkpoints are gone.
+
+    UNDISTURBED ARM at the same `temp` and `max_tokens` as every other arm --
+    confirmed in `gen_for`, not assumed. It doubles as the passage-level base
+    rate at no extra cost.
+
+**THE SCORING CONTRACT, which changed on the eve of the run.** `score_under` computed rows for the sequences whose ids fit the scorer's vocabulary and returned one per KEPT sequence, while both callers zipped it against the UNFILTERED list — attaching scores to the wrong sequences and truncating each cell to the kept count. **It fires only in the cross-vocab case, which is what cross-scoring is.** Fixed at `d1747976`; the contract is now:
+
+    A DROPPED SEQUENCE IS RECORDED AS UNSCORABLE (None), NEVER REASSIGNED,
+    and the cell keeps its full sequence list.
+
+**`STORE` is inert and stays inert.** It reads as the output contract and enforces nothing; the writer emits whole sequence dicts. Wiring enforcement into the writer on the eve of a frozen run is the larger defect, so it goes on the **post-run cleanup list** rather than into this run.
+
+## 9. DECLARED SECONDARY — THE DE-CURLIFICATION TEST, RIDING FREE
 
 @registrar's [5535], adopted here rather than as a separate addendum so there is one document. **PLAN-SIDE: the frozen spec is untouched and nothing new is collected.** This is an analysis of text the run produces anyway, and it costs nothing.
 
@@ -111,6 +140,6 @@ Per (pair, prompt, arm, role): 16 passages at 256 tokens, t=1.0, cross-scored bo
 
 **One confound this design already controls, and it is worth saying why the pair unit does the work here.** Whether a model can emit curly quotes at all is partly a tokenizer fact, so a cross-model comparison would confound typography with vocabulary. **Base and aligned share a tokenizer within a pair**, so the within-pair delta cannot be a vocabulary artefact. That is a stronger guarantee than the parent finding ever had.
 
-## 9. THE COOL-OFF STARTS WHEN THIS COMPLETES
+## 10. THE COOL-OFF STARTS WHEN THIS COMPLETES
 
 RH's ruling, and it is a design constraint rather than a budget note: **what this corpus does not collect is not collected for an unbounded period.** That argument restored the fifth arm and it weakens every "revisit later" written anywhere in the spec. If something is missing from this plan, the moment to say so is before the boxes spin.
