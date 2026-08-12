@@ -105,7 +105,32 @@
    "caveat": "The corrected guard drops strictly MORE than the old one, so pairs collected before the fix ran under a looser bound. Declared in amendment \u00a71e.",
    "status": "fixed",
    "fixed_in": "01d8668cf1b6",
-   "fixed_note": "Bound corrected to min(model_vocab, len(tokenizer)) in scripts/vllm_y_run.py at 01d8668cf1b6. A box must be running code at or after this commit -- the runner is pulled by `git pull` at launch, so an already-running box does NOT have it."
+   "fixed_note": "Bound corrected to min(model_vocab, len(tokenizer)) in scripts/vllm_y_run.py at 01d8668cf1b6. A box must be running code at or after this commit -- the runner is pulled by `git pull` at launch, so an already-running box does NOT have it.",
+   "measured_padding": {
+    "_note": "MEASURED on the box 12 Aug, not inferred. The gap between embedding rows and tokenizer pieces IS the defect: every id in it passes a model-vocab guard and crashes IdToPiece.",
+    "m-a-p/CT-LLM-Base": {
+     "model_vocab": 125824,
+     "len_tokenizer": 125699,
+     "padded_ids": 125
+    },
+    "m-a-p/CT-LLM-SFT-DPO": {
+     "model_vocab": 125824,
+     "len_tokenizer": 125699,
+     "padded_ids": 125
+    },
+    "openGPT-X/Teuken-7B-base-v0.6": {
+     "model_vocab": 250880,
+     "len_tokenizer": 250680,
+     "padded_ids": 200
+    },
+    "openGPT-X/Teuken-7B-instruct-v0.6": {
+     "model_vocab": 250680,
+     "len_tokenizer": 250680,
+     "padded_ids": 0
+    }
+   },
+   "fix_is_load_bearing": "CONFIRMED by measurement rather than by the run completing. Three of the four arms have a real padding gap, so the corrected min() bound differs from the old one and the ids it newly excludes are exactly the ones that raise IdToPiece. Teuken's INSTRUCT arm has no gap -- the pair is protected by its BASE arm's bound, which is why a per-pair check must look at both arms and not one.",
+   "how_to_check_any_pair": "len(AutoTokenizer.from_pretrained(m)) < AutoConfig.from_pretrained(m).vocab_size -> the pair is exposed. Cheap, needs no weights, and answers it before a box is rented."
   },
   "detokenizer_none": {
    "models": [
