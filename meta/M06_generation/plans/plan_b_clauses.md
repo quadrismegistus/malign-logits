@@ -120,7 +120,9 @@ together.
 ([5634] custody note): `taxonomy.py` carries in-context spaCy POS,
 `fields._byu()` an out-of-context tagger (unusable except verbs/adverbs —
 noun label 41.2% verbs in context, [5632]), and lacan's
-`results/k/pos_context_en.tsv` the corrected M01 table. Plan B uses Stanza
+`results/k/pos_context_en.tsv` the corrected M01 table (PROVISIONAL per
+[5657]: its pair selection came from raw twp_words top-20s; use the
+re-emission when lacan posts it). Plan B uses Stanza
 BECAUSE UD clause relations (`ccomp`/`advcl`/`acl`) are the published OSP
 operationalisation and spaCy's `pos_` cannot supply them. Stanza output is
 used ONLY within M06; no cross-instrument POS comparison travels without
