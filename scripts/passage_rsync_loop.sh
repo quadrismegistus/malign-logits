@@ -13,8 +13,8 @@ while true; do
     echo "$(date +%H:%M:%S) HALTED: local free ${free}GB < ${FLOOR_GB}GB floor" >> /tmp/rsync_loop.log
     sleep 120; continue
   fi
-  for i in 0b 1 2 3 4 5 6 7; do
-    st=".vastai.passage$i.json"
+  for i in 0b 1 2 3 4 5 6 7 rescue3 kanana; do
+    case "$i" in rescue*|kanana) st=".vastai.$i.json";; *) st=".vastai.passage$i.json";; esac
     [ -f "$st" ] || continue
     H=$(.venv/bin/python -c "import json;print(json.load(open('$st'))['ssh_host'])" 2>/dev/null)
     P=$(.venv/bin/python -c "import json;print(json.load(open('$st'))['ssh_port'])" 2>/dev/null)
@@ -32,6 +32,30 @@ while true; do
     rsync -az --partial --timeout=60 -e "ssh -p $P -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=20" \
       root@$H:/root/out/ "$DEST/box$i/" >/dev/null 2>&1
   done
+  #: PER-BOX FLOOR. The purge above is the only thing keeping these disks
+  #: clear (the runner's own purge cannot fire in an already-running process),
+  #: so the loop must SAY whether it is working rather than be assumed to.
+  #: A box below the floor gets an emergency purge to 1 checkpoint and is
+  #: named in the log -- runbook §2.7, where the process dies at OS level with
+  #: no exception and no log line of its own.
+  low=""
+  for i in 0b 1 2 3 4 5 6 7 rescue3 kanana; do
+    case "$i" in rescue*|kanana) st=".vastai.$i.json";; *) st=".vastai.passage$i.json";; esac; [ -f "$st" ] || continue
+    H=$(.venv/bin/python -c "import json;print(json.load(open('$st'))['ssh_host'])" 2>/dev/null)
+    P=$(.venv/bin/python -c "import json;print(json.load(open('$st'))['ssh_port'])" 2>/dev/null)
+    [ -n "$H" ] || continue
+    g=$(ssh -p $P -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=15 \
+        root@$H "df -BG /root | tail -1 | awk '{print \$4}' | tr -d 'G'" 2>/dev/null)
+    case "$g" in ''|*[!0-9]*) continue;; esac
+    if [ "$g" -lt 40 ]; then
+      low="$low box$i:${g}G"
+      ssh -p $P -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=15 \
+        root@$H 'cd ~/.cache/huggingface/hub 2>/dev/null && ls -1dt models--* | tail -n +2 | while read d; do rm -rf "$d"; done' \
+        >/dev/null 2>&1
+    fi
+  done
+  [ -n "$low" ] && echo "$(date +%H:%M:%S) LOW DISK, emergency purge: $low" >> /tmp/rsync_loop.log
+
   n=$(find $DEST -name '*.jsonl' 2>/dev/null | wc -l | tr -d ' ')
   r=$(cat $DEST/box*/*.jsonl 2>/dev/null | wc -l | tr -d ' ')
   echo "$(date +%H:%M:%S) files=$n rows=$r free=${free}GB" >> /tmp/rsync_loop.log
