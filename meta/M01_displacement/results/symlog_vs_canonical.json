@@ -1,0 +1,50 @@
+{
+ "cells": 9748,
+ "theta": 0.003,
+ "eps": 0.00030000000000000003,
+ "tau": 1.0,
+ "canonical": {
+  "fall": 152252,
+  "rise": 126001
+ },
+ "symlog": {
+  "rise": 93232,
+  "fall": 145826
+ },
+ "symabs": {
+  "rise": 130817,
+  "fall": 177314
+ },
+ "canonical_class": {
+  "FUNC": [
+   22182,
+   35412
+  ],
+  "CONTENT": [
+   103819,
+   116840
+  ]
+ },
+ "symabs_class": {
+  "CONTENT": [
+   107590,
+   132309
+  ],
+  "FUNC": [
+   23227,
+   45005
+  ]
+ },
+ "symlog_class": {
+  "CONTENT": [
+   81282,
+   112101
+  ],
+  "FUNC": [
+   11950,
+   33725
+  ]
+ },
+ "cap_forms": 408,
+ "cap_ever_faller": 38
+}
