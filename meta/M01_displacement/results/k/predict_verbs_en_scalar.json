@@ -1,0 +1,276 @@
+{
+ "_lang": "en",
+ "_cap": 60,
+ "_folds": 5,
+ "_verbs_only": true,
+ "_marked": false,
+ "_eligible": false,
+ "results": {
+  "CODER ONLY, all verbs": {
+   "n_cells": 100958,
+   "n_words": 4075,
+   "n_sites": 48851,
+   "fall_rate": 0.4775550228808019,
+   "cols": [
+    "log_p_base",
+    "log_fpm",
+    "vulgarity",
+    "register_level",
+    "transgressiveness",
+    "charge",
+    "valence",
+    "bodily_harm",
+    "concreteness",
+    "valence_extremity",
+    "charge_extremity",
+    "concreteness_extremity"
+   ],
+   "real": {
+    "nuisance": [
+     0.6668387212928838,
+     0.6696177792235757,
+     4726
+    ],
+    "norms only": [
+     0.5540422963959125,
+     0.5530498212893852,
+     4726
+    ],
+    "additive": [
+     0.6689712412827948,
+     0.6730966725536154,
+     4726
+    ],
+    "interactions": [
+     0.6652873456556201,
+     0.6679464560194326,
+     4726
+    ],
+    "trees nuisance": [
+     0.7748926787473801,
+     0.7816209564361316,
+     4726
+    ],
+    "trees": [
+     0.775801724296565,
+     0.7811675056592169,
+     4726
+    ]
+   },
+   "shuffled": {
+    "nuisance": [
+     0.6668387212928838,
+     0.6696177792235757,
+     4726
+    ],
+    "norms only": [
+     0.5089546066039065,
+     0.5093336697209838,
+     4726
+    ],
+    "additive": [
+     0.6655471511534048,
+     0.6676490485404006,
+     4726
+    ],
+    "interactions": [
+     0.6617691074725938,
+     0.6639076854035706,
+     4726
+    ],
+    "trees nuisance": [
+     0.7748926787473801,
+     0.7816209564361316,
+     4726
+    ],
+    "trees": [
+     0.7683652048214957,
+     0.7746338166985662,
+     4726
+    ]
+   },
+   "within_site_coefs": {
+    "log_p_base": 0.514429966070056,
+    "log_fpm": 0.19364209676406424,
+    "vulgarity": 0.06587360272849486,
+    "register_level": -0.026776021948268384,
+    "transgressiveness": 0.05527724188714719,
+    "charge": -0.009454608899110047,
+    "valence": -0.017315332550754223,
+    "bodily_harm": 0.06371487826876417,
+    "concreteness": 0.17843726339447416,
+    "valence_extremity": 0.010118071807991902,
+    "charge_extremity": 0.02397935932194276,
+    "concreteness_extremity": 0.04078783429574969
+   },
+   "scalar": {
+    "nuisance": [
+     0.01007357502032824,
+     0.0009581853048503901,
+     3953
+    ],
+    "additive": [
+     0.013323244546562751,
+     0.03832596776686312,
+     3953
+    ],
+    "interactions": [
+     0.009414895567746995,
+     0.03847083628600753,
+     3953
+    ],
+    "trees nuisance": [
+     0.008492993834714246,
+     0.028137715132200643,
+     3953
+    ],
+    "trees": [
+     0.010393839014683937,
+     0.05744101566585449,
+     3953
+    ]
+   }
+  },
+  "CODER + EXTERNAL, covered verbs": {
+   "n_cells": 30469,
+   "n_words": 1042,
+   "n_sites": 15235,
+   "fall_rate": 0.49184416948373755,
+   "cols": [
+    "log_p_base",
+    "log_fpm",
+    "vulgarity",
+    "register_level",
+    "transgressiveness",
+    "charge",
+    "valence",
+    "bodily_harm",
+    "concreteness",
+    "valence_extremity",
+    "charge_extremity",
+    "concreteness_extremity",
+    "n_valence",
+    "n_arousal",
+    "n_dominance",
+    "n_concreteness",
+    "n_valence_extremity",
+    "n_arousal_extremity",
+    "n_dominance_extremity",
+    "n_concreteness_extremity"
+   ],
+   "real": {
+    "nuisance": [
+     0.6434008950238204,
+     0.6607469370039684,
+     1600
+    ],
+    "norms only": [
+     0.5521862063185603,
+     0.520290891053391,
+     1600
+    ],
+    "additive": [
+     0.6376264556213197,
+     0.6441310515873017,
+     1600
+    ],
+    "interactions": [
+     0.587950728221278,
+     0.6013985987103174,
+     1600
+    ],
+    "trees nuisance": [
+     0.7561189728984625,
+     0.7543494915674603,
+     1600
+    ],
+    "trees": [
+     0.7628683819940917,
+     0.7641407738095238,
+     1600
+    ]
+   },
+   "shuffled": {
+    "nuisance": [
+     0.6434008950238204,
+     0.6607469370039684,
+     1600
+    ],
+    "norms only": [
+     0.5046333713916321,
+     0.5059757463023088,
+     1600
+    ],
+    "additive": [
+     0.6317645699658332,
+     0.651953125,
+     1600
+    ],
+    "interactions": [
+     0.5705151629001295,
+     0.5878105305284993,
+     1600
+    ],
+    "trees nuisance": [
+     0.7561189728984625,
+     0.7543494915674603,
+     1600
+    ],
+    "trees": [
+     0.7586380089650985,
+     0.7655180555555556,
+     1600
+    ]
+   },
+   "within_site_coefs": {
+    "log_p_base": 0.46841729977048197,
+    "log_fpm": 0.2882398956527073,
+    "vulgarity": 0.06237749238693252,
+    "register_level": 0.01430684754199419,
+    "transgressiveness": 0.05486372718252079,
+    "charge": 0.04680231621597425,
+    "valence": -0.053550013396719234,
+    "bodily_harm": 0.012210443798603915,
+    "concreteness": 0.0666075969400572,
+    "valence_extremity": 0.11853539599755991,
+    "charge_extremity": -0.019300634940965483,
+    "concreteness_extremity": -0.00196767963275762,
+    "n_valence": 0.047684149390885854,
+    "n_arousal": -0.005248420479817114,
+    "n_dominance": -0.01925633705508076,
+    "n_concreteness": 0.05651879982180281,
+    "n_valence_extremity": -0.05522479496405712,
+    "n_arousal_extremity": 0.036396697185224224,
+    "n_dominance_extremity": 0.013583579440535721,
+    "n_concreteness_extremity": 0.042394316084050386
+   },
+   "scalar": {
+    "nuisance": [
+     0.011797676979035998,
+     0.001978376292590754,
+     1203
+    ],
+    "additive": [
+     0.014565159311583753,
+     0.01816410245337926,
+     1203
+    ],
+    "interactions": [
+     -1.0114700145830886,
+     0.02190847390348637,
+     1203
+    ],
+    "trees nuisance": [
+     0.004278888005261439,
+     0.04859111327934576,
+     1203
+    ],
+    "trees": [
+     0.0010935968856170541,
+     0.04363707780166633,
+     1203
+    ]
+   }
+  }
+ }
+}

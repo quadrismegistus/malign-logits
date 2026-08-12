@@ -1,0 +1,11 @@
+{
+ "lang": "en",
+ "min_cells": 10,
+ "n_words": 2760,
+ "n_scored_cells": 792549,
+ "oracle_auc": 0.7028821938119534,
+ "oracle_per_site_auc": 0.7150675901176687,
+ "n_sites": 60684,
+ "icc": 0.13138223070507743,
+ "fall_rate": 0.5099116900027633
+}
