@@ -1,0 +1,11 @@
+{
+ "_note": "Authored controls for the guilt/pathology instrument, Stage A (ruled rubric, [5567]/[5569]). batch_09 rides unchanged from round 1 (its four passages were authored for the second-order instrument; on the guilt fields all four are required NO/NO). batch_10 is new for Stage A and probes the three ruled boundaries directly. A reader missing a required verdict disqualifies its batch, not the 800.",
+ "29001": {"moral": "NO", "clinical": "NO", "why": "second-order abstract naming; no norm judgement, no diagnosis"},
+ "29002": {"moral": "NO", "clinical": "NO", "why": "oxymoron control; 酷刑 is figurative, no clinical register"},
+ "29003": {"moral": "NO", "clinical": "NO", "why": "dense enactment; distress is not guilt and not a case"},
+ "29004": {"moral": "NO", "clinical": "NO", "why": "纠结 as feeling report; upset character"},
+ "29005": {"moral": "NO", "clinical": "YES", "why": "declaration 1: category definition (双性人) applied to the character = diagnosis form"},
+ "29006": {"moral": "NO", "clinical": "YES", "why": "declaration 2: metaphorical healing/trauma (疗伤期, 创伤) taken at its word"},
+ "29007": {"moral": "NO", "clinical": "NO", "why": "declaration 3: second-order naming (矛盾和挣扎) is the other instrument's construct; EXCLUDE"},
+ "29008": {"moral": "YES", "clinical": "NO", "why": "norm judgement (错/背叛/不该/罪恶感 as judgement) with no clinical register"}
+}
