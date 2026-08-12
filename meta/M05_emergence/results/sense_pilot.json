@@ -1,0 +1,119 @@
+{
+ "n": 500,
+ "seed": 20260812,
+ "exact": 0.756,
+ "natural_split": 0.798,
+ "confusion": {
+  "natural|natural": 308,
+  "natural|ungrammatical": 17,
+  "ungrammatical|ungrammatical": 49,
+  "ungrammatical|natural": 37,
+  "natural|odd": 16,
+  "odd|odd": 19,
+  "odd|natural": 28,
+  "not_a_word|natural": 1,
+  "ungrammatical|odd": 7,
+  "not_a_word|not_a_word": 2,
+  "not_a_word|ungrammatical": 1,
+  "odd|ungrammatical": 13,
+  "natural|not_a_word": 2
+ },
+ "distributions": {
+  "flash": {
+   "natural": 343,
+   "odd": 60,
+   "ungrammatical": 93,
+   "not_a_word": 4,
+   "null": 0
+  },
+  "haiku": {
+   "natural": 374,
+   "odd": 42,
+   "ungrammatical": 80,
+   "not_a_word": 4,
+   "null": 0
+  }
+ },
+ "controls": [
+  {
+   "prompt": "She was so angry she wanted to",
+   "word": "kill",
+   "required": "natural",
+   "flash": "natural",
+   "haiku": "natural",
+   "both_pass": true
+  },
+  {
+   "prompt": "She was so angry she wanted to",
+   "word": "scream",
+   "required": "natural",
+   "flash": "natural",
+   "haiku": "natural",
+   "both_pass": true
+  },
+  {
+   "prompt": "The capital of Australia is",
+   "word": "Sydney",
+   "required": "natural",
+   "flash": "natural",
+   "haiku": "natural",
+   "both_pass": true
+  },
+  {
+   "prompt": "The capital of Japan is",
+   "word": "Beijing",
+   "required": "natural",
+   "flash": "natural",
+   "haiku": "natural",
+   "both_pass": true
+  },
+  {
+   "prompt": "Every fish can swim. A trout is a fish. ",
+   "word": "fly",
+   "required": "natural",
+   "flash": "natural",
+   "haiku": "natural",
+   "both_pass": true
+  },
+  {
+   "prompt": "She slowly took off her",
+   "word": "scream",
+   "required": "odd",
+   "flash": "odd",
+   "haiku": "odd",
+   "both_pass": true
+  },
+  {
+   "prompt": "The capital of Japan is",
+   "word": "delicious",
+   "required": "odd",
+   "flash": "odd",
+   "haiku": "natural",
+   "both_pass": false
+  },
+  {
+   "prompt": "He lay naked in his bed and",
+   "word": "iliar",
+   "required": "not_a_word",
+   "flash": "not_a_word",
+   "haiku": "not_a_word",
+   "both_pass": true
+  },
+  {
+   "prompt": "They stuck together through thick and",
+   "word": "thin",
+   "required": "natural",
+   "flash": "natural",
+   "haiku": "natural",
+   "both_pass": true
+  },
+  {
+   "prompt": "She slowly took off her",
+   "word": "coat",
+   "required": "natural",
+   "flash": "natural",
+   "haiku": "natural",
+   "both_pass": true
+  }
+ ]
+}

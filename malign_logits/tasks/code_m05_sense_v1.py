@@ -64,6 +64,12 @@ Rules, each a way to get this wrong:
     figure, it is `odd`.
   - Proper names are words. "her Rolex" is natural; an unknown but
     name-shaped token used where a name fits is natural.
+  - THE TEXT CONTINUES AFTER THE WORD. You are judging the next word of
+    an ongoing text, not the last word of a finished one. Never require
+    the word to complete the sentence: "he stood alone at the" + "heart"
+    is natural, because "...at the heart of the crowd" is where such a
+    text may be going. A word is `ungrammatical` only if no reasonable
+    continuation could follow it in this position.
   - Judge THIS word at THIS position. A word that would be natural two
     words later is whatever it is HERE.
 

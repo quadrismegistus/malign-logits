@@ -1,0 +1,11 @@
+{
+ "_invocation": "m05_sense_census.py (no flags)",
+ "_inputs": {
+  "data/m05_syntax_tags.parquet": "36afcc6b481d3ee1",
+  "data/m05_licit_sets.json": "906e8a8d63e4bce3",
+  "data/m05_licit_sets_haiku.json": "bcb399b414104c57",
+  "data/m05_battery.json": "8d8a0109459146c4"
+ },
+ "_floors": "core: max p >= 0.003 any rung either ladder; early: p >= 0.002 at Pythia step<2000 / OLMo stage1 step<4000",
+ "_rule": "auto-exclude only pairs illicit under BOTH coder families; format band PUNCT/X/SYM auto"
+}

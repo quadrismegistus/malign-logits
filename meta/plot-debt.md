@@ -16,70 +16,16 @@ resolves a tension. This is a triage doc: it gets consumed, not maintained.
 | Folder | Finding docs | Figures | Note |
 |---|---|---|---|
 | M01_displacement | 18 | 1 (`x_intimacy_vs_movement`) | one plotting script among ~156 |
-| M02_frame_exit | 6 | 0 (`figures/` exists, empty) | results/ largely plot-ready |
+| M02_frame_exit | 10 | 0 (`figures/` exists, empty) | results/ largely plot-ready |
 | M03_proceduralization | 4 | 4 (all in D, `f_figures.py`) | A, B_C, E entirely unplotted |
 | M04_syntagmatic | 2 | 0 (no `figures/` dir) | debt is total |
 | M05_emergence | 4 | 48 files, 16 embedded | 11 orphaned; the exception |
 
-## Produce before plotting: provenance and reproducibility debts
+## Producer, artifact and write-up debt
 
-These block figures, and they are debts independent of figures — load-bearing
-numbers whose producer writes nothing, or whose artifact was never committed.
-Each needs its producer re-run with output committed (or the computation
-scripted at all) before the numbers travel further.
-
-- **M01 Z** (`Z_ladders_regimes.md`): `z_ladders.py` prints to stdout only;
-  nothing committed. §1's SFT/DPO cancellation and §5's closed-system
-  comparison have no data file behind them. REGISTRATIONS.md row Z says so.
-- **M01 J §1** (`J_arch_displacement.md`): `results/arch_displacement.json`
-  was never committed. The section that stands has no artifact on disk.
-- **M01 W**: no pair-level `fc_*` result artifact in this folder's `results/`
-  beyond a snapshot; the pair table lives in docket posts and the register.
-- **M01 C and E** (in `C_to_O_registered_letters.md`): C has two `.txt`
-  transcripts and no machine-readable artifact; E's producer writes nothing.
-- **M01 H2** (`H2_alignment_depth.md`): CLEARED same day — malign wrote the
-  `--json` output ([5430]): `meta/M01_displacement/results/h2_depth_primary.json`.
-  H2's figure candidate is unblocked.
-- **M04 Finding A** (`A_post_utterance_shock.md`): **PARTLY CLEARED
-  2026-08-11 on RH's word** — `channel3_run.py --write` now emits
-  `meta/M04_syntagmatic/results/A_post_utterance_shock.json`: 21 reported
-  statistics with per-pair values, population counts and the per-family
-  descriptive. Capture only, no computation altered, and it REPRODUCES the
-  document exactly at the document's own precision, so the finding is now
-  re-queryable and its figures are unblocked.
-  **STILL OPEN, and it is the harder half**: the per-index grid, the +1-only
-  four terms, and the long-window sweep are EXPLORATORY analyses that live
-  outside `channel3_run.py` and remain stdout-only. The long-window sweep is
-  additionally the author's own aggregation, not recoverable from the frozen
-  slot spec ([5024].2) — and the finding's own "Robust / Not robust" split
-  turns on exactly that aggregation, so this is the piece a reader would most
-  want to check.
-- **M02 pole-axis next-word** (`pole_axis_next_word_grain.md`): `results/dp.pkl`
-  and the `pole_axis_*.log` files are untracked/gitignored — machine-local.
-  Any figure needs `pole_axis_build.py` re-run first (BGE-m3 encode, GloVe
-  download).
-- **M05 C Result 4** (registrar's own): the riser-recapture numbers (violence
-  ~1, sexual 0.08–0.45) have NO producer anywhere in the repo — the string
-  "recaptur" appears only in C's two lines. An ad-hoc session computation that
-  must be scripted into `m05_pair_displacement.py` or a sibling and reproduced
-  before it is quotable.
-- **M05 A Result 4** (registrar's own): the M05 plan (secondary 4) committed
-  to plotting contradiction ratio and pole separation "together or not at
-  all"; only the unjoined `fig4` exists. A self-declared open commitment,
-  discharged by candidate 3 below.
-
-## Write-up debt standing in front of plot debt (M02)
-
-Two result lines have no finding document at all; the figure belongs with the
-write-up, not before it:
-
-- The contradiction-lens depth series: `results/lens_divergence.csv`,
-  `lens_trajectories.csv`, `lens_{group,prompt}_layer.jsonl`. The README
-  points at it; no doc carries it. TODO.md marks the depth-by-exit join
-  runnable now.
-- The L1 pilot family: frame membership at chance from an LLM coder and from
-  four geometric constructions, against the pole axis at AUC 0.995 and
-  content/function at 0.812. README summarises; no doc.
+MOVED 2026-08-12 to `meta/producer-debt.md` per [5554] (RH's reading: none of
+it was plot debt, and severity runs opposite to this filename). This file
+now owns figures only.
 
 ## Cross-folder shortlist (registrar's synthesis)
 
