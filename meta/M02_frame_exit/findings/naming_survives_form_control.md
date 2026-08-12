@@ -1,9 +1,10 @@
 # Naming the contradiction survives a form-matched control
 
-**Status: the FIRST COMPUTED same-side-conjunction control for the naming result. The
-graded table in `second_order_naming.md` describes this cell; its producer and artifact
-do not contain it (checked 2026-08-12, see below). Corroborates that finding's direction
-by an unrestricted route, and carries two clusters it did not look for.**
+**Status: an UNRESTRICTED-vocabulary corroboration of `second_order_naming.md` on the
+same-side conjunction control that finding already ran, plus two clusters it did not
+look for. That control's computation was unrecorded until 2026-08-12 and is now
+recovered, reproduced to the digit, and committed as
+`scripts/second_order_graded_control.py`.**
 
 **Given two OPPOSED adjectives rather than two CONSONANT ones, the aligned model
 says the passage is a contradiction. The base model continues the sentence.**
@@ -31,27 +32,45 @@ same-side conjunction control:
     two conjoined, compatible      1.30x  p 0.24      <- the CONTROL_A/B cell
     two conjoined, contradictory   2.26x  18/21  p 0.0015
 
-**IT WAS RUN. IT IS NOT RECORDED. Those are different things and an earlier draft of
-this section said the first one wrongly.** Values like `2.26x, 18/21, p=0.0015` are not
-invented, so a computation happened. But checked 2026-08-12:
+**IT WAS RUN, AS A HEREDOC, AND IT IS NOW RECOVERED AND REPRODUCED EXACTLY.** RH asked
+whether the missing computation had been an inline heredoc. It had: session
+`cdbe9c9e`, 2026-08-11T18:34:22Z, `uv run python - <<'PY'`, never written to a file,
+importing marker tables and an exit lexicon that lived only in `/private/tmp`. Commit
+`e804b1c5` carries the numbers in its message and nothing in the repository could
+produce them; a repo-wide grep for `two conjoined` hit three prose files and no code.
 
-    results/z_second_order_cells.csv    role in {BOTH: 1160, POLE: 1276}, NO CONTROL rows
-    scripts/z_second_order.py:110       gates on {POLE_A, POLE_B, BOTH}; never reads CONTROL_*
-    scripts/z_second_order.py           one flag, --sweep; no graded or stimulus mode
-    repo-wide grep "two conjoined"      3 hits: that finding, this one, the M02 README
+Reconstructed at `scripts/second_order_graded_control.py` with its dependencies moved
+into the repo, logic unedited. It reproduces the published table to the digit:
 
-**No producer, no artifact, no script anywhere computes the graded table**, so it cannot
-be re-derived, audited or re-run. That is the produce-before-plot pattern in
-`meta/plot-debt.md`, on the row that carries the specificity argument.
+    stimulus                      published            recovered
+    V1  single predicate          1.04x p 1            1.04x p 1
+    V1  two conjoined compatible  1.24x p 0.23         1.24x p 0.23
+    V1  two conjoined contrad.    2.22x 21/25 p 9e-4   2.22x 21/25 p 0.000911
+    V3S single predicate          1.15x p 0.61         1.15x p 0.607
+    V3S two conjoined compatible  1.30x p 0.24         1.30x p 0.238
+    V3S two conjoined contrad.    2.26x 18/21 p 0.0015 2.26x 18/21 p 0.00149
+    population                    17 groups, 67,198    17 groups, 67,198
 
-A second inconsistency, noted because it bears on which population was used: the prose
-says "17 English groups, 67,198 passages across the three arms" and the table one
-paragraph later says `18/21`. This document's own three-arm population is 17 groups.
+**So `second_order_naming.md` HAD run the same-side conjunction control, its numbers are
+correct, and this document is NOT the first computation of that cell.** The
+"17 groups / 18-of-21" inconsistency I flagged is also not one: 17 groups, and the
+lineage sign test has a different n per marker set, 25 for V1 and 21 for V3_SAFE.
 
-So the cell was computed once, off-repo, and this document is the first computation of it
-that anyone else can reproduce. **The earlier draft here also retracted the novelty claim
-on the strength of that finding's prose** -- wrong, and made by trusting a document over
-its artifact while writing a document about not doing that.
+**This section has now been wrong three times** -- claimed novel, retracted on the other
+document's prose, re-asserted on its artifact, and settled only by recovering the
+computation from a session transcript. The stable version: the control was run, it was
+unrecorded, it is now recorded, and the finding stands.
+
+What is different here, and would have been anyway:
+
+    second_order_naming   ALIGNED/BASE ratio at each stimulus type,
+                          on a PRE-SPECIFIED marker regex (V1, V3_SAFE)
+    this document         BOTH/CONTROL ratio within each arm,
+                          on the UNRESTRICTED vocabulary, prompt echo stripped
+
+An unrestricted ranking putting `conflicting`, `paradox`, `contradictory` and
+`contradiction` in the top four positions is evidence the regex was not cherry-picked.
+That is corroboration by a different route, not a stronger test.
 
 What is separately different here, and would be even if the cell had been run:
 
