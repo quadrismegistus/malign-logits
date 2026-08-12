@@ -47,6 +47,21 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(
 CH = os.environ.get("MALIGN_CH_BIN", "/opt/homebrew/bin/clickhouse")
 DB = os.environ.get("MALIGN_CH_DB", "malign_logits")
 
+#: TWO CHOICES THAT HAD TO BE MADE AND ARE THEREFORE DECLARED, both tested
+#: 2026-08-12 and neither load-bearing:
+#:
+#:   DEDUP.  A lineage group is summarised by the MEDIAN of its edges, not by a
+#:           representative. Only 2 of 18 groups hold more than one edge at a
+#:           rung (Olmo-3-1025-7B 2/2, Llama-3.1-8B 5/1), and one-representative
+#:           gives the identical 15/18 at p 0.0038. The duplicate-arm hazard
+#:           U's rider names ([5261]) does not bite at this grouping.
+#:
+#:   RUNG SCOPE.  "sft -> pref" below is `dpo_of` only, which drops archangel's
+#:           kto/slic/ppo arms. Widening it to all four preference methods gives
+#:           23 edges, 19 lineages, 16 drops at p 0.0022, medians 48.5% -> 21.4%
+#:           -- slightly STRONGER. Reported narrow because dpo_of is the rung U
+#:           names, with the wide number here so the choice is visible.
+#:
 #: The rungs, as relations. `dpo_of` is split by the PARENT's position because
 #: the registry uses one relation name for two different rungs -- 33 edges run
 #: base->superego (a one-step ladder) and 19 run ego->superego (the second rung
