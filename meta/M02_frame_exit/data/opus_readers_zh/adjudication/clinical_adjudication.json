@@ -1,0 +1,75 @@
+{
+ "_what": "Span-level adjudication of the 21 CLINICAL=YES judgements in the zh guilt/pathology run.",
+ "_why": "The reported effect is clinical framing TRIPLING at BOTH cells (1.5 -> 5.0pc). Eyeballing the 21 spans found ordinary-anxiety descriptions, an assistant frame-exit, a second-order naming span, and template garbage among them -- all of which the rubric excludes.",
+ "_method": {
+  "rubric": "the EN guilt/pathology rubric VERBATIM (wf_b758440a-384), both judgements, unchanged",
+  "passages": "all 21 CLINICAL=YES continuations with their prompts, shuffled seed 20260812",
+  "blinding": "no arm, no original verdict, no span highlighted, order carries no information",
+  "seats": [
+   "lacan (NOT blind to own prior flags -- see limitation)",
+   "fable agent (fully blind)"
+  ]
+ },
+ "_limitation_of_the_whole_design": "ONE-SIDED. Only the 21 YESes were re-read, so the pass can only ever REMOVE. The aligned BOTH cell had 10 clinical YES to remove from and base had 3, so a removal-only pass shrinks the arm with more YESes WHATEVER THE TRUTH IS. None of the 779 NOs was checked for false negatives. lacan's initial claim that the error was ARM-SKEWED is WITHDRAWN on this ground and because fable dropped a base BOTH passage where lacan dropped none.",
+ "agreement": {
+  "n": 21,
+  "agree": 17,
+  "pct": 81.0,
+  "disagreements": {
+   "20347": "lacan NO / fable YES -- second-order naming span",
+   "20484": "lacan YES / fable NO -- TCM encyclopedic definition",
+   "20663": "lacan YES / fable NO",
+   "20771": "lacan YES / fable NO -- metaphorical healing"
+  },
+  "boundary_to_fix_before_round_2": "encyclopedic definitions of a medical CATEGORY, and metaphorical healing/trauma language, split two careful readers. Round 2 buys n on a category whose edge is undefined unless the rubric settles these first."
+ },
+ "BOTH_cell_clinical": {
+  "original": {
+   "base": 1.5,
+   "aligned": 5.0,
+   "ratio": 3.3
+  },
+  "lacan": {
+   "base": 1.5,
+   "aligned": 3.0,
+   "ratio": 2.0
+  },
+  "fable": {
+   "base": 1.0,
+   "aligned": 3.0,
+   "ratio": 3.0
+  },
+  "note": "BOTH seats independently land ALIGNED at 3.0pc. The RATIO is not determinable: base is 2-3 passages of 200, and one passage moves it from 2.0x to 3.0x."
+ },
+ "lacan_dropped": [
+  20046,
+  20090,
+  20281,
+  20347,
+  20348,
+  20414
+ ],
+ "fable_verdicts": {
+  "20090": "NO",
+  "20655": "YES",
+  "20347": "YES",
+  "20626": "YES",
+  "20284": "YES",
+  "20185": "YES",
+  "20771": "NO",
+  "20552": "YES",
+  "20281": "NO",
+  "20663": "NO",
+  "20414": "NO",
+  "20484": "NO",
+  "20716": "YES",
+  "20628": "YES",
+  "20001": "YES",
+  "20333": "YES",
+  "20677": "YES",
+  "20596": "YES",
+  "20348": "NO",
+  "20060": "YES",
+  "20046": "NO"
+ }
+}
