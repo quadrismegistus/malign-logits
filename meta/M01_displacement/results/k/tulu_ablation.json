@@ -1,0 +1,38 @@
+{
+ "math->safety": {
+  "safety": true,
+  "n_words": 779,
+  "rho": 0.13411082846817143,
+  "p": 0.00017398603857226948
+ },
+ "persona->safety": {
+  "safety": true,
+  "n_words": 778,
+  "rho": 0.12399196539763019,
+  "p": 0.0005276972099699316
+ },
+ "safety->wildchat": {
+  "safety": true,
+  "n_words": 782,
+  "rho": -0.02211021977650676,
+  "p": 0.5369825156069776
+ },
+ "math->persona": {
+  "safety": false,
+  "n_words": 770,
+  "rho": 0.06023384154060712,
+  "p": 0.09487532890476205
+ },
+ "math->wildchat": {
+  "safety": false,
+  "n_words": 769,
+  "rho": 0.0743055526235793,
+  "p": 0.03939351122567045
+ },
+ "persona->wildchat": {
+  "safety": false,
+  "n_words": 776,
+  "rho": 0.05312512759802417,
+  "p": 0.1392597193575166
+ }
+}
