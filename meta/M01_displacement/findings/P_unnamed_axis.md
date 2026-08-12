@@ -178,10 +178,29 @@ the largest single named ingredient found -- removing it costs half the axis --
 while the coder scale is nearly orthogonal and removing it costs nothing. They
 agree with each other at only |rho| 0.431.
 
-UNTESTED AND IT COULD UNDO THE REGISTER READING: the SUBTLEX index is a frequency
-ratio and the axis correlates with log frequency at +0.220, so part of that
-R2 0.199 may be frequency rather than register. Residualise the index on
-frequency before decomposing. **This is the highest-value unrun analysis in P.**
+**RUN 2026-08-12 AND IT SURVIVES**, commit `407fc503`, at registrar's ask
+[5601] §3. The SUBTLEX index is a ratio of two frequencies and the axis
+correlates with log frequency at +0.220, so the register naming was held PENDING
+on whether its share was frequency wearing a genre ratio. Residualised on
+`log coca_fic` -- deliberately the same frequency already in the nuisance block,
+so the residual is measured against what the model already controls for:
+
+    measure                    n      R2 of axis   rho w/ axis   cos(axis, dir)
+      SUBTLEX/acad index    5,735       0.1994        +0.435        +0.373
+      SUBTLEX resid on freq 5,734       0.1641        +0.397        +0.372
+
+    removing it from the axis, over its own shuffle, verb-eliciting sites
+      raw index         +0.0087 / +0.0075
+      residualised      +0.0087 / +0.0095
+
+Frequency accounts for about 18% of the index's share. The geometric alignment is
+unchanged to three decimals and the predictive cost of removing it is the same.
+**The largest named component of the axis is not frequency.**
+
+THE QUOTABLE SENTENCE, as narrowed and booked at [5606]: *a corpus-measured
+register ratio is the largest single named component of the axis, and it is not
+frequency* -- with the stratum caveat below welded to it. "The axis is register"
+unqualified remains a MAY-NOT-SAY, because the collinearity decay stands.
 
 RH'S COLLINEARITY OBJECTION, and it is right. In the history of English the Latin
 and Norman borrowings arrived polysyllabic and abstract while the Germanic core
@@ -320,3 +339,28 @@ outpredicts all of them.
 
 That is not a failure of the experiment. It is the result: **the dimension
 alignment sorts on is not in the descriptive vocabulary we have for words.**
+
+## The distinction this rests on, and its one named precedent
+
+**Surviving a permutation null and generalising to unseen cases are different
+claims, and a finding can do the first while failing the second.** Everything in
+K does exactly that. The nulls in K are real: ratings are shuffled across words,
+the coupling between words competing at a site is preserved, and the observed
+statistic clears the shuffled distribution. None of that is evidence that the
+scale predicts anything about a word the model has not seen.
+
+**The campaign's one documented instance is F12, and it is a better citation than
+this abstract phrasing.** Its original evaluation leaked training prompts into
+the held-out set. Corrected, closure fell from 77% and 20% to **61% on Pythia and
+4% on OLMo and Llama**, with train closure at 37-92% showing the gap was
+generalisation rather than capacity. The second question was asked there, late,
+and the answer took most of the finding with it.
+
+Recorded because the pattern was nearly overstated: [5600] asserted "at least
+three earlier results that were never asked the second question", [5601] booked
+it as a debt, and [5602] withdrew it after checking -- **F13 and F03 turned out
+to be counter-examples that asked the question properly**, F13 holding a finding
+number open "for want of an out-of-sample corpus" and F03 reporting that its
+r=0.43 is driven by cross-family differences with within-family correlations near
+zero. One instance, named and checkable, is what the distinction rests on. It
+does not need to be a campaign-wide pattern to be worth having.
