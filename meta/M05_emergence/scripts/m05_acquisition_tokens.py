@@ -142,9 +142,9 @@ def sense_share(ladder):
 
 def main():
     from plotnine import (aes, annotate, element_blank, element_line,
-                          element_rect, element_text, geom_line, ggplot,
-                          labs, scale_color_manual, scale_x_continuous,
-                          theme, theme_minimal)
+                          element_rect, element_text, geom_line, geom_point,
+                          ggplot, labs, scale_color_manual,
+                          scale_x_continuous, theme, theme_minimal)
     TH = (theme_minimal(base_size=11) +
           theme(panel_grid_minor=element_blank(),
                 panel_grid_major=element_line(color="#e8e7e3", size=0.4),
@@ -184,7 +184,9 @@ def main():
             if st and st > 0:
                 rows.append(dict(ckpt_idx=r, curve="probe absent rate",
                                  v=v))
-        d = pd.DataFrame(rows).rename(columns={"ckpt_idx": "tokens"})
+        raw = pd.DataFrame(rows)
+        raw = raw[(raw.v > -0.15) & (raw.v < 1.35)]
+        d = raw.rename(columns={"ckpt_idx": "tokens"})
         d = smooth(d)
         d = d.rename(columns={"tokens": "ckpt_idx"})
         d = d[(d.v > -0.15) & (d.v < 1.35)]  # clip residual display noise
@@ -216,6 +218,8 @@ def main():
                 "token axis: 4,194,304 tokens/step, INFERRED constant "
                 "batch, unverified ([5434])")
         p = (ggplot(d, aes("ckpt_idx", "v", color="curve"))
+             + geom_point(raw, aes("ckpt_idx", "v", color="curve"),
+                          alpha=0.35, size=1.0, stroke=0)
              + geom_line(size=0.8)
              + scale_color_manual(PAL)
              + scale_x_continuous(breaks=brk,
@@ -227,7 +231,8 @@ def main():
              + labs(title=f"What installs when, on tokens seen — "
                           f"{'Pythia-6.9b' if ladder == 'pythia' else 'OLMo-3 (stage1 base arm)'}",
                     subtitle="Each curve as share of its own base-final "
-                             "value; rolling-median(5) display smoothing; "
+                             "value. Points: exact rung values; lines: "
+                             "rolling-median(5). "
                              "rungs under 10 surviving probes dropped.\n"
                              "Raw curves in fig14-16. Syntax = strict "
                              "licit share (deepseek; haiku parallel). "

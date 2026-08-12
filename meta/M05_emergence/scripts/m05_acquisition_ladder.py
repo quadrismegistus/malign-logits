@@ -116,8 +116,10 @@ def sense_share(ladder):
 
 
 def smooth(d):
+    """rolling median(5) per (curve, segment): smoothing never crosses a
+    base/SFT/DPO/RLVR boundary (RH 2026-08-12)."""
     out = []
-    for c, g in d.groupby("curve"):
+    for _, g in d.groupby(["curve", "seg"]):
         g = g.sort_values("ckpt_idx").copy()
         g["v"] = g.v.rolling(5, center=True, min_periods=1).median()
         out.append(g)
@@ -127,7 +129,7 @@ def smooth(d):
 def main():
     from plotnine import (aes, annotate, element_blank, element_line,
                           element_rect, element_text, geom_hline, geom_line,
-                          ggplot, labs, scale_color_manual,
+                          geom_point, ggplot, labs, scale_color_manual,
                           scale_x_continuous, theme, theme_minimal)
     TH = (theme_minimal(base_size=11) +
           theme(panel_grid_minor=element_blank(),
@@ -161,8 +163,17 @@ def main():
                 rows.append(dict(ckpt_idx=r, curve=label, v=v / ref))
         for r, v in absr.items():
             rows.append(dict(ckpt_idx=r, curve="probe absent rate", v=v))
-        d = smooth(pd.DataFrame(rows))
+        SEG = {"base_step": "base", "base_endpoint": "base",
+               "sft_step": "sft", "sft_endpoint": "sft",
+               "dpo_endpoint": "dpo", "rlvr_step": "rlvr"}
+        segmap = {r.ckpt_idx: SEG.get(r.role, "base")
+                  for r in order.itertuples()}
+        raw = pd.DataFrame(rows)
+        raw["seg"] = raw.ckpt_idx.map(segmap)
+        raw = raw[(raw.v > -0.15) & (raw.v < 1.45)]
+        d = smooth(raw)
         d = d[(d.v > -0.15) & (d.v < 1.45)]
+        d["grp"] = d.curve + "|" + d.seg
 
         ends = (d.sort_values("ckpt_idx").groupby("curve")
                 .agg(x=("ckpt_idx", "last"), y=("v", "last")))
@@ -218,7 +229,9 @@ def main():
         p = (ggplot(d, aes("ckpt_idx", "v", color="curve"))
              + extras
              + geom_hline(yintercept=1.0, color="#c9c8c2", size=0.4)
-             + geom_line(size=0.8)
+             + geom_point(raw, aes("ckpt_idx", "v", color="curve"),
+                          alpha=0.35, size=1.0, stroke=0)
+             + geom_line(aes(group="grp"), size=0.8)
              + scale_color_manual(PAL)
              + scale_x_continuous(expand=(0.02, 0, 0.28, 0))
              + sum([[annotate("text", x=xmax + 2, y=yy, label=c,
@@ -228,9 +241,11 @@ def main():
                     subtitle="Each curve as share of its own LATE-BASE "
                              "value (median of last 3 base rungs) — above "
                              "1.0 means alignment raised it.\nCoverage "
-                             "gate n>=10; rolling-median(5) display "
-                             "smoothing; grey: probe absent rate "
-                             "([5436]). Raw curves: fig14-16.",
+                             "gate n>=10. Points: exact rung values; "
+                             "lines: rolling-median(5) WITHIN each phase, "
+                             "never smoothed across base/SFT/DPO/RLVR.\n"
+                             "Grey: probe absent rate ([5436]). Raw "
+                             "curves: fig14-16.",
                     x=xlab, y="share of own late-base value")
              + TH)
         p.save(f"{FIGDIR}/fig21_acquisition_ladder_{ladder}.png", dpi=300,
