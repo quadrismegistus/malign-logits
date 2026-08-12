@@ -12,6 +12,41 @@ the same population:
     46  independent lineages those pairs span
     62  lineages in the whole registry (158 models) -- NEVER a roster number
 
+THERE ARE NOW TWO 46s AND THEY ARE NOT THE SAME POPULATION (2026-08-12).
+This file's 46 is a property of a FROZEN ARTIFACT -- the lineages
+`data/forced_arms_105_v3.json` happens to span. The registry answers the same
+question live and gives different members:
+
+    47   base->superego canonical lineages DECLARED in the registry
+    46   the same, restricted to edges that have data      <- gpt-sw3-6.7b-v2
+                                                              is gated, 0 rows
+    46   the lineages this file's battery spans            <- a different 46
+
+The two 46s agree on 45 and differ by one member each:
+
+    collected only   EleutherAI/pythia-2.8b   (the archangel base; the battery
+                                               carries pythia-6.9b instead)
+    battery only     BAAI/Aquila2-7B          (its aligned arm is AquilaChat2-7B
+                                               at position EGO, and RH's rule of
+                                               2026-08-12 is that a model pair is
+                                               base->superego. The registry
+                                               declares no_superego='none-published'
+                                               for this family; whether that is
+                                               right is UNVERIFIED -- the HF card
+                                               shows only an `sft=True` inference
+                                               flag and the Aquila2 technical
+                                               report abstract is silent. If
+                                               AquilaChat2 turns out to be
+                                               preference-tuned the declared count
+                                               is 48, not 47.)
+
+AND THE DEPENDENCY ON THE BATTERY FILE IS REMOVABLE. Verified 2026-08-12:
+MODEL_FAMILIES' base -> (superego or ego), kept where the base is its lineage's
+representative, reproduces this file's 46 EXACTLY -- 46 of 46, nothing
+roster-only. So the registry alone determines the roster, and reading
+`forced_arms_105_v3.json` is what freezes this file at the battery's membership
+rather than the campaign's current one.
+
 A cross-lineage test wants 46. Anything that reports 52 while treating the rows
 as independent is counting Falcon3-1B, -3B and -7B as three observations of
 three things when the vendor's own card calls two of them compressions of the
