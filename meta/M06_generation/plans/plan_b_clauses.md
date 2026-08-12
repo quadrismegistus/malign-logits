@@ -72,6 +72,60 @@ Unit and test as plan A's: (pair, prompt) cell, aligned-minus-base; pair
 median with per-prompt sign split; sign test over 41 pair medians, Wilcoxon
 beside. English only; zh clause parsing is its own gate in phase two.
 
+## Amendment 1 (pre-gate, 2026-08-12, on [5632] and [5634] §§2-3)
+
+**Unit: plan A's Amendment 2 binds here identically** — primary population
+is the UNDISTURBED arm; forced arms are the secondary per-arm table; arm
+count per cell reported.
+
+**§1 — B.H1 and B.H2 are coupled** ([5634] §2): two readings of one clause
+distribution over one sentence denominator. Not strictly complementary
+(both ratios can fall if sentences shorten) but not two measurements
+either. Decision rule, fixed now:
+
+- Reported beside the per-sentence ratios, denominator-free:
+  `dep_clause_share` = dependent / (dependent + independent) clauses (the
+  clause MIX, no sentence denominator), and per-1,000-word rates
+  `indep_clauses_per_1000w`, `dep_clauses_per_1000w`.
+- **B.H1 and B.H2 may be reported as TWO findings only if the clause-mix
+  shift and at least one per-1,000-word rate agree with the respective
+  per-sentence verdicts.** Otherwise the verdict sentence is "one clause
+  distribution, two surfaces," and CONFIRMED does not appear twice.
+
+**§2 — the declared joint prediction with A.H1** ([5634] §3): subordination
+lengthens sentences — hypotaxis and sentence length move together in the
+register literature — so A.H1 (aligned shorter sentences) and B.H2 (aligned
+more hypotactic) jointly require, if both fire, that aligned CLAUSES are
+markedly SHORTER. `clause_len_words_mean` (words per clause) is the
+adjudicating column, reported per arm. The outcome table, declared before
+any number exists:
+
+- **Both fire** → the strong, strange result: compression WITH
+  subordination — aligned prose packs more subordinate structure into
+  shorter sentences via shorter clauses. Reported as one joint signature
+  with the clause-length column carrying the mechanism.
+- **A.H1 fires, B.H2 fails** (or reverses) → sentence shortening without a
+  subordination shift; B.H1's paratactic read adjudicates whether the mix
+  moved at all.
+- **B.H2 fires, A.H1 fails** → the register-literature pattern
+  (subordination with length); A.H2's conditioned table is re-read against
+  it.
+- **Both fail** → both reported; the surface-accounting descriptives stand
+  alone.
+
+No selective reporting: all four cells of this table are quotable ONLY
+together.
+
+**§3 — Stanza is a stated choice, and the fourth POS path in the repo**
+([5634] custody note): `taxonomy.py` carries in-context spaCy POS,
+`fields._byu()` an out-of-context tagger (unusable except verbs/adverbs —
+noun label 41.2% verbs in context, [5632]), and lacan's
+`results/k/pos_context_en.tsv` the corrected M01 table. Plan B uses Stanza
+BECAUSE UD clause relations (`ccomp`/`advcl`/`acl`) are the published OSP
+operationalisation and spaCy's `pos_` cannot supply them. Stanza output is
+used ONLY within M06; no cross-instrument POS comparison travels without
+its own bridge check.
+
 ## What this plan does not claim
 
 Nothing named "register" or "formality" — if a composite is ever built from

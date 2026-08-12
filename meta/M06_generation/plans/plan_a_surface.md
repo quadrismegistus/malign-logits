@@ -119,6 +119,39 @@ original artifact one level down. The conditioned table keeps the token
 denominator fixed and makes the sentence effect visible instead of moving
 it.
 
+## Amendment 2 (pre-gate, 2026-08-12, on malign's [5634] §1)
+
+**The cell was pooling across arms, and arm count varies by cell** (85.6% of
+cells carry 5 arms, 14.4% fewer — measured on the frozen table, [5634]), so
+the pooled cell mean was composition-dependent in exactly the shape the
+campaign has been burned by ([5592] §2's pooled null, run the other way: a
+composition difference read as a style difference).
+
+Ruling, taking malign's first and third options together:
+
+1. **The PRIMARY population is the UNDISTURBED ARM ONLY** — the one arm
+   present in every cell, with no injected word, and the only arm whose
+   prose is not conditioned on a word we chose. Every A and B verdict is
+   read there. This costs ~80% of the passages and is the right trade: the
+   effective n was always pairs and prompts, not passages.
+2. The forced arms become a SECONDARY per-arm replication table — the same
+   contrasts with `arm` in the unit, reported beside the primary, no
+   verdict language of their own. Agreement across arms strengthens;
+   disagreement is reported as a scope fact about injection.
+3. Arm count per cell is reported in the producer output regardless, so
+   the composition is visible rather than behind the table.
+
+This amendment binds plan B identically (shared unit).
+
+## Amendment 3 (pre-gate, 2026-08-12, cross-reference)
+
+A.H1 participates in a DECLARED JOINT PREDICTION with plan B's B.H2 —
+subordination lengthens sentences, so the two registered directions pull
+opposite ways on sentence length. The joint outcome table and its
+adjudicating column (`clause_len_words_mean`) live in plan B, Amendment 1
+§3; A.H1's verdict is always read beside it, and no selective reporting of
+whichever hypothesis landed is licensed.
+
 ## What this plan does not claim
 
 No register/formality construct (that is plan B territory and the naming
