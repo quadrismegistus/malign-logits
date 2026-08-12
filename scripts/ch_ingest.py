@@ -53,6 +53,7 @@ import argparse
 import glob
 import json
 import os
+import collections
 import subprocess
 import sys
 from collections import defaultdict
@@ -819,6 +820,106 @@ def ingest_logits(limit=None, batch=400_000):
           % (format(n_cells, ","), format(n_rows, ","), format(n_skip, ",")))
 
 
+def _catalogue_rows():
+    """The rows `prompt_catalogue` SHOULD hold, from the source of truth.
+
+    Extracted so `check()` builds its expectation through THIS function rather
+    than reimplementing the field mapping. A checker with its own copy of the
+    mapping reports normalisation as drift, and a check that cries wolf is worse
+    than no check -- people stop running it.
+    """
+    rows = json.load(open(os.path.join(ROOT, "data", "prompt_categorisation.json")))["prompts"]
+    rows = list(rows.values()) if isinstance(rows, dict) else rows
+    return [{"prompt": r.get("prompt") or "", "prompt_id": r.get("prompt_id") or "",
+             "finding": str(r.get("finding") or ""), "source": str(r.get("source") or ""),
+             "language": str(r.get("language") or ""), "domain": str(r.get("domain") or ""),
+             "subdomain": str(r.get("subdomain") or ""), "slot": str(r.get("slot") or ""),
+             "pair_id": str(r.get("pair_id") or ""), "pair_role": str(r.get("pair_role") or ""),
+             "status": str(r.get("status") or ""),
+             "is_logical": 1 if r.get("resolver") else 0} for r in rows]
+
+
+def _registry_edge_rows():
+    """The rows `model_edges` SHOULD hold. Same reason as above."""
+    d = json.load(open(os.path.join(ROOT, "data", "model_registry.json")))
+    return [{"parent": e.get("parent") or "", "child": e.get("child") or "",
+             "relation": e.get("relation") or ""} for e in (d.get("relations") or [])]
+
+
+def _registry_model_rows():
+    """The identity columns `models` SHOULD hold. Measured/tokenizer columns are
+    NOT checked -- they come from separate artifacts with their own timestamps,
+    and asserting them here would make the check fail for a reason it cannot
+    name."""
+    d = json.load(open(os.path.join(ROOT, "data", "model_registry.json")))
+    mods = d.get("models") or {}
+    rows = list(mods.values()) if isinstance(mods, dict) else mods
+    return [{"model_id": r.get("model_id") or "", "family": str(r.get("family") or ""),
+             "position": str(r.get("position") or ""), "stage": str(r.get("stage") or ""),
+             "org": str(r.get("org") or "")} for r in rows]
+
+
+MIRRORS = (
+    ("prompt_catalogue", _catalogue_rows),
+    ("model_edges", _registry_edge_rows),
+    ("models", _registry_model_rows),
+)
+
+
+def check():
+    """Diff every mirrored table against its source. Non-zero on any drift.
+
+    **THESE TABLES ARE MIRRORS, AND A MIRROR THAT CAN SILENTLY DISAGREE WITH ITS
+    SOURCE IS WORSE THAN NO MIRROR.** On 2026-08-12 `prompt_catalogue` held 2,809
+    rows against the source's 2,873, with 118 prompts marked RETIRED that the
+    source calls ACTIVE -- so `WHERE status = 'ACTIVE'` returned 2,590 where the
+    truth was 2,768, and nothing in ClickHouse said so. `model_edges` was 199
+    against 203.
+
+    WHY THIS AND NOT A WRITE FROM THE PRODUCERS. The obvious fix is for
+    `build_model_registry.py` and `build_prompt_categorisation.py` to push after
+    writing. They are not the only writers: the catalogue is also rewritten by
+    the merge/repair/retire/restore scripts -- `restore_logical_bos.py` rewrote
+    it on 2026-07-30 -- so a producer-side push covers one path of several and
+    reads as protection while the repair scripts keep drifting the mirror. The
+    refresh was never the hard part; both commands existed and took seconds.
+    What was missing is that drift is INVISIBLE FROM INSIDE ClickHouse.
+
+    Run before quoting any number read from these tables.
+    """
+    bad = 0
+    for tbl, builder in MIRRORS:
+        want = builder()
+        cols = sorted(want[0]) if want else []
+        got = json.loads("[" + ",".join(
+            _ch_json(f"SELECT {','.join(cols)} FROM {DB}.{tbl} FORMAT JSONEachRow")) + "]")             if want else []
+        W = collections.Counter(tuple(str(r[c]) for c in cols) for r in want)
+        G = collections.Counter(tuple(str(r[c]) for c in cols) for r in got)
+        if W == G:
+            print("  %-20s OK        %d rows" % (tbl, len(want)))
+            continue
+        bad += 1
+        only_w, only_g = W - G, G - W
+        print("  %-20s DRIFT     source %d  clickhouse %d  |  missing %d  extra %d"
+              % (tbl, len(want), len(got), sum(only_w.values()), sum(only_g.values())))
+        for lbl, c in (("in source, NOT in ch", only_w), ("in ch, NOT in source", only_g)):
+            for row, n in list(c.items())[:3]:
+                print("      %-22s %s" % (lbl, str(row)[:96]))
+    if bad:
+        print("\n%d mirror(s) DRIFTED. Refresh: "
+              "uv run python scripts/ch_ingest.py --catalogue --registry" % bad)
+    else:
+        print("\nall %d mirrors agree with their sources." % len(MIRRORS))
+    return bad
+
+
+def _ch_json(sql):
+    r = subprocess.run([CH, "client", "--query", sql], capture_output=True, text=True)
+    if r.returncode:
+        raise RuntimeError(r.stderr[:300])
+    return [l for l in r.stdout.strip().split("\n") if l.strip()]
+
+
 def ingest_catalogue():
     """The catalogue as a dimension. REGENERATED WHOLE, never appended.
 
@@ -827,14 +928,7 @@ def ingest_catalogue():
     make answerable -- and a table that silently holds only ACTIVE rows cannot
     answer it. Filter in the query, where the choice is visible.
     """
-    rows = json.load(open(os.path.join(ROOT, "data", "prompt_categorisation.json")))["prompts"]
-    out = [{"prompt": r.get("prompt") or "", "prompt_id": r.get("prompt_id") or "",
-            "finding": str(r.get("finding") or ""), "source": str(r.get("source") or ""),
-            "language": str(r.get("language") or ""), "domain": str(r.get("domain") or ""),
-            "subdomain": str(r.get("subdomain") or ""), "slot": str(r.get("slot") or ""),
-            "pair_id": str(r.get("pair_id") or ""), "pair_role": str(r.get("pair_role") or ""),
-            "status": str(r.get("status") or ""),
-            "is_logical": 1 if r.get("resolver") else 0} for r in rows]
+    out = _catalogue_rows()
     ch(f"TRUNCATE TABLE IF EXISTS {DB}.prompt_catalogue")
     insert("prompt_catalogue", out)
     print("catalogue: %s rows, %s distinct texts"
@@ -956,6 +1050,9 @@ def main():
     ap.add_argument("--beams", action="store_true", help="beam_fc")
     ap.add_argument("--registry", action="store_true", help="models + model_edges")
     ap.add_argument("--verify", action="store_true")
+    ap.add_argument("--check", action="store_true",
+                    help="diff mirrored tables against their JSON sources; "
+                         "non-zero on drift")
     ap.add_argument("--limit", type=int, default=None, help="first N files per source")
     a = ap.parse_args()
     if a.create:
@@ -990,7 +1087,10 @@ def main():
         ingest_registry()
     if a.verify:
         verify()
-    if not any((a.create, a.twp, a.logits, a.index, a.catalogue, a.drift, a.l2, a.y, a.beams, a.registry, a.verify)):
+    if a.check:
+        return 1 if check() else 0
+    if not any((a.create, a.twp, a.logits, a.index, a.catalogue, a.drift, a.l2,
+                a.y, a.beams, a.registry, a.verify, a.check)):
         ap.print_help()
 
 
@@ -1170,4 +1270,9 @@ def ingest_beams(limit=None, batch=20_000):
 
 
 if __name__ == "__main__":
-    main()
+    #: sys.exit(main()), NOT main(). `--check` computed the right answer and
+    #: returned 1, and a bare main() DISCARDED IT -- the process exited 0 while
+    #: printing "2 mirror(s) DRIFTED". A guard whose signal never reaches the
+    #: caller is not a guard, and it would have passed every CI run silently.
+    #: Caught by watching the check fail rather than by reading it.
+    sys.exit(main() or 0)
