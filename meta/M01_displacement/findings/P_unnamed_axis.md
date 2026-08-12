@@ -29,6 +29,15 @@ same word probabilities identify the arm nine times in ten, because **the
 signature is distributed and redundant rather than located in any nameable
 word**.
 
+**AND "WORD-LEVEL" IS THE WEAKEST WORD IN THE HEADLINE.** A univariate per-word
+AUC -- one number per (word, in-context tag), computed identically for all 3,977
+features, and the vector that agrees with the axis best at Spearman -0.451 --
+reproduces on LITERARY prompts at only **+0.233**, with 413 genuine sign flips
+(`right/noun` runs -0.36 to +0.28). A word's arm-diagnosticity is mostly a
+property of the prompt population, not of the word. That is ICC 0.131 arriving by
+a route that never touches the movement rule, and it bounds how much any
+word-level claim in this document can be asked to carry. Section 6.
+
 Split from `K_word_properties.md` on 2026-08-12. K is a MEASUREMENT study: an
 instrument, its reliability, and what it correlates with in sample. This is a
 PREDICTION study: held-out generalisation, a measured ceiling, and the
