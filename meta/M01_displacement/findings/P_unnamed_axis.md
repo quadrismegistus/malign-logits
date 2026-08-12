@@ -19,6 +19,16 @@ Every named component of it (corpus register, concreteness, length) is a
 minority share, and what is left after removing them predicts better than any of
 them.**
 
+**AND A SECOND INSTRUMENT THAT NEVER TOUCHES THE MOVEMENT RULE FINDS THE SAME
+DIRECTION.** A classifier reading base from aligned out of word probabilities
+reaches AUC 0.959 held out by ORG, its coefficient vector is stable at min cos
+0.958 where the movement axis fails its own gate at 0.841, and the two agree at
+Spearman -0.385. Section 6. It also resolves the apparent tension in this
+document: no individual word's movement is predictable from its meaning, and the
+same word probabilities identify the arm nine times in ten, because **the
+signature is distributed and redundant rather than located in any nameable
+word**.
+
 Split from `K_word_properties.md` on 2026-08-12. K is a MEASUREMENT study: an
 instrument, its reliability, and what it correlates with in sample. This is a
 PREDICTION study: held-out generalisation, a measured ceiling, and the
@@ -30,7 +40,8 @@ claim and does not make them wrong.
 Producer chain: `k_predict.py`, `k_ceiling.py`, `k_embed.py`,
 `k_predict_embed.py`, `k_axis.py`, `k_register.py`, `k_brooke.py`,
 `k_confound.py`, `k_length.py`, `k_concreteness.py`, `k_scale_solo.py`,
-`k_dpo_corpus.py`, `k_tulu_ablation.py`, `k_residual.py`.
+`k_dpo_corpus.py`, `k_tulu_ablation.py`, `k_residual.py`,
+`k_armclf.py`, `k_armclf_binary.py`, `k_armclf_minimal.py`.
 
 ---
 
@@ -93,7 +104,7 @@ the word's identity, which strictly dominates any finite feature set.
 **THE CEILING IS STABLE ACROSS ALL FOUR**, moving by 0.013 between the widest and
 narrowest, so the "% of the headroom" figures below do not depend on which
 population is used as the denominator. The verb-eliciting row is the one matching
-§8's population; the verbs/all-sites row is the denominator quoted elsewhere in
+§9's population; the verbs/all-sites row is the denominator quoted elsewhere in
 this document.
 
 THE SCRIPT WAS NOT DETERMINISTIC UNTIL 2026-08-12 AND THE FIX IS RECORDED HERE
@@ -231,7 +242,101 @@ The Chinese axis is markedly LESS entangled with the nuisance: log frequency
 four times stronger predictively (+0.068 over floor against +0.017) on a quarter
 of the cells.
 
-## 6. What the direction is made of, and none of it is most of it
+## 6. A second instrument, sharing no machinery, finds the same direction
+
+**Everything above depends on the canonical movement rule.** The rule thresholds
+a p_base-relative quantity, and several defects corrected in this document came
+from exactly that. So the direction wants corroboration from an instrument that
+has never heard of the rule. `k_armclf`, `k_armclf_binary`, `k_armclf_minimal`.
+
+THE DESIGN. Rows are (model, prompt) cells, columns are the top-N content words
+by pooled mass, values are that word's probability, and the label is the ARM.
+Nothing is paired, nothing is thresholded, no word is excluded for sitting below
+a floor.
+
+THE UNIT, STATED BEFORE THE RESULTS BECAUSE IT IS THE SAME TRAP AS SECTION 1.
+204,438 cells but **92 independent labels** -- the label is exactly constant
+within a model -- in 46 lineages. And the lineage is NOT the right holdout: 21 of
+46 lineages share an ORG with another (tiiuae 5, allenai 4, six more with 2), so
+holding one out leaves siblings in training and the classifier can recognise the
+org rather than the arm. Held out by org, 33 groups. **The leak was real and
+small: 0.9560 by lineage, 0.9371 by org.** All figures below are model-level, over
+the 92.
+
+### Most of it is one number, and it is not a word
+
+    top-1 mass          0.8885        entropy         0.7368
+    support size        0.8284        stored mass     0.4664   (chance)
+    all four together   0.8563   <- WORSE than top-1 alone
+
+**The probability of the single most likely next token identifies an aligned
+model at AUC 0.889.** The four-feature nuisance block is worse than that one
+feature, because stored mass is at chance and drags the fit. A hundred content
+words reach 0.9371, misclassifying 8 models of 92 against 13.
+
+### Removing the confound by construction beats controlling for it
+
+Binary top-N BY RANK: each cell contributes exactly N ones, so mass, top-1 and
+support size are constant and cannot signal. Collapsed to per-model fractions --
+92 rows, the honest unit -- top-20 at k=50 reaches **AUC 0.9589, 91.3%**, above
+the probability version. So the signature is about WHICH WORDS ARE IN CONTENTION,
+not about how peaked the distribution is.
+
+"Present in the stored table" would NOT have worked in place of rank: the stored
+count is threshold-determined and predicts the arm at 0.828 on its own, so a
+presence-binary smuggles sharpness back in through the denominator.
+
+### How few words: the count is a claim, the list is not
+
+The five commonest content words -- `said found took put began` -- reach 0.8998
+label-blind, misclassifying 10 of 92. Selection inside each training fold does
+better at tiny k (0.9249 at k=3) and WORSE at large k. But fold agreement is
+Jaccard 0.23-0.33 at k<=5: one word is chosen by all five folds at k=5, three at
+k=10. **The signature is redundant, many small subsets work, and publishing "the
+ten diagnostic words" would misrepresent it.**
+
+### The coefficients, and their agreement with the axis
+
+k=50, per-model, leave-one-org-out. **Stability min cos 0.958, median 0.994** --
+the most stable direction in this campaign, where the movement axis fails its own
+0.9 gate at 0.841.
+
+    ALIGNED  whispered +0.41  let +0.34  felt +0.32  added +0.25  tried +0.23
+             set +0.21  began +0.17  smiled +0.17  stood +0.16  held +0.15
+    BASE     know -0.31  sent -0.30  threw -0.29  kill -0.28  went -0.28
+             told -0.25  go -0.24  put -0.24  get -0.24  kissed -0.22
+
+**These are NOT the marginal differences.** `said` has the largest marginal gap
+(30.8% of prompts in base against 24.3% aligned, -6.5) and no top-ten
+coefficient: `told`, `went`, `go` and `put` absorb it. Reporting marginals as
+coefficients would have named the wrong words.
+
+    Spearman(coefficient, word's axis position)   -0.385
+    cos(coefficient direction, movement axis)     -0.236
+
+**Negative IS agreement** -- a word that falls under alignment should be less
+present in the aligned arm -- and it is stronger than the probability version's
+-0.285 / -0.203. Two instruments sharing no machinery, one built on the movement
+rule and one that has never heard of it, point the same way.
+
+### What this does to the rest of P
+
+It corroborates the axis from a design that cannot inherit the rule's artifacts,
+and it does so with a direction that is STABLE where the axis is not. It also
+resolves an apparent tension rather than creating one: no individual word's
+movement is predictable from its meaning (sections 1 and 9), and the same word
+probabilities identify the arm nine times in ten. Both hold because **the
+signature is distributed and redundant** -- present in the joint profile, absent
+from any word one could name. That is the claim of this document reached from the
+other side.
+
+LIMITS. Only 39% of each cell's top-20 falls inside the 200 candidate columns, so
+this is a slice of the vocabulary and widening it is untested. Accuracy figures
+use a threshold chosen on the same predictions and are optimistic; the AUCs are
+the honest numbers. And 92 models is a small n for a 5-point accuracy difference:
+13 wrong against 8 is five models.
+
+## 7. What the direction is made of, and none of it is most of it
 
 Each construct given one CODER measure and one INDEPENDENT measure, on its own
 coverage. Verb-eliciting sites for the prediction column.
@@ -313,7 +418,7 @@ cluster whose members correlate +0.34 to +0.83. A real Latinate marker would be
 inside it, so the "orthographic form" result was mostly word length, and testing
 Latinateness needs an etymological resource rather than a suffix regex.
 
-## 7. External validation of the register construct
+## 8. External validation of the register construct
 
 Brooke, Wang & Hirst (2010), hand-curated material only; their induced lexicon is
 LSA plus frequency ratios and is circular for us.
@@ -338,7 +443,7 @@ items and the natural conclusion would have been that register does not replicat
 in Chinese. Trimming another group's data after seeing its effect on our result
 is not a repair, so the file is reported unusable and left alone.
 
-## 8. Sites must elicit verbs, and it changes the answer
+## 9. Sites must elicit verbs, and it changes the answer
 
 Restricting the WORDS to lexical verbs is not enough. At "She slowly took off her
 ___" the verbs in the top-50 are long shots competing against nouns, and pooling
@@ -366,7 +471,7 @@ words `concreteness` scores pooled +0.0114 and per-site -0.0068, `n_concreteness
 +0.0068 and -0.0100 -- the same norm with opposite signs on the two metrics.
 Warriner coverage is what costs the power.
 
-## 9. Two causal tests, and neither supports a harm-targeting mechanism
+## 10. Two causal tests, and neither supports a harm-targeting mechanism
 
 **HH-RLHF preference direction.** `chosen` and `rejected` share their prefix, so
 only the diverging suffix (25-33% of the string) is counted; counting the whole
