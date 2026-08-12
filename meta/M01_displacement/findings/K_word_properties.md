@@ -5,25 +5,26 @@ SITE-SPECIFIC. The route here matters as much as the destination — four earlie
 different answers, including two with the wrong sign, and one of them failed its
 negative control outright.**
 
-**AMENDED 2026-08-12 BY A PREDICTION TEST, AND THE AMENDMENT IS LARGE. Every
-result above this line is correlational and in-sample. Held out by WORD, the
-seven scales do not predict which way alignment moves a word: they add +0.003 to
-+0.011 AUC over base probability, frequency and part of speech, and adding the
-eight Warriner norms does not help. A measured ceiling shows this is not a dead
-design -- word identity has +0.121 AUC of headroom -- and GloVe recovers 21% of
-that headroom against the rated scales' 7%. The direction GloVe finds runs from
-vernacular to institutional vocabulary, and it correlates with coder `charge` at
-+0.009. Whether to call that direction REGISTER is unsettled: register,
-abstractness and syllable length are historically fused in English and the axis
-survives matching on the other two only at 2.2 sd on 40 pairs. See "PREDICTION,
-THE CEILING, AND THE REGISTER AXIS" below. The sections above are not withdrawn;
-they are correlations that survive their own nulls and fail to generalise to
-unseen words.**
+**EVERYTHING IN THIS DOCUMENT IS AN IN-SAMPLE CORRELATION, AND NONE OF IT
+GENERALISES TO UNSEEN WORDS. Held out by WORD, the eighteen rated norms add
++0.003 to +0.011 AUC over base probability and frequency, and individually
+nothing is distinguishable from noise except concreteness once the sites are
+restricted. That is established in `P_unnamed_axis.md`, which was split out of
+this file on 2026-08-12. K is the MEASUREMENT study: the instrument, its
+reliability, and what it correlates with. P is the PREDICTION study: held-out
+generalisation, the measured ceiling, and the direction. P supersedes K's
+interpretation and leaves K's measurements intact -- the correlations below are
+real and survive their own permutation nulls, and that is a different claim from
+predicting.**
+
+**READ P BEFORE CITING ANY RANKING BELOW.** Two things there reach back into
+every table in this document: the sites were not restricted to verb-eliciting
+ones, which changes the per-norm ordering; and the direction that actually
+predicts correlates with coder `charge` at +0.009.
 
 Producer chain: `scripts/rate_charge_v1.py` (the rater),
 `scripts/k_population.py`, `k_bulk.py`, `k_analysis.py`, `k_by_prompt2.py`.
-Prediction chain: `k_predict.py`, `k_ceiling.py`, `k_embed.py`,
-`k_predict_embed.py`, `k_axis.py`.
+The prediction and axis chain lives with `P_unnamed_axis.md`.
 Instrument frozen at `results/k/INSTRUMENT.txt`, sha `5b59a44c…`. Plan at
 `registrations/plan_k_charge_annotation.md`.
 
@@ -226,186 +227,41 @@ but NOT the human construct it most resembles. **This is a finding about the
 coder's charge scale, not about arousal**, and `n_arousal` behaves differently
 in the main table (z -15.1, 93% falling, where coder charge is +5.9 rising).
 
-## PREDICTION, THE CEILING, AND THE REGISTER AXIS
+## PREDICTION AND THE AXIS: MOVED TO `P_unnamed_axis.md`
 
-**Everything above this section is a correlation measured in-sample. This section
-asks whether any of it predicts, and the answer changes what the document is
-about.** `k_predict.py`, `k_ceiling.py`, `k_embed.py`, `k_predict_embed.py`,
-`k_axis.py`, `k_register.py`, `k_brooke.py`, `k_confound.py`.
+**This section was written into K on 2026-08-12 and split out the same day, once
+it became clear it is a different kind of evidence rather than a further result.
+K is a MEASUREMENT study -- an instrument, its reliability, and what it
+correlates with in sample. P is a PREDICTION study -- held-out generalisation, a
+measured ceiling, and the decomposition of a direction.**
 
-### The scales do not predict
+What P establishes, and every claim above this line should be read against it:
 
-The case is a CELL -- one (word, prompt, base, aligned) -- and the held-out unit
-is the WORD, five-fold `GroupKFold`, so a model that memorised `murder falls`
-scores nothing for it. Outcome fall vs rise under the canonical rule. English
-lexical verbs only, so part of speech is not a confound; 100,958 cells over 4,075
-words.
+- Held out by WORD, none of the eighteen rated norms predicts which way alignment
+  moves a word. The scales add +0.003 to +0.011 AUC over base probability and
+  frequency, and the eight Warriner norms do not help. Chinese agrees.
+- The design is not dead: word identity carries **+0.121 AUC of headroom** over
+  base probability. But ICC(1) is 0.131, so **87% of the variance is WITHIN a
+  word across sites** and unreachable by any word-level feature.
+- 300 unsupervised GloVe dimensions recover **21%** of that headroom against the
+  rated norms' **7%**, and two encoders that agree about nothing else agree on it.
+- The direction runs from vernacular to institutional vocabulary, replicates in
+  Chinese on an unrelated historical seam, and correlates with coder `charge` at
+  **+0.009**.
+- Every named component of it is a minority share, and the unnamed residual
+  outpredicts all of them.
 
-    increment over the SAME model without the features, and over the SAME model
-    on ratings shuffled across words
+**SO THE CORRELATIONS ABOVE ARE NOT WITHDRAWN AND THEIR RANKING IS NOT
+TRUSTWORTHY.** They survive their own permutation nulls; they do not generalise
+to unseen words. Those are different claims.
 
-                        over same class      over shuffled
-      additive          +0.0021 / +0.0035    +0.0034 / +0.0054
-      interactions      -0.0016 / -0.0017    +0.0035 / +0.0041
-      trees             +0.0038 / +0.0029    +0.0102 / +0.0057
-
-**Adding the eight Warriner norms does not help**; on the 1,042 verbs Warriner
-covers (22% of them, not the 48% it covers of the whole vocabulary) the additive
-model is WORSE than nuisance alone. **Chinese, run separately, agrees**: coder
-scales add +0.010, and in the covered subset `norms only` scores 0.478 against a
-shuffled 0.525 -- the real ratings predict worse than random ones.
-
-The scalar outcome `log10(p_aligned / p_base)` agrees and is the better
-instrument, because the binary outcome is thresholded on a p_base-relative
-quantity and so selects on itself. It also exposes what that costs: **within a
-site, p_base predicts magnitude at Spearman +0.001**, against a per-site AUC of
-0.66 in the binary version. The nuisance variable's apparent power in the binary
-analysis is manufactured by the binarisation.
-
-**THE EFFECTIVE n IS 4,075, NOT 100,958.** Eleven of the twelve features are
-constant within a word; only `log p_base` varies across a word's cells. The extra
-cells inform the outcome, not the predictors. This is not a power problem -- the
-learning curve is flat from 652 training words to 2,608 -- which is also why
-leave-one-out was not run: it adds 20% to a curve that stopped moving three
-doublings earlier.
-
-### But there is plenty of word-level signal, so the failure is the instrument
-
-Split a word's own cells in half and use the fall rate in one half to predict the
-other. That is the best any function of the word alone can reach, since it uses
-the word's identity.
-
-    English verbs, 2,760 words, 792,549 scored cells
-      oracle (word identity)          0.7025
-      log p_base alone, same cells    0.5818
-      headroom for any word feature  +0.1207
-
-**The eighteen rated norms buy +0.008 of that 0.121, about 7%.** And the ceiling
-is itself low: ICC(1) = 0.131, so **87% of the fall/rise variance is WITHIN a
-word across the sites it appears at** and is unreachable by any word-level
-feature. Movement is a property of the word AT A SITE.
-
-### A distributional embedding recovers three times as much
-
-    what beats its OWN shuffle, pooled       share of the +0.1207 headroom
-      18 rated norms, trees      +0.0083                7%
-      GloVe 300d, trees, k=50    +0.0256               21%
-      bge-m3 1024d, trees        +0.0208               17%
-
-Two encoders that agree about nothing else -- GloVe is near-isotropic at 0.037
-median pairwise cosine, bge-m3 sits at 0.529 -- land within 0.005 of each other.
-Encoders are gated on BARE WORDS before use, because docket [459] gate-checked
-bge-m3 on `prompt + " " + word`, a sentence, and a gate passed for one use is not
-evidence about another. GloVe separates near-synonyms at +0.400 against bge-m3's
-+0.138 and is the primary on that basis.
-
-**So the rated dimensions are not a coarse version of the right axis; they are
-substantially the wrong basis.**
-
-### The direction, and how far it can be named
-
-The GloVe direction predicting FALL, extracted with `log p_base` and `log fpm` in
-the model as nuisance:
-
-    falls  drop fucks slams fuck whacked screw throws dump blow drink suck dies
-           lick dunked ate stabbed puts eats peel bury sues
-    rises  enhance collaborate explore standardize interact research automate
-           formalize validate reinforce utilize elucidate analyze mobilize
-
-and the nearest words to the axis in the FULL GloVe vocabulary, which is not
-restricted to our verbs and so cannot be flattered by our sample:
-
-    falls  'em ass gonna hey motherfucker dunk guts gotta crap grandma sucks
-           okay fucking pub butt
-    rises  interactions enhancement perceptual cross-cultural alliances pathways
-           computer-based heterogeneous behaviors contexts mechanisms
-           capabilities interventions interpersonal strategies cultures
-
-**Coder `charge` correlates with this direction at +0.009.** The campaign's
-headline construct is orthogonal to the direction that predicts. The sharpest
-single case: **`exploit` and `manipulated` RISE while `fuck` and `stabbed` FALL**
--- both pairs carry transgressive content and what separates them is not
-transgression.
-
-Confirmed by instruments sharing no inputs with the embedding. A genre log-ratio
-`log10(SUBTLEX-US / coca_acad)` correlates +0.435 with the axis; COCA and BNC
-spoken-over-academic give +0.410 and +0.414. Against Brooke, Wang & Hirst's
-`Choose the Right Word` near-synonym pairs, the register index orders 76% of 326
-correctly and word form alone 74%.
-
-**BUT THE NAME IS NOT ESTABLISHED, AND RH'S OBJECTION IS WHY.** In the history of
-English the Latin and Norman borrowings arrived polysyllabic and abstract while
-the Germanic core stayed monosyllabic and concrete, so register, abstractness and
-length are one stratum with several names. Our own numbers show it: axis with
-concreteness +0.29, with syllable count +0.31, register index with concreteness
-+0.49. Matching the near-synonym pairs progressively:
-
-    all pairs with Brysbaert on both      253   77.9%   8.9 sd
-    + same syllable count                  78   75.6%   4.5 sd
-    + concreteness within 0.5             126   72.2%   5.0 sd
-    + BOTH matched                         40   67.5%   2.2 sd
-
-**And near-synonymy does NOT hold abstractness fixed**, which the matched test had
-assumed: on Brysbaert the informal member of a CTRW pair is +0.337 more concrete,
-Wilcoxon p = 3.3e-11. So: the axis runs along the vernacular/institutional
-stratum; register contributes something beyond length and abstractness; that
-something is 2.2 sd on 40 pairs and is a hypothesis.
-
-**Etymology was never actually tested.** The Latinate suffix flag correlates
-+0.10 to +0.17 with everything, sitting outside a cluster whose members correlate
-+0.34 to +0.83. A real Latinate marker would be inside it, so the "form alone"
-result was mostly word length, and testing Latinateness needs an etymological
-resource rather than a suffix regex.
-
-### What this does to `register_level`, and it is a correction
-
-**The one scale of the seven pointing at this axis is the one this document
-declares not established**, at line 292: "inter-coder agreement 0.60, rank
-stability 0.619, z = 1.0 against its null. Treat it as not established."
-
-The first two grounds stand. **The third is the wrong statistic.**
-`k_frame_summary.py:27` states in its own docstring that `z_scale` is the summary
-statistic to read, because the count ratio treats every prompt as a coin flip and
-ignores effect size. On `z_scale`, `register_level` is **+17.5, the fourth
-strongest of eighteen scales, 157 sites against 109 expected, 89% RISING** --
-exactly the direction the axis predicts. Its marginal coefficient at line 309 is
-+0.044, the largest quoted there.
-
-And against an external human gold standard it is the best measure we have:
-
-    CTRW pairwise                  seed separation (Mann-Whitney AUC)
-      coder register_level  97.1%    0.974
-      register index        76.8%    0.955
-      orthographic form     74.1%    0.939
-
-on 68 of 399 pairs, so the coverage is selected and the figure is not
-head-to-head with the others. **The scale is VALID and NOISY, which are different
-things**: IAA measures agreement on fine 1-7 gradations, this measures whether it
-tells `smooch` from `kiss`. Low reliability attenuates toward zero, so +17.5 was
-shown despite the measurement, not because of it. We read "we measured this
-badly" as "this construct is absent."
-
-### Limits, and one thing not to do
-
-The axis failed its own pre-declared stability gate: minimum pairwise cosine
-between the five fold axes was 0.841 against a gate of 0.9 set before the run.
-High enough that the direction is not noise, too low to have passed, and the line
-does not move afterwards.
-
-**Do not quote the sufficiency comparison.** The one-axis model scored 0.6831
-against the full 300-d model's 0.6670, but at different penalties (C=1.0 against
-C=0.1), so that is regularisation and not dimensionality.
-
-**Do not read the third decimal of any prediction increment.** Between two runs
-of `k_register` the nuisance floor itself moved 0.6663 to 0.6659 purely because
-the covered population changed by 326 cells. Run-to-run variation of these
-quantities has not been characterised.
-
-The Chinese register seed list from Brooke is **contaminated** -- twelve of the 49
-"formal" entries are internet slang (酱紫, 弓虽, 东东, 菜鸟, 大虾, 美眉) -- and was
-left unrepaired rather than trimmed, since trimming another group's data after
-seeing its effect on our result is not a repair. Chinese has no embedding axis
-yet; `k_embed zh bge` has not completed.
+**AND ONE DEFECT REACHES BACK INTO EVERY TABLE IN THIS DOCUMENT.** K's rankings
+are computed over 2,187 prompts including noun-eliciting ones, where a verb in
+the top-50 is a long shot competing against nouns. Restricted to the
+verb-eliciting minimal pairs, the per-norm out-of-sample picture changes from
+"nothing distinguishable from noise" to "concreteness first at a 5x margin,
+`register_level` last". Anything ranked in this document should be re-run on the
+pair corpus before it is cited. See P section 8.
 
 ## THE FOUR ANSWERS THIS ANALYSIS GAVE BEFORE THIS ONE
 
