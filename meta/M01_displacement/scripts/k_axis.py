@@ -63,7 +63,10 @@ SEED = 20260812
 N_SHOW = 30
 
 
-def main(lang="en"):
+def main(lang="en", name="glove"):
+    """`name` selects the encoder. GloVe is English-only, so Chinese must use
+    bge, and an en/zh comparison is then bge-to-bge -- never GloVe against bge,
+    which would put the encoder and the language in the same contrast."""
     from sklearn.linear_model import LogisticRegression
     from sklearn.model_selection import GroupKFold
     from sklearn.metrics import roc_auc_score
@@ -71,7 +74,7 @@ def main(lang="en"):
     from scipy.stats import spearmanr
     from k_frequency import fpm
 
-    z = np.load(os.path.join(K, "embed_%s_glove.npz" % lang), allow_pickle=True)
+    z = np.load(os.path.join(K, "embed_%s_%s.npz" % (lang, name)), allow_pickle=True)
     EM = {w: v for w, v in zip(z["words"], z["E"])}
     rate = json.load(open(os.path.join(K, "ratings_%s.json" % lang)))["ratings"]
     t2u = json.load(open(os.path.join(K, "normalisation_%s.json" % lang)))["token_to_unit"]
@@ -149,27 +152,40 @@ def main(lang="en"):
     print("   negative end = predicts RISING")
     print("     %s" % ", ".join(order[:N_SHOW]))
 
-    print("\n6. NEAREST WORDS TO THE AXIS IN THE FULL GLOVE VOCABULARY")
-    print("   (not restricted to our verbs, so not constrained to flatter the sample)")
-    try:
+    #: ONLY GLOVE HAS A VOCABULARY TO LOOK THE AXIS UP IN. bge-m3 is an encoder,
+    #: not a lookup table, so there is no full-vocabulary neighbour list for it
+    #: and this section is skipped rather than faked from our own verb list --
+    #: which would be the sample flattering itself.
+    if name != "glove":
+        print("\n6. NEAREST WORDS IN A FULL VOCABULARY: not available for %s, which"
+              " is an encoder rather than a lookup table. Section 5 is the only"
+              " naming evidence here." % name)
+    else:
+      print("\n6. NEAREST WORDS TO THE AXIS IN THE FULL GLOVE VOCABULARY")
+      print("   (not restricted to our verbs, so not constrained to flatter the sample)")
+      try:
         import gensim.downloader as api
         KV = api.load("glove-wiki-gigaword-300")
         a = axis / np.linalg.norm(axis)
         for sign, lab in ((1, "positive end (falling)"), (-1, "negative end (rising)")):
             nb = KV.similar_by_vector(sign * a.astype(np.float32), topn=25)
             print("   %-24s %s" % (lab, ", ".join(w for w, _ in nb)))
-    except Exception as e:
+      except Exception as e:
         print("   unavailable: %s" % str(e)[:100])
 
-    out = {"lang": lang, "stability_min_cos": min(cs), "axis": axis.tolist(),
+    out = {"lang": lang, "encoder": name, "stability_min_cos": min(cs), "axis": axis.tolist(),
            "auc_one_axis": float(roc_auc_score(y, P1)),
            "auc_full": float(roc_auc_score(y, pred)),
            "poles_positive": order[-N_SHOW:][::-1], "poles_negative": order[:N_SHOW]}
-    p = os.path.join(K, "axis_%s.json" % lang)
+    #: the glove/en file keeps its original name, because k_register and
+    #: k_confound already read it; anything else is suffixed by encoder
+    p = os.path.join(K, "axis_%s.json" % lang if name == "glove"
+                     else "axis_%s_%s.json" % (lang, name))
     json.dump(out, open(p, "w"), indent=1)
     print("\n  -> %s" % os.path.relpath(p, ROOT))
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1] if len(sys.argv) > 1 else "en"))
+    sys.exit(main(sys.argv[1] if len(sys.argv) > 1 else "en",
+                  sys.argv[2] if len(sys.argv) > 2 else "glove"))
