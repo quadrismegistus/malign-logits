@@ -74,7 +74,25 @@ SIDEDNESS = "n/a — this producer reports distributions, it runs no test"
 # --- THE FROZEN POPULATION, [1071].2, diffed two-seat at [1100]/[1102] -----
 PROMPTS_SHA = "fd3f14796ba9481b6597b94871013f8db5357a0a330751dc042268895209c8b4"
 MODELS_SHA = "e4c507eb8dbcf593477f568d9c011695c7a84a0525454bdbf50107820f32e164"
-#: RE-FROZEN 2026-07-31 at 959 x 93 (efe2788), two-seat blind diff closed TWICE.
+#: RE-FROZEN 2026-07-31 at 959 x 95 (efe2788), two-seat blind diff closed TWICE.
+#: **THE COUNT IN THIS LINE READ 93 UNTIL 2026-08-12 AND WAS WRONG.** 93 was the
+#: EARLIER freeze, at 975 prompts / digest a8693d79, retired at midday. The
+#: re-freeze is 95: [1195] ordered "derive blind at 959 x 95 and diff against
+#: e4c507eb" and [1203] confirmed "93 -> 95, both producers bit-identical". An
+#: hour was spent reconstructing against the wrong target before the docket was
+#: read. A count in a comment beside a digest is load-bearing documentation.
+#:
+#: THE PROMPT HALF IS RECOVERABLE AND IS NOW SAVED: `data/frozen_population_959.json`
+#: (recovered from `git show efe27885:data/prompt_categorisation.json`, ACTIVE
+#: filter, digest verified against PROMPTS_SHA). THE MODEL HALF IS NOT -- see
+#: `meta/M01_displacement/scripts/frozen_population_health.py` for the routes
+#: tried and closed. Published M01 numbers are permanently unauditable at their
+#: own model population.
+#:
+#: CANONICALISATION, from [1102].2 and never declared beside the digest until
+#: now: sorted() ascending, joined by a single \n, no trailing newline, utf-8,
+#: sha256 hexdigest. Without it a mismatch is silent about whether the SET or
+#: the ENCODING differs.
 #: THE FIRST FREEZE AT 960 WAS WRONG BY ONE ROW and is kept here as the reason the
 #: second one is trustworthy: the Chinese MARKED cessation string survived the sweep
 #: under `violence_explicit_5_zh`, because a by-STRING retirement was executed by an
