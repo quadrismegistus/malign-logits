@@ -118,7 +118,7 @@ def build_llm(model, args, gpu_frac, dtype=None):
                trust_remote_code=True, enforce_eager=args.eager)
 
 
-def gen_for(llm, cfg, cells, seed_salt, chunk=256):
+def gen_for(llm, cfg, cells, seed_salt, chunk=256, detok=True):
     """All arm-cells for one checkpoint. Returns {(prompt_id, word): [seqs]}.
 
     **BATCHED, AND THE UNBATCHED VERSION IS WHY THIS RUN WAS STOPPED AND
@@ -159,6 +159,7 @@ def gen_for(llm, cfg, cells, seed_salt, chunk=256):
                          SamplingParams(
                              n=cfg["n_samples"], temperature=cfg["temp"],
                              top_p=1.0, max_tokens=cfg["max_tokens"],
+                             detokenize=detok,
                              seed=abs(hash((seed_salt, pid, w or ""))) % (2 ** 31))))
     print("      %d arm-cells -> %d sequences, batched %d per call"
           % (len(reqs), len(reqs) * cfg["n_samples"], chunk), flush=True)
@@ -175,8 +176,23 @@ def gen_for(llm, cfg, cells, seed_salt, chunk=256):
             seqs = []
             for sq in o.outputs:
                 g = list(sq.token_ids)
+                #: **`detok=False` IS FOR ONE FAILURE AND IS OFF BY DEFAULT.**
+                #: `deepseek-llm-7b` dies inside vLLM's INCREMENTAL detokenizer
+                #: during generation -- `for ch in raw_token: TypeError:
+                #: 'NoneType' object is not iterable` -- which is a different
+                #: defect from the transformers-v5 #45488 prompt mangling that
+                #: LOADER_OVERRIDE handles: that one corrupts the PROMPT, this
+                #: one kills the OUTPUT. Skipping vLLM's detokenizer and
+                #: decoding the ids ourselves recovers the pair, and the ids are
+                #: stored either way so nothing is lost.
+                #:
+                #: **THE TEXT IS THEN PRODUCED BY A DIFFERENT DECODER**, so this
+                #: is a declared per-pair difference and not a free fix. Default
+                #: True keeps every already-collected pair bit-identical.
                 seqs.append({"full_ids": list(o.prompt_token_ids) + g,
-                             "tokens": g, "plen": plen, "text": sq.text,
+                             "tokens": g, "plen": plen,
+                             "text": sq.text if detok else tok.decode(g),
+                             "detokenizer": "vllm" if detok else "hf_decode",
                              "word_enc": wrec})
             out[(slot["prompt_id"], w or "")] = seqs
         done += len(part)
@@ -430,7 +446,8 @@ def run_pair(pair, cfg, args):
         #: own `prompts`, and the global list stays the default so every
         #: existing Y manifest runs byte-identically.
         gens[role] = gen_for(llm, cfg, pair.get("prompts") or cfg["prompts"], mid,
-                             chunk=args.chunk)
+                             chunk=args.chunk,
+                             detok=bool(pair.get("detokenize", True)))
         if role == "aligned" and pair.get("cross_score"):
             #: aligned is resident; score BOTH arms under it now, then the base
             #: pass below scores both under base. Two loads total, not four.

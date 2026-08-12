@@ -174,5 +174,23 @@
   },
   "min_inet_down_mbps": 5000,
   "note": "v0.22.0 is the LAST release hosting JAISLMHeadModel -- v0.22.1 is already too late, and the difference is invisible unless the error message is read exactly. Same contemporary-image rule as vllm022: do NOT pip-pin an old vllm onto a newer image."
+ },
+ "vllm_nightly": {
+  "description": "Cheapest 48GB-class card on a fast link, 150GB disk. NO gpu_name filter -- selection is by CAPABILITY (VRAM, link, disk), because the dense roster is one forward pass per prompt and the bill is DOWNLOAD. Peak disk is one model + margin: purge_model fires BEFORE each download and on every exit path including failure.",
+  "gpu_name": null,
+  "num_gpus": 1,
+  "min_gpu_ram": 47,
+  "disk_gb": 150,
+  "image": "vllm/vllm-openai:nightly",
+  "min_reliability": 0.95,
+  "cuda_max_good": 12.4,
+  "pins": [
+   "torch>=2.6"
+  ],
+  "pin_reasons": {
+   "torch>=2.6": "transformers refuses .bin checkpoints under torch<2.6 (CVE-driven torch.load policy). Thirteen models failed to load in the July grid on exactly this and it read as a model problem, not an environment one. See project_torch_bin_floor."
+  },
+  "min_inet_down_mbps": 5000,
+  "note": "For allenai/Olmo-Hybrid ONLY. Support is MERGED (PR #32550) but the RELEASED 0.27.1 loader raises TypeError at olmo_gdn_linear_attn.py:517 (dims[None]). The fix, if it exists, is on main -- so this is the one case where a NEWER engine is the recovery, the mirror image of Aquila/Baichuan/jais needing older ones."
  }
 }
