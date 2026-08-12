@@ -50,8 +50,10 @@ gated, 3 OOM" is a checkable sentence; "44 pairs" is not, and a census can only
 see what wrote a file.
 """
 import argparse
+import glob
 import json
 import os
+import shutil
 import sys
 import traceback
 
@@ -353,6 +355,21 @@ def run_pair(pair, cfg, args):
     if os.path.exists(path) and sum(1 for _ in open(path)) >= _expect:
         print("  COMPLETE, skipping %s" % b, flush=True)
         return True
+
+    #: **PURGE BEFORE THE DOWNLOAD, NOT AFTER — runbook §2.7, "the one that cost
+    #: the most".** A box holds every checkpoint it has ever fetched; at ~14 GB
+    #: a pair and 150 GB of disk, a shard of 6+ pairs fills the disk mid-run and
+    #: **the process is killed at the OS level — not a Python exception**, so no
+    #: guard fires and nothing is logged. Measured on this fleet: five of eight
+    #: boxes were on track to fill before finishing.
+    #:
+    #: Purging AFTER a model completes still lets two large checkpoints coexist,
+    #: which is the failure §2.7 records. This drops everything the CURRENT pair
+    #: does not need, before fetching anything.
+    for d in glob.glob(os.path.expanduser("~/.cache/huggingface/hub/models--*")):
+        tag = os.path.basename(d)[len("models--"):].replace("--", "/").lower()
+        if not any(tag == m.lower() for m in (b, a)):
+            shutil.rmtree(d, ignore_errors=True)
 
     #: FIDELITY BEFORE WEIGHTS. Tokenizer-only, so a refusal costs seconds and
     #: not a 15 GB download -- the check pays for itself on the first bad box.
