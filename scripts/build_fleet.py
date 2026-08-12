@@ -218,9 +218,55 @@ def plan(models, n_boxes, req, cells_per_model, weight_by_params):
         pk = U(m).get("packages") or {}
         return tuple(sorted(pk.items()))
 
-    groups = defaultdict(list)
+    #: **PACKAGE REQUIREMENTS ARE ADDITIVE, AND PARTITIONING ON SET EQUALITY IS
+    #: STRICTER THAN THE FACTS.** Grouping on the exact package tuple gave
+    #: `LLM360/AmberSafe` a box of its own for one pair -- not because anything
+    #: conflicted, but because its `{sentencepiece, protobuf}` differed from the
+    #: `{}` of every other dense unit. Installing two extra packages harms
+    #: nothing that does not need them.
+    #:
+    #: Two sets are COMPATIBLE when no package is pinned to two different
+    #: versions; an UNPINNED requirement ("" = any version) is satisfied by any
+    #: pin, which is the asymmetry that makes the merge legal. A genuine
+    #: disagreement still refuses, exactly as `merge_pair` refuses it per unit.
+    #:
+    #: Verified before relaxing it, in a throwaway venv at the target pins
+    #: (transformers==4.57.1 + sentencepiece==0.2.1 + protobuf): AmberSafe,
+    #: Amber and both internlm2 arms all load and round-trip 25/25 clean. The
+    #: local venv could not have answered it -- this machine runs transformers
+    #: 5.4.0, so the pinned leg was untestable here until the temp env existed.
+    def compatible(a, b):
+        for k in set(a) & set(b):
+            if a[k] and b[k] and a[k] != b[k]:
+                return False
+        return True
+
+    def union(a, b):
+        out = dict(a)
+        for k, v in b.items():
+            out[k] = out.get(k) or v          # a pin beats "any"
+        return out
+
+    byprof = defaultdict(list)
     for m in runnable:
-        groups[(U(m)["profile"], pinkey(m))].append(m)
+        byprof[U(m)["profile"]].append(m)
+
+    groups = defaultdict(list)
+    for prof, ms in byprof.items():
+        #: coalesce compatible package sets within a profile, largest first so
+        #: the singletons fold into an existing set rather than seeding new ones
+        buckets = []                            # [(packages, [models])]
+        for m in sorted(ms, key=lambda x: -len(U(x).get("packages") or {})):
+            pk = U(m).get("packages") or {}
+            for bkt in buckets:
+                if compatible(bkt[0], pk):
+                    bkt[0] = union(bkt[0], pk)
+                    bkt[1].append(m)
+                    break
+            else:
+                buckets.append([dict(pk), [m]])
+        for pk, mods in buckets:
+            groups[(prof, tuple(sorted(pk.items())))].extend(mods)
 
     #: WEIGHT the split so a box is balanced in TIME, not just in model count.
     def weight(m):

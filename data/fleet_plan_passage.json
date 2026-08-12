@@ -2,7 +2,7 @@
  "_about": "Provisioning plan derived from model_requirements.json. Grouped by REQUIREMENT first, balanced second.",
  "_producer": "scripts/build_fleet.py",
  "tag": "passage",
- "n_boxes": 10,
+ "n_boxes": 8,
  "cells_per_model": 2579,
  "blocked": [],
  "boxes": [
@@ -10,8 +10,81 @@
    "box": 0,
    "profile": "default",
    "launch_profile": "dense",
-   "packages": {},
-   "packages_reason": {},
+   "packages": {
+    "protobuf": "",
+    "sentencepiece": ""
+   },
+   "packages_reason": {
+    "protobuf": "the SECOND error, revealed only after sentencepiece was installed",
+    "sentencepiece": "SentencePieceExtractor needs it; without it the loader falls back to TikToken and then demands tiktoken"
+   },
+   "models": [
+    "LLM360/Amber>LLM360/AmberSafe",
+    "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+    "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat"
+   ],
+   "pairs": [
+    {
+     "base": "LLM360/Amber",
+     "aligned": "LLM360/AmberSafe"
+    },
+    {
+     "base": "HuggingFaceTB/SmolLM3-3B-Base",
+     "aligned": "HuggingFaceTB/SmolLM3-3B"
+    },
+    {
+     "base": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+     "aligned": "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+    },
+    {
+     "base": "bigscience/bloom-7b1",
+     "aligned": "bigscience/bloomz-7b1"
+    },
+    {
+     "base": "ibm-granite/granite-3.0-8b-base",
+     "aligned": "ibm-granite/granite-3.0-8b-instruct"
+    },
+    {
+     "base": "m-a-p/CT-LLM-Base",
+     "aligned": "m-a-p/CT-LLM-SFT-DPO"
+    },
+    {
+     "base": "openbmb/MiniCPM5-1B-Base",
+     "aligned": "openbmb/MiniCPM5-1B"
+    },
+    {
+     "base": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+     "aligned": "togethercomputer/RedPajama-INCITE-7B-Chat"
+    }
+   ],
+   "cells": 20632,
+   "gpus": 1,
+   "min_vram_gb": 48,
+   "transformers": [
+    ">=4.57"
+   ],
+   "kernels": [],
+   "compute_dtype": [],
+   "revisions": {},
+   "tokenizer_overrides": {}
+  },
+  {
+   "box": 1,
+   "profile": "default",
+   "launch_profile": "dense",
+   "packages": {
+    "protobuf": "",
+    "sentencepiece": ""
+   },
+   "packages_reason": {
+    "protobuf": null,
+    "sentencepiece": null
+   },
    "models": [
     "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
     "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
@@ -68,11 +141,17 @@
    "tokenizer_overrides": {}
   },
   {
-   "box": 1,
+   "box": 2,
    "profile": "default",
    "launch_profile": "dense",
-   "packages": {},
-   "packages_reason": {},
+   "packages": {
+    "protobuf": "",
+    "sentencepiece": ""
+   },
+   "packages_reason": {
+    "protobuf": null,
+    "sentencepiece": null
+   },
    "models": [
     "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
     "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
@@ -127,11 +206,17 @@
    }
   },
   {
-   "box": 2,
+   "box": 3,
    "profile": "default",
    "launch_profile": "dense",
-   "packages": {},
-   "packages_reason": {},
+   "packages": {
+    "protobuf": "",
+    "sentencepiece": ""
+   },
+   "packages_reason": {
+    "protobuf": null,
+    "sentencepiece": null
+   },
    "models": [
     "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
     "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
@@ -183,11 +268,17 @@
    "tokenizer_overrides": {}
   },
   {
-   "box": 3,
+   "box": 4,
    "profile": "default",
    "launch_profile": "dense",
-   "packages": {},
-   "packages_reason": {},
+   "packages": {
+    "protobuf": "",
+    "sentencepiece": ""
+   },
+   "packages_reason": {
+    "protobuf": null,
+    "sentencepiece": null
+   },
    "models": [
     "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
     "RWKV/rwkv-4-7b-pile>RWKV/rwkv-raven-7b",
@@ -239,73 +330,26 @@
    "tokenizer_overrides": {}
   },
   {
-   "box": 4,
-   "profile": "default",
-   "launch_profile": "dense",
-   "packages": {},
-   "packages_reason": {},
-   "models": [
-    "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
-    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
-    "bigscience/bloom-7b1>bigscience/bloomz-7b1",
-    "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
-    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
-    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
-    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat"
-   ],
-   "pairs": [
-    {
-     "base": "HuggingFaceTB/SmolLM3-3B-Base",
-     "aligned": "HuggingFaceTB/SmolLM3-3B"
-    },
-    {
-     "base": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
-     "aligned": "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
-    },
-    {
-     "base": "bigscience/bloom-7b1",
-     "aligned": "bigscience/bloomz-7b1"
-    },
-    {
-     "base": "ibm-granite/granite-3.0-8b-base",
-     "aligned": "ibm-granite/granite-3.0-8b-instruct"
-    },
-    {
-     "base": "m-a-p/CT-LLM-Base",
-     "aligned": "m-a-p/CT-LLM-SFT-DPO"
-    },
-    {
-     "base": "openbmb/MiniCPM5-1B-Base",
-     "aligned": "openbmb/MiniCPM5-1B"
-    },
-    {
-     "base": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
-     "aligned": "togethercomputer/RedPajama-INCITE-7B-Chat"
-    }
-   ],
-   "cells": 18053,
-   "gpus": 1,
-   "min_vram_gb": 48,
-   "transformers": [
-    ">=4.57"
-   ],
-   "kernels": [],
-   "compute_dtype": [],
-   "revisions": {},
-   "tokenizer_overrides": {}
-  },
-  {
    "box": 5,
    "profile": "tf457",
    "launch_profile": "dense",
-   "packages": {},
-   "packages_reason": {},
+   "packages": {
+    "sentencepiece": "==0.2.1"
+   },
+   "packages_reason": {
+    "sentencepiece": "0.2.2 fails internlm2's SentencePiece->fast conversion outright; 0.2.0/0.2.1 convert fine and protobuf has no effect. Resolved locally across the whole version space before renting anything -- tokenizers need no GPU."
+   },
    "models": [
+    "internlm/internlm2-base-7b>internlm/internlm2-chat-7b",
     "Aleph-Alpha/Pharia-1-LLM-7B-control-hf>Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
     "BAAI/Aquila2-7B>BAAI/AquilaChat2-7B",
     "baichuan-inc/Baichuan2-7B-Base>baichuan-inc/Baichuan2-7B-Chat"
    ],
    "pairs": [
+    {
+     "base": "internlm/internlm2-base-7b",
+     "aligned": "internlm/internlm2-chat-7b"
+    },
     {
      "base": "Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
      "aligned": "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf"
@@ -319,7 +363,7 @@
      "aligned": "baichuan-inc/Baichuan2-7B-Chat"
     }
    ],
-   "cells": 7737,
+   "cells": 10316,
    "gpus": 1,
    "min_vram_gb": 48,
    "transformers": [
@@ -375,38 +419,6 @@
   },
   {
    "box": 7,
-   "profile": "default",
-   "launch_profile": "dense",
-   "packages": {
-    "protobuf": "",
-    "sentencepiece": ""
-   },
-   "packages_reason": {
-    "protobuf": "the SECOND error, revealed only after sentencepiece was installed",
-    "sentencepiece": "SentencePieceExtractor needs it; without it the loader falls back to TikToken and then demands tiktoken"
-   },
-   "models": [
-    "LLM360/Amber>LLM360/AmberSafe"
-   ],
-   "pairs": [
-    {
-     "base": "LLM360/Amber",
-     "aligned": "LLM360/AmberSafe"
-    }
-   ],
-   "cells": 2579,
-   "gpus": 1,
-   "min_vram_gb": 24,
-   "transformers": [
-    ">=4.57"
-   ],
-   "kernels": [],
-   "compute_dtype": [],
-   "revisions": {},
-   "tokenizer_overrides": {}
-  },
-  {
-   "box": 8,
    "profile": "bf16",
    "launch_profile": "big80",
    "packages": {},
@@ -430,36 +442,6 @@
    "compute_dtype": [
     "bfloat16"
    ],
-   "revisions": {},
-   "tokenizer_overrides": {}
-  },
-  {
-   "box": 9,
-   "profile": "tf457",
-   "launch_profile": "dense",
-   "packages": {
-    "sentencepiece": "==0.2.1"
-   },
-   "packages_reason": {
-    "sentencepiece": "0.2.2 fails internlm2's SentencePiece->fast conversion outright; 0.2.0/0.2.1 convert fine and protobuf has no effect. Resolved locally across the whole version space before renting anything -- tokenizers need no GPU."
-   },
-   "models": [
-    "internlm/internlm2-base-7b>internlm/internlm2-chat-7b"
-   ],
-   "pairs": [
-    {
-     "base": "internlm/internlm2-base-7b",
-     "aligned": "internlm/internlm2-chat-7b"
-    }
-   ],
-   "cells": 2579,
-   "gpus": 1,
-   "min_vram_gb": 24,
-   "transformers": [
-    "==4.57.1"
-   ],
-   "kernels": [],
-   "compute_dtype": [],
    "revisions": {},
    "tokenizer_overrides": {}
   }
