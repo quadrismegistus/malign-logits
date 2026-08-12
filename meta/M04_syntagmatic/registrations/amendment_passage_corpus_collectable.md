@@ -115,6 +115,47 @@ Added 2026-08-12 during the run, malign's [5576]; wording by the registrar. All 
 
 Five of the six exclusions are (architecture x engine) facts -- the class [5571] §5 flagged as unkeyed by any campaign record. It cost 11% of the declared population in one run. Runbook §2.21 carries it.
 
+## 1e. WHAT THE RUN ITSELF SETTLED — ONE RECOVERED, TWO MORE LOST, AND THE COUNT §1d USES IS OPTIMISTIC
+
+Added 2026-08-12 by malign, from the run's own artifacts rather than from prediction. **Every claim here is a row count or a recorded traceback, not an expectation.**
+
+**`BAAI/Aquila2-7B > AquilaChat2-7B` — COLLECTED.** §1d's specification was correct and was executed: a contemporary image (`vllm/vllm-openai:v0.22.1`) on an Ampere card, profiles `vllm022` / `vllm022_a100`.
+
+    remote  1,782 rows   200,426,507 bytes
+    local   1,782 rows   200,426,507 bytes    byte-exact
+    expect  1,796 (2 x 898 arm-cells)      -> 99.2%, complete
+
+Two refinements §1d could not have known. **Pinning the engine is not enough — the IMAGE must be contemporary**: installing `vllm==0.22.1` onto a 0.27.1 image fails in ABI order through four separate extensions and generation still dies. And **Turing will not do**: on a Q RTX 8000 the model loads and generates at small batch, then dies inside FlashInfer's paged-KV prefill, and `VLLM_ATTENTION_BACKEND` is ignored in 0.22.1, so no backend flag rescues it. `baichuan-inc/Baichuan2-7B-Base` is running on the same box under the same recipe at the time of writing; it is NOT claimed here.
+
+**`openGPT-X/Teuken-7B-base-v0.6 > -instruct-v0.6` — A SEVENTH EXCLUSION, and the second of its exact kind:**
+
+    IndexError: OUT_OF_RANGE: piece id is out of range
+      return self._processor.IdToPiece(id)      identical to m-a-p/CT-LLM-Base
+
+Both are the cross-scoring vocabulary guard reading the wrong bound: it drops a sequence at `max(full_ids) >= model_config.get_vocab_size()`, while the crash is in the TOKENIZER's sentencepiece count. The real bound is `min(model_vocab, len(tokenizer))`. **Not repaired mid-run** — it would split the scoring contract between pairs collected before and after, which is worse than two named absences. It is the cheapest item on the post-run list and it would return two pairs.
+
+**`deepseek-llm-7b-base > -chat` — §2's prediction was NOT borne out in this run.** §2 argues from the `beam_fc` corpus that the pair is collectable and that "the corpus outranks the record". That argument was about the TOKENIZER and it still stands. The pair nonetheless failed here, in the DETOKENIZER, at passage length:
+
+    TypeError: 'NoneType' object is not iterable
+      for ch in raw_token:
+
+**A pair being collectable in one stack is not a claim that it collects in another** — the same scoping the section applies to the record applies to its own conclusion. `inceptionai/jais-family-6p7b` failed alongside it, and its message corrects a detail carried in my earlier posts: **JAISLMHeadModel was removed after v0.22.0, not v0.24.0, so the `vllm022` rescue image at v0.22.1 is already too late for it.** Recovering jais needs v0.22.0 exactly; that is a different box from the one that recovered Aquila.
+
+**THE COUNT.** §1d and §3 are written at P=40 against six exclusions. **The run has eight, and the two additions were never in that arithmetic:**
+
+    absent, each with a recorded traceback   Pharia, RWKV, Zamba2, Olmo-Hybrid,
+                                             deepseek, jais, CT-LLM, Teuken
+    collected and verified                   33
+    still running                             5   Baichuan2, recurrentgemma,
+                                                  kanana, Falcon3-Mamba,
+                                                  falcon-mamba
+
+    P if all five land       38     3.01 x sqrt(38/46) = ~2.74
+    P as it stands now       33     3.01 x sqrt(33/46) = ~2.55
+    §3 currently assumes     40                          ~2.81
+
+**The best available case is now BELOW the ~2.8 bar on which the fifth arm was restored, and it moves further below with every pair that does not land.** This is the registrar's number to restate, not mine to rewrite; §3 is left as written so the change is visible rather than absorbed. Flagged here because the direction is downward, and a correction that reduces a headline is the one least likely to be noticed on its own.
+
 **POWER AT P=40, THE NUMBER TO LOOK AT HARDEST ([5576] §2):** position profile 3.01 x sqrt(40/46) = **~2.81, AT the ~2.8 bar rather than above it** -- and the fifth arm was restored on that margin. Four-term ~2.30, effect-limited regardless. SEs scale by sqrt(46/40). Two facts belong beside that number before anyone re-litigates the fifth arm: (a) the ~2.8 bar was itself an estimate, not a cliff; (b) **the pinned-vLLM box above moves P to 42 (~2.88) for a single small spend** -- the cheapest power in the campaign if the margin worries RH more than the contingency does. RH's call, cool-off rules apply.
 
 Both were single-source reads of `data/model_load_environments.json`, and in both cases a second source disagreed. Recorded because the amendment should carry its own error rate.
