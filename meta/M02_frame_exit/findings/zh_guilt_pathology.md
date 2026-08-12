@@ -147,3 +147,12 @@ Opus workflows; no API or GPU spend anywhere in this finding.
   truth in the loop and there are eight of them.
 - Stage B's moral aligned control_b (13/100) is unexplained and unpursued;
   it is recorded here so its later use is not a surprise.
+- The population is NOT competence-gated ([5578]: the CJK survey covers 110
+  of 159 registry models, and unsurveyed reads as not-Chinese in every
+  tier-gated roster — this finding never consulted the tier, so it inherits
+  the opposite exposure): models never surveyed for CJK competence are in
+  these cells, and a model answering a zh prompt in English or garbage reads
+  as NO under the verbatim-Chinese-span rule. That dilutes every cell toward
+  zero symmetrically WITHIN a pair (both arms share the family's tokenizer
+  competence), so the base-vs-aligned contrasts stand, but the absolute
+  rates are floors and no zh n here is a competence-screened population.

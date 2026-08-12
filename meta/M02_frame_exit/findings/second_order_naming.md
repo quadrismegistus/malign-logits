@@ -503,6 +503,11 @@ contradiction makes them name the dividedness as such. The zh run therefore
 discriminates two behaviours that the Oedipalization slide's exemplar carries
 as one.
 
+(Population caution per [5578]: the zh cells are not competence-gated — CJK
+survey coverage is 110 of 159 registry models — and non-Chinese continuations
+read as NO under the verbatim-span rule, so absolute rates are floors; the
+within-pair contrast is what the numbers support.)
+
 **Status of the zh arm: direction registered, one round short of quotable as a
 rate.** Its 18 YES spans have not had the blind span-adjudication that trimmed
 the clinical claim's ([5565]); per-pair consistency is soft (most pairs
