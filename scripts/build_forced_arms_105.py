@@ -66,6 +66,48 @@ BATTERY = os.path.join(ROOT, "data", "beam_sample_105.csv")
 TAU = 0.005          #: |Q-P| below which a word counts as unmoved
 MIN_MASS = 0.001     #: a word must reach this in one arm to be a candidate
 
+#: DIALOGUE-RATE MATCHING, lifted from @lacan's `build_forced_arms_drmatch.py`
+#: so there is ONE implementation of the selection rule and not two ([5527].1).
+#: Rates are the QUOTATION-ADJACENCY rate of `dialogue_rate.py` -- P(quote mark
+#: within 6 tokens after the word) -- NOT a dialogue rate: the measure catches
+#: metalinguistic quotation too (`phrase` 49.5%), and @registrar fixed the name
+#: of record at [5519]. Matching on it stays coherent because quote-adjacency is
+#: what shifts the generative regime of the continuation.
+#:
+#: The ordering transfers to the corpus of use: rho +0.686 f11_l2->y (@lacan)
+#: and +0.653 f11_l2->battery (malign, `dialogue_rate_transfer.py`), measured
+#: independently and neither seat seeing the other's first. The matcher consumes
+#: ORDERING ONLY, so the level difference between corpora is harmless.
+DR_PATH = os.path.join(ROOT, "meta", "M04_syntagmatic", "results",
+                       "dialogue_rate.json")
+DR_TOL = 0.15        #: log2; a factor of 1.11. @registrar's rule at [5515].2 --
+                     #: THE ASYMMETRY OF REPAIRS. The probability match IS the
+                     #: construct; quote-adjacency is a CONFOUND. A residual
+                     #: confound gap is repairable downstream because it is a
+                     #: measured COLUMN; a degraded construct match is repairable
+                     #: by nothing. So spend tolerance on the confound only as
+                     #: far as the construct is untouched: 0.15 holds the median
+                     #: probability distance at 1.07x and takes the gap
+                     #: 2.19 -> 1.25pp. 0.25 buys 0.30pp more at 1.12x, which a
+                     #: column can carry instead.
+
+
+def _dialogue_rates():
+    """word -> P(quote within 6 tokens). Unknown words take the MEDIAN.
+
+    Zero would be wrong in a specific direction: it would make every unmeasured
+    word a perfect match for a low-rate faller, so the matcher would
+    systematically prefer words it knows nothing about.
+    """
+    import statistics
+    d = json.load(open(DR_PATH))["rates"]
+    r = {w: v["rate"] for w, v in d.items()}
+    return r, statistics.median(r.values())
+
+
+DR, DR_MED = _dialogue_rates()
+dr_of = lambda w: DR.get(w.lower(), DR_MED)          # noqa: E731
+
 #: ── LEXICAL CLASS, CARRIED AS COLUMNS AND NEVER AS A FILTER ──────────────
 #:
 #: **THE ARMS ARE MATCHED ON PROBABILITY AND NOT ON WHAT KIND OF WORD THEY ARE**,
@@ -228,8 +270,28 @@ def main():
             cands = [w for w in m.nonmovers(tau=a.tau, min_mass=MIN_MASS)
                      if w != f and IS_VV(w) and m.post.get(w, 0.0) > 0]
             qf0 = m.post.get(f, 0.0)
-            nm = (min(cands, key=lambda w: abs(math.log2(m.post[w] / qf0)))
-                  if cands and qf0 > 0 else None)
+            #: TWO CRITERIA. Probability is a HARD gate at DR_TOL; quote-
+            #: adjacency is the objective inside it. ORDERING MATTERS: gating on
+            #: quote-adjacency and optimising probability would let the
+            #: probability match -- the construct -- drift without bound.
+            #:
+            #: The single-criterion rule this replaces kept finding exact
+            #: probability twins doing a different job in the sentence, because
+            #: speech verbs cluster at particular probabilities in this slot:
+            #: `replied` as the control for `walked` at |log2| 0.000, quote-
+            #: adjacency 51.4% against 3.7%. It changed the control on 2,666 of
+            #: 7,309 cells (36.5%), and nothing in the aggregate showed it --
+            #: the match-quality column read 0.000, which is a perfect score.
+            near = ([w for w in cands
+                     if abs(math.log2(m.post[w] / qf0)) <= DR_TOL]
+                    if cands and qf0 > 0 else [])
+            if near:
+                nm = min(near, key=lambda w: abs(dr_of(w) - dr_of(f)))
+                dr_matched = True
+            else:
+                nm = (min(cands, key=lambda w: abs(math.log2(m.post[w] / qf0)))
+                      if cands and qf0 > 0 else None)
+                dr_matched = False
             #: FOURTH ARM: a riser matched to the faller on aligned probability.
             #: `ri` above is the max-EXCESS riser, which runs a median 12.9x more
             #: probable than the faller -- so faller-vs-riser reproduces A's
@@ -271,6 +333,9 @@ def main():
                                            else None),
                        riser_arms_collapse=(rm is not None and rm == ri),
                        matched=nm,
+                       dr_matched=dr_matched,
+                       dr_faller=dr_of(f),
+                       dr_matched_val=(dr_of(nm) if nm else None),
                        matched_q=(m.post.get(nm, 0.0) if nm else None),
                        matched_delta=(m.delta.get(nm) if nm else None),
                        log2_ratio=(math.log2(m.post[nm] / qf)
@@ -324,6 +389,7 @@ def main():
     #: names a script is a citation; one that names the invocation is a
     #: reproduction.**
     json.dump(dict(tau=a.tau, min_mass=MIN_MASS, rule="CANONICAL",
+                   dr_tol=DR_TOL, dr_rates=os.path.relpath(DR_PATH, ROOT),
                    basis="post", n_cells=len(out), cells=out,
                    _producer="scripts/build_forced_arms_105.py",
                    _invocation=" ".join([os.path.basename(sys.argv[0])]
