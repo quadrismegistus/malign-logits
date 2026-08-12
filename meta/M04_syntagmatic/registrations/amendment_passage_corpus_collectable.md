@@ -10,10 +10,12 @@
                 cells 8,169 aa5389c1420c7f76
                 matched     723e81b3946b6d56
 
-    COLLECTABLE THIS RUN 43 pairs   (see §1, §1b, §1c)
-    NOT COLLECTABLE       3 pairs   Zamba2 (cost), RWKV (engine: no
-                                    implementation), Olmo-Hybrid (engine:
-                                    broken released loader)
+    COLLECTABLE THIS RUN 40 pairs   (see §1, §1b, §1c, §1d)
+    NOT COLLECTABLE       6 pairs   Zamba2 (cost), RWKV (no implementation),
+                                    Olmo-Hybrid (broken released loader),
+                                    Pharia (no implementation), Aquila2
+                                    (support REMOVED after v0.24.0),
+                                    Baichuan2 (REMOVED after v0.23.0)
     COLLECTED             final count reconciled at end of run against
                           THE MANIFESTS AND LANDED FILES, never against
                           the absence of failure records ([5573]: boxes
@@ -95,7 +97,25 @@ Where RWKV has no implementation in any vLLM release, Olmo-Hybrid has an impleme
     by any vLLM release that ships the loader fix. A different instrument
     or a later engine — not a bigger box, and not this run.
 
-## 2. TWO PAIRS I PROPOSED EXCLUDING AND WAS WRONG ABOUT
+## 1d. THREE MORE, AND TWO ARE A NEW FAILURE CLASS — SUPPORT THAT WAS REMOVED
+
+Added 2026-08-12 during the run, malign's [5576]; wording by the registrar. All three CURRENTLY UNRUNNABLE per RH's phrasing, each with its distinct relation to the engine:
+
+    Aleph-Alpha/Pharia-1-LLM-7B-control-hf > -aligned-hf
+        "Model architectures ['PhariaForCausalLM'] are not supported for
+        now" -- never was. RWKV's class: no implementation in any release.
+
+    BAAI/Aquila2-7B > AquilaChat2-7B
+        "supported in vLLM until v0.24.0, and is not supported anymore"
+
+    baichuan-inc/Baichuan2-7B-Base > Baichuan2-7B-Chat
+        "supported in vLLM until v0.23.0, and is not supported anymore"
+
+**Aquila2 and Baichuan2 are a class this document did not have: an implementation that EXISTED and was DELETED.** The engine's own error names the last working version, which turns the loss into a specification: **one box, one pinned vLLM (<= 0.23.0 collects both), two pairs.** Cheaper than Zamba2's recipe and better evidenced -- the recipe came from the engine itself. Not run now ([5576]: a fourth environment mid-run, against a stable fleet, under the $21 contingency); recorded so that when spending resumes it is a known small purchase.
+
+Five of the six exclusions are (architecture x engine) facts -- the class [5571] §5 flagged as unkeyed by any campaign record. It cost 11% of the declared population in one run. Runbook §2.21 carries it.
+
+**POWER AT P=40, THE NUMBER TO LOOK AT HARDEST ([5576] §2):** position profile 3.01 x sqrt(40/46) = **~2.81, AT the ~2.8 bar rather than above it** -- and the fifth arm was restored on that margin. Four-term ~2.30, effect-limited regardless. SEs scale by sqrt(46/40). Two facts belong beside that number before anyone re-litigates the fifth arm: (a) the ~2.8 bar was itself an estimate, not a cliff; (b) **the pinned-vLLM box above moves P to 42 (~2.88) for a single small spend** -- the cheapest power in the campaign if the margin worries RH more than the contingency does. RH's call, cool-off rules apply.
 
 Both were single-source reads of `data/model_load_environments.json`, and in both cases a second source disagreed. Recorded because the amendment should carry its own error rate.
 

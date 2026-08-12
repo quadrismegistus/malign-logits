@@ -446,7 +446,10 @@ stimulus (the M03 speaker kernel, or new prompts) would buy that the same-side
 conjunction control does not.
 
 **English only.** zh untested for this construct, and the markers are English,
-so a zh run is a new instrument rather than a replication.
+so a zh run is a new instrument rather than a replication. *(Half-superseded
+2026-08-12: the READER arm has now run on zh and the direction replicates — see
+"zh: the reader instrument ports" below. The regex-marker arm remains EN-only;
+that half of this limit stands.)*
 
 **THE ONLY GENUINELY UNTOUCHED DATA DID NOT GO THE RIGHT WAY, AND IT IS TOO
 SMALL TO MEAN ANYTHING.** Four base/aligned pairs sit in
@@ -471,3 +474,39 @@ did not point the reassuring way. **The finding rests on 25 lineages with strong
 internal robustness and has no external validation.** Getting one requires data
 the instrument has not seen — new generations, or the M03 speaker kernel as a
 different stimulus for the same construct — not another cut of this corpus.
+
+## zh: THE READER INSTRUMENT PORTS, AND THE DIRECTION REPLICATES (2026-08-12, one round)
+
+The reader arm ran on the untouched Chinese half of `f11_l2` (112,520 zh
+passages the receipt JSON never mentioned): 800 continuations, 8 blind batches
+of 100 plus 4 authored controls, arm/role balanced, first 100 characters
+(the zh analogue of the 50-word window), seed 20260812, key quarantined.
+Rubric: the EN rubric verbatim with declared zh-specific cautions (纠结 as
+feeling-report is NO; bare 既...又 is enactment; metalinguistic
+translation/glossing excluded — and zh produces more of it). Producer
+`scripts/l2_zh_reader_batches.py`, pool `scripts/l2_zh_reader_pool.py`,
+workflow verbatim in `data/opus_workflows/wf_zh_second_order.js`, result
+`results/zh_second_order.json`, docket [5561].
+
+    second-order      base       aligned
+    BOTH             6/200 3.0%   12/200 6.0%
+    control_a        0/100 0.0%    3/100 3.0%
+    control_b        2/100 2.0%    0/100 0.0%
+    authored controls 4/4; per-pair 7 up / 3 down / 19 tied
+
+Direction replicates at half the EN magnitude (EN pooled: 3.4% -> 10.6%).
+The cell that matters most after the guilt arc: **aligned control_b is
+0/100**. The dark-material prompts that pull clinical vocabulary to
+contradiction-level rates ([5575], `zh_guilt_pathology.md`) pull second-order
+naming to zero — dark material makes aligned models clinicalize; only
+contradiction makes them name the dividedness as such. The zh run therefore
+discriminates two behaviours that the Oedipalization slide's exemplar carries
+as one.
+
+**Status of the zh arm: direction registered, one round short of quotable as a
+rate.** Its 18 YES spans have not had the blind span-adjudication that trimmed
+the clinical claim's ([5565]); per-pair consistency is soft (most pairs
+contribute nothing at these rates); and it is 800 passages against EN's 1,600.
+Because THIS rubric never changed, a zh round 2 pools with round 1 — the
+Stage B batches (`data/opus_readers_zh_stage_b/`, fresh 800, all 51 wanted-role
+zh prompts, blind) are built and reusable for it. Awaiting RH's word.
