@@ -8,15 +8,33 @@
     gens.sequences(corpus="f11_l2", model=M, n=3)   the passages themselves
     gens.cross_minus_self(corpus="y")               the estimrangement quantity
 
-THREE CORPORA, ONE SHAPE. They arrive from sources that disagree about how to
-say everything, and this module is where that stops:
+FOUR CORPORA, ONE SHAPE. They arrive from sources that disagree about how to
+say everything, and this module is where that stops. **Counts are AS OF
+2026-08-13, re-measured against the deduped table** -- see the note below:
 
     f11_l2    228,520 contradiction passages, 58 models. self/cross are
               SEPARATE ROWS distinguished by a `self_scored` boolean.
     y         122,400 sexual-prompt passages, 72 models. Both scorers sit
               INLINE on one record, and `word` is the FORCED word.
-    beam_fc   2.48M beams, 78 models, both scorers inline, 1.5M rows carrying
-              n_forced_tokens > 0.
+    beam_fc   1,636,400 beams, 78 models, both scorers inline, 921,900 rows
+              carrying n_forced_tokens > 0.
+    passage   1,142,944 forced continuations, 84 models over 42 pairs.
+              `forced_word=''` is the UNDISTURBED arm, and `gen_scores.scorable`
+              distinguishes an unscorable sequence from an absent one.
+
+A COUNT READ FROM A TABLE CARRIES AN IMPLICIT AS-OF, AND THIS DOCSTRING IS THE
+CAMPAIGN'S OWN EXAMPLE. The beam_fc figures above said 2.48M and 1.5M until
+today. Nothing was deleted: ingesting `passage` triggered ReplacingMergeTree
+merges that collapsed pre-existing unmerged duplicates in corpora nobody
+touched, and beam_fc lost 34% of its rows to that ([5649], [5651]). Every corpus
+now has rows == distinct ORDER BY key.
+
+**The `y` line is the sharper warning, because it was WRONG and is now RIGHT
+without anyone editing it.** It has read 122,400 since it was written and never
+said 125,800, which is what the table returned for `y` earlier the same evening.
+A citation that becomes correct on its own is indistinguishable from one that
+was always correct, and neither the file nor the reader can tell. No guard
+fires, no test fails, and a grep for the stale value finds nothing.
 
 SELF VERSUS CROSS IS `scorer = model`, NOT A FLAG. Storing the SCORING MODEL
 normalises all three sources: self is the arm that produced the text scoring its
