@@ -368,10 +368,30 @@ The designed minimal pairs are **59% verbs and 2% nouns** in contention and they
 outnumber the literary cells 14:1. So `whispered felt threw kissed` being the
 signature words partly reflects that these sites elicit verbs. **The
 classification results are unaffected** -- they never used POS -- but any claim
-about WHICH words carry the signature is a claim about this prompt mix. The
-literary-only sweep is at `armclf_bands_en_literary.jsonl`, and its 97 prompts
-per model against 2,220 make it 23x noisier, so it corroborates rather than
-settles.
+about WHICH words carry the signature is a claim about this prompt mix.
+
+**RUN ON THE LITERARY PROMPTS ALONE, THE POS ORDERING REVERSES:**
+
+    median gap over that POS's bands   LITERARY        ALL PROMPTS
+      verb                             +0.1371 (26)    +0.2916 (100)
+      noun                             +0.2049 (30)    +0.2423 (100)
+      adjective                        +0.1267  (9)    +0.2504  (24)
+      adverb                           +0.2864  (6)    +0.2022  (16)
+
+Adverbs go from weakest to strongest and verbs from strongest to weakest. Nouns
+are the only class stable across both.
+
+**SO THE POS ORDERING IS NOT A PROPERTY OF THE MODELS AND THIS SECTION SHOULD NOT
+BE READ AS SAYING WHERE IN THE LEXICON THE SIGNATURE LIVES.** It reorders under a
+change of prompt set, so the question is answerable only relative to a prompt
+mix, and the two mixes available disagree. What survives both is the LEVEL: every
+POS clears its null by a wide margin in both sweeps.
+
+The literary arm restrains itself further. Its 97 prompts per model against 2,220
+leave the nulls visibly unstable -- 0.6248, 0.6522, 0.4164, 0.4121 across the
+bands above, where the full-corpus nulls sit near 0.500 -- so individual bands
+are not readable there and the adverb median rests on six of them.
+`armclf_bandsctx_en_literary.jsonl`.
 
 TWO CONFOUNDS WERE FOUND AND FIXED IN THIS SWEEP, both recorded in the superseded
 files rather than deleted. Fixing the top-N at 20 makes each CELL contribute 20
