@@ -49,12 +49,61 @@ Chinese prompts that gave F/G n=20:
 **n goes from 20 to roughly 800–1,250 without collecting anything.** That is the
 whole argument for this plan.
 
-## 3. What we have
+## 3. THE POPULATION — how many words, and how they are chosen
 
-Nothing needs to be collected. The English side is larger (684 M01 pairs against
-24 Chinese) and its mover count should be measured the same way before the
-annotation is sized — **not assumed to be proportionally larger**, because the
-English roster is also wider and the two effects do not compose predictably.
+Nothing needs to be collected. Both sides measured 2026-08-12 from
+`malign_logits.twp_words`, counting distinct `(model, prompt)` base cells per
+word.
+
+    ENGLISH   684 M01 pairs, 1,368 prompts, base-position models
+              19,045 distinct words present in a base cell
+    CHINESE   24 transgressive pairs, 48 prompts, 1,008 cells
+              7,672 distinct words present in a base cell
+
+                     in_base >= 20    >= 50    >= 100    >= 200
+        English            7,112      5,072     3,697     2,648
+        Chinese            1,415        591       290       129
+
+**THE SELECTION RULE: every word present in at least 20 base cells. Nothing
+else.** EN 7,112, ZH 1,415.
+
+**Chosen by PRESENCE IN BASE, never by movement.** RH's phrasing was "annotate
+all risers and fallers"; tagging the movers would condition the sample on the
+outcome, and then "charged words fall" cannot be distinguished from "words that
+moved are the ones we looked at". Presence-in-base costs nothing and fixes it:
+of the 1,415 Chinese words, **302 never move at all**, and those non-movers are
+the contrast class that makes net movement a continuous outcome rather than a
+comparison between two selected groups.
+
+**The threshold is ABSOLUTE, not a fraction of the corpus**, because what makes
+a word's net estimate stable is how many cells it appears in, not what share of
+a corpus that is. The same 20 means the same precision in both languages even
+though the corpora differ 60-fold in size.
+
+**No sampling.** At batch 50, four scales rated in one call, the whole thing is
+143 English + 29 Chinese batches, twice = **344 coder calls.** A sample would
+buy nothing and would add a selection rule someone has to defend.
+
+### What this resolves
+
+Smallest partial correlation detectable, two controls partialled (base
+probability, corpus frequency), alpha 0.05 two-sided, power 0.80:
+
+    English  n 7,112   |partial rho| >= 0.033
+    Chinese  n 1,415   |partial rho| >= 0.074
+
+Both are far inside the range where a real semantic effect would live. **This is
+the whole difference from F/G**, which needed 235-428 exchangeable units and had
+20. Computed before the run, per `what_will_the_instrument_resolve`.
+
+### Protocol
+
+Words alphabetical within a batch, batch composition randomised across the
+frequency range with a recorded seed so no batch is all-rare or all-charged.
+Four scales returned per word in one call — vulgarity, transgressiveness,
+affective charge, bodily harm — because rating them in separate passes invites
+the coder to reconstruct one from another. Two independent passes; agreement
+per scale printed before any verdict.
 
 ## 4. What will be measured, in this order
 
