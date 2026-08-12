@@ -4,7 +4,7 @@ grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives i
 date: 2026-08-12
 role: finding
 topics: [semantic-norms, prediction]
-description: "The PREDICTION study split from K: held out by word, none of the eighteen rated norms predicts movement direction; word identity carries +0.121 AUC headroom (87% of variance within-word across sites); GloVe recovers 21% of headroom vs the norms' 7%; every name for the axis is a minority share (register survives frequency residualisation in narrowed form, [5604]); zh replicates on an unrelated seam; Tulu ablations show no safety-specific effect."
+description: "The PREDICTION study split from K: held out by word, none of the eighteen rated norms predicts movement direction; word identity carries +0.121 AUC headroom (87% of variance within-word across sites); GloVe recovers 18-21% of headroom vs the norms' 7%; every name for the axis is a minority share (register survives frequency residualisation in narrowed form, [5604]); zh replicates on an unrelated seam; Tulu ablations show no safety-specific effect."
 ---
 # Findings P: the unnamed axis
 
@@ -13,7 +13,7 @@ DESCRIPTIVE VOCABULARY, AND THE UNNAMED RESIDUAL OUTPREDICTS EVERY NAME WE HAVE
 TRIED. Held out by word, none of the eighteen rated norms predicts which way
 alignment moves a word. A measured ceiling shows this is not a dead design --
 word identity carries +0.121 AUC of headroom over base probability -- and 300
-unsupervised GloVe dimensions recover 21% of that headroom against the rated
+unsupervised GloVe dimensions recover 18-21% of that headroom against the rated
 norms' 7%. The direction replicates in Chinese on an unrelated historical seam.
 Every named component of it (corpus register, concreteness, length) is a
 minority share, and what is left after removing them predicts better than any of
@@ -152,7 +152,9 @@ is 300 dimensions and the other 1024.
 **CHINESE RECOVERS MORE THAN ENGLISH**, 26,692 cells over 2,005 words, bge-m3:
 trees add +0.0246 to +0.0270 per-site over their own shuffle across k = 10 to
 200, which against the Chinese headroom of +0.1079 is about **24%** where English
-is 21%. Read the tree rows only: the Chinese logistic increment climbs from
+is 18-21%. The Chinese figure is a single draw and inherits the same OpenMP
+nondeterminism, so 24% against 19% is inside the English band and the ordering is
+not established. Read the tree rows only: the Chinese logistic increment climbs from
 +0.0317 to +0.0767 across the sweep, but the real model is flat (0.6546 to
 0.6505) while the SHUFFLE collapses (0.6229 to 0.5738) -- the same widening-gap
 artifact as English, where an increment grows because both of its terms fall.

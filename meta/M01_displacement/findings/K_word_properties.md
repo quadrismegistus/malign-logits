@@ -279,8 +279,11 @@ What P establishes, and every claim above this line should be read against it:
 - The design is not dead: word identity carries **+0.121 AUC of headroom** over
   base probability. But ICC(1) is 0.131, so **87% of the variance is WITHIN a
   word across sites** and unreachable by any word-level feature.
-- 300 unsupervised GloVe dimensions recover **21%** of that headroom against the
-  rated norms' **7%**, and two encoders that agree about nothing else agree on it.
+- 300 unsupervised GloVe dimensions recover **18-21%** of that headroom against
+  the rated norms' **7%**, and two encoders that agree about nothing else agree
+  on it. The band is the spread over five draws: the tree learner is
+  nondeterministic under OpenMP threading and 21% was the largest draw, not the
+  estimate. P section 3.
 - The direction runs from vernacular to institutional vocabulary, replicates in
   Chinese on an unrelated historical seam, and correlates with coder `charge` at
   **+0.009**.
