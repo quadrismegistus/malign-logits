@@ -48,15 +48,87 @@ GENRE_TOKENS = {
 }
 
 
-def get_pos_and_freq(words, prompt, nlp, zipf_frequency):
-    """Contextual POS tag (spaCy on prompt+word) and Zipf corpus frequency."""
-    result = {}
+#: **LAZY SINGLETON, NOT A MODULE GLOBAL.** `spacy.load` costs ~1s and pulls a
+#: model into memory; assigning it at import time would tax every `import
+#: malign_logits` — including `malign info`, the CLI router and every consumer
+#: that never tags anything. A module-level dict populated on first use gives
+#: callers "do not make me construct it" without that cost.
+_NLP = {}
+SPACY_MODEL = "en_core_web_sm"
+
+
+def get_nlp(model=SPACY_MODEL):
+    """The shared spaCy pipeline, loaded once per process per model name."""
+    if model not in _NLP:
+        import spacy
+        _NLP[model] = spacy.load(model)
+    return _NLP[model]
+
+
+def tagger_id(nlp=None, model=SPACY_MODEL):
+    """Identity of the tagger that produced a POS, for the cache key.
+
+    **A TAGGER DIFFERENCE IS A POS DIFFERENCE**, so it is KEYED rather than
+    assumed — the same refusal `cache.py` makes about `dtype` ("a dtype
+    difference is a logit difference"). Without this, a cache filled by
+    `en_core_web_sm` would silently answer for `en_core_web_trf`.
+    """
+    nlp = nlp or get_nlp(model)
+    meta = getattr(nlp, "meta", {}) or {}
+    return "%s-%s" % (meta.get("name") or model, meta.get("version") or "?")
+
+
+def get_pos(words, prompt, nlp=None, cache=None):
+    """Contextual POS for each word AT THE END OF `prompt`. Cached per (prompt, word).
+
+    Returns ``{word: pos}``. The text tagged is ``prompt + " " + word`` and the
+    tag taken is the LAST token's — the position the model was predicting.
+
+    **THE CONTEXT IS THE POINT.** An out-of-context tagger returns the most
+    frequent reading of a word FORM, which at a site like "She began to ___"
+    labels `fall break kiss punch strike` as nouns. `fields.py:_byu()` is that
+    kind of lookup and is measured at 41.2% verbs inside its "noun" band; this
+    function exists so nothing has to reach for it.
+
+    Cached because the tagging is deterministic given (tagger, prompt, word) and
+    the same (prompt, word) pairs recur across every consumer — the taxonomy
+    driver, the M01 scripts, and any future one. **Only misses are tagged**, so
+    a warm cache costs no spaCy calls at all.
+    """
+    from .cache import get_cache
+    cache = cache if cache is not None else get_cache()
+    stash = cache._stash("pos_context")
+    tid = tagger_id(nlp)
+
+    out, misses = {}, []
     for w in words:
-        doc = nlp(prompt + " " + w)
-        pos = doc[-1].pos_ if len(doc) > 0 else "X"
-        zipf = zipf_frequency(w, "en")
-        result[w] = (pos, round(zipf, 2))
-    return result
+        hit = stash.get({"tagger": tid, "prompt": prompt, "word": w})
+        if hit is None:
+            misses.append(w)
+        else:
+            out[w] = hit
+    if misses:
+        nlp = nlp or get_nlp()
+        for w in misses:
+            doc = nlp(prompt + " " + w)
+            pos = doc[-1].pos_ if len(doc) > 0 else "X"
+            stash[{"tagger": tid, "prompt": prompt, "word": w}] = pos
+            out[w] = pos
+    return out
+
+
+def get_pos_and_freq(words, prompt, nlp=None, zipf_frequency=None):
+    """Contextual POS tag and Zipf corpus frequency: ``{word: (pos, zipf)}``.
+
+    A thin join over `get_pos` (cached) and wordfreq (not — it is a pure table
+    lookup with no model behind it). Split so a consumer that wants only the
+    POS does not have to import wordfreq or discard a frequency it never asked
+    for.
+    """
+    if zipf_frequency is None:
+        from wordfreq import zipf_frequency
+    pos = get_pos(words, prompt, nlp=nlp)
+    return {w: (pos[w], round(zipf_frequency(w, "en"), 2)) for w in words}
 
 
 def classify_pair(src, tgt, src_pos, tgt_pos, tgt_freq):
@@ -102,7 +174,6 @@ def run_taxonomy(family_key="olmo", all_prompts=False, output_path=None,
         DataFrame with one row per displacement pair (and one row per
         orphan repressed source word, treated as ``genre_change``).
     """
-    import spacy
     from wordfreq import zipf_frequency
 
     if family_key not in MODEL_FAMILIES:
@@ -122,7 +193,7 @@ def run_taxonomy(family_key="olmo", all_prompts=False, output_path=None,
     aligned_tokenizer = psyche.superego.tokenizer if psyche.superego else None
 
     print("Loading spaCy + wordfreq...")
-    nlp = spacy.load("en_core_web_sm")
+    nlp = get_nlp()
 
     all_rows = []
     for label, prompt in prompts.items():
