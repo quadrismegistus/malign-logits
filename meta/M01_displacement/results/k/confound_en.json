@@ -1,0 +1,80 @@
+{
+ "bundle_rho": {
+  "axis (vernacular+)": {
+   "axis (vernacular+)": 1.0,
+   "register index": 0.4349364088405345,
+   "concreteness": 0.2944535135398802,
+   "syllables (neg)": 0.3140431485168349,
+   "not Latinate": 0.12760794789107008,
+   "length (neg)": 0.2830039936255188
+  },
+  "register index": {
+   "axis (vernacular+)": 0.43493640884053447,
+   "register index": 1.0,
+   "concreteness": 0.4928118868494487,
+   "syllables (neg)": 0.4113039731601016,
+   "not Latinate": 0.09805951123548155,
+   "length (neg)": 0.3530435341341605
+  },
+  "concreteness": {
+   "axis (vernacular+)": 0.2944535135398802,
+   "register index": 0.4928118868494487,
+   "concreteness": 1.0,
+   "syllables (neg)": 0.3372103243647246,
+   "not Latinate": 0.12230868698921549,
+   "length (neg)": 0.2321507965760376
+  },
+  "syllables (neg)": {
+   "axis (vernacular+)": 0.3140431485168349,
+   "register index": 0.41130397316010164,
+   "concreteness": 0.33721032436472465,
+   "syllables (neg)": 1.0,
+   "not Latinate": 0.17046927624456815,
+   "length (neg)": 0.8298652275645961
+  },
+  "not Latinate": {
+   "axis (vernacular+)": 0.12760794789107008,
+   "register index": 0.09805951123548154,
+   "concreteness": 0.12230868698921549,
+   "syllables (neg)": 0.17046927624456815,
+   "not Latinate": 1.0,
+   "length (neg)": 0.13984788909287252
+  },
+  "length (neg)": {
+   "axis (vernacular+)": 0.2830039936255188,
+   "register index": 0.3530435341341605,
+   "concreteness": 0.23215079657603763,
+   "syllables (neg)": 0.8298652275645961,
+   "not Latinate": 0.13984788909287255,
+   "length (neg)": 1.0
+  }
+ },
+ "partial_axis_x_register": {
+  "raw": 0.4349364088405345,
+  "controlled": 0.29594983671686054
+ },
+ "brysbaert_pair_gap": 0.33670370370370367,
+ "brysbaert_p": 3.328822288586859e-11,
+ "decay": {
+  "all pairs with Brysbaert on both": {
+   "n": 253,
+   "acc": 0.7786561264822134,
+   "sd": 8.864594049813233
+  },
+  "+ same syllable count": {
+   "n": 78,
+   "acc": 0.7564102564102564,
+   "sd": 4.529108136578382
+  },
+  "+ concreteness within 0.5": {
+   "n": 126,
+   "acc": 0.7222222222222222,
+   "sd": 4.988876515698588
+  },
+  "+ BOTH matched": {
+   "n": 40,
+   "acc": 0.675,
+   "sd": 2.213594362117866
+  }
+ }
+}
