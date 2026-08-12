@@ -3,7 +3,7 @@
 **Status: A NEGATIVE WITH A STRUCTURAL CAUSE, not a null.** The site question ran
 in Chinese for the first time on 2026-08-12. Both G quantities point the way the
 English result points and neither comes close to significance, and **the reason
-is not that the effect is absent — it is that the test has 20 exchangeable units
+is not that the effect is absent — it is that the test has 17 independent units
 where it needs between 235 and 428.** No amount of reanalysis fixes that, and
 the ceiling is set by how many Chinese-competent base checkpoints exist in the
 world, not by anything this campaign chose.
@@ -41,27 +41,30 @@ attributable to language.** What transfers is the instrument, and only that.
                violence 9, sexual 6, neutral 6, death/substance/profanity 1 each
                pair_minimal: True 9, n/a 12, False 3
     unit       the base checkpoint, n = 20 (every CJK-capable base with an arm)
+    arms       21 base>aligned edges, tier >= PARTIAL on BOTH arms
 
 **AMENDED 2026-08-12, and it cuts against this document: 20 IS NOT 20
 INDEPENDENT UNITS.** Three of the 20 are scale rungs whose base is not its
-lineage's representative -- Qwen2.5-0.5B (rep Qwen2.5-7B), Llama-3.1-70B (rep
+lineage's representative — Qwen2.5-0.5B (rep Qwen2.5-7B), Llama-3.1-70B (rep
 Llama-3.1-8B), Falcon-H1-1.5B-Base (rep Falcon-H1-7B-Base). At lineage
 representatives, one pair per lineage, the roster is **18 pairs over 17
 lineages**.
 
 The sign-flip permutation treats its units as exchangeable, so counting a 0.5B
 and a 7B Qwen as two draws is precisely the pseudo-replication the design exists
-to prevent -- and this document is the one arguing that the unit is the binding
+to prevent — and this document is the one arguing that the unit is the binding
 constraint. **The independent n is 17, not 20.** Every conclusion below is
-unchanged in kind and slightly worse in degree: the requirement was 235-428
-units against 20, and it is 235-428 against 17.
-    arms       21 base>aligned edges, tier >= PARTIAL on BOTH arms
+unchanged in kind and slightly worse in degree: the requirement was 235–428
+units against 20, and it is 235–428 against 17.
+
+Surfaced by RH asking why `k_population.py` reported 17 Chinese lineages where
+this document said 20. Both numbers were mine.
 
 ## F — the rate, reported as DESCRIPTION and not as a verdict
 
     median rate_M 0.4583   rate_U 0.4167   median Delta  -0.0417
     positives 9/20   p 0.7483
-    MDE at n=20:  P(positive) >= 0.799   (at the 17 independent units, 0.824)
+    MDE at n=20:  P(positive) >= 0.799   (at the 17 independent units, 0.813)
 
 **F is not run as a test here and its number is not a null.** At 20 units the
 sign test needs P(positive) ≥ 0.799 to fire at 80% power. English F realised
