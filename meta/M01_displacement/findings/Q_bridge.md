@@ -3,7 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-07
 role: finding
-description: "The bridge between the general and site frames does not hold, by frame reversal: substitution more-negative at the transgressive twin inside the pairs, more-positive in the corpus residue, both significant, opposite signs. Forbids 'N times stronger at transgressive sites'. OPEN ERRATUM: the verified re-emission 9b7076893db58da8 (direction metadata only) awaits co-signature before it supersedes the result of record."
+description: "The bridge between the general and site frames does not hold, by frame reversal: substitution more-negative at the transgressive twin inside the pairs, more-positive in the corpus residue, both significant, opposite signs. Forbids 'N times stronger at transgressive sites'. Erratum 2 RESOLVED 2026-08-12: re-emission 9b7076893db58da8 co-signed ([5622]) and now of record; direction metadata only, 67 numeric leaves identical."
 ---
 # Findings Q: the bridge does not hold — a frame reversal
 
@@ -41,13 +41,23 @@ residue) participates in the sign.
 The corpus arm is the **13.0% residue** outside the pair corpus — the bridge's corpus side stands
 on what the pair construction left behind, and any reading of H2 carries that.
 
-## Erratum 2 (status at this writing)
+## Erratum 2 (RESOLVED 2026-08-12: co-signed, the re-emission supersedes)
 
-The result-of-record `dd292dec` carries a direction-metadata defect on the H2 arm (the registration
-declared no direction; the artifact's metadata implied one). A verified re-emission
-`9b7076893db58da8` — direction metadata only, all 48 measurement fields identical — awaits the
-co-signature before it supersedes. Numbers above are unaffected; the erratum is bookkeeping about
-what the registration did and did not predict.
+The result-of-record `dd292dec` carried a direction-metadata defect on the H2 arm (the registration
+declared no direction; the artifact's metadata implied one). The verified re-emission
+`9b7076893db58da8` is now THE RESULT OF RECORD: malign's co-signature at [5622] (independent
+leaf-by-leaf diff: every difference is direction metadata or the prose reporting it, zero differing
+measurement fields; scope statement attached — the signature covers the diff, not the reading of the
+frozen registration text, which is the pen's and lacan's). Numbers are unaffected; the erratum is
+bookkeeping about what the registration did and did not predict.
+
+On the field count, corrected per [5622]: all measurement fields are identical — **67 numeric
+non-direction leaves** (malign's count, independently reproduced by the registrar from the committed
+artifacts). This section previously said "48". That number was the registrar's own (commit
+`06b2b893`) and RECONSTRUCTS exactly, stated as reconstruction not recollection: 45 numeric leaves
+under `arms.*` plus the 3 top-level population counts, excluding the declared-constant blocks
+(`_floor` thresholds, `_known_answers` gate values, `_null` parameters). Both counts describe the
+same fact; 67 is the full-leaf form and is the one that travels.
 
 ## Why this matters for the paper
 
