@@ -1,0 +1,140 @@
+{
+ "_what": "Plan K inter-annotator agreement and calibration. THE BAND TRAVELS WITH EVERY DRAFTED NUMBER. Two entries attach at the point of use, not in a limits section: concreteness agrees exactly only 39% of the time, and register_level carries 0.60 for the general population (0.85 applies only where register actually varies).",
+ "_produced_by": "meta/M01_displacement/scripts/k_pilot_iaa.py",
+ "instrument_sha256": "5b59a44ca94fd84d7db4eb18c4191603adcb4babc2a91f3f9c834219f245ab18",
+ "coder_a": "deepseek/deepseek-v4-flash",
+ "coder_b": "anthropic/claude-haiku-4-5",
+ "temperature": 0.0,
+ "n_words": 475,
+ "sample": {
+  "frequency_stratified": 300,
+  "usas_transgressive_stratum": 175,
+  "usas_tags": [
+   "S3.2",
+   "G2.1",
+   "G3",
+   "G2.2",
+   "B1",
+   "E3",
+   "A1.1.2"
+  ],
+  "stratum_selected_by": "USAS primary tag, externally -- NEVER by the coder's own ratings",
+  "note": "vulgarity read r=0.28 on the frequency-only 300 (sd 0.10, max 2) and 0.88 with the stratum. A reliability figure computed on a sample lacking the construct is not one."
+ },
+ "agreement": {
+  "vulgarity": {
+   "pearson_r": 0.8793,
+   "exact": 0.9747,
+   "within_1": 0.9958,
+   "mean_abs_diff": 0.0295,
+   "coder_a_mean": 1.04,
+   "coder_a_sd": 0.406,
+   "n": 475
+  },
+  "register_level": {
+   "pearson_r": 0.5972,
+   "exact": 0.6295,
+   "within_1": 0.9389,
+   "mean_abs_diff": 0.48,
+   "coder_a_mean": 3.802,
+   "coder_a_sd": 0.898,
+   "n": 475
+  },
+  "transgressiveness": {
+   "pearson_r": 0.8284,
+   "exact": 0.7789,
+   "within_1": 0.9368,
+   "mean_abs_diff": 0.3263,
+   "coder_a_mean": 1.621,
+   "coder_a_sd": 1.323,
+   "n": 475
+  },
+  "charge": {
+   "pearson_r": 0.8725,
+   "exact": 0.5705,
+   "within_1": 0.9053,
+   "mean_abs_diff": 0.5495,
+   "coder_a_mean": 2.24,
+   "coder_a_sd": 1.346,
+   "n": 475
+  },
+  "valence": {
+   "pearson_r": 0.901,
+   "exact": 0.7263,
+   "within_1": 0.9811,
+   "mean_abs_diff": 0.2926,
+   "coder_a_mean": 3.771,
+   "coder_a_sd": 1.146,
+   "n": 475
+  },
+  "bodily_harm": {
+   "pearson_r": 0.8789,
+   "exact": 0.9137,
+   "within_1": 0.9726,
+   "mean_abs_diff": 0.1347,
+   "coder_a_mean": 1.371,
+   "coder_a_sd": 1.075,
+   "n": 475
+  },
+  "concreteness": {
+   "pearson_r": 0.8336,
+   "exact": 0.3937,
+   "within_1": 0.7958,
+   "mean_abs_diff": 0.9305,
+   "coder_a_mean": 3.781,
+   "coder_a_sd": 2.039,
+   "n": 475
+  }
+ },
+ "calibration_vs_human_norms": {
+  "valence": {
+   "vs_human_norm": "valence",
+   "n": 207,
+   "pearson_r": 0.8618
+  },
+  "charge": {
+   "vs_human_norm": "arousal",
+   "n": 207,
+   "pearson_r": 0.597
+  },
+  "concreteness": {
+   "vs_human_norm": "concreteness",
+   "n": 299,
+   "pearson_r": 0.8752
+  }
+ },
+ "rarity_check_vs_log10_coca_fpm": {
+  "vulgarity": 0.0038,
+  "register_level": -0.0192,
+  "transgressiveness": -0.1515,
+  "charge": -0.1676,
+  "valence": 0.1455,
+  "bodily_harm": -0.1191,
+  "concreteness": -0.1068,
+  "_n": 410
+ },
+ "collinearity": {
+  "vulgarity~register_level": -0.2439,
+  "vulgarity~transgressiveness": 0.0792,
+  "vulgarity~charge": 0.1635,
+  "vulgarity~valence": -0.0527,
+  "vulgarity~bodily_harm": -0.034,
+  "vulgarity~concreteness": 0.0793,
+  "register_level~transgressiveness": 0.0432,
+  "register_level~charge": 0.0358,
+  "register_level~valence": -0.0053,
+  "register_level~bodily_harm": 0.052,
+  "register_level~concreteness": 0.0108,
+  "transgressiveness~charge": 0.6456,
+  "transgressiveness~valence": -0.6431,
+  "transgressiveness~bodily_harm": 0.5176,
+  "transgressiveness~concreteness": -0.0167,
+  "charge~valence": -0.4433,
+  "charge~bodily_harm": 0.4638,
+  "charge~concreteness": -0.0414,
+  "valence~bodily_harm": -0.471,
+  "valence~concreteness": -0.0368,
+  "bodily_harm~concreteness": 0.2291
+ },
+ "git": "b9f122bb5e0a40b428bcb4079ff0a8abca732e6a"
+}
