@@ -127,9 +127,11 @@ def smooth(d):
 
 
 def main():
-    from plotnine import (aes, annotate, element_blank, element_line,
-                          element_rect, element_text, geom_hline, geom_line,
-                          geom_point, ggplot, labs, scale_color_manual,
+    from plotnine import (aes, annotate, coord_cartesian, element_blank,
+                          element_line, element_rect, element_text,
+                          geom_hline, geom_line, geom_point, geom_smooth,
+                          ggplot, labs,
+                          scale_color_manual, scale_fill_manual,
                           scale_x_continuous, theme, theme_minimal)
     TH = (theme_minimal(base_size=11) +
           theme(panel_grid_minor=element_blank(),
@@ -226,12 +228,31 @@ def main():
             title = "Acquisition on the Pythia-6.9b base ladder"
             xlab = "pretraining rung (vendor grid, log-spaced early)"
 
+        LOESS = "--loess" in sys.argv
+        SPAN = float(os.environ.get("M05_LOESS_SPAN", "0.5"))
+        SE = os.environ.get("M05_LOESS_SE", "1") != "0"
+        SE_A = float(os.environ.get("M05_LOESS_SE_ALPHA", "0.15"))
+        if LOESS:
+            raw["grp"] = raw.curve + "|" + raw.seg
+            nseg = raw.groupby("grp").ckpt_idx.transform("nunique")
+            big, small = raw[nseg >= 12], raw[nseg < 12]
+            smooth_layers = [
+                geom_smooth(big, aes(group="grp", fill="curve"),
+                            method="loess", span=SPAN, se=SE,
+                            alpha=SE_A, size=0.8),
+                scale_fill_manual(PAL)]
+            if len(small):
+                smooth_layers.append(
+                    geom_line(small, aes(group="grp"), size=0.8))
+        else:
+            smooth_layers = [geom_line(d, aes(group="grp"), size=0.8)]
         p = (ggplot(d, aes("ckpt_idx", "v", color="curve"))
              + extras
              + geom_hline(yintercept=1.0, color="#c9c8c2", size=0.4)
              + geom_point(raw, aes("ckpt_idx", "v", color="curve"),
                           alpha=0.35, size=1.0, stroke=0)
-             + geom_line(aes(group="grp"), size=0.8)
+             + smooth_layers
+             + coord_cartesian(ylim=(-0.12, 1.45))
              + scale_color_manual(PAL)
              + scale_x_continuous(expand=(0.02, 0, 0.28, 0))
              + sum([[annotate("text", x=xmax + 2, y=yy, label=c,
@@ -242,15 +263,22 @@ def main():
                              "value (median of last 3 base rungs) — above "
                              "1.0 means alignment raised it.\nCoverage "
                              "gate n>=10. Points: exact rung values; "
-                             "lines: rolling-median(5) WITHIN each phase, "
-                             "never smoothed across base/SFT/DPO/RLVR.\n"
-                             "Grey: probe absent rate ([5436]). Raw "
-                             "curves: fig14-16.",
+                             + (f"lines: loess (span {SPAN}"
+                                + (f", SE band alpha {SE_A}" if SE
+                                   else ", no SE") + ") WITHIN each phase"
+                                if LOESS else
+                                "lines: rolling-median(5) WITHIN each "
+                                "phase")
+                             + ",\nnever smoothed across base/SFT/DPO/"
+                             "RLVR; segments too short for a fit drawn "
+                             "raw. Grey: probe absent rate ([5436]). "
+                             "Raw curves: fig14-16.",
                     x=xlab, y="share of own late-base value")
              + TH)
-        p.save(f"{FIGDIR}/fig21_acquisition_ladder_{ladder}.png", dpi=300,
+        fign = "fig23" if LOESS else "fig21"
+        p.save(f"{FIGDIR}/{fign}_acquisition_ladder_{ladder}.png", dpi=300,
                verbose=False)
-        print(f"wrote {FIGDIR}/fig21_acquisition_ladder_{ladder}.png")
+        print(f"wrote {FIGDIR}/{fign}_acquisition_ladder_{ladder}.png")
     return 0
 
 

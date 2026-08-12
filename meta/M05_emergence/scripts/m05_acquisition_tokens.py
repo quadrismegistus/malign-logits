@@ -141,9 +141,10 @@ def sense_share(ladder):
 
 
 def main():
-    from plotnine import (aes, annotate, element_blank, element_line,
-                          element_rect, element_text, geom_line, geom_point,
-                          ggplot, labs, scale_color_manual,
+    from plotnine import (aes, annotate, coord_cartesian, element_blank,
+                          element_line, element_rect, element_text,
+                          geom_line, geom_point, geom_smooth, ggplot, labs,
+                          scale_color_manual, scale_fill_manual,
                           scale_x_continuous, theme, theme_minimal)
     TH = (theme_minimal(base_size=11) +
           theme(panel_grid_minor=element_blank(),
@@ -217,10 +218,27 @@ def main():
                 if ladder == "pythia" else
                 "token axis: 4,194,304 tokens/step, INFERRED constant "
                 "batch, unverified ([5434])")
+        LOESS = "--loess" in sys.argv
+        SPAN = float(os.environ.get("M05_LOESS_SPAN", "0.5"))
+        SE = os.environ.get("M05_LOESS_SE", "1") != "0"
+        SE_A = float(os.environ.get("M05_LOESS_SE_ALPHA", "0.15"))
+        if LOESS:
+            nseg = raw.groupby("curve").ckpt_idx.transform("nunique")
+            big, small = raw[nseg >= 12], raw[nseg < 12]
+            line_layer = [geom_smooth(big, aes(group="curve", fill="curve"),
+                                      method="loess", span=SPAN, se=SE,
+                                      alpha=SE_A, size=0.8),
+                          scale_fill_manual(PAL)]
+            if len(small):
+                line_layer.append(geom_line(small, aes(group="curve"),
+                                            size=0.8))
+        else:
+            line_layer = [geom_line(size=0.8)]
         p = (ggplot(d, aes("ckpt_idx", "v", color="curve"))
              + geom_point(raw, aes("ckpt_idx", "v", color="curve"),
                           alpha=0.35, size=1.0, stroke=0)
-             + geom_line(size=0.8)
+             + line_layer
+             + coord_cartesian(ylim=(-0.12, 1.35))
              + scale_color_manual(PAL)
              + scale_x_continuous(breaks=brk,
                                   labels=[tok_label(b) for b in brk],
@@ -232,7 +250,11 @@ def main():
                           f"{'Pythia-6.9b' if ladder == 'pythia' else 'OLMo-3 (stage1 base arm)'}",
                     subtitle="Each curve as share of its own base-final "
                              "value. Points: exact rung values; lines: "
-                             "rolling-median(5). "
+                             + (f"loess (span {SPAN}"
+                                + (f", SE alpha {SE_A}" if SE else
+                                   ", no SE") + "). "
+                                if LOESS else "rolling-median(5). ")
+                             + 
                              "rungs under 10 surviving probes dropped.\n"
                              "Raw curves in fig14-16. Syntax = strict "
                              "licit share (deepseek; haiku parallel). "
@@ -242,9 +264,10 @@ def main():
                       "ordinal, log-like early)",
                     y="share of own base-final value")
              + TH)
-        p.save(f"{FIGDIR}/fig20_acquisition_tokens_{ladder}.png", dpi=300,
+        fign = "fig22" if LOESS else "fig20"
+        p.save(f"{FIGDIR}/{fign}_acquisition_tokens_{ladder}.png", dpi=300,
                verbose=False)
-        print(f"wrote {FIGDIR}/fig20_acquisition_tokens_{ladder}.png")
+        print(f"wrote {FIGDIR}/{fign}_acquisition_tokens_{ladder}.png")
     return 0
 
 
