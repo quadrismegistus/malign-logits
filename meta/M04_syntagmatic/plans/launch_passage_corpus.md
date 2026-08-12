@@ -86,6 +86,31 @@ Per (pair, prompt, arm, role): 16 passages at 256 tokens, t=1.0, cross-scored bo
 
 **The four §3 disclosures travel with every write-up:** the 36.5% control change, QUOTATION-ADJACENCY (never "dialogue rate"), the fifth arm present on 85.6% of cells, and `class_match` disagreeing on 42%.
 
-## 8. THE COOL-OFF STARTS WHEN THIS COMPLETES
+## 8. DECLARED SECONDARY — THE DE-CURLIFICATION TEST, RIDING FREE
+
+@registrar's [5535], adopted here rather than as a separate addendum so there is one document. **PLAN-SIDE: the frozen spec is untouched and nothing new is collected.** This is an analysis of text the run produces anyway, and it costs nothing.
+
+**Why it is declared now.** [5477]'s quote finding was withdrawn at [5524] because its character class bundled U+2019, the apostrophe. What survived was an observation, not a result: aligned models appeared to emit less curly typography and more ASCII quoting. **This corpus is its designed substrate** — 46 pairs, domain-general, base and aligned arms at passage length — and declaring the test before the data exists is the difference between a designed test and a post-hoc read of a run bought for something else.
+
+    PREDICTION, declared before any generation
+      straight_dq   aligned > base
+      curly_dq      aligned < base
+      curly_sq      aligned < base
+      U+2019        aligned < base
+    REFUTED BY
+      all four moving TOGETHER in the same direction, which would make it a
+      general punctuation-frequency effect and not a normalisation
+      straight_dq falling with the rest
+
+    MEASURE   per-arm rates per 1,000 characters, SPLIT BY CHARACTER and
+              NEVER POOLED (the [5522] discipline, which is the entire reason
+              the parent finding fell)
+    UNIT      pair; independence at the lineage, one vote each
+    ARM       primary read on UNDISTURBED, which carries no injected word.
+              The forced arms are reported beside it as description.
+
+**One confound this design already controls, and it is worth saying why the pair unit does the work here.** Whether a model can emit curly quotes at all is partly a tokenizer fact, so a cross-model comparison would confound typography with vocabulary. **Base and aligned share a tokenizer within a pair**, so the within-pair delta cannot be a vocabulary artefact. That is a stronger guarantee than the parent finding ever had.
+
+## 9. THE COOL-OFF STARTS WHEN THIS COMPLETES
 
 RH's ruling, and it is a design constraint rather than a budget note: **what this corpus does not collect is not collected for an unbounded period.** That argument restored the fifth arm and it weakens every "revisit later" written anywhere in the spec. If something is missing from this plan, the moment to say so is before the boxes spin.
