@@ -1,0 +1,21 @@
+{
+ "ctrw": {
+  "glove_axis (negated)": {
+   "n": 47,
+   "acc": 0.7659574468085106
+  },
+  "register_index (neg)": {
+   "n": 358,
+   "acc": 0.7681564245810056
+  },
+  "coder register_level": {
+   "n": 68,
+   "acc": 0.9705882352941176
+  },
+  "orthographic form": {
+   "n": 363,
+   "acc": 0.7410468319559229
+  }
+ },
+ "n_pairs": 399
+}
