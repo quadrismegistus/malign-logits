@@ -67,6 +67,25 @@ K = os.path.join(ROOT, "meta/M01_displacement/results/k")
 COMPONENTS = (10, 25, 50, 100, 200)
 SEED = 20260812
 
+#: THIS SCRIPT IS NOT REPRODUCIBLE TO THE FOURTH DECIMAL AND THE SEED DOES NOT
+#: FIX IT. HistGradientBoosting parallelises through OpenMP and its histogram
+#: construction is thread-order dependent, so `random_state` controls the
+#: subsampling and not the result. Five identical runs gave k=50 tree increments
+#: of +0.0256, +0.0223, +0.0216, +0.0218 and +0.0231 -- a 0.0040 spread on a
+#: 0.0229 mean. The LOGISTIC rows are byte-identical across the same runs, which
+#: is how the cause was localised; it is NOT the ClickHouse row-order defect
+#: k_ceiling had, and adding ORDER BY to the fetch changed nothing.
+#:
+#: SO QUOTE A RANGE FROM SEVERAL RUNS, NEVER A SINGLE TREE FIGURE. Setting
+#: OMP_NUM_THREADS=1 would make it reproducible at a large cost in runtime and
+#: would report one arbitrary thread schedule as though it were the answer; the
+#: spread is the honest object and P section 3 carries it.
+#:
+#: AND THIS SCRIPT OVERWRITES ITS RESULTS FILE ON EVERY RUN. Four determinism
+#: runs silently replaced the committed predict_embed_en_glove.json with their
+#: own draws; git had the cited version and it was restored. Re-running to check
+#: a number is not a read-only act.
+
 
 def load_embedding(lang, name):
     p = os.path.join(K, "embed_%s_%s.npz" % (lang, name))

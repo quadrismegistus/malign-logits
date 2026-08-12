@@ -106,8 +106,23 @@ SITE. A perfect word-level theory tops out near AUC 0.70.
 
     what beats its OWN shuffle, pooled      share of the +0.1207 headroom
       18 rated norms, trees      +0.0083                7%
-      GloVe 300d, trees, k=50    +0.0256               21%
+      GloVe 300d, trees, k=50    +0.0229              ~19%   (range 18-21%)
       bge-m3 1024d, trees        +0.0208               17%
+
+**THE GLOVE FIGURE IS A MEAN OVER FIVE RUNS, NOT A POINT ESTIMATE, AND AN EARLIER
+VERSION OF THIS TABLE QUOTED THE TOP OF ITS RANGE.** `HistGradientBoosting`
+parallelises through OpenMP and its result is thread-order dependent regardless
+of `random_state`: five identical invocations of `k_predict_embed` returned k=50
+tree increments of +0.0256, +0.0223, +0.0216, +0.0218 and +0.0231 pooled, a
+spread of 0.0040 on a mean of 0.0229. The logistic rows are byte-identical across
+the same runs, which is how the cause was localised. This was NOT the ClickHouse
+row-order defect that `k_ceiling` had; adding `ORDER BY` to the fetch changed
+nothing here.
+
+So the headline is **about a fifth of the headroom, 18-21%**, and the comparison
+that carries the finding is unaffected: the rated norms sit at 7%, outside any
+plausible band around the embedding. **Do not quote 21%**; it was one draw and
+happened to be the largest of five.
 
 Two encoders that agree about nothing else land within 0.005 of each other. GloVe
 is near-isotropic (median pairwise cosine 0.037) and bge-m3 is not (0.529); one
