@@ -125,7 +125,15 @@ Added 2026-08-12 by malign, from the run's own artifacts rather than from predic
     local   1,782 rows   200,426,507 bytes    byte-exact
     expect  1,796 (2 x 898 arm-cells)      -> 99.2%, complete
 
-Two refinements §1d could not have known. **Pinning the engine is not enough — the IMAGE must be contemporary**: installing `vllm==0.22.1` onto a 0.27.1 image fails in ABI order through four separate extensions and generation still dies. And **Turing will not do**: on a Q RTX 8000 the model loads and generates at small batch, then dies inside FlashInfer's paged-KV prefill, and `VLLM_ATTENTION_BACKEND` is ignored in 0.22.1, so no backend flag rescues it. `baichuan-inc/Baichuan2-7B-Base` is running on the same box under the same recipe at the time of writing; it is NOT claimed here.
+Two refinements §1d could not have known. **Pinning the engine is not enough — the IMAGE must be contemporary**: installing `vllm==0.22.1` onto a 0.27.1 image fails in ABI order through four separate extensions and generation still dies. And **Turing will not do**: on a Q RTX 8000 the model loads and generates at small batch, then dies inside FlashInfer's paged-KV prefill, and `VLLM_ATTENTION_BACKEND` is ignored in 0.22.1, so no backend flag rescues it. **`baichuan-inc/Baichuan2-7B-Base > -Chat` — ALSO COLLECTED**, same box, same recipe: 1,832 / 1,846 rows (99.2%), byte-exact. Both architectures vLLM had removed are in the corpus, for $1.45 and 1.4 box-hours.
+
+**A CAVEAT THAT TRAVELS WITH AQUILA2 AND WITH NO OTHER PAIR.** Row completeness is not sequence completeness, and these two are the only place in the corpus where they diverge materially:
+
+    Aquila2       2,828 of 28,512 sequences UNSCORABLE   9.92%
+    Baichuan2         0                                  0.00%
+    next-worst    croissantllm, 9 of 28,160              0.03%
+
+The scoring contract records a dropped sequence as `None` and never reassigns it (launch plan §8), so nothing is corrupted and nothing is silently substituted — but **Aquila2 arrives with a tenth of its cross-scoring missing while every other pair in the corpus is essentially complete.** The cause is the vocabulary guard: base and chat do not share a vocabulary size, so ids valid under one scorer are out of range under the other. Any analysis that pools sequence-level values across pairs inherits a per-pair missingness that is 300x heavier here than anywhere else, and any per-pair statistic on Aquila2 rests on 90% of its intended sequences. **Recovering a pair is not the same as recovering its measurement**, and the difference is invisible at the row level where the 99.2% completeness figure is computed.
 
 **`openGPT-X/Teuken-7B-base-v0.6 > -instruct-v0.6` — A SEVENTH EXCLUSION, and the second of its exact kind:**
 
