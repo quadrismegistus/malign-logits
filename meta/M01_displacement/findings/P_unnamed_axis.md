@@ -406,6 +406,88 @@ computed after normalisation and silently began reporting a share rather than a
 count, so the contradiction that exposed the scale confound -- coverage 0.08 at
 AUC 0.949 -- would not have been visible on the next run.
 
+### The band coefficients are not one vector, and what is
+
+The sweep fits 240 separate models, and **their coefficients cannot be compared
+across bands.** Each fit spends a fixed L2 budget across its own fifty features,
+so a band holding little signal still spends it; correlated features inside a
+band split their weight, so a redundant band pays each of its words less than an
+independent one does; and standardisation is within band within fold, so the
+units differ. Normalising a band's vector to unit norm buys "share of THIS band's
+direction" -- readable as relative importance inside the band, still not as effect
+size across bands. Concatenating the 240 would be a category error, and the single
+global fit is unavailable at 15,832 features against 92 models.
+
+What IS comparable is a univariate statistic computed identically for every
+feature: the per-model share of that model's top-20 slots, then the AUC of that
+one number across the 92 models. Bounded, no penalty, no feature set to be
+relative to. `k_word_auc.py`; `results/k/word_auc_en.tsv`, all 3,977 features
+present in at least 20 models, and `word_auc_en_literary.tsv`.
+
+    3,977 features   AUC 0.309 / 0.420 / 0.504 / 0.587 / 0.719   (5,25,50,75,95)
+                     894 (22%) separate the arms by more than 0.15
+
+    MOST BASE-SIDE          MOST ALIGNED-SIDE
+      back/noun     0.121     provide/verb    0.920
+      all/adverb    0.122     provided/verb   0.906
+      went/verb     0.122     inform/verb     0.901
+      put/verb      0.125     discuss/verb    0.878
+      told/verb     0.134     avoid/verb      0.872
+      threw/verb    0.139     examined/verb   0.867
+      kill/verb     0.140     focus/verb      0.867
+      get/verb      0.142     express/verb    0.866
+      go/verb       0.145     carefully/adv   0.863
+      say/verb      0.153     escalate/verb   0.861
+
+**This is the vector to quote, and it agrees with the axis at Spearman -0.451
+over 1,732 features** -- better than the norms, the coefficients, or anything
+else in this document. The base pole is deixis and bodily action in the past
+tense; the aligned pole is a near-closed class of institutional-procedural
+infinitives. Median |AUC - 0.5| by POS: verb 0.091, adverb 0.093, noun 0.072,
+adjective 0.072.
+
+**0.5 IS THE NULL FOR ONE FEATURE AND NOT FOR THE CENTRE OF THE TABLE.** Rows sum
+to 1, so one arm concentrating on a minority of words pushes every other word
+slightly toward the other arm. On the full prompt set that see-saw is quiet
+(median 0.504, arm-flip null 0.504). On LITERARY prompts it is not: median 0.572,
+and the tilt grows with how widely a word is shared (0.536 for features in 20-39
+models, 0.671 for those in 80+). The arm-flip null there is 0.498, so the tilt is
+arm-linked rather than mechanical, and the reason is a single scalar -- per-model
+concentration (row Gini) separates the arms at AUC 0.309 on literary prompts and
+0.771 on the full set. **The direction of that scalar reverses between the two
+prompt populations**: aligned models are the concentrated ones on designed
+prompts, base models on literary continuations. Where the median is off-centre,
+only the RANKING is quotable.
+
+### The same words, on literary prompts, are largely different words
+
+Read against its own centre, the literary table is a weak echo of the full one.
+
+    shared features                     1,019
+    Spearman(ALL, LITERARY)             +0.233
+    sign agreement about the centre     59.0%
+    genuine sign flips                  301 base->aligned, 112 aligned->base
+
+    HOLDS IN BOTH   base      back/noun, all/adverb, went, told, go, know,
+                              first/adj, then/adverb, would, front/noun, was,
+                              bought, have, head/noun, said, die, just, so
+                    aligned   seemed, suddenly, speak, shared, felt, consider,
+                              everything/noun, offered, vanished, talk, abruptly,
+                              scattered, slowly, everyone/noun, forgot, need
+
+    FLIPS           right/noun -0.36 -> +0.28   think/verb -0.31 -> +0.29
+                    left/adj   -0.31 -> +0.27   say/verb   -0.35 -> +0.17
+                    must/verb  +0.14 -> -0.24   disappeared +0.16 -> -0.20
+
+The stable core is real and small: deictic and bodily past-tense verbs on the base
+side, a manner-adverb and mental-state band on the aligned side. Everything else
+is prompt-population specific. **A word's arm-diagnosticity is not a property of
+the word**, which is the same fact section 2 records as ICC 0.131 and reaches here
+by a route that never touches the movement rule. The literary arm's 97 prompts per
+model against 2,220 make it substantially noisier, and its instability is what
+0.233 measures as much as any real difference; it bounds the agreement from below
+rather than estimating it.
+
 ### What this does to the rest of P
 
 It corroborates the axis from a design that cannot inherit the rule's artifacts,
