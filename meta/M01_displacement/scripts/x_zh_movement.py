@@ -90,6 +90,7 @@ def main():
     st = get_cache()._stash("true_word_probs")
 
     F, R, IN, n = collections.Counter(), collections.Counter(), collections.Counter(), 0
+    scored_pairs = []          #: WHICH pairs contributed, not how many
     for b, a in keep:
         def rows(m):
             k = dict(B.TWP); k["model"] = m; k["prompt"] = prompt
@@ -103,6 +104,7 @@ def main():
         if not db or not da:
             continue
         n += 1
+        scored_pairs.append((b, a))
         ob, pb = db
         oa, pa = da
         mv = movement({w: pb[w] for w in ob}, {w: pa[w] for w in oa}, CANONICAL)
@@ -130,6 +132,33 @@ def main():
     print("base distributions can fall at most 4, so raw net is not comparable across")
     print("words. `in_base` rides with every row for that reason.")
     print("\nwrote %s" % os.path.relpath(out, ROOT))
+
+    #: THE ROSTER SIDECAR. `n_pairs` in the CSV is a COUNT, and a count is not a
+    #: membership -- the defect that cost this campaign a day reconstructing
+    #: which 95 models a frozen population held. The 19->21 roster change of
+    #: 2026-08-12 is exactly the case: the finding says 21 and without this file
+    #: nobody can say WHICH 21. Written every run, beside the CSV.
+    import subprocess
+    scored = [{"base": b, "aligned": a,
+               "tier_base": str(reg.get(b, {}).get("cjk_tier")),
+               "tier_aligned": str(reg.get(a, {}).get("cjk_tier")),
+               "family": reg.get(b, {}).get("family")}
+              for b, a in keep if (b, a) in scored_pairs]
+    side = os.path.join(CAMP, "results", "zh", "x_zh_movement_%s_roster.json" % TAG)
+    json.dump({"tag": TAG, "prompt": prompt, "kmin": KMIN,
+               "cjk_ok": sorted(CJK_OK),
+               "n_pairs_scored": n, "n_pairs_kept_by_tier": len(keep),
+               "pairs_scored": scored,
+               "pairs_kept_but_unscored": [
+                   {"base": b, "aligned": a} for b, a in keep
+                   if (b, a) not in scored_pairs],
+               "dropped_by_tier": [{"base": b, "aligned": a,
+                                    "tier_base": tb, "tier_aligned": ta}
+                                   for b, a, tb, ta in dropped],
+               "git": subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT,
+                                     capture_output=True, text=True).stdout.strip(),
+               }, open(side, "w"), indent=1, ensure_ascii=False)
+    print("wrote %s  (WHICH pairs, not how many)" % os.path.relpath(side, ROOT))
 
 
 if __name__ == "__main__":

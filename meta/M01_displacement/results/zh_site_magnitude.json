@@ -1,4 +1,191 @@
 {
+ "_provenance": {
+  "git": "b0f27868d9cb7d0c29b32caa2d59fbc97595af80",
+  "site_rule_sha16": "b8fd9a52cd5c794b",
+  "cjk_ok": [
+   "FLUENT",
+   "MARGINAL",
+   "PARTIAL"
+  ],
+  "edges": {
+   "baichuan-inc/Baichuan2-7B-Base": [
+    "baichuan-inc/Baichuan2-7B-Chat"
+   ],
+   "bigscience/bloom-7b1": [
+    "bigscience/bloomz-7b1"
+   ],
+   "m-a-p/CT-LLM-Base": [
+    "m-a-p/CT-LLM-SFT-DPO"
+   ],
+   "deepseek-ai/deepseek-llm-7b-base": [
+    "deepseek-ai/deepseek-llm-7b-chat"
+   ],
+   "tiiuae/Falcon-H1-1.5B-Base": [
+    "tiiuae/Falcon-H1-1.5B-Instruct"
+   ],
+   "tiiuae/Falcon-H1-7B-Base": [
+    "tiiuae/Falcon-H1-7B-Instruct"
+   ],
+   "tiiuae/falcon-mamba-7b": [
+    "tiiuae/falcon-mamba-7b-instruct"
+   ],
+   "tiiuae/Falcon3-Mamba-7B-Base": [
+    "tiiuae/Falcon3-Mamba-7B-Instruct"
+   ],
+   "zai-org/glm-4-9b-hf": [
+    "zai-org/glm-4-9b-chat-hf"
+   ],
+   "internlm/internlm2-base-7b": [
+    "internlm/internlm2-chat-7b"
+   ],
+   "meta-llama/Llama-3.1-8B": [
+    "allenai/Llama-3.1-Tulu-3-8B-DPO",
+    "meta-llama/Llama-3.1-8B-Instruct"
+   ],
+   "meta-llama/Llama-3.1-70B": [
+    "meta-llama/Llama-3.1-70B-Instruct"
+   ],
+   "m-a-p/neo_7b": [
+    "m-a-p/neo_7b_instruct_v0.1"
+   ],
+   "openbmb/MiniCPM5-1B-Base": [
+    "openbmb/MiniCPM5-1B"
+   ],
+   "Qwen/Qwen2.5-7B": [
+    "Qwen/Qwen2.5-7B-Instruct"
+   ],
+   "Qwen/Qwen2.5-0.5B": [
+    "Qwen/Qwen2.5-0.5B-Instruct"
+   ],
+   "Qwen/Qwen3-8B-Base": [
+    "Qwen/Qwen3-8B"
+   ],
+   "HuggingFaceTB/SmolLM3-3B-Base": [
+    "HuggingFaceTB/SmolLM3-3B"
+   ],
+   "01-ai/Yi-1.5-9B": [
+    "01-ai/Yi-1.5-9B-Chat"
+   ],
+   "mistralai/Mistral-7B-v0.1": [
+    "HuggingFaceH4/zephyr-7b-beta"
+   ]
+  },
+  "models_with_cells": [
+   "01-ai/Yi-1.5-9B",
+   "01-ai/Yi-1.5-9B-Chat",
+   "HuggingFaceH4/zephyr-7b-beta",
+   "HuggingFaceTB/SmolLM3-3B",
+   "HuggingFaceTB/SmolLM3-3B-Base",
+   "Qwen/Qwen2.5-0.5B",
+   "Qwen/Qwen2.5-0.5B-Instruct",
+   "Qwen/Qwen2.5-7B",
+   "Qwen/Qwen2.5-7B-Instruct",
+   "Qwen/Qwen3-8B",
+   "Qwen/Qwen3-8B-Base",
+   "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "baichuan-inc/Baichuan2-7B-Base",
+   "baichuan-inc/Baichuan2-7B-Chat",
+   "bigscience/bloom-7b1",
+   "bigscience/bloomz-7b1",
+   "deepseek-ai/deepseek-llm-7b-base",
+   "deepseek-ai/deepseek-llm-7b-chat",
+   "internlm/internlm2-base-7b",
+   "internlm/internlm2-chat-7b",
+   "m-a-p/CT-LLM-Base",
+   "m-a-p/CT-LLM-SFT-DPO",
+   "m-a-p/neo_7b",
+   "m-a-p/neo_7b_instruct_v0.1",
+   "meta-llama/Llama-3.1-70B",
+   "meta-llama/Llama-3.1-70B-Instruct",
+   "meta-llama/Llama-3.1-8B",
+   "meta-llama/Llama-3.1-8B-Instruct",
+   "mistralai/Mistral-7B-v0.1",
+   "openbmb/MiniCPM5-1B",
+   "openbmb/MiniCPM5-1B-Base",
+   "tiiuae/Falcon-H1-1.5B-Base",
+   "tiiuae/Falcon-H1-1.5B-Instruct",
+   "tiiuae/Falcon-H1-7B-Base",
+   "tiiuae/Falcon-H1-7B-Instruct",
+   "tiiuae/Falcon3-Mamba-7B-Base",
+   "tiiuae/Falcon3-Mamba-7B-Instruct",
+   "tiiuae/falcon-mamba-7b",
+   "tiiuae/falcon-mamba-7b-instruct",
+   "zai-org/glm-4-9b-chat-hf",
+   "zai-org/glm-4-9b-hf"
+  ],
+  "models_requested": [
+   "01-ai/Yi-1.5-9B",
+   "01-ai/Yi-1.5-9B-Chat",
+   "HuggingFaceH4/zephyr-7b-beta",
+   "HuggingFaceTB/SmolLM3-3B",
+   "HuggingFaceTB/SmolLM3-3B-Base",
+   "Qwen/Qwen2.5-0.5B",
+   "Qwen/Qwen2.5-0.5B-Instruct",
+   "Qwen/Qwen2.5-7B",
+   "Qwen/Qwen2.5-7B-Instruct",
+   "Qwen/Qwen3-8B",
+   "Qwen/Qwen3-8B-Base",
+   "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "baichuan-inc/Baichuan2-7B-Base",
+   "baichuan-inc/Baichuan2-7B-Chat",
+   "bigscience/bloom-7b1",
+   "bigscience/bloomz-7b1",
+   "deepseek-ai/deepseek-llm-7b-base",
+   "deepseek-ai/deepseek-llm-7b-chat",
+   "internlm/internlm2-base-7b",
+   "internlm/internlm2-chat-7b",
+   "m-a-p/CT-LLM-Base",
+   "m-a-p/CT-LLM-SFT-DPO",
+   "m-a-p/neo_7b",
+   "m-a-p/neo_7b_instruct_v0.1",
+   "meta-llama/Llama-3.1-70B",
+   "meta-llama/Llama-3.1-70B-Instruct",
+   "meta-llama/Llama-3.1-8B",
+   "meta-llama/Llama-3.1-8B-Instruct",
+   "mistralai/Mistral-7B-v0.1",
+   "openbmb/MiniCPM5-1B",
+   "openbmb/MiniCPM5-1B-Base",
+   "tiiuae/Falcon-H1-1.5B-Base",
+   "tiiuae/Falcon-H1-1.5B-Instruct",
+   "tiiuae/Falcon-H1-7B-Base",
+   "tiiuae/Falcon-H1-7B-Instruct",
+   "tiiuae/Falcon3-Mamba-7B-Base",
+   "tiiuae/Falcon3-Mamba-7B-Instruct",
+   "tiiuae/falcon-mamba-7b",
+   "tiiuae/falcon-mamba-7b-instruct",
+   "zai-org/glm-4-9b-chat-hf",
+   "zai-org/glm-4-9b-hf"
+  ],
+  "models_missing": [],
+  "pair_groups": [
+   "e3_aim",
+   "e3_syringe",
+   "e3_threat",
+   "e9_death",
+   "e9_drug",
+   "e9_swear",
+   "f36mp_p1",
+   "f36mp_p4",
+   "f36mp_p5",
+   "f36mp_s1",
+   "f36mp_s2",
+   "f36mp_s3",
+   "f36mp_s7",
+   "f36mp_s8",
+   "f36mp_sub1",
+   "f36mp_sub3",
+   "f36mp_sub4",
+   "f36mp_v4",
+   "f36mp_v5",
+   "f36mp_v6",
+   "setd_ground",
+   "setd_hold",
+   "setd_ontop",
+   "setd_wall"
+  ],
+  "n_pairs": 24,
+  "n_units": 20
+ },
  "pairs": {
   "e3_aim": {
    "texts": {
@@ -325,7 +512,7 @@
     "baichuan-inc/Baichuan2-7B-Chat"
    ],
    "D_departed": 0.012770248599999978,
-   "D_concentration": 0.04585228511777939,
+   "D_concentration": 0.04585228511777943,
    "both": 9,
    "onlyM": 1,
    "onlyU": 6,
@@ -338,7 +525,7 @@
     "bigscience/bloomz-7b1"
    ],
    "D_departed": 0.07123608523499998,
-   "D_concentration": 0.06280176654817823,
+   "D_concentration": 0.06280176654817829,
    "both": 2,
    "onlyM": 0,
    "onlyU": 3,
@@ -351,7 +538,7 @@
     "m-a-p/CT-LLM-SFT-DPO"
    ],
    "D_departed": 0.023322250499999995,
-   "D_concentration": -0.016412040476263212,
+   "D_concentration": -0.01641204047626313,
    "both": 7,
    "onlyM": 5,
    "onlyU": 6,
@@ -377,7 +564,7 @@
     "tiiuae/Falcon-H1-1.5B-Instruct"
    ],
    "D_departed": 0.009929358869999995,
-   "D_concentration": 0.03916941237740923,
+   "D_concentration": 0.0391694123774092,
    "both": 10,
    "onlyM": 2,
    "onlyU": 3,
@@ -403,7 +590,7 @@
     "tiiuae/falcon-mamba-7b-instruct"
    ],
    "D_departed": 0.0,
-   "D_concentration": -0.035935123203564845,
+   "D_concentration": -0.03593512320356479,
    "both": 3,
    "onlyM": 8,
    "onlyU": 3,
@@ -416,7 +603,7 @@
     "tiiuae/Falcon3-Mamba-7B-Instruct"
    ],
    "D_departed": 0.0027565885199999987,
-   "D_concentration": 0.09647143939313332,
+   "D_concentration": 0.09647143939313349,
    "both": 8,
    "onlyM": 3,
    "onlyU": 4,
@@ -429,7 +616,7 @@
     "zai-org/glm-4-9b-chat-hf"
    ],
    "D_departed": -0.02545095188500001,
-   "D_concentration": 0.0775457224277772,
+   "D_concentration": 0.07754572242777723,
    "both": 4,
    "onlyM": 6,
    "onlyU": 4,
@@ -442,7 +629,7 @@
     "internlm/internlm2-chat-7b"
    ],
    "D_departed": -0.028827635300000008,
-   "D_concentration": -0.03631660463952817,
+   "D_concentration": -0.03631660463952825,
    "both": 4,
    "onlyM": 5,
    "onlyU": 6,
@@ -456,7 +643,7 @@
     "allenai/Llama-3.1-Tulu-3-8B-DPO"
    ],
    "D_departed": 0.03232174236749996,
-   "D_concentration": 0.08630540524513541,
+   "D_concentration": 0.08630540524513536,
    "both": 4,
    "onlyM": 4,
    "onlyU": 6,
@@ -469,7 +656,7 @@
     "meta-llama/Llama-3.1-70B-Instruct"
    ],
    "D_departed": 0.010090810454999983,
-   "D_concentration": -0.031062553969561424,
+   "D_concentration": -0.031062553969561438,
    "both": 14,
    "onlyM": 2,
    "onlyU": 3,
@@ -495,7 +682,7 @@
     "openbmb/MiniCPM5-1B"
    ],
    "D_departed": 0.0013825951049999952,
-   "D_concentration": -0.040174732823803724,
+   "D_concentration": -0.04017473282380368,
    "both": 4,
    "onlyM": 9,
    "onlyU": 6,
@@ -508,7 +695,7 @@
     "Qwen/Qwen2.5-7B-Instruct"
    ],
    "D_departed": -0.005585110049999999,
-   "D_concentration": 0.04940112018989562,
+   "D_concentration": 0.04940112018989573,
    "both": 2,
    "onlyM": 4,
    "onlyU": 6,
@@ -534,7 +721,7 @@
     "Qwen/Qwen3-8B"
    ],
    "D_departed": -0.017989274954000004,
-   "D_concentration": -0.06409488238555294,
+   "D_concentration": -0.06409488238555297,
    "both": 5,
    "onlyM": 8,
    "onlyU": 2,
@@ -547,7 +734,7 @@
     "HuggingFaceTB/SmolLM3-3B"
    ],
    "D_departed": 0.013692349999999985,
-   "D_concentration": 0.006409480607349305,
+   "D_concentration": 0.006409480607349333,
    "both": 4,
    "onlyM": 5,
    "onlyU": 3,
@@ -560,7 +747,7 @@
     "01-ai/Yi-1.5-9B-Chat"
    ],
    "D_departed": 0.0041097522999999775,
-   "D_concentration": 4.518367791526978e-05,
+   "D_concentration": 4.518367791529754e-05,
    "both": 5,
    "onlyM": 6,
    "onlyU": 3,
@@ -573,7 +760,7 @@
     "HuggingFaceH4/zephyr-7b-beta"
    ],
    "D_departed": -0.021067899550000005,
-   "D_concentration": 0.007015514621554475,
+   "D_concentration": 0.0070155146215544195,
    "both": 11,
    "onlyM": 2,
    "onlyU": 1,
@@ -616,26 +803,26 @@
    -0.021067899550000005
   ],
   "concentration": [
-   0.04585228511777939,
-   0.06280176654817823,
-   -0.016412040476263212,
+   0.04585228511777943,
+   0.06280176654817829,
+   -0.01641204047626313,
    -0.12653337186248487,
-   0.03916941237740923,
+   0.0391694123774092,
    0.0,
-   -0.035935123203564845,
-   0.09647143939313332,
-   0.0775457224277772,
-   -0.03631660463952817,
-   0.08630540524513541,
-   -0.031062553969561424,
+   -0.03593512320356479,
+   0.09647143939313349,
+   0.07754572242777723,
+   -0.03631660463952825,
+   0.08630540524513536,
+   -0.031062553969561438,
    0.04682342497311648,
-   -0.040174732823803724,
-   0.04940112018989562,
+   -0.04017473282380368,
+   0.04940112018989573,
    0.009310029632329353,
-   -0.06409488238555294,
-   0.006409480607349305,
-   4.518367791526978e-05,
-   0.007015514621554475
+   -0.06409488238555297,
+   0.006409480607349333,
+   4.518367791529754e-05,
+   0.0070155146215544195
   ],
   "p_departed": {
    "statistic": 0.05451783082349981,
@@ -647,7 +834,7 @@
    "reject": false
   },
   "p_concentration": {
-   "statistic": 0.17662147545081408,
+   "statistic": 0.17662147545081447,
    "n": 20,
    "draws": 100000,
    "p_value": 0.24516754832451676,

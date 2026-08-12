@@ -217,8 +217,22 @@ def main():
           % (st.median([v["base_top_M"] for v in units.values()]),
              st.median([v["base_top_U"] for v in units.values()])))
 
+    #: PROVENANCE. The per-unit records already name every base and its arms,
+    #: so the roster reconstructs -- but the TIER RULE, the prompt set and the
+    #: commit do not, and those are what make the roster mean something later.
+    import subprocess
+    prov = {"git": subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT,
+                                  capture_output=True, text=True).stdout.strip(),
+            "site_rule_sha16": FROZEN_SITES,
+            "cjk_ok": sorted(CJK_OK),
+            "edges": {b: sorted(a) for b, a in edges.items()},
+            "models_with_cells": sorted(grid),
+            "models_requested": models,
+            "models_missing": sorted(set(models) - set(grid)),
+            "pair_groups": sorted(pairs),
+            "n_pairs": len(pairs), "n_units": len(edges)}
     out = os.path.join(CAMPAIGN, "results", "zh_site_magnitude.json")
-    json.dump({"pairs": {g: {"texts": pairs[g], **meta[g]} for g in pairs},
+    json.dump({"_provenance": prov, "pairs": {g: {"texts": pairs[g], **meta[g]} for g in pairs},
                "rate": rate, "units": units,
                "F": {**ft, "mde_P": m_},
                "G": {"departed": dep, "concentration": con,
