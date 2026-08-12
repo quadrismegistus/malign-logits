@@ -125,16 +125,31 @@ def main():
         return math.log10(a / b) if a and b else None
 
     if "--register" in sys.argv:
+        #: THE THIRD COLUMN IS THE ONE REGISTRAR ASKED FOR. The SUBTLEX/acad
+        #: index is a ratio of two frequencies and the axis correlates with log
+        #: frequency at +0.220, so part of its R2 may be frequency wearing a
+        #: genre ratio. Residualising it on log coca_fic -- the SAME frequency
+        #: that sits in the nuisance block, so the comparison is against what
+        #: the model already controls for -- leaves the part of the genre ratio
+        #: that overall frequency does not explain. If the residualised index
+        #: keeps its share, register survives; if it collapses toward the coder
+        #: scale's 0.047, the largest named component was frequency.
+        raw = {w: v for w in EM for v in [regidx(w)] if v is not None}
+        fq = {w: math.log10(f) for w in raw for f in [fpm(w, "en", "coca_fic")] if f}
+        ws = sorted(set(raw) & set(fq))
+        X = np.column_stack([np.ones(len(ws)), [fq[w] for w in ws]])
+        yv = np.array([raw[w] for w in ws])
+        rr = yv - X @ np.linalg.lstsq(X, yv, rcond=None)[0]
         MEAS = {"coder register_level": {w: float(rate[w]["register_level"])
                                          for w in EM if w in rate},
-                "SUBTLEX/acad index": {w: v for w in EM
-                                       for v in [regidx(w)] if v is not None}}
+                "SUBTLEX/acad index": raw,
+                "SUBTLEX resid on freq": dict(zip(ws, rr))}
     else:
         MEAS = {"coder concreteness": {w: float(rate[w]["concreteness"])
                                        for w in EM if w in rate},
                 "Brysbaert Conc.M": {w: CC[w.strip().lower()]
                                      for w in EM if w.strip().lower() in CC}}
-    ka, kb = list(MEAS)
+    ka, kb = list(MEAS)[:2]
     both = [w for w in MEAS[ka] if w in MEAS[kb]]
     print("COVERAGE OF THE %d GLOVE VERBS" % len(EM))
     for n, d in MEAS.items():
