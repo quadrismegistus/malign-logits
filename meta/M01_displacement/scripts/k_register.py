@@ -62,9 +62,29 @@ from k_frequency import fpm
 
 K = os.path.join(ROOT, "meta/M01_displacement/results/k")
 SEED = 20260812
-INDICES = {"COCA_spok_over_acad": ("coca_spok", "coca_acad"),
+#: SUBTLEX IS THE PRIMARY, AND THE BROADCAST-SPOKEN VERSIONS INVERT ON PROFANITY.
+#: `coca_spok` is transcribed broadcast, where taboo words are bleeped or absent,
+#: while `coca_acad` is full of linguistics and sociology papers DISCUSSING them.
+#: The ratio therefore calls the strongest vernacular items formal:
+#:
+#:     fuck    coca_spok 0.03   coca_acad 0.89   index -1.47   (i.e. "formal")
+#:     shit    coca_spok 0.61   coca_acad 1.93   index -0.50
+#:     bastard coca_spok 0.92   coca_acad 1.31   index -0.15
+#:
+#: SOAP is worse, not better: network television drops `fuck` and `shit`
+#: entirely, so they return no value at all rather than a wrong one. SUBTLEX-US
+#: is film subtitles and uncensored -- `fuck` at 378.6 per million -- so it is
+#: the only demotic column in the set that can see the class displacement
+#: research looks at first. The broadcast versions are kept in the table so the
+#: inversion is visible rather than quietly replaced.
+INDICES = {"SUBTLEX_over_coca_acad": ("SUBTLEX_US", "coca_acad"),
+           "COCA_spok_over_acad": ("coca_spok", "coca_acad"),
            "BNC_spok_over_acad": ("bnc_spok", "bnc_acad"),
            "SOAP_over_coca_acad": ("SOAP", "coca_acad")}
+#: which index the prediction half uses. NOT `max by coverage`, which silently
+#: made this choice before: SUBTLEX is chosen on the validity argument above,
+#: declared here, and the others are still reported beside it.
+PRIMARY = "SUBTLEX_over_coca_acad"
 
 
 def register_index(u, hi, lo):
@@ -108,7 +128,7 @@ def main():
         print("   %-24s %8d %+10.3f   %+.3f" % (name, len(common), r, r2))
 
     #: 2. DOES IT PREDICT? Same protocol as k_predict: held out by word.
-    best = max(RI, key=lambda k: len(RI[k]))
+    best = PRIMARY
     vals = RI[best]
     print("\n2. DOES IT PREDICT MOVEMENT? held out by WORD, %s, %d words covered"
           % (best, len(vals)))
