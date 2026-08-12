@@ -1,6 +1,6 @@
 # Findings K: which properties of a word predict how alignment moves it
 
-**Status: FOUR SCALES CLEAR A CALIBRATED NULL AND THE EFFECT IS NOT
+**Status: FOUR SCALES CLEAR A CALIBRATED NULL, AND THREE OF THEM ARE
 SITE-SPECIFIC. The route here matters as much as the destination — four earlier versions of this analysis gave four
 different answers, including two with the wrong sign, and one of them failed its
 negative control outright.**
@@ -59,12 +59,11 @@ answer has two halves and the second one is the important one.**
 **Yes, transgressive words fall** -- at 219 sites, 94% in that direction, and
 only visible when the question is asked per site rather than pooled.
 
-**But NOT MORE at transgressive sites than anywhere else.** The next section
-shows the magnitude is the same at neutral prompts and at the unmarked twins of
-the minimal pairs. So the property predicts movement, and the SITE does not
-modulate it. "Transgressive words fall" is supported; "alignment targets
-transgressive language" is not, and this document should not be cited for the
-second.
+**And the SITE does modulate it, for three scales but not for
+transgressiveness itself.** Paired within stem across 745 minimal pairs,
+concreteness and bodily_harm are stronger at the transgressive twin at
+p = 0.00005 and vulgarity at p = 0.0004, while transgressiveness (p 0.48) and
+charge (p 0.70) are flat. See the site-specificity section.
 
 ## THE FULL FRAME, 18 SCALES, AND THE QUALIFICATION THAT MATTERS MOST
 
@@ -102,31 +101,47 @@ regardless of direction. **And dominance is dead here as C found it dead**, both
 dominance columns being the two smallest |z| in the table -- an unplanned
 negative control the design gets for free.
 
-### THE EFFECT IS NOT SITE-SPECIFIC, AND THIS IS THE MAIN QUALIFICATION
+### SITE-SPECIFICITY: THREE SCALES YES, TRANSGRESSIVENESS NO
 
-                             transgressiveness  bodily_harm  concreteness
-    transgressive (1554)         -0.0399          -0.0435      -0.0441
-    neutral (86)                 -0.0353             --        -0.0302
-    transgressive MARKED (701)   -0.0373          -0.0520      -0.0563
-    transgressive UNMARKED (696) -0.0393             --           --
+**CORRECTED 2026-08-12, and the first version of this section was wrong in the
+direction that matters.** It reported that nothing was site-specific, on the
+basis of comparing GROUP MEANS of marked against unmarked prompts. That discards
+the pairing the minimal-pair design exists to supply. Paired within stem, 745
+pairs, `partial(MARKED) - partial(UNMARKED)`:
 
-**The magnitudes are the same at neutral prompts and at the unmarked twins.**
-Transgressiveness predicts falling at -0.0399 in the transgressive slice and
--0.0353 at neutral ones; at marked twins -0.0373 against unmarked -0.0393, if
-anything backwards. The large z differences (-20 against -3) are sqrt(n): 1,554
-prompts against 86.
+    scale                pairs    median      t         p
+    concreteness           745   -0.0159   -6.34   0.00005   site-specific
+    bodily_harm            745   -0.0148   -5.24   0.00005   site-specific
+    vulgarity              745   -0.0029   -3.57   0.00040   site-specific
+    n_valence               70   +0.0480   +3.42   0.00080   stronger at the NEUTRAL twin
+    n_valence_extremity     70   +0.0287   +2.14   0.037     stronger at the NEUTRAL twin
+    transgressiveness      745   -0.0018   +0.71   0.479     no difference
+    charge                 745   -0.0006   +0.39   0.695     no difference
 
-**So these properties predict how alignment moves a word EVERYWHERE. They are
-not a signature of transgressive sites.** Any reading of this finding as "the
-operation targets transgressive language" is not supported by it. The Chinese
-neutral slice says the same: concreteness falls at 100% of its firing neutral
-prompts.
+**Concreteness and bodily harm are stronger at the transgressive twin than at
+its matched neutral control, at p = 0.00005.** So is vulgarity, the scale
+written off twice elsewhere in this document as a floor effect. This agrees with
+the 684-pair lineage-unit test (concreteness 33/46 lineages p 0.0045,
+bodily_harm 32/46 p 0.0114), which the withdrawn version contradicted.
 
-The two slices that DO stand out belong to other campaigns. **Contradiction
-prompts (97)** are the extreme -- bodily_harm -0.1016, charge_extremity -0.1150,
-charge -0.0870, transgressiveness -0.0693, every one at **100% falling** and
-about 2.5x the general magnitude. **Institutional prompts (260)** are led by
-`n_arousal` -0.1017 at 99% falling. That is M02's and M03's territory.
+**What is NOT site-specific is `transgressiveness` itself (p 0.48) and `charge`
+(p 0.70)** -- and those are the two scales the withdrawn version happened to
+check by eye before generalising to all seven.
+
+**`n_valence` runs the other way**: human-normed valence predicts movement MORE
+at the neutral twin (+0.048, p 0.0008). Nobody proposed that direction.
+
+So the site DOES modulate the effect, for harm, concreteness and vulgarity. The
+correct summary of RH's question is:
+
+    transgressive words fall              yes, 219 sites, 94% one direction
+    they fall MORE at transgressive sites  not by their transgressiveness --
+                                           but harmful, concrete and vulgar
+                                           words do
+
+**The withdrawn claim is kept visible rather than deleted** because it was
+posted to the docket at [5581] and another seat was preparing to test it as a
+prediction.
 
 ## THE FOUR ANSWERS THIS ANALYSIS GAVE BEFORE THIS ONE
 
