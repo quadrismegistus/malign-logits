@@ -1,0 +1,76 @@
+{
+ "design": "[5569] Stage B: fresh 800, ruled rubric; pooled with A",
+ "controls": {
+  "misses": []
+ },
+ "stage_b_rates": {
+  "aligned|both": {
+   "n": 200,
+   "moral": 15,
+   "clinical": 7
+  },
+  "aligned|control_a": {
+   "n": 100,
+   "moral": 4,
+   "clinical": 1
+  },
+  "aligned|control_b": {
+   "n": 100,
+   "moral": 13,
+   "clinical": 7
+  },
+  "base|both": {
+   "n": 200,
+   "moral": 8,
+   "clinical": 5
+  },
+  "base|control_a": {
+   "n": 100,
+   "moral": 6,
+   "clinical": 1
+  },
+  "base|control_b": {
+   "n": 100,
+   "moral": 7,
+   "clinical": 3
+  }
+ },
+ "pooled_rates": {
+  "aligned|both": {
+   "n": 400,
+   "moral": 26,
+   "clinical": 16
+  },
+  "aligned|control_a": {
+   "n": 200,
+   "moral": 8,
+   "clinical": 3
+  },
+  "aligned|control_b": {
+   "n": 200,
+   "moral": 21,
+   "clinical": 9
+  },
+  "base|both": {
+   "n": 400,
+   "moral": 23,
+   "clinical": 10
+  },
+  "base|control_a": {
+   "n": 200,
+   "moral": 11,
+   "clinical": 4
+  },
+  "base|control_b": {
+   "n": 200,
+   "moral": 18,
+   "clinical": 5
+  }
+ },
+ "pooled_pairs_clinical_both": {
+  "up": 10,
+  "down": 6,
+  "tied": 13
+ },
+ "raw_note": "one row per (reader batch, passage, field) at meta/M02_frame_exit/results/zh_guilt_stage_b_raw.jsonl"
+}
