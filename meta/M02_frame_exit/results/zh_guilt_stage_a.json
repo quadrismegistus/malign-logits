@@ -1,0 +1,59 @@
+{
+ "design": "[5569] Stage A: same 800, ruled rubric [5567], fresh readers",
+ "controls": {
+  "misses": [],
+  "note": "a miss disqualifies its controls batch and flags the run, never the 800"
+ },
+ "rates": {
+  "aligned|both": {
+   "n": 200,
+   "moral": 11,
+   "clinical": 9
+  },
+  "aligned|control_a": {
+   "n": 100,
+   "moral": 4,
+   "clinical": 2
+  },
+  "aligned|control_b": {
+   "n": 100,
+   "moral": 8,
+   "clinical": 2
+  },
+  "base|both": {
+   "n": 200,
+   "moral": 15,
+   "clinical": 5
+  },
+  "base|control_a": {
+   "n": 100,
+   "moral": 5,
+   "clinical": 3
+  },
+  "base|control_b": {
+   "n": 100,
+   "moral": 11,
+   "clinical": 2
+  }
+ },
+ "reliability": {
+  "moral": {
+   "n": 800,
+   "agree": 778,
+   "pct": 0.9725,
+   "kappa": 0.7696817420435514
+  },
+  "clinical": {
+   "n": 800,
+   "agree": 796,
+   "pct": 0.995,
+   "kappa": 0.9065256762283112
+  }
+ },
+ "pairs_clinical_both": {
+  "up": 8,
+  "down": 4,
+  "tied": 17
+ },
+ "raw_note": "one row per (reader batch, passage, field) at meta/M02_frame_exit/results/zh_guilt_stage_a_raw.jsonl; round-1 verdict carried beside for the reliability join"
+}
