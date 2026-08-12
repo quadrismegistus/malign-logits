@@ -176,6 +176,8 @@ def stage_profiles(st, idx, models, prompts):
 #: calculation, agreement would have proved nothing (the M04 A precedent,
 #: [5439]).
 CAPTURE = {}
+RAW = []
+RAW_ROWS_STEP = []
 _CAP_KEY = [None]
 _CAP_STEP = [None]
 _WRITE = [None]
@@ -220,6 +222,23 @@ def report(name, models, prof, labels):
         steps = [(i, i + 1) for i in range(len(models) - 1)]
         if len(models) > 2:
             steps.append((0, len(models) - 1))
+        #: RAW EMIT. The summary rows below are medians over per-prompt deltas
+        #: and the deltas were thrown away -- so `n: 73` never said WHICH 73,
+        #: and no reader could recover the prompts or check a single value.
+        #: This writes the long table the summaries are computed FROM.
+        #: RH, 2026-08-12: "we need to be producing RAW data (model x prompt x
+        #: values) and only after running summary statistics." A hash detects
+        #: that something changed; only the table says what it was.
+        for i, j in steps:
+            lab = labels[min(len(RAW_ROWS_STEP), len(labels) - 1)] if labels else "%d->%d" % (i, j)
+            for pr_key, pr in prof.items():
+                if g in pr[i] and g in pr[j]:
+                    RAW.append({"ladder": name, "measure": g,
+                                "step": "%d->%d" % (i, j),
+                                "model_from": models[i], "model_to": models[j],
+                                "prompt": pr_key,
+                                "value_from": pr[i][g], "value_to": pr[j][g],
+                                "delta": pr[j][g] - pr[i][g]})
         cells = []
         for i, j in steps:
             _CAP_KEY[0] = "%s|%s" % (name, g)
@@ -606,6 +625,17 @@ def _write(path, argv_only):
             "note": "keys are 'ladder|measure'; steps are the printed column labels"}
     json.dump({"_meta": meta, "cells": CAPTURE}, open(path, "w"), indent=1)
     print("wrote %d cells -> %s" % (len(CAPTURE), path))
+    #: THE RAW TABLE IS THE ARTIFACT; the summary file above is derivable from
+    #: it and this one is not derivable from anything.
+    raw_path = path.replace(".json", "_raw.csv")
+    if RAW:
+        import csv as _csv
+        with open(raw_path, "w", newline="") as fh:
+            w = _csv.DictWriter(fh, fieldnames=list(RAW[0]))
+            w.writeheader()
+            w.writerows(RAW)
+        print("wrote %s RAW rows (model x prompt x value) -> %s"
+              % (format(len(RAW), ","), raw_path))
 
 
 

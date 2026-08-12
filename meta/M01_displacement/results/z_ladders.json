@@ -2,8 +2,8 @@
  "_meta": {
   "produced_by": "meta/M01_displacement/scripts/z_ladders.py --write",
   "capture": "capture-only; no computation altered (producer-debt 1A)",
-  "only": null,
-  "cells": 79,
+  "only": "ladders",
+  "cells": 36,
   "note": "keys are 'ladder|measure'; steps are the printed column labels"
  },
  "cells": {
@@ -38,7 +38,7 @@
     "median_pp": 0.3837830212502627,
     "wilcoxon_p": 0.015217082299541301,
     "ci_lo_pp": 0.01730208861131788,
-    "ci_hi_pp": 0.6595476229082263,
+    "ci_hi_pp": 0.7240648177778725,
     "agree": "*",
     "n": 73
    },
@@ -132,7 +132,7 @@
     "median_pp": -0.302783845522947,
     "wilcoxon_p": 0.4398736337007117,
     "ci_lo_pp": -1.0053602908120602,
-    "ci_hi_pp": 0.24683745477925012,
+    "ci_hi_pp": 0.24284222561334057,
     "agree": null,
     "n": 73
    }
@@ -176,7 +176,7 @@
     "median_pp": -1.5217597333043398,
     "wilcoxon_p": 3.045725996849764e-08,
     "ci_lo_pp": -1.810727298292919,
-    "ci_hi_pp": -1.0969921620170588,
+    "ci_hi_pp": -1.094768680308078,
     "agree": "*",
     "n": 73
    },
@@ -194,7 +194,7 @@
     "median_pp": 0.33500718525256434,
     "wilcoxon_p": 0.12849231808174494,
     "ci_lo_pp": -0.26236239790439764,
-    "ci_hi_pp": 0.7571864782692589,
+    "ci_hi_pp": 0.7594161911983532,
     "agree": null,
     "n": 73
    },
@@ -219,7 +219,7 @@
    "step1 SFT-base": {
     "median_pp": -0.6016530645298377,
     "wilcoxon_p": 0.04713138003327591,
-    "ci_lo_pp": -1.5810189333421383,
+    "ci_lo_pp": -1.3088276246170982,
     "ci_hi_pp": 0.07665373841844458,
     "agree": "~",
     "n": 59
@@ -227,16 +227,16 @@
    "step2 DPO-SFT": {
     "median_pp": -1.376386288725536,
     "wilcoxon_p": 3.093353041294643e-05,
-    "ci_lo_pp": -1.8851361531308328,
-    "ci_hi_pp": -0.9302102863414277,
+    "ci_lo_pp": -1.9021739130434785,
+    "ci_hi_pp": -0.7910571711594011,
     "agree": "*",
     "n": 59
    },
    "TOTAL DPO-base": {
     "median_pp": -1.6191407744359891,
     "wilcoxon_p": 8.974880260619601e-06,
-    "ci_lo_pp": -2.1390906630424076,
-    "ci_hi_pp": -0.791421651545569,
+    "ci_lo_pp": -2.2106641900612516,
+    "ci_hi_pp": -0.8407731199191624,
     "agree": "*",
     "n": 64
    }
@@ -254,7 +254,7 @@
     "median_pp": -0.3715138599075657,
     "wilcoxon_p": 0.013467877502082556,
     "ci_lo_pp": -0.5764048842216971,
-    "ci_hi_pp": 0.08860647210864464,
+    "ci_hi_pp": 0.1284733826082629,
     "agree": "~",
     "n": 73
    },
@@ -358,7 +358,7 @@
     "median_pp": -0.6030985456033602,
     "wilcoxon_p": 0.006557043915393419,
     "ci_lo_pp": -1.0125252391428057,
-    "ci_hi_pp": 0.030931584583049343,
+    "ci_hi_pp": 0.016361324561908752,
     "agree": "~",
     "n": 73
    },
@@ -436,7 +436,7 @@
     "median_pp": -0.18123945186520884,
     "wilcoxon_p": 0.3600115511818024,
     "ci_lo_pp": -0.6752745484424394,
-    "ci_hi_pp": 0.6771920786993637,
+    "ci_hi_pp": 0.6350419101400995,
     "agree": null,
     "n": 73
    },
@@ -454,7 +454,7 @@
     "median_pp": 0.713740680741419,
     "wilcoxon_p": 0.043928903129925166,
     "ci_lo_pp": -0.3034919503752967,
-    "ci_hi_pp": 1.2626505363829712,
+    "ci_hi_pp": 1.2539990000194567,
     "agree": "~",
     "n": 61
    },
@@ -469,8 +469,8 @@
    "TOTAL DPO-base": {
     "median_pp": 0.3727565171018618,
     "wilcoxon_p": 0.5851789954979933,
-    "ci_lo_pp": -0.8016900907692706,
-    "ci_hi_pp": 1.041205428971534,
+    "ci_lo_pp": -0.8060798860927809,
+    "ci_hi_pp": 1.0287031148138088,
     "agree": null,
     "n": 58
    }
@@ -480,7 +480,7 @@
     "median_pp": 0.5664858112843396,
     "wilcoxon_p": 2.2380544479105785e-06,
     "ci_lo_pp": 0.4597929056150238,
-    "ci_hi_pp": 0.8361414497731506,
+    "ci_hi_pp": 0.8392250738698024,
     "agree": "*",
     "n": 73
    },
@@ -488,7 +488,7 @@
     "median_pp": 0.37188162297484423,
     "wilcoxon_p": 0.011353548819198056,
     "ci_lo_pp": 0.22300952446665384,
-    "ci_hi_pp": 0.7514854546235614,
+    "ci_hi_pp": 0.8200092195883899,
     "agree": "*",
     "n": 73
    },
@@ -574,7 +574,7 @@
     "median_pp": 0.4193402037289601,
     "wilcoxon_p": 0.02579667916720929,
     "ci_lo_pp": 0.1404727616259968,
-    "ci_hi_pp": 0.7036064800555866,
+    "ci_hi_pp": 0.6609622517821698,
     "agree": "*",
     "n": 73
    }
@@ -599,7 +599,7 @@
    "TOTAL DPO-base": {
     "median_pp": -0.13772528006178314,
     "wilcoxon_p": 0.8238071256782011,
-    "ci_lo_pp": -0.323665891831669,
+    "ci_lo_pp": -0.3156793238058356,
     "ci_hi_pp": 0.26674742000646484,
     "agree": null,
     "n": 73
@@ -651,7 +651,7 @@
    "TOTAL DPO-base": {
     "median_pp": -2.0213785635087604,
     "wilcoxon_p": 4.75809717504106e-13,
-    "ci_lo_pp": -2.530266336003148,
+    "ci_lo_pp": -2.525305053150645,
     "ci_hi_pp": -1.734836273231427,
     "agree": "*",
     "n": 73
@@ -688,22 +688,22 @@
     "median_pp": -0.02350561454887573,
     "wilcoxon_p": 0.7116137656990484,
     "ci_lo_pp": -0.5496506819510888,
-    "ci_hi_pp": 0.4173181224527242,
+    "ci_hi_pp": 0.5032830754253731,
     "agree": null,
     "n": 63
    },
    "step2 DPO-SFT": {
     "median_pp": -0.2016190653667302,
     "wilcoxon_p": 0.4637675721133023,
-    "ci_lo_pp": -0.8072083868675868,
-    "ci_hi_pp": 0.4718813046818183,
+    "ci_lo_pp": -0.7975650502996527,
+    "ci_hi_pp": 0.5117031441284114,
     "agree": null,
     "n": 62
    },
    "TOTAL DPO-base": {
     "median_pp": -0.28314891200754283,
     "wilcoxon_p": 0.8555353917492186,
-    "ci_lo_pp": -0.8639108626047248,
+    "ci_lo_pp": -0.844170779869756,
     "ci_hi_pp": 0.24650207171842617,
     "agree": null,
     "n": 66
@@ -922,7 +922,7 @@
     "median_pp": -0.545978619748061,
     "wilcoxon_p": 0.060183617898002834,
     "ci_lo_pp": -1.1557451415160598,
-    "ci_hi_pp": 0.20803383210290238,
+    "ci_hi_pp": 0.007347434189876323,
     "agree": null,
     "n": 59
    },
@@ -941,947 +941,6 @@
     "ci_hi_pp": -0.8134606920740652,
     "agree": "*",
     "n": 60
-   }
-  },
-  "claude-sonnet-4-6|F:emotion_and_arousal": {
-   "chat - continuation": {
-    "median_pp": -0.21131745967196136,
-    "wilcoxon_p": 0.47352248565202965,
-    "ci_lo_pp": -1.256732721942602,
-    "ci_hi_pp": 1.1258470620424634,
-    "agree": null,
-    "n": 45
-   }
-  },
-  "claude-sonnet-4-6|F:sensory_perception": {
-   "chat - continuation": {
-    "median_pp": -2.031043730465016,
-    "wilcoxon_p": 0.0006660228075239221,
-    "ci_lo_pp": -3.0503120589014263,
-    "ci_hi_pp": -0.4049236487409069,
-    "agree": "*",
-    "n": 45
-   }
-  },
-  "claude-sonnet-4-6|F:physical_appearance_and_properties": {
-   "chat - continuation": {
-    "median_pp": -1.4845084060075466,
-    "wilcoxon_p": 0.00015956787625068909,
-    "ci_lo_pp": -2.8740081543670297,
-    "ci_hi_pp": -0.31026243038368706,
-    "agree": "*",
-    "n": 45
-   }
-  },
-  "claude-sonnet-4-6|F:logical_modal_and_discourse_operators": {
-   "chat - continuation": {
-    "median_pp": 1.0308367440050883,
-    "wilcoxon_p": 0.0021798294994899636,
-    "ci_lo_pp": 0.20969297422917393,
-    "ci_hi_pp": 1.9942067975201476,
-    "agree": "*",
-    "n": 45
-   }
-  },
-  "claude-sonnet-4-6|F:language_and_communication": {
-   "chat - continuation": {
-    "median_pp": 9.458180178731968,
-    "wilcoxon_p": 9.483319610537218e-09,
-    "ci_lo_pp": 5.975307854220856,
-    "ci_hi_pp": 13.031384940633824,
-    "agree": "*",
-    "n": 45
-   }
-  },
-  "claude-sonnet-4-6|N:dominance=dominant": {
-   "chat - continuation": {
-    "median_pp": 9.802940711728104,
-    "wilcoxon_p": 2.3818675030399627e-08,
-    "ci_lo_pp": 7.080242033176831,
-    "ci_hi_pp": 13.159976596577517,
-    "agree": "*",
-    "n": 45
-   }
-  },
-  "claude-sonnet-4-6|N:concreteness=concrete": {
-   "chat - continuation": {
-    "median_pp": -6.446151865538469,
-    "wilcoxon_p": 4.231458927403743e-06,
-    "ci_lo_pp": -8.127358273662477,
-    "ci_hi_pp": -4.855797214186536,
-    "agree": "*",
-    "n": 45
-   }
-  },
-  "claude-sonnet-4-6|R:sensation": {
-   "chat - continuation": {
-    "median_pp": 0.5186363707258945,
-    "wilcoxon_p": 0.47352248565202965,
-    "ci_lo_pp": -1.2074794627477874,
-    "ci_hi_pp": 1.0762003627852013,
-    "agree": null,
-    "n": 45
-   }
-  },
-  "claude-sonnet-4-6|R:need": {
-   "chat - continuation": {
-    "median_pp": 0.9225952410162941,
-    "wilcoxon_p": 0.0015163315449396048,
-    "ci_lo_pp": 0.4537214553082716,
-    "ci_hi_pp": 2.849872929616975,
-    "agree": "*",
-    "n": 33
-   }
-  },
-  "claude-haiku-4-5|F:emotion_and_arousal": {
-   "chat - continuation": {
-    "median_pp": -0.19603542105143812,
-    "wilcoxon_p": 0.5736686426123372,
-    "ci_lo_pp": -1.27069088204017,
-    "ci_hi_pp": 0.3969714787468534,
-    "agree": null,
-    "n": 46
-   }
-  },
-  "claude-haiku-4-5|F:sensory_perception": {
-   "chat - continuation": {
-    "median_pp": -1.1970526717106658,
-    "wilcoxon_p": 6.474169174475543e-07,
-    "ci_lo_pp": -2.2365778543163906,
-    "ci_hi_pp": -0.8055570139750896,
-    "agree": "*",
-    "n": 46
-   }
-  },
-  "claude-haiku-4-5|F:physical_appearance_and_properties": {
-   "chat - continuation": {
-    "median_pp": -0.33101748956446997,
-    "wilcoxon_p": 0.9869248047447011,
-    "ci_lo_pp": -1.102126375507119,
-    "ci_hi_pp": 1.1121116024501028,
-    "agree": null,
-    "n": 46
-   }
-  },
-  "claude-haiku-4-5|F:logical_modal_and_discourse_operators": {
-   "chat - continuation": {
-    "median_pp": 0.2569241978405905,
-    "wilcoxon_p": 0.1703330624237519,
-    "ci_lo_pp": -0.31507472565906885,
-    "ci_hi_pp": 1.1569454256876,
-    "agree": null,
-    "n": 46
-   }
-  },
-  "claude-haiku-4-5|F:language_and_communication": {
-   "chat - continuation": {
-    "median_pp": 5.538107328759781,
-    "wilcoxon_p": 6.849521738836653e-07,
-    "ci_lo_pp": 2.510921423520343,
-    "ci_hi_pp": 7.145874356231293,
-    "agree": "*",
-    "n": 46
-   }
-  },
-  "claude-haiku-4-5|N:dominance=dominant": {
-   "chat - continuation": {
-    "median_pp": 4.678263858127751,
-    "wilcoxon_p": 0.0018818680736898208,
-    "ci_lo_pp": 1.6974390439350477,
-    "ci_hi_pp": 6.94118439188931,
-    "agree": "*",
-    "n": 46
-   }
-  },
-  "claude-haiku-4-5|N:concreteness=concrete": {
-   "chat - continuation": {
-    "median_pp": -4.810424110726701,
-    "wilcoxon_p": 8.947339586448165e-06,
-    "ci_lo_pp": -6.644229300125848,
-    "ci_hi_pp": -3.504339723857344,
-    "agree": "*",
-    "n": 46
-   }
-  },
-  "claude-haiku-4-5|R:sensation": {
-   "chat - continuation": {
-    "median_pp": -1.690014205981176,
-    "wilcoxon_p": 0.14772558807823485,
-    "ci_lo_pp": -2.9135791690734605,
-    "ci_hi_pp": 1.1491465250986272,
-    "agree": null,
-    "n": 46
-   }
-  },
-  "claude-haiku-4-5|R:need": {
-   "chat - continuation": {
-    "median_pp": 0.5164815113151706,
-    "wilcoxon_p": 0.2740621313123317,
-    "ci_lo_pp": -0.4542057397343251,
-    "ci_hi_pp": 1.3928221297438772,
-    "agree": null,
-    "n": 37
-   }
-  },
-  "gpt-4o-mini|F:emotion_and_arousal": {
-   "chat - continuation": {
-    "median_pp": 0.11746670056086359,
-    "wilcoxon_p": 0.3850838953871788,
-    "ci_lo_pp": -0.5836345655624673,
-    "ci_hi_pp": 1.1180187741564485,
-    "agree": null,
-    "n": 46
-   }
-  },
-  "gpt-4o-mini|F:sensory_perception": {
-   "chat - continuation": {
-    "median_pp": -0.7201667511751615,
-    "wilcoxon_p": 3.223062996429671e-05,
-    "ci_lo_pp": -1.0362757407245702,
-    "ci_hi_pp": -0.3404953196223623,
-    "agree": "*",
-    "n": 46
-   }
-  },
-  "gpt-4o-mini|F:physical_appearance_and_properties": {
-   "chat - continuation": {
-    "median_pp": -0.4748369806757486,
-    "wilcoxon_p": 0.023389306503177,
-    "ci_lo_pp": -1.6228389967460524,
-    "ci_hi_pp": -0.10429621588959603,
-    "agree": "*",
-    "n": 46
-   }
-  },
-  "gpt-4o-mini|F:logical_modal_and_discourse_operators": {
-   "chat - continuation": {
-    "median_pp": 0.29130448662421715,
-    "wilcoxon_p": 0.01281371471779437,
-    "ci_lo_pp": 0.07574761803557165,
-    "ci_hi_pp": 0.6030150673010403,
-    "agree": "*",
-    "n": 45
-   }
-  },
-  "gpt-4o-mini|F:language_and_communication": {
-   "chat - continuation": {
-    "median_pp": 0.1924304691556838,
-    "wilcoxon_p": 0.04860618682118666,
-    "ci_lo_pp": -0.10242229511406228,
-    "ci_hi_pp": 1.4995653602959347,
-    "agree": "~",
-    "n": 46
-   }
-  },
-  "gpt-4o-mini|N:dominance=dominant": {
-   "chat - continuation": {
-    "median_pp": 0.6289923009988402,
-    "wilcoxon_p": 0.04986682419149425,
-    "ci_lo_pp": -0.07563868011285779,
-    "ci_hi_pp": 2.2058188847923876,
-    "agree": "~",
-    "n": 46
-   }
-  },
-  "gpt-4o-mini|N:concreteness=concrete": {
-   "chat - continuation": {
-    "median_pp": -2.489225984728706,
-    "wilcoxon_p": 1.0706953812473354e-06,
-    "ci_lo_pp": -3.7447635028327375,
-    "ci_hi_pp": -1.6266005421731373,
-    "agree": "*",
-    "n": 46
-   }
-  },
-  "gpt-4o-mini|R:sensation": {
-   "chat - continuation": {
-    "median_pp": -1.8547814415947925,
-    "wilcoxon_p": 0.0010268141493085046,
-    "ci_lo_pp": -3.719954923687553,
-    "ci_hi_pp": -0.29583006224825903,
-    "agree": "*",
-    "n": 46
-   }
-  },
-  "gpt-4o-mini|R:need": {
-   "chat - continuation": {
-    "median_pp": 0.26865021148969603,
-    "wilcoxon_p": 0.012008323853886458,
-    "ci_lo_pp": 0.04163837016231478,
-    "ci_hi_pp": 0.42680915855813695,
-    "agree": "*",
-    "n": 39
-   }
-  },
-  "WITHIN_N|open|OLMo-2-1B": {
-   "F:emotion_and_arousal": {
-    "n_prompts": 118,
-    "shared_prompts_in_chain": 118
-   },
-   "F:sensory_perception": {
-    "n_prompts": 108,
-    "shared_prompts_in_chain": 118
-   },
-   "F:physical_appearance_and_properties": {
-    "n_prompts": 117,
-    "shared_prompts_in_chain": 118
-   },
-   "F:logical_modal_and_discourse_operators": {
-    "n_prompts": 118,
-    "shared_prompts_in_chain": 118
-   },
-   "F:language_and_communication": {
-    "n_prompts": 116,
-    "shared_prompts_in_chain": 118
-   },
-   "N:dominance=dominant": {
-    "n_prompts": 118,
-    "shared_prompts_in_chain": 118
-   },
-   "N:concreteness=concrete": {
-    "n_prompts": 118,
-    "shared_prompts_in_chain": 118
-   },
-   "R:sensation": {
-    "n_prompts": 110,
-    "shared_prompts_in_chain": 118
-   },
-   "R:need": {
-    "n_prompts": 81,
-    "shared_prompts_in_chain": 118
-   }
-  },
-  "WITHIN_N|open|Olmo-3-7B": {
-   "F:emotion_and_arousal": {
-    "n_prompts": 117,
-    "shared_prompts_in_chain": 118
-   },
-   "F:sensory_perception": {
-    "n_prompts": 108,
-    "shared_prompts_in_chain": 118
-   },
-   "F:physical_appearance_and_properties": {
-    "n_prompts": 110,
-    "shared_prompts_in_chain": 118
-   },
-   "F:logical_modal_and_discourse_operators": {
-    "n_prompts": 118,
-    "shared_prompts_in_chain": 118
-   },
-   "F:language_and_communication": {
-    "n_prompts": 117,
-    "shared_prompts_in_chain": 118
-   },
-   "N:dominance=dominant": {
-    "n_prompts": 118,
-    "shared_prompts_in_chain": 118
-   },
-   "N:concreteness=concrete": {
-    "n_prompts": 118,
-    "shared_prompts_in_chain": 118
-   },
-   "R:sensation": {
-    "n_prompts": 108,
-    "shared_prompts_in_chain": 118
-   },
-   "R:need": {
-    "n_prompts": 73,
-    "shared_prompts_in_chain": 118
-   }
-  },
-  "WITHIN_N|open|pythia-6.9B": {
-   "F:emotion_and_arousal": {
-    "n_prompts": 77,
-    "shared_prompts_in_chain": 77
-   },
-   "F:sensory_perception": {
-    "n_prompts": 77,
-    "shared_prompts_in_chain": 77
-   },
-   "F:physical_appearance_and_properties": {
-    "n_prompts": 77,
-    "shared_prompts_in_chain": 77
-   },
-   "F:logical_modal_and_discourse_operators": {
-    "n_prompts": 77,
-    "shared_prompts_in_chain": 77
-   },
-   "F:language_and_communication": {
-    "n_prompts": 77,
-    "shared_prompts_in_chain": 77
-   },
-   "N:dominance=dominant": {
-    "n_prompts": 77,
-    "shared_prompts_in_chain": 77
-   },
-   "N:concreteness=concrete": {
-    "n_prompts": 77,
-    "shared_prompts_in_chain": 77
-   },
-   "R:sensation": {
-    "n_prompts": 77,
-    "shared_prompts_in_chain": 77
-   },
-   "R:need": {
-    "n_prompts": 67,
-    "shared_prompts_in_chain": 77
-   }
-  },
-  "WITHIN_N|open|Tulu-3-8B (SFT=no-safety)": {
-   "F:emotion_and_arousal": {
-    "n_prompts": 116,
-    "shared_prompts_in_chain": 116
-   },
-   "F:sensory_perception": {
-    "n_prompts": 107,
-    "shared_prompts_in_chain": 116
-   },
-   "F:physical_appearance_and_properties": {
-    "n_prompts": 114,
-    "shared_prompts_in_chain": 116
-   },
-   "F:logical_modal_and_discourse_operators": {
-    "n_prompts": 115,
-    "shared_prompts_in_chain": 116
-   },
-   "F:language_and_communication": {
-    "n_prompts": 115,
-    "shared_prompts_in_chain": 116
-   },
-   "N:dominance=dominant": {
-    "n_prompts": 116,
-    "shared_prompts_in_chain": 116
-   },
-   "N:concreteness=concrete": {
-    "n_prompts": 116,
-    "shared_prompts_in_chain": 116
-   },
-   "R:sensation": {
-    "n_prompts": 115,
-    "shared_prompts_in_chain": 116
-   },
-   "R:need": {
-    "n_prompts": 76,
-    "shared_prompts_in_chain": 116
-   }
-  },
-  "WITHIN_N|closed|claude-sonnet-4-6": {
-   "F:emotion_and_arousal": {
-    "n_prompts": 45,
-    "shared_prompts_in_chain": 47
-   },
-   "F:sensory_perception": {
-    "n_prompts": 45,
-    "shared_prompts_in_chain": 47
-   },
-   "F:physical_appearance_and_properties": {
-    "n_prompts": 45,
-    "shared_prompts_in_chain": 47
-   },
-   "F:logical_modal_and_discourse_operators": {
-    "n_prompts": 45,
-    "shared_prompts_in_chain": 47
-   },
-   "F:language_and_communication": {
-    "n_prompts": 45,
-    "shared_prompts_in_chain": 47
-   },
-   "N:dominance=dominant": {
-    "n_prompts": 45,
-    "shared_prompts_in_chain": 47
-   },
-   "N:concreteness=concrete": {
-    "n_prompts": 45,
-    "shared_prompts_in_chain": 47
-   },
-   "R:sensation": {
-    "n_prompts": 45,
-    "shared_prompts_in_chain": 47
-   },
-   "R:need": {
-    "n_prompts": 33,
-    "shared_prompts_in_chain": 47
-   }
-  },
-  "WITHIN_N|closed|claude-haiku-4-5": {
-   "F:emotion_and_arousal": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "F:sensory_perception": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "F:physical_appearance_and_properties": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "F:logical_modal_and_discourse_operators": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "F:language_and_communication": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "N:dominance=dominant": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "N:concreteness=concrete": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "R:sensation": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "R:need": {
-    "n_prompts": 37,
-    "shared_prompts_in_chain": 47
-   }
-  },
-  "WITHIN_N|closed|gpt-4o-mini": {
-   "F:emotion_and_arousal": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "F:sensory_perception": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "F:physical_appearance_and_properties": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "F:logical_modal_and_discourse_operators": {
-    "n_prompts": 45,
-    "shared_prompts_in_chain": 47
-   },
-   "F:language_and_communication": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "N:dominance=dominant": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "N:concreteness=concrete": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "R:sensation": {
-    "n_prompts": 46,
-    "shared_prompts_in_chain": 47
-   },
-   "R:need": {
-    "n_prompts": 39,
-    "shared_prompts_in_chain": 47
-   }
-  },
-  "WITHIN|F:emotion_and_arousal": {
-   "row": {
-    "open": [
-     {
-      "value_pp": 1.0373357634692402,
-      "clears": true
-     },
-     {
-      "value_pp": -0.48224502151676674,
-      "clears": true
-     },
-     {
-      "value_pp": 1.037020844256692,
-      "clears": true
-     },
-     {
-      "value_pp": 1.2248479050501957,
-      "clears": true
-     }
-    ],
-    "closed": [
-     {
-      "value_pp": -0.21131745967196136,
-      "clears": false
-     },
-     {
-      "value_pp": -0.19603542105143812,
-      "clears": false
-     },
-     {
-      "value_pp": 0.11746670056086359,
-      "clears": false
-     }
-    ],
-    "median_abs_open_pp": 1.037178303862966,
-    "median_abs_closed_pp": 0.19603542105143812,
-    "ratio": "0.2x",
-    "verdict": "not comparable (4/4 open, 0/3 closed clear)",
-    "named": false,
-    "n_open": 4,
-    "n_closed": 3,
-    "n_clear_open": 4,
-    "n_clear_closed": 0
-   }
-  },
-  "WITHIN|F:sensory_perception": {
-   "row": {
-    "open": [
-     {
-      "value_pp": 0.17661249512907345,
-      "clears": false
-     },
-     {
-      "value_pp": 0.12008738828069056,
-      "clears": false
-     },
-     {
-      "value_pp": 0.25071345978625037,
-      "clears": true
-     },
-     {
-      "value_pp": 0.31040897393068634,
-      "clears": false
-     }
-    ],
-    "closed": [
-     {
-      "value_pp": -2.031043730465016,
-      "clears": true
-     },
-     {
-      "value_pp": -1.1970526717106658,
-      "clears": true
-     },
-     {
-      "value_pp": -0.7201667511751615,
-      "clears": true
-     }
-    ],
-    "median_abs_open_pp": 0.2136629774576619,
-    "median_abs_closed_pp": 1.1970526717106658,
-    "ratio": "5.6x",
-    "verdict": "not comparable (1/4 open, 3/3 closed clear)",
-    "named": false,
-    "n_open": 4,
-    "n_closed": 3,
-    "n_clear_open": 1,
-    "n_clear_closed": 3
-   }
-  },
-  "WITHIN|F:physical_appearance_and_properties": {
-   "row": {
-    "open": [
-     {
-      "value_pp": 0.8124805277572006,
-      "clears": true
-     },
-     {
-      "value_pp": 0.5685357044979383,
-      "clears": false
-     },
-     {
-      "value_pp": 0.2457797745831436,
-      "clears": false
-     },
-     {
-      "value_pp": 1.0820880850070218,
-      "clears": true
-     }
-    ],
-    "closed": [
-     {
-      "value_pp": -1.4845084060075466,
-      "clears": true
-     },
-     {
-      "value_pp": -0.33101748956446997,
-      "clears": false
-     },
-     {
-      "value_pp": -0.4748369806757486,
-      "clears": true
-     }
-    ],
-    "median_abs_open_pp": 0.6905081161275695,
-    "median_abs_closed_pp": 0.4748369806757486,
-    "ratio": "0.7x",
-    "verdict": "INVERTS, both sides clear",
-    "named": false,
-    "n_open": 4,
-    "n_closed": 3,
-    "n_clear_open": 2,
-    "n_clear_closed": 2
-   }
-  },
-  "WITHIN|F:logical_modal_and_discourse_operators": {
-   "row": {
-    "open": [
-     {
-      "value_pp": -1.3515009525387316,
-      "clears": true
-     },
-     {
-      "value_pp": 0.015187264818963125,
-      "clears": false
-     },
-     {
-      "value_pp": 0.3884002882036844,
-      "clears": false
-     },
-     {
-      "value_pp": -1.9573981572930914,
-      "clears": true
-     }
-    ],
-    "closed": [
-     {
-      "value_pp": 1.0308367440050883,
-      "clears": true
-     },
-     {
-      "value_pp": 0.2569241978405905,
-      "clears": false
-     },
-     {
-      "value_pp": 0.29130448662421715,
-      "clears": true
-     }
-    ],
-    "median_abs_open_pp": 0.869950620371208,
-    "median_abs_closed_pp": 0.29130448662421715,
-    "ratio": "0.3x",
-    "verdict": "INVERTS, both sides clear",
-    "named": true,
-    "n_open": 4,
-    "n_closed": 3,
-    "n_clear_open": 2,
-    "n_clear_closed": 2
-   }
-  },
-  "WITHIN|F:language_and_communication": {
-   "row": {
-    "open": [
-     {
-      "value_pp": -0.7796015913584988,
-      "clears": true
-     },
-     {
-      "value_pp": 2.2818884264088553,
-      "clears": true
-     },
-     {
-      "value_pp": -0.21394689017776025,
-      "clears": false
-     },
-     {
-      "value_pp": -0.023852059447164453,
-      "clears": false
-     }
-    ],
-    "closed": [
-     {
-      "value_pp": 9.458180178731968,
-      "clears": true
-     },
-     {
-      "value_pp": 5.538107328759781,
-      "clears": true
-     },
-     {
-      "value_pp": 0.1924304691556838,
-      "clears": false
-     }
-    ],
-    "median_abs_open_pp": 0.4967742407681296,
-    "median_abs_closed_pp": 5.538107328759781,
-    "ratio": "11.1x",
-    "verdict": "INVERTS, both sides clear",
-    "named": true,
-    "n_open": 4,
-    "n_closed": 3,
-    "n_clear_open": 2,
-    "n_clear_closed": 2
-   }
-  },
-  "WITHIN|N:dominance=dominant": {
-   "row": {
-    "open": [
-     {
-      "value_pp": 0.22173794689906434,
-      "clears": false
-     },
-     {
-      "value_pp": 1.2143108228278354,
-      "clears": true
-     },
-     {
-      "value_pp": 1.387110401747671,
-      "clears": true
-     },
-     {
-      "value_pp": 0.3027861008828042,
-      "clears": false
-     }
-    ],
-    "closed": [
-     {
-      "value_pp": 9.802940711728104,
-      "clears": true
-     },
-     {
-      "value_pp": 4.678263858127751,
-      "clears": true
-     },
-     {
-      "value_pp": 0.6289923009988402,
-      "clears": false
-     }
-    ],
-    "median_abs_open_pp": 0.7585484618553198,
-    "median_abs_closed_pp": 4.678263858127751,
-    "ratio": "6.2x",
-    "verdict": "SAME DIRECTION, both sides clear",
-    "named": false,
-    "n_open": 4,
-    "n_closed": 3,
-    "n_clear_open": 2,
-    "n_clear_closed": 2
-   }
-  },
-  "WITHIN|N:concreteness=concrete": {
-   "row": {
-    "open": [
-     {
-      "value_pp": -2.88883990331512,
-      "clears": true
-     },
-     {
-      "value_pp": -0.4733332739860485,
-      "clears": false
-     },
-     {
-      "value_pp": -2.1456241337475532,
-      "clears": true
-     },
-     {
-      "value_pp": -1.5769058852075024,
-      "clears": true
-     }
-    ],
-    "closed": [
-     {
-      "value_pp": -6.446151865538469,
-      "clears": true
-     },
-     {
-      "value_pp": -4.810424110726701,
-      "clears": true
-     },
-     {
-      "value_pp": -2.489225984728706,
-      "clears": true
-     }
-    ],
-    "median_abs_open_pp": 1.861265009477528,
-    "median_abs_closed_pp": 4.810424110726701,
-    "ratio": "2.6x",
-    "verdict": "SAME DIRECTION, both sides clear",
-    "named": false,
-    "n_open": 4,
-    "n_closed": 3,
-    "n_clear_open": 3,
-    "n_clear_closed": 3
-   }
-  },
-  "WITHIN|R:sensation": {
-   "row": {
-    "open": [
-     {
-      "value_pp": 0.4258666815663815,
-      "clears": false
-     },
-     {
-      "value_pp": 0.3557138260168874,
-      "clears": true
-     },
-     {
-      "value_pp": -0.44121891787711476,
-      "clears": false
-     },
-     {
-      "value_pp": 0.15565226592443998,
-      "clears": false
-     }
-    ],
-    "closed": [
-     {
-      "value_pp": 0.5186363707258945,
-      "clears": false
-     },
-     {
-      "value_pp": -1.690014205981176,
-      "clears": false
-     },
-     {
-      "value_pp": -1.8547814415947925,
-      "clears": true
-     }
-    ],
-    "median_abs_open_pp": 0.39079025379163446,
-    "median_abs_closed_pp": 1.690014205981176,
-    "ratio": "4.3x",
-    "verdict": "not comparable (1/4 open, 1/3 closed clear)",
-    "named": false,
-    "n_open": 4,
-    "n_closed": 3,
-    "n_clear_open": 1,
-    "n_clear_closed": 1
-   }
-  },
-  "WITHIN|R:need": {
-   "row": {
-    "open": [
-     {
-      "value_pp": -1.6315407619755447,
-      "clears": true
-     },
-     {
-      "value_pp": 0.2592022272454725,
-      "clears": false
-     },
-     {
-      "value_pp": -0.3515080427304029,
-      "clears": false
-     },
-     {
-      "value_pp": -1.5604466145528413,
-      "clears": true
-     }
-    ],
-    "closed": [
-     {
-      "value_pp": 0.9225952410162941,
-      "clears": true
-     },
-     {
-      "value_pp": 0.5164815113151706,
-      "clears": false
-     },
-     {
-      "value_pp": 0.26865021148969603,
-      "clears": true
-     }
-    ],
-    "median_abs_open_pp": 0.9559773286416221,
-    "median_abs_closed_pp": 0.5164815113151706,
-    "ratio": "0.5x",
-    "verdict": "INVERTS, both sides clear",
-    "named": false,
-    "n_open": 4,
-    "n_closed": 3,
-    "n_clear_open": 2,
-    "n_clear_closed": 2
    }
   }
  }
