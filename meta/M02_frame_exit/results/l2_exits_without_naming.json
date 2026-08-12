@@ -1,0 +1,33 @@
+{
+ "source": "meta/M02_frame_exit/results/l2_treatment_paired500.jsonl",
+ "definition": "EXIT = frame_exit|refusal; SILENT = EXIT & !tension_named; degenerate excluded",
+ "window": "50 words (the coding doc's own)",
+ "stats": {
+  "base": {
+   "n": 235,
+   "exit": 76,
+   "named": 19,
+   "silent_exit": 71,
+   "exit_rate": 0.32340425531914896,
+   "named_rate": 0.08085106382978724,
+   "silent_rate": 0.3021276595744681,
+   "named_share_of_exits": 0.06578947368421051
+  },
+  "aligned": {
+   "n": 236,
+   "exit": 87,
+   "named": 29,
+   "silent_exit": 79,
+   "exit_rate": 0.3686440677966102,
+   "named_rate": 0.1228813559322034,
+   "silent_rate": 0.3347457627118644,
+   "named_share_of_exits": 0.09195402298850575
+  }
+ },
+ "groups": {
+  "up": 10,
+  "down": 9,
+  "tied": 2,
+  "total": 21
+ }
+}
