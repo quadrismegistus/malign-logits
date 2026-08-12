@@ -1,5 +1,10 @@
 # Naming the contradiction survives a form-matched control
 
+**Status: the FIRST COMPUTED same-side-conjunction control for the naming result. The
+graded table in `second_order_naming.md` describes this cell; its producer and artifact
+do not contain it (checked 2026-08-12, see below). Corroborates that finding's direction
+by an unrestricted route, and carries two clusters it did not look for.**
+
 **Given two OPPOSED adjectives rather than two CONSONANT ones, the aligned model
 says the passage is a contradiction. The base model continues the sentence.**
 `conflicting` 6.84x, `paradox` 6.43x, `contradictory` 6.09x in 17 of 17 groups, `simultaneously` 2.69x in 17 of 17. The base arm has nothing comparable: its best word is 3.01x in 8 of 17 and the rest of its ranking is names and fragments.
@@ -13,10 +18,47 @@ Producer `scripts/naming_form_control.py`, artifact `results/naming_form_control
     CONTROL_B  He was disgusting and foul and she wanted to        two CONSONANT
 
 The controls hold syntactic form fixed and vary only whether the adjective pair is
-opposed. **This is a harder control than `second_order_naming.md` uses** -- that finding
-tests against a POLE arm (2.18x against a 0.93x pole control), and a pole carries one
-adjective against BOTH's two, 7.5 tokens against 9.6. Anything sensitive to prompt length
-or syntactic weight passes a pole control and fails this one.
+opposed.
+
+**`second_order_naming.md` DESCRIBES this control and its producer does not compute
+it.** That document identifies the confound in the right words -- "the BOTH prompt is
+`He was beautiful and disgusting` against a POLE of `He was beautiful`, so that contrast
+varies the contradiction AND the conjunction AND the length together" -- says F11's
+design carries the missing cell, and prints a graded table whose middle row is the
+same-side conjunction control:
+
+    single predicate               1.15x  p 0.61
+    two conjoined, compatible      1.30x  p 0.24      <- the CONTROL_A/B cell
+    two conjoined, contradictory   2.26x  18/21  p 0.0015
+
+**Checked, 2026-08-12: the committed artifact `results/z_second_order_cells.csv` carries
+`role` in {BOTH: 1160, POLE: 1276} and NO CONTROL ROWS, and the producer
+`scripts/z_second_order.py:110` requires `{POLE_A, POLE_B, BOTH}` and never reads
+`CONTROL_A`/`CONTROL_B`.** The table cannot be re-derived from either. It is the
+produce-before-plot pattern the campaign tracks: a number that existed as stdout in a
+session that ended.
+
+So the graded control is DESCRIBED in the corpus and UNCOMPUTED in it, and this document
+is the first committed computation of that cell. **An earlier draft of this section
+retracted the novelty claim on the strength of the other finding's prose.** That
+retraction was wrong, and it was made by trusting a document over its artifact while
+writing a document about not doing that.
+
+What is separately different here, and would be even if the cell had been run:
+
+    second_order_naming   ALIGNED/BASE ratio at each stimulus type,
+                          on a PRE-SPECIFIED marker regex (V3_SAFE)
+    this document         BOTH/CONTROL ratio within each arm,
+                          on the UNRESTRICTED vocabulary, prompt echo stripped
+
+An unrestricted ranking putting `conflicting`, `paradox`, `contradictory` and
+`contradiction` in the top four positions is evidence the regex was not cherry-picked.
+
+**This does not disturb `second_order_naming`'s headline**, which rests on the POLE
+comparison and on 1,600 blind Opus readings, both of which have producers. What it
+disturbs is the specificity argument in that document's own section "The control is
+graded, and conjunction is not the explanation" -- whose numbers should not be quoted
+until the cell is produced. The direction is now independently supported here.
 
 **Measured on the same data:** against the poles, base `cosmos_weather` reads 17/17
 p 1.5e-05 and base `options` 2/17 p 0.0024. Against these controls the same two are
