@@ -31,18 +31,27 @@ same-side conjunction control:
     two conjoined, compatible      1.30x  p 0.24      <- the CONTROL_A/B cell
     two conjoined, contradictory   2.26x  18/21  p 0.0015
 
-**Checked, 2026-08-12: the committed artifact `results/z_second_order_cells.csv` carries
-`role` in {BOTH: 1160, POLE: 1276} and NO CONTROL ROWS, and the producer
-`scripts/z_second_order.py:110` requires `{POLE_A, POLE_B, BOTH}` and never reads
-`CONTROL_A`/`CONTROL_B`.** The table cannot be re-derived from either. It is the
-produce-before-plot pattern the campaign tracks: a number that existed as stdout in a
-session that ended.
+**IT WAS RUN. IT IS NOT RECORDED. Those are different things and an earlier draft of
+this section said the first one wrongly.** Values like `2.26x, 18/21, p=0.0015` are not
+invented, so a computation happened. But checked 2026-08-12:
 
-So the graded control is DESCRIBED in the corpus and UNCOMPUTED in it, and this document
-is the first committed computation of that cell. **An earlier draft of this section
-retracted the novelty claim on the strength of the other finding's prose.** That
-retraction was wrong, and it was made by trusting a document over its artifact while
-writing a document about not doing that.
+    results/z_second_order_cells.csv    role in {BOTH: 1160, POLE: 1276}, NO CONTROL rows
+    scripts/z_second_order.py:110       gates on {POLE_A, POLE_B, BOTH}; never reads CONTROL_*
+    scripts/z_second_order.py           one flag, --sweep; no graded or stimulus mode
+    repo-wide grep "two conjoined"      3 hits: that finding, this one, the M02 README
+
+**No producer, no artifact, no script anywhere computes the graded table**, so it cannot
+be re-derived, audited or re-run. That is the produce-before-plot pattern in
+`meta/plot-debt.md`, on the row that carries the specificity argument.
+
+A second inconsistency, noted because it bears on which population was used: the prose
+says "17 English groups, 67,198 passages across the three arms" and the table one
+paragraph later says `18/21`. This document's own three-arm population is 17 groups.
+
+So the cell was computed once, off-repo, and this document is the first computation of it
+that anyone else can reproduce. **The earlier draft here also retracted the novelty claim
+on the strength of that finding's prose** -- wrong, and made by trusting a document over
+its artifact while writing a document about not doing that.
 
 What is separately different here, and would be even if the cell had been run:
 
