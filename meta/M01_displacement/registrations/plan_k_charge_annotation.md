@@ -191,6 +191,87 @@ committed data, it uses no coder budget, and **if F40's own 24-word result
 dissolves against the floor, this plan should be redesigned before it is run,
 not after.**
 
-## 9. Results
+## 9. PILOT — RUN 2026-08-12, 475 ENGLISH WORDS, TWO CODERS
 
-Not run.
+`results/k/pilot_en_475.json`. deepseek-v4-flash against claude-haiku-4-5,
+temperature 0, one call per word.
+
+Sample: 300 stratified across four COCA frequency quartiles plus 60 words with
+no COCA entry, seeded; then 175 more drawn by USAS PRIMARY TAG (S3.2 sexual,
+G2.1 crime, G3 warfare, G2.2 ethics, B1 anatomy, E3 violence, A1.1.2 damage).
+**The second stratum is selected EXTERNALLY and never by the coder's own
+ratings** — picking it by charge would use the instrument to choose the words
+that test the instrument.
+
+    scale               r     exact  within-1
+    valence           0.90     73%      98%
+    vulgarity         0.88     97%     100%
+    bodily_harm       0.88     91%      97%
+    charge            0.87     57%      91%
+    transgressiveness 0.83     78%      94%
+    concreteness      0.83     39%      80%
+    register_level    0.60     63%      94%
+
+**THE FREQUENCY-ONLY SAMPLE COULD NOT MEASURE THE TWO SCALES THE STUDY IS
+ABOUT.** On the first 300, vulgarity had sd 0.10 and a maximum of 2 — almost no
+obscenity survives frequency stratification — and its inter-coder r read 0.28,
+which is a no-variance artefact and not disagreement. With the USAS stratum it
+is 0.88. A reliability figure computed on a sample that lacks the construct is
+not a reliability figure.
+
+CALIBRATION AGAINST HUMAN NORMS, which is what licenses the Chinese half:
+
+    coder valence      vs Warriner valence       r +0.81   n=102
+    coder concreteness vs Brysbaert concreteness r +0.88   n=167
+    coder charge       vs Warriner arousal       r +0.54   n=102
+
+Charge is not arousal and the 0.54 is not a failure: charge is declared as
+intensity in either direction, Warriner's arousal is its own construct. Recorded
+so nobody later reads them as the same scale.
+
+THE RARITY CHECK HELD. Against log10 COCA frequency: charge -0.27, concreteness
+-0.17, bodily_harm -0.15, transgressiveness -0.14, valence +0.17, register
+-0.03, vulgarity +0.01. Rarer words rate slightly more charged, which is why
+frequency is partialled — but the coder is not reading unusual-ness as force.
+
+REGISTER-MINIMAL PAIRS (RH's list plus five of the same construction):
+`cock/penis`, `tits/breasts`, `pussy/vagina`, `bucks/dollars`, `fuck/sex`,
+`fart/flatulate`, `piss/urine`, `puke/vomit`, `booze/alcohol`, `ass/buttocks`,
+`guts/intestines`, `suicide/die`.
+
+Register moves the right way in **11 of 12**, mean delta -2.50, while
+`bodily_harm` is **+0 in eleven of twelve** — the referent held constant, the
+elevation shifted. `bucks/dollars` is the purest item: register -2 with
+vulgarity, transgressiveness and harm all at zero, so the axis is not vulgarity
+renamed. `suicide/die` is the labelled NEGATIVE control: register +0 and
+transgressiveness +6, because they are not the same referent, and the instrument
+correctly declines to report a register difference that is not there.
+
+**And these pairs re-diagnose register's weak agreement.** Its r is 0.60 on the
+general sample and **0.85 on the pairs**. The scale is not ill-defined; most
+words simply have no interesting register and the coders split 3-vs-4 in the
+middle. Any register claim about the general population carries 0.60; the 0.85
+applies only where register varies.
+
+## 10. DECISION: SINGLE-CODER BULK
+
+RH, 2026-08-12: the agreement justifies deepseek alone. Registrar's Findings G
+precedent — two-coder pilot with tie-break, single-coder bulk, the band in the
+sidecar. **The band above travels with every drafted number**, and two entries
+attach at the point of use rather than in a limits section: concreteness agrees
+exactly only 39% of the time (within-1 80%), and register carries 0.60.
+
+Instrument frozen at `results/k/INSTRUMENT.txt`. The freeze is not ceremony:
+adding three scales moved `penis` vulgarity 2->4 and `defenestrate` charge 2->4
+at temperature 0, so a rating is a property of the instrument VERSION and v1 and
+v2 outputs must never be pooled.
+
+COST NOTE, from the library's own warning: haiku silently refuses to cache a
+prefix under 4,096 tokens and ours is ~1,664, so every second-coder call paid
+full input price at cache_read=0. Deepseek is unaffected and is the bulk coder.
+Anyone adding a second family should pad the instrument past the floor — a
+cached prefix bills at ~0.1x, so a longer prompt is CHEAPER than a short one.
+
+## 11. Results
+
+Bulk not run.

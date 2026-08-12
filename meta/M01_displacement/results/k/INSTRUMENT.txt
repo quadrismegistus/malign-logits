@@ -1,0 +1,7 @@
+k_charge_en_v2
+model deepseek/deepseek-v4-flash
+temperature 0.0
+retries 2
+instrument_sha256 5b59a44ca94fd84d7db4eb18c4191603adcb4babc2a91f3f9c834219f245ab18
+scales vulgarity register_level transgressiveness charge valence bodily_harm concreteness
+frozen 2026-08-12 after the 475-word pilot

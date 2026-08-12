@@ -204,6 +204,33 @@ _V2_EXTRA = """
                      scale."""
 
 
+#: NO CATEGORY FIELD, AND THE REASON IS ON THE RECORD.
+#:
+#: A first version of this file asked the coder for one of `fields.META_FIELDS`.
+#: **That is the 13-item list findings T ABANDONED.** T section 16: "an agent
+#: assigning each resource's categories to a fixed 13-item list -- was abandoned
+#: because that list was ours, so the cross-resource structure would have been
+#: imposed rather than found. What it would have cost is measurable: on USAS, 70
+#: of 258 codes landed in `other`." `usas_map.csv` was added by the very commit
+#: that wrote finding 16. Proposing it here was a scheme chosen without asking
+#: where it came from.
+#:
+#: Asking for a USAS CODE instead was considered and refused: USAS is a
+#: specialist 258-code Lancaster tagset, a coder does not know it, and the
+#: errors would be confident and systematic.
+#:
+#: ENGLISH DOES NOT NEED A CODER CATEGORY AT ALL. `fields.count_all()` already
+#: returns USAS (85% of types as surface forms), WordNet, General Inquirer and
+#: RID for every English word -- six human-built external lexicons. A coder
+#: label would add nothing and would impose exactly what T warns about.
+#:
+#: CHINESE IS THE ONLY GAP, and the right fix is still probably not a coder: a
+#: Chinese USAS would label both languages with ONE external tagset and make the
+#: cross-language comparison like-for-like. Being scouted 2026-08-12. If it does
+#: not exist, the fallback is T's OTHER route -- the self-named groups in
+#: `lexicons/metafields/*_free.csv`, which come with glosses and which T
+#: validated ("the semantic route finds roughly five times as many groupings,
+#: and the ones it finds are right") -- never the abandoned map.
 class ChargeRating7(BaseModel):
     reading: str = Field(
         description="FILL THIS FIRST. One short sentence: what the word means "
