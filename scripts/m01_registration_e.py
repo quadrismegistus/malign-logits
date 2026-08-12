@@ -244,6 +244,8 @@ def lineage_of(families, token):
     return f2l, missing, d["n_lineages"]
 
 
+_CAPTURE_TO = [None]
+
 def main(a):
     token = require_frozen_spec()          # THE GATE. Nothing above this reads data.
     print("REGISTRATION E — H2 on the GAP stratum")
@@ -353,6 +355,46 @@ def main(a):
         print(f"  {'thresholded core k=' + str(k_thr):<34}{f'{kk} of {nn}':>10}"
               f"{pp:>14.4g}   ({len(keep)} prompts retained)")
 
+    #: CAPTURE-ONLY, ADDED 2026-08-12 (producer-debt class 1A). E's producer
+    #: printed everything and wrote nothing; REGISTRATIONS.md row E says so and
+    #: names the register row as the artifact of record. Every value below is
+    #: taken from objects this function ALREADY BUILT -- `results`, `counts`,
+    #: `f2l`, `missing` -- and no computation is altered. That is what makes a
+    #: re-run a test of the record rather than a revision of it.
+    #:
+    #: PROVENANCE NOTE FOUND WHILE DOING THIS, and it is a defect in the record:
+    #: `theoretical-readings.md` cites E's producer as `cea203ffc4b5a5ab`. That
+    #: is the hash registrar CLEARED at [1836] -- and commit `4993d539`
+    #: ("Registration E RUN ... and a benchmark bug fixed first") changed the
+    #: file to `63a0407f6f77aab7` BEFORE the run. The cited hash is the pre-fix
+    #: producer; the number was produced by the post-fix one.
+    if _CAPTURE_TO[0]:
+        import json as _json
+        _out = {
+            "_meta": {
+                "produced_by": "scripts/m01_registration_e.py --write",
+                "capture": "capture-only; no computation altered",
+                "spec_token": token,
+                "producer_sha256_16_at_run": __import__("hashlib").sha256(
+                    open(__file__, "rb").read()).hexdigest()[:16],
+                "producer_cited_in_record": "cea203ffc4b5a5ab",
+                "producer_note": "the cited hash is the PRE-FIX file cleared at "
+                                 "[1836]; 4993d539 fixed a benchmark bug before "
+                                 "the run, so the number came from the post-fix "
+                                 "producer. Adding this capture changes the hash "
+                                 "again and does not change the computation.",
+                "lineage_setting": LINEAGE_SETTING,
+            },
+            "scope_arm": {"%s|%s" % (a, b): {"k": v[0], "n": v[1], "p_one_sided": v[2]}
+                          for (a, b), v in results.items()},
+            "population": {"families_passing": len(passing), "families_thin": len(thin),
+                           "thin": thin, "lineages_in_arm": n_arm,
+                           "roster_lineages": n_lin_total,
+                           "unmapped_counted_as_own": sorted(missing)},
+        }
+        _json.dump(_out, open(_CAPTURE_TO[0], "w"), indent=1)
+        print("\n  wrote capture -> %s" % _CAPTURE_TO[0])
+
     signs = {kx: (v[0] > v[1] / 2) for kx, v in results.items()}
     agree = len(set(signs.values())) == 1
     # "THE ARMS AGREE" IS MEANINGLESS IF A WIRING BUG MADE THEM ONE COMPUTATION.
@@ -398,9 +440,14 @@ def main(a):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('--write', metavar='PATH', nargs='?', const=os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        'meta', 'M01_displacement', 'results', 'registration_e.json'),
+        help='capture-only: write the scope arm and population to JSON')
     ap.add_argument("--gate-only", action="store_true",
                     help="verify the freeze gate and exit without reading anything")
     args = ap.parse_args()
+    _CAPTURE_TO[0] = args.write
     if args.gate_only:
         print(f"gate passes: {require_frozen_spec()}")
         sys.exit(0)
