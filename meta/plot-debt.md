@@ -86,10 +86,13 @@ write-up, not before it:
 The candidates most likely to carry weight in the paper or book, drawn from
 the per-folder lists below. Judgment, not doctrine.
 
-1. **M01 T-14** — few large fallers against many small risers, 3.8x, ratio
-   above one in all seven lexicons. `results/s_everything_marginal.csv`.
-   Dumbbell per lexicon, dot area = category count. The picture of
-   "displacement, not suppression", and it does not exist.
+1. **M01 T-14** — REDESIGNED 2026-08-12 per [5504]-[5506]: the 3.8x
+   magnitude ratio is retired (zero-sum identity; forced by the count
+   asymmetry). The figure is now the UNFORCED form: per lexicon, count of
+   riser-skewed vs faller-skewed categories (206/36 at the declared slice)
+   plus the equal-draw category-scatter result (risers occupy more
+   distinct categories at matched token counts). Still the picture of
+   "displacement, not suppression" — drawn from the facts that survive.
 2. **M01 T-18 beside M05-C** — the affect DiD at both units: one row per
    declared field, one-lineage DiD left, edge-unit DiD right, sign
    disagreements highlighted (RID:aggression the anchor).
