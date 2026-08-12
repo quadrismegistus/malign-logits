@@ -61,6 +61,22 @@ before either plan's producer runs on the corpus:
 2. **Length audit.** `len_words` distributions per arm, read BEFORE
    verdicts: if the arms differ substantially in length, that fact is
    reported first and A.H2's windowed design is confirmed against it.
+   RUN 2026-08-12 (gate_length_audit.json, undisturbed arm, whitespace-word
+   proxy): medians nearly identical (base 185 / aligned 183; pair-level
+   median gap 0.0; 20 pairs aligned-shorter vs 19 longer — the 256-token
+   cap binds both arms), BUT the LOWER TAIL is arm-differential: aligned
+   p10 = 25 words vs base 57, and `bloomz-7b1` collapses (-182 words at
+   the pair median — the bloom pair is now an outlier on BOTH the
+   empty-text and length-collapse axes). CONSEQUENCE, fixed before
+   verdicts: `ttr_mattr_w100` will be MISSING more often in the aligned
+   arm (window does not fit under 100 words), so missingness is itself
+   arm-differential. Rule: per-arm window-fit rates are reported beside
+   every TTR contrast; the paired cell contrast uses only passages where
+   the window fits, and if the fit-rate gap exceeds a few points the w50
+   read is promoted to co-primary and the verdict sentence names the
+   selection. Passage-length itself: no direction registered, none
+   emerges (the cap governs); the tail asymmetry is the finding-shaped
+   fact and travels as description.
 3. **Exclusions.** Empty texts excluded with per-pair denominators named
    (`bloom-7b1` 155/28,832; full table in the producer output). Unscorable
    sequences are NOT excluded — scoring gaps are orthogonal to text

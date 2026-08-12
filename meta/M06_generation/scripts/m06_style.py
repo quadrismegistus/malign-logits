@@ -271,6 +271,8 @@ def gate():
             curly.append(p)  # mixed curly/straight typography, the stressor
         elif rng.random() < 0.002 and len(sample) < 40:
             sample.append(p)
+        if len(sample) >= 40 and len(curly) >= 10 and len(bloom) >= 4:
+            break
     chosen = (sample + curly + bloom)[:50]
     os.makedirs(OUT_DIR, exist_ok=True)
     out = os.path.join(OUT_DIR, "gate_sample.md")
