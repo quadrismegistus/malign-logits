@@ -51,6 +51,33 @@ DB = os.environ.get("MALIGN_CH_DB", "malign_logits")
 TABLE = "movement"
 CELLS = "movement_cells"
 
+#: TWO CELLS, NOT A PROMPT. `<<<LOGICAL:BOS>>>` is a real measurement -- the
+#: runner dispatches on prompt_id and resolves it to `ids = [bos_id]` per model,
+#: so it is that model's UNCONDITIONAL distribution, and base-vs-aligned on it
+#: is a legitimate contrast (152 models carry it).
+#:
+#: **IT HAS BEEN WRONGLY RETIRED BEFORE.** A non-stimulus pass matched on SHAPE
+#: -- an empty prompt -- and swept the sentinel out with the four literal
+#: special tokens it replaces; `scripts/restore_logical_bos.py` put it back on
+#: 2026-07-30, and its docstring records "three instances of a documented hazard
+#: reintroduced by people who could state it". The first version of this file
+#: made it a fourth, excluding the prompt across all 152 models to avoid two bad
+#: rows.
+#:
+#: What is actually defective is TWO CELLS. `isNaN(p)` over the whole 68M-row
+#: table returns exactly 2 rows, both at this prompt, one each on Qwen3-8B-Base
+#: and Qwen3-8B. A twp payload's rows are a PARTITION summing to 1, so one NaN
+#: makes that CELL's probabilities untrustworthy -- and says nothing about the
+#: other 150 models at the same prompt.
+#:
+#: Declared as cells, by name, and asserted absent. `word_probs` refusing them
+#: is correct and must not be wrapped in `try`: its docstring says a caller who
+#: does that "converts it into a silent hole".
+EXCLUDED_CELLS = frozenset({
+    ("Qwen/Qwen3-8B-Base", "<<<LOGICAL:BOS>>>"),
+    ("Qwen/Qwen3-8B", "<<<LOGICAL:BOS>>>"),
+})
+
 DDL = """
 CREATE TABLE IF NOT EXISTS {db}.{tbl} (
     base       LowCardinality(String),
@@ -196,6 +223,10 @@ def build(rule_name, limit_pairs=None, only_prompts=None):
         shared = pb_set & pa_set
         if only_prompts is not None:
             shared &= only_prompts
+        shared -= {p for m, p in EXCLUDED_CELLS if m in (b, a)}
+        assert not any((m, p) in EXCLUDED_CELLS
+                       for m in (b, a) for p in shared), \
+            "a declared-bad cell reached the admitted set"
         if not shared:
             print("  %3d/%d %-14s %-34s no shared cells"
                   % (i, len(pairs), relation, b.split("/")[-1][:34]))
