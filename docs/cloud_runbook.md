@@ -393,6 +393,44 @@ mismatched against `flashinfer` -> a `plan()` signature TypeError at runtime ->
 still died. **Build the box from a contemporary image; do not peel extensions
 off a newer one.**
 
+**RECOVERED, 12 Aug.** The recipe is a contemporary image plus an Ampere card:
+`vllm/vllm-openai:v0.22.1` ships 0.22.1 with a transformers already paired to
+it, so nothing is uninstalled and nothing is bypassed. Profiles `vllm022` and
+`vllm022_a100`. **Turing will not do** — on a Q RTX 8000 Aquila2 loads and
+generates at small batch, then dies inside FlashInfer's paged-KV prefill
+(`BatchPrefillWithPagedKVCacheRun ... status == cudaSuccess`), and
+`VLLM_ATTENTION_BACKEND` is IGNORED in 0.22.1, so there is no backend
+workaround.
+
+### 2.24 (ARCHITECTURE x ENGINE), THIRD KIND: hosted correctly, at a tenth of the speed
+
+The two rows above are about what the engine REFUSES. This one is about what it
+accepts and runs badly, and it is more dangerous because every health signal
+reads normal: the model loads, fidelity passes, tokens flow, the progress bar
+advances, nothing is ever written to `FAILED.jsonl`.
+
+    google/recurrentgemma-9b   949 arm-cells -> 15,184 sequences per role
+                               ~255 output tok/s, ~69 min per 4,096-seq chunk
+                               ~10 h for the PAIR, against ~1 h for a dense 7B
+                               on the same card
+
+Griffin's recurrent layers give vLLM's scheduler almost nothing to batch, so
+utilisation sits at 25-28% and stays there. **25% is not a stall and must not be
+treated as one** — the 0%-twice rule (§2.20) diagnoses `torch.compile`, and
+firing a restart at this instead would throw away hours of unwritten generation,
+because rows are appended only at the END of a role.
+
+Two things follow for the fleet:
+
+- **A slow architecture is a SCHEDULING fact, not a failure.** It belongs in
+  the packing weight, next to VRAM. Packed by pair count or by sequence count
+  alone, one recurrent pair silently becomes the whole run's tail.
+- **Read the burst, not the counter.** vLLM completes a batch at once, so the
+  progress count can sit unchanged for 90 s while output tok/s is healthy.
+  Sampling the counter twice and concluding "hung" is the same error as
+  believing a completion message: `est. speed` on a two-minute-old chunk is a
+  cold estimate and predicted 9.6 h where the true figure was ~1 h.
+
 ---
 
 ## 3. Profiles

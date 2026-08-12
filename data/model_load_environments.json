@@ -23,8 +23,10 @@
    "outcome_values": [
     "loads",
     "load_failed",
-    "run_failed"
-   ]
+    "run_failed",
+    "loads_degraded"
+   ],
+   "outcome_note": "loads_degraded = loads, passes fidelity and emits CORRECT output, at a throughput that changes what the run costs. Added 12 Aug for recurrentgemma under vLLM. It is deliberately NOT filed under `loads`: every health signal reads normal, so a record that says only `loads` is what lets one architecture silently become a fleet's whole tail."
   }
  },
  "_provenance": {
@@ -100,6 +102,16 @@
    "transformers": "5.14.1",
    "torch": ">=2.6",
    "note": "Superseded for the tf457 roster by cloud_cuda_transformers_4.57.1 and, for internlm2 specifically, by cloud_cuda_transformers_4.57.1_sentencepiece_0.2.1. Declared 2026-08-10 after test_every_observation_names_a_declared_environment caught 5 observations naming an environment the registry did not know -- written by my own seat's fleet work and never declared."
+  },
+  "vast_vllm_0.27.1_passage_fleet": {
+   "torch": "2.9.x (image default)",
+   "transformers": "5.x (image default)",
+   "device": "CUDA, sm_80+ (A100 / L40S / RTX 5880Ada)",
+   "packages_present": [
+    "vllm==0.27.1"
+   ],
+   "packages_absent": [],
+   "note": "vllm/vllm-openai:latest as of 12 Aug 2026, run with --eager. The passage-corpus fleet. ENGINE, not just environment: this key exists because (architecture x engine) is a fact class the campaign otherwise does not record."
   }
  },
  "observations": [
@@ -463,6 +475,34 @@
    "outcome": "ok",
    "cause": "sentencepiece 0.2.2 fails internlm2's SentencePiece->fast conversion outright: 'Converting from SentencePiece and Tiktoken failed'. THE ERROR NAMES transformers' converter, so the whole version space was searched at the transformers level and every rung failed for a DIFFERENT reason -- 5.14.1 shifts word boundaries, 5.4.0 has dropped DynamicCache.from_legacy_cache so the first FORWARD dies, 4.51/4.57 fail the conversion, 4.37/4.44 fail with 'piece must not include null character'. The culprit was one rung below transformers the whole time. protobuf is irrelevant: 3.20.3, 4.25.3 and 6.33.6 behave identically under every transformers tested.",
    "fix": "transformers==4.57.1 + sentencepiece==0.2.1 (0.2.0 also works; 0.1.99 has no cp312 wheel). Bundled InternLM2TokenizerFast then round-trips 2590/2590 ACTIVE prompts at 0% skip, verified locally AND on the box. The LOADER_OVERRIDE to PreTrainedTokenizerFast must NOT fire here -- that class cannot load internlm2 on 4.x at all, and forcing it made the recovery box fail its first launch minutes after a bare AutoTokenizer probe had passed. Override is now gated on transformers major >= 5 (malign_logits/twp.py, 2a1a7906)."
+  },
+  {
+   "model_id": "google/recurrentgemma-9b",
+   "environment": "vast_vllm_0.27.1_passage_fleet",
+   "outcome": "loads_degraded",
+   "cause": "Griffin's recurrent layers give the scheduler almost nothing to batch: ~255 output tok/s and 25-28% GPU utilisation, steady. ~69 min per 4,096-sequence chunk, ~10 h for the pair against ~1 h for a dense 7B on the same card.",
+   "fix": "None known at the engine level. Treat as a PACKING weight, not a failure -- and do NOT restart it on low utilisation: 25% is not the 0%-twice torch.compile signature, and rows are appended only at the end of a role, so a restart discards every unwritten hour."
+  },
+  {
+   "model_id": "BAAI/Aquila2-7B",
+   "environment": "vast_vllm_0.27.1_passage_fleet",
+   "outcome": "load_failed",
+   "cause": "AquilaForCausalLM removed from vLLM after v0.24.0",
+   "fix": "Image vllm/vllm-openai:v0.22.1 on an Ampere card (profiles vllm022 / vllm022_a100). Turing fails later, inside FlashInfer paged-KV prefill, and VLLM_ATTENTION_BACKEND is ignored in 0.22.1."
+  },
+  {
+   "model_id": "baichuan-inc/Baichuan2-7B-Base",
+   "environment": "vast_vllm_0.27.1_passage_fleet",
+   "outcome": "load_failed",
+   "cause": "BaichuanForCausalLM removed from vLLM after v0.23.0",
+   "fix": "As Aquila2: vllm/vllm-openai:v0.22.1 on Ampere."
+  },
+  {
+   "model_id": "openGPT-X/Teuken-7B-base-v0.6",
+   "environment": "vast_vllm_0.27.1_passage_fleet",
+   "outcome": "run_failed",
+   "cause": "sentencepiece IdToPiece: OUT_OF_RANGE during cross-scoring, same defect as m-a-p/CT-LLM-Base",
+   "fix": "Not fixed in-run. The cross-scoring guard drops on the MODEL's vocab size while the crash is in the TOKENIZER's sentencepiece count; the real bound is min(model_vocab, len(tokenizer))."
   }
  ],
  "predicted_untested": {
