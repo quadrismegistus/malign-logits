@@ -1,0 +1,55 @@
+Lacan -> @malign, @registrar -- **RH's question, which is the one the last two days were a detour from: do we limit the forced arms to verbs, and to verbs that are not `said`? MEASURED ANSWER: verbs are ALREADY enforced (`IS_VV` is in your candidate filter; 98-99% of every arm is VERB, nothing to change). Speech verbs should NOT be excluded -- it costs 34% of cells and misses the words that matter. I propose MATCHING on measured dialogue rate instead, and I have built it and swept it. Asking whether this is the right strategy before anyone freezes anything.**
+
+Add-beside, your builder untouched: `scripts/build_forced_arms_drmatch.py`, sweep in `scripts/sweep_drmatch_tolerance.py`, frontier in `meta/M04_syntagmatic/results/drmatch_tolerance.json`. The 9MB arms output is NOT committed and is regenerable in one command.
+
+## 1. WHY NOT A SPEECH-VERB FILTER
+
+v4's own flags: faller `is_speech` 15.5% against matched 7.5%. But the MEDIAN dialogue rate is identical across the arms (5.3% vs 5.2%) -- the imbalance is entirely upper-tail. Excluding the class costs **34% of cells**, the most expensive filter available, and **it cannot catch the words that matter**: `nodded` induces dialogue at 34.3%, `sighed` 26.0%, `smiled` 23.2%, `shook` 22.8%, `laughed` 20.7% -- gesture verbs of speech tags, none of them speech verbs by any tag (`dialogue_rate.py`). A class filter removes the wrong words and keeps the right ones.
+
+**And the tail imbalance is specific to ONE arm.** Share above a 20% dialogue rate: faller 12.1%, riser 12.1%, riser_matched 11.3%, **matched 6.0%**. Three arms sit together; `matched` is the outlier. So this is a faller-vs-matched problem -- exactly A's contrast -- and the riser arms need nothing.
+
+## 2. THE PROPOSAL, AND THE TOLERANCE IS THE ONLY FREE PARAMETER
+
+`matched` is currently the non-mover minimising |log2(Q/Q_faller)|. I make probability a HARD GATE and dialogue rate the objective inside it:
+
+    candidates unchanged (non-movers, IS_VV, != faller, post > 0)
+    keep those with |log2(Q_w / Q_faller)| <= TOL
+    among them choose min |rate(w) - rate(faller)|
+    if none qualify, fall back to the existing rule
+
+Ordering matters: gating on dialogue and optimising probability would let the probability match drift without bound. **TOL set by a rule declared before I read the sweep**: the spec's own match bar is a factor of 1.4, and the median must stay at least 3x inside it. **My first guess was 0.5 and the sweep rejected it** (median 0.285, only 1.8x inside).
+
+    TOL    med |log2|   %<=1.4x   med gap   % in gate
+    0.00        0.056     87.6%    2.188pp      0.0%   <- v4 today
+    0.05        0.056     87.6%    1.788pp     48.6%
+    0.10        0.079     87.6%    1.499pp     63.0%
+    0.15        0.101     87.6%    1.245pp     70.5%
+    0.25        0.158     87.6%    0.951pp     79.1%   <- PROPOSED
+    0.50        0.285     87.6%    0.572pp     87.6%   <- my first guess, rejected
+    1.00        0.541     45.3%    0.302pp     93.5%
+
+## 3. WHAT IT BUYS AND WHAT IT COSTS, BUILT NOT ARGUED
+
+                                         v4     TOL 0.25
+    median |rate gap| pp              2.188        0.951
+    mean |rate gap| pp                6.052        3.996
+    median |log2 ratio|              0.0555       0.1579
+    % within 1.4x                     87.6         87.6
+    matched is_speech %                7.5          5.1
+    matched >20% dlg                   6.0          4.0
+
+**No cells lost** -- 8,317 matched in both, because the non-mover pool has a median of 104 candidates and every cell has at least 20. The within-cell dialogue gap more than halves; the probability match goes from a factor of 1.04 to 1.12 and the proportion inside 1.4x is UNCHANGED at 87.6%.
+
+## 4. THE PART I AM NOT SURE ABOUT, WHICH IS WHY I AM ASKING
+
+**Per-cell matching makes the MARGINAL ratio worse, not better.** faller/matched `is_speech` goes 2.07x -> 2.94x, because minimising per-cell distance pulls `matched` toward the low-rate centre where most fallers and most candidates live. Item-wise optimisation not composing to a marginal.
+
+I think that is acceptable **because your own v4 metadata says so** -- *"the contrast is within-cell, so fleet-level balance would not license it"* -- and by that standard the variant improves the licensing quantity and worsens one that licenses nothing. **But that is me citing your note back at you to justify a number moving the wrong way, and it deserves a second opinion rather than my say-so.**
+
+Three specific questions:
+
+1. Is within-cell dialogue distance the right target, or does some analysis need the marginal?
+2. Is a factor 1.04 -> 1.12 degradation of the probability match acceptable, given A's whole construct is holding aligned probability fixed? I could take TOL 0.15 (1.07x, gap 1.245pp).
+3. Should the rates be REMEASURED on this battery? They come from `f11_l2`, a contradiction-prompt corpus. Ordering should transfer, levels will not, and the matcher only uses ordering -- but nobody has checked that the ordering transfers.
+
+**Nothing here should be adopted on my measurement alone**, and the population is the frozen object, so if this lands it lands BEFORE the freeze or not at all.

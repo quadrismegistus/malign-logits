@@ -1,0 +1,78 @@
+{
+ "_producer": "scripts/build_forced_arms_drmatch.py + scripts/sweep_drmatch_tolerance.py",
+ "_what": "dialogue-rate as a tolerance-gated second matching criterion for the `matched` arm",
+ "_tol_rule": "median |log2| must stay >=3x inside the spec's declared 1.4x bar; 0.25 gives 3.2x",
+ "DR_TOL": 0.25,
+ "frontier": [
+  {
+   "tol": 0.0,
+   "med_log2": 0.056,
+   "within_1p4": 87.6,
+   "med_drate_gap_pp": 2.188,
+   "pct_in_gate": 0.0
+  },
+  {
+   "tol": 0.05,
+   "med_log2": 0.056,
+   "within_1p4": 87.6,
+   "med_drate_gap_pp": 1.788,
+   "pct_in_gate": 48.6
+  },
+  {
+   "tol": 0.1,
+   "med_log2": 0.079,
+   "within_1p4": 87.6,
+   "med_drate_gap_pp": 1.499,
+   "pct_in_gate": 63.0
+  },
+  {
+   "tol": 0.15,
+   "med_log2": 0.101,
+   "within_1p4": 87.6,
+   "med_drate_gap_pp": 1.245,
+   "pct_in_gate": 70.5
+  },
+  {
+   "tol": 0.25,
+   "med_log2": 0.158,
+   "within_1p4": 87.6,
+   "med_drate_gap_pp": 0.951,
+   "pct_in_gate": 79.1
+  },
+  {
+   "tol": 0.5,
+   "med_log2": 0.285,
+   "within_1p4": 87.6,
+   "med_drate_gap_pp": 0.572,
+   "pct_in_gate": 87.6
+  },
+  {
+   "tol": 1.0,
+   "med_log2": 0.541,
+   "within_1p4": 45.3,
+   "med_drate_gap_pp": 0.302,
+   "pct_in_gate": 93.5
+  }
+ ],
+ "v4": {
+  "cells": 9227,
+  "n_matched": 8317,
+  "med_drate_gap": 2.188,
+  "mean_drate_gap": 6.052,
+  "med_log2": 0.0555,
+  "within_1p4": 87.6,
+  "matched_is_speech": 7.5,
+  "matched_above_20pct": 6.0
+ },
+ "drmatch_tol_0.25": {
+  "cells": 9227,
+  "n_matched": 8317,
+  "med_drate_gap": 0.951,
+  "mean_drate_gap": 3.996,
+  "med_log2": 0.1579,
+  "within_1p4": 87.6,
+  "matched_is_speech": 5.1,
+  "matched_above_20pct": 4.0
+ },
+ "_note": "arms output not committed (9MB, regenerable): build_forced_arms_drmatch.py --battery data/beam_sample_105_plus_anger.csv --out <path>"
+}
