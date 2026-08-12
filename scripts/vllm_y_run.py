@@ -189,9 +189,34 @@ def score_under(llm, seqs):
     scorer cannot embed an id — never clamped, because clamping scores a
     sequence the model never produced."""
     from vllm import SamplingParams
+    #: **THE BOUND IS THE TOKENIZER'S, NOT THE MODEL'S — AND THE DIFFERENCE COST
+    #: TWO PAIRS.** `get_vocab_size()` reports the EMBEDDING rows, which are
+    #: routinely padded above the tokenizer's real piece count. The crash is not
+    #: in the embedding lookup, it is in detokenization:
+    #:
+    #:     IndexError: OUT_OF_RANGE: piece id is out of range
+    #:       return self._processor.IdToPiece(id)
+    #:
+    #: so an id can be < model vocab, pass this guard, and still kill the run.
+    #: `m-a-p/CT-LLM-Base` and `openGPT-X/Teuken-7B-base-v0.6` both died exactly
+    #: there, on different boxes, with byte-identical tracebacks. The real bound
+    #: is the SMALLER of the two.
+    #:
+    #: **This drops strictly MORE than the old guard**, so the 35 pairs collected
+    #: before this change ran under a looser bound. That is a declared
+    #: inconsistency, not a silent one — amendment §1e — and it is confined to
+    #: pairs whose ids exceed the tokenizer while sitting under the padding,
+    #: which is the case that used to crash rather than the case that used to
+    #: score.
     vmax = 0
     try:
         vmax = int(llm.llm_engine.model_config.get_vocab_size())
+    except Exception:
+        pass
+    try:
+        tok = llm.get_tokenizer()
+        tmax = len(tok)
+        vmax = min(vmax, tmax) if vmax else tmax
     except Exception:
         pass
     keep = [s for s in seqs if not (vmax and max(s["full_ids"]) >= vmax)]

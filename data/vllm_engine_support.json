@@ -1,0 +1,91 @@
+{
+ "_about": "(ARCHITECTURE x ENGINE) support, the fact class the campaign did not key. Every row was paid for with a lost pair.",
+ "_why": "Capability is recorded as (model x environment) in data/model_load_environments.json, and every checkpoint below LOADS FINE under transformers. The engine is a separate axis: vLLM has removed architectures it once shipped, never implemented others, ships a broken loader for one, and hosts one correctly at a tenth of the speed. No preflight, no load record and no fidelity guard could see any of it. The passage-corpus run lost 11% of its declared population to this in a single afternoon.",
+ "_read_by": "scripts/vllm_engine_preflight.py — run it BEFORE a fleet launches, not after a box fails.",
+ "_error_shape": "REMOVED architectures fail as a pydantic ValidationError at ModelConfig, before weights load, and the message names the last working version. Read it: it is a specification, not a complaint.",
+ "_maintenance": "When a box teaches you something, add the row IN THE SAME SESSION. Absence of an observation is not evidence of support.",
+
+ "engine_versions_available": {
+  "0.22.0": "vllm/vllm-openai:v0.22.0 — the last release hosting JAIS",
+  "0.22.1": "vllm/vllm-openai:v0.22.1 — PROVEN 12 Aug: recovered Aquila2 and Baichuan2. Ships transformers 5.10.2 already paired; nothing is uninstalled.",
+  "0.23.0": "last release hosting Baichuan",
+  "0.24.0": "last release hosting Aquila",
+  "0.27.1": "PyPI newest as of Aug 2026; the passage fleet's default image"
+ },
+
+ "architectures": {
+  "AquilaForCausalLM": {
+   "status": "removed",
+   "last_working": "0.24.0",
+   "models": ["BAAI/Aquila2-7B", "BAAI/AquilaChat2-7B"],
+   "recovery": "image vllm/vllm-openai:v0.22.1 on an sm_80+ card (profile vllm022_a100). CONFIRMED WORKING 12 Aug: 1782/1796 rows.",
+   "do_not": "Do NOT pip-install an old vllm onto a new image. It fails in ABI order through transformers, deep_ep's NCCL symbol, flashinfer-jit-cache and a plan() TypeError, and generation still dies after all four fixes. Take a contemporary IMAGE.",
+   "card_requirement": "Turing will NOT do: the model loads and generates at small batch, then dies in FlashInfer's paged-KV prefill (BatchPrefillWithPagedKVCacheRun, status == cudaSuccess). VLLM_ATTENTION_BACKEND is IGNORED in 0.22.1, so there is no backend workaround."
+  },
+  "BaichuanForCausalLM": {
+   "status": "removed",
+   "last_working": "0.23.0",
+   "models": ["baichuan-inc/Baichuan2-7B-Base", "baichuan-inc/Baichuan2-7B-Chat"],
+   "recovery": "As Aquila: v0.22.1 on Ampere. CONFIRMED WORKING 12 Aug: 1832/1846 rows.",
+   "card_requirement": "sm_80+"
+  },
+  "JAISLMHeadModel": {
+   "status": "removed",
+   "last_working": "0.22.0",
+   "models": ["inceptionai/jais-family-6p7b", "inceptionai/jais-family-6p7b-chat"],
+   "recovery": "image vllm/vllm-openai:v0.22.0 — NOT v0.22.1. The Aquila recipe is one tag too late for this one, and the difference is invisible unless the error message is read exactly.",
+   "card_requirement": "assume sm_80+, same FlashInfer era as Aquila"
+  },
+  "RwkvForCausalLM": {
+   "status": "never_implemented",
+   "models": ["RWKV/rwkv-4-7b-pile", "RWKV/rwkv-raven-7b"],
+   "recovery": "NONE via vLLM at any version. PR #11193 was closed unmerged and covered RWKV6, not RWKV-4. Collecting this pair means the HuggingFace generate() path — a DIFFERENT INSTRUMENT, not a bigger box.",
+   "do_not": "Do not spend on hardware for this. No card and no image changes it."
+  },
+  "PhariaForCausalLM": {
+   "status": "never_implemented",
+   "models": ["Aleph-Alpha/Pharia-1-LLM-7B-control-hf", "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf"],
+   "recovery": "NONE via vLLM. Same class as RWKV: needs the transformers path.",
+   "do_not": "Do not spend on hardware for this."
+  },
+  "RecurrentGemmaForCausalLM": {
+   "status": "degraded",
+   "models": ["google/recurrentgemma-9b", "google/recurrentgemma-9b-it"],
+   "note": "Hosted CORRECTLY and roughly 10x slow: ~255 output tok/s, 25-28% GPU utilisation, ~10h for a pair against ~1h for a dense 7B on the same card. Griffin's recurrent layers give the scheduler almost nothing to batch.",
+   "recovery": "Nothing to fix. Treat as a PACKING WEIGHT alongside VRAM — packed by pair count or sequence count alone, one recurrent pair becomes the whole fleet's tail.",
+   "do_not": "Do NOT restart it for low utilisation. 25% is not the 0%-twice torch.compile signature, and a pair writes all its rows only at the very end, so a restart discards the entire pair."
+  },
+  "Zamba2ForCausalLM": {
+   "status": "needs_environment",
+   "models": ["Zyphra/Zamba2-7B", "Zyphra/Zamba2-7B-Instruct"],
+   "recovery": "transformers==4.57.1 AND mamba-ssm + causal-conv1d kernels (19.3x on the sibling architecture) AND base-arm repo access. Three requirements, each individually satisfiable, never yet tried together.",
+   "blocked_on": "The base arm returns a gated-repo OSError against a published Apache-2.0 licence on an ungated family. The ALIGNED arm is demonstrated locally."
+  },
+  "OlmoHybrid": {
+   "status": "broken_loader",
+   "architecture_string_unconfirmed": true,
+   "models": ["allenai/Olmo-Hybrid-7B", "allenai/Olmo-Hybrid-Instruct-DPO-7B"],
+   "note": "Support IS merged (PR #32550; olmo_hybrid.py ships in the install). The RELEASED weight loader is broken: olmo_gdn_linear_attn.py:517 indexes dims[loaded_shard_id] with the default None, firing for any checkpoint whose conv1d weights ship fused rather than split.",
+   "recovery": "vLLM from main / a nightly image. The fix, if it exists, is not in 0.27.1, which is PyPI's newest — waiting does not help and upgrading is not available.",
+   "confounds_eliminated": "Identical traceback reproduced on a verified-clean card at gpu_memory_utilization=0.35 with enforce_eager=True. Not memory, not dtype, not eager mode."
+  }
+ },
+
+ "tokenizer_class": {
+  "_note": "NOT architecture x engine — these load and host fine and die in TOKENIZATION or DETOKENIZATION. Kept here because the operational question ('will this fleet lose the pair?') is the same one.",
+  "sentencepiece_out_of_range": {
+   "models": ["m-a-p/CT-LLM-Base", "openGPT-X/Teuken-7B-base-v0.6"],
+   "error": "IndexError: OUT_OF_RANGE: piece id is out of range — self._processor.IdToPiece(id)",
+   "cause": "The cross-scoring guard dropped on the MODEL's vocab size (embedding rows, routinely padded) while the crash is in the TOKENIZER's piece count. An id can sit under the padding, pass the guard, and still kill the run.",
+   "recovery": "FIXED in scripts/vllm_y_run.py: the bound is min(model_vocab, len(tokenizer)). Re-run both pairs.",
+   "caveat": "The corrected guard drops strictly MORE than the old one, so pairs collected before the fix ran under a looser bound. Declared in amendment §1e."
+  },
+  "detokenizer_none": {
+   "models": ["deepseek-ai/deepseek-llm-7b-base", "deepseek-ai/deepseek-llm-7b-chat"],
+   "error": "TypeError: 'NoneType' object is not iterable — for ch in raw_token",
+   "cause": "vLLM's incremental detokenizer receives None for a token. Distinct from the transformers-v5 #45488 prompt-mangling defect that LOADER_OVERRIDE addresses — that one is about the PROMPT, this one is about the OUTPUT.",
+   "recovery": "Generate with detokenize=False and decode from full_ids with the HF tokenizer under LOADER_OVERRIDE. The ids are already stored, so nothing is lost.",
+   "note": "The pre-run amendment predicted this pair would collect, arguing from the beam_fc corpus that its TOKENIZER is fine. That argument still stands and was about a different stage. Collectable in one stack is not collecting in another."
+  }
+ }
+}
