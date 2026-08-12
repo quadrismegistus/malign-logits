@@ -15,9 +15,25 @@ morning verification (grepped against code, not read off status lines).
 Sub-type A: code exists, writes nothing (fix = add write calls; an
 afternoon each):
 
-- **M01 Z** (`Z_ladders_regimes.md`): `z_ladders.py`, zero write calls.
-  §1's SFT/DPO cancellation and §5's closed-system comparison have no
-  data behind them. REGISTRATIONS.md row Z says so.
+- ~~**M01 Z**~~ **DISCHARGED 2026-08-12, `06b2ad1f`, WITH A FINDING ATTACHED.**
+  `z_ladders.py --write` emits `results/z_ladders.json`, 79 cells,
+  capture-only (`mark()` and `within()` record the values they already
+  computed and discarded; no computation altered).
+  **§1 REPRODUCES EXACTLY** -- all six cells, n = 73 as stated, the
+  SFT/DPO cancellation intact (+1.00 / -0.78 / +0.26 p 0.195). §4's
+  closed column reproduces exactly.
+  **§5's OPEN column DOES NOT** -- concreteness -2.99 -> -2.89,
+  dominance +0.05 -> +0.22, ratio 5.8x -> 6.2x; the closed column is
+  byte-identical. **And the drift cannot be diagnosed**, because §5's
+  open column runs on 118 prompts (base->DPO only) against §1's 73 (all
+  three stages) and **that n was never published** -- so corpus growth,
+  a changed intersection and an arithmetic change are indistinguishable.
+  The artifact now records `n_prompts` and `shared_prompts_in_chain` per
+  side per family. §5's magnitude ratios are not quotable until resolved;
+  every sign and star is unchanged, so its direction claims stand.
+  **This is the argument for the whole document in one entry: the debt
+  was not that a number lacked a file, it was that a number could drift
+  and nobody could tell.**
 - **M01 E** (in `C_to_O_registered_letters.md`): producer writes nothing.
   (C's two `.txt` transcripts are the adjacent artifact-debt case.)
 
@@ -34,7 +50,10 @@ varies):
   frozen slot spec ([5024].2) and MAY NOT BE RECONSTRUCTIBLE; the
   finding's own Robust/Not-robust split turns on it.
 
-DISCHARGED FROM THIS CLASS, for the record and the method:
+DISCHARGED FROM THIS CLASS, for the record and the method. **Two of the
+four discharges so far surfaced something the debt was hiding** (Z's §5
+drift; the M02 heredoc's dependencies about to vanish with a tmp
+directory), which is the reason to work the class rather than annotate it:
 
 - **M02 `second_order_naming.md` graded-stimulus control** — was never in
   this document; pure sub-type-B debt (inline heredoc, 2026-08-11 18:34,
