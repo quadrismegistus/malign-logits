@@ -116,4 +116,15 @@ pairability reports its own denominator per pair, never the corpus
 mean — the frozen pairable fraction is 89.9%, progress snapshots drift); where a gate is really a
 threshold on a number, gate on the number, never on a categorical label
 standing in for it ([5578] §5, two defects of one shape in a day; second
-seat [5579]).
+seat [5579]); AN IDENTIFIER IS BOOKED ONLY AFTER THE
+POSITIVE CHECK — resolve it in its own namespace at the moment it crosses
+from a post into a record (commit -> `git cat-file -e <sha>^{commit}`;
+content pin -> digest the named file; run id -> the run record; session
+id -> labelled as such), because verifying that a string is NOT an X is
+not evidence about what it IS ([5604] fabricated hash booked into two
+records within the hour, [5605]; malign's mechanisation proposal [5607];
+lacan's namespace diagnosis [5608] — three eight-hex false positives, one
+of them the freeze receipt itself, where the invited "repair" would have
+swapped a content pin that survives a rebuild for a commit hash that does
+not; malign's verified acceptance and the truncated-path grep lesson
+[5609]: search the checker's own path field, never a retyped one).
