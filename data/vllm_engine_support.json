@@ -130,7 +130,10 @@
     }
    },
    "fix_is_load_bearing": "CONFIRMED by measurement rather than by the run completing. Three of the four arms have a real padding gap, so the corrected min() bound differs from the old one and the ids it newly excludes are exactly the ones that raise IdToPiece. Teuken's INSTRUCT arm has no gap -- the pair is protected by its BASE arm's bound, which is why a per-pair check must look at both arms and not one.",
-   "how_to_check_any_pair": "len(AutoTokenizer.from_pretrained(m)) < AutoConfig.from_pretrained(m).vocab_size -> the pair is exposed. Cheap, needs no weights, and answers it before a box is rented."
+   "how_to_check_any_pair": "len(AutoTokenizer.from_pretrained(m)) < AutoConfig.from_pretrained(m).vocab_size -> the pair is exposed. Cheap, needs no weights, and answers it before a box is rented.",
+   "fix_DEMONSTRATED": "OBSERVED FIRING 12 Aug on Teuken: '723/4096 dropped: id >= scorer vocab 250680'. 250,680 is the TOKENIZER's piece count; the old guard would have used the base arm's 250,880 embedding rows, let those 723 sequences through, and raised IdToPiece. This is the fix doing the work, not the pair getting lucky.",
+   "ct_llm_did_NOT_exercise_it": "CT-LLM completed with ZERO drop lines. Its recovery is therefore NOT evidence for the fix -- different box, different card, different sampled ids. Two pairs recovered, only ONE of them tests the guard. Do not cite CT-LLM as confirmation.",
+   "cost_of_correctness": "~17.6% of sequences dropped in the observed chunk. The fix converts a CRASH into MISSINGNESS, which is the right trade but is not free: expect Teuken to carry a high unscorable rate, in the Aquila2 class rather than the 0.03% corpus norm. Per-pair denominators, not the corpus mean."
   },
   "detokenizer_none": {
    "models": [
