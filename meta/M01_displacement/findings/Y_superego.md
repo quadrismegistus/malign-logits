@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-08
 role: results
+topics: [superego]
 description: "Registration Y, what we found: positive results only, each with the number, the test, the population. Unresolved statistics live in Y_statistics.md."
 ---
 # Registration Y: what we found

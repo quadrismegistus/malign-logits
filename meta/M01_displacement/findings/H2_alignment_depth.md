@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-10
 role: finding
+topics: [alignment-depth]
 description: "Alignment is distributed through the stack: 19 of 20 lineages recover more from all-but-the-last-two layers than from the last two, median d +0.700. Confirms and supersedes H1's three-pair result (the pilot's +0.962 is superseded, not confirmed); corrects F05."
 ---
 # Findings H2: alignment is distributed through the stack, not concentrated in the last layers

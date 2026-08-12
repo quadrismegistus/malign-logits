@@ -3,6 +3,7 @@ status: living
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-08
 role: inventory
+topics: [superego]
 description: "Registration Y, every statistic under test: one line per statistic -- measure, unit, where it runs, whether it has run on the full roster. Written so an unrun statistic is a visible absence. Inventory, not results."
 ---
 # Registration Y: every statistic under test

@@ -3,6 +3,7 @@ status: never-ran
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-07
 role: record
+topics: [substitution]
 description: "Registered letter B, the high-mass decomposition: froze at 06186c42f9ff46e0 (v13) and never fired. No result exists; recorded so the letter is not mistaken for a missing write-up."
 ---
 # Letter B: frozen, never ran

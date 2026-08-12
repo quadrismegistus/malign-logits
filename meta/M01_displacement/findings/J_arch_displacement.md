@@ -3,6 +3,7 @@ status: descriptive
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-10
 role: finding
+topics: [architecture, substitution]
 description: "Displacement does not need attention: attention-free SSMs straddle the transformer on every shape statistic at matched scale; scale moves the statistics more than architecture (0.107 vs 0.043). Unregistered and descriptive; the semantic half is three failed instruments, not a null. Word-unit analogues only -- never compared to T14's category-level 3.8x."
 ---
 # Findings J: displacement does not need attention

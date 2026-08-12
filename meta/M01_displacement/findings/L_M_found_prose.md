@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-07
 role: finding
+topics: [found-prose]
 description: "Registered letters L/M, found prose: alignment loses the human author's word on all three rungs (argmax Z +2.64 to retained +5.58); M adjudicates the mechanism as BOUNDARY BLUR not tail contraction -- eviction is exactly zero above the fifth headroom decile. Escapes arm underpowered and stays declared so; found-prose scope per SCOPE_found_prose.md."
 ---
 # Findings L / M: alignment loses the human author's word, by blurring the boundary

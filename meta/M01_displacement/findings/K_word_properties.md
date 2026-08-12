@@ -3,6 +3,7 @@ status: current-with-scoped-supersession
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-12
 role: finding
+topics: [semantic-norms, site-vs-corpus]
 description: "The MEASUREMENT study of word properties: 47,896 words rated on seven scales, one call per word. P_unnamed_axis.md supersedes ONE thing: any reading of the scale RANKING as identifying which properties drive movement ([5599], scoped at [5623]). Standing untouched by that supersession: the instrument facts (IAA, calibration, coder-human convergence z -17.1 vs Brysbaert -18.8), the negative controls (dominance dead, vulgarity sparse-not-failed), charge-is-not-arousal (STRENGTHENED by P: held out, neither predicts), and the paired within-stem site-specificity contrast (745 pairs -- a within-pair design held-out-word prediction does not test). The [5592] interaction is real in-sample; its GATE reading is withdrawn (empty low-charge cell, both populations). Read P before citing any ranking; rankings need the verb-eliciting re-run."
 ---
 # Findings K: which properties of a word predict how alignment moves it

@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-06
 role: finding
+topics: [semantic-fields]
 description: "Embedding geometry fails at the relation and validates something else: the V.6 axis caption is 'off contact, motion and force onto perception, cognition and speech' (never 'bodily action -> cognition', never 'register'). OPEN AUDIT: base probability not controlled in V.6/V.7 under lacan's matched-aggregation definition (d) ([4933]-[4943])."
 ---
 # Findings V: embedding geometry fails at the relation and validates something else

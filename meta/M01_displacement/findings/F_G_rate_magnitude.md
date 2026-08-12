@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-07
 role: finding
+topics: [magnitude-vs-rate, site-vs-corpus, substitution]
 description: "Registered letters F/G: rate null (n=33 pair-sites, p 0.148) and magnitude confirmed (d 0.748, p 0.00006) -- alignment displaces HARDER at transgressive sites, not more often. F's null TRIPLY validated 2026-08-12 (argmax flip, faller count, faller share agree; f_mass_rate.py, 46 reps); frequency framing exhausted. Result artifacts cite pre-re-freeze registration hashes -- provenance note travels."
 scripts: [f_mass_rate.py]
 ---

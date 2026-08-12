@@ -3,6 +3,7 @@ status: partly-superseded
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-07
 role: finding
+topics: [forced-continuation]
 description: "The forced-continuation campaign: estrangement without damage. PARTLY SUPERSEDED, and this document's body predates it: the damage-null rows are MID-RUN per REGISTRATIONS.md row W and superseded by the wave-3 detection in meta/M02_frame_exit/findings/exit_markers_first_look.md sec. 3 (per README and DISPLACEMENT_EVIDENCE; noted here 2026-08-12 because the body is silent about it). The pair-level table lives in docket posts and the register (Class-2 artifact debt)."
 ---
 # Findings W: the forced-continuation campaign — estrangement without damage

@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-09
 role: examples
+topics: [superego]
 description: "Passages from the Y corpus, quoted to be read rather than counted; each carries its provenance. Not a results document."
 ---
 # Y: examples

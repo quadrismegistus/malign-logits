@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-07
 role: finding
+topics: [semantic-norms, site-vs-corpus]
 description: "Registered letters D/D2/D3b, the displacement-site suite on minimal pairs: D's signed H1 NOT SUPPORTED and the arousal null QUOTABLE; D2's two extremity arms BOTH CONFIRMED; D3b kills 'just reflects pool extremity', mediation open. Site-level only -- the bridge to the corpus reversed (Q_bridge.md)."
 ---
 # Findings D / D2 / D3b: at the substitution sites, what moves is extremity

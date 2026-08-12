@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-12
 role: finding
+topics: [semantic-norms, prediction]
 description: "The PREDICTION study split from K: held out by word, none of the eighteen rated norms predicts movement direction; word identity carries +0.121 AUC headroom (87% of variance within-word across sites); GloVe recovers 21% of headroom vs the norms' 7%; every name for the axis is a minority share (register survives frequency residualisation in narrowed form, [5604]); zh replicates on an unrelated seam; Tulu ablations show no safety-specific effect."
 ---
 # Findings P: the unnamed axis

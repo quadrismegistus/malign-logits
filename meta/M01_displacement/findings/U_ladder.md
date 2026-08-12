@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-06
 role: finding
+topics: [training-ladder]
 description: "The alignment ladder and the siblings: safety ablation headline stands strengthened (no-safety is the arm most like full); 'the four slices are interchangeable' broke (no-wildchat categorically different); volume refuted by the matched pair; the political-economy reading refuted by the neutral-vs-transgressive split. Three effectively independent ablation arms, not four."
 ---
 # Findings U: the alignment ladder, and what the siblings say

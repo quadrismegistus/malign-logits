@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-07
 role: finding
+topics: [substitution, cross-lingual, semantic-norms]
 description: "Registered letter O: H1 SUPPORTED IN BOTH ARMS (en 2277/365, zh 2463/141) under the sec-O6 origin bound -- the substitution travels; H2/H3 NOT SUPPORTED -- the affect asymmetry is English-confirming and the zh arms are clean nulls, not reversals. The paper's sentence: the substitution travels, the affect does not."
 ---
 # Findings O: the substitution travels across languages; the affect signature does not

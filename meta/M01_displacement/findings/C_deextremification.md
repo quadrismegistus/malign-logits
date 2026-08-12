@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-07
 role: finding
+topics: [semantic-norms]
 description: "Registered letter C: H2 valence de-extremification CONFIRMED corpus-wide (+0.025 residualised, p 0.0012); H3 dominance dead; H1 sweetening never emitted. Artifact record is two transcripts (Class-1 debt) -- quote C only alongside E."
 ---
 # Findings C: alignment flattens emotional extremity, corpus-wide

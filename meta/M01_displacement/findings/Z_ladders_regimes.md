@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-08
 role: results
+topics: [training-ladder]
 description: "Registration Z, ladders and regimes: two questions a base/aligned contrast structurally cannot ask, and one it can be shown to get wrong. Producer discharged with a finding attached (z_ladders.py --write, 06b2ad1f): sec. 1 and sec. 4 reproduce exactly; sec. 5's OPEN-column magnitude ratios are NOT QUOTABLE until the 118-vs-73-prompt population mismatch is resolved (signs and stars stand)."
 ---
 # Registration Z, ladders and regimes: what we found

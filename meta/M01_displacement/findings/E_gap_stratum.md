@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-07
 role: finding
+topics: [semantic-norms]
 description: "Registered letter E: C's H2 replicated on the blind gap stratum, 19 of 25 lineages, p 0.0073, lineage as unit. Producer writes nothing; the REGISTRATIONS.md row is the artifact of record (Class-1 debt, open)."
 ---
 # Findings E: the flattening replicates on a blind stratum, lineage by lineage

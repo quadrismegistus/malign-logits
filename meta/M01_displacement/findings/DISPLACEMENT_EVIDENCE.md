@@ -3,6 +3,7 @@ status: living
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-06
 role: index
+topics: [index]
 description: "The paper-facing verdict view: five kinds of evidence FOR displacement, what qualifies each, what failed, what is open. Defines the campaign's status vocabulary (CONFIRMED / BOUNDED NULL / NOT SUPPORTED / MID-RUN / WITHDRAWN). No number lives here that does not live in a findings write-up or registration result."
 ---
 # Displacement: the evidence, for and against

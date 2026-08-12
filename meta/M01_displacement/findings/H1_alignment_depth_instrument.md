@@ -3,6 +3,7 @@ status: provisional
 grade: pending
 date: 2026-08-09
 role: finding
+topics: [alignment-depth]
 description: "Alignment's causal work is distributed across the stack, not concentrated at the readout: the last two aligned blocks recover 6-16% of the behaviour, everything below them 55-73%. Three pairs, gated. CONFIRMED AT SCALE BY H2 (23 pairs, 231 prompts) -- see H2_alignment_depth.md."
 instruments: [weight-delta, activation-patch, weight-patch, logit-lens, movement]
 families: [llama, qwen, smollm]

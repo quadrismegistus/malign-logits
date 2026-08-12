@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-07
 role: finding
+topics: [site-vs-corpus, substitution, magnitude-vs-rate]
 description: "The bridge between the general and site frames does not hold, by frame reversal: substitution more-negative at the transgressive twin inside the pairs, more-positive in the corpus residue, both significant, opposite signs. Forbids 'N times stronger at transgressive sites'. Erratum 2 RESOLVED 2026-08-12: re-emission 9b7076893db58da8 co-signed ([5622]) and now of record; direction metadata only, 67 numeric leaves identical."
 ---
 # Findings Q: the bridge does not hold — a frame reversal

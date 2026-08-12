@@ -3,6 +3,7 @@ status: superseded-by-split
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-07
 role: index
+topics: [index]
 description: "The 2026-08-07 omnibus write-up of registered letters C through O, split into per-letter documents on 2026-08-12 at RH's commission. This filename is kept so existing docket, register, and README citations resolve; content lives in the per-letter files."
 ---
 # Findings C–O: the registered letters (split index)

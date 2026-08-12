@@ -3,6 +3,7 @@ status: bounded-negative
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-12
 role: finding
+topics: [cross-lingual, site-vs-corpus]
 description: "The Chinese site question is unit-limited: a negative with a structural cause, not a null. The cell cannot be filled by analysis."
 ---
 # The Chinese site question is unit-limited, and the cell cannot be filled by analysis

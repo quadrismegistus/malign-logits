@@ -3,6 +3,7 @@ status: current
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-06
 role: finding
+topics: [semantic-fields, magnitude-vs-rate]
 description: "Where the mass goes, unregistered but answer-blind: T-14's 3.79x faller/riser asymmetry RESTORED after same-day retirement-and-correction ([5504]-[5512]) as a CONSISTENCY result -- quotable only with its slice named (ALL / seven lexicons / Bonferroni); no magnitude travels without its slice. T findings 11-12 agree in direction with S at very different robustness."
 ---
 # Findings T: where the mass goes
