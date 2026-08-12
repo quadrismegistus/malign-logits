@@ -40,6 +40,32 @@ coverage depends on what this machine holds; the PROMPT side is repo-level
 (`Prompts.all(status="ACTIVE")`) and its digest has drifted from the frozen one
 for everybody. Run this on another machine before concluding the model count is
 universal -- the prompt drift is not in doubt.
+
+## THE DRIFT IS ENTIRELY ON THE PROMPT SIDE, AND THE FROZEN SET IS RECOVERABLE
+
+Added after the first version of this file called the rule "unsatisfiable" flatly.
+RH asked whether the population at freeze time could be reconstructed. It can, and
+the digests prove it:
+
+    frozen prompts   RECOVERED from `git show efe27885:data/prompt_categorisation.json`,
+                     status=ACTIVE -> 959 prompts, digest fd3f14796ba9481b,
+                     EXACT MATCH to PROMPTS_SHA.
+
+    frozen models    NOT recovered as the exact 93. Against the 959 frozen
+                     prompts, 144 models qualify TODAY -- the cache GREW, so the
+                     frozen 93 is a SUBSET of today's 144 and the digest differs
+                     for that reason, not because anything was lost.
+
+**So the rule is satisfiable against the FROZEN prompt set and unsatisfiable only
+against the LIVE one.** The producers fail because they re-derive prompts from
+`Prompts.all(status="ACTIVE")`, which has gone 959 -> 2,699. Pinning the prompt
+side to the recovered frozen set unblocks them -- on 144 models rather than 93,
+which CHANGES THE POPULATION and is therefore a campaign decision, not a repair.
+
+Routes tried and closed for isolating the original 93: the local cache keys carry
+no timestamp (`dict_sha, mode, model, prompt, rule_version, theta`), and
+ClickHouse's `twp_words.ingested` is a load date -- every row postdates the
+freeze, so a date filter returns zero at any cutoff.
 """
 import collections
 import hashlib
