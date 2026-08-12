@@ -1,3 +1,10 @@
+---
+status: closed
+grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
+date: 2026-08-07
+role: finding
+description: "The decoy programme, a fully registered negative with a mechanical cause: every matched control population carried its own lexical character, and that character was the effect. Replaced by S's order-reversal design; its control lesson ('a stationary word is not neutral') repriced every later design."
+---
 # Findings R: the decoy programme — a negative with a cause
 
 Written 2026-08-07 by the registrar seat on RH's commission (write-up push). Sources:

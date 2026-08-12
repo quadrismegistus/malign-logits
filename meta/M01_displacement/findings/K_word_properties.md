@@ -1,3 +1,10 @@
+---
+status: measurements-stand-interpretation-superseded
+grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
+date: 2026-08-12
+role: finding
+description: "The MEASUREMENT study of word properties: 47,896 words rated on seven scales, one call per word; transgressiveness/bodily-harm/concreteness/arousal fall, register and valence rise, coder converges with human norms. EVERYTHING IN-SAMPLE: P_unnamed_axis.md supersedes the interpretation and holds the prediction question ([5599]). The [5592] charge x transgressiveness interaction is real in-sample; its GATE reading is withdrawn (empty low-charge cell at absolute values, both populations). Read P before citing any ranking; rankings need the verb-eliciting re-run."
+---
 # Findings K: which properties of a word predict how alignment moves it
 
 **Status: FOUR SCALES CLEAR A CALIBRATED NULL, AND THREE OF THEM ARE

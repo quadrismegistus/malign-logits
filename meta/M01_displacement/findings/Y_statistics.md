@@ -1,3 +1,10 @@
+---
+status: living
+grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
+date: 2026-08-08
+role: inventory
+description: "Registration Y, every statistic under test: one line per statistic -- measure, unit, where it runs, whether it has run on the full roster. Written so an unrun statistic is a visible absence. Inventory, not results."
+---
 # Registration Y: every statistic under test
 
 Inventory, not results. One line per statistic: what it measures, what its unit is, where it runs, and whether it has run on the full roster. Written so that a statistic nobody has run is visible as an absence rather than inferred from its missing from a results file.

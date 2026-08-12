@@ -1,3 +1,10 @@
+---
+status: current
+grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
+date: 2026-08-06
+role: finding
+description: "Where the mass goes, unregistered but answer-blind: T-14's 3.79x faller/riser asymmetry RESTORED after same-day retirement-and-correction ([5504]-[5512]) as a CONSISTENCY result -- quotable only with its slice named (ALL / seven lexicons / Bonferroni); no magnitude travels without its slice. T findings 11-12 agree in direction with S at very different robustness."
+---
 # Findings T: where the mass goes
 
 Unregistered. Nothing here was predicted in advance and no hypothesis was filed before the numbers existed. What stands in for a registration is that the categories were built without access to the answer, seven independently constructed labelings are reported together, and the test needs no null model. No annotation is involved. This analysis costs nothing but compute, which is the main thing to say for it.

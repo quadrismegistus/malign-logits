@@ -1,3 +1,10 @@
+---
+status: current
+grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
+date: 2026-08-12
+role: finding
+description: "The PREDICTION study split from K: held out by word, none of the eighteen rated norms predicts movement direction; word identity carries +0.121 AUC headroom (87% of variance within-word across sites); GloVe recovers 21% of headroom vs the norms' 7%; every name for the axis is a minority share (register survives frequency residualisation in narrowed form, [5604]); zh replicates on an unrelated seam; Tulu ablations show no safety-specific effect."
+---
 # Findings P: the unnamed axis
 
 **Status: THERE IS A WORD-LEVEL DIRECTION ALIGNMENT SORTS ON, IT IS NOT IN OUR
@@ -91,6 +98,14 @@ Two encoders that agree about nothing else land within 0.005 of each other. GloV
 is near-isotropic (median pairwise cosine 0.037) and bge-m3 is not (0.529); one
 is 300 dimensions and the other 1024.
 
+**CHINESE RECOVERS MORE THAN ENGLISH**, 26,692 cells over 2,005 words, bge-m3:
+trees add +0.0246 to +0.0270 per-site over their own shuffle across k = 10 to
+200, which against the Chinese headroom of +0.1079 is about **24%** where English
+is 21%. Read the tree rows only: the Chinese logistic increment climbs from
++0.0317 to +0.0767 across the sweep, but the real model is flat (0.6546 to
+0.6505) while the SHUFFLE collapses (0.6229 to 0.5738) -- the same widening-gap
+artifact as English, where an increment grows because both of its terms fall.
+
 ENCODERS ARE GATED ON BARE WORDS BEFORE USE, because docket [459] gate-checked
 bge-m3 on `prompt + " " + word`, a SENTENCE, and a gate passed for one use is not
 evidence about another. `k_embed` refuses to write if near-synonyms do not
@@ -135,6 +150,31 @@ the run; en/bge is 0.826 and zh/bge 0.834. Consistent across all three, so not
 selective, and too low to have passed a line that does not move afterwards.
 **Every named direction here is provisional in that same way.**
 
+### The gate failure is an n problem, not a site-noise problem
+
+Refitted on the verb-eliciting minimal pairs only -- the population §8 shows is
+where the per-norm question is well posed -- **stability gets WORSE**: min
+pairwise cosine 0.816 against 0.841, on 83,182 cells and 3,379 words against
+100,861 and 4,062. The restriction costs 18,000 cells and buys no stability,
+which rules out site noise as the cause and points the remedy at more lineages or
+more prompts rather than cleaner ones. The refitted axis is also MORE entangled
+with the nuisance: log frequency +0.282 against +0.220, p_base +0.298 against
++0.273.
+
+**But the naming shifts, toward concreteness:**
+
+    falls   whacked fuck smacked stabbed ate ripped blow eats dumped suck
+            drank hit shove smack shoot kills died bought fetch
+    rises   enhance explore observe validate identify evaluate analyze describe
+            demonstrates summarized verified reinforce cooperate visualized
+
+Concrete physical action against abstract cognitive operation, where the
+unrestricted poles read vernacular against institutional. `concreteness` becomes
+the top-correlating scale at **+0.311**, ahead of `register_level` at -0.209;
+`charge` is +0.010, unchanged. **The best description of the axis depends on
+which sites it is fitted on** -- RH's collinearity objection arriving from the
+population side rather than from lexical history.
+
 ## 5. Chinese replicates on an unrelated historical seam
 
     falls  讨厌 没命 住 厌食 厌烦 该死 掌 捡 叫 拖 弄 饿 抢 吓 闭 睡 蹲 锁
@@ -163,6 +203,21 @@ coverage. Verb-eliciting sites for the prediction column.
     word length (en/bge)   6,120       0.1386        -0.213        NOTHING
     word length (en/glove) 6,084       0.0921        -0.211        NOTHING
     coder register_level   6,084       0.0470        -0.161        NOTHING
+
+**AND THE TWO LEADERS CONVERGE ON THE VERB-ELICITING AXIS.** Decomposed against
+the refit rather than the original, register's advantage nearly disappears:
+
+    component                  unrestricted axis   verb-eliciting axis
+      SUBTLEX/acad raw               0.1994             0.1998
+      SUBTLEX resid on freq          0.1641             0.1529
+      Brysbaert concreteness         0.1183             0.1400
+      coder concreteness             0.0921             0.1105
+      coder register_level           0.0470             0.0510
+
+Register-after-frequency led concreteness by 0.046 on the original axis and by
+**0.013** on the refitted one. The ordering does not flip, but "the largest
+single named component" is a much weaker claim on the population where the
+question is best posed, and should not be quoted without this row.
 
 **LENGTH IS RULED OUT.** Projecting it out rotates the axis by under 13 degrees
 (cos 0.977-0.990) and costs nothing predictively; in Chinese it slightly helps.

@@ -1,3 +1,10 @@
+---
+status: current
+grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
+date: 2026-08-09
+role: finding
+description: "The superego is diegetic: alignment moralises inside the scene it keeps writing. lacan seat; producer y_diegetic.py."
+---
 # Y: the superego is diegetic — alignment moralises inside the scene it keeps writing
 
 lacan seat, 2026-08-09. Producer `meta/M01_displacement/scripts/y_diegetic.py`,

@@ -1,3 +1,10 @@
+---
+status: descriptive
+grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
+date: 2026-08-07
+role: finding
+description: "The substitution runs down the scene's own scale. Everything descriptive: original liminal/explicit battery, not the frozen population, no claim is a rate. Contiguity FRAMING withdrawn (DISPLACEMENT_EVIDENCE carries it). Gloss layer discharged 2026-08-12: native reader annotated all 111 rows, 107 correct; movement numbers remain the 16-pair cjk-gated ones."
+---
 # Findings X: the substitution runs down the scene's own scale
 
 Opened 2026-08-07 from RH's reading of the beam dumps. **Everything here is descriptive.** It runs on the original liminal/explicit prompt battery, which is not the frozen 210-prompt population, is not a registered stratum, is not poolable with the M01 battery, and is not comparable to the domain gradient. No claim below is a rate.

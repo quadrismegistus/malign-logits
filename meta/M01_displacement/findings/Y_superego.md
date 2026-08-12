@@ -1,3 +1,10 @@
+---
+status: current
+grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
+date: 2026-08-08
+role: results
+description: "Registration Y, what we found: positive results only, each with the number, the test, the population. Unresolved statistics live in Y_statistics.md."
+---
 # Registration Y: what we found
 
 Positive results only. Each line is a thing the corpus shows, with the number, the test, and the population. Statistics that did not resolve live in `Y_statistics.md`; this page is what there is.

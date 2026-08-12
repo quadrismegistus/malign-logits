@@ -1,3 +1,10 @@
+---
+status: current
+grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
+date: 2026-08-06
+role: finding
+description: "Annotators blind to direction judge the promoted word milder, less intense, less punishable; softening 2-3x larger at transgressive sites (finding 2, replicated on disjoint samples); graded by bodily harm not transgression (finding 3 -- the 'sexual' domain label is WRONG, content is coercion/boundary); at marked sites the act moves into speech (finding 4). Rates-vs-odds caveat established for S, untested for T."
+---
 <!--
   Placed in the repo 2026-08-06 by the registrar on RH's word.
   Source: TheoryMachines/notes/m01-displacement-annotation-2026-08-06.md

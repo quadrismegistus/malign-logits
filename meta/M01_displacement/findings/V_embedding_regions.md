@@ -1,3 +1,10 @@
+---
+status: current
+grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
+date: 2026-08-06
+role: finding
+description: "Embedding geometry fails at the relation and validates something else: the V.6 axis caption is 'off contact, motion and force onto perception, cognition and speech' (never 'bodily action -> cognition', never 'register'). OPEN AUDIT: base probability not controlled in V.6/V.7 under lacan's matched-aggregation definition (d) ([4933]-[4943])."
+---
 # Findings V: embedding geometry fails at the relation and validates something else
 
 Written 2026-08-06. The plan is `registrations/plan_v_embedding_regions.md`, written before any of this ran and amended once — after the variance measurement and before any clustering — to make bare type embeddings primary. That amendment removed two free parameters rather than adding any, which is the only reason it was legitimate after seeing a number.
