@@ -15,7 +15,9 @@ deviation from the base ceiling: above 1.0 = alignment raised it.
 Coverage gate n>=10 surviving probes; rolling-median(5) display
 smoothing; capacity-probe absent rate drawn with the curves ([5436]).
 
-Outputs: figures/fig18_acquisition_ladder_{olmo,pythia}.png.
+Outputs: figures/fig21_acquisition_ladder_{olmo,pythia}.png — the
+sense-carrying version. fig18_* are the frozen pre-sense figures
+(RH 2026-08-12: new filenames keep the old versions).
 """
 import json
 import os
@@ -231,9 +233,9 @@ def main():
                              "([5436]). Raw curves: fig14-16.",
                     x=xlab, y="share of own late-base value")
              + TH)
-        p.save(f"{FIGDIR}/fig18_acquisition_ladder_{ladder}.png", dpi=300,
+        p.save(f"{FIGDIR}/fig21_acquisition_ladder_{ladder}.png", dpi=300,
                verbose=False)
-        print(f"wrote {FIGDIR}/fig18_acquisition_ladder_{ladder}.png")
+        print(f"wrote {FIGDIR}/fig21_acquisition_ladder_{ladder}.png")
     return 0
 
 

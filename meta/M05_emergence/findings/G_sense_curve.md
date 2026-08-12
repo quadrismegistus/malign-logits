@@ -106,9 +106,11 @@ here.
 
 - fig19_sense_curve_{pythia,olmo}.png — band shares + coverage + the
   censored tail, raw scale.
-- fig17/fig18 (both ladders) now carry "sense (natural share)" beside
-  the four capacities, poetic pull and syntax; sense is the earliest
-  riser on fig18's own-late-base normalization.
+- fig20 (token axis) and fig21 (full ladder, ordinal) carry "sense
+  (natural share)" beside the four capacities, poetic pull and syntax;
+  sense is the earliest riser on fig21's own-late-base normalization.
+  fig17/fig18 are the frozen PRE-SENSE versions of the same figures
+  (RH 2026-08-12: new filenames keep the old versions).
 - `results/sense_curve.json` — onsets, per-rung natural shares, per-role
   finals. Raw grains per the raw-data rule: word-grain verdicts in
   `data/m05_sense_verdicts.parquet`, band-mass grain in

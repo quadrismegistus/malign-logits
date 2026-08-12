@@ -18,8 +18,10 @@ floor, not a rung). Per [5436]'s obligation the capacity-probe ABSENT
 RATE is drawn beside the curves (thin grey, same 0-1 axis): early rungs
 are coverage, not capacity. Ladders in separate figures, never pooled.
 
-Outputs (new filenames): figures/fig17_acquisition_tokens_pythia.png,
-figures/fig17_acquisition_tokens_olmo.png.
+Outputs: figures/fig20_acquisition_tokens_{pythia,olmo}.png — the
+sense-carrying version. fig17_* are the frozen pre-sense figures
+(RH 2026-08-12: new filenames keep the old versions); this script
+stopped writing them when sense was added.
 """
 import os
 import sys
@@ -235,9 +237,9 @@ def main():
                       "ordinal, log-like early)",
                     y="share of own base-final value")
              + TH)
-        p.save(f"{FIGDIR}/fig17_acquisition_tokens_{ladder}.png", dpi=300,
+        p.save(f"{FIGDIR}/fig20_acquisition_tokens_{ladder}.png", dpi=300,
                verbose=False)
-        print(f"wrote {FIGDIR}/fig17_acquisition_tokens_{ladder}.png")
+        print(f"wrote {FIGDIR}/fig20_acquisition_tokens_{ladder}.png")
     return 0
 
 
