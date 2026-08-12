@@ -36,6 +36,12 @@
    "symptom": "launch created the instance, then actual_status=offline / cur_state=stopped / intended_status=stopped with status_msg None. Never reachable by SSH; billed ~15 min at $0.975/hr before it was destroyed.",
    "note": "A STATE, not a race (runbook 2.13) -- intended_status itself was 'stopped', so waiting or retrying SSH could never help.",
    "age_out": "recheck after 2026-11-12"
+  },
+  "29796": {
+   "seen": "2026-08-12",
+   "failures": 1,
+   "symptom": "nvidia-smi reports the GPU and driver fine, but torch.cuda.is_available() is False and vLLM dies with 'Unexpected error from cudaGetDeviceCount()'. The card is visible and unusable.",
+   "note": "Instance 47550363. nvidia-smi PASSING is not evidence the CUDA runtime works -- check torch.cuda.is_available() in preflight, not the driver banner."
   }
  }
 }
