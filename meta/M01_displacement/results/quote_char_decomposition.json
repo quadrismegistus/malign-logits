@@ -1,0 +1,98 @@
+{
+ "_meta": {
+  "measure": "cap_mechanism_signatures.py RE_QUOT, split by character",
+  "unit": "lineage pair, sign test",
+  "u2019": "the APOSTROPHE -- don't, it's -- not a quotation mark",
+  "not_a_claim": "these totals do not reproduce [5477]'s; the aggregation differs. The decomposition is the claim."
+ },
+ "result": {
+  "f11_l2": {
+   "straight_dq": {
+    "up": 20,
+    "down": 5,
+    "mean_d_per_1k": 0.19269,
+    "sign_p": 0.004077315330505371,
+    "pairs": 25
+   },
+   "curly_open_dq": {
+    "up": 6,
+    "down": 19,
+    "mean_d_per_1k": -0.19495,
+    "sign_p": 0.01463329792022705,
+    "pairs": 25
+   },
+   "curly_close_dq": {
+    "up": 6,
+    "down": 19,
+    "mean_d_per_1k": -0.19196,
+    "sign_p": 0.01463329792022705,
+    "pairs": 25
+   },
+   "curly_open_sq": {
+    "up": 4,
+    "down": 21,
+    "mean_d_per_1k": -0.03107,
+    "sign_p": 0.0009105205535888672,
+    "pairs": 25
+   },
+   "APOSTROPHE_u2019": {
+    "up": 4,
+    "down": 21,
+    "mean_d_per_1k": -0.23471,
+    "sign_p": 0.0009105205535888672,
+    "pairs": 25
+   },
+   "TOTAL": {
+    "up": 6,
+    "down": 19,
+    "mean_d_per_1k": -0.45999,
+    "sign_p": 0.01463329792022705,
+    "pairs": 25
+   }
+  },
+  "y": {
+   "straight_dq": {
+    "up": 23,
+    "down": 8,
+    "mean_d_per_1k": 0.66323,
+    "sign_p": 0.010673840530216694,
+    "pairs": 31
+   },
+   "curly_open_dq": {
+    "up": 8,
+    "down": 22,
+    "mean_d_per_1k": -0.23123,
+    "sign_p": 0.016124801710247993,
+    "pairs": 31
+   },
+   "curly_close_dq": {
+    "up": 8,
+    "down": 22,
+    "mean_d_per_1k": -0.21531,
+    "sign_p": 0.016124801710247993,
+    "pairs": 31
+   },
+   "curly_open_sq": {
+    "up": 5,
+    "down": 25,
+    "mean_d_per_1k": -0.03439,
+    "sign_p": 0.00032491423189640045,
+    "pairs": 31
+   },
+   "APOSTROPHE_u2019": {
+    "up": 7,
+    "down": 23,
+    "mean_d_per_1k": -0.38447,
+    "sign_p": 0.005222879350185394,
+    "pairs": 31
+   },
+   "TOTAL": {
+    "up": 15,
+    "down": 16,
+    "mean_d_per_1k": -0.20217,
+    "sign_p": 1.0,
+    "pairs": 31
+   }
+  }
+ }
+}
