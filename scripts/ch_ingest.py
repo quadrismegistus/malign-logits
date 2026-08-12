@@ -256,6 +256,14 @@ CREATE TABLE IF NOT EXISTS {DB}.models (
     params         LowCardinality(String),
     params_b       Float32,
     architecture   LowCardinality(String),
+    -- LINEAGE, looked up from data/lineage_map_models.json and NOT derived here.
+    -- `model_to_base` is a DIFFERENT quantity and was mistaken for this one on
+    -- 2026-08-12: scale rungs share a lineage while having distinct bases, so
+    -- base-as-lineage counts 47 lineages where the stored map gives 46.
+    -- `is_lineage_representative` is the map's own `lineage_to_representative`,
+    -- so a model-level query can dedupe without going through the edge table.
+    lineage        LowCardinality(String),
+    is_lineage_representative UInt8,
     -- MEASURED columns, joined from data/tokenizer_properties.json rather than
     -- declared. `measured` is 0 where the model has no row, so an unmeasured
     -- model is DISTINGUISHABLE from one measured as zero -- the difference this
@@ -846,6 +854,24 @@ def _registry_edge_rows():
              "relation": e.get("relation") or ""} for e in (d.get("relations") or [])]
 
 
+_LMAP = None
+
+
+def _lineage_cols(mid):
+    """`lineage` and `is_lineage_representative` from the stored map.
+
+    ONE lookup function, used by the ingest AND by `--check`, for the reason
+    `_catalogue_rows` gives: a checker with its own copy of a mapping reports
+    normalisation as drift.
+    """
+    global _LMAP
+    if _LMAP is None:
+        _LMAP = json.load(open(os.path.join(ROOT, "data", "lineage_map_models.json")))
+    lin = _LMAP.get("model_to_lineage", {}).get(mid, "")
+    rep = _LMAP.get("lineage_to_representative", {}).get(lin)
+    return {"lineage": lin, "is_lineage_representative": 1 if rep == mid else 0}
+
+
 def _registry_model_rows():
     """The identity columns `models` SHOULD hold. Measured/tokenizer columns are
     NOT checked -- they come from separate artifacts with their own timestamps,
@@ -856,7 +882,8 @@ def _registry_model_rows():
     rows = list(mods.values()) if isinstance(mods, dict) else mods
     return [{"model_id": r.get("model_id") or "", "family": str(r.get("family") or ""),
              "position": str(r.get("position") or ""), "stage": str(r.get("stage") or ""),
-             "org": str(r.get("org") or "")} for r in rows]
+             "org": str(r.get("org") or ""),
+             **_lineage_cols(r.get("model_id") or "")} for r in rows]
 
 
 MIRRORS = (
@@ -976,6 +1003,7 @@ def ingest_registry():
             "stage": str(r.get("stage") or ""), "org": str(r.get("org") or ""),
             "params": str(r.get("params") or ""), "params_b": float(r.get("params_b") or 0),
             "architecture": str(r.get("architecture") or ""),
+            **_lineage_cols(r.get("model_id") or ""),
             "built_at": built,
             **_tok_cols(tp.get(r.get("model_id") or ""))} for r in rows]
     ch(f"TRUNCATE TABLE IF EXISTS {DB}.models"); insert("models", out)
