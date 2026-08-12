@@ -45,7 +45,10 @@ neither conditions on the other.
 
 One Stanza run (English models, tokenise + segment + tag + parse — the
 pipeline of Ettel & Heuser, *Ordinary Style Philosophy* §3.1), shared with
-plan B: A reads tokens and sentence boundaries, B reads the parse. GATE,
+plan B: A reads tokens and sentence boundaries, B reads the parse. The
+instrument is IMPORTED from the OSP repository, not ported (adapter
+`scripts/m06_style.py`, OSP commit `56f2562`; detail in plan B Amendment 1
+§3); parses cached in the repo stash `m06_stanza_docs`. GATE,
 before either plan's producer runs on the corpus:
 
 1. **Segmentation check.** ~50 sampled passages read by a human (RH or a

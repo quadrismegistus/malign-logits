@@ -19,7 +19,8 @@ Each data type gets its own HashStash with dict keys:
     ├── trees/             {'type', 'model', 'prompt', ...} — tree exploration results
     ├── logit_lens/        {'model', 'prompt', 'k'} — per-layer top-k projections
     ├── logit_lens_raw/    {'model', 'prompt'} — per-layer raw projection data
-    └── perplexity/        {'model', 'prompt'}
+    ├── perplexity/        {'model', 'prompt'}
+    └── m06_stanza_docs/   {'parser', 'text'} — serialized stanza parses for M06 style plans
 
     (psyche_derived, the legacy junk drawer, was retired 2026-07-05: every entry
     was shadowed by the typed stashes above.)
@@ -1512,6 +1513,29 @@ class CacheManager:
     def has_derived(self, key):
         _, _, checker = self._derived_route(key)
         return checker()
+
+
+    # ── M06 stanza parses (serialized stanza Documents) ──────────
+    #
+    # Added 2026-08-12 at M06 open (RH's word). The PARSER is keyed, not
+    # assumed: a stanza upgrade or a different processor list is a different
+    # parse, and a style statistic is this module's quantity -- the same
+    # refusal the logits stash makes about dtype. `parser` should be the
+    # string f"stanza-{stanza.__version__}:{processors}" built by the caller.
+
+    def get_stanza_doc(self, parser, text):
+        key = {"parser": parser, "text": normalize_text(text)}
+        s = self._stash("m06_stanza_docs")
+        return s[key] if key in s else None
+
+    def set_stanza_doc(self, parser, text, serialized):
+        self._stash("m06_stanza_docs")[{
+            "parser": parser, "text": normalize_text(text)
+        }] = serialized
+
+    def has_stanza_doc(self, parser, text):
+        return {"parser": parser,
+                "text": normalize_text(text)} in self._stash("m06_stanza_docs")
 
 
 # Module-level singleton

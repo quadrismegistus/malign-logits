@@ -126,6 +126,23 @@ operationalisation and spaCy's `pos_` cannot supply them. Stanza output is
 used ONLY within M06; no cross-instrument POS comparison travels without
 its own bridge check.
 
+**The instrument is IMPORTED, not ported** (RH's call at adapter build):
+`meta/M06_generation/scripts/m06_style.py` imports the extractors from the
+OSP repository itself (`$M06_OSP_PATH`, commit `56f2562`, remote
+github.com/quadrismegistus/ordinary-style-philosophy) so the code is
+byte-identical to the published instrument. Pipeline runs WITHOUT the
+constituency and NER processors — the published classifier used
+pos/deprel/sent only (`CV_FEAT_TYPES`), and the sent features run on the
+dependency route (`get_clauses_v2`). Parses are cached in the repo stash
+(`m06_stanza_docs`, keyed by parser string AND text — a stanza upgrade is
+a different parse). Two construct facts inherited from OSP and binding
+B.H1/B.H2's wording: the UD relation named `parataxis` counts as a
+SUBORDINATE-clause introducer in this extractor, and UD coordination
+(`conj`) folds into the head clause — so "independent clauses" here means
+OSP-main clauses, and B.H1 is operationalised as that, not as a direct
+count of grammatically coordinate clauses; and IC is floored at 1 per
+sentence.
+
 ## What this plan does not claim
 
 Nothing named "register" or "formality" — if a composite is ever built from
