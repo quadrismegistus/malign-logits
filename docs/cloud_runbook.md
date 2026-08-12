@@ -286,6 +286,50 @@ Keep the chunk as the flush boundary so a dead chunk costs at most CHUNK units, 
 give each item its own seed (vLLM takes a list of SamplingParams aligned with the
 prompt list) so batching changes the schedule and not one sampled token.
 
+### 2.21 The passage-corpus fleet, 12 Aug — and §§2.16, 2.17, 2.20 were already here
+
+**FOUR OF THIS RUN'S FIVE EXPENSIVE FAILURES ARE DOCUMENTED ABOVE, ADDED THREE DAYS
+EARLIER BY THE L2 POST-MORTEM, AND I RE-DERIVED ALL FOUR FROM SCRATCH.** CLAUDE.md
+names this file as required reading before renting a box. The cost of not doing so,
+itemised: the fleet stopped and restarted (§2.20), a runner rewritten to say what
+§2.20's last paragraph already said, ~40 minutes diagnosing §2.17 live, and §2.16
+hit twice in one command.
+
+§2.20 measures 2,133 -> 8,383 tok/s from chunking and says *"utilisation is not
+throughput."* This run measured 1.6 -> 11.3 seq/s from the same fix, after reading
+100% GPU utilisation and believing it. **The number was already on the page.**
+
+What is genuinely new, and small by comparison:
+
+**AN ORPHAN MAKES A MODEL THAT ALREADY SUCCEEDED FAIL ON THE SAME BOX.** box4 had
+written a complete 247 MB pair for `SmolLM2-360M`; after an orphaned engine took
+the card, that same pair failed engine-init. **A model that worked an hour ago and
+does not now is a fact about the BOX, not the checkpoint** — do not open the load
+record, open `nvidia-smi`.
+
+**AN EMPTY OUTPUT FILE IS A FAILED UNIT, NOT AN UNFINISHED ONE.** A failed pair
+leaves a zero-byte `.jsonl`. Counting files rather than non-empty files reads
+failures as progress — the §2.13 pattern in a new place. And do not glob
+`*.jsonl` for a "done" count: it swallows `FAILED.jsonl` and inflates the tally by
+exactly the number of failures.
+
+**A RETRY IS ONLY CHEAP IF RESTARTS ARE IDEMPOTENT.** This runner's skip check
+compared one pair's row count against the whole manifest's `units_per_model` — a
+threshold no pair reaches, so every restart redid finished work. Retrying two
+failed pairs would have regenerated a completed 247 MB pair first. **Fix the skip
+check before the first retry, not after.**
+
+**A FIX CREDITED FROM ONE RESTART IS CONFOUNDED WITH THE RESTART.** `--eager`
+appeared to cure box5's engine-init failure. The same signature on box4 turned out
+to be an orphan holding 46.7 GB, which a restart also clears. The eager attribution
+may be entirely wrong and is recorded here as unproven.
+
+**(ARCHITECTURE x ENGINE) IS A FACT CLASS NOTHING HERE KEYS.** `RWKV` loads fine
+under transformers and is recorded as loading; vLLM has no `RwkvForCausalLM` and
+refuses at `ModelConfig`. No preflight caught it because every record we keep is
+(model x environment), never (model x engine). It surfaced as a `FAILED.jsonl` row
+forty minutes into a paid run.
+
 ---
 
 ## 3. Profiles
