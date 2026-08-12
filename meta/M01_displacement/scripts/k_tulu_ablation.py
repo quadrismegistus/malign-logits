@@ -164,6 +164,74 @@ def main():
             r = spearmanr([W[key][u] for u in us], [rate[u][s] for u in us]).statistic
             print("     %-20s %+.3f" % (s, r))
 
+    #: ------------------------------------------------------------------
+    #: THE FIXED ANALYSIS. Every ablation is compared to the FULL mix, so the
+    #: base is identical in all four and the rule's base/aligned asymmetry
+    #: cannot differ between them. No ablation is used as another's control,
+    #: which is what injected the math effect into the pairwise version.
+    print("\n" + "=" * 70)
+    print("FOUR ABLATIONS AGAINST THE FULL SFT MIX")
+    print("  base is allenai/Llama-3.1-Tulu-3-8B-SFT in every row, so the")
+    print("  population and the rule's asymmetry are identical across them.\n")
+    FULL = "allenai/Llama-3.1-Tulu-3-8B-SFT"
+
+    def fetch_full(a):
+        return A.q("""
+          SELECT word, prompt, p_base, p_aligned FROM (
+            SELECT m.word word, m.prompt prompt, m.p_base p_base, m.p_aligned p_aligned,
+              row_number() OVER (PARTITION BY m.prompt ORDER BY m.p_base DESC) rb,
+              row_number() OVER (PARTITION BY m.prompt ORDER BY m.p_aligned DESC) ra
+            FROM %s.movement m
+            INNER JOIN (SELECT DISTINCT prompt FROM %s.prompt_catalogue
+                        WHERE status='ACTIVE' AND language='en') p ON m.prompt=p.prompt
+            WHERE m.rule='canonical' AND m.base='%s' AND m.aligned='%s')
+          WHERE (rb<=50 OR ra<=50) AND p_base >= %f"""
+                   % (A.DB, A.DB, FULL, T % a, MIN_PROB))
+
+    D = {}
+    for a in ("safety", "math", "persona", "wildchat"):
+        byw = collections.defaultdict(list)
+        for r in fetch_full(a):
+            u = t2u.get(r["word"])
+            if u is not None and u in proj:
+                byw[u].append(math.log10((r["p_aligned"] + EPS) / (r["p_base"] + EPS)))
+        D[a] = {u: float(np.mean(v)) for u, v in byw.items() if len(v) >= MIN_PROMPTS}
+        print("  removed %-9s %5d words" % (a, len(D[a])))
+
+    common = sorted(set.intersection(*(set(d) for d in D.values())))
+    print("\n  %d words present in all four\n" % len(common))
+    P = np.array([proj[u] for u in common])
+    V = {a: np.array([D[a][u] for u in common]) for a in D}
+
+    print("  %-12s %12s   %s" % ("removed", "rho w/ axis", "rho with the other three"))
+    for a in D:
+        others = " ".join("%s %+.2f" % (b[:4], spearmanr(V[a], V[b]).statistic)
+                          for b in D if b != a)
+        print("  %-12s %+12.3f   %s" % (a, spearmanr(V[a], P).statistic, others))
+
+    #: THE SAFETY-SPECIFIC COMPONENT. All four ablations share a generic
+    #: "a slice was removed" perturbation; subtracting the mean of the other
+    #: three leaves what is specific to removing SAFETY data. Each of the other
+    #: three gets the same treatment, so safety is judged against three
+    #: comparable numbers rather than against zero.
+    print("\n  SPECIFIC COMPONENT: each ablation minus the mean of the other three")
+    print("  %-12s %14s %10s" % ("removed", "rho w/ axis", "p"))
+    spec = {}
+    for a in D:
+        rest = np.mean([V[b] for b in D if b != a], axis=0)
+        s = V[a] - rest
+        sp = spearmanr(s, P)
+        spec[a] = {"rho": float(sp.statistic), "p": float(sp.pvalue)}
+        print("  %-12s %+14.3f %10.2g%s" % (a, sp.statistic, sp.pvalue,
+                                            "   <- the one under test" if a == "safety" else ""))
+    o = sorted(spec, key=lambda a: -abs(spec[a]["rho"]))
+    print("\n  ranked by |rho|: %s" % ", ".join(o))
+    print("  safety is %s of four."
+          % ("the LARGEST" if o[0] == "safety" else "rank %d" % (o.index("safety") + 1)))
+
+    res["against_full"] = {"n_words": len(common),
+                           "rho_axis": {a: float(spearmanr(V[a], P).statistic) for a in D},
+                           "specific": spec}
     json.dump(res, open(os.path.join(K, "tulu_ablation.json"), "w"), indent=1)
     print("\n  -> results/k/tulu_ablation.json")
     return 0
