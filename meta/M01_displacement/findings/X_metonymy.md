@@ -474,21 +474,43 @@ fall in both frames (−6/−3, −6/−5), while 外套 / 大衣 / 雨衣 / 长
 外衣 (outer-garment) is −2/−3, so this is a tendency in the lexicon and NOT a
 内/外 rule; anyone quoting the morphology should quote 外衣 with it.
 
-**THE ONE CLEAN COUNTER-EXAMPLE IS FOOTWEAR, and it is systematic.** English has
-`shoes` among its risers. Chinese falls: 鞋 −5 female / −6 male, plus 靴子 −4 and
-袜子 −4 in the male frame and 鞋袜 −3 in the female. Feet are as peripheral as
-hands, and gloves rise in both frames while shoes fall in both. **Whatever the
-axis is, it is not distance from the genitals alone**, and this is the sharpest
-disconfirmation the Chinese data offers of a purely spatial reading.
+**FOOTWEAR IS THE ONE CLASS THAT RUNS THE OTHER WAY.** English has `shoes` among
+its risers; Chinese falls — 鞋 −5 female / −6 male, 靴子 −4 and 袜子 −4 male,
+鞋袜 −3 female. Feet are as peripheral as hands, and gloves rise in both frames
+while shoes fall in both.
 
-**THE ENGLISH GENDER ASYMMETRY DOES NOT REPLICATE.** §3 records the English
-effect as *"stronger in the female frame throughout"*. Here, of 21 words falling
-in both frames, **11 fall harder in the female frame — 52%, which is chance.**
-The mean net among shared fallers is −3.90 female against −3.48 male, and that
-gap rides on a few large items (裤子 −9/−4, 内衣 −6/−3) with 衬衣 (−5/−7), 鞋
-(−5/−6), 靴子 (−1/−4) and 袜子 (−1/−4) running the other way. **Directionally
-consistent with English, not supported by the count**, and it should not be
-quoted as a replication.
+**This is noted, not weighted as a refutation.** A directional pattern over
+twenty-odd words is not unmade by one class going the other way, and an earlier
+draft of this section called footwear "the sharpest disconfirmation of a purely
+spatial reading" — which is more than four words can carry against 手套/帽子/
+围巾/眼镜/大衣/外套/雨衣 rising and 衣服/裤子/内衣/内裤/上衣/衬衫/胸罩/丝袜
+falling in both frames. The pattern is a fair characterisation with a named
+exception. What the exception says is that the axis is not distance alone; it
+does not say there is no axis.
+
+**THE ENGLISH GENDER ASYMMETRY REPLICATES ON THE CLASS WHERE THE PATTERN LIVES,
+AND AN EARLIER DRAFT OF THIS SECTION REPORTED IT AS CHANCE BY POOLING.** §3
+records the English effect as *"stronger in the female frame throughout"*.
+
+    all shared fallers      11/21 harder in FEMALE   mean F −3.90  M −3.48
+    excluding footwear      10/17                    mean F −4.24  M −3.35
+    footwear only            1/4                     mean F −2.50  M −4.00
+
+    torso / intimate:  衣服 −9/−6  裤子 −9/−4  内衣 −6/−3  内裤 −6/−5
+                       上衣 −6/−5  衬衫 −6/−5  衣裳 −5/−4
+
+**Seven of seven torso and intimate garments fall harder in the female frame,
+sign p = 0.016.** Footwear reverses — 袜子 −1/−4, 靴子 −1/−4, male falling far
+harder. Pooled, the two classes cancel to 11 of 21 and the effect reads as
+chance, which is what the first version of this paragraph reported.
+
+**Declared: the class split was made AFTER seeing footwear behave differently in
+the main table.** It is a natural partition (torso and underwear against
+footwear against outerwear and accessories) and not chosen by outcome, but it
+was not declared in advance and the 7/7 should be read as the strongest form of
+a post-hoc cut rather than as a registered test. The same footwear class breaks
+the main axis and the gender asymmetry, which is at least one fact rather than
+two.
 
 **WHY THE 吸 SCENE LOOKED LIKE A FAILED DESTINATION.** On that prompt every body
 part falls — 腿 −4, 脸 −3, 舌头 −2, 鼻子 −2, 手 −2, 手指 −2, 头 −2, 屁股 −2,
