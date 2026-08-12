@@ -47,7 +47,17 @@ confound. 100,958 cells over 4,075 words.
                        over same class      over shuffled
       additive         +0.0021 / +0.0035    +0.0034 / +0.0054
       interactions     -0.0016 / -0.0017    +0.0035 / +0.0041
-      trees            +0.0038 / +0.0029    +0.0102 / +0.0057
+      trees            +0.0038 / +0.0029    +0.0102 / +0.0057   <- see below
+
+**EVERY `trees` ROW IN THIS DOCUMENT CARRIES A SPREAD OF ROUGHLY 0.003 AND SHOULD
+NOT BE COMPARED TO A LINEAR ROW AT THE THIRD DECIMAL.** `HistGradientBoosting` is
+thread-nondeterministic (see §3), which affects `k_predict`, `k_predict_embed`
+and `k_register`; `k_concreteness`, `k_length`, `k_scale_solo`, `k_confound`,
+`k_axis` and `k_tulu_ablation` are linear or rank-based throughout and reproduce
+exactly. So the trees row above at +0.0057 per-site is NOT distinguishable from
+the additive row at +0.0054 -- do not read the tree model as having found
+something the linear one missed here. The conclusion of this section does not
+depend on which of them is larger: both are near zero.
 
 **Adding the eight Warriner norms does not help**; on the 1,042 verbs Warriner
 covers the additive model is WORSE than nuisance alone. **Chinese, run
