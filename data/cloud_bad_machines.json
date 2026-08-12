@@ -42,6 +42,12 @@
    "failures": 1,
    "symptom": "nvidia-smi reports the GPU and driver fine, but torch.cuda.is_available() is False and vLLM dies with 'Unexpected error from cudaGetDeviceCount()'. The card is visible and unusable.",
    "note": "Instance 47550363. nvidia-smi PASSING is not evidence the CUDA runtime works -- check torch.cuda.is_available() in preflight, not the driver banner."
+  },
+  "139350": {
+   "seen": "2026-08-12",
+   "failures": 1,
+   "symptom": "torch.cuda.is_available() False while nvidia-smi reports the card (RTX 4090) normally. Second host today with this exact shape.",
+   "note": "Instance 47557703. Caught by the PRE-SETUP cuda check, so no setup time was spent -- the check exists because machine 29796 was not caught that way."
   }
  }
 }

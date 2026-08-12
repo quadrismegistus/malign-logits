@@ -240,12 +240,17 @@ Drafted by the malign seat on registrar's [5547] terms; countersigned by the reg
     Teuken            stock engine + CODE FIX  vllm 0.27.1, transformers 5.15.0,
                                                torch 2.13.0+cu130 (all measured)
     deepseek   PENDING  stock engine + per-pair `detokenize:false`
-    Olmo-Hybrid PENDING NEWER engine           vllm/vllm-openai:nightly (build to be
-                                               recorded AT LAUNCH, not from the tag)
+    Olmo-Hybrid BLOCKED  NEWER engine           NO IMAGE CARRIES THE FIX -- see below
 
 **THREE DISTINCT ROUTES, AND THEY ARE NOT INTERCHANGEABLE.** An older engine recovers what vLLM DELETED (Aquila, Baichuan, jais). A code fix in our own runner recovers what our GUARD got wrong (CT-LLM, Teuken). A newer engine recovers what upstream FIXED after the release we run (Olmo-Hybrid). Naming the route matters because only the middle one is ours to have prevented.
 
 **The jais config patch, stated exactly.** vLLM 0.22.0 ships transformers 5.9.0, whose loader reads `config.tie_word_embeddings`; JAIS's remote-code config predates the key and raises `AttributeError`. The key was added to the CACHED `config.json` of both arms, value `False`. **The weights are untouched and the HuggingFace model id is unchanged in every row** — the alternative, pointing vLLM at a local directory, would have substituted a path for the model id in the stored provenance. A tokenizer/config edit that changes what a row SAYS IT IS is worse than the failure it fixes.
+
+**OLMO-HYBRID'S ROUTE IS BLOCKED, AND THE CHECK THAT FOUND IT IS THE ONE @registrar REQUIRED.** The nightly image was launched and its build read from the RUNNING CONTAINER:
+
+    vllm/vllm-openai:nightly  ->  0.26.1rc1.dev668+g3ee2df303
+
+**That PREDATES the 0.27.1 we already run.** A loader fix that postdates 0.27.1 cannot be in an image built before it, so the nightly route could never have recovered this pair — the plan was wrong when written, not broken in execution. Had the build been taken from the tag rather than the container, a box would have run, failed with the identical `dims[None]` TypeError, and the failure would have looked like the model rather than like the route. Olmo-Hybrid is therefore BLOCKED pending a source build from `main`, which is a different cost class and is not proposed here.
 
 **On Olmo-Hybrid and §1c.** §1c declined a LOCAL PATCH to a released loader. A dated upstream build is a different provenance object, and the exact build is recorded at launch from the running container rather than inferred from the `nightly` tag, which moves.
 

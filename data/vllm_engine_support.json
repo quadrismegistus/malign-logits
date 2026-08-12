@@ -9,7 +9,8 @@
   "0.22.1": "vllm/vllm-openai:v0.22.1 \u2014 PROVEN 12 Aug: recovered Aquila2 and Baichuan2. Ships transformers 5.10.2 already paired; nothing is uninstalled.",
   "0.23.0": "last release hosting Baichuan",
   "0.24.0": "last release hosting Aquila",
-  "0.27.1": "PyPI newest as of Aug 2026; the passage fleet's default image"
+  "0.27.1": "PyPI newest as of Aug 2026; the passage fleet's default image",
+  "nightly": "vllm/vllm-openai:nightly == 0.26.1rc1.dev668+g3ee2df303 as of 12 Aug 2026 -- BEHIND the 0.27.1 release. Do not assume 'nightly' means 'newest'."
  },
  "architectures": {
   "AquilaForCausalLM": {
@@ -89,7 +90,9 @@
    ],
    "note": "Support IS merged (PR #32550; olmo_hybrid.py ships in the install). The RELEASED weight loader is broken: olmo_gdn_linear_attn.py:517 indexes dims[loaded_shard_id] with the default None, firing for any checkpoint whose conv1d weights ship fused rather than split.",
    "recovery": "vLLM from main / a nightly image. The fix, if it exists, is not in 0.27.1, which is PyPI's newest \u2014 waiting does not help and upgrading is not available.",
-   "confounds_eliminated": "Identical traceback reproduced on a verified-clean card at gpu_memory_utilization=0.35 with enforce_eager=True. Not memory, not dtype, not eager mode."
+   "confounds_eliminated": "Identical traceback reproduced on a verified-clean card at gpu_memory_utilization=0.35 with enforce_eager=True. Not memory, not dtype, not eager mode.",
+   "route_CORRECTION_20260812": "THE `nightly` TAG IS NOT NEWER THAN THE RELEASE. Measured on a launched container: vllm/vllm-openai:nightly reports 0.26.1rc1.dev668+g3ee2df303, which PREDATES the 0.27.1 we already run. A fix that postdates 0.27.1 cannot be in it, so the nightly route as specified CANNOT recover this pair and was never going to. Found only because the build was read from the RUNNING CONTAINER at launch rather than inferred from the tag -- @registrar's [5595] condition, which earned its keep immediately.",
+   "route_status": "BLOCKED \u2014 no known image carries the fix; needs a source build from main, which is a different cost class."
   }
  },
  "tokenizer_class": {
