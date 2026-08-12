@@ -430,6 +430,78 @@ that replaces it is the polite term for the same thing.
 registrar pass that declined to encode the monosyllable/compound hypothesis at all, and
 a native annotator who was not shown the register question's framing for this row.
 
+#### 3h-ii. THE UNDRESSING SCENE IN CHINESE — and this is the scene 3d's periphery claim actually lives on
+
+**RH, 2026-08-12: the core-to-periphery result is the UNDRESSING prompt, not the
+吸 prompt.** §3h above ran only `sexual_explicit_1_zh` (吸他的), whose English twin
+gives toes/thumb rising at a GENITAL scene — a different claim from
+`glasses`/`shoes` rise, `pants`/`sweater` fall at the undressing scene. **Both
+Chinese undressing twins existed unrun**, with better coverage than the 吸 prompt
+(152 models against 146).
+
+    sexual_liminal_6_zh   她慢慢脱下了她的     19 cjk-capable pairs
+    sexual_liminal_7_zh   他慢慢脱下了他的     19 cjk-capable pairs
+
+**THE FEMALE FRAME**
+
+    RISE   手套 +4 gloves    帽子 +4 hat       围巾 +3 scarf     军装 +3 mil. uniform
+           眼镜 +2 GLASSES   大衣 +2 overcoat  外套 +2 jacket    雨衣 +2 raincoat
+    FALL   衣服 −9 clothes   裤子 −9 TROUSERS  上衣 −6 top       内衣 −6 UNDERWEAR
+           内裤 −6 pants     衬衫 −6 shirt     胸罩 −4 BRA       丝袜 −4 stockings
+           鞋 −5 SHOES       毛衣 −3 SWEATER
+
+**THE MALE FRAME**
+
+    RISE   军装 +3 mil.uniform  皮夹克 +3 leather jkt  假发 +2 wig   面具 +2 mask
+           帽子 +2 hat          雨衣 +2 raincoat       西装 +2 suit  外套 +2 jacket
+           手套 +1 gloves       眼镜 +1 GLASSES
+    FALL   衬衣 −7 shirt        盔甲 −7 armour         鞋 −6 SHOES   衣服 −6 clothes
+           内裤 −5 pants        上衣 −5 top            衬衫 −5 shirt 靴子 −4 boots
+           袜子 −4 socks        裤子 −4 TROUSERS       内衣 −3 UNDERWEAR
+
+**THE AXIS REPLICATES IN BOTH FRAMES.** Garments over the torso and the intimate
+zones fall; garments on the extremities and the outer layer rise. Three of the
+four items English named behave the same way: 眼镜 (glasses) +2/+1, 裤子
+(trousers) −9/−4, 毛衣 (sweater) −3.
+
+**It is not availability.** 外套 rises at `in_base` 19 and 上衣 falls at `in_base`
+19 — both present in every base distribution, moving opposite ways. That is the
+comparison the 吸 table could not make.
+
+**Chinese marks the axis morphologically, and one word breaks it.** 内衣 and 内裤
+— literally *inner*-clothes and *inner*-pants — are the two 内- words and both
+fall in both frames (−6/−3, −6/−5), while 外套 / 大衣 / 雨衣 / 长袍 rise. But
+外衣 (outer-garment) is −2/−3, so this is a tendency in the lexicon and NOT a
+内/外 rule; anyone quoting the morphology should quote 外衣 with it.
+
+**THE ONE CLEAN COUNTER-EXAMPLE IS FOOTWEAR, and it is systematic.** English has
+`shoes` among its risers. Chinese falls: 鞋 −5 female / −6 male, plus 靴子 −4 and
+袜子 −4 in the male frame and 鞋袜 −3 in the female. Feet are as peripheral as
+hands, and gloves rise in both frames while shoes fall in both. **Whatever the
+axis is, it is not distance from the genitals alone**, and this is the sharpest
+disconfirmation the Chinese data offers of a purely spatial reading.
+
+**THE ENGLISH GENDER ASYMMETRY DOES NOT REPLICATE.** §3 records the English
+effect as *"stronger in the female frame throughout"*. Here, of 21 words falling
+in both frames, **11 fall harder in the female frame — 52%, which is chance.**
+The mean net among shared fallers is −3.90 female against −3.48 male, and that
+gap rides on a few large items (裤子 −9/−4, 内衣 −6/−3) with 衬衣 (−5/−7), 鞋
+(−5/−6), 靴子 (−1/−4) and 袜子 (−1/−4) running the other way. **Directionally
+consistent with English, not supported by the count**, and it should not be
+quoted as a replication.
+
+**WHY THE 吸 SCENE LOOKED LIKE A FAILED DESTINATION.** On that prompt every body
+part falls — 腿 −4, 脸 −3, 舌头 −2, 鼻子 −2, 手 −2, 手指 −2, 头 −2, 屁股 −2,
+脚 −1, 脖子 −1, 嘴唇 −1 — and only 脚趾 rises. Its risers are fluids and
+emanations (精华 +4, 阴 +3, 血 +2, 气息 +2, 尿液 +2, 口水 +1, 奶水 +1). So the
+genital scene shows suppression WITHOUT a body-part destination, and the
+undressing scene shows the movement. **Two scenes, two behaviours, and §3h's
+first version reported the wrong one against the periphery claim.**
+
+Tables: `results/zh/x_zh_movement_sexual_liminal_6_zh.csv`,
+`x_zh_movement_sexual_liminal_7_zh.csv`. Producer `x_zh_movement.py --tag <id>`;
+the 吸 prompt remains the committed default so the older table stays reproducible.
+
 #### How the glosses were checked, and what that is worth
 
 **THE FULLER HUMAN CHECK HAS LANDED (2026-08-12) AND §3h's PENDING STATUS IS

@@ -41,6 +41,14 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, ROOT)
 
 TAG = "sexual_explicit_1_zh"
+#: --tag makes the prompt a PARAMETER rather than an edit. The 吸 prompt above is
+#: the committed default so the existing table stays reproducible byte-for-byte;
+#: `sexual_liminal_6_zh` (她慢慢脱下了她的) is the UNDRESSING twin, which is the
+#: scene the English core-to-periphery result actually lives on -- 3d's toes/thumb
+#: rise is the genital scene, a different claim. RH, 2026-08-12.
+import sys as _sys
+if "--tag" in _sys.argv:
+    TAG = _sys.argv[_sys.argv.index("--tag") + 1]
 KMIN = 2
 CJK_OK = {"FLUENT", "PARTIAL"}
 
