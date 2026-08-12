@@ -41,6 +41,7 @@ BLUE, ORANGE, AQUA, MAGENTA, VIOLET, GREEN, GREY = (
 PAL = {"reference (facts)": BLUE, "reasoning": AQUA,
        "discourse tracking": ORANGE, "semantic packages": VIOLET,
        "poetic pull": MAGENTA, "syntax (licit share)": GREEN,
+       "sense (natural share)": "#b02419",
        "probe absent rate": GREY}
 INK, INK2 = "#0b0b0b", "#52514e"
 EQUIV = [{"ADP", "PART"}, {"NUM", "NOUN"}, {"AUX", "VERB"}]
@@ -95,6 +96,23 @@ def syntax_share(ladder):
     return d.groupby("ckpt_idx").s.median().to_dict()
 
 
+def sense_share(ladder):
+    """natural share of classified mass per rung (tier-3 sense verdicts);
+    full ladder, same filter as this script's syntax_share."""
+    sm = pd.read_parquet("data/m05_sense_mass.parquet")
+    sm = sm[(sm.ladder == ladder) & ~sm.payload_empty]
+    recs = []
+    for (r, p), g in sm.groupby(["ckpt_idx", "prompt"]):
+        m = g.set_index("band").mass.to_dict()
+        cl = sum(m.get(b, 0.0) for b in
+                 ("natural", "odd", "ungrammatical", "not_a_word"))
+        if cl <= 0:
+            continue
+        recs.append((r, m.get("natural", 0.0) / cl))
+    d = pd.DataFrame(recs, columns=["ckpt_idx", "s"])
+    return d.groupby("ckpt_idx").s.median().to_dict()
+
+
 def smooth(d):
     out = []
     for c, g in d.groupby("curve"):
@@ -124,6 +142,7 @@ def main():
         df = pd.read_parquet(CURVES[ladder])
         med, absr = fam_medians(df)
         med["syntax (licit share)"] = syntax_share(ladder)
+        med["sense (natural share)"] = sense_share(ladder)
         order = (df[["ckpt_idx", "role", "stage", "step"]]
                  .drop_duplicates().sort_values("ckpt_idx"))
         base_rungs = sorted(order[order.role == "base_step"].ckpt_idx)
