@@ -63,14 +63,19 @@
    "do_not": "Do not spend on hardware for this."
   },
   "RecurrentGemmaForCausalLM": {
-   "status": "degraded",
+   "status": "degraded_via_silent_fallback",
    "models": [
     "google/recurrentgemma-9b",
     "google/recurrentgemma-9b-it"
    ],
    "note": "Hosted CORRECTLY and roughly 10x slow: ~255 output tok/s, 25-28% GPU utilisation, ~10h for a pair against ~1h for a dense 7B on the same card. Griffin's recurrent layers give the scheduler almost nothing to batch.",
    "recovery": "Nothing to fix. Treat as a PACKING WEIGHT alongside VRAM \u2014 packed by pair count or sequence count alone, one recurrent pair becomes the whole fleet's tail.",
-   "do_not": "Do NOT restart it for low utilisation. 25% is not the 0%-twice torch.compile signature, and a pair writes all its rows only at the very end, so a restart discards the entire pair."
+   "do_not": "Do NOT restart it for low utilisation. 25% is not the 0%-twice torch.compile signature, and a pair writes all its rows only at the very end, so a restart discards the entire pair.",
+   "ROOT_CAUSE_RESEARCHED_20260812": "vLLM HAS NO NATIVE RECURRENTGEMMA IMPLEMENTATION AT ANY VERSION. `RecurrentGemmaForCausalLM` is absent from vllm/model_executor/models/registry.py at v0.27.1 and at every version checked back to v0.4.1, and absent from the explicit _TRANSFORMERS_BACKEND_MODELS allow-list. When an architecture is not in the registry and model_impl=='auto' (the DEFAULT), resolve_model_cls falls through to _try_resolve_transformers(), which pulls the class from the installed `transformers` package and runs it via TransformersForCausalLM. vLLM's own docs state there is NO WARNING that this is fallback behaviour. So we were never running vLLM's code -- we were running HuggingFace's reference PyTorch, whose RG-LRU scan is a literal per-timestep Python loop (`for t in range(...): recurrent_states = gate[:,t]*recurrent_states + x[:,t]`). Google's own recurrentgemma repo says the FLAX path uses a low-level Pallas fused kernel and the PyTorch one is 'un-optimized... for reference'.",
+   "why_the_symptoms_fit": "Sequential small-kernel launches are launch-bound, not compute-bound: the card idles between hundreds of tiny elementwise kernels, which is exactly a steady 20-28% utilisation. And SCORING is disproportionately worse than generation because prompt_logprobs teacher-forcing is pure PREFILL over the full stored sequence -- entirely the O(seq_len) loop, with no O(1)-per-token decode phase to amortise it.",
+   "cheap_wins": "NONE FOUND. Batch width does not reduce the number of sequential timesteps. VLLM_USE_V1 targets the native hybrid/Mamba cache path, which this model never enters because it is not registered at all.",
+   "alternatives": "JAX/Flax official repo is the ONLY path with a source-confirmed FUSED kernel (Pallas). MLX has recurrentgemma.py but with the SAME Python-loop scan, and its batch_generate does not expose per-token logprobs (open issue ml-explore/mlx-lm#1358). llama.cpp does NOT support the architecture at all (issue #6564 closed unimplemented; llama-arch.cpp has no Griffin entry). HF transformers directly is the same code vLLM already falls back to.",
+   "unknown": "Whether the Pallas RG-LRU kernel runs on non-TPU. And NO public RecurrentGemma GPU tokens/sec figure exists anywhere, so our ~255 tok/s is uncompared."
   },
   "Zamba2ForCausalLM": {
    "status": "needs_environment",
@@ -148,5 +153,6 @@
    "recovery": "Generate with detokenize=False and decode from full_ids with the HF tokenizer under LOADER_OVERRIDE. The ids are already stored, so nothing is lost.",
    "note": "The pre-run amendment predicted this pair would collect, arguing from the beam_fc corpus that its TOKENIZER is fine. That argument still stands and was about a different stage. Collectable in one stack is not collecting in another."
   }
- }
+ },
+ "_FOURTH_KIND": "SILENT FALLBACK is a fourth (architecture x engine) kind, and the most dangerous because nothing announces it: a model absent from vLLM's registry is not refused, it is quietly run through the generic Transformers backend with no warning. It loads, it is correct, and it is unfused. Check membership in vllm/model_executor/models/registry.py, not whether the model loads."
 }
