@@ -1,0 +1,1888 @@
+{
+ "_meta": {
+  "produced_by": "meta/M01_displacement/scripts/z_ladders.py --write",
+  "capture": "capture-only; no computation altered (producer-debt 1A)",
+  "only": null,
+  "cells": 79,
+  "note": "keys are 'ladder|measure'; steps are the printed column labels"
+ },
+ "cells": {
+  "OLMo-2-1B|F:emotion_and_arousal": {
+   "step1 SFT-base": {
+    "median_pp": 0.6695486888071672,
+    "wilcoxon_p": 6.9814898186640485e-06,
+    "ci_lo_pp": 0.47651925703284803,
+    "ci_hi_pp": 1.1082094370248972,
+    "agree": "*",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": 0.4447201959570358,
+    "wilcoxon_p": 0.06275509178306983,
+    "ci_lo_pp": -0.11464755664422344,
+    "ci_hi_pp": 1.027610673015575,
+    "agree": null,
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 1.160077450341883,
+    "wilcoxon_p": 0.0002703905490174457,
+    "ci_lo_pp": 0.3792596963337794,
+    "ci_hi_pp": 1.8827363435014954,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "OLMo-2-1B|F:sensory_perception": {
+   "step1 SFT-base": {
+    "median_pp": 0.3837830212502627,
+    "wilcoxon_p": 0.015217082299541301,
+    "ci_lo_pp": 0.01730208861131788,
+    "ci_hi_pp": 0.6595476229082263,
+    "agree": "*",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": 0.022545279773747776,
+    "wilcoxon_p": 0.6344031303135249,
+    "ci_lo_pp": -0.24912342804044862,
+    "ci_hi_pp": 0.1498787530436016,
+    "agree": null,
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.15567369452449895,
+    "wilcoxon_p": 0.09305398374237969,
+    "ci_lo_pp": -0.11100653190958612,
+    "ci_hi_pp": 0.5366507686827491,
+    "agree": null,
+    "n": 73
+   }
+  },
+  "OLMo-2-1B|F:physical_appearance_and_properties": {
+   "step1 SFT-base": {
+    "median_pp": 0.4969153681931515,
+    "wilcoxon_p": 0.0004763816292074498,
+    "ci_lo_pp": 0.20622360713036247,
+    "ci_hi_pp": 0.8328902606824506,
+    "agree": "*",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": 0.4014118848074913,
+    "wilcoxon_p": 0.01544922730229168,
+    "ci_lo_pp": 0.06253388370928842,
+    "ci_hi_pp": 0.6607246125064234,
+    "agree": "*",
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.8187757753049432,
+    "wilcoxon_p": 6.993491235159221e-07,
+    "ci_lo_pp": 0.6495706182883463,
+    "ci_hi_pp": 1.1599015273241011,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "OLMo-2-1B|F:logical_modal_and_discourse_operators": {
+   "step1 SFT-base": {
+    "median_pp": 0.09915987051682396,
+    "wilcoxon_p": 0.9627290366637481,
+    "ci_lo_pp": -0.36509131290300006,
+    "ci_hi_pp": 0.42971173725193934,
+    "agree": null,
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -1.597479459063629,
+    "wilcoxon_p": 9.121923833635473e-12,
+    "ci_lo_pp": -1.7662668999046824,
+    "ci_hi_pp": -1.2961666722439196,
+    "agree": "*",
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -1.4564270847838858,
+    "wilcoxon_p": 4.158150812238843e-10,
+    "ci_lo_pp": -1.8242098053433824,
+    "ci_hi_pp": -1.1306367210468613,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "OLMo-2-1B|F:language_and_communication": {
+   "step1 SFT-base": {
+    "median_pp": 0.12731995342466773,
+    "wilcoxon_p": 0.2874296921585733,
+    "ci_lo_pp": -0.21750760749356945,
+    "ci_hi_pp": 0.803891564962532,
+    "agree": null,
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.4041690784212598,
+    "wilcoxon_p": 0.0012150999486612787,
+    "ci_lo_pp": -0.750401512648291,
+    "ci_hi_pp": -0.2747291443906119,
+    "agree": "*",
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -0.302783845522947,
+    "wilcoxon_p": 0.4398736337007117,
+    "ci_lo_pp": -1.0053602908120602,
+    "ci_hi_pp": 0.24683745477925012,
+    "agree": null,
+    "n": 73
+   }
+  },
+  "OLMo-2-1B|N:dominance=dominant": {
+   "step1 SFT-base": {
+    "median_pp": 1.0039001136409764,
+    "wilcoxon_p": 0.00500825474020398,
+    "ci_lo_pp": 0.06388382820649019,
+    "ci_hi_pp": 1.5044025727170562,
+    "agree": "*",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.7783599275236086,
+    "wilcoxon_p": 0.003865112453927258,
+    "ci_lo_pp": -1.3278639813803395,
+    "ci_hi_pp": -0.20759992685903117,
+    "agree": "*",
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.25543482564514,
+    "wilcoxon_p": 0.19543255993026862,
+    "ci_lo_pp": -0.41899843183303975,
+    "ci_hi_pp": 1.1816904690632013,
+    "agree": null,
+    "n": 73
+   }
+  },
+  "OLMo-2-1B|N:concreteness=concrete": {
+   "step1 SFT-base": {
+    "median_pp": -1.6574639796714044,
+    "wilcoxon_p": 5.722878066327661e-09,
+    "ci_lo_pp": -2.3091979456752205,
+    "ci_hi_pp": -1.1884162285516864,
+    "agree": "*",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -1.5217597333043398,
+    "wilcoxon_p": 3.045725996849764e-08,
+    "ci_lo_pp": -1.810727298292919,
+    "ci_hi_pp": -1.0969921620170588,
+    "agree": "*",
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -3.1218587383161243,
+    "wilcoxon_p": 2.4424620157340444e-11,
+    "ci_lo_pp": -3.561773213288294,
+    "ci_hi_pp": -2.7603348824239453,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "OLMo-2-1B|R:sensation": {
+   "step1 SFT-base": {
+    "median_pp": 0.33500718525256434,
+    "wilcoxon_p": 0.12849231808174494,
+    "ci_lo_pp": -0.26236239790439764,
+    "ci_hi_pp": 0.7571864782692589,
+    "agree": null,
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.033880912215815406,
+    "wilcoxon_p": 0.46635274654444936,
+    "ci_lo_pp": -0.26616542447154834,
+    "ci_hi_pp": 0.22208874430236641,
+    "agree": null,
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.20234880962121116,
+    "wilcoxon_p": 0.5730948058369696,
+    "ci_lo_pp": -0.2943776602243417,
+    "ci_hi_pp": 0.570975455982091,
+    "agree": null,
+    "n": 73
+   }
+  },
+  "OLMo-2-1B|R:need": {
+   "step1 SFT-base": {
+    "median_pp": -0.6016530645298377,
+    "wilcoxon_p": 0.04713138003327591,
+    "ci_lo_pp": -1.5810189333421383,
+    "ci_hi_pp": 0.07665373841844458,
+    "agree": "~",
+    "n": 59
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -1.376386288725536,
+    "wilcoxon_p": 3.093353041294643e-05,
+    "ci_lo_pp": -1.8851361531308328,
+    "ci_hi_pp": -0.9302102863414277,
+    "agree": "*",
+    "n": 59
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -1.6191407744359891,
+    "wilcoxon_p": 8.974880260619601e-06,
+    "ci_lo_pp": -2.1390906630424076,
+    "ci_hi_pp": -0.791421651545569,
+    "agree": "*",
+    "n": 64
+   }
+  },
+  "Olmo-3-7B|F:emotion_and_arousal": {
+   "step1 SFT-base": {
+    "median_pp": -0.15070194920891317,
+    "wilcoxon_p": 0.5326455742013261,
+    "ci_lo_pp": -0.48760182989529693,
+    "ci_hi_pp": 0.15773395835882165,
+    "agree": null,
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.3715138599075657,
+    "wilcoxon_p": 0.013467877502082556,
+    "ci_lo_pp": -0.5764048842216971,
+    "ci_hi_pp": 0.08860647210864464,
+    "agree": "~",
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -0.3429679957521081,
+    "wilcoxon_p": 0.003298645708166841,
+    "ci_lo_pp": -0.7274636932280393,
+    "ci_hi_pp": -0.030233554986050515,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "Olmo-3-7B|F:sensory_perception": {
+   "step1 SFT-base": {
+    "median_pp": 0.21176903966374538,
+    "wilcoxon_p": 0.012320982645513918,
+    "ci_lo_pp": -0.09703114079301078,
+    "ci_hi_pp": 0.6433476456102177,
+    "agree": "~",
+    "n": 72
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.19669651165868524,
+    "wilcoxon_p": 0.02338264159841946,
+    "ci_lo_pp": -0.5148392801278372,
+    "ci_hi_pp": 0.0938891513594324,
+    "agree": "~",
+    "n": 72
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.014447573902782312,
+    "wilcoxon_p": 0.9583479929435524,
+    "ci_lo_pp": -0.3246092484440369,
+    "ci_hi_pp": 0.23579441769263354,
+    "agree": null,
+    "n": 73
+   }
+  },
+  "Olmo-3-7B|F:physical_appearance_and_properties": {
+   "step1 SFT-base": {
+    "median_pp": 0.42038648753538743,
+    "wilcoxon_p": 0.2655988867309713,
+    "ci_lo_pp": 0.06631255146201942,
+    "ci_hi_pp": 0.6531319869739732,
+    "agree": "~",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": 0.09145363763419234,
+    "wilcoxon_p": 0.5006606585940774,
+    "ci_lo_pp": -0.2513651649028559,
+    "ci_hi_pp": 0.38797100033407667,
+    "agree": null,
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.5743695761790457,
+    "wilcoxon_p": 0.03314660950943798,
+    "ci_lo_pp": 0.08571555010877946,
+    "ci_hi_pp": 0.7727756497975968,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "Olmo-3-7B|F:logical_modal_and_discourse_operators": {
+   "step1 SFT-base": {
+    "median_pp": 0.7806550589891881,
+    "wilcoxon_p": 0.008946601932379103,
+    "ci_lo_pp": 0.3501999970433087,
+    "ci_hi_pp": 0.9668090461074669,
+    "agree": "*",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.3202628821742798,
+    "wilcoxon_p": 0.08579912213077528,
+    "ci_lo_pp": -0.6147385316493434,
+    "ci_hi_pp": 0.010645104108585046,
+    "agree": null,
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.3475239868856547,
+    "wilcoxon_p": 0.19925417938267218,
+    "ci_lo_pp": 0.015106779751168642,
+    "ci_hi_pp": 0.7531183930547497,
+    "agree": "~",
+    "n": 73
+   }
+  },
+  "Olmo-3-7B|F:language_and_communication": {
+   "step1 SFT-base": {
+    "median_pp": 2.4930772158173493,
+    "wilcoxon_p": 5.823706248699471e-13,
+    "ci_lo_pp": 2.0587179444162897,
+    "ci_hi_pp": 3.263131702696817,
+    "agree": "*",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.6030985456033602,
+    "wilcoxon_p": 0.006557043915393419,
+    "ci_lo_pp": -1.0125252391428057,
+    "ci_hi_pp": 0.030931584583049343,
+    "agree": "~",
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 2.2585953763340507,
+    "wilcoxon_p": 1.9276413883794703e-12,
+    "ci_lo_pp": 1.663634558378023,
+    "ci_hi_pp": 2.816660651330152,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "Olmo-3-7B|N:dominance=dominant": {
+   "step1 SFT-base": {
+    "median_pp": 2.5210699162923014,
+    "wilcoxon_p": 5.015687924632022e-09,
+    "ci_lo_pp": 1.8631610537811927,
+    "ci_hi_pp": 3.5557366813513958,
+    "agree": "*",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -1.5652415458128455,
+    "wilcoxon_p": 0.00010994300873905934,
+    "ci_lo_pp": -2.290339310587297,
+    "ci_hi_pp": -1.0847396533416154,
+    "agree": "*",
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 1.1485093726418816,
+    "wilcoxon_p": 0.0004296233668321581,
+    "ci_lo_pp": 0.6586278774449617,
+    "ci_hi_pp": 2.1490688878988307,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "Olmo-3-7B|N:concreteness=concrete": {
+   "step1 SFT-base": {
+    "median_pp": 0.11682127690659794,
+    "wilcoxon_p": 0.7519194181042635,
+    "ci_lo_pp": -0.734002042579196,
+    "ci_hi_pp": 0.5439699906998691,
+    "agree": null,
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.3829585767443022,
+    "wilcoxon_p": 0.08186314787797339,
+    "ci_lo_pp": -0.7621438084963073,
+    "ci_hi_pp": 0.20665023706099017,
+    "agree": null,
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -0.5280290176924218,
+    "wilcoxon_p": 0.015217082299541301,
+    "ci_lo_pp": -0.7871135511448524,
+    "ci_hi_pp": -0.03777218432459706,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "Olmo-3-7B|R:sensation": {
+   "step1 SFT-base": {
+    "median_pp": 0.6773557679303738,
+    "wilcoxon_p": 0.029273701787931105,
+    "ci_lo_pp": 0.18040714280579684,
+    "ci_hi_pp": 1.1094385931251851,
+    "agree": "*",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.18123945186520884,
+    "wilcoxon_p": 0.3600115511818024,
+    "ci_lo_pp": -0.6752745484424394,
+    "ci_hi_pp": 0.6771920786993637,
+    "agree": null,
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.26404265312316155,
+    "wilcoxon_p": 0.3130698272740866,
+    "ci_lo_pp": -0.008991921820869497,
+    "ci_hi_pp": 0.6504328827652783,
+    "agree": null,
+    "n": 73
+   }
+  },
+  "Olmo-3-7B|R:need": {
+   "step1 SFT-base": {
+    "median_pp": 0.713740680741419,
+    "wilcoxon_p": 0.043928903129925166,
+    "ci_lo_pp": -0.3034919503752967,
+    "ci_hi_pp": 1.2626505363829712,
+    "agree": "~",
+    "n": 61
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.6655928567092351,
+    "wilcoxon_p": 0.03099600438106475,
+    "ci_lo_pp": -1.2714743607876764,
+    "ci_hi_pp": 0.21123158776113204,
+    "agree": "~",
+    "n": 57
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.3727565171018618,
+    "wilcoxon_p": 0.5851789954979933,
+    "ci_lo_pp": -0.8016900907692706,
+    "ci_hi_pp": 1.041205428971534,
+    "agree": null,
+    "n": 58
+   }
+  },
+  "pythia-6.9B|F:emotion_and_arousal": {
+   "step1 SFT-base": {
+    "median_pp": 0.5664858112843396,
+    "wilcoxon_p": 2.2380544479105785e-06,
+    "ci_lo_pp": 0.4597929056150238,
+    "ci_hi_pp": 0.8361414497731506,
+    "agree": "*",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": 0.37188162297484423,
+    "wilcoxon_p": 0.011353548819198056,
+    "ci_lo_pp": 0.22300952446665384,
+    "ci_hi_pp": 0.7514854546235614,
+    "agree": "*",
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 1.037020844256692,
+    "wilcoxon_p": 4.4295586925346533e-07,
+    "ci_lo_pp": 0.579919303385712,
+    "ci_hi_pp": 1.4047224584766789,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "pythia-6.9B|F:sensory_perception": {
+   "step1 SFT-base": {
+    "median_pp": 0.2597943511072225,
+    "wilcoxon_p": 0.03694941899875436,
+    "ci_lo_pp": -0.17005938602765586,
+    "ci_hi_pp": 0.38529544291179413,
+    "agree": "~",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.07443026177419154,
+    "wilcoxon_p": 0.6942638994650198,
+    "ci_lo_pp": -0.21048196878395709,
+    "ci_hi_pp": 0.12113297508781623,
+    "agree": null,
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.18484619283451187,
+    "wilcoxon_p": 0.030098945995181585,
+    "ci_lo_pp": 0.055536714033752044,
+    "ci_hi_pp": 0.42422163702275223,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "pythia-6.9B|F:physical_appearance_and_properties": {
+   "step1 SFT-base": {
+    "median_pp": 0.05116535022843954,
+    "wilcoxon_p": 0.24271373858238277,
+    "ci_lo_pp": -0.1734143942909827,
+    "ci_hi_pp": 0.3480598757321249,
+    "agree": null,
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": 0.135320353530919,
+    "wilcoxon_p": 0.42377198202916494,
+    "ci_lo_pp": -0.2419844454552865,
+    "ci_hi_pp": 0.36317046540492587,
+    "agree": null,
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.2488207907413692,
+    "wilcoxon_p": 0.043919919520819674,
+    "ci_lo_pp": -0.04632520602547707,
+    "ci_hi_pp": 0.42694091355946623,
+    "agree": "~",
+    "n": 73
+   }
+  },
+  "pythia-6.9B|F:logical_modal_and_discourse_operators": {
+   "step1 SFT-base": {
+    "median_pp": 0.49854495690939415,
+    "wilcoxon_p": 0.002430179712252883,
+    "ci_lo_pp": 0.10234673820743168,
+    "ci_hi_pp": 0.7379385885785988,
+    "agree": "*",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.12402441892011007,
+    "wilcoxon_p": 0.38656415853644926,
+    "ci_lo_pp": -0.3643901571240185,
+    "ci_hi_pp": 0.1752829854045429,
+    "agree": null,
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.4193402037289601,
+    "wilcoxon_p": 0.02579667916720929,
+    "ci_lo_pp": 0.1404727616259968,
+    "ci_hi_pp": 0.7036064800555866,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "pythia-6.9B|F:language_and_communication": {
+   "step1 SFT-base": {
+    "median_pp": -0.08771313847546064,
+    "wilcoxon_p": 0.5435324511073373,
+    "ci_lo_pp": -0.5449239838885109,
+    "ci_hi_pp": 0.18312224253673182,
+    "agree": null,
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.005105087494047811,
+    "wilcoxon_p": 0.9978067952264031,
+    "ci_lo_pp": -0.3164317599478633,
+    "ci_hi_pp": 0.3541867864158041,
+    "agree": null,
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -0.13772528006178314,
+    "wilcoxon_p": 0.8238071256782011,
+    "ci_lo_pp": -0.323665891831669,
+    "ci_hi_pp": 0.26674742000646484,
+    "agree": null,
+    "n": 73
+   }
+  },
+  "pythia-6.9B|N:dominance=dominant": {
+   "step1 SFT-base": {
+    "median_pp": 0.9321646194914268,
+    "wilcoxon_p": 0.03795620188920984,
+    "ci_lo_pp": -0.03226154859136132,
+    "ci_hi_pp": 1.9875878775236888,
+    "agree": "~",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": 0.19726144495194609,
+    "wilcoxon_p": 0.6660625823090741,
+    "ci_lo_pp": -0.5675387718204083,
+    "ci_hi_pp": 1.2933506747426993,
+    "agree": null,
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 1.387110401747671,
+    "wilcoxon_p": 0.01544922730229168,
+    "ci_lo_pp": 0.6774157294116012,
+    "ci_hi_pp": 2.0907396025035494,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "pythia-6.9B|N:concreteness=concrete": {
+   "step1 SFT-base": {
+    "median_pp": -1.1325338549637298,
+    "wilcoxon_p": 1.6037872198876196e-09,
+    "ci_lo_pp": -1.4215615384127744,
+    "ci_hi_pp": -0.8172674474776098,
+    "agree": "*",
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.927142849460813,
+    "wilcoxon_p": 3.8345502398443643e-07,
+    "ci_lo_pp": -1.4279229072486936,
+    "ci_hi_pp": -0.573333418918473,
+    "agree": "*",
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -2.0213785635087604,
+    "wilcoxon_p": 4.75809717504106e-13,
+    "ci_lo_pp": -2.530266336003148,
+    "ci_hi_pp": -1.734836273231427,
+    "agree": "*",
+    "n": 73
+   }
+  },
+  "pythia-6.9B|R:sensation": {
+   "step1 SFT-base": {
+    "median_pp": -0.1642800813837414,
+    "wilcoxon_p": 0.9802631454202122,
+    "ci_lo_pp": -0.6493876726558614,
+    "ci_hi_pp": 0.546950667419499,
+    "agree": null,
+    "n": 73
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.3925805412984443,
+    "wilcoxon_p": 0.038468281776369524,
+    "ci_lo_pp": -0.9208636370324846,
+    "ci_hi_pp": 0.10895823330696608,
+    "agree": "~",
+    "n": 73
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -0.29214836521176124,
+    "wilcoxon_p": 0.07092659477058601,
+    "ci_lo_pp": -0.6564106697162828,
+    "ci_hi_pp": 0.20846230235844337,
+    "agree": null,
+    "n": 73
+   }
+  },
+  "pythia-6.9B|R:need": {
+   "step1 SFT-base": {
+    "median_pp": -0.02350561454887573,
+    "wilcoxon_p": 0.7116137656990484,
+    "ci_lo_pp": -0.5496506819510888,
+    "ci_hi_pp": 0.4173181224527242,
+    "agree": null,
+    "n": 63
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.2016190653667302,
+    "wilcoxon_p": 0.4637675721133023,
+    "ci_lo_pp": -0.8072083868675868,
+    "ci_hi_pp": 0.4718813046818183,
+    "agree": null,
+    "n": 62
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -0.28314891200754283,
+    "wilcoxon_p": 0.8555353917492186,
+    "ci_lo_pp": -0.8639108626047248,
+    "ci_hi_pp": 0.24650207171842617,
+    "agree": null,
+    "n": 66
+   }
+  },
+  "Tulu-3-8B (SFT=no-safety)|F:emotion_and_arousal": {
+   "step1 SFT-base": {
+    "median_pp": 0.36665479541588136,
+    "wilcoxon_p": 0.016359220589859738,
+    "ci_lo_pp": 0.053174348917019165,
+    "ci_hi_pp": 0.5912253937123663,
+    "agree": "*",
+    "n": 71
+   },
+   "step2 DPO-SFT": {
+    "median_pp": 0.732288557981059,
+    "wilcoxon_p": 0.0013874539131126461,
+    "ci_lo_pp": 0.2821486191078221,
+    "ci_hi_pp": 0.9361317550387244,
+    "agree": "*",
+    "n": 71
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.8399518414820173,
+    "wilcoxon_p": 8.471039451043137e-05,
+    "ci_lo_pp": 0.6420833813380142,
+    "ci_hi_pp": 1.3861218361579677,
+    "agree": "*",
+    "n": 71
+   }
+  },
+  "Tulu-3-8B (SFT=no-safety)|F:sensory_perception": {
+   "step1 SFT-base": {
+    "median_pp": 0.27185623822237603,
+    "wilcoxon_p": 0.1818594095066594,
+    "ci_lo_pp": -0.0009655525603814719,
+    "ci_hi_pp": 0.41125662931052603,
+    "agree": null,
+    "n": 71
+   },
+   "step2 DPO-SFT": {
+    "median_pp": 0.05255471614682011,
+    "wilcoxon_p": 0.4563450774096966,
+    "ci_lo_pp": -0.18657599403716918,
+    "ci_hi_pp": 0.5108386030470168,
+    "agree": null,
+    "n": 71
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.31040897393068634,
+    "wilcoxon_p": 0.051397713082429575,
+    "ci_lo_pp": -0.08394671762283826,
+    "ci_hi_pp": 0.6911250992779089,
+    "agree": null,
+    "n": 71
+   }
+  },
+  "Tulu-3-8B (SFT=no-safety)|F:physical_appearance_and_properties": {
+   "step1 SFT-base": {
+    "median_pp": 0.42161187014050083,
+    "wilcoxon_p": 7.885391461697021e-05,
+    "ci_lo_pp": 0.19743936027815379,
+    "ci_hi_pp": 0.6423853086399179,
+    "agree": "*",
+    "n": 71
+   },
+   "step2 DPO-SFT": {
+    "median_pp": 0.4365899089683087,
+    "wilcoxon_p": 0.0004944592247982846,
+    "ci_lo_pp": 0.028557492641288068,
+    "ci_hi_pp": 0.6540344687073901,
+    "agree": "*",
+    "n": 71
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.894835411452205,
+    "wilcoxon_p": 2.9147613077447918e-08,
+    "ci_lo_pp": 0.43541391760378234,
+    "ci_hi_pp": 1.1219473553172183,
+    "agree": "*",
+    "n": 71
+   }
+  },
+  "Tulu-3-8B (SFT=no-safety)|F:logical_modal_and_discourse_operators": {
+   "step1 SFT-base": {
+    "median_pp": -0.5260635565419503,
+    "wilcoxon_p": 0.006058628654931435,
+    "ci_lo_pp": -0.9607681555775891,
+    "ci_hi_pp": -0.26690231699186967,
+    "agree": "*",
+    "n": 71
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.8994975276825425,
+    "wilcoxon_p": 1.1897626821709025e-08,
+    "ci_lo_pp": -1.0628799155416493,
+    "ci_hi_pp": -0.5662106976208072,
+    "agree": "*",
+    "n": 71
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -1.4725885257037539,
+    "wilcoxon_p": 4.0379771062751594e-08,
+    "ci_lo_pp": -1.9573981572930914,
+    "ci_hi_pp": -0.9602306265207818,
+    "agree": "*",
+    "n": 71
+   }
+  },
+  "Tulu-3-8B (SFT=no-safety)|F:language_and_communication": {
+   "step1 SFT-base": {
+    "median_pp": 0.07027738905640846,
+    "wilcoxon_p": 0.7921093908061334,
+    "ci_lo_pp": -0.67657634384235,
+    "ci_hi_pp": 0.5839436791222674,
+    "agree": null,
+    "n": 71
+   },
+   "step2 DPO-SFT": {
+    "median_pp": 0.22524380103563224,
+    "wilcoxon_p": 0.20746601743237988,
+    "ci_lo_pp": -0.19269437536870715,
+    "ci_hi_pp": 0.4801043925301174,
+    "agree": null,
+    "n": 71
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -0.2480825452348595,
+    "wilcoxon_p": 0.3357420618283729,
+    "ci_lo_pp": -0.48468797298228256,
+    "ci_hi_pp": 0.5011557231861405,
+    "agree": null,
+    "n": 71
+   }
+  },
+  "Tulu-3-8B (SFT=no-safety)|N:dominance=dominant": {
+   "step1 SFT-base": {
+    "median_pp": -0.05054874075968163,
+    "wilcoxon_p": 0.2355922800689098,
+    "ci_lo_pp": -0.39063051537889804,
+    "ci_hi_pp": 0.7818819301730673,
+    "agree": null,
+    "n": 71
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.614930889809262,
+    "wilcoxon_p": 0.5062673710160573,
+    "ci_lo_pp": -1.1135642650252076,
+    "ci_hi_pp": 0.9949618890086387,
+    "agree": null,
+    "n": 71
+   },
+   "TOTAL DPO-base": {
+    "median_pp": 0.11557561629209623,
+    "wilcoxon_p": 0.3023671321450665,
+    "ci_lo_pp": -0.8371578707682459,
+    "ci_hi_pp": 1.118115923175378,
+    "agree": null,
+    "n": 71
+   }
+  },
+  "Tulu-3-8B (SFT=no-safety)|N:concreteness=concrete": {
+   "step1 SFT-base": {
+    "median_pp": -0.7457076013996589,
+    "wilcoxon_p": 1.1384466829364177e-05,
+    "ci_lo_pp": -1.144615882181338,
+    "ci_hi_pp": -0.5809195469986372,
+    "agree": "*",
+    "n": 71
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.6899917451395676,
+    "wilcoxon_p": 0.0008362939907363212,
+    "ci_lo_pp": -1.3457113923746071,
+    "ci_hi_pp": -0.09435069589577572,
+    "agree": "*",
+    "n": 71
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -1.6628370250516666,
+    "wilcoxon_p": 1.4863507318452654e-06,
+    "ci_lo_pp": -2.4542767654137156,
+    "ci_hi_pp": -0.8806195281834434,
+    "agree": "*",
+    "n": 71
+   }
+  },
+  "Tulu-3-8B (SFT=no-safety)|R:sensation": {
+   "step1 SFT-base": {
+    "median_pp": 0.30434333725779805,
+    "wilcoxon_p": 0.0364931105813868,
+    "ci_lo_pp": 0.080376949072547,
+    "ci_hi_pp": 1.0559741114391814,
+    "agree": "*",
+    "n": 71
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.367732891624048,
+    "wilcoxon_p": 0.06420740179453989,
+    "ci_lo_pp": -0.8590330183672112,
+    "ci_hi_pp": 0.26974726458098286,
+    "agree": null,
+    "n": 71
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -0.2744406387527473,
+    "wilcoxon_p": 0.6590701245476934,
+    "ci_lo_pp": -0.5532273451387182,
+    "ci_hi_pp": 0.32259183109693,
+    "agree": null,
+    "n": 71
+   }
+  },
+  "Tulu-3-8B (SFT=no-safety)|R:need": {
+   "step1 SFT-base": {
+    "median_pp": -0.545978619748061,
+    "wilcoxon_p": 0.060183617898002834,
+    "ci_lo_pp": -1.1557451415160598,
+    "ci_hi_pp": 0.20803383210290238,
+    "agree": null,
+    "n": 59
+   },
+   "step2 DPO-SFT": {
+    "median_pp": -0.9863906224982109,
+    "wilcoxon_p": 0.005275317359908868,
+    "ci_lo_pp": -1.4698545523164082,
+    "ci_hi_pp": -0.41626249528666626,
+    "agree": "*",
+    "n": 56
+   },
+   "TOTAL DPO-base": {
+    "median_pp": -1.5604466145528413,
+    "wilcoxon_p": 5.193086359615258e-06,
+    "ci_lo_pp": -1.9483491337038246,
+    "ci_hi_pp": -0.8134606920740652,
+    "agree": "*",
+    "n": 60
+   }
+  },
+  "claude-sonnet-4-6|F:emotion_and_arousal": {
+   "chat - continuation": {
+    "median_pp": -0.21131745967196136,
+    "wilcoxon_p": 0.47352248565202965,
+    "ci_lo_pp": -1.256732721942602,
+    "ci_hi_pp": 1.1258470620424634,
+    "agree": null,
+    "n": 45
+   }
+  },
+  "claude-sonnet-4-6|F:sensory_perception": {
+   "chat - continuation": {
+    "median_pp": -2.031043730465016,
+    "wilcoxon_p": 0.0006660228075239221,
+    "ci_lo_pp": -3.0503120589014263,
+    "ci_hi_pp": -0.4049236487409069,
+    "agree": "*",
+    "n": 45
+   }
+  },
+  "claude-sonnet-4-6|F:physical_appearance_and_properties": {
+   "chat - continuation": {
+    "median_pp": -1.4845084060075466,
+    "wilcoxon_p": 0.00015956787625068909,
+    "ci_lo_pp": -2.8740081543670297,
+    "ci_hi_pp": -0.31026243038368706,
+    "agree": "*",
+    "n": 45
+   }
+  },
+  "claude-sonnet-4-6|F:logical_modal_and_discourse_operators": {
+   "chat - continuation": {
+    "median_pp": 1.0308367440050883,
+    "wilcoxon_p": 0.0021798294994899636,
+    "ci_lo_pp": 0.20969297422917393,
+    "ci_hi_pp": 1.9942067975201476,
+    "agree": "*",
+    "n": 45
+   }
+  },
+  "claude-sonnet-4-6|F:language_and_communication": {
+   "chat - continuation": {
+    "median_pp": 9.458180178731968,
+    "wilcoxon_p": 9.483319610537218e-09,
+    "ci_lo_pp": 5.975307854220856,
+    "ci_hi_pp": 13.031384940633824,
+    "agree": "*",
+    "n": 45
+   }
+  },
+  "claude-sonnet-4-6|N:dominance=dominant": {
+   "chat - continuation": {
+    "median_pp": 9.802940711728104,
+    "wilcoxon_p": 2.3818675030399627e-08,
+    "ci_lo_pp": 7.080242033176831,
+    "ci_hi_pp": 13.159976596577517,
+    "agree": "*",
+    "n": 45
+   }
+  },
+  "claude-sonnet-4-6|N:concreteness=concrete": {
+   "chat - continuation": {
+    "median_pp": -6.446151865538469,
+    "wilcoxon_p": 4.231458927403743e-06,
+    "ci_lo_pp": -8.127358273662477,
+    "ci_hi_pp": -4.855797214186536,
+    "agree": "*",
+    "n": 45
+   }
+  },
+  "claude-sonnet-4-6|R:sensation": {
+   "chat - continuation": {
+    "median_pp": 0.5186363707258945,
+    "wilcoxon_p": 0.47352248565202965,
+    "ci_lo_pp": -1.2074794627477874,
+    "ci_hi_pp": 1.0762003627852013,
+    "agree": null,
+    "n": 45
+   }
+  },
+  "claude-sonnet-4-6|R:need": {
+   "chat - continuation": {
+    "median_pp": 0.9225952410162941,
+    "wilcoxon_p": 0.0015163315449396048,
+    "ci_lo_pp": 0.4537214553082716,
+    "ci_hi_pp": 2.849872929616975,
+    "agree": "*",
+    "n": 33
+   }
+  },
+  "claude-haiku-4-5|F:emotion_and_arousal": {
+   "chat - continuation": {
+    "median_pp": -0.19603542105143812,
+    "wilcoxon_p": 0.5736686426123372,
+    "ci_lo_pp": -1.27069088204017,
+    "ci_hi_pp": 0.3969714787468534,
+    "agree": null,
+    "n": 46
+   }
+  },
+  "claude-haiku-4-5|F:sensory_perception": {
+   "chat - continuation": {
+    "median_pp": -1.1970526717106658,
+    "wilcoxon_p": 6.474169174475543e-07,
+    "ci_lo_pp": -2.2365778543163906,
+    "ci_hi_pp": -0.8055570139750896,
+    "agree": "*",
+    "n": 46
+   }
+  },
+  "claude-haiku-4-5|F:physical_appearance_and_properties": {
+   "chat - continuation": {
+    "median_pp": -0.33101748956446997,
+    "wilcoxon_p": 0.9869248047447011,
+    "ci_lo_pp": -1.102126375507119,
+    "ci_hi_pp": 1.1121116024501028,
+    "agree": null,
+    "n": 46
+   }
+  },
+  "claude-haiku-4-5|F:logical_modal_and_discourse_operators": {
+   "chat - continuation": {
+    "median_pp": 0.2569241978405905,
+    "wilcoxon_p": 0.1703330624237519,
+    "ci_lo_pp": -0.31507472565906885,
+    "ci_hi_pp": 1.1569454256876,
+    "agree": null,
+    "n": 46
+   }
+  },
+  "claude-haiku-4-5|F:language_and_communication": {
+   "chat - continuation": {
+    "median_pp": 5.538107328759781,
+    "wilcoxon_p": 6.849521738836653e-07,
+    "ci_lo_pp": 2.510921423520343,
+    "ci_hi_pp": 7.145874356231293,
+    "agree": "*",
+    "n": 46
+   }
+  },
+  "claude-haiku-4-5|N:dominance=dominant": {
+   "chat - continuation": {
+    "median_pp": 4.678263858127751,
+    "wilcoxon_p": 0.0018818680736898208,
+    "ci_lo_pp": 1.6974390439350477,
+    "ci_hi_pp": 6.94118439188931,
+    "agree": "*",
+    "n": 46
+   }
+  },
+  "claude-haiku-4-5|N:concreteness=concrete": {
+   "chat - continuation": {
+    "median_pp": -4.810424110726701,
+    "wilcoxon_p": 8.947339586448165e-06,
+    "ci_lo_pp": -6.644229300125848,
+    "ci_hi_pp": -3.504339723857344,
+    "agree": "*",
+    "n": 46
+   }
+  },
+  "claude-haiku-4-5|R:sensation": {
+   "chat - continuation": {
+    "median_pp": -1.690014205981176,
+    "wilcoxon_p": 0.14772558807823485,
+    "ci_lo_pp": -2.9135791690734605,
+    "ci_hi_pp": 1.1491465250986272,
+    "agree": null,
+    "n": 46
+   }
+  },
+  "claude-haiku-4-5|R:need": {
+   "chat - continuation": {
+    "median_pp": 0.5164815113151706,
+    "wilcoxon_p": 0.2740621313123317,
+    "ci_lo_pp": -0.4542057397343251,
+    "ci_hi_pp": 1.3928221297438772,
+    "agree": null,
+    "n": 37
+   }
+  },
+  "gpt-4o-mini|F:emotion_and_arousal": {
+   "chat - continuation": {
+    "median_pp": 0.11746670056086359,
+    "wilcoxon_p": 0.3850838953871788,
+    "ci_lo_pp": -0.5836345655624673,
+    "ci_hi_pp": 1.1180187741564485,
+    "agree": null,
+    "n": 46
+   }
+  },
+  "gpt-4o-mini|F:sensory_perception": {
+   "chat - continuation": {
+    "median_pp": -0.7201667511751615,
+    "wilcoxon_p": 3.223062996429671e-05,
+    "ci_lo_pp": -1.0362757407245702,
+    "ci_hi_pp": -0.3404953196223623,
+    "agree": "*",
+    "n": 46
+   }
+  },
+  "gpt-4o-mini|F:physical_appearance_and_properties": {
+   "chat - continuation": {
+    "median_pp": -0.4748369806757486,
+    "wilcoxon_p": 0.023389306503177,
+    "ci_lo_pp": -1.6228389967460524,
+    "ci_hi_pp": -0.10429621588959603,
+    "agree": "*",
+    "n": 46
+   }
+  },
+  "gpt-4o-mini|F:logical_modal_and_discourse_operators": {
+   "chat - continuation": {
+    "median_pp": 0.29130448662421715,
+    "wilcoxon_p": 0.01281371471779437,
+    "ci_lo_pp": 0.07574761803557165,
+    "ci_hi_pp": 0.6030150673010403,
+    "agree": "*",
+    "n": 45
+   }
+  },
+  "gpt-4o-mini|F:language_and_communication": {
+   "chat - continuation": {
+    "median_pp": 0.1924304691556838,
+    "wilcoxon_p": 0.04860618682118666,
+    "ci_lo_pp": -0.10242229511406228,
+    "ci_hi_pp": 1.4995653602959347,
+    "agree": "~",
+    "n": 46
+   }
+  },
+  "gpt-4o-mini|N:dominance=dominant": {
+   "chat - continuation": {
+    "median_pp": 0.6289923009988402,
+    "wilcoxon_p": 0.04986682419149425,
+    "ci_lo_pp": -0.07563868011285779,
+    "ci_hi_pp": 2.2058188847923876,
+    "agree": "~",
+    "n": 46
+   }
+  },
+  "gpt-4o-mini|N:concreteness=concrete": {
+   "chat - continuation": {
+    "median_pp": -2.489225984728706,
+    "wilcoxon_p": 1.0706953812473354e-06,
+    "ci_lo_pp": -3.7447635028327375,
+    "ci_hi_pp": -1.6266005421731373,
+    "agree": "*",
+    "n": 46
+   }
+  },
+  "gpt-4o-mini|R:sensation": {
+   "chat - continuation": {
+    "median_pp": -1.8547814415947925,
+    "wilcoxon_p": 0.0010268141493085046,
+    "ci_lo_pp": -3.719954923687553,
+    "ci_hi_pp": -0.29583006224825903,
+    "agree": "*",
+    "n": 46
+   }
+  },
+  "gpt-4o-mini|R:need": {
+   "chat - continuation": {
+    "median_pp": 0.26865021148969603,
+    "wilcoxon_p": 0.012008323853886458,
+    "ci_lo_pp": 0.04163837016231478,
+    "ci_hi_pp": 0.42680915855813695,
+    "agree": "*",
+    "n": 39
+   }
+  },
+  "WITHIN_N|open|OLMo-2-1B": {
+   "F:emotion_and_arousal": {
+    "n_prompts": 118,
+    "shared_prompts_in_chain": 118
+   },
+   "F:sensory_perception": {
+    "n_prompts": 108,
+    "shared_prompts_in_chain": 118
+   },
+   "F:physical_appearance_and_properties": {
+    "n_prompts": 117,
+    "shared_prompts_in_chain": 118
+   },
+   "F:logical_modal_and_discourse_operators": {
+    "n_prompts": 118,
+    "shared_prompts_in_chain": 118
+   },
+   "F:language_and_communication": {
+    "n_prompts": 116,
+    "shared_prompts_in_chain": 118
+   },
+   "N:dominance=dominant": {
+    "n_prompts": 118,
+    "shared_prompts_in_chain": 118
+   },
+   "N:concreteness=concrete": {
+    "n_prompts": 118,
+    "shared_prompts_in_chain": 118
+   },
+   "R:sensation": {
+    "n_prompts": 110,
+    "shared_prompts_in_chain": 118
+   },
+   "R:need": {
+    "n_prompts": 81,
+    "shared_prompts_in_chain": 118
+   }
+  },
+  "WITHIN_N|open|Olmo-3-7B": {
+   "F:emotion_and_arousal": {
+    "n_prompts": 117,
+    "shared_prompts_in_chain": 118
+   },
+   "F:sensory_perception": {
+    "n_prompts": 108,
+    "shared_prompts_in_chain": 118
+   },
+   "F:physical_appearance_and_properties": {
+    "n_prompts": 110,
+    "shared_prompts_in_chain": 118
+   },
+   "F:logical_modal_and_discourse_operators": {
+    "n_prompts": 118,
+    "shared_prompts_in_chain": 118
+   },
+   "F:language_and_communication": {
+    "n_prompts": 117,
+    "shared_prompts_in_chain": 118
+   },
+   "N:dominance=dominant": {
+    "n_prompts": 118,
+    "shared_prompts_in_chain": 118
+   },
+   "N:concreteness=concrete": {
+    "n_prompts": 118,
+    "shared_prompts_in_chain": 118
+   },
+   "R:sensation": {
+    "n_prompts": 108,
+    "shared_prompts_in_chain": 118
+   },
+   "R:need": {
+    "n_prompts": 73,
+    "shared_prompts_in_chain": 118
+   }
+  },
+  "WITHIN_N|open|pythia-6.9B": {
+   "F:emotion_and_arousal": {
+    "n_prompts": 77,
+    "shared_prompts_in_chain": 77
+   },
+   "F:sensory_perception": {
+    "n_prompts": 77,
+    "shared_prompts_in_chain": 77
+   },
+   "F:physical_appearance_and_properties": {
+    "n_prompts": 77,
+    "shared_prompts_in_chain": 77
+   },
+   "F:logical_modal_and_discourse_operators": {
+    "n_prompts": 77,
+    "shared_prompts_in_chain": 77
+   },
+   "F:language_and_communication": {
+    "n_prompts": 77,
+    "shared_prompts_in_chain": 77
+   },
+   "N:dominance=dominant": {
+    "n_prompts": 77,
+    "shared_prompts_in_chain": 77
+   },
+   "N:concreteness=concrete": {
+    "n_prompts": 77,
+    "shared_prompts_in_chain": 77
+   },
+   "R:sensation": {
+    "n_prompts": 77,
+    "shared_prompts_in_chain": 77
+   },
+   "R:need": {
+    "n_prompts": 67,
+    "shared_prompts_in_chain": 77
+   }
+  },
+  "WITHIN_N|open|Tulu-3-8B (SFT=no-safety)": {
+   "F:emotion_and_arousal": {
+    "n_prompts": 116,
+    "shared_prompts_in_chain": 116
+   },
+   "F:sensory_perception": {
+    "n_prompts": 107,
+    "shared_prompts_in_chain": 116
+   },
+   "F:physical_appearance_and_properties": {
+    "n_prompts": 114,
+    "shared_prompts_in_chain": 116
+   },
+   "F:logical_modal_and_discourse_operators": {
+    "n_prompts": 115,
+    "shared_prompts_in_chain": 116
+   },
+   "F:language_and_communication": {
+    "n_prompts": 115,
+    "shared_prompts_in_chain": 116
+   },
+   "N:dominance=dominant": {
+    "n_prompts": 116,
+    "shared_prompts_in_chain": 116
+   },
+   "N:concreteness=concrete": {
+    "n_prompts": 116,
+    "shared_prompts_in_chain": 116
+   },
+   "R:sensation": {
+    "n_prompts": 115,
+    "shared_prompts_in_chain": 116
+   },
+   "R:need": {
+    "n_prompts": 76,
+    "shared_prompts_in_chain": 116
+   }
+  },
+  "WITHIN_N|closed|claude-sonnet-4-6": {
+   "F:emotion_and_arousal": {
+    "n_prompts": 45,
+    "shared_prompts_in_chain": 47
+   },
+   "F:sensory_perception": {
+    "n_prompts": 45,
+    "shared_prompts_in_chain": 47
+   },
+   "F:physical_appearance_and_properties": {
+    "n_prompts": 45,
+    "shared_prompts_in_chain": 47
+   },
+   "F:logical_modal_and_discourse_operators": {
+    "n_prompts": 45,
+    "shared_prompts_in_chain": 47
+   },
+   "F:language_and_communication": {
+    "n_prompts": 45,
+    "shared_prompts_in_chain": 47
+   },
+   "N:dominance=dominant": {
+    "n_prompts": 45,
+    "shared_prompts_in_chain": 47
+   },
+   "N:concreteness=concrete": {
+    "n_prompts": 45,
+    "shared_prompts_in_chain": 47
+   },
+   "R:sensation": {
+    "n_prompts": 45,
+    "shared_prompts_in_chain": 47
+   },
+   "R:need": {
+    "n_prompts": 33,
+    "shared_prompts_in_chain": 47
+   }
+  },
+  "WITHIN_N|closed|claude-haiku-4-5": {
+   "F:emotion_and_arousal": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "F:sensory_perception": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "F:physical_appearance_and_properties": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "F:logical_modal_and_discourse_operators": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "F:language_and_communication": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "N:dominance=dominant": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "N:concreteness=concrete": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "R:sensation": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "R:need": {
+    "n_prompts": 37,
+    "shared_prompts_in_chain": 47
+   }
+  },
+  "WITHIN_N|closed|gpt-4o-mini": {
+   "F:emotion_and_arousal": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "F:sensory_perception": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "F:physical_appearance_and_properties": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "F:logical_modal_and_discourse_operators": {
+    "n_prompts": 45,
+    "shared_prompts_in_chain": 47
+   },
+   "F:language_and_communication": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "N:dominance=dominant": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "N:concreteness=concrete": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "R:sensation": {
+    "n_prompts": 46,
+    "shared_prompts_in_chain": 47
+   },
+   "R:need": {
+    "n_prompts": 39,
+    "shared_prompts_in_chain": 47
+   }
+  },
+  "WITHIN|F:emotion_and_arousal": {
+   "row": {
+    "open": [
+     {
+      "value_pp": 1.0373357634692402,
+      "clears": true
+     },
+     {
+      "value_pp": -0.48224502151676674,
+      "clears": true
+     },
+     {
+      "value_pp": 1.037020844256692,
+      "clears": true
+     },
+     {
+      "value_pp": 1.2248479050501957,
+      "clears": true
+     }
+    ],
+    "closed": [
+     {
+      "value_pp": -0.21131745967196136,
+      "clears": false
+     },
+     {
+      "value_pp": -0.19603542105143812,
+      "clears": false
+     },
+     {
+      "value_pp": 0.11746670056086359,
+      "clears": false
+     }
+    ],
+    "median_abs_open_pp": 1.037178303862966,
+    "median_abs_closed_pp": 0.19603542105143812,
+    "ratio": "0.2x",
+    "verdict": "not comparable (4/4 open, 0/3 closed clear)",
+    "named": false,
+    "n_open": 4,
+    "n_closed": 3,
+    "n_clear_open": 4,
+    "n_clear_closed": 0
+   }
+  },
+  "WITHIN|F:sensory_perception": {
+   "row": {
+    "open": [
+     {
+      "value_pp": 0.17661249512907345,
+      "clears": false
+     },
+     {
+      "value_pp": 0.12008738828069056,
+      "clears": false
+     },
+     {
+      "value_pp": 0.25071345978625037,
+      "clears": true
+     },
+     {
+      "value_pp": 0.31040897393068634,
+      "clears": false
+     }
+    ],
+    "closed": [
+     {
+      "value_pp": -2.031043730465016,
+      "clears": true
+     },
+     {
+      "value_pp": -1.1970526717106658,
+      "clears": true
+     },
+     {
+      "value_pp": -0.7201667511751615,
+      "clears": true
+     }
+    ],
+    "median_abs_open_pp": 0.2136629774576619,
+    "median_abs_closed_pp": 1.1970526717106658,
+    "ratio": "5.6x",
+    "verdict": "not comparable (1/4 open, 3/3 closed clear)",
+    "named": false,
+    "n_open": 4,
+    "n_closed": 3,
+    "n_clear_open": 1,
+    "n_clear_closed": 3
+   }
+  },
+  "WITHIN|F:physical_appearance_and_properties": {
+   "row": {
+    "open": [
+     {
+      "value_pp": 0.8124805277572006,
+      "clears": true
+     },
+     {
+      "value_pp": 0.5685357044979383,
+      "clears": false
+     },
+     {
+      "value_pp": 0.2457797745831436,
+      "clears": false
+     },
+     {
+      "value_pp": 1.0820880850070218,
+      "clears": true
+     }
+    ],
+    "closed": [
+     {
+      "value_pp": -1.4845084060075466,
+      "clears": true
+     },
+     {
+      "value_pp": -0.33101748956446997,
+      "clears": false
+     },
+     {
+      "value_pp": -0.4748369806757486,
+      "clears": true
+     }
+    ],
+    "median_abs_open_pp": 0.6905081161275695,
+    "median_abs_closed_pp": 0.4748369806757486,
+    "ratio": "0.7x",
+    "verdict": "INVERTS, both sides clear",
+    "named": false,
+    "n_open": 4,
+    "n_closed": 3,
+    "n_clear_open": 2,
+    "n_clear_closed": 2
+   }
+  },
+  "WITHIN|F:logical_modal_and_discourse_operators": {
+   "row": {
+    "open": [
+     {
+      "value_pp": -1.3515009525387316,
+      "clears": true
+     },
+     {
+      "value_pp": 0.015187264818963125,
+      "clears": false
+     },
+     {
+      "value_pp": 0.3884002882036844,
+      "clears": false
+     },
+     {
+      "value_pp": -1.9573981572930914,
+      "clears": true
+     }
+    ],
+    "closed": [
+     {
+      "value_pp": 1.0308367440050883,
+      "clears": true
+     },
+     {
+      "value_pp": 0.2569241978405905,
+      "clears": false
+     },
+     {
+      "value_pp": 0.29130448662421715,
+      "clears": true
+     }
+    ],
+    "median_abs_open_pp": 0.869950620371208,
+    "median_abs_closed_pp": 0.29130448662421715,
+    "ratio": "0.3x",
+    "verdict": "INVERTS, both sides clear",
+    "named": true,
+    "n_open": 4,
+    "n_closed": 3,
+    "n_clear_open": 2,
+    "n_clear_closed": 2
+   }
+  },
+  "WITHIN|F:language_and_communication": {
+   "row": {
+    "open": [
+     {
+      "value_pp": -0.7796015913584988,
+      "clears": true
+     },
+     {
+      "value_pp": 2.2818884264088553,
+      "clears": true
+     },
+     {
+      "value_pp": -0.21394689017776025,
+      "clears": false
+     },
+     {
+      "value_pp": -0.023852059447164453,
+      "clears": false
+     }
+    ],
+    "closed": [
+     {
+      "value_pp": 9.458180178731968,
+      "clears": true
+     },
+     {
+      "value_pp": 5.538107328759781,
+      "clears": true
+     },
+     {
+      "value_pp": 0.1924304691556838,
+      "clears": false
+     }
+    ],
+    "median_abs_open_pp": 0.4967742407681296,
+    "median_abs_closed_pp": 5.538107328759781,
+    "ratio": "11.1x",
+    "verdict": "INVERTS, both sides clear",
+    "named": true,
+    "n_open": 4,
+    "n_closed": 3,
+    "n_clear_open": 2,
+    "n_clear_closed": 2
+   }
+  },
+  "WITHIN|N:dominance=dominant": {
+   "row": {
+    "open": [
+     {
+      "value_pp": 0.22173794689906434,
+      "clears": false
+     },
+     {
+      "value_pp": 1.2143108228278354,
+      "clears": true
+     },
+     {
+      "value_pp": 1.387110401747671,
+      "clears": true
+     },
+     {
+      "value_pp": 0.3027861008828042,
+      "clears": false
+     }
+    ],
+    "closed": [
+     {
+      "value_pp": 9.802940711728104,
+      "clears": true
+     },
+     {
+      "value_pp": 4.678263858127751,
+      "clears": true
+     },
+     {
+      "value_pp": 0.6289923009988402,
+      "clears": false
+     }
+    ],
+    "median_abs_open_pp": 0.7585484618553198,
+    "median_abs_closed_pp": 4.678263858127751,
+    "ratio": "6.2x",
+    "verdict": "SAME DIRECTION, both sides clear",
+    "named": false,
+    "n_open": 4,
+    "n_closed": 3,
+    "n_clear_open": 2,
+    "n_clear_closed": 2
+   }
+  },
+  "WITHIN|N:concreteness=concrete": {
+   "row": {
+    "open": [
+     {
+      "value_pp": -2.88883990331512,
+      "clears": true
+     },
+     {
+      "value_pp": -0.4733332739860485,
+      "clears": false
+     },
+     {
+      "value_pp": -2.1456241337475532,
+      "clears": true
+     },
+     {
+      "value_pp": -1.5769058852075024,
+      "clears": true
+     }
+    ],
+    "closed": [
+     {
+      "value_pp": -6.446151865538469,
+      "clears": true
+     },
+     {
+      "value_pp": -4.810424110726701,
+      "clears": true
+     },
+     {
+      "value_pp": -2.489225984728706,
+      "clears": true
+     }
+    ],
+    "median_abs_open_pp": 1.861265009477528,
+    "median_abs_closed_pp": 4.810424110726701,
+    "ratio": "2.6x",
+    "verdict": "SAME DIRECTION, both sides clear",
+    "named": false,
+    "n_open": 4,
+    "n_closed": 3,
+    "n_clear_open": 3,
+    "n_clear_closed": 3
+   }
+  },
+  "WITHIN|R:sensation": {
+   "row": {
+    "open": [
+     {
+      "value_pp": 0.4258666815663815,
+      "clears": false
+     },
+     {
+      "value_pp": 0.3557138260168874,
+      "clears": true
+     },
+     {
+      "value_pp": -0.44121891787711476,
+      "clears": false
+     },
+     {
+      "value_pp": 0.15565226592443998,
+      "clears": false
+     }
+    ],
+    "closed": [
+     {
+      "value_pp": 0.5186363707258945,
+      "clears": false
+     },
+     {
+      "value_pp": -1.690014205981176,
+      "clears": false
+     },
+     {
+      "value_pp": -1.8547814415947925,
+      "clears": true
+     }
+    ],
+    "median_abs_open_pp": 0.39079025379163446,
+    "median_abs_closed_pp": 1.690014205981176,
+    "ratio": "4.3x",
+    "verdict": "not comparable (1/4 open, 1/3 closed clear)",
+    "named": false,
+    "n_open": 4,
+    "n_closed": 3,
+    "n_clear_open": 1,
+    "n_clear_closed": 1
+   }
+  },
+  "WITHIN|R:need": {
+   "row": {
+    "open": [
+     {
+      "value_pp": -1.6315407619755447,
+      "clears": true
+     },
+     {
+      "value_pp": 0.2592022272454725,
+      "clears": false
+     },
+     {
+      "value_pp": -0.3515080427304029,
+      "clears": false
+     },
+     {
+      "value_pp": -1.5604466145528413,
+      "clears": true
+     }
+    ],
+    "closed": [
+     {
+      "value_pp": 0.9225952410162941,
+      "clears": true
+     },
+     {
+      "value_pp": 0.5164815113151706,
+      "clears": false
+     },
+     {
+      "value_pp": 0.26865021148969603,
+      "clears": true
+     }
+    ],
+    "median_abs_open_pp": 0.9559773286416221,
+    "median_abs_closed_pp": 0.5164815113151706,
+    "ratio": "0.5x",
+    "verdict": "INVERTS, both sides clear",
+    "named": false,
+    "n_open": 4,
+    "n_closed": 3,
+    "n_clear_open": 2,
+    "n_clear_closed": 2
+   }
+  }
+ }
+}

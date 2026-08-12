@@ -162,6 +162,25 @@ def stage_profiles(st, idx, models, prompts):
     return out
 
 
+#: CAPTURE-ONLY WRITES, ADDED 2026-08-12 (producer-debt class 1A).
+#: `mark()` computed the median, the Wilcoxon p and the agreement marker and
+#: DISCARDED all three into a format string; `report()` printed the table and
+#: kept nothing. Z's section 1 (the SFT/DPO cancellation) and section 5 (the
+#: closed-system comparison) therefore had no data behind them -- the finding
+#: could be re-run and hoped to match, not re-queried or audited.
+#:
+#: **NOTHING BELOW CHANGES A COMPUTATION.** `mark()` records the values it
+#: already returns and returns the same string; `report()` files them under the
+#: keys it already prints. That is what makes the re-run a TEST of the document
+#: rather than a revision of it -- if a write had required altering a
+#: calculation, agreement would have proved nothing (the M04 A precedent,
+#: [5439]).
+CAPTURE = {}
+_CAP_KEY = [None]
+_CAP_STEP = [None]
+_WRITE = [None]
+
+
 def mark(d):
     """One cell: median, Wilcoxon p, and WHETHER THE TWO STATISTICS AGREE.
 
@@ -182,6 +201,11 @@ def mark(d):
     ci = lo > 0 or hi < 0
     p = wp == wp and wp < 0.05
     m = "*" if (ci and p) else ("~" if (ci or p) else " ")
+    if _CAP_KEY[0] is not None:
+        CAPTURE.setdefault(_CAP_KEY[0], {})[_CAP_STEP[0]] = {
+            "median_pp": 100 * statistics.median(d), "wilcoxon_p": wp,
+            "ci_lo_pp": 100 * lo, "ci_hi_pp": 100 * hi, "agree": m.strip() or None,
+            "n": len(d)}
     return "%+9.2f p%-6.3f%s" % (100 * statistics.median(d), wp, m)
 
 
@@ -196,8 +220,13 @@ def report(name, models, prof, labels):
         steps = [(i, i + 1) for i in range(len(models) - 1)]
         if len(models) > 2:
             steps.append((0, len(models) - 1))
-        cells = [mark([pr[j].get(g, 0) - pr[i].get(g, 0) for pr in prof.values()
-                       if g in pr[i] and g in pr[j]]) for i, j in steps]
+        cells = []
+        for i, j in steps:
+            _CAP_KEY[0] = "%s|%s" % (name, g)
+            _CAP_STEP[0] = labels[len(cells)] if len(cells) < len(labels) else "%d->%d" % (i, j)
+            cells.append(mark([pr[j].get(g, 0) - pr[i].get(g, 0) for pr in prof.values()
+                               if g in pr[i] and g in pr[j]]))
+        _CAP_KEY[0] = None
         print("     %-38s %s" % (g, " ".join(cells)))
     print("     * both tests agree   ~ they disagree, not significance\n")
 
@@ -205,7 +234,12 @@ def report(name, models, prof, labels):
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", choices=("ladders", "frontier", "safety"), default=None)
+    ap.add_argument("--write", metavar="PATH", nargs="?", const=os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "results", "z_ladders.json"),
+        help="capture-only: write every reported cell to JSON")
     a = ap.parse_args(argv)
+    _WRITE[0] = a.write
     st = CacheManager()._stash("generations")
     #: TULU_SFT is in NEITHER list -- the ladder carries the no-safety ablation
     #: in its place -- so omitting it here emptied the index for it and the
@@ -228,6 +262,8 @@ def main(argv=None):
         print("SAFETY DATA -- Tulu SFT with and without it")
         print("=" * 100)
         safety(st, idx)
+        if _WRITE[0]:
+            _write(_WRITE[0], a.only)
         return 0
 
     if a.only != "frontier":
@@ -264,6 +300,12 @@ def main(argv=None):
         print("REGIMES II -- WITHIN-MODEL EFFECT SIZES, open pipeline vs closed system line")
         print("=" * 100)
         within(st, idx)
+
+    #: THE WRITE IS CALLED, and it is called on both exit paths. A `_write`
+    #: defined and never invoked is the same debt with a file in front of it --
+    #: this campaign has shipped that exact shape before.
+    if _WRITE[0]:
+        _write(_WRITE[0], a.only)
     return 0
 
 
@@ -295,7 +337,7 @@ def within(st, idx):
     NAMED = {"F:language_and_communication",
              "F:logical_modal_and_discourse_operators"}
 
-    def deltas(models):
+    def deltas(models, _label=None):
         ps = set.intersection(*[{p for (mm, p) in idx if mm == m} for m in models])
         prof = stage_profiles(st, idx, models, ps)
         out = {}
@@ -307,10 +349,19 @@ def within(st, idx):
             wp, _ = wilcoxon(d)
             lo, hi = boot_ci(d)
             out[g] = (statistics.median(d), (lo > 0 or hi < 0) and wp == wp and wp < 0.05)
+            #: THE PROMPT COUNT IS THE POPULATION AND IT WAS DISCARDED. Section
+            #: 5 is prompt-matched, so its open column is a SUBSET of section
+            #: 1's -- OLMo-2-1B dominance is +0.26 there and +0.05 here on the
+            #: same data. If the intersection grows, section 5 drifts and
+            #: section 1 does not, and without n nobody can tell that from an
+            #: arithmetic error. Recorded per (side, family, measure).
+            if _label:
+                CAPTURE.setdefault("WITHIN_N|%s" % _label, {})[g] = {
+                    "n_prompts": len(d), "shared_prompts_in_chain": len(ps)}
         return out
 
-    op = {name: deltas([ms[0], ms[-1]]) for name, ms in LADDERS}
-    cl = {name: deltas(ms) for name, ms in FRONTIER}
+    op = {name: deltas([ms[0], ms[-1]], 'open|%s' % name) for name, ms in LADDERS}
+    cl = {name: deltas(ms, 'closed|%s' % name) for name, ms in FRONTIER}
     print("  open = base->DPO (retraining, %d families)   closed = cont->chat "
           "(one system line, %d models)" % (len(op), len(cl)))
     print("  * = both tests clear in that model. A DIRECTION CLAIM NEEDS STARS ON"
@@ -343,6 +394,17 @@ def within(st, idx):
             verdict = "SAME DIRECTION, both sides clear"
         else:
             verdict = "INVERTS, both sides clear"
+        #: CAPTURE-ONLY. Section 5's table is printed here with its OWN
+        #: formatter and never went through `mark()`, so the ladders hook did
+        #: not reach it -- the frontier run captured 27 report() cells and zero
+        #: of these. Recording the same v/s pairs the line below prints.
+        CAPTURE.setdefault("WITHIN|%s" % g, {})["row"] = {
+            "open": [{"value_pp": 100 * v, "clears": bool(s)} for v, s in o],
+            "closed": [{"value_pp": 100 * v, "clears": bool(s)} for v, s in c],
+            "median_abs_open_pp": 100 * mo, "median_abs_closed_pp": 100 * mc,
+            "ratio": ratio, "verdict": verdict, "named": g in NAMED,
+            "n_open": len(o), "n_closed": len(c),
+            "n_clear_open": nso, "n_clear_closed": nsc}
         print("  %-38s %-30s %-24s %8s %s%s"
               % (g,
                  " ".join("%+5.2f%s" % (100 * v, "*" if s else " ") for v, s in o),
@@ -535,6 +597,16 @@ def regimes(st, idx, min_families=3):
     print("\n  frontier column is a RANGE over its two framings, not a measurement"
           "\n  gap = frontier - openBASE in pp; frac = gap / (openDPO - openBASE)"
           "\n  READ THE GAP, NOT THE FRACTION, wherever the open span is narrow\n")
+
+def _write(path, argv_only):
+    import json
+    meta = {"produced_by": "meta/M01_displacement/scripts/z_ladders.py --write",
+            "capture": "capture-only; no computation altered (producer-debt 1A)",
+            "only": argv_only, "cells": len(CAPTURE),
+            "note": "keys are 'ladder|measure'; steps are the printed column labels"}
+    json.dump({"_meta": meta, "cells": CAPTURE}, open(path, "w"), indent=1)
+    print("wrote %d cells -> %s" % (len(CAPTURE), path))
+
 
 
 if __name__ == "__main__":

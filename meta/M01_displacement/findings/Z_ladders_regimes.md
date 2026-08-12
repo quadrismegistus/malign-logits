@@ -10,6 +10,35 @@ Positive results only, in the format of `Y_superego.md`: the number, the test, t
 
 ---
 
+**REPRODUCTION, 2026-08-12 (producer-debt class 1A, discharged).** `z_ladders.py`
+had zero write calls; every number here existed only as stdout. It now takes
+`--write` and emits `results/z_ladders.json` -- CAPTURE ONLY, no computation
+altered, which is what makes the re-run a test of this document rather than a
+revision of it.
+
+**Section 1 REPRODUCES EXACTLY**, all six cells, at this document's own
+precision: OLMo-2-1B +1.00 p0.005 / -0.78 p0.004 / +0.26 p0.195 and Olmo-3-7B
++2.52 / -1.57 / +1.15, n = 73 as stated. Section 4's closed column reproduces
+exactly too.
+
+**Section 5's OPEN column does NOT reproduce.** Concreteness reads
+-2.89 -0.47 -2.15 -1.58 against the published -2.99 -0.40 -2.15 -1.55;
+dominance reads +0.22 +1.21 +1.39 +0.30 against +0.05 +1.28 +1.39 +0.32, and
+the dominance ratio 5.8x is now 6.2x. The closed column is byte-identical.
+
+**Why it cannot be diagnosed, and this is the point of the debt.** Section 5's
+open column intersects only base and DPO -- **n = 118 prompts** -- while section
+1 intersects all three checkpoints at n = 73. Both are by design and the two
+tables are therefore NOT the same quantity, which this document does not say.
+**Section 5's open n was never published**, so a drift in it cannot be told from
+corpus growth, a changed intersection, or an arithmetic change. The artifact now
+records `n_prompts` and `shared_prompts_in_chain` per side per family, so the
+next reader can.
+
+Until that is resolved, section 5's magnitude ratios are not quotable and its
+DIRECTION claims (same-direction on concreteness and dominance, the inversions)
+are unchanged by the drift -- every sign and every star is the same.
+
 ## 1. The base/aligned contrast can report nothing where two large effects cancel
 
 The strongest structural result here, and it is methodological rather than about any one field.
