@@ -94,6 +94,19 @@ def get_pos(words, prompt, nlp=None, cache=None):
     the same (prompt, word) pairs recur across every consumer — the taxonomy
     driver, the M01 scripts, and any future one. **Only misses are tagged**, so
     a warm cache costs no spaCy calls at all.
+
+    **THIS FUNCTION CANNOT RETURN SHORT, AND THAT IS THE POINT OF THE API.**
+    `len(result) == len(words)` always: a miss is TAGGED, never dropped. The
+    alternative — a cache read that silently omits what it does not hold — cost
+    a real result on 2026-08-13: a TSV-backed POS cache built by selecting the
+    top-20 from a duplicated table was COMPLETE for that selection and SHORT for
+    the corrected one by 12,850 pairs, so a re-run measuring a dedup fix silently
+    excluded exactly the words the fix had promoted. **A cache miss and an
+    ineligible word look identical from inside**, so the only safe contract is
+    one that never returns fewer rows than it was asked for.
+
+    Consumers reading the `pos_context` stash DIRECTLY do not get that guarantee.
+    Go through this function.
     """
     from .cache import get_cache
     cache = cache if cache is not None else get_cache()
