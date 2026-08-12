@@ -1,5 +1,15 @@
 #!/usr/bin/env python
-"""Split-sample: select fields on half the lineages, test them on the other half.
+"""SUPERSEDED by both_control_contrast.py -- READ THIS BEFORE USING ANY NUMBER HERE.
+
+**THIS FILE USES POLE_A/POLE_B AS THE CONTROL AND THAT IS THE WRONG CONTRAST.**
+The poles differ from BOTH in FORM (one adjective against two) as well as in
+content, so every result below confounds contradiction with prompt length. Under
+the correct CONTROL_A/CONTROL_B contrast the form-sensitive findings die:
+cosmos_weather 17/17 p 1.5e-05 -> 11/17 p 0.33;  2/17 p 0.0024 -> 7/17
+p 0.63. Retained because the split-sample machinery and the circularity argument
+in it are correct and reusable; its CONCLUSIONS are not.
+
+Split-sample: select fields on half the lineages, test them on the other half.
 
     uv run python both_split_sample.py
 

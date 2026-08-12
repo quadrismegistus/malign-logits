@@ -1,0 +1,2442 @@
+{
+ "_meta": {
+  "passages": 54520,
+  "groups": 17,
+  "prompt_types_removed": 2866,
+  "control": "CONTROL_A + CONTROL_B (consonant adjective pair)",
+  "min_word": 120,
+  "min_field": 300
+ },
+ "words": {
+  "base": {
+   "ranked": [
+    {
+     "key": "captivity",
+     "ratio": 3.014,
+     "n_both": 120,
+     "n_ctrl": 80,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "charity",
+     "ratio": 2.043,
+     "n_both": 70,
+     "n_ctrl": 69,
+     "groups_up": 7,
+     "groups": 17
+    },
+    {
+     "key": "que",
+     "ratio": 2.039,
+     "n_both": 81,
+     "n_ctrl": 80,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "paragraph",
+     "ratio": 2.03,
+     "n_both": 126,
+     "n_ctrl": 125,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "hips",
+     "ratio": 1.904,
+     "n_both": 104,
+     "n_ctrl": 110,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "alice",
+     "ratio": 1.873,
+     "n_both": 66,
+     "n_ctrl": 71,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "liquid",
+     "ratio": 1.841,
+     "n_both": 74,
+     "n_ctrl": 81,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "ego",
+     "ratio": 1.8,
+     "n_both": 67,
+     "n_ctrl": 75,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "mysterious",
+     "ratio": 1.779,
+     "n_both": 83,
+     "n_ctrl": 94,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "orgasm",
+     "ratio": 1.75,
+     "n_both": 66,
+     "n_ctrl": 76,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "divided",
+     "ratio": 1.728,
+     "n_both": 66,
+     "n_ctrl": 77,
+     "groups_up": 15,
+     "groups": 17
+    },
+    {
+     "key": "we'll",
+     "ratio": 1.72,
+     "n_both": 64,
+     "n_ctrl": 75,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "emma",
+     "ratio": 1.686,
+     "n_both": 56,
+     "n_ctrl": 67,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "rolling",
+     "ratio": 1.68,
+     "n_both": 60,
+     "n_ctrl": 72,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "posts",
+     "ratio": 1.671,
+     "n_both": 58,
+     "n_ctrl": 70,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "african",
+     "ratio": 1.665,
+     "n_both": 71,
+     "n_ctrl": 86,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "virgin",
+     "ratio": 1.655,
+     "n_both": 101,
+     "n_ctrl": 123,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "emily",
+     "ratio": 1.646,
+     "n_both": 80,
+     "n_ctrl": 98,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "sang",
+     "ratio": 1.646,
+     "n_both": 89,
+     "n_ctrl": 109,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "intellectual",
+     "ratio": 1.645,
+     "n_both": 62,
+     "n_ctrl": 76,
+     "groups_up": 16,
+     "groups": 17
+    },
+    {
+     "key": "bitch",
+     "ratio": 1.632,
+     "n_both": 55,
+     "n_ctrl": 68,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "aspects",
+     "ratio": 1.628,
+     "n_both": 88,
+     "n_ctrl": 109,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "sheet",
+     "ratio": 1.619,
+     "n_both": 57,
+     "n_ctrl": 71,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "root",
+     "ratio": 1.618,
+     "n_both": 69,
+     "n_ctrl": 86,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "alex",
+     "ratio": 1.613,
+     "n_both": 64,
+     "n_ctrl": 80,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "okay",
+     "ratio": 1.604,
+     "n_both": 168,
+     "n_ctrl": 211,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "classic",
+     "ratio": 1.602,
+     "n_both": 54,
+     "n_ctrl": 68,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "aren't",
+     "ratio": 1.599,
+     "n_both": 69,
+     "n_ctrl": 87,
+     "groups_up": 15,
+     "groups": 17
+    },
+    {
+     "key": "les",
+     "ratio": 1.596,
+     "n_both": 53,
+     "n_ctrl": 67,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "beliefs",
+     "ratio": 1.593,
+     "n_both": 79,
+     "n_ctrl": 100,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "definition",
+     "ratio": 1.592,
+     "n_both": 75,
+     "n_ctrl": 95,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "le",
+     "ratio": 1.545,
+     "n_both": 128,
+     "n_ctrl": 167,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "et",
+     "ratio": 1.54,
+     "n_both": 149,
+     "n_ctrl": 195,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "fame",
+     "ratio": 1.535,
+     "n_both": 54,
+     "n_ctrl": 71,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "forbidden",
+     "ratio": 1.534,
+     "n_both": 57,
+     "n_ctrl": 75,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "knight",
+     "ratio": 1.521,
+     "n_both": 55,
+     "n_ctrl": 73,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "africa",
+     "ratio": 1.517,
+     "n_both": 82,
+     "n_ctrl": 109,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "folk",
+     "ratio": 1.513,
+     "n_both": 63,
+     "n_ctrl": 84,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "possess",
+     "ratio": 1.507,
+     "n_both": 56,
+     "n_ctrl": 75,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "starts",
+     "ratio": 1.504,
+     "n_both": 94,
+     "n_ctrl": 126,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "joe",
+     "ratio": 1.504,
+     "n_both": 85,
+     "n_ctrl": 114,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "psychological",
+     "ratio": 1.501,
+     "n_both": 61,
+     "n_ctrl": 82,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "tom",
+     "ratio": 1.498,
+     "n_both": 107,
+     "n_ctrl": 144,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "scenes",
+     "ratio": 1.496,
+     "n_both": 66,
+     "n_ctrl": 89,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "difference",
+     "ratio": 1.496,
+     "n_both": 164,
+     "n_ctrl": 221,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "infinite",
+     "ratio": 1.493,
+     "n_both": 54,
+     "n_ctrl": 73,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "prize",
+     "ratio": 1.493,
+     "n_both": 54,
+     "n_ctrl": 73,
+     "groups_up": 15,
+     "groups": 17
+    },
+    {
+     "key": "rape",
+     "ratio": 1.491,
+     "n_both": 68,
+     "n_ctrl": 92,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "sins",
+     "ratio": 1.491,
+     "n_both": 125,
+     "n_ctrl": 169,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "reader",
+     "ratio": 1.489,
+     "n_both": 133,
+     "n_ctrl": 180,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "humans",
+     "ratio": 1.487,
+     "n_both": 152,
+     "n_ctrl": 206,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "plastic",
+     "ratio": 1.486,
+     "n_both": 53,
+     "n_ctrl": 72,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "literary",
+     "ratio": 1.486,
+     "n_both": 67,
+     "n_ctrl": 91,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "fancy",
+     "ratio": 1.486,
+     "n_both": 53,
+     "n_ctrl": 72,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "exists",
+     "ratio": 1.482,
+     "n_both": 58,
+     "n_ctrl": 79,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "poet",
+     "ratio": 1.48,
+     "n_both": 91,
+     "n_ctrl": 124,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "cake",
+     "ratio": 1.479,
+     "n_both": 52,
+     "n_ctrl": 71,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "cheeks",
+     "ratio": 1.474,
+     "n_both": 87,
+     "n_ctrl": 119,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "legend",
+     "ratio": 1.473,
+     "n_both": 54,
+     "n_ctrl": 74,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "x",
+     "ratio": 1.47,
+     "n_both": 248,
+     "n_ctrl": 340,
+     "groups_up": 8,
+     "groups": 17
+    }
+   ],
+   "depleted": [
+    {
+     "key": "incredible",
+     "ratio": 0.582,
+     "n_both": 32,
+     "n_ctrl": 112,
+     "groups_up": 3,
+     "groups": 17
+    },
+    {
+     "key": "inevitable",
+     "ratio": 0.58,
+     "n_both": 27,
+     "n_ctrl": 95,
+     "groups_up": 3,
+     "groups": 17
+    },
+    {
+     "key": "br",
+     "ratio": 0.577,
+     "n_both": 71,
+     "n_ctrl": 249,
+     "groups_up": 5,
+     "groups": 17
+    },
+    {
+     "key": "suitable",
+     "ratio": 0.574,
+     "n_both": 37,
+     "n_ctrl": 131,
+     "groups_up": 4,
+     "groups": 17
+    },
+    {
+     "key": "suffered",
+     "ratio": 0.574,
+     "n_both": 70,
+     "n_ctrl": 247,
+     "groups_up": 1,
+     "groups": 17
+    },
+    {
+     "key": "seemingly",
+     "ratio": 0.562,
+     "n_both": 27,
+     "n_ctrl": 98,
+     "groups_up": 4,
+     "groups": 17
+    },
+    {
+     "key": "immediate",
+     "ratio": 0.56,
+     "n_both": 28,
+     "n_ctrl": 102,
+     "groups_up": 3,
+     "groups": 17
+    },
+    {
+     "key": "materials",
+     "ratio": 0.546,
+     "n_both": 36,
+     "n_ctrl": 134,
+     "groups_up": 7,
+     "groups": 17
+    },
+    {
+     "key": "allah",
+     "ratio": 0.544,
+     "n_both": 38,
+     "n_ctrl": 142,
+     "groups_up": 3,
+     "groups": 17
+    },
+    {
+     "key": "construction",
+     "ratio": 0.536,
+     "n_both": 47,
+     "n_ctrl": 178,
+     "groups_up": 5,
+     "groups": 17
+    },
+    {
+     "key": "accused",
+     "ratio": 0.535,
+     "n_both": 35,
+     "n_ctrl": 133,
+     "groups_up": 2,
+     "groups": 17
+    },
+    {
+     "key": "claimed",
+     "ratio": 0.525,
+     "n_both": 45,
+     "n_ctrl": 174,
+     "groups_up": 0,
+     "groups": 17
+    },
+    {
+     "key": "wounds",
+     "ratio": 0.525,
+     "n_both": 39,
+     "n_ctrl": 151,
+     "groups_up": 4,
+     "groups": 17
+    },
+    {
+     "key": "buildings",
+     "ratio": 0.494,
+     "n_both": 31,
+     "n_ctrl": 128,
+     "groups_up": 5,
+     "groups": 17
+    },
+    {
+     "key": "texas",
+     "ratio": 0.47,
+     "n_both": 26,
+     "n_ctrl": 113,
+     "groups_up": 2,
+     "groups": 17
+    }
+   ],
+   "n_ranked": 2035
+  },
+  "aligned": {
+   "ranked": [
+    {
+     "key": "conflicting",
+     "ratio": 6.843,
+     "n_both": 137,
+     "n_ctrl": 40,
+     "groups_up": 16,
+     "groups": 17
+    },
+    {
+     "key": "paradox",
+     "ratio": 6.431,
+     "n_both": 167,
+     "n_ctrl": 52,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "contradictory",
+     "ratio": 6.092,
+     "n_both": 134,
+     "n_ctrl": 44,
+     "groups_up": 17,
+     "groups": 17
+    },
+    {
+     "key": "contradiction",
+     "ratio": 4.994,
+     "n_both": 137,
+     "n_ctrl": 55,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "samuel",
+     "ratio": 2.694,
+     "n_both": 71,
+     "n_ctrl": 53,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "simultaneously",
+     "ratio": 2.691,
+     "n_both": 115,
+     "n_ctrl": 86,
+     "groups_up": 17,
+     "groups": 17
+    },
+    {
+     "key": "confusing",
+     "ratio": 2.553,
+     "n_both": 85,
+     "n_ctrl": 67,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "rationality",
+     "ratio": 2.412,
+     "n_both": 103,
+     "n_ctrl": 86,
+     "groups_up": 4,
+     "groups": 17
+    },
+    {
+     "key": "mix",
+     "ratio": 2.33,
+     "n_both": 170,
+     "n_ctrl": 147,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "captivity",
+     "ratio": 2.326,
+     "n_both": 172,
+     "n_ctrl": 149,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "complexity",
+     "ratio": 2.302,
+     "n_both": 136,
+     "n_ctrl": 119,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "philosophical",
+     "ratio": 2.218,
+     "n_both": 87,
+     "n_ctrl": 79,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "internal",
+     "ratio": 2.175,
+     "n_both": 245,
+     "n_ctrl": 227,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "purity",
+     "ratio": 2.12,
+     "n_both": 81,
+     "n_ctrl": 77,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "equally",
+     "ratio": 2.105,
+     "n_both": 70,
+     "n_ctrl": 67,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "wealth",
+     "ratio": 2.072,
+     "n_both": 329,
+     "n_ctrl": 320,
+     "groups_up": 7,
+     "groups": 17
+    },
+    {
+     "key": "disorder",
+     "ratio": 2.042,
+     "n_both": 76,
+     "n_ctrl": 75,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "madness",
+     "ratio": 2.016,
+     "n_both": 70,
+     "n_ctrl": 70,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "harry",
+     "ratio": 1.986,
+     "n_both": 66,
+     "n_ctrl": 67,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "destroying",
+     "ratio": 1.985,
+     "n_both": 64,
+     "n_ctrl": 65,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "complex",
+     "ratio": 1.963,
+     "n_both": 451,
+     "n_ctrl": 463,
+     "groups_up": 15,
+     "groups": 17
+    },
+    {
+     "key": "worlds",
+     "ratio": 1.961,
+     "n_both": 72,
+     "n_ctrl": 74,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "conflict",
+     "ratio": 1.957,
+     "n_both": 334,
+     "n_ctrl": 344,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "destruction",
+     "ratio": 1.882,
+     "n_both": 169,
+     "n_ctrl": 181,
+     "groups_up": 7,
+     "groups": 17
+    },
+    {
+     "key": "devil",
+     "ratio": 1.876,
+     "n_both": 80,
+     "n_ctrl": 86,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "mixture",
+     "ratio": 1.875,
+     "n_both": 66,
+     "n_ctrl": 71,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "torn",
+     "ratio": 1.869,
+     "n_both": 127,
+     "n_ctrl": 137,
+     "groups_up": 16,
+     "groups": 17
+    },
+    {
+     "key": "turmoil",
+     "ratio": 1.845,
+     "n_both": 97,
+     "n_ctrl": 106,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "destructive",
+     "ratio": 1.842,
+     "n_both": 63,
+     "n_ctrl": 69,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "sang",
+     "ratio": 1.827,
+     "n_both": 116,
+     "n_ctrl": 128,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "slavery",
+     "ratio": 1.811,
+     "n_both": 88,
+     "n_ctrl": 98,
+     "groups_up": 7,
+     "groups": 17
+    },
+    {
+     "key": "neither",
+     "ratio": 1.803,
+     "n_both": 212,
+     "n_ctrl": 237,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "rebellion",
+     "ratio": 1.8,
+     "n_both": 150,
+     "n_ctrl": 168,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "hate",
+     "ratio": 1.798,
+     "n_both": 314,
+     "n_ctrl": 352,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "creates",
+     "ratio": 1.78,
+     "n_both": 90,
+     "n_ctrl": 102,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "betray",
+     "ratio": 1.758,
+     "n_both": 61,
+     "n_ctrl": 70,
+     "groups_up": 6,
+     "groups": 17
+    },
+    {
+     "key": "g",
+     "ratio": 1.757,
+     "n_both": 264,
+     "n_ctrl": 303,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "innocence",
+     "ratio": 1.753,
+     "n_both": 140,
+     "n_ctrl": 161,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "sum",
+     "ratio": 1.749,
+     "n_both": 65,
+     "n_ctrl": 75,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "eve",
+     "ratio": 1.747,
+     "n_both": 58,
+     "n_ctrl": 67,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "emotions",
+     "ratio": 1.723,
+     "n_both": 759,
+     "n_ctrl": 888,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "random",
+     "ratio": 1.719,
+     "n_both": 69,
+     "n_ctrl": 81,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "fascinating",
+     "ratio": 1.717,
+     "n_both": 57,
+     "n_ctrl": 67,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "equal",
+     "ratio": 1.713,
+     "n_both": 107,
+     "n_ctrl": 126,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "rebel",
+     "ratio": 1.707,
+     "n_both": 66,
+     "n_ctrl": 78,
+     "groups_up": 5,
+     "groups": 17
+    },
+    {
+     "key": "output",
+     "ratio": 1.703,
+     "n_both": 65,
+     "n_ctrl": 77,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "separated",
+     "ratio": 1.694,
+     "n_both": 68,
+     "n_ctrl": 81,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "hint",
+     "ratio": 1.691,
+     "n_both": 62,
+     "n_ctrl": 74,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "chaos",
+     "ratio": 1.688,
+     "n_both": 175,
+     "n_ctrl": 209,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "trusting",
+     "ratio": 1.687,
+     "n_both": 56,
+     "n_ctrl": 67,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "numbers",
+     "ratio": 1.671,
+     "n_both": 116,
+     "n_ctrl": 140,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "combination",
+     "ratio": 1.67,
+     "n_both": 96,
+     "n_ctrl": 116,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "object",
+     "ratio": 1.666,
+     "n_both": 190,
+     "n_ctrl": 230,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "slave",
+     "ratio": 1.657,
+     "n_both": 143,
+     "n_ctrl": 174,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "christianity",
+     "ratio": 1.654,
+     "n_both": 59,
+     "n_ctrl": 72,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "crazy",
+     "ratio": 1.64,
+     "n_both": 100,
+     "n_ctrl": 123,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "operation",
+     "ratio": 1.628,
+     "n_both": 75,
+     "n_ctrl": 93,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "exploration",
+     "ratio": 1.614,
+     "n_both": 92,
+     "n_ctrl": 115,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "freedom",
+     "ratio": 1.614,
+     "n_both": 832,
+     "n_ctrl": 1039,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "creation",
+     "ratio": 1.612,
+     "n_both": 191,
+     "n_ctrl": 239,
+     "groups_up": 8,
+     "groups": 17
+    }
+   ],
+   "depleted": [
+    {
+     "key": "construction",
+     "ratio": 0.527,
+     "n_both": 42,
+     "n_ctrl": 162,
+     "groups_up": 4,
+     "groups": 17
+    },
+    {
+     "key": "devotion",
+     "ratio": 0.49,
+     "n_both": 56,
+     "n_ctrl": 232,
+     "groups_up": 3,
+     "groups": 17
+    },
+    {
+     "key": "bob",
+     "ratio": 0.488,
+     "n_both": 26,
+     "n_ctrl": 109,
+     "groups_up": 7,
+     "groups": 17
+    },
+    {
+     "key": "well-being",
+     "ratio": 0.485,
+     "n_both": 41,
+     "n_ctrl": 172,
+     "groups_up": 3,
+     "groups": 17
+    },
+    {
+     "key": "spend",
+     "ratio": 0.484,
+     "n_both": 126,
+     "n_ctrl": 526,
+     "groups_up": 3,
+     "groups": 17
+    },
+    {
+     "key": "jobs",
+     "ratio": 0.481,
+     "n_both": 29,
+     "n_ctrl": 123,
+     "groups_up": 2,
+     "groups": 17
+    },
+    {
+     "key": "dread",
+     "ratio": 0.465,
+     "n_both": 25,
+     "n_ctrl": 110,
+     "groups_up": 6,
+     "groups": 17
+    },
+    {
+     "key": "september",
+     "ratio": 0.458,
+     "n_both": 23,
+     "n_ctrl": 103,
+     "groups_up": 4,
+     "groups": 17
+    },
+    {
+     "key": "comprehensive",
+     "ratio": 0.437,
+     "n_both": 23,
+     "n_ctrl": 108,
+     "groups_up": 2,
+     "groups": 17
+    },
+    {
+     "key": "conviction",
+     "ratio": 0.426,
+     "n_both": 22,
+     "n_ctrl": 106,
+     "groups_up": 3,
+     "groups": 17
+    },
+    {
+     "key": "rid",
+     "ratio": 0.419,
+     "n_both": 51,
+     "n_ctrl": 247,
+     "groups_up": 2,
+     "groups": 17
+    },
+    {
+     "key": "lily",
+     "ratio": 0.41,
+     "n_both": 22,
+     "n_ctrl": 110,
+     "groups_up": 5,
+     "groups": 17
+    },
+    {
+     "key": "defiance",
+     "ratio": 0.392,
+     "n_both": 27,
+     "n_ctrl": 141,
+     "groups_up": 4,
+     "groups": 17
+    },
+    {
+     "key": "joe",
+     "ratio": 0.392,
+     "n_both": 21,
+     "n_ctrl": 110,
+     "groups_up": 2,
+     "groups": 17
+    },
+    {
+     "key": "software",
+     "ratio": 0.379,
+     "n_both": 28,
+     "n_ctrl": 151,
+     "groups_up": 4,
+     "groups": 17
+    }
+   ],
+   "n_ranked": 2218
+  }
+ },
+ "fields": {
+  "base": {
+   "ranked": [
+    {
+     "key": "usas:S2",
+     "ratio": 1.218,
+     "n_both": 1260,
+     "n_ctrl": 2083,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:X3.5",
+     "ratio": 1.173,
+     "n_both": 456,
+     "n_ctrl": 783,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas:Z6",
+     "ratio": 1.171,
+     "n_both": 237,
+     "n_ctrl": 408,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "rid:need:anality",
+     "ratio": 1.166,
+     "n_both": 1141,
+     "n_ctrl": 1971,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "rid:need:sex",
+     "ratio": 1.146,
+     "n_both": 2508,
+     "n_ctrl": 4406,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "gi:body_health",
+     "ratio": 1.144,
+     "n_both": 2795,
+     "n_ctrl": 4920,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:K6",
+     "ratio": 1.137,
+     "n_both": 488,
+     "n_ctrl": 865,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:W5",
+     "ratio": 1.133,
+     "n_both": 657,
+     "n_ctrl": 1168,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:Z8",
+     "ratio": 1.133,
+     "n_both": 931,
+     "n_ctrl": 1655,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas:Q4.1",
+     "ratio": 1.123,
+     "n_both": 1809,
+     "n_ctrl": 3245,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "rid:sensation:odor",
+     "ratio": 1.123,
+     "n_both": 898,
+     "n_ctrl": 1611,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas_fine:pronouns",
+     "ratio": 1.123,
+     "n_both": 938,
+     "n_ctrl": 1683,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "rid:expressive_behavior:",
+     "ratio": 1.114,
+     "n_both": 4539,
+     "n_ctrl": 8208,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:A6.3",
+     "ratio": 1.108,
+     "n_both": 1451,
+     "n_ctrl": 2637,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:W1",
+     "ratio": 1.105,
+     "n_both": 1634,
+     "n_ctrl": 2977,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:N1",
+     "ratio": 1.103,
+     "n_both": 1256,
+     "n_ctrl": 2293,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "rid:regressive_cognition:unknow",
+     "ratio": 1.099,
+     "n_both": 1186,
+     "n_ctrl": 2174,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:Q4.2",
+     "ratio": 1.091,
+     "n_both": 1243,
+     "n_ctrl": 2295,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "rid:regressive_cognition:counscious",
+     "ratio": 1.084,
+     "n_both": 2858,
+     "n_ctrl": 5308,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas:L2mfn",
+     "ratio": 1.081,
+     "n_both": 1521,
+     "n_ctrl": 2833,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas:O4.5",
+     "ratio": 1.08,
+     "n_both": 1651,
+     "n_ctrl": 3079,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:Z7",
+     "ratio": 1.08,
+     "n_both": 122,
+     "n_ctrl": 228,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "wordnet:weather",
+     "ratio": 1.079,
+     "n_both": 732,
+     "n_ctrl": 1367,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "rid:defensive_symbolization:random_movement",
+     "ratio": 1.079,
+     "n_both": 1929,
+     "n_ctrl": 3599,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas:X3.3",
+     "ratio": 1.078,
+     "n_both": 976,
+     "n_ctrl": 1823,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "rid:regressive_cognition:narcissism",
+     "ratio": 1.076,
+     "n_both": 3698,
+     "n_ctrl": 6922,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas:A1.1.2",
+     "ratio": 1.075,
+     "n_both": 3118,
+     "n_ctrl": 5840,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas:W4",
+     "ratio": 1.074,
+     "n_both": 1463,
+     "n_ctrl": 2743,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "rid:sensation:cold",
+     "ratio": 1.073,
+     "n_both": 1299,
+     "n_ctrl": 2439,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas:X2",
+     "ratio": 1.072,
+     "n_both": 1255,
+     "n_ctrl": 2358,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas_fine:cosmos_weather_and_environment",
+     "ratio": 1.071,
+     "n_both": 5195,
+     "n_ctrl": 9771,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:S3.2",
+     "ratio": 1.071,
+     "n_both": 5651,
+     "n_ctrl": 10622,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "usas:Q4",
+     "ratio": 1.071,
+     "n_both": 2959,
+     "n_ctrl": 5562,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:L2f",
+     "ratio": 1.066,
+     "n_both": 1060,
+     "n_ctrl": 2003,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "usas:A1.7",
+     "ratio": 1.063,
+     "n_both": 4414,
+     "n_ctrl": 8366,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "rid:defensive_symbolization:diffusion",
+     "ratio": 1.063,
+     "n_both": 1115,
+     "n_ctrl": 2113,
+     "groups_up": 7,
+     "groups": 17
+    },
+    {
+     "key": "usas:M8",
+     "ratio": 1.063,
+     "n_both": 1199,
+     "n_ctrl": 2271,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "usas:E1",
+     "ratio": 1.054,
+     "n_both": 4451,
+     "n_ctrl": 8505,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:Q3",
+     "ratio": 1.052,
+     "n_both": 7062,
+     "n_ctrl": 13523,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas:B1",
+     "ratio": 1.051,
+     "n_both": 10806,
+     "n_ctrl": 20714,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:Z1m",
+     "ratio": 1.051,
+     "n_both": 7614,
+     "n_ctrl": 14595,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas:A6.1",
+     "ratio": 1.05,
+     "n_both": 4742,
+     "n_ctrl": 9096,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas_fine:media_and_entertainment",
+     "ratio": 1.047,
+     "n_both": 20176,
+     "n_ctrl": 38803,
+     "groups_up": 15,
+     "groups": 17
+    },
+    {
+     "key": "usas:G1.2",
+     "ratio": 1.047,
+     "n_both": 2931,
+     "n_ctrl": 5640,
+     "groups_up": 7,
+     "groups": 17
+    },
+    {
+     "key": "usas:O1.1",
+     "ratio": 1.046,
+     "n_both": 2586,
+     "n_ctrl": 4980,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas:N2",
+     "ratio": 1.046,
+     "n_both": 3169,
+     "n_ctrl": 6099,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "rid:sensation:hard",
+     "ratio": 1.045,
+     "n_both": 1105,
+     "n_ctrl": 2129,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "usas:S1.2.2",
+     "ratio": 1.045,
+     "n_both": 771,
+     "n_ctrl": 1486,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "usas:Q4.3",
+     "ratio": 1.045,
+     "n_both": 3241,
+     "n_ctrl": 6246,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "rid:sensation:taste",
+     "ratio": 1.045,
+     "n_both": 936,
+     "n_ctrl": 1805,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "rid:need:orality",
+     "ratio": 1.042,
+     "n_both": 5745,
+     "n_ctrl": 11105,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:X3.1",
+     "ratio": 1.042,
+     "n_both": 929,
+     "n_ctrl": 1795,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "gi:perception_sensation",
+     "ratio": 1.041,
+     "n_both": 1481,
+     "n_ctrl": 2866,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "usas:Z3m",
+     "ratio": 1.041,
+     "n_both": 206,
+     "n_ctrl": 399,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "usas:O4.4",
+     "ratio": 1.039,
+     "n_both": 4416,
+     "n_ctrl": 8559,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:S1.2.6",
+     "ratio": 1.037,
+     "n_both": 2389,
+     "n_ctrl": 4641,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:Z1f",
+     "ratio": 1.037,
+     "n_both": 4303,
+     "n_ctrl": 8357,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:K2",
+     "ratio": 1.036,
+     "n_both": 7590,
+     "n_ctrl": 14752,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "rid:defensive_symbolization:chaos",
+     "ratio": 1.035,
+     "n_both": 1215,
+     "n_ctrl": 2365,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "usas:O1.2",
+     "ratio": 1.035,
+     "n_both": 1207,
+     "n_ctrl": 2349,
+     "groups_up": 9,
+     "groups": 17
+    }
+   ],
+   "depleted": [
+    {
+     "key": "usas:I4",
+     "ratio": 0.901,
+     "n_both": 397,
+     "n_ctrl": 888,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "usas:P1c",
+     "ratio": 0.899,
+     "n_both": 151,
+     "n_ctrl": 339,
+     "groups_up": 7,
+     "groups": 17
+    },
+    {
+     "key": "usas:A15",
+     "ratio": 0.897,
+     "n_both": 1267,
+     "n_ctrl": 2844,
+     "groups_up": 6,
+     "groups": 17
+    },
+    {
+     "key": "usas:T4",
+     "ratio": 0.894,
+     "n_both": 234,
+     "n_ctrl": 528,
+     "groups_up": 7,
+     "groups": 17
+    },
+    {
+     "key": "usas:H2",
+     "ratio": 0.894,
+     "n_both": 1603,
+     "n_ctrl": 3610,
+     "groups_up": 5,
+     "groups": 17
+    },
+    {
+     "key": "usas:F3",
+     "ratio": 0.892,
+     "n_both": 547,
+     "n_ctrl": 1236,
+     "groups_up": 5,
+     "groups": 17
+    },
+    {
+     "key": "usas:S2.2m",
+     "ratio": 0.891,
+     "n_both": 545,
+     "n_ctrl": 1232,
+     "groups_up": 5,
+     "groups": 17
+    },
+    {
+     "key": "usas:I1.3",
+     "ratio": 0.891,
+     "n_both": 1257,
+     "n_ctrl": 2842,
+     "groups_up": 7,
+     "groups": 17
+    },
+    {
+     "key": "usas:S4f",
+     "ratio": 0.888,
+     "n_both": 687,
+     "n_ctrl": 1558,
+     "groups_up": 4,
+     "groups": 17
+    },
+    {
+     "key": "usas:S7.4",
+     "ratio": 0.882,
+     "n_both": 3455,
+     "n_ctrl": 7892,
+     "groups_up": 3,
+     "groups": 17
+    },
+    {
+     "key": "usas:H5",
+     "ratio": 0.881,
+     "n_both": 955,
+     "n_ctrl": 2183,
+     "groups_up": 6,
+     "groups": 17
+    },
+    {
+     "key": "usas:I3.1",
+     "ratio": 0.88,
+     "n_both": 3156,
+     "n_ctrl": 7223,
+     "groups_up": 2,
+     "groups": 17
+    },
+    {
+     "key": "usas:H3",
+     "ratio": 0.825,
+     "n_both": 506,
+     "n_ctrl": 1236,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "usas:I3.2",
+     "ratio": 0.824,
+     "n_both": 863,
+     "n_ctrl": 2109,
+     "groups_up": 2,
+     "groups": 17
+    },
+    {
+     "key": "usas:G2.1c",
+     "ratio": 0.77,
+     "n_both": 88,
+     "n_ctrl": 231,
+     "groups_up": 6,
+     "groups": 17
+    }
+   ],
+   "n_ranked": 359
+  },
+  "aligned": {
+   "ranked": [
+    {
+     "key": "usas:Z3mfn",
+     "ratio": 1.428,
+     "n_both": 532,
+     "n_ctrl": 751,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:S4c",
+     "ratio": 1.409,
+     "n_both": 139,
+     "n_ctrl": 199,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:A6.1",
+     "ratio": 1.237,
+     "n_both": 6960,
+     "n_ctrl": 11342,
+     "groups_up": 16,
+     "groups": 17
+    },
+    {
+     "key": "rid:defensive_symbolization:chaos",
+     "ratio": 1.213,
+     "n_both": 1640,
+     "n_ctrl": 2726,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "usas:S2.1",
+     "ratio": 1.199,
+     "n_both": 161,
+     "n_ctrl": 271,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas:A6.3",
+     "ratio": 1.198,
+     "n_both": 1813,
+     "n_ctrl": 3051,
+     "groups_up": 16,
+     "groups": 17
+    },
+    {
+     "key": "usas:Z8",
+     "ratio": 1.186,
+     "n_both": 928,
+     "n_ctrl": 1578,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:O1.3",
+     "ratio": 1.182,
+     "n_both": 212,
+     "n_ctrl": 362,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas:X3.3",
+     "ratio": 1.181,
+     "n_both": 1038,
+     "n_ctrl": 1772,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas_fine:pronouns",
+     "ratio": 1.18,
+     "n_both": 934,
+     "n_ctrl": 1596,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:O1",
+     "ratio": 1.177,
+     "n_both": 1357,
+     "n_ctrl": 2324,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas:L2mfn",
+     "ratio": 1.169,
+     "n_both": 1165,
+     "n_ctrl": 2009,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:Q4.1",
+     "ratio": 1.168,
+     "n_both": 1932,
+     "n_ctrl": 3333,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "usas:W1",
+     "ratio": 1.166,
+     "n_both": 1481,
+     "n_ctrl": 2560,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas:X3.1",
+     "ratio": 1.15,
+     "n_both": 978,
+     "n_ctrl": 1714,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "rid:need:sex",
+     "ratio": 1.145,
+     "n_both": 1625,
+     "n_ctrl": 2860,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "rid:defensive_symbolization:diffusion",
+     "ratio": 1.142,
+     "n_both": 1433,
+     "n_ctrl": 2529,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas:L2mf",
+     "ratio": 1.14,
+     "n_both": 1187,
+     "n_ctrl": 2099,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "rid:defensive_symbolization:voyage",
+     "ratio": 1.135,
+     "n_both": 2409,
+     "n_ctrl": 4278,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "rid:need:anality",
+     "ratio": 1.131,
+     "n_both": 912,
+     "n_ctrl": 1626,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "rid:icarian_imagery:water",
+     "ratio": 1.131,
+     "n_both": 1796,
+     "n_ctrl": 3202,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "rid:sensation:odor",
+     "ratio": 1.13,
+     "n_both": 925,
+     "n_ctrl": 1651,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:N3.7",
+     "ratio": 1.126,
+     "n_both": 2086,
+     "n_ctrl": 3733,
+     "groups_up": 14,
+     "groups": 17
+    },
+    {
+     "key": "usas:X1",
+     "ratio": 1.123,
+     "n_both": 667,
+     "n_ctrl": 1197,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:Z3m",
+     "ratio": 1.123,
+     "n_both": 163,
+     "n_ctrl": 293,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "usas:O1.1",
+     "ratio": 1.119,
+     "n_both": 2280,
+     "n_ctrl": 4109,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas:P1c",
+     "ratio": 1.119,
+     "n_both": 138,
+     "n_ctrl": 249,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:M4fn",
+     "ratio": 1.118,
+     "n_both": 357,
+     "n_ctrl": 644,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas:N1",
+     "ratio": 1.116,
+     "n_both": 1501,
+     "n_ctrl": 2712,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas:X3.5",
+     "ratio": 1.112,
+     "n_both": 391,
+     "n_ctrl": 709,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "rid:regressive_cognition:counscious",
+     "ratio": 1.108,
+     "n_both": 2711,
+     "n_ctrl": 4933,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:N3.4",
+     "ratio": 1.103,
+     "n_both": 187,
+     "n_ctrl": 342,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "usas:S1.2.6",
+     "ratio": 1.099,
+     "n_both": 2235,
+     "n_ctrl": 4101,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "rid:sensation:hard",
+     "ratio": 1.097,
+     "n_both": 951,
+     "n_ctrl": 1748,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas:E1",
+     "ratio": 1.096,
+     "n_both": 7111,
+     "n_ctrl": 13081,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas:S2mf",
+     "ratio": 1.09,
+     "n_both": 2481,
+     "n_ctrl": 4589,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "rid:sensation:touch",
+     "ratio": 1.089,
+     "n_both": 1680,
+     "n_ctrl": 3110,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "rid:icarian_imagery:descent",
+     "ratio": 1.089,
+     "n_both": 1196,
+     "n_ctrl": 2215,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "wordnet:weather",
+     "ratio": 1.086,
+     "n_both": 798,
+     "n_ctrl": 1481,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "rid:expressive_behavior:",
+     "ratio": 1.083,
+     "n_both": 4357,
+     "n_ctrl": 8107,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas:A1.1.2",
+     "ratio": 1.081,
+     "n_both": 3297,
+     "n_ctrl": 6147,
+     "groups_up": 7,
+     "groups": 17
+    },
+    {
+     "key": "usas:O1.2",
+     "ratio": 1.08,
+     "n_both": 993,
+     "n_ctrl": 1853,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:A1.6",
+     "ratio": 1.08,
+     "n_both": 587,
+     "n_ctrl": 1096,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:Z7",
+     "ratio": 1.08,
+     "n_both": 183,
+     "n_ctrl": 342,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:X4.1",
+     "ratio": 1.079,
+     "n_both": 9399,
+     "n_ctrl": 17552,
+     "groups_up": 15,
+     "groups": 17
+    },
+    {
+     "key": "usas:Y1",
+     "ratio": 1.079,
+     "n_both": 2315,
+     "n_ctrl": 4324,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas:W4",
+     "ratio": 1.078,
+     "n_both": 1757,
+     "n_ctrl": 3286,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "usas:A1.7",
+     "ratio": 1.077,
+     "n_both": 5683,
+     "n_ctrl": 10634,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas:S4m",
+     "ratio": 1.075,
+     "n_both": 292,
+     "n_ctrl": 548,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "gi:perception_sensation",
+     "ratio": 1.075,
+     "n_both": 1158,
+     "n_ctrl": 2172,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas:A5.4",
+     "ratio": 1.074,
+     "n_both": 3905,
+     "n_ctrl": 7327,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "usas:F3",
+     "ratio": 1.074,
+     "n_both": 481,
+     "n_ctrl": 903,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "usas:S1.2",
+     "ratio": 1.073,
+     "n_both": 1824,
+     "n_ctrl": 3427,
+     "groups_up": 12,
+     "groups": 17
+    },
+    {
+     "key": "rid:defensive_symbolization:random_movement",
+     "ratio": 1.073,
+     "n_both": 2104,
+     "n_ctrl": 3953,
+     "groups_up": 11,
+     "groups": 17
+    },
+    {
+     "key": "usas_fine:cosmos_weather_and_environment",
+     "ratio": 1.07,
+     "n_both": 5720,
+     "n_ctrl": 10776,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "usas:S1.2.2",
+     "ratio": 1.07,
+     "n_both": 904,
+     "n_ctrl": 1703,
+     "groups_up": 9,
+     "groups": 17
+    },
+    {
+     "key": "usas:O4.4",
+     "ratio": 1.069,
+     "n_both": 4334,
+     "n_ctrl": 8173,
+     "groups_up": 13,
+     "groups": 17
+    },
+    {
+     "key": "usas:N3.5",
+     "ratio": 1.068,
+     "n_both": 1061,
+     "n_ctrl": 2002,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "usas:I4",
+     "ratio": 1.068,
+     "n_both": 361,
+     "n_ctrl": 682,
+     "groups_up": 10,
+     "groups": 17
+    },
+    {
+     "key": "usas:G2.2",
+     "ratio": 1.066,
+     "n_both": 6939,
+     "n_ctrl": 13116,
+     "groups_up": 9,
+     "groups": 17
+    }
+   ],
+   "depleted": [
+    {
+     "key": "usas:S1.1.4",
+     "ratio": 0.879,
+     "n_both": 306,
+     "n_ctrl": 702,
+     "groups_up": 7,
+     "groups": 17
+    },
+    {
+     "key": "usas:S4mf",
+     "ratio": 0.878,
+     "n_both": 380,
+     "n_ctrl": 873,
+     "groups_up": 5,
+     "groups": 17
+    },
+    {
+     "key": "usas:S7.2",
+     "ratio": 0.877,
+     "n_both": 1859,
+     "n_ctrl": 4274,
+     "groups_up": 4,
+     "groups": 17
+    },
+    {
+     "key": "usas:G1.1c",
+     "ratio": 0.875,
+     "n_both": 587,
+     "n_ctrl": 1353,
+     "groups_up": 4,
+     "groups": 17
+    },
+    {
+     "key": "usas:A1.2",
+     "ratio": 0.869,
+     "n_both": 2391,
+     "n_ctrl": 5546,
+     "groups_up": 3,
+     "groups": 17
+    },
+    {
+     "key": "usas:A1.9",
+     "ratio": 0.864,
+     "n_both": 950,
+     "n_ctrl": 2218,
+     "groups_up": 2,
+     "groups": 17
+    },
+    {
+     "key": "usas:E4.2",
+     "ratio": 0.859,
+     "n_both": 2260,
+     "n_ctrl": 5305,
+     "groups_up": 3,
+     "groups": 17
+    },
+    {
+     "key": "usas:N3.6",
+     "ratio": 0.845,
+     "n_both": 401,
+     "n_ctrl": 957,
+     "groups_up": 4,
+     "groups": 17
+    },
+    {
+     "key": "usas:S1.2.3",
+     "ratio": 0.842,
+     "n_both": 1785,
+     "n_ctrl": 4272,
+     "groups_up": 2,
+     "groups": 17
+    },
+    {
+     "key": "usas:S4f",
+     "ratio": 0.84,
+     "n_both": 367,
+     "n_ctrl": 881,
+     "groups_up": 3,
+     "groups": 17
+    },
+    {
+     "key": "usas:I3.1",
+     "ratio": 0.834,
+     "n_both": 3490,
+     "n_ctrl": 8438,
+     "groups_up": 3,
+     "groups": 17
+    },
+    {
+     "key": "usas:S2.2m",
+     "ratio": 0.825,
+     "n_both": 308,
+     "n_ctrl": 753,
+     "groups_up": 6,
+     "groups": 17
+    },
+    {
+     "key": "usas:Z6",
+     "ratio": 0.8,
+     "n_both": 324,
+     "n_ctrl": 817,
+     "groups_up": 5,
+     "groups": 17
+    },
+    {
+     "key": "usas:Z3fn",
+     "ratio": 0.79,
+     "n_both": 111,
+     "n_ctrl": 284,
+     "groups_up": 8,
+     "groups": 17
+    },
+    {
+     "key": "usas:H3",
+     "ratio": 0.724,
+     "n_both": 392,
+     "n_ctrl": 1092,
+     "groups_up": 2,
+     "groups": 17
+    }
+   ],
+   "n_ranked": 358
+  }
+ }
+}
