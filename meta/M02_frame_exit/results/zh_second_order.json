@@ -1,0 +1,296 @@
+{
+ "controls_pass": true,
+ "rates": {
+  "aligned|both": {
+   "yes": 12,
+   "n": 200
+  },
+  "aligned|control_b": {
+   "yes": 0,
+   "n": 100
+  },
+  "base|both": {
+   "yes": 6,
+   "n": 200
+  },
+  "base|control_b": {
+   "yes": 2,
+   "n": 100
+  },
+  "aligned|control_a": {
+   "yes": 3,
+   "n": 100
+  },
+  "base|control_a": {
+   "yes": 0,
+   "n": 100
+  }
+ },
+ "pairs": {
+  "up": 7,
+  "down": 3,
+  "tied": 19
+ },
+ "kinds": {
+  "oxymoron": 6,
+  "abstract": 11,
+  "other": 2,
+  "container": 2,
+  "reflexive": 2
+ },
+ "yes_spans": [
+  {
+   "id": "20094",
+   "span": "所謂“擁有是沒有東西”",
+   "kind": "oxymoron",
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 10
+  },
+  {
+   "id": "20095",
+   "span": "心境矛盾：对某个人既有爱慕之情，又有厌",
+   "kind": "abstract",
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 13
+  },
+  {
+   "id": "20198",
+   "span": "我选择了堕落作为一面，但也不得不以天使作为另一面，这两面都不是我自己所能够选择的",
+   "kind": "other",
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 18
+  },
+  {
+   "id": "20242",
+   "span": "一个双重冲突的方案",
+   "kind": "abstract",
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_reason_zh",
+   "sample_idx": 19
+  },
+  {
+   "id": "20281",
+   "span": "一个富有而意识形态上分裂的富裕家庭",
+   "kind": "abstract",
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 15
+  },
+  {
+   "id": "20284",
+   "span": "身体或生理特征在男性和女性之间混合的人",
+   "kind": "container",
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 2
+  },
+  {
+   "id": "20289",
+   "span": "她的心违背自己的意志",
+   "kind": "reflexive",
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_guilt_zh",
+   "sample_idx": 9
+  },
+  {
+   "id": "20343",
+   "span": "冲突中脱离开来",
+   "kind": "abstract",
+   "model": "LLM360/AmberSafe",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 15
+  },
+  {
+   "id": "20347",
+   "span": "很可能正处于一种内心的矛盾和挣扎之中",
+   "kind": "abstract",
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 12
+  },
+  {
+   "id": "20382",
+   "span": "这极大的拉扯就像被钉在十字架上的耶稣",
+   "kind": "other",
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_love_zh",
+   "sample_idx": 17
+  },
+  {
+   "id": "20396",
+   "span": "这样的感情纠葛，往往因为种种原因而走向了不同的结局",
+   "kind": "abstract",
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 1
+  },
+  {
+   "id": "20423",
+   "span": "无言的言说",
+   "kind": "oxymoron",
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 7
+  },
+  {
+   "id": "20475",
+   "span": "在两个极端之间生活",
+   "kind": "container",
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 7
+  },
+  {
+   "id": "20484",
+   "span": "有一种名为“阴阳人”的说法，指的是既有男性特征，又具有女性特征的特别人",
+   "kind": "oxymoron",
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 4
+  },
+  {
+   "id": "20507",
+   "span": "将高尚的理念与卑鄙的行为相结合",
+   "kind": "oxymoron",
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 11
+  },
+  {
+   "id": "20548",
+   "span": "一种都不理性又不非理性的平衡混合体",
+   "kind": "oxymoron",
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 15
+  },
+  {
+   "id": "20600",
+   "span": "这就是分别代表着人类正面和负面感情的两种结合",
+   "kind": "oxymoron",
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 19
+  },
+  {
+   "id": "20622",
+   "span": "就会产生自我意识极其强烈的矛盾心态",
+   "kind": "abstract",
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 2
+  },
+  {
+   "id": "20668",
+   "span": "总是体现出这种双重性，即在理性框架下处理道德问题，但又在这一框架内引入了一种自由选择的乐观主义观点",
+   "kind": "abstract",
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 10
+  },
+  {
+   "id": "20677",
+   "span": "他试图认为自己并不是一个多重认知症",
+   "kind": "abstract",
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 11
+  },
+  {
+   "id": "20689",
+   "span": "他的意愿矛盾",
+   "kind": "abstract",
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 13
+  },
+  {
+   "id": "20747",
+   "span": "挡制这各自存在多样的自我",
+   "kind": "reflexive",
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 9
+  },
+  {
+   "id": "20751",
+   "span": "象征着现代社会的焦虑和矛盾",
+   "kind": "abstract",
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 14
+  }
+ ]
+}

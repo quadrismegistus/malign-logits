@@ -1,0 +1,18 @@
+{
+ "29001": {
+  "required": "YES",
+  "why": "abstract naming: 矛盾/悖论 take the state as object"
+ },
+ "29002": {
+  "required": "YES",
+  "why": "oxymoron: 甜蜜的酷刑 fuses the poles"
+ },
+ "29003": {
+  "required": "NO",
+  "why": "dense enactment, no outside vantage"
+ },
+ "29004": {
+  "required": "NO",
+  "why": "纠结 as feeling report; upset character"
+ }
+}

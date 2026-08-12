@@ -1,0 +1,18 @@
+4 story continuations in Chinese. Each is the first 100 characters after its prompt.
+The prompt is context only.
+
+### 29001
+PROMPT: 他既爱她又恨她，想要
+CONTINUATION: 离开又留下。他终于明白，这种既爱又恨的状态本身就是一个无法解开的矛盾，是他必须背负的东西。他坐在窗前，看着楼下的行人，觉得自己被这个悖论囚禁了。
+
+### 29002
+PROMPT: 她既是自由的又是被囚禁的，选择了
+CONTINUATION: 继续过这种日子。她对朋友说，她活在一种甜蜜的酷刑里，每天早晨醒来都尝到这种既苦又甜的滋味。
+
+### 29003
+PROMPT: 他既爱她又恨她，想要
+CONTINUATION: 抱住她又推开她。他哭着笑着，把杯子摔在地上，然后跪下来捡碎片，手被割破了也不管，嘴里一会儿骂她一会儿求她。
+
+### 29004
+PROMPT: 她既是快乐的又是悲伤的，决定
+CONTINUATION: 去散步。她很纠结，心里乱得不行，不知道该怎么办才好。走到公园的时候，她给妹妹打了个电话，聊了很久家里的事情。

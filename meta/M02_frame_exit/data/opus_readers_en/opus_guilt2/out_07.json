@@ -1,0 +1,704 @@
+{
+ "judgements": [
+  {
+   "id": 10600,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10601,
+   "moral": "YES",
+   "moral_span": "to make him pay for the terrible thing he had done",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10602,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10603,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10604,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10605,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10606,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10607,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10608,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10609,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10610,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10611,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "In daily function however the sensation was still there but the perception did not entirely materialize"
+  },
+  {
+   "id": 10612,
+   "moral": "YES",
+   "moral_span": "she was accused by a witness",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10613,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10614,
+   "moral": "YES",
+   "moral_span": "a fit reward for the pleasure her brother had found in tormenting her",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10615,
+   "moral": "YES",
+   "moral_span": "cry at his mistreatment",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10616,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "a paranormal counselor, is sent to the town of Ardennes, France to help a family cope with their daughter's recent death"
+  },
+  {
+   "id": 10617,
+   "moral": "YES",
+   "moral_span": "duplicity came to him on her part later and he left her",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10618,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10619,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10620,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10621,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10622,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10623,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10624,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10625,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10626,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10627,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10628,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10629,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10630,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10631,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10632,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10633,
+   "moral": "YES",
+   "moral_span": "He told her to stop, to never do it again.",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10634,
+   "moral": "YES",
+   "moral_span": "another opportunity to stop and take inventory of our hearts",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10635,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10636,
+   "moral": "YES",
+   "moral_span": "The youth and the adults were united for a good cause.",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10637,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "in the therapeutic session, he would explain hormones, emotions, and relationships"
+  },
+  {
+   "id": 10638,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10639,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10640,
+   "moral": "YES",
+   "moral_span": "he was kind and decent",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10641,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10642,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10643,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10644,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10645,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10646,
+   "moral": "YES",
+   "moral_span": "to tell her what she had done was wrong",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10647,
+   "moral": "YES",
+   "moral_span": "for the cosmic offenses he committed",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10648,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10649,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10650,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10651,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10652,
+   "moral": "YES",
+   "moral_span": "Maybe the girl is just being cruel.",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10653,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10654,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10655,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10656,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10657,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10658,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10659,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10660,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10661,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10662,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10663,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10664,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10665,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10666,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "the walls he had built as a protection go deeper than he thought"
+  },
+  {
+   "id": 10667,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10668,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10669,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10670,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10671,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10672,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10673,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10674,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10675,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10676,
+   "moral": "YES",
+   "moral_span": "why shouldn't other men kill for pleasure",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10677,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10678,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10679,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10680,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10681,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10682,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10683,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10684,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10685,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "This was how they coped"
+  },
+  {
+   "id": 10686,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10687,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10688,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10689,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10690,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10691,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10692,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "she had post-traumatic stress disorder that may have contributed to her"
+  },
+  {
+   "id": 10693,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10694,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10695,
+   "moral": "YES",
+   "moral_span": "thinking that she had done enough, that she had saved enough, that she had sacrificed enough",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10696,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10697,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10698,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 10699,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  }
+ ]
+}
