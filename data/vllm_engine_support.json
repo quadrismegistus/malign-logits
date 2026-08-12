@@ -154,5 +154,21 @@
    "note": "The pre-run amendment predicted this pair would collect, arguing from the beam_fc corpus that its TOKENIZER is fine. That argument still stands and was about a different stage. Collectable in one stack is not collecting in another."
   }
  },
- "_FOURTH_KIND": "SILENT FALLBACK is a fourth (architecture x engine) kind, and the most dangerous because nothing announces it: a model absent from vLLM's registry is not refused, it is quietly run through the generic Transformers backend with no warning. It loads, it is correct, and it is unfused. Check membership in vllm/model_executor/models/registry.py, not whether the model loads."
+ "_FOURTH_KIND": "SILENT FALLBACK is a fourth (architecture x engine) kind, and the most dangerous because nothing announces it: a model absent from vLLM's registry is not refused, it is quietly run through the generic Transformers backend with no warning. It loads, it is correct, and it is unfused. Check membership in vllm/model_executor/models/registry.py, not whether the model loads.",
+ "_REGISTRY_AUDIT_20260812": {
+  "method": "ModelRegistry.get_supported_archs() read from the RUNNING box (vLLM 0.27.1, 367 architectures), joined against AutoConfig.architectures for all 92 corpus checkpoints. 0 unresolved.",
+  "native": 80,
+  "not_in_registry": 12,
+  "not_in_registry_models": [
+   "Pharia x2",
+   "Aquila2 x2",
+   "Baichuan2 x2",
+   "RWKV-4 x2",
+   "jais x2",
+   "recurrentgemma x2"
+  ],
+  "THE_DISTINCTION_THE_REGISTRY_CANNOT_MAKE": "Absence from the registry produces TWO different behaviours and the registry does not say which. Aquila / Baichuan / jais were REMOVED and raise a pydantic ValidationError naming the last working version. Pharia and RWKV raise 'not supported for now'. recurrentgemma FELL BACK SILENTLY and ran. Ten of the twelve announced themselves; ONE did not. So registry membership predicts 'not native', not 'will fail' -- and the only way we learned which was to run it.",
+  "reassurance": "NO HIDDEN FALLBACK among the 41 collected pairs. recurrentgemma is the sole silent case in this corpus.",
+  "do_this_next_fleet": "Run this join BEFORE launching: any checkpoint absent from get_supported_archs() is either going to fail loudly or run unfused, and both are worth knowing in advance."
+ }
 }
