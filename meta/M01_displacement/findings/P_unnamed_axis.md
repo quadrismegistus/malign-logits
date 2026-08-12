@@ -319,6 +319,73 @@ present in the aligned arm -- and it is stronger than the probability version's
 -0.285 / -0.203. Two instruments sharing no machinery, one built on the movement
 rule and one that has never heard of it, point the same way.
 
+### Where in the lexicon it lives, and what the prompts decide
+
+Ranking each part of speech by pooled mass and walking down it in bands of 50,
+scored per-model against each band's OWN within-lineage flip null. 240 bands.
+
+    IN-CONTEXT POS       hits      AUC     NULL       gap
+      verb    0-50       6.18   0.9598   0.5028   +0.4570
+      verb    500+      0.003   0.7901   0.5000   +0.2826   median of 90 bands
+      noun    0-50       0.25   0.9286   0.5165   +0.4121
+      noun    500+      0.001   0.7133   0.4771   +0.2329   median of 90
+      adjective 500+     0.000   0.5000   0.5000   +0.0000   median of 14
+      adverb    500+     0.000   0.5000   0.5000   +0.0000   median of 6
+
+**The signature reaches rank 5000 in verbs and nouns.** Words appearing in three
+of a model's 2,220 cells against none of another's still clear their null by
++0.23, because a rate over 2,220 prompts is precise even for rare events. This is
+the strongest form of the redundancy result: it survives not only dropping to
+five words but restricting to fifty RARE ones.
+
+**THE ADJECTIVE AND ADVERB FLOOR IS VOCABULARY EXHAUSTION, NOT A POS EFFECT.** In
+context there are 5,000+ verb and noun (word, tag) types and only 1,156
+adjectives and 769 adverbs. Their deep bands are the tail of a small vocabulary,
+so "dies past rank 500" and "runs out past rank 500" are not separable here. An
+earlier version of this section reported the adverb column as an unplanned
+negative control. It is not one.
+
+THE POS IS IN-CONTEXT AND HAS TO BE. `fields._byu()` returns the most frequent
+reading of a word FORM, and over all 365,892 (prompt, word) pairs its "noun"
+label is **41.2% verbs** and its "adjective" label only **40.5% adjectives**
+(verb 97.3% and adverb 94.8% hold). The first version of this sweep had a "noun"
+band containing `fall break kiss punch strike stroke touch change work sign dance
+tear love` -- verbs at sites like "She began to ___". The feature is therefore a
+(word, in-context tag) PAIR, so `kiss`-as-verb and `kiss`-as-noun are separate
+columns and each band is a population of usages rather than of forms.
+`results/k/pos_context_en.tsv`, spaCy, keyed by sha16 of the prompt text.
+
+**AND THE PROMPTS DECIDE WHICH WORDS CAN APPEAR AT ALL, which conditions every
+word list in this section.** Measured over the top-20 slots:
+
+    per top-20            LITERARY (novel snippets)   M01_PAIRS (designed)
+      verb                     2.98                       11.88
+      noun                     4.06                        0.37
+      adjective                1.18                        0.13
+      adverb                   1.62                        1.42
+
+The designed minimal pairs are **59% verbs and 2% nouns** in contention and they
+outnumber the literary cells 14:1. So `whispered felt threw kissed` being the
+signature words partly reflects that these sites elicit verbs. **The
+classification results are unaffected** -- they never used POS -- but any claim
+about WHICH words carry the signature is a claim about this prompt mix. The
+literary-only sweep is at `armclf_bands_en_literary.jsonl`, and its 97 prompts
+per model against 2,220 make it 23x noisier, so it corroborates rather than
+settles.
+
+TWO CONFOUNDS WERE FOUND AND FIXED IN THIS SWEEP, both recorded in the superseded
+files rather than deleted. Fixing the top-N at 20 makes each CELL contribute 20
+slots, but the SHARE of those landing inside the candidate set still varied by
+model -- base 13.656, aligned 13.923 -- and separated the arms at AUC 0.750 on
+its own, which every band inherited (`armclf_bands_en.CONTAMINATED.jsonl`). Rows
+are now compositions. And there was no per-band null, so a band could not be told
+from its own chance level (`armclf_bands_en.NONULL.jsonl`).
+
+**The fix for the first disabled the diagnostic that found it.** `mean_hits` was
+computed after normalisation and silently began reporting a share rather than a
+count, so the contradiction that exposed the scale confound -- coverage 0.08 at
+AUC 0.949 -- would not have been visible on the next run.
+
 ### What this does to the rest of P
 
 It corroborates the axis from a design that cannot inherit the rule's artifacts,
