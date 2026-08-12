@@ -404,7 +404,8 @@ def run_pair(pair, cfg, args):
         #: prompt, drawn from the frozen table. A pair may therefore carry its
         #: own `prompts`, and the global list stays the default so every
         #: existing Y manifest runs byte-identically.
-        gens[role] = gen_for(llm, cfg, pair.get("prompts") or cfg["prompts"], mid)
+        gens[role] = gen_for(llm, cfg, pair.get("prompts") or cfg["prompts"], mid,
+                             chunk=args.chunk)
         if role == "aligned" and pair.get("cross_score"):
             #: aligned is resident; score BOTH arms under it now, then the base
             #: pass below scores both under base. Two loads total, not four.
@@ -442,6 +443,12 @@ def main():
     ap.add_argument("--gpu-frac", type=float, default=0.42)
     ap.add_argument("--max-model-len", type=int, default=512)
     ap.add_argument("--eager", action="store_true")
+    #: **BATCH WIDTH IS A CARD PROPERTY, NOT A CONSTANT.** chunk=256 arm-cells is
+    #: 4,096 concurrent sequences; on a 48 GB card with a 7B model that exhausts
+    #: the KV cache and the engine dies mid-`step()` as EngineDeadError -- which
+    #: reads exactly like an incompatible model. Aquila2 LOADS AND GENERATES fine
+    #: on the same box at a small batch, so the ceiling is ours, not the model's.
+    ap.add_argument("--chunk", type=int, default=256)
     args = ap.parse_args()
     cfg = json.load(open(args.manifest))
     os.makedirs(args.out, exist_ok=True)
