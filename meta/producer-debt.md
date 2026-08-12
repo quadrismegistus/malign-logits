@@ -113,7 +113,15 @@ unpaired shortcut silently includes by-construction singletons the
 paired test must drop — the smaller denominator reads as correctness;
 and per [5587], any per-pair statistic on a corpus with non-uniform
 pairability reports its own denominator per pair, never the corpus
-mean — the frozen pairable fraction is 89.9%, progress snapshots drift); where a gate is really a
+mean — the frozen pairable fraction is 89.9%, progress snapshots drift;
+GENERALISED per [5629], third instance on a third axis: a per-pair rate
+hides behind every corpus mean on this corpus — pairability (89.9%,
+singleton stems), sequence-scorability (Aquila2 9.92%, 300x the median),
+and now empty text (bloom-7b1 0.538%, a 30x outlier) — so ANY
+corpus-level completeness or coverage claim names its per-pair outliers
+beside the mean, and the two completeness axes are ORTHOGONAL:
+the worst-scoring pairs have perfect text, verified by count 1,142,400
+sequences, 99.98% text-complete); where a gate is really a
 threshold on a number, gate on the number, never on a categorical label
 standing in for it ([5578] §5, two defects of one shape in a day; second
 seat [5579]); AN IDENTIFIER IS BOOKED ONLY AFTER THE
