@@ -314,9 +314,32 @@ def main():
                 raise SystemExit("TWO NON-EMPTY FILES for %s: %s and %s -- resolve before ingest"
                                  % (stem, chosen[stem], f))
             chosen[stem] = f
+        #: **THE DEDUP SCAN RUNS HERE, NOT AT INGEST.** SmolLM2-360M carries every
+        #: key exactly TWICE (3,688 rows, 1,844 distinct) from a restart before the
+        #: per-pair skip check was fixed. A consumer that counts rows overstates it
+        #: 2x while its distinct coverage is complete -- complete-and-duplicated,
+        #: which needs a different repair from half-missing and looks identical in
+        #: a row count. Scanned for EVERY file so the answer is measured rather
+        #: than remembered: 1 of 40 today.
+        dedup = {}
+        for stem, path in sorted(chosen.items()):
+            seen = collections.Counter()
+            n = 0
+            for line in open(path):
+                r = json.loads(line)
+                n += 1
+                seen[(r.get("pair"), r.get("role"), r.get("prompt_id"), r.get("word"))] += 1
+            d_rows = sum(v - 1 for v in seen.values() if v > 1)
+            if d_rows:
+                dedup[stem] = {"rows": n, "distinct": len(seen), "dup_rows": d_rows,
+                               "multiplicity": dict(collections.Counter(seen.values()))}
         json.dump({"_about": "Authoritative file per pair-stem. Empty stubs excluded; "
                              "two non-empty files for one stem is a hard error, not a "
                              "preference.",
+                   "_dedup_key": "(pair, role, prompt_id, word)",
+                   "_dedup_note": "Files in dedup_required hold EXACT duplicate rows and "
+                                  "must be collapsed on the dedup key at ingest.",
+                   "dedup_required": dedup,
                    "_producer": "scripts/passage_reconcile.py --ingest-manifest",
                    "n_pairs": len(chosen), "n_empty_stubs_skipped": len(skipped),
                    "paths": chosen, "empty_stubs": skipped},
