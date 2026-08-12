@@ -1,0 +1,30 @@
+{
+ "observed": {
+  "base_survivors": 4,
+  "aligned_survivors": 4,
+  "base_total": 0.23809454374481842,
+  "aligned_total": 0.291045210860541
+ },
+ "perm": {
+  "n": 2000,
+  "seed": 4946,
+  "p_survivors": 1.0,
+  "p_total": 0.0384807596201899
+ },
+ "within_field_sd": {
+  "base": 0.0010707170657970526,
+  "aligned": 0.0013533050603781254
+ },
+ "base_survivors": [
+  "options",
+  "usas_fine:cosmos_weather_and_environment",
+  "usas:Q2.2",
+  "step"
+ ],
+ "aligned_survivors": [
+  "usas_fine:duration_phase_and_age",
+  "usas:X9.2",
+  "usas:T2",
+  "wordnet:possession"
+ ]
+}

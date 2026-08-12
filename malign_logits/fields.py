@@ -2,6 +2,8 @@
 """Semantic-field counts for any string, from the lexicons already in the repo.
 
     from malign_logits import fields
+    fields.count_all("She felt ashamed and guilty about it.")  # ALL lexicons,
+                                                               # one call
     fields.count("She felt ashamed and guilty about it.")   # usas_fine, all
                                                             # tags, content only
     fields.count(text, source="meta", all_tags=False)       # strict 1-token-1-count
@@ -353,7 +355,7 @@ _GRAMMATICAL_FINE = {"pronouns", "logical_modal_and_discourse_operators",
                      "personal_names", "grammatical_bin", "other"}
 
 
-def count(text, source="usas_fine", all_tags=True, content_only=True):
+def count(text, source="usas_fine", all_tags=True, content_only=True, _toks=None):
     """-> {"counts", "coverage", "n_tokens", "n_content", "n_counted", "source"}
 
     THE THREE DEFAULTS ARE CHOICES, not neutral settings, and each has a cost.
@@ -381,7 +383,7 @@ def count(text, source="usas_fine", all_tags=True, content_only=True):
     the denominators that actually apply under the defaults. A field count
     quoted without one of these is a rate with no population.
     """
-    toks = tokens(text)
+    toks = _toks if _toks is not None else tokens(text)
     n = len(toks)
     n_content = sum(1 for t in toks if is_content_word(t)) if content_only else n
     c = collections.Counter()
@@ -464,6 +466,54 @@ def count(text, source="usas_fine", all_tags=True, content_only=True):
     return {"counts": c, "coverage": (hit / n if n else 0.0),
             "n_tokens": n, "n_content": n_content, "n_counted": counted,
             "source": source}
+
+
+#: Every field vocabulary on disk. `meta` and `usas_fine` and `usas` are three
+#: granularities of ONE lexicon and are NOT independent evidence; `gi`,
+#: `wordnet` and `rid` are separate resources. A caller treating all six as six
+#: votes is counting USAS three times.
+ALL_SOURCES = ("meta", "usas_fine", "usas", "gi", "wordnet", "rid")
+
+
+def count_all(text, all_tags=True, content_only=True, sources=ALL_SOURCES):
+    """Every lexicon in ONE call, tokenised once. The function to reach for.
+
+        f = fields.count_all(passage)
+        f["flat"]["usas_fine:emotion_and_arousal"]     # namespaced, one dict
+        f["by_source"]["gi"]["coverage"]               # per-lexicon detail
+
+    -> {"flat", "by_source", "coverage", "n_tokens", "n_content", "sources"}
+
+    WHY THIS EXISTS. Calling `count()` six times re-tokenises and re-runs the
+    CLAWS content test six times, which is the whole cost at corpus scale, and
+    every caller that wanted all six wrote its own loop with its own key format.
+    `flat` is the shared key format: `source:field`, so counts from different
+    lexicons can live in one feature vector without colliding.
+
+    **`flat` IS NOT SUMMABLE ACROSS SOURCES AND NEITHER IS ANYTHING ELSE HERE.**
+    `meta`, `usas_fine` and `usas` are three views of the SAME USAS lexicon;
+    summing them counts one tagging three times. `gi`, `wordnet` and `rid` are
+    genuinely separate resources. Six keys is not six votes -- it is four, and
+    only if the three USAS views are collapsed to one first.
+
+    COVERAGE IS RETURNED PER SOURCE AND IT IS NOT DECORATION. GI does not know
+    `raped`, `desecrated` or `stomped`; on transgressive text its coverage
+    collapses exactly where the signal is. A cross-lexicon comparison that does
+    not carry `coverage` is comparing how much of the text each resource knows.
+    """
+    toks = tokens(text)
+    n_content = sum(1 for t in toks if is_content_word(t)) if content_only else len(toks)
+    by, flat, cov = {}, {}, {}
+    for src in sources:
+        r = count(text, source=src, all_tags=all_tags,
+                  content_only=content_only, _toks=toks)
+        by[src] = r
+        cov[src] = r["coverage"]
+        for k, v in r["counts"].items():
+            flat["%s:%s" % (src, k)] = v
+    return {"flat": flat, "by_source": by, "coverage": cov,
+            "n_tokens": len(toks), "n_content": n_content,
+            "sources": list(sources)}
 
 
 @functools.lru_cache(maxsize=16)
