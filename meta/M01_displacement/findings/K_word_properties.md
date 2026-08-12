@@ -1,7 +1,7 @@
 # Findings K: which properties of a word predict how alignment moves it
 
-**Status: FOUR SCALES CLEAR A CALIBRATED NULL, and the route here matters as
-much as the destination — four earlier versions of this analysis gave four
+**Status: FOUR SCALES CLEAR A CALIBRATED NULL AND THE EFFECT IS NOT
+SITE-SPECIFIC. The route here matters as much as the destination — four earlier versions of this analysis gave four
 different answers, including two with the wrong sign, and one of them failed its
 negative control outright.**
 
@@ -53,8 +53,18 @@ of 2,187 English prompts. **Mass leaves words that are concrete, harmful and
 transgressive.** Transgressiveness fires at a tenth of all sites and points the
 same way at 94% of them.
 
-**This answers RH's question — "do transgressive WORDS fall more due to
-alignment?" — as: yes, at 219 sites, and only visible when you ask per site.**
+**RH's question was "do transgressive WORDS fall more due to alignment?" The
+answer has two halves and the second one is the important one.**
+
+**Yes, transgressive words fall** -- at 219 sites, 94% in that direction, and
+only visible when the question is asked per site rather than pooled.
+
+**But NOT MORE at transgressive sites than anywhere else.** The next section
+shows the magnitude is the same at neutral prompts and at the unmarked twins of
+the minimal pairs. So the property predicts movement, and the SITE does not
+modulate it. "Transgressive words fall" is supported; "alignment targets
+transgressive language" is not, and this document should not be cited for the
+second.
 
 ## THE FULL FRAME, 18 SCALES, AND THE QUALIFICATION THAT MATTERS MOST
 
