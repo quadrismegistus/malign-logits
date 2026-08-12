@@ -64,6 +64,14 @@ A prompt with every space deleted tokenises far shorter. It is not an outlier in
 
 **If it is misrouted it fails loudly at load**, which is the acceptable failure mode. The fleet plan must place this pair on a bf16 box.
 
+## 2b. TWO PAIRS COLLECTED UNDER A DECLARED TOKENIZER OVERRIDE
+
+`deepseek-llm-7b-base > -chat` and `internlm2-base-7b > -chat-7b` are collected **under `malign_logits/twp.py`'s `LOADER_OVERRIDE`**, which forces `PreTrainedTokenizerFast` past the transformers-v5 #45488 regression (a SentencePiece Metaspace pre-tokenizer installed over the ByteLevel one the repo declares; every space vanishes, `unk_token: null`, nothing raises). internlm2 fails the same class as a boundary shift rather than a deletion.
+
+**The runner now imports that table rather than copying it, and runs `assert_prompt_survives` per checkpoint before any weights are downloaded.** Every checkpoint's verdict is recorded in the run artifacts as `fidelity`: `pass`, `pass_under_override`, or `refused`. A refused pair writes a `.REFUSED.json` naming itself and stops — a named absence, never a silent one.
+
+**This makes the exclusion question empirical per box instead of predicted from a document.** The guard runs for all 90 collected checkpoints, not the four in the override table, which is what turns the 20 never-observed checkpoints from unknown risk into a per-box measurement at no marginal cost.
+
 ## 3. POWER, RESTATED AT P=45 SO NOBODY MEETS IT AT ANALYSIS TIME
 
     Wilcoxon P              46 -> 45

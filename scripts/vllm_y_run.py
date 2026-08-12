@@ -222,6 +222,56 @@ def free_llm(llm, torch, gc):
     torch.cuda.synchronize()
 
 
+def fidelity_check(mid, prompts):
+    """**DOES THE MODEL SEE THE PROMPT?** Per checkpoint, before any weights.
+
+    THE DEFECT THIS EXISTS FOR IS INVISIBLE TO EVERY OTHER GATE WE HAVE.
+    transformers v5 (#45488) installs a SentencePiece Metaspace pre-tokenizer
+    over the ByteLevel one a repo declares; on `deepseek-llm-7b` every space
+    vanishes -- `'She was so angry she wanted to'` encodes and decodes as
+    `'Shewassoangryshewantedto'` -- and `unk_token: null` means NOTHING RAISES.
+    `internlm2` fails the same class differently, shifting word boundaries:
+    `'He lay naked in his bed and'` -> `'H elay n aked inh is bed and'`.
+
+    Either produces fluent passages that pass cells-written, non-zero, rsync
+    and ingest. **The corpus would be confidently wrong and nothing downstream
+    could tell**, which is why this is an assertion at load and not a warning.
+
+    THE FIX AND THE GUARD BOTH ALREADY EXISTED IN `twp.py` AND THIS RUNNER HAD
+    NEITHER -- found by RH's instruction to read the code rather than the
+    documents, after `model_load_environments.json` had been quoted as saying
+    the deepseek fix was "NONE KNOWN". It is known; it is four directories away.
+    Both are IMPORTED here, never copied: one table, one guard, or we mint the
+    two-implementations defect the builder unification just paid down.
+
+    Runs for EVERY checkpoint, not the four in the override table
+    (@registrar [5551].c): it is precisely the instrument for the 20 roster
+    checkpoints never observed anywhere, and it converts them from unknown
+    risks into per-box measurements at no marginal cost.
+
+    Returns (status, loader_id, detail). Status is recorded per checkpoint so
+    the corpus carries its own tokenizer provenance:
+
+        pass                  round-trip clean on the default loader
+        pass_under_override   clean only because LOADER_OVERRIDE fired
+        refused               the model would not see the prompt; SKIP THE PAIR
+    """
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from malign_logits.twp import (LOADER_OVERRIDE, assert_prompt_survives,
+                                   load_tokenizer)
+    try:
+        tok, loader_id = load_tokenizer(mid)
+    except Exception as e:
+        return "refused", None, "tokenizer load failed: %s" % str(e)[:160]
+    overridden = mid in LOADER_OVERRIDE
+    for pr in prompts:
+        try:
+            assert_prompt_survives(tok, pr, tok.encode(pr))
+        except Exception as e:
+            return "refused", loader_id, "%r: %s" % (pr[:48], str(e)[:160])
+    return ("pass_under_override" if overridden else "pass"), loader_id, None
+
+
 def run_pair(pair, cfg, args):
     import gc
     import torch
@@ -230,6 +280,28 @@ def run_pair(pair, cfg, args):
     if os.path.exists(path) and sum(1 for _ in open(path)) >= 2 * cfg["units_per_model"]:
         print("  COMPLETE, skipping %s" % b, flush=True)
         return True
+
+    #: FIDELITY BEFORE WEIGHTS. Tokenizer-only, so a refusal costs seconds and
+    #: not a 15 GB download -- the check pays for itself on the first bad box.
+    prompts = [sl["prompt"] for sl in cfg["prompts"]]
+    fid = {}
+    for role, mid in (("base", b), ("aligned", a)):
+        st, loader, detail = fidelity_check(mid, prompts)
+        fid[role] = {"model": mid, "status": st, "loader_id": loader,
+                     "detail": detail}
+        print("    fidelity %-8s %-46s %s%s"
+              % (role, mid.split("/")[-1], st,
+                 "" if not detail else "  <- " + detail), flush=True)
+    if any(v["status"] == "refused" for v in fid.values()):
+        #: LOUD, and recorded. A refused pair is a NAMED absence in the corpus,
+        #: never a silent one -- the whole point of the guard.
+        with open(path + ".REFUSED.json", "w") as fh:
+            json.dump({"pair": "%s>%s" % (b, a), "fidelity": fid,
+                       "_why": "prompt does not survive this tokenizer on this "
+                               "stack; see fidelity_check in this runner"},
+                      fh, indent=1)
+        print("  ** PAIR REFUSED ON FIDELITY: %s>%s" % (b, a), flush=True)
+        return False
     fh = open(path, "a")
     gens = {}
     for role, mid in (("base", b), ("aligned", a)):
@@ -259,6 +331,7 @@ def run_pair(pair, cfg, args):
                 "model": b if role == "base" else a, "prompt_id": pid, "word": w or None,
                 "n_samples": cfg["n_samples"], "max_tokens": cfg["max_tokens"],
                 "temp": cfg["temp"], "mode": "raw", "engine": "vllm",
+                "fidelity": fid,
                 "cross_scored": bool(pair.get("cross_score")),
                 "cross_score_blocked": pair.get("cross_score_blocked"),
                 "sequences": seqs}) + "\n")
