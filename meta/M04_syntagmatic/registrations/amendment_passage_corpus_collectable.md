@@ -208,10 +208,14 @@ Both still clear. The fifth arm was restored on the position profile's clearing,
 
 An earlier draft of this reasoning said 66 of 92 checkpoints have no observation. True of `model_load_environments.json` and **misleading about risk**, because the corpus is not the record:
 
-    roster checkpoints appearing in beam_fc   60      1,971,600 sequences
-    ...in y                                   62        108,800
+    roster checkpoints appearing in beam_fc   60      1,274,900 sequences
+    ...in y                                   62        105,400
     ...in f11_l2                              50        197,000
     with NO generation anywhere               20
+
+**THE SEQUENCE COUNTS WERE CORRECTED 2026-08-13; THE CHECKPOINT COUNTS DID NOT MOVE.** The originals (beam_fc 1,971,600; y 108,800) were read from `gen_sequences` BEFORE the `passage` ingest triggered ReplacingMergeTree merges that collapsed pre-existing unmerged duplicates in corpora nobody touched ([5649]): `beam_fc` 2,477,900 -> 1,636,400 (-34%), `y` 125,800 -> 122,400, `f11_l2` unchanged. **Nothing was lost — only duplicates — but any `gen_sequences` count taken before that merge was a RAW count.** Re-measured against the deduped table: the beam_fc figure was overstated by 696,700, about 35%.
+
+**The claim these numbers support is unaffected and was re-verified rather than assumed.** Restricted to the PRIOR corpora only (`beam_fc`, `y`, `f11_l2`, excluding `passage` itself, since counting the run's own output would make the argument circular): **72 of 92 roster checkpoints have generations — exactly as stated.** The unknown fraction is 20 checkpoints. Only the supporting sequence counts were stale.
 
 **72 of 92 have demonstrably produced generations.** The unknown fraction is 20 checkpoints, not 66.
 
