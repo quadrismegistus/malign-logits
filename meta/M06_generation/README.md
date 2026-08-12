@@ -37,8 +37,12 @@ mean, [5629]). Never "complete".
 M06's population freeze DISCHARGED 2026-08-12 at fleet close ([5637],
 `passage_reconcile.py` against the frozen population, amendment §1g at
 `ab01d35a`): **42 delivering pairs** (41 ok + SmolLM2-360M complete but
-duplicated — every key exactly twice, dedup before use), **1,172,448
-sequences**, 4 pairs absent as UNRUNNABLE not unattempted (Pharia, RWKV-4,
+duplicated — every key exactly twice, dedup before use), **1,172,448 sequences
+DELIVERED** (raw, including SmolLM2-360M's 29,504 exact doubles) of which
+**1,142,944 DISTINCT** (71,434 x 16 — what `corpus='passage'` holds in
+ClickHouse and what any analysis actually has, [5649]; both counts correct
+under their own definition, quote the definition with the number), 4 pairs
+absent as UNRUNNABLE not unattempted (Pharia, RWKV-4,
 Zamba2, Olmo-Hybrid — no route exists at any published engine version). The
 99.98%/orthogonal/bloom sentence above was re-measured at close and stands.
 M06 findings quote THESE denominators.

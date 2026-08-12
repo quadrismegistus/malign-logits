@@ -76,7 +76,12 @@ before either plan's producer runs on the corpus:
    read is promoted to co-primary and the verdict sentence names the
    selection. Passage-length itself: no direction registered, none
    emerges (the cap governs); the tail asymmetry is the finding-shaped
-   fact and travels as description.
+   fact and travels as description. (Audit counts are RAW including
+   SmolLM2-360M's exact-double rows — 244,402 passages counted vs 238,400
+   distinct undisturbed rows x16/16 in the table, [5649]; exact doubles
+   carry identical values, so the medians and percentiles above are
+   unaffected; the adapter now skips duplicate rows and the full run may
+   read the deduplicated `corpus='passage'` table instead.)
 3. **Exclusions.** Empty texts excluded with per-pair denominators named
    (`bloom-7b1` 155/28,832; full table in the producer output). Unscorable
    sequences are NOT excluded — scoring gaps are orthogonal to text

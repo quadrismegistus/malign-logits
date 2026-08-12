@@ -146,9 +146,14 @@ def iter_passages(arms="undisturbed", per_cell=None):
     arms='undisturbed' -> word is None only (plan A Amendment 2 primary).
     per_cell=N         -> first N non-empty sequences per row (pilot).
     """
+    seen_rows = set()
     for row in iter_rows():
         if arms == "undisturbed" and row.get("word") is not None:
             continue
+        rk = (row["pair"], row["role"], row["prompt_id"], row.get("word"))
+        if rk in seen_rows:
+            continue  # SmolLM2-360M delivers every row exactly twice ([5649])
+        seen_rows.add(rk)
         n = 0
         for i, seq in enumerate(row.get("sequences") or []):
             text = (seq.get("text") or "").strip()
