@@ -97,4 +97,9 @@ Producers carry `_invocation` and input shas ([5467]/[5468]); a regex
 character class is a population definition ([5524]); slices, thresholds
 and denominators named wherever a number travels ([5500]); no audit
 number quotable until a second seat reproduces it from the artifact
-([5503]).
+([5503]); a population that re-derives from a mutable registry is not
+frozen, whatever digest sits beside it ([5559]); a negative existence
+claim needs a search space, not a search history ([5562]); produce RAW
+model x prompt x value and compute summaries after — a summary artifact
+that discards its rows cannot say which rows it had (RH's rule, [5562],
+demonstrated same-day by z_ladders' own discharge).
