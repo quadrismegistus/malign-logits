@@ -1,0 +1,229 @@
+language,slice,n_prompts,scale,rows,sig,expected_sig,mean_rho,z_scale,share_falling
+en,ALL,2187,bodily_harm,2187,288,109.4,-0.04142,-23.05,0.91
+en,ALL,2187,charge,2187,293,109.4,0.01291,5.9,0.4
+en,ALL,2187,charge_extremity,2187,142,109.4,-0.01066,-5.48,0.74
+en,ALL,2187,concreteness,2187,416,109.4,-0.04011,-17.15,0.86
+en,ALL,2187,concreteness_extremity,2187,289,109.4,-0.01927,-9.28,0.66
+en,ALL,2187,n_arousal,642,134,32.1,-0.06906,-15.09,0.93
+en,ALL,2187,n_arousal_extremity,642,60,32.1,0.0016,0.25,0.7
+en,ALL,2187,n_concreteness,2184,335,109.2,-0.046,-18.82,0.83
+en,ALL,2187,n_concreteness_extremity,2184,156,109.2,-0.00577,-3.0,0.49
+en,ALL,2187,n_dominance,642,76,32.1,0.01617,3.71,0.34
+en,ALL,2187,n_dominance_extremity,642,47,32.1,-0.0016,-0.73,0.53
+en,ALL,2187,n_valence,642,83,32.1,0.03753,8.73,0.12
+en,ALL,2187,n_valence_extremity,642,62,32.1,-0.03135,-7.69,0.76
+en,ALL,2187,register_level,2187,157,109.4,0.02906,17.52,0.11
+en,ALL,2187,transgressiveness,2187,221,109.4,-0.04147,-23.68,0.94
+en,ALL,2187,valence,2187,213,109.4,0.02853,15.25,0.15
+en,ALL,2187,valence_extremity,2187,180,109.4,0.00252,1.41,0.5
+en,ALL,2187,vulgarity,2187,77,109.4,0.00184,1.53,0.48
+en,transgressive,1554,bodily_harm,1554,234,77.7,-0.04349,-20.04,0.91
+en,transgressive,1554,charge,1554,189,77.7,0.03073,13.53,0.19
+en,transgressive,1554,charge_extremity,1554,81,77.7,-0.00988,-4.47,0.72
+en,transgressive,1554,concreteness,1554,315,77.7,-0.04409,-17.09,0.88
+en,transgressive,1554,concreteness_extremity,1554,216,77.7,-0.02264,-9.27,0.67
+en,transgressive,1554,n_arousal,161,17,8.1,-0.04293,-4.22,0.88
+en,transgressive,1554,n_arousal_extremity,161,16,8.1,-0.01693,-1.82,0.88
+en,transgressive,1554,n_concreteness,1554,245,77.7,-0.05582,-19.33,0.9
+en,transgressive,1554,n_concreteness_extremity,1554,108,77.7,-0.00914,-3.82,0.49
+en,transgressive,1554,n_dominance,161,20,8.1,0.0469,5.35,0.1
+en,transgressive,1554,n_dominance_extremity,161,12,8.1,0.02998,3.44,0.17
+en,transgressive,1554,n_valence,161,14,8.1,0.02393,3.08,0.21
+en,transgressive,1554,n_valence_extremity,161,10,8.1,-0.02791,-3.64,0.6
+en,transgressive,1554,register_level,1554,125,77.7,0.03409,18.02,0.08
+en,transgressive,1554,transgressiveness,1554,154,77.7,-0.03987,-20.36,0.94
+en,transgressive,1554,valence,1554,172,77.7,0.03086,14.18,0.15
+en,transgressive,1554,valence_extremity,1554,108,77.7,0.01644,7.66,0.31
+en,transgressive,1554,vulgarity,1554,56,77.7,0.00224,1.26,0.39
+en,institutional,260,bodily_harm,260,8,13.0,-0.03271,-7.89,0.88
+en,institutional,260,charge,260,52,13.0,-0.04739,-6.84,0.83
+en,institutional,260,charge_extremity,260,6,13.0,0.0148,4.15,0.17
+en,institutional,260,concreteness,260,38,13.0,-0.03216,-4.23,0.79
+en,institutional,260,concreteness_extremity,260,32,13.0,0.0071,0.89,0.53
+en,institutional,260,n_arousal,241,72,12.1,-0.10173,-13.42,0.99
+en,institutional,260,n_arousal_extremity,241,7,12.1,0.0447,8.06,0.14
+en,institutional,260,n_concreteness,260,28,13.0,-0.01184,-1.76,0.5
+en,institutional,260,n_concreteness_extremity,260,16,13.0,0.02762,5.6,0.25
+en,institutional,260,n_dominance,241,34,12.1,-0.01074,-1.48,0.53
+en,institutional,260,n_dominance_extremity,241,18,12.1,-0.02213,-3.84,0.72
+en,institutional,260,n_valence,241,30,12.1,0.0389,5.31,0.13
+en,institutional,260,n_valence_extremity,241,19,12.1,-0.04002,-6.05,0.95
+en,institutional,260,register_level,260,8,13.0,-0.00322,-0.85,0.62
+en,institutional,260,transgressiveness,260,29,13.0,-0.05656,-10.11,0.97
+en,institutional,260,valence,260,8,13.0,0.00976,2.14,0.38
+en,institutional,260,valence_extremity,260,35,13.0,-0.0584,-10.86,0.94
+en,institutional,260,vulgarity,260,3,13.0,0.02445,5.7,0.0
+en,contradiction,97,bodily_harm,97,21,4.9,-0.1016,-13.82,1.0
+en,contradiction,97,charge,97,27,4.9,-0.08703,-9.35,1.0
+en,contradiction,97,charge_extremity,97,32,4.9,-0.11501,-13.81,1.0
+en,contradiction,97,concreteness,97,26,4.9,-0.04909,-3.39,0.77
+en,contradiction,97,concreteness_extremity,97,11,4.9,-0.01189,-1.84,0.55
+en,contradiction,97,n_arousal,97,18,4.9,-0.077,-8.74,0.94
+en,contradiction,97,n_arousal_extremity,97,22,4.9,-0.07966,-7.71,0.95
+en,contradiction,97,n_concreteness,97,21,4.9,-0.03936,-3.59,0.76
+en,contradiction,97,n_concreteness_extremity,97,9,4.9,-0.03375,-3.85,1.0
+en,contradiction,97,n_dominance,97,11,4.9,0.04779,5.55,0.18
+en,contradiction,97,n_dominance_extremity,97,1,4.9,0.00049,0.03,0.0
+en,contradiction,97,n_valence,97,21,4.9,0.06803,7.25,0.0
+en,contradiction,97,n_valence_extremity,97,14,4.9,-0.0342,-3.72,0.86
+en,contradiction,97,register_level,97,6,4.9,0.03542,4.26,0.17
+en,contradiction,97,transgressiveness,97,13,4.9,-0.06935,-9.08,1.0
+en,contradiction,97,valence,97,17,4.9,0.06234,6.29,0.06
+en,contradiction,97,valence_extremity,97,10,4.9,-0.05484,-6.22,1.0
+en,contradiction,97,vulgarity,97,6,4.9,-0.04718,-6.04,1.0
+en,neutral,86,bodily_harm,86,8,4.3,-0.01167,-1.19,0.75
+en,neutral,86,charge,86,9,4.3,0.00452,0.13,0.44
+en,neutral,86,charge_extremity,86,5,4.3,-0.01817,-1.88,0.8
+en,neutral,86,concreteness,86,12,4.3,-0.03467,-2.89,0.92
+en,neutral,86,concreteness_extremity,86,11,4.3,-0.03017,-3.0,0.91
+en,neutral,86,n_arousal,43,7,2.1,-0.01199,-1.01,0.43
+en,neutral,86,n_arousal_extremity,43,3,2.1,-0.02284,-1.08,1.0
+en,neutral,86,n_concreteness,85,11,4.2,-0.05145,-4.13,1.0
+en,neutral,86,n_concreteness_extremity,85,7,4.2,-0.01295,-1.43,0.57
+en,neutral,86,n_dominance,43,3,2.1,0.03856,3.07,0.0
+en,neutral,86,n_dominance_extremity,43,6,2.1,0.02238,1.72,0.17
+en,neutral,86,n_valence,43,8,2.1,0.05984,3.95,0.0
+en,neutral,86,n_valence_extremity,43,7,2.1,0.00929,0.04,0.43
+en,neutral,86,register_level,86,9,4.3,0.04256,4.64,0.11
+en,neutral,86,transgressiveness,86,10,4.3,-0.03529,-3.07,0.9
+en,neutral,86,valence,86,6,4.3,0.03129,2.81,0.33
+en,neutral,86,valence_extremity,86,11,4.3,0.00597,1.24,0.45
+en,neutral,86,vulgarity,86,2,4.3,-0.00646,-1.06,1.0
+en,transgressive MARKED,701,bodily_harm,701,129,35.1,-0.05203,-15.69,0.93
+en,transgressive MARKED,701,charge,701,87,35.1,0.03389,10.56,0.16
+en,transgressive MARKED,701,charge_extremity,701,39,35.1,-0.00596,-1.54,0.51
+en,transgressive MARKED,701,concreteness,701,151,35.1,-0.05627,-15.07,0.94
+en,transgressive MARKED,701,concreteness_extremity,701,97,35.1,-0.01679,-4.36,0.6
+en,transgressive MARKED,701,n_arousal,46,2,2.3,-0.06226,-3.24,1.0
+en,transgressive MARKED,701,n_arousal_extremity,46,5,2.3,-0.01592,-0.49,0.8
+en,transgressive MARKED,701,n_concreteness,701,106,35.1,-0.06154,-15.0,0.92
+en,transgressive MARKED,701,n_concreteness_extremity,701,47,35.1,-0.00391,-1.35,0.43
+en,transgressive MARKED,701,n_dominance,46,4,2.3,0.07362,4.1,0.0
+en,transgressive MARKED,701,n_dominance_extremity,46,2,2.3,0.03831,1.65,0.0
+en,transgressive MARKED,701,n_valence,46,2,2.3,0.02372,2.0,0.0
+en,transgressive MARKED,701,n_valence_extremity,46,2,2.3,-0.0377,-2.24,1.0
+en,transgressive MARKED,701,register_level,701,49,35.1,0.03046,11.38,0.06
+en,transgressive MARKED,701,transgressiveness,701,71,35.1,-0.03734,-12.34,0.92
+en,transgressive MARKED,701,valence,701,73,35.1,0.02665,8.7,0.18
+en,transgressive MARKED,701,valence_extremity,701,39,35.1,0.02008,6.73,0.21
+en,transgressive MARKED,701,vulgarity,701,15,35.1,0.00176,0.8,0.27
+en,transgressive UNMARKED,696,bodily_harm,696,78,34.8,-0.03372,-11.06,0.9
+en,transgressive UNMARKED,696,charge,696,84,34.8,0.03424,10.13,0.14
+en,transgressive UNMARKED,696,charge_extremity,696,26,34.8,-0.01128,-3.78,0.92
+en,transgressive UNMARKED,696,concreteness,696,136,34.8,-0.03055,-8.15,0.79
+en,transgressive UNMARKED,696,concreteness_extremity,696,95,34.8,-0.02143,-6.2,0.65
+en,transgressive UNMARKED,696,n_arousal,38,0,1.9,-0.01349,-0.21,
+en,transgressive UNMARKED,696,n_arousal_extremity,38,1,1.9,-0.00055,-0.55,1.0
+en,transgressive UNMARKED,696,n_concreteness,696,118,34.8,-0.054,-11.97,0.91
+en,transgressive UNMARKED,696,n_concreteness_extremity,696,46,34.8,-0.0091,-2.24,0.5
+en,transgressive UNMARKED,696,n_dominance,38,5,1.9,0.05861,3.16,0.0
+en,transgressive UNMARKED,696,n_dominance_extremity,38,3,1.9,0.04818,2.2,0.0
+en,transgressive UNMARKED,696,n_valence,38,1,1.9,-0.01554,-0.48,1.0
+en,transgressive UNMARKED,696,n_valence_extremity,38,1,1.9,-0.05311,-3.61,1.0
+en,transgressive UNMARKED,696,register_level,696,49,34.8,0.03444,12.28,0.1
+en,transgressive UNMARKED,696,transgressiveness,696,62,34.8,-0.03934,-14.64,0.97
+en,transgressive UNMARKED,696,valence,696,73,34.8,0.03418,10.53,0.1
+en,transgressive UNMARKED,696,valence_extremity,696,61,34.8,0.01761,5.39,0.34
+en,transgressive UNMARKED,696,vulgarity,696,20,34.8,0.01308,5.25,0.0
+en,> violence,400,bodily_harm,400,123,20.0,-0.08887,-20.23,0.99
+en,> violence,400,charge,400,51,20.0,0.01149,1.97,0.35
+en,> violence,400,charge_extremity,400,32,20.0,-0.01508,-3.45,0.75
+en,> violence,400,concreteness,400,116,20.0,-0.08419,-17.4,0.99
+en,> violence,400,concreteness_extremity,400,68,20.0,-0.03992,-8.17,0.81
+en,> violence,400,n_arousal,80,10,4.0,-0.04248,-3.05,0.9
+en,> violence,400,n_arousal_extremity,80,8,4.0,-0.04404,-3.07,1.0
+en,> violence,400,n_concreteness,400,69,20.0,-0.07455,-13.85,0.96
+en,> violence,400,n_concreteness_extremity,400,30,20.0,-0.02811,-5.34,0.73
+en,> violence,400,n_dominance,80,10,4.0,0.03537,2.91,0.0
+en,> violence,400,n_dominance_extremity,80,4,4.0,0.01187,1.28,0.0
+en,> violence,400,n_valence,80,9,4.0,0.02475,1.64,0.11
+en,> violence,400,n_valence_extremity,80,8,4.0,-0.03059,-2.83,0.5
+en,> violence,400,register_level,400,46,20.0,0.04277,10.79,0.07
+en,> violence,400,transgressiveness,400,78,20.0,-0.07048,-17.07,0.99
+en,> violence,400,valence,400,74,20.0,0.05154,11.74,0.08
+en,> violence,400,valence_extremity,400,26,20.0,0.01236,2.67,0.23
+en,> violence,400,vulgarity,400,17,20.0,-0.02553,-7.54,0.76
+en,> sexual,130,bodily_harm,130,12,6.5,-0.03576,-5.18,0.75
+en,> sexual,130,charge,130,15,6.5,0.0396,5.07,0.2
+en,> sexual,130,charge_extremity,130,8,6.5,-0.00289,-0.52,0.75
+en,> sexual,130,concreteness,130,11,6.5,-0.02422,-3.19,0.91
+en,> sexual,130,concreteness_extremity,130,14,6.5,-0.05382,-7.97,1.0
+en,> sexual,130,n_arousal,19,5,1.0,-0.07865,-3.15,1.0
+en,> sexual,130,n_arousal_extremity,19,4,1.0,-0.00213,-0.15,0.75
+en,> sexual,130,n_concreteness,130,15,6.5,0.01238,0.9,0.33
+en,> sexual,130,n_concreteness_extremity,130,6,6.5,-0.00205,-0.08,0.33
+en,> sexual,130,n_dominance,19,3,1.0,0.0429,1.83,0.33
+en,> sexual,130,n_dominance_extremity,19,5,1.0,0.01709,0.86,0.2
+en,> sexual,130,n_valence,19,1,1.0,0.05157,2.27,0.0
+en,> sexual,130,n_valence_extremity,19,0,1.0,-0.00869,-0.33,
+en,> sexual,130,register_level,130,13,6.5,0.0426,6.62,0.08
+en,> sexual,130,transgressiveness,130,8,6.5,-0.03938,-7.18,0.88
+en,> sexual,130,valence,130,10,6.5,0.01865,2.23,0.4
+en,> sexual,130,valence_extremity,130,7,6.5,-0.01553,-2.13,0.71
+en,> sexual,130,vulgarity,130,12,6.5,-0.02372,-3.57,0.67
+en,> taboo,240,bodily_harm,240,35,12.0,-0.04725,-8.98,0.97
+en,> taboo,240,charge,240,33,12.0,0.03328,6.38,0.15
+en,> taboo,240,charge_extremity,240,11,12.0,-0.00736,-1.41,0.64
+en,> taboo,240,concreteness,240,35,12.0,-0.01557,-2.88,0.74
+en,> taboo,240,concreteness_extremity,240,44,12.0,-0.07027,-14.33,0.95
+en,> taboo,240,n_concreteness,240,27,12.0,-0.05856,-9.04,0.93
+en,> taboo,240,n_concreteness_extremity,240,12,12.0,-0.03384,-5.87,1.0
+en,> taboo,240,register_level,240,13,12.0,0.03051,6.85,0.08
+en,> taboo,240,transgressiveness,240,20,12.0,-0.0352,-7.66,0.9
+en,> taboo,240,valence,240,20,12.0,0.02726,5.09,0.1
+en,> taboo,240,valence_extremity,240,24,12.0,0.00336,0.89,0.46
+en,> taboo,240,vulgarity,240,10,12.0,0.01157,2.68,0.0
+en,> property,208,bodily_harm,208,25,10.4,-0.04926,-9.59,0.92
+en,> property,208,charge,208,21,10.4,0.03369,6.01,0.19
+en,> property,208,charge_extremity,208,10,10.4,-0.02162,-4.16,0.9
+en,> property,208,concreteness,208,55,10.4,-0.04684,-6.82,0.84
+en,> property,208,concreteness_extremity,208,26,10.4,-0.0049,-1.39,0.35
+en,> property,208,n_concreteness,208,48,10.4,-0.10918,-17.24,1.0
+en,> property,208,n_concreteness_extremity,208,17,10.4,0.01291,1.65,0.12
+en,> property,208,register_level,208,19,10.4,0.03016,6.68,0.11
+en,> property,208,transgressiveness,208,25,10.4,-0.05356,-10.23,0.96
+en,> property,208,valence,208,25,10.4,0.04338,8.05,0.16
+en,> property,208,valence_extremity,208,10,10.4,0.02786,5.17,0.3
+en,> property,208,vulgarity,208,3,10.4,0.02558,5.92,0.0
+en,> betrayal,204,bodily_harm,204,17,10.2,0.01261,2.16,0.24
+en,> betrayal,204,charge,204,44,10.2,0.07517,12.45,0.0
+en,> betrayal,204,charge_extremity,204,7,10.2,-0.01027,-1.58,1.0
+en,> betrayal,204,concreteness,204,35,10.2,-0.00305,-0.33,0.51
+en,> betrayal,204,concreteness_extremity,204,26,10.2,0.01803,2.93,0.35
+en,> betrayal,204,n_concreteness,204,31,10.2,-0.05115,-7.11,0.94
+en,> betrayal,204,n_concreteness_extremity,204,15,10.2,0.02453,2.93,0.2
+en,> betrayal,204,register_level,204,9,10.2,0.02282,4.51,0.0
+en,> betrayal,204,transgressiveness,204,3,10.2,-0.01386,-3.03,0.33
+en,> betrayal,204,valence,204,12,10.2,0.00937,2.17,0.42
+en,> betrayal,204,valence_extremity,204,24,10.2,0.03146,4.74,0.17
+en,> betrayal,204,vulgarity,204,8,10.2,0.02063,4.41,0.0
+en,> power,247,bodily_harm,247,2,12.4,-0.00489,-1.62,1.0
+en,> power,247,charge,247,4,12.4,0.01306,3.22,0.75
+en,> power,247,charge_extremity,247,3,12.4,-0.0012,0.23,0.33
+en,> power,247,concreteness,247,27,12.4,-0.02759,-4.28,0.93
+en,> power,247,concreteness_extremity,247,23,12.4,0.02005,3.3,0.13
+en,> power,247,n_arousal,36,2,1.8,-0.04268,-1.5,0.5
+en,> power,247,n_arousal_extremity,36,2,1.8,0.04514,3.1,0.5
+en,> power,247,n_concreteness,247,22,12.4,0.00658,1.28,0.68
+en,> power,247,n_concreteness_extremity,247,20,12.4,-0.01021,-1.72,0.45
+en,> power,247,n_dominance,36,4,1.8,0.09253,5.98,0.0
+en,> power,247,n_dominance_extremity,36,2,1.8,0.07777,4.96,0.0
+en,> power,247,n_valence,36,2,1.8,0.02777,2.72,0.0
+en,> power,247,n_valence_extremity,36,1,1.8,-0.03386,-2.17,1.0
+en,> power,247,register_level,247,10,12.4,0.02767,6.04,0.1
+en,> power,247,transgressiveness,247,5,12.4,-0.00021,0.08,0.8
+en,> power,247,valence,247,10,12.4,0.00642,0.73,0.1
+en,> power,247,valence_extremity,247,1,12.4,0.0199,3.71,0.0
+en,> power,247,vulgarity,247,3,12.4,0.01725,4.79,0.0
+en,> animal,100,bodily_harm,100,20,5.0,-0.06512,-8.3,1.0
+en,> animal,100,charge,100,15,5.0,0.04793,5.91,0.07
+en,> animal,100,charge_extremity,100,9,5.0,0.00344,0.56,0.33
+en,> animal,100,concreteness,100,34,5.0,-0.10156,-10.98,1.0
+en,> animal,100,concreteness_extremity,100,13,5.0,-0.02789,-2.3,0.77
+en,> animal,100,n_concreteness,100,30,5.0,-0.11539,-12.04,1.0
+en,> animal,100,n_concreteness_extremity,100,5,5.0,0.0042,1.07,0.2
+en,> animal,100,register_level,100,9,5.0,0.04123,5.24,0.11
+en,> animal,100,transgressiveness,100,15,5.0,-0.05052,-7.22,0.93
+en,> animal,100,valence,100,16,5.0,0.04847,5.3,0.06
+en,> animal,100,valence_extremity,100,13,5.0,0.04882,7.15,0.15
+en,> animal,100,vulgarity,100,2,5.0,0.00717,1.21,0.0

@@ -1,0 +1,12 @@
+language,scale,scale_family,rows,sig,expected_sig,ratio,sig_rate,mean_rho,null_rho_mean,z_scale,share_falling,median_n_words
+zh,concreteness,coder,389,51,19.5,2.62,13.1,-0.04738,-0.00246,-9.04,0.9,164
+zh,register_level,coder,389,24,19.5,1.23,6.2,0.035,0.0012,7.94,0.08,164
+zh,vulgarity,coder,389,12,19.5,0.62,3.1,-0.01643,0.00295,-6.27,0.83,164
+zh,charge,coder,389,52,19.5,2.67,13.4,0.03083,-0.00066,6.22,0.29,164
+zh,charge_extremity,coder,389,49,19.5,2.52,12.6,-0.02779,0.00035,-5.76,0.82,164
+zh,n_concreteness,norm,174,16,8.7,1.84,9.2,-0.05759,-0.00367,-5.39,0.81,74
+zh,valence,coder,389,39,19.5,2.01,10.0,0.01255,-0.00023,2.7,0.33,164
+zh,bodily_harm,coder,389,32,19.5,1.65,8.2,-0.01152,-0.00185,-2.18,0.66,164
+zh,transgressiveness,coder,389,32,19.5,1.65,8.2,-0.00854,0.00063,-2.0,0.47,164
+zh,valence_extremity,coder,389,45,19.5,2.31,11.6,0.01053,0.00085,1.95,0.47,164
+zh,concreteness_extremity,coder,389,45,19.5,2.31,11.6,-0.01154,-0.00258,-1.75,0.67,164

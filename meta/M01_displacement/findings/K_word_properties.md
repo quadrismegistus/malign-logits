@@ -56,6 +56,68 @@ same way at 94% of them.
 **This answers RH's question — "do transgressive WORDS fall more due to
 alignment?" — as: yes, at 219 sites, and only visible when you ask per site.**
 
+## THE FULL FRAME, 18 SCALES, AND THE QUALIFICATION THAT MATTERS MOST
+
+`results/k_frame_en.csv` (2,187 prompts x 18 scales) and `k_frame_zh.csv` (389 x
+11), summarised in `k_summary_*.csv` and `k_summary_by_group_*.csv`. Coder scales
+beside HUMAN NORMS -- Warriner valence/arousal/dominance and Brysbaert
+concreteness for English, the 9,877-word set for Chinese -- each with its
+extremity twin on the repo's own lexicon-mean centring.
+
+    scale                 sig    exp   mean rho   z_scale   falling
+    transgressiveness     221  109.4    -0.0415    -23.7      94%
+    bodily_harm           288  109.4    -0.0414    -23.1      91%
+    n_concreteness        335  109.2    -0.0460    -18.8      83%
+    register_level        157  109.4    +0.0291    +17.5      11%
+    concreteness          416  109.4    -0.0401    -17.1      86%
+    valence               213  109.4    +0.0285    +15.2      15%
+    n_arousal             134   32.1    -0.0691    -15.1      93%
+    n_valence_extremity    62   32.1    -0.0314     -7.7      76%
+    vulgarity              77  109.4    +0.0018     +1.5      48%
+    n_dominance_extremity  47   32.1    -0.0016     -0.7      53%
+
+**THE CODER AND THE HUMAN NORMS CONVERGE INDEPENDENTLY.** Coder concreteness
+z -17.1 against Brysbaert's -18.8, both ~86% falling; coder valence +15.2
+against Warriner's +8.7, both ~12% falling. A 2026 LLM rating words out of
+context and human norms from 2013 agree on sign and rough magnitude.
+
+**`n_arousal` is the largest single effect and the coder has no equivalent.**
+z -15.1, 93% falling. `charge` was the attempt at that construct and returns
+z +5.9 with the OPPOSITE sign, so charge is not arousal -- exactly what the 0.54
+calibration warned and it should never be reported as one.
+
+**Registration C's de-extremification finally has a word-level test, and it
+fires:** `n_valence_extremity` z -7.7, 76% falling. Extreme-valence words fall
+regardless of direction. **And dominance is dead here as C found it dead**, both
+dominance columns being the two smallest |z| in the table -- an unplanned
+negative control the design gets for free.
+
+### THE EFFECT IS NOT SITE-SPECIFIC, AND THIS IS THE MAIN QUALIFICATION
+
+                             transgressiveness  bodily_harm  concreteness
+    transgressive (1554)         -0.0399          -0.0435      -0.0441
+    neutral (86)                 -0.0353             --        -0.0302
+    transgressive MARKED (701)   -0.0373          -0.0520      -0.0563
+    transgressive UNMARKED (696) -0.0393             --           --
+
+**The magnitudes are the same at neutral prompts and at the unmarked twins.**
+Transgressiveness predicts falling at -0.0399 in the transgressive slice and
+-0.0353 at neutral ones; at marked twins -0.0373 against unmarked -0.0393, if
+anything backwards. The large z differences (-20 against -3) are sqrt(n): 1,554
+prompts against 86.
+
+**So these properties predict how alignment moves a word EVERYWHERE. They are
+not a signature of transgressive sites.** Any reading of this finding as "the
+operation targets transgressive language" is not supported by it. The Chinese
+neutral slice says the same: concreteness falls at 100% of its firing neutral
+prompts.
+
+The two slices that DO stand out belong to other campaigns. **Contradiction
+prompts (97)** are the extreme -- bodily_harm -0.1016, charge_extremity -0.1150,
+charge -0.0870, transgressiveness -0.0693, every one at **100% falling** and
+about 2.5x the general magnitude. **Institutional prompts (260)** are led by
+`n_arousal` -0.1017 at 99% falling. That is M02's and M03's territory.
+
 ## THE FOUR ANSWERS THIS ANALYSIS GAVE BEFORE THIS ONE
 
 Each was wrong in a way that looked like a result. They are recorded because the

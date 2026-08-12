@@ -1,0 +1,87 @@
+language,slice,n_prompts,scale,rows,sig,expected_sig,mean_rho,z_scale,share_falling
+zh,ALL,389,bodily_harm,389,32,19.5,-0.01152,-2.18,0.66
+zh,ALL,389,charge,389,52,19.5,0.03083,6.22,0.29
+zh,ALL,389,charge_extremity,389,49,19.5,-0.02779,-5.76,0.82
+zh,ALL,389,concreteness,389,51,19.5,-0.04738,-9.04,0.9
+zh,ALL,389,concreteness_extremity,389,45,19.5,-0.01154,-1.75,0.67
+zh,ALL,389,n_concreteness,174,16,8.7,-0.05759,-5.39,0.81
+zh,ALL,389,register_level,389,24,19.5,0.035,7.94,0.08
+zh,ALL,389,transgressiveness,389,32,19.5,-0.00854,-2.0,0.47
+zh,ALL,389,valence,389,39,19.5,0.01255,2.7,0.33
+zh,ALL,389,valence_extremity,389,45,19.5,0.01053,1.95,0.47
+zh,ALL,389,vulgarity,389,12,19.5,-0.01643,-6.27,0.83
+zh,transgressive,148,bodily_harm,148,17,7.4,-0.01479,-2.06,0.65
+zh,transgressive,148,charge,148,19,7.4,0.04858,6.23,0.05
+zh,transgressive,148,charge_extremity,148,15,7.4,-0.02745,-3.45,0.87
+zh,transgressive,148,concreteness,148,17,7.4,-0.04662,-5.61,0.88
+zh,transgressive,148,concreteness_extremity,148,17,7.4,-0.0373,-4.35,0.82
+zh,transgressive,148,n_concreteness,47,4,2.4,-0.07861,-3.06,0.75
+zh,transgressive,148,register_level,148,15,7.4,0.04697,6.54,0.0
+zh,transgressive,148,transgressiveness,148,11,7.4,-0.00029,-0.12,0.45
+zh,transgressive,148,valence,148,16,7.4,0.01409,2.09,0.38
+zh,transgressive,148,valence_extremity,148,14,7.4,0.03213,3.74,0.14
+zh,transgressive,148,vulgarity,148,8,7.4,-0.02894,-5.9,1.0
+zh,institutional,39,bodily_harm,39,0,2.0,0.00029,1.43,
+zh,institutional,39,charge,39,5,2.0,0.05455,4.3,0.0
+zh,institutional,39,charge_extremity,39,3,2.0,0.00344,-0.08,0.67
+zh,institutional,39,concreteness,39,7,2.0,-0.09171,-6.12,1.0
+zh,institutional,39,concreteness_extremity,39,6,2.0,0.08298,6.53,0.0
+zh,institutional,39,n_concreteness,25,3,1.2,-0.10651,-5.72,1.0
+zh,institutional,39,register_level,39,2,2.0,0.02124,1.52,0.5
+zh,institutional,39,transgressiveness,39,3,2.0,-0.0344,-2.81,0.67
+zh,institutional,39,valence,39,1,2.0,0.01317,1.75,0.0
+zh,institutional,39,valence_extremity,39,2,2.0,0.04402,4.03,0.0
+zh,institutional,39,vulgarity,39,0,2.0,-0.00173,-1.79,
+zh,contradiction,92,bodily_harm,92,5,4.6,-0.00959,-0.89,0.8
+zh,contradiction,92,charge,92,14,4.6,-0.00828,-0.75,0.71
+zh,contradiction,92,charge_extremity,92,24,4.6,-0.05126,-4.35,0.83
+zh,contradiction,92,concreteness,92,9,4.6,-0.03651,-2.85,1.0
+zh,contradiction,92,concreteness_extremity,92,7,4.6,0.01162,1.22,0.57
+zh,contradiction,92,n_concreteness,71,2,3.6,0.00392,0.29,0.0
+zh,contradiction,92,register_level,92,2,4.6,0.03586,5.16,0.0
+zh,contradiction,92,transgressiveness,92,10,4.6,-0.00847,-0.85,0.6
+zh,contradiction,92,valence,92,12,4.6,0.01707,1.23,0.33
+zh,contradiction,92,valence_extremity,92,17,4.6,-0.03935,-2.94,0.94
+zh,contradiction,92,vulgarity,92,1,4.6,-0.01493,-3.87,1.0
+zh,neutral,109,bodily_harm,109,10,5.5,-0.01324,-1.27,0.6
+zh,neutral,109,charge,109,14,5.5,0.03029,3.6,0.29
+zh,neutral,109,charge_extremity,109,7,5.5,-0.01969,-2.51,0.71
+zh,neutral,109,concreteness,109,18,5.5,-0.04083,-4.45,0.83
+zh,neutral,109,concreteness_extremity,109,15,5.5,-0.02992,-2.7,0.8
+zh,neutral,109,n_concreteness,30,6,1.5,-0.11965,-4.95,1.0
+zh,neutral,109,register_level,109,5,5.5,0.02429,2.43,0.2
+zh,neutral,109,transgressiveness,109,7,5.5,-0.01214,-1.53,0.29
+zh,neutral,109,valence,109,10,5.5,0.00758,0.87,0.3
+zh,neutral,109,valence_extremity,109,12,5.5,0.01066,0.6,0.25
+zh,neutral,109,vulgarity,109,3,5.5,-0.00609,-0.86,0.33
+zh,transgressive MARKED,17,bodily_harm,17,2,0.9,-0.03191,-1.57,1.0
+zh,transgressive MARKED,17,charge,17,2,0.9,0.05969,2.81,0.0
+zh,transgressive MARKED,17,charge_extremity,17,2,0.9,-0.06118,-2.67,1.0
+zh,transgressive MARKED,17,concreteness,17,1,0.9,-0.04152,-1.24,1.0
+zh,transgressive MARKED,17,concreteness_extremity,17,4,0.9,-0.06107,-2.28,1.0
+zh,transgressive MARKED,17,register_level,17,0,0.9,0.04777,1.86,
+zh,transgressive MARKED,17,transgressiveness,17,0,0.9,0.00058,0.05,
+zh,transgressive MARKED,17,valence,17,2,0.9,0.04972,2.6,0.0
+zh,transgressive MARKED,17,valence_extremity,17,1,0.9,0.05192,2.48,0.0
+zh,transgressive MARKED,17,vulgarity,17,0,0.9,-0.01606,-1.82,
+zh,> violence,101,bodily_harm,101,12,5.1,-0.02039,-2.23,0.75
+zh,> violence,101,charge,101,12,5.1,0.04743,5.4,0.08
+zh,> violence,101,charge_extremity,101,10,5.1,-0.02976,-3.06,0.9
+zh,> violence,101,concreteness,101,10,5.1,-0.04206,-4.11,0.9
+zh,> violence,101,concreteness_extremity,101,10,5.1,-0.04025,-4.17,0.9
+zh,> violence,101,n_concreteness,34,1,1.7,-0.06097,-1.75,0.0
+zh,> violence,101,register_level,101,12,5.1,0.05853,6.59,0.0
+zh,> violence,101,transgressiveness,101,7,5.1,-0.00532,-0.67,0.57
+zh,> violence,101,valence,101,13,5.1,0.01748,2.02,0.23
+zh,> violence,101,valence_extremity,101,9,5.1,0.03241,3.29,0.11
+zh,> violence,101,vulgarity,101,7,5.1,-0.03816,-6.28,1.0
+zh,> sexual,25,bodily_harm,25,2,1.2,0.00748,0.61,0.5
+zh,> sexual,25,charge,25,3,1.2,0.04024,2.07,0.0
+zh,> sexual,25,charge_extremity,25,2,1.2,-0.04072,-2.05,1.0
+zh,> sexual,25,concreteness,25,5,1.2,-0.04885,-2.7,0.8
+zh,> sexual,25,concreteness_extremity,25,4,1.2,-0.04658,-2.42,0.75
+zh,> sexual,25,register_level,25,2,1.2,0.03848,2.66,0.0
+zh,> sexual,25,transgressiveness,25,2,1.2,0.00065,0.27,0.0
+zh,> sexual,25,valence,25,1,1.2,0.01585,1.15,1.0
+zh,> sexual,25,valence_extremity,25,2,1.2,0.01917,0.73,0.0
+zh,> sexual,25,vulgarity,25,1,1.2,-0.01991,-1.55,1.0
