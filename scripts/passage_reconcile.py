@@ -79,7 +79,10 @@ BOX_STATE = {"box0": ".vastai.passage0.json", "box0b": ".vastai.passage0b.json",
              "box5": ".vastai.passage5.json", "box6": ".vastai.passage6.json",
              "box7": ".vastai.passage7.json",
              "rescue_aquila_baichuan": ".vastai.rescue3.json",
-             "kanana": ".vastai.kanana.json"}
+             "kanana": ".vastai.kanana.json",
+             "recjais": ".vastai.recjais.json",
+             "recvocab": ".vastai.recvocab.json",
+             "recmisc": ".vastai.recmisc.json"}
 
 
 def declared():

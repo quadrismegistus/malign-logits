@@ -91,6 +91,13 @@ def models_from_manifest(path):
 def verdict(rec, kind, engine, strict):
     """-> (ok, label, why). `ok` False means REFUSE."""
     if kind == "tokenizer":
+        #: A fixed defect is not a refusal. The record carries the commit that
+        #: fixed it so the claim is checkable rather than asserted -- and so a
+        #: box running older code is still correctly refused by whoever checks
+        #: `fixed_in` against what the box actually pulled.
+        if rec.get("status") == "fixed":
+            return (True, "fixed", "fixed in %s; box must run code >= that commit"
+                    % rec.get("fixed_in", "?"))
         return (False, "TOKENIZER", rec.get("error", ""))
     st = rec.get("status")
     if st == "removed":

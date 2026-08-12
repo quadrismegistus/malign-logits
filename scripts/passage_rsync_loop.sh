@@ -13,8 +13,8 @@ while true; do
     echo "$(date +%H:%M:%S) HALTED: local free ${free}GB < ${FLOOR_GB}GB floor" >> /tmp/rsync_loop.log
     sleep 120; continue
   fi
-  for i in 0b 1 2 3 4 5 6 7 rescue3 kanana; do
-    case "$i" in rescue*|kanana) st=".vastai.$i.json";; *) st=".vastai.passage$i.json";; esac
+  for i in 0b 1 2 3 4 5 6 7 rescue3 kanana recjais recvocab; do
+    case "$i" in rescue*|kanana|recjais|recvocab) st=".vastai.$i.json";; *) st=".vastai.passage$i.json";; esac
     [ -f "$st" ] || continue
     H=$(.venv/bin/python -c "import json;print(json.load(open('$st'))['ssh_host'])" 2>/dev/null)
     P=$(.venv/bin/python -c "import json;print(json.load(open('$st'))['ssh_port'])" 2>/dev/null)
@@ -39,8 +39,8 @@ while true; do
   #: named in the log -- runbook §2.7, where the process dies at OS level with
   #: no exception and no log line of its own.
   low=""
-  for i in 0b 1 2 3 4 5 6 7 rescue3 kanana; do
-    case "$i" in rescue*|kanana) st=".vastai.$i.json";; *) st=".vastai.passage$i.json";; esac; [ -f "$st" ] || continue
+  for i in 0b 1 2 3 4 5 6 7 rescue3 kanana recjais recvocab; do
+    case "$i" in rescue*|kanana|recjais|recvocab) st=".vastai.$i.json";; *) st=".vastai.passage$i.json";; esac; [ -f "$st" ] || continue
     H=$(.venv/bin/python -c "import json;print(json.load(open('$st'))['ssh_host'])" 2>/dev/null)
     P=$(.venv/bin/python -c "import json;print(json.load(open('$st'))['ssh_port'])" 2>/dev/null)
     [ -n "$H" ] || continue

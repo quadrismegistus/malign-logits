@@ -24,6 +24,18 @@
    "seen": "2026-08-10",
    "failures": 1,
    "symptom": "HF downloads 404 against an injected mirror at 117.175.x.x (DNS hijack / transparent proxy, no HF_ENDPOINT in env). All 8 models LOAD FAILED and the runner printed ALL MODELS COMPLETE. Geo says California; the mirror IP is Chinese."
+  },
+  "115469": {
+   "seen": "2026-08-11",
+   "failures": 3,
+   "symptom": "proxy and direct both refused at launch"
+  },
+  "144644": {
+   "seen": "2026-08-12",
+   "failures": 1,
+   "symptom": "launch created the instance, then actual_status=offline / cur_state=stopped / intended_status=stopped with status_msg None. Never reachable by SSH; billed ~15 min at $0.975/hr before it was destroyed.",
+   "note": "A STATE, not a race (runbook 2.13) -- intended_status itself was 'stopped', so waiting or retrying SSH could never help.",
+   "age_out": "recheck after 2026-11-12"
   }
  }
 }
