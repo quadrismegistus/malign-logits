@@ -130,13 +130,24 @@ def roster():
     relation the parent is the EARLIER checkpoint (sft_of is base->ego, dpo_of
     is base->superego 33 times and ego->superego 19), so pre=parent, post=child.
 
-    **CH's `malign_logits.model_edges` DISAGREES WITH THIS LIST IN BOTH
-    DIRECTIONS** as of 2026-08-12 -- 10 registry edges absent from it (the whole
-    Olmo-3-Think branch plus four scale siblings) and 6 edges present there and
-    not in the registry (Falcon3 scale siblings). Neither is a superset, so
-    neither can be refreshed from the other blindly. This builds from the
-    registry and does NOT write to `model_edges`; the divergence is reported for
-    its owner rather than resolved here.
+    **CH's `model_edges` had drifted from this list and was refreshed on
+    2026-08-12 via `ch_ingest.py --registry`; the two now agree exactly at 203.**
+
+    The drift is worth recording because reading it wrongly cost a pass here.
+    Six edges existed in CH and not in the registry -- Falcon3-1B/3B/7B ->
+    Falcon3-10B -- and they look exactly like edges the registry had lost. They
+    are not. `build_model_registry.py:305` declares falcon3-10b in
+    `NOT_A_SCALE_RUNG`: it was depth up-scaled from 7B with continual
+    pretraining on 2 Teratokens, so it is its own pretraining rather than a rung
+    of 7B's, while 1B and 3B are pruned and distilled at 80-100 GT and ARE
+    rungs. RH's decision, 2026-08-10, with the token budget as the criterion.
+    CH simply held the pre-decision version.
+
+    The builder anticipated this exact misreading -- "considered and excluded
+    must not look like never noticed" -- and the misreading happened anyway,
+    from diffing two lists without opening the file that produces one of them.
+    **A difference between a source and its mirror is a question about the
+    mirror, not evidence about the source.**
     """
     R = json.load(open(os.path.join(ROOT, "data/model_registry.json")))
     fam = {m["model_id"]: (m.get("family") or "") for m in R["models"]}
