@@ -1,0 +1,704 @@
+{
+ "judgements": [
+  {
+   "id": 20400,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20401,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20402,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20403,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20404,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20405,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20406,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20407,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20408,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20409,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20410,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20411,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20412,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20413,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20414,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "她发现自己变得非常焦虑"
+  },
+  {
+   "id": 20415,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20416,
+   "moral": "YES",
+   "moral_span": "他那么坏",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20417,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20418,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20419,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20420,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20421,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20422,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20423,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20424,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20425,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20426,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20427,
+   "moral": "YES",
+   "moral_span": "最可恨的是，编造支配人类命運永恒思想",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20428,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20429,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20430,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20431,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20432,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20433,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20434,
+   "moral": "YES",
+   "moral_span": "James到底做错了什么",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20435,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20436,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20437,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20438,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20439,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20440,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20441,
+   "moral": "YES",
+   "moral_span": "但也会失去道德准则",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20442,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20443,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20444,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20445,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20446,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20447,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20448,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20449,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20450,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20451,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20452,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20453,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20454,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20455,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20456,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20457,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20458,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20459,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20460,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20461,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20462,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20463,
+   "moral": "YES",
+   "moral_span": "就不应有厌烦，而应有自豪感",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20464,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20465,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20466,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20467,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20468,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20469,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20470,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20471,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20472,
+   "moral": "YES",
+   "moral_span": "赔偿她的一切过犯",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20473,
+   "moral": "YES",
+   "moral_span": "他是道德倾倒了吗？",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20474,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20475,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20476,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20477,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20478,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20479,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20480,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20481,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20482,
+   "moral": "YES",
+   "moral_span": "这种违背立命神律加以身体来表达的不满",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20483,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20484,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "在中医传统文化中，有一种名为“阴阳人”的说法"
+  },
+  {
+   "id": 20485,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20486,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20487,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20488,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20489,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20490,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20491,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20492,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20493,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20494,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20495,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20496,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20497,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20498,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20499,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  }
+ ]
+}

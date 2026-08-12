@@ -1,0 +1,40 @@
+{
+ "rates": {
+  "aligned|both": {
+   "moral": 11,
+   "clinical": 10,
+   "n": 200
+  },
+  "aligned|control_b": {
+   "moral": 7,
+   "clinical": 2,
+   "n": 100
+  },
+  "base|both": {
+   "moral": 10,
+   "clinical": 3,
+   "n": 200
+  },
+  "base|control_b": {
+   "moral": 11,
+   "clinical": 2,
+   "n": 100
+  },
+  "aligned|control_a": {
+   "moral": 3,
+   "clinical": 1,
+   "n": 100
+  },
+  "base|control_a": {
+   "moral": 6,
+   "clinical": 3,
+   "n": 100
+  }
+ },
+ "pairs": {
+  "up": 10,
+  "down": 8,
+  "tied": 11
+ },
+ "raw_note": "per-passage rows live in out_guilt_0*.json beside this summary (RH raw-data rule)"
+}

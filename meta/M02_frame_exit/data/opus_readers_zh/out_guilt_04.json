@@ -1,0 +1,704 @@
+{
+ "judgements": [
+  {
+   "id": 20300,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20301,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20302,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20303,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20304,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20305,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20306,
+   "moral": "YES",
+   "moral_span": "他的所作所为更加疏远了他与上帝的关系",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20307,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20308,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20309,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20310,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20311,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20312,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20313,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20314,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20315,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20316,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20317,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20318,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20319,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20320,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20321,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20322,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20323,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20324,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20325,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20326,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20327,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20328,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20329,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20330,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20331,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20332,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20333,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "这个昏睡狂的刻意写下的诊断是什么"
+  },
+  {
+   "id": 20334,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20335,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20336,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20337,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20338,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20339,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20340,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20341,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20342,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20343,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20344,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20345,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20346,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20347,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "选择“restarting”的孩子，很可能正处于一种内心的矛盾和挣扎之中"
+  },
+  {
+   "id": 20348,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "抑郁，酗酒、肺结核"
+  },
+  {
+   "id": 20349,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20350,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20351,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20352,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20353,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20354,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20355,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20356,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20357,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20358,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20359,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20360,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20361,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20362,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20363,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20364,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20365,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20366,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20367,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20368,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20369,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20370,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20371,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20372,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20373,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20374,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20375,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20376,
+   "moral": "YES",
+   "moral_span": "你现在真是太糟蹋我了",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20377,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20378,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20379,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20380,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20381,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20382,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20383,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20384,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20385,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20386,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20387,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20388,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20389,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20390,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20391,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20392,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20393,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20394,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20395,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20396,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20397,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20398,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20399,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  }
+ ]
+}

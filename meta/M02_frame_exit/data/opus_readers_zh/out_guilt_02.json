@@ -1,0 +1,704 @@
+{
+ "judgements": [
+  {
+   "id": 20100,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20101,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20102,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20103,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20104,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20105,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20106,
+   "moral": "YES",
+   "moral_span": "而用在正派之人身上，则能够泽被百姓",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20107,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20108,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20109,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20110,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20111,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20112,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20113,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20114,
+   "moral": "YES",
+   "moral_span": "他们痛斥这种非人道的行为",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20115,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20116,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20117,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20118,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20119,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20120,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20121,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20122,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20123,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20124,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20125,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20126,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20127,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20128,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20129,
+   "moral": "YES",
+   "moral_span": "他对我一次次无情",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20130,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20131,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20132,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20133,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20134,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20135,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20136,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20137,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20138,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20139,
+   "moral": "YES",
+   "moral_span": "无需刻意批判去塑造自己",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20140,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20141,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20142,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20143,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20144,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20145,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20146,
+   "moral": "YES",
+   "moral_span": "你侮辱我",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20147,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20148,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20149,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20150,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20151,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20152,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20153,
+   "moral": "YES",
+   "moral_span": "没有任何权利去控制别人",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20154,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20155,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20156,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20157,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20158,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20159,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20160,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20161,
+   "moral": "YES",
+   "moral_span": "不应被他们的外貌所迷惑",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20162,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20163,
+   "moral": "YES",
+   "moral_span": "她很抱歉有这个行为",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20164,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20165,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20166,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20167,
+   "moral": "YES",
+   "moral_span": "她是丑陋的时候就应该接受自己，不应该去装饰自己",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20168,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20169,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20170,
+   "moral": "YES",
+   "moral_span": "明明是他不对",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20171,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20172,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20173,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20174,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20175,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20176,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20177,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20178,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20179,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20180,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20181,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20182,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20183,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20184,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20185,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "感到一些创伤后应激障碍的症状"
+  },
+  {
+   "id": 20186,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20187,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20188,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20189,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20190,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20191,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20192,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20193,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20194,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20195,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20196,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20197,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20198,
+   "moral": "YES",
+   "moral_span": "我选择了堕落作为一面",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20199,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  }
+ ]
+}

@@ -1,0 +1,704 @@
+{
+ "judgements": [
+  {
+   "id": 20600,
+   "moral": "YES",
+   "moral_span": "与吉卜赛女人乱伦后认为自己玷脏了灵魂",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20601,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20602,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20603,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20604,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20605,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20606,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20607,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20608,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20609,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20610,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20611,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20612,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20613,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20614,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20615,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20616,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20617,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20618,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20619,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20620,
+   "moral": "YES",
+   "moral_span": "她比任何人都心狠手辣",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20621,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20622,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20623,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20624,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20625,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20626,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "你肯定是患病的"
+  },
+  {
+   "id": 20627,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20628,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "帮助人们更好地应对困扰和冲突的情况"
+  },
+  {
+   "id": 20629,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20630,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20631,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20632,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20633,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20634,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20635,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20636,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20637,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20638,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20639,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20640,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20641,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20642,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20643,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20644,
+   "moral": "YES",
+   "moral_span": "为自己成了护士这个倒霉而低贱的职业感到羞耻羞辱",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20645,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20646,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20647,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20648,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20649,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20650,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20651,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20652,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20653,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20654,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20655,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "这头癫痫发作似乎不是今天的情况"
+  },
+  {
+   "id": 20656,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20657,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20658,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20659,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20660,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20661,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20662,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20663,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "需要进行的治疗"
+  },
+  {
+   "id": 20664,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20665,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20666,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20667,
+   "moral": "YES",
+   "moral_span": "两人的自私和自利",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20668,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20669,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20670,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20671,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20672,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20673,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20674,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20675,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20676,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20677,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "YES",
+   "clinical_span": "他试图认为自己并不是一个多重认知症"
+  },
+  {
+   "id": 20678,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20679,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20680,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20681,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20682,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20683,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20684,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20685,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20686,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20687,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20688,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20689,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20690,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20691,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20692,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20693,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20694,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20695,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20696,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20697,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20698,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  },
+  {
+   "id": 20699,
+   "moral": "NO",
+   "moral_span": "",
+   "clinical": "NO",
+   "clinical_span": ""
+  }
+ ]
+}
