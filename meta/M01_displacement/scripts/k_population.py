@@ -64,30 +64,55 @@ def _cjk_capable():
 
 
 def reps(lang):
-    """One (base, aligned) edge per lineage, restricted to real training edges.
+    """The 46 lineage-representative pairs, LOOKED UP, not re-derived.
 
-    `same_base_as` and the scale relations are EXCLUDED: a sibling pair is not
-    an alignment step, and "movement" across it is a comparison of two trained
-    models rather than the effect of training. Including them would inflate the
-    word set with differences alignment never made.
+    `data/lineage_representative_pairs.txt`, produced by
+    `scripts/lineage_representative_pairs.py`, which itself looks up
+    `lineage_to_representative` in `data/lineage_map_models.json`. **The stored
+    map is the answer and nothing here re-derives it.**
+
+    THE FIRST VERSION OF THIS FILE RE-DERIVED IT and got 53. That producer's own
+    docstring exists because of this exact failure -- "the roster has been
+    counted as 37, 42, 21 and 32 in one evening because four calculations used
+    four units" -- and it names the specific hazard I reproduced: a homemade
+    "pick a representative" rule. Mine was "alphabetically first aligned arm";
+    the one it warns about parsed a size out of the model id and elected an
+    ALIGNED arm to stand for the pythia lineage.
+
+    The labelled numbers, which must never be swapped for one another:
+
+        52  base>aligned pairs in the forced-arms battery
+        46  independent lineages those pairs span   <- this file
+        62  lineages in the whole registry          <- NEVER a roster number
+
+    Of the 46, this returns the ones present in the movement table at
+    base -> dpo for the requested language, and REPORTS the shortfall rather
+    than quietly returning fewer.
     """
-    rows = q("""
-      SELECT m.lineage AS lineage, m.base AS base, m.aligned AS aligned,
-             count() AS rows
+    want = []
+    for line in open(os.path.join(ROOT, "data/lineage_representative_pairs.txt")):
+        line = line.strip()
+        if line and not line.startswith("#") and ">" in line:
+            b, a = line.split(">", 1)
+            want.append((b.strip(), a.strip()))
+    have = {(r["base"], r["aligned"]) for r in q("""
+      SELECT DISTINCT m.base AS base, m.aligned AS aligned
       FROM %s.movement AS m
       INNER JOIN (SELECT DISTINCT prompt FROM %s.prompt_catalogue
                   WHERE status='ACTIVE' AND language='%s') AS p ON m.prompt = p.prompt
-      WHERE m.rule='canonical'
-        AND m.relation IN ('sft_of','dpo_of','kto_of','ppo_of','slic_of','rlvr_of')
-      GROUP BY lineage, base, aligned
-    """ % (DB, DB, lang))
+      WHERE m.rule='canonical'""" % (DB, DB, lang))}
+    edges = [e for e in want if e in have]
     if lang == "zh":
         ok = _cjk_capable()
-        rows = [r for r in rows if r["base"] in ok and r["aligned"] in ok]
-    by = collections.defaultdict(list)
-    for r in rows:
-        by[r["lineage"]].append((r["aligned"], r["base"]))
-    return [(b, a) for lin, v in sorted(by.items()) for a, b in [sorted(v)[0]]]
+        edges = [(b, a) for b, a in edges if b in ok and a in ok]
+    print("  roster: 46 lineage-representative pairs; %d present in the movement "
+          "table for %s%s" % (len(edges), lang,
+                              " after the cjk_tier gate" if lang == "zh" else ""))
+    missing = [e for e in want if e not in have]
+    if missing:
+        print("  absent (%d): %s" % (len(missing),
+                                     ", ".join(b.split("/")[-1] for b, _ in missing[:8])))
+    return edges
 
 
 def population(lang, edges):

@@ -185,6 +185,35 @@ def roster():
         p, c = r["parent"], r["child"]
         out.append((p, c, r["relation"], fam.get(p, ""),
                     m2b.get(c) or m2b.get(p) or p))
+
+    #: THE CONTRAST EDGE, WHICH DESCENT DOES NOT IMPLY. RH, 2026-08-12:
+    #: "model pairs should all be base->superego".
+    #:
+    #: `relations` encodes DESCENT and it is chained, not star-shaped -- for a
+    #: two-step family it holds base--sft_of-->ego and ego--dpo_of-->superego
+    #: and NO base->superego edge, deliberately, because a star made the SFT
+    #: step invisible to a traversal. But every "model pair" finding in this
+    #: campaign compares the base against the aligned ENDPOINT, and that
+    #: contrast is derivable from the chain rather than stored in it.
+    #:
+    #: Sixteen of the 46 canonical lineage-representative pairs were therefore
+    #: absent from this table -- OLMo-2-0425-1B>...-DPO, Mistral-7B-v0.1>
+    #: zephyr-7b-beta, CT-LLM-Base>CT-LLM-SFT-DPO among them -- and their
+    #: absence read as missing data when it was a missing VIEW.
+    #:
+    #: Derived from MODEL_FAMILIES, which is where the campaign already records
+    #: which checkpoint is a family's superego. Verified 2026-08-12: this rule
+    #: plus `lineage_to_representative` plus one-pair-per-lineage reproduces
+    #: `data/lineage_representative_pairs.txt` EXACTLY, 46 of 46 -- so the
+    #: registry alone determines that roster and the producer's dependency on
+    #: `data/forced_arms_105_v3.json` is removable.
+    sys.path.insert(0, os.path.join(ROOT, "scripts"))
+    from build_model_registry import MODEL_FAMILIES
+    seen = {(a, b) for a, b, _, _, _ in out}
+    for f in MODEL_FAMILIES.values():
+        if f.base and f.superego and (f.base, f.superego) not in seen:
+            out.append((f.base, f.superego, "base_to_superego",
+                        fam.get(f.base, ""), f.base))
     return out
 
 
@@ -197,12 +226,16 @@ def cells_for(model):
         return set()
 
 
-def build(rule_name, limit_pairs=None, only_prompts=None):
+def build(rule_name, limit_pairs=None, only_prompts=None, only_relations=None):
     from malign_logits.movement import (movement, word_probs, decompose,
                                         CANONICAL, LENS, DRAW)
     RULES = {"canonical": CANONICAL, "lens": LENS, "draw": DRAW}
     rule = RULES[rule_name]
-    pairs = roster()[:limit_pairs] if limit_pairs else roster()
+    pairs = roster()
+    if only_relations:
+        pairs = [e for e in pairs if e[2] in only_relations]
+    if limit_pairs:
+        pairs = pairs[:limit_pairs]
     #: SORTED BY PARENT so a parent is prefetched once for all its children, and
     #: the cache is dropped when the parent changes. `ch_read.prefetch` holds a
     #: whole model's cells in memory -- roughly 420k rows -- and 203 edges touch
@@ -336,6 +369,10 @@ def main():
     ap.add_argument("--run", action="store_true")
     ap.add_argument("--rule", default="canonical", choices=("canonical", "lens", "draw"))
     ap.add_argument("--pairs", type=int, default=None, help="limit edges, for a smoke run")
+    ap.add_argument("--relations", default=None,
+                    help="comma-separated relation names; builds ONLY those and "
+                         "APPENDS (no delete), so a new view can be added without "
+                         "a 13-minute full rebuild")
     ap.add_argument("--zh-only", action="store_true", help="only Chinese prompts")
     ap.add_argument("--verify", type=int, default=0)
     ap.add_argument("--drop", action="store_true")
@@ -354,9 +391,16 @@ def main():
         only = {l.replace("\\'", "'") for l in out.strip().split("\n") if l}
         print("restricting to %d Chinese prompts" % len(only))
     if a.run:
-        q("ALTER TABLE %s.%s DELETE WHERE rule='%s'" % (DB, TABLE, a.rule))
-        q("ALTER TABLE %s.%s DELETE WHERE rule='%s'" % (DB, CELLS, a.rule))
-        build(a.rule, a.pairs, only)
+        if a.relations:
+            keep = set(a.relations.split(","))
+            for t in (TABLE, CELLS):
+                q("ALTER TABLE %s.%s DELETE WHERE rule='%s' AND relation IN (%s)"
+                  % (DB, t, a.rule, ",".join("'%s'" % r for r in sorted(keep))))
+            build(a.rule, a.pairs, only, keep)
+        else:
+            q("ALTER TABLE %s.%s DELETE WHERE rule='%s'" % (DB, TABLE, a.rule))
+            q("ALTER TABLE %s.%s DELETE WHERE rule='%s'" % (DB, CELLS, a.rule))
+            build(a.rule, a.pairs, only)
     if a.verify:
         ok = verify(a.verify, a.rule)
         return 0 if ok else 1
