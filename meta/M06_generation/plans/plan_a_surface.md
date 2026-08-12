@@ -171,6 +171,31 @@ adjudicating column (`clause_len_words_mean`) live in plan B, Amendment 1
 §3; A.H1's verdict is always read beside it, and no selective reporting of
 whichever hypothesis landed is licensed.
 
+## Amendment 4 (gate outcome, 2026-08-12, RH's segmentation read)
+
+RH read the 50-passage gate sample and named ONE failure class:
+**bullets-as-sentences.** List-formatted output is segmented item by item,
+and bare markers ("-") become sentences of their own. This is not a
+tokenizer quirk; it is the FORMAT ATTRACTOR at passage grain, and it is
+an alignment behaviour — so uncorrected, A.H1 would partly measure
+"aligned models emit bullet lists", not sentence syntax. Fixes, both in
+the adapter before the pilot:
+
+1. **Pseudo-sentences are excluded unconditionally** (marker-only
+   "sentences"; `n_pseudo_sents_excluded` reported) from every
+   sentence-level denominator in A and B.
+2. **The prose stratum is primary.** `list_lines_share` (fraction of
+   non-empty raw lines that are bullet/enumeration items) is computed per
+   passage; `is_prose` = share 0. A.H1, A.H2, B.H1 and B.H2 verdicts are
+   read on the PROSE stratum; the pooled read is reported beside it, and
+   if pooled and prose disagree, format is named as the carrier. The
+   per-arm list-share contrast itself travels as DESCRIPTION — it is
+   likely a finding (the format attractor measured at passage grain) but
+   no direction was registered for it and none is now.
+
+The segmentation gate otherwise PASSES on RH's read (2026-08-12, in
+session: "Looks good except for these bullets-as-sentences").
+
 ## What this plan does not claim
 
 No register/formality construct (that is plan B territory and the naming

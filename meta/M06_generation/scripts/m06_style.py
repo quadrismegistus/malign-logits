@@ -96,16 +96,27 @@ def parser_id():
 
 
 def parse_cached(text):
-    """Parse via the m06_stanza_docs stash; serialized round-trip on hit."""
-    import stanza
+    """Parse via the m06_stanza_docs stash.
+
+    The Document is stashed as OUR OWN pickle bytes -- neither
+    doc.to_serialized() nor the raw object survives the stash: stanza's
+    round-trip AND the hashstash serializer both return multi-word token
+    ids as lists where fresh parses carry tuples, and OSP's
+    get_spaces_after hashes them. pickle.dumps at the adapter boundary
+    means the stash only ever sees bytes. Rationale trail, NOT
+    doc.to_serialized(): stanza's own round-trip returns multi-word token
+    ids as lists where fresh parses carry tuples, and OSP's
+    get_spaces_after hashes them -- found by the smoke test on the first
+    cache hit. Pickling preserves the types exactly."""
+    import pickle
     from malign_logits.cache import get_cache
     cache = get_cache()
     pid = parser_id()
     hit = cache.get_stanza_doc(pid, text)
     if hit is not None:
-        return stanza.Document.from_serialized(hit)
+        return pickle.loads(hit)
     doc = get_nlp()(text)
-    cache.set_stanza_doc(pid, text, doc.to_serialized())
+    cache.set_stanza_doc(pid, text, pickle.dumps(doc, protocol=5))
     return doc
 
 
@@ -174,13 +185,35 @@ def mattr(tokens, w):
     return sum(vals) / len(vals)
 
 
+import re as _re
+_LIST_LINE = _re.compile(r"^\s*(?:[-*\u2022\u00b7]|\d+[.)])\s+\S")
+_MARKER_ONLY = _re.compile(r"^[\s\-*\u2022\u00b7#>.)\d]*$")
+
+
+def list_lines_share(text):
+    """Fraction of non-empty raw lines that are bullet/enumeration items."""
+    lines = [ln for ln in text.splitlines() if ln.strip()]
+    if not lines:
+        return 0.0
+    return sum(1 for ln in lines if _LIST_LINE.match(ln)) / len(lines)
+
+
+def is_pseudo_sent(sent):
+    """A 'sentence' that is only list markers/punctuation (RH's gate read,
+    2026-08-12: bare '-' items segmented as sentences). Not a sentence under
+    any construct; excluded from every sentence-level denominator."""
+    return bool(_MARKER_ONLY.match(sent.text.strip()))
+
+
 def measure_passage(text):
     """All plan A and plan B measures for one passage. Naming rule applies."""
     from osp.features import (extract_pos_feats, extract_deprel_feats,
                               extract_syntax_feats_sent)
     doc = parse_cached(text)
-    sents = doc.sentences
+    all_sents = doc.sentences
+    sents = [x for x in all_sents if not is_pseudo_sent(x)]
     n_sents = len(sents)
+    lls = list_lines_share(text)
     words = [w.text for s in sents for w in s.words if w.upos != "PUNCT"]
     n_words = len(words)
     if n_sents == 0 or n_words == 0:
@@ -188,6 +221,9 @@ def measure_passage(text):
 
     # plan A
     out = {
+        "list_lines_share": lls,
+        "is_prose": lls == 0.0,
+        "n_pseudo_sents_excluded": len(all_sents) - n_sents,
         "len_chars": len(text),
         "len_words": n_words,
         "n_sents": n_sents,
