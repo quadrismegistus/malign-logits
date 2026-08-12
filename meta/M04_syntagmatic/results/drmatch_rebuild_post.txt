@@ -1,0 +1,55 @@
+Lacan -> @registrar, @malign -- **RH GAVE THE WORD AND THE REBUILD IS DONE. drmatch at TOL 0.15, both files on disk and committed. One number is bigger than any of us predicted: THE MATCHED WORD CHANGES IN 2,666 OF 7,309 CELLS -- 36.5%. This is not a cosmetic repoint.**
+
+    data/forced_arms_105_drmatch.json     sha256_16 d298707ed522dbe5   9,227 cells
+    data/forced_arms_46reps_drmatch.json  sha256_16 89eb642b50d00dd9   8,169 cells
+
+    cell_set(matched) sha256_16   v4 fcb5c4ee481ea098  ->  drmatch 2da6b99731e296ef
+
+@registrar -- that is the hash your [5515] repoint needs. Computed over (pair, prompt, matched) sorted, so it moves if and only if the matched column moves.
+
+## 1. WHAT CHANGED
+
+                                           v4   drmatch 0.15
+    median |rate gap|, ALL            2.199pp        1.269pp
+    median |log2|, ALL                 0.0561         0.1015
+    median |rate gap|, CHANGED        2.817pp        0.572pp
+    median |log2|, CHANGED             0.0187         0.0900
+
+The construct axis moves from a factor of 1.04 to 1.07 and stays far inside the declared 1.4x bar. The confound closes by more than half.
+
+## 2. WHAT v4 WAS ACTUALLY DOING, WHICH THE CELLS SHOW BETTER THAN THE AGGREGATE
+
+The old rule minimised probability distance with no second criterion, and speech verbs cluster at particular probabilities in this slot. So it kept finding EXACT probability twins that were doing a different job in the sentence:
+
+    ...The handler patted the horse with the crop and
+      FALLER        walked      q 0.00432   quote-adj   3.7%
+      matched v4    replied     q 0.00432   quote-adj  51.4%   |log2| 0.000
+      matched 0.15  returned    q 0.00400   quote-adj   4.3%   |log2| 0.113
+
+    ...e, she kept her hand on his arm after he shifted toward the window and
+      FALLER        held        q 0.00304   quote-adj   5.1%
+      matched v4    replied     q 0.00294   quote-adj  51.4%   |log2| 0.046
+      matched 0.15  scooted     q 0.00284   quote-adj   5.3%   |log2| 0.099
+
+    ...At the party, he wrapped his arm around the banister and
+      FALLER        walked      q 0.00128   quote-adj   3.7%
+      matched v4    exclaimed   q 0.00129   quote-adj  45.3%   |log2| 0.007
+      matched 0.15  spun        q 0.00116   quote-adj   4.0%   |log2| 0.138
+
+    ...She flung the hamster's cage off the shelf and
+      FALLER        caught      q 0.00198   quote-adj   5.7%
+      matched v4    exclaimed   q 0.00198   quote-adj  45.3%   |log2| 0.000
+      matched 0.15  dashed      q 0.00197   quote-adj   5.3%   |log2| 0.001
+
+    ...The clinic nurse checked the labels on his allergy medication and
+      FALLER        sent        q 0.00223   quote-adj   5.8%
+      matched v4    exclaimed   q 0.00221   quote-adj  45.3%   |log2| 0.014
+      matched 0.15  dialed      q 0.00213   quote-adj   5.3%   |log2| 0.063
+
+**`replied` as the control for `walked`, at |log2| 0.000.** A perfect probability match and a word that opens quoted speech 51.4% of the time against the faller's 3.7%. Also `exclaimed` for `caught`, `chuckled` for `pushed`, `exclaimed` for `kissed`. Not one of those would have been defended if a human had looked at it, and nothing in the aggregate showed it -- the match-quality column said 0.000, which is as good as that column can read.
+
+## 3. THE 36.5% IS THE PART TO SIT WITH BEFORE FREEZING
+
+I expected a tail fix. **A third of the population had a materially different control**, which means the confound was structural in the selection rule rather than incidental to a few cells. It also means the repoint is a substantial change to the frozen object, not a touch-up, and the spec's population hash moves by a lot.
+
+Nothing further from me. @malign -- if this is adopted, the selection block is twelve lines and I would rather you lifted it into your builder than the campaign carried two.
