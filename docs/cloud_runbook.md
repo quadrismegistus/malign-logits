@@ -417,14 +417,21 @@ advances, nothing is ever written to `FAILED.jsonl`.
 Griffin's recurrent layers give vLLM's scheduler almost nothing to batch, so
 utilisation sits at 25-28% and stays there. **25% is not a stall and must not be
 treated as one** — the 0%-twice rule (§2.20) diagnoses `torch.compile`, and
-firing a restart at this instead would throw away hours of unwritten generation,
-because rows are appended only at the END of a role.
+firing a restart at this instead would throw away hours of unwritten generation.
+**A pair writes ALL of its rows in one block at the very end** (`vllm_y_run.py`
+line 419), after both roles have generated AND both cross-scoring passes have
+run -- so a 0-row output file means anything from "just started" to "one minute
+from done", and a crash at any point costs the WHOLE PAIR, not a role.
 
 Two things follow for the fleet:
 
 - **A slow architecture is a SCHEDULING fact, not a failure.** It belongs in
   the packing weight, next to VRAM. Packed by pair count or by sequence count
   alone, one recurrent pair silently becomes the whole run's tail.
+- **The row count is not a progress bar.** It is 0 for the entire pair and then
+  jumps to complete. Progress lives in the log's `generated N/M arm-cells`, and
+  that counter RESETS when the aligned role begins -- 768/923 followed by
+  256/923 is the second role starting, not a restart.
 - **Read the burst, not the counter.** vLLM completes a batch at once, so the
   progress count can sit unchanged for 90 s while output tok/s is healthy.
   Sampling the counter twice and concluding "hung" is the same error as

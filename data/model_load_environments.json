@@ -481,7 +481,7 @@
    "environment": "vast_vllm_0.27.1_passage_fleet",
    "outcome": "loads_degraded",
    "cause": "Griffin's recurrent layers give the scheduler almost nothing to batch: ~255 output tok/s and 25-28% GPU utilisation, steady. ~69 min per 4,096-sequence chunk, ~10 h for the pair against ~1 h for a dense 7B on the same card.",
-   "fix": "None known at the engine level. Treat as a PACKING weight, not a failure -- and do NOT restart it on low utilisation: 25% is not the 0%-twice torch.compile signature, and rows are appended only at the end of a role, so a restart discards every unwritten hour."
+   "fix": "None known at the engine level. Treat as a PACKING weight, not a failure -- and do NOT restart it on low utilisation: 25% is not the 0%-twice torch.compile signature, and a pair writes ALL its rows in one block only after both roles and both cross-scoring passes, so a restart discards the WHOLE pair, not an hour."
   },
   {
    "model_id": "BAAI/Aquila2-7B",
