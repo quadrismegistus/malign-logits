@@ -177,6 +177,17 @@ def collected():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write-json")
+    ap.add_argument("--ingest-manifest",
+                    help="write {pair: authoritative file path} and stop guessing. "
+                         "A pair can have SEVERAL paths on disk -- a zero-byte stub "
+                         "from the box where it failed, plus the real file from the "
+                         "box that recovered it. `LLM360__Amber` has an EMPTY box0 "
+                         "stub that sorts BEFORE its 224MB box0b file, so any ingest "
+                         "taking the first glob match reads nothing and reports "
+                         "success. Measured 12 Aug: 7 stems with multiple paths, "
+                         "exactly one non-empty each, zero stems with two non-empty "
+                         "(so there is no double-count risk -- only a pick-the-wrong-"
+                         "one risk).")
     ap.add_argument("--quiet-complete", action="store_true",
                     help="list only pairs that are short, duplicated or absent")
     a = ap.parse_args()
@@ -290,6 +301,28 @@ def main():
         print("  and 'no failure was recorded' is not one:")
         for p in absent:
             print("    %s" % p)
+
+    if a.ingest_manifest:
+        import glob as _g
+        chosen, skipped = {}, []
+        for f in sorted(_g.glob(os.path.join(CORPUS, "*", "y__*.jsonl"))):
+            stem = os.path.basename(f)[3:-6]
+            if os.path.getsize(f) == 0:
+                skipped.append(f)
+                continue
+            if stem in chosen:          # never silently prefer one non-empty over another
+                raise SystemExit("TWO NON-EMPTY FILES for %s: %s and %s -- resolve before ingest"
+                                 % (stem, chosen[stem], f))
+            chosen[stem] = f
+        json.dump({"_about": "Authoritative file per pair-stem. Empty stubs excluded; "
+                             "two non-empty files for one stem is a hard error, not a "
+                             "preference.",
+                   "_producer": "scripts/passage_reconcile.py --ingest-manifest",
+                   "n_pairs": len(chosen), "n_empty_stubs_skipped": len(skipped),
+                   "paths": chosen, "empty_stubs": skipped},
+                  open(a.ingest_manifest, "w"), indent=1)
+        print("wrote %s: %d pairs, %d empty stubs skipped"
+              % (a.ingest_manifest, len(chosen), len(skipped)))
 
     if a.write_json:
         json.dump({
