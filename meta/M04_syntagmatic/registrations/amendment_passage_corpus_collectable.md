@@ -10,8 +10,8 @@
                 cells 8,169 aa5389c1420c7f76
                 matched     723e81b3946b6d56
 
-    COLLECTED THIS RUN   45 pairs   1,289,680 sequences
-    NOT COLLECTED         1 pair       17,360 sequences   (1.3%)
+    COLLECTED THIS RUN   45 pairs   1,298,080 sequences
+    NOT COLLECTED         1 pair        8,960 sequences   (0.7%)
 
 Same discipline as the spec's existing named deviations (46-not-52, 208-not-212): the population is what it is, and what was not collected is named with its reason rather than quietly absent.
 
@@ -39,7 +39,7 @@ Three named requirements, each individually satisfiable, **never yet tried toget
 
 **The aligned arm is demonstrated.** `docs/local_capability.md:70` records `Zamba2-7B-Instruct` producing cells locally on 8 Aug. Only the base arm carries the access state.
 
-**The cost fact.** Satisfying all three means a dedicated environment box for **1 pair, 1.3% of the corpus**, against a **$21 total contingency** (vast credit $125 against a $104 run). `scripts/build_fleet.py`'s own header records a fleet that "pulled 15 GB of Zamba2 and failed on a kernel it did not have".
+**The cost fact.** Satisfying all three means a dedicated environment box for **1 pair, 8,960 sequences, 0.7% of the corpus**, against a **$21 total contingency** (vast credit $125 against a $104 run). `scripts/build_fleet.py`'s own header records a fleet that "pulled 15 GB of Zamba2 and failed on a kernel it did not have".
 
 **This amendment does not say the pair cannot be collected.** It says it is not collected at this price, and it records the full recipe so that when spending resumes the pair is a known small purchase and not an archaeology project.
 
@@ -89,6 +89,8 @@ An earlier draft of this reasoning said 66 of 92 checkpoints have no observation
 Three proposed exclusions, three single-source reads, three second sources that disagreed: a version-scoped observation read as a checkpoint property (deepseek), a dtype requirement read as a failure (gemma-2), an MPS statement plus a repo access state read as an architecture verdict (Zamba2). **The preflight this campaign calls non-negotiable consults one file.** All three were caught by RH asking, twice, whether the documents had actually been read.
 
 **The difference between "cannot be collected" and "not collected at this price" is the difference between closing a door and noting where the key hangs** (@registrar, [5547]).
+
+**One number in this document was wrong until the producer computed it.** Drafts quoted Zamba2 as 17,360 sequences and 1.3% of the corpus. That was the two-pair BLOCK bucket from an earlier post, carried after deepseek left it — a derived value going stale in exactly the way this campaign spent the week cataloguing. The pair is **8,960 sequences, 0.7%**, computed from the table by `data/passage_corpus_pairs_collected.json`'s producer. The cost argument is unchanged and slightly stronger.
 
 ---
 
