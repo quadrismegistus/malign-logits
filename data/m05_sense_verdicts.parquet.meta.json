@@ -1,0 +1,71 @@
+{
+ "_invocation": "m05_sense_bulk.py (no flags)",
+ "_model_of_record": "deepseek/deepseek-v4-flash",
+ "_task": "m05_sense_v1 (post text-continues rule)",
+ "_inputs": {
+  "data/m05_sense_census.parquet": "ce8e77024313a2ff"
+ },
+ "_canaries": [
+  {
+   "word": "kill",
+   "required": "natural",
+   "got": "natural",
+   "ok": true
+  },
+  {
+   "word": "scream",
+   "required": "natural",
+   "got": "natural",
+   "ok": true
+  },
+  {
+   "word": "Sydney",
+   "required": "natural",
+   "got": "natural",
+   "ok": true
+  },
+  {
+   "word": "Beijing",
+   "required": "natural",
+   "got": "natural",
+   "ok": true
+  },
+  {
+   "word": "fly",
+   "required": "natural",
+   "got": "natural",
+   "ok": true
+  },
+  {
+   "word": "scream",
+   "required": "odd",
+   "got": "odd",
+   "ok": true
+  },
+  {
+   "word": "delicious",
+   "required": "odd",
+   "got": "odd",
+   "ok": true
+  },
+  {
+   "word": "iliar",
+   "required": "not_a_word",
+   "got": "not_a_word",
+   "ok": true
+  },
+  {
+   "word": "thin",
+   "required": "natural",
+   "got": "natural",
+   "ok": true
+  },
+  {
+   "word": "coat",
+   "required": "natural",
+   "got": "natural",
+   "ok": true
+  }
+ ],
+ "_band": "three-family pilot: natural-split agreement 79.8-82.6%, pro splits flash/haiku 52/49 on disagreements \u2014 the natural/odd margin is soft; levels carry the band, see results/sense_pilot.json + sense_tiebreak.json"
+}
