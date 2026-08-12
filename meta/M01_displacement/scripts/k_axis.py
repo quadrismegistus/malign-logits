@@ -78,7 +78,48 @@ def main(lang="en", name="glove"):
     EM = {w: v for w, v in zip(z["words"], z["E"])}
     rate = json.load(open(os.path.join(K, "ratings_%s.json" % lang)))["ratings"]
     t2u = json.load(open(os.path.join(K, "normalisation_%s.json" % lang)))["token_to_unit"]
-    rows = KP2.fetch(lang, False)
+
+    #: `--pairs` FITS THE AXIS ONLY WHERE THE SITE ELICITS A VERB. The original
+    #: axis was fitted over every ACTIVE prompt, including sites like "She slowly
+    #: took off her ___" where the verbs in the top-50 are long shots competing
+    #: against nouns. `k_scale_solo` showed that restriction turns the per-norm
+    #: picture from "nothing distinguishable from noise" into a clean ordering,
+    #: so the direction itself was fitted on a population known to be noisy --
+    #: and it failed its own 0.9 stability gate at 0.841. This asks whether the
+    #: gate failure was the population.
+    #:
+    #: ENGLISH ONLY. The Chinese catalogue has 92 MARKED/UNMARKED prompts against
+    #: English's 1,591, so the same restriction there would trade one noise
+    #: problem for a worse one. Stated rather than silently skipped.
+    if "--pairs" in sys.argv:
+        if lang != "en":
+            print("--pairs is English-only: zh has 92 MARKED/UNMARKED prompts "
+                  "against en's 1,591."); return 1
+        esc = lambda s: s.replace("\\", "\\\\").replace("'", "\\'")
+        ep = " OR ".join("(m.base='%s' AND m.aligned='%s')" % (esc(b), esc(a))
+                         for b, a in __import__("k_population").reps(lang))
+        rows = A.q("""
+          SELECT word, prompt, base, aligned, cls, p_base, p_aligned FROM (
+            SELECT *, row_number() OVER (PARTITION BY word
+                     ORDER BY cityHash64(word, prompt, base, aligned)) rw FROM (
+              SELECT m.word word, m.prompt prompt, m.base base, m.aligned aligned,
+                     m.cls cls, m.p_base p_base, m.p_aligned p_aligned,
+                row_number() OVER (PARTITION BY m.base,m.aligned,m.prompt
+                                   ORDER BY m.p_base DESC) rb,
+                row_number() OVER (PARTITION BY m.base,m.aligned,m.prompt
+                                   ORDER BY m.p_aligned DESC) ra
+              FROM %s.movement m
+              INNER JOIN (SELECT DISTINCT prompt FROM %s.prompt_catalogue
+                          WHERE status='ACTIVE' AND language='en'
+                            AND pair_role IN ('MARKED','UNMARKED')) p
+                     ON m.prompt=p.prompt
+              WHERE m.rule='canonical' AND (%s))
+            WHERE (rb<=50 OR ra<=50) AND cls IN ('fall','rise'))
+          WHERE rw <= %d""" % (A.DB, A.DB, ep, KP2.CAP))
+        print("VERB-ELICITING SITES ONLY: %s mover cells over %d prompts"
+              % (f"{len(rows):,}", len({r["prompt"] for r in rows})))
+    else:
+        rows = KP2.fetch(lang, False)
 
     Xn, Xe, y, g = [], [], [], []
     fq = {}
@@ -179,8 +220,9 @@ def main(lang="en", name="glove"):
            "poles_positive": order[-N_SHOW:][::-1], "poles_negative": order[:N_SHOW]}
     #: the glove/en file keeps its original name, because k_register and
     #: k_confound already read it; anything else is suffixed by encoder
-    p = os.path.join(K, "axis_%s.json" % lang if name == "glove"
-                     else "axis_%s_%s.json" % (lang, name))
+    p = os.path.join(K, ("axis_%s.json" % lang if name == "glove"
+                         else "axis_%s_%s.json" % (lang, name)).replace(
+                         ".json", "_pairs.json" if "--pairs" in sys.argv else ".json"))
     json.dump(out, open(p, "w"), indent=1)
     print("\n  -> %s" % os.path.relpath(p, ROOT))
     return 0

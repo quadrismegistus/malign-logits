@@ -98,7 +98,16 @@ def main():
 
     z = np.load(os.path.join(K, "embed_en_glove.npz"), allow_pickle=True)
     EM = {w: unit(v.astype(np.float64)) for w, v in zip(z["words"], z["E"])}
-    ax = unit(np.array(json.load(open(os.path.join(K, "axis_en.json")))["axis"]))
+    #: --pairs-axis uses the axis REFITTED on verb-eliciting sites. The default
+    #: axis was fitted over every ACTIVE prompt; k_axis --pairs refits it on the
+    #: M01 minimal pairs, where concreteness rises to +0.311 and overtakes
+    #: register_level at -0.209 as the top-correlating scale. Since the whole
+    #: point of this script is to say which named component the axis is made of,
+    #: the answer may depend on which axis, and both are run rather than one
+    #: being picked.
+    af = "axis_en_pairs.json" if "--pairs-axis" in sys.argv else "axis_en.json"
+    ax = unit(np.array(json.load(open(os.path.join(K, af)))["axis"]))
+    print("AXIS: %s" % af)
     rate = json.load(open(os.path.join(K, "ratings_en.json")))["ratings"]
     t2u = json.load(open(os.path.join(K, "normalisation_en.json")))["token_to_unit"]
 
