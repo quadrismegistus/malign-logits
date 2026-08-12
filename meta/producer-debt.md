@@ -102,4 +102,12 @@ frozen, whatever digest sits beside it ([5559]); a negative existence
 claim needs a search space, not a search history ([5562]); produce RAW
 model x prompt x value and compute summaries after — a summary artifact
 that discards its rows cannot say which rows it had (RH's rule, [5562],
-demonstrated same-day by z_ladders' own discharge).
+demonstrated same-day by z_ladders' own discharge); THE PROMPT IS A UNIT
+TOO — a result reported only pooled across prompts has not been shown to
+exist at any of them; pooling can cancel or invert, not merely shrink
+(lacan's proposal [5581] §4, K's 30x cancellation and two sign flips as
+the demonstration; malign's corpus carries it natively [5582]; second
+seat registrar [5584]); where a gate is really a
+threshold on a number, gate on the number, never on a categorical label
+standing in for it ([5578] §5, two defects of one shape in a day; second
+seat [5579]).
