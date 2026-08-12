@@ -20,16 +20,34 @@ the SITE results (D/D2/D3b, at transgressive twins) be put on one scale — is t
 general effect, concentrated, or something else? Two populations, one instrument, direction
 registered for the twin arm.
 
+## The arms, in plain terms
+
+Six arms, one grid: two frames (inside the minimal pairs, where every transgressive prompt has a
+matched neutral twin; and the corpus residue, the 13.0% of the corpus the pair construction left
+behind) crossed with three measures. `tail_excess` measures DIRECTION — whether the probability
+mass alignment frees re-lands on nameable substitute words or disperses into the unresolved tail.
+`departed` measures MAGNITUDE — how much mass leaves words at all. The norm signature
+(`A_|valence|`) measures the de-extremification fingerprint — whether emotionally extreme words
+specifically are the ones losing. So: H1 = direction, twin frame. H2 = direction, corpus residue —
+THE BRIDGE ARM. H5 = magnitude, twin frame. H4 = magnitude, corpus residue. H3 and H6 = the norm
+signature in each frame, ESTIMATED but never tested, because their measured detection thresholds
+sat above the size of every effect this campaign has found (a null there would have been
+uninterpretable, the failure C's control arm already met).
+
 ## What it found
 
 **The bridge does not hold, by frame reversal — the registration's own fourth branch, written
 before the data.**
 
-- H1 (substitution, twin frame): −0.002313, p 0.00004 — significant, as registered.
-- H2 (substitution, corpus-residue frame): +0.009704, p 0.00001 — significant, and **opposite in
-  sign**. Q registered no direction for this arm (the subject of Erratum 2).
-- H5: +0.005260, significant — matches the F/G prior it cited; not Q's own claim.
-- H4: null, quoted as a bound. H3/H6: estimated, no verdicts by design.
+- Direction, twin frame (H1): −0.002313, p 0.00004 — inside the pairs, substitution runs MORE
+  strongly at the transgressive twin, significant as registered.
+- Direction, corpus residue (H2): +0.009704, p 0.00001 — outside the pairs, the same statistic
+  runs significantly in the OPPOSITE direction. Q registered no direction for this arm (the
+  subject of Erratum 2, resolved below).
+- Magnitude, twin frame (H5): +0.005260, significant — more mass departs at the transgressive
+  twin, matching the F/G prior it cited; a known answer confirmed, not Q's own claim.
+- Magnitude, corpus residue (H4): null, quoted as a bound. Norm signature (H3/H6): point
+  estimates with intervals only, no verdicts by design.
 
 The pair frame and the corpus frame disagree about the direction of the same quantity. The frozen
 document called this branch "a finding and not a failure," and that is how it is carried: the
