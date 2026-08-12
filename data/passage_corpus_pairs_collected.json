@@ -1,0 +1,286 @@
+{
+ "_producer": "pre-run amendment, meta/M04_syntagmatic/registrations/amendment_passage_corpus_collectable.md",
+ "_frozen_population": "data/forced_arms_46reps_drmatch.json 89eb642b50d00dd9 (46 pairs, UNCHANGED)",
+ "_excluded": [
+  {
+   "pair": "Zyphra/Zamba2-7B>Zyphra/Zamba2-7B-Instruct",
+   "reason": "cost, not capability: transformers==4.57.1 + mamba kernels + base-arm repo access, never tried together; 1.3% of the corpus against $21 contingency"
+  }
+ ],
+ "_bf16_required": [
+  "google/gemma-2-9b",
+  "google/gemma-2-9b-it"
+ ],
+ "pairs": [
+  {
+   "base": "01-ai/Yi-1.5-9B",
+   "aligned": "01-ai/Yi-1.5-9B-Chat",
+   "cells": 193,
+   "seqs": 30880
+  },
+  {
+   "base": "Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
+   "aligned": "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
+   "cells": 154,
+   "seqs": 24640
+  },
+  {
+   "base": "BAAI/Aquila2-7B",
+   "aligned": "BAAI/AquilaChat2-7B",
+   "cells": 188,
+   "seqs": 30080
+  },
+  {
+   "base": "BSC-LT/salamandra-7b",
+   "aligned": "BSC-LT/salamandra-7b-instruct",
+   "cells": 192,
+   "seqs": 30720
+  },
+  {
+   "base": "EleutherAI/pythia-6.9b",
+   "aligned": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "cells": 12,
+   "seqs": 1920
+  },
+  {
+   "base": "HuggingFaceTB/SmolLM2-360M",
+   "aligned": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "cells": 194,
+   "seqs": 31040
+  },
+  {
+   "base": "HuggingFaceTB/SmolLM3-3B-Base",
+   "aligned": "HuggingFaceTB/SmolLM3-3B",
+   "cells": 185,
+   "seqs": 29600
+  },
+  {
+   "base": "LLM360/Amber",
+   "aligned": "LLM360/AmberSafe",
+   "cells": 195,
+   "seqs": 31200
+  },
+  {
+   "base": "OpenLLM-France/Lucie-7B",
+   "aligned": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "cells": 191,
+   "seqs": 30560
+  },
+  {
+   "base": "Qwen/Qwen2.5-7B",
+   "aligned": "Qwen/Qwen2.5-7B-Instruct",
+   "cells": 169,
+   "seqs": 27040
+  },
+  {
+   "base": "Qwen/Qwen3-8B-Base",
+   "aligned": "Qwen/Qwen3-8B",
+   "cells": 197,
+   "seqs": 31520
+  },
+  {
+   "base": "RWKV/rwkv-4-7b-pile",
+   "aligned": "RWKV/rwkv-raven-7b",
+   "cells": 108,
+   "seqs": 17280
+  },
+  {
+   "base": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "aligned": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "cells": 164,
+   "seqs": 26240
+  },
+  {
+   "base": "allenai/OLMo-2-0425-1B",
+   "aligned": "allenai/OLMo-2-0425-1B-DPO",
+   "cells": 195,
+   "seqs": 31200
+  },
+  {
+   "base": "allenai/OLMoE-1B-7B-0125",
+   "aligned": "allenai/OLMoE-1B-7B-0125-DPO",
+   "cells": 196,
+   "seqs": 31360
+  },
+  {
+   "base": "allenai/Olmo-3-1025-7B",
+   "aligned": "allenai/Olmo-3-7B-Instruct-DPO",
+   "cells": 195,
+   "seqs": 31200
+  },
+  {
+   "base": "allenai/Olmo-Hybrid-7B",
+   "aligned": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
+   "cells": 192,
+   "seqs": 30720
+  },
+  {
+   "base": "baichuan-inc/Baichuan2-7B-Base",
+   "aligned": "baichuan-inc/Baichuan2-7B-Chat",
+   "cells": 194,
+   "seqs": 31040
+  },
+  {
+   "base": "bigscience/bloom-7b1",
+   "aligned": "bigscience/bloomz-7b1",
+   "cells": 187,
+   "seqs": 29920
+  },
+  {
+   "base": "croissantllm/CroissantLLMBase",
+   "aligned": "croissantllm/CroissantLLMChat-v0.1",
+   "cells": 182,
+   "seqs": 29120
+  },
+  {
+   "base": "deepseek-ai/deepseek-llm-7b-base",
+   "aligned": "deepseek-ai/deepseek-llm-7b-chat",
+   "cells": 161,
+   "seqs": 25760
+  },
+  {
+   "base": "google/gemma-2-9b",
+   "aligned": "google/gemma-2-9b-it",
+   "cells": 198,
+   "seqs": 31680
+  },
+  {
+   "base": "google/recurrentgemma-9b",
+   "aligned": "google/recurrentgemma-9b-it",
+   "cells": 197,
+   "seqs": 31520
+  },
+  {
+   "base": "huggyllama/llama-7b",
+   "aligned": "PKU-Alignment/beaver-7b-v1.0",
+   "cells": 197,
+   "seqs": 31520
+  },
+  {
+   "base": "ibm-granite/granite-3.0-8b-base",
+   "aligned": "ibm-granite/granite-3.0-8b-instruct",
+   "cells": 193,
+   "seqs": 30880
+  },
+  {
+   "base": "inceptionai/jais-family-6p7b",
+   "aligned": "inceptionai/jais-family-6p7b-chat",
+   "cells": 198,
+   "seqs": 31680
+  },
+  {
+   "base": "internlm/internlm2-base-7b",
+   "aligned": "internlm/internlm2-chat-7b",
+   "cells": 174,
+   "seqs": 27840
+  },
+  {
+   "base": "kakaocorp/kanana-1.5-8b-base",
+   "aligned": "kakaocorp/kanana-1.5-8b-instruct-2505",
+   "cells": 196,
+   "seqs": 31360
+  },
+  {
+   "base": "kakaocorp/kanana-2-3b-base",
+   "aligned": "kakaocorp/kanana-2-3b-instruct",
+   "cells": 191,
+   "seqs": 30560
+  },
+  {
+   "base": "llm-jp/llm-jp-3-7.2b",
+   "aligned": "llm-jp/llm-jp-3-7.2b-instruct3",
+   "cells": 198,
+   "seqs": 31680
+  },
+  {
+   "base": "m-a-p/CT-LLM-Base",
+   "aligned": "m-a-p/CT-LLM-SFT-DPO",
+   "cells": 191,
+   "seqs": 30560
+  },
+  {
+   "base": "m-a-p/neo_7b",
+   "aligned": "m-a-p/neo_7b_instruct_v0.1",
+   "cells": 191,
+   "seqs": 30560
+  },
+  {
+   "base": "meta-llama/Llama-3.1-8B",
+   "aligned": "meta-llama/Llama-3.1-8B-Instruct",
+   "cells": 192,
+   "seqs": 30720
+  },
+  {
+   "base": "mistralai/Mistral-7B-v0.1",
+   "aligned": "HuggingFaceH4/zephyr-7b-beta",
+   "cells": 191,
+   "seqs": 30560
+  },
+  {
+   "base": "openGPT-X/Teuken-7B-base-v0.6",
+   "aligned": "openGPT-X/Teuken-7B-instruct-v0.6",
+   "cells": 195,
+   "seqs": 31200
+  },
+  {
+   "base": "openbmb/MiniCPM5-1B-Base",
+   "aligned": "openbmb/MiniCPM5-1B",
+   "cells": 195,
+   "seqs": 31200
+  },
+  {
+   "base": "stabilityai/stablelm-2-1_6b",
+   "aligned": "stabilityai/stablelm-2-zephyr-1_6b",
+   "cells": 194,
+   "seqs": 31040
+  },
+  {
+   "base": "team-hatakeyama-phase2/Tanuki-8B-base-v1.0",
+   "aligned": "weblab-GENIAC/Tanuki-8B-dpo-v1.0",
+   "cells": 85,
+   "seqs": 13600
+  },
+  {
+   "base": "tiiuae/Falcon-H1-7B-Base",
+   "aligned": "tiiuae/Falcon-H1-7B-Instruct",
+   "cells": 196,
+   "seqs": 31360
+  },
+  {
+   "base": "tiiuae/Falcon3-10B-Base",
+   "aligned": "tiiuae/Falcon3-10B-Instruct",
+   "cells": 161,
+   "seqs": 25760
+  },
+  {
+   "base": "tiiuae/Falcon3-7B-Base",
+   "aligned": "tiiuae/Falcon3-7B-Instruct",
+   "cells": 189,
+   "seqs": 30240
+  },
+  {
+   "base": "tiiuae/Falcon3-Mamba-7B-Base",
+   "aligned": "tiiuae/Falcon3-Mamba-7B-Instruct",
+   "cells": 193,
+   "seqs": 30880
+  },
+  {
+   "base": "tiiuae/falcon-mamba-7b",
+   "aligned": "tiiuae/falcon-mamba-7b-instruct",
+   "cells": 161,
+   "seqs": 25760
+  },
+  {
+   "base": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "aligned": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "cells": 199,
+   "seqs": 31840
+  },
+  {
+   "base": "zai-org/glm-4-9b-hf",
+   "aligned": "zai-org/glm-4-9b-chat-hf",
+   "cells": 194,
+   "seqs": 31040
+  }
+ ]
+}
