@@ -109,4 +109,34 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main
+
+## WHAT THE PIN UNBLOCKED, AND WHAT IT DID NOT (2026-08-12)
+
+The pin (approved [5560], opt-in, `M01_PIN_PROMPTS=1` or `pin_prompts=True`)
+works: `frozen_population()` returns 959 x 144 with no drift, and the default
+path is unchanged and still refuses.
+
+**Registration E then failed on something else, and it is worth more than the
+pin.** Under the pin E reaches the data and dies here:
+
+    MALFORMED twp ROW ... model='Qwen/Qwen3-8B-Base'
+    prompt='<<<LOGICAL:BOS>>>' row=76 word='importfromimport' -- p is NaN
+
+Three facts, each checked:
+
+    `<<<LOGICAL:BOS>>>` IS in the frozen 959 (the only synthetic prompt in it)
+    Qwen/Qwen3-8B-Base WAS in the 31-July roster -- not an expansion artefact
+    the NaN guard was added 2026-08-03 (e7864dab); E RAN 2026-08-01 (4993d539)
+
+**E predates the guard that now refuses its data.** What is NOT established is
+whether the NaN was present on 2026-08-01 -- the row could have been re-ingested
+since. So the honest statement is: E ran before this class of row could be
+detected, and the data now contains one the instrument rejects. Whether E
+consumed it is unknown and may not be knowable.
+
+That is the third distinct thing discharging E's producer debt has surfaced, and
+none of them was the debt itself: a wrong count in a comment beside a digest, a
+population rule unpinned on the prompt side, and a published number whose
+substrate now fails a guard written after it.
+"""

@@ -22,6 +22,7 @@ import argparse
 import collections
 import csv
 import hashlib
+import json
 import os
 import statistics as st
 import sys
@@ -190,7 +191,7 @@ def check_null(trials=8000, tol=0.004):
     return True
 
 
-def frozen_population():
+def frozen_population(pin_prompts=None):
     """Re-derive from the RULE and verify the digests. Never read from a stored list.
 
     A population frozen as a COUNT goes stale — the spec's "84 models" was the store at
@@ -201,7 +202,26 @@ def frozen_population():
     from malign_logits.cache import get_cache
     from malign_logits.prompts import Prompts
 
-    prompts = sorted({p.text for p in Prompts.all(status="ACTIVE")})
+    #: THE PROMPT-PIN, approved by @registrar at [5560]. OPT-IN, DEFAULT OFF.
+    #: Passing pin_prompts=True (or M01_PIN_PROMPTS=1) takes the prompt set from
+    #: the SAVED MEMBERSHIP rather than re-deriving it from the live registry,
+    #: which has grown 959 -> 2,699 and empties the model set on every producer.
+    #:
+    #: **THIS CHANGES THE POPULATION AND SAYS SO.** Pinned, the models re-derive
+    #: to whatever the cache now covers -- 144 as of 2026-08-12, against 95 at
+    #: freeze. That is a NEW POPULATION, not a larger version of the old one: the
+    #: extra models arrived through fleet campaigns selected for other reasons,
+    #: so a successor number agreeing with its predecessor is NOT a replication.
+    #: Successors go BESIDE their predecessors and name their n ([5385].1).
+    if pin_prompts is None:
+        pin_prompts = os.environ.get("M01_PIN_PROMPTS") == "1"
+    if pin_prompts:
+        _pin = json.load(open(os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            "data", "frozen_population_959.json")))
+        prompts = sorted(_pin["prompts"])
+    else:
+        prompts = sorted({p.text for p in Prompts.all(status="ACTIVE")})
     per = collections.defaultdict(set)
     for d in get_cache().iter_keys("true_word_probs"):
         per[d.get("model")].add(d.get("prompt"))
@@ -217,6 +237,21 @@ def frozen_population():
         drift.append(f"prompts {ph} != frozen {PROMPTS_SHA}")
     if mh != MODELS_SHA:
         drift.append(f"models {mh} != frozen {MODELS_SHA}")
+    if pin_prompts:
+        #: Under the pin the prompt digest MUST match -- it is read from the
+        #: verified artifact -- so a prompt drift here means the artifact was
+        #: edited and is a hard error, not a refusal to be overridden.
+        assert ph == PROMPTS_SHA, (
+            "frozen_population_959.json no longer hashes to PROMPTS_SHA; the "
+            "saved membership has been edited and nothing downstream is safe")
+        #: The MODEL digest is EXPECTED to differ under the pin and that is the
+        #: declared cost of it. Stated as a population line, never as drift,
+        #: because a producer that treats it as drift refuses for the wrong
+        #: reason and a reader who sees "drift" assumes something broke.
+        drift = [d for d in drift if not d.startswith("models ")]
+        print(f"  POPULATION  frozen_959 x current-cache-{len(models)}  "
+              f"(pinned prompts; models re-derived, {len(models)} against 95 at "
+              f"freeze -- a NEW population, successors go beside, name your n)")
     return prompts, models, (ph, mh), drift
 
 
