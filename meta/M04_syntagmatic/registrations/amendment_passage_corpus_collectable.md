@@ -255,3 +255,23 @@ Drafted by the malign seat on registrar's [5547] terms; countersigned by the reg
 **On Olmo-Hybrid and §1c.** §1c declined a LOCAL PATCH to a released loader. A dated upstream build is a different provenance object, and the exact build is recorded at launch from the running container rather than inferred from the `nightly` tag, which moves.
 
 **Nothing here authorises spend.** RH's word covers batch 2 ([5588]-era instruction, "yes do all of that"); this section is the record that must exist before it runs, not the approval.
+
+## 1g. THE RUN IS CLOSED — FINAL COLLECTED COUNT, RECONCILED
+
+Added 2026-08-12 at run close, from `scripts/passage_reconcile.py` against the frozen population, not from any box's completion message:
+
+    DECLARED            46 pairs
+    DELIVERING          42        (41 `ok` + SmolLM2, complete-and-duplicated)
+    ABSENT               4
+    sequences    1,172,448
+    unscorable       5,727        0.49%
+    blocked rows         0
+    fidelity     pass 140,148 · pass_under_override 6,408
+
+**THE FOUR ABSENCES ARE UNRUNNABLE, NOT UNATTEMPTED, and each has a recorded cause:** `Pharia` and `RWKV-4` have no vLLM implementation at any version; `Zamba2` needs three requirements never yet satisfied together plus a gated base arm; `Olmo-Hybrid`'s released loader is broken and **no published image carries the fix — `vllm/vllm-openai:nightly` reports 0.26.1rc1.dev668, which PREDATES the 0.27.1 we run.**
+
+**FIVE OF THE SIX PAIRS THIS DOCUMENT WROTE OFF CAME BACK, for about $8.** §1d's specification was executed and was correct; §1e and §1f record the routes and exact builds. Aquila2, Baichuan2 and jais returned on contemporary older images (jais additionally needing `tie_word_embeddings` written into its cached config, because vLLM 0.22.0 ships transformers 5.9.0 and JAIS's remote-code config predates the key). CT-LLM and Teuken returned under the corrected `min(model_vocab, len(tokenizer))` bound. deepseek returned via `detokenize=False` with local decoding.
+
+**P AT 42.** 3.01 x sqrt(42/46) = **2.876**, against the ~2.8 bar on which the fifth arm was restored. The bar is cleared, and it was cleared at 41 (2.842) before recurrentgemma landed — so no single pair is load-bearing for it.
+
+**ONE POPULATION FACT FOR ANY CONSUMER, measured not assumed** ([5629]): text completeness is **99.98%** corpus-wide (195 empty sequences of 1,172,448) and is **ORTHOGONAL to scoring completeness** — the three pairs with the worst unscorable rates (Aquila2 9.92%, Teuken 9.16%, deepseek 0.79%) have 100.00% complete text. Per-pair rates travel with any corpus-level claim, and `bloom-7b1` is the named outlier on the empty-text axis at 0.538%, a 30x outlier with no other pair near it.
