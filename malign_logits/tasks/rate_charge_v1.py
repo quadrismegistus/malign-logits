@@ -140,3 +140,108 @@ class ChargeTaskEN(Task):
 class ChargeTaskZH(ChargeTaskEN):
     name = "k_charge_zh_v1"
     system_prompt = SYSTEM_PROMPT_ZH
+
+
+# ── v2: SEVEN SCALES, for the pilot that decides which survive ───────────
+#
+# Three added on RH's questions, 2026-08-12, each for a stated reason:
+#
+#   register     Vulgarity is UNIPOLAR -- it sees only the coarse end. Register
+#                is bipolar (clinical <-> coarse) and `penis` scoring vulgarity 2
+#                is not the same fact as `penis` being CLINICAL. S finding 4 (at
+#                marked sites the act moves into speech) and T (movement onto
+#                perception/cognition/speech) are register claims, and vulgarity
+#                can only see their absence.
+#   valence      `fields.py` carries Warriner V/A/D -- ENGLISH ONLY, which is the
+#                wall registration O hit: it could not separate "the affective
+#                mechanism is absent in Chinese" from "the Chinese norm join is
+#                too thin to see it". Rating it here gives Chinese an affective
+#                measure it has never had, AND lets the English half be
+#                calibrated against human norms.
+#   concreteness Brysbaert, same story: English only, and T's central claim is
+#                movement off contact/motion onto cognition/perception, which is
+#                the concreteness axis.
+#
+# NOT ADDED: a `safety` scale. "Would a safety-tuned model avoid this word" asks
+# the coder to predict the outcome under measurement -- the stimulus naming the
+# construct. Transgressiveness is the honest version: it asks about the norm,
+# not about the model. Refused deliberately, recorded so the absence is a
+# decision rather than an oversight.
+#
+# NOT ADDED: arousal. `charge` is arousal, and registration D found arousal
+# movement-general rather than site-targeted.
+#
+# SEVEN IS PROBABLY TOO MANY and this exists to find out. The pilot rates the
+# whole set, then the correlation matrix drops whatever fails to dissociate --
+# collinear scales buy noise and multiple comparisons, not information.
+
+_V2_EXTRA = """
+
+  register_level     HOW ELEVATED IS THE WORD -- lowbrow to highbrow.
+                     1 = colloquial, slang, street (`telly`, `grub`, `mate`,
+                     `shit`), 4 = ordinary everyday usage (`dog`, `table`,
+                     `dead`), 7 = formal, learned, literary or technical
+                     (`notwithstanding`, `utilise`, `deceased`, `faeces`).
+
+                     THIS IS NOT VULGARITY, and the difference is the point.
+                     `telly` and `grub` are lowbrow and not remotely obscene;
+                     `faeces` and `deceased` are highbrow words for unpleasant
+                     things. A word's elevation and its coarseness are separate
+                     facts and a great many words are low on one and neutral on
+                     the other. Rate cultural register, not offensiveness.
+
+                     Runs low-to-high like every other scale here: a bigger
+                     number means MORE elevated.
+
+  valence            PLEASANT vs UNPLEASANT. 1 = very negative (`torture`),
+                     4 = neutral (`ledger`), 7 = very positive (`joy`). This is
+                     direction, where `charge` is intensity: `agony` and
+                     `ecstasy` share a charge of 7 and sit at opposite ends here.
+
+  concreteness       Can the word's referent be perceived by the senses?
+                     1 = wholly abstract (`justice`, `whereas`), 7 = directly
+                     perceptible (`toes`, `knife`). Independent of every other
+                     scale."""
+
+
+class ChargeRating7(BaseModel):
+    reading: str = Field(
+        description="FILL THIS FIRST. One short sentence: what the word means "
+                    "and what force it carries. Write this before the numbers.")
+    vulgarity: SCALE
+    #: NOT `register`: that name is a classmethod on pydantic's BaseModel (via
+    #: ABCMeta registration), so the field validates fine and lands in
+    #: model_fields while attribute access returns the METHOD. It raised here
+    #: rather than returning a plausible number, which is the only reason it was
+    #: cheap to find.
+    register_level: SCALE
+    transgressiveness: SCALE
+    charge: SCALE
+    valence: SCALE
+    bodily_harm: SCALE
+    concreteness: SCALE
+
+
+class ChargeTask7EN(Task):
+    name = "k_charge_en_v2"
+    schema = ChargeRating7
+    system_prompt = (_COMMON.replace(
+        "You rate a SINGLE WORD on four independent 1-7 scales.",
+        "You rate a SINGLE WORD on seven independent 1-7 scales.")
+        .replace("  bodily_harm        Does the word imply damage to a body?",
+                 _V2_EXTRA.strip("\n") +
+                 "\n\n  bodily_harm        Does the word imply damage to a body?")
+        + "\n\nThe words are ENGLISH.")
+    retries = 2
+    temperature = 0.0
+    model = "deepseek/deepseek-v4-flash"
+
+
+class ChargeTask7ZH(ChargeTask7EN):
+    name = "k_charge_zh_v2"
+    system_prompt = ChargeTask7EN.system_prompt.replace(
+        "The words are ENGLISH.",
+        "The words are CHINESE. Rate them for a competent speaker of Mandarin, "
+        "by the force they carry in Chinese. Do not rate an English "
+        "translation, and do not try to match any English scale -- these "
+        "ratings are never compared across languages.")
