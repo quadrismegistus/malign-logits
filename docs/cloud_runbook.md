@@ -330,6 +330,69 @@ refuses at `ModelConfig`. No preflight caught it because every record we keep is
 (model x environment), never (model x engine). It surfaced as a `FAILED.jsonl` row
 forty minutes into a paid run.
 
+### 2.22 Monitoring defects, and four architectures vLLM DELETED
+
+The passage fleet's second half cost more in bad MONITORING than in bad boxes.
+Every item here is a check that reported health it had not measured.
+
+**§2.16 APPLIES TO `pgrep`, NOT JUST `pkill`, AND IT SILENTLY DISARMED THE
+ORPHAN DETECTOR.** `pgrep -f vllm_y_run.py` run over ssh matches the ssh
+command line itself, because the pattern is in it. It returns **1 on a box with
+no runner at all**, so an orphan test of `run == 0 && engines > 0` can never
+fire. The detector built specifically to catch §2.17 was blind to it for hours.
+Match on something the wrapper cannot satisfy:
+
+    ps -eo pid,comm,args | awk '$2=="python" && /manifest/ && !/bash -c/'
+
+**A FINISHED RUNNER AND A CRASHED ONE ARE THE SAME PROCESS TABLE.** Both are
+"no python, no engine". The discriminator is not the box, it is the MANIFEST:
+pairs remaining means it died, zero remaining means it finished. Labelling the
+first "DEAD" cost a wrong report to RH and would have cost a wrong rebalance.
+
+**A DIRECTORY IS NOT A POPULATION.** After any rebalance, `/root/out` holds
+files from PREVIOUS manifests. Counting non-empty files against the length of
+the current manifest credits old work to new pairs — three boxes were reported
+finished while a pair sat at zero rows. Ask each manifest pair about its own
+file. The same error inflated a "done" count by globbing `*.jsonl`, which
+swallows `FAILED.jsonl`.
+
+**DELETING A FAILURE RECORD IS NOT FIXING A FAILURE.** Clearing `FAILED.jsonl`
+on restart makes `fail=0` mean "no record", not "no failure". Reconciliation
+must bind to expected-vs-delivered rows from the manifests, never to the
+absence of failure files.
+
+**A VOCAB GUARD ON THE MODEL DOES NOT PROTECT THE TOKENIZER.** `score_under`
+drops cross-scored sequences at `max(full_ids) >= model_config.get_vocab_size()`.
+Models are padded to round embedding sizes; the sentencepiece model holds fewer
+pieces. An id in that gap passes the guard and raises
+`IndexError: OUT_OF_RANGE: piece id is out of range` inside `IdToPiece`. The
+stricter bound is `min(model_vocab, len(tokenizer))`.
+
+### 2.23 (ARCHITECTURE x ENGINE): four models vLLM SUPPORTED AND REMOVED
+
+Distinct from "never implemented" and worth its own row, because the fix is
+OURS rather than upstream's — the engine names the last working version:
+
+    AquilaForCausalLM     supported until v0.24.0
+    BaichuanForCausalLM   supported until v0.23.0
+    JAISLMHeadModel       supported until (message names it)
+    RwkvForCausalLM       never implemented (PR #11193 closed unmerged, RWKV6
+                          only, and our pair is RWKV-4)
+
+**All four load fine under transformers and are recorded as working.** The
+campaign keys capability by (model x environment) and has no notion of
+(model x ENGINE), so no preflight, no load record and no fidelity guard can see
+this class. It cost five pairs of 46 in one run.
+
+**AND DOWNGRADING THE ENGINE TO RECOVER THEM IS A CASCADE.** Pinning
+`vllm==0.22.1` on a box built for 0.27.1 fails in ABI order, one extension at a
+time: `transformers` too new -> `deep_ep` compiled against another NCCL
+(`undefined symbol: ncclCommQueryProperties`) -> `flashinfer-jit-cache`
+mismatched against `flashinfer` -> a `plan()` signature TypeError at runtime ->
+`EngineDeadError` in `step()`. Four fixes got the model to LOAD and generation
+still died. **Build the box from a contemporary image; do not peel extensions
+off a newer one.**
+
 ---
 
 ## 3. Profiles
