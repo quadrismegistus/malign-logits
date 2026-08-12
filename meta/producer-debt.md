@@ -121,7 +121,12 @@ and now empty text (bloom-7b1 0.538%, a 30x outlier) — so ANY
 corpus-level completeness or coverage claim names its per-pair outliers
 beside the mean, and the two completeness axes are ORTHOGONAL:
 the worst-scoring pairs have perfect text, verified by count 1,142,400
-sequences, 99.98% text-complete); where a gate is really a
+sequences, 99.98% text-complete; and lacan's aggregation-level
+clause [5632], three same-day instances at one seat plus plan A's window
+coupling: FIXING A QUANTITY AT ONE LEVEL OF AGGREGATION DOES NOT FIX THE
+SAME QUANTITY AT THE LEVEL ABOVE, and the instrument that would notice is
+often disabled by the fix itself — when a fix normalises something, name
+the level it lives at and ask what varies at the next one); where a gate is really a
 threshold on a number, gate on the number, never on a categorical label
 standing in for it ([5578] §5, two defects of one shape in a day; second
 seat [5579]); AN IDENTIFIER IS BOOKED ONLY AFTER THE

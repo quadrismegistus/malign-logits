@@ -81,6 +81,44 @@ One passage per (pair, prompt, arm) first (~2 x 41 x prompt-roster rows);
 directions eyeballed, instrument timed, THEN the full corpus. Pilot numbers
 are never quoted as results.
 
+## Amendment 1 (pre-gate, 2026-08-12, on lacan's [5632] objection)
+
+**A.H1 and A.H2 are coupled through the window design, and the plan states
+it before the numbers exist.** A fixed-token window over shorter-sentence
+text spans more sentence boundaries; sentence-initial vocabulary is a small
+recurring set; so `ttr_mattr_w100` can move as a CONSEQUENCE of sentence
+length, not beside it. Windowing fixed raw TTR's length dependence at the
+token level and left the same dependence alive one level up — the exact
+form lacan names ([5632]): fixing a quantity at one level of aggregation
+does not fix it at the level above.
+
+Decision rule, fixed now ([5632]'s third option, plus the conditioned
+table):
+
+1. `sents_per_window_w100` is computed and reported per passage beside the
+   TTR columns.
+2. The A.H2 contrast is additionally reported WITHIN TERTILES of
+   sentences-per-window. **A.H2 is quotable as a finding independent of
+   A.H1 only if the aligned-minus-base TTR contrast survives inside those
+   strata** (direction held, sign split reported per stratum). If it does
+   not survive conditioning, the verdict sentence is "one finding, two
+   surfaces" — A.H2 CONFIRMED language may not appear beside A.H1
+   CONFIRMED as two findings.
+3. Expected sign of the coupling, stated as expectation and checked in the
+   table, not assumed: boundary-vocabulary recurrence should push TTR DOWN
+   as sentences shorten, i.e. the coupling runs AGAINST A.H2's registered
+   direction — so an A.H2 that fires AND survives conditioning is
+   strengthened by the coupling, and an A.H2 null is ambiguous between
+   absent and masked. Either way the conditioned table is the read of
+   record.
+
+Sentence-based windows (lacan's first option) were considered and declined:
+a window of N sentences lets token count vary within the window, which
+reintroduces raw TTR's token-count dependence inside each window — the
+original artifact one level down. The conditioned table keeps the token
+denominator fixed and makes the sentence effect visible instead of moving
+it.
+
 ## What this plan does not claim
 
 No register/formality construct (that is plan B territory and the naming
