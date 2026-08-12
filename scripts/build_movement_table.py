@@ -291,13 +291,18 @@ def verify(n, rule_name):
     """
     from malign_logits.movement import movement, word_probs, CANONICAL, LENS, DRAW
     rule = {"canonical": CANONICAL, "lens": LENS, "draw": DRAW}[rule_name]
+    #: JSONEachRow, NEVER TabSeparated. `ch_read._unesc` exists because a
+    #: reconciler that read TSV without it reported 88 of 250 cells as
+    #: disagreeing -- `didn\'t` against `didn't` -- on a table holding zero
+    #: backslashes. The first version of this verifier reproduced that exact
+    #: failure and reported apostrophe words as movement disagreements.
     out = q("SELECT DISTINCT base, aligned, prompt FROM %s.%s WHERE rule='%s' "
-            "ORDER BY rand() LIMIT %d" % (DB, TABLE, rule_name, n))
-    cells = [l.split("\t") for l in out.strip().split("\n") if l.count("\t") == 2]
+            "ORDER BY rand() LIMIT %d FORMAT JSONEachRow" % (DB, TABLE, rule_name, n))
+    cells = [(r["base"], r["aligned"], r["prompt"])
+             for r in (json.loads(l) for l in out.strip().split("\n") if l.strip())]
     agree = disagree = 0
     bad = []
-    for b, a, prompt in cells:
-        p = prompt.replace("\\'", "'").replace("\\t", "\t").replace("\\n", "\n").replace("\\\\", "\\")
+    for b, a, p in cells:
         wb, wa = word_probs(b, p, theta=rule.theta), word_probs(a, p, theta=rule.theta)
         if wb is None or wa is None:
             continue
@@ -308,9 +313,10 @@ def verify(n, rule_name):
             live[w] = ("fall" if w in set(mv.fallers)
                        else "rise" if w in set(mv.risers) else "still")
         got = q("SELECT word, cls FROM %s.%s WHERE rule='%s' AND base='%s' AND "
-                "aligned='%s' AND prompt='%s'"
+                "aligned='%s' AND prompt='%s' FORMAT JSONEachRow"
                 % (DB, TABLE, rule_name, esc(b), esc(a), esc(p)))
-        tbl = dict(l.split("\t") for l in got.strip().split("\n") if "\t" in l)
+        tbl = {r["word"]: r["cls"]
+               for r in (json.loads(l) for l in got.strip().split("\n") if l.strip())}
         if tbl == live:
             agree += 1
         else:
