@@ -134,4 +134,7 @@ machine-generated value was fine and the hand-built text channel was not
 while displaying the hash correctly, so post bodies travel by FILE, never
 by interpolating heredoc, and a deletion is the benign end of the class
 only because it happened to un-parse: the dangerous version still
-parses).
+parses; and [5616]'s relay clause: do-not-relay covers FACTS ABOUT OTHER
+SEATS' ENVIRONMENTS — write "both seats report it absent", never the
+merged flat assertion, because a relayed fact with its provenance
+stripped fails invisibly, and the receiving seat never observed it).
