@@ -51,6 +51,7 @@ becomes unanswerable, which is exactly the confusion that cost the `___` result.
 """
 import argparse
 import glob
+import hashlib
 import json
 import os
 import collections
@@ -224,6 +225,22 @@ CREATE TABLE IF NOT EXISTS {DB}.gen_scores (
     -- poisoned mean. MATERIALIZED so it maintains itself on future inserts:
     -- `WHERE n_nan = 0` is a predicate, not an array scan.
     n_nan      UInt32 MATERIALIZED length(arrayFilter(x -> isNaN(x) OR isInfinite(x), logprobs)),
+    -- UNSCORABLE IS A ROW, NOT AN ABSENCE -- the residual tables' rule applied
+    -- to cross-scoring. `scored_by_<arm>: null` at the SEQUENCE level means that
+    -- scorer produced nothing, and it is neither rare nor uniform: Aquila2
+    -- 9.92%, Teuken 9.16%, deepseek 0.79%, varying ~300x across pairs. M04
+    -- analysis A's terms are `mean_lp`, so those rates are INPUTS to A rather
+    -- than caveats beside it, and its per-pair denominator must come from where
+    -- the numerator does. Dropping the row makes the denominator unrecoverable
+    -- without re-reading 9.0G of jsonl, which is how "absent or below
+    -- threshold" became unanswerable once already.
+    --
+    -- DEFAULT 1 IS CORRECT-BY-CONSTRUCTION ELSEWHERE AND MEANS SOMETHING
+    -- WEAKER THERE. `y`, `f11_l2` and `beam_fc` were ingested by loops that
+    -- `continue` on a null scorer, so their unscorable rows are ABSENT and no
+    -- column can reconstruct them. `scorable` is a live measurement for
+    -- `passage` and a statement about the rows that happen to exist elsewhere.
+    scorable   UInt8 DEFAULT 1,
     ingested   DateTime DEFAULT now()
 ) ENGINE = ReplacingMergeTree(ingested)
 ORDER BY (corpus, model, prompt, forced_word, sample_idx, scorer);
@@ -1076,6 +1093,12 @@ def main():
     ap.add_argument("--l2", action="store_true", help="f11_l2 contradiction gens")
     ap.add_argument("--y", action="store_true", help="the Y corpus")
     ap.add_argument("--beams", action="store_true", help="beam_fc")
+    ap.add_argument("--passages", action="store_true",
+                    help="the M06 passage corpus, manifest-driven")
+    ap.add_argument("--force", action="store_true",
+                    help="re-ingest a corpus that already has rows")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="run every guard and shape every row, write nothing")
     ap.add_argument("--registry", action="store_true", help="models + model_edges")
     ap.add_argument("--verify", action="store_true")
     ap.add_argument("--check", action="store_true",
@@ -1109,6 +1132,8 @@ def main():
         ingest_l2(a.limit)
     if a.y:
         ingest_y(a.limit)
+    if a.passages:
+        ingest_passages(a.limit, force=a.force, dry_run=a.dry_run)
     if a.beams:
         ingest_beams(a.limit)
     if a.registry:
@@ -1118,7 +1143,7 @@ def main():
     if a.check:
         return 1 if check() else 0
     if not any((a.create, a.twp, a.logits, a.index, a.catalogue, a.drift, a.l2,
-                a.y, a.beams, a.registry, a.verify, a.check)):
+                a.y, a.beams, a.passages, a.registry, a.verify, a.check)):
         ap.print_help()
 
 
@@ -1249,6 +1274,231 @@ def ingest_y(limit=None, batch=20_000):
         print("  ** %d prompt_id UNRESOLVED and therefore SKIPPED: %s"
               % (len(unresolved), sorted(unresolved)[:6]))
     print("\nY: %s sequences, %s score rows" % (format(n, ","), format(m, ",")))
+
+
+PASSAGE_MANIFEST = "data/passage_ingest_paths.json"
+PASSAGE_TREE = "data/raw/passage_corpus/box*/y__*.jsonl"
+
+#: `passage`, RULED BY RH at [5644]. `forced_arms_46drm` was proposed at [5642]
+#: and endorsed at [5643] on the argument that `passage` names a MODALITY rather
+#: than a POPULATION; RH decided otherwise and the rename is withdrawn. The
+#: reasoning is preserved at [5642] rather than deleted, so that if a second
+#: passage-derived corpus is ever built nobody has to re-derive it under time
+#: pressure.
+#:
+#: **THE RULING MAKES THE PIN BELOW MORE NECESSARY, NOT LESS.** The rejected
+#: label would have carried the source table in its own name; this one does not,
+#: so the assertion is the only thing standing between `passage` and a future
+#: corpus built from a different arms table wearing the same label. That is the
+#: undeclared-property clause discharged the other way it permits -- declare the
+#: property and ASSERT it -- rather than by choice of name. `drmatch` is the
+#: component at stake: repointing to it moved 36.5% of the matched controls, and
+#: the faller-matched control is the reason this corpus exists at all.
+PASSAGE_CORPUS = "passage"
+PASSAGE_ARMS = "data/forced_arms_46reps_drmatch.json"
+PASSAGE_ARMS_SHA16 = "89eb642b50d00dd9"
+
+
+def ingest_passages(limit=None, batch=20_000, force=False, dry_run=False):
+    """The M06 forced-arms corpus: 42 delivered pairs, forced continuation at 208
+    prompts, cross-scored by both arms. Rulings at [5639]/[5640], booked [5641],
+    corpus label ruled at [5642]/[5643].
+
+    A SEPARATE CORPUS FROM `y`, NOT A CONTINUATION OF IT. Both trees hold
+    `y__*.jsonl` and share a schema lineage, but `y` is five sexual prompts
+    sampled deep and this is domain-general forced continuation across 208.
+    One label over two rungs makes every query carry a path filter, and the
+    filter is the thing that gets forgotten.
+
+    THE NAME IS NOT THE WHOLE GUARD, SO THE SOURCE TABLE IS HASHED. A label only
+    fails loudly if something checks it; `forced_arms_46drm` would otherwise sit
+    happily above rows generated from a v5 arms table. The digest of
+    `forced_arms_46reps_drmatch.json` is asserted before any row is written, so
+    the corpus cannot be extended from a different population under its own name.
+
+    THE SOURCE IS THE MANIFEST AND GLOBBING IS A HARD ERROR. `passage_rebalance`
+    rewrites manifests as pairs move between boxes, and 16 delivered pairs had
+    already dropped out of every manifest on disk -- so a directory is not a
+    population. `passage_reconcile.py --ingest-manifest` reconstructs the
+    authoritative list from the FROZEN population; this reads that and refuses
+    to run if the tree holds a non-empty file the manifest does not name.
+
+    TWO UNDECLARED PROPERTIES ARE ASSERTED RATHER THAN RELIED ON (the clause
+    added at [5641]):
+
+      - `model` uniquely determines `(pair, role)`. True today -- 92 checkpoints
+        in 46 pairs, no checkpoint in two slots -- and the ONLY reason the
+        table's ORDER BY cannot collide across pairs. It is false the day
+        `tulu` and `tulu-no-safety`, which share a base and a superego, enter one
+        passage-style corpus. Asserted here, and dedup happens at ingest anyway
+        so correctness does not rest on it.
+      - no pair name contains `|`. The prompt text is recovered by STRIPPING the
+        known `pair + "|"` prefix rather than splitting on the first `|`,
+        because the operation that cannot break beats the one that happens not
+        to. A row whose prefix is absent is REFUSED, never falling back to the
+        id: that fallback is how an id reached a text column before, and it is
+        invisible afterwards because the row looks populated.
+
+    DEDUP AT INGEST, NOT AT MERGE. `SmolLM2-360M` holds every
+    `(pair, role, prompt_id, word)` exactly twice. `ReplacingMergeTree` would
+    collapse them eventually, on no schedule -- correct after an unpredictable
+    delay, wrong before it, invisible either way. Reads should still say `FINAL`
+    or `argMax`.
+
+    UNSCORABLE SEQUENCES BECOME ROWS WITH `scorable=0`, see the `gen_scores`
+    schema. `ingest_y`'s `continue` on a null scorer would have made 9.92% of
+    Aquila2 an absence.
+    """
+    man_p = os.path.join(ROOT, PASSAGE_MANIFEST)
+    if not os.path.exists(man_p):
+        raise SystemExit("no manifest at %s -- run passage_reconcile.py "
+                         "--ingest-manifest" % PASSAGE_MANIFEST)
+    man = json.load(open(man_p))
+    paths = man["paths"]
+    dedup_required = set(man.get("dedup_required") or {})
+    print("manifest %s: %d pairs, %d empty stubs excluded"
+          % (PASSAGE_MANIFEST, man["n_pairs"], man["n_empty_stubs_skipped"]))
+
+    #: THE LABEL'S PROMISE, ASSERTED. See PASSAGE_CORPUS.
+    arms_p = os.path.join(ROOT, PASSAGE_ARMS)
+    if not os.path.exists(arms_p):
+        raise SystemExit("REFUSING: %s is absent, so the corpus label "
+                         "%r cannot be justified" % (PASSAGE_ARMS, PASSAGE_CORPUS))
+    got = hashlib.sha256(open(arms_p, "rb").read()).hexdigest()[:16]
+    if got != PASSAGE_ARMS_SHA16:
+        raise SystemExit(
+            "REFUSING: %s hashes %s, expected %s.\nThe corpus label %r names "
+            "THIS arms table; rows from another one do not belong under it. "
+            "Either this is a different population and needs its own label, or "
+            "the pin is stale and should be re-ruled on the docket."
+            % (PASSAGE_ARMS, got, PASSAGE_ARMS_SHA16, PASSAGE_CORPUS))
+    print("  arms table %s pinned at %s" % (PASSAGE_ARMS, got))
+
+    #: `--create` is CREATE TABLE IF NOT EXISTS, so a column added to SCHEMA
+    #: never reaches a table that already exists. Additive with a DEFAULT, so
+    #: it is metadata-only and cannot break a reader that does not name it.
+    if not dry_run:
+        live = ch_read("SELECT name FROM system.columns WHERE database='%s' "
+                       "AND table='gen_scores' FORMAT TSV" % DB).split()
+        if "scorable" not in live:
+            ch("ALTER TABLE %s.gen_scores ADD COLUMN IF NOT EXISTS "
+               "scorable UInt8 DEFAULT 1 AFTER n" % DB)
+            print("  gen_scores: added column `scorable` (DEFAULT 1)")
+
+    #: THE REFUSAL TO GLOB. Only non-empty files count: the manifest excluded 12
+    #: empty stubs deliberately, so their presence is expected, not a surprise.
+    listed = {os.path.realpath(p) for p in paths.values()}
+    stray = [p for p in sorted(glob.glob(os.path.join(ROOT, PASSAGE_TREE)))
+             if os.path.getsize(p) > 0 and os.path.realpath(p) not in listed]
+    if stray:
+        raise SystemExit(
+            "REFUSING: %d non-empty file(s) in the tree that the manifest does "
+            "not name.\nA directory is not a population -- either regenerate the "
+            "manifest or explain the file.\n  %s"
+            % (len(stray), "\n  ".join(os.path.relpath(p, ROOT) for p in stray[:8])))
+    missing = [s for s, p in paths.items() if not os.path.exists(p)]
+    if missing:
+        raise SystemExit("REFUSING: %d manifest path(s) do not resolve: %s"
+                         % (len(missing), missing[:5]))
+    print("  tree agrees with manifest: no unlisted non-empty files")
+
+    if not force and not dry_run:
+        have = int(ch_read("SELECT count() FROM %s.gen_sequences "
+                           "WHERE corpus='%s'" % (DB, PASSAGE_CORPUS)) or 0)
+        if have:
+            print("  %s rows already present for corpus=%r. Re-inserting is "
+                  "idempotent under ReplacingMergeTree, but pass --force to say "
+                  "so deliberately." % (format(have, ","), PASSAGE_CORPUS))
+            return
+
+    #: A DRY RUN DOES EVERY CHECK AND EVERY ROW-SHAPING STEP AND WRITES NOTHING.
+    #: The guards above are the point of the exercise, so they must run on the
+    #: real 9.0G rather than on a fixture; what is skipped is only the insert.
+    def put(table, rows):
+        if not dry_run:
+            insert(table, rows)
+
+    seqs, scores = [], []
+    n = m = n_lines = n_dup = n_unscorable = n_refused = 0
+    seen_model = {}
+    per_pair = collections.Counter()
+    for fi, (stem, fp) in enumerate(sorted(paths.items())[:limit], 1):
+        seen_key = set()
+        for line in open(fp):
+            if not line.strip():
+                continue
+            d = json.loads(line)
+            pair, model = d.get("pair") or "", d.get("model") or ""
+            role, pid = d.get("role") or "", d.get("prompt_id") or ""
+            word = d.get("word")
+
+            #: ASSERTED UNDECLARED PROPERTY 1
+            prev = seen_model.get(model)
+            if prev is not None and prev != (pair, role):
+                raise SystemExit(
+                    "REFUSING: checkpoint %r appears as %s and as %s.\n"
+                    "The ORDER BY key assumes one (pair, role) per model and it "
+                    "no longer holds; the table would collapse rows from "
+                    "different pairs at merge time." % (model, prev, (pair, role)))
+            seen_model[model] = (pair, role)
+            #: ASSERTED UNDECLARED PROPERTY 2
+            if "|" in pair:
+                raise SystemExit("REFUSING: pair %r contains '|', so the "
+                                 "prompt_id prefix is ambiguous" % pair)
+
+            pfx = pair + "|"
+            if not pid.startswith(pfx):
+                #: REFUSE rather than fall back to the id, as `--y` does.
+                n_refused += 1
+                continue
+            ptxt = pid[len(pfx):]
+
+            key = (pair, role, pid, word)
+            if key in seen_key:
+                n_dup += 1
+                continue
+            seen_key.add(key)
+            n_lines += 1
+
+            arms = {}
+            if ">" in pair:
+                b, a = pair.split(">", 1); arms = {"base": b, "aligned": a}
+            forced = word or ""
+            for i, q in enumerate(d.get("sequences") or []):
+                seqs.append(_seq_rows(PASSAGE_CORPUS, model, ptxt, i, q.get("tokens"),
+                                      q.get("text"), q.get("plen"), "", forced,
+                                      0, role, pair, pid, d.get("temp"), 0, 0))
+                per_pair[pair] += 1
+                for arm in ("base", "aligned"):
+                    lp = q.get("scored_by_" + arm)
+                    ok = isinstance(lp, list)
+                    if not ok:
+                        n_unscorable += 1
+                    scores.append({"corpus": PASSAGE_CORPUS, "model": model,
+                                   "prompt": ptxt, "forced_word": forced,
+                                   "sample_idx": i, "scorer": arms.get(arm, arm),
+                                   "logprobs": [float(x) for x in lp] if ok else [],
+                                   "n": len(lp) if ok else 0,
+                                   "scorable": 1 if ok else 0})
+            if len(seqs) >= batch:
+                put("gen_sequences", seqs); n += len(seqs); seqs = []
+            if len(scores) >= batch:
+                put("gen_scores", scores); m += len(scores); scores = []
+        print("  %2d/%d  %-46s %s" % (fi, len(paths), stem[:46],
+                                      "DEDUPED" if stem in dedup_required else ""),
+              flush=True)
+    put("gen_sequences", seqs); n += len(seqs)
+    put("gen_scores", scores); m += len(scores)
+
+    print("\n%s: %s lines, %s sequences, %s score rows%s"
+          % (PASSAGE_CORPUS, format(n_lines, ","), format(n, ","), format(m, ","),
+             "   [DRY RUN, nothing written]" if dry_run else ""))
+    print("  duplicate lines collapsed at ingest   %s" % format(n_dup, ","))
+    print("  rows refused for a bad prompt prefix  %s" % format(n_refused, ","))
+    print("  unscorable score rows (scorable=0)    %s  %.2f%%"
+          % (format(n_unscorable, ","), 100 * n_unscorable / max(m, 1)))
+    print("  checkpoints seen                      %d over %d pairs"
+          % (len(seen_model), len({v[0] for v in seen_model.values()})))
 
 
 def ingest_beams(limit=None, batch=20_000):
