@@ -55,7 +55,7 @@ ROOT = os.path.dirname(os.path.dirname(CAMP))
 OUT = os.path.join(CAMP, "results", "dialogue_rate.json")
 CH = "/opt/homebrew/bin/clickhouse"
 
-CORPUS = "f11_l2"
+CORPUS = "f11_l2"      #: default; --corpus overrides for the transfer check
 WINDOW = 6            #: tokens after the word in which a quote mark counts
 MIN_N = 200           #: below this the rate is not estimated
 QUOTE = re.compile(r'["“”]')
@@ -71,9 +71,10 @@ WORD = re.compile(r"[^a-z]")
 MARKUP = re.compile(r"[<>]|\bclass=|https?://|&[a-z]+;")
 
 
-def sweep():
+def sweep(corpus=None, out=None):
+    corpus = corpus or CORPUS
     q = ("SELECT text FROM malign_logits.gen_sequences WHERE corpus='%s' "
-         "FORMAT JSONEachRow" % CORPUS)
+         "FORMAT JSONEachRow" % corpus)
     pr = subprocess.Popen([CH, "client", "-q", q], stdout=subprocess.PIPE,
                           text=True, bufsize=1 << 20)
     tot, quo = collections.Counter(), collections.Counter()
@@ -101,14 +102,14 @@ def sweep():
     pr.wait()
     rows = {w: {"n": tot[w], "quoted": quo[w], "rate": quo[w] / tot[w]}
             for w in tot if tot[w] >= MIN_N}
-    meta = {"corpus": CORPUS, "window_tokens": WINDOW, "min_n": MIN_N,
+    meta = {"corpus": corpus, "window_tokens": WINDOW, "min_n": MIN_N,
             "passages": n, "skipped_markup": skipped[0], "words": len(rows),
             "measure": "P(quote mark within WINDOW tokens after the word)",
             "note": "a COLUMN, not a gate; no threshold is set here"}
-    json.dump({"_meta": meta, "rates": rows}, open(OUT, "w"), indent=1)
+    json.dump({"_meta": meta, "rates": rows}, open(out or OUT, "w"), indent=1)
     print("swept %s passages (%s skipped as markup) -> %d words -> %s"
           % (format(n, ","), format(skipped[0], ","), len(rows),
-             os.path.relpath(OUT, ROOT)))
+             os.path.relpath(out or OUT, ROOT)))
 
 
 def show():
@@ -141,14 +142,61 @@ def show():
                  100 * sum(1 for v in vals if v > 0.20) / len(vals)))
 
 
+def xcheck():
+    """@registrar [5515].3: is the ORDERING transferable across corpora?
+
+    The matcher uses ordering only -- it picks the candidate nearest the
+    faller's rate -- so the LEVELS need not transfer but the ordering must.
+    f11_l2 is contradiction prompts, y is a different domain. Two unrelated
+    corpora agreeing on the ordering is transfer EVIDENCED rather than assumed;
+    disagreement means pool them rather than trust either.
+    """
+    import math
+    a = json.load(open(OUT))["rates"]
+    yp = OUT.replace(".json", "_y.json")
+    if not os.path.exists(yp):
+        sweep(corpus="y", out=yp)
+    b = json.load(open(yp))["rates"]
+    shared = sorted(set(a) & set(b))
+    print("\nTRANSFER CHECK: f11_l2 against y")
+    print("  words with n>=%d in BOTH corpora: %d" % (MIN_N, len(shared)))
+    if len(shared) < 30:
+        print("  too few shared words to Spearman; POOL rather than trust either.")
+        return
+    x = [a[w]["rate"] for w in shared]
+    y = [b[w]["rate"] for w in shared]
+    n = len(shared)
+    rx = sorted(range(n), key=lambda i: x[i]); ry = sorted(range(n), key=lambda i: y[i])
+    px = {v: i for i, v in enumerate(rx)}; py = {v: i for i, v in enumerate(ry)}
+    m = (n - 1) / 2
+    num = sum((px[i] - m) * (py[i] - m) for i in range(n))
+    den = math.sqrt(sum((px[i] - m) ** 2 for i in range(n))
+                    * sum((py[i] - m) ** 2 for i in range(n)))
+    rho = num / den
+    print("  SPEARMAN rho = %+.3f" % rho)
+    print("  median rate  f11_l2 %.1f%%   y %.1f%%   (LEVELS need not agree)"
+          % (100 * sorted(x)[n // 2], 100 * sorted(y)[n // 2]))
+    top = sorted(shared, key=lambda w: -a[w]["rate"])[:12]
+    print("\n  %-16s %10s %10s" % ("word", "f11_l2", "y"))
+    for w in top:
+        print("  %-16s %9.1f%% %9.1f%%" % (w, 100 * a[w]["rate"], 100 * b[w]["rate"]))
+    print("\n  -> ordering %s"
+          % ("TRANSFERS (rho >= 0.6)" if rho >= 0.6 else
+             "DOES NOT clearly transfer; pool the corpora"))
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--show", action="store_true")
+    ap.add_argument("--xcheck", action="store_true")
+    ap.add_argument("--corpus")
     a = ap.parse_args()
     if a.show or os.path.exists(OUT) and not a.show:
         pass
-    if a.show:
+    if a.xcheck:
+        xcheck()
+    elif a.show:
         show()
     else:
-        sweep()
+        sweep(corpus=a.corpus)
         show()

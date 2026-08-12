@@ -25,15 +25,24 @@ THE RULE, declared here before any output exists:
     fallback        if NO candidate is within TOL, the original rule
                     (closest on probability) and `dr_matched` is False
 
-TOL IS 0.25 IN LOG2, A FACTOR OF 1.19, AND THE RULE THAT SETS IT IS DECLARED
-BEFORE THE SWEEP WAS READ: the spec's own match bar is a factor of 1.4, and the
-median match must stay at least 3x inside that bar. 0.25 gives median 0.158
-(3.2x inside); 0.50 gives 0.285 (1.8x inside) and is rejected on that rule, not
-on its dialogue number, which is better.
+TOL IS 0.15 IN LOG2, A FACTOR OF 1.11, AND THE RULE IS @registrar's [5515].2:
+the probability match IS the construct and the dialogue gap is a confound, so a
+residual gap is carried by a column while a degraded construct match is carried
+by nothing. Spend tolerance on the confound only while the construct is
+untouched.
 
-MY FIRST GUESS WAS 0.5 AND THE SWEEP REJECTED IT. Recorded because the tolerance
-is the only free parameter here and an undeclared one is the defect class this
+TWO EARLIER TOLERANCES WERE PROPOSED AND BOTH ARE SUPERSEDED. I guessed 0.5
+(rejected by my own sweep), then argued 0.25 from a rule of my own -- "median
+must stay 3x inside the spec's 1.4x bar" -- which was arbitrary where
+@registrar's is principled. Recorded because the tolerance is the only free
+parameter here and an undeclared or post-hoc one is the defect class this
 campaign spent two days on.
+
+THE CORPUS-TRANSFER QUESTION IS ANSWERED, NOT ASSUMED. The rates are measured on
+f11_l2 and applied to a different battery; the matcher uses ORDERING only.
+Recomputed on `y`, an unrelated domain: **Spearman rho +0.686 over 4,858 shared
+words**, levels differing as expected (median 5.5% against 8.8%). The ordering
+transfers. `dialogue_rate.py --xcheck` reproduces it.
 
 Rates from `meta/M04_syntagmatic/results/dialogue_rate.json`, measured on
 f11_l2. A word's dialogue rate is a property of word AND genre: the ORDERING
@@ -129,13 +138,20 @@ def _input_digests(a):
 
 DR_PATH = os.path.join(ROOT, "meta", "M04_syntagmatic", "results",
                        "dialogue_rate.json")
-DR_TOL = 0.25         #: log2; a factor of 1.19. SET BY RULE, not by taste:
-                      #: the spec's declared match bar is a factor of 1.4
-                      #: (|log2| <= 0.5) and the median must stay at least 3x
-                      #: inside it. TOL 0.25 -> median 0.158, which is 3.2x
-                      #: inside. TOL 0.50 -> 0.285, only 1.8x inside. Swept in
-                      #: `sweep_drmatch_tolerance.py`; the frontier is in
-                      #: `meta/M04_syntagmatic/results/drmatch_tolerance.json`.
+DR_TOL = 0.15         #: log2; a factor of 1.11. SET BY @registrar's RULE at
+                      #: [5515].2, which supersedes mine and is better:
+                      #: THE ASYMMETRY OF REPAIRS. The probability match IS the
+                      #: construct ("matched on improbability-under-aligned");
+                      #: dialogue rate is a CONFOUND. A residual confound gap is
+                      #: repairable downstream -- it is a measured COLUMN, so an
+                      #: analysis reports the primary on all cells and again on
+                      #: low-gap cells. A DEGRADED CONSTRUCT MATCH IS REPAIRABLE
+                      #: BY NOTHING. So spend the tolerance on the confound only
+                      #: as far as the construct is untouched: 0.15 holds the
+                      #: median at 1.07x and takes the gap 2.19 -> 1.25pp; 0.25
+                      #: would buy 0.30pp more for 1.07x -> 1.12x on the
+                      #: construct's own axis, which a column can carry instead.
+                      #: Frontier: `meta/M04_syntagmatic/results/drmatch_tolerance.json`.
 
 
 def _dialogue_rates():

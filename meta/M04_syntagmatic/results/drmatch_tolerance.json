@@ -1,8 +1,8 @@
 {
  "_producer": "scripts/build_forced_arms_drmatch.py + scripts/sweep_drmatch_tolerance.py",
  "_what": "dialogue-rate as a tolerance-gated second matching criterion for the `matched` arm",
- "_tol_rule": "median |log2| must stay >=3x inside the spec's declared 1.4x bar; 0.25 gives 3.2x",
- "DR_TOL": 0.25,
+ "_tol_rule": "registrar [5515].2, asymmetry of repairs: the probability match IS the construct and a residual dialogue gap is a COLUMN; spend tolerance on the confound only while the construct is untouched. Supersedes lacan's 3x-inside-the-bar rule and the initial 0.5.",
+ "DR_TOL": 0.15,
  "frontier": [
   {
    "tol": 0.0,
@@ -74,5 +74,26 @@
   "matched_is_speech": 5.1,
   "matched_above_20pct": 4.0
  },
- "_note": "arms output not committed (9MB, regenerable): build_forced_arms_drmatch.py --battery data/beam_sample_105_plus_anger.csv --out <path>"
+ "_note": "arms output not committed (9MB, regenerable): build_forced_arms_drmatch.py --battery data/beam_sample_105_plus_anger.csv --out <path>",
+ "drmatch_tol_0.15": {
+  "n": 8317,
+  "med_gap": 1.245,
+  "mean_gap": 4.541,
+  "med_log2": 0.1015,
+  "factor": 1.073,
+  "within_1p4": 87.6
+ },
+ "transfer_check": {
+  "corpora": [
+   "f11_l2",
+   "y"
+  ],
+  "shared_words": 4858,
+  "spearman_rho": 0.686,
+  "median_rate_f11_l2": 0.055,
+  "median_rate_y": 0.088,
+  "verdict": "ordering TRANSFERS; matcher uses ordering only; do not remeasure",
+  "reproduce": "dialogue_rate.py --xcheck",
+  "caveat": "the measure is P(quote within 6 tokens), which also catches METALINGUISTIC quotation -- `phrase` 49.5/49.7, `hypothesis` 33.6/27.5 sit high in both corpora. Matching on the measure is still coherent (propensity to be followed by a quote mark) but it is not purely dialogue."
+ }
 }
