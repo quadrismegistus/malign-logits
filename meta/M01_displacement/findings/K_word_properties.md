@@ -12,17 +12,45 @@ SITE-SPECIFIC. The route here matters as much as the destination — four earlie
 different answers, including two with the wrong sign, and one of them failed its
 negative control outright.**
 
-**EVERYTHING IN THIS DOCUMENT IS AN IN-SAMPLE CORRELATION, AND NONE OF IT
-GENERALISES TO UNSEEN WORDS. Held out by WORD, the eighteen rated norms add
-+0.003 to +0.011 AUC over base probability and frequency, and individually
-nothing is distinguishable from noise except concreteness once the sites are
-restricted. That is established in `P_unnamed_axis.md`, which was split out of
-this file on 2026-08-12. K is the MEASUREMENT study: the instrument, its
-reliability, and what it correlates with. P is the PREDICTION study: held-out
-generalisation, the measured ceiling, and the direction. P supersedes K's
-interpretation and leaves K's measurements intact -- the correlations below are
-real and survive their own permutation nulls, and that is a different claim from
-predicting.**
+**WHAT `P_unnamed_axis.md` SUPERSEDES, AND IT IS NARROWER THAN THE FIRST VERSION
+OF THIS PARAGRAPH SAID.** That version read "everything in this document is an
+in-sample correlation and none of it generalises to unseen words." Wrong in
+scope, and it had already propagated into this file's frontmatter when RH caught
+it. The precise scope:
+
+**SUPERSEDED -- any reading of the scale RANKING as identifying which word
+properties drive movement.** Held out by word, the eighteen rated norms add
++0.003 to +0.011 AUC over base probability and frequency, and individually none
+is distinguishable from its own shuffle except concreteness once the sites are
+restricted to verb-eliciting ones. "Four scales clear a calibrated null" is true
+and is not an answer to "what predicts". The [5592] charge x transgressiveness
+GATE reading is separately withdrawn; the interaction is real in the data it was
+computed on.
+
+**NOT SUPERSEDED, because P does not test these and mostly cannot:**
+
+- **The instrument's properties.** IAA (valence 0.90 through register_level
+  0.60) and calibration against Brysbaert 0.88, Warriner 0.81, the Chinese norms
+  |0.81|. Facts about the rating instrument, not correlations with movement.
+- **The coder-human convergence.** Coder concreteness z -17.1 against
+  Brysbaert's -18.8, both ~86% falling; coder valence +15.2 against Warriner's
+  +8.7. Two independent instruments agreeing on sign and rough magnitude.
+- **`charge` is not arousal.** Calibration 0.54, opposite signs in the frame
+  table. P strengthens this rather than weakening it: held out, `n_arousal`
+  (-0.0016) and `charge` (+0.0024) both fail, so the disagreement between them
+  never needed adjudicating.
+- **The negative controls.** Dominance dead in both columns as Registration C
+  found it; vulgarity a SPARSE INDICATOR with variance on 463 of 27,242 words
+  rather than a failed scale.
+- **The site-specificity contrast.** Paired WITHIN STEM across 745 minimal
+  pairs -- a within-pair design, not a marginal correlation. Holding out unseen
+  words does not test it.
+
+K is the MEASUREMENT study: the instrument, its reliability, and what it
+correlates with. P is the PREDICTION study: held-out generalisation, the measured
+ceiling, and the direction. **The correlations below survive their own
+permutation nulls; that is a different claim from predicting, and neither makes
+the other wrong.**
 
 **READ P BEFORE CITING ANY RANKING BELOW.** Two things there reach back into
 every table in this document: the sites were not restricted to verb-eliciting
