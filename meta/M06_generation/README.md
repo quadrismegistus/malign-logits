@@ -34,10 +34,14 @@ per-pair rates reported and `bloom-7b1` named** (155 of the 195 empty texts, a
 30x outlier; the third instance of a per-pair rate hiding behind a corpus
 mean, [5629]). Never "complete".
 
-M06's population freeze is TIED TO the M04 end-of-run reconciliation (against
-MANIFESTS, never absent failure records, [5573]); all counts re-run when the
-fleet closes. Until then plans may pilot but findings quote no corpus-level
-denominator.
+M06's population freeze DISCHARGED 2026-08-12 at fleet close ([5637],
+`passage_reconcile.py` against the frozen population, amendment §1g at
+`ab01d35a`): **42 delivering pairs** (41 ok + SmolLM2-360M complete but
+duplicated — every key exactly twice, dedup before use), **1,172,448
+sequences**, 4 pairs absent as UNRUNNABLE not unattempted (Pharia, RWKV-4,
+Zamba2, Olmo-Hybrid — no route exists at any published engine version). The
+99.98%/orthogonal/bloom sentence above was re-measured at close and stands.
+M06 findings quote THESE denominators.
 
 **THE EFFECTIVE n IS PAIRS AND PROMPTS, NOT PASSAGES** ([5628], accepted
 [5629]). Passages within a prompt share the prompt; prompts within a pair
