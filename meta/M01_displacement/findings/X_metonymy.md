@@ -374,7 +374,7 @@ Producers: `scripts/x_beam_frame.py`, `results/x_beam_frame.csv`, sample and pro
 
 ### 3h. The Chinese twin: the genitals fall there too. PENDING HUMAN VERIFICATION
 
-**STATUS: glosses are lacan's, checked by a registrar blind pass and one Chinese reader's glance. The fuller human check is outstanding and nothing here is quotable before it lands.**
+**STATUS: the fuller human check LANDED 2026-08-12 — a native reader annotated all 111 rows, 107 glosses correct. The gloss layer's pending status is discharged; see "How the glosses were checked". The movement numbers remain the 16-pair cjk-gated ones and the annotation does not revive anything the roster correction retired.**
 
 The whole liminal/explicit battery is translated and scored. Registration O owns the cross-lingual ground for the *substitution* (H1 supported both arms) and for *affect* (Chinese arms clean coin-flip nulls). **The scene-scale result had never been tested there.** `sexual_explicit_1_zh` — 她跪在他面前，开始吸他的 — is the twin of 3d.
 
@@ -412,15 +412,58 @@ So *plain monosyllable falls, formal compound rises* rests on one pair, not thre
 
 **The vitalist reading stays withdrawn** and the correct roster does not revive it: 精 still falls, and the clinical 精液 −3 falls with it.
 
+**AND THE HUMAN ANNOTATION RETIRES IT A SECOND WAY, ON THE MEANING RATHER THAN THE
+ROSTER.** 精华 was the vitalist cluster's anchor. The annotator's correction:
+*"essence/abstract is right for ordinary usage (skincare essence, or 天地精华 'the
+essence of heaven and earth'); but in this scenario 精华 could be a euphemism for
+semen, common in fanfic and explicit web fiction. TCM 精 already means seminal
+essence."*
+
+So the one surviving register pair is **not** plain-physical → formal-abstract. **Both
+terms denote seminal essence and the rising one is the euphemism.** That is a register
+shift with the REFERENT HELD, which is the stronger form of the claim — a referent
+change would be a topic effect, and this is not one. It also sits exactly where
+registrar's genre finding put 精: 吸精 is a cultivation/succubus reading, and the word
+that replaces it is the polite term for the same thing.
+
+**The pair is now attested twice, independently and by different routes** — a blind
+registrar pass that declined to encode the monosyllable/compound hypothesis at all, and
+a native annotator who was not shown the register question's framing for this row.
+
 #### How the glosses were checked, and what that is worth
 
-Two checks, neither sufficient. **A Chinese reader's glance** — *"looks pretty accurate at a quick glance"*, fuller reading to come. **A registrar blind pass**, different model family, glosses stripped (`results/zh/zh_words_BLIND_registrar.csv`): **100 of 105 blind rows agree** on whether a word is free-standing in this slot, the five disagreements all at |net| <= 3 on the old roster. A planted tell — a bare `“` at net −2 — was independently flagged as junk.
+**THE FULLER HUMAN CHECK HAS LANDED (2026-08-12) AND §3h's PENDING STATUS IS
+DISCHARGED FOR THE GLOSS LAYER.** A native reader annotated all 111 rows with a
+correct/incorrect verdict, a replacement gloss and free comments:
+`results/zh/chinese-word-movement-annotated.csv`.
+
+    107 of 111 glosses CORRECT
+      4 corrected: 精华, 小鸡, 棒, 尿
+      1 further flagged in comments as not a standalone word: 小鼻
+
+**Only ONE of the five bears on the current roster.** 棒, 小鼻, 阳气, 生命力, 指甲 and
+指尖 are all ABSENT from the 16 Chinese-capable pairs, so their corrections change no
+number here; 小鸡 is present at −1 and is not a genital term after all (*"usually 小鸡
+just means chick/baby chicken; the explicit genital meaning needs either reduplication
+(小鸡鸡) or the 儿 suffix"*), which removes one word from the genital-fall class at a
+cost of −1 against 鸡巴 −4, 肉棒 −3 and 阴茎 −2. 精华 is the one that matters and is
+handled above.
+
+**The direction of my four errors is worth recording against my own priors: every one
+over-read sexual meaning into an ordinary word.** 小鸡 as "childish penis" where it is a
+baby chicken, 棒 as "slang penis" where the noun is a stick and the adjective means
+"great" (*"usually only 肉棒 has a genital meaning"*), 精华 as neutral "essence" where
+the scenario makes it a euphemism. A glosser reading a sexual prompt finds sexual
+meanings, and three of four errors ran that way.
+
+Two earlier checks, neither sufficient on its own. **A Chinese reader's glance** —
+*"looks pretty accurate at a quick glance"*, now superseded by the full annotation. **A registrar blind pass**, different model family, glosses stripped (`results/zh/zh_words_BLIND_registrar.csv`): **100 of 105 blind rows agree** on whether a word is free-standing in this slot, the five disagreements all at |net| <= 3 on the old roster. A planted tell — a bare `“` at net −2 — was independently flagged as junk.
 
 **Registrar found what neither the glance nor lacan could.** 血, 毒, 气 and 精 are free-standing here because the slot licenses genre readings: 吸他的血 is vampire fiction, 吸他的毒 is wuxia snakebite, 吸气 and 吸精 are xianxia cultivation and succubus registers. **精 falling is a genre reading falling, not a body word.** They also declined to encode the monosyllable-versus-compound hypothesis in their register vocabulary, so any convergence on the register pairs is not inheritance of the frame.
 
-**The gloss sheet sent to the human reader was built on the 41-pair roster**, so 44 of its 111 words do not move among Chinese-capable models. Her glosses remain useful; those 44 rows are simply not load-bearing.
+**The gloss sheet sent to the human reader was built on the 41-pair roster**, so 44 of its 111 words do not move among Chinese-capable models. Her glosses remain useful; those 44 rows are simply not load-bearing. **The returned annotation carries the 41-pair `net` column with it**, and a reader who takes those numbers at face value will reconstruct the retired result — 指甲 reads +3 there and is absent here, 血 reads −5 there and is +2 here. The annotated CSV is a GLOSS artifact, not a movement artifact; the movement numbers of record are `x_zh_movement_sexual_explicit_1_zh.csv` and nowhere else.
 
-Producer: `scripts/x_zh_movement.py` (cjk-gated). Table: `results/zh/x_zh_movement_sexual_explicit_1_zh.csv`. Glosses: `results/zh/chinese-word-movement.csv` and `zh_words_BLIND_registrar.csv`. Query to the human reader: `results/zh/chinese-word-movement-query.md`.
+Producer: `scripts/x_zh_movement.py` (cjk-gated). Table: `results/zh/x_zh_movement_sexual_explicit_1_zh.csv`. Glosses: `results/zh/chinese-word-movement.csv`, the returned human annotation `results/zh/chinese-word-movement-annotated.csv` (111 rows, 107 correct), and `zh_words_BLIND_registrar.csv`. Query to the human reader: `results/zh/chinese-word-movement-query.md`.
 
 ## 4. WITHDRAWN: "the instruments failed because they measured resemblance"
 
